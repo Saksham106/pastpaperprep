@@ -23,12 +23,15 @@ const BANK_TESTIMONIALS: readonly Testimonial[] = [
   { quote: "The mark schemes being right there saved me so much arguing with myself.", name: "Hana K.", detail: "IB DP Year 2, Japan" },
 ];
 
+const BIOLOGY_TOPIC_TESTIMONIAL: Testimonial = { quote: "Cambridge IGCSE biology topic search is scary accurate.", name: "Carlos V.", detail: "Cambridge IGCSE Biology, Mexico" };
+
 const BANK_SPECIFIC_TESTIMONIALS: Readonly<Record<string, Testimonial>> = {
   "igcse-chemistry-0620": { quote: "Finally a site where the chemistry papers aren't all mixed up with physics.", name: "Leah W.", detail: "Year 11, Chemistry 0620, Kenya" },
+  "igcse-biology-0610": BIOLOGY_TOPIC_TESTIMONIAL,
 };
 
 export const PDF_TESTIMONIAL: Testimonial = { quote: "Print mode is a lifesaver. I print 20 questions, do them on paper, mark them after.", name: "Faisal A.", detail: "Year 11, Cambridge IGCSE, UAE" };
-export const TOPIC_TESTIMONIAL: Testimonial = { quote: "Every question for that one subtopic I kept failing, in one place.", name: "Ji-woo P.", detail: "IB DP Year 2, South Korea" };
+const TOPIC_TESTIMONIAL: Testimonial = { quote: "Every question for that one subtopic I kept failing, in one place.", name: "Ji-woo P.", detail: "IB DP Year 2, South Korea" };
 export const SIGNUP_GATE_TESTIMONIAL: Testimonial = { quote: "20 free questions was enough to prove it was worth it.", name: "Ryan H.", detail: "IB DP Year 2, Canada" };
 export const ABOUT_TESTIMONIAL: Testimonial = { quote: "I'm a full-time IGCSE tutor and I point every student here now.", name: "Amara Osei", detail: "IGCSE & IB Sciences Tutor, 6 yrs, Ghana" };
 
@@ -38,4 +41,9 @@ export function bankTestimonial(slug: string): Testimonial {
   if (specific) return specific;
   const hash = [...slug].reduce((total, char) => total + char.charCodeAt(0), 0);
   return BANK_TESTIMONIALS[hash % BANK_TESTIMONIALS.length];
+}
+
+/** Biology 0610 topic pages carry Carlos's topic-search quote; every other topic page uses the general one. */
+export function topicTestimonial(bankSlug: string): Testimonial {
+  return bankSlug === "igcse-biology-0610" ? BIOLOGY_TOPIC_TESTIMONIAL : TOPIC_TESTIMONIAL;
 }

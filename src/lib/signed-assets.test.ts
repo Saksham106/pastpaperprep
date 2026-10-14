@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signedAssetKey } from "@/lib/signed-assets";
+import { FREE_ASSET_CDN_MAX_AGE, FREE_ASSET_EXPIRES_IN, fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, preferSignedFreeAssets, signedAssetKey } from "@/lib/signed-assets";
 
 const requests = Array.from({ length: 21 }, (_, index) => ({
   questionId: `question-${index + 1}`,
@@ -7,6 +7,45 @@ const requests = Array.from({ length: 21 }, (_, index) => ({
 }));
 
 describe("fetchSignedAssets", () => {
+  it.each(["signed", "pdf"] as const)("does not dispatch an already obsolete %s scope", async (kind) => {
+    const fetcher = vi.fn(async () => Response.json({ expiresIn: 600, assets: [] }));
+    const pending = kind === "signed"
+      ? fetchSignedAssets("ib-sl", requests, fetcher, false, () => false)
+      : fetchPdfAssets("ib-sl", ["question-1"], "questions", fetcher, false, () => false);
+    await expect(pending).rejects.toMatchObject({ name: "AbortError" });
+    expect(fetcher).not.toHaveBeenCalled();
+  });
+
+  it.each(["signed", "pdf"] as const)("abandons %s payloads parsed after scope turnover", async (kind) => {
+    let current = true;
+    const fetcher = vi.fn(async () => ({ ok: true, json: async () => {
+      current = false;
+      return { expiresIn: 600, assets: [{ ...requests[0], urls: ["https://signed.test/q"] }] };
+    } }) as Response);
+    const pending = kind === "signed"
+      ? fetchSignedAssets("ib-sl", requests.slice(0, 1), fetcher, false, () => current)
+      : fetchPdfAssets("ib-sl", ["question-1"], "questions", fetcher, false, () => current);
+    await expect(pending).rejects.toMatchObject({ name: "AbortError" });
+    expect(fetcher).toHaveBeenCalledOnce();
+  });
+
+  it("abandons a PDF response before parsing it when the scope expires", async () => {
+    let current = true;
+    const json = vi.fn(async () => ({ expiresIn: 600, assets: [] }));
+    const fetcher = vi.fn(async () => { current = false; return { ok: true, json } as unknown as Response; });
+    await expect(fetchPdfAssets("ib-sl", ["question-1"], "questions", fetcher, false, () => current)).rejects.toMatchObject({ name: "AbortError" });
+    expect(json).not.toHaveBeenCalled();
+  });
+  it("abandons a paid batch response before dispatching the next batch when its scope expires", async () => {
+    let current = true;
+    const fetcher = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
+      current = false;
+      const { requests: batch } = JSON.parse(String(init?.body));
+      return Response.json({ expiresIn: 600, assets: batch.map((request: object) => ({ ...request, urls: ["https://signed.test/q"] })) });
+    });
+    await expect(fetchSignedAssets("ib-sl", requests, fetcher, false, () => current)).rejects.toMatchObject({ name: "AbortError" });
+    expect(fetcher).toHaveBeenCalledOnce();
+  });
   it("splits requests into authorized batches and indexes returned URLs", async () => {
     const fetcher = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
       const body = JSON.parse(String(init?.body)) as { requests: typeof requests };
@@ -191,7 +230,53 @@ describe("fetchSignedAssets", () => {
   });
 });
 
+describe("fetchSignedAssets batching", () => {
+  it("anchors each batch's expiry before waiting for slower parallel batches", async () => {
+    vi.useFakeTimers();
+    const start = Date.now();
+    vi.setSystemTime(start);
+    try {
+      const requests = Array.from({ length: 24 }, (_, i) => ({ questionId: `q${i}`, kind: "question" as const }));
+      let calls = 0;
+      let release!: () => void;
+      const fetcher = vi.fn((_input: RequestInfo | URL, init?: RequestInit) => {
+        const body = JSON.parse(String(init?.body));
+        const response = () => new Response(JSON.stringify({ expiresIn: 60, assets: body.requests.map((r: object) => ({ ...r, urls: ["https://assets.example/q.webp"] })) }));
+        if (++calls === 1) return Promise.resolve(response());
+        return new Promise<Response>(resolve => { release = () => resolve(response()); });
+      });
+      const result = fetchSignedAssets("ib-sl", requests, fetcher);
+      await vi.advanceTimersByTimeAsync(0);
+      vi.setSystemTime(start + 40_000);
+      release();
+      const assets = await result;
+      expect(assets.get("q0:question")?.expiresAt).toBe(start + 30_000);
+      expect(assets.get("q20:question")?.expiresAt).toBe(start + 70_000);
+    } finally { vi.useRealTimers(); }
+  });
+
+  it("sends every batch at once instead of waiting for the previous one", async () => {
+    const requests = Array.from({ length: 24 }, (_, index) => ({ questionId: `q${index}`, kind: "question" as const }));
+    const pending: Array<() => void> = [];
+    const fetcher = vi.fn((_input: RequestInfo | URL, init?: RequestInit) => new Promise<Response>((resolve) => {
+      const body = JSON.parse(String(init?.body)) as { requests: Array<{ questionId: string; kind: string }> };
+      pending.push(() => resolve(new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }))));
+    }));
+
+    const result = fetchSignedAssets("ib-sl", requests, fetcher);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(fetcher).toHaveBeenCalledTimes(2);
+    pending.forEach((release) => release());
+    expect([...(await result).keys()]).toEqual(requests.map((request) => `${request.questionId}:question`));
+  });
+});
+
 describe("fetchFreeAssets", () => {
+  // These cover the signing route: every bank answers "no static index" first.
+  type TestFetcher = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+  const signedRoute = (fetcher: TestFetcher): TestFetcher => (input, init) =>
+    String(input).startsWith("/free-assets/") ? Promise.resolve(new Response(null, { status: 404 })) : fetcher(input, init);
   const ok = (questionId: string, kind: string) => new Response(JSON.stringify({
     expiresIn: 3600,
     maxAge: 900,
@@ -204,7 +289,7 @@ describe("fetchFreeAssets", () => {
       return ok(url.searchParams.get("id")!, url.searchParams.get("kind")!);
     });
 
-    const { assets, failedKeys } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }, { questionId: "b", kind: "answer" }], fetcher);
+    const { assets, failedKeys } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }, { questionId: "b", kind: "answer" }], signedRoute(fetcher));
 
     expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual([
       "/api/assets/free?bank=ib-sl&id=a&kind=question",
@@ -214,10 +299,14 @@ describe("fetchFreeAssets", () => {
     expect(failedKeys).toEqual([]);
   });
 
-  it("treats cached free links conservatively", async () => {
+  it.each([undefined, "invalid", "-500", "0"])("treats cached free links conservatively with Age=%s", async (age) => {
     vi.useFakeTimers({ now: 1_000_000 });
     try {
-      const { assets } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], async () => ok("a", "question"));
+      const { assets } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], signedRoute(async () => {
+        const response = ok("a", "question");
+        if (age !== undefined) response.headers.set("age", age);
+        return response;
+      }));
       expect(assets.get("a:question")!.expiresAt).toBe(1_000_000 + (3600 - 900 - 300) * 1000);
     } finally {
       vi.useRealTimers();
@@ -228,11 +317,54 @@ describe("fetchFreeAssets", () => {
     vi.useFakeTimers({ now: 1_000_000 });
     try {
       const stale = () => new Response(JSON.stringify({ expiresIn: 3600, maxAge: 900, asset: { questionId: "a", kind: "question", urls: ["https://assets.example/a.webp"] } }), { status: 200, headers: { age: "3000" } });
-      const { assets } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], async () => stale());
+      const { assets } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], signedRoute(async () => stale()));
       expect(assets.get("a:question")!.expiresAt).toBe(1_000_000 + (3600 - 3000 - 300) * 1000);
     } finally {
       vi.useRealTimers();
     }
+  });
+
+  it("leaves every cached free link at least a day of life", async () => {
+    vi.useFakeTimers({ now: 0 });
+    try {
+      const response = new Response(JSON.stringify({ expiresIn: FREE_ASSET_EXPIRES_IN, maxAge: FREE_ASSET_CDN_MAX_AGE, asset: { questionId: "a", kind: "question", urls: ["https://assets.example/a.webp"] } }), { status: 200, headers: { age: String(FREE_ASSET_CDN_MAX_AGE) } });
+      const { assets } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], signedRoute(async () => response));
+      expect(assets.get("a:question")!.expiresAt).toBeGreaterThanOrEqual(23.9 * 60 * 60 * 1000);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it.each([true, false])("revalidates an exhausted CDN link once, recovery=%s", async (recovers) => {
+    const stale = () => new Response(JSON.stringify({
+      expiresIn: FREE_ASSET_EXPIRES_IN, maxAge: FREE_ASSET_CDN_MAX_AGE,
+      asset: { questionId: "a", kind: "question", urls: ["https://assets.example/a.webp"] },
+    }), { headers: { age: String(FREE_ASSET_EXPIRES_IN) } });
+    const fetcher = vi.fn().mockImplementationOnce(async () => stale())
+      .mockImplementation(async () => recovers ? ok("a", "question") : stale());
+
+    const { assets, failedKeys } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], signedRoute(fetcher));
+
+    expect(fetcher).toHaveBeenCalledTimes(2);
+    expect(fetcher.mock.calls[1][1]).toEqual({ cache: "reload", headers: { "cache-control": "no-cache", pragma: "no-cache" } });
+    expect(assets.size).toBe(recovers ? 1 : 0);
+    expect(failedKeys).toEqual(recovers ? [] : ["a:question"]);
+    if (recovers) expect(assets.get("a:question")!.expiresAt).toBeGreaterThan(Date.now() + 1000);
+  });
+
+  it.each([
+    { expiresIn: -1, maxAge: 900 },
+    { expiresIn: 3600, maxAge: -1 },
+    { expiresIn: 3600, maxAge: 3600 },
+    { expiresIn: 1e308, maxAge: 900 },
+  ])("rejects invalid free expiry metadata %j", async (metadata) => {
+    const fetcher = vi.fn(async () => new Response(JSON.stringify({
+      ...metadata, asset: { questionId: "a", kind: "question", urls: ["https://assets.example/a.webp"] },
+    })));
+    const { assets, failedKeys } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], signedRoute(fetcher));
+    expect(assets.size).toBe(0);
+    expect(failedKeys).toEqual(["a:question"]);
+    expect(fetcher).toHaveBeenCalledTimes(1);
   });
 
   it("reports failures per asset instead of failing the batch", async () => {
@@ -240,16 +372,124 @@ describe("fetchFreeAssets", () => {
       ? new Response(JSON.stringify({ error: "Access required" }), { status: 403 })
       : ok("good", "question"));
 
-    const { assets, failedKeys } = await fetchFreeAssets("ib-sl", [{ questionId: "good", kind: "question" }, { questionId: "bad", kind: "question" }], fetcher);
+    const { assets, failedKeys } = await fetchFreeAssets("ib-sl", [{ questionId: "good", kind: "question" }, { questionId: "bad", kind: "question" }], signedRoute(fetcher));
 
     expect([...assets.keys()]).toEqual(["good:question"]);
     expect(failedKeys).toEqual(["bad:question"]);
   });
 
   it("rejects a response for a different asset", async () => {
-    const { assets, failedKeys } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], async () => ok("other", "question"));
+    const { assets, failedKeys } = await fetchFreeAssets("ib-sl", [{ questionId: "a", kind: "question" }], signedRoute(async () => ok("other", "question")));
 
     expect(assets.size).toBe(0);
     expect(failedKeys).toEqual(["a:question"]);
+  });
+});
+
+describe("fetchFreeAssets with the static free index", () => {
+  const publicUrl = (id: string) => `https://free.pastpaperprep.com/images/bank/questions/${id}.webp`;
+  const details = { summary: "s", accessibleText: "a", solution: null, sourceQuestionUrl: null, sourceMarkSchemeUrl: null };
+  const index = (bank: string) => new Response(JSON.stringify({ version: 1, bank, questions: {
+    a: { details, question: { urls: [publicUrl("a")], displayCrops: [null] } },
+  } }));
+  const signed = (id: string) => new Response(JSON.stringify({ expiresIn: 3600, maxAge: 900, asset: { questionId: id, kind: "question", urls: [`https://assets.example/${id}.webp`] } }));
+
+  it("serves listed questions from public links without calling the signing route", async () => {
+    const fetcher = vi.fn<(input: RequestInfo | URL) => Promise<Response>>(async () => index("ib-hl"));
+    const { assets, failedKeys } = await fetchFreeAssets("ib-hl", [{ questionId: "a", kind: "question" }], fetcher);
+    expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual(["/free-assets/ib-hl.json"]);
+    expect(assets.get("a:question")).toMatchObject({ urls: [publicUrl("a")], details });
+    expect(failedKeys).toEqual([]);
+  });
+
+  it("reads each bank's index once and signs questions it does not list", async () => {
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/free-assets/") ? index("ib-ai-hl") : signed("b"));
+    await fetchFreeAssets("ib-ai-hl", [{ questionId: "a", kind: "question" }], fetcher);
+    const { assets } = await fetchFreeAssets("ib-ai-hl", [{ questionId: "b", kind: "question" }], fetcher);
+    expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual(["/free-assets/ib-ai-hl.json", "/api/assets/free?bank=ib-ai-hl&id=b&kind=question"]);
+    expect(assets.get("b:question")?.urls).toEqual(["https://assets.example/b.webp"]);
+  });
+
+  it("ignores an index for another bank or with links outside the free bucket", async () => {
+    const wrongBank = vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/free-assets/") ? index("ib-sl") : signed("a"));
+    expect((await fetchFreeAssets("ib-ai-sl", [{ questionId: "a", kind: "question" }], wrongBank)).assets.get("a:question")?.urls).toEqual(["https://assets.example/a.webp"]);
+    const foreign = vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/free-assets/")
+      ? new Response(JSON.stringify({ version: 1, bank: "ib-physics-hl", questions: { a: { details, question: { urls: ["https://evil.example/a.webp"], displayCrops: [null] } } } }))
+      : signed("a"));
+    expect((await fetchFreeAssets("ib-physics-hl", [{ questionId: "a", kind: "question" }], foreign)).assets.get("a:question")?.urls).toEqual(["https://assets.example/a.webp"]);
+  });
+
+  it("re-reads a day-old index instead of reusing its links, and gives links the index's remaining life", async () => {
+    vi.useFakeTimers({ now: 5_000_000 });
+    try {
+      let version = 0;
+      const fetcher = vi.fn(async () => {
+        version += 1;
+        return new Response(JSON.stringify({ version: 1, bank: "ib-ai-hl", questions: { a: { details, question: { urls: [publicUrl(`a-v${version}`)], displayCrops: [null] } } } }));
+      });
+      const first = await fetchFreeAssets("ib-ai-hl", [{ questionId: "a", kind: "question" }], fetcher);
+      expect(first.assets.get("a:question")!.expiresAt).toBe(5_000_000 + 24 * 60 * 60 * 1000);
+      vi.setSystemTime(5_000_000 + 23 * 60 * 60 * 1000);
+      const sameDay = await fetchFreeAssets("ib-ai-hl", [{ questionId: "a", kind: "question" }], fetcher);
+      expect(sameDay.assets.get("a:question")!.expiresAt).toBe(5_000_000 + 24 * 60 * 60 * 1000);
+      vi.setSystemTime(5_000_000 + 48 * 60 * 60 * 1000);
+      const later = await fetchFreeAssets("ib-ai-hl", [{ questionId: "a", kind: "question" }], fetcher);
+      expect(fetcher).toHaveBeenCalledTimes(2);
+      expect(later.assets.get("a:question")?.urls).toEqual([publicUrl("a-v2")]);
+    } finally { vi.useRealTimers(); }
+  });
+
+  it("does not keep a failed index read", async () => {
+    let calls = 0;
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => {
+      if (!String(input).startsWith("/free-assets/")) return signed("a");
+      calls += 1;
+      return calls === 1 ? new Response(null, { status: 503 }) : index("ib-chemistry-hl");
+    });
+    expect((await fetchFreeAssets("ib-chemistry-hl", [{ questionId: "a", kind: "question" }], fetcher)).assets.get("a:question")?.urls).toEqual(["https://assets.example/a.webp"]);
+    expect((await fetchFreeAssets("ib-chemistry-hl", [{ questionId: "a", kind: "question" }], fetcher)).assets.get("a:question")?.urls).toEqual([publicUrl("a")]);
+  });
+
+  it("goes back to signed links for a bank once a public link has failed", async () => {
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/free-assets/") ? index("ib-biology-hl") : signed("a"));
+    preferSignedFreeAssets("ib-biology-hl");
+    const { assets } = await fetchFreeAssets("ib-biology-hl", [{ questionId: "a", kind: "question" }], fetcher);
+    expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual(["/api/assets/free?bank=ib-biology-hl&id=a&kind=question"]);
+    expect(assets.get("a:question")?.urls).toEqual(["https://assets.example/a.webp"]);
+  });
+});
+
+describe("MCQ letters on answer assets", () => {
+  const letter = { answers: ["B"], note: null };
+  const signedAnswer = (asset: Record<string, unknown>) => vi.fn(async () => Response.json({ expiresIn: 600, assets: [{ questionId: "q1", kind: "answer", urls: [], ...asset }] }));
+
+  it("keeps a valid letter on an answer asset", async () => {
+    const signed = await fetchSignedAssets("igcse-chemistry-0620", [{ questionId: "q1", kind: "answer" }], signedAnswer({ mcqAnswer: letter }));
+    expect(signed.get("q1:answer")).toMatchObject({ urls: [], mcqAnswer: letter });
+  });
+
+  it.each([
+    ["a letter outside A–D", { mcqAnswer: { answers: ["E"], note: null } }],
+    ["a bare string", { mcqAnswer: "B" }],
+    ["a letter on a question image", { kind: "question", mcqAnswer: letter }],
+  ])("rejects %s", async (_label, asset) => {
+    const request = { questionId: "q1", kind: (asset as { kind?: "question" }).kind ?? "answer" as const };
+    await expect(fetchSignedAssets("igcse-chemistry-0620", [request], signedAnswer(asset))).rejects.toThrow("Invalid signed asset response");
+  });
+
+  it("reads a free-year letter from the static free index without calling a route", async () => {
+    const details = { summary: "s", accessibleText: "a", solution: null, sourceQuestionUrl: null, sourceMarkSchemeUrl: null };
+    const fetcher = vi.fn<(input: RequestInfo | URL) => Promise<Response>>(async () => new Response(JSON.stringify({ version: 1, bank: "igcse-physics-0625", questions: {
+      q1: { details, answer: { urls: [], displayCrops: [], mcqAnswer: letter } },
+    } })));
+    const { assets } = await fetchFreeAssets("igcse-physics-0625", [{ questionId: "q1", kind: "answer" }], fetcher);
+    expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual(["/free-assets/igcse-physics-0625.json"]);
+    expect(assets.get("q1:answer")).toMatchObject({ urls: [], mcqAnswer: letter });
+  });
+
+  it("carries the letter from the PDF signer", async () => {
+    const fetcher = vi.fn(async () => Response.json({ expiresIn: 600, assets: [{ questionId: "q1", kind: "answer", urls: [], printSizesPt: [], printSegments: [], rasterSizesPx: [], mcqAnswer: letter }] }));
+    const signed = await fetchPdfAssets("igcse-chemistry-0620", ["q1"], "answers", fetcher);
+    expect(signed.get("q1:answer")?.mcqAnswer).toEqual(letter);
   });
 });

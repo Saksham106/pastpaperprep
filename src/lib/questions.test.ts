@@ -23,10 +23,10 @@ describe("question normalization", () => {
   });
 
   it("loads every source bank without dropping questions", () => {
-    expect(loadBankQuestions("igcse")).toHaveLength(3967);
-    expect(loadBankQuestions("igcse-additional")).toHaveLength(1633);
-    expect(loadBankQuestions("ib-hl")).toHaveLength(841);
-    expect(loadBankQuestions("ib-sl")).toHaveLength(578);
+    expect(loadBankQuestions("igcse")).toHaveLength(4174); // 3,967 historical + 207 Core 2026 rows
+    expect(loadBankQuestions("igcse-additional")).toHaveLength(1656); // 1,633 historical + 23 reviewed Feb/March 2026 rows
+    expect(loadBankQuestions("ib-hl")).toHaveLength(893);
+    expect(loadBankQuestions("ib-sl")).toHaveLength(596);
     expect(loadBankQuestions("ib-ai-hl")).toHaveLength(409);
     expect(loadBankQuestions("ib-ai-sl")).toHaveLength(334);
   });
@@ -40,9 +40,16 @@ describe("question normalization", () => {
   });
 
   it("turns source-relative assets into working public URLs", () => {
-    const [question] = loadBankQuestions("igcse");
-    expect(question.questionImages[0]).toMatch(
+    // The 2026 Core rows now sort first; check both the Extended and Core crop roots.
+    const questions = loadBankQuestions("igcse");
+    expect(questions[0].questionImages[0]).toMatch(
+      /^https:\/\/saksham106\.github\.io\/igcse-0580-topic-practice\/(core-)?questions\//,
+    );
+    expect(questions.find((question) => question.id === "0580-2026-march-22-q1")!.questionImages[0]).toMatch(
       /^https:\/\/saksham106\.github\.io\/igcse-0580-topic-practice\/questions\//,
+    );
+    expect(questions.find((question) => question.id === "0580-2026-june-11-q1")!.questionImages[0]).toMatch(
+      /^https:\/\/saksham106\.github\.io\/igcse-0580-topic-practice\/core-questions\//,
     );
   });
 
@@ -57,7 +64,7 @@ describe("question normalization", () => {
     expect(igcse.calculator).toBe(false);
     expect(igcse.subtopics).toContain("Fractions, decimals and percentages");
     expect(ibHl[0].courseEra).toBe("aa-hl");
-    expect(ibHl[0].zone).toBe("TZA");
+    expect(ibHl[0].zone).toBe("TZ1");
     expect(markedQuestion?.markschemeImages[0]).toMatch(
       /^https:\/\/saksham106\.github\.io\/ib-maths-aa-hl-topic-practice\/markschemes\//,
     );

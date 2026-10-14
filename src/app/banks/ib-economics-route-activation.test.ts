@@ -16,6 +16,9 @@ describe("IB Economics production route activation", () => {
     vi.stubEnv("NODE_ENV", "production");
     vi.stubEnv("PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION", "true");
     vi.stubEnv("PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED", "false");
+    // The 12 is the public catalog without the gated IGCSE release banks; pin that flag off so an
+    // ambient release-build environment does not change the count.
+    vi.stubEnv("PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS", "false");
 
     expect(getAvailableBanks()).toHaveLength(12);
     expect(generateStaticParams()).not.toContainEqual({ slug: "ib-economics-hl" });

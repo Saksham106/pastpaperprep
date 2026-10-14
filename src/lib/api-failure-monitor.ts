@@ -1,4 +1,4 @@
-import { trackProductEvent } from "@/lib/product-analytics";
+import { browserAccountId, trackProductEvent } from "@/lib/product-analytics";
 
 // Statuses the UI usually absorbs quietly but that mean something broke or a limit was hit.
 // 401/403/404/409 are expected outcomes of signed-out, locked or stale requests.
@@ -32,6 +32,7 @@ export function installApiFailureMonitor(target: Window = window) {
     const report = (status: number, outcome: string, correlationId?: string | null) => trackProductEvent("api_request_failed", {
       route, method, status, outcome, duration_ms: Math.round(performance.now() - started),
       correlation_id: correlationId && UUID.test(correlationId) ? correlationId : undefined,
+      user_id: browserAccountId(),
     });
     let response: Response;
     try { response = await original.call(target, input, init); }

@@ -1,11 +1,15 @@
 import { describe, expect, it } from "vitest";
 import source0580 from "@/data/print-geometry-0580.json";
+import addition0580 from "@/data/print-geometry-0580-2026-core.json";
+import { ADDED_0580_QUESTION_IDS } from "@/lib/igcse-0580-additions.mjs";
 import raw from "@/data/raw/igcse.json";
 import { planWholePdfImage } from "@/lib/pdf-export";
 import { printGeometryForSignedAssets } from "@/lib/print-geometry";
 
 type Entry = [string, string, number, number, number, number, [number, number, number, number, 0 | 1][]];
-const entries = source0580.entries as unknown as Record<string, [Entry | null, Entry | null]>;
+const historical = source0580.entries as unknown as Record<string, [Entry | null, Entry | null]>;
+const added = addition0580.entries as unknown as Record<string, [Entry | null, Entry | null]>;
+const entries = { ...historical, ...added };
 
 describe("verified 0580 worksheet geometry", () => {
   it("covers every image the 0580 runtime can export", () => {
@@ -16,6 +20,13 @@ describe("verified 0580 worksheet geometry", () => {
         expect(signed.printSegments.every(Boolean), `${question.id} ${kind}`).toBe(true);
       }
     }
+  });
+
+  it("keeps the historical receipt and adds exactly the Core 2026 pairs, without overlap", () => {
+    expect(Object.keys(historical)).toHaveLength(3969); // includes the two withdrawn 2025 November 33 rows
+    expect(Object.keys(added).sort()).toEqual([...ADDED_0580_QUESTION_IDS].sort());
+    expect(Object.keys(added).filter((id) => id in historical)).toEqual([]);
+    expect(Object.values(added).every((pair) => pair.every(Boolean))).toBe(true);
   });
 
   it("prints every kept exam page of every 0580 crop on A4 at source size", () => {

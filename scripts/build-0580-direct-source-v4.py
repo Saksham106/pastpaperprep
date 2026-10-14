@@ -64,11 +64,58 @@ def build(bundle,raw_bytes,registry):
  output['rows']=sorted(byid.values(),key=lambda r:r['id']);output['scope']='All1173 remaining original-image model reviews plus104 legacy indices/surds secondary reviews; bounded6 independent source checks; one explicit false standard-form correction. Not exhaustive independent gold. Raw questions/assets/finer legacy memberships unchanged.'
  report={'baselineCommit':BASE,'inventory':3967,'reviewedRemaining':1173,'reviewedSecondary':104,'reviewedUnique':1277,'dispositions':totals,'currentSectionLinked':len(output['rows']),'legacyOnly':3967-len(output['rows']),'addedLinks':added,'sourceAdjudicatedRemovals':removed,'sourceEvidenceByLink':sourceEvidenceByLink,'independentReviewCount':6,'scope':output['scope']}
  return output,report
+# Reviewed additions after the frozen 3,967-row bundle. The historical bundle, its seals and its
+# report stay pinned to the reconstructed base bank; addition rows are appended from their own
+# reviewed input and can never touch a historical row.
+ADDITIONS=[('docs/igcse-0580-2026-core-addition.json','docs/0580-2026-core-addition-sections-v4.json')]
+def split_base(raw_bytes,receipts):
+ payload=json.loads(raw_bytes)
+ ids={i for r in receipts for i in r['addedQuestionIds']};papers={i for r in receipts for i in r['paperIds']};header={r['headerAddition']['key'] for r in receipts if r.get('headerAddition')}
+ base={k:([p for p in v if p['id'] not in papers] if k=='papers' else [q for q in v if q['id'] not in ids] if k=='questions' else v) for k,v in payload.items() if k not in header}
+ base_bytes=encoded(base)
+ for receipt in receipts:
+  assert digest(base_bytes)==receipt['base']['rawSha256'],'addition base reconstruction drift'
+  assert digest(raw_bytes)==receipt['merged']['rawSha256'],'addition merged raw drift'
+ return base_bytes,{q['id']:q for q in payload['questions']}
+def add_reviews(output,receipt,review_doc,review_sha,byraw,registry):
+ sections=[s for t in registry['topics']for s in t['sections']];codes={c for s in sections for c in [s.get('coreCode'),s.get('extendedCode')]if c}
+ expected=receipt['addedQuestionIds'];reviews=review_doc['reviews'];byreview={r['id']:r for r in reviews}
+ assert review_doc['addition']==receipt['addition'] and receipt['numberedStatementReview'] and review_sha==receipt['numberedStatementReview']['sha256'],'addition review input drift'
+ assert [r['id'] for r in reviews]==expected and len(byreview)==len(expected),'addition review IDs drift'
+ hashes={r['id']:{'QP':r['questionImageSha256'],'MS':r['markschemeImageSha256']} for r in receipt['rows']}
+ byid={r['id']:r for r in output['rows']};linked=0;unresolved=[]
+ for review in reviews:
+  id=review['id'];assert id not in byid,'addition overlaps a historical row'
+  assert review['sourceHashes']==hashes[id],'addition source hash drift'
+  assert review['disposition'] in ('official-mapping','unresolved') and review['reason'] and review['parts'],'addition disposition'
+  tier='C'if str(byraw[id]['component'])[0]in'13'else'E';supported={}
+  for part in review['parts']:
+   assert part['part'] and part['printed_operation'] and part['qp_evidence'] and part['ms_evidence'],'missing part evidence'
+   assert set(part['codes'])<=codes and all(c.startswith(tier)for c in part['codes']),'invalid code/tier'
+   for code in part['codes']:supported.setdefault(code,[]).append(part)
+  assert bool(supported)==(review['disposition']=='official-mapping'),'disposition mismatch'
+  if not supported:unresolved.append(id);continue
+  reviewHash=digest(encoded(review))
+  byid[id]={'id':id,'inputFingerprint':fingerprint(byraw[id]),'sectionCodes':sorted(supported),'evidenceType':'per-link',
+   'evidenceByCode':{c:'direct-image-model-review' for c in sorted(supported)},'directSourceReviewSha256ByCode':{c:reviewHash for c in sorted(supported)}}
+  linked+=1
+ output['rows']=sorted(byid.values(),key=lambda r:r['id'])
+ output.setdefault('additions',[]).append({'addition':receipt['addition'],'baseRawSha256':receipt['base']['rawSha256'],'reviewInput':receipt['numberedStatementReview'],'linkedRows':linked,'unresolvedIds':unresolved})
+ return output
 def main():
  p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');args=p.parse_args()
- bundle=json.loads((ROOT/'docs/0580-direct-source-input-v4.json').read_text());raw=(ROOT/'src/data/raw/igcse.json').read_bytes();registry=json.loads((ROOT/'src/data/igcse-0580-official-2025.json').read_text());output,report=build(bundle,raw,registry)
+ bundle=json.loads((ROOT/'docs/0580-direct-source-input-v4.json').read_text());merged=(ROOT/'src/data/raw/igcse.json').read_bytes();registry=json.loads((ROOT/'src/data/igcse-0580-official-2025.json').read_text())
+ receipts=[json.loads((ROOT/r).read_text()) for r,_ in ADDITIONS]
+ raw,byraw=split_base(merged,receipts)
+ output,report=build(bundle,raw,registry)
+ historical_rows=encoded(output['rows']);historical_ids={r['id'] for r in output['rows']}
+ for receipt,(_,review_path) in zip(receipts,ADDITIONS):
+  output=add_reviews(output,receipt,json.loads((ROOT/review_path).read_text()),digest((ROOT/review_path).read_bytes()),byraw,registry)
+ assert encoded([r for r in output['rows'] if r['id'] in historical_ids])==historical_rows,'historical overlay rows changed'
+ output['sourceRawSha256']=digest(merged);output['expectedInventoryCount']=receipts[-1]['merged']['questionCount']
  for path,obj in [(ROOT/'src/data/igcse-0580-section-retrieval-v3.json',output),(ROOT/'docs/0580-direct-source-reconciliation-v4.json',report)]:
   if args.check:assert path.read_bytes()==encoded(obj),str(path)+' rebuild drift'
   else:path.write_bytes(encoded(obj))
  print(json.dumps({k:v for k,v in report.items()if k not in ['addedLinks','sourceAdjudicatedRemovals','sourceEvidenceByLink']}));print('addedLinks',len(report['addedLinks']),'removedLinks',len(report['sourceAdjudicatedRemovals']))
+ print(json.dumps(output.get('additions')))
 if __name__=='__main__':main()

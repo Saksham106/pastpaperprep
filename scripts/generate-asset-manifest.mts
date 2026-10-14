@@ -8,6 +8,7 @@ import { join } from "node:path";
 import { getAvailableBanks, type BankSlug } from "@/lib/banks";
 import { assetManifestFileName } from "@/lib/asset-manifest";
 import { buildBankAssetManifest } from "@/lib/asset-manifest-build";
+import { loadBankMcqAnswers } from "@/lib/mcq-answer-letters";
 import { loadBankQuestions } from "@/lib/question-loader";
 
 const ASSET_MANIFEST_DIRECTORY = join(process.cwd(), "generated", "asset-manifest");
@@ -20,9 +21,11 @@ if (single >= 0) {
     console.log(`${slug}: not runnable in this environment, skipped`);
     process.exit(0);
   }
+  // Unlike the bank itself, bad letters are never skipped: an invalid overlay fails the build.
+  const mcqAnswers = await loadBankMcqAnswers(slug);
   const file = join(ASSET_MANIFEST_DIRECTORY, assetManifestFileName(slug));
-  await writeFile(file, JSON.stringify(buildBankAssetManifest(questions)));
-  console.log(`${slug}: ${questions.length} questions -> ${assetManifestFileName(slug)}`);
+  await writeFile(file, JSON.stringify(buildBankAssetManifest(questions, mcqAnswers)));
+  console.log(`${slug}: ${questions.length} questions${mcqAnswers.size ? `, ${mcqAnswers.size} MCQ letters` : ""} -> ${assetManifestFileName(slug)}`);
   process.exit(0);
 }
 

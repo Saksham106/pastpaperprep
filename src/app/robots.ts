@@ -7,7 +7,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/api/",
+      // Paper pages carry the search value; their PDF route only costs a function call and an R2 read per crawl.
+      disallow: ["/api/", "/past-papers/*/*/document"],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,

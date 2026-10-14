@@ -5,8 +5,11 @@ import { authorizeAssetRequests, type AssetRequest, type AuthorizedAssetRequest 
 import { getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
+import type { McqAnswer } from "@/lib/mcq-answer";
+import { loadBankMcqAnswers } from "@/lib/mcq-answer-letters";
 import { premiumAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
 import { loadBankQuestionMap } from "@/lib/question-loader";
+import { currentQuestionId, currentQuestionIds } from "@/lib/question-id-aliases";
 import { printGeometryForSignedAssets } from "@/lib/print-geometry";
 import { createClient } from "@/lib/supabase/server";
 
@@ -45,8 +48,11 @@ async function handlePOST(request: Request) {
   ) return NextResponse.json({ error: "Invalid PDF export request" }, { status: 400 });
 
   const bank = body.bank as BankSlug;
-  const canonicalById = await loadBankQuestionMap(bank);
-  const questions = body.questionIds.map((id) => canonicalById.get(id));
+  const [canonicalById, mcqAnswers] = await Promise.all([loadBankQuestionMap(bank), loadBankMcqAnswers(bank)]);
+  const questionIds = currentQuestionIds(bank, body.questionIds);
+  // Answer under the id the client asked for, so a page opened before a question was retired accepts it.
+  const requestedIds = new Map(body.questionIds.map((id) => [currentQuestionId(bank, id), id] as const).reverse());
+  const questions = questionIds.map((id) => canonicalById.get(id));
   if (questions.some((question) => !question)) {
     return NextResponse.json({ error: "Invalid PDF export request" }, { status: 400 });
   }
@@ -55,7 +61,7 @@ async function handlePOST(request: Request) {
     if (!question) return [];
     const requests: AssetRequest[] = [];
     if (body.content !== "answers") requests.push({ questionId: question.id, kind: "question" });
-    if (body.content !== "questions" && question.markschemeAssetPaths.length > 0) {
+    if (body.content !== "questions" && (question.markschemeAssetPaths.length > 0 || mcqAnswers.has(question.id))) {
       requests.push({ questionId: question.id, kind: "answer" });
     }
     return requests;
@@ -95,28 +101,30 @@ async function handlePOST(request: Request) {
   const premiumPathCount = premiumPaths.length;
 
   try {
-    let assets: Array<{ questionId: string; kind: "question" | "answer"; urls: Array<string | undefined>; printSizesPt: Array<readonly [number, number] | null>; printSegments: Array<import("@/lib/print-geometry").SourcePrintSegment[] | null>; rasterSizesPx: Array<[number, number] | null> }> = [];
-    if (paths.length) {
-      const [previewUrls, premiumUrls] = await Promise.all([
+    let assets: Array<{ questionId: string; kind: "question" | "answer"; urls: Array<string | undefined>; printSizesPt: Array<readonly [number, number] | null>; printSegments: Array<import("@/lib/print-geometry").SourcePrintSegment[] | null>; rasterSizesPx: Array<[number, number] | null>; mcqAnswer?: McqAnswer }> = [];
+    // An answers-only export of MCQs can be letters alone, with nothing to sign.
+    if (paths.length || authorized.some((item) => item.mcqAnswer)) {
+      const [previewUrls, premiumUrls] = paths.length ? await Promise.all([
         signPrivateAssetUrls(previewPaths, 600, previewAssetSignOptions(bank)),
         signPrivateAssetUrls(premiumPaths, 600, premiumAssetSignOptions(bank)),
-      ]);
+      ]) : [new Map<string, string>(), new Map<string, string>()];
       const urlByPath = new Map([...previewUrls, ...premiumUrls]);
       // PDFs only ever request question and answer images (see assetRequests above).
       assets = authorized.map((item) => {
         const kind = item.kind === "question" ? "question" : "answer";
         return {
-          questionId: item.questionId,
+          questionId: requestedIds.get(item.questionId) ?? item.questionId,
           kind,
           urls: item.paths.map((path) => urlByPath.get(path)),
           ...printGeometryForSignedAssets(bank, item.questionId, kind, item.paths),
+          ...(item.mcqAnswer ? { mcqAnswer: item.mcqAnswer } : {}),
         };
       });
     }
 
     const { data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {
       p_asset_count: premiumPathCount,
-      p_pdf_question_count: body.questionIds.length,
+      p_pdf_question_count: questionIds.length,
     });
     if (quotaError) return NextResponse.json({ error: "Could not verify export allowance" }, { status: 503 });
     if (!allowed) return NextResponse.json({ error: "Daily worksheet limit reached. Try again tomorrow." }, { status: 429 });

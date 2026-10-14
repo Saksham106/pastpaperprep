@@ -13,16 +13,19 @@ export const EARLIER_0606_SUBTOPICS = Object.freeze([
 ]);
 const official = new Set(OFFICIAL_0606_TOPICS);
 const earlier = new Set(EARLIER_0606_SUBTOPICS);
-// Printed 2025 QP reviewed against §4.3 (substitution to a quadratic), §5.1
-// (simultaneous equations), and §6.3. Fractional indices are assumed 0580
-// knowledge in the 2025–27 0606 syllabus, not an earlier-only topic for these
-// current papers. Source QP hashes, pages, and operation-level decisions are
-// pinned in docs/igcse-0606-current-era-review.md; source rows stay untouched.
+// Printed 2025 and 2026 QPs reviewed against §4.3 (substitution to a quadratic),
+// §5.1 (simultaneous equations), and §6.2/§6.3. Fractional indices are assumed
+// 0580 knowledge in the 2025–27 0606 syllabus, not an earlier-only topic for
+// these current papers. Source QP/MS hashes, pages, and operation-level
+// decisions are pinned in docs/igcse-0606-current-era-review.md; source rows
+// stay untouched.
 const CURRENT_ERA_REVIEWED = Object.freeze({
-  "0606-2025-march-22-q3": { labels: ["Indices and surds"], topics: ["Equations, inequalities and graphs"] },
-  "0606-2025-june-11-q4": { labels: ["Simultaneous equations", "Indices and surds"], topics: ["Simultaneous equations", "Equations, inequalities and graphs"] },
-  "0606-2025-june-12-q2": { labels: ["Indices and surds"], topics: ["Equations, inequalities and graphs"] },
-  "0606-2025-june-23-q13": { labels: ["Indices and surds", "Logarithmic and exponential functions"], topics: ["Equations, inequalities and graphs", "Logarithmic and exponential functions"] },
+  "0606-2025-march-22-q3": { year: 2025, labels: ["Indices and surds"], topics: ["Equations, inequalities and graphs"] },
+  "0606-2025-june-11-q4": { year: 2025, labels: ["Simultaneous equations", "Indices and surds"], topics: ["Simultaneous equations", "Equations, inequalities and graphs"] },
+  "0606-2025-june-12-q2": { year: 2025, labels: ["Indices and surds"], topics: ["Equations, inequalities and graphs"] },
+  "0606-2025-june-23-q13": { year: 2025, labels: ["Indices and surds", "Logarithmic and exponential functions"], topics: ["Equations, inequalities and graphs", "Logarithmic and exponential functions"] },
+  // 2026 Feb/March addition (docs/igcse-0606-2026-march-addition.json).
+  "0606-2026-march-12-q10": { year: 2026, labels: ["Logarithmic and exponential functions", "Indices and surds"], topics: ["Logarithmic and exponential functions", "Equations, inequalities and graphs"] },
 });
 
 /**
@@ -38,7 +41,7 @@ export function project0606Topics(raw) {
   }
   const hasHistoricalLabel = labels.some((label) => earlier.has(label));
   const reviewed = CURRENT_ERA_REVIEWED[raw.id ?? ""];
-  if (reviewed && (raw.year !== 2025 || raw.primaryTopic !== "Algebra" ||
+  if (reviewed && (raw.year !== reviewed.year || raw.primaryTopic !== "Algebra" ||
     labels.length !== reviewed.labels.length || labels.some((label, index) => label !== reviewed.labels[index]))) {
     throw new Error(`0606 reviewed source identity changed for ${raw.id ?? "unknown"}`);
   }

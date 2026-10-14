@@ -1,0 +1,271 @@
+{
+  "schemaVersion": 1,
+  "addition": "0606-2026-march",
+  "bank": "igcse-additional",
+  "status": "reviewed-addition",
+  "reviewStatus": "source-structured-draft",
+  "reviewStatusNote": "Rows keep the delivered reviewStatus; the owner chose not to label them independently-reviewed.",
+  "accessibleTextOverlay": {
+    "path": "docs/igcse-0606-2026-march-transcripts.json",
+    "sha256": "6bd497549b62000737780ab6c32dbdda0d4b85623eb65b2070530f0409f25296",
+    "rowCount": 23,
+    "note": "The served accessibleText of all 23 rows is the reviewed transcription in this overlay, read from the question crops. It supersedes the delivered source text (PDF extraction with flattened maths and barcode control characters); the source repository's app-additions file is unchanged and still pinned by appAdditionsSha256. Every other field is served exactly as delivered."
+  },
+  "source": {
+    "repository": "Saksham106/igcse-additional-mathematics-0606-topic-practice",
+    "branch": "main",
+    "commit": "d184b5e7f7889553f40e994aacf700ec1ba8983f",
+    "appAdditionsPath": "site/data/app-additions/igcse-additional-2026-march.json",
+    "appAdditionsSha256": "890ab91dc2868ad11081809d8958635b29ad9f30282e62b4f3ab625b48f8b091",
+    "receiptPath": "audit/0606-2026-march-addition.json",
+    "receiptSha256": "4475ac18294574b2a502a7bd79fad40dd06546837b8c509b9e4bf72d3897f808",
+    "additionTargetPath": "audit/0606-2026-march-addition/addition-target.json",
+    "additionTargetSha256": "86c94929d665a8b48c5041d3b19593f8488224fe2b1e8e210e8f19b8be432989",
+    "classificationManualReviewsSha256": "33114d2de6630dc2fec74e8f37c5d1fba29a54882f43f033f4687b4d686a1420"
+  },
+  "base": {
+    "rawSha256": "4d385d4ee951a313608075415b95e5e7fb63805823760328b1853c3e145ce87f",
+    "paperCount": 145,
+    "questionCount": 1633
+  },
+  "merged": {
+    "rawSha256": "d58e2833c6226bd7c56147dea4af2353a7603220019596f7b4d3238a15d00a3a",
+    "paperCount": 147,
+    "questionCount": 1656
+  },
+  "insertion": {
+    "questionsBefore": "0606-2026-june-11-q1",
+    "questionStartIndex": 0,
+    "papersAfter": "0606-2026-june-22",
+    "paperStartIndex": 145
+  },
+  "paperIds": [
+    "0606-2026-march-12",
+    "0606-2026-march-22"
+  ],
+  "addedQuestionIds": [
+    "0606-2026-march-12-q1",
+    "0606-2026-march-12-q2",
+    "0606-2026-march-12-q3",
+    "0606-2026-march-12-q4",
+    "0606-2026-march-12-q5",
+    "0606-2026-march-12-q6",
+    "0606-2026-march-12-q7",
+    "0606-2026-march-12-q8",
+    "0606-2026-march-12-q9",
+    "0606-2026-march-12-q10",
+    "0606-2026-march-12-q11",
+    "0606-2026-march-12-q12",
+    "0606-2026-march-22-q1",
+    "0606-2026-march-22-q2",
+    "0606-2026-march-22-q3",
+    "0606-2026-march-22-q4",
+    "0606-2026-march-22-q5",
+    "0606-2026-march-22-q6",
+    "0606-2026-march-22-q7",
+    "0606-2026-march-22-q8",
+    "0606-2026-march-22-q9",
+    "0606-2026-march-22-q10",
+    "0606-2026-march-22-q11"
+  ],
+  "addedQuestionCount": 23,
+  "questionsByPaper": {
+    "0606-2026-march-12": 12,
+    "0606-2026-march-22": 11
+  },
+  "marksByPaper": {
+    "0606-2026-march-12": 80,
+    "0606-2026-march-22": 80
+  },
+  "addedPapersSha256": "91f9305753d2196b29b85ce86465083fe3b862ce4e69c60e62577050ff65bb34",
+  "addedRowsSha256": "e516a7a9b2f4bf22e25dab04179df03bdb2d5a6e6234b6219fe12fca78317ed5",
+  "rows": [
+    {
+      "id": "0606-2026-march-12-q1",
+      "sourceTextSha256": "27c99414c66fbee0fd2f36ff88d7597449b02a872e8eb425767f283c20a0bd4c",
+      "deliveredTextSha256": "d9cb26b759e07ac190b5bb19a05c19c8f5f03a4b1f695da808646cffd34cab5d",
+      "questionImageSha256": "4ecaff73e15a9394e46d6df29bd4a4464bfd34243475bbfe7f29c0bb4c7ead07",
+      "markschemeImageSha256": "69425716453dfeba37407b7813d95bb75883a297845197f40ae7a20a1aeb461f"
+    },
+    {
+      "id": "0606-2026-march-12-q2",
+      "sourceTextSha256": "55bc2106855e1a8147a28367439c116b5ab0ad19e83b1a788ce78cdc724be7ea",
+      "deliveredTextSha256": "6896a42d53c5f2df0167836ed0f8e4148bc1d11addc1c5d14dcb5e066d32ff3e",
+      "questionImageSha256": "6d554f14ee9d96d7b9c00351fead696a351df7cd7a4e520984b42302e04ddec9",
+      "markschemeImageSha256": "e6568bfda842b38eb345ac8db0b2ca07e4d9072ebda9f1e3af8fbdd11ac18c06"
+    },
+    {
+      "id": "0606-2026-march-12-q3",
+      "sourceTextSha256": "48d8073d9804dc6b2d47440d389debd0d6cb3400897c15c3ac1256c800d93ece",
+      "deliveredTextSha256": "861f27fedd4d1f29a290d0d237b4256638c89454d2a025e283e96c4b4d45bd19",
+      "questionImageSha256": "2dce0ed93fa7932bd4fc48f91e766c20d19c1d3b64405bc98f1b7f6f3fb71d7d",
+      "markschemeImageSha256": "571c6b92750c29aa6a65cc33b0e083dfcb3dd17622009146834182f25d743058"
+    },
+    {
+      "id": "0606-2026-march-12-q4",
+      "sourceTextSha256": "bd8886405054ba1bb467a0f5ca59b23b3ad829d81fa593a46c83b43bcc0b5f06",
+      "deliveredTextSha256": "705c34ddd14210a07cc52b313458d341ad4f64416a6c4760c711e81d7a376de8",
+      "questionImageSha256": "fa349d8b435b96282fed213705afde431ec582774d153286287cc0449636301a",
+      "markschemeImageSha256": "467b1888ba2df7cb21cdb465ae549bb3b569e7e81b0c85a82634020e1b2d9a6f"
+    },
+    {
+      "id": "0606-2026-march-12-q5",
+      "sourceTextSha256": "2153f455ee2f73d61e177b922701dfe0e888731543617448117b2e23a369dc70",
+      "deliveredTextSha256": "831ab090ccc13d0d95d1f379bd84860243a6ff44b69f8f5aa4b206f94a8a2f2d",
+      "questionImageSha256": "fa4a1709b4f4fedca35ac6e354cd06613f4fb2eca2bdfbc9b4f672a859301fdc",
+      "markschemeImageSha256": "c871337c9fd5759f15bebb56659540e1a48c2793bc2fbbbcf04582ba61c7141e"
+    },
+    {
+      "id": "0606-2026-march-12-q6",
+      "sourceTextSha256": "5a3e85f05028ba4a5c4c4fd3178f9b1b309267052c48ac4ad7afcfa86791097c",
+      "deliveredTextSha256": "424e729545ba20bb290f2af20778234b277fa435f4403ec519c8714a2ccf39da",
+      "questionImageSha256": "9611f4daa5d7987f43036ce81713183694cd8c5562b8457fd9f2a82e95ef942f",
+      "markschemeImageSha256": "ce60ff73a521102dfc8b7c064819684403e174bfff3601b45e0825821e0c3e38"
+    },
+    {
+      "id": "0606-2026-march-12-q7",
+      "sourceTextSha256": "5fd10e9575409c41ea1681014a30649844ef79505ff39ae635a662fd752acbea",
+      "deliveredTextSha256": "d994bcfb1d2ef6a42667e56f924493cd765fca28c0095ead3449e07a6b79a3e2",
+      "questionImageSha256": "1e19f0ad358bd740e5a566395e850641294a27839bc34fa32b62bd18b3b0451f",
+      "markschemeImageSha256": "a876da1d12fb3750df7a0fb99b0909ad3bec1650387d7dc4e333571f5929d34b"
+    },
+    {
+      "id": "0606-2026-march-12-q8",
+      "sourceTextSha256": "2b69cbcfb837f6c4c5ec81ce6de8be6c3ab4a857c72f8438e5ddc0d7da6c157e",
+      "deliveredTextSha256": "b2e888494e437c346dcaa47778e1e416f3cc5ba611bd005522ce79cf661e4167",
+      "questionImageSha256": "e24fdefae8b809e03086320f5c2b35690f523d160992c6f88cf3e86fc4ce33ef",
+      "markschemeImageSha256": "47c73226614b6f59abe6b4a25ffadbfb9130d2057ff33cce2698a54cdddb0f69"
+    },
+    {
+      "id": "0606-2026-march-12-q9",
+      "sourceTextSha256": "787a37c16c81a5f3e79ca2424ba6f92729cc63dba8b31a1805dfe3c93a79991d",
+      "deliveredTextSha256": "8f9955fa14115712c3afdc3ea061065fb8e5dc4a8ec662eafc402d4a846f095a",
+      "questionImageSha256": "d7ed92966728f55e5cfb4565099c4186dfddda6df1f4b065389b5fb333e02fe5",
+      "markschemeImageSha256": "f1fcef87b223ffcd4d005f332833af3551faf5cfa543df2d2d79127c8390a110"
+    },
+    {
+      "id": "0606-2026-march-12-q10",
+      "sourceTextSha256": "45a57a9df24706e59c4f6ba1b01541c28460f4de6c5be3c119c57df6af9862f0",
+      "deliveredTextSha256": "149deab361f82c6bdf8ad11fa4da6f57a634e2e127a7553b45545f8fabed4d5c",
+      "questionImageSha256": "08d301304e3fea8e6135d14564ca12ccaa2a015ad5694834959efb38004b46cf",
+      "markschemeImageSha256": "ead59daa6a9ddddcf21642a6d634b98a565ca2e61d1f234723db030679ef1c75"
+    },
+    {
+      "id": "0606-2026-march-12-q11",
+      "sourceTextSha256": "05fbe07aabf1b42924674f3bb1fd8ba94852427f497be154c064918852210d6a",
+      "deliveredTextSha256": "985d253032ea7103f47be72bd95eda3a8e0c704fbaade8ae2b9281ae68396cbd",
+      "questionImageSha256": "373eb189741a00244e2516e8f91d92dc74e402a4ac7cf608ffcc6bd4f5359ca5",
+      "markschemeImageSha256": "696fcf17a132ca91f3f940859448ceb0962e968065a527341cced5d17f5a2fa6"
+    },
+    {
+      "id": "0606-2026-march-12-q12",
+      "sourceTextSha256": "78a7bad6b41900e60ef02ee5278c2e7d47b9505f15d400cadf81fbff0b3bc86e",
+      "deliveredTextSha256": "bf19526a1d45ad80d22f4444fad5e217c5afc61c63680ded346cdcfa4e199722",
+      "questionImageSha256": "85d4241f274a354b03a6ac8477d3737c5a8685cdc4358aa045e1eb2702eb568c",
+      "markschemeImageSha256": "51ff7efdfcf6c8a79d07a79157991613320c34e6d36f37edb00bfde7eb494138"
+    },
+    {
+      "id": "0606-2026-march-22-q1",
+      "sourceTextSha256": "16b33e55c53ce6c0ac436854a7f64dec83eeaef050bd9ca2048b3068b0fa1aae",
+      "deliveredTextSha256": "41604e86fd0ac3e5084b892c7a77b1f8cea74f50f3c06994f995b0057afc2a2c",
+      "questionImageSha256": "0e6099382b9045b209ec0659cc3ed7748bce3735d903757a37520f7fb7c949af",
+      "markschemeImageSha256": "5c3b7ed75b2ff84940b5cada9df158b404d6badd30ee1247eeb18296294090a5"
+    },
+    {
+      "id": "0606-2026-march-22-q2",
+      "sourceTextSha256": "575d6d821d77f3775536da1054940d665ce724e24d0c6c0cc769fce16d72569d",
+      "deliveredTextSha256": "dcc195aff761ea3cac523955a33e9ff4f03da2e873b88b8e44e3e7f0cd8cf0eb",
+      "questionImageSha256": "8af48f547357dcb7c5f47be39420510f7d9294ee64092e0537d9a094529f62c4",
+      "markschemeImageSha256": "d8615db971df59839cedb23a86631f028dcd4bd4f7bf4a181e5b652d3abeb724"
+    },
+    {
+      "id": "0606-2026-march-22-q3",
+      "sourceTextSha256": "e5812135327df110ecc381f3266173a26d60cc235c5910e2ab6474f3ac18666a",
+      "deliveredTextSha256": "10546875ac710694cb566ee6cc3710b0232254d99046a180d0deffcfdcd7cdf5",
+      "questionImageSha256": "edb2100bac9ad59918a8827b8df5d34191877537b6197082f4d993e2be3be312",
+      "markschemeImageSha256": "fac7ae961f9ac11d65121cb886c364944ff3f8e1b5fb990b2dd583d51594be30"
+    },
+    {
+      "id": "0606-2026-march-22-q4",
+      "sourceTextSha256": "f167610db103bdbf2b4a5b1046d2309f02adb2cc509a76cb30b9d193497163cb",
+      "deliveredTextSha256": "dbbd51464b45c18bf428e6975b6ac2fd26383dd19e72a734a9cdc2554f61e00d",
+      "questionImageSha256": "5e31afcdc564f5787a86a5f45c69b1ce2d93ec3f34a2070aaa45138742285fef",
+      "markschemeImageSha256": "b5808f68f26095de1f401f32b1bbb5b24b597f73df3bb462ea386259061cfb10"
+    },
+    {
+      "id": "0606-2026-march-22-q5",
+      "sourceTextSha256": "ef6ff71f98f8b527f78102d66cd2025e40b947f11baa05294bb5a0a7255cb04d",
+      "deliveredTextSha256": "8e5e29ffed69a0b65fd6846b44bcd3052570930d52c3ffb93efec4955885dd53",
+      "questionImageSha256": "b87e880b94eee2076920849078c457f5982a1073b1ce9425b9fd932ff2ec42be",
+      "markschemeImageSha256": "8ec63b80fe67106cb9be546080fd16dde365f19ad7467febce6639fd63659be6"
+    },
+    {
+      "id": "0606-2026-march-22-q6",
+      "sourceTextSha256": "73f41921fb0e5f3a3665eef8c42cc5f70584fac54f953e82672d3e6529729d64",
+      "deliveredTextSha256": "48b653b50261105fda99f10f8a877202bb7ab98b3993dc1f169013322c77a3ff",
+      "questionImageSha256": "26c1b897af8db1ed792e1188dea5843fc52a66cb4a6d0b38b589337624f96e72",
+      "markschemeImageSha256": "59bde1f59b9e1f5ea627723251aa6eec99b72939da47a3d1c5f1498197621fb4"
+    },
+    {
+      "id": "0606-2026-march-22-q7",
+      "sourceTextSha256": "ebc80fe47a901e5846a4e65a259a75d3a6427741350955f60bf86920f49306f8",
+      "deliveredTextSha256": "62d43116b1147ca2296c93833060588e62c9f867936aba1d7ae03a1fd7449084",
+      "questionImageSha256": "db949a80f825974b50cb9730f79aec6e8b7c9342b35c718e41dfbb377b9cdae3",
+      "markschemeImageSha256": "7e0ae5de5ebccba6fa663a42ec26dde7593c6339e22eb812c39e37f916ca8e37"
+    },
+    {
+      "id": "0606-2026-march-22-q8",
+      "sourceTextSha256": "bf33b63511a6648ada1997f24f720af09a23b68aee03701169c23318bbf51ab7",
+      "deliveredTextSha256": "6e44bee88cb0f0b086724ebce788d4edeac741376b0972a1f83bc523f42eaafa",
+      "questionImageSha256": "99292b0ba59479c2344652f8e863dd6052e65e079937d71369e2d6b37596867f",
+      "markschemeImageSha256": "a319d9dea1b1999798ff1c2a90c49811774f2b162e9e7842cdebcbd9fc02bc1b"
+    },
+    {
+      "id": "0606-2026-march-22-q9",
+      "sourceTextSha256": "dda7533d2e14222e20a4ab09fe6b542d6ea8949886682a979d94139f575eadfa",
+      "deliveredTextSha256": "1a2fbcb129cabce5d2cd316a9788b72688524122edb98bb3637514529119e18b",
+      "questionImageSha256": "7c6e6470357a35d807d73baaad1053fafc1c4d0e36ea9f1debcb8e0b844c02b5",
+      "markschemeImageSha256": "5be6d99f0989393ef9d990fba48dce82f846c1e4a0c7ca601ab9b4c1ee468b3a"
+    },
+    {
+      "id": "0606-2026-march-22-q10",
+      "sourceTextSha256": "e7bfc90649f522c79ca0795aa42371a56a10ba7ca4d2a81e43e30f22cf479ac9",
+      "deliveredTextSha256": "86969e7c43aa1a4a0d7754d833511a742d8e8f17dd3cbea1388181da37991ec2",
+      "questionImageSha256": "e604c67c072a31c984d1a4ef62966d1bf72e1421c2d341e166483e8eac1940c2",
+      "markschemeImageSha256": "abd82d943eccaf53917de6a46c94a2631e552868e3ed99d916c849e19a735121"
+    },
+    {
+      "id": "0606-2026-march-22-q11",
+      "sourceTextSha256": "80ecd76e2a606f379465b35ebd7d063a33c108657d052dabb258ffba502ab1e6",
+      "deliveredTextSha256": "72ef8e33fe4cb136f90c7546de528ac2a7fd67d4d5f997b2518dffb256b83117",
+      "questionImageSha256": "7416ad294fce226d3691e377241624b645581e7280949851db899d90323540ad",
+      "markschemeImageSha256": "7a6e20a0d7ae037cb9755f265251f26761b9b66f63a9d2cdbe97368fe5d5a829"
+    }
+  ],
+  "currentEraTopicReviews": {
+    "0606-2026-march-12-q10": {
+      "sourceLabels": [
+        "Logarithmic and exponential functions",
+        "Indices and surds"
+      ],
+      "projectedTopics": [
+        "Logarithmic and exponential functions",
+        "Equations, inequalities and graphs"
+      ],
+      "evidence": "QP p14: (a) log5(x^2) - log5 x - 3 log_x 5 = 2; (b) 2x8^(2x+1) - 3x2^(3x+4) - 64 = 0. MS: change of base and a quadratic in log5 x; B1 for 16(2^(3x))^2 - 48x2^(3x) - 64 = 0, then 2^(3x) = 4. Index laws are assumed 0580 knowledge (syllabus p.11); assessed operations are §6.2, §4.3 and §6.3. See docs/igcse-0606-current-era-review.md."
+    }
+  },
+  "numberedStatementReview": {
+    "path": "docs/0606-2026-march-addition-sections-v4.json",
+    "sha256": "3f6baa085f92e527e865f18a4e232e0ba700d4c11025eb3ad1763adef9541983"
+  },
+  "printGeometry": {
+    "path": "src/data/print-geometry-0606-2026-march.json",
+    "sha256": "69d4601ffa34f92b08c9ec559fb0146a85ae804f26fc3c581aaf91632f1a81d3"
+  },
+  "r2UploadPlan": {
+    "path": "docs/igcse-0606-2026-march-r2-upload-plan.json",
+    "sha256": "4418055432c05ae8d64973352012df6bf66a5661a966fb65d4337b1e1bfe9395",
+    "objectCount": 46
+  }
+}

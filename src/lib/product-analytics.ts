@@ -2,6 +2,14 @@
 
 import { readBrowserAnalyticsConsent, stableAnalyticsDistinctId } from "@/lib/analytics-consent";
 import { boundExceptionFrames, safeErrorMessage, scrubStack } from "@/lib/error-privacy";
+import { accountIdFromCookieHeader } from "@/lib/supabase/auth-cookie";
+import { isExpectedRequestError as isExpectedControlFlow } from "@/lib/expected-request-error";
+export { isExpectedRequestError as isExpectedControlFlow } from "@/lib/expected-request-error";
+
+/** Signed-in account id for error and failure reports only (disclosed in /privacy); undefined when signed out. */
+export function browserAccountId(): string | undefined {
+  try { return typeof document === "undefined" ? undefined : accountIdFromCookieHeader(document.cookie); } catch { return undefined; }
+}
 
 type ProductEventProperties = Record<string, string | number | boolean | null | undefined>;
 type PostHogClient = typeof import("posthog-js").default;
@@ -103,19 +111,15 @@ export function captureAppException(error: unknown) {
   safe.stack = scrubStack(error.stack, safe.name);
   // A server render failure reaches the error boundary with the same digest the server reported.
   const digest = (error as { digest?: unknown }).digest;
-  const properties = typeof digest === "string" && /^[A-Za-z0-9_-]{1,40}$/.test(digest) ? { digest } : undefined;
+  const userId = browserAccountId();
+  const properties = {
+    ...(typeof digest === "string" && /^[A-Za-z0-9_-]{1,40}$/.test(digest) ? { digest } : {}),
+    ...(userId ? { user_id: userId } : {}),
+  };
   void loadClient().then(client => {
     if (!client) return;
-    try { client.captureException(safe, properties); } catch { /* Never affect application behavior. */ }
+    try { client.captureException(safe, Object.keys(properties).length ? properties : undefined); } catch { /* Never affect application behavior. */ }
   });
-}
-
-export function isExpectedControlFlow(error: unknown) {
-  if (!error || typeof error !== "object") return false;
-  const value = error as { digest?: unknown; message?: unknown };
-  const digest = typeof value.digest === "string" ? value.digest : "";
-  return digest.startsWith("NEXT_REDIRECT") || digest.startsWith("NEXT_NOT_FOUND") ||
-    (typeof value.message === "string" && /(?:rate.?limit|cooldown|invalid credentials)/i.test(value.message));
 }
 
 function clearLegacyAnalyticsStorage() {

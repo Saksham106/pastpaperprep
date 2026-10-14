@@ -75,6 +75,7 @@ describe("question taxonomy", () => {
     const groups = getSubtopicGroups(questions, ["Calculus"], []);
 
     expect(groups.relevant).toEqual([
+      "Limits and derivative foundations",
       "Differentiation and tangents",
       "Second derivatives, optimization and kinematics",
       "Antidifferentiation, definite integrals and area",

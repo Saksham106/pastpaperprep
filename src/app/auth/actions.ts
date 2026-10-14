@@ -3,11 +3,14 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { REFERRAL_COOKIE } from "@/lib/referral";
-import { isValidEmail, isValidPassword, safeNextPath, type MagicLinkState } from "@/lib/auth";
+import { isValidEmail, isValidEmailCode, isValidPassword, normalizeEmailCode, safeNextPath, type MagicLinkState } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
 import { ANALYTICS_CONSENT_VERSION, parseAnalyticsConsent } from "@/lib/analytics-consent";
 import { createAuthAttemptId, logAuthDiagnostic } from "@/lib/auth-diagnostics";
+import { googleAuthorizationUrl } from "@/lib/oauth-pkce";
+import { completeEmailVerification } from "@/lib/email-verification";
+import { postAuthDestination } from "@/lib/post-auth-destination";
 
 export async function requestMagicLink(
   _previousState: MagicLinkState,
@@ -61,9 +64,10 @@ export async function signInWithPassword(
 
   const attemptId = createAuthAttemptId();
   logAuthDiagnostic({ attemptId, phase: "password_signin_requested" });
+  let supabase: Awaited<ReturnType<typeof createClient>>;
   let result: Awaited<ReturnType<Awaited<ReturnType<typeof createClient>>["auth"]["signInWithPassword"]>>;
   try {
-    const supabase = await createClient();
+    supabase = await createClient();
     result = await supabase.auth.signInWithPassword({ email, password });
   } catch {
     logAuthDiagnostic({ attemptId, phase: "password_signin_result", outcome: "rejected", providerCode: "unexpected_failure" });
@@ -76,7 +80,7 @@ export async function signInWithPassword(
   }
   logAuthDiagnostic({ attemptId, phase: "password_signin_result", outcome: "accepted" });
 
-  redirect(next);
+  redirect(await postAuthDestination(supabase, result.data?.user?.id, next));
 }
 
 export async function createAccountWithPassword(
@@ -173,6 +177,75 @@ export async function resendSignupConfirmation(
   return { status: "success", message: "If the signup is pending, a confirmation email is on its way." };
 }
 
+// Typed-code fallback for the emailed link: works when a filter rewrites or blocks the link, or the email opens on another device.
+export async function verifyEmailCode(
+  _previousState: MagicLinkState,
+  formData: FormData,
+): Promise<MagicLinkState> {
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const code = normalizeEmailCode(String(formData.get("code") ?? ""));
+  const type = formData.get("type") === "signup" ? "signup" : "email";
+  const next = safeNextPath(String(formData.get("next") ?? "/pricing"));
+  if (!isValidEmail(email) || !isValidEmailCode(code)) {
+    return { status: "error", message: "Enter the code from the email." };
+  }
+
+  const attemptId = createAuthAttemptId();
+  logAuthDiagnostic({ attemptId, phase: "code_requested" });
+  let supabase: Awaited<ReturnType<typeof createClient>>;
+  let error: { code?: string } | null;
+  let verifiedType: "signup" | "email" = "signup";
+  try {
+    supabase = await createClient();
+    // Supabase Auth verifyUserAndToken accepts only confirmation tokens for
+    // signup; mismatches return otp_expired before any mutation. For the
+    // combined form, try the ordinary email contract only after that rejection.
+    // Never retry transport/unknown failures: redemption may already have run.
+    ({ error } = await supabase.auth.verifyOtp({ email, token: code, type: "signup" }));
+    if (type === "email" && error?.code === "otp_expired") {
+      verifiedType = "email";
+      ({ error } = await supabase.auth.verifyOtp({ email, token: code, type: "email" }));
+    }
+  } catch {
+    logAuthDiagnostic({ attemptId, phase: "code_result", outcome: "rejected", providerCode: "unexpected_failure" });
+    return { status: "error", message: "We couldn’t check that code. Try again in a minute." };
+  }
+  if (error) {
+    logAuthDiagnostic({ attemptId, phase: "code_result", outcome: "rejected", providerCode: error.code ?? "invalid_code" });
+    return { status: "error", message: "That code didn’t work. Use the code from the newest email, or request a new one." };
+  }
+  logAuthDiagnostic({ attemptId, phase: "code_result", outcome: "verified" });
+  let referralCookie: string | undefined;
+  try {
+    referralCookie = (await cookies()).get(REFERRAL_COOKIE)?.value;
+  } catch {
+    // Cookie/referral failures must not strand an already redeemed code.
+  }
+  const userId = await completeEmailVerification(supabase, verifiedType, referralCookie);
+  redirect(await postAuthDestination(supabase, userId, next));
+}
+
+export async function signInWithGoogle(formData: FormData) {
+  const next = safeNextPath(String(formData.get("next") ?? "/pricing"));
+  const attemptId = createAuthAttemptId();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const callbackUrl = new URL("/auth/callback", siteUrl);
+  callbackUrl.searchParams.set("next", next);
+  logAuthDiagnostic({ attemptId, phase: "oauth_requested" });
+  let url: string | null = null;
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.signInWithOAuth({ provider: "google", options: { redirectTo: callbackUrl.toString() } });
+    if (!error && data.url) url = googleAuthorizationUrl(data.url, callbackUrl, data.flowId);
+    else logAuthDiagnostic({ attemptId, phase: "oauth_result", outcome: "rejected", providerCode: error?.code ?? "unknown" });
+  } catch {
+    logAuthDiagnostic({ attemptId, phase: "oauth_result", outcome: "rejected", providerCode: "unexpected_failure" });
+  }
+  if (!url) redirect(`/login?${new URLSearchParams({ error: "google", next })}`);
+  logAuthDiagnostic({ attemptId, phase: "oauth_result", outcome: "accepted" });
+  redirect(url);
+}
+
 export async function requestPasswordReset(
   _previousState: MagicLinkState,
   formData: FormData,
@@ -183,11 +256,13 @@ export async function requestPasswordReset(
     return { status: "error", message: "Enter a valid email address." };
   }
 
-  const supabase = await createClient();
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  const callbackUrl = new URL("/auth/callback", siteUrl);
-  callbackUrl.searchParams.set("next", "/account/password");
-  await supabase.auth.resetPasswordForEmail(email, { redirectTo: callbackUrl.toString() });
+  try {
+    const supabase = await createClient();
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+    const callbackUrl = new URL("/auth/callback", siteUrl);
+    callbackUrl.searchParams.set("next", "/account/password");
+    await supabase.auth.resetPasswordForEmail(email, { redirectTo: callbackUrl.toString() });
+  } catch { /* Keep reset requests neutral; never expose account/provider details. */ }
 
   return { status: "success", message: "If that account exists, a password-reset link is on its way." };
 }

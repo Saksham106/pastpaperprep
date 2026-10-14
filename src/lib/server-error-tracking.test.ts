@@ -14,6 +14,19 @@ describe("server exception privacy boundary", () => {
     vi.stubEnv("VERCEL_ENV", "");
   });
 
+  it("does not forward private text disguised as a custom error name to exceptions or logs", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test");
+    vi.stubEnv("VERCEL_ENV", "production");
+    const upload = vi.fn(async () => new Response(null, { status: 200 }));
+    vi.stubGlobal("fetch", upload);
+    try {
+      const { captureServerException } = await import("./server-error-tracking");
+      captureServerException(Object.assign(new Error("SyntheticPrivateName"), { name: "SyntheticPrivateNameError" }));
+      expect((captureExceptionImmediate.mock.calls[0][0] as Error).name).toBe("Error");
+      expect(JSON.stringify([captureExceptionImmediate.mock.calls, upload.mock.calls])).not.toContain("SyntheticPrivateName");
+    } finally { vi.unstubAllGlobals(); }
+  });
+
   it("uses structured SDK exception capture with redacted error text and bounded metadata", async () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
     const { captureServerException } = await import("./server-error-tracking");
@@ -22,7 +35,7 @@ describe("server exception privacy boundary", () => {
     captureServerException(error, { route: "/[route]", arbitrary: "alice@example.com", provider_code: "unexpected_failure" });
     expect(captureExceptionImmediate).toHaveBeenCalledTimes(1);
     const [safe] = captureExceptionImmediate.mock.calls[0] as [Error, string, Record<string, string>];
-    expect(safe.message).toBe("account <email> token=<value>");
+    expect(safe.message).toBe("Application server exception");
     expect(safe.stack).not.toMatch(/alice|secret/);
     expect(safe.stack).toContain("/_next/static/chunks/main.js:11:9");
     expect(captureExceptionImmediate.mock.calls[0][2]).toMatchObject({ route: "/[route]", provider_code: "unexpected_failure", $process_person_profile: false });
@@ -37,6 +50,17 @@ describe("server exception privacy boundary", () => {
     const generated = captureServerException(new Error("x"), { correlation_id: "not-a-uuid", digest: "NEXT_REDIRECT;x" });
     expect(generated).toMatch(/^[0-9a-f-]{36}$/);
     expect(captureExceptionImmediate.mock.calls[1][2]).not.toHaveProperty("digest");
+  });
+
+  it("keeps a UUID account id but never lets it split an issue's grouping", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const { captureServerException } = await import("./server-error-tracking");
+    captureServerException(new Error("Handled server failure"), { route: "/api/pdf/sign", error_source: "handled_response", error_code: "response_failed", user_id: "7f1b6a2e-0000-4000-8000-000000000000" });
+    captureServerException(new Error("Handled server failure"), { route: "/api/pdf/sign", error_source: "handled_response", error_code: "response_failed", user_id: "student@example.com" });
+    const [first, second] = captureExceptionImmediate.mock.calls.map((call) => call[2] as Record<string, unknown>);
+    expect(first.user_id).toBe("7f1b6a2e-0000-4000-8000-000000000000");
+    expect(second).not.toHaveProperty("user_id");
+    expect(first.$exception_fingerprint).toBe(second.$exception_fingerprint);
   });
 
   it("titles unclassified errors from their scrubbed message, not a generic route label", async () => {
@@ -100,6 +124,14 @@ describe("server exception privacy boundary", () => {
     expect(captureExceptionImmediate.mock.calls[2][2]).not.toHaveProperty("stage");
     expect(JSON.stringify(captureExceptionImmediate.mock.calls.map((call) => call[2]))).not.toMatch(/alice|secret/);
     log.mockRestore();
+  });
+
+  it.each(["code_result", "oauth_result"])("captures unexpected %s failures through the real auth diagnostic producer", async (phase) => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test");
+    const { logAuthDiagnostic } = await import("./auth-diagnostics");
+    logAuthDiagnostic({ attemptId: "7f1b6a2e-0000-4000-8000-000000000000", phase: phase as "code_result" | "oauth_result", outcome: "rejected", providerCode: "unexpected_failure" });
+    expect(captureExceptionImmediate).toHaveBeenCalledOnce();
+    expect(captureExceptionImmediate.mock.calls[0][2]).toMatchObject({ error_source: "auth_provider", auth_phase: phase, provider_code: "unexpected_failure" });
   });
 
   it("keeps different auth provider codes in separate issue groups", async () => {

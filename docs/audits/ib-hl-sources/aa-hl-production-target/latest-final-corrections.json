@@ -4,17 +4,280 @@
   "latestAppSha256": "0684a7b1452d28528974d36c56eaef44999d245d674a8672744636492daa12e1",
   "priorFinalCorrectionsSha256": "5d0dfb99bd4d804877300472ac44aa0a2553d6c222234d20913669d28d9930af",
   "latestDeltaReviewSha256": "52a9fc40f956d952b3d5c4832deff83ab2ecd02cd399249c1f2fe91c0e769359",
-  "reviewedCount": 221,
-  "netChangedCount": 214,
+  "reviewedCount": 292,
+  "netChangedCount": 207,
   "records": [
     {
-      "id": "2026-may-tza-p1-q12",
-      "ordinal": 12,
+      "id": "2026-may-tz1-p1-q1",
+      "ordinal": 1,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Quadratics"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Quadratics"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p1-q2",
+      "ordinal": 2,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
         "skills": [
-          "Differential equations"
+          "Integration",
+          "Applications of integration"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Integration",
+          "Applications of integration"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p1-q3",
+      "ordinal": 3,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Sequences and series"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Sequences and series"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p1-q4",
+      "ordinal": 4,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Exponents and logarithms"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Exponents and logarithms"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p1-q5",
+      "ordinal": 5,
+      "latestCurrentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Probability models"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Probability models"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p1-q6",
+      "ordinal": 6,
+      "latestCurrentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Radian measure and sectors"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Radian measure and sectors"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p1-q7",
+      "ordinal": 7,
+      "latestCurrentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Conditional probability",
+          "Probability models"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Conditional probability",
+          "Probability models"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p1-q8",
+      "ordinal": 8,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Complex numbers",
+          "Polynomials and theorems"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Complex numbers",
+          "Polynomials and theorems"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p1-q9",
+      "ordinal": 9,
+      "latestCurrentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors, lines and planes"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors, lines and planes"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p1-q10",
+      "ordinal": 10,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differentiation",
+          "Applications of differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differentiation",
+          "Applications of differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p1-q11",
+      "ordinal": 11,
+      "latestCurrentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Trigonometric identities and equations",
+          "Triangle geometry",
+          "Differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Trigonometric identities and equations",
+          "Triangle geometry",
+          "Differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p1-q12",
+      "ordinal": 12,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Differential equations",
+          "Exponents and logarithms",
+          "Integration",
+          "Limits and series"
         ],
         "taxonomyGap": null
       },
@@ -31,17 +294,633 @@
         ],
         "taxonomyGap": null
       },
-      "resolution": "existing_second_review",
-      "changedFromLatest": true
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
     },
     {
-      "id": "2026-may-tza-p2-q2",
+      "id": "2026-may-tz2-p1-q1",
+      "ordinal": 13,
+      "latestCurrentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Radian measure and sectors"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Radian measure and sectors"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p1-q2",
       "ordinal": 14,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
         "skills": [
-          "Differentiation"
+          "Integration",
+          "Applications of integration"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Integration",
+          "Applications of integration"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p1-q3",
+      "ordinal": 15,
+      "latestCurrentTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Functions and inverses",
+          "Exponents and logarithms",
+          "Quadratics"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Functions and inverses",
+          "Exponents and logarithms",
+          "Quadratics"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p1-q4",
+      "ordinal": 16,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [
+          "Functions"
+        ],
+        "skills": [
+          "Polynomials and theorems",
+          "Graphs and transformations"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [
+          "Functions"
+        ],
+        "skills": [
+          "Polynomials and theorems",
+          "Graphs and transformations"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p1-q5",
+      "ordinal": 17,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Exponents and logarithms",
+          "Sequences and series"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Exponents and logarithms",
+          "Sequences and series"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p1-q6",
+      "ordinal": 18,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Counting and combinatorics"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Counting and combinatorics"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p1-q7",
+      "ordinal": 19,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Proof and induction"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Proof and induction"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p1-q8",
+      "ordinal": 20,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differentiation",
+          "Applications of differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differentiation",
+          "Applications of differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p1-q9",
+      "ordinal": 21,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differential equations",
+          "Integration"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differential equations",
+          "Integration"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p1-q10",
+      "ordinal": 22,
+      "latestCurrentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Triangle geometry",
+          "Trigonometric identities and equations",
+          "Applications of differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Triangle geometry",
+          "Trigonometric identities and equations",
+          "Applications of differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p1-q11",
+      "ordinal": 23,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Integration",
+          "Applications of integration",
+          "Binomial expansion"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Integration",
+          "Applications of integration",
+          "Binomial expansion"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p1-q12",
+      "ordinal": 24,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Complex numbers",
+          "Polynomials and theorems"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Complex numbers",
+          "Polynomials and theorems"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p1-q1",
+      "ordinal": 25,
+      "latestCurrentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Descriptive statistics"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Descriptive statistics"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p1-q2",
+      "ordinal": 26,
+      "latestCurrentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Triangle geometry",
+          "Trigonometric identities and equations"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Triangle geometry",
+          "Trigonometric identities and equations"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p1-q3",
+      "ordinal": 27,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Exponents and logarithms",
+          "Equations and inequalities"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Exponents and logarithms",
+          "Equations and inequalities"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p1-q4",
+      "ordinal": 28,
+      "latestCurrentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometric identities and equations"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Trigonometric identities and equations"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p1-q5",
+      "ordinal": 29,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differentiation",
+          "Integration"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differentiation",
+          "Integration"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p1-q6",
+      "ordinal": 30,
+      "latestCurrentTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Functions and inverses"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Functions and inverses"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p1-q7",
+      "ordinal": 31,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Sequences and series"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Sequences and series"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p1-q8",
+      "ordinal": 32,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Complex numbers"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Complex numbers"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p1-q9",
+      "ordinal": 33,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Proof and induction"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Proof and induction"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p1-q10",
+      "ordinal": 34,
+      "latestCurrentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Trigonometric identities and equations",
+          "Applications of integration",
+          "Integration"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Trigonometric identities and equations",
+          "Applications of integration",
+          "Integration"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p1-q11",
+      "ordinal": 35,
+      "latestCurrentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors, lines and planes"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors, lines and planes"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p1-q12",
+      "ordinal": 36,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Differentiation",
+          "Limits and series",
+          "Binomial expansion"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Differentiation",
+          "Limits and series",
+          "Binomial expansion"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p2-q1",
+      "ordinal": 37,
+      "latestCurrentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Descriptive statistics"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Descriptive statistics"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p2-q2",
+      "ordinal": 38,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Applications of differentiation",
+          "Equations and inequalities",
+          "Quadratics"
         ],
         "taxonomyGap": null
       },
@@ -57,19 +936,42 @@
         ],
         "taxonomyGap": null
       },
-      "resolution": "existing_second_review",
-      "changedFromLatest": true
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
     },
     {
-      "id": "2026-may-tza-p2-q4",
-      "ordinal": 16,
+      "id": "2026-may-tz1-p2-q3",
+      "ordinal": 39,
+      "latestCurrentTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Graphs and transformations"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [],
+        "skills": [
+          "Graphs and transformations"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p2-q4",
+      "ordinal": 40,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
         "skills": [
-          "Differentiation",
           "Applications of differentiation",
-          "Applications of integration"
+          "Applications of integration",
+          "Differentiation",
+          "Integration"
         ],
         "taxonomyGap": null
       },
@@ -84,17 +986,116 @@
         ],
         "taxonomyGap": null
       },
-      "resolution": "existing_second_review",
-      "changedFromLatest": true
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
     },
     {
-      "id": "2026-may-tza-p2-q9",
-      "ordinal": 21,
+      "id": "2026-may-tz1-p2-q5",
+      "ordinal": 41,
+      "latestCurrentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Normal distribution",
+          "Conditional probability"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Normal distribution",
+          "Conditional probability"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p2-q6",
+      "ordinal": 42,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
         "skills": [
-          "Applications of integration"
+          "Differentiation",
+          "Applications of differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differentiation",
+          "Applications of differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p2-q7",
+      "ordinal": 43,
+      "latestCurrentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Continuous random variables"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Continuous random variables"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p2-q8",
+      "ordinal": 44,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Complex numbers",
+          "Triangle geometry"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Complex numbers",
+          "Triangle geometry"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p2-q9",
+      "ordinal": 45,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of integration",
+          "Integration"
         ],
         "taxonomyGap": null
       },
@@ -107,17 +1108,17 @@
         ],
         "taxonomyGap": null
       },
-      "resolution": "existing_second_review",
-      "changedFromLatest": true
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
     },
     {
-      "id": "2026-may-tza-p2-q10",
-      "ordinal": 22,
+      "id": "2026-may-tz1-p2-q10",
+      "ordinal": 46,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
         "skills": [
-          "Sequences and series",
+          "Equations and inequalities",
           "Exponents and logarithms"
         ],
         "taxonomyGap": null
@@ -131,12 +1132,36 @@
         ],
         "taxonomyGap": null
       },
-      "resolution": "existing_second_review",
-      "changedFromLatest": true
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
     },
     {
-      "id": "2026-may-tza-p2-q12",
-      "ordinal": 24,
+      "id": "2026-may-tz1-p2-q11",
+      "ordinal": 47,
+      "latestCurrentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors, lines and planes",
+          "Triangle geometry"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors, lines and planes",
+          "Triangle geometry"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p2-q12",
+      "ordinal": 48,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -144,9 +1169,9 @@
           "Number and algebra"
         ],
         "skills": [
+          "Equations and inequalities",
           "Graphs and transformations",
-          "Applications of differentiation",
-          "Equations and inequalities"
+          "Limits and series"
         ],
         "taxonomyGap": null
       },
@@ -163,21 +1188,626 @@
         ],
         "taxonomyGap": null
       },
-      "resolution": "existing_second_review",
-      "changedFromLatest": true
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
     },
     {
-      "id": "2026-may-tza-p3-q1",
-      "ordinal": 25,
+      "id": "2026-may-tz2-p2-q1",
+      "ordinal": 49,
+      "latestCurrentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Descriptive statistics"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Descriptive statistics"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p2-q2",
+      "ordinal": 50,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Applications of differentiation",
+          "Triangle geometry"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Applications of differentiation",
+          "Triangle geometry"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p2-q3",
+      "ordinal": 51,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p2-q4",
+      "ordinal": 52,
+      "latestCurrentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Discrete random variables",
+          "Conditional probability"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Discrete random variables",
+          "Conditional probability"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p2-q5",
+      "ordinal": 53,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of integration"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of integration"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p2-q6",
+      "ordinal": 54,
+      "latestCurrentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Continuous random variables",
+          "Integration"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Continuous random variables",
+          "Integration"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p2-q7",
+      "ordinal": 55,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Matrices and systems",
+          "Vectors, lines and planes"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Matrices and systems",
+          "Vectors, lines and planes"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p2-q8",
+      "ordinal": 56,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Functions"
+        ],
+        "skills": [
+          "Differentiation",
+          "Applications of differentiation",
+          "Functions and inverses"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Functions"
+        ],
+        "skills": [
+          "Differentiation",
+          "Applications of differentiation",
+          "Functions and inverses"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p2-q9",
+      "ordinal": 57,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Integration",
+          "Trigonometric identities and equations"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Integration",
+          "Trigonometric identities and equations"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p2-q10",
+      "ordinal": 58,
+      "latestCurrentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Normal distribution",
+          "Conditional probability",
+          "Probability models"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Normal distribution",
+          "Conditional probability",
+          "Probability models"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p2-q11",
+      "ordinal": 59,
+      "latestCurrentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors, lines and planes",
+          "Triangle geometry"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Vectors, lines and planes",
+          "Triangle geometry"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p2-q12",
+      "ordinal": 60,
+      "latestCurrentTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Graphs and transformations",
+          "Functions and inverses",
+          "Differentiation",
+          "Applications of integration"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Graphs and transformations",
+          "Functions and inverses",
+          "Differentiation",
+          "Applications of integration"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p2-q1",
+      "ordinal": 61,
+      "latestCurrentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Descriptive statistics"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Descriptive statistics"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p2-q2",
+      "ordinal": 62,
+      "latestCurrentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Triangle geometry"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Triangle geometry"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p2-q3",
+      "ordinal": 63,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Exponents and logarithms"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Exponents and logarithms"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p2-q4",
+      "ordinal": 64,
+      "latestCurrentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Radian measure and sectors"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [],
+        "skills": [
+          "Radian measure and sectors"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p2-q5",
+      "ordinal": 65,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of differentiation",
+          "Applications of integration"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p2-q6",
+      "ordinal": 66,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of integration"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Applications of integration"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p2-q7",
+      "ordinal": 67,
+      "latestCurrentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Continuous random variables",
+          "Discrete random variables"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Continuous random variables",
+          "Discrete random variables"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p2-q8",
+      "ordinal": 68,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Applications of differentiation",
+          "Differentiation",
+          "Triangle geometry"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Applications of differentiation",
+          "Differentiation",
+          "Triangle geometry"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p2-q9",
+      "ordinal": 69,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Counting and combinatorics"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [],
+        "skills": [
+          "Counting and combinatorics"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p2-q10",
+      "ordinal": 70,
+      "latestCurrentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Normal distribution",
+          "Discrete random variables",
+          "Conditional probability"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [],
+        "skills": [
+          "Normal distribution",
+          "Discrete random variables",
+          "Conditional probability"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p2-q11",
+      "ordinal": 71,
+      "latestCurrentTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Graphs and transformations",
+          "Differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Calculus"
+        ],
+        "skills": [
+          "Graphs and transformations",
+          "Differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p2-q12",
+      "ordinal": 72,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differential equations",
+          "Euler's method for differential equations"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [],
+        "skills": [
+          "Differential equations",
+          "Euler's method for differential equations"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p3-q1",
+      "ordinal": 73,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
           "Calculus"
         ],
         "skills": [
-          "Sequences and series",
+          "Applications of integration",
+          "Integration",
           "Proof and induction",
-          "Applications of integration"
+          "Sequences and series"
         ],
         "taxonomyGap": null
       },
@@ -194,12 +1824,172 @@
         ],
         "taxonomyGap": null
       },
-      "resolution": "existing_second_review",
-      "changedFromLatest": true
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz1-p3-q2",
+      "ordinal": 74,
+      "latestCurrentTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus",
+          "Number and algebra"
+        ],
+        "skills": [
+          "Complex numbers",
+          "Coordinate and analytic geometry",
+          "Differentiation",
+          "Trigonometric identities and equations"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Geometry and trigonometry",
+        "secondaryTopics": [
+          "Calculus",
+          "Number and algebra"
+        ],
+        "skills": [
+          "Complex numbers",
+          "Coordinate and analytic geometry",
+          "Differentiation",
+          "Trigonometric identities and equations"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p3-q1",
+      "ordinal": 75,
+      "latestCurrentTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Probability models",
+          "Sequences and series"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Statistics and probability",
+        "secondaryTopics": [
+          "Number and algebra"
+        ],
+        "skills": [
+          "Probability models",
+          "Sequences and series"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz2-p3-q2",
+      "ordinal": 76,
+      "latestCurrentTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Complex numbers",
+          "Equations and inequalities",
+          "Triangle geometry"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Number and algebra",
+        "secondaryTopics": [
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Complex numbers",
+          "Equations and inequalities",
+          "Triangle geometry"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p3-q1",
+      "ordinal": 77,
+      "latestCurrentTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Calculus",
+          "Number and algebra"
+        ],
+        "skills": [
+          "Graphs and transformations",
+          "Polynomials and theorems",
+          "Differentiation",
+          "Applications of differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Functions",
+        "secondaryTopics": [
+          "Calculus",
+          "Number and algebra"
+        ],
+        "skills": [
+          "Graphs and transformations",
+          "Polynomials and theorems",
+          "Differentiation",
+          "Applications of differentiation"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
+    },
+    {
+      "id": "2026-may-tz3-p3-q2",
+      "ordinal": 78,
+      "latestCurrentTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Statistics and probability",
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Differential equations",
+          "Applications of differentiation",
+          "Continuous random variables",
+          "Trigonometric identities and equations"
+        ],
+        "taxonomyGap": null
+      },
+      "finalTuple": {
+        "primaryTopic": "Calculus",
+        "secondaryTopics": [
+          "Statistics and probability",
+          "Geometry and trigonometry"
+        ],
+        "skills": [
+          "Differential equations",
+          "Applications of differentiation",
+          "Continuous random variables",
+          "Trigonometric identities and equations"
+        ],
+        "taxonomyGap": null
+      },
+      "resolution": "official_2026_ingestion_review",
+      "changedFromLatest": false
     },
     {
       "id": "2025-may-tz1-p1-q1",
-      "ordinal": 27,
+      "ordinal": 79,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -222,7 +2012,7 @@
     },
     {
       "id": "2025-may-tz1-p1-q3",
-      "ordinal": 29,
+      "ordinal": 81,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -245,7 +2035,7 @@
     },
     {
       "id": "2025-may-tz1-p1-q4",
-      "ordinal": 30,
+      "ordinal": 82,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -268,7 +2058,7 @@
     },
     {
       "id": "2025-may-tz1-p1-q7",
-      "ordinal": 33,
+      "ordinal": 85,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -291,7 +2081,7 @@
     },
     {
       "id": "2025-may-tz1-p1-q9",
-      "ordinal": 35,
+      "ordinal": 87,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -316,7 +2106,7 @@
     },
     {
       "id": "2025-may-tz1-p1-q10",
-      "ordinal": 36,
+      "ordinal": 88,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -348,7 +2138,7 @@
     },
     {
       "id": "2025-may-tz1-p1-q11",
-      "ordinal": 37,
+      "ordinal": 89,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -374,7 +2164,7 @@
     },
     {
       "id": "2025-may-tz1-p1-q12",
-      "ordinal": 38,
+      "ordinal": 90,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -400,7 +2190,7 @@
     },
     {
       "id": "2025-may-tz2-p1-q1",
-      "ordinal": 39,
+      "ordinal": 91,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [],
@@ -423,7 +2213,7 @@
     },
     {
       "id": "2025-may-tz2-p1-q3",
-      "ordinal": 41,
+      "ordinal": 93,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -446,7 +2236,7 @@
     },
     {
       "id": "2025-may-tz2-p1-q8",
-      "ordinal": 46,
+      "ordinal": 98,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [],
@@ -472,7 +2262,7 @@
     },
     {
       "id": "2025-may-tz2-p1-q10",
-      "ordinal": 48,
+      "ordinal": 100,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -509,7 +2299,7 @@
     },
     {
       "id": "2025-may-tz2-p1-q12",
-      "ordinal": 50,
+      "ordinal": 102,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -535,7 +2325,7 @@
     },
     {
       "id": "2025-may-tz3-p1-q11",
-      "ordinal": 61,
+      "ordinal": 113,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -558,7 +2348,7 @@
     },
     {
       "id": "2025-may-tz3-p1-q12",
-      "ordinal": 62,
+      "ordinal": 114,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -584,7 +2374,7 @@
     },
     {
       "id": "2025-may-tz1-p2-q3",
-      "ordinal": 65,
+      "ordinal": 117,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -607,7 +2397,7 @@
     },
     {
       "id": "2025-may-tz1-p2-q9",
-      "ordinal": 71,
+      "ordinal": 123,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -631,7 +2421,7 @@
     },
     {
       "id": "2025-may-tz1-p2-q11",
-      "ordinal": 73,
+      "ordinal": 125,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [
@@ -664,7 +2454,7 @@
     },
     {
       "id": "2025-may-tz1-p2-q12",
-      "ordinal": 74,
+      "ordinal": 126,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -698,7 +2488,7 @@
     },
     {
       "id": "2025-may-tz2-p2-q5",
-      "ordinal": 79,
+      "ordinal": 131,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -724,7 +2514,7 @@
     },
     {
       "id": "2025-may-tz2-p2-q12",
-      "ordinal": 86,
+      "ordinal": 138,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -752,7 +2542,7 @@
     },
     {
       "id": "2025-may-tz1-p3-q2",
-      "ordinal": 100,
+      "ordinal": 152,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -777,7 +2567,7 @@
     },
     {
       "id": "2025-may-tz2-p3-q1",
-      "ordinal": 101,
+      "ordinal": 153,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -811,7 +2601,7 @@
     },
     {
       "id": "2025-may-tz3-p3-q1",
-      "ordinal": 103,
+      "ordinal": 155,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -839,7 +2629,7 @@
     },
     {
       "id": "2025-november-tz1-p1-q2",
-      "ordinal": 106,
+      "ordinal": 158,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -862,7 +2652,7 @@
     },
     {
       "id": "2025-november-tz3-p1-q11",
-      "ordinal": 126,
+      "ordinal": 178,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -890,7 +2680,7 @@
     },
     {
       "id": "2025-november-tz1-p2-q7",
-      "ordinal": 133,
+      "ordinal": 185,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -915,7 +2705,7 @@
     },
     {
       "id": "2025-november-tz1-p2-q9",
-      "ordinal": 135,
+      "ordinal": 187,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -940,7 +2730,7 @@
     },
     {
       "id": "2025-november-tz3-p2-q11",
-      "ordinal": 149,
+      "ordinal": 201,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -966,7 +2756,7 @@
     },
     {
       "id": "2025-november-tz3-p2-q12",
-      "ordinal": 150,
+      "ordinal": 202,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -994,7 +2784,7 @@
     },
     {
       "id": "2025-november-tz1-p3-q1",
-      "ordinal": 151,
+      "ordinal": 203,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -1025,7 +2815,7 @@
     },
     {
       "id": "2025-november-tz1-p3-q2",
-      "ordinal": 152,
+      "ordinal": 204,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -1052,7 +2842,7 @@
     },
     {
       "id": "2025-november-tz3-p3-q1",
-      "ordinal": 153,
+      "ordinal": 205,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -1085,7 +2875,7 @@
     },
     {
       "id": "2024-may-tz1-p1-q6",
-      "ordinal": 160,
+      "ordinal": 212,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -1108,7 +2898,7 @@
     },
     {
       "id": "2024-may-tz2-p1-q2",
-      "ordinal": 168,
+      "ordinal": 220,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -1131,7 +2921,7 @@
     },
     {
       "id": "2024-may-tz2-p1-q10",
-      "ordinal": 176,
+      "ordinal": 228,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -1154,7 +2944,7 @@
     },
     {
       "id": "2024-may-tz2-p2-q9",
-      "ordinal": 199,
+      "ordinal": 251,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -1182,7 +2972,7 @@
     },
     {
       "id": "2024-may-tz2-p2-q12",
-      "ordinal": 202,
+      "ordinal": 254,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -1213,7 +3003,7 @@
     },
     {
       "id": "2024-november-tz0-p1-q4",
-      "ordinal": 210,
+      "ordinal": 262,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -1236,7 +3026,7 @@
     },
     {
       "id": "2024-november-tz0-p1-q7",
-      "ordinal": 213,
+      "ordinal": 265,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -1259,7 +3049,7 @@
     },
     {
       "id": "2024-november-tz0-p2-q10",
-      "ordinal": 228,
+      "ordinal": 280,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -1286,7 +3076,7 @@
     },
     {
       "id": "2023-may-tz1-p1-q2",
-      "ordinal": 234,
+      "ordinal": 286,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -1309,7 +3099,7 @@
     },
     {
       "id": "2023-may-tz1-p1-q4",
-      "ordinal": 236,
+      "ordinal": 288,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -1334,7 +3124,7 @@
     },
     {
       "id": "2023-may-tz1-p1-q7",
-      "ordinal": 239,
+      "ordinal": 291,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -1357,7 +3147,7 @@
     },
     {
       "id": "2023-may-tz1-p1-q9",
-      "ordinal": 241,
+      "ordinal": 293,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -1380,7 +3170,7 @@
     },
     {
       "id": "2023-may-tz1-p1-q11",
-      "ordinal": 243,
+      "ordinal": 295,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -1409,7 +3199,7 @@
     },
     {
       "id": "2023-may-tz2-p1-q4",
-      "ordinal": 248,
+      "ordinal": 300,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -1432,7 +3222,7 @@
     },
     {
       "id": "2023-may-tz2-p1-q11",
-      "ordinal": 255,
+      "ordinal": 307,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -1455,7 +3245,7 @@
     },
     {
       "id": "2023-may-tz2-p1-q12",
-      "ordinal": 256,
+      "ordinal": 308,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -1484,7 +3274,7 @@
     },
     {
       "id": "2023-may-tz1-p2-q3",
-      "ordinal": 259,
+      "ordinal": 311,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -1507,7 +3297,7 @@
     },
     {
       "id": "2023-may-tz1-p2-q6",
-      "ordinal": 262,
+      "ordinal": 314,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -1532,7 +3322,7 @@
     },
     {
       "id": "2023-may-tz1-p2-q10",
-      "ordinal": 266,
+      "ordinal": 318,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [
@@ -1561,7 +3351,7 @@
     },
     {
       "id": "2023-may-tz2-p2-q1",
-      "ordinal": 269,
+      "ordinal": 321,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -1583,7 +3373,7 @@
     },
     {
       "id": "2023-may-tz2-p2-q5",
-      "ordinal": 273,
+      "ordinal": 325,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -1609,7 +3399,7 @@
     },
     {
       "id": "2023-may-tz2-p2-q8",
-      "ordinal": 276,
+      "ordinal": 328,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -1635,7 +3425,7 @@
     },
     {
       "id": "2023-may-tz2-p2-q9",
-      "ordinal": 277,
+      "ordinal": 329,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -1658,7 +3448,7 @@
     },
     {
       "id": "2023-may-tz2-p2-q11",
-      "ordinal": 279,
+      "ordinal": 331,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -1684,7 +3474,7 @@
     },
     {
       "id": "2023-may-tz2-p2-q12",
-      "ordinal": 280,
+      "ordinal": 332,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -1708,7 +3498,7 @@
     },
     {
       "id": "2023-may-tz2-p3-q2",
-      "ordinal": 284,
+      "ordinal": 336,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -1734,7 +3524,7 @@
     },
     {
       "id": "2023-november-tz1-p1-q10",
-      "ordinal": 294,
+      "ordinal": 346,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -1761,7 +3551,7 @@
     },
     {
       "id": "2023-november-tz1-p1-q11",
-      "ordinal": 295,
+      "ordinal": 347,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -1790,7 +3580,7 @@
     },
     {
       "id": "2023-november-tz1-p1-q12",
-      "ordinal": 296,
+      "ordinal": 348,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -1817,7 +3607,7 @@
     },
     {
       "id": "2023-november-tz2-p1-q10",
-      "ordinal": 306,
+      "ordinal": 358,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -1844,7 +3634,7 @@
     },
     {
       "id": "2023-november-tz2-p1-q11",
-      "ordinal": 307,
+      "ordinal": 359,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -1873,7 +3663,7 @@
     },
     {
       "id": "2023-november-tz2-p1-q12",
-      "ordinal": 308,
+      "ordinal": 360,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -1900,7 +3690,7 @@
     },
     {
       "id": "2023-november-tz2-p2-q10",
-      "ordinal": 330,
+      "ordinal": 382,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -1927,7 +3717,7 @@
     },
     {
       "id": "2023-november-tz0-p3-q1",
-      "ordinal": 333,
+      "ordinal": 385,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -1953,7 +3743,7 @@
     },
     {
       "id": "2022-may-tz1-p1-q3",
-      "ordinal": 337,
+      "ordinal": 389,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -1978,7 +3768,7 @@
     },
     {
       "id": "2022-may-tz1-p1-q10",
-      "ordinal": 344,
+      "ordinal": 396,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -2004,7 +3794,7 @@
     },
     {
       "id": "2022-may-tz2-p1-q2",
-      "ordinal": 348,
+      "ordinal": 400,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -2027,7 +3817,7 @@
     },
     {
       "id": "2022-may-tz2-p1-q5",
-      "ordinal": 351,
+      "ordinal": 403,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -2050,7 +3840,7 @@
     },
     {
       "id": "2022-may-tz2-p1-q6",
-      "ordinal": 352,
+      "ordinal": 404,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -2078,7 +3868,7 @@
     },
     {
       "id": "2022-may-tz2-p1-q9",
-      "ordinal": 355,
+      "ordinal": 407,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -2101,7 +3891,7 @@
     },
     {
       "id": "2022-may-tz1-p2-q6",
-      "ordinal": 364,
+      "ordinal": 416,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -2126,7 +3916,7 @@
     },
     {
       "id": "2022-may-tz1-p2-q11",
-      "ordinal": 369,
+      "ordinal": 421,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -2153,7 +3943,7 @@
     },
     {
       "id": "2022-may-tz2-p2-q2",
-      "ordinal": 372,
+      "ordinal": 424,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -2175,7 +3965,7 @@
     },
     {
       "id": "2022-may-tz2-p2-q8",
-      "ordinal": 378,
+      "ordinal": 430,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -2200,7 +3990,7 @@
     },
     {
       "id": "2022-may-tz2-p2-q10",
-      "ordinal": 380,
+      "ordinal": 432,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -2225,7 +4015,7 @@
     },
     {
       "id": "2022-may-tz2-p2-q12",
-      "ordinal": 382,
+      "ordinal": 434,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -2252,7 +4042,7 @@
     },
     {
       "id": "2022-may-tz1-p3-q1",
-      "ordinal": 383,
+      "ordinal": 435,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -2278,7 +4068,7 @@
     },
     {
       "id": "2022-may-tz1-p3-q2",
-      "ordinal": 384,
+      "ordinal": 436,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -2311,7 +4101,7 @@
     },
     {
       "id": "2022-may-tz2-p3-q1",
-      "ordinal": 385,
+      "ordinal": 437,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -2342,7 +4132,7 @@
     },
     {
       "id": "2022-november-tz0-p1-q2",
-      "ordinal": 388,
+      "ordinal": 440,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -2365,7 +4155,7 @@
     },
     {
       "id": "2022-november-tz0-p1-q5",
-      "ordinal": 391,
+      "ordinal": 443,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -2388,7 +4178,7 @@
     },
     {
       "id": "2022-november-tz0-p1-q9",
-      "ordinal": 395,
+      "ordinal": 447,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -2413,7 +4203,7 @@
     },
     {
       "id": "2022-november-tz0-p1-q10",
-      "ordinal": 396,
+      "ordinal": 448,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -2449,7 +4239,7 @@
     },
     {
       "id": "2022-november-tz0-p1-q11",
-      "ordinal": 397,
+      "ordinal": 449,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -2476,7 +4266,7 @@
     },
     {
       "id": "2022-november-tz0-p2-q1",
-      "ordinal": 399,
+      "ordinal": 451,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -2498,7 +4288,7 @@
     },
     {
       "id": "2022-november-tz0-p2-q2",
-      "ordinal": 400,
+      "ordinal": 452,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -2527,7 +4317,7 @@
     },
     {
       "id": "2022-november-tz0-p2-q9",
-      "ordinal": 407,
+      "ordinal": 459,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -2550,7 +4340,7 @@
     },
     {
       "id": "2022-november-tz0-p2-q10",
-      "ordinal": 408,
+      "ordinal": 460,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -2577,7 +4367,7 @@
     },
     {
       "id": "2022-november-tz0-p2-q11",
-      "ordinal": 409,
+      "ordinal": 461,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -2605,7 +4395,7 @@
     },
     {
       "id": "2022-november-tz0-p2-q12",
-      "ordinal": 410,
+      "ordinal": 462,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -2628,7 +4418,7 @@
     },
     {
       "id": "2022-november-tz0-p3-q1",
-      "ordinal": 411,
+      "ordinal": 463,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -2656,7 +4446,7 @@
     },
     {
       "id": "2022-november-tz0-p3-q2",
-      "ordinal": 412,
+      "ordinal": 464,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -2683,7 +4473,7 @@
     },
     {
       "id": "2021-may-tz1-p1-q4",
-      "ordinal": 416,
+      "ordinal": 468,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -2706,7 +4496,7 @@
     },
     {
       "id": "2021-may-tz1-p1-q6",
-      "ordinal": 418,
+      "ordinal": 470,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -2729,7 +4519,7 @@
     },
     {
       "id": "2021-may-tz2-p1-q11",
-      "ordinal": 435,
+      "ordinal": 487,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -2753,7 +4543,7 @@
     },
     {
       "id": "2021-may-tz2-p1-q12",
-      "ordinal": 436,
+      "ordinal": 488,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -2784,7 +4574,7 @@
     },
     {
       "id": "2021-may-tz1-p2-q3",
-      "ordinal": 439,
+      "ordinal": 491,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -2806,7 +4596,7 @@
     },
     {
       "id": "2021-may-tz1-p2-q4",
-      "ordinal": 440,
+      "ordinal": 492,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -2831,7 +4621,7 @@
     },
     {
       "id": "2021-may-tz1-p2-q9",
-      "ordinal": 445,
+      "ordinal": 497,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -2857,7 +4647,7 @@
     },
     {
       "id": "2021-may-tz1-p2-q11",
-      "ordinal": 447,
+      "ordinal": 499,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -2886,7 +4676,7 @@
     },
     {
       "id": "2021-may-tz1-p2-q12",
-      "ordinal": 448,
+      "ordinal": 500,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -2912,7 +4702,7 @@
     },
     {
       "id": "2021-may-tz2-p2-q3",
-      "ordinal": 451,
+      "ordinal": 503,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -2935,7 +4725,7 @@
     },
     {
       "id": "2021-may-tz2-p2-q4",
-      "ordinal": 452,
+      "ordinal": 504,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [],
@@ -2960,7 +4750,7 @@
     },
     {
       "id": "2021-may-tz2-p2-q10",
-      "ordinal": 458,
+      "ordinal": 510,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -2987,7 +4777,7 @@
     },
     {
       "id": "2021-may-tz2-p2-q11",
-      "ordinal": 459,
+      "ordinal": 511,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -3011,7 +4801,7 @@
     },
     {
       "id": "2021-may-tz1-p3-q1",
-      "ordinal": 461,
+      "ordinal": 513,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -3037,7 +4827,7 @@
     },
     {
       "id": "2021-may-tz1-p3-q2",
-      "ordinal": 462,
+      "ordinal": 514,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [
@@ -3066,7 +4856,7 @@
     },
     {
       "id": "2021-may-tz2-p3-q1",
-      "ordinal": 463,
+      "ordinal": 515,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -3092,7 +4882,7 @@
     },
     {
       "id": "2021-may-tz2-p3-q2",
-      "ordinal": 464,
+      "ordinal": 516,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -3120,7 +4910,7 @@
     },
     {
       "id": "2021-november-tz0-p1-q3",
-      "ordinal": 467,
+      "ordinal": 519,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -3143,7 +4933,7 @@
     },
     {
       "id": "2021-november-tz0-p1-q4",
-      "ordinal": 468,
+      "ordinal": 520,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -3166,7 +4956,7 @@
     },
     {
       "id": "2021-november-tz0-p1-q5",
-      "ordinal": 469,
+      "ordinal": 521,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -3191,7 +4981,7 @@
     },
     {
       "id": "2021-november-tz0-p1-q10",
-      "ordinal": 474,
+      "ordinal": 526,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -3215,7 +5005,7 @@
     },
     {
       "id": "2021-november-tz0-p2-q3",
-      "ordinal": 479,
+      "ordinal": 531,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -3240,7 +5030,7 @@
     },
     {
       "id": "2021-november-tz0-p2-q4",
-      "ordinal": 480,
+      "ordinal": 532,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -3263,7 +5053,7 @@
     },
     {
       "id": "2021-november-tz0-p2-q5",
-      "ordinal": 481,
+      "ordinal": 533,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -3286,7 +5076,7 @@
     },
     {
       "id": "2021-november-tz0-p2-q9",
-      "ordinal": 485,
+      "ordinal": 537,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -3311,7 +5101,7 @@
     },
     {
       "id": "2021-november-tz0-p3-q1",
-      "ordinal": 488,
+      "ordinal": 540,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -3343,7 +5133,7 @@
     },
     {
       "id": "2021-november-tz0-p3-q2",
-      "ordinal": 489,
+      "ordinal": 541,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -3369,7 +5159,7 @@
     },
     {
       "id": "2020-november-tz0-p1-q5",
-      "ordinal": 494,
+      "ordinal": 546,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -3392,7 +5182,7 @@
     },
     {
       "id": "2020-november-tz0-p1-q12",
-      "ordinal": 501,
+      "ordinal": 553,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [],
@@ -3420,7 +5210,7 @@
     },
     {
       "id": "2020-november-tz0-p2-q2",
-      "ordinal": 503,
+      "ordinal": 555,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -3443,7 +5233,7 @@
     },
     {
       "id": "2020-november-tz0-p2-q3",
-      "ordinal": 504,
+      "ordinal": 556,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -3472,7 +5262,7 @@
     },
     {
       "id": "2020-november-tz0-p2-q5",
-      "ordinal": 506,
+      "ordinal": 558,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [
@@ -3498,7 +5288,7 @@
     },
     {
       "id": "2020-november-tz0-p2-q8",
-      "ordinal": 509,
+      "ordinal": 561,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -3521,7 +5311,7 @@
     },
     {
       "id": "2020-november-tz0-p2-q9",
-      "ordinal": 510,
+      "ordinal": 562,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -3546,7 +5336,7 @@
     },
     {
       "id": "2020-november-tz0-p2-q11",
-      "ordinal": 512,
+      "ordinal": 564,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -3580,7 +5370,7 @@
     },
     {
       "id": "2020-november-tz0-p3-discrete-mathematics-q1",
-      "ordinal": 514,
+      "ordinal": 566,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -3603,7 +5393,7 @@
     },
     {
       "id": "2020-november-tz0-p3-statistics-and-probability-q1",
-      "ordinal": 516,
+      "ordinal": 568,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -3626,7 +5416,7 @@
     },
     {
       "id": "2020-november-tz0-p3-sets-relations-and-groups-q2",
-      "ordinal": 519,
+      "ordinal": 571,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -3651,7 +5441,7 @@
     },
     {
       "id": "2020-november-tz0-p3-calculus-q3",
-      "ordinal": 521,
+      "ordinal": 573,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -3675,7 +5465,7 @@
     },
     {
       "id": "2020-november-tz0-p3-discrete-mathematics-q4",
-      "ordinal": 526,
+      "ordinal": 578,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -3697,7 +5487,7 @@
     },
     {
       "id": "2020-november-tz0-p3-sets-relations-and-groups-q4",
-      "ordinal": 527,
+      "ordinal": 579,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -3719,7 +5509,7 @@
     },
     {
       "id": "2020-november-tz0-p3-statistics-and-probability-q4",
-      "ordinal": 528,
+      "ordinal": 580,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [
@@ -3751,7 +5541,7 @@
     },
     {
       "id": "2020-november-tz0-p3-sets-relations-and-groups-q5",
-      "ordinal": 530,
+      "ordinal": 582,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [],
@@ -3776,7 +5566,7 @@
     },
     {
       "id": "2019-may-tz1-p1-q1",
-      "ordinal": 531,
+      "ordinal": 583,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [
@@ -3804,7 +5594,7 @@
     },
     {
       "id": "2019-may-tz1-p1-q5",
-      "ordinal": 535,
+      "ordinal": 587,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -3830,7 +5620,7 @@
     },
     {
       "id": "2019-may-tz2-p1-q7",
-      "ordinal": 548,
+      "ordinal": 600,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -3853,7 +5643,7 @@
     },
     {
       "id": "2019-may-tz2-p1-q9",
-      "ordinal": 550,
+      "ordinal": 602,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -3885,7 +5675,7 @@
     },
     {
       "id": "2019-may-tz1-p2-q9",
-      "ordinal": 561,
+      "ordinal": 613,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -3910,7 +5700,7 @@
     },
     {
       "id": "2019-may-tz1-p2-q10",
-      "ordinal": 562,
+      "ordinal": 614,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -3939,7 +5729,7 @@
     },
     {
       "id": "2019-may-tz1-p2-q11",
-      "ordinal": 563,
+      "ordinal": 615,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -3963,7 +5753,7 @@
     },
     {
       "id": "2019-may-tz2-p2-q2",
-      "ordinal": 565,
+      "ordinal": 617,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -3988,7 +5778,7 @@
     },
     {
       "id": "2019-may-tz2-p2-q4",
-      "ordinal": 567,
+      "ordinal": 619,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -4017,7 +5807,7 @@
     },
     {
       "id": "2019-may-tz2-p2-q6",
-      "ordinal": 569,
+      "ordinal": 621,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -4040,7 +5830,7 @@
     },
     {
       "id": "2019-may-tz2-p2-q8",
-      "ordinal": 571,
+      "ordinal": 623,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4063,7 +5853,7 @@
     },
     {
       "id": "2019-may-tz2-p2-q9",
-      "ordinal": 572,
+      "ordinal": 624,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -4092,7 +5882,7 @@
     },
     {
       "id": "2019-may-tz0-p3-sets-relations-and-groups-q1",
-      "ordinal": 577,
+      "ordinal": 629,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4115,7 +5905,7 @@
     },
     {
       "id": "2019-may-tz0-p3-calculus-q2",
-      "ordinal": 579,
+      "ordinal": 631,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -4138,7 +5928,7 @@
     },
     {
       "id": "2019-may-tz0-p3-sets-relations-and-groups-q2",
-      "ordinal": 581,
+      "ordinal": 633,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4161,7 +5951,7 @@
     },
     {
       "id": "2019-may-tz0-p3-statistics-and-probability-q2",
-      "ordinal": 582,
+      "ordinal": 634,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -4184,7 +5974,7 @@
     },
     {
       "id": "2019-may-tz0-p3-sets-relations-and-groups-q3",
-      "ordinal": 585,
+      "ordinal": 637,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4207,7 +5997,7 @@
     },
     {
       "id": "2019-may-tz0-p3-sets-relations-and-groups-q4",
-      "ordinal": 589,
+      "ordinal": 641,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4230,7 +6020,7 @@
     },
     {
       "id": "2019-may-tz0-p3-calculus-q5",
-      "ordinal": 591,
+      "ordinal": 643,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -4253,7 +6043,7 @@
     },
     {
       "id": "2019-november-tz0-p1-q3",
-      "ordinal": 595,
+      "ordinal": 647,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -4275,7 +6065,7 @@
     },
     {
       "id": "2019-november-tz0-p1-q7",
-      "ordinal": 599,
+      "ordinal": 651,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -4303,7 +6093,7 @@
     },
     {
       "id": "2019-november-tz0-p2-q2",
-      "ordinal": 605,
+      "ordinal": 657,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -4326,7 +6116,7 @@
     },
     {
       "id": "2019-november-tz0-p2-q9",
-      "ordinal": 612,
+      "ordinal": 664,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -4352,7 +6142,7 @@
     },
     {
       "id": "2019-november-tz0-p2-q10",
-      "ordinal": 613,
+      "ordinal": 665,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [
@@ -4381,7 +6171,7 @@
     },
     {
       "id": "2019-november-tz0-p3-sets-relations-and-groups-q3",
-      "ordinal": 625,
+      "ordinal": 677,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [
@@ -4409,7 +6199,7 @@
     },
     {
       "id": "2019-november-tz0-p3-calculus-q4",
-      "ordinal": 627,
+      "ordinal": 679,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -4432,7 +6222,7 @@
     },
     {
       "id": "2018-may-tz1-p1-q6",
-      "ordinal": 637,
+      "ordinal": 689,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4455,7 +6245,7 @@
     },
     {
       "id": "2018-may-tz1-p1-q9",
-      "ordinal": 640,
+      "ordinal": 692,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -4482,7 +6272,7 @@
     },
     {
       "id": "2018-may-tz1-p2-q4",
-      "ordinal": 657,
+      "ordinal": 709,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -4507,7 +6297,7 @@
     },
     {
       "id": "2018-may-tz1-p2-q6",
-      "ordinal": 659,
+      "ordinal": 711,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -4533,7 +6323,7 @@
     },
     {
       "id": "2018-may-tz1-p2-q7",
-      "ordinal": 660,
+      "ordinal": 712,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4556,7 +6346,7 @@
     },
     {
       "id": "2018-may-tz1-p2-q8",
-      "ordinal": 661,
+      "ordinal": 713,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -4579,7 +6369,7 @@
     },
     {
       "id": "2018-may-tz1-p2-q10",
-      "ordinal": 663,
+      "ordinal": 715,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [
@@ -4608,7 +6398,7 @@
     },
     {
       "id": "2018-may-tz1-p2-q11",
-      "ordinal": 664,
+      "ordinal": 716,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [
@@ -4633,7 +6423,7 @@
     },
     {
       "id": "2018-may-tz2-p2-q5",
-      "ordinal": 669,
+      "ordinal": 721,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4658,7 +6448,7 @@
     },
     {
       "id": "2018-may-tz2-p2-q9",
-      "ordinal": 673,
+      "ordinal": 725,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -4683,7 +6473,7 @@
     },
     {
       "id": "2018-may-tz2-p2-q10",
-      "ordinal": 674,
+      "ordinal": 726,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -4716,7 +6506,7 @@
     },
     {
       "id": "2018-may-tz0-p3-discrete-mathematics-q2",
-      "ordinal": 681,
+      "ordinal": 733,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4739,7 +6529,7 @@
     },
     {
       "id": "2018-may-tz0-p3-sets-relations-and-groups-q2",
-      "ordinal": 682,
+      "ordinal": 734,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4762,7 +6552,7 @@
     },
     {
       "id": "2018-may-tz0-p3-sets-relations-and-groups-q3",
-      "ordinal": 686,
+      "ordinal": 738,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4784,7 +6574,7 @@
     },
     {
       "id": "2018-november-tz0-p1-q5",
-      "ordinal": 700,
+      "ordinal": 752,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [
@@ -4809,7 +6599,7 @@
     },
     {
       "id": "2018-november-tz0-p2-q9",
-      "ordinal": 715,
+      "ordinal": 767,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -4841,7 +6631,7 @@
     },
     {
       "id": "2018-november-tz0-p3-discrete-mathematics-q1",
-      "ordinal": 719,
+      "ordinal": 771,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4864,7 +6654,7 @@
     },
     {
       "id": "2018-november-tz0-p3-sets-relations-and-groups-q1",
-      "ordinal": 720,
+      "ordinal": 772,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4887,7 +6677,7 @@
     },
     {
       "id": "2018-november-tz0-p3-calculus-q2",
-      "ordinal": 722,
+      "ordinal": 774,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -4911,7 +6701,7 @@
     },
     {
       "id": "2018-november-tz0-p3-discrete-mathematics-q2",
-      "ordinal": 723,
+      "ordinal": 775,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4934,7 +6724,7 @@
     },
     {
       "id": "2018-november-tz0-p3-sets-relations-and-groups-q2",
-      "ordinal": 724,
+      "ordinal": 776,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -4957,7 +6747,7 @@
     },
     {
       "id": "2018-november-tz0-p3-sets-relations-and-groups-q3",
-      "ordinal": 728,
+      "ordinal": 780,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -4986,7 +6776,7 @@
     },
     {
       "id": "2018-november-tz0-p3-sets-relations-and-groups-q5",
-      "ordinal": 734,
+      "ordinal": 786,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -5009,7 +6799,7 @@
     },
     {
       "id": "2017-may-tz1-p1-q4",
-      "ordinal": 738,
+      "ordinal": 790,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [
@@ -5034,7 +6824,7 @@
     },
     {
       "id": "2017-may-tz1-p1-q11",
-      "ordinal": 745,
+      "ordinal": 797,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -5066,7 +6856,7 @@
     },
     {
       "id": "2017-may-tz2-p1-q7",
-      "ordinal": 753,
+      "ordinal": 805,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [
@@ -5095,7 +6885,7 @@
     },
     {
       "id": "2017-may-tz2-p1-q8",
-      "ordinal": 754,
+      "ordinal": 806,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -5118,7 +6908,7 @@
     },
     {
       "id": "2017-may-tz2-p1-q9",
-      "ordinal": 755,
+      "ordinal": 807,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -5149,7 +6939,7 @@
     },
     {
       "id": "2017-may-tz1-p2-q10",
-      "ordinal": 767,
+      "ordinal": 819,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -5174,7 +6964,7 @@
     },
     {
       "id": "2017-may-tz2-p2-q11",
-      "ordinal": 780,
+      "ordinal": 832,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -5204,7 +6994,7 @@
     },
     {
       "id": "2017-may-tz0-p3-discrete-mathematics-q1",
-      "ordinal": 782,
+      "ordinal": 834,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -5227,7 +7017,7 @@
     },
     {
       "id": "2017-may-tz0-p3-statistics-and-probability-q1",
-      "ordinal": 784,
+      "ordinal": 836,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -5251,7 +7041,7 @@
     },
     {
       "id": "2017-may-tz0-p3-sets-relations-and-groups-q2",
-      "ordinal": 787,
+      "ordinal": 839,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -5274,7 +7064,7 @@
     },
     {
       "id": "2017-may-tz0-p3-sets-relations-and-groups-q4",
-      "ordinal": 795,
+      "ordinal": 847,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -5296,7 +7086,7 @@
     },
     {
       "id": "2017-november-tz0-p1-q6",
-      "ordinal": 804,
+      "ordinal": 856,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -5324,7 +7114,7 @@
     },
     {
       "id": "2017-november-tz0-p1-q11",
-      "ordinal": 809,
+      "ordinal": 861,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -5357,7 +7147,7 @@
     },
     {
       "id": "2017-november-tz0-p2-q6",
-      "ordinal": 815,
+      "ordinal": 867,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -5380,7 +7170,7 @@
     },
     {
       "id": "2017-november-tz0-p2-q11",
-      "ordinal": 820,
+      "ordinal": 872,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -5413,7 +7203,7 @@
     },
     {
       "id": "2017-november-tz0-p2-q12",
-      "ordinal": 821,
+      "ordinal": 873,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -5436,7 +7226,7 @@
     },
     {
       "id": "2017-november-tz0-p3-sets-relations-and-groups-q1",
-      "ordinal": 824,
+      "ordinal": 876,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -5459,7 +7249,7 @@
     },
     {
       "id": "2017-november-tz0-p3-discrete-mathematics-q2",
-      "ordinal": 827,
+      "ordinal": 879,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -5483,7 +7273,7 @@
     },
     {
       "id": "2017-november-tz0-p3-statistics-and-probability-q2",
-      "ordinal": 829,
+      "ordinal": 881,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -5506,7 +7296,7 @@
     },
     {
       "id": "2017-november-tz0-p3-discrete-mathematics-q3",
-      "ordinal": 831,
+      "ordinal": 883,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -5531,7 +7321,7 @@
     },
     {
       "id": "2017-november-tz0-p3-sets-relations-and-groups-q3",
-      "ordinal": 832,
+      "ordinal": 884,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -5560,7 +7350,7 @@
     },
     {
       "id": "2017-november-tz0-p3-calculus-q4",
-      "ordinal": 834,
+      "ordinal": 886,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -5583,7 +7373,7 @@
     },
     {
       "id": "2017-november-tz0-p3-discrete-mathematics-q4",
-      "ordinal": 835,
+      "ordinal": 887,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -5606,7 +7396,7 @@
     },
     {
       "id": "2017-november-tz0-p3-sets-relations-and-groups-q4",
-      "ordinal": 836,
+      "ordinal": 888,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -5630,7 +7420,7 @@
     },
     {
       "id": "2017-november-tz0-p3-calculus-q5",
-      "ordinal": 838,
+      "ordinal": 890,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -5660,7 +7450,7 @@
     },
     {
       "id": "2017-november-tz0-p3-sets-relations-and-groups-q5",
-      "ordinal": 840,
+      "ordinal": 892,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -5684,7 +7474,7 @@
     },
     {
       "id": "2017-november-tz0-p3-statistics-and-probability-q5",
-      "ordinal": 841,
+      "ordinal": 893,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -5710,198 +7500,8 @@
   ],
   "netCorrections": [
     {
-      "id": "2026-may-tza-p1-q12",
-      "ordinal": 12,
-      "latestCurrentTuple": {
-        "primaryTopic": "Calculus",
-        "secondaryTopics": [],
-        "skills": [
-          "Differential equations"
-        ],
-        "taxonomyGap": null
-      },
-      "finalTuple": {
-        "primaryTopic": "Calculus",
-        "secondaryTopics": [
-          "Number and algebra"
-        ],
-        "skills": [
-          "Differential equations",
-          "Exponents and logarithms",
-          "Integration",
-          "Limits and series"
-        ],
-        "taxonomyGap": null
-      },
-      "resolution": "existing_second_review",
-      "changedFromLatest": true
-    },
-    {
-      "id": "2026-may-tza-p2-q2",
-      "ordinal": 14,
-      "latestCurrentTuple": {
-        "primaryTopic": "Calculus",
-        "secondaryTopics": [],
-        "skills": [
-          "Differentiation"
-        ],
-        "taxonomyGap": null
-      },
-      "finalTuple": {
-        "primaryTopic": "Calculus",
-        "secondaryTopics": [
-          "Number and algebra"
-        ],
-        "skills": [
-          "Applications of differentiation",
-          "Equations and inequalities",
-          "Quadratics"
-        ],
-        "taxonomyGap": null
-      },
-      "resolution": "existing_second_review",
-      "changedFromLatest": true
-    },
-    {
-      "id": "2026-may-tza-p2-q4",
-      "ordinal": 16,
-      "latestCurrentTuple": {
-        "primaryTopic": "Calculus",
-        "secondaryTopics": [],
-        "skills": [
-          "Differentiation",
-          "Applications of differentiation",
-          "Applications of integration"
-        ],
-        "taxonomyGap": null
-      },
-      "finalTuple": {
-        "primaryTopic": "Calculus",
-        "secondaryTopics": [],
-        "skills": [
-          "Applications of differentiation",
-          "Applications of integration",
-          "Differentiation",
-          "Integration"
-        ],
-        "taxonomyGap": null
-      },
-      "resolution": "existing_second_review",
-      "changedFromLatest": true
-    },
-    {
-      "id": "2026-may-tza-p2-q9",
-      "ordinal": 21,
-      "latestCurrentTuple": {
-        "primaryTopic": "Calculus",
-        "secondaryTopics": [],
-        "skills": [
-          "Applications of integration"
-        ],
-        "taxonomyGap": null
-      },
-      "finalTuple": {
-        "primaryTopic": "Calculus",
-        "secondaryTopics": [],
-        "skills": [
-          "Applications of integration",
-          "Integration"
-        ],
-        "taxonomyGap": null
-      },
-      "resolution": "existing_second_review",
-      "changedFromLatest": true
-    },
-    {
-      "id": "2026-may-tza-p2-q10",
-      "ordinal": 22,
-      "latestCurrentTuple": {
-        "primaryTopic": "Number and algebra",
-        "secondaryTopics": [],
-        "skills": [
-          "Sequences and series",
-          "Exponents and logarithms"
-        ],
-        "taxonomyGap": null
-      },
-      "finalTuple": {
-        "primaryTopic": "Number and algebra",
-        "secondaryTopics": [],
-        "skills": [
-          "Equations and inequalities",
-          "Exponents and logarithms"
-        ],
-        "taxonomyGap": null
-      },
-      "resolution": "existing_second_review",
-      "changedFromLatest": true
-    },
-    {
-      "id": "2026-may-tza-p2-q12",
-      "ordinal": 24,
-      "latestCurrentTuple": {
-        "primaryTopic": "Functions",
-        "secondaryTopics": [
-          "Calculus",
-          "Number and algebra"
-        ],
-        "skills": [
-          "Graphs and transformations",
-          "Applications of differentiation",
-          "Equations and inequalities"
-        ],
-        "taxonomyGap": null
-      },
-      "finalTuple": {
-        "primaryTopic": "Functions",
-        "secondaryTopics": [
-          "Calculus",
-          "Number and algebra"
-        ],
-        "skills": [
-          "Equations and inequalities",
-          "Graphs and transformations",
-          "Limits and series"
-        ],
-        "taxonomyGap": null
-      },
-      "resolution": "existing_second_review",
-      "changedFromLatest": true
-    },
-    {
-      "id": "2026-may-tza-p3-q1",
-      "ordinal": 25,
-      "latestCurrentTuple": {
-        "primaryTopic": "Number and algebra",
-        "secondaryTopics": [
-          "Calculus"
-        ],
-        "skills": [
-          "Sequences and series",
-          "Proof and induction",
-          "Applications of integration"
-        ],
-        "taxonomyGap": null
-      },
-      "finalTuple": {
-        "primaryTopic": "Number and algebra",
-        "secondaryTopics": [
-          "Calculus"
-        ],
-        "skills": [
-          "Applications of integration",
-          "Integration",
-          "Proof and induction",
-          "Sequences and series"
-        ],
-        "taxonomyGap": null
-      },
-      "resolution": "existing_second_review",
-      "changedFromLatest": true
-    },
-    {
       "id": "2025-may-tz1-p1-q1",
-      "ordinal": 27,
+      "ordinal": 79,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -5924,7 +7524,7 @@
     },
     {
       "id": "2025-may-tz1-p1-q3",
-      "ordinal": 29,
+      "ordinal": 81,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -5947,7 +7547,7 @@
     },
     {
       "id": "2025-may-tz1-p1-q4",
-      "ordinal": 30,
+      "ordinal": 82,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -5970,7 +7570,7 @@
     },
     {
       "id": "2025-may-tz1-p1-q7",
-      "ordinal": 33,
+      "ordinal": 85,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -5993,7 +7593,7 @@
     },
     {
       "id": "2025-may-tz1-p1-q9",
-      "ordinal": 35,
+      "ordinal": 87,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -6018,7 +7618,7 @@
     },
     {
       "id": "2025-may-tz1-p1-q10",
-      "ordinal": 36,
+      "ordinal": 88,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -6050,7 +7650,7 @@
     },
     {
       "id": "2025-may-tz1-p1-q11",
-      "ordinal": 37,
+      "ordinal": 89,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -6076,7 +7676,7 @@
     },
     {
       "id": "2025-may-tz2-p1-q1",
-      "ordinal": 39,
+      "ordinal": 91,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [],
@@ -6099,7 +7699,7 @@
     },
     {
       "id": "2025-may-tz2-p1-q3",
-      "ordinal": 41,
+      "ordinal": 93,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -6122,7 +7722,7 @@
     },
     {
       "id": "2025-may-tz2-p1-q8",
-      "ordinal": 46,
+      "ordinal": 98,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [],
@@ -6148,7 +7748,7 @@
     },
     {
       "id": "2025-may-tz2-p1-q10",
-      "ordinal": 48,
+      "ordinal": 100,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -6185,7 +7785,7 @@
     },
     {
       "id": "2025-may-tz2-p1-q12",
-      "ordinal": 50,
+      "ordinal": 102,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -6211,7 +7811,7 @@
     },
     {
       "id": "2025-may-tz3-p1-q11",
-      "ordinal": 61,
+      "ordinal": 113,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -6234,7 +7834,7 @@
     },
     {
       "id": "2025-may-tz3-p1-q12",
-      "ordinal": 62,
+      "ordinal": 114,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -6260,7 +7860,7 @@
     },
     {
       "id": "2025-may-tz1-p2-q3",
-      "ordinal": 65,
+      "ordinal": 117,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -6283,7 +7883,7 @@
     },
     {
       "id": "2025-may-tz1-p2-q9",
-      "ordinal": 71,
+      "ordinal": 123,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -6306,7 +7906,7 @@
     },
     {
       "id": "2025-may-tz1-p2-q11",
-      "ordinal": 73,
+      "ordinal": 125,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [
@@ -6339,7 +7939,7 @@
     },
     {
       "id": "2025-may-tz1-p2-q12",
-      "ordinal": 74,
+      "ordinal": 126,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -6373,7 +7973,7 @@
     },
     {
       "id": "2025-may-tz2-p2-q5",
-      "ordinal": 79,
+      "ordinal": 131,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -6399,7 +7999,7 @@
     },
     {
       "id": "2025-may-tz2-p2-q12",
-      "ordinal": 86,
+      "ordinal": 138,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -6427,7 +8027,7 @@
     },
     {
       "id": "2025-may-tz1-p3-q2",
-      "ordinal": 100,
+      "ordinal": 152,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -6452,7 +8052,7 @@
     },
     {
       "id": "2025-may-tz3-p3-q1",
-      "ordinal": 103,
+      "ordinal": 155,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -6480,7 +8080,7 @@
     },
     {
       "id": "2025-november-tz1-p1-q2",
-      "ordinal": 106,
+      "ordinal": 158,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -6503,7 +8103,7 @@
     },
     {
       "id": "2025-november-tz3-p1-q11",
-      "ordinal": 126,
+      "ordinal": 178,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -6531,7 +8131,7 @@
     },
     {
       "id": "2025-november-tz1-p2-q7",
-      "ordinal": 133,
+      "ordinal": 185,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -6556,7 +8156,7 @@
     },
     {
       "id": "2025-november-tz1-p2-q9",
-      "ordinal": 135,
+      "ordinal": 187,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -6581,7 +8181,7 @@
     },
     {
       "id": "2025-november-tz3-p2-q11",
-      "ordinal": 149,
+      "ordinal": 201,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -6607,7 +8207,7 @@
     },
     {
       "id": "2025-november-tz3-p2-q12",
-      "ordinal": 150,
+      "ordinal": 202,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -6635,7 +8235,7 @@
     },
     {
       "id": "2025-november-tz1-p3-q1",
-      "ordinal": 151,
+      "ordinal": 203,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -6666,7 +8266,7 @@
     },
     {
       "id": "2025-november-tz1-p3-q2",
-      "ordinal": 152,
+      "ordinal": 204,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -6693,7 +8293,7 @@
     },
     {
       "id": "2025-november-tz3-p3-q1",
-      "ordinal": 153,
+      "ordinal": 205,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -6726,7 +8326,7 @@
     },
     {
       "id": "2024-may-tz1-p1-q6",
-      "ordinal": 160,
+      "ordinal": 212,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -6749,7 +8349,7 @@
     },
     {
       "id": "2024-may-tz2-p1-q2",
-      "ordinal": 168,
+      "ordinal": 220,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -6772,7 +8372,7 @@
     },
     {
       "id": "2024-may-tz2-p1-q10",
-      "ordinal": 176,
+      "ordinal": 228,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -6795,7 +8395,7 @@
     },
     {
       "id": "2024-may-tz2-p2-q9",
-      "ordinal": 199,
+      "ordinal": 251,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -6823,7 +8423,7 @@
     },
     {
       "id": "2024-may-tz2-p2-q12",
-      "ordinal": 202,
+      "ordinal": 254,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -6854,7 +8454,7 @@
     },
     {
       "id": "2024-november-tz0-p1-q4",
-      "ordinal": 210,
+      "ordinal": 262,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -6877,7 +8477,7 @@
     },
     {
       "id": "2024-november-tz0-p1-q7",
-      "ordinal": 213,
+      "ordinal": 265,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -6900,7 +8500,7 @@
     },
     {
       "id": "2024-november-tz0-p2-q10",
-      "ordinal": 228,
+      "ordinal": 280,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -6927,7 +8527,7 @@
     },
     {
       "id": "2023-may-tz1-p1-q2",
-      "ordinal": 234,
+      "ordinal": 286,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -6950,7 +8550,7 @@
     },
     {
       "id": "2023-may-tz1-p1-q4",
-      "ordinal": 236,
+      "ordinal": 288,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -6975,7 +8575,7 @@
     },
     {
       "id": "2023-may-tz1-p1-q7",
-      "ordinal": 239,
+      "ordinal": 291,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -6998,7 +8598,7 @@
     },
     {
       "id": "2023-may-tz1-p1-q9",
-      "ordinal": 241,
+      "ordinal": 293,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -7021,7 +8621,7 @@
     },
     {
       "id": "2023-may-tz1-p1-q11",
-      "ordinal": 243,
+      "ordinal": 295,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -7050,7 +8650,7 @@
     },
     {
       "id": "2023-may-tz2-p1-q4",
-      "ordinal": 248,
+      "ordinal": 300,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -7073,7 +8673,7 @@
     },
     {
       "id": "2023-may-tz2-p1-q11",
-      "ordinal": 255,
+      "ordinal": 307,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -7096,7 +8696,7 @@
     },
     {
       "id": "2023-may-tz2-p1-q12",
-      "ordinal": 256,
+      "ordinal": 308,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -7125,7 +8725,7 @@
     },
     {
       "id": "2023-may-tz1-p2-q3",
-      "ordinal": 259,
+      "ordinal": 311,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -7148,7 +8748,7 @@
     },
     {
       "id": "2023-may-tz1-p2-q6",
-      "ordinal": 262,
+      "ordinal": 314,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -7173,7 +8773,7 @@
     },
     {
       "id": "2023-may-tz1-p2-q10",
-      "ordinal": 266,
+      "ordinal": 318,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [
@@ -7202,7 +8802,7 @@
     },
     {
       "id": "2023-may-tz2-p2-q1",
-      "ordinal": 269,
+      "ordinal": 321,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -7224,7 +8824,7 @@
     },
     {
       "id": "2023-may-tz2-p2-q5",
-      "ordinal": 273,
+      "ordinal": 325,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -7250,7 +8850,7 @@
     },
     {
       "id": "2023-may-tz2-p2-q8",
-      "ordinal": 276,
+      "ordinal": 328,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -7276,7 +8876,7 @@
     },
     {
       "id": "2023-may-tz2-p2-q9",
-      "ordinal": 277,
+      "ordinal": 329,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -7299,7 +8899,7 @@
     },
     {
       "id": "2023-may-tz2-p2-q11",
-      "ordinal": 279,
+      "ordinal": 331,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -7325,7 +8925,7 @@
     },
     {
       "id": "2023-may-tz2-p2-q12",
-      "ordinal": 280,
+      "ordinal": 332,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -7349,7 +8949,7 @@
     },
     {
       "id": "2023-may-tz2-p3-q2",
-      "ordinal": 284,
+      "ordinal": 336,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -7375,7 +8975,7 @@
     },
     {
       "id": "2023-november-tz1-p1-q10",
-      "ordinal": 294,
+      "ordinal": 346,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -7402,7 +9002,7 @@
     },
     {
       "id": "2023-november-tz1-p1-q11",
-      "ordinal": 295,
+      "ordinal": 347,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -7431,7 +9031,7 @@
     },
     {
       "id": "2023-november-tz1-p1-q12",
-      "ordinal": 296,
+      "ordinal": 348,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -7458,7 +9058,7 @@
     },
     {
       "id": "2023-november-tz2-p1-q10",
-      "ordinal": 306,
+      "ordinal": 358,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -7485,7 +9085,7 @@
     },
     {
       "id": "2023-november-tz2-p1-q11",
-      "ordinal": 307,
+      "ordinal": 359,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -7514,7 +9114,7 @@
     },
     {
       "id": "2023-november-tz2-p1-q12",
-      "ordinal": 308,
+      "ordinal": 360,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -7541,7 +9141,7 @@
     },
     {
       "id": "2023-november-tz2-p2-q10",
-      "ordinal": 330,
+      "ordinal": 382,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -7568,7 +9168,7 @@
     },
     {
       "id": "2023-november-tz0-p3-q1",
-      "ordinal": 333,
+      "ordinal": 385,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -7594,7 +9194,7 @@
     },
     {
       "id": "2022-may-tz1-p1-q3",
-      "ordinal": 337,
+      "ordinal": 389,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -7619,7 +9219,7 @@
     },
     {
       "id": "2022-may-tz1-p1-q10",
-      "ordinal": 344,
+      "ordinal": 396,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -7645,7 +9245,7 @@
     },
     {
       "id": "2022-may-tz2-p1-q2",
-      "ordinal": 348,
+      "ordinal": 400,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -7668,7 +9268,7 @@
     },
     {
       "id": "2022-may-tz2-p1-q5",
-      "ordinal": 351,
+      "ordinal": 403,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -7691,7 +9291,7 @@
     },
     {
       "id": "2022-may-tz2-p1-q6",
-      "ordinal": 352,
+      "ordinal": 404,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -7719,7 +9319,7 @@
     },
     {
       "id": "2022-may-tz2-p1-q9",
-      "ordinal": 355,
+      "ordinal": 407,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -7742,7 +9342,7 @@
     },
     {
       "id": "2022-may-tz1-p2-q6",
-      "ordinal": 364,
+      "ordinal": 416,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -7767,7 +9367,7 @@
     },
     {
       "id": "2022-may-tz1-p2-q11",
-      "ordinal": 369,
+      "ordinal": 421,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -7794,7 +9394,7 @@
     },
     {
       "id": "2022-may-tz2-p2-q2",
-      "ordinal": 372,
+      "ordinal": 424,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -7816,7 +9416,7 @@
     },
     {
       "id": "2022-may-tz2-p2-q8",
-      "ordinal": 378,
+      "ordinal": 430,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -7841,7 +9441,7 @@
     },
     {
       "id": "2022-may-tz2-p2-q10",
-      "ordinal": 380,
+      "ordinal": 432,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -7866,7 +9466,7 @@
     },
     {
       "id": "2022-may-tz2-p2-q12",
-      "ordinal": 382,
+      "ordinal": 434,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -7893,7 +9493,7 @@
     },
     {
       "id": "2022-may-tz1-p3-q1",
-      "ordinal": 383,
+      "ordinal": 435,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -7919,7 +9519,7 @@
     },
     {
       "id": "2022-may-tz1-p3-q2",
-      "ordinal": 384,
+      "ordinal": 436,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -7952,7 +9552,7 @@
     },
     {
       "id": "2022-may-tz2-p3-q1",
-      "ordinal": 385,
+      "ordinal": 437,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -7983,7 +9583,7 @@
     },
     {
       "id": "2022-november-tz0-p1-q2",
-      "ordinal": 388,
+      "ordinal": 440,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -8006,7 +9606,7 @@
     },
     {
       "id": "2022-november-tz0-p1-q5",
-      "ordinal": 391,
+      "ordinal": 443,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -8029,7 +9629,7 @@
     },
     {
       "id": "2022-november-tz0-p1-q9",
-      "ordinal": 395,
+      "ordinal": 447,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -8054,7 +9654,7 @@
     },
     {
       "id": "2022-november-tz0-p1-q10",
-      "ordinal": 396,
+      "ordinal": 448,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -8090,7 +9690,7 @@
     },
     {
       "id": "2022-november-tz0-p1-q11",
-      "ordinal": 397,
+      "ordinal": 449,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -8117,7 +9717,7 @@
     },
     {
       "id": "2022-november-tz0-p2-q1",
-      "ordinal": 399,
+      "ordinal": 451,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -8139,7 +9739,7 @@
     },
     {
       "id": "2022-november-tz0-p2-q2",
-      "ordinal": 400,
+      "ordinal": 452,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -8168,7 +9768,7 @@
     },
     {
       "id": "2022-november-tz0-p2-q9",
-      "ordinal": 407,
+      "ordinal": 459,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -8191,7 +9791,7 @@
     },
     {
       "id": "2022-november-tz0-p2-q10",
-      "ordinal": 408,
+      "ordinal": 460,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -8218,7 +9818,7 @@
     },
     {
       "id": "2022-november-tz0-p2-q11",
-      "ordinal": 409,
+      "ordinal": 461,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -8246,7 +9846,7 @@
     },
     {
       "id": "2022-november-tz0-p2-q12",
-      "ordinal": 410,
+      "ordinal": 462,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -8269,7 +9869,7 @@
     },
     {
       "id": "2022-november-tz0-p3-q1",
-      "ordinal": 411,
+      "ordinal": 463,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -8297,7 +9897,7 @@
     },
     {
       "id": "2022-november-tz0-p3-q2",
-      "ordinal": 412,
+      "ordinal": 464,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -8324,7 +9924,7 @@
     },
     {
       "id": "2021-may-tz1-p1-q4",
-      "ordinal": 416,
+      "ordinal": 468,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -8347,7 +9947,7 @@
     },
     {
       "id": "2021-may-tz1-p1-q6",
-      "ordinal": 418,
+      "ordinal": 470,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -8370,7 +9970,7 @@
     },
     {
       "id": "2021-may-tz2-p1-q11",
-      "ordinal": 435,
+      "ordinal": 487,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -8394,7 +9994,7 @@
     },
     {
       "id": "2021-may-tz2-p1-q12",
-      "ordinal": 436,
+      "ordinal": 488,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -8425,7 +10025,7 @@
     },
     {
       "id": "2021-may-tz1-p2-q3",
-      "ordinal": 439,
+      "ordinal": 491,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -8447,7 +10047,7 @@
     },
     {
       "id": "2021-may-tz1-p2-q4",
-      "ordinal": 440,
+      "ordinal": 492,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -8472,7 +10072,7 @@
     },
     {
       "id": "2021-may-tz1-p2-q9",
-      "ordinal": 445,
+      "ordinal": 497,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -8498,7 +10098,7 @@
     },
     {
       "id": "2021-may-tz1-p2-q11",
-      "ordinal": 447,
+      "ordinal": 499,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -8527,7 +10127,7 @@
     },
     {
       "id": "2021-may-tz1-p2-q12",
-      "ordinal": 448,
+      "ordinal": 500,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -8553,7 +10153,7 @@
     },
     {
       "id": "2021-may-tz2-p2-q3",
-      "ordinal": 451,
+      "ordinal": 503,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -8576,7 +10176,7 @@
     },
     {
       "id": "2021-may-tz2-p2-q4",
-      "ordinal": 452,
+      "ordinal": 504,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [],
@@ -8601,7 +10201,7 @@
     },
     {
       "id": "2021-may-tz2-p2-q10",
-      "ordinal": 458,
+      "ordinal": 510,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -8628,7 +10228,7 @@
     },
     {
       "id": "2021-may-tz2-p2-q11",
-      "ordinal": 459,
+      "ordinal": 511,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -8652,7 +10252,7 @@
     },
     {
       "id": "2021-may-tz1-p3-q1",
-      "ordinal": 461,
+      "ordinal": 513,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -8678,7 +10278,7 @@
     },
     {
       "id": "2021-may-tz1-p3-q2",
-      "ordinal": 462,
+      "ordinal": 514,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [
@@ -8707,7 +10307,7 @@
     },
     {
       "id": "2021-may-tz2-p3-q1",
-      "ordinal": 463,
+      "ordinal": 515,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -8733,7 +10333,7 @@
     },
     {
       "id": "2021-may-tz2-p3-q2",
-      "ordinal": 464,
+      "ordinal": 516,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -8761,7 +10361,7 @@
     },
     {
       "id": "2021-november-tz0-p1-q3",
-      "ordinal": 467,
+      "ordinal": 519,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -8784,7 +10384,7 @@
     },
     {
       "id": "2021-november-tz0-p1-q4",
-      "ordinal": 468,
+      "ordinal": 520,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -8807,7 +10407,7 @@
     },
     {
       "id": "2021-november-tz0-p1-q5",
-      "ordinal": 469,
+      "ordinal": 521,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -8832,7 +10432,7 @@
     },
     {
       "id": "2021-november-tz0-p1-q10",
-      "ordinal": 474,
+      "ordinal": 526,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -8856,7 +10456,7 @@
     },
     {
       "id": "2021-november-tz0-p2-q3",
-      "ordinal": 479,
+      "ordinal": 531,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -8881,7 +10481,7 @@
     },
     {
       "id": "2021-november-tz0-p2-q4",
-      "ordinal": 480,
+      "ordinal": 532,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -8904,7 +10504,7 @@
     },
     {
       "id": "2021-november-tz0-p2-q5",
-      "ordinal": 481,
+      "ordinal": 533,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -8927,7 +10527,7 @@
     },
     {
       "id": "2021-november-tz0-p2-q9",
-      "ordinal": 485,
+      "ordinal": 537,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -8952,7 +10552,7 @@
     },
     {
       "id": "2021-november-tz0-p3-q1",
-      "ordinal": 488,
+      "ordinal": 540,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -8984,7 +10584,7 @@
     },
     {
       "id": "2021-november-tz0-p3-q2",
-      "ordinal": 489,
+      "ordinal": 541,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -9010,7 +10610,7 @@
     },
     {
       "id": "2020-november-tz0-p1-q5",
-      "ordinal": 494,
+      "ordinal": 546,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -9033,7 +10633,7 @@
     },
     {
       "id": "2020-november-tz0-p1-q12",
-      "ordinal": 501,
+      "ordinal": 553,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [],
@@ -9061,7 +10661,7 @@
     },
     {
       "id": "2020-november-tz0-p2-q2",
-      "ordinal": 503,
+      "ordinal": 555,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -9084,7 +10684,7 @@
     },
     {
       "id": "2020-november-tz0-p2-q3",
-      "ordinal": 504,
+      "ordinal": 556,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -9113,7 +10713,7 @@
     },
     {
       "id": "2020-november-tz0-p2-q5",
-      "ordinal": 506,
+      "ordinal": 558,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [
@@ -9139,7 +10739,7 @@
     },
     {
       "id": "2020-november-tz0-p2-q8",
-      "ordinal": 509,
+      "ordinal": 561,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -9162,7 +10762,7 @@
     },
     {
       "id": "2020-november-tz0-p2-q9",
-      "ordinal": 510,
+      "ordinal": 562,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -9187,7 +10787,7 @@
     },
     {
       "id": "2020-november-tz0-p2-q11",
-      "ordinal": 512,
+      "ordinal": 564,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -9221,7 +10821,7 @@
     },
     {
       "id": "2020-november-tz0-p3-discrete-mathematics-q1",
-      "ordinal": 514,
+      "ordinal": 566,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -9244,7 +10844,7 @@
     },
     {
       "id": "2020-november-tz0-p3-statistics-and-probability-q1",
-      "ordinal": 516,
+      "ordinal": 568,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -9267,7 +10867,7 @@
     },
     {
       "id": "2020-november-tz0-p3-sets-relations-and-groups-q2",
-      "ordinal": 519,
+      "ordinal": 571,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -9292,7 +10892,7 @@
     },
     {
       "id": "2020-november-tz0-p3-calculus-q3",
-      "ordinal": 521,
+      "ordinal": 573,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -9316,7 +10916,7 @@
     },
     {
       "id": "2020-november-tz0-p3-discrete-mathematics-q4",
-      "ordinal": 526,
+      "ordinal": 578,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -9338,7 +10938,7 @@
     },
     {
       "id": "2020-november-tz0-p3-sets-relations-and-groups-q4",
-      "ordinal": 527,
+      "ordinal": 579,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -9360,7 +10960,7 @@
     },
     {
       "id": "2020-november-tz0-p3-sets-relations-and-groups-q5",
-      "ordinal": 530,
+      "ordinal": 582,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [],
@@ -9385,7 +10985,7 @@
     },
     {
       "id": "2019-may-tz1-p1-q1",
-      "ordinal": 531,
+      "ordinal": 583,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [
@@ -9413,7 +11013,7 @@
     },
     {
       "id": "2019-may-tz1-p1-q5",
-      "ordinal": 535,
+      "ordinal": 587,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -9439,7 +11039,7 @@
     },
     {
       "id": "2019-may-tz2-p1-q7",
-      "ordinal": 548,
+      "ordinal": 600,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -9462,7 +11062,7 @@
     },
     {
       "id": "2019-may-tz2-p1-q9",
-      "ordinal": 550,
+      "ordinal": 602,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -9494,7 +11094,7 @@
     },
     {
       "id": "2019-may-tz1-p2-q9",
-      "ordinal": 561,
+      "ordinal": 613,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -9519,7 +11119,7 @@
     },
     {
       "id": "2019-may-tz1-p2-q10",
-      "ordinal": 562,
+      "ordinal": 614,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -9548,7 +11148,7 @@
     },
     {
       "id": "2019-may-tz1-p2-q11",
-      "ordinal": 563,
+      "ordinal": 615,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -9572,7 +11172,7 @@
     },
     {
       "id": "2019-may-tz2-p2-q2",
-      "ordinal": 565,
+      "ordinal": 617,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -9597,7 +11197,7 @@
     },
     {
       "id": "2019-may-tz2-p2-q4",
-      "ordinal": 567,
+      "ordinal": 619,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -9626,7 +11226,7 @@
     },
     {
       "id": "2019-may-tz2-p2-q6",
-      "ordinal": 569,
+      "ordinal": 621,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -9649,7 +11249,7 @@
     },
     {
       "id": "2019-may-tz2-p2-q8",
-      "ordinal": 571,
+      "ordinal": 623,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -9672,7 +11272,7 @@
     },
     {
       "id": "2019-may-tz2-p2-q9",
-      "ordinal": 572,
+      "ordinal": 624,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -9701,7 +11301,7 @@
     },
     {
       "id": "2019-may-tz0-p3-sets-relations-and-groups-q1",
-      "ordinal": 577,
+      "ordinal": 629,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -9724,7 +11324,7 @@
     },
     {
       "id": "2019-may-tz0-p3-calculus-q2",
-      "ordinal": 579,
+      "ordinal": 631,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -9747,7 +11347,7 @@
     },
     {
       "id": "2019-may-tz0-p3-sets-relations-and-groups-q2",
-      "ordinal": 581,
+      "ordinal": 633,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -9770,7 +11370,7 @@
     },
     {
       "id": "2019-may-tz0-p3-statistics-and-probability-q2",
-      "ordinal": 582,
+      "ordinal": 634,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -9793,7 +11393,7 @@
     },
     {
       "id": "2019-may-tz0-p3-sets-relations-and-groups-q3",
-      "ordinal": 585,
+      "ordinal": 637,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -9816,7 +11416,7 @@
     },
     {
       "id": "2019-may-tz0-p3-sets-relations-and-groups-q4",
-      "ordinal": 589,
+      "ordinal": 641,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -9839,7 +11439,7 @@
     },
     {
       "id": "2019-may-tz0-p3-calculus-q5",
-      "ordinal": 591,
+      "ordinal": 643,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -9862,7 +11462,7 @@
     },
     {
       "id": "2019-november-tz0-p1-q3",
-      "ordinal": 595,
+      "ordinal": 647,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -9884,7 +11484,7 @@
     },
     {
       "id": "2019-november-tz0-p2-q2",
-      "ordinal": 605,
+      "ordinal": 657,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -9907,7 +11507,7 @@
     },
     {
       "id": "2019-november-tz0-p2-q9",
-      "ordinal": 612,
+      "ordinal": 664,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -9933,7 +11533,7 @@
     },
     {
       "id": "2019-november-tz0-p2-q10",
-      "ordinal": 613,
+      "ordinal": 665,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [
@@ -9962,7 +11562,7 @@
     },
     {
       "id": "2019-november-tz0-p3-sets-relations-and-groups-q3",
-      "ordinal": 625,
+      "ordinal": 677,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [
@@ -9990,7 +11590,7 @@
     },
     {
       "id": "2019-november-tz0-p3-calculus-q4",
-      "ordinal": 627,
+      "ordinal": 679,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -10013,7 +11613,7 @@
     },
     {
       "id": "2018-may-tz1-p1-q6",
-      "ordinal": 637,
+      "ordinal": 689,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10036,7 +11636,7 @@
     },
     {
       "id": "2018-may-tz1-p1-q9",
-      "ordinal": 640,
+      "ordinal": 692,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -10063,7 +11663,7 @@
     },
     {
       "id": "2018-may-tz1-p2-q4",
-      "ordinal": 657,
+      "ordinal": 709,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -10088,7 +11688,7 @@
     },
     {
       "id": "2018-may-tz1-p2-q6",
-      "ordinal": 659,
+      "ordinal": 711,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -10114,7 +11714,7 @@
     },
     {
       "id": "2018-may-tz1-p2-q7",
-      "ordinal": 660,
+      "ordinal": 712,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10137,7 +11737,7 @@
     },
     {
       "id": "2018-may-tz1-p2-q8",
-      "ordinal": 661,
+      "ordinal": 713,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -10160,7 +11760,7 @@
     },
     {
       "id": "2018-may-tz1-p2-q10",
-      "ordinal": 663,
+      "ordinal": 715,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [
@@ -10189,7 +11789,7 @@
     },
     {
       "id": "2018-may-tz1-p2-q11",
-      "ordinal": 664,
+      "ordinal": 716,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [
@@ -10214,7 +11814,7 @@
     },
     {
       "id": "2018-may-tz2-p2-q5",
-      "ordinal": 669,
+      "ordinal": 721,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10239,7 +11839,7 @@
     },
     {
       "id": "2018-may-tz2-p2-q9",
-      "ordinal": 673,
+      "ordinal": 725,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -10264,7 +11864,7 @@
     },
     {
       "id": "2018-may-tz2-p2-q10",
-      "ordinal": 674,
+      "ordinal": 726,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -10297,7 +11897,7 @@
     },
     {
       "id": "2018-may-tz0-p3-discrete-mathematics-q2",
-      "ordinal": 681,
+      "ordinal": 733,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10320,7 +11920,7 @@
     },
     {
       "id": "2018-may-tz0-p3-sets-relations-and-groups-q2",
-      "ordinal": 682,
+      "ordinal": 734,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10343,7 +11943,7 @@
     },
     {
       "id": "2018-may-tz0-p3-sets-relations-and-groups-q3",
-      "ordinal": 686,
+      "ordinal": 738,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10365,7 +11965,7 @@
     },
     {
       "id": "2018-november-tz0-p1-q5",
-      "ordinal": 700,
+      "ordinal": 752,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [
@@ -10390,7 +11990,7 @@
     },
     {
       "id": "2018-november-tz0-p2-q9",
-      "ordinal": 715,
+      "ordinal": 767,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -10422,7 +12022,7 @@
     },
     {
       "id": "2018-november-tz0-p3-discrete-mathematics-q1",
-      "ordinal": 719,
+      "ordinal": 771,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10445,7 +12045,7 @@
     },
     {
       "id": "2018-november-tz0-p3-sets-relations-and-groups-q1",
-      "ordinal": 720,
+      "ordinal": 772,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10468,7 +12068,7 @@
     },
     {
       "id": "2018-november-tz0-p3-calculus-q2",
-      "ordinal": 722,
+      "ordinal": 774,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -10492,7 +12092,7 @@
     },
     {
       "id": "2018-november-tz0-p3-discrete-mathematics-q2",
-      "ordinal": 723,
+      "ordinal": 775,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10515,7 +12115,7 @@
     },
     {
       "id": "2018-november-tz0-p3-sets-relations-and-groups-q2",
-      "ordinal": 724,
+      "ordinal": 776,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10538,7 +12138,7 @@
     },
     {
       "id": "2018-november-tz0-p3-sets-relations-and-groups-q3",
-      "ordinal": 728,
+      "ordinal": 780,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -10567,7 +12167,7 @@
     },
     {
       "id": "2018-november-tz0-p3-sets-relations-and-groups-q5",
-      "ordinal": 734,
+      "ordinal": 786,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10590,7 +12190,7 @@
     },
     {
       "id": "2017-may-tz1-p1-q4",
-      "ordinal": 738,
+      "ordinal": 790,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [
@@ -10615,7 +12215,7 @@
     },
     {
       "id": "2017-may-tz1-p1-q11",
-      "ordinal": 745,
+      "ordinal": 797,
       "latestCurrentTuple": {
         "primaryTopic": "Functions",
         "secondaryTopics": [
@@ -10647,7 +12247,7 @@
     },
     {
       "id": "2017-may-tz2-p1-q7",
-      "ordinal": 753,
+      "ordinal": 805,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [
@@ -10676,7 +12276,7 @@
     },
     {
       "id": "2017-may-tz2-p1-q8",
-      "ordinal": 754,
+      "ordinal": 806,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10699,7 +12299,7 @@
     },
     {
       "id": "2017-may-tz2-p1-q9",
-      "ordinal": 755,
+      "ordinal": 807,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -10730,7 +12330,7 @@
     },
     {
       "id": "2017-may-tz1-p2-q10",
-      "ordinal": 767,
+      "ordinal": 819,
       "latestCurrentTuple": {
         "primaryTopic": "Geometry and trigonometry",
         "secondaryTopics": [],
@@ -10755,7 +12355,7 @@
     },
     {
       "id": "2017-may-tz2-p2-q11",
-      "ordinal": 780,
+      "ordinal": 832,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -10785,7 +12385,7 @@
     },
     {
       "id": "2017-may-tz0-p3-discrete-mathematics-q1",
-      "ordinal": 782,
+      "ordinal": 834,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10808,7 +12408,7 @@
     },
     {
       "id": "2017-may-tz0-p3-statistics-and-probability-q1",
-      "ordinal": 784,
+      "ordinal": 836,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -10832,7 +12432,7 @@
     },
     {
       "id": "2017-may-tz0-p3-sets-relations-and-groups-q2",
-      "ordinal": 787,
+      "ordinal": 839,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10855,7 +12455,7 @@
     },
     {
       "id": "2017-may-tz0-p3-sets-relations-and-groups-q4",
-      "ordinal": 795,
+      "ordinal": 847,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -10877,7 +12477,7 @@
     },
     {
       "id": "2017-november-tz0-p1-q6",
-      "ordinal": 804,
+      "ordinal": 856,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -10905,7 +12505,7 @@
     },
     {
       "id": "2017-november-tz0-p1-q11",
-      "ordinal": 809,
+      "ordinal": 861,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -10938,7 +12538,7 @@
     },
     {
       "id": "2017-november-tz0-p2-q6",
-      "ordinal": 815,
+      "ordinal": 867,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -10961,7 +12561,7 @@
     },
     {
       "id": "2017-november-tz0-p2-q11",
-      "ordinal": 820,
+      "ordinal": 872,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [
@@ -10994,7 +12594,7 @@
     },
     {
       "id": "2017-november-tz0-p2-q12",
-      "ordinal": 821,
+      "ordinal": 873,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -11017,7 +12617,7 @@
     },
     {
       "id": "2017-november-tz0-p3-sets-relations-and-groups-q1",
-      "ordinal": 824,
+      "ordinal": 876,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -11040,7 +12640,7 @@
     },
     {
       "id": "2017-november-tz0-p3-discrete-mathematics-q2",
-      "ordinal": 827,
+      "ordinal": 879,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -11064,7 +12664,7 @@
     },
     {
       "id": "2017-november-tz0-p3-statistics-and-probability-q2",
-      "ordinal": 829,
+      "ordinal": 881,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -11087,7 +12687,7 @@
     },
     {
       "id": "2017-november-tz0-p3-discrete-mathematics-q3",
-      "ordinal": 831,
+      "ordinal": 883,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -11112,7 +12712,7 @@
     },
     {
       "id": "2017-november-tz0-p3-sets-relations-and-groups-q3",
-      "ordinal": 832,
+      "ordinal": 884,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [
@@ -11141,7 +12741,7 @@
     },
     {
       "id": "2017-november-tz0-p3-calculus-q4",
-      "ordinal": 834,
+      "ordinal": 886,
       "latestCurrentTuple": {
         "primaryTopic": "Calculus",
         "secondaryTopics": [],
@@ -11164,7 +12764,7 @@
     },
     {
       "id": "2017-november-tz0-p3-discrete-mathematics-q4",
-      "ordinal": 835,
+      "ordinal": 887,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -11187,7 +12787,7 @@
     },
     {
       "id": "2017-november-tz0-p3-sets-relations-and-groups-q4",
-      "ordinal": 836,
+      "ordinal": 888,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -11211,7 +12811,7 @@
     },
     {
       "id": "2017-november-tz0-p3-sets-relations-and-groups-q5",
-      "ordinal": 840,
+      "ordinal": 892,
       "latestCurrentTuple": {
         "primaryTopic": "Number and algebra",
         "secondaryTopics": [],
@@ -11235,7 +12835,7 @@
     },
     {
       "id": "2017-november-tz0-p3-statistics-and-probability-q5",
-      "ordinal": 841,
+      "ordinal": 893,
       "latestCurrentTuple": {
         "primaryTopic": "Statistics and probability",
         "secondaryTopics": [],
@@ -11277,5 +12877,6 @@
     ],
     "reason": "Actual production taxonomy contains the directly assessed Euler and Poisson skills."
   },
-  "validationErrors": []
+  "validationErrors": [],
+  "revisionNote": "2026-10-13 successor of the 841-record artifact: the 26 retired 2026-may-tza-* donated-scan reconstructions were removed and the 78 official May 2026 TZ1/TZ2/TZ3 questions (2026-may-tz{1,2,3}-p{1,2,3}-q*) were added with manually reviewed tuples (question text plus official markscheme). The 815 surviving records keep their tuples and non-classification hashes unchanged; only ordinals were renumbered. For the 78 new records there is no prior app tuple, so baselineTuple/latestCurrentTuple equal the reviewed tuple (changedFromLatest=false). sourceAppSha256/latestAppSha256 still refer to the pre-2026 app snapshot."
 }

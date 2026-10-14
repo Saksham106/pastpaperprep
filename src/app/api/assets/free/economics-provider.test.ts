@@ -24,6 +24,7 @@ vi.mock("@/lib/question-delivery", () => ({ richDetailsFor: () => ({ summary: ""
 
 import { GET } from "./route";
 import { POST } from "../sign/route";
+import { FREE_ASSET_EXPIRES_IN } from "@/lib/signed-assets";
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -51,7 +52,7 @@ describe("Economics preview signing uses the verified object store", () => {
       expect(response.status).toBe(200);
       const body = await response.json();
       expect(body.asset).toMatchObject({ questionId: id, kind, urls: [expect.stringContaining(`https://r2.example/${bank}/`)] });
-      expect(getSignedUrl).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ input: expect.objectContaining({ Bucket: "pastpaperprep-assets" }) }), { expiresIn: 86400 });
+      expect(getSignedUrl).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ input: expect.objectContaining({ Bucket: "pastpaperprep-assets" }) }), { expiresIn: FREE_ASSET_EXPIRES_IN });
       expect(createAdminClient).not.toHaveBeenCalled();
       expect(rpc).not.toHaveBeenCalled();
     });

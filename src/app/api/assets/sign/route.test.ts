@@ -74,7 +74,7 @@ describe("POST /api/assets/sign", () => {
   it("signs paid assets and then atomically consumes the daily allowance", async () => {
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
       method: "POST",
-      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p2-tza-q2", kind: "question" }] }),
+      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "2026-may-p2-tz1-q2", kind: "question" }] }),
       headers: { "content-type": "application/json" },
     }));
 
@@ -87,6 +87,15 @@ describe("POST /api/assets/sign", () => {
       accessibleText: expect.any(String),
     }));
     expect(payload.assets[0].details).not.toHaveProperty("searchText");
+  });
+
+  it("signs a retired question id from an already-open page through its replacement", async () => {
+    const { fetchSignedAssets } = await import("@/lib/signed-assets");
+    const fetcher = (async (_url: string, init?: RequestInit) => POST(new Request("https://pastpaperprep.com/api/assets/sign", { method: "POST", body: init?.body, headers: { "content-type": "application/json" } }))) as unknown as typeof fetch;
+    const signed = await fetchSignedAssets("ib-hl", [{ questionId: "2026-may-tza-p1-q1", kind: "question" }, { questionId: "2026-may-tza-p1-q1", kind: "answer" }], fetcher);
+    expect([...signed.keys()].sort()).toEqual(["2026-may-tza-p1-q1:answer", "2026-may-tza-p1-q1:question"]);
+    expect(signed.get("2026-may-tza-p1-q1:question")?.urls[0]).toContain("ib-hl/questions/2026-may-tz1-p1-q1");
+    expect(signed.get("2026-may-tza-p1-q1:answer")?.urls[0]).toContain("ib-hl/markschemes/2026-may-tz1-p1-q1");
   });
 
   it("signs the reviewed 0606 blank-tail display crop without altering the original asset URL", async () => {
@@ -112,7 +121,7 @@ describe("POST /api/assets/sign", () => {
       method: "POST",
       body: JSON.stringify({ bank: "ib-sl", requests: [
         { questionId: "2017-may-p1-tz1-q1", kind: "question" },
-        { questionId: "m26-math-aasl-p2-tza-q2", kind: "question" },
+        { questionId: "2026-may-p2-tz1-q2", kind: "question" },
       ] }),
       headers: { "content-type": "application/json" },
     }));
@@ -144,7 +153,7 @@ describe("POST /api/assets/sign", () => {
     rpc.mockImplementation((name: string) => Promise.resolve(name === "get_custom_bundle_access" ? { data: [], error: null } : { data: false, error: null }));
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
       method: "POST",
-      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p1-tza-q4", kind: "question" }] }),
+      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "2026-may-p1-tz1-q4", kind: "question" }] }),
       headers: { "content-type": "application/json" },
     }));
 
@@ -161,7 +170,7 @@ describe("POST /api/assets/sign", () => {
 
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
       method: "POST",
-      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p2-tza-q2", kind: "question" }] }),
+      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "2026-may-p2-tz1-q2", kind: "question" }] }),
       headers: { "content-type": "application/json" },
     }));
 
@@ -176,7 +185,7 @@ describe("POST /api/assets/sign", () => {
     createSignedUrls.mockRejectedValueOnce(new Error("NotFound"));
     const response = await POST(new Request("https://pastpaperprep.com/api/assets/sign", {
       method: "POST",
-      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "m26-math-aasl-p2-tza-q2", kind: "question" }] }),
+      body: JSON.stringify({ bank: "ib-sl", requests: [{ questionId: "2026-may-p2-tz1-q2", kind: "question" }] }),
       headers: { "content-type": "application/json" },
     }));
 

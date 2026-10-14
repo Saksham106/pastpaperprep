@@ -36,7 +36,7 @@ export default async function AccountPage({
     if (isFutureIssuedJwtError(accessResult.error)) {
       captureServerException(new Error("Access verification failed"), {
         route: "/account", route_type: "render", stage: "entitlement",
-        storage_provider: "supabase", error_code: "PGRST303",
+        storage_provider: "supabase", error_code: "PGRST303", user_id: claimsData.claims.sub,
       });
       return <AccessReadRecovery retryPath="/account" />;
     }

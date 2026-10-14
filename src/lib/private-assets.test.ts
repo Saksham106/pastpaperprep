@@ -32,8 +32,8 @@ describe("signPrivateAssetUrls", () => {
     expect(serverLog).toHaveBeenCalledWith("info", "asset_signing", expect.objectContaining({ provider: "supabase", bank: "ib-economics-hl", assets: 2, outcome: "signed", long_lived: false }));
     createSignedUrls.mockResolvedValueOnce({ data: null, error: Object.assign(new Error("Object not found for alice@example.com"), { statusCode: "404" }) });
     await expect(signPrivateAssetUrls(["ib-economics-hl/questions/q1/question-01.webp"], 600, { provider: "supabase" })).rejects.toThrow();
-    expect(serverLog).toHaveBeenLastCalledWith("error", "asset_signing", expect.objectContaining({ provider: "supabase", bank: "ib-economics-hl", outcome: "failed", message: "Object not found for <email>" }));
-    expect(JSON.stringify(serverLog.mock.calls)).not.toContain("questions/q1");
+    expect(serverLog).toHaveBeenLastCalledWith("error", "asset_signing", expect.objectContaining({ provider: "supabase", bank: "ib-economics-hl", outcome: "failed", message: undefined }));
+    expect(JSON.stringify(serverLog.mock.calls)).not.toMatch(/alice|questions\/q1/);
   });
 
   it("uses Supabase unless R2 is explicitly enabled", async () => {
@@ -106,23 +106,23 @@ describe("signPrivateAssetUrls", () => {
 
   it("keeps signed links to an hour unless the caller opts into long-lived free links", async () => {
     await expect(signPrivateAssetUrls(["ib-sl/questions/a.webp"], 3601)).rejects.toThrow("Signed URL expiry is invalid");
-    await expect(signPrivateAssetUrls(["ib-sl/questions/a.webp"], 86_401, { longLived: true })).rejects.toThrow("Signed URL expiry is invalid");
+    await expect(signPrivateAssetUrls(["ib-sl/questions/a.webp"], 604_801, { longLived: true })).rejects.toThrow("Signed URL expiry is invalid");
 
-    await signPrivateAssetUrls(["ib-sl/questions/a.webp"], 86_400, { longLived: true });
-    expect(createSignedUrls).toHaveBeenCalledWith(["ib-sl/questions/a.webp"], 86_400);
+    await signPrivateAssetUrls(["ib-sl/questions/a.webp"], 604_800, { longLived: true });
+    expect(createSignedUrls).toHaveBeenCalledWith(["ib-sl/questions/a.webp"], 604_800);
   });
 
-  it("signs day-long R2 links when asked, reusing one client per configuration", async () => {
+  it("signs week-long R2 links when asked, reusing one client per configuration", async () => {
     vi.stubEnv("ASSET_STORAGE_PROVIDER", "r2");
     vi.stubEnv("R2_ACCOUNT_ID", "92278648535014b5231edfe207b9391d");
     vi.stubEnv("R2_ACCESS_KEY_ID", "a".repeat(32));
     vi.stubEnv("R2_SECRET_ACCESS_KEY", "b".repeat(64));
     vi.stubEnv("R2_BUCKET_NAME", "pastpaperprep-assets");
 
-    const first = await signPrivateAssetUrls(["igcse/questions/one.webp"], 86_400, { longLived: true });
+    const first = await signPrivateAssetUrls(["igcse/questions/one.webp"], 604_800, { longLived: true });
     const second = await signPrivateAssetUrls(["igcse/questions/two.webp"], 600);
 
-    expect(new URL(first.get("igcse/questions/one.webp")!).searchParams.get("X-Amz-Expires")).toBe("86400");
+    expect(new URL(first.get("igcse/questions/one.webp")!).searchParams.get("X-Amz-Expires")).toBe("604800");
     expect(new URL(second.get("igcse/questions/two.webp")!).searchParams.get("X-Amz-Expires")).toBe("600");
   });
 

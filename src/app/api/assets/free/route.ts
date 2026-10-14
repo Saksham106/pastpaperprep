@@ -1,18 +1,18 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isPreviewQuestion } from "@/lib/access";
 import { loadBankAssetManifest } from "@/lib/asset-manifest";
-import { assetPathsForKind, isAssetKind } from "@/lib/asset-kinds";
+import { deliveredAssetPaths, isAssetKind } from "@/lib/asset-kinds";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { explanationAssetSignOptions, previewAssetSignOptions, resolvedAssetSignProvider, signPrivateAssetUrls } from "@/lib/private-assets";
 import { richDetailsFor } from "@/lib/question-delivery";
 import { reviewedBlankTailForSignedAsset } from "@/lib/reviewed-blank-tails";
 import { annotateFailureResponse, withFailureReporting } from "@/lib/route-failure-reporting";
-import { FREE_ASSET_CDN_MAX_AGE, FREE_ASSET_EXPIRES_IN } from "@/lib/signed-assets";
+import { FREE_ASSET_CDN_FRESH, FREE_ASSET_CDN_MAX_AGE, FREE_ASSET_CDN_STALE, FREE_ASSET_EXPIRES_IN } from "@/lib/signed-assets";
 
 export const runtime = "nodejs";
 
 const NO_STORE = { headers: { "Cache-Control": "private, no-store, max-age=0" } } as const;
-const SHARED = { headers: { "Cache-Control": `public, max-age=0, s-maxage=${FREE_ASSET_CDN_MAX_AGE}` } } as const;
+const SHARED = { headers: { "Cache-Control": `public, max-age=0, s-maxage=${FREE_ASSET_CDN_FRESH}, stale-while-revalidate=${FREE_ASSET_CDN_STALE}` } } as const;
 
 /**
  * Free-year question and answer images, and their worked explanations, only. It reads no cookies, so one CDN entry serves
@@ -35,7 +35,8 @@ async function handleGET(request: NextRequest) {
   const entry = manifest.get(questionId);
   if (!entry) return NextResponse.json({ error: "Unknown question" }, { status: 404, ...NO_STORE });
 
-  const paths = assetPathsForKind(entry, kind);
+  const paths = deliveredAssetPaths(entry, kind);
+  const mcqAnswer = kind === "answer" ? entry.mcqAnswer : undefined;
   let urlByPath: Awaited<ReturnType<typeof signPrivateAssetUrls>>;
   let provider: "r2" | "supabase" | "unknown" = "unknown";
   try {
@@ -54,6 +55,7 @@ async function handleGET(request: NextRequest) {
       details: richDetailsFor(bank, questionId, entry.details, []),
       urls: paths.map((path) => urlByPath.get(path)),
       displayCrops: paths.map((path) => reviewedBlankTailForSignedAsset(bank, questionId, kind, path)),
+      ...(mcqAnswer ? { mcqAnswer } : {}),
     },
   }, SHARED);
 }

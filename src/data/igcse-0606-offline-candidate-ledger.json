@@ -14,13 +14,22 @@
   },
   "sourceRaw": {
     "path": "src/data/raw/igcse-additional.json",
-    "sha256": "4d385d4ee951a313608075415b95e5e7fb63805823760328b1853c3e145ce87f",
-    "rowCount": 1633
+    "sha256": "d58e2833c6226bd7c56147dea4af2353a7603220019596f7b4d3238a15d00a3a",
+    "rowCount": 1656,
+    "baseSha256": "4d385d4ee951a313608075415b95e5e7fb63805823760328b1853c3e145ce87f",
+    "baseRowCount": 1633,
+    "additions": [
+      {
+        "addition": "0606-2026-march",
+        "receipt": "docs/igcse-0606-2026-march-addition.json",
+        "rowCount": 23
+      }
+    ]
   },
   "inputs": {
     "source": {
       "path": "src/data/raw/igcse-additional.json",
-      "sha256": "4d385d4ee951a313608075415b95e5e7fb63805823760328b1853c3e145ce87f"
+      "sha256": "d58e2833c6226bd7c56147dea4af2353a7603220019596f7b4d3238a15d00a3a"
     },
     "taxonomy": {
       "path": "src/data/igcse-0606-numbered-subtopics.json",
@@ -37,8 +46,8 @@
   },
   "method": "Pinned raw source plus existing deterministic projector and overlays; stored model overlay links are explicit unapproved proposals; no new model calls.",
   "counts": {
-    "sourceQuestionRows": 1633,
-    "uniqueQuestionIds": 1633,
+    "sourceQuestionRows": 1656,
+    "uniqueQuestionIds": 1656,
     "topics": 14,
     "statements": 67,
     "oldFineFilterSet": [
@@ -60,14 +69,14 @@
       "Trigonometry",
       "Vectors in two dimensions"
     ],
-    "anyProjectionCandidate": 1371,
-    "deterministicProjectionCandidate": 210,
+    "anyProjectionCandidate": 1391,
+    "deterministicProjectionCandidate": 230,
     "modelProposalCandidate": 1289,
-    "unresolvedNoSupportedSection": 262,
+    "unresolvedNoSupportedSection": 265,
     "sourceAdjudicated": 0,
     "perStatementCandidateRows": {
       "1.1": 34,
-      "1.2": 64,
+      "1.2": 65,
       "1.3": 54,
       "1.4": 2,
       "1.5": 3,
@@ -75,83 +84,1019 @@
       "1.7": 43,
       "1.8": 19,
       "2.1": 41,
-      "2.2": 41,
+      "2.2": 42,
       "2.3": 57,
       "2.4": 56,
       "2.5": 24,
       "3.1": 56,
       "3.2": 48,
-      "3.3": 29,
-      "4.1": 5,
-      "4.2": 1,
+      "3.3": 30,
+      "4.1": 6,
+      "4.2": 2,
       "4.3": 19,
       "4.4": 11,
       "4.5": 9,
       "5.1": 78,
-      "6.1": 65,
+      "6.1": 66,
       "6.2": 25,
       "6.3": 2,
       "7.1": 136,
-      "7.2": 49,
-      "7.3": 37,
+      "7.2": 50,
+      "7.3": 38,
       "7.4": 53,
       "8.1": 9,
-      "8.2": 18,
+      "8.2": 19,
       "8.3": 20,
       "8.4": 7,
-      "9.1": 74,
+      "9.1": 75,
       "10.1": 5,
-      "10.2": 40,
-      "10.3": 45,
+      "10.2": 41,
+      "10.3": 46,
       "10.4": 13,
-      "10.5": 102,
-      "10.6": 76,
+      "10.5": 103,
+      "10.6": 77,
       "11.1": 56,
       "11.2": 66,
-      "11.3": 76,
-      "12.1": 64,
+      "11.3": 77,
+      "12.1": 65,
       "12.2": 52,
       "12.3": 5,
-      "12.4": 56,
+      "12.4": 57,
       "12.5": 34,
       "13.1": 63,
-      "13.2": 51,
+      "13.2": 52,
       "13.3": 45,
-      "13.4": 32,
+      "13.4": 33,
       "14.1": 8,
       "14.2": 12,
       "14.3": 143,
       "14.4": 13,
-      "14.5": 104,
-      "14.6": 87,
-      "14.7": 68,
-      "14.8": 33,
+      "14.5": 105,
+      "14.6": 88,
+      "14.7": 69,
+      "14.8": 34,
       "14.9": 23,
       "14.10": 33,
       "14.11": 16,
       "14.12": 2,
-      "14.13": 68,
-      "14.14": 63,
-      "14.15": 16
+      "14.13": 69,
+      "14.14": 65,
+      "14.15": 17
     },
     "perOfficialTopicRows": {
-      "Functions": 82,
-      "Quadratic functions": 186,
-      "Factors of polynomials": 84,
-      "Equations, inequalities and graphs": 71,
+      "Functions": 83,
+      "Quadratic functions": 188,
+      "Factors of polynomials": 85,
+      "Equations, inequalities and graphs": 73,
       "Simultaneous equations": 78,
-      "Logarithmic and exponential functions": 145,
-      "Straight-line graphs": 164,
-      "Coordinate geometry of the circle": 35,
-      "Circular measure": 74,
-      "Trigonometry": 208,
-      "Permutations and combinations": 88,
-      "Series": 124,
-      "Vectors in two dimensions": 90,
-      "Calculus": 443
+      "Logarithmic and exponential functions": 147,
+      "Straight-line graphs": 165,
+      "Coordinate geometry of the circle": 37,
+      "Circular measure": 75,
+      "Trigonometry": 210,
+      "Permutations and combinations": 89,
+      "Series": 126,
+      "Vectors in two dimensions": 91,
+      "Calculus": 450
     }
   },
   "rows": [
+    {
+      "id": "0606-2026-march-12-q1",
+      "year": 2026,
+      "paperId": "0606-2026-march-12",
+      "component": "12",
+      "existingPrimaryTopic": "Algebra",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Factors of polynomials"
+      ],
+      "officialTopics": [
+        "Factors of polynomials"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "3.3"
+      ],
+      "statementTitles": [
+        "3.3 Solving cubic equations"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "3.3"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-12-q1.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-12-q1.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q2",
+      "year": 2026,
+      "paperId": "0606-2026-march-12",
+      "component": "12",
+      "existingPrimaryTopic": "Sets and functions",
+      "existingSecondaryTopics": [
+        "Algebra"
+      ],
+      "existingFineFilters": [
+        "Functions",
+        "Logarithmic and exponential functions"
+      ],
+      "officialTopics": [
+        "Logarithmic and exponential functions"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "6.1"
+      ],
+      "statementTitles": [
+        "6.1 Logarithmic and exponential graphs"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "6.1"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-12-q2.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-12-q2.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q3",
+      "year": 2026,
+      "paperId": "0606-2026-march-12",
+      "component": "12",
+      "existingPrimaryTopic": "Calculus",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Calculus"
+      ],
+      "officialTopics": [
+        "Calculus"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "14.14",
+        "14.15"
+      ],
+      "statementTitles": [
+        "14.14 Calculus in kinematics",
+        "14.15 Kinematics graph interpretation"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "14.14",
+          "14.15"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-12-q3.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-12-q3.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q4",
+      "year": 2026,
+      "paperId": "0606-2026-march-12",
+      "component": "12",
+      "existingPrimaryTopic": "Combinatorics and series",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Series"
+      ],
+      "officialTopics": [
+        "Series"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "12.4"
+      ],
+      "statementTitles": [
+        "12.4 Progression terms and finite sums"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "12.4"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-12-q4.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-12-q4.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q5",
+      "year": 2026,
+      "paperId": "0606-2026-march-12",
+      "component": "12",
+      "existingPrimaryTopic": "Calculus",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Calculus"
+      ],
+      "officialTopics": [
+        "Calculus"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "14.6"
+      ],
+      "statementTitles": [
+        "14.6 Stationary points"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "14.6"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-12-q5.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-12-q5.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q6",
+      "year": 2026,
+      "paperId": "0606-2026-march-12",
+      "component": "12",
+      "existingPrimaryTopic": "Algebra",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Equations, inequalities and graphs"
+      ],
+      "officialTopics": [
+        "Equations, inequalities and graphs"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "4.1",
+        "4.2"
+      ],
+      "statementTitles": [
+        "4.1 Modulus equations",
+        "4.2 Modulus inequalities"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "4.1",
+          "4.2"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-12-q6.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-12-q6.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q7",
+      "year": 2026,
+      "paperId": "0606-2026-march-12",
+      "component": "12",
+      "existingPrimaryTopic": "Calculus",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Calculus"
+      ],
+      "officialTopics": [
+        "Calculus"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "14.7"
+      ],
+      "statementTitles": [
+        "14.7 Connected rates, increments and approximations"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "14.7"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-12-q7.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-12-q7.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q8",
+      "year": 2026,
+      "paperId": "0606-2026-march-12",
+      "component": "12",
+      "existingPrimaryTopic": "Calculus",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Calculus"
+      ],
+      "officialTopics": [
+        "Calculus"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "14.5"
+      ],
+      "statementTitles": [
+        "14.5 Gradients, tangents and normals"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "14.5"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-12-q8.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-12-q8.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q9",
+      "year": 2026,
+      "paperId": "0606-2026-march-12",
+      "component": "12",
+      "existingPrimaryTopic": "Vectors and matrices",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Vectors in two dimensions"
+      ],
+      "officialTopics": [
+        "Vectors in two dimensions"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "13.2",
+        "13.4"
+      ],
+      "statementTitles": [
+        "13.2 Position vectors and unit vectors",
+        "13.4 Velocity vectors and relative motion"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "13.2",
+          "13.4"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-12-q9.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-12-q9.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q10",
+      "year": 2026,
+      "paperId": "0606-2026-march-12",
+      "component": "12",
+      "existingPrimaryTopic": "Algebra",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Logarithmic and exponential functions",
+        "Indices and surds"
+      ],
+      "officialTopics": [
+        "Logarithmic and exponential functions"
+      ],
+      "reviewDisposition": "current_section_review",
+      "statementCodes": [],
+      "statementTitles": [],
+      "disposition": "unresolved_no_supported_section",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": []
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-12-q10.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-12-q10.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q11",
+      "year": 2026,
+      "paperId": "0606-2026-march-12",
+      "component": "12",
+      "existingPrimaryTopic": "Calculus",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Calculus"
+      ],
+      "officialTopics": [
+        "Calculus"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "14.13"
+      ],
+      "statementTitles": [
+        "14.13 Definite integrals and areas"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "14.13"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-12-q11.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-12-q11.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-12-q12",
+      "year": 2026,
+      "paperId": "0606-2026-march-12",
+      "component": "12",
+      "existingPrimaryTopic": "Coordinate geometry",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Coordinate geometry of the circle"
+      ],
+      "officialTopics": [
+        "Coordinate geometry of the circle"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "8.2"
+      ],
+      "statementTitles": [
+        "8.2 Circle–line intersections"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "8.2"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-12-q12.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-12-q12.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q1",
+      "year": 2026,
+      "paperId": "0606-2026-march-22",
+      "component": "22",
+      "existingPrimaryTopic": "Sets and functions",
+      "existingSecondaryTopics": [
+        "Algebra"
+      ],
+      "existingFineFilters": [
+        "Functions",
+        "Quadratic functions"
+      ],
+      "officialTopics": [
+        "Functions",
+        "Quadratic functions"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "1.2",
+        "2.2"
+      ],
+      "statementTitles": [
+        "1.2 Domain and range",
+        "2.2 Quadratic graphs and range"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "1.2",
+          "2.2"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-22-q1.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-22-q1.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q2",
+      "year": 2026,
+      "paperId": "0606-2026-march-22",
+      "component": "22",
+      "existingPrimaryTopic": "Coordinate geometry",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Straight-line graphs"
+      ],
+      "officialTopics": [
+        "Straight-line graphs"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "7.2",
+        "7.3"
+      ],
+      "statementTitles": [
+        "7.2 Parallel and perpendicular lines",
+        "7.3 Midpoints, distances and perpendicular bisectors"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "7.2",
+          "7.3"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-22-q2.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-22-q2.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q3",
+      "year": 2026,
+      "paperId": "0606-2026-march-22",
+      "component": "22",
+      "existingPrimaryTopic": "Algebra",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Equations, inequalities and graphs"
+      ],
+      "officialTopics": [
+        "Equations, inequalities and graphs"
+      ],
+      "reviewDisposition": "current_section_review",
+      "statementCodes": [],
+      "statementTitles": [],
+      "disposition": "unresolved_no_supported_section",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": []
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-22-q3.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-22-q3.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q4",
+      "year": 2026,
+      "paperId": "0606-2026-march-22",
+      "component": "22",
+      "existingPrimaryTopic": "Combinatorics and series",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Permutations and combinations"
+      ],
+      "officialTopics": [
+        "Permutations and combinations"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "11.3"
+      ],
+      "statementTitles": [
+        "11.3 Arrangement and selection problems"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "11.3"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-22-q4.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-22-q4.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q5",
+      "year": 2026,
+      "paperId": "0606-2026-march-22",
+      "component": "22",
+      "existingPrimaryTopic": "Geometry and trigonometry",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Circular measure",
+        "Trigonometry"
+      ],
+      "officialTopics": [
+        "Circular measure"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "9.1"
+      ],
+      "statementTitles": [
+        "9.1 Radians, arc lengths and sector areas"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "9.1"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-22-q5.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-22-q5.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q6",
+      "year": 2026,
+      "paperId": "0606-2026-march-22",
+      "component": "22",
+      "existingPrimaryTopic": "Geometry and trigonometry",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Trigonometry"
+      ],
+      "officialTopics": [
+        "Trigonometry"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "10.2",
+        "10.3"
+      ],
+      "statementTitles": [
+        "10.2 Amplitude and period",
+        "10.3 Trigonometric graph sketches"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "10.2",
+          "10.3"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-22-q6.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-22-q6.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q7",
+      "year": 2026,
+      "paperId": "0606-2026-march-22",
+      "component": "22",
+      "existingPrimaryTopic": "Calculus",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Calculus"
+      ],
+      "officialTopics": [
+        "Calculus"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "14.8"
+      ],
+      "statementTitles": [
+        "14.8 Optimisation problems"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "14.8"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-22-q7.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-22-q7.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q8",
+      "year": 2026,
+      "paperId": "0606-2026-march-22",
+      "component": "22",
+      "existingPrimaryTopic": "Coordinate geometry",
+      "existingSecondaryTopics": [
+        "Algebra"
+      ],
+      "existingFineFilters": [
+        "Coordinate geometry of the circle",
+        "Quadratic functions"
+      ],
+      "officialTopics": [
+        "Coordinate geometry of the circle",
+        "Quadratic functions"
+      ],
+      "reviewDisposition": "current_section_review",
+      "statementCodes": [],
+      "statementTitles": [],
+      "disposition": "unresolved_no_supported_section",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": []
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-22-q8.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-22-q8.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q9",
+      "year": 2026,
+      "paperId": "0606-2026-march-22",
+      "component": "22",
+      "existingPrimaryTopic": "Geometry and trigonometry",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Trigonometry"
+      ],
+      "officialTopics": [
+        "Trigonometry"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "10.5",
+        "10.6"
+      ],
+      "statementTitles": [
+        "10.5 Trigonometric equations",
+        "10.6 Proving trigonometric relationships"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "10.5",
+          "10.6"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-22-q9.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-22-q9.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q10",
+      "year": 2026,
+      "paperId": "0606-2026-march-22",
+      "component": "22",
+      "existingPrimaryTopic": "Calculus",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Calculus"
+      ],
+      "officialTopics": [
+        "Calculus"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "14.14"
+      ],
+      "statementTitles": [
+        "14.14 Calculus in kinematics"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "14.14"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-22-q10.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-22-q10.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
+    {
+      "id": "0606-2026-march-22-q11",
+      "year": 2026,
+      "paperId": "0606-2026-march-22",
+      "component": "22",
+      "existingPrimaryTopic": "Combinatorics and series",
+      "existingSecondaryTopics": [],
+      "existingFineFilters": [
+        "Series"
+      ],
+      "officialTopics": [
+        "Series"
+      ],
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "12.1"
+      ],
+      "statementTitles": [
+        "12.1 Binomial expansions"
+      ],
+      "disposition": "deterministic_projection_candidate",
+      "evidenceClass": "unadjudicated_projection_candidate",
+      "deterministicRuleEvidence": {
+        "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
+        "category": "non_model_only_code_correspondence_unadjudicated",
+        "codes": [
+          "12.1"
+        ]
+      },
+      "modelProposals": [],
+      "sourceEvidence": {
+        "questionImages": [
+          "questions/0606-2026-march-22-q11.webp"
+        ],
+        "markschemeImages": [
+          "markschemes/0606-2026-march-22-q11.webp"
+        ],
+        "accessibleTextPresent": true
+      }
+    },
     {
       "id": "0606-2026-june-11-q1",
       "year": 2026,

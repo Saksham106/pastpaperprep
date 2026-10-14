@@ -2,9 +2,9 @@ import type { EmailOtpType } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 import { safeNextPath } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { bindReferralToAuthenticatedUser } from "@/lib/referral-account";
 import { REFERRAL_COOKIE } from "@/lib/referral";
-import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
+import { completeEmailVerification } from "@/lib/email-verification";
+import { postAuthDestination } from "@/lib/post-auth-destination";
 import { createAuthAttemptId, logAuthDiagnostic, validAuthAttemptId } from "@/lib/auth-diagnostics";
 
 const ALLOWED_CONFIRMATION_TYPES = new Set<EmailOtpType>(["email", "signup", "recovery"]);
@@ -69,18 +69,9 @@ export async function POST(request: NextRequest) {
   }
   if (!error) {
     logAuthDiagnostic({ attemptId, phase: "confirmation_result", outcome: "verified" });
-    if (type !== "recovery") {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user?.id && user.created_at) await bindReferralToAuthenticatedUser(user.id, user.created_at, request.cookies.get(REFERRAL_COOKIE)?.value);
-      // The one-time signup OTP is the authoritative first-confirmation boundary;
-      // ordinary sign-in/email tokens must never be counted as account creation.
-      if (type === "signup" && user?.id) {
-        await captureConversionOutcome({ outcome: "signup_confirmed", eventKey: `signup:${user.id}`,
- userId: user.id,
- occurredAt: user.email_confirmed_at ?? user.confirmed_at ?? user.created_at });
-      }
-    }
-    return NextResponse.redirect(new URL(next, url.origin), 303);
+    if (type === "recovery") return NextResponse.redirect(new URL(next, url.origin), 303);
+    const userId = await completeEmailVerification(supabase, type, request.cookies.get(REFERRAL_COOKIE)?.value);
+    return NextResponse.redirect(new URL(await postAuthDestination(supabase, userId, next), url.origin), 303);
   }
 
   logAuthDiagnostic({ attemptId, phase: "confirmation_result", outcome: "rejected", providerCode: error.code ?? "unknown" });

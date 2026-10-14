@@ -18,8 +18,13 @@ describe('reviewed Economics written-answer crops',()=>{
   test(`${bank}: exact all written-answer mappings activated by actual production loader; QP and held MS unchanged`,async()=>{
    vi.stubEnv('PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS','true');vi.stubEnv('PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED','true');
    try{
-    const raw=JSON.parse(readFileSync(`src/data/production/${bank}.json`,'utf8')).questions;
-    const old=new Map(normalizeBankQuestions(bank,raw,{economicsAssetMode:'private',applyReviewedBlankPages:true}).map(q=>[q.id,q]));const before=JSON.stringify(raw);const after=new Map((await loadBankQuestions(bank)).map(q=>[q.id,q]));
+    const runtime=JSON.parse(readFileSync(`src/data/production/${bank}.json`,'utf8'));const raw=runtime.questions;
+    const old=new Map(normalizeBankQuestions(bank,raw,{economicsAssetMode:'private',applyReviewedBlankPages:true}).map(q=>[q.id,q]));const before=JSON.stringify(raw);
+    // A pending storage release (0455's 2026 addition until --finalize) stays closed through the production
+    // loader; the repairs are then checked through the exact normalization that loader applies once the gate opens.
+    const pending=runtime.runtimeArtifact?.assetVerification!=='verified_readback';
+    if(pending)await expect(loadBankQuestions(bank)).rejects.toThrow(/not backed by verified storage/);
+    const after=new Map((pending?normalizeBankQuestions(bank,JSON.parse(before),{economicsAssetMode:'private',applyReviewedBlankPages:true}):await loadBankQuestions(bank)).map(q=>[q.id,q]));
     for(const [qid,entry]of Object.entries(repairs[bank])){
      expect(reviewedMarkschemePaths(bank,qid,entry.oldPaths)).toEqual(entry.newPaths);
      expect(after.get(qid)?.markschemeAssetPaths).toEqual(entry.newPaths.map(p=>getPrivateBankObjectPrefix(bank)+p));

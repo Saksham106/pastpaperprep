@@ -53,13 +53,25 @@ const AUTHORIZED_PRODUCTION_CANDIDATE_STATES = {
 };
 
 const CHEMISTRY_EXTENSION_UNRESOLVED_COUNT = 28;
+/** 2021-2025: finalized in the 3,441-row release and preserved since. */
 const BIOLOGY_PRESERVED_BASE = {
   count: 3441,
   idsSha256: 'ac7402d11f008ca2e76d44eaa67aba85a79039d07f88214b1bbe020f2377543f',
 };
-const BIOLOGY_AUTHORIZED_EXTENSION = {
+/** 2019/2020/Feb-March 2026: authorized for, and finalized in, the 4,913-row release; preserved since. */
+const BIOLOGY_FINALIZED_EXTENSION = {
   count: 1472,
   idsSha256: '310bf7a7f3f0d36b82acacc709e511eda0d52864c57420cc0027c924384f74dc',
+};
+/** May/June 2026: the only authorized candidates. */
+const BIOLOGY_AUTHORIZED_2026_MAY_JUNE = {
+  count: 298,
+  idsSha256: 'eb34baa109216fa30293c71262fa2fa05420908aeaf610f3d7215902b4048a99',
+};
+/** The whole non-2021-2025 extension once May/June 2026 is finalized (1,472 + 298). */
+const BIOLOGY_EXTENSION_THROUGH_2026_MAY_JUNE = {
+  count: 1770,
+  idsSha256: 'f257b8f0e664914344fca4f1f5dbcc405ec3c0bfcea7c4ac03a789540286bb41',
 };
 const ECONOMICS_BASE = {
   count: 1219,
@@ -69,6 +81,11 @@ const ECONOMICS_EXTENSION = {
   count: 504,
   idsSha256: 'cc6c5e1ed8df1a638fd8b34b99c5c6b995f9448d6bef864dce3203f421c310d0',
 };
+/** The 2026 lane: 139 practice rows (0455-2026-s-11-q26 is an official removal and never served). */
+const ECONOMICS_2026 = {
+  count: 139,
+  idsSha256: '93ba2b6eb04395ec68970e707d6901f419ae2adc43381ca061c5c0b8142ccbaf',
+};
 
 function questionIdSetSha256(questions) {
   if (questions.some((question) => typeof question.id !== 'string' || !question.id)) return null;
@@ -77,39 +94,58 @@ function questionIdSetSha256(questions) {
 
 function assertExactBiologyMixedState(runtime, bank) {
   if (bank !== 'igcse-biology-0610') return;
-  const base = runtime.questions.filter((question) => question.publicationStatus === 'production'
-    && question.classificationReviewStatus === 'classified');
-  const extension = runtime.questions.filter((question) => question.publicationStatus === 'authorized_production_candidate'
+  const finalized = (question) => question.publicationStatus === 'production' && question.classificationReviewStatus === 'classified';
+  const base = runtime.questions.filter((question) => question.year >= 2021 && question.year <= 2025);
+  const extension = runtime.questions.filter((question) => !(question.year >= 2021 && question.year <= 2025));
+  const candidates = runtime.questions.filter((question) => question.publicationStatus === 'authorized_production_candidate'
     && question.classificationReviewStatus === 'candidate_not_approved');
-  if (base.length !== BIOLOGY_PRESERVED_BASE.count
+  const preservedExtension = extension.filter((question) => !candidates.includes(question));
+  if (base.length !== BIOLOGY_PRESERVED_BASE.count || !base.every(finalized)
     || questionIdSetSha256(base) !== BIOLOGY_PRESERVED_BASE.idsSha256) {
     throw new Error(`${bank} preserved Biology base does not match the exact authorized question ID set`);
   }
-  if (extension.length !== BIOLOGY_AUTHORIZED_EXTENSION.count
-    || questionIdSetSha256(extension) !== BIOLOGY_AUTHORIZED_EXTENSION.idsSha256) {
+  if (preservedExtension.length !== BIOLOGY_FINALIZED_EXTENSION.count || !preservedExtension.every(finalized)
+    || questionIdSetSha256(preservedExtension) !== BIOLOGY_FINALIZED_EXTENSION.idsSha256) {
+    throw new Error(`${bank} preserved Biology extension does not match the exact finalized question ID set`);
+  }
+  if (candidates.length !== BIOLOGY_AUTHORIZED_2026_MAY_JUNE.count
+    || questionIdSetSha256(candidates) !== BIOLOGY_AUTHORIZED_2026_MAY_JUNE.idsSha256) {
+    throw new Error(`${bank} Biology extension candidates do not match the exact authorized May/June 2026 question ID set`);
+  }
+  if (extension.length !== BIOLOGY_EXTENSION_THROUGH_2026_MAY_JUNE.count
+    || questionIdSetSha256(extension) !== BIOLOGY_EXTENSION_THROUGH_2026_MAY_JUNE.idsSha256
+    || base.length + extension.length !== runtime.questions.length) {
     throw new Error(`${bank} Biology extension does not match the exact authorized question ID set`);
   }
 }
 
 function assertExactEconomicsMixedState(runtime, bank) {
   if (bank !== 'igcse-economics-0455') return;
-  const base = runtime.questions.filter((question) => question.year >= 2021);
-  const extension = runtime.questions.filter((question) => question.year <= 2020);
+  // 2019-2025 was finalized in the 2019-2025 release; only the 2026 lane is still a candidate.
+  const base = runtime.questions.filter((question) => question.year >= 2021 && question.year <= 2025);
+  const extension = runtime.questions.filter((question) => question.year === 2019 || question.year === 2020);
+  const lane2026 = runtime.questions.filter((question) => question.year === 2026);
   if (base.length !== ECONOMICS_BASE.count || questionIdSetSha256(base) !== ECONOMICS_BASE.idsSha256) {
     throw new Error(`${bank} preserved Economics base does not match the exact authorized question ID set`);
   }
   if (extension.length !== ECONOMICS_EXTENSION.count || questionIdSetSha256(extension) !== ECONOMICS_EXTENSION.idsSha256) {
     throw new Error(`${bank} Economics extension does not match the exact authorized question ID set`);
   }
-  for (const question of base) {
+  if (lane2026.length !== ECONOMICS_2026.count || questionIdSetSha256(lane2026) !== ECONOMICS_2026.idsSha256) {
+    throw new Error(`${bank} Economics 2026 lane does not match the exact authorized question ID set`);
+  }
+  if (base.length + extension.length + lane2026.length !== runtime.questions.length) {
+    throw new Error(`${bank} contains Economics rows outside the authorized cohorts`);
+  }
+  for (const question of [...base, ...extension]) {
     if (question.publicationStatus !== 'production' || question.classificationReviewStatus !== 'classified') {
       throw new Error(`${bank} preserved Economics base has been rewritten`);
     }
   }
-  for (const question of extension) {
+  for (const question of lane2026) {
     if (question.publicationStatus !== 'authorized_production_candidate'
       || question.classificationReviewStatus !== 'source_paired_review_completed_pending_release') {
-      throw new Error(`${bank} Economics extension contains an unknown or unauthorized candidate state`);
+      throw new Error(`${bank} Economics 2026 lane contains an unknown or unauthorized candidate state`);
     }
   }
 }

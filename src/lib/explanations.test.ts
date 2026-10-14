@@ -93,11 +93,15 @@ describe("explanation client", () => {
     vi.stubEnv("NEXT_PUBLIC_EXPLANATIONS_DEV", "0");
     const url = "https://assets.example/explanation.json";
     const asset = { questionId: doc.questionId, kind: "explanation", urls: [url] };
-    const fetcher = vi.fn().mockResolvedValueOnce(new Response(JSON.stringify(free
+    const fetcher = vi.fn();
+    // A bank with no static free index (404) keeps using the signing route.
+    if (free) fetcher.mockResolvedValueOnce(new Response(null, { status: 404 }));
+    fetcher.mockResolvedValueOnce(new Response(JSON.stringify(free
       ? { expiresIn: 86400, maxAge: 72000, asset }
       : { expiresIn: 600, assets: [asset] })))
       .mockResolvedValueOnce(new Response(JSON.stringify(doc)));
     expect(await fetchExplanation("ib-hl", doc.questionId, { free, fetcher })).toEqual(doc);
+    if (free) expect(fetcher.mock.calls.shift()![0]).toBe("/free-assets/ib-hl.json");
     const [route, init] = fetcher.mock.calls[0];
     if (free) {
       expect(route).toBe(`/api/assets/free?bank=ib-hl&id=${doc.questionId}&kind=explanation`);
@@ -131,6 +135,54 @@ describe("explanation client", () => {
       .mockResolvedValueOnce(response());
     await expect(fetchExplanation("ib-hl", doc.questionId, { free: false, fetcher })).rejects.toThrow("Explanation unavailable");
     expect(fetcher).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe("explanation client with public free links", () => {
+  afterEach(() => vi.unstubAllEnvs());
+  const publicUrl = `https://free.pastpaperprep.com/images/explanations/ib-hl/${doc.questionId}.json`;
+  const index = () => new Response(JSON.stringify({ version: 1, bank: "ib-hl", questions: {
+    [doc.questionId]: { details: { summary: "", accessibleText: "", solution: null, sourceQuestionUrl: null, sourceMarkSchemeUrl: null }, explanation: { urls: [publicUrl], displayCrops: [null] } },
+  } }));
+
+  it("reads a free explanation straight from the public bucket, with no signing request", async () => {
+    vi.stubEnv("NEXT_PUBLIC_EXPLANATIONS_DEV", "0");
+    const fetcher = vi.fn().mockResolvedValueOnce(index()).mockResolvedValueOnce(new Response(JSON.stringify(doc)));
+    expect(await fetchExplanation("ib-hl", doc.questionId, { free: true, fetcher })).toEqual(doc);
+    expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual(["/free-assets/ib-hl.json", publicUrl]);
+  });
+
+  // These run last: a failed public link switches the bank to signed links for the rest of the tab.
+  it.each([
+    ["malformed", "ib-sl", () => new Response("not JSON")],
+    ["another question's", "ib-ai-sl", () => new Response(JSON.stringify({ ...doc, questionId: "other" }))],
+  ] as const)("falls back to a signed link when the public copy is %s", async (_label, bank, publicResponse) => {
+    vi.stubEnv("NEXT_PUBLIC_EXPLANATIONS_DEV", "0");
+    const url = `https://free.pastpaperprep.com/images/explanations/${bank}/${doc.questionId}.json`;
+    const signedUrl = "https://assets.example/explanation.json";
+    const fetcher = vi.fn()
+      .mockResolvedValueOnce(new Response(JSON.stringify({ version: 1, bank, questions: {
+        [doc.questionId]: { details: { summary: "", accessibleText: "", solution: null, sourceQuestionUrl: null, sourceMarkSchemeUrl: null }, explanation: { urls: [url], displayCrops: [null] } },
+      } })))
+      .mockResolvedValueOnce(publicResponse())
+      .mockResolvedValueOnce(new Response(JSON.stringify({ expiresIn: 86400, maxAge: 72000, asset: { questionId: doc.questionId, kind: "explanation", urls: [signedUrl] } })))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ ...doc, bank })));
+    expect(await fetchExplanation(bank, doc.questionId, { free: true, fetcher })).toEqual({ ...doc, bank });
+    expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual([`/free-assets/${bank}.json`, url, `/api/assets/free?bank=${bank}&id=${doc.questionId}&kind=explanation`, signedUrl]);
+  });
+
+  it("falls back to a signed link once when the public copy is missing", async () => {
+    vi.stubEnv("NEXT_PUBLIC_EXPLANATIONS_DEV", "0");
+    const signedUrl = "https://assets.example/explanation.json";
+    const fetcher = vi.fn()
+      .mockResolvedValueOnce(index())
+      .mockResolvedValueOnce(new Response("missing", { status: 404 }))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ expiresIn: 86400, maxAge: 72000, asset: { questionId: doc.questionId, kind: "explanation", urls: [signedUrl] } })))
+      .mockResolvedValueOnce(new Response(JSON.stringify(doc)));
+    expect(await fetchExplanation("ib-hl", doc.questionId, { free: true, fetcher })).toEqual(doc);
+    expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual([
+      "/free-assets/ib-hl.json", publicUrl, `/api/assets/free?bank=ib-hl&id=${doc.questionId}&kind=explanation`, signedUrl,
+    ]);
   });
 });
 

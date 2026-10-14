@@ -4,7 +4,7 @@ export const SECTIONS_0606_V3=Object.freeze(taxonomy.sections);
 export const OVERLAY_0606_V3=overlay;
 const byCode=new Map(SECTIONS_0606_V3.map(s=>[s.code,s]));
 const byId=new Map(overlay.rows.map(r=>[r.id,r]));
-if(overlay.schemaVersion!==1||overlay.expectedInventoryCount!==1633||overlay.syllabusPdfSha256!==taxonomy.sourcePdfSha256||byCode.size!==67||byId.size!==overlay.rows.length)throw new Error('0606 retrieval snapshot drift');
+if(overlay.schemaVersion!==1||overlay.expectedInventoryCount!==1656||overlay.syllabusPdfSha256!==taxonomy.sourcePdfSha256||byCode.size!==67||byId.size!==overlay.rows.length)throw new Error('0606 retrieval snapshot drift');
 export function fingerprint0606(r){
  let h=2166136261;
  const text=JSON.stringify([r.id,r.year,r.component,r.primaryTopic,r.secondaryTopics??[],r.subtopics??[],r.skills??[],r.accessibleText??'',r.questionImages??[]]);

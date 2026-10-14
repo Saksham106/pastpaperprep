@@ -18,7 +18,7 @@ export default async function LoginPage({
     <div className="public-surface">
       <section className="auth-page shell">
         <div className="auth-card">
-          <AuthEntry next={next} hasLinkError={Boolean(params.error)} initialMode={params.mode === "sign-up" ? "sign-up" : "sign-in"} />
+          <AuthEntry next={next} hasLinkError={Boolean(params.error) && params.error !== "google"} hasGoogleError={params.error === "google"} initialMode={params.mode === "sign-up" ? "sign-up" : "sign-in"} />
           <p className="auth-fine-print">By continuing, you agree to our <Link href="/terms">Terms</Link> and <Link href="/privacy">Privacy Policy</Link>.</p>
         </div>
       </section>

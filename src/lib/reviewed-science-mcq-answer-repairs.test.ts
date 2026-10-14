@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import type { BankSlug } from '@/lib/banks';
 import { normalizeBankQuestions, type UnifiedQuestion } from '@/lib/questions';
 import { reviewedMarkschemePaths } from '@/lib/reviewed-mcq-answer-repairs';
+import { cleanSourceCropPaths } from '@/lib/clean-source-crops';
 import { authorizeAssetRequests } from '@/lib/asset-access';
 import { BANK_PRODUCTS, canViewAnswer } from '@/lib/access';
 import { metadataFromRaw } from '../../scripts/generate-bank-index.mjs';
@@ -33,7 +34,7 @@ describe('exact active science MCQ row projection',()=>{
       for(let i=0;i<after.length;i++)expect(stable(after[i])).toEqual(stable(before[i]));
       const rawById=new Map(raw.questions.map(q=>[q.id,q]));
       for(const q of changed){
-        expect(q.markschemeAssetPaths).toEqual(repairs[bank][q.id].newPaths.map(p=>manifest.banks[bank].objectPrefix+p));
+        expect(q.markschemeAssetPaths).toEqual(cleanSourceCropPaths(bank,repairs[bank][q.id].newPaths).map(p=>manifest.banks[bank].objectPrefix+p));
         expect(q.markschemeImageCount).toBe(1);
         expect(metadataFromRaw(rawById.get(q.id),{bank,normalizedProduction:true}).markschemeImageCount).toBe(1);
       }
@@ -49,7 +50,10 @@ describe('exact active science MCQ row projection',()=>{
         const request=[{questionId,kind:'answer' as const}];
         await expect(authorizeAssetRequests(bank,request,[])).rejects.toThrow();
         const signed=await authorizeAssetRequests(bank,request,[{productId:BANK_PRODUCTS[bank]!,status:'active',startsAt:'2020-01-01T00:00:00.000Z',expiresAt:null}]);
-        expect(signed[0].paths).toEqual(repairs[bank][questionId].newPaths.map(p=>manifest.banks[bank].objectPrefix+p));
+        // The repaired crop stays projected; a verified letter is delivered instead of signing it.
+        expect(signed[0].question.markschemeAssetPaths).toEqual(repairs[bank][questionId].newPaths.map(p=>manifest.banks[bank].objectPrefix+p));
+        expect(signed[0].paths).toEqual([]);
+        expect(signed[0].mcqAnswer).toEqual({answers:[expect.stringMatching(/^[A-D]$/)],note:null});
       }finally{vi.unstubAllEnvs();}
     });
   }

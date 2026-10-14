@@ -1,7 +1,7 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-const { requestMagicLink } = vi.hoisted(() => ({ requestMagicLink: vi.fn() }));
-vi.mock("@/app/auth/actions", () => ({ requestMagicLink }));
+const { requestMagicLink, verifyEmailCode } = vi.hoisted(() => ({ requestMagicLink: vi.fn(), verifyEmailCode: vi.fn() }));
+vi.mock("@/app/auth/actions", () => ({ requestMagicLink, verifyEmailCode }));
 import { MagicLinkForm } from "./MagicLinkForm";
 
 async function submitEmail(email = "student@example.com") {
@@ -22,34 +22,33 @@ describe("email-link next step", () => {
     await submitEmail();
     expect(screen.getByRole("heading", { name: "Check your email" })).toHaveFocus();
     expect(screen.getByText("student@example.com")).toBeInTheDocument();
-    expect(screen.getByText(/spam or junk/)).toBeInTheDocument();
-    expect(screen.getByText(/newest email/)).toBeInTheDocument();
+    expect(screen.getByText(/sign-in link and code/)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Send sign-in link" })).not.toBeInTheDocument();
     expect(screen.queryByRole("link", { name: /continue/i })).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /resend available in/i })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /resend in/i })).toBeDisabled();
   });
 
   it("requires a full cooldown before each explicit resend and preserves the referral return path", async () => {
     render(<MagicLinkForm next="/account/referrals" />);
     await submitEmail();
-    const form = screen.getByRole("button", { name: /resend available in/i }).closest("form")!;
+    const form = screen.getByRole("button", { name: /resend in/i }).closest("form")!;
     await act(async () => { fireEvent.submit(form); });
     expect(requestMagicLink).toHaveBeenCalledTimes(1);
     await act(async () => { vi.advanceTimersByTime(60000); });
-    const resend = screen.getByRole("button", { name: "Request another link" });
+    const resend = screen.getByRole("button", { name: "Resend email" });
     await act(async () => { fireEvent.submit(resend.closest("form")!); fireEvent.submit(resend.closest("form")!); });
     expect(requestMagicLink).toHaveBeenCalledTimes(2);
     expect([...requestMagicLink.mock.calls[1][1].entries()]).toEqual([["email", "student@example.com"], ["next", "/account/referrals"]]);
-    expect(screen.getByRole("button", { name: /resend available in/i })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /resend in/i })).toBeDisabled();
     await act(async () => { vi.advanceTimersByTime(60000); });
-    await act(async () => { fireEvent.submit(screen.getByRole("button", { name: "Request another link" }).closest("form")!); });
+    await act(async () => { fireEvent.submit(screen.getByRole("button", { name: "Resend email" }).closest("form")!); });
     expect(requestMagicLink).toHaveBeenCalledTimes(3);
   });
 
   it("allows changing email without reusing previous success during a pending or rejected request", async () => {
     render(<MagicLinkForm />);
     await submitEmail();
-    fireEvent.click(screen.getByRole("button", { name: "Use a different email" }));
+    fireEvent.click(screen.getByRole("button", { name: "Change email" }));
     expect(screen.getByLabelText("Email address")).toHaveFocus();
     let resolve!: (value: { status: "error"; message: string }) => void;
     requestMagicLink.mockImplementationOnce(() => new Promise(done => { resolve = done; }));
@@ -67,12 +66,21 @@ describe("email-link next step", () => {
     await submitEmail();
     requestMagicLink.mockResolvedValueOnce({ status: "error", message: "An earlier email may already be on its way." });
     await act(async () => { vi.advanceTimersByTime(60000); });
-    await act(async () => { fireEvent.submit(screen.getByRole("button", { name: "Request another link" }).closest("form")!); });
+    await act(async () => { fireEvent.submit(screen.getByRole("button", { name: "Resend email" }).closest("form")!); });
     expect(screen.getByText("student@example.com")).toBeInTheDocument();
     expect(screen.getByRole("alert")).toHaveTextContent("An earlier email");
-    expect(screen.getByRole("button", { name: "Use a different email" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Change email" })).toBeEnabled();
     await act(async () => { vi.advanceTimersByTime(60000); });
-    await act(async () => { fireEvent.submit(screen.getByRole("button", { name: "Request another link" }).closest("form")!); });
+    await act(async () => { fireEvent.submit(screen.getByRole("button", { name: "Resend email" }).closest("form")!); });
     expect(requestMagicLink).toHaveBeenCalledTimes(3);
+  });
+
+  it("offers a typed sign-in code and a personal-email switch for school addresses", async () => {
+    render(<MagicLinkForm next="/account" />);
+    await submitEmail("teacher@school.example");
+    expect(screen.getByLabelText("Enter the code")).toHaveAttribute("autocomplete", "one-time-code");
+    expect(screen.getByRole("note")).toHaveTextContent(/school email/i);
+    fireEvent.click(screen.getByRole("button", { name: "Use a personal email" }));
+    expect(screen.getByLabelText("Email address")).toHaveValue("");
   });
 });

@@ -11,6 +11,15 @@ const request = new Request("https://pastpaperprep.com/account?email=alice@examp
 describe("onRequestError telemetry", () => {
   beforeEach(() => captureServerException.mockReset());
 
+  it("links a signed-in render error to the account id from Next's plain header object", async () => {
+    const id = "7f1b6a2e-0000-4000-8000-000000000000";
+    const cookie = `sb-wrig-auth-token=base64-${Buffer.from(JSON.stringify({ user: { id } })).toString("base64url")}`;
+    await onRequestError(new Error("boom"), { path: "/dashboard", method: "GET", headers: { cookie } }, { routerKind: "App Router", routePath: "/dashboard", routeType: "render" });
+    expect(captureServerException.mock.calls[0][1]).toMatchObject({ route: "/dashboard", user_id: id });
+    await onRequestError(new Error("boom"), request, { routerKind: "App Router", routePath: "/account", routeType: "render" });
+    expect(captureServerException.mock.calls[1][1]).not.toHaveProperty("user_id");
+  });
+
   it("records the route file pattern, never the requested URL", async () => {
     await onRequestError(new Error("boom"), request, { routerKind: "App Router", routePath: "/account", routeType: "render" });
     await onRequestError(new Error("boom"), request, { routerKind: "App Router", routePath: "/banks/[slug]/topics/[topicSlug]", routeType: "render" });
@@ -45,6 +54,18 @@ describe("onRequestError telemetry", () => {
     expect(captureServerException.mock.calls[0][1]).toMatchObject({ error_code: "PGRST303" });
     expect(captureServerException.mock.calls.slice(1).every((call) => !("error_code" in call[1]))).toBe(true);
     expect(JSON.stringify(captureServerException.mock.calls.map((call) => call[1]))).not.toMatch(/secret|alice/);
+  });
+
+  it("reports server programming failures even when their messages mention cooldown", async () => {
+    const context = { routerKind: "App Router", routePath: "/account", routeType: "render" };
+    await onRequestError(new ReferenceError("cooldown is not defined"), request, context);
+    await onRequestError(new TypeError("Cannot read properties of undefined (reading 'cooldown')"), request, context);
+    expect(captureServerException).toHaveBeenCalledTimes(2);
+  });
+
+  it("ignores the installed Next HTTP access fallback digest", async () => {
+    await onRequestError(Object.assign(new Error("NEXT_HTTP_ERROR_FALLBACK;404"), { digest: "NEXT_HTTP_ERROR_FALLBACK;404" }), request, { routerKind: "App Router", routePath: "/account", routeType: "render" });
+    expect(captureServerException).not.toHaveBeenCalled();
   });
 
   it("still ignores redirects and expected auth noise", async () => {

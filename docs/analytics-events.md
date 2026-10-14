@@ -20,6 +20,7 @@ No email, name or account ID is ever sent without consent.
 | `question_filter_change` | bank page | `bank`, `filter` |
 | `answer_reveal` | bank page | `bank`, `freePreview` |
 | `explanation_open` | bank page, Explanation button | `bank`, `freePreview` |
+| `question_report` | bank page, flag on an unlocked question card ("Report a problem"); once per question per page session | `bank`, `questionId`, `issue` (`question_image`, `mark_scheme`, `explanation`, `other`), `freePreview`, `hasExplanation`. No free text. |
 | `pdf_builder_open` | Save PDF / Download PDF | `bank`, `questionCount` |
 | `pdf_export_attempt` / `_success` / `_error` | Download PDF | `bank`, `questionCount`, `content`, `source` (`worksheet` = My Worksheets, `save_dialog` = icon in the Save PDF card) |
 | `pdf_upgrade_view` | PDF prompt for people without access | `bank` |
@@ -32,10 +33,19 @@ No email, name or account ID is ever sent without consent.
 | `checkout_cancelled` | pricing with `?checkout=cancelled` (Stripe cancel) | none |
 | `checkout_returned` | account with `?checkout=success` or `lifetime-pending` | `status` |
 | `$exception` | uncaught browser errors, unhandled rejections, error boundaries | scrubbed message (`safeErrorMessage`), stack, `digest?` (matches the server render error) |
-| `api_request_failed` | any own `/api/*` call answering 5xx, 400, 408, 413 or 429, or failing on the network (`api-failure-monitor`) | `route` (ids as `[id]`), `method`, `status` (0 = network), `outcome`, `duration_ms`, `correlation_id?` |
-| `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign` or `failed`), `host` (`r2`, `supabase`, `self`, `other`) |
+| `api_request_failed` | any own `/api/*` call answering 5xx, 400, 408, 413 or 429, or failing on the network (`api-failure-monitor`) | `route` (ids as `[id]`), `method`, `status` (0 = network), `outcome`, `duration_ms`, `correlation_id?`, `user_id?` |
+| `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign`, `public_fallback` when a free.pastpaperprep.com link failed and the bank switched to signed links, or `failed`), `host` (`r2`, `supabase`, `free`, `self`, `other`), `user_id?` |
+| `past_paper_search` | past-paper search box (Enter or a suggestion) | `found` |
+| `home_search` | landing-page search box (Enter or a result) | `found`, `kind` (paper, topic, topics, papers, none), `intent` |
+| `past_paper_open` | free paper page | `bank`, `paper` |
+| `past_paper_timer_start` | paper timer | `bank` |
+| `past_paper_mark_open` | "Mark this paper" / "Mark it" | `bank` |
+| `past_paper_report_view` | "See where your marks went" | `bank`, `complete` |
+| `past_paper_practice_click` | the report's one practice button | `bank` |
 
 `placement` is one of `top_note`, `feed_teaser`, `feed_timeline`, `locked_card`, `practice_milestone`, `signup_gate`, `pdf_dialog`. The same value travels to pricing as `?from=`, so `pricing_view.from` shows which prompt sent the visitor.
+
+**Free past papers funnel (everyone, ratios of totals):** `past_paper_open` → `past_paper_mark_open` → `past_paper_report_view` → `past_paper_practice_click` → `pricing_view`, broken down by `bank`. Linking to `conversion_outcome` needs analytics consent, like the other funnels.
 
 ## Server events
 
@@ -62,6 +72,8 @@ Browser events and server conversions never share an ID. Browser events are cook
 5. **Pricing to paid:** `conversion_outcome` (`payment_initial_paid` + `lifetime_paid`) ÷ `pricing_view`, per week.
 6. **Checkout drop-off (browser only, a real funnel works):** `pricing_view` → `checkout_start` → `checkout_returned`, with `checkout_cancelled` as a trend alongside.
 
+**Problem reports (data-quality queue):** a Trends insight on `question_report` (total count), broken down by `bank`, `questionId` and `issue`, shown as a table over the last 30 days. Sort by count; a question reported by several students is the first to check. `consented_question_report` duplicates these for consented visitors, so count only `question_report`.
+
 **Reliability:**
 7. `$exception` where `error_source = handled_response`, broken down by `route` and `reason`. Alert on spikes for `/api/assets/sign` and `/api/billing/checkout`.
 
@@ -69,11 +81,11 @@ For revenue counts, count distinct `$insert_id` on `conversion_outcome`. A Strip
 
 ## Server logs (PostHog Logs)
 
-Vercel Hobby keeps runtime logs for about an hour, so production and preview servers also send structured logs to PostHog Logs (`src/lib/server-logs.ts`, OTLP, 14-day retention, free up to 10 GB a month). Values are code-controlled only: route patterns, enumerated outcomes, counts and durations.
+Vercel Hobby keeps runtime logs for about an hour, so production and preview servers also send structured logs to PostHog Logs (`src/lib/server-logs.ts`, OTLP, 14-day retention, free up to 10 GB a month). Values are code-controlled only: route patterns, enumerated outcomes, counts and durations. Uploads have a two-second abort deadline and run after responses. Every logging caller registers a drain in its own request lifecycle; the first drain snapshots the bounded shared buffer, so an open request cannot prevent a completed request from delivering its records. Empty drains do not POST and ingestion failures remain best-effort.
 
 | Log | Level | Attributes |
 | --- | --- | --- |
-| `api_request` | info, warn (4xx), error (5xx or thrown) | `route`, `method`, `status`, `duration_ms`, `correlation_id?`, `bank?`, `stage?`, `storage_provider?` |
+| `api_request` | info, warn (4xx), error (5xx or thrown) | `route`, `method`, `status`, `duration_ms`, `correlation_id?`, `user_id?`, `bank?`, `stage?`, `storage_provider?` |
 | `server_exception` | error | scrubbed `message`, `error_name`, and the exception's properties |
 | `asset_signing` | info, error | `provider`, `bank`, `assets`, `long_lived`, `duration_ms`, `outcome`, `message?` |
 | `entitlement_read_retry` / `_recovered` / `_failed` | warn, info, error | `attempt(s)`, `error_code` (PGRST303 is Supabase's clock bug) |
@@ -81,5 +93,9 @@ Vercel Hobby keeps runtime logs for about an hour, so production and preview ser
 
 To trace a failure: take `correlation_id` from `api_request_failed` (browser) or the `x-correlation-id` header, then search it in Logs and Error tracking. Render errors match on `digest`.
 
-Messages pass through `safeErrorMessage`: emails, URLs, ids, `key=value` pairs, long numbers, tokens, free text in quotes and non-ASCII text become placeholders, and React production errors keep only their code (`React error #418`).
+Messages pass through `safeErrorMessage`, which returns only fixed diagnostics or normalized templates. Arbitrary text is omitted and exception producers use a generic fallback; parser inputs, dynamic property names outside a small code-controlled vocabulary, quoted secrets and personal prose are never retained as messages. React production errors keep only their code (`React error #418`). Known diagnostic outputs remain readable through a second SDK sanitization pass. Server exception names also use an explicit category allowlist.
+
+Expected Next navigation/access markers and explicit auth/limit outcomes are excluded on both browser and server. A keyword such as `cooldown` inside a `ReferenceError` or `TypeError` is not an expected outcome: programming crashes still emit one exception per error object.
+
+`user_id` is the signed-in account's Supabase id (a UUID), added automatically to exceptions, `api_request_failed`, `asset_load_failed`, `api_request` and `entitlement_read_*` from the session cookie (`accountIdFromCookieHeader`, decoded without verification, so telemetry only). Signed-out traffic has none. It never splits an issue's grouping. Look the id up in Supabase when you need the person; names and emails never go to PostHog through this path (disclosed in /privacy).
 

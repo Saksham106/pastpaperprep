@@ -9,6 +9,7 @@ import { explanationAssetSignOptions, premiumAssetSignOptions, previewAssetSignO
 import { richDetailsFor } from "@/lib/question-delivery";
 import { reviewedBlankTailForSignedAsset } from "@/lib/reviewed-blank-tails";
 import { createClient } from "@/lib/supabase/server";
+import { currentQuestionId } from "@/lib/question-id-aliases";
 
 export const runtime = "nodejs";
 
@@ -64,11 +65,22 @@ async function handlePOST(request: Request) {
   const manifest = await loadBankAssetManifest(body.bank as BankSlug).catch(() => null);
   if (!manifest) return annotateFailureResponse(NextResponse.json({ error: "Private assets are temporarily unavailable" }, { status: 503, ...PRIVATE_RESPONSE_INIT }), { bank: body.bank, stage: "manifest", storage_provider: "local", error_code: "manifest_unavailable" });
 
+  // A retired question id (question-id-aliases.json) signs its replacement but is answered under the
+  // id that was asked for, so pages opened before the replacement still accept the response.
+  const requestedIds = new Map<string, string>();
+  const requests = (body.requests as AssetRequest[]).map((request) => {
+    if (!request || typeof request.questionId !== "string") return request;
+    const questionId = currentQuestionId(body.bank as string, request.questionId);
+    if (questionId !== request.questionId) requestedIds.set(`${questionId}:${request.kind}`, request.questionId);
+    return { ...request, questionId };
+  });
+  const responseId = (item: { questionId: string; kind: string }) => requestedIds.get(`${item.questionId}:${item.kind}`) ?? item.questionId;
+
   let authorized;
   try {
     authorized = authorizeManifestAssetRequests(
       body.bank as BankSlug,
-      body.requests as AssetRequest[],
+      requests,
       entitlements,
       manifest,
     );
@@ -92,10 +104,11 @@ async function handlePOST(request: Request) {
     return NextResponse.json({
       expiresIn: 600,
       assets: authorized.map((item) => ({
-        questionId: item.questionId,
+        questionId: responseId(item),
         kind: item.kind,
         details: richDetailsFor(body.bank as BankSlug, item.questionId, item.details, entitlements),
         urls: [],
+        ...(item.mcqAnswer ? { mcqAnswer: item.mcqAnswer } : {}),
       })),
     }, PRIVATE_RESPONSE_INIT);
   }
@@ -144,11 +157,12 @@ async function handlePOST(request: Request) {
     return NextResponse.json({
       expiresIn: 600,
       assets: authorized.map((item) => ({
-        questionId: item.questionId,
+        questionId: responseId(item),
         kind: item.kind,
         details: richDetailsFor(body.bank as BankSlug, item.questionId, item.details, entitlements),
         urls: item.paths.map((path) => urlByPath.get(path)),
         displayCrops: item.paths.map((path) => reviewedBlankTailForSignedAsset(body.bank as BankSlug, item.questionId, item.kind, path)),
+        ...(item.mcqAnswer ? { mcqAnswer: item.mcqAnswer } : {}),
       })),
     }, PRIVATE_RESPONSE_INIT);
   } catch (error) {

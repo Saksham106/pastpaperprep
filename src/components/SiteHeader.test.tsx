@@ -13,6 +13,16 @@ beforeEach(() => {
 });
 
 describe("SiteHeader", () => {
+  it("links the free past-paper library only when it is switched on", () => {
+    const view = render(<SiteHeader authenticated={false} />);
+    expect(screen.queryByRole("link", { name: "Full past papers" })).not.toBeInTheDocument();
+    view.rerender(<SiteHeader authenticated={false} pastPapers />);
+    expect(screen.getByRole("link", { name: "Full past papers" })).toHaveAttribute("href", "/past-papers");
+    usePathname.mockReturnValue("/past-papers/igcse-maths-0580");
+    view.rerender(<SiteHeader authenticated pastPapers />);
+    expect(screen.getByRole("link", { name: "Full past papers" })).toHaveAttribute("aria-current", "page");
+  });
+
   it("keeps pricing discoverable once a user is signed in", () => {
     render(<SiteHeader authenticated />);
 
@@ -21,7 +31,7 @@ describe("SiteHeader", () => {
     expect(screen.getByRole("link", { name: "Pricing" })).toHaveClass("nav-pricing");
     expect(screen.getByRole("link", { name: "My account" })).toHaveAttribute("href", "/account");
     expect(screen.getByRole("link", { name: "Dashboard" })).toHaveAttribute("href", "/dashboard");
-    expect(screen.getByRole("link", { name: /pastpaperprep home/i })).toHaveAttribute("href", "/dashboard");
+    expect(screen.getByRole("link", { name: /pastpaperprep home/i })).toHaveAttribute("href", "/");
   });
 
   it("keeps pricing available before sign-in", () => {
@@ -45,20 +55,17 @@ describe("SiteHeader", () => {
     expect(screen.getByRole("link", { name: "Dashboard" })).toHaveAttribute("title", "Open question banks");
   });
 
-  it("scrolls to the landing-page banks and marks that section current", () => {
+  it("sends topic practice to the course picker for everyone and marks it current there", () => {
     usePathname.mockReturnValue("/");
-    const section = document.createElement("section");
-    section.id = "question-banks";
-    section.scrollIntoView = vi.fn();
-    document.body.append(section);
-    render(<SiteHeader authenticated={false} />);
-
-    const banks = screen.getByRole("link", { name: "Question banks" });
-    fireEvent.click(banks);
-
-    expect(section.scrollIntoView).toHaveBeenCalledWith({ behavior: "smooth", block: "start" });
-    expect(banks).toHaveAttribute("aria-current", "page");
-    section.remove();
+    const { unmount } = render(<SiteHeader authenticated={false} />);
+    expect(screen.getByRole("link", { name: "Practice by topic" })).toHaveAttribute("href", "/dashboard");
+    unmount();
+    for (const path of ["/dashboard", "/banks/igcse"]) {
+      usePathname.mockReturnValue(path);
+      const view = render(<SiteHeader authenticated />);
+      expect(screen.getByRole("link", { name: "Practice by topic" })).toHaveAttribute("aria-current", "page");
+      view.unmount();
+    }
   });
 
   it("marks login as the current destination", () => {
@@ -97,6 +104,17 @@ describe("SiteHeader", () => {
     expect(nav).toHaveAttribute("data-open", "false");
   });
 
+  it("focuses the opened menu and returns keyboard focus on Escape", () => {
+    render(<SiteHeader />);
+    const toggle = screen.getByRole("button", { name: "Open menu" });
+    toggle.focus();
+    fireEvent.click(toggle);
+    expect(screen.getByRole("link", { name: "Practice by topic" })).toHaveFocus();
+    fireEvent.keyDown(document.activeElement!, { key: "Escape" });
+    expect(toggle).toHaveFocus();
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
+  });
+
   it("gives the menu button a 44px target and animates the panel only when motion is allowed", () => {
     const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
     expect(css).toMatch(/\.menu-toggle \{[^}]*width: 44px; height: 44px;/);
@@ -123,7 +141,7 @@ describe("SiteHeader", () => {
   it("shows the shortcut only on phones and makes the open menu glassy", () => {
     const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
     expect(css).toMatch(/\.nav-quick \{[^}]*display: none/);
-    const phone = css.slice(css.lastIndexOf("@media (max-width: 760px)"));
+    const phone = css.slice(css.lastIndexOf("@media (max-width: 1099px)"));
     expect(phone).toMatch(/\.nav-quick \{[^}]*display: inline-flex/);
     expect(phone).toMatch(/\.site-header \.site-menu \{[^}]*backdrop-filter: blur\(\d+px\)/);
   });
@@ -133,5 +151,49 @@ describe("SiteHeader", () => {
     // which Chrome ignores: the header had no blur outside Safari.
     const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
     expect(css).not.toContain("-webkit-backdrop-filter");
+  });
+
+  it("groups page links for the center and account actions for the right", () => {
+    const { container } = render(<SiteHeader authenticated={false} />);
+    const pages = container.querySelector("#site-menu .nav-pages");
+    const actions = container.querySelector("#site-menu .nav-actions");
+    expect([...(pages?.querySelectorAll("a") ?? [])].map((a) => a.textContent)).toEqual(["Practice by topic", "Articles", "Pricing"]);
+    expect(actions).toContainElement(screen.getByRole("link", { name: "Log in" }));
+    expect(actions).toContainElement(screen.getByRole("link", { name: /start practising/i }));
+    expect(actions).toContainElement(screen.getByRole("button", { name: /switch to dark theme/i }));
+  });
+
+  it("centers page links on a three-column desktop bar and folds into the menu below 1100px", () => {
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    const desktop = css.slice(css.indexOf("@media (min-width: 1100px)"));
+    expect(desktop).toMatch(/\.site-header \{[^}]*display: grid;[^}]*grid-template-columns: minmax\(0, 1fr\) auto minmax\(0, 1fr\)/);
+    expect(desktop).toMatch(/\.site-header \.site-menu \{[^}]*grid-template-columns: subgrid/);
+    const menu = css.slice(css.indexOf("@media (max-width: 1099px)"));
+    expect(menu).toMatch(/\.menu-toggle \{[^}]*display: inline-flex/);
+  });
+
+  it("places desktop groups on the parent grid when subgrid is unavailable", () => {
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    const fallback = css.slice(css.indexOf("@supports not (grid-template-columns: subgrid)"));
+    expect(fallback).toMatch(/\.site-header \.site-menu \{[^}]*display: contents;/);
+    expect(fallback).toMatch(/\.site-header \.nav-pages \{[^}]*grid-column: 2;[^}]*grid-row: 1;/);
+    expect(fallback).toMatch(/\.site-header \.nav-actions \{[^}]*grid-column: 3;[^}]*grid-row: 1;/);
+  });
+
+  it("marks the current page with darker text only: no tint, pill or underline", () => {
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    const rules = [...css.matchAll(/\.site-menu a\.nav-active:not\(\.nav-cta\)\s*\{([^}]*)\}/g)].map((m) => m[1]);
+    expect(rules.at(-1)).toMatch(/color: var\(--ink\)/);
+    expect(rules.at(-1)).toMatch(/background: transparent/);
+    expect(rules.at(-1)).toMatch(/box-shadow: none/);
+  });
+
+  it("takes the logo to the landing page whether or not the visitor is signed in", () => {
+    usePathname.mockReturnValue("/dashboard");
+    for (const authenticated of [false, true]) {
+      const view = render(<SiteHeader authenticated={authenticated} />);
+      expect(screen.getByRole("link", { name: "PastPaperPrep home" })).toHaveAttribute("href", "/");
+      view.unmount();
+    }
   });
 });

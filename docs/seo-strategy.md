@@ -81,6 +81,27 @@ Every article needs a direct answer near the top, original examples or product-b
 
 Competitor pages must compare the products users can actually buy, not manufacture a straw man. Check prices and features against each company's official page, show the verification date, acknowledge where the competitor is stronger, and link the source. Re-check every comparison at least quarterly and immediately after a reported pricing change.
 
+### Free past-paper library
+
+Full papers with their mark schemes, free and without sign-up, at `/past-papers`. Turning it on in production needs the owner's approval (R2 readback receipt plus environment variables). Until then every route returns 404 and none of these pages are in the sitemap.
+
+| Page | Path | Query it answers |
+|---|---|---|
+| Hub | `/past-papers` | igcse past papers, ib past papers with mark schemes |
+| Qualification | `/past-papers/igcse`, `/past-papers/ib` | cambridge igcse past papers, ib past papers |
+| Subject | `/past-papers/igcse-maths-0580` | 0580 past papers, igcse maths past papers |
+| Year | `/past-papers/igcse-maths-0580/2024` | 0580 past papers 2024, 0580 may june 2024 |
+| Paper number | `/past-papers/igcse-maths-0580/paper-4` | 0580 paper 4 past papers |
+| Paper | `/past-papers/igcse-maths-0580/2024-may-june-42` | 0580/42/m/j/24, 0580_s24_qp_42 |
+
+How these pages are built:
+- Every page opens with a one-sentence answer.
+- Paper pages list their questions, topics and marks in server HTML, plus the Cambridge file names as visible text.
+- Subject pages carry an FAQ that matches their `FAQPage` JSON-LD.
+- `/banks/.../papers/paper-N` pages (practice by topic) and `/past-papers/.../paper-N` pages (full papers) link to each other, and their titles stay distinct.
+
+Once indexed, watch the subject + "past papers", year and file-name clusters separately in Search Console.
+
 ## Query clusters to measure
 
 No fake search-volume numbers. Use Search Console's real query and page data after indexing. [6]

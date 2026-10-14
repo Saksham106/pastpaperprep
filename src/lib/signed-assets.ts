@@ -1,18 +1,25 @@
 import type { AssetKind, AssetRequest } from "@/lib/asset-access";
 import { isAssetKind } from "@/lib/asset-kinds";
+import { isMcqAnswer, type McqAnswer } from "@/lib/mcq-answer";
 import type { QuestionRichDetails } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
 import type { SourcePrintSegment } from "@/lib/print-geometry";
 import type { VisibleImageCrop } from "@/lib/reviewed-blank-tails";
+import { FREE_ASSET_INDEX_VERSION, freeAssetIndexPath, isFreePublicAssetUrl, type FreeAssetIndex } from "@/lib/free-asset-index";
 
 const SIGN_BATCH_SIZE = 20;
 /**
- * Free-year links: signed for a day and shared by the CDN for up to 20 hours, so each free
- * image is signed by a function about once a day per region instead of four times an hour.
+ * Free-year links: signed for a week (the R2 presign maximum). The CDN keeps a response fresh
+ * for four days and may serve it for two more while refreshing in the background. Within that
+ * window, links retain a day of validity (less the client's safety margin). Vercel scopes this
+ * response cache by deployment, so a new deploy uses new entries; it does not purge old ones.
  * Only free-year questions use these; paid assets keep 10-minute links behind sign-in.
  */
-export const FREE_ASSET_EXPIRES_IN = 86_400;
-export const FREE_ASSET_CDN_MAX_AGE = 72_000;
+export const FREE_ASSET_EXPIRES_IN = 7 * 24 * 60 * 60;
+export const FREE_ASSET_CDN_FRESH = 4 * 24 * 60 * 60;
+export const FREE_ASSET_CDN_STALE = 2 * 24 * 60 * 60;
+/** The oldest copy the CDN may hand out; the client expires links assuming this age. */
+export const FREE_ASSET_CDN_MAX_AGE = FREE_ASSET_CDN_FRESH + FREE_ASSET_CDN_STALE;
 
 type Fetcher = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 
@@ -24,6 +31,8 @@ export type SignedAsset = AssetRequest & {
   printSegments?: Array<SourcePrintSegment[] | null>;
   rasterSizesPx?: Array<[number, number] | null>;
   displayCrops?: Array<VisibleImageCrop | null>;
+  /** A verified multiple-choice letter, shown instead of the mark-scheme crop. Answer assets only. */
+  mcqAnswer?: McqAnswer;
 };
 
 export function signedAssetKey(questionId: string, kind: AssetKind): string {
@@ -86,7 +95,7 @@ function validDisplayCrop(value: unknown): value is VisibleImageCrop | null {
     (crop.visibleHeightPx as number) < (crop.fullHeightPx as number);
 }
 
-function validAsset(value: unknown, localPreview = false): value is AssetRequest & { urls: string[]; details?: QuestionRichDetails; printSizesPt?: Array<[number, number] | null>; printSegments?: Array<SourcePrintSegment[] | null>; rasterSizesPx?: Array<[number, number] | null>; displayCrops?: Array<VisibleImageCrop | null> } {
+function validAsset(value: unknown, localPreview = false): value is AssetRequest & { urls: string[]; details?: QuestionRichDetails; printSizesPt?: Array<[number, number] | null>; printSegments?: Array<SourcePrintSegment[] | null>; rasterSizesPx?: Array<[number, number] | null>; displayCrops?: Array<VisibleImageCrop | null>; mcqAnswer?: McqAnswer } {
   if (!value || typeof value !== "object" || Array.isArray(value)) return false;
   const asset = value as Record<string, unknown>;
   return (
@@ -106,8 +115,13 @@ function validAsset(value: unknown, localPreview = false): value is AssetRequest
           validPrintSegments(parts, (asset.printSizesPt as unknown[])[index], (asset.rasterSizesPx as unknown[])[index])))) &&
     (asset.displayCrops === undefined || (Array.isArray(asset.displayCrops) &&
       asset.displayCrops.length === asset.urls.length && asset.displayCrops.every(validDisplayCrop))) &&
-    (asset.details === undefined || validDetails(asset.details))
+    (asset.details === undefined || validDetails(asset.details)) &&
+    (asset.mcqAnswer === undefined || (asset.kind === "answer" && isMcqAnswer(asset.mcqAnswer)))
   );
+}
+
+function assertCurrentScope(isCurrent: () => boolean): void {
+  if (!isCurrent()) throw new DOMException("Asset request scope expired", "AbortError");
 }
 
 export async function fetchSignedAssets(
@@ -115,18 +129,18 @@ export async function fetchSignedAssets(
   requests: readonly AssetRequest[],
   fetcher: Fetcher = fetch,
   localPreview = false,
+  isCurrent: () => boolean = () => true,
 ): Promise<Map<string, SignedAsset>> {
-  const signed = new Map<string, SignedAsset>();
-
-  for (let index = 0; index < requests.length; index += SIGN_BATCH_SIZE) {
-    const batch = requests.slice(index, index + SIGN_BATCH_SIZE);
-    const expected = new Set(batch.map((request) => signedAssetKey(request.questionId, request.kind)));
+  const signBatch = async (batch: readonly AssetRequest[]) => {
+    assertCurrentScope(isCurrent);
     const response = await fetcher(localPreview ? "/api/local-preview-assets/sign" : "/api/assets/sign", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ bank, requests: batch }),
     });
+    assertCurrentScope(isCurrent);
     const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
+    assertCurrentScope(isCurrent);
 
     if (!response.ok) {
       const message = typeof payload?.error === "string" ? payload.error : "Could not load private assets";
@@ -143,8 +157,19 @@ export async function fetchSignedAssets(
     ) {
       throw new Error("Invalid signed asset response");
     }
-
     const expiresAt = Date.now() + Math.max(payload.expiresIn - 30, 1) * 1000;
+    return { batch, expiresAt, payload: payload as { expiresIn: number; assets: Array<AssetRequest & Omit<SignedAsset, "expiresAt" | keyof AssetRequest>> } };
+  };
+
+  // Batches go out together: a page of questions shouldn't wait on one round trip per 20 images.
+  const batches: AssetRequest[][] = [];
+  for (let index = 0; index < requests.length; index += SIGN_BATCH_SIZE) batches.push(requests.slice(index, index + SIGN_BATCH_SIZE));
+  const results = await Promise.all(batches.map(signBatch));
+  assertCurrentScope(isCurrent);
+
+  const signed = new Map<string, SignedAsset>();
+  for (const { batch, payload, expiresAt } of results) {
+    const expected = new Set(batch.map((request) => signedAssetKey(request.questionId, request.kind)));
     for (const asset of payload.assets) {
       const key = signedAssetKey(asset.questionId, asset.kind);
       if (!expected.delete(key) || signed.has(key)) throw new Error("Invalid signed asset response");
@@ -162,7 +187,9 @@ export async function fetchPdfAssets(
   content: "questions" | "answers" | "both",
   fetcher: Fetcher = fetch,
   localPreview = false,
+  isCurrent: () => boolean = () => true,
 ): Promise<Map<string, SignedAsset>> {
+  assertCurrentScope(isCurrent);
   const expectedQuestions = new Set(questionIds);
   // Every released 0606 question has exactly one source QP and one source MS.
   // Other banks can legitimately have text-only answers, so do not require those there.
@@ -175,7 +202,9 @@ export async function fetchPdfAssets(
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ bank, questionIds, content }),
   });
+  assertCurrentScope(isCurrent);
   const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
+  assertCurrentScope(isCurrent);
   if (!response.ok) {
     const message = typeof payload?.error === "string" ? payload.error : "Could not authorize PDF assets";
     throw new Error(message);
@@ -206,31 +235,93 @@ export async function fetchPdfAssets(
 }
 
 const FREE_ASSET_SAFETY_SECONDS = 300;
+/** Public links never expire; re-read the static index daily so a long-open tab picks up a deploy. */
+const FREE_PUBLIC_ASSET_LIFETIME_MS = 24 * 60 * 60 * 1000;
 
-/** Free-year assets through the CDN-cached GET route; one request per asset so cache keys ignore filters. */
+type LoadedIndex = { loadedAt: number; index: Promise<FreeAssetIndex | null> };
+const freeIndexes = new WeakMap<Fetcher, Map<BankSlug, LoadedIndex>>();
+const signedFallbackBanks = new Set<BankSlug>();
+
+/**
+ * Stop using free.pastpaperprep.com for a bank in this tab, after one of its public images failed
+ * to load; later requests go back to the signing route, which reads the private stores.
+ */
+export function preferSignedFreeAssets(bank: BankSlug): void {
+  signedFallbackBanks.add(bank);
+}
+
+/**
+ * The bank's static index, re-read once it is a day old so a long-open tab picks up a deploy.
+ * A failed or invalid read isn't kept: the next request tries again.
+ */
+function loadFreeAssetIndex(bank: BankSlug, fetcher: Fetcher): LoadedIndex {
+  let byBank = freeIndexes.get(fetcher);
+  if (!byBank) freeIndexes.set(fetcher, byBank = new Map());
+  const cached = byBank.get(bank);
+  if (cached && Date.now() - cached.loadedAt < FREE_PUBLIC_ASSET_LIFETIME_MS) return cached;
+  const loaded: LoadedIndex = {
+    loadedAt: Date.now(),
+    index: fetcher(freeAssetIndexPath(bank))
+      .then(async (response) => {
+        const index = response.ok ? await response.json().catch(() => null) as FreeAssetIndex | null : null;
+        return index && index.version === FREE_ASSET_INDEX_VERSION && index.bank === bank && index.questions && typeof index.questions === "object" ? index : null;
+      })
+      .catch(() => null),
+  };
+  byBank.set(bank, loaded);
+  void loaded.index.then((index) => { if (!index && byBank.get(bank) === loaded) byBank.delete(bank); });
+  return loaded;
+}
+
+/** A public link lives as long as the index read it came from. */
+function publicFreeAsset(index: FreeAssetIndex | null, loadedAt: number, request: AssetRequest): SignedAsset | null {
+  const question = index?.questions[request.questionId];
+  const entry = question?.[request.kind];
+  if (!question || !entry) return null;
+  const asset = { questionId: request.questionId, kind: request.kind, urls: entry.urls, displayCrops: entry.displayCrops, details: question.details, ...(entry.mcqAnswer !== undefined ? { mcqAnswer: entry.mcqAnswer } : {}) };
+  if (!validAsset(asset) || !asset.urls.every(isFreePublicAssetUrl)) return null;
+  return { ...asset, expiresAt: loadedAt + FREE_PUBLIC_ASSET_LIFETIME_MS };
+}
+
+/**
+ * Free-year assets: public links from the static per-bank index when it has them, otherwise
+ * the CDN-cached signing route (one request per asset so cache keys ignore filters).
+ */
 export async function fetchFreeAssets(
   bank: BankSlug,
   requests: readonly AssetRequest[],
   fetcher: Fetcher = fetch,
 ): Promise<{ assets: Map<string, SignedAsset>; failedKeys: string[] }> {
+  const loaded = signedFallbackBanks.has(bank) ? null : loadFreeAssetIndex(bank, fetcher);
+  const index = loaded ? await loaded.index : null;
   const results = await Promise.all(requests.map(async (request) => {
     const key = signedAssetKey(request.questionId, request.kind);
+    const publicAsset = loaded ? publicFreeAsset(index, loaded.loadedAt, request) : null;
+    if (publicAsset) return { key, asset: publicAsset };
     try {
       const query = new URLSearchParams({ bank, id: request.questionId, kind: request.kind });
-      const response = await fetcher(`/api/assets/free?${query}`);
-      const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
-      if (
-        !response.ok || !payload ||
-        typeof payload.expiresIn !== "number" || typeof payload.maxAge !== "number" ||
-        !validAsset(payload.asset) ||
-        signedAssetKey(payload.asset.questionId, payload.asset.kind) !== key
-      ) throw new Error("Invalid free asset response");
-      // A CDN copy is normally at most maxAge old; trust a larger Age header if the CDN reports
-      // one, so a stale copy can never hand out a link that is already dead.
-      const reportedAge = Number(response.headers?.get("age"));
-      const age = Math.max(Number.isFinite(reportedAge) ? reportedAge : 0, payload.maxAge);
-      const lifetime = Math.max(payload.expiresIn - age - FREE_ASSET_SAFETY_SECONDS, 1);
-      return { key, asset: { ...payload.asset, expiresAt: Date.now() + lifetime * 1000 } as SignedAsset };
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        const response = await fetcher(`/api/assets/free?${query}`, attempt ? { cache: "reload", headers: { "cache-control": "no-cache", pragma: "no-cache" } } : undefined);
+        const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
+        if (
+          !response.ok || !payload ||
+          typeof payload.expiresIn !== "number" || !Number.isSafeInteger(payload.expiresIn) ||
+          payload.expiresIn <= FREE_ASSET_SAFETY_SECONDS || payload.expiresIn > FREE_ASSET_EXPIRES_IN ||
+          typeof payload.maxAge !== "number" || !Number.isSafeInteger(payload.maxAge) ||
+          payload.maxAge < 0 || payload.maxAge >= payload.expiresIn - FREE_ASSET_SAFETY_SECONDS ||
+          !validAsset(payload.asset) ||
+          signedAssetKey(payload.asset.questionId, payload.asset.kind) !== key
+        ) throw new Error("Invalid free asset response");
+        // Assume the full CDN window even without Age; honor a reported older copy too.
+        const reportedAge = Number(response.headers?.get("age"));
+        const age = Math.max(Number.isFinite(reportedAge) ? reportedAge : 0, payload.maxAge);
+        const lifetime = payload.expiresIn - age - FREE_ASSET_SAFETY_SECONDS;
+        // Never turn an expired link into a one-second success: it can trigger a refetch loop.
+        // Try one synchronous revalidation, then surface a normal per-asset failure.
+        if (lifetime <= 0) continue;
+        return { key, asset: { ...payload.asset, expiresAt: Date.now() + lifetime * 1000 } as SignedAsset };
+      }
+      throw new Error("Expired free asset response");
     } catch {
       return { key, asset: null };
     }

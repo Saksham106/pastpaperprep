@@ -50,7 +50,8 @@ describe("public bank index generator", () => {
     const namedYears = source.questions.filter((row) => row.year >= 2021 && row.year <= 2025);
     expect(namedYears).toHaveLength(3441);
     expect(namedYears.every((row) => !row.subtopics.some((label) => /^\d+\.\d+$/.test(label)))).toBe(true);
-    expect(published.questions.filter((row) => row.officialCodeRefs?.some((code) => /^(2020_2021|2022|2023_2025|2026_2028):\d+\.\d+$/.test(code)))).toHaveLength(4910);
+    // Every row but the three reviewed no-address rows: 4,910 of the finalized 4,913 plus all 298 May/June 2026 rows.
+    expect(published.questions.filter((row) => row.officialCodeRefs?.some((code) => /^(2020_2021|2022|2023_2025|2026_2028):\d+\.\d+$/.test(code)))).toHaveLength(5208);
     for (const row of published.questions) expect(row).toEqual(expected.get(row.id));
   });
 

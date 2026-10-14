@@ -8,17 +8,22 @@ import seal from '../../docs/0580-section-legacy-filter-seal-v3.json';
 import {toPublicQuestionMetadata,publicBankIndexUrl} from '@/lib/question-index';
 import {filterQuestions} from '@/lib/question-filter';
 import {getControlledSubtopics,getSubtopicGroups,getTopicOptions} from '@/lib/taxonomy-router';
-type SourceQuestion=Record<string,unknown>&{id:string;subtopics:string[];accessibleText:string};
+import {split0580Raw} from '@/lib/igcse-0580-additions.mjs';
+type SourceQuestion=Record<string,unknown>&{id:string;subtopics:string[];detailedSubtopics?:string[];accessibleText:string;questionImages:string[];markschemeImages:string[]};
 const source=(raw as unknown as {questions:SourceQuestion[]}).questions;
+// Historical seal rows plus the hash-pinned reviewed Core 2026 rows carrying each label.
+const {added}=split0580Raw(raw) as {added:SourceQuestion[]};
+const addedIds=new Set(added.map(r=>r.id));
+const sealed=(label:string,ids:string[])=>[...ids,...added.filter(r=>[...r.subtopics,...(r.detailedSubtopics??[])].includes(label)).map(r=>r.id)].sort();
 describe('0580 additive official retrieval',()=>{
  it('keeps the existing nine topic names and teaches 72 official sections in order',()=>{
   expect(IGCSE_0580_TOPICS).toEqual(['Number','Algebra and graphs','Coordinate geometry','Geometry','Mensuration','Trigonometry','Transformations and vectors','Probability','Statistics']);
   expect(IGCSE_0580_SECTIONS).toHaveLength(72);
  });
- it('retains all 3967 questions and all 51 original fine labels including the live180 set',()=>{
-  const rows=normalizeBankQuestions('igcse',source);expect(rows).toHaveLength(3967);expect(new Set(rows.map(r=>r.id)).size).toBe(3967);
+ it('retains all 3967 historical questions plus 207 Core 2026 rows and all 51 original fine labels including the live180 set',()=>{
+  const rows=normalizeBankQuestions('igcse',source);expect(rows).toHaveLength(4174);expect(new Set(rows.map(r=>r.id)).size).toBe(4174);expect(added).toHaveLength(207);
   const labels=[...new Set(source.flatMap(r=>r.subtopics))];expect(labels).toHaveLength(51);
-  for(const label of labels){const before=source.filter(r=>r.subtopics.includes(label)).map(r=>r.id).sort();const after=rows.filter(r=>r.subtopics.includes(label)).map(r=>r.id).sort();if(label==='Indices and surds')expect(after).toHaveLength(180);expect(after).toEqual(label==='Indices and surds'?[...new Set([...before,'0580-2025-march-22-q18','0580-2025-november-22-q17'])].sort():before);}
+  for(const label of labels){const before=source.filter(r=>r.subtopics.includes(label)).map(r=>r.id).sort();const after=rows.filter(r=>r.subtopics.includes(label)).map(r=>r.id).sort();if(label==='Indices and surds')expect(after.filter(id=>!addedIds.has(id))).toHaveLength(180);expect(after).toEqual(label==='Indices and surds'?[...new Set([...before,'0580-2025-march-22-q18','0580-2025-november-22-q17'])].sort():before);}
   expect(getTopicOptions(rows)).toEqual(IGCSE_0580_TOPICS);
   const groups=getSubtopicGroups(rows,[],[]);expect(groups.all.slice(0,72)).toEqual(IGCSE_0580_SECTIONS.map(s=>s.displayTitle));expect(groups.all).toHaveLength(123);
  });
@@ -27,7 +32,8 @@ describe('0580 additive official retrieval',()=>{
  });
  it('retains every served fine-filter ID set through the actual retrieval predicate',()=>{
   const rows=normalizeBankQuestions('igcse',source);
-  for(const [label,ids]of Object.entries(seal.fineFilterIds))expect(filterQuestions(rows,{subtopics:[label]}).map(r=>r.id).sort(),label).toEqual(ids);
+  for(const [label,ids]of Object.entries(seal.fineFilterIds))expect(filterQuestions(rows,{subtopics:[label]}).map(r=>r.id).sort(),label).toEqual(sealed(label,ids));
+  expect(seal.fineFilterIds['Indices and surds']).toHaveLength(180);
  });
  it('matches full public metadata to runtime classifications while preserving sealed asset counts',()=>{
   const rows=normalizeBankQuestions('igcse',source);
@@ -35,7 +41,10 @@ describe('0580 additive official retrieval',()=>{
   const generated=new Map(index.questions.map((q:{id:string})=>[q.id,q]));
   const counts=seal.imageCounts as Record<string,number[]>;
   // Historical generator counts can double-count duplicate MS references; unchanged here.
-  for(const row of rows)expect(generated.get(row.id),row.id).toEqual({...toPublicQuestionMetadata(row),questionImageCount:counts[row.id][0],markschemeImageCount:counts[row.id][1]});
+  // Added rows are not in the historical seal; their counts come from their own single crops.
+  const addedCounts=new Map(added.map(r=>[r.id,[r.questionImages.length,r.markschemeImages.length]]));
+  expect(Object.keys(counts).filter(id=>addedIds.has(id))).toEqual([]);
+  for(const row of rows){const count=counts[row.id]??addedCounts.get(row.id)!;expect(generated.get(row.id),row.id).toEqual({...toPublicQuestionMetadata(row),questionImageCount:count[0],markschemeImageCount:count[1]});}
  });
  it('keeps official sections under their own parents rather than leaking cross-topic labels',()=>{
   const groups=getSubtopicGroups(normalizeBankQuestions('igcse',source),['Number'],[]);
