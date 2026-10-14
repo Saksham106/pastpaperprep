@@ -11,6 +11,13 @@ import { ADDED_0606_QUESTION_IDS, BASE_0606_RAW_SHA256, split0606Raw } from "@/l
 import { metadataFromRaw } from "../../scripts/generate-bank-index.mjs";
 
 const RAW_PATH = "src/data/raw/igcse-additional.json";
+const TRANSCRIPTS_PATH = "docs/igcse-0606-2026-march-transcripts.json";
+// C0 and C1 controls (the delivered PDF text carried barcode bytes U+0001 to U+0008).
+const CONTROL_CHARACTERS = /[\u0000-\u001f\u007f-\u009f]/;
+const transcripts = JSON.parse(readFileSync(TRANSCRIPTS_PATH, "utf8")) as {
+  supersedes: { sha256: string };
+  rows: Array<{ id: string; deliveredTextSha256: string; questionImageSha256: string; accessibleText: string }>;
+};
 const sha = (bytes: Buffer | string) => createHash("sha256").update(bytes).digest("hex");
 const rawBytes = readFileSync(RAW_PATH);
 const raw = JSON.parse(rawBytes.toString("utf8"));
@@ -44,14 +51,47 @@ describe("0606 Feb/March 2026 reviewed addition", () => {
     expect(() => split0606Raw(moved)).toThrow(/drift/);
   });
 
-  it("keeps the delivered review status and source text hashes without relabelling history", () => {
+  it("keeps the delivered review status and serves the pinned reviewed transcripts without relabelling history", () => {
     const { base, added } = split0606Raw(raw);
     expect(new Set(added.map((row: Row) => row.reviewStatus))).toEqual(new Set(["source-structured-draft"]));
     expect(new Set(base.questions.map((row: Row) => row.reviewStatus))).toEqual(new Set(["independently-reviewed"]));
+    expect(receipt.accessibleTextOverlay).toMatchObject({ path: TRANSCRIPTS_PATH, rowCount: 23 });
+    expect(sha(readFileSync(TRANSCRIPTS_PATH)), TRANSCRIPTS_PATH).toBe(receipt.accessibleTextOverlay.sha256);
+    expect(transcripts.supersedes.sha256).toBe(receipt.source.appAdditionsSha256);
+    expect(transcripts.rows.map((entry) => entry.id)).toEqual(receipt.addedQuestionIds);
     for (const row of added as Row[]) {
       const pinned = receipt.rows.find((entry) => entry.id === row.id)!;
+      const transcript = transcripts.rows.find((entry) => entry.id === row.id)!;
+      expect(row.accessibleText, row.id).toBe(transcript.accessibleText);
       expect(sha(row.accessibleText), row.id).toBe(pinned.sourceTextSha256);
+      expect(transcript.deliveredTextSha256, row.id).toBe(pinned.deliveredTextSha256);
+      expect(transcript.questionImageSha256, row.id).toBe(pinned.questionImageSha256);
     }
+  });
+
+  it("serves screen-reader text without control characters and with faithful notation", () => {
+    const { added } = split0606Raw(raw);
+    const served = loadBankQuestions("igcse-additional").filter((row) => ADDED_0606_QUESTION_IDS.includes(row.id));
+    expect(served).toHaveLength(23);
+    const strings = (value: unknown): string[] => typeof value === "string" ? [value]
+      : Array.isArray(value) ? value.flatMap(strings)
+        : value && typeof value === "object" ? Object.values(value).flatMap(strings) : [];
+    for (const row of [...added, ...served] as Array<Row & { number: number; marks: number }>) {
+      for (const text of strings(row)) expect(CONTROL_CHARACTERS.test(text), `${row.id}: ${JSON.stringify(text)}`).toBe(false);
+    }
+    for (const row of added as Array<Row & { number: number; marks: number }>) {
+      expect(row.accessibleText.startsWith(`${row.number} `), row.id).toBe(true);
+      const marks = [...row.accessibleText.matchAll(/\[(\d+)\]/g)].reduce((sum, match) => sum + Number(match[1]), 0);
+      expect(marks, row.id).toBe(row.marks);
+    }
+    const q2 = served.find((row) => row.id === "0606-2026-march-12-q2")!;
+    for (const text of [q2.accessibleText, q2.summary]) {
+      expect(text).toContain("y = |x^2 - 2x - 3|");
+      expect(text).not.toContain("y x x 2 3 2 = - -");
+    }
+    expect(q2.accessibleText).toContain("g(x) = 4e^(x-2) - 1 for all real x");
+    expect(q2.accessibleText).toContain("Find an expression for g^-1(x). [2]");
+    expect(q2.accessibleText).toMatch(/^2 \(a\) On the axes, sketch the graph of y = \|x\^2 - 2x - 3\|\. State the intercepts with the coordinate axes\. \[4\]/);
   });
 
   it("serves the added papers through the catalog, runtime filters and public index", () => {

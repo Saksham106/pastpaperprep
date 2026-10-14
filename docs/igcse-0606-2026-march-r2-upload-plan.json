@@ -17,13 +17,13 @@
   "provider": "cloudflare-r2",
   "bucket": "pastpaperprep-assets",
   "storageClass": "premium (2026 is not a free-preview year for igcse-additional; no Supabase preview objects)",
-  "method": "localManifest() from scripts/sync-r2-assets.mjs over the merged runtime JSON with the source worktree's site/ root; keys equal normalized questionAssetPaths/markschemeAssetPaths. No client was created and no credentials were read.",
+  "method": "localManifest() from scripts/sync-r2-assets.mjs over the merged runtime JSON with the source worktree's site/ root; keys are its keys for the added rows' crop paths, and the test suite asserts they equal the app's normalized questionAssetPaths/markschemeAssetPaths. No client was created and no credentials were read.",
   "source": {
     "repository": "Saksham106/igcse-additional-mathematics-0606-topic-practice",
-    "branch": "feat/2026-march-acquisition",
+    "branch": "main",
     "commit": "d184b5e7f7889553f40e994aacf700ec1ba8983f"
   },
-  "runtimeRawSha256": "6087554d55f8d21d7ce513b1ff9bd0f445b7d0419814f170dc26d344161bef49",
+  "runtimeRawSha256": "d58e2833c6226bd7c56147dea4af2353a7603220019596f7b4d3238a15d00a3a",
   "objectCount": 46,
   "totalBytes": 2229310,
   "operatorNotes": [

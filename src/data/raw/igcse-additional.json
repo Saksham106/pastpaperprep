@@ -4130,7 +4130,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-12-q1.webp"
       ],
-      "accessibleText": "1 A polynomial p is given by ( )x x x x 4 8 2 p 3 2 = + - - . (a) Show that x 2 + is a factor of ( )x p . [1] (b) Solve the equation ( )x 0 p = . [3]",
+      "accessibleText": "1 A polynomial p is given by p(x) = 4x^3 + 8x^2 - x - 2. (a) Show that x + 2 is a factor of p(x). [1] (b) Solve the equation p(x) = 0. [3]",
       "primaryTopic": "Algebra",
       "secondaryTopics": [],
       "subtopics": [
@@ -4180,7 +4180,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-12-q2.webp"
       ],
-      "accessibleText": "2 (a) On the axes, sketch the graph of y x x 2 3 2 = - - . State the intercepts with the coordinate axes. [4] O x y (b) The function g is defined by ( )x 4 1 g ex 2 = - - for all real x. Find an expression for ( )x g 1 - . [2] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0005,",
+      "accessibleText": "2 (a) On the axes, sketch the graph of y = |x^2 - 2x - 3|. State the intercepts with the coordinate axes. [4] [Diagram: blank axes for the sketch, with the x-axis horizontal, the y-axis vertical and the origin O.] (b) The function g is defined by g(x) = 4e^(x-2) - 1 for all real x. Find an expression for g^-1(x). [2]",
       "primaryTopic": "Sets and functions",
       "secondaryTopics": [
         "Algebra"
@@ -4233,7 +4233,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-12-q3.webp"
       ],
-      "accessibleText": "3 In this question, time t is in seconds and displacement s is in metres. A particle starts from rest at the origin O and moves in a straight line with constant positive acceleration. When t = 4, s = 6. (a) Draw the velocity−time graph for t 0 4 G G . [2] 0 2 2 4 time velocity 4 6 (b) Hence find the acceleration. [1] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0006,",
+      "accessibleText": "3 In this question, time t is in seconds and displacement s is in metres. A particle starts from rest at the origin O and moves in a straight line with constant positive acceleration. When t = 4, s = 6. (a) Draw the velocity-time graph for 0 ≤ t ≤ 4. [2] [Diagram: a grid with velocity on the vertical axis, marked 0, 2, 4 and 6, and time on the horizontal axis, marked 0, 2 and 4.] (b) Hence find the acceleration. [1]",
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "subtopics": [
@@ -4283,7 +4283,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-12-q4.webp"
       ],
-      "accessibleText": "4 In an arithmetic progression: • the common difference is -2 • the sum of the first 4 terms is equal to the sum of the first 10 terms. Find the first term. [3] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0007,",
+      "accessibleText": "4 In an arithmetic progression: • the common difference is -2 • the sum of the first 4 terms is equal to the sum of the first 10 terms. Find the first term. [3]",
       "primaryTopic": "Combinatorics and series",
       "secondaryTopics": [],
       "subtopics": [
@@ -4333,7 +4333,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-12-q5.webp"
       ],
-      "accessibleText": "5 A curve has equation y x x 3 8 2 = - - . P and Q are the stationary points on the curve. Find x y d d and the exact length of the line PQ. [7]",
+      "accessibleText": "5 A curve has equation y = (x^2 - 8)/(3 - x). P and Q are the stationary points on the curve. Find dy/dx and the exact length of the line PQ. [7]",
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "subtopics": [
@@ -4384,7 +4384,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-12-q6.webp"
       ],
-      "accessibleText": "6 (a) Solve the equation x 3 2 7 + = . [3] (b) Solve the inequality x x 2 4 1 2 - + . [4] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0001 ,",
+      "accessibleText": "6 (a) Solve the equation |3x + 2| = 7. [3] (b) Solve the inequality |2x - 4| > |x + 1|. [4]",
       "primaryTopic": "Algebra",
       "secondaryTopics": [],
       "subtopics": [
@@ -4434,7 +4434,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-12-q7.webp"
       ],
-      "accessibleText": "7 The variables x and y are related by y x x 3 1 = + . Use calculus to find the approximate change in y when x increases from 4 to 4 + h, where h is small. [4] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0001 ,",
+      "accessibleText": "7 The variables x and y are related by y = 3√x + 1/√x. Use calculus to find the approximate change in y when x increases from 4 to 4 + h, where h is small. [4]",
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "subtopics": [
@@ -4486,7 +4486,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-12-q8.webp"
       ],
-      "accessibleText": "8 A curve has equation y xe x 2 1 = + . (a) Find x y d d . [3] (b) The line L is the tangent to the curve at the point where x 2 1 = . Find the exact coordinates of the two points where L meets the axes. [5] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0001, 11 (c) Use your answer to 8(a) to find x x e d x 2 1 + y . [4] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0002,",
+      "accessibleText": "8 A curve has equation y = xe^(2x+1). (a) Find dy/dx. [3] (b) The line L is the tangent to the curve at the point where x = 1/2. Find the exact coordinates of the two points where L meets the axes. [5] (c) Use your answer to 8(a) to find ∫ xe^(2x+1) dx. [4]",
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "subtopics": [
@@ -4539,7 +4539,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-12-q9.webp"
       ],
-      "accessibleText": "9 (a) In this question, time is in seconds and distances are in metres. At time t = 0, particle A starts at the origin and moves with velocity 1 2 b l. At the same time, particle B starts from the point with position vector 3 4 - e o and moves with velocity 4 2 - e o. (i) Write down the position vector of B at time t. [1] (ii) Determine whether or not the particles collide. [4] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0003, 13 (b) The point Q has position vector i j 3 2 + . The point R has position vector i j 4 - + . The point S has position vector a b i j + , where a and b are integers. It is given that: • S lies on the straight line QR • RS 5 = . Find the possible values of a and b. [5] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0004,",
+      "accessibleText": "9 (a) In this question, time is in seconds and distances are in metres. At time t = 0, particle A starts at the origin and moves with velocity (2, 1). At the same time, particle B starts from the point with position vector (-3, 4) and moves with velocity (4, -2). [The vectors are printed as column vectors.] (i) Write down the position vector of B at time t. [1] (ii) Determine whether or not the particles collide. [4] (b) The point Q has position vector 3i + 2j. The point R has position vector -i + 4j. The point S has position vector ai + bj, where a and b are integers. It is given that: • S lies on the straight line QR • |vector RS| = √5. Find the possible values of a and b. [5]",
       "primaryTopic": "Vectors and matrices",
       "secondaryTopics": [],
       "subtopics": [
@@ -4590,7 +4590,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-12-q10.webp"
       ],
-      "accessibleText": "10 (a) Given that log log x x 3 5 2 x 5 2 5 - - = log ` j , find x. [6] (b) Solve the equation 2 8 3 2 64 0 x x 2 1 3 4 # # - - = + + . [4] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0005,",
+      "accessibleText": "10 (a) Given that log_5(x^2) - log_5 x - 3 log_x 5 = 2, find x. [6] (b) Solve the equation 2 × 8^(2x+1) - 3 × 2^(3x+4) - 64 = 0. [4]",
       "primaryTopic": "Algebra",
       "secondaryTopics": [],
       "subtopics": [
@@ -4642,7 +4642,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-12-q11.webp"
       ],
-      "accessibleText": "11 A curve has equation y x ax a 3 2 2 2 =- + - where a is a positive constant. The area of the region enclosed by the curve and the x-axis is 16 9 . Find the value of a. [6] Question 12 is on the back page. ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0006,",
+      "accessibleText": "11 A curve has equation y = -x^2 + 3ax - 2a^2 where a is a positive constant. The area of the region enclosed by the curve and the x-axis is 9/16. Find the value of a. [6]",
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "subtopics": [
@@ -4693,7 +4693,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-12-q12.webp"
       ],
-      "accessibleText": "12 Find the coordinates of the points of intersection of the circles with equations x x y y 2 4 20 0 2 2 + + - - = and x x y y 12 6 20 0 2 2 - + - + = . [8] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0007,",
+      "accessibleText": "12 Find the coordinates of the points of intersection of the circles with equations x^2 + 2x + y^2 - 4y - 20 = 0 and x^2 - 12x + y^2 - 6y + 20 = 0. [8]",
       "primaryTopic": "Coordinate geometry",
       "secondaryTopics": [],
       "subtopics": [
@@ -4743,7 +4743,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-22-q1.webp"
       ],
-      "accessibleText": "1 The function f is defined by ( )x x x 2 6 4 f 2 = - + for all real values of x. (a) Write ( )x f in the form ( ) a x b c 2 + + where a, b and c are constants. [3] (b) Hence find the range of f. [1] (c) The function g is defined by ( )x x x 2 6 4 g 2 = - + for x k G , where k is a constant. Given that g has an inverse, state the largest possible value of k. [1] (d) The function h is defined by ( )x 1 h e x 3 = - for x 0 G . Given that ( )x h g exists, find ( )x h g , simplifying your answer. [3] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0004,",
+      "accessibleText": "1 The function f is defined by f(x) = 2x^2 - 6x + 4 for all real values of x. (a) Write f(x) in the form a(x + b)^2 + c where a, b and c are constants. [3] (b) Hence find the range of f. [1] (c) The function g is defined by g(x) = 2x^2 - 6x + 4 for x ≤ k, where k is a constant. Given that g has an inverse, state the largest possible value of k. [1] (d) The function h is defined by h(x) = e^(3x) - 1 for x ≤ 0. Given that gh(x) exists, find gh(x), simplifying your answer. [3]",
       "primaryTopic": "Sets and functions",
       "secondaryTopics": [
         "Algebra"
@@ -4796,7 +4796,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-22-q2.webp"
       ],
-      "accessibleText": "2 Points A and B have coordinates (1, 3) and (-7, 1). The point P with coordinates (2, a) lies on the perpendicular bisector of AB. (a) Find the value of a. [4] (b) The point Q is the reflection of P in the line AB. Find the coordinates of Q. [2] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0005,",
+      "accessibleText": "2 Points A and B have coordinates (1, 3) and (-7, 1). The point P with coordinates (2, a) lies on the perpendicular bisector of AB. (a) Find the value of a. [4] (b) The point Q is the reflection of P in the line AB. Find the coordinates of Q. [2]",
       "primaryTopic": "Coordinate geometry",
       "secondaryTopics": [],
       "subtopics": [
@@ -4846,7 +4846,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-22-q3.webp"
       ],
-      "accessibleText": "3 0 2 – 2 – 2 – 4 – 6 6 8 4 2 – 4 4 x y The diagram shows the graph of ( )( )( ) y x x x 2 1 3 = + - - . By drawing a suitable line on the diagram, solve the inequality ( )( )( ) x x x 2 1 3 7 2 + - - . [4] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0006,",
+      "accessibleText": "3 [Diagram: a grid with x marked from -4 to 4 and y marked from -6 to 8, showing the cubic curve, which crosses the x-axis at x = -2, x = 1 and x = 3 and the y-axis at y = 6.] The diagram shows the graph of y = (x + 2)(x - 1)(x - 3). By drawing a suitable line on the diagram, solve the inequality (x + 2)(x - 1)(x - 3) > 7. [4]",
       "primaryTopic": "Algebra",
       "secondaryTopics": [],
       "subtopics": [
@@ -4896,7 +4896,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-22-q4.webp"
       ],
-      "accessibleText": "4 (a) A 6-digit number is to be formed from the digits 1, 2, 3, 4, 5, 6, 7, 8, 9. No digit may be used more than once in any 6-digit number. Find how many 6-digit numbers can be formed in the following cases. (i) There are no further restrictions. [1] (ii) The 6-digit number includes the digit 4. [2] (b) A class contains 10 girls and 12 boys. A group of 6 students is to be selected from the class. There must be at least 2 girls and at least 2 boys in the group. Find the number of different selections that can be made. [3] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0007,",
+      "accessibleText": "4 (a) A 6-digit number is to be formed from the digits 1, 2, 3, 4, 5, 6, 7, 8, 9. No digit may be used more than once in any 6-digit number. Find how many 6-digit numbers can be formed in the following cases. (i) There are no further restrictions. [1] (ii) The 6-digit number includes the digit 4. [2] (b) A class contains 10 girls and 12 boys. A group of 6 students is to be selected from the class. There must be at least 2 girls and at least 2 boys in the group. Find the number of different selections that can be made. [3]",
       "primaryTopic": "Combinatorics and series",
       "secondaryTopics": [],
       "subtopics": [
@@ -4946,7 +4946,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-22-q5.webp"
       ],
-      "accessibleText": "5 The diagram shows a design for a badge. A B x cm C ABC is an equilateral triangle with side x cm. The arcs BC, CA and AB are parts of the circles with centres A, B and C respectively. (a) Write down the size of angle ABC in radians. Give your answer in terms of r. [1] (b) The area of the badge is r ( ) 2 3 - cm2. Find x. [5] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0001\b,",
+      "accessibleText": "5 The diagram shows a design for a badge. [Diagram: triangle ABC, with C at the top, drawn with dashed sides; each side is replaced by a circular arc bulging outwards, and the width from A to B is labelled x cm.] ABC is an equilateral triangle with side x cm. The arcs BC, CA and AB are parts of the circles with centres A, B and C respectively. (a) Write down the size of angle ABC in radians. Give your answer in terms of π. [1] (b) The area of the badge is 2(π - √3) cm^2. Find x. [5]",
       "primaryTopic": "Geometry and trigonometry",
       "secondaryTopics": [],
       "subtopics": [
@@ -5000,7 +5000,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-22-q6.webp"
       ],
-      "accessibleText": "6 (a) The diagram shows part of the graph of tan y x 1 2 1 = + where x is measured in degrees. x asymptote A O y (i) Write down the period of tan x 1 2 1 + . [1] (ii) Write down the equation of the asymptote A. [1] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0001 , 9 (b) On the axes below, sketch the graph of cos y x 3 2 1 = + for ° ° x 180 180 G G - . [3] – 6 6 – 90° 90° 180° – 180° 0 x y ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0001 ,",
+      "accessibleText": "6 (a) The diagram shows part of the graph of y = 1 + tan((1/2)x) where x is measured in degrees. [Diagram: a grid with no scale marked, showing repeating branches of the curve separated by dashed vertical asymptotes; the asymptote labelled A is the second one to the right of the y-axis.] (i) Write down the period of 1 + tan((1/2)x). [1] (ii) Write down the equation of the asymptote A. [1] (b) On the axes below, sketch the graph of y = 3 cos 2x + 1 for -180° ≤ x ≤ 180°. [3] [Diagram: a blank grid with x marked at -180°, -90°, 0, 90° and 180°, and y marked from -6 to 6.]",
       "primaryTopic": "Geometry and trigonometry",
       "secondaryTopics": [],
       "subtopics": [
@@ -5050,7 +5050,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-22-q7.webp"
       ],
-      "accessibleText": "7 A ship is sailing with speed v kmh 1 - . The sailing cost per hour, $C, is given by C v v 3000 100 2 = + + . (a) Find the speed that makes C a minimum. Justify that this value of C is a minimum. [5] (b) Hence find the minimum sailing cost for a journey of 150 km. [3] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0001,",
+      "accessibleText": "7 A ship is sailing with speed v km h^-1. The sailing cost per hour, $C, is given by C = v^2 + 3000/v + 100. (a) Find the speed that makes C a minimum. Justify that this value of C is a minimum. [5] (b) Hence find the minimum sailing cost for a journey of 150 km. [3]",
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "subtopics": [
@@ -5100,7 +5100,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-22-q8.webp"
       ],
-      "accessibleText": "8 A circle has centre (-2, 0) and radius 5. A line has equation y x k 2 = + , where k is a constant. The line does not meet the circle. Find the set of possible values of k. [8] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0002,",
+      "accessibleText": "8 A circle has centre (-2, 0) and radius 5. A line has equation y = 2x + k, where k is a constant. The line does not meet the circle. Find the set of possible values of k. [8]",
       "primaryTopic": "Coordinate geometry",
       "secondaryTopics": [
         "Algebra"
@@ -5155,7 +5155,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-22-q9.webp"
       ],
-      "accessibleText": "9 (a) Show that tan cot sec 2 i i i + + can be written as sin cos sin 1 2 i i i + . [3] (b) Hence solve the equation tan cot sec x x x 2 2 2 2 0 + + = for ° ° x 180 180 G G - . [4] 13 (c) Solve the equation ( ) ( ) sec tan x x 3 1 1 1 2 - - = - where x is in radians and x 1 3 1 1 - . [5] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0004,",
+      "accessibleText": "9 (a) Show that tan θ + cot θ + 2 sec θ can be written as (1 + 2 sin θ)/(sin θ cos θ). [3] (b) Hence solve the equation tan 2x + cot 2x + 2 sec 2x = 0 for -180° ≤ x ≤ 180°. [4] (c) Solve the equation 3 sec(x - 1) - 1 = tan^2(x - 1) where x is in radians and -1 < x < 3. [5]",
       "primaryTopic": "Geometry and trigonometry",
       "secondaryTopics": [],
       "subtopics": [
@@ -5206,7 +5206,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-22-q10.webp"
       ],
-      "accessibleText": "10 In this question time t is in seconds and displacement s is in metres. For t 0 H , a particle moves on the positive x-axis. At time t the acceleration of the particle is t2 9 - . At time t = 7 the velocity of the particle is 4. (a) Find the times when the velocity of the particle is 0. [4] (b) At time t = 12, the displacement of the particle from the origin O is 150. (i) Find an expression for the displacement of the particle at time t. [3] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0005, 15 (ii) Find the distance travelled by the particle in the first 6 seconds. [3] Question 11 is on the back page. ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0006,",
+      "accessibleText": "10 In this question time t is in seconds and displacement s is in metres. For t ≥ 0, a particle moves on the positive x-axis. At time t the acceleration of the particle is 2t - 9. At time t = 7 the velocity of the particle is 4. (a) Find the times when the velocity of the particle is 0. [4] (b) At time t = 12, the displacement of the particle from the origin O is 150. (i) Find an expression for the displacement of the particle at time t. [3] (ii) Find the distance travelled by the particle in the first 6 seconds. [3]",
       "primaryTopic": "Calculus",
       "secondaryTopics": [],
       "subtopics": [
@@ -5256,7 +5256,7 @@
       "markschemeImages": [
         "markschemes/0606-2026-march-22-q11.webp"
       ],
-      "accessibleText": "11 (a) Find, in descending powers of x, the first three terms in the expansion of ( ) x x 2 1 2 9 + . Give each term in its simplest form. [3] (b) The expansion of ( ) x x 2 1 n 2 + , where n is a positive integer, has a term that is independent of x. Show that n is divisible by 3. [4] ,\u0001\u0001\u0001\u0001 \u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0007,",
+      "accessibleText": "11 (a) Find, in descending powers of x, the first three terms in the expansion of (x^2 + 1/(2x))^9. Give each term in its simplest form. [3] (b) The expansion of (x^2 + 1/(2x))^n, where n is a positive integer, has a term that is independent of x. Show that n is divisible by 3. [4]",
       "primaryTopic": "Combinatorics and series",
       "secondaryTopics": [],
       "subtopics": [

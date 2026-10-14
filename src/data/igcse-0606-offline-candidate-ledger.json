@@ -14,7 +14,7 @@
   },
   "sourceRaw": {
     "path": "src/data/raw/igcse-additional.json",
-    "sha256": "6087554d55f8d21d7ce513b1ff9bd0f445b7d0419814f170dc26d344161bef49",
+    "sha256": "d58e2833c6226bd7c56147dea4af2353a7603220019596f7b4d3238a15d00a3a",
     "rowCount": 1656,
     "baseSha256": "4d385d4ee951a313608075415b95e5e7fb63805823760328b1853c3e145ce87f",
     "baseRowCount": 1633,
@@ -29,7 +29,7 @@
   "inputs": {
     "source": {
       "path": "src/data/raw/igcse-additional.json",
-      "sha256": "6087554d55f8d21d7ce513b1ff9bd0f445b7d0419814f170dc26d344161bef49"
+      "sha256": "d58e2833c6226bd7c56147dea4af2353a7603220019596f7b4d3238a15d00a3a"
     },
     "taxonomy": {
       "path": "src/data/igcse-0606-numbered-subtopics.json",
@@ -69,10 +69,10 @@
       "Trigonometry",
       "Vectors in two dimensions"
     ],
-    "anyProjectionCandidate": 1390,
-    "deterministicProjectionCandidate": 229,
+    "anyProjectionCandidate": 1391,
+    "deterministicProjectionCandidate": 230,
     "modelProposalCandidate": 1289,
-    "unresolvedNoSupportedSection": 266,
+    "unresolvedNoSupportedSection": 265,
     "sourceAdjudicated": 0,
     "perStatementCandidateRows": {
       "1.1": 34,
@@ -91,8 +91,8 @@
       "3.1": 56,
       "3.2": 48,
       "3.3": 30,
-      "4.1": 5,
-      "4.2": 1,
+      "4.1": 6,
+      "4.2": 2,
       "4.3": 19,
       "4.4": 11,
       "4.5": 9,
@@ -380,15 +380,24 @@
       "officialTopics": [
         "Equations, inequalities and graphs"
       ],
-      "reviewDisposition": "current_section_review",
-      "statementCodes": [],
-      "statementTitles": [],
-      "disposition": "unresolved_no_supported_section",
+      "reviewDisposition": "candidate_not_source_adjudicated",
+      "statementCodes": [
+        "4.1",
+        "4.2"
+      ],
+      "statementTitles": [
+        "4.1 Modulus equations",
+        "4.2 Modulus inequalities"
+      ],
+      "disposition": "deterministic_projection_candidate",
       "evidenceClass": "unadjudicated_projection_candidate",
       "deterministicRuleEvidence": {
         "method": "preserved-source-crosswalk-explicit-operations-and-bounded-multilabel-v2",
         "category": "non_model_only_code_correspondence_unadjudicated",
-        "codes": []
+        "codes": [
+          "4.1",
+          "4.2"
+        ]
       },
       "modelProposals": [],
       "sourceEvidence": {
