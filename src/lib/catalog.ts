@@ -49,8 +49,8 @@ export const BANK_CATALOG = [
     const [subject, title, level, questionCount, paperCount, years] = table[slug];
     return bank({ slug, qualification: "IB Diploma", subject, title: `IB ${title}`, shortName: subject.startsWith("Mathematics ") ? `IB Math ${subject.replace("Mathematics ", "")} ${level}` : `${subject} ${level}`, syllabusCode: subject === "Mathematics AA" ? "AA" : subject === "Mathematics AI" ? "AI" : subject, level, questionCount, paperCount, years, access: "paid-bank", productId: `bank_${slug.replaceAll("-", "_")}`, release: "published", delivery: "hosted" });
   }),
-  bank({ slug: "ib-economics-hl", qualification: "IB Diploma", subject: "Economics", title: "IB Economics Higher Level", shortName: "IB Economics HL", syllabusCode: "Economics", level: "HL", questionCount: 111, paperCount: 42, years: "2021-2025", access: "paid-bank", productId: "bank_ib_economics_hl", bundleProductId: "bundle_ib_economics", release: "gated", delivery: "local-preview", localPreview: true }),
-  bank({ slug: "ib-economics-sl", qualification: "IB Diploma", subject: "Economics", title: "IB Economics Standard Level", shortName: "IB Economics SL", syllabusCode: "Economics", level: "SL", questionCount: 89, paperCount: 32, years: "2021-2025", access: "paid-bank", productId: "bank_ib_economics_sl", bundleProductId: "bundle_ib_economics", release: "gated", delivery: "local-preview", localPreview: true }),
+  bank({ slug: "ib-economics-hl", qualification: "IB Diploma", subject: "Economics", title: "IB Economics Higher Level", shortName: "IB Economics HL", syllabusCode: "Economics", level: "HL", questionCount: 128, paperCount: 49, years: "2021-2026", access: "paid-bank", productId: "bank_ib_economics_hl", bundleProductId: "bundle_ib_economics", release: "gated", delivery: "local-preview", localPreview: true }),
+  bank({ slug: "ib-economics-sl", qualification: "IB Diploma", subject: "Economics", title: "IB Economics Standard Level", shortName: "IB Economics SL", syllabusCode: "Economics", level: "SL", questionCount: 104, paperCount: 38, years: "2021-2026", access: "paid-bank", productId: "bank_ib_economics_sl", bundleProductId: "bundle_ib_economics", release: "gated", delivery: "local-preview", localPreview: true }),
 ] as const satisfies readonly CatalogBank[];
 
 export function getCatalogBank(slug: string) { return BANK_CATALOG.find((entry) => entry.slug === slug); }
@@ -68,22 +68,7 @@ export function isCatalogBankEnabled(bank: CatalogBank, environment: Record<stri
 export function isCatalogLocalPreviewEnabled(bank: CatalogBank, environment: Record<string, string | undefined> = process.env) {
   return bank.delivery === "local-preview" && environment.NODE_ENV === "development" && isCatalogBankEnabled(bank, environment);
 }
-/** Shown counts once the gated May 2026 Economics rows are released (see isEconomicsMay2026Enabled). */
-const ECONOMICS_MAY_2026_DISPLAY = {
-  "ib-economics-hl": { questionCount: 111 + 17, paperCount: 42 + 7, years: "2021-2026" },
-  "ib-economics-sl": { questionCount: 89 + 15, paperCount: 32 + 6, years: "2021-2026" },
-} as const;
-function isEconomicsMay2026Released(environment: Record<string, string | undefined>) {
-  return environment.NODE_ENV === "production"
-    && environment.PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION === "true"
-    && environment.PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED === "true"
-    && environment.PASTPAPERPREP_IB_ECONOMICS_2026_MAY_ASSETS_VERIFIED === "true";
-}
-export function getCatalogBanksForDisplay(environment: Record<string, string | undefined> = process.env): readonly CatalogBank[] {
-  const released = isEconomicsMay2026Released(environment);
-  return BANK_CATALOG.filter((entry) => isCatalogBankEnabled(entry, environment)).map((entry): CatalogBank =>
-    released && (entry.slug === "ib-economics-hl" || entry.slug === "ib-economics-sl") ? { ...entry, ...ECONOMICS_MAY_2026_DISPLAY[entry.slug] } : entry);
-}
+export function getCatalogBanksForDisplay(environment: Record<string, string | undefined> = process.env) { return BANK_CATALOG.filter((entry) => isCatalogBankEnabled(entry, environment)); }
 export function getCatalogBillingBanks(environment: Record<string, string | undefined> = process.env) { return getCatalogBanksForDisplay(environment).filter((entry) => isCatalogBankBillable(entry, environment)); }
 
 const SOURCE_BASE_URLS: Partial<Record<BankSlug, string>> = {

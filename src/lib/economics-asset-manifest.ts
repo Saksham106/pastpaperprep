@@ -1,7 +1,5 @@
 import hlManifest from "../../docs/ib-economics-asset-manifests/ib-economics-hl-upload-manifest.json";
 import slManifest from "../../docs/ib-economics-asset-manifests/ib-economics-sl-upload-manifest.json";
-import hlMay2026Manifest from "../../docs/ib-economics-asset-manifests/ib-economics-hl-2026-may-upload-manifest.json";
-import slMay2026Manifest from "../../docs/ib-economics-asset-manifests/ib-economics-sl-2026-may-upload-manifest.json";
 import type { EconomicsBankSlug } from "@/lib/banks";
 
 type Asset = {
@@ -37,23 +35,5 @@ export function buildEconomicsAssetUploadManifest(bank: EconomicsBankSlug): Econ
     manifest.rawPdfIncluded !== false ||
     manifest.assets.some((asset) => !asset.objectKey.startsWith(`${bank}/`) || !asset.objectKey.endsWith(".webp"))
   ) throw new Error("Economics asset manifest is not safe");
-  return manifest;
-}
-
-const may2026Manifests: Record<EconomicsBankSlug, EconomicsAssetUploadManifest> = {
-  "ib-economics-hl": hlMay2026Manifest as unknown as EconomicsAssetUploadManifest,
-  "ib-economics-sl": slMay2026Manifest as unknown as EconomicsAssetUploadManifest,
-};
-
-/** Upload manifest for the gated May 2026 extension (crops only; nothing uploaded yet). */
-export function buildEconomicsMay2026AssetUploadManifest(bank: EconomicsBankSlug): EconomicsAssetUploadManifest {
-  const manifest = may2026Manifests[bank];
-  if (
-    manifest.schemaVersion !== "ib-economics-derived-asset-upload-manifest-v1" ||
-    manifest.bank !== bank ||
-    manifest.upload !== false ||
-    manifest.rawPdfIncluded !== false ||
-    manifest.assets.some((asset) => !asset.objectKey.startsWith(`${bank}/`) || !asset.objectKey.endsWith(".webp") || !/\/2026-may-/.test(asset.objectKey))
-  ) throw new Error("Economics May 2026 asset manifest is not safe");
   return manifest;
 }

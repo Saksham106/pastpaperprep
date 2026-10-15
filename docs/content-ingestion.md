@@ -481,7 +481,7 @@ Pipeline commands match "#### IB HL" above, run inside each AI repository.
 
 ## IB Economics HL/SL May 2026 addition (October 2026)
 
-26 official May 2026 questions (HL 17, SL 15) are a gated extension of the sealed 2021-2025 Economics runtime, served only behind `PASTPAPERPREP_IB_ECONOMICS_2026_MAY_ASSETS_VERIFIED`. Sealed files stay byte-identical (`node scripts/verify-ib-economics-2026-may-addition.mjs`); the crop upload plan (287 objects) and the 20-PDF free-papers plan are dry-run only. Details, owner steps and receipts: `docs/ib-economics-2026-may-official-papers.md`. Source lane: `ib-economics-topic-practice` branch `feat/may-2026-official` (`scripts/may_2026_lane.py`, `may_2026_tagging.py`, `build_may_2026_site_data.py`).
+26 official May 2026 questions (HL 17, SL 15) are appended to the production Economics runtime (HL 128 / 49 papers, SL 104 / 38) with no env flag. The 2021-2025 rows, papers and asset entries stay a byte-identical prefix (`node scripts/verify-ib-economics-2026-may-addition.mjs`); the 287 new crops were uploaded create-only and read back, and `ib-economics-storage-release-receipt-with-2026-may.json` is the combined verified receipt. Rights are user-attested (2026-10-15). The 20 PDFs are planned only until published and verified. Details and receipts: `docs/ib-economics-2026-may-official-papers.md`. Source lane: `ib-economics-topic-practice` branch `feat/may-2026-official` (`scripts/may_2026_lane.py`, `may_2026_tagging.py`, `build_may_2026_site_data.py`).
 
 ## Cambridge IGCSE Mathematics 0580 Core 2026 addition (October 2026)
 

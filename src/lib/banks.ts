@@ -68,14 +68,6 @@ export function isEconomicsProductionEnabled(environment: Record<string, string 
   const economics = getCatalogBank("ib-economics-hl");
   return Boolean(economics && isCatalogBankEnabled(economics, environment) && isCatalogBankBillable(economics, environment));
 }
-/**
- * The May 2026 Economics rows are a gated extension of the sealed 2021-2025 runtime. They are served only when the
- * production Economics bank is live AND the owner has set PASTPAPERPREP_IB_ECONOMICS_2026_MAY_ASSETS_VERIFIED=true
- * (after the 2026 crops are uploaded and read back). Default off: the bank keeps serving exactly the sealed rows.
- */
-export function isEconomicsMay2026Enabled(environment: Record<string, string | undefined> = process.env) {
-  return isEconomicsProductionEnabled(environment) && environment.PASTPAPERPREP_IB_ECONOMICS_2026_MAY_ASSETS_VERIFIED === "true";
-}
 export function isLocalEconomicsPreviewEnabled(environment: Record<string, string | undefined> = process.env) {
   const economics = getCatalogBank("ib-economics-hl");
   return Boolean(economics && isCatalogLocalPreviewEnabled(economics, environment));

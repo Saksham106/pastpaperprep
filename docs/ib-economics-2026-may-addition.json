@@ -1,44 +1,71 @@
 {
-  "schemaVersion": "ib-economics-2026-may-addition-v1",
-  "title": "IB Economics HL/SL May 2026 official papers (gated extension)",
-  "status": "candidate_not_released",
-  "gate": "PASTPAPERPREP_IB_ECONOMICS_2026_MAY_ASSETS_VERIFIED (default off; needs the production Economics flags too)",
+  "schemaVersion": "ib-economics-2026-may-addition-v2",
+  "title": "IB Economics HL/SL May 2026 official papers",
+  "status": "folded_into_production_runtime",
   "source": {
     "repository": "ib-economics-topic-practice",
     "branch": "feat/may-2026-official",
-    "commit": "d2dfd7f928ee82f57881667b3f8774cf0b48ec20",
+    "commit": "911f3d4506d7b646fde4773f26b4698bbf5341d4",
     "host": "papers.xtremepape.rs",
     "papers": 10,
-    "finalClassificationsSha256": "a29d5aea980317c8a1fc975de3581977ac86e157a2fc537a9acacaf43accd2a1",
+    "finalClassificationsSha256": "8d6576e5d53ff6a4e21867df2d3f90b5c25d89b2ad4fd1c7040f5423c58fc525",
     "segmentationManifestSha256": "35934b76975d21c95591731673044d7dd8ea9d413b6ecc437c67d0a801ae2715",
     "releaseTaxonomySha256": "75527e47eb45a54bcc4b3aa8676e2143aa719c70aac23f63c980cd053e8d102c"
   },
   "counts": {
-    "questions": {
+    "questionsAdded": {
       "ib-economics-hl": 17,
       "ib-economics-sl": 15
     },
-    "papers": {
+    "papersAdded": {
       "ib-economics-hl": 7,
       "ib-economics-sl": 6
+    },
+    "totalsAfter": {
+      "ib-economics-hl": {
+        "questions": 128,
+        "papers": 49
+      },
+      "ib-economics-sl": {
+        "questions": 104,
+        "papers": 38
+      }
     },
     "uniqueQuestions": 26,
     "uniquePapers": 10,
     "sharedHlSlQuestions": 6
   },
   "baseline": {
-    "ib-economics-hl": {
-      "runtimeFileSha256": "ecd646c63b45f8d384b5221416431c07990c239630364c2b389ba68d21addd5e",
-      "contentSha256": "0a386d1cf83cb659577a64fabbab9582537a389379539808ad12aa999fc11072",
-      "questionCount": 111,
-      "paperCount": 42
+    "commit": "5d0f243624e449a7b589d83708145102e3b5bfb3",
+    "banks": {
+      "ib-economics-hl": {
+        "level": "HL",
+        "questionCount": 111,
+        "paperCount": 42,
+        "runtimeFileSha256": "ecd646c63b45f8d384b5221416431c07990c239630364c2b389ba68d21addd5e",
+        "privateIndexSha256": "6a88bbf2e01a647c88eb6e6b9c9e228f98714360a47cd6eaa2a49c3abc5765bc",
+        "assetManifestSha256": "360647fe38d9e46e7276b07c648e94c7514889c6b24d406cfd3fabaafd606492",
+        "contentSha256": "0a386d1cf83cb659577a64fabbab9582537a389379539808ad12aa999fc11072",
+        "assetCount": 965
+      },
+      "ib-economics-sl": {
+        "level": "SL",
+        "questionCount": 89,
+        "paperCount": 32,
+        "runtimeFileSha256": "b68078e6c7cc97bb34aef17a63ab1b0d5d99833523b71892fbe622afc5ca1fb9",
+        "privateIndexSha256": "69ce7ad99c3a23f08368af2932379a5b7963bd22179a684f80870290965d15f5",
+        "assetManifestSha256": "d60b5b6a6d12102bc867598cee187b9715fee5de7d71d2098ee73191cdad8ce3",
+        "contentSha256": "4c182c306e5c9772cdff331a8d951ff0b1da38a7a97ff28975a0829c8e496570",
+        "assetCount": 639
+      }
     },
-    "ib-economics-sl": {
-      "runtimeFileSha256": "b68078e6c7cc97bb34aef17a63ab1b0d5d99833523b71892fbe622afc5ca1fb9",
-      "contentSha256": "4c182c306e5c9772cdff331a8d951ff0b1da38a7a97ff28975a0829c8e496570",
-      "questionCount": 89,
-      "paperCount": 32
-    }
+    "note": "Sealed rows, papers and asset entries are a byte-identical prefix; scripts/verify-ib-economics-2026-may-addition.mjs proves it."
+  },
+  "rights": {
+    "attestation": "docs/ib-economics-2026-may-rights-attestation.json",
+    "attestationSha256": "8b37bac3b582a8e11cc16b4456e69f5c785d133c607dd66c355caef8f60e5298",
+    "status": "user_attested_non_blocking_for_named_corpus",
+    "independentLegalVerification": false
   },
   "watermarkScan": {
     "files": 20,
@@ -66,14 +93,25 @@
         "input": 354275,
         "output": 70374
       },
-      "role": "triage only: flags were re-read against the question and mark scheme before any label changed"
+      "role": "triage only; flags were re-read against the question and mark scheme before any label changed"
+    },
+    "drexV2OnDisagreements": {
+      "requested_models": [
+        "drex-v2.0"
+      ],
+      "requests": 32,
+      "served_models": [
+        "drex-v2.0"
+      ],
+      "usage": {
+        "input": 103214,
+        "output": 23985
+      }
     },
     "blindPass": {
-      "agreement": {
-        "primaryAgree": 20,
-        "of": 26,
-        "meanDetailSetJaccard": 0.762
-      }
+      "primaryAgree": 20,
+      "of": 26,
+      "meanDetailSetJaccard": 0.762
     },
     "inputsSha256": {
       "adjudication-decisions.json": "dbc62195b2b7596ff622d4a3e151173d1e15c4d1da3f0fd34dd10f35c975f9d5",
@@ -83,6 +121,20 @@
       "packet.json": "6c0e4731bbd8edecfdbe6a86ae7f4abbba85a54b5b1c292ed71cddff5cd94258",
       "primary.json": "1791ccfed07aa55f671c340d865e3c9c18c0cc24444146fe814c0e7453972de6",
       "vocabulary.json": "9f8fdc3bda0a8f2a8d86b3e863f5d4d3429521b8789a1055ccbe5647ea17f278"
+    }
+  },
+  "storage": {
+    "bucket": "pastpaperprep-assets",
+    "receipt": "docs/ib-economics-storage-receipts/ib-economics-storage-release-receipt-with-2026-may.json",
+    "receiptSha256": "793b4b8a753284cfd4b0346b224a4525aecab398b362416d87380275c9c85ff2",
+    "manifestSha256": "6c7e08683d4f170b97c27cf78ab1e12059bcd8449d93ff9296be4b66998ca9cd",
+    "objects": 1891,
+    "bytes": 92803902,
+    "uploaded": {
+      "objects": 287,
+      "bytes": 13969840,
+      "log": "docs/ib-economics-2026-may-r2-upload-log.jsonl",
+      "logSha256": "d31bb63ce804c372d4d05704d6dd6c9bde3694fc7f6bd604f0c4b1e9b9f7ccf8"
     }
   },
   "banks": {
@@ -139,11 +191,8 @@
         "2026-may-tz3-hlsl-p2-q01": 40,
         "2026-may-tz3-hlsl-p2-q02": 40
       },
-      "sites": {
-        "siteDataSha256": "cd6dc9e5df7089989978bc6869a9b12055e57266d16408f5b5fdf64148116bce",
-        "runtimeContentSha256": "27e86c51ef803e5fba543fa7ede485afbaf6f0905020158c88cf09707ba7c034",
-        "assetManifestSha256": "71312cf34d33e4a122c9619d5c648b95b2dbd8bddadc4be9ae4645d3e036e5a9"
-      }
+      "siteDataSha256": "5a0b4f02544359ee26f3d9591db42aa70d4aa142bd729ad821fcbf87984f2af9",
+      "runtimeContentSha256": "e14d3572aef8277eee3b130758bc8dc92956413617dfa415976063092b3c87b9"
     },
     "ib-economics-sl": {
       "level": "SL",
@@ -193,23 +242,8 @@
         "2026-may-tz3-sl-p1-q02": 25,
         "2026-may-tz3-sl-p1-q03": 25
       },
-      "sites": {
-        "siteDataSha256": "fea14857f2d7a983ccc5795c36c86cd34837adb45188e75a62fc4c4eafffb75d",
-        "runtimeContentSha256": "d9cd6041812835b1df8d4b54217614c983dfe2acf01c62ad29e8ac32a977f5a5",
-        "assetManifestSha256": "a12522f3a0d75bd1bf13efb9c5191e116699ab46d9e37713e05abcdad55a2c8c"
-      }
+      "siteDataSha256": "686fa6879820fb99eb785944ba30dd80546d3a65ccf86816b3c386c242b8d095",
+      "runtimeContentSha256": "aa54701ced111a350c66e94d38c1d76531ad09c267f3e37e91510f72ff653107"
     }
-  },
-  "upload": {
-    "executed": false,
-    "bucket": "pastpaperprep-assets",
-    "objects": 287,
-    "bytes": 13969840,
-    "plan": "docs/ib-economics-2026-may-r2-upload-plan.json"
-  },
-  "ownerDecisions": [
-    "Approve the create-only R2 upload of the planned crops, then set PASTPAPERPREP_IB_ECONOMICS_2026_MAY_ASSETS_VERIFIED=true after read-back.",
-    "Extend the user-attested publication-rights decision to the May 2026 papers (the 2026-09-09 attestation covers the sealed 2021-2025 corpus only).",
-    "Approve the PDF upload to pastpaperprep-free for the Full past papers entries."
-  ]
+  }
 }
