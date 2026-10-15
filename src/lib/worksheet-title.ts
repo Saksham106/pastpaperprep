@@ -5,9 +5,12 @@ type TitleQuestion = { bankSlug: BankSlug; primaryTopic: string; paper: number }
 const MAX_TITLE = 80;
 const joinList = (items: string[]) => items.length < 2 ? items.join("") : `${items.slice(0, -1).join(", ")} & ${items.at(-1)}`;
 
-/** A default worksheet name drawn from its content, numbered when the user already has one like it. */
-export function suggestWorksheetTitle(questions: readonly TitleQuestion[], existingTitles: readonly string[] = []): string {
-  const topics = rankedTopicLabels(questions);
+/**
+ * A default worksheet name drawn from its content (or from the topics the student picked, in order),
+ * numbered when the user already has one like it.
+ */
+export function suggestWorksheetTitle(questions: readonly TitleQuestion[], existingTitles: readonly string[] = [], pickedTopics: readonly string[] = []): string {
+  const topics = pickedTopics.length ? [...pickedTopics] : rankedTopicLabels(questions);
   const papers = [...new Set(questions.map((question) => question.paper))].sort((a, b) => a - b);
   const base = topics.length === 1 ? topics[0]
     : topics.length === 2 ? `${topics[0]} & ${topics[1]}`
