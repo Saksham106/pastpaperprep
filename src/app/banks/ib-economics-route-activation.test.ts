@@ -41,8 +41,8 @@ describe("IB Economics production route activation", () => {
       loadBankQuestions("ib-economics-hl"),
       loadBankQuestions("ib-economics-sl"),
     ]);
-    expect(hl).toHaveLength(111);
-    expect(sl).toHaveLength(89);
+    expect(hl).toHaveLength(128);
+    expect(sl).toHaveLength(104);
     expect(hl[0].questionImages.length).toBeGreaterThan(0);
     expect(hl[0].markschemeImages.length).toBeGreaterThan(0);
     expect(sl[0].questionImages.length).toBeGreaterThan(0);

@@ -13,7 +13,7 @@ import { hasBankAccess } from "@/lib/access";
 import { economicsStorageObjectPath } from "@/lib/assets";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { createPublicBankIndex } from "@/lib/question-index";
-import { ECONOMICS_RUNTIME_SEALS, getEconomicsRuntimeArtifact, getEconomicsRuntimeManifest } from "@/lib/economics-runtime";
+import { ECONOMICS_MAY_2026_SEALS, ECONOMICS_RUNTIME_SEALS, getEconomicsRuntimeArtifact, getEconomicsRuntimeManifest } from "@/lib/economics-runtime";
 import { buildEconomicsAssetUploadManifest } from "@/lib/economics-asset-manifest";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 
@@ -46,14 +46,15 @@ describe("IB Economics production integration", () => {
       getEconomicsRuntimeArtifact("ib-economics-hl"),
       getEconomicsRuntimeArtifact("ib-economics-sl"),
     ]);
-    expect(hl.questions).toHaveLength(111);
-    expect(sl.questions).toHaveLength(89);
+    expect(hl.questions).toHaveLength(128);
+    expect(sl.questions).toHaveLength(104);
     for (const question of [...hl.questions, ...sl.questions]) {
       expect(question.id).toBe(question.canonicalId);
       expect(question.sourceQuestionUrl).toMatch(/^https:\/\//);
       expect(question.sourceMarkSchemeUrl).toMatch(/^https:\/\//);
-      expect(question.classificationEvidence?.finalArtifactSha256).toBe(ECONOMICS_RUNTIME_SEALS.finalClassificationsSha256);
-      expect(question.classificationReviewStatus).toBe("semantic_qa_approved");
+      const may2026 = String(question.id).startsWith("2026-may-");
+      expect(question.classificationEvidence?.finalArtifactSha256).toBe(may2026 ? ECONOMICS_MAY_2026_SEALS.finalClassificationsSha256 : ECONOMICS_RUNTIME_SEALS.finalClassificationsSha256);
+      expect(question.classificationReviewStatus).toBe(may2026 ? "blind_adjudicated" : "semantic_qa_approved");
       expect(question.officialCodeRefs?.every((value: string) => value.includes("/"))).toBe(true);
       expect(question.retrievalFacets?.every((value: string) => value.startsWith("facet."))).toBe(true);
       expect((question.questionImages ?? []).every((path: string) => path.endsWith(".webp") && !path.includes(".."))).toBe(true);
@@ -67,15 +68,15 @@ describe("IB Economics production integration", () => {
     for (const artifact of [hl, sl]) {
       expect(artifact.runtimeArtifact.published).toBe(true);
       expect(artifact.runtimeArtifact.assetVerification).toBe("verified_readback");
-      expect(artifact.runtimeArtifact.storageReceiptSha256).toBe("31987a5410ea7325b6bb59e26ee451fbbc7131ece6270040bbd5ab8d27cc1467");
-      expect(artifact.runtimeArtifact.assetManifestSha256).toBe("03530b3e2e964821189575d3c6ad287b2145d89b6922e354f08147e1b845aae5");
+      expect(artifact.runtimeArtifact.storageReceiptSha256).toBe(ECONOMICS_RUNTIME_SEALS.storageReceiptSha256);
+      expect(artifact.runtimeArtifact.assetManifestSha256).toBe(ECONOMICS_RUNTIME_SEALS.storageManifestSha256);
     }
   });
 
   it("uses exact bank namespaces and preserves shared HL/SL source dedupe", async () => {
     const [hl, sl] = await Promise.all([loadBankQuestions("ib-economics-hl"), loadBankQuestions("ib-economics-sl")]);
     const sharedIds = hl.map((question) => question.id).filter((id) => sl.some((question) => question.id === id));
-    expect(sharedIds).toHaveLength(16);
+    expect(sharedIds).toHaveLength(22);
     for (const bank of ["ib-economics-hl", "ib-economics-sl"] as const) {
       const manifest = buildEconomicsAssetUploadManifest(bank);
       expect(manifest.bank).toBe(bank);

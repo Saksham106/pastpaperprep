@@ -479,6 +479,10 @@ Pipeline commands match "#### IB HL" above, run inside each AI repository.
 - `bundle_all` covers both banks; separate Stripe prices are unnecessary unless individual-bank sales are introduced later.
 - Verified counts: AI HL 48 papers / 409 questions / 1,353 assets; AI SL 38 papers / 334 questions / 1,002 assets.
 
+## IB Economics HL/SL May 2026 addition (October 2026)
+
+26 official May 2026 questions (HL 17, SL 15) are appended to the production Economics runtime (HL 128 / 49 papers, SL 104 / 38) with no env flag. The 2021-2025 rows, papers and asset entries stay a byte-identical prefix (`node scripts/verify-ib-economics-2026-may-addition.mjs`); the 287 new crops were uploaded create-only and read back, and `ib-economics-storage-release-receipt-with-2026-may.json` is the combined verified receipt. Rights are user-attested (2026-10-15). The 20 PDFs are planned only until published and verified. Details and receipts: `docs/ib-economics-2026-may-official-papers.md`. Source lane: `ib-economics-topic-practice` branch `feat/may-2026-official` (`scripts/may_2026_lane.py`, `may_2026_tagging.py`, `build_may_2026_site_data.py`).
+
 ## Cambridge IGCSE Mathematics 0580 Core 2026 addition (October 2026)
 
 The 0580 bank serves 225 papers / 4,174 questions / 8,348 WebPs: the historical 217 papers / 3,967 questions (Extended 2016–2026 plus Core 2021–2025) and 8 Core 2026 papers / 207 questions (February/March 12 and 32; May/June 11, 12, 13, 31, 32 and 33; 80 marks each). Do not copy the source `site/data/questions.json` over `src/data/raw/igcse.json`: 22 Extended rows and `extendedRuntimeSha256` carry app-side corrections. Import only `route == "Core"` rows and papers for the new year, as the 2021–2025 Core import did.
