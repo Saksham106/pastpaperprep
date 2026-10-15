@@ -59,7 +59,7 @@ describe("pricing for someone who came from a bank's upgrade prompt", () => {
   it("lists every paid year for banks whose free year is in the middle", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} initialProductId="bank_ib_chemistry_hl" availableBanks={availableBanks} />);
     const panel = screen.getByRole("region", { name: /Unlock every .*Chemistry.* paper/ });
-    expect(within(panel).getByText("A plan opens 2016–2019, 2021–2025, including 2025’s papers.")).toBeInTheDocument();
+    expect(within(panel).getByText("A plan opens 2016–2019, 2021–2026, including 2026’s papers.")).toBeInTheDocument();
     expect(within(panel).queryByText(/Grey years are free/)).not.toBeInTheDocument();
   });
 
