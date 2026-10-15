@@ -1,6 +1,6 @@
 # IB Maths AI May 2026: official papers added
 
-October 2026. The owner approved downloading the official IB May 2026 PDFs and using Drex for triage. **Nothing is uploaded or merged yet.**
+October 2026. The owner approved downloading the official IB May 2026 PDFs and using Drex for triage. **Storage uploads are done (see Storage); not merged yet.**
 
 ## What was added
 
@@ -44,17 +44,16 @@ Additions only: no existing row or archive entry changes (the tests pin the SHA-
 - `scripts/sync-r2-assets.mjs` now reads the `*-may-2026` checkouts. All 2,355 referenced 2021-2025 files are byte-identical there, so `r2:sync` re-puts nothing old.
 - Asset census (`src/lib/asset-retention.ts`): AI HL 1,606 (1,370 premium), AI SL 1,163 (1,008 premium); preview counts unchanged.
 
-## Upload plans (not run)
+## Storage (owner-approved, done 2026-10-15)
 
 | Bucket | Objects | Bytes | Plan |
 | --- | ---: | ---: | --- |
 | `pastpaperprep-assets` | 415 (HL 254, SL 161) | 27,561,838 | `docs/ib-ai-may-2026-r2-upload-plan.json` (keys, SHA-256, MD5, size, source path); regenerate with `node scripts/plan-ib-ai-may-2026-upload.mjs` |
 | `pastpaperprep-free` | 30 PDFs (HL 18, SL 12) | 25,755,235 | `docs/ib-ai-may-2026-free-papers-upload-plan.json` (`scripts/publish-added-free-papers.mts plan`) |
 
-Both need fresh owner approval. Each key is confirmed absent before its put. After the free-PDF upload, `publish-added-free-papers.mts verify` rewrites `src/data/paper-archive-readback.json`; until then `src/lib/whole-paper-public.test.ts` fails on the committed readback by design.
+Each key was confirmed absent, put, then read back by SHA-256 and size. The 415 crops are logged in `docs/ib-ai-may-2026-r2-upload-log.jsonl` (415/415 verified, equal to the plan; none pre-existing). `publish-added-free-papers.mts verify` re-read the free PDFs (5,014 objects) and rewrote `src/data/paper-archive-readback.json`.
 
 ## Owner follow-ups
 
-- Approve (or not) the two uploads above.
 - No worked explanations exist for the new ids.
 - Mark-scheme transcripts keep the repo's existing private-use symbol glyphs (as for the 2021-2025 and AA rows); question screen-reader text is clean.
