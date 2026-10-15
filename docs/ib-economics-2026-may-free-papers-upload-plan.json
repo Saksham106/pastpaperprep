@@ -1,7 +1,7 @@
 {
   "schema": "free-papers-upload-plan-v1",
-  "executed": false,
-  "note": "Plan only. Nothing was uploaded: no wrangler, R2, Supabase or deploy action was run. Upload needs owner approval (AGENTS.md).",
+  "executed": true,
+  "note": "Executed by the owner session (20/20 present, read back; verify wrote src/data/paper-archive-readback.json).",
   "bucket": "pastpaperprep-free",
   "keyPrefix": "papers/v1/",
   "origin": "https://free.pastpaperprep.com",

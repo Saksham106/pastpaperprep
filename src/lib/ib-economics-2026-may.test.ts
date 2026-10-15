@@ -197,7 +197,7 @@ describe("IB Economics May 2026 addition (folded into the production runtime)", 
       expect(archive.papers).toHaveLength(parts(bank).pin.baselinePaperCount + added);
       expect(archive.runtimeSha256).toBe(sha256(`src/data/production/${bank}.json`));
     }
-    expect(freePapersPlan.executed).toBe(false);
+    expect(freePapersPlan.executed).toBe(true);
     expect(freePapersPlan.bucket).toBe("pastpaperprep-free");
     expect(freePapersPlan.totals.objectCount).toBe(20);
     expect(freePapersPlan.objects.every((object) => /^papers\/v1\/[a-f0-9]{64}\.pdf$/.test(object.objectKey) && object.verifiedAgainstFile === true)).toBe(true);
