@@ -76,7 +76,7 @@ describe("generatePaper", () => {
   });
 
   it("finds a short exact-marks combination even after many smaller subsets reach the same sum", () => {
-    const manyOnes: PaperCandidate[] = Array.from({ length: 50 }, (_, index) => ({ id: `one-${index}`, paper: 2, year: 2024, marks: 1, primaryTopic: "Atoms", secondaryTopics: [] }));
+    const manyOnes: PaperCandidate[] = Array.from({ length: 50 }, (_, index) => ({ id: `one-${index}`, number: index + 1, paper: 2, year: 2024, marks: 1, primaryTopic: "Atoms", secondaryTopics: [] }));
     const pool = [...manyOnes, { ...manyOnes[0], id: "fifty", marks: 50 }, { ...manyOnes[0], id: "ten", marks: 10 }];
     for (let seed = 0; seed < 350; seed++) {
       const result = generatePaper(pool, { mode: "marks", targets: [{ paper: 2, amount: 60 }], seed });
