@@ -10,10 +10,14 @@ export function paperCalculator(pool: readonly { paper: number; calculator?: boo
   const values = new Set(pool.filter((question) => question.paper === paper).map((question) => question.calculator ?? null));
   return values.size === 1 ? [...values][0] : null;
 }
+/** Read like an exam: within a paper, later question numbers tend to be harder. */
+export function examOrder<T extends Pick<PaperCandidate, "id" | "paper" | "number" | "year">>(questions: readonly T[]): T[] {
+  return [...questions].sort((a, b) => a.paper - b.paper || a.number - b.number || a.year - b.year || a.id.localeCompare(b.id));
+}
 export type PaperTarget = { paper: number; amount: number };
 export type PaperPlan = { mode: "questions" | "marks"; targets: PaperTarget[]; seed: number; yearFrom?: number; yearTo?: number; topics?: string[]; subtopics?: string[]; bank?: BankSlug; courseRoute?: CourseRouteSelection };
 
-function shuffled<T>(items: readonly T[], initialSeed: number): T[] {
+export function shuffled<T>(items: readonly T[], initialSeed: number): T[] {
   let seed = initialSeed >>> 0;
   const result = [...items];
   function random() {
@@ -30,7 +34,36 @@ function shuffled<T>(items: readonly T[], initialSeed: number): T[] {
   return result;
 }
 
-function exactMarks(pool: PaperCandidate[], target: number, maxQuestions: number): PaperCandidate[] | null {
+/**
+ * The subset whose marks come closest to the target without going over, using as few questions as
+ * possible (so a shared 50-question cap has room for later targets) and at most maxQuestions.
+ * Ties keep the earliest questions in pool order, so a shuffled pool gives a seeded choice.
+ */
+export function closestMarks(pool: readonly PaperCandidate[], target: number, maxQuestions: number): PaperCandidate[] {
+  type Pick = { question: PaperCandidate; previous: Pick | null };
+  const fewest: number[] = Array(target + 1).fill(Infinity);
+  const picks: Array<Pick | null> = Array(target + 1).fill(null);
+  fewest[0] = 0;
+  for (const question of pool) {
+    const marks = question.marks ?? 0;
+    if (marks <= 0 || marks > target) continue;
+    // Downwards, so each question is used at most once.
+    for (let sum = target; sum >= marks; sum -= 1) {
+      const count = fewest[sum - marks] + 1;
+      if (count <= maxQuestions && count < fewest[sum]) {
+        fewest[sum] = count;
+        picks[sum] = { question, previous: picks[sum - marks] };
+      }
+    }
+  }
+  let best = target;
+  while (best > 0 && fewest[best] === Infinity) best -= 1;
+  const chosen: PaperCandidate[] = [];
+  for (let pick = picks[best]; pick; pick = pick.previous) chosen.unshift(pick.question);
+  return chosen;
+}
+
+export function exactMarks(pool: PaperCandidate[], target: number, maxQuestions: number): PaperCandidate[] | null {
   const sums = new Map<number, PaperCandidate[]>([[0, []]]);
   for (const question of pool) {
     const marks = question.marks!;
@@ -84,7 +117,6 @@ export function generatePaper(questions: readonly PaperCandidate[], plan: PaperP
     }
   }
   if (selected.length > 50) throw new Error("A worksheet can contain at most 50 questions");
-  // Read like an exam: within a paper, later question numbers tend to be harder.
-  const ordered = [...selected].sort((a, b) => a.paper - b.paper || a.number - b.number || a.year - b.year || a.id.localeCompare(b.id));
+  const ordered = examOrder(selected);
   return { questions: ordered, totalMarks: ordered.reduce((sum, question) => sum + question.marks!, 0) };
 }
