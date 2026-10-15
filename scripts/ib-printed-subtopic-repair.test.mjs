@@ -20,11 +20,13 @@ describe("source-confirmed IB subtopic repair",()=>{
   const before=pinned(path),after=get(path),key=path.includes("aa-official")?"records":"rows";
   // Later, separately reviewed change: the donated May 2026 AA rows were retired for the official papers.
   const retired=path.includes("aa-official")?new Set(Object.values(aliases.banks).flatMap(map=>Object.keys(map))):new Set();
-  const added=after[key].filter(row=>row.provenance?.officialReview);
+  // Added rows: reviewed official May 2026 rows (AA: provenance.officialReview; Biology: year 2026, covered by docs/audits/ib-biology-may-2026-review.json).
+  const isAdded=row=>Boolean(row.provenance?.officialReview)||(path.includes("ib-biology")&&row.year===2026);
+  const added=after[key].filter(isAdded);
   expect(new Set(before[key].filter(row=>!after[key].some(next=>next.id===row.id)).map(row=>row.id))).toEqual(retired);
   expect(after[key].length).toBe(before[key].length-retired.size+added.length);
   const old=new Map(before[key].map(row=>[row.id,row]));
-  const kept=after[key].filter(row=>!row.provenance?.officialReview);
+  const kept=after[key].filter(row=>!isAdded(row));
   const changed=new Set(kept.filter(row=>JSON.stringify(row)!==JSON.stringify(old.get(row.id))).map(row=>row.id));
   for(const id of ids)expect(changed.has(id)).toBe(true);
   if(path.includes("aa-official"))expect(changed).toEqual(ids);
