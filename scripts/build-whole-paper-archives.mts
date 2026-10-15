@@ -31,8 +31,8 @@ async function loadIdentityReviews(files:string[],root:string) {
 }
 /**
  * Reviewed report holds (data/paper-archives/report-holds.json): a paper whose sources reconcile but whose
- * official mark scheme amends the printed paper (e.g. a withdrawn part) keeps its PDFs and stays
- * report-held with the reviewed reason. Read on every build, bound to both source hashes, so a rebuild
+ * official mark scheme amends the printed paper (e.g. a withdrawn part), or whose original omits material a
+ * question needs (a graph removed for copyright), keeps its PDFs and stays report-held with the reviewed reason. Read on every build, bound to both source hashes, so a rebuild
  * can't drop it; a hold that no longer matches its paper fails the build.
  */
 export const REPORT_HOLDS_FILE='data/paper-archives/report-holds.json';
@@ -224,7 +224,9 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
   const msQuestionMaximaAgree=simpleMs.every(q=>printed.some(source=>source.number===q.number&&source.maxMarks===q.maxMarks));
   const topics=sorted.map(q=>[...new Set([q.primaryTopic,...q.secondaryTopics])].filter(topic=>Boolean(topic)&&topic!=='Questions needing section review'));
   const topicsValid=topics.every(t=>t.length>0&&!t.some(topic=>/^(?:other|unclassified|unknown)$/i.test(topic)));
-  const reportReason=!mFound.text.trim()?'Original markscheme cover text is unavailable for identity verification.':!qFound.text.trim()?'Original question cover text is unavailable for identity verification.':!identityValid?'Source document identities need review.':qCover.optionalChoice||mCover.optionalChoice?'Optional question choices need review.':!maximaAgree||!msQuestionMaximaAgree?'Question and markscheme maxima disagree.':!inventoryValid?'Printed and runtime question inventories do not reconcile.':!totalsValid?'Printed question maxima do not reconcile.':!topicsValid?'Reviewed question topics are unavailable.':reportHold?.reason;
+  // A reviewed hold is bound to both PDF hashes (checked above) and names the actual reason, so it wins over the derived
+  // ones; a withheld question would otherwise only read as an inventory mismatch.
+  const reportReason=reportHold?.reason??(!mFound.text.trim()?'Original markscheme cover text is unavailable for identity verification.':!qFound.text.trim()?'Original question cover text is unavailable for identity verification.':!identityValid?'Source document identities need review.':qCover.optionalChoice||mCover.optionalChoice?'Optional question choices need review.':!maximaAgree||!msQuestionMaximaAgree?'Question and markscheme maxima disagree.':!inventoryValid?'Printed and runtime question inventories do not reconcile.':!totalsValid?'Printed question maxima do not reconcile.':!topicsValid?'Reviewed question topics are unavailable.':undefined);
   const questions=!reportReason?sorted.map((q,i)=>{const source=printed[i];if(q.marks!==source.maxMarks)corrections.push({id:q.id,from:q.marks,to:source.maxMarks,questionPage:source.page});return {id:q.id,number:q.number,maxMarks:source.maxMarks,topics:topics[i],questionPage:source.page};}):[];
   const route:WholePaperEntry['summary']['route']=identity.family==='ib'?(bank.level==='HL'?'HL':bank.level==='SL'?'SL':null):/\bExtended\b/i.test(qFound.text)?'Extended':/\bCore\b/i.test(qFound.text)?'Core':/Alternative\s+to\s+Practical|Practical\s+Test/i.test(qFound.text)?'Shared':null;
   const document=(source:ExtractedDocument)=>({sha256:source.sha256,bytes:source.bytes,pages:source.pages});

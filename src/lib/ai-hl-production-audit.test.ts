@@ -35,13 +35,17 @@ function stable(value: unknown): unknown {
 function valueSha(value: unknown): string { return createHash("sha256").update(`${JSON.stringify(stable(value))}\n`).digest("hex"); }
 
 
+// The sealed target covers the 409 questions that predate the May 2026 official papers (audited in
+// ai-may-2026-official-papers.test.ts); the audit script and these tests never touch the 2026 rows.
+const historical = (rows: JsonRecord[]) => rows.filter((q) => !String(q.id).startsWith("2026-may-"));
+
 describe("AI HL full-bank production target", () => {
   it("covers exact IDs, target tuples, ownership, and reviewed partitions", () => {
     const target = load(resolve(audit, "final-production-target.json"));
     const corrections = load(resolve(audit, "final-corrections.json"));
     const provenance = load(resolve(audit, "final-provenance.json"));
     const baseline = load(resolve(audit, "production-baseline-overlay.json"));
-    const bank = load(bankPath).questions as JsonRecord[];
+    const bank = historical(load(bankPath).questions as JsonRecord[]);
     const targetRecords = target.records as JsonRecord[];
     const correctionRecords = corrections.records as JsonRecord[];
     expect(sha(resolve(audit, "final-production-target.json"))).toBe(targetSha);
@@ -76,8 +80,8 @@ describe("AI HL full-bank production target", () => {
     const baseline = load(resolve(audit, "production-baseline-overlay.json"));
     const baselineRecords = baseline.records as JsonRecord[];
     const baselineById = new Map<string, JsonRecord>(baselineRecords.map((r) => [String(r.id), r]));
-    const bank = load(bankPath).questions as JsonRecord[];
-    const source = load(sourcePath).questions as JsonRecord[];
+    const bank = historical(load(bankPath).questions as JsonRecord[]);
+    const source = historical(load(sourcePath).questions as JsonRecord[]);
     expect(source.map((q) => q.id)).toEqual(bank.map((q) => q.id));
     for (const [index, question] of bank.entries()) {
       const sourceQuestion = source[index];

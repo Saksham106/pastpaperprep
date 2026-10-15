@@ -18,7 +18,7 @@ test('exact foreign-only Q12 tail is retired and stale source paths fail closed'
  expect(()=>reviewedMarkschemePaths('ib-ai-hl',id12,['markschemes/stale.webp'])).toThrow();
 });
 test('actual legacy IB loader activates both repairs and preserves all unrelated answer paths',async()=>{
- const before=JSON.stringify(raw);const all=await loadBankQuestions('ib-ai-hl');expect(all).toHaveLength(409);
+ const before=JSON.stringify(raw);const all=await loadBankQuestions('ib-ai-hl');expect(all).toHaveLength(484);
  const byId=new Map(all.map(q=>[q.id,q]));
  expect(byId.get(id12)?.markschemeAssetPaths).toEqual([`ib-ai-hl/${row12.officialMarkscheme.images[0]}`]);
  expect(byId.get(id13)?.markschemeAssetPaths[0]).toMatch(/^ib-ai-hl\/repairs\/ib-matrix-head-v1-[a-f0-9]{16}\/[a-f0-9]{64}\.webp$/);

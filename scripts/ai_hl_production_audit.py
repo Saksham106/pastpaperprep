@@ -26,6 +26,9 @@ EXPECTED_PROVENANCE_SHA = "cc75d2e268cc21c41ea5267eb7028750b5b38120a7279bf9f952d
 EXPECTED_CONFLICT_PACKET_SHA = "a0025ff5460657bc45a99f0d1de4a5cf170230f39b9f22f6a358d86ffb9a34cc"
 EXPECTED_CONFLICT_RESULT_SHA = "3dc86cb0c2c3fe3f3dc09ab467e9440f0ef225e97c880454b2b93215078b80b7"
 EXPECTED_COUNT = 409
+# The sealed target covers the 409 questions that existed before the May 2026 official papers; the 2026 rows are
+# audited separately (docs/ib-ai-may-2026-official-papers.md) and are never touched by this script.
+ADDITION_PREFIX = "2026-may-"
 EXPECTED_REVIEWED = 109
 EXPECTED_CHANGED = 87
 CLASSIFICATION_FIELDS = frozenset({
@@ -156,7 +159,9 @@ def validate_bank(bank_path: Path, peer_path: Path | None = None) -> dict[str, A
     ids, target_by_id, baseline_by_id, corrections, topics = validate_inputs()
     payload = load(bank_path)
     questions = payload.get("questions")
-    require(isinstance(questions, list) and [q.get("id") for q in questions] == ids, "app bank ID/order drift")
+    require(isinstance(questions, list), "app bank questions drift")
+    questions = [q for q in questions if not str(q.get("id", "")).startswith(ADDITION_PREFIX)]
+    require([q.get("id") for q in questions] == ids, "app bank ID/order drift")
     correction_by_id = {record["id"]: record for record in corrections["records"]}
     for question in questions:
         qid = question["id"]
@@ -169,7 +174,9 @@ def validate_bank(bank_path: Path, peer_path: Path | None = None) -> dict[str, A
         require(set(actual["skills"]) <= owned, f"{qid}: bank taxonomy ownership mismatch")
     if peer_path:
         peer = load(peer_path).get("questions")
-        require(isinstance(peer, list) and [q.get("id") for q in peer] == ids, "source/app ID/order parity drift")
+        require(isinstance(peer, list), "source/app questions drift")
+        peer = [q for q in peer if not str(q.get("id", "")).startswith(ADDITION_PREFIX)]
+        require([q.get("id") for q in peer] == ids, "source/app ID/order parity drift")
         for question, source in zip(questions, peer):
             require(tuple_from_value(question, f"app {question['id']}") == tuple_from_value(source, f"source {source['id']}"), f"{question['id']}: source/app tuple parity")
             require(nonclassification(question) == nonclassification(source), f"{question['id']}: source/app nonclassification drift")
@@ -179,8 +186,10 @@ def validate_bank(bank_path: Path, peer_path: Path | None = None) -> dict[str, A
 def apply(bank_path: Path) -> dict[str, Any]:
     ids, target_by_id, baseline_by_id, corrections, _ = validate_inputs()
     payload = load(bank_path)
-    questions = payload.get("questions")
-    require(isinstance(questions, list) and [q.get("id") for q in questions] == ids, "app bank ID/order drift")
+    all_questions = payload.get("questions")
+    require(isinstance(all_questions, list), "app bank questions drift")
+    questions = [q for q in all_questions if not str(q.get("id", "")).startswith(ADDITION_PREFIX)]
+    require([q.get("id") for q in questions] == ids, "app bank ID/order drift")
     correction_by_id = {record["id"]: record for record in corrections["records"]}
     before = copy.deepcopy(payload)
     for question in questions:
@@ -211,7 +220,7 @@ def apply(bank_path: Path) -> dict[str, Any]:
         question["classificationReviewStatus"] = "manually-reviewed"
         question["classificationVersion"] = "ib-ai-hl-reviewed-production-target-2026.08.1"
         require(nonclassification_hash(question) == baseline_by_id[qid]["nonClassificationSha256"], f"{qid}: nonclassification drift after apply")
-    for old, new in zip(before["questions"], questions):
+    for old, new in zip([q for q in before["questions"] if not str(q["id"]).startswith(ADDITION_PREFIX)], questions):
         require(nonclassification(old) == nonclassification(new), f"{old['id']}: nonclassification field drift")
     data = (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
     with tempfile.NamedTemporaryFile("wb", dir=bank_path.parent, prefix=f".{bank_path.name}.", delete=False) as handle:

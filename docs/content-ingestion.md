@@ -11,8 +11,8 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | Cambridge IGCSE Mathematics 0580 | `Saksham106/igcse-0580-topic-practice` | 225 | 4,174 | 8,348 |
 | IB Mathematics HL / AA HL | `Saksham106/ib-maths-aa-hl-topic-practice` | 110 | 893 | 3,291 |
 | IB Mathematics SL / AA SL | `Saksham106/ib-maths-aa-topic-finder` | 64 | 596 | 1,560 |
-| IB Mathematics AI HL | `Saksham106/ib-maths-ai-hl-topic-practice` | 48 | 409 | 1,353 |
-| IB Mathematics AI SL | `Saksham106/ib-maths-ai-sl-topic-practice` | 38 | 334 | 1,002 |
+| IB Mathematics AI HL | `Saksham106/ib-maths-ai-hl-topic-practice` | 57 | 484 | 1,607 |
+| IB Mathematics AI SL | `Saksham106/ib-maths-ai-sl-topic-practice` | 44 | 386 | 1,163 |
 | Cambridge IGCSE Additional Mathematics 0606 | `Saksham106/igcse-additional-mathematics-0606-topic-practice` | 147 | 1,656 | 3,312 |
 | IB Chemistry HL | `Saksham106/ib-chemistry-topic-practice` | 51 | 1,083 | 3,234 |
 | IB Chemistry SL | `Saksham106/ib-chemistry-topic-practice` | 51 | 810 | 2,243 |
@@ -20,7 +20,7 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | IB Physics SL | `Saksham106/ib-physics-topic-practice` | 51 | 774 | 2,087 |
 | IB Biology HL | `Saksham106/ib-biology-topic-practice` | 51 | 1,139 | 3,107 |
 | IB Biology SL | `Saksham106/ib-biology-topic-practice` | 54 | 936 | 2,443 |
-| **Total** |  | **933** | **13,845** | **34,723** |
+| **Total** |  | **948** | **13,972** | **35,138** |
 
 The application copies each source bank's generated `site/data/questions.json` to:
 
