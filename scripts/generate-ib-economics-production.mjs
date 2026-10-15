@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// HISTORICAL: reproduces only the sealed 2021-2025 baseline (111 HL / 89 SL). The May 2026 rows are appended by
+// scripts/generate-ib-economics-2026-may.mjs; do not re-run this over the live files.
 import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";

@@ -41,16 +41,16 @@ export const BANK_CATALOG = [
   ...(["ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl"] as const).map((slug) => {
     const table: Record<string, [string, string, string, number, number, string]> = {
       "ib-hl": ["Mathematics AA", "Mathematics AA Higher Level", "HL", 893, 110, "2017-2026"], "ib-sl": ["Mathematics AA", "Mathematics AA Standard Level", "SL", 596, 64, "2017-2026"],
-      "ib-ai-hl": ["Mathematics AI", "Mathematics AI Higher Level", "HL", 409, 48, "2021-2025"], "ib-ai-sl": ["Mathematics AI", "Mathematics AI Standard Level", "SL", 334, 38, "2021-2025"],
-      "ib-chemistry-hl": ["Chemistry", "Chemistry Higher Level", "HL", 1872, 84, "2016-2025"], "ib-chemistry-sl": ["Chemistry", "Chemistry Standard Level", "SL", 1412, 84, "2016-2025"],
+      "ib-ai-hl": ["Mathematics AI", "Mathematics AI Higher Level", "HL", 484, 57, "2021-2026"], "ib-ai-sl": ["Mathematics AI", "Mathematics AI Standard Level", "SL", 386, 44, "2021-2026"],
+      "ib-chemistry-hl": ["Chemistry", "Chemistry Higher Level", "HL", 2016, 93, "2016-2026"], "ib-chemistry-sl": ["Chemistry", "Chemistry Standard Level", "SL", 1521, 93, "2016-2026"],
       "ib-physics-hl": ["Physics", "Physics Higher Level", "HL", 2028, 93, "2016-2026"], "ib-physics-sl": ["Physics", "Physics Standard Level", "SL", 1413, 93, "2016-2026"],
-      "ib-biology-hl": ["Biology", "Biology Higher Level", "HL", 1911, 84, "2016-2025"], "ib-biology-sl": ["Biology", "Biology Standard Level", "SL", 1548, 87, "2016-2025"],
+      "ib-biology-hl": ["Biology", "Biology Higher Level", "HL", 2071, 93, "2016-2026"], "ib-biology-sl": ["Biology", "Biology Standard Level", "SL", 1671, 96, "2016-2026"],
     };
     const [subject, title, level, questionCount, paperCount, years] = table[slug];
     return bank({ slug, qualification: "IB Diploma", subject, title: `IB ${title}`, shortName: subject.startsWith("Mathematics ") ? `IB Math ${subject.replace("Mathematics ", "")} ${level}` : `${subject} ${level}`, syllabusCode: subject === "Mathematics AA" ? "AA" : subject === "Mathematics AI" ? "AI" : subject, level, questionCount, paperCount, years, access: "paid-bank", productId: `bank_${slug.replaceAll("-", "_")}`, release: "published", delivery: "hosted" });
   }),
-  bank({ slug: "ib-economics-hl", qualification: "IB Diploma", subject: "Economics", title: "IB Economics Higher Level", shortName: "IB Economics HL", syllabusCode: "Economics", level: "HL", questionCount: 111, paperCount: 42, years: "2021-2025", access: "paid-bank", productId: "bank_ib_economics_hl", bundleProductId: "bundle_ib_economics", release: "gated", delivery: "local-preview", localPreview: true }),
-  bank({ slug: "ib-economics-sl", qualification: "IB Diploma", subject: "Economics", title: "IB Economics Standard Level", shortName: "IB Economics SL", syllabusCode: "Economics", level: "SL", questionCount: 89, paperCount: 32, years: "2021-2025", access: "paid-bank", productId: "bank_ib_economics_sl", bundleProductId: "bundle_ib_economics", release: "gated", delivery: "local-preview", localPreview: true }),
+  bank({ slug: "ib-economics-hl", qualification: "IB Diploma", subject: "Economics", title: "IB Economics Higher Level", shortName: "IB Economics HL", syllabusCode: "Economics", level: "HL", questionCount: 128, paperCount: 49, years: "2021-2026", access: "paid-bank", productId: "bank_ib_economics_hl", bundleProductId: "bundle_ib_economics", release: "gated", delivery: "local-preview", localPreview: true }),
+  bank({ slug: "ib-economics-sl", qualification: "IB Diploma", subject: "Economics", title: "IB Economics Standard Level", shortName: "IB Economics SL", syllabusCode: "Economics", level: "SL", questionCount: 104, paperCount: 38, years: "2021-2026", access: "paid-bank", productId: "bank_ib_economics_sl", bundleProductId: "bundle_ib_economics", release: "gated", delivery: "local-preview", localPreview: true }),
 ] as const satisfies readonly CatalogBank[];
 
 export function getCatalogBank(slug: string) { return BANK_CATALOG.find((entry) => entry.slug === slug); }

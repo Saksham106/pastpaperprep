@@ -11,8 +11,8 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | Cambridge IGCSE Mathematics 0580 | `Saksham106/igcse-0580-topic-practice` | 225 | 4,174 | 8,348 |
 | IB Mathematics HL / AA HL | `Saksham106/ib-maths-aa-hl-topic-practice` | 110 | 893 | 3,291 |
 | IB Mathematics SL / AA SL | `Saksham106/ib-maths-aa-topic-finder` | 64 | 596 | 1,560 |
-| IB Mathematics AI HL | `Saksham106/ib-maths-ai-hl-topic-practice` | 48 | 409 | 1,353 |
-| IB Mathematics AI SL | `Saksham106/ib-maths-ai-sl-topic-practice` | 38 | 334 | 1,002 |
+| IB Mathematics AI HL | `Saksham106/ib-maths-ai-hl-topic-practice` | 57 | 484 | 1,607 |
+| IB Mathematics AI SL | `Saksham106/ib-maths-ai-sl-topic-practice` | 44 | 386 | 1,163 |
 | Cambridge IGCSE Additional Mathematics 0606 | `Saksham106/igcse-additional-mathematics-0606-topic-practice` | 147 | 1,656 | 3,312 |
 | IB Chemistry HL | `Saksham106/ib-chemistry-topic-practice` | 51 | 1,083 | 3,234 |
 | IB Chemistry SL | `Saksham106/ib-chemistry-topic-practice` | 51 | 810 | 2,243 |
@@ -20,7 +20,7 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | IB Physics SL | `Saksham106/ib-physics-topic-practice` | 51 | 774 | 2,087 |
 | IB Biology HL | `Saksham106/ib-biology-topic-practice` | 51 | 1,139 | 3,107 |
 | IB Biology SL | `Saksham106/ib-biology-topic-practice` | 54 | 936 | 2,443 |
-| **Total** |  | **933** | **13,845** | **34,723** |
+| **Total** |  | **948** | **13,972** | **35,138** |
 
 The application copies each source bank's generated `site/data/questions.json` to:
 
@@ -478,6 +478,10 @@ Pipeline commands match "#### IB HL" above, run inside each AI repository.
 - Migration `20260826220000_add_ib_maths_ai_banks.sql` was applied and read back in production.
 - `bundle_all` covers both banks; separate Stripe prices are unnecessary unless individual-bank sales are introduced later.
 - Verified counts: AI HL 48 papers / 409 questions / 1,353 assets; AI SL 38 papers / 334 questions / 1,002 assets.
+
+## IB Economics HL/SL May 2026 addition (October 2026)
+
+26 official May 2026 questions (HL 17, SL 15) are appended to the production Economics runtime (HL 128 / 49 papers, SL 104 / 38) with no env flag. The 2021-2025 rows, papers and asset entries stay a byte-identical prefix (`node scripts/verify-ib-economics-2026-may-addition.mjs`); the 287 new crops were uploaded create-only and read back, and `ib-economics-storage-release-receipt-with-2026-may.json` is the combined verified receipt. Rights are user-attested (2026-10-15). The 20 PDFs are planned only until published and verified. Details and receipts: `docs/ib-economics-2026-may-official-papers.md`. Source lane: `ib-economics-topic-practice` branch `feat/may-2026-official` (`scripts/may_2026_lane.py`, `may_2026_tagging.py`, `build_may_2026_site_data.py`).
 
 ## Cambridge IGCSE Mathematics 0580 Core 2026 addition (October 2026)
 

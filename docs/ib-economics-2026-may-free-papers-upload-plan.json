@@ -1,0 +1,573 @@
+{
+  "schema": "free-papers-upload-plan-v1",
+  "executed": true,
+  "note": "Executed by the owner session (20/20 present, read back; verify wrote src/data/paper-archive-readback.json).",
+  "bucket": "pastpaperprep-free",
+  "keyPrefix": "papers/v1/",
+  "origin": "https://free.pastpaperprep.com",
+  "keyScheme": "papers/v1/<sha256>.pdf (content-addressed: a PDF shared by several archive entries or banks is one object)",
+  "uploadTool": "scripts/publish-added-free-papers.mts (plan/upload/verify <base-ref> <source-bindings.json> <work-dir>); verify writes src/data/paper-archive-readback.json",
+  "archiveEntries": {
+    "added": [
+      "ib-economics-hl/economics-2026-may-none-hl-p3-english",
+      "ib-economics-hl/economics-2026-may-tz1-hl-p1-english",
+      "ib-economics-hl/economics-2026-may-tz1-hlsl-p2-english",
+      "ib-economics-hl/economics-2026-may-tz2-hl-p1-english",
+      "ib-economics-hl/economics-2026-may-tz2-hlsl-p2-english",
+      "ib-economics-hl/economics-2026-may-tz3-hl-p1-english",
+      "ib-economics-hl/economics-2026-may-tz3-hlsl-p2-english",
+      "ib-economics-sl/economics-2026-may-tz1-hlsl-p2-english",
+      "ib-economics-sl/economics-2026-may-tz1-sl-p1-english",
+      "ib-economics-sl/economics-2026-may-tz2-hlsl-p2-english",
+      "ib-economics-sl/economics-2026-may-tz2-sl-p1-english",
+      "ib-economics-sl/economics-2026-may-tz3-hlsl-p2-english",
+      "ib-economics-sl/economics-2026-may-tz3-sl-p1-english"
+    ],
+    "count": 13,
+    "entriesWithoutPlannedObject": []
+  },
+  "totals": {
+    "objectCount": 20,
+    "bytes": 11031644,
+    "entryDocumentReferences": 26
+  },
+  "expectedReadbackAfterUpload": {
+    "objectCount": 5004,
+    "objectsSha256": "51fcd41883c3ec5ea57192113b17e16b157892324f05b88aef5d1d503cb6ef72",
+    "mappingSha256": "76028b06f9ca76484cc56314d8905488cc3c85723085e9e4e0496a1aa3b29b1e",
+    "objectCountBefore": 4984,
+    "objectsSha256Before": "8858ce9a9b29dd36fdfdf0821b1a0e711bd2ec2d6d252212498a68fd8b4528c9"
+  },
+  "objects": [
+    {
+      "objectKey": "papers/v1/064a4e47b9ff4a59474545f0cb7cd64e161b4d3b49c70635ee75239adcff99d4.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "064a4e47b9ff4a59474545f0cb7cd64e161b4d3b49c70635ee75239adcff99d4",
+      "bytes": 370003,
+      "pages": 11,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-sl-2026-may-paper-1-tz3_ms.pdf\"",
+      "downloadName": "ib-economics-sl-2026-may-paper-1-tz3_ms.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz3-sl-p1-markscheme.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz3-sl-p1-markscheme.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_1_TZ3_SL_markscheme.pdf",
+      "sourcePaperId": "2026-may-tz3-sl-p1",
+      "sourceKind": "markscheme",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-sl",
+          "entryId": "economics-2026-may-tz3-sl-p1-english",
+          "kind": "markscheme"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/064a4e47b9ff4a59474545f0cb7cd64e161b4d3b49c70635ee75239adcff99d4.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/0c974cb7341bae3ce21f68c8b1888fc6dc191f5d0aa9ad2ab67cfbb823978c0c.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "0c974cb7341bae3ce21f68c8b1888fc6dc191f5d0aa9ad2ab67cfbb823978c0c",
+      "bytes": 343502,
+      "pages": 11,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-sl-2026-may-paper-1-tz1_ms.pdf\"",
+      "downloadName": "ib-economics-sl-2026-may-paper-1-tz1_ms.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz1-sl-p1-markscheme.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz1-sl-p1-markscheme.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_1_TZ1_SL_markscheme.pdf",
+      "sourcePaperId": "2026-may-tz1-sl-p1",
+      "sourceKind": "markscheme",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-sl",
+          "entryId": "economics-2026-may-tz1-sl-p1-english",
+          "kind": "markscheme"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/0c974cb7341bae3ce21f68c8b1888fc6dc191f5d0aa9ad2ab67cfbb823978c0c.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/2c61029e91082cafba4e196bdf2ae26c9ca079c3e3d4c8476806e52c867de95b.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "2c61029e91082cafba4e196bdf2ae26c9ca079c3e3d4c8476806e52c867de95b",
+      "bytes": 349280,
+      "pages": 13,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-sl-2026-may-paper-1-tz2_ms.pdf\"",
+      "downloadName": "ib-economics-sl-2026-may-paper-1-tz2_ms.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz2-sl-p1-markscheme.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz2-sl-p1-markscheme.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_1_TZ2_SL_markscheme.pdf",
+      "sourcePaperId": "2026-may-tz2-sl-p1",
+      "sourceKind": "markscheme",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-sl",
+          "entryId": "economics-2026-may-tz2-sl-p1-english",
+          "kind": "markscheme"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/2c61029e91082cafba4e196bdf2ae26c9ca079c3e3d4c8476806e52c867de95b.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/350303d238e45a98dea63926a91d503c844938f8634142ea23c67a93f323c906.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "350303d238e45a98dea63926a91d503c844938f8634142ea23c67a93f323c906",
+      "bytes": 909776,
+      "pages": 13,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-2026-may-paper-2-tz1_qp.pdf\"",
+      "downloadName": "ib-economics-2026-may-paper-2-tz1_qp.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz1-hlsl-p2-question.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz1-hlsl-p2-question.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_2_TZ1_HLSL.pdf",
+      "sourcePaperId": "2026-may-tz1-hlsl-p2",
+      "sourceKind": "question",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-hl",
+          "entryId": "economics-2026-may-tz1-hlsl-p2-english",
+          "kind": "question"
+        },
+        {
+          "bankSlug": "ib-economics-sl",
+          "entryId": "economics-2026-may-tz1-hlsl-p2-english",
+          "kind": "question"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/350303d238e45a98dea63926a91d503c844938f8634142ea23c67a93f323c906.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/3d0b3a1d2bdb56ad151669963b158fd5b873e6c2fc247d47c365a81fa7005755.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "3d0b3a1d2bdb56ad151669963b158fd5b873e6c2fc247d47c365a81fa7005755",
+      "bytes": 903530,
+      "pages": 13,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-2026-may-paper-2-tz2_qp.pdf\"",
+      "downloadName": "ib-economics-2026-may-paper-2-tz2_qp.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz2-hlsl-p2-question.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz2-hlsl-p2-question.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_2_TZ2_HLSL.pdf",
+      "sourcePaperId": "2026-may-tz2-hlsl-p2",
+      "sourceKind": "question",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-hl",
+          "entryId": "economics-2026-may-tz2-hlsl-p2-english",
+          "kind": "question"
+        },
+        {
+          "bankSlug": "ib-economics-sl",
+          "entryId": "economics-2026-may-tz2-hlsl-p2-english",
+          "kind": "question"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/3d0b3a1d2bdb56ad151669963b158fd5b873e6c2fc247d47c365a81fa7005755.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/3e96afd25990cdb5324e58f2ee8791d56add226c34456090b80c2a366bba070b.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "3e96afd25990cdb5324e58f2ee8791d56add226c34456090b80c2a366bba070b",
+      "bytes": 756548,
+      "pages": 23,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-2026-may-paper-2-tz1_ms.pdf\"",
+      "downloadName": "ib-economics-2026-may-paper-2-tz1_ms.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz1-hlsl-p2-markscheme.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz1-hlsl-p2-markscheme.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_2_TZ1_HLSL_markscheme.pdf",
+      "sourcePaperId": "2026-may-tz1-hlsl-p2",
+      "sourceKind": "markscheme",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-hl",
+          "entryId": "economics-2026-may-tz1-hlsl-p2-english",
+          "kind": "markscheme"
+        },
+        {
+          "bankSlug": "ib-economics-sl",
+          "entryId": "economics-2026-may-tz1-hlsl-p2-english",
+          "kind": "markscheme"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/3e96afd25990cdb5324e58f2ee8791d56add226c34456090b80c2a366bba070b.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/59895e46ba075a7a25900c00f4f38ea0b248861df1e0000eb0e007804a8587bd.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "59895e46ba075a7a25900c00f4f38ea0b248861df1e0000eb0e007804a8587bd",
+      "bytes": 910605,
+      "pages": 13,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-2026-may-paper-2-tz3_qp.pdf\"",
+      "downloadName": "ib-economics-2026-may-paper-2-tz3_qp.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz3-hlsl-p2-question.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz3-hlsl-p2-question.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_2_TZ3_HLSL.pdf",
+      "sourcePaperId": "2026-may-tz3-hlsl-p2",
+      "sourceKind": "question",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-hl",
+          "entryId": "economics-2026-may-tz3-hlsl-p2-english",
+          "kind": "question"
+        },
+        {
+          "bankSlug": "ib-economics-sl",
+          "entryId": "economics-2026-may-tz3-hlsl-p2-english",
+          "kind": "question"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/59895e46ba075a7a25900c00f4f38ea0b248861df1e0000eb0e007804a8587bd.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/65709089888d0b388ecbde63db02771000f5dd59eeaad72e9a49be55a35f0c16.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "65709089888d0b388ecbde63db02771000f5dd59eeaad72e9a49be55a35f0c16",
+      "bytes": 803197,
+      "pages": 24,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-2026-may-paper-2-tz2_ms.pdf\"",
+      "downloadName": "ib-economics-2026-may-paper-2-tz2_ms.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz2-hlsl-p2-markscheme.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz2-hlsl-p2-markscheme.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_2_TZ2_HLSL_markscheme.pdf",
+      "sourcePaperId": "2026-may-tz2-hlsl-p2",
+      "sourceKind": "markscheme",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-hl",
+          "entryId": "economics-2026-may-tz2-hlsl-p2-english",
+          "kind": "markscheme"
+        },
+        {
+          "bankSlug": "ib-economics-sl",
+          "entryId": "economics-2026-may-tz2-hlsl-p2-english",
+          "kind": "markscheme"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/65709089888d0b388ecbde63db02771000f5dd59eeaad72e9a49be55a35f0c16.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/796fd1d0472fbbb9c5e7baec46a94a01965a2a9d496854cdbde74667706ef388.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "796fd1d0472fbbb9c5e7baec46a94a01965a2a9d496854cdbde74667706ef388",
+      "bytes": 288920,
+      "pages": 3,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-hl-2026-may-paper-1-tz1_qp.pdf\"",
+      "downloadName": "ib-economics-hl-2026-may-paper-1-tz1_qp.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz1-hl-p1-question.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz1-hl-p1-question.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_1_TZ1_HL.pdf",
+      "sourcePaperId": "2026-may-tz1-hl-p1",
+      "sourceKind": "question",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-hl",
+          "entryId": "economics-2026-may-tz1-hl-p1-english",
+          "kind": "question"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/796fd1d0472fbbb9c5e7baec46a94a01965a2a9d496854cdbde74667706ef388.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/989dbc11707caa4c8f299cc480263464f1b937d52143532e5b79e4edcb16ff17.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "989dbc11707caa4c8f299cc480263464f1b937d52143532e5b79e4edcb16ff17",
+      "bytes": 289158,
+      "pages": 3,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-sl-2026-may-paper-1-tz3_qp.pdf\"",
+      "downloadName": "ib-economics-sl-2026-may-paper-1-tz3_qp.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz3-sl-p1-question.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz3-sl-p1-question.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_1_TZ3_SL.pdf",
+      "sourcePaperId": "2026-may-tz3-sl-p1",
+      "sourceKind": "question",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-sl",
+          "entryId": "economics-2026-may-tz3-sl-p1-english",
+          "kind": "question"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/989dbc11707caa4c8f299cc480263464f1b937d52143532e5b79e4edcb16ff17.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/b20cf85dc974a9060a9d6f02a8491bb4c93e094e744e041b57ac93d0e97c27d3.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "b20cf85dc974a9060a9d6f02a8491bb4c93e094e744e041b57ac93d0e97c27d3",
+      "bytes": 288475,
+      "pages": 3,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-sl-2026-may-paper-1-tz2_qp.pdf\"",
+      "downloadName": "ib-economics-sl-2026-may-paper-1-tz2_qp.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz2-sl-p1-question.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz2-sl-p1-question.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_1_TZ2_SL.pdf",
+      "sourcePaperId": "2026-may-tz2-sl-p1",
+      "sourceKind": "question",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-sl",
+          "entryId": "economics-2026-may-tz2-sl-p1-english",
+          "kind": "question"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/b20cf85dc974a9060a9d6f02a8491bb4c93e094e744e041b57ac93d0e97c27d3.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/b21563194cc443fd9cbce433774f640f11600d7e9264d096e11ee9eb194655cd.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "b21563194cc443fd9cbce433774f640f11600d7e9264d096e11ee9eb194655cd",
+      "bytes": 343273,
+      "pages": 11,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-hl-2026-may-paper-1-tz3_ms.pdf\"",
+      "downloadName": "ib-economics-hl-2026-may-paper-1-tz3_ms.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz3-hl-p1-markscheme.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz3-hl-p1-markscheme.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_1_TZ3_HL_markscheme.pdf",
+      "sourcePaperId": "2026-may-tz3-hl-p1",
+      "sourceKind": "markscheme",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-hl",
+          "entryId": "economics-2026-may-tz3-hl-p1-english",
+          "kind": "markscheme"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/b21563194cc443fd9cbce433774f640f11600d7e9264d096e11ee9eb194655cd.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/b326c256abaecb16171f045b53a3a887648c3e0f007163b48326c0a22bc89a04.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "b326c256abaecb16171f045b53a3a887648c3e0f007163b48326c0a22bc89a04",
+      "bytes": 340881,
+      "pages": 11,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-hl-2026-may-paper-1-tz2_ms.pdf\"",
+      "downloadName": "ib-economics-hl-2026-may-paper-1-tz2_ms.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz2-hl-p1-markscheme.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz2-hl-p1-markscheme.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_1_TZ2_HL_markscheme.pdf",
+      "sourcePaperId": "2026-may-tz2-hl-p1",
+      "sourceKind": "markscheme",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-hl",
+          "entryId": "economics-2026-may-tz2-hl-p1-english",
+          "kind": "markscheme"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/b326c256abaecb16171f045b53a3a887648c3e0f007163b48326c0a22bc89a04.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/bd75fe4aa0eee9b0ed8221884480cafb875f40f42fffb51b03ba33039b3d1d7a.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "bd75fe4aa0eee9b0ed8221884480cafb875f40f42fffb51b03ba33039b3d1d7a",
+      "bytes": 616839,
+      "pages": 17,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-hl-2026-may-paper-3_ms.pdf\"",
+      "downloadName": "ib-economics-hl-2026-may-paper-3_ms.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-none-hl-p3-markscheme.pdf",
+      "sourceRelativePath": "data/raw/2026-may-none-hl-p3-markscheme.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_3_HL_markscheme.pdf",
+      "sourcePaperId": "2026-may-none-hl-p3",
+      "sourceKind": "markscheme",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-hl",
+          "entryId": "economics-2026-may-none-hl-p3-english",
+          "kind": "markscheme"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/bd75fe4aa0eee9b0ed8221884480cafb875f40f42fffb51b03ba33039b3d1d7a.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/bfb42a180b50b0beb205982fece958bccdf8517ae117102070b529bc258ed0ec.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "bfb42a180b50b0beb205982fece958bccdf8517ae117102070b529bc258ed0ec",
+      "bytes": 289112,
+      "pages": 3,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-hl-2026-may-paper-1-tz2_qp.pdf\"",
+      "downloadName": "ib-economics-hl-2026-may-paper-1-tz2_qp.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz2-hl-p1-question.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz2-hl-p1-question.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_1_TZ2_HL.pdf",
+      "sourcePaperId": "2026-may-tz2-hl-p1",
+      "sourceKind": "question",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-hl",
+          "entryId": "economics-2026-may-tz2-hl-p1-english",
+          "kind": "question"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/bfb42a180b50b0beb205982fece958bccdf8517ae117102070b529bc258ed0ec.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/cb50faf3495d3a31e8e1ca63532c9e24b92cf2530c7f3a13d1fdbae16c41bd7a.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "cb50faf3495d3a31e8e1ca63532c9e24b92cf2530c7f3a13d1fdbae16c41bd7a",
+      "bytes": 1239085,
+      "pages": 21,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-hl-2026-may-paper-3_qp.pdf\"",
+      "downloadName": "ib-economics-hl-2026-may-paper-3_qp.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-none-hl-p3-question.pdf",
+      "sourceRelativePath": "data/raw/2026-may-none-hl-p3-question.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_3_HL.pdf",
+      "sourcePaperId": "2026-may-none-hl-p3",
+      "sourceKind": "question",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-hl",
+          "entryId": "economics-2026-may-none-hl-p3-english",
+          "kind": "question"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/cb50faf3495d3a31e8e1ca63532c9e24b92cf2530c7f3a13d1fdbae16c41bd7a.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/e39c147830594689f2e7028c23565e6ee77b6a0b25b841aef7302b55f71968b2.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "e39c147830594689f2e7028c23565e6ee77b6a0b25b841aef7302b55f71968b2",
+      "bytes": 288807,
+      "pages": 3,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-hl-2026-may-paper-1-tz3_qp.pdf\"",
+      "downloadName": "ib-economics-hl-2026-may-paper-1-tz3_qp.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz3-hl-p1-question.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz3-hl-p1-question.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_1_TZ3_HL.pdf",
+      "sourcePaperId": "2026-may-tz3-hl-p1",
+      "sourceKind": "question",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-hl",
+          "entryId": "economics-2026-may-tz3-hl-p1-english",
+          "kind": "question"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/e39c147830594689f2e7028c23565e6ee77b6a0b25b841aef7302b55f71968b2.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/e51f49be27bd377366ed6d278cbc4e47e53979cde3314e77c329fa6ee2a94cc7.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "e51f49be27bd377366ed6d278cbc4e47e53979cde3314e77c329fa6ee2a94cc7",
+      "bytes": 774076,
+      "pages": 25,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-2026-may-paper-2-tz3_ms.pdf\"",
+      "downloadName": "ib-economics-2026-may-paper-2-tz3_ms.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz3-hlsl-p2-markscheme.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz3-hlsl-p2-markscheme.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_2_TZ3_HLSL_markscheme.pdf",
+      "sourcePaperId": "2026-may-tz3-hlsl-p2",
+      "sourceKind": "markscheme",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-hl",
+          "entryId": "economics-2026-may-tz3-hlsl-p2-english",
+          "kind": "markscheme"
+        },
+        {
+          "bankSlug": "ib-economics-sl",
+          "entryId": "economics-2026-may-tz3-hlsl-p2-english",
+          "kind": "markscheme"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/e51f49be27bd377366ed6d278cbc4e47e53979cde3314e77c329fa6ee2a94cc7.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/e75667d679cf5652dc8bb52ae925e1f67ab90020a4255a28d94db0ddd77c7755.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "e75667d679cf5652dc8bb52ae925e1f67ab90020a4255a28d94db0ddd77c7755",
+      "bytes": 288628,
+      "pages": 3,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-sl-2026-may-paper-1-tz1_qp.pdf\"",
+      "downloadName": "ib-economics-sl-2026-may-paper-1-tz1_qp.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz1-sl-p1-question.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz1-sl-p1-question.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_1_TZ1_SL.pdf",
+      "sourcePaperId": "2026-may-tz1-sl-p1",
+      "sourceKind": "question",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-sl",
+          "entryId": "economics-2026-may-tz1-sl-p1-english",
+          "kind": "question"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/e75667d679cf5652dc8bb52ae925e1f67ab90020a4255a28d94db0ddd77c7755.pdf",
+      "verifiedAgainstFile": true
+    },
+    {
+      "objectKey": "papers/v1/f78e0ca09d3c5d17f77127ff96ee6d0058cf8f1a9805e0efb2fbccb99f5f55c5.pdf",
+      "bucket": "pastpaperprep-free",
+      "sha256": "f78e0ca09d3c5d17f77127ff96ee6d0058cf8f1a9805e0efb2fbccb99f5f55c5",
+      "bytes": 637949,
+      "pages": 13,
+      "contentType": "application/pdf",
+      "cacheControl": "public, max-age=604800",
+      "contentDisposition": "attachment; filename=\"ib-economics-hl-2026-may-paper-1-tz1_ms.pdf\"",
+      "downloadName": "ib-economics-hl-2026-may-paper-1-tz1_ms.pdf",
+      "sourcePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz1-hl-p1-markscheme.pdf",
+      "sourceRelativePath": "data/raw/2026-may-tz1-hl-p1-markscheme.pdf",
+      "sourceUrl": "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/May%202026%20Examination%20Session/Individuals%20and%20societies/Economics_paper_1_TZ1_HL_markscheme.pdf",
+      "sourcePaperId": "2026-may-tz1-hl-p1",
+      "sourceKind": "markscheme",
+      "referencedBy": [
+        {
+          "bankSlug": "ib-economics-hl",
+          "entryId": "economics-2026-may-tz1-hl-p1-english",
+          "kind": "markscheme"
+        }
+      ],
+      "publicUrl": "https://free.pastpaperprep.com/papers/v1/f78e0ca09d3c5d17f77127ff96ee6d0058cf8f1a9805e0efb2fbccb99f5f55c5.pdf",
+      "verifiedAgainstFile": true
+    }
+  ]
+}

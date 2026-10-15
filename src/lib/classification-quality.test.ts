@@ -284,8 +284,8 @@ describe("new-bank classification quality", () => {
     ["igcse-additional", 1633, 0],
     ["ib-hl", 841, 78],
     ["ib-sl", 578, 54],
-    ["ib-ai-hl", 409, 0],
-    ["ib-ai-sl", 334, 0],
+    ["ib-ai-hl", 409, 75],
+    ["ib-ai-sl", 334, 52],
   ] as const)("keeps a complete source-hashed review manifest for %s", (bankSlug, expectedCount, official2026Count) => {
     const questions = loadBankQuestions(bankSlug);
     const manifest = JSON.parse(
@@ -583,6 +583,8 @@ describe("new-bank classification quality", () => {
       subtopics: string[];
       classificationEvidence?: Record<string, unknown>;
     }> };
+    // The 2026-08 reconciliation predates the May 2026 official papers (reviewed in ib-ai-sl-official-2026-review.json).
+    raw.questions = raw.questions.filter((question) => !question.id.startsWith("2026-may-"));
     const report = JSON.parse(
       readFileSync(join(process.cwd(), "docs", "audits", "ib-ai-sl-consensus-reconciliation-2026-08.json"), "utf8"),
     ) as ReconciliationReport;

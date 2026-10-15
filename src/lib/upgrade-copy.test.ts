@@ -17,7 +17,7 @@ describe("upgrade copy", () => {
   });
 
   it("only counts paid years after the free year for IB sciences", () => {
-    expect(bankYearFacts("ib-chemistry-hl")?.newerPaidLabel).toBe("2021–2025");
+    expect(bankYearFacts("ib-chemistry-hl")?.newerPaidLabel).toBe("2021–2026");
   });
 
   it("returns null for an unknown bank", () => {
