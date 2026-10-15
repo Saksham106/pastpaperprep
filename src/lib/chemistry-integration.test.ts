@@ -12,7 +12,7 @@ import chemistryHlRaw from "@/data/raw/ib-chemistry-hl.json";
 import chemistrySlRaw from "@/data/raw/ib-chemistry-sl.json";
 
 const CHEMISTRY_BANKS = ["ib-chemistry-hl", "ib-chemistry-sl"] as const;
-const REVIEW_MANIFEST_SHA256 = "97efc2671d80832e257d57afde209361cf3af3e900630bab2501a75f956c274b";
+const REVIEW_MANIFEST_SHA256 = "63f1e8c95a765f0122e510783a4cffb34348542dae424d9f56747626f8049cde";
 const EXPECTED = { "ib-chemistry-hl": { questions: 2016, papers: 93 }, "ib-chemistry-sl": { questions: 1521, papers: 93 } } as const;
 // The runtime before the official May 2026 papers were appended (origin/main 18d8b98): every row, paper and header field must survive.
 const PRE_2026_RUNTIME_HASHES = {
@@ -20,7 +20,7 @@ const PRE_2026_RUNTIME_HASHES = {
   "ib-chemistry-sl": "8cb8f40de9fc1b9c953dce263bda0fbdd357b9d282170e02b54efaa1e18114fd",
 } as const;
 const PRE_2026_COUNTS = { "ib-chemistry-hl": { questions: 1872, papers: 84 }, "ib-chemistry-sl": { questions: 1412, papers: 84 } } as const;
-const MAY_2026_LABELS_SHA256 = "a2b798169c0a5cfea34bab1c693102293b010c83e792014aeb083e451ade85d3";
+const MAY_2026_LABELS_SHA256 = "6f8befc9962e18652bbdcbc810677e4c9481297a3e8126ce0b9e26ca9063a290";
 
 function serializedIndex(bank: (typeof CHEMISTRY_BANKS)[number]) {
   return JSON.stringify(createPublicBankIndex(bank, loadBankQuestions(bank)));

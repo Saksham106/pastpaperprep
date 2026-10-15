@@ -3,7 +3,7 @@
   "reviewedQuestionCount": 253,
   "reviewMethod": "Official May 2026 TZ1-TZ3 questions: a source-grounded primary pass from the question crop and official markscheme, a separate blind second pass from sealed evidence without the primary labels or the Drex triage scores, and a written adjudication of every row where the passes differ (primary, secondaries, official codes, status) or either was low-confidence. Drex (drex-v1.1 requests, answered by drex-v1.5) was used for triage only.",
   "sourceCommitPrefix": "f6aad08",
-  "finalLabelsSha256": "a2b798169c0a5cfea34bab1c693102293b010c83e792014aeb083e451ade85d3",
+  "finalLabelsSha256": "6f8befc9962e18652bbdcbc810677e4c9481297a3e8126ce0b9e26ca9063a290",
   "rows": [
     {
       "id": "2026-may-tz1-hl-p1a-q1",
@@ -516,7 +516,8 @@
       "primary": "D4",
       "secondaries": [
         "C4",
-        "O3"
+        "O3",
+        "M3"
       ],
       "codes": [
         "Tool 1: Experimental techniques",
@@ -528,7 +529,7 @@
       ],
       "confidence": "high",
       "source": "adjudicated",
-      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks). Post-review secondary addition (M3): Part (e) credits a titration mole calculation (n(NaOH) = c x V, scaled by the aliquot ratio to the total n(CH3COOH), 2 marks): reacting quantities."
     },
     {
       "id": "2026-may-tz1-hl-p2-q1",
@@ -620,14 +621,15 @@
       "primary": "C4",
       "secondaries": [
         "C2",
-        "C3"
+        "C3",
+        "M3"
       ],
       "codes": [
         "Reactivity 3.1"
       ],
       "confidence": "medium",
       "source": "primary",
-      "adjudication": null
+      "adjudication": "Post-review secondary addition (M3): Part (b) credits the acid concentration from the equivalence volume and the known base concentration and volume (2 marks): titration reacting quantities. Identical part to the SL twin 2026-may-tz1-sl-p2-q4."
     },
     {
       "id": "2026-may-tz1-hl-p2-q5",
@@ -1122,7 +1124,8 @@
       "level": "SL",
       "primary": "C2",
       "secondaries": [
-        "C4"
+        "C4",
+        "M3"
       ],
       "codes": [
         "Reactivity 3.1",
@@ -1130,7 +1133,7 @@
       ],
       "confidence": "medium",
       "source": "adjudicated",
-      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks). Post-review secondary addition (M3): Part (b) credits the acid concentration from the equivalence volume and the known base concentration and volume (2 marks): titration reacting quantities."
     },
     {
       "id": "2026-may-tz2-hl-p1a-q1",
@@ -1546,14 +1549,16 @@
       "id": "2026-may-tz2-hl-p1a-q40",
       "level": "HL",
       "primary": "R2",
-      "secondaries": [],
+      "secondaries": [
+        "E3"
+      ],
       "codes": [
         "Reactivity 3.2",
         "Reactivity 1.4"
       ],
       "confidence": "medium",
       "source": "adjudicated",
-      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks). Post-review secondary addition (E3): The options are the sign of the standard Gibbs energy change and spontaneity for a cell with E = +1.10 V: Gibbs energy and spontaneity, not only identifying the cell."
     },
     {
       "id": "2026-may-tz2-hl-p1a-q5",

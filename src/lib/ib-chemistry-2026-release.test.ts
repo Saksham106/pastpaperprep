@@ -5,6 +5,8 @@ import hlArchive from "@/data/paper-archives/ib-chemistry-hl.json";
 import slArchive from "@/data/paper-archives/ib-chemistry-sl.json";
 import { buildAssetRetentionPlan } from "@/lib/asset-retention";
 import { loadBankQuestions } from "@/lib/question-fixtures";
+import { filterQuestions } from "@/lib/question-filter";
+import { getControlledSubtopics } from "@/lib/taxonomy";
 import { REVIEWED_MCQ_ANSWER_LETTERS } from "@/lib/mcq-answer-letters";
 
 const ROOT = process.cwd();
@@ -89,5 +91,27 @@ describe("IB Chemistry May 2026 official papers", () => {
     expect(review.reviewedQuestionCount).toBe(253);
     expect(review.rows).toHaveLength(253);
     expect(review.rows.every((row: { codes: string[]; primary: string }) => row.codes.length > 0 && Boolean(row.primary))).toBe(true);
+  });
+
+  // Post-review additions: separately credited parts whose concept the stored labels did not retrieve.
+  it("retrieves rows by the secondary topic/subtopic of a separately credited part through the real normalization and filter path", () => {
+    const MOLE = ["Matter, amounts and stoichiometry", "The mole and reacting quantities"] as const;
+    const GIBBS = ["Energetics, thermodynamics and fuels", "Entropy, Gibbs energy and spontaneity"] as const;
+    const cases = [
+      { bank: "ib-chemistry-sl", id: "2026-may-tz1-sl-p2-q4", primary: "Acids and bases", via: MOLE },
+      { bank: "ib-chemistry-hl", id: "2026-may-tz1-hl-p2-q4", primary: "Acids and bases", via: MOLE },
+      { bank: "ib-chemistry-hl", id: "2026-may-tz1-hl-p1b-q2", primary: "Measurement, data and practical work", via: MOLE },
+      { bank: "ib-chemistry-hl", id: "2026-may-tz2-hl-p1a-q40", primary: "Redox and electrochemistry", via: GIBBS },
+    ] as const;
+    for (const { bank, id, primary, via } of cases) {
+      const [topic, subtopic] = via;
+      const all = loadBankQuestions(bank);
+      const row = all.find((question) => question.id === id)!;
+      expect(row.primaryTopic, id).toBe(primary);
+      expect(getControlledSubtopics(bank, topic), id).toContain(subtopic);
+      for (const filters of [{ topics: [topic] }, { subtopics: [subtopic] }, { topics: [topic], subtopics: [subtopic] }, { topics: [topic], years: ["2026"] }]) {
+        expect(filterQuestions(all, filters).map((question) => question.id), `${id} ${JSON.stringify(filters)}`).toContain(id);
+      }
+    }
   });
 });

@@ -22,10 +22,10 @@ const check = process.argv.includes("--check");
 const BASE_COMMIT = "18d8b98df165fad17c4f632e8a156214c27227fa";
 const SOURCE_COMMIT_PREFIX = "f6aad08";
 const PINS = {
-  HL: { additions: "2b07a6d57fad45d5617e4e0b6d3c3d7474c74d24b31d5d7bef573be18fbc4f02", questions: 144, papers: 9 },
-  SL: { additions: "0cfb61230f156ec500d24908f6ed6dc39947e99102d3e6d3febfb17793ac9203", questions: 109, papers: 9 },
+  HL: { additions: "82ab85a997ac77961015dea644f3f086543a833b41161a91a9654e19e2b36af8", questions: 144, papers: 9 },
+  SL: { additions: "41540b0339be0091c7bcc03d214159af5a581ff494c5a9c0aebf8e654c63c818", questions: 109, papers: 9 },
 };
-const FINAL_LABELS_SHA256 = "a2b798169c0a5cfea34bab1c693102293b010c83e792014aeb083e451ade85d3";
+const FINAL_LABELS_SHA256 = "6f8befc9962e18652bbdcbc810677e4c9481297a3e8126ce0b9e26ca9063a290";
 const sha = (bytes) => createHash("sha256").update(bytes).digest("hex");
 
 function workspaceRoot() {
