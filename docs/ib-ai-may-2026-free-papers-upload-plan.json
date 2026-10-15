@@ -1,0 +1,326 @@
+{
+  "schemaVersion": "ib-ai-may-2026-free-papers-upload-plan-v1",
+  "status": "planned-not-uploaded",
+  "bucket": "pastpaperprep-free",
+  "contentType": "application/pdf",
+  "cacheControl": "public, max-age=604800",
+  "contentDisposition": "attachment; filename=\"<downloadName>\"",
+  "tool": "scripts/publish-added-free-papers.mts (wrangler, no keys): plan/upload/verify, base ref origin/main, bindings private/paper-archives/source-bindings.json",
+  "precondition": "Each key is confirmed absent (wrangler r2 object get --remote) before its put; existing objects are never re-put. Source PDFs are the IB originals from papers.xtremepape.rs (identity + watermark scan clean, 0 flagged).",
+  "followUp": "After the owner-approved upload, run `npx tsx scripts/publish-added-free-papers.mts verify <work-dir>` to rewrite src/data/paper-archive-readback.json (objectCount 5014); src/lib/whole-paper-public.test.ts fails until then by design.",
+  "workspaceRoot": "ProjectsInternships (paths below are relative to it)",
+  "totalObjects": 30,
+  "totalBytes": 25755235,
+  "byBank": {
+    "ib-ai-hl": {
+      "objects": 18,
+      "bytes": 14719997
+    },
+    "ib-ai-sl": {
+      "objects": 12,
+      "bytes": 11035238
+    }
+  },
+  "objects": [
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz1-p1",
+      "kind": "markscheme",
+      "key": "papers/v1/e06f830ca12e3d22fda3f92f3a8b6a4f8a71b42dead533a30fde49a4f99eb97a.pdf",
+      "sha256": "e06f830ca12e3d22fda3f92f3a8b6a4f8a71b42dead533a30fde49a4f99eb97a",
+      "bytes": 813953,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-1-tz1_ms.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_1_TZ1_HL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz1-p1",
+      "kind": "question",
+      "key": "papers/v1/9f9c73592cc6408398fb99f18f5a3576866a7e2d365b8e78f65881ee84c8bd37.pdf",
+      "sha256": "9f9c73592cc6408398fb99f18f5a3576866a7e2d365b8e78f65881ee84c8bd37",
+      "bytes": 1817496,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-1-tz1_qp.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_1_TZ1_HL.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz1-p2",
+      "kind": "markscheme",
+      "key": "papers/v1/3d239c9e7faf2d63e71999428643b218374bc49de5fbc8baab58d36b629de8c5.pdf",
+      "sha256": "3d239c9e7faf2d63e71999428643b218374bc49de5fbc8baab58d36b629de8c5",
+      "bytes": 513375,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-2-tz1_ms.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_2_TZ1_HL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz1-p2",
+      "kind": "question",
+      "key": "papers/v1/c3772f7a3460ce4c69c292a6dc58830bf2b04dea05c44d52237a4afeb0d1fc9b.pdf",
+      "sha256": "c3772f7a3460ce4c69c292a6dc58830bf2b04dea05c44d52237a4afeb0d1fc9b",
+      "bytes": 699718,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-2-tz1_qp.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_2_TZ1_HL.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz1-p3",
+      "kind": "markscheme",
+      "key": "papers/v1/58cdc987ab8dbd56aa78051630a0fdaca438b0ae43de3ae3a5e97cf1a57be8dd.pdf",
+      "sha256": "58cdc987ab8dbd56aa78051630a0fdaca438b0ae43de3ae3a5e97cf1a57be8dd",
+      "bytes": 427037,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-3-tz1_ms.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_3_TZ1_HL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz1-p3",
+      "kind": "question",
+      "key": "papers/v1/2d5c1e5648801d96ce70aad3db06b8cb5c2660e49b316f649850ce94289e0991.pdf",
+      "sha256": "2d5c1e5648801d96ce70aad3db06b8cb5c2660e49b316f649850ce94289e0991",
+      "bytes": 601950,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-3-tz1_qp.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_3_TZ1_HL.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz2-p1",
+      "kind": "markscheme",
+      "key": "papers/v1/204deefbacbd89fa26a9aa186565bbf9ece2ae4c85065123e56442b8ccb54466.pdf",
+      "sha256": "204deefbacbd89fa26a9aa186565bbf9ece2ae4c85065123e56442b8ccb54466",
+      "bytes": 712596,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-1-tz2_ms.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_1_TZ2_HL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz2-p1",
+      "kind": "question",
+      "key": "papers/v1/fbec2f54aa0ba25c875ab971d4dcf01ff75a5c1c9166bbcc8b65f67e059ce4c0.pdf",
+      "sha256": "fbec2f54aa0ba25c875ab971d4dcf01ff75a5c1c9166bbcc8b65f67e059ce4c0",
+      "bytes": 1854506,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-1-tz2_qp.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_1_TZ2_HL.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz2-p2",
+      "kind": "markscheme",
+      "key": "papers/v1/b17af14ea1d755b6f25759bafa8e72569997ff5b242a81a649f04a4c7e5b0c9e.pdf",
+      "sha256": "b17af14ea1d755b6f25759bafa8e72569997ff5b242a81a649f04a4c7e5b0c9e",
+      "bytes": 586059,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-2-tz2_ms.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_2_TZ2_HL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz2-p2",
+      "kind": "question",
+      "key": "papers/v1/9213ab78eccc2967fa10506f1a7a4c23a07d8a3af60bd79114e14eae5fb19b0f.pdf",
+      "sha256": "9213ab78eccc2967fa10506f1a7a4c23a07d8a3af60bd79114e14eae5fb19b0f",
+      "bytes": 624486,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-2-tz2_qp.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_2_TZ2_HL.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz2-p3",
+      "kind": "markscheme",
+      "key": "papers/v1/db7aa2979a631b02be13be3bc503b69649fd29d0cab72b970359bc1733bfb9ac.pdf",
+      "sha256": "db7aa2979a631b02be13be3bc503b69649fd29d0cab72b970359bc1733bfb9ac",
+      "bytes": 461606,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-3-tz2_ms.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_3_TZ2_HL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz2-p3",
+      "kind": "question",
+      "key": "papers/v1/26713ac1a84693bbe353a3ffc7077fa2f99a9e94ea7de1fb36a857243963a4e7.pdf",
+      "sha256": "26713ac1a84693bbe353a3ffc7077fa2f99a9e94ea7de1fb36a857243963a4e7",
+      "bytes": 506301,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-3-tz2_qp.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_3_TZ2_HL.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz3-p1",
+      "kind": "markscheme",
+      "key": "papers/v1/1e8d333d949e24ed5989d0b6b8ca68b0a463785619abf9001d54752a9fcbe466.pdf",
+      "sha256": "1e8d333d949e24ed5989d0b6b8ca68b0a463785619abf9001d54752a9fcbe466",
+      "bytes": 1084194,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-1-tz3_ms.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_1_TZ3_HL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz3-p1",
+      "kind": "question",
+      "key": "papers/v1/09f67fb39b2c48f31d00a8131f0c23098c539371617cd289882f6d6ce7760ab8.pdf",
+      "sha256": "09f67fb39b2c48f31d00a8131f0c23098c539371617cd289882f6d6ce7760ab8",
+      "bytes": 1404418,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-1-tz3_qp.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_1_TZ3_HL.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz3-p2",
+      "kind": "markscheme",
+      "key": "papers/v1/5fe19d13c3e877ba274de159966398a1bb3400d88e252a06c9cbf78d75c7462e.pdf",
+      "sha256": "5fe19d13c3e877ba274de159966398a1bb3400d88e252a06c9cbf78d75c7462e",
+      "bytes": 530137,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-2-tz3_ms.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_2_TZ3_HL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz3-p2",
+      "kind": "question",
+      "key": "papers/v1/fa11df988b264c27201266bcfd6714d4ca2a875d63bd9923b3aa7c14050950a2.pdf",
+      "sha256": "fa11df988b264c27201266bcfd6714d4ca2a875d63bd9923b3aa7c14050950a2",
+      "bytes": 661303,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-2-tz3_qp.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_2_TZ3_HL.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz3-p3",
+      "kind": "markscheme",
+      "key": "papers/v1/bc17bdb585b7a47457c07607c90f02f86b6e520d11ab7a33c33dd7f6fda765d0.pdf",
+      "sha256": "bc17bdb585b7a47457c07607c90f02f86b6e520d11ab7a33c33dd7f6fda765d0",
+      "bytes": 375648,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-3-tz3_ms.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_3_TZ3_HL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-hl",
+      "paperId": "2026-may-tz3-p3",
+      "kind": "question",
+      "key": "papers/v1/2de700ace2a1f8548b849f8f4ffb1d2a4f9641f131cfd96a0e5e731dc3ccd434.pdf",
+      "sha256": "2de700ace2a1f8548b849f8f4ffb1d2a4f9641f131cfd96a0e5e731dc3ccd434",
+      "bytes": 1045214,
+      "downloadName": "ib-math-ai-hl-2026-may-paper-3-tz3_qp.pdf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_3_TZ3_HL.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-sl",
+      "paperId": "2026-may-tz1-p1",
+      "kind": "markscheme",
+      "key": "papers/v1/7ca9e9d419e8341824501cd7c6474c8facf88442e1f9c21ec4c23852ed9a6126.pdf",
+      "sha256": "7ca9e9d419e8341824501cd7c6474c8facf88442e1f9c21ec4c23852ed9a6126",
+      "bytes": 436788,
+      "downloadName": "ib-math-ai-sl-2026-may-paper-1-tz1_ms.pdf",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_1_TZ1_SL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-sl",
+      "paperId": "2026-may-tz1-p1",
+      "kind": "question",
+      "key": "papers/v1/f467f352ef99e7ed2ffb1e84a54a06a5578a3d98db65fcef94a21f2bb9b07f15.pdf",
+      "sha256": "f467f352ef99e7ed2ffb1e84a54a06a5578a3d98db65fcef94a21f2bb9b07f15",
+      "bytes": 1579628,
+      "downloadName": "ib-math-ai-sl-2026-may-paper-1-tz1_qp.pdf",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_1_TZ1_SL.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-sl",
+      "paperId": "2026-may-tz1-p2",
+      "kind": "markscheme",
+      "key": "papers/v1/52777d03d69057b38e433836ac23fc1ed9128e8b5047d3342af8c6f66d55bfad.pdf",
+      "sha256": "52777d03d69057b38e433836ac23fc1ed9128e8b5047d3342af8c6f66d55bfad",
+      "bytes": 464401,
+      "downloadName": "ib-math-ai-sl-2026-may-paper-2-tz1_ms.pdf",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_2_TZ1_SL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-sl",
+      "paperId": "2026-may-tz1-p2",
+      "kind": "question",
+      "key": "papers/v1/a026ce23b584e39f270f3a73bd2a8e22d7116501283518c6c0250c1fd44e6970.pdf",
+      "sha256": "a026ce23b584e39f270f3a73bd2a8e22d7116501283518c6c0250c1fd44e6970",
+      "bytes": 857185,
+      "downloadName": "ib-math-ai-sl-2026-may-paper-2-tz1_qp.pdf",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_2_TZ1_SL.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-sl",
+      "paperId": "2026-may-tz2-p1",
+      "kind": "markscheme",
+      "key": "papers/v1/69d21f7c84b49fe1d46b976ddbc19c18f5f6f5e680034c96e37b49695caa5c94.pdf",
+      "sha256": "69d21f7c84b49fe1d46b976ddbc19c18f5f6f5e680034c96e37b49695caa5c94",
+      "bytes": 616169,
+      "downloadName": "ib-math-ai-sl-2026-may-paper-1-tz2_ms.pdf",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_1_TZ2_SL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-sl",
+      "paperId": "2026-may-tz2-p1",
+      "kind": "question",
+      "key": "papers/v1/c45f2067c273491f667fdb55ca2d4aee80c1323da1b0b2f803b06604e9e65476.pdf",
+      "sha256": "c45f2067c273491f667fdb55ca2d4aee80c1323da1b0b2f803b06604e9e65476",
+      "bytes": 1598842,
+      "downloadName": "ib-math-ai-sl-2026-may-paper-1-tz2_qp.pdf",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_1_TZ2_SL.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-sl",
+      "paperId": "2026-may-tz2-p2",
+      "kind": "markscheme",
+      "key": "papers/v1/dc3fabafe93001a66d1483d7102e699c63e0362a0a027382708d9c8f595a58a2.pdf",
+      "sha256": "dc3fabafe93001a66d1483d7102e699c63e0362a0a027382708d9c8f595a58a2",
+      "bytes": 489397,
+      "downloadName": "ib-math-ai-sl-2026-may-paper-2-tz2_ms.pdf",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_2_TZ2_SL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-sl",
+      "paperId": "2026-may-tz2-p2",
+      "kind": "question",
+      "key": "papers/v1/0fdee7af8b237c57555de638a16060076465b4c74413bb725b68aeaf23544d38.pdf",
+      "sha256": "0fdee7af8b237c57555de638a16060076465b4c74413bb725b68aeaf23544d38",
+      "bytes": 1510095,
+      "downloadName": "ib-math-ai-sl-2026-may-paper-2-tz2_qp.pdf",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_2_TZ2_SL.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-sl",
+      "paperId": "2026-may-tz3-p1",
+      "kind": "markscheme",
+      "key": "papers/v1/a29e583c6d977206cadbfb7fa31df1ccd0e947b9741a1f71d67cae771c8daaab.pdf",
+      "sha256": "a29e583c6d977206cadbfb7fa31df1ccd0e947b9741a1f71d67cae771c8daaab",
+      "bytes": 586548,
+      "downloadName": "ib-math-ai-sl-2026-may-paper-1-tz3_ms.pdf",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_1_TZ3_SL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-sl",
+      "paperId": "2026-may-tz3-p1",
+      "kind": "question",
+      "key": "papers/v1/11b6b19847d6ec094fcece2e62eca0e8a3600d74715169568ae284723df6885d.pdf",
+      "sha256": "11b6b19847d6ec094fcece2e62eca0e8a3600d74715169568ae284723df6885d",
+      "bytes": 1670473,
+      "downloadName": "ib-math-ai-sl-2026-may-paper-1-tz3_qp.pdf",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_1_TZ3_SL.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-sl",
+      "paperId": "2026-may-tz3-p2",
+      "kind": "markscheme",
+      "key": "papers/v1/dfa8e3bd31c69db068d052b576d0cc7befd7f493b46b81a8acec7961f66e400d.pdf",
+      "sha256": "dfa8e3bd31c69db068d052b576d0cc7befd7f493b46b81a8acec7961f66e400d",
+      "bytes": 535537,
+      "downloadName": "ib-math-ai-sl-2026-may-paper-2-tz3_ms.pdf",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_2_TZ3_SL_markscheme.pdf"
+    },
+    {
+      "bankSlug": "ib-ai-sl",
+      "paperId": "2026-may-tz3-p2",
+      "kind": "question",
+      "key": "papers/v1/740f9137e72565134a59097ce40fc9eec0756be7da8fa4809b3beef81d303caf.pdf",
+      "sha256": "740f9137e72565134a59097ce40fc9eec0756be7da8fa4809b3beef81d303caf",
+      "bytes": 690175,
+      "downloadName": "ib-math-ai-sl-2026-may-paper-2-tz3_qp.pdf",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/data/raw/official-may-2026/Mathematics_applications_and_interpretation_paper_2_TZ3_SL.pdf"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -13,6 +14,16 @@ import { captureServerException } from "@/lib/server-error-tracking";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Build a paper", robots: { index: false, follow: false } };
+
+// Only used to number default names ("Atoms 2"); a failed read just skips the numbering.
+async function readWorksheetTitles(supabase: Awaited<ReturnType<typeof createClient>>, userId: string): Promise<string[]> {
+  try {
+    const { data } = await supabase.from("saved_worksheets").select("title").eq("user_id", userId);
+    return (data ?? []).map((row: { title: unknown }) => row.title).filter((title): title is string => typeof title === "string");
+  } catch {
+    return [];
+  }
+}
 
 export default async function BuildPage({ searchParams }: { searchParams: Promise<{ bank?: string | string[] }> }) {
   const requested = (await searchParams).bank;
@@ -35,10 +46,13 @@ export default async function BuildPage({ searchParams }: { searchParams: Promis
   const banks = getAvailableBanks()
     .filter((bank) => hasBankAccess(bank.slug, access.rows as never) && bank.slug in PUBLIC_BANK_INDEX_FILES)
     .map((bank) => ({ slug: bank.slug, label: bank.shortName, indexUrl: publicBankIndexUrl(bank.slug) }));
+  const existingTitles = await readWorksheetTitles(supabase, userId);
+  // The same per-account footer marker the bank page prints on its PDFs.
+  const exportMarker = createHash("sha256").update(userId).digest("hex").slice(0, 10).toUpperCase();
 
   return <main className="worksheet-library-page shell">
     <Link className="worksheet-library-back" href="/worksheets" aria-label="Back to my worksheets">← <span>My worksheets</span></Link>
-    <header className="worksheet-library-header"><p className="eyebrow">Your work</p><h1>Build a paper</h1><p>Pick the questions that matter to your course. Preview the set here, then save it when it feels right.</p></header>
-    <PaperBuilder banks={banks} initialBank={banks.some((bank) => bank.slug === requestedBank) ? requestedBank as BankSlug : undefined} />
+    <header className="worksheet-library-header"><h1>Build a paper</h1></header>
+    <PaperBuilder banks={banks} existingTitles={existingTitles} exportMarker={exportMarker} initialBank={banks.some((bank) => bank.slug === requestedBank) ? requestedBank as BankSlug : undefined} />
   </main>;
 }
