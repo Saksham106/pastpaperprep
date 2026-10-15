@@ -1,0 +1,35 @@
+name: Refresh ChatGPT plugin data
+
+# The ChatGPT/Claude plugin (Saksham106/pastpaperprep-mcp) serves a bundle built
+# from the latest production release. Start its refresh as soon as a production
+# deploy succeeds; its own daily run remains the backstop.
+on:
+  deployment_status:
+
+permissions: {}
+
+jobs:
+  dispatch:
+    if: >-
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment == 'Production' &&
+      github.event.deployment.creator.login == 'vercel[bot]'
+    # Job-level, so preview and non-success events (skipped above) never join or
+    # cancel this group. Queued production dispatches are idempotent: the target
+    # refresh always resolves the latest production release itself.
+    concurrency:
+      group: refresh-chatgpt-plugin
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Start plugin metadata refresh
+        env:
+          GH_TOKEN: ${{ secrets.MCP_REFRESH_DISPATCH_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [[ -z "$GH_TOKEN" ]]; then
+            echo "::notice::MCP_REFRESH_DISPATCH_TOKEN is not set; the plugin's daily refresh will pick up this release."
+            exit 0
+          fi
+          gh workflow run refresh.yml --repo Saksham106/pastpaperprep-mcp --ref main
