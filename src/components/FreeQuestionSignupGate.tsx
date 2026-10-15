@@ -9,6 +9,8 @@ import { UPGRADE_PRICE_MONTH } from "@/lib/upgrade-copy";
 import { Testimonial } from "@/components/Testimonial";
 import { SIGNUP_GATE_TESTIMONIAL } from "@/lib/testimonials";
 
+const GATE_VIEW_KEY = "signup_gate:";
+
 type GateProps = {
   bankSlug: string;
   remainingCount: number;
@@ -16,6 +18,8 @@ type GateProps = {
   signinHref: string;
   plansHref?: string;
   plansLine?: string;
+  /** Page-lived set shared with the other upgrade nudges, so a gate remounted by filtering is not counted again. */
+  sentViews?: Set<string>;
 };
 
 type GateMessageProps = GateProps & {
@@ -51,7 +55,7 @@ function GateMessage({ bankSlug, remainingCount, signupHref, signinHref, plansHr
   );
 }
 
-export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, signinHref, plansHref, plansLine }: GateProps) {
+export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, signinHref, plansHref, plansLine, sentViews }: GateProps) {
   const inlineRef = useRef<HTMLElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -85,8 +89,9 @@ export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, s
       const entry = entries[0];
       if (!entry?.isIntersecting) return;
       // The gate mounts below 20 questions, so count a view only once it is actually on screen.
-      if (!hasViewedRef.current) {
+      if (!hasViewedRef.current && !sentViews?.has(GATE_VIEW_KEY)) {
         hasViewedRef.current = true;
+        sentViews?.add(GATE_VIEW_KEY);
         trackProductEvent("free_gate_view", { bank: bankSlug, limit: ANONYMOUS_FREE_QUESTION_LIMIT, remainingCount });
         trackUpgrade("view", bankSlug, "signup_gate");
       }
@@ -110,7 +115,7 @@ export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, s
 
     observer.observe(target);
     return () => observer.disconnect();
-  }, [bankSlug, remainingCount]);
+  }, [bankSlug, remainingCount, sentViews]);
 
   useEffect(() => {
     if (!elevated) return;

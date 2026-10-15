@@ -74,6 +74,23 @@ describe("FreeQuestionSignupGate", () => {
     expect(showModal).toHaveBeenCalledTimes(1);
   });
 
+  it("does not count a second view when filtering unmounts and remounts the gate on the same page", () => {
+    track.mockClear();
+    const pageViews = new Set<string>();
+    const gate = <FreeQuestionSignupGate bankSlug="ib-sl" remainingCount={40} signupHref="/login?mode=sign-up" signinHref="/login" sentViews={pageViews} />;
+    const { rerender } = render(gate);
+    act(() => {
+      intersectionCallback([{ isIntersecting: true, intersectionRatio: 0.1 } as IntersectionObserverEntry], {} as IntersectionObserver);
+    });
+    rerender(<></>); // a filter narrows results to 20 or fewer: the explorer drops the gate
+    rerender(gate); // the filter is cleared: a fresh gate instance mounts
+    act(() => {
+      intersectionCallback([{ isIntersecting: true, intersectionRatio: 0.1 } as IntersectionObserverEntry], {} as IntersectionObserver);
+    });
+    expect(track.mock.calls.filter(([event]) => event === "free_gate_view")).toHaveLength(1);
+    expect(track.mock.calls.filter(([event]) => event === "upgrade_prompt_view")).toHaveLength(1);
+  });
+
   it("falls back to a generic plans line", () => {
     render(<FreeQuestionSignupGate bankSlug="ib-sl" remainingCount={3} signupHref="/login?mode=sign-up" signinHref="/login" />);
     expect(screen.getAllByText(/Want every year\? Plans start at \$6\/month\./)).toHaveLength(2);
