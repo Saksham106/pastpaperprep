@@ -18,7 +18,7 @@ vi.mock("@/lib/supabase/admin", () => ({ createAdminClient }));
 import { GET as privateBankIndexGET } from "@/app/api/private-bank-index/[bank]/route";
 import { POST as assetsSignPOST } from "@/app/api/assets/sign/route";
 import { bankEntryHref, countFreeQuestions, hasFreeTier, isPreviewQuestion, questionYear } from "@/lib/access";
-import { getAvailableBanks, isPrivateBankIndexEnabled } from "@/lib/banks";
+import { getAvailableBanks, isEconomicsMay2026Enabled, isPrivateBankIndexEnabled } from "@/lib/banks";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 import { createPublicBankIndex, publicBankIndexUrl } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
@@ -111,7 +111,9 @@ describe("private-bank free funnel", () => {
     } else {
       questions = await loadBankQuestions(slug as never);
     }
-    expect(questions).toHaveLength(expected.total);
+    // The gated May 2026 Economics rows (17 HL / 15 SL) are not free: the free cohort stays the 2021 year.
+    const may2026 = slug === "ib-economics-hl" ? 17 : slug === "ib-economics-sl" ? 15 : 0;
+    expect(questions).toHaveLength(expected.total + (isEconomicsMay2026Enabled() ? may2026 : 0));
     expect(countFreeQuestions(slug as never, questions as never)).toBe(expected.free);
     const free = questions.filter((question) => isPreviewQuestion(slug as never, question.id));
     expect(free.every((question) => question.year === 2021)).toBe(true);

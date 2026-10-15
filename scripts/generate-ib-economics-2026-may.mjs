@@ -109,7 +109,7 @@ for (const [bank, level, siteFile, questionCount, paperCount] of banks) {
     sourceRuntimeFile: `src/data/production/${bank}-2026-may.json`,
     upload: false,
     rawPdfIncluded: false,
-    assets: manifestAssets.map(({ md5: _md5, ...asset }) => asset),
+    assets: manifestAssets.map((asset) => ({ objectKey: asset.objectKey, sourcePath: asset.sourcePath, kind: asset.kind, byteSize: asset.byteSize, sha256: asset.sha256, referencedQuestionIds: asset.referencedQuestionIds })),
   };
   const uploadManifestText = pretty(uploadManifest);
   const manifestSha = hash(uploadManifestText);

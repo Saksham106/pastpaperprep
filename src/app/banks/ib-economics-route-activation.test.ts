@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { generateStaticParams } from "@/app/banks/[slug]/page";
-import { getAvailableBanks } from "@/lib/banks";
+import { getAvailableBanks, isEconomicsMay2026Enabled } from "@/lib/banks";
 import { loadBankQuestions } from "@/lib/question-loader";
 
 const productionFlags = {
@@ -41,8 +41,10 @@ describe("IB Economics production route activation", () => {
       loadBankQuestions("ib-economics-hl"),
       loadBankQuestions("ib-economics-sl"),
     ]);
-    expect(hl).toHaveLength(111);
-    expect(sl).toHaveLength(89);
+    // The May 2026 rows (17 HL / 15 SL) join the sealed 111 / 89 only when their own asset flag is on.
+    const may2026 = isEconomicsMay2026Enabled();
+    expect(hl).toHaveLength(may2026 ? 111 + 17 : 111);
+    expect(sl).toHaveLength(may2026 ? 89 + 15 : 89);
     expect(hl[0].questionImages.length).toBeGreaterThan(0);
     expect(hl[0].markschemeImages.length).toBeGreaterThan(0);
     expect(sl[0].questionImages.length).toBeGreaterThan(0);

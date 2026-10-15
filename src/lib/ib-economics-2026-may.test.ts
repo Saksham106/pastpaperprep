@@ -35,9 +35,17 @@ const CLUTTER = /[\p{Cc}\p{Co}\p{Cf}\p{Cs}\uFFFD]/u;
 
 const sha256 = (path: string) => createHash("sha256").update(readFileSync(join(ROOT, path))).digest("hex");
 function stub(env: Record<string, string>) {
+  // Start from "2026 flag off" whatever the surrounding process env says, then apply the case's own flags.
+  vi.stubEnv("PASTPAPERPREP_IB_ECONOMICS_2026_MAY_ASSETS_VERIFIED", "");
   for (const [key, value] of Object.entries(env)) vi.stubEnv(key, value);
 }
 
+type ExtensionRow = {
+  id: string; sourceLevels: string[]; subtopics: string[]; primaryTopicId: string; secondaryDetailIds: string[]; era: string;
+  officialCodeRefs: string[]; retrievalFacets: string[]; skills: string[]; assessmentObjectives: string[];
+  subpartEvidence: { detailed_subtopic_ids: string[] }[]; accessibleText: string; markschemeTranscript: string;
+  questionImages: string[]; markschemeImages: string[]; questionImageHashes: string[]; markschemeImageHashes: string[];
+};
 type TaxonomyDetail = { id: string; label: string; owner_topic_id: string; applicability_by_era: Record<string, string>; source_code_refs: string[] };
 const details = new Map<string, TaxonomyDetail>(
   (economicsTaxonomy as unknown as { student_topics: { detailed_subtopics: TaxonomyDetail[] }[] }).student_topics.flatMap((topic) => topic.detailed_subtopics).map((detail) => [detail.id, detail]),
@@ -107,11 +115,11 @@ describe("IB Economics May 2026 gated extension", () => {
       expect(new Set(extension.questions.map((question) => question.id)).size).toBe(extension.questions.length);
       for (const question of extension.questions) {
         const paper = question.id.replace(/-q\d+$/, "");
-        expect(question.marks, question.id).toBe(expected[bank][paper]);
+        expect((question as unknown as { marks: number }).marks, question.id).toBe(expected[bank][paper]);
       }
       // Printed paper maxima: Paper 1 answers one question (25), Paper 2 one data-response (40, both offered), Paper 3 answers both (30 + 30 = 60).
       const p3 = extension.questions.filter((question) => question.id.includes("-hl-p3-"));
-      if (bank === "ib-economics-hl") expect(p3.reduce((sum, question) => sum + Number(question.marks), 0)).toBe(60);
+      if (bank === "ib-economics-hl") expect(p3.reduce((sum, question) => sum + Number((question as unknown as { marks: number }).marks), 0)).toBe(60);
     }
   });
 
@@ -121,7 +129,7 @@ describe("IB Economics May 2026 gated extension", () => {
     );
     expect(facetIds.size).toBe(21);
     for (const bank of BANKS) {
-      for (const question of getEconomicsMay2026Extension(bank).questions as unknown as Array<Record<string, any>>) {
+      for (const question of getEconomicsMay2026Extension(bank).questions as unknown as Array<ExtensionRow>) {
         const levels: string[] = question.sourceLevels;
         const primary = [...details.values()].find((detail) => detail.label === question.subtopics[0] && detail.owner_topic_id === question.primaryTopicId && detail.applicability_by_era.new_first_assessment_2022);
         expect(primary, `${question.id} primary detail`).toBeTruthy();

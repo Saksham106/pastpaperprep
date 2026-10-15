@@ -282,6 +282,8 @@ function assertSafe(serialized, rawQuestions) {
   }
 }
 
+const may2026Released = ["PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION", "PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED", "PASTPAPERPREP_IB_ECONOMICS_2026_MAY_ASSETS_VERIFIED"].every((key) => process.env[key] === "true");
+
 export async function generateBankIndexes() {
   const source0580 = await readFile(join(root, "src", "data", "raw", "igcse.json"));
   if (createHash("sha256").update(source0580).digest("hex") !== IGCSE_0580_SECTION_OVERLAY.sourceRawSha256 || JSON.parse(source0580).questions.length !== IGCSE_0580_SECTION_OVERLAY.expectedInventoryCount) throw new Error("0580 source bank drift before index generation");
@@ -294,7 +296,12 @@ export async function generateBankIndexes() {
   const manifest = {};
   for (const { bank, directory } of bankSources) {
     const rawBank = JSON.parse(await readFile(join(root, "src", "data", directory, `${bank}.json`), "utf8"));
-    const rawQuestions = rawBank.questions;
+    let rawQuestions = rawBank.questions;
+    // The gated May 2026 Economics rows join the index exactly when the runtime serves them (see isEconomicsMay2026Enabled).
+    if ((bank === "ib-economics-hl" || bank === "ib-economics-sl") && may2026Released) {
+      const extension = JSON.parse(await readFile(join(root, "src", "data", "production", `${bank}-2026-may.json`), "utf8"));
+      rawQuestions = [...rawQuestions, ...extension.questions];
+    }
     const questions = rawQuestions.map((raw) => metadataFromRaw(raw, {
       bank,
       normalizedProduction: directory === "production",
