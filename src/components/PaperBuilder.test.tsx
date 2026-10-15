@@ -117,7 +117,7 @@ describe("PaperBuilder", () => {
     await ready();
     fireEvent.change(screen.getByLabelText("Question bank"), { target: { value: "ib-hl" } });
     await waitFor(() => expect(screen.queryByRole("group", { name: "Your Cambridge route" })).not.toBeInTheDocument());
-    await waitFor(() => expect(rowSources()[0]).toMatch(/^20\d\d (May|November)/));
+    await waitFor(() => expect(rowSources()[0]).toMatch(/20\d\d (May|November) · Paper/));
   });
 
   it("rebuilds the paper a link describes", async () => {

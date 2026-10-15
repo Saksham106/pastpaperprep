@@ -4,7 +4,7 @@ import { ArrowDown, ArrowsClockwise, ArrowsLeftRight, ArrowUp, X } from "@phosph
 import { CalculatorBadge } from "@/components/CalculatorBadge";
 import type { BuilderQuestion } from "@/lib/builder-topics";
 import { pdfSourceLabel } from "@/lib/pdf-labels";
-import { formatQuestionTopic } from "@/lib/presentation";
+import { displayedQuestionSubtopics, formatQuestionTopic } from "@/lib/presentation";
 
 type Props = {
   title: string;
@@ -26,7 +26,10 @@ export function BuilderSheet({ title, onTitle, questions, totalMarks, status, ca
   return <section id="builder-sheet" className="builder-sheet" aria-label="Your paper">
     <header className="builder-sheet-head">
       <div>
-        <input className="builder-title" aria-label="Worksheet name" maxLength={80} value={title} disabled={busy} onChange={(event) => onTitle(event.target.value)} />
+        {/* A textarea so long names wrap; line breaks are not part of a name. */}
+        <textarea className="builder-title" aria-label="Worksheet name" rows={1} maxLength={80} value={title} disabled={busy}
+          onKeyDown={(event) => { if (event.key === "Enter") event.preventDefault(); }}
+          onChange={(event) => onTitle(event.target.value.replace(/\s*\n\s*/g, " "))} />
         <p className="builder-sheet-meta">{questions.length} {questions.length === 1 ? "question" : "questions"} · {totalMarks} {totalMarks === 1 ? "mark" : "marks"}</p>
       </div>
       <button type="button" className="button secondary builder-shuffle" disabled={busy || !questions.length} onClick={onShuffle}><ArrowsClockwise aria-hidden="true" /> Shuffle</button>
@@ -34,10 +37,11 @@ export function BuilderSheet({ title, onTitle, questions, totalMarks, status, ca
     {status && <p className="builder-sheet-status" role="status">{status}</p>}
     {questions.length ? <ol className="builder-rows" aria-label="Questions in this paper">{questions.map((question, index) => {
       const topic = formatQuestionTopic(question.bankSlug, question.primaryTopic);
+      const subtopic = displayedQuestionSubtopics(question)[0];
       return <li key={question.id} className="builder-row">
         <button type="button" className="builder-row-open" onClick={() => onOpen(index)} aria-label={`Preview question ${index + 1}: ${topic}`}>
           <span className="builder-row-number">{index + 1}</span>
-          <span className="builder-row-text"><strong>{topic}</strong><small>{pdfSourceLabel(question)}</small></span>
+          <span className="builder-row-text"><strong>{topic}</strong><small>{subtopic && subtopic !== topic ? `${subtopic} · ` : ""}{pdfSourceLabel(question)}</small></span>
           <span className="builder-row-marks"><CalculatorBadge value={question.calculator} />{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>
         </button>
         <span className="builder-row-actions">

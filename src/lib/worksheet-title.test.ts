@@ -24,6 +24,12 @@ describe("suggestWorksheetTitle", () => {
     expect(suggestWorksheetTitle([q("Respiration")], ["respiration", "Respiration 2"])).toBe("Respiration 3");
     expect(suggestWorksheetTitle([q("Respiration")], ["Respiration 2"])).toBe("Respiration");
   });
+  it("names the paper after the topics the student picked, when given", () => {
+    expect(suggestWorksheetTitle([q("Algebra")], [], ["Sequences", "Inequalities"])).toBe("Sequences & Inequalities");
+    expect(suggestWorksheetTitle([q("Algebra")], ["sequences"], ["Sequences"])).toBe("Sequences 2");
+    expect(suggestWorksheetTitle([q("Algebra")], [], ["A", "B", "C"])).toBe("A, B & more");
+    expect(suggestWorksheetTitle([q("Algebra")], [], [])).toBe("Algebra");
+  });
   it("stays within 80 characters, suffix included", () => {
     const long = "x".repeat(120);
     expect(suggestWorksheetTitle([q(long)])).toHaveLength(80);

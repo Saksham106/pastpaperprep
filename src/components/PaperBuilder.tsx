@@ -121,8 +121,11 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
   const setIds = (ids: string[]) => setDraftState((current) => ({ ...current, draft: { ...current.draft, ids, totalMarks: ids.reduce((sum, id) => sum + (byId.get(id)?.marks ?? 0), 0) } }));
 
   const byId = useMemo(() => new Map(questions.map((question) => [question.id, question])), [questions]);
-  const sheet = draft.ids.map((id) => byId.get(id)).filter((question): question is BuilderQuestion => Boolean(question));
-  const suggestion = useMemo(() => suggestWorksheetTitle(sheet, takenTitles), [sheet, takenTitles]);
+  const sheet = useMemo(() => draft.ids.map((id) => byId.get(id)).filter((question): question is BuilderQuestion => Boolean(question)), [draft.ids, byId]);
+  // Picked topics name the paper in the order they appear in the tree; otherwise its content does.
+  const pickedLabels = useMemo(() => topicIndex.tree.flatMap((node) => [node, ...node.subtopics])
+    .filter((node) => selection.has(node.key)).map((node) => node.label), [topicIndex, selection]);
+  const suggestion = useMemo(() => suggestWorksheetTitle(sheet, takenTitles, pickedLabels), [sheet, takenTitles, pickedLabels]);
   const shownTitle = titleEdited ? title : suggestion;
   const years = useMemo(() => [...new Set(questions.map((question) => question.year))].sort((a, b) => a - b), [questions]);
   const papers = useMemo(() => [...new Set(questions.map((question) => question.paper))].sort((a, b) => a - b).filter(inRoute)
