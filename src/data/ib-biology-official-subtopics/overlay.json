@@ -106023,44 +106023,27 @@
           "ib-biology.bio_2025.D3.3"
         ]
       },
-      "secondary": [
-        {
-          "id": "ib-biology.group.P1",
-          "name": "Populations and communities",
-          "parentTopic": "Populations, ecosystems and environmental change",
-          "memberAtomicIds": [
-            "ib-biology.bio_2016.2.9",
-            "ib-biology.bio_2016.4.1",
-            "ib-biology.bio_2016.4.2",
-            "ib-biology.bio_2016.4.4",
-            "ib-biology.bio_2016.5.1",
-            "ib-biology.bio_2016.5.2",
-            "ib-biology.bio_2016.5.3",
-            "ib-biology.bio_2016.5.4",
-            "ib-biology.bio_2016.6.1",
-            "ib-biology.bio_2016.A.6",
-            "ib-biology.bio_2016.C.1",
-            "ib-biology.bio_2016.C.2",
-            "ib-biology.bio_2016.C.3",
-            "ib-biology.bio_2016.C.4",
-            "ib-biology.bio_2016.C.5",
-            "ib-biology.bio_2016.C.6",
-            "ib-biology.bio_2025.A3.2",
-            "ib-biology.bio_2025.C3.2",
-            "ib-biology.bio_2025.C4.1",
-            "ib-biology.bio_2025.C4.2",
-            "ib-biology.bio_2025.D1.3"
-          ]
-        }
-      ],
+      "secondary": [],
       "officialAtomicIds": [
-        "ib-biology.bio_2016.1.4",
-        "ib-biology.bio_2016.4.1"
+        "ib-biology.bio_2016.1.4"
       ],
       "officialCodes": [
-        "1.4",
-        "4.1"
+        "1.4"
       ],
+      "sourceReassessment": {
+        "review": "printed QP/MS verified; ecology label (4.1) is not assessed",
+        "questionPdfSha256": "0f8ce939c96704a65197bce32db7a5918a1c6aeb2c014c5246d074593b98b265",
+        "markschemePdfSha256": "6f1776f777304d273bc056ad788f0e9955c00472621b2cd8caed73b6807a3393",
+        "questionPages": [
+          5
+        ],
+        "markschemePages": [
+          5,
+          6
+        ],
+        "atomicCode": "1.4",
+        "finding": "(a) define osmolarity [1], (b) effect of external osmolarity on V. fischeri luminescence [2], (c) find tissue osmolarity from mass change [2]. Bacterial density is only a graph variable; no population or community ecology is assessed."
+      },
       "provenance": {
         "oldPrimaryTopic": "Molecules and cells",
         "oldSecondaryTopics": [
@@ -178997,14 +178980,63 @@
             "ib-biology.bio_2025.D3.3",
             "ib-biology.bio_2025.D4.3"
           ]
+        },
+        {
+          "id": "ib-biology.group.I2",
+          "name": "Cell division and inheritance",
+          "parentTopic": "Information, inheritance and evolution",
+          "memberAtomicIds": [
+            "ib-biology.bio_2016.1.1",
+            "ib-biology.bio_2016.1.2",
+            "ib-biology.bio_2016.1.6",
+            "ib-biology.bio_2016.10.1",
+            "ib-biology.bio_2016.10.2",
+            "ib-biology.bio_2016.10.3",
+            "ib-biology.bio_2016.2.5",
+            "ib-biology.bio_2016.2.6",
+            "ib-biology.bio_2016.2.7",
+            "ib-biology.bio_2016.3.1",
+            "ib-biology.bio_2016.3.2",
+            "ib-biology.bio_2016.3.3",
+            "ib-biology.bio_2016.3.4",
+            "ib-biology.bio_2016.3.5",
+            "ib-biology.bio_2016.4.1",
+            "ib-biology.bio_2016.4.3",
+            "ib-biology.bio_2016.5.1",
+            "ib-biology.bio_2016.5.2",
+            "ib-biology.bio_2016.5.3",
+            "ib-biology.bio_2016.6.2",
+            "ib-biology.bio_2016.6.3",
+            "ib-biology.bio_2016.6.6",
+            "ib-biology.bio_2025.A4.1",
+            "ib-biology.bio_2025.D1.1",
+            "ib-biology.bio_2025.D2.1",
+            "ib-biology.bio_2025.D3.1",
+            "ib-biology.bio_2025.D3.2"
+          ]
         }
       ],
       "officialAtomicIds": [
-        "ib-biology.bio_2016.6.1"
+        "ib-biology.bio_2016.6.1",
+        "ib-biology.bio_2016.3.4"
       ],
       "officialCodes": [
-        "6.1"
+        "6.1",
+        "3.4"
       ],
+      "sourceReassessment": {
+        "review": "printed QP/MS verified; adds the inheritance code the question assesses but the reviewed labels lacked",
+        "questionPdfSha256": "168561eab8b1d05a776f457dff2c7a41ae0e71d31e71489ead122c8453bfe779",
+        "markschemePdfSha256": "0fd1c8e6a35c3dd431e2a1df10965e3eb56225f859d912ed6fce0bdfee5a9a77",
+        "questionPages": [
+          13
+        ],
+        "markschemePages": [
+          12
+        ],
+        "atomicCode": "3.4",
+        "finding": "(a) starch structure [5], (b) digestion and absorption of casein amino acids to the liver [7], (c) autosomal recessive cross for congenital lactase deficiency, 25% chance [3]."
+      },
       "provenance": {
         "oldPrimaryTopic": "Organisms and body systems",
         "oldSecondaryTopics": [

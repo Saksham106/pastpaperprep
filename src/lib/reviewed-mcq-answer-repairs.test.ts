@@ -25,10 +25,12 @@ describe('source-verified MCQ answer crop repair projection', () => {
     expect(after).toHaveLength(5211);
     const changed=after.filter((q,i)=>JSON.stringify(q.markschemeAssetPaths)!==JSON.stringify(before[i].markschemeAssetPaths));
     const writtenIds=Object.keys(JSON.parse(readFileSync('src/data/reviewed-biology-written-answer-repairs.json','utf8')));
-    expect(changed.map(q=>q.id).sort()).toEqual([...Object.keys(repairs.entries),...writtenIds].sort());
+    const historical=JSON.parse(readFileSync('src/data/reviewed-biology-historical-crop-repairs.json','utf8')) as {entries:Record<string,{markscheme?:unknown}>};
+    const historicalIds=Object.keys(historical.entries).filter(id=>historical.entries[id].markscheme);
+    expect(changed.map(q=>q.id).sort()).toEqual([...Object.keys(repairs.entries),...writtenIds,...historicalIds].sort());
     const mcqChanged=changed.filter(q=>Object.hasOwn(repairs.entries,q.id));
     expect(mcqChanged).toHaveLength(99);
-    expect(changed).toHaveLength(Object.keys(repairs.entries).length+writtenIds.length);
+    expect(changed).toHaveLength(Object.keys(repairs.entries).length+writtenIds.length+historicalIds.length);
     const ignored=new Set(['markschemeImages','markschemeAssetPaths','markschemeImageCount','questionImages','questionAssetPaths','questionImageCount']);
     const stable=(q: typeof after[number])=>Object.fromEntries(Object.entries(q).filter(([key])=>!ignored.has(key)));
     for(let i=0;i<after.length;i++) expect(stable(after[i])).toEqual(stable(before[i]));

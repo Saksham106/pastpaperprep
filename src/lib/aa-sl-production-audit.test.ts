@@ -77,6 +77,8 @@ describe("AA SL reviewed production target", () => {
 
   it("matches every target tuple, runtime taxonomy ownership, and nonclassification baseline", () => {
     expect(runtime.sourceSha256).toBe(RUNTIME_SOURCE_SHA256);
+    // The canonical Python audit pins the same snapshot; a stale pin there fails `aa_sl_production_audit.py`.
+    expect(readFileSync(resolve(process.cwd(), "scripts/aa_sl_production_audit.py"), "utf8")).toContain(`EXPECTED_RUNTIME_TAXONOMY_SHA256 = "${RUNTIME_SOURCE_SHA256}"`);
     const targetIds = target.records.map((record: Record<string, unknown>) => record.id);
     expect(bank.questions.map((question: Record<string, unknown>) => question.id)).toEqual(targetIds);
     expect(baseline.records.map((record: Record<string, unknown>) => record.id)).toEqual(targetIds);

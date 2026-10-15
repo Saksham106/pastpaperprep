@@ -19,14 +19,20 @@ export async function verify0606PdfMetadata(
   question: PdfExportQuestion, kind: "question" | "answer", index: number,
 ): Promise<void> {
   if (question.bankSlug !== "igcse-additional") return;
-  const [source, addition] = await Promise.all([
+  const [source, addition, edgeRepairs] = await Promise.all([
     import("@/data/print-geometry-0606.json").then((module) => module.default),
     import("@/data/print-geometry-0606-2026-march.json").then((module) => module.default),
+    import("@/data/reviewed-0606-ms-right-edge-repairs.json").then((module) => module.default),
   ]);
   const historical = (source.entries as unknown as Record<string, [SourceEntry, SourceEntry]>)[question.id];
   const added = (addition.entries as unknown as Record<string, [SourceEntry, SourceEntry]>)[question.id];
   if (historical && added) throw new Error("0606 print geometry addition overlaps the historical receipt");
-  const entry = (historical ?? added)?.[kind === "question" ? 0 : 1];
+  // A reviewed edge-repaired answer is always served at its repaired geometry (same vertical
+  // segments as the historical receipt, wider window).
+  const repaired = kind === "answer"
+    ? (edgeRepairs.entries as unknown as Record<string, { printGeometry?: SourceEntry }>)[question.id]?.printGeometry
+    : undefined;
+  const entry = repaired ?? (historical ?? added)?.[kind === "question" ? 0 : 1];
   const images = kind === "question" ? question.questionImages : question.markschemeImages;
   const sizes = kind === "question" ? question.questionPrintSizesPt : question.markschemePrintSizesPt;
   const rasters = kind === "question" ? question.questionRasterSizesPx : question.markschemeRasterSizesPx;
