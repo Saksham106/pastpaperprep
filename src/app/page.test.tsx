@@ -23,7 +23,7 @@ describe("home page", () => {
     expect(markup).toContain("Past papers,");
     expect(markup).toContain("by topic.");
     expect(markup).toContain("Search a subject, topic or paper code");
-    expect(markup).toContain("17,000+");
+    expect(markup).toContain("18,000+");
     expect(markup).not.toContain("17,924");
     expect(markup).toContain('href="/banks/igcse?free=1"');
     expect(markup).not.toContain("Practice the");
