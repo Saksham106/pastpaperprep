@@ -1,4 +1,4 @@
-import { examOrder, exactMarks, shuffled, type PaperCandidate } from "@/lib/paper-builder";
+import { closestMarks, examOrder, shuffled, type PaperCandidate } from "@/lib/paper-builder";
 
 export { examOrder };
 export const MAX_DRAFT_QUESTIONS = 50;
@@ -25,15 +25,8 @@ function fill(kept: PaperCandidate[], pool: readonly PaperCandidate[], mode: "qu
   const result = kept.slice(0, room);
   while (result.length && marksOf(result) > amount) result.pop();
   const need = amount - marksOf(result);
-  const exact = need > 0 ? exactMarks(rest, need, room - result.length) : [];
-  if (exact) result.push(...exact);
-  else {
-    // No exact total: take the biggest questions that still fit, so the paper lands as close as it can.
-    for (const question of [...rest].sort((a, b) => (b.marks ?? 0) - (a.marks ?? 0))) {
-      if (result.length >= room) break;
-      if (marksOf(result) + (question.marks ?? 0) <= amount) result.push(question);
-    }
-  }
+  // The exact total when one exists, otherwise the closest total under it.
+  if (need > 0 && result.length < room) result.push(...closestMarks(rest, need, room - result.length));
   return { result, shortBy: amount - marksOf(result) };
 }
 

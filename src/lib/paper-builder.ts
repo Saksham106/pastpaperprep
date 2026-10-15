@@ -34,6 +34,22 @@ export function shuffled<T>(items: readonly T[], initialSeed: number): T[] {
   return result;
 }
 
+/** The subset whose marks come closest to the target without going over (at most maxQuestions questions). */
+export function closestMarks(pool: readonly PaperCandidate[], target: number, maxQuestions: number): PaperCandidate[] {
+  const sums = new Map<number, PaperCandidate[]>([[0, []]]);
+  for (const question of pool) {
+    const marks = question.marks ?? 0;
+    if (marks <= 0 || marks > target) continue;
+    for (const [sum, selected] of [...sums].sort((a, b) => b[0] - a[0])) {
+      const next = sum + marks;
+      const existing = sums.get(next);
+      if (next <= target && selected.length < maxQuestions && (!existing || selected.length + 1 < existing.length)) sums.set(next, [...selected, question]);
+    }
+    if (sums.has(target)) break;
+  }
+  return sums.get(Math.max(...sums.keys()))!;
+}
+
 export function exactMarks(pool: PaperCandidate[], target: number, maxQuestions: number): PaperCandidate[] | null {
   const sums = new Map<number, PaperCandidate[]>([[0, []]]);
   for (const question of pool) {

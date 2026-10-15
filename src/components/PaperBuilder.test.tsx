@@ -133,6 +133,32 @@ describe("PaperBuilder", () => {
     await waitFor(() => expect(rowSources()).toEqual(first));
   });
 
+  it("lets Shuffle bring back questions that were swapped out", async () => {
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    // A subtopic small enough that swaps exhaust it.
+    within(topicList()).getAllByRole("button", { name: /^Show .* subtopics$/ }).forEach((button) => fireEvent.click(button));
+    const subtopic = [...topicList().querySelectorAll(".builder-subtopics li")].find((row) => {
+      const count = Number(row.querySelector(".builder-count")!.textContent);
+      return count >= 7 && count <= 20;
+    })!;
+    const count = Number(subtopic.querySelector(".builder-count")!.textContent);
+    fireEvent.click(within(subtopic as HTMLElement).getByRole("checkbox"));
+    fireEvent.click(screen.getByRole("button", { name: "5" }));
+    for (let swap = 0; swap < 2; swap += 1) fireEvent.click(screen.getByRole("button", { name: "Swap question 1" }));
+    fireEvent.click(screen.getByRole("button", { name: "Shuffle" }));
+    fireEvent.change(screen.getByLabelText("Number of questions"), { target: { value: String(count) } });
+    expect(rows()).toHaveLength(count);
+  });
+
+  it("drops paper targets a link names that this bank or route cannot use", async () => {
+    window.history.replaceState({}, "", "/worksheets/build?papers=9q5");
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    await waitFor(() => expect(rows()).toHaveLength(10));
+    expect(screen.getByRole("group", { name: "Size by" })).toBeInTheDocument();
+  });
+
   it("saves in sheet order, then saves later edits to the same worksheet", async () => {
     render(<PaperBuilder banks={[bank]} existingTitles={[]} />);
     await ready();
@@ -179,8 +205,10 @@ describe("PaperBuilder", () => {
     fireEvent.click(opener);
     const dialog = screen.getByRole("dialog", { name: "Question preview" });
     expect(within(dialog).getByText("Question 2 of 10")).toBeInTheDocument();
+    expect(document.querySelector(".builder-layout")).toHaveAttribute("inert");
     await act(async () => { fireEvent.keyDown(document, { key: "Escape" }); await new Promise((resolve) => requestAnimationFrame(resolve)); });
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(document.activeElement).toBe(opener);
+    expect(document.querySelector(".builder-layout")).not.toHaveAttribute("inert");
   });
 });

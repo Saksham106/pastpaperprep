@@ -40,6 +40,10 @@ describe("reconcileDraft", () => {
     const result = reconcileDraft([], threes, { kind: "marks", amount: 10 }, 5, false);
     expect(result).toMatchObject({ totalMarks: 9, exact: false, shortBy: 1 });
   });
+  it("finds the truly closest total, not just a greedy one", () => {
+    const local = [q("x", 2, 1, 8), q("y", 2, 2, 5), q("z", 2, 3, 5)];
+    expect(reconcileDraft([], local, { kind: "marks", amount: 11 }, 3, false)).toMatchObject({ totalMarks: 10, exact: false, shortBy: 1 });
+  });
   it("trims kept questions when the marks target falls", () => {
     const result = reconcileDraft(["d", "e", "f"], pool, { kind: "marks", amount: 11 }, 5, true);
     expect(result.totalMarks).toBeLessThanOrEqual(11);

@@ -109,6 +109,13 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
     return basePool.filter((question) => match(question.id));
   }, [topicIndex, selection, basePool]);
   const pool = useMemo(() => matching.filter((question) => !removed.has(question.id)), [matching, removed]);
+  // A link may name papers this bank lacks or this route excludes; they would leave an empty, uneditable paper.
+  const usablePapers = useMemo(() => new Set(questions.map((question) => question.paper).filter(inRoute)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [questions, bank, route, routed]);
+  if (questions.length && paperTargets.some((item) => !usablePapers.has(item.paper))) {
+    setPaperTargets(paperTargets.filter((item) => usablePapers.has(item.paper)));
+  }
   const target = useMemo<DraftTarget>(() => paperTargets.length ? { kind: "papers", targets: paperTargets } : size, [paperTargets, size]);
 
   // The paper follows the choices: rework it whenever they change, keeping what still fits.
@@ -169,8 +176,9 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
     setPaperTargets((current) => current.filter((item) => next === "all" || matchesCourseRoute(deriveCourseRoute(bank as BankSlug, item.paper), next)));
   }
 
+  // A fresh paper: swapped-out and removed questions become available again.
   function shuffle() {
-    setSeed(randomSeed()); setManualOrder(false);
+    setSeed(randomSeed()); setManualOrder(false); setRemoved(new Set()); setSwaps(0);
     setDraftState((current) => ({ ...current, draft: EMPTY_DRAFT }));
   }
 
@@ -249,7 +257,7 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
         : "Some paper targets can’t be met with these choices";
 
   return <div className="builder">
-    <div className="builder-bar">
+    <div className="builder-bar" inert={reader !== null}>
       <label className="builder-bank"><span>Question bank</span><select value={bank} disabled={Boolean(busy)} onChange={(event) => changeBank(event.target.value)}>
         {banks.map((item) => <option key={item.slug} value={item.slug}>{item.label}</option>)}
       </select></label>
@@ -257,7 +265,7 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
         <button key={value} type="button" aria-pressed={route === value} disabled={Boolean(busy)} onClick={() => changeRoute(value)}>{label}</button>)}</div>}
     </div>
     {loadError && <p className="builder-message is-error" role="alert">{loadError} <button type="button" className="builder-link" onClick={() => { setLoading(true); setReload((count) => count + 1); }}>Retry</button></p>}
-    <div className="builder-layout">
+    <div className="builder-layout" inert={reader !== null}>
       {loading ? <p className="builder-loading" role="status">Loading questions…</p> : <BuilderChoices
         tree={topicIndex.tree} counts={counts} selection={selection} matching={pool.length} disabled={Boolean(busy)}
         onToggle={(key) => setSelection(toggleKey(topicIndex.tree, selection, key))} onClearTopics={() => setSelection(new Set())}
