@@ -10,8 +10,8 @@ const root = process.cwd();
 const expected = {
   "ib-chemistry-hl": [1083, 789, 1872], "ib-chemistry-sl": [810, 602, 1412],
   "ib-physics-hl": [1111, 764, 1875], "ib-physics-sl": [774, 540, 1314],
-  // Biology also holds the official May 2026 papers (HL 161, SL 123 questions, all year >= 2020), appended after the sealed rows.
-  "ib-biology-hl": [1139 + 161, 772, 1911 + 161], "ib-biology-sl": [936 + 123, 612, 1548 + 123],
+  // Biology also holds the official May 2026 papers (HL 160, SL 123 served questions, all year >= 2020; one HL question is withheld, see may2026Release.excludedFromPractice), appended after the sealed rows.
+  "ib-biology-hl": [1139 + 160, 772, 1911 + 160], "ib-biology-sl": [936 + 123, 612, 1548 + 123],
 };
 
 describe("IB 2016–2019 science extension candidate", () => {

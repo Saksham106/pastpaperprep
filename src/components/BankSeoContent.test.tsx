@@ -47,7 +47,7 @@ describe("BankSeoContent", () => {
 
   it("distinguishes authentic archived questions from generated exam-style practice and states free access honestly", () => {
     render(<BankSeoContent bank={BANKS.find((bank) => bank.slug === "ib-biology-hl")!} />);
-    expect(screen.getByText(/Practise 2,072 authentic past-paper questions from 93 archived papers/i)).toBeInTheDocument();
+    expect(screen.getByText(/Practise 2,071 authentic past-paper questions from 93 archived papers/i)).toBeInTheDocument();
     expect(screen.getByText(/not AI-generated exam-style substitutes/i)).toBeInTheDocument();
     expect(screen.getByText(/Guests can view up to 20 matching free questions/i)).toBeInTheDocument();
     expect(screen.getByText(/account’s download allowance/i)).toBeInTheDocument();

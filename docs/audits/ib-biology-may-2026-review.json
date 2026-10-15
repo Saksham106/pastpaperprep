@@ -1,6 +1,7 @@
 {
   "manifestVersion": "ib-biology-may-2026-review.1",
-  "reviewedQuestionCount": 284,
+  "reviewedQuestionCount": 283,
+  "withheldQuestionCount": 1,
   "reviewMethod": "Official May 2026 TZ1-TZ3 questions: a source-grounded primary pass from the question crop and official markscheme, a separate blind second pass from sealed evidence without the primary labels or the Drex triage scores, and a written adjudication of every row where the passes differ (primary, secondaries, groups, status) or either was low-confidence. Drex (drex-v1.1 requests, answered by drex-v1.5) was used for triage only.",
   "sourceCommitPrefix": "52a15a9",
   "finalLabelsSha256": "c760b8fd094ea2fd576df1cd2b4525381849537ed62dee8d0a7007679d954235",
@@ -538,19 +539,6 @@
       "confidence": "high",
       "source": "blind",
       "adjudication": "a(i) drawing mitochondrion structure from an electron micrograph, a(ii) 70S vs 80S ribosomes and b temporary mounts are cell-structure/microscopy (A2.2, 7 of 8 marks with the drawing); only a(iii) Golgi is B2.2"
-    },
-    {
-      "id": "2026-may-tz1-hl-p1b-q2",
-      "level": "HL",
-      "codes": [
-        "B3.2"
-      ],
-      "groups": [
-        "O2"
-      ],
-      "confidence": "high",
-      "source": "first",
-      "adjudication": null
     },
     {
       "id": "2026-may-tz1-hl-p1b-q3",
@@ -3824,6 +3812,21 @@
       "groups": [
         "O5",
         "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    }
+  ],
+  "withheldRows": [
+    {
+      "id": "2026-may-tz1-hl-p1b-q2",
+      "level": "HL",
+      "codes": [
+        "B3.2"
+      ],
+      "groups": [
+        "O2"
       ],
       "confidence": "high",
       "source": "first",

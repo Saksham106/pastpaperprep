@@ -10,7 +10,7 @@ export const PUBLIC_BANK_INDEX_FILES = {
   "ib-chemistry-sl": "ib-chemistry-sl.v1-9820de5085eb.json",
   "ib-physics-hl": "ib-physics-hl.v1-12a8030cca90.json",
   "ib-physics-sl": "ib-physics-sl.v1-aee1edd739ab.json",
-  "ib-biology-hl": "ib-biology-hl.v1-89b37b504c4f.json",
+  "ib-biology-hl": "ib-biology-hl.v1-33c5b6202fb9.json",
   "ib-biology-sl": "ib-biology-sl.v1-64f010ee5418.json",
   "ib-economics-hl": "ib-economics-hl.v1-b9c98cf7f88d.json",
   "ib-economics-sl": "ib-economics-sl.v1-f0093cccd601.json",

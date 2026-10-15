@@ -15,12 +15,12 @@ import type { UnifiedQuestion } from "@/lib/questions";
 const ROOT = process.cwd();
 const BIOLOGY_BANKS = ["ib-biology-hl", "ib-biology-sl"] as const;
 const EXPECTED = {
-  "ib-biology-hl": { questions: 2072, papers: 93 },
+  "ib-biology-hl": { questions: 2071, papers: 93 },
   "ib-biology-sl": { questions: 1671, papers: 96 },
 } as const;
 const RUNTIME_HASHES = {
-  "ib-biology-hl": "f7936edb71ddc7a2e4aa76a334b1208805a8cc8ac7538317368515ba9e7902a1",
-  "ib-biology-sl": "44c2bc366b9f0156ca55fc46fd1a4249db603d4eab0896863cd4714c0027f83d",
+  "ib-biology-hl": "847e9823589dfa887a062cb40fe2aa1ff59e6d3662f312b994ce7597a5d8b38c",
+  "ib-biology-sl": "f0926f6d42419bd768805e3c1402810f093fa30d26efe0eb7f18c4b67e17bb65",
 } as const;
 // The runtime before the official May 2026 papers were appended (origin/main 18d8b98): every row, paper and header field must survive.
 const PRE_2026_RUNTIME_HASHES = {
@@ -91,13 +91,17 @@ describe("IB Biology HL/SL integration", () => {
       const path = rawPath(bank);
       const bytes = readFileSync(path);
       const raw = readRaw(bank);
-      const release = (raw as unknown as { may2026Release: { baseQuestionCount: number; addedQuestionCount: number; addedPaperCount: number } }).may2026Release;
+      const release = (raw as unknown as { may2026Release: { baseQuestionCount: number; addedQuestionCount: number; addedPaperCount: number; sourceQuestionCount: number; excludedQuestionCount: number; excludedFromPractice: { id: string }[] } }).may2026Release;
       // Removing the append must give back exactly the sealed pre-2026 runtime (same bytes as origin/main 18d8b98).
       expect(createHash("sha256").update(sealedRuntimeBytes(`src/data/raw/${bank}.json`, bytes)).digest("hex")).toBe(PRE_2026_RUNTIME_HASHES[bank]);
       expect(release.baseQuestionCount).toBe(PRE_2026_COUNTS[bank].questions);
       expect(raw.papers.length - release.addedPaperCount).toBe(PRE_2026_COUNTS[bank].papers);
       expect(raw.questions.slice(release.baseQuestionCount).every((row) => row.year === 2026)).toBe(true);
       expect(raw.questions.filter((row) => row.year === 2026)).toHaveLength(release.addedQuestionCount);
+      // Withheld rows are counted and recorded, never silently dropped and never served.
+      expect(release.sourceQuestionCount).toBe(release.addedQuestionCount + release.excludedQuestionCount);
+      expect(release.excludedFromPractice).toHaveLength(release.excludedQuestionCount);
+      for (const { id } of release.excludedFromPractice) expect(raw.questions.some((row) => row.id === id), id).toBe(false);
       expect(raw.questions.slice(0, release.baseQuestionCount).some((row) => row.year === 2026)).toBe(false);
       expect(createHash("sha256").update(readFileSync(join(ROOT, "src/data/production", `${bank}.json`))).digest("hex")).toBe(RUNTIME_HASHES[bank]);
     }

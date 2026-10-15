@@ -2,11 +2,11 @@
   "schemaVersion": 1,
   "addition": "ib-biology-may-2026",
   "mode": "dry-run-upload-plan",
-  "status": "PLANNED, NOT UPLOADED (owner approval required)",
+  "status": "UPLOADED AND READ BACK (owner-approved, 2026-10-15): 678 of 678 crops, see r2-upload-log-assets.jsonl",
   "provider": "cloudflare-r2",
   "bucket": "pastpaperprep-assets",
   "storageClass": "premium (2026 is not a free-preview year for IB Biology: FREE_QUESTION_YEARS is [2020]; no Supabase preview objects)",
-  "method": "Keys are `<bank>/<servedPath>` from the source lane's data/release-2026/asset-inventory.json; every source file was re-hashed, and the key set equals the app's asset paths for the 2026 rows (buildAssetRetentionPlan). Upload create-only: check each key absent, put with Content-Type image/webp and Cache-Control private, max-age=31536000, immutable, read back and compare SHA-256 and size.",
+  "method": "Keys are `<bank>/<servedPath>` from the source lane's data/release-2026/asset-inventory.json; every source file was re-hashed, and the key set equals the app's asset paths for the 2026 rows (buildAssetRetentionPlan) plus the crops of withheld questions. Upload, serialized: check each key absent, put with Content-Type image/webp and Cache-Control private, max-age=31536000, immutable, then read back and compare SHA-256 and size. This is not an atomic create: wrangler has no conditional put, so a concurrent writer between the check and the put cannot be ruled out.",
   "source": {
     "repository": "Saksham106/ib-biology-topic-practice",
     "branch": "feat/may-2026-official",
@@ -15,10 +15,18 @@
   },
   "appBaseCommit": "18d8b98df165fad17c4f632e8a156214c27227fa",
   "runtimeRawSha256": {
-    "ib-biology-hl": "f7936edb71ddc7a2e4aa76a334b1208805a8cc8ac7538317368515ba9e7902a1",
-    "ib-biology-sl": "44c2bc366b9f0156ca55fc46fd1a4249db603d4eab0896863cd4714c0027f83d"
+    "ib-biology-hl": "847e9823589dfa887a062cb40fe2aa1ff59e6d3662f312b994ce7597a5d8b38c",
+    "ib-biology-sl": "f0926f6d42419bd768805e3c1402810f093fa30d26efe0eb7f18c4b67e17bb65"
   },
   "objectCount": 678,
+  "servedObjectCount": 675,
+  "withheldFromPractice": {
+    "questionIds": [
+      "2026-may-tz1-hl-p1b-q2"
+    ],
+    "objectCount": 3,
+    "note": "Uploaded before the question was withheld; left in storage and not served. Nothing was deleted or overwritten."
+  },
   "totalBytes": 27482258,
   "perBank": {
     "ib-biology-hl": {
@@ -31,8 +39,8 @@
     }
   },
   "operatorNotes": [
-    "Owner approval is required before any upload.",
-    "No existing key is touched: every key is new (2026 file names)."
+    "Uploaded with owner approval; every key was new (2026 file names) and read back by SHA-256 and size.",
+    "Re-uploading, replacing or deleting any object needs fresh owner approval."
   ],
   "objects": [
     {
@@ -420,7 +428,8 @@
       "sourcePath": "site/markschemes-2026/2026-may-tz1-hl-p1b-q2-page-6.webp",
       "sha256": "b1df91481cb1dfd66e71f8f145e766c44921a01806efc2d30a8049fa733f8ca0",
       "md5": "8885999a08786513cdcde393974869b4",
-      "bytes": 77846
+      "bytes": 77846,
+      "withheldFromPractice": true
     },
     {
       "key": "ib-biology-hl/markschemes/2026-may-tz1-hl-p1b-q3-page-7.webp",
@@ -2166,7 +2175,8 @@
       "sourcePath": "site/questions-2026/2026-may-tz1-hl-p1b-q2-page-5.webp",
       "sha256": "1d2c300c1d51eb2623f77a6228f6324fe12f90db6c8202f9840bf4e408fa874f",
       "md5": "1f432a8a1c713614323db68ecb4d6cc0",
-      "bytes": 72178
+      "bytes": 72178,
+      "withheldFromPractice": true
     },
     {
       "key": "ib-biology-hl/questions/2026-may-tz1-hl-p1b-q2-page-6.webp",
@@ -2175,7 +2185,8 @@
       "sourcePath": "site/questions-2026/2026-may-tz1-hl-p1b-q2-page-6.webp",
       "sha256": "974bc060e2b125a7fb5164d369e7a872b226c032c806a57f5e1cb37e4f3495ce",
       "md5": "127a5f1f5bf8d0873ae1310685a5ab6d",
-      "bytes": 73498
+      "bytes": 73498,
+      "withheldFromPractice": true
     },
     {
       "key": "ib-biology-hl/questions/2026-may-tz1-hl-p1b-q3-page-7.webp",

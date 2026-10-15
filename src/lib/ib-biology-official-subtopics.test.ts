@@ -19,7 +19,7 @@ describe("IB Biology official syllabus subtopics", () => {
   it("routes both eras and preserves the exact reviewed scope", () => {
     const hl = normalizeBankQuestions("ib-biology-hl", ibBiologyHlData.questions);
     const sl = normalizeBankQuestions("ib-biology-sl", ibBiologySlData.questions);
-    expect(hl).toHaveLength(2072);
+    expect(hl).toHaveLength(2071);
     expect(sl).toHaveLength(1671);
     expect(hl.filter((q) => q.courseEra === "bio_2016")).toHaveLength(1642);
     expect(hl.filter((q) => q.courseEra === "bio_2025")).toHaveLength(430);

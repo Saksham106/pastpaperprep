@@ -2,18 +2,18 @@
   "schemaVersion": 1,
   "addition": "ib-biology-may-2026",
   "mode": "dry-run-upload-plan",
-  "status": "PLANNED, NOT UPLOADED (owner approval required)",
+  "status": "UPLOADED AND READ BACK (owner-approved, 2026-10-15): 36 of 36 PDFs; `verify` re-read all 5,020 approved PDFs",
   "provider": "cloudflare-r2",
   "bucket": "pastpaperprep-free",
-  "method": "Output of `scripts/publish-added-free-papers.mts plan` against the pinned base: the PDFs the committed whole-paper manifests approve and the base manifests do not. Every source was hash-checked against its binding. Upload with `publish-added-free-papers.mts upload` (key checked absent, put with application/pdf, `public, max-age=604800` and an attachment download name, read back by SHA-256 and size), then `verify`.",
+  "method": "Output of `scripts/publish-added-free-papers.mts plan` against the pinned base, re-derived here from the base and head manifests (the PDFs the committed whole-paper manifests approve and the base manifests do not; keys, hashes, sizes and names compared exactly). Every source was hash-checked against its binding. Uploaded with `publish-added-free-papers.mts upload`, serialized: key checked absent, put with application/pdf, `public, max-age=604800` and an attachment download name, read back by SHA-256 and size; then `verify`. Not an atomic create: wrangler has no conditional put.",
   "sourceDirectory": "ib-biology-topic-practice/.worktrees/may-2026/data/raw-2026 (36 official IB originals, SHA-256 pinned in data/source-manifest-2026.json)",
   "appBaseCommit": "18d8b98df165fad17c4f632e8a156214c27227fa",
   "approvedObjectsAfter": 5020,
   "objectCount": 36,
   "totalBytes": 54691269,
   "operatorNotes": [
-    "Owner approval is required before any upload.",
-    "Run `verify` afterwards: it rewrites src/data/paper-archive-readback.json only if every approved PDF matches."
+    "Uploaded with owner approval and verified; src/data/paper-archive-readback.json records the readback.",
+    "Report holds (data/paper-archives/report-holds.json) never change which PDFs are approved or downloadable."
   ],
   "objects": [
     {

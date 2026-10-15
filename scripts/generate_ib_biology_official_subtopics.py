@@ -9,10 +9,11 @@ from pathlib import Path
 from typing import Any
 
 # 26 blocked: four of the reviewed overlay's 30 were unblocked by printed-source review (#139).
-# Baseline: the reviewed overlay of the pre-2026 rows. May 2026 adds 284 reviewed rows (HL 161, SL 123).
+# Baseline: the reviewed overlay of the pre-2026 rows. May 2026 adds 283 served reviewed rows (HL 160, SL 123);
+# a 284th (HL 2026-may-tz1-hl-p1b-q2) is reviewed but withheld from practice because its graph is missing from the source.
 BASELINE = {"rows": 3459, "HL": 1911, "SL": 1548, "legacy": 2983, "current": 476, "blocked": 26}
-MAY_2026 = {"rows": 284, "HL": 161, "SL": 123}
-EXPECTED = {"rows": 3743, "HL": 2072, "SL": 1671, "legacy": 2983, "current": 760, "blocked": 26}
+MAY_2026 = {"rows": 283, "HL": 160, "SL": 123, "withheld": ["2026-may-tz1-hl-p1b-q2"]}
+EXPECTED = {"rows": 3742, "HL": 2071, "SL": 1671, "legacy": 2983, "current": 759, "blocked": 26}
 MAY_2026_REVIEW_PATH = "docs/audits/ib-biology-may-2026-review.json"
 CORRECTIONS_PATH = Path(__file__).resolve().parent / "data/ib-biology-reviewed-subtopic-corrections.json"
 CORRECTIONS_SHA256 = "ea88f99f083c2565320f6c9a8977f9e17468a788274ac6459b52d2eb2307aaea"
@@ -72,15 +73,25 @@ def load_corrections(path: Path, atomic: dict[str, Any], groups: dict[str, Any])
 
 
 def may_2026_reviewed_rows(repo_root: Path, atomic: dict[str, Any], groups: dict[str, Any], rows_by_id: dict[str, Any]) -> list[dict[str, Any]]:
-    """The 284 official May 2026 rows, from the reviewed manifest (Drex triage, blind pass, adjudication)."""
+    """The 283 served official May 2026 rows, from the reviewed manifest (Drex triage, blind pass, adjudication)."""
     manifest = read(repo_root / MAY_2026_REVIEW_PATH)
     if manifest["manifestVersion"] != "ib-biology-may-2026-review.1" or manifest["reviewedQuestionCount"] != MAY_2026["rows"]:
         raise ValueError("May 2026 review manifest drift")
+    # Withheld rows are labelled but not served: they must be absent from the raw rows and recorded in the bank header.
+    withheld = sorted(row["id"] for row in manifest.get("withheldRows", []))
+    if withheld != MAY_2026["withheld"] or manifest.get("withheldQuestionCount") != len(withheld):
+        raise ValueError("May 2026 withheld rows drift")
+    recorded = sorted(entry["id"] for level in BANKS.values() for entry in read(repo_root / f"src/data/raw/{level}.json")["may2026Release"]["excludedFromPractice"])
+    if recorded != withheld or any(question_id in rows_by_id for question_id in withheld):
+        raise ValueError("May 2026 withheld rows must be recorded in the raw header and absent from the served rows")
     out = []
     for entry in manifest["rows"]:
         level, source = rows_by_id[entry["id"]]
         if entry["level"] != level or source.get("year") != 2026 or not entry["codes"] or not entry["groups"]:
             raise ValueError(f"May 2026 review row mismatch: {entry['id']}")
+        # The manifest's codes are the row's labels: they must equal the raw row's own official codes, in order.
+        if list(entry["codes"]) != list(source.get("officialTopicCodes", [])):
+            raise ValueError(f"May 2026 review codes disagree with the raw row's officialTopicCodes: {entry['id']}")
         labels = []
         for code in entry["codes"]:
             atomic_id = f"ib-biology.bio_2025.{code}"

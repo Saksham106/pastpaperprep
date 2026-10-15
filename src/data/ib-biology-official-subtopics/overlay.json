@@ -3,16 +3,16 @@
   "sourceOverlaySchema": "ib-biology-final-reviewed-overlay-v1",
   "taxonomySha256": "d8596bc4b11bc003a99fa8da6cefc4c6294f4017356d1a4966ae728124a53932",
   "sourceHashes": {
-    "HL": "f7936edb71ddc7a2e4aa76a334b1208805a8cc8ac7538317368515ba9e7902a1",
-    "SL": "44c2bc366b9f0156ca55fc46fd1a4249db603d4eab0896863cd4714c0027f83d"
+    "HL": "847e9823589dfa887a062cb40fe2aa1ff59e6d3662f312b994ce7597a5d8b38c",
+    "SL": "f0926f6d42419bd768805e3c1402810f093fa30d26efe0eb7f18c4b67e17bb65"
   },
   "sourceOverlaySha256": "db605b7c5876a1ff9c68160daa3666a589f973e1babebe13c85c970510f81e78",
   "counts": {
-    "rows": 3743,
-    "HL": 2072,
+    "rows": 3742,
+    "HL": 2071,
     "SL": 1671,
     "legacy": 2983,
-    "current": 760,
+    "current": 759,
     "blocked": 26
   },
   "rows": [
@@ -238361,80 +238361,6 @@
           "knowledge_recall",
           "concept_application",
           "biological_drawing"
-        ],
-        "oldGranularLabels": [],
-        "sourceClassificationVersion": "ib-biology-reviewed-2026.10.may2026",
-        "sourceClassificationReviewStatus": "classified"
-      }
-    },
-    {
-      "id": "2026-may-tz1-hl-p1b-q2",
-      "bank": "ib-biology-hl",
-      "level": "HL",
-      "year": 2026,
-      "era": "bio_2025",
-      "resolvedEra": "bio_2025",
-      "curriculumVersion": "2025",
-      "blocked": false,
-      "blockedReasons": [],
-      "primary": {
-        "id": "ib-biology.group.O2",
-        "name": "Gas exchange and transport",
-        "parentTopic": "Organisms and body systems",
-        "memberAtomicIds": [
-          "ib-biology.bio_2016.1.2",
-          "ib-biology.bio_2016.1.4",
-          "ib-biology.bio_2016.11.3",
-          "ib-biology.bio_2016.2.2",
-          "ib-biology.bio_2016.2.3",
-          "ib-biology.bio_2016.2.4",
-          "ib-biology.bio_2016.2.8",
-          "ib-biology.bio_2016.2.9",
-          "ib-biology.bio_2016.4.1",
-          "ib-biology.bio_2016.4.2",
-          "ib-biology.bio_2016.4.3",
-          "ib-biology.bio_2016.4.4",
-          "ib-biology.bio_2016.5.2",
-          "ib-biology.bio_2016.6.1",
-          "ib-biology.bio_2016.6.2",
-          "ib-biology.bio_2016.6.3",
-          "ib-biology.bio_2016.6.4",
-          "ib-biology.bio_2016.6.6",
-          "ib-biology.bio_2016.8.2",
-          "ib-biology.bio_2016.9.1",
-          "ib-biology.bio_2016.9.2",
-          "ib-biology.bio_2016.9.3",
-          "ib-biology.bio_2016.9.4",
-          "ib-biology.bio_2016.D.3",
-          "ib-biology.bio_2016.D.4",
-          "ib-biology.bio_2016.D.6",
-          "ib-biology.bio_2025.B3.1",
-          "ib-biology.bio_2025.B3.2",
-          "ib-biology.bio_2025.C1.3",
-          "ib-biology.bio_2025.D1.2",
-          "ib-biology.bio_2025.D2.1"
-        ]
-      },
-      "secondary": [],
-      "officialAtomicIds": [
-        "ib-biology.bio_2025.B3.2"
-      ],
-      "officialCodes": [
-        "B3.2"
-      ],
-      "provenance": {
-        "oldPrimaryTopic": "Organisms and body systems",
-        "oldSecondaryTopics": [],
-        "oldSubtopics": [
-          "Gas exchange and transport"
-        ],
-        "oldSkills": [
-          "knowledge_recall",
-          "concept_application",
-          "quantitative_calculation",
-          "data_interpretation",
-          "evaluation_conclusion",
-          "experimental_design"
         ],
         "oldGranularLabels": [],
         "sourceClassificationVersion": "ib-biology-reviewed-2026.10.may2026",
