@@ -27,14 +27,15 @@ async function releaseQuestions(bank: keyof typeof reviewed.entries) {
 }
 
 describe("source- and receipt-reviewed whole BLANK PAGE assets", () => {
-  it("pins exactly 1,665 question-paper images across four banks; never touches mark schemes", () => {
-    // 887 independently reviewed strict blanks, plus 778 final BLANK PAGE + acknowledgements pages
+  it("pins exactly 1,952 question-paper images across four banks; never touches mark schemes", () => {
+    // 887 independently reviewed strict blanks, plus 1,065 BLANK PAGE images (final acknowledgement pages and
+    // margin-text blanks)
     // found by scripts/audit-blank-question-pages.py (2026-10-15 receipt).
     expect(reviewed.counts).toEqual({
-      "igcse-biology-0610": 438, "igcse-chemistry-0620": 459,
-      "igcse-coordinated-sciences-0654": 403, "igcse-physics-0625": 365,
+      "igcse-biology-0610": 511, "igcse-chemistry-0620": 555,
+      "igcse-coordinated-sciences-0654": 472, "igcse-physics-0625": 414,
     });
-    expect(Object.values(reviewed.counts).reduce((a, b) => a + b, 0)).toBe(1665);
+    expect(Object.values(reviewed.counts).reduce((a, b) => a + b, 0)).toBe(1952);
   });
 
   it("hides only the exact reviewed page, not a question's other pages or a held/other-bank asset", () => {
@@ -91,10 +92,10 @@ describe("source- and receipt-reviewed whole BLANK PAGE assets", () => {
     } finally { vi.unstubAllEnvs(); }
   }, 30_000);
 
-  it("seals all 1,665 exact paths and digests to the reviewed artifact and current storage manifest", () => {
+  it("seals all 1,952 exact paths and digests to the reviewed artifact and current storage manifest", () => {
     const projection = readFileSync(path.join(process.cwd(), "src/data/reviewed-blank-qp.json"));
     expect(createHash("sha256").update(projection).digest("hex"))
-      .toBe("192f6c1c3e2c521313d8951aacd06ee3a7819453d02ae3f627f8c730bca6b56a");
+      .toBe("30fd353332306fc08bbcf0d5eb3624ebfc8deb17450dbb2743be93c4fd99621d");
     // The automated final-page audit is sealed to its receipt, which is committed alongside.
     const receipt = readFileSync(path.join(process.cwd(), "docs/audits/2026-10-15-blank-final-pages/receipt.json"));
     expect(createHash("sha256").update(receipt).digest("hex"))
@@ -118,7 +119,7 @@ describe("source- and receipt-reviewed whole BLANK PAGE assets", () => {
         }
       }
     }
-    expect(checked).toBe(1665);
+    expect(checked).toBe(1952);
   }, 30_000);
 
   it("keeps every published image count aligned with its private production projection", async () => {
