@@ -74,7 +74,8 @@ describe("real worksheet image placement", () => {
   it("draws source and marks labels above an image question without scaling it", async () => {
     const short = { ...q16, number: 1, marks: 3, questionPrintSizesPt: [[513, 100] as [number, number]] };
     await downloadQuestionPdf([short], "questions");
-    expect(text.mock.calls.some(([value]) => value === "2025 November / Paper 11 / Q1")).toBe(true);
+    expect(text.mock.calls.some(([value]) => value === "Question 1")).toBe(true);
+    expect(text.mock.calls.some(([value]) => value === "2025 November · Paper 11 · Q1")).toBe(true);
     expect(text.mock.calls.some(([value]) => value === "3 marks")).toBe(true);
     const image = addImage.mock.calls.find((call) => call[1] === "JPEG")!;
     expect(image[5]).toBeCloseTo(100 * 25.4 / 72, 4);
@@ -86,7 +87,7 @@ describe("real worksheet image placement", () => {
     await downloadQuestionPdf([short], "both");
     expect(addPage).toHaveBeenCalledTimes(1);
     expect(text.mock.calls.some(([value]) => value === "Answers")).toBe(true);
-    expect(text.mock.calls.some(([value]) => value === "Official answer")).toBe(true);
+    expect(text.mock.calls.some(([value]) => value === "Question 1 · Mark scheme")).toBe(true);
   });
 
   it("retains the label when label plus image needs a fresh page", async () => {
@@ -95,7 +96,8 @@ describe("real worksheet image placement", () => {
       questionPrintSizesPt: [[513, 200] as [number, number]] };
     await downloadQuestionPdf([first, second], "questions");
     expect(addPage).toHaveBeenCalledTimes(1);
-    expect(text.mock.calls.some(([value]) => value === "2025 November / Paper 11 / Q2")).toBe(true);
+    expect(text.mock.calls.some(([value]) => value === "Question 2")).toBe(true);
+    expect(text.mock.calls.some(([value]) => value === "2025 November · Paper 11 · Q2")).toBe(true);
     const images = addImage.mock.calls.filter((call) => call[1] === "JPEG");
     expect(images[1][3]).toBe(27);
     expect(images[1][5]).toBeCloseTo(200 * 25.4 / 72, 4);
@@ -118,7 +120,7 @@ describe("real worksheet image placement", () => {
     expect(questionImages[0][2]).toBeCloseTo((210 - 513 * 25.4 / 72) / 2, 3);
     // A compact header leaves room for the question label above the full-size graph.
     expect(questionImages[0][3]).toBe(15);
-    expect(text).toHaveBeenCalledWith(expect.stringMatching(/Q16$/), expect.any(Number), 13);
+    expect(text).toHaveBeenCalledWith("Question 1", expect.any(Number), 13);
     expect(questionImages[0][4]).toBeCloseTo(513 * 25.4 / 72, 3);
     expect(questionImages[0][5]).toBeCloseTo(734.33 * 25.4 / 72, 3);
     expect(addPage).not.toHaveBeenCalled();
@@ -169,10 +171,10 @@ describe("real worksheet image placement", () => {
     expect(images[1][4]).toBeCloseTo(513 * 25.4 / 72, 4);
     expect(images[1][5]).toBeCloseTo(743.98 * 25.4 / 72, 4);
     expect(addPage).toHaveBeenCalledTimes(1);
-    // Page 14 is 271 mm tall; a ~1% reduction keeps its "Q11" label rather than dropping it.
-    expect(text).toHaveBeenCalledWith(expect.stringMatching(/Q11$/), expect.any(Number), 13);
+    // Page 14 is 271 mm tall; a ~1% reduction keeps its "Question 1" label rather than dropping it.
+    expect(text).toHaveBeenCalledWith("Question 1", expect.any(Number), 13);
     expect(images[0][4] / (513 * 25.4 / 72)).toBeGreaterThan(0.99);
-    expect(text).toHaveBeenCalledWith(expect.stringMatching(/Q11 \(continued\)$/), expect.any(Number), expect.any(Number));
+    expect(text).toHaveBeenCalledWith("Question 1 (continued)", expect.any(Number), expect.any(Number));
     expect(verifyBytes).toHaveBeenCalledWith("https://signed.test/q11.webp", approved.entries["0606-2016-june-13-q11"].imageSha256);
     expect(URL.revokeObjectURL).toHaveBeenCalledWith("blob:q11.webp");
   });
@@ -370,7 +372,8 @@ describe("real worksheet image placement", () => {
       const questions = Array.from({ length: 30 }, (_, index) => mcq(index + 1));
       await downloadQuestionPdf(questions, "answers");
       expect(answerText()).toHaveLength(30);
-      expect(text.mock.calls.some(([value]) => value === "2025 November / Paper 12 / Q1")).toBe(true);
+      expect(text.mock.calls.some(([value]) => value === "Q1")).toBe(true);
+      expect(text.mock.calls.some(([value]) => value === "2025 Oct/Nov · Paper 12 · Q1")).toBe(true);
       expect(addImage.mock.calls.filter((call) => call[1] === "JPEG")).toHaveLength(0);
       expect(addPage).not.toHaveBeenCalled();
     });
