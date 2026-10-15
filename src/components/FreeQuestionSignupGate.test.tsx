@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 const track = vi.hoisted(() => vi.fn());
 vi.mock("@/lib/product-analytics", async (importOriginal) => ({ ...(await importOriginal<object>()), trackProductEvent: track }));
 
-import { FreeQuestionSignupGate } from "./FreeQuestionSignupGate";
+import { FreeQuestionSignupGate, gateValueLine } from "./FreeQuestionSignupGate";
 
 describe("FreeQuestionSignupGate", () => {
   let intersectionCallback: IntersectionObserverCallback;
@@ -89,6 +89,23 @@ describe("FreeQuestionSignupGate", () => {
     });
     expect(track.mock.calls.filter(([event]) => event === "free_gate_view")).toHaveLength(1);
     expect(track.mock.calls.filter(([event]) => event === "upgrade_prompt_view")).toHaveLength(1);
+  });
+
+  it("leads with the bank's whole free set, not just the filtered view", () => {
+    // Calculus view: 36 free matches (20 shown, 16 left) in a bank with 300 free questions.
+    expect(gateValueLine(16, 300, "IB Math AA HL")).toBe("A free account opens all 300 free IB Math AA HL questions.");
+    // Unfiltered: the view already is the whole free set.
+    expect(gateValueLine(280, 300, "IB Math AA HL")).toBe("A free account opens all 300 free IB Math AA HL questions.");
+    // Catalogue not fully loaded yet (or unknown): keep the view's own count.
+    expect(gateValueLine(16, 30, "IB Math AA HL")).toBe("Create a free account for the other 16 free questions.");
+    expect(gateValueLine(16)).toBe("Create a free account for the other 16 free questions.");
+  });
+
+  it("shows the bank-wide value and the preview-framed quote", () => {
+    render(<FreeQuestionSignupGate bankSlug="ib-hl" remainingCount={16} bankFreeCount={300} bankName="IB Math AA HL" signupHref="/login?mode=sign-up" signinHref="/login" />);
+    expect(screen.getAllByText(/A free account opens all 300 free IB Math AA HL questions\./)).toHaveLength(2);
+    expect(screen.getAllByText(/The first 20 questions were enough to get me to sign up\./)).toHaveLength(2);
+    expect(screen.queryByText(/20 free questions/)).not.toBeInTheDocument();
   });
 
   it("falls back to a generic plans line", () => {
