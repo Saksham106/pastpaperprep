@@ -4,7 +4,11 @@ const mocks = vi.hoisted(() => ({ query: vi.fn(), rpc: vi.fn(), getClaims: vi.fn
 vi.mock("@/lib/server-error-tracking", () => ({ captureServerException: mocks.capture }));
 vi.mock("@/lib/supabase/server", () => ({ createClient: async () => ({
   auth: { getClaims: mocks.getClaims, getUser: async () => ({ data: { user: { email: "student@example.com" } } }) },
-  from: () => ({ select: () => ({ eq: mocks.query }) }), rpc: mocks.rpc,
+  // Saved-worksheet titles (used only to number default names) are not part of the entitlement retry.
+  from: (table: string) => table === "saved_worksheets"
+    ? { select: () => ({ eq: async () => ({ data: [], error: null }) }) }
+    : { select: () => ({ eq: mocks.query }) },
+  rpc: mocks.rpc,
 }) }));
 vi.mock("@/app/auth/actions", () => ({ signOut: vi.fn() }));
 vi.mock("next/navigation", () => ({ redirect: vi.fn() }));

@@ -6,15 +6,29 @@ import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 import type { PublicBankIndex } from "@/lib/question-index";
 
 const questions: PaperCandidate[] = [
-  { id: "p1-a", paper: 1, year: 2024, marks: 1, primaryTopic: "Atoms", secondaryTopics: [] },
-  { id: "p1-b", paper: 1, year: 2024, marks: 1, primaryTopic: "Energy", secondaryTopics: ["Atoms"] },
-  { id: "p1-c", paper: 1, year: 2023, marks: 1, primaryTopic: "Atoms", secondaryTopics: [] },
-  { id: "p2-a", paper: 2, year: 2024, marks: 3, primaryTopic: "Atoms", secondaryTopics: [] },
-  { id: "p2-b", paper: 2, year: 2024, marks: 5, primaryTopic: "Atoms", secondaryTopics: [] },
-  { id: "p2-c", paper: 2, year: 2024, marks: 7, primaryTopic: "Energy", secondaryTopics: [] },
+  { id: "p1-a", number: 3, paper: 1, year: 2024, marks: 1, primaryTopic: "Atoms", secondaryTopics: [] },
+  { id: "p1-b", number: 1, paper: 1, year: 2024, marks: 1, primaryTopic: "Energy", secondaryTopics: ["Atoms"] },
+  { id: "p1-c", number: 2, paper: 1, year: 2023, marks: 1, primaryTopic: "Atoms", secondaryTopics: [] },
+  { id: "p2-a", number: 2, paper: 2, year: 2024, marks: 3, primaryTopic: "Atoms", secondaryTopics: [] },
+  { id: "p2-b", number: 1, paper: 2, year: 2024, marks: 5, primaryTopic: "Atoms", secondaryTopics: [] },
+  { id: "p2-c", number: 3, paper: 2, year: 2024, marks: 7, primaryTopic: "Energy", secondaryTopics: [] },
 ];
 
 describe("generatePaper", () => {
+
+  it("orders a generated paper like an exam: paper, then question number, then year", () => {
+    const pool: PaperCandidate[] = [
+      { id: "b", number: 5, paper: 4, year: 2022, marks: 2, primaryTopic: "Atoms", secondaryTopics: [] },
+      { id: "a", number: 1, paper: 4, year: 2024, marks: 2, primaryTopic: "Atoms", secondaryTopics: [] },
+      { id: "d", number: 3, paper: 2, year: 2024, marks: 2, primaryTopic: "Atoms", secondaryTopics: [] },
+      { id: "c", number: 3, paper: 2, year: 2021, marks: 2, primaryTopic: "Atoms", secondaryTopics: [] },
+      { id: "e", number: 1, paper: 2, year: 2023, marks: 2, primaryTopic: "Atoms", secondaryTopics: [] },
+    ];
+    for (const seed of [1, 7, 99, 12345]) {
+      const result = generatePaper(pool, { mode: "questions", targets: [{ paper: 4, amount: 2 }, { paper: 2, amount: 3 }], seed });
+      expect(result.questions.map((question) => question.id)).toEqual(["e", "c", "d", "a", "b"]);
+    }
+  });
   it("samples exact per-paper question quotas from the selected year and secondary topics", () => {
     const result = generatePaper(questions, { mode: "questions", targets: [{ paper: 1, amount: 2 }, { paper: 2, amount: 1 }], yearFrom: 2024, yearTo: 2024, topics: ["Atoms"], seed: 42 });
     expect(result.questions.map((question) => question.paper)).toEqual([1, 1, 2]);
@@ -26,7 +40,7 @@ describe("generatePaper", () => {
   });
 
   it("finds an exact mark target per paper without using unknown marks", () => {
-    const result = generatePaper([...questions, { id: "unknown", paper: 2, year: 2024, marks: null, primaryTopic: "Atoms", secondaryTopics: [] }], { mode: "marks", targets: [{ paper: 1, amount: 2 }, { paper: 2, amount: 8 }], seed: 10 });
+    const result = generatePaper([...questions, { id: "unknown", number: 9, paper: 2, year: 2024, marks: null, primaryTopic: "Atoms", secondaryTopics: [] }], { mode: "marks", targets: [{ paper: 1, amount: 2 }, { paper: 2, amount: 8 }], seed: 10 });
     expect(result.questions.filter((question) => question.paper === 1).map((question) => question.marks)).toEqual([1, 1]);
     expect(result.questions.filter((question) => question.paper === 2).map((question) => question.marks).sort()).toEqual([3, 5]);
     expect(result.totalMarks).toBe(10);
@@ -62,7 +76,7 @@ describe("generatePaper", () => {
   });
 
   it("finds a short exact-marks combination even after many smaller subsets reach the same sum", () => {
-    const manyOnes: PaperCandidate[] = Array.from({ length: 50 }, (_, index) => ({ id: `one-${index}`, paper: 2, year: 2024, marks: 1, primaryTopic: "Atoms", secondaryTopics: [] }));
+    const manyOnes: PaperCandidate[] = Array.from({ length: 50 }, (_, index) => ({ id: `one-${index}`, number: index + 1, paper: 2, year: 2024, marks: 1, primaryTopic: "Atoms", secondaryTopics: [] }));
     const pool = [...manyOnes, { ...manyOnes[0], id: "fifty", marks: 50 }, { ...manyOnes[0], id: "ten", marks: 10 }];
     for (let seed = 0; seed < 350; seed++) {
       const result = generatePaper(pool, { mode: "marks", targets: [{ paper: 2, amount: 60 }], seed });
