@@ -466,6 +466,7 @@ access: ExplorerAccess;
   const upgradeLink = (placement: UpgradePlacement) => bank ? upgradeHref(bank, placement) : upgradeHref("", placement);
   const bankShortName = BANK_CATALOG.find((entry) => entry.slug === bank)?.shortName ?? "bank";
   const paidCount = useMemo(() => catalogQuestions.filter((question) => !isPreviewQuestion(question.bankSlug, question.id)).length, [catalogQuestions]);
+  const bankFreeCount = catalogQuestions.length - paidCount;
   const teaserPool = useMemo(() => nudgesActive && effectiveFreeOnly
     ? matching.filter((question) => !isPreviewQuestion(question.bankSlug, question.id)).sort((a, b) => b.year - a.year || sessionRank(b.session) - sessionRank(a.session))
     : [], [nudgesActive, effectiveFreeOnly, matching]);
@@ -1394,7 +1395,7 @@ access: ExplorerAccess;
             })}
           </div>
           {!savedWorksheetView && !sharedSetView && filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
-          {!savedWorksheetView && !sharedError && !missingSharedCount && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} sentViews={sentUpgradeViews} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} plansHref={upgradeLink("signup_gate")} plansLine={yearFacts ? `Want ${yearFacts.newerPaidLabel} too? Plans start at ${UPGRADE_PRICE_MONTH}.` : `Want every year? Plans start at ${UPGRADE_PRICE_MONTH}.`} />}
+          {!savedWorksheetView && !sharedError && !missingSharedCount && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} sentViews={sentUpgradeViews} bankFreeCount={bankFreeCount} bankName={bankShortName} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} plansHref={upgradeLink("signup_gate")} plansLine={yearFacts ? `Want ${yearFacts.newerPaidLabel} too? Plans start at ${UPGRADE_PRICE_MONTH}.` : `Want every year? Plans start at ${UPGRADE_PRICE_MONTH}.`} />}
           {!savedWorksheetView && !sharedSetView && !freeGate.active && visible < filtered.length && <button className="load-more" onPointerEnter={prefetchNextPage} onFocus={prefetchNextPage} onTouchStart={prefetchNextPage} onClick={() => setVisible((count) => count + EXPLORER_PAGE_SIZE)}>Show 24 more questions</button>}
         </div>
       </div>
