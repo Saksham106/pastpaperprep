@@ -107,6 +107,13 @@ describe("PDF title block", () => {
     expect(save).toHaveBeenCalledOnce();
   });
 
+  it("drops the grey source rather than overprint the marks and calculator badge on a narrow crop", async () => {
+    await downloadQuestionPdf([short({ questionPrintSizesPt: [[150, 100]], calculator: false }), short({ id: "wide", number: 6 })], "questions");
+    expect(drawn("Question 1") && drawn("6 marks")).toBe(true);
+    expect(text.mock.calls.filter(([value]) => value === "2024 May/June · Paper 22 · Q5")).toHaveLength(0);
+    expect(drawn("2024 May/June · Paper 22 · Q6")).toBe(true);
+  });
+
   it("draws no title block without a cover", async () => {
     await downloadQuestionPdf([short()], "questions");
     expect(drawn("IGCSE MATHEMATICS 0580 · EXTENDED")).toBe(false);

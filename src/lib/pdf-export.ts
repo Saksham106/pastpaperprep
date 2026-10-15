@@ -325,7 +325,8 @@ export async function downloadQuestionPdf(
   };
 
   // "Question 3" in bold, then where it came from in small grey type.
-  const drawLabel = (label: PdfLabel, continued: boolean, x: number, baseline: number, size = 9) => {
+  // The source is left out when it would run into whatever sits right of maxRight (marks, badge, MCQ answer).
+  const drawLabel = (label: PdfLabel, continued: boolean, x: number, baseline: number, maxRight: number, size = 9) => {
     const heading = `${label.heading}${continued ? " (continued)" : ""}`;
     pdf.setFont("helvetica", "bold");
     pdf.setFontSize(size);
@@ -336,7 +337,7 @@ export async function downloadQuestionPdf(
       pdf.setFont("helvetica", "normal");
       pdf.setFontSize(7);
       pdf.setTextColor(107, 118, 114);
-      pdf.text(label.source, x + offset, baseline);
+      if (x + offset + pdf.getTextWidth(label.source) <= maxRight) pdf.text(label.source, x + offset, baseline);
     }
     pdf.setFont("helvetica", "normal");
   };
@@ -367,15 +368,21 @@ export async function downloadQuestionPdf(
       addPage(placement.format, placement.orientation, placement.headerMode);
     }
     if (labelSpace) {
-      drawLabel(label, continued, Math.max(8, placement.xMm), nextImageY + 3);
+      const detail = continued || kind === "answer" ? "" : Number.isFinite(marks) && marks !== null ? `${marks} marks` : "";
+      const rightEdge = Math.min(placement.pageWidthMm - 8, placement.xMm + placement.widthMm);
+      const badge = kind === "question" ? calculatorBadgeText(calculator) : null;
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(8);
+      const detailWidth = detail ? pdf.getTextWidth(detail) + 2 : 0;
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(6.5);
+      const badgeWidth = badge ? pdf.getTextWidth(badge) + 2.4 + 2 : 0;
+      drawLabel(label, continued, Math.max(8, placement.xMm), nextImageY + 3, rightEdge - detailWidth - badgeWidth);
       pdf.setFont("helvetica", "normal");
       pdf.setFontSize(8);
       pdf.setTextColor(76, 88, 85);
-      const detail = continued || kind === "answer" ? "" : Number.isFinite(marks) && marks !== null ? `${marks} marks` : "";
-      const rightEdge = Math.min(placement.pageWidthMm - 8, placement.xMm + placement.widthMm);
       if (detail) pdf.text(detail, rightEdge, nextImageY + 3, { align: "right" });
-      const badge = kind === "question" ? calculatorBadgeText(calculator) : null;
-      if (badge) drawCalculatorBadge(badge, rightEdge - (detail ? pdf.getTextWidth(detail) + 2 : 0), nextImageY);
+      if (badge) drawCalculatorBadge(badge, rightEdge - detailWidth, nextImageY);
       nextImageY += labelSpace;
     }
     if (pages === 1) firstPageUsed = true;
@@ -397,7 +404,7 @@ export async function downloadQuestionPdf(
     if (startAnswerPage || !current || nextImageY + height > current.height - PDF_BOTTOM_MM + 0.001) addPage();
     const baseline = nextImageY + 4;
     if (pages === 1) firstPageUsed = true;
-    drawLabel(label, false, PDF_SIDE_MM, baseline, 8);
+    drawLabel(label, false, PDF_SIDE_MM, baseline, PDF_MCQ_ANSWER_X - 2, 8);
     pdf.setFontSize(8);
     pdf.setTextColor(76, 88, 85);
     pdf.text("Answer", PDF_MCQ_ANSWER_X, baseline);

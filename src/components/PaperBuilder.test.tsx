@@ -187,4 +187,14 @@ describe("PaperBuilder", () => {
     fireEvent.click(screen.getByRole("button", { name: "Shuffle again" }));
     expect(screen.getByLabelText("Worksheet name")).toHaveValue("Mock exam");
   });
+
+  it("names the paper again when the student clears the name and shuffles", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json(index)));
+    render(<PaperBuilder banks={[bank]} />);
+    fireEvent.change(await screen.findByRole("spinbutton", { name: "Paper 2 questions" }), { target: { value: "2" } });
+    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
+    fireEvent.change(screen.getByLabelText("Worksheet name"), { target: { value: "" } });
+    fireEvent.click(screen.getByRole("button", { name: "Shuffle again" }));
+    expect(screen.getByLabelText("Worksheet name")).toHaveValue("Atoms & Energy");
+  });
 });
