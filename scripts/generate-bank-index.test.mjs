@@ -59,7 +59,7 @@ describe("public bank index generator", () => {
     const runtime = JSON.parse(readFileSync(join(process.cwd(), "src/data/production/igcse-biology-0610.json"), "utf8"));
     const raw = runtime.questions.find((row) => row.id === "0610-2019-m-12-q40");
     const metadata = metadataFromRaw(raw, { bank: "igcse-biology-0610", normalizedProduction: true });
-    expect(metadata.questionImageCount).toBe(2);
+    expect(metadata.questionImageCount).toBe(1);
     expect(metadata.markschemeImageCount).toBe(1);
     expect(raw.questionImages).toHaveLength(3);
   });
