@@ -49,8 +49,8 @@ const EXPECTED = {
   "ib-physics-sl": { questions: 1413, papers: 93 },
 } as const;
 const RUNTIME_HASHES = {
-  "ib-physics-hl": "50b7b007ca498ca2b8b77fee82fffbb9896567ec1a0c8ea65e014f1552029e9d",
-  "ib-physics-sl": "be20cb2b049481f598c2033488d6a70c0aed4796dda806ed5698989c2756e2f0",
+  "ib-physics-hl": "714ab4d4cedfe7278c330ce6e7cc16bd327fbd346d387c22c7e4e4f369ff85ca",
+  "ib-physics-sl": "72d64ea9572c9c1e58f3bda4976cccc5500828ec5287fb43aae5558698aef4cf",
 } as const;
 // The runtime before the official May 2026 papers were appended (origin/main 5d0f243): every row, paper and header field must survive.
 const PRE_2026_RUNTIME_HASHES = {

@@ -21,10 +21,10 @@ const check = process.argv.includes("--check");
 const BASE_COMMIT = "5d0f243624e449a7b589d83708145102e3b5bfb3";
 const SOURCE_COMMIT_PREFIX = "7d1b6e7";
 const PINS = {
-  HL: { additions: "7830555bf2506ca08a3b65b6c6ac4b125539ee215eb5312ad7099065cc37e6f0", questions: 153, papers: 9 },
-  SL: { additions: "0ec478fc34da97c4950013e5e75d4fc77790da9fbee24aef9e46aadd1208349d", questions: 99, papers: 9 },
+  HL: { additions: "84ec041d67cc5bc4d6b35d126e108ec5f2151d9804ea0594f47418f8d6185ce4", questions: 153, papers: 9 },
+  SL: { additions: "30c99d34745d2a2e822adeb4a79a971ecc6f72d20cde733bbaf215046572e0f3", questions: 99, papers: 9 },
 };
-const FINAL_LABELS_SHA256 = "55b07dcb9c605ebe7e3cada9b9ebc8a1a6c088f405d379b859e5579cd2dbf88b";
+const FINAL_LABELS_SHA256 = "55733f864d2e8e1fef28d4f7dd673a82a818ae22c015e3ebf962eb3067a57ae8";
 const ADJUDICATION_SHA256 = "bd279b582757bc765664cced35691f8d74f28ba7d27384fbe6aabfa99fcc259b";
 const sha = (bytes) => createHash("sha256").update(bytes).digest("hex");
 
@@ -47,6 +47,9 @@ const finalBytes = readFileSync(join(sourceRoot, "data/may-2026/classification/f
 if (sha(finalBytes) !== FINAL_LABELS_SHA256) throw new Error("final-classifications.json hash drift");
 const adjudicationBytes = readFileSync(join(sourceRoot, "data/may-2026/classification/adjudication.json"));
 if (sha(adjudicationBytes) !== ADJUDICATION_SHA256) throw new Error("adjudication.json hash drift");
+const REVIEW_FIXES_SHA256 = "86086e2714aab8f6fa6379d1afe2ba0238c6a5b4921860f0cec8157d3dc4eeb6";
+const reviewFixesBytes = readFileSync(join(sourceRoot, "data/may-2026/classification/review-fixes.json"));
+if (sha(reviewFixesBytes) !== REVIEW_FIXES_SHA256) throw new Error("review-fixes.json hash drift");
 const finalRows = new Map(JSON.parse(finalBytes).classifications.map((row) => [row.id, row]));
 const adjudication = JSON.parse(adjudicationBytes).decisions;
 
@@ -116,6 +119,7 @@ const manifest = {
   sourceCommitPrefix: SOURCE_COMMIT_PREFIX,
   finalLabelsSha256: FINAL_LABELS_SHA256,
   adjudicationSha256: ADJUDICATION_SHA256,
+  ownerReviewFixes: { source: "PR #305 owner review (2026-10-15), applied by the source lane after adjudication", reviewFixesSha256: REVIEW_FIXES_SHA256, fixedRows: Object.keys(JSON.parse(reviewFixesBytes).fixes).length },
   rows: reviewRows.sort((a, b) => a.id.localeCompare(b.id)),
 };
 outputs.set("docs/audits/ib-physics-may-2026-review.json", `${JSON.stringify(manifest, null, 2)}\n`);

@@ -3,8 +3,13 @@
   "reviewedQuestionCount": 252,
   "reviewMethod": "Official May 2026 TZ1-TZ3 questions: a source-grounded primary pass from the question crop and official markscheme, a separate blind second pass from sealed evidence without the primary labels or the Drex triage scores, and a written adjudication of every row where the passes differ (primary subtopic, primary code, code set or secondaries). Drex (drex-v2.0, text only) was used for triage only.",
   "sourceCommitPrefix": "7d1b6e7",
-  "finalLabelsSha256": "55b07dcb9c605ebe7e3cada9b9ebc8a1a6c088f405d379b859e5579cd2dbf88b",
+  "finalLabelsSha256": "55733f864d2e8e1fef28d4f7dd673a82a818ae22c015e3ebf962eb3067a57ae8",
   "adjudicationSha256": "bd279b582757bc765664cced35691f8d74f28ba7d27384fbe6aabfa99fcc259b",
+  "ownerReviewFixes": {
+    "source": "PR #305 owner review (2026-10-15), applied by the source lane after adjudication",
+    "reviewFixesSha256": "86086e2714aab8f6fa6379d1afe2ba0238c6a5b4921860f0cec8157d3dc4eeb6",
+    "fixedRows": 16
+  },
   "rows": [
     {
       "id": "2026-may-tz1-hl-p1a-q1",
@@ -1001,7 +1006,8 @@
       ],
       "secondarySubtopics": [
         "F1",
-        "F2"
+        "F2",
+        "T2"
       ],
       "confidence": "medium",
       "provenance": "blind_two_pass_agreed",
@@ -1122,7 +1128,7 @@
       "level": "HL",
       "primarySubtopic": "R3",
       "officialTopicCodes": [
-        "B.2",
+        "B.1",
         "C.5"
       ],
       "secondarySubtopics": [
@@ -1618,7 +1624,8 @@
         "C.2"
       ],
       "secondarySubtopics": [
-        "F4"
+        "F4",
+        "W2"
       ],
       "confidence": "medium",
       "provenance": "blind_two_pass_adjudicated",
@@ -1756,7 +1763,8 @@
         "M2",
         "T2",
         "T1",
-        "M5"
+        "M5",
+        "W2"
       ],
       "confidence": "low",
       "provenance": "blind_two_pass_adjudicated",
@@ -2071,7 +2079,7 @@
       "level": "SL",
       "primarySubtopic": "R3",
       "officialTopicCodes": [
-        "B.2",
+        "B.1",
         "C.5"
       ],
       "secondarySubtopics": [
@@ -2124,7 +2132,8 @@
       ],
       "secondarySubtopics": [
         "F4",
-        "F2"
+        "F2",
+        "W2"
       ],
       "confidence": "medium",
       "provenance": "blind_two_pass_adjudicated",
@@ -2774,7 +2783,8 @@
       ],
       "secondarySubtopics": [
         "F4",
-        "F5"
+        "F5",
+        "E2"
       ],
       "confidence": "medium",
       "provenance": "blind_two_pass_agreed",
@@ -2899,7 +2909,8 @@
         "M2",
         "M3",
         "M4",
-        "W1"
+        "W1",
+        "W2"
       ],
       "confidence": "medium",
       "provenance": "blind_two_pass_adjudicated",
@@ -3263,7 +3274,8 @@
       ],
       "secondarySubtopics": [
         "F4",
-        "F5"
+        "F5",
+        "E2"
       ],
       "confidence": "medium",
       "provenance": "blind_two_pass_adjudicated",
@@ -3343,7 +3355,8 @@
       "secondarySubtopics": [
         "M3",
         "M2",
-        "W1"
+        "W1",
+        "W2"
       ],
       "confidence": "medium",
       "provenance": "blind_two_pass_adjudicated",

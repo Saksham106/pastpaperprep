@@ -27,6 +27,7 @@ There is no Paper 3 in the 2025 syllabus. No paper was excluded: all 18 question
 - **Primary pass** from the crop and official mark scheme (image-checked transcriptions); **blind pass** by separate reviewers from sealed evidence without the primary labels or Drex scores.
 - **Agreement:** primary subtopic 236 of 252, primary code 241, full labels 201. All 51 differing rows were adjudicated from the two immutable files with the mark scheme (28 blind, 16 primary, 7 neither). 8 final rows are low confidence (multi-topic 20-mark questions with no dominant block).
 - Labels use the repo's controlled Physics taxonomy (2025 syllabus codes). `src/lib/taxonomy.ts` is untouched. The reviewed labels are in `docs/audits/ib-physics-may-2026-review.json`.
+- **Owner review of PR #305 (applied upstream in the source lane's `review-fixes.json`, then rebuilt):** 16 rows. Secondaries added where a separately scored part assesses physics the student filter would not retrieve: E2 on `tz3-{hl,sl}-p1b-q2`, T2 on `tz1-sl-p1b-q2`, W2 on `tz2-{hl,sl}-p1b-q2` and `tz2-hl-p2-q8`, plus the same pattern found on `tz3-hl-p2-q8` and `tz3-sl-p2-q5` (a separately scored v = f lambda part). Official code B.2 (greenhouse effect) replaced by B.1 (Wien's law) on `tz2-hl-p1a-q11` and `tz2-sl-p1a-q8`, keeping C.5. Screen-reader figure descriptions re-transcribed from the crops for `tz1-sl-p1a-q19` and its HL twin `tz1-hl-p1a-q28` (field-line arrow directions, which needle tip is labelled), `tz1-sl-p2-q5` and its HL twin `tz1-hl-p2-q7` (circulation sense), `tz3-hl-p1a-q7` (graphs A and C gradients) and `tz1-hl-p1a-q14` (process arrow directions). `src/lib/ib-physics-may-2026-review-fixes.test.ts` runs the actual `normalizeBankQuestions` to `filterQuestions` path on these rows.
 
 ## App changes
 
@@ -35,9 +36,9 @@ There is no Paper 3 in the 2025 syllabus. No paper was excluded: all 18 question
 - Full past papers: `docs/ib-physics-may-2026/archive-inventory.json` (rebuilt with `scripts/build-ib-physics-2026-archive-inventory.mjs`) feeds `scripts/build-whole-paper-archives.mts`. Each bank gains 9 papers; all 84 earlier entries are byte-identical. 16 of the 18 new papers are accepted as usual. The TZ3 HL and SL Paper 1A are reports only ("Printed question maxima do not reconcile"): in those two mark-scheme PDFs one key letter (HL Q39, SL Q24, the nuclear power plant question) is placed last in the text stream although it is printed in its row, so the builder's text-order key check misses it. The key itself is read correctly by geometry and by eye. Fixing the extractor would touch every bank, so it is left for a separate change.
 - The 2016-2019 science candidate seal keeps verifying the sealed runtime: `sealedRuntimeBytes()` in `scripts/ib-science-receipt-contract.mjs` removes the Physics 2026 append and must give the sealed hashes back.
 
-## Source defect
+## Note on 2026-may-tz1-hl-p2-q4(c)
 
-`2026-may-tz1-hl-p2-q4(c)` refers to a graph of maximum kinetic energy against frequency for two metals that the official question paper PDF does not print (checked on the original pages 9 to 11; the mark scheme answers it). The row is served as printed; the owner may want to hold it back.
+Part (c) asks for conceptual properties of the graphs of maximum kinetic energy against frequency for two metals; it does not ask for readings from a supplied or labelled plot, and the printed paper shows no plotted figure there (original pages 9 to 11). The official mark scheme's criteria follow from the photoelectric relation without a printed plot, so the question is answerable as printed. The owner review of PR #305 (original pages and mark scheme inspected twice) established no cropped-away figure, no unanswerability and no unassessable marks. The row is served as printed, with no report hold and no automatic credit.
 
 ## Storage (owner-approved, done)
 
@@ -62,6 +63,6 @@ There is no Paper 3 in the 2025 syllabus. No paper was excluded: all 18 question
 ## Owner decisions
 
 1. Uploads and readback: done.
-3. Decide whether to hold back `2026-may-tz1-hl-p2-q4` (missing graph in the source).
+3. None open for `2026-may-tz1-hl-p2-q4` (see the note above).
 4. No worked explanations exist for the 2026 ids.
 5. This branch edits lines that the Biology (and other) May 2026 branches also edit (`catalog.ts`, `asset-retention.ts`, `bank-index-manifest.ts`, `ib-science-receipt-contract.mjs`, `reviewed-mcq-answer-letters.json`, `page.test.tsx`, `banks.test.ts`). Expect conflicts when merging more than one; the bank index and MCQ overlay are regenerated, not hand-merged.
