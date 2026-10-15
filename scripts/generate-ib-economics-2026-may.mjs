@@ -25,12 +25,15 @@ export const MAY_2026_PINS = {
   sourceCommit: "911f3d4506d7b646fde4773f26b4698bbf5341d4",
   releaseTaxonomySha256: "75527e47eb45a54bcc4b3aa8676e2143aa719c70aac23f63c980cd053e8d102c",
   bucket: "pastpaperprep-assets",
+  // SHA-256 of src/data/ib-economics-2026-may-membership-seal.json, pinned here and in src/lib/economics-runtime.ts.
+  membershipSealSha256: "4dd0c8e44dcf6cd578cb76cf2802fcda604ed769bf6447c7d53d3a22b61a5bac",
 };
 const banks = [
   ["ib-economics-hl", "HL", "questions-hl-2026-may.json", 17, 7],
   ["ib-economics-sl", "SL", "questions-sl-2026-may.json", 15, 6],
 ];
 const UPLOAD_LOG = "docs/ib-economics-2026-may-r2-upload-log.jsonl";
+const MEMBERSHIP_SEAL = "src/data/ib-economics-2026-may-membership-seal.json";
 const ATTESTATION = "docs/ib-economics-2026-may-rights-attestation.json";
 const BASE_RECEIPT = "docs/ib-economics-storage-receipts/ib-economics-storage-release-receipt.json";
 const COMBINED_RECEIPT = "docs/ib-economics-storage-receipts/ib-economics-storage-release-receipt-with-2026-may.json";
@@ -65,11 +68,25 @@ const cropQa = await readJson(join(sourceRoot, "data/may-2026/crop-qa.json"));
 const sourceScan = await readJson(join(sourceRoot, "data/may-2026/source-scan.json"));
 const acquisition = await readJson(join(sourceRoot, "data/may-2026/acquisition-manifest.json"));
 const segmentation = JSON.parse(segmentationBytes);
+const finalClassifications = JSON.parse(finalBytes);
 const segmentationAssets = new Map(segmentation.records.flatMap((record) => record.assets.map((asset) => [asset.path, asset])));
 const finalSha = hash(finalBytes);
 const segmentationSha = hash(segmentationBytes);
 const attestationText = await readFile(join(root, ATTESTATION), "utf8");
 const attestationSha = hash(attestationText);
+
+// ---- independent membership pin: the exact reviewed question/paper sets, not a prefix or a self-declared hash
+const sealBytes = await readFile(join(root, MEMBERSHIP_SEAL));
+if (hash(sealBytes) !== MAY_2026_PINS.membershipSealSha256) throw new Error("membership seal differs from its pinned hash");
+const seal = JSON.parse(sealBytes);
+const reviewedIds = finalClassifications.ordered_question_ids;
+if (
+  seal.sourceCommit !== MAY_2026_PINS.sourceCommit ||
+  seal.finalClassificationsSha256 !== finalSha ||
+  JSON.stringify(seal.reviewedOrderedQuestionIds) !== JSON.stringify(reviewedIds) ||
+  new Set(reviewedIds).size !== reviewedIds.length
+) throw new Error("membership seal does not match the reviewed final classifications");
+const sameList = (a, b) => a.length === b.length && a.every((value, index) => value === b[index]);
 
 // ---- the 2026 assets, re-hashed against the lane manifest and the upload log
 const logText = await readFile(join(root, UPLOAD_LOG), "utf8");
@@ -85,6 +102,16 @@ const extension = {};
 for (const [bank, level, siteFile, questionCount, paperCount] of banks) {
   const siteBytes = await sourceBytes(`data/may-2026/site-data/${siteFile}`);
   const site = JSON.parse(siteBytes);
+  const pinned = seal.banks[bank];
+  if (
+    !pinned ||
+    hash(siteBytes) !== pinned.siteDataSha256 ||
+    !sameList(site.questions.map((question) => question.id), pinned.questionIds) ||
+    !sameList(site.papers.map((paper) => paper.id), pinned.paperIds) ||
+    hash(JSON.stringify(site.questions)) !== pinned.questionsSha256 ||
+    hash(JSON.stringify(site.papers)) !== pinned.papersSha256 ||
+    !pinned.questionIds.every((id) => reviewedIds.includes(id))
+  ) throw new Error(`${bank}: 2026 question/paper membership differs from the sealed reviewed set`);
   if (site.level !== level || site.questions.length !== questionCount || site.papers.length !== paperCount) throw new Error(`${bank}: 2026 counts differ`);
   for (const question of site.questions) {
     if (question.bankSlug !== bank || question.id !== question.canonicalId || question.year !== 2026) throw new Error(`${bank}: identity mismatch for ${question.id}`);
@@ -113,6 +140,8 @@ for (const [bank, level, siteFile, questionCount, paperCount] of banks) {
   newAssetsByBank[bank] = [...assets.values()].sort((a, b) => a.objectKey.localeCompare(b.objectKey)).map((asset) => ({ ...asset, referencedQuestionIds: [...asset.referencedQuestionIds].sort() }));
   extension[bank] = { site, siteSha: hash(siteBytes) };
 }
+const sealedUnion = new Set(banks.flatMap(([bank]) => seal.banks[bank].questionIds));
+if (sealedUnion.size !== reviewedIds.length || !reviewedIds.every((id) => sealedUnion.has(id))) throw new Error("sealed bank membership does not cover exactly the reviewed question set");
 const allNew = banks.flatMap(([bank]) => newAssetsByBank[bank]);
 if (logByKey.size !== allNew.length || log.length !== allNew.length) throw new Error("upload log does not cover exactly the planned objects");
 const newBytes = allNew.reduce((sum, asset) => sum + asset.byteSize, 0);

@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import economicsHlRuntime from "@/data/production/ib-economics-hl.json";
 import economicsSlRuntime from "@/data/production/ib-economics-sl.json";
 import runtimeManifest from "@/data/ib-economics-runtime-manifest.json";
+import membershipSeal from "@/data/ib-economics-2026-may-membership-seal.json";
 import type { EconomicsBankSlug } from "@/lib/banks";
 
 type RuntimeQuestion = {
@@ -87,6 +88,18 @@ export const ECONOMICS_MAY_2026_SEALS = {
   },
 } as const;
 
+/** SHA-256 of the committed membership seal file, pinned in code (and in the generator) rather than read from the artifact. */
+export const ECONOMICS_MAY_2026_MEMBERSHIP_SEAL_SHA256 = "4dd0c8e44dcf6cd578cb76cf2802fcda604ed769bf6447c7d53d3a22b61a5bac";
+function membershipSealMatches(): boolean {
+  return (
+    createHash("sha256").update(JSON.stringify(membershipSeal, null, 2) + "\n").digest("hex") === ECONOMICS_MAY_2026_MEMBERSHIP_SEAL_SHA256 &&
+    membershipSeal.sourceCommit === ECONOMICS_MAY_2026_SEALS.sourceCommit &&
+    membershipSeal.finalClassificationsSha256 === ECONOMICS_MAY_2026_SEALS.finalClassificationsSha256
+  );
+}
+const sha256Json = (value: unknown) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
+const sameList = (a: readonly unknown[], b: readonly unknown[]) => a.length === b.length && a.every((value, index) => value === b[index]);
+
 const ARTIFACTS: Record<EconomicsBankSlug, RuntimeArtifact> = {
   "ib-economics-hl": economicsHlRuntime as RuntimeArtifact,
   "ib-economics-sl": economicsSlRuntime as RuntimeArtifact,
@@ -141,6 +154,16 @@ function validate(bank: EconomicsBankSlug, artifact: RuntimeArtifact): RuntimeAr
     artifact.papers.length !== pin.baselinePaperCount + pin.paperCount ||
     createHash("sha256").update(JSON.stringify(artifact.questions.slice(0, baselineCount))).digest("hex") !== pin.baselineContentSha256
   ) throw new Error("Economics May 2026 extension seal mismatch");
+  const sealed = membershipSeal.banks[bank];
+  const addedQuestions = artifact.questions.slice(baselineCount);
+  const addedPapers = artifact.papers.slice(pin.baselinePaperCount);
+  if (
+    !membershipSealMatches() ||
+    !sameList(addedQuestions.map((question) => question.id), sealed.questionIds) ||
+    !sameList(addedPapers.map((paper) => (paper as { id?: string }).id ?? ""), sealed.paperIds) ||
+    sha256Json(addedQuestions) !== sealed.questionsSha256 ||
+    sha256Json(addedPapers) !== sealed.papersSha256
+  ) throw new Error("Economics May 2026 membership mismatch");
   const seen = new Set<string>();
   artifact.questions.forEach((question, index) => {
     const addition = index >= baselineCount;
