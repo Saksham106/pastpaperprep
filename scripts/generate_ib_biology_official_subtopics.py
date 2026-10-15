@@ -9,7 +9,11 @@ from pathlib import Path
 from typing import Any
 
 # 26 blocked: four of the reviewed overlay's 30 were unblocked by printed-source review (#139).
-EXPECTED = {"rows": 3459, "HL": 1911, "SL": 1548, "legacy": 2983, "current": 476, "blocked": 26}
+# Baseline: the reviewed overlay of the pre-2026 rows. May 2026 adds 284 reviewed rows (HL 161, SL 123).
+BASELINE = {"rows": 3459, "HL": 1911, "SL": 1548, "legacy": 2983, "current": 476, "blocked": 26}
+MAY_2026 = {"rows": 284, "HL": 161, "SL": 123}
+EXPECTED = {"rows": 3743, "HL": 2072, "SL": 1671, "legacy": 2983, "current": 760, "blocked": 26}
+MAY_2026_REVIEW_PATH = "docs/audits/ib-biology-may-2026-review.json"
 CORRECTIONS_PATH = Path(__file__).resolve().parent / "data/ib-biology-reviewed-subtopic-corrections.json"
 CORRECTIONS_SHA256 = "ea88f99f083c2565320f6c9a8977f9e17468a788274ac6459b52d2eb2307aaea"
 CORRECTION_IDS = {
@@ -67,6 +71,35 @@ def load_corrections(path: Path, atomic: dict[str, Any], groups: dict[str, Any])
     return out
 
 
+def may_2026_reviewed_rows(repo_root: Path, atomic: dict[str, Any], groups: dict[str, Any], rows_by_id: dict[str, Any]) -> list[dict[str, Any]]:
+    """The 284 official May 2026 rows, from the reviewed manifest (Drex triage, blind pass, adjudication)."""
+    manifest = read(repo_root / MAY_2026_REVIEW_PATH)
+    if manifest["manifestVersion"] != "ib-biology-may-2026-review.1" or manifest["reviewedQuestionCount"] != MAY_2026["rows"]:
+        raise ValueError("May 2026 review manifest drift")
+    out = []
+    for entry in manifest["rows"]:
+        level, source = rows_by_id[entry["id"]]
+        if entry["level"] != level or source.get("year") != 2026 or not entry["codes"] or not entry["groups"]:
+            raise ValueError(f"May 2026 review row mismatch: {entry['id']}")
+        labels = []
+        for code in entry["codes"]:
+            atomic_id = f"ib-biology.bio_2025.{code}"
+            if atomic_id not in atomic:
+                raise ValueError(f"May 2026 row names an unknown 2025-syllabus code: {entry['id']} {code}")
+            item = atomic[atomic_id]
+            labels.append({"officialAtomicId": atomic_id, "officialCode": code, "officialName": item["officialName"], "officialTopic": item["officialTopic"], "sourceSection": item["sourceSection"], "applicability": item["applicability"]})
+        names = []
+        for group_id in entry["groups"]:
+            group = groups.get(f"ib-biology.group.{group_id}")
+            if not group:
+                raise ValueError(f"May 2026 row names an unknown group: {entry['id']} {group_id}")
+            names.append(group["studentFacingName"])
+        if names != list(source.get("subtopics", [])):
+            raise ValueError(f"May 2026 groups disagree with the row's subtopics: {entry['id']}")
+        out.append({"questionId": entry["id"], "level": level, "era": "bio_2025", "year": 2026, "curriculumVersion": "2025", "blocked": False, "blockedReasons": [], "emittedOfficialLabels": labels})
+    return out
+
+
 def build(research_root: Path, repo_root: Path) -> dict[str, Any]:
     taxonomy_path = research_root / "official-syllabus-taxonomy.json"
     source_overlay_path = research_root / "reconciliation-audit/final-reviewed-overlay.json"
@@ -74,12 +107,14 @@ def build(research_root: Path, repo_root: Path) -> dict[str, Any]:
     source_overlay = read(source_overlay_path)
     source_rows = {level: read(repo_root / f"src/data/raw/ib-biology-{level.lower()}.json")["questions"] for level in BANKS}
     source_hashes = {level: sha(repo_root / f"src/data/raw/ib-biology-{level.lower()}.json") for level in BANKS}
-    expected_hashes = {
-        level: sha(research_root / "source-snapshots" / f"ib-biology-{level.lower()}.json")
-        for level in BANKS
-    }
-    if source_hashes != expected_hashes:
-        raise ValueError(f"raw source hash drift: {source_hashes} != {expected_hashes}")
+    # Every pre-2026 row must still equal the reviewed snapshot, row for row.
+    for level in BANKS:
+        snapshot = read(research_root / "source-snapshots" / f"ib-biology-{level.lower()}.json")["questions"]
+        current = [row for row in source_rows[level] if row.get("year") != 2026]
+        if current != snapshot:
+            raise ValueError(f"{level}: a pre-2026 raw row differs from the reviewed snapshot")
+        if source_rows[level][: len(snapshot)] != snapshot:
+            raise ValueError(f"{level}: 2026 rows must follow the snapshot rows")
     groups = taxonomy["curatedGroups"]
     atomic = {entry["id"]: entry for entry in taxonomy["atomicEntries"]}
     group_by_atomic: dict[str, list[dict[str, Any]]] = {}
@@ -92,12 +127,13 @@ def build(research_root: Path, repo_root: Path) -> dict[str, Any]:
     corrections = load_corrections(CORRECTIONS_PATH, atomic, {group["id"]: group for group in groups})
     if len(rows_by_id) != EXPECTED["rows"]:
         raise ValueError("raw source row count or duplicate-id drift")
-    if len(source_overlay["rows"]) != EXPECTED["rows"]:
+    if len(source_overlay["rows"]) != BASELINE["rows"]:
         raise ValueError("reviewed overlay row count drift")
+    reviewed_rows = [*source_overlay["rows"], *may_2026_reviewed_rows(repo_root, atomic, {group["id"]: group for group in groups}, rows_by_id)]
 
     emitted: list[dict[str, Any]] = []
     seen: set[str] = set()
-    for reviewed in source_overlay["rows"]:
+    for reviewed in reviewed_rows:
         question_id = reviewed["questionId"]
         if question_id in seen or question_id not in rows_by_id:
             raise ValueError(f"duplicate or unknown reviewed id: {question_id}")

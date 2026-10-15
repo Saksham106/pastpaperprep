@@ -14,11 +14,11 @@ REPO = Path(__file__).resolve().parents[1]
 def test_pinned_overlay_has_exact_reviewed_scope_and_taxonomy():
     result = generator.build(RESEARCH, REPO)
     assert result["counts"] == {
-        "rows": 3459,
-        "HL": 1911,
-        "SL": 1548,
+        "rows": 3743,
+        "HL": 2072,
+        "SL": 1671,
         "legacy": 2983,
-        "current": 476,
+        "current": 760,
         "blocked": 26,
     }
     assert result["taxonomyCounts"] == {"atomicEntries": 114, "curatedGroups": 21}
@@ -61,7 +61,7 @@ def test_groups_follow_each_question_reviewed_subtopics_not_taxonomy_order():
     overlay = json.loads((REPO / "src/data/ib-biology-official-subtopics/overlay.json").read_text())
     raw = _raw_by_id()
     resolved = [row for row in overlay["rows"] if not row["blocked"] and "sourceReassessment" not in row]
-    assert len(resolved) == 3426
+    assert len(resolved) == 3710
     for row in resolved:
         question = raw[row["id"]]
         names = [group["name"] for group in [row["primary"], *row["secondary"]]]
@@ -104,6 +104,8 @@ def _with_corrections(tmp_path, monkeypatch, edit):
     (out / "src/data/raw").mkdir(parents=True)
     for level in ("hl", "sl"):
         (out / f"src/data/raw/ib-biology-{level}.json").write_bytes((REPO / f"src/data/raw/ib-biology-{level}.json").read_bytes())
+    (out / "docs/audits").mkdir(parents=True)
+    (out / generator.MAY_2026_REVIEW_PATH).write_bytes((REPO / generator.MAY_2026_REVIEW_PATH).read_bytes())
     return out
 
 
@@ -125,3 +127,25 @@ def test_corrections_file_is_hash_pinned(tmp_path, monkeypatch):
     monkeypatch.setattr(generator, "CORRECTIONS_PATH", path)
     with pytest.raises(ValueError, match="hash drift"):
         generator.build(RESEARCH, REPO)
+
+
+def test_may_2026_rows_follow_their_reviewed_groups_and_codes():
+    generator.build(RESEARCH, REPO)
+    overlay = {row["id"]: row for row in json.loads((REPO / "src/data/ib-biology-official-subtopics/overlay.json").read_text())["rows"]}
+    raw = _raw_by_id()
+    new = [row for row in overlay.values() if row["year"] == 2026]
+    assert len(new) == 284 and sum(row["level"] == "HL" for row in new) == 161
+    for row in new:
+        assert row["era"] == "bio_2025" and not row["blocked"]
+        assert [group["name"] for group in [row["primary"], *row["secondary"]]] == raw[row["id"]]["subtopics"]
+        assert row["officialCodes"] == raw[row["id"]]["officialTopicCodes"]
+
+
+def test_may_2026_review_manifest_drift_fails_closed(tmp_path, monkeypatch):
+    repo = _with_corrections(tmp_path, monkeypatch, lambda c: None)
+    path = repo / generator.MAY_2026_REVIEW_PATH
+    data = json.loads(path.read_text())
+    data["rows"][0]["groups"] = ["P1"]
+    path.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match="subtopics|group"):
+        generator.build(RESEARCH, repo)
