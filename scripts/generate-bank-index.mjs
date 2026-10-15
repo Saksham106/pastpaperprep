@@ -42,6 +42,7 @@ const mathsAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data", "
 const scienceWrittenAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-science-written-answer-repairs.json"), "utf8"));
 const ibMatrixRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-matrix-head-repairs.json'), 'utf8'));
 const ibBoundaryRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-boundary-batch-repairs.json'), 'utf8'));
+const ibScienceCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-science-crop-repairs.json'), 'utf8'));
 const historicalCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-historical-crop-repairs.json'), 'utf8'));
 // Same projection as src/lib/reviewed-biology-historical-crops.ts (counts and marks only).
 function historicalEntry(bank, raw) {
@@ -62,6 +63,12 @@ function historicalMarks(bank, raw) {
   return repair.new;
 }
 function activeMarkschemeImageCount(bank, raw) {
+  const ibScience = ibScienceCropRepairs.banks[bank]?.[raw.id];
+  if (ibScience) {
+    const sourcePaths=[...strings(raw.markschemeImages),...strings(raw.officialMarkscheme?.images)];
+    if(JSON.stringify(sourcePaths)!==JSON.stringify(ibScience.oldPaths)||ibScience.newPaths.length<1)throw new Error(`Reviewed IB science crop count disagrees with ${bank}:${raw.id}`);
+    return ibScience.newPaths.length;
+  }
   const ibBoundary = ibBoundaryRepairs.banks[bank]?.[raw.id];
   if (ibBoundary) {
     const sourcePaths=[...strings(raw.markschemeImages),...strings(raw.officialMarkscheme?.images)];
