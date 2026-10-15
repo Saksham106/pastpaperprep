@@ -1,0 +1,1293 @@
+{
+  "schemaVersion": "ib-economics-derived-asset-upload-manifest-v1",
+  "extension": "2026-may",
+  "bank": "ib-economics-sl",
+  "sourceRepository": "ib-economics-topic-practice",
+  "sourceBranch": "feat/may-2026-official",
+  "sourceCommit": "d97b4aa58322780b2937b769f335da9ddd33f246",
+  "sourceRuntimeFile": "src/data/production/ib-economics-sl-2026-may.json",
+  "upload": false,
+  "rawPdfIncluded": false,
+  "assets": [
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 28050,
+      "sha256": "f413e92d8c9cc4e4f905f8530b041d1cad09db4fa74a9b84d89bb64eee02974a",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 58658,
+      "sha256": "42117c2602cc7a647ccae06e9a197fd5832cdccbd23a503a6e042fd9ff1a5627",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 58980,
+      "sha256": "a43f7276a6d8de4dbe2058420907ae412a20dff48021b9f6c1221fb3837b08b7",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-04.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-04.webp",
+      "kind": "markscheme",
+      "byteSize": 62220,
+      "sha256": "0070785c0359e9190a8654eb4aaf53cd9b7bf07888364967991f5e5b8f3386f5",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-05.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-05.webp",
+      "kind": "markscheme",
+      "byteSize": 44028,
+      "sha256": "11aac6b4fc1dd31722bd5d7dd50eaed37f61a8fce7e7e5981944e5704fb83310",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-06.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-06.webp",
+      "kind": "markscheme",
+      "byteSize": 55642,
+      "sha256": "f3761686a363ce0fbf275306a4cdefd382d24fdb80fe05dc787f1bf6f85a04fe",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-07.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-07.webp",
+      "kind": "markscheme",
+      "byteSize": 60344,
+      "sha256": "839e89a67f2a1e5baa806a56e67adea2ddf31f94fa8b33f2aa1529dfbab196a1",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-08.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-08.webp",
+      "kind": "markscheme",
+      "byteSize": 62788,
+      "sha256": "ab9a66bafe17c436bbea04b6676ddf7e8c7e36620c8c452785bc828656fb613b",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-09.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-09.webp",
+      "kind": "markscheme",
+      "byteSize": 71560,
+      "sha256": "209c471542d531d13a43cbf3e5bdc1e94572be0bd3290bd538fdc73c71c0e517",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-10.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q01/markscheme-10.webp",
+      "kind": "markscheme",
+      "byteSize": 51666,
+      "sha256": "063aafe50064ce5c81a851ba284b7474b7d00699418886d84cc3e6b2ef2dbecf",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 38264,
+      "sha256": "68a5d582d68f64829f848490bc8d949eb48974016e988c1d31921d8d62bcf575",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 24142,
+      "sha256": "c9f03d06769d737b95a78f2e5756fdd2a67c6d6eeb8033ffcb01eef83a626652",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 47642,
+      "sha256": "74b4c8b62148b2885cdb2d85ed42d228a720eeff5550ce9cdcf16e2ef0e2efb3",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-04.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-04.webp",
+      "kind": "markscheme",
+      "byteSize": 70928,
+      "sha256": "e8e49d98f86f38ec50a4ccdaf2b8f50ed4955e35b5283ea70290f0a65d7161f8",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-05.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-05.webp",
+      "kind": "markscheme",
+      "byteSize": 50722,
+      "sha256": "bd87027d31c0e6b74fe294c005b7aa59f78e8f0db56684ecdb2cffda04514db1",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-06.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-06.webp",
+      "kind": "markscheme",
+      "byteSize": 85846,
+      "sha256": "b135fc96bd790a0fcbd8ca18645c58f6360728270ed83c48d3459bc68af9fae8",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-07.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-07.webp",
+      "kind": "markscheme",
+      "byteSize": 55678,
+      "sha256": "74a34295cc287bdf1421af15a5fae4fad5c2e87392718c80f9fcd5580060db24",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-08.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-08.webp",
+      "kind": "markscheme",
+      "byteSize": 76100,
+      "sha256": "5c6b387b0c6852626f432290705b5477874883b595fcca51ef4a44ad77f0f8d9",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-09.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-09.webp",
+      "kind": "markscheme",
+      "byteSize": 70644,
+      "sha256": "c92dd7fa3e1a53347c52580a1cc2bb690f7c87f147107c59ede9e7b8b75a94a1",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-10.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-10.webp",
+      "kind": "markscheme",
+      "byteSize": 51952,
+      "sha256": "15c48566455752aebaf56791a99a44768c4cd20a7100002ecbefaf9586a2b77e",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-11.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-hlsl-p2-q02/markscheme-11.webp",
+      "kind": "markscheme",
+      "byteSize": 51250,
+      "sha256": "6428e680b05797487f2c7d4abca1c83e90f98b8001dc7df8e2ea75f659b8849b",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-sl-p1-q01/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-sl-p1-q01/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 47766,
+      "sha256": "36a58ebb501e635909419fd5965f8b3bc27500f9826dc666fe7325ffe018c577",
+      "referencedQuestionIds": [
+        "2026-may-tz1-sl-p1-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-sl-p1-q01/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-sl-p1-q01/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 54272,
+      "sha256": "1dcbd2b07fe9a2970ea6ecd7ad2e43b89c6588e03591af540c14b21bb2158e60",
+      "referencedQuestionIds": [
+        "2026-may-tz1-sl-p1-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-sl-p1-q01/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-sl-p1-q01/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 49494,
+      "sha256": "b232e34379464b59b65a9e9d1dde2da07b00a31125e56fdd8167d0983895a2bd",
+      "referencedQuestionIds": [
+        "2026-may-tz1-sl-p1-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-sl-p1-q02/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-sl-p1-q02/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 56414,
+      "sha256": "59acd93ddcac1456b8c3cd34df98eaf44c7b1a4cf205af5fd7bdd898485e13f0",
+      "referencedQuestionIds": [
+        "2026-may-tz1-sl-p1-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-sl-p1-q02/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-sl-p1-q02/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 48726,
+      "sha256": "c357eae1bf697d8d248496ab1b223485e7210f4b9598436dde098dddc733cd81",
+      "referencedQuestionIds": [
+        "2026-may-tz1-sl-p1-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-sl-p1-q02/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-sl-p1-q02/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 49702,
+      "sha256": "5271d748757b844c79c7d6766aac58ca4da1be96734e7742a856fa416bb38b2d",
+      "referencedQuestionIds": [
+        "2026-may-tz1-sl-p1-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-sl-p1-q03/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-sl-p1-q03/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 50304,
+      "sha256": "b6d15f599fa486a22f1e34da55e6c5accf050172487a1b30d0b5ca6d2635e7d3",
+      "referencedQuestionIds": [
+        "2026-may-tz1-sl-p1-q03"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-sl-p1-q03/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-sl-p1-q03/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 51262,
+      "sha256": "a8af22a8285b7f08261913e724340063b4a9e17fdeb18fd83fce6d475e30d998",
+      "referencedQuestionIds": [
+        "2026-may-tz1-sl-p1-q03"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz1-sl-p1-q03/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz1-sl-p1-q03/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 49884,
+      "sha256": "001748da361960c56fc1b4eeb49332a6ce3d553e9d87e32699c1ab1c38447adf",
+      "referencedQuestionIds": [
+        "2026-may-tz1-sl-p1-q03"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 40632,
+      "sha256": "01b5fee279edde79c3fad64d050d2536f14b192526e01bd007cd3fa118b41e26",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 46644,
+      "sha256": "cb52ae489c3be5057f5a374bf8b4fb8ccdd8d9ff6e2203dfdc590582915e176e",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 54702,
+      "sha256": "77f07247d891518a80944086e114ccd94cc0856ac9e9a81e4e1dbac2e78a13d8",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-04.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-04.webp",
+      "kind": "markscheme",
+      "byteSize": 43320,
+      "sha256": "1d6c0e55a2a3cbbf9fcefdcc54c8b12b443b1e153643c113283039070b84a8bc",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-05.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-05.webp",
+      "kind": "markscheme",
+      "byteSize": 69400,
+      "sha256": "33fb8529417ef1657576a5077aa1ad142c882a204a93cd74b4dfe9da3b1cac3b",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-06.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-06.webp",
+      "kind": "markscheme",
+      "byteSize": 62792,
+      "sha256": "59171242b690c1a850bde0cc9cefac298ec9fc6a284b347efe4cedafb11b86c9",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-07.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-07.webp",
+      "kind": "markscheme",
+      "byteSize": 53390,
+      "sha256": "1d219e4d585c7f304e2e85af95748ed573cef02b98dda08958e11a321f19669e",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-08.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-08.webp",
+      "kind": "markscheme",
+      "byteSize": 80680,
+      "sha256": "9b712eda57d94f19a5b7bedeb2063d66e890a0ccf33ee8ce52ddd5322f2eaf8a",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-09.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-09.webp",
+      "kind": "markscheme",
+      "byteSize": 63818,
+      "sha256": "b6a368dadb03346f56477d1ed5c3c677edbf2e402c7c51f24be227d6451698c0",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-10.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q01/markscheme-10.webp",
+      "kind": "markscheme",
+      "byteSize": 51824,
+      "sha256": "c06358ea545b098088e0c66405abfac22d5a4b5ba00500f6d29c2efddc69a8d7",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 27538,
+      "sha256": "f39268b0562c5bec56e78a5e84dd5bf680cf1a26d2d1cb7ea662c2eb3ee11020",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 57970,
+      "sha256": "9d01365253b29d7150a7bb9510365e435b46b18122c5df3bdde2e8385877f47c",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 40122,
+      "sha256": "898157aef728b98ded82bc560cb17ffcd6aeea7276e343e47332c54b33533942",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-04.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-04.webp",
+      "kind": "markscheme",
+      "byteSize": 36382,
+      "sha256": "3eb433b3447b79826cf93f1133f35abe75b38eb43727cbe34b2c6068b0892ab3",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-05.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-05.webp",
+      "kind": "markscheme",
+      "byteSize": 23728,
+      "sha256": "817ce8f5565a92192944512f2e74d521ea079f9808dfeb2c44b9acaa89c74340",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-06.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-06.webp",
+      "kind": "markscheme",
+      "byteSize": 54086,
+      "sha256": "75215a2bd5083ff790604211337ab8cf068a06ab1d3c973836eaf8bc928a4902",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-07.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-07.webp",
+      "kind": "markscheme",
+      "byteSize": 39876,
+      "sha256": "2283b3440e0cdb20f331716e7a774160c1ec29492c089507dc45ec40f5d0dca9",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-08.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-08.webp",
+      "kind": "markscheme",
+      "byteSize": 27274,
+      "sha256": "595335a7f2e17cd6ddb1c4f55a3eec0bf5169febeafcd903d5dff8f1cd7e859b",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-09.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-09.webp",
+      "kind": "markscheme",
+      "byteSize": 55036,
+      "sha256": "6130522d1b1ad7cdbe2eb1b90316c107d20ec0570d56b71e46cb4e83aede2c4d",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-10.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-10.webp",
+      "kind": "markscheme",
+      "byteSize": 78132,
+      "sha256": "367541d95676ca14c13a084f3f15d14b39795ef5814ae571d980f023e2f73462",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-11.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-11.webp",
+      "kind": "markscheme",
+      "byteSize": 88488,
+      "sha256": "5f1303f347ede55c7f7ad172dca4b1e85fe1dc3029ddb946daca78110cf0b8e6",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-12.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-hlsl-p2-q02/markscheme-12.webp",
+      "kind": "markscheme",
+      "byteSize": 50930,
+      "sha256": "a14220a50faa141a906d5c9111f7788212603842057901093d40607be44ae322",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-sl-p1-q01/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-sl-p1-q01/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 47920,
+      "sha256": "dd0cc1d0c9c48089a94474275e228a633b5fbbe0eac7426e475bea86f188bf15",
+      "referencedQuestionIds": [
+        "2026-may-tz2-sl-p1-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-sl-p1-q01/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-sl-p1-q01/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 71434,
+      "sha256": "2a0f830aaf6d7d6dc5e139bc19334994a6e90c2a5049a64560e643d857a3c2e9",
+      "referencedQuestionIds": [
+        "2026-may-tz2-sl-p1-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-sl-p1-q01/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-sl-p1-q01/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 28004,
+      "sha256": "2aaa9cb49a66abf496bd3498c93d746a221e23d0caad1f1b5954677a305f1a28",
+      "referencedQuestionIds": [
+        "2026-may-tz2-sl-p1-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-sl-p1-q02/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-sl-p1-q02/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 51190,
+      "sha256": "be3a388cd77e20ca7f60145e27bf8b351e9f8a04703a0c4c3f473a8da6eb42b1",
+      "referencedQuestionIds": [
+        "2026-may-tz2-sl-p1-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-sl-p1-q02/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-sl-p1-q02/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 8278,
+      "sha256": "3c90ca7ca76ceaad136b2946e8264caaffa3313a426ec87a3db13e9784de2bdd",
+      "referencedQuestionIds": [
+        "2026-may-tz2-sl-p1-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-sl-p1-q02/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-sl-p1-q02/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 68114,
+      "sha256": "cecea59c8f03b768feeaf6f3ddde635ead18f6ac6b663219fbb607fe8c904976",
+      "referencedQuestionIds": [
+        "2026-may-tz2-sl-p1-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-sl-p1-q02/markscheme-04.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-sl-p1-q02/markscheme-04.webp",
+      "kind": "markscheme",
+      "byteSize": 24288,
+      "sha256": "e4ae2b81663abeb00234f103bed5c8ce3c59ee2fc091e04c047d29b047106cfb",
+      "referencedQuestionIds": [
+        "2026-may-tz2-sl-p1-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-sl-p1-q03/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-sl-p1-q03/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 43416,
+      "sha256": "98c6b33bc953ee398d48bd9b5e938660c7ea45222e676abaf22824a075c319c7",
+      "referencedQuestionIds": [
+        "2026-may-tz2-sl-p1-q03"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-sl-p1-q03/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-sl-p1-q03/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 8252,
+      "sha256": "42f7875df9a07bc5f905e03aa452daf7119fad8ec747019d5d6b1a1dd5608cf7",
+      "referencedQuestionIds": [
+        "2026-may-tz2-sl-p1-q03"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-sl-p1-q03/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-sl-p1-q03/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 81706,
+      "sha256": "2dc820718c744a64faf655468067c80b31de690290fc782930bdf469b70e387e",
+      "referencedQuestionIds": [
+        "2026-may-tz2-sl-p1-q03"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz2-sl-p1-q03/markscheme-04.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz2-sl-p1-q03/markscheme-04.webp",
+      "kind": "markscheme",
+      "byteSize": 25110,
+      "sha256": "7e178f3d89066158a8fe0f03ea7f0e9ce114fd9556987faec744a53fedd806b3",
+      "referencedQuestionIds": [
+        "2026-may-tz2-sl-p1-q03"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 29032,
+      "sha256": "ecaf100d94303a6a92814821f9d3b621766add8ab15612c88385544325ed692a",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 44900,
+      "sha256": "d2c862f58db1fa573affb209e8efe6c979872decd9314a384e4715f9a22364be",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 41638,
+      "sha256": "4a8caa688ed5a9641a8f74e3bd84a9694fcc8514855840e5060c2990dd5341a2",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-04.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-04.webp",
+      "kind": "markscheme",
+      "byteSize": 53716,
+      "sha256": "736e94a969f549fdc82eec152c4276bea5c184899f32b7cdd81e554e56be18eb",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-05.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-05.webp",
+      "kind": "markscheme",
+      "byteSize": 52362,
+      "sha256": "65f9f41cb2f0fe90fe7746539fbfcfc52a5b14b15c96d28f74ac4f56d04b1e3c",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-06.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-06.webp",
+      "kind": "markscheme",
+      "byteSize": 40098,
+      "sha256": "746dacb1ba686a0dc23ed08a862901eecbd8cf501a8773c11f212e75282af3be",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-07.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-07.webp",
+      "kind": "markscheme",
+      "byteSize": 50690,
+      "sha256": "54a69d4316ab059ac0fcb0a31fcef81a561a459df02e82ef610a8cbc759c49a6",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-08.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-08.webp",
+      "kind": "markscheme",
+      "byteSize": 55852,
+      "sha256": "b0cfd159eea717ed437891a2875595e41a9dbc26c820421ccd4de06d33f15a6f",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-09.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-09.webp",
+      "kind": "markscheme",
+      "byteSize": 87046,
+      "sha256": "4546388cca3d349ed548fa127f064dd285a27fb7f51ef511dc28a3d5a5e5d0b4",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-10.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-10.webp",
+      "kind": "markscheme",
+      "byteSize": 69798,
+      "sha256": "46cd2a6e7975b53e618eb530879d8dccf15111b6ff247c6a2b7adef5d5177e80",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-11.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q01/markscheme-11.webp",
+      "kind": "markscheme",
+      "byteSize": 51206,
+      "sha256": "dc8d713938c93cee41b6ab922b3cff1534b204bd7cbd95f98ce4d2aa06ff4edc",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 39746,
+      "sha256": "ecdb96c5897f21f7742a0f1e63ec69818f2b5a86706872ecd3ab66216d7d602d",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 56894,
+      "sha256": "9d174f99f812abc034e8d40719c1a3a242597f13bf66a3912c02f7bb4f0047a0",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 54478,
+      "sha256": "1b9208e3d3444ef3f4b3df4150551e85857744f1b29f054925d4e28547acd70d",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-04.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-04.webp",
+      "kind": "markscheme",
+      "byteSize": 30250,
+      "sha256": "9024ebbf34bbe6e710dda594532f58f89cb62c30b065b72ef83f62ef44028786",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-05.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-05.webp",
+      "kind": "markscheme",
+      "byteSize": 48330,
+      "sha256": "11c666c76aed4f89357fc2cd7be2013565206d6ded1728a01f9f9a27b7622bab",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-06.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-06.webp",
+      "kind": "markscheme",
+      "byteSize": 55222,
+      "sha256": "8efb9cd0844b6c18668152dd4206b334f1de1f2c259da002581797836c4fd34d",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-07.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-07.webp",
+      "kind": "markscheme",
+      "byteSize": 41496,
+      "sha256": "589d87f08f5850b913c6b21c38da8c9fd626ef7d9b2eacc75193861b8dc0a8f7",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-08.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-08.webp",
+      "kind": "markscheme",
+      "byteSize": 57674,
+      "sha256": "615b7fbb9c9576e2369625d3099ce5cfef6f1dded52ac33b9341d6e84d39f55c",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-09.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-09.webp",
+      "kind": "markscheme",
+      "byteSize": 54340,
+      "sha256": "02f391557613a12b912ef227f36163b4007fe29ef710866f67d29a7a8e2a49a1",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-10.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-10.webp",
+      "kind": "markscheme",
+      "byteSize": 87626,
+      "sha256": "0ed4c554b7337816c1a1f1d14252fee6ce29afd92e6f28894ba53a9fb21f0131",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-11.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-11.webp",
+      "kind": "markscheme",
+      "byteSize": 49266,
+      "sha256": "25c3fb8eb7435637f1fcf0d8c31d31e04d94f3568d5b025aa36ed8aa6c660905",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-12.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-hlsl-p2-q02/markscheme-12.webp",
+      "kind": "markscheme",
+      "byteSize": 50750,
+      "sha256": "bcd6f20fe4d3477cf1c27179d2e4c157a304915ba3e442ef7f022e25ab801a80",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-sl-p1-q01/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-sl-p1-q01/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 54356,
+      "sha256": "9181a6af354e1d353e6b157c40666d2c18fedfe3f500168e7db2f7f853097d70",
+      "referencedQuestionIds": [
+        "2026-may-tz3-sl-p1-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-sl-p1-q01/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-sl-p1-q01/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 54006,
+      "sha256": "7d6b1251462b0ff033eeac4aad969e7bf37cdae9c1f8d798008ac6d90ba78758",
+      "referencedQuestionIds": [
+        "2026-may-tz3-sl-p1-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-sl-p1-q01/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-sl-p1-q01/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 42812,
+      "sha256": "b4163777f98c14cdaff76c44b3f54f9fcd2e61440630897a6c22be93f6218a72",
+      "referencedQuestionIds": [
+        "2026-may-tz3-sl-p1-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-sl-p1-q02/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-sl-p1-q02/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 50398,
+      "sha256": "fba1b902893e3704f604c496313b79972ef949f8346bc0732723ca35d6e1727b",
+      "referencedQuestionIds": [
+        "2026-may-tz3-sl-p1-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-sl-p1-q02/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-sl-p1-q02/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 38878,
+      "sha256": "292eedea8c509bd6a723c9042a04f2790d7d2c62052ececa19fea016866f8db6",
+      "referencedQuestionIds": [
+        "2026-may-tz3-sl-p1-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-sl-p1-q02/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-sl-p1-q02/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 43248,
+      "sha256": "9296e3aabeeffa6d762d858e2dbac95bd49d92fb3851e3ed327488c17e60d478",
+      "referencedQuestionIds": [
+        "2026-may-tz3-sl-p1-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-sl-p1-q03/markscheme-01.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-sl-p1-q03/markscheme-01.webp",
+      "kind": "markscheme",
+      "byteSize": 51086,
+      "sha256": "46ea5954ce0ce162033806b0b4035a0d6048978333945310a3eac1371e7939c9",
+      "referencedQuestionIds": [
+        "2026-may-tz3-sl-p1-q03"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-sl-p1-q03/markscheme-02.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-sl-p1-q03/markscheme-02.webp",
+      "kind": "markscheme",
+      "byteSize": 54064,
+      "sha256": "abd46edcf852aa48456f39101fe5f3f40544796f1e7abb21e058be3506b215ab",
+      "referencedQuestionIds": [
+        "2026-may-tz3-sl-p1-q03"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/markschemes/2026-may-tz3-sl-p1-q03/markscheme-03.webp",
+      "sourcePath": "site/assets/ib-economics/markschemes/2026-may-tz3-sl-p1-q03/markscheme-03.webp",
+      "kind": "markscheme",
+      "byteSize": 42850,
+      "sha256": "d9466a355a1fa829b728982f4889600cacc7f567541e3583efd3052f2a3a600f",
+      "referencedQuestionIds": [
+        "2026-may-tz3-sl-p1-q03"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz1-hlsl-p2-q01/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz1-hlsl-p2-q01/question-01.webp",
+      "kind": "question",
+      "byteSize": 81446,
+      "sha256": "823e9e017753cb77eac63dfd0d04d127f455d1ba785a86a46cc1c2e7592ff7ca",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz1-hlsl-p2-q01/question-02.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz1-hlsl-p2-q01/question-02.webp",
+      "kind": "question",
+      "byteSize": 50078,
+      "sha256": "a042c589ee2494c8ababb16b64e8899911c327cf0c379a817d54356a78ece4b5",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz1-hlsl-p2-q01/question-03.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz1-hlsl-p2-q01/question-03.webp",
+      "kind": "question",
+      "byteSize": 41594,
+      "sha256": "acf46ea7f479d0fdd7001ad1a3c6810f4b4ef8827b53fb4e3e76d97438c6e758",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz1-hlsl-p2-q01/question-04.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz1-hlsl-p2-q01/question-04.webp",
+      "kind": "question",
+      "byteSize": 66814,
+      "sha256": "28274292c1db5adaf756d0178fd4f0d6a090a56f92190b47b4faa03fc3b9c518",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz1-hlsl-p2-q02/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz1-hlsl-p2-q02/question-01.webp",
+      "kind": "question",
+      "byteSize": 74672,
+      "sha256": "0babeb3a4ad26d4e49fd802856eb990afa7b1d61c54c3fd8e2d37b9f9afc70c7",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz1-hlsl-p2-q02/question-02.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz1-hlsl-p2-q02/question-02.webp",
+      "kind": "question",
+      "byteSize": 45384,
+      "sha256": "84c046ac31b1f74e5e18372541b79408183a64aa90a33f7c159c6abd47d55668",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz1-hlsl-p2-q02/question-03.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz1-hlsl-p2-q02/question-03.webp",
+      "kind": "question",
+      "byteSize": 37282,
+      "sha256": "932ee6231ef50f7b21779d9ab2e9dbeded5846093b6503a140a6ccc129d255f6",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz1-hlsl-p2-q02/question-04.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz1-hlsl-p2-q02/question-04.webp",
+      "kind": "question",
+      "byteSize": 50818,
+      "sha256": "14bfc0aaf8027836ef22ed41ba523843619130f405f4f0fa7af5d0b35e402bf3",
+      "referencedQuestionIds": [
+        "2026-may-tz1-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz1-sl-p1-q01/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz1-sl-p1-q01/question-01.webp",
+      "kind": "question",
+      "byteSize": 9848,
+      "sha256": "397514ba172cddb61d42a642c4c79cb39b927477a2b5addb28a6d40bdf777843",
+      "referencedQuestionIds": [
+        "2026-may-tz1-sl-p1-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz1-sl-p1-q02/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz1-sl-p1-q02/question-01.webp",
+      "kind": "question",
+      "byteSize": 9880,
+      "sha256": "e5eb7a8b3c7f173729802312065436be97f8d469ce3f98f2a83583064b3b478b",
+      "referencedQuestionIds": [
+        "2026-may-tz1-sl-p1-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz1-sl-p1-q03/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz1-sl-p1-q03/question-01.webp",
+      "kind": "question",
+      "byteSize": 11392,
+      "sha256": "114e2ecc413cd21779b67bb47439d8169243a7dd71472463ce310b8650fb3906",
+      "referencedQuestionIds": [
+        "2026-may-tz1-sl-p1-q03"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz2-hlsl-p2-q01/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz2-hlsl-p2-q01/question-01.webp",
+      "kind": "question",
+      "byteSize": 80030,
+      "sha256": "a3f05fed13abb53f3238148db180631a1a57c08a0b3d663079548adc5648a232",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz2-hlsl-p2-q01/question-02.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz2-hlsl-p2-q01/question-02.webp",
+      "kind": "question",
+      "byteSize": 53992,
+      "sha256": "cb66c893185f770d79ee0a9fd14afa611e0e0af8ce5db3f9b9b053453486cca4",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz2-hlsl-p2-q01/question-03.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz2-hlsl-p2-q01/question-03.webp",
+      "kind": "question",
+      "byteSize": 40926,
+      "sha256": "7c77e90f08041f6784da537fe9ffe4fe7b2704511ad85b4cff0b7e3d07edb394",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz2-hlsl-p2-q01/question-04.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz2-hlsl-p2-q01/question-04.webp",
+      "kind": "question",
+      "byteSize": 61498,
+      "sha256": "3b8dce33d1c3164b3b5d421a4d4ec6fd2e69f57fc2ce7c80e8403d01679e7476",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz2-hlsl-p2-q02/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz2-hlsl-p2-q02/question-01.webp",
+      "kind": "question",
+      "byteSize": 73778,
+      "sha256": "0a34fb5ff442396cac982bde8235436777d96c03e743618fcaee6ecd47668ee4",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz2-hlsl-p2-q02/question-02.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz2-hlsl-p2-q02/question-02.webp",
+      "kind": "question",
+      "byteSize": 46170,
+      "sha256": "9cf37daf4d7b5e4d6946f6028a21b9f82587ad967c2c915b00222bc7c1527a0a",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz2-hlsl-p2-q02/question-03.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz2-hlsl-p2-q02/question-03.webp",
+      "kind": "question",
+      "byteSize": 40616,
+      "sha256": "5d4f7d62d395b9633b35fd452a3c2bb270a69b7fe0e715eb08412e1bc47ecfd3",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz2-hlsl-p2-q02/question-04.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz2-hlsl-p2-q02/question-04.webp",
+      "kind": "question",
+      "byteSize": 49020,
+      "sha256": "892ab3c5437397bd72820331e158c02d9bf39009e6eaf27d7b73390587186b5e",
+      "referencedQuestionIds": [
+        "2026-may-tz2-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz2-sl-p1-q01/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz2-sl-p1-q01/question-01.webp",
+      "kind": "question",
+      "byteSize": 10908,
+      "sha256": "408beed5b1c647a841ccea5c4a90fabeb10edb338591e6a608dd750d2f86de50",
+      "referencedQuestionIds": [
+        "2026-may-tz2-sl-p1-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz2-sl-p1-q02/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz2-sl-p1-q02/question-01.webp",
+      "kind": "question",
+      "byteSize": 8762,
+      "sha256": "11f440007755e5bf0e5765f61d0f2f114d15668d26d544a3ed3f4274bb33c71f",
+      "referencedQuestionIds": [
+        "2026-may-tz2-sl-p1-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz2-sl-p1-q03/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz2-sl-p1-q03/question-01.webp",
+      "kind": "question",
+      "byteSize": 10090,
+      "sha256": "f510e1476d1bd49afbc7ae2e6c17a0810a0287115733110fd1e57ae81fb9de12",
+      "referencedQuestionIds": [
+        "2026-may-tz2-sl-p1-q03"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz3-hlsl-p2-q01/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz3-hlsl-p2-q01/question-01.webp",
+      "kind": "question",
+      "byteSize": 70140,
+      "sha256": "1f580031f87681892fa0402ea42654179f078c9f41f70ae706e7ae67f7b0d6a9",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz3-hlsl-p2-q01/question-02.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz3-hlsl-p2-q01/question-02.webp",
+      "kind": "question",
+      "byteSize": 62230,
+      "sha256": "4c2584aaed0ef969706119d44b23edfce818f24e4811536f51fee71e53f0d29a",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz3-hlsl-p2-q01/question-03.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz3-hlsl-p2-q01/question-03.webp",
+      "kind": "question",
+      "byteSize": 47816,
+      "sha256": "a8fb725b842fb07968ae69640bb4ad8369e28f48ce9bed3f9f61c61640b63350",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz3-hlsl-p2-q01/question-04.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz3-hlsl-p2-q01/question-04.webp",
+      "kind": "question",
+      "byteSize": 67780,
+      "sha256": "451eb874a538ed9740edbfabef7da7b4ccd71dcc70aa9eb671058b1b5391d4c0",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz3-hlsl-p2-q02/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz3-hlsl-p2-q02/question-01.webp",
+      "kind": "question",
+      "byteSize": 73586,
+      "sha256": "fd9d825b2228e0497e5edba432c74e32d82295a0c927db6ad989a1867a5fc50a",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz3-hlsl-p2-q02/question-02.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz3-hlsl-p2-q02/question-02.webp",
+      "kind": "question",
+      "byteSize": 45228,
+      "sha256": "1414f4bdc4686e44a8bf58011a3c4b65a707623ab8670d0fd09714ed0873770e",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz3-hlsl-p2-q02/question-03.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz3-hlsl-p2-q02/question-03.webp",
+      "kind": "question",
+      "byteSize": 37798,
+      "sha256": "235bca668e11e450441d419565fad4e9614a03fdff4ef14966dd7ef6d8fc4690",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz3-hlsl-p2-q02/question-04.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz3-hlsl-p2-q02/question-04.webp",
+      "kind": "question",
+      "byteSize": 50196,
+      "sha256": "b132da731363f6249f0c95a8b52e0ab81335da037b5f09c65104f55f8ce0f145",
+      "referencedQuestionIds": [
+        "2026-may-tz3-hlsl-p2-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz3-sl-p1-q01/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz3-sl-p1-q01/question-01.webp",
+      "kind": "question",
+      "byteSize": 9940,
+      "sha256": "fbed6513aa1f11cf77bc5d4893592b245e8661689fa6059cbc56b9ae60479cf6",
+      "referencedQuestionIds": [
+        "2026-may-tz3-sl-p1-q01"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz3-sl-p1-q02/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz3-sl-p1-q02/question-01.webp",
+      "kind": "question",
+      "byteSize": 7770,
+      "sha256": "6920da345a9fb23ac47368879763030ff89a90e9be86b8970feb87856f8f56b5",
+      "referencedQuestionIds": [
+        "2026-may-tz3-sl-p1-q02"
+      ]
+    },
+    {
+      "objectKey": "ib-economics-sl/questions/2026-may-tz3-sl-p1-q03/question-01.webp",
+      "sourcePath": "site/assets/ib-economics/questions/2026-may-tz3-sl-p1-q03/question-01.webp",
+      "kind": "question",
+      "byteSize": 12526,
+      "sha256": "d206d7369995221b49526e3e45d6b288fc37f9d833927643bc4ec1d21a47a2f5",
+      "referencedQuestionIds": [
+        "2026-may-tz3-sl-p1-q03"
+      ]
+    }
+  ]
+}

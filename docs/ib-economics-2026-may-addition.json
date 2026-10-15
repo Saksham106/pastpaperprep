@@ -1,0 +1,214 @@
+{
+  "schemaVersion": "ib-economics-2026-may-addition-v1",
+  "title": "IB Economics HL/SL May 2026 official papers (gated extension)",
+  "status": "candidate_not_released",
+  "gate": "PASTPAPERPREP_IB_ECONOMICS_2026_MAY_ASSETS_VERIFIED (default off; needs the production Economics flags too)",
+  "source": {
+    "repository": "ib-economics-topic-practice",
+    "branch": "feat/may-2026-official",
+    "commit": "d97b4aa58322780b2937b769f335da9ddd33f246",
+    "host": "papers.xtremepape.rs",
+    "papers": 10,
+    "finalClassificationsSha256": "2a59ca8d8f4295ec0deeb0513cc7d5bcaa5931ec9f0a54d0a5c83bdb630cec11",
+    "segmentationManifestSha256": "35934b76975d21c95591731673044d7dd8ea9d413b6ecc437c67d0a801ae2715",
+    "releaseTaxonomySha256": "75527e47eb45a54bcc4b3aa8676e2143aa719c70aac23f63c980cd053e8d102c"
+  },
+  "counts": {
+    "questions": {
+      "ib-economics-hl": 17,
+      "ib-economics-sl": 15
+    },
+    "papers": {
+      "ib-economics-hl": 7,
+      "ib-economics-sl": 6
+    },
+    "uniqueQuestions": 26,
+    "uniquePapers": 10,
+    "sharedHlSlQuestions": 6
+  },
+  "baseline": {
+    "ib-economics-hl": {
+      "runtimeFileSha256": "ecd646c63b45f8d384b5221416431c07990c239630364c2b389ba68d21addd5e",
+      "contentSha256": "0a386d1cf83cb659577a64fabbab9582537a389379539808ad12aa999fc11072",
+      "questionCount": 111,
+      "paperCount": 42
+    },
+    "ib-economics-sl": {
+      "runtimeFileSha256": "b68078e6c7cc97bb34aef17a63ab1b0d5d99833523b71892fbe622afc5ca1fb9",
+      "contentSha256": "4c182c306e5c9772cdff331a8d951ff0b1da38a7a97ff28975a0829c8e496570",
+      "questionCount": 89,
+      "paperCount": 32
+    }
+  },
+  "watermarkScan": {
+    "files": 20,
+    "clean": 16,
+    "bibliographicCreditsOnly": 4,
+    "blocked": 0,
+    "scannerSha256": "1b0750e7d69557d3222d9a193c36d3e0a54a581b9e5886a99f2c9731c2802608"
+  },
+  "cropQa": {
+    "questionCropsViewed": 58,
+    "markschemeCropsViewed": 139,
+    "verdict": "pass",
+    "defects": 0
+  },
+  "tagging": {
+    "drex": {
+      "requested_models": [
+        "drex-v1.1"
+      ],
+      "requests": 104,
+      "served_models": [
+        "drex-v1.5"
+      ],
+      "usage": {
+        "input": 354275,
+        "output": 70374
+      },
+      "role": "triage only: flags were re-read against the question and mark scheme before any label changed"
+    },
+    "blindPass": {
+      "agreement": {
+        "primaryAgree": 20,
+        "of": 26,
+        "meanDetailSetJaccard": 0.762
+      }
+    },
+    "inputsSha256": {
+      "adjudication-decisions.json": "fbd95b057cb1e6caed920753cb8e602a54bb88e398704cba8ef82b44089f4ffe",
+      "blind.json": "cb7857140bf585afb9d4ee9dae06f472144b6ada59028661ec197c70a5133336",
+      "drex-triage.jsonl": "74466da41f3a6eee0f7499902bf3dfbe1f17a2ca63397a08278a7aff739f02b9",
+      "packet.json": "6c0e4731bbd8edecfdbe6a86ae7f4abbba85a54b5b1c292ed71cddff5cd94258",
+      "primary.json": "1791ccfed07aa55f671c340d865e3c9c18c0cc24444146fe814c0e7453972de6",
+      "vocabulary.json": "9f8fdc3bda0a8f2a8d86b3e863f5d4d3429521b8789a1055ccbe5647ea17f278"
+    }
+  },
+  "banks": {
+    "ib-economics-hl": {
+      "level": "HL",
+      "questionCount": 17,
+      "paperCount": 7,
+      "assetCount": 159,
+      "assetByteSize": 7656320,
+      "questionIds": [
+        "2026-may-none-hl-p3-q01",
+        "2026-may-none-hl-p3-q02",
+        "2026-may-tz1-hl-p1-q01",
+        "2026-may-tz1-hl-p1-q02",
+        "2026-may-tz1-hl-p1-q03",
+        "2026-may-tz1-hlsl-p2-q01",
+        "2026-may-tz1-hlsl-p2-q02",
+        "2026-may-tz2-hl-p1-q01",
+        "2026-may-tz2-hl-p1-q02",
+        "2026-may-tz2-hl-p1-q03",
+        "2026-may-tz2-hlsl-p2-q01",
+        "2026-may-tz2-hlsl-p2-q02",
+        "2026-may-tz3-hl-p1-q01",
+        "2026-may-tz3-hl-p1-q02",
+        "2026-may-tz3-hl-p1-q03",
+        "2026-may-tz3-hlsl-p2-q01",
+        "2026-may-tz3-hlsl-p2-q02"
+      ],
+      "paperIds": [
+        "2026-may-none-hl-p3",
+        "2026-may-tz1-hl-p1",
+        "2026-may-tz1-hlsl-p2",
+        "2026-may-tz2-hl-p1",
+        "2026-may-tz2-hlsl-p2",
+        "2026-may-tz3-hl-p1",
+        "2026-may-tz3-hlsl-p2"
+      ],
+      "marks": {
+        "2026-may-none-hl-p3-q01": 30,
+        "2026-may-none-hl-p3-q02": 30,
+        "2026-may-tz1-hl-p1-q01": 25,
+        "2026-may-tz1-hl-p1-q02": 25,
+        "2026-may-tz1-hl-p1-q03": 25,
+        "2026-may-tz1-hlsl-p2-q01": 40,
+        "2026-may-tz1-hlsl-p2-q02": 40,
+        "2026-may-tz2-hl-p1-q01": 25,
+        "2026-may-tz2-hl-p1-q02": 25,
+        "2026-may-tz2-hl-p1-q03": 25,
+        "2026-may-tz2-hlsl-p2-q01": 40,
+        "2026-may-tz2-hlsl-p2-q02": 40,
+        "2026-may-tz3-hl-p1-q01": 25,
+        "2026-may-tz3-hl-p1-q02": 25,
+        "2026-may-tz3-hl-p1-q03": 25,
+        "2026-may-tz3-hlsl-p2-q01": 40,
+        "2026-may-tz3-hlsl-p2-q02": 40
+      },
+      "sites": {
+        "siteDataSha256": "47d6807cc908b587b3622f0554475a600c55bc37138649a898bc2132b1f82770",
+        "runtimeContentSha256": "dcf2471d6974758cb55b469690612c4d3bf81c14de147ea4bb7dd70b00b6fe3e",
+        "assetManifestSha256": "bcec9e07dc16370b0aaad8f8393a3c49f0a6814e8c6bb2c664db558626dc83ef"
+      }
+    },
+    "ib-economics-sl": {
+      "level": "SL",
+      "questionCount": 15,
+      "paperCount": 6,
+      "assetCount": 128,
+      "assetByteSize": 6313520,
+      "questionIds": [
+        "2026-may-tz1-hlsl-p2-q01",
+        "2026-may-tz1-hlsl-p2-q02",
+        "2026-may-tz1-sl-p1-q01",
+        "2026-may-tz1-sl-p1-q02",
+        "2026-may-tz1-sl-p1-q03",
+        "2026-may-tz2-hlsl-p2-q01",
+        "2026-may-tz2-hlsl-p2-q02",
+        "2026-may-tz2-sl-p1-q01",
+        "2026-may-tz2-sl-p1-q02",
+        "2026-may-tz2-sl-p1-q03",
+        "2026-may-tz3-hlsl-p2-q01",
+        "2026-may-tz3-hlsl-p2-q02",
+        "2026-may-tz3-sl-p1-q01",
+        "2026-may-tz3-sl-p1-q02",
+        "2026-may-tz3-sl-p1-q03"
+      ],
+      "paperIds": [
+        "2026-may-tz1-hlsl-p2",
+        "2026-may-tz1-sl-p1",
+        "2026-may-tz2-hlsl-p2",
+        "2026-may-tz2-sl-p1",
+        "2026-may-tz3-hlsl-p2",
+        "2026-may-tz3-sl-p1"
+      ],
+      "marks": {
+        "2026-may-tz1-hlsl-p2-q01": 40,
+        "2026-may-tz1-hlsl-p2-q02": 40,
+        "2026-may-tz1-sl-p1-q01": 25,
+        "2026-may-tz1-sl-p1-q02": 25,
+        "2026-may-tz1-sl-p1-q03": 25,
+        "2026-may-tz2-hlsl-p2-q01": 40,
+        "2026-may-tz2-hlsl-p2-q02": 40,
+        "2026-may-tz2-sl-p1-q01": 25,
+        "2026-may-tz2-sl-p1-q02": 25,
+        "2026-may-tz2-sl-p1-q03": 25,
+        "2026-may-tz3-hlsl-p2-q01": 40,
+        "2026-may-tz3-hlsl-p2-q02": 40,
+        "2026-may-tz3-sl-p1-q01": 25,
+        "2026-may-tz3-sl-p1-q02": 25,
+        "2026-may-tz3-sl-p1-q03": 25
+      },
+      "sites": {
+        "siteDataSha256": "716b4b3aece1beba7f93992383c926ebe0d2538c232e202b469b8be775fd5217",
+        "runtimeContentSha256": "7647f43d4ecec51a1975baae1a5504c285c0eb4374476c707233cac582ae1f71",
+        "assetManifestSha256": "ea4ead400a2047ebe43e084612a5297bb7985d19d7d917d4a1b359bb72fb4f00"
+      }
+    }
+  },
+  "upload": {
+    "executed": false,
+    "bucket": "pastpaperprep-assets",
+    "objects": 287,
+    "bytes": 13969840,
+    "plan": "docs/ib-economics-2026-may-r2-upload-plan.json"
+  },
+  "ownerDecisions": [
+    "Approve the create-only R2 upload of the planned crops, then set PASTPAPERPREP_IB_ECONOMICS_2026_MAY_ASSETS_VERIFIED=true after read-back.",
+    "Extend the user-attested publication-rights decision to the May 2026 papers (the 2026-09-09 attestation covers the sealed 2021-2025 corpus only).",
+    "Approve the PDF upload to pastpaperprep-free for the Full past papers entries."
+  ]
+}

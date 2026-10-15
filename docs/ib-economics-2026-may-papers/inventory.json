@@ -1,0 +1,915 @@
+{
+  "banks": [
+    {
+      "slug": "ib-economics-hl",
+      "runtimeFile": "/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep/.worktrees/ib-economics-2026/src/data/production/ib-economics-hl.json",
+      "pairs": [
+        {
+          "id": "economics-2021-may-none-hl-p2-english",
+          "runtimePaperId": "2021-may-none-hl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-may-none-hl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-may-none-hl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2021-may-none-hl-p2-q01",
+            "2021-may-none-hl-p2-q02",
+            "2021-may-none-hl-p2-q03",
+            "2021-may-none-hl-p2-q04"
+          ]
+        },
+        {
+          "id": "economics-2021-may-none-hl-p3-english",
+          "runtimePaperId": "2021-may-none-hl-p3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-may-none-hl-p3-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-may-none-hl-p3-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2021-may-none-hl-p3-q01",
+            "2021-may-none-hl-p3-q02",
+            "2021-may-none-hl-p3-q03"
+          ]
+        },
+        {
+          "id": "economics-2021-may-tz1-hl-p1-english",
+          "runtimePaperId": "2021-may-tz1-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-may-tz1-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-may-tz1-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2021-may-tz1-hl-p1-q01",
+            "2021-may-tz1-hl-p1-q02",
+            "2021-may-tz1-hl-p1-q03",
+            "2021-may-tz1-hl-p1-q04"
+          ]
+        },
+        {
+          "id": "economics-2021-may-tz2-hl-p1-english",
+          "runtimePaperId": "2021-may-tz2-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-may-tz2-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-may-tz2-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2021-may-tz2-hl-p1-q01",
+            "2021-may-tz2-hl-p1-q02",
+            "2021-may-tz2-hl-p1-q03",
+            "2021-may-tz2-hl-p1-q04"
+          ]
+        },
+        {
+          "id": "economics-2021-november-none-hl-p1-english",
+          "runtimePaperId": "2021-november-none-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-november-none-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-november-none-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2021-november-none-hl-p1-q01",
+            "2021-november-none-hl-p1-q02",
+            "2021-november-none-hl-p1-q03",
+            "2021-november-none-hl-p1-q04"
+          ]
+        },
+        {
+          "id": "economics-2021-november-none-hl-p2-english",
+          "runtimePaperId": "2021-november-none-hl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-november-none-hl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-november-none-hl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2021-november-none-hl-p2-q01",
+            "2021-november-none-hl-p2-q02",
+            "2021-november-none-hl-p2-q03",
+            "2021-november-none-hl-p2-q04"
+          ]
+        },
+        {
+          "id": "economics-2021-november-none-hl-p3-english",
+          "runtimePaperId": "2021-november-none-hl-p3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-november-none-hl-p3-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-november-none-hl-p3-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2021-november-none-hl-p3-q01",
+            "2021-november-none-hl-p3-q02",
+            "2021-november-none-hl-p3-q03"
+          ]
+        },
+        {
+          "id": "economics-2022-may-none-hl-p1-english",
+          "runtimePaperId": "2022-may-none-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-may-none-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-may-none-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2022-may-none-hl-p1-q01",
+            "2022-may-none-hl-p1-q02",
+            "2022-may-none-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2022-may-none-hl-p2-english",
+          "runtimePaperId": "2022-may-none-hl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-may-none-hl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-may-none-hl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2022-may-none-hl-p2-q01",
+            "2022-may-none-hl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2022-may-none-hl-p3-english",
+          "runtimePaperId": "2022-may-none-hl-p3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-may-none-hl-p3-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-may-none-hl-p3-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2022-may-none-hl-p3-q01",
+            "2022-may-none-hl-p3-q02"
+          ]
+        },
+        {
+          "id": "economics-2022-november-none-hl-p1-english",
+          "runtimePaperId": "2022-november-none-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-november-none-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-november-none-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2022-november-none-hl-p1-q01",
+            "2022-november-none-hl-p1-q02",
+            "2022-november-none-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2022-november-none-hl-p2-english",
+          "runtimePaperId": "2022-november-none-hl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-november-none-hl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-november-none-hl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2022-november-none-hl-p2-q01",
+            "2022-november-none-hl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2022-november-none-hl-p3-english",
+          "runtimePaperId": "2022-november-none-hl-p3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-november-none-hl-p3-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-november-none-hl-p3-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2022-november-none-hl-p3-q01",
+            "2022-november-none-hl-p3-q02"
+          ]
+        },
+        {
+          "id": "economics-2023-may-none-hl-p2-english",
+          "runtimePaperId": "2023-may-none-hl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-may-none-hl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-may-none-hl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2023-may-none-hl-p2-q01",
+            "2023-may-none-hl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2023-may-none-hl-p3-english",
+          "runtimePaperId": "2023-may-none-hl-p3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-may-none-hl-p3-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-may-none-hl-p3-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2023-may-none-hl-p3-q01",
+            "2023-may-none-hl-p3-q02"
+          ]
+        },
+        {
+          "id": "economics-2023-may-tz1-hl-p1-english",
+          "runtimePaperId": "2023-may-tz1-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-may-tz1-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-may-tz1-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2023-may-tz1-hl-p1-q01",
+            "2023-may-tz1-hl-p1-q02",
+            "2023-may-tz1-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2023-may-tz2-hl-p1-english",
+          "runtimePaperId": "2023-may-tz2-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-may-tz2-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-may-tz2-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2023-may-tz2-hl-p1-q01",
+            "2023-may-tz2-hl-p1-q02",
+            "2023-may-tz2-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2023-november-none-hl-p2-english",
+          "runtimePaperId": "2023-november-none-hl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-november-none-hl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-november-none-hl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2023-november-none-hl-p2-q01",
+            "2023-november-none-hl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2023-november-none-hl-p3-english",
+          "runtimePaperId": "2023-november-none-hl-p3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-november-none-hl-p3-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-november-none-hl-p3-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2023-november-none-hl-p3-q01",
+            "2023-november-none-hl-p3-q02"
+          ]
+        },
+        {
+          "id": "economics-2023-november-tz1-hl-p1-english",
+          "runtimePaperId": "2023-november-tz1-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-november-tz1-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-november-tz1-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2023-november-tz1-hl-p1-q01",
+            "2023-november-tz1-hl-p1-q02",
+            "2023-november-tz1-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2023-november-tz2-hl-p1-english",
+          "runtimePaperId": "2023-november-tz2-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-november-tz2-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-november-tz2-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2023-november-tz2-hl-p1-q01",
+            "2023-november-tz2-hl-p1-q02",
+            "2023-november-tz2-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2024-may-none-hl-p3-english",
+          "runtimePaperId": "2024-may-none-hl-p3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-none-hl-p3-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-none-hl-p3-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-may-none-hl-p3-q01",
+            "2024-may-none-hl-p3-q02"
+          ]
+        },
+        {
+          "id": "economics-2024-may-tz1-hl-p1-english",
+          "runtimePaperId": "2024-may-tz1-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz1-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz1-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-may-tz1-hl-p1-q01",
+            "2024-may-tz1-hl-p1-q02",
+            "2024-may-tz1-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2024-may-tz1-hlsl-p2-english",
+          "runtimePaperId": "2024-may-tz1-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz1-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz1-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-may-tz1-hlsl-p2-q01",
+            "2024-may-tz1-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2024-may-tz2-hl-p1-english",
+          "runtimePaperId": "2024-may-tz2-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz2-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz2-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-may-tz2-hl-p1-q01",
+            "2024-may-tz2-hl-p1-q02",
+            "2024-may-tz2-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2024-may-tz2-hlsl-p2-english",
+          "runtimePaperId": "2024-may-tz2-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz2-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz2-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-may-tz2-hlsl-p2-q01",
+            "2024-may-tz2-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2024-november-none-hl-p3-english",
+          "runtimePaperId": "2024-november-none-hl-p3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-november-none-hl-p3-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-november-none-hl-p3-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-november-none-hl-p3-q01",
+            "2024-november-none-hl-p3-q02"
+          ]
+        },
+        {
+          "id": "economics-2024-november-none-hlsl-p2-english",
+          "runtimePaperId": "2024-november-none-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-november-none-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-november-none-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-november-none-hlsl-p2-q01",
+            "2024-november-none-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2024-november-tz1-hl-p1-english",
+          "runtimePaperId": "2024-november-tz1-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-november-tz1-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-november-tz1-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-november-tz1-hl-p1-q01",
+            "2024-november-tz1-hl-p1-q02",
+            "2024-november-tz1-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2024-november-tz2-hl-p1-english",
+          "runtimePaperId": "2024-november-tz2-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-november-tz2-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-november-tz2-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-november-tz2-hl-p1-q01",
+            "2024-november-tz2-hl-p1-q02",
+            "2024-november-tz2-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2025-may-none-hl-p3-english",
+          "runtimePaperId": "2025-may-none-hl-p3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-none-hl-p3-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-none-hl-p3-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-may-none-hl-p3-q01",
+            "2025-may-none-hl-p3-q02"
+          ]
+        },
+        {
+          "id": "economics-2025-may-tz1-hl-p1-english",
+          "runtimePaperId": "2025-may-tz1-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz1-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz1-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-may-tz1-hl-p1-q01",
+            "2025-may-tz1-hl-p1-q02",
+            "2025-may-tz1-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2025-may-tz1-hlsl-p2-english",
+          "runtimePaperId": "2025-may-tz1-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz1-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz1-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-may-tz1-hlsl-p2-q01",
+            "2025-may-tz1-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2025-may-tz2-hl-p1-english",
+          "runtimePaperId": "2025-may-tz2-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz2-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz2-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-may-tz2-hl-p1-q01",
+            "2025-may-tz2-hl-p1-q02",
+            "2025-may-tz2-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2025-may-tz2-hlsl-p2-english",
+          "runtimePaperId": "2025-may-tz2-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz2-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz2-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-may-tz2-hlsl-p2-q01",
+            "2025-may-tz2-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2025-may-tz3-hl-p1-english",
+          "runtimePaperId": "2025-may-tz3-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz3-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz3-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-may-tz3-hl-p1-q01",
+            "2025-may-tz3-hl-p1-q02",
+            "2025-may-tz3-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2025-may-tz3-hlsl-p2-english",
+          "runtimePaperId": "2025-may-tz3-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz3-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz3-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-may-tz3-hlsl-p2-q01",
+            "2025-may-tz3-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2025-november-none-hl-p3-english",
+          "runtimePaperId": "2025-november-none-hl-p3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-none-hl-p3-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-none-hl-p3-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-november-none-hl-p3-q01",
+            "2025-november-none-hl-p3-q02"
+          ]
+        },
+        {
+          "id": "economics-2025-november-tz1-hl-p1-english",
+          "runtimePaperId": "2025-november-tz1-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz1-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz1-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-november-tz1-hl-p1-q01",
+            "2025-november-tz1-hl-p1-q02",
+            "2025-november-tz1-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2025-november-tz1-hlsl-p2-english",
+          "runtimePaperId": "2025-november-tz1-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz1-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz1-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-november-tz1-hlsl-p2-q01",
+            "2025-november-tz1-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2025-november-tz3-hl-p1-english",
+          "runtimePaperId": "2025-november-tz3-hl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz3-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz3-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-november-tz3-hl-p1-q01",
+            "2025-november-tz3-hl-p1-q02",
+            "2025-november-tz3-hl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2025-november-tz3-hlsl-p2-english",
+          "runtimePaperId": "2025-november-tz3-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz3-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz3-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-november-tz3-hlsl-p2-q01",
+            "2025-november-tz3-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2026-may-none-hl-p3-english",
+          "runtimePaperId": null,
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-none-hl-p3-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-none-hl-p3-markscheme.pdf",
+          "runtimeQuestionIds": []
+        },
+        {
+          "id": "economics-2026-may-tz1-hl-p1-english",
+          "runtimePaperId": null,
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz1-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz1-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": []
+        },
+        {
+          "id": "economics-2026-may-tz1-hlsl-p2-english",
+          "runtimePaperId": null,
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz1-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz1-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": []
+        },
+        {
+          "id": "economics-2026-may-tz2-hl-p1-english",
+          "runtimePaperId": null,
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz2-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz2-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": []
+        },
+        {
+          "id": "economics-2026-may-tz2-hlsl-p2-english",
+          "runtimePaperId": null,
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz2-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz2-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": []
+        },
+        {
+          "id": "economics-2026-may-tz3-hl-p1-english",
+          "runtimePaperId": null,
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz3-hl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz3-hl-p1-markscheme.pdf",
+          "runtimeQuestionIds": []
+        },
+        {
+          "id": "economics-2026-may-tz3-hlsl-p2-english",
+          "runtimePaperId": null,
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz3-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz3-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": []
+        }
+      ],
+      "unpaired": [],
+      "runtimeWithoutPair": [],
+      "notes": [
+        "Pinned app Git HEAD 50dbec8b3af0e67e435d61c2f9102051c7a45449; local checkout runtime, not deployed live verification.",
+        "Original pairs resolved via exact source manifests and acquisition reports; source IDs preserve timezone, component and language. Manifests: /Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/source-manifest.json",
+        "question-loader selects production via economics feature/catalog gates; otherwise src/data/local-preview. This inventory uses the sealed production branch. Shared HLSL P2 is a membership in each bank but one physical QP/MS pair.",
+        "2026-10-15 ib-economics-may-2026: May 2026 official papers added from the source repo worktree .worktrees/may-2026 (acquisition-manifest.json; identity-review.json and source-scan.json all clean)."
+      ]
+    },
+    {
+      "slug": "ib-economics-sl",
+      "runtimeFile": "/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep/.worktrees/ib-economics-2026/src/data/production/ib-economics-sl.json",
+      "pairs": [
+        {
+          "id": "economics-2021-may-none-sl-p2-english",
+          "runtimePaperId": "2021-may-none-sl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-may-none-sl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-may-none-sl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2021-may-none-sl-p2-q01",
+            "2021-may-none-sl-p2-q02",
+            "2021-may-none-sl-p2-q03",
+            "2021-may-none-sl-p2-q04"
+          ]
+        },
+        {
+          "id": "economics-2021-may-tz1-sl-p1-english",
+          "runtimePaperId": "2021-may-tz1-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-may-tz1-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-may-tz1-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2021-may-tz1-sl-p1-q01",
+            "2021-may-tz1-sl-p1-q02",
+            "2021-may-tz1-sl-p1-q03",
+            "2021-may-tz1-sl-p1-q04"
+          ]
+        },
+        {
+          "id": "economics-2021-may-tz2-sl-p1-english",
+          "runtimePaperId": "2021-may-tz2-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-may-tz2-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-may-tz2-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2021-may-tz2-sl-p1-q01",
+            "2021-may-tz2-sl-p1-q02",
+            "2021-may-tz2-sl-p1-q03",
+            "2021-may-tz2-sl-p1-q04"
+          ]
+        },
+        {
+          "id": "economics-2021-november-none-sl-p1-english",
+          "runtimePaperId": "2021-november-none-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-november-none-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-november-none-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2021-november-none-sl-p1-q01",
+            "2021-november-none-sl-p1-q02",
+            "2021-november-none-sl-p1-q03",
+            "2021-november-none-sl-p1-q04"
+          ]
+        },
+        {
+          "id": "economics-2021-november-none-sl-p2-english",
+          "runtimePaperId": "2021-november-none-sl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-november-none-sl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2021-november-none-sl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2021-november-none-sl-p2-q01",
+            "2021-november-none-sl-p2-q02",
+            "2021-november-none-sl-p2-q03",
+            "2021-november-none-sl-p2-q04"
+          ]
+        },
+        {
+          "id": "economics-2022-may-none-sl-p1-english",
+          "runtimePaperId": "2022-may-none-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-may-none-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-may-none-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2022-may-none-sl-p1-q01",
+            "2022-may-none-sl-p1-q02",
+            "2022-may-none-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2022-may-none-sl-p2-english",
+          "runtimePaperId": "2022-may-none-sl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-may-none-sl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-may-none-sl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2022-may-none-sl-p2-q01",
+            "2022-may-none-sl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2022-november-none-sl-p1-english",
+          "runtimePaperId": "2022-november-none-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-november-none-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-november-none-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2022-november-none-sl-p1-q01",
+            "2022-november-none-sl-p1-q02",
+            "2022-november-none-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2022-november-none-sl-p2-english",
+          "runtimePaperId": "2022-november-none-sl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-november-none-sl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2022-november-none-sl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2022-november-none-sl-p2-q01",
+            "2022-november-none-sl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2023-may-none-sl-p2-english",
+          "runtimePaperId": "2023-may-none-sl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-may-none-sl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-may-none-sl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2023-may-none-sl-p2-q01",
+            "2023-may-none-sl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2023-may-tz1-sl-p1-english",
+          "runtimePaperId": "2023-may-tz1-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-may-tz1-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-may-tz1-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2023-may-tz1-sl-p1-q01",
+            "2023-may-tz1-sl-p1-q02",
+            "2023-may-tz1-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2023-may-tz2-sl-p1-english",
+          "runtimePaperId": "2023-may-tz2-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-may-tz2-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-may-tz2-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2023-may-tz2-sl-p1-q01",
+            "2023-may-tz2-sl-p1-q02",
+            "2023-may-tz2-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2023-november-none-sl-p2-english",
+          "runtimePaperId": "2023-november-none-sl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-november-none-sl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-november-none-sl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2023-november-none-sl-p2-q01",
+            "2023-november-none-sl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2023-november-tz1-sl-p1-english",
+          "runtimePaperId": "2023-november-tz1-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-november-tz1-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-november-tz1-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2023-november-tz1-sl-p1-q01",
+            "2023-november-tz1-sl-p1-q02",
+            "2023-november-tz1-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2023-november-tz2-sl-p1-english",
+          "runtimePaperId": "2023-november-tz2-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-november-tz2-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2023-november-tz2-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2023-november-tz2-sl-p1-q01",
+            "2023-november-tz2-sl-p1-q02",
+            "2023-november-tz2-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2024-may-tz1-hlsl-p2-english",
+          "runtimePaperId": "2024-may-tz1-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz1-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz1-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-may-tz1-hlsl-p2-q01",
+            "2024-may-tz1-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2024-may-tz1-sl-p1-english",
+          "runtimePaperId": "2024-may-tz1-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz1-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz1-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-may-tz1-sl-p1-q01",
+            "2024-may-tz1-sl-p1-q02",
+            "2024-may-tz1-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2024-may-tz2-hlsl-p2-english",
+          "runtimePaperId": "2024-may-tz2-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz2-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz2-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-may-tz2-hlsl-p2-q01",
+            "2024-may-tz2-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2024-may-tz2-sl-p1-english",
+          "runtimePaperId": "2024-may-tz2-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz2-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-may-tz2-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-may-tz2-sl-p1-q01",
+            "2024-may-tz2-sl-p1-q02",
+            "2024-may-tz2-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2024-november-none-hlsl-p2-english",
+          "runtimePaperId": "2024-november-none-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-november-none-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-november-none-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-november-none-hlsl-p2-q01",
+            "2024-november-none-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2024-november-tz1-sl-p1-english",
+          "runtimePaperId": "2024-november-tz1-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-november-tz1-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-november-tz1-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-november-tz1-sl-p1-q01",
+            "2024-november-tz1-sl-p1-q02",
+            "2024-november-tz1-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2024-november-tz2-sl-p1-english",
+          "runtimePaperId": "2024-november-tz2-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-november-tz2-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2024-november-tz2-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2024-november-tz2-sl-p1-q01",
+            "2024-november-tz2-sl-p1-q02",
+            "2024-november-tz2-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2025-may-tz1-hlsl-p2-english",
+          "runtimePaperId": "2025-may-tz1-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz1-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz1-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-may-tz1-hlsl-p2-q01",
+            "2025-may-tz1-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2025-may-tz1-sl-p1-english",
+          "runtimePaperId": "2025-may-tz1-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz1-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz1-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-may-tz1-sl-p1-q01",
+            "2025-may-tz1-sl-p1-q02",
+            "2025-may-tz1-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2025-may-tz2-hlsl-p2-english",
+          "runtimePaperId": "2025-may-tz2-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz2-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz2-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-may-tz2-hlsl-p2-q01",
+            "2025-may-tz2-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2025-may-tz2-sl-p1-english",
+          "runtimePaperId": "2025-may-tz2-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz2-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz2-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-may-tz2-sl-p1-q01",
+            "2025-may-tz2-sl-p1-q02",
+            "2025-may-tz2-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2025-may-tz3-hlsl-p2-english",
+          "runtimePaperId": "2025-may-tz3-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz3-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz3-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-may-tz3-hlsl-p2-q01",
+            "2025-may-tz3-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2025-may-tz3-sl-p1-english",
+          "runtimePaperId": "2025-may-tz3-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz3-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-may-tz3-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-may-tz3-sl-p1-q01",
+            "2025-may-tz3-sl-p1-q02",
+            "2025-may-tz3-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2025-november-tz1-hlsl-p2-english",
+          "runtimePaperId": "2025-november-tz1-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz1-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz1-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-november-tz1-hlsl-p2-q01",
+            "2025-november-tz1-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2025-november-tz1-sl-p1-english",
+          "runtimePaperId": "2025-november-tz1-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz1-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz1-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-november-tz1-sl-p1-q01",
+            "2025-november-tz1-sl-p1-q02",
+            "2025-november-tz1-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2025-november-tz3-hlsl-p2-english",
+          "runtimePaperId": "2025-november-tz3-hlsl-p2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz3-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz3-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-november-tz3-hlsl-p2-q01",
+            "2025-november-tz3-hlsl-p2-q02"
+          ]
+        },
+        {
+          "id": "economics-2025-november-tz3-sl-p1-english",
+          "runtimePaperId": "2025-november-tz3-sl-p1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz3-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/raw/2025-november-tz3-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": [
+            "2025-november-tz3-sl-p1-q01",
+            "2025-november-tz3-sl-p1-q02",
+            "2025-november-tz3-sl-p1-q03"
+          ]
+        },
+        {
+          "id": "economics-2026-may-tz1-hlsl-p2-english",
+          "runtimePaperId": null,
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz1-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz1-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": []
+        },
+        {
+          "id": "economics-2026-may-tz1-sl-p1-english",
+          "runtimePaperId": null,
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz1-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz1-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": []
+        },
+        {
+          "id": "economics-2026-may-tz2-hlsl-p2-english",
+          "runtimePaperId": null,
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz2-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz2-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": []
+        },
+        {
+          "id": "economics-2026-may-tz2-sl-p1-english",
+          "runtimePaperId": null,
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz2-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz2-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": []
+        },
+        {
+          "id": "economics-2026-may-tz3-hlsl-p2-english",
+          "runtimePaperId": null,
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz3-hlsl-p2-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz3-hlsl-p2-markscheme.pdf",
+          "runtimeQuestionIds": []
+        },
+        {
+          "id": "economics-2026-may-tz3-sl-p1-english",
+          "runtimePaperId": null,
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz3-sl-p1-question.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/.worktrees/may-2026/data/raw/2026-may-tz3-sl-p1-markscheme.pdf",
+          "runtimeQuestionIds": []
+        }
+      ],
+      "unpaired": [],
+      "runtimeWithoutPair": [],
+      "notes": [
+        "Pinned app Git HEAD 50dbec8b3af0e67e435d61c2f9102051c7a45449; local checkout runtime, not deployed live verification.",
+        "Original pairs resolved via exact source manifests and acquisition reports; source IDs preserve timezone, component and language. Manifests: /Users/sakshamgoel/Documents/ProjectsInternships/ib-economics-topic-practice/data/source-manifest.json",
+        "question-loader selects production via economics feature/catalog gates; otherwise src/data/local-preview. This inventory uses the sealed production branch. Shared HLSL P2 is a membership in each bank but one physical QP/MS pair.",
+        "2026-10-15 ib-economics-may-2026: May 2026 official papers added from the source repo worktree .worktrees/may-2026 (acquisition-manifest.json; identity-review.json and source-scan.json all clean)."
+      ]
+    }
+  ]
+}

@@ -68,7 +68,22 @@ export function isCatalogBankEnabled(bank: CatalogBank, environment: Record<stri
 export function isCatalogLocalPreviewEnabled(bank: CatalogBank, environment: Record<string, string | undefined> = process.env) {
   return bank.delivery === "local-preview" && environment.NODE_ENV === "development" && isCatalogBankEnabled(bank, environment);
 }
-export function getCatalogBanksForDisplay(environment: Record<string, string | undefined> = process.env) { return BANK_CATALOG.filter((entry) => isCatalogBankEnabled(entry, environment)); }
+/** Shown counts once the gated May 2026 Economics rows are released (see isEconomicsMay2026Enabled). */
+const ECONOMICS_MAY_2026_DISPLAY = {
+  "ib-economics-hl": { questionCount: 111 + 17, paperCount: 42 + 7, years: "2021-2026" },
+  "ib-economics-sl": { questionCount: 89 + 15, paperCount: 32 + 6, years: "2021-2026" },
+} as const;
+function isEconomicsMay2026Released(environment: Record<string, string | undefined>) {
+  return environment.NODE_ENV === "production"
+    && environment.PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION === "true"
+    && environment.PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED === "true"
+    && environment.PASTPAPERPREP_IB_ECONOMICS_2026_MAY_ASSETS_VERIFIED === "true";
+}
+export function getCatalogBanksForDisplay(environment: Record<string, string | undefined> = process.env): readonly CatalogBank[] {
+  const released = isEconomicsMay2026Released(environment);
+  return BANK_CATALOG.filter((entry) => isCatalogBankEnabled(entry, environment)).map((entry): CatalogBank =>
+    released && (entry.slug === "ib-economics-hl" || entry.slug === "ib-economics-sl") ? { ...entry, ...ECONOMICS_MAY_2026_DISPLAY[entry.slug] } : entry);
+}
 export function getCatalogBillingBanks(environment: Record<string, string | undefined> = process.env) { return getCatalogBanksForDisplay(environment).filter((entry) => isCatalogBankBillable(entry, environment)); }
 
 const SOURCE_BASE_URLS: Partial<Record<BankSlug, string>> = {
