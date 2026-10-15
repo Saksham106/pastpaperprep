@@ -1,0 +1,2932 @@
+{
+  "schemaVersion": "ib-ai-may-2026-r2-upload-plan-v1",
+  "status": "planned-not-uploaded",
+  "bucket": "pastpaperprep-assets",
+  "contentType": "image/webp",
+  "cacheControl": "private, max-age=31536000, immutable",
+  "workspaceRoot": "ProjectsInternships (sibling source checkouts ib-maths-ai-{hl,sl}-topic-practice-may-2026/site)",
+  "precondition": "Every key must be confirmed absent in R2 before its put (2026 ids never existed in the AI banks). Existing 2021-2025 objects are not touched: their referenced files are byte-identical in the new checkouts.",
+  "summary": {
+    "ib-ai-hl": {
+      "objects": 254,
+      "bytes": 16724992,
+      "questions": 130,
+      "markschemes": 124
+    },
+    "ib-ai-sl": {
+      "objects": 161,
+      "bytes": 10836846,
+      "questions": 87,
+      "markschemes": 74
+    }
+  },
+  "totalObjects": 415,
+  "totalBytes": 27561838,
+  "objects": [
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q1-page-7.webp",
+      "sha256": "a88bcd5a55c7d4ca2307a2c6dbe821e5a5fea46c7c0f668fde93481088dfff69",
+      "bytes": 35918,
+      "md5": "33dd6e59889599ed5d52a7a0e09e44af",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q10-page-14.webp",
+      "sha256": "9ec074563c74dd48aca2d3143b6b1cb6189a6fd0e50dcdb35ecabded80bd15c8",
+      "bytes": 52486,
+      "md5": "581a0134ca205ee216dc654faaf0afb8",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q10-page-14.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q11-page-15.webp",
+      "sha256": "3080cddbd508d19310c55ca80a2555ad6409b70bb52d19267217d24a28bd51fc",
+      "bytes": 58966,
+      "md5": "6aaa01de2557a0f8cf5ad875b2bc58ed",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q11-page-15.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q12-page-16.webp",
+      "sha256": "44eb7315c8065f3c19fff3cca27980e18923bcb0e23067b4f5739de3c17cb9dd",
+      "bytes": 54834,
+      "md5": "354e50e26876f4017c0d6627da1967ac",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q12-page-16.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q13-page-17.webp",
+      "sha256": "146f3d0ebe438ec8719056ed5210c13b6da357aa3e9c609de427e48ce1fdd64d",
+      "bytes": 38020,
+      "md5": "641c8772a6e53037220d23cdef6b6a6e",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q13-page-17.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q14-page-17.webp",
+      "sha256": "0bb391b5e5f3416f902106a8a8e296f11a63d4b2e66fcd07759851cd5c1d103a",
+      "bytes": 26374,
+      "md5": "fc23ede8b042272af8e1c601768e566e",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q14-page-17.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q14-page-18.webp",
+      "sha256": "5adb62f76a4c3cb0cc9de0ad165a4d2855abb00a736a36feafcaebedd9cea51f",
+      "bytes": 25594,
+      "md5": "b41331678c559e07e5f2d3a39c974e2d",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q14-page-18.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q15-page-18.webp",
+      "sha256": "d5694e70ce11195cd137d409f71d9b04eab36e4d99370a7199ac7c4ecc6c5b9d",
+      "bytes": 31570,
+      "md5": "8c23eb342e731d0c0c723e25aba9fee7",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q15-page-18.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q16-page-19.webp",
+      "sha256": "63f86b0ef0a3ffe890c282576b0a5199b701c4fe1f3637578c8a2898aae8b19e",
+      "bytes": 90308,
+      "md5": "be6c8efff832bcccb8fe6f21f9c3f0d5",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q16-page-19.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q16-page-20.webp",
+      "sha256": "d93b84a1bdaee59b640a066446afcef98a2df3ba1e2b9ccb94f1510f24b0cab4",
+      "bytes": 41416,
+      "md5": "332726b5698a91f3a6656f73b336ed29",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q16-page-20.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q2-page-7.webp",
+      "sha256": "976bd6598eaf6d37c44140c7965bfb2ced8d6e52217111eeab52b73d1349c763",
+      "bytes": 45500,
+      "md5": "9209477adc919ec50a9d408955fe57c4",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q2-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q3-page-8.webp",
+      "sha256": "eb94f716e2e0ab4312084a5512f57b2d4e44e977d587de50caa4b658874f43e0",
+      "bytes": 65714,
+      "md5": "9a8cf2f7e0e032cca0b5ab82fa7d7642",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q3-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q4-page-9.webp",
+      "sha256": "44f40f10a353ae51ad8c86e23d224193c992d0384a4f08b12110640d5bdf69ef",
+      "bytes": 10858,
+      "md5": "159f48f120aa7cab6ab6c8e25cec123f",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q4-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q5-page-9.webp",
+      "sha256": "47d53ba62da3b66a29a471b0e19fe4e93d13f6e02cc0c1f1d000c3140b4c3c8c",
+      "bytes": 47898,
+      "md5": "284111b6cd117f6b07a6b41f62745fc1",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q5-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q6-page-10.webp",
+      "sha256": "cd2bc04673b4321fad0fa857cf5c2e41f8fddac9441db439fc800e8bd6dc2668",
+      "bytes": 61796,
+      "md5": "0661c900ef371a15cf63f790f3ce0573",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q6-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q6-page-11.webp",
+      "sha256": "a5adbe60f64ff725d7bf99bf5466eabcb33b88f79b2dc16cc38d1b3ae05bd2b3",
+      "bytes": 25322,
+      "md5": "13d345490fe199f8ef1f5886537edd27",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q6-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q7-page-11.webp",
+      "sha256": "e9a23d35e72eecd751d1a6e0431115900b0ffddbea81094ef274195d6056d5f8",
+      "bytes": 23932,
+      "md5": "81fdd3f65f7d825c0dd97aafebcdcef6",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q7-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q8-page-12.webp",
+      "sha256": "7fcf4ff53698847b6695ba3144b0ad9e6cd257a748580d97b4107a14d7842cf6",
+      "bytes": 61738,
+      "md5": "48460cfc58ec8915e22ad15849c6d651",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q8-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p1-q9-page-13.webp",
+      "sha256": "c9247671899c7fc211615df682396e727bfb31a7874070decd1eb9a5809b4a94",
+      "bytes": 38768,
+      "md5": "cbb4c1bde9e009802d44a2d6e717fe52",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q9-page-13.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p2-q1-page-7.webp",
+      "sha256": "857671e09ad6297a2cafe6c37353a8a6674244d5a6f15d48baa1a346138f457e",
+      "bytes": 71006,
+      "md5": "48fabc42ddeb4a61d3424f93deb606df",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p2-q1-page-8.webp",
+      "sha256": "81372008db8889ebaf5f341eda606eeeb0877f5099a44807248126d64f6176e6",
+      "bytes": 25260,
+      "md5": "8b324b6999ea1e8cd9d7b36065048b70",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q1-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p2-q2-page-10.webp",
+      "sha256": "a957b116d11ef3ff0b0d85c0095888aea37380eadbd5ab6f1ff2d5c8570e9a43",
+      "bytes": 44308,
+      "md5": "b915862a557317df3727c9a3e3108593",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q2-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p2-q2-page-9.webp",
+      "sha256": "34133928fbb793ae6a4566f7e549cdc5631639898e7e63afb91f3ef3a436c64e",
+      "bytes": 56378,
+      "md5": "6a27db1c89693cdab0e909730130a45e",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q2-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p2-q3-page-11.webp",
+      "sha256": "32277ada6c1d532146869186f1cc616ce75ab879dd3ef1ea1067b33ad2936852",
+      "bytes": 68306,
+      "md5": "583e27eff97e5d68c20179147639636e",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q3-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p2-q3-page-12.webp",
+      "sha256": "ed088f277aa05d14ad777c6988b18a1c7ec7ee7f5d345bc85c0d76ff71631dd8",
+      "bytes": 37414,
+      "md5": "c5ca2ea557507ae26c2033eb20069afd",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q3-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p2-q4-page-13.webp",
+      "sha256": "6498034560981aacdd6e1bc56f5f75cf98e933913651c243b7564a84440d2c4c",
+      "bytes": 70456,
+      "md5": "c011fd80191a3424c8a7c4a334ad1f8d",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q4-page-13.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p2-q4-page-14.webp",
+      "sha256": "fd636fb2b01ac21c91921550d57c1409d8a99837db0ebd2775351bdec233e3ed",
+      "bytes": 47746,
+      "md5": "64de779ed5ffe485df4613355c1794b8",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q4-page-14.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p2-q5-page-15.webp",
+      "sha256": "bf85aa4250101bd7496c2c7e0cc733a0c008e323996ffb4d432ebe09a976130d",
+      "bytes": 38826,
+      "md5": "834ed12414bbb32029045d9ce837fe64",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q5-page-15.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p2-q5-page-16.webp",
+      "sha256": "aa369d02bf98578632e93ace46567e830ee5356ee693e4e1c5f090fa77a06815",
+      "bytes": 43406,
+      "md5": "677b0074c44251b8e7fee844d0684caa",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q5-page-16.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p2-q6-page-17.webp",
+      "sha256": "85afa3793f4ab3a0c846ea361494ccac0f783bc9d421f92e043ec38106c5cc01",
+      "bytes": 70886,
+      "md5": "695d1e697d29cb3cd653048f9d8a8448",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q6-page-17.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p2-q6-page-18.webp",
+      "sha256": "3b1822c8b52a0d18abdcd718ce609bc2c9e3dfb81344fc11575d677cbe25f165",
+      "bytes": 22716,
+      "md5": "ee6e7e4f0a417e8dfd2d560c3ab2824e",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q6-page-18.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p2-q7-page-19.webp",
+      "sha256": "3cfea5d83a0dd3dd667e60b72483f46fe06eb01283fb518e935493345daf9bda",
+      "bytes": 58736,
+      "md5": "2e399d38933d92de0b2f1d617b14c976",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q7-page-19.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p2-q7-page-20.webp",
+      "sha256": "bf2a891590dddd857eba5911e91d3662fdacfce64869c49f0769b66fd51e03fd",
+      "bytes": 30582,
+      "md5": "8422cec5afff8a2d516e3ad4c34ac277",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q7-page-20.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p3-q1-page-7.webp",
+      "sha256": "77627964f65dd6a7ee8c06bc8d5f0ac0836ae592193a09de2a18dabf7c441cff",
+      "bytes": 98496,
+      "md5": "48dbd0951a69eef27cda8ff5c0d83fb9",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p3-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p3-q1-page-8.webp",
+      "sha256": "7307dc8d796692fda2e0c9acc768d945d9352deab9a33eda20dae65821ca58a9",
+      "bytes": 110500,
+      "md5": "8352ae01addb2d4684193bb63d33c054",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p3-q1-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p3-q1-page-9.webp",
+      "sha256": "a5d33c238c42003bfe85c78ffab228c6728de49b06c217e3c3802ca1c4135fc4",
+      "bytes": 50122,
+      "md5": "871328cd9e3cff94763f5df92c0cee46",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p3-q1-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p3-q2-page-10.webp",
+      "sha256": "5e804d7b9c28bbc89ebc18993722cf9d94ef1233035b0e968255c602e73bdbfa",
+      "bytes": 80352,
+      "md5": "767ad47c8cc2657cd597a698c0bbeebd",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p3-q2-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p3-q2-page-11.webp",
+      "sha256": "399571d1adbfc10e15f6bae64c4fc7a21be3c7ca49ccce8db8aab9d2cb54597f",
+      "bytes": 60894,
+      "md5": "c9ed9bb4dfdacfc3d0a4eea04b06ec9d",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p3-q2-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz1-p3-q2-page-12.webp",
+      "sha256": "5821106d6afc2d12bf7629ca97e99328089880c536687ce7ef96e7b980d0cae4",
+      "bytes": 46734,
+      "md5": "fe38344f1fbf7ac27a8abfb2ef5cc0fb",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p3-q2-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q1-page-7.webp",
+      "sha256": "54b360da513209c0bd456fcca374321336801da6c7196a55eb49f6f902b15cdd",
+      "bytes": 71312,
+      "md5": "b998509c1b726fd81deb8b2e803b9c73",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q10-page-18.webp",
+      "sha256": "7270ed362a1fbb9301100497919f74c9ef09b0592a425c658281d34558ceb870",
+      "bytes": 45614,
+      "md5": "82db6cb766e585165c7413541c29d9a5",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q10-page-18.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q11-page-19.webp",
+      "sha256": "a7bc959896953fe7cc43a6244f17c306865d944f211b8373fd11d30fd3584718",
+      "bytes": 71082,
+      "md5": "cfeef0e2103b5168924f62e4da70ec7c",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q11-page-19.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q12-page-20.webp",
+      "sha256": "a08e5708a1617d0a42b2e47b45d0ccd1b5d6d91a1bb10b9b3da80476c2a847e2",
+      "bytes": 46080,
+      "md5": "3b00f8d95b7ff8cad3ed89e2b083dfa0",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q12-page-20.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q13-page-21.webp",
+      "sha256": "629a96d52940a849d26bbb4fd863941afe29f26cb32fa30c1e9ad2e5d9364982",
+      "bytes": 68284,
+      "md5": "d8037e3760a6debfe9c4b07fa1d07787",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q13-page-21.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q14-page-22.webp",
+      "sha256": "1f959c2a2c01743867e02ceb60de4624760591e9c1f7cacdeb36198da1bf12ca",
+      "bytes": 57544,
+      "md5": "800051d25c14612fee918f76670e6d4a",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q14-page-22.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q14-page-23.webp",
+      "sha256": "e2748237d6406f2c90cc5c99311443b4772ca48590337f71f5ef147b8a89b7db",
+      "bytes": 20942,
+      "md5": "ff3b13c6bcb7f76760d05fba2ca7e282",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q14-page-23.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q15-page-24.webp",
+      "sha256": "323f56b8fbebe915a2be18a8de46ffed25aede9f43c97b0e36b1459ae18619b7",
+      "bytes": 43678,
+      "md5": "d95d7988a2dc8d61ab9c093c92b7b307",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q15-page-24.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q2-page-8.webp",
+      "sha256": "5332cca59cda74df1a646658c4adc6f3fde441d0c223721a874dfbb993f78b30",
+      "bytes": 33180,
+      "md5": "9b4f16ae6ced0de83fe10fb08d1c9fcd",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q2-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q3-page-9.webp",
+      "sha256": "ac1928d07973304bc5bd1faa12654851110bebff79683026cc4478d76e072486",
+      "bytes": 90290,
+      "md5": "0f67adf1c8bbb7e69d1e22d8d2bcb57f",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q3-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q4-page-10.webp",
+      "sha256": "eb9b2327e19c734a9f8d9736eff671d83c8f77b278e4ea8f7cd4542914e31c08",
+      "bytes": 108902,
+      "md5": "5fc8a9b3f881b06963e344499f5184f5",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q4-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q5-page-11.webp",
+      "sha256": "6217c74518c2d037f7b3b26a80384d3387c0975bb0dfc4c14644faff78710a27",
+      "bytes": 76128,
+      "md5": "82a752859ca0672dd115fc6f71e64120",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q5-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q5-page-12.webp",
+      "sha256": "fa4a72bd2dee7b2e191ad5e606eb106675c73174c9f2b2879b5c96019e76ad73",
+      "bytes": 33770,
+      "md5": "12a65bb69b36201f835c62401db7aed2",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q5-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q6-page-13.webp",
+      "sha256": "1bde262003db1758f1d8584fae939fe2da084a75364875a08b26e489a951d413",
+      "bytes": 41648,
+      "md5": "3efde0465564c8f764d32ae8280eb686",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q6-page-13.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q7-page-14.webp",
+      "sha256": "97d349782dc25d1d871242c7a9c290095b359bc7757bfbb838aa109a8d5269fd",
+      "bytes": 59510,
+      "md5": "979d91ec9462ff9be7b13cc919df3a78",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q7-page-14.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q7-page-15.webp",
+      "sha256": "1b2a1c16a1d2cb4642bda784471a6aa774ce97a07c8c0c5c217166c72594c89d",
+      "bytes": 40504,
+      "md5": "279e36ea9ed4b738a3a0fe28389c1bc4",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q7-page-15.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q8-page-16.webp",
+      "sha256": "988dcaf7c9c9f6d28023d2cb867a5780b7c229fe6b34b34cb21e3fd616edf057",
+      "bytes": 34618,
+      "md5": "fc8295633a69d6a9a6b4d74ac85827e8",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q8-page-16.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p1-q9-page-17.webp",
+      "sha256": "e5242734b0ac59ea63a61a52c0e3bbf999bffbaee2d0f84f819c9dec9180ef57",
+      "bytes": 70448,
+      "md5": "3ea11e78f233ed02a828906b0391c024",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q9-page-17.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p2-q1-page-7.webp",
+      "sha256": "8e5850199fde1a71a3fcbfeb1ad22542ba573a2e5007629d51a4435e3be3d3aa",
+      "bytes": 80886,
+      "md5": "1b0840c03032caa018b9d4eb9f2991ef",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p2-q1-page-8.webp",
+      "sha256": "2787741aa9575dcc2a54a4688060e19d2b41beb3ef1a9abf3f1e3757e6c990b0",
+      "bytes": 134972,
+      "md5": "80e4b81c2b9524c4daf45f700bd0e99f",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q1-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p2-q1-page-9.webp",
+      "sha256": "cc76bc5f11aa7fc0cf46646b72989fc1af0b606ffbcfd1313f5674c9a4e1855a",
+      "bytes": 44806,
+      "md5": "24696f5e0ea5784d8a0c51dc88de5f41",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q1-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p2-q2-page-10.webp",
+      "sha256": "23e45c2a7855041b3895ddd0b9a45ab2623472295bcff8fa18ce3f1e6caf26a0",
+      "bytes": 77676,
+      "md5": "0bb966814885286fd9109d086cdde834",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q2-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p2-q2-page-11.webp",
+      "sha256": "876a9e5f7c6d59d78f49182f5243bc46f28478a900b4f99d66febe46b4829178",
+      "bytes": 103414,
+      "md5": "db3ebfe6ebecc3d88ca72c26f8f68516",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q2-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p2-q2-page-12.webp",
+      "sha256": "32299018fd3f2533989047a67c64e299d0dce75bc1c6a8f64f16922f29a6e69e",
+      "bytes": 56786,
+      "md5": "2b012051c102dfab2cd75d19cc41345b",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q2-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p2-q3-page-13.webp",
+      "sha256": "99449f0370bf2b8edbde53918cf36dbb4a5eb1dca740dccd146ae6c033dad020",
+      "bytes": 63054,
+      "md5": "073204d1388ec723b16de403c4694fe3",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q3-page-13.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p2-q3-page-14.webp",
+      "sha256": "c7eed826ccfdadfc56edb161b6dc82a1de77198817d053da706b33b81917d56d",
+      "bytes": 58152,
+      "md5": "70cabb2ae905e4a94d72271f42b2683c",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q3-page-14.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p2-q4-page-15.webp",
+      "sha256": "63b5963e1c0e0d495da78533a2c56f60006b8eabc305388bcdc80d39c778cfef",
+      "bytes": 59602,
+      "md5": "484b71c0682375cca2771508439da79c",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q4-page-15.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p2-q5-page-16.webp",
+      "sha256": "e25bfbb83b406ccde727419781af80e33fbae4d59d13c9a8522bf0b275a9d9a7",
+      "bytes": 110750,
+      "md5": "2178ba40c321dfa27b7eb003d8349525",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q5-page-16.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p2-q6-page-17.webp",
+      "sha256": "ef337f776743a9c81ea70f82b57b205cbafd3866a505e5f2d489f296681ad28b",
+      "bytes": 57512,
+      "md5": "e17171d240ce6d5c516b1ae3e7e43508",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q6-page-17.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p2-q6-page-18.webp",
+      "sha256": "44de4824b4a0488e979b3d61111ad89783c22b0496ee2d323435b0d3a29423cb",
+      "bytes": 62482,
+      "md5": "af968b88d5fd9fdd306d32694d2604f4",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q6-page-18.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p2-q7-page-19.webp",
+      "sha256": "83e15ac8b02ad4c7aa8676720f5759f3cdef591c2aa86f3b811e61d26285d4f2",
+      "bytes": 57886,
+      "md5": "41322971dfd9ff47bc72dfbe61617a20",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q7-page-19.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p2-q7-page-20.webp",
+      "sha256": "e72b571c4abfa5d9f7a450596b785df72befa47d04f40f4423a6df636476d8aa",
+      "bytes": 68796,
+      "md5": "61eeddded4a9786e6e1a4a869356f92b",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q7-page-20.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p3-q1-page-10.webp",
+      "sha256": "9a66e1042928f2835f0e0079e19d89b8e7e2c0e3d4b45cca1532c9da2e6d78e2",
+      "bytes": 56748,
+      "md5": "34d548bb70496567e391509295767463",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p3-q1-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p3-q1-page-7.webp",
+      "sha256": "55b763ef2f8bdc445dd465d0bd2ed0e8b49ef04bc52fc2b49d9f6f34ba6290ad",
+      "bytes": 26816,
+      "md5": "da2a54f5e8132c65a7543626a07263a7",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p3-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p3-q1-page-8.webp",
+      "sha256": "d253e1c5166137535edffb4d2c6c5d901b316b6b91adf3f121334b0d8446b8f8",
+      "bytes": 73484,
+      "md5": "22754f271c5e75b4f76393888ff1ef1c",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p3-q1-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p3-q1-page-9.webp",
+      "sha256": "4683f96e0912d66d14cf0e17bb4cd83b0f4f6930c7a58eb44b4a1654b69fb661",
+      "bytes": 81048,
+      "md5": "8234d584ab639fdfda3b3222aa6678fc",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p3-q1-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p3-q2-page-11.webp",
+      "sha256": "7f03a5108dc5d9be1f1fbec30cc22b238e5cf7b5e287de76b5e7a2dbffaee579",
+      "bytes": 72438,
+      "md5": "671e1ce67cb7572c04cbbb8b5d43c953",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p3-q2-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p3-q2-page-12.webp",
+      "sha256": "e114cf997c18776b471192d8e0f1823a64fb4877aee6082080e424324b672bc6",
+      "bytes": 46104,
+      "md5": "d34b43cb04236aedbdbd24cafc2421c8",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p3-q2-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p3-q2-page-13.webp",
+      "sha256": "1f11e72620f5cdd47d48b1ae8d017baddd72187f4eeb1bcd7b91d05055a6d257",
+      "bytes": 68202,
+      "md5": "e7cd0cf72793c778a53193ebec47c11a",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p3-q2-page-13.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz2-p3-q2-page-14.webp",
+      "sha256": "e4594e2ddbf0f93bbab5f76756faec2b0873264d87c5e11057c41ea6f3d69d0b",
+      "bytes": 75244,
+      "md5": "7e16be474c48a78c4cf63507ec5c18b1",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p3-q2-page-14.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q1-page-7.webp",
+      "sha256": "a8859234e3d2d5e719f6580e9b9e0605c5909c0d57639885c9ccac8764adc695",
+      "bytes": 46772,
+      "md5": "6567db2fe72103f31cfe5a146163be6c",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q10-page-19.webp",
+      "sha256": "b0736cd549bed9d8d425e9cac8007971e8e00a9af8b6b2477817e9e7cbd46e32",
+      "bytes": 52018,
+      "md5": "2456386807f2fb52eca5b4bb1a92dd1b",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q10-page-19.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q11-page-20.webp",
+      "sha256": "7f4842d6a4f899b80dbbba6e49f16c1bc0f4e3223138bf1dbc3dcf4410fbe5a2",
+      "bytes": 44346,
+      "md5": "dd00c680b366439d0db6946e94fedb5b",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q11-page-20.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q12-page-21.webp",
+      "sha256": "e02d32df4b28a761c7d66014da1b77910c4aa14ca0a377eaa40c6b10d1645f57",
+      "bytes": 27410,
+      "md5": "6d998a387606d31eeaa350133f604cc6",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q12-page-21.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q13-page-22.webp",
+      "sha256": "abb596e09bd8d34b57bd21c658208442945a8161f479aa79f29120cbc9a489db",
+      "bytes": 38780,
+      "md5": "787b743fbd0f2c12b7d87116da3c68e5",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q13-page-22.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q14-page-23.webp",
+      "sha256": "72ef5bc429f139d62a957f2168969f13e5cba58bce9fae45e6ac571183db4e0d",
+      "bytes": 34956,
+      "md5": "7dfe5886aece657eaae11b87640d69f0",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q14-page-23.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q14-page-24.webp",
+      "sha256": "3e025c2c4d5be8dd271cd7cb1f605aa287b5c18e4f932f14153ebe204a26f626",
+      "bytes": 67482,
+      "md5": "b323915968beff4cdf106fcfeeef45f0",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q14-page-24.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q14-page-25.webp",
+      "sha256": "66d2aab4ff583857d23fd172d79154de024de3a849d14fda96bfd280139e7310",
+      "bytes": 61982,
+      "md5": "1f841ae4d8d3e474f83ab744e120dee4",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q14-page-25.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q15-page-26.webp",
+      "sha256": "422e943c2c4227e58efed80aa15aa55f97543ace6190215002db0b1b8440b94c",
+      "bytes": 59018,
+      "md5": "d261f4a8e2746f7fdfcba51e82776b74",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q15-page-26.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q15-page-27.webp",
+      "sha256": "6ea0d61ee2009752286783f5a8df7d6ff85ad3736fdb315253be3b8a713e97c1",
+      "bytes": 22446,
+      "md5": "05447c4eaaabb8fe00acf5441abd85dc",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q15-page-27.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q16-page-28.webp",
+      "sha256": "e0ae2e1c0b658a1f656295e5c14f3d99b06a40ce93f3e9914a4543b7624dac15",
+      "bytes": 46948,
+      "md5": "295ccb387264047ed9d84c60f711b0cd",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q16-page-28.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q2-page-8.webp",
+      "sha256": "bb61aa061a3796c64085a2629bed92d4a3feb1d277993497cc938704f3fe59fc",
+      "bytes": 69982,
+      "md5": "db39e08f3bd08af6a724ded519732dba",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q2-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q3-page-9.webp",
+      "sha256": "804acc730ab0c610803f9a22a78fd21f90999398cf2f72aafd0141f9d23a3c1e",
+      "bytes": 60776,
+      "md5": "9edd87dae2a51655e64752ae5ec30928",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q3-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q4-page-10.webp",
+      "sha256": "caa39c2c3458a4f67b26ac564d4c62bdc5da64ea27d4cd7a15ec791d88b5988a",
+      "bytes": 44520,
+      "md5": "4f59e39cf8a49622918d83764e685fc3",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q4-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q5-page-11.webp",
+      "sha256": "4970b4aae38be09f77d20d8485040590bc86df366d3903c171214ca1068180f8",
+      "bytes": 42242,
+      "md5": "2641994187f345f6956bdc7e08a55948",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q5-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q6-page-12.webp",
+      "sha256": "4c49d88359250c0b3997c58b9bcadc4aef5f62676b43c56b6c806a3bc1d5b7d1",
+      "bytes": 35358,
+      "md5": "b781701b4b9d473c87ca45a6136cdbf2",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q6-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q6-page-13.webp",
+      "sha256": "f2bc221f6a0bd932ef93b1c5804b99b5c082a09cbc3cde1c864020c5245d4239",
+      "bytes": 37584,
+      "md5": "5b19d6dd6ac7a6306cea7d604c1cd1ed",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q6-page-13.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q7-page-14.webp",
+      "sha256": "26e3d4b8dfed33b0d68ba8ca2e257058c8ba926b276fb4f06b4900fef11219c1",
+      "bytes": 40396,
+      "md5": "e0c85a80c12d08e422806f48b3eaecc3",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q7-page-14.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q7-page-15.webp",
+      "sha256": "f67d9545402c7264d21b26ae1d3ba60c70f04d04b3a17003527d43b23679818f",
+      "bytes": 32066,
+      "md5": "549a6bcae5f29204dcaf484e6d400914",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q7-page-15.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q8-page-16.webp",
+      "sha256": "3a64217ebe98d694d47778f69770802071ca149833d2df1ed08f8ddee676781d",
+      "bytes": 41318,
+      "md5": "64461194189bcb4f92f2855018737eec",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q8-page-16.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q9-page-17.webp",
+      "sha256": "ee286c292b6b297e0f5c27fe001ddfd85657d05c89689b7bd610e1f058da1938",
+      "bytes": 27002,
+      "md5": "4199dde671faf23630d880b17fa2004b",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q9-page-17.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p1-q9-page-18.webp",
+      "sha256": "715768e9827fc8c8e3c97ed0d50b0b8fca0b5177316b025f151357d492dea0a1",
+      "bytes": 41862,
+      "md5": "4d36d48d893963e1bd10ecf5312eb631",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q9-page-18.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p2-q1-page-7.webp",
+      "sha256": "81f79b27ddfe831ae2ad650cd6855acad07d7fbd1bfad8e0f1ed507100daf045",
+      "bytes": 49268,
+      "md5": "93f4ebd8d6ac234a9784345e04d925ea",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p2-q1-page-8.webp",
+      "sha256": "3b8b250495586a676146ba4d21d26f58e1bf31366bd84142c4cfb7d4d7eed6a4",
+      "bytes": 70384,
+      "md5": "ad5326f110a269625d06adedfd100999",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q1-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p2-q1-page-9.webp",
+      "sha256": "869fc6db5added2e58d5a2ef43b679f1103ca2debe0ce10930dae93bc1d7c429",
+      "bytes": 89744,
+      "md5": "c1e7c96df43e66198d8e45427fa6bb04",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q1-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p2-q2-page-10.webp",
+      "sha256": "1486b0c750e26d600fc1c6982a844a39d238476740bbad6572c8d68f6f423c14",
+      "bytes": 61138,
+      "md5": "5c58459cedc74b3ac27886d6d6ebb44e",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q2-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p2-q3-page-11.webp",
+      "sha256": "abb40c90ca8efc6c6c9279781de3b677bf580662b2309944e396ff39a056b8eb",
+      "bytes": 41560,
+      "md5": "1a1d07deb1b97f2ce0cba46d436ae23c",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q3-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p2-q3-page-12.webp",
+      "sha256": "3ae1232d120ce3a2e8744346544261dbf65d57232bfbc6fab861b24377a95385",
+      "bytes": 60996,
+      "md5": "8bd01088d37feef9d23460cdd6fd0e51",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q3-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p2-q4-page-13.webp",
+      "sha256": "5081d6928160fe0ebb0641ce6fcb8e2e22a6f44a476cbac7c27e6c2bc3ded559",
+      "bytes": 65904,
+      "md5": "e2b73c5275104d18dfefa527f8e6a8ab",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q4-page-13.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p2-q5-page-14.webp",
+      "sha256": "023c868c907e48977d0e8043d9797e61949afc09b4dae3446e3b9e7ae02656ed",
+      "bytes": 51984,
+      "md5": "86066a52ea05bf73b9569f237f97268d",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q5-page-14.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p2-q6-page-15.webp",
+      "sha256": "0b0e80e3d470c97009e71404adc9f1a88eb3927cdb0f2cb827f4112f4fef441c",
+      "bytes": 52528,
+      "md5": "cfb44b46cefc56bcf42e26007a42a417",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q6-page-15.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p2-q6-page-16.webp",
+      "sha256": "7e45e2e750333ffdc46e92a7501a6ad801e94e10038063e5eed3ce1e613b7ff2",
+      "bytes": 24606,
+      "md5": "d726d730b347af05801b640b33835036",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q6-page-16.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p2-q7-page-17.webp",
+      "sha256": "b68a1674995e55f8f219ecbb7035f3aef5bbf39eaf82e90424fd6a3eace0a69d",
+      "bytes": 31268,
+      "md5": "b3205216bd468db19b09cfa293537b8e",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q7-page-17.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p2-q7-page-18.webp",
+      "sha256": "b55d0ce800ef94b3db4368cc980dfc07606f4f00ee1c02a81f423eba466587dd",
+      "bytes": 26276,
+      "md5": "ecbe98bdfd0690607d0d305e493e2a02",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q7-page-18.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p2-q8-page-19.webp",
+      "sha256": "6312d64c918d5f64755d7c5d5a2fa7fc4a4aa0ddf4d2e4a1a42e0f779c72ae05",
+      "bytes": 32378,
+      "md5": "0f322ec8cd95693d256055830675e327",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q8-page-19.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p2-q8-page-20.webp",
+      "sha256": "418892ef72db6b3b5427c1491b6f77781d539528adae487b22bf5cebcb74a1f8",
+      "bytes": 61390,
+      "md5": "30beadf5d9da4b3109861a7d0335b442",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q8-page-20.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p3-q1-page-10.webp",
+      "sha256": "789cf7618ce054932d4fb343a94a6cffd9dd338e1ecbcb0738d0c6133e8350cc",
+      "bytes": 52524,
+      "md5": "c0d2e59855c441b26ddb2d5bcad414c3",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p3-q1-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p3-q1-page-7.webp",
+      "sha256": "ec815e889d51cc6e8f9da343e8f79008a70abfabc71ee0c72c93b90255843cc7",
+      "bytes": 76588,
+      "md5": "2c808705aa87ffbff482d0305031ffe9",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p3-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p3-q1-page-8.webp",
+      "sha256": "c150bec39c41e3854670957e6878b8244450c9966ab1881df84f1e0acc584479",
+      "bytes": 43132,
+      "md5": "412c84ff13746c6243d780a21a5a6581",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p3-q1-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p3-q1-page-9.webp",
+      "sha256": "b4e8cc34b73c498ddfdcc8e19ed63ca5ca3203a5d241bfb0fcbe0a3cc379079c",
+      "bytes": 77866,
+      "md5": "d4f08242e428147d3835d7305670b1ea",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p3-q1-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p3-q2-page-11.webp",
+      "sha256": "1c97f4febe15b6d77daf4f26ac0ec34a25ab1d38c444c4b72d0747119b39c5ce",
+      "bytes": 66096,
+      "md5": "9bad88a885bec03010f06368de163a57",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p3-q2-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p3-q2-page-12.webp",
+      "sha256": "c7b7319500b61a52aec02fcb7aa69f49c9a136a2eca8fdd0a1a323582fd907b3",
+      "bytes": 46158,
+      "md5": "5f4954d6e600908f3fb495ee468ab3ae",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p3-q2-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p3-q2-page-13.webp",
+      "sha256": "c127f2642a2701093fc9f239ac5ac9a8a92afd2cb298b6afe9ebaa7e94d2b398",
+      "bytes": 70976,
+      "md5": "6afda3c2606b1a29371546413790582c",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p3-q2-page-13.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p3-q2-page-14.webp",
+      "sha256": "2fd5d495853364f544c81d6af01926d7b0c79785b889adb9aa1d0a14d0c64960",
+      "bytes": 44484,
+      "md5": "faec778a5700900663f9551a77858b91",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p3-q2-page-14.webp"
+    },
+    {
+      "key": "ib-ai-hl/markschemes/2026-may-tz3-p3-q2-page-15.webp",
+      "sha256": "93d8ab0b85944d60538eae318deb6111ba3f30462f535a2d3c5da0a79e35ab2f",
+      "bytes": 66364,
+      "md5": "e1f7413179a7be8c29d46ca85bb1eb27",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p3-q2-page-15.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q1-page-3.webp",
+      "sha256": "08e9e257f49741cf855a0746f38023823d24d472f4acb41a99a473f9dca6efc5",
+      "bytes": 66070,
+      "md5": "188dba221feebc140918c167f0db83a0",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q1-page-3.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q1-page-4.webp",
+      "sha256": "71e1f73f6ec75bafea7b2f147d3e1898f8a1731458cb98ae6977a47b3b768c93",
+      "bytes": 52344,
+      "md5": "9d3fe220ff2a51a51b4cbf087ada7d9e",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q1-page-4.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q10-page-17.webp",
+      "sha256": "e998ebcaa7077c82accb016c0057e480a84cd74f0e67e0c223ceee18b3cd5ff4",
+      "bytes": 101420,
+      "md5": "2fdacd518e90aabd4e6c6b264a99f8db",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q10-page-17.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q10-page-18.webp",
+      "sha256": "9a5bf28232f7c7fe0b14cb0b2a1dca652a29589c21cc3e82878a2d5edd665f5d",
+      "bytes": 52438,
+      "md5": "606235c88f0e5b922c755095ca5f28bb",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q10-page-18.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q11-page-19.webp",
+      "sha256": "c14e1754ebc1b8e3c829d738a4d4d36f7b507d2a2c37f3240129b59a39e9b5cf",
+      "bytes": 97102,
+      "md5": "8411541ac16b75f4236f3ae396b3180a",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q11-page-19.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q11-page-20.webp",
+      "sha256": "11d0e172a0d5b29fb6715d2b1490ba36cf9b3743c5786190ed95145860df01c3",
+      "bytes": 52388,
+      "md5": "470fe8330eac569158319faad147ea5a",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q11-page-20.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q12-page-21.webp",
+      "sha256": "0dcab4797232926f2eec60969d327f4916afc1dfecefd8ef8e83ec127f1f8d1a",
+      "bytes": 58556,
+      "md5": "65f661ec5988954264b2119c8c24230b",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q12-page-21.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q12-page-22.webp",
+      "sha256": "ffeb429f8dfea5c157fc6f8587921132d05956bf3011321bff6bec27d2de7c20",
+      "bytes": 52492,
+      "md5": "fb35d82c3000f44618a6aff1e1aa10e9",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q12-page-22.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q13-page-23.webp",
+      "sha256": "b2e38de86aecdf9a58eec50acfa133a3f5b21c27817db756c1b61f03553550f9",
+      "bytes": 85334,
+      "md5": "1d1df7367d9fb0348441ee46b892080f",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q13-page-23.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q14-page-24.webp",
+      "sha256": "ca3a003429e2d0a25f81a08db49217e9bbf440e3d5c8a1b4af7d62bc4f4d8fdf",
+      "bytes": 72216,
+      "md5": "073ae4defe3c8851809b6858b12c10d9",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q14-page-24.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q15-page-25.webp",
+      "sha256": "a0c194eb82e431010ed2cea473c41c121a1605138351ba2be7f8ee010087d6fe",
+      "bytes": 107498,
+      "md5": "a0dc8a59348f428ae82a8b5b75e9589e",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q15-page-25.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q15-page-26.webp",
+      "sha256": "867a3aa88aa77c0017f50daf9afdaabf07dcc20102b501afb8143f0c7cd31349",
+      "bytes": 52528,
+      "md5": "7ebdb3627cb68bde4a4d2229ad7df987",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q15-page-26.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q16-page-27.webp",
+      "sha256": "e259d194108ea18fe32c7fe56d2196311560b8fc1ed6be30d803d798d7142847",
+      "bytes": 138386,
+      "md5": "9f02fdc995907aa1291651bccc4a667c",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q16-page-27.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q16-page-28.webp",
+      "sha256": "37d153e3a3508b7db6a88707874c2fd850ee03583260bf49b3d73fb39a0f8316",
+      "bytes": 53892,
+      "md5": "68e52d0031ccd62230c5d156be0ef08d",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q16-page-28.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q2-page-5.webp",
+      "sha256": "8893bdb16bbf8977354283aea3903d32b0aa46f20305cf8301a165bb8e8ae30d",
+      "bytes": 95634,
+      "md5": "fdbf2ffe306657e87a9de0ce2412a9e1",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q2-page-5.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q2-page-6.webp",
+      "sha256": "9468ba9391b229f3b5998de1e16e6ae92fd47667d8d10771c6e48c3821c07a4b",
+      "bytes": 52388,
+      "md5": "3cef0d219b5e7bbf57c44de3b5281c11",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q2-page-6.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q3-page-7.webp",
+      "sha256": "eba86bfaf4dc2c8e45ce47877847c1d9522fc3a106245a665f9684cbb8197051",
+      "bytes": 100744,
+      "md5": "1d65e7dc93b05e2e11ea84c204ea1d03",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q3-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q3-page-8.webp",
+      "sha256": "f378466b08053cc4568a8edae0fb4a3da67f5c3421e2372261e75c022d91d1dc",
+      "bytes": 52350,
+      "md5": "48ad5d44a160522ab1cb78ba9b92ff60",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q3-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q4-page-9.webp",
+      "sha256": "007bf047b97c0c56706e5c0b84eede8ea3c028b8d1f6a232005fe0ef03b0489a",
+      "bytes": 83692,
+      "md5": "1d58c9abef12dde62999bbdc0913b93d",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q4-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q5-page-10.webp",
+      "sha256": "5db0eb9732a57452fb49639ff8cbd1f5d9b618658c57b538582a244a31b95794",
+      "bytes": 74996,
+      "md5": "d93fe1127f8ebb486bbd0ba14107d43d",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q5-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q6-page-11.webp",
+      "sha256": "584d060dd1084104bdcbbb8609624a4a3097f851b3ce1e33b6bd2378eddfc053",
+      "bytes": 68286,
+      "md5": "4de11a1f443bddf0376de1ef4488403f",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q6-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q6-page-12.webp",
+      "sha256": "e203b3e67b91115f22be98da6df6593b2e8b3e1efc4ae69dc78c27f067003202",
+      "bytes": 52382,
+      "md5": "de7c1373642cc06e29f9ffa77ecec423",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q6-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q7-page-13.webp",
+      "sha256": "4f9e87d26d026f7113e2147d6530f4edcbbffc3be98f5272843d525d34fa0db5",
+      "bytes": 69538,
+      "md5": "fae42dd6a94b10da7e5f5a5abfa47f78",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q7-page-13.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q8-page-14.webp",
+      "sha256": "350db5d5b030bc03923eeaa71054d4627a00efb8a412303e2a375193b4422ea7",
+      "bytes": 95990,
+      "md5": "99d3078859e8c0fe656ba53bff5b7b58",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q8-page-14.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q9-page-15.webp",
+      "sha256": "583777ce0a33da738978aacd9ba011c68f4e665cf0f09f8f64a8044af3d7ae22",
+      "bytes": 65864,
+      "md5": "d21c64424aac53362f1d4b34f268fcb4",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q9-page-15.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p1-q9-page-16.webp",
+      "sha256": "41c4fa625da901e1767dccb1fd2b7a4a875c3152e711cc45b9544b65ef04fb29",
+      "bytes": 52434,
+      "md5": "72439f1101c822ff957e5cb139fdb013",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q9-page-16.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p2-q1-page-3.webp",
+      "sha256": "bc1894ced7fe1768fa384b86fb8400444f05e8dde8fc0466df6c55e5ef5aeb4b",
+      "bytes": 52304,
+      "md5": "ebb23db713dbd3180a57130eddb3de27",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q1-page-3.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p2-q1-page-4.webp",
+      "sha256": "35383969a67fbe67cd4b98d8b9b07f43f5cb3d0630d491b143fddbc52dde896a",
+      "bytes": 64430,
+      "md5": "fc0f5361beff463f702d97797986812a",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q1-page-4.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p2-q2-page-5.webp",
+      "sha256": "481540d09d81b058fbbf9e3bef2591f48e7f16529b14ceb71565ae57736bf561",
+      "bytes": 75092,
+      "md5": "24f5af4ba43d5be220d644bcef21fed2",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q2-page-5.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p2-q2-page-6.webp",
+      "sha256": "eb5c64cbfb4428d0f48b83a29523da6fe66d579709afd0ac94fef998b2ff2cc5",
+      "bytes": 49050,
+      "md5": "fd1440a5960dbca0432efe23c7e2dabc",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q2-page-6.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p2-q3-page-7.webp",
+      "sha256": "f1210f8cb6e60a9222b8aa7317ee2aa240680f2e0736a0793da8ae6fa36fc993",
+      "bytes": 72776,
+      "md5": "3151f937008d3022ac542a1851b9faeb",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q3-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p2-q3-page-8.webp",
+      "sha256": "c5418f8b861b98ecc01ed681213ce415e12609a5f7958b0f5014e1a328af5537",
+      "bytes": 58712,
+      "md5": "e56ced2f69f6b46c63e96f7d8f886cc2",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q3-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p2-q4-page-9.webp",
+      "sha256": "d9b5e1bfd4ed2fa7d394d2fae8b67918f6370cdec8fb1e0bb78299498b86c431",
+      "bytes": 43978,
+      "md5": "8481ba000f9eedc325fe79a285d87ddb",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q4-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p2-q5-page-10.webp",
+      "sha256": "5824cbe4c848814752cbc66e36ac9fb317a35c8dbbccbc0bf4c3209c923a7d1a",
+      "bytes": 88966,
+      "md5": "83c0ed2dc7935c40fe18aca447f093bf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q5-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p2-q6-page-11.webp",
+      "sha256": "061874ee3ff30e7fe0abecaf326c681d283e2b15775d7760b32b97605164e89a",
+      "bytes": 120448,
+      "md5": "b18bab551052dde2d0d2eb05e94e904d",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q6-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p2-q7-page-12.webp",
+      "sha256": "bd9bf408da38606ee031c6b8edfb6a9a0e842d1cdcefe4500bcaf805bb12460d",
+      "bytes": 51716,
+      "md5": "58821463f70873da436539a7469633e8",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q7-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p3-q1-page-4.webp",
+      "sha256": "dc5901e0ae2d6cdd24a65677fccfdc5dc78d8405109a33426cd1844734ac108c",
+      "bytes": 114902,
+      "md5": "93e3e852391d9420f1cec51651cd6534",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p3-q1-page-4.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p3-q1-page-5.webp",
+      "sha256": "522f27e376478ca2d3bccf285680b3d0a1165ff83e07faafc019d970dccb26be",
+      "bytes": 100894,
+      "md5": "0f2ac738a2bad2a227c82b0f14320e78",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p3-q1-page-5.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p3-q1-page-6.webp",
+      "sha256": "b1e69b725dbb3c1b1deb62d638b8e0ba346b05f5f387ec5da282636b3c960ed8",
+      "bytes": 85136,
+      "md5": "902cf9768cd5003b3a1b18ecee33b6e7",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p3-q1-page-6.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p3-q2-page-10.webp",
+      "sha256": "273a66a18f7a7e714b65c2a1566b339ee51c6cd890b559fbf50b6e6bfc44270f",
+      "bytes": 92276,
+      "md5": "5425a68dc1fcbc89578d119315dc8fbd",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p3-q2-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p3-q2-page-7.webp",
+      "sha256": "20a8e6a399145be9cefaa83f3b812059849ed17d25722d9062ba839fae1ef5fa",
+      "bytes": 90280,
+      "md5": "10df028ef5832dde1ab768f73afd4f85",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p3-q2-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p3-q2-page-8.webp",
+      "sha256": "bd7cbff6ad155b2d108a0c4ed4d7764dd7b39388bb508426f6b9b78244d8cd81",
+      "bytes": 66144,
+      "md5": "fa41ddc456e14bc5bcee7edb400bf5ef",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p3-q2-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz1-p3-q2-page-9.webp",
+      "sha256": "69b31e6f0d72a0373370de5bdaf36c07591b7da97bd917b59466c1de26b9317a",
+      "bytes": 90404,
+      "md5": "4ba54449ceeb9d682f5bb804c7528f39",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz1-p3-q2-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q1-page-3.webp",
+      "sha256": "d8e041d9a682403c3458e170ce47c16b6e8d8476125f08413c92ede10d8b7085",
+      "bytes": 80586,
+      "md5": "48875dac709c0692625ceb07300a2412",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q1-page-3.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q1-page-4.webp",
+      "sha256": "06772842b584ae1dbd3be5858fe9f32506805092f339c8ed2db62befccb9b6b2",
+      "bytes": 52344,
+      "md5": "13bf1d4350d6dc02b1e2ff50ef329bcd",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q1-page-4.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q10-page-21.webp",
+      "sha256": "f7ec9993f34fcb10f5038686f8ea6a71b3ab646c0b4e611a40d19dd863384392",
+      "bytes": 73990,
+      "md5": "99b439d76b41d0f6f789f0c708f936f9",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q10-page-21.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q10-page-22.webp",
+      "sha256": "cd770ba56f99d3fdd8ccff69c8135593499a858bcf9518cb4ccdb9abd27cf741",
+      "bytes": 52422,
+      "md5": "ff54946d3b0b3e2da48d7d0cda6064ae",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q10-page-22.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q11-page-23.webp",
+      "sha256": "ed28de05430e5753d645687e713a00e088f03c5a82c00a4dbf165a69a7130c36",
+      "bytes": 89508,
+      "md5": "0088cff9beecaed2a912f883cb32242d",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q11-page-23.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q12-page-24.webp",
+      "sha256": "402fefe53f8c3a9c7f8790fe9a7caacee5e837970ff3ff55a9c381708c5c9fd9",
+      "bytes": 80464,
+      "md5": "e5e9cd9b26160212d27370a4dbf93698",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q12-page-24.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q13-page-25.webp",
+      "sha256": "67f91ca363e49b8e354372f61f7f9d3d61ce5c18bb60dfb36d72635840d54e92",
+      "bytes": 71098,
+      "md5": "23f27f3674d4b500e19d9a50f0a89038",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q13-page-25.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q13-page-26.webp",
+      "sha256": "025d4ebbf1bd633b372839447f6094003af31fb618eaff79e1bd5bb92e3e1526",
+      "bytes": 52484,
+      "md5": "6d269412ddba22132244a0372e5036fc",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q13-page-26.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q14-page-27.webp",
+      "sha256": "052b009e56bef8777c29706b883a9a3e15b958350c4d9817edc71679b03da1f2",
+      "bytes": 85162,
+      "md5": "c7c2e26e6a928aaadf34d14d280887e7",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q14-page-27.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q14-page-28.webp",
+      "sha256": "379003963bf7fec928bf53f872d64aaafc8d63afef1be61d2a40b4134de2c680",
+      "bytes": 85850,
+      "md5": "ca44ba130141022b320dfffdad3307a2",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q14-page-28.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q15-page-29.webp",
+      "sha256": "075d118c2577431caf652b4e1f4593d53759a9a8ebaae3ee2ff0313b2cc05695",
+      "bytes": 89860,
+      "md5": "bad9815d0903db5963d16fffd9e19ba5",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q15-page-29.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q15-page-30.webp",
+      "sha256": "62fde90226da27ade6189ac59d0740a56efca33c6c1f689b43dd84d86c1ba860",
+      "bytes": 57234,
+      "md5": "44511b3b24fedbf0547c56c50962eaec",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q15-page-30.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q2-page-5.webp",
+      "sha256": "27047ba0ad339dbe3312e0ec5d5869e45a6e9b9e7960cc03b4e40979043da17a",
+      "bytes": 74040,
+      "md5": "47ec45bf6f37d778a831b57c777afa0c",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q2-page-5.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q2-page-6.webp",
+      "sha256": "2da1cf9270bf704e20c10acd4e9eb95b8d33eba7ac6b63893c3ad82260e0b123",
+      "bytes": 52320,
+      "md5": "dba0d440b9af0f78e69f13601f33377a",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q2-page-6.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q3-page-7.webp",
+      "sha256": "3d7c0f923f4276ee92de062c7e8642b4633e69adf4eb665e2397309d1cc3eb2e",
+      "bytes": 97242,
+      "md5": "ef49e8a5cae803434b1dca57fbc02a1d",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q3-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q3-page-8.webp",
+      "sha256": "c19d5d345ecadfa02e50857705d20dca256c4f2a6ac9587bc3e819d78030d816",
+      "bytes": 52304,
+      "md5": "6acb20dfed3476a368a71b714eac7e07",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q3-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q4-page-10.webp",
+      "sha256": "193bb0a1a98a6eebdf05f5bf7b7cf25a8bcf2217e3ec3d8d189884435d165a1a",
+      "bytes": 52312,
+      "md5": "a5f3182f1955752befe743571bd554f8",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q4-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q4-page-9.webp",
+      "sha256": "a6d37fd4ff6d0e34d8f5492b44f597c723f827fc76c54af446d60a3d8ccb139d",
+      "bytes": 116830,
+      "md5": "b59da35e44d07669b1e7e9fec6e9b6b6",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q4-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q5-page-11.webp",
+      "sha256": "edf5c3093b0400dec1956c055058818fbbe540c064a77fa197dcb3e344bcd969",
+      "bytes": 120464,
+      "md5": "b209c036b51ae854474ebf0bacbcdc58",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q5-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q5-page-12.webp",
+      "sha256": "0b580ccd8e1e2d7a4ed5cc13364d67f7325bb693a236fd51a441c15241d6ef0a",
+      "bytes": 52316,
+      "md5": "2cbf0fd1e47cf42c78edef9797decf1f",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q5-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q6-page-13.webp",
+      "sha256": "7303ad021a0045f384bde92f01739d1cedf3269b4a7003db87ab807633e52ab7",
+      "bytes": 109284,
+      "md5": "bc7b775a3ba454eb390f9801669728d9",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q6-page-13.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q6-page-14.webp",
+      "sha256": "e9d548ed5659d1e340a080cdd0b1bf96b2d9d63e840290bdbb2f20f95e3b79dd",
+      "bytes": 52368,
+      "md5": "f6c5ec90223e53344b0003ff874c9d83",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q6-page-14.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q7-page-15.webp",
+      "sha256": "89a220a88abde0556abc06eeec684af4bb152154bc4ba242a120910af7edfa7d",
+      "bytes": 77832,
+      "md5": "42f0a684dad9ffde7949e296e269ae22",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q7-page-15.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q7-page-16.webp",
+      "sha256": "e160cca80aa257fc2876abd1a3705a17aefdc570c9f71817b1bd8bee73e50490",
+      "bytes": 52318,
+      "md5": "1a6643fd55dd5289c0e00521c47211bf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q7-page-16.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q8-page-17.webp",
+      "sha256": "275b7f76d0ad503809b6b4b7a0a58343f34668cbdce763392c74d522f59ea039",
+      "bytes": 84392,
+      "md5": "592a42e582637b58ffdaf708853a9dbf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q8-page-17.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q8-page-18.webp",
+      "sha256": "4945b5dcf3df1a6a84a1227f5517ad859a9a830e0ed713ae4272419da623e97f",
+      "bytes": 52338,
+      "md5": "8f69063bc14b30d7209785974c42e562",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q8-page-18.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q9-page-19.webp",
+      "sha256": "742dffae269679740a050989fa1f3a8089090e840cffb5f79eb43dc47a05c8d9",
+      "bytes": 90926,
+      "md5": "f13f38bde302c4ceaf09538bf92f8217",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q9-page-19.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p1-q9-page-20.webp",
+      "sha256": "5c8ecfe5c00eec85c7a6e26084bdc95819ddf4bc30e9565e0da1bfc9bb94d9ba",
+      "bytes": 52388,
+      "md5": "f4f49cf6518fca7c5264622960eb8706",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q9-page-20.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p2-q1-page-3.webp",
+      "sha256": "2d24dbe8d417638b9fc16a8a4d21205384f9fde3ec1e37df3241dfd813efcf4e",
+      "bytes": 72888,
+      "md5": "bae0f0ec806b0c26d2a47eb948632731",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q1-page-3.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p2-q1-page-4.webp",
+      "sha256": "390370ae85420c2c5a2601b6d8445ef1580b40687b67439cc226514f9b6cba12",
+      "bytes": 73720,
+      "md5": "e38edeeb72c53a9975fb75803dbfbced",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q1-page-4.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p2-q2-page-6.webp",
+      "sha256": "2768e0783300f7eef13636837fa05e5555db4aa637cefae10015ed983a06c536",
+      "bytes": 162592,
+      "md5": "c348e2cc363e67063cb6ccdd5e8d9dd1",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q2-page-6.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p2-q3-page-7.webp",
+      "sha256": "83a2486637970c8ea7cd8efcff181d9e79736f737eb917e3d2cd118cac18a475",
+      "bytes": 89334,
+      "md5": "5831a81b7c5d652d60193418b1ff60c2",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q3-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p2-q3-page-8.webp",
+      "sha256": "f000f2eeadb2b0b35ad266f44a3bb4ce0e47e12732375ea8389828ae93509403",
+      "bytes": 38742,
+      "md5": "df2dd562c97aaf223eb04af5f4182725",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q3-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p2-q4-page-9.webp",
+      "sha256": "92b42327b26c30d75150c0e2d0d56dc6acbfa73603eb85fb48fa4ed82f66daae",
+      "bytes": 132582,
+      "md5": "fe1a0e74b07c8d3fda5ad88e6bd55bae",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q4-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p2-q5-page-10.webp",
+      "sha256": "ea22f16f2b8868f95b3c9a8bb83cab746a48e9225a9b1dcf20049139c9c4ffd5",
+      "bytes": 122974,
+      "md5": "5504cf81041dbf6b0565d42b4cfba40e",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q5-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p2-q6-page-11.webp",
+      "sha256": "5955673bbe856ea0ea16103e3b6629a836f0fa657a4cf4dba2d6a504aea576be",
+      "bytes": 35876,
+      "md5": "b0c20c6c45acf9226c6a49b4920dbec0",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q6-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p2-q7-page-12.webp",
+      "sha256": "5d0600745db54fe4023bd1f823f39d3b9a0cabaffcb040a4865ac0dd0970c1f1",
+      "bytes": 76424,
+      "md5": "b5de1a7078e38e3e0fdcf4beca2ba51b",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q7-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p3-q1-page-3.webp",
+      "sha256": "473cb6c963b5b4313614d46fef07f85bef862d771c7fa79165d750c7e96ad31f",
+      "bytes": 39450,
+      "md5": "8435b29ec410efd25296fbba919de4b7",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p3-q1-page-3.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p3-q1-page-4.webp",
+      "sha256": "4c8b59eb5299a9ba159511775be1969d4d6522c00c18ab6886bcbf9d6e736383",
+      "bytes": 116882,
+      "md5": "40b308b8e0385392da8d7f5808988da2",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p3-q1-page-4.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p3-q1-page-6.webp",
+      "sha256": "3014dc5c1aa127e64e914902c6103b0168edff3488982c575305ec3079c16bd1",
+      "bytes": 60348,
+      "md5": "cd6cb292eb0e3f3403ce7fd7d1b8acca",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p3-q1-page-6.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p3-q2-page-10.webp",
+      "sha256": "39e179b68e2444c68e2b87c979597fa22c4c87933e33c643cc6cd0f679e9a68a",
+      "bytes": 71790,
+      "md5": "edc352bd7acd628fa4d86d548ebce457",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p3-q2-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p3-q2-page-7.webp",
+      "sha256": "9bb9e41445fdb8b724902575a65603d58e8c3069aa56e7feafe36d8d9e3cfde7",
+      "bytes": 73084,
+      "md5": "fa8fbc291da985503d211d2fbb47417b",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p3-q2-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz2-p3-q2-page-8.webp",
+      "sha256": "e3abd95e240d870af277640784ac16b3364581286b0c792ed343ee2a74fcae5c",
+      "bytes": 100990,
+      "md5": "9738fe8ce68648ea0979f184ce9ca37f",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz2-p3-q2-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q1-page-4.webp",
+      "sha256": "3a7f12b4cfb2fa53e1cac3dd14b098046d103c21ff67dbd34b5d0e8f08bb3415",
+      "bytes": 90900,
+      "md5": "bf8b049716ac6efc1f629afc61550a79",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q1-page-4.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q10-page-21.webp",
+      "sha256": "6c103cf54aecdcc3505a24c7f46f82508aa761fcfd71a8321eaa3d0747050fd8",
+      "bytes": 102016,
+      "md5": "cf85be01ae4963768d362e35266da933",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q10-page-21.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q11-page-22.webp",
+      "sha256": "ec44158b0cd2e23e567eaba607a7f52f32e3dad1585f03b5843cda55e9792334",
+      "bytes": 68834,
+      "md5": "d36941a37f4aada3ecff79a17ec6aea9",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q11-page-22.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q12-page-23.webp",
+      "sha256": "c1811359ebf51ebc3552bd65dac8bba5131422e53e91ade96387853a1168cbe4",
+      "bytes": 113230,
+      "md5": "6ce271b5cea6dea367be1dc13e3a10b0",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q12-page-23.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q13-page-24.webp",
+      "sha256": "13ee23c2434128477cf5cafbf76580fcf4eb29cbb0f85fe0e6079f5d0119e8e1",
+      "bytes": 71656,
+      "md5": "9e456f45e452b2e031dbe6465b9a6007",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q13-page-24.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q14-page-25.webp",
+      "sha256": "bb38d5a2b781b59100a5fdff628c15d7b7e42d0c9603af3944a1e7d89550cdf3",
+      "bytes": 136650,
+      "md5": "f52112b01e5a1029ee4ec68d132cf5d8",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q14-page-25.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q14-page-26.webp",
+      "sha256": "ef0900b6f3817818ccadd9e5828eba8566f30c406b0ede170639be5ed5b013da",
+      "bytes": 54604,
+      "md5": "94ac3654b6a382a45caf2c57161a7f89",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q14-page-26.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q15-page-27.webp",
+      "sha256": "923fab37ea31acbdf9369abdcc8c8f8d7ad7ed5df20c6028bb767565598a5a4d",
+      "bytes": 122176,
+      "md5": "c6f2c1d2a292bdb77991a9cfc43aed70",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q15-page-27.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q15-page-28.webp",
+      "sha256": "074d4329ad8706691217ccfcdd1eecad0489f2b3fd44ced6b7591de5864a65c0",
+      "bytes": 54598,
+      "md5": "6710d0983185956923677655367da6f4",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q15-page-28.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q16-page-30.webp",
+      "sha256": "1f9d2cac6a0bd61b0856770b17def8b300ffef9d16756e06dadeffc45c3891ed",
+      "bytes": 78412,
+      "md5": "106f38f34d46e97fdba57b3831ccf9bc",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q16-page-30.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q2-page-5.webp",
+      "sha256": "1c9e4e5ae183f74867463e9b1e45a5eb26a1c72208ba53516865750e46edf884",
+      "bytes": 78902,
+      "md5": "a2135ac98ffae51956cfe35326e10139",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q2-page-5.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q2-page-6.webp",
+      "sha256": "eadfca4195ecff0b0c902eaef5f7e97d2a853b91814dd7b31f712a5a81a7dbd0",
+      "bytes": 54446,
+      "md5": "c432e3cadddc69b365390239c4819016",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q2-page-6.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q3-page-8.webp",
+      "sha256": "e6b8f0dfe0af71291a6ad13b43d93d346cee1542d73b5ef092d9861155d0fc60",
+      "bytes": 103504,
+      "md5": "b9533b18ba93ecea027375a5fd67651f",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q3-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q4-page-10.webp",
+      "sha256": "e99909fa20a0f948c4a9eb803e6b2e6c211ea20872b418dea2192b500f98ad55",
+      "bytes": 54438,
+      "md5": "df7165f69a7c22dc44dcea9050948ff1",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q4-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q4-page-9.webp",
+      "sha256": "5774c98d883d8690da357792d03266c7bc2aad651e40af80b2639db9e360fafe",
+      "bytes": 114588,
+      "md5": "ae20724418722e863d47bb8e8e198afc",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q4-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q5-page-11.webp",
+      "sha256": "83991e5befa8cbf66e585571f970af4e64875f55d47c212b3901aad8d88cc4eb",
+      "bytes": 74660,
+      "md5": "ba25a6b8950161ab01a0496d314543cf",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q5-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q5-page-12.webp",
+      "sha256": "50bcb18bc0e154ecb5b1d144a1cf70843b77ee545c47f1e173eaa8ad0f7d318a",
+      "bytes": 54476,
+      "md5": "54e5184e45d904d394c0196b26631fe9",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q5-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q6-page-13.webp",
+      "sha256": "650f15ca67a2df301c75f71890978dd58ec8fe8bf7269ba7d86d6f5e6733a6f7",
+      "bytes": 117050,
+      "md5": "278bc5eeb025f7a57a6fe50d166bcc88",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q6-page-13.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q6-page-14.webp",
+      "sha256": "676503a089a185667fa8fd32897e7782f0c73f9755040197923076db5c92d0f7",
+      "bytes": 61794,
+      "md5": "5ef9d30128149191f0d4d8957948a10c",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q6-page-14.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q7-page-15.webp",
+      "sha256": "cc5370b4bcad28e918a32c44dff6f5cb17e6fec4c3f91033836b8d680bb04d3a",
+      "bytes": 70776,
+      "md5": "d8381f54d5eb73fbabfcd3de35f61d4d",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q7-page-15.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q7-page-16.webp",
+      "sha256": "a33f164efbbadf2fed1d4c752f1f501433a1bd3a4c808f927e0704025918b3fa",
+      "bytes": 54486,
+      "md5": "109f4f4cf3ce0cb1e09eee3264df467b",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q7-page-16.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q8-page-18.webp",
+      "sha256": "4cb0d46e2bd1f1d648747200d9b2e761fbaa4c7e2facc8bb318db50e64489cda",
+      "bytes": 98852,
+      "md5": "9fea771e51c6dbfa79d3f14e826d5b5a",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q8-page-18.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q9-page-19.webp",
+      "sha256": "8be21dd9aeb325bb2ddeeeb083fd53fc61517982075b7054ccc3cde5ff471754",
+      "bytes": 172010,
+      "md5": "2b40f4f55262a38ef087ca4b5c4c887d",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q9-page-19.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p1-q9-page-20.webp",
+      "sha256": "b63208831495c81bbcdf5dad60279427d1cce323b7aebe1c8e2662c7b87a2c11",
+      "bytes": 54536,
+      "md5": "b84a922440f235f09240d739c3232cd3",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q9-page-20.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p2-q1-page-3.webp",
+      "sha256": "9eecf0e77d76d5efa6df2361c65fd76347a6ba2f3af1d2de757b5ef659c5e0c4",
+      "bytes": 49388,
+      "md5": "de8b179b5a94bb11fa6cc0b64a089af3",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q1-page-3.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p2-q1-page-4.webp",
+      "sha256": "9dacd05beea2e76989ca5b6d536514a685a6ab6449a69af9bb72ac01254cff81",
+      "bytes": 60190,
+      "md5": "d4cdf0d7cd65358c7feb43737e676ea4",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q1-page-4.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p2-q2-page-5.webp",
+      "sha256": "8348598cbd933a84739f875b8eb3f60f0996bf2363cac6fb91cfd19fe289e7a4",
+      "bytes": 60266,
+      "md5": "3b1d03184b4cbcf802773812ea142c48",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q2-page-5.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p2-q2-page-6.webp",
+      "sha256": "aeefc2acbb36bdbcc36d707dc39305357e2e5a8e1b693bc224e0d57a02d68856",
+      "bytes": 48352,
+      "md5": "2102e8c79e418a004913dd8744040cac",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q2-page-6.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p2-q3-page-10.webp",
+      "sha256": "88eb2319fc50f19480b51fbacc0fda16759c14583ac7488a4cf8456ac41af672",
+      "bytes": 48200,
+      "md5": "112fa7fcbe28c9ee02c25aee90a08128",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q3-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p2-q3-page-8.webp",
+      "sha256": "b5e23d9b30d78630c4877c63e74260fada49ac9a5899e84d21185910e95efb8f",
+      "bytes": 56216,
+      "md5": "8ec9164a100f0c45557e42d1ccb17cb7",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q3-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p2-q3-page-9.webp",
+      "sha256": "b624dec91ba2c844759a9ff822ad094194f3cf9cd35e4cff406dc3ea240e27d1",
+      "bytes": 76350,
+      "md5": "7f772e2aa508a2e172225ff6051ccef7",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q3-page-9.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p2-q4-page-11.webp",
+      "sha256": "63e340a443d96d8464beacd1aa11b063508d44f8295ca26872c8bfbbf1f38607",
+      "bytes": 69816,
+      "md5": "97ed3507186dcfb104d280d1e28bdf81",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q4-page-11.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p2-q5-page-12.webp",
+      "sha256": "b5f5df7a0ef1a8f149517e9d6882bfade8979ee59e8589f6b48be78018c247fa",
+      "bytes": 105490,
+      "md5": "7f8dade16388e77c634e6832d2f1e0e2",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q5-page-12.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p2-q6-page-13.webp",
+      "sha256": "e853892d1fa21687365f8f94e1a2e66cfae45a2c859efb8d26215b58c59723c0",
+      "bytes": 63628,
+      "md5": "5350280566bc6aadd54ece9503dba86a",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q6-page-13.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p2-q7-page-14.webp",
+      "sha256": "5a4b531df3fc17496a275535e484a322a5b76263159d36594267549d1fa8f302",
+      "bytes": 41720,
+      "md5": "971e0fe6f4e1077c3d8614e3fad79555",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q7-page-14.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p2-q8-page-15.webp",
+      "sha256": "1b175a8f90de6dfab1e26edb1035a592ef0422bac71f8f16e1647872a4b3860b",
+      "bytes": 69080,
+      "md5": "f44ca708a9e82e2ddbc8438037b96ea4",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q8-page-15.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p3-q1-page-3.webp",
+      "sha256": "cf5f72595b6be26720ef18b3457f41fafea2f6c3addc18a729d791a94b8806d7",
+      "bytes": 64446,
+      "md5": "87780e43979254d4970588987d0b3dc2",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p3-q1-page-3.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p3-q1-page-4.webp",
+      "sha256": "38336feb50e6c3d553d1d77cefc0e145f1f112aafb7d633d62d13839beddd9ce",
+      "bytes": 90958,
+      "md5": "225235a751ff105eaa06435b2eebbcd6",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p3-q1-page-4.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p3-q1-page-5.webp",
+      "sha256": "37089e5b6cfde7cd9514d1e4ece56f17637e1c248072a9eb2fb1ac597952b058",
+      "bytes": 123066,
+      "md5": "7b302e182910c6aa2ca3820622c02885",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p3-q1-page-5.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p3-q1-page-6.webp",
+      "sha256": "b330f54a5aad4980d26e812f5132546c1bb80ec8fa66e9284d6be74c64f5730d",
+      "bytes": 112328,
+      "md5": "fd9cf69035576a79802cc36e90cf1656",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p3-q1-page-6.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p3-q2-page-10.webp",
+      "sha256": "4990b130a02c5ef56a9a0c35adc9e18fafd11e425d0686b00f39bd979ed6b9d0",
+      "bytes": 33036,
+      "md5": "8e4eec8aedd1db4566fb8ef0932e8101",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p3-q2-page-10.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p3-q2-page-7.webp",
+      "sha256": "495340eb8a89775509914756f1e5122877fd9bee20bafd908e750086d4d0cf12",
+      "bytes": 72450,
+      "md5": "67d71b7104edb621a85cf2d5d034b906",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p3-q2-page-7.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p3-q2-page-8.webp",
+      "sha256": "2f936356fead3eeebe49a4ff3f6389c5f4052cc1c01d0313e56a84211ff1e2fa",
+      "bytes": 52740,
+      "md5": "c183083cc7d7fe73528b89647ab590d1",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p3-q2-page-8.webp"
+    },
+    {
+      "key": "ib-ai-hl/questions/2026-may-tz3-p3-q2-page-9.webp",
+      "sha256": "b7549c2c56f4c68bbfe6b992357a4362fdaec46a276f59363d85b6056971ba86",
+      "bytes": 57452,
+      "md5": "d219dc51f1764d2d513b5adc3558a436",
+      "sourcePath": "ib-maths-ai-hl-topic-practice-may-2026/site/questions/2026-may-tz3-p3-q2-page-9.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q1-page-7.webp",
+      "sha256": "fcc254db1fd3cf37bd5a4465eaf88d9ad6454720930a0b8d8967f7c6f11ff311",
+      "bytes": 43730,
+      "md5": "dc4427306baafb5cd5773b76b4d809e0",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q10-page-15.webp",
+      "sha256": "f3adfca80cf8c3c5b6af2db130405ae140df8538799b4622c47b837b3b193b9a",
+      "bytes": 57576,
+      "md5": "8268fa93139c195ed4f31b6a8fc8737a",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q10-page-15.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q11-page-16.webp",
+      "sha256": "3a71687e7f27e5f3e53e47b58489092ad9f5a2262724f46c294a79e595a291b2",
+      "bytes": 46770,
+      "md5": "4d6862effacb8ad56827a4e7babd3185",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q11-page-16.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q12-page-16.webp",
+      "sha256": "888e6c05c3a76cf73cebfd22d5ffb3b4389f3fb84139d40098eb8f024bbb578e",
+      "bytes": 42126,
+      "md5": "f63bc441748ab9a246bb8cdb2c38ec4d",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q12-page-16.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q13-page-17.webp",
+      "sha256": "eedde50e8c4836305e3f95dc20a8b4a33c3b20b5428f4278da353e5eee167738",
+      "bytes": 64104,
+      "md5": "d2a02020c37e6543a65af171882ee05e",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q13-page-17.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q2-page-8.webp",
+      "sha256": "087b3c897769c5821464aa34feaf871b7736fd53af340875753ac03c3d81c3ba",
+      "bytes": 32596,
+      "md5": "fad95f3626f452c9c71bcd90a5334678",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q2-page-8.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q3-page-8.webp",
+      "sha256": "748d209da8def74a01257cfe748cd9edc2a9718028d1403e7204605b915294de",
+      "bytes": 51376,
+      "md5": "1ce782f3b3d5156663e1dfb12465315c",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q3-page-8.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q4-page-9.webp",
+      "sha256": "393ca0799599ece4e0c03a17011c1680d2ffc9c17505503a3c2a2932a1266ec7",
+      "bytes": 95104,
+      "md5": "165ee50d6e980e9fb699bcf1c2b52426",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q4-page-9.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q5-page-10.webp",
+      "sha256": "4a26eb06bb19d4cc282df4297397ce3ef6ad3687204dad2a348b7fafafa8e809",
+      "bytes": 35976,
+      "md5": "503752577a2fbb4eec4582a9e225e529",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q5-page-10.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q6-page-10.webp",
+      "sha256": "18b4c6e387ff1453465cf50b3baffa642719b918fca477091e36f00c72fc7d4f",
+      "bytes": 45506,
+      "md5": "7d2ff2811cb246114cc019f95ec0b41a",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q6-page-10.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q7-page-11.webp",
+      "sha256": "9fb82059e07697086611e9a7b4c7a7ae05feca797d59a1f7d6aa23a28831faa3",
+      "bytes": 65594,
+      "md5": "f646434cdca786bf25a093b81c5beaa5",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q7-page-11.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q8-page-12.webp",
+      "sha256": "73cbebce25c221b2b1cb537220f7d5a66bdfdf43a6423094362295d505c1c979",
+      "bytes": 69020,
+      "md5": "6f1159459f32af1c595bc9606c4d3778",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q8-page-12.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q9-page-13.webp",
+      "sha256": "5ac484660cc938b316b89e990e031cf1c96b5962393d14c14b6cf1c1df7111ca",
+      "bytes": 57600,
+      "md5": "008c106ec823a4858e5d513653e128df",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q9-page-13.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q9-page-14.webp",
+      "sha256": "1313c49b88d34ff0c4771cd6e21e37faa8363945382203a3b3bd76cb98875887",
+      "bytes": 39348,
+      "md5": "75986f58f9195f796ea3d0fc47e9a145",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q9-page-14.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p1-q9-page-15.webp",
+      "sha256": "c2c6f7e0ef3a47dcde16b291dc0cced38c8466b43bc411da05488dbbd1455783",
+      "bytes": 31078,
+      "md5": "567244d374ff86ec085783a8a16ec216",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p1-q9-page-15.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p2-q1-page-7.webp",
+      "sha256": "233920f2466199288546f6d6e545845773497c16d9bd0b7b4f4ebea02836df17",
+      "bytes": 76910,
+      "md5": "d7b9f0df0d43c6e4e4bb7dc86a420dcf",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p2-q2-page-8.webp",
+      "sha256": "8b68d179302fe461e96913df045168bbc368f5e41ecf904fa77ebcd08adb8abe",
+      "bytes": 71072,
+      "md5": "919ec462b2f22e2d1950a9a44bca6059",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q2-page-8.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p2-q2-page-9.webp",
+      "sha256": "404ad7c8af8e97331cedbc2ffc1c2909df6bfff7d9bf1cf96da518b101effd22",
+      "bytes": 25838,
+      "md5": "e50c94f850f55f6b6ec7dc9a1e13c711",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q2-page-9.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p2-q3-page-10.webp",
+      "sha256": "6bde8833d3dd1304ed7e56178a3786afa9f65fa26b70b025cc83b4680d7f0894",
+      "bytes": 69656,
+      "md5": "05318fd6b38c367d274e674c059d0d0e",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q3-page-10.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p2-q3-page-11.webp",
+      "sha256": "bdbb7b43a0cc12f5ddff3b5e6079c1e64f98ee76d0da9095df31de4f76023a60",
+      "bytes": 53978,
+      "md5": "1c37ad077cf60945af91645b4906be42",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q3-page-11.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p2-q4-page-12.webp",
+      "sha256": "534da849aa796bd83cae15871ade67365579d8774b4106836c5627c268265d5a",
+      "bytes": 72446,
+      "md5": "1c1217ba657d9ec0f9975f6bdcd7125c",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q4-page-12.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p2-q5-page-13.webp",
+      "sha256": "3e5c2d3390ad5c13035f1f6162fec93093d1269e93d0e1f4d7afe8d65e430cbf",
+      "bytes": 62044,
+      "md5": "685f84e5c7e84e788e14f7c4ef567867",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q5-page-13.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p2-q5-page-14.webp",
+      "sha256": "3a93023f19b989fc950d18c1e0c999bf918be81e5ff0e0df24e697c990ce8b73",
+      "bytes": 28076,
+      "md5": "1389b1da62664e10c4f87bef30cf780f",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q5-page-14.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz1-p2-q5-page-15.webp",
+      "sha256": "1d3d53650f9cadd098b947e7003415a0fd298aa2b4119746a709bf9a48052ea4",
+      "bytes": 24610,
+      "md5": "a351712689d4da5a3122b149b887729b",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz1-p2-q5-page-15.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p1-q1-page-7.webp",
+      "sha256": "3217f4f152c9293351768db3b8db0b3b1897d3892a75f3a5bb21f7e9b3a1bd3f",
+      "bytes": 70910,
+      "md5": "413aa8a65dc5aaeaa8b05e9c18a3686c",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p1-q10-page-16.webp",
+      "sha256": "99c5ea04db162f547329ba12bcf24b16c4eab60d449258d6386f46426d43f9fe",
+      "bytes": 76820,
+      "md5": "826c37d5499045d6ff2a8dac529da00e",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q10-page-16.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p1-q11-page-17.webp",
+      "sha256": "a23803051dd28844a23ab9c8952d048e8d471d40a8215da54c6e04ce192b4105",
+      "bytes": 40432,
+      "md5": "50c0f1a803e07328ce24ca2b3e82d286",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q11-page-17.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p1-q12-page-18.webp",
+      "sha256": "8f6baf284b4caafa6fe13305d04d2a26a1371bc96d47760f4dd827fb2eedbd9f",
+      "bytes": 75754,
+      "md5": "3059ce1b19c514ccda17c6a4f7f6facd",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q12-page-18.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p1-q12-page-19.webp",
+      "sha256": "beae63ce377ba3ba11e3d26c8d313c35be3defcb879246a010f018c095a0c158",
+      "bytes": 26460,
+      "md5": "65d8a77a5404076e3d5203016403e85a",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q12-page-19.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p1-q2-page-8.webp",
+      "sha256": "937b9eb37ce866f9c099974892b6a4f70a248c7dc662f4080bb7ee4e2df80961",
+      "bytes": 93774,
+      "md5": "504c9e559214c5ea47b56763bfb4a857",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q2-page-8.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p1-q3-page-9.webp",
+      "sha256": "9e35e2b94e0757e53cfb06987a91425a8ed01bc53c78c17e0c634864ac6c7477",
+      "bytes": 70068,
+      "md5": "5c87b20b15df72921f79f73f19c69876",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q3-page-9.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p1-q4-page-10.webp",
+      "sha256": "b76b950dd05f7c7affa677e2e7d6301f1ad1ba3ebf08183899fbb96d1abc4eb8",
+      "bytes": 37624,
+      "md5": "e4ec08e90b74291e6a2a6385ddca3a50",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q4-page-10.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p1-q5-page-11.webp",
+      "sha256": "5de5760fc198ff0663272e70e11d6dcb51f357e45fd5c4affb46eab6b38019c5",
+      "bytes": 32466,
+      "md5": "a5824ce8943a0001d3277726457daa44",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q5-page-11.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p1-q6-page-12.webp",
+      "sha256": "879aba9a1678e8fafc1ebf4a95f3b87193a4e695dddf9a9b1a0451344637cfe2",
+      "bytes": 32540,
+      "md5": "449d7abe0f80b674150627776b80e509",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q6-page-12.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p1-q7-page-13.webp",
+      "sha256": "3e3a1e483980f1d816c8ff4f3f6d111ffd6350d8a45be4a1e974e3c09886a67b",
+      "bytes": 117596,
+      "md5": "6e9aa8d36cea31a5484135936368ba1c",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q7-page-13.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p1-q8-page-14.webp",
+      "sha256": "e2b0287cb4b67c642a12634d623e5a0b484da45652b9930aee785c17d30744d5",
+      "bytes": 51920,
+      "md5": "9b56293cc629c701412babbbb8b7eb8f",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q8-page-14.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p1-q9-page-15.webp",
+      "sha256": "0ec9ee75b0496e9eba3c372be5dea12b6d45141926c8a8e207daf56ddbd29c1b",
+      "bytes": 46304,
+      "md5": "7cda73e86d645c7ca84e6ee0bafc533d",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p1-q9-page-15.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p2-q1-page-7.webp",
+      "sha256": "c68e623b6bee8897a884610485aef4483f28189a269ac4ba2f12196ddd9ed6b7",
+      "bytes": 42758,
+      "md5": "bcc7409dd5109e7c2a31f17db8117e79",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p2-q1-page-8.webp",
+      "sha256": "a16a142702dda4c43ebc7d497ebd563975c4cb84ecc3583e1e4620224b7f87d5",
+      "bytes": 75636,
+      "md5": "dcd954fc1d09237e7dcef5b0a577153f",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q1-page-8.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p2-q2-page-10.webp",
+      "sha256": "1f82666a5cc2b53924b875bcef0499725d26ee4b2db89e520316fba6bea5d868",
+      "bytes": 127802,
+      "md5": "7ac493fdcf3528a12d5aebaaee3fae29",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q2-page-10.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p2-q2-page-9.webp",
+      "sha256": "80c407648c9884eb7ba33f3c4cf9530ab39fe7fecd1f929ee757e6116da6f525",
+      "bytes": 79972,
+      "md5": "73421af21f4071bb2c98a786cc88471e",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q2-page-9.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p2-q3-page-11.webp",
+      "sha256": "e75be8867f7093f55f1754aaf8b34a2107945c38a8e7946ec43acf336faf97a6",
+      "bytes": 68008,
+      "md5": "a56fc684f142511337d49c4bdd440522",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q3-page-11.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p2-q3-page-12.webp",
+      "sha256": "69797ef21522564c64ac1aea6ebd096d2d9c503814281fa6d889c66b650c422b",
+      "bytes": 56140,
+      "md5": "fe0d66f84b3d9e43a09c5ccb58121c9e",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q3-page-12.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p2-q4-page-13.webp",
+      "sha256": "9a42092149681369954ae76d28c709825feed925a3453309cdbbaecc0fb82a4e",
+      "bytes": 73372,
+      "md5": "4267a8b3a9b7c00234c00c96d413e7c9",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q4-page-13.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p2-q4-page-14.webp",
+      "sha256": "c7ab306936ac98b45b6422614cbc3b1c1f345818cc5a7efd4cef4ef7fe944236",
+      "bytes": 102892,
+      "md5": "187fe511677bb4a2cacfc36b9dbb56ba",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q4-page-14.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p2-q4-page-15.webp",
+      "sha256": "e97d86002f082be0a961bdc1fb420e439b461b72fc700b62e28be741142d03df",
+      "bytes": 58210,
+      "md5": "24bf3784097df1d419467c1a038e2f7e",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q4-page-15.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p2-q5-page-16.webp",
+      "sha256": "a50b246d8124319b3f885ea41ea96289808cd1c085725b31913c963ddc7290bb",
+      "bytes": 63346,
+      "md5": "4143df49beb5e86c46649f886b84fba8",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q5-page-16.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz2-p2-q5-page-17.webp",
+      "sha256": "fece7c5fb97fa3064b62523f6fb5326c024ee36e067dfd3ceaa01f4e5770c356",
+      "bytes": 57030,
+      "md5": "1fdb3f091e34fa03ac8bd433c259d61f",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz2-p2-q5-page-17.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q1-page-7.webp",
+      "sha256": "cc699de0886f820e501d4debade52006eddf60b599627d9fcb259a2b8a93aa7f",
+      "bytes": 61934,
+      "md5": "20c2cf0dda98d17302e8a009dd13c69c",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q10-page-17.webp",
+      "sha256": "3d7b444f4814723b58d0c6c5f13d1c64e6635756e9b4964ed936fde49c42cfd3",
+      "bytes": 37664,
+      "md5": "6b8f513b1b22f9c51e7f66dae3a155ce",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q10-page-17.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q11-page-18.webp",
+      "sha256": "ce1350a7cb2ca6b35b3897d15465f8327fa1d93d9aa68cc6702634de70dcd965",
+      "bytes": 27318,
+      "md5": "6515851a6ba840e3605c7267f6ab54d8",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q11-page-18.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q12-page-19.webp",
+      "sha256": "f4df14143edf597135f8e3a40b01ba010d9b1c8263e74496f2a52a284b63373d",
+      "bytes": 69076,
+      "md5": "e9faaab2cd9670c702c453f59d93dc42",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q12-page-19.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q12-page-20.webp",
+      "sha256": "d0be413ef0601751487076f9bb7e2170d458293785e673f9b0a146ac7f2419a8",
+      "bytes": 57520,
+      "md5": "a5186e277785932596b6ca4d8edf469b",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q12-page-20.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q12-page-21.webp",
+      "sha256": "e5fce137e8b297453061abb987172fce5229641b9a9afc2bc92a3a953f53f59b",
+      "bytes": 45028,
+      "md5": "d6674cc08edfeba08614b43a9b0c02e7",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q12-page-21.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q2-page-8.webp",
+      "sha256": "b659ecbd7c75daf881a6020731cd5b24ab2e3954ffad7c979c2a7e3ded9d1a7c",
+      "bytes": 31548,
+      "md5": "6efaff42c0804353d55ec23e499808ec",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q2-page-8.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q3-page-9.webp",
+      "sha256": "def370e8242501af58af70a1df87343b7100e18f8d59390227f07224f9d1c14e",
+      "bytes": 104130,
+      "md5": "4dbea377c0b7e2adcfa0f2f9e31690c5",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q3-page-9.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q4-page-10.webp",
+      "sha256": "962ddb76dbc6bcd661de8fc23c7d90dc6bc24861c1376eccc483940f92a63a6a",
+      "bytes": 46938,
+      "md5": "92d7f572a2f0f2a7fbc0815dc922e6af",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q4-page-10.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q5-page-11.webp",
+      "sha256": "a5c4c8f6c63ed75e71bc75e208d4629426eb9b53b52c89222977c27f1756a658",
+      "bytes": 69688,
+      "md5": "ba9ee9c8a4a799e2bdccf6b4fde5f7a6",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q5-page-11.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q6-page-12.webp",
+      "sha256": "7a500e90e770ae9de99fcbaf2ec598a1d4605b1a308f8c7dc924ae3e00baae66",
+      "bytes": 44456,
+      "md5": "a9c6f394606a00fb18d1cac92c5d16fc",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q6-page-12.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q7-page-13.webp",
+      "sha256": "85eb3f4b338b67b2324a663d73fe622dd248f6105b59af7f0d857d6f9ce609cc",
+      "bytes": 79564,
+      "md5": "ace31e4b9cecd8db9ac4a34e345ffd3b",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q7-page-13.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q8-page-14.webp",
+      "sha256": "30b09c9573b74441b9194673ea772a662bc473befcec73e80cbab50a70fe7d25",
+      "bytes": 35308,
+      "md5": "0a28bb95bc32234444eacfd6d35a4a6c",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q8-page-14.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q8-page-15.webp",
+      "sha256": "e7ae7482f40d0f43a9ef830758be1c8d9c63720fc46a63cb626ff1043e64558e",
+      "bytes": 38768,
+      "md5": "1de7e400957bbb88d7b78a2ca62dd6ba",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q8-page-15.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p1-q9-page-16.webp",
+      "sha256": "9cf6055b7cb76f4b15a49b7f266252598faa6f185084c5494db61053065ba11f",
+      "bytes": 60968,
+      "md5": "96ca8878d80a70d051fe3d28eae6c55f",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p1-q9-page-16.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p2-q1-page-7.webp",
+      "sha256": "ec998e390315a31dc1dd854c5d36d802e9f32633ad1813caccd3f6d3a4436499",
+      "bytes": 50926,
+      "md5": "4fb003d84ad645ee63ff3c6af968b301",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q1-page-7.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p2-q1-page-8.webp",
+      "sha256": "ccbfbaaddd7d0a40ae47c7442aae665707a80a9d74eb60b7ec4e45eae66bb93e",
+      "bytes": 70344,
+      "md5": "06218c2a139769f8c21cfe4e15de8b62",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q1-page-8.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p2-q1-page-9.webp",
+      "sha256": "aa856f1d85c2f51a8348b4d5709cb91b1fcfb7d7e32a961f7e21f93e9f37765d",
+      "bytes": 89760,
+      "md5": "ed19481980959e0ae70fa5dd641fd73c",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q1-page-9.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p2-q2-page-10.webp",
+      "sha256": "28b2e4807b2ad373093dba0aa9be1eb5d45bc49852485bbeac5bb089e3fbe478",
+      "bytes": 74864,
+      "md5": "3d48dc7384bb5217ca1159435da7431c",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q2-page-10.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p2-q2-page-11.webp",
+      "sha256": "32d9ad8e5b68b056e873966c59d494509b217a425c8f658b85a89b9a73432602",
+      "bytes": 49162,
+      "md5": "494e4eb2268f652d40908569e2d81212",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q2-page-11.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p2-q3-page-12.webp",
+      "sha256": "c1ee3884181b037d3923d0856d4696ea3867879b4d39dbafc4c718de5b209b03",
+      "bytes": 62490,
+      "md5": "ff38696c1aea17c434e12c686a2d43e3",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q3-page-12.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p2-q4-page-13.webp",
+      "sha256": "9cd7a30e8f87f5bf52599a0f72bf9ec87cf8c263c508a6a4512734c981949b22",
+      "bytes": 41524,
+      "md5": "c445499b7f4fadf4fee8debc57a23899",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q4-page-13.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p2-q4-page-14.webp",
+      "sha256": "a5aa8a912bda59a3486b6bb62c8ce4ca720186365a1bd83378fd01002bbd7e66",
+      "bytes": 60972,
+      "md5": "a82f5064197db2082b7d53187fb79fb1",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q4-page-14.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p2-q5-page-15.webp",
+      "sha256": "3f03fd5a82df7234002f130149fe0362bc3017840f2e50314417201d68d7030f",
+      "bytes": 51760,
+      "md5": "1e3a3cf90c9bd85cb90321c1d646d915",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q5-page-15.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p2-q5-page-16.webp",
+      "sha256": "bb8b466f3c68d4e703cab0d88906ec6bb05eabab751d86229ebc123cdd24ffba",
+      "bytes": 63222,
+      "md5": "8031e1e6a8235cd273cfed73f48612d4",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q5-page-16.webp"
+    },
+    {
+      "key": "ib-ai-sl/markschemes/2026-may-tz3-p2-q5-page-17.webp",
+      "sha256": "21bb1b4fc9708b65a1a5ac4401c1b63f3d1e42ffd6598faf129d3bb812c18065",
+      "bytes": 36874,
+      "md5": "f02d1ba3999cb3d8398c7cf85f934864",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/markschemes/2026-may-tz3-p2-q5-page-17.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q1-page-3.webp",
+      "sha256": "53507a66d86463bf685b05c98a4b2d558efe42b3290d4ebaec7dcd204ee13236",
+      "bytes": 72708,
+      "md5": "352f7a687a05800c15edcb4e0b4127d5",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q1-page-3.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q10-page-15.webp",
+      "sha256": "77e2556f8b1aecfeab07ba35970bd4577f1c6bea3606d3cd1bd261a89f8a1860",
+      "bytes": 92176,
+      "md5": "b160d59ae43f5179254dff7cf257f6f4",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q10-page-15.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q10-page-16.webp",
+      "sha256": "f13a4f9bf07784edb64e0b547e74c3acb0114cce0169cf107a85f9251a557b2e",
+      "bytes": 52480,
+      "md5": "44b04ceb89fbf5c8dcc7b1ec18332b02",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q10-page-16.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q11-page-17.webp",
+      "sha256": "f3957872c7a956a81214cc6f5a2b48a0352fad627c237a8e94e4dbcb08f19deb",
+      "bytes": 76472,
+      "md5": "139cb584dc7f3fb64d41e875bf820b3b",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q11-page-17.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q12-page-18.webp",
+      "sha256": "322dcd780a871905743484c11752ff8fd0fe19c2032cebaa6d3f408e312817c8",
+      "bytes": 60852,
+      "md5": "823199110dbe39310565979820618564",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q12-page-18.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q13-page-19.webp",
+      "sha256": "d7f16c40b7561f3887c60b7c67ed5de3a8ba3d9211402f12c184bc201398f810",
+      "bytes": 68270,
+      "md5": "28b08889bff78ea81d2b218fb776b3c8",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q13-page-19.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q13-page-20.webp",
+      "sha256": "614ed23a4143f47296a83de439457b2b0e79c044625c329ecd61833d8ccf120f",
+      "bytes": 53786,
+      "md5": "25f62844883997d724cd931405d835ad",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q13-page-20.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q2-page-4.webp",
+      "sha256": "da08d2191429a544a37b8fc1cc85b56abf12195fe90c27819f340d6cb9ed6085",
+      "bytes": 70548,
+      "md5": "884cdf40f7029fa7a0b2c21c9aa9ed11",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q2-page-4.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q3-page-5.webp",
+      "sha256": "32166a896f1bd09ebe697a757c79d03d134d300cd4a0ad62a6f401bd20d23fa3",
+      "bytes": 88216,
+      "md5": "ee87f872916b2b8470016844e4bc28e6",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q3-page-5.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q3-page-6.webp",
+      "sha256": "7125721b6db43d8cd7eaa77f6f4aa127ed9aebc68c2354b9788cc7f849eb1597",
+      "bytes": 52404,
+      "md5": "d933159ffd806a96c5a048e4e97296f9",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q3-page-6.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q4-page-7.webp",
+      "sha256": "5e1500e8cd963daa8329e74b0ce97c35476d7edfc12a6ff2da2ff127a57d3e60",
+      "bytes": 94558,
+      "md5": "ba3234a821d0e7e22c4fa75edb7db2b9",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q4-page-7.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q5-page-8.webp",
+      "sha256": "58ed1ceb2272a9a216b6724c104c0287e2a01c56d77e23869542a86af76fa12c",
+      "bytes": 84016,
+      "md5": "d64996dc900981f8205e82c615136546",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q5-page-8.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q6-page-10.webp",
+      "sha256": "e565164568a479011c91485a9ec43bc5f30223f60316557539be06d26942948e",
+      "bytes": 52422,
+      "md5": "5d7356344375e05a9a760cf598248558",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q6-page-10.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q6-page-9.webp",
+      "sha256": "883cde974e6d104408c8111e64dc9d278bae0609bda360557588995a7eb7f428",
+      "bytes": 95672,
+      "md5": "32207442022d1e0de907e226603cfe87",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q6-page-9.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q7-page-11.webp",
+      "sha256": "8ccac62afa5b64e3089061716d4a9577d342766003bd59391ef478a1ea020b6b",
+      "bytes": 100660,
+      "md5": "3acc1df09d82dc734dc26bcbb5a84a8c",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q7-page-11.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q7-page-12.webp",
+      "sha256": "de7c21d059c7f744a8d9ac8fc3fce2849414a5e0aea861a13a2ea0bc66bbf973",
+      "bytes": 52324,
+      "md5": "1ca2bb9a076d5b71bd8d83ef6aa00825",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q7-page-12.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q8-page-13.webp",
+      "sha256": "768baee2f939494997abe0e0fed0993df428adcdadfccfa8e1db2d78b29602c8",
+      "bytes": 71738,
+      "md5": "a955a9dc29573a33c699d07cb4220a06",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q8-page-13.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p1-q9-page-14.webp",
+      "sha256": "231d2f382185e2fc54f0e187e144e5c638e28b36bb7cf911769c84a14bfa8d3b",
+      "bytes": 101266,
+      "md5": "204f8d3eec4600552bdd47992106be69",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p1-q9-page-14.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p2-q1-page-3.webp",
+      "sha256": "8ba4bdea8c4f60e905051f0ed792e159368e4bd23ffdd069ac03c427805cb6d4",
+      "bytes": 53756,
+      "md5": "248b5157b2fd207cc33086683de6a1d6",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q1-page-3.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p2-q1-page-4.webp",
+      "sha256": "a345721609039ec4fbad8d11959b8cf111b11acb412380f767c349fce3180fc9",
+      "bytes": 31708,
+      "md5": "e054814d971de28cccd5404296297e10",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q1-page-4.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p2-q2-page-5.webp",
+      "sha256": "614bd1c0cd3ea8adbb5089107049f5f1f085aecc6e880dddc54aa73605ae29f9",
+      "bytes": 52632,
+      "md5": "94946178d8b7d3c9892598f73c9c7933",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q2-page-5.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p2-q2-page-6.webp",
+      "sha256": "0c5ee9cd57a12ac34f76d6945996cd6db2febac4fc80e0a5da42478317426553",
+      "bytes": 64562,
+      "md5": "cffbff0675eddaa69a59d29973e2cfc5",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q2-page-6.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p2-q3-page-7.webp",
+      "sha256": "fc7687afded8b8d873e4731c53a38d80b4f5bdf81a563598b4d4bd7cb881293b",
+      "bytes": 67158,
+      "md5": "b44d619c9eda47fc8c20afa5f89d9680",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q3-page-7.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p2-q3-page-8.webp",
+      "sha256": "88dfd7715073ec75a8f242ba94ebaf9918dc994b1897255102fce5399d75db37",
+      "bytes": 87340,
+      "md5": "4de9a5433a97860c939dc8d688bc3a80",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q3-page-8.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p2-q4-page-10.webp",
+      "sha256": "2e08207961db0b214f41c4292143622f90595852bfd7e595319d9560e6407015",
+      "bytes": 48966,
+      "md5": "0dad0f60eb29eb85ebe6bb0ec7679dfa",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q4-page-10.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p2-q4-page-9.webp",
+      "sha256": "bbbbfdcde40abd66b074f7785a35a2e61b3f4ddbd72be6ec21b3eb91f21f7e11",
+      "bytes": 75084,
+      "md5": "f148cb049cbb9166928aa6f7f6be3c38",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q4-page-9.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p2-q5-page-11.webp",
+      "sha256": "6e06501041a5dc78311ca2240de2c1a8756a9193a41395ff2a0ebc7e6018e784",
+      "bytes": 52232,
+      "md5": "7e95214be52c101aa411ffe99e492047",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q5-page-11.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz1-p2-q5-page-12.webp",
+      "sha256": "ea618b566e8749e2e60e1834268970f9f0536921123b8175a2bfc72365f6fe7d",
+      "bytes": 67388,
+      "md5": "4de7bf3ea898e8317d4ad800be3602af",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz1-p2-q5-page-12.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q1-page-3.webp",
+      "sha256": "0bcdbff4152b3a81425470035b15804f06d4973e56f605db1d9dc2520090ff07",
+      "bytes": 88214,
+      "md5": "ca9fcd93af8ba8d332811668d44e7f7a",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q1-page-3.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q1-page-4.webp",
+      "sha256": "fdcf7bd3e6c23c93bd888ce07409d86b78f0b1fd3f60c505a18ae3e5cad48428",
+      "bytes": 80664,
+      "md5": "b24ebf2f9a00862fcab510e2f8827a45",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q1-page-4.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q10-page-17.webp",
+      "sha256": "0c17e0a8f41a9abe4041d1e6f89d291def1c63cc63f25997342835abccb77201",
+      "bytes": 106352,
+      "md5": "1b3db6f586c257ed192ca9398a90103c",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q10-page-17.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q10-page-18.webp",
+      "sha256": "0ea47073ef6e6d27ea9d4a7f45600cc3e92941bc7fd8a02f3f53f1d0737272a9",
+      "bytes": 52392,
+      "md5": "442f4f64478245f5bdd894267f0d1967",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q10-page-18.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q11-page-19.webp",
+      "sha256": "5f882951db5d21b6ae4ea07894bc78aca1e7f53876eea2101756de02db6c4d56",
+      "bytes": 109212,
+      "md5": "d115e2e41482937bd8f35ca18806aaa7",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q11-page-19.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q11-page-20.webp",
+      "sha256": "e6f04c9fc06a4ae8969ec877179a10256fe46e0c2c082fcddde66cbb35a0e930",
+      "bytes": 52362,
+      "md5": "fd3a7101149c6b3c90a00704fd511c20",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q11-page-20.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q12-page-21.webp",
+      "sha256": "a0b88b324178d0fb7f2d7785d32e40c4a95c7d7b23df5f316663b34f830a0ece",
+      "bytes": 109828,
+      "md5": "cb008bcf78713db1dfc71aef47c5433e",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q12-page-21.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q12-page-22.webp",
+      "sha256": "f6cbbdc81b8293b5179fa98eff995593f6cad8e62f4bf2f7c15fd579a5b1a8b2",
+      "bytes": 57284,
+      "md5": "cebe2fb91670d49116cd7c00df7557d7",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q12-page-22.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q2-page-5.webp",
+      "sha256": "0f3dc4d1a8b4b0cc8b7b21763daef29d50c158038df0165ceb3227c9d66cf3ac",
+      "bytes": 97224,
+      "md5": "7289c64045417a2aabff2062eeb50ff8",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q2-page-5.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q2-page-6.webp",
+      "sha256": "2bbae104ed9bc3a5c629e5c5246aac80ef19df44eea2683e6bd7c9d607705c55",
+      "bytes": 52340,
+      "md5": "6d6250ef69375892e6cecccf89904471",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q2-page-6.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q3-page-7.webp",
+      "sha256": "afa19ab2bf40c0dfdfd2f9887575367ed89719ddb1fa6f7cfac8922940873e3e",
+      "bytes": 100194,
+      "md5": "a52a6d0651213df1890d6a36b2340113",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q3-page-7.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q4-page-8.webp",
+      "sha256": "da907d3b300a28a1b27b2e363b8e77486bb59371d6f40bc9a44188c39b90be95",
+      "bytes": 82688,
+      "md5": "d68d23e27323ae0cf785f29234910224",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q4-page-8.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q5-page-9.webp",
+      "sha256": "2849b1f98cbf0496bf27f35d0c5ab8f13d53ea735926dbc058078d47ba395891",
+      "bytes": 88884,
+      "md5": "b5ffca34d5b75a57c182d54d35600118",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q5-page-9.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q6-page-10.webp",
+      "sha256": "29429a3b2df441cf308be55b2b6fab13a863890bd05ec5e39d245b6844ef8991",
+      "bytes": 61366,
+      "md5": "ffc442f901beefb1850334734d532534",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q6-page-10.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q7-page-11.webp",
+      "sha256": "ba2b571c39df7e18614e7ea46068e557e4bcf6eca16edfae33efbdb00f7f0523",
+      "bytes": 116836,
+      "md5": "40e180bb21e70178c1af1c979b4b76af",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q7-page-11.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q7-page-12.webp",
+      "sha256": "9aa8d8fe0de17239fefdbad71e076c11dddc00c63a11f798c6101e0a2f2688d7",
+      "bytes": 52278,
+      "md5": "4670c256eb5f4b0c49afc04927c06024",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q7-page-12.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q8-page-13.webp",
+      "sha256": "2888fdc469f30f65f5134e57eb05185fdc85758d4784f9c7ace3aaea8e09d77a",
+      "bytes": 106530,
+      "md5": "c0da645cc32979910473bbd47109947a",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q8-page-13.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q8-page-14.webp",
+      "sha256": "8fbbe4178c8fb47dac2002a86796a68db331096e2dd991a95a015ee9326cb9d7",
+      "bytes": 52386,
+      "md5": "0255711ffa499f9f0a91112d54f08bee",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q8-page-14.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q9-page-15.webp",
+      "sha256": "34b51d5b3ffe7b57dd62f06fcdcbf0b33e03c7c42c6c79bddb8d3b179c689106",
+      "bytes": 54462,
+      "md5": "b01017afebf2df0b320553b9c21ad5a1",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q9-page-15.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p1-q9-page-16.webp",
+      "sha256": "6c498e7888533213052121f44ad00a75d0afa9ecdb3be7615c4e34ea32a4487e",
+      "bytes": 75758,
+      "md5": "12b582b7e4de37c626c9122f4ee0ddc5",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p1-q9-page-16.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p2-q1-page-3.webp",
+      "sha256": "cce3529d9372ccf2413d0f2450aaf45a288585b6fc4cf47dbdca6ed479acf927",
+      "bytes": 96942,
+      "md5": "69b57b047bc5ab1e459001d0a6d7f1ca",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q1-page-3.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p2-q1-page-4.webp",
+      "sha256": "92fc62cb6b588b2a2d4eea6b08cf1f03ef7a87801c22f909ac51af194fddabc2",
+      "bytes": 67930,
+      "md5": "ba9643563a5d4f8ea101fcf73113d0dd",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q1-page-4.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p2-q2-page-5.webp",
+      "sha256": "bfb97cfb4a73babd44e6069ebfaaef96d5df548a7dbadcc9ba65b9ad2e4c6b02",
+      "bytes": 70626,
+      "md5": "faed9804d75e873092d88af174f0e5c0",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q2-page-5.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p2-q2-page-6.webp",
+      "sha256": "f626e7baf89d52671a538f6d3cc32c429229c80f3d07584c9843f0c84361e61d",
+      "bytes": 62580,
+      "md5": "189bbf089f9de2a2625d35044732b03c",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q2-page-6.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p2-q3-page-7.webp",
+      "sha256": "50abdb1a65e25091cbc4fc6a48c0ebee2e5bdbb26abe5a58bbb3f71cb77d9ce8",
+      "bytes": 69132,
+      "md5": "a9b0e8565bd4dda243015f84c032ab56",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q3-page-7.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p2-q3-page-8.webp",
+      "sha256": "dcefe80f1ce1d5ebb297f1848fa0dda46c3d09794e664e6ca751bd77b62aa2eb",
+      "bytes": 72592,
+      "md5": "8692e27aa3e87d371b7dd3f12d0821fc",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q3-page-8.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p2-q4-page-10.webp",
+      "sha256": "f2a38c5bea1a6587b6b96bf0d03adb35b0b09cf6c9f4b9cfa054bfa4fc61f3a0",
+      "bytes": 156510,
+      "md5": "8bc8a57a1a0a95764f070d640d176ed2",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q4-page-10.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p2-q5-page-11.webp",
+      "sha256": "eabfd7abe20956a11d3a9c6d2aa254d3bd3088c7d30002b17e8da910363a2f53",
+      "bytes": 85804,
+      "md5": "21bc9820a28657ea6dd8b7885d5a0709",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q5-page-11.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz2-p2-q5-page-12.webp",
+      "sha256": "fe897ee1fc2b8e289518925c17fb670040b26e5a12aa676789e7f0662a7ce0c5",
+      "bytes": 37984,
+      "md5": "6cc68c29f0d8fa91d98fd80558dd6e63",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz2-p2-q5-page-12.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q1-page-3.webp",
+      "sha256": "2d58256c34430f3a8feed8b3a86fc47df1a7ef8cc476d3010692fead3caf37fa",
+      "bytes": 87066,
+      "md5": "dc8326c8500ab9c0e38c2c6dfa06d7de",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q1-page-3.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q1-page-4.webp",
+      "sha256": "c4cad6dd2f4f7df17e4817e4f8a730ac9bbb2f2cac8420d640aee993bdf295b2",
+      "bytes": 52368,
+      "md5": "ec91bac7946f5ad685d17fd834e7fa8a",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q1-page-4.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q10-page-20.webp",
+      "sha256": "d961912fa16ef1bd93173322987d326307ff6730ad7a20cd0cff425bc76c9dbb",
+      "bytes": 92508,
+      "md5": "ab4cb435c54bba92723d64f8837f89c4",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q10-page-20.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q11-page-22.webp",
+      "sha256": "e98cd2211610e12b29638084554d85f19b7d10752d7b9f2df39ee2b61a4cb4a6",
+      "bytes": 110778,
+      "md5": "3fcd5b2149d01f76c9cf72f8f5168275",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q11-page-22.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q12-page-23.webp",
+      "sha256": "3326227a7bfafe30659b300bff831a6d7795bc19a7a8576d8d3d6cc7ac98cf09",
+      "bytes": 96304,
+      "md5": "8d75a4e460d4df8a8767b9cf0caa381f",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q12-page-23.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q12-page-24.webp",
+      "sha256": "b29db5b88e867de190ab4a56fca26a5b3f2756e56b6e6884cbe8932a0cb6433a",
+      "bytes": 57986,
+      "md5": "0fa0af411adab3364990dcad289f7d39",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q12-page-24.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q2-page-6.webp",
+      "sha256": "20c5b178c4b1739dc43fe3e7af65c8f12c16052e58c20e3c67db851526ddc3e2",
+      "bytes": 68470,
+      "md5": "3a37d7c56e4293f3b60972c62e861242",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q2-page-6.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q3-page-7.webp",
+      "sha256": "452f645ad0999b273b37727f9c8a804e3e134256fce99b1026056b60ab96cfa0",
+      "bytes": 106798,
+      "md5": "c6e0794fab18840c779f508676fbb287",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q3-page-7.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q3-page-8.webp",
+      "sha256": "df9e8b10defde389e1780d48047c5c40e7a88c6f0eeb703e0c9dd3eee4d22b31",
+      "bytes": 52380,
+      "md5": "c6dc40794faf41911b333047ed4fd8ce",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q3-page-8.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q4-page-10.webp",
+      "sha256": "a644129f6c7d7baaba5c8793374b2135860fd97c86c2a1a168e3823daf1385b7",
+      "bytes": 93078,
+      "md5": "7e3abcdd0e559d87d604b69c57c260ce",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q4-page-10.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q5-page-11.webp",
+      "sha256": "077c66a9abc323f95e7dfa0087225db6cfc8c74c4c6241c1bbf92dd14193a57d",
+      "bytes": 76152,
+      "md5": "53c7eaf0eee7091480f1c60c1c1ecff5",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q5-page-11.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q5-page-12.webp",
+      "sha256": "d1347e6a64ff943225048e5ca7582231ec26d72e6099980a2848819c3c7934d5",
+      "bytes": 52394,
+      "md5": "d40b8c5fd55b011c04955df9877e3843",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q5-page-12.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q6-page-13.webp",
+      "sha256": "a0c8d365f79aa69f12b769e17dae32e63c94778718212dc9082e81e0c3974b50",
+      "bytes": 110970,
+      "md5": "41c8be6c1604a7aa551666cdc41e74c6",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q6-page-13.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q6-page-14.webp",
+      "sha256": "67cc54d6cce984689617b924edc917e477be1496a9a249acd3a2c97e04c4ec5f",
+      "bytes": 52454,
+      "md5": "2ae6dba26babd3ef9bcb53dbf1d04255",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q6-page-14.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q7-page-15.webp",
+      "sha256": "5df63b0ee3709125dc157d56e3f9640489f5cbd88fd8c926251e9a4169c5103c",
+      "bytes": 97648,
+      "md5": "9c59255b9d753507356d9cab63e13afb",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q7-page-15.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q7-page-16.webp",
+      "sha256": "d53ab2508e2fddf99060e3f227f656ce3ae05891f8863944d6c8f17c4284a9a0",
+      "bytes": 106330,
+      "md5": "6fbfdd33a5412bb66e853c9ff174f936",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q7-page-16.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q8-page-17.webp",
+      "sha256": "652fb8fd3b262c8a25a0719cd12bb7660a7d59ab07ff072cdf80183c6aa45612",
+      "bytes": 111268,
+      "md5": "ff77d33423ef04890b5fd88120cb4bc8",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q8-page-17.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q8-page-18.webp",
+      "sha256": "697515ee4114933b9ac560ebad9b6bad8185c67a1ed6382a0af45d1f9820df60",
+      "bytes": 59536,
+      "md5": "775f5d51ee51cb6e347a24e18638716a",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q8-page-18.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p1-q9-page-19.webp",
+      "sha256": "e0e088b500146f9543d3daf14c4e45653892eafe747a7139b4fe0b5d7f9c4d90",
+      "bytes": 99172,
+      "md5": "c3415a0960c19190a85f4b7f7cae81ca",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p1-q9-page-19.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p2-q1-page-3.webp",
+      "sha256": "9eecf0e77d76d5efa6df2361c65fd76347a6ba2f3af1d2de757b5ef659c5e0c4",
+      "bytes": 49388,
+      "md5": "de8b179b5a94bb11fa6cc0b64a089af3",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q1-page-3.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p2-q1-page-4.webp",
+      "sha256": "da7d8b5f34909d2fc1878068dfa548a0095c11e4c20d6e13ccfb1e5a5341cb7e",
+      "bytes": 60178,
+      "md5": "3ff35a443bbdab72bdf831f3bf20c4b5",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q1-page-4.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p2-q2-page-5.webp",
+      "sha256": "66c05f60edd3ce063ecbe972bf1c10bd308174bacc2df05caa14fb53aa8de3e1",
+      "bytes": 94284,
+      "md5": "ceb0e2d5fff6b2dc24a2f79e5934aee3",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q2-page-5.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p2-q2-page-6.webp",
+      "sha256": "71e0ed0fd323271dbc0183b269558bd59e2fe4949616bb802ea0a7412c2f1bd1",
+      "bytes": 71752,
+      "md5": "19ee8b4a247cd075e169ad4034e83ba8",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q2-page-6.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p2-q3-page-7.webp",
+      "sha256": "7fa4ae06dc7fc5b9b93da3b8f48969bd46632d12469f8ac773cb9a8a71ac8e09",
+      "bytes": 60208,
+      "md5": "cc90fa9fbacf8e68e6462d2860eef86d",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q3-page-7.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p2-q3-page-8.webp",
+      "sha256": "d4b505b7e9a828cd293c0b880b47c01dd3646309a27bd52ef9482582a6ae3a14",
+      "bytes": 48230,
+      "md5": "e05a567b4008aa94382bf4915db393a1",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q3-page-8.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p2-q4-page-10.webp",
+      "sha256": "6bb205f3819a9e3c0ac5708e7e6019a59947d088ebc1820edea81ccad4000ee9",
+      "bytes": 56202,
+      "md5": "4bebcff75e407b1f65b1fb70ce35dc5d",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q4-page-10.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p2-q4-page-11.webp",
+      "sha256": "27e376e00babc1dc7dba1775c6be4eafdfb704bf4f234bd9e7db3d5fdc8f7d18",
+      "bytes": 76340,
+      "md5": "7bace43583b4dd60660204f3dc8f9885",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q4-page-11.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p2-q4-page-12.webp",
+      "sha256": "deb85ee9bc243def5ac2a3459d11bdbd637ea3d3f85b6c2e21a617cbab6f92a9",
+      "bytes": 48136,
+      "md5": "9e001d3203148816aec1a4beea7b7dc7",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q4-page-12.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p2-q5-page-13.webp",
+      "sha256": "cc1b0344bb906aa381d496596d6a5d3586672575bb2f7ee807a360471e5987db",
+      "bytes": 69524,
+      "md5": "74d48938a7406edbe64b0b567e142975",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q5-page-13.webp"
+    },
+    {
+      "key": "ib-ai-sl/questions/2026-may-tz3-p2-q5-page-14.webp",
+      "sha256": "f84d800be361dd92aa05a395dd04195a802751f843eed9e68933ec69881ace7f",
+      "bytes": 58422,
+      "md5": "739170060e6ffa3743e23743c55aeae4",
+      "sourcePath": "ib-maths-ai-sl-topic-practice-may-2026/site/questions/2026-may-tz3-p2-q5-page-14.webp"
+    }
+  ]
+}

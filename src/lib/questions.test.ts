@@ -27,8 +27,8 @@ describe("question normalization", () => {
     expect(loadBankQuestions("igcse-additional")).toHaveLength(1656); // 1,633 historical + 23 reviewed Feb/March 2026 rows
     expect(loadBankQuestions("ib-hl")).toHaveLength(893);
     expect(loadBankQuestions("ib-sl")).toHaveLength(596);
-    expect(loadBankQuestions("ib-ai-hl")).toHaveLength(409);
-    expect(loadBankQuestions("ib-ai-sl")).toHaveLength(334);
+    expect(loadBankQuestions("ib-ai-hl")).toHaveLength(484);
+    expect(loadBankQuestions("ib-ai-sl")).toHaveLength(386);
   });
 
   it("keeps every question's skill labels unique", () => {

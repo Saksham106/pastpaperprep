@@ -1,0 +1,613 @@
+{
+  "manifestVersion": "ib-ai-sl-official-2026-review.1",
+  "reviewedQuestionCount": 52,
+  "reviewMethod": "Official May 2026 TZ1-TZ3 questions (additions, no earlier rows replaced): two independent source-grounded passes (a primary pass and a blind pass by a separate reviewer that never saw the primary labels) from the question and official IB markscheme crops, adjudicated row by row from the two immutable result files; Drex was triage only. Recorded as manual reviews in the source repository. Not part of the 2026-08 blind consensus audit.",
+  "adjudicationSha256": "18fe354ab28346d092287ca2c2062215759a8361b955ecb75ae849044ff58365",
+  "counts": {
+    "agree": 39,
+    "adjudicated": 13,
+    "lowConfidence": 1
+  },
+  "corrections": {
+    "2026-may-tz1-p1-q1": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Volume and surface area of 3D shapes"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "e18df2994cda56ad7c455883a20dde17863fae63f4eb2547508bf157038fe2ca",
+      "confidence": "medium",
+      "status": "agree"
+    },
+    "2026-may-tz1-p1-q10": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Chi-squared tests"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "30a88a347dba88ab4539f52e98357d7086adbbc6ade44503a08f53c257cb1f2d",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz1-p1-q11": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series",
+        "Solving equations with a GDC"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "ae2e5c9757a5a3abc41ea8e2ff7adca783512a82b79fd985c515b7a260e562bc",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz1-p1-q12": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Introduction to integration"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "9332de223a53c64b8a793d7e8315710414755bd781fd571c3d30ed96a1bdbd14",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz1-p1-q13": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry",
+        "Linear functions and graphs"
+      ],
+      "secondaryTopics": [
+        "Functions"
+      ],
+      "sourceTextSha256": "454af606b62e01235db7d0c136ee4f5b4764396a3f62cf602e76f134c6b94d7a",
+      "confidence": "medium",
+      "status": "agree"
+    },
+    "2026-may-tz1-p1-q2": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "a01638929cb4dce4485abca196c1d31ab3b6a6fd7e4dd385549e60298a0277b9",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz1-p1-q3": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Statistical measures and frequency tables"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "37157e019782349385e2988a427be9cc06f71d5510741b8fb770ef435f096b10",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz1-p1-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "70b6adb9de0a256f814987d3275f82b3139c52b37b453b926c4b653100d1429c",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz1-p1-q5": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with exponential functions"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "b2b3d2eace1aa4db2afe876aeff8f592854bd8265ce4e8baf01e23d6eccbff74",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz1-p1-q6": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Coordinate geometry"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "7eea62c6382cf69b4dfb3edcb9125234352565ff16dd1a8f816d86a3b36f5402",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz1-p1-q7": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Chi-squared tests",
+        "Conditional probability",
+        "Probability and types of events"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "3d4070e5740b475e620a206ce240f3d4a6ccb4fec7b9291a2b30682b61ce5a7a",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz1-p1-q8": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "361ce9629bfbf81f7069caf51e42afd2dbb488677ab61cf17d879eccf9b9a44b",
+      "confidence": "high",
+      "status": "skills-differ"
+    },
+    "2026-may-tz1-p1-q9": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "be19a354563638a2c9e0459663da7ca6f29039c17a671fe3732f10d60c2883bc",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz1-p2-q1": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Right-angled trigonometry",
+        "Volume and surface area of 3D shapes"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "87b33558e0d9cd4ac630aec8ee2ecbae5bf2843fbcc014e9cba21b6ab0f9f2f3",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz1-p2-q2": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of integration",
+        "Modelling with quadratic and cubic functions",
+        "Rounding, estimation and percentage error",
+        "Trapezoidal rule"
+      ],
+      "secondaryTopics": [
+        "Number and algebra",
+        "Functions"
+      ],
+      "sourceTextSha256": "76fd675338cc536e2c205e9e2f9fe7605979f65f7b0ec24c9450b7e068bd7f97",
+      "confidence": "medium",
+      "status": "agree"
+    },
+    "2026-may-tz1-p2-q3": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution",
+        "Normal distribution",
+        "Probability and types of events"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "76d95f5339922e2768a8a47458aba34d2f7f66dbffc28e3819b024689448eba3",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz1-p2-q4": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry",
+        "Right-angled trigonometry",
+        "Sinusoidal models"
+      ],
+      "secondaryTopics": [
+        "Functions"
+      ],
+      "sourceTextSha256": "0bac2457f4a2fd22edaf9afbc3ef884fcf844c3494aa8ec2c6d0e483ade888f5",
+      "confidence": "medium",
+      "status": "agree"
+    },
+    "2026-may-tz1-p2-q5": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Algebraic manipulation",
+        "Introduction to differentiation",
+        "Modelling with differentiation",
+        "Solving equations with a GDC"
+      ],
+      "secondaryTopics": [
+        "Calculus"
+      ],
+      "sourceTextSha256": "bf584fc870ef457057688f7a85a155c9c119e8426929a7330b07313d6ef1d006",
+      "confidence": "medium",
+      "status": "primary-differs"
+    },
+    "2026-may-tz2-p1-q1": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Outliers and data interpretation",
+        "Sampling and data collection",
+        "Statistical measures and frequency tables"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "8adfbbfbe23723770ec4851a20ff142d92bc899cbb8a3c2fcc24587a994254ea",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz2-p1-q10": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "cf9fd82e1109813d1b9261680094c10ee3c03df8017e421ccf97e86451367c14",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz2-p1-q11": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry",
+        "Right-angled trigonometry"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "46344b29b5f9a8f2b20fd79f80bb31845cfee330c5d42123644be09f8fc36a62",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz2-p1-q12": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Applications of differentiation",
+        "Linear functions and graphs",
+        "Properties of functions and graphs"
+      ],
+      "secondaryTopics": [
+        "Calculus"
+      ],
+      "sourceTextSha256": "6de70f7be11f12c4411ee9c080f26eae135c2d6bda4b4c148429ead03a1d40e6",
+      "confidence": "medium",
+      "status": "primary-differs"
+    },
+    "2026-may-tz2-p1-q2": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Rounding, estimation and percentage error",
+        "Volume and surface area of 3D shapes"
+      ],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "sourceTextSha256": "1566f425699fbdb91f8d70a1334180acaaba1806f3f2ac5a8e22fab6ac741948",
+      "confidence": "medium",
+      "status": "agree"
+    },
+    "2026-may-tz2-p1-q3": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Conditional probability",
+        "Probability and types of events"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "7d30c77f3331e1bcdddb01a2bb9e9e8fa8c371f3b00738c7259c586fbec6a05e",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz2-p1-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution",
+        "Probability and types of events"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "6a0e2303917e44bca7b0c5230181461477822baf7644a40e3d172cdbbf1ee6f6",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz2-p1-q5": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Direct and inverse variation"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "b736a3ab93d03a5f1a065428acb306de02af858d37b9977a5dc747ea029e320e",
+      "confidence": "high",
+      "status": "secondaries-differ"
+    },
+    "2026-may-tz2-p1-q6": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Exponents and logarithms",
+        "Properties of functions and graphs"
+      ],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "sourceTextSha256": "1ee38d638151b1276bba84796dc40ad7f676c6f37ca14c9ed7bd18e641b8d810",
+      "confidence": "medium",
+      "status": "secondaries-differ"
+    },
+    "2026-may-tz2-p1-q7": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Modelling with quadratic and cubic functions",
+        "Solving equations with a GDC"
+      ],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "sourceTextSha256": "efa59552249515125fe1466b39f39b4102a69040ec7b37ce74bdb46b6bcceaae",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz2-p1-q8": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "The t-test"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "e174c4510eacaefbd47a6a3bfd6160c69ccdfb798a2ce1745584495af9640467",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz2-p1-q9": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Introduction to differentiation",
+        "Properties of functions and graphs"
+      ],
+      "secondaryTopics": [
+        "Functions"
+      ],
+      "sourceTextSha256": "49a3f60d6a202a5e6ad1ed15c0e422590174ab6e5263bf6211b23ce2376857df",
+      "confidence": "medium",
+      "status": "agree"
+    },
+    "2026-may-tz2-p2-q1": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Algebraic manipulation",
+        "Rounding, estimation and percentage error"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "37a5d5c8dd4082285ea8f1a2ba52356143fdf3f2925e4eef97248c0d8169f98a",
+      "confidence": "low",
+      "status": "skills-differ"
+    },
+    "2026-may-tz2-p2-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Chi-squared tests",
+        "Discrete probability distributions",
+        "Probability and types of events"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "427c861d61efbde108794ba400503c07c24430c4d03b4435f986a88011457a74",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz2-p2-q3": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of integration",
+        "Introduction to differentiation",
+        "Volume and surface area of 3D shapes"
+      ],
+      "secondaryTopics": [
+        "Geometry and trigonometry"
+      ],
+      "sourceTextSha256": "dc77ab8156a9811d78075bd809aefb38a65c8e2197b193710dcecc369e712278",
+      "confidence": "medium",
+      "status": "secondaries-differ"
+    },
+    "2026-may-tz2-p2-q4": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "527cebbc479de271a08fed0d0d1b063eaabe63137ea13f4d4f772cbe846ca028",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz2-p2-q5": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Sinusoidal models"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "a9b82678ba287433b25ee70de3e45c38c143f662fffc499fd6dd479b93545abf",
+      "confidence": "high",
+      "status": "secondaries-differ"
+    },
+    "2026-may-tz3-p1-q1": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Rounding, estimation and percentage error"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "773cb08f750ebfd5f90184b7bbf7e5f1c72433ab4359b255b18aebf772734287",
+      "confidence": "medium",
+      "status": "primary-differs"
+    },
+    "2026-may-tz3-p1-q10": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Exponents and logarithms"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "5768a2f070f067ee3cc1fef39493f85e739c9e3fbf9101a150662448f123c6f3",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz3-p1-q11": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Discrete probability distributions"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "85c570bf0d15de1bca5a0e81f0704c48927ea9985900d17f38ef04aa05160b5b",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz3-p1-q12": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Non right-angled trigonometry",
+        "Right-angled trigonometry"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "36b0bbdcf55727afdd603ea8b84963e40518d32a01465b32d21e3825706b1fa7",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz3-p1-q2": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Sequences and series"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "26bdc588ff0f39503979a75f2c725321ab434d6fe993ce382313e588cff0fe23",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz3-p1-q3": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Chi-squared tests",
+        "Sampling and data collection"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "a42b3ea3f522351f2b691ef59fd84d830962ae935d1f4d7e10bcf58bb1c9b75f",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz3-p1-q4": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Binomial distribution",
+        "Probability and types of events"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "cae0a61f6d23d9d1f4bbb5fa1cfa1fc7c5c1da0f3bcdadaa368159bb58201f27",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz3-p1-q5": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Algebraic manipulation",
+        "Solving equations with a GDC"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "283dad591a3e5692ea815faacdd560f73eb8bd01f95577ac2b29f1a5ec774660",
+      "confidence": "medium",
+      "status": "agree"
+    },
+    "2026-may-tz3-p1-q6": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Conditional probability",
+        "Normal distribution",
+        "Probability and types of events"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "b9a6716718ed7cf4f4b6e6998de4dd1c9bdcca14c0e642077d93c06c773a9493",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz3-p1-q7": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Applications of integration",
+        "Trapezoidal rule"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "c0b4d827ee121afc79fd90b58473257ff674d02d09126a52438fb730fe511001",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz3-p1-q8": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Voronoi diagrams"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "c94a36b95bf6e3bc0a36b711b6edc7e7cd1f89923f7afdcfb06d5a20d59b0f5f",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz3-p1-q9": {
+      "primaryTopic": "Calculus",
+      "subtopics": [
+        "Introduction to differentiation",
+        "Introduction to integration",
+        "Solving equations with a GDC"
+      ],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "sourceTextSha256": "ec57655485daebf6cc53b4bb7cbe0ee5d6b5f1cf9f5097b0fb03088205ae29f9",
+      "confidence": "high",
+      "status": "secondaries-differ"
+    },
+    "2026-may-tz3-p2-q1": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Financial mathematics",
+        "Sequences and series"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "4f827aa1a437b38746e53e0f4a0aebbda25def426c3b96fbcada79aef5f2920d",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz3-p2-q2": {
+      "primaryTopic": "Statistics and probability",
+      "subtopics": [
+        "Correlation and regression",
+        "Outliers and data interpretation",
+        "Statistical measures and frequency tables",
+        "The t-test"
+      ],
+      "secondaryTopics": [],
+      "sourceTextSha256": "ba8de58e381dc4215139e842f3f1fb4ea29d2f3065fbc68062fe2b09d6cc2f5a",
+      "confidence": "high",
+      "status": "agree"
+    },
+    "2026-may-tz3-p2-q3": {
+      "primaryTopic": "Functions",
+      "subtopics": [
+        "Properties of functions and graphs",
+        "Sinusoidal models",
+        "Solving equations with a GDC"
+      ],
+      "secondaryTopics": [
+        "Number and algebra"
+      ],
+      "sourceTextSha256": "1a007e76fa1230c227c8223a2f1c6b5ef88910e3148e0cde6d0f5b2fcd14ea4b",
+      "confidence": "high",
+      "status": "skills-differ"
+    },
+    "2026-may-tz3-p2-q4": {
+      "primaryTopic": "Number and algebra",
+      "subtopics": [
+        "Introduction to differentiation",
+        "Modelling with differentiation",
+        "Rounding, estimation and percentage error",
+        "Solving equations with a GDC"
+      ],
+      "secondaryTopics": [
+        "Calculus"
+      ],
+      "sourceTextSha256": "d886b5712794698f81a4f50551c54cf85975a438f385f95702aa856db095405d",
+      "confidence": "medium",
+      "status": "skills-differ"
+    },
+    "2026-may-tz3-p2-q5": {
+      "primaryTopic": "Geometry and trigonometry",
+      "subtopics": [
+        "Arcs and sectors",
+        "Properties of functions and graphs",
+        "Volume and surface area of 3D shapes"
+      ],
+      "secondaryTopics": [
+        "Functions"
+      ],
+      "sourceTextSha256": "c18f0c64f085b4266542b582eed486c49e8f432197559794bc1a226152522ffb",
+      "confidence": "medium",
+      "status": "secondaries-differ"
+    }
+  }
+}
