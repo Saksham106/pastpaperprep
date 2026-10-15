@@ -7,8 +7,12 @@ export type PdfLabelQuestion = {
   component?: string; marks: number | null; primaryTopic: string;
 };
 
-// Cambridge banks store either the month or the s/w/m file-name code; IB names are already readable.
-const CAMBRIDGE_SESSIONS: Record<string, string> = { june: "May/June", s: "May/June", march: "Feb/March", m: "Feb/March", november: "Oct/Nov", w: "Oct/Nov" };
+// Cambridge banks store the month, the full series name or the s/w/m file-name code; IB names are already readable.
+const CAMBRIDGE_SESSIONS: Record<string, string> = {
+  june: "May/June", s: "May/June", "may/june": "May/June",
+  march: "Feb/March", m: "Feb/March", "february/march": "Feb/March",
+  november: "Oct/Nov", w: "Oct/Nov", "october/november": "Oct/Nov",
+};
 const catalogEntry = (bankSlug: BankSlug) => BANK_CATALOG.find((entry) => entry.slug === bankSlug);
 
 export function pdfSessionLabel(bankSlug: BankSlug, session: string): string {

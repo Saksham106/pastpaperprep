@@ -11,6 +11,8 @@ describe("pdfSessionLabel", () => {
     expect(["June", "s", "March", "m", "November", "w"].map((session) => pdfSessionLabel("igcse", session)))
       .toEqual(["May/June", "May/June", "Feb/March", "Feb/March", "Oct/Nov", "Oct/Nov"]);
     expect(pdfSessionLabel("igcse-biology-0610", "march")).toBe("Feb/March");
+    expect(["May/June", "February/March", "October/November"].map((session) => pdfSessionLabel("igcse-additional", session)))
+      .toEqual(["May/June", "Feb/March", "Oct/Nov"]);
   });
   it("keeps IB session names as stored", () => {
     expect(pdfSessionLabel("ib-chemistry-hl", "May")).toBe("May");
