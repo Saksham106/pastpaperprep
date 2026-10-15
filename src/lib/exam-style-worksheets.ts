@@ -1,4 +1,4 @@
-export type ExamStyleCourse = "ib-math-aa-sl" | "igcse-0580" | "igcse-0606";
+export type ExamStyleCourse = "ib-math-aa-sl" | "ib-math-aa-hl" | "igcse-0580" | "igcse-0606";
 export type ExamStyleWorksheet = {
   slug: string;
   title: string;
@@ -13,10 +13,23 @@ export const EXAM_STYLE_COURSES: Record<ExamStyleCourse, { label: string; route:
     label: "IB Mathematics AA SL",
     route: "/banks/ib-sl",
     worksheets: [
-      { course: "ib-math-aa-sl", slug: "binomial-distribution-worksheet", title: "Binomial Distribution", fileName: "binomial-distribution-worksheet.pdf", topics: ["Binomial distribution", "Discrete random variables", "Expected value"] },
-      { course: "ib-math-aa-sl", slug: "normal-distribution-worksheet", title: "Normal Distribution", fileName: "normal-distribution-worksheet.pdf", topics: ["Normal distribution", "Continuous random variables", "Probability"] },
-      { course: "ib-math-aa-sl", slug: "probability-distributions-mixed-exam-practice", title: "Probability Distributions: Mixed Exam Practice", fileName: "probability-distributions-mixed-exam-practice.pdf", topics: ["Discrete random variables", "Expected value", "Binomial distribution", "Normal distribution", "Mixed probability distributions"] },
+      {"course": "ib-math-aa-sl", "slug": "discrete-probability-distributions", "title": "Discrete Probability Distributions", "fileName": "discrete-probability-distributions.pdf", "topics": ["Discrete random variables", "Probability tables", "Expected value", "Fair games"], "section": "Probability distributions"},
+      {"course": "ib-math-aa-sl", "slug": "binomial-distribution-worksheet", "title": "Binomial Distribution", "fileName": "binomial-distribution-worksheet.pdf", "topics": ["Binomial distribution", "Expected value", "Conditional probability"], "section": "Probability distributions"},
+      {"course": "ib-math-aa-sl", "slug": "normal-distribution-worksheet", "title": "Normal Distribution", "fileName": "normal-distribution-worksheet.pdf", "topics": ["Normal distribution", "Standardisation", "Normal probabilities"], "section": "Probability distributions"},
+      {"course": "ib-math-aa-sl", "slug": "probability-distributions-mixed-exam-practice", "title": "Probability Distributions: Mixed Exam Practice", "fileName": "probability-distributions-mixed-exam-practice.pdf", "topics": ["Discrete random variables", "Expected value", "Binomial distribution", "Normal distribution"], "section": "Probability distributions"},
+      {"course": "ib-math-aa-sl", "slug": "inverse-normal-worksheet", "title": "Inverse Normal and Unknown Parameters", "fileName": "inverse-normal-worksheet.pdf", "topics": ["Inverse normal", "Finding the mean", "Finding the standard deviation"], "section": "Probability distributions"},
+      {"course": "ib-math-aa-sl", "slug": "probability-distributions-past-papers", "title": "Probability Distributions: Past-Paper Practice", "fileName": "probability-distributions-past-papers.pdf", "topics": ["Discrete random variables", "Binomial distribution", "Normal distribution", "Mixed probability distributions"], "section": "Probability distributions"},
       { course: "ib-math-aa-sl", slug: "sets-venn-conditional-probability", title: "Sets, Venn Diagrams and Conditional Probability", fileName: "sets-venn-conditional-probability.pdf", section: "Probability", topics: ["Sets and Venn diagrams", "Conditional probability", "Independent events", "Probability trees"] },
+    ],
+  },
+  "ib-math-aa-hl": {
+    label: "IB Mathematics AA HL",
+    route: "/banks/ib-hl",
+    worksheets: [
+      {"course": "ib-math-aa-hl", "slug": "asymptotes-and-intercepts", "title": "Asymptotes and Intercepts", "fileName": "asymptotes-and-intercepts.pdf", "topics": ["Asymptotes", "Intercepts", "Domain and range"], "section": "Functions"},
+      {"course": "ib-math-aa-hl", "slug": "further-functions", "title": "Further Functions", "fileName": "further-functions.pdf", "topics": ["Even and odd functions", "Modulus functions", "Equations and inequalities"], "section": "Functions"},
+      {"course": "ib-math-aa-hl", "slug": "sketching-rational-functions", "title": "Sketching Rational Functions", "fileName": "sketching-rational-functions.pdf", "topics": ["Rational functions", "Graph sketching", "Asymptotes", "Domain and range"], "section": "Functions"},
+      {"course": "ib-math-aa-hl", "slug": "transformation-of-rational-functions", "title": "Transformation of Rational Functions", "fileName": "transformation-of-rational-functions.pdf", "topics": ["Graph transformations", "Inverse graphs", "Rational functions"], "section": "Functions"},
     ],
   },
   "igcse-0580": {

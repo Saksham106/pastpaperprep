@@ -9,6 +9,29 @@ vi.mock("@/components/ExamStylePdfViewer", () => ({
 }));
 
 describe("exam-style practice viewers", () => {
+  it("adds four booklets under Functions while retaining the induction default", () => {
+    render(<ExamStyleAAHLWorkspace />);
+    expect(screen.getByRole("region", { name: "Divisibility practice PDF" })).toBeInTheDocument();
+    const functions = screen.getByRole("button", { name: /Functions 4 practice sets/ });
+    expect(functions).toHaveAttribute("aria-expanded", "false");
+    fireEvent.click(functions);
+    expect(functions).toHaveAttribute("aria-expanded", "true");
+    const group = screen.getByRole("group", { name: "Functions practice sets" });
+    expect(within(group).getAllByRole("button")).toHaveLength(4);
+    for (const [title, slug] of [
+      ["Asymptotes and Intercepts", "asymptotes-and-intercepts"],
+      ["Transformation of Rational Functions", "transformation-of-rational-functions"],
+      ["Sketching Rational Functions", "sketching-rational-functions"],
+      ["Further Functions", "further-functions"],
+    ]) {
+      fireEvent.click(within(group).getByRole("button", { name: new RegExp(title) }));
+      expect(screen.getByRole("region", { name: `${title} practice PDF` })).toHaveAttribute("data-src", `/api/exam-style/worksheets/ib-math-aa-hl/${slug}`);
+    }
+    fireEvent.click(screen.getByRole("button", { name: /Counting principle/ }));
+    expect(screen.queryByRole("group", { name: "Functions practice sets" })).not.toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "Counting principle, permutations & combinations practice PDF" })).toBeInTheDocument();
+  });
+
   it("nests induction practice sets and switches the canvas viewer without embedding the native PDF toolbar", () => {
     render(<ExamStyleAAHLWorkspace />);
     const topicNav = screen.getByRole("navigation", { name: "AA HL exam-style topics" });

@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createHash } from "node:crypto";
+import importInventory from "../../../../../../../docs/exam-style/ib-worksheet-import.json";
 const { createClient, getClaims } = vi.hoisted(() => ({ createClient: vi.fn(), getClaims: vi.fn() }));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 import { GET } from "./route";
@@ -11,6 +12,18 @@ describe("GET /api/exam-style/worksheets/[course]/[slug]", () => {
     vi.clearAllMocks();
     getClaims.mockResolvedValue({ data: { claims: {} } });
     createClient.mockResolvedValue({ auth: { getClaims } });
+  });
+
+  it.each(importInventory.documents)("serves the source-exact $course/$slug only after sign-in", async ({ course, slug, sha256, fileName }) => {
+    const params = { params: Promise.resolve({ course, slug }) };
+    expect((await GET(new Request("https://example.test"), params)).status).toBe(401);
+    getClaims.mockResolvedValue({ data: { claims: { sub: "user-id" } } });
+    const response = await GET(new Request("https://example.test"), params);
+    expect(response.status).toBe(200);
+    expect(response.headers.get("content-type")).toBe("application/pdf");
+    expect(response.headers.get("content-disposition")).toBe(`inline; filename="${fileName}"`);
+    expect(response.headers.get("cache-control")).toBe("private, no-store, max-age=0");
+    expect(createHash("sha256").update(Buffer.from(await response.arrayBuffer())).digest("hex")).toBe(sha256);
   });
 
   it.each(["probability-distributions-mixed-exam-practice", "sets-venn-conditional-probability"])("denies anonymous requests for %s without exposing any PDF bytes", async (slug) => {
