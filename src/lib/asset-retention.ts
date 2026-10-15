@@ -28,8 +28,9 @@ export const EXPECTED_ASSET_COUNTS = {
   "ib-chemistry-sl": { preview: 159, premium: 3877, all: 4036 },
   "ib-physics-hl": { preview: 226, premium: 5395, all: 5621 },
   "ib-physics-sl": { preview: 159, premium: 3636, all: 3795 },
-  "ib-biology-hl": { preview: 211, premium: 5400, all: 5611 },
-  "ib-biology-sl": { preview: 155, premium: 4216, all: 4371 },
+  // May 2026: official papers add 383 (HL) and 295 (SL) premium crops; 2026 is not a free-preview year.
+  "ib-biology-hl": { preview: 211, premium: 5783, all: 5994 },
+  "ib-biology-sl": { preview: 155, premium: 4511, all: 4666 },
 } as const satisfies Record<string, { preview: number; premium: number; all: number }>;
 
 export const EXPECTED_ASSET_TOTALS = Object.values(EXPECTED_ASSET_COUNTS).reduce(

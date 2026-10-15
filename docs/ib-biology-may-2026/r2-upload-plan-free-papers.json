@@ -1,0 +1,272 @@
+{
+  "schemaVersion": 1,
+  "addition": "ib-biology-may-2026",
+  "mode": "dry-run-upload-plan",
+  "status": "PLANNED, NOT UPLOADED (owner approval required)",
+  "provider": "cloudflare-r2",
+  "bucket": "pastpaperprep-free",
+  "method": "Output of `scripts/publish-added-free-papers.mts plan` against the pinned base: the PDFs the committed whole-paper manifests approve and the base manifests do not. Every source was hash-checked against its binding. Upload with `publish-added-free-papers.mts upload` (key checked absent, put with application/pdf, `public, max-age=604800` and an attachment download name, read back by SHA-256 and size), then `verify`.",
+  "sourceDirectory": "ib-biology-topic-practice/.worktrees/may-2026/data/raw-2026 (36 official IB originals, SHA-256 pinned in data/source-manifest-2026.json)",
+  "appBaseCommit": "18d8b98df165fad17c4f632e8a156214c27227fa",
+  "approvedObjectsAfter": 5020,
+  "objectCount": 36,
+  "totalBytes": 54691269,
+  "operatorNotes": [
+    "Owner approval is required before any upload.",
+    "Run `verify` afterwards: it rewrites src/data/paper-archive-readback.json only if every approved PDF matches."
+  ],
+  "objects": [
+    {
+      "sha256": "094c20d51af73ceb66c8ebb0fe514ca3597c98498ba842fee99cda061ac65d44",
+      "bytes": 2129226,
+      "name": "ib-biology-hl-2026-may-paper-1a-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-hl-p1a-question.pdf",
+      "key": "papers/v1/094c20d51af73ceb66c8ebb0fe514ca3597c98498ba842fee99cda061ac65d44.pdf"
+    },
+    {
+      "sha256": "0faacd861f573ea42d312d60c56315c095066cb007b844ef69d560093123a8a6",
+      "bytes": 166858,
+      "name": "ib-biology-sl-2026-may-paper-1a-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-sl-p1a-markscheme.pdf",
+      "key": "papers/v1/0faacd861f573ea42d312d60c56315c095066cb007b844ef69d560093123a8a6.pdf"
+    },
+    {
+      "sha256": "1a04c44757346002862cb2008eaf7932a2272c1fae02c8d80af6508ca328aab6",
+      "bytes": 259865,
+      "name": "ib-biology-hl-2026-may-paper-1b-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-hl-p1b-markscheme.pdf",
+      "key": "papers/v1/1a04c44757346002862cb2008eaf7932a2272c1fae02c8d80af6508ca328aab6.pdf"
+    },
+    {
+      "sha256": "1d82538a09b81f05119260d1fc2594872ac5665c3aa46b783902c391ab53348c",
+      "bytes": 1888097,
+      "name": "ib-biology-hl-2026-may-paper-2-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-hl-p2-question.pdf",
+      "key": "papers/v1/1d82538a09b81f05119260d1fc2594872ac5665c3aa46b783902c391ab53348c.pdf"
+    },
+    {
+      "sha256": "20e4d6cb209d370a5bc23fb3d2b815992a92298119bb8ce6b5662fc17124e84f",
+      "bytes": 1752209,
+      "name": "ib-biology-hl-2026-may-paper-2-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-hl-p2-question.pdf",
+      "key": "papers/v1/20e4d6cb209d370a5bc23fb3d2b815992a92298119bb8ce6b5662fc17124e84f.pdf"
+    },
+    {
+      "sha256": "28b0739fd0c65c761e81f507aeec16cccb861474b908426030d2fbd053c8c2ff",
+      "bytes": 365903,
+      "name": "ib-biology-sl-2026-may-paper-1b-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-sl-p1b-markscheme.pdf",
+      "key": "papers/v1/28b0739fd0c65c761e81f507aeec16cccb861474b908426030d2fbd053c8c2ff.pdf"
+    },
+    {
+      "sha256": "2bb723638f55f112e0dbb41859fbc4bac942928b18cb4183bf9a718f8f128a58",
+      "bytes": 223110,
+      "name": "ib-biology-hl-2026-may-paper-1a-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-hl-p1a-markscheme.pdf",
+      "key": "papers/v1/2bb723638f55f112e0dbb41859fbc4bac942928b18cb4183bf9a718f8f128a58.pdf"
+    },
+    {
+      "sha256": "2e8a5c8c19e1d58ae752b9ddd739abfac3c440bb683e1192753ad32846e136c0",
+      "bytes": 1279623,
+      "name": "ib-biology-sl-2026-may-paper-1b-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-sl-p1b-question.pdf",
+      "key": "papers/v1/2e8a5c8c19e1d58ae752b9ddd739abfac3c440bb683e1192753ad32846e136c0.pdf"
+    },
+    {
+      "sha256": "31af47047bf9de7127cfb38d95e68f677500765e2760b3bb5c9531f6d5b16126",
+      "bytes": 434925,
+      "name": "ib-biology-sl-2026-may-paper-2-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-sl-p2-markscheme.pdf",
+      "key": "papers/v1/31af47047bf9de7127cfb38d95e68f677500765e2760b3bb5c9531f6d5b16126.pdf"
+    },
+    {
+      "sha256": "3cfcb8e52d39f53e67d8b9a5f80db9fc90c20f7e56e675cc055d311ed38a5bdb",
+      "bytes": 2112338,
+      "name": "ib-biology-sl-2026-may-paper-1a-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-sl-p1a-question.pdf",
+      "key": "papers/v1/3cfcb8e52d39f53e67d8b9a5f80db9fc90c20f7e56e675cc055d311ed38a5bdb.pdf"
+    },
+    {
+      "sha256": "3f5498a1cc83ff819ab59032ee220d637e7db8a30d43adff8b9e02adeff214d5",
+      "bytes": 338657,
+      "name": "ib-biology-hl-2026-may-paper-1b-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-hl-p1b-markscheme.pdf",
+      "key": "papers/v1/3f5498a1cc83ff819ab59032ee220d637e7db8a30d43adff8b9e02adeff214d5.pdf"
+    },
+    {
+      "sha256": "3fbbff9f8eacf47bd9b1516f19d9d1e029d2492be61defc8d5c868e90b655fbe",
+      "bytes": 4741434,
+      "name": "ib-biology-hl-2026-may-paper-1b-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-hl-p1b-question.pdf",
+      "key": "papers/v1/3fbbff9f8eacf47bd9b1516f19d9d1e029d2492be61defc8d5c868e90b655fbe.pdf"
+    },
+    {
+      "sha256": "4304354e1c2378d84515e81527e9149a7338586671a9e97b60a125e8a3983b95",
+      "bytes": 1151958,
+      "name": "ib-biology-hl-2026-may-paper-2-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-hl-p2-question.pdf",
+      "key": "papers/v1/4304354e1c2378d84515e81527e9149a7338586671a9e97b60a125e8a3983b95.pdf"
+    },
+    {
+      "sha256": "438e76e87a56a5a03e79c00afe48a0073f6170c742bc37463b3220a3dec9e9ca",
+      "bytes": 3035704,
+      "name": "ib-biology-hl-2026-may-paper-1a-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-hl-p1a-question.pdf",
+      "key": "papers/v1/438e76e87a56a5a03e79c00afe48a0073f6170c742bc37463b3220a3dec9e9ca.pdf"
+    },
+    {
+      "sha256": "4706e05e8e8d8069fa73e2e528fbdd8fc303a63128bdbb2f06214a53cdc614d6",
+      "bytes": 223989,
+      "name": "ib-biology-sl-2026-may-paper-1a-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-sl-p1a-markscheme.pdf",
+      "key": "papers/v1/4706e05e8e8d8069fa73e2e528fbdd8fc303a63128bdbb2f06214a53cdc614d6.pdf"
+    },
+    {
+      "sha256": "49d22e53dbad1eba435c67e919cd89366cebb2c045d58b4e3431991277004293",
+      "bytes": 413868,
+      "name": "ib-biology-sl-2026-may-paper-1b-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-sl-p1b-markscheme.pdf",
+      "key": "papers/v1/49d22e53dbad1eba435c67e919cd89366cebb2c045d58b4e3431991277004293.pdf"
+    },
+    {
+      "sha256": "4a733ae53befeecac54493b16125fc168ff3fb136ed4d3cc01acf6376df01551",
+      "bytes": 473033,
+      "name": "ib-biology-sl-2026-may-paper-2-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-sl-p2-markscheme.pdf",
+      "key": "papers/v1/4a733ae53befeecac54493b16125fc168ff3fb136ed4d3cc01acf6376df01551.pdf"
+    },
+    {
+      "sha256": "569febddc318485213d17f78561161917bf2feb1fd8c5bafb01b003542f9223c",
+      "bytes": 253571,
+      "name": "ib-biology-sl-2026-may-paper-1b-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-sl-p1b-markscheme.pdf",
+      "key": "papers/v1/569febddc318485213d17f78561161917bf2feb1fd8c5bafb01b003542f9223c.pdf"
+    },
+    {
+      "sha256": "7536818e2bdb96663016cbb51126d15106b4d7f2b31d8d8dbf4fe4d2997c5714",
+      "bytes": 3651081,
+      "name": "ib-biology-sl-2026-may-paper-1a-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-sl-p1a-question.pdf",
+      "key": "papers/v1/7536818e2bdb96663016cbb51126d15106b4d7f2b31d8d8dbf4fe4d2997c5714.pdf"
+    },
+    {
+      "sha256": "7f24abeeefa1cecca1b1df9f727800178ea00f683795a01472d80a26fb0802c1",
+      "bytes": 223097,
+      "name": "ib-biology-hl-2026-may-paper-1a-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-hl-p1a-markscheme.pdf",
+      "key": "papers/v1/7f24abeeefa1cecca1b1df9f727800178ea00f683795a01472d80a26fb0802c1.pdf"
+    },
+    {
+      "sha256": "807bc7ee398280ddd04cf2398416aaf0fa47033a0133bd3097263031b01a61c3",
+      "bytes": 356605,
+      "name": "ib-biology-hl-2026-may-paper-2-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-hl-p2-markscheme.pdf",
+      "key": "papers/v1/807bc7ee398280ddd04cf2398416aaf0fa47033a0133bd3097263031b01a61c3.pdf"
+    },
+    {
+      "sha256": "864455459ff72803318f5a82c3d89008f3acbfd98a0482952b50ed14c995a4d1",
+      "bytes": 5310648,
+      "name": "ib-biology-sl-2026-may-paper-2-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-sl-p2-question.pdf",
+      "key": "papers/v1/864455459ff72803318f5a82c3d89008f3acbfd98a0482952b50ed14c995a4d1.pdf"
+    },
+    {
+      "sha256": "a61e457ed5d3f56a1a3dedc10d39f4267e9289f439ed66ad9abd2a281875db1e",
+      "bytes": 1272637,
+      "name": "ib-biology-hl-2026-may-paper-1b-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-hl-p1b-question.pdf",
+      "key": "papers/v1/a61e457ed5d3f56a1a3dedc10d39f4267e9289f439ed66ad9abd2a281875db1e.pdf"
+    },
+    {
+      "sha256": "a8ae0652f75f2d59d1873d6ef811faa8f98e5e30512f9a97d87512549b8a19c7",
+      "bytes": 320525,
+      "name": "ib-biology-hl-2026-may-paper-1b-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-hl-p1b-markscheme.pdf",
+      "key": "papers/v1/a8ae0652f75f2d59d1873d6ef811faa8f98e5e30512f9a97d87512549b8a19c7.pdf"
+    },
+    {
+      "sha256": "a983474c50d2d42dc8a51e551b597bf35f22b1430bc9e91c4d6fa007158be5a5",
+      "bytes": 1410930,
+      "name": "ib-biology-sl-2026-may-paper-1a-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-sl-p1a-question.pdf",
+      "key": "papers/v1/a983474c50d2d42dc8a51e551b597bf35f22b1430bc9e91c4d6fa007158be5a5.pdf"
+    },
+    {
+      "sha256": "aa93cc6b62eb3dc3c9e940791bf4523987a2b9c0f83e8a36bb91f16304382583",
+      "bytes": 3034711,
+      "name": "ib-biology-hl-2026-may-paper-1a-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-hl-p1a-question.pdf",
+      "key": "papers/v1/aa93cc6b62eb3dc3c9e940791bf4523987a2b9c0f83e8a36bb91f16304382583.pdf"
+    },
+    {
+      "sha256": "ae11113ed1e5a5a4c06218e4ca8e8be2ea235d308424534ddc3101205b800968",
+      "bytes": 2439757,
+      "name": "ib-biology-sl-2026-may-paper-1b-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-sl-p1b-question.pdf",
+      "key": "papers/v1/ae11113ed1e5a5a4c06218e4ca8e8be2ea235d308424534ddc3101205b800968.pdf"
+    },
+    {
+      "sha256": "b5ab085ac7178662004809d46854cf1ce9a1c663cd7500cc0255cde4ebc3a680",
+      "bytes": 198723,
+      "name": "ib-biology-sl-2026-may-paper-1a-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-sl-p1a-markscheme.pdf",
+      "key": "papers/v1/b5ab085ac7178662004809d46854cf1ce9a1c663cd7500cc0255cde4ebc3a680.pdf"
+    },
+    {
+      "sha256": "b7f3df3a9fbcf5f37a453a89539b7b14561e1537d17b0a9ad628145a04b14a35",
+      "bytes": 2868510,
+      "name": "ib-biology-hl-2026-may-paper-1b-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-hl-p1b-question.pdf",
+      "key": "papers/v1/b7f3df3a9fbcf5f37a453a89539b7b14561e1537d17b0a9ad628145a04b14a35.pdf"
+    },
+    {
+      "sha256": "b88cb519cf0fd7ef19cab7d109698af39d561ce765353b5406426600c9d4230a",
+      "bytes": 481358,
+      "name": "ib-biology-hl-2026-may-paper-2-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-hl-p2-markscheme.pdf",
+      "key": "papers/v1/b88cb519cf0fd7ef19cab7d109698af39d561ce765353b5406426600c9d4230a.pdf"
+    },
+    {
+      "sha256": "d8ffb566cba468e3d33e6edf5625d8fef44e093c6fedd5a1ea20d9f5d3e4a4f1",
+      "bytes": 503144,
+      "name": "ib-biology-hl-2026-may-paper-2-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-hl-p2-markscheme.pdf",
+      "key": "papers/v1/d8ffb566cba468e3d33e6edf5625d8fef44e093c6fedd5a1ea20d9f5d3e4a4f1.pdf"
+    },
+    {
+      "sha256": "d94be2d52b96b553a01af59d4c319a78a60b2f6bf506b93498758de7745f7167",
+      "bytes": 223446,
+      "name": "ib-biology-hl-2026-may-paper-1a-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-hl-p1a-markscheme.pdf",
+      "key": "papers/v1/d94be2d52b96b553a01af59d4c319a78a60b2f6bf506b93498758de7745f7167.pdf"
+    },
+    {
+      "sha256": "e9abba6f73fceaa44e0ad386540ea34675af346a425a0d50c36f292cc92ece8a",
+      "bytes": 2950118,
+      "name": "ib-biology-sl-2026-may-paper-2-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-sl-p2-question.pdf",
+      "key": "papers/v1/e9abba6f73fceaa44e0ad386540ea34675af346a425a0d50c36f292cc92ece8a.pdf"
+    },
+    {
+      "sha256": "f3a6f88789180c547f00c0bfdc7e3a222337a37f7ee598661480f531d55a9cdd",
+      "bytes": 485137,
+      "name": "ib-biology-sl-2026-may-paper-2-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-sl-p2-markscheme.pdf",
+      "key": "papers/v1/f3a6f88789180c547f00c0bfdc7e3a222337a37f7ee598661480f531d55a9cdd.pdf"
+    },
+    {
+      "sha256": "f4524973205745943ea0a43a5cff14b1e12b7938b0b5a0a8dd69ec000013f312",
+      "bytes": 4916094,
+      "name": "ib-biology-sl-2026-may-paper-1b-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-sl-p1b-question.pdf",
+      "key": "papers/v1/f4524973205745943ea0a43a5cff14b1e12b7938b0b5a0a8dd69ec000013f312.pdf"
+    },
+    {
+      "sha256": "f6f06bba4634b18fa038cd09d88394bde8b7c0ca02ecd586740d56c8ad7556f0",
+      "bytes": 2800380,
+      "name": "ib-biology-sl-2026-may-paper-2-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-sl-p2-question.pdf",
+      "key": "papers/v1/f6f06bba4634b18fa038cd09d88394bde8b7c0ca02ecd586740d56c8ad7556f0.pdf"
+    }
+  ]
+}
