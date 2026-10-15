@@ -120,6 +120,13 @@ describe("PDF title block", () => {
     expect(save).not.toHaveBeenCalled();
   });
 
+  it("labels a one-mark question \"1 mark\", not \"1 marks\"", async () => {
+    await downloadQuestionPdf([short({ marks: 1 }), short({ id: "0580-2024-june-22-q6", number: 6, marks: 3 })], "questions");
+    expect(drawn("1 mark")).toBe(true);
+    expect(drawn("1 marks")).toBe(false);
+    expect(drawn("3 marks")).toBe(true);
+  });
+
   it("draws no title block without a cover", async () => {
     await downloadQuestionPdf([short()], "questions");
     expect(drawn("IGCSE MATHEMATICS 0580 · EXTENDED")).toBe(false);

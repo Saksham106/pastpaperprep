@@ -9,6 +9,8 @@ import { UPGRADE_PRICE_MONTH } from "@/lib/upgrade-copy";
 import { Testimonial } from "@/components/Testimonial";
 import { SIGNUP_GATE_TESTIMONIAL } from "@/lib/testimonials";
 
+const GATE_VIEW_KEY = "signup_gate:";
+
 type GateProps = {
   bankSlug: string;
   remainingCount: number;
@@ -16,6 +18,8 @@ type GateProps = {
   signinHref: string;
   plansHref?: string;
   plansLine?: string;
+  /** Page-lived set shared with the other upgrade nudges, so a gate remounted by filtering is not counted again. */
+  sentViews?: Set<string>;
 };
 
 type GateMessageProps = GateProps & {
@@ -51,18 +55,14 @@ function GateMessage({ bankSlug, remainingCount, signupHref, signinHref, plansHr
   );
 }
 
-export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, signinHref, plansHref, plansLine }: GateProps) {
+export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, signinHref, plansHref, plansLine, sentViews }: GateProps) {
   const inlineRef = useRef<HTMLElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const hasElevatedRef = useRef(false);
+  const hasViewedRef = useRef(false);
   const focusFrameRef = useRef<number | null>(null);
   const [elevated, setElevated] = useState(false);
-
-  useEffect(() => {
-    trackProductEvent("free_gate_view", { bank: bankSlug, limit: ANONYMOUS_FREE_QUESTION_LIMIT, remainingCount });
-    trackUpgrade("view", bankSlug, "signup_gate");
-  }, [bankSlug, remainingCount]);
 
   const dismissPrompt = useCallback(() => {
     const dialog = dialogRef.current;
@@ -87,7 +87,15 @@ export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, s
 
     const observer = new IntersectionObserver((entries) => {
       const entry = entries[0];
-      if (!entry?.isIntersecting || entry.intersectionRatio < 0.35 || hasElevatedRef.current) return;
+      if (!entry?.isIntersecting) return;
+      // The gate mounts below 20 questions, so count a view only once it is actually on screen.
+      if (!hasViewedRef.current && !sentViews?.has(GATE_VIEW_KEY)) {
+        hasViewedRef.current = true;
+        sentViews?.add(GATE_VIEW_KEY);
+        trackProductEvent("free_gate_view", { bank: bankSlug, limit: ANONYMOUS_FREE_QUESTION_LIMIT, remainingCount });
+        trackUpgrade("view", bankSlug, "signup_gate");
+      }
+      if (entry.intersectionRatio < 0.35 || hasElevatedRef.current) return;
 
       try {
         dialog.showModal();
@@ -103,11 +111,11 @@ export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, s
         focusFrameRef.current = null;
         closeButtonRef.current?.focus({ preventScroll: true });
       });
-    }, { threshold: 0.35, rootMargin: "0px 0px -10% 0px" });
+    }, { threshold: [0, 0.35], rootMargin: "0px 0px -10% 0px" });
 
     observer.observe(target);
     return () => observer.disconnect();
-  }, [bankSlug, remainingCount]);
+  }, [bankSlug, remainingCount, sentViews]);
 
   useEffect(() => {
     if (!elevated) return;

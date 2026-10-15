@@ -373,7 +373,7 @@ export async function downloadQuestionPdf(
       addPage(placement.format, placement.orientation, placement.headerMode);
     }
     if (labelSpace) {
-      const detail = continued || kind === "answer" ? "" : Number.isFinite(marks) && marks !== null ? `${marks} marks` : "";
+      const detail = continued || kind === "answer" ? "" : Number.isFinite(marks) && marks !== null ? `${marks} ${marks === 1 ? "mark" : "marks"}` : "";
       const rightEdge = Math.min(placement.pageWidthMm - 8, placement.xMm + placement.widthMm);
       const badge = kind === "question" ? calculatorBadgeText(calculator) : null;
       pdf.setFont("helvetica", "normal");
