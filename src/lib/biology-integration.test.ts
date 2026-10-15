@@ -138,7 +138,7 @@ describe("IB Biology HL/SL integration", () => {
     // 675 served official May 2026 question and mark-scheme crops (HL 380, SL 295 are added to the pre-2026 5550 and 4432).
     expect(plan.allPaths.size).toBe(5550 + 4432 + 675);
     expect(plan.previewPaths.size).toBe(366);
-    expect(plan.premiumPaths.size).toBe(9616 + 678);
+    expect(plan.premiumPaths.size).toBe(9616 + 675);
   });
 
   it("makes every actual 2020 Biology paper the explicit free preview year", () => {
