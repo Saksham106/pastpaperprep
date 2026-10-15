@@ -56,13 +56,9 @@ export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, s
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const hasElevatedRef = useRef(false);
+  const hasViewedRef = useRef(false);
   const focusFrameRef = useRef<number | null>(null);
   const [elevated, setElevated] = useState(false);
-
-  useEffect(() => {
-    trackProductEvent("free_gate_view", { bank: bankSlug, limit: ANONYMOUS_FREE_QUESTION_LIMIT, remainingCount });
-    trackUpgrade("view", bankSlug, "signup_gate");
-  }, [bankSlug, remainingCount]);
 
   const dismissPrompt = useCallback(() => {
     const dialog = dialogRef.current;
@@ -87,7 +83,14 @@ export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, s
 
     const observer = new IntersectionObserver((entries) => {
       const entry = entries[0];
-      if (!entry?.isIntersecting || entry.intersectionRatio < 0.35 || hasElevatedRef.current) return;
+      if (!entry?.isIntersecting) return;
+      // The gate mounts below 20 questions, so count a view only once it is actually on screen.
+      if (!hasViewedRef.current) {
+        hasViewedRef.current = true;
+        trackProductEvent("free_gate_view", { bank: bankSlug, limit: ANONYMOUS_FREE_QUESTION_LIMIT, remainingCount });
+        trackUpgrade("view", bankSlug, "signup_gate");
+      }
+      if (entry.intersectionRatio < 0.35 || hasElevatedRef.current) return;
 
       try {
         dialog.showModal();
@@ -103,7 +106,7 @@ export function FreeQuestionSignupGate({ bankSlug, remainingCount, signupHref, s
         focusFrameRef.current = null;
         closeButtonRef.current?.focus({ preventScroll: true });
       });
-    }, { threshold: 0.35, rootMargin: "0px 0px -10% 0px" });
+    }, { threshold: [0, 0.35], rootMargin: "0px 0px -10% 0px" });
 
     observer.observe(target);
     return () => observer.disconnect();

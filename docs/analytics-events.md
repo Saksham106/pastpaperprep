@@ -25,7 +25,7 @@ No email, name or account ID is ever sent without consent.
 | `pdf_export_attempt` / `_success` / `_error` | Download PDF | `bank`, `questionCount`, `content`, `source` (`worksheet` = My Worksheets, `save_dialog` = icon in the Save PDF card) |
 | `pdf_upgrade_view` | PDF prompt for people without access | `bank` |
 | `upgrade_prompt_view` / `_click` / `_dismiss` | upgrade prompts | `bank`, `placement` |
-| `free_gate_view` / `_elevated` / `_dismiss` / `_signup_click` / `_signin_click` | 20-question sign-up prompt | `bank`, `limit`, `remainingCount` |
+| `free_gate_view` / `_elevated` / `_dismiss` / `_signup_click` / `_signin_click` | 20-question sign-up prompt. Since 2026-10-15 `free_gate_view` fires once per page when the prompt first scrolls into view (it used to fire on mount, which overcounted it). | `bank`, `limit`, `remainingCount` |
 | `pricing_view` | pricing page load | `product?`, `from?`, `interval`, `signedIn`, `hasPaidAccess`, `bankCount` |
 | `billing_interval_change` | pricing | `interval` |
 | `bank_selection_change` | pricing builder | selection size |

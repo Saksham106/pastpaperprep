@@ -51,7 +51,27 @@ describe("FreeQuestionSignupGate", () => {
     expect(plans).toHaveAttribute("href", "/pricing?product=bank_ib_sl");
     expect(screen.getByRole("link", { name: "Sign in" })).toHaveClass("free-question-gate-signin");
     expect(screen.queryByText(/no payment required/i)).not.toBeInTheDocument();
+  });
+
+  it("counts a view only once the gate is on screen, and only once", () => {
+    track.mockClear();
+    const { rerender } = render(<FreeQuestionSignupGate bankSlug="ib-sl" remainingCount={37} signupHref="/login?mode=sign-up" signinHref="/login" />);
+    expect(track).not.toHaveBeenCalledWith("free_gate_view", expect.anything());
+    expect(track).not.toHaveBeenCalledWith("upgrade_prompt_view", expect.anything());
+
+    act(() => {
+      intersectionCallback([{ isIntersecting: true, intersectionRatio: 0.1 } as IntersectionObserverEntry], {} as IntersectionObserver);
+    });
+    expect(track).toHaveBeenCalledWith("free_gate_view", { bank: "ib-sl", limit: 20, remainingCount: 37 });
     expect(track).toHaveBeenCalledWith("upgrade_prompt_view", { bank: "ib-sl", placement: "signup_gate" });
+    expect(showModal).not.toHaveBeenCalled();
+
+    rerender(<FreeQuestionSignupGate bankSlug="ib-sl" remainingCount={12} signupHref="/login?mode=sign-up" signinHref="/login" />);
+    act(() => {
+      intersectionCallback([{ isIntersecting: true, intersectionRatio: 0.6 } as IntersectionObserverEntry], {} as IntersectionObserver);
+    });
+    expect(track.mock.calls.filter(([event]) => event === "free_gate_view")).toHaveLength(1);
+    expect(showModal).toHaveBeenCalledTimes(1);
   });
 
   it("falls back to a generic plans line", () => {
