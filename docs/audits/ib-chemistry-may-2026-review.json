@@ -1,0 +1,3444 @@
+{
+  "manifestVersion": "ib-chemistry-may-2026-review.1",
+  "reviewedQuestionCount": 253,
+  "reviewMethod": "Official May 2026 TZ1-TZ3 questions: a source-grounded primary pass from the question crop and official markscheme, a separate blind second pass from sealed evidence without the primary labels or the Drex triage scores, and a written adjudication of every row where the passes differ (primary, secondaries, official codes, status) or either was low-confidence. Drex (drex-v1.1 requests, answered by drex-v1.5) was used for triage only.",
+  "sourceCommitPrefix": "f6aad08",
+  "finalLabelsSha256": "a2b798169c0a5cfea34bab1c693102293b010c83e792014aeb083e451ade85d3",
+  "rows": [
+    {
+      "id": "2026-may-tz1-hl-p1a-q1",
+      "level": "HL",
+      "primary": "A1",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q10",
+      "level": "HL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q11",
+      "level": "HL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q12",
+      "level": "HL",
+      "primary": "A3",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q13",
+      "level": "HL",
+      "primary": "A3",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q14",
+      "level": "HL",
+      "primary": "O2",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "blind",
+      "adjudication": "Functional-group identification is O2 with Structure 3.2 (2025 tz3 Paper 1A functional-groups rows are filed under Functional groups and reactions)."
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q15",
+      "level": "HL",
+      "primary": "O1",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q16",
+      "level": "HL",
+      "primary": "A4",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q17",
+      "level": "HL",
+      "primary": "O1",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q18",
+      "level": "HL",
+      "primary": "O4",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q19",
+      "level": "HL",
+      "primary": "E1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.1"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q2",
+      "level": "HL",
+      "primary": "M4",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.5"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q20",
+      "level": "HL",
+      "primary": "M2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q21",
+      "level": "HL",
+      "primary": "E2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q22",
+      "level": "HL",
+      "primary": "E3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.4"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q23",
+      "level": "HL",
+      "primary": "K1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q24",
+      "level": "HL",
+      "primary": "M3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.1",
+        "Structure 1.5"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Mole ratio of the balanced equation applied to gas volumes: reacting quantities (M3) with codes Reactivity 2.1 and Structure 1.5 (Avogadro); no independent second concept."
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q25",
+      "level": "HL",
+      "primary": "M3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q26",
+      "level": "HL",
+      "primary": "K1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q27",
+      "level": "HL",
+      "primary": "Q3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q28",
+      "level": "HL",
+      "primary": "Q2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.3"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q29",
+      "level": "HL",
+      "primary": "K3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q3",
+      "level": "HL",
+      "primary": "A2",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q30",
+      "level": "HL",
+      "primary": "R3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q31",
+      "level": "HL",
+      "primary": "C3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q32",
+      "level": "HL",
+      "primary": "R1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q33",
+      "level": "HL",
+      "primary": "R2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q34",
+      "level": "HL",
+      "primary": "R2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q35",
+      "level": "HL",
+      "primary": "R3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q36",
+      "level": "HL",
+      "primary": "C1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.4"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": "Identifying Br- as a Lewis base is acid-base behaviour (C1, Reactivity 3.4); the guide's ambiguity rule gives C when acid-base behaviour is assessed, not O (no mechanism is assessed)."
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q37",
+      "level": "HL",
+      "primary": "O3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.4"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q38",
+      "level": "HL",
+      "primary": "O3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.4"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q39",
+      "level": "HL",
+      "primary": "O3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.4"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q4",
+      "level": "HL",
+      "primary": "A3",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "high",
+      "source": "blind",
+      "adjudication": "Group number from successive ionization energies: periodic trends (A3, Structure 3.1), as the 2025 tz2 successive-ionization-energy row."
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q40",
+      "level": "HL",
+      "primary": "A4",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "medium",
+      "source": "blind",
+      "adjudication": "Charge of an iron(II) aqua-hydroxo complex from ligand charges: complex ions (A4, Structure 3.1); the oxidation state is given, so no redox reasoning is credited."
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q5",
+      "level": "HL",
+      "primary": "M3",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.4"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q6",
+      "level": "HL",
+      "primary": "M2",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.4"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q7",
+      "level": "HL",
+      "primary": "B1",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q8",
+      "level": "HL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q9",
+      "level": "HL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "blind",
+      "adjudication": "Recognising a coordinate bond: Lewis/bonding model (B2, Structure 2.2), as the 2025 Nov tz1 coordination-bond row."
+    },
+    {
+      "id": "2026-may-tz1-hl-p1b-q1",
+      "level": "HL",
+      "primary": "D4",
+      "secondaries": [
+        "D1",
+        "D2",
+        "D3",
+        "M4",
+        "R3"
+      ],
+      "codes": [
+        "Inquiry 1: Exploring and designing",
+        "Inquiry 2: Collecting and processing data",
+        "Inquiry 3: Concluding and evaluating",
+        "Tool 1: Experimental techniques",
+        "Tool 3: Mathematics",
+        "Structure 1.4",
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": "Data-based Dead Sea question: experimental design/variables/evaluation (a iv, b i, b iv, c i, c ii, c iv) carry about 11 of 25 marks, more than graph reading and processing (D2, about 6), calibration (3) or uncertainty (1)."
+    },
+    {
+      "id": "2026-may-tz1-hl-p1b-q2",
+      "level": "HL",
+      "primary": "D4",
+      "secondaries": [
+        "C4",
+        "O3"
+      ],
+      "codes": [
+        "Tool 1: Experimental techniques",
+        "Inquiry 3: Concluding and evaluating",
+        "Reactivity 2.1",
+        "Inquiry 1: Exploring and designing",
+        "Reactivity 3.2",
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q1",
+      "level": "HL",
+      "primary": "B2",
+      "secondaries": [
+        "M3",
+        "M4",
+        "R1",
+        "Q2",
+        "Q3",
+        "K2",
+        "B1",
+        "C2",
+        "R2",
+        "E3",
+        "R3",
+        "A2"
+      ],
+      "codes": [
+        "Structure 2.2",
+        "Structure 1.4",
+        "Structure 1.5",
+        "Reactivity 2.3",
+        "Reactivity 3.2",
+        "Reactivity 3.1",
+        "Reactivity 1.4",
+        "Reactivity 2.2",
+        "Structure 1.3",
+        "Structure 2.1"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q2",
+      "level": "HL",
+      "primary": "A3",
+      "secondaries": [
+        "A1",
+        "A2",
+        "A4",
+        "B1",
+        "E2",
+        "M2"
+      ],
+      "codes": [
+        "Structure 3.1",
+        "Structure 1.2",
+        "Structure 1.3",
+        "Structure 2.3",
+        "Reactivity 1.2",
+        "Reactivity 2.1"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q3",
+      "level": "HL",
+      "primary": "O3",
+      "secondaries": [
+        "E2",
+        "M3",
+        "O4",
+        "K1",
+        "B3",
+        "B4",
+        "O2"
+      ],
+      "codes": [
+        "Reactivity 3.4",
+        "Reactivity 3.3",
+        "Reactivity 1.2",
+        "Reactivity 2.1",
+        "Structure 3.2",
+        "Reactivity 2.2",
+        "Structure 2.4"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q4",
+      "level": "HL",
+      "primary": "C4",
+      "secondaries": [
+        "C2",
+        "C3"
+      ],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q5",
+      "level": "HL",
+      "primary": "K3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q1",
+      "level": "SL",
+      "primary": "A1",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q10",
+      "level": "SL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q11",
+      "level": "SL",
+      "primary": "A3",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q12",
+      "level": "SL",
+      "primary": "A3",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q13",
+      "level": "SL",
+      "primary": "O2",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "blind",
+      "adjudication": "Twin of HL q14: functional-group identification is O2 (Structure 3.2), as in 2025."
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q14",
+      "level": "SL",
+      "primary": "O1",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q15",
+      "level": "SL",
+      "primary": "E1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.1"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q16",
+      "level": "SL",
+      "primary": "M2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q17",
+      "level": "SL",
+      "primary": "E2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q18",
+      "level": "SL",
+      "primary": "K1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q19",
+      "level": "SL",
+      "primary": "M3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q2",
+      "level": "SL",
+      "primary": "A2",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q20",
+      "level": "SL",
+      "primary": "O2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2",
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": "Reduction of a carboxylic acid: organic redox (Reactivity 3.2) with functional-group knowledge (Structure 3.2)."
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q21",
+      "level": "SL",
+      "primary": "K1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q22",
+      "level": "SL",
+      "primary": "Q2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.3"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q23",
+      "level": "SL",
+      "primary": "Q3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q24",
+      "level": "SL",
+      "primary": "R1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q25",
+      "level": "SL",
+      "primary": "R2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q26",
+      "level": "SL",
+      "primary": "R2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q27",
+      "level": "SL",
+      "primary": "R3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q28",
+      "level": "SL",
+      "primary": "C1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "medium",
+      "source": "blind",
+      "adjudication": "Selecting the correct equation for a metal plus hydrochloric acid (salt formula and H2 gas): reactions of acids with metals, filed under Acid-base theories (C1, Reactivity 3.1); formulae/equations are the means, not the assessed concept. Medium confidence."
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q29",
+      "level": "SL",
+      "primary": "O3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.4"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q3",
+      "level": "SL",
+      "primary": "A2",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q30",
+      "level": "SL",
+      "primary": "O2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.4",
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": "Product of alkene hydration: electrophilic addition (Reactivity 3.4) and naming the functional-group product (Structure 3.2)."
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q4",
+      "level": "SL",
+      "primary": "M3",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.4"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q5",
+      "level": "SL",
+      "primary": "M2",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.4"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q6",
+      "level": "SL",
+      "primary": "B1",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.1"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": "Formula of an ionic compound from ion charges is the ionic model (B1, Structure 2.1)."
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q7",
+      "level": "SL",
+      "primary": "B1",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q8",
+      "level": "SL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q9",
+      "level": "SL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "blind",
+      "adjudication": "Twin of HL q9: coordinate bond is B2 (Structure 2.2)."
+    },
+    {
+      "id": "2026-may-tz1-sl-p1b-q1",
+      "level": "SL",
+      "primary": "D4",
+      "secondaries": [
+        "D1",
+        "D2",
+        "D3"
+      ],
+      "codes": [
+        "Inquiry 1: Exploring and designing",
+        "Inquiry 2: Collecting and processing data",
+        "Inquiry 3: Concluding and evaluating",
+        "Tool 1: Experimental techniques",
+        "Tool 3: Mathematics"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": "Twin of HL P1B Q1: design, variables and evaluation (D4) carry the most marks."
+    },
+    {
+      "id": "2026-may-tz1-sl-p1b-q2",
+      "level": "SL",
+      "primary": "D4",
+      "secondaries": [
+        "O3"
+      ],
+      "codes": [
+        "Tool 1: Experimental techniques",
+        "Inquiry 3: Concluding and evaluating",
+        "Inquiry 1: Exploring and designing",
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q1",
+      "level": "SL",
+      "primary": "Q3",
+      "secondaries": [
+        "M3",
+        "M4",
+        "R1",
+        "Q2",
+        "B1",
+        "B2",
+        "C2",
+        "R2",
+        "R3",
+        "A2"
+      ],
+      "codes": [
+        "Reactivity 2.3",
+        "Structure 1.4",
+        "Structure 1.5",
+        "Reactivity 3.2",
+        "Structure 2.2",
+        "Reactivity 3.1",
+        "Structure 1.3",
+        "Structure 2.1"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q2",
+      "level": "SL",
+      "primary": "A1",
+      "secondaries": [
+        "A2",
+        "A3",
+        "B1",
+        "M2"
+      ],
+      "codes": [
+        "Structure 1.2",
+        "Structure 1.3",
+        "Structure 3.1",
+        "Structure 2.3",
+        "Reactivity 2.1"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q3",
+      "level": "SL",
+      "primary": "O3",
+      "secondaries": [
+        "E2",
+        "M3",
+        "K1",
+        "B3",
+        "B4",
+        "O2"
+      ],
+      "codes": [
+        "Reactivity 3.3",
+        "Reactivity 3.4",
+        "Reactivity 1.2",
+        "Reactivity 2.1",
+        "Reactivity 2.2",
+        "Structure 2.4",
+        "Structure 3.2",
+        "Structure 2.2"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q4",
+      "level": "SL",
+      "primary": "C2",
+      "secondaries": [
+        "C4"
+      ],
+      "codes": [
+        "Reactivity 3.1",
+        "Reactivity 2.1"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q1",
+      "level": "HL",
+      "primary": "A1",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q10",
+      "level": "HL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q11",
+      "level": "HL",
+      "primary": "O2",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q12",
+      "level": "HL",
+      "primary": "A3",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q13",
+      "level": "HL",
+      "primary": "A3",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q14",
+      "level": "HL",
+      "primary": "A3",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q15",
+      "level": "HL",
+      "primary": "O1",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q16",
+      "level": "HL",
+      "primary": "O3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.4"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q17",
+      "level": "HL",
+      "primary": "O4",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q18",
+      "level": "HL",
+      "primary": "O4",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q19",
+      "level": "HL",
+      "primary": "E1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q2",
+      "level": "HL",
+      "primary": "A1",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q20",
+      "level": "HL",
+      "primary": "E4",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q21",
+      "level": "HL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q22",
+      "level": "HL",
+      "primary": "B1",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q23",
+      "level": "HL",
+      "primary": "E2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q24",
+      "level": "HL",
+      "primary": "K3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q25",
+      "level": "HL",
+      "primary": "M2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q26",
+      "level": "HL",
+      "primary": "M3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.1",
+        "Structure 1.5",
+        "Structure 1.4"
+      ],
+      "confidence": "high",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q27",
+      "level": "HL",
+      "primary": "K2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q28",
+      "level": "HL",
+      "primary": "Q2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q29",
+      "level": "HL",
+      "primary": "K3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q3",
+      "level": "HL",
+      "primary": "A2",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q30",
+      "level": "HL",
+      "primary": "Q2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q31",
+      "level": "HL",
+      "primary": "C1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q32",
+      "level": "HL",
+      "primary": "C4",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q33",
+      "level": "HL",
+      "primary": "C1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q34",
+      "level": "HL",
+      "primary": "C1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.4"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q35",
+      "level": "HL",
+      "primary": "C2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q36",
+      "level": "HL",
+      "primary": "R1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q37",
+      "level": "HL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q38",
+      "level": "HL",
+      "primary": "C2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q39",
+      "level": "HL",
+      "primary": "R2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q4",
+      "level": "HL",
+      "primary": "A3",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q40",
+      "level": "HL",
+      "primary": "R2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2",
+        "Reactivity 1.4"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q5",
+      "level": "HL",
+      "primary": "M4",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.5"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q6",
+      "level": "HL",
+      "primary": "B1",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q7",
+      "level": "HL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q8",
+      "level": "HL",
+      "primary": "B3",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q9",
+      "level": "HL",
+      "primary": "B1",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1b-q1",
+      "level": "HL",
+      "primary": "D4",
+      "secondaries": [
+        "D2"
+      ],
+      "codes": [
+        "Inquiry 1: Exploring and designing",
+        "Inquiry 2: Collecting and processing data",
+        "Inquiry 3: Concluding and evaluating"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1b-q2",
+      "level": "HL",
+      "primary": "E1",
+      "secondaries": [
+        "D1",
+        "D4"
+      ],
+      "codes": [
+        "Reactivity 1.1",
+        "Inquiry 2: Collecting and processing data",
+        "Inquiry 3: Concluding and evaluating",
+        "Reactivity 1.3",
+        "Tool 3: Mathematics"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz2-hl-p1b-q3",
+      "level": "HL",
+      "primary": "D3",
+      "secondaries": [
+        "D1",
+        "D2",
+        "D4"
+      ],
+      "codes": [
+        "Tool 1: Experimental techniques",
+        "Inquiry 2: Collecting and processing data",
+        "Tool 2: Technology"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Titration, dilution glassware, rinsing, burette reading and colorimetry are analytical technique (D3, 7 of 10 marks); trials/dilution rationale (D4), uncertainty (D1) and the calibration curve (D2) stay as secondaries."
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q1",
+      "level": "HL",
+      "primary": "C2",
+      "secondaries": [
+        "C3",
+        "C4",
+        "M3",
+        "B2",
+        "O4"
+      ],
+      "codes": [
+        "Reactivity 3.1",
+        "Reactivity 2.1",
+        "Structure 2.2",
+        "Structure 3.2",
+        "Structure 1.4"
+      ],
+      "confidence": "high",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q2",
+      "level": "HL",
+      "primary": "M4",
+      "secondaries": [
+        "M1",
+        "Q3",
+        "R1",
+        "K1",
+        "A3",
+        "B3"
+      ],
+      "codes": [
+        "Structure 1.5",
+        "Structure 1.1",
+        "Reactivity 2.3",
+        "Reactivity 3.2",
+        "Reactivity 2.2",
+        "Structure 3.1",
+        "Structure 2.2",
+        "Structure 1.3"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q3",
+      "level": "HL",
+      "primary": "B1",
+      "secondaries": [
+        "B4",
+        "A3",
+        "A2",
+        "M2",
+        "K2"
+      ],
+      "codes": [
+        "Structure 2.3",
+        "Structure 2.4",
+        "Structure 3.1",
+        "Structure 1.3",
+        "Reactivity 2.1",
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q4",
+      "level": "HL",
+      "primary": "O3",
+      "secondaries": [
+        "E3",
+        "O2",
+        "O1",
+        "K2",
+        "B2",
+        "O4"
+      ],
+      "codes": [
+        "Reactivity 3.4",
+        "Reactivity 3.3",
+        "Reactivity 1.4",
+        "Structure 3.2",
+        "Reactivity 2.2",
+        "Structure 2.2"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q5",
+      "level": "HL",
+      "primary": "E2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q6",
+      "level": "HL",
+      "primary": "K3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q7",
+      "level": "HL",
+      "primary": "A4",
+      "secondaries": [
+        "B1"
+      ],
+      "codes": [
+        "Structure 3.1",
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q1",
+      "level": "SL",
+      "primary": "M1",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q10",
+      "level": "SL",
+      "primary": "B1",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.1"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q11",
+      "level": "SL",
+      "primary": "A3",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q12",
+      "level": "SL",
+      "primary": "A3",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q13",
+      "level": "SL",
+      "primary": "A3",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q14",
+      "level": "SL",
+      "primary": "O1",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q15",
+      "level": "SL",
+      "primary": "K2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q16",
+      "level": "SL",
+      "primary": "E1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q17",
+      "level": "SL",
+      "primary": "E4",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q18",
+      "level": "SL",
+      "primary": "M3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q19",
+      "level": "SL",
+      "primary": "M2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q2",
+      "level": "SL",
+      "primary": "A1",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q20",
+      "level": "SL",
+      "primary": "M3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.1",
+        "Structure 1.5",
+        "Structure 1.4"
+      ],
+      "confidence": "high",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q21",
+      "level": "SL",
+      "primary": "K2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q22",
+      "level": "SL",
+      "primary": "Q2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q23",
+      "level": "SL",
+      "primary": "Q3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q24",
+      "level": "SL",
+      "primary": "C1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q25",
+      "level": "SL",
+      "primary": "C1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q26",
+      "level": "SL",
+      "primary": "C1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q27",
+      "level": "SL",
+      "primary": "C1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q28",
+      "level": "SL",
+      "primary": "C2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q29",
+      "level": "SL",
+      "primary": "R1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q3",
+      "level": "SL",
+      "primary": "A2",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q30",
+      "level": "SL",
+      "primary": "R2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q4",
+      "level": "SL",
+      "primary": "A2",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q5",
+      "level": "SL",
+      "primary": "M4",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.5"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q6",
+      "level": "SL",
+      "primary": "B1",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q7",
+      "level": "SL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q8",
+      "level": "SL",
+      "primary": "B3",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q9",
+      "level": "SL",
+      "primary": "B1",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1b-q1",
+      "level": "SL",
+      "primary": "D4",
+      "secondaries": [
+        "D2"
+      ],
+      "codes": [
+        "Inquiry 1: Exploring and designing",
+        "Inquiry 2: Collecting and processing data",
+        "Inquiry 3: Concluding and evaluating"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1b-q2",
+      "level": "SL",
+      "primary": "E1",
+      "secondaries": [
+        "D1",
+        "D4"
+      ],
+      "codes": [
+        "Reactivity 1.1",
+        "Inquiry 2: Collecting and processing data",
+        "Inquiry 3: Concluding and evaluating",
+        "Reactivity 1.3",
+        "Tool 3: Mathematics"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q1",
+      "level": "SL",
+      "primary": "C2",
+      "secondaries": [
+        "M3",
+        "C1",
+        "C4"
+      ],
+      "codes": [
+        "Reactivity 3.1",
+        "Reactivity 2.1"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Initial pH of a strong acid and distinguishing strong from weak acids (3 marks, C2) equal the titration-equation and stoichiometry marks; C2 stays primary with M3, C1 and C4 as secondaries."
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q2",
+      "level": "SL",
+      "primary": "M4",
+      "secondaries": [
+        "M1",
+        "Q3",
+        "R1",
+        "K1",
+        "A3",
+        "B3"
+      ],
+      "codes": [
+        "Structure 1.5",
+        "Structure 1.1",
+        "Reactivity 2.3",
+        "Reactivity 3.2",
+        "Reactivity 2.2",
+        "Structure 3.1",
+        "Structure 2.2",
+        "Structure 1.3"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q3",
+      "level": "SL",
+      "primary": "B1",
+      "secondaries": [
+        "B4",
+        "M2",
+        "A3",
+        "K2"
+      ],
+      "codes": [
+        "Structure 2.3",
+        "Structure 2.4",
+        "Reactivity 2.1",
+        "Structure 3.1",
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q4",
+      "level": "SL",
+      "primary": "O3",
+      "secondaries": [
+        "O2",
+        "O1",
+        "B2",
+        "K2"
+      ],
+      "codes": [
+        "Reactivity 3.4",
+        "Reactivity 3.3",
+        "Structure 3.2",
+        "Structure 2.2",
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q5",
+      "level": "SL",
+      "primary": "E2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q1",
+      "level": "HL",
+      "primary": "M1",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q10",
+      "level": "HL",
+      "primary": "B4",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.4"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q11",
+      "level": "HL",
+      "primary": "B4",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.4"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q12",
+      "level": "HL",
+      "primary": "A3",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q13",
+      "level": "HL",
+      "primary": "A2",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q14",
+      "level": "HL",
+      "primary": "A4",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q15",
+      "level": "HL",
+      "primary": "O1",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q16",
+      "level": "HL",
+      "primary": "O1",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q17",
+      "level": "HL",
+      "primary": "O1",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q18",
+      "level": "HL",
+      "primary": "O4",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q19",
+      "level": "HL",
+      "primary": "E1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.1"
+      ],
+      "confidence": "medium",
+      "source": "blind",
+      "adjudication": "The credited step is the sign and size of the enthalpy change read from a potential energy profile: Reactivity 1.1 (E1); no activation-energy reasoning is assessed."
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q2",
+      "level": "HL",
+      "primary": "A2",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.3"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q20",
+      "level": "HL",
+      "primary": "R3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q21",
+      "level": "HL",
+      "primary": "E2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.2"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q22",
+      "level": "HL",
+      "primary": "E3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.4"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q23",
+      "level": "HL",
+      "primary": "E2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q24",
+      "level": "HL",
+      "primary": "M5",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q25",
+      "level": "HL",
+      "primary": "M3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q26",
+      "level": "HL",
+      "primary": "K1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q27",
+      "level": "HL",
+      "primary": "K3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q28",
+      "level": "HL",
+      "primary": "Q2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q29",
+      "level": "HL",
+      "primary": "K3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q3",
+      "level": "HL",
+      "primary": "A2",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q30",
+      "level": "HL",
+      "primary": "Q2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q31",
+      "level": "HL",
+      "primary": "C1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q32",
+      "level": "HL",
+      "primary": "C2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q33",
+      "level": "HL",
+      "primary": "C4",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q34",
+      "level": "HL",
+      "primary": "O2",
+      "secondaries": [
+        "O1"
+      ],
+      "codes": [
+        "Reactivity 3.2",
+        "Structure 3.2"
+      ],
+      "confidence": "medium",
+      "source": "blind",
+      "adjudication": "Counts alcohol structural isomers that can be oxidized: isomerism (O1) is independently assessed with oxidation of alcohols (Reactivity 3.2)."
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q35",
+      "level": "HL",
+      "primary": "R2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q36",
+      "level": "HL",
+      "primary": "R1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q37",
+      "level": "HL",
+      "primary": "O2",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2",
+        "Reactivity 3.2"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q38",
+      "level": "HL",
+      "primary": "O3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.4"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q39",
+      "level": "HL",
+      "primary": "O3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.4"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q4",
+      "level": "HL",
+      "primary": "M3",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.4"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q40",
+      "level": "HL",
+      "primary": "O3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.4"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q5",
+      "level": "HL",
+      "primary": "M4",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.5"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q6",
+      "level": "HL",
+      "primary": "B1",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.1"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q7",
+      "level": "HL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q8",
+      "level": "HL",
+      "primary": "O4",
+      "secondaries": [],
+      "codes": [
+        "Tool 1: Experimental techniques",
+        "Structure 2.4"
+      ],
+      "confidence": "high",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q9",
+      "level": "HL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1b-q1",
+      "level": "HL",
+      "primary": "M3",
+      "secondaries": [
+        "M2",
+        "M4",
+        "D2",
+        "D1",
+        "K1"
+      ],
+      "codes": [
+        "Reactivity 2.1",
+        "Structure 1.5",
+        "Inquiry 2: Collecting and processing data",
+        "Inquiry 3: Concluding and evaluating",
+        "Reactivity 2.2"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz3-hl-p1b-q2",
+      "level": "HL",
+      "primary": "D3",
+      "secondaries": [
+        "D1",
+        "R4",
+        "M3",
+        "B3",
+        "D4"
+      ],
+      "codes": [
+        "Tool 1: Experimental techniques",
+        "Inquiry 2: Collecting and processing data",
+        "Inquiry 3: Concluding and evaluating",
+        "Reactivity 3.2",
+        "Reactivity 2.1",
+        "Structure 2.2",
+        "Tool 2: Technology",
+        "Structure 2.4"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz3-hl-p1b-q3",
+      "level": "HL",
+      "primary": "C2",
+      "secondaries": [
+        "D1"
+      ],
+      "codes": [
+        "Reactivity 3.1",
+        "Inquiry 3: Concluding and evaluating",
+        "Inquiry 2: Collecting and processing data"
+      ],
+      "confidence": "high",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q1",
+      "level": "HL",
+      "primary": "M3",
+      "secondaries": [
+        "M5",
+        "B1",
+        "A2",
+        "C3",
+        "C1"
+      ],
+      "codes": [
+        "Reactivity 2.1",
+        "Structure 2.1",
+        "Structure 1.3",
+        "Reactivity 3.1",
+        "Reactivity 2.3"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q2",
+      "level": "HL",
+      "primary": "K3",
+      "secondaries": [
+        "K1",
+        "Q2",
+        "Q3",
+        "E2",
+        "B2",
+        "M4"
+      ],
+      "codes": [
+        "Reactivity 2.2",
+        "Reactivity 2.3",
+        "Reactivity 1.2",
+        "Structure 2.2",
+        "Structure 1.5"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Kinetics carries 8 marks (rate constant and mechanism 4, collision theory and Maxwell-Boltzmann 4) against 5 for equilibrium; rate law and mechanism is the largest single cluster, with the other parts as secondaries."
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q3",
+      "level": "HL",
+      "primary": "R3",
+      "secondaries": [
+        "R2",
+        "A1",
+        "A2",
+        "A3",
+        "B1",
+        "B4",
+        "A4"
+      ],
+      "codes": [
+        "Reactivity 3.2",
+        "Structure 1.2",
+        "Structure 1.3",
+        "Structure 3.1",
+        "Structure 2.3",
+        "Structure 2.4",
+        "Structure 2.2"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "The voltaic-cell diagram and recharging (5 marks) is the largest contiguous cluster; isotopes, periodic trends, metallic bonding/alloys and complex colour stay as secondaries."
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q4",
+      "level": "HL",
+      "primary": "O3",
+      "secondaries": [
+        "O1",
+        "O2",
+        "E2",
+        "E3",
+        "R1",
+        "B3",
+        "O4",
+        "B2",
+        "E4"
+      ],
+      "codes": [
+        "Reactivity 3.4",
+        "Reactivity 3.3",
+        "Structure 3.2",
+        "Reactivity 1.2",
+        "Reactivity 1.4",
+        "Reactivity 3.2",
+        "Structure 2.2",
+        "Structure 2.4",
+        "Reactivity 1.3"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q1",
+      "level": "SL",
+      "primary": "M1",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q10",
+      "level": "SL",
+      "primary": "B4",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.4"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q11",
+      "level": "SL",
+      "primary": "A3",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q12",
+      "level": "SL",
+      "primary": "A2",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q13",
+      "level": "SL",
+      "primary": "O1",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q14",
+      "level": "SL",
+      "primary": "O1",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q15",
+      "level": "SL",
+      "primary": "E1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.1"
+      ],
+      "confidence": "medium",
+      "source": "blind",
+      "adjudication": "Twin of HL q19: enthalpy change from an energy profile (E1, Reactivity 1.1)."
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q16",
+      "level": "SL",
+      "primary": "E2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 1.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q17",
+      "level": "SL",
+      "primary": "R3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q18",
+      "level": "SL",
+      "primary": "M3",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.4",
+        "Reactivity 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": "Compares amounts of H2 from mass, concentration and volume of HCl: Structure 1.4 and Reactivity 2.1."
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q19",
+      "level": "SL",
+      "primary": "M5",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q2",
+      "level": "SL",
+      "primary": "A1",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q20",
+      "level": "SL",
+      "primary": "K3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": "Instantaneous rate from tangents on a concentration-time graph is rate measurement under Rate laws (K3, Reactivity 2.2), as the 2025 gas-volume-time row. Medium confidence."
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q21",
+      "level": "SL",
+      "primary": "K1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q22",
+      "level": "SL",
+      "primary": "Q2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 2.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q23",
+      "level": "SL",
+      "primary": "R1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q24",
+      "level": "SL",
+      "primary": "C1",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q25",
+      "level": "SL",
+      "primary": "C2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.1"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q26",
+      "level": "SL",
+      "primary": "R2",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.2"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q27",
+      "level": "SL",
+      "primary": "O2",
+      "secondaries": [
+        "O1"
+      ],
+      "codes": [
+        "Reactivity 3.2",
+        "Structure 3.2"
+      ],
+      "confidence": "medium",
+      "source": "blind",
+      "adjudication": "Twin of HL q34."
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q28",
+      "level": "SL",
+      "primary": "O2",
+      "secondaries": [],
+      "codes": [
+        "Structure 3.2",
+        "Reactivity 3.2"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q29",
+      "level": "SL",
+      "primary": "O3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.4"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q3",
+      "level": "SL",
+      "primary": "A2",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q30",
+      "level": "SL",
+      "primary": "O3",
+      "secondaries": [],
+      "codes": [
+        "Reactivity 3.4"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q4",
+      "level": "SL",
+      "primary": "M3",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.4"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q5",
+      "level": "SL",
+      "primary": "M4",
+      "secondaries": [],
+      "codes": [
+        "Structure 1.5"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q6",
+      "level": "SL",
+      "primary": "B1",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.1"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q7",
+      "level": "SL",
+      "primary": "B2",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.2"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q8",
+      "level": "SL",
+      "primary": "O4",
+      "secondaries": [],
+      "codes": [
+        "Tool 1: Experimental techniques",
+        "Structure 2.4"
+      ],
+      "confidence": "high",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q9",
+      "level": "SL",
+      "primary": "B1",
+      "secondaries": [],
+      "codes": [
+        "Structure 2.3"
+      ],
+      "confidence": "high",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1b-q1",
+      "level": "SL",
+      "primary": "M3",
+      "secondaries": [
+        "M2",
+        "M4",
+        "D2",
+        "D1",
+        "K1"
+      ],
+      "codes": [
+        "Reactivity 2.1",
+        "Structure 1.5",
+        "Inquiry 2: Collecting and processing data",
+        "Inquiry 3: Concluding and evaluating",
+        "Reactivity 2.2"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz3-sl-p1b-q2",
+      "level": "SL",
+      "primary": "D3",
+      "secondaries": [
+        "R4",
+        "D1",
+        "B3",
+        "D4",
+        "R1"
+      ],
+      "codes": [
+        "Tool 1: Experimental techniques",
+        "Inquiry 2: Collecting and processing data",
+        "Inquiry 3: Concluding and evaluating",
+        "Reactivity 3.2",
+        "Structure 2.2",
+        "Structure 2.4",
+        "Tool 2: Technology"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q1",
+      "level": "SL",
+      "primary": "M3",
+      "secondaries": [
+        "M5",
+        "B1",
+        "A2"
+      ],
+      "codes": [
+        "Reactivity 2.1",
+        "Structure 2.1",
+        "Structure 1.3"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q2",
+      "level": "SL",
+      "primary": "K1",
+      "secondaries": [
+        "Q3",
+        "Q2",
+        "E2",
+        "B2",
+        "M4"
+      ],
+      "codes": [
+        "Reactivity 2.2",
+        "Reactivity 2.3",
+        "Reactivity 1.2",
+        "Structure 2.2",
+        "Structure 1.5"
+      ],
+      "confidence": "medium",
+      "source": "primary",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q3",
+      "level": "SL",
+      "primary": "R3",
+      "secondaries": [
+        "R2",
+        "A1",
+        "A3",
+        "B1",
+        "B4"
+      ],
+      "codes": [
+        "Reactivity 3.2",
+        "Structure 1.2",
+        "Structure 3.1",
+        "Structure 2.3",
+        "Structure 2.4"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Twin of HL P2 Q3: the voltaic-cell and recharging cluster (5 marks) is the largest."
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q4",
+      "level": "SL",
+      "primary": "O3",
+      "secondaries": [
+        "E2",
+        "R1",
+        "B3"
+      ],
+      "codes": [
+        "Reactivity 3.4",
+        "Reactivity 3.3",
+        "Reactivity 1.2",
+        "Reactivity 3.2",
+        "Structure 2.2",
+        "Structure 2.4"
+      ],
+      "confidence": "medium",
+      "source": "adjudicated",
+      "adjudication": "Passes agree on the primary; secondaries and official codes are the union of the two source-grounded passes (each cites the credited marks)."
+    }
+  ]
+}

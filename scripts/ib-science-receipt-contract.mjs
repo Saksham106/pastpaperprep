@@ -26,8 +26,27 @@ export const CANDIDATE_CONTENT_FILES = Object.freeze([
   "docs/ib-science-extension/physics-source-receipt.json",
 ]);
 
+/**
+ * The 2016-2019 candidate was sealed on the runtime as of that release. IB Chemistry later appended the
+ * official May 2026 papers (scripts/add-ib-chemistry-2026.mjs), which leaves every earlier row, paper and
+ * header field untouched and records the append in `may2026Release`. This returns the bytes the seal
+ * covers: the file with that append removed again, so the seal keeps proving the sealed content is intact.
+ */
+export function sealedRuntimeBytes(path, bytes) {
+  if (!/^src\/data\/raw\/ib-chemistry-(hl|sl)\.json$/.test(path)) return bytes;
+  const { may2026Release, ...rest } = JSON.parse(bytes.toString("utf8"));
+  if (!may2026Release) return bytes;
+  const sealed = {
+    ...rest,
+    papers: rest.papers.slice(0, rest.papers.length - may2026Release.addedPaperCount),
+    questions: rest.questions.slice(0, may2026Release.baseQuestionCount),
+    years: rest.years.filter(year => year !== 2026),
+  };
+  return Buffer.from(`${JSON.stringify(sealed)}\n`);
+}
+
 export function candidateContentManifest(root) {
-  return CANDIDATE_CONTENT_FILES.map(path => ({ path, sha256: receiptSha256(readFileSync(join(root, path))) }));
+  return CANDIDATE_CONTENT_FILES.map(path => ({ path, sha256: receiptSha256(sealedRuntimeBytes(path, readFileSync(join(root, path)))) }));
 }
 
 export function candidateContentSha256(root) {
