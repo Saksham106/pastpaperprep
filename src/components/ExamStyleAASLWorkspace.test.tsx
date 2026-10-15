@@ -15,7 +15,7 @@ describe("IB Mathematics AA SL exam-style PDF workspace", () => {
 
     expect(screen.getByTestId("pdf-viewer")).toHaveAttribute("data-src", "/api/exam-style/trigonometry/trigonometric-graphs");
     const choices = screen.getAllByRole("button");
-    expect(choices).toHaveLength(9);
+    expect(choices).toHaveLength(12);
     expect(screen.getByRole("heading", { name: "Trigonometry" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Probability distributions" })).toBeInTheDocument();
     for (const name of ["Trigonometric Graphs", "Modelling Trigonometric Functions", "Trigonometric Relations and Values", "Trigonometric Equations and Identities", "Trigonometric Transformations", "Binomial Distribution", "Normal Distribution", "Probability Distributions: Mixed Exam Practice"]) {
@@ -31,5 +31,25 @@ describe("IB Mathematics AA SL exam-style PDF workspace", () => {
     expect(screen.getByTestId("pdf-viewer")).toHaveAttribute("data-src", "/api/exam-style/worksheets/ib-math-aa-sl/probability-distributions-mixed-exam-practice");
     expect(screen.getByTestId("pdf-viewer")).toHaveTextContent("Probability Distributions: Mixed Exam Practice");
     expect(window.location.pathname).toBe("/");
+  });
+
+  it("offers the six replacement distribution booklets in source order", async () => {
+    const user = userEvent.setup();
+    render(<ExamStyleAASLWorkspace />);
+    const expected = [
+      ["Discrete Probability Distributions", "discrete-probability-distributions"],
+      ["Binomial Distribution", "binomial-distribution-worksheet"],
+      ["Normal Distribution", "normal-distribution-worksheet"],
+      ["Probability Distributions: Mixed Exam Practice", "probability-distributions-mixed-exam-practice"],
+      ["Inverse Normal and Unknown Parameters", "inverse-normal-worksheet"],
+      ["Probability Distributions: Past-Paper Practice", "probability-distributions-past-papers"],
+    ];
+    const buttons = screen.getAllByRole("button");
+    expect(buttons.slice(5, 11).map((button) => button.querySelector("strong")?.textContent)).toEqual(expected.map(([title]) => title));
+    for (const [title, slug] of expected) {
+      await user.click(screen.getByRole("button", { name: (name) => name.startsWith(`${title} `) }));
+      expect(screen.getByTestId("pdf-viewer")).toHaveAttribute("data-src", `/api/exam-style/worksheets/ib-math-aa-sl/${slug}`);
+      expect(screen.getByTestId("pdf-viewer")).toHaveTextContent(title);
+    }
   });
 });
