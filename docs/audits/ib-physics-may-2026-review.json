@@ -1,0 +1,3369 @@
+{
+  "manifestVersion": "ib-physics-may-2026-review.1",
+  "reviewedQuestionCount": 252,
+  "reviewMethod": "Official May 2026 TZ1-TZ3 questions: a source-grounded primary pass from the question crop and official markscheme, a separate blind second pass from sealed evidence without the primary labels or the Drex triage scores, and a written adjudication of every row where the passes differ (primary subtopic, primary code, code set or secondaries). Drex (drex-v2.0, text only) was used for triage only.",
+  "sourceCommitPrefix": "7d1b6e7",
+  "finalLabelsSha256": "55733f864d2e8e1fef28d4f7dd673a82a818ae22c015e3ebf962eb3067a57ae8",
+  "adjudicationSha256": "bd279b582757bc765664cced35691f8d74f28ba7d27384fbe6aabfa99fcc259b",
+  "ownerReviewFixes": {
+    "source": "PR #305 owner review (2026-10-15), applied by the source lane after adjudication",
+    "reviewFixesSha256": "86086e2714aab8f6fa6379d1afe2ba0238c6a5b4921860f0cec8157d3dc4eeb6",
+    "fixedRows": 16
+  },
+  "rows": [
+    {
+      "id": "2026-may-tz1-hl-p1a-q1",
+      "level": "HL",
+      "primarySubtopic": "M1",
+      "officialTopicCodes": [
+        "A.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q10",
+      "level": "HL",
+      "primarySubtopic": "R1",
+      "officialTopicCodes": [
+        "A.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q11",
+      "level": "HL",
+      "primarySubtopic": "T2",
+      "officialTopicCodes": [
+        "B.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q12",
+      "level": "HL",
+      "primarySubtopic": "T5",
+      "officialTopicCodes": [
+        "B.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q13",
+      "level": "HL",
+      "primarySubtopic": "T2",
+      "officialTopicCodes": [
+        "B.3",
+        "B.1"
+      ],
+      "secondarySubtopics": [
+        "T1"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "neither",
+        "rationale": "Answer needs U=3/2NkT to compare particle numbers (gas law) and then direction of heat flow from the temperature difference (B.1). Single mark, gas content dominant."
+      }
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q14",
+      "level": "HL",
+      "primarySubtopic": "T3",
+      "officialTopicCodes": [
+        "B.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q15",
+      "level": "HL",
+      "primarySubtopic": "T3",
+      "officialTopicCodes": [
+        "B.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q16",
+      "level": "HL",
+      "primarySubtopic": "E2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q17",
+      "level": "HL",
+      "primarySubtopic": "E2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q18",
+      "level": "HL",
+      "primarySubtopic": "W1",
+      "officialTopicCodes": [
+        "C.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q19",
+      "level": "HL",
+      "primarySubtopic": "W1",
+      "officialTopicCodes": [
+        "C.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q2",
+      "level": "HL",
+      "primarySubtopic": "M2",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q20",
+      "level": "HL",
+      "primarySubtopic": "W2",
+      "officialTopicCodes": [
+        "C.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q21",
+      "level": "HL",
+      "primarySubtopic": "W3",
+      "officialTopicCodes": [
+        "C.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q22",
+      "level": "HL",
+      "primarySubtopic": "W3",
+      "officialTopicCodes": [
+        "C.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q23",
+      "level": "HL",
+      "primarySubtopic": "W5",
+      "officialTopicCodes": [
+        "C.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q24",
+      "level": "HL",
+      "primarySubtopic": "W5",
+      "officialTopicCodes": [
+        "C.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q25",
+      "level": "HL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "D.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q26",
+      "level": "HL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "D.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q27",
+      "level": "HL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q28",
+      "level": "HL",
+      "primarySubtopic": "E3",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q29",
+      "level": "HL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q3",
+      "level": "HL",
+      "primarySubtopic": "M4",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q30",
+      "level": "HL",
+      "primarySubtopic": "E3",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q31",
+      "level": "HL",
+      "primarySubtopic": "E4",
+      "officialTopicCodes": [
+        "D.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q32",
+      "level": "HL",
+      "primarySubtopic": "N1",
+      "officialTopicCodes": [
+        "E.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q33",
+      "level": "HL",
+      "primarySubtopic": "N1",
+      "officialTopicCodes": [
+        "E.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q34",
+      "level": "HL",
+      "primarySubtopic": "N2",
+      "officialTopicCodes": [
+        "E.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q35",
+      "level": "HL",
+      "primarySubtopic": "N2",
+      "officialTopicCodes": [
+        "E.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q36",
+      "level": "HL",
+      "primarySubtopic": "N5",
+      "officialTopicCodes": [
+        "E.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "1-mark MCQ (D): fusion releases energy so the product has greater binding energy / mass defect; a single concept, no separate cluster for N3."
+      }
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q37",
+      "level": "HL",
+      "primarySubtopic": "N3",
+      "officialTopicCodes": [
+        "E.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q38",
+      "level": "HL",
+      "primarySubtopic": "N3",
+      "officialTopicCodes": [
+        "E.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q39",
+      "level": "HL",
+      "primarySubtopic": "N5",
+      "officialTopicCodes": [
+        "E.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q4",
+      "level": "HL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q40",
+      "level": "HL",
+      "primarySubtopic": "R4",
+      "officialTopicCodes": [
+        "E.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q5",
+      "level": "HL",
+      "primarySubtopic": "M3",
+      "officialTopicCodes": [
+        "A.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q6",
+      "level": "HL",
+      "primarySubtopic": "T4",
+      "officialTopicCodes": [
+        "A.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "Single 1-mark item: energy density = E/V (key B), the fuel energy-source quantity. Fits energy sources (T4) better than mechanical work/power."
+      }
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q7",
+      "level": "HL",
+      "primarySubtopic": "M6",
+      "officialTopicCodes": [
+        "A.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q8",
+      "level": "HL",
+      "primarySubtopic": "M6",
+      "officialTopicCodes": [
+        "A.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q9",
+      "level": "HL",
+      "primarySubtopic": "R1",
+      "officialTopicCodes": [
+        "A.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1b-q1",
+      "level": "HL",
+      "primarySubtopic": "F2",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [
+        "F4",
+        "F5"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1b-q2",
+      "level": "HL",
+      "primarySubtopic": "F4",
+      "officialTopicCodes": [
+        "B.3"
+      ],
+      "secondarySubtopics": [
+        "T2",
+        "F1"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "Marks: linearise 1/P vs V (a, 2), units of slope (b, 2), read graph (c, 1), intercept as systematic error (d, 2) are graph/data skills; gas-law context is the setting. Units earn a separate F1 cluster."
+      }
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q1",
+      "level": "HL",
+      "primarySubtopic": "M1",
+      "officialTopicCodes": [
+        "A.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q2",
+      "level": "HL",
+      "primarySubtopic": "E2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q3",
+      "level": "HL",
+      "primarySubtopic": "N1",
+      "officialTopicCodes": [
+        "E.1",
+        "E.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q4",
+      "level": "HL",
+      "primarySubtopic": "N2",
+      "officialTopicCodes": [
+        "E.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q5",
+      "level": "HL",
+      "primarySubtopic": "E4",
+      "officialTopicCodes": [
+        "D.4",
+        "B.4",
+        "B.3"
+      ],
+      "secondarySubtopics": [
+        "T3",
+        "T2"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q6",
+      "level": "HL",
+      "primarySubtopic": "W1",
+      "officialTopicCodes": [
+        "C.1",
+        "C.5"
+      ],
+      "secondarySubtopics": [
+        "W5"
+      ],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q7",
+      "level": "HL",
+      "primarySubtopic": "E3",
+      "officialTopicCodes": [
+        "D.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q8",
+      "level": "HL",
+      "primarySubtopic": "W2",
+      "officialTopicCodes": [
+        "C.3",
+        "C.2",
+        "A.2",
+        "B.1"
+      ],
+      "secondarySubtopics": [
+        "M2",
+        "T1"
+      ],
+      "confidence": "low",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "Refraction, wavelength change and TIR in (a) earn 7 marks, tied with forces in (b),(c)(ii) (7 marks, plus 1 for P=Fv); conduction in (d) earns 5. Tie broken to the first printed block, waves."
+      }
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q9",
+      "level": "HL",
+      "primarySubtopic": "M6",
+      "officialTopicCodes": [
+        "A.4",
+        "D.2",
+        "E.5"
+      ],
+      "secondarySubtopics": [
+        "E1",
+        "R4",
+        "N5"
+      ],
+      "confidence": "low",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Marks: d(i)-(ii) angular momentum and rotational KE 5 (plus d(iii) rotational KE/thermal 2), a and c stellar 6, b(ii)-(iv) Coulomb potential 5, b(i) binding energy 2. Rotational mechanics is the largest single physics strand, stellar recall is spread over several parts."
+      }
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q1",
+      "level": "SL",
+      "primarySubtopic": "M1",
+      "officialTopicCodes": [
+        "A.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q10",
+      "level": "SL",
+      "primarySubtopic": "E2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q11",
+      "level": "SL",
+      "primarySubtopic": "E2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q12",
+      "level": "SL",
+      "primarySubtopic": "W1",
+      "officialTopicCodes": [
+        "C.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q13",
+      "level": "SL",
+      "primarySubtopic": "W2",
+      "officialTopicCodes": [
+        "C.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q14",
+      "level": "SL",
+      "primarySubtopic": "W3",
+      "officialTopicCodes": [
+        "C.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q15",
+      "level": "SL",
+      "primarySubtopic": "W5",
+      "officialTopicCodes": [
+        "C.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q16",
+      "level": "SL",
+      "primarySubtopic": "W5",
+      "officialTopicCodes": [
+        "C.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q17",
+      "level": "SL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "D.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Key A: centripetal force supplied by gravity F proportional to m/r^2 gives 1/8; Newtonian gravitation is the whole mark."
+      }
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q18",
+      "level": "SL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q19",
+      "level": "SL",
+      "primarySubtopic": "E3",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q2",
+      "level": "SL",
+      "primarySubtopic": "M2",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q20",
+      "level": "SL",
+      "primarySubtopic": "E3",
+      "officialTopicCodes": [
+        "D.2",
+        "D.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "neither",
+        "rationale": "1-mark MCQ (D): force between parallel currents on each wire (field of one wire, force on the other, third-law equality), so D.2 with D.3."
+      }
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q21",
+      "level": "SL",
+      "primarySubtopic": "N1",
+      "officialTopicCodes": [
+        "E.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q22",
+      "level": "SL",
+      "primarySubtopic": "N5",
+      "officialTopicCodes": [
+        "E.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q23",
+      "level": "SL",
+      "primarySubtopic": "N3",
+      "officialTopicCodes": [
+        "E.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q24",
+      "level": "SL",
+      "primarySubtopic": "N5",
+      "officialTopicCodes": [
+        "E.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q25",
+      "level": "SL",
+      "primarySubtopic": "R4",
+      "officialTopicCodes": [
+        "E.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q3",
+      "level": "SL",
+      "primarySubtopic": "M4",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q4",
+      "level": "SL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q5",
+      "level": "SL",
+      "primarySubtopic": "M3",
+      "officialTopicCodes": [
+        "A.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q6",
+      "level": "SL",
+      "primarySubtopic": "T4",
+      "officialTopicCodes": [
+        "A.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q7",
+      "level": "SL",
+      "primarySubtopic": "T2",
+      "officialTopicCodes": [
+        "B.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q8",
+      "level": "SL",
+      "primarySubtopic": "T5",
+      "officialTopicCodes": [
+        "B.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q9",
+      "level": "SL",
+      "primarySubtopic": "T2",
+      "officialTopicCodes": [
+        "B.3",
+        "B.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "MS key C: U proportional to N T gives more particles in X, then heat flows from hotter Y to X. One mark, ideal-gas internal energy dominant with thermal-contact direction."
+      }
+    },
+    {
+      "id": "2026-may-tz1-sl-p1b-q1",
+      "level": "SL",
+      "primarySubtopic": "F2",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [
+        "F4",
+        "F5"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1b-q2",
+      "level": "SL",
+      "primarySubtopic": "F4",
+      "officialTopicCodes": [
+        "B.3"
+      ],
+      "secondarySubtopics": [
+        "F1",
+        "F2",
+        "T2"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q1",
+      "level": "SL",
+      "primarySubtopic": "M1",
+      "officialTopicCodes": [
+        "A.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q2",
+      "level": "SL",
+      "primarySubtopic": "E2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q3",
+      "level": "SL",
+      "primarySubtopic": "N1",
+      "officialTopicCodes": [
+        "E.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q4",
+      "level": "SL",
+      "primarySubtopic": "R3",
+      "officialTopicCodes": [
+        "E.5"
+      ],
+      "secondarySubtopics": [
+        "R4"
+      ],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q5",
+      "level": "SL",
+      "primarySubtopic": "E3",
+      "officialTopicCodes": [
+        "D.3",
+        "D.2"
+      ],
+      "secondarySubtopics": [
+        "E1"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q6",
+      "level": "SL",
+      "primarySubtopic": "M2",
+      "officialTopicCodes": [
+        "A.2",
+        "A.3",
+        "C.3",
+        "B.1"
+      ],
+      "secondarySubtopics": [
+        "W2",
+        "T1"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Mechanics earns 8 marks (b buoyancy/acceleration/terminal speed 6, c friction and P=Fv 2) vs refraction/TIR 7 (a) and conduction 5 (d). Mechanics edges the waves cluster."
+      }
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q1",
+      "level": "HL",
+      "primarySubtopic": "M1",
+      "officialTopicCodes": [
+        "A.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q10",
+      "level": "HL",
+      "primarySubtopic": "T1",
+      "officialTopicCodes": [
+        "B.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q11",
+      "level": "HL",
+      "primarySubtopic": "R3",
+      "officialTopicCodes": [
+        "B.1",
+        "C.5"
+      ],
+      "secondarySubtopics": [
+        "W5"
+      ],
+      "confidence": "low",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "neither",
+        "rationale": "Key B: peak colour of a 6500 K star (Wien law, one idea) and redshift from recession (Doppler, second idea), roughly equal in one mark; stellar spectrum setting keeps R3 primary. B.1 in the primary pass is wrong, Wien law is B.2."
+      }
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q12",
+      "level": "HL",
+      "primarySubtopic": "T5",
+      "officialTopicCodes": [
+        "B.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q13",
+      "level": "HL",
+      "primarySubtopic": "T2",
+      "officialTopicCodes": [
+        "B.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q14",
+      "level": "HL",
+      "primarySubtopic": "T3",
+      "officialTopicCodes": [
+        "B.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q15",
+      "level": "HL",
+      "primarySubtopic": "T3",
+      "officialTopicCodes": [
+        "B.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Insulated compression: Q=0 so W=500x0.10=50 J raises internal energy, about 4 K, key C. First-law reasoning for 1 mark."
+      }
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q16",
+      "level": "HL",
+      "primarySubtopic": "E2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q17",
+      "level": "HL",
+      "primarySubtopic": "W1",
+      "officialTopicCodes": [
+        "C.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q18",
+      "level": "HL",
+      "primarySubtopic": "W1",
+      "officialTopicCodes": [
+        "C.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q19",
+      "level": "HL",
+      "primarySubtopic": "W2",
+      "officialTopicCodes": [
+        "C.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q2",
+      "level": "HL",
+      "primarySubtopic": "M1",
+      "officialTopicCodes": [
+        "A.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q20",
+      "level": "HL",
+      "primarySubtopic": "W3",
+      "officialTopicCodes": [
+        "C.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q21",
+      "level": "HL",
+      "primarySubtopic": "W5",
+      "officialTopicCodes": [
+        "C.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q22",
+      "level": "HL",
+      "primarySubtopic": "W3",
+      "officialTopicCodes": [
+        "C.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q23",
+      "level": "HL",
+      "primarySubtopic": "W5",
+      "officialTopicCodes": [
+        "C.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q24",
+      "level": "HL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "D.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q25",
+      "level": "HL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "D.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q26",
+      "level": "HL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "D.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q27",
+      "level": "HL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q28",
+      "level": "HL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q29",
+      "level": "HL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Force qE on negative charge towards positive plate opposes weight, resultant qE-mg (key B); one 1-mark item, no separate cluster."
+      }
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q3",
+      "level": "HL",
+      "primarySubtopic": "M2",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q30",
+      "level": "HL",
+      "primarySubtopic": "E4",
+      "officialTopicCodes": [
+        "D.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q31",
+      "level": "HL",
+      "primarySubtopic": "E4",
+      "officialTopicCodes": [
+        "D.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q32",
+      "level": "HL",
+      "primarySubtopic": "N1",
+      "officialTopicCodes": [
+        "E.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "1-mark MCQ (C): photon wavelength from the n=4 to n=2 level difference via hc/dE, which is atomic energy-level physics (E.1) with no separate E.2 cluster."
+      }
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q33",
+      "level": "HL",
+      "primarySubtopic": "N1",
+      "officialTopicCodes": [
+        "E.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q34",
+      "level": "HL",
+      "primarySubtopic": "N2",
+      "officialTopicCodes": [
+        "E.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q35",
+      "level": "HL",
+      "primarySubtopic": "N3",
+      "officialTopicCodes": [
+        "E.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q36",
+      "level": "HL",
+      "primarySubtopic": "N3",
+      "officialTopicCodes": [
+        "E.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q37",
+      "level": "HL",
+      "primarySubtopic": "N5",
+      "officialTopicCodes": [
+        "E.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q38",
+      "level": "HL",
+      "primarySubtopic": "R4",
+      "officialTopicCodes": [
+        "E.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q39",
+      "level": "HL",
+      "primarySubtopic": "R4",
+      "officialTopicCodes": [
+        "E.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q4",
+      "level": "HL",
+      "primarySubtopic": "M2",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q40",
+      "level": "HL",
+      "primarySubtopic": "R3",
+      "officialTopicCodes": [
+        "E.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q5",
+      "level": "HL",
+      "primarySubtopic": "M4",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q6",
+      "level": "HL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Friction supplies centripetal force: mu m g = m v^2/R gives v=sqrt(mu g R), key D. Single mark, circular motion."
+      }
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q7",
+      "level": "HL",
+      "primarySubtopic": "M3",
+      "officialTopicCodes": [
+        "A.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q8",
+      "level": "HL",
+      "primarySubtopic": "M6",
+      "officialTopicCodes": [
+        "A.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q9",
+      "level": "HL",
+      "primarySubtopic": "R1",
+      "officialTopicCodes": [
+        "A.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1b-q1",
+      "level": "HL",
+      "primarySubtopic": "F4",
+      "officialTopicCodes": [
+        "A.1",
+        "A.2"
+      ],
+      "secondarySubtopics": [
+        "F2",
+        "F5"
+      ],
+      "confidence": "low",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "Marks split evenly: graph curve/linearise/plot point (c,d,e iii), uncertainty (e ii + error bar) and experimental control (a, b ii, 3 each). Drag physics is context; v=d/t is A.1."
+      }
+    },
+    {
+      "id": "2026-may-tz2-hl-p1b-q2",
+      "level": "HL",
+      "primarySubtopic": "F5",
+      "officialTopicCodes": [
+        "C.2"
+      ],
+      "secondarySubtopics": [
+        "F4",
+        "W2"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "Experimental design, conditions and systematic-error cause in (a),(b),(c)(ii) earn 5 of 9 marks, so F5 is dominant; graph gradient to get speed in (c)(i),(d) earns 4 (F4). Speed of sound measured is wave model C.2."
+      }
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q1",
+      "level": "HL",
+      "primarySubtopic": "M3",
+      "officialTopicCodes": [
+        "A.3",
+        "A.4"
+      ],
+      "secondarySubtopics": [
+        "M6"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "a, b(i), b(ii) earn 4 marks from GPE, KE and work against friction; c-d earn 4 marks from rolling energy with I=2/5MR^2 and ring comparison. Tie broken toward energy since c also uses energy conservation."
+      }
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q2",
+      "level": "HL",
+      "primarySubtopic": "T2",
+      "officialTopicCodes": [
+        "B.3",
+        "B.4"
+      ],
+      "secondarySubtopics": [
+        "T3"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Kinetic-model pressure (b, 2) and DeltaU=3/2nRDeltaT (c, 3) are gas-law marks; adiabatic TV^(2/3)=const (d, 2) is the thermodynamics cluster; a (1) is P=VIt only."
+      }
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q3",
+      "level": "HL",
+      "primarySubtopic": "W2",
+      "officialTopicCodes": [
+        "C.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Snell's law (a, 2), critical angle (b, 1) and refraction/TIR path (c, 3) are all wave refraction, which fits W2 (wave model) better than interference/diffraction W3; all six marks are C.3."
+      }
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q4",
+      "level": "HL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q5",
+      "level": "HL",
+      "primarySubtopic": "R1",
+      "officialTopicCodes": [
+        "A.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q6",
+      "level": "HL",
+      "primarySubtopic": "E3",
+      "officialTopicCodes": [
+        "D.3",
+        "D.2",
+        "C.3"
+      ],
+      "secondarySubtopics": [
+        "E1",
+        "W3"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "c and d (3 marks) use qvB=mv^2/R and radii of isotopes; a (2) is qV=1/2mv^2, e (2) is grating n lambda=d sin theta, b (1) is a brief relativity check not worth a secondary."
+      }
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q7",
+      "level": "HL",
+      "primarySubtopic": "N3",
+      "officialTopicCodes": [
+        "E.3",
+        "E.4"
+      ],
+      "secondarySubtopics": [
+        "N5"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Beta-minus, neutrino spectrum and decay-law dating (a-c, 6 marks) are radioactivity; binding energy per nucleon curve and mass-defect calc (d, 3) form a separate binding-energy cluster."
+      }
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q8",
+      "level": "HL",
+      "primarySubtopic": "M1",
+      "officialTopicCodes": [
+        "A.1",
+        "A.2",
+        "B.3",
+        "B.1",
+        "D.1",
+        "C.2"
+      ],
+      "secondarySubtopics": [
+        "M2",
+        "T2",
+        "T1",
+        "M5",
+        "W2"
+      ],
+      "confidence": "low",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "Kinematics e(ii) v^2=2gh (2) plus a-t area f(i),(ii) (3) = 5 marks, tied with forces c (3) and terminal-speed g (2); thermal d 3, gas law b 2, field e(i) 2. Tie broken to kinematics, a graph-and-motion theme."
+      }
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q9",
+      "level": "HL",
+      "primarySubtopic": "E4",
+      "officialTopicCodes": [
+        "D.4",
+        "D.2",
+        "C.1",
+        "E.4"
+      ],
+      "secondarySubtopics": [
+        "E3",
+        "W1",
+        "N5"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q1",
+      "level": "SL",
+      "primarySubtopic": "M1",
+      "officialTopicCodes": [
+        "A.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q10",
+      "level": "SL",
+      "primarySubtopic": "T2",
+      "officialTopicCodes": [
+        "B.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q11",
+      "level": "SL",
+      "primarySubtopic": "E2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q12",
+      "level": "SL",
+      "primarySubtopic": "E2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q13",
+      "level": "SL",
+      "primarySubtopic": "W1",
+      "officialTopicCodes": [
+        "C.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q14",
+      "level": "SL",
+      "primarySubtopic": "W2",
+      "officialTopicCodes": [
+        "C.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q15",
+      "level": "SL",
+      "primarySubtopic": "W3",
+      "officialTopicCodes": [
+        "C.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q16",
+      "level": "SL",
+      "primarySubtopic": "W5",
+      "officialTopicCodes": [
+        "C.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q17",
+      "level": "SL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "D.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q18",
+      "level": "SL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q19",
+      "level": "SL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q2",
+      "level": "SL",
+      "primarySubtopic": "M2",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q20",
+      "level": "SL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Force qE on the negative charge is upward and opposes weight, resultant qE-mg (key B). One-mark electric-field force question."
+      }
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q21",
+      "level": "SL",
+      "primarySubtopic": "N1",
+      "officialTopicCodes": [
+        "E.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "Photon wavelength from n=4 to n=2 energy levels via hc/DeltaE (key C); discrete energy levels is the whole mark."
+      }
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q22",
+      "level": "SL",
+      "primarySubtopic": "N3",
+      "officialTopicCodes": [
+        "E.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q23",
+      "level": "SL",
+      "primarySubtopic": "N5",
+      "officialTopicCodes": [
+        "E.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q24",
+      "level": "SL",
+      "primarySubtopic": "R4",
+      "officialTopicCodes": [
+        "E.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q25",
+      "level": "SL",
+      "primarySubtopic": "R4",
+      "officialTopicCodes": [
+        "E.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q3",
+      "level": "SL",
+      "primarySubtopic": "M2",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q4",
+      "level": "SL",
+      "primarySubtopic": "M4",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q5",
+      "level": "SL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q6",
+      "level": "SL",
+      "primarySubtopic": "M3",
+      "officialTopicCodes": [
+        "A.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q7",
+      "level": "SL",
+      "primarySubtopic": "T1",
+      "officialTopicCodes": [
+        "B.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q8",
+      "level": "SL",
+      "primarySubtopic": "R3",
+      "officialTopicCodes": [
+        "B.1",
+        "C.5"
+      ],
+      "secondarySubtopics": [
+        "W5"
+      ],
+      "confidence": "low",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "neither",
+        "rationale": "Same question as the HL version (key B): Wien-law peak colour of a star plus Doppler redshift in one mark; labelled consistently with HL."
+      }
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q9",
+      "level": "SL",
+      "primarySubtopic": "T5",
+      "officialTopicCodes": [
+        "B.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1b-q1",
+      "level": "SL",
+      "primarySubtopic": "F2",
+      "officialTopicCodes": [
+        "A.2",
+        "A.1"
+      ],
+      "secondarySubtopics": [
+        "F4",
+        "F5"
+      ],
+      "confidence": "low",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Marks split a, b(ii) design 3; c, d graph 2; e(i)-(iii) speed, percentage uncertainty (2) and error bar 5 in total; part (e) is the largest coherent cluster and is uncertainty handling. Terminal-speed physics is context only (b(i) 1 mark)."
+      }
+    },
+    {
+      "id": "2026-may-tz2-sl-p1b-q2",
+      "level": "SL",
+      "primarySubtopic": "F5",
+      "officialTopicCodes": [
+        "C.2"
+      ],
+      "secondarySubtopics": [
+        "F4",
+        "F2",
+        "W2"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "Experimental design and evaluation (a 2, b 1, c(ii) 2) earn 5 of 9 marks; systematic error evidence (c i) is F2 and gradient for speed (d, 3) is F4. Speed of sound is wave-model context."
+      }
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q1",
+      "level": "SL",
+      "primarySubtopic": "M3",
+      "officialTopicCodes": [
+        "A.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q2",
+      "level": "SL",
+      "primarySubtopic": "T2",
+      "officialTopicCodes": [
+        "B.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "(b) kinetic-model explanation of pressure at constant volume (2 marks) dominates; (a) E=VIt (1 mark) is just the heater-energy setup, too small to be a secondary cluster."
+      }
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q3",
+      "level": "SL",
+      "primarySubtopic": "W2",
+      "officialTopicCodes": [
+        "C.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "Snell's law with wave speeds (a, 2), critical angle (b, 1) and refraction/TIR path (c, 3) all earn marks from refraction of waves at boundaries."
+      }
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q4",
+      "level": "SL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q5",
+      "level": "SL",
+      "primarySubtopic": "N1",
+      "officialTopicCodes": [
+        "E.1",
+        "D.3",
+        "E.2"
+      ],
+      "secondarySubtopics": [
+        "E3"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "Isotopes from differing masses (b, 1) and photon energy difference of spectral lines (c, 2) give 3 atomic marks vs 2 for proton circular motion R=mv/qB (a). Part (a) is the separate E3 cluster."
+      }
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q6",
+      "level": "SL",
+      "primarySubtopic": "N3",
+      "officialTopicCodes": [
+        "E.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "Decay type, nucleon conservation and half-life for dating (a, b: 3 marks) tie with binding energy per nucleon from mass defect (c: 3 marks); all of it is E.3 content, so no N5 secondary is needed."
+      }
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q7",
+      "level": "SL",
+      "primarySubtopic": "M2",
+      "officialTopicCodes": [
+        "A.2",
+        "A.1",
+        "B.1",
+        "B.3",
+        "D.1",
+        "C.2"
+      ],
+      "secondarySubtopics": [
+        "M1",
+        "T1",
+        "T2",
+        "M5",
+        "W2"
+      ],
+      "confidence": "low",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Multi-topic 20-marker: forces c buoyancy/N2 (3) plus g terminal speed (2) =5 ties with kinematics e(ii) and f (5); also d thermal 3, b gas law 2, e(i) g 2, h infrared 2. Forces and kinematics tie, M2 chosen for the 3-mark buoyancy/Newton calculation."
+      }
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q1",
+      "level": "HL",
+      "primarySubtopic": "M1",
+      "officialTopicCodes": [
+        "A.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q10",
+      "level": "HL",
+      "primarySubtopic": "T1",
+      "officialTopicCodes": [
+        "B.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q11",
+      "level": "HL",
+      "primarySubtopic": "T1",
+      "officialTopicCodes": [
+        "B.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q12",
+      "level": "HL",
+      "primarySubtopic": "T5",
+      "officialTopicCodes": [
+        "B.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q13",
+      "level": "HL",
+      "primarySubtopic": "T2",
+      "officialTopicCodes": [
+        "B.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q14",
+      "level": "HL",
+      "primarySubtopic": "T3",
+      "officialTopicCodes": [
+        "B.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q15",
+      "level": "HL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Work per unit charge between X and Y with sign of charge (key C); potential difference concept, circuit is only context."
+      }
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q16",
+      "level": "HL",
+      "primarySubtopic": "E2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q17",
+      "level": "HL",
+      "primarySubtopic": "W1",
+      "officialTopicCodes": [
+        "C.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q18",
+      "level": "HL",
+      "primarySubtopic": "W2",
+      "officialTopicCodes": [
+        "C.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q19",
+      "level": "HL",
+      "primarySubtopic": "W4",
+      "officialTopicCodes": [
+        "C.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q2",
+      "level": "HL",
+      "primarySubtopic": "M1",
+      "officialTopicCodes": [
+        "A.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "1-mark MCQ (A): independence of vertical fall time from horizontal motion and range comparison; kinematics, drag is only the context."
+      }
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q20",
+      "level": "HL",
+      "primarySubtopic": "W3",
+      "officialTopicCodes": [
+        "C.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q21",
+      "level": "HL",
+      "primarySubtopic": "W5",
+      "officialTopicCodes": [
+        "C.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q22",
+      "level": "HL",
+      "primarySubtopic": "W5",
+      "officialTopicCodes": [
+        "C.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Galaxy receding gives Doppler redshift, key B (lines shifted towards red). Pure Doppler idea for 1 mark."
+      }
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q23",
+      "level": "HL",
+      "primarySubtopic": "W5",
+      "officialTopicCodes": [
+        "C.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q24",
+      "level": "HL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "D.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q25",
+      "level": "HL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "D.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q26",
+      "level": "HL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q27",
+      "level": "HL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q28",
+      "level": "HL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.3",
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q29",
+      "level": "HL",
+      "primarySubtopic": "E3",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q3",
+      "level": "HL",
+      "primarySubtopic": "M2",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q30",
+      "level": "HL",
+      "primarySubtopic": "E4",
+      "officialTopicCodes": [
+        "D.4",
+        "D.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Motional emf: free electron has balancing electric and magnetic forces (key A); one item, no separate cluster."
+      }
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q31",
+      "level": "HL",
+      "primarySubtopic": "E4",
+      "officialTopicCodes": [
+        "D.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q32",
+      "level": "HL",
+      "primarySubtopic": "N1",
+      "officialTopicCodes": [
+        "E.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q33",
+      "level": "HL",
+      "primarySubtopic": "N1",
+      "officialTopicCodes": [
+        "E.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "1-mark MCQ (C): photon energies from level differences compared with visible and UV ranges; energy-level transitions, E.1."
+      }
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q34",
+      "level": "HL",
+      "primarySubtopic": "N2",
+      "officialTopicCodes": [
+        "E.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q35",
+      "level": "HL",
+      "primarySubtopic": "N2",
+      "officialTopicCodes": [
+        "E.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q36",
+      "level": "HL",
+      "primarySubtopic": "N3",
+      "officialTopicCodes": [
+        "E.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q37",
+      "level": "HL",
+      "primarySubtopic": "N3",
+      "officialTopicCodes": [
+        "E.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Beta-plus decay p -> n + e+ + neutrino (key B); radioactive decay process, 1 mark."
+      }
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q38",
+      "level": "HL",
+      "primarySubtopic": "N3",
+      "officialTopicCodes": [
+        "E.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q39",
+      "level": "HL",
+      "primarySubtopic": "N5",
+      "officialTopicCodes": [
+        "E.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q4",
+      "level": "HL",
+      "primarySubtopic": "M4",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q40",
+      "level": "HL",
+      "primarySubtopic": "R3",
+      "officialTopicCodes": [
+        "E.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q5",
+      "level": "HL",
+      "primarySubtopic": "M3",
+      "officialTopicCodes": [
+        "A.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q6",
+      "level": "HL",
+      "primarySubtopic": "M3",
+      "officialTopicCodes": [
+        "A.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Rate of GPE change equals power 2Fv cos(theta) (key D); work/power is the assessed idea."
+      }
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q7",
+      "level": "HL",
+      "primarySubtopic": "M6",
+      "officialTopicCodes": [
+        "A.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q8",
+      "level": "HL",
+      "primarySubtopic": "M6",
+      "officialTopicCodes": [
+        "A.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q9",
+      "level": "HL",
+      "primarySubtopic": "R1",
+      "officialTopicCodes": [
+        "A.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1b-q1",
+      "level": "HL",
+      "primarySubtopic": "F4",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Marks are for reading the F-x line (a, 2), gradient (b, 2), equating gradient to rho*A*g and using the intercept (c, d, 5); the buoyancy relation is given, so graph modelling dominates."
+      }
+    },
+    {
+      "id": "2026-may-tz3-hl-p1b-q2",
+      "level": "HL",
+      "primarySubtopic": "F2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [
+        "F4",
+        "F5",
+        "E2"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q1",
+      "level": "HL",
+      "primarySubtopic": "E2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q2",
+      "level": "HL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "A.2",
+        "A.3"
+      ],
+      "secondarySubtopics": [
+        "M3",
+        "M4"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q3",
+      "level": "HL",
+      "primarySubtopic": "T1",
+      "officialTopicCodes": [
+        "B.1",
+        "B.4"
+      ],
+      "secondarySubtopics": [
+        "T3"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "a (2, specific/latent heat) and b(i) (3, internal energy as random KE plus PE) are thermal concepts = 5 marks; entropy dS=Q/T and second law b(ii)-(iii) are 3 marks."
+      }
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q4",
+      "level": "HL",
+      "primarySubtopic": "R1",
+      "officialTopicCodes": [
+        "A.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q5",
+      "level": "HL",
+      "primarySubtopic": "W3",
+      "officialTopicCodes": [
+        "C.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q6",
+      "level": "HL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2",
+        "D.3",
+        "A.1"
+      ],
+      "secondarySubtopics": [
+        "M1",
+        "E3"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "Field E=V/d, F=qE, acceleration and alpha comparison (a i-ii, b i) earn 6 of 11; a(iii) 3-mark projectile kinematics check is M1; b(ii) qvB=qE balance (2) is E3."
+      }
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q7",
+      "level": "HL",
+      "primarySubtopic": "N1",
+      "officialTopicCodes": [
+        "E.1",
+        "D.2"
+      ],
+      "secondarySubtopics": [
+        "E1"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q8",
+      "level": "HL",
+      "primarySubtopic": "W3",
+      "officialTopicCodes": [
+        "C.3",
+        "A.2",
+        "A.3",
+        "C.1"
+      ],
+      "secondarySubtopics": [
+        "M2",
+        "M3",
+        "M4",
+        "W1",
+        "W2"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "neither",
+        "rationale": "Interference in (c)(iii),(iv),(d) earns 7 marks, the largest single subtopic; mechanics is split across Hooke/equilibrium M2 (3), elastic energy M3 (4) and impulse M4 (3), and SHM (c)(i) 2."
+      }
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q9",
+      "level": "HL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "D.1",
+        "E.5",
+        "A.3"
+      ],
+      "secondarySubtopics": [
+        "R4",
+        "N5",
+        "R2"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "a(i)-(iii) and b(i) escape speed, energy conservation, field strength earn 8 marks; stellar R4 about 7 (c, d(ii), d(iv)), N5 about 3 (d(i), d(iii)), black hole b(ii) 2."
+      }
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q1",
+      "level": "SL",
+      "primarySubtopic": "M1",
+      "officialTopicCodes": [
+        "A.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q10",
+      "level": "SL",
+      "primarySubtopic": "T2",
+      "officialTopicCodes": [
+        "B.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q11",
+      "level": "SL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q12",
+      "level": "SL",
+      "primarySubtopic": "E2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q13",
+      "level": "SL",
+      "primarySubtopic": "W2",
+      "officialTopicCodes": [
+        "C.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q14",
+      "level": "SL",
+      "primarySubtopic": "W4",
+      "officialTopicCodes": [
+        "C.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q15",
+      "level": "SL",
+      "primarySubtopic": "W5",
+      "officialTopicCodes": [
+        "C.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q16",
+      "level": "SL",
+      "primarySubtopic": "W5",
+      "officialTopicCodes": [
+        "C.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q17",
+      "level": "SL",
+      "primarySubtopic": "M5",
+      "officialTopicCodes": [
+        "D.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q18",
+      "level": "SL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q19",
+      "level": "SL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.3",
+        "D.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "Electron in a uniform electric field follows a line or parabola, never a circle (key A); it is electric-field motion, not magnetic."
+      }
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q2",
+      "level": "SL",
+      "primarySubtopic": "M1",
+      "officialTopicCodes": [
+        "A.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q20",
+      "level": "SL",
+      "primarySubtopic": "E3",
+      "officialTopicCodes": [
+        "D.2",
+        "D.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "neither",
+        "rationale": "1-mark MCQ (D): attractive force per unit length between parallel currents in the same direction; field of one wire (D.2) acting on the other (D.3)."
+      }
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q21",
+      "level": "SL",
+      "primarySubtopic": "N1",
+      "officialTopicCodes": [
+        "E.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q22",
+      "level": "SL",
+      "primarySubtopic": "N1",
+      "officialTopicCodes": [
+        "E.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q23",
+      "level": "SL",
+      "primarySubtopic": "N3",
+      "officialTopicCodes": [
+        "E.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q24",
+      "level": "SL",
+      "primarySubtopic": "N5",
+      "officialTopicCodes": [
+        "E.4"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q25",
+      "level": "SL",
+      "primarySubtopic": "R3",
+      "officialTopicCodes": [
+        "E.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q3",
+      "level": "SL",
+      "primarySubtopic": "M2",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q4",
+      "level": "SL",
+      "primarySubtopic": "M4",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q5",
+      "level": "SL",
+      "primarySubtopic": "M3",
+      "officialTopicCodes": [
+        "A.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q6",
+      "level": "SL",
+      "primarySubtopic": "M3",
+      "officialTopicCodes": [
+        "A.3"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q7",
+      "level": "SL",
+      "primarySubtopic": "T1",
+      "officialTopicCodes": [
+        "B.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q8",
+      "level": "SL",
+      "primarySubtopic": "T1",
+      "officialTopicCodes": [
+        "B.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q9",
+      "level": "SL",
+      "primarySubtopic": "T5",
+      "officialTopicCodes": [
+        "B.2"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1b-q1",
+      "level": "SL",
+      "primarySubtopic": "F4",
+      "officialTopicCodes": [
+        "A.2"
+      ],
+      "secondarySubtopics": [
+        "M2"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "neither",
+        "rationale": "a and b (4 marks) are reading the F-x graph gradient and intercept against the given equation; c and d (5) apply the gradient and intercept from the graph to get densities, so graph processing dominates. No uncertainty marks are asked, so F2 is not warranted."
+      }
+    },
+    {
+      "id": "2026-may-tz3-sl-p1b-q2",
+      "level": "SL",
+      "primarySubtopic": "F2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [
+        "F4",
+        "F5",
+        "E2"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "blind",
+        "rationale": "Uncertainty in resistivity (c ii-iii, 4) and systematic thermometer error (d, 2) earn about 6 of 11; line of best fit with error bars and graph comparison are F4, design improvements (b) are F5."
+      }
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q1",
+      "level": "SL",
+      "primarySubtopic": "E2",
+      "officialTopicCodes": [
+        "B.5"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q2",
+      "level": "SL",
+      "primarySubtopic": "T1",
+      "officialTopicCodes": [
+        "B.1"
+      ],
+      "secondarySubtopics": [],
+      "confidence": "high",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q3",
+      "level": "SL",
+      "primarySubtopic": "E1",
+      "officialTopicCodes": [
+        "D.2",
+        "D.3",
+        "A.1"
+      ],
+      "secondarySubtopics": [
+        "M1",
+        "E3"
+      ],
+      "confidence": "high",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "E=V/d, F=qE, a=F/m in (a)(i),(ii) and (b)(i) earn 6 of 11 marks (E1); (a)(iii) projectile-style deflection is 3 marks (M1) and (b)(ii) B=E/v is 2 marks (E3)."
+      }
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q4",
+      "level": "SL",
+      "primarySubtopic": "R4",
+      "officialTopicCodes": [
+        "E.5"
+      ],
+      "secondarySubtopics": [
+        "N5"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_agreed",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q5",
+      "level": "SL",
+      "primarySubtopic": "W3",
+      "officialTopicCodes": [
+        "C.3",
+        "A.3",
+        "A.2",
+        "C.1"
+      ],
+      "secondarySubtopics": [
+        "M3",
+        "M2",
+        "W1",
+        "W2"
+      ],
+      "confidence": "medium",
+      "provenance": "blind_two_pass_adjudicated",
+      "adjudication": {
+        "chose": "primary",
+        "rationale": "Two-source interference c(iii), c(iv), d earns 7 marks, the biggest single subtopic; mechanics of the rope is about 10 marks but split across energy (4), Hooke/equilibrium/impulse (6). c(i) is SHM frequency (2)."
+      }
+    }
+  ]
+}
