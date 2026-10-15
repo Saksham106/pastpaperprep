@@ -181,6 +181,13 @@ it('applies a reviewed report hold only for the exact bank, paper and both sourc
   expect(()=>assemblePaper(bank.slug,pair,rows as never,qp,ms,undefined,{...hold,markschemeSha256:'c'.repeat(64)})).toThrow('Report hold source binding mismatch');
   expect(()=>assemblePaper(bank.slug,{...pair,id:'0620-2023-w-41'},rows as never,qp,ms,undefined,hold)).toThrow('Report hold source binding mismatch');
 });
+it('lets a reviewed hold name the reason when a withheld question also leaves the runtime inventory short',()=>{
+  const hold={bankSlug:bank.slug,paperId:pair.id,questionSha256:qp.sha256,markschemeSha256:ms.sha256,reason:'The graph is missing from the official question paper; held until a complete source is agreed.',review:{date:'2026-10-15',evidence:'fixture'}};
+  const short=rows.slice(0,-1);
+  expect(assemblePaper(bank.slug,{...pair,runtimeQuestionIds:short.map((row:{id:string})=>row.id)},short as never,qp,ms).entry.summary.reportReason).toBe('Printed and runtime question inventories do not reconcile.');
+  const held=assemblePaper(bank.slug,{...pair,runtimeQuestionIds:short.map((row:{id:string})=>row.id)},short as never,qp,ms,undefined,hold);
+  expect(held.entry).toMatchObject({summary:{reportAvailable:false,reportReason:hold.reason},questions:[]});
+});
 it('reads report holds on every build and rejects malformed, duplicate or unused holds',async()=>{
   const dir=await fs.mkdtemp(path.join(process.env.TMPDIR??process.cwd(),'whole-paper-holds-fixture-'));
   try {
