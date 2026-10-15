@@ -114,6 +114,12 @@ describe("PDF title block", () => {
     expect(drawn("2024 May/June · Paper 22 · Q6")).toBe(true);
   });
 
+  it("still refuses an export with nothing in it, cover or not", async () => {
+    const answerless = short({ markschemeImages: [], solution: null }) as UnifiedQuestion;
+    await expect(downloadQuestionPdf([answerless], "answers", undefined, undefined, undefined, cover)).rejects.toThrow("There is nothing to export");
+    expect(save).not.toHaveBeenCalled();
+  });
+
   it("draws no title block without a cover", async () => {
     await downloadQuestionPdf([short()], "questions");
     expect(drawn("IGCSE MATHEMATICS 0580 · EXTENDED")).toBe(false);

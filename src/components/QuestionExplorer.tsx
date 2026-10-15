@@ -337,6 +337,8 @@ access: ExplorerAccess;
   const [sharedError, setSharedError] = useState("");
   const [resolvedAccess, setResolvedAccess] = useState(access);
   const [resolvedExportMarker, setResolvedExportMarker] = useState(exportMarker);
+  const titleLookupRef = useRef(0);
+  const nameTypedRef = useRef(false);
   const [locationHydrated, setLocationHydrated] = useState(!hydrateFromLocation);
   const [bootstrapPending, setBootstrapPending] = useState(Boolean(bootstrapUrl));
   const [identityResolved, setIdentityResolved] = useState(!bootstrapUrl);
@@ -1016,6 +1018,7 @@ access: ExplorerAccess;
   };
 
   const saveWorksheet = async (): Promise<boolean> => {
+    titleLookupRef.current += 1; // a lookup still in flight must not rename what is being saved
     if (!scopeIsCurrent()) return false;
     if (!bank || !resolvedAccess.bankAccess || !exportQuestions.length || !worksheetName.trim() || !worksheetReady || worksheetLoadFailed || worksheetSavingRef.current) return false;
     worksheetSavingRef.current = true;
@@ -1218,11 +1221,14 @@ access: ExplorerAccess;
     if (!worksheetId && !worksheetName.trim()) {
       const suggested = suggestWorksheetTitle(exportQuestions);
       setWorksheetName(suggested);
-      // Number the default past the student's saved titles ("Atoms 2"), unless they have started typing.
+      // Number the default past the student's saved titles ("Atoms 2"). Only this dialog's own lookup
+      // may apply, and never once the student has typed in the name field.
+      const lookup = ++titleLookupRef.current;
+      nameTypedRef.current = false;
       void fetch("/api/worksheets").then(async (response) => {
         const payload = response.ok ? await response.json() : null;
         const titles = Array.isArray(payload?.worksheets) ? payload.worksheets.map((item: { title?: unknown }) => item.title).filter((title: unknown): title is string => typeof title === "string") : [];
-        if (titles.length) setWorksheetName((current) => current === suggested ? suggestWorksheetTitle(exportQuestions, titles) : current);
+        if (titles.length && lookup === titleLookupRef.current && !nameTypedRef.current) setWorksheetName(suggestWorksheetTitle(exportQuestions, titles));
       }).catch(() => {});
     }
     trackProductEvent("pdf_builder_open", { bank: bank ?? "unknown", questionCount: exportQuestions.length });
@@ -1230,6 +1236,7 @@ access: ExplorerAccess;
     setPdfOpen(true);
   };
   const handleDownload = async () => {
+    titleLookupRef.current += 1;
     if (!scopeIsCurrent() || !resolvedAccess.canExportPdf || !bank || !exportQuestions.length || Boolean(worksheetId && (worksheetLoadFailed || !worksheetReady))) return;
     trackProductEvent("pdf_export_attempt", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
     setPdfStatusKind("progress");
@@ -1408,7 +1415,7 @@ access: ExplorerAccess;
           <p className="eyebrow">Save PDF</p>
           <h2 id="pdf-title">Save {exportQuestions.length.toLocaleString()} {exportQuestions.length === 1 ? "question" : "questions"} as a PDF</h2>
           <p>{selectionIsExplicit ? "Using your selected questions." : filtered.length > MAX_PDF_QUESTIONS ? `PDFs are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or select questions.` : "Nothing selected, so this uses every current result."}</p>
-          <label className="worksheet-name-field">Name<input aria-label="PDF name" maxLength={80} value={worksheetName} onChange={(event) => setWorksheetName(event.target.value)} placeholder="e.g. Algebra revision" /></label>
+          <label className="worksheet-name-field">Name<input aria-label="PDF name" maxLength={80} value={worksheetName} onChange={(event) => { nameTypedRef.current = true; setWorksheetName(event.target.value); }} placeholder="e.g. Algebra revision" /></label>
           <div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div>
           <div className="worksheet-actions only-save"><button type="button" className="button primary" disabled={!resolvedAccess.bankAccess || !worksheetReady || worksheetLoading || worksheetSaving || !exportQuestions.length || !worksheetName.trim()} onClick={saveWorksheet}>{worksheetSaving ? "Saving…" : "Save PDF"}</button><button ref={pdfBuildButtonRef} type="button" className="pdf-direct-download" aria-label="Download PDF without saving" title="Download PDF" disabled={!resolvedAccess.canExportPdf || !exportQuestions.length || (pdfStatusKind === "progress" && Boolean(pdfStatus))} onClick={handleDownload}><DownloadSimple aria-hidden="true" weight="bold" /></button></div>
           {pdfStatus ? <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small> : <small className="pdf-save-note">Saved to My Worksheets.</small>}
