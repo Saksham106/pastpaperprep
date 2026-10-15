@@ -49,7 +49,11 @@ test('changes only the declared runtime fields, with no aliases and independent 
  const qs=normalizeBankQuestions('igcse',raw);
  const hash=(x:unknown)=>createHash('sha256').update(JSON.stringify(x)).digest('hex');
  // Replay the historical repair view after subtracting only this release's additions.
- const legacyView=qs.map(q=>{
+ // Explanation availability is published separately and is not part of this repair's evidence.
+ const legacyView=qs.map(published=>{
+  const q={...published};
+  delete q.hasExplanation;
+  delete q.explanationAssetPaths;
   const source=raw.find((r:{id:string})=>r.id===q.id);
   const addition=verified0580RetrievalAdditions(source);
   const view={...q,subtopics:q.subtopics.filter(t=>!/^\d+\.\d+\s/.test(t)),skills:q.skills.filter(t=>!/^\d+\.\d+\s/.test(t)),secondaryTopics:[...new Set([...source.secondaryTopics,...(addition?.secondaryTopics??[])])],officialCodeRefs:source.officialCodeRefs??[]};

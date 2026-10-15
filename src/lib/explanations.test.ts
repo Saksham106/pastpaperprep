@@ -74,7 +74,7 @@ describe("parseExplanation", () => {
   });
 
   it("accepts empty whole-question labels and the published tick/dependent mark codes", () => {
-    const whole = { ...doc, parts: [{ ...doc.parts[0], label: "", steps: [{ text: "Work", marks: ["✓", "M1dep", "(A1)", "SC1", "AG"] }] }] };
+    const whole = { ...doc, parts: [{ ...doc.parts[0], label: "", steps: [{ text: "Work", marks: ["✓", "M1dep", "(A1)", "SC1", "AG", "L4"] }] }] };
     expect(parseExplanation(whole, doc.bank, doc.questionId)).toEqual(whole);
   });
 

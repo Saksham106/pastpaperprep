@@ -110,8 +110,10 @@ function wranglerStore(bucket) {
       try { return await run(bin, [...prefix, ...args], { maxBuffer: 1 << 24 }); }
       catch (error) {
         // "Does not exist" is an answer, not a transient failure: never retry it.
-        if (attempt >= 5 || missing(error)) throw error;
-        await new Promise((resolveWait) => setTimeout(resolveWait, 1500 * attempt));
+        if (attempt >= 8 || missing(error)) throw error;
+        // 429 = Cloudflare's per-account API limit (shared with other jobs): wait longer.
+        const limited = /429|Too Many Requests|throttl/i.test(`${error?.stderr ?? ""} ${error?.stdout ?? ""}`);
+        await new Promise((resolveWait) => setTimeout(resolveWait, (limited ? 5000 : 1500) * attempt));
       }
     }
   };
@@ -173,7 +175,7 @@ async function main() {
       await store.replace(objectKey(id), byId.get(id).body);
       console.log(`  replaced ${objectKey(id)}`);
     }
-    const keys = await publishSet(expected, store, { apply, receipt: (state) => {
+    const keys = await publishSet(expected, store, { apply, concurrency: viaWrangler ? 3 : 6, receipt: (state) => {
       const temp = `${receiptPath}.${process.pid}.tmp`;
       writeFileSync(temp, `${JSON.stringify({ bank, bucket, setHash, ...state }, null, 2)}\n`, { flush: true, flag: "wx" });
       renameSync(temp, receiptPath);
