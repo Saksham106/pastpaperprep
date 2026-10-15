@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { getControlledSubtopics } from "@/lib/taxonomy";
 
-type Row = Record<string, any>;
+type Row = Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 const root = process.cwd();
 const load = (path: string) => JSON.parse(readFileSync(resolve(root, path), "utf8"));
 const sha = (value: unknown) => createHash("sha256").update(typeof value === "string" ? value : JSON.stringify(value)).digest("hex");

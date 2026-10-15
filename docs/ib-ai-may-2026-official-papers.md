@@ -20,7 +20,8 @@ Additions only: no existing row or archive entry changes (the tests pin the SHA-
 ## Classification
 
 - Taxonomy: the sources' `classification-taxonomy.json` (HL includes the AHL extensions); no label outside it, no "Other".
-- **Drex = triage only.** Request `drex-v1.1`, answered by `drex-v1.5`. The smoke test asserted the transmitted state contains the question text. 127 logged calls, 806,715 input and 209,610 output tokens. No auth, credit or semantic errors.
+- **Drex = triage only.** Request `drex-v1.1`, answered by `drex-v1.5` (v1.1 is retired). The smoke test asserted the transmitted state contains the question text. 127 logged calls, 806,715 input and 209,610 output tokens. No auth, credit or semantic errors.
+- A `drex-v2.0` re-run on just the 38 adjudicated disagreements (38 calls, 254,780 input and 65,346 output tokens; text only) agreed with the final primary topic on 27 of 38 and rated no skill the final labels omit at 0.9 or above. The 11 primary-topic differences are mark-weighted splits where both independent passes already agreed on the primary, so no label changed. Outputs: `drex-v2/` in each source repository.
 - Primary pass (source-grounded) and a blind pass (separate Sonnet sub-agent, sealed evidence, never saw Drex or the primary labels) over all 127 questions, then adjudicated row by row from the two immutable result files.
 
 | | HL | SL |
