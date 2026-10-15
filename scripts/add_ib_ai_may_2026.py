@@ -26,6 +26,7 @@ SOURCES = {
     "sl": WORKSPACE / "ib-maths-ai-sl-topic-practice-may-2026" / "site" / "data" / "questions.json",
 }
 EXPECTED = {"hl": (9, 75), "sl": (6, 52)}
+OVERLAY = json.loads((REPO / "docs/audits/ib-ai-may-2026-review-overlay.json").read_text(encoding="utf-8"))["rows"]
 PREFIX = "2026-may-"
 
 
@@ -38,6 +39,19 @@ def with_subtopics(row: dict) -> dict:
     if "subtopics" not in out:
         raise ValueError(f"{row['id']}: no skills to mirror")
     return out
+
+
+def with_overlay(level: str, row: dict) -> dict:
+    """Apply the reviewed overlay (docs/audits/ib-ai-may-2026-review-overlay.json) to one new row."""
+    patch = OVERLAY.get(f"ib-ai-{level}", {}).get(row["id"])
+    if not patch:
+        return row
+    row = {**row}
+    row["secondaryTopics"] = [*row["secondaryTopics"], *[t for t in patch["addSecondaryTopics"] if t not in row["secondaryTopics"]]]
+    row["skills"] = sorted({*row["skills"], *patch["addSkills"]})
+    row["subtopics"] = list(row["skills"])
+    row["classificationEvidence"] = {**row["classificationEvidence"], "provenance": {**row["classificationEvidence"]["provenance"], "reviewOverlay": patch["evidence"]}}
+    return row
 
 
 def merge(level: str, current: dict, source: dict) -> dict:
@@ -57,7 +71,7 @@ def merge(level: str, current: dict, source: dict) -> dict:
     questions, papers = [], []
     for q in source["questions"]:
         if q["id"] in new_q_ids:
-            questions.append(with_subtopics(q))
+            questions.append(with_overlay(level, with_subtopics(q)))
         elif q["id"] in existing_q:
             questions.append(existing_q[q["id"]])
         else:

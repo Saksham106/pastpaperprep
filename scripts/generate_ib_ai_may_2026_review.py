@@ -15,6 +15,8 @@ OUT_METHOD = ("Official May 2026 TZ1-TZ3 questions (additions, no earlier rows r
               "markscheme crops, adjudicated row by row from the two immutable result files; Drex was triage only. Recorded as manual reviews "
               "in the source repository. Not part of the 2026-08 blind consensus audit.")
 
+OVERLAY = json.loads((REPO / "docs/audits/ib-ai-may-2026-review-overlay.json").read_text(encoding="utf-8"))["rows"]
+
 for level, expected in (("hl", 75), ("sl", 52)):
     raw = json.loads((REPO / f"src/data/raw/ib-ai-{level}.json").read_text(encoding="utf-8"))
     adj_path = WORKSPACE / f"ib-maths-ai-{level}-topic-practice-may-2026/data/audits/may-2026-official/adjudication-{level}.json"
@@ -27,7 +29,10 @@ for level, expected in (("hl", 75), ("sl", 52)):
         a = adj[q["id"]]
         prov = q["classificationEvidence"]["provenance"]
         assert prov["adjudicationSha256"] == adj_sha and q["classificationVersion"] == f"ib-ai-{level}-may-2026-addition.1"
-        assert (q["primaryTopic"], q["secondaryTopics"], q["skills"]) == (a["primary_topic"], a["secondary_topics"], a["skills"]) and q["subtopics"] == q["skills"]
+        patch = OVERLAY.get(f"ib-ai-{level}", {}).get(q["id"])
+        exp_sec = [*a["secondary_topics"], *patch["addSecondaryTopics"]] if patch else a["secondary_topics"]
+        exp_skills = sorted({*a["skills"], *patch["addSkills"]}) if patch else a["skills"]
+        assert (q["primaryTopic"], q["secondaryTopics"], q["skills"]) == (a["primary_topic"], exp_sec, exp_skills) and q["subtopics"] == q["skills"]
         corrections[q["id"]] = {
             "primaryTopic": q["primaryTopic"], "subtopics": q["subtopics"], "secondaryTopics": q["secondaryTopics"],
             "sourceTextSha256": hashlib.sha256(q["accessibleText"].encode("utf-8")).hexdigest(),

@@ -6556,17 +6556,20 @@
       "independentSolution": "",
       "primaryTopic": "Statistics and probability",
       "secondaryTopics": [
-        "Calculus"
+        "Calculus",
+        "Functions"
       ],
       "skills": [
         "Applications of differentiation",
         "Correlation and regression",
+        "Modelling with quadratic and cubic functions",
         "Non-linear regression and linearizing",
         "Techniques of differentiation"
       ],
       "subtopics": [
         "Applications of differentiation",
         "Correlation and regression",
+        "Modelling with quadratic and cubic functions",
         "Non-linear regression and linearizing",
         "Techniques of differentiation"
       ],
@@ -6577,7 +6580,8 @@
           "adjudicationSha256": "ec267c6c6fa0397293a1e6a95b2d517f6e76650e813723fd59ce2d477c3962fd",
           "status": "secondaries-differ",
           "passAConfidence": "medium",
-          "passBConfidence": "medium"
+          "passBConfidence": "medium",
+          "reviewOverlay": "Original QP/MS assess quadratic shape in (a)(i), long-run behaviour of the quadratic model against the context in (b), and identifying the quadratic graph with a reason in (g)(i). Statistics stays primary and Calculus stays secondary; the 1-mark substitution in (c) and the least-squares reasoning in (g)(ii) are not counted as Functions evidence."
         }
       },
       "classificationConfidence": "medium",

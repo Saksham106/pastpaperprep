@@ -2,6 +2,9 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import { getCatalogBank } from "@/lib/catalog";
+import { filterQuestions } from "@/lib/question-filter";
+import { loadBankQuestions } from "@/lib/question-fixtures";
 import { getControlledSubtopics } from "@/lib/taxonomy";
 
 type Row = Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -87,6 +90,16 @@ describe.each(Object.entries(LEVELS))("IB Maths AI %s May 2026 official papers",
     expect(added.filter((q) => q.classificationConfidence === "low").map((q) => q.id)).toEqual(level === "sl" ? ["2026-may-tz2-p2-q1"] : []);
   });
 
+  it("keeps the catalog counts, paper counts and year range in step with the runtime bank", () => {
+    const entry = getCatalogBank(spec.slug as "ib-ai-hl" | "ib-ai-sl")!;
+    const years = questions.map((q) => Number(q.year));
+    expect(entry.questionCount).toBe(questions.length);
+    expect(entry.paperCount).toBe(papers.length);
+    expect(entry.years).toBe(`${Math.min(...years)}-${Math.max(...years)}`);
+    expect(entry.questionCount).toBe(spec.before.questions + spec.added.questions);
+    expect(entry.paperCount).toBe(spec.before.papers + spec.added.papers);
+  });
+
   it("adds every May 2026 paper to the whole-paper archive with an official pair and reconciled marks", () => {
     const manifest = load(`src/data/paper-archives/${spec.slug}.json`);
     const entries = manifest.papers.filter((p: Row) => p.summary.year === 2026);
@@ -101,6 +114,27 @@ describe.each(Object.entries(LEVELS))("IB Maths AI %s May 2026 official papers",
       expect(entry.questions.map((q: Row) => q.id), entry.summary.id).toEqual(ids);
       expect(entry.questions.reduce((sum: number, q: Row) => sum + q.maxMarks, 0), entry.summary.id).toBe(entry.summary.maxMarks);
     }
+  });
+});
+
+// Owner review of PR #300: AI HL TZ3 Paper 3 Q2 assesses quadratic shape (a)(i), long-run model behaviour (b) and graph identification (g)(i).
+describe("AI HL TZ3 Paper 3 Q2 Functions routing", () => {
+  const id = "2026-may-tz3-p3-q2";
+  const questions = loadBankQuestions("ib-ai-hl");
+  const row = questions.find((q) => q.id === id)!;
+
+  it("keeps Statistics primary and Calculus secondary, adding Functions with the quadratic-modelling skill", () => {
+    expect(row.primaryTopic).toBe("Statistics and probability");
+    expect(row.secondaryTopics).toEqual(["Calculus", "Functions"]);
+    expect(row.skills).toContain("Modelling with quadratic and cubic functions");
+    expect(getControlledSubtopics("ib-ai-hl", "Functions")).toContain("Modelling with quadratic and cubic functions");
+  });
+
+  it("is retrieved by the actual Functions topic filter and the quadratic-modelling skill filter", () => {
+    expect(filterQuestions(questions, { topics: ["Functions"] }).map((q) => q.id)).toContain(id);
+    expect(filterQuestions(questions, { subtopics: ["Modelling with quadratic and cubic functions"] }).map((q) => q.id)).toContain(id);
+    expect(filterQuestions(questions, { topics: ["Statistics and probability"] }).map((q) => q.id)).toContain(id);
+    expect(filterQuestions(questions, { topics: ["Calculus"] }).map((q) => q.id)).toContain(id);
   });
 });
 

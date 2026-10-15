@@ -5,7 +5,7 @@
 //
 // Every 2026 key the committed runtime banks reference is listed with its SHA-256, size, MD5 (the R2 ETag the
 // sync verifies) and source path. Uploading publishes the files and needs owner approval (AGENTS.md); at upload time
-// each key must first be confirmed absent (`npm run r2:sync` puts only missing/mismatched keys).
+// each key should first be confirmed absent by a separate read. `npm run r2:sync` is NOT create-only: it also re-puts keys whose bytes differ, so it can overwrite an existing object. Do not rely on it for create-only behaviour; use a create-only (conditional) upload or put only keys the check showed absent.
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
@@ -44,7 +44,7 @@ const plan = {
   contentType: "image/webp",
   cacheControl: "private, max-age=31536000, immutable",
   workspaceRoot: "ProjectsInternships (sibling source checkouts ib-maths-ai-{hl,sl}-topic-practice-may-2026/site)",
-  precondition: "Every key must be confirmed absent in R2 before its put (2026 ids never existed in the AI banks). Existing 2021-2025 objects are not touched: their referenced files are byte-identical in the new checkouts.",
+  precondition: "Every key should be confirmed absent in R2 by a separate check before its put (2026 ids never existed in the AI banks); that check is the plan's precondition, not a guarantee of the upload tool, since r2:sync can overwrite. Existing 2021-2025 objects are not touched by this plan: their referenced files are byte-identical in the new checkouts.",
   summary,
   totalObjects: objects.length,
   totalBytes: objects.reduce((sum, row) => sum + row.bytes, 0),
