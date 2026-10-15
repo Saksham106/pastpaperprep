@@ -54,7 +54,8 @@ describe("approved free-papers plan membership", () => {
   it.skipIf(!existsSync(sourceLane))("the real planner script refuses a same-count substituted plan instead of emitting it as approved", { timeout: 120_000 }, () => {
     const dir = mkdtempSync(join(tmpdir(), "ib-bio-plan-"));
     try {
-      const bad = swap((rows) => { rows[0] = { ...rows[0], sha256: "a".repeat(64), key: `papers/v1/${"a".repeat(64)}.pdf` }; });
+      // The planner scopes its head to the Biology manifests, so its approved count is the plan's own.
+      const bad = { ...swap((rows) => { rows[0] = { ...rows[0], sha256: "a".repeat(64), key: `papers/v1/${"a".repeat(64)}.pdf` }; }), approvedObjects: committed.approvedObjectsAfter };
       const input = join(dir, "plan.json");
       writeFileSync(input, JSON.stringify(bad));
       let message = "";
