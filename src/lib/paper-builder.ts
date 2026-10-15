@@ -3,7 +3,7 @@ import type { BankSlug } from "@/lib/banks";
 import { isCleanMathsBank, mathsSubtopicMatches, mathsTopicMatches } from "@/lib/maths-picker";
 import { deriveCourseRoute, matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 
-export type PaperCandidate = Pick<PublicQuestionMetadata, "id" | "paper" | "year" | "marks" | "primaryTopic" | "secondaryTopics"> & { subtopics?: string[]; calculator?: boolean | null };
+export type PaperCandidate = Pick<PublicQuestionMetadata, "id" | "number" | "paper" | "year" | "marks" | "primaryTopic" | "secondaryTopics"> & { subtopics?: string[]; calculator?: boolean | null };
 
 /** The calculator status shared by every question of a paper in the pool, or null when unknown or mixed. */
 export function paperCalculator(pool: readonly { paper: number; calculator?: boolean | null }[], paper: number): boolean | null {
@@ -84,5 +84,7 @@ export function generatePaper(questions: readonly PaperCandidate[], plan: PaperP
     }
   }
   if (selected.length > 50) throw new Error("A worksheet can contain at most 50 questions");
-  return { questions: selected, totalMarks: selected.reduce((sum, question) => sum + question.marks!, 0) };
+  // Read like an exam: within a paper, later question numbers tend to be harder.
+  const ordered = [...selected].sort((a, b) => a.paper - b.paper || a.number - b.number || a.year - b.year || a.id.localeCompare(b.id));
+  return { questions: ordered, totalMarks: ordered.reduce((sum, question) => sum + question.marks!, 0) };
 }

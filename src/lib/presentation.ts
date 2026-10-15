@@ -41,3 +41,8 @@ export function displayedQuestionSubtopics(question: Pick<UnifiedQuestion, "bank
   if (question.bankSlug === "igcse-chemistry-0620") return display0620Sections(question.officialCodeRefs ?? []);
   return question.subtopics;
 }
+
+/** A question's main topic as students see it on cards and in PDFs. */
+export function formatQuestionTopic(bankSlug: string, topic: string): string {
+  return formatPublicLabel(bankSlug === "igcse" || bankSlug === "igcse-additional" ? formatMathsPickerLabel(bankSlug, topic) : topic);
+}

@@ -8,6 +8,7 @@ import { generatePaper, paperCalculator, type PaperCandidate } from "@/lib/paper
 import { CalculatorBadge } from "@/components/CalculatorBadge";
 import { EARLIER_MATHS_TOPIC, getMathsPickerGroups, getMathsPickerSections, isCleanMathsBank, isEarlierMathsQuestion, isMathsEarlierToken, mathsPickerLabel } from "@/lib/maths-picker";
 import { PaperPreview } from "@/components/PaperPreview";
+import { suggestWorksheetTitle } from "@/lib/worksheet-title";
 import "./paper-builder.css";
 
 type BuilderBank = { slug: BankSlug; label: string; indexUrl: string };
@@ -26,7 +27,7 @@ function MultiPicker({ title, options, selected, onChange, disabled = false, ban
   </details>;
 }
 
-export function PaperBuilder({ banks, initialBank }: { banks: BuilderBank[]; initialBank?: BankSlug }) {
+export function PaperBuilder({ banks, initialBank, existingTitles = [] }: { banks: BuilderBank[]; initialBank?: BankSlug; existingTitles?: string[] }) {
   const startBank = banks.find((item) => item.slug === initialBank) ?? banks[0];
   const [bank, setBank] = useState<BankSlug | "">(startBank?.slug ?? "");
   const [questions, setQuestions] = useState<PublicQuestionMetadata[]>([]);
@@ -39,7 +40,10 @@ export function PaperBuilder({ banks, initialBank }: { banks: BuilderBank[]; ini
   const [topics, setTopics] = useState<string[]>([]);
   const [subtopics, setSubtopics] = useState<string[]>([]);
   const [targets, setTargets] = useState<Record<number, number>>({});
-  const [name, setName] = useState(startBank ? `${startBank.label} practice paper` : "");
+  const [name, setName] = useState("");
+  // A name the student typed survives reshuffles; otherwise each paper is named after its topics.
+  const [nameEdited, setNameEdited] = useState(false);
+  const [takenTitles, setTakenTitles] = useState(existingTitles);
   const [draft, setDraft] = useState<Draft | null>(null);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [savedId, setSavedId] = useState("");
@@ -105,6 +109,7 @@ export function PaperBuilder({ banks, initialBank }: { banks: BuilderBank[]; ini
         topics, subtopics,
       });
       setDraft(result);
+      if (!nameEdited) setName(suggestWorksheetTitle(result.questions.map((question) => ({ bankSlug: bank, primaryTopic: question.primaryTopic, paper: question.paper })), takenTitles));
       requestAnimationFrame(() => generatedRef.current?.scrollIntoView?.({ behavior: "smooth", block: "start" }));
     } catch (reason) { setError(reason instanceof Error ? reason.message : "Could not make this paper"); }
   }
@@ -122,6 +127,7 @@ export function PaperBuilder({ banks, initialBank }: { banks: BuilderBank[]; ini
       const payload = await response.json();
       if (!response.ok || typeof payload.worksheet?.id !== "string") throw new Error(typeof payload.error === "string" ? payload.error : "Could not save this worksheet");
       setSavedId(payload.worksheet.id);
+      setTakenTitles((current) => [...current, name.trim()]);
     } catch (reason) { setError(reason instanceof Error ? reason.message : "Could not save this worksheet"); }
     finally { savingRef.current = false; setSaving(false); }
   }
@@ -134,7 +140,7 @@ export function PaperBuilder({ banks, initialBank }: { banks: BuilderBank[]; ini
         <label className="paper-builder-bank">Question bank<select value={bank} disabled={saving} onChange={(event) => {
           const next = banks.find((item) => item.slug === event.target.value);
           if (!next) return;
-          setBank(next.slug); setQuestions([]); setLoading(true); setFromYear(""); setToYear(""); setTopics([]); setSubtopics([]); setTargets({}); setCourseRoute("all"); setName(`${next.label} practice paper`); resetDraft();
+          setBank(next.slug); setQuestions([]); setLoading(true); setFromYear(""); setToYear(""); setTopics([]); setSubtopics([]); setTargets({}); setCourseRoute("all"); setName(""); setNameEdited(false); resetDraft();
         }}>{banks.map((item) => <option key={item.slug} value={item.slug}>{item.label}</option>)}</select></label>
         {routed && <div className="paper-builder-route"><p className="paper-builder-field-title">Your Cambridge route</p><div className="paper-builder-route-options" role="group" aria-label="Your Cambridge route">{([
           ["all", "All papers", "Choose freely"], ["core", "Core", "Papers 1 & 3"], ["extended", "Extended", "Papers 2 & 4"],
@@ -157,7 +163,7 @@ export function PaperBuilder({ banks, initialBank }: { banks: BuilderBank[]; ini
       <div className="paper-builder-preview-heading"><div><p className="eyebrow">03 / Your paper</p><h2>{draft.questions.length} {draft.questions.length === 1 ? "question" : "questions"} · {draft.totalMarks} {draft.totalMarks === 1 ? "mark" : "marks"}</h2><p>Preview the actual questions and mark schemes here before saving.</p></div><button type="button" className="button secondary" disabled={saving} onClick={build}>Shuffle again</button></div>
       <div className="paper-builder-preview-actions">{!previewOpen && <button ref={previewButtonRef} type="button" className="button primary" onClick={() => setPreviewOpen(true)}>Preview paper</button>}<details className="paper-builder-question-list"><summary>Question list</summary><ol>{draft.questions.map((question) => { const source = byId.get(question.id); return <li key={question.id}><strong>Paper {question.paper} · Question {source?.number ?? "—"}</strong><span>{question.year} {SESSION_LABELS[source?.session ?? ""] ?? source?.session} · {question.marks} {question.marks === 1 ? "mark" : "marks"}</span></li>; })}</ol></details></div>
       {previewOpen && bank && previewQuestions.length === draft.questions.length && <PaperPreview key={`${bank}-${draft.questions.map((question) => question.id).join(",")}`} bank={bank} questions={previewQuestions} onClose={() => { setPreviewOpen(false); requestAnimationFrame(() => previewButtonRef.current?.focus()); }} />}
-      <div className="paper-builder-save"><div><h3>Keep this set?</h3><p>Save it to My worksheets so you can practise on the site anytime.</p></div><label>Worksheet name<input maxLength={80} disabled={saving || Boolean(savedId)} value={name} onChange={(event) => setName(event.target.value)} /></label>{savedId ? <a className="button primary" href={`/banks/${bank}?worksheet=${encodeURIComponent(savedId)}`}>Open paper</a> : <button type="button" className="button primary" disabled={saving || !name.trim()} onClick={() => void save()}>{saving ? "Saving…" : "Save worksheet"}</button>}</div>
+      <div className="paper-builder-save"><div><h3>Keep this set?</h3><p>Save it to My worksheets so you can practise on the site anytime.</p></div><label>Worksheet name<input maxLength={80} disabled={saving || Boolean(savedId)} value={name} onChange={(event) => { setName(event.target.value); setNameEdited(event.target.value.trim() !== ""); }} /></label>{savedId ? <a className="button primary" href={`/banks/${bank}?worksheet=${encodeURIComponent(savedId)}`}>Open paper</a> : <button type="button" className="button primary" disabled={saving || !name.trim()} onClick={() => void save()}>{saving ? "Saving…" : "Save worksheet"}</button>}</div>
     </section>}
   </div>;
 }
