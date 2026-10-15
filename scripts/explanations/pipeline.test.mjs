@@ -1,10 +1,17 @@
 // @vitest-environment node
 import { test } from 'vitest';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, symlinkSync, readFileSync, realpathSync, existsSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, symlinkSync, readFileSync, realpathSync, existsSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { spawnSync } from 'node:child_process';
+
+// A workflow journal plus each agent's transcript; agents finish in entry order unless `at` gives a time.
+let clock=Date.parse('2026-10-14T00:00:00Z');
+function writeJournal(journal,entries,at={}){
+ writeFileSync(journal,entries.map(JSON.stringify).join('\n'));
+ for(const e of entries) if(e.type==='result') writeFileSync(join(dirname(journal),`agent-${e.agentId}.jsonl`),JSON.stringify({timestamp:new Date(at[e.agentId]??(clock+=1000)).toISOString()}));
+}
 
 test('publishSet never replaces conflicts and requires exact readback before availability', async () => {
  const { publishSet } = await import('./publish-set.mjs');
@@ -46,7 +53,7 @@ function replayFixture(entries, previous, { singleBank = false, expectStatus = 0
  writeFileSync(join(dir,id+'.json'),'{}');
  if(previous) writeFileSync(join(dir,'_ledger.json'),JSON.stringify(previous));
  const manifest=join(projects,'manifest.json');writeFileSync(manifest,JSON.stringify({bank:'ib-hl',tasks:[{bank:'ib-hl',questionId:id}]}));
- const journal=join(projects,'journal.jsonl');writeFileSync(journal,entries.map(JSON.stringify).join('\n'));
+ const journal=join(projects,'journal.jsonl');writeJournal(journal,entries);
  const run=spawnSync(process.execPath,[join(import.meta.dirname,'ledger-from-journal.mjs'),'--bank','ib-hl','--manifest',manifest,...(singleBank?['--single-bank-journal']:[]),journal],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
  assert.equal(run.status,expectStatus,run.stderr);
  if(expectStatus!==0) return {run};
@@ -118,7 +125,7 @@ test('latest failed review supersedes previous ledger pass', () => {
  writeFileSync(join(dir,'_ledger.json'),JSON.stringify({bank:'ib-hl',rows:[{questionId:id,status:'pass'}]}));
  const manifest=join(projects,'manifest.json');writeFileSync(manifest,JSON.stringify({bank:'ib-hl',tasks:[{bank:'ib-hl',questionId:id}]}));
  const journal=join(projects,'journal.jsonl');
- writeFileSync(journal,[{type:'started',agentId:'a',label:'verify ib-hl v0'},{type:'result',agentId:'a',result:{results:[{questionId:id,verdict:'fail',issues:[{severity:'critical',part:'a',problem:'wrong'}]}]}}].map(JSON.stringify).join('\n'));
+ writeJournal(journal,[{type:'started',agentId:'a',label:'verify ib-hl v0'},{type:'result',agentId:'a',result:{results:[{questionId:id,verdict:'fail',issues:[{severity:'critical',part:'a',problem:'wrong'}]}]}}]);
  const run=spawnSync(process.execPath,[join(import.meta.dirname,'ledger-from-journal.mjs'),'--bank','ib-hl','--manifest',manifest,journal],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
  assert.equal(run.status,0,run.stderr);
  assert.equal(JSON.parse(readFileSync(join(dir,'_ledger.json'))).rows[0].status,'needs-fix');
@@ -129,7 +136,7 @@ test('later failed verification cannot be hidden by an older passing recheck', (
  const id='2025-may-tz1-p1-q1';
  const manifest=join(projects,'manifest.json');writeFileSync(manifest,JSON.stringify({bank:'ib-hl',tasks:[{bank:'ib-hl',questionId:id}]}));
  const journal=join(projects,'journal.jsonl');
- writeFileSync(journal,[{type:'started',agentId:'old',label:'re-verify ib-hl v0'},{type:'result',agentId:'old',result:{results:[{questionId:id,verdict:'pass',issues:[]}]}},{type:'started',agentId:'new',label:'verify ib-hl v0'},{type:'result',agentId:'new',result:{results:[{questionId:id,verdict:'fail',issues:[{severity:'critical',part:'a',problem:'wrong'}]}]}}].map(JSON.stringify).join('\n'));
+ writeJournal(journal,[{type:'started',agentId:'old',label:'re-verify ib-hl v0'},{type:'result',agentId:'old',result:{results:[{questionId:id,verdict:'pass',issues:[]}]}},{type:'started',agentId:'new',label:'verify ib-hl v0'},{type:'result',agentId:'new',result:{results:[{questionId:id,verdict:'fail',issues:[{severity:'critical',part:'a',problem:'wrong'}]}]}}]);
  const run=spawnSync(process.execPath,[join(import.meta.dirname,'ledger-from-journal.mjs'),'--bank','ib-hl','--manifest',manifest,journal],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
  assert.equal(run.status,0,run.stderr);
  assert.equal(JSON.parse(readFileSync(join(dir,'_ledger.json'))).rows[0].status,'needs-fix');
@@ -141,7 +148,7 @@ test('journal outcomes from another bank cannot settle a shared question ID', ()
  const id='2025-may-tz1-p1-q1';
  const manifest=join(projects,'manifest.json');writeFileSync(manifest,JSON.stringify({bank:'ib-ai-hl',tasks:[{bank:'ib-ai-hl',questionId:id}]}));
  const journal=join(projects,'journal.jsonl');
- writeFileSync(journal,[{type:'started',agentId:'hl',label:'verify ib-ai-hl v0'},{type:'result',agentId:'hl',result:{results:[{questionId:id,verdict:'fail',issues:[{severity:'critical',part:'a',problem:'wrong'}]}]}},{type:'started',agentId:'sl',label:'verify ib-ai-sl v0'},{type:'result',agentId:'sl',result:{results:[{questionId:id,verdict:'pass',issues:[]}]}}].map(JSON.stringify).join('\n'));
+ writeJournal(journal,[{type:'started',agentId:'hl',label:'verify ib-ai-hl v0'},{type:'result',agentId:'hl',result:{results:[{questionId:id,verdict:'fail',issues:[{severity:'critical',part:'a',problem:'wrong'}]}]}},{type:'started',agentId:'sl',label:'verify ib-ai-sl v0'},{type:'result',agentId:'sl',result:{results:[{questionId:id,verdict:'pass',issues:[]}]}}]);
  const run=spawnSync(process.execPath,[join(import.meta.dirname,'ledger-from-journal.mjs'),'--bank','ib-ai-hl','--manifest',manifest,journal],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
  assert.equal(run.status,0,run.stderr);
  assert.equal(JSON.parse(readFileSync(join(dir,'_ledger.json'))).rows[0].status,'needs-fix');
@@ -153,7 +160,7 @@ test('a claimed minor repair whose validator failed is held for review', () => {
  const id='2025-may-tz1-p1-q1';
  const manifest=join(projects,'manifest.json');writeFileSync(manifest,JSON.stringify({bank:'ib-hl',tasks:[{bank:'ib-hl',questionId:id}]}));
  const journal=join(projects,'journal.jsonl');
- writeFileSync(journal,[{type:'started',agentId:'v',label:'verify ib-hl v0'},{type:'result',agentId:'v',result:{results:[{questionId:id,verdict:'fix',issues:[{severity:'minor',part:'a',problem:'typo'}]}]}},{type:'started',agentId:'f',label:'fix ib-hl f0'},{type:'result',agentId:'f',result:{results:[{questionId:id,fixed:true,validatorPassed:false}]}}].map(JSON.stringify).join('\n'));
+ writeJournal(journal,[{type:'started',agentId:'v',label:'verify ib-hl v0'},{type:'result',agentId:'v',result:{results:[{questionId:id,verdict:'fix',issues:[{severity:'minor',part:'a',problem:'typo'}]}]}},{type:'started',agentId:'f',label:'fix ib-hl f0'},{type:'result',agentId:'f',result:{results:[{questionId:id,fixed:true,validatorPassed:false}]}}]);
  const run=spawnSync(process.execPath,[join(import.meta.dirname,'ledger-from-journal.mjs'),'--bank','ib-hl','--manifest',manifest,journal],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
  assert.equal(run.status,0,run.stderr);
  assert.equal(JSON.parse(readFileSync(join(dir,'_ledger.json'))).rows[0].status,'review');
@@ -241,4 +248,61 @@ test('validate.mjs infers the expected bank and question from a file\'s location
  assert.match(run().stdout,/bank ib-hl != ib-physics-hl/);
  writeFileSync(join(dir,id+'.json'),JSON.stringify({...doc,bank:'ib-physics-hl'}));
  assert.match(run().stdout,/"failed":0/);
+});
+test('next.mjs plans near-shippable work first and stays within the agent budget', async () => {
+ const { planJobs } = await import('./next.mjs');
+ const plans=[{bank:'a',plan:{generate:[[1],[2],[3]],verify:[[4]],fix:[[5]]}},{bank:'b',plan:{generate:[[6]],verify:[[7],[8]],fix:[]}}];
+ const all=planJobs(plans,100);
+ assert.deepEqual(Object.fromEntries(all.counts),{a:{generate:3,verify:1,fix:1},b:{generate:1,verify:2,fix:0}});
+ const tight=planJobs(plans,7);
+ assert.deepEqual(Object.fromEntries(tight.counts),{a:{generate:0,verify:1,fix:1},b:{generate:0,verify:2,fix:0}});
+ assert.ok(tight.spent<=7);
+});
+test('overlapping runs: the result that finished last wins, whatever order journals are given in', () => {
+ const projects=mkdtempSync(join(realpathSync(tmpdir()),'explanation-ledger-'));
+ const dir=join(projects,'research/explanations/ib-hl');mkdirSync(dir,{recursive:true});
+ const id='2025-may-tz1-p1-q1';
+ writeFileSync(join(dir,`${id}.json`),'{}');
+ const manifest=join(projects,'manifest.json');writeFileSync(manifest,JSON.stringify({bank:'ib-hl',tasks:[{bank:'ib-hl',questionId:id}]}));
+ // The older run started first but its failing check finished after the newer run's pass.
+ const older=join(projects,'older');const newer=join(projects,'newer');mkdirSync(older);mkdirSync(newer);
+ writeJournal(join(older,'journal.jsonl'),[{type:'started',agentId:'o',label:'verify ib-hl v0'},{type:'result',agentId:'o',result:{results:[{questionId:id,verdict:'fail',issues:[{severity:'critical',part:'a',problem:'wrong'}]}]}}],{o:'2026-10-14T12:00:00Z'});
+ writeJournal(join(newer,'journal.jsonl'),[{type:'started',agentId:'n',label:'verify ib-hl v0'},{type:'result',agentId:'n',result:{results:[{questionId:id,verdict:'pass',issues:[]}]}}],{n:'2026-10-14T11:00:00Z'});
+ for(const order of [[older,newer],[newer,older]]){
+  rmSync(join(dir,'_ledger.json'),{force:true});
+  const run=spawnSync(process.execPath,[join(import.meta.dirname,'ledger-from-journal.mjs'),'--bank','ib-hl','--manifest',manifest,...order.map(d=>join(d,'journal.jsonl'))],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
+  assert.equal(run.status,0,run.stderr);
+  assert.equal(JSON.parse(readFileSync(join(dir,'_ledger.json'))).rows[0].status,'needs-fix');
+ }
+});
+test('a result that cannot be dated stops planning instead of being guessed into order', () => {
+ const projects=mkdtempSync(join(realpathSync(tmpdir()),'explanation-ledger-'));
+ mkdirSync(join(projects,'research/explanations/ib-hl'),{recursive:true});
+ const id='2025-may-tz1-p1-q1';
+ const manifest=join(projects,'manifest.json');writeFileSync(manifest,JSON.stringify({bank:'ib-hl',tasks:[{bank:'ib-hl',questionId:id}]}));
+ const journal=join(projects,'journal.jsonl');
+ writeFileSync(journal,[{type:'started',agentId:'x',label:'verify ib-hl v0'},{type:'result',agentId:'x',result:{results:[{questionId:id,verdict:'pass',issues:[]}]}}].map(JSON.stringify).join('\n'));
+ const run=spawnSync(process.execPath,[join(import.meta.dirname,'ledger-from-journal.mjs'),'--bank','ib-hl','--manifest',manifest,journal],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
+ assert.notEqual(run.status,0);
+ assert.match(run.stderr,/Cannot date/);
+});
+test('plans get unique names and an emitted plan is never rewritten', async () => {
+ const { writePlan } = await import('./next.mjs');
+ const dir=mkdtempSync(join(realpathSync(tmpdir()),'explanation-plan-'));
+ const first=writePlan(dir,'wave1',{generate:[['a']],verify:[],fix:[]});
+ const bytes=readFileSync(first,'utf8');
+ const second=writePlan(dir,'wave1',{generate:[['b'],['c']],verify:[],fix:[]});
+ assert.notEqual(first,second);
+ assert.equal(readFileSync(first,'utf8'),bytes);
+});
+test('prep reads the asset manifest it just generated, never a stale one with the same name', async () => {
+ const { servedManifest } = await import('./prepare-batch.mjs');
+ const dir=mkdtempSync(join(realpathSync(tmpdir()),'explanation-assets-'));
+ writeFileSync(join(dir,'igcse.preview.json'),JSON.stringify({q1:{questionAssetPaths:['igcse/questions/old.webp']}}));
+ const fresh={q1:{questionAssetPaths:['igcse/repairs/new.webp']}};
+ const generate=()=>{writeFileSync(join(dir,'igcse.preview.json'),JSON.stringify(fresh));return 'igcse: 1 questions -> igcse.preview.json\n';};
+ assert.deepEqual(servedManifest('igcse',{dir,generate}),fresh);
+ // A generator that writes nothing must not fall back to the stale file.
+ writeFileSync(join(dir,'igcse.preview.json'),JSON.stringify({q1:{questionAssetPaths:['igcse/questions/old.webp']}}));
+ assert.throws(()=>servedManifest('igcse',{dir,generate:()=>'igcse: not runnable in this environment, skipped\n'}),/not generated/);
 });
