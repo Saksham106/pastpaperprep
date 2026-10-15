@@ -14,19 +14,22 @@ const paperSeed = (seed: number, paper: number) => (seed ^ Math.imul(paper, 2654
 
 /** Fill one target from a pool, keeping what is already chosen. Returns the questions and the shortfall. */
 function fill(kept: PaperCandidate[], pool: readonly PaperCandidate[], mode: "questions" | "marks", amount: number, seed: number, room: number) {
-  const chosen = new Set(kept.map((question) => question.id));
-  const rest = shuffled(pool.filter((question) => !chosen.has(question.id)), seed);
+  // Questions trimmed below are free to come back, so the pool to top up from is worked out after trimming.
+  const restAfter = (result: readonly PaperCandidate[]) => {
+    const chosen = new Set(result.map((question) => question.id));
+    return shuffled(pool.filter((question) => !chosen.has(question.id)), seed);
+  };
   if (mode === "questions") {
     const wanted = Math.min(amount, room);
     const result = kept.slice(0, wanted);
-    for (const question of rest) { if (result.length >= wanted) break; result.push(question); }
+    for (const question of restAfter(result)) { if (result.length >= wanted) break; result.push(question); }
     return { result, shortBy: amount - result.length };
   }
   const result = kept.slice(0, room);
   while (result.length && marksOf(result) > amount) result.pop();
   const need = amount - marksOf(result);
   // The exact total when one exists, otherwise the closest total under it.
-  if (need > 0 && result.length < room) result.push(...closestMarks(rest, need, room - result.length));
+  if (need > 0 && result.length < room) result.push(...closestMarks(restAfter(result), need, room - result.length));
   return { result, shortBy: amount - marksOf(result) };
 }
 
@@ -63,8 +66,9 @@ export function swapCandidate(paperIds: readonly string[], id: string, pool: rea
   const inPaper = new Set(paperIds);
   let candidates = pool.filter((question) => !inPaper.has(question.id));
   if (target.kind === "papers") candidates = candidates.filter((question) => question.paper === outgoing.paper);
+  const marksTarget = target.kind === "marks" || (target.kind === "papers" && target.targets.some((item) => item.paper === outgoing.paper && item.mode === "marks"));
   const tiers = [
-    ...(target.kind === "marks" ? [(question: PaperCandidate) => question.marks === outgoing.marks] : []),
+    ...(marksTarget ? [(question: PaperCandidate) => question.marks === outgoing.marks] : []),
     (question: PaperCandidate) => question.primaryTopic === outgoing.primaryTopic,
     (question: PaperCandidate) => question.paper === outgoing.paper,
     () => true,

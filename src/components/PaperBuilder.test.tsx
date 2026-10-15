@@ -159,6 +159,40 @@ describe("PaperBuilder", () => {
     expect(screen.getByRole("group", { name: "Size by" })).toBeInTheDocument();
   });
 
+  it("rebuilds exactly the paper on screen from its link, after choices and edits change it", async () => {
+    window.history.replaceState({}, "", "/worksheets/build?size=q10&seed=7");
+    const { unmount } = render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    fireEvent.click(screen.getByRole("button", { name: "5" }));
+    fireEvent.click(within(within(topicList()).getAllByRole("listitem")[1]).getAllByRole("checkbox")[0]);
+    fireEvent.click(screen.getByRole("button", { name: "Swap question 2" }));
+    fireEvent.click(screen.getByRole("button", { name: "Move question 1 down" }));
+    fireEvent.click(screen.getByRole("button", { name: "Remove question 3" }));
+    const shown = rowSources();
+    const link = window.location.search;
+    unmount();
+    window.history.replaceState({}, "", `/worksheets/build${link}`);
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    await waitFor(() => expect(rowSources()).toEqual(shown));
+  });
+
+  it("gives the download a scope that ends on sign-out or when the builder closes", async () => {
+    document.cookie = "sb-test-auth-token=1; path=/";
+    const { unmount } = render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    await waitFor(() => expect(exportWorksheetPdf).toHaveBeenCalled());
+    const { isCurrent } = exportWorksheetPdf.mock.calls[0][0];
+    expect(isCurrent()).toBe(true);
+    document.cookie = "sb-test-auth-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    expect(isCurrent()).toBe(false);
+    document.cookie = "sb-test-auth-token=1; path=/";
+    unmount();
+    expect(isCurrent()).toBe(false);
+    document.cookie = "sb-test-auth-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  });
+
   it("saves in sheet order, then saves later edits to the same worksheet", async () => {
     render(<PaperBuilder banks={[bank]} existingTitles={[]} />);
     await ready();

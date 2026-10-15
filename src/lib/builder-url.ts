@@ -1,8 +1,16 @@
 import type { CourseRouteSelection } from "@/lib/course-route";
 import { MAX_DRAFT_QUESTIONS, type DraftTarget, type PaperDraftTarget } from "@/lib/paper-draft";
 
-/** Everything needed to rebuild the same paper from a link: the choices and the shuffle seed, not the question list. */
-export type BuilderState = { bank?: string; route: CourseRouteSelection; from?: number; to?: number; selection: string[]; target: DraftTarget; seed?: number };
+/**
+ * Everything needed to rebuild the paper on screen from a link: the choices, the seed for future
+ * top-ups, and the paper itself (its questions in order, plus the ones the student removed).
+ */
+export type BuilderState = {
+  bank?: string; route: CourseRouteSelection; from?: number; to?: number; selection: string[]; target: DraftTarget; seed?: number;
+  ids: string[]; removed: string[]; reordered: boolean;
+};
+const QUESTION_ID = /^[A-Za-z0-9._:-]{1,120}$/;
+const MAX_REMOVED = 200;
 
 const MAX_MARKS = 200;
 const DEFAULT_TARGET: DraftTarget = { kind: "questions", amount: 10 };
@@ -36,6 +44,9 @@ export function parseBuilderState(params: URLSearchParams): BuilderState {
     route: route === "core" || route === "extended" ? route : "all",
     selection: params.getAll("t").filter(Boolean),
     target: papers.length ? { kind: "papers", targets: papers } : parseSize(params.get("size")) ?? DEFAULT_TARGET,
+    ids: [...new Set(params.getAll("q").filter((id) => QUESTION_ID.test(id)))].slice(0, MAX_DRAFT_QUESTIONS),
+    removed: [...new Set(params.getAll("x").filter((id) => QUESTION_ID.test(id)))].slice(0, MAX_REMOVED),
+    reordered: params.get("o") === "1",
   };
   if (bank && /^[a-z0-9-]{1,40}$/.test(bank)) state.bank = bank;
   const from = year(params.get("from")), to = year(params.get("to"));
@@ -55,5 +66,8 @@ export function serializeBuilderState(state: BuilderState): string {
   if (state.target.kind === "papers") params.set("papers", state.target.targets.map((item) => `${item.paper}${item.mode[0]}${item.amount}`).join(","));
   else params.set("size", `${state.target.kind[0]}${state.target.amount}`);
   if (state.seed !== undefined) params.set("seed", String(state.seed));
+  for (const id of state.ids) params.append("q", id);
+  for (const id of state.removed.slice(0, MAX_REMOVED)) params.append("x", id);
+  if (state.reordered) params.set("o", "1");
   return params.toString();
 }

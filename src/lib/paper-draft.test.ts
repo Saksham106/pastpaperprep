@@ -44,6 +44,18 @@ describe("reconcileDraft", () => {
     const local = [q("x", 2, 1, 8), q("y", 2, 2, 5), q("z", 2, 3, 5)];
     expect(reconcileDraft([], local, { kind: "marks", amount: 11 }, 3, false)).toMatchObject({ totalMarks: 10, exact: false, shortBy: 1 });
   });
+  it("lets questions trimmed away refill the new marks target", () => {
+    const local = [q("a", 3, 4, 10), q("b", 3, 9, 7), q("c", 3, 9, 6)];
+    expect(reconcileDraft(["a", "b"], local, { kind: "marks", amount: 7 }, 4, false)).toMatchObject({ ids: ["b"], totalMarks: 7, exact: true });
+  });
+  it("meets a marks target with as few questions as possible, leaving room under the cap", () => {
+    const paper1 = [...Array.from({ length: 50 }, (_, index) => q(`one${index}`, 1, index + 10, 1)),
+      q("b1", 1, 1, 11), q("b2", 1, 2, 11), q("b3", 1, 3, 10), q("b4", 1, 4, 9), q("b5", 1, 5, 9)];
+    const paper2 = Array.from({ length: 40 }, (_, index) => q(`p2-${index}`, 2, index + 1, 2));
+    const result = reconcileDraft([], [...paper1, ...paper2], { kind: "papers", targets: [{ paper: 1, mode: "marks", amount: 50 }, { paper: 2, mode: "questions", amount: 40 }] }, 7, false);
+    expect(result).toMatchObject({ exact: true, shortBy: 0 });
+    expect(result.ids).toHaveLength(45);
+  });
   it("trims kept questions when the marks target falls", () => {
     const result = reconcileDraft(["d", "e", "f"], pool, { kind: "marks", amount: 11 }, 5, true);
     expect(result.totalMarks).toBeLessThanOrEqual(11);
@@ -71,6 +83,10 @@ describe("swapCandidate", () => {
     const local = [q("a", 2, 1, 3, "Atoms"), q("b", 2, 2, 3, "Energy"), q("c", 2, 3, 5, "Atoms")];
     expect(swapCandidate(["a"], "a", local, { kind: "marks", amount: 3 }, 1)).toBe("b");
     expect(swapCandidate(["a"], "a", local, { kind: "questions", amount: 1 }, 1)).toBe("c");
+  });
+  it("prefers equal marks for a per-paper marks target too", () => {
+    const local = [q("x", 1, 8, 2), q("y", 1, 25, 3), q("z", 1, 2, 2), q("w", 1, 5, 3)];
+    for (const seed of [1, 8, 20]) expect(swapCandidate(["x", "y"], "x", local, { kind: "papers", targets: [{ paper: 1, mode: "marks", amount: 5 }] }, seed)).toBe("z");
   });
   it("stays on the same paper for paper targets and returns null when nothing is left", () => {
     expect(swapCandidate(["a"], "a", pool, { kind: "papers", targets: [{ paper: 2, mode: "questions", amount: 1 }] }, 4)).toMatch(/^[bc]$/);

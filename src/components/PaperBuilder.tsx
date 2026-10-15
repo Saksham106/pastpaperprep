@@ -10,6 +10,7 @@ import { buildTopicIndex, countNodes, knownKeys, selectionMatcher, toggleKey, ty
 import { parseBuilderState, serializeBuilderState } from "@/lib/builder-url";
 import { deriveCourseRoute, matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { paperCalculator } from "@/lib/paper-builder";
+import { sessionLifecycleOwner } from "@/lib/member-session-cache";
 import { lowerTarget, reconcileDraft, swapCandidate, type DraftResult, type DraftTarget, type PaperDraftTarget } from "@/lib/paper-draft";
 import { trackProductEvent } from "@/lib/product-analytics";
 import type { PublicBankIndex } from "@/lib/question-index";
@@ -55,6 +56,10 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
   const [hydrated, setHydrated] = useState(false);
   const readerOpener = useRef<HTMLElement | null>(null);
   const readerRef = useRef<HTMLDivElement>(null);
+  // A download belongs to this page and this signed-in session; late results after either ends are dropped.
+  const [scopeOwner] = useState(() => typeof document === "undefined" ? null : sessionLifecycleOwner(document.cookie));
+  const mountedRef = useRef(true);
+  useEffect(() => { mountedRef.current = true; return () => { mountedRef.current = false; }; }, []);
   const selectedBank = banks.find((item) => item.slug === bank);
 
   // Restore the choices from a shared or reloaded link once, after hydration.
@@ -68,6 +73,10 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
     if (state.target.kind === "papers") { setPaperTargets(state.target.targets); setPaperMode(state.target.targets[0].mode); } else setSize(state.target);
     if (state.seed !== undefined) setSeed(state.seed);
     if (state.selection.length) setPendingKeys(state.selection);
+    // The paper itself: kept as-is by the first reconcile, since every listed question still fits.
+    if (state.ids.length) setDraftState((current) => ({ ...current, draft: { ...current.draft, ids: state.ids } }));
+    if (state.removed.length) setRemoved(new Set(state.removed));
+    if (state.reordered) setManualOrder(true);
     setHydrated(true);
     /* eslint-enable react-hooks/set-state-in-effect */
   }, [banks, startBank?.slug]);
@@ -144,9 +153,11 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
   // Keep the link shareable: the choices and seed rebuild the same paper.
   useEffect(() => {
     if (!hydrated || pendingKeys) return;
-    const query = serializeBuilderState({ bank: bank || undefined, route, from, to, selection: [...selection], target, seed });
+    if (!questions.length) return;
+    const query = serializeBuilderState({ bank: bank || undefined, route, from, to, selection: [...selection], target, seed,
+      ids: draft.ids, removed: [...removed], reordered: manualOrder });
     window.history.replaceState(window.history.state, "", `${window.location.pathname}?${query}`);
-  }, [hydrated, pendingKeys, bank, route, from, to, selection, target, seed]);
+  }, [hydrated, pendingKeys, questions.length, bank, route, from, to, selection, target, seed, draft.ids, removed, manualOrder]);
 
   useEffect(() => {
     if (reader === null) return;
@@ -240,10 +251,12 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
     trackProductEvent("pdf_export_attempt", properties);
     try {
       const { heldNotice } = await exportWorksheetPdf({ bank, questions: sheet, title: shownTitle.trim() || suggestion, marker: exportMarker,
+        isCurrent: () => mountedRef.current && sessionLifecycleOwner(document.cookie) === scopeOwner,
         onProgress: (complete, total) => setMessage({ kind: "info", text: `Preparing ${complete} of ${total}…` }) });
       trackProductEvent("pdf_export_success", properties);
       setMessage({ kind: "info", text: heldNotice ?? "PDF downloaded." });
     } catch (reason) {
+      if (reason instanceof DOMException && reason.name === "AbortError") { if (mountedRef.current) setMessage({ kind: "error", text: "Download cancelled because you signed out." }); return; }
       trackProductEvent("pdf_export_error", properties);
       setMessage({ kind: "error", text: reason instanceof Error ? reason.message : "Could not make the PDF." });
     } finally { setBusy(""); }

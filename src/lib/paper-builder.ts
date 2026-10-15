@@ -34,20 +34,33 @@ export function shuffled<T>(items: readonly T[], initialSeed: number): T[] {
   return result;
 }
 
-/** The subset whose marks come closest to the target without going over (at most maxQuestions questions). */
+/**
+ * The subset whose marks come closest to the target without going over, using as few questions as
+ * possible (so a shared 50-question cap has room for later targets) and at most maxQuestions.
+ * Ties keep the earliest questions in pool order, so a shuffled pool gives a seeded choice.
+ */
 export function closestMarks(pool: readonly PaperCandidate[], target: number, maxQuestions: number): PaperCandidate[] {
-  const sums = new Map<number, PaperCandidate[]>([[0, []]]);
+  type Pick = { question: PaperCandidate; previous: Pick | null };
+  const fewest: number[] = Array(target + 1).fill(Infinity);
+  const picks: Array<Pick | null> = Array(target + 1).fill(null);
+  fewest[0] = 0;
   for (const question of pool) {
     const marks = question.marks ?? 0;
     if (marks <= 0 || marks > target) continue;
-    for (const [sum, selected] of [...sums].sort((a, b) => b[0] - a[0])) {
-      const next = sum + marks;
-      const existing = sums.get(next);
-      if (next <= target && selected.length < maxQuestions && (!existing || selected.length + 1 < existing.length)) sums.set(next, [...selected, question]);
+    // Downwards, so each question is used at most once.
+    for (let sum = target; sum >= marks; sum -= 1) {
+      const count = fewest[sum - marks] + 1;
+      if (count <= maxQuestions && count < fewest[sum]) {
+        fewest[sum] = count;
+        picks[sum] = { question, previous: picks[sum - marks] };
+      }
     }
-    if (sums.has(target)) break;
   }
-  return sums.get(Math.max(...sums.keys()))!;
+  let best = target;
+  while (best > 0 && fewest[best] === Infinity) best -= 1;
+  const chosen: PaperCandidate[] = [];
+  for (let pick = picks[best]; pick; pick = pick.previous) chosen.unshift(pick.question);
+  return chosen;
 }
 
 export function exactMarks(pool: PaperCandidate[], target: number, maxQuestions: number): PaperCandidate[] | null {
