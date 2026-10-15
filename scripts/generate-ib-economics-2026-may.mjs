@@ -25,7 +25,7 @@ const check = process.argv.includes("--check");
 export const MAY_2026_PINS = {
   sourceRepository: "ib-economics-topic-practice",
   sourceBranch: "feat/may-2026-official",
-  sourceCommit: "d97b4aa58322780b2937b769f335da9ddd33f246",
+  sourceCommit: "d2dfd7f928ee82f57881667b3f8774cf0b48ec20",
   releaseTaxonomySha256: "75527e47eb45a54bcc4b3aa8676e2143aa719c70aac23f63c980cd053e8d102c",
   baseline: {
     "ib-economics-hl": { runtimeFileSha256: "ecd646c63b45f8d384b5221416431c07990c239630364c2b389ba68d21addd5e", contentSha256: "0a386d1cf83cb659577a64fabbab9582537a389379539808ad12aa999fc11072", questionCount: 111, paperCount: 42 },

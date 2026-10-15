@@ -59,27 +59,27 @@ export const ECONOMICS_RUNTIME_SEALS = {
  */
 export const ECONOMICS_MAY_2026_SEALS = {
   sourceRepository: "ib-economics-topic-practice",
-  sourceCommit: "d97b4aa58322780b2937b769f335da9ddd33f246",
-  finalClassificationsSha256: "2a59ca8d8f4295ec0deeb0513cc7d5bcaa5931ec9f0a54d0a5c83bdb630cec11",
+  sourceCommit: "d2dfd7f928ee82f57881667b3f8774cf0b48ec20",
+  finalClassificationsSha256: "a29d5aea980317c8a1fc975de3581977ac86e157a2fc537a9acacaf43accd2a1",
   segmentationManifestSha256: "35934b76975d21c95591731673044d7dd8ea9d413b6ecc437c67d0a801ae2715",
   banks: {
     "ib-economics-hl": {
-        "questionCount": 17,
-        "paperCount": 7,
-        "assetCount": 159,
-        "assetByteSize": 7656320,
-        "assetManifestSha256": "bcec9e07dc16370b0aaad8f8393a3c49f0a6814e8c6bb2c664db558626dc83ef",
-        "siteDataSha256": "47d6807cc908b587b3622f0554475a600c55bc37138649a898bc2132b1f82770",
-        "contentSha256": "dcf2471d6974758cb55b469690612c4d3bf81c14de147ea4bb7dd70b00b6fe3e"
+      questionCount: 17,
+      paperCount: 7,
+      assetCount: 159,
+      assetByteSize: 7656320,
+      assetManifestSha256: "71312cf34d33e4a122c9619d5c648b95b2dbd8bddadc4be9ae4645d3e036e5a9",
+      siteDataSha256: "cd6dc9e5df7089989978bc6869a9b12055e57266d16408f5b5fdf64148116bce",
+      contentSha256: "27e86c51ef803e5fba543fa7ede485afbaf6f0905020158c88cf09707ba7c034",
     },
     "ib-economics-sl": {
-        "questionCount": 15,
-        "paperCount": 6,
-        "assetCount": 128,
-        "assetByteSize": 6313520,
-        "assetManifestSha256": "ea4ead400a2047ebe43e084612a5297bb7985d19d7d917d4a1b359bb72fb4f00",
-        "siteDataSha256": "716b4b3aece1beba7f93992383c926ebe0d2538c232e202b469b8be775fd5217",
-        "contentSha256": "7647f43d4ecec51a1975baae1a5504c285c0eb4374476c707233cac582ae1f71"
+      questionCount: 15,
+      paperCount: 6,
+      assetCount: 128,
+      assetByteSize: 6313520,
+      assetManifestSha256: "a12522f3a0d75bd1bf13efb9c5191e116699ab46d9e37713e05abcdad55a2c8c",
+      siteDataSha256: "fea14857f2d7a983ccc5795c36c86cd34837adb45188e75a62fc4c4eafffb75d",
+      contentSha256: "d9cd6041812835b1df8d4b54217614c983dfe2acf01c62ad29e8ac32a977f5a5",
     },
   },
 } as const;
