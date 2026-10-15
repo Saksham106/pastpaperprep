@@ -23,7 +23,7 @@ There is no Paper 3 in the 2025 syllabus. No paper was excluded: all 18 question
 
 ## Tagging
 
-- **Drex** (`drex-v2.0`, text only; pinned and asserted in the request and the response) was used for triage only: 252 calls, 450,261 tokens in, 225,891 out. An earlier run on `drex-v1.1` (answered by `drex-v1.5`, 232 of 252 rows) was superseded and is kept in the source lane beside the record. Its top-1 subtopic equals the final primary for 209 of 252 rows (top-3: 239).
+- **Drex** was used for triage only. The triage of record pins `drex-v1.5` (requested and returned model asserted, consistent with the other May 2026 banks): 252 calls, 450,197 tokens in, 226,304 out; its top-1 subtopic equals the final primary for 202 of 252 rows (top-3: 236). A `drex-v2.0` run (text only; 450,261 in, 225,891 out; top-1 209, top-3 239) and a superseded `drex-v1.1`-requested run (answered by `drex-v1.5`, 232 rows) are kept in the source lane beside it, unused.
 - **Primary pass** from the crop and official mark scheme (image-checked transcriptions); **blind pass** by separate reviewers from sealed evidence without the primary labels or Drex scores.
 - **Agreement:** primary subtopic 236 of 252, primary code 241, full labels 201. All 51 differing rows were adjudicated from the two immutable files with the mark scheme (28 blind, 16 primary, 7 neither). 8 final rows are low confidence (multi-topic 20-mark questions with no dominant block).
 - Labels use the repo's controlled Physics taxonomy (2025 syllabus codes). `src/lib/taxonomy.ts` is untouched. The reviewed labels are in `docs/audits/ib-physics-may-2026-review.json`.
