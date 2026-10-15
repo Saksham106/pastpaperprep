@@ -166,6 +166,35 @@ describe("PaperBuilder", () => {
     expect(screen.getByLabelText("Question bank")).toHaveValue("igcse-physics-0625");
     fireEvent.change(await screen.findByRole("spinbutton", { name: "Paper 1 questions" }), { target: { value: "1" } });
     fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
-    expect(screen.getByDisplayValue("Physics 0625 practice paper")).toBeInTheDocument();
+    expect(screen.getByLabelText("Worksheet name")).toHaveValue("Atoms");
+  });
+
+  it("names a generated paper after its topics, numbered past the student's existing titles", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json(index)));
+    render(<PaperBuilder banks={[bank]} existingTitles={["atoms", "Atoms 2"]} />);
+    fireEvent.change(await screen.findByRole("spinbutton", { name: "Paper 1 questions" }), { target: { value: "1" } });
+    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
+    expect(screen.getByLabelText("Worksheet name")).toHaveValue("Atoms 3");
+  });
+
+  it("keeps a name the student typed when the paper is shuffled", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json(index)));
+    render(<PaperBuilder banks={[bank]} />);
+    fireEvent.change(await screen.findByRole("spinbutton", { name: "Paper 2 questions" }), { target: { value: "2" } });
+    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
+    expect(screen.getByLabelText("Worksheet name")).toHaveValue("Atoms & Energy");
+    fireEvent.change(screen.getByLabelText("Worksheet name"), { target: { value: "Mock exam" } });
+    fireEvent.click(screen.getByRole("button", { name: "Shuffle again" }));
+    expect(screen.getByLabelText("Worksheet name")).toHaveValue("Mock exam");
+  });
+
+  it("names the paper again when the student clears the name and shuffles", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json(index)));
+    render(<PaperBuilder banks={[bank]} />);
+    fireEvent.change(await screen.findByRole("spinbutton", { name: "Paper 2 questions" }), { target: { value: "2" } });
+    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
+    fireEvent.change(screen.getByLabelText("Worksheet name"), { target: { value: "" } });
+    fireEvent.click(screen.getByRole("button", { name: "Shuffle again" }));
+    expect(screen.getByLabelText("Worksheet name")).toHaveValue("Atoms & Energy");
   });
 });

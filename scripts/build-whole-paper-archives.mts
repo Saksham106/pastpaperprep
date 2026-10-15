@@ -31,8 +31,8 @@ async function loadIdentityReviews(files:string[],root:string) {
 }
 /**
  * Reviewed report holds (data/paper-archives/report-holds.json): a paper whose sources reconcile but whose
- * official mark scheme amends the printed paper (e.g. a withdrawn part) keeps its PDFs and stays
- * report-held with the reviewed reason. Read on every build, bound to both source hashes, so a rebuild
+ * official mark scheme amends the printed paper (e.g. a withdrawn part), or whose original omits material a
+ * question needs (a graph removed for copyright), keeps its PDFs and stays report-held with the reviewed reason. Read on every build, bound to both source hashes, so a rebuild
  * can't drop it; a hold that no longer matches its paper fails the build.
  */
 export const REPORT_HOLDS_FILE='data/paper-archives/report-holds.json';
@@ -175,6 +175,14 @@ export function runtimeRelativeFile(slug:string) {
   const cohort=slug.startsWith('igcse-')&&slug!=='igcse-additional'||slug.startsWith('ib-economics-')?'production':'raw';
   return `src/data/${cohort}/${slug}.json`;
 }
+/**
+ * IB Economics optional-choice papers (P2: "answer one question") print each question as lettered parts, so the
+ * extractor's segment count (e.g. 7) is not the number of questions. Their runtime rows are the whole optional
+ * questions (e.g. 2), and that is what the summary reports. Other banks keep the extractor count.
+ */
+export function optionalChoiceQuestionCount(slug:string,optionalChoice:boolean,runtimeRows:number,printedSegments:number) {
+  return slug.startsWith('ib-economics-')&&optionalChoice&&runtimeRows>0?runtimeRows:printedSegments;
+}
 export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestion[],qp:ExtractedDocument,ms:ExtractedDocument,identityReview?:IdentityReview,reportHold?:ReportHold) {
   const bank=getCatalogBank(slug);if(!bank)throw new Error(`Unknown bank ${slug}`);
   const identity=parseIdentity(pair.metadata?.sourceIdentity??pair.id);
@@ -216,11 +224,13 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
   const msQuestionMaximaAgree=simpleMs.every(q=>printed.some(source=>source.number===q.number&&source.maxMarks===q.maxMarks));
   const topics=sorted.map(q=>[...new Set([q.primaryTopic,...q.secondaryTopics])].filter(topic=>Boolean(topic)&&topic!=='Questions needing section review'));
   const topicsValid=topics.every(t=>t.length>0&&!t.some(topic=>/^(?:other|unclassified|unknown)$/i.test(topic)));
-  const reportReason=!mFound.text.trim()?'Original markscheme cover text is unavailable for identity verification.':!qFound.text.trim()?'Original question cover text is unavailable for identity verification.':!identityValid?'Source document identities need review.':qCover.optionalChoice||mCover.optionalChoice?'Optional question choices need review.':!maximaAgree||!msQuestionMaximaAgree?'Question and markscheme maxima disagree.':!inventoryValid?'Printed and runtime question inventories do not reconcile.':!totalsValid?'Printed question maxima do not reconcile.':!topicsValid?'Reviewed question topics are unavailable.':reportHold?.reason;
+  // A reviewed hold is bound to both PDF hashes (checked above) and names the actual reason, so it wins over the derived
+  // ones; a withheld question would otherwise only read as an inventory mismatch.
+  const reportReason=reportHold?.reason??(!mFound.text.trim()?'Original markscheme cover text is unavailable for identity verification.':!qFound.text.trim()?'Original question cover text is unavailable for identity verification.':!identityValid?'Source document identities need review.':qCover.optionalChoice||mCover.optionalChoice?'Optional question choices need review.':!maximaAgree||!msQuestionMaximaAgree?'Question and markscheme maxima disagree.':!inventoryValid?'Printed and runtime question inventories do not reconcile.':!totalsValid?'Printed question maxima do not reconcile.':!topicsValid?'Reviewed question topics are unavailable.':undefined);
   const questions=!reportReason?sorted.map((q,i)=>{const source=printed[i];if(q.marks!==source.maxMarks)corrections.push({id:q.id,from:q.marks,to:source.maxMarks,questionPage:source.page});return {id:q.id,number:q.number,maxMarks:source.maxMarks,topics:topics[i],questionPage:source.page};}):[];
   const route:WholePaperEntry['summary']['route']=identity.family==='ib'?(bank.level==='HL'?'HL':bank.level==='SL'?'SL':null):/\bExtended\b/i.test(qFound.text)?'Extended':/\bCore\b/i.test(qFound.text)?'Core':/Alternative\s+to\s+Practical|Practical\s+Test/i.test(qFound.text)?'Shared':null;
   const document=(source:ExtractedDocument)=>({sha256:source.sha256,bytes:source.bytes,pages:source.pages});
-  const summary:WholePaperEntry['summary']={id:pair.id,bankSlug:bank.slug,title:`${bank.title} · ${identity.session} ${identity.year} · Paper ${identity.component}`,qualification:bank.qualification,subject:bank.subject,syllabusCode:bank.syllabusCode,year:identity.year,session:identity.session,sessionCode:identity.sessionCode,component:identity.component,paper:identity.paper,variant:identity.variant,route,durationMinutes:qCover.identityValid?qCover.durationMinutes:null,maxMarks,questionCount:printed.length,reportAvailable:!reportReason,...(reportReason?{reportReason}:{}),metadataVerified:identityValid&&maximaAgree&&maxMarks!==null};
+  const summary:WholePaperEntry['summary']={id:pair.id,bankSlug:bank.slug,title:`${bank.title} · ${identity.session} ${identity.year} · Paper ${identity.component}`,qualification:bank.qualification,subject:bank.subject,syllabusCode:bank.syllabusCode,year:identity.year,session:identity.session,sessionCode:identity.sessionCode,component:identity.component,paper:identity.paper,variant:identity.variant,route,durationMinutes:qCover.identityValid?qCover.durationMinutes:null,maxMarks,questionCount:optionalChoiceQuestionCount(bank.slug,Boolean(qCover.optionalChoice||mCover.optionalChoice),sorted.length,printed.length),reportAvailable:!reportReason,...(reportReason?{reportReason}:{}),metadataVerified:identityValid&&maximaAgree&&maxMarks!==null};
   const entry:WholePaperEntry={summary,version:sha256(JSON.stringify([GENERATOR_VERSION,EXTRACTOR_VERSION,qp.sha256,ms.sha256,summary,questions])).slice(0,20),documents:{question:document(qp),markscheme:document(ms)},questions};
   return {entry,corrections,evidence:{identity,identityValid,identityReview:identityReview??null,reportHold:reportHold??null,subjectValid,courseValid,legacyMathematics,legacyOptionValid,bankLevelValid,examCodesAgree,mcqVerified,questionCoverPage:qFound.page,markschemeCoverPage:mFound.page,qCover,mCover,sourceQuestionCount:printed.length,msQuestionMaximaAgree,sourceTotals:printed.map(q=>q.maxMarks),sourceQuestionPages:printed.map(q=>q.page),runtimeQuestionIds:sorted.map(q=>q.id),runtimeMarks:sorted.map(q=>q.marks),inventoryValid,totalsValid,topicsValid}};
 }

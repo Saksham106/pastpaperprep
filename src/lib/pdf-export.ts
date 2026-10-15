@@ -6,6 +6,9 @@ import type { SourcePrintSegment } from "@/lib/print-geometry";
 import { fetchVerifiedImageBlob } from "@/lib/verified-asset-bytes";
 import { calculatorBadgeText } from "@/lib/calculator-policy.mjs";
 import { verify0606PdfMetadata } from "@/lib/verified-0606-client";
+import type { BankSlug } from "@/lib/catalog";
+import { pdfCoverSummary, pdfFileName, pdfSourceLabel } from "@/lib/pdf-labels";
+import { formatQuestionTopic } from "@/lib/presentation";
 
 export { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 
@@ -45,6 +48,14 @@ export function attachPdfAssetMetadata(
 }
 
 export type PdfJob<T> = { question: T; kind: "question" | "answer" };
+/** The worksheet a PDF is made from: its name heads page 1 and names the file. */
+export type PdfCover = { title: string; bankSlug: BankSlug };
+type PdfLabel = { heading: string; source: string };
+const PDF_TITLE_FONT_URL = "/fonts/YoungSerif-Regular.ttf";
+const PDF_TITLE_FONT_FILE = "YoungSerif-Regular.ttf";
+// Characters the built-in Helvetica can print (WinAnsi): Latin-1 plus a few typographic marks.
+const WIN_ANSI_EXTRA = new Set(Array.from("€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ").map((character) => character.codePointAt(0)!));
+const isWinAnsi = (code: number) => (code >= 32 && code <= 126) || (code >= 160 && code <= 255) || WIN_ANSI_EXTRA.has(code);
 
 export function orderPdfJobs<T>(questions: T[], content: PdfContent, placement: PdfAnswerPlacement): PdfJob<T>[] {
   const questionJobs = questions.map((question): PdfJob<T> => ({ question, kind: "question" }));
@@ -270,11 +281,13 @@ export async function downloadQuestionPdf(
   onProgress?: (complete: number, total: number) => void,
   accountMarker?: string,
   answerPlacement: PdfAnswerPlacement = "all-answers-last",
+  cover?: PdfCover,
 ): Promise<{ heldRows: PdfHeldRow[] }> {
   const { jsPDF } = await import("jspdf");
   const pdf = new jsPDF({ unit: "mm", format: "a4" });
   const brandMark = imageData(await loadImage(PDF_BOOK_LOGO_DATA_URI), "image/png");
-  pdf.setProperties({ title: "PastPaperPrep worksheet", subject: "Past paper practice questions", author: "PastPaperPrep", creator: "PastPaperPrep" });
+  const summary = cover ? pdfCoverSummary(questions, cover.bankSlug, content) : null;
+  pdf.setProperties({ title: cover?.title ?? "PastPaperPrep worksheet", subject: summary?.eyebrow ?? "Past paper practice questions", author: "PastPaperPrep", creator: "PastPaperPrep" });
   let pages = 0;
   let nextImageY = PDF_TOP_MM;
   let currentSection = content === "answers" ? "Answers" : content === "both" && answerPlacement === "after-each-question" ? "Questions and answers" : "Questions";
@@ -282,6 +295,10 @@ export async function downloadQuestionPdf(
   const pageSpecs: Array<{ format: PdfPageFormat; orientation: PdfPageOrientation; width: number; height: number; headerMode: WholeImagePlacement["headerMode"]; section: string }> = [];
   const heldRows: PdfHeldRow[] = [];
   const total = questions.length;
+  // Whether anything besides the title block landed on page 1; if not, page 1 lists the contents.
+  let firstPageUsed = false;
+  // Pages alone don't prove content: with a cover, page 1 exists before any question is placed.
+  let drewContent = false;
 
   const addPage = (format: PdfPageFormat = "a4", orientation: PdfPageOrientation = "portrait", headerMode: WholeImagePlacement["headerMode"] = "standard") => {
     if (pages > 0) pdf.addPage(format, orientation);
@@ -312,9 +329,27 @@ export async function downloadQuestionPdf(
     pdf.setFont("helvetica", "normal");
   };
 
+  // "Question 3" in bold, then where it came from in small grey type.
+  // The source is left out when it would run into whatever sits right of maxRight (marks, badge, MCQ answer).
+  const drawLabel = (label: PdfLabel, continued: boolean, x: number, baseline: number, maxRight: number, size = 9) => {
+    const heading = `${label.heading}${continued ? " (continued)" : ""}`;
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(size);
+    pdf.setTextColor(29, 36, 48);
+    pdf.text(heading, x, baseline);
+    if (!continued && label.source) {
+      const offset = pdf.getTextWidth(heading) + 2;
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(7);
+      pdf.setTextColor(107, 118, 114);
+      if (x + offset + pdf.getTextWidth(label.source) <= maxRight) pdf.text(label.source, x + offset, baseline);
+    }
+    pdf.setFont("helvetica", "normal");
+  };
+
   const placeImage = (
     image: PreparedPdfImage, size: readonly [number, number] | null | undefined, plainTextOnly: boolean, fallbackDpi: number,
-    questionId: string, kind: "question" | "answer", imageIndex: number, label: string, marks: number | null,
+    questionId: string, kind: "question" | "answer", imageIndex: number, label: PdfLabel, marks: number | null,
     calculator: boolean | null, continued: boolean,
   ) => {
     let placement = planWholePdfImage(image.width, image.height, size, plainTextOnly, fallbackDpi);
@@ -338,17 +373,25 @@ export async function downloadQuestionPdf(
       addPage(placement.format, placement.orientation, placement.headerMode);
     }
     if (labelSpace) {
+      const detail = continued || kind === "answer" ? "" : Number.isFinite(marks) && marks !== null ? `${marks} marks` : "";
+      const rightEdge = Math.min(placement.pageWidthMm - 8, placement.xMm + placement.widthMm);
+      const badge = kind === "question" ? calculatorBadgeText(calculator) : null;
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(8);
+      const detailWidth = detail ? pdf.getTextWidth(detail) + 2 : 0;
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(6.5);
+      const badgeWidth = badge ? pdf.getTextWidth(badge) + 2.4 + 2 : 0;
+      drawLabel(label, continued, Math.max(8, placement.xMm), nextImageY + 3, rightEdge - detailWidth - badgeWidth);
       pdf.setFont("helvetica", "normal");
       pdf.setFontSize(8);
       pdf.setTextColor(76, 88, 85);
-      pdf.text(`${label}${continued ? " (continued)" : ""}`, Math.max(8, placement.xMm), nextImageY + 3);
-      const detail = continued ? "" : kind === "answer" ? "Official answer" : Number.isFinite(marks) && marks !== null ? `${marks} marks` : "";
-      const rightEdge = Math.min(placement.pageWidthMm - 8, placement.xMm + placement.widthMm);
       if (detail) pdf.text(detail, rightEdge, nextImageY + 3, { align: "right" });
-      const badge = kind === "question" ? calculatorBadgeText(calculator) : null;
-      if (badge) drawCalculatorBadge(badge, rightEdge - (detail ? pdf.getTextWidth(detail) + 2 : 0), nextImageY);
+      if (badge) drawCalculatorBadge(badge, rightEdge - detailWidth, nextImageY);
       nextImageY += labelSpace;
     }
+    if (pages === 1) firstPageUsed = true;
+    drewContent = true;
     pdf.addImage(image.canvas.toDataURL("image/jpeg", 0.98), "JPEG",
       placement.xMm, nextImageY, placement.widthMm, placement.heightMm);
     nextImageY += placement.heightMm + 4;
@@ -357,8 +400,8 @@ export async function downloadQuestionPdf(
     }
   };
 
-  // One compact line per MCQ answer, e.g. "2025 March / Paper 12 / Q1   Answer  B", with any official note below.
-  const placeMcqAnswer = (answer: McqAnswer, label: string) => {
+  // One compact line per MCQ answer, e.g. "Q1 2025 Feb/March · Paper 12 · Q1   Answer  B", with any official note below.
+  const placeMcqAnswer = (answer: McqAnswer, label: PdfLabel) => {
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(7);
     const noteLines: string[] = answer.note ? pdf.splitTextToSize(answer.note, 210 - PDF_SIDE_MM - PDF_MCQ_ANSWER_X) : [];
@@ -366,9 +409,11 @@ export async function downloadQuestionPdf(
     const current = pageSpecs[pages - 1];
     if (startAnswerPage || !current || nextImageY + height > current.height - PDF_BOTTOM_MM + 0.001) addPage();
     const baseline = nextImageY + 4;
+    if (pages === 1) firstPageUsed = true;
+    drewContent = true;
+    drawLabel(label, false, PDF_SIDE_MM, baseline, PDF_MCQ_ANSWER_X - 2, 8);
     pdf.setFontSize(8);
     pdf.setTextColor(76, 88, 85);
-    pdf.text(label, PDF_SIDE_MM, baseline);
     pdf.text("Answer", PDF_MCQ_ANSWER_X, baseline);
     pdf.setFont("helvetica", "bold");
     pdf.setFontSize(11);
@@ -386,7 +431,7 @@ export async function downloadQuestionPdf(
 
   const addImagePage = async (
     bankSlug: UnifiedQuestion["bankSlug"], questionId: string, kind: "question" | "answer", imageIndex: number, source: string,
-    label: string, marks: number | null, calculator: boolean | null,
+    label: PdfLabel, marks: number | null, calculator: boolean | null,
     physicalSizePt?: readonly [number, number] | null,
     sourceSegments?: readonly SourcePrintSegment[] | null,
     expectedRaster?: readonly [number, number] | null,
@@ -451,14 +496,181 @@ export async function downloadQuestionPdf(
     }
   };
 
+  // Registers Young Serif and returns its glyph map, or null. jsPDF swallows a bad font file inside
+  // addFont, so a usable font is proven by its parsed metadata, not by addFont returning.
+  const loadTitleFont = async (): Promise<Record<number, number> | null> => {
+    try {
+      const response = await fetch(PDF_TITLE_FONT_URL);
+      if (!response.ok) return null;
+      const bytes = new Uint8Array(await response.arrayBuffer());
+      let binary = "";
+      for (let index = 0; index < bytes.length; index += 0x8000) binary += String.fromCharCode(...bytes.subarray(index, index + 0x8000));
+      pdf.addFileToVFS(PDF_TITLE_FONT_FILE, btoa(binary));
+      pdf.addFont(PDF_TITLE_FONT_FILE, "YoungSerif", "normal");
+      const registered = pdf.getFontList()["YoungSerif"] ? pdf.setFont("YoungSerif", "normal").getFont() as { metadata?: { Unicode?: unknown; cmap?: { unicode?: { codeMap?: Record<number, number> } } } } : null;
+      pdf.setFont("helvetica", "bold");
+      const codeMap = registered?.metadata?.Unicode ? registered.metadata.cmap?.unicode?.codeMap : undefined;
+      return codeMap ?? null;
+    } catch {
+      pdf.setFont("helvetica", "bold");
+      return null; // The title falls back; a missing or broken font never blocks a download.
+    }
+  };
+
+  // Titles the embedded fonts cannot spell (Greek, Chinese, emoji…) are drawn by the browser, which
+  // can render any script, and placed as an image so no character is lost.
+  const drawRasterTitle = (title: string, top: number): number => {
+    const pxPerMm = 12;
+    const fontPx = 20 * 25.4 / 72 * pxPerMm;
+    const family = getComputedStyle(document.documentElement).getPropertyValue("--font-young-serif").trim();
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    if (!context) throw new Error("Canvas is unavailable");
+    const font = `${fontPx}px ${family ? `${family}, ` : ""}"Young Serif", Georgia, serif`;
+    context.font = font;
+    const maxWidth = COVER_WIDTH * pxPerMm;
+    const lines: string[] = [];
+    let line = "";
+    for (const word of title.split(/(\s+)/)) {
+      // Break inside a word only when it is wider than the line (scripts written without spaces).
+      for (const piece of context.measureText(word).width > maxWidth ? Array.from(word) : [word]) {
+        const next = line + piece;
+        if (line.trim() && context.measureText(next).width > maxWidth) { lines.push(line.trimEnd()); line = piece.trimStart(); }
+        else line = next;
+      }
+    }
+    if (line.trim()) lines.push(line.trimEnd());
+    if (lines.length > 2) {
+      let last = lines[1];
+      while (last && context.measureText(`${last}…`).width > maxWidth) last = Array.from(last).slice(0, -1).join("");
+      lines.splice(1, lines.length - 1, `${last.trimEnd()}…`);
+    }
+    const lineHeight = fontPx * 1.15;
+    canvas.width = Math.ceil(maxWidth);
+    canvas.height = Math.ceil(lineHeight * lines.length + fontPx * 0.3);
+    context.font = font;
+    context.fillStyle = "#1d2430";
+    context.textBaseline = "alphabetic";
+    lines.forEach((text, index) => context.fillText(text, 0, fontPx + index * lineHeight));
+    // `top` is the first baseline; the image starts one ascent above it.
+    pdf.addImage(canvas.toDataURL("image/png"), "PNG", COVER_X, top - fontPx / pxPerMm, canvas.width / pxPerMm, canvas.height / pxPerMm);
+    return lines.length;
+  };
+
+  const COVER_X = 12;
+  const COVER_WIDTH = 186;
+  // Page 1 heading: subject, worksheet name, size, topics and a name/score line, then a rule.
+  const drawTitleBlock = async (title: string, details: NonNullable<typeof summary>): Promise<number> => {
+    let y = PDF_TOP_MM + 6;
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(7);
+    pdf.setTextColor(127, 41, 58);
+    pdf.text(details.eyebrow, COVER_X, y);
+    y += 9;
+    const glyphs = await loadTitleFont();
+    const codes = Array.from(title).map((character) => character.codePointAt(0)!);
+    const serif = glyphs && codes.every((code) => code === 32 || Boolean(glyphs[code]));
+    let lineCount: number;
+    if (serif || codes.every(isWinAnsi)) {
+      pdf.setFont(serif ? "YoungSerif" : "helvetica", serif ? "normal" : "bold");
+      pdf.setFontSize(20);
+      pdf.setTextColor(29, 36, 48);
+      let lines: string[] = pdf.splitTextToSize(title, COVER_WIDTH);
+      if (lines.length > 2) lines = [lines[0], `${lines[1].slice(0, -1).trimEnd()}…`];
+      pdf.text(lines, COVER_X, y, { lineHeightFactor: 1.15 });
+      lineCount = lines.length;
+    } else lineCount = drawRasterTitle(title, y);
+    y += (lineCount - 1) * 8.1 + 6.5;
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(9);
+    pdf.setTextColor(76, 88, 85);
+    pdf.text(details.meta, COVER_X, y);
+    y += 3;
+    if (details.chips.length) {
+      pdf.setFontSize(7.5);
+      let chipX = COVER_X;
+      for (const chip of details.chips) {
+        const width = pdf.getTextWidth(chip) + 4;
+        if (chipX + width > COVER_X + COVER_WIDTH) { chipX = COVER_X; y += 6.5; }
+        pdf.setFillColor(238, 241, 247);
+        pdf.roundedRect(chipX, y, width, 5, 1.5, 1.5, "F");
+        pdf.setTextColor(40, 54, 84);
+        pdf.text(chip, chipX + 2, y + 3.5);
+        chipX += width + 2;
+      }
+      y += 5;
+    }
+    y += 7;
+    if (details.showScore) {
+      pdf.setFontSize(8);
+      pdf.setTextColor(76, 88, 85);
+      pdf.setDrawColor(138, 148, 143);
+      pdf.setLineWidth(0.2);
+      pdf.text("Name", COVER_X, y);
+      pdf.line(COVER_X + 10, y + 0.8, COVER_X + 72, y + 0.8);
+      pdf.text("Date", COVER_X + 80, y);
+      pdf.line(COVER_X + 89, y + 0.8, COVER_X + 125, y + 0.8);
+      pdf.text("Score", COVER_X + 133, y);
+      pdf.line(COVER_X + 143, y + 0.8, COVER_X + 166, y + 0.8);
+      if (details.totalMarks !== null) pdf.text(`/ ${details.totalMarks}`, COVER_X + 168, y);
+      y += 5;
+    }
+    pdf.setDrawColor(29, 36, 48);
+    pdf.setLineWidth(0.3);
+    pdf.line(COVER_X, y, COVER_X + COVER_WIDTH, y);
+    pdf.setLineWidth(0.2);
+    return y + 5;
+  };
+
+  // Used when Question 1 is too tall to share page 1: list every question so the page still helps.
+  const drawContents = (top: number) => {
+    const rowMm = 5.2;
+    const lastBaseline = 297 - PDF_BOTTOM_MM - 6;
+    let y = top + 2;
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(7);
+    pdf.setTextColor(76, 88, 85);
+    pdf.text("Contents", COVER_X, y);
+    y += 6;
+    const capacity = Math.floor((lastBaseline - y) / rowMm) + 1;
+    const shown = questions.length > capacity ? capacity - 1 : questions.length;
+    for (const [index, question] of questions.slice(0, shown).entries()) {
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(8);
+      pdf.setTextColor(29, 36, 48);
+      pdf.text(String(index + 1), COVER_X, y);
+      pdf.setFont("helvetica", "normal");
+      const topic = question.primaryTopic ? formatQuestionTopic(question.bankSlug, question.primaryTopic) : "";
+      if (topic) pdf.text(pdf.splitTextToSize(topic, 72)[0], COVER_X + 9, y);
+      pdf.setFontSize(7);
+      pdf.setTextColor(107, 118, 114);
+      pdf.text(pdfSourceLabel(question), COVER_X + 84, y);
+      if (Number.isInteger(question.marks)) pdf.text(`${question.marks} ${question.marks === 1 ? "mark" : "marks"}`, COVER_X + COVER_WIDTH, y, { align: "right" });
+      y += rowMm;
+    }
+    if (shown < questions.length) {
+      pdf.setFontSize(7);
+      pdf.setTextColor(107, 118, 114);
+      pdf.text(`+ ${questions.length - shown} more`, COVER_X + 9, y);
+    }
+  };
+
+  let coverBottom = 0;
+  if (cover && summary) {
+    addPage();
+    coverBottom = await drawTitleBlock(cover.title, summary);
+    nextImageY = coverBottom;
+  }
+
+  const positions = new Map(questions.map((question, index) => [question, index + 1]));
   let completed = 0;
   for (const { question, kind } of orderPdfJobs(questions, content, answerPlacement)) {
     if (content === "both" && answerPlacement === "all-answers-last" && kind === "answer" && currentSection !== "Answers") {
       currentSection = "Answers";
       startAnswerPage = true;
     }
-    const component = question.component || question.id.match(/-(\d{2})-q\d+$/)?.[1] || String(question.paper);
-    const label = `${question.year} ${question.session} / Paper ${component} / Q${question.number}`;
+    const position = positions.get(question)!;
+    const label: PdfLabel = { heading: kind === "question" ? `Question ${position}` : `Question ${position} · Mark scheme`, source: pdfSourceLabel(question) };
     if (kind === "question") {
       if (!question.questionImages.length) throw new Error(`Question image is missing for ${question.id}`);
       for (const [index, source] of question.questionImages.entries()) {
@@ -470,7 +682,7 @@ export async function downloadQuestionPdf(
           question.questionPrintSizesPt?.[index], question.questionPrintSegments?.[index], question.questionRasterSizesPx?.[index]);
       }
     } else if (question.mcqAnswer) {
-      placeMcqAnswer(question.mcqAnswer, label);
+      placeMcqAnswer(question.mcqAnswer, { ...label, heading: `Q${position}` });
     } else {
       if (question.markschemeImages.length) {
         for (const [index, source] of question.markschemeImages.entries()) {
@@ -488,12 +700,13 @@ export async function downloadQuestionPdf(
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(10);
         const solutionPages = paginatePdfText(pdf.splitTextToSize(question.solution, 182));
+        drewContent = solutionPages.length > 0 || drewContent;
         for (const [solutionPage, lines] of solutionPages.entries()) {
           addPage();
           pdf.setFont("helvetica", "bold");
           pdf.setFontSize(12);
           pdf.setTextColor(21, 52, 48);
-          pdf.text(`${label} - answer${solutionPage > 0 ? " (continued)" : ""}`, 14, 24);
+          pdf.text(`${label.heading}${solutionPage > 0 ? " (continued)" : ""}`, 14, 24);
           pdf.setFont("helvetica", "normal");
           pdf.setFontSize(10);
           pdf.setTextColor(35, 45, 43);
@@ -505,7 +718,11 @@ export async function downloadQuestionPdf(
     if (kind === "answer" || content === "questions") onProgress?.(++completed, total);
   }
 
-  if (pages === 0) throw new Error("There is nothing to export");
+  if (pages === 0 || !drewContent) throw new Error("There is nothing to export");
+  if (cover && !firstPageUsed) {
+    pdf.setPage(1);
+    drawContents(coverBottom);
+  }
   for (let page = 1; page <= pages; page += 1) {
     pdf.setPage(page);
     const spec = pageSpecs[page - 1];
@@ -542,6 +759,6 @@ export async function downloadQuestionPdf(
     if (accountMarker) pdf.text(pdfFooterText(accountMarker), 8, footerTextY);
     pdf.text(pdfPageLabel(page, pages), right, footerTextY, { align: "right" });
   }
-  pdf.save("pastpaperprep-questions.pdf");
+  pdf.save(cover ? pdfFileName(cover.bankSlug, cover.title) : "pastpaperprep-questions.pdf");
   return { heldRows };
 }

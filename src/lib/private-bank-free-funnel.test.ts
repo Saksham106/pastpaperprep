@@ -44,8 +44,8 @@ const PRIVATE_FREE = {
   "igcse-economics-0455": { total: 1862, free: 241, unfinalized: true },
   "igcse-chemistry-0620": { total: 5129, free: 709 },
   "igcse-physics-0625": { total: 5789, free: 766 },
-  "ib-economics-hl": { total: 111, free: 26 },
-  "ib-economics-sl": { total: 89, free: 20 },
+  "ib-economics-hl": { total: 128, free: 26 },
+  "ib-economics-sl": { total: 104, free: 20 },
 } as const;
 
 const COORDINATED = { total: 4721, free: 799 };

@@ -7,7 +7,7 @@ import { loadBankQuestions } from "@/lib/question-loader";
 import { createPublicBankIndex } from "@/lib/question-index";
 import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy";
 import { isLocalEconomicsPreviewEnabled } from "@/lib/local-preview";
-import { ECONOMICS_RUNTIME_SEALS } from "@/lib/economics-runtime";
+import { ECONOMICS_MAY_2026_SEALS, ECONOMICS_RUNTIME_SEALS } from "@/lib/economics-runtime";
 
 describe("IB Economics HL/SL local preview", () => {
   it("keeps the production catalog and index surface at the existing twelve banks", () => {
@@ -17,7 +17,7 @@ describe("IB Economics HL/SL local preview", () => {
     expect(getBank("ib-economics-hl", { NODE_ENV: "development" })).toBeUndefined();
     expect(getAvailableBanks({ NODE_ENV: "development", PASTPAPERPREP_ENABLE_LOCAL_IB_ECONOMICS_PREVIEW: "true" })).toHaveLength(14);
     expect(getAvailableBanks({ NODE_ENV: "development", PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION: "true", PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED: "true" }).map((bank) => bank.slug)).not.toContain("ib-economics-hl");
-    expect(LOCAL_PREVIEW_BANKS.map((bank) => bank.questionCount)).toEqual([111, 89]);
+    expect(LOCAL_PREVIEW_BANKS.map((bank) => bank.questionCount)).toEqual([128, 104]);
   });
 
   it("requires development plus the explicit preview flag", () => {
@@ -31,8 +31,8 @@ describe("IB Economics HL/SL local preview", () => {
   it("loads the sealed HL and SL runtime records with exact counts and paper/session scope", async () => {
     const hl = await loadBankQuestions("ib-economics-hl");
     const sl = await loadBankQuestions("ib-economics-sl");
-    expect(hl).toHaveLength(111);
-    expect(sl).toHaveLength(89);
+    expect(hl).toHaveLength(128);
+    expect(sl).toHaveLength(104);
     expect(new Set(hl.map((question) => question.paper))).toEqual(new Set([1, 2, 3]));
     expect(new Set(sl.map((question) => question.paper))).toEqual(new Set([1, 2]));
     expect(new Set([...hl, ...sl].map((question) => question.session))).toEqual(new Set(["May", "November"]));
@@ -85,17 +85,20 @@ describe("IB Economics HL/SL local preview", () => {
     expect(questions.every((question) => question.sourceQuestionUrl?.startsWith("https://") && question.sourceMarkSchemeUrl?.startsWith("https://"))).toBe(true);
     for (const file of ["ib-economics-hl.json", "ib-economics-sl.json"]) {
       const runtime = JSON.parse(readFileSync(`src/data/local-preview/${file}`, "utf8"));
-      expect(runtime.questions.every((question: { classificationEvidence?: { finalArtifactSha256?: string }; classificationReviewStatus?: string }) =>
-        question.classificationEvidence?.finalArtifactSha256 === finalSha && question.classificationReviewStatus === "semantic_qa_approved",
+      // The 2021-2025 rows carry the sealed artifact; the appended May 2026 rows carry their own blind-adjudicated artifact.
+      expect(runtime.questions.every((question: { id: string; classificationEvidence?: { finalArtifactSha256?: string }; classificationReviewStatus?: string }) =>
+        question.id.startsWith("2026-may-")
+          ? question.classificationEvidence?.finalArtifactSha256 === ECONOMICS_MAY_2026_SEALS.finalClassificationsSha256 && question.classificationReviewStatus === "blind_adjudicated"
+          : question.classificationEvidence?.finalArtifactSha256 === finalSha && question.classificationReviewStatus === "semantic_qa_approved",
       )).toBe(true);
     }
   });
 
-  it("retains all sixteen shared question records and their complete image sets", async () => {
+  it("retains all twenty-two shared question records and their complete image sets", async () => {
     const [hl, sl] = await Promise.all([loadBankQuestions("ib-economics-hl"), loadBankQuestions("ib-economics-sl")]);
     const slIds = new Set(sl.map((question) => question.id));
     const shared = hl.filter((question) => slIds.has(question.id));
-    expect(shared).toHaveLength(16);
+    expect(shared).toHaveLength(22);
     expect(shared.every((question) => question.questionImageCount > 0 && question.markschemeImageCount > 0)).toBe(true);
     expect(shared.every((question) => question.questionImages.every((url) => url.startsWith("/api/local-preview-assets/")))).toBe(true);
     expect(shared.every((question) => question.markschemeImages.every((url) => url.startsWith("/api/local-preview-assets/")))).toBe(true);

@@ -1,0 +1,99 @@
+{
+  "schema": "ib-economics-2026-may-membership-seal-v1",
+  "note": "Independent membership pin for the May 2026 additions: exact question and paper IDs in order, and SHA-256 of the complete reviewed rows. Derived from the reviewed source commit; checked by the generator (against final-classifications ordered_question_ids and the site-data bytes) and by the runtime validator. Changing it is a reviewed content change.",
+  "sourceCommit": "911f3d4506d7b646fde4773f26b4698bbf5341d4",
+  "finalClassificationsSha256": "8d6576e5d53ff6a4e21867df2d3f90b5c25d89b2ad4fd1c7040f5423c58fc525",
+  "reviewedOrderedQuestionIds": [
+    "2026-may-none-hl-p3-q01",
+    "2026-may-none-hl-p3-q02",
+    "2026-may-tz1-hl-p1-q01",
+    "2026-may-tz1-hl-p1-q02",
+    "2026-may-tz1-hl-p1-q03",
+    "2026-may-tz1-hlsl-p2-q01",
+    "2026-may-tz1-hlsl-p2-q02",
+    "2026-may-tz1-sl-p1-q01",
+    "2026-may-tz1-sl-p1-q02",
+    "2026-may-tz1-sl-p1-q03",
+    "2026-may-tz2-hl-p1-q01",
+    "2026-may-tz2-hl-p1-q02",
+    "2026-may-tz2-hl-p1-q03",
+    "2026-may-tz2-hlsl-p2-q01",
+    "2026-may-tz2-hlsl-p2-q02",
+    "2026-may-tz2-sl-p1-q01",
+    "2026-may-tz2-sl-p1-q02",
+    "2026-may-tz2-sl-p1-q03",
+    "2026-may-tz3-hl-p1-q01",
+    "2026-may-tz3-hl-p1-q02",
+    "2026-may-tz3-hl-p1-q03",
+    "2026-may-tz3-hlsl-p2-q01",
+    "2026-may-tz3-hlsl-p2-q02",
+    "2026-may-tz3-sl-p1-q01",
+    "2026-may-tz3-sl-p1-q02",
+    "2026-may-tz3-sl-p1-q03"
+  ],
+  "banks": {
+    "ib-economics-hl": {
+      "siteDataSha256": "5a0b4f02544359ee26f3d9591db42aa70d4aa142bd729ad821fcbf87984f2af9",
+      "questionIds": [
+        "2026-may-none-hl-p3-q01",
+        "2026-may-none-hl-p3-q02",
+        "2026-may-tz1-hl-p1-q01",
+        "2026-may-tz1-hl-p1-q02",
+        "2026-may-tz1-hl-p1-q03",
+        "2026-may-tz1-hlsl-p2-q01",
+        "2026-may-tz1-hlsl-p2-q02",
+        "2026-may-tz2-hl-p1-q01",
+        "2026-may-tz2-hl-p1-q02",
+        "2026-may-tz2-hl-p1-q03",
+        "2026-may-tz2-hlsl-p2-q01",
+        "2026-may-tz2-hlsl-p2-q02",
+        "2026-may-tz3-hl-p1-q01",
+        "2026-may-tz3-hl-p1-q02",
+        "2026-may-tz3-hl-p1-q03",
+        "2026-may-tz3-hlsl-p2-q01",
+        "2026-may-tz3-hlsl-p2-q02"
+      ],
+      "paperIds": [
+        "2026-may-none-hl-p3",
+        "2026-may-tz1-hl-p1",
+        "2026-may-tz1-hlsl-p2",
+        "2026-may-tz2-hl-p1",
+        "2026-may-tz2-hlsl-p2",
+        "2026-may-tz3-hl-p1",
+        "2026-may-tz3-hlsl-p2"
+      ],
+      "questionsSha256": "b6a35e0ceb8f9c8a079f56e5ee5b4428e8bb278847e78ba98225f14199646bc8",
+      "papersSha256": "48c1f48834178a2525d95deab406b44cdc79c6626d0720784946fc09de528a3e"
+    },
+    "ib-economics-sl": {
+      "siteDataSha256": "686fa6879820fb99eb785944ba30dd80546d3a65ccf86816b3c386c242b8d095",
+      "questionIds": [
+        "2026-may-tz1-hlsl-p2-q01",
+        "2026-may-tz1-hlsl-p2-q02",
+        "2026-may-tz1-sl-p1-q01",
+        "2026-may-tz1-sl-p1-q02",
+        "2026-may-tz1-sl-p1-q03",
+        "2026-may-tz2-hlsl-p2-q01",
+        "2026-may-tz2-hlsl-p2-q02",
+        "2026-may-tz2-sl-p1-q01",
+        "2026-may-tz2-sl-p1-q02",
+        "2026-may-tz2-sl-p1-q03",
+        "2026-may-tz3-hlsl-p2-q01",
+        "2026-may-tz3-hlsl-p2-q02",
+        "2026-may-tz3-sl-p1-q01",
+        "2026-may-tz3-sl-p1-q02",
+        "2026-may-tz3-sl-p1-q03"
+      ],
+      "paperIds": [
+        "2026-may-tz1-hlsl-p2",
+        "2026-may-tz1-sl-p1",
+        "2026-may-tz2-hlsl-p2",
+        "2026-may-tz2-sl-p1",
+        "2026-may-tz3-hlsl-p2",
+        "2026-may-tz3-sl-p1"
+      ],
+      "questionsSha256": "214823ead20fdd3de506d68cde530b6ff5037bb6f19201dc2c2bf9e8a1f62449",
+      "papersSha256": "1c8891c7f85cc5cb71cb9bc45113ee35c8ea72c179742549b015032858e3174d"
+    }
+  }
+}
