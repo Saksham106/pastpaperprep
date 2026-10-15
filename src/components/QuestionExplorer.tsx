@@ -30,7 +30,7 @@ import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankInde
 import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { getMathsPickerGroups, getMathsPickerTopics, isCleanMathsBank, isMathsEarlierToken } from "@/lib/maths-picker";
-import { displayedQuestionSubtopics, formatMathsPickerLabel, formatPublicLabel } from "@/lib/presentation";
+import { displayedQuestionSubtopics, formatMathsPickerLabel, formatPublicLabel, formatQuestionTopic } from "@/lib/presentation";
 import { browserAccountId, trackProductEvent } from "@/lib/product-analytics";
 import { ANONYMOUS_FREE_QUESTION_LIMIT, getFreeQuestionGate } from "@/lib/free-question-gate";
 import { FreeQuestionSignupGate } from "@/components/FreeQuestionSignupGate";
@@ -202,7 +202,7 @@ const hydratedSnapshot = () => true;
 const serverSnapshot = () => false;
 const SESSION_ORDER = ["feb", "mar", "may", "jun", "oct", "nov"];
 const sessionRank = (session: string) => Math.max(0, SESSION_ORDER.findIndex((key) => session.toLowerCase().includes(key)));
-const questionTopicLabel = (question: UnifiedQuestion) => formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic);
+const questionTopicLabel = (question: UnifiedQuestion) => formatQuestionTopic(question.bankSlug, question.primaryTopic);
 
 const readAuthCookiePresent = () => documentHasSupabaseAuthCookie(document.cookie);
 /** Which signed-in/out period this page belongs to; unchanged by token refreshes. */
