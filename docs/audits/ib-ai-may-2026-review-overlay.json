@@ -1,0 +1,13 @@
+{
+  "version": "ib-ai-may-2026-review-overlay.1",
+  "note": "Owner review of PR #300 (head 342210b), applied on top of the immutable adjudication receipts by scripts/add_ib_ai_may_2026.py and read by scripts/generate_ib_ai_may_2026_review.py. Labels are controlled taxonomy labels only.",
+  "rows": {
+    "ib-ai-hl": {
+      "2026-may-tz3-p3-q2": {
+        "addSecondaryTopics": ["Functions"],
+        "addSkills": ["Modelling with quadratic and cubic functions"],
+        "evidence": "Original QP/MS assess quadratic shape in (a)(i), long-run behaviour of the quadratic model against the context in (b), and identifying the quadratic graph with a reason in (g)(i). Statistics stays primary and Calculus stays secondary; the 1-mark substitution in (c) and the least-squares reasoning in (g)(ii) are not counted as Functions evidence."
+      }
+    }
+  }
+}

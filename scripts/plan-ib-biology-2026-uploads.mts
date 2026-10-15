@@ -20,7 +20,6 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
-import { readdirSync } from "node:fs";
 import { buildAssetRetentionPlan } from "@/lib/asset-retention";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import type { WholePaperManifest } from "@/lib/whole-paper-types";
@@ -98,10 +97,14 @@ const freeRaw = JSON.parse(readFileSync(resolve(freePlanPath), "utf8")) as FreeP
 if (freeRaw.base !== BASE_COMMIT) throw new Error("Free-papers plan was made against another base");
 // Do not trust `added`: derive the newly approved PDFs from the base and head manifests and compare exactly.
 const MANIFEST_DIR = "src/data/paper-archives";
-const headManifests = readdirSync(join(root, MANIFEST_DIR)).filter((f) => f.endsWith(".json")).sort()
-  .map((f) => JSON.parse(readFileSync(join(root, MANIFEST_DIR, f), "utf8")) as WholePaperManifest);
-const baseManifests = execFileSync("git", ["-C", root, "ls-tree", "--name-only", `${BASE_COMMIT}:${MANIFEST_DIR}`], { encoding: "utf8" }).split("\n").filter((f) => f.endsWith(".json")).sort()
-  .map((f) => JSON.parse(execFileSync("git", ["-C", root, "show", `${BASE_COMMIT}:${MANIFEST_DIR}/${f}`], { encoding: "utf8", maxBuffer: 256 * 1024 * 1024 })) as WholePaperManifest);
+const baseFiles = execFileSync("git", ["-C", root, "ls-tree", "--name-only", `${BASE_COMMIT}:${MANIFEST_DIR}`], { encoding: "utf8" }).split("\n").filter((f) => f.endsWith(".json")).sort();
+const baseManifest = (f: string) => JSON.parse(execFileSync("git", ["-C", root, "show", `${BASE_COMMIT}:${MANIFEST_DIR}/${f}`], { encoding: "utf8", maxBuffer: 256 * 1024 * 1024 })) as WholePaperManifest;
+const baseManifests = baseFiles.map(baseManifest);
+// Head is the Biology manifests as committed now over the base's other manifests, so PDFs that later
+// banks approve are not counted as part of this addition.
+const headManifests = baseFiles.map((f) => (f.startsWith("ib-biology-")
+  ? JSON.parse(readFileSync(join(root, MANIFEST_DIR, f), "utf8")) as WholePaperManifest
+  : baseManifest(f)));
 assertPlanIsApprovedMembership(freeRaw, baseManifests, headManifests);
 const freePlan = {
   schemaVersion: 1,

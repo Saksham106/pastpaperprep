@@ -22,8 +22,9 @@ export const EXPECTED_ASSET_COUNTS = {
   "ib-hl": { preview: 314, premium: 2971, all: 3285 },
   "ib-sl": { preview: 147, premium: 1413, all: 1560 },
   // Reviewed Q12 foreign-only tail retired; Q13 immutable restoration is a one-for-one replacement.
-  "ib-ai-hl": { preview: 236, premium: 1116, all: 1352 },
-  "ib-ai-sl": { preview: 155, premium: 847, all: 1002 },
+  // May 2026: official AI TZ1-TZ3 papers added (+254 HL, +161 SL images, all premium).
+  "ib-ai-hl": { preview: 236, premium: 1370, all: 1606 },
+  "ib-ai-sl": { preview: 155, premium: 1008, all: 1163 },
   "ib-chemistry-hl": { preview: 232, premium: 5396, all: 5628 },
   "ib-chemistry-sl": { preview: 159, premium: 3877, all: 4036 },
   "ib-physics-hl": { preview: 226, premium: 5395, all: 5621 },

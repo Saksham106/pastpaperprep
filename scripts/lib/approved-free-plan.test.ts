@@ -14,14 +14,17 @@ const head = readdirSync(MANIFEST_DIR).filter((f) => f.endsWith(".json")).sort()
 // The base is the head without the 18 IB Biology May 2026 papers (the only newly approved PDFs in this change).
 const base = head.map((m) => (m.bankSlug.startsWith("ib-biology-") ? { ...m, papers: m.papers.filter((p) => p.summary.year !== 2026) } : m));
 const committed = JSON.parse(readFileSync(join(root, "docs/ib-biology-may-2026/r2-upload-plan-free-papers.json"), "utf8")) as { appBaseCommit: string; approvedObjectsAfter: number; objects: FreePlanInput["added"] };
-const valid = (): FreePlanInput => ({ base: committed.appBaseCommit, approvedObjects: committed.approvedObjectsAfter, added: committed.objects.map((o) => ({ ...o })) });
+// Later banks add their own approved PDFs, so the total approved count grows past the plan's recorded
+// `approvedObjectsAfter`; membership (the 36 Biology rows) is what this plan pins.
+const approvedNow = newlyApproved(base, head).approvedAfter;
+const valid = (): FreePlanInput => ({ base: committed.appBaseCommit, approvedObjects: approvedNow, added: committed.objects.map((o) => ({ ...o })) });
 const swap = (edit: (rows: FreePlanInput["added"]) => void) => { const plan = valid(); edit(plan.added); return plan; };
 
 describe("approved free-papers plan membership", () => {
   it("derives exactly the 36 PDFs the IB Biology manifests newly approve, and the committed plan equals them", () => {
     const { added, approvedAfter } = newlyApproved(base, head);
     expect(added.size).toBe(36);
-    expect(approvedAfter).toBe(committed.approvedObjectsAfter);
+    expect(approvedAfter).toBeGreaterThanOrEqual(committed.approvedObjectsAfter);
     expect(() => assertPlanIsApprovedMembership(valid(), base, head)).not.toThrow();
   });
 
@@ -39,7 +42,7 @@ describe("approved free-papers plan membership", () => {
     expect(() => assertPlanIsApprovedMembership(swap((rows) => { rows[1] = { ...rows[1], bytes: rows[1].bytes + 1 }; }), base, head)).toThrow(/size differs/);
     expect(() => assertPlanIsApprovedMembership(swap((rows) => { rows[2] = { ...rows[2], name: "other-name.pdf" }; }), base, head)).toThrow(/name differs/);
     expect(() => assertPlanIsApprovedMembership(swap((rows) => { rows[5] = { ...rows[4] }; }), base, head)).toThrow(/Duplicate plan key/);
-    expect(() => assertPlanIsApprovedMembership({ ...valid(), approvedObjects: committed.approvedObjectsAfter + 1 }, base, head)).toThrow(/approved objects/);
+    expect(() => assertPlanIsApprovedMembership({ ...valid(), approvedObjects: approvedNow + 1 }, base, head)).toThrow(/approved objects/);
   });
 
   it("rejects an omitted or an extra PDF", () => {
@@ -51,7 +54,8 @@ describe("approved free-papers plan membership", () => {
   it.skipIf(!existsSync(sourceLane))("the real planner script refuses a same-count substituted plan instead of emitting it as approved", { timeout: 120_000 }, () => {
     const dir = mkdtempSync(join(tmpdir(), "ib-bio-plan-"));
     try {
-      const bad = swap((rows) => { rows[0] = { ...rows[0], sha256: "a".repeat(64), key: `papers/v1/${"a".repeat(64)}.pdf` }; });
+      // The planner scopes its head to the Biology manifests, so its approved count is the plan's own.
+      const bad = { ...swap((rows) => { rows[0] = { ...rows[0], sha256: "a".repeat(64), key: `papers/v1/${"a".repeat(64)}.pdf` }; }), approvedObjects: committed.approvedObjectsAfter };
       const input = join(dir, "plan.json");
       writeFileSync(input, JSON.stringify(bad));
       let message = "";
