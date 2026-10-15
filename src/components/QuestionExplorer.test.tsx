@@ -191,7 +191,7 @@ describe("QuestionExplorer", () => {
 
     await waitFor(() => expect(screen.getByRole("heading", { name: /keep practising for free/i })).toBeInTheDocument());
     expect(container.querySelectorAll(".question-card")).toHaveLength(20);
-    expect(screen.getAllByText(/open all 30 free IB Math AA SL questions\./i)).toHaveLength(2);
+    expect(screen.getAllByText(/A free account opens all 30 free IB Math AA SL questions\./i)).toHaveLength(2);
     expect(screen.queryByRole("button", { name: /show 24 more questions/i })).not.toBeInTheDocument();
 
     await waitFor(() => expect(freeAssetIds(fetchMock.mock.calls)).toHaveLength(20));

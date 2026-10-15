@@ -32,8 +32,7 @@ type GateMessageProps = GateProps & {
 export function gateValueLine(remainingCount: number, bankFreeCount?: number, bankName?: string) {
   const viewFreeCount = remainingCount + ANONYMOUS_FREE_QUESTION_LIMIT;
   if (!bankFreeCount || !bankName || bankFreeCount < viewFreeCount) return `Create a free account for the other ${remainingCount.toLocaleString()} free questions.`;
-  const all = `Create a free account to open all ${bankFreeCount.toLocaleString()} free ${bankName} questions`;
-  return bankFreeCount > viewFreeCount ? `${all}, including the other ${remainingCount.toLocaleString()} here.` : `${all}.`;
+  return `A free account opens all ${bankFreeCount.toLocaleString()} free ${bankName} questions.`;
 }
 
 function GateMessage({ bankSlug, remainingCount, signupHref, signinHref, plansHref = "/pricing", plansLine = `Want every year? Plans start at ${UPGRADE_PRICE_MONTH}.`, bankFreeCount, bankName, titleId }: GateMessageProps) {

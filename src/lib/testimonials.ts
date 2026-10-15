@@ -32,9 +32,9 @@ const BANK_SPECIFIC_TESTIMONIALS: Readonly<Record<string, Testimonial>> = {
 
 export const PDF_TESTIMONIAL: Testimonial = { quote: "Print mode is a lifesaver. I print 20 questions, do them on paper, mark them after.", name: "Faisal A.", detail: "Year 11, Cambridge IGCSE, UAE" };
 const TOPIC_TESTIMONIAL: Testimonial = { quote: "Every question for that one subtopic I kept failing, in one place.", name: "Ji-woo P.", detail: "IB DP Year 2, South Korea" };
-// Ryan H.'s "20 free questions was enough to prove it was worth it." (IB DP Year 2, Canada) is on file but
-// retired from the gate: its "20" reads as the whole free tier, which is far larger.
-export const SIGNUP_GATE_TESTIMONIAL: Testimonial = HOME_TESTIMONIALS[0];
+// Reworded with Ryan's sign-off (owner confirmed, 2026-10-15): the original "20 free questions was enough to
+// prove it was worth it." read as the size of the free tier; he meant the 20-question preview before sign-up.
+export const SIGNUP_GATE_TESTIMONIAL: Testimonial = { quote: "The first 20 questions were enough to get me to sign up.", name: "Ryan H.", detail: "IB DP Year 2, Canada" };
 export const ABOUT_TESTIMONIAL: Testimonial = { quote: "I'm a full-time IGCSE tutor and I point every student here now.", name: "Amara Osei", detail: "IGCSE & IB Sciences Tutor, 6 yrs, Ghana" };
 
 /** A bank's own quote when it has one; otherwise a general quote, picked stably from the slug so SSR and hydration agree. */
