@@ -48,6 +48,10 @@
 
 /* The sheet stays white in dark mode, like the printed PDF. */
 .builder-sheet { min-width: 0; padding: clamp(18px, 2.6vw, 30px); color: #191917; background: #fff; border: 1px solid #e3e3dc; border-radius: 6px; box-shadow: 0 1px 2px rgb(0 0 0 / .05), 0 18px 40px rgb(46 40 34 / .08); scroll-margin-top: 84px; }
+/* The sheet is always light, so its buttons keep light-theme colours in dark mode. */
+.builder .builder-sheet .button.secondary.button { color: #191917; background: #fff; border-color: #bcbcb3; }
+.builder .builder-sheet .button.secondary.button:hover:not(:disabled) { background: #f4f4ef; }
+.builder .builder-sheet .button.primary.button { color: #fff; background: #2f5bea; border-color: #2f5bea; }
 .builder-sheet-head { display: flex; justify-content: space-between; align-items: start; gap: 14px; padding-bottom: 14px; border-bottom: 1.5px solid #191917; }
 .builder-sheet-head > div { flex: 1; min-width: 0; }
 .builder-title { display: block; width: 100%; min-height: 1.3em; margin: 0; padding: 2px 4px 2px 0; overflow: hidden; color: #191917; background: transparent; border: 0; border-bottom: 1px dashed transparent; resize: none; field-sizing: content; font: 400 clamp(1.35rem, 2.4vw, 1.75rem)/1.2 var(--font-serif); }

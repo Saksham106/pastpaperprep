@@ -45,6 +45,12 @@ describe("builder topic index", () => {
     const expected = getMathsPickerTopics(maths as never).filter((topic) => index.tree.some((node) => node.key === topicKey(topic)));
     expect(index.tree.map((node) => node.key)).toEqual(expected.map(topicKey));
     expect(index.tree[0].subtopics.length).toBeGreaterThan(3);
+    // Earlier-syllabus aliases live only under "Earlier syllabus", never beside current sections.
+    for (const node of index.tree) {
+      const labels = node.subtopics.map((subtopic) => subtopic.label);
+      expect(new Set(labels).size).toBe(labels.length);
+      expect(node.subtopics.every((subtopic) => subtopic.key.includes("earlier-only:") === (node.label === "Earlier syllabus"))).toBe(true);
+    }
   });
 
   it("matches any selected topic or subtopic, and everything when nothing is selected", () => {

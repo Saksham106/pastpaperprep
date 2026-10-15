@@ -1,5 +1,5 @@
 import type { BankSlug } from "@/lib/catalog";
-import { getMathsPickerGroups, getMathsPickerTopics, isCleanMathsBank, mathsPickerLabel } from "@/lib/maths-picker";
+import { EARLIER_MATHS_TOPIC, getMathsPickerGroups, getMathsPickerTopics, isCleanMathsBank, isMathsEarlierToken, mathsPickerLabel } from "@/lib/maths-picker";
 import { formatPublicLabel } from "@/lib/presentation";
 import { filterQuestions } from "@/lib/question-filter";
 import type { PublicQuestionMetadata } from "@/lib/question-index";
@@ -38,7 +38,10 @@ export function buildTopicIndex(questions: readonly BuilderQuestion[], bank: Ban
     const topicMatches = filterQuestions(filterable, { topics: [topic] });
     if (!topicMatches.length) continue;
     add(topicKey(topic), topicMatches);
-    const values = maths ? getMathsPickerGroups(filterable, [topic], []).relevant : [...getControlledSubtopics(bank, topic)];
+    // Maths: earlier-syllabus aliases sit only under "Earlier syllabus", as on the bank page.
+    const values = maths
+      ? getMathsPickerGroups(filterable, [topic], []).relevant.filter((value) => isMathsEarlierToken(value) === (topic === EARLIER_MATHS_TOPIC))
+      : [...getControlledSubtopics(bank, topic)];
     const subtopics: TopicNode["subtopics"] = [];
     for (const value of new Set(values)) {
       const matching = filterQuestions(filterable, { subtopics: [value] });
