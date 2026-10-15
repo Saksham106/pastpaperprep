@@ -458,6 +458,56 @@ describe("QuestionExplorer", () => {
     expect((within(screen.getByRole("dialog")).getByRole("textbox", { name: "PDF name" }) as HTMLInputElement).value).not.toBe("");
   });
 
+  it("ignores a title lookup from an earlier dialog and never overwrites a name the student typed", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 8), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const lookups: Array<(titles: string[]) => void> = [];
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      if (url === "/api/worksheets" && !init?.method) return new Promise<Response>((resolve) => lookups.push((titles) => resolve(Response.json({ worksheets: titles.map((title) => ({ title })) }))));
+      if (url === "/api/worksheets") return Response.json({ worksheet: { id: "w-2", bank_slug: "ib-sl", title: JSON.parse(String(init?.body)).name, question_ids: [], content_mode: "both", revision: 1 } }, { status: 201 });
+      if (url === "/api/study-state") return new Response("{}", { status: 200 });
+      return new Response("{}", { status: 404 });
+    }));
+    window.history.replaceState({}, "", "/banks/ib-sl");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    const openDialog = () => {
+      fireEvent.click(screen.getAllByRole("checkbox", { name: /add question/i })[0]);
+      fireEvent.click(screen.getByRole("button", { name: /^Save PDF \(1 selected\)$/ }));
+      return within(screen.getByRole("dialog")).getByRole("textbox", { name: "PDF name" }) as HTMLInputElement;
+    };
+    const suggested = suggestWorksheetTitle([questions[0]]);
+    let name = openDialog();
+    expect(name.value).toBe(suggested);
+    fireEvent.change(name, { target: { value: `${suggested} 2` } });
+    fireEvent.click(within(screen.getByRole("dialog")).getByRole("button", { name: "Save PDF" }));
+    await screen.findByText(/saved .* to my worksheets/i);
+    name = openDialog();
+    expect(name.value).toBe(suggested);
+    await act(async () => { lookups[0]([suggested]); });
+    expect(name.value).toBe(suggested);
+    await act(async () => { lookups[1]([suggested, `${suggested} 2`]); });
+    expect(name.value).toBe(`${suggested} 3`);
+  });
+
+  it("keeps a typed name even when the student types the suggestion back", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 8), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const lookups: Array<(titles: string[]) => void> = [];
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      if (String(input) === "/api/worksheets" && !init?.method) return new Promise<Response>((resolve) => lookups.push((titles) => resolve(Response.json({ worksheets: titles.map((title) => ({ title })) }))));
+      return new Response("{}", { status: 404 });
+    }));
+    window.history.replaceState({}, "", "/banks/ib-sl");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    fireEvent.click(screen.getAllByRole("checkbox", { name: /add question/i })[0]);
+    fireEvent.click(screen.getByRole("button", { name: /^Save PDF \(1 selected\)$/ }));
+    const name = within(screen.getByRole("dialog")).getByRole("textbox", { name: "PDF name" }) as HTMLInputElement;
+    const suggested = name.value;
+    fireEvent.change(name, { target: { value: "Something else" } });
+    fireEvent.change(name, { target: { value: suggested } });
+    await act(async () => { lookups[0]([suggested]); });
+    expect(name.value).toBe(suggested);
+  });
+
   it("reopens a worksheet by opaque ID and restores saved content and selected membership", async () => {
     const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 4), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     const ids = [questions[2].id, questions[0].id];

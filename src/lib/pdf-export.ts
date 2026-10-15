@@ -53,6 +53,9 @@ export type PdfCover = { title: string; bankSlug: BankSlug };
 type PdfLabel = { heading: string; source: string };
 const PDF_TITLE_FONT_URL = "/fonts/YoungSerif-Regular.ttf";
 const PDF_TITLE_FONT_FILE = "YoungSerif-Regular.ttf";
+// Characters the built-in Helvetica can print (WinAnsi): Latin-1 plus a few typographic marks.
+const WIN_ANSI_EXTRA = new Set(Array.from("€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ").map((character) => character.codePointAt(0)!));
+const isWinAnsi = (code: number) => (code >= 32 && code <= 126) || (code >= 160 && code <= 255) || WIN_ANSI_EXTRA.has(code);
 
 export function orderPdfJobs<T>(questions: T[], content: PdfContent, placement: PdfAnswerPlacement): PdfJob<T>[] {
   const questionJobs = questions.map((question): PdfJob<T> => ({ question, kind: "question" }));
@@ -294,6 +297,8 @@ export async function downloadQuestionPdf(
   const total = questions.length;
   // Whether anything besides the title block landed on page 1; if not, page 1 lists the contents.
   let firstPageUsed = false;
+  // Pages alone don't prove content: with a cover, page 1 exists before any question is placed.
+  let drewContent = false;
 
   const addPage = (format: PdfPageFormat = "a4", orientation: PdfPageOrientation = "portrait", headerMode: WholeImagePlacement["headerMode"] = "standard") => {
     if (pages > 0) pdf.addPage(format, orientation);
@@ -386,6 +391,7 @@ export async function downloadQuestionPdf(
       nextImageY += labelSpace;
     }
     if (pages === 1) firstPageUsed = true;
+    drewContent = true;
     pdf.addImage(image.canvas.toDataURL("image/jpeg", 0.98), "JPEG",
       placement.xMm, nextImageY, placement.widthMm, placement.heightMm);
     nextImageY += placement.heightMm + 4;
@@ -404,6 +410,7 @@ export async function downloadQuestionPdf(
     if (startAnswerPage || !current || nextImageY + height > current.height - PDF_BOTTOM_MM + 0.001) addPage();
     const baseline = nextImageY + 4;
     if (pages === 1) firstPageUsed = true;
+    drewContent = true;
     drawLabel(label, false, PDF_SIDE_MM, baseline, PDF_MCQ_ANSWER_X - 2, 8);
     pdf.setFontSize(8);
     pdf.setTextColor(76, 88, 85);
@@ -489,19 +496,65 @@ export async function downloadQuestionPdf(
     }
   };
 
-  const loadTitleFont = async (): Promise<boolean> => {
+  // Registers Young Serif and returns its glyph map, or null. jsPDF swallows a bad font file inside
+  // addFont, so a usable font is proven by its parsed metadata, not by addFont returning.
+  const loadTitleFont = async (): Promise<Record<number, number> | null> => {
     try {
       const response = await fetch(PDF_TITLE_FONT_URL);
-      if (!response.ok) return false;
+      if (!response.ok) return null;
       const bytes = new Uint8Array(await response.arrayBuffer());
       let binary = "";
       for (let index = 0; index < bytes.length; index += 0x8000) binary += String.fromCharCode(...bytes.subarray(index, index + 0x8000));
       pdf.addFileToVFS(PDF_TITLE_FONT_FILE, btoa(binary));
       pdf.addFont(PDF_TITLE_FONT_FILE, "YoungSerif", "normal");
-      return true;
+      const registered = pdf.getFontList()["YoungSerif"] ? pdf.setFont("YoungSerif", "normal").getFont() as { metadata?: { Unicode?: unknown; cmap?: { unicode?: { codeMap?: Record<number, number> } } } } : null;
+      pdf.setFont("helvetica", "bold");
+      const codeMap = registered?.metadata?.Unicode ? registered.metadata.cmap?.unicode?.codeMap : undefined;
+      return codeMap ?? null;
     } catch {
-      return false; // The title falls back to Helvetica; a missing font never blocks a download.
+      pdf.setFont("helvetica", "bold");
+      return null; // The title falls back; a missing or broken font never blocks a download.
     }
+  };
+
+  // Titles the embedded fonts cannot spell (Greek, Chinese, emoji…) are drawn by the browser, which
+  // can render any script, and placed as an image so no character is lost.
+  const drawRasterTitle = (title: string, top: number): number => {
+    const pxPerMm = 12;
+    const fontPx = 20 * 25.4 / 72 * pxPerMm;
+    const family = getComputedStyle(document.documentElement).getPropertyValue("--font-young-serif").trim();
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    if (!context) throw new Error("Canvas is unavailable");
+    const font = `${fontPx}px ${family ? `${family}, ` : ""}"Young Serif", Georgia, serif`;
+    context.font = font;
+    const maxWidth = COVER_WIDTH * pxPerMm;
+    const lines: string[] = [];
+    let line = "";
+    for (const word of title.split(/(\s+)/)) {
+      // Break inside a word only when it is wider than the line (scripts written without spaces).
+      for (const piece of context.measureText(word).width > maxWidth ? Array.from(word) : [word]) {
+        const next = line + piece;
+        if (line.trim() && context.measureText(next).width > maxWidth) { lines.push(line.trimEnd()); line = piece.trimStart(); }
+        else line = next;
+      }
+    }
+    if (line.trim()) lines.push(line.trimEnd());
+    if (lines.length > 2) {
+      let last = lines[1];
+      while (last && context.measureText(`${last}…`).width > maxWidth) last = Array.from(last).slice(0, -1).join("");
+      lines.splice(1, lines.length - 1, `${last.trimEnd()}…`);
+    }
+    const lineHeight = fontPx * 1.15;
+    canvas.width = Math.ceil(maxWidth);
+    canvas.height = Math.ceil(lineHeight * lines.length + fontPx * 0.3);
+    context.font = font;
+    context.fillStyle = "#1d2430";
+    context.textBaseline = "alphabetic";
+    lines.forEach((text, index) => context.fillText(text, 0, fontPx + index * lineHeight));
+    // `top` is the first baseline; the image starts one ascent above it.
+    pdf.addImage(canvas.toDataURL("image/png"), "PNG", COVER_X, top - fontPx / pxPerMm, canvas.width / pxPerMm, canvas.height / pxPerMm);
+    return lines.length;
   };
 
   const COVER_X = 12;
@@ -514,13 +567,20 @@ export async function downloadQuestionPdf(
     pdf.setTextColor(127, 41, 58);
     pdf.text(details.eyebrow, COVER_X, y);
     y += 9;
-    if (await loadTitleFont()) pdf.setFont("YoungSerif", "normal"); else pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(20);
-    pdf.setTextColor(29, 36, 48);
-    let lines: string[] = pdf.splitTextToSize(title, COVER_WIDTH);
-    if (lines.length > 2) lines = [lines[0], `${lines[1].slice(0, -1).trimEnd()}…`];
-    pdf.text(lines, COVER_X, y, { lineHeightFactor: 1.15 });
-    y += (lines.length - 1) * 8.1 + 6.5;
+    const glyphs = await loadTitleFont();
+    const codes = Array.from(title).map((character) => character.codePointAt(0)!);
+    const serif = glyphs && codes.every((code) => code === 32 || Boolean(glyphs[code]));
+    let lineCount: number;
+    if (serif || codes.every(isWinAnsi)) {
+      pdf.setFont(serif ? "YoungSerif" : "helvetica", serif ? "normal" : "bold");
+      pdf.setFontSize(20);
+      pdf.setTextColor(29, 36, 48);
+      let lines: string[] = pdf.splitTextToSize(title, COVER_WIDTH);
+      if (lines.length > 2) lines = [lines[0], `${lines[1].slice(0, -1).trimEnd()}…`];
+      pdf.text(lines, COVER_X, y, { lineHeightFactor: 1.15 });
+      lineCount = lines.length;
+    } else lineCount = drawRasterTitle(title, y);
+    y += (lineCount - 1) * 8.1 + 6.5;
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(9);
     pdf.setTextColor(76, 88, 85);
@@ -640,6 +700,7 @@ export async function downloadQuestionPdf(
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(10);
         const solutionPages = paginatePdfText(pdf.splitTextToSize(question.solution, 182));
+        drewContent = solutionPages.length > 0 || drewContent;
         for (const [solutionPage, lines] of solutionPages.entries()) {
           addPage();
           pdf.setFont("helvetica", "bold");
@@ -657,7 +718,7 @@ export async function downloadQuestionPdf(
     if (kind === "answer" || content === "questions") onProgress?.(++completed, total);
   }
 
-  if (pages === 0) throw new Error("There is nothing to export");
+  if (pages === 0 || !drewContent) throw new Error("There is nothing to export");
   if (cover && !firstPageUsed) {
     pdf.setPage(1);
     drawContents(coverBottom);
