@@ -6,6 +6,7 @@ import scienceWrittenRepairs from '@/data/reviewed-science-written-answer-repair
 import economicsWrittenRepairs from '@/data/reviewed-economics-written-answer-repairs.json';
 import ibMatrixRepairs from '@/data/reviewed-ib-matrix-head-repairs.json';
 import ibBoundaryRepairs from '@/data/reviewed-ib-boundary-batch-repairs.json';
+import ibScienceCropRepairs from '@/data/reviewed-ib-science-crop-repairs.json';
 import type { BankSlug } from '@/lib/banks';
 import { historicalMarkschemePaths } from '@/lib/reviewed-biology-historical-crops';
 
@@ -15,8 +16,28 @@ const entries = repairs.entries as Record<string, Repair>;
 const scienceEntries = scienceRepairs as Partial<Record<BankSlug, Record<string, Repair>>>;
 const writtenEntries = writtenRepairs as Record<string, { oldPaths: string[]; newPaths: string[]; sha256: string[] }>;
 
+type IbCropRepair = { oldPaths: string[]; oldSha256: string[]; newPaths: string[]; sha256: string[] };
+const ibScienceCropBanks = ibScienceCropRepairs.banks as Partial<Record<BankSlug, Record<string, IbCropRepair>>>;
+/** IB science banks with reviewed answer-crop repairs; runtime normalization applies them for these banks. */
+export const IB_SCIENCE_CROP_REPAIR_BANKS: ReadonlySet<BankSlug> = new Set(Object.keys(ibScienceCropBanks) as BankSlug[]);
+
 /** Exact reviewed replacements; original sealed runtime and storage receipts remain historical. */
 export function reviewedMarkschemePaths(bank: BankSlug, questionId: string, paths: readonly string[]): string[] {
+  if (IB_SCIENCE_CROP_REPAIR_BANKS.has(bank)) {
+    const entry = ibScienceCropBanks[bank]?.[questionId];
+    if (!entry) return [...paths];
+    // Bound to the exact old paths; a kept path keeps its old hash, a new one lives under the namespace by hash.
+    if (JSON.stringify(paths)!==JSON.stringify(entry.oldPaths) || entry.oldPaths.length!==entry.oldSha256.length ||
+        entry.newPaths.length<1 || entry.newPaths.length!==entry.sha256.length || new Set(entry.newPaths).size!==entry.newPaths.length ||
+        !/^repairs\/ib-science-crop-v1-[a-f0-9]{16}$/.test(ibScienceCropRepairs.namespace) ||
+        entry.newPaths.some((path,i)=>{
+          const oldIndex=entry.oldPaths.indexOf(path);
+          return !/^[a-f0-9]{64}$/.test(entry.sha256[i]) || (oldIndex>=0
+            ? entry.sha256[i]!==entry.oldSha256[oldIndex]
+            : path!==`${ibScienceCropRepairs.namespace}/${entry.sha256[i]}.webp`);
+        })) throw new Error(`Reviewed IB science crop repair disagrees with ${bank}:${questionId}`);
+    return [...entry.newPaths];
+  }
   if (bank === 'ib-hl') {
     const entry = (ibBoundaryRepairs.banks['ib-hl'] as Record<string,{oldPaths:string[];oldSha256:string[];newPaths:string[];sha256:string[]}>)[questionId];
     if (!entry) return [...paths];
