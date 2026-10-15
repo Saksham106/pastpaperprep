@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { sealedRuntimeBytes } from "../../scripts/ib-science-receipt-contract.mjs";
 import { BANKS, getBank } from "@/lib/banks";
 import { FREE_QUESTION_YEARS, PREVIEW_QUESTION_IDS, hasBankAccess, isPreviewQuestion } from "@/lib/access";
 import { storageObjectPath } from "@/lib/assets";
@@ -14,13 +15,19 @@ import type { UnifiedQuestion } from "@/lib/questions";
 const ROOT = process.cwd();
 const BIOLOGY_BANKS = ["ib-biology-hl", "ib-biology-sl"] as const;
 const EXPECTED = {
-  "ib-biology-hl": { questions: 1911, papers: 84 },
-  "ib-biology-sl": { questions: 1548, papers: 87 },
+  "ib-biology-hl": { questions: 2072, papers: 93 },
+  "ib-biology-sl": { questions: 1671, papers: 96 },
 } as const;
 const RUNTIME_HASHES = {
+  "ib-biology-hl": "f7936edb71ddc7a2e4aa76a334b1208805a8cc8ac7538317368515ba9e7902a1",
+  "ib-biology-sl": "44c2bc366b9f0156ca55fc46fd1a4249db603d4eab0896863cd4714c0027f83d",
+} as const;
+// The runtime before the official May 2026 papers were appended (origin/main 18d8b98): every row, paper and header field must survive.
+const PRE_2026_RUNTIME_HASHES = {
   "ib-biology-hl": "78a25f6ca1986da2c85c28d04751cae8b6bdd271af591477ee21837f8f313b6e",
   "ib-biology-sl": "d13808b05ce9a2d7beb2b0a55768a8568e7eaeb28b6d256f468a62d457bbd8e3",
 } as const;
+const PRE_2026_COUNTS = { "ib-biology-hl": { questions: 1911, papers: 84 }, "ib-biology-sl": { questions: 1548, papers: 87 } } as const;
 const TAXONOMY_SHA256 = "f78676ee39598b5f5357ca610a928e2a12cedd3c6b1f6342fa893be8b26e03eb";
 
 type BiologyRaw = {
@@ -55,7 +62,7 @@ describe("IB Biology HL/SL integration", () => {
     for (const bank of BIOLOGY_BANKS) {
       expect(getBank(bank)?.questionCount).toBe(EXPECTED[bank].questions);
       expect(getBank(bank)?.paperCount).toBe(EXPECTED[bank].papers);
-      expect(getBank(bank)?.years).toBe("2016-2025");
+      expect(getBank(bank)?.years).toBe("2016-2026");
     }
   });
 
@@ -68,14 +75,32 @@ describe("IB Biology HL/SL integration", () => {
       expect(raw.specimenQuestionsIncluded).toBe(false);
       expect(raw.questions).toHaveLength(EXPECTED[bank].questions);
       expect(raw.papers).toHaveLength(EXPECTED[bank].papers);
-      expect(raw.years).toEqual([2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]);
+      expect(raw.years).toEqual([2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]);
       expect(raw.papers.every((paper) => paper.sourceUrl === paper.pdfUrl)).toBe(true);
       expect(raw.questions.every((question) => question.sourceUrl === question.pdfUrl)).toBe(true);
-      expect(raw.questions.every((question) => typeof question.sourceUrl === "string" && question.sourceUrl.startsWith("https://ibdocs.re/"))).toBe(true);
-      expect(raw.questions.every((question) => question.classificationVersion === "ib-biology-reviewed-2026.09.1" || question.classificationVersion === "ib-biology-extension-2016-2019")).toBe(true);
+      // Earlier papers come from IB Docs; the official May 2026 papers from the xtremepape.rs mirror of the IB release.
+      expect(raw.questions.every((question) => typeof question.sourceUrl === "string" && question.sourceUrl.startsWith(question.year === 2026 ? "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/" : "https://ibdocs.re/"))).toBe(true);
+      expect(raw.questions.every((question) => question.classificationVersion === "ib-biology-reviewed-2026.09.1" || question.classificationVersion === "ib-biology-extension-2016-2019" || (question.year === 2026 && question.classificationVersion === "ib-biology-reviewed-2026.10.may2026"))).toBe(true);
       expect(raw.questions.every((question) => question.classificationReviewStatus === "classified")).toBe(true);
     }
     expect(createHash("sha256").update(readFileSync(join(ROOT, "src/data/ib-biology-taxonomy.json"))).digest("hex")).toBe(TAXONOMY_SHA256);
+  });
+
+  it("appends the May 2026 papers and leaves every earlier row, paper and header field byte-identical", () => {
+    for (const bank of BIOLOGY_BANKS) {
+      const path = rawPath(bank);
+      const bytes = readFileSync(path);
+      const raw = readRaw(bank);
+      const release = (raw as unknown as { may2026Release: { baseQuestionCount: number; addedQuestionCount: number; addedPaperCount: number } }).may2026Release;
+      // Removing the append must give back exactly the sealed pre-2026 runtime (same bytes as origin/main 18d8b98).
+      expect(createHash("sha256").update(sealedRuntimeBytes(`src/data/raw/${bank}.json`, bytes)).digest("hex")).toBe(PRE_2026_RUNTIME_HASHES[bank]);
+      expect(release.baseQuestionCount).toBe(PRE_2026_COUNTS[bank].questions);
+      expect(raw.papers.length - release.addedPaperCount).toBe(PRE_2026_COUNTS[bank].papers);
+      expect(raw.questions.slice(release.baseQuestionCount).every((row) => row.year === 2026)).toBe(true);
+      expect(raw.questions.filter((row) => row.year === 2026)).toHaveLength(release.addedQuestionCount);
+      expect(raw.questions.slice(0, release.baseQuestionCount).some((row) => row.year === 2026)).toBe(false);
+      expect(createHash("sha256").update(readFileSync(join(ROOT, "src/data/production", `${bank}.json`))).digest("hex")).toBe(RUNTIME_HASHES[bank]);
+    }
   });
 
   it("uses the controlled Biology taxonomy without semantic relabeling", () => {
@@ -106,9 +131,10 @@ describe("IB Biology HL/SL integration", () => {
       expect(BIOLOGY_BANKS).toContain(bank);
       expect(relativeParts.length).toBeGreaterThan(1);
     }
-    expect(plan.allPaths.size).toBe(5550 + 4432);
+    // 678 official May 2026 question and mark-scheme crops (HL 383, SL 295 are added to the pre-2026 5550 and 4432).
+    expect(plan.allPaths.size).toBe(5550 + 4432 + 678);
     expect(plan.previewPaths.size).toBe(366);
-    expect(plan.premiumPaths.size).toBe(9616);
+    expect(plan.premiumPaths.size).toBe(9616 + 678);
   });
 
   it("makes every actual 2020 Biology paper the explicit free preview year", () => {

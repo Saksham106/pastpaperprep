@@ -10,7 +10,8 @@ const root = process.cwd();
 const expected = {
   "ib-chemistry-hl": [1083, 789, 1872], "ib-chemistry-sl": [810, 602, 1412],
   "ib-physics-hl": [1111, 764, 1875], "ib-physics-sl": [774, 540, 1314],
-  "ib-biology-hl": [1139, 772, 1911], "ib-biology-sl": [936, 612, 1548],
+  // Biology also holds the official May 2026 papers (HL 161, SL 123 questions, all year >= 2020), appended after the sealed rows.
+  "ib-biology-hl": [1139 + 161, 772, 1911 + 161], "ib-biology-sl": [936 + 123, 612, 1548 + 123],
 };
 
 describe("IB 2016–2019 science extension candidate", () => {
@@ -20,9 +21,9 @@ describe("IB 2016–2019 science extension candidate", () => {
       expect(runtime.questions).toHaveLength(combined);
       expect(runtime.questions.filter((q: { year: number }) => q.year < 2020)).toHaveLength(extension);
       expect(runtime.questions.filter((q: { year: number }) => q.year >= 2020)).toHaveLength(base);
-      expect(runtime.years).toEqual([2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]);
+      expect(runtime.years).toEqual(bank.startsWith("ib-biology") ? [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026] : [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]);
       expect(new Set(runtime.questions.map((q: { id: string }) => q.id)).size).toBe(combined);
-      expect(runtime.extensionRelease.combinedQuestionCount).toBe(combined);
+      expect(runtime.extensionRelease.combinedQuestionCount).toBe(bank.startsWith("ib-biology") ? runtime.may2026Release.baseQuestionCount : combined);
     }
   });
 
@@ -33,7 +34,7 @@ describe("IB 2016–2019 science extension candidate", () => {
       expect(catalog).toBeDefined();
       expect(catalog?.questionCount).toBe(runtime.questions.length);
       expect(catalog?.paperCount).toBe(runtime.papers.length);
-      expect(catalog?.years).toBe("2016-2025");
+      expect(catalog?.years).toBe(bank.startsWith("ib-biology") ? "2016-2026" : "2016-2025");
     }
   });
 
