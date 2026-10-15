@@ -27,13 +27,13 @@ export const CANDIDATE_CONTENT_FILES = Object.freeze([
 ]);
 
 /**
- * The 2016-2019 candidate was sealed on the runtime as of that release. IB Biology later appended the
- * official May 2026 papers (scripts/add-ib-biology-2026.mjs), which leaves every earlier row, paper and
+ * The 2016-2019 candidate was sealed on the runtime as of that release. IB Biology and IB Chemistry later appended the
+ * official May 2026 papers (scripts/add-ib-biology-2026.mjs, scripts/add-ib-chemistry-2026.mjs), which leaves every earlier row, paper and
  * header field untouched and records the append in `may2026Release`. This returns the bytes the seal
  * covers: the file with that append removed again, so the seal keeps proving the sealed content is intact.
  */
 export function sealedRuntimeBytes(path, bytes) {
-  if (!/^src\/data\/raw\/ib-biology-(hl|sl)\.json$/.test(path)) return bytes;
+  if (!/^src\/data\/raw\/ib-(biology|chemistry)-(hl|sl)\.json$/.test(path)) return bytes;
   const { may2026Release, ...rest } = JSON.parse(bytes.toString("utf8"));
   if (!may2026Release) return bytes;
   const sealed = {

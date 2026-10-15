@@ -22,11 +22,12 @@ export const EXPECTED_ASSET_COUNTS = {
   "ib-hl": { preview: 314, premium: 2971, all: 3285 },
   "ib-sl": { preview: 147, premium: 1413, all: 1560 },
   // Reviewed Q12 foreign-only tail retired; Q13 immutable restoration is a one-for-one replacement.
+  // May 2026: official Chemistry papers add 409 (HL) and 288 (SL) premium crops; 2026 is not a free-preview year.
   // May 2026: official AI TZ1-TZ3 papers added (+254 HL, +161 SL images, all premium).
   "ib-ai-hl": { preview: 236, premium: 1370, all: 1606 },
   "ib-ai-sl": { preview: 155, premium: 1008, all: 1163 },
-  "ib-chemistry-hl": { preview: 232, premium: 5396, all: 5628 },
-  "ib-chemistry-sl": { preview: 159, premium: 3877, all: 4036 },
+  "ib-chemistry-hl": { preview: 232, premium: 5805, all: 6037 },
+  "ib-chemistry-sl": { preview: 159, premium: 4165, all: 4324 },
   "ib-physics-hl": { preview: 226, premium: 5395, all: 5621 },
   "ib-physics-sl": { preview: 159, premium: 3636, all: 3795 },
   // May 2026: official papers add 380 (HL; the withheld 2026-may-tz1-hl-p1b-q2 serves none) and 295 (SL) premium crops; 2026 is not a free-preview year.

@@ -1,0 +1,272 @@
+{
+  "schemaVersion": 1,
+  "addition": "ib-chemistry-may-2026",
+  "mode": "dry-run-upload-plan",
+  "status": "PLANNED, NOT UPLOADED (owner approval required)",
+  "provider": "cloudflare-r2",
+  "bucket": "pastpaperprep-free",
+  "method": "Output of `scripts/publish-added-free-papers.mts plan` against the pinned base: the PDFs the committed whole-paper manifests approve and the base manifests do not. Every source was hash-checked against its binding. Upload with `publish-added-free-papers.mts upload` (key checked absent, put with application/pdf, `public, max-age=604800` and an attachment download name, read back by SHA-256 and size), then `verify`.",
+  "sourceDirectory": "ib-chemistry-topic-practice/.worktrees/may-2026/data/raw (36 official IB originals, SHA-256 pinned in data/acquisition-2026/receipt.jsonl)",
+  "appBaseCommit": "18d8b98df165fad17c4f632e8a156214c27227fa",
+  "approvedObjectsAfter": 5020,
+  "objectCount": 36,
+  "totalBytes": 25433575,
+  "operatorNotes": [
+    "Owner approval is required before any upload.",
+    "Run `verify` afterwards: it rewrites src/data/paper-archive-readback.json only if every approved PDF matches."
+  ],
+  "objects": [
+    {
+      "sha256": "105fbdd15e098c02a01ffc8c3129d8d609efb4a2c5cb3508c2d2899c4f241bae",
+      "bytes": 496193,
+      "name": "ib-chemistry-sl-2026-may-paper-2-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-sl-p2-markscheme.pdf",
+      "key": "papers/v1/105fbdd15e098c02a01ffc8c3129d8d609efb4a2c5cb3508c2d2899c4f241bae.pdf"
+    },
+    {
+      "sha256": "1104e5c78a077e139b940ddf175d4202ac0882b1f3862b82f50ec56b3b0ed926",
+      "bytes": 1255406,
+      "name": "ib-chemistry-sl-2026-may-paper-1b-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-sl-p1b-question.pdf",
+      "key": "papers/v1/1104e5c78a077e139b940ddf175d4202ac0882b1f3862b82f50ec56b3b0ed926.pdf"
+    },
+    {
+      "sha256": "135e099aa6df9323946f93f49938a933d4580d25832d7878abf66494b865ae9f",
+      "bytes": 1138870,
+      "name": "ib-chemistry-hl-2026-may-paper-1a-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-hl-p1a-question.pdf",
+      "key": "papers/v1/135e099aa6df9323946f93f49938a933d4580d25832d7878abf66494b865ae9f.pdf"
+    },
+    {
+      "sha256": "18fb577c3690c6d80377a88fc7405bb4077b3bc1719cb5e7f74e43d97801b394",
+      "bytes": 422684,
+      "name": "ib-chemistry-sl-2026-may-paper-1b-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-sl-p1b-markscheme.pdf",
+      "key": "papers/v1/18fb577c3690c6d80377a88fc7405bb4077b3bc1719cb5e7f74e43d97801b394.pdf"
+    },
+    {
+      "sha256": "1fa3f9a5e96fc0d14aeb401b0edf31eae231de125b4a3b271906391908ed9d60",
+      "bytes": 1968227,
+      "name": "ib-chemistry-hl-2026-may-paper-1b-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-hl-p1b-question.pdf",
+      "key": "papers/v1/1fa3f9a5e96fc0d14aeb401b0edf31eae231de125b4a3b271906391908ed9d60.pdf"
+    },
+    {
+      "sha256": "3608e7b3a0a7805b0e12ec94d99b80b3a7a3b61caa74b3803ce0954ac724e9a7",
+      "bytes": 1247035,
+      "name": "ib-chemistry-hl-2026-may-paper-1b-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-hl-p1b-question.pdf",
+      "key": "papers/v1/3608e7b3a0a7805b0e12ec94d99b80b3a7a3b61caa74b3803ce0954ac724e9a7.pdf"
+    },
+    {
+      "sha256": "4ef31c066f8641af025e0f9a1aa923974a432a82b93c363efa81b58ca3ab565d",
+      "bytes": 223203,
+      "name": "ib-chemistry-sl-2026-may-paper-1a-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-sl-p1a-markscheme.pdf",
+      "key": "papers/v1/4ef31c066f8641af025e0f9a1aa923974a432a82b93c363efa81b58ca3ab565d.pdf"
+    },
+    {
+      "sha256": "593a00ddff674e97ddedb1b81f7fa4ce9313495f81b4e802baaf60f17373c1b0",
+      "bytes": 1043169,
+      "name": "ib-chemistry-hl-2026-may-paper-1a-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-hl-p1a-question.pdf",
+      "key": "papers/v1/593a00ddff674e97ddedb1b81f7fa4ce9313495f81b4e802baaf60f17373c1b0.pdf"
+    },
+    {
+      "sha256": "5fd26f01cf0c86911a7dc43dbeed01b7ac7e3553b2a4a1757ada20020beb43b0",
+      "bytes": 819091,
+      "name": "ib-chemistry-hl-2026-may-paper-2-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-hl-p2-markscheme.pdf",
+      "key": "papers/v1/5fd26f01cf0c86911a7dc43dbeed01b7ac7e3553b2a4a1757ada20020beb43b0.pdf"
+    },
+    {
+      "sha256": "6409482fe199a7b1dcccc5b3d1390958de28bd2565411e8d80f3f1f028af5a5e",
+      "bytes": 146244,
+      "name": "ib-chemistry-hl-2026-may-paper-1a-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-hl-p1a-markscheme.pdf",
+      "key": "papers/v1/6409482fe199a7b1dcccc5b3d1390958de28bd2565411e8d80f3f1f028af5a5e.pdf"
+    },
+    {
+      "sha256": "686eabde8c7272d048ae541f37fcba4b4fced2c45beb985f45a23257a35c4e9c",
+      "bytes": 281685,
+      "name": "ib-chemistry-hl-2026-may-paper-1a-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-hl-p1a-markscheme.pdf",
+      "key": "papers/v1/686eabde8c7272d048ae541f37fcba4b4fced2c45beb985f45a23257a35c4e9c.pdf"
+    },
+    {
+      "sha256": "6c7ce1b10d46fb1669a7dd4ddadfeb1da177f6dec3fcf108703248c9f9595e4f",
+      "bytes": 282089,
+      "name": "ib-chemistry-sl-2026-may-paper-1a-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-sl-p1a-markscheme.pdf",
+      "key": "papers/v1/6c7ce1b10d46fb1669a7dd4ddadfeb1da177f6dec3fcf108703248c9f9595e4f.pdf"
+    },
+    {
+      "sha256": "6ca23a0e447e9b7338321adf7ddba19cbccec5c5b9e3a5d84a9bd2ab1dd88517",
+      "bytes": 512445,
+      "name": "ib-chemistry-sl-2026-may-paper-2-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-sl-p2-markscheme.pdf",
+      "key": "papers/v1/6ca23a0e447e9b7338321adf7ddba19cbccec5c5b9e3a5d84a9bd2ab1dd88517.pdf"
+    },
+    {
+      "sha256": "7ae98b96c09fd71ff7b2ab6881c74603792abb09c9411f149cd99db6f9987fb2",
+      "bytes": 1246927,
+      "name": "ib-chemistry-hl-2026-may-paper-2-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-hl-p2-question.pdf",
+      "key": "papers/v1/7ae98b96c09fd71ff7b2ab6881c74603792abb09c9411f149cd99db6f9987fb2.pdf"
+    },
+    {
+      "sha256": "7c4664dfba0397f62a314b55bb37d9385e3ba2656402753a308261d0e834f921",
+      "bytes": 663794,
+      "name": "ib-chemistry-sl-2026-may-paper-2-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-sl-p2-question.pdf",
+      "key": "papers/v1/7c4664dfba0397f62a314b55bb37d9385e3ba2656402753a308261d0e834f921.pdf"
+    },
+    {
+      "sha256": "84d080101c7ee7b94f85f68524039f447e3289bf6e17917e86571cfe43f933c1",
+      "bytes": 804410,
+      "name": "ib-chemistry-hl-2026-may-paper-1a-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-hl-p1a-question.pdf",
+      "key": "papers/v1/84d080101c7ee7b94f85f68524039f447e3289bf6e17917e86571cfe43f933c1.pdf"
+    },
+    {
+      "sha256": "873b75a3ac3016b441352ee871b939086f11fdcfd9c89b4e6d6c5f684375b22a",
+      "bytes": 416762,
+      "name": "ib-chemistry-sl-2026-may-paper-1b-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-sl-p1b-markscheme.pdf",
+      "key": "papers/v1/873b75a3ac3016b441352ee871b939086f11fdcfd9c89b4e6d6c5f684375b22a.pdf"
+    },
+    {
+      "sha256": "8afd5cd28f8e75c774f59f36cc577d7e1944ff2f057756a40ad84250d9553826",
+      "bytes": 222953,
+      "name": "ib-chemistry-hl-2026-may-paper-1a-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-hl-p1a-markscheme.pdf",
+      "key": "papers/v1/8afd5cd28f8e75c774f59f36cc577d7e1944ff2f057756a40ad84250d9553826.pdf"
+    },
+    {
+      "sha256": "907431bd170d23a4bd348b4475d322351d551947f0ed740872d24f9644b909a1",
+      "bytes": 146238,
+      "name": "ib-chemistry-sl-2026-may-paper-1a-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-sl-p1a-markscheme.pdf",
+      "key": "papers/v1/907431bd170d23a4bd348b4475d322351d551947f0ed740872d24f9644b909a1.pdf"
+    },
+    {
+      "sha256": "9390375bdf63d045d283970ae1cebee854739f2b589314a53b4cd8cce40a02da",
+      "bytes": 1259908,
+      "name": "ib-chemistry-hl-2026-may-paper-1b-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-hl-p1b-question.pdf",
+      "key": "papers/v1/9390375bdf63d045d283970ae1cebee854739f2b589314a53b4cd8cce40a02da.pdf"
+    },
+    {
+      "sha256": "a0cd29e75fc2882db518590f7cb5153b2226a125094fea8cd93d4dd7e399c6cb",
+      "bytes": 700281,
+      "name": "ib-chemistry-sl-2026-may-paper-1a-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-sl-p1a-question.pdf",
+      "key": "papers/v1/a0cd29e75fc2882db518590f7cb5153b2226a125094fea8cd93d4dd7e399c6cb.pdf"
+    },
+    {
+      "sha256": "a2b6b92922f1ea5fa33dce705470ca31ac1b011af271cb2b93e3febfc60cc529",
+      "bytes": 572755,
+      "name": "ib-chemistry-hl-2026-may-paper-1b-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-hl-p1b-markscheme.pdf",
+      "key": "papers/v1/a2b6b92922f1ea5fa33dce705470ca31ac1b011af271cb2b93e3febfc60cc529.pdf"
+    },
+    {
+      "sha256": "a8fba3c931e467835037f457a4ce9ddc3d8dc4bb77069d5f5c98b614c264ce63",
+      "bytes": 477472,
+      "name": "ib-chemistry-sl-2026-may-paper-1b-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-sl-p1b-markscheme.pdf",
+      "key": "papers/v1/a8fba3c931e467835037f457a4ce9ddc3d8dc4bb77069d5f5c98b614c264ce63.pdf"
+    },
+    {
+      "sha256": "b1060c23267bd9a33c851e4b597966c0e05c21a1e966c5639c980f01ccf5cfb5",
+      "bytes": 1151701,
+      "name": "ib-chemistry-sl-2026-may-paper-1b-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-sl-p1b-question.pdf",
+      "key": "papers/v1/b1060c23267bd9a33c851e4b597966c0e05c21a1e966c5639c980f01ccf5cfb5.pdf"
+    },
+    {
+      "sha256": "b72e5d65147085476c775c7e9dd1e361f8eccb192277eebf65611eb7701cbab9",
+      "bytes": 827164,
+      "name": "ib-chemistry-hl-2026-may-paper-2-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-hl-p2-question.pdf",
+      "key": "papers/v1/b72e5d65147085476c775c7e9dd1e361f8eccb192277eebf65611eb7701cbab9.pdf"
+    },
+    {
+      "sha256": "b785948c57780019d4dad0fb96dddd87862cd27958c2314218bb6165d28d7e8a",
+      "bytes": 677340,
+      "name": "ib-chemistry-hl-2026-may-paper-2-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-hl-p2-markscheme.pdf",
+      "key": "papers/v1/b785948c57780019d4dad0fb96dddd87862cd27958c2314218bb6165d28d7e8a.pdf"
+    },
+    {
+      "sha256": "be7cad9d863cbe8b42a6e13b9c8fa9e4a8b5b26fba4686e70f7135cfa01bb3e0",
+      "bytes": 649309,
+      "name": "ib-chemistry-hl-2026-may-paper-2-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-hl-p2-markscheme.pdf",
+      "key": "papers/v1/be7cad9d863cbe8b42a6e13b9c8fa9e4a8b5b26fba4686e70f7135cfa01bb3e0.pdf"
+    },
+    {
+      "sha256": "c09c55df6d8561824bebda210620996e702ba982f5ac2de3a846306a77942755",
+      "bytes": 928033,
+      "name": "ib-chemistry-sl-2026-may-paper-1a-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-sl-p1a-question.pdf",
+      "key": "papers/v1/c09c55df6d8561824bebda210620996e702ba982f5ac2de3a846306a77942755.pdf"
+    },
+    {
+      "sha256": "cc4d20714928d680e0a1f94c35ef60d415d7b475e69ce886cb194cb4305eeb27",
+      "bytes": 785025,
+      "name": "ib-chemistry-hl-2026-may-paper-2-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-hl-p2-question.pdf",
+      "key": "papers/v1/cc4d20714928d680e0a1f94c35ef60d415d7b475e69ce886cb194cb4305eeb27.pdf"
+    },
+    {
+      "sha256": "d1069d97c01d5c4fe2aa35b930c0e154f6adfd1b43b6311e86b439d050ccf048",
+      "bytes": 477782,
+      "name": "ib-chemistry-sl-2026-may-paper-1a-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-sl-p1a-question.pdf",
+      "key": "papers/v1/d1069d97c01d5c4fe2aa35b930c0e154f6adfd1b43b6311e86b439d050ccf048.pdf"
+    },
+    {
+      "sha256": "d2a0dd70a9a6b638b2b6b4ad50aee834484588490150872b0c81dbdc7822115a",
+      "bytes": 708966,
+      "name": "ib-chemistry-sl-2026-may-paper-1b-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-sl-p1b-question.pdf",
+      "key": "papers/v1/d2a0dd70a9a6b638b2b6b4ad50aee834484588490150872b0c81dbdc7822115a.pdf"
+    },
+    {
+      "sha256": "e15d9ea5fb16d16e3d472102ba9906db6e632887d7f812c1eb6607858240d02f",
+      "bytes": 648702,
+      "name": "ib-chemistry-sl-2026-may-paper-2-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-sl-p2-markscheme.pdf",
+      "key": "papers/v1/e15d9ea5fb16d16e3d472102ba9906db6e632887d7f812c1eb6607858240d02f.pdf"
+    },
+    {
+      "sha256": "e8575a26f408502a1f2461010b936c82a0785f0a91194335c7ec2b6707eab5ef",
+      "bytes": 644019,
+      "name": "ib-chemistry-sl-2026-may-paper-2-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-sl-p2-question.pdf",
+      "key": "papers/v1/e8575a26f408502a1f2461010b936c82a0785f0a91194335c7ec2b6707eab5ef.pdf"
+    },
+    {
+      "sha256": "f16ec0922555513451c5b0a654733b53d7b85af08317e8d714eebed091b093f5",
+      "bytes": 422814,
+      "name": "ib-chemistry-hl-2026-may-paper-1b-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-hl-p1b-markscheme.pdf",
+      "key": "papers/v1/f16ec0922555513451c5b0a654733b53d7b85af08317e8d714eebed091b093f5.pdf"
+    },
+    {
+      "sha256": "fd6be78c9a6af17ab5853c6e4a9b7d1f526e6cd13927a4c458ec2cdcf2c256ac",
+      "bytes": 639420,
+      "name": "ib-chemistry-sl-2026-may-paper-2-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-sl-p2-question.pdf",
+      "key": "papers/v1/fd6be78c9a6af17ab5853c6e4a9b7d1f526e6cd13927a4c458ec2cdcf2c256ac.pdf"
+    },
+    {
+      "sha256": "fe04f804c65d13698c0e7ed82688a085e1a36d9d4819ad9062ef0ace356233f8",
+      "bytes": 525459,
+      "name": "ib-chemistry-hl-2026-may-paper-1b-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-hl-p1b-markscheme.pdf",
+      "key": "papers/v1/fe04f804c65d13698c0e7ed82688a085e1a36d9d4819ad9062ef0ace356233f8.pdf"
+    }
+  ]
+}

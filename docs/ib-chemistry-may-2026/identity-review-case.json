@@ -1,0 +1,81 @@
+{
+ "schema": "ib-chemistry-may-2026-identity-review-case-v1",
+ "note": "Add to private/paper-archives/identity-review.json with imagePath rewritten to the local evidence folder; evidence PNGs: research/ib-may-2026-chem-identity-evidence/",
+ "cases": [
+  {
+   "bankSlug": "ib-chemistry-hl",
+   "paperId": "chemistry-2026-may-tz1-hl-p1a-english",
+   "questionSha256": "593a00ddff674e97ddedb1b81f7fa4ce9313495f81b4e802baaf60f17373c1b0",
+   "markschemeSha256": "8afd5cd28f8e75c774f59f36cc577d7e1944ff2f057756a40ad84250d9553826",
+   "verdict": "valid-pair",
+   "evidence": "Published MS cover says \"Chemistry Higher level Paper 1\" (component label without 1A). Same subject, level, May 2026 session and exact numeric exam code stem (2226-4216 / 2226-4216M) as the Paper 1A question paper; the 3-page mark scheme keys the 40 Paper 1A questions.",
+   "extractedHeaderFields": {
+    "question": {
+     "coverPage": 2,
+     "subjectLiteral": "Chemistry",
+     "levelLiteral": "Higher level",
+     "paperLiteral": "Paper 1A",
+     "examCodeLiteral": "2226 – 4216"
+    },
+    "markscheme": {
+     "coverPage": 1,
+     "subjectLiteral": "Chemistry",
+     "levelLiteral": "Higher level",
+     "paperLiteral": "Paper 1",
+     "sessionLiteral": "May 2026",
+     "examCodeLiteral": "2226 – 4216M"
+    }
+   },
+   "visualEvidence": [
+    {
+     "document": "question",
+     "sourcePdfSha256": "593a00ddff674e97ddedb1b81f7fa4ce9313495f81b4e802baaf60f17373c1b0",
+     "page": 2,
+     "imagePath": "identity-evidence/e17e92eb314f94e296a0171b98da8137bd5928056bf6b8e07a974d972124440d.png",
+     "imageSha256": "e17e92eb314f94e296a0171b98da8137bd5928056bf6b8e07a974d972124440d"
+    },
+    {
+     "document": "markscheme",
+     "sourcePdfSha256": "8afd5cd28f8e75c774f59f36cc577d7e1944ff2f057756a40ad84250d9553826",
+     "page": 1,
+     "imagePath": "identity-evidence/865ceb7e6ebf07062f3243ad7f92b5ae0ee19abb670bb30d4670f011e60d0501.png",
+     "imageSha256": "865ceb7e6ebf07062f3243ad7f92b5ae0ee19abb670bb30d4670f011e60d0501"
+    }
+   ]
+  },
+  {
+   "bankSlug": "ib-chemistry-sl",
+   "paperId": "chemistry-2026-may-tz1-sl-p1a-english",
+   "questionSha256": "c09c55df6d8561824bebda210620996e702ba982f5ac2de3a846306a77942755",
+   "markschemeSha256": "4ef31c066f8641af025e0f9a1aa923974a432a82b93c363efa81b58ca3ab565d",
+   "verdict": "valid-pair",
+   "evidence": "Published MS cover says \"Chemistry Standard level Paper 1\" (component label without 1A). Same subject, level, May 2026 session and exact numeric exam code stem as the Paper 1A question paper; the mark scheme keys the 30 Paper 1A questions.",
+   "extractedHeaderFields": {
+    "question": {
+     "coverPage": 2,
+     "coverText": "2226 – 4219 © International Baccalaureate Organization 2026 11 pages 15 May 2026 Zone A afternoon Zone B afternoon Zone C afternoon 1 hour 30 minutes [Paper 1A and Paper 1B] Chemistry Standard level Paper 1A Instructions to students y Do not open this examinat"
+    },
+    "markscheme": {
+     "coverPage": 1,
+     "coverText": "2226 – 4219M 3 pages Markscheme May 2026 Chemistry Standard level Paper 1"
+    }
+   },
+   "visualEvidence": [
+    {
+     "document": "question",
+     "sourcePdfSha256": "c09c55df6d8561824bebda210620996e702ba982f5ac2de3a846306a77942755",
+     "page": 2,
+     "imagePath": "identity-evidence/6cb4249ecee72e0d135967cc9a4f5c0251ef363a8ac242257a3e570c4f2daf7d.png",
+     "imageSha256": "6cb4249ecee72e0d135967cc9a4f5c0251ef363a8ac242257a3e570c4f2daf7d"
+    },
+    {
+     "document": "markscheme",
+     "sourcePdfSha256": "4ef31c066f8641af025e0f9a1aa923974a432a82b93c363efa81b58ca3ab565d",
+     "page": 1,
+     "imagePath": "identity-evidence/c0e48a339be640d38aa0d006aa6aaf5cb360b630b3c9902226611a5e0bbffbbf.png",
+     "imageSha256": "c0e48a339be640d38aa0d006aa6aaf5cb360b630b3c9902226611a5e0bbffbbf"
+    }
+   ]
+  }
+ ]
+}
