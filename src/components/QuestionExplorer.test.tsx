@@ -1179,6 +1179,42 @@ describe("QuestionExplorer", () => {
     }
   });
 
+  it("states the bank-wide free count only once the full index has loaded", async () => {
+    const free = loadBankQuestions("ib-sl").filter((question) => isPreviewQuestion(question.bankSlug, question.id)).slice(0, 60);
+    expect(free).toHaveLength(60);
+    window.history.replaceState({}, "", "/banks/ib-sl?free=1");
+    const scenarios = [
+      { indexResponse: () => new Response(JSON.stringify({ version: 1, bank: "ib-sl", questions: free.map(toPublicQuestionMetadata) }), { status: 200 }), after: /A free account opens all 60 free IB Math AA SL questions\./i },
+      { indexResponse: () => new Response("unavailable", { status: 503 }), after: /Create a free account for the other 4 free questions\./i },
+    ];
+    for (const { indexResponse, after } of scenarios) {
+      let idleCallback: IdleRequestCallback | undefined;
+      vi.stubGlobal("requestIdleCallback", vi.fn((callback: IdleRequestCallback) => { idleCallback = callback; return 1; }));
+      vi.stubGlobal("cancelIdleCallback", vi.fn());
+      vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => {
+        if (String(input).startsWith("/bank-index/")) return indexResponse();
+        if (isFreeAssetRequest(input)) return freeAssetResponse(input, (questionId) => `https://assets.example/${questionId}.webp`);
+        return new Response(JSON.stringify({ expiresIn: 600, assets: [] }), { status: 200 });
+      }));
+      const { unmount } = render(<QuestionExplorer
+        questions={prepareQuestionsForDelivery(free.slice(0, 24), [])}
+        bankSlug="ib-sl"
+        indexUrl="/bank-index/ib-sl.v1-test.json"
+        access={{ authenticated: false, bankAccess: false, canExportPdf: false }}
+        initialState={{ search: "", sort: "paper", filters: {}, freeOnly: true, savedOnly: false, courseRoute: "all", visible: 24 }}
+        hydrateFromLocation
+      />);
+
+      // Server sample only: 24 free questions is not the bank's free set.
+      await waitFor(() => expect(screen.getAllByText(/Create a free account for the other 4 free questions\./i)).toHaveLength(2));
+      expect(screen.queryByText(/A free account opens all 24/i)).not.toBeInTheDocument();
+
+      await act(async () => { idleCallback!({ didTimeout: false, timeRemaining: () => 20 }); });
+      await waitFor(() => expect(screen.getAllByText(after)).toHaveLength(2));
+      unmount();
+    }
+  });
+
   it("does not request the same question signature twice while the first request is still in flight", async () => {
     const all = loadBankQuestions("ib-sl");
     const initial = prepareQuestionsForDelivery(all.slice(0, 1), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);

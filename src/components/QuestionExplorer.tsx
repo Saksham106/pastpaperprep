@@ -466,7 +466,8 @@ access: ExplorerAccess;
   const upgradeLink = (placement: UpgradePlacement) => bank ? upgradeHref(bank, placement) : upgradeHref("", placement);
   const bankShortName = BANK_CATALOG.find((entry) => entry.slug === bank)?.shortName ?? "bank";
   const paidCount = useMemo(() => catalogQuestions.filter((question) => !isPreviewQuestion(question.bankSlug, question.id)).length, [catalogQuestions]);
-  const bankFreeCount = catalogQuestions.length - paidCount;
+  // The catalogue starts as the server's first-page sample; only a fully loaded index is the whole bank.
+  const bankFreeCount = indexLoaded && !indexError ? catalogQuestions.length - paidCount : undefined;
   const teaserPool = useMemo(() => nudgesActive && effectiveFreeOnly
     ? matching.filter((question) => !isPreviewQuestion(question.bankSlug, question.id)).sort((a, b) => b.year - a.year || sessionRank(b.session) - sessionRank(a.session))
     : [], [nudgesActive, effectiveFreeOnly, matching]);
