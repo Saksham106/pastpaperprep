@@ -1,6 +1,6 @@
 # IB Chemistry May 2026: official papers
 
-October 2026. Branch `feat/ib-chemistry-may-2026`. **Nothing is uploaded yet**: the crops and PDFs below need the owner's approval first.
+October 2026. Branch `feat/ib-chemistry-may-2026`. **Storage uploads are done (owner-approved, 2026-10-15; see Storage).**
 
 ## What was added
 
@@ -37,7 +37,7 @@ There is no Paper 3 in the 2025 syllabus (174 probes for TZ0/TZ4, Paper 3 and co
 - The 2016-2019 science candidate seal keeps verifying the sealed runtime: `sealedRuntimeBytes()` in `scripts/ib-science-receipt-contract.mjs` removes the 2026 append and must give the sealed hashes back.
 - `src/data/private-index/ib-chemistry-*.json` (a 2016-2019 extension-era artifact no code reads) is not regenerated.
 
-## Upload plans (not executed)
+## Storage (done) and plans
 
 | Bucket | Plan | Objects | Bytes |
 | --- | --- | ---: | ---: |
@@ -49,8 +49,8 @@ There is no Paper 3 in the 2025 syllabus (174 probes for TZ0/TZ4, Paper 3 and co
 - **PDFs:** `scripts/publish-added-free-papers.mts upload` then `verify`; `verify` is what rewrites `src/data/paper-archive-readback.json`.
 - IB Chemistry has no 2026 free-preview year, so no Supabase preview objects are needed.
 
-## Owner decisions
+- **Result:** 697/697 crops verified by SHA-256 and size and equal to the plan (none pre-existing); log `docs/ib-chemistry-may-2026/r2-upload-log-assets.jsonl`. The 36 PDFs are public; `verify` re-read all 5,020 approved PDFs and rewrote `src/data/paper-archive-readback.json`. (Two earlier verify runs each hit one transient curl exit 56 on a different object; the third run was clean.)
 
-1. Approve the two uploads above.
-2. After upload, run `verify` and commit the refreshed `src/data/paper-archive-readback.json`.
-3. No worked explanations exist for the 2026 ids.
+## Owner notes
+
+1. No worked explanations exist for the 2026 ids.
