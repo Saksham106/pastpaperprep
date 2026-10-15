@@ -72,7 +72,10 @@ describe("MCQ detection", () => {
 
 const OVERLAY_PATH = join(process.cwd(), "src", "data", "reviewed-mcq-answer-letters.json");
 // Imported 2026-10-13 from ../research/mcq-answer-letters-2026-10 (receipt: docs/reviewed-mcq-answer-letters.md).
-const OVERLAY_SHA256 = "56f8b685ae1f7e3752888775d25ff71627b6522fc419d5f81664b14232556849";
+const OVERLAY_SHA256 = "ef8c95f022c6d5d2256a02667fea364da4495a85436656b20cdc87148a345af7";
+// May 2026 IB Physics keys (195), read two ways from the official mark schemes; merged over the research file.
+const MAY_2026_PHYSICS_PATH = join(process.cwd(), "docs", "ib-physics-may-2026", "mcq-answer-letters-2026.json");
+const MAY_2026_PHYSICS_SHA256 = "75d8347ee954d60f2bb58cc34d808e144db2ca4c6193e580e2eebb8b0ab0a214";
 // The research folder sits beside the repository; from a worktree under .worktrees/ it is three levels up.
 const SOURCE_PATH = [["..", "research"], ["..", "..", "..", "research"]]
   .map((up) => join(process.cwd(), ...up, "mcq-answer-letters-2026-10", "reviewed-mcq-answer-letters.json"))
@@ -93,13 +96,14 @@ describe("reviewed MCQ answer letters file", () => {
     const receipt = readFileSync(join(process.cwd(), "docs", "reviewed-mcq-answer-letters.md"), "utf8");
     expect(receipt).toContain(OVERLAY_SHA256);
     expect(receipt).toContain(SOURCE_SHA256);
+    expect(receipt).toContain(MAY_2026_PHYSICS_SHA256);
     const counts = Object.fromEntries(Object.entries(REVIEWED_MCQ_ANSWER_LETTERS.banks).map(([bank, entries]) => [bank, Object.keys(entries ?? {}).length]));
     expect(counts).toEqual({
       // 0455 includes its 119 2026 Paper 1 letters; 0610 is only the 240 May/June 2026 MCQs.
       "igcse-economics-0455": 1584, "igcse-biology-0610": 240,
       "ib-biology-hl": 1200, "ib-biology-sl": 930,
       "ib-chemistry-hl": 1200, "ib-chemistry-sl": 900,
-      "ib-physics-hl": 1200, "ib-physics-sl": 872,
+      "ib-physics-hl": 1320, "ib-physics-sl": 947,
     });
   });
 
@@ -125,7 +129,11 @@ describe("reviewed MCQ answer letters file", () => {
     expect(sha256(source)).toBe(SOURCE_SHA256);
     const rows = new Map<BankSlug, readonly Row[]>();
     for (const bank of MCQ_ANSWER_BANKS) rows.set(bank, await loadBankRawQuestions(bank));
-    const result = importReviewedMcqAnswerLetters(JSON.parse(source.toString("utf8")), (bank) => rows.get(bank) ?? []);
+    const additions = readFileSync(MAY_2026_PHYSICS_PATH);
+    expect(sha256(additions)).toBe(MAY_2026_PHYSICS_SHA256);
+    const merged = JSON.parse(source.toString("utf8"));
+    for (const [bank, entries] of Object.entries(JSON.parse(additions.toString("utf8")).banks)) Object.assign(merged.banks[bank], entries);
+    const result = importReviewedMcqAnswerLetters(merged, (bank) => rows.get(bank) ?? []);
     expect(formatReviewedMcqAnswerLetters(result.letters)).toBe(readFileSync(OVERLAY_PATH, "utf8"));
     expect(result.removed).toEqual(["igcse-economics-0455:0455-2026-s-11-q26"]);
     // Every reviewed row has landed: the 359 2026 rows held back at first import are in the bank now.

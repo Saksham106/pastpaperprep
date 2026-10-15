@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { sealedRuntimeBytes } from "../../scripts/ib-science-receipt-contract.mjs";
 import { BANKS, getBank } from "@/lib/banks";
 import { PREVIEW_QUESTION_IDS, FREE_QUESTION_YEARS, hasBankAccess, isPreviewQuestion } from "@/lib/access";
 import { storageObjectPath } from "@/lib/assets";
@@ -44,9 +45,19 @@ type PhysicsRawFixture = {
 const ROOT = process.cwd();
 const PHYSICS_BANKS = ["ib-physics-hl", "ib-physics-sl"] as const;
 const EXPECTED = {
-  "ib-physics-hl": { questions: 1875, papers: 84 },
-  "ib-physics-sl": { questions: 1314, papers: 84 },
+  "ib-physics-hl": { questions: 2028, papers: 93 },
+  "ib-physics-sl": { questions: 1413, papers: 93 },
 } as const;
+const RUNTIME_HASHES = {
+  "ib-physics-hl": "50b7b007ca498ca2b8b77fee82fffbb9896567ec1a0c8ea65e014f1552029e9d",
+  "ib-physics-sl": "be20cb2b049481f598c2033488d6a70c0aed4796dda806ed5698989c2756e2f0",
+} as const;
+// The runtime before the official May 2026 papers were appended (origin/main 5d0f243): every row, paper and header field must survive.
+const PRE_2026_RUNTIME_HASHES = {
+  "ib-physics-hl": "92bdbf445cde1cf50c3d05b767e45c2e99952f57fdd24bf8cb003814ace81104",
+  "ib-physics-sl": "f6b6b31863b02b9c4624efeb106a8462b8abfa0674b1f1a5e738916820ddfbe2",
+} as const;
+const PRE_2026_COUNTS = { "ib-physics-hl": { questions: 1875, papers: 84 }, "ib-physics-sl": { questions: 1314, papers: 84 } } as const;
 const PHYSICS_MANIFEST_SHA256 = "d36853411d95f71617d77f2d269f069facca1e047296373a34ae36dbbcfbb54a";
 const PHYSICS_TAXONOMY_SHA256 = "2cd12dbb2275462a79589f92e3dfde7c258ceb5c3eb3885b7994aac2a9d0b767";
 
@@ -71,12 +82,12 @@ describe("IB Physics HL/SL integration", () => {
       "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl",
       "ib-biology-hl", "ib-biology-sl",
     ]);
-    expect(getBank("ib-physics-hl")?.questionCount).toBe(1875);
-    expect(getBank("ib-physics-sl")?.questionCount).toBe(1314);
-    expect(getBank("ib-physics-hl")?.paperCount).toBe(84);
-    expect(getBank("ib-physics-sl")?.paperCount).toBe(84);
-    expect(getBank("ib-physics-hl")?.years).toBe("2016-2025");
-    expect(getBank("ib-physics-sl")?.years).toBe("2016-2025");
+    expect(getBank("ib-physics-hl")?.questionCount).toBe(2028);
+    expect(getBank("ib-physics-sl")?.questionCount).toBe(1413);
+    expect(getBank("ib-physics-hl")?.paperCount).toBe(93);
+    expect(getBank("ib-physics-sl")?.paperCount).toBe(93);
+    expect(getBank("ib-physics-hl")?.years).toBe("2016-2026");
+    expect(getBank("ib-physics-sl")?.years).toBe("2016-2026");
   });
 
   it("loads sealed runtime JSONs with reviewed provenance and no specimens", () => {
@@ -89,18 +100,36 @@ describe("IB Physics HL/SL integration", () => {
       expect(raw.sourceType).toBe("actual_past_paper");
       expect(raw.specimenQuestionsIncluded).toBe(false);
       expect(raw.questions).toHaveLength(EXPECTED[bank].questions);
-      expect(raw.papers).toHaveLength(84);
-      expect(raw.years).toEqual([2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]);
-      expect(raw.papers.every((paper) => [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025].includes(paper.year))).toBe(true);
+      expect(raw.papers).toHaveLength(EXPECTED[bank].papers);
+      expect(raw.years).toEqual([2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]);
+      expect(raw.papers.every((paper) => [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026].includes(paper.year))).toBe(true);
       expect(raw.papers.every((paper) => paper.sourceUrl === paper.pdfUrl && !/specimen/i.test(paper.id))).toBe(true);
-      expect(raw.questions.every((question) => [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025].includes(question.year))).toBe(true);
+      expect(raw.questions.every((question) => [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026].includes(question.year))).toBe(true);
       expect(raw.questions.every((question) => question.sourceUrl === question.pdfUrl)).toBe(true);
-      expect(raw.questions.every((question) => question.sourceUrl.startsWith("https://ibdocs.re/"))).toBe(true);
-      expect(raw.questions.every((question) => question.classificationVersion === "ib-physics-reviewed-2026.09.1" || question.classificationVersion === "ib-physics-extension-2016-2019")).toBe(true);
+      // Earlier papers come from IB Docs; the official May 2026 papers from the xtremepape.rs mirror of the IB release.
+      expect(raw.questions.every((question) => question.sourceUrl.startsWith(question.year === 2026 ? "https://papers.xtremepape.rs/IB/2026%20Examination%20Session/" : "https://ibdocs.re/"))).toBe(true);
+      expect(raw.questions.every((question) => question.classificationVersion === "ib-physics-reviewed-2026.09.1" || question.classificationVersion === "ib-physics-extension-2016-2019" || (question.year === 2026 && question.classificationVersion === "ib-physics-reviewed-2026.10.may2026"))).toBe(true);
       expect(raw.questions.every((question) => question.classificationReviewStatus === "classified")).toBe(true);
-      expect(raw.questions.every((question) => question.classificationEvidence.finalManifestSha256 === PHYSICS_MANIFEST_SHA256 || (question.classificationEvidence as Record<string, unknown>).sourceCommit === "0bdfc1a888e4bc3f8163badbaeb16268a814e1a2")).toBe(true);
+      expect(raw.questions.every((question) => question.classificationEvidence.finalManifestSha256 === PHYSICS_MANIFEST_SHA256 || question.year === 2026 || (question.classificationEvidence as Record<string, unknown>).sourceCommit === "0bdfc1a888e4bc3f8163badbaeb16268a814e1a2")).toBe(true);
       expect(raw.questions.every((question) => question.classificationEvidence.summary.length > 0)).toBe(true);
       expect(raw.questions.every((question) => !question.courseEra && !question.private && !question.privateAsset)).toBe(true);
+    }
+  });
+
+  it("appends the May 2026 papers and leaves every earlier row, paper and header field byte-identical", () => {
+    for (const bank of PHYSICS_BANKS) {
+      const bytes = readFileSync(rawPath(bank));
+      const raw = readRaw(bank);
+      const release = (raw as unknown as { may2026Release: { baseQuestionCount: number; addedQuestionCount: number; addedPaperCount: number } }).may2026Release;
+      // Removing the append must give back exactly the sealed pre-2026 runtime (same bytes as origin/main 5d0f243).
+      expect(createHash("sha256").update(sealedRuntimeBytes(`src/data/raw/${bank}.json`, bytes)).digest("hex")).toBe(PRE_2026_RUNTIME_HASHES[bank]);
+      expect(release.baseQuestionCount).toBe(PRE_2026_COUNTS[bank].questions);
+      expect(raw.papers.length - release.addedPaperCount).toBe(PRE_2026_COUNTS[bank].papers);
+      expect(raw.questions.slice(release.baseQuestionCount).every((row) => row.year === 2026)).toBe(true);
+      expect(raw.questions.filter((row) => row.year === 2026)).toHaveLength(release.addedQuestionCount);
+      expect(raw.questions.slice(0, release.baseQuestionCount).some((row) => row.year === 2026)).toBe(false);
+      expect(createHash("sha256").update(bytes).digest("hex")).toBe(RUNTIME_HASHES[bank]);
+      expect(createHash("sha256").update(readFileSync(join(ROOT, "src/data/production", `${bank}.json`))).digest("hex")).toBe(RUNTIME_HASHES[bank]);
     }
   });
 
@@ -146,9 +175,10 @@ describe("IB Physics HL/SL integration", () => {
       expect(PHYSICS_BANKS).toContain(bank);
       expect(relativeParts.length).toBeGreaterThan(1);
     }
-    expect(plan.allPaths.size).toBe(5196 + 4220);
+    // 653 official May 2026 question and mark-scheme crops (HL 395, SL 258) are added to the pre-2026 5196 and 4220.
+    expect(plan.allPaths.size).toBe(5196 + 4220 + 653);
     expect(plan.previewPaths.size).toBe(385);
-    expect(plan.premiumPaths.size).toBe(9031);
+    expect(plan.premiumPaths.size).toBe(9031 + 653);
   });
 
   it("uses the explicit 2020 preview policy and scopes pair access", () => {

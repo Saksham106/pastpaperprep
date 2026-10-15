@@ -43,7 +43,7 @@ export const BANK_CATALOG = [
       "ib-hl": ["Mathematics AA", "Mathematics AA Higher Level", "HL", 893, 110, "2017-2026"], "ib-sl": ["Mathematics AA", "Mathematics AA Standard Level", "SL", 596, 64, "2017-2026"],
       "ib-ai-hl": ["Mathematics AI", "Mathematics AI Higher Level", "HL", 409, 48, "2021-2025"], "ib-ai-sl": ["Mathematics AI", "Mathematics AI Standard Level", "SL", 334, 38, "2021-2025"],
       "ib-chemistry-hl": ["Chemistry", "Chemistry Higher Level", "HL", 1872, 84, "2016-2025"], "ib-chemistry-sl": ["Chemistry", "Chemistry Standard Level", "SL", 1412, 84, "2016-2025"],
-      "ib-physics-hl": ["Physics", "Physics Higher Level", "HL", 1875, 84, "2016-2025"], "ib-physics-sl": ["Physics", "Physics Standard Level", "SL", 1314, 84, "2016-2025"],
+      "ib-physics-hl": ["Physics", "Physics Higher Level", "HL", 2028, 93, "2016-2026"], "ib-physics-sl": ["Physics", "Physics Standard Level", "SL", 1413, 93, "2016-2026"],
       "ib-biology-hl": ["Biology", "Biology Higher Level", "HL", 1911, 84, "2016-2025"], "ib-biology-sl": ["Biology", "Biology Standard Level", "SL", 1548, 87, "2016-2025"],
     };
     const [subject, title, level, questionCount, paperCount, years] = table[slug];
