@@ -6,6 +6,7 @@ import { hydrateRoot } from "react-dom/client";
 import { act } from "react";
 import { join } from "node:path";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
+import { suggestWorksheetTitle } from "@/lib/worksheet-title";
 import { parseExplorerState } from "@/lib/explorer-state";
 import { PREVIEW_QUESTION_IDS, isPreviewQuestion } from "@/lib/access";
 import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
@@ -422,6 +423,7 @@ describe("QuestionExplorer", () => {
     const calls: Array<{ url: string; init?: RequestInit }> = [];
     vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
       const url = String(input); calls.push({ url, init });
+      if (url === "/api/worksheets" && !init?.method) return Response.json({ worksheets: [{ title: suggestWorksheetTitle([questions[1], questions[0]]) }] });
       if (url === "/api/worksheets") return new Response(JSON.stringify({ worksheet: { id: "worksheet-1", bank_slug: "ib-sl", title: "My set", question_ids: questions.slice(0, 2).map((question) => question.id), content_mode: "answers", revision: 1 } }), { status: 201 });
       if (url === "/api/study-state") return new Response("{}", { status: 200 });
       const body = JSON.parse(String(init?.body));
@@ -434,7 +436,8 @@ describe("QuestionExplorer", () => {
     fireEvent.click(screen.getByRole("button", { name: "Save PDF (2 selected)" }));
     const dialog = screen.getByRole("dialog", { name: /save 2 questions as a pdf/i });
     const nameField = within(dialog).getByRole("textbox", { name: "PDF name" });
-    expect((nameField as HTMLInputElement).value).toMatch(/^IB SL /);
+    // Named after its topics, and numbered past the title the student already has.
+    await waitFor(() => expect((nameField as HTMLInputElement).value).toBe(`${suggestWorksheetTitle([questions[1], questions[0]])} 2`));
     // Save is the main action; downloading without saving is only a quiet icon beside it.
     expect(within(dialog).getAllByRole("button", { name: /download/i })).toHaveLength(1);
     expect(within(dialog).getByRole("button", { name: "Download PDF without saving" })).toHaveClass("pdf-direct-download");
@@ -442,8 +445,8 @@ describe("QuestionExplorer", () => {
     fireEvent.click(within(dialog).getByRole("radio", { name: "Answers" }));
     fireEvent.change(nameField, { target: { value: "My set" } });
     fireEvent.click(within(dialog).getByRole("button", { name: "Save PDF" }));
-    await waitFor(() => expect(calls.some(({ url }) => url === "/api/worksheets")).toBe(true));
-    const save = calls.find(({ url }) => url === "/api/worksheets")!;
+    await waitFor(() => expect(calls.some(({ url, init }) => url === "/api/worksheets" && init?.method === "POST")).toBe(true));
+    const save = calls.find(({ url, init }) => url === "/api/worksheets" && init?.method === "POST")!;
     expect(JSON.parse(String(save.init?.body))).toEqual({ bank: "ib-sl", name: "My set", questionIds: [questions[1].id, questions[0].id], contentMode: "answers" });
     expect(await screen.findByText(/saved “my set” to my worksheets/i)).toBeInTheDocument();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -452,7 +455,7 @@ describe("QuestionExplorer", () => {
     expect(screen.getByRole("link", { name: "My Worksheets" })).toHaveAttribute("href", "/worksheets");
     expect(screen.getAllByRole("checkbox", { name: /add question/i }).every((box) => !(box as HTMLInputElement).checked)).toBe(true);
     fireEvent.click(screen.getByRole("button", { name: "Save PDF" }));
-    expect((within(screen.getByRole("dialog")).getByRole("textbox", { name: "PDF name" }) as HTMLInputElement).value).toMatch(/^IB SL /);
+    expect((within(screen.getByRole("dialog")).getByRole("textbox", { name: "PDF name" }) as HTMLInputElement).value).not.toBe("");
   });
 
   it("reopens a worksheet by opaque ID and restores saved content and selected membership", async () => {

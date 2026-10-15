@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, FilePlus, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
 import type { PdfAnswerPlacement, PdfContent } from "@/lib/pdf-export";
+import { suggestWorksheetTitle } from "@/lib/worksheet-title";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 import { fetchExplanation } from "@/lib/explanation-client";
 import type { Explanation } from "@/lib/explanation-format";
@@ -1215,9 +1216,14 @@ access: ExplorerAccess;
     if (worksheetId && worksheetDirty) { setPendingWorksheetAction({ kind: "pdf" }); return; }
     if (!resolvedAccess.canExportPdf) { showPdfUpgrade(); return; }
     if (!worksheetId && !worksheetName.trim()) {
-      const bankLabel = (bank ?? "Worksheet").replaceAll("-", " ").toUpperCase();
-      const topics = [...new Set(exportQuestions.map((question) => formatPublicLabel(question.primaryTopic)))];
-      setWorksheetName(`${bankLabel} ${topics.length === 1 && topics[0].length <= 28 ? topics[0] : "Worksheet 1"}`.slice(0, 80));
+      const suggested = suggestWorksheetTitle(exportQuestions);
+      setWorksheetName(suggested);
+      // Number the default past the student's saved titles ("Atoms 2"), unless they have started typing.
+      void fetch("/api/worksheets").then(async (response) => {
+        const payload = response.ok ? await response.json() : null;
+        const titles = Array.isArray(payload?.worksheets) ? payload.worksheets.map((item: { title?: unknown }) => item.title).filter((title: unknown): title is string => typeof title === "string") : [];
+        if (titles.length) setWorksheetName((current) => current === suggested ? suggestWorksheetTitle(exportQuestions, titles) : current);
+      }).catch(() => {});
     }
     trackProductEvent("pdf_builder_open", { bank: bank ?? "unknown", questionCount: exportQuestions.length });
     if (pdfStatusKind !== "progress") setPdfStatus(""); // drop a finished download's message, keep one still running
@@ -1246,6 +1252,7 @@ access: ExplorerAccess;
         },
         resolvedExportMarker,
         pdfAnswerPlacement,
+        { title: worksheetName.trim() || suggestWorksheetTitle(exportQuestions), bankSlug: bank },
       );
       if (!scopeIsCurrent()) return;
       setPdfStatusKind("success");
