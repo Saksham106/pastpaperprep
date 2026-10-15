@@ -1,0 +1,3833 @@
+{
+  "manifestVersion": "ib-biology-may-2026-review.1",
+  "reviewedQuestionCount": 284,
+  "reviewMethod": "Official May 2026 TZ1-TZ3 questions: a source-grounded primary pass from the question crop and official markscheme, a separate blind second pass from sealed evidence without the primary labels or the Drex triage scores, and a written adjudication of every row where the passes differ (primary, secondaries, groups, status) or either was low-confidence. Drex (drex-v1.1 requests, answered by drex-v1.5) was used for triage only.",
+  "sourceCommitPrefix": "52a15a9",
+  "finalLabelsSha256": "c760b8fd094ea2fd576df1cd2b4525381849537ed62dee8d0a7007679d954235",
+  "rows": [
+    {
+      "id": "2026-may-tz1-hl-p1a-q1",
+      "level": "HL",
+      "codes": [
+        "A1.1"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q10",
+      "level": "HL",
+      "codes": [
+        "D1.2"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": "D1.2 group I1 by convention"
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q11",
+      "level": "HL",
+      "codes": [
+        "D1.3"
+      ],
+      "groups": [
+        "I5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q12",
+      "level": "HL",
+      "codes": [
+        "A2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q13",
+      "level": "HL",
+      "codes": [
+        "A2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q14",
+      "level": "HL",
+      "codes": [
+        "B2.1"
+      ],
+      "groups": [
+        "M3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q15",
+      "level": "HL",
+      "codes": [
+        "B2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": "B2.2 group M2 by convention (2025 clathrin row)"
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q16",
+      "level": "HL",
+      "codes": [
+        "B2.3"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q17",
+      "level": "HL",
+      "codes": [
+        "C2.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q18",
+      "level": "HL",
+      "codes": [
+        "C2.2"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q19",
+      "level": "HL",
+      "codes": [
+        "D2.2"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q2",
+      "level": "HL",
+      "codes": [
+        "A1.2"
+      ],
+      "groups": [
+        "M5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q20",
+      "level": "HL",
+      "codes": [
+        "D2.2"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q21",
+      "level": "HL",
+      "codes": [
+        "A3.1"
+      ],
+      "groups": [
+        "I4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q22",
+      "level": "HL",
+      "codes": [
+        "A3.1"
+      ],
+      "groups": [
+        "I4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q23",
+      "level": "HL",
+      "codes": [
+        "B3.1"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q24",
+      "level": "HL",
+      "codes": [
+        "B3.2"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q25",
+      "level": "HL",
+      "codes": [
+        "B3.3"
+      ],
+      "groups": [
+        "O6"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q26",
+      "level": "HL",
+      "codes": [
+        "C3.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q27",
+      "level": "HL",
+      "codes": [
+        "C3.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q28",
+      "level": "HL",
+      "codes": [
+        "C3.2"
+      ],
+      "groups": [
+        "O4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q29",
+      "level": "HL",
+      "codes": [
+        "D3.1"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q3",
+      "level": "HL",
+      "codes": [
+        "B1.1"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q30",
+      "level": "HL",
+      "codes": [
+        "D3.2"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q31",
+      "level": "HL",
+      "codes": [
+        "D3.2"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q32",
+      "level": "HL",
+      "codes": [
+        "D3.3"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q33",
+      "level": "HL",
+      "codes": [
+        "A4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q34",
+      "level": "HL",
+      "codes": [
+        "A4.2"
+      ],
+      "groups": [
+        "P4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q35",
+      "level": "HL",
+      "codes": [
+        "B4.1"
+      ],
+      "groups": [
+        "P3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q36",
+      "level": "HL",
+      "codes": [
+        "C4.1"
+      ],
+      "groups": [
+        "P1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q37",
+      "level": "HL",
+      "codes": [
+        "C4.2"
+      ],
+      "groups": [
+        "P2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q38",
+      "level": "HL",
+      "codes": [
+        "D4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q39",
+      "level": "HL",
+      "codes": [
+        "D4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q4",
+      "level": "HL",
+      "codes": [
+        "B1.2"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q40",
+      "level": "HL",
+      "codes": [
+        "D4.3"
+      ],
+      "groups": [
+        "P5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q5",
+      "level": "HL",
+      "codes": [
+        "C1.1"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q6",
+      "level": "HL",
+      "codes": [
+        "C1.1"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q7",
+      "level": "HL",
+      "codes": [
+        "C1.2"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q8",
+      "level": "HL",
+      "codes": [
+        "C1.3"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1a-q9",
+      "level": "HL",
+      "codes": [
+        "D1.1"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": "D1.1 group I1 by convention"
+    },
+    {
+      "id": "2026-may-tz1-hl-p1b-q1",
+      "level": "HL",
+      "codes": [
+        "A2.2",
+        "B2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "blind",
+      "adjudication": "a(i) drawing mitochondrion structure from an electron micrograph, a(ii) 70S vs 80S ribosomes and b temporary mounts are cell-structure/microscopy (A2.2, 7 of 8 marks with the drawing); only a(iii) Golgi is B2.2"
+    },
+    {
+      "id": "2026-may-tz1-hl-p1b-q2",
+      "level": "HL",
+      "codes": [
+        "B3.2"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1b-q3",
+      "level": "HL",
+      "codes": [
+        "C3.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p1b-q4",
+      "level": "HL",
+      "codes": [
+        "D2.1",
+        "D3.1"
+      ],
+      "groups": [
+        "I2",
+        "O5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q1",
+      "level": "HL",
+      "codes": [
+        "D4.3"
+      ],
+      "groups": [
+        "P5"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q10",
+      "level": "HL",
+      "codes": [
+        "C1.2",
+        "D2.3",
+        "C2.2"
+      ],
+      "groups": [
+        "M4",
+        "M3",
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q2",
+      "level": "HL",
+      "codes": [
+        "D1.2",
+        "A1.2"
+      ],
+      "groups": [
+        "I1",
+        "M5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": "D1.2 primary under I1; A1.2 secondary keeps M5"
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q3",
+      "level": "HL",
+      "codes": [
+        "A2.3"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q4",
+      "level": "HL",
+      "codes": [
+        "A2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q5",
+      "level": "HL",
+      "codes": [
+        "D3.3",
+        "C3.1"
+      ],
+      "groups": [
+        "O5",
+        "O3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q6",
+      "level": "HL",
+      "codes": [
+        "D4.1",
+        "D1.3",
+        "C3.2"
+      ],
+      "groups": [
+        "I3",
+        "I1",
+        "O4"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q7",
+      "level": "HL",
+      "codes": [
+        "D3.2"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q8",
+      "level": "HL",
+      "codes": [
+        "B3.1",
+        "B1.2",
+        "B2.3"
+      ],
+      "groups": [
+        "O2",
+        "M1",
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-hl-p2-q9",
+      "level": "HL",
+      "codes": [
+        "B4.1",
+        "B4.2",
+        "B2.1"
+      ],
+      "groups": [
+        "P3",
+        "M3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q1",
+      "level": "SL",
+      "codes": [
+        "A1.2"
+      ],
+      "groups": [
+        "M5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q10",
+      "level": "SL",
+      "codes": [
+        "B2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q11",
+      "level": "SL",
+      "codes": [
+        "C2.2"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q12",
+      "level": "SL",
+      "codes": [
+        "D2.1"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q13",
+      "level": "SL",
+      "codes": [
+        "A3.1"
+      ],
+      "groups": [
+        "I4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q14",
+      "level": "SL",
+      "codes": [
+        "B3.1"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q15",
+      "level": "SL",
+      "codes": [
+        "B3.2"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q16",
+      "level": "SL",
+      "codes": [
+        "C3.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q17",
+      "level": "SL",
+      "codes": [
+        "C3.1"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": "heart-rate control: C3.1 under O5 by convention"
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q18",
+      "level": "SL",
+      "codes": [
+        "C3.2"
+      ],
+      "groups": [
+        "O4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q19",
+      "level": "SL",
+      "codes": [
+        "D3.1"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q2",
+      "level": "SL",
+      "codes": [
+        "B1.1"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q20",
+      "level": "SL",
+      "codes": [
+        "D3.2"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q21",
+      "level": "SL",
+      "codes": [
+        "D3.2"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q22",
+      "level": "SL",
+      "codes": [
+        "A4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q23",
+      "level": "SL",
+      "codes": [
+        "A4.2"
+      ],
+      "groups": [
+        "P4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q24",
+      "level": "SL",
+      "codes": [
+        "B4.1"
+      ],
+      "groups": [
+        "P3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q25",
+      "level": "SL",
+      "codes": [
+        "B4.2"
+      ],
+      "groups": [
+        "P3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": "bee mimicry keeps predators away: prey adaptation for resisting predation (B4.2); same group P3 either way"
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q26",
+      "level": "SL",
+      "codes": [
+        "C4.1"
+      ],
+      "groups": [
+        "P1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q27",
+      "level": "SL",
+      "codes": [
+        "C4.1"
+      ],
+      "groups": [
+        "P1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q28",
+      "level": "SL",
+      "codes": [
+        "C4.2"
+      ],
+      "groups": [
+        "P2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q29",
+      "level": "SL",
+      "codes": [
+        "D4.2"
+      ],
+      "groups": [
+        "P5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": "role of keystone species in ecosystem stability is D4.2 in the 2025 guide; C4.1 covers the interactions themselves"
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q3",
+      "level": "SL",
+      "codes": [
+        "B1.1"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q30",
+      "level": "SL",
+      "codes": [
+        "D4.3"
+      ],
+      "groups": [
+        "P5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q4",
+      "level": "SL",
+      "codes": [
+        "C1.1"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q5",
+      "level": "SL",
+      "codes": [
+        "C1.2"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q6",
+      "level": "SL",
+      "codes": [
+        "D1.1"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q7",
+      "level": "SL",
+      "codes": [
+        "D1.2"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": "D1.2 group I1 by convention"
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q8",
+      "level": "SL",
+      "codes": [
+        "A2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1a-q9",
+      "level": "SL",
+      "codes": [
+        "B2.1"
+      ],
+      "groups": [
+        "M3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1b-q1",
+      "level": "SL",
+      "codes": [
+        "A2.2",
+        "B2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1b-q2",
+      "level": "SL",
+      "codes": [
+        "B3.2",
+        "B4.1"
+      ],
+      "groups": [
+        "O2",
+        "P3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p1b-q3",
+      "level": "SL",
+      "codes": [
+        "C3.1",
+        "C2.2"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "blind",
+      "adjudication": "a(i)-(ii) log scales are data skills; a(iii)+b (2 marks) are C2.2; c pain reflex arc (3) is C3.1, so C3.1 is primary by credited marks"
+    },
+    {
+      "id": "2026-may-tz1-sl-p1b-q4",
+      "level": "SL",
+      "codes": [
+        "D2.3"
+      ],
+      "groups": [
+        "M3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q1",
+      "level": "SL",
+      "codes": [
+        "C3.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "low",
+      "source": "first",
+      "adjudication": "all 12 marks are data analysis with no credited biology point (both passes low). Filed by the assessed context, a spinal-cord (nervous-system) disorder: C3.1/O3. Kept as low confidence; candidates for owner review"
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q2",
+      "level": "SL",
+      "codes": [
+        "D1.2",
+        "A1.2",
+        "B1.2"
+      ],
+      "groups": [
+        "I1",
+        "M5",
+        "M1"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": "A1.2 and D1.2 tie at 3 marks; b polypeptide variety (B1.2) and c translation make protein synthesis the larger theme, so D1.2 primary (I1) with A1.2 and B1.2 secondaries"
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q3",
+      "level": "SL",
+      "codes": [
+        "B2.3"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q4",
+      "level": "SL",
+      "codes": [
+        "C2.2"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q5",
+      "level": "SL",
+      "codes": [
+        "D4.3",
+        "D4.2",
+        "A1.1"
+      ],
+      "groups": [
+        "P5",
+        "P4",
+        "M1"
+      ],
+      "confidence": "medium",
+      "source": "blind",
+      "adjudication": "b macroplastic harm to marine life is a threat to biodiversity: D4.2 secondary filed under P4 as well"
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q6",
+      "level": "SL",
+      "codes": [
+        "D4.1",
+        "B1.1",
+        "B4.2"
+      ],
+      "groups": [
+        "I3",
+        "M1",
+        "P3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz1-sl-p2-q7",
+      "level": "SL",
+      "codes": [
+        "B3.1",
+        "D3.2",
+        "C3.2"
+      ],
+      "groups": [
+        "O2",
+        "I2",
+        "O4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q1",
+      "level": "HL",
+      "codes": [
+        "A2.3"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q10",
+      "level": "HL",
+      "codes": [
+        "D1.3"
+      ],
+      "groups": [
+        "I5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q11",
+      "level": "HL",
+      "codes": [
+        "D1.3"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q12",
+      "level": "HL",
+      "codes": [
+        "A2.1"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q13",
+      "level": "HL",
+      "codes": [
+        "A2.1"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q14",
+      "level": "HL",
+      "codes": [
+        "B2.3"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q15",
+      "level": "HL",
+      "codes": [
+        "B2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": "B2.2 group M2 by convention"
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q16",
+      "level": "HL",
+      "codes": [
+        "B2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q17",
+      "level": "HL",
+      "codes": [
+        "C2.2"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q18",
+      "level": "HL",
+      "codes": [
+        "C2.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q19",
+      "level": "HL",
+      "codes": [
+        "D2.3"
+      ],
+      "groups": [
+        "M3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q2",
+      "level": "HL",
+      "codes": [
+        "A1.2"
+      ],
+      "groups": [
+        "M5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q20",
+      "level": "HL",
+      "codes": [
+        "D2.1"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q21",
+      "level": "HL",
+      "codes": [
+        "C4.1"
+      ],
+      "groups": [
+        "P1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q22",
+      "level": "HL",
+      "codes": [
+        "B3.1"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q23",
+      "level": "HL",
+      "codes": [
+        "B3.3"
+      ],
+      "groups": [
+        "O6"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q24",
+      "level": "HL",
+      "codes": [
+        "B3.3"
+      ],
+      "groups": [
+        "O6"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q25",
+      "level": "HL",
+      "codes": [
+        "C3.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q26",
+      "level": "HL",
+      "codes": [
+        "C3.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q27",
+      "level": "HL",
+      "codes": [
+        "C3.2"
+      ],
+      "groups": [
+        "O4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q28",
+      "level": "HL",
+      "codes": [
+        "D3.1"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q29",
+      "level": "HL",
+      "codes": [
+        "D3.1"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q3",
+      "level": "HL",
+      "codes": [
+        "A1.1"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q30",
+      "level": "HL",
+      "codes": [
+        "D3.2"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q31",
+      "level": "HL",
+      "codes": [
+        "D3.3"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q32",
+      "level": "HL",
+      "codes": [
+        "D3.1"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q33",
+      "level": "HL",
+      "codes": [
+        "A4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q34",
+      "level": "HL",
+      "codes": [
+        "A4.2"
+      ],
+      "groups": [
+        "P4"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q35",
+      "level": "HL",
+      "codes": [
+        "B4.1"
+      ],
+      "groups": [
+        "P3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q36",
+      "level": "HL",
+      "codes": [
+        "C4.1"
+      ],
+      "groups": [
+        "P1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q37",
+      "level": "HL",
+      "codes": [
+        "C4.2"
+      ],
+      "groups": [
+        "P2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q38",
+      "level": "HL",
+      "codes": [
+        "D4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q39",
+      "level": "HL",
+      "codes": [
+        "D4.2"
+      ],
+      "groups": [
+        "P5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q4",
+      "level": "HL",
+      "codes": [
+        "B1.1"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q40",
+      "level": "HL",
+      "codes": [
+        "D2.1"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q5",
+      "level": "HL",
+      "codes": [
+        "B1.2"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q6",
+      "level": "HL",
+      "codes": [
+        "C1.1"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q7",
+      "level": "HL",
+      "codes": [
+        "C1.3"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q8",
+      "level": "HL",
+      "codes": [
+        "C1.1"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1a-q9",
+      "level": "HL",
+      "codes": [
+        "C1.2"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1b-q1",
+      "level": "HL",
+      "codes": [
+        "A2.2",
+        "B2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1b-q2",
+      "level": "HL",
+      "codes": [
+        "C1.3"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1b-q3",
+      "level": "HL",
+      "codes": [
+        "B3.2"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p1b-q4",
+      "level": "HL",
+      "codes": [
+        "D4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q1",
+      "level": "HL",
+      "codes": [
+        "B3.1",
+        "D4.3"
+      ],
+      "groups": [
+        "O2",
+        "P5"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q2",
+      "level": "HL",
+      "codes": [
+        "A2.3"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q3",
+      "level": "HL",
+      "codes": [
+        "B4.2",
+        "B4.1",
+        "A4.1"
+      ],
+      "groups": [
+        "P3",
+        "I3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q4",
+      "level": "HL",
+      "codes": [
+        "C3.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q5",
+      "level": "HL",
+      "codes": [
+        "C4.2",
+        "D4.2",
+        "D4.3"
+      ],
+      "groups": [
+        "P2",
+        "P5"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q6",
+      "level": "HL",
+      "codes": [
+        "D1.2"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": "D1.2 group I1 by convention"
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q7",
+      "level": "HL",
+      "codes": [
+        "C2.2",
+        "D1.1",
+        "B3.2"
+      ],
+      "groups": [
+        "O3",
+        "I1",
+        "O2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": "D1.1 secondary group I1 by convention"
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q8",
+      "level": "HL",
+      "codes": [
+        "D2.1",
+        "D3.1",
+        "A4.1"
+      ],
+      "groups": [
+        "I2",
+        "O5",
+        "I3"
+      ],
+      "confidence": "medium",
+      "source": "blind",
+      "adjudication": "most creditable points in b (7) are meiosis (random orientation, segregation, crossing over): D2.1 outweighs D3.1 (a flower diagram 4 + fertilisation/cross-breeding points)"
+    },
+    {
+      "id": "2026-may-tz2-hl-p2-q9",
+      "level": "HL",
+      "codes": [
+        "D3.3",
+        "B1.1",
+        "C1.2"
+      ],
+      "groups": [
+        "O5",
+        "M1",
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q1",
+      "level": "SL",
+      "codes": [
+        "C3.2"
+      ],
+      "groups": [
+        "O4"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": "A2.3 Viruses is HL-only, so the SL row is filed under viruses as pathogens (C3.2/O4); medium confidence, status classified"
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q10",
+      "level": "SL",
+      "codes": [
+        "B2.3"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q11",
+      "level": "SL",
+      "codes": [
+        "C2.2"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q12",
+      "level": "SL",
+      "codes": [
+        "D2.1"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q13",
+      "level": "SL",
+      "codes": [
+        "C4.1"
+      ],
+      "groups": [
+        "P1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q14",
+      "level": "SL",
+      "codes": [
+        "B3.1"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q15",
+      "level": "SL",
+      "codes": [
+        "B3.1"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q16",
+      "level": "SL",
+      "codes": [
+        "C3.2"
+      ],
+      "groups": [
+        "O4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q17",
+      "level": "SL",
+      "codes": [
+        "C3.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q18",
+      "level": "SL",
+      "codes": [
+        "C3.2"
+      ],
+      "groups": [
+        "O4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q19",
+      "level": "SL",
+      "codes": [
+        "D3.2"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q2",
+      "level": "SL",
+      "codes": [
+        "B1.1"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q20",
+      "level": "SL",
+      "codes": [
+        "D3.2"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q21",
+      "level": "SL",
+      "codes": [
+        "D3.3"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q22",
+      "level": "SL",
+      "codes": [
+        "A4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q23",
+      "level": "SL",
+      "codes": [
+        "A4.2"
+      ],
+      "groups": [
+        "P4"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q24",
+      "level": "SL",
+      "codes": [
+        "B4.1"
+      ],
+      "groups": [
+        "P3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q25",
+      "level": "SL",
+      "codes": [
+        "B4.2"
+      ],
+      "groups": [
+        "P3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q26",
+      "level": "SL",
+      "codes": [
+        "C4.1"
+      ],
+      "groups": [
+        "P1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q27",
+      "level": "SL",
+      "codes": [
+        "C4.1"
+      ],
+      "groups": [
+        "P1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q28",
+      "level": "SL",
+      "codes": [
+        "C4.1"
+      ],
+      "groups": [
+        "P1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q29",
+      "level": "SL",
+      "codes": [
+        "D4.2"
+      ],
+      "groups": [
+        "P5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q3",
+      "level": "SL",
+      "codes": [
+        "B1.2"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q30",
+      "level": "SL",
+      "codes": [
+        "D2.1"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q4",
+      "level": "SL",
+      "codes": [
+        "C1.3"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q5",
+      "level": "SL",
+      "codes": [
+        "C1.1"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q6",
+      "level": "SL",
+      "codes": [
+        "D1.3"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q7",
+      "level": "SL",
+      "codes": [
+        "D1.1"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q8",
+      "level": "SL",
+      "codes": [
+        "A2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1a-q9",
+      "level": "SL",
+      "codes": [
+        "B2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1b-q1",
+      "level": "SL",
+      "codes": [
+        "A2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1b-q2",
+      "level": "SL",
+      "codes": [
+        "C1.3"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1b-q3",
+      "level": "SL",
+      "codes": [
+        "B3.1"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p1b-q4",
+      "level": "SL",
+      "codes": [
+        "D4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q1",
+      "level": "SL",
+      "codes": [
+        "C4.1",
+        "D4.2"
+      ],
+      "groups": [
+        "P1",
+        "P4"
+      ],
+      "confidence": "medium",
+      "source": "blind",
+      "adjudication": "e weighs killing goshawks (raptor persecution) against forest and pheasant sustainability: D4.2 secondary filed under P4"
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q2",
+      "level": "SL",
+      "codes": [
+        "C1.2",
+        "B3.1"
+      ],
+      "groups": [
+        "M4",
+        "O2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q3",
+      "level": "SL",
+      "codes": [
+        "B4.2",
+        "B4.1"
+      ],
+      "groups": [
+        "P3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q4",
+      "level": "SL",
+      "codes": [
+        "D3.3",
+        "D1.3",
+        "D3.2"
+      ],
+      "groups": [
+        "O5",
+        "I1",
+        "I2"
+      ],
+      "confidence": "low",
+      "source": "first",
+      "adjudication": "both passes: three-way 2/2/2 tie, D3.3 primary from the thyroxin stem, D1.3 and D3.2 secondaries; low confidence kept"
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q5",
+      "level": "SL",
+      "codes": [
+        "C3.2"
+      ],
+      "groups": [
+        "O4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q6",
+      "level": "SL",
+      "codes": [
+        "A4.1",
+        "A2.2",
+        "D1.2"
+      ],
+      "groups": [
+        "I3",
+        "M2",
+        "I1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": "D1.2 secondary group I1 by convention"
+    },
+    {
+      "id": "2026-may-tz2-sl-p2-q7",
+      "level": "SL",
+      "codes": [
+        "B2.1",
+        "B1.1",
+        "C2.2"
+      ],
+      "groups": [
+        "M3",
+        "M1",
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q1",
+      "level": "HL",
+      "codes": [
+        "A1.1"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q10",
+      "level": "HL",
+      "codes": [
+        "D1.2"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": "D1.2 group I1 by convention"
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q11",
+      "level": "HL",
+      "codes": [
+        "D1.3"
+      ],
+      "groups": [
+        "I5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q12",
+      "level": "HL",
+      "codes": [
+        "A2.3"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q13",
+      "level": "HL",
+      "codes": [
+        "A2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q14",
+      "level": "HL",
+      "codes": [
+        "A2.1"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q15",
+      "level": "HL",
+      "codes": [
+        "B2.1"
+      ],
+      "groups": [
+        "M3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q16",
+      "level": "HL",
+      "codes": [
+        "B2.3"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q17",
+      "level": "HL",
+      "codes": [
+        "C2.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q18",
+      "level": "HL",
+      "codes": [
+        "C2.2"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q19",
+      "level": "HL",
+      "codes": [
+        "D2.1"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q2",
+      "level": "HL",
+      "codes": [
+        "A1.2"
+      ],
+      "groups": [
+        "M5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q20",
+      "level": "HL",
+      "codes": [
+        "D2.3"
+      ],
+      "groups": [
+        "M3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q21",
+      "level": "HL",
+      "codes": [
+        "A3.1"
+      ],
+      "groups": [
+        "I4"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q22",
+      "level": "HL",
+      "codes": [
+        "A3.2"
+      ],
+      "groups": [
+        "I4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q23",
+      "level": "HL",
+      "codes": [
+        "B3.1"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q24",
+      "level": "HL",
+      "codes": [
+        "B3.2"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q25",
+      "level": "HL",
+      "codes": [
+        "B3.3"
+      ],
+      "groups": [
+        "O6"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q26",
+      "level": "HL",
+      "codes": [
+        "C3.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q27",
+      "level": "HL",
+      "codes": [
+        "C3.2"
+      ],
+      "groups": [
+        "O4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q28",
+      "level": "HL",
+      "codes": [
+        "C3.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q29",
+      "level": "HL",
+      "codes": [
+        "D3.1"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q3",
+      "level": "HL",
+      "codes": [
+        "B1.2"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q30",
+      "level": "HL",
+      "codes": [
+        "D3.2"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q31",
+      "level": "HL",
+      "codes": [
+        "D3.3"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q32",
+      "level": "HL",
+      "codes": [
+        "D3.3"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q33",
+      "level": "HL",
+      "codes": [
+        "A4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q34",
+      "level": "HL",
+      "codes": [
+        "B4.1"
+      ],
+      "groups": [
+        "P3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q35",
+      "level": "HL",
+      "codes": [
+        "A4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q36",
+      "level": "HL",
+      "codes": [
+        "C4.2"
+      ],
+      "groups": [
+        "P2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q37",
+      "level": "HL",
+      "codes": [
+        "C4.1"
+      ],
+      "groups": [
+        "P1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q38",
+      "level": "HL",
+      "codes": [
+        "D4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q39",
+      "level": "HL",
+      "codes": [
+        "D4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q4",
+      "level": "HL",
+      "codes": [
+        "B1.1"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q40",
+      "level": "HL",
+      "codes": [
+        "D4.2"
+      ],
+      "groups": [
+        "P5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q5",
+      "level": "HL",
+      "codes": [
+        "C1.1"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q6",
+      "level": "HL",
+      "codes": [
+        "C1.2"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q7",
+      "level": "HL",
+      "codes": [
+        "C1.3"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q8",
+      "level": "HL",
+      "codes": [
+        "C1.3"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1a-q9",
+      "level": "HL",
+      "codes": [
+        "D1.1"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": "D1.1 group I1 by convention"
+    },
+    {
+      "id": "2026-may-tz3-hl-p1b-q1",
+      "level": "HL",
+      "codes": [
+        "D2.1",
+        "A2.2"
+      ],
+      "groups": [
+        "I2",
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1b-q2",
+      "level": "HL",
+      "codes": [
+        "B2.1"
+      ],
+      "groups": [
+        "M3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1b-q3",
+      "level": "HL",
+      "codes": [
+        "C1.2"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p1b-q4",
+      "level": "HL",
+      "codes": [
+        "D3.2",
+        "A3.2"
+      ],
+      "groups": [
+        "I2",
+        "I4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q1",
+      "level": "HL",
+      "codes": [
+        "C4.1"
+      ],
+      "groups": [
+        "P1"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": "both C4.1/P1 (fungal pathogen controlling a beetle population); data-analysis question, medium confidence"
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q10",
+      "level": "HL",
+      "codes": [
+        "C3.1",
+        "C2.1",
+        "C2.2"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q2",
+      "level": "HL",
+      "codes": [
+        "A2.3",
+        "D1.3"
+      ],
+      "groups": [
+        "M2",
+        "I1"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q3",
+      "level": "HL",
+      "codes": [
+        "B4.2",
+        "D4.3",
+        "B4.1"
+      ],
+      "groups": [
+        "P3",
+        "P5"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q4",
+      "level": "HL",
+      "codes": [
+        "C4.2",
+        "D4.1",
+        "C4.1"
+      ],
+      "groups": [
+        "P2",
+        "I3",
+        "P1"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q5",
+      "level": "HL",
+      "codes": [
+        "D2.3",
+        "B3.2",
+        "B3.1"
+      ],
+      "groups": [
+        "M3",
+        "O2"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q6",
+      "level": "HL",
+      "codes": [
+        "D1.2",
+        "C1.2"
+      ],
+      "groups": [
+        "I1",
+        "M4"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": "D1.2 group I1 by convention"
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q7",
+      "level": "HL",
+      "codes": [
+        "B3.2",
+        "B3.1"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "high",
+      "source": "blind",
+      "adjudication": "a (1 mark) haemoglobin as the oxygen carrier is separately marked gas-transport content: add B3.1 (same group O2)"
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q8",
+      "level": "HL",
+      "codes": [
+        "B1.1",
+        "A2.1",
+        "D4.2"
+      ],
+      "groups": [
+        "M1",
+        "M2",
+        "P5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-hl-p2-q9",
+      "level": "HL",
+      "codes": [
+        "D3.2",
+        "A1.2",
+        "A3.2"
+      ],
+      "groups": [
+        "I2",
+        "M5",
+        "I4"
+      ],
+      "confidence": "medium",
+      "source": "blind",
+      "adjudication": "b credits aligning sequences, molecular clocks and building cladograms from whole-genome data: A3.2 (HL) rather than A3.1; same group I4"
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q1",
+      "level": "SL",
+      "codes": [
+        "A1.1"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q10",
+      "level": "SL",
+      "codes": [
+        "B2.3"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q11",
+      "level": "SL",
+      "codes": [
+        "C2.2"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q12",
+      "level": "SL",
+      "codes": [
+        "D2.1"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q13",
+      "level": "SL",
+      "codes": [
+        "A3.1"
+      ],
+      "groups": [
+        "I4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q14",
+      "level": "SL",
+      "codes": [
+        "B3.2"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q15",
+      "level": "SL",
+      "codes": [
+        "B3.1"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q16",
+      "level": "SL",
+      "codes": [
+        "C3.1"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": "baroreceptor control of blood pressure/heart rate: C3.1 under O5 by convention"
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q17",
+      "level": "SL",
+      "codes": [
+        "C3.2"
+      ],
+      "groups": [
+        "O4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q18",
+      "level": "SL",
+      "codes": [
+        "C3.1"
+      ],
+      "groups": [
+        "O3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q19",
+      "level": "SL",
+      "codes": [
+        "D3.1"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q2",
+      "level": "SL",
+      "codes": [
+        "B1.1"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q20",
+      "level": "SL",
+      "codes": [
+        "D3.2"
+      ],
+      "groups": [
+        "I2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q21",
+      "level": "SL",
+      "codes": [
+        "D3.3"
+      ],
+      "groups": [
+        "O5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q22",
+      "level": "SL",
+      "codes": [
+        "A4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q23",
+      "level": "SL",
+      "codes": [
+        "A4.2"
+      ],
+      "groups": [
+        "P4"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q24",
+      "level": "SL",
+      "codes": [
+        "B4.1"
+      ],
+      "groups": [
+        "P3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q25",
+      "level": "SL",
+      "codes": [
+        "B4.2"
+      ],
+      "groups": [
+        "P3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": "strangler fig reaching light is a plant adaptation for harvesting light (B4.2), matching the agreed label for 2026-may-tz1-sl-p2-q6(b); same group P3"
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q26",
+      "level": "SL",
+      "codes": [
+        "C4.1"
+      ],
+      "groups": [
+        "P1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q27",
+      "level": "SL",
+      "codes": [
+        "C4.1"
+      ],
+      "groups": [
+        "P1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q28",
+      "level": "SL",
+      "codes": [
+        "C4.2"
+      ],
+      "groups": [
+        "P2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q29",
+      "level": "SL",
+      "codes": [
+        "D4.1"
+      ],
+      "groups": [
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q3",
+      "level": "SL",
+      "codes": [
+        "B1.2"
+      ],
+      "groups": [
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q30",
+      "level": "SL",
+      "codes": [
+        "D4.2"
+      ],
+      "groups": [
+        "P5"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q4",
+      "level": "SL",
+      "codes": [
+        "C1.1"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q5",
+      "level": "SL",
+      "codes": [
+        "C1.3"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q6",
+      "level": "SL",
+      "codes": [
+        "D1.1"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": "D1.1 group I1 by convention"
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q7",
+      "level": "SL",
+      "codes": [
+        "D1.3"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q8",
+      "level": "SL",
+      "codes": [
+        "A2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1a-q9",
+      "level": "SL",
+      "codes": [
+        "B2.1"
+      ],
+      "groups": [
+        "M3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1b-q1",
+      "level": "SL",
+      "codes": [
+        "A2.2"
+      ],
+      "groups": [
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1b-q2",
+      "level": "SL",
+      "codes": [
+        "B3.2"
+      ],
+      "groups": [
+        "O2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1b-q3",
+      "level": "SL",
+      "codes": [
+        "C1.2"
+      ],
+      "groups": [
+        "M4"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p1b-q4",
+      "level": "SL",
+      "codes": [
+        "D1.1"
+      ],
+      "groups": [
+        "I1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q1",
+      "level": "SL",
+      "codes": [
+        "C4.1",
+        "A4.2"
+      ],
+      "groups": [
+        "P1",
+        "P4"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q2",
+      "level": "SL",
+      "codes": [
+        "C4.2",
+        "B1.1"
+      ],
+      "groups": [
+        "P2",
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q3",
+      "level": "SL",
+      "codes": [
+        "D2.3",
+        "B4.1",
+        "A1.1"
+      ],
+      "groups": [
+        "M3",
+        "P3",
+        "M1"
+      ],
+      "confidence": "low",
+      "source": "first",
+      "adjudication": "both passes: D2.3 primary (2) tied with B4.1 (2), A1.1 (1); low confidence kept"
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q4",
+      "level": "SL",
+      "codes": [
+        "A1.2",
+        "D1.3",
+        "A4.1"
+      ],
+      "groups": [
+        "M5",
+        "I1",
+        "I3"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q5",
+      "level": "SL",
+      "codes": [
+        "D4.1",
+        "C4.1",
+        "B4.2"
+      ],
+      "groups": [
+        "I3",
+        "P1",
+        "P3"
+      ],
+      "confidence": "medium",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q6",
+      "level": "SL",
+      "codes": [
+        "C3.2",
+        "D3.2",
+        "B1.2"
+      ],
+      "groups": [
+        "O4",
+        "I2",
+        "M1"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    },
+    {
+      "id": "2026-may-tz3-sl-p2-q7",
+      "level": "SL",
+      "codes": [
+        "D3.1",
+        "B2.2",
+        "A2.2"
+      ],
+      "groups": [
+        "O5",
+        "M2"
+      ],
+      "confidence": "high",
+      "source": "first",
+      "adjudication": null
+    }
+  ]
+}
