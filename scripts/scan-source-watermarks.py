@@ -20,6 +20,8 @@ ALLOWED = ('cambridgeinternational.org', 'cambridge.org', 'ibo.org', 'ucles.org'
 # Exam boards credit image and text sources (Shutterstock, journals) after a heading on the closing
 # page; domains below that heading there are citations, not stamps. Brand matches always count.
 CREDITS = re.compile(r'^\s*(?:References|Acknowledg(?:e)?ments?|Sources)\s*:?\s*$', re.I | re.M)
+# IB papers can end with blank sheets after the credits page; they don't count as the closing page.
+BLANK_PAGE = re.compile(r'Please do not write on this page\.?\s*Answers written on this page\s*will not be marked\.?|\b\d+EP\d+\b', re.I)
 # A rehost footer drawn as glyph outlines: a dense vector cluster in the bottom-left margin.
 MARGIN_PT, MIN_PATH_ITEMS = 22, 50
 
@@ -39,14 +41,24 @@ def margin_stamp(page: pymupdf.Page) -> bool:
     return min(page.get_pixmap(clip=corner, dpi=72, colorspace=pymupdf.csGRAY).samples) < 235
 
 
+def closing_page(doc: pymupdf.Document) -> int:
+    """Last page with content: IB papers end with blank 'Please do not write on this page' sheets."""
+    for number in range(doc.page_count, 0, -1):
+        text = BLANK_PAGE.sub('', doc[number - 1].get_text())
+        if text.strip():
+            return number
+    return doc.page_count
+
+
 def findings(path: Path) -> list[str]:
     found, pages, domains, stamped = [], [], set(), []
     with pymupdf.open(path) as doc:
         if BRANDS.search(str(doc.metadata).encode()):
             found.append('metadata')
+        closing = closing_page(doc)
         for number, page in enumerate(doc, 1):
             text = page.get_text()
-            foreign = foreign_domains(text, number == doc.page_count)
+            foreign = foreign_domains(text, number == closing)
             linked = any(BRANDS.search((link.get('uri') or '').encode()) for link in page.get_links())
             if BRANDS.search(text.encode()) or foreign or linked:
                 pages.append(number)
