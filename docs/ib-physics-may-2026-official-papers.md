@@ -1,6 +1,6 @@
 # IB Physics May 2026: official papers
 
-October 2026. Branch `feat/ib-physics-may-2026`. **Nothing is uploaded yet**: the crops and PDFs below need the owner's approval first.
+October 2026. Branch `feat/ib-physics-may-2026`. Both uploads below are done (owner-approved, 2026-10-15).
 
 ## What was added
 
@@ -39,7 +39,15 @@ There is no Paper 3 in the 2025 syllabus. No paper was excluded: all 18 question
 
 `2026-may-tz1-hl-p2-q4(c)` refers to a graph of maximum kinetic energy against frequency for two metals that the official question paper PDF does not print (checked on the original pages 9 to 11; the mark scheme answers it). The row is served as printed; the owner may want to hold it back.
 
-## Upload plans (not executed)
+## Storage (owner-approved, done)
+
+- **653 crops to `pastpaperprep-assets`:** create-only, each key absent before the put, read back by SHA-256 and size. 653/653 verified and equal to the plan (key, SHA-256, bytes). Log: `docs/ib-physics-may-2026/r2-upload-log-assets.jsonl`.
+- **36 PDFs to `pastpaperprep-free`:** 36 absent, 36 put, 36 read back. Log: `docs/ib-physics-may-2026/r2-upload-log-free-papers.jsonl`.
+- **Readback:** `publish-added-free-papers.mts verify` re-read all 5,020 approved PDFs from free.pastpaperprep.com and rewrote `src/data/paper-archive-readback.json`.
+- Not an atomic create (no conditional put in wrangler); nothing pre-existing was found or overwritten.
+- **TZ3 Paper 1A full papers (HL and SL) are download-only.** The builder's text-order key check does not reconcile them (extractor quirk described above), so they are not self-markable; the key itself is correct.
+
+## Upload plans (executed)
 
 | Bucket | Plan | Objects | Bytes |
 | --- | --- | ---: | ---: |
@@ -53,8 +61,7 @@ There is no Paper 3 in the 2025 syllabus. No paper was excluded: all 18 question
 
 ## Owner decisions
 
-1. Approve the two uploads above.
-2. After upload, run `verify` and commit the refreshed `src/data/paper-archive-readback.json`.
+1. Uploads and readback: done.
 3. Decide whether to hold back `2026-may-tz1-hl-p2-q4` (missing graph in the source).
 4. No worked explanations exist for the 2026 ids.
 5. This branch edits lines that the Biology (and other) May 2026 branches also edit (`catalog.ts`, `asset-retention.ts`, `bank-index-manifest.ts`, `ib-science-receipt-contract.mjs`, `reviewed-mcq-answer-letters.json`, `page.test.tsx`, `banks.test.ts`). Expect conflicts when merging more than one; the bank index and MCQ overlay are regenerated, not hand-merged.
