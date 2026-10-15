@@ -36,8 +36,11 @@ const sourceRoot = process.env.PASTPAPERPREP_IB_BIOLOGY_SOURCE_ROOT
   ? resolve(process.env.PASTPAPERPREP_IB_BIOLOGY_SOURCE_ROOT)
   : join(workspaceRoot(), "ib-biology-topic-practice/.worktrees/may-2026");
 const sourceCommit = execFileSync("git", ["-C", sourceRoot, "rev-parse", "HEAD"], { encoding: "utf8" }).trim();
-if (!sourceCommit.startsWith(SOURCE_COMMIT_PREFIX) && !process.env.PASTPAPERPREP_IB_BIOLOGY_SOURCE_ANY_COMMIT) {
-  throw new Error(`Source checkout is at ${sourceCommit}; expected ${SOURCE_COMMIT_PREFIX}…`);
+// The inputs are pinned by SHA-256 below; the checkout only needs to descend from the lane commit.
+try {
+  execFileSync("git", ["-C", sourceRoot, "merge-base", "--is-ancestor", SOURCE_COMMIT_PREFIX, sourceCommit], { stdio: "ignore" });
+} catch {
+  throw new Error(`Source checkout at ${sourceCommit} does not descend from ${SOURCE_COMMIT_PREFIX}`);
 }
 const gitShow = (path) => execFileSync("git", ["-C", root, "show", `${BASE_COMMIT}:${path}`], { maxBuffer: 200_000_000 });
 const finalLabelsBytes = readFileSync(join(sourceRoot, "data/classification-2026/final-labels.json"));
