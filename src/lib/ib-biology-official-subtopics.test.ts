@@ -22,7 +22,7 @@ describe("IB Biology official syllabus subtopics", () => {
     expect(hl).toHaveLength(2071);
     expect(sl).toHaveLength(1671);
     expect(hl.filter((q) => q.courseEra === "bio_2016")).toHaveLength(1642);
-    expect(hl.filter((q) => q.courseEra === "bio_2025")).toHaveLength(430);
+    expect(hl.filter((q) => q.courseEra === "bio_2025")).toHaveLength(429);
     expect(sl.filter((q) => q.courseEra === "bio_2016")).toHaveLength(1341);
     expect(sl.filter((q) => q.courseEra === "bio_2025")).toHaveLength(330);
     expect([...hl, ...sl].filter((q) => q.classificationProvenance?.status === "blocked")).toHaveLength(26);
