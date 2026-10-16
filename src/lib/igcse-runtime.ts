@@ -116,11 +116,13 @@ type IGCSEArtifact = {
       sourceReconciliationReceiptSha256?: string;
       paperException?: { question_id?: string; qp_printed_total?: number };
     };
+    /** Printed-totals marks repairs: 0625 records the written-question count; 0620/0654 record the change list. */
     printedMarksRepair?: {
       baselineGitCommit?: string;
       baselineRuntimeSha256?: string;
       baselineFinalizedContentSha256?: string | null;
       censusSha256?: string;
+      writtenQuestionCount?: number;
       changedCount?: number;
       changes?: Array<Array<string | number>>;
       method?: string;
