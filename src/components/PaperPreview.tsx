@@ -8,6 +8,8 @@ import { fetchSignedAssets, isSignedAssetFresh, signedAssetKey, type SignedAsset
 import { McqAnswerView } from "@/components/McqAnswerView";
 import { SourceCropImage } from "@/components/SourceCropImage";
 import { pdfSourceLabel } from "@/lib/pdf-labels";
+import { PeriodicTableButton } from "@/components/PeriodicTableButton";
+import { hasPeriodicTable } from "@/lib/periodic-table";
 
 export function PaperPreview({ bank, questions, onClose, initialIndex = 0 }: { bank: BankSlug; questions: PublicQuestionMetadata[]; onClose: () => void; initialIndex?: number }) {
   const reader = useRef<HTMLDivElement>(null);
@@ -48,7 +50,7 @@ export function PaperPreview({ bank, questions, onClose, initialIndex = 0 }: { b
   function move(next: number) { setPosition(next); setAnswerOpen(false); setError(""); }
 
   return <div ref={reader} className="paper-preview-reader" role="region" aria-label="Paper question viewer">
-    <div className="paper-preview-toolbar"><div><span className="eyebrow">Question {position + 1} of {questions.length}</span><h3>{pdfSourceLabel({ ...question, bankSlug: bank })}</h3><p>{question.marks} {question.marks === 1 ? "mark" : "marks"}{question.primaryTopic ? ` · ${question.primaryTopic}` : ""}</p></div><button type="button" className="button secondary" onClick={onClose}>Close</button></div>
+    <div className="paper-preview-toolbar"><div><span className="eyebrow">Question {position + 1} of {questions.length}</span><h3>{pdfSourceLabel({ ...question, bankSlug: bank })}</h3><p>{question.marks} {question.marks === 1 ? "mark" : "marks"}{question.primaryTopic ? ` · ${question.primaryTopic}` : ""}</p></div><div className="paper-preview-tools">{hasPeriodicTable(bank) && <PeriodicTableButton source="reader" />}<button type="button" className="button secondary" onClick={onClose}>Close</button></div></div>
     {error ? <div role="alert" className="paper-builder-error">{error} <button type="button" className="button secondary" onClick={() => { setError(""); setRetry((current) => current + 1); }}>Retry preview</button></div>
       : <div className="paper-preview-images" aria-live="polite">{hasQuestion ? (questionAsset.urls.length ? questionAsset.urls.map((src, index) => <SourceCropImage key={src} bankSlug={bank} questionId={question.id} src={src} crop={questionAsset.displayCrops?.[index]} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} />) : <p>Question image unavailable.</p>) : <p role="status">Loading question…</p>}</div>}
     {hasQuestion && <div className="paper-preview-answer"><button type="button" className="button secondary" onClick={() => setAnswerOpen((open) => !open)}>{answerOpen ? "Hide answer" : "Show answer"}</button>{answerOpen && (hasAnswer ? <div className="paper-preview-images">{answerAsset.mcqAnswer ? <McqAnswerView answer={answerAsset.mcqAnswer} /> : answerAsset.urls.length ? answerAsset.urls.map((src, index) => <Image unoptimized key={src} src={src} alt={`Official mark scheme page ${index + 1}`} width={0} height={0} />) : <p>No mark scheme image is available for this question.</p>}</div> : <p role="status">Loading answer…</p>)}</div>}

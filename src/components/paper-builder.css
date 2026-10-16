@@ -123,3 +123,4 @@
 .paper-builder-empty .button { margin-top: 8px; }
 .calculator-badge { display: inline-flex; align-items: center; padding: 1px 6px; border: 1px solid var(--ink); border-radius: 4px; color: var(--ink); font: 700 .62rem/1.45 var(--font-mono); letter-spacing: .06em; }
 .calculator-badge.is-none { background: var(--ink); color: var(--paper); }
+.paper-preview-tools { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 8px; }
