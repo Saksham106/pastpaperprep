@@ -31,7 +31,15 @@ describe('clean source crops for PapaCambridge-watermarked May/June 2026 Chemist
     const after = normalize();
     const replaced = new Set(Object.keys(entries).map((path) => prefix + path));
     const moved = after.flatMap((q) => [...q.questionAssetPaths, ...q.markschemeAssetPaths]).filter((key) => key.startsWith(prefix + projection.namespace + '/'));
-    expect(moved).toHaveLength(1025);
+    // Some clean re-renders are of pages hidden altogether: 29 BLANK PAGE images (2026-10-15 audit)
+    // and the Periodic Table pages (2026-10-16 audit, retired as page furniture).
+    const blank = JSON.parse(readFileSync('src/data/reviewed-blank-qp.json', 'utf8')).entries['igcse-chemistry-0620'] as Record<string, Array<{ path: string }>>;
+    const retired = JSON.parse(readFileSync('src/data/retired-question-crops.json', 'utf8'))['igcse-chemistry-0620'] as Record<string, string[]>;
+    const hidden = new Set([...Object.values(blank).flat().map((item) => item.path), ...Object.values(retired).flat()]);
+    const hiddenClean = Object.keys(entries).filter((path) => hidden.has(path));
+    expect(hiddenClean.filter((path) => Object.values(blank).flat().some((item) => item.path === path))).toHaveLength(29);
+    expect(hiddenClean.every((path) => path.startsWith('questions/0620-2026-s-'))).toBe(true);
+    expect(moved).toHaveLength(1025 - hiddenClean.length);
     for (const q of after) {
       for (const key of [...q.questionAssetPaths, ...q.markschemeAssetPaths]) {
         expect(replaced.has(key)).toBe(false);

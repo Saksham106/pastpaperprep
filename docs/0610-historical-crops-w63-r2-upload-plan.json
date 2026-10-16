@@ -1,0 +1,21 @@
+{
+  "note": "Objects the historical Biology 0610 crop overlay gained in the PR #292 review fix (0610-2019-w-63-q1 MS page 4). Every other new object of the overlay manifest is verified in the first upload log.",
+  "bucket": "pastpaperprep-assets",
+  "overlayManifestSha256": "bba9edd61b8856b48744c5ec826dd15c0b64d58692223b4ebf8cfc5bc1bd1276",
+  "priorLog": "docs/0610-historical-crops-r2-upload-log.jsonl",
+  "priorLogSha256": "f255e482e7433ccdd37f39b355d1d6fddc865740a26a4aa843014b06e01edf2f",
+  "priorVerified": 626,
+  "guarantee": "check-absent, put, full read-back by SHA-256 and size, serialized by one local writer (an exclusive lock per uploader). Detects pre-existing different bytes before writing and corrupt bytes after writing. Not an atomic create: wrangler r2 object put has no conditional-create option, so a concurrent foreign writer between the check and the put cannot be ruled out.",
+  "count": 1,
+  "bytes": 20742,
+  "assets": [
+    {
+      "objectKey": "igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/repairs/historical-crops-v1-08cb6b182b98620f/3462b4d1cd3ffc8fde945baf036fd8a1c57c5024c0a9321359e3772fcb141108.webp",
+      "relativePath": "repairs/historical-crops-v1-08cb6b182b98620f/3462b4d1cd3ffc8fde945baf036fd8a1c57c5024c0a9321359e3772fcb141108.webp",
+      "sourcePath": "data/segmentation/historical-crop-repairs/assets/0610-2019-w-63/markscheme/3462b4d1cd3ffc8fde945baf036fd8a1c57c5024c0a9321359e3772fcb141108.webp",
+      "sha256": "3462b4d1cd3ffc8fde945baf036fd8a1c57c5024c0a9321359e3772fcb141108",
+      "size": 20742,
+      "contentType": "image/webp"
+    }
+  ]
+}

@@ -18,17 +18,22 @@ export const EXPECTED_ASSET_COUNTS = {
   igcse: { preview: 1436, premium: 6912, all: 8348 },
   "igcse-additional": { preview: 956, premium: 2356, all: 3312 },
   // Six source-owned foreign-only tails retired; restoration objects replace old images one-for-one.
-  "ib-hl": { preview: 314, premium: 2702, all: 3016 },
-  "ib-sl": { preview: 147, premium: 1316, all: 1463 },
+  // May 2026: donated reconstructions retired for the official TZ1-TZ3 papers and markschemes.
+  "ib-hl": { preview: 314, premium: 2971, all: 3285 },
+  "ib-sl": { preview: 147, premium: 1413, all: 1560 },
   // Reviewed Q12 foreign-only tail retired; Q13 immutable restoration is a one-for-one replacement.
-  "ib-ai-hl": { preview: 236, premium: 1116, all: 1352 },
-  "ib-ai-sl": { preview: 155, premium: 847, all: 1002 },
-  "ib-chemistry-hl": { preview: 232, premium: 5396, all: 5628 },
-  "ib-chemistry-sl": { preview: 159, premium: 3877, all: 4036 },
-  "ib-physics-hl": { preview: 226, premium: 5395, all: 5621 },
-  "ib-physics-sl": { preview: 159, premium: 3636, all: 3795 },
-  "ib-biology-hl": { preview: 211, premium: 5400, all: 5611 },
-  "ib-biology-sl": { preview: 155, premium: 4216, all: 4371 },
+  // May 2026: official Chemistry papers add 409 (HL) and 288 (SL) premium crops; 2026 is not a free-preview year.
+  // May 2026: official AI TZ1-TZ3 papers added (+254 HL, +161 SL images, all premium).
+  "ib-ai-hl": { preview: 236, premium: 1370, all: 1606 },
+  "ib-ai-sl": { preview: 155, premium: 1008, all: 1163 },
+  "ib-chemistry-hl": { preview: 232, premium: 5805, all: 6037 },
+  "ib-chemistry-sl": { preview: 159, premium: 4165, all: 4324 },
+  // May 2026: official Physics papers add 395 (HL) and 258 (SL) premium crops; 2026 is not a free-preview year.
+  "ib-physics-hl": { preview: 226, premium: 5790, all: 6016 },
+  "ib-physics-sl": { preview: 159, premium: 3894, all: 4053 },
+  // May 2026: official papers add 380 (HL; the withheld 2026-may-tz1-hl-p1b-q2 serves none) and 295 (SL) premium crops; 2026 is not a free-preview year.
+  "ib-biology-hl": { preview: 211, premium: 5780, all: 5991 },
+  "ib-biology-sl": { preview: 155, premium: 4511, all: 4666 },
 } as const satisfies Record<string, { preview: number; premium: number; all: number }>;
 
 export const EXPECTED_ASSET_TOTALS = Object.values(EXPECTED_ASSET_COUNTS).reduce(

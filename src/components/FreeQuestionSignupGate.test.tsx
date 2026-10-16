@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 const track = vi.hoisted(() => vi.fn());
 vi.mock("@/lib/product-analytics", async (importOriginal) => ({ ...(await importOriginal<object>()), trackProductEvent: track }));
 
-import { FreeQuestionSignupGate } from "./FreeQuestionSignupGate";
+import { FreeQuestionSignupGate, gateValueLine } from "./FreeQuestionSignupGate";
 
 describe("FreeQuestionSignupGate", () => {
   let intersectionCallback: IntersectionObserverCallback;
@@ -51,7 +51,61 @@ describe("FreeQuestionSignupGate", () => {
     expect(plans).toHaveAttribute("href", "/pricing?product=bank_ib_sl");
     expect(screen.getByRole("link", { name: "Sign in" })).toHaveClass("free-question-gate-signin");
     expect(screen.queryByText(/no payment required/i)).not.toBeInTheDocument();
+  });
+
+  it("counts a view only once the gate is on screen, and only once", () => {
+    track.mockClear();
+    const { rerender } = render(<FreeQuestionSignupGate bankSlug="ib-sl" remainingCount={37} signupHref="/login?mode=sign-up" signinHref="/login" />);
+    expect(track).not.toHaveBeenCalledWith("free_gate_view", expect.anything());
+    expect(track).not.toHaveBeenCalledWith("upgrade_prompt_view", expect.anything());
+
+    act(() => {
+      intersectionCallback([{ isIntersecting: true, intersectionRatio: 0.1 } as IntersectionObserverEntry], {} as IntersectionObserver);
+    });
+    expect(track).toHaveBeenCalledWith("free_gate_view", { bank: "ib-sl", limit: 20, remainingCount: 37 });
     expect(track).toHaveBeenCalledWith("upgrade_prompt_view", { bank: "ib-sl", placement: "signup_gate" });
+    expect(showModal).not.toHaveBeenCalled();
+
+    rerender(<FreeQuestionSignupGate bankSlug="ib-sl" remainingCount={12} signupHref="/login?mode=sign-up" signinHref="/login" />);
+    act(() => {
+      intersectionCallback([{ isIntersecting: true, intersectionRatio: 0.6 } as IntersectionObserverEntry], {} as IntersectionObserver);
+    });
+    expect(track.mock.calls.filter(([event]) => event === "free_gate_view")).toHaveLength(1);
+    expect(showModal).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not count a second view when filtering unmounts and remounts the gate on the same page", () => {
+    track.mockClear();
+    const pageViews = new Set<string>();
+    const gate = <FreeQuestionSignupGate bankSlug="ib-sl" remainingCount={40} signupHref="/login?mode=sign-up" signinHref="/login" sentViews={pageViews} />;
+    const { rerender } = render(gate);
+    act(() => {
+      intersectionCallback([{ isIntersecting: true, intersectionRatio: 0.1 } as IntersectionObserverEntry], {} as IntersectionObserver);
+    });
+    rerender(<></>); // a filter narrows results to 20 or fewer: the explorer drops the gate
+    rerender(gate); // the filter is cleared: a fresh gate instance mounts
+    act(() => {
+      intersectionCallback([{ isIntersecting: true, intersectionRatio: 0.1 } as IntersectionObserverEntry], {} as IntersectionObserver);
+    });
+    expect(track.mock.calls.filter(([event]) => event === "free_gate_view")).toHaveLength(1);
+    expect(track.mock.calls.filter(([event]) => event === "upgrade_prompt_view")).toHaveLength(1);
+  });
+
+  it("leads with the bank's whole free set, not just the filtered view", () => {
+    // Calculus view: 36 free matches (20 shown, 16 left) in a bank with 300 free questions.
+    expect(gateValueLine(16, 300, "IB Math AA HL")).toBe("A free account opens all 300 free IB Math AA HL questions.");
+    // Unfiltered: the view already is the whole free set.
+    expect(gateValueLine(280, 300, "IB Math AA HL")).toBe("A free account opens all 300 free IB Math AA HL questions.");
+    // Catalogue not fully loaded yet (or unknown): keep the view's own count.
+    expect(gateValueLine(16, 30, "IB Math AA HL")).toBe("Create a free account for the other 16 free questions.");
+    expect(gateValueLine(16)).toBe("Create a free account for the other 16 free questions.");
+  });
+
+  it("shows the bank-wide value and the preview-framed quote", () => {
+    render(<FreeQuestionSignupGate bankSlug="ib-hl" remainingCount={16} bankFreeCount={300} bankName="IB Math AA HL" signupHref="/login?mode=sign-up" signinHref="/login" />);
+    expect(screen.getAllByText(/A free account opens all 300 free IB Math AA HL questions\./)).toHaveLength(2);
+    expect(screen.getAllByText(/The first 20 questions were enough to get me to sign up\./)).toHaveLength(2);
+    expect(screen.queryByText(/20 free questions/)).not.toBeInTheDocument();
   });
 
   it("falls back to a generic plans line", () => {

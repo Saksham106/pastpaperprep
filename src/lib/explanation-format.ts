@@ -16,7 +16,7 @@ export type Explanation = {
   parts: ExplanationPart[];
 };
 
-const MARK_CODE = /^(\(?(M|A|R|B|N|SC|AG|E|C|P|S|G)\d*\)?( ?\(?dep\)?)?|✓)$/;
+const MARK_CODE = /^(\(?(M|A|R|B|N|SC|AG|E|C|P|S|G|L)\d*\)?( ?\(?dep\)?)?|✓)$/;
 const LABEL = /^([a-z](\([ivx]+\))?)?$/;
 const record = (value: unknown): value is Record<string, unknown> => Boolean(value && typeof value === "object" && !Array.isArray(value));
 const onlyKeys = (value: Record<string, unknown>, allowed: string[]) => Object.keys(value).every((key) => allowed.includes(key));

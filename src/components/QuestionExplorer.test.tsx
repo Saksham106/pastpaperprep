@@ -6,6 +6,7 @@ import { hydrateRoot } from "react-dom/client";
 import { act } from "react";
 import { join } from "node:path";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
+import { suggestWorksheetTitle } from "@/lib/worksheet-title";
 import { parseExplorerState } from "@/lib/explorer-state";
 import { PREVIEW_QUESTION_IDS, isPreviewQuestion } from "@/lib/access";
 import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
@@ -190,7 +191,7 @@ describe("QuestionExplorer", () => {
 
     await waitFor(() => expect(screen.getByRole("heading", { name: /keep practising for free/i })).toBeInTheDocument());
     expect(container.querySelectorAll(".question-card")).toHaveLength(20);
-    expect(screen.getAllByText(/other 10 free questions/i)).toHaveLength(2);
+    expect(screen.getAllByText(/A free account opens all 30 free IB Math AA SL questions\./i)).toHaveLength(2);
     expect(screen.queryByRole("button", { name: /show 24 more questions/i })).not.toBeInTheDocument();
 
     await waitFor(() => expect(freeAssetIds(fetchMock.mock.calls)).toHaveLength(20));
@@ -368,7 +369,7 @@ describe("QuestionExplorer", () => {
 
     expect(screen.getByLabelText(/search questions/i)).toHaveValue("tangent");
     expect(screen.getByRole("button", { name: /sort questions: topic/i })).toBeInTheDocument();
-    expect(screen.getByText(/10 questions/i)).toBeInTheDocument();
+    expect(screen.getByText(/6 questions/i)).toBeInTheDocument();
     await waitFor(() => expect(window.location.search).toContain("q=tangent"));
     fireEvent.click(screen.getByRole("button", { name: /copy link to this view/i }));
     await waitFor(() => expect(writeText).toHaveBeenCalled());
@@ -422,6 +423,7 @@ describe("QuestionExplorer", () => {
     const calls: Array<{ url: string; init?: RequestInit }> = [];
     vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
       const url = String(input); calls.push({ url, init });
+      if (url === "/api/worksheets" && !init?.method) return Response.json({ worksheets: [{ title: suggestWorksheetTitle([questions[1], questions[0]]) }] });
       if (url === "/api/worksheets") return new Response(JSON.stringify({ worksheet: { id: "worksheet-1", bank_slug: "ib-sl", title: "My set", question_ids: questions.slice(0, 2).map((question) => question.id), content_mode: "answers", revision: 1 } }), { status: 201 });
       if (url === "/api/study-state") return new Response("{}", { status: 200 });
       const body = JSON.parse(String(init?.body));
@@ -434,7 +436,8 @@ describe("QuestionExplorer", () => {
     fireEvent.click(screen.getByRole("button", { name: "Save PDF (2 selected)" }));
     const dialog = screen.getByRole("dialog", { name: /save 2 questions as a pdf/i });
     const nameField = within(dialog).getByRole("textbox", { name: "PDF name" });
-    expect((nameField as HTMLInputElement).value).toMatch(/^IB SL /);
+    // Named after its topics, and numbered past the title the student already has.
+    await waitFor(() => expect((nameField as HTMLInputElement).value).toBe(`${suggestWorksheetTitle([questions[1], questions[0]])} 2`));
     // Save is the main action; downloading without saving is only a quiet icon beside it.
     expect(within(dialog).getAllByRole("button", { name: /download/i })).toHaveLength(1);
     expect(within(dialog).getByRole("button", { name: "Download PDF without saving" })).toHaveClass("pdf-direct-download");
@@ -442,8 +445,8 @@ describe("QuestionExplorer", () => {
     fireEvent.click(within(dialog).getByRole("radio", { name: "Answers" }));
     fireEvent.change(nameField, { target: { value: "My set" } });
     fireEvent.click(within(dialog).getByRole("button", { name: "Save PDF" }));
-    await waitFor(() => expect(calls.some(({ url }) => url === "/api/worksheets")).toBe(true));
-    const save = calls.find(({ url }) => url === "/api/worksheets")!;
+    await waitFor(() => expect(calls.some(({ url, init }) => url === "/api/worksheets" && init?.method === "POST")).toBe(true));
+    const save = calls.find(({ url, init }) => url === "/api/worksheets" && init?.method === "POST")!;
     expect(JSON.parse(String(save.init?.body))).toEqual({ bank: "ib-sl", name: "My set", questionIds: [questions[1].id, questions[0].id], contentMode: "answers" });
     expect(await screen.findByText(/saved “my set” to my worksheets/i)).toBeInTheDocument();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -452,7 +455,57 @@ describe("QuestionExplorer", () => {
     expect(screen.getByRole("link", { name: "My Worksheets" })).toHaveAttribute("href", "/worksheets");
     expect(screen.getAllByRole("checkbox", { name: /add question/i }).every((box) => !(box as HTMLInputElement).checked)).toBe(true);
     fireEvent.click(screen.getByRole("button", { name: "Save PDF" }));
-    expect((within(screen.getByRole("dialog")).getByRole("textbox", { name: "PDF name" }) as HTMLInputElement).value).toMatch(/^IB SL /);
+    expect((within(screen.getByRole("dialog")).getByRole("textbox", { name: "PDF name" }) as HTMLInputElement).value).not.toBe("");
+  });
+
+  it("ignores a title lookup from an earlier dialog and never overwrites a name the student typed", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 8), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const lookups: Array<(titles: string[]) => void> = [];
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      if (url === "/api/worksheets" && !init?.method) return new Promise<Response>((resolve) => lookups.push((titles) => resolve(Response.json({ worksheets: titles.map((title) => ({ title })) }))));
+      if (url === "/api/worksheets") return Response.json({ worksheet: { id: "w-2", bank_slug: "ib-sl", title: JSON.parse(String(init?.body)).name, question_ids: [], content_mode: "both", revision: 1 } }, { status: 201 });
+      if (url === "/api/study-state") return new Response("{}", { status: 200 });
+      return new Response("{}", { status: 404 });
+    }));
+    window.history.replaceState({}, "", "/banks/ib-sl");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    const openDialog = () => {
+      fireEvent.click(screen.getAllByRole("checkbox", { name: /add question/i })[0]);
+      fireEvent.click(screen.getByRole("button", { name: /^Save PDF \(1 selected\)$/ }));
+      return within(screen.getByRole("dialog")).getByRole("textbox", { name: "PDF name" }) as HTMLInputElement;
+    };
+    const suggested = suggestWorksheetTitle([questions[0]]);
+    let name = openDialog();
+    expect(name.value).toBe(suggested);
+    fireEvent.change(name, { target: { value: `${suggested} 2` } });
+    fireEvent.click(within(screen.getByRole("dialog")).getByRole("button", { name: "Save PDF" }));
+    await screen.findByText(/saved .* to my worksheets/i);
+    name = openDialog();
+    expect(name.value).toBe(suggested);
+    await act(async () => { lookups[0]([suggested]); });
+    expect(name.value).toBe(suggested);
+    await act(async () => { lookups[1]([suggested, `${suggested} 2`]); });
+    expect(name.value).toBe(`${suggested} 3`);
+  });
+
+  it("keeps a typed name even when the student types the suggestion back", async () => {
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 8), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const lookups: Array<(titles: string[]) => void> = [];
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      if (String(input) === "/api/worksheets" && !init?.method) return new Promise<Response>((resolve) => lookups.push((titles) => resolve(Response.json({ worksheets: titles.map((title) => ({ title })) }))));
+      return new Response("{}", { status: 404 });
+    }));
+    window.history.replaceState({}, "", "/banks/ib-sl");
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={fullAccess} />);
+    fireEvent.click(screen.getAllByRole("checkbox", { name: /add question/i })[0]);
+    fireEvent.click(screen.getByRole("button", { name: /^Save PDF \(1 selected\)$/ }));
+    const name = within(screen.getByRole("dialog")).getByRole("textbox", { name: "PDF name" }) as HTMLInputElement;
+    const suggested = name.value;
+    fireEvent.change(name, { target: { value: "Something else" } });
+    fireEvent.change(name, { target: { value: suggested } });
+    await act(async () => { lookups[0]([suggested]); });
+    expect(name.value).toBe(suggested);
   });
 
   it("reopens a worksheet by opaque ID and restores saved content and selected membership", async () => {
@@ -727,13 +780,17 @@ describe("QuestionExplorer", () => {
   });
 
   it("filters the real bank data and reveals a worked answer", async () => {
-    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 40), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    // Every live AA question now has an official mark scheme; drop it from one so the worked answer shows.
+    const bank = loadBankQuestions("ib-sl").slice(0, 40).map((question) => question.id === "2026-may-p1-tz1-q1"
+      ? { ...question, markschemeImages: [], markschemeImageCount: 0, markschemeAssetPaths: [] }
+      : question);
+    const questions = prepareQuestionsForDelivery(bank, [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     const { container } = render(<QuestionExplorer questions={questions} access={fullAccess} />);
 
     expect(screen.getByText(/40 questions/i)).toBeInTheDocument();
     expect(container.querySelector(".question-paper")).not.toBeNull();
     fireEvent.change(screen.getByLabelText(/search questions/i), { target: { value: "tangent" } });
-    expect(screen.getByText(/10 questions/i)).toBeInTheDocument();
+    expect(screen.getByText(/6 questions/i)).toBeInTheDocument();
 
     fireEvent.click(screen.getAllByText(/show answer/i)[0]);
     expect(await screen.findByText(/the tangent through/i)).toBeInTheDocument();
@@ -1119,6 +1176,42 @@ describe("QuestionExplorer", () => {
       expect(requestIdleCallback).not.toHaveBeenCalled();
     } finally {
       document.cookie = "sb-test-auth-token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    }
+  });
+
+  it("states the bank-wide free count only once the full index has loaded", async () => {
+    const free = loadBankQuestions("ib-sl").filter((question) => isPreviewQuestion(question.bankSlug, question.id)).slice(0, 60);
+    expect(free).toHaveLength(60);
+    window.history.replaceState({}, "", "/banks/ib-sl?free=1");
+    const scenarios = [
+      { indexResponse: () => new Response(JSON.stringify({ version: 1, bank: "ib-sl", questions: free.map(toPublicQuestionMetadata) }), { status: 200 }), after: /A free account opens all 60 free IB Math AA SL questions\./i },
+      { indexResponse: () => new Response("unavailable", { status: 503 }), after: /Create a free account for the other 4 free questions\./i },
+    ];
+    for (const { indexResponse, after } of scenarios) {
+      let idleCallback: IdleRequestCallback | undefined;
+      vi.stubGlobal("requestIdleCallback", vi.fn((callback: IdleRequestCallback) => { idleCallback = callback; return 1; }));
+      vi.stubGlobal("cancelIdleCallback", vi.fn());
+      vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => {
+        if (String(input).startsWith("/bank-index/")) return indexResponse();
+        if (isFreeAssetRequest(input)) return freeAssetResponse(input, (questionId) => `https://assets.example/${questionId}.webp`);
+        return new Response(JSON.stringify({ expiresIn: 600, assets: [] }), { status: 200 });
+      }));
+      const { unmount } = render(<QuestionExplorer
+        questions={prepareQuestionsForDelivery(free.slice(0, 24), [])}
+        bankSlug="ib-sl"
+        indexUrl="/bank-index/ib-sl.v1-test.json"
+        access={{ authenticated: false, bankAccess: false, canExportPdf: false }}
+        initialState={{ search: "", sort: "paper", filters: {}, freeOnly: true, savedOnly: false, courseRoute: "all", visible: 24 }}
+        hydrateFromLocation
+      />);
+
+      // Server sample only: 24 free questions is not the bank's free set.
+      await waitFor(() => expect(screen.getAllByText(/Create a free account for the other 4 free questions\./i)).toHaveLength(2));
+      expect(screen.queryByText(/A free account opens all 24/i)).not.toBeInTheDocument();
+
+      await act(async () => { idleCallback!({ didTimeout: false, timeRemaining: () => 20 }); });
+      await waitFor(() => expect(screen.getAllByText(after)).toHaveLength(2));
+      unmount();
     }
   });
 

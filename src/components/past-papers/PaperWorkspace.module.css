@@ -29,3 +29,6 @@
   .dockSwitch button[aria-pressed="true"] { color: #191917; background: #fafaf7; }
   .dockMark { min-height: 44px; padding: 0 16px; white-space: nowrap; }
 }
+
+.reference { display: flex; }
+.dock :global(.periodic-button) { min-height: 40px; color: #fff; background: transparent; border-color: rgb(255 255 255 / .28); }

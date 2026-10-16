@@ -9,10 +9,10 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | Bank | Source repository | Papers | Questions | Referenced WebP assets |
 | --- | --- | ---: | ---: | ---: |
 | Cambridge IGCSE Mathematics 0580 | `Saksham106/igcse-0580-topic-practice` | 225 | 4,174 | 8,348 |
-| IB Mathematics HL / AA HL | `Saksham106/ib-maths-aa-hl-topic-practice` | 104 | 841 | 3,022 |
-| IB Mathematics SL / AA SL | `Saksham106/ib-maths-aa-topic-finder` | 62 | 578 | 1,463 |
-| IB Mathematics AI HL | `Saksham106/ib-maths-ai-hl-topic-practice` | 48 | 409 | 1,353 |
-| IB Mathematics AI SL | `Saksham106/ib-maths-ai-sl-topic-practice` | 38 | 334 | 1,002 |
+| IB Mathematics HL / AA HL | `Saksham106/ib-maths-aa-hl-topic-practice` | 110 | 893 | 3,291 |
+| IB Mathematics SL / AA SL | `Saksham106/ib-maths-aa-topic-finder` | 64 | 596 | 1,560 |
+| IB Mathematics AI HL | `Saksham106/ib-maths-ai-hl-topic-practice` | 57 | 484 | 1,607 |
+| IB Mathematics AI SL | `Saksham106/ib-maths-ai-sl-topic-practice` | 44 | 386 | 1,163 |
 | Cambridge IGCSE Additional Mathematics 0606 | `Saksham106/igcse-additional-mathematics-0606-topic-practice` | 147 | 1,656 | 3,312 |
 | IB Chemistry HL | `Saksham106/ib-chemistry-topic-practice` | 51 | 1,083 | 3,234 |
 | IB Chemistry SL | `Saksham106/ib-chemistry-topic-practice` | 51 | 810 | 2,243 |
@@ -20,7 +20,7 @@ This is the operational source of truth for adding or rebuilding PastPaperPrep q
 | IB Physics SL | `Saksham106/ib-physics-topic-practice` | 51 | 774 | 2,087 |
 | IB Biology HL | `Saksham106/ib-biology-topic-practice` | 51 | 1,139 | 3,107 |
 | IB Biology SL | `Saksham106/ib-biology-topic-practice` | 54 | 936 | 2,443 |
-| **Total** |  | **933** | **13,845** | **34,723** |
+| **Total** |  | **948** | **13,972** | **35,138** |
 
 The application copies each source bank's generated `site/data/questions.json` to:
 
@@ -479,6 +479,10 @@ Pipeline commands match "#### IB HL" above, run inside each AI repository.
 - `bundle_all` covers both banks; separate Stripe prices are unnecessary unless individual-bank sales are introduced later.
 - Verified counts: AI HL 48 papers / 409 questions / 1,353 assets; AI SL 38 papers / 334 questions / 1,002 assets.
 
+## IB Economics HL/SL May 2026 addition (October 2026)
+
+26 official May 2026 questions (HL 17, SL 15) are appended to the production Economics runtime (HL 128 / 49 papers, SL 104 / 38) with no env flag. The 2021-2025 rows, papers and asset entries stay a byte-identical prefix (`node scripts/verify-ib-economics-2026-may-addition.mjs`); the 287 new crops were uploaded create-only and read back, and `ib-economics-storage-release-receipt-with-2026-may.json` is the combined verified receipt. Rights are user-attested (2026-10-15). The 20 PDFs are planned only until published and verified. Details and receipts: `docs/ib-economics-2026-may-official-papers.md`. Source lane: `ib-economics-topic-practice` branch `feat/may-2026-official` (`scripts/may_2026_lane.py`, `may_2026_tagging.py`, `build_may_2026_site_data.py`).
+
 ## Cambridge IGCSE Mathematics 0580 Core 2026 addition (October 2026)
 
 The 0580 bank serves 225 papers / 4,174 questions / 8,348 WebPs: the historical 217 papers / 3,967 questions (Extended 2016–2026 plus Core 2021–2025) and 8 Core 2026 papers / 207 questions (February/March 12 and 32; May/June 11, 12, 13, 31, 32 and 33; 80 marks each). Do not copy the source `site/data/questions.json` over `src/data/raw/igcse.json`: 22 Extended rows and `extendedRuntimeSha256` carry app-side corrections. Import only `route == "Core"` rows and papers for the new year, as the 2021–2025 Core import did.
@@ -524,6 +528,8 @@ The finalized 4,913 rows are a frozen baseline: main's finalized file (`0a0b224`
 **Release (done 13 October 2026).** With owner approval, the 780 new objects (443 QP, 337 MS; 11,990,894 bytes) were uploaded create-only and read back (`docs/2026-paper-gaps-r2-upload-receipt.md`) under the existing `igcse-biology-0610/releases/combined4913-v1-9e97cd0c0455/` prefix, so the 13,953 verified objects were not re-uploaded. `data/storage/igcse-biology-0610.manifest.json` now holds all 14,733 objects, and its `verified_readback` receipt combines the earlier verified receipt with the readback log. `--finalize` sealed runtime `d27b4dbb…` (written minified, as `--finalize` does): the 298 May/June rows are `production`/`classified`, and `assert0610Extension2026MayJune` pins the finalized content, manifest and receipt seals. The Pollution and secondaries checks still pin the 4,913-row prefix and the storage pair the addition recorded. `node scripts/igcse-2026-release-finalization.mjs` proves the receipt and that the committed runtime is exactly `finalizeRelease()` over the candidate. The candidate itself (`d2c34543…`, pretty-printed) is reconstructed exactly for the candidate-state tests and for `--check` in the generator, verifier and receipt builder. The historical verified manifest/receipt pair is read from main (`0a0b224`). `npm run r2:sync` does not handle 0610. The whole-paper archive (`src/data/paper-archives/igcse-biology-0610.json`) is unchanged, so the May/June papers do not appear under Full past papers until a separate whole-paper release.
 
 **PR #282 repair (owner-approved, 14 October 2026 UTC).** The review found that the written/practical mark-scheme crops were whole-page bands, so 21 questions' crops also showed a neighbour's rows (e.g. `0610-2026-s-42-q4` opened with 3(b)), and that `0610-2026-s-42-q4` lacked secondaries. The source lane now re-cuts shared pages at the printed question boundary (`ms_question_row_ownership` overrides, `docs/extension-2026-mj-content-pipeline.md` in the source repo). The 24 re-cut crops get content-addressed names, so they are new object keys. They were uploaded create-only and read back (`docs/igcse-biology-0610-2026-mj-ms-ownership-r2-upload-plan.json`, `docs/2026-0610-ms-ownership-r2-upload-log.jsonl`). The 24 objects they replace drop out of the manifest and stay in the bucket, unreferenced; deleting them needs owner approval. The candidate was rebuilt (`3f2ec8f2…`), the receipt was composed over the previous verified receipt (14,709 carried byte-identical, 24 new), and `--finalize` sealed runtime `495712c9…` (content `6606b21c…`, manifest `651baec5…`, receipt `155a454e…`). The 4,913 earlier rows, the 13,953 earlier objects and the private-index prefix are unchanged (`node scripts/verify-0610-2026-mj-addition.mjs`). `scripts/igcse-2026-release-finalization.mjs` rebuilds the first verified release of the addition (`d2c34543…`, manifest `5dfe4e11…`, receipt `001e9d9d…`) byte-exactly from main's pair and the first log, then checks the repair chain on top.
+
+**Historical crop repair (owner-approved, 14 October 2026).** The finalized 4,913 rows had three crop problems. On 2021–2025 written rows, shared-page mark-scheme bands showed a neighbour's rows. The 2019, 2020 and February/March 2026 written rows served one-line mark-scheme slivers. Twenty questions were cut off before their last parts. The same source method as PR #282 fixed all three, using reviewed ledgers in the source repo. The fix is delivered as a reviewed overlay, `src/data/reviewed-biology-historical-crop-repairs.json`, applied in `normalizeQuestion`, so the finalized runtime, its storage pair and every seal stay byte-identical. It covers 425 questions: 419 mark-scheme lists, 21 question-paper lists, and one mark, `0610-2019-s-31-q3` (4 → 10, the printed `[Total: 10]`). The 626 new objects were uploaded create-only and read back. The PR #292 review restored `0610-2019-w-63-q1` MS page 4, whose `Question | Mark scheme` header the source lane did not recognise. That added one object. Receipt: `docs/0610-historical-crops-repair.md`. Rebuild with `PASTPAPERPREP_IGCSE_BIOLOGY_SOURCE_ROOT=<source> node scripts/build-0610-historical-crop-repairs.mjs [--check]`.
 
 ## Cambridge IGCSE Additional Mathematics 0606 (added August 2026)
 

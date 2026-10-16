@@ -58,6 +58,7 @@ describe('source-grid verified written Biology answers',()=>{
   });
   it('never applies written Bio repairs to another bank or a held Bio question',()=>{
     for(const bank of ['igcse-physics-0625','igcse-chemistry-0620','igcse-coordinated-sciences-0654']as BankSlug[])expect(reviewedMarkschemePaths(bank,'0610-2026-m-42-q2',['original.webp'])).toEqual(['original.webp']);
-    expect(reviewedMarkschemePaths('igcse-biology-0610','0610-2023-w-31-q2',['original.webp'])).toEqual(['original.webp']);
+    // Held by this repair; its mark scheme is now repaired by the historical crop overlay, which only accepts the exact live crops.
+    expect(()=>reviewedMarkschemePaths('igcse-biology-0610','0610-2023-w-31-q2',['original.webp'])).toThrow(/historical markscheme crop repair/);
   });
 });

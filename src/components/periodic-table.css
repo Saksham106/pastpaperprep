@@ -1,0 +1,49 @@
+/* Periodic Table reference: a button and a dock along the bottom of the screen. */
+.periodic-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 40px; padding: 7px 14px; color: var(--ink); background: var(--surface-raised); border: 1px solid var(--line-strong); border-radius: 999px; font: 650 .86rem var(--font-body); cursor: pointer; }
+.periodic-button:hover { border-color: var(--cobalt); color: var(--cobalt-strong); }
+.periodic-button[aria-expanded=true] { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+.periodic-button:focus-visible, .periodic-close:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+.periodic-button.is-floating { position: fixed; right: 18px; bottom: 18px; z-index: 40; box-shadow: 0 10px 28px rgb(46 40 34 / .18); }
+
+.periodic-dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 80; display: flex; flex-direction: column; max-height: min(66dvh, 660px); color: var(--ink); background: var(--surface-raised); border-top: 1px solid var(--line-strong); box-shadow: 0 -18px 50px rgb(46 40 34 / .18); outline: none; }
+.periodic-dock-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px clamp(12px, 3vw, 28px); border-bottom: 1px solid var(--line); }
+.periodic-dock-head h2 { margin: 0; font: 400 clamp(1rem, 1.8vw, 1.2rem)/1.2 var(--font-serif); }
+.periodic-close { width: 36px; height: 36px; display: grid; place-items: center; color: var(--ink); background: none; border: 1px solid var(--line); border-radius: 999px; cursor: pointer; }
+.periodic-dock-body { overflow: auto; overscroll-behavior: contain; padding: 8px clamp(12px, 3vw, 28px) 12px; }
+.periodic-status { margin: 12px 0; color: var(--muted); }
+
+.periodic-table { min-width: 860px; max-width: 1180px; margin: 0 auto; }
+.periodic-grid { display: grid; grid-template-columns: repeat(18, minmax(44px, 1fr)); grid-template-rows: auto auto repeat(7, auto) 6px auto auto; gap: 2px; }
+.periodic-elements { display: contents; margin: 0; padding: 0; list-style: none; }
+.periodic-group-heading { justify-self: center; color: var(--muted); font: 650 .7rem/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; }
+.periodic-group { justify-self: center; align-self: end; padding-bottom: 2px; font: 650 .8rem/1 var(--font-body); }
+.periodic-cell { min-height: 46px; display: grid; justify-items: center; align-content: center; gap: 0; padding: 2px 2px; text-align: center; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 4px; }
+.periodic-cell small { max-width: 100%; color: var(--muted); font-size: .58rem; line-height: 1.05; hyphens: auto; -webkit-hyphens: auto; }
+.periodic-cell b { font: 650 .98rem/1 var(--font-body); }
+.periodic-cell:hover { border-color: var(--cobalt); background: var(--cobalt-faint); }
+.periodic-key { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 8px; padding: 4px 6px; }
+.periodic-key-title { color: var(--muted); font: 650 .7rem/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; }
+.periodic-key-cell { max-width: 150px; }
+.periodic-key-cell b { font-size: .78rem; font-weight: 650; }
+.periodic-placeholder { display: grid; place-items: center; align-content: center; min-height: 46px; color: var(--muted); font-size: .72rem; text-align: center; border: 1px dashed var(--line-strong); border-radius: 4px; }
+.periodic-placeholder small { font-size: .6rem; }
+.periodic-series-label { align-self: center; justify-self: end; padding-right: 6px; color: var(--muted); font-size: .72rem; }
+.periodic-rtp { margin: 6px 0 0; color: var(--muted); font-size: .78rem; }
+
+.periodic-swipe { display: none; }
+
+/* Phones and tablets: keep cells big enough to read and let the table scroll sideways. */
+@media (max-width: 1100px) {
+  .periodic-table { min-width: 940px; }
+  .periodic-grid { grid-template-columns: repeat(18, minmax(50px, 1fr)); }
+  .periodic-cell { min-height: 54px; }
+  .periodic-cell small { font-size: .66rem; }
+  .periodic-cell b { font-size: 1.1rem; }
+  .periodic-swipe { display: block; margin: 0 0 6px; color: var(--muted); font-size: .78rem; }
+}
+@media (max-width: 760px) {
+  .periodic-button.is-floating { right: 12px; bottom: 12px; padding: 7px 12px; }
+  .periodic-dock { max-height: 72dvh; border-radius: 14px 14px 0 0; }
+  .periodic-table { min-width: 1010px; }
+  .periodic-grid { grid-template-columns: repeat(18, minmax(54px, 1fr)); }
+}

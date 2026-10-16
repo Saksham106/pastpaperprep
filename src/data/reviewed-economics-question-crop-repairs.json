@@ -1,0 +1,260 @@
+{
+ "schema": "reviewed-economics-question-crop-repairs-v1",
+ "bank": "igcse-economics-0455",
+ "namespace": "repairs/economics-q1-source-v1-2dd7ef88064cdc04",
+ "sourceReceiptSha256": "2dd7ef88064cdc04a10cc9a69bc1f254020c8af935e94ef6eb299d22a2cac53b",
+ "reason": "Paper 2 Q1 source material that continues above the Q1 anchor was cropped away; the anchor-page crop is re-rendered from the clean source PDF with the band starting at the 48pt page-furniture line (the 2026 lane rule).",
+ "entries": {
+  "0455-2020-w-23-q1": {
+   "oldPaths": [
+    "questions/0455-2020-w-23/q1-1-2.webp",
+    "questions/0455-2020-w-23/q1-2-3.webp",
+    "questions/0455-2020-w-23/q1-3-4.webp"
+   ],
+   "oldSha256": [
+    "1160a5b10eb3ebd7ec379142f4d734f90d483c3107b4544c1626e9e318889848",
+    "1798c0322b664cb89640e30fb5a7bbb8b70d2d202310939ae47b5d2b87c07cb0",
+    "67af488409b93a36f9daf3d0d963950ba32790892d85126e7363aee0538ac875"
+   ],
+   "newPaths": [
+    "questions/0455-2020-w-23/q1-1-2.webp",
+    "repairs/economics-q1-source-v1-2dd7ef88064cdc04/c5ea87556c2b65cd30cce2e6e2da946cebdcc8da66a3b8ad0862687d81eff6f2.webp",
+    "questions/0455-2020-w-23/q1-3-4.webp"
+   ],
+   "sha256": [
+    "1160a5b10eb3ebd7ec379142f4d734f90d483c3107b4544c1626e9e318889848",
+    "c5ea87556c2b65cd30cce2e6e2da946cebdcc8da66a3b8ad0862687d81eff6f2",
+    "67af488409b93a36f9daf3d0d963950ba32790892d85126e7363aee0538ac875"
+   ],
+   "sourcePdfSha256": "4435e554f73c63c8d750005fadfac55de246ad5818cb1874735d2bcc6627343e"
+  },
+  "0455-2022-m-22-q1": {
+   "oldPaths": [
+    "questions/0455-2022-m-22/q1-1-2.webp",
+    "questions/0455-2022-m-22/q1-2-3.webp"
+   ],
+   "oldSha256": [
+    "56e5c3ecb617ba962b03d55d20b60e65884b350c848073042dc60fd6201da194",
+    "9e38c20d3e03826d06f3f80a5327b8205a05c6dd0f8d7347e117ecd9220b6569"
+   ],
+   "newPaths": [
+    "questions/0455-2022-m-22/q1-1-2.webp",
+    "repairs/economics-q1-source-v1-2dd7ef88064cdc04/002a41b249f9b4a61ac6f137f1d31e0d1e06338238b9933bc1de46da3bdf4579.webp"
+   ],
+   "sha256": [
+    "56e5c3ecb617ba962b03d55d20b60e65884b350c848073042dc60fd6201da194",
+    "002a41b249f9b4a61ac6f137f1d31e0d1e06338238b9933bc1de46da3bdf4579"
+   ],
+   "sourcePdfSha256": "6896d6055b55b460a635acf6ecf97e11d48a26119779792cef3e7496791d5329"
+  },
+  "0455-2022-s-22-q1": {
+   "oldPaths": [
+    "questions/0455-2022-s-22/q1-1-2.webp",
+    "questions/0455-2022-s-22/q1-2-3.webp"
+   ],
+   "oldSha256": [
+    "dd39691bfbead3ed82dcee96151fc53c68a0af162b324b564272177ada655642",
+    "c0744d5d810a57c9667268c0833c0cb7f768a2fd192b960692cc693f66a5ce0f"
+   ],
+   "newPaths": [
+    "questions/0455-2022-s-22/q1-1-2.webp",
+    "repairs/economics-q1-source-v1-2dd7ef88064cdc04/d82eb415bebe0c03a92860178f606b1984f24dccc04d612d6e22f84d4332465c.webp"
+   ],
+   "sha256": [
+    "dd39691bfbead3ed82dcee96151fc53c68a0af162b324b564272177ada655642",
+    "d82eb415bebe0c03a92860178f606b1984f24dccc04d612d6e22f84d4332465c"
+   ],
+   "sourcePdfSha256": "8559aa13ad5db19c9fd1d4f57cbdf43dbad6cc222a05a86ac06a480172789a82"
+  },
+  "0455-2022-w-21-q1": {
+   "oldPaths": [
+    "questions/0455-2022-w-21/q1-1-2.webp",
+    "questions/0455-2022-w-21/q1-2-3.webp"
+   ],
+   "oldSha256": [
+    "efbe6cfc85f5f3213cf2f7a6a6e0ed4a3d5bc8bef5e9e07e7d7e66d032b11b74",
+    "66898e75d282ec7f3e069137dc4cc9aa531e44e366ba874fa15e34986fa46a82"
+   ],
+   "newPaths": [
+    "questions/0455-2022-w-21/q1-1-2.webp",
+    "repairs/economics-q1-source-v1-2dd7ef88064cdc04/ef417199ac8fd16816528e36319f6bd68501bf47dbc8935e2758297ad7226452.webp"
+   ],
+   "sha256": [
+    "efbe6cfc85f5f3213cf2f7a6a6e0ed4a3d5bc8bef5e9e07e7d7e66d032b11b74",
+    "ef417199ac8fd16816528e36319f6bd68501bf47dbc8935e2758297ad7226452"
+   ],
+   "sourcePdfSha256": "da49bcc62f1a0cdc7846b6e7d31e85313eba2af6cbca11e2f845e1e505aa3680"
+  },
+  "0455-2024-s-22-q1": {
+   "oldPaths": [
+    "questions/0455-2024-s-22/q1-1-2.webp",
+    "questions/0455-2024-s-22/q1-2-3.webp"
+   ],
+   "oldSha256": [
+    "1d0c33a498755bf2b7f13a561910e84dc7d583380d4ca168dbf74008eab355b5",
+    "15501ed749158a80f9d6677f15489ae66a99d6966105dd4e439ceb49d84c1a08"
+   ],
+   "newPaths": [
+    "questions/0455-2024-s-22/q1-1-2.webp",
+    "repairs/economics-q1-source-v1-2dd7ef88064cdc04/b32cb64f447d0675a4c7e88556b3d0d7ee5241194b43d947f7d5927d1b29cea0.webp"
+   ],
+   "sha256": [
+    "1d0c33a498755bf2b7f13a561910e84dc7d583380d4ca168dbf74008eab355b5",
+    "b32cb64f447d0675a4c7e88556b3d0d7ee5241194b43d947f7d5927d1b29cea0"
+   ],
+   "sourcePdfSha256": "c38e09f5828d88880ef2d4d7d8273c702f61b23bdfb8eefa200ec0e441835493"
+  },
+  "0455-2024-w-21-q1": {
+   "oldPaths": [
+    "questions/0455-2024-w-21/q1-1-2.webp",
+    "questions/0455-2024-w-21/q1-2-3.webp"
+   ],
+   "oldSha256": [
+    "259eae3546316b722e186e981427513ab66222b5c58f80e77fee28f066c74faa",
+    "89c8f829352efabcb64b27392648d83bd369031b6e51f9d3ee49bc77ccf5195c"
+   ],
+   "newPaths": [
+    "questions/0455-2024-w-21/q1-1-2.webp",
+    "repairs/economics-q1-source-v1-2dd7ef88064cdc04/76a4a80214f8feecbf0842eb14088906ad88519720295e681bf9338885b0ed38.webp"
+   ],
+   "sha256": [
+    "259eae3546316b722e186e981427513ab66222b5c58f80e77fee28f066c74faa",
+    "76a4a80214f8feecbf0842eb14088906ad88519720295e681bf9338885b0ed38"
+   ],
+   "sourcePdfSha256": "e2a909cfe06218fd7a55105f34588441999bb875eeea5f3d76ec4c0e5640fab4"
+  },
+  "0455-2024-w-22-q1": {
+   "oldPaths": [
+    "questions/0455-2024-w-22/q1-1-2.webp",
+    "questions/0455-2024-w-22/q1-2-3.webp"
+   ],
+   "oldSha256": [
+    "a6f1be1e66dbbe4fd0838ffd9ab9881ee97e8f735f1ed1ba144c352bbf03bb62",
+    "923739c2809397619904d0bd809db626b03ca75b083759ce84c12662e266a80f"
+   ],
+   "newPaths": [
+    "questions/0455-2024-w-22/q1-1-2.webp",
+    "repairs/economics-q1-source-v1-2dd7ef88064cdc04/8fd7d2a2e796b34db17da5af32386fe9f93bd0b6440acd62ada87b725dcad6ee.webp"
+   ],
+   "sha256": [
+    "a6f1be1e66dbbe4fd0838ffd9ab9881ee97e8f735f1ed1ba144c352bbf03bb62",
+    "8fd7d2a2e796b34db17da5af32386fe9f93bd0b6440acd62ada87b725dcad6ee"
+   ],
+   "sourcePdfSha256": "89ca687ffbbce1c611a9552a72705565f77ef0ec3f12b2e06ce0c0ee449f5594"
+  },
+  "0455-2024-w-23-q1": {
+   "oldPaths": [
+    "questions/0455-2024-w-23/q1-1-2.webp",
+    "questions/0455-2024-w-23/q1-2-3.webp"
+   ],
+   "oldSha256": [
+    "d00aa275a641adda8d72dc920310815c5e47868cdfc9866add4d34bf446a5bdb",
+    "ff2f9dee3b6db8789e9634ae498a7078eaeffb8502f43b95ede9fc3fe8bc6411"
+   ],
+   "newPaths": [
+    "questions/0455-2024-w-23/q1-1-2.webp",
+    "repairs/economics-q1-source-v1-2dd7ef88064cdc04/ff9d0dde9a35cc1d649996613446005eac186963da8a2d022db7f28d775c490f.webp"
+   ],
+   "sha256": [
+    "d00aa275a641adda8d72dc920310815c5e47868cdfc9866add4d34bf446a5bdb",
+    "ff9d0dde9a35cc1d649996613446005eac186963da8a2d022db7f28d775c490f"
+   ],
+   "sourcePdfSha256": "00db0c89e3702ae1f6f3ba0a588d503a896806626651cb1772f367884747a8ec"
+  },
+  "0455-2025-m-22-q1": {
+   "oldPaths": [
+    "questions/0455-2025-m-22/q1-1-2.webp",
+    "questions/0455-2025-m-22/q1-2-3.webp"
+   ],
+   "oldSha256": [
+    "912e6600837598c8136cedc0c72d7b5f5a00cc27277f0b151a20c9da0f97eee1",
+    "49339f2e7ba5590a1733eef848ada5185fc3bcc11857523b8427e427173fbf3d"
+   ],
+   "newPaths": [
+    "questions/0455-2025-m-22/q1-1-2.webp",
+    "repairs/economics-q1-source-v1-2dd7ef88064cdc04/994df18d4c88e8d89082e72e1938ea7577f45585bc2a6bb1ee74002be9c854e1.webp"
+   ],
+   "sha256": [
+    "912e6600837598c8136cedc0c72d7b5f5a00cc27277f0b151a20c9da0f97eee1",
+    "994df18d4c88e8d89082e72e1938ea7577f45585bc2a6bb1ee74002be9c854e1"
+   ],
+   "sourcePdfSha256": "4548a277585ac175283ba278a20816393bd3abb7730e07a596653ccd613eb4b8"
+  },
+  "0455-2025-s-21-q1": {
+   "oldPaths": [
+    "questions/0455-2025-s-21/q1-1-2.webp",
+    "questions/0455-2025-s-21/q1-2-3.webp"
+   ],
+   "oldSha256": [
+    "55b1720c2095cf644f3bc44a2989e8f795670a9afd7441a57e52158229cd6dea",
+    "9af6bff16628a3c2a1b437a0a6736ef5545d42f070e6ed8a7488b85b939296b5"
+   ],
+   "newPaths": [
+    "questions/0455-2025-s-21/q1-1-2.webp",
+    "repairs/economics-q1-source-v1-2dd7ef88064cdc04/2c2f0bce38299ac93e7ba0cff0fd2c648653d8a0552a2ab934d3fc89d27edafa.webp"
+   ],
+   "sha256": [
+    "55b1720c2095cf644f3bc44a2989e8f795670a9afd7441a57e52158229cd6dea",
+    "2c2f0bce38299ac93e7ba0cff0fd2c648653d8a0552a2ab934d3fc89d27edafa"
+   ],
+   "sourcePdfSha256": "3417ad3228fb51a109f7f89f7a19b9eaa82a5a53ac591d015686183490708ca7"
+  },
+  "0455-2025-s-22-q1": {
+   "oldPaths": [
+    "questions/0455-2025-s-22/q1-1-2.webp",
+    "questions/0455-2025-s-22/q1-2-3.webp"
+   ],
+   "oldSha256": [
+    "0f6b59856d139e0031f32c1003c6ed274d47f579a5981b124c59984c342e3240",
+    "a7d12be66448e7111eebc6a46a32a32885d59ad10adea78bc46e90e217a6953a"
+   ],
+   "newPaths": [
+    "questions/0455-2025-s-22/q1-1-2.webp",
+    "repairs/economics-q1-source-v1-2dd7ef88064cdc04/17651ddd87640ed0f2ad0f747e55ef9ad622e98807a159450e30457c5f81d938.webp"
+   ],
+   "sha256": [
+    "0f6b59856d139e0031f32c1003c6ed274d47f579a5981b124c59984c342e3240",
+    "17651ddd87640ed0f2ad0f747e55ef9ad622e98807a159450e30457c5f81d938"
+   ],
+   "sourcePdfSha256": "1b85ff7b85f7e721dd3392381f205efe3fd960f3dd0365aeb5a73bac6774b50f"
+  },
+  "0455-2025-w-21-q1": {
+   "oldPaths": [
+    "questions/0455-2025-w-21/q1-1-2.webp",
+    "questions/0455-2025-w-21/q1-2-3.webp"
+   ],
+   "oldSha256": [
+    "cc2a4bae2e45f0a57cdb56fc49da25ef39bd8b335294695a5bf7c68cba2d756d",
+    "b61f43f04e63654fbfbf53573918ee5e0d9088ecc0f31e59346904faeb9978af"
+   ],
+   "newPaths": [
+    "questions/0455-2025-w-21/q1-1-2.webp",
+    "repairs/economics-q1-source-v1-2dd7ef88064cdc04/3b3bbc2121f91ac73cef65063934eb7b16a692d114885062a8401fa0e093eb33.webp"
+   ],
+   "sha256": [
+    "cc2a4bae2e45f0a57cdb56fc49da25ef39bd8b335294695a5bf7c68cba2d756d",
+    "3b3bbc2121f91ac73cef65063934eb7b16a692d114885062a8401fa0e093eb33"
+   ],
+   "sourcePdfSha256": "3e602ef078a4dcec3cb65731935916a7734f8344855dcd6bdd2d4ee955d09cf5"
+  },
+  "0455-2025-w-22-q1": {
+   "oldPaths": [
+    "questions/0455-2025-w-22/q1-1-2.webp",
+    "questions/0455-2025-w-22/q1-2-3.webp"
+   ],
+   "oldSha256": [
+    "1b67b773177c97d6b85118c70637f5f29b0b131f5b22eb906568afd0a4ecda25",
+    "5fb71a7f913e109303ba8fb51f6c6648f8f9c764dc8ce6c1db56e36aa97dc73e"
+   ],
+   "newPaths": [
+    "questions/0455-2025-w-22/q1-1-2.webp",
+    "repairs/economics-q1-source-v1-2dd7ef88064cdc04/450b132e28fc9c08bd0c7cca1c9ef043949d20c06906c2f71bde315ea06656bb.webp"
+   ],
+   "sha256": [
+    "1b67b773177c97d6b85118c70637f5f29b0b131f5b22eb906568afd0a4ecda25",
+    "450b132e28fc9c08bd0c7cca1c9ef043949d20c06906c2f71bde315ea06656bb"
+   ],
+   "sourcePdfSha256": "492c9ea65d3ef7cfcd5ba7b28ac64e536a0c94befc342d8e77b133ddaa172620"
+  }
+ }
+}

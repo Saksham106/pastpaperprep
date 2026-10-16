@@ -6,8 +6,8 @@
 //        labels carried the bank: its unlabelled results count for --bank. Refused if any label names another
 //        bank or any result ID is missing from this bank's manifest.
 // Writes <research>/explanations/<bank>/_ledger.json and _todo.json.
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { closeSync, existsSync, fstatSync, openSync, readFileSync, readSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { BANKS, outputPathFor, researchRoot } from "./prepare-batch.mjs";
 
 const argv = process.argv.slice(2);
@@ -33,10 +33,32 @@ for (const file of singleBank) {
 const critical = (v) => v.verdict === "fail" || v.issues.some((i) => i.severity === "critical");
 const needsFix = (v) => v.verdict !== "pass" || v.issues.some((i) => i.severity === "critical");
 
-// Latest outcome per question, by stage.
-const verify = new Map();
-const fixed = new Map();
-const reverify = new Map();
+// When an agent finished: the last timestamp in its transcript, which sits next to the journal.
+// Transcripts can be megabytes, so read only their tail, widening until a timestamp is found.
+function finishedAt(file, agentId) {
+  const transcript = join(dirname(file), `agent-${agentId}.jsonl`);
+  if (existsSync(transcript)) {
+    const fd = openSync(transcript, "r");
+    try {
+      const size = fstatSync(fd).size;
+      for (let span = 1 << 16; ; span *= 4) {
+        const length = Math.min(span, size);
+        const buffer = Buffer.alloc(length);
+        readSync(fd, buffer, 0, length, size - length);
+        const lines = buffer.toString("utf8").trim().split("\n");
+        // The first line of a partial read may be cut off; the parse fails and it is skipped.
+        for (let i = lines.length - 1; i >= 0; i -= 1) {
+          try { const time = Date.parse(JSON.parse(lines[i]).timestamp); if (Number.isFinite(time)) return time; } catch { /* partial line */ }
+        }
+        if (length === size) break;
+      }
+    } finally { closeSync(fd); }
+  }
+  throw new Error(`Cannot date ${agentId} in ${file}; refusing to order its result against other runs`);
+}
+
+// Runs overlap, so replay every result in the order its agent finished, not journal by journal.
+const events = [];
 for (const file of journals) {
   const labels = new Map();
   for (const line of readFileSync(file, "utf8").split("\n")) {
@@ -44,23 +66,31 @@ for (const file of journals) {
     const entry = JSON.parse(line);
     if (entry.type === "started") labels.set(entry.agentId, entry.label ?? "");
     if (entry.type !== "result" || !entry.result?.results) continue;
-    const label = labels.get(entry.agentId) ?? "";
-    // Multi-bank workflows reuse question IDs. Never borrow another bank's verdict.
-    const labelledBank = /^(?:generate|verify|fix|re-verify)\s+((?:ib|igcse)[a-z0-9-]*)(?:\s|$)/.exec(label)?.[1] ?? (singleBank.has(file) ? bank : undefined);
-    if (labelledBank && labelledBank !== bank) continue;
-    for (const r of entry.result.results) {
-      // Missing scope is not evidence. If both scopes exist they must agree.
-      if (Object.hasOwn(r, "bank") && r.bank !== bank) continue;
-      if (labelledBank !== bank && r.bank !== bank) continue;
-      if (label.startsWith("re-verify")) reverify.set(r.questionId, r);
-      else if (label.startsWith("verify")) {
-        verify.set(r.questionId, r);
-        fixed.delete(r.questionId);
-        reverify.delete(r.questionId);
-      } else if (label.startsWith("fix")) {
-        fixed.set(r.questionId, r);
-        reverify.delete(r.questionId);
-      }
+    events.push({ file, label: labels.get(entry.agentId) ?? "", results: entry.result.results, time: finishedAt(file, entry.agentId), seq: events.length });
+  }
+}
+events.sort((a, b) => a.time - b.time || a.seq - b.seq);
+
+// Latest outcome per question, by stage.
+const verify = new Map();
+const fixed = new Map();
+const reverify = new Map();
+for (const { file, label, results } of events) {
+  // Multi-bank workflows reuse question IDs. Never borrow another bank's verdict.
+  const labelledBank = /^(?:generate|verify|fix|re-verify)\s+((?:ib|igcse)[a-z0-9-]*)(?:\s|$)/.exec(label)?.[1] ?? (singleBank.has(file) ? bank : undefined);
+  if (labelledBank && labelledBank !== bank) continue;
+  for (const r of results) {
+    // Missing scope is not evidence. If both scopes exist they must agree.
+    if (Object.hasOwn(r, "bank") && r.bank !== bank) continue;
+    if (labelledBank !== bank && r.bank !== bank) continue;
+    if (label.startsWith("re-verify")) reverify.set(r.questionId, r);
+    else if (label.startsWith("verify")) {
+      verify.set(r.questionId, r);
+      fixed.delete(r.questionId);
+      reverify.delete(r.questionId);
+    } else if (label.startsWith("fix")) {
+      fixed.set(r.questionId, r);
+      reverify.delete(r.questionId);
     }
   }
 }

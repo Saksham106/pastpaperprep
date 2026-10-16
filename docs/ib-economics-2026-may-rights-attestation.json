@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "ib-economics-downstream-rights-attestation-v1",
+  "attestationId": "allpublicationrights2026-10-15-may2026",
+  "scope": {
+    "sourceRepository": "ib-economics-topic-practice",
+    "sourceBranch": "feat/may-2026-official",
+    "sourceCommit": "911f3d4506d7b646fde4773f26b4698bbf5341d4",
+    "bankSlugs": [
+      "ib-economics-hl",
+      "ib-economics-sl"
+    ],
+    "corpus": "IB Economics official English May 2026 HL/SL papers and official mark schemes (papers.xtremepape.rs mirror of the IB release), 10 paper pairs / 26 questions represented by the sealed 2026 source tuple",
+    "assetClass": "derived WebP assets and the public paper PDFs; the same classes as the 2021-2025 attestation (docs/ib-economics-downstream-rights-attestation.json)"
+  },
+  "userAttestation": {
+    "status": "attested",
+    "attestedOn": "2026-10-15",
+    "statement": "The user confirmed on 2026-10-15 the same user-attested publication rights for the IB Economics May 2026 papers as for the 2021-2025 corpus (attestation allpublicationrights2026-09-09). This is user-attested, not independently verified.",
+    "independentLegalVerification": false
+  },
+  "downstreamDecision": {
+    "status": "user_attested_non_blocking_for_named_corpus",
+    "unknownRightsBlocker": false,
+    "appliesTo": "IB Economics May 2026 addition: storage release preparation, its derived-asset upload gate and the Full past papers PDFs only",
+    "doesNotAuthorize": [
+      "infrastructure or bucket creation",
+      "billing, Stripe, database, migration, deployment, or publication changes outside this scoped release"
+    ]
+  },
+  "priorAttestation": {
+    "path": "docs/ib-economics-downstream-rights-attestation.json",
+    "attestationId": "allpublicationrights2026-09-09"
+  },
+  "releaseGate": {
+    "requiresThisAttestation": true,
+    "rightsBlockerForThisScope": false,
+    "contentSecurityAndStorageVerificationRemainIndependent": true
+  }
+}

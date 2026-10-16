@@ -1,0 +1,27 @@
+{
+ "schema": "whole-paper-report-holds-v1",
+ "holds": [
+  {
+   "bankSlug": "igcse-biology-0610",
+   "paperId": "0610-2026-s-43",
+   "questionSha256": "03022a52800b75ea29d7ef4103b245ec414ad38538e738ac973c23afc12b0c0a",
+   "markschemeSha256": "1de225168c474127e70861b9f85defab462e651ffe0c88c380adc842b9492ddd",
+   "reason": "The mark scheme withdrew Q5(a); held until a scoring policy for withdrawn parts is agreed.",
+   "review": {
+    "date": "2026-10-14",
+    "evidence": "PR #289 review. The official mark scheme (page 13 of 16) says Q5(a) was removed from the question paper, and the remaining Q5 parts award 3, 1, 3 and 5 marks (12). The question paper still prints Q5(a), Q5 [15] and a total of 80, so a perfect report would read 77/80. Raw marks and PDFs are unchanged."
+   }
+  },
+  {
+   "bankSlug": "ib-biology-hl",
+   "paperId": "biology-2026-may-tz1-hl-p1b-english",
+   "questionSha256": "b7f3df3a9fbcf5f37a453a89539b7b14561e1537d17b0a9ad628145a04b14a35",
+   "markschemeSha256": "1a04c44757346002862cb2008eaf7932a2272c1fae02c8d80af6508ca328aab6",
+   "reason": "Q2's graph is missing from the official question paper (Removed for copyright reasons); held until a complete source or a scoring policy for it is agreed.",
+   "review": {
+    "date": "2026-10-15",
+    "evidence": "PR #298 review. Question paper page 5 replaces the Q2 graph with a Removed for copyright reasons notice; parts (a)(i)-(ii), 3 of Q2's 8 marks, need that graph. The question is withheld from practice (2026-may-tz1-hl-p1b-q2). The paper still prints Q2 [8] and a total of 35, so a report would read as complete while 3 marks cannot be earned. Raw marks and PDFs are unchanged and stay downloadable."
+   }
+  }
+ ]
+}

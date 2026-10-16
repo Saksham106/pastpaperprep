@@ -139,7 +139,7 @@ describe("bank page upgrade nudges", () => {
     const chemistry = loadBankQuestions("ib-chemistry-hl");
     const questions = prepareQuestionsForDelivery([...chemistry.filter((q) => isPreviewQuestion("ib-chemistry-hl", q.id)).slice(0, 5), ...chemistry.filter((q) => !isPreviewQuestion("ib-chemistry-hl", q.id)).slice(0, 5)], []);
     render(<QuestionExplorer questions={questions} bankSlug="ib-chemistry-hl" access={anonymous} initialState={state(false)} />);
-    expect(document.querySelector(".free-value-strip")).toHaveTextContent("Locked questions include the 2021–2025 papers.");
+    expect(document.querySelector(".free-value-strip")).toHaveTextContent("Locked questions include the 2021–2026 papers.");
   });
 
   it("waits for the full question index before counting or teasing paid questions", () => {

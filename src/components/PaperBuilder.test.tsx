@@ -1,171 +1,249 @@
-import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
+
+const { exportWorksheetPdf } = vi.hoisted(() => ({ exportWorksheetPdf: vi.fn() }));
+vi.mock("@/lib/worksheet-export", () => ({ exportWorksheetPdf }));
+
 import { PaperBuilder } from "@/components/PaperBuilder";
-import type { PublicBankIndex } from "@/lib/question-index";
 
-const bank = { slug: "igcse-chemistry-0620" as const, label: "Chemistry 0620", indexUrl: "/bank-index/chemistry-test.json" };
-const metadata = (id: string, paper: number, year: number, marks: number, topic: string) => ({
-  id, paper, year, marks, number: 1, session: "Summer", primaryTopic: topic, secondaryTopics: [], skills: [], subtopics: [], granularLabels: [], subject: "Chemistry", option: "", zone: "", component: "", calculator: null, questionImageCount: 1, markschemeImageCount: 1,
+const readIndex = (bank: keyof typeof PUBLIC_BANK_INDEX_FILES) => JSON.parse(readFileSync(join(process.cwd(), "public", "bank-index", PUBLIC_BANK_INDEX_FILES[bank]), "utf8"));
+const chemistry = readIndex("igcse-chemistry-0620");
+const ib = readIndex("ib-hl");
+const bank = { slug: "igcse-chemistry-0620" as const, label: "Chemistry 0620", indexUrl: "/idx/chemistry.json" };
+const ibBank = { slug: "ib-hl" as const, label: "IB Math AA HL", indexUrl: "/idx/ib.json" };
+type Call = { url: string; init?: RequestInit };
+let calls: Call[] = [];
+let worksheetResponse: (init?: RequestInit) => Response = () => Response.json({ worksheet: { id: "w-1", revision: 1 } }, { status: 201 });
+
+const rows = () => within(screen.getByRole("list", { name: "Questions in this paper" })).queryAllByRole("listitem");
+const rowSources = () => rows().map((row) => row.querySelector("small")!.textContent);
+const topicList = () => screen.getByRole("list", { name: "Topics" });
+async function ready() { await screen.findByRole("list", { name: "Questions in this paper" }); }
+
+beforeEach(() => {
+  calls = [];
+  window.history.replaceState({}, "", "/worksheets/build");
+  vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+    const url = String(input); calls.push({ url, init });
+    if (url === bank.indexUrl) return Response.json(chemistry);
+    if (url === ibBank.indexUrl) return Response.json(ib);
+    if (url.startsWith("/api/worksheets")) return worksheetResponse(init);
+    return new Response("{}", { status: 404 });
+  }));
+  exportWorksheetPdf.mockReset().mockResolvedValue({ heldNotice: null });
 });
-const index = { version: 1, bank: bank.slug, questions: [metadata("a", 1, 2024, 1, "Atoms"), metadata("b", 1, 2023, 1, "Atoms"), metadata("c", 2, 2024, 3, "Atoms"), metadata("d", 2, 2024, 5, "Energy")] } satisfies PublicBankIndex;
-
 afterEach(() => vi.unstubAllGlobals());
 
 describe("PaperBuilder", () => {
   it("gives free members a direct pricing decision", () => {
     render(<PaperBuilder banks={[]} />);
     expect(screen.getByRole("link", { name: /see plans/i })).toHaveAttribute("href", "/pricing");
-    expect(screen.getByText(/paper building requires/i)).toBeInTheDocument();
   });
 
-  it("keeps Cambridge route choices off IB banks and clears a previous draft on bank switch", async () => {
-    const ibBank = { ...bank, slug: "ib-hl" as const, label: "IB Math AA HL", indexUrl: "/ib.json" };
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValueOnce(Response.json(index)).mockResolvedValueOnce(Response.json({ ...index, bank: "ib-hl" })));
+  it("shows a ten-question paper straight away, with no generate step, named after its topics", async () => {
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    expect(rows()).toHaveLength(10);
+    expect(screen.queryByRole("button", { name: /generate/i })).not.toBeInTheDocument();
+    expect((screen.getByLabelText("Worksheet name") as HTMLInputElement).value).not.toBe("");
+    expect(screen.getByRole("group", { name: "Your Cambridge route" })).toBeInTheDocument();
+    // The address syncs after the paper renders, which can trail on a loaded CI runner.
+    await waitFor(() => expect(new URLSearchParams(window.location.search).get("bank")).toBe(bank.slug));
+  });
+
+  it("counts every topic live and narrows the counts when the years narrow", async () => {
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    const firstCount = () => Number(within(topicList()).getAllByRole("listitem")[0].querySelector(".builder-count")!.textContent);
+    const before = firstCount();
+    const latest = Math.max(...chemistry.questions.map((question: { year: number }) => question.year));
+    fireEvent.change(screen.getByLabelText("From"), { target: { value: String(latest) } });
+    expect(firstCount()).toBeLessThan(before);
+    const empty = [...topicList().querySelectorAll("label.is-empty input")] as HTMLInputElement[];
+    expect(empty.every((input) => input.disabled)).toBe(true);
+  });
+
+  it("builds only from the topics picked", async () => {
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    const first = within(topicList()).getAllByRole("listitem")[0];
+    const count = Number(first.querySelector(".builder-count")!.textContent);
+    fireEvent.click(within(first).getAllByRole("checkbox")[0]);
+    expect(screen.getByText(new RegExp(`✓ ${count} questions? match`))).toBeInTheDocument();
+    expect(rows().length).toBe(Math.min(10, count));
+  });
+
+  it("resizes by questions or marks", async () => {
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    fireEvent.click(screen.getByRole("button", { name: "20" }));
+    expect(rows()).toHaveLength(20);
+    fireEvent.click(within(screen.getByRole("group", { name: "Size by" })).getByRole("button", { name: "Marks" }));
+    fireEvent.click(screen.getByRole("button", { name: "25" }));
+    expect(screen.getByText(/· 25 marks$/)).toBeInTheDocument();
+  });
+
+  it("removes a question for good, swaps one in place and reorders", async () => {
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    const [first, second] = rowSources();
+    fireEvent.click(screen.getByRole("button", { name: "Move question 1 down" }));
+    expect(rowSources().slice(0, 2)).toEqual([second, first]);
+    fireEvent.click(screen.getByRole("button", { name: "Remove question 1" }));
+    expect(rows()).toHaveLength(9);
+    expect(rowSources()).not.toContain(second);
+    fireEvent.change(screen.getByLabelText("To"), { target: { value: String(Math.max(...chemistry.questions.map((question: { year: number }) => question.year))) } });
+    expect(rowSources()).not.toContain(second);
+    const before = rowSources()[0];
+    fireEvent.click(screen.getByRole("button", { name: "Swap question 1" }));
+    expect(rowSources()[0]).not.toBe(before);
+    expect(rows()).toHaveLength(9);
+  });
+
+  it("matches a real paper with per-paper targets", async () => {
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    fireEvent.click(screen.getByText("Match a real paper"));
+    fireEvent.change(screen.getByLabelText("Paper 2 questions"), { target: { value: "3" } });
+    expect(rows()).toHaveLength(3);
+    expect(rowSources().every((source) => /· Paper 2\d ·/.test(source ?? ""))).toBe(true);
+    expect(screen.queryByRole("group", { name: "Size by" })).not.toBeInTheDocument();
+  });
+
+  it("hides the Cambridge route on IB banks and resets the paper on a bank switch", async () => {
     render(<PaperBuilder banks={[bank, ibBank]} />);
-    await screen.findByRole("group", { name: "Your Cambridge route" });
-    fireEvent.change(screen.getByRole("spinbutton", { name: "Paper 1 questions" }), { target: { value: "1" } });
-    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
-    expect(screen.getByRole("region", { name: "Generated paper preview" })).toBeInTheDocument();
+    await ready();
     fireEvent.change(screen.getByLabelText("Question bank"), { target: { value: "ib-hl" } });
-    expect(screen.queryByRole("group", { name: "Your Cambridge route" })).not.toBeInTheDocument();
-    expect(screen.queryByRole("region", { name: "Generated paper preview" })).not.toBeInTheDocument();
-    await screen.findByRole("spinbutton", { name: "Paper 2 questions" });
+    await waitFor(() => expect(screen.queryByRole("group", { name: "Your Cambridge route" })).not.toBeInTheDocument());
+    await waitFor(() => expect(rowSources()[0]).toMatch(/20\d\d (May|November) · Paper/));
   });
 
-  it("lets a student combine topics and subtopics and scopes paper choices to their Cambridge route", async () => {
-    const indexWithDetails: PublicBankIndex = { ...index, questions: [
-      { ...index.questions[0], subtopics: ["Atomic structure"] },
-      { ...index.questions[1], year: 2024, subtopics: ["Heat"] },
-      { ...index.questions[2], subtopics: ["Bonding"] },
-      { ...index.questions[3], subtopics: ["Heat"] },
-    ] };
-    const fetchMock = vi.fn().mockResolvedValue(Response.json(indexWithDetails));
-    vi.stubGlobal("fetch", fetchMock);
+  it("rebuilds the paper a link describes", async () => {
+    window.history.replaceState({}, "", "/worksheets/build?size=q5&seed=42");
+    const { unmount } = render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    await waitFor(() => expect(rows()).toHaveLength(5));
+    const first = rowSources();
+    unmount();
+    window.history.replaceState({}, "", "/worksheets/build?size=q5&seed=42");
     render(<PaperBuilder banks={[bank]} />);
-    await screen.findByRole("spinbutton", { name: "Paper 1 questions" });
-    fireEvent.click(screen.getByRole("button", { name: /Extended.*Papers 2.*4/i }));
-    expect(screen.queryByRole("spinbutton", { name: "Paper 1 questions" })).not.toBeInTheDocument();
-    expect(screen.getByRole("spinbutton", { name: "Paper 2 questions" })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: /All papers/i }));
-    fireEvent.click(screen.getByText("Topics", { selector: "summary" }));
-    fireEvent.click(screen.getByRole("checkbox", { name: "Atoms" }));
-    fireEvent.click(screen.getByRole("checkbox", { name: "Energy" }));
-    fireEvent.click(screen.getByText("Subtopics", { selector: "summary" }));
-    fireEvent.click(screen.getByRole("checkbox", { name: "Heat" }));
-    fireEvent.change(screen.getByRole("spinbutton", { name: "Paper 1 questions" }), { target: { value: "1" } });
-    fireEvent.change(screen.getByRole("spinbutton", { name: "Paper 2 questions" }), { target: { value: "1" } });
-    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
-    expect(screen.getByRole("region", { name: "Generated paper preview" })).toHaveTextContent("2 questions");
-    expect(screen.getByText(/Paper 1 · Question 1/)).toBeInTheDocument();
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+    await ready();
+    await waitFor(() => expect(rowSources()).toEqual(first));
   });
 
-  it("previews actual question and answer images without saving a worksheet", async () => {
-    const asset = (kind: "question" | "answer") => Response.json({ expiresIn: 600, assets: [{ questionId: "a", kind, urls: [`https://assets.example.com/${kind}.png`] }] });
-    const fetchMock = vi.fn().mockResolvedValueOnce(Response.json(index)).mockResolvedValueOnce(asset("question")).mockResolvedValueOnce(asset("answer"));
-    vi.stubGlobal("fetch", fetchMock);
+  it("lets Shuffle bring back questions that were swapped out", async () => {
     render(<PaperBuilder banks={[bank]} />);
-    await screen.findByRole("spinbutton", { name: "Paper 1 questions" });
-    fireEvent.change(screen.getByRole("spinbutton", { name: "Paper 1 questions" }), { target: { value: "1" } });
-    fireEvent.change(screen.getByLabelText("From year"), { target: { value: "2024" } });
-    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
-    fireEvent.click(screen.getByRole("button", { name: "Preview paper" }));
-    expect(await screen.findByAltText("Original question 1")).toHaveAttribute("src", "https://assets.example.com/question.png");
-    expect(fetchMock.mock.calls[1][0]).toBe("/api/assets/sign");
-    fireEvent.click(screen.getByRole("button", { name: "Show answer" }));
-    expect(await screen.findByAltText("Official mark scheme page 1")).toHaveAttribute("src", "https://assets.example.com/answer.png");
-    expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([bank.indexUrl, "/api/assets/sign", "/api/assets/sign"]);
-    expect(screen.getByRole("button", { name: "Save worksheet" })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Close preview" }));
-    expect(screen.queryByAltText("Original question 1")).not.toBeInTheDocument();
-  });
-  it("generates a filtered in-site set and saves exactly its IDs through the existing worksheet API", async () => {
-    const fetchMock = vi.fn().mockResolvedValueOnce(Response.json(index)).mockResolvedValueOnce(Response.json({ worksheet: { id: "w-123" } }, { status: 201 }));
-    vi.stubGlobal("fetch", fetchMock);
-    render(<PaperBuilder banks={[bank]} />);
-    await waitFor(() => expect(screen.getByLabelText("From year").querySelectorAll("option")).toHaveLength(3));
-    fireEvent.change(screen.getByLabelText("From year"), { target: { value: "2024" } });
-    fireEvent.click(screen.getByText("Topics", { selector: "summary" }));
-    fireEvent.click(screen.getByRole("checkbox", { name: "Atoms" }));
-    fireEvent.change(screen.getByLabelText("Paper 1 questions"), { target: { value: "1" } });
-    fireEvent.change(screen.getByLabelText("Paper 2 questions"), { target: { value: "1" } });
-    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
-    const preview = await screen.findByRole("region", { name: "Generated paper preview" });
-    fireEvent.click(within(preview).getByText("Question list"));
-    expect(within(preview).getAllByRole("listitem")).toHaveLength(2);
-    expect(preview).toHaveTextContent("4 marks");
-    expect(fetchMock).toHaveBeenCalledTimes(1); // generation creates no worksheet and consumes no export
-    fireEvent.change(screen.getByLabelText("Worksheet name"), { target: { value: "Atomic practice" } });
-    fireEvent.click(screen.getByRole("button", { name: "Save worksheet" }));
-    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
-    const [url, options] = fetchMock.mock.calls[1];
-    expect(url).toBe("/api/worksheets");
-    expect(options.method).toBe("POST");
-    expect(JSON.parse(options.body)).toEqual({ bank: bank.slug, name: "Atomic practice", questionIds: ["a", "c"], contentMode: "both" });
-    expect(await screen.findByRole("link", { name: "Open paper" })).toHaveAttribute("href", "/banks/igcse-chemistry-0620?worksheet=w-123");
-    expect(screen.queryByRole("button", { name: /download pdf/i })).not.toBeInTheDocument();
+    await ready();
+    // A subtopic small enough that swaps exhaust it.
+    within(topicList()).getAllByRole("button", { name: /^Show .* subtopics$/ }).forEach((button) => fireEvent.click(button));
+    const subtopic = [...topicList().querySelectorAll(".builder-subtopics li")].find((row) => {
+      const count = Number(row.querySelector(".builder-count")!.textContent);
+      return count >= 7 && count <= 20;
+    })!;
+    const count = Number(subtopic.querySelector(".builder-count")!.textContent);
+    fireEvent.click(within(subtopic as HTMLElement).getByRole("checkbox"));
+    fireEvent.click(screen.getByRole("button", { name: "5" }));
+    for (let swap = 0; swap < 2; swap += 1) fireEvent.click(screen.getByRole("button", { name: "Swap question 1" }));
+    fireEvent.click(screen.getByRole("button", { name: "Shuffle" }));
+    fireEvent.change(screen.getByLabelText("Number of questions"), { target: { value: String(count) } });
+    expect(rows()).toHaveLength(count);
   });
 
-  it("does not save an impossible target and keeps preview stale-free when filters change", async () => {
-    const fetchMock = vi.fn().mockResolvedValue(Response.json(index));
-    vi.stubGlobal("fetch", fetchMock);
+  it("drops paper targets a link names that this bank or route cannot use", async () => {
+    window.history.replaceState({}, "", "/worksheets/build?papers=9q5");
     render(<PaperBuilder banks={[bank]} />);
-    await waitFor(() => expect(screen.getByLabelText("From year").querySelectorAll("option")).toHaveLength(3));
-    fireEvent.change(screen.getByLabelText("Paper 1 questions"), { target: { value: "9" } });
-    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
-    expect(screen.getByRole("alert")).toHaveTextContent(/only 2 available/i);
-    expect(screen.queryByRole("region", { name: "Generated paper preview" })).not.toBeInTheDocument();
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-    fireEvent.change(screen.getByLabelText("Paper 1 questions"), { target: { value: "1" } });
-    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
-    expect(screen.getByRole("region", { name: "Generated paper preview" })).toBeInTheDocument();
-    fireEvent.change(screen.getByLabelText("From year"), { target: { value: "2024" } });
-    expect(screen.queryByRole("region", { name: "Generated paper preview" })).not.toBeInTheDocument();
+    await ready();
+    await waitFor(() => expect(rows()).toHaveLength(10));
+    expect(screen.getByRole("group", { name: "Size by" })).toBeInTheDocument();
   });
 
-  it("keeps the paper on screen and offers no open link when the worksheet API denies access", async () => {
-    const fetchMock = vi.fn().mockResolvedValueOnce(Response.json(index)).mockResolvedValueOnce(Response.json({ error: "Bank access required" }, { status: 403 }));
-    vi.stubGlobal("fetch", fetchMock);
+  it("rebuilds exactly the paper on screen from its link, after choices and edits change it", async () => {
+    window.history.replaceState({}, "", "/worksheets/build?size=q10&seed=7");
+    const { unmount } = render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    fireEvent.click(screen.getByRole("button", { name: "5" }));
+    fireEvent.click(within(within(topicList()).getAllByRole("listitem")[1]).getAllByRole("checkbox")[0]);
+    fireEvent.click(screen.getByRole("button", { name: "Swap question 2" }));
+    fireEvent.click(screen.getByRole("button", { name: "Move question 1 down" }));
+    fireEvent.click(screen.getByRole("button", { name: "Remove question 3" }));
+    const shown = rowSources();
+    const link = window.location.search;
+    unmount();
+    window.history.replaceState({}, "", `/worksheets/build${link}`);
     render(<PaperBuilder banks={[bank]} />);
-    await waitFor(() => expect(screen.getByLabelText("From year").querySelectorAll("option")).toHaveLength(3));
-    fireEvent.change(screen.getByLabelText("Paper 1 questions"), { target: { value: "1" } });
-    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
-    fireEvent.click(screen.getByRole("button", { name: "Save worksheet" }));
-    expect(await screen.findByRole("alert")).toHaveTextContent("Bank access required");
-    expect(screen.getByRole("region", { name: "Generated paper preview" })).toBeInTheDocument();
-    expect(screen.queryByRole("link", { name: "Open paper" })).not.toBeInTheDocument();
+    await ready();
+    await waitFor(() => expect(rowSources()).toEqual(shown));
   });
 
-  it("badges each 0580 paper by calculator status for the chosen years and explains the 2025 change", async () => {
-    const igcse = { slug: "igcse" as const, label: "Mathematics 0580", indexUrl: "/igcse.json" };
-    const row = (id: string, paper: number, year: number, calculator: boolean) => ({ ...metadata(id, paper, year, 4, "Number"), calculator });
-    const igcseIndex = { version: 1, bank: "igcse", questions: [row("p1-new", 1, 2025, false), row("p1-old", 1, 2024, true), row("p4", 4, 2025, true)] };
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json(igcseIndex)));
-    render(<PaperBuilder banks={[igcse]} />);
-    await screen.findByRole("spinbutton", { name: "Paper 1 questions" });
-    expect(screen.getByText(/Before 2025 every paper allowed a calculator\. From 2025, Papers 1 and 2 are non-calculator\./)).toBeInTheDocument();
-    const paper1 = () => screen.getByRole("spinbutton", { name: "Paper 1 questions" }).closest(".paper-builder-target")!;
-    const paper4 = () => screen.getByRole("spinbutton", { name: "Paper 4 questions" }).closest(".paper-builder-target")!;
-    expect(within(paper1() as HTMLElement).queryByText(/CALCULATOR/)).not.toBeInTheDocument();
-    expect(within(paper4() as HTMLElement).getByText("CALCULATOR")).toBeInTheDocument();
-    fireEvent.change(screen.getByLabelText("From year"), { target: { value: "2025" } });
-    expect(within(paper1() as HTMLElement).getByText("NO CALCULATOR")).toBeInTheDocument();
+  it("gives the download a scope that ends on sign-out or when the builder closes", async () => {
+    document.cookie = "sb-test-auth-token=1; path=/";
+    const { unmount } = render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    await waitFor(() => expect(exportWorksheetPdf).toHaveBeenCalled());
+    const { isCurrent } = exportWorksheetPdf.mock.calls[0][0];
+    expect(isCurrent()).toBe(true);
+    document.cookie = "sb-test-auth-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    expect(isCurrent()).toBe(false);
+    document.cookie = "sb-test-auth-token=1; path=/";
+    unmount();
+    expect(isCurrent()).toBe(false);
+    document.cookie = "sb-test-auth-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
   });
 
-  it("shows no calculator badges or hint for science banks", async () => {
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json(index)));
-    render(<PaperBuilder banks={[bank]} />);
-    await screen.findByRole("spinbutton", { name: "Paper 1 questions" });
-    expect(screen.queryByText(/CALCULATOR/)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Before 2025 every paper allowed a calculator/)).not.toBeInTheDocument();
+  it("saves in sheet order, then saves later edits to the same worksheet", async () => {
+    render(<PaperBuilder banks={[bank]} existingTitles={[]} />);
+    await ready();
+    fireEvent.click(screen.getByRole("button", { name: "Move question 1 down" }));
+    fireEvent.click(screen.getByRole("button", { name: "Save PDF" }));
+    await screen.findByRole("link", { name: /saved to my worksheets/i });
+    const post = calls.find((call) => call.init?.method === "POST")!;
+    const body = JSON.parse(String(post.init!.body));
+    expect(body.questionIds).toHaveLength(10);
+    expect(body).toMatchObject({ bank: bank.slug, contentMode: "both" });
+    expect(screen.getByRole("link", { name: /saved to my worksheets/i })).toHaveAttribute("href", `/banks/${bank.slug}?worksheet=w-1`);
+    expect(screen.getByRole("button", { name: "Saved" })).toBeDisabled();
+    fireEvent.change(screen.getByLabelText("Worksheet name"), { target: { value: "Mock" } });
+    worksheetResponse = () => Response.json({ error: "Someone else changed this worksheet" }, { status: 409 });
+    fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Someone else changed this worksheet");
+    expect(screen.getByLabelText("Worksheet name")).toHaveValue("Mock");
+    worksheetResponse = () => Response.json({ worksheet: { id: "w-1", revision: 2 } });
+    fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
+    await screen.findByRole("button", { name: "Saved" });
+    const patch = calls.filter((call) => call.init?.method === "PATCH").at(-1)!;
+    expect(patch.url).toBe("/api/worksheets/w-1");
+    expect(JSON.parse(String(patch.init!.body))).toMatchObject({ name: "Mock", revision: 1 });
+    worksheetResponse = () => Response.json({ worksheet: { id: "w-1", revision: 1 } }, { status: 201 });
   });
-  it("starts on the bank the teacher came from", async () => {
-    const second = { ...bank, slug: "igcse-physics-0625" as const, label: "Physics 0625", indexUrl: "/physics.json" };
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json({ ...index, bank: "igcse-physics-0625" })));
-    render(<PaperBuilder banks={[bank, second]} initialBank="igcse-physics-0625" />);
-    expect(screen.getByLabelText("Question bank")).toHaveValue("igcse-physics-0625");
-    fireEvent.change(await screen.findByRole("spinbutton", { name: "Paper 1 questions" }), { target: { value: "1" } });
-    fireEvent.click(screen.getByRole("button", { name: "Generate paper" }));
-    expect(screen.getByDisplayValue("Physics 0625 practice paper")).toBeInTheDocument();
+
+  it("downloads the PDF from the builder with its title and footer marker", async () => {
+    render(<PaperBuilder banks={[bank]} exportMarker="ABC123" />);
+    await ready();
+    fireEvent.change(screen.getByLabelText("Worksheet name"), { target: { value: "Mock" } });
+    const sources = rowSources();
+    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    await screen.findByText("PDF downloaded.");
+    const args = exportWorksheetPdf.mock.calls[0][0];
+    expect(args).toMatchObject({ bank: bank.slug, title: "Mock", marker: "ABC123" });
+    expect(args.questions).toHaveLength(sources.length);
+  });
+
+  it("opens a question in the reader and returns focus when it closes", async () => {
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    const opener = within(rows()[1]).getByRole("button", { name: /^Preview question 2/ });
+    opener.focus();
+    fireEvent.click(opener);
+    const dialog = screen.getByRole("dialog", { name: "Question preview" });
+    expect(within(dialog).getByText("Question 2 of 10")).toBeInTheDocument();
+    expect(document.querySelector(".builder-layout")).toHaveAttribute("inert");
+    await act(async () => { fireEvent.keyDown(document, { key: "Escape" }); await new Promise((resolve) => requestAnimationFrame(resolve)); });
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(document.activeElement).toBe(opener);
+    expect(document.querySelector(".builder-layout")).not.toHaveAttribute("inert");
   });
 });

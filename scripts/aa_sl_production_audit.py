@@ -7,12 +7,12 @@ import json
 from pathlib import Path
 from typing import Any
 
-EXPECTED_TARGET_SHA256 = "8ddecd7634bede343defd82a4de097fe428e41c833b7957925c8e1e11bb7315c"
-EXPECTED_CORRECTIONS_SHA256 = "5c5eff06c0881927164203ae71a9e2da6481052b0731afab72e6fc3f667c9629"
-EXPECTED_RUNTIME_TAXONOMY_SHA256 = "6e3f313a298cdf206481626e1ad79fc32615a6d9cab104de79245fba28148ce3"
-EXPECTED_QUESTION_COUNT = 578
-EXPECTED_REVIEWED_COUNT = 408
-EXPECTED_CHANGED_COUNT = 406
+EXPECTED_TARGET_SHA256 = "ca6f77b76985af826bacb5616eb50f439faced5d7b7389440c8bee37e0045e43"
+EXPECTED_CORRECTIONS_SHA256 = "24669a2197ff93138110828abbbe0eb2b25f7a347c76c92923099667836c2214"
+EXPECTED_RUNTIME_TAXONOMY_SHA256 = "5d2c4cf5dbc8cb23b8ba85df2b59f170d68bce65979836db52b16f3d682ddd36"
+EXPECTED_QUESTION_COUNT = 596
+EXPECTED_REVIEWED_COUNT = 430
+EXPECTED_CHANGED_COUNT = 374
 CLASSIFICATION_FIELDS = frozenset({
     "classification", "primaryTopic", "secondaryTopics", "skills", "subtopics", "detailedSubtopics",
     "classificationEvidence", "classificationConfidence", "classificationReviewStatus",
@@ -73,7 +73,7 @@ def questions_from(payload: Any, label: str) -> list[dict[str, Any]]:
 
 def validate_target(target: dict[str, Any], corrections: dict[str, Any], baseline: dict[str, Any], runtime: dict[str, list[str]]) -> tuple[list[str], dict[str, dict[str, Any]]]:
     require(target.get("schema") == "aa-sl-final-production-target-1.0" and target.get("status") == "complete", "target schema/status drift")
-    require(target.get("count") == EXPECTED_QUESTION_COUNT and target.get("reviewed_count") == EXPECTED_REVIEWED_COUNT and target.get("unreviewed_count") == 170, "target count drift")
+    require(target.get("count") == EXPECTED_QUESTION_COUNT and target.get("reviewed_count") == EXPECTED_REVIEWED_COUNT and target.get("unreviewed_count") == EXPECTED_QUESTION_COUNT - EXPECTED_REVIEWED_COUNT, "target count drift")
     require(corrections.get("schema") == "aa-sl-final-corrections-1.0" and corrections.get("status") == "complete" and corrections.get("count") == EXPECTED_REVIEWED_COUNT, "corrections schema/count drift")
     target_records = target.get("records")
     require(isinstance(target_records, list) and len(target_records) == EXPECTED_QUESTION_COUNT, "target records coverage drift")

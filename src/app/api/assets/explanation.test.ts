@@ -21,7 +21,7 @@ vi.mock("@/lib/asset-manifest", async (importOriginal) => ({
 import { POST } from "@/app/api/assets/sign/route";
 import { GET } from "@/app/api/assets/free/route";
 
-const PAID = "m26-math-aasl-p2-tza-q2";
+const PAID = "2026-may-p2-tz1-q2";
 const FREE = "2017-may-p1-tz1-q1";
 const details = { summary: "s", accessibleText: "t", solution: null, sourceQuestionUrl: null, sourceMarkSchemeUrl: null };
 const entry = (id: string) => ({
@@ -103,7 +103,7 @@ describe("explanation assets", () => {
     expect(rpc).toHaveBeenCalledWith("consume_explanation_and_download_allowance", { p_count: 1, p_asset_count: 1 });
     expect(rpc).not.toHaveBeenCalledWith("consume_explanation_allowance", expect.anything());
     expect(rpc).not.toHaveBeenCalledWith("consume_download_allowance", expect.anything());
-    expect(createSignedUrls).toHaveBeenCalledWith([`ib-sl/markschemes/${PAID}.webp`], 600);
+    expect(createSignedUrls).toHaveBeenCalledWith([`ib-sl/markschemes/${PAID}.webp`], 3600);
   });
 
   it("refuses a paid explanation without bank access", async () => {

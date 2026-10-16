@@ -65,7 +65,7 @@ describe("Economics preview signing uses the verified object store", () => {
       expect(response.status).toBe(200);
       const body = await response.json();
       expect(body.assets[0].urls).toEqual([expect.stringContaining(`https://r2.example/${bank}/`)]);
-      expect(getSignedUrl).toHaveBeenCalledWith(expect.anything(), expect.anything(), { expiresIn: 600 });
+      expect(getSignedUrl).toHaveBeenCalledWith(expect.anything(), expect.anything(), { expiresIn: 3600 });
       expect(createAdminClient).not.toHaveBeenCalled();
       expect(rpc).not.toHaveBeenCalled();
     });

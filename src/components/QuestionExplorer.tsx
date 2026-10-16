@@ -7,6 +7,9 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, FilePlus, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
 import type { PdfAnswerPlacement, PdfContent } from "@/lib/pdf-export";
+import { suggestWorksheetTitle } from "@/lib/worksheet-title";
+import { PeriodicTableButton } from "@/components/PeriodicTableButton";
+import { hasPeriodicTable } from "@/lib/periodic-table";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 import { fetchExplanation } from "@/lib/explanation-client";
 import type { Explanation } from "@/lib/explanation-format";
@@ -17,6 +20,7 @@ import { bankYearFacts, upgradeHref, UPGRADE_PRICE_LABEL, UPGRADE_PRICE_MONTH, t
 import { filterQuestions, questionZoneValue } from "@/lib/question-filter";
 import { EXPLORER_PAGE_SIZE, parseExplorerState, serializeExplorerState, preserveClearedRoutePreset, stripRoutePreset, withRoutePreset, type ExplorerFilterKey, type ExplorerSearchParams, type ExplorerState } from "@/lib/explorer-state";
 import { encodeSharedSet, parseSharedSet } from "@/lib/shared-question-set";
+import { currentQuestionIds } from "@/lib/question-id-aliases";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
 import type { AssetRequest } from "@/lib/asset-access";
 import type { BankSlug } from "@/lib/banks";
@@ -29,7 +33,7 @@ import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankInde
 import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { getMathsPickerGroups, getMathsPickerTopics, isCleanMathsBank, isMathsEarlierToken } from "@/lib/maths-picker";
-import { displayedQuestionSubtopics, formatMathsPickerLabel, formatPublicLabel } from "@/lib/presentation";
+import { displayedQuestionSubtopics, formatMathsPickerLabel, formatPublicLabel, formatQuestionTopic } from "@/lib/presentation";
 import { browserAccountId, trackProductEvent } from "@/lib/product-analytics";
 import { ANONYMOUS_FREE_QUESTION_LIMIT, getFreeQuestionGate } from "@/lib/free-question-gate";
 import { FreeQuestionSignupGate } from "@/components/FreeQuestionSignupGate";
@@ -201,7 +205,7 @@ const hydratedSnapshot = () => true;
 const serverSnapshot = () => false;
 const SESSION_ORDER = ["feb", "mar", "may", "jun", "oct", "nov"];
 const sessionRank = (session: string) => Math.max(0, SESSION_ORDER.findIndex((key) => session.toLowerCase().includes(key)));
-const questionTopicLabel = (question: UnifiedQuestion) => formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic);
+const questionTopicLabel = (question: UnifiedQuestion) => formatQuestionTopic(question.bankSlug, question.primaryTopic);
 
 const readAuthCookiePresent = () => documentHasSupabaseAuthCookie(document.cookie);
 /** Which signed-in/out period this page belongs to; unchanged by token refreshes. */
@@ -335,6 +339,8 @@ access: ExplorerAccess;
   const [sharedError, setSharedError] = useState("");
   const [resolvedAccess, setResolvedAccess] = useState(access);
   const [resolvedExportMarker, setResolvedExportMarker] = useState(exportMarker);
+  const titleLookupRef = useRef(0);
+  const nameTypedRef = useRef(false);
   const [locationHydrated, setLocationHydrated] = useState(!hydrateFromLocation);
   const [bootstrapPending, setBootstrapPending] = useState(Boolean(bootstrapUrl));
   const [identityResolved, setIdentityResolved] = useState(!bootstrapUrl);
@@ -462,6 +468,8 @@ access: ExplorerAccess;
   const upgradeLink = (placement: UpgradePlacement) => bank ? upgradeHref(bank, placement) : upgradeHref("", placement);
   const bankShortName = BANK_CATALOG.find((entry) => entry.slug === bank)?.shortName ?? "bank";
   const paidCount = useMemo(() => catalogQuestions.filter((question) => !isPreviewQuestion(question.bankSlug, question.id)).length, [catalogQuestions]);
+  // The catalogue starts as the server's first-page sample; only a fully loaded index is the whole bank.
+  const bankFreeCount = indexLoaded && !indexError ? catalogQuestions.length - paidCount : undefined;
   const teaserPool = useMemo(() => nudgesActive && effectiveFreeOnly
     ? matching.filter((question) => !isPreviewQuestion(question.bankSlug, question.id)).sort((a, b) => b.year - a.year || sessionRank(b.session) - sessionRank(a.session))
     : [], [nudgesActive, effectiveFreeOnly, matching]);
@@ -540,7 +548,7 @@ access: ExplorerAccess;
       }
       const next = parseExplorerState(routePreset && !locationParams.has("set") && !locationParams.has("worksheet") ? withRoutePreset(raw, routePreset) : raw, { defaultFreeOnly: !access.bankAccess });
       if (locationParams.has("set") && !locationParams.has("worksheet")) {
-        try { setSharedIds(parseSharedSet(locationParams.get("set") ?? "")); setSharedError(""); }
+        try { setSharedIds(currentQuestionIds(bank ?? "", parseSharedSet(locationParams.get("set") ?? ""))); setSharedError(""); }
         catch { setSharedIds(null); setSharedError("This shared question link is invalid."); }
       }
       setSearch(next.search);
@@ -1014,6 +1022,7 @@ access: ExplorerAccess;
   };
 
   const saveWorksheet = async (): Promise<boolean> => {
+    titleLookupRef.current += 1; // a lookup still in flight must not rename what is being saved
     if (!scopeIsCurrent()) return false;
     if (!bank || !resolvedAccess.bankAccess || !exportQuestions.length || !worksheetName.trim() || !worksheetReady || worksheetLoadFailed || worksheetSavingRef.current) return false;
     worksheetSavingRef.current = true;
@@ -1214,15 +1223,24 @@ access: ExplorerAccess;
     if (worksheetId && worksheetDirty) { setPendingWorksheetAction({ kind: "pdf" }); return; }
     if (!resolvedAccess.canExportPdf) { showPdfUpgrade(); return; }
     if (!worksheetId && !worksheetName.trim()) {
-      const bankLabel = (bank ?? "Worksheet").replaceAll("-", " ").toUpperCase();
-      const topics = [...new Set(exportQuestions.map((question) => formatPublicLabel(question.primaryTopic)))];
-      setWorksheetName(`${bankLabel} ${topics.length === 1 && topics[0].length <= 28 ? topics[0] : "Worksheet 1"}`.slice(0, 80));
+      const suggested = suggestWorksheetTitle(exportQuestions);
+      setWorksheetName(suggested);
+      // Number the default past the student's saved titles ("Atoms 2"). Only this dialog's own lookup
+      // may apply, and never once the student has typed in the name field.
+      const lookup = ++titleLookupRef.current;
+      nameTypedRef.current = false;
+      void fetch("/api/worksheets").then(async (response) => {
+        const payload = response.ok ? await response.json() : null;
+        const titles = Array.isArray(payload?.worksheets) ? payload.worksheets.map((item: { title?: unknown }) => item.title).filter((title: unknown): title is string => typeof title === "string") : [];
+        if (titles.length && lookup === titleLookupRef.current && !nameTypedRef.current) setWorksheetName(suggestWorksheetTitle(exportQuestions, titles));
+      }).catch(() => {});
     }
     trackProductEvent("pdf_builder_open", { bank: bank ?? "unknown", questionCount: exportQuestions.length });
     if (pdfStatusKind !== "progress") setPdfStatus(""); // drop a finished download's message, keep one still running
     setPdfOpen(true);
   };
   const handleDownload = async () => {
+    titleLookupRef.current += 1;
     if (!scopeIsCurrent() || !resolvedAccess.canExportPdf || !bank || !exportQuestions.length || Boolean(worksheetId && (worksheetLoadFailed || !worksheetReady))) return;
     trackProductEvent("pdf_export_attempt", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
     setPdfStatusKind("progress");
@@ -1245,6 +1263,7 @@ access: ExplorerAccess;
         },
         resolvedExportMarker,
         pdfAnswerPlacement,
+        { title: worksheetName.trim() || suggestWorksheetTitle(exportQuestions), bankSlug: bank },
       );
       if (!scopeIsCurrent()) return;
       setPdfStatusKind("success");
@@ -1357,7 +1376,7 @@ access: ExplorerAccess;
 
         <div className="explorer-results" inert={filtersOpen || undefined}>
           <div ref={resultsHeadingRef} className="results-heading" tabIndex={-1}>
-            <div><strong>{resultQuestions.length.toLocaleString()} {savedWorksheetView ? "saved " : !sharedSetView && effectiveFreeOnly ? "free " : ""}{resultQuestions.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && !savedWorksheetView && !sharedSetView && <span>{selectedIds.size} selected for PDF</span>}</div>
+            <div><strong>{resultQuestions.length.toLocaleString("en-US")} {savedWorksheetView ? "saved " : !sharedSetView && effectiveFreeOnly ? "free " : ""}{resultQuestions.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && !savedWorksheetView && !sharedSetView && <span>{selectedIds.size} selected for PDF</span>}</div>
             <div>{selectionIsExplicit && !worksheetId && !sharedSetView && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Clear selection</button>}{!savedWorksheetView && !sharedSetView && (search || activeCount > 0 || courseRoute !== "all") && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
           </div>
           {nudgesActive && <p className="sr-only" role="status">{milestoneQuestionId ? "10 practised. Nice. Unlock the newer papers from a plan." : ""}</p>}
@@ -1375,11 +1394,11 @@ access: ExplorerAccess;
                 if (!scopeIsCurrent()) return;
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
-              }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString()} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink("locked_card"), onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{nudgesActive && milestoneQuestionId === question.id && <PracticeMilestone bank={nudgeBank} facts={yearFacts} href={upgradeLink("practice_milestone")} onDismiss={() => setMilestoneQuestionId("")} />}{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
+              }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString("en-US")} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink("locked_card"), onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{nudgesActive && milestoneQuestionId === question.id && <PracticeMilestone bank={nudgeBank} facts={yearFacts} href={upgradeLink("practice_milestone")} onDismiss={() => setMilestoneQuestionId("")} />}{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
             })}
           </div>
           {!savedWorksheetView && !sharedSetView && filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
-          {!savedWorksheetView && !sharedError && !missingSharedCount && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} plansHref={upgradeLink("signup_gate")} plansLine={yearFacts ? `Want ${yearFacts.newerPaidLabel} too? Plans start at ${UPGRADE_PRICE_MONTH}.` : `Want every year? Plans start at ${UPGRADE_PRICE_MONTH}.`} />}
+          {!savedWorksheetView && !sharedError && !missingSharedCount && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} sentViews={sentUpgradeViews} bankFreeCount={bankFreeCount} bankName={bankShortName} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} plansHref={upgradeLink("signup_gate")} plansLine={yearFacts ? `Want ${yearFacts.newerPaidLabel} too? Plans start at ${UPGRADE_PRICE_MONTH}.` : `Want every year? Plans start at ${UPGRADE_PRICE_MONTH}.`} />}
           {!savedWorksheetView && !sharedSetView && !freeGate.active && visible < filtered.length && <button className="load-more" onPointerEnter={prefetchNextPage} onFocus={prefetchNextPage} onTouchStart={prefetchNextPage} onClick={() => setVisible((count) => count + EXPLORER_PAGE_SIZE)}>Show 24 more questions</button>}
         </div>
       </div>
@@ -1387,7 +1406,7 @@ access: ExplorerAccess;
       {pdfOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfDialogRef} className={`pdf-dialog${worksheetId ? "" : " is-save"}`} role="dialog" aria-modal="true" aria-labelledby="pdf-title"><button className="pdf-close" aria-label="Close PDF options" onClick={() => setPdfOpen(false)}><X /></button>
         {worksheetId ? <>
           <p className="eyebrow">Worksheet builder</p>
-          <h2 id="pdf-title">Download {exportQuestions.length.toLocaleString()} {exportQuestions.length === 1 ? "question" : "questions"}</h2>
+          <h2 id="pdf-title">Download {exportQuestions.length.toLocaleString("en-US")} {exportQuestions.length === 1 ? "question" : "questions"}</h2>
           <p>Only the questions in this worksheet are included.</p>
           <div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div>
           {pdfContent === "both" && <fieldset className="pdf-options"><legend>Answer placement</legend><label><input type="radio" name="pdf-answer-placement" checked={pdfAnswerPlacement === "all-answers-last"} onChange={() => setPdfAnswerPlacement("all-answers-last")} /> All questions, then all answers</label><label><input type="radio" name="pdf-answer-placement" checked={pdfAnswerPlacement === "after-each-question"} onChange={() => setPdfAnswerPlacement("after-each-question")} /> Each question followed by its answer</label></fieldset>}
@@ -1398,9 +1417,9 @@ access: ExplorerAccess;
           {pdfStatus && <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small>}
         </> : <>
           <p className="eyebrow">Save PDF</p>
-          <h2 id="pdf-title">Save {exportQuestions.length.toLocaleString()} {exportQuestions.length === 1 ? "question" : "questions"} as a PDF</h2>
+          <h2 id="pdf-title">Save {exportQuestions.length.toLocaleString("en-US")} {exportQuestions.length === 1 ? "question" : "questions"} as a PDF</h2>
           <p>{selectionIsExplicit ? "Using your selected questions." : filtered.length > MAX_PDF_QUESTIONS ? `PDFs are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or select questions.` : "Nothing selected, so this uses every current result."}</p>
-          <label className="worksheet-name-field">Name<input aria-label="PDF name" maxLength={80} value={worksheetName} onChange={(event) => setWorksheetName(event.target.value)} placeholder="e.g. Algebra revision" /></label>
+          <label className="worksheet-name-field">Name<input aria-label="PDF name" maxLength={80} value={worksheetName} onChange={(event) => { nameTypedRef.current = true; setWorksheetName(event.target.value); }} placeholder="e.g. Algebra revision" /></label>
           <div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div>
           <div className="worksheet-actions only-save"><button type="button" className="button primary" disabled={!resolvedAccess.bankAccess || !worksheetReady || worksheetLoading || worksheetSaving || !exportQuestions.length || !worksheetName.trim()} onClick={saveWorksheet}>{worksheetSaving ? "Saving…" : "Save PDF"}</button><button ref={pdfBuildButtonRef} type="button" className="pdf-direct-download" aria-label="Download PDF without saving" title="Download PDF" disabled={!resolvedAccess.canExportPdf || !exportQuestions.length || (pdfStatusKind === "progress" && Boolean(pdfStatus))} onClick={handleDownload}><DownloadSimple aria-hidden="true" weight="bold" /></button></div>
           {pdfStatus ? <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small> : <small className="pdf-save-note">Saved to My Worksheets.</small>}
@@ -1408,6 +1427,7 @@ access: ExplorerAccess;
         </>}
       </section></div>}
       {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">Saving PDFs needs paid access</h2><p>Save and download PDFs with paid access to this question bank.</p><Testimonial testimonial={PDF_TESTIMONIAL} variant="inline" signedOutOnly /><Link className="button primary" href={upgradeLink("pdf_dialog")} onClick={() => { if (bank) trackUpgrade("click", bank, "pdf_dialog"); }}>{PLANS_LABEL}</Link></section></div>}
+      {hasPeriodicTable(bank) && <PeriodicTableButton variant="floating" source="bank" />}
     </section>
   );
 }

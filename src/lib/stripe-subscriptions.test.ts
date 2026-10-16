@@ -186,6 +186,39 @@ describe("Stripe subscription event normalization", () => {
     expect(buildSubscriptionSync(unpaid, allowedPrice)).toEqual(expect.objectContaining({ status: "revoked", expiresAt: null }));
   });
 
+  it("keeps access for a 14-day grace window while Stripe retries a failed renewal", () => {
+    const pastDue = event();
+    pastDue.data.object.status = "past_due";
+    expect(buildSubscriptionSync(pastDue, allowedPrice)).toEqual(expect.objectContaining({
+      status: "active",
+      startsAt: new Date(1_799_000_000 * 1000).toISOString(),
+      expiresAt: new Date((1_799_000_000 + 14 * 24 * 60 * 60) * 1000).toISOString(),
+    }));
+  });
+
+  it("never extends past-due grace beyond the current period", () => {
+    const pastDue = event();
+    pastDue.data.object.status = "past_due";
+    pastDue.data.object.items.data[0].current_period_end = 1_799_000_000 + 3 * 24 * 60 * 60;
+    expect(buildSubscriptionSync(pastDue, allowedPrice)).toEqual(expect.objectContaining({
+      status: "active",
+      expiresAt: new Date((1_799_000_000 + 3 * 24 * 60 * 60) * 1000).toISOString(),
+    }));
+  });
+
+  it("revokes a past-due subscription when the caller disables grace", () => {
+    const pastDue = event();
+    pastDue.data.object.status = "past_due";
+    expect(buildSubscriptionSync(pastDue, allowedPrice, { allowPastDueGrace: false }))
+      .toEqual(expect.objectContaining({ status: "revoked", expiresAt: null }));
+  });
+
+  it("revokes a past-due subscription once it is deleted", () => {
+    const deleted = event({ type: "customer.subscription.deleted" });
+    deleted.data.object.status = "past_due";
+    expect(buildSubscriptionSync(deleted, allowedPrice)).toEqual(expect.objectContaining({ status: "revoked", expiresAt: null }));
+  });
+
   it.each([
     "bank_igcse",
     "bundle_igcse",

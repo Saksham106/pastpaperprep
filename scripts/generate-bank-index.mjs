@@ -42,7 +42,33 @@ const mathsAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data", "
 const scienceWrittenAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-science-written-answer-repairs.json"), "utf8"));
 const ibMatrixRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-matrix-head-repairs.json'), 'utf8'));
 const ibBoundaryRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-boundary-batch-repairs.json'), 'utf8'));
+const ibScienceCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-science-crop-repairs.json'), 'utf8'));
+const historicalCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-historical-crop-repairs.json'), 'utf8'));
+// Same projection as src/lib/reviewed-biology-historical-crops.ts (counts and marks only).
+function historicalEntry(bank, raw) {
+  return bank === historicalCropRepairs.bank && Object.prototype.hasOwnProperty.call(historicalCropRepairs.entries, raw.id)
+    ? historicalCropRepairs.entries[raw.id] : null;
+}
+function historicalCount(bank, raw, role, paths) {
+  const list = historicalEntry(bank, raw)?.[role];
+  if (!list) return null;
+  if (JSON.stringify(paths) !== JSON.stringify(list.oldPaths) || list.newPaths.length < 1) throw new Error(`Reviewed historical crop count disagrees with ${bank}:${raw.id}`);
+  return list.newPaths.length;
+}
+function historicalMarks(bank, raw) {
+  const marks = typeof raw.marks === "number" ? raw.marks : null;
+  const repair = historicalEntry(bank, raw)?.marks;
+  if (!repair) return marks;
+  if (marks !== repair.old || !Number.isInteger(repair.new)) throw new Error(`Reviewed historical marks disagree with ${bank}:${raw.id}`);
+  return repair.new;
+}
 function activeMarkschemeImageCount(bank, raw) {
+  const ibScience = ibScienceCropRepairs.banks[bank]?.[raw.id];
+  if (ibScience) {
+    const sourcePaths=[...strings(raw.markschemeImages),...strings(raw.officialMarkscheme?.images)];
+    if(JSON.stringify(sourcePaths)!==JSON.stringify(ibScience.oldPaths)||ibScience.newPaths.length<1)throw new Error(`Reviewed IB science crop count disagrees with ${bank}:${raw.id}`);
+    return ibScience.newPaths.length;
+  }
   const ibBoundary = ibBoundaryRepairs.banks[bank]?.[raw.id];
   if (ibBoundary) {
     const sourcePaths=[...strings(raw.markschemeImages),...strings(raw.officialMarkscheme?.images)];
@@ -55,6 +81,8 @@ function activeMarkschemeImageCount(bank, raw) {
     if(JSON.stringify(sourcePaths)!==JSON.stringify(ibMatrix.oldPaths)||ibMatrix.newPaths.length<1)throw new Error(`Reviewed IB answer count disagrees with ${bank}:${raw.id}`);
     return ibMatrix.newPaths.length;
   }
+  const historical = historicalCount(bank, raw, 'markscheme', Array.from(new Set([...strings(raw.markschemeImages), ...strings(raw.officialMarkscheme?.images)])));
+  if (historical !== null) return historical;
   const written = bank === 'igcse-biology-0610' ? writtenAnswerRepairs[raw.id] : null;
   const maths = mathsAnswerRepairs[bank]?.[raw.id];
   const scienceWritten = scienceWrittenAnswerRepairs[bank]?.[raw.id];
@@ -74,7 +102,7 @@ function activeQuestionImageCount(bank, raw) {
   const approved = new Set([...reviewed.map((item) => item.path), ...retired]);
   if (approved.size && (approved.size !== reviewed.length + retired.length || [...approved].some((path) => !paths.includes(path)) ||
     paths.length <= approved.size)) throw new Error(`Reviewed crop list disagrees with ${bank}:${raw.id}`);
-  return paths.length - approved.size;
+  return historicalCount(bank, raw, 'question', paths.filter((path) => !approved.has(path))) ?? paths.length - approved.size;
 }
 const overlayBankForSlug = (slug) => ({
   "igcse-additional": "0606",
@@ -211,7 +239,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     zone: (typeof raw.timezone === "string" && raw.timezone) || (typeof raw.zone === "string" ? raw.zone : ""),
     component: typeof raw.component === "string" ? raw.component : "",
     calculator: calculatorAllowed(bank, { paper: integer(raw.paper), year: integer(raw.year) }),
-    marks: typeof raw.marks === "number" ? raw.marks : null,
+    marks: historicalMarks(bank, raw),
     questionImageCount: activeQuestionImageCount(bank, raw),
     markschemeImageCount: activeMarkschemeImageCount(bank, raw) ?? (normalizedProduction
       ? (strings(officialMarkscheme.images).length || strings(raw.markschemeImages).length)

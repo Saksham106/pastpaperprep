@@ -50,6 +50,22 @@ object through Cloudflare DNS-over-HTTPS, checks bytes, type and filename, and w
 only if all match. Every phase exits nonzero on any failure. Commit the receipt with the change
 that needs it.
 
+To add papers without re-putting live objects, use the added-papers tool instead. It publishes only PDFs
+the manifests approve and `<base-ref>` doesn't (key checked absent, put, read back), then `verify` reads
+back every approved PDF and writes the receipt the same way. Its guarantee is check-absent → put →
+read-back, serialized by one local writer: `upload` takes an exclusive lock
+(`scripts/lib/single-writer-lock.mjs`) and a second run fails at once. It catches pre-existing different
+bytes before writing and corrupt bytes after, but it is not an atomic create (wrangler has no conditional
+put), so a concurrent foreign writer between the check and the put can't be ruled out. Don't run other
+writers against `papers/v1/` while it runs. If a run dies and leaves the lock, check its pid is gone, then
+delete the lock file named in the error.
+
+```bash
+npx tsx scripts/publish-added-free-papers.mts plan origin/main private/paper-archives/source-bindings.json /tmp/added-papers
+WRANGLER_BIN=<wrangler> JOBS=2 npx tsx scripts/publish-added-free-papers.mts upload origin/main private/paper-archives/source-bindings.json /tmp/added-papers
+npx tsx scripts/publish-added-free-papers.mts verify /tmp/added-papers
+```
+
 Objects are cached at Cloudflare's edge for up to a week. **If you replace an existing object**
 (same hash, new filename or headers), purge those URLs in Cloudflare (Caching → Configuration →
 Custom Purge) before `verify`, or it will read the old copy.
@@ -90,3 +106,6 @@ Custom Purge) before `verify`, or it will read the old copy.
   - The publish tool's IB Maths and 0580 Core sources live in
     `../research/papacambridge-clean-20261013/restored/`, restored by hash after a scratch cache
     was cleared.
+- 2026-10-14, 2026 papers (`docs/2026-archive-papers-receipt.md`): 18 papers added (0455 ×8, 0580 Core ×8,
+  0606 Feb/March ×2; 36 PDFs, each key absent at its check), and 17 of the 18 Biology 0610 May/June 2026
+  papers now have reports (Paper 43 is held: its mark scheme withdrew Q5(a)). All 4,954 re-verified.
