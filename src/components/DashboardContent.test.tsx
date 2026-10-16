@@ -16,7 +16,8 @@ describe("DashboardContent", () => {
     expect(screen.getByText(/account & settings/i)).toBeInTheDocument();
     const worksheetsLink = screen.getByRole("link", { name: /my worksheets/i });
     expect(worksheetsLink).toHaveAttribute("href", "/worksheets");
-    expect(worksheetsLink.parentElement).toHaveClass("dashboard-qualification-row");
+    expect(worksheetsLink.parentElement).toHaveClass("dashboard-heading-actions");
+    expect(worksheetsLink.closest(".dashboard-qualification-row")).toBeNull();
     expect(worksheetsLink.closest('[role="tablist"]')).toBeNull();
     expect(screen.getByRole("link", { name: /my account/i })).toHaveAttribute("href", "/account");
     expect(screen.getByRole("link", { name: /password settings/i })).toHaveAttribute("href", "/account/password");
