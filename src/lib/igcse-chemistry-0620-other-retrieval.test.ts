@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { assert0620OtherRetrievalRepair, getIGCSERuntimeArtifact } from "@/lib/igcse-runtime";
+import { assert0620OtherRetrievalRepair, getIGCSERuntimeArtifact, withoutPrintedMarks } from "@/lib/igcse-runtime";
 import { normalizeBankQuestions } from "@/lib/questions";
 import { filterQuestions } from "@/lib/question-filter";
 import runtime from "@/data/production/igcse-chemistry-0620.json";
@@ -15,8 +15,9 @@ const includes = (id: string, topics: string[], subtopics: string[]) =>
 describe("0620 exact original Other cohort retrieval", () => {
   it("seals 30 and rejects any changed content, not merely a forged runtime checksum", () => {
     expect(getIGCSERuntimeArtifact(bank, { PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" }).questions).toHaveLength(5129);
-    expect(() => assert0620OtherRetrievalRepair(runtime as never)).not.toThrow();
-    const changed = structuredClone(runtime);
+    const sealed = withoutPrintedMarks(bank, runtime as never);
+    expect(() => assert0620OtherRetrievalRepair(sealed)).not.toThrow();
+    const changed = structuredClone(sealed) as typeof runtime;
     changed.questions.find((q) => q.id === "0620-2019-s-11-q40")!.summary += " mutation";
     expect(() => assert0620OtherRetrievalRepair(changed as never)).toThrow(/retrieval provenance or finalized content mismatch/);
   });

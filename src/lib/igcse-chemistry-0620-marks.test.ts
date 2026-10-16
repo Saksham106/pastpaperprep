@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { assert0620MarksRepair, assert0620OtherRetrievalRepair, getIGCSECandidateRuntime, getIGCSERuntimeArtifact } from "@/lib/igcse-runtime";
+import { assert0620MarksRepair, assert0620OtherRetrievalRepair, getIGCSECandidateRuntime, getIGCSERuntimeArtifact, withoutPrintedMarks } from "@/lib/igcse-runtime";
 const clone=<T>(value:T):T=>structuredClone(value);
 describe("Chemistry 0620 marks descendant production gate",()=>{
-  const runtime=getIGCSECandidateRuntime("igcse-chemistry-0620");
+  // Earlier seals check the release they sealed; the printed-marks repair is rebuilt away first.
+  const runtime=withoutPrintedMarks("igcse-chemistry-0620",getIGCSECandidateRuntime("igcse-chemistry-0620"));
   it("accepts current 5,129-row repaired bank and intact earlier Other repair",()=>{
     expect(()=>assert0620OtherRetrievalRepair(runtime)).not.toThrow();
     expect(()=>assert0620MarksRepair(runtime)).not.toThrow();
