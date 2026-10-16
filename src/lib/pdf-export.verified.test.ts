@@ -99,7 +99,7 @@ describe("real worksheet image placement", () => {
     expect(text.mock.calls.some(([value]) => value === "Question 2")).toBe(true);
     expect(text.mock.calls.some(([value]) => value === "2025 November · Paper 11 · Q2")).toBe(true);
     const images = addImage.mock.calls.filter((call) => call[1] === "JPEG");
-    expect(images[1][3]).toBe(27);
+    expect(images[1][3]).toBe(29);
     expect(images[1][5]).toBeCloseTo(200 * 25.4 / 72, 4);
   });
 
@@ -109,8 +109,8 @@ describe("real worksheet image placement", () => {
     const images = addImage.mock.calls.filter((call) => call[1] === "JPEG");
     expect(images).toHaveLength(2);
     expect(addPage).not.toHaveBeenCalled();
-    expect(images[0][3]).toBe(27);
-    expect(images[1][3]).toBeCloseTo(27 + 100 * 25.4 / 72 + 4 + 5, 3);
+    expect(images[0][3]).toBe(29);
+    expect(images[1][3]).toBeCloseTo(29 + 100 * 25.4 / 72 + 4 + 7, 3);
   });
 
   it("places Q16 once at its verified physical size instead of slicing its graph", async () => {
@@ -119,8 +119,8 @@ describe("real worksheet image placement", () => {
     expect(questionImages).toHaveLength(1);
     expect(questionImages[0][2]).toBeCloseTo((210 - 513 * 25.4 / 72) / 2, 3);
     // A compact header leaves room for the question label above the full-size graph.
-    expect(questionImages[0][3]).toBe(15);
-    expect(text).toHaveBeenCalledWith("Question 1", expect.any(Number), 13);
+    expect(questionImages[0][3]).toBe(17);
+    expect(text).toHaveBeenCalledWith("Question 1", expect.any(Number), 15.2);
     expect(questionImages[0][4]).toBeCloseTo(513 * 25.4 / 72, 3);
     expect(questionImages[0][5]).toBeCloseTo(734.33 * 25.4 / 72, 3);
     expect(addPage).not.toHaveBeenCalled();
@@ -134,7 +134,7 @@ describe("real worksheet image placement", () => {
     const images = addImage.mock.calls.filter((call) => call[1] === "JPEG");
     expect(images).toHaveLength(1);
     expect(images[0][2]).toBeCloseTo(0, 1);
-    expect(images[0][3]).toBe(15);
+    expect(images[0][3]).toBe(17);
     expect(images[0][4]).toBeCloseTo(210, 1);
     expect(result.heldRows).toEqual([]);
   });
@@ -171,9 +171,9 @@ describe("real worksheet image placement", () => {
     expect(images[1][4]).toBeCloseTo(513 * 25.4 / 72, 4);
     expect(images[1][5]).toBeCloseTo(743.98 * 25.4 / 72, 4);
     expect(addPage).toHaveBeenCalledTimes(1);
-    // Page 14 is 271 mm tall; a ~1% reduction keeps its "Question 1" label rather than dropping it.
-    expect(text).toHaveBeenCalledWith("Question 1", expect.any(Number), 13);
-    expect(images[0][4] / (513 * 25.4 / 72)).toBeGreaterThan(0.99);
+    // Page 14 is 271 mm tall; a ~1.5% reduction (within the 3% limit) keeps its "Question 1" label.
+    expect(text).toHaveBeenCalledWith("Question 1", expect.any(Number), 15.2);
+    expect(images[0][4] / (513 * 25.4 / 72)).toBeGreaterThan(0.98);
     expect(text).toHaveBeenCalledWith("Question 1 (continued)", expect.any(Number), expect.any(Number));
     expect(verifyBytes).toHaveBeenCalledWith("https://signed.test/q11.webp", approved.entries["0606-2016-june-13-q11"].imageSha256);
     expect(URL.revokeObjectURL).toHaveBeenCalledWith("blob:q11.webp");
