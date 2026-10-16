@@ -38,6 +38,8 @@ export type SubscriptionSync = {
   expiresAt: string | null;
 };
 
+const PAST_DUE_GRACE_SECONDS = 14 * 24 * 60 * 60;
+
 function record(value: unknown, message: string): ObjectRecord {
   if (!value || typeof value !== "object" || Array.isArray(value)) throw new Error(message);
   return value as ObjectRecord;
@@ -62,6 +64,7 @@ export function getSubscriptionEventReference(eventValue: unknown): Subscription
 export function buildSubscriptionSync(
   eventValue: unknown,
   isPriceAllowed: (productId: ProductId, priceId: string, interval?: BillingInterval) => boolean,
+  { allowPastDueGrace = true }: { allowPastDueGrace?: boolean } = {},
 ): SubscriptionSync | null {
   const event = record(eventValue, "Invalid Stripe event");
   if (typeof event.type !== "string" || !SUBSCRIPTION_EVENT_TYPES.has(event.type)) return null;
@@ -129,8 +132,20 @@ export function buildSubscriptionSync(
   }
 
   const startsAt = unixDate(item.current_period_start);
-  const entitled = event.type !== "customer.subscription.deleted" &&
-    (subscription.status === "active" || subscription.status === "trialing");
+  const deleted = event.type === "customer.subscription.deleted";
+  const entitled = !deleted && (subscription.status === "active" || subscription.status === "trialing");
+  // Stripe is still retrying a failed renewal. Keep access for a bounded grace
+  // window from the renewal date; unpaid/canceled after the last retry revokes.
+  // Callers disable grace when the current metadata is an unpaid scheduled target.
+  const inGrace = allowPastDueGrace && !deleted && subscription.status === "past_due";
+  let expiresAt: string | null = null;
+  if (entitled) expiresAt = unixDate(item.current_period_end);
+  if (inGrace) {
+    const periodStart = item.current_period_start as number;
+    const periodEnd = unixDate(item.current_period_end);
+    const graceEnd = unixDate(periodStart + PAST_DUE_GRACE_SECONDS);
+    expiresAt = graceEnd < periodEnd ? graceEnd : periodEnd;
+  }
 
   return {
     eventId: event.id,
@@ -143,8 +158,8 @@ export function buildSubscriptionSync(
     quantity,
     priceId: price.id,
     interval: stripeInterval,
-    status: entitled ? subscription.status as "active" | "trialing" : "revoked",
+    status: entitled ? subscription.status as "active" | "trialing" : inGrace ? "active" : "revoked",
     startsAt,
-    expiresAt: entitled ? unixDate(item.current_period_end) : null,
+    expiresAt,
   };
 }

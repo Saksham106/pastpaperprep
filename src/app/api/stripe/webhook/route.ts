@@ -308,9 +308,11 @@ async function handlePOST(request: Request) {
         if (latestInvoiceId !== invoicePaidId) return NextResponse.json({ received: true });
       }
       let paidSecondPhaseScheduleId: string | null = null;
+      let unpaidScheduledTarget = false;
       try {
         const phase = await verifyScheduledRenewalPayment(stripe, currentSubscription as Stripe.Subscription);
-        if (phase === "paid-phase-two") paidSecondPhaseScheduleId = typeof currentSubscription.schedule === "string" ? currentSubscription.schedule : currentSubscription.schedule?.id ?? null;
+        unpaidScheduledTarget = phase === "unpaid-phase-two";
+        if (phase === "paid-phase-two")paidSecondPhaseScheduleId = typeof currentSubscription.schedule === "string" ? currentSubscription.schedule : currentSubscription.schedule?.id ?? null;
       } catch {
         // A scheduled phase can change bank metadata before its invoice is paid.
         // Never invalidate or grant from an unverified renewal; retry after payment.
@@ -340,6 +342,8 @@ async function handlePOST(request: Request) {
         sync = buildSubscriptionSync(
           { ...event, type: invoicePaidReference ? "customer.subscription.updated" : event.type, data: { object: currentSubscription } },
           (productId, catalogPriceId, catalogInterval) => productId === metadataProductId && catalogPriceId === priceId && catalogInterval === interval,
+          // Phase-two metadata is the unpaid target selection; never grace-grant it.
+          { allowPastDueGrace: !unpaidScheduledTarget },
         );
       } catch {
         const { error } = await admin.rpc("invalidate_stripe_subscription_event", {

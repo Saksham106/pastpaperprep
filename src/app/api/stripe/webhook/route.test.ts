@@ -395,6 +395,41 @@ describe("POST /api/stripe/webhook", () => {
     expect(rpc).toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
   });
 
+  it("does not give failed-renewal grace to an unpaid scheduled bank swap", async () => {
+    const { sub } = scheduledRenewal("draft");
+    const metadata = { user_id: userId, product_id: "bundle_custom", selected_bank_ids: JSON.stringify(["ib-ai-hl", "ib-ai-sl"]), billing_interval: "monthly", price_id: "price_custom_monthly" };
+    const pastDue = { ...sub, status: "past_due", metadata, items: { data: [{ ...sub.items.data[0], price: { id: "price_custom_monthly", recurring: { interval: "month" } }, quantity: 2 }] } };
+    const schedule = {
+      id: "sub_sched_1", status: "active", subscription: "sub_1", customer: "cus_1",
+      metadata: { owner: "pastpaperprep", user_id: userId, subscription_id: "sub_1", ownership_id: "account_qa_1" },
+      current_phase: { start_date: 1_799_000_000, end_date: 1_801_000_000 },
+      phases: [
+        { start_date: 1_797_000_000, end_date: 1_799_000_000, metadata: { ...metadata, selected_bank_ids: JSON.stringify(["ib-hl", "ib-sl"]) }, items: [{ price: "price_custom_monthly", quantity: 2 }] },
+        { start_date: 1_799_000_000, end_date: 1_801_000_000, metadata, items: [{ price: "price_custom_monthly", quantity: 2 }] },
+      ],
+    };
+    retrieveSubscription.mockResolvedValue(pastDue);
+    retrieveSchedule.mockResolvedValue(schedule);
+    constructEvent.mockReturnValue(subscriptionEvent);
+
+    const response = await POST(request());
+    expect(response.status).toBe(200);
+    expect(retrieveInvoice).not.toHaveBeenCalled();
+    expect(rpc).toHaveBeenCalledWith("apply_stripe_subscription_event", expect.objectContaining({ p_status: "revoked", p_expires_at: null }));
+    expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.objectContaining({ p_status: "active" }));
+  });
+
+  it("keeps access during the grace window for an ordinary past-due renewal", async () => {
+    retrieveSubscription.mockResolvedValue({ ...subscriptionEvent.data.object, status: "past_due", schedule: null });
+    constructEvent.mockReturnValue(subscriptionEvent);
+    const response = await POST(request());
+    expect(response.status).toBe(200);
+    expect(rpc).toHaveBeenCalledWith("apply_stripe_subscription_event", expect.objectContaining({
+      p_status: "active",
+      p_expires_at: new Date((1_799_000_000 + 14 * 24 * 60 * 60) * 1000).toISOString(),
+    }));
+  });
+
   it("does not grant a scheduled target while its renewal invoice is draft", async () => {
     scheduledRenewal("draft");
     constructEvent.mockReturnValue(subscriptionEvent);
