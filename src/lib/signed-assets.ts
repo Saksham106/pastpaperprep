@@ -13,7 +13,7 @@ const SIGN_BATCH_SIZE = 20;
  * for four days and may serve it for two more while refreshing in the background. Within that
  * window, links retain a day of validity (less the client's safety margin). Vercel scopes this
  * response cache by deployment, so a new deploy uses new entries; it does not purge old ones.
- * Only free-year questions use these; paid assets keep 10-minute links behind sign-in.
+ * Only free-year questions use these; paid assets keep one-hour links behind sign-in.
  */
 export const FREE_ASSET_EXPIRES_IN = 7 * 24 * 60 * 60;
 export const FREE_ASSET_CDN_FRESH = 4 * 24 * 60 * 60;

@@ -26,9 +26,12 @@ type SignRequestBody = {
 class AssetSigningFailure extends Error {
   constructor(readonly provider: "r2" | "supabase") { super("Asset signing failed"); }
 }
+// Each signing call spends the daily image allowance, and the client re-signs only
+// after expiry, so a longer link stops a long study session re-counting the same images.
+const ASSET_EXPIRES_IN = 3600;
 async function signWithDiagnostics(paths: string[], options: Parameters<typeof signPrivateAssetUrls>[2]) {
   const provider = resolvedAssetSignProvider(options);
-  try { return await signPrivateAssetUrls(paths, 600, options); }
+  try { return await signPrivateAssetUrls(paths, ASSET_EXPIRES_IN, options); }
   catch { throw new AssetSigningFailure(provider); }
 }
 
@@ -102,7 +105,7 @@ async function handlePOST(request: Request) {
 
   if (!paths.length) {
     return NextResponse.json({
-      expiresIn: 600,
+      expiresIn: ASSET_EXPIRES_IN,
       assets: authorized.map((item) => ({
         questionId: responseId(item),
         kind: item.kind,
@@ -155,7 +158,7 @@ async function handlePOST(request: Request) {
 
     stage = "response";
     return NextResponse.json({
-      expiresIn: 600,
+      expiresIn: ASSET_EXPIRES_IN,
       assets: authorized.map((item) => ({
         questionId: responseId(item),
         kind: item.kind,
