@@ -81,6 +81,14 @@ function BankTable({ banks }: { banks: readonly Bank[] }) {
 export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, manualAccess = false, previewOnly = false, previewStacked = false, addOnIntent = false, ownedBankIds = [], initialInterval = "monthly", initialLifetimeSelected = false, initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks(), source, checkoutStatus }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; manualAccess?: boolean; previewOnly?: boolean; previewStacked?: boolean; addOnIntent?: boolean; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialLifetimeSelected?: boolean; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[]; source?: UpgradePlacement; checkoutStatus?: "cancelled" }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const [lifetimeSelected, setLifetimeSelected] = useState(initialLifetimeSelected ?? false);
+  // Client navigation (e.g. the "add another subject" chips) changes these props without
+  // remounting, so adopt the new URL values when they change; later manual edits stand.
+  const [urlBilling, setUrlBilling] = useState({ initialInterval, initialLifetimeSelected });
+  if (urlBilling.initialInterval !== initialInterval || urlBilling.initialLifetimeSelected !== initialLifetimeSelected) {
+    setUrlBilling({ initialInterval, initialLifetimeSelected });
+    setInterval(initialInterval);
+    setLifetimeSelected(initialLifetimeSelected ?? false);
+  }
   const pricingPageRef = useRef<HTMLElement>(null);
   useEffect(() => {
     const page = pricingPageRef.current;
@@ -208,6 +216,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           />
         ) : (
           <CustomBundleCheckout
+            // The checkout owns its selection state; remount it when the URL-derived selection changes.
+            key={(preselectedBankIds ?? []).join(",")}
             mode={plan.mode}
             interval={interval}
             authenticated={authenticated}
