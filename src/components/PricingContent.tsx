@@ -236,7 +236,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
       <h2>Lifetime full access</h2>
       <div className="lifetime-price"><strong>$299</strong><span> once</span></div>
       <p className="lifetime-scope">All current + future question banks</p>
-      <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} accessCovered={complimentaryAccess || ownsLifetimeAccess} />
+      <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} accessCovered={complimentaryAccess || ownsLifetimeAccess} complimentary={complimentaryAccess && !ownsLifetimeAccess} />
       <ul className="lifetime-benefits" aria-label="Lifetime plan features">
         <li><BookOpen aria-hidden="true" />All subjects</li><li><CrownSimple aria-hidden="true" />Lifetime updates</li><li><SlidersHorizontal aria-hidden="true" />One payment</li><li><ShieldCheck aria-hidden="true" />Secure checkout</li>
       </ul>

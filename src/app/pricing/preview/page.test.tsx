@@ -32,6 +32,9 @@ describe("local-only subscriber pricing preview", () => {
 
     render(await PricingPreviewPage({ searchParams: Promise.resolve({ view: "all" }) }));
     expect(screen.getByText(/this is a grant, not a billed subscription/i)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Lifetime" }));
+    expect(screen.getByRole("button", { name: "Complimentary access is active" })).toBeDisabled();
+    fireEvent.click(screen.getByRole("button", { name: /^Annual/ }));
     expect(document.querySelectorAll(".pricing-option")).toHaveLength(3);
     fireEvent.click(screen.getByRole("button", { name: /^Annual/ }));
     expect(document.querySelectorAll(".pricing-option")).toHaveLength(3);

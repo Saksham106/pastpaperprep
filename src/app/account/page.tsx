@@ -67,7 +67,7 @@ export default async function AccountPage({
       )}
       <article className="account-card"><AccountPlanOverview hasBankAccess={hasAnyBankAccess} /></article>
       <section className="account-setting-row account-appearance-row" role="group" aria-label="Appearance">
-        <div><strong>Appearance</strong><span>Choose light or dark mode. This setting also follows your device until you choose one.</span></div>
+        <div><strong>Appearance</strong><span>Choose light or dark mode.</span></div>
         <ThemeToggle showLabel />
       </section>
       <div className="account-setting-row account-security-row">
