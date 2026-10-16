@@ -1,0 +1,272 @@
+{
+  "schemaVersion": 1,
+  "addition": "ib-physics-may-2026",
+  "mode": "dry-run-upload-plan",
+  "status": "PLANNED, NOT UPLOADED (owner approval required)",
+  "provider": "cloudflare-r2",
+  "bucket": "pastpaperprep-free",
+  "method": "Output of `scripts/publish-added-free-papers.mts plan` against the pinned base: the PDFs the committed whole-paper manifests approve and the base manifests do not. Every source was hash-checked against its binding. Upload with `publish-added-free-papers.mts upload` (key checked absent, put with application/pdf, `public, max-age=604800` and an attachment download name, read back by SHA-256 and size), then `verify`.",
+  "sourceDirectory": "ib-physics-topic-practice/.worktrees/may-2026/data/raw (36 official IB originals, SHA-256 pinned in data/may-2026/source-manifest.json)",
+  "appBaseCommit": "5d0f243624e449a7b589d83708145102e3b5bfb3",
+  "approvedObjectsAfter": 5020,
+  "objectCount": 36,
+  "totalBytes": 32540941,
+  "operatorNotes": [
+    "Owner approval is required before any upload.",
+    "Run `verify` afterwards: it rewrites src/data/paper-archive-readback.json only if every approved PDF matches."
+  ],
+  "objects": [
+    {
+      "sha256": "019c44b88257850d390db220233ae028652fdc0c5a6d64f78fedfea8ed203dbc",
+      "bytes": 2279870,
+      "name": "ib-physics-hl-2026-may-paper-1a-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-hl-p1a-question.pdf",
+      "key": "papers/v1/019c44b88257850d390db220233ae028652fdc0c5a6d64f78fedfea8ed203dbc.pdf"
+    },
+    {
+      "sha256": "063d803ef7660c8ce4220ba74d9b22731e60512ba4ebb932508125ebe599b7bd",
+      "bytes": 1957199,
+      "name": "ib-physics-hl-2026-may-paper-1a-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-hl-p1a-question.pdf",
+      "key": "papers/v1/063d803ef7660c8ce4220ba74d9b22731e60512ba4ebb932508125ebe599b7bd.pdf"
+    },
+    {
+      "sha256": "0fd144a21a82f309bb38fc301f87bf7eff737a73403f42dbbca7041ff3399e18",
+      "bytes": 474248,
+      "name": "ib-physics-sl-2026-may-paper-2-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-sl-p2-markscheme.pdf",
+      "key": "papers/v1/0fd144a21a82f309bb38fc301f87bf7eff737a73403f42dbbca7041ff3399e18.pdf"
+    },
+    {
+      "sha256": "142a99a53537aabc353c45e477a50099fa27c23c3cd7a0740b97956f6020677b",
+      "bytes": 760862,
+      "name": "ib-physics-hl-2026-may-paper-2-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-hl-p2-markscheme.pdf",
+      "key": "papers/v1/142a99a53537aabc353c45e477a50099fa27c23c3cd7a0740b97956f6020677b.pdf"
+    },
+    {
+      "sha256": "17cada18471a0ad7242f143b592fcd1430ba6d3975801ff7c694934fd53f59f3",
+      "bytes": 1724592,
+      "name": "ib-physics-hl-2026-may-paper-1a-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-hl-p1a-question.pdf",
+      "key": "papers/v1/17cada18471a0ad7242f143b592fcd1430ba6d3975801ff7c694934fd53f59f3.pdf"
+    },
+    {
+      "sha256": "1d240c6eb24e29260fef7395f6a2c9e164aee0c821b96e6399a65828b65cd168",
+      "bytes": 269602,
+      "name": "ib-physics-hl-2026-may-paper-1a-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-hl-p1a-markscheme.pdf",
+      "key": "papers/v1/1d240c6eb24e29260fef7395f6a2c9e164aee0c821b96e6399a65828b65cd168.pdf"
+    },
+    {
+      "sha256": "1dec87fe1b4f821e092d938685362106cc96e707ab1c9fbb537f8ba5312b37dc",
+      "bytes": 1701901,
+      "name": "ib-physics-sl-2026-may-paper-1a-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-sl-p1a-question.pdf",
+      "key": "papers/v1/1dec87fe1b4f821e092d938685362106cc96e707ab1c9fbb537f8ba5312b37dc.pdf"
+    },
+    {
+      "sha256": "1f5311840493089dbcc652b57d9918bff58be70b342e7975cf309f48458e4db2",
+      "bytes": 455246,
+      "name": "ib-physics-sl-2026-may-paper-1b-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-sl-p1b-markscheme.pdf",
+      "key": "papers/v1/1f5311840493089dbcc652b57d9918bff58be70b342e7975cf309f48458e4db2.pdf"
+    },
+    {
+      "sha256": "21f90d22b18161bf96260e2be9a6843435d5624387903637d37f5e0a244ecfa5",
+      "bytes": 372759,
+      "name": "ib-physics-sl-2026-may-paper-1b-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-sl-p1b-markscheme.pdf",
+      "key": "papers/v1/21f90d22b18161bf96260e2be9a6843435d5624387903637d37f5e0a244ecfa5.pdf"
+    },
+    {
+      "sha256": "2beb5e0dc6495f941aac6b1e3a34235fcaee47ab1f212dd7f9b215a8165503a8",
+      "bytes": 820035,
+      "name": "ib-physics-hl-2026-may-paper-1b-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-hl-p1b-question.pdf",
+      "key": "papers/v1/2beb5e0dc6495f941aac6b1e3a34235fcaee47ab1f212dd7f9b215a8165503a8.pdf"
+    },
+    {
+      "sha256": "2cd7a0e4296bfb9bce32d36afea2332a830e26680a09b2ef8bca980a7f8acc49",
+      "bytes": 820724,
+      "name": "ib-physics-sl-2026-may-paper-1b-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-sl-p1b-question.pdf",
+      "key": "papers/v1/2cd7a0e4296bfb9bce32d36afea2332a830e26680a09b2ef8bca980a7f8acc49.pdf"
+    },
+    {
+      "sha256": "2f6f5da26f0c7259954fac59b3a0f0430bd43eb40d416c7b8054db1983af706a",
+      "bytes": 210501,
+      "name": "ib-physics-hl-2026-may-paper-1a-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-hl-p1a-markscheme.pdf",
+      "key": "papers/v1/2f6f5da26f0c7259954fac59b3a0f0430bd43eb40d416c7b8054db1983af706a.pdf"
+    },
+    {
+      "sha256": "43caae093d1fd86b95f7fc6f57cfc3132a0652d505075566f0688bc09fcea1a6",
+      "bytes": 689065,
+      "name": "ib-physics-sl-2026-may-paper-2-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-sl-p2-markscheme.pdf",
+      "key": "papers/v1/43caae093d1fd86b95f7fc6f57cfc3132a0652d505075566f0688bc09fcea1a6.pdf"
+    },
+    {
+      "sha256": "4875a49508370ae6d61c992fdd7c2db8bcb5da3726f9d16bde70c89606881e88",
+      "bytes": 372558,
+      "name": "ib-physics-hl-2026-may-paper-1b-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-hl-p1b-markscheme.pdf",
+      "key": "papers/v1/4875a49508370ae6d61c992fdd7c2db8bcb5da3726f9d16bde70c89606881e88.pdf"
+    },
+    {
+      "sha256": "4cd94f244aee7ac6de4f87e4ceaeef5e6afbef2810f3dd458d989f4f7937f0eb",
+      "bytes": 1745139,
+      "name": "ib-physics-hl-2026-may-paper-2-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-hl-p2-question.pdf",
+      "key": "papers/v1/4cd94f244aee7ac6de4f87e4ceaeef5e6afbef2810f3dd458d989f4f7937f0eb.pdf"
+    },
+    {
+      "sha256": "5305bbbfb200bc214e386cf830de4941504cec91854114c2e55e9fd1fcf60d38",
+      "bytes": 810459,
+      "name": "ib-physics-sl-2026-may-paper-2-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-sl-p2-markscheme.pdf",
+      "key": "papers/v1/5305bbbfb200bc214e386cf830de4941504cec91854114c2e55e9fd1fcf60d38.pdf"
+    },
+    {
+      "sha256": "5ca6c1b4f896d07f55ffd0974e14894d94750820131c2e38c708204339910c83",
+      "bytes": 210485,
+      "name": "ib-physics-sl-2026-may-paper-1a-tz2_ms.pdf",
+      "relativePath": "2026-may-tz2-sl-p1a-markscheme.pdf",
+      "key": "papers/v1/5ca6c1b4f896d07f55ffd0974e14894d94750820131c2e38c708204339910c83.pdf"
+    },
+    {
+      "sha256": "5cd2dc8f97e5027d9ff1172dbc92043332c4247e86ea1f0f0c7671d7a950a96d",
+      "bytes": 146194,
+      "name": "ib-physics-hl-2026-may-paper-1a-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-hl-p1a-markscheme.pdf",
+      "key": "papers/v1/5cd2dc8f97e5027d9ff1172dbc92043332c4247e86ea1f0f0c7671d7a950a96d.pdf"
+    },
+    {
+      "sha256": "69d0f88403d36a8ff0d480bf151dea5272748d5abd3b2a382a4cc93a89339068",
+      "bytes": 607046,
+      "name": "ib-physics-hl-2026-may-paper-1b-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-hl-p1b-markscheme.pdf",
+      "key": "papers/v1/69d0f88403d36a8ff0d480bf151dea5272748d5abd3b2a382a4cc93a89339068.pdf"
+    },
+    {
+      "sha256": "6e46ff82a1ca18455963390fc28a3427622d3f2ebaf57773d9ecbf3c3da5cce8",
+      "bytes": 455190,
+      "name": "ib-physics-hl-2026-may-paper-1b-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-hl-p1b-markscheme.pdf",
+      "key": "papers/v1/6e46ff82a1ca18455963390fc28a3427622d3f2ebaf57773d9ecbf3c3da5cce8.pdf"
+    },
+    {
+      "sha256": "6ff7b0bcc9f275021a2356185957b3b921b54ebb5ce5ded3a262a6811054ccef",
+      "bytes": 700649,
+      "name": "ib-physics-sl-2026-may-paper-1b-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-sl-p1b-markscheme.pdf",
+      "key": "papers/v1/6ff7b0bcc9f275021a2356185957b3b921b54ebb5ce5ded3a262a6811054ccef.pdf"
+    },
+    {
+      "sha256": "79c0f419b2df37fdb0ede5c2b054da65a6f16142a5610c4d0543c120104179ff",
+      "bytes": 804939,
+      "name": "ib-physics-sl-2026-may-paper-1b-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-sl-p1b-question.pdf",
+      "key": "papers/v1/79c0f419b2df37fdb0ede5c2b054da65a6f16142a5610c4d0543c120104179ff.pdf"
+    },
+    {
+      "sha256": "842c0273b4ef4eefe8ab353db63799d8384b771f32a2ace3645dc7f382f7b23d",
+      "bytes": 211766,
+      "name": "ib-physics-sl-2026-may-paper-1a-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-sl-p1a-markscheme.pdf",
+      "key": "papers/v1/842c0273b4ef4eefe8ab353db63799d8384b771f32a2ace3645dc7f382f7b23d.pdf"
+    },
+    {
+      "sha256": "8af2be8e524fe262d6fd106b474e98fe61351a8975ce5742b165cfc26ff15e66",
+      "bytes": 1468126,
+      "name": "ib-physics-sl-2026-may-paper-2-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-sl-p2-question.pdf",
+      "key": "papers/v1/8af2be8e524fe262d6fd106b474e98fe61351a8975ce5742b165cfc26ff15e66.pdf"
+    },
+    {
+      "sha256": "93573fa742c7f6c57315b1392b7486a261998009853c136bfb031769200af601",
+      "bytes": 1350230,
+      "name": "ib-physics-sl-2026-may-paper-1a-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-sl-p1a-question.pdf",
+      "key": "papers/v1/93573fa742c7f6c57315b1392b7486a261998009853c136bfb031769200af601.pdf"
+    },
+    {
+      "sha256": "97e6a6e97717e99bc4c55e82c9920a9ff8505aaa8534df8e7132fc01dd2e7a39",
+      "bytes": 836827,
+      "name": "ib-physics-sl-2026-may-paper-2-tz3_qp.pdf",
+      "relativePath": "2026-may-tz3-sl-p2-question.pdf",
+      "key": "papers/v1/97e6a6e97717e99bc4c55e82c9920a9ff8505aaa8534df8e7132fc01dd2e7a39.pdf"
+    },
+    {
+      "sha256": "9cd1503d8c558b3396259bddc88f319a5b12a9fc83266e0e2dafd340ccf1a75e",
+      "bytes": 1928265,
+      "name": "ib-physics-hl-2026-may-paper-2-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-hl-p2-question.pdf",
+      "key": "papers/v1/9cd1503d8c558b3396259bddc88f319a5b12a9fc83266e0e2dafd340ccf1a75e.pdf"
+    },
+    {
+      "sha256": "b4b3b116ba2fb68327300c8db9bb7ce47cd7572d11c0a88c5b08dcdc55680050",
+      "bytes": 1209483,
+      "name": "ib-physics-hl-2026-may-paper-1b-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-hl-p1b-question.pdf",
+      "key": "papers/v1/b4b3b116ba2fb68327300c8db9bb7ce47cd7572d11c0a88c5b08dcdc55680050.pdf"
+    },
+    {
+      "sha256": "cffa6d1c1cf568a42f24c72e5a5c0b26e55d8a2818eb3e5952458e73ca198364",
+      "bytes": 1471035,
+      "name": "ib-physics-sl-2026-may-paper-1a-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-sl-p1a-question.pdf",
+      "key": "papers/v1/cffa6d1c1cf568a42f24c72e5a5c0b26e55d8a2818eb3e5952458e73ca198364.pdf"
+    },
+    {
+      "sha256": "d8fc663504a80638f64f2a01459e925e8a311122f427b15f6dd69e6cdfdf3829",
+      "bytes": 878406,
+      "name": "ib-physics-sl-2026-may-paper-2-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-sl-p2-question.pdf",
+      "key": "papers/v1/d8fc663504a80638f64f2a01459e925e8a311122f427b15f6dd69e6cdfdf3829.pdf"
+    },
+    {
+      "sha256": "e2ac707794f70bd93776a51ecb5fc7d02515c1ce201bd6065d5373da3351132d",
+      "bytes": 805136,
+      "name": "ib-physics-hl-2026-may-paper-1b-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-hl-p1b-question.pdf",
+      "key": "papers/v1/e2ac707794f70bd93776a51ecb5fc7d02515c1ce201bd6065d5373da3351132d.pdf"
+    },
+    {
+      "sha256": "e306599f86f353826d5ca3d61c26a4ce3003b1972311dc17deaca5f33af3de20",
+      "bytes": 744753,
+      "name": "ib-physics-hl-2026-may-paper-2-tz3_ms.pdf",
+      "relativePath": "2026-may-tz3-hl-p2-markscheme.pdf",
+      "key": "papers/v1/e306599f86f353826d5ca3d61c26a4ce3003b1972311dc17deaca5f33af3de20.pdf"
+    },
+    {
+      "sha256": "e9f8ec3ebf32f9443553a150733cd1726b43ef972a3c0ac6e6f056592052c286",
+      "bytes": 146324,
+      "name": "ib-physics-sl-2026-may-paper-1a-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-sl-p1a-markscheme.pdf",
+      "key": "papers/v1/e9f8ec3ebf32f9443553a150733cd1726b43ef972a3c0ac6e6f056592052c286.pdf"
+    },
+    {
+      "sha256": "f878bc57cb9da6bc0202bf02694c02d71f4f10ddcf3a07b566d6c4f9bed372ac",
+      "bytes": 723969,
+      "name": "ib-physics-hl-2026-may-paper-2-tz1_ms.pdf",
+      "relativePath": "2026-may-tz1-hl-p2-markscheme.pdf",
+      "key": "papers/v1/f878bc57cb9da6bc0202bf02694c02d71f4f10ddcf3a07b566d6c4f9bed372ac.pdf"
+    },
+    {
+      "sha256": "f8e2b8f67760e1f1166d6eaab867a88bc54274032a8ce282c04b9d23decd7424",
+      "bytes": 1167069,
+      "name": "ib-physics-hl-2026-may-paper-2-tz1_qp.pdf",
+      "relativePath": "2026-may-tz1-hl-p2-question.pdf",
+      "key": "papers/v1/f8e2b8f67760e1f1166d6eaab867a88bc54274032a8ce282c04b9d23decd7424.pdf"
+    },
+    {
+      "sha256": "fe792abbe88a98f884891e8157fa3fd53dcff704f65cdc0e5e2240f217146faa",
+      "bytes": 1210289,
+      "name": "ib-physics-sl-2026-may-paper-1b-tz2_qp.pdf",
+      "relativePath": "2026-may-tz2-sl-p1b-question.pdf",
+      "key": "papers/v1/fe792abbe88a98f884891e8157fa3fd53dcff704f65cdc0e5e2240f217146faa.pdf"
+    }
+  ]
+}

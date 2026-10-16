@@ -72,11 +72,12 @@ describe("MCQ detection", () => {
 
 const OVERLAY_PATH = join(process.cwd(), "src", "data", "reviewed-mcq-answer-letters.json");
 // Imported 2026-10-13 from ../research/mcq-answer-letters-2026-10 (receipt: docs/reviewed-mcq-answer-letters.md).
-const OVERLAY_SHA256 = "76c456527f053db418d61b2e66f4afdfc06bc0e52df7e184820efd997e06e53d";
-// May 2026 IB Biology and IB Chemistry keys (210 each), read independently from the official mark schemes; merged over the research file.
+const OVERLAY_SHA256 = "25d84993b7417afaf12b6868eb1bd8326a6ff637f083498a5398d5bf71f4c69f";
+// May 2026 IB Biology, IB Chemistry (210 each) and IB Physics (195) keys, read independently from the official mark schemes; merged over the research file.
 const MAY_2026_ADDITIONS = [
   { path: join(process.cwd(), "docs", "ib-biology-may-2026", "mcq-answer-letters-2026.json"), sha256: "6ea073620eca9521ee2d07642e7a40296c0bb29feec3f2bb3bdb57156c99ded7" },
   { path: join(process.cwd(), "docs", "ib-chemistry-may-2026", "mcq-answer-letters-2026.json"), sha256: "c513c55fa201414c39367fa69e87de8548c729d6915f471d26148f08533e34a8" },
+  { path: join(process.cwd(), "docs", "ib-physics-may-2026", "mcq-answer-letters-2026.json"), sha256: "75d8347ee954d60f2bb58cc34d808e144db2ca4c6193e580e2eebb8b0ab0a214" },
 ];
 // The research folder sits beside the repository; from a worktree under .worktrees/ it is three levels up.
 const SOURCE_PATH = [["..", "research"], ["..", "..", "..", "research"]]
@@ -105,7 +106,7 @@ describe("reviewed MCQ answer letters file", () => {
       "igcse-economics-0455": 1584, "igcse-biology-0610": 240,
       "ib-biology-hl": 1320, "ib-biology-sl": 1020,
       "ib-chemistry-hl": 1320, "ib-chemistry-sl": 990,
-      "ib-physics-hl": 1200, "ib-physics-sl": 872,
+      "ib-physics-hl": 1320, "ib-physics-sl": 947,
     });
   });
 
