@@ -50,7 +50,8 @@ describe("PaperBuilder", () => {
     expect(screen.queryByRole("button", { name: /generate/i })).not.toBeInTheDocument();
     expect((screen.getByLabelText("Worksheet name") as HTMLInputElement).value).not.toBe("");
     expect(screen.getByRole("group", { name: "Your Cambridge route" })).toBeInTheDocument();
-    expect(new URLSearchParams(window.location.search).get("bank")).toBe(bank.slug);
+    // The address syncs after the paper renders, which can trail on a loaded CI runner.
+    await waitFor(() => expect(new URLSearchParams(window.location.search).get("bank")).toBe(bank.slug));
   });
 
   it("counts every topic live and narrows the counts when the years narrow", async () => {
