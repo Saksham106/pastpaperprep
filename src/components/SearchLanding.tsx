@@ -113,7 +113,7 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref }: { bank: Cata
       <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: `${bank.title} syllabus and past-paper practice guide`, description: `A plain-English guide to ${bank.shortName}, its assessment structure, archive topic map, and focused past-paper practice.`, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@id": `${SITE_URL}/${bank.qualification === "IB Diploma" ? "ib" : "cambridge-igcse"}#page` } }} />
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: bank.qualification, href: bank.qualification === "IB Diploma" ? "/ib" : "/cambridge-igcse" }, { label: bank.shortName }]} />
       <header className="landing-hero">
-        <div className="landing-hero-copy"><p className="eyebrow">Syllabus and practice guide</p><h1>{bank.title} syllabus, topics, and past-paper practice</h1><p className="lead">A clear map of what the course covers, how it is assessed, and where real archive practice fits.</p></div>
+        <div className="landing-hero-copy"><p className="eyebrow">Syllabus and practice guide</p><h1>{bank.qualification === "Cambridge IGCSE" ? `Cambridge IGCSE ${bank.title}` : bank.title} syllabus, topics, and past-paper practice</h1><p className="lead">A clear map of what the course covers, how it is assessed, and where real archive practice fits.</p></div>
         <ArchiveStats bank={bank} manifest={manifest} />
       </header>
 

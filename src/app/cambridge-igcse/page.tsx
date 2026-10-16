@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { QualificationHub } from "@/components/SearchLanding";
 export const metadata: Metadata = {
-  title: "Cambridge IGCSE past-paper banks",
+  title: "IGCSE Past Papers by Topic: Maths, Sciences and Economics",
   description:
-    "Browse Cambridge IGCSE past-paper question banks by subject, then practise exact topics and papers.",
+    "Cambridge IGCSE past-paper questions sorted by topic for Maths 0580, Add Maths 0606, Biology 0610, Chemistry 0620, Physics 0625, 0654 and Economics 0455.",
   alternates: { canonical: "/cambridge-igcse" },
 };
 export default function CambridgeIgcsePage() {

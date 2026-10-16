@@ -12,11 +12,12 @@ export function canonical(raw) {
   try {
     const u = new URL(raw);
     if (u.origin !== SITE || u.search || u.hash || u.username || u.password || /%/.test(u.pathname)) return null;
-    if (!STATIC.has(u.pathname) && !/^\/articles\/[a-z0-9-]+$/.test(u.pathname) && !/^\/(banks|syllabus)\/[a-z0-9-]+(?:\/(topics|papers)\/[a-z0-9-]+)?$/.test(u.pathname)) return null;
+    if (!STATIC.has(u.pathname) && !/^\/articles\/[a-z0-9-]+$/.test(u.pathname) && !/^\/(banks|syllabus)\/[a-z0-9-]+(?:\/(topics|papers)\/[a-z0-9-]+)?$/.test(u.pathname) && !/^\/past-papers(?:\/[a-z0-9-]+){0,2}$/.test(u.pathname)) return null;
     if (/\/articles\/(preview|draft-)/.test(u.pathname)) return null;
     return u.href;
   } catch { return null; }
 }
+export const isPaperDetail = (url) => /^\/past-papers\/[a-z0-9-]+\/[a-z0-9-]+$/.test(new URL(url).pathname);
 export function parseSitemap(xml) {
   const code = `import sys,json,xml.etree.ElementTree as E
 r=E.fromstring(sys.stdin.buffer.read())
@@ -55,7 +56,11 @@ export async function run({ submit = false, explicit = [], state = '.indexnow/st
   const current = {};
   const entries = Object.entries(dates);
   // Bounded parallelism; snapshot all live public content so undated edits are detected too.
-  for (let i = 0; i < entries.length; i += 4) await Promise.all(entries.slice(i, i + 4).map(async ([u, lastmod]) => { current[u] = { lastmod, hash: fingerprint(await get(u)) }; }));
+  // Individual whole-paper pages (about 2,800) are generated from dated manifests, so their sitemap
+  // lastmod is enough; fetching each one on every run would only cost function time.
+  for (const [u, lastmod] of entries) if (isPaperDetail(u)) current[u] = { lastmod, hash: '' };
+  const fetched = entries.filter(([u]) => !isPaperDetail(u));
+  for (let i = 0; i < fetched.length; i += 4) await Promise.all(fetched.slice(i, i + 4).map(async ([u, lastmod]) => { current[u] = { lastmod, hash: fingerprint(await get(u)) }; }));
   let previous = null;
   try { previous = JSON.parse(await readFile(state, 'utf8')); } catch (e) { if (e.code !== 'ENOENT') throw e; }
   const { changed, deleted } = diffSitemaps(previous, current);
