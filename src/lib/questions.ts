@@ -12,6 +12,7 @@ import { activeQuestionImagePaths } from "@/lib/reviewed-blank-qp";
 import { activeQuestionCropPaths } from "@/lib/retired-crops";
 import { IB_SCIENCE_CROP_REPAIR_BANKS, reviewedMarkschemePaths } from "@/lib/reviewed-mcq-answer-repairs";
 import { historicalMarks, historicalQuestionPaths } from "@/lib/reviewed-biology-historical-crops";
+import { printedMarks } from "@/lib/reviewed-biology-printed-marks";
 import { reviewed0606RightEdgePaths } from "@/lib/reviewed-0606-ms-right-edge-repairs";
 import { reviewed0580CoreQuestionPaths } from "@/lib/reviewed-0580-core-crop-repairs";
 import { reviewedEconomicsQuestionPaths } from "@/lib/reviewed-economics-question-crops";
@@ -326,7 +327,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     zone: text(raw.timezone) || text(raw.zone),
     component: text(raw.component),
     calculator: calculatorAllowed(slug, { paper, year: integer(raw.year) }),
-    marks: historicalMarks(slug, text(raw.id), typeof raw.marks === "number" ? raw.marks : null),
+    marks: printedMarks(slug, text(raw.id), historicalMarks(slug, text(raw.id), typeof raw.marks === "number" ? raw.marks : null)),
     summary,
     accessibleText,
     searchText: searchable,

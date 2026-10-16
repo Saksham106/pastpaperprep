@@ -1,0 +1,20 @@
+{
+ "schema": "reviewed-biology-printed-marks-v1",
+ "bank": "igcse-biology-0610",
+ "source": {
+  "census": "scripts/data/igcse-science-printed-marks-census.json",
+  "bankSha256": "bc3575e89aec5c3b61eff6f0e06c527810b20f8ccb658b750dac65c92b931031"
+ },
+ "entries": {
+  "0610-2019-s-61-q1": {
+   "old": 20,
+   "new": 19,
+   "evidence": "The question paper prints [Total: 19]; 0610-2019-s-61 reconciles to its maximum of 40 with the printed totals."
+  },
+  "0610-2019-s-61-q2": {
+   "old": 20,
+   "new": 21,
+   "evidence": "The question paper prints [Total: 21]; 0610-2019-s-61 reconciles to its maximum of 40 with the printed totals."
+  }
+ }
+}
