@@ -97,7 +97,7 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
     expect(runtime.publicationStatus).toBe("production");
     expect(runtime.assetVerification).toBe("verified_readback");
     expect(runtime.version).toBe("igcse-chemistry-0620-release-candidate-v4-taxonomy-projected");
-    // Undo answer-row projection, the 2026-10-15 final BLANK PAGE projection and the one documented
+    // Undo explanation flags, answer-row projection, the 2026-10-15 final BLANK PAGE projection and the one documented
     // retrieval descendant to reconstruct the original immutable classification index.
     const finalBlankPages = new Map<string, number>();
     // Pages hidden later as BLANK PAGE or Periodic Table furniture count back in.
@@ -110,7 +110,10 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
     const oldCounts = new Map<string, number>(runtime.questions.map((row: { id: string; markschemeImages: string[]; officialMarkscheme?: { images?: string[] } }) =>
       [row.id, row.officialMarkscheme?.images?.length || row.markschemeImages.length]));
     const descendant = read("docs/0620-source-owned-diffusion-delta.json");
-    const historicalIndex = { ...activeIndex, questions: activeIndex.questions.map((row: { id: string; questionImageCount: number; markschemeImageCount: number }) => {
+    // Explanation availability is published separately and is not part of the audited classification.
+    const historicalIndex = { ...activeIndex, questions: activeIndex.questions.map((published: { id: string; questionImageCount: number; markschemeImageCount: number; hasExplanation?: boolean }) => {
+      const row = { ...published };
+      delete row.hasExplanation;
       const base = row.id === descendant.exact_changed_ids[0] ? descendant.before_public_metadata : row;
       return { ...base, questionImageCount: base.questionImageCount + (finalBlankPages.get(row.id) ?? 0), markschemeImageCount: oldCounts.get(row.id) };
     }) };

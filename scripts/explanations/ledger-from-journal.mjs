@@ -6,7 +6,7 @@
 //        labels carried the bank: its unlabelled results count for --bank. Refused if any label names another
 //        bank or any result ID is missing from this bank's manifest.
 // Writes <research>/explanations/<bank>/_ledger.json and _todo.json.
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { closeSync, existsSync, fstatSync, openSync, readFileSync, readSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { BANKS, outputPathFor, researchRoot } from "./prepare-batch.mjs";
 
@@ -34,11 +34,25 @@ const critical = (v) => v.verdict === "fail" || v.issues.some((i) => i.severity 
 const needsFix = (v) => v.verdict !== "pass" || v.issues.some((i) => i.severity === "critical");
 
 // When an agent finished: the last timestamp in its transcript, which sits next to the journal.
+// Transcripts can be megabytes, so read only their tail, widening until a timestamp is found.
 function finishedAt(file, agentId) {
   const transcript = join(dirname(file), `agent-${agentId}.jsonl`);
-  const lines = existsSync(transcript) ? readFileSync(transcript, "utf8").trim().split("\n") : [];
-  for (let i = lines.length - 1; i >= 0; i -= 1) {
-    try { const time = Date.parse(JSON.parse(lines[i]).timestamp); if (Number.isFinite(time)) return time; } catch { /* partial line */ }
+  if (existsSync(transcript)) {
+    const fd = openSync(transcript, "r");
+    try {
+      const size = fstatSync(fd).size;
+      for (let span = 1 << 16; ; span *= 4) {
+        const length = Math.min(span, size);
+        const buffer = Buffer.alloc(length);
+        readSync(fd, buffer, 0, length, size - length);
+        const lines = buffer.toString("utf8").trim().split("\n");
+        // The first line of a partial read may be cut off; the parse fails and it is skipped.
+        for (let i = lines.length - 1; i >= 0; i -= 1) {
+          try { const time = Date.parse(JSON.parse(lines[i]).timestamp); if (Number.isFinite(time)) return time; } catch { /* partial line */ }
+        }
+        if (length === size) break;
+      }
+    } finally { closeSync(fd); }
   }
   throw new Error(`Cannot date ${agentId} in ${file}; refusing to order its result against other runs`);
 }
