@@ -1446,7 +1446,7 @@ main { min-height: 72vh; }
   .pricing-decision-grid { grid-template-columns: 1fr; }
   .pricing-option[data-mobile-order="first"] { order: -1; }
   .dashboard-heading { grid-template-columns: 1fr; align-items: start; }
-  .dashboard-settings { width: 100%; }
+  .dashboard-heading-actions > * { flex: 1 1 200px; }
   .dashboard-settings .dashboard-actions { left: 0; right: auto; }
 }
 
@@ -1936,14 +1936,10 @@ main { min-height: 72vh; }
 @media (max-width: 600px) { .worksheet-build-panel { flex-wrap: wrap; } .worksheet-build-panel .button { width: 100%; justify-content: center; } }
 .dashboard-qualification-row { position: relative; margin-top: 24px; }
 .dashboard-qualification-row .dashboard-qualification-tabs { width: 100%; margin-top: 0; }
-.dashboard-qualification-row .dashboard-worksheets-link { position: absolute; z-index: 1; top: 0; left: 0; margin: 0; padding: .55rem .8rem; border-color: var(--ink); color: var(--ink); font-size: .9rem; }
-.dashboard-qualification-row .dashboard-worksheets-link:hover, .dashboard-qualification-row .dashboard-worksheets-link:focus-visible { border-color: var(--foreground, #18212b); color: var(--background, white); }
 .worksheet-library-back { display: inline-flex; align-items: center; gap: .45rem; min-height: 2.75rem; margin-bottom: 1.1rem; color: var(--cobalt); font-weight: 750; text-decoration: none; }
 .worksheet-library-back:hover, .worksheet-library-back:focus-visible { text-decoration: underline; text-underline-offset: .2em; }
-@media (max-width: 850px) {
-  .dashboard-qualification-row .dashboard-worksheets-link { position: static; margin: 0 0 14px; }
-}
-.dashboard-worksheets-link { display: inline-flex; align-items: center; gap: .65rem; margin: 0 0 1.25rem; padding: .75rem 1rem; border: 1px solid currentColor; border-radius: .65rem; background: transparent; color: var(--foreground, #18212b); font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; }
+.dashboard-heading-actions { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px; }
+.dashboard-worksheets-link { display: inline-flex; align-items: center; justify-content: center; gap: .65rem; min-height: 46px; margin: 0; padding: 0 1rem; border: 1px solid var(--ink); border-radius: 10px; background: transparent; color: var(--ink); font: inherit; font-weight: 760; text-decoration: none; cursor: pointer; }
 .dashboard-worksheets-link:hover, .dashboard-worksheets-link:focus-visible { background: var(--foreground, #18212b); color: var(--background, white); }
 .dashboard-worksheets-dialog { width: min(420px, calc(100% - 32px)); max-height: calc(100dvh - 32px); margin: auto; padding: 26px; overflow: auto; color: var(--ink); background: var(--surface-raised); border: 1px solid var(--line-strong); border-radius: 14px; box-shadow: 0 24px 70px rgb(25 34 54 / .22); }
 .dashboard-worksheets-dialog::backdrop { background: rgb(25 34 54 / .46); }
@@ -1982,8 +1978,7 @@ main { min-height: 72vh; }
 :root[data-theme="dark"] .dashboard-worksheets-link { color: var(--ink); }
 :root[data-theme="dark"] .dashboard-worksheets-link:hover,
 :root[data-theme="dark"] .dashboard-worksheets-link:focus-visible { color: var(--accent-contrast); background: var(--cobalt); }
-:root[data-theme="dark"] .dashboard-qualification-row .dashboard-worksheets-link:hover,
-:root[data-theme="dark"] .dashboard-qualification-row .dashboard-worksheets-link:focus-visible { color: var(--accent-contrast); border-color: var(--cobalt); }
+:root[data-theme="dark"] .dashboard-worksheets-link:is(:hover, :focus-visible) { border-color: var(--cobalt); }
 
 /* Lifetime: a restrained editorial emphasis, distinct from the subscription grid. */
 .billing-toggle-lifetime[aria-pressed="true"] {
@@ -2322,6 +2317,8 @@ main { min-height: 72vh; }
   .site-header .site-menu { grid-column: 2 / 4; display: grid; grid-template-columns: subgrid; align-items: center; }
   .site-header .nav-pages { justify-self: center; gap: 4px; }
   .site-header .nav-actions { justify-self: end; }
+  /* The bar has no room for My worksheets beside the page links; the dashboard heading links it instead. */
+  .site-header .site-menu .nav-worksheets { display: none; }
   @supports not (grid-template-columns: subgrid) {
     .site-header .site-menu { display: contents; }
     .site-header .nav-pages { grid-column: 2; grid-row: 1; }

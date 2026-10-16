@@ -54,7 +54,8 @@ describe("WorksheetList", () => {
     expect(page.indexOf('Back to dashboard')).toBeLessThan(page.indexOf('<h1>My worksheets</h1>'));
     expect(page).toContain('href="/worksheets/build"');
     expect(page).toContain('Build a paper');
-    expect(css).toMatch(/\.dashboard-qualification-row \.dashboard-worksheets-link\s*\{[^}]*border-color:\s*var\(--ink\)/);
+    expect(css).toMatch(/\.dashboard-worksheets-link\s*\{[^}]*border:\s*1px solid var\(--ink\)/);
+    expect(css).not.toMatch(/\.dashboard-worksheets-link\s*\{[^}]*position:\s*absolute/);
     expect(page).toContain('title: "My worksheets"');
     expect(css).toMatch(/\.worksheet-library-header h1\s*\{[^}]*font:\s*800 clamp\(/);
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json({ worksheets: [] })));
