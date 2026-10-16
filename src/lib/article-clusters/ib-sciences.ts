@@ -1,4 +1,5 @@
 import type { Article } from "@/lib/articles";
+import { freeAccessSection } from "@/lib/article-clusters/free-access-section";
 
 export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
   {
@@ -10,35 +11,9 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
     answer: "The best IB Chemistry question bank depends on the job you need done. Use official IB specimen papers, sample papers, and mark schemes to learn the assessment standard. Choose Revision Village if you want a broad digital bank with difficulty levels and video solutions, Save My Exams if structured notes and downloadable topic PDFs matter most, Exam-Mate if you prefer topical filtering and saved online lists, and PastPaperPrep if you want real past-paper questions organized into focused, printable practice sets for HL or SL. PastPaperPrep is not the best choice when your main need is a full teaching course, extensive video lessons, or a replacement for your teacher's explanation of the new syllabus.",
     answerLink: { href: "/banks/ib-chemistry-hl", label: "PastPaperPrep" },
     publishedAt: "2026-09-15",
-    updatedAt: "2026-10-14",
+    updatedAt: "2026-10-16",
     readingMinutes: 8,
     sections: [
-      {
-        heading: "Free whole papers, then targeted practice",
-        paragraphs: [
-          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
-        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance.",
-          "Use the matching official mark scheme to check these papers. Published PastPaperPrep worked explanations are currently available on selected IB Maths and Physics HL questions; do not assume every Chemistry or Biology question has one. A full notes or teaching resource may still be useful."
-        ],
-        links: [
-          {
-            href: "/past-papers/ib-chemistry-hl",
-            label: "IB Chemistry HL whole papers"
-          },
-          {
-            href: "/past-papers/ib-chemistry-sl",
-            label: "IB Chemistry SL whole papers"
-          },
-          {
-            href: "/banks/ib-chemistry-hl?free=1",
-            label: "IB Chemistry question bank: free topic practice"
-          },
-          {
-            href: "/banks/ib-chemistry-sl?free=1",
-            label: "IB Chemistry SL question bank: free topic practice"
-          }
-        ]
-      },
       {
         heading: "What changed in IB Chemistry practice?",
         paragraphs: [
@@ -46,6 +21,12 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
           "Before buying anything, check that the resource clearly separates the current course from legacy material. HL and SL overlap, but HL has greater breadth and depth. A question that looks relevant can still be a poor use of revision time if its syllabus, paper style, or command term belongs to an older course."
         ]
       },
+      freeAccessSection([
+        { href: "/past-papers/ib-chemistry-hl", label: "IB Chemistry HL whole papers" },
+        { href: "/past-papers/ib-chemistry-sl", label: "IB Chemistry SL whole papers" },
+        { href: "/banks/ib-chemistry-hl?free=1", label: "IB Chemistry question bank: free topic practice" },
+        { href: "/banks/ib-chemistry-sl?free=1", label: "IB Chemistry SL question bank: free topic practice" },
+      ]),
       {
         heading: "Best official starting point: IB sample papers and guides",
         paragraphs: [
@@ -146,39 +127,12 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
     title: "Best IB Physics Question Banks for HL and SL (2026)",
     description: "Compare the best IB Physics HL and SL question banks for 2026, from official IB papers to Revision Village, Save My Exams, Exam-Mate, and PastPaperPrep.",
     eyebrow: "IB Physics HL and SL",
-    answer: "For IB Physics, choose a bank that tests modelling, data, units and written reasoning, not just formula recall. PastPaperPrep offers free HL and SL whole papers and filtered real-question practice, with published worked explanations on available HL questions. Do not assume SL has the same explanation coverage. Revision Village offers video-led practice; Save My Exams adds written notes. Check course era and level before using older papers.",
+    answer: "For IB Physics, choose a bank that tests modelling, data, units and written reasoning, not just formula recall. PastPaperPrep offers free HL and SL whole papers and filtered real-question practice, with worked explanations on many HL and SL questions. Revision Village offers video-led practice; Save My Exams adds written notes. Check course era and level before using older papers.",
     answerLink: { href: "/banks/ib-physics-hl", label: "PastPaperPrep" },
     publishedAt: "2026-09-15",
-    updatedAt: "2026-10-14",
+    updatedAt: "2026-10-16",
     readingMinutes: 8,
     sections: [
-      {
-        heading: "Free whole papers, then targeted practice",
-        paragraphs: [
-          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
-        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance.",
-          "PastPaperPrep publishes worked explanations for available questions in IB Maths AA HL, AA SL, AI HL and AI SL, and IB Physics HL. These explain the method separately from the official mark scheme.",
-        "Availability is per question, not every question or every subject, and the explanation follows that question’s access rules. Look for the Explanation button in the bank. This is not a video course, AI tutor or automatic marking service."
-        ],
-        links: [
-          {
-            href: "/past-papers/ib-physics-hl",
-            label: "IB Physics HL whole papers"
-          },
-          {
-            href: "/past-papers/ib-physics-sl",
-            label: "IB Physics SL whole papers"
-          },
-          {
-            href: "/banks/ib-physics-hl?free=1",
-            label: "IB Physics question bank: free topic practice"
-          },
-          {
-            href: "/banks/ib-physics-sl?free=1",
-            label: "IB Physics SL question bank: free topic practice"
-          }
-        ]
-      },
       {
         heading: "What makes a good IB Physics bank?",
         paragraphs: [
@@ -186,6 +140,12 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
           "HL and SL share the broad themes of space, time, and motion; the particulate nature of matter; wave behaviour; fields; and nuclear and quantum physics. HL adds scope and depth. Confirm the course version before spending hours on material from an earlier syllabus."
         ]
       },
+      freeAccessSection([
+        { href: "/past-papers/ib-physics-hl", label: "IB Physics HL whole papers" },
+        { href: "/past-papers/ib-physics-sl", label: "IB Physics SL whole papers" },
+        { href: "/banks/ib-physics-hl?free=1", label: "IB Physics question bank: free topic practice" },
+        { href: "/banks/ib-physics-sl?free=1", label: "IB Physics SL question bank: free topic practice" },
+      ]),
       {
         heading: "Best benchmark: official IB material",
         paragraphs: [
@@ -233,7 +193,7 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
       {
         heading: "Best focused paper practice: PastPaperPrep",
         paragraphs: [
-          "PastPaperPrep separates HL and SL whole-paper archives and topical banks. Use a free paper for a timed attempt, then filter real questions to repair a modelling, units or data-handling gap. Official mark schemes check credited answers. Published PastPaperPrep worked explanations support available HL questions, but should not be assumed for SL. Printable custom sets require eligible bank access.",
+          "PastPaperPrep separates HL and SL whole-paper archives and topical banks. Use a free paper for a timed attempt, then filter real questions to repair a modelling, units or data-handling gap. Official mark schemes check credited answers. Many HL and SL questions also have a PastPaperPrep worked explanation. Printable custom sets require eligible bank access.",
           "Guests can see up to 20 questions matching their active filters; a free account opens the rest of that bank’s free selection. PDF export requires eligible bank access and follows the plan download allowance. Check current access on the bank page. PastPaperPrep is not the best choice if you need video teaching, extensive revision notes, flashcards, or a guided course sequence."
         ]
       },
@@ -285,35 +245,9 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
     answer: "The best IB Biology question bank depends on whether you need recall, data interpretation, or mark-aware written practice. Use official IB guides and sample material to calibrate the current assessment. Choose Revision Village for a large digital bank with topic, difficulty, and video support; Save My Exams for notes and downloadable topic questions; Exam-Mate for online topical filtering; and PastPaperPrep for real past-paper questions organized into focused HL or SL printable sets. PastPaperPrep is not the best choice if you need a full biology lesson library, extensive concept videos, or help learning every process before attempting questions.",
     answerLink: { href: "/banks/ib-biology-hl", label: "PastPaperPrep" },
     publishedAt: "2026-09-15",
-    updatedAt: "2026-10-14",
+    updatedAt: "2026-10-16",
     readingMinutes: 8,
     sections: [
-      {
-        heading: "Free whole papers, then targeted practice",
-        paragraphs: [
-          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
-        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance.",
-          "Use the matching official mark scheme to check these papers. Published PastPaperPrep worked explanations are currently available on selected IB Maths and Physics HL questions; do not assume every Chemistry or Biology question has one. A full notes or teaching resource may still be useful."
-        ],
-        links: [
-          {
-            href: "/past-papers/ib-biology-hl",
-            label: "IB Biology HL whole papers"
-          },
-          {
-            href: "/past-papers/ib-biology-sl",
-            label: "IB Biology SL whole papers"
-          },
-          {
-            href: "/banks/ib-biology-hl?free=1",
-            label: "IB Biology question bank: free topic practice"
-          },
-          {
-            href: "/banks/ib-biology-sl?free=1",
-            label: "IB Biology SL question bank: free topic practice"
-          }
-        ]
-      },
       {
         heading: "Biology needs more than memorization",
         paragraphs: [
@@ -321,6 +255,12 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
           "A bank can help you retrieve terminology, but exam performance also depends on interpreting unfamiliar data, linking structure and function, evaluating an investigation, and using precise command-term responses. HL and SL should be kept separate even when the topics overlap, because HL expects greater scope and depth."
         ]
       },
+      freeAccessSection([
+        { href: "/past-papers/ib-biology-hl", label: "IB Biology HL whole papers" },
+        { href: "/past-papers/ib-biology-sl", label: "IB Biology SL whole papers" },
+        { href: "/banks/ib-biology-hl?free=1", label: "IB Biology question bank: free topic practice" },
+        { href: "/banks/ib-biology-sl?free=1", label: "IB Biology SL question bank: free topic practice" },
+      ]),
       {
         heading: "Best authority: official IB Biology material",
         paragraphs: [

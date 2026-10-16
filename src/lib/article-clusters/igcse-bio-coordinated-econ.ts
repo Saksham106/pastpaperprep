@@ -1,4 +1,5 @@
 import type { Article } from '@/lib/articles';
+import { freeAccessSection } from "@/lib/article-clusters/free-access-section";
 
 export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
   {
@@ -10,31 +11,9 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
     "answer": "For Cambridge IGCSE Biology 0610, use Cambridge’s current 2026–2028 syllabus and selected official papers to confirm the course and assessment style. PastPaperPrep fits when you need real 0610 questions filtered by topic, paper or skill and collected into a printable set; use a notes-led resource when you need content taught or a worked explanation first. For Paper 6/data practice, keep the graph, table or experiment attached and mark against the matching scheme rather than relying on recall quizzes alone.",
     "answerLink": { "href": "/banks/igcse-biology-0610", "label": "PastPaperPrep" },
     "publishedAt": "2026-09-15",
-    "updatedAt": "2026-10-14",
+    "updatedAt": "2026-10-16",
     "readingMinutes": 7,
     "sections": [
-      {
-        "heading": "Free whole papers, then targeted practice",
-        "paragraphs": [
-          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
-        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance.",
-          "For free papers across Cambridge subjects, compare the archive websites in the linked guide. Check the subject code and syllabus before using an older paper."
-        ],
-        "links": [
-          {
-            "href": "/past-papers/igcse-biology-0610",
-            "label": "IGCSE Biology 0610 whole papers"
-          },
-          {
-            "href": "/banks/igcse-biology-0610?free=1",
-            "label": "Biology 0610 question bank: free topic practice"
-          },
-          {
-            "href": "/articles/best-free-igcse-past-paper-websites",
-            "label": "Compare free IGCSE paper websites across subjects"
-          }
-        ]
-      },
       {
         "heading": "What to look for in a Biology 0610 question bank",
         "paragraphs": [
@@ -43,6 +22,11 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
           "Cambridge describes 0610 as a course with a strong emphasis on practical skills. The 2026-2028 syllabus includes topics from characteristics and classification through organisation, movement into and out of cells, biological molecules, enzymes, nutrition, transport, diseases and immunity, gas exchange, respiration, coordination, reproduction, inheritance, ecosystems, human influences, biotechnology and genetic modification. Your revision source should expose both knowledge questions and practical/data questions across those areas."
         ]
       },
+      freeAccessSection([
+        { href: "/past-papers/igcse-biology-0610", label: "IGCSE Biology 0610 whole papers" },
+        { href: "/banks/igcse-biology-0610?free=1", label: "Biology 0610 question bank: free topic practice" },
+        { href: "/articles/best-free-igcse-past-paper-websites", label: "Compare free IGCSE paper websites across subjects" },
+      ], "For free papers across Cambridge subjects, compare the archive websites in the linked guide. Check the subject code and syllabus before using an older paper."),
       {
         "heading": "1. Cambridge International: the primary source",
         "paragraphs": [
@@ -159,31 +143,9 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
     "answer": "For IGCSE Co-ordinated Sciences (Double Award) 0654, use Cambridge's official syllabus and papers to confirm your component route, then use a topical bank to practise weak Biology, Chemistry and Physics areas without splitting the qualification into three unrelated courses. PastPaperPrep's live 0654 bank contains real past-paper questions from papers covering recent exam years. Use it when you want authentic questions, syllabus-aware topic filters and printable mixed sets; a notes-led platform is better when you still need the science explained.",
     "answerLink": { "href": "/banks/igcse-coordinated-sciences-0654", "label": "PastPaperPrep" },
     "publishedAt": "2026-09-15",
-    "updatedAt": "2026-10-14",
+    "updatedAt": "2026-10-16",
     "readingMinutes": 6,
     "sections": [
-      {
-        "heading": "Free whole papers, then targeted practice",
-        "paragraphs": [
-          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
-        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance.",
-          "For free papers across Cambridge subjects, compare the archive websites in the linked guide. Check the subject code and syllabus before using an older paper."
-        ],
-        "links": [
-          {
-            "href": "/past-papers/igcse-coordinated-sciences-0654",
-            "label": "IGCSE Co-ordinated Sciences 0654 whole papers"
-          },
-          {
-            "href": "/banks/igcse-coordinated-sciences-0654?free=1",
-            "label": "Co-ordinated Sciences 0654 question bank: free topic practice"
-          },
-          {
-            "href": "/articles/best-free-igcse-past-paper-websites",
-            "label": "Compare free IGCSE paper websites across subjects"
-          }
-        ]
-      },
       {
         "heading": "Why 0654 needs careful resource selection",
         "paragraphs": [
@@ -191,6 +153,11 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
           "Component and tier fit matter too. Cambridge's official past-paper page lists question papers and mark schemes by component and variant, including Papers 1 to 6 in the specimen and selected past-paper material. Keep the paper number separate from the variant number: the variant indicates the regional paper version, not a different science subject. Check your centre's entry and the syllabus assessment section before building a study set."
         ]
       },
+      freeAccessSection([
+        { href: "/past-papers/igcse-coordinated-sciences-0654", label: "IGCSE Co-ordinated Sciences 0654 whole papers" },
+        { href: "/banks/igcse-coordinated-sciences-0654?free=1", label: "Co-ordinated Sciences 0654 question bank: free topic practice" },
+        { href: "/articles/best-free-igcse-past-paper-websites", label: "Compare free IGCSE paper websites across subjects" },
+      ], "For free papers across Cambridge subjects, compare the archive websites in the linked guide. Check the subject code and syllabus before using an older paper."),
       {
         "heading": "1. Cambridge International: use it to establish the truth",
         "paragraphs": [
@@ -286,31 +253,9 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
     "answer": "For Cambridge IGCSE Economics 0455, use the current syllabus and matching paper to verify the assessment route before practising. To improve a Paper 2 data response, choose real questions that preserve the extract and figures, then practise calculation, analysis and evaluation against the matching mark scheme; PastPaperPrep supports filtering by topic and paper and making printable sets. Generic essay frameworks cannot replace applying the supplied evidence, and the bank is practice—not a lessons or model-essay course.",
     "answerLink": { "href": "/banks/igcse-economics-0455", "label": "PastPaperPrep" },
     "publishedAt": "2026-09-15",
-    "updatedAt": "2026-10-14",
+    "updatedAt": "2026-10-16",
     "readingMinutes": 6,
     "sections": [
-      {
-        "heading": "Free whole papers, then targeted practice",
-        "paragraphs": [
-          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
-        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance.",
-          "For free papers across Cambridge subjects, compare the archive websites in the linked guide. Check the subject code and syllabus before using an older paper."
-        ],
-        "links": [
-          {
-            "href": "/past-papers/igcse-economics-0455",
-            "label": "IGCSE Economics 0455 whole papers"
-          },
-          {
-            "href": "/banks/igcse-economics-0455?free=1",
-            "label": "Economics 0455 question bank: free topic practice"
-          },
-          {
-            "href": "/articles/best-free-igcse-past-paper-websites",
-            "label": "Compare free IGCSE paper websites across subjects"
-          }
-        ]
-      },
       {
         "heading": "What makes an Economics 0455 bank useful",
         "paragraphs": [
@@ -319,6 +264,11 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
           "Diagrams need their own feedback. Practise drawing and labelling demand and supply, shifts, equilibrium, costs and revenue, market structures and macroeconomic relationships where they appear in your course materials. Check axes, curves, arrows, equilibrium points and the direction of change. An unexplained diagram is rarely enough: link the movement to the written economic chain."
         ]
       },
+      freeAccessSection([
+        { href: "/past-papers/igcse-economics-0455", label: "IGCSE Economics 0455 whole papers" },
+        { href: "/banks/igcse-economics-0455?free=1", label: "Economics 0455 question bank: free topic practice" },
+        { href: "/articles/best-free-igcse-past-paper-websites", label: "Compare free IGCSE paper websites across subjects" },
+      ], "For free papers across Cambridge subjects, compare the archive websites in the linked guide. Check the subject code and syllabus before using an older paper."),
       {
         "heading": "1. Cambridge International: the primary reference",
         "paragraphs": [

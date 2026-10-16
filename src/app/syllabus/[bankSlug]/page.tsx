@@ -40,8 +40,9 @@ export default async function SyllabusPage({
     !getCatalogBanksForDisplay().some((entry) => entry.slug === slug)
   )
     notFound();
-  const fullPapers = await resolveSubject(subjectSlugForBank(slug));
+  const subject = subjectSlugForBank(slug);
+  const fullPapersHref = (await resolveSubject(subject)) ? `/past-papers/${subject}` : undefined;
   return (
-    <SyllabusLanding bank={bank} manifest={await getLandingManifest(slug)} fullPapersHref={fullPapers ? `/past-papers/${subjectSlugForBank(slug)}` : undefined} />
+    <SyllabusLanding bank={bank} manifest={await getLandingManifest(slug)} fullPapersHref={fullPapersHref} />
   );
 }

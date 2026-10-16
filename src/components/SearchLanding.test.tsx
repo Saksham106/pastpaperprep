@@ -82,7 +82,7 @@ describe("SearchLanding", () => {
     const maths = getCatalogBank("ib-hl")!;
     const { container } = render(<SearchDetail eyebrow="Topic practice" bank={maths} title="Calculus questions" kind="topic" label="Calculus" canonicalPath="/banks/ib-hl/topics/calculus" stats={stats} related={[]}>{null}</SearchDetail>);
     expect(container.querySelector("#worked-example")).toHaveTextContent("y = 7x − 4");
-    expect(container.querySelector("#worked-example")).toHaveTextContent("not an official exam question");
+    expect(container.querySelector("#worked-example")).toHaveTextContent("not an exam question");
   });
 
   it("renders the live explorer under real archive stats with the static URL in schema", () => {

@@ -6,12 +6,12 @@ import { JsonLd } from "@/components/JsonLd";
 import { SOCIAL_IMAGE } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: { absolute: "IGCSE & IB Past Papers by Topic | PastPaperPrep" },
-  description: "Free IGCSE & IB past papers and mark schemes. Practise Maths, science and Economics by topic, use available worked explanations and build printable sets.",
+  title: { absolute: "Free IGCSE & IB Past Papers by Topic | PastPaperPrep" },
+  description: "Free IGCSE & IB past papers and mark schemes. Practise Maths, science and Economics by topic, with worked explanations and printable sets.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "IGCSE & IB Past Papers by Topic | PastPaperPrep",
-    description: "Free IGCSE & IB past papers and mark schemes. Practise Maths, science and Economics by topic, use available worked explanations and build printable sets.",
+    title: "Free IGCSE & IB Past Papers by Topic | PastPaperPrep",
+    description: "Free IGCSE & IB past papers and mark schemes. Practise Maths, science and Economics by topic, with worked explanations and printable sets.",
     url: "/",
     type: "website",
     images: [SOCIAL_IMAGE],

@@ -1,4 +1,5 @@
 import type { Article } from "@/lib/articles";
+import { freeAccessSection } from "@/lib/article-clusters/free-access-section";
 
 export const IB_HUB_MATHS_IMPROVEMENT = [
   {
@@ -92,52 +93,9 @@ export const IB_HUB_MATHS_IMPROVEMENT = [
     answer: "PastPaperPrep is a strong choice for real IB Maths AA and AI questions at HL and SL, with free whole papers, topic filters and published worked explanations for available questions. Custom worksheets require eligible bank access and follow plan allowances. Revision Village offers exam-style difficulty progression, video solutions and key concepts. Choose by your exact course and the kind of support you use after an attempt.",
     answerLink: { href: "/#question-banks", label: "PastPaperPrep" },
     publishedAt: "2026-09-15",
-    updatedAt: "2026-10-14",
+    updatedAt: "2026-10-16",
     readingMinutes: 8,
     sections: [
-      {
-        heading: "Free whole papers, then targeted practice",
-        paragraphs: [
-          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
-        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance.",
-          "PastPaperPrep publishes worked explanations for available questions in IB Maths AA HL, AA SL, AI HL and AI SL, and IB Physics HL. These explain the method separately from the official mark scheme.",
-        "Availability is per question, not every question or every subject, and the explanation follows that question’s access rules. Look for the Explanation button in the bank. This is not a video course, AI tutor or automatic marking service."
-        ],
-        links: [
-          {
-            href: "/past-papers/ib-math-aa-hl",
-            label: "IB Maths AA HL whole papers"
-          },
-          {
-            href: "/past-papers/ib-math-aa-sl",
-            label: "IB Maths AA SL whole papers"
-          },
-          {
-            href: "/past-papers/ib-math-ai-hl",
-            label: "IB Maths AI HL whole papers"
-          },
-          {
-            href: "/past-papers/ib-math-ai-sl",
-            label: "IB Maths AI SL whole papers"
-          },
-          {
-            href: "/banks/ib-hl?free=1",
-            label: "IB Mathematics AA HL question bank: free topic practice"
-          },
-          {
-            href: "/banks/ib-sl?free=1",
-            label: "IB Mathematics AA SL question bank: free topic practice"
-          },
-          {
-            href: "/banks/ib-ai-hl?free=1",
-            label: "IB Mathematics AI HL question bank: free topic practice"
-          },
-          {
-            href: "/banks/ib-ai-sl?free=1",
-            label: "IB Maths AI SL question bank: free topic practice"
-          }
-        ]
-      },
       {
         heading: "AA and AI are different practice problems",
         links: [{ href: "/articles/best-revision-village-alternatives", label: "Choosing a platform? Compare Revision Village alternatives" }],
@@ -146,6 +104,16 @@ export const IB_HUB_MATHS_IMPROVEMENT = [
           "AA practice commonly needs careful algebraic manipulation, proof, functions, calculus, and exact mathematical communication. AI practice places more weight on mathematics in context, modelling, statistics, interpretation, and technology-supported work. These are broad study orientations, not a reason to ignore the rest of your syllabus. Start with the official course and your school’s assessment route, then use questions to identify the skills you actually miss.",
         ],
       },
+      freeAccessSection([
+        { href: "/past-papers/ib-math-aa-hl", label: "IB Maths AA HL whole papers" },
+        { href: "/past-papers/ib-math-aa-sl", label: "IB Maths AA SL whole papers" },
+        { href: "/past-papers/ib-math-ai-hl", label: "IB Maths AI HL whole papers" },
+        { href: "/past-papers/ib-math-ai-sl", label: "IB Maths AI SL whole papers" },
+        { href: "/banks/ib-hl?free=1", label: "IB Mathematics AA HL question bank: free topic practice" },
+        { href: "/banks/ib-sl?free=1", label: "IB Mathematics AA SL question bank: free topic practice" },
+        { href: "/banks/ib-ai-hl?free=1", label: "IB Mathematics AI HL question bank: free topic practice" },
+        { href: "/banks/ib-ai-sl?free=1", label: "IB Maths AI SL question bank: free topic practice" },
+      ]),
       {
         heading: "PastPaperPrep: best for authentic, filterable practice",
         paragraphs: [

@@ -1,32 +1,32 @@
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { BankWorkedExample } from "@/components/BankWorkedExample";
 import { hasPublishedExplanations } from "@/lib/explanations";
-import available from "@/data/explanations/available.json";
 
-// Additional regression coverage of the public-example boundary implemented through
-// BankSeoContent's RED/GREEN contract. These examples never fetch an asset or spend quota.
+// Public examples are original illustrations: they never fetch an asset or spend quota.
 describe("public worked examples", () => {
-  it.each(["ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-physics-hl"])("uses published bank-scoped coverage for %s", (bankSlug) => {
-    expect(hasPublishedExplanations(bankSlug)).toBe(available[bankSlug as keyof typeof available].length > 0);
+  it.each([
+    ["ib-hl", "y = 7x − 4"],
+    ["igcse-additional", "y = 7x − 4"],
+    ["igcse", "x = −5 or x = 2"],
+    ["ib-physics-hl", "24 m"],
+    ["igcse-physics-0625", "area under the speed–time graph"],
+  ])("renders the %s example only while the bank has published explanations", (bankSlug, expected) => {
     const { container } = render(<BankWorkedExample bankSlug={bankSlug} />);
     const sample = container.querySelector("#worked-example");
-    expect(sample).toHaveTextContent("not an official exam question");
-    expect(sample).toHaveTextContent("Availability is per question");
-    expect(sample).toHaveTextContent(bankSlug === "ib-physics-hl" ? "24 m" : "y = 7x − 4");
+    if (!hasPublishedExplanations(bankSlug)) return expect(sample).toBeNull();
+    expect(sample).toHaveTextContent("not an exam question");
+    expect(sample).toHaveTextContent(expected);
     expect(container.querySelector("img,iframe,script")).toBeNull();
   });
 
-  it.each(["ib-physics-sl", "ib-biology-hl", "igcse", "unknown-bank"])("does not imply coverage in %s", (bankSlug) => {
-    expect(hasPublishedExplanations(bankSlug)).toBe(false);
+  it.each(["ib-biology-hl", "igcse-economics-0455", "unknown-bank"])("renders nothing for %s, which has no fitting example", (bankSlug) => {
     const { container } = render(<BankWorkedExample bankSlug={bankSlug} />);
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("links to the bank example instead of cloning a calculus lesson onto a different topic", () => {
-    const { container } = render(<BankWorkedExample bankSlug="ib-hl" topic="Statistics and probability" />);
-    expect(container.querySelector("#worked-example")).toBeNull();
-    expect(screen.getByRole("link", { name: "see a public worked example" })).toHaveAttribute("href", "/banks/ib-hl#worked-example");
-    expect(container).not.toHaveTextContent("y = 7x");
+  it("only repeats the example on the matching topic page", () => {
+    expect(render(<BankWorkedExample bankSlug="ib-hl" topic="Statistics and probability" />).container).toBeEmptyDOMElement();
+    expect(render(<BankWorkedExample bankSlug="ib-hl" topic="Calculus" />).container.querySelector("#worked-example")).not.toBeNull();
   });
 });

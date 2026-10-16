@@ -20,7 +20,7 @@ describe("Exam-Mate alternatives article", () => {
     expect(article).toMatchObject({
       draft: false,
       publishedAt: "2026-10-05",
-      updatedAt: "2026-10-14",
+      updatedAt: "2026-10-16",
       title: "Best Exam-Mate Alternatives for IB and IGCSE: Free and Paid Topical Practice",
     });
     expect(article.answerLink).toEqual({ href: "/#question-banks", label: "PastPaperPrep" });

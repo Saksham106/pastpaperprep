@@ -7,6 +7,7 @@ import { IGCSE_SCIENCE_CHEM_PHYSICS } from "@/lib/article-clusters/igcse-science
 import { TUTORS_PRICING_IGCSE_MATHS } from "@/lib/article-clusters/tutors-pricing-igcse-maths";
 import { SUBJECT_PRACTICE_GUIDES } from "@/lib/article-clusters/subject-practice-guides";
 import { FREE_PAPERS_EXPLANATIONS } from "@/lib/article-clusters/free-papers-explanations";
+import { freeAccessSection } from "@/lib/article-clusters/free-access-section";
 
 export type ArticleSection = {
   heading: string;
@@ -471,10 +472,10 @@ export const ALL_ARTICLES: readonly Article[] = [
     title: "Revision Village Pricing (2026): Monthly vs Full Course",
     description: "Revision Village Gold costs $70 monthly or $249 once for one IB course. Compare free access, full-course billing and PastPaperPrep’s focused practice plans.",
     eyebrow: "IB Maths platform comparison",
-    answer: "PastPaperPrep offers free IB whole papers without signup, topic-filtered real questions and published worked explanations where available. Choose it for authentic paper practice and custom sets with eligible bank access. Revision Village offers a broader video-led IB teaching and exam-style practice toolkit. Its course and suite plans have several access durations; compare the actual bill and expiry date.",
+    answer: "Revision Village Gold costs $70 a month or $249 once for Full Course access to one IB course, and $140 a month or $499 once for every course (checked 16 October 2026). Its free plan covers a subset of topics in one course. PastPaperPrep’s whole IB papers are free without signup, and topical bank access starts at $6 a month.",
     answerLink: { href: "/banks/ib-hl", label: "PastPaperPrep" },
     publishedAt: "2026-08-30",
-    updatedAt: "2026-10-14",
+    updatedAt: "2026-10-16",
     readingMinutes: 6,
     comparison: {
       caption: "PastPaperPrep vs Revision Village at a glance",
@@ -485,38 +486,11 @@ export const ALL_ARTICLES: readonly Article[] = [
         { label: "Broadest listed plan", pastPaperPrep: "$25 monthly or $216 annually for All Access", competitor: "$140 monthly or $499 once for the Complete Learning Suite" },
         { label: "Free access", pastPaperPrep: "Whole papers free without signup; topical sample and older free account selection are separate", competitor: "A subset of topics within one course" },
         { label: "Core strength", pastPaperPrep: "Real past-paper questions across IGCSE Maths and IB Maths and sciences, with granular filters and PDF set building", competitor: "Full learning suite with questionbank, lessons and broader exam preparation" },
-        { label: "Worked support", pastPaperPrep: "Official mark schemes where available, plus published worked explanations for supported IB questions", competitor: "Mark schemes and video solutions, plus key concepts and bootcamps" },
+        { label: "Worked support", pastPaperPrep: "Official mark schemes, plus worked explanations on many questions", competitor: "Mark schemes and video solutions, plus key concepts and bootcamps" },
         { label: "Course breadth", pastPaperPrep: "Supported Cambridge IGCSE Maths, sciences and Economics; IB Maths, sciences and Economics", competitor: "A broad range of IBDP subjects" },
       ],
     },
     sections: [
-      {
-        heading: "Free whole papers, then targeted practice",
-        paragraphs: [
-          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
-        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance.",
-          "PastPaperPrep publishes worked explanations for available questions in IB Maths AA HL, AA SL, AI HL and AI SL, and IB Physics HL. These explain the method separately from the official mark scheme.",
-        "Availability is per question, not every question or every subject, and the explanation follows that question’s access rules. Look for the Explanation button in the bank. This is not a video course, AI tutor or automatic marking service."
-        ],
-        links: [
-          {
-            href: "/past-papers/ib-math-aa-hl",
-            label: "IB Maths AA HL whole papers"
-          },
-          {
-            href: "/past-papers/ib-math-aa-sl",
-            label: "IB Maths AA SL whole papers"
-          },
-          {
-            href: "/banks/ib-hl?free=1",
-            label: "IB Mathematics AA HL question bank: free topic practice"
-          },
-          {
-            href: "/banks/ib-sl?free=1",
-            label: "IB Mathematics AA SL question bank: free topic practice"
-          }
-        ]
-      },
       {
         heading: "The short verdict",
         links: [{ href: "/articles/best-revision-village-alternatives", label: "Compare free and paid Revision Village alternatives" }],
@@ -525,6 +499,12 @@ export const ALL_ARTICLES: readonly Article[] = [
           "Choose Revision Village if you want teaching content around the questions. Its official Gold page lists a questionbank, practice exams, past papers, key concepts, prediction exams, Newton AI, bootcamps, a mobile app, and video solutions. That is a materially broader product, not simply a more expensive version of the same tool.",
         ],
       },
+      freeAccessSection([
+        { href: "/past-papers/ib-math-aa-hl", label: "IB Maths AA HL whole papers" },
+        { href: "/past-papers/ib-math-aa-sl", label: "IB Maths AA SL whole papers" },
+        { href: "/banks/ib-hl?free=1", label: "IB Mathematics AA HL question bank: free topic practice" },
+        { href: "/banks/ib-sl?free=1", label: "IB Mathematics AA SL question bank: free topic practice" },
+      ]),
       {
         heading: "Price comparison",
         paragraphs: [
@@ -548,6 +528,7 @@ export const ALL_ARTICLES: readonly Article[] = [
       },
     ],
     faqs: [
+      { question: "Is Revision Village free?", answer: "Partly. Its free plan gives a subset of topics within one course, with community and app access. Full questionbank, practice exams and video solutions need Gold, from $70 a month or $249 once for one course." },
       { question: "Is PastPaperPrep cheaper than Revision Village?", answer: "PastPaperPrep’s one-bank plan is $6 monthly or $48 annually. Revision Village’s IB Single Course Gold is listed at $70 billed monthly or $249 billed once for Full Course access, as checked on 5 October 2026. PastPaperPrep has the lower entry price for focused practice; Revision Village includes a wider teaching product." },
       { question: "Does PastPaperPrep replace Revision Village?", answer: "Not for every student. PastPaperPrep covers focused, filterable past-paper practice and printable sets. Revision Village adds a much broader layer of instruction, video solutions, exam-preparation products, and other IB subjects." },
       { question: "Which is better for an IB Maths tutor?", answer: "PastPaperPrep is useful for quickly assembling targeted real-question sets. Revision Village may suit tutors who also want ready-made explanatory content and video solutions. The better fit depends on what the tutor already provides." },
@@ -567,9 +548,9 @@ export const ALL_ARTICLES: readonly Article[] = [
     title: "PastPaperPrep vs Save My Exams: Price and Features",
     description: "Compare PastPaperPrep and Save My Exams on pricing, real past-paper practice, notes, videos, subject coverage, and the best use for each.",
     eyebrow: "Revision platform comparison",
-    answer: "Choose PastPaperPrep for free whole papers without signup and targeted practice from real Cambridge IGCSE and IB questions. Published worked explanations support available IB Maths and Physics HL questions. Choose Save My Exams if you also want a broad written revision-notes library, exam-style topic questions and plan-dependent feedback tools. Neither every question nor every subject has a PastPaperPrep explanation.",
+    answer: "Choose PastPaperPrep for free whole papers without signup and targeted practice from real Cambridge IGCSE and IB questions. Many questions also have a worked explanation. Choose Save My Exams if you also want a broad written revision-notes library, exam-style topic questions and plan-dependent feedback tools. Neither every question nor every subject has a PastPaperPrep explanation.",
     publishedAt: "2026-08-30",
-    updatedAt: "2026-10-14",
+    updatedAt: "2026-10-16",
     readingMinutes: 6,
     comparison: {
       caption: "PastPaperPrep vs Save My Exams at a glance",
@@ -579,46 +560,25 @@ export const ALL_ARTICLES: readonly Article[] = [
         { label: "Multi-bank pricing", pastPaperPrep: "$10 monthly for two banks; $25 monthly for All Access", competitor: "One membership across available subjects; tools differ between Essential and Premium" },
         { label: "Free access", pastPaperPrep: "Whole papers free without signup; topical guest sample and free-account selection are separate", competitor: "Free account with resource limits and available past-paper downloads; Premium trial has separate terms" },
         { label: "Core strength", pastPaperPrep: "Granular real-question filtering and PDF practice sets", competitor: "Study guides and exam practice across many subjects" },
-        { label: "Learning content", pastPaperPrep: "Official mark schemes where available; published worked explanations for available questions in supported IB banks", competitor: "Revision notes, exam-style questions and model answers; feedback tools depend on course and plan" },
+        { label: "Learning content", pastPaperPrep: "Official mark schemes, plus worked explanations on many questions", competitor: "Revision notes, exam-style questions and model answers; feedback tools depend on course and plan" },
         { label: "Subject breadth", pastPaperPrep: "Supported Cambridge IGCSE Maths, sciences and Economics; IB Maths, sciences and Economics", competitor: "Maths plus sciences, humanities, English and more" },
       ],
     },
     sections: [
       {
-        heading: "Free whole papers, then targeted practice",
-        paragraphs: [
-          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
-        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance. If you are comparing broader learning tools, the RevisionDojo versus Save My Exams guide covers notes and free-plan limits.",
-          "PastPaperPrep publishes worked explanations for available questions in IB Maths AA HL, AA SL, AI HL and AI SL, and IB Physics HL. These explain the method separately from the official mark scheme.",
-        "Availability is per question, not every question or every subject, and the explanation follows that question’s access rules. Look for the Explanation button in the bank. This is not a video course, AI tutor or automatic marking service."
-        ],
-        links: [
-        {href: "/articles/revisiondojo-vs-save-my-exams", label: "Compare RevisionDojo and Save My Exams: notes, questions and free limits"},
-          {
-            href: "/past-papers/igcse-maths-0580",
-            label: "IGCSE Maths 0580 whole papers"
-          },
-          {
-            href: "/past-papers/ib-math-aa-hl",
-            label: "IB Maths AA HL whole papers"
-          },
-          {
-            href: "/banks/igcse?free=1",
-            label: "PastPaperPrep IGCSE 0580 bank: free topic practice"
-          },
-          {
-            href: "/banks/ib-hl?free=1",
-            label: "IB Mathematics AA HL question bank: free topic practice"
-          }
-        ]
-      },
-      {
         heading: "The short verdict",
         paragraphs: [
-          "PastPaperPrep starts with real-paper practice. Open a free whole paper and matching mark scheme, then use the relevant topical bank to retest a weak skill. Published worked explanations can help you review available IB Maths and Physics HL questions. For a new concept, a teacher, textbook or revision-notes resource may still be the right starting point.",
+          "PastPaperPrep starts with real-paper practice. Open a free whole paper and matching mark scheme, then use the relevant topical bank to retest a weak skill. Worked explanations can help you review many of those questions. For a new concept, a teacher, textbook or revision-notes resource may still be the right starting point.",
           "Save My Exams is a broader revision library. Its subject pages list syllabus-specific notes, exam-style questions, model answers and other study tools. The current Free, Essential and Premium plans give different levels of access, and feedback tools such as Smart Mark depend on course availability.",
         ],
       },
+      freeAccessSection([
+        { href: "/articles/revisiondojo-vs-save-my-exams", label: "Compare RevisionDojo and Save My Exams: notes, questions and free limits" },
+        { href: "/past-papers/igcse-maths-0580", label: "IGCSE Maths 0580 whole papers" },
+        { href: "/past-papers/ib-math-aa-hl", label: "IB Maths AA HL whole papers" },
+        { href: "/banks/igcse?free=1", label: "PastPaperPrep IGCSE 0580 bank: free topic practice" },
+        { href: "/banks/ib-hl?free=1", label: "IB Mathematics AA HL question bank: free topic practice" },
+      ], "If you are comparing broader learning tools, the RevisionDojo versus Save My Exams guide covers notes and free-plan limits."),
       {
         heading: "Price comparison",
         paragraphs: [
@@ -643,7 +603,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     ],
     faqs: [
       { question: "Is PastPaperPrep cheaper than Save My Exams?", answer: "PastPaperPrep’s whole-paper archives are free without signup. For paid topical access, compare the bank plan you need with Save My Exams’ current Essential or Premium membership in your currency. Their included teaching and practice tools differ, so an older headline price is not enough to decide." },
-      { question: "Which is better for IGCSE and IB past-paper practice?", answer: "PastPaperPrep suits free whole-paper practice, real-question filtering and custom worksheets, with published worked explanations on available supported IB questions. Save My Exams suits written notes and exam-style practice across a wider curriculum, with course- and plan-dependent feedback tools." },
+      { question: "Which is better for IGCSE and IB past-paper practice?", answer: "PastPaperPrep suits free whole-paper practice, real-question filtering and custom worksheets, with worked explanations on many questions. Save My Exams suits written notes and exam-style practice across a wider curriculum, with course- and plan-dependent feedback tools." },
       { question: "Can I use both?", answer: "Yes. A sensible division is to learn or review a concept in Save My Exams, then use PastPaperPrep to find and retest real questions that expose whether the skill transfers to exam conditions." },
     ],
     relatedBanks: [
@@ -662,10 +622,10 @@ export const ALL_ARTICLES: readonly Article[] = [
     title: "Exam-Mate Subscription Price: Free and Paid Plans (2026)",
     description: "Exam-Mate Topical Past Papers costs $12 for one month or $120 for 12 months. Compare free limits, Build Exam access and PastPaperPrep’s practice plans.",
     eyebrow: "Topical past-paper comparison",
-    answer: "PastPaperPrep offers free whole papers without signup and targeted real-question practice across supported Cambridge IGCSE and IB courses. Its newer topical inventory and custom worksheets need eligible bank access. Exam-Mate is worth checking for a wider curriculum catalogue and school-volume plans. Compare the exact topical or Build Exam product, not just the brand name.",
+    answer: "Exam-Mate’s Topical Past Papers plan costs $12 for one month, $65 for six months or $120 for twelve months, and does not include Build Exam (checked 16 October 2026). Its free tier covers topical questions up to 2019. PastPaperPrep’s whole papers are free without signup, and topical bank access starts at $6 a month.",
     answerLink: { href: "/#question-banks", label: "PastPaperPrep" },
     publishedAt: "2026-08-30",
-    updatedAt: "2026-10-14",
+    updatedAt: "2026-10-16",
     readingMinutes: 6,
     comparison: {
       caption: "PastPaperPrep vs Exam-Mate at a glance",
@@ -681,39 +641,18 @@ export const ALL_ARTICLES: readonly Article[] = [
     },
     sections: [
       {
-        heading: "Free whole papers, then targeted practice",
-        paragraphs: [
-          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
-        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance.",
-          "PastPaperPrep publishes worked explanations for available questions in IB Maths AA HL, AA SL, AI HL and AI SL, and IB Physics HL. These explain the method separately from the official mark scheme.",
-        "Availability is per question, not every question or every subject, and the explanation follows that question’s access rules. Look for the Explanation button in the bank. This is not a video course, AI tutor or automatic marking service."
-        ],
-        links: [
-          {
-            href: "/past-papers/igcse-maths-0580",
-            label: "IGCSE Maths 0580 whole papers"
-          },
-          {
-            href: "/past-papers/ib-math-aa-hl",
-            label: "IB Maths AA HL whole papers"
-          },
-          {
-            href: "/banks/igcse?free=1",
-            label: "PastPaperPrep IGCSE 0580 bank: free topic practice"
-          },
-          {
-            href: "/banks/ib-hl?free=1",
-            label: "IB Mathematics AA HL question bank: free topic practice"
-          }
-        ]
-      },
-      {
         heading: "The short verdict",
         paragraphs: [
           "Choose PastPaperPrep if you study one of its live Cambridge IGCSE or IB banks and care most about fast, precise filtering, clear source details, answers, and building printable practice. Its narrower catalogue lets the product stay centred on that workflow.",
           "Choose Exam-Mate if you need subjects or curricula outside PastPaperPrep's current supported banks, or if a school needs published volume pricing. Its site offers topical and yearly papers alongside separate MCQ, Build Exam, notes, solved-paper, and AI products.",
         ],
       },
+      freeAccessSection([
+        { href: "/past-papers/igcse-maths-0580", label: "IGCSE Maths 0580 whole papers" },
+        { href: "/past-papers/ib-math-aa-hl", label: "IB Maths AA HL whole papers" },
+        { href: "/banks/igcse?free=1", label: "PastPaperPrep IGCSE 0580 bank: free topic practice" },
+        { href: "/banks/ib-hl?free=1", label: "IB Mathematics AA HL question bank: free topic practice" },
+      ]),
       {
         heading: "Price comparison",
         paragraphs: [
@@ -996,28 +935,9 @@ export const ALL_ARTICLES: readonly Article[] = [
     eyebrow: "IB Mathematics AA HL",
     answer: "The best free IB Mathematics: Analysis and Approaches HL stack combines official IB sample materials, Christos Nikolaidis, and PastPaperPrep. Use the official curriculum and samples to confirm the course and exam format, Christos for free topic notes and exercises, and PastPaperPrep for real questions organised by topic and paper. Revision Village is useful, but its free tier is a sample rather than a free copy of the full Questionbank: the live AA HL index labels a small set of Functions subtopics “RV Free” and most other listed subtopics “RV Gold.” If you can spend a little, start with the free layer and add one targeted paid resource only when you know what is missing. Do not use random “IB past paper PDF” repositories. Many are unauthorised, their files can be incomplete or altered, and downloading them is not a sound study or copyright practice. Ask your teacher or IB coordinator for school-licensed materials, or use the official IB/Follett channels.",
     publishedAt: "2026-09-03",
-    updatedAt: "2026-10-14",
+    updatedAt: "2026-10-16",
     readingMinutes: 9,
     sections: [
-      {
-        heading: "Free whole papers, then targeted practice",
-        paragraphs: [
-          "Whole papers in PastPaperPrep’s supported subject archives are free to use without signup, with the question paper and matching official mark scheme together.",
-        "The topical bank has a different access rule: guests see up to 20 matching free questions, and a free account unlocks the rest of the older free selection. Newer topical inventory requires eligible bank access. Custom PDF worksheets require eligible bank access and follow the plan’s download allowance.",
-          "PastPaperPrep publishes worked explanations for available questions in IB Maths AA HL, AA SL, AI HL and AI SL, and IB Physics HL. These explain the method separately from the official mark scheme.",
-        "Availability is per question, not every question or every subject, and the explanation follows that question’s access rules. Look for the Explanation button in the bank. This is not a video course, AI tutor or automatic marking service."
-        ],
-        links: [
-          {
-            href: "/past-papers/ib-math-aa-hl",
-            label: "IB Maths AA HL whole papers"
-          },
-          {
-            href: "/banks/ib-hl?free=1",
-            label: "IB Mathematics AA HL question bank: free topic practice"
-          }
-        ]
-      },
       {
         heading: "Official IB materials: the authority, not the biggest free bank",
         paragraphs: [
@@ -1026,6 +946,10 @@ export const ALL_ARTICLES: readonly Article[] = [
           "The IB Questionbank is a licensed assessment resource, not a public student download. Check the IB Questionbank information and ask your teacher or coordinator about school access; the Follett IB Store is the relevant retail channel. School access is not permission to repost files. Official IB wins on authority and assessment authenticity, but not on free, topical breadth.",
         ],
       },
+      freeAccessSection([
+        { href: "/past-papers/ib-math-aa-hl", label: "IB Maths AA HL whole papers" },
+        { href: "/banks/ib-hl?free=1", label: "IB Mathematics AA HL question bank: free topic practice" },
+      ]),
       {
         heading: "Christos Nikolaidis: the strongest genuinely free topic toolkit",
         paragraphs: [

@@ -10,7 +10,7 @@ describe("RevisionDojo vs Revision Village article", () => {
       draft: false,
       title: "RevisionDojo vs Revision Village: Which Is Better for IB Practice?",
       publishedAt: "2026-10-05",
-      updatedAt: "2026-10-14",
+      updatedAt: "2026-10-16",
       answerLink: { href: "/#question-banks" },
       comparison: { headings: ["Dimension", "RevisionDojo", "Revision Village"] },
     });
@@ -22,7 +22,7 @@ describe("RevisionDojo vs Revision Village article", () => {
     expect(text).toContain("printable real-paper practice");
     expect(text).toContain("pastpaperprep-vs-revision-village");
     expect(text).toContain("best-revision-village-alternatives");
-    expect(article?.sections[0].heading).toBe("Free whole papers, then targeted practice");
-    expect(article?.sections[1].heading).toMatch(/printable topic practice/i);
+    expect(article?.sections[0].heading).toMatch(/printable topic practice/i);
+    expect(article?.sections[1].heading).toBe("Free whole papers, then targeted practice");
   });
 });

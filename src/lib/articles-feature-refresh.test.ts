@@ -38,7 +38,7 @@ describe("existing article feature refresh", () => {
   it.each(prioritySlugs)("%s does not retain superseded product limitations", (slug) => {
     const text = copy(article(slug));
     expect(text).not.toMatch(/teaches nothing|no model answers|cannot replace either platform's explanations|PastPaperPrep is the paid option|PastPaperPrep is the paid, focused option/);
-    expect(text).toMatch(/worked explanations|matching official mark scheme/i);
+    expect(text).toMatch(/worked explanation|matching official mark scheme/i);
   });
 
   it.each([
@@ -46,11 +46,10 @@ describe("existing article feature refresh", () => {
     "pastpaperprep-vs-save-my-exams",
     "best-revision-village-alternatives",
     "best-ib-maths-question-banks-aa-ai",
-  ])("%s explains the per-question boundary, not video or AI parity", (slug) => {
+  ])("%s points to the Explanation button without naming a stale bank list", (slug) => {
     const text = copy(article(slug));
-    expect(text).toMatch(/Availability is per question, not every question or every subject/);
-    expect(text).toMatch(/separately from the official mark scheme/);
-    expect(text).toMatch(/not a video course, AI tutor or automatic marking service/);
+    expect(text).toMatch(/Look for the Explanation button/);
+    expect(text).not.toMatch(/IB Maths and Physics HL|AI HL and AI SL, and IB Physics HL|supported IB questions/);
   });
 
   it.each([
@@ -87,16 +86,18 @@ describe("existing article feature refresh", () => {
   it("keeps the PPP and SME table aligned with both access paths", () => {
     const table = JSON.stringify(article("pastpaperprep-vs-save-my-exams").comparison);
     expect(table).toMatch(/whole papers.*without signup/i);
-    expect(table).toMatch(/worked explanations.*available questions/i);
+    expect(table).toMatch(/worked explanations on many questions/i);
   });
 
   it.each(prioritySlugs)("%s separates free papers from topical access", (slug) => {
     const entry = article(slug);
     const text = copy(entry);
-    expect(text).toMatch(/whole papers.*free.*without signup/i);
+    expect(text).toMatch(/whole papers are free without signup/i);
     expect(text).toMatch(/up to 20 matching free questions/i);
-    expect(text).toMatch(/free account unlocks.*older free selection/i);
-    expect(text).toMatch(/eligible bank access.*download allowance/i);
+    expect(text).toMatch(/free account opens the rest of the free selection/i);
+    expect(text).toMatch(/custom PDF worksheets need paid bank access/i);
+    // The shared section follows the article's own opening, so every guide leads with its unique verdict.
+    expect(entry.sections.findIndex((section) => section.heading === "Free whole papers, then targeted practice")).toBe(1);
     const links = sectionLinks(entry);
     const archive = links.findIndex((link) => link.href.startsWith("/past-papers/"));
     expect(archive).toBeGreaterThanOrEqual(0);

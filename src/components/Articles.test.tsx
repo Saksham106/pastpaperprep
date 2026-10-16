@@ -26,7 +26,7 @@ describe("article library", () => {
     const topicDraft = ALL_ARTICLES.find(({ slug }) => slug === "topic-questions-vs-full-past-papers");
     const ibDraft = ALL_ARTICLES.find(({ slug }) => slug === "best-free-ib-maths-aa-hl-resources");
     expect(topicDraft).toMatchObject({ draft: false, publishedAt: "2026-09-02", updatedAt: "2026-09-02" });
-    expect(ibDraft).toMatchObject({ draft: false, publishedAt: "2026-09-03", updatedAt: "2026-10-14" });
+    expect(ibDraft).toMatchObject({ draft: false, publishedAt: "2026-09-03", updatedAt: "2026-10-16" });
     expect(topicDraft?.sources).toEqual(expect.arrayContaining([
       expect.objectContaining({ href: "https://www.cambridgeinternational.org/Images/662466-2025-2027-syllabus.pdf" }),
       expect.objectContaining({ href: "https://www.ibo.org/programmes/diploma-programme/curriculum/mathematics/" }),
@@ -40,32 +40,32 @@ describe("article library", () => {
 
   it("keeps the commercial cluster behind an explicit release matrix", () => {
     const releaseMatrix = [
-      ["revisiondojo-vs-save-my-exams", "2026-10-14", "2026-10-14", false],
-      ["best-free-igcse-past-paper-websites", "2026-10-14", "2026-10-14", false],
-      ["best-exam-mate-alternatives", "2026-10-05", "2026-10-14", false],
-      ["revisiondojo-vs-revision-village", "2026-10-05", "2026-10-14", false],
-      ["best-revision-village-alternatives", "2026-10-04", "2026-10-14", false],
+      ["revisiondojo-vs-save-my-exams", "2026-10-14", "2026-10-16", false],
+      ["best-free-igcse-past-paper-websites", "2026-10-14", "2026-10-16", false],
+      ["best-exam-mate-alternatives", "2026-10-05", "2026-10-16", false],
+      ["revisiondojo-vs-revision-village", "2026-10-05", "2026-10-16", false],
+      ["best-revision-village-alternatives", "2026-10-04", "2026-10-16", false],
       ["best-ib-question-banks-maths-sciences", "2026-09-15", "2026-09-15", true],
-      ["best-ib-maths-question-banks-aa-ai", "2026-09-15", "2026-10-14", false],
-      ["best-ib-chemistry-question-banks", "2026-09-15", "2026-10-14", false],
-      ["best-ib-physics-question-banks", "2026-09-15", "2026-10-14", false],
-      ["best-ib-biology-question-banks", "2026-09-15", "2026-10-14", false],
+      ["best-ib-maths-question-banks-aa-ai", "2026-09-15", "2026-10-16", false],
+      ["best-ib-chemistry-question-banks", "2026-09-15", "2026-10-16", false],
+      ["best-ib-physics-question-banks", "2026-09-15", "2026-10-16", false],
+      ["best-ib-biology-question-banks", "2026-09-15", "2026-10-16", false],
       ["improve-ib-grades-past-paper-practice", "2026-09-15", "2026-09-15", false],
-      ["best-save-my-exams-alternatives-topical-past-papers", "2026-09-15", "2026-10-14", false],
-      ["pastpaperprep-vs-physics-and-maths-tutor", "2026-09-15", "2026-10-14", false],
+      ["best-save-my-exams-alternatives-topical-past-papers", "2026-09-15", "2026-10-16", false],
+      ["pastpaperprep-vs-physics-and-maths-tutor", "2026-09-15", "2026-10-16", false],
       ["real-past-papers-vs-exam-style-questions", "2026-09-30", "2026-09-12", true],
-      ["physics-and-maths-tutor-vs-save-my-exams", "2026-09-15", "2026-10-14", false],
-      ["revision-village-vs-save-my-exams", "2026-09-15", "2026-10-14", false],
-      ["exam-mate-vs-save-my-exams", "2026-09-15", "2026-10-14", false],
+      ["physics-and-maths-tutor-vs-save-my-exams", "2026-09-15", "2026-10-16", false],
+      ["revision-village-vs-save-my-exams", "2026-09-15", "2026-10-16", false],
+      ["exam-mate-vs-save-my-exams", "2026-09-15", "2026-10-16", false],
       ["pastpaperprep-for-tutors-printable-practice-sets", "2026-09-15", "2026-09-15", false],
       ["pastpaperprep-pricing-which-plan", "2026-09-15", "2026-09-15", false],
-      ["best-igcse-maths-past-paper-websites", "2026-09-15", "2026-10-14", false],
+      ["best-igcse-maths-past-paper-websites", "2026-09-15", "2026-10-16", false],
       ["best-igcse-science-question-banks", "2026-09-15", "2026-09-15", true],
-      ["best-igcse-chemistry-0620-question-banks", "2026-09-15", "2026-10-14", false],
-      ["best-igcse-physics-0625-question-banks", "2026-09-15", "2026-10-14", false],
-      ["best-igcse-biology-0610-question-banks", "2026-09-15", "2026-10-14", false],
-      ["best-igcse-coordinated-sciences-0654-question-banks", "2026-09-15", "2026-10-14", false],
-      ["best-igcse-economics-0455-question-banks", "2026-09-15", "2026-10-14", false],
+      ["best-igcse-chemistry-0620-question-banks", "2026-09-15", "2026-10-16", false],
+      ["best-igcse-physics-0625-question-banks", "2026-09-15", "2026-10-16", false],
+      ["best-igcse-biology-0610-question-banks", "2026-09-15", "2026-10-16", false],
+      ["best-igcse-coordinated-sciences-0654-question-banks", "2026-09-15", "2026-10-16", false],
+      ["best-igcse-economics-0455-question-banks", "2026-09-15", "2026-10-16", false],
     ] as const;
 
     expect(ALL_ARTICLES).toHaveLength(40);
@@ -374,12 +374,12 @@ describe("article library", () => {
     expect(getArticle("pastpaperprep-vs-revision-village")).toMatchObject({
       title: "Revision Village Pricing (2026): Monthly vs Full Course",
       description: "Revision Village Gold costs $70 monthly or $249 once for one IB course. Compare free access, full-course billing and PastPaperPrep’s focused practice plans.",
-      updatedAt: "2026-10-14",
+      updatedAt: "2026-10-16",
     });
     expect(getArticle("pastpaperprep-vs-exam-mate")).toMatchObject({
       title: "Exam-Mate Subscription Price: Free and Paid Plans (2026)",
       description: "Exam-Mate Topical Past Papers costs $12 for one month or $120 for 12 months. Compare free limits, Build Exam access and PastPaperPrep’s practice plans.",
-      updatedAt: "2026-10-14",
+      updatedAt: "2026-10-16",
     });
   });
 

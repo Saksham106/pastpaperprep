@@ -9,11 +9,11 @@ type PublicFaq = {
 export const FAQS: readonly PublicFaq[] = [
   {
     question: "What is PastPaperPrep?",
-    answer: "PastPaperPrep offers free Cambridge IGCSE and IB full past papers with matching mark schemes, plus searchable questions by topic. Choose a course, practise the original questions, check the official answer, and use a worked explanation where one has been published.",
+    answer: "Free Cambridge IGCSE and IB past papers with their mark schemes, plus real exam questions sorted by topic. Practise, check the official answer, and open a worked explanation when you get stuck.",
   },
   {
     question: "What can I use for free?",
-    answer: "Full papers and their matching mark schemes in the free past-paper library can be opened without signing up. In the separate topical question banks, guests can view up to 20 matching free questions; a free account unlocks the rest of the bank's free selection. Recent paid questions, saved worksheets and custom PDF export require eligible bank access and follow the relevant allowances.",
+    answer: "All full papers and mark schemes, with no sign-up. In the topic banks, guests see up to 20 free questions and a free account opens the rest. Newer questions and PDF worksheets need a plan.",
     links: [{ href: "/past-papers", label: "Browse free full papers" }],
   },
   {
@@ -26,15 +26,12 @@ export const FAQS: readonly PublicFaq[] = [
   },
   {
     question: "Are mark schemes included?",
-    answer: "Full papers in the free library are paired with their matching mark schemes. Topical questions show the official answer or mark-scheme extract where available, under the same free or paid access as the question. Eligible worksheet access lets you include those answers in a custom PDF.",
+    answer: "Yes. Every full paper comes with its official mark scheme, and topic questions show the official answer. You can also add answers to a PDF worksheet.",
   },
   {
     question: "Are worked explanations available?",
-    answer: "Yes, on selected questions in supported banks. The Explanation button walks through how to reach the answer. These are PastPaperPrep explanations, not official exam-board mark schemes, and they do not replace a complete course or video lessons. Availability is per question, and access follows that question's free or paid status. Paid explanations have a separate daily allowance rather than using the image-download allowance.",
-    links: [
-      { href: "/banks/ib-hl#worked-example", label: "See a public Maths worked example" },
-      { href: "/banks/ib-physics-hl#worked-example", label: "See a public Physics worked example" },
-    ],
+    answer: "Yes, on many questions. Tap Explanation next to the answer to see the method step by step. They're written by PastPaperPrep, not the exam board, and follow the question's free or paid access.",
+    links: [{ href: "/banks/ib-hl#worked-example", label: "See an example" }],
   },
   {
     question: "How do I manage or cancel a subscription?",

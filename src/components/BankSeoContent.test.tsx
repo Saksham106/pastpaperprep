@@ -49,9 +49,8 @@ describe("BankSeoContent", () => {
     const { container, rerender } = render(<BankSeoContent bank={BANKS.find((bank) => bank.slug === "ib-hl")!} />);
     const example = container.querySelector("#worked-example");
     expect(example).not.toBeNull();
-    expect(example).toHaveTextContent("not an official exam question");
+    expect(example).toHaveTextContent("not an exam question");
     expect(example).toHaveTextContent("y = 7x − 4");
-    expect(example).toHaveTextContent("Availability is per question");
     expect(example?.querySelector('a[href="/banks/ib-hl?topic=Calculus"]')).not.toBeNull();
     expect(example?.querySelector("img")).toBeNull();
     rerender(<BankSeoContent bank={BANKS.find((bank) => bank.slug === "ib-biology-hl")!} />);

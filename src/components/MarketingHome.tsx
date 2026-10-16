@@ -62,7 +62,7 @@ export function MarketingHome({ environment = process.env, papers = {} }: { envi
 
     <section className={`shell ${styles.banks}`} id="question-banks" data-home-section="banks" aria-labelledby="question-banks-heading">
       <h2 className="sr-only" id="question-banks-heading">Question banks</h2>
-      <QualificationTabs modes={Object.keys(papers).length ? PRACTICE_MODES : undefined} items={[...(cambridgeBanks.length > 0 ? [{ id: "cambridge-catalog", label: "Cambridge IGCSE", qualification: "igcse" as const, panel: <SubjectCards banks={cambridgeBanks} papers={papers} /> }] : []), ...(ibBanks.length > 0 ? [{ id: "ib-catalog", label: "IB Diploma", qualification: "ib" as const, panel: <SubjectCards banks={ibBanks} papers={papers} /> }] : [])]} />
+      <QualificationTabs modes={hasFullPapers ? PRACTICE_MODES : undefined} items={[...(cambridgeBanks.length > 0 ? [{ id: "cambridge-catalog", label: "Cambridge IGCSE", qualification: "igcse" as const, panel: <SubjectCards banks={cambridgeBanks} papers={papers} /> }] : []), ...(ibBanks.length > 0 ? [{ id: "ib-catalog", label: "IB Diploma", qualification: "ib" as const, panel: <SubjectCards banks={ibBanks} papers={papers} /> }] : [])]} />
     </section>
 
     <section className={styles.proofBand} data-home-section="proof" aria-labelledby="proof-heading">
@@ -92,7 +92,6 @@ export function MarketingHome({ environment = process.env, papers = {} }: { envi
 
     <section className={`shell ${styles.planSection}`} data-home-section="plan" aria-labelledby="plan-heading">
       <h2 id="plan-heading">{hasFullPapers ? "Full papers are free." : "Start free."} <em>{hasFullPapers ? "Go deeper by topic." : "Upgrade for the newest papers."}</em></h2>
-      <p className={styles.accessNote}>Practise by topic, check the official answer and use worked explanations on supported questions. Custom worksheets and recent topical questions need eligible bank access.</p>
       <div className={styles.tiers}>
         <div className={styles.tier} data-plan-tier="free">
           <p className={styles.tierName}>Free</p>
