@@ -44,6 +44,11 @@ jobs:
       NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
       NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: placeholder-publishable-key
       NEXT_PUBLIC_SITE_URL: https://example.com
+      # Same release gates as production, so CI builds all 19 banks rather than the 12 ungated ones.
+      PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true"
+      PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true"
+      PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION: "true"
+      PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED: "true"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -54,6 +59,14 @@ jobs:
       # Runs prebuild generation, next build and the postbuild private-sourcemap check.
       - name: Build
         run: npm run build
+      - name: Every bank has an asset manifest and search entries
+        run: |
+          banks=$(grep -o '^  "[a-z0-9-]*":' src/lib/bank-index-manifest.ts | tr -d ' ":')
+          test "$(echo "$banks" | wc -l)" -eq 19
+          for bank in $banks; do
+            ls generated/asset-manifest/"$bank".*.json > /dev/null || { echo "missing asset manifest: $bank"; exit 1; }
+            grep -q "/$bank/" public/search/index.json || { echo "missing search entries: $bank"; exit 1; }
+          done
 
   sql:
     runs-on: ubuntu-latest
