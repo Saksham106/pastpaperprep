@@ -22,13 +22,19 @@ export function annotateFailureResponse<T extends Response>(response: T, metadat
  * Logs every request (route pattern, method, status, duration) to PostHog Logs and reports
  * returned 5xx failures once, without reading their bodies. A reported failure carries its
  * correlation id in `x-correlation-id`, so the browser's failure event points at it.
- * Thrown failures propagate to onRequestError.
+ * Thrown failures propagate to onRequestError. `linkAccount: false` skips the cookie read
+ * so a statically prerendered route stays static.
  */
-export function withFailureReporting<Args extends unknown[], R extends Response>(route: string, handler: (...args: Args) => Promise<R>) {
+export function withFailureReporting<Args extends unknown[], R extends Response>(
+  route: string,
+  handler: (...args: Args) => Promise<R>,
+  options: { linkAccount?: boolean } = {},
+) {
   return async (...args: Args): Promise<R> => {
     const started = performance.now();
     const method = args[0] instanceof Request ? args[0].method : undefined;
-    const userId = args[0] instanceof Request ? accountIdFromCookieHeader(args[0].headers.get("cookie")) : undefined;
+    // Reading headers opts a route into dynamic rendering, so prerendered routes pass linkAccount: false.
+    const userId = options.linkAccount !== false && args[0] instanceof Request ? accountIdFromCookieHeader(args[0].headers.get("cookie")) : undefined;
     let response: R;
     try { response = await handler(...args); }
     catch (error) {

@@ -51,4 +51,4 @@ async function handleGET(_request: Request, context: RouteContext) {
   }
 }
 
-export const GET = withFailureReporting("/api/private-bank-index/[bank]", handleGET);
+export const GET = withFailureReporting("/api/private-bank-index/[bank]", handleGET, { linkAccount: false });
