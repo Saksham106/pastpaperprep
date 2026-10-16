@@ -2,13 +2,14 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { UnifiedQuestion } from "@/lib/questions";
 import { downloadQuestionPdf } from "@/lib/pdf-export";
 
-const { addImage, addPage, save, text, setPage, setFont, addFont, setProperties } = vi.hoisted(() => ({
+const { addImage, addPage, save, text, setPage, setFont, addFont, setProperties, font } = vi.hoisted(() => ({
   addImage: vi.fn(), addPage: vi.fn(), save: vi.fn(), text: vi.fn(), setPage: vi.fn(), setFont: vi.fn(), addFont: vi.fn(), setProperties: vi.fn(),
+  font: { size: 0 },
 }));
 vi.mock("jspdf", () => ({ jsPDF: class {
   addImage = addImage; addPage = addPage; save = save; text = text; setPage = setPage; setFont = setFont; addFont = addFont; setProperties = setProperties;
   deletePage() {} roundedRect() {} rect() {} addFileToVFS() {}
-  setFontSize() {} setTextColor() {} setDrawColor() {} setFillColor() {} setLineWidth() {} line() {} textWithLink() {}
+  setFontSize(size: number) { font.size = size; } setTextColor() {} setDrawColor() {} setFillColor() {} setLineWidth() {} line() {} textWithLink() {}
   getTextWidth(value: string) { return value.length * 1.5; }
   splitTextToSize(value: string, width: number) {
     const words = value.split(" "); const lines: string[] = []; let line = "";
@@ -127,10 +128,19 @@ describe("PDF title block", () => {
     expect(drawn("3 marks")).toBe(true);
   });
 
+  it("prints the sheet's question number at 13pt, well above the 11pt exam numbers in the images", async () => {
+    const sizes = new Map<string, number>();
+    text.mockImplementation((value: unknown) => { if (typeof value === "string") sizes.set(value, font.size); });
+    await downloadQuestionPdf([short()], "questions");
+    expect(sizes.get("Question 1")).toBe(13);
+    expect(sizes.get("2024 May/June · Paper 22 · Q5")).toBe(8);
+    text.mockReset();
+  });
+
   it("draws no title block without a cover", async () => {
     await downloadQuestionPdf([short()], "questions");
     expect(drawn("IGCSE MATHEMATICS 0580 · EXTENDED")).toBe(false);
-    expect(images()[0][3]).toBe(27);
+    expect(images()[0][3]).toBe(29);
     expect(save).toHaveBeenCalledWith("pastpaperprep-questions.pdf");
   });
 });
