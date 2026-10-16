@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { FREE_ASSET_CDN_MAX_AGE, FREE_ASSET_EXPIRES_IN, fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, preferSignedFreeAssets, signedAssetKey } from "@/lib/signed-assets";
+import { FREE_ASSET_CDN_MAX_AGE, FREE_ASSET_EXPIRES_IN, fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, preferSignedFreeAssets, signAssetBatches, signedAssetKey } from "@/lib/signed-assets";
 
 const requests = Array.from({ length: 21 }, (_, index) => ({
   questionId: `question-${index + 1}`,
@@ -269,6 +269,51 @@ describe("fetchSignedAssets batching", () => {
     expect(fetcher).toHaveBeenCalledTimes(2);
     pending.forEach((release) => release());
     expect([...(await result).keys()]).toEqual(requests.map((request) => `${request.questionId}:question`));
+  });
+});
+
+describe("signAssetBatches", () => {
+  const requests = Array.from({ length: 24 }, (_, index) => ({ questionId: `q${index}`, kind: "question" as const }));
+  const ok = (init?: RequestInit) => {
+    const body = JSON.parse(String(init?.body)) as { requests: Array<{ questionId: string; kind: string }> };
+    return Response.json({ expiresIn: 600, assets: body.requests.map((request) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) });
+  };
+
+  it.each([503, 429])("keeps a sibling batch when the other fails with %s and reports only the failed keys", async (status) => {
+    let calls = 0;
+    const fetcher = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => ++calls === 1
+      ? Response.json({ error: "Busy" }, { status }) : ok(init));
+    const delivered: string[] = [];
+    const result = await signAssetBatches("ib-sl", requests, { fetcher, onBatch: (assets) => delivered.push(...assets.keys()) });
+    expect([...result.assets.keys()]).toEqual(requests.slice(20).map((request) => `${request.questionId}:question`));
+    expect(delivered).toEqual([...result.assets.keys()]);
+    expect(result.failedKeys).toEqual(requests.slice(0, 20).map((request) => `${request.questionId}:question`));
+    expect(result.error?.message).toBe("Busy");
+    calls = 0;
+    await expect(fetchSignedAssets("ib-sl", requests, fetcher)).rejects.toThrow("Busy");
+  });
+
+  it("delivers a fast batch before a slow sibling settles", async () => {
+    let release!: () => void;
+    let calls = 0;
+    const fetcher = vi.fn((_input: RequestInfo | URL, init?: RequestInit) => ++calls === 1
+      ? new Promise<Response>((resolve) => { release = () => resolve(ok(init)); })
+      : Promise.resolve(ok(init)));
+    const delivered: number[] = [];
+    const result = signAssetBatches("ib-sl", requests, { fetcher, onBatch: (assets) => delivered.push(assets.size) });
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(delivered).toEqual([4]);
+    release();
+    expect((await result).assets.size).toBe(24);
+    expect(delivered).toEqual([4, 20]);
+  });
+
+  it("still rejects as a whole once the scope has ended", async () => {
+    let current = true;
+    const fetcher = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => { current = false; return ok(init); });
+    const onBatch = vi.fn();
+    await expect(signAssetBatches("ib-sl", requests, { fetcher, isCurrent: () => current, onBatch })).rejects.toMatchObject({ name: "AbortError" });
+    expect(onBatch).not.toHaveBeenCalled();
   });
 });
 
