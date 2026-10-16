@@ -206,6 +206,13 @@ describe("Stripe subscription event normalization", () => {
     }));
   });
 
+  it("revokes a past-due subscription when the caller disables grace", () => {
+    const pastDue = event();
+    pastDue.data.object.status = "past_due";
+    expect(buildSubscriptionSync(pastDue, allowedPrice, { allowPastDueGrace: false }))
+      .toEqual(expect.objectContaining({ status: "revoked", expiresAt: null }));
+  });
+
   it("revokes a past-due subscription once it is deleted", () => {
     const deleted = event({ type: "customer.subscription.deleted" });
     deleted.data.object.status = "past_due";

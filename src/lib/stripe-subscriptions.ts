@@ -64,6 +64,7 @@ export function getSubscriptionEventReference(eventValue: unknown): Subscription
 export function buildSubscriptionSync(
   eventValue: unknown,
   isPriceAllowed: (productId: ProductId, priceId: string, interval?: BillingInterval) => boolean,
+  { allowPastDueGrace = true }: { allowPastDueGrace?: boolean } = {},
 ): SubscriptionSync | null {
   const event = record(eventValue, "Invalid Stripe event");
   if (typeof event.type !== "string" || !SUBSCRIPTION_EVENT_TYPES.has(event.type)) return null;
@@ -135,7 +136,8 @@ export function buildSubscriptionSync(
   const entitled = !deleted && (subscription.status === "active" || subscription.status === "trialing");
   // Stripe is still retrying a failed renewal. Keep access for a bounded grace
   // window from the renewal date; unpaid/canceled after the last retry revokes.
-  const inGrace = !deleted && subscription.status === "past_due";
+  // Callers disable grace when the current metadata is an unpaid scheduled target.
+  const inGrace = allowPastDueGrace && !deleted && subscription.status === "past_due";
   let expiresAt: string | null = null;
   if (entitled) expiresAt = unixDate(item.current_period_end);
   if (inGrace) {
