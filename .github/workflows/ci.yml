@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
       - uses: actions/setup-python@v5
         with:
@@ -35,3 +35,36 @@ jobs:
         run: npm run typecheck
       - name: Test
         run: npm test
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      # Non-secret placeholders so the build can compile; nothing here reaches a real service.
+      NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: placeholder-publishable-key
+      NEXT_PUBLIC_SITE_URL: https://example.com
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # Runs prebuild generation, next build and the postbuild private-sourcemap check.
+      - name: Build
+        run: npm run build
+
+  sql:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # supabase/tests/explanation_allowance.sql is not run here; it needs a real Postgres.
+      - name: SQL tests (PGlite)
+        run: npm run test:sql
