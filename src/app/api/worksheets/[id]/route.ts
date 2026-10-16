@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { isPlainRecord, withPrivateNoStore } from "@/lib/private-response";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { createClient } from "@/lib/supabase/server";
 import { loadBankQuestions } from "@/lib/question-loader";
@@ -24,7 +25,11 @@ async function handleGET(_request: Request, context: { params: Promise<{ id: str
 async function handlePATCH(request: Request, context: { params: Promise<{ id: string }> }) {
   const { id } = await context.params;
   let body: Record<string, unknown>;
-  try { body = await request.json() as Record<string, unknown>; } catch { return NextResponse.json({ error: "Invalid JSON" }, { status: 400 }); }
+  try {
+    const parsed: unknown = await request.json();
+    if (!isPlainRecord(parsed)) return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+    body = parsed;
+  } catch { return NextResponse.json({ error: "Invalid JSON" }, { status: 400 }); }
   if (!Number.isInteger(body.revision) || Number(body.revision) < 1) return NextResponse.json({ error: "Invalid revision" }, { status: 400 });
   const renameOnly = Object.keys(body).every((key) => key === "name" || key === "revision");
   const title = typeof body.name === "string" ? body.name.trim() : "";
@@ -66,6 +71,6 @@ async function handleDELETE(_request: Request, context: { params: Promise<{ id: 
   return new NextResponse(null, { status: 204 });
 }
 
-export const GET = withFailureReporting("/api/worksheets/[id]", handleGET);
-export const PATCH = withFailureReporting("/api/worksheets/[id]", handlePATCH);
-export const DELETE = withFailureReporting("/api/worksheets/[id]", handleDELETE);
+export const GET = withFailureReporting("/api/worksheets/[id]", withPrivateNoStore(handleGET));
+export const PATCH = withFailureReporting("/api/worksheets/[id]", withPrivateNoStore(handlePATCH));
+export const DELETE = withFailureReporting("/api/worksheets/[id]", withPrivateNoStore(handleDELETE));

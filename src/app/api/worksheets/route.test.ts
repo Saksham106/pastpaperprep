@@ -34,4 +34,20 @@ describe("worksheet persistence routes", () => {
     expect(await response.json()).toEqual({ worksheet: row });
     expect(chain.insert).toHaveBeenCalledWith({ user_id: "user-id", bank_slug: "ib-sl", title: "Practice", question_ids: questionIds, content_mode: "questions" });
   });
+  describe("cache headers", () => {
+    const PRIVATE = "private, no-store, max-age=0";
+    it("marks list success private", async () => { const r = await GET(); expect(r.status).toBe(200); expect(r.headers.get("cache-control")).toBe(PRIVATE); });
+    it("marks list 401 private", async () => { setup({ userId: "" }); const r = await GET(); expect(r.status).toBe(401); expect(r.headers.get("cache-control")).toBe(PRIVATE); });
+    it("marks list 503 private", async () => { setup(); from.mockImplementation(() => ({ select: () => ({ eq: () => Promise.resolve({ data: null, error: { message: "x" } }) }) })); const r = await GET(); expect(r.status).toBe(503); expect(r.headers.get("cache-control")).toBe(PRIVATE); });
+    it("marks create success, 400, 401, 403 private", async () => {
+      const row = { id: "w", bank_slug: "ib-sl", title: "Practice", question_ids: questionIds, content_mode: "questions", revision: 1, created_at: "c", updated_at: "u" };
+      setup({ saved: row }); expect((await POST(req(body))).headers.get("cache-control")).toBe(PRIVATE);
+      expect((await POST(req("{"))).headers.get("cache-control")).toBe(PRIVATE);
+      setup({ userId: "" }); expect((await POST(req(body))).headers.get("cache-control")).toBe(PRIVATE);
+      setup({ entitlements: [] }); const denied = await POST(req(body)); expect(denied.status).toBe(403); expect(denied.headers.get("cache-control")).toBe(PRIVATE);
+    });
+  });
+  it("rejects null, array and primitive create bodies without creating a client", async () => {
+    for (const value of [null, [], "x", 5, true]) { createClient.mockClear(); const r = await POST(req(value)); expect(r.status).toBe(400); expect(createClient).not.toHaveBeenCalled(); }
+  });
 });
