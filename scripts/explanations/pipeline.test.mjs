@@ -306,3 +306,11 @@ test('prep reads the asset manifest it just generated, never a stale one with th
  writeFileSync(join(dir,'igcse.preview.json'),JSON.stringify({q1:{questionAssetPaths:['igcse/questions/old.webp']}}));
  assert.throws(()=>servedManifest('igcse',{dir,generate:()=>'igcse: not runnable in this environment, skipped\n'}),/not generated/);
 });
+test('an empty cached image never counts as downloaded', async () => {
+ const { present } = await import('./prepare-batch.mjs');
+ const dir=mkdtempSync(join(realpathSync(tmpdir()),'explanation-img-'));
+ writeFileSync(join(dir,'empty.webp'),'');writeFileSync(join(dir,'real.webp'),'RIFF....WEBP');
+ assert.equal(present(join(dir,'empty.webp')),false);
+ assert.equal(present(join(dir,'real.webp')),true);
+ assert.equal(present(join(dir,'absent.webp')),false);
+});

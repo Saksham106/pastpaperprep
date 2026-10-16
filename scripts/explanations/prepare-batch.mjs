@@ -10,7 +10,7 @@
 import { createHash } from "node:crypto";
 import { execFile, execFileSync } from "node:child_process";
 import { promisify } from "node:util";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { calculatorAllowed } from "../../src/lib/calculator-policy.mjs";
@@ -61,6 +61,8 @@ export const BANKS = {
   "igcse-economics-0455": { data: "src/data/production/igcse-economics-0455.json", calculator: calculator("igcse-economics-0455"), r2Prefix: "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/" },
 };
 const r2Cache = (bank) => join(researchRoot, "_r2src", bank);
+// A failed or throttled download can leave an empty file behind; it is not an image.
+export const present = (file) => existsSync(file) && statSync(file).size > 0;
 
 // The site serves repaired crops for some questions, so build from exactly what students see:
 // the generated asset manifest's object keys. Release banks need their production flags.
@@ -99,7 +101,7 @@ const extensionSources = new Map();
 function sourceFile(bank, config, rel) {
   if (!/^https?:/.test(rel)) {
     const local = config.imageRoot && join(config.imageRoot, relOfKey(bank, rel));
-    return local && existsSync(local) ? local : join(r2Cache(bank), rel);
+    return local && present(local) ? local : join(r2Cache(bank), rel);
   }
   const ext = config.extension;
   if (!ext || !rel.startsWith(ext.publicRoot)) throw new Error(`Unmapped image URL ${rel}`);
@@ -116,18 +118,20 @@ function sourceFile(bank, config, rel) {
 function toPng(bank, config, rel) {
   const src = sourceFile(bank, config, rel);
   rel = rel.replace(/^https?:\/\/[^/]+\/[^/]+\//, "");
-  if (!existsSync(src)) throw new Error(`Missing image ${src}`);
+  if (!present(src)) throw new Error(`Missing or empty image ${src}`);
   const dest = join(researchRoot, "_png", bank, rel.replace(/\.webp$/i, ".png"));
-  if (!existsSync(dest)) {
+  if (!present(dest)) {
     mkdirSync(dirname(dest), { recursive: true });
     execFileSync("sips", ["-s", "format", "png", src, "--out", dest], { stdio: "ignore" });
+    // sips reports a bad source only as a warning, so check that the image was written.
+    if (!present(dest)) throw new Error(`Could not convert ${src} to PNG`);
   }
   return dest;
 }
 
 // Download any images missing locally from R2 (read-only), a few at a time.
 async function fetchMissing(bank, config, rels) {
-  const missing = [...new Set(rels)].filter((rel) => !/^https?:/.test(rel) && !existsSync(sourceFile(bank, config, rel)));
+  const missing = [...new Set(rels)].filter((rel) => !/^https?:/.test(rel) && !present(sourceFile(bank, config, rel)));
   if (!missing.length) return;
   const run = promisify(execFile);
   const [bin, ...prefix] = process.env.WRANGLER ? [process.env.WRANGLER] : ["npx", "-y", "wrangler@4"];
@@ -141,10 +145,18 @@ async function fetchMissing(bank, config, rels) {
   await Promise.all(Array.from({ length: 3 }, async () => {
     for (let rel = queue.shift(); rel; rel = queue.shift()) {
       const target = join(r2Cache(bank), rel);
+      const partial = `${target}.partial`;
       mkdirSync(dirname(target), { recursive: true });
       for (let attempt = 1; ; attempt += 1) {
-        try { await run(bin, [...prefix, "r2", "object", "get", `${bucket}/${rel}`, "--file", target, "--remote"], { maxBuffer: 1 << 24 }); break; }
-        catch (error) {
+        try {
+          rmSync(partial, { force: true });
+          await run(bin, [...prefix, "r2", "object", "get", `${bucket}/${rel}`, "--file", partial, "--remote"], { maxBuffer: 1 << 24 });
+          // Only a non-empty download replaces the cached image.
+          if (!present(partial)) throw Object.assign(new Error("empty download"), { stderr: "empty download" });
+          renameSync(partial, target);
+          break;
+        } catch (error) {
+          rmSync(partial, { force: true });
           const text = `${error?.stderr ?? ""} ${error?.stdout ?? ""}`;
           if (/does not exist|NoSuchKey/i.test(text) || attempt >= 8) { failed.push(rel); break; }
           await sleep((/429|Too Many Requests|throttl/i.test(text) ? 5000 : 1500) * attempt);
