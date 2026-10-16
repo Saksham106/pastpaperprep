@@ -11,7 +11,7 @@ import { hasBankAccess, isPreviewQuestion } from "@/lib/access";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { getBillingPlan, getStripeConfig, isStripePriceAllowedForProduct, validateStripeConfig } from "@/lib/stripe-config";
 import { getPrivateBankObjectPrefix } from "@/lib/private-runtime-mapping";
-import { assert0654TaxonomyRepair } from "@/lib/igcse-runtime";
+import { assert0654TaxonomyRepair, withoutPrintedMarks } from "@/lib/igcse-runtime";
 import { getControlledSubtopics, getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { normalizeBankQuestions } from "@/lib/questions";
 import official2025 from "@/data/igcse-coordinated-sciences-0654-official-2025.json";
@@ -180,15 +180,16 @@ describe("IGCSE Co-ordinated Sciences 0654 production release", () => {
   });
 
   it("validates the metadata-repair seal independently of the original candidate seal", () => {
-    const valid = structuredClone(production);
+    // The taxonomy seal checks the release it sealed; the later printed-marks repair is rebuilt away first.
+    const valid = structuredClone(withoutPrintedMarks("igcse-coordinated-sciences-0654", production as never)) as typeof production;
     expect(() => assert0654TaxonomyRepair(valid as never)).not.toThrow();
-    const changedCount = structuredClone(production);
+    const changedCount = structuredClone(valid);
     (changedCount.runtimeArtifact.taxonomyRepair as { changedCount: number }).changedCount = 40;
     expect(() => assert0654TaxonomyRepair(changedCount as never)).toThrow(/repair/i);
-    const changedRow = structuredClone(production);
+    const changedRow = structuredClone(valid);
     changedRow.questions[0].primaryTopic = "Other";
     expect(() => assert0654TaxonomyRepair(changedRow as never)).toThrow(/repair|content/i);
-    const changedReceipt = structuredClone(production);
+    const changedReceipt = structuredClone(valid);
     changedReceipt.runtimeArtifact.storageReceiptSha256 = "0".repeat(64);
     expect(() => assert0654TaxonomyRepair(changedReceipt as never)).toThrow(/repair|receipt/i);
   });

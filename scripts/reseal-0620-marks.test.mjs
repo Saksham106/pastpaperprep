@@ -40,8 +40,10 @@ describe("Chemistry 0620 printed-QP marks-only descendant",()=>{
  });
  it("requires checked-in runtime and private index to equal pinned replay",async()=>{
   const generated=reseal0620Marks(await inputs());
-  const actualRuntime=await json(`src/data/production/${BANK}.json`);
-  const actualIndex=await json(`src/data/private-index/${BANK}.json`);
+  // The release this reseal produced; the later printed-marks reseal descends from it.
+  const released=p=>JSON.parse(execFileSync("git",["show",`8e6cea7a6f5c93899f9396a6cf7a670682837983:${p}`],{cwd:root,maxBuffer:100_000_000}).toString("utf8"));
+  const actualRuntime=released(`src/data/production/${BANK}.json`);
+  const actualIndex=released(`src/data/private-index/${BANK}.json`);
   expect(actualRuntime).toEqual(generated.runtime);
   expect(actualIndex).toEqual(generated.privateIndex);
  });
