@@ -27,20 +27,24 @@ async function releaseQuestions(bank: keyof typeof reviewed.entries) {
 }
 
 describe("source- and receipt-reviewed whole BLANK PAGE assets", () => {
-  it("pins exactly 887 question-paper images across four banks; never touches mark schemes", () => {
+  it("pins exactly 1,952 question-paper images across four banks; never touches mark schemes", () => {
+    // 887 independently reviewed strict blanks, plus 1,065 BLANK PAGE images (final acknowledgement pages and
+    // margin-text blanks)
+    // found by scripts/audit-blank-question-pages.py (2026-10-15 receipt).
     expect(reviewed.counts).toEqual({
-      "igcse-biology-0610": 206, "igcse-chemistry-0620": 269,
-      "igcse-coordinated-sciences-0654": 262, "igcse-physics-0625": 150,
+      "igcse-biology-0610": 511, "igcse-chemistry-0620": 555,
+      "igcse-coordinated-sciences-0654": 472, "igcse-physics-0625": 414,
     });
-    expect(Object.values(reviewed.counts).reduce((a, b) => a + b, 0)).toBe(887);
+    expect(Object.values(reviewed.counts).reduce((a, b) => a + b, 0)).toBe(1952);
   });
 
   it("hides only the exact reviewed page, not a question's other pages or a held/other-bank asset", () => {
     const id = "0610-2019-m-12-q40";
     const q = biology.questions.find((item) => item.id === id)!;
     expect(q.questionImages).toHaveLength(3);
+    // Page 15 is a strict blank; page 16 is the paper's final BLANK PAGE with acknowledgements.
     expect(activeQuestionImagePaths("igcse-biology-0610", id, q.questionImages)).toEqual([
-      "questions/0610-2019-m-12/q40-14-1.webp", "questions/0610-2019-m-12/q40-16-3.webp",
+      "questions/0610-2019-m-12/q40-14-1.webp",
     ]);
     expect(activeQuestionImagePaths("igcse-physics-0625", id, q.questionImages)).toEqual(q.questionImages);
     expect(activeQuestionImagePaths("igcse-biology-0610", "0610-2026-m-32-q4", ["questions/held.webp"]))
@@ -50,9 +54,9 @@ describe("source- and receipt-reviewed whole BLANK PAGE assets", () => {
   it("projects the same visible image count and signed path list without mutating raw runtime", () => {
     const raw = biology.questions.find((item) => item.id === "0610-2019-m-12-q40")!;
     const [q] = normalizeBankQuestions("igcse-biology-0610", [raw as Record<string, unknown>], { economicsAssetMode: "private", applyReviewedBlankPages: true });
-    expect(q.questionImageCount).toBe(2);
-    expect(q.questionAssetPaths).toHaveLength(2);
-    expect(q.questionAssetPaths.every((path) => !path.endsWith("q40-15-2.webp"))).toBe(true);
+    expect(q.questionImageCount).toBe(1);
+    expect(q.questionAssetPaths).toHaveLength(1);
+    expect(q.questionAssetPaths.every((path) => !path.endsWith("q40-15-2.webp") && !path.endsWith("q40-16-3.webp"))).toBe(true);
     expect(q.markschemeImageCount).toBeGreaterThan(0);
     expect(raw.questionImages).toHaveLength(3);
   });
@@ -88,10 +92,14 @@ describe("source- and receipt-reviewed whole BLANK PAGE assets", () => {
     } finally { vi.unstubAllEnvs(); }
   }, 30_000);
 
-  it("seals all 887 exact paths and digests to the reviewed artifact and current storage manifest", () => {
+  it("seals all 1,952 exact paths and digests to the reviewed artifact and current storage manifest", () => {
     const projection = readFileSync(path.join(process.cwd(), "src/data/reviewed-blank-qp.json"));
     expect(createHash("sha256").update(projection).digest("hex"))
-      .toBe("a63859134fc8765d5d7a48bb9c1e1390d9dfe560f31a45e0d20713bf2ad39b70");
+      .toBe("30fd353332306fc08bbcf0d5eb3624ebfc8deb17450dbb2743be93c4fd99621d");
+    // The automated final-page audit is sealed to its receipt, which is committed alongside.
+    const receipt = readFileSync(path.join(process.cwd(), "docs/audits/2026-10-15-blank-final-pages/receipt.json"));
+    expect(createHash("sha256").update(receipt).digest("hex"))
+      .toBe(reviewed.evidenceSha256["2026-10-15-blank-final-pages-receipt.json"]);
     expect(reviewed.evidenceSha256["strict-blank-full-crop-review-queue.json"])
       .toBe("0f8b152cebc4471c72fa5373c4bb2a514689ae7834f0f236f603fea5b0521d71");
     expect(reviewed.evidenceSha256["strict-blank-nearwhite-sensitivity.json"])
@@ -111,7 +119,7 @@ describe("source- and receipt-reviewed whole BLANK PAGE assets", () => {
         }
       }
     }
-    expect(checked).toBe(887);
+    expect(checked).toBe(1952);
   }, 30_000);
 
   it("keeps every published image count aligned with its private production projection", async () => {
@@ -139,6 +147,6 @@ describe("source- and receipt-reviewed whole BLANK PAGE assets", () => {
 
   it("never allows a reviewed list to erase all image paths", () => {
     expect(() => activeQuestionImagePaths("igcse-biology-0610", "0610-2019-m-12-q40",
-      ["questions/0610-2019-m-12/q40-15-2.webp"])).toThrow(/all question images/i);
+      ["questions/0610-2019-m-12/q40-15-2.webp", "questions/0610-2019-m-12/q40-16-3.webp"])).toThrow(/all question images/i);
   });
 });
