@@ -31,7 +31,13 @@ describe('clean source crops for PapaCambridge-watermarked May/June 2026 Chemist
     const after = normalize();
     const replaced = new Set(Object.keys(entries).map((path) => prefix + path));
     const moved = after.flatMap((q) => [...q.questionAssetPaths, ...q.markschemeAssetPaths]).filter((key) => key.startsWith(prefix + projection.namespace + '/'));
-    expect(moved).toHaveLength(1025);
+    // 29 clean re-renders are of BLANK PAGE images, which the 2026-10-15 audit hides altogether.
+    const blank = JSON.parse(readFileSync('src/data/reviewed-blank-qp.json', 'utf8')).entries['igcse-chemistry-0620'] as Record<string, Array<{ path: string }>>;
+    const hidden = new Set(Object.values(blank).flat().map((item) => item.path));
+    const hiddenClean = Object.keys(entries).filter((path) => hidden.has(path));
+    expect(hiddenClean).toHaveLength(29);
+    expect(hiddenClean.every((path) => path.startsWith('questions/0620-2026-s-'))).toBe(true);
+    expect(moved).toHaveLength(1025 - hiddenClean.length);
     for (const q of after) {
       for (const key of [...q.questionAssetPaths, ...q.markschemeAssetPaths]) {
         expect(replaced.has(key)).toBe(false);

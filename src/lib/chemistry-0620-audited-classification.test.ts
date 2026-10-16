@@ -97,15 +97,21 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
     expect(runtime.publicationStatus).toBe("production");
     expect(runtime.assetVerification).toBe("verified_readback");
     expect(runtime.version).toBe("igcse-chemistry-0620-release-candidate-v4-taxonomy-projected");
-    // Undo answer-row projection and the one documented retrieval descendant
-    // to reconstruct the original immutable classification index.
+    // Undo answer-row projection, the 2026-10-15 final BLANK PAGE projection and the one documented
+    // retrieval descendant to reconstruct the original immutable classification index.
+    const finalBlankPages = new Map<string, number>();
+    for (const entry of read("docs/audits/2026-10-15-blank-final-pages/receipt.json").entries as Array<{ bank: string; id: string }>) {
+      if (entry.bank === "igcse-chemistry-0620") finalBlankPages.set(entry.id, (finalBlankPages.get(entry.id) ?? 0) + 1);
+    }
     const activeIndexPath = `public/bank-index/${PUBLIC_BANK_INDEX_FILES["igcse-chemistry-0620"]}`;
     const activeIndex = read(activeIndexPath);
     const oldCounts = new Map<string, number>(runtime.questions.map((row: { id: string; markschemeImages: string[]; officialMarkscheme?: { images?: string[] } }) =>
       [row.id, row.officialMarkscheme?.images?.length || row.markschemeImages.length]));
     const descendant = read("docs/0620-source-owned-diffusion-delta.json");
-    const historicalIndex = { ...activeIndex, questions: activeIndex.questions.map((row: { id: string; markschemeImageCount: number }) =>
-      ({ ...(row.id === descendant.exact_changed_ids[0] ? descendant.before_public_metadata : row), markschemeImageCount: oldCounts.get(row.id) })) };
+    const historicalIndex = { ...activeIndex, questions: activeIndex.questions.map((row: { id: string; questionImageCount: number; markschemeImageCount: number }) => {
+      const base = row.id === descendant.exact_changed_ids[0] ? descendant.before_public_metadata : row;
+      return { ...base, questionImageCount: base.questionImageCount + (finalBlankPages.get(row.id) ?? 0), markschemeImageCount: oldCounts.get(row.id) };
+    }) };
     expect(sha256(Buffer.from(`${JSON.stringify(historicalIndex)}\n`)).slice(0, 12)).toBe("90ba51dd0b85");
     expect(PUBLIC_BANK_INDEX_FILES["igcse-chemistry-0620"]).toBe(
       `igcse-chemistry-0620.v1-${sha256(readBytes(activeIndexPath)).slice(0, 12)}.json`,
