@@ -127,6 +127,15 @@ type IGCSEArtifact = {
       broadOnlyCount?: number;
       method?: string;
     };
+    printedMarksRepair?: {
+      baselineGitCommit?: string;
+      baselineRuntimeSha256?: string;
+      baselineFinalizedContentSha256?: string;
+      censusSha256?: string;
+      writtenQuestionCount?: number;
+      changedCount?: number;
+      method?: string;
+    };
   };
 };
 
@@ -291,8 +300,8 @@ export function assert0625PracticalRoleRepair(artifact: IGCSEArtifact): void {
     targets.some((q) => q.primaryTopicId !== "practical-skills" || q.primaryTopic !== "Experimental skills and investigations" || q.classificationReviewStatus !== "unresolved_taxonomy_gap") ||
     (artifact.runtimeArtifact?.mcqRetrievalRepair
       ? artifact.runtimeArtifact.mcqRetrievalRepair.baselineFinalizedContentSha256 !== REPAIR_0625.finalizedContentSha256 ||
-        artifact.runtimeArtifact.finalizedContentSha256 !== MCQ_0625_2026.finalizedContentSha256 ||
-        canonicalSha256(artifact.questions) !== MCQ_0625_2026.finalizedContentSha256
+        artifact.runtimeArtifact.finalizedContentSha256 !== current0625Content(artifact) ||
+        canonicalSha256(artifact.questions) !== current0625Content(artifact)
       : artifact.runtimeArtifact?.finalizedContentSha256 !== REPAIR_0625.finalizedContentSha256 ||
         canonicalSha256(artifact.questions) !== REPAIR_0625.finalizedContentSha256)
   ) throw new Error("IGCSE 0625 practical-role repair provenance or finalized content mismatch");
@@ -353,9 +362,51 @@ export function assert0625McqRetrievalRepair(artifact: IGCSEArtifact): void {
     }) ||
     seal?.assetManifestSha256 !== MCQ_0625_2026.assetManifestSha256 ||
     seal?.storageReceiptSha256 !== MCQ_0625_2026.storageReceiptSha256 ||
-    seal?.finalizedContentSha256 !== MCQ_0625_2026.finalizedContentSha256 ||
-    canonicalSha256(artifact.questions) !== MCQ_0625_2026.finalizedContentSha256
+    seal?.finalizedContentSha256 !== current0625Content(artifact) ||
+    canonicalSha256(artifact.questions) !== current0625Content(artifact)
   ) throw new Error("IGCSE 0625 2026 MCQ retrieval provenance or finalized content mismatch");
+}
+
+const MARKS_0625 = {
+  baselineGitCommit: "197ac22550d5bcb7559eafdbc0ae5cf391924bd5",
+  baselineRuntimeSha256: "1a7f251dc51b3a86669edaad6bb60ba2b8b703d8b58a294f51acda74b090785c",
+  baselineFinalizedContentSha256: "f698083fe8ee260d5bc1da3a9df8fe49094c6d5e0713aea58996a398e95d318f",
+  censusSha256: "941f09a67fbd2cab07966a61eff27de2b000ec2f0e137f61b7556eec6e09d41a",
+  finalizedContentSha256: "fc5d222dd140354080b283b74c1140f86f7e35015064d1ad2db579b40240e4b8",
+  method: "printed question totals from the question-paper text layer; every written paper reconciles to its printed maximum; MCQ papers unchanged",
+} as const;
+const PAPER_MAX_0625: Record<string, number> = { "3": 80, "4": 80, "5": 40, "6": 40 };
+
+/** Content the latest 0625 seal describes: the marks repair once present, else the MCQ retrieval reseal. */
+function current0625Content(artifact: IGCSEArtifact): string {
+  return artifact.runtimeArtifact?.printedMarksRepair ? MARKS_0625.finalizedContentSha256 : MCQ_0625_2026.finalizedContentSha256;
+}
+
+/** Third, marks-only descendant: written-paper totals from the printed papers; earlier repairs stay as ancestry. */
+export function assert0625PrintedMarksRepair(artifact: IGCSEArtifact): void {
+  const seal = artifact.runtimeArtifact;
+  const repair = seal?.printedMarksRepair;
+  const paperSums = new Map<string, number>();
+  for (const q of artifact.questions) {
+    const component = String(q.component ?? "");
+    if (!PAPER_MAX_0625[component[0]]) continue;
+    const paper = String(q.id).replace(/-q\d+$/, "");
+    paperSums.set(paper, (paperSums.get(paper) ?? 0) + (typeof q.marks === "number" ? q.marks : Number.NaN));
+  }
+  if (
+    repair?.baselineGitCommit !== MARKS_0625.baselineGitCommit ||
+    repair?.baselineRuntimeSha256 !== MARKS_0625.baselineRuntimeSha256 ||
+    repair?.baselineFinalizedContentSha256 !== MARKS_0625.baselineFinalizedContentSha256 ||
+    repair?.censusSha256 !== MARKS_0625.censusSha256 ||
+    repair?.writtenQuestionCount !== 1550 || repair?.changedCount !== 1143 || repair?.method !== MARKS_0625.method ||
+    seal?.assetManifestSha256 !== MCQ_0625_2026.assetManifestSha256 ||
+    seal?.storageReceiptSha256 !== MCQ_0625_2026.storageReceiptSha256 ||
+    seal?.finalizedContentSha256 !== MARKS_0625.finalizedContentSha256 ||
+    canonicalSha256(artifact.questions) !== MARKS_0625.finalizedContentSha256 ||
+    paperSums.size !== 211 ||
+    [...paperSums].some(([paper, sum]) => sum !== PAPER_MAX_0625[paper.split("-").at(-1)![0]]) ||
+    artifact.questions.some((q) => typeof q.marks !== "number" || q.marks <= 0 || q.maxMarks !== q.marks)
+  ) throw new Error("IGCSE 0625 printed marks repair provenance or finalized content mismatch");
 }
 
 const REPAIR_0610_POLLUTION = {
@@ -631,6 +682,7 @@ export function getIGCSERuntimeArtifact(bank: IGCSEReleaseBankSlug, environment:
   if (bank === "igcse-physics-0625") {
     assert0625PracticalRoleRepair(artifact);
     assert0625McqRetrievalRepair(artifact);
+    assert0625PrintedMarksRepair(artifact);
   }
   return artifact;
 }
