@@ -110,10 +110,13 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
     const oldCounts = new Map<string, number>(runtime.questions.map((row: { id: string; markschemeImages: string[]; officialMarkscheme?: { images?: string[] } }) =>
       [row.id, row.officialMarkscheme?.images?.length || row.markschemeImages.length]));
     const descendant = read("docs/0620-source-owned-diffusion-delta.json");
+    // Totals corrected later from the printed papers are restored to the values this seal covered.
+    const printedMarks = new Map<string, number>((runtime.runtimeArtifact.printedMarksRepair?.changes ?? []).map(([id, old]: [string, number]) => [id, old]));
     // Explanation availability is published separately and is not part of the audited classification.
-    const historicalIndex = { ...activeIndex, questions: activeIndex.questions.map((published: { id: string; questionImageCount: number; markschemeImageCount: number; hasExplanation?: boolean }) => {
+    const historicalIndex = { ...activeIndex, questions: activeIndex.questions.map((published: { id: string; questionImageCount: number; markschemeImageCount: number; hasExplanation?: boolean; marks?: number | null }) => {
       const row = { ...published };
       delete row.hasExplanation;
+      if (printedMarks.has(row.id)) row.marks = printedMarks.get(row.id);
       const base = row.id === descendant.exact_changed_ids[0] ? descendant.before_public_metadata : row;
       return { ...base, questionImageCount: base.questionImageCount + (finalBlankPages.get(row.id) ?? 0), markschemeImageCount: oldCounts.get(row.id) };
     }) };
