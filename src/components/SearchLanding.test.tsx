@@ -19,11 +19,28 @@ const manifest: LandingManifest = {
 };
 
 describe("SearchLanding", () => {
+  it("gives qualification hubs contextual routes to both new selection guides", () => {
+    const { rerender } = render(<QualificationHub qualification="IB Diploma" title="IB practice" intro="Browse IB banks." />);
+    expect(screen.getByRole("link", { name: "RevisionDojo vs Save My Exams" })).toHaveAttribute("href", "/articles/revisiondojo-vs-save-my-exams");
+    rerender(<QualificationHub qualification="Cambridge IGCSE" title="IGCSE practice" intro="Browse IGCSE banks." />);
+    expect(screen.getByRole("link", { name: "best free IGCSE past-paper websites" })).toHaveAttribute("href", "/articles/best-free-igcse-past-paper-websites");
+  });
+
   it("adds Revision Village alternatives as a contextual IB hub resource only", () => {
     render(<QualificationHub qualification="IB Diploma" title="IB Diploma past-paper practice" intro="Browse IB banks." />);
     expect(screen.getByRole("link", { name: "Revision Village alternatives" })).toHaveAttribute("href", "/articles/best-revision-village-alternatives");
     const { container } = render(<QualificationHub qualification="Cambridge IGCSE" title="IGCSE practice" intro="Browse IGCSE banks." />);
     expect(container.querySelector("a[href='/articles/best-revision-village-alternatives']")).toBeNull();
+  });
+
+  it("connects each syllabus guide to its verified free-paper route and qualification-specific comparison", () => {
+    const { rerender } = render(<SyllabusLanding bank={bank} manifest={manifest} fullPapersHref="/past-papers/igcse-physics-0625" />);
+    expect(screen.getByRole("link", { name: "Free full papers and mark schemes" })).toHaveAttribute("href", "/past-papers/igcse-physics-0625");
+    expect(screen.getByRole("link", { name: "Compare free IGCSE archives" })).toHaveAttribute("href", "/articles/best-free-igcse-past-paper-websites");
+    const ib = getCatalogBank("ib-hl")!;
+    rerender(<SyllabusLanding bank={ib} manifest={{ ...manifest, bankSlug: ib.slug }} />);
+    expect(screen.queryByRole("link", { name: "Free full papers and mark schemes" })).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "RevisionDojo vs Save My Exams" })).toHaveAttribute("href", "/articles/revisiondojo-vs-save-my-exams");
   });
 
   it("keeps the syllabus guide static and deep-links into the existing explorer", () => {
@@ -60,6 +77,13 @@ describe("SearchLanding", () => {
 
   const stats = { total: 75, free: 12, breakdown: [{ label: "Paper 2", count: 30 }, { label: "Paper 4", count: 45 }] };
   const related = [{ label: "Waves", href: "/banks/igcse-physics-0625/topics/waves", count: 45 }];
+
+  it("puts the public worked example into relevant supported topic pages", () => {
+    const maths = getCatalogBank("ib-hl")!;
+    const { container } = render(<SearchDetail eyebrow="Topic practice" bank={maths} title="Calculus questions" kind="topic" label="Calculus" canonicalPath="/banks/ib-hl/topics/calculus" stats={stats} related={[]}>{null}</SearchDetail>);
+    expect(container.querySelector("#worked-example")).toHaveTextContent("y = 7x − 4");
+    expect(container.querySelector("#worked-example")).toHaveTextContent("not an exam question");
+  });
 
   it("renders the live explorer under real archive stats with the static URL in schema", () => {
     const canonicalPath = "/banks/igcse-physics-0625/topics/motion-forces-and-energy";

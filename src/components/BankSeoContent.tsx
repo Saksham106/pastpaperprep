@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Bank } from "@/lib/banks";
+import { BankWorkedExample } from "@/components/BankWorkedExample";
 
 function guideFor(bank: Bank) {
   if (bank.slug === "igcse") {
@@ -58,6 +59,7 @@ export function BankSeoContent({ bank, topicLinks = [] }: { bank: Bank; topicLin
   const isIbMathAaHl = bank.slug === "ib-hl";
 
   return (
+    <>
     <section className="bank-seo-content" aria-labelledby="bank-guide-heading">
       <div>
         <p className="eyebrow">{isIbMathAaHl ? "IB Mathematics AA HL · focused practice" : "Revision method"}</p>
@@ -91,5 +93,7 @@ export function BankSeoContent({ bank, topicLinks = [] }: { bank: Bank; topicLin
         ) : null}
       </div>
     </section>
+    <BankWorkedExample bankSlug={bank.slug} />
+    </>
   );
 }

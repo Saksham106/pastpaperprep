@@ -1,13 +1,20 @@
 import Link from "next/link";
 
-export const FAQS = [
+type PublicFaq = {
+  question: string;
+  answer: string;
+  links?: readonly { href: string; label: string }[];
+};
+
+export const FAQS: readonly PublicFaq[] = [
   {
     question: "What is PastPaperPrep?",
-    answer: "PastPaperPrep organises real Cambridge IGCSE and IB past-paper questions into searchable question banks. Choose a course, filter to the exact topic you need, practise the original question, and check the available mark scheme.",
+    answer: "Free Cambridge IGCSE and IB past papers with their mark schemes, plus real exam questions sorted by topic. Practise, check the official answer, and open a worked explanation when you get stuck.",
   },
   {
     question: "What can I use for free?",
-    answer: "Every live bank includes free exam years that you can practise without paid access. Paid access unlocks the full available bank, mark schemes, and PDF worksheet export for the bank or bundle you choose.",
+    answer: "All full papers and mark schemes, with no sign-up. In the topic banks, guests see up to 20 free questions and a free account opens the rest. Newer questions and PDF worksheets need a plan.",
+    links: [{ href: "/past-papers", label: "Browse free full papers" }],
   },
   {
     question: "Which courses are available?",
@@ -19,7 +26,12 @@ export const FAQS = [
   },
   {
     question: "Are mark schemes included?",
-    answer: "Official mark-scheme extracts are shown where they are available in the bank. You can view them while practising and include them when building a PDF with the relevant access.",
+    answer: "Yes. Every full paper comes with its official mark scheme, and topic questions show the official answer. You can also add answers to a PDF worksheet.",
+  },
+  {
+    question: "Are worked explanations available?",
+    answer: "Yes, on many questions. Tap Explanation next to the answer to see the method step by step. They're written by PastPaperPrep, not the exam board, and follow the question's free or paid access.",
+    links: [{ href: "/banks/ib-hl#worked-example", label: "See an example" }],
   },
   {
     question: "How do I manage or cancel a subscription?",
@@ -29,7 +41,7 @@ export const FAQS = [
     question: "Is PastPaperPrep affiliated with an exam board?",
     answer: "No. PastPaperPrep is an independent practice platform. Exam-board names are used only to identify the relevant qualifications and source material.",
   },
-] as const;
+];
 
 export function FaqContent() {
   return (
@@ -38,7 +50,7 @@ export function FaqContent() {
       <header className="faq-hero">
         <p className="eyebrow">Help centre</p>
         <h1>Frequently asked questions</h1>
-        <p>Clear answers about free access, question banks, mark schemes, PDFs, and billing.</p>
+        <p>Clear answers about free papers, topical practice, worked explanations, PDFs, and billing.</p>
       </header>
 
       <section className="faq-list" aria-label="PastPaperPrep frequently asked questions">
@@ -46,6 +58,7 @@ export function FaqContent() {
           <article key={faq.question}>
             <h2>{faq.question}</h2>
             <p>{faq.answer}</p>
+            {faq.links ? <p>{faq.links.map((link, index) => <span key={link.href}>{index ? " · " : ""}<Link href={link.href}>{link.label}</Link></span>)}</p> : null}
           </article>
         ))}
       </section>

@@ -45,6 +45,18 @@ describe("BankSeoContent", () => {
     expect(screen.queryByText(/build a printable/i)).not.toBeInTheDocument();
   });
 
+  it("shows an indexable, clearly illustrative worked example only for a bank with published explanations", () => {
+    const { container, rerender } = render(<BankSeoContent bank={BANKS.find((bank) => bank.slug === "ib-hl")!} />);
+    const example = container.querySelector("#worked-example");
+    expect(example).not.toBeNull();
+    expect(example).toHaveTextContent("not an exam question");
+    expect(example).toHaveTextContent("y = 7x − 4");
+    expect(example?.querySelector('a[href="/banks/ib-hl?topic=Calculus"]')).not.toBeNull();
+    expect(example?.querySelector("img")).toBeNull();
+    rerender(<BankSeoContent bank={BANKS.find((bank) => bank.slug === "ib-biology-hl")!} />);
+    expect(container.querySelector("#worked-example")).toBeNull();
+  });
+
   it("distinguishes authentic archived questions from generated exam-style practice and states free access honestly", () => {
     render(<BankSeoContent bank={BANKS.find((bank) => bank.slug === "ib-biology-hl")!} />);
     expect(screen.getByText(/Practise 2,071 authentic past-paper questions from 93 archived papers/i)).toBeInTheDocument();

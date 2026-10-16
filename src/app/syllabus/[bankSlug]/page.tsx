@@ -7,6 +7,8 @@ import {
   type BankSlug,
 } from "@/lib/catalog";
 import { getLandingManifest } from "@/lib/search-landing";
+import { resolveSubject } from "@/lib/past-paper-pages";
+import { subjectSlugForBank } from "@/lib/past-paper-catalog";
 export const dynamicParams = false;
 export async function generateStaticParams() {
   return getCatalogBanksForDisplay().map((bank) => ({ bankSlug: bank.slug }));
@@ -38,7 +40,9 @@ export default async function SyllabusPage({
     !getCatalogBanksForDisplay().some((entry) => entry.slug === slug)
   )
     notFound();
+  const subject = subjectSlugForBank(slug);
+  const fullPapersHref = (await resolveSubject(subject)) ? `/past-papers/${subject}` : undefined;
   return (
-    <SyllabusLanding bank={bank} manifest={await getLandingManifest(slug)} />
+    <SyllabusLanding bank={bank} manifest={await getLandingManifest(slug)} fullPapersHref={fullPapersHref} />
   );
 }

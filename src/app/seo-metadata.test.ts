@@ -17,6 +17,7 @@ import { metadata as authMetadata } from "@/app/auth/layout";
 import { metadata as dashboardMetadata } from "@/app/dashboard/layout";
 import { generateMetadata as generateBankMetadata } from "@/app/banks/[slug]/page";
 import { BANKS } from "@/lib/banks";
+import { hasPublishedExplanations } from "@/lib/explanations";
 
 const expectPrivate = (metadata: typeof accountMetadata) => {
   expect(metadata.robots).toMatchObject({ index: false, follow: false, nocache: true });
@@ -55,7 +56,7 @@ describe("canonical search metadata", () => {
   });
 
   it("gives the homepage and pricing page distinct canonical metadata", () => {
-    expect(homeMetadata.title).toEqual({ absolute: "IGCSE & IB Past Papers by Topic | PastPaperPrep" });
+    expect(homeMetadata.title).toEqual({ absolute: "Free IGCSE & IB Past Papers by Topic | PastPaperPrep" });
     expect(homeMetadata.alternates?.canonical).toBe("/");
     expect(homeMetadata.openGraph).toMatchObject({
       url: "/",
@@ -91,5 +92,13 @@ describe("canonical search metadata", () => {
     expectPrivate(accountMetadata);
     expectPrivate(authMetadata);
     expectPrivate(dashboardMetadata);
+  });
+
+  it("advertises worked explanations only for banks with published question-level coverage", async () => {
+    for (const bank of BANKS) {
+      const metadata = await generateBankMetadata({ params: Promise.resolve({ slug: bank.slug }) });
+      expect(metadata.description!.includes("worked explanations"), bank.slug).toBe(hasPublishedExplanations(bank.slug));
+      expect(metadata.description!.length).toBeLessThanOrEqual(160);
+    }
   });
 });

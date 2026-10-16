@@ -19,6 +19,11 @@ export function hasExplanation(bank: string, questionId: string): boolean {
   return availableByBank.get(bank)?.has(questionId) ?? false;
 }
 
+/** Public coverage copy must follow published availability, not a subject-name guess. */
+export function hasPublishedExplanations(bank: string): boolean {
+  return (availableByBank.get(bank)?.size ?? 0) > 0;
+}
+
 export function explanationObjectPath(bank: string, questionId: string): string {
   const path = `explanations/${bank}/${questionId}.json`;
   if (!EXPLANATION_PATH.test(path)) throw new Error("Explanation path is invalid");

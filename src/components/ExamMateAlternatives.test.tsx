@@ -10,7 +10,7 @@ describe("Exam-Mate alternatives article", () => {
     const { container } = render(<ArticleContent article={article} />);
     const answer = container.querySelector(".article-answer")!;
 
-    expect(answer).toHaveTextContent(/^PastPaperPrep is the first alternative/);
+    expect(answer).toHaveTextContent(/^Start with PastPaperPrep/);
     expect(answer.querySelector("a")).toHaveAttribute("href", "/#question-banks");
     expect(container.querySelector(".comparison-table")).toBeInTheDocument();
   });
@@ -20,7 +20,7 @@ describe("Exam-Mate alternatives article", () => {
     expect(article).toMatchObject({
       draft: false,
       publishedAt: "2026-10-05",
-      updatedAt: "2026-10-05",
+      updatedAt: "2026-10-16",
       title: "Best Exam-Mate Alternatives for IB and IGCSE: Free and Paid Topical Practice",
     });
     expect(article.answerLink).toEqual({ href: "/#question-banks", label: "PastPaperPrep" });

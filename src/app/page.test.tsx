@@ -124,9 +124,18 @@ describe("home page", () => {
     );
   });
 
+  it("makes free full papers distinct from paid topic practice when the archive is available", () => {
+    const { container, getByRole } = render(<MarketingHome environment={liveBankEnvironment} papers={{ igcse: { href: "/past-papers/igcse-maths-0580", count: 216 } }} />);
+    const free = container.querySelector('[data-plan-tier="free"]');
+    expect(free?.textContent).toContain("Full papers and mark schemes, no sign-up");
+    expect(free?.querySelector('a[href="/past-papers"]')).not.toBeNull();
+    expect(getByRole("link", { name: "Browse free full papers" })).toHaveAttribute("href", "/past-papers");
+    expect(container.querySelector('[data-home-section="faq"]')?.textContent).toContain("Are worked explanations available?");
+  });
+
   it("describes Economics in homepage search metadata", () => {
     expect(JSON.stringify(metadata)).toContain("Economics");
-    expect(metadata.title).toEqual({ absolute: "IGCSE & IB Past Papers by Topic | PastPaperPrep" });
+    expect(metadata.title).toEqual({ absolute: "Free IGCSE & IB Past Papers by Topic | PastPaperPrep" });
     expect(metadata.description?.length).toBeGreaterThanOrEqual(25);
     expect(metadata.description?.length).toBeLessThanOrEqual(160);
   });

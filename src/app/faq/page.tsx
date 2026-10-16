@@ -4,7 +4,7 @@ import { JsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "Frequently Asked Questions",
-  description: "Answers about PastPaperPrep question banks, free access, mark schemes, printable PDF worksheets, billing, and support.",
+  description: "How PastPaperPrep's free full papers, topical question banks, official mark schemes, worked explanations, account access and PDF worksheets work.",
   alternates: { canonical: "/faq" },
 };
 
