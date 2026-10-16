@@ -16,6 +16,11 @@ import { metadata as accountMetadata } from "@/app/account/layout";
 import { metadata as authMetadata } from "@/app/auth/layout";
 import { metadata as dashboardMetadata } from "@/app/dashboard/layout";
 import { generateMetadata as generateBankMetadata } from "@/app/banks/[slug]/page";
+import { generateMetadata as generateSyllabusMetadata } from "@/app/syllabus/[bankSlug]/page";
+import { metadata as igcseHubMetadata } from "@/app/cambridge-igcse/page";
+import { metadata as ibHubMetadata } from "@/app/ib/page";
+import { BANK_CATALOG } from "@/lib/catalog";
+import { subjectSearchName } from "@/lib/past-paper-seo";
 import { BANKS } from "@/lib/banks";
 import { hasPublishedExplanations } from "@/lib/explanations";
 
@@ -100,5 +105,19 @@ describe("canonical search metadata", () => {
       expect(metadata.description!.includes("worked explanations"), bank.slug).toBe(hasPublishedExplanations(bank.slug));
       expect(metadata.description!.length).toBeLessThanOrEqual(160);
     }
+  });
+  it("names syllabus pages the way students search for them", async () => {
+    for (const bank of BANK_CATALOG) {
+      const metadata = await generateSyllabusMetadata({ params: Promise.resolve({ bankSlug: bank.slug }) });
+      const title = (metadata.title as { absolute: string }).absolute;
+      expect(title, bank.slug).toMatch(new RegExp(`^${subjectSearchName(bank)} Syllabus`));
+      expect(title.length, title).toBeLessThanOrEqual(60);
+      expect(metadata.description!.length, metadata.description!).toBeLessThanOrEqual(160);
+    }
+    const ib = await generateSyllabusMetadata({ params: Promise.resolve({ bankSlug: "ib-biology-hl" }) });
+    expect(ib.title).toEqual({ absolute: "IB Biology HL Syllabus: Topics, Papers and Marks" });
+    expect(ib.description).toContain("(first assessment 2025)");
+    expect(JSON.stringify(igcseHubMetadata)).toMatch(/0580.*0606.*0610.*0620.*0625.*0654.*0455/);
+    expect(ibHubMetadata.title).toBe("IB Past Papers by Topic: Maths, Sciences and Economics");
   });
 });

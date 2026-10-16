@@ -6,6 +6,8 @@ import { buildPaperMatrix, paperHref, paperName, qualificationOfBank, subjectSlu
 import type { ListView } from '@/lib/past-paper-pages';
 import { breadcrumbJsonLd, collectionJsonLd, faqJsonLd, paperNumberCopy, subjectCopy, subjectFaq, subjectSearchName, yearCopy } from '@/lib/past-paper-seo';
 import { PaperLibraryTools } from './PaperLibraryTools';
+import { getGradeThresholds } from '@/lib/grade-thresholds';
+import { getNotesSubject } from '@/lib/revision-notes';
 import styles from './PastPaperPages.module.css';
 
 const QUALIFICATION = { igcse: { name: 'Cambridge IGCSE', path: '/past-papers/igcse' }, ib: { name: 'IB', path: '/past-papers/ib' } } as const;
@@ -52,6 +54,8 @@ export function PastPaperListPage({ view }: { view: ListView }) {
       <nav aria-label="Browse by paper"><h2>Browse by paper</h2><div>{columns.map(c => <Link key={c.paper} href={c.href} aria-current={view.kind === 'paperNumber' && view.paper === c.paper ? 'page' : undefined}>{c.label}{c.note && <small>{c.note}</small>}</Link>)}</div></nav>
     </div>
     {view.practice && <Link className={styles.practice} href={`/banks/${bank.slug}`}>Practise {name} questions by topic <ArrowRight aria-hidden="true" weight="bold" /></Link>}
+    {getGradeThresholds(subject) && <Link className={styles.practice} href={`/grade-thresholds/${subject}`}>{name} grade thresholds <ArrowRight aria-hidden="true" weight="bold" /></Link>}
+    {getNotesSubject(subject) && <Link className={styles.practice} href={`/revision-notes/${subject}`}>{name} revision notes <ArrowRight aria-hidden="true" weight="bold" /></Link>}
     {faq.length > 0 && <section className={styles.faq} aria-labelledby="past-paper-faq">
       <h2 id="past-paper-faq">Questions</h2>
       {faq.map(item => <details key={item.q}><summary>{item.q}<CaretDown aria-hidden="true" /></summary><p>{item.a}</p></details>)}

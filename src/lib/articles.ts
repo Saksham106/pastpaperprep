@@ -8,6 +8,7 @@ import { TUTORS_PRICING_IGCSE_MATHS } from "@/lib/article-clusters/tutors-pricin
 import { SUBJECT_PRACTICE_GUIDES } from "@/lib/article-clusters/subject-practice-guides";
 import { FREE_PAPERS_EXPLANATIONS } from "@/lib/article-clusters/free-papers-explanations";
 import { freeAccessSection } from "@/lib/article-clusters/free-access-section";
+import { IB_BOOKLET_GUIDES } from "@/lib/article-clusters/ib-booklets";
 
 export type ArticleSection = {
   heading: string;
@@ -65,6 +66,22 @@ export type ArticleIndexDetail = {
  * never invents a route, an article count, or a topic.
  */
 export const ARTICLE_INDEX_DETAILS: Readonly<Record<string, ArticleIndexDetail>> = {
+  "ib-physics-data-booklet-guide": { difficulty: "Foundational", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-physics-hl", label: "IB Physics HL question bank" },
+    { href: "/banks/ib-physics-sl", label: "IB Physics SL question bank" },
+  ] },
+  "ib-chemistry-data-booklet-guide": { difficulty: "Foundational", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-chemistry-hl", label: "IB Chemistry HL question bank" },
+    { href: "/banks/ib-chemistry-sl", label: "IB Chemistry SL question bank" },
+  ] },
+  "ib-math-aa-formula-booklet-guide": { difficulty: "Foundational", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-hl", label: "IB Maths AA HL question bank" },
+    { href: "/banks/ib-sl", label: "IB Maths AA SL question bank" },
+  ] },
+  "ib-math-ai-formula-booklet-guide": { difficulty: "Foundational", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-ai-hl", label: "IB Maths AI HL question bank" },
+    { href: "/banks/ib-ai-sl", label: "IB Maths AI SL question bank" },
+  ] },
   "revisiondojo-vs-save-my-exams": { difficulty: "Foundational", exam: "IB Diploma", practiceLinks: [
     { href: "/banks/ib-hl?topic=Calculus", label: "IB Maths AA HL: Calculus" },
     { href: "/banks/ib-physics-hl?topic=Mechanics%20and%20motion", label: "IB Physics HL: Mechanics and motion" },
@@ -1178,6 +1195,7 @@ export const ALL_ARTICLES: readonly Article[] = [
   ...IGCSE_BIO_COORDINATED_ECON,
   ...SUBJECT_PRACTICE_GUIDES,
   ...FREE_PAPERS_EXPLANATIONS,
+  ...IB_BOOKLET_GUIDES,
 ] as const;
 
 export const ARTICLES: readonly Article[] = ALL_ARTICLES

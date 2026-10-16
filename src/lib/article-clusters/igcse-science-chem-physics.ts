@@ -246,8 +246,8 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
   {
     "draft": false,
     "slug": "best-igcse-physics-0625-question-banks",
-    "title": "IGCSE Physics 0625 Question Banks & Past Papers by Topic",
-    "description": "Compare the best Physics 0625 question banks and past-paper sites for calculations, graphs, practical skills and timed exam practice.",
+    "title": "IGCSE Physics 0625 Topical Past Papers & Question Banks",
+    "description": "IGCSE Physics 0625 topical past papers, including calculation questions by topic, plus the best free and paid question banks for graphs and practical skills.",
     "eyebrow": "Cambridge IGCSE Physics 0625",
     "answer": "PastPaperPrep is a focused option for real IGCSE Physics 0625 questions by topic: practise mechanics or electricity, check the available mark scheme and build a printable set with eligible bank access. A formula quiz can rehearse recall, but it does not stand in for full exam-style questions that make you choose a method, show working and apply it in context. Start with targeted calculation practice, then use full papers to test whether you can choose the right method without a topic prompt. PMT is useful for free paper archives; Save My Exams adds guided explanations.",
     "answerLink": { "href": "/banks/igcse-physics-0625", "label": "PastPaperPrep" },

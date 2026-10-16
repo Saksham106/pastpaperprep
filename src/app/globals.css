@@ -1386,6 +1386,23 @@ main { min-height: 72vh; }
 .article-sources ul { padding-left: 20px; color: var(--muted); line-height: 1.8; }
 .article-sources a { text-decoration: underline; text-underline-offset: 3px; }
 
+/* Revision notes and grade thresholds */
+.notes-topic-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.notes-topic-list a { display: grid; grid-template-columns: 2.4rem 1fr auto; align-items: center; gap: 14px; padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; color: var(--ink); }
+.notes-topic-list a:hover { border-color: var(--cobalt); }
+.notes-topic-list span { font: 700 .95rem var(--font-mono, monospace); color: var(--muted); }
+.notes-extended { margin-left: 12px; padding: 3px 9px; vertical-align: middle; font: 700 .72rem/1.4 var(--font-body); letter-spacing: .04em; text-transform: uppercase; color: var(--cobalt-strong); background: color-mix(in srgb, var(--cobalt) 10%, var(--surface)); border-radius: 999px; }
+.notes-extended-inline { margin: 0 8px 0 0; font-size: .66rem; }
+.notes-pager { margin-top: 36px; display: flex; justify-content: space-between; gap: 16px; }
+.notes-pager a { color: var(--cobalt-strong); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.threshold-table-wrap { overflow-x: auto; margin: 0 0 18px; }
+.threshold-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.threshold-table th, .threshold-table td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+.threshold-table th:first-child, .threshold-table td:first-child { text-align: left; }
+.threshold-table thead th { font-size: .82rem; color: var(--muted); }
+.threshold-series-nav { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 0 0 30px; }
+.threshold-series-nav a { color: var(--cobalt-strong); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+
 /* Footer */
 .site-footer { position: relative; isolation: isolate; padding: 52px max(24px, calc((100% - 1240px) / 2)) 26px; display: grid; grid-template-columns: minmax(220px, .8fr) minmax(0, 3.2fr); align-items: start; gap: 40px 56px; overflow: hidden; background: var(--paper-warm); }
 .footer-skyline { grid-column: 1 / -1; width: calc(100% + 2 * max(24px, calc((100% - 1240px) / 2))); height: 140px; margin: 0 calc(-1 * max(24px, calc((100% - 1240px) / 2))) 8px; display: block; color: var(--ink); border-bottom: 1px solid var(--line-strong); }

@@ -39,3 +39,19 @@ test('a mismatched deployed key prevents POST', async()=>{
  const fetcher=async(url,o)=>{if(o?.method==='POST')posts++;return new Response(url.endsWith('sitemap.xml')?xml:url.endsWith('key.txt')?'wrong-key':'<main>Test</main>');};
  try{await expect(run({state:join(dir,'state'),log:join(dir,'log'),keyPath,fetcher,submit:true,explicit:[SITE+'/']})).rejects.toThrow('verification');expect(posts).toBe(0);}finally{await rm(dir,{recursive:true,force:true});}
 });
+test('free past-paper pages are submitted from sitemap lastmod without fetching each paper', async () => {
+ expect(canonical(SITE + '/past-papers')).toBeTruthy();
+ expect(canonical(SITE + '/past-papers/igcse-maths-0580/2026-may-june-42')).toBeTruthy();
+ expect(canonical(SITE + '/past-papers/igcse-maths-0580/2026-may-june-42/document')).toBeNull();
+ expect(canonical(SITE + '/revision-notes/igcse-chemistry-0620/stoichiometry')).toBeTruthy();
+ expect(canonical(SITE + '/grade-thresholds/igcse-chemistry-0620')).toBeTruthy();
+ const paper = `${SITE}/past-papers/igcse-maths-0580/2026-may-june-42`;
+ const map = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${SITE}/</loc></url><url><loc>${paper}</loc><lastmod>2026-10-13</lastmod></url></urlset>`;
+ const dir = await mkdtemp(join(process.env.TMPDIR || '.', 'indexnow-papers-')); const fetched = [];
+ const fetcher = async (url) => { fetched.push(url); return new Response(url.endsWith('sitemap.xml') ? map : '<main>Home</main>'); };
+ try {
+  await run({ state: join(dir, 'state.json'), log: join(dir, 'log.jsonl'), fetcher });
+  expect(fetched).not.toContain(paper);
+  expect(JSON.parse(await readFile(join(dir, 'state.json'), 'utf8'))[paper]).toEqual({ lastmod: '2026-10-13', hash: '' });
+ } finally { await rm(dir, { recursive: true, force: true }); }
+});

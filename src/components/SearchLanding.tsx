@@ -13,6 +13,9 @@ import { topicLandingCopy } from "@/lib/search-landing-topic-content";
 import { Testimonial } from "@/components/Testimonial";
 import { topicTestimonial } from "@/lib/testimonials";
 import { BankWorkedExample } from "@/components/BankWorkedExample";
+import { notesSubjectForBank, getNoteTopic } from "@/lib/revision-notes";
+import { getGradeThresholds } from "@/lib/grade-thresholds";
+import { subjectSlugForBank } from "@/lib/past-paper-catalog";
 import {
   courseOverview,
   officialQualificationSource,
@@ -102,6 +105,8 @@ function ArchiveStats({ bank, manifest }: { bank: CatalogBank; manifest: Landing
 }
 
 export function SyllabusLanding({ bank, manifest, fullPapersHref }: { bank: CatalogBank; manifest: LandingManifest; fullPapersHref?: string }) {
+  const notesSubject = notesSubjectForBank(bank.slug);
+  const subjectSlug = subjectSlugForBank(bank.slug);
   const canonicalPath = `/syllabus/${bank.slug}`;
   const guide = assessmentGuideFor(bank);
   const groupedPapers = assessmentGroups(guide.papers);
@@ -113,7 +118,7 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref }: { bank: Cata
       <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: `${bank.title} syllabus and past-paper practice guide`, description: `A plain-English guide to ${bank.shortName}, its assessment structure, archive topic map, and focused past-paper practice.`, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@id": `${SITE_URL}/${bank.qualification === "IB Diploma" ? "ib" : "cambridge-igcse"}#page` } }} />
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: bank.qualification, href: bank.qualification === "IB Diploma" ? "/ib" : "/cambridge-igcse" }, { label: bank.shortName }]} />
       <header className="landing-hero">
-        <div className="landing-hero-copy"><p className="eyebrow">Syllabus and practice guide</p><h1>{bank.title} syllabus, topics, and past-paper practice</h1><p className="lead">A clear map of what the course covers, how it is assessed, and where real archive practice fits.</p></div>
+        <div className="landing-hero-copy"><p className="eyebrow">Syllabus and practice guide</p><h1>{bank.qualification === "Cambridge IGCSE" ? `Cambridge IGCSE ${bank.title}` : bank.title} syllabus, topics, and past-paper practice</h1><p className="lead">A clear map of what the course covers, how it is assessed, and where real archive practice fits.</p></div>
         <ArchiveStats bank={bank} manifest={manifest} />
       </header>
 
@@ -165,6 +170,8 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref }: { bank: Cata
         <section className="landing-method"><div><Target aria-hidden="true" /><h2>Use the map without overthinking it</h2></div><ol><li>Repair one narrow topic.</li><li>Remove the label and mix methods.</li><li>Finish with the correct paper under timed conditions.</li></ol></section>
         <nav className="bank-seo-links" aria-label={`${bank.shortName} revision resources`}>
           {fullPapersHref ? <Link transitionTypes={PAGE_NAVIGATION} href={fullPapersHref}>Free full papers and mark schemes</Link> : null}
+          {notesSubject ? <Link transitionTypes={PAGE_NAVIGATION} href={`/revision-notes/${notesSubject.subjectSlug}`}>Revision notes</Link> : null}
+          {getGradeThresholds(subjectSlug) ? <Link transitionTypes={PAGE_NAVIGATION} href={`/grade-thresholds/${subjectSlug}`}>Grade thresholds</Link> : null}
           {bank.qualification === "IB Diploma"
             ? <Link transitionTypes={PAGE_NAVIGATION} href="/articles/revisiondojo-vs-save-my-exams">RevisionDojo vs Save My Exams</Link>
             : <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-free-igcse-past-paper-websites">Compare free IGCSE archives</Link>}
@@ -176,6 +183,8 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref }: { bank: Cata
 }
 
 export function SearchDetail({ bank, eyebrow, title, kind, label, canonicalPath, stats, related, children }: { bank: CatalogBank; eyebrow: string; title: string; kind: "topic" | "paper"; label: string; canonicalPath: string; stats: DetailStats; related: Array<{ label: string; href: string; count: number }>; children: ReactNode }) {
+  const notes = kind === "topic" ? notesSubjectForBank(bank.slug) : undefined;
+  const noteHref = notes && getNoteTopic(notes.subjectSlug, slugifyLabel(label)) ? `/revision-notes/${notes.subjectSlug}/${slugifyLabel(label)}` : undefined;
   const tone = courseToneForBank(bank);
   const locked = stats.total - stats.free;
   return (
@@ -189,6 +198,7 @@ export function SearchDetail({ bank, eyebrow, title, kind, label, canonicalPath,
       {stats.breakdown.length ? <p className="detail-breakdown"><strong>{kind === "topic" ? "Appears in" : "Most-tested topics"}</strong>{stats.breakdown.map((item) => <span key={item.label}>{item.label} <small>{item.count.toLocaleString()}</small></span>)}</p> : null}
       {children}
       {kind === "topic" ? <BankWorkedExample bankSlug={bank.slug} topic={label} /> : null}
+      {noteHref ? <p className="access-footnote">Revise first: <Link transitionTypes={PAGE_NAVIGATION} href={noteHref}>{label} revision notes</Link>.</p> : null}
       {kind === "topic" && <Testimonial testimonial={topicTestimonial(bank.slug)} variant="inline" signedOutOnly />}
       {bank.slug === "igcse-chemistry-0620" && kind === "topic" && label === "Stoichiometry" && <p className="access-footnote">Need more revision context? Read our <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-igcse-chemistry-0620-question-banks">IGCSE Chemistry 0620 question-bank guide</Link>.</p>}
       {related.length ? <nav className="detail-related" aria-label={`More ${bank.shortName} practice`}><h2>More {bank.shortName} {kind === "topic" ? "topics" : "papers"}</h2><div className="paper-link-grid">{related.map((item) => <Link transitionTypes={PAGE_NAVIGATION} key={item.href} href={item.href}>{kind === "topic" ? <Target aria-hidden="true" /> : <FileText aria-hidden="true" />}<span><strong>{item.label}</strong><small>{item.count.toLocaleString()} questions</small></span><ArrowRight weight="bold" /></Link>)}</div><Link transitionTypes={PAGE_NAVIGATION} className="text-button" href={`/syllabus/${bank.slug}`}>Read the {bank.shortName} syllabus guide <ArrowRight weight="bold" /></Link></nav> : null}
