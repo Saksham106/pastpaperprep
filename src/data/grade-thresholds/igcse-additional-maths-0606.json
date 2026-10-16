@@ -1,0 +1,884 @@
+{
+  "subjectSlug": "igcse-additional-maths-0606",
+  "syllabusCode": "0606",
+  "tables": [
+    {
+      "series": "June 2026",
+      "code": "s26",
+      "sourceUrl": "https://www.cambridgeinternational.org/Images/762853-additional-mathematics-0606-june-2026-grade-threshold-table.pdf",
+      "components": {
+        "headings": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "component": "Component 11",
+            "maxMark": 80,
+            "values": [
+              63,
+              47,
+              32,
+              25,
+              19
+            ]
+          },
+          {
+            "component": "Component 12",
+            "maxMark": 80,
+            "values": [
+              61,
+              46,
+              31,
+              24,
+              18
+            ]
+          },
+          {
+            "component": "Component 13",
+            "maxMark": 80,
+            "values": [
+              61,
+              46,
+              31,
+              24,
+              18
+            ]
+          },
+          {
+            "component": "Component 21",
+            "maxMark": 80,
+            "values": [
+              59,
+              45,
+              30,
+              24,
+              17
+            ]
+          },
+          {
+            "component": "Component 22",
+            "maxMark": 80,
+            "values": [
+              56,
+              42,
+              28,
+              22,
+              15
+            ]
+          },
+          {
+            "component": "Component 23",
+            "maxMark": 80,
+            "values": [
+              56,
+              42,
+              28,
+              22,
+              15
+            ]
+          },
+          {
+            "component": "Component 50",
+            "maxMark": 90,
+            "values": [
+              69,
+              60,
+              51,
+              42,
+              33
+            ]
+          }
+        ]
+      },
+      "options": {
+        "headings": [
+          "A*",
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "option": "11, 21",
+            "components": "11, 21",
+            "maxMark": 160,
+            "values": [
+              141,
+              122,
+              92,
+              62,
+              49,
+              36
+            ]
+          },
+          {
+            "option": "12, 22",
+            "components": "12, 22",
+            "maxMark": 160,
+            "values": [
+              138,
+              117,
+              88,
+              59,
+              46,
+              33
+            ]
+          },
+          {
+            "option": "13, 23",
+            "components": "13, 23",
+            "maxMark": 160,
+            "values": [
+              138,
+              117,
+              88,
+              59,
+              46,
+              33
+            ]
+          },
+          {
+            "option": "50",
+            "components": "50",
+            "maxMark": 90,
+            "values": [
+              78,
+              69,
+              60,
+              51,
+              42,
+              33
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "series": "March 2026",
+      "code": "m26",
+      "sourceUrl": "https://www.cambridgeinternational.org/Images/758468-additional-mathematics-0606-march-2026-grade-threshold-table.pdf",
+      "components": {
+        "headings": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "component": "Component 12",
+            "maxMark": 80,
+            "values": [
+              59,
+              44,
+              30,
+              23,
+              16
+            ]
+          },
+          {
+            "component": "Component 22",
+            "maxMark": 80,
+            "values": [
+              60,
+              44,
+              27,
+              20,
+              14
+            ]
+          }
+        ]
+      },
+      "options": {
+        "headings": [
+          "A*",
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "option": "12, 22",
+            "components": "12, 22",
+            "maxMark": 160,
+            "values": [
+              139,
+              119,
+              88,
+              57,
+              43,
+              30
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "series": "November 2025",
+      "code": "w25",
+      "sourceUrl": "https://www.cambridgeinternational.org/Images/750656-additional-mathematics-0606-november-2025-grade-threshold-table.pdf",
+      "components": {
+        "headings": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "component": "Component 11",
+            "maxMark": 80,
+            "values": [
+              57,
+              38,
+              20,
+              15,
+              11
+            ]
+          },
+          {
+            "component": "Component 12",
+            "maxMark": 80,
+            "values": [
+              57,
+              38,
+              20,
+              15,
+              11
+            ]
+          },
+          {
+            "component": "Component 13",
+            "maxMark": 80,
+            "values": [
+              51,
+              35,
+              20,
+              14,
+              8
+            ]
+          },
+          {
+            "component": "Component 21",
+            "maxMark": 80,
+            "values": [
+              59,
+              42,
+              25,
+              19,
+              13
+            ]
+          },
+          {
+            "component": "Component 22",
+            "maxMark": 80,
+            "values": [
+              56,
+              38,
+              19,
+              14,
+              9
+            ]
+          },
+          {
+            "component": "Component 23",
+            "maxMark": 80,
+            "values": [
+              59,
+              42,
+              25,
+              19,
+              13
+            ]
+          }
+        ]
+      },
+      "options": {
+        "headings": [
+          "A*",
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "option": "AX",
+            "components": "11, 21",
+            "maxMark": 160,
+            "values": [
+              138,
+              116,
+              80,
+              45,
+              34,
+              24
+            ]
+          },
+          {
+            "option": "AY",
+            "components": "12, 22",
+            "maxMark": 160,
+            "values": [
+              136,
+              113,
+              76,
+              39,
+              29,
+              20
+            ]
+          },
+          {
+            "option": "AZ",
+            "components": "13, 23",
+            "maxMark": 160,
+            "values": [
+              135,
+              110,
+              77,
+              45,
+              33,
+              21
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "series": "June 2025",
+      "code": "s25",
+      "sourceUrl": "https://www.cambridgeinternational.org/Images/741349-additional-mathematics-0606-june-2025-grade-threshold-table.pdf",
+      "components": {
+        "headings": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "component": "Component 11",
+            "maxMark": 80,
+            "values": [
+              56,
+              40,
+              25,
+              19,
+              13
+            ]
+          },
+          {
+            "component": "Component 12",
+            "maxMark": 80,
+            "values": [
+              60,
+              45,
+              30,
+              24,
+              17
+            ]
+          },
+          {
+            "component": "Component 13",
+            "maxMark": 80,
+            "values": [
+              60,
+              45,
+              30,
+              23,
+              17
+            ]
+          },
+          {
+            "component": "Component 21",
+            "maxMark": 80,
+            "values": [
+              54,
+              40,
+              26,
+              20,
+              14
+            ]
+          },
+          {
+            "component": "Component 22",
+            "maxMark": 80,
+            "values": [
+              55,
+              42,
+              29,
+              22,
+              16
+            ]
+          },
+          {
+            "component": "Component 23",
+            "maxMark": 80,
+            "values": [
+              54,
+              40,
+              26,
+              20,
+              14
+            ]
+          }
+        ]
+      },
+      "options": {
+        "headings": [
+          "A*",
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "option": "AX",
+            "components": "11, 21",
+            "maxMark": 160,
+            "values": [
+              135,
+              110,
+              80,
+              51,
+              39,
+              27
+            ]
+          },
+          {
+            "option": "AY",
+            "components": "12, 22",
+            "maxMark": 160,
+            "values": [
+              137,
+              115,
+              87,
+              59,
+              46,
+              33
+            ]
+          },
+          {
+            "option": "AZ",
+            "components": "13, 23",
+            "maxMark": 160,
+            "values": [
+              137,
+              114,
+              85,
+              56,
+              43,
+              31
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "series": "March 2025",
+      "code": "m25",
+      "sourceUrl": "https://www.cambridgeinternational.org/Images/735004-additional-mathematics-0606-march-2025-grade-threshold-table.pdf",
+      "components": {
+        "headings": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "component": "Component 12",
+            "maxMark": 80,
+            "values": [
+              58,
+              42,
+              27,
+              21,
+              16
+            ]
+          },
+          {
+            "component": "Component 22",
+            "maxMark": 80,
+            "values": [
+              61,
+              45,
+              29,
+              23,
+              16
+            ]
+          }
+        ]
+      },
+      "options": {
+        "headings": [
+          "A*",
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "option": "AY",
+            "components": "12, 22",
+            "maxMark": 160,
+            "values": [
+              139,
+              119,
+              87,
+              56,
+              44,
+              32
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "series": "November 2024",
+      "code": "w24",
+      "sourceUrl": "https://www.cambridgeinternational.org/Images/728809-additional-mathematics-0606-november-2024-grade-threshold-table.pdf",
+      "components": {
+        "headings": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "component": "Component 11",
+            "maxMark": 80,
+            "values": [
+              62,
+              43,
+              24,
+              18,
+              12
+            ]
+          },
+          {
+            "component": "Component 12",
+            "maxMark": 80,
+            "values": [
+              58,
+              39,
+              20,
+              15,
+              10
+            ]
+          },
+          {
+            "component": "Component 13",
+            "maxMark": 80,
+            "values": [
+              65,
+              46,
+              27,
+              19,
+              12
+            ]
+          },
+          {
+            "component": "Component 21",
+            "maxMark": 80,
+            "values": [
+              58,
+              41,
+              24,
+              16,
+              9
+            ]
+          },
+          {
+            "component": "Component 22",
+            "maxMark": 80,
+            "values": [
+              52,
+              34,
+              17,
+              13,
+              9
+            ]
+          },
+          {
+            "component": "Component 23",
+            "maxMark": 80,
+            "values": [
+              59,
+              41,
+              24,
+              17,
+              9
+            ]
+          }
+        ]
+      },
+      "options": {
+        "headings": [
+          "A*",
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "option": "AX",
+            "components": "11, 21",
+            "maxMark": 160,
+            "values": [
+              140,
+              120,
+              84,
+              48,
+              34,
+              21
+            ]
+          },
+          {
+            "option": "AY",
+            "components": "12, 22",
+            "maxMark": 160,
+            "values": [
+              135,
+              110,
+              73,
+              37,
+              28,
+              19
+            ]
+          },
+          {
+            "option": "AZ",
+            "components": "13, 23",
+            "maxMark": 160,
+            "values": [
+              142,
+              124,
+              87,
+              51,
+              36,
+              21
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "series": "June 2024",
+      "code": "s24",
+      "sourceUrl": "https://www.cambridgeinternational.org/Images/716098-additional-mathematics-0606-june-2024-grade-threshold-table.pdf",
+      "components": {
+        "headings": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "component": "Component 11",
+            "maxMark": 80,
+            "values": [
+              53,
+              38,
+              22,
+              16,
+              10
+            ]
+          },
+          {
+            "component": "Component 12",
+            "maxMark": 80,
+            "values": [
+              53,
+              39,
+              25,
+              19,
+              13
+            ]
+          },
+          {
+            "component": "Component 13",
+            "maxMark": 80,
+            "values": [
+              53,
+              38,
+              22,
+              16,
+              10
+            ]
+          },
+          {
+            "component": "Component 21",
+            "maxMark": 80,
+            "values": [
+              52,
+              38,
+              25,
+              19,
+              13
+            ]
+          },
+          {
+            "component": "Component 22",
+            "maxMark": 80,
+            "values": [
+              57,
+              44,
+              31,
+              25,
+              19
+            ]
+          },
+          {
+            "component": "Component 23",
+            "maxMark": 80,
+            "values": [
+              52,
+              38,
+              25,
+              19,
+              13
+            ]
+          }
+        ]
+      },
+      "options": {
+        "headings": [
+          "A*",
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "option": "AX",
+            "components": "11, 21",
+            "maxMark": 160,
+            "values": [
+              132,
+              105,
+              76,
+              47,
+              35,
+              23
+            ]
+          },
+          {
+            "option": "AY",
+            "components": "12, 22",
+            "maxMark": 160,
+            "values": [
+              135,
+              110,
+              83,
+              56,
+              44,
+              32
+            ]
+          },
+          {
+            "option": "AZ",
+            "components": "13, 23",
+            "maxMark": 160,
+            "values": [
+              132,
+              105,
+              76,
+              47,
+              35,
+              23
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "series": "March 2024",
+      "code": "m24",
+      "sourceUrl": "https://www.cambridgeinternational.org/Images/711740-additional-mathematics-0606-march-2024-grade-threshold-table.pdf",
+      "components": {
+        "headings": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "component": "Component 12",
+            "maxMark": 80,
+            "values": [
+              61,
+              48,
+              35,
+              29,
+              22
+            ]
+          },
+          {
+            "component": "Component 22",
+            "maxMark": 80,
+            "values": [
+              51,
+              39,
+              27,
+              21,
+              16
+            ]
+          }
+        ]
+      },
+      "options": {
+        "headings": [
+          "A*",
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          {
+            "option": "AY",
+            "components": "12, 22",
+            "maxMark": 160,
+            "values": [
+              136,
+              112,
+              87,
+              62,
+              50,
+              38
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

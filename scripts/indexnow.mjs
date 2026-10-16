@@ -12,7 +12,7 @@ export function canonical(raw) {
   try {
     const u = new URL(raw);
     if (u.origin !== SITE || u.search || u.hash || u.username || u.password || /%/.test(u.pathname)) return null;
-    if (!STATIC.has(u.pathname) && !/^\/articles\/[a-z0-9-]+$/.test(u.pathname) && !/^\/(banks|syllabus)\/[a-z0-9-]+(?:\/(topics|papers)\/[a-z0-9-]+)?$/.test(u.pathname) && !/^\/past-papers(?:\/[a-z0-9-]+){0,2}$/.test(u.pathname)) return null;
+    if (!STATIC.has(u.pathname) && !/^\/articles\/[a-z0-9-]+$/.test(u.pathname) && !/^\/(banks|syllabus)\/[a-z0-9-]+(?:\/(topics|papers)\/[a-z0-9-]+)?$/.test(u.pathname) && !/^\/past-papers(?:\/[a-z0-9-]+){0,2}$/.test(u.pathname) && !/^\/(revision-notes\/[a-z0-9-]+(?:\/[a-z0-9-]+)?|grade-thresholds\/[a-z0-9-]+)$/.test(u.pathname)) return null;
     if (/\/articles\/(preview|draft-)/.test(u.pathname)) return null;
     return u.href;
   } catch { return null; }

@@ -43,6 +43,8 @@ test('free past-paper pages are submitted from sitemap lastmod without fetching 
  expect(canonical(SITE + '/past-papers')).toBeTruthy();
  expect(canonical(SITE + '/past-papers/igcse-maths-0580/2026-may-june-42')).toBeTruthy();
  expect(canonical(SITE + '/past-papers/igcse-maths-0580/2026-may-june-42/document')).toBeNull();
+ expect(canonical(SITE + '/revision-notes/igcse-chemistry-0620/stoichiometry')).toBeTruthy();
+ expect(canonical(SITE + '/grade-thresholds/igcse-chemistry-0620')).toBeTruthy();
  const paper = `${SITE}/past-papers/igcse-maths-0580/2026-may-june-42`;
  const map = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${SITE}/</loc></url><url><loc>${paper}</loc><lastmod>2026-10-13</lastmod></url></urlset>`;
  const dir = await mkdtemp(join(process.env.TMPDIR || '.', 'indexnow-papers-')); const fetched = [];

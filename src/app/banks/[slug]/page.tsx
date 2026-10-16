@@ -26,7 +26,10 @@ function topicalCopy(slug: BankSlug, fallbackName: string) {
   const name = catalog ? subjectSearchName(catalog) : fallbackName;
   return {
     name,
-    title: fitTitle(`${name} Topical Past Paper Questions`, `${name} Topical Past Papers`),
+    // IB students search "question bank"; IGCSE students search "topical past papers".
+    title: catalog?.qualification === "IB Diploma"
+      ? fitTitle(`${name} Question Bank: Topical Past Papers`, `${name} Topical Past Papers`)
+      : fitTitle(`${name} Topical Past Paper Questions`, `${name} Topical Past Papers`),
     description: hasPublishedExplanations(slug)
       ? `${name} topical past-paper questions by topic, year, paper and marks. Official answers plus selected worked explanations where published.`
       : `${name} topical past-paper questions: real exams sorted by topic, year, paper and marks, with official answers.`,

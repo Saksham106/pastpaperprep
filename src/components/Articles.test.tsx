@@ -17,8 +17,8 @@ describe("article library", () => {
   it("keeps scheduled drafts out of public article collections", () => {
     expect(isPublicArticle({ draft: false })).toBe(true);
     expect(isPublicArticle({ draft: true })).toBe(false);
-    expect(ALL_ARTICLES).toHaveLength(40);
-    expect(ARTICLES).toHaveLength(37);
+    expect(ALL_ARTICLES).toHaveLength(44);
+    expect(ARTICLES).toHaveLength(41);
     expect(getArticle("how-to-mark-maths-past-paper-mistake-log")?.draft).toBe(false);
     expect(getArticle("topic-questions-vs-full-past-papers")?.draft).toBe(false);
     expect(getArticle("best-free-ib-maths-aa-hl-resources")?.draft).toBe(false);
@@ -40,6 +40,10 @@ describe("article library", () => {
 
   it("keeps the commercial cluster behind an explicit release matrix", () => {
     const releaseMatrix = [
+      ["ib-physics-data-booklet-guide", "2026-10-16", "2026-10-16", false],
+      ["ib-chemistry-data-booklet-guide", "2026-10-16", "2026-10-16", false],
+      ["ib-math-aa-formula-booklet-guide", "2026-10-16", "2026-10-16", false],
+      ["ib-math-ai-formula-booklet-guide", "2026-10-16", "2026-10-16", false],
       ["revisiondojo-vs-save-my-exams", "2026-10-14", "2026-10-16", false],
       ["best-free-igcse-past-paper-websites", "2026-10-14", "2026-10-16", false],
       ["best-exam-mate-alternatives", "2026-10-05", "2026-10-16", false],
@@ -68,8 +72,8 @@ describe("article library", () => {
       ["best-igcse-economics-0455-question-banks", "2026-09-15", "2026-10-16", false],
     ] as const;
 
-    expect(ALL_ARTICLES).toHaveLength(40);
-    expect(ARTICLES).toHaveLength(37);
+    expect(ALL_ARTICLES).toHaveLength(44);
+    expect(ARTICLES).toHaveLength(41);
     expect(ALL_ARTICLES.filter(({ draft }) => draft)).toHaveLength(3);
 
     for (const [slug, publishedAt, updatedAt, draft] of releaseMatrix) {
@@ -195,9 +199,13 @@ describe("article library", () => {
   });
 
   it("ships an intentional public cluster with unique search-friendly URLs", () => {
-    expect(ARTICLES).toHaveLength(37);
+    expect(ARTICLES).toHaveLength(41);
     expect(new Set(ALL_ARTICLES.map(({ slug }) => slug)).size).toBe(ALL_ARTICLES.length);
     expect(ARTICLES.map(({ slug }) => slug)).toEqual([
+      "ib-physics-data-booklet-guide",
+      "ib-chemistry-data-booklet-guide",
+      "ib-math-aa-formula-booklet-guide",
+      "ib-math-ai-formula-booklet-guide",
       "revisiondojo-vs-save-my-exams",
       "best-free-igcse-past-paper-websites",
       "economics-0455-2027-syllabus-changes-practice-plan",
