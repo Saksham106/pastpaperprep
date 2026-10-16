@@ -103,7 +103,7 @@ describe("explanation assets", () => {
     expect(rpc).toHaveBeenCalledWith("consume_explanation_and_download_allowance", { p_count: 1, p_asset_count: 1 });
     expect(rpc).not.toHaveBeenCalledWith("consume_explanation_allowance", expect.anything());
     expect(rpc).not.toHaveBeenCalledWith("consume_download_allowance", expect.anything());
-    expect(createSignedUrls).toHaveBeenCalledWith([`ib-sl/markschemes/${PAID}.webp`], 600);
+    expect(createSignedUrls).toHaveBeenCalledWith([`ib-sl/markschemes/${PAID}.webp`], 3600);
   });
 
   it("refuses a paid explanation without bank access", async () => {
