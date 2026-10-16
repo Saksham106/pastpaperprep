@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import type { BankSlug } from '@/lib/banks';
 import { normalizeBankQuestions, type UnifiedQuestion } from '@/lib/questions';
@@ -22,8 +23,17 @@ describe('exact active science MCQ row projection',()=>{
   for(const [bank,count,held] of [['igcse-chemistry-0620',3838,200],['igcse-physics-0625',4200,39],['igcse-coordinated-sciences-0654',3240,39]] as const){
     it(`${bank}: changes only ${count} exact answer paths and preserves the full sealed cohort`,()=>{
       const bytes=readFileSync(`src/data/production/${bank}.json`);
-      expect(createHash('sha256').update(bytes).digest('hex')).toBe(manifest.banks[bank].runtimeSha256);
-      const raw=JSON.parse(bytes.toString()) as {questions:Array<Record<string,unknown>>};
+      const raw=JSON.parse(bytes.toString()) as {questions:Array<Record<string,unknown>>;runtimeArtifact?:{printedMarksRepair?:{baselineGitCommit:string}}};
+      const marksRepair=raw.runtimeArtifact?.printedMarksRepair;
+      if(marksRepair){
+        // A later marks-only reseal: the sealed runtime is its baseline, and only marks/maxMarks may differ.
+        const ancestor=execFileSync('git',['show',`${marksRepair.baselineGitCommit}:src/data/production/${bank}.json`],{maxBuffer:50_000_000});
+        expect(createHash('sha256').update(ancestor).digest('hex')).toBe(manifest.banks[bank].runtimeSha256);
+        const base=(JSON.parse(ancestor.toString()) as {questions:Array<Record<string,unknown>>}).questions;
+        expect(raw.questions.map(q=>q.id)).toEqual(base.map(q=>q.id));
+        const withoutMarks=(q:Record<string,unknown>)=>Object.fromEntries(Object.entries(q).filter(([key])=>key!=='marks'&&key!=='maxMarks'));
+        raw.questions.forEach((q,i)=>expect(withoutMarks(q)).toEqual(withoutMarks(base[i])));
+      } else expect(createHash('sha256').update(bytes).digest('hex')).toBe(manifest.banks[bank].runtimeSha256);
       const sealed=JSON.stringify(raw);
       const before=normalizeBankQuestions(bank,raw.questions,{economicsAssetMode:'private'});
       const after=normalizeBankQuestions(bank,raw.questions,{economicsAssetMode:'private',applyReviewedBlankPages:true});

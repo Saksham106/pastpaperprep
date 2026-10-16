@@ -8,6 +8,9 @@ import { filterQuestions } from "../src/lib/question-filter.ts";
 import { PHYSICS_0625_SECTIONS } from "../src/lib/igcse-0625-official.mjs";
 
 const BASE = "0a0b2246e269c03f81669548947d011c4f68b741";
+// The release this reseal produced; later marks-only reseals descend from it.
+const MCQ_RELEASE = "197ac22550d5bcb7559eafdbc0ae5cf391924bd5";
+const readRelease = (file) => JSON.parse(execFileSync("git", ["show", `${MCQ_RELEASE}:${file}`], { maxBuffer: 50_000_000 }));
 const readBase = (file) => JSON.parse(execFileSync("git", ["show", `${BASE}:${file}`], { maxBuffer: 50_000_000 }));
 const baseline = readBase("src/data/production/igcse-physics-0625.json");
 const frozen = JSON.parse(readFileSync("scripts/data/0625-2026-mcq-retrieval-targets.json", "utf8"));
@@ -20,7 +23,7 @@ const inputs = {
 describe("0625 2026 MCQ retrieval reseal", () => {
   it("replays exactly fourteen metadata-only changes and preserves 144 prior practical repairs", () => {
     const result = reseal2026(inputs);
-    expect(result).toEqual(JSON.parse(readFileSync("src/data/production/igcse-physics-0625.json", "utf8")));
+    expect(result).toEqual(readRelease("src/data/production/igcse-physics-0625.json"));
     expect(result.questions).toHaveLength(5789);
     const changed = result.questions.filter((q, i) => JSON.stringify(q) !== JSON.stringify(baseline.questions[i]));
     expect(changed.map((q) => q.id).sort()).toEqual(frozen.rows.map((row) => row[0]).sort());
@@ -52,7 +55,7 @@ describe("0625 2026 MCQ retrieval reseal", () => {
 
   it("changes exactly fourteen private-index rows and projects separately source-verified sections", () => {
     const original = readBase("src/data/private-index/igcse-physics-0625.json");
-    const current = JSON.parse(readFileSync("src/data/private-index/igcse-physics-0625.json", "utf8"));
+    const current = readRelease("src/data/private-index/igcse-physics-0625.json");
     expect(current.questions).toHaveLength(5789);
     const changed = current.questions.filter((q, i) => JSON.stringify(q) !== JSON.stringify(original.questions[i]));
     expect(changed.map((q) => q.id).sort()).toEqual(frozen.rows.map(([id]) => id).sort());
@@ -63,7 +66,7 @@ describe("0625 2026 MCQ retrieval reseal", () => {
         .toEqual(row.id === "0625-2026-m-12-q1" ? ["primaryTopic"] : ["primaryTopic", "subtopics"]);
     }
     // The private metadata index has no source-era provenance; project the sealed full runtime.
-    const questions = normalizeBankQuestions("igcse-physics-0625", JSON.parse(readFileSync("src/data/production/igcse-physics-0625.json", "utf8")).questions);
+    const questions = normalizeBankQuestions("igcse-physics-0625", readRelease("src/data/production/igcse-physics-0625.json").questions);
     const reviewed = new Map(JSON.parse(readFileSync("src/data/igcse-physics-0625-current-review-overlay.json", "utf8")).rows.map((row) => [row.id, row]));
     for (const [id, key] of frozen.rows) {
       const [topic, , detail] = frozen.labels[key];
