@@ -34,6 +34,16 @@ describe("SiteHeader", () => {
     expect(screen.getByRole("link", { name: /pastpaperprep home/i })).toHaveAttribute("href", "/");
   });
 
+  it("lists My worksheets in the menu for signed-in users only", () => {
+    usePathname.mockReturnValue("/worksheets/build");
+    const view = render(<SiteHeader authenticated />);
+    expect(screen.getByRole("link", { name: "My worksheets" })).toHaveAttribute("href", "/worksheets");
+    expect(screen.getByRole("link", { name: "My worksheets" })).toHaveAttribute("aria-current", "page");
+    expect(screen.getByRole("link", { name: "My worksheets" })).toHaveClass("nav-worksheets");
+    view.rerender(<SiteHeader authenticated={false} />);
+    expect(screen.queryByRole("link", { name: "My worksheets" })).not.toBeInTheDocument();
+  });
+
   it("keeps pricing available before sign-in", () => {
     render(<SiteHeader authenticated={false} />);
     expect(screen.getByRole("link", { name: "Pricing" })).toHaveAttribute("href", "/pricing");
