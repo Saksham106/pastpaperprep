@@ -50,6 +50,39 @@ export async function loadReportHolds(root:string) {
   }
   return holds;
 }
+/**
+ * Reviewed MCQ key exceptions (data/paper-archives/mcq-key-reviews.json): a Paper 1A mark scheme whose key letter is
+ * printed in its row but sits out of order in the PDF text stream, so the text-order match misses it. A review only
+ * adds its question numbers to that paper's matched key numbers. It is bound to both PDF hashes, must name an
+ * existing paper, and its letters must equal the reviewed runtime letters; anything else fails the build.
+ */
+export const MCQ_KEY_REVIEWS_FILE='data/paper-archives/mcq-key-reviews.json';
+export type McqKeyReview={bankSlug:string;paperId:string;questionSha256:string;markschemeSha256:string;keys:Record<string,string>;review:{date:string;evidence:string}};
+export async function loadMcqKeyReviews(root:string) {
+  const payload=await readOptionalJson<{schema?:string;reviews?:McqKeyReview[]}>(path.join(root,MCQ_KEY_REVIEWS_FILE),{schema:'whole-paper-mcq-key-reviews-v1',reviews:[]});
+  if(payload.schema!=='whole-paper-mcq-key-reviews-v1'||!Array.isArray(payload.reviews))throw new Error('Invalid MCQ key reviews file');
+  const reviews=new Map<string,McqKeyReview>();
+  for(const review of payload.reviews) {
+    if(!getCatalogBank(review.bankSlug)||!/^[a-z0-9][a-z0-9-]{0,159}$/.test(review.paperId)||![review.questionSha256,review.markschemeSha256].every(h=>/^[a-f0-9]{64}$/.test(h)))throw new Error('Invalid MCQ key review binding');
+    const entries=review.keys&&typeof review.keys==='object'?Object.entries(review.keys):[];
+    if(!entries.length||!entries.every(([number,letter])=>/^[1-9]\d?$/.test(number)&&/^[A-D]$/.test(letter)))throw new Error(`MCQ key review needs question numbers and letters A-D: ${review.paperId}`);
+    if(!review.review||!/^\d{4}-\d{2}-\d{2}$/.test(review.review.date)||typeof review.review.evidence!=='string'||!review.review.evidence.trim())throw new Error(`MCQ key review needs a date and evidence: ${review.paperId}`);
+    const key=JSON.stringify([review.bankSlug,review.paperId]);
+    if(reviews.has(key))throw new Error('Duplicate MCQ key review');
+    reviews.set(key,review);
+  }
+  return reviews;
+}
+/** Reviewed runtime answer letters for one paper, by question number (src/data/reviewed-mcq-answer-letters.json). */
+export async function loadReviewedRuntimeLetters(root:string,bankSlug:string,runtimePaperId:string|null) {
+  const payload=JSON.parse(await fs.readFile(path.join(root,'src/data/reviewed-mcq-answer-letters.json'),'utf8')) as {banks:Record<string,Record<string,{answers:string[]}>>};
+  const letters:Record<number,string>={};
+  if(runtimePaperId)for(const [id,value] of Object.entries(payload.banks[bankSlug]??{})) {
+    const match=id.match(/^(.*)-q(\d+)$/);
+    if(match&&match[1]===runtimePaperId&&value.answers.length===1)letters[Number(match[2])]=value.answers[0];
+  }
+  return letters;
+}
 export function parseCli(args:string[]):BuildOptions {
   const options:BuildOptions={inventoryFiles:[]};
   for(let i=0;i<args.length;i++) {
@@ -79,6 +112,7 @@ export async function buildWholePaperArchives(options:BuildOptions) {
   validateInventory(inventory);
   const identityReviews=await loadIdentityReviews(options.identityReviewFiles??[],root);
   const reportHolds=await loadReportHolds(root);
+  const mcqKeyReviews=await loadMcqKeyReviews(root);
   const selected=inventory.banks.filter(bank=>!options.bank||options.bank===bank.slug).sort((a,b)=>a.slug.localeCompare(b.slug));
   if(options.bank&&!selected.length)throw new Error(`Bank not in inventory: ${options.bank}`);
   const privateRoot=path.join(outputRoot,'private/paper-archives');
@@ -113,7 +147,7 @@ export async function buildWholePaperArchives(options:BuildOptions) {
       const actualIds=normalized.filter(q=>q.id.replace(/-q\d+$/,'')===pair.runtimePaperId).map(q=>q.id).sort();
       if(JSON.stringify(actualIds)!==JSON.stringify([...pair.runtimeQuestionIds].sort()))throw new Error(`Inventory qids differ from exact runtime paper ${pair.runtimePaperId}`);
       const rows=pair.runtimeQuestionIds.map(id=>{const q=byId.get(id);if(!q)throw new Error(`Missing exact runtime qid ${id}`);return q;});
-      const assembled=assemblePaper(bank.slug,pair,rows,qp,ms,identityReviews.get(JSON.stringify([bank.slug,pair.id])),reportHolds.get(JSON.stringify([bank.slug,pair.id])));
+      const assembled=assemblePaper(bank.slug,pair,rows,qp,ms,identityReviews.get(JSON.stringify([bank.slug,pair.id])),reportHolds.get(JSON.stringify([bank.slug,pair.id])),mcqKeyReviews.get(JSON.stringify([bank.slug,pair.id])),mcqKeyReviews.has(JSON.stringify([bank.slug,pair.id]))?await loadReviewedRuntimeLetters(root,bank.slug,pair.runtimePaperId):undefined);
       details.push({id:pair.id,runtimePaperId:pair.runtimePaperId,sourceMetadata:pair.metadata??null,inventoryRecord:pair,questionPath:pair.questionPath,markschemePath:pair.markschemePath,documents:assembled.entry.documents,reportReason:assembled.entry.summary.reportReason??null,corrections:assembled.corrections,evidence:assembled.evidence});
       if(!assembled.evidence.identityValid)throw new Error(`${assembled.entry.summary.reportReason} Not promoted to public manifest.`);
       papers.push(assembled.entry);
@@ -134,6 +168,8 @@ export async function buildWholePaperArchives(options:BuildOptions) {
     if(papers.length+failures.length!==bank.pairs.length||bankBindings.length!==papers.length*2)throw new Error(`Paired count mismatch: ${bank.slug}`);
     const unusedHolds=[...reportHolds.values()].filter(hold=>hold.bankSlug===bank.slug&&!papers.some(p=>p.summary.id===hold.paperId));
     if(unusedHolds.length)throw new Error(`Report holds match no built paper: ${unusedHolds.map(h=>h.paperId).join(', ')}`);
+    const unusedKeyReviews=[...mcqKeyReviews.values()].filter(review=>review.bankSlug===bank.slug&&!papers.some(p=>p.summary.id===review.paperId));
+    if(unusedKeyReviews.length)throw new Error(`MCQ key reviews match no built paper: ${unusedKeyReviews.map(r=>r.paperId).join(', ')}`);
     const reports=papers.filter(p=>p.summary.reportAvailable).length;
     const manifest:WholePaperManifest={version:GENERATOR_VERSION,bankSlug:bank.slug,runtimeSha256:sha256(runtimeBytes),papers,coverage:{paired:papers.length,reports,held:papers.length-reports,unpaired:bank.unpaired.length,runtimeWithoutPair:bank.runtimeWithoutPair.length}};
     bindings.documents=[...bindings.documents.filter(doc=>doc.bankSlug!==bank.slug),...bankBindings].sort((a,b)=>`${a.bankSlug}/${a.paperId}/${a.kind}`.localeCompare(`${b.bankSlug}/${b.paperId}/${b.kind}`));
@@ -183,7 +219,7 @@ export function runtimeRelativeFile(slug:string) {
 export function optionalChoiceQuestionCount(slug:string,optionalChoice:boolean,runtimeRows:number,printedSegments:number) {
   return slug.startsWith('ib-economics-')&&optionalChoice&&runtimeRows>0?runtimeRows:printedSegments;
 }
-export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestion[],qp:ExtractedDocument,ms:ExtractedDocument,identityReview?:IdentityReview,reportHold?:ReportHold) {
+export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestion[],qp:ExtractedDocument,ms:ExtractedDocument,identityReview?:IdentityReview,reportHold?:ReportHold,mcqKeyReview?:McqKeyReview,runtimeLetters?:Record<number,string>) {
   const bank=getCatalogBank(slug);if(!bank)throw new Error(`Unknown bank ${slug}`);
   const identity=parseIdentity(pair.metadata?.sourceIdentity??pair.id);
   if(identity.family==='ib')identity.level??=bank.level.toLowerCase();
@@ -207,11 +243,17 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
   const reviewMatches=Boolean(identityReview&&identityReview.bankSlug===slug&&identityReview.paperId===pair.id&&identityReview.questionSha256===qp.sha256&&identityReview.markschemeSha256===ms.sha256&&identityReview.verdict==='valid-pair');
   if(identityReview&&!reviewMatches)throw new Error('Identity review source binding mismatch');
   if(reportHold&&!(reportHold.bankSlug===slug&&reportHold.paperId===pair.id&&reportHold.questionSha256===qp.sha256&&reportHold.markschemeSha256===ms.sha256))throw new Error('Report hold source binding mismatch');
+  if(mcqKeyReview&&!(mcqKeyReview.bankSlug===slug&&mcqKeyReview.paperId===pair.id&&mcqKeyReview.questionSha256===qp.sha256&&mcqKeyReview.markschemeSha256===ms.sha256))throw new Error('MCQ key review source binding mismatch');
+  const reviewedKeyNumbers=Object.entries(mcqKeyReview?.keys??{}).map(([number,letter])=>{
+    if(runtimeLetters?.[Number(number)]!==letter)throw new Error(`MCQ key review letter disagrees with the reviewed runtime letter: ${pair.id} Q${number}`);
+    return Number(number);
+  });
   const identityValid=reviewMatches||(qCover.identityValid&&mCover.identityValid&&subjectValid&&examCodesAgree&&courseValid&&bankLevelValid&&legacyOptionValid&&(identity.family!=='igcse'||identity.syllabusCode===bank.syllabusCode));
   const maxMarks=qCover.identityValid?qCover.maxMarks??(mCover.identityValid?mCover.maxMarks:null):null;
   const sorted=[...rows].sort((a,b)=>a.number-b.number||a.id.localeCompare(b.id));
   const mcqLayout=/Multiple\s+Choice|For each question,?\s*choose the answer/i.test(qFound.text);
-  const answerNumbers=new Set([...ms.text.join(' ').matchAll(/\b(\d{1,2})\.?\s+([A-D])\b/g)].map(match=>Number(match[1])));
+  const textOrderNumbers=[...ms.text.join(' ').matchAll(/\b(\d{1,2})\.?\s+([A-D])\b/g)].map(match=>Number(match[1]));
+  const answerNumbers=new Set([...textOrderNumbers,...reviewedKeyNumbers]);
   const keyedMcq=qp.questions.length>0&&qp.questions.length===maxMarks&&qp.questions.every(q=>answerNumbers.has(q.number))&&sorted.every(q=>q.marks===1);
   const explicitOneMark=/Each correct answer will score (?:one|1) mark/i.test(qFound.text);
   const mcqVerified=mcqLayout&&(explicitOneMark||keyedMcq);
@@ -232,7 +274,7 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
   const document=(source:ExtractedDocument)=>({sha256:source.sha256,bytes:source.bytes,pages:source.pages});
   const summary:WholePaperEntry['summary']={id:pair.id,bankSlug:bank.slug,title:`${bank.title} · ${identity.session} ${identity.year} · Paper ${identity.component}`,qualification:bank.qualification,subject:bank.subject,syllabusCode:bank.syllabusCode,year:identity.year,session:identity.session,sessionCode:identity.sessionCode,component:identity.component,paper:identity.paper,variant:identity.variant,route,durationMinutes:qCover.identityValid?qCover.durationMinutes:null,maxMarks,questionCount:optionalChoiceQuestionCount(bank.slug,Boolean(qCover.optionalChoice||mCover.optionalChoice),sorted.length,printed.length),reportAvailable:!reportReason,...(reportReason?{reportReason}:{}),metadataVerified:identityValid&&maximaAgree&&maxMarks!==null};
   const entry:WholePaperEntry={summary,version:sha256(JSON.stringify([GENERATOR_VERSION,EXTRACTOR_VERSION,qp.sha256,ms.sha256,summary,questions])).slice(0,20),documents:{question:document(qp),markscheme:document(ms)},questions};
-  return {entry,corrections,evidence:{identity,identityValid,identityReview:identityReview??null,reportHold:reportHold??null,subjectValid,courseValid,legacyMathematics,legacyOptionValid,bankLevelValid,examCodesAgree,mcqVerified,questionCoverPage:qFound.page,markschemeCoverPage:mFound.page,qCover,mCover,sourceQuestionCount:printed.length,msQuestionMaximaAgree,sourceTotals:printed.map(q=>q.maxMarks),sourceQuestionPages:printed.map(q=>q.page),runtimeQuestionIds:sorted.map(q=>q.id),runtimeMarks:sorted.map(q=>q.marks),inventoryValid,totalsValid,topicsValid}};
+  return {entry,corrections,evidence:{identity,identityValid,identityReview:identityReview??null,reportHold:reportHold??null,mcqKeyReview:mcqKeyReview??null,textOrderMissingKeys:reviewedKeyNumbers.filter(n=>!textOrderNumbers.includes(n)),subjectValid,courseValid,legacyMathematics,legacyOptionValid,bankLevelValid,examCodesAgree,mcqVerified,questionCoverPage:qFound.page,markschemeCoverPage:mFound.page,qCover,mCover,sourceQuestionCount:printed.length,msQuestionMaximaAgree,sourceTotals:printed.map(q=>q.maxMarks),sourceQuestionPages:printed.map(q=>q.page),runtimeQuestionIds:sorted.map(q=>q.id),runtimeMarks:sorted.map(q=>q.marks),inventoryValid,totalsValid,topicsValid}};
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
   const manifests=await buildWholePaperArchives(parseCli(process.argv.slice(2)));

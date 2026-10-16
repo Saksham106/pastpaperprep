@@ -1,0 +1,31 @@
+{
+ "schema": "whole-paper-mcq-key-reviews-v1",
+ "reviews": [
+  {
+   "bankSlug": "ib-physics-hl",
+   "paperId": "physics-2026-may-tz3-hl-p1a-english",
+   "questionSha256": "019c44b88257850d390db220233ae028652fdc0c5a6d64f78fedfea8ed203dbc",
+   "markschemeSha256": "1d240c6eb24e29260fef7395f6a2c9e164aee0c821b96e6399a65828b65cd168",
+   "keys": {
+    "39": "A"
+   },
+   "review": {
+    "date": "2026-10-15",
+    "evidence": "Official mark scheme page 3 of 3 rendered from the original PDF and viewed: row 39 reads A, in line with the reviewed runtime letter for 2026-may-tz3-hl-p1a-q39. In the PDF text stream the pattern for Q39 is absent (39 of 40 keys match; the 39 letter is emitted last, separated from its number), so the text-order key match misses it. No other letter changes."
+   }
+  },
+  {
+   "bankSlug": "ib-physics-sl",
+   "paperId": "physics-2026-may-tz3-sl-p1a-english",
+   "questionSha256": "93573fa742c7f6c57315b1392b7486a261998009853c136bfb031769200af601",
+   "markschemeSha256": "842c0273b4ef4eefe8ab353db63799d8384b771f32a2ace3645dc7f382f7b23d",
+   "keys": {
+    "24": "A"
+   },
+   "review": {
+    "date": "2026-10-15",
+    "evidence": "Official mark scheme page 3 of 3 rendered from the original PDF and viewed: row 24 reads A, in line with the reviewed runtime letter for 2026-may-tz3-sl-p1a-q24. In the PDF text stream the pattern for Q24 is absent (24 of 25 keys match; the 24 letter is emitted last, separated from its number), so the text-order key match misses it. No other letter changes."
+   }
+  }
+ ]
+}

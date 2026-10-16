@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs/promises';
 import { expect, it } from 'vitest';
 import path from 'node:path';
-import { assemblePaper, validateInventory, runtimeRelativeFile, parseCli, buildWholePaperArchives, loadReportHolds, REPORT_HOLDS_FILE } from './build-whole-paper-archives.mjs';
+import { assemblePaper, validateInventory, runtimeRelativeFile, parseCli, buildWholePaperArchives, loadReportHolds, REPORT_HOLDS_FILE, loadMcqKeyReviews, MCQ_KEY_REVIEWS_FILE } from './build-whole-paper-archives.mjs';
 import type { ExtractedDocument } from './whole-paper-extraction.mjs';
 it('accepts repeatable inventories and rejects unknown or missing CLI arguments',()=>{
   expect(parseCli(['--inventory','one.json','--inventory','two.json','--bank',bank.slug])).toEqual({inventoryFiles:['one.json','two.json'],bank:bank.slug});
@@ -235,4 +235,57 @@ it('traces the deployed loader cohort rather than candidate or production IB sci
   expect(runtimeRelativeFile('ib-chemistry-hl')).toBe('src/data/raw/ib-chemistry-hl.json');
   expect(runtimeRelativeFile('igcse-chemistry-0620')).toBe('src/data/production/igcse-chemistry-0620.json');
   expect(runtimeRelativeFile('ib-economics-hl')).toBe('src/data/production/ib-economics-hl.json');
+});
+
+const mcqPair={...pair,id:'0455-2019-m-12',runtimePaperId:'0455-2019-m-12',runtimeQuestionIds:Array.from({length:30},(_,i)=>`0455-2019-m-12-q${i+1}`)};
+const mcqRows=mcqPair.runtimeQuestionIds.map((id,i)=>({...rows[0],id,number:i+1,marks:1,primaryTopic:'The basic economic problem'}));
+const mcqQuestion=doc('ECONOMICS 0455/12 February/March 2019 Paper 1 Multiple Choice 45 minutes There are thirty questions.',Array(30).fill(0));
+// Question 17's letter sits last in the text stream, away from its number, so the text-order match misses it.
+const keyText=(letters:string)=>'ECONOMICS 0455/12 March 2019 Maximum Mark: 30 '+Array.from({length:30},(_,i)=>i===16?'17.':`${i+1}. ${letters[i]}`).join(' ')+' '+letters[16];
+const letters='ABCDABCDABCDABCDABCDABCDABCDAB';
+const mcqScheme=doc(keyText(letters));
+const mcqReview:{bankSlug:string;paperId:string;questionSha256:string;markschemeSha256:string;keys:Record<string,string>;review:{date:string;evidence:string}}={bankSlug:'igcse-economics-0455',paperId:mcqPair.id,questionSha256:mcqQuestion.sha256,markschemeSha256:mcqScheme.sha256,keys:{'17':letters[16]},review:{date:'2026-10-15',evidence:'fixture'}};
+const runtimeLetters=Object.fromEntries(Array.from({length:30},(_,i)=>[i+1,letters[i]]));
+const assembleMcq=(review?:typeof mcqReview,reviewed:Record<number,string>=runtimeLetters,qpDoc=mcqQuestion,msDoc=mcqScheme)=>assemblePaper('igcse-economics-0455',mcqPair,mcqRows as never,qpDoc,msDoc,undefined,undefined,review,reviewed);
+it('a reviewed MCQ key only adds its question numbers, for the exact paper and both hashes',()=>{
+  const open=assembleMcq();
+  expect(open.entry.summary).toMatchObject({reportAvailable:false,reportReason:'Printed question maxima do not reconcile.'});
+  expect(open.evidence.mcqVerified).toBe(false);
+  const reviewed=assembleMcq(mcqReview);
+  expect(reviewed.entry.summary).toMatchObject({reportAvailable:true,maxMarks:30,questionCount:30});
+  expect(reviewed.entry.questions).toHaveLength(30);
+  expect(reviewed.entry.questions.every(q=>q.maxMarks===1)).toBe(true);
+  expect(reviewed.evidence).toMatchObject({mcqVerified:true,textOrderMissingKeys:[17]});
+  // A review for another question number does not rescue the paper.
+  expect(assembleMcq({...mcqReview,keys:{'3':letters[2]}}).entry.summary.reportAvailable).toBe(false);
+  expect(()=>assembleMcq({...mcqReview,markschemeSha256:'c'.repeat(64)})).toThrow('MCQ key review source binding mismatch');
+  expect(()=>assembleMcq({...mcqReview,questionSha256:'c'.repeat(64)})).toThrow('MCQ key review source binding mismatch');
+  expect(()=>assembleMcq({...mcqReview,paperId:'0455-2019-m-13'})).toThrow('MCQ key review source binding mismatch');
+  expect(()=>assembleMcq({...mcqReview,bankSlug:'igcse-physics-0625'})).toThrow('MCQ key review source binding mismatch');
+});
+it('rejects a reviewed MCQ letter that contradicts, or is missing from, the reviewed runtime letters',()=>{
+  expect(()=>assembleMcq({...mcqReview,keys:{'17':'D'}})).toThrow('disagrees with the reviewed runtime letter');
+  expect(()=>assembleMcq(mcqReview,{...runtimeLetters,17:'D'})).toThrow('disagrees with the reviewed runtime letter');
+  expect(()=>assembleMcq(mcqReview,{})).toThrow('disagrees with the reviewed runtime letter');
+});
+it('reads MCQ key reviews on every build and rejects malformed, duplicate or unknown-paper reviews',async()=>{
+  const dir=await fs.mkdtemp(path.join(process.env.TMPDIR??process.cwd(),'whole-paper-mcq-reviews-fixture-'));
+  try {
+    const review={...mcqReview,questionSha256:'a'.repeat(64),markschemeSha256:'b'.repeat(64)};
+    const write=(reviews:unknown[],schema='whole-paper-mcq-key-reviews-v1')=>fs.mkdir(path.join(dir,path.dirname(MCQ_KEY_REVIEWS_FILE)),{recursive:true}).then(()=>fs.writeFile(path.join(dir,MCQ_KEY_REVIEWS_FILE),JSON.stringify({schema,reviews})));
+    expect((await loadMcqKeyReviews(dir)).size).toBe(0);
+    await write([review]);expect([...(await loadMcqKeyReviews(dir)).values()]).toEqual([review]);
+    await write([review],'other');await expect(loadMcqKeyReviews(dir)).rejects.toThrow('Invalid MCQ key reviews file');
+    await write([review,review]);await expect(loadMcqKeyReviews(dir)).rejects.toThrow('Duplicate MCQ key review');
+    await write([{...review,keys:{'17':'E'}}]);await expect(loadMcqKeyReviews(dir)).rejects.toThrow('needs question numbers and letters');
+    await write([{...review,keys:{}}]);await expect(loadMcqKeyReviews(dir)).rejects.toThrow('needs question numbers and letters');
+    await write([{...review,review:undefined}]);await expect(loadMcqKeyReviews(dir)).rejects.toThrow('needs a date and evidence');
+    await write([{...review,markschemeSha256:'nope'}]);await expect(loadMcqKeyReviews(dir)).rejects.toThrow('Invalid MCQ key review binding');
+    // A review naming a paper that is not built for its bank fails the build.
+    await write([{...review,bankSlug:bank.slug,paperId:'0620-2023-w-99'}]);
+    const runtime=path.join(dir,runtimeRelativeFile(bank.slug));await fs.mkdir(path.dirname(runtime),{recursive:true});await fs.writeFile(runtime,JSON.stringify({questions:[]}));
+    await fs.mkdir(path.join(dir,'src/lib'),{recursive:true});await fs.writeFile(path.join(dir,'src/lib/question-loader.ts'),`import('@/data/production/${bank.slug}.json')`);
+    const inventoryFile=path.join(dir,'inventory.json');await fs.writeFile(inventoryFile,JSON.stringify({banks:[{...bank,runtimeFile:runtime,pairs:[]}]}));
+    await expect(buildWholePaperArchives({root:dir,inventoryFiles:[inventoryFile]})).rejects.toThrow('MCQ key reviews match no built paper: 0620-2023-w-99');
+  } finally {await fs.rm(dir,{recursive:true,force:true});}
 });
