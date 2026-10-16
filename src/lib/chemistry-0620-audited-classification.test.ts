@@ -100,7 +100,9 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
     // Undo explanation flags, answer-row projection, the 2026-10-15 final BLANK PAGE projection and the one documented
     // retrieval descendant to reconstruct the original immutable classification index.
     const finalBlankPages = new Map<string, number>();
-    for (const entry of read("docs/audits/2026-10-15-blank-final-pages/receipt.json").entries as Array<{ bank: string; id: string }>) {
+    // Pages hidden later as BLANK PAGE or Periodic Table furniture count back in.
+    for (const entry of [...read("docs/audits/2026-10-15-blank-final-pages/receipt.json").entries,
+      ...read("docs/audits/2026-10-16-periodic-table-pages/receipt.json").entries] as Array<{ bank: string; id: string }>) {
       if (entry.bank === "igcse-chemistry-0620") finalBlankPages.set(entry.id, (finalBlankPages.get(entry.id) ?? 0) + 1);
     }
     const activeIndexPath = `public/bank-index/${PUBLIC_BANK_INDEX_FILES["igcse-chemistry-0620"]}`;

@@ -6,6 +6,8 @@ import { PastPaperReader, type PaperDocumentKind } from '@/components/PastPaperR
 import { PaperMarkingWorkspace, type PaperMarkingPaper } from '@/components/PaperMarkingWorkspace';
 import type { PaperReaderConfig } from '@/lib/paper-reader-config';
 import { trackProductEvent } from '@/lib/product-analytics';
+import { PeriodicTableButton } from '@/components/PeriodicTableButton';
+import { hasPeriodicTable } from '@/lib/periodic-table';
 import styles from './PaperWorkspace.module.css';
 
 /** Paper page client shell: the reader, a rail (server-rendered children) and marking, which replaces the rail. */
@@ -34,12 +36,14 @@ export function PaperWorkspace({ reader, marking, bank, practice = true, childre
           <p>Mark it with the scheme and see which topics cost you marks.</p>
           <button ref={markButton} type="button" className={styles.markButton} onClick={openMarking}><CheckSquare aria-hidden="true" weight="bold" />Mark this paper</button>
         </section> : <p className={styles.held}>Self-marking isn&apos;t available for this paper yet.</p>}
+        {hasPeriodicTable(bank) && <div className={styles.reference}><PeriodicTableButton source="past-paper" /></div>}
         {children}
       </>}
     </aside>
     <nav className={styles.dock} aria-label="Paper shortcuts">
       <div className={styles.dockSwitch}>{(['question', 'markscheme'] as const).map(type => <button key={type} type="button" aria-pressed={kind === type} onClick={() => setKind(type)}>{type === 'question' ? 'Paper' : 'Scheme'}</button>)}</div>
       {marking && !markingOpen && <button type="button" className={styles.dockMark} onClick={openMarking}><CheckSquare aria-hidden="true" weight="bold" />Mark it</button>}
+      {hasPeriodicTable(bank) && <PeriodicTableButton source="past-paper-dock" />}
     </nav>
   </div>;
 }

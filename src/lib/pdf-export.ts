@@ -143,9 +143,14 @@ const PDF_COMPACT_TOP_MM = 10;
 // Fitting a full-page scan to A4 with margins lands around 90%; only clearly smaller output needs review.
 const PDF_REVIEW_SCALE = 0.8;
 const PDF_LABEL_SHRINK_LIMIT = 0.97;
+// The sheet's own "Question N" row above each image. 13pt bold keeps it the strongest number on
+// the page, ahead of the exam's original number printed inside the image.
+const PDF_LABEL_MM = 7;
+const PDF_LABEL_BASELINE_MM = 5.2;
+const PDF_LABEL_PT = 13;
 const PDF_BOTTOM_MM = 13;
 const PDF_SIDE_MM = 8;
-const PDF_MCQ_ROW_MM = 7;
+const PDF_MCQ_ROW_MM = 8;
 const PDF_MCQ_ANSWER_X = 80;
 const PDF_FALLBACK_DPI = 150;
 const SOURCE_RENDER_DPI = new Set([108, 126, 144]);
@@ -331,16 +336,16 @@ export async function downloadQuestionPdf(
 
   // "Question 3" in bold, then where it came from in small grey type.
   // The source is left out when it would run into whatever sits right of maxRight (marks, badge, MCQ answer).
-  const drawLabel = (label: PdfLabel, continued: boolean, x: number, baseline: number, maxRight: number, size = 9) => {
+  const drawLabel = (label: PdfLabel, continued: boolean, x: number, baseline: number, maxRight: number, size = PDF_LABEL_PT) => {
     const heading = `${label.heading}${continued ? " (continued)" : ""}`;
     pdf.setFont("helvetica", "bold");
     pdf.setFontSize(size);
     pdf.setTextColor(29, 36, 48);
     pdf.text(heading, x, baseline);
     if (!continued && label.source) {
-      const offset = pdf.getTextWidth(heading) + 2;
+      const offset = pdf.getTextWidth(heading) + 2.5;
       pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(7);
+      pdf.setFontSize(8);
       pdf.setTextColor(107, 118, 114);
       if (x + offset + pdf.getTextWidth(label.source) <= maxRight) pdf.text(label.source, x + offset, baseline);
     }
@@ -353,20 +358,20 @@ export async function downloadQuestionPdf(
     calculator: boolean | null, continued: boolean,
   ) => {
     let placement = planWholePdfImage(image.width, image.height, size, plainTextOnly, fallbackDpi);
-    const labelFits = (top: number) => top + 5 + placement.heightMm <= placement.pageHeightMm - PDF_BOTTOM_MM + 0.001;
+    const labelFits = (top: number) => top + PDF_LABEL_MM + placement.heightMm <= placement.pageHeightMm - PDF_BOTTOM_MM + 0.001;
     // Keep the question label: a slimmer header makes room for it before the label is dropped.
     if (!labelFits(placement.yMm) && placement.headerMode === "standard" && labelFits(PDF_COMPACT_TOP_MM)) {
       placement = { ...placement, headerMode: "compact", yMm: PDF_COMPACT_TOP_MM };
     }
     // A full-height exam page can still crowd out the label; an invisible (at most 3%) reduction keeps it.
-    const labelScale = (placement.pageHeightMm - PDF_BOTTOM_MM - PDF_COMPACT_TOP_MM - 5) / placement.heightMm;
+    const labelScale = (placement.pageHeightMm - PDF_BOTTOM_MM - PDF_COMPACT_TOP_MM - PDF_LABEL_MM) / placement.heightMm;
     if (!labelFits(placement.yMm) && labelScale >= PDF_LABEL_SHRINK_LIMIT) {
       const widthMm = placement.widthMm * labelScale;
       placement = { ...placement, headerMode: "compact", yMm: PDF_COMPACT_TOP_MM, scale: placement.scale * labelScale,
         widthMm, heightMm: placement.heightMm * labelScale, xMm: (placement.pageWidthMm - widthMm) / 2 };
     }
     // Omit the extra crop label only when it would prevent source-size placement.
-    const labelSpace = labelFits(placement.yMm) ? 5 : 0;
+    const labelSpace = labelFits(placement.yMm) ? PDF_LABEL_MM : 0;
     const current = pageSpecs[pages - 1];
     if (startAnswerPage || !current || current.format !== placement.format || current.orientation !== placement.orientation ||
       nextImageY + labelSpace + placement.heightMm > current.height - PDF_BOTTOM_MM + 0.001) {
@@ -382,12 +387,12 @@ export async function downloadQuestionPdf(
       pdf.setFont("helvetica", "bold");
       pdf.setFontSize(6.5);
       const badgeWidth = badge ? pdf.getTextWidth(badge) + 2.4 + 2 : 0;
-      drawLabel(label, continued, Math.max(8, placement.xMm), nextImageY + 3, rightEdge - detailWidth - badgeWidth);
+      drawLabel(label, continued, Math.max(8, placement.xMm), nextImageY + PDF_LABEL_BASELINE_MM, rightEdge - detailWidth - badgeWidth);
       pdf.setFont("helvetica", "normal");
       pdf.setFontSize(8);
       pdf.setTextColor(76, 88, 85);
-      if (detail) pdf.text(detail, rightEdge, nextImageY + 3, { align: "right" });
-      if (badge) drawCalculatorBadge(badge, rightEdge - detailWidth, nextImageY);
+      if (detail) pdf.text(detail, rightEdge, nextImageY + PDF_LABEL_BASELINE_MM, { align: "right" });
+      if (badge) drawCalculatorBadge(badge, rightEdge - detailWidth, nextImageY + PDF_LABEL_BASELINE_MM - 2.9);
       nextImageY += labelSpace;
     }
     if (pages === 1) firstPageUsed = true;
@@ -408,10 +413,10 @@ export async function downloadQuestionPdf(
     const height = PDF_MCQ_ROW_MM + noteLines.length * 3.2;
     const current = pageSpecs[pages - 1];
     if (startAnswerPage || !current || nextImageY + height > current.height - PDF_BOTTOM_MM + 0.001) addPage();
-    const baseline = nextImageY + 4;
+    const baseline = nextImageY + 5;
     if (pages === 1) firstPageUsed = true;
     drewContent = true;
-    drawLabel(label, false, PDF_SIDE_MM, baseline, PDF_MCQ_ANSWER_X - 2, 8);
+    drawLabel(label, false, PDF_SIDE_MM, baseline, PDF_MCQ_ANSWER_X - 2, 11);
     pdf.setFontSize(8);
     pdf.setTextColor(76, 88, 85);
     pdf.text("Answer", PDF_MCQ_ANSWER_X, baseline);

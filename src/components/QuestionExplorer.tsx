@@ -8,6 +8,8 @@ import Link from "next/link";
 import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, FilePlus, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
 import type { PdfAnswerPlacement, PdfContent } from "@/lib/pdf-export";
 import { suggestWorksheetTitle } from "@/lib/worksheet-title";
+import { PeriodicTableButton } from "@/components/PeriodicTableButton";
+import { hasPeriodicTable } from "@/lib/periodic-table";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 import { fetchExplanation } from "@/lib/explanation-client";
 import type { Explanation } from "@/lib/explanation-format";
@@ -1425,6 +1427,7 @@ access: ExplorerAccess;
         </>}
       </section></div>}
       {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">Saving PDFs needs paid access</h2><p>Save and download PDFs with paid access to this question bank.</p><Testimonial testimonial={PDF_TESTIMONIAL} variant="inline" signedOutOnly /><Link className="button primary" href={upgradeLink("pdf_dialog")} onClick={() => { if (bank) trackUpgrade("click", bank, "pdf_dialog"); }}>{PLANS_LABEL}</Link></section></div>}
+      {hasPeriodicTable(bank) && <PeriodicTableButton variant="floating" source="bank" />}
     </section>
   );
 }

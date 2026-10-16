@@ -5,13 +5,14 @@ import { PAGE_NAVIGATION } from "@/components/PageTransition";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
-function current(pathname: string, destination: "papers" | "banks" | "articles" | "pricing" | "account" | "dashboard" | "login") {
+function current(pathname: string, destination: "papers" | "banks" | "articles" | "pricing" | "account" | "worksheets" | "dashboard" | "login") {
   if (destination === "papers") return pathname === "/past-papers" || pathname.startsWith("/past-papers/");
   // Topic practice lives on the course picker (/dashboard) and the banks it opens.
   if (destination === "banks") return pathname === "/dashboard" || pathname.startsWith("/banks/");
   if (destination === "articles") return pathname === "/articles" || pathname.startsWith("/articles/");
   if (destination === "pricing") return pathname === "/pricing";
   if (destination === "account") return pathname === "/account" || pathname.startsWith("/account/");
+  if (destination === "worksheets") return pathname === "/worksheets" || pathname.startsWith("/worksheets/");
   if (destination === "login") return pathname === "/login";
   return pathname === "/dashboard";
 }
@@ -28,6 +29,7 @@ export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = fals
         <Link transitionTypes={PAGE_NAVIGATION} className={`nav-pricing${current(pathname, "pricing") ? " nav-active" : ""}`} aria-current={current(pathname, "pricing") ? "page" : undefined} href="/pricing">Pricing</Link>
       </div>
       <div className="nav-actions">
+        {authenticated && <Link transitionTypes={PAGE_NAVIGATION} className={`nav-worksheets${current(pathname, "worksheets") ? " nav-active" : ""}`} aria-current={current(pathname, "worksheets") ? "page" : undefined} href="/worksheets">My worksheets</Link>}
         <Link transitionTypes={PAGE_NAVIGATION} className={`${authenticated ? "" : "nav-login "}${current(pathname, authenticated ? "account" : "login") ? "nav-active" : ""}`.trim() || undefined} aria-current={current(pathname, authenticated ? "account" : "login") ? "page" : undefined} href={authenticated ? "/account" : "/login?next=/pricing"}>{authenticated ? "My account" : "Log in"}</Link>
         <Link transitionTypes={PAGE_NAVIGATION}
           className={`nav-cta${current(pathname, "dashboard") ? " nav-active" : ""}`}
