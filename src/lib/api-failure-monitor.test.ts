@@ -74,6 +74,24 @@ describe("installApiFailureMonitor", () => {
     expect(trackProductEvent).toHaveBeenCalledWith("api_request_failed", expect.objectContaining({ user_id: "7f1b6a2e-0000-4000-8000-000000000000" }));
   });
 
+  it.each([
+    ["another account", "7f1b6a2e-0000-4000-8000-00000000000b"],
+    ["sign-out", undefined],
+  ])("keeps the dispatching account when %s happens before the failure", async (_label, later) => {
+    const A = "7f1b6a2e-0000-4000-8000-00000000000a";
+    let current: string | undefined = A;
+    browserAccountId.mockImplementation(() => current);
+    let finish!: (response: Response) => void;
+    original.mockReturnValueOnce(new Promise((resolve) => { finish = resolve; }));
+    const pending = target.fetch("/api/assets/sign");
+    current = later;
+    finish(new Response(null, { status: 503 }));
+    await pending;
+    expect(trackProductEvent).toHaveBeenCalledWith("api_request_failed", expect.objectContaining({ status: 503, user_id: A }));
+    browserAccountId.mockReset();
+    browserAccountId.mockImplementation(() => undefined);
+  });
+
   it("installs once", () => {
     const monitored = target.fetch;
     installApiFailureMonitor(target as unknown as Window);

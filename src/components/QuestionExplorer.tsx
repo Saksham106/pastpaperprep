@@ -24,7 +24,7 @@ import { currentQuestionIds } from "@/lib/question-id-aliases";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
 import type { AssetRequest } from "@/lib/asset-access";
 import type { BankSlug } from "@/lib/banks";
-import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, lapsedSignedAssetExpiry, preferSignedFreeAssets, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
+import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signAssetBatches, lapsedSignedAssetExpiry, preferSignedFreeAssets, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { FREE_PUBLIC_ASSET_ORIGIN, isFreePublicAssetUrl } from "@/lib/free-asset-index";
 import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
 import { documentHasSupabaseAuthCookie, subscribeToSessionChanges } from "@/lib/supabase/auth-cookie";
@@ -895,15 +895,22 @@ access: ExplorerAccess;
         });
       return;
     }
-    fetchSignedAssets(bank, toSign, fetch, localPreview, scopeIsCurrent)
-      .then((assets) => {
+    // Each batch shows as it lands; only a failed batch's keys are marked for retry.
+    const delivered = new Set<string>();
+    signAssetBatches(bank, toSign, { localPreview, isCurrent: scopeIsCurrent, onBatch: (assets) => {
+      if (!scopeIsCurrent()) return;
+      for (const key of assets.keys()) delivered.add(key);
+      applySignedAssets(assets, owner);
+    } })
+      .then(({ failedKeys }) => {
         if (!scopeIsCurrent()) return;
-        applySignedAssets(assets, owner);
-        setAssetError("");
+        if (!failedKeys.length) { setAssetError(""); return; }
+        setFailedAssetKeys((current) => new Set([...current, ...failedKeys]));
+        setAssetError("Some question images could not load.");
       })
       .catch(() => {
         if (!scopeIsCurrent()) return;
-        setFailedAssetKeys((current) => new Set([...current, ...pendingKeys]));
+        setFailedAssetKeys((current) => new Set([...current, ...pendingKeys.filter((key) => !delivered.has(key))]));
         setAssetError("Some question images could not load.");
       })
       .finally(finished);
@@ -1487,7 +1494,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, scopeIs
   const showExplanationButton = unlocked && Boolean(question.hasExplanation) && !localPreview;
   const toggleExplanation = async () => {
     // React's disabled state is not synchronous; protect quota before starting the request.
-    if (explanationRequestRef.current) return;
+    if (explanationRequestRef.current || !scopeIsCurrent()) return;
     if (explanationOpen) { setExplanationOpen(false); return; }
     trackProductEvent("explanation_open", { bank: question.bankSlug, freePreview: isPreviewQuestion(question.bankSlug, question.id) });
     if (!explanation) {
@@ -1495,17 +1502,21 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, scopeIs
       setExplanationLoading(true);
       setExplanationError("");
       try {
-        setExplanation(await fetchExplanation(question.bankSlug, question.id, { free: freeAnswer }));
+        const loaded = await fetchExplanation(question.bankSlug, question.id, { free: freeAnswer, isCurrent: scopeIsCurrent });
+        if (!scopeIsCurrent()) return;
+        setExplanation(loaded);
       } catch (error) {
+        if (!scopeIsCurrent()) return;
         // Only surface this known public error, not arbitrary storage/API details.
         setExplanationError(error instanceof Error && error.message === "Daily explanation limit reached. Try again tomorrow."
           ? error.message : "The explanation could not load. Try again.");
         return;
       } finally {
         explanationRequestRef.current = false;
-        setExplanationLoading(false);
+        if (scopeIsCurrent()) setExplanationLoading(false);
       }
     }
+    if (!scopeIsCurrent()) return;
     setExplanationOpen(true);
     onReveal();
     if (authenticated) void onAttempt();

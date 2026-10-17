@@ -124,13 +124,22 @@ function assertCurrentScope(isCurrent: () => boolean): void {
   if (!isCurrent()) throw new DOMException("Asset request scope expired", "AbortError");
 }
 
-export async function fetchSignedAssets(
+export type SignedAssetBatches = { assets: Map<string, SignedAsset>; failedKeys: string[]; error?: Error };
+
+/**
+ * Signs in parallel batches of 20. Each batch stands alone: a batch that signs is validated and
+ * handed to onBatch as soon as it lands, and a batch that fails (429, 503, invalid response) only
+ * reports its own keys, so a retry asks for those and not for links already paid for.
+ * Rejects only when the caller's scope expired, so a stale page applies nothing.
+ */
+export async function signAssetBatches(
   bank: BankSlug,
   requests: readonly AssetRequest[],
-  fetcher: Fetcher = fetch,
-  localPreview = false,
-  isCurrent: () => boolean = () => true,
-): Promise<Map<string, SignedAsset>> {
+  { fetcher = fetch, localPreview = false, isCurrent = () => true, onBatch }: {
+    fetcher?: Fetcher; localPreview?: boolean; isCurrent?: () => boolean;
+    onBatch?: (assets: Map<string, SignedAsset>) => void;
+  } = {},
+): Promise<SignedAssetBatches> {
   const signBatch = async (batch: readonly AssetRequest[]) => {
     assertCurrentScope(isCurrent);
     const response = await fetcher(localPreview ? "/api/local-preview-assets/sign" : "/api/assets/sign", {
@@ -158,27 +167,50 @@ export async function fetchSignedAssets(
       throw new Error("Invalid signed asset response");
     }
     const expiresAt = Date.now() + Math.max(payload.expiresIn - 30, 1) * 1000;
-    return { batch, expiresAt, payload: payload as { expiresIn: number; assets: Array<AssetRequest & Omit<SignedAsset, "expiresAt" | keyof AssetRequest>> } };
-  };
-
-  // Batches go out together: a page of questions shouldn't wait on one round trip per 20 images.
-  const batches: AssetRequest[][] = [];
-  for (let index = 0; index < requests.length; index += SIGN_BATCH_SIZE) batches.push(requests.slice(index, index + SIGN_BATCH_SIZE));
-  const results = await Promise.all(batches.map(signBatch));
-  assertCurrentScope(isCurrent);
-
-  const signed = new Map<string, SignedAsset>();
-  for (const { batch, payload, expiresAt } of results) {
     const expected = new Set(batch.map((request) => signedAssetKey(request.questionId, request.kind)));
-    for (const asset of payload.assets) {
+    const signed = new Map<string, SignedAsset>();
+    for (const asset of payload.assets as Array<AssetRequest & Omit<SignedAsset, "expiresAt" | keyof AssetRequest>>) {
       const key = signedAssetKey(asset.questionId, asset.kind);
       if (!expected.delete(key) || signed.has(key)) throw new Error("Invalid signed asset response");
       signed.set(key, { ...asset, expiresAt });
     }
     if (expected.size) throw new Error("Invalid signed asset response");
-  }
+    onBatch?.(signed);
+    return signed;
+  };
 
-  return signed;
+  // Batches go out together: a page of questions shouldn't wait on one round trip per 20 images.
+  const batches: AssetRequest[][] = [];
+  for (let index = 0; index < requests.length; index += SIGN_BATCH_SIZE) batches.push(requests.slice(index, index + SIGN_BATCH_SIZE));
+  const results = await Promise.allSettled(batches.map(signBatch));
+  assertCurrentScope(isCurrent);
+
+  const assets = new Map<string, SignedAsset>();
+  const failedKeys: string[] = [];
+  let error: Error | undefined;
+  results.forEach((result, index) => {
+    if (result.status === "fulfilled") {
+      for (const [key, asset] of result.value) assets.set(key, asset);
+      return;
+    }
+    if (result.reason instanceof DOMException && result.reason.name === "AbortError") throw result.reason;
+    error ??= result.reason instanceof Error ? result.reason : new Error("Could not load private assets");
+    failedKeys.push(...batches[index].map((request) => signedAssetKey(request.questionId, request.kind)));
+  });
+  return { assets, failedKeys, ...(error ? { error } : {}) };
+}
+
+/** All-or-nothing form for callers that need every key, e.g. one answer or explanation. */
+export async function fetchSignedAssets(
+  bank: BankSlug,
+  requests: readonly AssetRequest[],
+  fetcher: Fetcher = fetch,
+  localPreview = false,
+  isCurrent: () => boolean = () => true,
+): Promise<Map<string, SignedAsset>> {
+  const { assets, error } = await signAssetBatches(bank, requests, { fetcher, localPreview, isCurrent });
+  if (error) throw error;
+  return assets;
 }
 
 export async function fetchPdfAssets(

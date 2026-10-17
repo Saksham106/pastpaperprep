@@ -70,6 +70,21 @@ describe("sessionFingerprint", () => {
     expect(sessionLifecycleOwner("sb-x-auth-token=token-3")).not.toBe(first);
   });
 
+  it("rotates the page lifecycle on a direct account switch but not on a same-account refresh", () => {
+    const cookie = (id: string, token: string) => `sb-x-auth-token=base64-${Buffer.from(JSON.stringify({ access_token: token, user: { id } })).toString("base64url")}`;
+    const A = "7f1b6a2e-0000-4000-8000-00000000000a";
+    const B = "7f1b6a2e-0000-4000-8000-00000000000b";
+    const first = sessionLifecycleOwner(cookie(A, "t1"));
+    expect(sessionLifecycleOwner(cookie(A, "t2"))).toBe(first);
+    // A cookie that can't be read (e.g. mid-rewrite) keeps the last known account.
+    expect(sessionLifecycleOwner("sb-x-auth-token=garbled")).toBe(first);
+    const second = sessionLifecycleOwner(cookie(B, "t3"));
+    expect(second).not.toBe(first);
+    const third = sessionLifecycleOwner(cookie(A, "t4"));
+    expect(third).not.toBe(first);
+    expect(third).not.toBe(second);
+  });
+
   it("refuses private cache reuse when duplicate cookies make the session ambiguous", () => {
     expect(sessionFingerprint("sb-x-auth-token=B; sb-x-auth-token=A")).toBeNull();
   });
