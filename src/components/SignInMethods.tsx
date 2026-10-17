@@ -7,8 +7,8 @@ import { PasswordSignInForm } from "@/components/PasswordSignInForm";
 
 type Method = "password" | "email";
 
-export function SignInMethods({ next }: { next: string }) {
-  const [method, setMethod] = useState<Method>("password");
+export function SignInMethods({ next, initialMethod = "password" }: { next: string; initialMethod?: Method }) {
+  const [method, setMethod] = useState<Method>(initialMethod);
   const passwordTab = useRef<HTMLButtonElement>(null);
   const emailTab = useRef<HTMLButtonElement>(null);
 
