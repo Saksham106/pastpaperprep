@@ -44,6 +44,7 @@ const ibMatrixRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'rev
 const ibBoundaryRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-boundary-batch-repairs.json'), 'utf8'));
 const ibScienceCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-science-crop-repairs.json'), 'utf8'));
 const historicalCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-historical-crop-repairs.json'), 'utf8'));
+const biologyPrintedMarks = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-printed-marks.json'), 'utf8'));
 // Same projection as src/lib/reviewed-biology-historical-crops.ts (counts and marks only).
 function historicalEntry(bank, raw) {
   return bank === historicalCropRepairs.bank && Object.prototype.hasOwnProperty.call(historicalCropRepairs.entries, raw.id)
@@ -58,8 +59,15 @@ function historicalCount(bank, raw, role, paths) {
 function historicalMarks(bank, raw) {
   const marks = typeof raw.marks === "number" ? raw.marks : null;
   const repair = historicalEntry(bank, raw)?.marks;
-  if (!repair) return marks;
+  if (!repair) return printedMarks(bank, raw, marks);
   if (marks !== repair.old || !Number.isInteger(repair.new)) throw new Error(`Reviewed historical marks disagree with ${bank}:${raw.id}`);
+  return printedMarks(bank, raw, repair.new);
+}
+// Same projection as src/lib/reviewed-biology-printed-marks.ts.
+function printedMarks(bank, raw, marks) {
+  if (bank !== biologyPrintedMarks.bank || !Object.prototype.hasOwnProperty.call(biologyPrintedMarks.entries, raw.id)) return marks;
+  const repair = biologyPrintedMarks.entries[raw.id];
+  if (marks !== repair.old || !Number.isInteger(repair.new) || repair.new <= 0) throw new Error(`Reviewed printed marks disagree with ${bank}:${raw.id}`);
   return repair.new;
 }
 function activeMarkschemeImageCount(bank, raw) {

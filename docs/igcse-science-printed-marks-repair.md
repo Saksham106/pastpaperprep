@@ -15,7 +15,11 @@ Follow-up to the Physics 0625 repair (#320, `docs/0625-printed-marks-repair.md`)
 | Biology 0610 | 206 / 4 | none here (see below) |
 
 - **0620 exception.** `0620-2026-m-32-q3` keeps its deliberately null total (the removed-part exception from #140).
-- **0610.** The census finds 3 differences. `0610-2019-s-31-q3` (4 → 10) is already served correctly through the reviewed historical-crop overlay. `0610-2019-s-61-q1/q2` (stored 20/20, printed 19/21, the paper total unchanged) belong in that sealed overlay rather than the runtime, so they are a follow-up.
+- **0610.** The census finds 3 differences. `0610-2019-s-31-q3` (4 → 10) is already served correctly through the reviewed historical-crop overlay. `0610-2019-s-61-q1/q2` (stored 20/20, printed 19/21; the paper total of 40 is unchanged) are served by a separate reviewed marks overlay:
+  - `scripts/build-0610-printed-marks.mjs` derives `src/data/reviewed-biology-printed-marks.json` from this census. It lists every reconciled census difference that no earlier repair corrects, and requires the crop overlay's marks to agree with the census.
+  - `printedMarks` (`src/lib/reviewed-biology-printed-marks.ts`, mirrored in `scripts/generate-bank-index.mjs`) applies it after the crop overlay and fails closed on drift.
+  - The finalized runtime and the crop overlay's upload manifest and receipt stay byte-identical.
+  - Independent evidence: the printed `[Total: 19]` / `[Total: 21]`, the stored question text, and the mark scheme's part marks (Q1 3+1+1+2+2+2+2+6 = 19, Q2 3+3+1+1+1+2+1+2+4+2+1 = 21) all agree. The free paper archive already listed 19/21.
 
 **Repair.** `scripts/reseal-igcse-printed-marks.mjs` changes only `marks`/`maxMarks` on the listed rows, keeps the private index in step, and records `printedMarksRepair` with the full change list. `--check` replays byte for byte.
 
