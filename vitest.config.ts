@@ -17,6 +17,6 @@ export default defineConfig({
     setupFiles: ["./vitest.setup.ts"],
     // Many suites load multi-megabyte question banks; the 5s default flakes on CI runners.
     testTimeout: 30_000,
-    exclude: [...configDefaults.exclude, "**/.worktrees/**", "**/supabase/tests/*.pglite.test.mjs"],
+    exclude: [...configDefaults.exclude, "**/.worktrees/**", "**/.claude/worktrees/**", "**/supabase/tests/*.pglite.test.mjs"],
   },
 });
