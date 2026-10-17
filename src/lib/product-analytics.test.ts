@@ -387,6 +387,12 @@ describe("PostHog product analytics", () => {
       await new Promise(resolve => setTimeout(resolve, 0));
       expect(posthog.captureException).toHaveBeenCalledOnce();
       expect((posthog.captureException.mock.calls[0][0] as Error).stack).toContain("/_next/static/chunks/app.js");
+      // Mixed stacks are kept (review of #344): an app eval frame must not be hidden by an extension frame.
+      const mixedError = Object.assign(new TypeError("m"), { stack: "poll@moz-extension://1234-5678/inject.js:3:4\nrender@https://pastpaperprep.com/_next/static/chunks/app.js line 2 > eval:1:2" });
+      window.dispatchEvent(new ErrorEvent("error", { error: mixedError }));
+      const mixedRejection = Object.assign(new Event("unhandledrejection"), { reason: Object.assign(new Error("n"), { stack: "Error: n\n    at chrome-extension://abc/bg.js:4:5\n    at eval (eval at render (https://pastpaperprep.com/_next/static/chunks/app.js:2:3), <anonymous>:1:2)" }) });
+      window.dispatchEvent(mixedRejection);
+      await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledTimes(3));
     } finally {
       for (const [type, listener] of listeners.mock.calls) {
         if (type === "error" || type === "unhandledrejection") window.removeEventListener(type, listener);
@@ -431,6 +437,17 @@ describe("PostHog product analytics", () => {
     await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledTimes(4));
     await new Promise(resolve => setTimeout(resolve, 0));
     expect(posthog.captureException.mock.calls.map(call => (call[0] as Error).name)).toEqual(["TypeError", "TypeError", "TypeError", "RangeError"]);
+  });
+
+  it("keeps a separate repeat budget for each code location", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const { captureAppException } = await import("@/lib/product-analytics");
+    const at = (file: string) => Object.assign(new TypeError("Cannot read properties of undefined (reading 'x')"), { stack: `TypeError: x\n    at run (https://pastpaperprep.com/_next/static/chunks/${file}.js:1:2)` });
+    for (let index = 0; index < 5; index += 1) captureAppException(at("timer"));
+    captureAppException(at("checkout"));
+    await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledTimes(4));
+    await new Promise(resolve => setTimeout(resolve, 0));
+    expect((posthog.captureException.mock.calls[3][0] as Error).stack).toContain("checkout.js");
   });
 
   it("does not capture expected Next control-flow exceptions", async () => {

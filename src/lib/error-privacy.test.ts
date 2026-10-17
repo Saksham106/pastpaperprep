@@ -97,4 +97,14 @@ describe("isBrowserExtensionError", () => {
     expect(isBrowserExtensionError(Object.assign(new Error("x"), { stack: undefined }))).toBe(false);
     expect(isBrowserExtensionError("chrome-extension://abc/content.js")).toBe(false);
   });
+
+  it("keeps mixed, eval, unrecognised and truncated stacks", () => {
+    // Review of #344: an app eval frame the frame pattern did not recognise was dropped before the ownership check.
+    expect(isBrowserExtensionError(withStack("poll@moz-extension://1234-5678/inject.js:3:4\nrender@https://pastpaperprep.com/_next/static/chunks/app.js line 2 > eval:1:2"))).toBe(false);
+    expect(isBrowserExtensionError(withStack("TypeError: x\n    at chrome-extension://abc/content.js:1:2\n    at eval (eval at render (https://pastpaperprep.com/_next/static/chunks/app.js:2:3), <anonymous>:1:2)"))).toBe(false);
+    expect(isBrowserExtensionError(withStack("TypeError: x\n    at poll (chrome-extension://abc/content.js:1:2) https://pastpaperprep.com/_next/static/chunks/app.js:2:3"))).toBe(false);
+    expect(isBrowserExtensionError(withStack("TypeError: x\n    at poll (chrome-extension://abc/content.js:1:2)\n    at <anonymous>"))).toBe(false);
+    const long = Array.from({ length: 400 }, () => "    at poll (chrome-extension://abcdefghijklmnop/content.js:1:2)").join("\n");
+    expect(isBrowserExtensionError(withStack(`TypeError: x\n${long}\n    at render (https://pastpaperprep.com/_next/static/chunks/app.js:2:3)`))).toBe(false);
+  });
 });
