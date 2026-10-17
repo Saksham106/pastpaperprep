@@ -8,6 +8,8 @@ import{getPrivateBankObjectPrefix}from'@/lib/private-runtime-mapping';
 import{metadataFromRaw}from'../../scripts/generate-bank-index.mjs';
 import{normalizeBankQuestions}from'@/lib/questions';
 const repairs=JSON.parse(readFileSync('src/data/reviewed-science-written-answer-repairs.json','utf8'))as Record<string,Record<string,{oldPaths:string[];newPaths:string[];sha256:string[]}>>;
+// Later reviewed row repairs replace some of these crops again (docs/science-crop-repairs-0620-0625.md).
+const superseded=JSON.parse(readFileSync('src/data/reviewed-science-crop-repairs-0620-0625.json','utf8')).banks as Record<string,Record<string,unknown>>;
 const held=JSON.parse(readFileSync('data/storage/science-written-answer-repairs.manifest.json','utf8')).heldQuestionIds as Record<string,string[]>;
 describe('reviewed science written-answer source repairs',()=>{
  test('sealed remote receipt binds every immutable object and exact manifest',()=>{
@@ -24,13 +26,14 @@ describe('reviewed science written-answer source repairs',()=>{
     const raw=JSON.parse(readFileSync(`src/data/production/${bank}.json`,'utf8')).questions;
     const old=new Map(normalizeBankQuestions(bank,raw,{economicsAssetMode:'private',applyReviewedBlankPages:true}).map(q=>[q.id,q]));const before=JSON.stringify(raw);const after=new Map((await loadBankQuestions(bank)).map(q=>[q.id,q]));
     for(const [qid,entry]of Object.entries(repairs[bank])){
+     if(superseded[bank]?.[qid]){expect(after.get(qid)?.markschemeAssetPaths.every(p=>p.includes('/science-ms-rows-v2-'))).toBe(true);continue;}
      expect(reviewedMarkschemePaths(bank,qid,entry.oldPaths)).toEqual(entry.newPaths);
      expect(after.get(qid)?.markschemeAssetPaths).toEqual(cleanSourceCropPaths(bank,entry.newPaths).map(p=>getPrivateBankObjectPrefix(bank)+p));
      expect(after.get(qid)?.markschemeImageCount).toBe(entry.newPaths.length);
      expect(metadataFromRaw(raw.find((q:{id:string})=>q.id===qid),{bank,normalizedProduction:true}).markschemeImageCount).toBe(entry.newPaths.length);
      expect(after.get(qid)?.questionAssetPaths).toEqual(old.get(qid)?.questionAssetPaths);
     }
-    for(const qid of held[bank])expect(after.get(qid)?.markschemeAssetPaths).toEqual(old.get(qid)?.markschemeAssetPaths);
+    for(const qid of held[bank].filter(id=>!superseded[bank]?.[id]))expect(after.get(qid)?.markschemeAssetPaths).toEqual(old.get(qid)?.markschemeAssetPaths);
     expect(JSON.stringify(raw)).toBe(before);
    }finally{vi.unstubAllEnvs();}
   });

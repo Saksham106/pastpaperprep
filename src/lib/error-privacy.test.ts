@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { boundExceptionFrames, safeErrorMessage, scrubStack } from "./error-privacy";
+import { boundExceptionFrames, isBrowserExtensionError, safeErrorMessage, scrubStack } from "./error-privacy";
 
 describe("safeErrorMessage", () => {
   it("normalizes actual parser errors without retaining the parsed private input", () => {
@@ -78,5 +78,33 @@ describe("real browser and server frame formats", () => {
   it("drops unknown nested static paths and local user directories", () => {
     const safe = scrubStack("Error: private\n at render (https://pastpaperprep.com/_next/static/private-customer-record/main.js:2:4)\n at read (/Users/private-person/project/app.js:2:4)", "Error");
     expect(safe).not.toMatch(/private-customer|private-person/);
+  });
+});
+
+describe("isBrowserExtensionError", () => {
+  const withStack = (stack: string) => Object.assign(new TypeError("x"), { stack });
+
+  it("recognises errors thrown only by extension code", () => {
+    expect(isBrowserExtensionError(withStack("TypeError: x\n    at poll (chrome-extension://abcdefghijklmnop/content.js:1:2)\n    at chrome-extension://abcdefghijklmnop/content.js:9:9"))).toBe(true);
+    expect(isBrowserExtensionError(withStack("poll@moz-extension://1234-5678/inject.js:3:4"))).toBe(true);
+    expect(isBrowserExtensionError(withStack("poll@safari-web-extension://ABCD/inject.js:3:4"))).toBe(true);
+  });
+
+  it("keeps errors that touch the app's own code or carry no frames", () => {
+    expect(isBrowserExtensionError(withStack("TypeError: x\n    at poll (chrome-extension://abc/content.js:1:2)\n    at render (https://pastpaperprep.com/_next/static/chunks/app.js:2:3)"))).toBe(false);
+    expect(isBrowserExtensionError(withStack("TypeError: x\n    at render (https://pastpaperprep.com/_next/static/chunks/app.js:2:3)"))).toBe(false);
+    expect(isBrowserExtensionError(withStack("TypeError: x"))).toBe(false);
+    expect(isBrowserExtensionError(Object.assign(new Error("x"), { stack: undefined }))).toBe(false);
+    expect(isBrowserExtensionError("chrome-extension://abc/content.js")).toBe(false);
+  });
+
+  it("keeps mixed, eval, unrecognised and truncated stacks", () => {
+    // Review of #344: an app eval frame the frame pattern did not recognise was dropped before the ownership check.
+    expect(isBrowserExtensionError(withStack("poll@moz-extension://1234-5678/inject.js:3:4\nrender@https://pastpaperprep.com/_next/static/chunks/app.js line 2 > eval:1:2"))).toBe(false);
+    expect(isBrowserExtensionError(withStack("TypeError: x\n    at chrome-extension://abc/content.js:1:2\n    at eval (eval at render (https://pastpaperprep.com/_next/static/chunks/app.js:2:3), <anonymous>:1:2)"))).toBe(false);
+    expect(isBrowserExtensionError(withStack("TypeError: x\n    at poll (chrome-extension://abc/content.js:1:2) https://pastpaperprep.com/_next/static/chunks/app.js:2:3"))).toBe(false);
+    expect(isBrowserExtensionError(withStack("TypeError: x\n    at poll (chrome-extension://abc/content.js:1:2)\n    at <anonymous>"))).toBe(false);
+    const long = Array.from({ length: 400 }, () => "    at poll (chrome-extension://abcdefghijklmnop/content.js:1:2)").join("\n");
+    expect(isBrowserExtensionError(withStack(`TypeError: x\n${long}\n    at render (https://pastpaperprep.com/_next/static/chunks/app.js:2:3)`))).toBe(false);
   });
 });
