@@ -1,8 +1,11 @@
-// Uploads the reviewed 0654 mark-scheme row repairs (data/storage/science-crop-repairs-0620-0625.manifest.json) to the
+// Uploads the reviewed 0620/0625 crop repairs (data/storage/science-crop-repairs-0620-0625.manifest.json) to the
 // private bucket, create-only, then reads every object back in full and writes the receipt.
 //   SCIENCE_CROP_0620_0625_UPLOAD_CONFIG=<0600 scoped token file> node scripts/upload-reviewed-science-crop-repairs-0620-0625.mjs
 //   WRANGLER=<binary> node scripts/upload-reviewed-science-crop-repairs-0620-0625.mjs --via-wrangler
-// Needs owner approval. --via-wrangler uses the owner's logged-in Wrangler: create-if-absent is look-then-put,
+//   ... --readback-only        re-reads the uploaded objects and rewrites the receipt; never writes to the bucket.
+// Wrangler cannot report an object's stored Content-Type, so a --via-wrangler receipt records the type as
+// unobserved (contentType null). Run --readback-only with a scoped read token to observe and record it.
+// Uploading needs owner approval. --via-wrangler uses the owner's logged-in Wrangler: create-if-absent is look-then-put,
 // not atomic, so run one operator at a time. Keys are content-addressed in a new namespace; existing objects are
 // never replaced or deleted. Reruns are safe: present objects are only read back.
 import fs from 'node:fs';
@@ -53,34 +56,38 @@ function wranglerStore(){
  const run=promisify(execFile);const [bin,...prefix]=process.env.WRANGLER?[process.env.WRANGLER]:['npx','-y','wrangler@4'];
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'science-crops-0620-0625-'));
  const wrangler=args=>run(bin,[...prefix,...args],{maxBuffer:1<<26});
- const get=async key=>{const target=path.join(dir,`get-${path.basename(key)}`);fs.rmSync(target,{force:true});await wrangler(['r2','object','get',`${BUCKET}/${key}`,'--file',target,'--remote']);const bytes=fs.readFileSync(target);fs.rmSync(target);return {bytes,contentType:'image/webp'};};
+ const get=async key=>{const target=path.join(dir,`get-${path.basename(key)}`);fs.rmSync(target,{force:true});await wrangler(['r2','object','get',`${BUCKET}/${key}`,'--file',target,'--remote']);const bytes=fs.readFileSync(target);fs.rmSync(target);return {bytes,contentType:undefined};};
  return {
   async putIfAbsent(key,bytes){
    try{await get(key);return;}catch(e){if(!/not exist|not found|404|10007/i.test(String(e.stderr??e.message)))throw e;}
    const source=path.join(dir,`put-${path.basename(key)}`);fs.writeFileSync(source,bytes);
    await wrangler(['r2','object','put',`${BUCKET}/${key}`,'--file',source,'--content-type','image/webp','--remote']);fs.rmSync(source);
   },
-  // Wrangler's get does not report the stored type; the type is checked when the object is served.
+  // Wrangler's get cannot report the stored type, so it is left unobserved rather than assumed.
   get,
   close(){fs.rmSync(dir,{recursive:true,force:true});},
  };
 }
 
-const store=process.argv.includes('--via-wrangler')?wranglerStore():s3Store();
+const store=process.argv.includes('--via-wrangler')?wranglerStore():s3Store();const readbackOnly=process.argv.includes('--readback-only');
 const receiptFile='data/storage/science-crop-repairs-0620-0625.receipt.json';const complete=[];let cursor=0,failure;
 async function worker(){
  while(!failure&&cursor<m.objects.length){const o=m.objects[cursor++];try{
   const bytes=readApprovedCandidate(local(o),cropRoot);
   if(hash(bytes)!==o.sha256||bytes.length!==o.bytes)throw new Error('Source candidate changed before upload');
-  await store.putIfAbsent(o.objectKey,bytes);
+  if(!readbackOnly)await store.putIfAbsent(o.objectKey,bytes);
   // Always re-read in full: an existing object must be byte-identical, never assumed.
   const remote=await store.get(o.objectKey);
-  if(hash(remote.bytes)!==o.sha256||remote.bytes.length!==o.bytes||remote.contentType?.split(';')[0]!=='image/webp')throw new Error('Remote SHA/size/type mismatch');
-  complete.push({objectKey:o.objectKey,sha256:o.sha256,bytes:o.bytes,contentType:'image/webp'});
+  if(hash(remote.bytes)!==o.sha256||remote.bytes.length!==o.bytes)throw new Error('Remote SHA/size mismatch');
+  // Record only a type that was actually observed; an observed type must be WebP.
+  const type=remote.contentType===undefined?null:remote.contentType.split(';')[0].trim();
+  if(type!==null&&type!=='image/webp')throw new Error('Remote type mismatch: '+type);
+  complete.push({objectKey:o.objectKey,sha256:o.sha256,bytes:o.bytes,contentType:type});
   if(complete.length%50===0)console.log(JSON.stringify({verified:complete.length,total:m.objectCount}));
  }catch(e){failure=new Error('Immutable upload/readback failed at '+o.objectKey+': '+e.message);}}
 }
 try{await Promise.all(Array.from({length:3},worker));}finally{store.close();}
 if(failure)throw failure;if(complete.length!==m.objectCount)throw new Error('Incomplete readback');
-fs.writeFileSync(receiptFile,JSON.stringify({schema:'science-crop-repairs-0620-0625-readback-v1',state:'verified_readback',manifestSha256:hash(manifestBytes),answerReplacementCount:m.answerReplacementCount,questionReplacementCount:m.questionReplacementCount,objectCount:m.objectCount,verifiedObjectCount:complete.length,verification:'full_get_sha256_size',records:complete.sort((a,b)=>a.objectKey.localeCompare(b.objectKey))})+'\n');
+const observed=complete.every(r=>r.contentType==='image/webp');if(!observed&&complete.some(r=>r.contentType!==null))throw new Error('Mixed type observation');
+fs.writeFileSync(receiptFile,JSON.stringify({schema:'science-crop-repairs-0620-0625-readback-v1',state:'verified_readback',manifestSha256:hash(manifestBytes),answerReplacementCount:m.answerReplacementCount,questionReplacementCount:m.questionReplacementCount,objectCount:m.objectCount,verifiedObjectCount:complete.length,verification:observed?'full_get_sha256_size_type':'full_get_sha256_size',contentTypeObserved:observed,records:complete.sort((a,b)=>a.objectKey.localeCompare(b.objectKey))})+'\n');
 console.log(JSON.stringify({state:'verified_readback',objects:complete.length}));

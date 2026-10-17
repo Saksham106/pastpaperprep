@@ -27,8 +27,11 @@ describe('reviewed 0620/0625 crop repairs',()=>{
  });
  test('sealed remote receipt binds every immutable object and the exact manifest',()=>{
   const receipt=JSON.parse(readFileSync('data/storage/science-crop-repairs-0620-0625.receipt.json','utf8'));
-  expect(receipt.state).toBe('verified_readback');expect(receipt.manifestSha256).toBe(createHash('sha256').update(manifestBytes).digest('hex'));
-  expect(receipt.records).toEqual(manifest.objects.map((o:{objectKey:string;sha256:string;bytes:number})=>({objectKey:o.objectKey,sha256:o.sha256,bytes:o.bytes,contentType:'image/webp'})).sort((a:{objectKey:string},b:{objectKey:string})=>a.objectKey.localeCompare(b.objectKey)));
+  expect(receipt.state).toBe('verified_readback');
+  // Wrangler readback cannot observe Content-Type; the receipt must say so instead of asserting it.
+  expect(typeof receipt.contentTypeObserved).toBe('boolean');
+  expect(receipt.verification).toBe(receipt.contentTypeObserved?'full_get_sha256_size_type':'full_get_sha256_size');expect(receipt.manifestSha256).toBe(createHash('sha256').update(manifestBytes).digest('hex'));
+  expect(receipt.records).toEqual(manifest.objects.map((o:{objectKey:string;sha256:string;bytes:number})=>({objectKey:o.objectKey,sha256:o.sha256,bytes:o.bytes,contentType:receipt.contentTypeObserved?'image/webp':null})).sort((a:{objectKey:string},b:{objectKey:string})=>a.objectKey.localeCompare(b.objectKey)));
  });
  for(const bank of banks){
   test(`${bank}: every mapping is activated by the actual production loader; everything else unchanged`,async()=>{
