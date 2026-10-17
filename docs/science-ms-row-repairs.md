@@ -27,7 +27,7 @@ Each repaired question gets new crops of its own table rows: rows that touch on 
 
 `scripts/upload-reviewed-science-ms-row-repairs.mjs` (scoped token or `--via-wrangler`) uploads create-only under `repairs/science-ms-rows-v1-1bcc1003fd8374fe/`, re-reads every object in full and writes `data/storage/science-ms-row-repairs.receipt.json`. Existing objects are never replaced or deleted.
 
-30 repaired questions (59 new crops) are in the free years, so after the private upload re-run `scripts/publish-free-assets.mts` (see `docs/free-public-assets.md`) to copy them to `pastpaperprep-free`. Until then the bank page falls back to signed links for those questions.
+30 repaired questions are in the free years: 59 crop references, 53 unique files (identical rows in variant papers share one object). They were copied to `pastpaperprep-free` with `../research/ppp-tools/publish-free-0654-ms-rows.mjs` (create-if-absent from the private object, bucket and public readback, log next to it). The bank page falls back to signed links for any public file that fails to load.
 
 ## Question-paper crops
 
