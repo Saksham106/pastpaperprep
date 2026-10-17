@@ -82,10 +82,12 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const [lifetimeSelected, setLifetimeSelected] = useState(initialLifetimeSelected ?? false);
   // Client navigation (e.g. the "add another subject" chips) changes these props without
-  // remounting, so adopt the new URL values when they change; later manual edits stand.
-  const [urlBilling, setUrlBilling] = useState({ initialInterval, initialLifetimeSelected });
-  if (urlBilling.initialInterval !== initialInterval || urlBilling.initialLifetimeSelected !== initialLifetimeSelected) {
-    setUrlBilling({ initialInterval, initialLifetimeSelected });
+  // remounting. When the URL intent changes, re-adopt its billing choice; manual edits
+  // stand across unrelated rerenders.
+  const urlIntent = [initialInterval, initialLifetimeSelected ? "lifetime" : "", initialProductId ?? "", (initialBankIds ?? []).join(",")].join("|");
+  const [appliedUrlIntent, setAppliedUrlIntent] = useState(urlIntent);
+  if (appliedUrlIntent !== urlIntent) {
+    setAppliedUrlIntent(urlIntent);
     setInterval(initialInterval);
     setLifetimeSelected(initialLifetimeSelected ?? false);
   }

@@ -38,3 +38,23 @@ describe("URL-derived pricing selection", () => {
     expect(checkedNames(container)).toHaveLength(3);
   });
 });
+
+describe("URL navigation re-adopts billing intent", () => {
+  it("resets a manual Annual choice when the new URL says monthly", () => {
+    const { rerender } = render(<PricingContent {...props} initialInterval="monthly" initialBankIds={["igcse"]} />);
+    fireEvent.click(screen.getByRole("button", { name: /^Annual/ }));
+    expect(screen.getByRole("button", { name: /^Annual/ })).toHaveAttribute("aria-pressed", "true");
+    rerender(<PricingContent {...props} initialInterval="monthly" initialBankIds={["igcse", "igcse-additional"]} />);
+    expect(screen.getByRole("button", { name: "Monthly" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("button", { name: /^Annual/ })).toHaveAttribute("aria-pressed", "false");
+  });
+
+  it("leaves Lifetime when navigating to a recurring bank selection", () => {
+    const { container, rerender } = render(<PricingContent {...props} initialBankIds={["igcse"]} />);
+    fireEvent.click(screen.getByRole("button", { name: /Lifetime/ }));
+    expect(screen.getByRole("button", { name: /Lifetime/ })).toHaveAttribute("aria-pressed", "true");
+    rerender(<PricingContent {...props} initialBankIds={["igcse", "igcse-additional"]} />);
+    expect(screen.getByRole("button", { name: /Lifetime/ })).toHaveAttribute("aria-pressed", "false");
+    expect(within(builderOf(container)).getAllByRole("checkbox", { checked: true })).toHaveLength(2);
+  });
+});
