@@ -59,6 +59,10 @@ jobs:
       # Runs prebuild generation, next build and the postbuild private-sourcemap check.
       - name: Build
         run: npm run build
+        env:
+          # Vercel builds with NODE_ENV=production; the IB Economics gate requires it.
+          # Set here, not job-wide, so `npm ci` still installs devDependencies.
+          NODE_ENV: production
       - name: Every bank has an asset manifest and search entries
         run: |
           banks=$(grep -o '^  "[a-z0-9-]*":' src/lib/bank-index-manifest.ts | tr -d ' ":')
