@@ -45,6 +45,25 @@ function safeFunction(value: string): string {
   return /^[A-Za-z0-9_$.[\]<>-]{1,120}$/.test(value) ? value : "anonymous";
 }
 
+const EXTENSION_URL = String.raw`(?:chrome|moz|safari-web|ms-browser)-extension:\/\/[A-Za-z0-9._~\/-]+:\d{1,8}:\d{1,8}`;
+// One whole line, one location, and nothing else: an eval origin, second URL or unparsed text keeps the error reportable.
+const EXTENSION_FRAMES = [
+  new RegExp(String.raw`^at (?:(?:async |new )?[A-Za-z0-9_$.<>\[\]-]{1,120} \()?${EXTENSION_URL}\)?$`),
+  new RegExp(String.raw`^[A-Za-z0-9_$.<>\/-]{0,120}@${EXTENSION_URL}$`),
+];
+
+/**
+ * True only when every line after the error's own header is a recognised frame in a browser extension.
+ * Anything ambiguous (app frames, eval origins, unparsed lines, an over-long stack) returns false, so it is still reported.
+ */
+export function isBrowserExtensionError(error: unknown): boolean {
+  if (!(error instanceof Error) || typeof error.stack !== "string" || error.stack.length > MAX_STACK_CHARS) return false;
+  const lines = error.stack.split("\n").map(line => line.trim()).filter(Boolean);
+  const header = `${error.name}: ${error.message}`.split("\n")[0];
+  if (lines[0] === header || lines[0] === error.name) lines.shift();
+  return lines.length > 0 && lines.every(line => EXTENSION_FRAMES.some(frame => frame.test(line)));
+}
+
 export function scrubStack(stack: string | undefined, fallbackName: string): string | undefined {
   if (!stack) return undefined;
   const result = [`${fallbackName}: Application exception`];
