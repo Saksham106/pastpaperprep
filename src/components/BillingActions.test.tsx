@@ -276,7 +276,7 @@ describe("PlanCheckout", () => {
   it("does not offer a second lifetime purchase when the server says access is covered", async () => {
     fetchMock.mockResolvedValue({ ok: true, json: async () => ({ state: "covered", reason: "access_covered" }) });
     render(<LifetimeCheckout authenticated />);
-    expect(await screen.findByRole("button", { name: /lifetime access is active/i })).toBeDisabled();
+    expect(await screen.findByRole("button", { name: /access is already active/i })).toBeDisabled();
     expect(screen.queryByRole("button", { name: "Unlock lifetime access" })).not.toBeInTheDocument();
   });
 

@@ -241,7 +241,7 @@ export function CheckoutButton({
   );
 }
 
-export function LifetimeCheckout({ authenticated, previewOnly = false, accessCovered = false }: { authenticated: boolean; previewOnly?: boolean; accessCovered?: boolean }) {
+export function LifetimeCheckout({ authenticated, previewOnly = false, accessCovered = false, complimentary = false }: { authenticated: boolean; previewOnly?: boolean; accessCovered?: boolean; complimentary?: boolean }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [needsLogin, setNeedsLogin] = useState(false);
@@ -263,10 +263,11 @@ export function LifetimeCheckout({ authenticated, previewOnly = false, accessCov
       .catch(() => { if (!controller.signal.aborted) setEligibility("error"); });
     return () => controller.abort();
   }, [authenticated, previewOnly]);
-  if (accessCovered) return <div className="billing-actions"><button className="button primary" disabled type="button">Lifetime access is active</button><p className="custom-bundle-selection-note">This account already has lifetime or complimentary access.</p></div>;
+  if (accessCovered && complimentary) return <div className="billing-actions"><button className="button primary" disabled type="button">Complimentary access is active</button><p className="custom-bundle-selection-note">This account already has complimentary access.</p></div>;
+  if (accessCovered) return <div className="billing-actions"><button className="button primary" disabled type="button">Lifetime access is active</button><p className="custom-bundle-selection-note">This account already has lifetime access.</p></div>;
   if (previewOnly) return <div className="billing-actions"><button className="button primary" disabled type="button">Unlock lifetime access</button><p className="custom-bundle-selection-note">Preview only — checkout is disabled.</p></div>;
   if (eligibility === "loading") return <div className="billing-actions"><button className="button primary" disabled type="button">Checking billing eligibility…</button></div>;
-  if (eligibility === "covered") return <div className="billing-actions"><button className="button primary" disabled type="button">Lifetime access is active</button><p className="custom-bundle-selection-note">This account already has lifetime or complimentary access.</p></div>;
+  if (eligibility === "covered") return <div className="billing-actions"><button className="button primary" disabled type="button">Access is already active</button><p className="custom-bundle-selection-note">This account already has lifetime or complimentary access.</p></div>;
   if (eligibility === "billing_support" || eligibility === "error") return <div className="billing-actions"><button className="button primary" disabled type="button">Lifetime checkout unavailable</button><p className="custom-bundle-selection-note">We couldn’t safely verify this billing arrangement. Manage billing or contact support before purchasing.</p></div>;
   if (!authenticated) return <Link className="button primary" href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Unlock lifetime access</Link>;
   async function start() {

@@ -1,4 +1,4 @@
-import { isSupabaseAuthCookieName } from "@/lib/supabase/auth-cookie";
+import { accountIdFromCookieHeader, documentHasSupabaseAuthCookie, isSupabaseAuthCookieName } from "@/lib/supabase/auth-cookie";
 import { isSignedAssetFresh, type SignedAsset } from "@/lib/signed-assets";
 
 /**
@@ -44,22 +44,37 @@ export function sessionFingerprint(cookieHeader: string): string | null {
   return sessionOwner;
 }
 
-let lifecyclePresent: boolean | undefined;
+let lifecycleIdentity: string | undefined;
 let lifecycleGeneration = 0;
+let lifecycleHeader: string | undefined;
+
+/** "signed-out", or the account the cookie names. A cookie we can't read keeps the last account. */
+function lifecycleAccount(cookieHeader: string): string {
+  if (!documentHasSupabaseAuthCookie(cookieHeader)) return "signed-out";
+  const accountId = accountIdFromCookieHeader(cookieHeader);
+  if (accountId) return `account:${accountId}`;
+  return lifecycleIdentity?.startsWith("account:") || lifecycleIdentity === "member" ? lifecycleIdentity : "member";
+}
 
 /**
- * Page lifecycle identity: changes only when the tab signs in or out. Supabase rewrites the
- * auth cookie about hourly for the same person, so a token refresh must not reset an open page
- * (closing answers and re-signing paid images). Private caches still follow the exact cookie via
- * sessionFingerprint, so they reset on any cookie change.
+ * Page lifecycle identity: changes when the tab signs in or out or the account changes, even
+ * with no signed-out moment in between (a direct switch, or a missed sign-out on a shared
+ * computer). Supabase rewrites the auth cookie about hourly for the same person, so a token
+ * refresh keeps the same account and must not reset an open page (closing answers and
+ * re-signing paid images). The account id is read from the cookie for this client-side reset
+ * only; the server still checks access on every request. Private caches still follow the exact
+ * cookie via sessionFingerprint, so they reset on any cookie change.
  */
 export function sessionLifecycleOwner(cookieHeader: string): string {
-  const present = cookieHeader.split(";").some((part) => isSupabaseAuthCookieName(part.trim().split("=")[0] ?? ""));
-  if (present !== lifecyclePresent) {
-    lifecyclePresent = present;
-    lifecycleGeneration += 1;
+  if (cookieHeader !== lifecycleHeader || lifecycleIdentity === undefined) {
+    lifecycleHeader = cookieHeader;
+    const identity = lifecycleAccount(cookieHeader);
+    if (identity !== lifecycleIdentity) {
+      lifecycleIdentity = identity;
+      lifecycleGeneration += 1;
+    }
   }
-  return `${present ? "member" : "signed-out"}:${lifecycleGeneration}`;
+  return `${lifecycleIdentity === "signed-out" ? "signed-out" : "member"}:${lifecycleGeneration}`;
 }
 
 function validAccess(value: unknown): value is MemberAccess {
@@ -142,7 +157,8 @@ export function clearMemberCaches(expectedOwner?: string): void {
   if (expectedOwner !== undefined && !isCurrentOwner(expectedOwner)) return;
   sessionSnapshot = undefined;
   sessionOwner = null;
-  lifecyclePresent = undefined;
+  lifecycleIdentity = undefined;
+  lifecycleHeader = undefined;
   assets.clear();
   assetOwner = null;
   try {

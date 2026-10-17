@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const { createClient, getClaims, from, loadBankQuestions } = vi.hoisted(() => ({ createClient: vi.fn(), getClaims: vi.fn(), from: vi.fn(), loadBankQuestions: vi.fn() }));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 vi.mock("@/lib/question-loader", () => ({ loadBankQuestions }));
-import { GET, PATCH } from "./route";
+import { DELETE, GET, PATCH } from "./route";
 const id = "worksheet-id";
 const savedRow = { id, bank_slug: "ib-sl", title: "Old", question_ids: ["q1"], content_mode: "questions", revision: 4, created_at: "created", updated_at: "updated" };
 const editBody = { revision: 4, bank: "ib-sl", name: "New", questionIds: ["q1"], contentMode: "both" };
@@ -36,4 +36,29 @@ describe("worksheet item routes", () => {
  });
  it("returns conflict when revision compare-and-swap changes no row", async () => { const q = setup(); q.maybeSingle.mockResolvedValueOnce({ data: savedRow, error: null }).mockResolvedValueOnce({ data: null, error: null }); expect((await PATCH(request(editBody), ctx)).status).toBe(409); });
  it("does not expose another owner's worksheet", async () => { const q = setup({ row: null }); expect((await GET(new Request("https://example.test"), ctx)).status).toBe(404); expect(q.eq).toHaveBeenCalledWith("user_id", "user-id"); });
+ it("rejects null, array and primitive PATCH bodies with 400 and no database call", async () => {
+   for (const value of [null, [], "x", 5, true]) { createClient.mockClear(); const r = await PATCH(request(value), ctx); expect(r.status).toBe(400); expect(createClient).not.toHaveBeenCalled(); }
+ });
+ describe("cache headers", () => {
+   const PRIVATE = "private, no-store, max-age=0";
+   const cc = (r: Response) => r.headers.get("cache-control");
+   it("marks GET success, 401, 404, 403 private", async () => {
+     const g = new Request("https://example.test");
+     const ok = await GET(g, ctx); expect(ok.status).toBe(200); expect(cc(ok)).toBe(PRIVATE);
+     setup({ userId: "" }); const unauth = await GET(g, ctx); expect(unauth.status).toBe(401); expect(cc(unauth)).toBe(PRIVATE);
+     setup({ row: null }); const missing = await GET(g, ctx); expect(missing.status).toBe(404); expect(cc(missing)).toBe(PRIVATE);
+     setup({ entitlements: [] }); const denied = await GET(g, ctx); expect(denied.status).toBe(403); expect(cc(denied)).toBe(PRIVATE);
+   });
+   it("marks PATCH 400, 401, 409 private", async () => {
+     expect(cc(await PATCH(request(null), ctx))).toBe(PRIVATE);
+     setup({ userId: "" }); expect(cc(await PATCH(request(editBody), ctx))).toBe(PRIVATE);
+     const q = setup(); q.maybeSingle.mockResolvedValueOnce({ data: savedRow, error: null }).mockResolvedValueOnce({ data: null, error: null });
+     const conflict = await PATCH(request(editBody), ctx); expect(conflict.status).toBe(409); expect(cc(conflict)).toBe(PRIVATE);
+   });
+   it("marks DELETE 204 and 401 private", async () => {
+     const q = setup(); (q as Record<string, unknown>).delete = vi.fn(() => q); q.eq.mockImplementationOnce(() => q).mockImplementationOnce(() => Promise.resolve({ error: null }));
+     const ok = await DELETE(new Request("https://example.test", { method: "DELETE" }), ctx); expect(ok.status).toBe(204); expect(cc(ok)).toBe(PRIVATE);
+     setup({ userId: "" }); const unauth = await DELETE(new Request("https://example.test", { method: "DELETE" }), ctx); expect(unauth.status).toBe(401); expect(cc(unauth)).toBe(PRIVATE);
+   });
+ });
 });

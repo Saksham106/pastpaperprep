@@ -59,6 +59,13 @@ describe("PricingPage", () => {
     expect(screen.queryByRole("region", { name: /change your current subscription/i })).not.toBeInTheDocument();
   });
 
+  it("labels complimentary coverage on the lifetime button as complimentary, not lifetime", () => {
+    render(<PricingContent authenticated hasPaidAccess complimentaryAccess />);
+    fireEvent.click(screen.getByRole("button", { name: "Lifetime" }));
+    expect(screen.getByRole("button", { name: "Complimentary access is active" })).toBeDisabled();
+    expect(screen.queryByRole("button", { name: /lifetime access is active/i })).not.toBeInTheDocument();
+  });
+
   it("makes the free account and upgrade path explicit for signed-in users", () => {
     render(<PricingContent authenticated hasPaidAccess={false} currentPlanNames={[]} />);
     expect(screen.getByRole("heading", { name: /your current access/i })).toBeInTheDocument();

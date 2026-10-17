@@ -81,6 +81,16 @@ function BankTable({ banks }: { banks: readonly Bank[] }) {
 export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, manualAccess = false, previewOnly = false, previewStacked = false, addOnIntent = false, ownedBankIds = [], initialInterval = "monthly", initialLifetimeSelected = false, initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks(), source, checkoutStatus }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; manualAccess?: boolean; previewOnly?: boolean; previewStacked?: boolean; addOnIntent?: boolean; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialLifetimeSelected?: boolean; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[]; source?: UpgradePlacement; checkoutStatus?: "cancelled" }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const [lifetimeSelected, setLifetimeSelected] = useState(initialLifetimeSelected ?? false);
+  // Client navigation (e.g. the "add another subject" chips) changes these props without
+  // remounting. When the URL intent changes, re-adopt its billing choice; manual edits
+  // stand across unrelated rerenders.
+  const urlIntent = [initialInterval, initialLifetimeSelected ? "lifetime" : "", initialProductId ?? "", (initialBankIds ?? []).join(",")].join("|");
+  const [appliedUrlIntent, setAppliedUrlIntent] = useState(urlIntent);
+  if (appliedUrlIntent !== urlIntent) {
+    setAppliedUrlIntent(urlIntent);
+    setInterval(initialInterval);
+    setLifetimeSelected(initialLifetimeSelected ?? false);
+  }
   const pricingPageRef = useRef<HTMLElement>(null);
   useEffect(() => {
     const page = pricingPageRef.current;
@@ -208,6 +218,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           />
         ) : (
           <CustomBundleCheckout
+            // The checkout owns its selection state; remount it when the URL-derived selection changes.
+            key={(preselectedBankIds ?? []).join(",")}
             mode={plan.mode}
             interval={interval}
             authenticated={authenticated}
@@ -236,7 +248,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
       <h2>Lifetime full access</h2>
       <div className="lifetime-price"><strong>$299</strong><span> once</span></div>
       <p className="lifetime-scope">All current + future question banks</p>
-      <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} accessCovered={complimentaryAccess || ownsLifetimeAccess} />
+      <LifetimeCheckout authenticated={authenticated} previewOnly={previewOnly} accessCovered={complimentaryAccess || ownsLifetimeAccess} complimentary={complimentaryAccess && !ownsLifetimeAccess} />
       <ul className="lifetime-benefits" aria-label="Lifetime plan features">
         <li><BookOpen aria-hidden="true" />All subjects</li><li><CrownSimple aria-hidden="true" />Lifetime updates</li><li><SlidersHorizontal aria-hidden="true" />One payment</li><li><ShieldCheck aria-hidden="true" />Secure checkout</li>
       </ul>
