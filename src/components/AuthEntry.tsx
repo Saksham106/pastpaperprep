@@ -38,7 +38,7 @@ export function AuthEntry({ next, hasLinkError = false, hasGoogleError = false, 
       <GoogleSignInButton next={next} />
       <div className="auth-divider"><span>or use email</span></div>
 
-      {signingIn ? <SignInMethods next={next} /> : <PasswordSignUpForm next={next} />}
+      {signingIn ? <SignInMethods next={next} initialMethod={hasLinkError ? "email" : "password"} /> : <PasswordSignUpForm next={next} />}
 
       <div className="auth-mode-switch" role="group" aria-label="Account options">
         <span>{signingIn ? "New here?" : "Already have an account?"}</span>

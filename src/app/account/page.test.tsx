@@ -51,6 +51,7 @@ describe("AccountPage checkout confirmation", () => {
     render(await AccountPage({ searchParams: Promise.resolve({}) }));
     const appearance = screen.getByRole("group", { name: "Appearance" });
     expect(appearance).toHaveTextContent(/light or dark/i);
+    expect(appearance).not.toHaveTextContent(/follows your device/i);
     expect(appearance.querySelector("button.theme-toggle")).toHaveAccessibleName("Switch to dark theme");
   });
 

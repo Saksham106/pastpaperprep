@@ -9,6 +9,19 @@ describe("LoginPage", () => {
     expect(screen.getByRole("heading", { name: /create your account/i })).toBeInTheDocument();
   });
 
+  it("opens the email-link method after an invalid link so a fresh one can be requested", async () => {
+    render(await LoginPage({ searchParams: Promise.resolve({ error: "invalid_link" }) }));
+
+    expect(screen.getByRole("tab", { name: /email link/i })).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("button", { name: /send sign-in link/i })).toBeInTheDocument();
+  });
+
+  it("keeps the password method by default", async () => {
+    render(await LoginPage({ searchParams: Promise.resolve({}) }));
+
+    expect(screen.getByRole("tab", { name: /password/i })).toHaveAttribute("aria-selected", "true");
+  });
+
   it("announces an invalid sign-in link with explicit error feedback", async () => {
     render(await LoginPage({ searchParams: Promise.resolve({ error: "invalid_link" }) }));
 

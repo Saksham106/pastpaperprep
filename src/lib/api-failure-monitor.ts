@@ -29,10 +29,12 @@ export function installApiFailureMonitor(target: Window = window) {
     if (!route) return original.call(target, input, init);
     const method = (init?.method ?? (input instanceof Request ? input.method : "GET")).toUpperCase().slice(0, 10);
     const started = performance.now();
+    // The account that sent the request, not whoever is signed in when it fails.
+    const userId = browserAccountId();
     const report = (status: number, outcome: string, correlationId?: string | null) => trackProductEvent("api_request_failed", {
       route, method, status, outcome, duration_ms: Math.round(performance.now() - started),
       correlation_id: correlationId && UUID.test(correlationId) ? correlationId : undefined,
-      user_id: browserAccountId(),
+      user_id: userId,
     });
     let response: Response;
     try { response = await original.call(target, input, init); }
