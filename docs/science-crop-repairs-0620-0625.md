@@ -33,7 +33,7 @@ One question-paper crop is also repaired. In `0625-2020-w-52-q1`, the page-3 cro
 
 ## Upload (owner approval)
 
-`scripts/upload-reviewed-science-crop-repairs-0620-0625.mjs` (scoped token or `--via-wrangler`) uploads create-only, re-reads every object in full and writes `data/storage/science-crop-repairs-0620-0625.receipt.json`. 13 repaired 0620 questions are free-year (19 files). Copy those to `pastpaperprep-free` afterwards with `../research/ppp-tools/publish-free-science-crops-0620-0625.mjs`.
+`scripts/upload-reviewed-science-crop-repairs-0620-0625.mjs` (scoped token or `--via-wrangler`) uploads create-only, re-reads every object in full and writes `data/storage/science-crop-repairs-0620-0625.receipt.json`. 13 repaired 0620 questions are free-year (19 files). They were copied to `pastpaperprep-free` with `../research/ppp-tools/publish-free-science-crops-0620-0625.mjs` (create-if-absent from the private object, bucket and public readback, log next to it).
 
 ## Explanations to re-check after merge
 
