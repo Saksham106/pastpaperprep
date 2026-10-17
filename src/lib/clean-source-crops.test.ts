@@ -39,7 +39,12 @@ describe('clean source crops for PapaCambridge-watermarked May/June 2026 Chemist
     const hiddenClean = Object.keys(entries).filter((path) => hidden.has(path));
     expect(hiddenClean.filter((path) => Object.values(blank).flat().some((item) => item.path === path))).toHaveLength(29);
     expect(hiddenClean.every((path) => path.startsWith('questions/0620-2026-s-'))).toBe(true);
-    expect(moved).toHaveLength(1025 - hiddenClean.length);
+    // Answers later replaced by the 0620/0625 row repairs (docs/science-crop-repairs-0620-0625.md), re-rendered from the same clean PDFs.
+    const rows = JSON.parse(readFileSync('src/data/reviewed-science-crop-repairs-0620-0625.json', 'utf8')).banks['igcse-chemistry-0620'] as Record<string, { oldPaths: string[] }>;
+    const written = JSON.parse(readFileSync('src/data/reviewed-science-written-answer-repairs.json', 'utf8'))['igcse-chemistry-0620'] as Record<string, { newPaths: string[] }>;
+    const supersededClean = Object.keys(rows).flatMap((id) => written[id]?.newPaths ?? rows[id].oldPaths).filter((path) => entries[path]);
+    expect(supersededClean).toHaveLength(9);
+    expect(moved).toHaveLength(1025 - hiddenClean.length - supersededClean.length);
     for (const q of after) {
       for (const key of [...q.questionAssetPaths, ...q.markschemeAssetPaths]) {
         expect(replaced.has(key)).toBe(false);
