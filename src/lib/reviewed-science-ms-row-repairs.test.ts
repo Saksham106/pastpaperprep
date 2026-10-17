@@ -24,8 +24,11 @@ describe('reviewed science mark-scheme row repairs (0654)',()=>{
  });
  test('sealed remote receipt binds every immutable object and the exact manifest',()=>{
   const receipt=JSON.parse(readFileSync('data/storage/science-ms-row-repairs.receipt.json','utf8'));
-  expect(receipt.state).toBe('verified_readback');expect(receipt.manifestSha256).toBe(createHash('sha256').update(manifestBytes).digest('hex'));
-  expect(receipt.records).toEqual(manifest.objects.map((o:{objectKey:string;sha256:string;bytes:number})=>({objectKey:o.objectKey,sha256:o.sha256,bytes:o.bytes,contentType:'image/webp'})).sort((a:{objectKey:string},b:{objectKey:string})=>a.objectKey.localeCompare(b.objectKey)));
+  expect(receipt.state).toBe('verified_readback');
+  // Wrangler readback cannot observe Content-Type; the receipt must say so instead of asserting it.
+  expect(typeof receipt.contentTypeObserved).toBe('boolean');
+  expect(receipt.verification).toBe(receipt.contentTypeObserved?'full_get_sha256_size_type':'full_get_sha256_size');expect(receipt.manifestSha256).toBe(createHash('sha256').update(manifestBytes).digest('hex'));
+  expect(receipt.records).toEqual(manifest.objects.map((o:{objectKey:string;sha256:string;bytes:number})=>({objectKey:o.objectKey,sha256:o.sha256,bytes:o.bytes,contentType:receipt.contentTypeObserved?'image/webp':null})).sort((a:{objectKey:string},b:{objectKey:string})=>a.objectKey.localeCompare(b.objectKey)));
  });
  test('every mapping is activated by the actual production loader; question paths and other answers unchanged',async()=>{
   vi.stubEnv('PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS','true');vi.stubEnv('PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED','true');
