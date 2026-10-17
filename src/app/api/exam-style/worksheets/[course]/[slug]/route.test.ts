@@ -74,6 +74,6 @@ describe("GET /api/exam-style/worksheets/[course]/[slug]", () => {
     expect(response.headers.get("content-type")).toBe("application/pdf");
     expect(response.headers.get("content-disposition")).toBe('inline; filename="sets-venn-conditional-probability.pdf"');
     expect(response.headers.get("cache-control")).toBe("private, no-store, max-age=0");
-    expect(createHash("sha256").update(Buffer.from(await response.arrayBuffer())).digest("hex")).toBe("0cb3b18be403568b7444b1492d7b09859b3104e7391845ace9f0b46d64ae9fdf");
+    expect(createHash("sha256").update(Buffer.from(await response.arrayBuffer())).digest("hex")).toBe("983fd77d051a29ee840b5918e974e5e31e2946988c431e3218f198dad17549ad");
   });
 });
