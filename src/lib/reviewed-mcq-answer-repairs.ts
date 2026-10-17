@@ -4,6 +4,7 @@ import writtenRepairs from '@/data/reviewed-biology-written-answer-repairs.json'
 import mathsRepairs from '@/data/reviewed-maths-source-answer-repairs.json';
 import scienceWrittenRepairs from '@/data/reviewed-science-written-answer-repairs.json';
 import scienceMsRowRepairs from '@/data/reviewed-science-ms-row-repairs.json';
+import scienceCropRepairs0620And0625 from '@/data/reviewed-science-crop-repairs-0620-0625.json';
 import economicsWrittenRepairs from '@/data/reviewed-economics-written-answer-repairs.json';
 import ibMatrixRepairs from '@/data/reviewed-ib-matrix-head-repairs.json';
 import ibBoundaryRepairs from '@/data/reviewed-ib-boundary-batch-repairs.json';
@@ -83,6 +84,19 @@ export function reviewedMarkschemePaths(bank: BankSlug, questionId: string, path
   if (bank !== repairs.bank) {
     const scienceWrittenEntries = (bank === 'igcse-economics-0455' ? economicsWrittenRepairs : scienceWrittenRepairs) as Partial<Record<BankSlug, Record<string,{oldPaths:string[];newPaths:string[];sha256:string[]}>>>;
     const writtenNamespace = bank === 'igcse-economics-0455' ? /^repairs\/economics-written-v1-[a-f0-9]{16}\/[a-f0-9]{64}\.webp$/ : /^repairs\/science-written-v1-[a-f0-9]{16}\/[a-f0-9]{64}\.webp$/;
+    // Written answers whose crop misses one of the question's own mark-scheme table rows or shows another question's
+    // (docs/science-ms-row-repairs.md, docs/science-crop-repairs-0620-0625.md). Checked first: they replace whatever
+    // earlier overlay served, and are bound to the raw runtime paths.
+    for (const [overlay, namespace] of [[scienceMsRowRepairs, /^repairs\/science-ms-rows-v1-[a-f0-9]{16}$/], [scienceCropRepairs0620And0625, /^repairs\/science-ms-rows-v2-[a-f0-9]{16}$/]] as const) {
+      const msRows = (overlay.banks as Partial<Record<BankSlug, Record<string,{oldPaths:string[];newPaths:string[];sha256:string[]}>>>)[bank]?.[questionId];
+      if (!msRows) continue;
+      if (!namespace.test(overlay.namespace) || JSON.stringify(paths)!==JSON.stringify(msRows.oldPaths) || msRows.newPaths.length<1 ||
+          msRows.newPaths.length!==msRows.sha256.length || new Set(msRows.newPaths).size!==msRows.newPaths.length ||
+          msRows.newPaths.some((path,i)=>!/^[a-f0-9]{64}$/.test(msRows.sha256[i]) || path!==`${overlay.namespace}/${msRows.sha256[i]}.webp`)) {
+        throw new Error(`Reviewed science mark-scheme row repair disagrees with ${bank}:${questionId}`);
+      }
+      return [...msRows.newPaths];
+    }
     const writtenScience = scienceWrittenEntries[bank]?.[questionId];
     if (writtenScience) {
       if (JSON.stringify(paths)!==JSON.stringify(writtenScience.oldPaths) || writtenScience.newPaths.length<1 ||
@@ -92,17 +106,6 @@ export function reviewedMarkschemePaths(bank: BankSlug, questionId: string, path
         throw new Error(`Reviewed science written answer disagrees with ${bank}:${questionId}`);
       }
       return [...writtenScience.newPaths];
-    }
-    // Written answers whose crop stopped inside a mark-scheme table row (docs/science-ms-row-repairs.md).
-    const msRows = (scienceMsRowRepairs.banks as Partial<Record<BankSlug, Record<string,{oldPaths:string[];newPaths:string[];sha256:string[]}>>>)[bank]?.[questionId];
-    if (msRows) {
-      const namespace = /^repairs\/science-ms-rows-v1-[a-f0-9]{16}$/;
-      if (!namespace.test(scienceMsRowRepairs.namespace) || JSON.stringify(paths)!==JSON.stringify(msRows.oldPaths) || msRows.newPaths.length<1 ||
-          msRows.newPaths.length!==msRows.sha256.length || new Set(msRows.newPaths).size!==msRows.newPaths.length ||
-          msRows.newPaths.some((path,i)=>!/^[a-f0-9]{64}$/.test(msRows.sha256[i]) || path!==`${scienceMsRowRepairs.namespace}/${msRows.sha256[i]}.webp`)) {
-        throw new Error(`Reviewed science mark-scheme row repair disagrees with ${bank}:${questionId}`);
-      }
-      return [...msRows.newPaths];
     }
     const repair = scienceEntries[bank]?.[questionId];
     if (!repair) return [...paths];
