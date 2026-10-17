@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { isPlainRecord, withPrivateNoStore } from "@/lib/private-response";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { createClient } from "@/lib/supabase/server";
 import { getBank } from "@/lib/banks";
@@ -25,7 +26,11 @@ async function handleGET() {
 
 async function handlePOST(request: Request) {
   let body: Record<string, unknown>;
-  try { body = await request.json() as Record<string, unknown>; } catch { return NextResponse.json({ error: "Invalid JSON" }, { status: 400 }); }
+  try {
+    const parsed: unknown = await request.json();
+    if (!isPlainRecord(parsed)) return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+    body = parsed;
+  } catch { return NextResponse.json({ error: "Invalid JSON" }, { status: 400 }); }
   let definition;
   try { definition = validateWorksheet({ bank: body.bank, name: body.name ?? body.title, questionIds: body.questionIds, contentMode: body.contentMode }); } catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : "Invalid worksheet" }, { status: 400 }); }
   const { client, userId } = await identity();
@@ -42,5 +47,5 @@ async function handlePOST(request: Request) {
   return NextResponse.json({ worksheet: data }, { status: 201 });
 }
 
-export const GET = withFailureReporting("/api/worksheets", handleGET);
-export const POST = withFailureReporting("/api/worksheets", handlePOST);
+export const GET = withFailureReporting("/api/worksheets", withPrivateNoStore(handleGET));
+export const POST = withFailureReporting("/api/worksheets", withPrivateNoStore(handlePOST));
