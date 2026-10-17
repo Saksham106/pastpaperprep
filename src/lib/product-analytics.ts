@@ -102,6 +102,10 @@ export function sanitizeAnalyticsEvent<T extends { properties?: Record<string, u
 }
 
 const reportedErrors = new WeakSet<object>();
+// A timer or loop can throw a fresh error object every few seconds; report each kind a few times per page load.
+// The key includes the scrubbed top frames, so a noisy source can't use up another code location's budget. It never leaves the page.
+const MAX_REPORTS_PER_KIND = 3;
+const reportsPerKind = new Map<string, number>();
 export function captureAppException(error: unknown) {
   if (isExpectedControlFlow(error) || (error && typeof error === "object" && reportedErrors.has(error))) return;
   if (error && typeof error === "object") reportedErrors.add(error);
@@ -109,6 +113,10 @@ export function captureAppException(error: unknown) {
   const safe = new Error(safeErrorMessage(error.message) ?? "Application exception");
   safe.name = ERROR_CATEGORIES.has(error.name) ? error.name : "Error";
   safe.stack = scrubStack(error.stack, safe.name);
+  const kind = [safe.name, safe.message, ...(safe.stack?.split("\n").slice(1, 4) ?? [])].join("\n");
+  const reports = reportsPerKind.get(kind) ?? 0;
+  if (reports >= MAX_REPORTS_PER_KIND) return;
+  reportsPerKind.set(kind, reports + 1);
   // A server render failure reaches the error boundary with the same digest the server reported.
   const digest = (error as { digest?: unknown }).digest;
   const userId = browserAccountId();
