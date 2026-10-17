@@ -16,10 +16,14 @@ const ASSET_MANIFEST_DIRECTORY = join(process.cwd(), "generated", "asset-manifes
 const single = process.argv.indexOf("--bank");
 if (single >= 0) {
   const slug = process.argv[single + 1] as BankSlug;
-  const questions = await loadBankQuestions(slug).catch(() => null);
-  if (!questions) {
-    console.log(`${slug}: not runnable in this environment, skipped`);
-    process.exit(0);
+  // Only banks getAvailableBanks() returned are queued, so a loader failure here is real:
+  // fail the child (and the build) instead of leaving the bank without a manifest.
+  let questions: Awaited<ReturnType<typeof loadBankQuestions>>;
+  try {
+    questions = await loadBankQuestions(slug);
+  } catch (error) {
+    console.error(`${slug}: question loader failed`, error);
+    process.exit(1);
   }
   // Unlike the bank itself, bad letters are never skipped: an invalid overlay fails the build.
   const mcqAnswers = await loadBankMcqAnswers(slug);

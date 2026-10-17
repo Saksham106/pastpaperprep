@@ -37,6 +37,14 @@ describe("withFailureReporting", () => {
     expect(JSON.stringify([captureServerException.mock.calls, serverLog.mock.calls])).not.toContain("student@example.com");
   });
 
+  it("never reads request headers when linkAccount is false, so prerendered routes stay static", async () => {
+    const request = new Request("https://pastpaperprep.com/api/private-bank-index/igcse");
+    Object.defineProperty(request, "headers", { get() { throw new Error("DYNAMIC_SERVER_USAGE"); } });
+    const response = await withFailureReporting("/api/private-bank-index/[bank]", async (_request: Request) => json(200, {}), { linkAccount: false })(request);
+    expect(response.status).toBe(200);
+    expect(serverLog).toHaveBeenCalledWith("info", "api_request", expect.objectContaining({ status: 200, user_id: undefined }));
+  });
+
   it("leaves anonymous requests unlinked", async () => {
     await withFailureReporting("/api/assets/free", async (request: Request) => json(503, { method: request.method }))(new Request("https://pastpaperprep.com/api/assets/free"));
     expect(captureServerException.mock.calls[0][1]).not.toHaveProperty("user_id");
