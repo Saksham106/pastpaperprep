@@ -12,6 +12,7 @@
     "generate:asset-manifest": "tsx scripts/generate-asset-manifest.mts",
     "generate:free-asset-index": "tsx scripts/generate-free-asset-index.mts",
     "generate:search-index": "tsx --conditions=react-server scripts/generate-search-index.mts",
+    "generate:json-types": "node scripts/generate-json-types.mjs",
     "generate:print-geometry-0580": "node scripts/generate-print-geometry-0580.mjs",
     "indexnow:dry-run": "node scripts/indexnow.mjs",
     "generate:0606-offline-candidate-ledger": "node scripts/0606-offline-reconciliation.mjs",
