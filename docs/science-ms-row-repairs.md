@@ -10,7 +10,7 @@ Every served 0654 written answer, all years, was exported through the app's own 
 
 - A row is the band between two table-wide rules. Its owner is the number printed in the Question column. An unlabelled row continues the previous owner. Repeated header rows are owned by nobody. May/June 2020 pages are rotated and lighter-ruled; both are handled. Printed label typos (`3d(ii)`, `88(c)`) are logged and kept in question order.
 - Served crop geometry comes from the release geometry registry (checked against the storage manifest SHA-256) and, for questions already repaired on 2026-10-02, from the source-grid records. Every source PDF is SHA-pinned.
-- Result: 1,442 written questions; 1,208 complete, 234 with missing rows, 0 unsupported. No served crop contains another question's row. All 714 questions repaired on 2026-10-02 are complete.
+- Result: 1,442 written questions; 1,208 complete, 234 with missing rows, 0 unsupported. One served crop also showed another question's row: `0654-2025-winter-31-q10` included Q11(a); its replacement does not. All 714 questions repaired on 2026-10-02 are complete.
 - The 234 by year: 2020 67, 2021 30, 2022 32, 2023 21, 2024 40, 2025 44. By paper: 3x 78, 4x 104, 5x 27, 6x 25. They miss 243 rows: 239 shown in part, and 4 continuation rows on a page with no served crop (`0654-2020-summer-63-q2`, `0654-2022-march-62-q4`, `0654-2022-summer-53-q4`, `0654-2022-winter-62-q3`).
 
 Pinned inputs: runtime `b0973510a204…`, served export `d94f4e5eabe0…`, audit `11201e0c9d29…` (full hashes in the overlay's `source` and the package).
@@ -25,7 +25,7 @@ Each repaired question gets new crops of its own table rows: rows that touch on 
 
 ## Upload (owner approval)
 
-`scripts/upload-reviewed-science-ms-row-repairs.mjs` (scoped token or `--via-wrangler`) uploads create-only under `repairs/science-ms-rows-v1-1bcc1003fd8374fe/`, re-reads every object in full and writes `data/storage/science-ms-row-repairs.receipt.json`. Existing objects are never replaced or deleted.
+`scripts/upload-reviewed-science-ms-row-repairs.mjs` (scoped token or `--via-wrangler`) uploads create-only under `repairs/science-ms-rows-v1-1bcc1003fd8374fe/`, re-reads every object in full and writes `data/storage/science-ms-row-repairs.receipt.json`. Existing objects are never replaced or deleted. The receipt was written by a Wrangler readback, which checks SHA-256 and size but cannot see an object's stored Content-Type, so it records the type as unobserved (`contentTypeObserved: false`). The objects were put with `image/webp`; to record the stored type, re-run with `--readback-only` and a scoped read token.
 
 30 repaired questions are in the free years: 59 crop references, 53 unique files (identical rows in variant papers share one object). They were copied to `pastpaperprep-free` with `../research/ppp-tools/publish-free-0654-ms-rows.mjs` (create-if-absent from the private object, bucket and public readback, log next to it). The bank page falls back to signed links for any public file that fails to load.
 
