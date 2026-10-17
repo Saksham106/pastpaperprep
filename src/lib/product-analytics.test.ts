@@ -371,6 +371,31 @@ describe("PostHog product analytics", () => {
     }
   });
 
+  it("ignores page errors thrown only by browser-extension code", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const listeners = vi.spyOn(window, "addEventListener");
+    const originalFetch = window.fetch;
+    try {
+      await import("../instrumentation-client");
+      const extension = Object.assign(new TypeError("x"), { stack: "TypeError: x\n    at poll (chrome-extension://abcdefghijklmnop/content.js:1:2)" });
+      window.dispatchEvent(new ErrorEvent("error", { error: extension }));
+      const rejection = Object.assign(new Event("unhandledrejection"), { reason: Object.assign(new Error("y"), { stack: "Error: y\n    at chrome-extension://abcdefghijklmnop/bg.js:4:5" }) });
+      window.dispatchEvent(rejection);
+      const own = Object.assign(new TypeError("z"), { stack: "TypeError: z\n    at render (https://pastpaperprep.com/_next/static/chunks/app.js:2:3)" });
+      window.dispatchEvent(new ErrorEvent("error", { error: own }));
+      await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledOnce());
+      await new Promise(resolve => setTimeout(resolve, 0));
+      expect(posthog.captureException).toHaveBeenCalledOnce();
+      expect((posthog.captureException.mock.calls[0][0] as Error).stack).toContain("/_next/static/chunks/app.js");
+    } finally {
+      for (const [type, listener] of listeners.mock.calls) {
+        if (type === "error" || type === "unhandledrejection") window.removeEventListener(type, listener);
+      }
+      listeners.mockRestore();
+      window.fetch = originalFetch;
+    }
+  });
+
   it("excludes explicit expected outcomes without hiding keyword-bearing programming errors", async () => {
     const { isExpectedControlFlow } = await import("@/lib/product-analytics");
     expect(isExpectedControlFlow(Object.assign(new Error("Rejected"), { code: "invalid_credentials" }))).toBe(true);
@@ -395,6 +420,17 @@ describe("PostHog product analytics", () => {
     } finally {
       document.cookie = "sb-wrig-auth-token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
     }
+  });
+
+  it("caps a repeating error so one stuck page cannot flood error tracking", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const { captureAppException } = await import("@/lib/product-analytics");
+    // A timer that throws a fresh error every few seconds (seen 2026-10-17: 2,277 events from one tab).
+    for (let index = 0; index < 20; index += 1) captureAppException(new TypeError("Cannot read properties of undefined (reading 'x')"));
+    captureAppException(new RangeError("Invalid array length"));
+    await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledTimes(4));
+    await new Promise(resolve => setTimeout(resolve, 0));
+    expect(posthog.captureException.mock.calls.map(call => (call[0] as Error).name)).toEqual(["TypeError", "TypeError", "TypeError", "RangeError"]);
   });
 
   it("does not capture expected Next control-flow exceptions", async () => {

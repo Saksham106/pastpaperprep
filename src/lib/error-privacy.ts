@@ -45,6 +45,16 @@ function safeFunction(value: string): string {
   return /^[A-Za-z0-9_$.[\]<>-]{1,120}$/.test(value) ? value : "anonymous";
 }
 
+const EXTENSION_FRAME = /(?:chrome|moz|safari-web|ms-browser)-extension:\/\//;
+const ANY_FRAME = /^\s*at\s|@\S+:\d+(?::\d+)?$/;
+
+/** True when every stack frame comes from a browser extension, so the app's own code is not involved. */
+export function isBrowserExtensionError(error: unknown): boolean {
+  if (!(error instanceof Error) || typeof error.stack !== "string") return false;
+  const frames = error.stack.slice(0, MAX_STACK_CHARS * 2).split("\n").filter(line => ANY_FRAME.test(line));
+  return frames.length > 0 && frames.every(line => EXTENSION_FRAME.test(line));
+}
+
 export function scrubStack(stack: string | undefined, fallbackName: string): string | undefined {
   if (!stack) return undefined;
   const result = [`${fallbackName}: Application exception`];
