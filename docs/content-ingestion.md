@@ -308,6 +308,8 @@ cp /tmp/pastpaperprep-sources/ib-biology/site/data/questions-hl.json src/data/ra
 cp /tmp/pastpaperprep-sources/ib-biology/site/data/questions-sl.json src/data/raw/ib-biology-sl.json
 ```
 
+After changing any imported data JSON, run `npm run generate:json-types`. TypeScript reads the small generated `*.d.json.ts` next to each large JSON file instead of the data itself; `npm test` fails while they are out of date.
+
 Then verify the canonical totals before touching Storage:
 
 ```bash
