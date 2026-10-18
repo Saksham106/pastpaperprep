@@ -144,7 +144,7 @@ await pipeline(items, async (it) => {
     const opts = { label: `generate ${tag}`, phase: 'Generate', schema: GEN_SCHEMA, ...cfg(job, 'gen') }
     const g = await run(genPrompt(planRef(job, 'generate', k)), opts)
     // Unwritten drafts are left for the next run's ledger; checking them now would only fail.
-    if (!g) { log(`generate ${tag} gave no result; its questions stay in the next plan`); return }
+    if (!g || !g.results.some(r => r.written)) { log(`generate ${tag} wrote nothing; its questions stay in the next plan`); return }
   }
   const opts = { label: `verify ${tag}`, phase: 'Verify', schema: VERIFY_SCHEMA, ...cfg(job, 'verify') }
   const v = await run(verifyPrompt(planRef(job, stage, k)), opts)
