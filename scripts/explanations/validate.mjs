@@ -6,7 +6,26 @@ import { existsSync, readFileSync } from "node:fs";
 import katex from "katex";
 
 const MARK_CODE = /^(\(?(M|A|R|B|N|SC|AG|E|C|P|S|G|L)\d*\)?( ?\(?dep\)?)?|✓)$/;
+const SCIENCE = /^(igcse-(biology|chemistry|physics|coordinated-sciences)-|ib-(biology|chemistry|physics)-)/;
 const LABEL = /^([a-z](\([ivx]+\))?)?$/;
+
+// Marks carried by a part's codes. AG and SC carry none. Science schemes (Cambridge and IB) may number their marking
+// points M1, M2, ...: when a science part's M codes are exactly M1..Mk, each is one mark, not a weighted method mark.
+// In maths, M1 then M2 are separate method marks worth 1 and 2.
+// Ticks are counted separately: an "any n from" list may tick more alternatives than the part is worth.
+export function codeTotals(codes, { science = false } = {}) {
+  const ms = codes.map((c) => /^\(?M(\d+)\)?$/.exec(c)?.[1]).filter(Boolean).map(Number);
+  const points = science && ms.length > 1 && ms.every((n, i) => n === i + 1);
+  let coded = 0;
+  let ticks = 0;
+  for (const code of codes) {
+    if (code === "✓") { ticks += 1; continue; }
+    const m = /^\(?(AG|SC|M|A|R|B|N|E|C|P|S|G|L)(\d*)/.exec(code);
+    if (!m || m[1] === "AG" || m[1] === "SC") continue;
+    coded += m[1] === "M" && points ? 1 : m[2] === "" ? 1 : Number(m[2]);
+  }
+  return { coded, ticks };
+}
 
 function renderErrors(str, where) {
   const errors = [];
@@ -69,6 +88,13 @@ export function validateExplanation(doc, expected = {}) {
       if (!Array.isArray(step.marks)) errors.push(`${sat}: marks must be an array`);
       else for (const code of step.marks) if (typeof code !== "string" || !MARK_CODE.test(code)) errors.push(`${sat}: bad mark code "${code}"`);
     });
+    const codes = part.steps.flatMap((step) => (Array.isArray(step.marks) ? step.marks.filter((c) => typeof c === "string") : []));
+    // Level-marked parts carry one level code for the whole part (SPEC 11b).
+    if (Number.isInteger(part.marks) && !codes.some((c) => /^\(?L\d/.test(c))) {
+      const { coded, ticks } = codeTotals(codes, { science: SCIENCE.test(doc.bank ?? "") });
+      if (coded > part.marks) errors.push(`${at}: mark codes add up to ${coded}, more than the part's ${part.marks} marks`);
+      if (coded + ticks < part.marks) errors.push(`${at}: mark codes account for ${coded + ticks} of the part's ${part.marks} marks`);
+    }
   });
   if (Number.isInteger(doc.totalMarks) && sum !== doc.totalMarks) errors.push(`part marks sum ${sum} != totalMarks ${doc.totalMarks}`);
   const text = JSON.stringify(doc).toLowerCase();

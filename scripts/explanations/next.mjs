@@ -21,8 +21,8 @@ import { BANKS, researchRoot } from "./prepare-batch.mjs";
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "../..");
 const SIZES = { generate: 8, verify: 10, fix: 10 };
-// Expected agents per chunk: each chunk is verified in the same run, and some need a fix and a re-check.
-const COST = { fix: 1.3, verify: 1.7, generate: 2.7 };
+// Expected agents per chunk: each chunk is verified in the same run; fixes and re-checks are pooled into full batches.
+const COST = { fix: 1.2, verify: 1.4, generate: 2.4 };
 const PASSED = new Set(["pass", "pass-after-fix", "pass-after-minor-fix"]);
 
 // A running workflow reads its plan by path, so every plan gets its own name and is never rewritten.
@@ -109,7 +109,7 @@ function main() {
 
   const { spent, counts } = planJobs(plans, budget);
   const jobs = plans
-    .map((p) => ({ bank: p.bank, manifest: p.manifest, planFile: p.planFile, ...counts.get(p.bank), genModel: "sonnet", genEffort: "medium", fixEffort: "medium", verifyEffort: "high" }))
+    .map((p) => ({ bank: p.bank, manifest: p.manifest, planFile: p.planFile, ...counts.get(p.bank), genModel: "sonnet", genEffort: "medium", fixModel: "sonnet", fixEffort: "high", verifyEffort: "high" }))
     .filter((j) => j.generate + j.verify + j.fix > 0);
   const remaining = plans.reduce((n, p) => n + p.plan.generate.length + p.plan.verify.length + p.plan.fix.length, 0) - jobs.reduce((n, j) => n + j.generate + j.verify + j.fix, 0);
   writeFileSync(join(researchRoot, "_next-jobs.json"), `${JSON.stringify({ wave, jobs }, null, 1)}\n`);
