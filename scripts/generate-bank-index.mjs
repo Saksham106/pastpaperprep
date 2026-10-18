@@ -42,6 +42,7 @@ const mathsAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data", "
 const scienceWrittenAnswerRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-science-written-answer-repairs.json"), "utf8"));
 const scienceMsRowRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-science-ms-row-repairs.json"), "utf8")).banks;
 const scienceCropRepairs0620And0625 = JSON.parse(await readFile(join(root, "src", "data", "reviewed-science-crop-repairs-0620-0625.json"), "utf8")).banks;
+const scienceMsContinuationRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-science-ms-continuation-repairs.json"), "utf8")).banks;
 const ibMatrixRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-matrix-head-repairs.json'), 'utf8'));
 const ibBoundaryRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-boundary-batch-repairs.json'), 'utf8'));
 const ibScienceCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-science-crop-repairs.json'), 'utf8'));
@@ -95,7 +96,7 @@ function activeMarkschemeImageCount(bank, raw) {
   if (historical !== null) return historical;
   const written = bank === 'igcse-biology-0610' ? writtenAnswerRepairs[raw.id] : null;
   const maths = mathsAnswerRepairs[bank]?.[raw.id];
-  const scienceWritten = scienceMsRowRepairs[bank]?.[raw.id] ?? scienceCropRepairs0620And0625[bank]?.[raw.id] ?? scienceWrittenAnswerRepairs[bank]?.[raw.id];
+  const scienceWritten = scienceMsRowRepairs[bank]?.[raw.id] ?? scienceCropRepairs0620And0625[bank]?.[raw.id] ?? scienceMsContinuationRepairs[bank]?.[raw.id] ?? scienceWrittenAnswerRepairs[bank]?.[raw.id];
   const repair = scienceWritten ?? maths ?? written ?? scienceAnswerRepairs[bank]?.[raw.id];
   if (!repair) return null;
   if (JSON.stringify(strings(raw.markschemeImages)) !== JSON.stringify(repair.oldPaths) ||

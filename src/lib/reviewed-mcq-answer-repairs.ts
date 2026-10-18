@@ -5,6 +5,7 @@ import mathsRepairs from '@/data/reviewed-maths-source-answer-repairs.json';
 import scienceWrittenRepairs from '@/data/reviewed-science-written-answer-repairs.json';
 import scienceMsRowRepairs from '@/data/reviewed-science-ms-row-repairs.json';
 import scienceCropRepairs0620And0625 from '@/data/reviewed-science-crop-repairs-0620-0625.json';
+import scienceMsContinuationRepairs from '@/data/reviewed-science-ms-continuation-repairs.json';
 import economicsWrittenRepairs from '@/data/reviewed-economics-written-answer-repairs.json';
 import ibMatrixRepairs from '@/data/reviewed-ib-matrix-head-repairs.json';
 import ibBoundaryRepairs from '@/data/reviewed-ib-boundary-batch-repairs.json';
@@ -85,9 +86,9 @@ export function reviewedMarkschemePaths(bank: BankSlug, questionId: string, path
     const scienceWrittenEntries = (bank === 'igcse-economics-0455' ? economicsWrittenRepairs : scienceWrittenRepairs) as Partial<Record<BankSlug, Record<string,{oldPaths:string[];newPaths:string[];sha256:string[]}>>>;
     const writtenNamespace = bank === 'igcse-economics-0455' ? /^repairs\/economics-written-v1-[a-f0-9]{16}\/[a-f0-9]{64}\.webp$/ : /^repairs\/science-written-v1-[a-f0-9]{16}\/[a-f0-9]{64}\.webp$/;
     // Written answers whose crop misses one of the question's own mark-scheme table rows or shows another question's
-    // (docs/science-ms-row-repairs.md, docs/science-crop-repairs-0620-0625.md). Checked first: they replace whatever
+    // (docs/science-ms-row-repairs.md, docs/science-crop-repairs-0620-0625.md, docs/science-ms-continuation-repairs.md). Checked first: they replace whatever
     // earlier overlay served, and are bound to the raw runtime paths.
-    for (const [overlay, namespace] of [[scienceMsRowRepairs, /^repairs\/science-ms-rows-v1-[a-f0-9]{16}$/], [scienceCropRepairs0620And0625, /^repairs\/science-ms-rows-v2-[a-f0-9]{16}$/]] as const) {
+    for (const [overlay, namespace] of [[scienceMsRowRepairs, /^repairs\/science-ms-rows-v1-[a-f0-9]{16}$/], [scienceCropRepairs0620And0625, /^repairs\/science-ms-rows-v2-[a-f0-9]{16}$/], [scienceMsContinuationRepairs, /^repairs\/science-ms-continuation-v1-[a-f0-9]{16}$/]] as const) {
       const msRows = (overlay.banks as Partial<Record<BankSlug, Record<string,{oldPaths:string[];newPaths:string[];sha256:string[]}>>>)[bank]?.[questionId];
       if (!msRows) continue;
       if (!namespace.test(overlay.namespace) || JSON.stringify(paths)!==JSON.stringify(msRows.oldPaths) || msRows.newPaths.length<1 ||
