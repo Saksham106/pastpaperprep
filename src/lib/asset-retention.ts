@@ -26,14 +26,16 @@ export const EXPECTED_ASSET_COUNTS = {
   // May 2026: official AI TZ1-TZ3 papers added (+254 HL, +161 SL images, all premium).
   "ib-ai-hl": { preview: 236, premium: 1370, all: 1606 },
   "ib-ai-sl": { preview: 155, premium: 1008, all: 1163 },
-  "ib-chemistry-hl": { preview: 232, premium: 5805, all: 6037 },
-  "ib-chemistry-sl": { preview: 159, premium: 4165, all: 4324 },
+  // Shared-stimulus repair (docs/ib-shared-stimulus-repairs.md): one 2017 Paper 3 data-block crop each.
+  "ib-chemistry-hl": { preview: 232, premium: 5806, all: 6038 },
+  "ib-chemistry-sl": { preview: 159, premium: 4166, all: 4325 },
   // May 2026: official Physics papers add 395 (HL) and 258 (SL) premium crops; 2026 is not a free-preview year.
   "ib-physics-hl": { preview: 226, premium: 5790, all: 6016 },
   "ib-physics-sl": { preview: 159, premium: 3894, all: 4053 },
   // May 2026: official papers add 380 (HL; the withheld 2026-may-tz1-hl-p1b-q2 serves none) and 295 (SL) premium crops; 2026 is not a free-preview year.
-  "ib-biology-hl": { preview: 211, premium: 5780, all: 5991 },
-  "ib-biology-sl": { preview: 155, premium: 4511, all: 4666 },
+  // Shared-stimulus repair: HL +6 new crops, 4 no longer served; SL +4 new (the 2020 micrograph is free preview), 2 no longer served.
+  "ib-biology-hl": { preview: 211, premium: 5782, all: 5993 },
+  "ib-biology-sl": { preview: 156, premium: 4512, all: 4668 },
 } as const satisfies Record<string, { preview: number; premium: number; all: number }>;
 
 export const EXPECTED_ASSET_TOTALS = Object.values(EXPECTED_ASSET_COUNTS).reduce(
