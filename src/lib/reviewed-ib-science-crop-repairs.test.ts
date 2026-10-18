@@ -4,6 +4,8 @@ import {readFileSync} from 'node:fs';
 import {IB_SCIENCE_CROP_REPAIR_BANKS,reviewedMarkschemePaths} from '@/lib/reviewed-mcq-answer-repairs';
 import {loadBankQuestions} from '@/lib/question-loader';
 import {metadataFromRaw} from '../../scripts/generate-bank-index.mjs';
+// Question crops follow the separate shared-stimulus overlay (docs/ib-shared-stimulus-repairs.md).
+import {reviewedIbQuestionPaths} from '@/lib/reviewed-ib-shared-stimulus';
 const raw=JSON.parse(readFileSync('src/data/raw/ib-chemistry-sl.json','utf8')).questions;
 const id='2025-may-tz1-sl-p2-q4';
 const row=raw.find((q:{id:string})=>q.id===id);
@@ -30,7 +32,7 @@ test('only the clipped first answer crop is replaced; stale source paths fail cl
 test('actual loader activates the repair and leaves every other question path unchanged',async()=>{
  const before=JSON.stringify(raw);const all=await loadBankQuestions('ib-chemistry-sl');const byId=new Map(all.map(q=>[q.id,q]));
  expect(byId.get(id)?.markschemeAssetPaths).toEqual(entry.newPaths.map((p:string)=>`ib-chemistry-sl/${p}`));
- for(const r of raw){const q=byId.get(r.id);expect(q?.questionAssetPaths).toEqual(r.questionImages.map(key));
+ for(const r of raw){const q=byId.get(r.id);expect(q?.questionAssetPaths).toEqual(reviewedIbQuestionPaths('ib-chemistry-sl',r.id,r.questionImages).map(key));
   if(r.id!==id)expect(q?.markschemeAssetPaths).toEqual([...(r.markschemeImages??[]),...(r.officialMarkscheme?.images??[])].map(key));}
  expect(JSON.stringify(raw)).toBe(before);
 });

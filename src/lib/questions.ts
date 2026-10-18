@@ -17,6 +17,7 @@ import { reviewed0606RightEdgePaths } from "@/lib/reviewed-0606-ms-right-edge-re
 import { reviewed0580CoreQuestionPaths } from "@/lib/reviewed-0580-core-crop-repairs";
 import { reviewedEconomicsQuestionPaths } from "@/lib/reviewed-economics-question-crops";
 import { reviewedScienceQuestionPaths } from "@/lib/reviewed-science-question-crops";
+import { IB_SHARED_STIMULUS_BANKS, reviewedIbQuestionPaths } from "@/lib/reviewed-ib-shared-stimulus";
 import { cleanSourceCropPaths } from "@/lib/clean-source-crops";
 import granularOverlay from "@/data/math-granular-label-overlay.json";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
@@ -284,6 +285,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const questionImages = cleanSourceCropPaths(slug, applyReviewedBlankPages
     // Bank-scoped reviewed question-crop repairs; each returns other banks' paths unchanged.
     ? reviewed0580CoreQuestionPaths(slug, text(raw.id), historicalQuestionPaths(slug, text(raw.id), activeQuestionCropPaths(slug, text(raw.id), activeQuestionImagePaths(slug, text(raw.id), reviewedEconomicsQuestionPaths(slug, text(raw.id), reviewedScienceQuestionPaths(slug, text(raw.id), sourceQuestionImages))))))
+    : IB_SHARED_STIMULUS_BANKS.has(slug) ? reviewedIbQuestionPaths(slug, text(raw.id), sourceQuestionImages)
     : sourceQuestionImages).map((path) => assetUrl(slug, path, economicsAssetMode));
   const markschemeImagePaths = isPrivateRuntimeBank(slug)
     ? Array.from(new Set([...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]))

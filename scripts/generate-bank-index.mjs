@@ -46,6 +46,7 @@ const scienceMsContinuationRepairs = JSON.parse(await readFile(join(root, "src",
 const ibMatrixRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-matrix-head-repairs.json'), 'utf8'));
 const ibBoundaryRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-boundary-batch-repairs.json'), 'utf8'));
 const ibScienceCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-science-crop-repairs.json'), 'utf8'));
+const ibSharedStimulusRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-shared-stimulus-repairs.json'), 'utf8')).banks;
 const historicalCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-historical-crop-repairs.json'), 'utf8'));
 const biologyPrintedMarks = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-printed-marks.json'), 'utf8'));
 // Same projection as src/lib/reviewed-biology-historical-crops.ts (counts and marks only).
@@ -108,6 +109,12 @@ function activeMarkschemeImageCount(bank, raw) {
 const retiredQuestionCrops = JSON.parse(await readFile(join(root, "src", "data", "retired-question-crops.json"), "utf8"));
 function activeQuestionImageCount(bank, raw) {
   const paths = strings(raw.questionImages);
+  // Same projection as src/lib/reviewed-ib-shared-stimulus.ts (counts only).
+  const ibShared = ibSharedStimulusRepairs[bank]?.[raw.id];
+  if (ibShared) {
+    if (JSON.stringify(paths) !== JSON.stringify(ibShared.oldPaths)) throw new Error(`Reviewed IB shared-stimulus crop disagrees with ${bank}:${raw.id}`);
+    return ibShared.newPaths.length;
+  }
   const reviewed = reviewedBlankPages.entries[bank]?.[raw.id] ?? [];
   const retired = retiredQuestionCrops[bank]?.[raw.id] ?? [];
   const approved = new Set([...reviewed.map((item) => item.path), ...retired]);
