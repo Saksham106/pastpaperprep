@@ -329,4 +329,9 @@ test('mark codes must account for each part exactly, with science point labels c
   assert.equal(codeErrors(doc('igcse-biology-0610', 3, [[], []])).length, 1);
   assert.deepEqual(codeErrors(doc('ib-physics-hl', 2, [['✓'], ['✓'], ['✓']])), []);
   assert.deepEqual(codeErrors(doc('igcse-economics-0455', 6, [[], ['L3']])), []);
+  const withdrawn = doc('igcse-biology-0610', 3, [[]]);
+  withdrawn.parts[0].withdrawn = true;
+  assert.deepEqual(codeErrors(withdrawn), []);
+  withdrawn.parts[0].steps[0].marks = ['B1'];
+  assert.equal(validateExplanation(withdrawn).filter((e) => /withdrawn/.test(e)).length, 1);
 });

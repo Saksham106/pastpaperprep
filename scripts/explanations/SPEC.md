@@ -79,6 +79,7 @@ Mark scheme images can contain neighbouring questions. Use only the rows for thi
 12. **When the official answer looks wrong** (owner decision, 2026-10-12). Teach the official method and give the official answer as the part's `answer`, because that is what earns the marks. Then add one final step that starts "Why we think the official answer may be wrong:" and explains the issue concretely (the correct working and value, or the reason a key letter cannot be right), with no `marks`. In `answer`, append "(official answer; we believe the correct value is …, see the last step)". Do not set `needs_review` for this alone. Only use this after checking the images: a misread crop or misaligned key row is a data problem, not a wrong answer.
 13. **Stay inside the question.** No content beyond what the question and scheme support. If something in the images is unreadable or missing, do not guess: set `"status": "needs_review"` and `"reviewNote"` at the top level and still write every part you can.
 13a. **Material the exam board removed is not a problem to flag.** When the printed paper itself says a figure, table or spectrum was "Removed for copyright reasons" (or similar), every copy of the paper is like that. Do **not** set `needs_review`. Start the affected part with one unmarked step saying the item is not printed in the published paper, then explain the official answer from what the question, the options and the scheme do give. Never invent the missing data. `needs_review` is only for our own problems: a crop that cuts off part of the question or scheme, a blank or missing image, or a scheme row for the wrong question.
+13b. **A part the exam board withdrew.** When the scheme says a part "has been removed from the question paper" (or similar) and awards it no marks, keep the part with its printed marks, set `"withdrawn": true`, give its steps no mark codes, and start with an unmarked step saying the exam board withdrew the part, so no marks are awarded for it. There is no official answer to teach, so do not invent one; `answer` says the part was withdrawn. Do not set `needs_review` for this.
 
 ## Maths formatting (KaTeX)
 
@@ -90,7 +91,7 @@ Mark scheme images can contain neighbouring questions. Use only the rows for thi
 
 ## Self-check before writing the file
 
-- Part labels and marks match the printed question; marks add to `totalMarks`.
+- Part labels and marks match the printed question; marks add to `totalMarks`. When the paper numbers sub-subparts with their own marks ("(c)(ii) 1." and "2."), make each its own part, labelled `c(ii)1` and `c(ii)2`.
 - Every final answer matches the scheme.
 - Every main-method mark code in the scheme is attached once.
 - JSON parses; `node scripts/explanations/validate.mjs <file>` passes.

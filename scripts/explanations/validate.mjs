@@ -7,7 +7,8 @@ import katex from "katex";
 
 const MARK_CODE = /^(\(?(M|A|R|B|N|SC|AG|E|C|P|S|G|L)\d*\)?( ?\(?dep\)?)?|✓)$/;
 const SCIENCE = /^(igcse-(biology|chemistry|physics|coordinated-sciences)-|ib-(biology|chemistry|physics)-)/;
-const LABEL = /^([a-z](\([ivx]+\))?)?$/;
+// Cambridge papers number some sub-subparts, "(c)(ii) 1." and "2.", each with its own printed marks: label "c(ii)1".
+const LABEL = /^([a-z](\([ivx]+\)([1-9])?)?)?$/;
 
 // Marks carried by a part's codes. AG and SC carry none. Science schemes (Cambridge and IB) may number their marking
 // points M1, M2, ...: when a science part's M codes are exactly M1..Mk, each is one mark, not a weighted method mark.
@@ -68,6 +69,7 @@ export function validateExplanation(doc, expected = {}) {
       if (typeof part[key] !== "string" || !part[key].trim()) errors.push(`${at}: ${key} required`);
       else errors.push(...renderErrors(part[key], `${at}.${key}`));
     }
+    if (part.withdrawn !== undefined && part.withdrawn !== true) errors.push(`${at}: withdrawn may only be true`);
     if (part.mistake !== undefined) {
       if (typeof part.mistake !== "string" || !part.mistake.trim()) errors.push(`${at}: mistake must be non-empty when present`);
       else errors.push(...renderErrors(part.mistake, `${at}.mistake`));
@@ -90,7 +92,9 @@ export function validateExplanation(doc, expected = {}) {
     });
     const codes = part.steps.flatMap((step) => (Array.isArray(step.marks) ? step.marks.filter((c) => typeof c === "string") : []));
     // Level-marked parts carry one level code for the whole part (SPEC 11b).
-    if (Number.isInteger(part.marks) && !codes.some((c) => /^\(?L\d/.test(c))) {
+    // A part the exam board withdrew keeps its printed marks but awards none (SPEC 13b).
+    if (part.withdrawn === true && codes.length) errors.push(`${at}: a withdrawn part carries no mark codes`);
+    if (Number.isInteger(part.marks) && !part.withdrawn && !codes.some((c) => /^\(?L\d/.test(c))) {
       const { coded, ticks } = codeTotals(codes, { science: SCIENCE.test(doc.bank ?? "") });
       if (coded > part.marks) errors.push(`${at}: mark codes add up to ${coded}, more than the part's ${part.marks} marks`);
       if (coded + ticks < part.marks) errors.push(`${at}: mark codes account for ${coded + ticks} of the part's ${part.marks} marks`);

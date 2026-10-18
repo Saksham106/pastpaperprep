@@ -223,9 +223,17 @@ describe("explanation rendering", () => {
     expect(container.textContent).toContain('<img src=x onerror="alert(1)">');
   });
 
+  it("accepts a withdrawn part only without mark codes", () => {
+    const withdrawn = { ...doc, parts: [{ ...doc.parts[0], withdrawn: true, steps: [{ text: "The exam board withdrew this part.", marks: [] }] }] };
+    expect(parseExplanation(withdrawn, doc.bank, doc.questionId)).not.toBeNull();
+    expect(parseExplanation({ ...withdrawn, parts: [{ ...withdrawn.parts[0], steps: [{ text: "x", marks: ["B1"] }] }] }, doc.bank, doc.questionId)).toBeNull();
+    expect(parseExplanation({ ...withdrawn, parts: [{ ...withdrawn.parts[0], withdrawn: false }] }, doc.bank, doc.questionId)).toBeNull();
+  });
+
   it("formats part labels like the paper", () => {
     expect(formatPartLabel("a")).toBe("(a)");
     expect(formatPartLabel("b(iii)")).toBe("(b)(iii)");
+    expect(formatPartLabel("c(ii)1")).toBe("(c)(ii) 1.");
     expect(formatPartLabel("")).toBe("");
   });
 });
