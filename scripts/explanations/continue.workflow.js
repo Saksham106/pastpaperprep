@@ -81,13 +81,45 @@ const cfg = (job, role) => {
   return model ? { model, effort } : { effort }
 }
 
-async function repair(job, tag, verified) {
-  const toFix = verified.filter(needsFix)
-  if (!toFix.length) return
-  await agent(fixPrompt(idsRef(job, toFix.map(v => v.questionId)), JSON.stringify(toFix.map(v => ({ questionId: v.questionId, verdict: v.verdict, issues: v.issues })), null, 1)),
-    { label: `fix ${tag}`, phase: 'Fix', schema: FIX_SCHEMA, ...cfg(job, 'fix') })
-  const crit = toFix.filter(isCritical).map(v => v.questionId)
-  if (crit.length) await agent(verifyPrompt(idsRef(job, crit)), { label: `re-verify ${tag}`, phase: 'Re-verify', schema: VERIFY_SCHEMA, ...cfg(job, 'verify') })
+// An agent that dies (rate limit, empty result) is retried, first at once and then once more after the main run.
+const deferred = []
+async function run(prompt, opts, attempts = 2) {
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    const r = await agent(prompt, attempt ? { ...opts, label: `${opts.label} r${attempt}` } : opts)
+    if (r && Array.isArray(r.results) && r.results.length) return r
+  }
+  return null
+}
+
+// Fixes and re-checks are pooled per job and sent in full batches, instead of one small agent per verify chunk.
+// Pools are per job so each agent stays single-bank (the ledger reads the bank from the label).
+const FIX_BATCH = 8
+const REVERIFY_BATCH = 10
+const pools = new Map()
+const pool = (job) => pools.get(job) ?? pools.set(job, { fix: [], reverify: [], n: 0 }).get(job)
+
+async function fixBatch(job, items) {
+  const label = `fix ${job.bank} f${pool(job).n++}`
+  const prompt = fixPrompt(idsRef(job, items.map(v => v.questionId)), JSON.stringify(items.map(v => ({ questionId: v.questionId, verdict: v.verdict, issues: v.issues })), null, 1))
+  const opts = { label, phase: 'Fix', schema: FIX_SCHEMA, ...cfg(job, 'fix') }
+  const r = await run(prompt, opts)
+  if (!r) { deferred.push({ job, kind: 'fix', items, prompt, opts }); return }
+  await queueReverify(job, items.filter(isCritical).map(v => v.questionId))
+}
+async function reverifyBatch(job, ids) {
+  const opts = { label: `re-verify ${job.bank} r${pool(job).n++}`, phase: 'Re-verify', schema: VERIFY_SCHEMA, ...cfg(job, 'verify') }
+  const prompt = verifyPrompt(idsRef(job, ids))
+  if (!(await run(prompt, opts))) deferred.push({ job, kind: 'reverify', ids, prompt, opts })
+}
+async function queueFix(job, items, flush = false) {
+  const p = pool(job)
+  p.fix.push(...items)
+  while (p.fix.length >= FIX_BATCH || (flush && p.fix.length)) await fixBatch(job, p.fix.splice(0, FIX_BATCH))
+}
+async function queueReverify(job, ids, flush = false) {
+  const p = pool(job)
+  p.reverify.push(...ids)
+  while (p.reverify.length >= REVERIFY_BATCH || (flush && p.reverify.length)) await reverifyBatch(job, p.reverify.splice(0, REVERIFY_BATCH))
 }
 
 const items = []
@@ -101,14 +133,35 @@ await pipeline(items, async (it) => {
   const { job, stage, k } = it
   const tag = `${job.bank} ${stage[0]}${k}`
   if (stage === 'fix') {
-    const r = await agent(fixPrompt(planRef(job, 'fix', k), `(The issues are in the plan file's "fix" chunk ${k}, as the "issues" array of each entry.)`), { label: `fix ${tag}`, phase: 'Fix', schema: FIX_SCHEMA, ...cfg(job, 'fix') })
-    const crit = r ? r.results.filter(x => x.hadCriticalIssue).map(x => x.questionId) : []
-    if (crit.length) await agent(verifyPrompt(idsRef(job, crit)), { label: `re-verify ${tag}`, phase: 'Re-verify', schema: VERIFY_SCHEMA, ...cfg(job, 'verify') })
+    const opts = { label: `fix ${tag}`, phase: 'Fix', schema: FIX_SCHEMA, ...cfg(job, 'fix') }
+    const prompt = fixPrompt(planRef(job, 'fix', k), `(The issues are in the plan file's "fix" chunk ${k}, as the "issues" array of each entry.)`)
+    const r = await run(prompt, opts)
+    if (!r) { deferred.push({ job, kind: 'planfix', prompt, opts }); return }
+    await queueReverify(job, r.results.filter(x => x.hadCriticalIssue).map(x => x.questionId))
     return
   }
-  if (stage === 'generate') await agent(genPrompt(planRef(job, 'generate', k)), { label: `generate ${tag}`, phase: 'Generate', schema: GEN_SCHEMA, ...cfg(job, 'gen') })
-  const v = await agent(verifyPrompt(planRef(job, stage, k)), { label: `verify ${tag}`, phase: 'Verify', schema: VERIFY_SCHEMA, ...cfg(job, 'verify') })
-  if (v) await repair(job, tag, v.results)
+  if (stage === 'generate') {
+    const opts = { label: `generate ${tag}`, phase: 'Generate', schema: GEN_SCHEMA, ...cfg(job, 'gen') }
+    const g = await run(genPrompt(planRef(job, 'generate', k)), opts)
+    // Unwritten drafts are left for the next run's ledger; checking them now would only fail.
+    if (!g || !g.results.some(r => r.written)) { log(`generate ${tag} wrote nothing; its questions stay in the next plan`); return }
+  }
+  const opts = { label: `verify ${tag}`, phase: 'Verify', schema: VERIFY_SCHEMA, ...cfg(job, 'verify') }
+  const v = await run(verifyPrompt(planRef(job, stage, k)), opts)
+  if (!v) { deferred.push({ job, kind: 'verify', prompt: verifyPrompt(planRef(job, stage, k)), opts }); return }
+  await queueFix(job, v.results.filter(needsFix))
 })
+
+// Last call for retries, then send the part-filled pools.
+for (const d of deferred.splice(0)) {
+  const r = await run(d.prompt, { ...d.opts, label: `${d.opts.label} late` }, 1)
+  if (!r) { log(`gave up: ${d.opts.label}`); continue }
+  if (d.kind === 'verify') await queueFix(d.job, r.results.filter(needsFix))
+  if (d.kind === 'fix') await queueReverify(d.job, d.items.filter(isCritical).map(v => v.questionId))
+  if (d.kind === 'planfix') await queueReverify(d.job, r.results.filter(x => x.hadCriticalIssue).map(x => x.questionId))
+}
+await parallel(args.jobs.map(job => () => queueFix(job, [], true)))
+await parallel(args.jobs.map(job => () => queueReverify(job, [], true)))
+if (deferred.length) log(`gave up on ${deferred.length} agents after retries: ${deferred.map(d => d.opts.label).join(', ')}`)
 log('Done. Rebuild ledgers with scripts/explanations/ledger-from-journal.mjs using this run\'s journal.')
 return { items: items.length }
