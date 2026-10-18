@@ -23,9 +23,9 @@ function renderDisplayMath(tex: string): string {
 
 /** "a(ii)" -> "(a)(ii)"; "" stays empty. */
 export function formatPartLabel(label: string): string {
-  const match = /^([a-z])(\(([ivx]+)\))?$/.exec(label);
+  const match = /^([a-z])(\(([ivx]+)\)([1-9])?)?$/.exec(label);
   if (!match) return label;
-  return `(${match[1]})${match[3] ? `(${match[3]})` : ""}`;
+  return `(${match[1]})${match[3] ? `(${match[3]})` : ""}${match[4] ? ` ${match[4]}.` : ""}`;
 }
 
 function Inline({ text, className }: { text: string; className?: string }) {
@@ -38,7 +38,7 @@ export default function ExplanationPanel({ explanation }: { explanation: Explana
     <div className={styles.parts}>
       {explanation.parts.map((part) => (
         <section key={part.label || "whole"} className={styles.part} aria-label={multiPart ? `Part ${formatPartLabel(part.label)}` : "Worked solution"}>
-          {multiPart && <header className={styles.partHeader}><strong>{formatPartLabel(part.label)}</strong><span>{part.marks} {part.marks === 1 ? "mark" : "marks"}</span></header>}
+          {multiPart && <header className={styles.partHeader}><strong>{formatPartLabel(part.label)}</strong><span>{part.marks} {part.marks === 1 ? "mark" : "marks"}{part.withdrawn && " · withdrawn, not marked"}</span></header>}
           <p className={styles.approach}><Inline text={part.approach} /></p>
           <ol className={styles.steps}>
             {part.steps.map((step, index) => (

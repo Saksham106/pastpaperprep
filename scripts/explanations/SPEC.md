@@ -52,7 +52,7 @@ Mark scheme images can contain neighbouring questions. Use only the rows for thi
 | `steps[].math` | Optional display maths (LaTeX, no `$`). Use for the line a student would actually write. |
 | `steps[].marks` | Mark codes earned at this step, exactly as the scheme writes them. Keep combined codes whole: if the scheme says `M2` for a full method (with `M1` as partial credit) or `B2`/`B4` for a complete answer or curve, put that one code on the step where the method or answer is complete; do not split it into invented singles. Keep `dep` suffixes (`M1dep`) (`M1`, `A1`, `R1`, `(M1)`, `(A1)`, `B1`, `N2`, `AG`, `SC1`...). Empty array if none. Every mark the scheme awards on its main method must be attached to exactly one step. |
 | `answer` | The final answer as the scheme accepts it (exact form, or 3 s.f. where the scheme does). For "show that" parts, the given result. For sketches, a list of the features that score. |
-| `mistake` | Optional. One common slip for this part, only when there is a real, specific one. No generic advice. |
+| `mistake` | Optional. One common slip for this part, only when there is a real, specific one. No generic advice. It must be something the scheme rejects or that loses marks: never call an answer the scheme accepts (including its allowed alternatives) a mistake. If unsure, leave it out. |
 
 ## How to write
 
@@ -73,10 +73,13 @@ Mark scheme images can contain neighbouring questions. Use only the rows for thi
    - Never split a combined mark into invented singles (no `B1` + `B1` for a 2-mark answer). Partial-credit lines may be mentioned in step text ("one correct line alone earns B1"), but they carry no code.
    - The codes on a part's steps must account for exactly its printed marks.
    - The step carrying the final mark must state the final answer itself.
+11c. **Mark totals.** The validator checks each part's codes: numeric codes (AG and SC count 0, `B2` counts 2) must not exceed the part's marks, and codes plus ticks must cover them. In science banks, a scheme that numbers its marking points M1, M2, M3 … has each worth one mark. An "any two from" list may tick every listed alternative.
+11d. **Write only what a student writes.** No commentary about the marking inside steps ("this point is a spare", "these are two separate points"); the codes already show where marks fall. Describe wrong MCQ options and slips exactly as printed, and only when you can say precisely why they lose the mark.
 11b. **Level-marked answers (economics essays, "discuss/evaluate" parts).** When the scheme marks a part by levels (L1–L4, level descriptors) rather than point marks, do not invent point codes: put the part's full marks as one code on the final step, written like `L4` for the top level (or `B<n>` if the scheme gives no level labels), and leave other steps uncoded. Steps should show what a top-level answer contains, in order: definitions and knowledge, the analysis chain (cause → effect, with a diagram described in words if the scheme expects one), real-world application where asked, and a balanced evaluation that reaches a justified conclusion. One step per element; keep each to two or three sentences. `answer` is a one-sentence summary of the conclusion. For point-marked parts in the same question, use the usual codes.
 12. **When the official answer looks wrong** (owner decision, 2026-10-12). Teach the official method and give the official answer as the part's `answer`, because that is what earns the marks. Then add one final step that starts "Why we think the official answer may be wrong:" and explains the issue concretely (the correct working and value, or the reason a key letter cannot be right), with no `marks`. In `answer`, append "(official answer; we believe the correct value is …, see the last step)". Do not set `needs_review` for this alone. Only use this after checking the images: a misread crop or misaligned key row is a data problem, not a wrong answer.
 13. **Stay inside the question.** No content beyond what the question and scheme support. If something in the images is unreadable or missing, do not guess: set `"status": "needs_review"` and `"reviewNote"` at the top level and still write every part you can.
 13a. **Material the exam board removed is not a problem to flag.** When the printed paper itself says a figure, table or spectrum was "Removed for copyright reasons" (or similar), every copy of the paper is like that. Do **not** set `needs_review`. Start the affected part with one unmarked step saying the item is not printed in the published paper, then explain the official answer from what the question, the options and the scheme do give. Never invent the missing data. `needs_review` is only for our own problems: a crop that cuts off part of the question or scheme, a blank or missing image, or a scheme row for the wrong question.
+13b. **A part the exam board withdrew.** When the scheme says a part "has been removed from the question paper" (or similar) and awards it no marks, keep the part with its printed marks, set `"withdrawn": true`, give its steps no mark codes, and start with an unmarked step saying the exam board withdrew the part, so no marks are awarded for it. There is no official answer to teach, so do not invent one; `answer` says the part was withdrawn. Do not set `needs_review` for this.
 
 ## Maths formatting (KaTeX)
 
@@ -88,7 +91,7 @@ Mark scheme images can contain neighbouring questions. Use only the rows for thi
 
 ## Self-check before writing the file
 
-- Part labels and marks match the printed question; marks add to `totalMarks`.
+- Part labels and marks match the printed question; marks add to `totalMarks`. When the paper numbers sub-subparts with their own marks ("(c)(ii) 1." and "2."), make each its own part, labelled `c(ii)1` and `c(ii)2`.
 - Every final answer matches the scheme.
 - Every main-method mark code in the scheme is attached once.
 - JSON parses; `node scripts/explanations/validate.mjs <file>` passes.

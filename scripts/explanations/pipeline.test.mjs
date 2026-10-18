@@ -75,7 +75,7 @@ test('legacy passes are not inherited without scoped rematerialization', () => {
 });
 test('publisher refuses legacy passes and header-only upgrades before reading content', () => {
  const {projects,dir,id}=replayFixture([]);
- const doc={schemaVersion:1,bank:'ib-hl',questionId:id,totalMarks:5,parts:[{label:'',marks:5,approach:'Test',answer:'Test',steps:[{text:'Test',marks:[]}]}]};
+ const doc={schemaVersion:1,bank:'ib-hl',questionId:id,totalMarks:5,parts:[{label:'',marks:5,approach:'Test',answer:'Test',steps:[{text:'Test',marks:['B5']}]}]};
  writeFileSync(join(dir,id+'.json'),JSON.stringify(doc));
  for(const header of [{},{bankEvidenceVersion:1}]) {
   writeFileSync(join(dir,'_ledger.json'),JSON.stringify({bank:'ib-hl',...header,rows:[{questionId:id,status:'pass'}]}));
@@ -91,7 +91,7 @@ test('scoped replay explicitly rematerializes legacy rows and remains publishabl
  const {projects,dir,ledger}=replayFixture(outcome('verify ib-hl v0'),{bank:'ib-hl',rows:[{questionId:id,status:'pass'}]});
  assert.equal(ledger.bankEvidenceVersion,1);assert.equal(ledger.rows[0].bankEvidenceVersion,1);assert.equal(ledger.rows[0].bank,'ib-hl');
  assert.equal(replayFixture([],ledger).ledger.rows[0].status,'pass');
- writeFileSync(join(dir,id+'.json'),JSON.stringify({schemaVersion:1,bank:'ib-hl',questionId:id,totalMarks:5,parts:[{label:'',marks:5,approach:'Test',answer:'Test',steps:[{text:'Test',marks:[]}]}]}));
+ writeFileSync(join(dir,id+'.json'),JSON.stringify({schemaVersion:1,bank:'ib-hl',questionId:id,totalMarks:5,parts:[{label:'',marks:5,approach:'Test',answer:'Test',steps:[{text:'Test',marks:['B5']}]}]}));
  const run=spawnSync(process.execPath,[script,'--bank','ib-hl'],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
  assert.equal(run.status,0,run.stderr);assert.match(run.stdout,/1 publishable, 0 held back/);
 });
@@ -191,7 +191,7 @@ test('publisher holds structurally valid files with wrong runtime marks', () => 
  const dir=join(projects,'research/explanations/ib-hl');mkdirSync(dir,{recursive:true});
  const id='2025-may-tz1-p1-q1';
  writeFileSync(join(dir,'_ledger.json'),JSON.stringify({bank:'ib-hl',bankEvidenceVersion:1,rows:[{questionId:id,status:'pass',bank:'ib-hl',bankEvidenceVersion:1}]}));
- writeFileSync(join(dir,id+'.json'),JSON.stringify({schemaVersion:1,bank:'ib-hl',questionId:id,totalMarks:999,parts:[{label:'',marks:999,approach:'Test',answer:'Test',steps:[{text:'Test',marks:[]}]}]}));
+ writeFileSync(join(dir,id+'.json'),JSON.stringify({schemaVersion:1,bank:'ib-hl',questionId:id,totalMarks:999,parts:[{label:'',marks:999,approach:'Test',answer:'Test',steps:[{text:'Test',marks:['B999']}]}]}));
  const run=spawnSync(process.execPath,[script,'--bank','ib-hl'],{encoding:'utf8',env:{...process.env,PPP_PROJECTS_ROOT:projects}});
  assert.equal(run.status,0,run.stderr);assert.match(run.stdout,/0 publishable, 1 held back/);
 });
@@ -222,7 +222,7 @@ test('a single-bank declaration is refused when the journal names another bank o
 });
 test('--replace only accepts named IDs that are publishable now', () => {
  const {projects,dir,id}=replayFixture([]);
- const doc={schemaVersion:1,bank:'ib-hl',questionId:id,totalMarks:5,parts:[{label:'',marks:5,approach:'Test',answer:'Test',steps:[{text:'Test',marks:[]}]}]};
+ const doc={schemaVersion:1,bank:'ib-hl',questionId:id,totalMarks:5,parts:[{label:'',marks:5,approach:'Test',answer:'Test',steps:[{text:'Test',marks:['B5']}]}]};
  writeFileSync(join(dir,id+'.json'),JSON.stringify(doc));
  const publish=(status, args)=>{
   writeFileSync(join(dir,'_ledger.json'),JSON.stringify({bank:'ib-hl',bankEvidenceVersion:1,rows:[{questionId:id,status,bank:'ib-hl',bankEvidenceVersion:1}]}));
@@ -313,4 +313,25 @@ test('an empty cached image never counts as downloaded', async () => {
  assert.equal(present(join(dir,'empty.webp')),false);
  assert.equal(present(join(dir,'real.webp')),true);
  assert.equal(present(join(dir,'absent.webp')),false);
+});
+
+test('mark codes must account for each part exactly, with science point labels counted once', async () => {
+  const { validateExplanation, codeTotals } = await import('./validate.mjs');
+  assert.deepEqual(codeTotals(['M1', 'M2', 'A1']), { coded: 4, ticks: 0 });
+  assert.deepEqual(codeTotals(['M1', 'M2', 'M3'], { science: true }), { coded: 3, ticks: 0 });
+  assert.deepEqual(codeTotals(['M2', 'A1'], { science: true }), { coded: 3, ticks: 0 });
+  assert.deepEqual(codeTotals(['(M1)', 'A1', 'AG', 'SC1']), { coded: 2, ticks: 0 });
+  const doc = (bank, marks, codes) => ({ schemaVersion: 1, bank, questionId: 'q', totalMarks: marks, parts: [{ label: 'a', marks, approach: 'x', answer: 'y', steps: codes.map((c) => ({ text: 't', marks: c })) }] });
+  const codeErrors = (d) => validateExplanation(d).filter((e) => /mark codes/.test(e));
+  assert.deepEqual(codeErrors(doc('igcse', 4, [['M1'], ['M2'], ['A1']])), []);
+  assert.equal(codeErrors(doc('igcse', 3, [['M1'], ['M2'], ['A1']])).length, 1);
+  assert.deepEqual(codeErrors(doc('igcse-chemistry-0620', 2, [['M1'], ['M2']])), []);
+  assert.equal(codeErrors(doc('igcse-biology-0610', 3, [[], []])).length, 1);
+  assert.deepEqual(codeErrors(doc('ib-physics-hl', 2, [['✓'], ['✓'], ['✓']])), []);
+  assert.deepEqual(codeErrors(doc('igcse-economics-0455', 6, [[], ['L3']])), []);
+  const withdrawn = doc('igcse-biology-0610', 3, [[]]);
+  withdrawn.parts[0].withdrawn = true;
+  assert.deepEqual(codeErrors(withdrawn), []);
+  withdrawn.parts[0].steps[0].marks = ['B1'];
+  assert.equal(validateExplanation(withdrawn).filter((e) => /withdrawn/.test(e)).length, 1);
 });
