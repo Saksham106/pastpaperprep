@@ -8,8 +8,10 @@ import{getPrivateBankObjectPrefix}from'@/lib/private-runtime-mapping';
 import{metadataFromRaw}from'../../scripts/generate-bank-index.mjs';
 import{normalizeBankQuestions}from'@/lib/questions';
 const repairs=JSON.parse(readFileSync('src/data/reviewed-science-written-answer-repairs.json','utf8'))as Record<string,Record<string,{oldPaths:string[];newPaths:string[];sha256:string[]}>>;
-// Later reviewed row repairs replace some of these crops again (docs/science-crop-repairs-0620-0625.md).
-const superseded=JSON.parse(readFileSync('src/data/reviewed-science-crop-repairs-0620-0625.json','utf8')).banks as Record<string,Record<string,unknown>>;
+// Later reviewed row repairs replace some of these crops again (docs/science-crop-repairs-0620-0625.md,
+// docs/science-ms-continuation-repairs.md).
+const later=['src/data/reviewed-science-crop-repairs-0620-0625.json','src/data/reviewed-science-ms-continuation-repairs.json'].map(f=>JSON.parse(readFileSync(f,'utf8')).banks as Record<string,Record<string,unknown>>);
+const superseded=Object.fromEntries(['igcse-chemistry-0620','igcse-physics-0625'].map(b=>[b,Object.assign({},...later.map(o=>o[b]??{}))])) as Record<string,Record<string,unknown>>;
 const held=JSON.parse(readFileSync('data/storage/science-written-answer-repairs.manifest.json','utf8')).heldQuestionIds as Record<string,string[]>;
 describe('reviewed science written-answer source repairs',()=>{
  test('sealed remote receipt binds every immutable object and exact manifest',()=>{
@@ -26,7 +28,7 @@ describe('reviewed science written-answer source repairs',()=>{
     const raw=JSON.parse(readFileSync(`src/data/production/${bank}.json`,'utf8')).questions;
     const old=new Map(normalizeBankQuestions(bank,raw,{economicsAssetMode:'private',applyReviewedBlankPages:true}).map(q=>[q.id,q]));const before=JSON.stringify(raw);const after=new Map((await loadBankQuestions(bank)).map(q=>[q.id,q]));
     for(const [qid,entry]of Object.entries(repairs[bank])){
-     if(superseded[bank]?.[qid]){expect(after.get(qid)?.markschemeAssetPaths.every(p=>p.includes('/science-ms-rows-v2-'))).toBe(true);continue;}
+     if(superseded[bank]?.[qid]){expect(after.get(qid)?.markschemeAssetPaths.every(p=>/\/science-ms-(rows-v2|continuation-v1)-/.test(p))).toBe(true);continue;}
      expect(reviewedMarkschemePaths(bank,qid,entry.oldPaths)).toEqual(entry.newPaths);
      expect(after.get(qid)?.markschemeAssetPaths).toEqual(cleanSourceCropPaths(bank,entry.newPaths).map(p=>getPrivateBankObjectPrefix(bank)+p));
      expect(after.get(qid)?.markschemeImageCount).toBe(entry.newPaths.length);
