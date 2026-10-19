@@ -23,9 +23,9 @@ function renderDisplayMath(tex: string): string {
 
 /** "a(ii)" -> "(a)(ii)"; "" stays empty. */
 export function formatPartLabel(label: string): string {
-  const match = /^([a-z])(\(([ivx]+)\)([1-9])?)?$/.exec(label);
+  const match = /^([a-z])(\(([ivx]+)\)(?:([1-9])|\(([a-z])\))?)?$/.exec(label);
   if (!match) return label;
-  return `(${match[1]})${match[3] ? `(${match[3]})` : ""}${match[4] ? ` ${match[4]}.` : ""}`;
+  return `(${match[1]})${match[3] ? `(${match[3]})` : ""}${match[4] ? ` ${match[4]}.` : ""}${match[5] ? `(${match[5]})` : ""}`;
 }
 
 function Inline({ text, className }: { text: string; className?: string }) {
