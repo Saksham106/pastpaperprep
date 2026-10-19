@@ -6,13 +6,12 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AnalyticsConsentBanner } from "@/components/AnalyticsConsentBanner";
 import { createClient } from "@/lib/supabase/browser";
-import { ANALYTICS_CONSENT_MAX_AGE_SECONDS, ANALYTICS_CONSENT_VERSION, isConsentPromptPath, readBrowserAnalyticsConsent } from "@/lib/analytics-consent";
+import { ANALYTICS_CONSENT_VERSION, analyticsChoiceMaxAgeSeconds, isConsentPromptPath, readBrowserAnalyticsConsent } from "@/lib/analytics-consent";
 import { disableProductAnalytics, initializeProductAnalytics, initializeConsentedAnalytics, setProductAnalyticsIdentity, trackConsentedProductEvent, trackProductEvent } from "@/lib/product-analytics";
 
 const OPEN_EVENT = "ppp:open-analytics-consent";
 const DISMISS_KEY = "ppp_analytics_consent_dismissed_at";
-const DISMISS_FOR = 7 * 24 * 60 * 60 * 1000;
-const MAX_AGE = ANALYTICS_CONSENT_MAX_AGE_SECONDS * 1000;
+const DISMISS_FOR = 2 * 24 * 60 * 60 * 1000; // closing the banner with × asks again after two days
 const subscribeHydration = () => () => {};
 type Choice = { accepted: boolean; version: number };
 type User = { id: string; email?: string | null; user_metadata?: Record<string, unknown>; app_metadata?: Record<string, unknown> };
@@ -23,7 +22,7 @@ function validAccountChoice(value: unknown): value is { accepted: boolean; versi
   if (!value || typeof value !== "object") return false;
   const choice = value as Record<string, unknown>;
   const time = typeof choice.updated_at === "string" ? Date.parse(choice.updated_at) : NaN;
-  return choice.version === ANALYTICS_CONSENT_VERSION && typeof choice.accepted === "boolean" && Number.isFinite(time) && Date.now() - time >= 0 && Date.now() - time <= MAX_AGE;
+  return choice.version === ANALYTICS_CONSENT_VERSION && typeof choice.accepted === "boolean" && Number.isFinite(time) && Date.now() - time >= 0 && Date.now() - time <= analyticsChoiceMaxAgeSeconds(choice.accepted) * 1000;
 }
 
 async function saveChoice(accepted: boolean): Promise<void> {
@@ -65,7 +64,12 @@ export function SiteTelemetry() {
     const existing = user.user_metadata?.analytics_consent;
     if (existing !== undefined && existing !== null && !validAccountChoice(existing)) {
       disableProductAnalytics(); accepted.current = false; setAnalyticsReady(false);
-      const previousAccepted = typeof existing === "object" && (existing as Record<string, unknown>).accepted === true;
+      const previous = typeof existing === "object" ? existing as Record<string, unknown> : {};
+      const previousAccepted = previous.accepted === true;
+      // A rejection is asked about again once it is older than its three-month lifetime.
+      const savedAt = typeof previous.updated_at === "string" ? Date.parse(previous.updated_at) : NaN;
+      const rejectionExpired = !previousAccepted && Number.isFinite(savedAt) && Date.now() - savedAt > analyticsChoiceMaxAgeSeconds(false) * 1000;
+      if (rejectionExpired) { setChoice(null); setBannerOpen(readBrowserAnalyticsConsent() === null && !recentlyDismissed()); return; }
       setChoice(previousAccepted ? null : false); setBannerOpen(previousAccepted);
       return;
     }
