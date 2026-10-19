@@ -3,6 +3,7 @@
 import { useEffect, useRef, type RefObject } from "react";
 import { useFormStatus } from "react-dom";
 import { signInWithGoogle } from "@/app/auth/actions";
+import { trackProductEvent } from "@/lib/product-analytics";
 
 function GoogleMark() {
   return (
@@ -26,12 +27,13 @@ function SubmitButton({ submittingRef }: { submittingRef: RefObject<boolean> }) 
   );
 }
 
-export function GoogleSignInButton({ next }: { next: string }) {
+export function GoogleSignInButton({ next, mode = "sign-in" }: { next: string; mode?: "sign-in" | "sign-up" }) {
   const submittingRef = useRef(false);
   return (
     <form className="google-sign-in" action={signInWithGoogle} onSubmit={(event) => {
       if (submittingRef.current) { event.preventDefault(); return; }
       submittingRef.current = true;
+      trackProductEvent("google_auth_click", { mode });
     }}>
       <input type="hidden" name="next" value={next} />
       <SubmitButton submittingRef={submittingRef} />

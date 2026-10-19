@@ -11,7 +11,7 @@ export default function PrivacyPage() {
       <h2>How we use it</h2>
       <p>We use this information to authenticate you, provide purchased access, save progress, support the service, prevent abuse, and improve the product.</p>
       <h2>Analytics</h2>
-      <p>We measure pageviews, product use and performance anonymously, without cookies or persistent identifiers. This runs whatever your cookie choice.</p>
+      <p>We measure pageviews, product use and performance anonymously, without cookies or persistent identifiers. This runs whatever your cookie choice. To see which countries visitors come from, we estimate an approximate country from your browser’s time zone; your IP address is not used for this.</p>
       <p>If you allow optional analytics cookies, we also recognise returning visits. If you are signed in and accept the current analytics choice, we link your activity to your account and share your email address with our analytics provider. Earlier analytics acceptance does not authorize email disclosure.</p>
       <p>To find and fix problems, we record redacted error reports (crashes, failed requests and images that fail to load) and keep server request logs for 14 days. When you are signed in, these include your account&apos;s random identifier, whatever your cookie choice, so we can see who a problem affected. They never include your name, email address, raw error messages or anything you type.</p>
       <p>Session replay and automatic click capture are disabled. We never send your answers or payment details to analytics. Your cookie choice is stored for up to 12 months.</p>

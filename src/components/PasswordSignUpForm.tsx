@@ -6,6 +6,7 @@ import { createAccountWithPassword, resendSignupConfirmation } from "@/app/auth/
 import { initialMagicLinkState, isLikelyOrganizationEmail } from "@/lib/auth";
 import { useEmailOperationLock } from "./useEmailOperationLock";
 import { CheckEmailHeader, EmailCodeForm, OrganizationEmailNotice } from "@/components/CheckEmailHelp";
+import { trackProductEvent } from "@/lib/product-analytics";
 
 const RESEND_COOLDOWN_MS = 60_000;
 
@@ -30,6 +31,8 @@ export function PasswordSignUpForm({ next = "/pricing" }: { next?: string }) {
     const completedSubmission = submittingRef.current;
     submittingRef.current = false;
     if (completedSubmission && state.status === "success") setEditing(false);
+    // Outcome only: the message text may echo what was typed, so it never leaves the page.
+    if (completedSubmission) trackProductEvent(state.status === "success" ? "signup_email_sent" : "signup_error", {});
   }, [pending, state]);
   useEffect(() => {
     if (!resending && resendingRef.current) {
@@ -75,6 +78,7 @@ export function PasswordSignUpForm({ next = "/pricing" }: { next?: string }) {
             <form action={resendAction} onSubmit={(event) => {
               if (resendingRef.current || Date.now() < cooldownUntil || !lock.acquire()) { event.preventDefault(); return; }
               resendingRef.current = true;
+              trackProductEvent("signup_resend", {});
               setShowResendFeedback(true);
               setCooldownUntil(Date.now() + RESEND_COOLDOWN_MS);
               setNow(Date.now());
@@ -100,7 +104,9 @@ export function PasswordSignUpForm({ next = "/pricing" }: { next?: string }) {
       setShowResendFeedback(false);
       setCooldownUntil(Date.now() + RESEND_COOLDOWN_MS);
       setNow(Date.now());
-      setSubmittedEmail(String(new FormData(event.currentTarget).get("email") ?? "").trim().toLowerCase());
+      const email = String(new FormData(event.currentTarget).get("email") ?? "").trim().toLowerCase();
+      setSubmittedEmail(email);
+      trackProductEvent("signup_submit", { schoolEmail: isLikelyOrganizationEmail(email) });
     }}>
       <input type="hidden" name="next" value={next} />
       <label htmlFor="signup-email">Email address</label>
