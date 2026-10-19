@@ -1,4 +1,4 @@
-import { isPreviewQuestion } from "@/lib/access";
+import { hasFreeTier, isPreviewQuestion } from "@/lib/access";
 import { isLocalEconomicsBank, isLocalEconomicsPreviewEnabled, type BankSlug } from "@/lib/banks";
 import { EXPLORER_PAGE_SIZE, parseExplorerState, type ExplorerSearchParams } from "@/lib/explorer-state";
 import { filterQuestions } from "@/lib/question-filter";
@@ -19,7 +19,8 @@ export async function loadBankExplorer(slug: BankSlug, routePreset: ExplorerSear
   const allQuestions = await loadBankQuestions(slug).catch(() => null);
   if (!allQuestions) return null;
   const filterableQuestions = allQuestions.map((question) => publicMetadataToQuestion(toPublicQuestionMetadata(question), slug));
-  const initialState = parseExplorerState(routePreset, { defaultFreeOnly: !localPreview });
+  // Banks without a free tier (e.g. Computer Science 0478) open on the full, locked bank.
+  const initialState = parseExplorerState(routePreset, { defaultFreeOnly: !localPreview && hasFreeTier(slug) });
   const routeMatches = filterQuestions(filterableQuestions, {
     ...initialState.filters,
     search: undefined,

@@ -367,7 +367,9 @@ access: ExplorerAccess;
   // provisional free filter until its member bootstrap resolves; the filter never applies to an
   // entitled account (including manual/complimentary entitlements).
   const provisional = bootstrapPending && authCookiePresent;
-  const effectiveFreeOnly = freeOnly && !provisional && !resolvedAccess.bankAccess;
+  // A bank without a free tier has nothing to filter to; it always shows the full, locked bank.
+  const bankHasFreeTier = bank ? hasFreeTier(bank as BankSlug) : true;
+  const effectiveFreeOnly = freeOnly && bankHasFreeTier && !provisional && !resolvedAccess.bankAccess;
   const subtopicGroups = useMemo(
     () => isCleanMathsBank(bank) ? getMathsPickerGroups(catalogQuestions, filters.topics ?? [], filters.subtopics ?? []) : getSubtopicGroups(catalogQuestions, filters.topics ?? [], filters.subtopics ?? []),
     [catalogQuestions, filters.topics, filters.subtopics, bank],
@@ -546,7 +548,7 @@ access: ExplorerAccess;
         const current = raw[key];
         raw[key] = current === undefined ? value : Array.isArray(current) ? [...current, value] : [current, value];
       }
-      const next = parseExplorerState(routePreset && !locationParams.has("set") && !locationParams.has("worksheet") ? withRoutePreset(raw, routePreset) : raw, { defaultFreeOnly: !access.bankAccess });
+      const next = parseExplorerState(routePreset && !locationParams.has("set") && !locationParams.has("worksheet") ? withRoutePreset(raw, routePreset) : raw, { defaultFreeOnly: !access.bankAccess && (bank ? hasFreeTier(bank as BankSlug) : true) });
       if (locationParams.has("set") && !locationParams.has("worksheet")) {
         try { setSharedIds(currentQuestionIds(bank ?? "", parseSharedSet(locationParams.get("set") ?? ""))); setSharedError(""); }
         catch { setSharedIds(null); setSharedError("This shared question link is invalid."); }
@@ -617,7 +619,7 @@ access: ExplorerAccess;
         setIdentityResolved(true);
         setResolvedAccess({ authenticated: false, bankAccess: false, canExportPdf: false });
         setResolvedExportMarker(undefined);
-        setFreeOnly(true);
+        setFreeOnly(bank ? hasFreeTier(bank as BankSlug) : true);
       })
       .finally(() => {
         if (!cancelled && scopeIsCurrent()) setBootstrapPending(false);
@@ -1353,7 +1355,7 @@ access: ExplorerAccess;
         {filtersOpen && <button className="filter-backdrop" type="button" tabIndex={-1} aria-hidden="true" onClick={() => setFiltersOpen(false)} />}
         <aside ref={filterDialogRef} className={`filter-sidebar ${filtersOpen ? "is-open" : ""}`} role={filtersOpen ? "dialog" : undefined} aria-modal={filtersOpen ? true : undefined} aria-labelledby={filtersOpen ? "filter-sidebar-title" : undefined} aria-label={filtersOpen ? undefined : "Question filters"}>
           <div className="filter-sidebar-heading"><strong id="filter-sidebar-title">Filters</strong><button className="filter-close" type="button" aria-label="Close filters" onClick={() => setFiltersOpen(false)}><X /></button></div>
-          {!resolvedAccess.bankAccess && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={effectiveFreeOnly} onChange={() => { setFreeOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Free questions only</span></label></div></div>}
+          {!resolvedAccess.bankAccess && bankHasFreeTier && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={effectiveFreeOnly} onChange={() => { setFreeOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Free questions only</span></label></div></div>}
           {resolvedAccess.authenticated && <div className="filter-group" role="group" aria-labelledby="filter-study"><h3 id="filter-study">Study</h3><div className="filter-options"><label><input aria-label="Saved questions only" type="checkbox" checked={savedOnly} onChange={() => { setSavedOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Saved questions only</span></label></div></div>}
           <FilterGroup label="Topics" filterKey="topics" values={options.topics} selected={filters.topics ?? []} onToggle={toggle} />
           <FilterGroup label="Subtopics" filterKey="subtopics" values={visibleSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} bank={bank} />

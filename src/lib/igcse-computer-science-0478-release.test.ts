@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import runtime from "@/data/production/igcse-computer-science-0478.json";
 import privateIndex from "@/data/private-index/igcse-computer-science-0478.json";
 import taxonomy from "@/data/igcse-computer-science-0478-taxonomy.json";
@@ -78,6 +78,16 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
   it("has no free tier, so its entry link is the plain bank page", () => {
     expect(hasFreeTier(BANK)).toBe(false);
     expect(bankEntryHref(BANK)).toBe(`/banks/${BANK}`);
+  });
+
+  it("opens its static bank page on the full locked bank, never an empty free-only view", async () => {
+    vi.stubEnv("PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS", "true");
+    vi.stubEnv("PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED", "true");
+    const { loadBankExplorer } = await import("@/lib/bank-explorer");
+    const explorer = await loadBankExplorer(BANK);
+    expect(explorer?.initialState.freeOnly).toBe(false);
+    expect(explorer?.initialQuestions.length).toBeGreaterThan(0);
+    vi.unstubAllEnvs();
   });
 
   it("ships 469 questions across 50 papers, 2023-2026, without the two questions Cambridge withdrew", () => {
