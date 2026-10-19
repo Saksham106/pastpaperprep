@@ -46,6 +46,7 @@ export default function ExplanationPanel({ explanation }: { explanation: Explana
                 <div className={styles.stepBody}>
                   <Inline text={step.text} />
                   {step.math && <div className={styles.display} dangerouslySetInnerHTML={{ __html: renderDisplayMath(step.math) }} />}
+                  {step.code && <pre className={styles.code}><code>{step.code}</code></pre>}
                 </div>
                 {step.marks.length > 0 && <span className={styles.marks} aria-label={`Earns ${step.marks.join(", ")}`}>{step.marks.map((code, i) => <b key={`${code}-${i}`}>{code}</b>)}</span>}
               </li>

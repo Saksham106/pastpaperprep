@@ -88,6 +88,11 @@ export function validateExplanation(doc, expected = {}) {
         else if (/(?<!\\)\$/.test(step.math)) errors.push(`${sat}: math must not contain $`);
         else errors.push(...displayErrors(step.math, `${sat}.math`));
       }
+      if (step.code !== undefined) {
+        if (typeof step.code !== "string" || !step.code.trim()) errors.push(`${sat}: code must be non-empty when present`);
+        else if (/\t/.test(step.code)) errors.push(`${sat}: code must indent with spaces, not tabs`);
+      }
+      for (const key of Object.keys(step)) if (!["text", "math", "code", "marks"].includes(key)) errors.push(`${sat}: unknown key "${key}"`);
       if (!Array.isArray(step.marks)) errors.push(`${sat}: marks must be an array`);
       else for (const code of step.marks) if (typeof code !== "string" || !MARK_CODE.test(code)) errors.push(`${sat}: bad mark code "${code}"`);
     });
