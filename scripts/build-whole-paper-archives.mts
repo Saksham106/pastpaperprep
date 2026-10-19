@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { getCatalogBank, type BankSlug } from '../src/lib/catalog';
 import { normalizeBankQuestions, type UnifiedQuestion } from '../src/lib/questions';
 import type { WholePaperEntry, WholePaperManifest, WholePaperLocalBindings } from '../src/lib/whole-paper-types';
-import { EXTRACTOR_VERSION, sha256, parseIdentity, findCover, extractPdf, atomicJson, type ExtractedDocument } from './whole-paper-extraction.mjs';
+import { EXTRACTOR_VERSION, sha256, parseIdentity, findCover, extractPdf, atomicJson, markRuleForBank, extractorVersionFor, type ExtractedDocument } from './whole-paper-extraction.mjs';
 
 export type BuildOptions={inventoryFiles:string[];identityReviewFiles?:string[];bank?:string;root?:string;outputRoot?:string};
 type IdentityReview={bankSlug:string;paperId:string;questionSha256:string;markschemeSha256:string;verdict:'valid-pair';visualEvidence:{document:'question'|'markscheme';sourcePdfSha256:string;page:number;imagePath:string;imageSha256:string}[];[key:string]:unknown};
@@ -141,7 +141,7 @@ export async function buildWholePaperArchives(options:BuildOptions) {
       attempted++;
       try {
       const family=bank.slug.startsWith('igcse')?'igcse':'ib';
-      const qp=await extractPdf(pair.questionPath,family,path.join(privateRoot,'text-cache'),path.join(root,'private/chemistry-paper-archive/checkpoints'));
+      const qp=await extractPdf(pair.questionPath,family,path.join(privateRoot,'text-cache'),path.join(root,'private/chemistry-paper-archive/checkpoints'),markRuleForBank(bank.slug));
       const ms=await extractPdf(pair.markschemePath,family,path.join(privateRoot,'text-cache'));
       sourceDocuments.push({id:pair.id,question:{path:pair.questionPath,sha256:qp.sha256,bytes:qp.bytes,pages:qp.pages},markscheme:{path:pair.markschemePath,sha256:ms.sha256,bytes:ms.bytes,pages:ms.pages}});
       const actualIds=normalized.filter(q=>q.id.replace(/-q\d+$/,'')===pair.runtimePaperId).map(q=>q.id).sort();
@@ -174,7 +174,7 @@ export async function buildWholePaperArchives(options:BuildOptions) {
     const manifest:WholePaperManifest={version:GENERATOR_VERSION,bankSlug:bank.slug,runtimeSha256:sha256(runtimeBytes),papers,coverage:{paired:papers.length,reports,held:papers.length-reports,unpaired:bank.unpaired.length,runtimeWithoutPair:bank.runtimeWithoutPair.length}};
     bindings.documents=[...bindings.documents.filter(doc=>doc.bankSlug!==bank.slug),...bankBindings].sort((a,b)=>`${a.bankSlug}/${a.paperId}/${a.kind}`.localeCompare(`${b.bankSlug}/${b.paperId}/${b.kind}`));
     const usedRoots=new Set(bindings.documents.map(doc=>doc.rootId));bindings.roots=[...roots.values()].filter(root=>usedRoots.has(root.id)).sort((a,b)=>a.id.localeCompare(b.id));
-    receipt.banks=[...receipt.banks.filter(entry=>entry.slug!==bank.slug),{slug:bank.slug,runtimeFile:expectedRuntime,runtimeSha256:manifest.runtimeSha256,loaderTrace:{file:loaderFile,sha256:sha256(loaderBytes),selected:relativeRuntime},coverage:manifest.coverage,sourceCount:sourceDocuments.length*2,sourceDocuments,promotedSourceCount:bankBindings.length,unpaired:bank.unpaired,runtimeWithoutPair:bank.runtimeWithoutPair,notes:bank.notes,inventoryPaired:bank.pairs.length,publicPaired:papers.length,rejected:failures.length,failures,papers:details}].sort((a,b)=>a.slug.localeCompare(b.slug));
+    receipt.banks=[...receipt.banks.filter(entry=>entry.slug!==bank.slug),{slug:bank.slug,questionMarkRule:markRuleForBank(bank.slug),runtimeFile:expectedRuntime,runtimeSha256:manifest.runtimeSha256,loaderTrace:{file:loaderFile,sha256:sha256(loaderBytes),selected:relativeRuntime},coverage:manifest.coverage,sourceCount:sourceDocuments.length*2,sourceDocuments,promotedSourceCount:bankBindings.length,unpaired:bank.unpaired,runtimeWithoutPair:bank.runtimeWithoutPair,notes:bank.notes,inventoryPaired:bank.pairs.length,publicPaired:papers.length,rejected:failures.length,failures,papers:details}].sort((a,b)=>a.slug.localeCompare(b.slug));
     await atomicJson(path.join(privateRoot,'source-bindings.json'),bindings);
     await atomicJson(path.join(privateRoot,'receipt.json'),receipt);
     await atomicJson(path.join(outputRoot,'src/data/paper-archives',`${bank.slug}.json`),manifest);
@@ -273,7 +273,7 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
   const route:WholePaperEntry['summary']['route']=identity.family==='ib'?(bank.level==='HL'?'HL':bank.level==='SL'?'SL':null):/\bExtended\b/i.test(qFound.text)?'Extended':/\bCore\b/i.test(qFound.text)?'Core':/Alternative\s+to\s+Practical|Practical\s+Test/i.test(qFound.text)?'Shared':null;
   const document=(source:ExtractedDocument)=>({sha256:source.sha256,bytes:source.bytes,pages:source.pages});
   const summary:WholePaperEntry['summary']={id:pair.id,bankSlug:bank.slug,title:`${bank.title} · ${identity.session} ${identity.year} · Paper ${identity.component}`,qualification:bank.qualification,subject:bank.subject,syllabusCode:bank.syllabusCode,year:identity.year,session:identity.session,sessionCode:identity.sessionCode,component:identity.component,paper:identity.paper,variant:identity.variant,route,durationMinutes:qCover.identityValid?qCover.durationMinutes:null,maxMarks,questionCount:optionalChoiceQuestionCount(bank.slug,Boolean(qCover.optionalChoice||mCover.optionalChoice),sorted.length,printed.length),reportAvailable:!reportReason,...(reportReason?{reportReason}:{}),metadataVerified:identityValid&&maximaAgree&&maxMarks!==null};
-  const entry:WholePaperEntry={summary,version:sha256(JSON.stringify([GENERATOR_VERSION,EXTRACTOR_VERSION,qp.sha256,ms.sha256,summary,questions])).slice(0,20),documents:{question:document(qp),markscheme:document(ms)},questions};
+  const entry:WholePaperEntry={summary,version:sha256(JSON.stringify([GENERATOR_VERSION,extractorVersionFor(markRuleForBank(slug)),qp.sha256,ms.sha256,summary,questions])).slice(0,20),documents:{question:document(qp),markscheme:document(ms)},questions};
   return {entry,corrections,evidence:{identity,identityValid,identityReview:identityReview??null,reportHold:reportHold??null,mcqKeyReview:mcqKeyReview??null,textOrderMissingKeys:reviewedKeyNumbers.filter(n=>!textOrderNumbers.includes(n)),subjectValid,courseValid,legacyMathematics,legacyOptionValid,bankLevelValid,examCodesAgree,mcqVerified,questionCoverPage:qFound.page,markschemeCoverPage:mFound.page,qCover,mCover,sourceQuestionCount:printed.length,msQuestionMaximaAgree,sourceTotals:printed.map(q=>q.maxMarks),sourceQuestionPages:printed.map(q=>q.page),runtimeQuestionIds:sorted.map(q=>q.id),runtimeMarks:sorted.map(q=>q.marks),inventoryValid,totalsValid,topicsValid}};
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {

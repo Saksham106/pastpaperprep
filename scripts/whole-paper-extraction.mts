@@ -21,18 +21,31 @@ export function parseIdentity(id: string): Identity {
   if(compact)return {family:'ib',year:2000+Number(compact[2]),sessionCode:compact[1]==='m'?'may':'nov',session:compact[1]==='m'?'May':'November',level:compact[3],variant:compact[5],paper:compact[4],component:`P${compact[4]}`};
   throw new Error(`Unsupported paper identity: ${id}`);
 }
-export type GeometryItem = {str: string; x: number; y: number; fontName?:string};
+export type GeometryItem = {str: string; x: number; y: number; width?: number; fontName?:string};
 export type PrintedQuestion = {number: number; page: number; text: string; maxMarks: number};
-export function extractQuestionBlocks(pages: GeometryItem[][], family: Identity['family']): PrintedQuestion[] {
-  const blocks: Omit<PrintedQuestion,'maxMarks'>[] = [];
+/**
+ * How a question's marks are read. 'text' sums every "[n]" in the block's text. 'right-margin' reads only text runs
+ * ending at x >= MARK_COLUMN_MIN_RIGHT: Cambridge portrait papers right-align printed marks to ~546pt (some fused
+ * with the dot leader before them), while pseudocode array indexes such as Names[1] end by ~496pt. A last-line mark
+ * can sit at y=44, under the text cut-off; the footer ("[Turn over") is at y<=35. Gated per bank
+ * (RIGHT_MARGIN_MARK_BANKS) so other banks' manifests stay byte-identical.
+ */
+export type MarkRule = 'text' | 'right-margin';
+export const MARK_COLUMN_MIN_RIGHT = 520, MARK_COLUMN_MIN_Y = 40;
+export const RIGHT_MARGIN_MARK_BANKS: ReadonlySet<string> = new Set(['igcse-computer-science-0478']);
+export const markRuleForBank = (slug: string): MarkRule => RIGHT_MARGIN_MARK_BANKS.has(slug) ? 'right-margin' : 'text';
+export const extractorVersionFor = (rule: MarkRule) => rule==='text' ? EXTRACTOR_VERSION : `${EXTRACTOR_VERSION}+right-margin-marks`;
+export function extractQuestionBlocks(pages: GeometryItem[][], family: Identity['family'], markRule: MarkRule = 'text'): PrintedQuestion[] {
+  const blocks: (Omit<PrintedQuestion,'maxMarks'>&{margin:string})[] = [];
   let headingFont:string|undefined;
   for (const [index,items] of pages.entries()) for (const item of items) {
     const number=Number(item.str.replace(/\.$/,''));
     const start=/^\d{1,2}\.?$/.test(item.str) && item.x>=(family==='igcse'?40:25) && item.x<=(family==='igcse'?60:75) && item.y>80 && item.y<790 && number===blocks.length+1 && (items.some(next=>Math.abs(next.y-item.y)<2 && next.x>70 && /^[A-Za-z(\[]/.test(next.str)) || (headingFont!==undefined&&item.fontName===headingFont));
-    if(start) {headingFont??=item.fontName;blocks.push({number,page:index+2,text:''});}
+    if(start) {headingFont??=item.fontName;blocks.push({number,page:index+2,text:'',margin:''});}
     if(blocks.length && item.y<790 && item.y>45) blocks[blocks.length-1].text+=' '+item.str;
+    if(blocks.length && item.y<790 && item.y>MARK_COLUMN_MIN_Y && item.x+(item.width??0)>=MARK_COLUMN_MIN_RIGHT) blocks[blocks.length-1].margin+=' '+item.str;
   }
-  return blocks.map(block=>{const maximum=/\[\s*Maximum\s+marks?\s*:\s*(\d+)\s*\]/i.exec(block.text);return {...block,maxMarks:maximum?Number(maximum[1]):sourceQuestionMarks(block.text)};});
+  return blocks.map(({margin,...block})=>{const maximum=/\[\s*Maximum\s+marks?\s*:\s*(\d+)\s*\]/i.exec(block.text);return {...block,maxMarks:maximum?Number(maximum[1]):sourceQuestionMarks(markRule==='right-margin'?margin:block.text)};});
 }
 export type ExtractedDocument = {sha256: string; bytes: number; pages: number; text: string[]; questions: PrintedQuestion[]};
 export async function atomicJson(destination: string, value: unknown) {
@@ -46,12 +59,12 @@ export function adaptChemistryCheckpoint(input:unknown,hash:string,byteCount:num
   if(!old.questions.every((q,i)=>q.number===i+1&&Number.isSafeInteger(q.page)&&q.page>=2&&q.page<=old.pageCount&&typeof q.text==='string'&&q.maxMarks===sourceQuestionMarks(q.text)))return null;
   return {sha256:hash,bytes:byteCount,pages:old.pageCount,text:old.pages,questions:old.questions};
 }
-export async function extractPdf(filename: string, family: Identity['family'], cacheDirectory: string,legacyChemistryCache?:string): Promise<ExtractedDocument> {
-  const bytes=await fs.readFile(filename), hash=sha256(bytes);
+export async function extractPdf(filename: string, family: Identity['family'], cacheDirectory: string,legacyChemistryCache?:string,markRule:MarkRule='text'): Promise<ExtractedDocument> {
+  const bytes=await fs.readFile(filename), hash=sha256(bytes), version=extractorVersionFor(markRule);
   if(!bytes.subarray(0,5).equals(Buffer.from('%PDF-')))throw new Error(`Invalid PDF header: ${filename} sha256=${hash}`);
-  const cache=path.join(cacheDirectory,`${hash}-${EXTRACTOR_VERSION}-${family}.json`);
-  try {const cached=JSON.parse(await fs.readFile(cache,'utf8'));if(cached.sha256===hash&&cached.version===EXTRACTOR_VERSION&&cached.bytes===bytes.length)return cached;} catch(error) {if((error as NodeJS.ErrnoException).code!=='ENOENT' && !(error instanceof SyntaxError))throw error;}
-  if(legacyChemistryCache&&family==='igcse'&&/^0620-\d{4}-[msw]-[3-6]\d-question\.pdf$/.test(path.basename(filename))) {
+  const cache=path.join(cacheDirectory,`${hash}-${EXTRACTOR_VERSION}-${family}${markRule==='text'?'':`-${markRule}`}.json`);
+  try {const cached=JSON.parse(await fs.readFile(cache,'utf8'));if(cached.sha256===hash&&cached.version===version&&cached.bytes===bytes.length)return cached;} catch(error) {if((error as NodeJS.ErrnoException).code!=='ENOENT' && !(error instanceof SyntaxError))throw error;}
+  if(legacyChemistryCache&&markRule==='text'&&family==='igcse'&&/^0620-\d{4}-[msw]-[3-6]\d-question\.pdf$/.test(path.basename(filename))) {
     try {
       const legacy=JSON.parse(await fs.readFile(path.join(legacyChemistryCache,path.basename(filename).replace(/\.pdf$/,'.json')),'utf8'));
       const adapted=adaptChemistryCheckpoint(legacy,hash,bytes.length);
@@ -65,13 +78,13 @@ export async function extractPdf(filename: string, family: Identity['family'], c
     for(let p=1;p<=document.numPages;p++) {
       const page=await document.getPage(p), content=await page.getTextContent();
       const items=content.items.filter((item):item is import('pdfjs-dist/types/src/display/api').TextItem=>'str' in item);
-      const decoded=items.map(item=>({fontName:item.fontName,str:item.str,x:item.transform[4],y:item.transform[5]}));
+      const decoded=items.map(item=>({fontName:item.fontName,str:item.str,x:item.transform[4],y:item.transform[5],width:item.width}));
       text.push(decodeSourceText(items.map(item=>item.str).join(' ')));
       if(p>1)geometry.push(decoded);
       page.cleanup();
     }
-    const result={sha256:hash,bytes:bytes.length,pages:document.numPages,text,questions:extractQuestionBlocks(geometry,family)};
-    await atomicJson(cache,{version:EXTRACTOR_VERSION,...result});
+    const result={sha256:hash,bytes:bytes.length,pages:document.numPages,text,questions:extractQuestionBlocks(geometry,family,markRule)};
+    await atomicJson(cache,{version,...result});
     return result;
   } finally {await document.destroy();}
 }
