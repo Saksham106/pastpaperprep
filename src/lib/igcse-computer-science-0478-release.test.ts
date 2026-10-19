@@ -33,6 +33,27 @@ type Runtime = {
 const production = runtime as unknown as Runtime;
 const tree = taxonomy as unknown as { topics: Array<{ code: string; label: string; paper: number; sections: Array<{ code: string; label: string; official: boolean }> }> };
 const RELEASE_ON = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" };
+/** Undo exactly what `generate-igcse-release.mjs --finalize` writes; the result must be the pinned candidate. */
+function reconstructCandidate(finalized: Runtime): Runtime {
+  const candidate = JSON.parse(JSON.stringify(finalized)) as Runtime & { releaseStatus: string; publicationStatus: string };
+  for (const question of candidate.questions) {
+    question.publicationStatus = "authorized_production_candidate";
+    question.classificationReviewStatus = "candidate_not_approved";
+  }
+  candidate.releaseStatus = "authorized_production_candidate";
+  candidate.publicationStatus = "authorized_production_candidate";
+  candidate.assetVerification = "pending_upload";
+  const meta = candidate.runtimeArtifact;
+  meta.assetVerification = "pending_upload";
+  meta.publicationStatus = "authorized_production_candidate";
+  meta.assetManifestSha256 = null;
+  meta.storageReceiptSha256 = null;
+  delete meta.storageState;
+  delete meta.finalizedContentSha256;
+  meta.runtimeSha256 = null;
+  meta.runtimeSha256 = sha(candidate);
+  return candidate;
+}
 const entitlement = (product_id: string) => normalizeEntitlements([{ product_id, status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null }]);
 
 describe("IGCSE Computer Science 0478 release candidate", () => {
@@ -106,7 +127,15 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
     expect(groups.relevant).toEqual(["Computer architecture", "Input and output devices", "Data storage", "Network hardware"]);
   });
 
-  it("seals the candidate runtime to its taxonomy and the release-script pin", () => {
+  it("is exactly the finalized form of the pinned, content-sealed candidate", async () => {
+    const { assertContentSealedCandidate, blankedCandidateSha256 } = await import("../../scripts/igcse-release.mjs");
+    const candidate = reconstructCandidate(production);
+    expect(blankedCandidateSha256(candidate)).toBe(CANDIDATE);
+    expect(() => assertContentSealedCandidate(BANK, candidate)).not.toThrow();
+    expect(production.runtimeArtifact.finalizedContentSha256).toBe(sha(production.questions));
+  });
+
+  it("seals the runtime to its taxonomy and the release-script pin", () => {
     const meta = production.runtimeArtifact;
     expect(meta.sourceCandidateSha256).toBe(CANDIDATE);
     expect(meta.originalCandidateRuntimeSha256).toBe(CANDIDATE);
@@ -116,15 +145,17 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
     expect(meta.runtimeTaxonomySha256).toBe(sha(taxonomy));
     expect(meta.releaseTaxonomySha256).toBe(sha(readFileSync(join(ROOT, "src/data/igcse-computer-science-0478-taxonomy.json"), "utf8")));
     expect(production.taxonomy.sha256).toBe(meta.releaseTaxonomySha256);
-    expect(meta.contentSha256).toBe(sha(production.questions));
+    expect(meta.contentSha256).toBe(sha(reconstructCandidate(production).questions));
     expect(readFileSync(join(ROOT, "scripts/igcse-release.mjs"), "utf8")).toContain(`originalCandidateRuntimeSha256: '${CANDIDATE}'`);
   });
 
   it("rejects an edited candidate even when its self-seal is recomputed and the stored pin kept", async () => {
     const { assertContentSealedCandidate, runtimeSha256 } = await import("../../scripts/igcse-release.mjs");
     const { assertOriginalCandidateRuntime } = await import("../../scripts/generate-igcse-release.mjs");
-    expect(() => assertOriginalCandidateRuntime(BANK, production)).not.toThrow();
-    const forged = JSON.parse(JSON.stringify(production)) as Runtime & { questions: Array<Record<string, unknown>> };
+    const candidate = reconstructCandidate(production);
+    expect(() => assertOriginalCandidateRuntime(BANK, candidate)).not.toThrow();
+    expect(() => assertOriginalCandidateRuntime(BANK, production)).toThrow("must be checked as its release candidate");
+    const forged = JSON.parse(JSON.stringify(candidate)) as Runtime & { questions: Array<Record<string, unknown>> };
     forged.questions[0].id = "0478-2023-m-12-q999";
     forged.questions[0].marks = 999;
     forged.runtimeArtifact.runtimeSha256 = null;
@@ -132,7 +163,7 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
     expect(forged.runtimeArtifact.originalCandidateRuntimeSha256).toBe(CANDIDATE);
     expect(() => assertContentSealedCandidate(BANK, forged)).toThrow("candidate content does not reproduce its pinned seal");
     expect(() => assertOriginalCandidateRuntime(BANK, forged)).toThrow("candidate content does not reproduce its pinned seal");
-    const relabelled = JSON.parse(JSON.stringify(production)) as Runtime;
+    const relabelled = JSON.parse(JSON.stringify(candidate)) as Runtime;
     relabelled.questions[0].subtopics = [...relabelled.questions[0].subtopics, "Encryption"];
     relabelled.runtimeArtifact.runtimeSha256 = null;
     relabelled.runtimeArtifact.runtimeSha256 = runtimeSha256(relabelled);
@@ -148,15 +179,32 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
     expect(production.questions.find((question) => question.id === "0478-2026-s-11-q6")!.subtopics).toEqual(["The internet and the world wide web", "Encryption", "Cyber security"]);
   });
 
-  it("is a candidate until the R2 receipt exists and finalize seals it", () => {
-    expect(production.assetVerification).toBe("pending_upload");
-    expect(production.runtimeArtifact.storageReceiptSha256).toBeNull();
-    expect(production.questions.every((question) => question.publicationStatus === "authorized_production_candidate" && question.classificationReviewStatus === "candidate_not_approved")).toBe(true);
-    const manifest = JSON.parse(readFileSync(join(ROOT, "data/storage/igcse-computer-science-0478.manifest.json"), "utf8")) as { objectPrefix: string; storageState: string; assets: Array<{ objectKey: string }> };
-    expect(manifest.storageState).toBe("pending_upload");
-    expect(manifest.assets).toHaveLength(new Set(production.questions.flatMap((question) => [...question.questionImages, ...question.markschemeImages])).size);
-    expect(manifest.assets.every((asset) => asset.objectKey.startsWith(manifest.objectPrefix))).toBe(true);
+  it("is finalized against a complete verified readback of exactly the manifest's crops", () => {
+    expect(production.assetVerification).toBe("verified_readback");
+    expect(production.questions.every((question) => question.publicationStatus === "production" && question.classificationReviewStatus === "classified")).toBe(true);
+    const manifestText = readFileSync(join(ROOT, "data/storage/igcse-computer-science-0478.manifest.json"), "utf8");
+    const receiptText = readFileSync(join(ROOT, "data/storage/igcse-computer-science-0478.receipt.json"), "utf8");
+    const manifest = JSON.parse(manifestText) as { objectPrefix: string; assets: Array<{ objectKey: string; sha256: string; size: number }> };
+    const receipt = JSON.parse(receiptText) as { storageState: string; assetManifestSha256: string; completed: string[]; failed: unknown[] };
+    expect(receipt.storageState).toBe("verified_readback");
+    expect(receipt.failed).toEqual([]);
+    expect(receipt.assetManifestSha256).toBe(sha(manifest));
+    expect(production.runtimeArtifact.assetManifestSha256).toBe(sha(manifest));
+    expect(production.runtimeArtifact.storageReceiptSha256).toBe(sha(receiptText));
+    expect([...receipt.completed].sort()).toEqual(manifest.assets.map((asset) => asset.objectKey).sort());
+    const refs = new Set(production.questions.flatMap((question) => [...question.questionImages, ...question.markschemeImages]));
+    expect(manifest.assets).toHaveLength(refs.size);
+    expect(manifest.assets.every((asset) => refs.has(asset.objectKey.slice(manifest.objectPrefix.length)))).toBe(true);
     expect(getPrivateBankObjectPrefix(BANK)).toBe(manifest.objectPrefix);
+    const log = readFileSync(join(ROOT, "docs/igcse-computer-science-0478-r2-upload-log.jsonl"), "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line) as { key: string; sha256: string; bytes: number; status: string });
+    const byKey = new Map(log.map((row) => [row.key, row]));
+    expect(byKey.size).toBe(manifest.assets.length);
+    for (const asset of manifest.assets) expect(byKey.get(asset.objectKey)).toMatchObject({ sha256: asset.sha256, bytes: asset.size, status: "verified" });
+  });
+
+  it("passes the runtime release gate's seal checks once the IGCSE gates are on", async () => {
+    const { getIGCSERuntimeArtifact } = await import("@/lib/igcse-runtime");
+    expect(getIGCSERuntimeArtifact(BANK, RELEASE_ON).questions).toHaveLength(469);
   });
 
   it("maps to its own product, All Access and the IGCSE bundle, and is not for sale while pending", () => {
