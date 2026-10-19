@@ -8,11 +8,11 @@ describe("AnalyticsConsentBanner", () => {
   it("shows a single accept action and an inline customize link with concise copy", () => {
     const onChoice = vi.fn();
     render(<AnalyticsConsentBanner onChoice={onChoice} onDismiss={vi.fn()} />);
-    expect(screen.getByRole("button", { name: "Allow analytics" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Sure, allow cookies" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "Help us improve PastPaperPrep." })).toBeVisible();
     expect(screen.queryByRole("button", { name: "Reject" })).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Customize" }).closest("p")).toHaveTextContent("analytics cookies");
-    expect(screen.getByRole("button", { name: "Customize" }).closest("p")).toHaveTextContent("We count visits anonymously, without cookies.");
+    expect(screen.getByRole("button", { name: "Customize" }).closest("p")).toHaveTextContent("Anonymous, cookie-free statistics help us improve practice.");
     expect(screen.getByText(/if you’re signed in, links it to your account email/i)).toBeVisible();
     expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
     expect(onChoice).not.toHaveBeenCalled();
@@ -30,7 +30,7 @@ describe("AnalyticsConsentBanner", () => {
   it("accepts optional analytics without a second account-profile prompt", () => {
     const onChoice = vi.fn();
     render(<AnalyticsConsentBanner onChoice={onChoice} onDismiss={vi.fn()} />);
-    fireEvent.click(screen.getByRole("button", { name: "Allow analytics" }));
+    fireEvent.click(screen.getByRole("button", { name: "Sure, allow cookies" }));
     expect(onChoice).toHaveBeenCalledExactlyOnceWith(true);
     expect(screen.getByText(/links it to your account email/i)).toBeVisible();
   });
@@ -40,7 +40,7 @@ describe("AnalyticsConsentBanner", () => {
     render(<AnalyticsConsentBanner onChoice={onChoice} onDismiss={vi.fn()} />);
     fireEvent.click(screen.getByRole("button", { name: "Customize" }));
     expect(screen.queryByRole("button", { name: "Customize" })).not.toBeInTheDocument();
-    const accept = screen.getByRole("button", { name: "Allow analytics" });
+    const accept = screen.getByRole("button", { name: "Sure, allow cookies" });
     const save = screen.getByRole("button", { name: "Save preferences" });
     expect(save.parentElement).toBe(accept.parentElement);
     expect(accept.parentElement?.lastElementChild).toBe(accept);
