@@ -2,7 +2,7 @@
 export const PUBLIC_BANK_INDEX_FILES = {
   "igcse": "igcse.v1-a71572aa58a9.json",
   "igcse-additional": "igcse-additional.v1-00975847282e.json",
-  "ib-hl": "ib-hl.v1-e869a090412a.json",
+  "ib-hl": "ib-hl.v1-3dcc951ba658.json",
   "ib-sl": "ib-sl.v1-31fe581a163e.json",
   "ib-ai-hl": "ib-ai-hl.v1-6051c6e9f73b.json",
   "ib-ai-sl": "ib-ai-sl.v1-2a760afbd56e.json",
@@ -11,7 +11,7 @@ export const PUBLIC_BANK_INDEX_FILES = {
   "ib-physics-hl": "ib-physics-hl.v1-0e18b533d7cc.json",
   "ib-physics-sl": "ib-physics-sl.v1-08bacee47914.json",
   "ib-biology-hl": "ib-biology-hl.v1-83efd60cc1cd.json",
-  "ib-biology-sl": "ib-biology-sl.v1-bf19f08384e0.json",
+  "ib-biology-sl": "ib-biology-sl.v1-d4a8a22a03e3.json",
   "ib-economics-hl": "ib-economics-hl.v1-783742e6eb8a.json",
   "ib-economics-sl": "ib-economics-sl.v1-85864d7669b0.json",
   "igcse-biology-0610": "igcse-biology-0610.v1-9373536f3de8.json",
