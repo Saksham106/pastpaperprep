@@ -4,6 +4,7 @@ import { useActionState, useEffect, useRef, type Ref } from "react";
 import { EnvelopeSimple } from "@phosphor-icons/react";
 import { verifyEmailCode } from "@/app/auth/actions";
 import { initialMagicLinkState } from "@/lib/auth";
+import { trackProductEvent } from "@/lib/product-analytics";
 import { useEmailOperationLock, type EmailOperationLock } from "./useEmailOperationLock";
 
 export function EmailCodeForm({ email, type, next, operationLock }: { email: string; type: "email" | "signup"; next: string; operationLock?: EmailOperationLock }) {
@@ -13,13 +14,19 @@ export function EmailCodeForm({ email, type, next, operationLock }: { email: str
   const [state, action, pending] = useActionState(verifyEmailCode, initialMagicLinkState);
   const submitting = useRef(false);
   useEffect(() => {
-    if (!pending && submitting.current) { submitting.current = false; release(); }
-  }, [pending, state, release]);
+    if (!pending && submitting.current) {
+      submitting.current = false;
+      release();
+      // A correct code redirects on the server, so only failures come back here.
+      if (state.status === "error") trackProductEvent("email_code_error", { type });
+    }
+  }, [pending, state, release, type]);
   const hasError = state.status === "error" && !pending;
   return (
     <form className={`email-code-form${hasError ? " has-error" : ""}`} action={action} onSubmit={(event) => {
       if (submitting.current || !lock.acquire()) { event.preventDefault(); return; }
       submitting.current = true;
+      trackProductEvent("email_code_submit", { type });
     }}>
       <input type="hidden" name="email" value={email} />
       <input type="hidden" name="type" value={type} />

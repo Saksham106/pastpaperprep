@@ -34,8 +34,8 @@ function loadClient() {
   if (!projectToken() || !canCapture()) return Promise.resolve(null);
   if (clientPromise) return clientPromise;
 
-  clientPromise = import("posthog-js")
-    .then(({ default: posthog }) => {
+  clientPromise = Promise.all([import("posthog-js"), import("@/lib/timezone-country")])
+    .then(([{ default: posthog }, { countryFromTimeZone }]) => {
       if (!initialized) {
         posthog.init(projectToken(), {
           api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST?.trim() || "https://us.i.posthog.com",
@@ -59,7 +59,7 @@ function loadClient() {
             if (scrubbed && typeof window !== "undefined" && new URLSearchParams(window.location.search).get("analytics_verification") === "1") {
               scrubbed.properties = { ...scrubbed.properties, analytics_verification: true };
             }
-            return scrubbed;
+            return withTimeZoneCountry(scrubbed, countryFromTimeZone);
           },
         });
         initialized = true;
@@ -69,6 +69,18 @@ function loadClient() {
     .catch(() => { clientPromise = null; return null; });
 
   return clientPromise;
+}
+
+/**
+ * Cookieless ingestion discards the IP, so PostHog's GeoIP leaves anonymous events without a country and the
+ * web-analytics map stays empty. Fill the country from the browser's time zone instead (no IP, no cookie).
+ * Never overrides a real GeoIP value.
+ */
+export function withTimeZoneCountry<T extends { properties?: Record<string, unknown> }>(event: T | null, lookup: (timeZone: unknown) => { code: string; name: string } | null): T | null {
+  if (!event?.properties || event.properties.$geoip_country_code) return event;
+  const country = lookup(event.properties.$timezone);
+  if (!country) return event;
+  return { ...event, properties: { ...event.properties, $geoip_country_code: country.code, $geoip_country_name: country.name, country_source: "timezone" } };
 }
 
 const ERROR_CATEGORIES = new Set(["Error", "TypeError", "ReferenceError", "RangeError", "SyntaxError", "URIError", "EvalError", "AggregateError", "AbortError", "NetworkError", "SecurityError", "NotAllowedError", "NotFoundError", "UnhandledRejection"]);

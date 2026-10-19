@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { GoogleSignInButton } from "@/components/GoogleSignInButton";
 import { PasswordSignUpForm } from "@/components/PasswordSignUpForm";
 import { SignInMethods } from "@/components/SignInMethods";
+import { authDestination } from "@/lib/auth-funnel";
+import { trackProductEvent } from "@/lib/product-analytics";
 
 type AuthMode = "sign-in" | "sign-up";
 
@@ -12,6 +14,11 @@ export function AuthEntry({ next, hasLinkError = false, hasGoogleError = false, 
   const signingIn = mode === "sign-in";
   const headingRef = useRef<HTMLHeadingElement>(null);
   const previousModeRef = useRef(mode);
+
+  // One view per mode shown, so the sign-up funnel starts where the form is actually seen.
+  useEffect(() => {
+    trackProductEvent("auth_page_view", { mode, ...authDestination(next) });
+  }, [mode, next]);
 
   useEffect(() => {
     if (previousModeRef.current === mode) return;
@@ -35,7 +42,7 @@ export function AuthEntry({ next, hasLinkError = false, hasGoogleError = false, 
 
       {hasGoogleError && <p className="form-message error auth-link-error" role="alert">Google sign-in didn’t finish. Try again.</p>}
 
-      <GoogleSignInButton next={next} />
+      <GoogleSignInButton next={next} mode={mode} />
       <div className="auth-divider"><span>or use email</span></div>
 
       {signingIn ? <SignInMethods next={next} initialMethod={hasLinkError ? "email" : "password"} /> : <PasswordSignUpForm next={next} />}

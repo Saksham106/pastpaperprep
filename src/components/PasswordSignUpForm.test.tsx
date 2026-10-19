@@ -9,6 +9,8 @@ const { createAccountWithPassword, resendSignupConfirmation, verifyEmailCode } =
   verifyEmailCode: vi.fn(),
 }));
 vi.mock("@/app/auth/actions", () => ({ createAccountWithPassword, resendSignupConfirmation, verifyEmailCode }));
+const track = vi.hoisted(() => vi.fn());
+vi.mock("@/lib/product-analytics", async (importOriginal) => ({ ...(await importOriginal<object>()), trackProductEvent: track }));
 
 describe("PasswordSignUpForm", () => {
   beforeEach(() => {
@@ -39,6 +41,26 @@ describe("PasswordSignUpForm", () => {
     await user.click(screen.getByRole("button", { name: /change email/i }));
     expect(screen.getByLabelText("Email address")).toHaveValue("student@example.com");
     expect(screen.getByLabelText("Password")).toBeInTheDocument();
+  });
+
+  it("reports the sign-up steps without the email, password or error text", async () => {
+    const user = userEvent.setup();
+    createAccountWithPassword.mockResolvedValueOnce({ status: "error", message: "student@school.edu is already registered" });
+    render(<PasswordSignUpForm next="/banks/ib-hl" />);
+    await user.type(screen.getByLabelText("Email address"), "student@school.edu");
+    await user.type(screen.getByLabelText("Password"), "three calm otters");
+    await user.type(screen.getByLabelText("Confirm password"), "three calm otters");
+    await user.click(screen.getByRole("button", { name: "Create account" }));
+    await screen.findByRole("alert");
+    // React resets the uncontrolled fields after the action, so submit the form directly the second time.
+    await act(async () => { fireEvent.submit(screen.getByRole("button", { name: "Create account" }).closest("form")!); });
+    await screen.findByRole("heading", { name: /check your email/i });
+
+    const events = track.mock.calls.map(([name]) => name);
+    expect(events).toEqual(["signup_submit", "signup_error", "signup_submit", "signup_email_sent"]);
+    expect(track).toHaveBeenCalledWith("signup_submit", { schoolEmail: true });
+    const payload = JSON.stringify(track.mock.calls);
+    for (const secret of ["student@school.edu", "three calm otters", "already registered"]) expect(payload).not.toContain(secret);
   });
 
   it("resends only after an explicit action, never repeats signup, and throttles rapid clicks", async () => {

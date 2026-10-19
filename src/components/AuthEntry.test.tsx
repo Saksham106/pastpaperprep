@@ -6,6 +6,8 @@ import { AuthEntry } from "@/components/AuthEntry";
 vi.mock("@/components/SignInMethods", () => ({ SignInMethods: () => <div>Existing sign-in methods</div> }));
 vi.mock("@/components/PasswordSignUpForm", () => ({ PasswordSignUpForm: () => <div>New account form</div> }));
 vi.mock("@/app/auth/actions", () => ({ signInWithGoogle: vi.fn() }));
+const track = vi.hoisted(() => vi.fn());
+vi.mock("@/lib/product-analytics", async (importOriginal) => ({ ...(await importOriginal<object>()), trackProductEvent: track }));
 
 describe("AuthEntry", () => {
   it("makes account creation explicit without changing the default sign-in flow", () => {
@@ -24,6 +26,17 @@ describe("AuthEntry", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /sign in instead/i }));
     expect(screen.getByText("Existing sign-in methods")).toBeInTheDocument();
+  });
+
+  it("counts each auth mode shown with a bounded destination, and Google clicks by mode", () => {
+    track.mockClear();
+    render(<AuthEntry next="/banks/ib-hl?free=1&topic=Calculus" initialMode="sign-up" />);
+    expect(track).toHaveBeenCalledWith("auth_page_view", { mode: "sign-up", from: "bank", bank: "ib-hl" });
+    fireEvent.submit(screen.getByRole("button", { name: /continue with google/i }).closest("form")!);
+    expect(track).toHaveBeenCalledWith("google_auth_click", { mode: "sign-up" });
+    fireEvent.click(screen.getByRole("button", { name: /sign in instead/i }));
+    expect(track).toHaveBeenCalledWith("auth_page_view", { mode: "sign-in", from: "bank", bank: "ib-hl" });
+    expect(track.mock.calls.filter(([name]) => name === "auth_page_view")).toHaveLength(2);
   });
 
   it("opens directly in signup mode when requested", () => {

@@ -26,6 +26,11 @@ No email, name or account ID is ever sent without consent.
 | `pdf_upgrade_view` | PDF prompt for people without access | `bank` |
 | `upgrade_prompt_view` / `_click` / `_dismiss` | upgrade prompts | `bank`, `placement` |
 | `free_gate_view` / `_elevated` / `_dismiss` / `_signup_click` / `_signin_click` | 20-question sign-up prompt. Since 2026-10-15 `free_gate_view` fires once per page when the prompt first scrolls into view (it used to fire on mount, which overcounted it). | `bank`, `limit`, `remainingCount` |
+| `auth_page_view` | sign-in / sign-up page, once per mode shown (switching modes counts again) | `mode` (`sign-in`, `sign-up`), `from` (`bank`, `pricing`, `worksheets`, `past_papers`, `account`, `dashboard`, `home`, `other`), `bank?` |
+| `google_auth_click` | Continue with Google | `mode` |
+| `signup_submit` / `signup_email_sent` / `signup_error` | email sign-up form and its result. Outcome only; the message text never leaves the page | `schoolEmail` (submit only) |
+| `signup_resend` | Resend email after sign-up | none |
+| `email_code_submit` / `email_code_error` | email code form. A correct code redirects on the server and is counted as `conversion_outcome` `signup_confirmed` | `type` (`signup`, `email`) |
 | `pricing_view` | pricing page load | `product?`, `from?`, `interval`, `signedIn`, `hasPaidAccess`, `bankCount` |
 | `billing_interval_change` | pricing | `interval` |
 | `bank_selection_change` | pricing builder | selection size |
@@ -47,6 +52,8 @@ No email, name or account ID is ever sent without consent.
 
 **Free past papers funnel (everyone, ratios of totals):** `past_paper_open` → `past_paper_mark_open` → `past_paper_report_view` → `past_paper_practice_click` → `pricing_view`, broken down by `bank`. Linking to `conversion_outcome` needs analytics consent, like the other funnels.
 
+**Country.** Cookieless ingestion drops the IP, so PostHog's GeoIP can't place anonymous events. The anonymous client fills `$geoip_country_code` / `$geoip_country_name` from the browser time zone (`src/lib/timezone-country.ts`, generated from the IANA tz database) and adds `country_source: timezone`. It never overrides a real GeoIP country (consented events keep theirs). Approximate: e.g. Asia/Singapore → SG.
+
 ## Server events
 
 | Event | Source | Properties |
@@ -66,16 +73,18 @@ Browser events and server conversions never share an ID. Browser events are cook
 1. **Prompt to paid:** `consented_upgrade_prompt_view` → `consented_upgrade_prompt_click` → `consented_pricing_view` → `consented_checkout_start` → `conversion_outcome` where `identified = true` and `outcome` is `payment_initial_paid` or `lifetime_paid`. Break down by `placement`.
 2. **Free account:** `consented_free_gate_view` → `consented_free_gate_signup_click` → `conversion_outcome` where `identified = true` and `outcome = signup_confirmed`.
 
+3. **Sign-up drop-off (browser only, a real funnel works):** `free_gate_signup_click` (or any `auth_page_view` with `mode = sign-up`) → `signup_submit` → `signup_email_sent` → `email_code_submit`, with `signup_error`, `email_code_error` and `google_auth_click` alongside. Break down by `from`/`bank`. Completed sign-ups are `conversion_outcome` `signup_confirmed` (server; compare totals).
+
 **Everyone (trends and ratios of totals, not funnels):**
-3. **Prompt effectiveness:** `upgrade_prompt_click` ÷ `upgrade_prompt_view`, broken down by `placement` and `bank`.
-4. **Which prompts bring buyers to pricing:** `pricing_view` broken down by `from`.
-5. **Pricing to paid:** `conversion_outcome` (`payment_initial_paid` + `lifetime_paid`) ÷ `pricing_view`, per week.
-6. **Checkout drop-off (browser only, a real funnel works):** `pricing_view` → `checkout_start` → `checkout_returned`, with `checkout_cancelled` as a trend alongside.
+4. **Prompt effectiveness:** `upgrade_prompt_click` ÷ `upgrade_prompt_view`, broken down by `placement` and `bank`.
+5. **Which prompts bring buyers to pricing:** `pricing_view` broken down by `from`.
+6. **Pricing to paid:** `conversion_outcome` (`payment_initial_paid` + `lifetime_paid`) ÷ `pricing_view`, per week.
+7. **Checkout drop-off (browser only, a real funnel works):** `pricing_view` → `checkout_start` → `checkout_returned`, with `checkout_cancelled` as a trend alongside.
 
 **Problem reports (data-quality queue):** a Trends insight on `question_report` (total count), broken down by `bank`, `questionId` and `issue`, shown as a table over the last 30 days. Sort by count; a question reported by several students is the first to check. `consented_question_report` duplicates these for consented visitors, so count only `question_report`.
 
 **Reliability:**
-7. `$exception` where `error_source = handled_response`, broken down by `route` and `reason`. Alert on spikes for `/api/assets/sign` and `/api/billing/checkout`.
+8. `$exception` where `error_source = handled_response`, broken down by `route` and `reason`. Alert on spikes for `/api/assets/sign` and `/api/billing/checkout`.
 
 For revenue counts, count distinct `$insert_id` on `conversion_outcome`. A Stripe delivery that had to be retried is normally counted once, and that keeps it exact.
 
