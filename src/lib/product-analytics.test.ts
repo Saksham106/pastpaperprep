@@ -41,6 +41,24 @@ describe("PostHog product analytics", () => {
     expect(posthog.init).toHaveBeenCalledTimes(1);
   });
 
+  it("keeps anonymous analytics running when the optional country table fails to load", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    document.cookie = "ppp_analytics_consent=; Max-Age=0; Path=/";
+    vi.doMock("@/lib/timezone-country", () => { throw new Error("ChunkLoadError: Loading chunk failed"); });
+    try {
+      const analytics = await import("@/lib/product-analytics");
+      await analytics.initializeProductAnalytics();
+      analytics.trackProductEvent("checkout_start");
+      await new Promise(resolve => setTimeout(resolve, 0));
+      expect(posthog.init).toHaveBeenCalledTimes(1);
+      expect(posthog.capture).toHaveBeenCalledWith("checkout_start", {});
+      const beforeSend = posthog.init.mock.calls[0][1].before_send as (event: { properties: Record<string, unknown> }) => { properties: Record<string, unknown> } | null;
+      expect(beforeSend({ properties: { $timezone: "Asia/Singapore" } })?.properties).toEqual({ $timezone: "Asia/Singapore" });
+    } finally {
+      vi.doUnmock("@/lib/timezone-country");
+    }
+  });
+
   it("initializes privacy-safe client analytics only when configured", async () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_HOST", "https://us.i.posthog.com");

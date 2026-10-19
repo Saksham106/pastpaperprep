@@ -34,8 +34,10 @@ function loadClient() {
   if (!projectToken() || !canCapture()) return Promise.resolve(null);
   if (clientPromise) return clientPromise;
 
-  clientPromise = Promise.all([import("posthog-js"), import("@/lib/timezone-country")])
-    .then(([{ default: posthog }, { countryFromTimeZone }]) => {
+  // The country table is optional enrichment: if its chunk fails to load, analytics still runs without it.
+  const countryLookup = import("@/lib/timezone-country").then(({ countryFromTimeZone }) => countryFromTimeZone, () => () => null);
+  clientPromise = Promise.all([import("posthog-js"), countryLookup])
+    .then(([{ default: posthog }, countryFromTimeZone]) => {
       if (!initialized) {
         posthog.init(projectToken(), {
           api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST?.trim() || "https://us.i.posthog.com",
