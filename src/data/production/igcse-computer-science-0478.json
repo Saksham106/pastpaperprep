@@ -11,7 +11,7 @@
   "marks_ready": true,
   "sourceCandidate": {
     "path": "data/classification/final-labels.json",
-    "sha256": "a76f30f0d515f6d119d5eeec9919497c64a0a10fac1dff17f1f32e24f9d02fa7",
+    "sha256": "00eaad5c0167afac47f20f8e187ce481b9e6752a193a7e8c1b02011105b6dcb8",
     "questionCount": 469
   },
   "taxonomy": {
@@ -8229,12 +8229,16 @@
       "secondaryTopics": [],
       "secondaryTopicIds": [],
       "subtopics": [
-        "The internet and the world wide web"
+        "The internet and the world wide web",
+        "Cyber security"
       ],
       "detailedSubtopics": [
-        "The internet and the world wide web"
+        "The internet and the world wide web",
+        "Cyber security"
       ],
-      "secondarySubtopics": [],
+      "secondarySubtopics": [
+        "Cyber security"
+      ],
       "skills": [],
       "assessmentObjectives": [],
       "marks": 5,
@@ -8263,7 +8267,8 @@
         ]
       },
       "officialCodeRefs": [
-        "2023_2028:5.1"
+        "2023_2028:5.1",
+        "2023_2028:5.3"
       ],
       "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/computer-science-0478/2023/0478_w23_qp_13.pdf",
       "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/computer-science-0478/2023/0478_w23_ms_13.pdf",
@@ -8275,7 +8280,9 @@
         "selectedSource": "final-labels",
         "labelSource": "blind",
         "primaryCode": "5.1",
-        "secondaryCodes": [],
+        "secondaryCodes": [
+          "5.3"
+        ],
         "taxonomyPath": "src/data/igcse-computer-science-0478-taxonomy.json"
       },
       "marks_ready": true,
@@ -18497,12 +18504,16 @@
       "secondaryTopics": [],
       "secondaryTopicIds": [],
       "subtopics": [
-        "The internet and the world wide web"
+        "The internet and the world wide web",
+        "Cyber security"
       ],
       "detailedSubtopics": [
-        "The internet and the world wide web"
+        "The internet and the world wide web",
+        "Cyber security"
       ],
-      "secondarySubtopics": [],
+      "secondarySubtopics": [
+        "Cyber security"
+      ],
       "skills": [],
       "assessmentObjectives": [],
       "marks": 14,
@@ -18541,7 +18552,8 @@
         ]
       },
       "officialCodeRefs": [
-        "2023_2028:5.1"
+        "2023_2028:5.1",
+        "2023_2028:5.3"
       ],
       "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/computer-science-0478/2024/0478_w24_qp_12.pdf",
       "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/computer-science-0478/2024/0478_w24_ms_12.pdf",
@@ -18553,7 +18565,9 @@
         "selectedSource": "final-labels",
         "labelSource": "blind",
         "primaryCode": "5.1",
-        "secondaryCodes": [],
+        "secondaryCodes": [
+          "5.3"
+        ],
         "taxonomyPath": "src/data/igcse-computer-science-0478-taxonomy.json"
       },
       "marks_ready": true,
@@ -33310,14 +33324,17 @@
       ],
       "subtopics": [
         "The internet and the world wide web",
-        "Encryption"
+        "Encryption",
+        "Cyber security"
       ],
       "detailedSubtopics": [
         "The internet and the world wide web",
-        "Encryption"
+        "Encryption",
+        "Cyber security"
       ],
       "secondarySubtopics": [
-        "Encryption"
+        "Encryption",
+        "Cyber security"
       ],
       "skills": [],
       "assessmentObjectives": [],
@@ -33354,7 +33371,8 @@
       },
       "officialCodeRefs": [
         "2023_2028:5.1",
-        "2023_2028:2.3"
+        "2023_2028:2.3",
+        "2023_2028:5.3"
       ],
       "sourceQuestionUrl": "https://bestexamhelp.com/exam/cambridge-igcse/computer-science-0478/2026/0478_s26_qp_11.pdf",
       "sourceMarkSchemeUrl": "https://bestexamhelp.com/exam/cambridge-igcse/computer-science-0478/2026/0478_s26_ms_11.pdf",
@@ -33367,7 +33385,8 @@
         "labelSource": "adjudicated",
         "primaryCode": "5.1",
         "secondaryCodes": [
-          "2.3"
+          "2.3",
+          "5.3"
         ],
         "taxonomyPath": "src/data/igcse-computer-science-0478-taxonomy.json"
       },
@@ -37392,11 +37411,11 @@
     "sourceRepository": "igcse-computer-science-0478-topic-practice",
     "sourceSha256": {
       "segmentation": "714c69a58eb013f004e118500d0d60ebd1518066d41c88b42af05560f02189dd",
-      "labels": "a76f30f0d515f6d119d5eeec9919497c64a0a10fac1dff17f1f32e24f9d02fa7",
+      "labels": "00eaad5c0167afac47f20f8e187ce481b9e6752a193a7e8c1b02011105b6dcb8",
       "taxonomy": "0fd3fbc62bbdb4ba21aa1fb0807669f2e1a809e38de1500e8d719c27e4c07547",
       "sourceManifest": "668bce70ce3eb2e6d49d3c8e0ef0eb9130bc6b791108bcab9437800836c29c68"
     },
-    "sourceCandidateSha256": "0eb04c612b39296f68ba82f48592eaaada1ab854793d2026002c56f9601e69aa",
+    "sourceCandidateSha256": "d01cb6274245368dcc540c4d650c1ef261e2ea0260045700a387df46ad383dac",
     "releaseTaxonomySha256": "d6fc74c944f90512236f143286805b441bc5af08637050045ff86d4167ff87eb",
     "runtimeTaxonomySha256": "ceddb1e69690f0594ae2eec238fc7cea3d244fce25844ccc049b452cb069213b",
     "publicationStatus": "authorized_production_candidate",
@@ -37404,7 +37423,7 @@
     "assetVerification": "pending_upload",
     "assetManifestSha256": null,
     "storageReceiptSha256": null,
-    "contentSha256": "ee2f624f832aea1d240862305e0d76764d74f99b9a2e3903d064b55544b32911",
+    "contentSha256": "af98eadbab121e06c66db55483879233d9f6e3a2c7e89f566759b8d5f371b887",
     "marksReady": true,
     "marksRepairStatus": "verified_against_print",
     "marksRepairUnresolvedCount": 0,
@@ -37412,7 +37431,7 @@
       "0478-2023-s-22-q5",
       "0478-2025-s-22-q10"
     ],
-    "originalCandidateRuntimeSha256": "0eb04c612b39296f68ba82f48592eaaada1ab854793d2026002c56f9601e69aa",
-    "runtimeSha256": "69733442c59b85b9cea7cd4cf99bfb2014184ad030a07aa1d8cd8acd4c327327"
+    "originalCandidateRuntimeSha256": "d01cb6274245368dcc540c4d650c1ef261e2ea0260045700a387df46ad383dac",
+    "runtimeSha256": "475c2950bf01346b6b09435c81b3c6bad937d738569ebd1f0257c96e3601d9d2"
   }
 }

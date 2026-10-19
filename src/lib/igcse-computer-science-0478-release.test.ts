@@ -17,7 +17,7 @@ import { normalizeBankQuestions } from "@/lib/questions";
 const ROOT = process.cwd();
 const BANK = "igcse-computer-science-0478";
 const PRODUCT = "bank_igcse_computer_science_0478";
-const CANDIDATE = "0eb04c612b39296f68ba82f48592eaaada1ab854793d2026002c56f9601e69aa";
+const CANDIDATE = "d01cb6274245368dcc540c4d650c1ef261e2ea0260045700a387df46ad383dac";
 const WITHDRAWN = ["0478-2023-s-22-q5", "0478-2025-s-22-q10"];
 const sha = (value: unknown) => createHash("sha256").update(typeof value === "string" ? value : JSON.stringify(value)).digest("hex");
 
@@ -118,6 +118,34 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
     expect(production.taxonomy.sha256).toBe(meta.releaseTaxonomySha256);
     expect(meta.contentSha256).toBe(sha(production.questions));
     expect(readFileSync(join(ROOT, "scripts/igcse-release.mjs"), "utf8")).toContain(`originalCandidateRuntimeSha256: '${CANDIDATE}'`);
+  });
+
+  it("rejects an edited candidate even when its self-seal is recomputed and the stored pin kept", async () => {
+    const { assertContentSealedCandidate, runtimeSha256 } = await import("../../scripts/igcse-release.mjs");
+    const { assertOriginalCandidateRuntime } = await import("../../scripts/generate-igcse-release.mjs");
+    expect(() => assertOriginalCandidateRuntime(BANK, production)).not.toThrow();
+    const forged = JSON.parse(JSON.stringify(production)) as Runtime & { questions: Array<Record<string, unknown>> };
+    forged.questions[0].id = "0478-2023-m-12-q999";
+    forged.questions[0].marks = 999;
+    forged.runtimeArtifact.runtimeSha256 = null;
+    forged.runtimeArtifact.runtimeSha256 = runtimeSha256(forged);
+    expect(forged.runtimeArtifact.originalCandidateRuntimeSha256).toBe(CANDIDATE);
+    expect(() => assertContentSealedCandidate(BANK, forged)).toThrow("candidate content does not reproduce its pinned seal");
+    expect(() => assertOriginalCandidateRuntime(BANK, forged)).toThrow("candidate content does not reproduce its pinned seal");
+    const relabelled = JSON.parse(JSON.stringify(production)) as Runtime;
+    relabelled.questions[0].subtopics = [...relabelled.questions[0].subtopics, "Encryption"];
+    relabelled.runtimeArtifact.runtimeSha256 = null;
+    relabelled.runtimeArtifact.runtimeSha256 = runtimeSha256(relabelled);
+    expect(() => assertOriginalCandidateRuntime(BANK, relabelled)).toThrow("candidate content does not reproduce its pinned seal");
+  });
+
+  it("carries the 5.3 Cyber security secondary on the three reviewed SSL questions", () => {
+    for (const id of ["0478-2023-w-13-q4", "0478-2024-w-12-q7", "0478-2026-s-11-q6"]) {
+      const question = production.questions.find((candidate) => candidate.id === id)!;
+      expect(question.primaryTopic, id).toBe("The internet and its uses");
+      expect(question.subtopics, id).toContain("Cyber security");
+    }
+    expect(production.questions.find((question) => question.id === "0478-2026-s-11-q6")!.subtopics).toEqual(["The internet and the world wide web", "Encryption", "Cyber security"]);
   });
 
   it("is a candidate until the R2 receipt exists and finalize seals it", () => {

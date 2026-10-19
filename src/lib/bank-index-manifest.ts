@@ -19,5 +19,5 @@ export const PUBLIC_BANK_INDEX_FILES = {
   "igcse-chemistry-0620": "igcse-chemistry-0620.v1-379765bd6542.json",
   "igcse-physics-0625": "igcse-physics-0625.v1-f4b4c44c2223.json",
   "igcse-coordinated-sciences-0654": "igcse-coordinated-sciences-0654.v1-0c557f7d6072.json",
-  "igcse-computer-science-0478": "igcse-computer-science-0478.v1-614ddec6d2db.json"
+  "igcse-computer-science-0478": "igcse-computer-science-0478.v1-21a5d57b3d98.json"
 } as const;

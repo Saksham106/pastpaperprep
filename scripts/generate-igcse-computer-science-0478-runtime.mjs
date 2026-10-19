@@ -23,7 +23,7 @@ export const CANDIDATE_PUBLICATION_STATUS = "authorized_production_candidate";
 export const DEFAULT_SOURCE_ROOT = "/Users/sakshamgoel/Documents/ProjectsInternships/igcse-computer-science-0478-topic-practice";
 export const SOURCE_SHA256 = {
   segmentation: "714c69a58eb013f004e118500d0d60ebd1518066d41c88b42af05560f02189dd",
-  labels: "a76f30f0d515f6d119d5eeec9919497c64a0a10fac1dff17f1f32e24f9d02fa7",
+  labels: "00eaad5c0167afac47f20f8e187ce481b9e6752a193a7e8c1b02011105b6dcb8",
   taxonomy: "0fd3fbc62bbdb4ba21aa1fb0807669f2e1a809e38de1500e8d719c27e4c07547",
   sourceManifest: "668bce70ce3eb2e6d49d3c8e0ef0eb9130bc6b791108bcab9437800836c29c68",
 };

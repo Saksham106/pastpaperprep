@@ -3,6 +3,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import {
+  assertContentSealedCandidate,
   buildReleaseManifest,
   manifestSha256,
   RELEASE_BANKS,
@@ -20,6 +21,7 @@ export function assertOriginalCandidateRuntime(bank, runtime) {
   if (!expected || actual !== expected) throw new Error(`${bank} is not sealed to the exact original release candidate runtime`);
   const actualRuntimeSha = runtimeSha256(runtime);
   if (runtime.runtimeArtifact?.runtimeSha256 !== actualRuntimeSha) throw new Error(`${bank} production runtime self-seal mismatch`);
+  assertContentSealedCandidate(bank, runtime);
 }
 
 export async function generateRelease(bank, repo = resolve(import.meta.dirname, '..')) {
