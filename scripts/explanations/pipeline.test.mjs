@@ -335,3 +335,12 @@ test('mark codes must account for each part exactly, with science point labels c
   withdrawn.parts[0].steps[0].marks = ['B1'];
   assert.equal(validateExplanation(withdrawn).filter((e) => /withdrawn/.test(e)).length, 1);
 });
+
+test('validator accepts a code block and rejects empty, tab-indented or unknown step fields', async () => {
+  const { validateExplanation } = await import('./validate.mjs');
+  const withStep = (step) => ({ schemaVersion: 1, bank: 'igcse-computer-science-0478', questionId: 'q', totalMarks: 1, parts: [{ label: '', marks: 1, approach: 'x', answer: 'y', steps: [{ text: 't', marks: ['✓'], ...step }] }] });
+  assert.deepEqual(validateExplanation(withStep({ code: 'FOR I ← 1 TO 3\n    OUTPUT I\nNEXT I' })), []);
+  assert.equal(validateExplanation(withStep({ code: ' ' })).filter((e) => /code must be non-empty/.test(e)).length, 1);
+  assert.equal(validateExplanation(withStep({ code: 'IF X\n\tOUTPUT X' })).filter((e) => /tabs/.test(e)).length, 1);
+  assert.equal(validateExplanation(withStep({ pseudocode: 'x' })).filter((e) => /unknown key "pseudocode"/.test(e)).length, 1);
+});
