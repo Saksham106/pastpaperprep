@@ -34,8 +34,9 @@ export const EXPECTED_ASSET_COUNTS = {
   "ib-physics-sl": { preview: 159, premium: 3894, all: 4053 },
   // May 2026: official papers add 380 (HL; the withheld 2026-may-tz1-hl-p1b-q2 serves none) and 295 (SL) premium crops; 2026 is not a free-preview year.
   // Shared-stimulus repair: HL +6 new crops, 4 no longer served; SL +4 new (the 2020 micrograph is free preview), 2 no longer served.
-  "ib-biology-hl": { preview: 211, premium: 5782, all: 5993 },
-  "ib-biology-sl": { preview: 156, premium: 4512, all: 4668 },
+  // Question-boundary repair (docs/ib-question-boundary-repairs.md): Q1/Q2 re-cut in five papers, HL -4 and SL -2 net.
+  "ib-biology-hl": { preview: 211, premium: 5778, all: 5989 },
+  "ib-biology-sl": { preview: 156, premium: 4510, all: 4666 },
 } as const satisfies Record<string, { preview: number; premium: number; all: number }>;
 
 export const EXPECTED_ASSET_TOTALS = Object.values(EXPECTED_ASSET_COUNTS).reduce(
