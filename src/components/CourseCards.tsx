@@ -25,6 +25,7 @@ const SUBJECTS: readonly { name: string; tone: CourseTone; matches: (bank: Bank)
   { name: "Biology", tone: "biology", matches: (bank) => bank.subject.includes("Biology") },
   { name: "Economics", tone: "economics", matches: (bank) => bank.subject.includes("Economics") },
   { name: "Co-ordinated Sciences", tone: "coordinated", matches: (bank) => bank.subject.includes("Co-ordinated") },
+  { name: "Computer Science", tone: "computer-science", matches: (bank) => bank.subject.includes("Computer Science") },
 ];
 
 /** Banks grouped into the subject cards students recognise, in a fixed subject order. */

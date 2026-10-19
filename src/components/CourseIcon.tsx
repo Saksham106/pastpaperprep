@@ -1,8 +1,9 @@
-import { Atom, ChartLineUp, Dna, Flask, MathOperations, Microscope } from "@phosphor-icons/react/dist/ssr";
-export type CourseTone = "math" | "chemistry" | "physics" | "biology" | "economics" | "coordinated";
+import { Atom, ChartLineUp, Cpu, Dna, Flask, MathOperations, Microscope } from "@phosphor-icons/react/dist/ssr";
+export type CourseTone = "math" | "chemistry" | "physics" | "biology" | "economics" | "coordinated" | "computer-science";
 
 export function courseToneForBank(bank: { subject: string }): CourseTone {
   if (bank.subject.includes("Co-ordinated")) return "coordinated";
+  if (bank.subject.includes("Computer Science")) return "computer-science";
   if (bank.subject.includes("Chemistry")) return "chemistry";
   if (bank.subject.includes("Physics")) return "physics";
   if (bank.subject.includes("Biology")) return "biology";
@@ -26,7 +27,9 @@ export function CourseIcon({ tone, marker = true }: { tone: CourseTone; marker?:
           ? ChartLineUp
           : tone === "coordinated"
             ? Microscope
-            : MathOperations;
+            : tone === "computer-science"
+              ? Cpu
+              : MathOperations;
 
   return (
     <span className="course-icon" data-course-icon={marker ? tone : undefined} aria-hidden="true">

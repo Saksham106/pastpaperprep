@@ -169,7 +169,7 @@ describe('whole-paper public registry', () => {
   });
   it('never substitutes catalogue paper counts for unavailable archive manifests', () => {
     const empty = getWholePaperBanks();
-    expect(empty).toHaveLength(19);
+    expect(empty).toHaveLength(BANK_CATALOG.length);
     expect(empty.every(b => b.paperCount === 0 && b.reportCount === 0 && !b.available)).toBe(true);
     for (const bank of BANK_CATALOG) manifest(fixture(bank.slug));
     const available = getWholePaperBanks();

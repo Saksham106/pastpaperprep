@@ -175,12 +175,14 @@ main { min-height: 72vh; }
 .course-tone-biology, [data-subject-tone="biology"] { --course-pastel: #c9eed8; --course-accent: #1d7546; --subject-panel-tint: color-mix(in srgb, #c9eed8 38%, #fff); }
 .course-tone-economics, [data-subject-tone="economics"] { --course-pastel: #fde9ad; --course-accent: #845c00; --subject-panel-tint: color-mix(in srgb, #fde9ad 38%, #fff); }
 .course-tone-coordinated, [data-subject-tone="coordinated"] { --course-pastel: #c4ecef; --course-accent: #167279; --subject-panel-tint: color-mix(in srgb, #c4ecef 38%, #fff); }
+.course-tone-computer-science, [data-subject-tone="computer-science"] { --course-pastel: #fbd3e4; --course-accent: #a3305f; --subject-panel-tint: color-mix(in srgb, #fbd3e4 38%, #fff); }
 :root[data-theme="dark"] .course-tone-math, :root[data-theme="dark"] [data-subject-tone="math"] { --course-accent: var(--cobalt); }
 :root[data-theme="dark"] .course-tone-chemistry, :root[data-theme="dark"] [data-subject-tone="chemistry"] { --course-accent: #f0a98c; }
 :root[data-theme="dark"] .course-tone-physics, :root[data-theme="dark"] [data-subject-tone="physics"] { --course-accent: #b4a1ec; }
 :root[data-theme="dark"] .course-tone-biology, :root[data-theme="dark"] [data-subject-tone="biology"] { --course-accent: #86d3a6; }
 :root[data-theme="dark"] .course-tone-economics, :root[data-theme="dark"] [data-subject-tone="economics"] { --course-accent: #e3c56f; }
 :root[data-theme="dark"] .course-tone-coordinated, :root[data-theme="dark"] [data-subject-tone="coordinated"] { --course-accent: #86c6ca; }
+:root[data-theme="dark"] .course-tone-computer-science, :root[data-theme="dark"] [data-subject-tone="computer-science"] { --course-accent: #eba3c1; }
 :root[data-theme="dark"] [data-subject-tone], :root[data-theme="dark"] [class*="course-tone-"] { --course-pastel: color-mix(in srgb, var(--course-accent, var(--cobalt)) 30%, var(--surface-raised)); }
 :root[data-theme="dark"] [data-subject-tone] { --subject-panel-tint: color-mix(in srgb, var(--course-accent, var(--cobalt)) 14%, var(--surface-raised)); }
 .course-icon { width: 38px; height: 38px; flex: 0 0 auto; display: grid; align-items: center; justify-items: center; line-height: 0; color: var(--course-accent, var(--cobalt)); background: color-mix(in srgb, var(--course-accent, var(--cobalt)) 10%, var(--surface)); border: 1px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 25%, var(--line)); border-radius: 9px; }

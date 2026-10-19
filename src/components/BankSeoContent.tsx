@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Bank } from "@/lib/banks";
 import { BankWorkedExample } from "@/components/BankWorkedExample";
+import { hasFreeTier } from "@/lib/access";
 
 function guideFor(bank: Bank) {
   if (bank.slug === "igcse") {
@@ -77,7 +78,9 @@ export function BankSeoContent({ bank, topicLinks = [] }: { bank: Bank; topicLin
         <ol>
           <li><strong>Choose a topic.</strong> Focus your practice on a real past-paper topic rather than a generated exam-style substitute.</li>
           <li><strong>Work through the available questions and answers.</strong> Use the matching mark scheme to check your reasoning and identify a precise gap.</li>
-          <li><strong>Export when eligible.</strong> Guests can view up to 20 matching free questions; a free account can access the remaining free selection. PDF export is subject to eligible bank access and the account’s download allowance.</li>
+          <li><strong>Export when eligible.</strong> {hasFreeTier(bank.slug)
+            ? "Guests can view up to 20 matching free questions; a free account can access the remaining free selection. PDF export is subject to eligible bank access and the account’s download allowance."
+            : "Questions, mark schemes and PDF export are part of this bank’s plan. PDF export follows the account’s download allowance."}</li>
         </ol>
       )}
       {topicLinks.length ? (
