@@ -47,6 +47,7 @@ const SYNONYMS: Record<string, string[]> = {
   biology: ["bio"],
   economics: ["econ", "eco"],
   "co-ordinated": ["coordinated", "combined", "co"],
+  computer: ["cs", "computing", "compsci"],
   sciences: ["science"],
   additional: ["add", "addmaths"],
   cambridge: ["igcse"],

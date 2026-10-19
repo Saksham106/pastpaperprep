@@ -81,12 +81,14 @@ beforeEach(async () => {
 afterEach(() => vi.unstubAllEnvs());
 
 describe("private-bank free funnel", () => {
-  it("advertises a free tier for every displayed bank and links each one to ?free=1", () => {
+  it("advertises a free tier for every displayed bank except owner-approved paid-only banks, linking each to ?free=1", () => {
+    // Owner decision (2026-10-18): Computer Science 0478 launches with no free years.
+    const paidOnly = new Set(["igcse-computer-science-0478"]);
     const displayed = getAvailableBanks();
     expect(displayed.length).toBeGreaterThan(0);
     for (const bank of displayed) {
-      expect(hasFreeTier(bank.slug)).toBe(true);
-      expect(bankEntryHref(bank.slug)).toBe(`/banks/${bank.slug}?free=1`);
+      expect(hasFreeTier(bank.slug)).toBe(!paidOnly.has(bank.slug));
+      expect(bankEntryHref(bank.slug)).toBe(paidOnly.has(bank.slug) ? `/banks/${bank.slug}` : `/banks/${bank.slug}?free=1`);
     }
     for (const slug of Object.keys(PRIVATE_FREE)) expect(displayed.map((bank) => bank.slug)).toContain(slug);
     expect(displayed.map((bank) => bank.slug)).toContain("igcse-coordinated-sciences-0654");

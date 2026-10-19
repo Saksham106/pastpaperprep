@@ -42,14 +42,17 @@ describe("home page", () => {
     expect(container.querySelector(".practice-mode-switch")?.textContent).toBe("Practice by topicFull past papers");
     const rows = [...container.querySelectorAll<HTMLAnchorElement>("#question-banks a[data-bank-slug]")];
 
-    expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(19);
-    expect(rows).toHaveLength(19);
+    expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(20);
+    expect(rows).toHaveLength(20);
     expect(container.querySelectorAll("a a")).toHaveLength(0);
     for (const row of rows) {
       expect(row.getAttribute("href")).toMatch(/^\/banks\/[a-z0-9-]+(\?free=1)?$/);
       expect(row.textContent).toMatch(/\d+\squestions/);
     }
     expect(rows.find((row) => row.dataset.bankSlug === "igcse-economics-0455")?.closest("[data-subject-tone]")?.getAttribute("data-subject-tone")).toBe("economics");
+    const computerScience = rows.find((row) => row.dataset.bankSlug === "igcse-computer-science-0478");
+    expect(computerScience?.getAttribute("href")).toBe("/banks/igcse-computer-science-0478");
+    expect(computerScience?.closest("[data-subject-tone]")?.getAttribute("data-subject-tone")).toBe("computer-science");
     expect(rows.find((row) => row.dataset.bankSlug === "igcse-additional")?.closest("[data-subject-tone]")?.getAttribute("data-subject-tone")).toBe("math");
     const cards = container.querySelectorAll("#question-banks [data-subject-tone]");
     expect(cards.length).toBeGreaterThan(0);

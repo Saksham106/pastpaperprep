@@ -3,6 +3,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import {
+  assertContentSealedCandidate,
   buildReleaseManifest,
   manifestSha256,
   RELEASE_BANKS,
@@ -20,6 +21,7 @@ export function assertOriginalCandidateRuntime(bank, runtime) {
   if (!expected || actual !== expected) throw new Error(`${bank} is not sealed to the exact original release candidate runtime`);
   const actualRuntimeSha = runtimeSha256(runtime);
   if (runtime.runtimeArtifact?.runtimeSha256 !== actualRuntimeSha) throw new Error(`${bank} production runtime self-seal mismatch`);
+  assertContentSealedCandidate(bank, runtime);
 }
 
 export async function generateRelease(bank, repo = resolve(import.meta.dirname, '..')) {
@@ -49,6 +51,7 @@ const AUTHORIZED_PRODUCTION_CANDIDATE_STATES = {
   'igcse-biology-0610': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
   'igcse-economics-0455': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['source_paired_review_completed_pending_release'], unresolvedCount: 0 },
   'igcse-coordinated-sciences-0654': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved', UNRESOLVED_TAXONOMY_STATUS], unresolvedCount: 4 },
+  'igcse-computer-science-0478': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
   'igcse-physics-0625': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved', UNRESOLVED_TAXONOMY_STATUS], unresolvedCount: 336 },
 };
 
