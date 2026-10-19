@@ -82,7 +82,7 @@ export function scrubStack(stack: string | undefined, fallbackName: string): str
   return result.join("\n").slice(0, MAX_STACK_CHARS);
 }
 
-const ERROR_NAMES = new Set(["Error", "TypeError", "ReferenceError", "RangeError", "SyntaxError", "URIError", "EvalError", "AggregateError", "AbortError", "TimeoutError", "NetworkError", "SecurityError", "NotAllowedError", "NotFoundError", "UnhandledRejection", "AuthApiError", "AuthRetryableFetchError"]);
+const ERROR_NAMES = new Set(["Error", "TypeError", "ReferenceError", "RangeError", "SyntaxError", "URIError", "EvalError", "AggregateError", "AbortError", "TimeoutError", "NetworkError", "SecurityError", "NotAllowedError", "NotFoundError", "UnhandledRejection", "ChunkLoadError", "AuthApiError", "AuthRetryableFetchError"]);
 
 export function safeErrorName(name: unknown): string {
   return typeof name === "string" && ERROR_NAMES.has(name) ? name : "Error";
@@ -126,6 +126,13 @@ export function safeErrorMessage(message: unknown): string | undefined {
   if (/^Key \([^)]*\)=\([^)]*\) already exists\.?$/.test(text)) return "Database key already exists";
   if (/^duplicate key value violates unique constraint /.test(text)) return "Database unique constraint violation";
   if (/^No such customer: /.test(text)) return "No such customer";
+  // Turbopack's script loader: keep only a generated chunk path; the module id and the browser's cause text are dropped.
+  const chunk = text.match(/^Failed to load chunk (\S+)(?: (?:from module|as a runtime dependency of chunk|from an HMR update)\b.*)?$/);
+  if (chunk) {
+    let path: string | null = null;
+    try { path = safeGeneratedPath(new URL(chunk[1], "https://pastpaperprep.com").pathname); } catch { /* not a URL */ }
+    return `Failed to load chunk ${path ?? "<chunk>"}`;
+  }
   return undefined;
 }
 
