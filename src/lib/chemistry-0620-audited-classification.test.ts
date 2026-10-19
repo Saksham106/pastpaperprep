@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { PUBLIC_BANK_INDEX_FILES } from "./bank-index-manifest";
 import chemistryOtherTargets from "../../scripts/data/0620-other-retrieval-targets.json";
+import removedPartMarks from "@/data/reviewed-science-removed-part-marks.json";
 
 const retrievalById = new Map(chemistryOtherTargets.rows.map((row) => [row.id, row]));
 
@@ -117,6 +118,9 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
       const row = { ...published };
       delete row.hasExplanation;
       if (printedMarks.has(row.id)) row.marks = printedMarks.get(row.id);
+      // So is a reviewed removed-part total (docs/igcse-science-removed-part-marks.md).
+      const removed = (removedPartMarks.entries as Record<string, Record<string, { old: number | null }>>)["igcse-chemistry-0620"]?.[row.id];
+      if (removed) row.marks = removed.old;
       const base = row.id === descendant.exact_changed_ids[0] ? descendant.before_public_metadata : row;
       return { ...base, questionImageCount: base.questionImageCount + (finalBlankPages.get(row.id) ?? 0), markschemeImageCount: oldCounts.get(row.id) };
     }) };

@@ -50,6 +50,7 @@ const ibSharedStimulusRepairs = JSON.parse(await readFile(join(root, 'src', 'dat
 const historicalCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-historical-crop-repairs.json'), 'utf8'));
 const biologyPrintedMarks = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-printed-marks.json'), 'utf8'));
 const questionSplits0606 = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-0606-question-splits.json'), 'utf8'));
+const removedPartMarks = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-science-removed-part-marks.json'), 'utf8')).entries;
 // Same projection as src/lib/reviewed-biology-historical-crops.ts (counts and marks only).
 function historicalEntry(bank, raw) {
   return bank === historicalCropRepairs.bank && Object.prototype.hasOwnProperty.call(historicalCropRepairs.entries, raw.id)
@@ -70,6 +71,12 @@ function historicalMarks(bank, raw) {
 }
 // Same projection as src/lib/reviewed-biology-printed-marks.ts.
 function printedMarks(bank, raw, marks) {
+  // Same projection as src/lib/reviewed-science-removed-part-marks.ts.
+  const removed = removedPartMarks[bank]?.[raw.id];
+  if (removed) {
+    if (marks !== removed.old) throw new Error(`Reviewed removed-part marks disagree with ${bank}:${raw.id}`);
+    return removed.new;
+  }
   const split = bank === questionSplits0606.bank ? questionSplits0606.entries[raw.id] : undefined;
   if (split) {
     // Same projection as src/lib/reviewed-0606-question-splits.ts.
