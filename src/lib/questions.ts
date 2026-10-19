@@ -13,6 +13,7 @@ import { activeQuestionCropPaths } from "@/lib/retired-crops";
 import { IB_SCIENCE_CROP_REPAIR_BANKS, reviewedMarkschemePaths } from "@/lib/reviewed-mcq-answer-repairs";
 import { historicalMarks, historicalQuestionPaths } from "@/lib/reviewed-biology-historical-crops";
 import { printedMarks } from "@/lib/reviewed-biology-printed-marks";
+import { removedPartMarks } from "@/lib/reviewed-science-removed-part-marks";
 import { reviewed0606SplitMarks, reviewed0606SplitQuestionPaths, reviewed0606SplitText } from "@/lib/reviewed-0606-question-splits";
 import { reviewed0606RightEdgePaths } from "@/lib/reviewed-0606-ms-right-edge-repairs";
 import { reviewed0580CoreQuestionPaths } from "@/lib/reviewed-0580-core-crop-repairs";
@@ -331,7 +332,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     zone: text(raw.timezone) || text(raw.zone),
     component: text(raw.component),
     calculator: calculatorAllowed(slug, { paper, year: integer(raw.year) }),
-    marks: reviewed0606SplitMarks(slug, text(raw.id), printedMarks(slug, text(raw.id), historicalMarks(slug, text(raw.id), typeof raw.marks === "number" ? raw.marks : null))),
+    marks: removedPartMarks(slug, text(raw.id), reviewed0606SplitMarks(slug, text(raw.id), printedMarks(slug, text(raw.id), historicalMarks(slug, text(raw.id), typeof raw.marks === "number" ? raw.marks : null)))),
     summary,
     accessibleText,
     searchText: searchable,
