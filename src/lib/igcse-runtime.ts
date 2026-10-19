@@ -149,7 +149,7 @@ export const IGCSE_RUNTIME_COUNTS = {
   "igcse-chemistry-0620": [5129, 314],
   "igcse-physics-0625": [5789, 317],
   "igcse-coordinated-sciences-0654": [4721, 238],
-  "igcse-computer-science-0478": [469, 50],
+  "igcse-computer-science-0478": [847, 105],
 } as const;
 const ARTIFACTS: Record<IGCSEReleaseBankSlug, IGCSEArtifact> = {
   "igcse-biology-0610": biology as IGCSEArtifact,
@@ -174,7 +174,7 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "igcse-chemistry-0620": "81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87",
   "igcse-physics-0625": "d95657a79bfcf5d80b9c7e9660c1d7795ea2026435610bb3e96ba2203e3d8cf7",
   "igcse-coordinated-sciences-0654": "8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a",
-  "igcse-computer-science-0478": "d01cb6274245368dcc540c4d650c1ef261e2ea0260045700a387df46ad383dac",
+  "igcse-computer-science-0478": "3f65f4fa9c94c0b35b6579b4ad0d2306ac20093234a4edd95e79c79b0618de6c",
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -183,7 +183,7 @@ const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "igcse-chemistry-0620": "81c706903aa94c6865336cf40027c26b33e0ba514082f4d8da2c576b9bb2cf87",
   "igcse-physics-0625": "14b6756ed65b6f264f601519a4dba5b5a43ef0f0480bc849924cc037644c79e8",
   "igcse-coordinated-sciences-0654": "8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a",
-  "igcse-computer-science-0478": "d01cb6274245368dcc540c4d650c1ef261e2ea0260045700a387df46ad383dac",
+  "igcse-computer-science-0478": "3f65f4fa9c94c0b35b6579b4ad0d2306ac20093234a4edd95e79c79b0618de6c",
 };
 
 function canonicalSha256(value: unknown) {

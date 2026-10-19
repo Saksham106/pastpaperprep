@@ -33,13 +33,13 @@ export const RELEASE_BANKS = {
     originalCandidateRuntimeSha256: '8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a',
   },
   'igcse-computer-science-0478': {
-    // Named for the first candidate; the 2026-10-19 SSL label overlay changed labels only, so the
-    // byte-identical crops stay under this verified prefix.
+    // Named for the first candidate. The 2026-10-19 SSL label overlay changed labels only, and the
+    // 2019-2022 extension adds new keys beside the byte-identical verified crops under this prefix.
     prefix: 'igcse-computer-science-0478/releases/full469-v1-0eb04c612b39',
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_COMPUTER_SCIENCE_SOURCE_ROOT',
     // The candidate pin is recomputed from content, not just compared as a stored field.
     candidateSeal: 'blanked-v1',
-    originalCandidateRuntimeSha256: 'd01cb6274245368dcc540c4d650c1ef261e2ea0260045700a387df46ad383dac',
+    originalCandidateRuntimeSha256: '3f65f4fa9c94c0b35b6579b4ad0d2306ac20093234a4edd95e79c79b0618de6c',
   },
 };
 
@@ -164,7 +164,11 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
     return 'data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp';
   }
   // The 0478 source keeps plural kind folders: assets/<paper>/questions|markschemes/<file>.
-  if (bank === 'igcse-computer-science-0478') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
+  // 2019-2022 papers (2015-2022 syllabus) were segmented in their own lane.
+  if (bank === 'igcse-computer-science-0478') {
+    const lane = Number(paper.split('-')[1]) <= 2022 ? 'extension-2019-2022' : 'full';
+    return `data/segmentation/${lane}/assets/${paper}/${kind}/${file}`;
+  }
   if (bank === 'igcse-coordinated-sciences-0654') {
     if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
     return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;
