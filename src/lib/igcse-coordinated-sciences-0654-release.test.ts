@@ -218,8 +218,8 @@ describe("IGCSE Co-ordinated Sciences 0654 production release", () => {
       STRIPE_ALL_MONTHLY_PRICE_ID: "price_all_monthly",
       STRIPE_ALL_ANNUAL_PRICE_ID: "price_all_annual",
     });
-    expect(getBillingPlan("bank_igcse_coordinated_sciences_0654", "monthly", config).priceId).toBe(config.singleMonthlyPriceId);
-    expect(getBillingPlan("bank_igcse_coordinated_sciences_0654", "annual", config).priceId).toBe(config.singleAnnualPriceId);
+    expect(getBillingPlan("bank_igcse_coordinated_sciences_0654", "monthly", config, undefined, ENVIRONMENT).priceId).toBe(config.singleMonthlyPriceId);
+    expect(getBillingPlan("bank_igcse_coordinated_sciences_0654", "annual", config, undefined, ENVIRONMENT).priceId).toBe(config.singleAnnualPriceId);
     expect(isStripePriceAllowedForProduct("bank_igcse_coordinated_sciences_0654", config.singleAnnualPriceId, config, "annual")).toBe(true);
     expect(getStripeConfig).toBeTypeOf("function");
   });

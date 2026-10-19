@@ -1,4 +1,5 @@
 import { CUSTOM_BUNDLE_PRODUCT_ID, getCustomBundlePlan } from "@/lib/custom-bundles";
+import { BANK_CATALOG, getCatalogBillingBanks } from "@/lib/catalog";
 
 export type BillingInterval = "monthly" | "annual";
 
@@ -104,6 +105,10 @@ export function getBillingPlan(
   }
   let priceId: string;
   if (typeof productId === "string" && SINGLE_PRODUCTS.has(productId)) {
+    // New sales only: a bank that is staged (e.g. pending storage) or release-gated off is not for sale,
+    // even by direct API call. Renewals and entitlements never pass through this function.
+    const bank = BANK_CATALOG.find((entry) => entry.productId === productId);
+    if (bank && !getCatalogBillingBanks(environment).some((entry) => entry.slug === bank.slug)) throw new Error("Bank is not available for checkout");
     priceId = interval === "monthly" ? config.singleMonthlyPriceId : config.singleAnnualPriceId;
   } else if (typeof productId === "string" && PAIR_PRODUCTS.has(productId)) {
     priceId = interval === "monthly" ? config.pairMonthlyPriceId : config.pairAnnualPriceId;

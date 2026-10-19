@@ -131,7 +131,7 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
     expect(getPrivateBankObjectPrefix(BANK)).toBe(manifest.objectPrefix);
   });
 
-  it("is sold alone and through All Access, IGCSE and custom bundles at the generic single-bank price", () => {
+  it("maps to its own product, All Access and the IGCSE bundle, and is not for sale while pending", () => {
     expect(hasBankAccess(BANK, entitlement(PRODUCT))).toBe(true);
     expect(hasBankAccess(BANK, entitlement("bundle_all"))).toBe(true);
     expect(hasBankAccess(BANK, entitlement("bundle_igcse"))).toBe(true);
@@ -144,9 +144,12 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
       STRIPE_PAIR_MONTHLY_PRICE_ID: "price_pair_monthly", STRIPE_PAIR_ANNUAL_PRICE_ID: "price_pair_annual",
       STRIPE_ALL_MONTHLY_PRICE_ID: "price_all_monthly", STRIPE_ALL_ANNUAL_PRICE_ID: "price_all_annual",
     });
-    expect(getBillingPlan(PRODUCT, "monthly", config).priceId).toBe(config.singleMonthlyPriceId);
-    expect(getBillingPlan(PRODUCT, "annual", config).priceId).toBe(config.singleAnnualPriceId);
+    // Not for sale while storage is pending, even by direct API call with the release gates open.
+    expect(() => getBillingPlan(PRODUCT, "monthly", config, undefined, RELEASE_ON)).toThrow("Bank is not available for checkout");
+    expect(() => getBillingPlan(PRODUCT, "annual", config, undefined, RELEASE_ON)).toThrow("Bank is not available for checkout");
+    // Lifecycle validation still recognises the generic single-bank price for this product.
     expect(isStripePriceAllowedForProduct(PRODUCT, config.singleAnnualPriceId, config, "annual")).toBe(true);
+    expect(getBillingPlan("bank_igcse_coordinated_sciences_0654", "monthly", config, undefined, RELEASE_ON).priceId).toBe(config.singleMonthlyPriceId);
   });
 
   it("registers the product in a migration copied from the latest billing definitions, with no Stripe id", () => {
