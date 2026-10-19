@@ -14,6 +14,7 @@ import { sessionLifecycleOwner } from "@/lib/member-session-cache";
 import { lowerTarget, reconcileDraft, swapCandidate, type DraftResult, type DraftTarget, type PaperDraftTarget } from "@/lib/paper-draft";
 import { trackProductEvent } from "@/lib/product-analytics";
 import type { PublicBankIndex } from "@/lib/question-index";
+import type { PdfAnswerPlacement } from "@/lib/pdf-export";
 import { exportWorksheetPdf } from "@/lib/worksheet-export";
 import { suggestWorksheetTitle } from "@/lib/worksheet-title";
 import "./paper-builder.css";
@@ -33,6 +34,7 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
   const [questions, setQuestions] = useState<BuilderQuestion[]>([]);
   const [loading, setLoading] = useState(Boolean(banks.length));
   const [loadError, setLoadError] = useState("");
+  const [answerPlacement, setAnswerPlacement] = useState<PdfAnswerPlacement>("all-answers-last");
   const [reload, setReload] = useState(0);
   const [route, setRoute] = useState<CourseRouteSelection>("all");
   const [from, setFrom] = useState<number>();
@@ -250,7 +252,7 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
     setBusy("exporting"); setMessage({ kind: "info", text: `Preparing ${sheet.length} questions…` });
     trackProductEvent("pdf_export_attempt", properties);
     try {
-      const { heldNotice } = await exportWorksheetPdf({ bank, questions: sheet, title: shownTitle.trim() || suggestion, marker: exportMarker,
+      const { heldNotice } = await exportWorksheetPdf({ bank, questions: sheet, title: shownTitle.trim() || suggestion, marker: exportMarker, answerPlacement,
         isCurrent: () => mountedRef.current && sessionLifecycleOwner(document.cookie) === scopeOwner,
         onProgress: (complete, total) => setMessage({ kind: "info", text: `Preparing ${complete} of ${total}…` }) });
       trackProductEvent("pdf_export_success", properties);
@@ -298,6 +300,7 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
         actions={<>
           {message && <p className={`builder-message is-${message.kind}`} role={message.kind === "error" ? "alert" : "status"}>{message.text}</p>}
           {saved && <a className="builder-saved-link" href={`/banks/${bank}?worksheet=${encodeURIComponent(saved.id)}`}>{dirty ? "Open saved version" : "Saved to My worksheets · Open"}</a>}
+          <label className="builder-placement">Answers<select value={answerPlacement} disabled={Boolean(busy)} onChange={(event) => setAnswerPlacement(event.target.value as PdfAnswerPlacement)}><option value="all-answers-last">At the end</option><option value="after-each-question">After each question</option></select></label>
           <button type="button" className="button secondary" disabled={Boolean(busy) || !sheet.length} onClick={() => void download()}><DownloadSimple aria-hidden="true" /> {busy === "exporting" ? "Preparing…" : "Download PDF"}</button>
           <button type="button" className="button primary" disabled={Boolean(busy) || !sheet.length || !shownTitle.trim() || (Boolean(saved) && !dirty)} onClick={() => void save()}>
             {busy === "saving" ? "Saving…" : saved ? (dirty ? "Save changes" : "Saved") : "Save PDF"}

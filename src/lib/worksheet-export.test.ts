@@ -29,6 +29,11 @@ describe("exportWorksheetPdf", () => {
     expect(result).toEqual({ heldNotice: null });
   });
 
+  it("passes the chosen answer placement through", async () => {
+    await exportWorksheetPdf({ bank: "igcse-chemistry-0620", questions: [meta("a", 1)], title: "Atoms", answerPlacement: "after-each-question" });
+    expect(downloadQuestionPdf.mock.calls[0][4]).toBe("after-each-question");
+  });
+
   it("stops before the download when the page or session ended during signing", async () => {
     let current = true;
     fetchPdfAssets.mockImplementation(async () => { current = false; return new Map(); });

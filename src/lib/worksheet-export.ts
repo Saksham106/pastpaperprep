@@ -1,4 +1,5 @@
 import type { BankSlug } from "@/lib/catalog";
+import type { PdfAnswerPlacement } from "@/lib/pdf-export";
 import type { PublicQuestionMetadata } from "@/lib/question-index";
 import type { UnifiedQuestion } from "@/lib/questions";
 
@@ -6,8 +7,8 @@ import type { UnifiedQuestion } from "@/lib/questions";
  * Download a worksheet built from public index metadata. The sign route checks access and limits;
  * the bank page keeps its own path because it already holds full question records.
  */
-export async function exportWorksheetPdf({ bank, questions, title, marker, onProgress, isCurrent = () => true }: {
-  bank: BankSlug; questions: readonly PublicQuestionMetadata[]; title: string; marker?: string;
+export async function exportWorksheetPdf({ bank, questions, title, marker, onProgress, isCurrent = () => true, answerPlacement = "all-answers-last" }: {
+  bank: BankSlug; questions: readonly PublicQuestionMetadata[]; title: string; marker?: string; answerPlacement?: PdfAnswerPlacement;
   onProgress?: (complete: number, total: number) => void;
   /** False once the page closed or the account changed: late signed links must never become a PDF. */
   isCurrent?: () => boolean;
@@ -24,6 +25,6 @@ export async function exportWorksheetPdf({ bank, questions, title, marker, onPro
   assertCurrent();
   // Throwing from progress cancels a build whose image loads outlive the scope, before the final save.
   const progress = (complete: number, total: number) => { assertCurrent(); onProgress?.(complete, total); };
-  const { heldRows } = await downloadQuestionPdf(attachPdfAssetMetadata(records, assets), "both", progress, marker, "all-answers-last", { title, bankSlug: bank });
+  const { heldRows } = await downloadQuestionPdf(attachPdfAssetMetadata(records, assets), "both", progress, marker, answerPlacement, { title, bankSlug: bank });
   return { heldNotice: heldRows.length ? pdfHeldNotice(heldRows) : null };
 }

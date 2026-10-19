@@ -228,8 +228,17 @@ describe("PaperBuilder", () => {
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
     await screen.findByText("PDF downloaded.");
     const args = exportWorksheetPdf.mock.calls[0][0];
-    expect(args).toMatchObject({ bank: bank.slug, title: "Mock", marker: "ABC123" });
+    expect(args).toMatchObject({ bank: bank.slug, title: "Mock", marker: "ABC123", answerPlacement: "all-answers-last" });
     expect(args.questions).toHaveLength(sources.length);
+  });
+
+  it("can put each answer straight after its question", async () => {
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    fireEvent.change(screen.getByRole("combobox", { name: "Answers" }), { target: { value: "after-each-question" } });
+    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    await screen.findByText("PDF downloaded.");
+    expect(exportWorksheetPdf.mock.calls[0][0]).toMatchObject({ answerPlacement: "after-each-question" });
   });
 
   it("opens a question in the reader and returns focus when it closes", async () => {

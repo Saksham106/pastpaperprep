@@ -674,6 +674,8 @@ export async function downloadQuestionPdf(
       currentSection = "Answers";
       startAnswerPage = true;
     }
+    // An answer printed straight after its question gets its own page, so it never sits in view of the question.
+    if (content === "both" && answerPlacement === "after-each-question" && kind === "answer") startAnswerPage = true;
     const position = positions.get(question)!;
     const label: PdfLabel = { heading: kind === "question" ? `Question ${position}` : `Question ${position} · Mark scheme`, source: pdfSourceLabel(question) };
     if (kind === "question") {
