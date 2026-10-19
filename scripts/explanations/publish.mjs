@@ -30,7 +30,14 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const AVAILABLE = join(repoRoot, "src/data/explanations/available.json");
 // A reviewed 0606 question split serves its question's printed marks (src/lib/reviewed-0606-question-splits.ts).
 const QUESTION_SPLITS_0606 = JSON.parse(readFileSync(join(repoRoot, "src/data/reviewed-0606-question-splits.json"), "utf8"));
+// So does a question whose part the exam board removed (src/lib/reviewed-science-removed-part-marks.ts).
+const REMOVED_PART_MARKS = JSON.parse(readFileSync(join(repoRoot, "src/data/reviewed-science-removed-part-marks.json"), "utf8")).entries;
 function splitMarks(bank, questionId, marks) {
+  const removed = REMOVED_PART_MARKS[bank]?.[questionId];
+  if (removed) {
+    if ((marks ?? null) !== removed.old) throw new Error(`Reviewed removed-part marks disagree with ${bank}:${questionId}`);
+    return removed.new;
+  }
   const split = bank === QUESTION_SPLITS_0606.bank ? QUESTION_SPLITS_0606.entries[questionId] : undefined;
   if (!split) return marks;
   if (marks !== split.marks.old) throw new Error(`Reviewed 0606 question split disagrees with ${bank}:${questionId}`);
