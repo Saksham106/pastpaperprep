@@ -1,6 +1,7 @@
 import { canonicalBiology0610Topic } from "@/lib/biology-0610-topic-aliases";
 import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_EARLIER_TOPIC, BIOLOGY_0610_SECTIONS, BIOLOGY_0610_TOPICS, display0610Sections } from "@/lib/igcse-0610-official.mjs";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
+import computerScienceTaxonomy from "@/data/igcse-computer-science-0478-taxonomy.json";
 import { ECONOMICS_0455_TOPICS, ECONOMICS_0455_SECTIONS, ECONOMICS_0455_EARLIER } from "@/lib/igcse-0455-official.mjs";
 import { OFFICIAL_0606_TOPICS, EARLIER_0606_TOPIC, EARLIER_0606_SUBTOPICS } from "@/lib/igcse-0606-official.mjs";
 import numbered0606 from "@/data/igcse-0606-numbered-subtopics.json";
@@ -85,6 +86,21 @@ const COORDINATED_GROUPS: Record<string, readonly string[]> = Object.fromEntries
   COORDINATED_TOPIC_ORDER.map((topic) => [topic, COORDINATED_0654_SECTIONS.filter((section) => section.topic === topic).map((section) => section.studentTitle)]),
 );
 
+/**
+ * 0478 uses the official 2023–28 topic tree in teaching order. Topic 7 has no official
+ * subtopics, so it shows the owner-approved filters built from its learning points;
+ * Databases and Boolean logic are single sections named like their topic.
+ */
+const COMPUTER_SCIENCE_TOPIC_ORDER = computerScienceTaxonomy.topics.map((topic) => topic.label);
+const COMPUTER_SCIENCE_GROUPS: Record<string, readonly string[]> = Object.fromEntries(
+  computerScienceTaxonomy.topics.map((topic) => [topic.label, topic.sections.map((section) => section.label)]),
+);
+const COMPUTER_SCIENCE_SECTIONS = computerScienceTaxonomy.topics.flatMap((topic) => topic.sections.map((section) => section.label));
+
+function isComputerScienceBank(bank: string | undefined): boolean {
+  return bank === "igcse-computer-science-0478";
+}
+
 function isReleaseBank(bank: string | undefined): bank is "igcse-biology-0610" | "igcse-economics-0455" | "igcse-coordinated-sciences-0654" {
   return bank === "igcse-biology-0610" || bank === "igcse-economics-0455" || bank === "igcse-coordinated-sciences-0654";
 }
@@ -104,6 +120,7 @@ export function getControlledSubtopics(bankSlug: string, topic: string): readonl
     return topic === BIOLOGY_0610_EARLIER_TOPIC ? [BIOLOGY_0610_EARLIER] : BIOLOGY_0610_SECTIONS.filter((section) => section.topic === topic).map((section) => section.title);
   }
   if (bankSlug === "igcse-economics-0455") return OFFICIAL_0455_GROUPS[topic] ?? [];
+  if (isComputerScienceBank(bankSlug)) return COMPUTER_SCIENCE_GROUPS[topic] ?? [];
   if (isCoordinatedBank(bankSlug)) return topic === COORDINATED_0654_EARLIER_TOPIC ? [COORDINATED_0654_EARLIER] : COORDINATED_GROUPS[topic] ?? (COORDINATED_TOPIC_ORDER.includes(topic) ? [topic] : []);
   return getLegacyControlledSubtopics(bankSlug, topic);
 }
@@ -128,6 +145,7 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   if (isCoordinatedBank(bank)) {
     return [...COORDINATED_TOPIC_ORDER, ...(questions.some((question) => [question.primaryTopic, ...question.secondaryTopics].includes(COORDINATED_0654_EARLIER_TOPIC)) ? [COORDINATED_0654_EARLIER_TOPIC] : []), ...(questions.some((question) => question.primaryTopic === COORDINATED_0654_PRACTICAL_TOPIC) ? [COORDINATED_0654_PRACTICAL_TOPIC] : [])];
   }
+  if (isComputerScienceBank(bank)) return [...COMPUTER_SCIENCE_TOPIC_ORDER];
   if (isOfficial0610Bank(bank)) return [...BIOLOGY_0610_TOPIC_ORDER, ...(questions.some((question) => question.primaryTopic === BIOLOGY_0610_EARLIER_TOPIC) ? [BIOLOGY_0610_EARLIER_TOPIC] : [])];
   if (!isReleaseBank(bank)) return getLegacyTopicOptions(questions);
   const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]));
@@ -192,6 +210,15 @@ export function getSubtopicGroups(
       ))]
       : all;
     return { all, relevant, other: all.filter((label) => !relevant.includes(label)), selectedOutsideContext: selectedSubtopics.filter((label) => sourceLabels.has(label) && !relevant.includes(label)) };
+  }
+  if (isComputerScienceBank(bank)) {
+    const all = [...COMPUTER_SCIENCE_SECTIONS];
+    const available = new Set(all);
+    const relevant = selectedTopics.length
+      ? [...new Set(selectedTopics.flatMap((topic) => COMPUTER_SCIENCE_GROUPS[topic] ?? []))]
+      : all;
+    const relevantSet = new Set(relevant);
+    return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
   }
   if (isCoordinatedBank(bank)) {
     const all = [...COORDINATED_0654_SECTIONS.map((section) => section.studentTitle), ...(questions.some((question) => question.officialCodeRefs?.includes("earlier:content")) ? [COORDINATED_0654_EARLIER] : [])];

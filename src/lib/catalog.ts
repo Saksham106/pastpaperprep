@@ -2,7 +2,7 @@ import type { Bank } from "@/lib/banks";
 
 export type Qualification = "Cambridge IGCSE" | "IB Diploma";
 export type DeliveryMode = "hosted" | "local-preview";
-export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654";
+export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478";
 
 export type CatalogBank = {
   slug: BankSlug;
@@ -22,6 +22,8 @@ export type CatalogBank = {
   release: "published" | "gated" | "local-preview";
   delivery: DeliveryMode;
   localPreview?: boolean;
+  /** Hidden everywhere until its private assets are uploaded, read back and the runtime is finalized. */
+  pendingStorage?: boolean;
 };
 
 const bank = (entry: Omit<CatalogBank, "route">): CatalogBank => ({
@@ -38,6 +40,7 @@ export const BANK_CATALOG = [
   bank({ slug: "igcse-chemistry-0620", qualification: "Cambridge IGCSE", subject: "Chemistry", title: "Chemistry 0620", shortName: "Chemistry 0620", syllabusCode: "0620", level: "Core and Extended", questionCount: 5129, paperCount: 314, years: "2019-2026", access: "paid-bank", productId: "bank_igcse_chemistry_0620", release: "gated", delivery: "hosted" }),
   bank({ slug: "igcse-physics-0625", qualification: "Cambridge IGCSE", subject: "Physics", title: "Physics 0625", shortName: "Physics 0625", syllabusCode: "0625", level: "Core and Extended", questionCount: 5789, paperCount: 317, years: "2019-2026", access: "paid-bank", productId: "bank_igcse_physics_0625", release: "gated", delivery: "hosted" }),
   bank({ slug: "igcse-coordinated-sciences-0654", qualification: "Cambridge IGCSE", subject: "Co-ordinated Sciences", title: "Co-ordinated Sciences 0654", shortName: "Co-ordinated Sciences 0654", syllabusCode: "0654", level: "Core and Extended", questionCount: 4721, paperCount: 238, years: "2020-2025", access: "paid-bank", productId: "bank_igcse_coordinated_sciences_0654", release: "gated", delivery: "hosted" }),
+  bank({ slug: "igcse-computer-science-0478", qualification: "Cambridge IGCSE", subject: "Computer Science", title: "Computer Science 0478", shortName: "Computer Science 0478", syllabusCode: "0478", level: "All candidates", questionCount: 469, paperCount: 50, years: "2023-2026", access: "paid-bank", productId: "bank_igcse_computer_science_0478", release: "gated", delivery: "hosted" }),
   ...(["ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl"] as const).map((slug) => {
     const table: Record<string, [string, string, string, number, number, string]> = {
       "ib-hl": ["Mathematics AA", "Mathematics AA Higher Level", "HL", 893, 110, "2017-2026"], "ib-sl": ["Mathematics AA", "Mathematics AA Standard Level", "SL", 596, 64, "2017-2026"],
@@ -59,6 +62,7 @@ export function isCatalogBankBillable(bank: CatalogBank, environment: Record<str
   return bank.release !== "local-preview" && Boolean(bank.productId) && (bank.delivery !== "local-preview" || economicsProductionGate);
 }
 export function isCatalogBankEnabled(bank: CatalogBank, environment: Record<string, string | undefined> = process.env) {
+  if ("pendingStorage" in bank && bank.pendingStorage) return false;
   if (bank.release === "published") return true;
   if (bank.slug === "ib-economics-hl" || bank.slug === "ib-economics-sl") {
     return (environment.NODE_ENV !== "production" && environment.PASTPAPERPREP_ENABLE_LOCAL_IB_ECONOMICS_PREVIEW === "true") || (environment.NODE_ENV === "production" && environment.PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION === "true" && environment.PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED === "true");

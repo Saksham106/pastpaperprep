@@ -56,15 +56,15 @@ describe("DashboardContent", () => {
     const { container } = render(<DashboardContent authenticated={false} accessibleBanks={[]} availableBanks={[...BANKS, ...IGCSE_RELEASE_BANK_CATALOG]} />);
 
     expect(container.querySelector(".dashboard-plan-card")?.compareDocumentPosition(container.querySelector("#cambridge-igcse-panel")!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    expect([...container.querySelectorAll("#cambridge-igcse-panel h3")].map((h) => h.textContent)).toEqual(["Mathematics", "Chemistry", "Physics", "Biology", "Economics", "Co-ordinated Sciences"]);
+    expect([...container.querySelectorAll("#cambridge-igcse-panel h3")].map((h) => h.textContent)).toEqual(["Mathematics", "Chemistry", "Physics", "Biology", "Economics", "Co-ordinated Sciences", "Computer Science"]);
     expect(rowsIn(container, "cambridge-igcse").map((row) => row.querySelector("strong")?.textContent)).toEqual([
-      "Mathematics 0580", "Additional Mathematics 0606", "Chemistry 0620", "Physics 0625", "Biology 0610", "Economics 0455", "Co-ordinated Sciences 0654",
+      "Mathematics 0580", "Additional Mathematics 0606", "Chemistry 0620", "Physics 0625", "Biology 0610", "Economics 0455", "Co-ordinated Sciences 0654", "Computer Science 0478",
     ]);
     for (const row of rowsIn(container, "cambridge-igcse")) {
       expect(row.textContent).toMatch(/\d[\d,]*\squestions/);
       expect(row.closest("[data-subject-tone]")).not.toBeNull();
     }
-    expect(container.querySelectorAll("#cambridge-igcse-panel [data-course-icon]")).toHaveLength(6);
+    expect(container.querySelectorAll("#cambridge-igcse-panel [data-course-icon]")).toHaveLength(7);
     expect(container.querySelector("#cambridge-igcse-panel")).not.toHaveTextContent("Cambridge IGCSE");
   });
 

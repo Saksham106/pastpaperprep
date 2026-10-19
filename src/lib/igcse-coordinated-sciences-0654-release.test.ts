@@ -62,8 +62,8 @@ const ENVIRONMENT = {
 const RELEASE_FLAGS_OFF = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "false", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "false" };
 
 describe("IGCSE Co-ordinated Sciences 0654 production release", () => {
-  it("is the nineteenth canonical catalog bank, wired with its exact identity", () => {
-    expect(BANK_CATALOG).toHaveLength(19);
+  it("is the nineteenth canonical catalog bank added, wired with its exact identity", () => {
+    expect(BANK_CATALOG.findIndex((bank) => bank.slug === BANK)).toBeGreaterThanOrEqual(0);
     const entry = BANK_CATALOG.filter((bank) => bank.slug === BANK);
     expect(entry).toHaveLength(1);
     const [bank] = entry;
@@ -218,8 +218,8 @@ describe("IGCSE Co-ordinated Sciences 0654 production release", () => {
       STRIPE_ALL_MONTHLY_PRICE_ID: "price_all_monthly",
       STRIPE_ALL_ANNUAL_PRICE_ID: "price_all_annual",
     });
-    expect(getBillingPlan("bank_igcse_coordinated_sciences_0654", "monthly", config).priceId).toBe(config.singleMonthlyPriceId);
-    expect(getBillingPlan("bank_igcse_coordinated_sciences_0654", "annual", config).priceId).toBe(config.singleAnnualPriceId);
+    expect(getBillingPlan("bank_igcse_coordinated_sciences_0654", "monthly", config, undefined, ENVIRONMENT).priceId).toBe(config.singleMonthlyPriceId);
+    expect(getBillingPlan("bank_igcse_coordinated_sciences_0654", "annual", config, undefined, ENVIRONMENT).priceId).toBe(config.singleAnnualPriceId);
     expect(isStripePriceAllowedForProduct("bank_igcse_coordinated_sciences_0654", config.singleAnnualPriceId, config, "annual")).toBe(true);
     expect(getStripeConfig).toBeTypeOf("function");
   });

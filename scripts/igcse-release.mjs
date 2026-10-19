@@ -32,6 +32,15 @@ export const RELEASE_BANKS = {
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_COORDINATED_SOURCE_ROOT',
     originalCandidateRuntimeSha256: '8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a',
   },
+  'igcse-computer-science-0478': {
+    // Named for the first candidate; the 2026-10-19 SSL label overlay changed labels only, so the
+    // byte-identical crops stay under this verified prefix.
+    prefix: 'igcse-computer-science-0478/releases/full469-v1-0eb04c612b39',
+    sourceRootEnv: 'PASTPAPERPREP_IGCSE_COMPUTER_SCIENCE_SOURCE_ROOT',
+    // The candidate pin is recomputed from content, not just compared as a stored field.
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: 'd01cb6274245368dcc540c4d650c1ef261e2ea0260045700a387df46ad383dac',
+  },
 };
 
 export function sha256(value) {
@@ -51,6 +60,26 @@ export function verifySha256(bytes, expected, label = 'source') {
   const actual = sha256(bytes);
   if (expected && actual !== expected) throw new Error(`${label} SHA256 mismatch: expected ${expected}, got ${actual}`);
   return actual;
+}
+
+/**
+ * Content-derived candidate seal for generators that seal with every seal field blanked
+ * (sourceCandidateSha256, originalCandidateRuntimeSha256, runtimeSha256). Editing any question,
+ * mark or label changes it, even when the stored pin and the self-seal are rewritten to match.
+ */
+export function blankedCandidateSha256(runtime) {
+  return sha256(JSON.stringify({
+    ...runtime,
+    runtimeArtifact: { ...runtime.runtimeArtifact, sourceCandidateSha256: null, originalCandidateRuntimeSha256: null, runtimeSha256: null },
+  }));
+}
+
+/** For content-sealed banks, the runtime must still be the candidate and reproduce its pin from content. */
+export function assertContentSealedCandidate(bank, runtime) {
+  const config = RELEASE_BANKS[bank];
+  if (config?.candidateSeal !== 'blanked-v1') return;
+  if (runtime.publicationStatus !== 'authorized_production_candidate') throw new Error(`${bank} must be checked as its release candidate`);
+  if (blankedCandidateSha256(runtime) !== config.originalCandidateRuntimeSha256) throw new Error(`${bank} candidate content does not reproduce its pinned seal`);
 }
 
 export function runtimeSha256(runtime) {
@@ -134,6 +163,8 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
   if (bank === 'igcse-biology-0610' && reference === 'markschemes/0610-2025-w-23/q2-row1-1.webp') {
     return 'data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp';
   }
+  // The 0478 source keeps plural kind folders: assets/<paper>/questions|markschemes/<file>.
+  if (bank === 'igcse-computer-science-0478') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
   if (bank === 'igcse-coordinated-sciences-0654') {
     if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
     return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;
@@ -246,6 +277,7 @@ export async function buildReleaseManifest({ bank, runtimePath, sourceRoot }) {
   }
   if (bank === 'igcse-economics-0455' && (runtime.questions?.length ?? 0) === ECONOMICS_COMBINED_COUNT) assertExactCohortSeals(runtime);
   if (bank === 'igcse-biology-0610' && (runtime.questions?.length ?? 0) === BIOLOGY_COMBINED_COUNT) assertExactBiologyCohortSeals(runtime);
+  assertContentSealedCandidate(bank, runtime);
   const actualRuntimeSha = runtimeSha256(runtime);
   if (runtime.runtimeArtifact?.runtimeSha256 !== actualRuntimeSha) {
     throw new Error(`${bank} production runtime SHA256 mismatch: expected ${runtime.runtimeArtifact?.runtimeSha256}, got ${actualRuntimeSha}`);

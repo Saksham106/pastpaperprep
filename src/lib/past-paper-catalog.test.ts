@@ -1,5 +1,5 @@
 // @vitest-environment node
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { BANK_CATALOG } from './catalog';
@@ -19,7 +19,8 @@ describe('public past-paper slugs', () => {
   });
 
   it('gives every real paper a unique slug within its bank', () => {
-    for (const b of BANK_CATALOG) {
+    // Banks without a published archive (Computer Science 0478 has no free whole papers) have nothing to slug.
+    for (const b of BANK_CATALOG.filter(b => existsSync(join(process.cwd(), 'src/data/paper-archives', `${b.slug}.json`)))) {
       const list = papers(b.slug);
       const slugs = list.map(paperSlug);
       expect(new Set(slugs).size, b.slug).toBe(list.length);
