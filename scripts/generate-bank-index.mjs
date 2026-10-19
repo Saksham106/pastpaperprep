@@ -162,7 +162,7 @@ const biologyPrimaryTopic = (record, raw) => record.primary?.parentTopic ?? raw.
 const bankSources = [
   ...["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl"]
     .map((bank) => ({ bank, directory: "raw" })),
-  ...["ib-economics-hl", "ib-economics-sl", "igcse-biology-0610", "igcse-economics-0455", "igcse-chemistry-0620", "igcse-physics-0625", "igcse-coordinated-sciences-0654"]
+  ...["ib-economics-hl", "ib-economics-sl", "igcse-biology-0610", "igcse-economics-0455", "igcse-chemistry-0620", "igcse-physics-0625", "igcse-coordinated-sciences-0654", "igcse-computer-science-0478"]
     .map((bank) => ({ bank, directory: "production" })),
 ];
 const banks = bankSources.map(({ bank }) => bank);

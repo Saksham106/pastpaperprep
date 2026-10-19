@@ -32,6 +32,11 @@ export const RELEASE_BANKS = {
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_COORDINATED_SOURCE_ROOT',
     originalCandidateRuntimeSha256: '8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a',
   },
+  'igcse-computer-science-0478': {
+    prefix: 'igcse-computer-science-0478/releases/full469-v1-0eb04c612b39',
+    sourceRootEnv: 'PASTPAPERPREP_IGCSE_COMPUTER_SCIENCE_SOURCE_ROOT',
+    originalCandidateRuntimeSha256: '0eb04c612b39296f68ba82f48592eaaada1ab854793d2026002c56f9601e69aa',
+  },
 };
 
 export function sha256(value) {
@@ -134,6 +139,8 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
   if (bank === 'igcse-biology-0610' && reference === 'markschemes/0610-2025-w-23/q2-row1-1.webp') {
     return 'data/classification/full-coverage-batch-repairs/batch94-ms/assets/0610-2025-w-23/markscheme/q2-row1-1.v2.webp';
   }
+  // The 0478 source keeps plural kind folders: assets/<paper>/questions|markschemes/<file>.
+  if (bank === 'igcse-computer-science-0478') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
   if (bank === 'igcse-coordinated-sciences-0654') {
     if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
     return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;

@@ -12,7 +12,7 @@ import {
 } from "@/lib/catalog";
 
 export type EconomicsBankSlug = "ib-economics-hl" | "ib-economics-sl";
-export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654";
+export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478";
 export type { BankSlug };
 export type ProductionBankSlug = Exclude<BankSlug, EconomicsBankSlug | IGCSEReleaseBankSlug>;
 export type LegacyProductionBankSlug = ProductionBankSlug;
@@ -53,6 +53,7 @@ const IGCSE_RELEASE_SLUGS = new Set<BankSlug>([
   "igcse-chemistry-0620",
   "igcse-physics-0625",
   "igcse-coordinated-sciences-0654",
+  "igcse-computer-science-0478",
 ]);
 
 export function isIGCSEReleaseBank(slug: string): slug is IGCSEReleaseBankSlug {

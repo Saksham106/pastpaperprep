@@ -158,7 +158,7 @@ const SOURCE_RENDER_DPI = new Set([108, 126, 144]);
 /** Generator raster rates are hints, not per-asset source-geometry receipts. */
 export function inferredPdfDpiForBank(bank: UnifiedQuestion["bankSlug"]): number {
   if (["igcse-biology-0610", "igcse-chemistry-0620", "igcse-physics-0625",
-    "igcse-coordinated-sciences-0654", "igcse-economics-0455"].includes(bank)) return 108;
+    "igcse-coordinated-sciences-0654", "igcse-economics-0455", "igcse-computer-science-0478"].includes(bank)) return 108;
   if (["ib-biology-hl", "ib-biology-sl", "ib-chemistry-hl", "ib-chemistry-sl",
     "ib-physics-hl", "ib-physics-sl"].includes(bank)) return 126;
   if (bank === "ib-economics-hl" || bank === "ib-economics-sl") return 144;
