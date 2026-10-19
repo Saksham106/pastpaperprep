@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { parseIdentity, parseHeader, extractQuestionBlocks, findCover, adaptChemistryCheckpoint, extractPdf, EXTRACTOR_VERSION, sha256 } from './whole-paper-extraction.mjs';
+import { parseIdentity, parseHeader, extractQuestionBlocks, findCover, adaptChemistryCheckpoint, extractPdf, EXTRACTOR_VERSION, extractorVersionFor, markRuleForBank, sha256 } from './whole-paper-extraction.mjs';
+import { BANK_CATALOG } from '../src/lib/catalog';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { tmpdir } from 'node:os';
@@ -31,6 +32,21 @@ it('owns printed totals by geometry, including continuation pages, never equal s
     [item('[Total: 7]',450,710),item('2',45,650),item('Calculate.',80,650),item('[Total: 3]',450,600)],
   ], 'igcse');
   expect(blocks.map(q=>({number:q.number,page:q.page,maxMarks:q.maxMarks}))).toEqual([{number:1,page:2,maxMarks:7},{number:2,page:3,maxMarks:3}]);
+});
+it('reads Computer Science marks from the right-aligned mark column, not pseudocode array indexes',()=>{
+  const at=(str:string,x:number,y:number,width:number)=>({str,x,y,width});
+  // 0478-2024-s-21 Q6 shape: a row of index labels, a mark fused to its dot leader, and a last-line mark at y=44.
+  const pages=[
+    [item('1',45,700),item('Complete the trace table.',80,700),at('[1]',136,692,20),at('[2]',167,692,20),at('Names[Counter]',145,600,80),at('[4]',533,500,13)],
+    [at('.............................. [8]',120,300,426),at('[2]',533,44,13),at('[Turn over',492,27,54)],
+  ];
+  expect(extractQuestionBlocks(pages,'igcse').map(q=>q.maxMarks)).toEqual([15]);
+  expect(extractQuestionBlocks(pages,'igcse','right-margin').map(q=>q.maxMarks)).toEqual([14]);
+});
+it('gates the mark-column rule to Computer Science 0478 so other manifests keep their extractor version',()=>{
+  expect(BANK_CATALOG.map(bank=>bank.slug).filter(slug=>markRuleForBank(slug)!=='text')).toEqual(['igcse-computer-science-0478']);
+  expect(extractorVersionFor('text')).toBe(EXTRACTOR_VERSION);
+  expect(extractorVersionFor('right-margin')).not.toBe(EXTRACTOR_VERSION);
 });
 it('keeps diagram-only numbered starts when their printed heading font matches',()=>{
   const blocks=extractQuestionBlocks([[{...item('1',45,700),fontName:'Bold'},item('Explain.',80,700),item('[Total: 2]',450,650)],[{...item('2',45,700),fontName:'Bold'},item('[Total: 3]',450,500)]],'igcse');
