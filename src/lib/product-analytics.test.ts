@@ -343,6 +343,17 @@ describe("PostHog product analytics", () => {
     expect(posthog.captureException.mock.calls.map(call => (call[0] as Error).name)).toEqual(["ReferenceError", "TypeError"]);
   });
 
+  it("names a failed script chunk instead of a generic application exception", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const { captureAppException } = await import("@/lib/product-analytics");
+    const error = Object.assign(new Error("Failed to load chunk /_next/static/immutable/chunks/0c0hxoamwjsbw.js from module 42: Load failed"), { name: "ChunkLoadError" });
+    captureAppException(error);
+    await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledTimes(1));
+    const [captured] = posthog.captureException.mock.calls[0] as [Error];
+    expect(captured.name).toBe("ChunkLoadError");
+    expect(captured.message).toBe("Failed to load chunk /_next/static/immutable/chunks/0c0hxoamwjsbw.js");
+  });
+
   it("keeps private string rejection text out of the anonymous outgoing payload", async () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
     document.cookie = "ppp_analytics_consent=v2.rejected; Path=/";
