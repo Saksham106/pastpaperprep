@@ -41,6 +41,21 @@ describe("safeErrorMessage", () => {
     expect(safeErrorMessage(`x ${"word ".repeat(100)}`)).toBeUndefined();
     expect(safeErrorMessage(`Cannot read properties of undefined (reading '${"x".repeat(500)}')`)!.length).toBeLessThanOrEqual(200);
   });
+  it("keeps a failed chunk's generated path, never the module id or the browser's cause text", () => {
+    const path = "/_next/static/immutable/chunks/0c0hxoamwjsbw.js";
+    expect(safeErrorMessage(`Failed to load chunk ${path} from module 12345: TypeError: Load failed for alice@example.com`)).toBe(`Failed to load chunk ${path}`);
+    expect(safeErrorMessage(`Failed to load chunk ${path}?dpl=dpl_Secret123 as a runtime dependency of chunk /_next/static/immutable/chunks/x.js`)).toBe(`Failed to load chunk ${path}`);
+    expect(safeErrorMessage(`Failed to load chunk https://pastpaperprep.com${path} from module 7`)).toBe(`Failed to load chunk ${path}`);
+    // Already-safe output survives the SDK's second sanitization pass unchanged.
+    expect(safeErrorMessage(`Failed to load chunk ${path}`)).toBe(`Failed to load chunk ${path}`);
+  });
+  it.each([
+    "Failed to load chunk /r/alice@example.com from module 1",
+    "Failed to load chunk /_next/static/immutable/chunks/a%40b.js from module 1",
+    "Failed to load chunk Jane-Smith from module 1",
+  ])("reports an unrecognised chunk location as <chunk>: %s", (message) => {
+    expect(safeErrorMessage(message)).toBe("Failed to load chunk <chunk>");
+  });
   it("rejects non-strings and empty messages", () => {
     expect(safeErrorMessage(undefined)).toBeUndefined();
     expect(safeErrorMessage("   ")).toBeUndefined();
