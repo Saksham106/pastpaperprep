@@ -12,8 +12,8 @@ declare const data: {
   questionCount: number;
   marks_ready: boolean;
   sourceCandidate: {
-    path: string;
-    sha256: string;
+    paths: Array<string>;
+    sha256: Array<string>;
     questionCount: number;
   };
   taxonomy: {
@@ -84,6 +84,10 @@ declare const data: {
       labels: string;
       taxonomy: string;
       sourceManifest: string;
+      extensionSegmentation: string;
+      extensionLabels: string;
+      extensionSourceManifest: string;
+      extensionCleanSources: string;
     };
     sourceCandidateSha256: string;
     releaseTaxonomySha256: string;
@@ -98,6 +102,7 @@ declare const data: {
     marksRepairStatus: string;
     marksRepairUnresolvedCount: number;
     excludedWithdrawn: Array<string>;
+    excludedPrerelease: Array<string>;
     originalCandidateRuntimeSha256: string;
     runtimeSha256: string;
     storageState: string;
