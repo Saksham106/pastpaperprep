@@ -1,5 +1,6 @@
 // Client-safe: the explanation JSON format and its runtime shape check. No availability data here.
-export type ExplanationStep = { text: string; math?: string; marks: string[] };
+/** `code` is a monospace block kept line for line: pseudocode, program code or a trace table. */
+export type ExplanationStep = { text: string; math?: string; code?: string; marks: string[] };
 export type ExplanationPart = {
   label: string;
   marks: number;
@@ -44,8 +45,9 @@ export function parseExplanation(value: unknown, bank: string, questionId: strin
     labels.add(part.label);
     total += part.marks;
     for (const step of part.steps) {
-      if (!record(step) || !onlyKeys(step, ["text", "math", "marks"]) || !text(step.text)
+      if (!record(step) || !onlyKeys(step, ["text", "math", "code", "marks"]) || !text(step.text)
         || (step.math !== undefined && !text(step.math))
+        || (step.code !== undefined && !text(step.code))
         || !Array.isArray(step.marks) || !step.marks.every((code) => typeof code === "string" && MARK_CODE.test(code))
         || (part.withdrawn && step.marks.length > 0)) return null;
     }

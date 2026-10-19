@@ -17,6 +17,7 @@ declare const data: {
   "igcse-additional": Array<string>;
   "igcse-biology-0610": Array<string>;
   "igcse-chemistry-0620": Array<string>;
+  "igcse-computer-science-0478": Array<string>;
   "igcse-coordinated-sciences-0654": Array<string>;
   "igcse-economics-0455": Array<string>;
   "igcse-physics-0625": Array<string>;

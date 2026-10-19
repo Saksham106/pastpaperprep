@@ -69,6 +69,7 @@ describe("parseExplanation", () => {
     { ...doc, parts: [{ ...doc.parts[0], steps: [{ text: "Work", marks: ["NOT-A-MARK"] }] }] },
     { ...doc, parts: [{ ...doc.parts[0], mistake: "" }] },
     { ...doc, parts: [{ ...doc.parts[0], steps: [{ text: "Work", math: "", marks: [] }] }] },
+    { ...doc, parts: [{ ...doc.parts[0], steps: [{ text: "Work", code: " ", marks: [] }] }] },
   ])("rejects incomplete or inconsistent published documents %#", (invalid) => {
     expect(parseExplanation(invalid, doc.bank, doc.questionId)).toBeNull();
   });
@@ -76,6 +77,11 @@ describe("parseExplanation", () => {
   it("accepts empty whole-question labels and the published tick/dependent mark codes", () => {
     const whole = { ...doc, parts: [{ ...doc.parts[0], label: "", steps: [{ text: "Work", marks: ["✓", "M1dep", "(A1)", "SC1", "AG", "L4"] }] }] };
     expect(parseExplanation(whole, doc.bank, doc.questionId)).toEqual(whole);
+  });
+
+  it("accepts a code block: pseudocode or a trace table kept line for line", () => {
+    const code = { ...doc, parts: [{ ...doc.parts[0], steps: [{ text: "Loop over the array:", code: "FOR Count ← 1 TO 10\n    Total ← Total + Mark[Count]\nNEXT Count", marks: ["✓", "✓"] }] }] };
+    expect(parseExplanation(code, doc.bank, doc.questionId)).toEqual(code);
   });
 
   it("rejects malformed documents", () => {
