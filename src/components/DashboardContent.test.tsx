@@ -1,7 +1,8 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { act, render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import { DashboardContent } from "@/components/DashboardContent";
 import { PRACTICE_MODE_KEY, QUALIFICATION_KEY } from "@/components/QualificationTabs";
+import { requestPracticeMode } from "@/lib/practice-mode";
 import { ECONOMICS_BANK_CATALOG, IGCSE_RELEASE_BANK_CATALOG, BANKS } from "@/lib/banks";
 
 const rowsIn = (container: HTMLElement, panel: string) => [...container.querySelectorAll<HTMLAnchorElement>(`#${panel}-panel a[data-bank-slug]`)];
@@ -118,6 +119,15 @@ describe("DashboardContent", () => {
     fireEvent.keyDown(papers, { key: "ArrowLeft" });
     expect(topic).toHaveAttribute("aria-checked", "true");
     expect(document.activeElement).toBe(topic);
+  });
+
+  it("switches to By topic when the nav's Practice by topic link asks, even with the page open", async () => {
+    window.localStorage.setItem(PRACTICE_MODE_KEY, "papers");
+    const { container } = render(<DashboardContent authenticated={false} accessibleBanks={[]} />);
+    await waitFor(() => expect(container.querySelector("[data-mode]")).toHaveAttribute("data-mode", "papers"));
+    act(() => requestPracticeMode("topics"));
+    expect(container.querySelector("[data-mode]")).toHaveAttribute("data-mode", "topics");
+    expect(window.localStorage.getItem(PRACTICE_MODE_KEY)).toBe("topics");
   });
 
   it("remembers the qualification a visitor picked, over the one their plan suggests", async () => {

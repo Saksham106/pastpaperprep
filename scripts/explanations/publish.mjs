@@ -32,7 +32,14 @@ const AVAILABLE = join(repoRoot, "src/data/explanations/available.json");
 const QUESTION_SPLITS_0606 = JSON.parse(readFileSync(join(repoRoot, "src/data/reviewed-0606-question-splits.json"), "utf8"));
 // So does a question whose part the exam board removed (src/lib/reviewed-science-removed-part-marks.ts).
 const REMOVED_PART_MARKS = JSON.parse(readFileSync(join(repoRoot, "src/data/reviewed-science-removed-part-marks.json"), "utf8")).entries;
+// And a reviewed IB question-boundary repair (src/lib/reviewed-ib-question-boundaries.ts).
+const IB_BOUNDARY_MARKS = JSON.parse(readFileSync(join(repoRoot, "src/data/reviewed-ib-question-boundary-repairs.json"), "utf8")).banks;
 function splitMarks(bank, questionId, marks) {
+  const boundary = IB_BOUNDARY_MARKS[bank]?.[questionId];
+  if (boundary) {
+    if ((marks ?? null) !== boundary.marks.old) throw new Error(`Reviewed IB question boundary disagrees with ${bank}:${questionId}`);
+    return boundary.marks.new;
+  }
   const removed = REMOVED_PART_MARKS[bank]?.[questionId];
   if (removed) {
     if ((marks ?? null) !== removed.old) throw new Error(`Reviewed removed-part marks disagree with ${bank}:${questionId}`);

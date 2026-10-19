@@ -385,6 +385,19 @@ describe("real worksheet image placement", () => {
       expect(addImage.mock.calls.filter((call) => call[1] === "JPEG")).toHaveLength(2);
     });
 
+    it("starts each answer, and each question after it, on a new page", async () => {
+      // Short question crops leave room below, which is exactly where the answer must not go.
+      const short = (number: number) => ({ ...mcq(number), questionImages: ["https://signed.test/ib-mcq-crop.webp"] });
+      await downloadQuestionPdf([short(1), short(2)], "both", undefined, undefined, "after-each-question");
+      const pageStarts = addPage.mock.invocationCallOrder;
+      const answers = text.mock.calls.flatMap(([value], index) => typeof value === "string" && /^[A-D]$/.test(value) ? [text.mock.invocationCallOrder[index]] : []);
+      const images = addImage.mock.calls.flatMap((call, index) => call[1] === "JPEG" ? [addImage.mock.invocationCallOrder[index]] : []);
+      const events = [...pageStarts.map((at) => ({ at, kind: "page" })), ...images.map((at) => ({ at, kind: "question" })), ...answers.map((at) => ({ at, kind: "answer" }))].sort((x, y) => x.at - y.at);
+      expect(answers).toHaveLength(2);
+      // Question 1 opens the PDF; every later answer or question follows a page break.
+      expect(events.map((event) => event.kind)).toEqual(["question", "page", "answer", "page", "question", "page", "answer"]);
+    });
+
     it("never enlarges a tiny answer crop that still prints as an image", async () => {
       const ib = { ...q16, id: "2016-may-tz0-hl-p1-q3", bankSlug: "ib-chemistry-hl", questionImages: [], markschemeImages: ["https://signed.test/ib-mcq-crop.webp"] } as unknown as UnifiedQuestion;
       await downloadQuestionPdf([ib], "answers");

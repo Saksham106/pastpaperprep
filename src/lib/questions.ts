@@ -20,6 +20,7 @@ import { reviewed0580CoreQuestionPaths } from "@/lib/reviewed-0580-core-crop-rep
 import { reviewedEconomicsQuestionPaths } from "@/lib/reviewed-economics-question-crops";
 import { reviewedScienceQuestionPaths } from "@/lib/reviewed-science-question-crops";
 import { IB_SHARED_STIMULUS_BANKS, reviewedIbQuestionPaths } from "@/lib/reviewed-ib-shared-stimulus";
+import { IB_QUESTION_BOUNDARY_BANKS, reviewedIbBoundaryMarks, reviewedIbBoundaryPaths } from "@/lib/reviewed-ib-question-boundaries";
 import { cleanSourceCropPaths } from "@/lib/clean-source-crops";
 import granularOverlay from "@/data/math-granular-label-overlay.json";
 import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
@@ -287,7 +288,8 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const questionImages = cleanSourceCropPaths(slug, applyReviewedBlankPages
     // Bank-scoped reviewed question-crop repairs; each returns other banks' paths unchanged.
     ? reviewed0580CoreQuestionPaths(slug, text(raw.id), historicalQuestionPaths(slug, text(raw.id), activeQuestionCropPaths(slug, text(raw.id), activeQuestionImagePaths(slug, text(raw.id), reviewedEconomicsQuestionPaths(slug, text(raw.id), reviewedScienceQuestionPaths(slug, text(raw.id), reviewed0606SplitQuestionPaths(slug, text(raw.id), sourceQuestionImages)))))))
-    : IB_SHARED_STIMULUS_BANKS.has(slug) ? reviewedIbQuestionPaths(slug, text(raw.id), sourceQuestionImages)
+    : IB_SHARED_STIMULUS_BANKS.has(slug) || IB_QUESTION_BOUNDARY_BANKS.has(slug)
+      ? reviewedIbQuestionPaths(slug, text(raw.id), reviewedIbBoundaryPaths(slug, text(raw.id), sourceQuestionImages))
     : sourceQuestionImages).map((path) => assetUrl(slug, path, economicsAssetMode));
   const markschemeImagePaths = isPrivateRuntimeBank(slug)
     ? Array.from(new Set([...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]))
@@ -332,7 +334,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     zone: text(raw.timezone) || text(raw.zone),
     component: text(raw.component),
     calculator: calculatorAllowed(slug, { paper, year: integer(raw.year) }),
-    marks: removedPartMarks(slug, text(raw.id), reviewed0606SplitMarks(slug, text(raw.id), printedMarks(slug, text(raw.id), historicalMarks(slug, text(raw.id), typeof raw.marks === "number" ? raw.marks : null)))),
+    marks: reviewedIbBoundaryMarks(slug, text(raw.id), removedPartMarks(slug, text(raw.id), reviewed0606SplitMarks(slug, text(raw.id), printedMarks(slug, text(raw.id), historicalMarks(slug, text(raw.id), typeof raw.marks === "number" ? raw.marks : null))))),
     summary,
     accessibleText,
     searchText: searchable,

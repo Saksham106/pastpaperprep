@@ -137,9 +137,10 @@ describe("IB Biology HL/SL integration", () => {
     }
     // 675 served official May 2026 question and mark-scheme crops (HL 380, SL 295 are added to the pre-2026 5550 and 4432).
     // Shared-stimulus repair (docs/ib-shared-stimulus-repairs.md): +4 net, one of them the free 2020 SL micrograph.
-    expect(plan.allPaths.size).toBe(5550 + 4432 + 675 + 4);
+    // Question-boundary repair (docs/ib-question-boundary-repairs.md): -6 net, all premium.
+    expect(plan.allPaths.size).toBe(5550 + 4432 + 675 + 4 - 6);
     expect(plan.previewPaths.size).toBe(366 + 1);
-    expect(plan.premiumPaths.size).toBe(9616 + 675 + 3);
+    expect(plan.premiumPaths.size).toBe(9616 + 675 + 3 - 6);
   });
 
   it("makes every actual 2020 Biology paper the explicit free preview year", () => {
