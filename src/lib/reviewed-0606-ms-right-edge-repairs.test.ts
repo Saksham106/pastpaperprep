@@ -10,6 +10,7 @@ import { loadBankQuestions } from "@/lib/question-loader";
 import { normalizeBankQuestions } from "@/lib/questions";
 import { reviewed0606RightEdgeGeometry, reviewed0606RightEdgePaths } from "@/lib/reviewed-0606-ms-right-edge-repairs";
 import { reviewedMarkschemePaths } from "@/lib/reviewed-mcq-answer-repairs";
+import { reviewed0606SplitQuestionPaths } from "@/lib/reviewed-0606-question-splits";
 import { verify0606PdfMetadata } from "@/lib/verified-0606-client";
 
 type Entry = {
@@ -77,7 +78,10 @@ describe("reviewed 0606 mark-scheme edge repairs", () => {
     let changed = 0;
     for (const row of raw.questions) {
       const question = loaded.get(row.id)!;
-      expect(question.questionAssetPaths).toEqual(baseline.get(row.id)!.questionAssetPaths);
+      // Question crops change only through the reviewed question split (reviewed-0606-question-splits.test.ts).
+      const split = reviewed0606SplitQuestionPaths("igcse-additional", row.id, row.questionImages);
+      expect(question.questionAssetPaths).toEqual(JSON.stringify(split) === JSON.stringify(row.questionImages)
+        ? baseline.get(row.id)!.questionAssetPaths : split.map((path) => `igcse-additional/${path}`));
       const expected = reviewed0606RightEdgePaths("igcse-additional", row.id, reviewedMarkschemePaths("igcse-additional", row.id, row.markschemeImages));
       expect(question.markschemeAssetPaths).toEqual(expected.map((path) => `igcse-additional/${path}`));
       if (entries[row.id]) {

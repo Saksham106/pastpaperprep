@@ -49,6 +49,7 @@ const ibScienceCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data',
 const ibSharedStimulusRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-shared-stimulus-repairs.json'), 'utf8')).banks;
 const historicalCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-historical-crop-repairs.json'), 'utf8'));
 const biologyPrintedMarks = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-printed-marks.json'), 'utf8'));
+const questionSplits0606 = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-0606-question-splits.json'), 'utf8'));
 // Same projection as src/lib/reviewed-biology-historical-crops.ts (counts and marks only).
 function historicalEntry(bank, raw) {
   return bank === historicalCropRepairs.bank && Object.prototype.hasOwnProperty.call(historicalCropRepairs.entries, raw.id)
@@ -69,6 +70,12 @@ function historicalMarks(bank, raw) {
 }
 // Same projection as src/lib/reviewed-biology-printed-marks.ts.
 function printedMarks(bank, raw, marks) {
+  const split = bank === questionSplits0606.bank ? questionSplits0606.entries[raw.id] : undefined;
+  if (split) {
+    // Same projection as src/lib/reviewed-0606-question-splits.ts.
+    if (marks !== split.marks.old) throw new Error(`Reviewed 0606 question split disagrees with ${bank}:${raw.id}`);
+    return split.marks.new;
+  }
   if (bank !== biologyPrintedMarks.bank || !Object.prototype.hasOwnProperty.call(biologyPrintedMarks.entries, raw.id)) return marks;
   const repair = biologyPrintedMarks.entries[raw.id];
   if (marks !== repair.old || !Number.isInteger(repair.new) || repair.new <= 0) throw new Error(`Reviewed printed marks disagree with ${bank}:${raw.id}`);

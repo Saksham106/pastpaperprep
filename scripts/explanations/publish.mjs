@@ -28,6 +28,14 @@ import { publishSet } from "./publish-set.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const AVAILABLE = join(repoRoot, "src/data/explanations/available.json");
+// A reviewed 0606 question split serves its question's printed marks (src/lib/reviewed-0606-question-splits.ts).
+const QUESTION_SPLITS_0606 = JSON.parse(readFileSync(join(repoRoot, "src/data/reviewed-0606-question-splits.json"), "utf8"));
+function splitMarks(bank, questionId, marks) {
+  const split = bank === QUESTION_SPLITS_0606.bank ? QUESTION_SPLITS_0606.entries[questionId] : undefined;
+  if (!split) return marks;
+  if (marks !== split.marks.old) throw new Error(`Reviewed 0606 question split disagrees with ${bank}:${questionId}`);
+  return split.marks.new;
+}
 const PUBLISHABLE = new Set(["pass", "pass-after-fix", "pass-after-minor-fix"]);
 const argv = process.argv.slice(2);
 const bank = argv[argv.indexOf("--bank") + 1];
@@ -64,7 +72,7 @@ function publishable() {
     }
     const q = questions.get(row.questionId);
     if (!q) { skipped.push(`${row.questionId}: unknown runtime question`); continue; }
-    const marks = q.marks ?? q.maxMarks ?? q.maximumMarks;
+    const marks = splitMarks(bank, row.questionId, q.marks ?? q.maxMarks ?? q.maximumMarks);
     if (!Number.isInteger(marks) || marks <= 0) { skipped.push(`${row.questionId}: unknown runtime marks`); continue; }
     const file = outputPathFor(bank, row.questionId);
     if (!PUBLISHABLE.has(row.status) || !existsSync(file)) { skipped.push(`${row.questionId}: ${row.status}`); continue; }

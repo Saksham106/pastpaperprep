@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import questionIdAliases from "@/data/question-id-aliases.json";
+import questionSplits0606 from "@/data/reviewed-0606-question-splits.json";
 import { filterQuestions } from "@/lib/question-filter";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import { getControlledSubtopics } from "@/lib/taxonomy";
@@ -316,8 +317,10 @@ describe("new-bank classification quality", () => {
     expect(new Set(Object.keys(corrections))).toEqual(new Set(questions.map((question) => question.id)));
     for (const question of questions) {
       const correction = corrections[question.id];
+      // A reviewed question split serves a reviewed transcription; the manifest stays bound to the source text.
+      const split = (questionSplits0606.entries as Record<string, { accessibleText: { oldSha256: string } }>)[question.id];
       expect(correction?.sourceTextSha256, question.id).toBe(
-        createHash("sha256").update(question.accessibleText).digest("hex"),
+        split?.accessibleText.oldSha256 ?? createHash("sha256").update(question.accessibleText).digest("hex"),
       );
     }
   });

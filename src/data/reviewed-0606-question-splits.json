@@ -1,0 +1,66 @@
+{
+ "schema": "reviewed-0606-question-splits-v1",
+ "bank": "igcse-additional",
+ "namespace": "repairs/0606-question-split-v1-f1374ccfc06ee77f",
+ "source": {
+  "research": "research/0606-2024-june-22-q11-split",
+  "packageSha256": "f1374ccfc06ee77fc259b119490a1f84ea90b0c982dc6bdaa4a879130c9ba8c8",
+  "builderSha256": "1afdcc99f5f07e1f9db0cb0618d90b505c865e66553a609e8c20dea22fb9b03a",
+  "questionPdfSha256": "55b4c2f0df629dd7c51bf2d60ce09b766ba83ad88dae4e6e8af43d9753e644fc",
+  "markSchemePdfSha256": "a8848c9684aa20eb801573af70194e46ef24c2ee401438900653add57035e752"
+ },
+ "entries": {
+  "0606-2024-june-22-q10": {
+   "oldPaths": [
+    "questions/0606-2024-june-22-q10.webp"
+   ],
+   "oldSha256": [
+    "66158baa82ae014eddcf6a437c8a8ef90a42552a63e3484b509358770d9463f3"
+   ],
+   "newPaths": [
+    "repairs/0606-question-split-v1-f1374ccfc06ee77f/7491da2a08cd5bbdc9998229502a754f9fc019411f4984d40f5a18c921032778.webp"
+   ],
+   "sha256": [
+    "7491da2a08cd5bbdc9998229502a754f9fc019411f4984d40f5a18c921032778"
+   ],
+   "marks": {
+    "old": 16,
+    "new": 8,
+    "printed": [
+     1,
+     5,
+     2
+    ]
+   },
+   "accessibleText": {
+    "oldSha256": "40269fddc730c790c19260d26331afb104f5f5e7d8249c6131344915ad4f090c",
+    "text": "10 The functions f and fg are defined by f(x) = e^(x^2 + 3) for x < 0 and fg(x) = e^(2x) for x > 3/2. (a) Explain why f^(-1) exists. [1] (b) Find an expression for f^(-1)(x) and state the domain and range of f^(-1). [5] (c) Hence find and simplify an expression for g(x). [2]"
+   },
+   "printGeometry": {
+    "physicalSizePt": [
+     513,
+     767.24
+    ],
+    "imageDimensions": [
+     1070,
+     1599
+    ],
+    "segments": [
+     [
+      0,
+      1599,
+      767.24,
+      14
+     ]
+    ]
+   },
+   "held": {
+    "id": "0606-2024-june-22-q11",
+    "number": 11,
+    "marks": 8,
+    "sourcePage": 15,
+    "reason": "question-paper-only: the official mark scheme (12 of 12 pages, Maximum Mark 80) ends at 10(c) and every mirror serves the same scheme"
+   }
+  }
+ }
+}
