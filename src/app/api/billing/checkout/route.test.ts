@@ -472,9 +472,9 @@ describe("POST /api/billing/checkout", () => {
     expect(adminRpc).not.toHaveBeenCalled();
   });
 
-  it("rejects a staged bank's single product before any billing side effect, even with the IGCSE release gates on", async () => {
-    vi.stubEnv("PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS", "true");
-    vi.stubEnv("PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED", "true");
+  it("rejects a single bank that is not billable (release gates off) before any billing side effect", async () => {
+    vi.stubEnv("PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS", "false");
+    vi.stubEnv("PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED", "false");
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     getUser.mockResolvedValue({ data: { user } });
 

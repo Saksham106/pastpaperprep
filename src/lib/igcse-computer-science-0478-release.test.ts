@@ -33,6 +33,7 @@ type Runtime = {
 const production = runtime as unknown as Runtime;
 const tree = taxonomy as unknown as { topics: Array<{ code: string; label: string; paper: number; sections: Array<{ code: string; label: string; official: boolean }> }> };
 const RELEASE_ON = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" };
+const RELEASE_OFF = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "false", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "false" };
 /** Undo exactly what `generate-igcse-release.mjs --finalize` writes; the result must be the pinned candidate. */
 function reconstructCandidate(finalized: Runtime): Runtime {
   const candidate = JSON.parse(JSON.stringify(finalized)) as Runtime & { releaseStatus: string; publicationStatus: string };
@@ -67,11 +68,11 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
     expect(isIGCSEReleaseBank(BANK)).toBe(true);
   });
 
-  it("stays hidden while storage is pending, even with the shared IGCSE release gates open", () => {
-    expect(getCatalogBank(BANK)).toMatchObject({ pendingStorage: true });
-    expect(getCatalogBanksForDisplay(RELEASE_ON).some((bank) => bank.slug === BANK)).toBe(false);
-    expect(getAvailableBanks(RELEASE_ON).some((bank) => bank.slug === BANK)).toBe(false);
-    expect(getCatalogBanksForDisplay(RELEASE_ON).some((bank) => bank.slug === "igcse-coordinated-sciences-0654")).toBe(true);
+  it("is launched: shown with the shared IGCSE release gates on, hidden with them off", () => {
+    expect("pendingStorage" in getCatalogBank(BANK)!).toBe(false);
+    expect(getCatalogBanksForDisplay(RELEASE_ON).some((bank) => bank.slug === BANK)).toBe(true);
+    expect(getAvailableBanks(RELEASE_ON).some((bank) => bank.slug === BANK)).toBe(true);
+    expect(getAvailableBanks(RELEASE_OFF).some((bank) => bank.slug === BANK)).toBe(false);
   });
 
   it("has no free tier, so its entry link is the plain bank page", () => {
@@ -207,7 +208,7 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
     expect(getIGCSERuntimeArtifact(BANK, RELEASE_ON).questions).toHaveLength(469);
   });
 
-  it("maps to its own product, All Access and the IGCSE bundle, and is not for sale while pending", () => {
+  it("is sold alone at the generic single-bank price and through All Access and the IGCSE bundle", () => {
     expect(hasBankAccess(BANK, entitlement(PRODUCT))).toBe(true);
     expect(hasBankAccess(BANK, entitlement("bundle_all"))).toBe(true);
     expect(hasBankAccess(BANK, entitlement("bundle_igcse"))).toBe(true);
@@ -220,9 +221,10 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
       STRIPE_PAIR_MONTHLY_PRICE_ID: "price_pair_monthly", STRIPE_PAIR_ANNUAL_PRICE_ID: "price_pair_annual",
       STRIPE_ALL_MONTHLY_PRICE_ID: "price_all_monthly", STRIPE_ALL_ANNUAL_PRICE_ID: "price_all_annual",
     });
-    // Not for sale while storage is pending, even by direct API call with the release gates open.
-    expect(() => getBillingPlan(PRODUCT, "monthly", config, undefined, RELEASE_ON)).toThrow("Bank is not available for checkout");
-    expect(() => getBillingPlan(PRODUCT, "annual", config, undefined, RELEASE_ON)).toThrow("Bank is not available for checkout");
+    expect(getBillingPlan(PRODUCT, "monthly", config, undefined, RELEASE_ON).priceId).toBe(config.singleMonthlyPriceId);
+    expect(getBillingPlan(PRODUCT, "annual", config, undefined, RELEASE_ON).priceId).toBe(config.singleAnnualPriceId);
+    // Not for sale when the release gates are off, even by direct API call.
+    expect(() => getBillingPlan(PRODUCT, "monthly", config, undefined, RELEASE_OFF)).toThrow("Bank is not available for checkout");
     // Lifecycle validation still recognises the generic single-bank price for this product.
     expect(isStripePriceAllowedForProduct(PRODUCT, config.singleAnnualPriceId, config, "annual")).toBe(true);
     expect(getBillingPlan("bank_igcse_coordinated_sciences_0654", "monthly", config, undefined, RELEASE_ON).priceId).toBe(config.singleMonthlyPriceId);
