@@ -9,7 +9,10 @@ export const meta = {
   ],
 }
 
-const REPO = '/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep/.worktrees/question-explanations'
+// The checkout whose spec and validator agents use: next.mjs passes its own repo root, so a run never reads a stale
+// worktree (or one without node_modules, where the validator cannot load KaTeX).
+if (!args || typeof args.repo !== 'string' || !args.repo.startsWith('/')) throw new Error('args.repo (absolute checkout path) is required; use the args next.mjs prints')
+const REPO = args.repo
 const SPEC = REPO + '/scripts/explanations/SPEC.md'
 const VALIDATE = REPO + '/scripts/explanations/validate.mjs'
 
@@ -52,7 +55,7 @@ For each task:
    - Part labels and marks match the printed paper; nothing missing or invented.
    - Each part's final answer matches the scheme (exact form / accuracy the scheme accepts).
    - Every step is mathematically correct and follows from the previous one. "Show that" parts genuinely reach the given result.
-   - Mark codes match the scheme's main method and sit on the right steps.
+   - Mark codes match the scheme's main method and sit on the right steps. A dependent method mark is written "M1dep" (the site format), even where the scheme prints "DM1"; do not flag that.
    - It explains the reasoning clearly and briefly, does not copy the scheme's wording, and has no invented content.
 4. Verdict: "pass" = correct and good enough to show students; "fix" = correct answers but has issues worth fixing; "fail" = any wrong final answer, wrong part structure, or a mathematically false step.
    Critical issue = anything that would make a student learn something wrong or lose marks. Minor = clarity/style.

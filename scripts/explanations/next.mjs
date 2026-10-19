@@ -120,8 +120,9 @@ function main() {
   console.log("");
   for (const { bank, unpublished } of publish) console.log(`publish ${bank}: ${unpublished} verified, not live -> WRANGLER=/tmp/wrangler-cli/node_modules/.bin/wrangler node scripts/explanations/publish.mjs --bank ${bank} --apply --via-wrangler`);
   if (!jobs.length) { console.log(`Nothing left to run for ${wave}.`); return; }
+  if (!existsSync(join(repoRoot, "node_modules/katex/package.json"))) console.log(`\nWARNING: run npm ci in ${repoRoot} first; agents validate with its node_modules.`);
   console.log(`\nWorkflow: scriptPath scripts/explanations/continue.workflow.js, about ${spent} agents${remaining ? `, ${remaining} chunks left for the next run` : ""}. args:`);
-  console.log(JSON.stringify({ jobs }));
+  console.log(JSON.stringify({ repo: repoRoot, jobs }));
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) main();
