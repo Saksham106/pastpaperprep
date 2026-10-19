@@ -112,7 +112,13 @@ function main() {
 
   const { spent, counts } = planJobs(plans, budget);
   const jobs = plans
-    .map((p) => ({ bank: p.bank, manifest: p.manifest, planFile: p.planFile, ...counts.get(p.bank), genModel: "sonnet", genEffort: "medium", fixModel: "sonnet", fixEffort: "high", verifyEffort: "high" }))
+    .map((p) => {
+      const c = counts.get(p.bank);
+      // The exact questionIds of every chunk this run covers, so agents never have to count chunks themselves.
+      const ids = Object.fromEntries(["generate", "verify", "fix"].map((stage) =>
+        [stage, p.plan[stage].slice(0, c[stage]).map((chunk) => chunk.map((entry) => typeof entry === "string" ? entry : entry.questionId))]));
+      return { bank: p.bank, manifest: p.manifest, planFile: p.planFile, ...c, ids, genModel: "sonnet", genEffort: "medium", fixModel: "sonnet", fixEffort: "high", verifyEffort: "high" };
+    })
     .filter((j) => j.generate + j.verify + j.fix > 0);
   const remaining = plans.reduce((n, p) => n + p.plan.generate.length + p.plan.verify.length + p.plan.fix.length, 0) - jobs.reduce((n, j) => n + j.generate + j.verify + j.fix, 0);
   writeFileSync(join(researchRoot, "_next-jobs.json"), `${JSON.stringify({ wave, jobs }, null, 1)}\n`);

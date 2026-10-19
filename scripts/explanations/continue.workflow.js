@@ -28,7 +28,12 @@ const FIX_SCHEMA = { type: 'object', properties: { results: { type: 'array', ite
 }, required: ['questionId', 'fixed', 'validatorPassed', 'hadCriticalIssue', 'note'] } } }, required: ['results'] }
 
 const idsRef = (job, ids) => `Task manifest: ${job.manifest}. Your tasks are the manifest entries (tasks[]) with these questionId values: ${JSON.stringify(ids)}.`
-const planRef = (job, stage, k) => `Task manifest: ${job.manifest}. Plan file: ${job.planFile}. Your tasks are chunk ${k} (zero-based) of the plan's "${stage}" array; look each questionId up in the manifest's tasks[].`
+// next.mjs passes each chunk's questionIds (job.ids): agents told only a chunk index have misread it and redone another chunk.
+const planRef = (job, stage, k) => {
+  const ids = job.ids?.[stage]?.[k]
+  return `Task manifest: ${job.manifest}. Plan file: ${job.planFile}. Your tasks are chunk ${k} (zero-based) of the plan's "${stage}" array` +
+    (ids ? `, exactly these questionIds and no others: ${JSON.stringify(ids)}. Look each one up in the manifest's tasks[].` : `; look each questionId up in the manifest's tasks[].`)
+}
 
 const genPrompt = (ref) => `You are writing worked explanations for exam questions on PastPaperPrep.
 
