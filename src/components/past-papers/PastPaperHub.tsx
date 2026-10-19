@@ -9,7 +9,7 @@ import { PaperFinder } from './PaperFinder';
 import { ScopeSwitch } from './ScopeSwitch';
 import styles from './PastPaperPages.module.css';
 
-const GROUPS: [CourseTone, string][] = [['math', 'Mathematics'], ['chemistry', 'Chemistry'], ['physics', 'Physics'], ['biology', 'Biology'], ['coordinated', 'Co-ordinated Sciences'], ['economics', 'Economics']];
+const GROUPS: [CourseTone, string][] = [['math', 'Mathematics'], ['chemistry', 'Chemistry'], ['physics', 'Physics'], ['biology', 'Biology'], ['coordinated', 'Co-ordinated Sciences'], ['economics', 'Economics'], ['computer-science', 'Computer Science']];
 const SCOPES: [string, string, PastPaperQualification | undefined][] = [['All', '/past-papers', undefined], ['IGCSE', '/past-papers/igcse', 'igcse'], ['IB', '/past-papers/ib', 'ib']];
 const QUALIFICATION_NAME = { igcse: 'Cambridge IGCSE', ib: 'IB' } as const;
 const GUIDE = {
