@@ -1,0 +1,17 @@
+{
+ "schema": "reviewed-science-removed-part-marks-v1",
+ "decision": "Owner decision 2026-10-19: serve the printed question total when the exam board removed a part but kept the printed [Total], as for 0610-2026-s-43-q5. Supersedes the #140 choice to leave the total null; the sealed 0620 runtime keeps its null.",
+ "entries": {
+  "igcse-chemistry-0620": {
+   "0620-2026-m-32-q3": {
+    "old": null,
+    "new": 14,
+    "removedPart": "3(d)(iv)",
+    "assessableMarks": 13,
+    "questionPdfSha256": "6f96e8fbca4390d6a5a110ea8a313862eea0964d4d667cee8ef1ece855632fde",
+    "markSchemePdfSha256": "4483db801d6478eade58ba4b52303bf119b43db390dda3888ef4f6ad3265a315",
+    "evidence": "QP p7 prints [Total: 14] and states 3(d)(iv) 'has been removed from the question paper' (no bracket); MS p9 says the same for 3(d)(iv) and awards 1+2+2+1+2+1+1+3 = 13 for the remaining parts; the paper totals 80 with 14."
+   }
+  }
+ }
+}
