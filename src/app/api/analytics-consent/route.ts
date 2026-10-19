@@ -1,9 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { ANALYTICS_CONSENT_COOKIE, ANALYTICS_CONSENT_MAX_AGE_SECONDS, ANALYTICS_CONSENT_VERSION, analyticsConsentCookieValue } from "@/lib/analytics-consent";
+import { ANALYTICS_CONSENT_COOKIE, ANALYTICS_CONSENT_VERSION, analyticsChoiceMaxAgeSeconds, analyticsConsentCookieValue } from "@/lib/analytics-consent";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
 
-const MAX_AGE = ANALYTICS_CONSENT_MAX_AGE_SECONDS;
 
 function json(body: unknown, status = 200) {
   return NextResponse.json(body, { status, headers: { "Cache-Control": "private, no-store" } });
@@ -21,6 +20,7 @@ async function handlePOST(request: NextRequest) {
   } catch { return json({ error: "Invalid request" }, 400); }
   if (!body || typeof body !== "object" || Array.isArray(body) || Object.keys(body).length !== 1 || typeof (body as { accepted?: unknown }).accepted !== "boolean") return json({ error: "Invalid request" }, 400);
   const accepted = (body as { accepted: boolean }).accepted;
+  const MAX_AGE = analyticsChoiceMaxAgeSeconds(accepted);
   try {
     const supabase = await createClient();
     const { data: { user }, error: authError } = await supabase.auth.getUser();

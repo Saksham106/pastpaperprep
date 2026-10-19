@@ -1,7 +1,13 @@
 export const ANALYTICS_CONSENT_COOKIE = "ppp_analytics_consent";
 export const ANALYTICS_CONSENT_VERSION = 2 as const;
-/** A saved choice (accept or reject) lasts twelve months before the visitor is asked again. */
+/** An acceptance lasts twelve months before the visitor is asked again. */
 export const ANALYTICS_CONSENT_MAX_AGE_SECONDS = 365 * 24 * 60 * 60;
+/** A rejection lasts three months, then the visitor is asked once more. */
+export const ANALYTICS_REJECTION_MAX_AGE_SECONDS = 90 * 24 * 60 * 60;
+
+export function analyticsChoiceMaxAgeSeconds(accepted: boolean): number {
+  return accepted ? ANALYTICS_CONSENT_MAX_AGE_SECONDS : ANALYTICS_REJECTION_MAX_AGE_SECONDS;
+}
 export type AnalyticsConsent = boolean | null;
 
 export function parseAnalyticsConsent(value: string | null | undefined): AnalyticsConsent {
