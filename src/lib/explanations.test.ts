@@ -223,6 +223,12 @@ describe("explanation rendering", () => {
     expect(container.textContent).toContain('<img src=x onerror="alert(1)">');
   });
 
+  it("accepts lettered sub-subpart labels and rejects malformed ones", () => {
+    const lettered = (label: string) => ({ ...doc, parts: [{ ...doc.parts[0], label }] });
+    expect(parseExplanation(lettered("b(ii)(a)"), doc.bank, doc.questionId)).not.toBeNull();
+    for (const bad of ["b(ii)(ab)", "b(a)", "b(ii)1(a)", "b(ii)(A)"]) expect(parseExplanation(lettered(bad), doc.bank, doc.questionId)).toBeNull();
+  });
+
   it("accepts a withdrawn part only without mark codes", () => {
     const withdrawn = { ...doc, parts: [{ ...doc.parts[0], withdrawn: true, steps: [{ text: "The exam board withdrew this part.", marks: [] }] }] };
     expect(parseExplanation(withdrawn, doc.bank, doc.questionId)).not.toBeNull();
@@ -234,6 +240,7 @@ describe("explanation rendering", () => {
     expect(formatPartLabel("a")).toBe("(a)");
     expect(formatPartLabel("b(iii)")).toBe("(b)(iii)");
     expect(formatPartLabel("c(ii)1")).toBe("(c)(ii) 1.");
+    expect(formatPartLabel("b(ii)(a)")).toBe("(b)(ii)(a)");
     expect(formatPartLabel("")).toBe("");
   });
 });

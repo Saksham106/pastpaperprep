@@ -19,8 +19,9 @@ export type Explanation = {
 };
 
 const MARK_CODE = /^(\(?(M|A|R|B|N|SC|AG|E|C|P|S|G|L)\d*\)?( ?\(?dep\)?)?|✓)$/;
-// Cambridge papers number some sub-subparts, "(c)(ii) 1." and "2.", each with its own printed marks: label "c(ii)1".
-const LABEL = /^([a-z](\([ivx]+\)([1-9])?)?)?$/;
+// Cambridge papers number some sub-subparts, "(c)(ii) 1." and "2.", each with its own printed marks: label "c(ii)1";
+// others letter them, "(b)(ii)(a)" and "(b)": label "b(ii)(a)".
+const LABEL = /^([a-z](\([ivx]+\)([1-9]|\([a-z]\))?)?)?$/;
 const record = (value: unknown): value is Record<string, unknown> => Boolean(value && typeof value === "object" && !Array.isArray(value));
 const onlyKeys = (value: Record<string, unknown>, allowed: string[]) => Object.keys(value).every((key) => allowed.includes(key));
 const text = (value: unknown): value is string => typeof value === "string" && value.trim().length > 0;
