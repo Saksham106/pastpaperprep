@@ -69,6 +69,10 @@ describe("SiteHeader", () => {
     usePathname.mockReturnValue("/");
     const { unmount } = render(<SiteHeader authenticated={false} />);
     expect(screen.getByRole("link", { name: "Practice by topic" })).toHaveAttribute("href", "/dashboard");
+    // The link means topic practice, so it sets that mode over a remembered Full past papers.
+    window.localStorage.setItem("ppp-practice-mode", "papers");
+    fireEvent.click(screen.getByRole("link", { name: "Practice by topic" }));
+    expect(window.localStorage.getItem("ppp-practice-mode")).toBe("topics");
     unmount();
     for (const path of ["/dashboard", "/banks/igcse"]) {
       usePathname.mockReturnValue(path);

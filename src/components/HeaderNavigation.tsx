@@ -4,6 +4,7 @@ import Link from "next/link";
 import { PAGE_NAVIGATION } from "@/components/PageTransition";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { requestPracticeMode } from "@/lib/practice-mode";
 
 function current(pathname: string, destination: "papers" | "banks" | "articles" | "pricing" | "account" | "worksheets" | "dashboard" | "login") {
   if (destination === "papers") return pathname === "/past-papers" || pathname.startsWith("/past-papers/");
@@ -24,7 +25,7 @@ export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = fals
       {/* Desktop: page links sit in the bar's center column, account actions on the right. The phone menu lists both. */}
       <div className="nav-pages">
         {pastPapers && <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "papers") ? "nav-active" : undefined} aria-current={current(pathname, "papers") ? "page" : undefined} href="/past-papers">Full past papers</Link>}
-        <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "banks") ? "nav-active" : undefined} aria-current={current(pathname, "banks") ? "page" : undefined} href="/dashboard">Practice by topic</Link>
+        <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "banks") ? "nav-active" : undefined} aria-current={current(pathname, "banks") ? "page" : undefined} href="/dashboard" onClick={() => requestPracticeMode("topics")}>Practice by topic</Link>
         <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "articles") ? "nav-active" : undefined} aria-current={current(pathname, "articles") ? "page" : undefined} href="/articles">Articles</Link>
         <Link transitionTypes={PAGE_NAVIGATION} className={`nav-pricing${current(pathname, "pricing") ? " nav-active" : ""}`} aria-current={current(pathname, "pricing") ? "page" : undefined} href="/pricing">Pricing</Link>
       </div>

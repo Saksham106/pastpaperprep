@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import styles from "./MarketingHome.module.css";
+import { onPracticeModeRequest, PRACTICE_MODE_KEY } from "@/lib/practice-mode";
+
+export { PRACTICE_MODE_KEY };
 
 export type Qualification = "igcse" | "ib";
 export type QualificationTabItem = { id: string; label: string; panel: ReactNode; qualification?: Qualification };
@@ -10,7 +13,6 @@ export type QualificationMode = { id: string; label: string; icon?: ReactNode };
 
 /** Remembered across pages and visits: the last qualification and practice mode a visitor chose. */
 export const QUALIFICATION_KEY = "ppp-qualification";
-export const PRACTICE_MODE_KEY = "ppp-practice-mode";
 const read = (key: string) => { try { return window.localStorage.getItem(key); } catch { return null; } };
 const write = (key: string, value: string) => { try { window.localStorage.setItem(key, value); } catch { /* private mode */ } };
 
@@ -47,6 +49,8 @@ export function QualificationTabs({
     // Only on mount: later choices are the visitor's own.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  // A link that asks for a mode (the nav's "Practice by topic") switches it even when this page is already open.
+  useEffect(() => onPracticeModeRequest((id) => { if (modes?.some((m) => m.id === id)) setMode(id); }), [modes]);
 
   const select = (index: number) => {
     setActiveIndex(index);
