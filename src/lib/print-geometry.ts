@@ -6,6 +6,7 @@ import verified0606March2026 from "@/data/print-geometry-0606-2026-march.json";
 import type { BankSlug } from "@/lib/banks";
 import { reviewedBlankTailForSignedAsset, reviewedBlankSourcePage } from "@/lib/reviewed-blank-tails";
 import { reviewed0606RightEdgeGeometry } from "@/lib/reviewed-0606-ms-right-edge-repairs";
+import { reviewed0606SplitGeometry } from "@/lib/reviewed-0606-question-splits";
 
 export type PhysicalSizePt = readonly [number, number];
 export type SourcePrintSegment = {
@@ -70,7 +71,8 @@ function geometryForSignedPath(
   }
   if (bank === "igcse-additional") {
     // A reviewed edge repair keeps the historical vertical geometry at its wider width.
-    const repaired = kind === "answer" ? reviewed0606RightEdgeGeometry(questionId, path) : null;
+    // So does a reviewed question split, at its own question's segment.
+    const repaired = kind === "answer" ? reviewed0606RightEdgeGeometry(questionId, path) : reviewed0606SplitGeometry(questionId, path);
     if (repaired) {
       return {
         size: repaired.physicalSizePt,
