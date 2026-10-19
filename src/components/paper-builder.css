@@ -83,8 +83,8 @@
 .builder > .builder-message { text-align: left; color: var(--danger); margin-bottom: 12px; }
 .builder-saved-link { margin-right: auto; color: var(--cobalt-strong); font-size: .84rem; font-weight: 650; }
 .builder-sheet .builder-saved-link { color: #2347bd; }
-.builder-placement { display: inline-flex; align-items: center; gap: 8px; color: #55534e; font-size: .84rem; font-weight: 650; }
-.builder-placement select { min-height: 44px; padding: 0 10px; color: #1d1c1a; background: #fffdf8; border: 1px solid #d9d4c7; border-radius: 10px; font: inherit; font-weight: 600; }
+.builder-sheet-actions .answer-placement-prompt { flex-basis: 100%; justify-content: flex-end; }
+.builder-sheet-actions .answer-placement-prompt span { color: #55534e; }
 .builder-jump { display: none; }
 
 .builder-reader-backdrop { position: fixed; inset: 0; z-index: 60; display: grid; place-items: start center; padding: 4vh 16px; overflow-y: auto; background: rgb(18 18 16 / .55); }
@@ -105,7 +105,6 @@
   .builder-row-actions { width: 100%; justify-content: flex-end; padding-bottom: 6px; }
   .builder-sheet-actions { justify-content: stretch; }
   .builder-sheet-actions .button { flex: 1; justify-content: center; }
-  .builder-placement { flex-basis: 100%; justify-content: space-between; }
 }
 
 .paper-builder-error { margin: 15px 0 0; color: var(--danger); font-size: .86rem; }

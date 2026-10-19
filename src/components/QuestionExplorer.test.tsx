@@ -441,10 +441,12 @@ describe("QuestionExplorer", () => {
     // Save is the main action; downloading without saving is only a quiet icon beside it.
     expect(within(dialog).getAllByRole("button", { name: /download/i })).toHaveLength(1);
     expect(within(dialog).getByRole("button", { name: "Download PDF without saving" })).toHaveClass("pdf-direct-download");
-    // Questions and answers offers the same answer placement as a saved worksheet's download.
-    expect(within(dialog).getByRole("radio", { name: /each question followed/i })).toBeInTheDocument();
+    // Where answers go is asked only once Download is pressed, and only for questions and answers.
+    expect(within(dialog).queryByRole("button", { name: "After each question" })).not.toBeInTheDocument();
+    fireEvent.click(within(dialog).getByRole("button", { name: "Download PDF without saving" }));
+    expect(within(dialog).getByRole("group", { name: "Where should the answers go?" })).toBeInTheDocument();
     fireEvent.click(within(dialog).getByRole("radio", { name: "Answers" }));
-    expect(within(dialog).queryByRole("radio", { name: /each question followed/i })).not.toBeInTheDocument();
+    expect(within(dialog).queryByRole("button", { name: "After each question" })).not.toBeInTheDocument();
     fireEvent.change(nameField, { target: { value: "My set" } });
     fireEvent.click(within(dialog).getByRole("button", { name: "Save PDF" }));
     await waitFor(() => expect(calls.some(({ url, init }) => url === "/api/worksheets" && init?.method === "POST")).toBe(true));

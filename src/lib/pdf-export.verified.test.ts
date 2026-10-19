@@ -385,7 +385,7 @@ describe("real worksheet image placement", () => {
       expect(addImage.mock.calls.filter((call) => call[1] === "JPEG")).toHaveLength(2);
     });
 
-    it("starts each answer printed after its question on a new page, so it never sits under the question", async () => {
+    it("starts each answer, and each question after it, on a new page", async () => {
       // Short question crops leave room below, which is exactly where the answer must not go.
       const short = (number: number) => ({ ...mcq(number), questionImages: ["https://signed.test/ib-mcq-crop.webp"] });
       await downloadQuestionPdf([short(1), short(2)], "both", undefined, undefined, "after-each-question");
@@ -394,7 +394,8 @@ describe("real worksheet image placement", () => {
       const images = addImage.mock.calls.flatMap((call, index) => call[1] === "JPEG" ? [addImage.mock.invocationCallOrder[index]] : []);
       const events = [...pageStarts.map((at) => ({ at, kind: "page" })), ...images.map((at) => ({ at, kind: "question" })), ...answers.map((at) => ({ at, kind: "answer" }))].sort((x, y) => x.at - y.at);
       expect(answers).toHaveLength(2);
-      for (const [index, event] of events.entries()) if (event.kind === "answer") expect(events[index - 1].kind).toBe("page");
+      // Question 1 opens the PDF; every later answer or question follows a page break.
+      expect(events.map((event) => event.kind)).toEqual(["question", "page", "answer", "page", "question", "page", "answer"]);
     });
 
     it("never enlarges a tiny answer crop that still prints as an image", async () => {

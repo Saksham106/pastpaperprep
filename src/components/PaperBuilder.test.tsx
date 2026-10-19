@@ -183,6 +183,7 @@ describe("PaperBuilder", () => {
     const { unmount } = render(<PaperBuilder banks={[bank]} />);
     await ready();
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    fireEvent.click(screen.getByRole("button", { name: "At the end" }));
     await waitFor(() => expect(exportWorksheetPdf).toHaveBeenCalled());
     const { isCurrent } = exportWorksheetPdf.mock.calls[0][0];
     expect(isCurrent()).toBe(true);
@@ -225,7 +226,11 @@ describe("PaperBuilder", () => {
     await ready();
     fireEvent.change(screen.getByLabelText("Worksheet name"), { target: { value: "Mock" } });
     const sources = rowSources();
+    // Where answers go is asked only once Download is pressed.
+    expect(screen.queryByRole("button", { name: "At the end" })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    expect(exportWorksheetPdf).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole("button", { name: "At the end" }));
     await screen.findByText("PDF downloaded.");
     const args = exportWorksheetPdf.mock.calls[0][0];
     expect(args).toMatchObject({ bank: bank.slug, title: "Mock", marker: "ABC123", answerPlacement: "all-answers-last" });
@@ -235,10 +240,24 @@ describe("PaperBuilder", () => {
   it("can put each answer straight after its question", async () => {
     render(<PaperBuilder banks={[bank]} />);
     await ready();
-    fireEvent.change(screen.getByRole("combobox", { name: "Answers" }), { target: { value: "after-each-question" } });
     fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    fireEvent.click(screen.getByRole("button", { name: "After each question" }));
     await screen.findByText("PDF downloaded.");
     expect(exportWorksheetPdf.mock.calls[0][0]).toMatchObject({ answerPlacement: "after-each-question" });
+  });
+
+  it("cancels a download that is still being prepared", async () => {
+    exportWorksheetPdf.mockImplementation(() => new Promise(() => {}));
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    fireEvent.click(screen.getByRole("button", { name: /download pdf/i }));
+    fireEvent.click(screen.getByRole("button", { name: "At the end" }));
+    const { isCurrent } = exportWorksheetPdf.mock.calls[0][0];
+    expect(isCurrent()).toBe(true);
+    fireEvent.click(await screen.findByRole("button", { name: "Cancel download" }));
+    expect(isCurrent()).toBe(false);
+    expect(screen.getByText("Download cancelled.")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /download pdf/i })).toBeEnabled();
   });
 
   it("opens a question in the reader and returns focus when it closes", async () => {

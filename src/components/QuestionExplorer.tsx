@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, FilePlus, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
 import type { PdfAnswerPlacement, PdfContent } from "@/lib/pdf-export";
+import { AnswerPlacementPrompt } from "@/components/AnswerPlacementPrompt";
 import { suggestWorksheetTitle } from "@/lib/worksheet-title";
 import { PeriodicTableButton } from "@/components/PeriodicTableButton";
 import { hasPeriodicTable } from "@/lib/periodic-table";
@@ -318,9 +319,10 @@ access: ExplorerAccess;
   const [pdfOpen, setPdfOpen] = useState(false);
   const [pdfUpgradeOpen, setPdfUpgradeOpen] = useState(false);
   const [pdfContent, setPdfContent] = useState<PdfContent>("both");
-  const [pdfAnswerPlacement, setPdfAnswerPlacement] = useState<PdfAnswerPlacement>("all-answers-last");
+  // Questions-and-answers downloads ask where answers go once Download is pressed.
+  const [placementPromptOpen, setPlacementPromptOpen] = useState(false);
   const [pdfStatus, setPdfStatus] = useState("");
-  const [pdfStatusKind, setPdfStatusKind] = useState<"progress" | "success" | "error">("progress");
+  const [pdfStatusKind, setPdfStatusKind] = useState<"progress" | "success" | "error" | "cancelled">("progress");
   const shareButtonRef = useRef<HTMLButtonElement>(null);
   const [signedAssets, setSignedAssets] = useState(new Map<string, SignedAsset>());
   const signingAssetKeysRef = useRef(new Set<string>());
@@ -351,6 +353,8 @@ access: ExplorerAccess;
   const pdfTriggerRef = useRef<HTMLButtonElement>(null);
   const pdfBuildButtonRef = useRef<HTMLButtonElement>(null);
   const pdfStatusRef = useRef<HTMLElement>(null);
+  // Bumped to start or cancel a download; a build whose number is stale stops at its next step.
+  const pdfRunRef = useRef(0);
   const pdfDialogRef = useRef<HTMLElement>(null);
   const pdfUpgradeDialogRef = useRef<HTMLElement>(null);
   const worksheetUnsavedDialogRef = useRef<HTMLElement>(null);
@@ -1244,20 +1248,34 @@ access: ExplorerAccess;
     }
     trackProductEvent("pdf_builder_open", { bank: bank ?? "unknown", questionCount: exportQuestions.length });
     if (pdfStatusKind !== "progress") setPdfStatus(""); // drop a finished download's message, keep one still running
+    setPlacementPromptOpen(false);
     setPdfOpen(true);
   };
-  const handleDownload = async () => {
+  const requestDownload = () => {
+    if (pdfContent === "both") setPlacementPromptOpen((open) => !open);
+    else void handleDownload("all-answers-last");
+  };
+  const cancelDownload = () => {
+    pdfRunRef.current += 1;
+    trackProductEvent("pdf_export_cancel", { bank: bank ?? "unknown", questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
+    setPdfStatusKind("cancelled");
+    setPdfStatus("Download cancelled.");
+  };
+  const handleDownload = async (answerPlacement: PdfAnswerPlacement) => {
     titleLookupRef.current += 1;
+    setPlacementPromptOpen(false);
     if (!scopeIsCurrent() || !resolvedAccess.canExportPdf || !bank || !exportQuestions.length || Boolean(worksheetId && (worksheetLoadFailed || !worksheetReady))) return;
     trackProductEvent("pdf_export_attempt", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
+    const run = ++pdfRunRef.current;
+    const live = () => scopeIsCurrent() && pdfRunRef.current === run;
     setPdfStatusKind("progress");
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
     try {
       const [{ attachPdfAssetMetadata, downloadQuestionPdf, pdfHeldNotice }, assets] = await Promise.all([
         import("@/lib/pdf-export"),
-        fetchPdfAssets(bank, exportQuestions.map((question) => question.id), pdfContent, fetch, localPreview, scopeIsCurrent),
+        fetchPdfAssets(bank, exportQuestions.map((question) => question.id), pdfContent, fetch, localPreview, live),
       ]);
-      if (!scopeIsCurrent()) return;
+      if (!live()) return;
       const securedQuestions = attachPdfAssetMetadata(exportQuestions, assets);
       const result = await downloadQuestionPdf(
         securedQuestions,
@@ -1265,14 +1283,14 @@ access: ExplorerAccess;
         (complete, total) => {
           // The exporter reports progress before its final synchronous save; throwing
           // here also cancels a build whose image loads outlive the captured scope.
-          if (!scopeIsCurrent()) throw new DOMException("PDF request scope expired", "AbortError");
+          if (!live()) throw new DOMException("PDF request scope expired", "AbortError");
           setPdfStatus(`Preparing ${complete} of ${total}...`);
         },
         resolvedExportMarker,
-        pdfAnswerPlacement,
+        answerPlacement,
         { title: worksheetName.trim() || suggestWorksheetTitle(exportQuestions), bankSlug: bank },
       );
-      if (!scopeIsCurrent()) return;
+      if (!live()) return;
       setPdfStatusKind("success");
       trackProductEvent("pdf_export_success", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
       if (result.heldRows.length) {
@@ -1281,13 +1299,13 @@ access: ExplorerAccess;
         setPdfStatus(`Worksheet ready — ${exportQuestions.length} question${exportQuestions.length === 1 ? "" : "s"} downloaded.`);
         pulseSuccess(pdfBuildButtonRef.current);
         window.setTimeout(() => {
-          if (!scopeIsCurrent()) return;
+          if (!live()) return;
           setPdfOpen(false);
           setPdfStatus("");
         }, 1400);
       }
     } catch (error) {
-      if (!scopeIsCurrent()) return;
+      if (!live()) return;
       trackProductEvent("pdf_export_error", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
       setPdfStatusKind("error");
       setPdfStatus(error instanceof Error ? error.message : "The worksheet could not be built. Check your connection and try again.");
@@ -1416,21 +1434,21 @@ access: ExplorerAccess;
           <h2 id="pdf-title">Download {exportQuestions.length.toLocaleString("en-US")} {exportQuestions.length === 1 ? "question" : "questions"}</h2>
           <p>Only the questions in this worksheet are included.</p>
           <div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div>
-          {pdfContent === "both" && <fieldset className="pdf-options"><legend>Answer placement</legend><label><input type="radio" name="pdf-answer-placement" checked={pdfAnswerPlacement === "all-answers-last"} onChange={() => setPdfAnswerPlacement("all-answers-last")} /> All questions, then all answers</label><label><input type="radio" name="pdf-answer-placement" checked={pdfAnswerPlacement === "after-each-question"} onChange={() => setPdfAnswerPlacement("after-each-question")} /> Each question followed by its answer</label></fieldset>}
-          <div className="worksheet-actions only-download"><button ref={pdfBuildButtonRef} className="button secondary pdf-download" disabled={!exportQuestions.length} onClick={handleDownload}><DownloadSimple /> {pdfStatusKind === "success" ? "PDF downloaded" : "Download PDF"}</button></div>
+          <div className="worksheet-actions only-download"><button ref={pdfBuildButtonRef} className="button secondary pdf-download" disabled={!exportQuestions.length} onClick={requestDownload}><DownloadSimple /> {pdfStatusKind === "success" ? "PDF downloaded" : "Download PDF"}</button></div>
+          {placementPromptOpen && pdfContent === "both" && <AnswerPlacementPrompt onChoose={(placement) => void handleDownload(placement)} />}
           {worksheetStatus && <p role={worksheetLoadFailed || worksheetStatus.includes("could not") || worksheetStatus.includes("required") || worksheetStatus.includes("unavailable") ? "alert" : "status"}>{worksheetStatus}</p>}
           {worksheetLoadFailed && <button type="button" onClick={() => { setWorksheetStatus(""); setWorksheetLoadFailed(false); setWorksheetReady(false); }}>Retry loading worksheet</button>}
           {worksheetDirty && <small>Unsaved worksheet changes</small>}
-          {pdfStatus && <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small>}
+          {pdfStatus && <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" || pdfStatusKind === "cancelled" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small>} {pdfStatusKind === "progress" && pdfStatus && <button type="button" className="text-button pdf-cancel" onClick={cancelDownload}>Cancel download</button>}
         </> : <>
           <p className="eyebrow">Save PDF</p>
           <h2 id="pdf-title">Save {exportQuestions.length.toLocaleString("en-US")} {exportQuestions.length === 1 ? "question" : "questions"} as a PDF</h2>
           <p>{selectionIsExplicit ? "Using your selected questions." : filtered.length > MAX_PDF_QUESTIONS ? `PDFs are limited to ${MAX_PDF_QUESTIONS} questions. Narrow your filters or select questions.` : "Nothing selected, so this uses every current result."}</p>
           <label className="worksheet-name-field">Name<input aria-label="PDF name" maxLength={80} value={worksheetName} onChange={(event) => { nameTypedRef.current = true; setWorksheetName(event.target.value); }} placeholder="e.g. Algebra revision" /></label>
           <div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div>
-          {pdfContent === "both" && <fieldset className="pdf-options"><legend>Answer placement</legend><label><input type="radio" name="pdf-answer-placement" checked={pdfAnswerPlacement === "all-answers-last"} onChange={() => setPdfAnswerPlacement("all-answers-last")} /> All questions, then all answers</label><label><input type="radio" name="pdf-answer-placement" checked={pdfAnswerPlacement === "after-each-question"} onChange={() => setPdfAnswerPlacement("after-each-question")} /> Each question followed by its answer</label></fieldset>}
-          <div className="worksheet-actions only-save"><button type="button" className="button primary" disabled={!resolvedAccess.bankAccess || !worksheetReady || worksheetLoading || worksheetSaving || !exportQuestions.length || !worksheetName.trim()} onClick={saveWorksheet}>{worksheetSaving ? "Saving…" : "Save PDF"}</button><button ref={pdfBuildButtonRef} type="button" className="pdf-direct-download" aria-label="Download PDF without saving" title="Download PDF" disabled={!resolvedAccess.canExportPdf || !exportQuestions.length || (pdfStatusKind === "progress" && Boolean(pdfStatus))} onClick={handleDownload}><DownloadSimple aria-hidden="true" weight="bold" /></button></div>
-          {pdfStatus ? <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small> : <small className="pdf-save-note">Saved to My Worksheets.</small>}
+          <div className="worksheet-actions only-save"><button type="button" className="button primary" disabled={!resolvedAccess.bankAccess || !worksheetReady || worksheetLoading || worksheetSaving || !exportQuestions.length || !worksheetName.trim()} onClick={saveWorksheet}>{worksheetSaving ? "Saving…" : "Save PDF"}</button><button ref={pdfBuildButtonRef} type="button" className="pdf-direct-download" aria-label="Download PDF without saving" title="Download PDF" disabled={!resolvedAccess.canExportPdf || !exportQuestions.length || (pdfStatusKind === "progress" && Boolean(pdfStatus))} onClick={requestDownload}><DownloadSimple aria-hidden="true" weight="bold" /></button></div>
+          {placementPromptOpen && pdfContent === "both" && <AnswerPlacementPrompt onChoose={(placement) => void handleDownload(placement)} />}
+          {pdfStatus ? <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" || pdfStatusKind === "cancelled" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small> : <small className="pdf-save-note">Saved to My Worksheets.</small>} {pdfStatusKind === "progress" && pdfStatus && <button type="button" className="text-button pdf-cancel" onClick={cancelDownload}>Cancel download</button>}
           {worksheetStatus && <p role={worksheetStatus.endsWith("…") ? "status" : "alert"}>{worksheetStatus}</p>}
         </>}
       </section></div>}
