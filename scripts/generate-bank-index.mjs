@@ -47,6 +47,7 @@ const ibMatrixRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'rev
 const ibBoundaryRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-boundary-batch-repairs.json'), 'utf8'));
 const ibScienceCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-science-crop-repairs.json'), 'utf8'));
 const ibSharedStimulusRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-shared-stimulus-repairs.json'), 'utf8')).banks;
+const ibQuestionBoundaryRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-question-boundary-repairs.json'), 'utf8')).banks;
 const historicalCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-historical-crop-repairs.json'), 'utf8'));
 const biologyPrintedMarks = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-printed-marks.json'), 'utf8'));
 const questionSplits0606 = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-0606-question-splits.json'), 'utf8'));
@@ -71,6 +72,12 @@ function historicalMarks(bank, raw) {
 }
 // Same projection as src/lib/reviewed-biology-printed-marks.ts.
 function printedMarks(bank, raw, marks) {
+  // Same projection as src/lib/reviewed-ib-question-boundaries.ts (marks).
+  const boundary = ibQuestionBoundaryRepairs[bank]?.[raw.id];
+  if (boundary) {
+    if (marks !== boundary.marks.old) throw new Error(`Reviewed IB question boundary disagrees with ${bank}:${raw.id}`);
+    return boundary.marks.new;
+  }
   // Same projection as src/lib/reviewed-science-removed-part-marks.ts.
   const removed = removedPartMarks[bank]?.[raw.id];
   if (removed) {
@@ -124,6 +131,12 @@ const retiredQuestionCrops = JSON.parse(await readFile(join(root, "src", "data",
 function activeQuestionImageCount(bank, raw) {
   const paths = strings(raw.questionImages);
   // Same projection as src/lib/reviewed-ib-shared-stimulus.ts (counts only).
+  // Same projection as src/lib/reviewed-ib-question-boundaries.ts (counts only).
+  const ibBoundary = ibQuestionBoundaryRepairs[bank]?.[raw.id];
+  if (ibBoundary) {
+    if (JSON.stringify(paths) !== JSON.stringify(ibBoundary.oldPaths)) throw new Error(`Reviewed IB question boundary disagrees with ${bank}:${raw.id}`);
+    return ibBoundary.newPaths.length;
+  }
   const ibShared = ibSharedStimulusRepairs[bank]?.[raw.id];
   if (ibShared) {
     if (JSON.stringify(paths) !== JSON.stringify(ibShared.oldPaths)) throw new Error(`Reviewed IB shared-stimulus crop disagrees with ${bank}:${raw.id}`);
