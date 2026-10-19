@@ -5,18 +5,16 @@ whole-paper archive and publishes their PDFs to `pastpaperprep-free`. The owner 
 
 | Bank | Papers | Online marking (report) | Held (PDFs only) |
 | --- | ---: | ---: | ---: |
-| Computer Science 0478 | 50: Feb/March 2023–2026 (12, 22); May/June 2023–2026 and Oct/Nov 2023–2025 (11–13, 21–23) | 40 (366 questions) | 10 |
+| Computer Science 0478 | 50: Feb/March 2023–2026 (12, 22); May/June 2023–2026 and Oct/Nov 2023–2025 (11–13, 21–23) | 46 (427 questions) | 4 |
 
-Report papers carry exactly the runtime marks: 0 of 366 questions differ, and every paper totals 75.
+Report papers carry exactly the runtime marks: 0 of 427 questions differ, and every paper totals 75.
+
+**Update (#367):** the first release (#365) shipped 40 reports and 10 held papers. #367 reads 0478 marks from the right-aligned mark column instead of every `[n]` in the text, which unblocked six Paper 2s whose pseudocode array indexes (`List[1]`) had been counted as marks. Their PDFs are unchanged.
 
 Held papers list their question paper and mark scheme without a per-question report:
 
 - **"Question and markscheme maxima disagree":** 0478-2023-s-21, -s-22, -s-23. Cambridge's mark-scheme covers print "Maximum Mark: 50"; the question papers print 75. 0478-2023-s-22 also had Q5 withdrawn by Cambridge.
 - **"Printed and runtime question inventories do not reconcile":** 0478-2025-s-22. Cambridge withdrew Q10, the 15-mark scenario, so the runtime has 9 rows for 10 printed questions.
-- **"Printed question maxima do not reconcile":** 0478-2024-s-21, -s-22, -w-23, 0478-2025-s-23, -w-22, 0478-2026-s-21.
-  - The whole-paper extractor counts pseudocode array indexes such as `List[1]` as printed marks. For example, 2024-s-21 Q6 reads 38 marks instead of 10.
-  - The runtime marks are correct.
-  - This is a known extractor limitation and is left for a separate fix. Holding these papers is the fail-closed outcome; their PDFs are unaffected.
 
 ## Sources
 
