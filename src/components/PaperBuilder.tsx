@@ -14,7 +14,9 @@ import { sessionLifecycleOwner } from "@/lib/member-session-cache";
 import { lowerTarget, reconcileDraft, swapCandidate, type DraftResult, type DraftTarget, type PaperDraftTarget } from "@/lib/paper-draft";
 import { trackProductEvent } from "@/lib/product-analytics";
 import type { PublicBankIndex } from "@/lib/question-index";
+import type { PdfAnswerPlacement } from "@/lib/pdf-export";
 import { exportWorksheetPdf } from "@/lib/worksheet-export";
+import { AnswerPlacementPrompt } from "@/components/AnswerPlacementPrompt";
 import { suggestWorksheetTitle } from "@/lib/worksheet-title";
 import "./paper-builder.css";
 
@@ -33,6 +35,9 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
   const [questions, setQuestions] = useState<BuilderQuestion[]>([]);
   const [loading, setLoading] = useState(Boolean(banks.length));
   const [loadError, setLoadError] = useState("");
+  const [placementPromptOpen, setPlacementPromptOpen] = useState(false);
+  // Bumped to start or cancel a download; a build whose number is stale stops at its next step.
+  const exportRunRef = useRef(0);
   const [reload, setReload] = useState(0);
   const [route, setRoute] = useState<CourseRouteSelection>("all");
   const [from, setFrom] = useState<number>();
@@ -244,22 +249,32 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
     } finally { setBusy(""); }
   }
 
-  async function download() {
+  function cancelDownload() {
+    exportRunRef.current += 1;
+    trackProductEvent("pdf_export_cancel", { bank, questionCount: sheet.length, content: "both", source: "builder" });
+    setBusy(""); setMessage({ kind: "info", text: "Download cancelled." });
+  }
+
+  async function download(answerPlacement: PdfAnswerPlacement) {
+    setPlacementPromptOpen(false);
     if (!bank || !sheet.length || busy) return;
+    const run = ++exportRunRef.current;
     const properties = { bank, questionCount: sheet.length, content: "both", source: "builder" };
     setBusy("exporting"); setMessage({ kind: "info", text: `Preparing ${sheet.length} questions…` });
     trackProductEvent("pdf_export_attempt", properties);
     try {
-      const { heldNotice } = await exportWorksheetPdf({ bank, questions: sheet, title: shownTitle.trim() || suggestion, marker: exportMarker,
-        isCurrent: () => mountedRef.current && sessionLifecycleOwner(document.cookie) === scopeOwner,
+      const { heldNotice } = await exportWorksheetPdf({ bank, questions: sheet, title: shownTitle.trim() || suggestion, marker: exportMarker, answerPlacement,
+        isCurrent: () => exportRunRef.current === run && mountedRef.current && sessionLifecycleOwner(document.cookie) === scopeOwner,
         onProgress: (complete, total) => setMessage({ kind: "info", text: `Preparing ${complete} of ${total}…` }) });
+      if (exportRunRef.current !== run) return;
       trackProductEvent("pdf_export_success", properties);
       setMessage({ kind: "info", text: heldNotice ?? "PDF downloaded." });
     } catch (reason) {
+      if (exportRunRef.current !== run) return;
       if (reason instanceof DOMException && reason.name === "AbortError") { if (mountedRef.current) setMessage({ kind: "error", text: "Download cancelled because you signed out." }); return; }
       trackProductEvent("pdf_export_error", properties);
       setMessage({ kind: "error", text: reason instanceof Error ? reason.message : "Could not make the PDF." });
-    } finally { setBusy(""); }
+    } finally { if (exportRunRef.current === run) setBusy(""); }
   }
 
   if (!banks.length) return <div className="paper-builder-empty"><h2>Build papers with a plan</h2><p>Paper building requires access to a question bank.</p><a className="button primary" href="/pricing">See plans</a></div>;
@@ -298,10 +313,13 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
         actions={<>
           {message && <p className={`builder-message is-${message.kind}`} role={message.kind === "error" ? "alert" : "status"}>{message.text}</p>}
           {saved && <a className="builder-saved-link" href={`/banks/${bank}?worksheet=${encodeURIComponent(saved.id)}`}>{dirty ? "Open saved version" : "Saved to My worksheets · Open"}</a>}
-          <button type="button" className="button secondary" disabled={Boolean(busy) || !sheet.length} onClick={() => void download()}><DownloadSimple aria-hidden="true" /> {busy === "exporting" ? "Preparing…" : "Download PDF"}</button>
+          {busy === "exporting"
+            ? <button type="button" className="button secondary" onClick={cancelDownload}>Cancel download</button>
+            : <button type="button" className="button secondary" aria-expanded={placementPromptOpen} disabled={Boolean(busy) || !sheet.length} onClick={() => setPlacementPromptOpen((open) => !open)}><DownloadSimple aria-hidden="true" /> Download PDF</button>}
           <button type="button" className="button primary" disabled={Boolean(busy) || !sheet.length || !shownTitle.trim() || (Boolean(saved) && !dirty)} onClick={() => void save()}>
             {busy === "saving" ? "Saving…" : saved ? (dirty ? "Save changes" : "Saved") : "Save PDF"}
           </button>
+          {placementPromptOpen && !busy && <AnswerPlacementPrompt onChoose={(placement) => void download(placement)} />}
         </>} />
     </div>
     {sheet.length > 0 && <a className="builder-jump" href="#builder-sheet">View paper · {sheet.length} {sheet.length === 1 ? "question" : "questions"}</a>}

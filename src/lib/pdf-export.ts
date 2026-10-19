@@ -675,6 +675,9 @@ export async function downloadQuestionPdf(
       startAnswerPage = true;
     }
     const position = positions.get(question)!;
+    // With answers after each question, every answer and every later question starts its own page, so an
+    // answer never sits in view of its question and never runs into the next one.
+    if (content === "both" && answerPlacement === "after-each-question" && (kind === "answer" || position > 1)) startAnswerPage = true;
     const label: PdfLabel = { heading: kind === "question" ? `Question ${position}` : `Question ${position} · Mark scheme`, source: pdfSourceLabel(question) };
     if (kind === "question") {
       if (!question.questionImages.length) throw new Error(`Question image is missing for ${question.id}`);
