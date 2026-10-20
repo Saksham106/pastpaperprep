@@ -344,3 +344,26 @@ test('validator accepts a code block and rejects empty, tab-indented or unknown 
   assert.equal(validateExplanation(withStep({ code: 'IF X\n\tOUTPUT X' })).filter((e) => /tabs/.test(e)).length, 1);
   assert.equal(validateExplanation(withStep({ pseudocode: 'x' })).filter((e) => /unknown key "pseudocode"/.test(e)).length, 1);
 });
+
+test('twins reuse a publishable canonical only when text, marks and ledger agree', async () => {
+  const { resolveTwins, normalizedQuestionText } = await import('./twins.mjs');
+  assert.equal(normalizedQuestionText('12. State the purpose of a  CPU. [1] ......'), normalizedQuestionText('3. State the purpose of a CPU. [1]'));
+  assert.notEqual(normalizedQuestionText('1. Convert 40 to binary. [2]'), normalizedQuestionText('1. Convert 5 to binary. [2]'));
+  const doc = { schemaVersion: 1, bank: 'ib-computer-science-hl', questionId: 'h1', totalMarks: 2, parts: [{ label: '', marks: 2, approach: 'x', answer: 'y', steps: [{ text: 't', marks: ['✓', '✓'] }] }] };
+  const runtime = (bank, id) => ({ h1: { text: '1. Define RAM. [2]', marks: 2 }, s1: { text: '4. Define RAM. [2]', marks: 2 }, s2: { text: '5. Define ROM. [2]', marks: 2 }, s3: { text: '6. Define RAM. [3]', marks: 3 } })[id] ?? null;
+  const source = (bank, id) => (bank === 'ib-computer-science-hl' && id === 'h1' ? { status: 'pass', doc } : null);
+  const twins = { schema: 'explanation-twins-v1', bank: 'ib-computer-science-sl', twins: {
+    s1: { sourceBank: 'ib-computer-science-hl', sourceId: 'h1', marks: 2 },
+    s2: { sourceBank: 'ib-computer-science-hl', sourceId: 'h1', marks: 2 },
+    s3: { sourceBank: 'ib-computer-science-hl', sourceId: 'h1', marks: 3 },
+    s4: { sourceBank: 'ib-computer-science-hl', sourceId: 'missing', marks: 2 },
+    s5: { sourceBank: 'ib-computer-science-hl', sourceId: 'h1', marks: 2 },
+  } };
+  const { resolved, skipped } = resolveTwins({ bank: 'ib-computer-science-sl', twins, ownRows: new Set(['s5']), source, runtime });
+  assert.deepEqual(resolved.map((r) => [r.id, r.status, r.doc.bank, r.doc.questionId, r.doc.parts === doc.parts]), [['s1', 'twin:pass', 'ib-computer-science-sl', 's1', true]]);
+  assert.deepEqual(skipped.map((s) => s.split(':')[0]).sort(), ['s2', 's3', 's4']);
+  assert.match(skipped.find((s) => s.startsWith('s2')), /question text differs/);
+  assert.match(skipped.find((s) => s.startsWith('s3')), /marks differ/);
+  assert.throws(() => resolveTwins({ bank: 'ib-computer-science-hl', twins, ownRows: new Set(), source, runtime }), /Invalid twins file/);
+  assert.deepEqual(resolveTwins({ bank: 'x', twins: null, ownRows: new Set(), source, runtime }), { resolved: [], skipped: [] });
+});

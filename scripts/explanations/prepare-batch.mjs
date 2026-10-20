@@ -60,6 +60,8 @@ export const BANKS = {
   "igcse-coordinated-sciences-0654": { data: "src/data/production/igcse-coordinated-sciences-0654.json", calculator: calculator("igcse-coordinated-sciences-0654"), r2Prefix: "igcse-coordinated-sciences-0654/releases/full4721-v1-6b161eb9e580/" },
   "igcse-economics-0455": { data: "src/data/production/igcse-economics-0455.json", calculator: calculator("igcse-economics-0455"), r2Prefix: "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/" },
   "igcse-computer-science-0478": { data: "src/data/production/igcse-computer-science-0478.json", calculator: calculator("igcse-computer-science-0478"), r2Prefix: "igcse-computer-science-0478/releases/full469-v1-0eb04c612b39/" },
+  "ib-computer-science-hl": { data: "src/data/production/ib-computer-science-hl.json", calculator: calculator("ib-computer-science-hl"), r2Prefix: "ib-computer-science-hl/releases/full506-v1-610ccfc508e1/" },
+  "ib-computer-science-sl": { data: "src/data/production/ib-computer-science-sl.json", calculator: calculator("ib-computer-science-sl"), r2Prefix: "ib-computer-science-sl/releases/full391-v1-302f6c9461e6/" },
 };
 const r2Cache = (bank) => join(researchRoot, "_r2src", bank);
 // A failed or throttled download can leave an empty file behind; it is not an image.
