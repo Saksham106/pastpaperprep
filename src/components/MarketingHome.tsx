@@ -1,4 +1,6 @@
 import Link from "next/link";
+import type { UpdateNews } from "@/lib/updates";
+import { BuildSite } from "@/components/BuildSite";
 import Image from "next/image";
 import { ArrowRight, CaretDown } from "@phosphor-icons/react/dist/ssr";
 import type { Bank } from "@/lib/banks";
@@ -37,7 +39,7 @@ function SubjectCards({ banks, papers }: { banks: readonly Bank[]; papers: HomeP
   return <CourseCards groups={groupCourses(banks, (bank) => ({ slug: bank.slug, name: bank.shortName, topics: { href: bankEntryHref(bank.slug), count: bank.questionCount }, papers: papers[bank.slug], freeTier: hasFreeTier(bank.slug) }))} />;
 }
 
-export function MarketingHome({ environment = process.env, papers = {} }: { environment?: Record<string, string | undefined>; papers?: HomePaperLinks }) {
+export function MarketingHome({ environment = process.env, papers = {}, news = [], comingSoon = [] }: { environment?: Record<string, string | undefined>; papers?: HomePaperLinks; news?: readonly UpdateNews[]; comingSoon?: readonly string[] }) {
   const banks = getCatalogRuntimeBanks(environment);
   const cambridgeBanks = banks.filter((bank) => bank.qualification === "Cambridge IGCSE");
   const ibBanks = banks.filter((bank) => bank.qualification === "International Baccalaureate");
@@ -122,6 +124,32 @@ export function MarketingHome({ environment = process.env, papers = {} }: { envi
         <p className={styles.faqContact}>Still need help? <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a></p>
       </div>
     </section>
+
+    {(news.length > 0 || comingSoon.length > 0) && <section className={styles.updatesBand} data-home-section="updates" aria-labelledby="home-updates-heading">
+      <div className={`shell ${styles.updatesInner}`}>
+        <header className={styles.updatesIntro}>
+          <p className={styles.eyebrow}>Updates</p>
+          <h2 id="home-updates-heading">What&apos;s new</h2>
+          <Link className={styles.faqAllLink} href="/updates">All updates <ArrowRight weight="bold" /></Link>
+        </header>
+        <ol className={styles.newsList}>
+          {comingSoon.length > 0 && <li className={styles.building}>
+            <p className={styles.newsWhen}>Soon</p>
+            <div>
+              <p className={styles.buildingLabel}>Being built</p>
+              <ul>{comingSoon.map((item, index) => <li key={item}><BuildSite text={item} offset={index * .27} /></li>)}</ul>
+            </div>
+          </li>}
+          {news.map((item) => <li key={item.href}>
+            <Link href={item.href}>
+              <time className={styles.newsWhen} dateTime={item.date}>{new Date(`${item.date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}</time>
+              <span className={styles.newsTitle}>{item.title} <span className={styles.newsTag}>{item.tag}</span></span>
+              <span className={styles.newsBody}>{item.body}</span>
+            </Link>
+          </li>)}
+        </ol>
+      </div>
+    </section>}
 
     <section className={`shell ${styles.cta}`} data-home-section="cta" aria-labelledby="cta-heading">
       <h2 id="cta-heading">Start with one topic.</h2>

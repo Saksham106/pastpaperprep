@@ -1,0 +1,67 @@
+/* A coming-soon title as a small building site, sized like a log row: steel tube scaffold (uprights and a
+   diagonal brace per bay, repeated to fit any width), safety netting behind the words, a plank deck on top,
+   a hazard board at the bottom and a ladder up the side. Hammers land at 70% of a 0.8 s swing; the struck
+   letters jolt on the same beat. */
+.site {
+  --steel: #8b929c; --steel-dark: #5b616b; --wood: #b98a52; --wood-dark: #7d5a30;
+  --bay: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40' preserveAspectRatio='none'%3E%3Cpath d='M1 0V40' stroke='%238b929c' stroke-width='2' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M1 40L48 0' stroke='%238b929c' stroke-width='1' stroke-opacity='.55' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+  position: relative; display: inline-block; max-width: 100%; padding: 28px 22px 9px 30px;
+}
+.text { position: relative; z-index: 1; }
+.word { white-space: nowrap; }
+.word > span { position: relative; display: inline-block; }
+
+/* Scaffold sits behind the words, from the deck down to the ground. */
+.frame, .net { position: absolute; top: 24px; bottom: 4px; left: 22px; right: 12px; }
+.frame { background: var(--bay) left / 48px 100% repeat-x; border-right: 2px solid var(--steel); }
+.net { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--steel) 14%, transparent) 0 1px, transparent 1px 6px), repeating-linear-gradient(-45deg, color-mix(in srgb, var(--steel) 14%, transparent) 0 1px, transparent 1px 6px); }
+.deck { position: absolute; top: 21px; left: 18px; right: 8px; height: 4px; border-radius: 1px; background: repeating-linear-gradient(90deg, var(--wood) 0 15px, var(--wood-dark) 15px 16px); box-shadow: 0 1px 0 var(--steel-dark); }
+.hazard { position: absolute; bottom: 0; left: 18px; right: 8px; height: 4px; border-radius: 1px; background: repeating-linear-gradient(-45deg, #f2b630 0 4px, #2b2b2b 4px 8px); }
+.ladder { position: absolute; top: 21px; bottom: 0; right: 0; width: 7px; border-inline: 1.5px solid var(--steel-dark); background: repeating-linear-gradient(transparent 0 4px, var(--steel-dark) 4px 5.5px); }
+
+.builder { position: absolute; z-index: 2; width: 21px; height: 25px; pointer-events: none; }
+.builder svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.sideBuilder { left: 2px; bottom: 4px; }
+.topBuilder { left: 58%; top: -3px; }
+.walker { left: 16%; top: -3px; }
+
+.skin { fill: #f4c39b; stroke: #5a3a1c; stroke-width: 1; }
+.armSkin { fill: none; stroke: #f4c39b; stroke-width: 3; stroke-linecap: round; }
+.beard { fill: #8a5a2b; }
+.eye { fill: #2a1d12; }
+.hat { fill: #f2b630; stroke: #a8730d; stroke-width: .8; }
+.overalls { fill: #3f6fd1; stroke: #24448a; stroke-width: 1; }
+.belt { stroke: #f2b630; stroke-width: 1.6; }
+.boot { fill: #5a3a1c; }
+.handle { fill: none; stroke: #8a5a2b; stroke-width: 2.4; stroke-linecap: round; }
+.hammerHead { fill: #6b6f78; stroke: #3c3f45; stroke-width: .8; }
+.plank { fill: var(--wood); stroke: var(--wood-dark); stroke-width: .8; }
+.arm { transform-box: view-box; transform-origin: 22px 22px; transform: rotate(-55deg); }
+
+.puff { position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: radial-gradient(circle, #e6d7bf 0 40%, transparent 70%); opacity: 0; pointer-events: none; }
+.hitTop .puff { top: 0; }
+.hitSide .puff { left: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .sideBuilder .arm { animation: swing .8s ease-in calc(var(--offset, 0s)) infinite; }
+  .topBuilder .arm { animation: swing-down .8s ease-in calc(var(--offset, 0s) + .4s) infinite; }
+  .hitSide { animation: jolt-side .8s ease-out calc(var(--offset, 0s)) infinite; }
+  .hitTop { animation: jolt-down .8s ease-out calc(var(--offset, 0s) + .4s) infinite; }
+  .hitSide .puff { animation: puff .8s ease-out calc(var(--offset, 0s)) infinite; }
+  .hitTop .puff { animation: puff .8s ease-out calc(var(--offset, 0s) + .4s) infinite; }
+  .walker { animation: patrol 7s linear calc(var(--offset, 0s) * 3) infinite; }
+  .walker svg { animation: bob .35s ease-in-out infinite alternate; }
+}
+
+@keyframes swing { 0%, 50% { transform: rotate(-55deg); } 70% { transform: rotate(18deg); } 78% { transform: rotate(10deg); } 100% { transform: rotate(-55deg); } }
+@keyframes swing-down { 0%, 50% { transform: rotate(-55deg); } 70% { transform: rotate(62deg); } 78% { transform: rotate(54deg); } 100% { transform: rotate(-55deg); } }
+@keyframes jolt-side { 0%, 68% { transform: none; } 72% { transform: translateX(1.5px) rotate(5deg); } 86%, 100% { transform: none; } }
+@keyframes jolt-down { 0%, 68% { transform: none; } 72% { transform: translateY(2px) scaleY(.93); } 86%, 100% { transform: none; } }
+@keyframes puff { 0%, 69% { opacity: 0; transform: scale(.4); } 72% { opacity: .95; } 100% { opacity: 0; transform: scale(2) translateY(-4px); } }
+@keyframes patrol {
+  0% { left: 14%; transform: scaleX(1); } 44% { left: 42%; transform: scaleX(1); }
+  50% { left: 42%; transform: scaleX(-1); } 94% { left: 14%; transform: scaleX(-1); } 100% { left: 14%; transform: scaleX(1); }
+}
+@keyframes bob { to { transform: translateY(-1px); } }
+
+:root[data-theme="dark"] .site { --steel: #9aa3ae; --steel-dark: #6f7782; --wood: #c99a62; --wood-dark: #8d6a3c; }

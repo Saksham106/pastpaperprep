@@ -4,6 +4,7 @@ import { hubBanks } from "@/lib/past-paper-pages";
 import { InviteHandoff } from "@/components/InviteHandoff";
 import { JsonLd } from "@/components/JsonLd";
 import { SOCIAL_IMAGE } from "@/lib/seo";
+import { COMING_SOON, recentNews } from "@/lib/updates";
 
 export const metadata: Metadata = {
   title: { absolute: "Free IGCSE & IB Past Papers by Topic | PastPaperPrep" },
@@ -44,7 +45,7 @@ export default async function Home() {
           },
         ],
       }} />
-      <MarketingHome papers={papers} />
+      <MarketingHome papers={papers} news={recentNews(1)} comingSoon={COMING_SOON} />
     </>
   );
 }
