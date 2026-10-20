@@ -8,6 +8,8 @@ import Link from "next/link";
 import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, FilePlus, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
 import type { PdfAnswerPlacement, PdfContent } from "@/lib/pdf-export";
 import { AnswerPlacementPrompt } from "@/components/AnswerPlacementPrompt";
+import { LargeExportConfirm } from "@/components/LargeExportConfirm";
+import { LARGE_PDF_QUESTIONS } from "@/lib/export-limits";
 import { suggestWorksheetTitle } from "@/lib/worksheet-title";
 import { PeriodicTableButton } from "@/components/PeriodicTableButton";
 import { hasPeriodicTable } from "@/lib/periodic-table";
@@ -25,7 +27,7 @@ import { currentQuestionIds } from "@/lib/question-id-aliases";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
 import type { AssetRequest } from "@/lib/asset-access";
 import type { BankSlug } from "@/lib/banks";
-import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, signAssetBatches, lapsedSignedAssetExpiry, preferSignedFreeAssets, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
+import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, PdfSignError, pdfFailureReason, isSignedAssetFresh, signAssetBatches, lapsedSignedAssetExpiry, preferSignedFreeAssets, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { FREE_PUBLIC_ASSET_ORIGIN, isFreePublicAssetUrl } from "@/lib/free-asset-index";
 import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
 import { documentHasSupabaseAuthCookie, subscribeToSessionChanges } from "@/lib/supabase/auth-cookie";
@@ -321,6 +323,8 @@ access: ExplorerAccess;
   const [pdfContent, setPdfContent] = useState<PdfContent>("both");
   // Questions-and-answers downloads ask where answers go once Download is pressed.
   const [placementPromptOpen, setPlacementPromptOpen] = useState(false);
+  const [largeExportPlacement, setLargeExportPlacement] = useState<PdfAnswerPlacement | null>(null);
+  const exportingRef = useRef(0); // run number of the export in progress, 0 when idle
   const [pdfStatus, setPdfStatus] = useState("");
   const [pdfStatusKind, setPdfStatusKind] = useState<"progress" | "success" | "error" | "cancelled">("progress");
   const shareButtonRef = useRef<HTMLButtonElement>(null);
@@ -1259,16 +1263,22 @@ access: ExplorerAccess;
   };
   const cancelDownload = () => {
     pdfRunRef.current += 1;
+    exportingRef.current = 0;
     trackProductEvent("pdf_export_cancel", { bank: bank ?? "unknown", questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
     setPdfStatusKind("cancelled");
     setPdfStatus("Download cancelled.");
   };
-  const handleDownload = async (answerPlacement: PdfAnswerPlacement) => {
+  const handleDownload = async (answerPlacement: PdfAnswerPlacement, confirmedLarge = false) => {
     titleLookupRef.current += 1;
     setPlacementPromptOpen(false);
+    // One export at a time: extra clicks while one is building are ignored.
+    if (exportingRef.current) return;
     if (!scopeIsCurrent() || !resolvedAccess.canExportPdf || !bank || !exportQuestions.length || Boolean(worksheetId && (worksheetLoadFailed || !worksheetReady))) return;
+    if (!confirmedLarge && exportQuestions.length >= LARGE_PDF_QUESTIONS) { setLargeExportPlacement(answerPlacement); return; }
+    setLargeExportPlacement(null);
     trackProductEvent("pdf_export_attempt", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
     const run = ++pdfRunRef.current;
+    exportingRef.current = run;
     const live = () => scopeIsCurrent() && pdfRunRef.current === run;
     setPdfStatusKind("progress");
     setPdfStatus(`Preparing ${exportQuestions.length} questions...`);
@@ -1308,11 +1318,15 @@ access: ExplorerAccess;
       }
     } catch (error) {
       if (!live()) return;
-      trackProductEvent("pdf_export_error", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog" });
+      const reason = pdfFailureReason(error);
+      // Hitting the daily limit is a block, not a failure; it is counted separately.
+      trackProductEvent(reason === "daily_limit" ? "pdf_export_blocked" : "pdf_export_error", { bank, questionCount: exportQuestions.length, content: pdfContent, source: worksheetId ? "worksheet" : "save_dialog", reason, status: error instanceof PdfSignError ? error.status : undefined });
       setPdfStatusKind("error");
       setPdfStatus(error instanceof Error ? error.message : "The worksheet could not be built. Check your connection and try again.");
       shakeElement(pdfBuildButtonRef.current);
       shakeElement(pdfStatusRef.current);
+    } finally {
+      if (exportingRef.current === run) exportingRef.current = 0;
     }
   };
 
@@ -1436,8 +1450,9 @@ access: ExplorerAccess;
           <h2 id="pdf-title">Download {exportQuestions.length.toLocaleString("en-US")} {exportQuestions.length === 1 ? "question" : "questions"}</h2>
           <p>Only the questions in this worksheet are included.</p>
           <div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div>
-          <div className="worksheet-actions only-download"><button ref={pdfBuildButtonRef} className="button secondary pdf-download" disabled={!exportQuestions.length} onClick={requestDownload}><DownloadSimple /> {pdfStatusKind === "success" ? "PDF downloaded" : "Download PDF"}</button></div>
+          <div className="worksheet-actions only-download"><button ref={pdfBuildButtonRef} className="button secondary pdf-download" disabled={!exportQuestions.length || (pdfStatusKind === "progress" && Boolean(pdfStatus))} onClick={requestDownload}><DownloadSimple /> {pdfStatusKind === "success" ? "PDF downloaded" : "Download PDF"}</button></div>
           {placementPromptOpen && pdfContent === "both" && <AnswerPlacementPrompt onChoose={(placement) => void handleDownload(placement)} />}
+          {largeExportPlacement && <LargeExportConfirm count={exportQuestions.length} onConfirm={() => void handleDownload(largeExportPlacement, true)} onCancel={() => setLargeExportPlacement(null)} />}
           {worksheetStatus && <p role={worksheetLoadFailed || worksheetStatus.includes("could not") || worksheetStatus.includes("required") || worksheetStatus.includes("unavailable") ? "alert" : "status"}>{worksheetStatus}</p>}
           {worksheetLoadFailed && <button type="button" onClick={() => { setWorksheetStatus(""); setWorksheetLoadFailed(false); setWorksheetReady(false); }}>Retry loading worksheet</button>}
           {worksheetDirty && <small>Unsaved worksheet changes</small>}
@@ -1450,6 +1465,7 @@ access: ExplorerAccess;
           <div className="pdf-options">{(["questions", "answers", "both"] as PdfContent[]).map((value) => <label key={value}><input type="radio" name="pdf-content" checked={pdfContent === value} onChange={() => setPdfContent(value)} /> {value === "both" ? "Questions and answers" : value[0].toUpperCase() + value.slice(1)}</label>)}</div>
           <div className="worksheet-actions only-save"><button type="button" className="button primary" disabled={!resolvedAccess.bankAccess || !worksheetReady || worksheetLoading || worksheetSaving || !exportQuestions.length || !worksheetName.trim()} onClick={saveWorksheet}>{worksheetSaving ? "Saving…" : "Save PDF"}</button><button ref={pdfBuildButtonRef} type="button" className="pdf-direct-download" aria-label="Download PDF without saving" title="Download PDF" disabled={!resolvedAccess.canExportPdf || !exportQuestions.length || (pdfStatusKind === "progress" && Boolean(pdfStatus))} onClick={requestDownload}><DownloadSimple aria-hidden="true" weight="bold" /></button></div>
           {placementPromptOpen && pdfContent === "both" && <AnswerPlacementPrompt onChoose={(placement) => void handleDownload(placement)} />}
+          {largeExportPlacement && <LargeExportConfirm count={exportQuestions.length} onConfirm={() => void handleDownload(largeExportPlacement, true)} onCancel={() => setLargeExportPlacement(null)} />}
           {pdfStatus ? <small ref={pdfStatusRef} role="status" aria-live="polite" className={pdfStatusKind === "progress" || pdfStatusKind === "cancelled" ? "" : pdfStatusKind === "error" ? "is-error" : "is-success"}>{pdfStatus}</small> : <small className="pdf-save-note">Saved to My Worksheets.</small>} {pdfStatusKind === "progress" && pdfStatus && <button type="button" className="text-button pdf-cancel" onClick={cancelDownload}>Cancel download</button>}
           {worksheetStatus && <p role={worksheetStatus.endsWith("…") ? "status" : "alert"}>{worksheetStatus}</p>}
         </>}

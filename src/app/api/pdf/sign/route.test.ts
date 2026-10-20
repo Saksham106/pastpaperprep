@@ -42,6 +42,7 @@ function request(body: unknown) {
 describe("POST /api/pdf/sign", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.stubEnv("SUPABASE_SECRET_KEY", "test-server-secret");
     getClaims.mockResolvedValue({ data: { claims: { sub: "user-id" } } });
     const entitlementQuery = {
       select: vi.fn(() => entitlementQuery),
@@ -107,10 +108,36 @@ describe("POST /api/pdf/sign", () => {
     expect(response.status).toBe(200);
     expect(response.headers.get("cache-control")).toBe("private, no-store, max-age=0");
     expect(createSignedUrls).toHaveBeenCalledOnce();
-    expect(rpc).toHaveBeenCalledWith("consume_download_allowance", {
+    expect(rpc).toHaveBeenCalledWith("consume_pdf_export_allowance", { p_export_key: expect.stringMatching(/^[0-9a-f]{64}$/),
       p_asset_count: 2,
       p_pdf_question_count: 1,
     });
+  });
+
+  it("falls back to the old allowance while the repeat-free function isn't deployed yet", async () => {
+    rpc.mockImplementation((name: string) => Promise.resolve(
+      name === "get_custom_bundle_access" ? { data: [], error: null }
+        : name === "consume_pdf_export_allowance" ? { data: null, error: { code: "PGRST202", message: "Could not find the function" } }
+          : { data: true, error: null }));
+    const response = await POST(request({ bank: "ib-sl", questionIds: ["2026-may-p2-tz1-q2"], content: "questions" }));
+    expect(response.status).toBe(200);
+    expect(rpc).toHaveBeenLastCalledWith("consume_download_allowance", { p_asset_count: 2, p_pdf_question_count: 1 });
+  });
+
+  it("charges every export the old way when the server secret is missing", async () => {
+    vi.stubEnv("SUPABASE_SECRET_KEY", "");
+    const response = await POST(request({ bank: "ib-sl", questionIds: ["2026-may-p2-tz1-q2"], content: "questions" }));
+    expect(response.status).toBe(200);
+    expect(rpc).not.toHaveBeenCalledWith("consume_pdf_export_allowance", expect.anything());
+    expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: 2, p_pdf_question_count: 1 });
+  });
+
+  it("uses the same worksheet key for the same questions in any order", async () => {
+    await POST(request({ bank: "ib-sl", questionIds: ["2026-may-p2-tz1-q2"], content: "questions" }));
+    await POST(request({ bank: "ib-sl", questionIds: ["2026-may-p2-tz1-q2"], content: "questions" }));
+    const keys = rpc.mock.calls.filter(([name]) => name === "consume_pdf_export_allowance").map(([, args]) => (args as { p_export_key: string }).p_export_key);
+    expect(keys).toHaveLength(2);
+    expect(keys[0]).toBe(keys[1]);
   });
 
   it("exports a retired question id from an already-open page through its replacement", async () => {
@@ -119,14 +146,14 @@ describe("POST /api/pdf/sign", () => {
     const signed = await fetchPdfAssets("ib-sl", ["m26-math-aasl-p2-tza-q2"], "both", fetcher);
     expect([...signed.keys()].sort()).toEqual(["m26-math-aasl-p2-tza-q2:answer", "m26-math-aasl-p2-tza-q2:question"]);
     expect(signed.get("m26-math-aasl-p2-tza-q2:question")?.urls[0]).toContain("ib-sl/questions/2026-may-p2-tz1-q2");
-    expect(rpc).toHaveBeenCalledWith("consume_download_allowance", expect.objectContaining({ p_pdf_question_count: 1 }));
+    expect(rpc).toHaveBeenCalledWith("consume_pdf_export_allowance", expect.objectContaining({ p_pdf_question_count: 1 }));
   });
 
   it("counts answer-only solution questions without requiring an image", async () => {
     const response = await POST(request({ bank: "ib-sl", questionIds: [SOLUTION_ONLY], content: "answers" }));
     expect(response.status).toBe(200);
     expect(createSignedUrls).not.toHaveBeenCalled();
-    expect(rpc).toHaveBeenCalledWith("consume_download_allowance", {
+    expect(rpc).toHaveBeenCalledWith("consume_pdf_export_allowance", { p_export_key: expect.stringMatching(/^[0-9a-f]{64}$/),
       p_asset_count: 0,
       p_pdf_question_count: 1,
     });
@@ -145,7 +172,7 @@ describe("POST /api/pdf/sign", () => {
     const response = await POST(request({ bank: "ib-sl", questionIds: ["2026-may-p2-tz1-q2"], content: "questions" }));
 
     expect(response.status).toBe(503);
-    expect(rpc).not.toHaveBeenCalledWith("consume_download_allowance", expect.anything());
+    expect(rpc).not.toHaveBeenCalledWith("consume_pdf_export_allowance", expect.anything());
   });
 
   it("signs exact source print geometry for the intact 0580 Q16 crop", async () => {
@@ -186,7 +213,7 @@ describe("POST /api/pdf/sign", () => {
     expect(new URL(payload.assets[0].urls[0]).hostname).toBe("assets.example");
     expect(new URL(payload.assets[1].urls[0]).hostname)
       .toBe("92278648535014b5231edfe207b9391d.r2.cloudflarestorage.com");
-    expect(rpc).toHaveBeenCalledWith("consume_download_allowance", {
+    expect(rpc).toHaveBeenCalledWith("consume_pdf_export_allowance", { p_export_key: expect.stringMatching(/^[0-9a-f]{64}$/),
       p_asset_count: 2,
       p_pdf_question_count: 2,
     });
@@ -213,14 +240,14 @@ describe("POST /api/pdf/sign", () => {
       expect(written.questionId).toBe("0620-2025-m-42-q1");
       expect(written.mcqAnswer).toBeUndefined();
       expect(written.urls.length).toBeGreaterThan(0);
-      expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: written.urls.length, p_pdf_question_count: 2 });
+      expect(rpc).toHaveBeenCalledWith("consume_pdf_export_allowance", { p_export_key: expect.stringMatching(/^[0-9a-f]{64}$/), p_asset_count: written.urls.length, p_pdf_question_count: 2 });
     });
 
     it("exports a letters-only answer sheet without signing anything", async () => {
       const response = await POST(request({ bank: "igcse-chemistry-0620", questionIds: ["0620-2025-m-12-q1"], content: "answers" }));
       expect(response.status).toBe(200);
       expect((await response.json()).assets).toEqual([expect.objectContaining({ urls: [], mcqAnswer: { answers: ["A"], note: null } })]);
-      expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: 0, p_pdf_question_count: 1 });
+      expect(rpc).toHaveBeenCalledWith("consume_pdf_export_allowance", { p_export_key: expect.stringMatching(/^[0-9a-f]{64}$/), p_asset_count: 0, p_pdf_question_count: 1 });
     });
 
     it("gives signed-out and other-bank users no letter", async () => {
