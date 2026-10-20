@@ -124,12 +124,15 @@ async function handlePOST(request: Request) {
     }
 
     // Repeating the same worksheet today (double click, retry, cancelled export) is free.
-    let { data: allowed, error: quotaError } = await supabase.rpc("consume_pdf_export_allowance", {
-      p_export_key: pdfExportKey(bank, body.content, questionIds),
-      p_asset_count: premiumPathCount,
-      p_pdf_question_count: questionIds.length,
-    });
-    // Until the migration is applied the function doesn't exist (PostgREST PGRST202): charge as before.
+    const exportKey = pdfExportKey(bank, body.content, questionIds);
+    let { data: allowed, error: quotaError } = exportKey
+      ? await supabase.rpc("consume_pdf_export_allowance", {
+        p_export_key: exportKey,
+        p_asset_count: premiumPathCount,
+        p_pdf_question_count: questionIds.length,
+      })
+      : { data: null, error: { code: "PGRST202" } };
+    // No server secret, or the migration isn't applied yet (PostgREST PGRST202): charge as before.
     if (quotaError?.code === "PGRST202") {
       ({ data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {
         p_asset_count: premiumPathCount,

@@ -64,6 +64,27 @@ test('repeating the same worksheet the same day does not use another export', as
   } finally { await db.close(); }
 });
 
+test('a receipt only covers what it charged: a costlier repeat of the same key is charged', async () => {
+  const db = await setup();
+  try {
+    await as(db, student);
+    // A direct caller registers a cheap charge for some key...
+    assert.equal(await exportPdf(db, key(7), 1, 1), true);
+    assert.deepEqual(await usage(db, student), { pdf_export_count: 1, pdf_question_count: 1, signed_asset_count: 1 });
+    // ...and then asks for far more under the same key: charged normally, not free.
+    await as(db, student);
+    assert.equal(await exportPdf(db, key(7), 50, 900), true);
+    assert.deepEqual(await usage(db, student), { pdf_export_count: 2, pdf_question_count: 51, signed_asset_count: 901 });
+    // At the daily boundary that costlier repeat is denied, exactly like a new export.
+    await as(db, student);
+    assert.equal(await exportPdf(db, key(8), 49, 1000), true);
+    assert.equal(await exportPdf(db, key(7), 50, 1000), false);
+    // An equal-or-cheaper repeat stays free.
+    assert.equal(await exportPdf(db, key(7), 1, 1), true);
+    assert.deepEqual(await usage(db, student), { pdf_export_count: 3, pdf_question_count: 100, signed_asset_count: 1901 });
+  } finally { await db.close(); }
+});
+
 test('rejects malformed input and anonymous callers; table and function grants are exact', async () => {
   const db = await setup();
   try {
@@ -72,7 +93,12 @@ test('rejects malformed input and anonymous callers; table and function grants a
     assert.equal((await db.query(`select public.consume_pdf_export_allowance($1, null, 5) as ok`, [key(9)])).rows[0].ok, false);
     assert.equal((await db.query(`select public.consume_pdf_export_allowance($1, 5, null) as ok`, [key(9)])).rows[0].ok, false);
     assert.equal((await db.query(`select public.consume_pdf_export_allowance($1, 5, 0) as ok`, [key(9)])).rows[0].ok, false);
-    assert.equal(await usage(db, student), null);
+    // Bounds are checked before the repeat path: an out-of-range request is refused even for a charged key.
+    assert.equal(await exportPdf(db, key(10), 5, 5), true);
+    assert.equal(await exportPdf(db, key(10), 51, 5), false);
+    assert.equal(await exportPdf(db, key(10), 5, 1001), false);
+    assert.equal(await exportPdf(db, key(10), 5, -1), false);
+    assert.deepEqual(await usage(db, student), { pdf_export_count: 1, pdf_question_count: 5, signed_asset_count: 5 });
 
     await db.exec(`set request.jwt.claim.role='anon'; set request.jwt.claim.sub='';`);
     assert.equal(await exportPdf(db, key(5)), false);

@@ -42,6 +42,7 @@ function request(body: unknown) {
 describe("POST /api/pdf/sign", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.stubEnv("SUPABASE_SECRET_KEY", "test-server-secret");
     getClaims.mockResolvedValue({ data: { claims: { sub: "user-id" } } });
     const entitlementQuery = {
       select: vi.fn(() => entitlementQuery),
@@ -121,6 +122,14 @@ describe("POST /api/pdf/sign", () => {
     const response = await POST(request({ bank: "ib-sl", questionIds: ["2026-may-p2-tz1-q2"], content: "questions" }));
     expect(response.status).toBe(200);
     expect(rpc).toHaveBeenLastCalledWith("consume_download_allowance", { p_asset_count: 2, p_pdf_question_count: 1 });
+  });
+
+  it("charges every export the old way when the server secret is missing", async () => {
+    vi.stubEnv("SUPABASE_SECRET_KEY", "");
+    const response = await POST(request({ bank: "ib-sl", questionIds: ["2026-may-p2-tz1-q2"], content: "questions" }));
+    expect(response.status).toBe(200);
+    expect(rpc).not.toHaveBeenCalledWith("consume_pdf_export_allowance", expect.anything());
+    expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: 2, p_pdf_question_count: 1 });
   });
 
   it("uses the same worksheet key for the same questions in any order", async () => {

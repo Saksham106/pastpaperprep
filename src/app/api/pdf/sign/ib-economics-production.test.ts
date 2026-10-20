@@ -26,6 +26,7 @@ function request(body: unknown) {
 
 describe("IB Economics production PDF entitlement and quota gates", () => {
   beforeEach(() => {
+    vi.stubEnv("SUPABASE_SECRET_KEY", "test-server-secret");
     vi.clearAllMocks();
     vi.stubEnv("ASSET_STORAGE_PROVIDER", "supabase");
     vi.stubEnv("R2_ACCOUNT_ID", "a".repeat(32));
