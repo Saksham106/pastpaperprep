@@ -2,6 +2,10 @@ import "server-only";
 import { createHash, createHmac, randomUUID } from "node:crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { ANALYTICS_CONSENT_MAX_AGE_SECONDS, stableAnalyticsDistinctId } from "@/lib/analytics-consent";
+import { hasBankAccess, type ProductId } from "@/lib/access";
+import { BANK_CATALOG } from "@/lib/catalog";
+import { validateCustomBankIds } from "@/lib/custom-bundles";
+import type { BankSlug } from "@/lib/banks";
 
 type ConversionOutcome = "signup_confirmed" | "payment_initial_paid" | "payment_renewal_paid" | "lifetime_paid";
 type ConversionInput = {
@@ -13,6 +17,8 @@ type ConversionInput = {
   occurredAt: string;
   product?: string | null;
   interval?: string | null;
+  /** Custom bundles only: the banks the buyer picked (Stripe subscription `selected_bank_ids`). */
+  selectedBankIds?: unknown;
 };
 
 const UUID_NAMESPACE = "a88d86f5-91e9-5c98-bf52-92e5f33193a1";
@@ -24,6 +30,23 @@ const PRODUCTS = new Set([
   "lifetime_all_access",
 ]);
 const INTERVALS = new Set(["monthly", "annual"]);
+
+/**
+ * Which banks a purchase covers, using the same rule as access checks (`hasBankAccess`), so
+ * "what do people pay for" can be broken down by bank. All-access products are summarised as
+ * `scope: "all"` instead of listing every bank.
+ */
+export function purchasedBanks(product: string | null | undefined, selectedBankIds?: unknown): { banks: BankSlug[]; scope: "all" | "banks" } | null {
+  if (!product || !PRODUCTS.has(product)) return null;
+  if (product === "bundle_all" || product === "lifetime_all_access") return { banks: [], scope: "all" };
+  let selected: BankSlug[] | undefined;
+  if (product === "bundle_custom") {
+    try { selected = validateCustomBankIds(typeof selectedBankIds === "string" ? JSON.parse(selectedBankIds) : selectedBankIds); } catch { return null; }
+  }
+  const entitlement = { productId: product as ProductId, selectedBankIds: selected, status: "active" as const, startsAt: "2000-01-01T00:00:00Z", expiresAt: null };
+  const banks = BANK_CATALOG.map(bank => bank.slug).filter(slug => hasBankAccess(slug, [entitlement]));
+  return banks.length ? { banks, scope: "banks" } : null;
+}
 
 function eventUuid(eventKey: string): string {
   const namespace = Buffer.from(UUID_NAMESPACE.replaceAll("-", ""), "hex");
@@ -53,7 +76,7 @@ export async function captureConversionOutcome(input: ConversionInput): Promise<
     // nobody holding an account or invoice ID can recompute them and link the count to a person.
     const idSource = consented ? input.eventKey : anonymousIdSource(input.eventKey);
     const eventId = eventUuid(`uuid:${idSource}`);
-    const properties: Record<string, string | boolean> = {
+    const properties: Record<string, string | boolean | number | string[]> = {
       outcome: input.outcome,
       $insert_id: eventUuid(`insert:${idSource}`),
       // PostHog's documented event UUID deduplication property; key by invoice ID upstream.
@@ -64,6 +87,12 @@ export async function captureConversionOutcome(input: ConversionInput): Promise<
     };
     if (input.product && PRODUCTS.has(input.product)) properties.product = input.product;
     if (input.interval && INTERVALS.has(input.interval)) properties.interval = input.interval;
+    const covered = input.outcome === "signup_confirmed" ? null : purchasedBanks(input.product, input.selectedBankIds);
+    if (covered) {
+      properties.bank_scope = covered.scope;
+      properties.bank_count = covered.banks.length;
+      if (covered.scope === "banks") properties.banks = covered.banks;
+    }
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 1_500);
     try {

@@ -215,6 +215,7 @@ async function handlePOST(request: Request) {
             occurredAt: new Date(paidAt * 1000).toISOString(),
             product: metadataProductId,
             interval,
+            selectedBankIds: current.metadata?.selected_bank_ids,
           });
         }
       } catch {

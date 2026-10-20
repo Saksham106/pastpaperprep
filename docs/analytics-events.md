@@ -58,7 +58,7 @@ No email, name or account ID is ever sent without consent.
 
 | Event | Source | Properties |
 |---|---|---|
-| `conversion_outcome` | sign-up confirmation, Stripe `invoice.paid`, lifetime checkout | `outcome` (`signup_confirmed`, `payment_initial_paid`, `payment_renewal_paid`, `lifetime_paid`), `product?`, `interval?`, `identified` |
+| `conversion_outcome` | sign-up confirmation, Stripe `invoice.paid`, lifetime checkout | `outcome` (`signup_confirmed`, `payment_initial_paid`, `payment_renewal_paid`, `lifetime_paid`), `product?`, `interval?`, `identified`; purchases also `bank_scope` (`banks` or `all`), `bank_count`, `banks` (bank slugs the purchase covers, by the same rule as access checks; custom bundles from `selected_bank_ids`; omitted for all-access) |
 | `$exception` | unhandled server errors (`onRequestError`) | scrubbed message, `route`, `router_kind`, `route_type`, `error_code?`, `digest?`, `correlation_id` |
 | `$exception` with `error_source: handled_response` | an API route answered 5xx (`withFailureReporting`) | `route`, `http_status`, `error_code`, `bank?`, `stage?`, `storage_provider?`, `correlation_id` (also sent as the `x-correlation-id` response header) |
 | `$exception` with `error_source: auth_provider` | auth provider failures | `auth_phase`, `provider_code` |
