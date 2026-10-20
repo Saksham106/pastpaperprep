@@ -1419,6 +1419,7 @@ main { min-height: 72vh; }
 .footer-brand strong { font: 700 1.1rem var(--font-display); letter-spacing: -.04em; }
 .footer-brand p, .site-footer small { color: var(--muted); }
 .footer-brand p { max-width: 390px; margin: 18px 0 0; line-height: 1.55; }
+.footer-preferred-source { min-height: 40px; margin-top: 18px; }
 .footer-links { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 30px 24px; }
 .footer-group h2 { margin: 0 0 12px; color: var(--muted); font: 600 .72rem/1.2 var(--font-mono); }
 .footer-group > div { display: grid; gap: 8px; }

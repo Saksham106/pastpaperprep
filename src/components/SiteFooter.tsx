@@ -4,6 +4,7 @@ import { getCatalogBanksForDisplay } from "@/lib/catalog";
 import { CookieSettingsLink } from "@/components/CookieSettingsLink";
 import { pastPaperLinksEnabled } from "@/lib/past-paper-nav";
 import { FooterSkyline } from "@/components/FooterSkyline";
+import { GooglePreferredSourceButton } from "@/components/GooglePreferredSourceButton";
 
 function FooterGroup({ title, links }: { title: string; links: readonly (readonly [string, string])[] }) {
   return <section className="footer-group"><h2>{title}</h2><div>{links.map(([href, label]) => <Link href={href} key={href}>{label}</Link>)}</div></section>;
@@ -21,7 +22,7 @@ export function SiteFooter() {
   }
   return (
     <footer className="site-footer">
-      <div className="footer-brand"><Link href="/" aria-label="PastPaperPrep home"><BookOpenText weight="bold" /><strong>PastPaperPrep</strong></Link><p>Focused practice for Cambridge IGCSE and IB Diploma question banks.</p></div>
+      <div className="footer-brand"><Link href="/" aria-label="PastPaperPrep home"><BookOpenText weight="bold" /><strong>PastPaperPrep</strong></Link><p>Focused practice for Cambridge IGCSE and IB Diploma question banks.</p><GooglePreferredSourceButton className="footer-preferred-source" /></div>
       <nav className="footer-links" aria-label="Footer navigation">
         {[...groups.entries()].map(([title, links]) => <FooterGroup title={title} links={links} key={title} />)}
         <FooterGroup title="Exam-style practice" links={[["/banks/ib-sl/exam-style", "IB Math AA SL"], ["/banks/ib-hl/exam-style", "IB Math AA HL"], ["/banks/igcse/exam-style", "IGCSE 0580"], ["/banks/igcse-additional/exam-style", "IGCSE 0606"]]} />
