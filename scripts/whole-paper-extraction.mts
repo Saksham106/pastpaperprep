@@ -13,7 +13,7 @@ export function parseIdentity(id: string): Identity {
     const sessionCode = ({march:'m',june:'s',summer:'s',november:'w',winter:'w'} as Record<string,string>)[token] ?? token;
     return {family:'igcse',syllabusCode,year:Number(year),sessionCode,session:sessionCode==='m'?'February/March':sessionCode==='s'?'May/June':'October/November',component,paper:component[0],variant:component[1]};
   }
-  const ib = /^(?:(?:chemistry|physics|biology|economics)-)?(\d{4})-(may|nov|november)-(tz[0123abc]|none)(?:-(hl|sl|hlsl))?-p([123](?:[ab])?)(?:-(english|calculus|discrete-mathematics|sets-relations-and-groups|statistics-and-probability))?$/.exec(id);
+  const ib = /^(?:(?:chemistry|physics|biology|economics|computer-science)-)?(\d{4})-(may|nov|november)-(tz[0123abc]|none)(?:-(hl|sl|hlsl))?-p([123](?:[ab])?)(?:-(english|calculus|discrete-mathematics|sets-relations-and-groups|statistics-and-probability))?$/.exec(id);
   if (ib) return {family:'ib',year:Number(ib[1]),sessionCode:ib[2]==='may'?'may':'nov',session:ib[2]==='may'?'May':'November',variant:ib[3],level:ib[4],paper:ib[5],component:`P${ib[5].toUpperCase()}`};
   const sl = /^(\d{4})-(may|november)-p([123])-(tz[0123abcn])$/.exec(id);
   if(sl)return {family:'ib',year:Number(sl[1]),sessionCode:sl[2]==='may'?'may':'nov',session:sl[2]==='may'?'May':'November',variant:sl[4],paper:sl[3],component:`P${sl[3]}`};
