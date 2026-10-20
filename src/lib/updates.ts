@@ -15,7 +15,7 @@ export type Update = {
 };
 
 export const COMING_SOON: readonly string[] = [
-  "IB Computer Science full past papers",
+  "Ask AI for help on any question you're stuck on",
   "Worked explanations for the remaining banks",
 ];
 
