@@ -72,6 +72,11 @@ it('finds an IB exam cover after licensing and keeps component maximum separate 
 });
 it('verifies spaced-font headers and April dates in the coded May examination session',()=>{
   expect(parseHeader('Physics H i gher l evel Paper 1 6 May 2016 1 hour The maximum mark for this examination paper is [40 marks]. 2216 – 6501',parseIdentity('physics-2016-may-tz0-hl-p1-english')).identityValid).toBe(true);
+  // A cover can space the digits of its minutes; reading only "1 hour" would start a 60-minute timer for an 80-minute paper.
+  expect(parseHeader('Computer science Higher level Paper 2 Monday 4 November 2019 (morning) 1 hour 2 0 minutes',parseIdentity('computer-science-2019-nov-tz0-hl-p2')).durationMinutes).toBe(80);
+  expect(parseHeader('Computer science Higher level Paper 2 Monday 4 November 2019 (morning) 1 hour 20 minutes',parseIdentity('computer-science-2019-nov-tz0-hl-p2')).durationMinutes).toBe(80);
+  // Hours followed by an unreadable number fail closed rather than drop the minutes.
+  expect(parseHeader('Computer science Higher level Paper 2 Monday 4 November 2019 (morning) 1 hour 2 0 0 minutes',parseIdentity('computer-science-2019-nov-tz0-hl-p2')).durationMinutes).toBeNull();
   expect(parseHeader('Physics Higher level Paper 1B 29 April 2025 2 hours [Paper 1A and Paper 1B] The maximum mark for paper 1B is [20 marks]. 2225 – 6708',parseIdentity('physics-2025-may-tz1-hl-p1b-english'))).toMatchObject({identityValid:true,maxMarks:20,durationMinutes:null});
 });
 it('joins glyph-spaced printed exam codes before matching paired covers and October scheduling',()=>{

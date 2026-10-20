@@ -144,7 +144,8 @@ export async function buildWholePaperArchives(options:BuildOptions) {
       const qp=await extractPdf(pair.questionPath,family,path.join(privateRoot,'text-cache'),path.join(root,'private/chemistry-paper-archive/checkpoints'),markRuleForBank(bank.slug));
       const ms=await extractPdf(pair.markschemePath,family,path.join(privateRoot,'text-cache'));
       sourceDocuments.push({id:pair.id,question:{path:pair.questionPath,sha256:qp.sha256,bytes:qp.bytes,pages:qp.pages},markscheme:{path:pair.markschemePath,sha256:ms.sha256,bytes:ms.bytes,pages:ms.pages}});
-      const actualIds=normalized.filter(q=>q.id.replace(/-q\d+$/,'')===pair.runtimePaperId).map(q=>q.id).sort();
+      // IB Computer Science Paper 2 ids carry the option before the number (…-p2-tz0-optA-q3).
+      const actualIds=normalized.filter(q=>q.id.replace(/-q\d+$/,'').replace(/^(ib-cs-.*-p2-tz\d)-opt[A-D]$/,'$1')===pair.runtimePaperId).map(q=>q.id).sort();
       if(JSON.stringify(actualIds)!==JSON.stringify([...pair.runtimeQuestionIds].sort()))throw new Error(`Inventory qids differ from exact runtime paper ${pair.runtimePaperId}`);
       const rows=pair.runtimeQuestionIds.map(id=>{const q=byId.get(id);if(!q)throw new Error(`Missing exact runtime qid ${id}`);return q;});
       const assembled=assemblePaper(bank.slug,pair,rows,qp,ms,identityReviews.get(JSON.stringify([bank.slug,pair.id])),reportHolds.get(JSON.stringify([bank.slug,pair.id])),mcqKeyReviews.get(JSON.stringify([bank.slug,pair.id])),mcqKeyReviews.has(JSON.stringify([bank.slug,pair.id]))?await loadReviewedRuntimeLetters(root,bank.slug,pair.runtimePaperId):undefined);
