@@ -33,6 +33,43 @@ const usage = async (db, user) => {
   return row ?? null;
 };
 
+test('5000 shared daily assets: image, PDF and combined explanation boundaries are atomic', async () => {
+  for (const path of ['image', 'pdf', 'explanation']) {
+    const db = await setup();
+    try {
+      await as(db, student);
+      const image = async (n) => (await db.query('select public.consume_download_allowance($1, 0) as ok', [n])).rows[0].ok;
+      const mixed = async (n, count = 1) => (await db.query('select public.consume_explanation_and_download_allowance($1, $2) as ok', [count, n])).rows[0].ok;
+      // Reach the boundary through real RPC calls, not a fixture-only row.
+      for (let n = 0; n < 4; n++) assert.equal(await image(1000), true, path);
+      assert.equal(await image(999), true, path);
+      const consume = (n, k) => path === 'image' ? image(n) : path === 'pdf' ? exportPdf(db, key(k), 1, n) : mixed(n);
+      assert.equal(await consume(1, 100), true, `${path}: 4999 + 1 allowed`);
+      await db.exec('reset role');
+      const full = (await db.query('select * from public.download_usage_daily')).rows;
+      await as(db, student);
+      assert.equal(await consume(1, 101), false, `${path}: 5000 + 1 denied`);
+      assert.equal(await mixed(1), false, 'asset denial must not consume explanations');
+      await db.exec('reset role');
+      assert.deepEqual((await db.query('select * from public.download_usage_daily')).rows, full);
+      assert.equal(full[0].signed_asset_count, 5000);
+      // Explanation exhaustion must likewise not consume the remaining asset.
+      await db.exec(`update public.download_usage_daily set signed_asset_count=4999, explanation_count=200`);
+      const exhausted = (await db.query('select * from public.download_usage_daily')).rows;
+      await as(db, student);
+      assert.equal(await mixed(1), false, 'explanation denial must not consume assets');
+      await db.exec('reset role');
+      assert.deepEqual((await db.query('select * from public.download_usage_daily')).rows, exhausted);
+      // Daily reset, not a rolling or weekly allowance.
+      await db.exec('update public.download_usage_daily set usage_date=current_date-1');
+      await as(db, student);
+      assert.equal(await consume(1, 102), true);
+      await db.exec('reset role');
+      assert.equal((await db.query('select signed_asset_count from public.download_usage_daily where usage_date=current_date')).rows[0].signed_asset_count, 1);
+    } finally { await db.close(); }
+  }
+});
+
 test('allows more than three distinct PDFs while retaining the 150-question daily budget', async () => {
   const db = await setup();
   try {
@@ -110,6 +147,9 @@ test('asset budget, per-call bounds, and explanation/PDF arrival orders remain e
       assert.equal(pdfFirst ? await exportPdf(db, key(1), 1, 1000) : await explanation(), true);
       assert.equal(pdfFirst ? await explanation() : await exportPdf(db, key(1), 1, 1000), true);
       assert.equal(await exportPdf(db, key(2), 1, 1000), true);
+      for (let n = 0; n < 2; n++) {
+        assert.equal((await db.query('select public.consume_download_allowance(1000, 0) as ok')).rows[0].ok, true);
+      }
       await db.exec('reset role');
       const before = (await db.query('select * from public.download_usage_daily')).rows;
       await as(db, student);
