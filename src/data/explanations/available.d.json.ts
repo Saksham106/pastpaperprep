@@ -7,6 +7,8 @@ declare const data: {
   "ib-biology-sl": Array<string>;
   "ib-chemistry-hl": Array<string>;
   "ib-chemistry-sl": Array<string>;
+  "ib-computer-science-hl": Array<string>;
+  "ib-computer-science-sl": Array<string>;
   "ib-economics-hl": Array<string>;
   "ib-economics-sl": Array<string>;
   "ib-hl": Array<string>;
