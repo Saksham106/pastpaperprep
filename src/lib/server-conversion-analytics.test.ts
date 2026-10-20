@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("server-only", () => ({}));
 const getUserById = vi.fn();
 vi.mock("@/lib/supabase/admin", () => ({ createAdminClient: () => ({ auth: { admin: { getUserById } } }) }));
-import { captureConversionOutcome } from "./server-conversion-analytics";
+import { captureConversionOutcome, purchasedBanks } from "./server-conversion-analytics";
 
 describe("captureConversionOutcome consent gating", () => {
   beforeEach(() => {
@@ -85,6 +85,28 @@ describe("captureConversionOutcome consent gating", () => {
   it("uses one-off random anonymous ids when no server secret is configured", async () => {
     vi.stubEnv("SUPABASE_SECRET_KEY", "");
     expect(await anonymousIds("signup:auth-user-123")).not.toBe(await anonymousIds("signup:auth-user-123"));
+  });
+
+  it("records which banks a purchase covers, by the same rule as access checks", async () => {
+    const paid = { ...input, outcome: "payment_initial_paid" as const, eventKey: "stripe:invoice:in_1", interval: "monthly" };
+    await captureConversionOutcome({ ...paid, product: "bundle_custom", selectedBankIds: JSON.stringify(["ib-hl", "igcse-chemistry-0620"]) });
+    await captureConversionOutcome({ ...paid, eventKey: "stripe:invoice:in_2", product: "bank_ib_physics_hl" });
+    await captureConversionOutcome({ ...paid, eventKey: "stripe:invoice:in_3", product: "bundle_all" });
+    const [custom, single, all] = (fetch as ReturnType<typeof vi.fn>).mock.calls.map((call) => JSON.parse(String(call[1].body)).properties);
+    expect(custom).toMatchObject({ product: "bundle_custom", bank_scope: "banks", bank_count: 2 });
+    expect([...custom.banks].sort()).toEqual(["ib-hl", "igcse-chemistry-0620"]);
+    expect(single).toMatchObject({ bank_scope: "banks", bank_count: 1, banks: ["ib-physics-hl"] });
+    expect(all).toMatchObject({ bank_scope: "all", bank_count: 0 });
+    expect(all.banks).toBeUndefined();
+  });
+
+  it("omits banks when a custom selection is missing or invalid, and for sign-ups", async () => {
+    expect(purchasedBanks("bundle_custom", "not json")).toBeNull();
+    expect(purchasedBanks("bundle_custom", JSON.stringify(["not-a-bank"]))).toBeNull();
+    expect(purchasedBanks("unknown_product")).toBeNull();
+    expect(purchasedBanks("bundle_ib_physics")?.banks.sort()).toEqual(["ib-physics-hl", "ib-physics-sl"]);
+    await captureConversionOutcome(input);
+    expect(JSON.parse(String((fetch as ReturnType<typeof vi.fn>).mock.calls[0][1].body)).properties.bank_scope).toBeUndefined();
   });
 
   it("does not geo-tag conversions with the server location", async () => {
