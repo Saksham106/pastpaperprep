@@ -87,12 +87,29 @@
 .faqContact { margin: 24px 0 0; color: var(--muted); font-size: .92rem; }
 .faqContact a { color: #203b66; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 
+/* Updates: its own lighter band, so it reads apart from the FAQ above. */
+.updatesBand { margin-top: 88px; padding: 72px 0 80px; border-block: 1px solid #d9d1c1; background: color-mix(in srgb, #fff 42%, var(--paper-warm)); }
+.updatesInner { display: grid; grid-template-columns: minmax(240px, .76fr) minmax(0, 1.24fr); gap: clamp(52px, 9vw, 132px); align-items: start; }
+.updatesIntro { display: grid; justify-items: start; gap: 14px; }
+.updatesIntro h2 { margin: 0; color: var(--ink); font: 400 clamp(2.3rem, 4.4vw, 3.9rem)/1 var(--font-serif); letter-spacing: -.03em; }
+.newsList { margin: 0; padding: 0; list-style: none; border-top: 1px solid #c8bfae; }
+.newsList > li { border-bottom: 1px solid #c8bfae; }
+.newsList a, .building { padding: 20px 2px; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 4px 20px; color: inherit; text-decoration: none; }
+.newsWhen { grid-row: span 2; margin: 0; padding-top: 5px; color: #7f293a; font: 600 .7rem/1.4 var(--font-mono); text-transform: uppercase; letter-spacing: .04em; }
+.newsTitle { color: #27334a; font: 400 clamp(1.05rem, 1.6vw, 1.22rem)/1.3 var(--font-serif); }
+.newsTag { margin-left: 6px; padding: 2px 7px; border-radius: 999px; background: rgb(127 41 58 / .1); color: #7f293a; font: 600 .6rem/1.5 var(--font-mono); letter-spacing: .05em; text-transform: uppercase; vertical-align: 3px; white-space: nowrap; }
+.newsBody { color: var(--muted); font-size: .93rem; line-height: 1.5; }
+.newsList a:hover .newsTitle { color: #203b66; text-decoration: underline; text-underline-offset: 4px; }
+.buildingLabel { margin: 0; color: #7f293a; font: 600 .7rem/1.4 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; }
+.building ul { margin: 0 0 0 -10px; padding: 0; list-style: none; display: grid; justify-items: start; color: #27334a; font: 400 clamp(1.02rem, 1.5vw, 1.14rem)/1.3 var(--font-serif); }
+
 /* 7. Closing call to action */
 .cta { margin: 88px auto 106px; padding: 48px 54px; display: flex; align-items: center; justify-content: space-between; gap: 32px; background: #dfe5ee; border: 1px solid #b8c3d3; border-radius: 20px; }
 .cta h2 { color: #18233b; }
 
 @media (max-width: 980px) {
-  .faqPreview { grid-template-columns: 1fr; }
+  .faqPreview, .updatesInner { grid-template-columns: 1fr; }
+  .updatesInner { gap: 34px; }
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stats div:nth-child(2) { border-right: 0; }
   .stats div:nth-child(-n+2) { border-bottom: 1px solid rgb(255 255 255 / .14); }
@@ -120,6 +137,15 @@
 :global(:root[data-theme="dark"]) .faqQuestions,
 :global(:root[data-theme="dark"]) .faqQuestions details { border-color: var(--line-strong); }
 :global(:root[data-theme="dark"]) .faqQuestions summary { color: var(--ink); }
+:global(:root[data-theme="dark"]) .updatesBand { border-color: var(--line); background: var(--surface); }
+:global(:root[data-theme="dark"]) .newsList,
+:global(:root[data-theme="dark"]) .newsList > li { border-color: var(--line-strong); }
+:global(:root[data-theme="dark"]) .newsTitle,
+:global(:root[data-theme="dark"]) .building ul { color: var(--ink); }
+:global(:root[data-theme="dark"]) .newsWhen,
+:global(:root[data-theme="dark"]) .buildingLabel,
+:global(:root[data-theme="dark"]) .newsTag { color: var(--burgundy); }
+:global(:root[data-theme="dark"]) .newsList a:hover .newsTitle { color: var(--cobalt-strong); }
 :global(:root[data-theme="dark"]) .faqQuestions summary svg { color: var(--burgundy); }
 :global(:root[data-theme="dark"]) .faqAllLink,
 :global(:root[data-theme="dark"]) .faqContact a { color: var(--cobalt-strong); }

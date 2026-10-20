@@ -7,6 +7,7 @@ import { captureServerException } from "@/lib/server-error-tracking";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import type { AccessEntitlement } from "@/lib/access";
 import { createClient } from "@/lib/supabase/server";
+import { recentNews } from "@/lib/updates";
 
 export const metadata = { title: "Dashboard" };
 
@@ -32,5 +33,5 @@ export default async function DashboardPage() {
     accessibleBanks = getAvailableBanks().filter(({ slug }) => hasBankAccess(slug, entitlements)).map(({ slug }) => slug);
   }
 
-  return <DashboardContent authenticated={typeof userId === "string"} accessibleBanks={accessibleBanks} availableBanks={getAvailableBanks()} />;
+  return <DashboardContent authenticated={typeof userId === "string"} accessibleBanks={accessibleBanks} availableBanks={getAvailableBanks()} news={recentNews(1)[0]} />;
 }
