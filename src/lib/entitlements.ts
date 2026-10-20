@@ -23,6 +23,8 @@ const PRODUCT_IDS = new Set<ProductId>([
   "bank_igcse_physics_0625",
   "bank_igcse_coordinated_sciences_0654",
   "bank_igcse_computer_science_0478",
+  "bank_ib_computer_science_hl",
+  "bank_ib_computer_science_sl",
   "bundle_igcse",
   "bundle_ib_aa",
   "bundle_ib_ai",

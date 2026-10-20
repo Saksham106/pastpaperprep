@@ -2,6 +2,7 @@ import { canonicalBiology0610Topic } from "@/lib/biology-0610-topic-aliases";
 import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_EARLIER_TOPIC, BIOLOGY_0610_SECTIONS, BIOLOGY_0610_TOPICS, display0610Sections } from "@/lib/igcse-0610-official.mjs";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import computerScienceTaxonomy from "@/data/igcse-computer-science-0478-taxonomy.json";
+import ibComputerScienceTaxonomy from "@/data/ib-computer-science-taxonomy.json";
 import { ECONOMICS_0455_TOPICS, ECONOMICS_0455_SECTIONS, ECONOMICS_0455_EARLIER } from "@/lib/igcse-0455-official.mjs";
 import { OFFICIAL_0606_TOPICS, EARLIER_0606_TOPIC, EARLIER_0606_SUBTOPICS } from "@/lib/igcse-0606-official.mjs";
 import numbered0606 from "@/data/igcse-0606-numbered-subtopics.json";
@@ -101,6 +102,21 @@ function isComputerScienceBank(bank: string | undefined): boolean {
   return bank === "igcse-computer-science-0478";
 }
 
+/**
+ * IB Computer Science HL and SL share one tree: the new-guide topics A1 to B4 first, then the earlier-syllabus
+ * topics 1 to 7 and options A to D (the guide every 2019-2026 paper was set under). A bank's picker shows only
+ * the topics and sections that carry at least one of its questions; each section lists its banks in the data.
+ */
+function isIbComputerScienceBank(bank: string | undefined): boolean {
+  return bank === "ib-computer-science-hl" || bank === "ib-computer-science-sl";
+}
+
+function ibComputerScienceTopics(bank: string): { label: string; sections: string[] }[] {
+  return ibComputerScienceTaxonomy.topics
+    .map((topic) => ({ label: topic.label, sections: topic.sections.filter((section) => section.banks.includes(bank)).map((section) => section.label) }))
+    .filter((topic) => topic.sections.length > 0);
+}
+
 function isReleaseBank(bank: string | undefined): bank is "igcse-biology-0610" | "igcse-economics-0455" | "igcse-coordinated-sciences-0654" {
   return bank === "igcse-biology-0610" || bank === "igcse-economics-0455" || bank === "igcse-coordinated-sciences-0654";
 }
@@ -121,6 +137,7 @@ export function getControlledSubtopics(bankSlug: string, topic: string): readonl
   }
   if (bankSlug === "igcse-economics-0455") return OFFICIAL_0455_GROUPS[topic] ?? [];
   if (isComputerScienceBank(bankSlug)) return COMPUTER_SCIENCE_GROUPS[topic] ?? [];
+  if (isIbComputerScienceBank(bankSlug)) return ibComputerScienceTopics(bankSlug).find((entry) => entry.label === topic)?.sections ?? [];
   if (isCoordinatedBank(bankSlug)) return topic === COORDINATED_0654_EARLIER_TOPIC ? [COORDINATED_0654_EARLIER] : COORDINATED_GROUPS[topic] ?? (COORDINATED_TOPIC_ORDER.includes(topic) ? [topic] : []);
   return getLegacyControlledSubtopics(bankSlug, topic);
 }
@@ -146,6 +163,7 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
     return [...COORDINATED_TOPIC_ORDER, ...(questions.some((question) => [question.primaryTopic, ...question.secondaryTopics].includes(COORDINATED_0654_EARLIER_TOPIC)) ? [COORDINATED_0654_EARLIER_TOPIC] : []), ...(questions.some((question) => question.primaryTopic === COORDINATED_0654_PRACTICAL_TOPIC) ? [COORDINATED_0654_PRACTICAL_TOPIC] : [])];
   }
   if (isComputerScienceBank(bank)) return [...COMPUTER_SCIENCE_TOPIC_ORDER];
+  if (isIbComputerScienceBank(bank)) return ibComputerScienceTopics(bank!).map((topic) => topic.label);
   if (isOfficial0610Bank(bank)) return [...BIOLOGY_0610_TOPIC_ORDER, ...(questions.some((question) => question.primaryTopic === BIOLOGY_0610_EARLIER_TOPIC) ? [BIOLOGY_0610_EARLIER_TOPIC] : [])];
   if (!isReleaseBank(bank)) return getLegacyTopicOptions(questions);
   const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]));
@@ -216,6 +234,16 @@ export function getSubtopicGroups(
     const available = new Set(all);
     const relevant = selectedTopics.length
       ? [...new Set(selectedTopics.flatMap((topic) => COMPUTER_SCIENCE_GROUPS[topic] ?? []))]
+      : all;
+    const relevantSet = new Set(relevant);
+    return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
+  }
+  if (isIbComputerScienceBank(bank)) {
+    const topics = ibComputerScienceTopics(bank!);
+    const all = topics.flatMap((topic) => topic.sections);
+    const available = new Set(all);
+    const relevant = selectedTopics.length
+      ? [...new Set(topics.filter((topic) => selectedTopics.includes(topic.label)).flatMap((topic) => topic.sections))]
       : all;
     const relevantSet = new Set(relevant);
     return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };

@@ -1,0 +1,896 @@
+{
+  "artifact": "ib_computer_science_student_taxonomy",
+  "version": "ib_computer_science_source_backed_taxonomy@1",
+  "boardcode": "IB Computer Science",
+  "eras": [
+    "2027",
+    "2014"
+  ],
+  "note": "New-guide topics (first assessment May 2027) come first; the earlier-syllabus topics and options (the 2014 guide every 2019-2026 paper was set under) follow. A bank's picker shows only the sections that carry at least one of its questions.",
+  "sourceTaxonomyPath": "data/classification/taxonomy.json",
+  "sourceTaxonomySHA256": "8f984cd3ad44ec2a2eff48521c47600e44186005f81b5607ae22a131ee316830",
+  "topics": [
+    {
+      "id": "2027:A1",
+      "code": "A1",
+      "label": "A1 Computer fundamentals",
+      "official": true,
+      "era": "2027",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2027:A1.1",
+          "code": "A1.1",
+          "label": "A1.1 Computer hardware and operation",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2027:A1.2",
+          "code": "A1.2",
+          "label": "A1.2 Data representation and computer logic",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2027:A1.3",
+          "code": "A1.3",
+          "label": "A1.3 Operating systems and control systems",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2027:A1.4",
+          "code": "A1.4",
+          "label": "A1.4 Translation",
+          "official": true,
+          "era": "2027",
+          "scope": "HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2027:A2",
+      "code": "A2",
+      "label": "A2 Networks",
+      "official": true,
+      "era": "2027",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2027:A2.1",
+          "code": "A2.1",
+          "label": "A2.1 Network fundamentals",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2027:A2.2",
+          "code": "A2.2",
+          "label": "A2.2 Network architecture",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2027:A2.3",
+          "code": "A2.3",
+          "label": "A2.3 Data transmissions",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2027:A2.4",
+          "code": "A2.4",
+          "label": "A2.4 Network security",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2027:A3",
+      "code": "A3",
+      "label": "A3 Databases",
+      "official": true,
+      "era": "2027",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2027:A3.1",
+          "code": "A3.1",
+          "label": "A3.1 Database fundamentals",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2027:A3.2",
+          "code": "A3.2",
+          "label": "A3.2 Database design",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2027:A3.3",
+          "code": "A3.3",
+          "label": "A3.3 Database programming",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2027:A3.4",
+          "code": "A3.4",
+          "label": "A3.4 Alternative databases and data warehouses",
+          "official": true,
+          "era": "2027",
+          "scope": "HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2027:A4",
+      "code": "A4",
+      "label": "A4 Machine learning",
+      "official": true,
+      "era": "2027",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2027:A4.1",
+          "code": "A4.1",
+          "label": "A4.1 Machine learning fundamentals",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl"
+          ]
+        },
+        {
+          "id": "2027:A4.2",
+          "code": "A4.2",
+          "label": "A4.2 Data preprocessing",
+          "official": true,
+          "era": "2027",
+          "scope": "HL",
+          "banks": [
+            "ib-computer-science-hl"
+          ]
+        },
+        {
+          "id": "2027:A4.3",
+          "code": "A4.3",
+          "label": "A4.3 Machine learning approaches",
+          "official": true,
+          "era": "2027",
+          "scope": "HL",
+          "banks": [
+            "ib-computer-science-hl"
+          ]
+        },
+        {
+          "id": "2027:A4.4",
+          "code": "A4.4",
+          "label": "A4.4 Ethical considerations",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2027:B1",
+      "code": "B1",
+      "label": "B1 Computational thinking",
+      "official": true,
+      "era": "2027",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2027:B1.1",
+          "code": "B1.1",
+          "label": "B1.1 Approaches to computational thinking",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2027:B2",
+      "code": "B2",
+      "label": "B2 Programming",
+      "official": true,
+      "era": "2027",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2027:B2.1",
+          "code": "B2.1",
+          "label": "B2.1 Programming fundamentals",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2027:B2.2",
+          "code": "B2.2",
+          "label": "B2.2 Data structures",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2027:B2.3",
+          "code": "B2.3",
+          "label": "B2.3 Programming constructs",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2027:B2.4",
+          "code": "B2.4",
+          "label": "B2.4 Programming algorithms",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2027:B2.5",
+          "code": "B2.5",
+          "label": "B2.5 File processing",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": []
+        }
+      ]
+    },
+    {
+      "id": "2027:B3",
+      "code": "B3",
+      "label": "B3 Object-oriented programming",
+      "official": true,
+      "era": "2027",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2027:B3.1",
+          "code": "B3.1",
+          "label": "B3.1 Fundamentals of OOP for a single class",
+          "official": true,
+          "era": "2027",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2027:B3.2",
+          "code": "B3.2",
+          "label": "B3.2 Fundamentals of OOP for multiple classes",
+          "official": true,
+          "era": "2027",
+          "scope": "HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2027:B4",
+      "code": "B4",
+      "label": "B4 Abstract data types (HL only)",
+      "official": true,
+      "era": "2027",
+      "scope": "HL",
+      "banks": [
+        "ib-computer-science-hl"
+      ],
+      "sections": [
+        {
+          "id": "2027:B4.1",
+          "code": "B4.1",
+          "label": "B4.1 Fundamentals of ADTs",
+          "official": true,
+          "era": "2027",
+          "scope": "HL",
+          "banks": [
+            "ib-computer-science-hl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2014:1",
+      "code": "1",
+      "label": "Topic 1: System fundamentals (earlier syllabus)",
+      "official": true,
+      "era": "2014",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2014:1.1",
+          "code": "1.1",
+          "label": "1.1 Systems in organizations (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:1.2",
+          "code": "1.2",
+          "label": "1.2 System design basics (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2014:2",
+      "code": "2",
+      "label": "Topic 2: Computer organization (earlier syllabus)",
+      "official": true,
+      "era": "2014",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2014:2.1",
+          "code": "2.1",
+          "label": "2.1 Computer organization (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2014:3",
+      "code": "3",
+      "label": "Topic 3: Networks (earlier syllabus)",
+      "official": true,
+      "era": "2014",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2014:3.1",
+          "code": "3.1",
+          "label": "3.1 Networks (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2014:4",
+      "code": "4",
+      "label": "Topic 4: Computational thinking, problem-solving and programming (earlier syllabus)",
+      "official": true,
+      "era": "2014",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2014:4.1",
+          "code": "4.1",
+          "label": "4.1 General principles (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:4.2",
+          "code": "4.2",
+          "label": "4.2 Connecting computational thinking and program design (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:4.3",
+          "code": "4.3",
+          "label": "4.3 Introduction to programming (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2014:5",
+      "code": "5",
+      "label": "Topic 5: Abstract data structures (earlier syllabus)",
+      "official": true,
+      "era": "2014",
+      "scope": "HL",
+      "banks": [
+        "ib-computer-science-hl"
+      ],
+      "sections": [
+        {
+          "id": "2014:5.1",
+          "code": "5.1",
+          "label": "5.1 Abstract data structures (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "HL",
+          "banks": [
+            "ib-computer-science-hl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2014:6",
+      "code": "6",
+      "label": "Topic 6: Resource management (earlier syllabus)",
+      "official": true,
+      "era": "2014",
+      "scope": "HL",
+      "banks": [
+        "ib-computer-science-hl"
+      ],
+      "sections": [
+        {
+          "id": "2014:6.1",
+          "code": "6.1",
+          "label": "6.1 Resource management (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "HL",
+          "banks": [
+            "ib-computer-science-hl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2014:7",
+      "code": "7",
+      "label": "Topic 7: Control (earlier syllabus)",
+      "official": true,
+      "era": "2014",
+      "scope": "HL",
+      "banks": [
+        "ib-computer-science-hl"
+      ],
+      "sections": [
+        {
+          "id": "2014:7.1",
+          "code": "7.1",
+          "label": "7.1 Control (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "HL",
+          "banks": [
+            "ib-computer-science-hl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2014:opt-A",
+      "code": "A",
+      "label": "Option A: Databases (earlier syllabus)",
+      "official": true,
+      "era": "2014",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2014:A.1",
+          "code": "A.1",
+          "label": "A.1 Basic concepts (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:A.2",
+          "code": "A.2",
+          "label": "A.2 The relational database model (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:A.3",
+          "code": "A.3",
+          "label": "A.3 Further aspects of database management (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:A.4",
+          "code": "A.4",
+          "label": "A.4 Further database models and database analysis (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "HL",
+          "banks": [
+            "ib-computer-science-hl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2014:opt-B",
+      "code": "B",
+      "label": "Option B: Modelling and simulation (earlier syllabus)",
+      "official": true,
+      "era": "2014",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2014:B.1",
+          "code": "B.1",
+          "label": "B.1 The basic model (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:B.2",
+          "code": "B.2",
+          "label": "B.2 Simulations (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:B.3",
+          "code": "B.3",
+          "label": "B.3 Visualization (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:B.4",
+          "code": "B.4",
+          "label": "B.4 Communication modelling and simulation (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "HL",
+          "banks": [
+            "ib-computer-science-hl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2014:opt-C",
+      "code": "C",
+      "label": "Option C: Web science (earlier syllabus)",
+      "official": true,
+      "era": "2014",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2014:C.1",
+          "code": "C.1",
+          "label": "C.1 Creating the web (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:C.2",
+          "code": "C.2",
+          "label": "C.2 Searching the web (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:C.3",
+          "code": "C.3",
+          "label": "C.3 Distributed approaches to the web (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:C.4",
+          "code": "C.4",
+          "label": "C.4 The evolving web (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:C.5",
+          "code": "C.5",
+          "label": "C.5 Analysing the web (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "HL",
+          "banks": [
+            "ib-computer-science-hl"
+          ]
+        },
+        {
+          "id": "2014:C.6",
+          "code": "C.6",
+          "label": "C.6 The intelligent web (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "HL",
+          "banks": [
+            "ib-computer-science-hl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2014:opt-D",
+      "code": "D",
+      "label": "Option D: Object-oriented programming (earlier syllabus)",
+      "official": true,
+      "era": "2014",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-computer-science-hl",
+        "ib-computer-science-sl"
+      ],
+      "sections": [
+        {
+          "id": "2014:D.1",
+          "code": "D.1",
+          "label": "D.1 Objects as a programming concept (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:D.2",
+          "code": "D.2",
+          "label": "D.2 Features of OOP (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:D.3",
+          "code": "D.3",
+          "label": "D.3 Program development (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-computer-science-hl",
+            "ib-computer-science-sl"
+          ]
+        },
+        {
+          "id": "2014:D.4",
+          "code": "D.4",
+          "label": "D.4 Advanced program development (earlier syllabus)",
+          "official": true,
+          "era": "2014",
+          "scope": "HL",
+          "banks": [
+            "ib-computer-science-hl"
+          ]
+        }
+      ]
+    }
+  ]
+}

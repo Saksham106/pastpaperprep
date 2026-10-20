@@ -14,7 +14,7 @@ export function SiteFooter() {
   const banks = getCatalogBanksForDisplay();
   const groups = new Map<string, [string, string][]>();
   for (const bank of banks) {
-    const group = bank.qualification === "Cambridge IGCSE" ? "Cambridge" : bank.subject.startsWith("Mathematics") ? "IB Mathematics" : "IB Sciences & Economics";
+    const group = bank.qualification === "Cambridge IGCSE" ? "Cambridge" : bank.subject.startsWith("Mathematics") ? "IB Mathematics" : bank.subject === "Computer Science" ? "IB Computer Science" : "IB Sciences & Economics";
     const links = groups.get(group) ?? [];
     const label = bank.title.replace(/ Higher Level$/, " HL").replace(/ Standard Level$/, " SL");
     links.push([bank.route, bank.qualification === "Cambridge IGCSE" ? `IGCSE ${label}` : label]);

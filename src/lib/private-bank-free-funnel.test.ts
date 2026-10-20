@@ -82,8 +82,8 @@ afterEach(() => vi.unstubAllEnvs());
 
 describe("private-bank free funnel", () => {
   it("advertises a free tier for every displayed bank except owner-approved paid-only banks, linking each to ?free=1", () => {
-    // Owner decision (2026-10-18): Computer Science 0478 launches with no free years.
-    const paidOnly = new Set(["igcse-computer-science-0478"]);
+    // Owner decisions: Computer Science 0478 (2026-10-18) and IB Computer Science HL/SL launch with no free years.
+    const paidOnly = new Set(["igcse-computer-science-0478", "ib-computer-science-hl", "ib-computer-science-sl"]);
     const displayed = getAvailableBanks();
     expect(displayed.length).toBeGreaterThan(0);
     for (const bank of displayed) {

@@ -39,6 +39,13 @@ function guideFor(bank: Bank) {
     };
   }
 
+  if (bank.slug === "ib-computer-science-hl" || bank.slug === "ib-computer-science-sl") {
+    return {
+      href: "/articles",
+      label: "Revision guides",
+    };
+  }
+
   return {
     href: "/articles/ib-math-past-papers-by-topic",
     label: "IB Maths past papers by topic guide",
@@ -55,7 +62,7 @@ function examStyleLinkFor(bank: Bank) {
 export function BankSeoContent({ bank, topicLinks = [] }: { bank: Bank; topicLinks?: Array<{ label: string; href: string }> }) {
   const guide = guideFor(bank);
   const examStyleLink = examStyleLinkFor(bank);
-  const isScience = bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl" || bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl" || bank.slug === "ib-biology-hl" || bank.slug === "ib-biology-sl";
+  const isScience = bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl" || bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl" || bank.slug === "ib-biology-hl" || bank.slug === "ib-biology-sl" || bank.slug === "ib-computer-science-hl" || bank.slug === "ib-computer-science-sl";
   const coverage = `Practise ${bank.questionCount.toLocaleString()} authentic past-paper questions from ${bank.paperCount} archived papers (${bank.years}). These are past-paper questions, not AI-generated exam-style substitutes. Start with a topic, then switch to mixed or timed practice.`;
   const isIbMathAaHl = bank.slug === "ib-hl";
 

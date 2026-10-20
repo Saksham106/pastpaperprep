@@ -41,6 +41,22 @@ export const RELEASE_BANKS = {
     candidateSeal: 'blanked-v1',
     originalCandidateRuntimeSha256: '3f65f4fa9c94c0b35b6579b4ad0d2306ac20093234a4edd95e79c79b0618de6c',
   },
+  // IB Computer Science rides the same release lane (the "igcse" name is historical). Prefixes carry the row
+  // count and the first 12 hex of the candidate seal.
+  // IB Computer Science prefixes are named for the first candidates; the 2026-10-21 review repair changed
+  // text and labels only, so the byte-identical verified crops stay under them.
+  'ib-computer-science-hl': {
+    prefix: 'ib-computer-science-hl/releases/full506-v1-610ccfc508e1',
+    sourceRootEnv: 'PASTPAPERPREP_IB_COMPUTER_SCIENCE_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: '9b74c704510a93ac7d71e881b2a95dcad74814407281adb3a933e6ae64fb7077',
+  },
+  'ib-computer-science-sl': {
+    prefix: 'ib-computer-science-sl/releases/full391-v1-302f6c9461e6',
+    sourceRootEnv: 'PASTPAPERPREP_IB_COMPUTER_SCIENCE_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: '371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9',
+  },
 };
 
 export function sha256(value) {
@@ -169,6 +185,8 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
     const lane = Number(paper.split('-')[1]) <= 2022 ? 'extension-2019-2022' : 'full';
     return `data/segmentation/${lane}/assets/${paper}/${kind}/${file}`;
   }
+  // The IB Computer Science source keeps assets/<pair>/questions|markschemes/<file> in one segmentation lane.
+  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
   if (bank === 'igcse-coordinated-sciences-0654') {
     if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
     return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;

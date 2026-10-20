@@ -12,7 +12,9 @@ import {
 } from "@/lib/catalog";
 
 export type EconomicsBankSlug = "ib-economics-hl" | "ib-economics-sl";
-export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478";
+// "IGCSE release" is the historical name of the shared gated, private-storage release machinery
+// (sealed runtimes, R2 assets, one release gate). It also covers the IB Computer Science banks.
+export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl";
 export type { BankSlug };
 export type ProductionBankSlug = Exclude<BankSlug, EconomicsBankSlug | IGCSEReleaseBankSlug>;
 export type LegacyProductionBankSlug = ProductionBankSlug;
@@ -54,6 +56,9 @@ const IGCSE_RELEASE_SLUGS = new Set<BankSlug>([
   "igcse-physics-0625",
   "igcse-coordinated-sciences-0654",
   "igcse-computer-science-0478",
+  // Not Cambridge IGCSE: the IB Computer Science banks ride the same gated release machinery.
+  "ib-computer-science-hl",
+  "ib-computer-science-sl",
 ]);
 
 export function isIGCSEReleaseBank(slug: string): slug is IGCSEReleaseBankSlug {
@@ -80,7 +85,8 @@ export function isLocalEconomicsPreviewEnabled(environment: Record<string, strin
  */
 export function isPrivateBankIndexEnabled(bank: string, environment: Record<string, string | undefined> = process.env): bank is BankSlug {
   if (isLocalEconomicsBank(bank)) return isEconomicsProductionEnabled(environment);
-  if (isIGCSEReleaseBank(bank)) return isIGCSEReleaseEnabled(environment);
+  // A bank staged for pending storage is not served, even while the shared release gate is on for others.
+  if (isIGCSEReleaseBank(bank)) return getCatalogBanksForDisplay(environment).some((entry) => entry.slug === bank);
   return false;
 }
 export function getEntitlementBanks(): readonly Bank[] { return runtimeBanks(BANK_CATALOG); }
