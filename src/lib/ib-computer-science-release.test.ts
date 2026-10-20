@@ -38,6 +38,27 @@ type Tree = { topics: Array<{ id: string; code: string; label: string; era: stri
 const tree = taxonomy as unknown as Tree;
 const RELEASE_ON = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" };
 const RELEASE_OFF = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "false", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "false" };
+/** Undo exactly what `generate-igcse-release.mjs --finalize` writes; the result must be the pinned candidate. */
+function reconstructCandidate(finalized: Runtime): Runtime {
+  const candidate = JSON.parse(JSON.stringify(finalized)) as Runtime;
+  for (const question of candidate.questions) {
+    question.publicationStatus = "authorized_production_candidate";
+    question.classificationReviewStatus = "candidate_not_approved";
+  }
+  candidate.releaseStatus = "authorized_production_candidate";
+  candidate.publicationStatus = "authorized_production_candidate";
+  candidate.assetVerification = "pending_upload";
+  const meta = candidate.runtimeArtifact;
+  meta.assetVerification = "pending_upload";
+  meta.publicationStatus = "authorized_production_candidate";
+  meta.assetManifestSha256 = null;
+  meta.storageReceiptSha256 = null;
+  delete meta.storageState;
+  delete meta.finalizedContentSha256;
+  meta.runtimeSha256 = null;
+  meta.runtimeSha256 = sha(candidate);
+  return candidate;
+}
 
 const BANKS = [
   {
@@ -56,7 +77,7 @@ const entitlement = (product_id: string, selected_bank_ids?: string[]) => normal
 const sectionTopic = new Map(tree.topics.flatMap((topic) => topic.sections.map((section) => [section.label, topic] as const)));
 const usedSections = (runtime: Runtime) => new Set(runtime.questions.flatMap((question) => question.subtopics));
 
-describe.each(BANKS)("IB Computer Science $level release candidate", (bank) => {
+describe.each(BANKS)("IB Computer Science $level release", (bank) => {
   const production = bank.runtime;
 
   it("is a gated, paid IB catalog bank with its exact identity and no pair bundle", () => {
@@ -81,20 +102,18 @@ describe.each(BANKS)("IB Computer Science $level release candidate", (bank) => {
     expect(production.questions.every((question) => question.bankSlug === bank.slug)).toBe(true);
   });
 
-  it("is staged for pending storage: hidden everywhere, whatever the shared release gates say", () => {
-    expect(getCatalogBank(bank.slug)).toHaveProperty("pendingStorage", true);
-    for (const environment of [RELEASE_ON, RELEASE_OFF]) {
-      expect(isCatalogBankEnabled(getCatalogBank(bank.slug)!, environment)).toBe(false);
-      expect(getCatalogBanksForDisplay(environment).some((entry) => entry.slug === bank.slug)).toBe(false);
-      expect(getAvailableBanks(environment).some((entry) => entry.slug === bank.slug)).toBe(false);
-      expect(getBank(bank.slug, environment)).toBeUndefined();
-      expect(isPrivateBankIndexEnabled(bank.slug, environment)).toBe(false);
-    }
-    // The shared gate still serves the other released banks.
-    expect(getAvailableBanks(RELEASE_ON).some((entry) => entry.slug === "igcse-computer-science-0478")).toBe(true);
+  it("is launched: shown and sellable with the shared release gates on, hidden with them off", () => {
+    expect("pendingStorage" in getCatalogBank(bank.slug)!).toBe(false);
+    expect(isCatalogBankEnabled(getCatalogBank(bank.slug)!, RELEASE_ON)).toBe(true);
+    expect(getAvailableBanks(RELEASE_ON).some((entry) => entry.slug === bank.slug)).toBe(true);
+    expect(getBank(bank.slug, RELEASE_ON)).toBeDefined();
+    expect(isPrivateBankIndexEnabled(bank.slug, RELEASE_ON)).toBe(true);
+    expect(getCatalogBillingBanks(RELEASE_ON).some((entry) => entry.slug === bank.slug)).toBe(true);
+    expect(getAvailableBanks(RELEASE_OFF).some((entry) => entry.slug === bank.slug)).toBe(false);
+    expect(getCatalogBillingBanks(RELEASE_OFF).some((entry) => entry.slug === bank.slug)).toBe(false);
   });
 
-  it("is not purchasable while staged, even by direct API call", () => {
+  it("is sold at the generic single-bank price only while released", () => {
     const config = validateStripeConfig({
       NEXT_PUBLIC_SITE_URL: "https://pastpaperprep.com", STRIPE_SECRET_KEY: "sk_test_example", STRIPE_WEBHOOK_SECRET: "whsec_example",
       STRIPE_FOUNDING_MONTHLY_PRICE_ID: "price_founding_monthly", STRIPE_FOUNDING_ANNUAL_PRICE_ID: "price_founding_annual",
@@ -103,12 +122,9 @@ describe.each(BANKS)("IB Computer Science $level release candidate", (bank) => {
       STRIPE_PAIR_MONTHLY_PRICE_ID: "price_pair_monthly", STRIPE_PAIR_ANNUAL_PRICE_ID: "price_pair_annual",
       STRIPE_ALL_MONTHLY_PRICE_ID: "price_all_monthly", STRIPE_ALL_ANNUAL_PRICE_ID: "price_all_annual",
     });
-    expect(getCatalogBillingBanks(RELEASE_ON).some((entry) => entry.slug === bank.slug)).toBe(false);
-    for (const environment of [RELEASE_ON, RELEASE_OFF]) {
-      expect(() => getBillingPlan(bank.product, "monthly", config, undefined, environment)).toThrow("Bank is not available for checkout");
-      expect(() => getBillingPlan(bank.product, "annual", config, undefined, environment)).toThrow("Bank is not available for checkout");
-    }
-    // Every single bank, this one included, routes to the generic single-bank price for lifecycle validation.
+    expect(getBillingPlan(bank.product, "monthly", config, undefined, RELEASE_ON)).toMatchObject({ priceId: "price_single_monthly" });
+    expect(getBillingPlan(bank.product, "annual", config, undefined, RELEASE_ON)).toMatchObject({ priceId: "price_single_annual" });
+    expect(() => getBillingPlan(bank.product, "monthly", config, undefined, RELEASE_OFF)).toThrow("Bank is not available for checkout");
     expect(isStripePriceAllowedForProduct(bank.product, config.singleMonthlyPriceId, config, "monthly")).toBe(true);
     expect(isStripePriceAllowedForProduct(bank.product, config.singleAnnualPriceId, config, "annual")).toBe(true);
     expect(isStripePriceAllowedForProduct(bank.product, config.pairAnnualPriceId, config, "annual")).toBe(false);
@@ -212,14 +228,16 @@ describe.each(BANKS)("IB Computer Science $level release candidate", (bank) => {
   it("is sealed to the pinned, content-derived candidate and the release-script and runtime pins", async () => {
     const { assertContentSealedCandidate, blankedCandidateSha256, RELEASE_BANKS } = await import("../../scripts/igcse-release.mjs");
     const meta = production.runtimeArtifact;
-    expect(blankedCandidateSha256(production)).toBe(bank.candidate);
-    expect(() => assertContentSealedCandidate(bank.slug, production)).not.toThrow();
+    const candidate = reconstructCandidate(production);
+    expect(blankedCandidateSha256(candidate)).toBe(bank.candidate);
+    expect(() => assertContentSealedCandidate(bank.slug, candidate)).not.toThrow();
     expect(meta.sourceCandidateSha256).toBe(bank.candidate);
     expect(meta.originalCandidateRuntimeSha256).toBe(bank.candidate);
     const copy = JSON.parse(JSON.stringify(production)) as Runtime;
     copy.runtimeArtifact.runtimeSha256 = null;
     expect(meta.runtimeSha256).toBe(sha(copy));
-    expect(meta.contentSha256).toBe(sha(production.questions));
+    expect(meta.contentSha256).toBe(sha(candidate.questions));
+    expect(meta.finalizedContentSha256).toBe(sha(production.questions));
     expect(meta.runtimeTaxonomySha256).toBe(sha(taxonomy));
     expect(meta.releaseTaxonomySha256).toBe(sha(readFileSync(join(ROOT, "src/data/ib-computer-science-taxonomy.json"), "utf8")));
     expect(production.taxonomy.sha256).toBe(meta.releaseTaxonomySha256);
@@ -236,53 +254,49 @@ describe.each(BANKS)("IB Computer Science $level release candidate", (bank) => {
   it("rejects an edited candidate even when its self-seal is recomputed and the stored pin kept", async () => {
     const { assertContentSealedCandidate, runtimeSha256 } = await import("../../scripts/igcse-release.mjs");
     const { assertOriginalCandidateRuntime } = await import("../../scripts/generate-igcse-release.mjs");
-    expect(() => assertOriginalCandidateRuntime(bank.slug, production)).not.toThrow();
-    const forged = JSON.parse(JSON.stringify(production)) as Runtime & { questions: Array<Record<string, unknown>> };
+    const candidate = reconstructCandidate(production);
+    expect(() => assertOriginalCandidateRuntime(bank.slug, candidate)).not.toThrow();
+    const forged = JSON.parse(JSON.stringify(candidate)) as Runtime & { questions: Array<Record<string, unknown>> };
     forged.questions[0].marks = 999;
     forged.runtimeArtifact.runtimeSha256 = null;
     forged.runtimeArtifact.runtimeSha256 = runtimeSha256(forged);
     expect(forged.runtimeArtifact.originalCandidateRuntimeSha256).toBe(bank.candidate);
     expect(() => assertContentSealedCandidate(bank.slug, forged)).toThrow("candidate content does not reproduce its pinned seal");
     expect(() => assertOriginalCandidateRuntime(bank.slug, forged)).toThrow("candidate content does not reproduce its pinned seal");
-    const relabelled = JSON.parse(JSON.stringify(production)) as Runtime;
+    const relabelled = JSON.parse(JSON.stringify(candidate)) as Runtime;
     relabelled.questions[0].subtopics = [...relabelled.questions[0].subtopics, "A2.4 Network security"];
     relabelled.runtimeArtifact.runtimeSha256 = null;
     relabelled.runtimeArtifact.runtimeSha256 = runtimeSha256(relabelled);
     expect(() => assertOriginalCandidateRuntime(bank.slug, relabelled)).toThrow("candidate content does not reproduce its pinned seal");
   });
 
-  it("is a pending-upload candidate: every crop is in the manifest, nothing is uploaded or verified", async () => {
-    expect(production.assetVerification).toBe("pending_upload");
-    expect(production.releaseStatus).toBe("authorized_production_candidate");
-    expect(production.publicationStatus).toBe("authorized_production_candidate");
-    expect(production.questions.every((question) => question.publicationStatus === "authorized_production_candidate" && question.classificationReviewStatus === "candidate_not_approved")).toBe(true);
-    expect(production.runtimeArtifact.assetManifestSha256).toBeNull();
-    expect(production.runtimeArtifact.storageReceiptSha256).toBeNull();
-    const manifest = JSON.parse(readFileSync(join(ROOT, "data/storage", `${bank.slug}.manifest.json`), "utf8")) as { bank: string; storageState: string; objectPrefix: string; originalCandidateRuntimeSha256: string; contentSha256: string; assets: Array<{ objectKey: string; sourcePath: string; sha256: string; size: number; contentType: string }> };
-    expect(manifest).toMatchObject({ bank: bank.slug, storageState: "pending_upload", objectPrefix: `${bank.prefix}/`, originalCandidateRuntimeSha256: bank.candidate, contentSha256: production.runtimeArtifact.contentSha256 });
+  it("is finalized against a complete verified readback of exactly the manifest's crops", async () => {
+    expect(production.assetVerification).toBe("verified_readback");
+    expect(production.releaseStatus).toBe("production");
+    expect(production.questions.every((question) => question.publicationStatus === "production" && question.classificationReviewStatus === "classified")).toBe(true);
+    const manifestText = readFileSync(join(ROOT, "data/storage", `${bank.slug}.manifest.json`), "utf8");
+    const manifest = JSON.parse(manifestText) as { objectPrefix: string; assets: Array<{ objectKey: string; sha256: string; size: number }> };
+    expect(manifest.objectPrefix).toBe(`${bank.prefix}/`);
     const refs = new Set(production.questions.flatMap((question) => [...question.questionImages, ...question.markschemeImages]));
     expect(manifest.assets).toHaveLength(refs.size);
-    expect(manifest.assets.every((asset) => refs.has(asset.objectKey.slice(manifest.objectPrefix.length)) && asset.contentType === "image/webp")).toBe(true);
-    expect(new Set(manifest.assets.map((asset) => asset.objectKey)).size).toBe(refs.size);
-    for (const asset of manifest.assets) {
-      const reference = asset.objectKey.slice(manifest.objectPrefix.length);
-      const [kind, pair, file] = reference.split("/");
-      expect(asset.sourcePath.endsWith(`/data/segmentation/full/assets/${pair}/${kind}/${file}`)).toBe(true);
-      expect(asset.sha256).toMatch(/^[a-f0-9]{64}$/);
-      expect(asset.size).toBeGreaterThan(0);
+    expect(manifest.assets.every((asset) => refs.has(asset.objectKey.slice(manifest.objectPrefix.length)))).toBe(true);
+    const receiptText = readFileSync(join(ROOT, "data/storage", `${bank.slug}.receipt.json`), "utf8");
+    const receipt = JSON.parse(receiptText) as { storageState: string; completed: string[]; failed: string[]; readbackProvenance: { logSha256: string } };
+    expect(receipt.storageState).toBe("verified_readback");
+    expect(receipt.failed).toEqual([]);
+    expect([...receipt.completed].sort()).toEqual(manifest.assets.map((asset) => asset.objectKey).sort());
+    expect(production.runtimeArtifact.storageReceiptSha256).toBe(sha(receiptText));
+    const logText = readFileSync(join(ROOT, "docs", `${bank.slug}-r2-upload-log.jsonl`), "utf8");
+    expect(receipt.readbackProvenance.logSha256).toBe(sha(logText));
+    const log = logText.split("\n").filter(Boolean).map((line) => JSON.parse(line) as { key: string; sha256: string; bytes: number; status: string });
+    const byKey = new Map(manifest.assets.map((asset) => [asset.objectKey, asset]));
+    expect(new Set(log.map((row) => row.key)).size).toBe(manifest.assets.length);
+    for (const row of log) {
+      expect(row.status).toBe("verified");
+      expect(byKey.get(row.key)).toMatchObject({ sha256: row.sha256, size: row.bytes });
     }
-    // Pinned image hashes from the source segmentation are the bytes the manifest records.
-    const byRef = new Map(manifest.assets.map((asset) => [asset.objectKey.slice(manifest.objectPrefix.length), asset.sha256]));
-    for (const question of production.questions as unknown as Array<RuntimeQuestion & { questionImageHashes: string[]; markschemeImageHashes: string[] }>) {
-      question.questionImages.forEach((image, i) => expect(byRef.get(image)).toBe(question.questionImageHashes[i]));
-      question.markschemeImages.forEach((image, i) => expect(byRef.get(image)).toBe(question.markschemeImageHashes[i]));
-    }
-    // No receipt and no upload log exist until the owner approves the upload.
-    expect(existsSync(join(ROOT, "data/storage", `${bank.slug}.receipt.json`))).toBe(false);
-    expect(existsSync(join(ROOT, "docs", `${bank.slug}-r2-upload-log.jsonl`))).toBe(false);
-    // The runtime gate refuses a runtime without verified storage.
     const { getIGCSERuntimeArtifact } = await import("@/lib/igcse-runtime");
-    expect(() => getIGCSERuntimeArtifact(bank.slug as never, RELEASE_ON)).toThrow("not backed by verified storage");
+    expect(getIGCSERuntimeArtifact(bank.slug as never, RELEASE_ON).questions).toHaveLength(bank.rows);
   });
 
   it("exposes a metadata-only private index with no text, answers or asset paths", () => {

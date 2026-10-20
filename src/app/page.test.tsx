@@ -42,8 +42,8 @@ describe("home page", () => {
     expect(container.querySelector(".practice-mode-switch")?.textContent).toBe("Practice by topicFull past papers");
     const rows = [...container.querySelectorAll<HTMLAnchorElement>("#question-banks a[data-bank-slug]")];
 
-    expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(20);
-    expect(rows).toHaveLength(20);
+    expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(22);
+    expect(rows).toHaveLength(22);
     expect(container.querySelectorAll("a a")).toHaveLength(0);
     for (const row of rows) {
       expect(row.getAttribute("href")).toMatch(/^\/banks\/[a-z0-9-]+(\?free=1)?$/);

@@ -490,9 +490,9 @@ describe("POST /api/billing/checkout", () => {
     expect(sessionsCreate).not.toHaveBeenCalled();
   });
 
-  it("rejects a staged (pending storage) IB Computer Science bank even with the release gates on, before any billing side effect", async () => {
-    vi.stubEnv("PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS", "true");
-    vi.stubEnv("PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED", "true");
+  it("rejects an IB Computer Science bank while the release gates are off, before any billing side effect", async () => {
+    vi.stubEnv("PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS", "false");
+    vi.stubEnv("PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED", "false");
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     getUser.mockResolvedValue({ data: { user } });
 

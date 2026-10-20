@@ -99,14 +99,16 @@ declare const data: {
     publicationStatus: string;
     rightsStatus: string;
     assetVerification: string;
-    assetManifestSha256: null;
-    storageReceiptSha256: null;
+    assetManifestSha256: string;
+    storageReceiptSha256: string;
     contentSha256: string;
     marksReady: boolean;
     marksRepairStatus: string;
     marksRepairUnresolvedCount: number;
     originalCandidateRuntimeSha256: string;
     runtimeSha256: string;
+    storageState: string;
+    finalizedContentSha256: string;
   };
 };
 export default data;
