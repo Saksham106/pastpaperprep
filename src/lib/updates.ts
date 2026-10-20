@@ -15,7 +15,7 @@ export type Update = {
 };
 
 export const COMING_SOON: readonly string[] = [
-  "IB Computer Science",
+  "IB Computer Science full past papers",
   "Worked explanations for the remaining banks",
 ];
 
@@ -26,6 +26,7 @@ const CHATGPT_APP = "https://chatgpt.com/plugins/plugin_asdk_app_6abec4a63a28819
 const bank = (label: string, slug: string) => ({ label, href: `/banks/${slug}` });
 
 export const UPDATES: readonly Update[] = [
+  { date: "2026-10-20", tag: "New bank", tone: "computer-science", title: "IB Computer Science HL and SL", body: "506 HL and 391 SL questions from 2019 to 2026, sorted by topic and matched to the new syllabus where they fit.", links: [ibBank("Practise by topic", "ib-computer-science")] },
   { date: "2026-10-20", tag: "New bank", tone: "computer-science", title: "IGCSE Computer Science 0478", body: "847 questions from 105 papers (2019–2026), sorted by topic, each with a worked explanation that shows code properly.", links: [{ label: "Practise by topic", href: "/banks/igcse-computer-science-0478" }, { label: "Full past papers", href: "/past-papers/igcse-computer-science-0478" }] },
   { date: "2026-10-20", tag: "Improvement", tone: "chemistry", title: "Chemistry 2024 explanations", body: "All 704 Chemistry 0620 questions from 2024 now have worked explanations.", links: [bank("Chemistry 0620", "igcse-chemistry-0620")] },
   { date: "2026-10-20", tag: "Improvement", title: "Smoother PDF downloads", body: "Downloading the same worksheet again is free, big exports ask first, and you choose where the answers go after pressing Download.", links: [{ label: "My worksheets", href: "/worksheets" }] },
