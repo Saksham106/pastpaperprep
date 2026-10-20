@@ -5,6 +5,7 @@ import { authorizeAssetRequests, type AssetRequest, type AuthorizedAssetRequest 
 import { getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
+import { pdfExportKey } from "@/lib/pdf-export-key";
 import type { McqAnswer } from "@/lib/mcq-answer";
 import { loadBankMcqAnswers } from "@/lib/mcq-answer-letters";
 import { premiumAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
@@ -122,10 +123,22 @@ async function handlePOST(request: Request) {
       });
     }
 
-    const { data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {
-      p_asset_count: premiumPathCount,
-      p_pdf_question_count: questionIds.length,
-    });
+    // Repeating the same worksheet today (double click, retry, cancelled export) is free.
+    const exportKey = pdfExportKey(bank, body.content, questionIds);
+    let { data: allowed, error: quotaError } = exportKey
+      ? await supabase.rpc("consume_pdf_export_allowance", {
+        p_export_key: exportKey,
+        p_asset_count: premiumPathCount,
+        p_pdf_question_count: questionIds.length,
+      })
+      : { data: null, error: { code: "PGRST202" } };
+    // No server secret, or the migration isn't applied yet (PostgREST PGRST202): charge as before.
+    if (quotaError?.code === "PGRST202") {
+      ({ data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {
+        p_asset_count: premiumPathCount,
+        p_pdf_question_count: questionIds.length,
+      }));
+    }
     if (quotaError) return NextResponse.json({ error: "Could not verify export allowance" }, { status: 503 });
     if (!allowed) return NextResponse.json({ error: "Daily worksheet limit reached. Try again tomorrow." }, { status: 429 });
 

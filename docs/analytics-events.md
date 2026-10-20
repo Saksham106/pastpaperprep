@@ -22,7 +22,7 @@ No email, name or account ID is ever sent without consent.
 | `explanation_open` | bank page, Explanation button | `bank`, `freePreview` |
 | `question_report` | bank page, flag on an unlocked question card ("Report a problem"); once per question per page session | `bank`, `questionId`, `issue` (`question_image`, `mark_scheme`, `explanation`, `other`), `freePreview`, `hasExplanation`. No free text. |
 | `pdf_builder_open` | Save PDF / Download PDF | `bank`, `questionCount` |
-| `pdf_export_attempt` / `_success` / `_error` | Download PDF | `bank`, `questionCount`, `content`, `source` (`worksheet` = My Worksheets, `save_dialog` = icon in the Save PDF card) |
+| `pdf_export_attempt` / `_success` / `_error` / `_blocked` | Download PDF. Since 2026-10-20 `_error` and `_blocked` carry `reason` (`daily_limit`, `auth`, `sign_unavailable`, `network`, `build`, `other`) and `status?`; hitting the daily limit is `pdf_export_blocked`, not an error | `bank`, `questionCount`, `content`, `source` (`worksheet` = My Worksheets, `save_dialog` = icon in the Save PDF card, `builder`) |
 | `pdf_upgrade_view` | PDF prompt for people without access | `bank` |
 | `upgrade_prompt_view` / `_click` / `_dismiss` | upgrade prompts | `bank`, `placement` |
 | `free_gate_view` / `_elevated` / `_dismiss` / `_signup_click` / `_signin_click` | 20-question sign-up prompt. Since 2026-10-15 `free_gate_view` fires once per page when the prompt first scrolls into view (it used to fire on mount, which overcounted it). | `bank`, `limit`, `remainingCount` |
