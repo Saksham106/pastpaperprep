@@ -3,36 +3,50 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { claimPreferredSourceBonus } = vi.hoisted(() => ({ claimPreferredSourceBonus: vi.fn() }));
 vi.mock("./actions", () => ({ claimPreferredSourceBonus }));
-import { PREFERRED_SOURCE_URL, PreferredSourceBonus } from "./PreferredSourceBonus";
+vi.mock("next/script", () => ({ default: () => null }));
+import { PreferredSourceBonus } from "./PreferredSourceBonus";
+
+function googleButton() {
+  return screen.getByTestId("preferred-source-button").querySelector("[google-add-preferred-source-btn]")!;
+}
 
 describe("preferred source bonus", () => {
-  beforeEach(() => claimPreferredSourceBonus.mockReset());
+  beforeEach(() => {
+    claimPreferredSourceBonus.mockReset();
+    delete window.PREFERRED_SOURCE;
+  });
 
-  it("opens Google in a new tab and records the bonus on click", async () => {
+  it("asks Google's script to render its button on every mount", () => {
+    const init = vi.fn();
+    render(<PreferredSourceBonus claimed={false} />);
+    const queue = window.PREFERRED_SOURCE as Array<(api: { init: typeof init }) => void>;
+    expect(queue).toHaveLength(1);
+    queue[0]({ init });
+    expect(init).toHaveBeenCalledWith({ lang: "en" });
+    expect(googleButton()).toBeInTheDocument();
+  });
+
+  it("records the bonus when Google's button is clicked", async () => {
     claimPreferredSourceBonus.mockResolvedValue(true);
     render(<PreferredSourceBonus claimed={false} />);
-    const link = screen.getByRole("link", { name: /preferred source on Google/ });
-    expect(link).toHaveAttribute("href", PREFERRED_SOURCE_URL);
-    expect(link).toHaveAttribute("target", "_blank");
-    link.addEventListener("click", (event) => event.preventDefault());
-    fireEvent.click(link);
+    expect(screen.getByText("Counts as 1 signup")).toBeVisible();
+    fireEvent.click(googleButton());
     expect(claimPreferredSourceBonus).toHaveBeenCalledOnce();
-    await waitFor(() => expect(screen.getByText(/\+1 signup counted/)).toBeVisible());
+    await waitFor(() => expect(screen.getByText("+1 signup counted")).toBeVisible());
   });
 
-  it("keeps the button when the claim is refused", async () => {
+  it("keeps the offer when the claim is refused", async () => {
     claimPreferredSourceBonus.mockResolvedValue(false);
     render(<PreferredSourceBonus claimed={false} />);
-    const link = screen.getByRole("link", { name: /preferred source on Google/ });
-    link.addEventListener("click", (event) => event.preventDefault());
-    fireEvent.click(link);
+    fireEvent.click(googleButton());
     await waitFor(() => expect(claimPreferredSourceBonus).toHaveBeenCalled());
-    expect(screen.getByRole("link", { name: /preferred source on Google/ })).toBeVisible();
+    expect(screen.getByText("Counts as 1 signup")).toBeVisible();
   });
 
-  it("shows the done state once claimed", () => {
+  it("does not claim again once counted, but keeps Google's button", () => {
     render(<PreferredSourceBonus claimed />);
-    expect(screen.queryByRole("link")).not.toBeInTheDocument();
-    expect(screen.getByText(/\+1 signup counted/)).toBeVisible();
+    fireEvent.click(googleButton());
+    expect(claimPreferredSourceBonus).not.toHaveBeenCalled();
+    expect(screen.getByText("+1 signup counted")).toBeVisible();
   });
 });

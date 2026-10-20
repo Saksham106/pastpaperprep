@@ -1,28 +1,33 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import Script from "next/script";
+import { useEffect, useState, useTransition } from "react";
 import { claimPreferredSourceBonus } from "./actions";
 
-export const PREFERRED_SOURCE_URL = "https://www.google.com/preferences/source?q=pastpaperprep.com";
+// Google's official button; it renders in a shadow root, so its clicks bubble to our wrapper.
+export const PREFERRED_SOURCE_SCRIPT = "https://news.google.com/swg/js/v1/publisher.js";
+
+type PreferredSourceApi = { init(options: { lang?: string }): void };
+declare global { interface Window { PREFERRED_SOURCE?: Array<(api: PreferredSourceApi) => void> | { push(fn: (api: PreferredSourceApi) => void): void } } }
 
 export function PreferredSourceBonus({ claimed }: { claimed: boolean }) {
   const [done, setDone] = useState(claimed);
   const [, startTransition] = useTransition();
-  if (done) {
-    return <p className="account-referral-bonus is-done">Added on Google <span aria-hidden="true">·</span> +1 signup counted</p>;
+  // The script only scans for buttons when it initialises, so re-run it after client-side navigation.
+  useEffect(() => {
+    (window.PREFERRED_SOURCE ??= []).push((api) => api.init({ lang: "en" }));
+  }, []);
+  function claim() {
+    if (done) return;
+    startTransition(async () => { if (await claimPreferredSourceBonus()) setDone(true); });
   }
   return (
     <div className="account-referral-bonus-wrap">
-    <a
-      className="button secondary account-referral-bonus"
-      href={PREFERRED_SOURCE_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={() => startTransition(async () => { if (await claimPreferredSourceBonus()) setDone(true); })}
-    >
-      Add us as a preferred source on Google <span aria-hidden="true">·</span> +1 signup
-    </a>
-    <span>On Google, search PastPaperPrep and tick the box.</span>
+      <Script src={PREFERRED_SOURCE_SCRIPT} strategy="afterInteractive" preferred-sources-control="manual" />
+      <div onClickCapture={claim} data-testid="preferred-source-button">
+        <div google-add-preferred-source-btn="" />
+      </div>
+      <span>{done ? "+1 signup counted" : "Counts as 1 signup"}</span>
     </div>
   );
 }
