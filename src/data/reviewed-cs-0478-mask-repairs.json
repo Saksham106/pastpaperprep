@@ -1,0 +1,118 @@
+{
+ "schema": "reviewed-cs-0478-mask-repairs-v1",
+ "bank": "igcse-computer-science-0478",
+ "namespace": "repairs/cs-0478-false-masks-v1-1fbb96033e62ff45",
+ "source": {
+  "research": "research/cs-0478-false-barcode-masks",
+  "packageSha256": "1fbb96033e62ff453784279ae409d3baf19c7e8a4bd74c42cb6f81a1acad91f0",
+  "builderSha256": "c10860fc45e33d0ddfc1e8ddf54cf38a47cf95cc7c3a16977c3f5784944372cc",
+  "segmentSha256": "abc5aca2357928ce6be3f1e7238677a9c45e3ce8756dee86ebe76701aae9b452",
+  "sources": {
+   "0478-2020-w-12": {
+    "path": "igcse-computer-science-0478-topic-practice/data/raw-extension-2019-2022/0478-2020-w-12-question.pdf",
+    "sha256": "f59235b062e6c9608d22d84ecd4cede487c60c2b2741f44d8af0874d28ff336a"
+   },
+   "0478-2022-w-23": {
+    "path": "igcse-computer-science-0478-topic-practice/data/raw-extension-2019-2022/0478-2022-w-23-question.pdf",
+    "sha256": "f22abe2612555e8bf4496d3ec59e7776361ca56a6e404ab094d91619d16d36ae"
+   },
+   "0478-2024-m-12": {
+    "path": "igcse-computer-science-0478-topic-practice/data/raw/0478-2024-m-12-question.pdf",
+    "sha256": "e81e4abcacd86db63c02d35ec8d149e8eadffea50b54b3fd69679bac88494780"
+   },
+   "0478-2024-s-12": {
+    "path": "igcse-computer-science-0478-topic-practice/data/raw/0478-2024-s-12-question.pdf",
+    "sha256": "24b31b3eaa0c30ae5df2329ebc05d7f73b0a4c38647796be17776632fa310cd0"
+   }
+  }
+ },
+ "questions": {
+  "0478-2020-w-12-q5": {
+   "oldPaths": [
+    "questions/0478-2020-w-12/q5-9-1.webp",
+    "questions/0478-2020-w-12/q5-10-2.webp"
+   ],
+   "oldSha256": [
+    "ffdd0848248429664263472c88c19b07fa188ec0bd8b72565399435726e034c7",
+    "2748d324e327e7c3f6ea72f7c2b75b4af3372214c08065f4a2040275ac35d792"
+   ],
+   "newPaths": [
+    "questions/0478-2020-w-12/q5-9-1.webp",
+    "repairs/cs-0478-false-masks-v1-1fbb96033e62ff45/39a6fedbb4d6ec5761c5ee91d9ebf623585fcd4e377e85ef39bfc9badb7743b8.webp"
+   ],
+   "sha256": [
+    "ffdd0848248429664263472c88c19b07fa188ec0bd8b72565399435726e034c7",
+    "39a6fedbb4d6ec5761c5ee91d9ebf623585fcd4e377e85ef39bfc9badb7743b8"
+   ],
+   "falseMaskCount": 1
+  },
+  "0478-2022-w-23-q4": {
+   "oldPaths": [
+    "questions/0478-2022-w-23/q4-12-1.webp",
+    "questions/0478-2022-w-23/q4-13-2.webp"
+   ],
+   "oldSha256": [
+    "10fba3142d3c960ac70e2ebae0da99a288f6d9d54bea44864aa6aa327d173802",
+    "2bc1a016229f41735138a3d36a8e421b723213f304b3c49db221e2ebe7065af7"
+   ],
+   "newPaths": [
+    "questions/0478-2022-w-23/q4-12-1.webp",
+    "repairs/cs-0478-false-masks-v1-1fbb96033e62ff45/8cf85b7b254bf76fa9d3c65f52296ca49e215db94c1da9153156f5cae82689e7.webp"
+   ],
+   "sha256": [
+    "10fba3142d3c960ac70e2ebae0da99a288f6d9d54bea44864aa6aa327d173802",
+    "8cf85b7b254bf76fa9d3c65f52296ca49e215db94c1da9153156f5cae82689e7"
+   ],
+   "falseMaskCount": 1
+  },
+  "0478-2024-m-12-q3": {
+   "oldPaths": [
+    "questions/0478-2024-m-12/q3-6-1.webp",
+    "questions/0478-2024-m-12/q3-7-2.webp"
+   ],
+   "oldSha256": [
+    "675554a974ebe140c2254090e12a41c3b6988485a2814d359ca89e808810be45",
+    "df5929c0349cfbf1f8f8ebfb2456fd8519499014192a14535bcd6f2a7c6d6df9"
+   ],
+   "newPaths": [
+    "repairs/cs-0478-false-masks-v1-1fbb96033e62ff45/a4a2fa1c4d7c0978032f94b813c4389afb660ca700e28c7efa8fd1a6feab7b05.webp",
+    "questions/0478-2024-m-12/q3-7-2.webp"
+   ],
+   "sha256": [
+    "a4a2fa1c4d7c0978032f94b813c4389afb660ca700e28c7efa8fd1a6feab7b05",
+    "df5929c0349cfbf1f8f8ebfb2456fd8519499014192a14535bcd6f2a7c6d6df9"
+   ],
+   "falseMaskCount": 8
+  },
+  "0478-2024-s-12-q5": {
+   "oldPaths": [
+    "questions/0478-2024-s-12/q5-6-1.webp"
+   ],
+   "oldSha256": [
+    "2b473e0ab22fcc8071c54df8b260b77179dd69a385078a9d4224ea14bc71b1d1"
+   ],
+   "newPaths": [
+    "repairs/cs-0478-false-masks-v1-1fbb96033e62ff45/97f37dcade2334bf7b242a51a5afc9b3a181f06055e63d14c21cbba4e9bbe573.webp"
+   ],
+   "sha256": [
+    "97f37dcade2334bf7b242a51a5afc9b3a181f06055e63d14c21cbba4e9bbe573"
+   ],
+   "falseMaskCount": 3
+  },
+  "0478-2024-s-12-q6": {
+   "oldPaths": [
+    "questions/0478-2024-s-12/q6-7-1.webp"
+   ],
+   "oldSha256": [
+    "c81b7ec6f743a4f2ab0fb6f2285f46bb58c491e7e5e0588c5ff147de126a5dbe"
+   ],
+   "newPaths": [
+    "repairs/cs-0478-false-masks-v1-1fbb96033e62ff45/0944961a279b20fbea79fbb836e4f91c38e00a1d723bd3df054a2b7b014be9fa.webp"
+   ],
+   "sha256": [
+    "0944961a279b20fbea79fbb836e4f91c38e00a1d723bd3df054a2b7b014be9fa"
+   ],
+   "falseMaskCount": 2
+  }
+ }
+}

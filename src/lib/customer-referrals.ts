@@ -3,7 +3,7 @@ import { randomBytes } from "node:crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { createClient } from "@/lib/supabase/server";
 
-export type CustomerReferralSummary = { code: string; verifiedSignups: number; awardedRewards: number; awardedSignupMilestones: number };
+export type CustomerReferralSummary = { code: string; verifiedSignups: number; awardedRewards: number; awardedSignupMilestones: number; preferredSourceBonus: boolean };
 
 /** Call only after verifying the subject with Supabase auth.getClaims(). */
 export async function getCustomerReferralSummary(userId: string, authClient: Awaited<ReturnType<typeof createClient>>): Promise<CustomerReferralSummary | null> {
@@ -14,13 +14,14 @@ export async function getCustomerReferralSummary(userId: string, authClient: Awa
   if (error) throw new Error("Could not load your referral link");
   if (!code) return null;
   const admin = createAdminClient();
-  const [signups, awards, signupAwards] = await Promise.all([
+  const [signups, awards, signupAwards, link] = await Promise.all([
     admin.from("customer_referral_attributions").select("user_id", { count: "exact", head: true }).eq("referrer_user_id", userId),
     admin.from("customer_referral_awards").select("id", { count: "exact", head: true }).eq("referrer_user_id", userId),
     admin.from("customer_referral_awards").select("id", { count: "exact", head: true }).eq("referrer_user_id", userId).eq("kind", "five_signups"),
+    admin.from("customer_referral_links").select("preferred_source_bonus_at").eq("user_id", userId).maybeSingle(),
   ]);
-  if (signups.error || awards.error || signupAwards.error || signups.count === null || awards.count === null || signupAwards.count === null) {
+  if (link.error || signups.error || awards.error || signupAwards.error || signups.count === null || awards.count === null || signupAwards.count === null) {
     throw new Error("Could not read referral progress");
   }
-  return { code, verifiedSignups: signups.count, awardedRewards: awards.count, awardedSignupMilestones: signupAwards.count };
+  return { code, verifiedSignups: signups.count, awardedRewards: awards.count, awardedSignupMilestones: signupAwards.count, preferredSourceBonus: Boolean(link.data?.preferred_source_bonus_at) };
 }
