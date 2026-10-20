@@ -17,10 +17,10 @@ describe("preferred source bonus", () => {
   it("records the bonus when Google's button is clicked", async () => {
     claimPreferredSourceBonus.mockResolvedValue(true);
     render(<PreferredSourceBonus claimed={false} />);
-    expect(screen.getByText("Counts as 1 signup")).toBeVisible();
+    expect(screen.queryByText(/point counted/)).not.toBeInTheDocument();
     fireEvent.click(googleButton());
     expect(claimPreferredSourceBonus).toHaveBeenCalledOnce();
-    await waitFor(() => expect(screen.getByText("+1 signup counted")).toBeVisible());
+    await waitFor(() => expect(screen.getByText(/\+1 point counted/)).toBeVisible());
   });
 
   it("keeps the offer when the claim is refused", async () => {
@@ -28,13 +28,13 @@ describe("preferred source bonus", () => {
     render(<PreferredSourceBonus claimed={false} />);
     fireEvent.click(googleButton());
     await waitFor(() => expect(claimPreferredSourceBonus).toHaveBeenCalled());
-    expect(screen.getByText("Counts as 1 signup")).toBeVisible();
+    expect(screen.queryByText(/point counted/)).not.toBeInTheDocument();
   });
 
   it("does not claim again once counted, but keeps Google's button", () => {
     render(<PreferredSourceBonus claimed />);
     fireEvent.click(googleButton());
     expect(claimPreferredSourceBonus).not.toHaveBeenCalled();
-    expect(screen.getByText("+1 signup counted")).toBeVisible();
+    expect(screen.getByText(/\+1 point counted/)).toBeVisible();
   });
 });

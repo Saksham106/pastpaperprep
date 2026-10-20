@@ -13,7 +13,7 @@ describe("referral terms", () => {
 
   it("keeps the detailed rules out of the page until More info opens a closable dialog", () => {
     render(<ReferralOverview summary={summary} />);
-    expect(screen.getByText(/5 verified signups.*1 month free/)).toBeVisible();
+    expect(screen.getByText("Earn points. 5 points = 1 month free.")).toBeVisible();
     expect(screen.getByText(/1 referred first purchase.*1 month free/)).toBeVisible();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.queryByText(/For annual plans/)).not.toBeVisible();
@@ -33,10 +33,20 @@ describe("referral terms", () => {
     expect(screen.getByText("2 / 5")).toBeVisible();
   });
 
-  it("counts a claimed preferred-source bonus as one signup", () => {
+  it("labels progress as points and lists both one-point actions", () => {
+    render(<ReferralOverview summary={summary} />);
+    expect(screen.getByText("Points")).toBeVisible();
+    expect(screen.getByText("All time: 2 referrals")).toBeVisible();
+    expect(screen.getByText("+1 point each")).toBeVisible();
+    expect(screen.getByText("+1 point, once")).toBeVisible();
+    expect(screen.getByLabelText("Your referral link")).toBeVisible();
+    expect(screen.queryByText(/verified signups/i)).not.toBeInTheDocument();
+  });
+
+  it("counts a claimed Google bonus as one point and shows where it came from", () => {
     render(<ReferralOverview summary={{ ...summary, preferredSourceBonus: true }} />);
     expect(screen.getByText("3 / 5")).toBeVisible();
-    expect(screen.getByText(/\+1 signup counted/)).toBeVisible();
-    expect(screen.queryByRole("link", { name: /preferred source/ })).not.toBeInTheDocument();
+    expect(screen.getByText("All time: 2 referrals + Google bonus")).toBeVisible();
+    expect(screen.getByText(/\+1 point counted/)).toBeVisible();
   });
 });

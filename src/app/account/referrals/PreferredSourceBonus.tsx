@@ -17,7 +17,7 @@ export function PreferredSourceBonus({ claimed }: { claimed: boolean }) {
       <div onClickCapture={claim} data-testid="preferred-source-button">
         <GooglePreferredSourceButton />
       </div>
-      <span>{done ? "+1 signup counted" : "Counts as 1 signup"}</span>
+      {done && <span>Added <span aria-hidden="true">·</span> +1 point counted</span>}
     </div>
   );
 }
