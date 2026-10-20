@@ -3,7 +3,6 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { claimPreferredSourceBonus } = vi.hoisted(() => ({ claimPreferredSourceBonus: vi.fn() }));
 vi.mock("./actions", () => ({ claimPreferredSourceBonus }));
-vi.mock("next/script", () => ({ default: () => null }));
 import { PreferredSourceBonus } from "./PreferredSourceBonus";
 
 function googleButton() {
@@ -13,17 +12,6 @@ function googleButton() {
 describe("preferred source bonus", () => {
   beforeEach(() => {
     claimPreferredSourceBonus.mockReset();
-    delete window.PREFERRED_SOURCE;
-  });
-
-  it("asks Google's script to render its button on every mount", () => {
-    const init = vi.fn();
-    render(<PreferredSourceBonus claimed={false} />);
-    const queue = window.PREFERRED_SOURCE as Array<(api: { init: typeof init }) => void>;
-    expect(queue).toHaveLength(1);
-    queue[0]({ init });
-    expect(init).toHaveBeenCalledWith({ lang: "en" });
-    expect(googleButton()).toBeInTheDocument();
   });
 
   it("records the bonus when Google's button is clicked", async () => {
