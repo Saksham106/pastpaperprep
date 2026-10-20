@@ -1,8 +1,9 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+vi.mock("./actions", () => ({ claimPreferredSourceBonus: vi.fn() }));
 import { ReferralOverview } from "./ReferralOverview";
 
-const summary = { code: "c_111111111111111111111111", verifiedSignups: 2, awardedRewards: 0, awardedSignupMilestones: 0 };
+const summary = { code: "c_111111111111111111111111", verifiedSignups: 2, awardedRewards: 0, awardedSignupMilestones: 0, preferredSourceBonus: false };
 
 describe("referral terms", () => {
   beforeEach(() => {
@@ -30,5 +31,12 @@ describe("referral terms", () => {
     fireEvent(screen.getByRole("dialog"), new Event("cancel", { cancelable: true }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.getByText("2 / 5")).toBeVisible();
+  });
+
+  it("counts a claimed preferred-source bonus as one signup", () => {
+    render(<ReferralOverview summary={{ ...summary, preferredSourceBonus: true }} />);
+    expect(screen.getByText("3 / 5")).toBeVisible();
+    expect(screen.getByText(/\+1 signup counted/)).toBeVisible();
+    expect(screen.queryByRole("link", { name: /preferred source/ })).not.toBeInTheDocument();
   });
 });

@@ -1,10 +1,12 @@
 import type { CustomerReferralSummary } from "@/lib/customer-referrals";
 import { CopyReferralLink } from "./CopyReferralLink";
+import { PreferredSourceBonus } from "./PreferredSourceBonus";
 import { ReferralMoreInfo } from "./ReferralMoreInfo";
 
 export function ReferralOverview({ summary }: { summary: CustomerReferralSummary }) {
-  const { verifiedSignups, awardedRewards, awardedSignupMilestones, code } = summary;
-  const progress = Math.min(5, Math.max(0, verifiedSignups - awardedSignupMilestones * 5));
+  const { verifiedSignups, awardedRewards, awardedSignupMilestones, code, preferredSourceBonus } = summary;
+  const counted = verifiedSignups + (preferredSourceBonus ? 1 : 0);
+  const progress = Math.min(5, Math.max(0, counted - awardedSignupMilestones * 5));
   return (
     <section className="account-section-page account-referrals-page">
       <p className="eyebrow">Account</p>
@@ -13,6 +15,7 @@ export function ReferralOverview({ summary }: { summary: CustomerReferralSummary
       <div className="account-readonly-note">
         <CopyReferralLink url={`https://pastpaperprep.com/invite/${code}`} />
       </div>
+      <PreferredSourceBonus claimed={preferredSourceBonus} />
       <div className="account-referral-progress" aria-label="Referral progress">
         <div>
           <span className="account-referral-number">{progress} / 5</span>
