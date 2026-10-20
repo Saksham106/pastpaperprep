@@ -3,7 +3,7 @@
 The owner approved the R2 upload and the billing migration in chat on 20 October 2026.
 
 ## Source
-- Workspace: `ib-computer-science-topic-practice` at commit ffc83b9 (local git).
+- Workspace: `ib-computer-science-topic-practice` at commit a0c91c8 (local git).
 - Papers: 64 QP/MS pairs, May 2019 to May 2026, from IB Docs (May 2026 from papers.xtremepape.rs, clean and identity-checked).
 - Excluded: Paper 3 (the case study). There is no Paper 2 for 2021–22: every mirror lists P1 and P3 only.
 - Questions: 897 segmented, audit PASS.
@@ -16,8 +16,8 @@ The owner approved the R2 upload and the billing migration in chat on 20 October
 ## Banks
 | Bank | Questions | Papers | Crops | Candidate | Finalized runtime |
 |---|---:|---:|---:|---|---|
-| ib-computer-science-hl | 506 | 32 | 1,560 (38.3 MB) | `610ccfc5…` | `42f49e8b…` |
-| ib-computer-science-sl | 391 | 32 | 1,141 (25.8 MB) | `302f6c94…` | `d65c7fcf…` |
+| ib-computer-science-hl | 506 | 32 | 1,560 (38.3 MB) | `9b74c704…` | `974fc314…` |
+| ib-computer-science-sl | 391 | 32 | 1,141 (25.8 MB) | `371c697e…` | `b0fec7f2…` |
 
 There is no free tier: no free years, so each bank opens locked.
 
@@ -41,3 +41,12 @@ There is no free tier: no free years, so each bank opens locked.
   - each has 3 `stripe_price_catalog` rows, equal to the 3 generic `bank_igcse` rows they were copied from;
   - `is_valid_custom_bank_ids` accepts both slugs.
 - No Stripe object was created or changed.
+
+## Review repair (21 October 2026)
+The owner's review of #386 raised two points.
+
+**Migration version collision.** Main's `20261020020000_remove_daily_pdf_export_count_cap.sql` (#384) shared the numeric version that production already records for this release. Supabase keys history by version, and production has not applied the PDF migration. It is renamed to `20261020030000`, and its SQL is unchanged. The release test now asserts that every version is unique and that no later migration redefines the billing objects copied here. The PDF migration itself is not applied by this PR.
+
+**Source text.** Table cells were joined in a scrambled order in the extracted question text. Segmentation now groups cells into visual rows, which fixed 433 question texts, among them the 2026 Figure 3 seat grid. The crops are byte-identical. A second overlay moves five explicit "access to array elements" marks to B2.2, matching their twin papers.
+
+Both runtimes were regenerated, repinned and re-finalized. The asset manifests list the same 2,701 verified objects; only their candidate and content hashes changed. The receipts were rewritten from the unchanged upload logs, with no re-upload, and the prefixes keep the first candidates' names.

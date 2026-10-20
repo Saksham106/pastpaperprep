@@ -185,8 +185,8 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "igcse-physics-0625": "d95657a79bfcf5d80b9c7e9660c1d7795ea2026435610bb3e96ba2203e3d8cf7",
   "igcse-coordinated-sciences-0654": "8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a",
   "igcse-computer-science-0478": "3f65f4fa9c94c0b35b6579b4ad0d2306ac20093234a4edd95e79c79b0618de6c",
-  "ib-computer-science-hl": "610ccfc508e183b665dc1cc557e07b6ce1740868af3eebca96146e1cd74a1c21",
-  "ib-computer-science-sl": "302f6c9461e679ea800d0de7178705a3b3b099c815dea54fc373b74c8c9369c3",
+  "ib-computer-science-hl": "9b74c704510a93ac7d71e881b2a95dcad74814407281adb3a933e6ae64fb7077",
+  "ib-computer-science-sl": "371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9",
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -196,8 +196,8 @@ const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "igcse-physics-0625": "14b6756ed65b6f264f601519a4dba5b5a43ef0f0480bc849924cc037644c79e8",
   "igcse-coordinated-sciences-0654": "8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a",
   "igcse-computer-science-0478": "3f65f4fa9c94c0b35b6579b4ad0d2306ac20093234a4edd95e79c79b0618de6c",
-  "ib-computer-science-hl": "610ccfc508e183b665dc1cc557e07b6ce1740868af3eebca96146e1cd74a1c21",
-  "ib-computer-science-sl": "302f6c9461e679ea800d0de7178705a3b3b099c815dea54fc373b74c8c9369c3",
+  "ib-computer-science-hl": "9b74c704510a93ac7d71e881b2a95dcad74814407281adb3a933e6ae64fb7077",
+  "ib-computer-science-sl": "371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9",
 };
 
 function canonicalSha256(value: unknown) {

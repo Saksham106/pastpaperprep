@@ -63,12 +63,12 @@ function reconstructCandidate(finalized: Runtime): Runtime {
 const BANKS = [
   {
     slug: "ib-computer-science-hl", product: "bank_ib_computer_science_hl", level: "HL", title: "IB Computer Science Higher Level", shortName: "Computer Science HL",
-    rows: 506, papers: 32, sectionsShown: 51, candidate: "610ccfc508e183b665dc1cc557e07b6ce1740868af3eebca96146e1cd74a1c21", prefix: "ib-computer-science-hl/releases/full506-v1-610ccfc508e1",
+    rows: 506, papers: 32, sectionsShown: 51, candidate: "9b74c704510a93ac7d71e881b2a95dcad74814407281adb3a933e6ae64fb7077", prefix: "ib-computer-science-hl/releases/full506-v1-610ccfc508e1",
     runtime: hlRuntime as unknown as Runtime, index: hlIndex,
   },
   {
     slug: "ib-computer-science-sl", product: "bank_ib_computer_science_sl", level: "SL", title: "IB Computer Science Standard Level", shortName: "Computer Science SL",
-    rows: 391, papers: 32, sectionsShown: 40, candidate: "302f6c9461e679ea800d0de7178705a3b3b099c815dea54fc373b74c8c9369c3", prefix: "ib-computer-science-sl/releases/full391-v1-302f6c9461e6",
+    rows: 391, papers: 32, sectionsShown: 40, candidate: "371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9", prefix: "ib-computer-science-sl/releases/full391-v1-302f6c9461e6",
     runtime: slRuntime as unknown as Runtime, index: slIndex,
   },
 ] as const;
@@ -241,10 +241,12 @@ describe.each(BANKS)("IB Computer Science $level release", (bank) => {
     expect(meta.runtimeTaxonomySha256).toBe(sha(taxonomy));
     expect(meta.releaseTaxonomySha256).toBe(sha(readFileSync(join(ROOT, "src/data/ib-computer-science-taxonomy.json"), "utf8")));
     expect(production.taxonomy.sha256).toBe(meta.releaseTaxonomySha256);
-    expect(meta.sourceCommit).toBe("ffc83b9");
+    expect(meta.sourceCommit).toBe("a0c91c8");
     expect(Object.keys(meta.sourceSha256 as object)).toEqual(["segmentation", "labels", "taxonomy", "sourceManifest", "acquisitionManifest"]);
     expect(RELEASE_BANKS[bank.slug]).toMatchObject({ originalCandidateRuntimeSha256: bank.candidate, candidateSeal: "blanked-v1", prefix: bank.prefix });
-    expect(bank.prefix).toBe(`${bank.slug}/releases/full${bank.rows}-v1-${bank.candidate.slice(0, 12)}`);
+    // Named for the first candidate; the 2026-10-21 review repair changed text and labels only, so the
+    // byte-identical, already verified crops stay under this prefix.
+    expect(bank.prefix).toMatch(new RegExp(`^${bank.slug}/releases/full${bank.rows}-v1-[a-f0-9]{12}$`));
     expect(PRIVATE_RUNTIME_OBJECT_PREFIXES[bank.slug]).toBe(`${bank.prefix}/`);
     const runtimeSource = readFileSync(join(ROOT, "src/lib/igcse-runtime.ts"), "utf8");
     expect(runtimeSource.match(new RegExp(`"${bank.slug}": "${bank.candidate}"`, "g"))).toHaveLength(2);
@@ -342,9 +344,21 @@ describe("IB Computer Science shared tree and the two banks together", () => {
 
   it("registers the product in a migration copied from the latest billing definitions, with no Stripe id", () => {
     const name = "20261020020000_ib_computer_science_release.sql";
-    const migrations = readdirSync(join(ROOT, "supabase/migrations")).sort();
-    expect(migrations.at(-1)).toBe(name);
+    const migrations = readdirSync(join(ROOT, "supabase/migrations")).filter((file) => file.endsWith(".sql")).sort();
+    // Supabase keys history on the numeric version alone: every version is unique, and this one is the
+    // version production already records for this release (20261020020000 ib_computer_science_release).
+    const versions = migrations.map((file) => file.slice(0, 14));
+    expect(new Set(versions).size).toBe(versions.length);
+    expect(migrations.filter((file) => file.startsWith("20261020020000"))).toEqual([name]);
     expect(migrations.filter((file) => file.slice(0, 14) > "20261020010000" && file < name)).toEqual([]);
+    // No later migration redefines the billing objects this one copied, so its copies stay the latest.
+    for (const later of migrations.filter((file) => file > name)) {
+      const body = readFileSync(join(ROOT, "supabase/migrations", later), "utf8");
+      for (const fn of ["is_valid_custom_bank_ids", "confirm_addon_billing_checkout", "confirm_billing_checkout", "apply_stripe_subscription_event"]) {
+        expect(body.includes(`function public.${fn}`), `${later} redefines ${fn}`).toBe(false);
+      }
+      expect(/products_known_id|stripe_price_catalog_product_id_check/.test(body), later).toBe(false);
+    }
     const migration = readFileSync(join(ROOT, "supabase/migrations", name), "utf8");
     expect(migration.startsWith("begin;")).toBe(true);
     expect(migration.trimEnd().endsWith("commit;")).toBe(true);

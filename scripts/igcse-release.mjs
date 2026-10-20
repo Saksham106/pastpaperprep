@@ -43,17 +43,19 @@ export const RELEASE_BANKS = {
   },
   // IB Computer Science rides the same release lane (the "igcse" name is historical). Prefixes carry the row
   // count and the first 12 hex of the candidate seal.
+  // IB Computer Science prefixes are named for the first candidates; the 2026-10-21 review repair changed
+  // text and labels only, so the byte-identical verified crops stay under them.
   'ib-computer-science-hl': {
     prefix: 'ib-computer-science-hl/releases/full506-v1-610ccfc508e1',
     sourceRootEnv: 'PASTPAPERPREP_IB_COMPUTER_SCIENCE_SOURCE_ROOT',
     candidateSeal: 'blanked-v1',
-    originalCandidateRuntimeSha256: '610ccfc508e183b665dc1cc557e07b6ce1740868af3eebca96146e1cd74a1c21',
+    originalCandidateRuntimeSha256: '9b74c704510a93ac7d71e881b2a95dcad74814407281adb3a933e6ae64fb7077',
   },
   'ib-computer-science-sl': {
     prefix: 'ib-computer-science-sl/releases/full391-v1-302f6c9461e6',
     sourceRootEnv: 'PASTPAPERPREP_IB_COMPUTER_SCIENCE_SOURCE_ROOT',
     candidateSeal: 'blanked-v1',
-    originalCandidateRuntimeSha256: '302f6c9461e679ea800d0de7178705a3b3b099c815dea54fc373b74c8c9369c3',
+    originalCandidateRuntimeSha256: '371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9',
   },
 };
 

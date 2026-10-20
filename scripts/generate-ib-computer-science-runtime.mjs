@@ -3,7 +3,7 @@
  * Build the IB Computer Science HL and SL candidate runtimes from the pinned source workspace.
  *
  * Inputs (SHA-256 pinned; any drift fails closed), all under the source workspace
- * (ib-computer-science-topic-practice, commit ffc83b9):
+ * (ib-computer-science-topic-practice, commit a0c91c8):
  *   data/segmentation/full/segmentation.json   897 questions across 64 QP/MS pairs, May 2019 to May 2026
  *   data/classification/final-labels.json      897 labels (primary, secondaries, mark allocation, new_scope)
  *   data/classification/taxonomy.json          owner-approved tree: the new (2027) guide, then the earlier
@@ -28,10 +28,10 @@ export const BANKS = {
 export const RIGHTS_STATUS = "user_attested_rights_authorized";
 export const CANDIDATE_PUBLICATION_STATUS = "authorized_production_candidate";
 export const DEFAULT_SOURCE_ROOT = "/Users/sakshamgoel/Documents/ProjectsInternships/ib-computer-science-topic-practice";
-export const SOURCE_COMMIT = "ffc83b9";
+export const SOURCE_COMMIT = "a0c91c8";
 export const SOURCE_SHA256 = {
-  segmentation: "f11fc4af94ecc86d81b409a53b1011afaf3886e709d2bcbea96b407103b0abae",
-  labels: "0a866e4197dc4262e382e249b95eda40e365b80bad00a445980687a9e0a05785",
+  segmentation: "0c8bde3babaa875f2fbe606bc3f7c004b6b6d8e185e12589332a9f598a157c1c",
+  labels: "cf37adc7b7904597a415a9f20e46fbf2d1a61d5d66cb5b22cd2227fecfd5aead",
   taxonomy: "8f984cd3ad44ec2a2eff48521c47600e44186005f81b5607ae22a131ee316830",
   sourceManifest: "b3f98f7f089b66f46263f9277c369a08d7449b0eea6d25bec7ca331ef1b85399",
   acquisitionManifest: "5451a3f7e66a2a512bd533d14d7767ac39130f0d8bc7c660dea3febe1465a809",
