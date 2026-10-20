@@ -118,7 +118,7 @@ Therefore the current local status is **PASS for the documented development-only
 3. **Paid entitlement and PDF quota integration is not provisioned for Economics.**
    - `ProductId`, `BANK_PRODUCTS`, `BANK_BUNDLES`, entitlement normalization, and the SQL product/Stripe allowlists contain no Economics product IDs.
    - Production `/api/pdf/sign` requires a paid bank entitlement and calls `consume_download_allowance`; the local Economics PDF route intentionally bypasses that boundary only because it is development-gated.
-   - The quota machinery exists for current production banks (`MAX_PDF_QUESTIONS = 50`, daily limits of 3 PDFs/150 questions/3,000 signed assets), but there is no Economics product, migration/read-back, price-catalog tuple, webhook entitlement path, or entitled Economics PDF test.
+   - The quota machinery exists for current production banks (`MAX_PDF_QUESTIONS = 50`, no daily PDF-count cap, daily UTC limits of 150 PDF questions/5,000 signed assets), but there is no Economics product, migration/read-back, price-catalog tuple, webhook entitlement path, or entitled Economics PDF test.
 
 4. **Full-corpus visual/release closure is not evidenced.**
    - The actual browser artifact covers a clean HL and SL normal path, filter counts, one question image, three official-answer pages, and one four-page browser PDF per level.

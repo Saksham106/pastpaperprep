@@ -1,4 +1,5 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
+import { MAX_DAILY_PDF_QUESTIONS, MAX_DAILY_SIGNED_ASSETS, MAX_PDF_QUESTIONS } from '../../src/lib/export-limits.ts';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PGlite } from '@electric-sql/pglite';
@@ -19,8 +20,14 @@ async function setup() {
     alter table public.products owner to postgres;
     insert into auth.users values ('${student}'), ('${other}');
   `);
-  for (const file of ['20260826012000_add_download_allowances.sql', '20261012000000_explanation_daily_cap.sql', '20261012010000_atomic_explanation_sign_allowance.sql', '20261016000000_download_quota_headroom.sql', '20261020000000_pdf_export_same_day_repeat.sql', '20261020020000_remove_daily_pdf_export_count_cap.sql']) {
-    await db.exec(await readFile(new URL(`../migrations/${file}`, import.meta.url), 'utf8'));
+  // Discover the quota migration chain, so a later RPC/constraint replacement
+  // cannot silently leave these tests exercising an obsolete definition.
+  const migrations = new URL('../migrations/', import.meta.url);
+  for (const file of (await readdir(migrations)).filter(file => file.endsWith('.sql')).sort()) {
+    const sql = await readFile(new URL(file, migrations), 'utf8');
+    if (/\b(download_usage_daily|consume_pdf_export_allowance|consume_download_allowance|consume_explanation_and_download_allowance)\b/i.test(sql)) {
+      await db.exec(sql);
+    }
   }
   return db;
 }
@@ -32,6 +39,57 @@ const usage = async (db, user) => {
   const row = (await db.query(`select pdf_export_count, pdf_question_count, signed_asset_count from public.download_usage_daily where user_id = $1`, [user])).rows[0];
   return row ?? null;
 };
+
+test('latest SQL RPCs and CHECK constraints agree with exported TypeScript limits', async () => {
+  const db = await setup();
+  try {
+    const reset = async (assets = 0, questions = 0) => {
+      await db.exec('reset role; delete from public.pdf_export_charges; delete from public.download_usage_daily');
+      await db.query(`insert into public.download_usage_daily
+        (user_id, signed_asset_count, pdf_question_count) values ($1, $2, $3)`, [student, assets, questions]);
+      await as(db, student);
+    };
+    let receipt = 0;
+    // Seed cap-minus-one to isolate each RPC's predicate from the table CHECK.
+    // Exact-cap acceptance catches tighter SQL; cap+1 denial catches looser SQL
+    // (or a CHECK exception instead of the required false RPC result).
+    for (const rpc of [
+      n => db.query('select public.consume_download_allowance($1, 0) as ok', [n]),
+      n => db.query('select public.consume_pdf_export_allowance($1, $2, 1) as ok', [key(++receipt), n]),
+      n => db.query('select public.consume_explanation_and_download_allowance(1, $1) as ok', [n]),
+    ]) {
+      await reset(MAX_DAILY_SIGNED_ASSETS - 1);
+      assert.equal((await rpc(1)).rows[0].ok, true, 'TS daily asset cap must be reachable');
+      assert.equal((await rpc(1)).rows[0].ok, false, 'SQL must deny above TS daily asset cap');
+    }
+    for (const rpc of [
+      n => db.query('select public.consume_download_allowance(0, $1) as ok', [n]),
+      n => db.query('select public.consume_pdf_export_allowance($1, 0, $2) as ok', [key(++receipt), n]),
+    ]) {
+      await reset(0, MAX_DAILY_PDF_QUESTIONS - 1);
+      assert.equal((await rpc(1)).rows[0].ok, true, 'TS daily question cap must be reachable');
+      assert.equal((await rpc(1)).rows[0].ok, false, 'SQL must deny above TS daily question cap');
+      await reset();
+      assert.equal((await rpc(MAX_PDF_QUESTIONS)).rows[0].ok, true, 'TS per-PDF cap must be reachable');
+      assert.equal((await rpc(MAX_PDF_QUESTIONS + 1)).rows[0].ok, false, 'SQL must deny above TS per-PDF cap');
+    }
+    // Exercise CHECKs independently: an RPC-only assertion misses a too-loose
+    // table constraint. The export count is nonnegative, with no policy ceiling.
+    await reset();
+    await db.exec('reset role');
+    await db.query(`update public.download_usage_daily set signed_asset_count=$1,
+      pdf_question_count=$2, pdf_export_count=1000000`, [MAX_DAILY_SIGNED_ASSETS, MAX_DAILY_PDF_QUESTIONS]);
+    for (const [column, cap] of [
+      ['signed_asset_count', MAX_DAILY_SIGNED_ASSETS],
+      ['pdf_question_count', MAX_DAILY_PDF_QUESTIONS],
+    ]) {
+      await assert.rejects(db.query(`update public.download_usage_daily set ${column}=$1`, [cap + 1]),
+        { code: '23514', constraint: `download_usage_daily_${column}_check` });
+    }
+    await assert.rejects(db.exec('update public.download_usage_daily set pdf_export_count=-1'),
+      { code: '23514', constraint: 'download_usage_daily_pdf_export_count_check' });
+  } finally { await db.close(); }
+});
 
 test('5000 shared daily assets: image, PDF and combined explanation boundaries are atomic', async () => {
   for (const path of ['image', 'pdf', 'explanation']) {
