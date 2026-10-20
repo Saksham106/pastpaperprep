@@ -68,5 +68,7 @@ describe("Updates page", () => {
     expect(news.map(({ title }) => title)).toEqual(notable.slice(0, 3).map(({ title }) => title));
     expect(news[0].href).toBe(`/updates#${updateId(notable[0])}`);
     expect(recentNews(3, after(45))).toEqual([]);
+    // Nothing dated after "now" is advertised (an entry written ahead of its release).
+    expect(recentNews(3, after(-1)).map(({ title }) => title)).not.toContain(notable[0].title);
   });
 });

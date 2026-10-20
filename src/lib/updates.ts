@@ -22,13 +22,14 @@ export const COMING_SOON: readonly string[] = [
 const pair = (label: string, slug: string, suffix = "") => ({ label, options: [{ label: "HL", href: `${slug}-hl${suffix}` }, { label: "SL", href: `${slug}-sl${suffix}` }] });
 const ib2026 = (label: string, slug: string) => pair(label, `/past-papers/${slug}`, "/2026");
 const ibBank = (label: string, slug: string) => pair(label, `/banks/${slug}`);
+const CHATGPT_APP = "https://chatgpt.com/plugins/plugin_asdk_app_6abec4a63a288191937b45f8a7adca79";
 const bank = (label: string, slug: string) => ({ label, href: `/banks/${slug}` });
 
 export const UPDATES: readonly Update[] = [
   { date: "2026-10-20", tag: "New bank", tone: "computer-science", title: "IGCSE Computer Science 0478", body: "847 questions from 105 papers (2019–2026), sorted by topic, each with a worked explanation that shows code properly.", links: [{ label: "Practise by topic", href: "/banks/igcse-computer-science-0478" }, { label: "Full past papers", href: "/past-papers/igcse-computer-science-0478" }] },
   { date: "2026-10-20", tag: "Improvement", tone: "chemistry", title: "Chemistry 2024 explanations", body: "All 704 Chemistry 0620 questions from 2024 now have worked explanations.", links: [bank("Chemistry 0620", "igcse-chemistry-0620")] },
   { date: "2026-10-20", tag: "Improvement", title: "Smoother PDF downloads", body: "Downloading the same worksheet again is free, big exports ask first, and you choose where the answers go after pressing Download.", links: [{ label: "My worksheets", href: "/worksheets" }] },
-  { date: "2026-10-19", tag: "Feature", tone: "computer-science", title: "Computer Science in ChatGPT", body: "The PastPaperPrep app in ChatGPT now covers IGCSE Computer Science too." },
+  { date: "2026-10-19", tag: "Feature", tone: "computer-science", title: "Computer Science in ChatGPT", body: "The PastPaperPrep app in ChatGPT now covers IGCSE Computer Science too.", links: [{ label: "PastPaperPrep in ChatGPT", href: CHATGPT_APP }] },
   { date: "2026-10-19", tag: "Improvement", title: "More Maths and Biology explanations", body: "Worked explanations for Maths 0580 2022 and 2023, Biology 0610 2024 and Additional Maths 0606 2024.", links: [bank("Maths 0580", "igcse"), bank("Biology 0610", "igcse-biology-0610"), bank("Additional Maths 0606", "igcse-additional")] },
   { date: "2026-10-19", tag: "Improvement", title: "IB 2024 explanations", body: "1,020 more worked explanations for IB sciences and Economics, mostly from 2024.", links: [ibBank("Biology", "ib-biology"), ibBank("Chemistry", "ib-chemistry"), ibBank("Physics", "ib-physics"), ibBank("Economics", "ib-economics")] },
   { date: "2026-10-19", tag: "Improvement", title: "Figures shown with IB questions", body: "When several IB questions share a figure, each of them now shows it." },
@@ -44,7 +45,7 @@ export const UPDATES: readonly Update[] = [
   { date: "2026-10-15", tag: "New papers", title: "IB May 2026 papers", body: "Official May 2026 papers for Biology, Chemistry, Physics, Economics and Maths AI — 942 new questions.", links: [ib2026("Biology", "ib-biology"), ib2026("Chemistry", "ib-chemistry"), ib2026("Physics", "ib-physics"), ib2026("Economics", "ib-economics"), ib2026("Maths AI", "ib-math-ai")] },
   { date: "2026-10-15", tag: "Feature", title: "Build a paper on one screen", body: "Pick topics and years, watch the paper build live, then save or download it in place.", links: [{ label: "Build a paper", href: "/worksheets/build" }] },
   { date: "2026-10-15", tag: "Improvement", title: "2,125 explanations for the latest years", body: "Worked explanations for Maths 0580 2025–26, Additional Maths, IB Chemistry, Economics, Biology, Physics SL and Physics 0625.", links: [bank("Maths 0580", "igcse"), bank("Additional Maths 0606", "igcse-additional")] },
-  { date: "2026-10-15", tag: "Feature", title: "PastPaperPrep in ChatGPT", body: "Ask ChatGPT for past-paper questions on a topic and get practice cards that link back to the full set here." },
+  { date: "2026-10-15", tag: "Feature", title: "PastPaperPrep in ChatGPT", body: "Ask ChatGPT for past-paper questions on a topic and get practice cards that link back to the full set here.", links: [{ label: "PastPaperPrep in ChatGPT", href: CHATGPT_APP }] },
   { date: "2026-10-15", tag: "New papers", tone: "math", title: "More exam-style practice", body: "New sets on Indices and Advanced Trigonometry for Maths 0580, Sets and Probability for AA SL, and four Functions booklets for AA HL.", links: [{ label: "Maths 0580", href: "/banks/igcse/exam-style" }, { label: "AA SL", href: "/banks/ib-sl/exam-style" }, { label: "AA HL", href: "/banks/ib-hl/exam-style" }] },
   { date: "2026-10-14", tag: "New papers", title: "More 2026 IGCSE papers", body: "Biology 0610 May/June, Economics 0455, Maths 0580 Core and Additional Maths 0606 Feb/March.", links: [{ label: "Biology 0610", href: "/past-papers/igcse-biology-0610/2026" }, { label: "Economics 0455", href: "/past-papers/igcse-economics-0455/2026" }, { label: "Maths 0580", href: "/past-papers/igcse-maths-0580/2026" }, { label: "Additional Maths 0606", href: "/past-papers/igcse-additional-maths-0606/2026" }] },
   { date: "2026-10-14", tag: "New papers", tone: "math", title: "IB Maths AA May 2026", body: "The official May 2026 Maths AA papers are in.", links: [ib2026("Maths AA", "ib-math-aa")] },
@@ -66,7 +67,7 @@ export const UPDATES: readonly Update[] = [
   { date: "2026-09-30", tag: "Improvement", title: "Syllabus filters for six banks", body: "Six IGCSE banks now filter by their syllabus topics.", links: [{ label: "IGCSE banks", href: "/cambridge-igcse" }] },
   { date: "2026-09-29", tag: "Feature", title: "Choose where answers go", body: "Put answers after each question or at the end of your PDF.", links: [{ label: "My worksheets", href: "/worksheets" }] },
   { date: "2026-09-28", tag: "Feature", title: "Generate a practice paper", body: "Pick topics and years, choose a question count or exact marks, and preview the paper before saving.", links: [{ label: "Build a paper", href: "/worksheets/build" }] },
-  { date: "2026-09-28", tag: "Feature", title: "Referral rewards", body: "Share your personal link and earn rewards when friends sign up." },
+  { date: "2026-09-28", tag: "Feature", title: "Referral rewards", body: "Share your link. Eligible referrals can earn bill credits after review." },
   { date: "2026-09-28", tag: "Improvement", title: "Focus view for exam-style PDFs", body: "Exam-style PDFs open in a distraction-free page view." },
   { date: "2026-09-27", tag: "Improvement", title: "Science filters restored", body: "Missing questions are back in the Biology, Physics, Chemistry and Co-ordinated Sciences filters, including 2026 Physics." },
   { date: "2026-09-26", tag: "Feature", title: "Dark mode", body: "Switch to a dark theme from the menu." },
@@ -113,8 +114,9 @@ const NEWS_MAX_AGE_DAYS = 30;
  *  Empty once everything is over a month old, so those places never advertise stale news. */
 export function recentNews(count: number, now = new Date()): UpdateNews[] {
   const cutoff = now.getTime() - NEWS_MAX_AGE_DAYS * 86_400_000;
+  const shipped = (update: Update) => { const at = new Date(`${update.date}T00:00:00Z`).getTime(); return at >= cutoff && at <= now.getTime(); };
   return UPDATES
-    .filter((update) => update.tag !== "Improvement" && new Date(`${update.date}T00:00:00Z`).getTime() >= cutoff)
+    .filter((update) => update.tag !== "Improvement" && shipped(update))
     .slice(0, count)
     .map((update) => ({ date: update.date, tag: update.tag, title: update.title, body: update.body, href: `/updates#${updateId(update)}` }));
 }
