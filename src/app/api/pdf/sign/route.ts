@@ -5,6 +5,7 @@ import { authorizeAssetRequests, type AssetRequest, type AuthorizedAssetRequest 
 import { getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
+import { pdfExportKey } from "@/lib/pdf-export-key";
 import type { McqAnswer } from "@/lib/mcq-answer";
 import { loadBankMcqAnswers } from "@/lib/mcq-answer-letters";
 import { premiumAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
@@ -122,10 +123,19 @@ async function handlePOST(request: Request) {
       });
     }
 
-    const { data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {
+    // Repeating the same worksheet today (double click, retry, cancelled export) is free.
+    let { data: allowed, error: quotaError } = await supabase.rpc("consume_pdf_export_allowance", {
+      p_export_key: pdfExportKey(bank, body.content, questionIds),
       p_asset_count: premiumPathCount,
       p_pdf_question_count: questionIds.length,
     });
+    // Until the migration is applied the function doesn't exist (PostgREST PGRST202): charge as before.
+    if (quotaError?.code === "PGRST202") {
+      ({ data: allowed, error: quotaError } = await supabase.rpc("consume_download_allowance", {
+        p_asset_count: premiumPathCount,
+        p_pdf_question_count: questionIds.length,
+      }));
+    }
     if (quotaError) return NextResponse.json({ error: "Could not verify export allowance" }, { status: 503 });
     if (!allowed) return NextResponse.json({ error: "Daily worksheet limit reached. Try again tomorrow." }, { status: 429 });
 

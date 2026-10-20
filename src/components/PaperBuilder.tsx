@@ -17,6 +17,9 @@ import type { PublicBankIndex } from "@/lib/question-index";
 import type { PdfAnswerPlacement } from "@/lib/pdf-export";
 import { exportWorksheetPdf } from "@/lib/worksheet-export";
 import { AnswerPlacementPrompt } from "@/components/AnswerPlacementPrompt";
+import { LargeExportConfirm } from "@/components/LargeExportConfirm";
+import { LARGE_PDF_QUESTIONS } from "@/lib/export-limits";
+import { PdfSignError, pdfFailureReason } from "@/lib/signed-assets";
 import { suggestWorksheetTitle } from "@/lib/worksheet-title";
 import "./paper-builder.css";
 
@@ -36,6 +39,7 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
   const [loading, setLoading] = useState(Boolean(banks.length));
   const [loadError, setLoadError] = useState("");
   const [placementPromptOpen, setPlacementPromptOpen] = useState(false);
+  const [largeExportPlacement, setLargeExportPlacement] = useState<PdfAnswerPlacement | null>(null);
   // Bumped to start or cancel a download; a build whose number is stale stops at its next step.
   const exportRunRef = useRef(0);
   const [reload, setReload] = useState(0);
@@ -255,9 +259,11 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
     setBusy(""); setMessage({ kind: "info", text: "Download cancelled." });
   }
 
-  async function download(answerPlacement: PdfAnswerPlacement) {
+  async function download(answerPlacement: PdfAnswerPlacement, confirmedLarge = false) {
     setPlacementPromptOpen(false);
     if (!bank || !sheet.length || busy) return;
+    if (!confirmedLarge && sheet.length >= LARGE_PDF_QUESTIONS) { setLargeExportPlacement(answerPlacement); return; }
+    setLargeExportPlacement(null);
     const run = ++exportRunRef.current;
     const properties = { bank, questionCount: sheet.length, content: "both", source: "builder" };
     setBusy("exporting"); setMessage({ kind: "info", text: `Preparing ${sheet.length} questions…` });
@@ -272,7 +278,9 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
     } catch (reason) {
       if (exportRunRef.current !== run) return;
       if (reason instanceof DOMException && reason.name === "AbortError") { if (mountedRef.current) setMessage({ kind: "error", text: "Download cancelled because you signed out." }); return; }
-      trackProductEvent("pdf_export_error", properties);
+      const failure = pdfFailureReason(reason);
+      // Hitting the daily limit is a block, not a failure; it is counted separately.
+      trackProductEvent(failure === "daily_limit" ? "pdf_export_blocked" : "pdf_export_error", { ...properties, reason: failure, status: reason instanceof PdfSignError ? reason.status : undefined });
       setMessage({ kind: "error", text: reason instanceof Error ? reason.message : "Could not make the PDF." });
     } finally { if (exportRunRef.current === run) setBusy(""); }
   }
@@ -320,6 +328,7 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
             {busy === "saving" ? "Saving…" : saved ? (dirty ? "Save changes" : "Saved") : "Save PDF"}
           </button>
           {placementPromptOpen && !busy && <AnswerPlacementPrompt onChoose={(placement) => void download(placement)} />}
+          {largeExportPlacement && !busy && <LargeExportConfirm count={sheet.length} onConfirm={() => void download(largeExportPlacement, true)} onCancel={() => setLargeExportPlacement(null)} />}
         </>} />
     </div>
     {sheet.length > 0 && <a className="builder-jump" href="#builder-sheet">View paper · {sheet.length} {sheet.length === 1 ? "question" : "questions"}</a>}

@@ -68,7 +68,7 @@ describe("IB Economics production PDF entitlement and quota gates", () => {
     expect(response.headers.get("cache-control")).toBe("private, no-store, max-age=0");
     expect(createSignedUrls).not.toHaveBeenCalled();
     expect(getSignedUrl).toHaveBeenCalledTimes(7);
-    expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: 7, p_pdf_question_count: 1 });
+    expect(rpc).toHaveBeenCalledWith("consume_pdf_export_allowance", { p_export_key: expect.stringMatching(/^[0-9a-f]{64}$/), p_asset_count: 7, p_pdf_question_count: 1 });
   });
 
   it("does not charge the paid allowance for the explicit free exam year", async () => {
@@ -76,7 +76,7 @@ describe("IB Economics production PDF entitlement and quota gates", () => {
     expect(response.status).toBe(200);
     expect(createSignedUrls).not.toHaveBeenCalled();
     expect(getSignedUrl).toHaveBeenCalled();
-    expect(rpc).toHaveBeenCalledWith("consume_download_allowance", { p_asset_count: 0, p_pdf_question_count: 1 });
+    expect(rpc).toHaveBeenCalledWith("consume_pdf_export_allowance", { p_export_key: expect.stringMatching(/^[0-9a-f]{64}$/), p_asset_count: 0, p_pdf_question_count: 1 });
   });
 
   it("fails closed on exhausted Economics PDF quota without returning assets", async () => {
