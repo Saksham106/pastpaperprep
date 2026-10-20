@@ -42,3 +42,22 @@ Held papers list their question paper and mark scheme without a per-question rep
 ## App
 
 `PastPaperHub` gains a Computer Science group; without it the hub omitted the bank.
+
+## Update (20 October 2026): 2019–2022 papers
+
+#372 extended the topic bank to 2019–2026. This adds its 55 older papers (2015–2022 syllabus) to the archive. The owner approved publishing in chat.
+
+- **Papers:** 105 in total, 73 with reports and 32 held. The 50 existing papers are byte-identical in the manifest.
+- **New reports:** 27 Paper 1s.
+- **New held papers (PDFs only):**
+  - All 27 Paper 2s ("Printed and runtime question inventories do not reconcile"). Their pre-release Section A Q1 is excluded from the bank by design.
+  - 0478-2019-m-12, because its mark-scheme cover misprints "Maximum Mark: 50" while the question paper prints 75.
+- **Not listed:** 0478-2021-m-22. The only available source is the pre-release booklet.
+- **Sources:**
+  - 2019 uses clean cienotes copies (`data/extension-2019-clean-sources.json`) because the Best Exam Help 2019 files are stamped.
+  - 2020–2022 use Best Exam Help originals, pinned in `data/acquisition-manifest-extension-2019-2022.json`.
+  - `scan-source-watermarks.py` found no host stamps in the 110 PDFs. Its two flags are `cambridgeuniversity.com`, an email address used as test data in 0478-2021-s-23 Q3.
+- **Publish:** 110 PDFs (86.9 MB) were published add-only, with check-absent, put and read-back. 110 of 110 were read back, with 0 pre-existing conflicts.
+- **Verify:** all 5,352 approved PDFs were downloaded from `free.pastpaperprep.com` and matched; this refreshed `src/data/paper-archive-readback.json`.
+- **Log:** `docs/igcse-computer-science-0478-2019-2022-archive-papers-r2-upload-log.jsonl`.
+- **Private state:** saved to `research/official-sources-20261013/paper-archive-state-2026-10-20/`.

@@ -213,6 +213,25 @@ export async function fetchSignedAssets(
   return assets;
 }
 
+/** A failed /api/pdf/sign response, keeping its status so failures can be categorised. */
+export class PdfSignError extends Error {
+  constructor(message: string, readonly status: number) { super(message); this.name = "PdfSignError"; }
+}
+
+export type PdfFailureReason = "daily_limit" | "auth" | "sign_unavailable" | "network" | "build" | "other";
+/** Bounded category for a failed PDF export. Never carries the message text. */
+export function pdfFailureReason(error: unknown): PdfFailureReason {
+  if (error instanceof PdfSignError) {
+    if (error.status === 429) return "daily_limit";
+    if (error.status === 401 || error.status === 403) return "auth";
+    if (error.status >= 500) return "sign_unavailable";
+    return "other";
+  }
+  if (error instanceof TypeError && /fetch|network|load failed/i.test(error.message)) return "network";
+  if (error instanceof Error) return "build";
+  return "other";
+}
+
 export async function fetchPdfAssets(
   bank: BankSlug,
   questionIds: readonly string[],
@@ -239,7 +258,7 @@ export async function fetchPdfAssets(
   assertCurrentScope(isCurrent);
   if (!response.ok) {
     const message = typeof payload?.error === "string" ? payload.error : "Could not authorize PDF assets";
-    throw new Error(message);
+    throw new PdfSignError(message, response.status);
   }
   if (
     !payload ||
