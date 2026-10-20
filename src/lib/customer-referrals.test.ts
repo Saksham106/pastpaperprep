@@ -15,7 +15,16 @@ describe("customer referral summary", () => {
   beforeEach(() => {
     admin.rpc.mockReset();
     authRpc.mockReset().mockResolvedValue({ data: code, error: null });
-    admin.from.mockReset().mockImplementation((table: string) => ({
+    admin.from.mockReset().mockImplementation((table: string) => table === "customer_referral_links" ? ({
+      select: (columns: string) => {
+        expect(columns).toBe("preferred_source_bonus_at");
+        return { eq: (field: string, value: string) => {
+          expect(field).toBe("user_id");
+          expect(value).toBe(userId);
+          return { maybeSingle: async () => ({ data: { preferred_source_bonus_at: null }, error: null }) };
+        } };
+      },
+    }) : ({
       select: (_columns: string, options: unknown) => {
         expect(options).toEqual({ count: "exact", head: true });
         return { eq: (field: string, value: string) => {
@@ -43,7 +52,7 @@ describe("customer referral summary", () => {
     const summary = await getCustomerReferralSummary(userId, { rpc: authRpc } as never);
     expect(authRpc).toHaveBeenCalledWith("ensure_customer_referral_link", { p_code: expect.stringMatching(/^c_[a-f0-9]{24}$/) });
     expect(admin.rpc).not.toHaveBeenCalled();
-    expect(summary).toEqual({ code, verifiedSignups: 7, awardedRewards: 1, awardedSignupMilestones: 1 });
+    expect(summary).toEqual({ code, verifiedSignups: 7, awardedRewards: 1, awardedSignupMilestones: 1, preferredSourceBonus: false });
     expect(admin.from).toHaveBeenCalledWith("customer_referral_attributions");
     expect(admin.from).toHaveBeenCalledWith("customer_referral_awards");
   });
@@ -55,7 +64,7 @@ describe("customer referral summary", () => {
   });
 
   it("fails closed when a count cannot be read", async () => {
-    admin.from.mockImplementation(() => ({ select: () => ({ eq: () => Object.assign(Promise.resolve({ count: null, error: { message: "no access" } }), { eq: async () => ({ count: null, error: { message: "no access" } }) }) }) }));
+    admin.from.mockImplementation(() => ({ select: () => ({ eq: () => Object.assign(Promise.resolve({ count: null, error: { message: "no access" } }), { eq: async () => ({ count: null, error: { message: "no access" } }), maybeSingle: async () => ({ data: null, error: { message: "no access" } }) }) }) }));
     await expect(getCustomerReferralSummary(userId, { rpc: authRpc } as never)).rejects.toThrow("Could not read referral progress");
   });
 });
