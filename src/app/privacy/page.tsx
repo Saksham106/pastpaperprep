@@ -19,6 +19,7 @@ export default function PrivacyPage() {
       <p>When you visit through a customer or partner referral link, we store a first-party referral cookie for up to 30 days. If you create a verified account, we may associate the referral with your account to track a partner commission on your first purchase or a customer invite. Inviting customers see aggregate signup progress and awarded credits, not your identity or payment details. We manually review a referred customer’s first purchase before granting any invite reward.</p>
       <h2>Service providers</h2>
       <p>We use infrastructure, analytics, and payment providers, including Supabase, Vercel, PostHog, and Stripe. They process only the information required to provide their services under their own privacy terms.</p>
+      <p>Our footer loads Google’s “Add to Preferred Sources” button from Google when you scroll to it, under Google’s privacy terms.</p>
       <h2>Payments</h2>
       <p>Card details are handled by Stripe and are not stored by PastPaperPrep.</p>
       <h2>Your choices</h2>
