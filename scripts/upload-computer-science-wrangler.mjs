@@ -1,9 +1,14 @@
 #!/usr/bin/env node
 /**
- * Owner-approved, create-only upload of the IGCSE Computer Science 0478 release crops to the private
- * R2 bucket through the owner's logged-in Wrangler (OAuth; no keys are created, read or stored).
+ * Owner-approved, create-only upload of a Computer Science release's crops to the private R2 bucket
+ * through the owner's logged-in Wrangler (OAuth; no keys are created, read or stored). One script for
+ * IGCSE Computer Science 0478 and the two IB Computer Science banks; never run without the owner's approval.
  *
- *   WRANGLER=<binary> node scripts/upload-igcse-computer-science-0478-wrangler.mjs [--concurrency 4] [--limit N]
+ *   WRANGLER=<binary> node scripts/upload-computer-science-wrangler.mjs [--bank <bank>] [--concurrency 4] [--limit N]
+ *
+ *   --bank   igcse-computer-science-0478 (default, the original behaviour), ib-computer-science-hl or
+ *            ib-computer-science-sl. Each bank reads data/storage/<bank>.manifest.json, appends to
+ *            docs/<bank>-r2-upload-log.jsonl and writes data/storage/<bank>.receipt.json.
  *
  * Per object: check each local file against the manifest (SHA-256, size, key prefix); `get` must report
  * the key absent; `put` with image/webp and private immutable caching; `get` again and compare SHA-256
@@ -20,7 +25,10 @@ import path from "node:path";
 import { promisify } from "node:util";
 import { manifestSha256 } from "./igcse-release.mjs";
 
-const BANK = "igcse-computer-science-0478";
+const BANKS = ["igcse-computer-science-0478", "ib-computer-science-hl", "ib-computer-science-sl"];
+const bankFlag = process.argv.indexOf("--bank");
+const BANK = bankFlag === -1 ? BANKS[0] : process.argv[bankFlag + 1];
+if (!BANKS.includes(BANK)) throw new Error(`--bank must be one of ${BANKS.join(", ")}`);
 const BUCKET = "pastpaperprep-assets";
 const repo = path.resolve(import.meta.dirname, "..");
 const manifestPath = path.join(repo, "data/storage", `${BANK}.manifest.json`);
@@ -85,7 +93,7 @@ async function main() {
   console.log(JSON.stringify({ total: manifest.assets.length, alreadyVerified: done.size, pending: pending.length }));
 
   const call = wrangler();
-  const dir = mkdtempSync(path.join(tmpdir(), "cs0478-r2-"));
+  const dir = mkdtempSync(path.join(tmpdir(), `${BANK}-r2-`));
   let index = 0;
   let verified = done.size;
   let failure = null;

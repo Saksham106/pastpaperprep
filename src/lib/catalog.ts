@@ -2,7 +2,7 @@ import type { Bank } from "@/lib/banks";
 
 export type Qualification = "Cambridge IGCSE" | "IB Diploma";
 export type DeliveryMode = "hosted" | "local-preview";
-export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478";
+export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl";
 
 export type CatalogBank = {
   slug: BankSlug;
@@ -52,6 +52,10 @@ export const BANK_CATALOG = [
     const [subject, title, level, questionCount, paperCount, years] = table[slug];
     return bank({ slug, qualification: "IB Diploma", subject, title: `IB ${title}`, shortName: subject.startsWith("Mathematics ") ? `IB Math ${subject.replace("Mathematics ", "")} ${level}` : `${subject} ${level}`, syllabusCode: subject === "Mathematics AA" ? "AA" : subject === "Mathematics AI" ? "AI" : subject, level, questionCount, paperCount, years, access: "paid-bank", productId: `bank_${slug.replaceAll("-", "_")}`, release: "published", delivery: "hosted" });
   }),
+  // IB Computer Science: sold as single banks (no pair bundle), included in All Access and custom bundles.
+  // Hidden everywhere (pendingStorage) until the owner-approved R2 upload is read back and the runtime is finalized.
+  bank({ slug: "ib-computer-science-hl", qualification: "IB Diploma", subject: "Computer Science", title: "IB Computer Science Higher Level", shortName: "Computer Science HL", syllabusCode: "Computer Science", level: "HL", questionCount: 506, paperCount: 32, years: "2019-2026", access: "paid-bank", productId: "bank_ib_computer_science_hl", release: "gated", delivery: "hosted", pendingStorage: true }),
+  bank({ slug: "ib-computer-science-sl", qualification: "IB Diploma", subject: "Computer Science", title: "IB Computer Science Standard Level", shortName: "Computer Science SL", syllabusCode: "Computer Science", level: "SL", questionCount: 391, paperCount: 32, years: "2019-2026", access: "paid-bank", productId: "bank_ib_computer_science_sl", release: "gated", delivery: "hosted", pendingStorage: true }),
   bank({ slug: "ib-economics-hl", qualification: "IB Diploma", subject: "Economics", title: "IB Economics Higher Level", shortName: "IB Economics HL", syllabusCode: "Economics", level: "HL", questionCount: 128, paperCount: 49, years: "2021-2026", access: "paid-bank", productId: "bank_ib_economics_hl", bundleProductId: "bundle_ib_economics", release: "gated", delivery: "local-preview", localPreview: true }),
   bank({ slug: "ib-economics-sl", qualification: "IB Diploma", subject: "Economics", title: "IB Economics Standard Level", shortName: "IB Economics SL", syllabusCode: "Economics", level: "SL", questionCount: 104, paperCount: 38, years: "2021-2026", access: "paid-bank", productId: "bank_ib_economics_sl", bundleProductId: "bundle_ib_economics", release: "gated", delivery: "local-preview", localPreview: true }),
 ] as const satisfies readonly CatalogBank[];

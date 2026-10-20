@@ -41,6 +41,20 @@ export const RELEASE_BANKS = {
     candidateSeal: 'blanked-v1',
     originalCandidateRuntimeSha256: '3f65f4fa9c94c0b35b6579b4ad0d2306ac20093234a4edd95e79c79b0618de6c',
   },
+  // IB Computer Science rides the same release lane (the "igcse" name is historical). Prefixes carry the row
+  // count and the first 12 hex of the candidate seal.
+  'ib-computer-science-hl': {
+    prefix: 'ib-computer-science-hl/releases/full506-v1-610ccfc508e1',
+    sourceRootEnv: 'PASTPAPERPREP_IB_COMPUTER_SCIENCE_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: '610ccfc508e183b665dc1cc557e07b6ce1740868af3eebca96146e1cd74a1c21',
+  },
+  'ib-computer-science-sl': {
+    prefix: 'ib-computer-science-sl/releases/full391-v1-302f6c9461e6',
+    sourceRootEnv: 'PASTPAPERPREP_IB_COMPUTER_SCIENCE_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: '302f6c9461e679ea800d0de7178705a3b3b099c815dea54fc373b74c8c9369c3',
+  },
 };
 
 export function sha256(value) {
@@ -169,6 +183,8 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
     const lane = Number(paper.split('-')[1]) <= 2022 ? 'extension-2019-2022' : 'full';
     return `data/segmentation/${lane}/assets/${paper}/${kind}/${file}`;
   }
+  // The IB Computer Science source keeps assets/<pair>/questions|markschemes/<file> in one segmentation lane.
+  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
   if (bank === 'igcse-coordinated-sciences-0654') {
     if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
     return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;

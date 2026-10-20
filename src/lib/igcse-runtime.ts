@@ -11,8 +11,12 @@ import chemistryOtherTargets from "../../scripts/data/0620-other-retrieval-targe
 import biologySecondaryTargets from "../../scripts/data/0610-extension-material-secondaries.json";
 import physicsTaxonomy from "@/data/igcse-physics-0625-official-taxonomy.json";
 import coordinatedTaxonomy from "@/data/igcse-coordinated-sciences-0654-taxonomy.json";
+// "IGCSE" here names the shared gated release machinery; it also holds the IB Computer Science banks.
 import computerScience from "@/data/production/igcse-computer-science-0478.json";
 import computerScienceTaxonomy from "@/data/igcse-computer-science-0478-taxonomy.json";
+import ibComputerScienceHl from "@/data/production/ib-computer-science-hl.json";
+import ibComputerScienceSl from "@/data/production/ib-computer-science-sl.json";
+import ibComputerScienceTaxonomy from "@/data/ib-computer-science-taxonomy.json";
 import { isIGCSEReleaseEnabled, type IGCSEReleaseBankSlug } from "@/lib/banks";
 
 type IGCSEArtifact = {
@@ -150,6 +154,8 @@ export const IGCSE_RUNTIME_COUNTS = {
   "igcse-physics-0625": [5789, 317],
   "igcse-coordinated-sciences-0654": [4721, 238],
   "igcse-computer-science-0478": [847, 105],
+  "ib-computer-science-hl": [506, 32],
+  "ib-computer-science-sl": [391, 32],
 } as const;
 const ARTIFACTS: Record<IGCSEReleaseBankSlug, IGCSEArtifact> = {
   "igcse-biology-0610": biology as IGCSEArtifact,
@@ -158,6 +164,8 @@ const ARTIFACTS: Record<IGCSEReleaseBankSlug, IGCSEArtifact> = {
   "igcse-physics-0625": physics as IGCSEArtifact,
   "igcse-coordinated-sciences-0654": coordinated as IGCSEArtifact,
   "igcse-computer-science-0478": computerScience as IGCSEArtifact,
+  "ib-computer-science-hl": ibComputerScienceHl as IGCSEArtifact,
+  "ib-computer-science-sl": ibComputerScienceSl as IGCSEArtifact,
 };
 const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
   "igcse-biology-0610": biologyTaxonomy,
@@ -166,6 +174,8 @@ const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
   "igcse-physics-0625": physicsTaxonomy,
   "igcse-coordinated-sciences-0654": coordinatedTaxonomy,
   "igcse-computer-science-0478": computerScienceTaxonomy,
+  "ib-computer-science-hl": ibComputerScienceTaxonomy,
+  "ib-computer-science-sl": ibComputerScienceTaxonomy,
 };
 
 const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -175,6 +185,8 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "igcse-physics-0625": "d95657a79bfcf5d80b9c7e9660c1d7795ea2026435610bb3e96ba2203e3d8cf7",
   "igcse-coordinated-sciences-0654": "8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a",
   "igcse-computer-science-0478": "3f65f4fa9c94c0b35b6579b4ad0d2306ac20093234a4edd95e79c79b0618de6c",
+  "ib-computer-science-hl": "610ccfc508e183b665dc1cc557e07b6ce1740868af3eebca96146e1cd74a1c21",
+  "ib-computer-science-sl": "302f6c9461e679ea800d0de7178705a3b3b099c815dea54fc373b74c8c9369c3",
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -184,6 +196,8 @@ const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "igcse-physics-0625": "14b6756ed65b6f264f601519a4dba5b5a43ef0f0480bc849924cc037644c79e8",
   "igcse-coordinated-sciences-0654": "8b0f2a37110a7a56a647cfbf17ecd156eaca1c507fdc3e82711d4c356cacd82a",
   "igcse-computer-science-0478": "3f65f4fa9c94c0b35b6579b4ad0d2306ac20093234a4edd95e79c79b0618de6c",
+  "ib-computer-science-hl": "610ccfc508e183b665dc1cc557e07b6ce1740868af3eebca96146e1cd74a1c21",
+  "ib-computer-science-sl": "302f6c9461e679ea800d0de7178705a3b3b099c815dea54fc373b74c8c9369c3",
 };
 
 function canonicalSha256(value: unknown) {

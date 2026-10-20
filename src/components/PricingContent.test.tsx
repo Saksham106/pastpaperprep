@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { PricingContent } from "@/components/PricingContent";
-import { getCatalogBillingBanks, getCatalogRuntimeBanks, catalogBankToRuntimeBank } from "@/lib/catalog";
+import { BANK_CATALOG, getCatalogBillingBanks, getCatalogRuntimeBanks, catalogBankToRuntimeBank } from "@/lib/catalog";
 
 const availableBanks = getCatalogRuntimeBanks();
 const cambridgeBankCount = availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE").length;
@@ -310,6 +310,19 @@ describe("approved custom-bank pricing", () => {
     expect(within(builder).getByText("IB Sciences")).toBeInTheDocument();
     expect(builder.querySelectorAll("[data-bank-id]")).toHaveLength(availableBanks.length);
     expect(container.querySelectorAll("[data-pricing-bank]")).toHaveLength(availableBanks.length);
+  });
+
+  it("gives IB Computer Science its own group once its banks are live, apart from IB Sciences", () => {
+    const computerScience = BANK_CATALOG.filter((bank) => bank.slug.startsWith("ib-computer-science-")).map(catalogBankToRuntimeBank);
+    expect(computerScience).toHaveLength(2);
+    render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={[...availableBanks, ...computerScience]} />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
+    const groups = [...builder.querySelectorAll(".custom-bank-group")];
+
+    expect(groups.map((group) => group.querySelector("h3")?.textContent)).toEqual(["Cambridge", "IB Mathematics", "IB Sciences", "IB Computer Science"]);
+    const own = groups.find((group) => group.querySelector("h3")?.textContent === "IB Computer Science")!;
+    expect([...own.querySelectorAll("[data-bank-id]")].map((row) => row.getAttribute("data-bank-id"))).toEqual(["ib-computer-science-hl", "ib-computer-science-sl"]);
+    expect(groups.find((group) => group.querySelector("h3")?.textContent === "IB Sciences")!.querySelector('[data-bank-id^="ib-computer-science"]')).toBeNull();
   });
 
   it("keeps the grouped picker collapsed until the student chooses to edit it", () => {
