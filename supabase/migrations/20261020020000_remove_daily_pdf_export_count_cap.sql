@@ -1,0 +1,77 @@
+-- PDF export count remains an accounting counter, not a daily allowance.
+-- Keep the 150-question/day and 3000-premium-asset/day budgets, per-call
+-- bounds, exemptions, and the separate same-day repeat-export RPC unchanged.
+begin;
+
+alter table public.download_usage_daily
+  drop constraint download_usage_daily_pdf_export_count_check,
+  add constraint download_usage_daily_pdf_export_count_check check (pdf_export_count >= 0);
+
+create or replace function public.consume_download_allowance(
+  p_asset_count integer,
+  p_pdf_question_count integer
+)
+returns boolean
+language plpgsql
+security definer
+set search_path = public, pg_temp
+as $$
+declare
+  v_user_id uuid := auth.uid();
+  v_rows integer := 0;
+  v_pdf_export_increment integer := case when p_pdf_question_count > 0 then 1 else 0 end;
+begin
+  if coalesce(auth.role(), '') <> 'authenticated' or v_user_id is null then
+    return false;
+  end if;
+
+  if p_asset_count < 0 or p_asset_count > 1000
+     or p_pdf_question_count < 0 or p_pdf_question_count > 50
+     or (p_asset_count = 0 and p_pdf_question_count = 0) then
+    return false;
+  end if;
+
+  if exists (
+    select 1
+    from public.download_allowance_exemptions
+    where user_id = v_user_id
+      and unlimited_downloads
+      and (expires_at is null or expires_at > now())
+  ) then
+    return true;
+  end if;
+
+  insert into public.download_usage_daily (
+    user_id,
+    usage_date,
+    signed_asset_count,
+    pdf_export_count,
+    pdf_question_count,
+    updated_at
+  ) values (
+    v_user_id,
+    current_date,
+    p_asset_count,
+    v_pdf_export_increment,
+    p_pdf_question_count,
+    now()
+  )
+  on conflict (user_id, usage_date) do update
+  set signed_asset_count = download_usage_daily.signed_asset_count + excluded.signed_asset_count,
+      pdf_export_count = download_usage_daily.pdf_export_count + excluded.pdf_export_count,
+      pdf_question_count = download_usage_daily.pdf_question_count + excluded.pdf_question_count,
+      updated_at = now()
+  where download_usage_daily.signed_asset_count + excluded.signed_asset_count <= 3000
+    and download_usage_daily.pdf_question_count + excluded.pdf_question_count <= 150;
+
+  get diagnostics v_rows = row_count;
+  return v_rows = 1;
+end;
+$$;
+
+alter function public.consume_download_allowance(integer, integer) owner to postgres;
+revoke all on function public.consume_download_allowance(integer, integer) from public, anon, service_role;
+grant execute on function public.consume_download_allowance(integer, integer) to authenticated;
+
+notify pgrst, 'reload schema';
+commit;
