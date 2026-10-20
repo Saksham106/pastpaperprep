@@ -100,7 +100,10 @@ export function normalizeHeaderText(source: string) {
 }
 export function parseHeader(source: string, identity: Identity) {
   const text=normalizeHeaderText(source);
-  const duration = /(?:(\d+(?:\.\d+)?)\s*hours?(?:\s*(\d+)\s*minutes?)?|(\d+)\s*minutes?)/i.exec(text);
+  // Some covers space the digits of the minutes ("1 hour 2 0 minutes"): join two spaced digits. A cover whose
+  // hours are followed by a number the pattern cannot read as minutes fails closed (null), never "1 hour".
+  const duration = /(?:(\d+(?:\.\d+)?)\s*hours?(?:\s*(\d\s?\d|\d)\s*minutes?)?|(\d+)\s*minutes?)/i.exec(text);
+  const unreadMinutes = Boolean(duration?.[1]) && !duration?.[2] && /^\s*\d/.test(text.slice((duration?.index ?? 0) + (duration?.[0].length ?? 0)));
   const componentMaximum=identity.family==='ib'?new RegExp(`maximum mark for paper\\s+${identity.paper[0]}\\s*${identity.paper.slice(1)}\\s+is\\s*\\[?\\s*(\\d+)`,'i').exec(text):null;
   const maximum = componentMaximum??/(?:total mark for this paper is|maximum marks?\s*(?:for this examination paper\s+is|:)|Maximum total\s*=|maximum number of marks (?:is|:)?)\s*\[?\s*(\d+)/i.exec(text);
   const sessionPattern = identity.sessionCode==='m'?/(?:February\s*\/\s*March|March)/i:identity.sessionCode==='s'?/May\s*\/\s*June/i:identity.sessionCode==='w'?/October\s*\/\s*November/i:identity.sessionCode==='may'?/\bMay\b/i:/\bNovember\b/i;
@@ -109,7 +112,7 @@ export function parseHeader(source: string, identity: Identity) {
     ? new RegExp(`${identity.syllabusCode}\\s*/\\s*${identity.component.split('').join('\\s*')}\\b`).test(text)
     : new RegExp(`\\bPaper\\s+${identity.paper[0]}${identity.paper.slice(1)?`\\s*${identity.paper.slice(1)}`:''}\\b`,'i').test(text);
   const levelValid = !identity.level || (identity.level==='hlsl'?/higher level and standard level/i.test(text):new RegExp(identity.level==='hl'?'higher level':'standard level','i').test(text));
-  const durationMinutes=duration?Number(duration[1]??0)*60+Number(duration[2]??duration[3]??0):null;
+  const durationMinutes=duration&&!unreadMinutes?Number(duration[1]??0)*60+Number((duration[2]??duration[3]??'0').replace(/\s/g,'')):null;
   const sharedDuration=identity.paper.length>1&&/\[\s*Paper\s+1A\s+and\s+Paper\s+1B\s*\]/i.test(text);
   // Legacy IB slash codes encode numeric timezones directly; modern numeric
   // codes do not. Normalize only the matched printed code, never source IDs.
