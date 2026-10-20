@@ -17,7 +17,7 @@ import { normalizeBankQuestions } from "@/lib/questions";
 const ROOT = process.cwd();
 const BANK = "igcse-computer-science-0478";
 const PRODUCT = "bank_igcse_computer_science_0478";
-const CANDIDATE = "d01cb6274245368dcc540c4d650c1ef261e2ea0260045700a387df46ad383dac";
+const CANDIDATE = "3f65f4fa9c94c0b35b6579b4ad0d2306ac20093234a4edd95e79c79b0618de6c";
 const WITHDRAWN = ["0478-2023-s-22-q5", "0478-2025-s-22-q10"];
 const sha = (value: unknown) => createHash("sha256").update(typeof value === "string" ? value : JSON.stringify(value)).digest("hex");
 
@@ -62,7 +62,7 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
     expect(BANK_CATALOG.filter((bank) => bank.slug === BANK)).toHaveLength(1);
     expect(getCatalogBank(BANK)).toMatchObject({
       qualification: "Cambridge IGCSE", subject: "Computer Science", title: "Computer Science 0478", syllabusCode: "0478",
-      questionCount: 469, paperCount: 50, years: "2023-2026", access: "paid-bank", productId: PRODUCT,
+      questionCount: 847, paperCount: 105, years: "2019-2026", access: "paid-bank", productId: PRODUCT,
       bundleProductId: "bundle_igcse", release: "gated", delivery: "hosted",
     });
     expect(isIGCSEReleaseBank(BANK)).toBe(true);
@@ -90,18 +90,26 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
     vi.unstubAllEnvs();
   });
 
-  it("ships 469 questions across 50 papers, 2023-2026, without the two questions Cambridge withdrew", () => {
-    expect(production.questions).toHaveLength(469);
-    expect(production.questionCount).toBe(469);
-    expect(production.paperCount).toBe(50);
-    expect(new Set(production.questions.map((question) => question.id.replace(/-q\d+$/, ""))).size).toBe(50);
-    expect(production.years).toBe("2023-2026");
-    expect(new Set(production.questions.map((question) => question.id)).size).toBe(469);
+  it("ships 847 questions across 105 papers, 2019-2026, without the withdrawn or pre-release questions", () => {
+    expect(production.questions).toHaveLength(847);
+    expect(production.questionCount).toBe(847);
+    expect(production.paperCount).toBe(105);
+    expect(new Set(production.questions.map((question) => question.id.replace(/-q\d+$/, ""))).size).toBe(105);
+    expect(production.years).toBe("2019-2026");
+    expect(new Set(production.questions.map((question) => question.id)).size).toBe(847);
+    expect(production.questions.filter((question) => question.year >= 2023).length).toBe(469);
+    const prerelease = production.runtimeArtifact.excludedPrerelease as string[];
+    expect(prerelease).toHaveLength(27);
+    for (const id of prerelease) {
+      expect(id).toMatch(/^0478-(2019|202[012])-[msw]-2\d-q1$/);
+      expect(production.questions.some((question) => question.id === id)).toBe(false);
+    }
     for (const id of WITHDRAWN) expect(production.questions.some((question) => question.id === id)).toBe(false);
     expect(production.runtimeArtifact.excludedWithdrawn).toEqual(WITHDRAWN);
     for (const question of production.questions) {
       expect(question.marks).toBeGreaterThan(0);
-      expect(question.maxMarks).toBe(75);
+      // The 2015-2022 Paper 2 was out of 50; every other paper is out of 75.
+      expect(question.maxMarks).toBe(question.year <= 2022 && question.paper === 2 ? 50 : 75);
       expect(["March", "June", "November"]).toContain(question.session);
       expect(question.questionImages.length).toBeGreaterThan(0);
       expect(question.markschemeImages.length).toBeGreaterThan(0);
@@ -112,16 +120,19 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
   it("labels every question inside its own paper's topics, and every filter has questions", () => {
     const topicPaper = new Map(tree.topics.map((topic) => [topic.label, topic.paper]));
     const sectionTopic = new Map(tree.topics.flatMap((topic) => topic.sections.map((section) => [section.label, topic.label] as const)));
+    // The 2015-2022 Paper 1 also assessed Boolean logic, which the current syllabus puts in Paper 2.
+    const paperOf = (question: RuntimeQuestion, topic: string) =>
+      question.year <= 2022 && question.paper === 1 && topic === "Boolean logic" ? 1 : topicPaper.get(topic);
     for (const question of production.questions) {
-      expect(topicPaper.get(question.primaryTopic), question.id).toBe(question.paper);
-      for (const topic of question.secondaryTopics) expect(topicPaper.get(topic), question.id).toBe(question.paper);
+      expect(paperOf(question, question.primaryTopic), question.id).toBe(question.paper);
+      for (const topic of question.secondaryTopics) expect(paperOf(question, topic), question.id).toBe(question.paper);
       expect(question.subtopics.length).toBeGreaterThan(0);
       for (const subtopic of question.subtopics) expect(sectionTopic.has(subtopic), `${question.id} ${subtopic}`).toBe(true);
       expect(sectionTopic.get(question.subtopics[0])).toBe(question.primaryTopic);
     }
     const used = new Set(production.questions.flatMap((question) => question.subtopics));
-    expect(used.size).toBe(30);
-    expect(sectionTopic.size).toBe(30);
+    expect(used.size).toBe(31);
+    expect(sectionTopic.size).toBe(31);
   });
 
   it("keeps the official topic order and shows the approved filters beneath topic 7", () => {
@@ -134,7 +145,7 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
     expect(getControlledSubtopics(BANK, algorithms.label)).toContain("Trace tables");
     expect(getControlledSubtopics(BANK, "Databases")).toEqual(["Databases"]);
     const groups = getSubtopicGroups(questions, ["Hardware"], []);
-    expect(groups.all).toHaveLength(30);
+    expect(groups.all).toHaveLength(31);
     expect(groups.relevant).toEqual(["Computer architecture", "Input and output devices", "Data storage", "Network hardware"]);
   });
 
@@ -181,6 +192,16 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
     expect(() => assertOriginalCandidateRuntime(BANK, relabelled)).toThrow("candidate content does not reproduce its pinned seal");
   });
 
+  it("keeps dropped 2015-2022 content findable under Earlier syllabus topics, last in the topic list", () => {
+    const earlier = tree.topics.at(-1)!;
+    expect(earlier).toMatchObject({ code: "E", label: "Earlier syllabus topics" });
+    expect(earlier.sections.map((section) => section.label)).toEqual(["Ethics (earlier syllabus)"]);
+    const ethics = production.questions.filter((question) => question.subtopics.includes("Ethics (earlier syllabus)"));
+    expect(ethics.length).toBeGreaterThan(0);
+    expect(ethics.every((question) => question.year <= 2022 && question.paper === 1)).toBe(true);
+    expect(production.questions.filter((question) => question.year >= 2023).every((question) => question.primaryTopic !== earlier.label && !question.secondaryTopics.includes(earlier.label))).toBe(true);
+  });
+
   it("carries the 5.3 Cyber security secondary on the three reviewed SSL questions", () => {
     for (const id of ["0478-2023-w-13-q4", "0478-2024-w-12-q7", "0478-2026-s-11-q6"]) {
       const question = production.questions.find((candidate) => candidate.id === id)!;
@@ -215,7 +236,7 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
 
   it("passes the runtime release gate's seal checks once the IGCSE gates are on", async () => {
     const { getIGCSERuntimeArtifact } = await import("@/lib/igcse-runtime");
-    expect(getIGCSERuntimeArtifact(BANK, RELEASE_ON).questions).toHaveLength(469);
+    expect(getIGCSERuntimeArtifact(BANK, RELEASE_ON).questions).toHaveLength(847);
   });
 
   it("is sold alone at the generic single-bank price and through All Access and the IGCSE bundle", () => {
@@ -257,7 +278,7 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
 
   it("exposes a metadata-only private index with no text, answers or asset paths", () => {
     expect(privateIndex.bank).toBe(BANK);
-    expect(privateIndex.questions).toHaveLength(469);
+    expect(privateIndex.questions).toHaveLength(847);
     const serialized = JSON.stringify(privateIndex);
     for (const key of ["summary", "accessibleText", "answer", "questionImages", "markschemeImages", "sourceQuestionUrl", "classificationProvenance"]) {
       expect(serialized).not.toContain(`"${key}"`);

@@ -3,10 +3,16 @@
  * Build the IGCSE Computer Science 0478 candidate runtime from the pinned source workspace.
  *
  * Inputs (SHA-256 pinned; any drift fails closed):
- *   data/segmentation/full/segmentation.json   50 QP/MS pairs, 471 questions, audited crops
+ *   data/segmentation/full/segmentation.json   2023-2026: 50 QP/MS pairs, 471 questions, audited crops
  *   data/classification/final-labels.json      469 labels (2 questions Cambridge withdrew are excluded)
- *   data/classification/taxonomy.json          official 2023-2028 tree plus owner-approved topic 7 filters
+ *   data/classification/taxonomy.json          official 2023-2028 tree, owner-approved topic 7 filters and
+ *                                              the 2015-2022 earlier-syllabus block
  *   data/source-manifest.json                  source URLs
+ *   data/segmentation/extension-2019-2022/…   2019-2022 (2015-2022 syllabus): 55 pairs, 405 questions; the 27
+ *                                              Paper 2 pre-release questions (Section A, Q1) are excluded
+ *   data/classification/extension-2019-2022/final-labels.json   378 labels on the current tree
+ *   data/source-manifest-extension-2019-2022.json, data/extension-2019-clean-sources.json
+ *                                              source URLs; 2019 crops come from clean cienotes copies
  *
  * Writes src/data/igcse-computer-science-0478-taxonomy.json (student-facing tree), the candidate
  * runtime and a metadata-only private index. The runtime stays a candidate until the R2 upload
@@ -24,12 +30,22 @@ export const DEFAULT_SOURCE_ROOT = "/Users/sakshamgoel/Documents/ProjectsInterns
 export const SOURCE_SHA256 = {
   segmentation: "714c69a58eb013f004e118500d0d60ebd1518066d41c88b42af05560f02189dd",
   labels: "00eaad5c0167afac47f20f8e187ce481b9e6752a193a7e8c1b02011105b6dcb8",
-  taxonomy: "0fd3fbc62bbdb4ba21aa1fb0807669f2e1a809e38de1500e8d719c27e4c07547",
+  taxonomy: "a122a85f3950a3da479069f97f85655344b5d95b8cf66350dfa420330546ceb3",
   sourceManifest: "668bce70ce3eb2e6d49d3c8e0ef0eb9130bc6b791108bcab9437800836c29c68",
+  extensionSegmentation: "441eb4e4a894f54bef668d7c6e7995c62fbc71eb45ebc97ef71795949348f633",
+  extensionLabels: "ad3d74d158253d3777e6c484c1351e1ab34c69af4a6daffc1e0e7f04ba65c55e",
+  extensionSourceManifest: "93dfc3b43fe5b4fd80d23d021d5e2805afee4b6bed9ed0ba84d1ba8126e0ac14",
+  extensionCleanSources: "a4bcbb57aa4636037cb1feb24285324c745614fa873e377aa17c174567424099",
 };
+export const EXTENSION_LANE = "extension-2019-2022";
 /** Cambridge withdrew these after the exam; the mark schemes say so. Kept out of practice. */
 export const EXCLUDED_WITHDRAWN = ["0478-2023-s-22-q5", "0478-2025-s-22-q10"];
-export const EXPECTED = { sourceQuestions: 471, rows: 469, papers: 50, years: "2023-2026", printedTotal: 75, topics: 10, leafFilters: 30 };
+/** The pre-release task questions (old Paper 2, Section A, Q1) need material students never see. */
+export const EXCLUDED_PRERELEASE = 27;
+export const EXPECTED = { sourceQuestions: 876, rows: 847, papers: 105, years: "2019-2026", topics: 11, leafFilters: 31 };
+/** Printed paper totals by syllabus era and paper. */
+const PRINTED_TOTALS = { "2023_2028": { 1: 75, 2: 75 }, "2015_2022": { 1: 75, 2: 50 } };
+const EARLIER_TOPIC_LABEL = "Earlier syllabus topics";
 const SESSION_LABELS = { february_march: "March", may_june: "June", october_november: "November" };
 const TAXONOMY_OUTPUT = "src/data/igcse-computer-science-0478-taxonomy.json";
 
@@ -54,12 +70,18 @@ export function studentTaxonomy(source) {
       : source.sections.filter((section) => section.topic === topic.code).map((section) => ({ code: section.code, label: section.title, official: true }));
     return { id: `topic-${topic.code}`, code: topic.code, label: topic.title, paper: topic.paper, sections };
   });
+  // Content the 2023 syllabus dropped stays findable under one named earlier-syllabus topic.
+  const earlier = source.earlier_syllabus;
+  topics.push({
+    id: `topic-${earlier.topic.code}`, code: earlier.topic.code, label: EARLIER_TOPIC_LABEL, paper: 1, era: earlier.era,
+    sections: earlier.sections.map((section) => ({ code: section.code, label: section.title, official: false })),
+  });
   return {
     artifact: "computer_science0478_student_taxonomy",
     version: "computer_science0478_source_backed_taxonomy@1",
     boardcode: "0478",
     eras: source.eras,
-    note: "Topic 7 has no official subtopics; its filters are owner-approved groupings of its official learning points (2026-10-18).",
+    note: "Topic 7 has no official subtopics; its filters are owner-approved groupings of its official learning points (2026-10-18). 2019-2022 questions (2015-2022 syllabus) are mapped onto the current tree; content the 2023 syllabus dropped sits under Earlier syllabus topics.",
     sourceTaxonomyPath: "data/classification/taxonomy.json",
     sourceTaxonomySHA256: SOURCE_SHA256.taxonomy,
     topics,
@@ -80,12 +102,20 @@ function runtimeAsset(kind, asset) {
   return `${kind}/${match[1]}/${match[3]}`;
 }
 
-function toQuestion(question, paper, label, index, manifestPaper) {
+/** Topic codes each (era, paper) may use. The 2015-2022 Paper 1 also assessed Boolean logic and ethics. */
+function allowedTopics(source, era, paperNumber) {
+  if (era === "2023_2028") return new Set(source.topics.filter((topic) => topic.paper === paperNumber).map((topic) => topic.code));
+  const rule = source.earlier_syllabus.paper_filters[String(paperNumber)];
+  return new Set([...rule.topics, ...(rule.earlier.length ? [source.earlier_syllabus.topic.code] : [])]);
+}
+
+function toQuestion(question, paper, label, index, source, era, provenance) {
   const codes = [label.primary, ...label.secondaries];
+  const allowed = allowedTopics(source, era, question.paper);
   const resolved = codes.map((code) => {
     const hit = index.get(code);
     if (!hit) throw new Error(`0478 ${question.id} uses unknown filter code ${code}`);
-    if (hit.topic.paper !== question.paper) throw new Error(`0478 ${question.id} code ${code} is outside Paper ${question.paper}`);
+    if (!allowed.has(hit.topic.code)) throw new Error(`0478 ${question.id} code ${code} is outside ${era} Paper ${question.paper}`);
     return hit;
   });
   const [primary, ...secondary] = resolved;
@@ -107,8 +137,8 @@ function toQuestion(question, paper, label, index, manifestPaper) {
     session,
     zone: `Variant ${question.variant}`,
     component,
-    courseEra: "2023_2028",
-    era: "2023_2028",
+    courseEra: era,
+    era,
     subject: "Computer Science",
     course: COURSE,
     primaryTopic: primary.topic.label,
@@ -130,9 +160,9 @@ function toQuestion(question, paper, label, index, manifestPaper) {
     questionImageHashes: question.question_images.map((asset) => asset.sha256),
     markschemeImageHashes: question.markscheme_images.map((asset) => asset.sha256),
     officialMarkscheme: { images: markschemeImages, imageHashes: question.markscheme_images.map((asset) => asset.sha256) },
-    officialCodeRefs: codes.map((code) => `2023_2028:${code}`),
-    sourceQuestionUrl: manifestPaper.question_paper.canonical_exact_url,
-    sourceMarkSchemeUrl: manifestPaper.mark_scheme.canonical_exact_url,
+    officialCodeRefs: resolved.map((hit, i) => `${hit.topic.era ?? "2023_2028"}:${codes[i]}`),
+    sourceQuestionUrl: provenance.question,
+    sourceMarkSchemeUrl: provenance.markscheme,
     sourceType: "actual_past_paper",
     sourceId: question.id,
     publicationStatus: CANDIDATE_PUBLICATION_STATUS,
@@ -172,24 +202,40 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   const finalLabels = await pinned(sourceRoot, "data/classification/final-labels.json", SOURCE_SHA256.labels);
   const sourceTaxonomy = await pinned(sourceRoot, "data/classification/taxonomy.json", SOURCE_SHA256.taxonomy);
   const sourceManifest = await pinned(sourceRoot, "data/source-manifest.json", SOURCE_SHA256.sourceManifest);
+  const extensionSegmentation = await pinned(sourceRoot, `data/segmentation/${EXTENSION_LANE}/segmentation.json`, SOURCE_SHA256.extensionSegmentation);
+  const extensionLabels = await pinned(sourceRoot, `data/classification/${EXTENSION_LANE}/final-labels.json`, SOURCE_SHA256.extensionLabels);
+  const extensionManifest = await pinned(sourceRoot, `data/source-manifest-${EXTENSION_LANE}.json`, SOURCE_SHA256.extensionSourceManifest);
+  const cleanSources = await pinned(sourceRoot, "data/extension-2019-clean-sources.json", SOURCE_SHA256.extensionCleanSources);
+  // 2019 crops were cut from clean copies, so their provenance links point at those copies.
+  const sourceUrl = (manifest, paperId, kind) => cleanSources.files[`${paperId}/${kind}`]?.accepted.url ?? manifest.papers[paperId][kind].canonical_exact_url;
   const taxonomy = studentTaxonomy(sourceTaxonomy);
   const taxonomySerialized = `${JSON.stringify(taxonomy, null, 2)}\n`;
   const index = codeIndex(taxonomy);
   if (taxonomy.topics.length !== EXPECTED.topics || index.size !== EXPECTED.leafFilters) throw new Error("0478 taxonomy shape drifted");
 
-  const labels = new Map(finalLabels.labels.map((label) => [label.id, label]));
-  const sourceQuestions = segmentation.papers.flatMap((paper) => paper.questions.map((question) => ({ paper, question })));
+  const lanes = [
+    { era: "2015_2022", segmentation: extensionSegmentation, labels: extensionLabels, manifest: extensionManifest },
+    { era: "2023_2028", segmentation, labels: finalLabels, manifest: sourceManifest },
+  ];
+  const labels = new Map(lanes.flatMap((lane) => lane.labels.labels.map((label) => [label.id, label])));
+  const sourceQuestions = lanes.flatMap((lane) => lane.segmentation.papers.flatMap((paper) => paper.questions.map((question) => ({ lane, paper, question }))));
   if (sourceQuestions.length !== EXPECTED.sourceQuestions) throw new Error(`0478 source questions ${sourceQuestions.length} != ${EXPECTED.sourceQuestions}`);
-  const withdrawn = sourceQuestions.filter(({ question }) => question.excluded_from_practice).map(({ question }) => question.id).sort();
+  const excluded = sourceQuestions.filter(({ question }) => question.excluded_from_practice).map(({ question }) => question);
+  const withdrawn = excluded.filter((question) => question.marks_status !== "prerelease_skipped").map((question) => question.id).sort();
   if (JSON.stringify(withdrawn) !== JSON.stringify(EXCLUDED_WITHDRAWN)) throw new Error(`0478 withdrawn set drifted: ${withdrawn}`);
+  const prerelease = excluded.filter((question) => question.marks_status === "prerelease_skipped");
+  if (prerelease.length !== EXCLUDED_PRERELEASE || prerelease.some((question) => question.paper !== 2 || question.number !== 1 || question.year > 2022)) {
+    throw new Error(`0478 pre-release exclusions drifted: ${prerelease.map((question) => question.id)}`);
+  }
 
   const questions = [];
-  for (const { paper, question } of sourceQuestions) {
+  for (const { lane, paper, question } of sourceQuestions) {
     if (question.excluded_from_practice) continue;
-    if (paper.printed_total !== EXPECTED.printedTotal) throw new Error(`0478 ${paper.paper_id} printed total ${paper.printed_total}`);
+    if (paper.printed_total !== PRINTED_TOTALS[lane.era][question.paper]) throw new Error(`0478 ${paper.paper_id} printed total ${paper.printed_total}`);
     const label = labels.get(question.id);
     if (!label) throw new Error(`0478 ${question.id} has no final label`);
-    questions.push(toQuestion(question, paper, label, index, sourceManifest.papers[paper.paper_id]));
+    const provenance = { question: sourceUrl(lane.manifest, paper.paper_id, "question_paper"), markscheme: sourceUrl(lane.manifest, paper.paper_id, "mark_scheme") };
+    questions.push(toQuestion(question, paper, label, index, sourceTaxonomy, lane.era, provenance));
   }
   if (questions.length !== EXPECTED.rows || labels.size !== EXPECTED.rows) throw new Error(`0478 rows ${questions.length} != ${EXPECTED.rows}`);
   if (new Set(questions.map((question) => question.id)).size !== questions.length) throw new Error("0478 question ids are not unique");
@@ -213,7 +259,11 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
     paperCount: papers.size,
     questionCount: questions.length,
     marks_ready: true,
-    sourceCandidate: { path: "data/classification/final-labels.json", sha256: SOURCE_SHA256.labels, questionCount: questions.length },
+    sourceCandidate: {
+      paths: ["data/classification/final-labels.json", `data/classification/${EXTENSION_LANE}/final-labels.json`],
+      sha256: [SOURCE_SHA256.labels, SOURCE_SHA256.extensionLabels],
+      questionCount: questions.length,
+    },
     taxonomy: { path: TAXONOMY_OUTPUT, version: taxonomy.version, sha256: taxonomyFileSha },
     questions,
     publicationStatus: CANDIDATE_PUBLICATION_STATUS,
@@ -235,6 +285,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
       marksRepairStatus: "verified_against_print",
       marksRepairUnresolvedCount: 0,
       excludedWithdrawn: EXCLUDED_WITHDRAWN,
+      excludedPrerelease: prerelease.map((question) => question.id),
       originalCandidateRuntimeSha256: null,
       runtimeSha256: null,
     },

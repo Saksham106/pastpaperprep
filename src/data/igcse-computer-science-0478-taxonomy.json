@@ -5,9 +5,9 @@
   "eras": [
     "2023_2028"
   ],
-  "note": "Topic 7 has no official subtopics; its filters are owner-approved groupings of its official learning points (2026-10-18).",
+  "note": "Topic 7 has no official subtopics; its filters are owner-approved groupings of its official learning points (2026-10-18). 2019-2022 questions (2015-2022 syllabus) are mapped onto the current tree; content the 2023 syllabus dropped sits under Earlier syllabus topics.",
   "sourceTaxonomyPath": "data/classification/taxonomy.json",
-  "sourceTaxonomySHA256": "0fd3fbc62bbdb4ba21aa1fb0807669f2e1a809e38de1500e8d719c27e4c07547",
+  "sourceTaxonomySHA256": "a122a85f3950a3da479069f97f85655344b5d95b8cf66350dfa420330546ceb3",
   "topics": [
     {
       "id": "topic-1",
@@ -236,6 +236,20 @@
           "code": "10",
           "label": "Boolean logic",
           "official": true
+        }
+      ]
+    },
+    {
+      "id": "topic-E",
+      "code": "E",
+      "label": "Earlier syllabus topics",
+      "paper": 1,
+      "era": "2015_2022",
+      "sections": [
+        {
+          "code": "E.1",
+          "label": "Ethics (earlier syllabus)",
+          "official": false
         }
       ]
     }
