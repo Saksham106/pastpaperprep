@@ -13,6 +13,9 @@
   text-align: center;
   font-size: 0.875rem;
 }
+/* While a bank link is opening, its skeleton stands in for the current page. */
+body:has(.bank-navigation-skeleton) main { display: none; }
+.bank-navigation-skeleton { min-height: 72vh; }
 
 /* Exam Studio: cool paper, graphite, and one cobalt action color. */
 :root,
@@ -350,6 +353,12 @@ main { min-height: 72vh; }
 .detail-related { margin-top: 64px; padding-top: 36px; display: grid; gap: 22px; border-top: 1px solid var(--line-strong); }
 .detail-related h2 { margin: 0; font: 400 clamp(1.6rem, 3vw, 2.2rem)/1.05 var(--font-serif); }
 .detail-related .text-button { justify-self: start; }
+.quick-facts { margin: 64px 0 96px; padding-top: 36px; border-top: 1px solid var(--line-strong); }
+.search-detail .quick-facts { margin-bottom: 0; }
+.quick-facts h2 { margin: 0 0 24px; font: 400 clamp(1.6rem, 3vw, 2.2rem)/1.05 var(--font-serif); }
+.quick-facts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px 36px; }
+.quick-facts h3 { margin: 0 0 8px; color: var(--ink); font-size: 1rem; font-weight: 650; line-height: 1.35; }
+.quick-facts p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.6; }
 .landing-actions, .about-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
 .access-footnote { margin-top: 15px; }
 .about-principles { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--line-strong); }

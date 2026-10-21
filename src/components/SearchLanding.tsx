@@ -17,7 +17,11 @@ import { notesSubjectForBank, getNoteTopic } from "@/lib/revision-notes";
 import { getGradeThresholds } from "@/lib/grade-thresholds";
 import { subjectSlugForBank } from "@/lib/past-paper-catalog";
 import { bankLastUpdated, formatUpdateDate, lastUpdated } from "@/lib/updates";
+import { paperFacts, topicFacts } from "@/lib/quick-facts";
+import { hasPublishedExplanations } from "@/lib/explanations";
+import { QuickFacts } from "@/components/QuickFacts";
 import {
+  bankSearchName,
   courseOverview,
   officialQualificationSource,
   paperPath,
@@ -37,15 +41,17 @@ function assessmentGroups(papers: AssessmentPaper[]) {
   }
 
   const order = ["Core", "Extended", "Both routes", "All candidates"];
+  // Maths has no practical paper; only send students "below" when a practical option exists.
+  const practical = routes.has("Both routes") ? ", then choose one practical-skills paper below" : "";
   return [...routes.entries()]
     .sort(([a], [b]) => order.indexOf(a) - order.indexOf(b))
     .map(([route, routePapers]) => ({
       route,
       title: route === "Core" ? "Core route" : route === "Extended" ? "Extended route" : route === "Both routes" ? "Practical option · choose one" : "All candidates",
       note: route === "Core"
-        ? "Core students take these two papers, then choose one practical-skills paper below."
+        ? `Core students take these two papers${practical}.`
         : route === "Extended"
-          ? "Extended students take these two papers, then choose one practical-skills paper below."
+          ? `Extended students take these two papers${practical}.`
           : route === "Both routes"
             ? "Core and Extended students take either Paper 5 or Paper 6, not both."
             : undefined,
@@ -191,6 +197,11 @@ export function SearchDetail({ bank, eyebrow, title, kind, label, canonicalPath,
   const noteHref = notes && getNoteTopic(notes.subjectSlug, slugifyLabel(label)) ? `/revision-notes/${notes.subjectSlug}/${slugifyLabel(label)}` : undefined;
   const tone = courseToneForBank(bank);
   const locked = stats.total - stats.free;
+  const bankName = bankSearchName(bank);
+  const explanations = hasPublishedExplanations(bank.slug);
+  const facts = kind === "topic"
+    ? topicFacts({ bankName, topic: label, total: stats.total, free: stats.free, bankTotal: bank.questionCount, years: bank.years, papers: stats.breakdown, explanations })
+    : paperFacts({ bankName, paper: label, total: stats.total, free: stats.free, years: bank.years, topics: stats.breakdown, explanations });
   return (
     <div className={`search-landing search-detail shell public-editorial course-tone-${tone}`} data-subject-tone={tone}>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: title, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@id": `${SITE_URL}/banks/${bank.slug}#page` } }} />
@@ -201,6 +212,7 @@ export function SearchDetail({ bank, eyebrow, title, kind, label, canonicalPath,
       </header>
       {stats.breakdown.length ? <p className="detail-breakdown"><strong>{kind === "topic" ? "Appears in" : "Most-tested topics"}</strong>{stats.breakdown.map((item) => <span key={item.label}>{item.label} <small>{item.count.toLocaleString()}</small></span>)}</p> : null}
       {children}
+      <QuickFacts id="detail-facts-heading" title={`${label}: quick facts`} facts={facts} />
       {kind === "topic" ? <BankWorkedExample bankSlug={bank.slug} topic={label} /> : null}
       {noteHref ? <p className="access-footnote">Revise first: <Link transitionTypes={PAGE_NAVIGATION} href={noteHref}>{label} revision notes</Link>.</p> : null}
       {kind === "topic" && <Testimonial testimonial={topicTestimonial(bank.slug)} variant="inline" signedOutOnly />}

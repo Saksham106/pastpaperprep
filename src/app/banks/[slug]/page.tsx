@@ -13,10 +13,13 @@ import { getCatalogBank, getCatalogBanksForDisplay } from "@/lib/catalog";
 import { resolveSubject } from "@/lib/past-paper-pages";
 import { subjectSlugForBank } from "@/lib/past-paper-catalog";
 import { fitTitle, pageTitle, subjectSearchName } from "@/lib/past-paper-seo";
-import { getLandingManifest, topicPath } from "@/lib/search-landing";
+import { bankSearchName, getLandingManifest, topicPath } from "@/lib/search-landing";
 import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
 import { hasPublishedExplanations } from "@/lib/explanations";
 import { bankLastUpdated, formatUpdateDate } from "@/lib/updates";
+import { bankFacts } from "@/lib/quick-facts";
+import { QuickFacts } from "@/components/QuickFacts";
+import { freeQuestionYears, hasFreeTier } from "@/lib/access";
 
 export const dynamicParams = false;
 export function generateStaticParams() { return getAvailableBanks().map(({ slug }) => ({ slug })); }
@@ -66,9 +69,18 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
   const topical = topicalCopy(slug, bank.shortName);
   const updated = bankLastUpdated(slug);
   const fullPapers = await resolveSubject(subjectSlugForBank(slug));
-  const topicLinks = getCatalogBanksForDisplay().some((entry) => entry.slug === slug)
-    ? (await getLandingManifest(slug)).topics.map((topic) => ({ label: topic.label, href: topicPath(slug, topic) }))
-    : [];
+  const catalogBank = getCatalogBanksForDisplay().find((entry) => entry.slug === slug);
+  const manifest = catalogBank ? await getLandingManifest(slug) : undefined;
+  const topicLinks = manifest ? manifest.topics.map((topic) => ({ label: topic.label, href: topicPath(slug, topic) })) : [];
+  const facts = catalogBank && manifest ? bankFacts({
+    bankName: bankSearchName(catalogBank),
+    total: manifest.questionCount,
+    papers: manifest.paperCount,
+    years: manifest.years,
+    topics: manifest.syllabusTopics.length ? manifest.syllabusTopics : manifest.topics,
+    freeYears: hasFreeTier(slug) ? freeQuestionYears(slug) : undefined,
+    explanations: hasPublishedExplanations(slug),
+  }) : [];
 
   return (
     <>
@@ -116,6 +128,7 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
       <div className="shell">
         <BankQuestionExplorer slug={slug} explorer={explorer} />
         <BankSeoContent bank={bank} topicLinks={topicLinks} />
+        <QuickFacts id="bank-facts-heading" title={`${bank.shortName}: quick facts`} facts={facts} />
       </div>
     </>
   );

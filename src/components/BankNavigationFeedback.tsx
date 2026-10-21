@@ -3,6 +3,7 @@
 import { flushSync } from "react-dom";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { BankLoadingSkeleton } from "@/components/BankLoadingSkeleton";
 
 const BANK_PATH = /^\/banks\/[^/]+(?:\/|$)/;
 const FAILURE_GUARD_MS = 12_000;
@@ -64,5 +65,9 @@ export function BankNavigationFeedback() {
   }, []);
 
   if (!pending) return null;
-  return <div className="bank-navigation-feedback" role="status" aria-live="polite">Opening question bank…</div>;
+  // The skeleton takes the page's place (globals.css hides <main> while it is shown) until the route commits.
+  return <>
+    <div className="bank-navigation-feedback" role="status" aria-live="polite">Opening question bank…</div>
+    <div className="bank-navigation-skeleton"><BankLoadingSkeleton /></div>
+  </>;
 }

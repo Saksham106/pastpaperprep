@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
-import Loading from "./loading";
+import { BankLoadingSkeleton as Loading } from "./BankLoadingSkeleton";
 
 describe("bank route loading feedback", () => {
   it("shows a bank-shaped, accessible loading state while the destination resolves", () => {

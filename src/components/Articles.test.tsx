@@ -62,7 +62,7 @@ describe("article library", () => {
       ["revision-village-vs-save-my-exams", "2026-09-15", "2026-10-16", false],
       ["exam-mate-vs-save-my-exams", "2026-09-15", "2026-10-16", false],
       ["pastpaperprep-for-tutors-printable-practice-sets", "2026-09-15", "2026-09-15", false],
-      ["pastpaperprep-pricing-which-plan", "2026-09-15", "2026-09-15", false],
+      ["pastpaperprep-pricing-which-plan", "2026-09-15", "2026-10-21", false],
       ["best-igcse-maths-past-paper-websites", "2026-09-15", "2026-10-16", false],
       ["best-igcse-science-question-banks", "2026-09-15", "2026-09-15", true],
       ["best-igcse-chemistry-0620-question-banks", "2026-09-15", "2026-10-16", false],

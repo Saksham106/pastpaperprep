@@ -1144,9 +1144,9 @@ export const ALL_ARTICLES: readonly Article[] = [
     title: "IB Biology Past Papers by Topic",
     description: "Use IB Biology HL and SL past-paper questions by topic, paper, session, and year to diagnose gaps before moving to timed practice.",
     eyebrow: "IB Biology revision guide",
-    answer: "The fastest way to use IB Biology past papers is to filter a short set by topic, attempt the original questions, compare the markscheme, and then retest the same skill in a mixed set. PastPaperPrep includes IB Biology HL and SL banks with real papers from 2020 to 2025.",
+    answer: "The fastest way to use IB Biology past papers is to filter a short set by topic, attempt the original questions, compare the markscheme, and then retest the same skill in a mixed set. PastPaperPrep's IB Biology banks hold real papers from 2016 to May 2026: 2,071 HL and 1,671 SL questions as of October 2026.",
     publishedAt: "2026-09-08",
-    updatedAt: "2026-09-08",
+    updatedAt: "2026-10-21",
     readingMinutes: 5,
     sections: [
       {
@@ -1178,7 +1178,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     ],
     faqs: [
       { question: "Does the Biology bank include HL and SL?", answer: "Yes. IB Biology HL and IB Biology SL are separate banks with their own questions, papers, topics, and access controls." },
-      { question: "Which Biology years are available?", answer: "The sealed runtime banks cover 2020 through 2025, including actual November 2020 papers. The 2020 year is the explicit free preview policy for both levels." },
+      { question: "Which Biology years are available?", answer: "Both banks cover papers from 2016 to May 2026; the May 2026 papers were added on 15 October 2026. Questions from 2020 are free at both levels, and the other years need a plan." },
       { question: "Can I practise Biology questions by topic?", answer: "Yes. Filter by the controlled Biology topic and subtopic taxonomy, then narrow by year, session, paper, marks, and other available metadata." },
     ],
     relatedBanks: [

@@ -82,11 +82,11 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
     draft: false,
     slug: "pastpaperprep-pricing-which-plan",
     title: "PastPaperPrep Pricing: Which Plan Is Right for You?",
-    description: "Compare PastPaperPrep one-bank, Build Your Plan, and All Access pricing by the number of subjects you actually need.",
+    description: "Compare PastPaperPrep one-bank, Build Your Plan, All Access and Lifetime pricing by the number of subjects you actually need.",
     eyebrow: "Pricing guide",
-    answer: "Choose the cheapest PastPaperPrep plan that covers the banks you will use. One bank costs $6 per month or $48 per year, Build Your Plan covers two to five banks at $10 per month for two plus $4 per extra bank, and All Access covers six or more banks at $25 per month or $216 per year. There is no cart or preselection step, and old subscriptions remain grandfathered.",
+    answer: "Choose the cheapest PastPaperPrep plan that covers the banks you will use. One bank costs $6 per month or $48 per year, Build Your Plan covers two to five banks at $10 per month for two plus $4 per extra bank, and All Access covers six or more banks at $25 per month or $216 per year. Lifetime All Access is a single $299 payment. Full past papers and each bank's free years cost nothing, and old subscriptions remain grandfathered.",
     publishedAt: "2026-09-15",
-    updatedAt: "2026-09-15",
+    updatedAt: "2026-10-21",
     readingMinutes: 6,
     sections: [
       {
@@ -118,6 +118,20 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
         ],
       },
       {
+        heading: "Lifetime: every bank for one payment",
+        paragraphs: [
+          "Lifetime All Access costs $299 once. It opens every current and future question bank and never renews. It was added on 7 October 2026.",
+          "Compare it with All Access. $299 is about 12 months of monthly All Access at $25, or about 17 months of annual All Access at $216 a year. Lifetime is the better fit if you will use several banks for more than a year, such as two years of IB Diploma or a tutor working across subjects.",
+        ],
+      },
+      {
+        heading: "What you get without paying",
+        paragraphs: [
+          "Every whole past paper and its mark scheme is free to read, with no sign-up. Each topic bank also has free exam years: guests see up to 20 matching questions, and a free account opens the rest of that free selection.",
+          "Start free if you are unsure. A plan adds the newest exam years in the topic banks and PDF worksheets.",
+        ],
+      },
+      {
         heading: "Monthly versus annual billing",
         paragraphs: [
           "Use monthly billing when you are testing your study plan, have an exam close ahead, or do not know how long you will need access. Use annual billing when you have a clear year-long revision schedule and the lower effective monthly price is worth paying upfront.",
@@ -136,6 +150,7 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
       { question: "What is the cheapest PastPaperPrep option for one bank?", answer: "The one-bank plan is $6 per month or $48 per year, with the annual price shown as $4 per month." },
       { question: "How much does Build Your Plan cost?", answer: "It is $10 per month for two banks, plus $4 per month for each extra bank. Annual pricing is $84 for two banks, plus $36 per extra bank." },
       { question: "When is All Access worth it?", answer: "All Access is for six or more banks and costs $25 per month or $216 per year, shown as $18 per month. Choose it only when you need that breadth." },
+      { question: "How much is Lifetime All Access?", answer: "Lifetime All Access is $299 once, with no renewal. It covers every current and future question bank." },
       { question: "Can I preselect banks in a cart?", answer: "No. PastPaperPrep does not use a cart or preselection step. Choose the current plan that matches the number of banks you need." },
       { question: "What happens to an older subscription?", answer: "Old subscriptions are grandfathered. Current pricing does not erase the terms of an existing older subscription." },
     ],
