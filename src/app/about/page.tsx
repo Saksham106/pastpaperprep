@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle, Compass, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
 import { JsonLd } from "@/components/JsonLd";
@@ -12,6 +13,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
   openGraph: { url: "/about" },
 };
+
+/** Screenshots of the live site, October 2026 (public/product). */
+const SCREENSHOTS = [
+  { src: "/product/answer.webp", alt: "An IGCSE Maths 0580 Geometry question with its official Cambridge mark scheme and a step-by-step worked explanation open below it", caption: "Topic practice: a 2026 Maths 0580 Geometry question with the official mark scheme and a worked explanation." },
+  { src: "/product/builder.webp", alt: "The Build a paper screen, with Maths 0580 topics and question counts on the left and a 10-question, 47-mark practice paper on the right", caption: "Build a paper: pick topics and years, and a printable paper fills in with marks and sources." },
+  { src: "/product/paper-library.webp", alt: "The IGCSE Maths 0580 full past papers page, a grid of sessions from 2026 down with Paper 1 to 4 variants", caption: "Free full papers: every Maths 0580 session to May/June 2026, each with its mark scheme." },
+  { src: "/product/paper-viewer.webp", alt: "The 0580/42 May/June 2026 paper open in the viewer, with a 120-minute timer and a mark scheme tab", caption: "The paper viewer: switch between the question paper and its mark scheme, with an exam timer." },
+] as const;
 
 const faqs = [
   {
@@ -95,6 +104,19 @@ export default function AboutPage() {
           <article><span>01</span><h3>Find precise practice</h3><p>Choose a qualification and bank, then narrow the archive by topic, subtopic, paper, year, session, or other available exam fields.</p></article>
           <article><span>02</span><h3>Check the source answer</h3><p>Use the linked answer or mark-scheme material available for a question, while keeping the original paper context visible.</p></article>
           <article><span>03</span><h3>Build a useful set</h3><p>Move from one weak area into mixed or timed work, and create printable practice sets where the selected plan supports export.</p></article>
+        </div>
+      </section>
+
+      <section className="about-section about-screens" aria-labelledby="about-screens-title">
+        <div className="about-section-heading">
+          <p className="eyebrow">In use</p>
+          <h2 id="about-screens-title">What PastPaperPrep looks like</h2>
+        </div>
+        <div className="about-screens-grid">
+          {SCREENSHOTS.map((shot) => <figure key={shot.src}>
+            <Image src={shot.src} alt={shot.alt} width={1600} height={801} sizes="(max-width: 760px) 100vw, 50vw" />
+            <figcaption>{shot.caption}</figcaption>
+          </figure>)}
         </div>
       </section>
 

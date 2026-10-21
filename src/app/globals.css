@@ -374,6 +374,11 @@ main { min-height: 72vh; }
 .about-section-heading h2, .about-audience-workflow h2 { margin: 0; color: var(--public-ink); font: 400 clamp(2.15rem, 4.2vw, 3.9rem)/.98 var(--font-serif); letter-spacing: -.05em; text-wrap: balance; }
 .about-section-heading > p:last-child { max-width: 620px; margin: 0; color: var(--public-muted); font-size: 1.06rem; line-height: 1.65; }
 .about-feature-grid { margin-top: 42px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line-strong); border-left: 1px solid var(--line-strong); }
+.about-screens-grid { margin-top: 42px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 32px; }
+.about-screens-grid figure { margin: 0; }
+.about-screens-grid img { display: block; width: 100%; height: auto; border: 1px solid var(--line-strong); border-radius: 12px; }
+.about-screens-grid figcaption { margin-top: 12px; color: var(--public-muted); font-size: .92rem; line-height: 1.55; }
+@media (max-width: 760px) { .about-screens-grid { grid-template-columns: 1fr; } }
 .about-feature-grid article { min-height: 240px; padding: 25px; border-right: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); }
 .about-feature-grid span, .about-workflow li::marker { color: var(--public-burgundy); font: 650 .72rem/1 var(--font-mono); }
 .about-feature-grid h3, .about-difference-list h3, .about-grid h3, .about-faq-list h3 { margin: 42px 0 10px; color: var(--public-ink); font: 400 1.45rem/1.05 var(--font-serif); letter-spacing: -.035em; }
