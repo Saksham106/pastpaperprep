@@ -10,10 +10,18 @@
 // and both runtime questions still carry the same normalized text and marks. A twin with its own ledger row publishes
 // from that row instead.
 
-/** Words and numbers only, case-folded, without the leading question number (matches build_twins.py's norm). */
+/**
+ * Case-sensitive tokens, matching build_twins.py's norm: each run of letters/digits and every other non-space character
+ * (operators, quotes, brackets, punctuation) is a token. Only spacing, dot leaders and the leading question number are
+ * ignored, so `6 + 2` vs `6 - 2`, `<` vs `<=` and `"a"` vs `"A"` differ. Symbol-font glyphs (U+F020-F07E) read as the
+ * character they print.
+ */
 export function normalizedQuestionText(text) {
-  const stripped = String(text ?? "").replace(/\.{3,}|…+/g, " ").replace(/^\s*\(?\d{1,2}[.)]\s*/, "");
-  return (stripped.toLowerCase().match(/[a-z0-9]+/g) ?? []).join(" ");
+  const stripped = String(text ?? "")
+    .replace(/[\uf020-\uf07e]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xf000))
+    .replace(/\.{3,}|…+/g, " ")
+    .replace(/^\s*\(?\d{1,2}[.)]\s*/, "");
+  return (stripped.match(/[A-Za-z0-9]+|[^\sA-Za-z0-9]/g) ?? []).join(" ");
 }
 
 /**

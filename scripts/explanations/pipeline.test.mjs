@@ -349,6 +349,13 @@ test('twins reuse a publishable canonical only when text, marks and ledger agree
   const { resolveTwins, normalizedQuestionText } = await import('./twins.mjs');
   assert.equal(normalizedQuestionText('12. State the purpose of a  CPU. [1] ......'), normalizedQuestionText('3. State the purpose of a CPU. [1]'));
   assert.notEqual(normalizedQuestionText('1. Convert 40 to binary. [2]'), normalizedQuestionText('1. Convert 5 to binary. [2]'));
+  // Operators, comparison operators and literal case are part of the question (owner review of #389).
+  for (const [a, b] of [['Output 6 + 2', 'Output 6 - 2'], ['if X < 10 then', 'if X > 10 then'], ['if X < 10 then', 'if X <= 10 then'], ['NAME = "a"', 'NAME = "A"'], ['Define RAM.', 'define ram.']]) {
+    assert.notEqual(normalizedQuestionText(a), normalizedQuestionText(b), `${a} vs ${b}`);
+  }
+  // Spacing, dot leaders and a symbol-font plus (U+F02B) are not differences.
+  assert.equal(normalizedQuestionText('2. X  =  A / B ; [2] ........'), normalizedQuestionText('7. X = A/B; [2]'));
+  assert.equal(normalizedQuestionText('total \uf02b 1'), normalizedQuestionText('total + 1'));
   const doc = { schemaVersion: 1, bank: 'ib-computer-science-hl', questionId: 'h1', totalMarks: 2, parts: [{ label: '', marks: 2, approach: 'x', answer: 'y', steps: [{ text: 't', marks: ['✓', '✓'] }] }] };
   const runtime = (bank, id) => ({ h1: { text: '1. Define RAM. [2]', marks: 2 }, s1: { text: '4. Define RAM. [2]', marks: 2 }, s2: { text: '5. Define ROM. [2]', marks: 2 }, s3: { text: '6. Define RAM. [3]', marks: 3 } })[id] ?? null;
   const source = (bank, id) => (bank === 'ib-computer-science-hl' && id === 'h1' ? { status: 'pass', doc } : null);
@@ -364,6 +371,9 @@ test('twins reuse a publishable canonical only when text, marks and ledger agree
   assert.deepEqual(skipped.map((s) => s.split(':')[0]).sort(), ['s2', 's3', 's4']);
   assert.match(skipped.find((s) => s.startsWith('s2')), /question text differs/);
   assert.match(skipped.find((s) => s.startsWith('s3')), /marks differ/);
+  const drift = (bank, id) => ({ h1: { text: '1. Output 6 + 2 [2]', marks: 2 }, s1: { text: '1. Output 6 - 2 [2]', marks: 2 } })[id] ?? null;
+  const drifted = resolveTwins({ bank: 'ib-computer-science-sl', twins: { ...twins, twins: { s1: twins.twins.s1 } }, ownRows: new Set(), source, runtime: drift });
+  assert.deepEqual([drifted.resolved.length, /question text differs/.test(drifted.skipped[0])], [0, true]);
   assert.throws(() => resolveTwins({ bank: 'ib-computer-science-hl', twins, ownRows: new Set(), source, runtime }), /Invalid twins file/);
   assert.deepEqual(resolveTwins({ bank: 'x', twins: null, ownRows: new Set(), source, runtime }), { resolved: [], skipped: [] });
 });
