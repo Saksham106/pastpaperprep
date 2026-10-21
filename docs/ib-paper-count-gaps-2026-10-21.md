@@ -30,4 +30,6 @@ gives 110 paired, 110 reports, 0 held, 0 unpaired. The three new entries are 60 
 
 **That reason does not hold for the pinned files.** These papers (2016 syllabus) have no Section B. Each question paper runs to printed page 24 of 24 and its marks sum to 90. Each mark scheme ends on the paper's last question, checked by rendering: TZ1 ends at Q7, TZ2 at Q6(e), November at Q7(b). The question crops already exist in the source repo's `site-extension/`.
 
+**Resolved later the same day.** The 20 questions were re-included and the count is back to 93 (`docs/ib-chemistry-hl-2019-p2.md`).
+
 **Decision (owner, 21 October 2026).** Correct the count now. Re-ingesting the 20 questions (classification, review, runtime and seal regeneration, private R2 upload) is a separate content task. `src/lib/catalog.ts` now says 90. Full past papers is unaffected: it already served these three complete papers.

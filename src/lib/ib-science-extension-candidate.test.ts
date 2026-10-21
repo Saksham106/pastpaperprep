@@ -9,7 +9,8 @@ import { BANK_CATALOG } from "@/lib/catalog";
 const root = process.cwd();
 const expected = {
   // Chemistry also holds the official May 2026 papers (HL 144, SL 109 questions, all year >= 2020), appended after the sealed rows.
-  "ib-chemistry-hl": [1083 + 144, 789, 1872 + 144], "ib-chemistry-sl": [810 + 109, 602, 1412 + 109],
+  // Chemistry HL later appended its 20 2019 Paper 2 questions after the May 2026 rows (hl2019Paper2Release).
+  "ib-chemistry-hl": [1083 + 144, 789 + 20, 1872 + 144 + 20], "ib-chemistry-sl": [810 + 109, 602, 1412 + 109],
   // Physics also holds the official May 2026 papers (HL 153, SL 99 questions, all year >= 2020), appended after the sealed rows.
   "ib-physics-hl": [1111 + 153, 764, 1875 + 153], "ib-physics-sl": [774 + 99, 540, 1314 + 99],
   // Biology also holds the official May 2026 papers (HL 160, SL 123 served questions, all year >= 2020; one HL question is withheld, see may2026Release.excludedFromPractice), appended after the sealed rows.
@@ -26,6 +27,7 @@ describe("IB 2016–2019 science extension candidate", () => {
       expect(runtime.years).toEqual(/^ib-(biology|chemistry|physics)/.test(bank) ? [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026] : [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]);
       expect(new Set(runtime.questions.map((q: { id: string }) => q.id)).size).toBe(combined);
       expect(runtime.extensionRelease.combinedQuestionCount).toBe(/^ib-(biology|chemistry|physics)/.test(bank) ? runtime.may2026Release.baseQuestionCount : combined);
+      if (runtime.hl2019Paper2Release) expect(runtime.hl2019Paper2Release.combinedQuestionCount).toBe(combined);
     }
   });
 
@@ -47,7 +49,10 @@ describe("IB 2016–2019 science extension candidate", () => {
       const runtime = JSON.parse(fs.readFileSync(path.join(root, "src/data/raw", `${bank}.json`), "utf8"));
       const extension = runtime.questions.filter((q: { year: number }) => q.year < 2020);
       expect(extension.every((q: { component?: string }) => ["P1", "P2", "P3"].includes(q.component ?? ""))).toBe(true);
-      expect(extension.map((q: { id: string }) => q.id)).toEqual([...extension].sort((a, b) => a.id.localeCompare(b.id)).map((q: { id: string }) => q.id));
+      // The sealed extension rows are in id order; a later append (hl2019Paper2Release) follows the 2026 rows, in id order itself.
+      const appended = runtime.hl2019Paper2Release ? runtime.questions.slice(runtime.hl2019Paper2Release.baseQuestionCount) : [];
+      const sealed = extension.filter((q: { id: string }) => !appended.includes(q));
+      for (const rows of [sealed, appended]) expect(rows.map((q: { id: string }) => q.id)).toEqual([...rows].sort((a, b) => a.id.localeCompare(b.id)).map((q: { id: string }) => q.id));
       for (const component of ["P1", "P2", "P3"]) expect(extension.filter((q: { component: string }) => q.component === component).length).toBe(extension.filter((q: { id: string }) => q.id.includes(`-${component.toLowerCase()}-`)).length);
     }
   });
