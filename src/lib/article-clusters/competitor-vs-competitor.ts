@@ -172,23 +172,33 @@ const PMT_VS_SAVE_MY_EXAMS: Article = {
 const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
   draft: false,
   slug: "revision-village-vs-save-my-exams",
-  title: "Revision Village vs Save My Exams for IB: Which to Buy?",
+  title: "Revision Village vs Save My Exams: 2026 Prices, Which to Buy",
   description:
-    "Compare Revision Village and Save My Exams for IB videos, notes, free access and question practice, plus PastPaperPrep’s free papers and worked explanations.",
+    "Revision Village Gold costs $70 a month for one IB course; Save My Exams costs $8 a month billed yearly. Compare prices, free tiers and which suits your IB subjects.",
   eyebrow: "IB Diploma revision comparison",
   answer:
-    "Choose Revision Village for video-led IB practice and Save My Exams for written revision notes and exam-style questions across qualifications. PastPaperPrep is a third option for free whole-paper practice and targeted real questions. It publishes worked explanations on many questions, but does not offer either competitor’s full teaching library or video lessons.",
+    "Choose Revision Village for video-led IB practice, especially IB Maths: one course costs $70 a month or $249 once until your exams. Choose Save My Exams for written notes and exam-style questions across IB and other qualifications: Essential costs $40 a month or $96 a year for every subject. Prices checked 21 October 2026, in US dollars. PastPaperPrep is a third option for free whole papers and real past-paper questions by topic, from $6 a month.",
   publishedAt: "2026-09-15",
-  updatedAt: "2026-10-16",
+  updatedAt: "2026-10-21",
   readingMinutes: 8,
   comparison: {
     caption: "Revision Village vs Save My Exams for IB at a glance",
     headings: ["Dimension", "Revision Village", "Save My Exams"],
     rows: [
       {
-        label: "Price model",
-        pastPaperPrep: "Free sample; paid course and suite options with time-limited or Full Course access",
-        competitor: "Free, Essential and Premium memberships; compare current currency, term and included tools",
+        label: "Monthly price",
+        pastPaperPrep: "$70 for one course; $140 for every course",
+        competitor: "$40 Essential; $80 Premium (every subject)",
+      },
+      {
+        label: "Best long-term price",
+        pastPaperPrep: "$249 once for one course, or $499 once for every course, until your exams",
+        competitor: "$96 a year Essential; $192 a year Premium",
+      },
+      {
+        label: "Trial or guarantee",
+        pastPaperPrep: "7-day money-back guarantee on Gold",
+        competitor: "7-day free trial on Premium",
       },
       {
         label: "Free tier",
@@ -224,9 +234,9 @@ const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
   },
   sections: [
       {
-      heading: "The short answer for IB students",
+      heading: "Which is better for IB, Revision Village or Save My Exams?",
       paragraphs: [
-        "Revision Village is a natural fit if you learn by watching question solutions. Save My Exams is broader across qualifications and is useful when written notes and model answers help you revise. Check your subject and level on both before choosing.",
+        "Revision Village is better if you learn by watching worked video solutions and most of your spend is on IB Maths. Save My Exams is better if you take several IB subjects, prefer reading notes and model answers, or also need GCSE, IGCSE or A Level material. Check your subject and level on both before choosing.",
         "The mistake to avoid is buying the bigger brand name and then studying the same way you did before. Both sites sell you access; neither forces you to attempt questions with the materials closed. That part stays your job.",
       ],
     },
@@ -238,6 +248,14 @@ const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
         { href: "/banks/ib-sl?free=1", label: "IB Mathematics AA SL question bank: free topic practice" },
       ], "For a notes-and-AI alternative, compare RevisionDojo with Save My Exams below."),
     {
+      heading: "How much do Revision Village and Save My Exams cost?",
+      paragraphs: [
+        "Prices checked on 21 October 2026, in US dollars; your currency and region can change them. Revision Village Gold for one course costs $70 a month, $150 for 3 months, $210 for 6 months, or $249 once for the Full Course, which lasts until your IB exams. The Complete Learning Suite for every course costs $140 a month, $300 for 3 months, $420 for 6 months, or $499 once. A free account opens a subset of topics in each course.",
+        "Save My Exams Essential costs $40 a month, $48 for 3 months, or $96 a year. Premium costs $80 a month, $96 for 3 months, or $192 a year, and adds downloads, answer feedback and a test builder. One membership covers every subject and qualification. Premium has a 7-day free trial.",
+        "So for one IB course over a full year, Save My Exams Essential at $96 is far cheaper than Revision Village at $249. For a single exam month, Save My Exams Essential at $40 is still cheaper than one Revision Village course at $70.",
+      ],
+    },
+    {
       heading: "Two purchase models, not just two websites",
       paragraphs: [
         "Revision Village’s Gold page offers a free subset of course topics and paid Single Course or Complete Learning Suite plans. Access can be bought for a stated period or through the end of the IB Diploma with Full Course. A displayed monthly equivalent for Full Course is not a recurring monthly bill.",
@@ -246,7 +264,7 @@ const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
       ],
     },
     {
-      heading: "Where Revision Village earns its price",
+      heading: "When is Revision Village worth the price?",
       paragraphs: [
         "The questionbank is the core. Question sets are organised by topic and difficulty, and Revision Village advertises mark schemes and video solutions for every question. Past-paper pages add full worked solutions taught by IB instructors. Practice Exams cover topic quizzes, full-syllabus mocks and a revision ladder; Prediction Exams are mock papers written for the current cohort; Key Concepts are refresher summaries. Bootcamps, flashcards, a mobile app and the Newton AI assistant round it out.",
         "It is also genuinely IB-only, which is the point. Nothing on the platform is diluted by GCSE content, and the material is written for IB assessment structures. Its own pages describe resources as designed and reviewed by IB examiners and experienced educators.",
@@ -254,7 +272,7 @@ const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
       ],
     },
     {
-      heading: "Where Save My Exams earns its price",
+      heading: "When is Save My Exams worth the price?",
       paragraphs: [
         "Save My Exams’ advantage is its broad written revision library. Its IB hub lists subject-specific notes, exam-style questions and answers, flashcards and mock or practice exams where available. A paid subscription covers its available subjects rather than requiring a separate purchase for each. Resource depth still varies by course.",
         "For offline revision, check the resource and plan. The current Free, Essential and Premium guide allows past-paper downloads on Free and lists revision-note and exam-question PDF downloads on Premium. It also lists Test Builder for teachers with plan-dependent limits. Do not assume every model answer or tool is downloadable or included on Free.",
@@ -262,23 +280,25 @@ const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
       ],
     },
     {
-      heading: "The third option, stated plainly",
+      heading: "Is there a cheaper third option?",
       paragraphs: [
-        "PastPaperPrep covers a smaller catalogue than either competitor, but it now spans live banks: Cambridge IGCSE Mathematics 0580, Additional Mathematics 0606, Biology 0610, Chemistry 0620, Physics 0625, Co-ordinated Sciences 0654 and Economics 0455, plus IB Mathematics AA and AI, Chemistry, Physics, Biology and Economics at HL and SL. The content is real past-paper questions with source metadata, filterable by course, topic, subtopic, year, paper, session and marks, and exportable as a printable set.",
+        "PastPaperPrep covers a smaller catalogue than either competitor, but it now spans 22 live banks: Cambridge IGCSE Mathematics 0580, Additional Mathematics 0606, Biology 0610, Chemistry 0620, Physics 0625, Co-ordinated Sciences 0654, Economics 0455 and Computer Science 0478, plus IB Mathematics AA and AI, Chemistry, Physics, Biology, Economics and Computer Science at HL and SL. One bank costs $6 a month or $48 a year, and every bank is $25 a month. The content is real past-paper questions with source metadata, filterable by course, topic, subtopic, year, paper, session and marks, and exportable as a printable set.",
         "Start with PastPaperPrep’s free whole-paper workspace, then use the topical bank to repair a weak skill. Paid plans add eligible access to newer bank inventory and custom worksheet export. Use the pricing page for current bank choices and allowances.",
         "PastPaperPrep’s published worked explanations can help with the first step you missed in a supported question. They are separate from official mark schemes and do not cover every question or subject. There is no full revision-notes library, video course, AI tutor or automatic marking. PastPaperPrep is independent of the IB; its explanations are not official IB solutions.",
       ],
     },
     {
-      heading: "When to buy which, and when to buy nothing",
+      heading: "Which should you buy? Best for each kind of student",
       paragraphs: [
         "Try the free paths before buying. Revision Village offers a subset of course topics. Save My Exams lets a free account try notes and questions and download available past papers. PastPaperPrep’s whole-paper archives are free without signup, while its topical free selection follows the separate guest and account rules above.",
         "Then buy the missing layer: video-guided IB depth, or a broad membership with notes and model answers, or a cheap supply of real topical questions you can print. If you cannot name which of those is missing, the correct spend this month is zero.",
       ],
       bullets: [
-        "IB Maths AA HL plus two essay-based subjects, one budget account: Save My Exams.",
-        "Three or more IB subjects and you learn from video explanations: Revision Village Complete Learning Suite.",
-        "Teaching already sorted, and the same weak topic keeps recurring: one PastPaperPrep bank.",
+        "Best for IB Maths only, learning from videos: Revision Village Gold for one course, $249 once until your exams.",
+        "Best for three or more IB subjects on a budget: Save My Exams Essential, $96 a year for every subject.",
+        "Best for three or more IB subjects, learning from videos: Revision Village Complete Learning Suite, $499 once.",
+        "Best for IB plus GCSE, IGCSE or A Level in one household: Save My Exams, since one membership covers every qualification.",
+        "Best for one recurring weak topic, with teaching already sorted: one PastPaperPrep bank, $6 a month.",
         "Not sure you will watch the videos: start free on all three and revisit in a fortnight.",
       ],
     },
@@ -295,9 +315,24 @@ const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
         "Yes. Save My Exams describes one membership covering GCSE, IGCSE, A Level, IB and AP, with all subjects included. That cross-qualification coverage is its main structural advantage over an IB-only platform.",
     },
     {
-      question: "Which is cheaper overall?",
+      question: "Which is cheaper, Revision Village or Save My Exams?",
       answer:
-        "Compare the current price in your currency, actual billing period, access end date and courses included. Revision Village offers course or suite access with several duration options. Save My Exams has Essential and Premium memberships with different tools. Neither headline price settles the best value for your revision.",
+        "Save My Exams is cheaper for most students. Essential costs $96 a year for every subject, while Revision Village costs $249 once for one IB course or $499 for every course (prices checked 21 October 2026, in US dollars). Revision Village's monthly price is $70 for one course against $40 for Save My Exams Essential.",
+    },
+    {
+      question: "How much does Revision Village cost?",
+      answer:
+        "Revision Village Gold costs $70 a month for one IB course, or $249 once for Full Course access until your exams. Every course costs $140 a month or $499 once. Prices checked 21 October 2026, in US dollars.",
+    },
+    {
+      question: "Is Revision Village free?",
+      answer:
+        "Partly. A free Revision Village account opens a subset of topics in each course, plus the mobile app and Discord community, with no card needed. The full questionbank, video solutions and prediction exams need Gold.",
+    },
+    {
+      question: "Is Save My Exams worth it for IB?",
+      answer:
+        "It is worth it if you take several subjects and revise from written notes and model answers: $96 a year covers all of them. IB depth varies by subject, so check your exact course page first. For IB Maths taught by video, Revision Village is the stronger fit.",
     },
     {
       question: "Can I prepare for IB with free material only?",

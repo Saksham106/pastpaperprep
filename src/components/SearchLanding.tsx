@@ -20,8 +20,8 @@ import { bankLastUpdated, formatUpdateDate, lastUpdated } from "@/lib/updates";
 import { paperFacts, topicFacts } from "@/lib/quick-facts";
 import { hasPublishedExplanations } from "@/lib/explanations";
 import { QuickFacts } from "@/components/QuickFacts";
+import { subjectSearchName } from "@/lib/past-paper-seo";
 import {
-  bankSearchName,
   courseOverview,
   officialQualificationSource,
   paperPath,
@@ -197,7 +197,7 @@ export function SearchDetail({ bank, eyebrow, title, kind, label, canonicalPath,
   const noteHref = notes && getNoteTopic(notes.subjectSlug, slugifyLabel(label)) ? `/revision-notes/${notes.subjectSlug}/${slugifyLabel(label)}` : undefined;
   const tone = courseToneForBank(bank);
   const locked = stats.total - stats.free;
-  const bankName = bankSearchName(bank);
+  const bankName = subjectSearchName(bank);
   const explanations = hasPublishedExplanations(bank.slug);
   const facts = kind === "topic"
     ? topicFacts({ bankName, topic: label, total: stats.total, free: stats.free, bankTotal: bank.questionCount, years: bank.years, papers: stats.breakdown, explanations })

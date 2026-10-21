@@ -639,26 +639,27 @@ export const ALL_ARTICLES: readonly Article[] = [
     title: "Exam-Mate Subscription Price: Free and Paid Plans (2026)",
     description: "Exam-Mate Topical Past Papers costs $12 for one month or $120 for 12 months. Compare free limits, Build Exam access and PastPaperPrep’s practice plans.",
     eyebrow: "Topical past-paper comparison",
-    answer: "Exam-Mate’s Topical Past Papers plan costs $12 for one month, $65 for six months or $120 for twelve months, and does not include Build Exam (checked 16 October 2026). Its free tier covers topical questions up to 2019. PastPaperPrep’s whole papers are free without signup, and topical bank access starts at $6 a month.",
+    answer: "Exam-Mate’s Topical Past Papers plan costs $12 for one month, $65 for six months, $120 for twelve months or $220 for twenty-four months, and does not include Build Exam. Build Exam costs $20 a month or $200 a year for parents and $25 a month or $240 a year for teachers. Its free tier covers topical questions up to 2019. Prices checked 21 October 2026, in US dollars. PastPaperPrep’s whole papers are free without signup, and topical bank access starts at $6 a month.",
     answerLink: { href: "/#question-banks", label: "PastPaperPrep" },
     publishedAt: "2026-08-30",
-    updatedAt: "2026-10-16",
+    updatedAt: "2026-10-21",
     readingMinutes: 6,
     comparison: {
       caption: "PastPaperPrep vs Exam-Mate at a glance",
       headings: ["Feature", "PastPaperPrep", "Exam-Mate Topical Past Papers"],
       rows: [
-        { label: "One-month price", pastPaperPrep: "$6 one bank; $10 two banks; $25 All Access", competitor: "$12 individual subscription" },
-        { label: "Annual price", pastPaperPrep: "$48 one bank; $84 two banks; $216 All Access", competitor: "$120 individual subscription" },
+        { label: "One-month price", pastPaperPrep: "$6 one bank; $10 two banks; $25 All Access", competitor: "$12 Topical; $20 Build Exam (parents); $25 Build Exam (teachers)" },
+        { label: "Annual price", pastPaperPrep: "$48 one bank; $84 two banks; $216 All Access", competitor: "$120 Topical; $200 Build Exam (parents); $240 Build Exam (teachers)" },
+        { label: "Longest option", pastPaperPrep: "$299 once for Lifetime All Access", competitor: "$220 for 24 months of Topical; $380 for 24 months of Build Exam (parents)" },
         { label: "Free access", pastPaperPrep: "Whole papers free without signup; separate older free topical selection", competitor: "Topical and online MCQ access through 2019" },
-        { label: "PDF building", pastPaperPrep: "Included with relevant paid access", competitor: "Free tier lists one PDF with five questions; Individual topical plan says Build Exam not included" },
-        { label: "Core strength", pastPaperPrep: "Deep filtering across 19 Cambridge IGCSE and IB banks", competitor: "Wide curriculum and subject catalogue" },
+        { label: "PDF building", pastPaperPrep: "Included with relevant paid access", competitor: "Free: one PDF of five questions. Build Exam: 20 questions per PDF, 5 PDFs a month (parents) or 10 (teachers)" },
+        { label: "Core strength", pastPaperPrep: "Deep filtering across 22 Cambridge IGCSE and IB banks", competitor: "Wide curriculum and subject catalogue" },
         { label: "Schools", pastPaperPrep: "No public school-volume table", competitor: "Public annual per-account tiers for 20–500 accounts" },
       ],
     },
     sections: [
       {
-        heading: "The short verdict",
+        heading: "Is Exam-Mate or PastPaperPrep better for topical past papers?",
         paragraphs: [
           "Choose PastPaperPrep if you study one of its live Cambridge IGCSE or IB banks and care most about fast, precise filtering, clear source details, answers, and building printable practice. Its narrower catalogue lets the product stay centred on that workflow.",
           "Choose Exam-Mate if you need subjects or curricula outside PastPaperPrep's current supported banks, or if a school needs published volume pricing. Its site offers topical and yearly papers alongside separate MCQ, Build Exam, notes, solved-paper, and AI products.",
@@ -671,10 +672,24 @@ export const ALL_ARTICLES: readonly Article[] = [
         { href: "/banks/ib-hl?free=1", label: "IB Mathematics AA HL question bank: free topic practice" },
       ]),
       {
-        heading: "Price comparison",
+        heading: "How much does Exam-Mate cost?",
         paragraphs: [
-          "Pricing checked 5 October 2026. PastPaperPrep costs $6 monthly or $48 annually for one bank. Build Your Plan covers two to five banks, starting at $10 monthly or $84 annually for two, with each additional bank priced at $4 monthly or $36 annually. All Access costs $25 monthly or $216 annually. Complete older exam years remain available free.",
-          "Exam-Mate's Topical Past Papers page lists individual access at $12 for one month, $65 for six months, $120 for twelve months, and $220 for twenty-four months. Its free tier lists topical and MCQ access through 2019. Verify the official pages before purchase because packages and coverage dates can change.",
+          "Pricing checked 21 October 2026, in US dollars. Exam-Mate's Topical Past Papers page lists individual access at $12 for one month, $65 for six months, $120 for twelve months, and $220 for twenty-four months. This plan opens the newest topical questions but does not include Build Exam.",
+          "Build Exam, which turns questions into your own exam or worksheet PDFs and includes the topical papers, is priced separately. The Parents tier costs $20 for one month, $110 for six months, $200 for twelve months or $380 for twenty-four months, with 20 questions per PDF and 5 PDFs a month. The Teachers tier costs $25, $130, $240 or $450 for the same periods, with 10 PDFs a month. Schools have their own pricing.",
+          "Verify the official pages before purchase because packages and coverage dates can change.",
+        ],
+      },
+      {
+        heading: "Is Exam-Mate free?",
+        paragraphs: [
+          "Partly. A free Exam-Mate account opens topical past papers and online MCQ tests up to 2019, and one Build Exam PDF of five questions. Questions from 2020 onwards need a paid plan.",
+        ],
+      },
+      {
+        heading: "Which is cheaper, Exam-Mate or PastPaperPrep?",
+        paragraphs: [
+          "For one subject, PastPaperPrep is cheaper: one bank costs $6 a month or $48 a year, against $12 a month or $120 a year for Exam-Mate Topical. PastPaperPrep's PDF worksheets come with the bank, while Exam-Mate's Build Exam starts at $20 a month.",
+          "For several subjects, compare carefully. For two to five subjects, PastPaperPrep's Build Your Plan starts at $10 a month or $84 a year. All Access covers every bank for $25 a month or $216 a year, and Lifetime All Access is $299 once. One Exam-Mate subscription covers its whole catalogue, which is wider than PastPaperPrep's. Complete older exam years remain free on PastPaperPrep.",
         ],
       },
       {
@@ -693,9 +708,11 @@ export const ALL_ARTICLES: readonly Article[] = [
       },
     ],
     faqs: [
-      { question: "Is PastPaperPrep cheaper than Exam-Mate?", answer: "At the prices checked on 5 October 2026, PastPaperPrep's one-bank plan costs $6 monthly or $48 annually, while Exam-Mate lists $12 monthly or $120 for twelve months for its individual topical plan. PastPaperPrep's broader multi-bank plans cost more than one Exam-Mate individual subscription, so compare the exact course access you need." },
+      { question: "How much is an Exam-Mate subscription?", answer: "Exam-Mate Topical Past Papers costs $12 for one month, $65 for six months, $120 for twelve months or $220 for twenty-four months. Build Exam costs $20 a month or $200 a year for parents and $25 a month or $240 a year for teachers. Prices checked 21 October 2026, in US dollars." },
+      { question: "Is Exam-Mate free?", answer: "Partly. The free tier opens topical past papers and MCQ tests up to 2019, plus one Build Exam PDF of five questions. Newer questions need a paid plan." },
+      { question: "Is PastPaperPrep cheaper than Exam-Mate?", answer: "At the prices checked on 21 October 2026, PastPaperPrep's one-bank plan costs $6 monthly or $48 annually, while Exam-Mate lists $12 monthly or $120 for twelve months for its individual topical plan. PastPaperPrep's broader multi-bank plans cost more than one Exam-Mate individual subscription, so compare the exact course access you need." },
       { question: "Does Exam-Mate include Build Exam with Topical Past Papers?", answer: "Its official Topical Past Papers pricing page says Build Exam is not included in the Individual plan and says users with a Build Exam subscription already receive the topical service. Check the current package details before buying." },
-      { question: "Which has more subjects?", answer: "PastPaperPrep has live banks across Cambridge IGCSE Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics, plus IB Mathematics, Chemistry, Physics, Biology and Economics at HL and SL. Exam-Mate still has the broader catalogue across curricula and subjects." },
+      { question: "Which has more subjects?", answer: "PastPaperPrep has live banks across Cambridge IGCSE Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences, Economics and Computer Science, plus IB Mathematics, Chemistry, Physics, Biology, Economics and Computer Science at HL and SL. Exam-Mate still has the broader catalogue across curricula and subjects." },
     ],
     relatedBanks: [
       { href: "/banks/igcse", label: "Cambridge IGCSE Mathematics 0580 question bank" },
@@ -706,6 +723,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     sources: [
       { href: "https://pastpaperprep.com/pricing", label: "PastPaperPrep pricing" },
       { href: "https://www.exam-mate.com/topicalpastpapers/pricing", label: "Exam-Mate Topical Past Papers pricing" },
+      { href: "https://www.exam-mate.com/exams/pricing", label: "Exam-Mate Build Exam pricing" },
     ],
   },
   {

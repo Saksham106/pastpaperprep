@@ -1361,6 +1361,8 @@ main { min-height: 72vh; }
 .bank-seo-content li strong { color: var(--ink); }
 .bank-seo-links { grid-column: 1 / -1; padding-top: 22px; display: flex; flex-wrap: wrap; gap: 12px 24px; border-top: 1px solid var(--line); }
 .bank-seo-links a { color: var(--cobalt-strong); font-weight: 720; text-decoration: underline; text-underline-offset: 4px; }
+.bank-topic-index h2 { flex-basis: 100%; margin: 0 0 4px; color: var(--ink); font: 700 1.2rem/1.2 var(--font-display); letter-spacing: -.02em; }
+.bank-topic-index small { margin-left: 6px; color: var(--muted); font: 500 .78rem/1 var(--font-mono); }
 .bank-worked-example { scroll-margin-top: 100px; }
 .bank-worked-example > div { min-width: 0; }
 .bank-worked-example a { color: var(--cobalt-strong); text-decoration: underline; text-underline-offset: 4px; }

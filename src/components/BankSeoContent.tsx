@@ -59,7 +59,7 @@ function examStyleLinkFor(bank: Bank) {
   return null;
 }
 
-export function BankSeoContent({ bank, topicLinks = [] }: { bank: Bank; topicLinks?: Array<{ label: string; href: string }> }) {
+export function BankSeoContent({ bank, topicLinks = [], topicHeading }: { bank: Bank; topicLinks?: Array<{ label: string; href: string; count?: number }>; topicHeading?: string }) {
   const guide = guideFor(bank);
   const examStyleLink = examStyleLinkFor(bank);
   const isScience = bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl" || bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl" || bank.slug === "ib-biology-hl" || bank.slug === "ib-biology-sl" || bank.slug === "ib-computer-science-hl" || bank.slug === "ib-computer-science-sl";
@@ -91,8 +91,9 @@ export function BankSeoContent({ bank, topicLinks = [] }: { bank: Bank; topicLin
         </ol>
       )}
       {topicLinks.length ? (
-        <nav className="bank-seo-links" aria-label={`${bank.shortName} topics`}>
-          {topicLinks.map((topic) => <Link key={topic.href} href={topic.href}>{topic.label} questions</Link>)}
+        <nav className="bank-seo-links bank-topic-index" aria-label={`${bank.shortName} topics`}>
+          {topicHeading ? <h2>{topicHeading}</h2> : null}
+          {topicLinks.map((topic) => <span key={topic.href}><Link href={topic.href}>{topic.label} questions</Link>{topic.count ? <small>{topic.count.toLocaleString("en-US")}</small> : null}</span>)}
         </nav>
       ) : null}
       <div className="bank-seo-links">
