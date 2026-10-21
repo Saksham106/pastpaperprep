@@ -27,8 +27,13 @@ for (const file of readdirSync(DIR).filter((name) => name.endsWith('.json')).sor
     let paperChanged = false;
     for (const role of ['question', 'markscheme'] as const) {
       const document = paper.documents[role];
-      if (replacements.some((item) => item.cleanSha256 === document.sha256 && item.paper === paper.summary.id && item.role === role)) {
-        applied.add(replacements.find((item) => item.cleanSha256 === document.sha256)!.stampedSha256);
+      const clean = replacements.find((item) => item.cleanSha256 === document.sha256);
+      if (clean) {
+        // Already repointed: the record must still match in full, not just by hash.
+        if (clean.bank !== manifest.bankSlug || clean.paper !== paper.summary.id || clean.role !== role || clean.bytes !== document.bytes || clean.pages !== document.pages) {
+          throw new Error(`Clean document ${document.sha256} on ${manifest.bankSlug} ${paper.summary.id} ${role} does not match its replacement record`);
+        }
+        applied.add(clean.stampedSha256);
         continue;
       }
       const replacement = pending.get(document.sha256);

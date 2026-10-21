@@ -25,6 +25,7 @@ import { validateExplanation } from "./validate.mjs";
 import { BANKS, outputPathFor, researchRoot } from "./prepare-batch.mjs";
 import { loadLocalPath } from "./local-files.mjs";
 import { publishSet } from "./publish-set.mjs";
+import { resolveTwins } from "./twins.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const AVAILABLE = join(repoRoot, "src/data/explanations/available.json");
@@ -66,39 +67,77 @@ const objectKey = (id) => {
   return key;
 };
 
-function publishable() {
-  const ledgerPath = join(researchRoot, bank, "_ledger.json");
+// Ledger-verified, validator-clean explanations for one bank: id -> { status, doc } (student-facing fields only).
+function bankEntries(name) {
+  const ledgerPath = join(researchRoot, name, "_ledger.json");
   if (!existsSync(ledgerPath)) throw new Error(`No ledger at ${ledgerPath}`);
   const ledger = JSON.parse(loadLocalPath(researchRoot, ledgerPath));
-  const config = BANKS[bank];
-  if (!config || ledger.bank !== bank || !Array.isArray(ledger.rows)) throw new Error("Invalid bank ledger");
+  const config = BANKS[name];
+  if (!config || ledger.bank !== name || !Array.isArray(ledger.rows)) throw new Error("Invalid bank ledger");
   const raw = JSON.parse(readFileSync(join(repoRoot, config.data), "utf8"));
   const questions = new Map((raw.questions ?? raw).map(q => [q.id, q]));
-  const out = [];
+  const entries = new Map();
   const skipped = [];
   const seen = new Set();
   for (const row of ledger.rows) {
-    objectKey(row.questionId);
+    if (!SAFE.test(row.questionId)) throw new Error(`Unsafe question ID ${row.questionId}`);
     if (seen.has(row.questionId)) throw new Error(`Duplicate ledger ID ${row.questionId}`);
     seen.add(row.questionId);
-    if (ledger.bankEvidenceVersion !== 1 || row.bankEvidenceVersion !== 1 || row.bank !== bank) {
+    if (ledger.bankEvidenceVersion !== 1 || row.bankEvidenceVersion !== 1 || row.bank !== name) {
       skipped.push(`${row.questionId}: bank-scoped replay required`); continue;
     }
     const q = questions.get(row.questionId);
     if (!q) { skipped.push(`${row.questionId}: unknown runtime question`); continue; }
-    const marks = splitMarks(bank, row.questionId, q.marks ?? q.maxMarks ?? q.maximumMarks);
+    const marks = splitMarks(name, row.questionId, q.marks ?? q.maxMarks ?? q.maximumMarks);
     if (!Number.isInteger(marks) || marks <= 0) { skipped.push(`${row.questionId}: unknown runtime marks`); continue; }
-    const file = outputPathFor(bank, row.questionId);
+    const file = outputPathFor(name, row.questionId);
     if (!PUBLISHABLE.has(row.status) || !existsSync(file)) { skipped.push(`${row.questionId}: ${row.status}`); continue; }
-    const text = loadLocalPath(researchRoot, file);
-    const doc = JSON.parse(text);
-    const errors = validateExplanation(doc, { bank, questionId: row.questionId, marks });
+    const doc = JSON.parse(loadLocalPath(researchRoot, file));
+    const errors = validateExplanation(doc, { bank: name, questionId: row.questionId, marks });
     if (doc.status === "needs_review" || errors.length) { skipped.push(`${row.questionId}: ${errors[0] ?? "needs_review"}`); continue; }
-    // Publish only the student-facing fields.
-    const body = JSON.stringify({ schemaVersion: 1, bank, questionId: row.questionId, totalMarks: doc.totalMarks, parts: doc.parts });
-    objectKey(row.questionId);
-    out.push({ id: row.questionId, body, hash: sha256(body), status: row.status });
+    entries.set(row.questionId, { status: row.status, doc: { schemaVersion: 1, bank: name, questionId: row.questionId, totalMarks: doc.totalMarks, parts: doc.parts } });
   }
+  return { entries, skipped, seen, questions };
+}
+
+function runtimeQuestion(name, id) {
+  const raw = JSON.parse(readFileSync(join(repoRoot, BANKS[name].data), "utf8"));
+  const q = (raw.questions ?? raw).find((x) => x.id === id);
+  if (!q) return null;
+  const marks = splitMarks(name, id, q.marks ?? q.maxMarks ?? q.maximumMarks);
+  return { text: q.accessibleText ?? q.summary ?? "", marks: Number(marks) };
+}
+
+function publishable() {
+  const own = bankEntries(bank);
+  const out = [];
+  const skipped = [...own.skipped];
+  const push = (id, doc, status) => {
+    objectKey(id);
+    const body = JSON.stringify(doc);
+    out.push({ id, body, hash: sha256(body), status });
+  };
+  for (const [id, { status, doc }] of own.entries) push(id, doc, status);
+  // Twins reuse a canonical explanation written and checked in this or another bank (scripts/explanations/twins.mjs).
+  const twinsPath = join(researchRoot, bank, "_twins.json");
+  const twins = existsSync(twinsPath) ? JSON.parse(loadLocalPath(researchRoot, twinsPath)) : null;
+  const sources = new Map([[bank, own]]);
+  const sourceEntries = (name) => {
+    if (!BANKS[name]) return null;
+    if (!sources.has(name)) sources.set(name, bankEntries(name));
+    return sources.get(name);
+  };
+  const { resolved, skipped: twinSkips } = resolveTwins({
+    bank, twins, ownRows: own.seen,
+    source: (name, id) => sourceEntries(name)?.entries.get(id) ?? null,
+    runtime: (name, id) => (BANKS[name] ? runtimeQuestion(name, id) : null),
+  });
+  for (const { id, doc, status } of resolved) {
+    const errors = validateExplanation(doc, { bank, questionId: id, marks: doc.totalMarks });
+    if (errors.length) { skipped.push(`${id}: ${errors[0]}`); continue; }
+    push(id, doc, status);
+  }
+  skipped.push(...twinSkips);
   return { out, skipped };
 }
 
