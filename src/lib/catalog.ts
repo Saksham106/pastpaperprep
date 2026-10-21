@@ -42,10 +42,12 @@ export const BANK_CATALOG = [
   bank({ slug: "igcse-coordinated-sciences-0654", qualification: "Cambridge IGCSE", subject: "Co-ordinated Sciences", title: "Co-ordinated Sciences 0654", shortName: "Co-ordinated Sciences 0654", syllabusCode: "0654", level: "Core and Extended", questionCount: 4721, paperCount: 238, years: "2020-2025", access: "paid-bank", productId: "bank_igcse_coordinated_sciences_0654", release: "gated", delivery: "hosted" }),
   bank({ slug: "igcse-computer-science-0478", qualification: "Cambridge IGCSE", subject: "Computer Science", title: "Computer Science 0478", shortName: "Computer Science 0478", syllabusCode: "0478", level: "All candidates", questionCount: 847, paperCount: 105, years: "2019-2026", access: "paid-bank", productId: "bank_igcse_computer_science_0478", release: "gated", delivery: "hosted" }),
   ...(["ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl"] as const).map((slug) => {
+    // Papers count those with questions in the bank. Chemistry HL lists 93 runtime papers, but the three 2019 HL
+    // Paper 2s hold none: the 2016-2019 extension excluded them (docs/ib-paper-count-gaps-2026-10-21.md), so it shows 90.
     const table: Record<string, [string, string, string, number, number, string]> = {
       "ib-hl": ["Mathematics AA", "Mathematics AA Higher Level", "HL", 893, 110, "2017-2026"], "ib-sl": ["Mathematics AA", "Mathematics AA Standard Level", "SL", 596, 64, "2017-2026"],
       "ib-ai-hl": ["Mathematics AI", "Mathematics AI Higher Level", "HL", 484, 57, "2021-2026"], "ib-ai-sl": ["Mathematics AI", "Mathematics AI Standard Level", "SL", 386, 44, "2021-2026"],
-      "ib-chemistry-hl": ["Chemistry", "Chemistry Higher Level", "HL", 2016, 93, "2016-2026"], "ib-chemistry-sl": ["Chemistry", "Chemistry Standard Level", "SL", 1521, 93, "2016-2026"],
+      "ib-chemistry-hl": ["Chemistry", "Chemistry Higher Level", "HL", 2016, 90, "2016-2026"], "ib-chemistry-sl": ["Chemistry", "Chemistry Standard Level", "SL", 1521, 93, "2016-2026"],
       "ib-physics-hl": ["Physics", "Physics Higher Level", "HL", 2028, 93, "2016-2026"], "ib-physics-sl": ["Physics", "Physics Standard Level", "SL", 1413, 93, "2016-2026"],
       "ib-biology-hl": ["Biology", "Biology Higher Level", "HL", 2071, 93, "2016-2026"], "ib-biology-sl": ["Biology", "Biology Standard Level", "SL", 1671, 96, "2016-2026"],
     };
