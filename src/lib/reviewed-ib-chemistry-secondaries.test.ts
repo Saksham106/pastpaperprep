@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import reviewed from "@/data/reviewed-ib-chemistry-extension-secondaries.json";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import { ibChemistryExtensionSecondaries } from "@/lib/reviewed-ib-chemistry-secondaries";
+import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 
 const banks = reviewed.banks as Record<"ib-chemistry-hl" | "ib-chemistry-sl", Record<string, { primarySubtopic: string; secondarySubtopics: string[]; secondaryTopics: string[] }>>;
 
@@ -20,6 +21,17 @@ describe("reviewed IB Chemistry 2016-2019 secondaries", () => {
       }
     }
     expect(applied).toBe(reviewed.counts.rows);
+  });
+
+  it("publishes the same labels in the public bank index the bank page filters on", () => {
+    for (const bank of ["ib-chemistry-hl", "ib-chemistry-sl"] as const) {
+      const index = JSON.parse(readFileSync(`public/bank-index/${PUBLIC_BANK_INDEX_FILES[bank]}`, "utf8")) as { questions: { id: string; subtopics: string[]; secondaryTopics: string[] }[] };
+      const published = new Map(index.questions.map((q) => [q.id, q]));
+      for (const q of loadBankQuestions(bank)) {
+        const row = published.get(q.id)!;
+        expect([row.subtopics, row.secondaryTopics]).toEqual([q.subtopics, q.secondaryTopics]);
+      }
+    }
   });
 
   it("keeps only links the verification audit kept, each with a mark-earning part", () => {
