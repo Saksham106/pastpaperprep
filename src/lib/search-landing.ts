@@ -147,7 +147,10 @@ export function buildLandingManifest(bankSlug: BankSlug, questions: UnifiedQuest
     papers,
     questionCount: questions.length,
     years: bank.years,
-    paperCount: new Set(questions.map((question) => `${question.year}-${question.session}-${question.paper}-${question.component}`)).size,
+    // The catalogue count comes from each bank's ingestion, which knows how that subject splits
+    // papers (IB time zones, old AA HL Paper 3 options, Chemistry 1A/1B). A generic recount here
+    // ignored time zones and showed 54 papers for IB Math AA HL instead of 110.
+    paperCount: bank.paperCount,
   };
 }
 
