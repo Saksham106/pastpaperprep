@@ -17,7 +17,7 @@ import { normalizeBankQuestions } from "@/lib/questions";
 const ROOT = process.cwd();
 const BANK = "igcse-computer-science-0478";
 const PRODUCT = "bank_igcse_computer_science_0478";
-const CANDIDATE = "3f65f4fa9c94c0b35b6579b4ad0d2306ac20093234a4edd95e79c79b0618de6c";
+const CANDIDATE = "558e0688e3f00ede6917e3c7beba7ba268ef5f08acceb348905450d797025bb6";
 const WITHDRAWN = ["0478-2023-s-22-q5", "0478-2025-s-22-q10"];
 const sha = (value: unknown) => createHash("sha256").update(typeof value === "string" ? value : JSON.stringify(value)).digest("hex");
 

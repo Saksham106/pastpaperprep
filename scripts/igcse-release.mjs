@@ -39,7 +39,7 @@ export const RELEASE_BANKS = {
     sourceRootEnv: 'PASTPAPERPREP_IGCSE_COMPUTER_SCIENCE_SOURCE_ROOT',
     // The candidate pin is recomputed from content, not just compared as a stored field.
     candidateSeal: 'blanked-v1',
-    originalCandidateRuntimeSha256: '3f65f4fa9c94c0b35b6579b4ad0d2306ac20093234a4edd95e79c79b0618de6c',
+    originalCandidateRuntimeSha256: '558e0688e3f00ede6917e3c7beba7ba268ef5f08acceb348905450d797025bb6',
   },
   // IB Computer Science rides the same release lane (the "igcse" name is historical). Prefixes carry the row
   // count and the first 12 hex of the candidate seal.

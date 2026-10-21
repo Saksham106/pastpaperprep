@@ -28,11 +28,11 @@ export const RIGHTS_STATUS = "user_attested_rights_authorized";
 export const CANDIDATE_PUBLICATION_STATUS = "authorized_production_candidate";
 export const DEFAULT_SOURCE_ROOT = "/Users/sakshamgoel/Documents/ProjectsInternships/igcse-computer-science-0478-topic-practice";
 export const SOURCE_SHA256 = {
-  segmentation: "714c69a58eb013f004e118500d0d60ebd1518066d41c88b42af05560f02189dd",
+  segmentation: "73ed2f0ad6dd80668c06f51219fc941eeb1030febb253888b6b4991c5a2a4538",
   labels: "00eaad5c0167afac47f20f8e187ce481b9e6752a193a7e8c1b02011105b6dcb8",
   taxonomy: "a122a85f3950a3da479069f97f85655344b5d95b8cf66350dfa420330546ceb3",
   sourceManifest: "668bce70ce3eb2e6d49d3c8e0ef0eb9130bc6b791108bcab9437800836c29c68",
-  extensionSegmentation: "441eb4e4a894f54bef668d7c6e7995c62fbc71eb45ebc97ef71795949348f633",
+  extensionSegmentation: "0632aae5f7362bd1bfafa46cec49d10123b6b9b88560be97835fe8ffdb601a37",
   extensionLabels: "ad3d74d158253d3777e6c484c1351e1ab34c69af4a6daffc1e0e7f04ba65c55e",
   extensionSourceManifest: "93dfc3b43fe5b4fd80d23d021d5e2805afee4b6bed9ed0ba84d1ba8126e0ac14",
   extensionCleanSources: "a4bcbb57aa4636037cb1feb24285324c745614fa873e377aa17c174567424099",
