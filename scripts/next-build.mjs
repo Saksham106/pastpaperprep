@@ -7,7 +7,7 @@
 // --max-old-space-size: the main process keeps the budget and workers use Node's default.
 import { spawnSync } from "node:child_process";
 import { createRequire } from "node:module";
-import { lstatSync, rmSync } from "node:fs";
+import { lstatSync } from "node:fs";
 import { join } from "node:path";
 
 // `next build` is always a production build, regardless of client flags or NODE_ENV.
@@ -39,9 +39,6 @@ function acceptsInNodeOptions(option) {
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   assertNoPublicExplanationFixtures();
-  // next.config.ts turns Turbopack's build cache off on Vercel; drop the copy restored from older
-  // deployments so Vercel stops saving it again.
-  if (process.env.VERCEL) rmSync(join(process.cwd(), ".next", "cache", "turbopack"), { recursive: true, force: true });
   const heap = heapOption();
   console.log(`next-build: heap option ${heap}`);
   const nodeOptions = [process.env.NODE_OPTIONS, heap].filter(Boolean).join(" ");

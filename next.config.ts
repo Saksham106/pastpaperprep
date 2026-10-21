@@ -7,9 +7,6 @@ const nextConfig: NextConfig = {
     // Vercel exposes two build cores. Using both keeps static-generation workers
     // below the per-worker heap ceiling as the question corpus grows.
     cpus: 2,
-    // Vercel saves and re-uploads .next/cache after every build. Turbopack's part is ~600 MB
-    // compressed and costs more time to save and restore than it saves in compilation.
-    turbopackFileSystemCacheForBuild: !process.env.VERCEL,
   },
   outputFileTracingIncludes: {
     "/api/exam-style/worksheets/[course]/[slug]": ["./private/exam-style/**/*.pdf"],
