@@ -18,7 +18,7 @@ export default function UpdatesPage() {
   const updates = UPDATES.map((update) => ({ ...update, links: resolve(update.links) }));
 
   return (
-    <main className={`shell public-editorial ${styles.page}`}>
+    <div className={`shell public-editorial ${styles.page}`}>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "What's new" }]} />
       <header className={styles.header}>
         <p className="eyebrow">Updates</p>
@@ -28,6 +28,6 @@ export default function UpdatesPage() {
       <UpdatesTimeline updates={updates} comingSoon={COMING_SOON} />
 
       <p className={styles.contact}>Something you&apos;d like to see? <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a></p>
-    </main>
+    </div>
   );
 }

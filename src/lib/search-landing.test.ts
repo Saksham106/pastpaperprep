@@ -26,6 +26,12 @@ function question(overrides: Partial<UnifiedQuestion>): UnifiedQuestion {
 }
 
 describe("search landing manifests", () => {
+  it("reports the catalogue paper count, not a recount that merges IB time zones", () => {
+    const paper = (zone: string) => question({ primaryTopic: "Calculus", year: 2024, session: "May", paper: 1, zone, component: "" } as Partial<UnifiedQuestion>);
+    const manifest = buildLandingManifest("ib-hl", [paper("TZ1"), paper("TZ2")]);
+    expect(manifest.paperCount).toBe(getCatalogBank("ib-hl")!.paperCount);
+  });
+
   it("preserves exact filter values while using stable path slugs", () => {
     const questions = [
       ...Array.from({ length: 25 }, () => question({ primaryTopic: "Algebra and graphs" })),

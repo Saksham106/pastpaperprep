@@ -1,4 +1,5 @@
-export default function Loading() {
+/** Route skeleton for signed-in areas. Public pages have none, so their content is in the first HTML, not a hidden stream. */
+export function PageLoading() {
   return (
     <section className="page-skeleton shell" aria-label="Loading page" aria-busy="true">
       <span className="sr-only">Loading page</span>

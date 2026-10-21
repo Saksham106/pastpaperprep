@@ -50,9 +50,9 @@ export default async function BuildPage({ searchParams }: { searchParams: Promis
   // The same per-account footer marker the bank page prints on its PDFs.
   const exportMarker = createHash("sha256").update(userId).digest("hex").slice(0, 10).toUpperCase();
 
-  return <main className="worksheet-library-page shell">
+  return <div className="worksheet-library-page shell">
     <Link className="worksheet-library-back" href="/worksheets" aria-label="Back to my worksheets">← <span>My worksheets</span></Link>
     <header className="worksheet-library-header"><h1>Build a paper</h1></header>
     <PaperBuilder banks={banks} existingTitles={existingTitles} exportMarker={exportMarker} initialBank={banks.some((bank) => bank.slug === requestedBank) ? requestedBank as BankSlug : undefined} />
-  </main>;
+  </div>;
 }

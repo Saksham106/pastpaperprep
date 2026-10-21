@@ -19,7 +19,7 @@ export default async function TrigonometryExamStylePage() {
   const loginHref = `/login?next=${encodeURIComponent(RETURN_PATH)}`;
 
   return (
-    <main className="exam-style-page">
+    <div className="exam-style-page">
       <div className="shell">
         <nav className="breadcrumbs" aria-label="Breadcrumb">
           <ol><li><Link href="/banks/ib-sl">IB Mathematics AA SL</Link></li><li aria-current="page">Exam-style practice</li></ol>
@@ -44,6 +44,6 @@ export default async function TrigonometryExamStylePage() {
           </section>
         )}
       </div>
-    </main>
+    </div>
   );
 }

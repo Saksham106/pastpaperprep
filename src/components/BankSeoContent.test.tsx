@@ -21,6 +21,12 @@ describe("BankSeoContent", () => {
     expect(screen.getByRole("link", { name: "Geometry questions" })).toHaveAttribute("href", "/banks/igcse/topics/geometry");
   });
 
+  it("heads the topic links and shows each topic's question count", () => {
+    render(<BankSeoContent bank={BANKS[0]} topicHeading="IGCSE Maths 0580 questions by topic" topicLinks={[{ label: "Geometry", href: "/banks/igcse/topics/geometry", count: 615 }]} />);
+    expect(screen.getByRole("heading", { level: 2, name: "IGCSE Maths 0580 questions by topic" })).toBeInTheDocument();
+    expect(screen.getByText("615")).toBeInTheDocument();
+  });
+
   it("links exam-style worksheets from their course bank hubs", () => {
     const { rerender } = render(<BankSeoContent bank={BANKS.find((bank) => bank.slug === "igcse")!} />);
     expect(screen.getByRole("link", { name: "IGCSE 0580 exam-style practice" })).toHaveAttribute("href", "/banks/igcse/exam-style");

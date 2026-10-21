@@ -59,10 +59,10 @@ describe("article library", () => {
       ["pastpaperprep-vs-physics-and-maths-tutor", "2026-09-15", "2026-10-16", false],
       ["real-past-papers-vs-exam-style-questions", "2026-09-30", "2026-09-12", true],
       ["physics-and-maths-tutor-vs-save-my-exams", "2026-09-15", "2026-10-16", false],
-      ["revision-village-vs-save-my-exams", "2026-09-15", "2026-10-16", false],
+      ["revision-village-vs-save-my-exams", "2026-09-15", "2026-10-21", false],
       ["exam-mate-vs-save-my-exams", "2026-09-15", "2026-10-16", false],
       ["pastpaperprep-for-tutors-printable-practice-sets", "2026-09-15", "2026-09-15", false],
-      ["pastpaperprep-pricing-which-plan", "2026-09-15", "2026-09-15", false],
+      ["pastpaperprep-pricing-which-plan", "2026-09-15", "2026-10-21", false],
       ["best-igcse-maths-past-paper-websites", "2026-09-15", "2026-10-16", false],
       ["best-igcse-science-question-banks", "2026-09-15", "2026-09-15", true],
       ["best-igcse-chemistry-0620-question-banks", "2026-09-15", "2026-10-16", false],
@@ -387,7 +387,7 @@ describe("article library", () => {
     expect(getArticle("pastpaperprep-vs-exam-mate")).toMatchObject({
       title: "Exam-Mate Subscription Price: Free and Paid Plans (2026)",
       description: "Exam-Mate Topical Past Papers costs $12 for one month or $120 for 12 months. Compare free limits, Build Exam access and PastPaperPrep’s practice plans.",
-      updatedAt: "2026-10-16",
+      updatedAt: "2026-10-21",
     });
   });
 
@@ -404,7 +404,7 @@ describe("article library", () => {
     );
 
     rerender(<ArticleContent article={examMate} />);
-    expect(screen.getByText(/Pricing checked 5 October 2026/i)).toBeInTheDocument();
+    expect(screen.getByText(/Pricing checked 21 October 2026/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Exam-Mate Topical Past Papers pricing/i })).toHaveAttribute(
       "href",
       "https://www.exam-mate.com/topicalpastpapers/pricing",

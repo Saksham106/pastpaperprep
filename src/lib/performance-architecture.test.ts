@@ -115,10 +115,10 @@ describe("serverless performance boundaries", () => {
     expect(explorer).toContain('import("@/lib/pdf-export")');
   });
 
-  it("gives bank navigation its own accessible loading boundary", () => {
-    const loading = source("src/app/banks/[slug]/loading.tsx");
-    expect(loading).toContain('aria-label="Loading question bank"');
-    expect(loading).toContain("bank-loading-workspace");
+  it("shows the bank skeleton on click without a route loading boundary in the bank HTML", () => {
+    expect(existsSync(join(process.cwd(), "src/app/banks/[slug]/loading.tsx"))).toBe(false);
+    expect(source("src/components/BankNavigationFeedback.tsx")).toContain("<BankLoadingSkeleton />");
+    expect(source("src/components/BankLoadingSkeleton.tsx")).toContain("bank-loading-workspace");
   });
 
   it("keeps bank route delivery bounded to the first matching page", () => {

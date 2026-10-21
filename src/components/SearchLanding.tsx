@@ -16,6 +16,11 @@ import { BankWorkedExample } from "@/components/BankWorkedExample";
 import { notesSubjectForBank, getNoteTopic } from "@/lib/revision-notes";
 import { getGradeThresholds } from "@/lib/grade-thresholds";
 import { subjectSlugForBank } from "@/lib/past-paper-catalog";
+import { bankLastUpdated, formatUpdateDate, lastUpdated } from "@/lib/updates";
+import { paperFacts, topicFacts } from "@/lib/quick-facts";
+import { hasPublishedExplanations } from "@/lib/explanations";
+import { QuickFacts } from "@/components/QuickFacts";
+import { subjectSearchName } from "@/lib/past-paper-seo";
 import {
   courseOverview,
   officialQualificationSource,
@@ -36,15 +41,17 @@ function assessmentGroups(papers: AssessmentPaper[]) {
   }
 
   const order = ["Core", "Extended", "Both routes", "All candidates"];
+  // Maths has no practical paper; only send students "below" when a practical option exists.
+  const practical = routes.has("Both routes") ? ", then choose one practical-skills paper below" : "";
   return [...routes.entries()]
     .sort(([a], [b]) => order.indexOf(a) - order.indexOf(b))
     .map(([route, routePapers]) => ({
       route,
       title: route === "Core" ? "Core route" : route === "Extended" ? "Extended route" : route === "Both routes" ? "Practical option · choose one" : "All candidates",
       note: route === "Core"
-        ? "Core students take these two papers, then choose one practical-skills paper below."
+        ? `Core students take these two papers${practical}.`
         : route === "Extended"
-          ? "Extended students take these two papers, then choose one practical-skills paper below."
+          ? `Extended students take these two papers${practical}.`
           : route === "Both routes"
             ? "Core and Extended students take either Paper 5 or Paper 6, not both."
             : undefined,
@@ -55,13 +62,14 @@ function assessmentGroups(papers: AssessmentPaper[]) {
 export function QualificationHub({ qualification, title, intro }: { qualification: Qualification; title: string; intro: string }) {
   const banks = getCatalogBanksForDisplay().filter((bank) => bank.qualification === qualification);
   const path = qualification === "IB Diploma" ? "/ib" : "/cambridge-igcse";
+  const updated = lastUpdated(banks.flatMap((bank) => [`/banks/${bank.slug}`, `/past-papers/${subjectSlugForBank(bank.slug)}`]));
   return (
-    <main className="search-hub shell public-editorial">
-      <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: title, url: `${SITE_URL}${path}`, mainEntity: banks.map((bank) => ({ "@type": "Course", name: bank.title, url: `${SITE_URL}/syllabus/${bank.slug}` })) }} />
+    <div className="search-hub shell public-editorial">
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: title, url: `${SITE_URL}${path}`, ...(updated ? { dateModified: updated } : {}), mainEntity: banks.map((bank) => ({ "@type": "Course", name: bank.title, url: `${SITE_URL}/syllabus/${bank.slug}` })) }} />
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: title }]} />
       <header className="landing-hero landing-hero-hub">
         <div><p className="eyebrow">Qualification hub</p><h1>{title}</h1></div>
-        <div className="landing-hero-aside"><p>{intro}</p><strong>{banks.length}</strong><span>question banks</span></div>
+        <div className="landing-hero-aside"><p>{intro}</p><strong>{banks.length}</strong><span>question banks</span>{updated ? <small className="updated-note">Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></small> : null}</div>
       </header>
       <div className="search-bank-grid">
         {banks.map((bank) => <BankLandingCard key={bank.slug} bank={bank} />)}
@@ -77,7 +85,7 @@ export function QualificationHub({ qualification, title, intro }: { qualificatio
           <p>Need complete papers rather than a topic set? Compare the <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-free-igcse-past-paper-websites">best free IGCSE past-paper websites</Link> by exam board, subject and access.</p>
         </section>
       )}
-    </main>
+    </div>
   );
 }
 
@@ -95,12 +103,14 @@ export function BankLandingCard({ bank }: { bank: CatalogBank }) {
 }
 
 function ArchiveStats({ bank, manifest }: { bank: CatalogBank; manifest: LandingManifest }) {
+  const updated = bankLastUpdated(bank.slug);
   return <aside className="landing-hero-aside archive-stats" aria-label="Archive coverage">
     <div><strong>{manifest.questionCount.toLocaleString()}</strong><span>questions</span></div>
     <div><strong>{manifest.paperCount.toLocaleString()}</strong><span>archive papers</span></div>
     <div><strong>{manifest.years}</strong><span>coverage</span></div>
     <Link transitionTypes={PAGE_NAVIGATION} className="button primary" href={`/banks/${bank.slug}?free=0`}>Open the question bank <ArrowRight weight="bold" /></Link>
     <small><LockKey weight="bold" /> Public metadata; paid questions stay locked.</small>
+    {updated ? <small className="updated-note">Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></small> : null}
   </aside>;
 }
 
@@ -114,7 +124,7 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref }: { bank: Cata
   const tone = courseToneForBank(bank);
   const landingSlugs = new Set(manifest.topics.map((topic) => topic.slug));
   return (
-    <main className={`search-landing shell public-editorial course-tone-${tone}`} data-subject-tone={tone}>
+    <div className={`search-landing shell public-editorial course-tone-${tone}`} data-subject-tone={tone}>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: `${bank.title} syllabus and past-paper practice guide`, description: `A plain-English guide to ${bank.shortName}, its assessment structure, archive topic map, and focused past-paper practice.`, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@id": `${SITE_URL}/${bank.qualification === "IB Diploma" ? "ib" : "cambridge-igcse"}#page` } }} />
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: bank.qualification, href: bank.qualification === "IB Diploma" ? "/ib" : "/cambridge-igcse" }, { label: bank.shortName }]} />
       <header className="landing-hero">
@@ -178,7 +188,7 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref }: { bank: Cata
         </nav>
         <p className="official-source"><a href={officialQualificationSource(bank)} target="_blank" rel="noreferrer">Read the official {bank.qualification} course source <ArrowRight weight="bold" /></a></p>
       </section>
-    </main>
+    </div>
   );
 }
 
@@ -187,6 +197,11 @@ export function SearchDetail({ bank, eyebrow, title, kind, label, canonicalPath,
   const noteHref = notes && getNoteTopic(notes.subjectSlug, slugifyLabel(label)) ? `/revision-notes/${notes.subjectSlug}/${slugifyLabel(label)}` : undefined;
   const tone = courseToneForBank(bank);
   const locked = stats.total - stats.free;
+  const bankName = subjectSearchName(bank);
+  const explanations = hasPublishedExplanations(bank.slug);
+  const facts = kind === "topic"
+    ? topicFacts({ bankName, topic: label, total: stats.total, free: stats.free, bankTotal: bank.questionCount, years: bank.years, papers: stats.breakdown, explanations })
+    : paperFacts({ bankName, paper: label, total: stats.total, free: stats.free, years: bank.years, topics: stats.breakdown, explanations });
   return (
     <div className={`search-landing search-detail shell public-editorial course-tone-${tone}`} data-subject-tone={tone}>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: title, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@id": `${SITE_URL}/banks/${bank.slug}#page` } }} />
@@ -197,6 +212,7 @@ export function SearchDetail({ bank, eyebrow, title, kind, label, canonicalPath,
       </header>
       {stats.breakdown.length ? <p className="detail-breakdown"><strong>{kind === "topic" ? "Appears in" : "Most-tested topics"}</strong>{stats.breakdown.map((item) => <span key={item.label}>{item.label} <small>{item.count.toLocaleString()}</small></span>)}</p> : null}
       {children}
+      <QuickFacts id="detail-facts-heading" title={`${label}: quick facts`} facts={facts} />
       {kind === "topic" ? <BankWorkedExample bankSlug={bank.slug} topic={label} /> : null}
       {noteHref ? <p className="access-footnote">Revise first: <Link transitionTypes={PAGE_NAVIGATION} href={noteHref}>{label} revision notes</Link>.</p> : null}
       {kind === "topic" && <Testimonial testimonial={topicTestimonial(bank.slug)} variant="inline" signedOutOnly />}

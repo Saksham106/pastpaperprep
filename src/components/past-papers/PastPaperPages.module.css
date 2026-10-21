@@ -77,3 +77,4 @@
   .why { gap: 18px; }
 }
 @media (prefers-reduced-motion: reduce) { .bankRow, .faq summary svg { transition: none; } }
+.hubHead > p.updated, .listHead > p.updated { margin-top: 10px; color: var(--muted); font: 600 .72rem/1.5 var(--font-mono); }

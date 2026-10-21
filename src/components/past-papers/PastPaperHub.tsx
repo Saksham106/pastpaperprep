@@ -7,6 +7,7 @@ import type { HubBank } from '@/lib/past-paper-pages';
 import { breadcrumbJsonLd, collectionJsonLd, faqJsonLd, hubCopy, hubFaq } from '@/lib/past-paper-seo';
 import { PaperFinder } from './PaperFinder';
 import { ScopeSwitch } from './ScopeSwitch';
+import { formatUpdateDate, lastUpdated } from '@/lib/updates';
 import styles from './PastPaperPages.module.css';
 
 const GROUPS: [CourseTone, string][] = [['math', 'Mathematics'], ['chemistry', 'Chemistry'], ['physics', 'Physics'], ['biology', 'Biology'], ['coordinated', 'Co-ordinated Sciences'], ['economics', 'Economics'], ['computer-science', 'Computer Science']];
@@ -28,6 +29,7 @@ export function PastPaperHub({ banks, qualification }: { banks: HubBank[]; quali
   const path = qualification ? `/past-papers/${qualification}` : '/past-papers';
   const crumbs = [{ name: 'Past papers', path: '/past-papers' }, ...(qualification ? [{ name: QUALIFICATION_NAME[qualification], path }] : [])];
   const faq = qualification ? hubFaq(qualification) : [];
+  const updated = lastUpdated(qualification ? banks.map(b => `/past-papers/${b.subjectSlug}`) : ['/past-papers']);
   return <article className={styles.page}>
     <JsonLd data={breadcrumbJsonLd(crumbs)} />
     <JsonLd data={collectionJsonLd(copy, path, banks.map(b => ({ name: `${b.name} past papers`, path: `/past-papers/${b.subjectSlug}` })))} />
@@ -36,6 +38,7 @@ export function PastPaperHub({ banks, qualification }: { banks: HubBank[]; quali
     <header className={styles.hubHead}>
       <h1>{copy.h1}</h1>
       <p>{copy.answer}</p>
+      {updated && <p className={styles.updated}>Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></p>}
       <div className={styles.hubFind}>
         <ScopeSwitch scopes={SCOPES.map(([label, href]) => ({ label, href }))} current={SCOPES.findIndex(([, , scope]) => scope === qualification)} />
         <PaperFinder mode="subjects" subjects={banks.map(b => ({ name: b.name, code: /\b(0\d{3})$/.exec(b.name)?.[1] ?? '', href: `/past-papers/${b.subjectSlug}` }))} />

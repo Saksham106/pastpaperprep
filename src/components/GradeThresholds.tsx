@@ -24,7 +24,7 @@ function Grid<Row extends { maxMark: number; values: readonly (number | null)[] 
   );
 }
 
-export function GradeThresholdsPage({ data, name, papersHref, notesHref }: { data: SubjectThresholds; name: string; papersHref?: string; notesHref?: string }) {
+export function GradeThresholdsPage({ data, name, papersHref, paperYears, notesHref }: { data: SubjectThresholds; name: string; papersHref?: string; paperYears?: readonly number[]; notesHref?: string }) {
   const path = `/grade-thresholds/${data.subjectSlug}`;
   const latest = data.tables[0];
   return (
@@ -58,7 +58,7 @@ export function GradeThresholdsPage({ data, name, papersHref, notesHref }: { dat
                 </> : null}
                 <p>
                   <a href={table.sourceUrl} rel="noreferrer">Source table (PDF)</a>
-                  {papersHref && year ? <> · <Link href={`${papersHref}/${year}`}>{year} papers and mark schemes</Link></> : null}
+                  {papersHref && year && (!paperYears || paperYears.includes(year)) ? <> · <Link href={`${papersHref}/${year}`}>{year} papers and mark schemes</Link></> : null}
                 </p>
               </section>
             );

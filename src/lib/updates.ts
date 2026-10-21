@@ -1,3 +1,6 @@
+import type { BankSlug } from "@/lib/catalog";
+import { subjectSlugForBank } from "@/lib/past-paper-catalog";
+
 /** Public changelog for /updates. Newest first; write for students, not for the codebase. */
 export type UpdateTag = "New bank" | "New papers" | "Feature" | "Improvement";
 export type UpdateTone = "math" | "chemistry" | "physics" | "biology" | "economics" | "coordinated" | "computer-science";
@@ -121,3 +124,20 @@ export function recentNews(count: number, now = new Date()): UpdateNews[] {
     .slice(0, count)
     .map((update) => ({ date: update.date, tag: update.tag, title: update.title, body: update.body, href: `/updates#${updateId(update)}` }));
 }
+
+const linkHrefs = (update: Update) => (update.links ?? []).flatMap((link) => "href" in link ? [link.href] : link.options.map((option) => option.href));
+
+/**
+ * The date content last changed, read from the public changelog so "Updated" lines are never a build stamp.
+ * With paths, only updates linking to one of them (or a page beneath it) count.
+ */
+export function lastUpdated(paths?: readonly string[]): string | undefined {
+  const matches = (href: string) => paths!.some((path) => href === path || href.startsWith(`${path}/`) || href.startsWith(`${path}?`));
+  return UPDATES.filter((update) => !paths || linkHrefs(update).some(matches)).map(({ date }) => date).sort().at(-1);
+}
+
+/** "20 Oct 2026": unambiguous for readers in every country. */
+export const formatUpdateDate = (date: string) => new Date(`${date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+
+/** Last change to a bank's topic questions or its full-paper library. */
+export const bankLastUpdated = (bankSlug: BankSlug) => lastUpdated([`/banks/${bankSlug}`, `/past-papers/${subjectSlugForBank(bankSlug)}`]);

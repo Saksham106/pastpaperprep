@@ -14,7 +14,7 @@ export async function ExamStyleCoursePage({ course, title, description }: { cour
   const { data: claimsData } = await supabase.auth.getClaims();
   const authenticated = Boolean(claimsData?.claims?.sub);
   return (
-    <main className="exam-style-page">
+    <div className="exam-style-page">
       <div className="shell">
         <nav className="breadcrumbs" aria-label="Breadcrumb"><ol><li><Link href={courseInfo.route}>{courseInfo.label}</Link></li><li aria-current="page">Exam-style practice</li></ol></nav>
         <header className="exam-style-header">
@@ -28,6 +28,6 @@ export async function ExamStyleCoursePage({ course, title, description }: { cour
           </section>
         )}
       </div>
-    </main>
+    </div>
   );
 }

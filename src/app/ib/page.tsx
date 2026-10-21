@@ -11,7 +11,7 @@ export default function IbPage() {
     <QualificationHub
       qualification="IB Diploma"
       title="IB Diploma past-paper practice"
-      intro="Browse active IB Diploma banks by subject and level, then move into focused practice."
+      intro="Real IB Diploma past-paper questions sorted by topic, with mark schemes, for Maths AA and AI, the sciences, Economics and Computer Science at HL and SL."
     />
   );
 }

@@ -82,11 +82,11 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
     draft: false,
     slug: "pastpaperprep-pricing-which-plan",
     title: "PastPaperPrep Pricing: Which Plan Is Right for You?",
-    description: "Compare PastPaperPrep one-bank, Build Your Plan, and All Access pricing by the number of subjects you actually need.",
+    description: "Compare PastPaperPrep one-bank, Build Your Plan, All Access and Lifetime pricing by the number of subjects you actually need.",
     eyebrow: "Pricing guide",
-    answer: "Choose the cheapest PastPaperPrep plan that covers the banks you will use. One bank costs $6 per month or $48 per year, Build Your Plan covers two to five banks at $10 per month for two plus $4 per extra bank, and All Access covers six or more banks at $25 per month or $216 per year. There is no cart or preselection step, and old subscriptions remain grandfathered.",
+    answer: "Choose the cheapest PastPaperPrep plan that covers the banks you will use. One bank costs $6 per month or $48 per year, Build Your Plan covers two to five banks at $10 per month for two plus $4 per extra bank, and All Access covers six or more banks at $25 per month or $216 per year. Lifetime All Access is a single $299 payment. Full past papers and each bank's free years cost nothing, and old subscriptions remain grandfathered.",
     publishedAt: "2026-09-15",
-    updatedAt: "2026-09-15",
+    updatedAt: "2026-10-21",
     readingMinutes: 6,
     sections: [
       {
@@ -118,6 +118,20 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
         ],
       },
       {
+        heading: "Lifetime: every bank for one payment",
+        paragraphs: [
+          "Lifetime All Access costs $299 once. It opens every current and future question bank and never renews. It was added on 7 October 2026.",
+          "Compare it with the smallest plan that covers you, for as long as you will actually pay. Over two annual terms, the usual length of the IB Diploma, one bank costs $96, two cost $168, three $240, four $312, five $384, and All Access $432. Lifetime saves money only once the yearly plan you need would total more than $299, for example four banks over two years or three banks over three years. Paying monthly, All Access passes $299 after 12 months.",
+        ],
+      },
+      {
+        heading: "What you get without paying",
+        paragraphs: [
+          "Every whole past paper and its mark scheme is free to read, with no sign-up. Every topic bank except Computer Science also has free exam years: guests see up to 20 matching questions, and a free account opens the rest of that free selection.",
+          "Start free if you are unsure. A plan adds the newest exam years in the topic banks and PDF worksheets.",
+        ],
+      },
+      {
         heading: "Monthly versus annual billing",
         paragraphs: [
           "Use monthly billing when you are testing your study plan, have an exam close ahead, or do not know how long you will need access. Use annual billing when you have a clear year-long revision schedule and the lower effective monthly price is worth paying upfront.",
@@ -127,7 +141,7 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
       {
         heading: "What to expect at checkout",
         paragraphs: [
-          "PastPaperPrep does not use a cart or preselection flow for choosing banks. Select the plan that matches your intended bank count and confirm the current plan details in the product flow. Existing subscribers on older plans are grandfathered, so their previous subscription terms are not silently replaced by these current prices.",
+          "There is no cart. On the pricing page you choose a plan and tick the exact banks it covers, then pay at checkout. Existing subscribers on older plans are grandfathered, so their previous subscription terms are not silently replaced by these current prices.",
           "The practical rule is simple: one bank, choose one bank; two to five, calculate Build Your Plan; six or more, compare All Access. Recheck the count if your subjects change, and keep the cheaper fit when it still covers your work.",
         ],
       },
@@ -136,7 +150,8 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
       { question: "What is the cheapest PastPaperPrep option for one bank?", answer: "The one-bank plan is $6 per month or $48 per year, with the annual price shown as $4 per month." },
       { question: "How much does Build Your Plan cost?", answer: "It is $10 per month for two banks, plus $4 per month for each extra bank. Annual pricing is $84 for two banks, plus $36 per extra bank." },
       { question: "When is All Access worth it?", answer: "All Access is for six or more banks and costs $25 per month or $216 per year, shown as $18 per month. Choose it only when you need that breadth." },
-      { question: "Can I preselect banks in a cart?", answer: "No. PastPaperPrep does not use a cart or preselection step. Choose the current plan that matches the number of banks you need." },
+      { question: "How much is Lifetime All Access?", answer: "Lifetime All Access is $299 once, with no renewal. It covers every current and future question bank." },
+      { question: "How do I choose which banks a plan covers?", answer: "There is no cart. On the pricing page you choose a plan, tick the exact banks it covers, and pay at checkout." },
       { question: "What happens to an older subscription?", answer: "Old subscriptions are grandfathered. Current pricing does not erase the terms of an existing older subscription." },
     ],
     relatedBanks: [

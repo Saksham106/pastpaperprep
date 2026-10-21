@@ -46,6 +46,7 @@ export default async function GradeThresholdsSubjectPage({ params }: { params: P
       data={data}
       name={name}
       papersHref={papers ? `/past-papers/${subject}` : undefined}
+      paperYears={papers ? [...new Set(papers.papers.map((paper) => paper.year))] : undefined}
       notesHref={getNotesSubject(subject) ? `/revision-notes/${subject}` : undefined}
     />
   );

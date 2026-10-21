@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { UpdateNews } from "@/lib/updates";
+import { formatUpdateDate, lastUpdated, type UpdateNews } from "@/lib/updates";
 import { BuildSite } from "@/components/BuildSite";
 import Image from "next/image";
 import { ArrowRight, CaretDown } from "@phosphor-icons/react/dist/ssr";
@@ -46,6 +46,7 @@ export function MarketingHome({ environment = process.env, papers = {}, news = [
   const totalQuestions = banks.reduce((total, bank) => total + bank.questionCount, 0);
   const years = bankYearFacts(SAMPLE_BANK);
   const hasFullPapers = Object.keys(papers).length > 0;
+  const updated = lastUpdated();
 
   return <div className={`${styles.home} landing-editorial`}>
     <section className={styles.hero} data-home-section="hero">
@@ -56,9 +57,10 @@ export function MarketingHome({ environment = process.env, papers = {}, news = [
         <div className={styles.fade} aria-hidden="true" />
       </div>
       <div className={styles.lede}>
+        <p className={styles.definition}>PastPaperPrep sorts real Cambridge IGCSE and IB past-paper questions by topic, with the mark scheme for every question.</p>
         <SmartSearch />
         <p className={styles.heroLinks}><a href="#question-banks">All {banks.length} banks</a><span aria-hidden="true">·</span><Link href="/pricing">Plans</Link></p>
-        <p className={styles.proof}><span><b>{roundedDown(totalQuestions)}</b> questions</span>{years && <span>Papers to <b>{years.latestYear}</b></span>}<span>Sorted by topic</span></p>
+        <p className={styles.proof}><span><b>{roundedDown(totalQuestions)}</b> questions</span>{years && <span>Papers to <b>{years.latestYear}</b></span>}<span>Sorted by topic</span>{updated && <span>Updated <b><time dateTime={updated}>{formatUpdateDate(updated)}</time></b></span>}</p>
       </div>
     </section>
 

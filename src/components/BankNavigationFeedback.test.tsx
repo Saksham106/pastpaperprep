@@ -72,3 +72,20 @@ describe("BankNavigationFeedback mounted behavior", () => {
     link.remove();
   });
 });
+
+describe("BankNavigationFeedback skeleton", () => {
+  beforeEach(() => { pathname.current = "/"; });
+
+  it("draws the bank skeleton on click and removes it when the route commits", () => {
+    const view = render(<BankNavigationFeedback />);
+    const link = document.createElement("a");
+    link.href = "/banks/chemistry";
+    document.body.append(link);
+    act(() => link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true })));
+    expect(document.querySelector(".bank-navigation-skeleton .bank-loading-shell")).toBeTruthy();
+
+    navigateTo("/banks/chemistry", () => view.rerender(<BankNavigationFeedback />));
+    expect(document.querySelector(".bank-navigation-skeleton")).toBeNull();
+    link.remove();
+  });
+});
