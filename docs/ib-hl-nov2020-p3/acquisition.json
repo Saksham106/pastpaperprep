@@ -1,0 +1,66 @@
+{
+  "schema": "ib-hl-nov2020-p3-acquisition-v1",
+  "acquiredAt": "2026-10-21",
+  "host": "ibdocs.re",
+  "checks": [
+    "Internal identity: November 2020 Mathematics HL Paper 3 option; each mark scheme prints the code above; question papers print [50 marks] and their per-question maxima sum to 50, matching the runtime.",
+    "Same host and bytes as the live Statistics and probability option (59b5ea79\u2026/93ed849a\u2026).",
+    "scripts/scan-source-watermarks.py: 0 of 6 flagged."
+  ],
+  "files": [
+    {
+      "runtimePaperId": "2020-november-tz0-p3-calculus",
+      "kind": "question",
+      "url": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2020%20Examination%20Session/November%202020%20Examination%20Session/Mathematics/Mathematics_paper_3_Calculus__HL.pdf",
+      "sha256": "d24fce24bc33d75c12d73a71bb17e9365ae35eb66a7c47310bcf268feb54152e",
+      "bytes": 366973,
+      "pages": 4,
+      "identity": "N20/5/MATHL/HP3/ENG/TZ0/SE"
+    },
+    {
+      "runtimePaperId": "2020-november-tz0-p3-calculus",
+      "kind": "markscheme",
+      "url": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2020%20Examination%20Session/November%202020%20Examination%20Session/Mathematics/Mathematics_paper_3_Calculus__HL_markscheme.pdf",
+      "sha256": "7407cc28e762d67391b9c0a44dc66a0caf8dc524e2efd512e99ec4670ae4788b",
+      "bytes": 665918,
+      "pages": 14,
+      "identity": "N20/5/MATHL/HP3/ENG/TZ0/SE/M"
+    },
+    {
+      "runtimePaperId": "2020-november-tz0-p3-discrete-mathematics",
+      "kind": "question",
+      "url": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2020%20Examination%20Session/November%202020%20Examination%20Session/Mathematics/Mathematics_paper_3_Discrete_mathematics__HL.pdf",
+      "sha256": "0cbe23fe2da4b6fccb1d84a732d9658cea64ddabc3bd247bc364df874d70e3a0",
+      "bytes": 407847,
+      "pages": 4,
+      "identity": "N20/5/MATHL/HP3/ENG/TZ0/DM"
+    },
+    {
+      "runtimePaperId": "2020-november-tz0-p3-discrete-mathematics",
+      "kind": "markscheme",
+      "url": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2020%20Examination%20Session/November%202020%20Examination%20Session/Mathematics/Mathematics_paper_3_Discrete_mathematics__HL_markscheme.pdf",
+      "sha256": "db08bf08bcf9650c1c88172d2f9f05529f7066ad5cabea93728c698052f8bc24",
+      "bytes": 723722,
+      "pages": 17,
+      "identity": "N20/5/MATHL/HP3/ENG/TZ0/DM/M"
+    },
+    {
+      "runtimePaperId": "2020-november-tz0-p3-sets-relations-and-groups",
+      "kind": "question",
+      "url": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2020%20Examination%20Session/November%202020%20Examination%20Session/Mathematics/Mathematics_paper_3_Sets_relations_and_groups__HL.pdf",
+      "sha256": "56977b38d9b423b34535d8746f23cd6fceef157675650212c0435b480584f810",
+      "bytes": 424575,
+      "pages": 5,
+      "identity": "N20/5/MATHL/HP3/ENG/TZ0/SG"
+    },
+    {
+      "runtimePaperId": "2020-november-tz0-p3-sets-relations-and-groups",
+      "kind": "markscheme",
+      "url": "https://ibdocs.re/p/IB%20PAST%20PAPERS%20-%20YEAR/2020%20Examination%20Session/November%202020%20Examination%20Session/Mathematics/Mathematics_paper_3_Sets_relations_and_groups__HL_markscheme.pdf",
+      "sha256": "497ac259a5dfa7ec2c395938a62cadd014934b274c20f9480e7c4928f38e52d2",
+      "bytes": 651589,
+      "pages": 13,
+      "identity": "N20/5/MATHL/HP3/ENG/TZ0/SG/M"
+    }
+  ]
+}

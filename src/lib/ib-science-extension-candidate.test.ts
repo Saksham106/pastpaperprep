@@ -35,7 +35,9 @@ describe("IB 2016–2019 science extension candidate", () => {
       const catalog = BANK_CATALOG.find((entry) => entry.slug === bank);
       expect(catalog).toBeDefined();
       expect(catalog?.questionCount).toBe(runtime.questions.length);
-      expect(catalog?.paperCount).toBe(runtime.papers.length);
+      // Papers that hold questions: Chemistry HL lists three excluded 2019 Paper 2s (docs/ib-paper-count-gaps-2026-10-21.md).
+      const withQuestions = new Set(runtime.questions.map((question: { id: string }) => question.id.replace(/-q\d+$/, "")));
+      expect(catalog?.paperCount).toBe(runtime.papers.filter((paper: { id: string }) => withQuestions.has(paper.id)).length);
       expect(catalog?.years).toBe(/^ib-(biology|chemistry|physics)/.test(bank) ? "2016-2026" : "2016-2025");
     }
   });
