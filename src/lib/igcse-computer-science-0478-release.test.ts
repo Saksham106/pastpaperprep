@@ -17,7 +17,7 @@ import { normalizeBankQuestions } from "@/lib/questions";
 const ROOT = process.cwd();
 const BANK = "igcse-computer-science-0478";
 const PRODUCT = "bank_igcse_computer_science_0478";
-const CANDIDATE = "3f65f4fa9c94c0b35b6579b4ad0d2306ac20093234a4edd95e79c79b0618de6c";
+const CANDIDATE = "f3e6b8015de192d9c723d7b825a4f29e58c88568b608bf5c6abaafcd493c546b";
 const WITHDRAWN = ["0478-2023-s-22-q5", "0478-2025-s-22-q10"];
 const sha = (value: unknown) => createHash("sha256").update(typeof value === "string" ? value : JSON.stringify(value)).digest("hex");
 
@@ -200,6 +200,17 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
     expect(ethics.length).toBeGreaterThan(0);
     expect(ethics.every((question) => question.year <= 2022 && question.paper === 1)).toBe(true);
     expect(production.questions.filter((question) => question.year >= 2023).every((question) => question.primaryTopic !== earlier.label && !question.secondaryTopics.includes(earlier.label))).toBe(true);
+  });
+
+  it("keeps tabular rows in reading order without interleaving flowchart nodes or option words", () => {
+    const text = new Map((production.questions as unknown as Array<{ id: string; accessibleText: string }>).map((question) => [question.id, question.accessibleText]));
+    // A binary-addition grid now reads as printed.
+    expect(text.get("0478-2023-s-11-q1")).toContain("0 0 1 1 0 0 1 1 + 0 1 1 0 0 0 0 1");
+    // Diagram and option text keeps its printed continuity (PR #393 review).
+    expect(text.get("0478-2026-m-22-q6")).toContain("IS LetterNo = SentLength ?");
+    expect(text.get("0478-2026-s-22-q6")).toContain("Is Choice = 'Y' ?");
+    expect(text.get("0478-2023-m-22-q2")).toContain("a statement to start a post-condition loop");
+    expect(text.get("0478-2023-s-23-q7")).toContain("OUTPUT Total");
   });
 
   it("carries the 5.3 Cyber security secondary on the three reviewed SSL questions", () => {
