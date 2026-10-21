@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { PUBLIC_BANK_INDEX_FILES } from "../src/lib/bank-index-manifest.ts";
-import { metadataFromRaw } from "./generate-bank-index.mjs";
+import { assertSafe, metadataFromRaw } from "./generate-bank-index.mjs";
 import { calculatorAllowed } from "../src/lib/calculator-policy.mjs";
 
 describe("public bank index generator", () => {
@@ -95,6 +95,55 @@ describe("bank index calculator values", () => {
       const index = JSON.parse(readFileSync(join(process.cwd(), "public/bank-index", PUBLIC_BANK_INDEX_FILES[bank]), "utf8"));
       const wrong = index.questions.filter((question) => question.calculator !== calculatorAllowed(bank, question));
       expect(wrong, bank).toEqual([]);
+    }
+  });
+});
+
+// The original check: rescan the whole output once per protected value.
+function firstLeakByScan(serialized, rawQuestions) {
+  const fields = ["summary", "accessibleText", "solution", "independentSolution", "sourceQuestionUrl", "sourceUrl", "pdfUrl", "sourceMarkSchemeUrl", "markschemeUrl"];
+  for (const raw of rawQuestions) {
+    const values = [...fields.map((field) => raw[field]), ...(raw.questionImages ?? []), ...(raw.markschemeImages ?? [])];
+    if (values.some((value) => typeof value === "string" && value.trim().length >= 12 && serialized.includes(value))) return raw.id;
+  }
+  return null;
+}
+const leakOf = (serialized, rawQuestions) => {
+  try {
+    assertSafe(serialized, rawQuestions);
+    return null;
+  } catch (error) {
+    return /from (.+)$/.exec(error.message)?.[1] ?? error.message;
+  }
+};
+
+describe("public bank index protected-value check", () => {
+  it("rejects a protected value anywhere in the output and names the first question in source order", () => {
+    const raw = [
+      { id: "a", summary: "a private summary of the question" },
+      { id: "b", solution: "private worked solution text" },
+      { id: "c", questionImages: ["questions/2024/c-crop.webp"] },
+    ];
+    expect(leakOf('{"x":"ends with questions/2024/c-crop.webp"}', raw)).toBe("c");
+    expect(leakOf('{"x":"questions/2024/c-crop.webp then private worked solution text"}', raw)).toBe("b");
+    expect(leakOf('{"x":"private worked solution tex"}', raw)).toBeNull();
+    expect(leakOf('{"x":"short"}', [{ id: "d", summary: "short" }, { id: "e", summary: "   padded   " }])).toBeNull();
+    expect(() => assertSafe('{"summary":"x"}', [])).toThrow("protected key: summary");
+  });
+
+  it("agrees with the per-value scan on generated cases", () => {
+    const alphabet = "ab /.";
+    let seed = 7;
+    const next = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
+    const text = (length) => Array.from({ length }, () => alphabet[Math.floor(next() * alphabet.length)]).join("");
+    for (let round = 0; round < 300; round += 1) {
+      const serialized = text(40 + Math.floor(next() * 80));
+      const raw = Array.from({ length: 1 + Math.floor(next() * 6) }, (_, index) => {
+        const start = Math.floor(next() * serialized.length);
+        const value = next() < 0.5 ? serialized.slice(start, start + 10 + Math.floor(next() * 12)) : text(10 + Math.floor(next() * 12));
+        return { id: `q${index}`, [next() < 0.5 ? "summary" : "sourceUrl"]: value, markschemeImages: [text(14)] };
+      });
+      expect(leakOf(serialized, raw)).toBe(firstLeakByScan(serialized, raw));
     }
   });
 });
