@@ -1,6 +1,28 @@
 {
   "namespace": "repairs/ib-science-crop-v1-ca9b0371d88e0e73",
   "banks": {
+    "ib-chemistry-hl": {
+      "2023-may-tz2-hl-p2-q6": {
+        "oldPaths": [
+          "markschemes/2023-may-tz2-hl-p2-q6-page-12.webp",
+          "markschemes/2023-may-tz2-hl-p2-q6-page-13.webp",
+          "markschemes/2023-may-tz2-hl-p2-q6-page-14.webp"
+        ],
+        "oldSha256": [
+          "55b1638dc707a3cddde3890db7c3ccd1640d297cb3a7b96347adb94fa7cf51db",
+          "52c2fc3453a3e39796db6b23b8bad95fd784c55327ae57f33eb1b521ea368f33",
+          "5156935ea5c7d2e15750e6602d7ce6a99cd5fef5c2f21bafdb3e637b8ed0e1c8"
+        ],
+        "newPaths": [
+          "markschemes/2023-may-tz2-hl-p2-q6-page-12.webp",
+          "repairs/ib-science-crop-v1-ca9b0371d88e0e73/828eba73bdab5ad365746f4a08853f2a16ad82b48832827b2d2f041493a53f98.webp"
+        ],
+        "sha256": [
+          "55b1638dc707a3cddde3890db7c3ccd1640d297cb3a7b96347adb94fa7cf51db",
+          "828eba73bdab5ad365746f4a08853f2a16ad82b48832827b2d2f041493a53f98"
+        ]
+      }
+    },
     "ib-chemistry-sl": {
       "2025-may-tz1-sl-p2-q4": {
         "oldPaths": [

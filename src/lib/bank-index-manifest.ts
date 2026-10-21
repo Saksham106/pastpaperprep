@@ -6,7 +6,7 @@ export const PUBLIC_BANK_INDEX_FILES = {
   "ib-sl": "ib-sl.v1-31fe581a163e.json",
   "ib-ai-hl": "ib-ai-hl.v1-6051c6e9f73b.json",
   "ib-ai-sl": "ib-ai-sl.v1-2a760afbd56e.json",
-  "ib-chemistry-hl": "ib-chemistry-hl.v1-2298bce8fd39.json",
+  "ib-chemistry-hl": "ib-chemistry-hl.v1-aef92e15d635.json",
   "ib-chemistry-sl": "ib-chemistry-sl.v1-99ca94966e2e.json",
   "ib-physics-hl": "ib-physics-hl.v1-0e18b533d7cc.json",
   "ib-physics-sl": "ib-physics-sl.v1-f167d59ef8d9.json",

@@ -14,7 +14,9 @@ import {S3Client,PutObjectCommand,GetObjectCommand} from '@aws-sdk/client-s3';
 import {readApprovedCandidate} from './reviewed-crop-source-path.mjs';
 
 const ACCOUNT='92278648535014b5231edfe207b9391d', BUCKET='pastpaperprep-assets';
-const cropRoot='/Users/sakshamgoel/Documents/ProjectsInternships/research/ib-chem-sl-q4-ms-head';
+// One approved research folder per reviewed cohort; a candidate must sit inside one of them.
+const cropRoots=['/Users/sakshamgoel/Documents/ProjectsInternships/research/ib-chem-sl-q4-ms-head','/Users/sakshamgoel/Documents/ProjectsInternships/research/ib-chem-hl-2023-q6-ms'];
+const cropRootOf=file=>{const root=cropRoots.find(r=>file.startsWith(r+'/'));if(!root)throw new Error('Candidate path is outside approved root');return root;};
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const manifestFile='data/storage/ib-science-crop-repairs.manifest.json';const manifestBytes=fs.readFileSync(manifestFile);const m=JSON.parse(manifestBytes);
 const repairs=JSON.parse(fs.readFileSync('src/data/reviewed-ib-science-crop-repairs.json','utf8'));
@@ -24,7 +26,7 @@ const wanted=Object.entries(repairs.banks).flatMap(([bank,entries])=>Object.valu
 if(m.objects.length!==wanted.length||m.objectCount!==wanted.length||JSON.stringify(m.objects.map(o=>o.objectKey).sort())!==JSON.stringify([...wanted].sort()))throw new Error('Reviewed object set disagreement');
 for(const o of m.objects){
  if(!/^ib-[a-z-]+\/repairs\/ib-science-crop-v1-[a-f0-9]{16}\/[a-f0-9]{64}\.webp$/.test(o.objectKey)||!o.objectKey.endsWith('/'+o.sha256+'.webp')||!o.objectKey.includes('/'+repairs.namespace+'/'))throw new Error('Unsafe immutable reviewed key');
- const bytes=readApprovedCandidate(o.localPath,cropRoot);if(hash(bytes)!==o.sha256||bytes.length!==o.bytes)throw new Error('Source candidate bytes differ');
+ const bytes=readApprovedCandidate(o.localPath,cropRootOf(o.localPath));if(hash(bytes)!==o.sha256||bytes.length!==o.bytes)throw new Error('Source candidate bytes differ');
 }
 
 function s3Store(){
@@ -59,7 +61,7 @@ const store=process.argv.includes('--via-wrangler')?wranglerStore():s3Store();
 const receiptFile='data/storage/ib-science-crop-repairs.receipt.json';const complete=[];
 try{
  for(const o of m.objects){
-  const bytes=readApprovedCandidate(o.localPath,cropRoot);
+  const bytes=readApprovedCandidate(o.localPath,cropRootOf(o.localPath));
   if(hash(bytes)!==o.sha256||bytes.length!==o.bytes)throw new Error('Source candidate changed before upload');
   await store.putIfAbsent(o.objectKey,bytes);
   // Always re-read in full: an existing object must be byte-identical, never assumed.
