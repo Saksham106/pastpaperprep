@@ -10,18 +10,22 @@
 // and both runtime questions still carry the same normalized text and marks. A twin with its own ledger row publishes
 // from that row instead.
 
+// A quoted literal (straight or curly double quotes; single quotes not straight after a letter, so apostrophes are
+// not literals) is one token kept exactly, spaces and dots included: LENGTH(" ") and LENGTH("") differ.
+const TOKEN = /"[^"]*"|“[^”]*”|(?<![A-Za-z])'[^'\n]*'|‘[^’]*’|\.{3,}|…+|[A-Za-z0-9]+|[^\sA-Za-z0-9]/g;
+const DOT_LEADER = /^(?:\.{3,}|…+)$/;
+
 /**
- * Case-sensitive tokens, matching build_twins.py's norm: each run of letters/digits and every other non-space character
- * (operators, quotes, brackets, punctuation) is a token. Only spacing, dot leaders and the leading question number are
- * ignored, so `6 + 2` vs `6 - 2`, `<` vs `<=` and `"a"` vs `"A"` differ. Symbol-font glyphs (U+F020-F07E) read as the
- * character they print.
+ * Case-sensitive tokens, matching build_twins.py's norm: quoted literals verbatim, each run of letters/digits, and
+ * every other non-space character (operators, brackets, punctuation). Only spacing and dot leaders outside literals
+ * and the leading question number are ignored, so `6 + 2` vs `6 - 2`, `<` vs `<=`, `"a"` vs `"A"` and `" "` vs `""`
+ * differ. Symbol-font glyphs (U+F020-F07E) read as the character they print.
  */
 export function normalizedQuestionText(text) {
   const stripped = String(text ?? "")
     .replace(/[\uf020-\uf07e]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xf000))
-    .replace(/\.{3,}|…+/g, " ")
     .replace(/^\s*\(?\d{1,2}[.)]\s*/, "");
-  return (stripped.match(/[A-Za-z0-9]+|[^\sA-Za-z0-9]/g) ?? []).join(" ");
+  return (stripped.match(TOKEN) ?? []).filter((t) => !DOT_LEADER.test(t)).join(" ");
 }
 
 /**
