@@ -28,7 +28,7 @@ export const EXPECTED_ASSET_COUNTS = {
   "ib-ai-sl": { preview: 155, premium: 1008, all: 1163 },
   // Shared-stimulus repair (docs/ib-shared-stimulus-repairs.md): one 2017 Paper 3 data-block crop each.
   // IB science crop repair (docs/ib-science-crop-repairs.md): 2023 May TZ2 P2 Q6 page-13 and page-14 answer crops become one (-1).
-  "ib-chemistry-hl": { preview: 232, premium: 5805, all: 6037 },
+  "ib-chemistry-hl": { preview: 232, premium: 5934, all: 6166 },
   "ib-chemistry-sl": { preview: 159, premium: 4166, all: 4325 },
   // May 2026: official Physics papers add 395 (HL) and 258 (SL) premium crops; 2026 is not a free-preview year.
   "ib-physics-hl": { preview: 226, premium: 5790, all: 6016 },

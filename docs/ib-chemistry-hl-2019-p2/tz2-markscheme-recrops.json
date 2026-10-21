@@ -1,0 +1,270 @@
+{
+  "schemaVersion": "ib-chemistry-hl-2019-p2-tz2-ms-recrop.v1",
+  "reason": "The May TZ2 mark scheme stores portrait pages rotated 90 degrees for display; the source lane cut its crops in unrotated coordinates, so every crop lost the Question column and the start of the Answers column. Re-cut from the same page bounds in display orientation.",
+  "markschemePdfSha256": "0ca04e0ebccc54eeea41cc931b5fc7332766eccc9fc6b0c88e6d385be39b2ebb",
+  "scalePxPerPt": 1.75,
+  "encoding": "webp lossless",
+  "researchDir": "research/ib-chem-hl-2019-p2-tz2-ms-recrop",
+  "questions": {
+    "2019-may-tz2-hl-p2-q1": {
+      "pages": [
+        3,
+        4,
+        5
+      ],
+      "images": [
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q1-page-3-d603a0b28f6e.webp",
+          "page": 3,
+          "boundsPt": [
+            67.767,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q1-page-3.webp",
+          "sha256": "d603a0b28f6e23fa5942c449849cae572884781bc8e778cc641e340f5a823ad4",
+          "bytes": 33824,
+          "width": 1474,
+          "height": 863
+        },
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q1-page-4-e30f05a0845e.webp",
+          "page": 4,
+          "boundsPt": [
+            43.0,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q1-page-4.webp",
+          "sha256": "e30f05a0845e384110fbb6a638705b1d98c97892d3192bc13d7aaab6a6f98b38",
+          "bytes": 38718,
+          "width": 1474,
+          "height": 907
+        },
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q1-page-5-0303c9a44702.webp",
+          "page": 5,
+          "boundsPt": [
+            43.0,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q1-page-5.webp",
+          "sha256": "0303c9a44702f0eeec74a526dda43c9f8d695e5b09edf5d160561ff4c3765336",
+          "bytes": 35878,
+          "width": 1474,
+          "height": 907
+        }
+      ]
+    },
+    "2019-may-tz2-hl-p2-q2": {
+      "pages": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "images": [
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q2-page-6-9ce3278782c1.webp",
+          "page": 6,
+          "boundsPt": [
+            67.767,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q2-page-6.webp",
+          "sha256": "9ce3278782c1c28b8290f5cf29b121ca5c267d0214d718ac95313fb69322c7ab",
+          "bytes": 25086,
+          "width": 1474,
+          "height": 863
+        },
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q2-page-7-d5d2a2f5b374.webp",
+          "page": 7,
+          "boundsPt": [
+            43.0,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q2-page-7.webp",
+          "sha256": "d5d2a2f5b374594be3d67146f21cc2b68473fb8d37f4b27bd9e86058e82ec4e8",
+          "bytes": 39710,
+          "width": 1474,
+          "height": 907
+        },
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q2-page-8-e089682222db.webp",
+          "page": 8,
+          "boundsPt": [
+            43.0,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q2-page-8.webp",
+          "sha256": "e089682222db82a619712aac7ec895597e13568dd6ed916a7e85e7063d9f68a4",
+          "bytes": 55058,
+          "width": 1474,
+          "height": 907
+        },
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q2-page-9-594b0efc06f4.webp",
+          "page": 9,
+          "boundsPt": [
+            43.0,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q2-page-9.webp",
+          "sha256": "594b0efc06f4a5f32126626300556b2e0344b059a380d4be30db25614f9284e7",
+          "bytes": 14052,
+          "width": 1474,
+          "height": 907
+        }
+      ]
+    },
+    "2019-may-tz2-hl-p2-q3": {
+      "pages": [
+        10,
+        11
+      ],
+      "images": [
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q3-page-10-09a514a1cc71.webp",
+          "page": 10,
+          "boundsPt": [
+            67.767,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q3-page-10.webp",
+          "sha256": "09a514a1cc716efd6757eb094bd980c20a6f66cd797976c45e44eb4165e0c8eb",
+          "bytes": 33238,
+          "width": 1474,
+          "height": 863
+        },
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q3-page-11-ca8c241adaa0.webp",
+          "page": 11,
+          "boundsPt": [
+            43.0,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q3-page-11.webp",
+          "sha256": "ca8c241adaa0bb283acb313597e4c962c6f07a45b49e48cfd0496e63e3819b30",
+          "bytes": 24962,
+          "width": 1474,
+          "height": 907
+        }
+      ]
+    },
+    "2019-may-tz2-hl-p2-q4": {
+      "pages": [
+        12,
+        13
+      ],
+      "images": [
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q4-page-12-5a5c4a0a712a.webp",
+          "page": 12,
+          "boundsPt": [
+            67.767,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q4-page-12.webp",
+          "sha256": "5a5c4a0a712af66aa8d92a986b221059918bbcc1d01ae04312822274f73219f8",
+          "bytes": 36326,
+          "width": 1474,
+          "height": 863
+        },
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q4-page-13-036078011a43.webp",
+          "page": 13,
+          "boundsPt": [
+            43.0,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q4-page-13.webp",
+          "sha256": "036078011a433d4b23c0adf54a58706778b90a26a3e0f023e7fb803609d9d92a",
+          "bytes": 26266,
+          "width": 1474,
+          "height": 907
+        }
+      ]
+    },
+    "2019-may-tz2-hl-p2-q5": {
+      "pages": [
+        14,
+        15,
+        16
+      ],
+      "images": [
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q5-page-14-fb1c34bef6e9.webp",
+          "page": 14,
+          "boundsPt": [
+            67.767,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q5-page-14.webp",
+          "sha256": "fb1c34bef6e958bd5c5f4b9dc95d178569695b228683c893316c6ea59a5e9f84",
+          "bytes": 26646,
+          "width": 1474,
+          "height": 863
+        },
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q5-page-15-113f28782f59.webp",
+          "page": 15,
+          "boundsPt": [
+            43.0,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q5-page-15.webp",
+          "sha256": "113f28782f59a7864e20e68002cf0eace698c6c37ab49b8568d3af3c6d83bfdc",
+          "bytes": 31140,
+          "width": 1474,
+          "height": 907
+        },
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q5-page-16-28a668018735.webp",
+          "page": 16,
+          "boundsPt": [
+            43.0,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q5-page-16.webp",
+          "sha256": "28a66801873512c366043ee3a989f4cc30564acdeb8e8b4f3ae6bfe956177d5b",
+          "bytes": 38028,
+          "width": 1474,
+          "height": 907
+        }
+      ]
+    },
+    "2019-may-tz2-hl-p2-q6": {
+      "pages": [
+        17,
+        18
+      ],
+      "images": [
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q6-page-17-874823a040bc.webp",
+          "page": 17,
+          "boundsPt": [
+            67.767,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q6-page-17.webp",
+          "sha256": "874823a040bc3882006a4a638c33ae55b5cb86ed55a4b32028bfd39a20c46ef1",
+          "bytes": 27182,
+          "width": 1474,
+          "height": 863
+        },
+        {
+          "path": "markschemes/2019-may-tz2-hl-p2-q6-page-18-1688e03ea8c7.webp",
+          "page": 18,
+          "boundsPt": [
+            43.0,
+            561.22
+          ],
+          "replaces": "markschemes/2019-may-tz2-hl-p2-q6-page-18.webp",
+          "sha256": "1688e03ea8c7aed091c52f87cdbe17ac3992dd0c4d044567b861195680d56ff6",
+          "bytes": 25292,
+          "width": 1474,
+          "height": 907
+        }
+      ]
+    }
+  }
+}
