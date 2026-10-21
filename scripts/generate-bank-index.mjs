@@ -13,6 +13,7 @@ import { project0610Sections } from "../src/lib/igcse-0610-official.mjs";
 import { project0654Sections } from "../src/lib/igcse-0654-official.mjs";
 import { project0625Sections } from "../src/lib/igcse-0625-official.mjs";
 import { project0620Sections } from "../src/lib/igcse-0620-official.mjs";
+import { applyIbChemistrySecondaries } from "../src/lib/ib-chemistry-secondaries.mjs";
 import { calculatorAllowed } from "../src/lib/calculator-policy.mjs";
 
 const root = join(import.meta.dirname, "..");
@@ -23,6 +24,7 @@ const aaTaxonomy = JSON.parse(await readFile(join(root, "src", "data", "aa-offic
 const aaOverlay = JSON.parse(await readFile(join(root, "src", "data", "aa-official-subtopics", "overlay.json"), "utf8"));
 const biologyOfficialTaxonomy = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "taxonomy.json"), "utf8"));
 const biologyOfficialOverlay = JSON.parse(await readFile(join(root, "src", "data", "ib-biology-official-subtopics", "overlay.json"), "utf8"));
+const ibChemistrySecondaries = JSON.parse(await readFile(join(root, "src", "data", "reviewed-ib-chemistry-extension-secondaries.json"), "utf8")).banks;
 
 const explanationIds = new Map(Object.entries(JSON.parse(await readFile(join(root, "src", "data", "explanations", "available.json"), "utf8")))
   .map(([bank, ids]) => [bank, new Set(ids)]));
@@ -98,7 +100,8 @@ function printedMarks(bank, raw, marks) {
 function activeMarkschemeImageCount(bank, raw) {
   const ibScience = ibScienceCropRepairs.banks[bank]?.[raw.id];
   if (ibScience) {
-    const sourcePaths=[...strings(raw.markschemeImages),...strings(raw.officialMarkscheme?.images)];
+    // Economics rows repeat the same crops in both lists; the runtime de-duplicates them for private banks.
+    const sourcePaths=Array.from(new Set([...strings(raw.markschemeImages),...strings(raw.officialMarkscheme?.images)]));
     if(JSON.stringify(sourcePaths)!==JSON.stringify(ibScience.oldPaths)||ibScience.newPaths.length<1)throw new Error(`Reviewed IB science crop count disagrees with ${bank}:${raw.id}`);
     return ibScience.newPaths.length;
   }
@@ -215,6 +218,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
   const coordinated = bank === "igcse-coordinated-sciences-0654" && normalizedProduction ? project0654Sections(raw) : null;
   const physics0625 = bank === "igcse-physics-0625" && normalizedProduction ? project0625Sections(raw) : null;
   const chemistry0620 = bank === "igcse-chemistry-0620" && normalizedProduction ? project0620Sections(raw) : null;
+  const ibChemistry = applyIbChemistrySecondaries(ibChemistrySecondaries, bank, String(raw.id), strings(raw.subtopics), strings(raw.secondaryTopics));
   const official0610 = bank === "igcse-biology-0610" && normalizedProduction;
   const projected0610 = official0610 ? project0610Sections(raw) : null;
   const controlledSkills = official0610 || aa || biology ? [] : strings(raw.skills);
@@ -230,7 +234,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
       ? (aa.status === "accepted" ? aa.subtopics.map((id) => aaGroupNames.get(id) ?? (() => { throw new Error(`Unknown official AA group ${id}`); })()) : [])
       : biology
         ? biologyGroupLabels(biology)
-        : economics0455?.subtopics ?? strings(raw.subtopics);
+        : economics0455?.subtopics ?? ibChemistry?.subtopics ?? strings(raw.subtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = [...new Set(
     studentSubtopics.length
@@ -273,7 +277,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     year: integer(raw.year),
     session: typeof raw.session === "string" ? raw.session : "",
     primaryTopic: chemistry0620 ? chemistry0620.primaryTopic : physics0625 ? physics0625.primaryTopic : coordinated ? coordinated.primaryTopic : official0610 ? projected0610.primaryTopic : biology ? biologyPrimaryTopic(biology, raw) : aa ? aa.primaryTopic : additional ? additional.primaryTopic : (typeof raw.primaryTopic === "string" && raw.primaryTopic ? raw.primaryTopic : "Other"),
-    secondaryTopics: bank === "igcse" ? [...new Set([...strings(raw.secondaryTopics), ...(sourceAddition?.secondaryTopics ?? []), ...(official0580?.secondaryTopics ?? [])])].filter((topic) => topic !== raw.primaryTopic) : chemistry0620 ? chemistry0620.secondaryTopics : physics0625 ? physics0625.secondaryTopics : coordinated ? coordinated.secondaryTopics : official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? [...new Set([...additional.secondaryTopics, ...(official0606?.secondaryTopics ?? [])])].filter(topic => topic !== additional.primaryTopic) : strings(raw.secondaryTopics),
+    secondaryTopics: bank === "igcse" ? [...new Set([...strings(raw.secondaryTopics), ...(sourceAddition?.secondaryTopics ?? []), ...(official0580?.secondaryTopics ?? [])])].filter((topic) => topic !== raw.primaryTopic) : chemistry0620 ? chemistry0620.secondaryTopics : physics0625 ? physics0625.secondaryTopics : coordinated ? coordinated.secondaryTopics : official0610 ? projected0610.secondaryTopics : biology ? [...new Set(biology.secondary.map((group) => group.parentTopic))] : aa ? aa.secondaryTopics : additional ? [...new Set([...additional.secondaryTopics, ...(official0606?.secondaryTopics ?? [])])].filter(topic => topic !== additional.primaryTopic) : ibChemistry ? ibChemistry.secondaryTopics : strings(raw.secondaryTopics),
     skills,
     subtopics,
     granularLabels: aa || biology ? [] : granularByKey.get(`${overlayBank}:${raw.id}`) ?? [],
