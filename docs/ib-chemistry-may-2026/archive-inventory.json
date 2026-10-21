@@ -2,7 +2,7 @@
   "banks": [
     {
       "slug": "ib-chemistry-hl",
-      "runtimeFile": "/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep/.worktrees/ib-chemistry-2026/src/data/raw/ib-chemistry-hl.json",
+      "runtimeFile": "/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep/.worktrees/chem-2019-p2/src/data/raw/ib-chemistry-hl.json",
       "pairs": [
         {
           "id": "chemistry-2016-may-tz0-hl-p1-english",
@@ -839,7 +839,15 @@
           "runtimePaperId": "2019-may-tz1-hl-p2",
           "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-chemistry-topic-practice/data/raw-extension/2019-may-tz1-hl-p2-question.pdf",
           "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-chemistry-topic-practice/data/raw-extension/2019-may-tz1-hl-p2-markscheme.pdf",
-          "runtimeQuestionIds": []
+          "runtimeQuestionIds": [
+            "2019-may-tz1-hl-p2-q1",
+            "2019-may-tz1-hl-p2-q2",
+            "2019-may-tz1-hl-p2-q3",
+            "2019-may-tz1-hl-p2-q4",
+            "2019-may-tz1-hl-p2-q5",
+            "2019-may-tz1-hl-p2-q6",
+            "2019-may-tz1-hl-p2-q7"
+          ]
         },
         {
           "id": "chemistry-2019-may-tz1-hl-p3-english",
@@ -927,7 +935,14 @@
           "runtimePaperId": "2019-may-tz2-hl-p2",
           "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-chemistry-topic-practice/data/raw-extension/2019-may-tz2-hl-p2-question.pdf",
           "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-chemistry-topic-practice/data/raw-extension/2019-may-tz2-hl-p2-markscheme.pdf",
-          "runtimeQuestionIds": []
+          "runtimeQuestionIds": [
+            "2019-may-tz2-hl-p2-q1",
+            "2019-may-tz2-hl-p2-q2",
+            "2019-may-tz2-hl-p2-q3",
+            "2019-may-tz2-hl-p2-q4",
+            "2019-may-tz2-hl-p2-q5",
+            "2019-may-tz2-hl-p2-q6"
+          ]
         },
         {
           "id": "chemistry-2019-may-tz2-hl-p3-english",
@@ -1017,7 +1032,15 @@
           "runtimePaperId": "2019-november-tz0-hl-p2",
           "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-chemistry-topic-practice/data/raw-extension/2019-november-tz0-hl-p2-question.pdf",
           "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-chemistry-topic-practice/data/raw-extension/2019-november-tz0-hl-p2-markscheme.pdf",
-          "runtimeQuestionIds": []
+          "runtimeQuestionIds": [
+            "2019-november-tz0-hl-p2-q1",
+            "2019-november-tz0-hl-p2-q2",
+            "2019-november-tz0-hl-p2-q3",
+            "2019-november-tz0-hl-p2-q4",
+            "2019-november-tz0-hl-p2-q5",
+            "2019-november-tz0-hl-p2-q6",
+            "2019-november-tz0-hl-p2-q7"
+          ]
         },
         {
           "id": "chemistry-2019-november-tz0-hl-p3-english",
@@ -2768,7 +2791,7 @@
     },
     {
       "slug": "ib-chemistry-sl",
-      "runtimeFile": "/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep/.worktrees/ib-chemistry-2026/src/data/raw/ib-chemistry-sl.json",
+      "runtimeFile": "/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep/.worktrees/chem-2019-p2/src/data/raw/ib-chemistry-sl.json",
       "pairs": [
         {
           "id": "chemistry-2016-may-tz0-sl-p1-english",

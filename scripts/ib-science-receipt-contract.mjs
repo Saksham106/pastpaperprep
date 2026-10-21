@@ -34,8 +34,13 @@ export const CANDIDATE_CONTENT_FILES = Object.freeze([
  */
 export function sealedRuntimeBytes(path, bytes) {
   if (!/^src\/data\/raw\/ib-(biology|chemistry|physics)-(hl|sl)\.json$/.test(path)) return bytes;
-  const { may2026Release, ...rest } = JSON.parse(bytes.toString("utf8"));
+  const { may2026Release, hl2019Paper2Release, ...appended } = JSON.parse(bytes.toString("utf8"));
   if (!may2026Release) return bytes;
+  // IB Chemistry HL later appended its three 2019 Paper 2s after the May 2026 rows
+  // (scripts/add-ib-chemistry-hl-2019-p2.mjs); remove those rows first.
+  const rest = hl2019Paper2Release
+    ? { ...appended, questions: appended.questions.slice(0, hl2019Paper2Release.baseQuestionCount) }
+    : appended;
   const sealed = {
     ...rest,
     papers: rest.papers.slice(0, rest.papers.length - may2026Release.addedPaperCount),
