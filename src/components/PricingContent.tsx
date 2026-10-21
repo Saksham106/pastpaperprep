@@ -11,6 +11,7 @@ import { AccountSubscriptionEditor } from "@/components/AccountSubscriptionEdito
 import { CourseIcon, courseToneForBank } from "@/components/CourseIcon";
 import type { ProductId } from "@/lib/access";
 import { bankEntryHref, hasFreeTier } from "@/lib/access";
+import { freeTierScope } from "@/lib/free-tier-scope";
 import { type Bank, type BankSlug } from "@/lib/banks";
 import { getGraduatedBundlePrice } from "@/lib/custom-bundles";
 import { getCatalogBank, getCatalogBanksForDisplay, getCatalogRuntimeBanks } from "@/lib/catalog";
@@ -317,7 +318,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         </div>
 
         {!hasPaidAccess ? <div className="pricing-free-strip">
-          <div><strong>Not ready to pay?</strong><span>Practise the free exam years of any bank.</span></div>
+          <div><strong>Not ready to pay?</strong><span>Practise the free exam years in {freeTierScope(availableBanks)}.</span></div>
           <Link className="button secondary" href={bankEntryHref("igcse")}>Browse free questions</Link>
         </div> : null}
 
@@ -333,7 +334,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         {!hasPaidAccess ? <section className="pricing-faq" aria-labelledby="pricing-faq-heading">
           <h2 id="pricing-faq-heading">Common questions</h2>
           <dl>
-            <div><dt>{"What's free?"}</dt><dd>Free exam years for every bank, with answers. No card needed.</dd></div>
+            <div><dt>{"What's free?"}</dt><dd>Free exam years in {freeTierScope(availableBanks)}, with answers. No card needed.</dd></div>
             <div><dt>Can I cancel?</dt><dd>Yes, any time from your account. Access continues through the paid billing period.</dd></div>
             <div><dt>Monthly or annual?</dt><dd>Annual saves up to {maximumAnnualSavingPercent()}%. You can switch later.</dd></div>
             <div><dt>Do I get the newest papers?</dt><dd>{"Yes. Every plan includes the latest sessions as they're added."}</dd></div>

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { getCatalogBanksForDisplay } from "@/lib/catalog";
+import { freeTierScope } from "@/lib/free-tier-scope";
 import { LIFETIME_OFFER } from "@/lib/lifetime-offer";
 import { formatPrice, PRICING_MODEL, priceForBankCount } from "@/lib/pricing-model";
 
@@ -25,7 +27,7 @@ export const FAQS: readonly PublicFaq[] = [
   },
   {
     question: "How much does PastPaperPrep cost?",
-    answer: `Full past papers and the free years of every topic bank cost nothing. A plan for one bank is ${formatPrice(priceForBankCount("monthly", 1))} a month or ${formatPrice(priceForBankCount("annual", 1))} a year. ${PRICING_MODEL.builder.minBanks} to ${PRICING_MODEL.builder.maxBanks} banks start at ${formatPrice(priceForBankCount("monthly", PRICING_MODEL.builder.minBanks))} a month, and every bank is ${formatPrice(priceForBankCount("monthly", PRICING_MODEL.allAccess.minBanks))} a month or ${formatPrice(LIFETIME_OFFER.amountCents)} once for lifetime access. Prices are in US dollars.`,
+    answer: `Full past papers cost nothing, and so do the free exam years in ${freeTierScope(getCatalogBanksForDisplay())}. A plan for one bank is ${formatPrice(priceForBankCount("monthly", 1))} a month or ${formatPrice(priceForBankCount("annual", 1))} a year. ${PRICING_MODEL.builder.minBanks} to ${PRICING_MODEL.builder.maxBanks} banks start at ${formatPrice(priceForBankCount("monthly", PRICING_MODEL.builder.minBanks))} a month, and every bank is ${formatPrice(priceForBankCount("monthly", PRICING_MODEL.allAccess.minBanks))} a month or ${formatPrice(LIFETIME_OFFER.amountCents)} once for lifetime access. Prices are in US dollars.`,
     links: [{ href: "/pricing", label: "Compare plans" }],
   },
   {

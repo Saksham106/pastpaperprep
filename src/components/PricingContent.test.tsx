@@ -2,6 +2,7 @@ import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { PricingContent } from "@/components/PricingContent";
 import { BANK_CATALOG, getCatalogBillingBanks, getCatalogRuntimeBanks, catalogBankToRuntimeBank } from "@/lib/catalog";
+import { freeTierScope } from "@/lib/free-tier-scope";
 
 const availableBanks = getCatalogRuntimeBanks();
 const cambridgeBankCount = availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE").length;
@@ -540,7 +541,7 @@ describe("approved custom-bank pricing", () => {
     const { unmount } = render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={availableBanks} />);
     const faq = screen.getByRole("region", { name: "Common questions" });
     expect(within(faq).getByText("What's free?")).toBeInTheDocument();
-    expect(within(faq).getByText("Free exam years for every bank, with answers. No card needed.")).toBeInTheDocument();
+    expect(within(faq).getByText(`Free exam years in ${freeTierScope(availableBanks)}, with answers. No card needed.`)).toBeInTheDocument();
     expect(within(faq).getByText("Yes, any time from your account. Access continues through the paid billing period.")).toBeInTheDocument();
     expect(within(faq).getByText(/Annual saves up to \d+%\. You can switch later\./)).toBeInTheDocument();
     unmount();
@@ -548,9 +549,9 @@ describe("approved custom-bank pricing", () => {
     expect(screen.queryByRole("region", { name: "Common questions" })).not.toBeInTheDocument();
   });
 
-  it("describes the free tier as free exam years, which is accurate for every bank", () => {
+  it("describes the free tier as free exam years, scoped by the access policy", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={availableBanks} />);
-    expect(screen.getByText("Practise the free exam years of any bank.")).toBeInTheDocument();
+    expect(screen.getByText(`Practise the free exam years in ${freeTierScope(availableBanks)}.`)).toBeInTheDocument();
     expect(screen.queryByText(/older exam years/i)).not.toBeInTheDocument();
   });
 

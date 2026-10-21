@@ -11,6 +11,8 @@ type Count = { label: string; count: number };
 
 const n = (value: number) => value.toLocaleString("en-US");
 const planPrice = () => `${formatPrice(priceForBankCount("monthly", 1))} a month`;
+/** Topic figures are tag counts in this archive, which overlap and forecast nothing. */
+const ARCHIVE_CAVEAT = "These are archive counts, not a prediction, and a question can carry more than one topic.";
 
 /** "A (12), B (9) and C (4)". */
 function listCounts(items: readonly Count[]): string {
@@ -49,7 +51,7 @@ export function topicFacts(input: { bankName: string; topic: string; total: numb
   return [
     {
       question: `How often does ${input.topic} come up in ${input.bankName}?`,
-      answer: `${input.topic} appears in ${n(input.total)} of the ${n(input.bankTotal)} ${input.bankName} past-paper questions on PastPaperPrep (${share}%), from papers sat ${input.years}.${top ? ` ${top.label} has the most ${input.topic} questions, with ${n(top.count)}.` : ""}`,
+      answer: `${input.topic} is tagged on ${n(input.total)} of the ${n(input.bankTotal)} ${input.bankName} past-paper questions on PastPaperPrep (${share}%), from papers sat ${input.years}.${top ? ` ${top.label} has the most ${input.topic} questions, with ${n(top.count)}.` : ""} ${ARCHIVE_CAVEAT}`,
     },
     freeFact(subject, input.bankName, input.total, input.free),
     markSchemeFact(subject, input.explanations),
@@ -62,7 +64,7 @@ export function paperFacts(input: { bankName: string; paper: string; total: numb
   return [
     ...(top.length ? [{
       question: `Which topics come up most in ${subject}?`,
-      answer: `The most-tested topics in ${subject} are ${listCounts(top)}, out of ${n(input.total)} past-paper questions from ${input.years}.`,
+      answer: `The most-tagged topics in ${subject} are ${listCounts(top)}, out of ${n(input.total)} past-paper questions from ${input.years}. ${ARCHIVE_CAVEAT}`,
     }] : []),
     freeFact(subject, input.bankName, input.total, input.free),
     markSchemeFact(subject, input.explanations),
@@ -79,12 +81,12 @@ export function bankFacts(input: { bankName: string; total: number; papers: numb
     },
     ...(top.length ? [{
       question: `Which topics come up most in ${input.bankName}?`,
-      answer: `The most-tested ${input.bankName} topics are ${listCounts(top)}, out of ${n(input.total)} questions. A question can count towards more than one topic.`,
+      answer: `The most-tagged ${input.bankName} topics are ${listCounts(top)}, out of ${n(input.total)} questions. ${ARCHIVE_CAVEAT}`,
     }] : []),
     {
       question: `Is the ${input.bankName} question bank free?`,
       answer: free
-        ? `Partly. ${input.bankName} questions from ${free} are free with a free account. Newer questions and PDF worksheets need a plan, from ${planPrice()}.`
+        ? `Partly. ${input.bankName} questions from ${free} are free with a free account. Questions from other years and PDF worksheets need a plan, from ${planPrice()}.`
         : `No. The ${input.bankName} question bank needs a plan, from ${planPrice()}.`,
     },
     markSchemeFact(input.bankName, input.explanations),

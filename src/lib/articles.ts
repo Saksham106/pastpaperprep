@@ -489,7 +489,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     title: "Revision Village Pricing (2026): Monthly vs Full Course",
     description: "Revision Village Gold costs $70 monthly or $249 once for one IB course. Compare free access, full-course billing and PastPaperPrep’s focused practice plans.",
     eyebrow: "IB Maths platform comparison",
-    answer: "Revision Village Gold costs $70 a month or $249 once for Full Course access to one IB course, and $140 a month or $499 once for every course (checked 16 October 2026). Its free plan covers a subset of topics in one course. PastPaperPrep’s whole IB papers are free without signup, and topical bank access starts at $6 a month.",
+    answer: "Revision Village Gold costs $70 a month or $249 once for Full Course access to one IB course, and $140 a month or $499 once for the Complete Learning Suite, which covers the IB subjects you take, up to six (checked 16 October 2026). Its free plan covers a subset of topics in one course. PastPaperPrep’s whole IB papers are free without signup, and topical bank access starts at $6 a month.",
     answerLink: { href: "/banks/ib-hl", label: "PastPaperPrep" },
     publishedAt: "2026-08-30",
     updatedAt: "2026-10-16",
@@ -710,7 +710,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     faqs: [
       { question: "How much is an Exam-Mate subscription?", answer: "Exam-Mate Topical Past Papers costs $12 for one month, $65 for six months, $120 for twelve months or $220 for twenty-four months. Build Exam costs $20 a month or $200 a year for parents and $25 a month or $240 a year for teachers. Prices checked 21 October 2026, in US dollars." },
       { question: "Is Exam-Mate free?", answer: "Partly. The free tier opens topical past papers and MCQ tests up to 2019, plus one Build Exam PDF of five questions. Newer questions need a paid plan." },
-      { question: "Is PastPaperPrep cheaper than Exam-Mate?", answer: "At the prices checked on 21 October 2026, PastPaperPrep's one-bank plan costs $6 monthly or $48 annually, while Exam-Mate lists $12 monthly or $120 for twelve months for its individual topical plan. PastPaperPrep's broader multi-bank plans cost more than one Exam-Mate individual subscription, so compare the exact course access you need." },
+      { question: "Is PastPaperPrep cheaper than Exam-Mate?", answer: "At the prices checked on 21 October 2026, PastPaperPrep's one-bank plan costs $6 monthly or $48 annually, while Exam-Mate lists $12 monthly or $120 for twelve months for its individual topical plan. A two-bank plan ($10 monthly, $84 annually) also costs less than one Exam-Mate subscription. With three or more banks, PastPaperPrep costs the same or more, while one Exam-Mate subscription covers its whole catalogue, so compare the exact course access you need." },
       { question: "Does Exam-Mate include Build Exam with Topical Past Papers?", answer: "Its official Topical Past Papers pricing page says Build Exam is not included in the Individual plan and says users with a Build Exam subscription already receive the topical service. Check the current package details before buying." },
       { question: "Which has more subjects?", answer: "PastPaperPrep has live banks across Cambridge IGCSE Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences, Economics and Computer Science, plus IB Mathematics, Chemistry, Physics, Biology, Economics and Computer Science at HL and SL. Exam-Mate still has the broader catalogue across curricula and subjects." },
     ],

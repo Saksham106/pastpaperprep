@@ -187,18 +187,18 @@ const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
     rows: [
       {
         label: "Monthly price",
-        pastPaperPrep: "$70 for one course; $140 for every course",
+        pastPaperPrep: "$70 for one course; $140 for all your IB subjects (up to six)",
         competitor: "$40 Essential; $80 Premium (every subject)",
       },
       {
         label: "Best long-term price",
-        pastPaperPrep: "$249 once for one course, or $499 once for every course, until your exams",
+        pastPaperPrep: "$249 once for one course, or $499 once for all your IB subjects (up to six), until your exams",
         competitor: "$96 a year Essential; $192 a year Premium",
       },
       {
         label: "Trial or guarantee",
-        pastPaperPrep: "7-day money-back guarantee on Gold",
-        competitor: "7-day free trial on Premium",
+        pastPaperPrep: "7-day money-back guarantee on Gold, except purchases within two weeks of the May or November IB maths exams",
+        competitor: "7-day free trial on annual Premium only; monthly and 3-month plans are paid from the start",
       },
       {
         label: "Free tier",
@@ -250,8 +250,8 @@ const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
     {
       heading: "How much do Revision Village and Save My Exams cost?",
       paragraphs: [
-        "Prices checked on 21 October 2026, in US dollars; your currency and region can change them. Revision Village Gold for one course costs $70 a month, $150 for 3 months, $210 for 6 months, or $249 once for the Full Course, which lasts until your IB exams. The Complete Learning Suite for every course costs $140 a month, $300 for 3 months, $420 for 6 months, or $499 once. A free account opens a subset of topics in each course.",
-        "Save My Exams Essential costs $40 a month, $48 for 3 months, or $96 a year. Premium costs $80 a month, $96 for 3 months, or $192 a year, and adds downloads, answer feedback and a test builder. One membership covers every subject and qualification. Premium has a 7-day free trial.",
+        "Prices checked on 21 October 2026, in US dollars; your currency and region can change them. Revision Village Gold for one course costs $70 a month, $150 for 3 months, $210 for 6 months, or $249 once for the Full Course, which lasts until your IB exams. The Complete Learning Suite, which covers the IB subjects you personally take (up to six), costs $140 a month, $300 for 3 months, $420 for 6 months, or $499 once. A free account opens a subset of topics in each course.",
+        "Save My Exams Essential costs $40 a month, $48 for 3 months, or $96 a year. Premium costs $80 a month, $96 for 3 months, or $192 a year, and adds downloads, answer feedback and a test builder. One membership covers every subject and qualification. Premium has a 7-day free trial on the annual plan only.",
         "So for one IB course over a full year, Save My Exams Essential at $96 is far cheaper than Revision Village at $249. For a single exam month, Save My Exams Essential at $40 is still cheaper than one Revision Village course at $70.",
       ],
     },
@@ -259,7 +259,7 @@ const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
       heading: "Two purchase models, not just two websites",
       paragraphs: [
         "Revision Village’s Gold page offers a free subset of course topics and paid Single Course or Complete Learning Suite plans. Access can be bought for a stated period or through the end of the IB Diploma with Full Course. A displayed monthly equivalent for Full Course is not a recurring monthly bill.",
-        "Save My Exams’ Free, Essential and Premium guide, checked on 14 October 2026, distinguishes limited free access from unlimited core revision resources on Essential and additional feedback and model-answer tools on Premium. It says Premium has a seven-day trial, while Essential is charged at signup. Check current prices for your currency and billing period.",
+        "Save My Exams’ Free, Essential and Premium guide, checked on 14 October 2026, distinguishes limited free access from unlimited core revision resources on Essential and additional feedback and model-answer tools on Premium. It says Premium has a seven-day trial, which the join page offers on the annual plan only, while Essential is charged at signup. Check current prices for your currency and billing period.",
         "Compare the actual charge, access end date and courses included. A course licence and a recurring cross-subject membership are different purchases. Do not assume a suite covers every possible IB subject or that a headline monthly figure is the bill you will pay.",
       ],
     },
@@ -296,7 +296,7 @@ const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
       bullets: [
         "Best for IB Maths only, learning from videos: Revision Village Gold for one course, $249 once until your exams.",
         "Best for three or more IB subjects on a budget: Save My Exams Essential, $96 a year for every subject.",
-        "Best for three or more IB subjects, learning from videos: Revision Village Complete Learning Suite, $499 once.",
+        "Best for three to six IB subjects, learning from videos: Revision Village Complete Learning Suite, $499 once for the subjects you take.",
         "Best for IB plus GCSE, IGCSE or A Level in one household: Save My Exams, since one membership covers every qualification.",
         "Best for one recurring weak topic, with teaching already sorted: one PastPaperPrep bank, $6 a month.",
         "Not sure you will watch the videos: start free on all three and revisit in a fortnight.",
@@ -317,12 +317,12 @@ const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
     {
       question: "Which is cheaper, Revision Village or Save My Exams?",
       answer:
-        "Save My Exams is cheaper for most students. Essential costs $96 a year for every subject, while Revision Village costs $249 once for one IB course or $499 for every course (prices checked 21 October 2026, in US dollars). Revision Village's monthly price is $70 for one course against $40 for Save My Exams Essential.",
+        "Save My Exams is cheaper for most students. Essential costs $96 a year for every subject, while Revision Village costs $249 once for one IB course or $499 for all the IB subjects you take, up to six (prices checked 21 October 2026, in US dollars). Revision Village's monthly price is $70 for one course against $40 for Save My Exams Essential.",
     },
     {
       question: "How much does Revision Village cost?",
       answer:
-        "Revision Village Gold costs $70 a month for one IB course, or $249 once for Full Course access until your exams. Every course costs $140 a month or $499 once. Prices checked 21 October 2026, in US dollars.",
+        "Revision Village Gold costs $70 a month for one IB course, or $249 once for Full Course access until your exams. The Complete Learning Suite, for all the IB subjects you take (up to six), costs $140 a month or $499 once. The 7-day money-back guarantee excludes purchases within two weeks of the May or November IB maths exams. Prices checked 21 October 2026, in US dollars.",
     },
     {
       question: "Is Revision Village free?",

@@ -4,6 +4,7 @@ import { getCatalogBanksForDisplay, type CatalogBank } from "@/lib/catalog";
 import { LIFETIME_OFFER } from "@/lib/lifetime-offer";
 import { hubBanks } from "@/lib/past-paper-pages";
 import { formatPrice, maximumAnnualSavingPercent, priceForBankCount, PRICING_MODEL } from "@/lib/pricing-model";
+import { freeTierScope } from "@/lib/free-tier-scope";
 import { lastUpdated } from "@/lib/updates";
 
 // Built once at deploy from the same catalogue, prices and articles the pages render.
@@ -32,7 +33,7 @@ Key facts${updated ? `, as of ${updated}` : ""}:
 
 - ${questions.toLocaleString("en-US")} past-paper questions across ${banks.length} question banks (${igcse.length} Cambridge IGCSE, ${ib.length} IB Diploma).
 ${papers.length ? `- ${papers.reduce((total, bank) => total + bank.paperCount, 0).toLocaleString("en-US")} whole past papers with mark schemes, free and without sign-up, at ${SITE_URL}/past-papers.\n` : ""}- Questions come from official past papers, not newly written look-alikes. Worked explanations cover many recent questions.
-- Free plan: free exam years in every question bank, no card needed.
+- Free plan: free exam years in ${freeTierScope(banks)}, no card needed.
 - Paid plans (US dollars): one bank ${monthly(1)}/month or ${annual(1)}/year; ${PRICING_MODEL.builder.minBanks} to ${PRICING_MODEL.builder.maxBanks} banks from ${monthly(PRICING_MODEL.builder.minBanks)}/month or ${annual(PRICING_MODEL.builder.minBanks)}/year; All Access to every bank ${monthly(PRICING_MODEL.allAccess.minBanks)}/month or ${annual(PRICING_MODEL.allAccess.minBanks)}/year (annual saves up to ${maximumAnnualSavingPercent()}%); Lifetime All Access ${formatPrice(LIFETIME_OFFER.amountCents)} once. Cancel any time.
 - Independent: not affiliated with Cambridge International or the International Baccalaureate.
 
