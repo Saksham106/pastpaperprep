@@ -15,7 +15,7 @@ import {readApprovedCandidate} from './reviewed-crop-source-path.mjs';
 
 const ACCOUNT='92278648535014b5231edfe207b9391d', BUCKET='pastpaperprep-assets';
 // One approved research folder per reviewed cohort; a candidate must sit inside one of them.
-const cropRoots=['/Users/sakshamgoel/Documents/ProjectsInternships/research/ib-chem-sl-q4-ms-head','/Users/sakshamgoel/Documents/ProjectsInternships/research/ib-chem-hl-2023-q6-ms'];
+const cropRoots=['/Users/sakshamgoel/Documents/ProjectsInternships/research/ib-chem-sl-q4-ms-head','/Users/sakshamgoel/Documents/ProjectsInternships/research/ib-chem-hl-2023-q6-ms','/Users/sakshamgoel/Documents/ProjectsInternships/research/ib-economics-ms-continuation-audit/candidates'];
 const cropRootOf=file=>{const root=cropRoots.find(r=>file.startsWith(r+'/'));if(!root)throw new Error('Candidate path is outside approved root');return root;};
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const manifestFile='data/storage/ib-science-crop-repairs.manifest.json';const manifestBytes=fs.readFileSync(manifestFile);const m=JSON.parse(manifestBytes);
