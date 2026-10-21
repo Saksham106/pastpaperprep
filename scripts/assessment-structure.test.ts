@@ -24,9 +24,15 @@ test('every marked paper\'s questions add up to its official maximum', () => {
 });
 
 test('every table entry cites its source, and shared sittings carry no per-paper timer', () => {
-  for (const entry of structure.entries as Array<Record<string, unknown>>) {
-    expect(entry.durationSource ?? entry.marksSource, `${entry.bank} ${entry.component}`).toBeTruthy();
-    expect(entry.marksSource, `${entry.bank} ${entry.component} ${String(entry.years)}`).toBeTruthy();
+  // Every citation must resolve to an identifiable source: a document URL or hash, or the published papers checked.
+  const sources = (structure as unknown as { sources: Array<Record<string, unknown>> }).sources;
+  const identifiable = (source: Record<string, unknown> | undefined) => Boolean(source && (source.url || source.sha256 || source.publishedPaperSha256 || (source.publishedPaperSha256s && Object.keys(source.publishedPaperSha256s as object).length)));
+  for (const entry of structure.entries as Array<Record<string, unknown> & { durationSource?: { source: number }; marksSource?: { source: number } }>) {
+    const label = `${entry.bank} ${entry.component} ${String(entry.years)}`;
+    expect(entry.durationSource, label).toBeTruthy();
+    expect(entry.marksSource, label).toBeTruthy();
+    expect(identifiable(sources[entry.durationSource!.source]), `${label} duration source`).toBe(true);
+    expect(identifiable(sources[entry.marksSource!.source]), `${label} marks source`).toBe(true);
   }
   const shared = papers.filter(({ summary }) => /^P1[AB]$/.test(summary.component) && summary.year >= 2025);
   expect(shared.length).toBeGreaterThan(0);
