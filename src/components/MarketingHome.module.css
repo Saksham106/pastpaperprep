@@ -14,6 +14,7 @@
 .front { z-index: 3; pointer-events: none; }
 .fade { position: absolute; z-index: 4; inset: auto 0 0; height: 30%; background: linear-gradient(180deg, rgb(239 233 221 / 0), #efe9dd 92%); pointer-events: none; }
 .lede { position: relative; z-index: 6; margin-top: -92px; padding: 0 20px 64px; display: grid; justify-items: center; gap: 14px; text-align: center; }
+.definition { max-width: 34rem; margin: 0 0 4px; color: #4a4843; font-size: 1.02rem; line-height: 1.5; text-wrap: balance; }
 .heroLinks { margin: 0; display: flex; gap: 10px; color: #8a8579; font-size: .92rem; font-weight: 650; }
 .heroLinks a { color: #34332f; text-decoration: underline; text-decoration-color: #bcbcb3; text-underline-offset: 4px; }
 .heroLinks a:hover { color: #18233b; text-decoration-color: currentColor; }

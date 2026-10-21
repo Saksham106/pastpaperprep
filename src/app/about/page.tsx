@@ -34,7 +34,7 @@ const faqs = [
 
 export default function AboutPage() {
   return (
-    <main className="about-page shell public-editorial">
+    <div className="about-page shell public-editorial">
       <JsonLd
         data={[
           {
@@ -181,6 +181,6 @@ export default function AboutPage() {
         <Link href="/pricing">Pricing <ArrowRight weight="bold" /></Link>
         <Link href="/articles">Revision guides <ArrowRight weight="bold" /></Link>
       </nav>
-    </main>
+    </div>
   );
 }

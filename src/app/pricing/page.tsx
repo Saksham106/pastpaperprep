@@ -10,6 +10,7 @@ import { SOCIAL_IMAGE } from "@/lib/seo";
 import { createClient } from "@/lib/supabase/server";
 import { isFutureIssuedJwtError } from "@/lib/access-recovery";
 import { captureServerException } from "@/lib/server-error-tracking";
+import { formatUpdateDate, lastUpdated } from "@/lib/updates";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -91,6 +92,7 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
     })));
   }
 
+  const updated = lastUpdated();
   const hasExplicitAddonIntent = Boolean(purchaseProduct(params.product) || purchaseBanks(params.banks)?.length);
   return <PricingContent
     authenticated={Boolean(userId)}
@@ -108,5 +110,6 @@ export default async function PricingPage({ searchParams }: { searchParams: Prom
     availableBanks={billingBanks}
     source={isUpgradePlacement(params.from) ? params.from : undefined}
     checkoutStatus={params.checkout === "cancelled" ? "cancelled" : undefined}
+    updated={updated ? { date: updated, label: formatUpdateDate(updated) } : undefined}
   />;
 }

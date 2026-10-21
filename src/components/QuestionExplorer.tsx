@@ -1354,7 +1354,7 @@ access: ExplorerAccess;
         <label className="search-field">
           <span className="sr-only">Search questions</span>
           <MagnifyingGlass aria-hidden="true" />
-          <input value={search} onChange={(event) => { setSearch(event.target.value); setVisible(EXPLORER_PAGE_SIZE); }} placeholder="Search questions, topics, or methods" />
+          <input value={search} onChange={(event) => { setSearch(event.target.value); setVisible(EXPLORER_PAGE_SIZE); }} placeholder="Search questions, topics, or methods" aria-label="Search questions" />
         </label>
         {routeSupported && <fieldset className="course-route-picker" role="radiogroup" aria-label="Course route">
           <legend className="sr-only">Course route</legend>

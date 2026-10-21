@@ -222,7 +222,7 @@ describe("approved custom-bank pricing", () => {
     expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(0);
     expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(0);
     expect(screen.getAllByRole("checkbox")).toHaveLength(availableBanks.length);
-    expect(screen.getAllByText("Secure checkout · Cancel any time")).toHaveLength(1);
+    expect(screen.getAllByText("Prices in US dollars · Secure checkout · Cancel any time")).toHaveLength(1);
     expect(screen.getByText(/Existing subscribers remain grandfathered at their current price and access\./)).toBeInTheDocument();
   });
 

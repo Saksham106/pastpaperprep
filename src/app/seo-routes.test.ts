@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import robots from "@/app/robots";
+import robots, { AI_CRAWLERS } from "@/app/robots";
 import sitemap from "@/app/sitemap";
 import { ALL_ARTICLES, ARTICLES, isPublicArticle } from "@/lib/articles";
 import { BANKS } from "@/lib/banks";
@@ -11,11 +11,12 @@ describe("search crawler routes", () => {
 
     expect(result.sitemap).toBe("https://pastpaperprep.com/sitemap.xml");
     expect(result.host).toBe("https://pastpaperprep.com");
-    expect(result.rules).toEqual({
-      userAgent: "*",
-      allow: "/",
-      disallow: ["/api/", "/past-papers/*/*/document"],
-    });
+    const disallow = ["/api/", "/past-papers/*/*/document"];
+    expect(result.rules).toEqual([
+      { userAgent: "*", allow: "/", disallow },
+      { userAgent: [...AI_CRAWLERS], allow: "/", disallow },
+    ]);
+    expect(AI_CRAWLERS).toContain("meta-webindexer");
   });
 
   it("lists every canonical public landing page without fake freshness signals", async () => {

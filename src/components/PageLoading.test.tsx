@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
-import Loading from "@/app/loading";
+import { PageLoading as Loading } from "@/components/PageLoading";
 
 describe("route loading shell", () => {
   it("reserves the page shape with accessible skeleton feedback", () => {

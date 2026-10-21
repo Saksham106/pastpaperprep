@@ -273,6 +273,7 @@ main { min-height: 72vh; }
 .landing-hero-aside p { margin: 0 0 10px; }
 .landing-hero-aside > strong, .archive-stats strong { color: var(--public-ink); font: 400 clamp(2rem, 3vw, 3.4rem)/1 var(--font-serif); letter-spacing: -.04em; }
 .landing-hero-aside > span, .archive-stats span { font: 600 .7rem/1.4 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; }
+.landing-hero-aside > .updated-note { margin-top: 6px; font: 600 .7rem/1.4 var(--font-mono); }
 .archive-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .archive-stats > div { display: grid; gap: 5px; }
 .archive-stats > div:nth-child(3), .archive-stats .button, .archive-stats small { grid-column: 1 / -1; }

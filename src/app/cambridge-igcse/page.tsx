@@ -11,7 +11,7 @@ export default function CambridgeIgcsePage() {
     <QualificationHub
       qualification="Cambridge IGCSE"
       title="Cambridge IGCSE past-paper practice"
-      intro="Browse the active Cambridge IGCSE banks, then move directly into topic and paper practice."
+      intro="Real Cambridge IGCSE past-paper questions sorted by topic, with mark schemes, for Maths, Additional Maths, the sciences, Economics and Computer Science."
     />
   );
 }

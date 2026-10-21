@@ -17,7 +17,7 @@ export default async function AAHLExamStylePage() {
   const { data: claimsData } = await supabase.auth.getClaims();
   const authenticated = Boolean(claimsData?.claims?.sub);
   return (
-    <main className="exam-style-page"><div className="shell">
+    <div className="exam-style-page"><div className="shell">
       <nav className="breadcrumbs" aria-label="Breadcrumb"><ol><li><Link href="/banks/ib-hl">IB Mathematics AA HL</Link></li><li aria-current="page">Exam-style practice</li></ol></nav>
       <header className="exam-style-header"><div>
         <p className="eyebrow">Exam-style practice <span className="beta-badge">Beta</span></p>
@@ -30,6 +30,6 @@ export default async function AAHLExamStylePage() {
         <p>Create a free account or sign in to open the practice sets and worked solutions.</p>
         <Link className="button primary" href={`/login?next=${encodeURIComponent(RETURN_PATH)}`}>Sign in or create an account</Link>
       </section>}
-    </div></main>
+    </div></div>
   );
 }

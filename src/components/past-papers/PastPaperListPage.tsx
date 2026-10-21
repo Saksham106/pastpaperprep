@@ -8,6 +8,7 @@ import { breadcrumbJsonLd, collectionJsonLd, faqJsonLd, paperNumberCopy, subject
 import { PaperLibraryTools } from './PaperLibraryTools';
 import { getGradeThresholds } from '@/lib/grade-thresholds';
 import { getNotesSubject } from '@/lib/revision-notes';
+import { formatUpdateDate, lastUpdated } from '@/lib/updates';
 import styles from './PastPaperPages.module.css';
 
 const QUALIFICATION = { igcse: { name: 'Cambridge IGCSE', path: '/past-papers/igcse' }, ib: { name: 'IB', path: '/past-papers/ib' } } as const;
@@ -27,6 +28,7 @@ export function PastPaperListPage({ view }: { view: ListView }) {
   const years = [...new Set(all.map(p => p.year))].sort((a, b) => b - a);
   const columns = buildPaperMatrix(all, subject).columns;
   const faq = view.kind === 'subject' ? subjectFaq(bank, view.papers) : [];
+  const updated = lastUpdated([here?.path ?? subjectPath]);
   const previous = view.kind === 'year' ? years.find(y => y < view.year) : undefined;
   const next = view.kind === 'year' ? [...years].reverse().find(y => y > view.year) : undefined;
   const listed = [...view.papers].sort((a, b) => b.year - a.year).slice(0, 100).map(p => ({ name: `${paperName(p)}, ${p.session} ${p.year}`, path: paperHref(p) }));
@@ -43,6 +45,7 @@ export function PastPaperListPage({ view }: { view: ListView }) {
       <span className={styles.iconTile}><CourseIcon tone={tone} /></span>
       <h1>{copy.h1}</h1>
       <p>{copy.answer}</p>
+      {updated && <p className={styles.updated}>Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></p>}
     </header>
     <PaperLibraryTools data={buildPaperMatrix(view.papers, subject)} papers={all} />
     {view.kind === 'year' && <nav aria-label="Neighbouring years" className={styles.pager}>
