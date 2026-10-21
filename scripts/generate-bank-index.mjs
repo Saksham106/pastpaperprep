@@ -301,30 +301,49 @@ function sortQuestions(a, b) {
     || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
 }
 
-function assertSafe(serialized, rawQuestions) {
+// Every protected value is at least 12 characters, so any occurrence starts with its first 12.
+// One pass over the output with a prefix lookup finds exactly what `serialized.includes(value)`
+// per value would, without rescanning the whole bank once per value (that took ~90 s on Vercel).
+const PREFIX = 12;
+export function assertSafe(serialized, rawQuestions) {
   for (const key of forbiddenKeys) {
     if (serialized.includes(`"${key}"`)) throw new Error(`Public index contains protected key: ${key}`);
   }
-  for (const raw of rawQuestions) {
-    const protectedValues = [
-      raw.summary,
-      raw.accessibleText,
-      raw.solution,
-      raw.independentSolution,
-      raw.sourceQuestionUrl,
-      raw.sourceUrl,
-      raw.pdfUrl,
-      raw.sourceMarkSchemeUrl,
-      raw.markschemeUrl,
-      ...strings(raw.questionImages),
-      ...strings(raw.markschemeImages),
-    ];
-    for (const value of protectedValues) {
-      if (typeof value === "string" && value.trim().length >= 12 && serialized.includes(value)) {
-        throw new Error(`Public index contains protected value from ${raw.id}`);
-      }
+  const byPrefix = new Map();
+  rawQuestions.forEach((raw, index) => {
+    for (const value of protectedValues(raw)) {
+      if (typeof value !== "string" || value.trim().length < PREFIX) continue;
+      const prefix = value.slice(0, PREFIX);
+      if (!byPrefix.has(prefix)) byPrefix.set(prefix, []);
+      byPrefix.get(prefix).push({ value, index });
+    }
+  });
+  let first = -1;
+  for (let at = 0; at + PREFIX <= serialized.length; at += 1) {
+    const candidates = byPrefix.get(serialized.slice(at, at + PREFIX));
+    if (!candidates) continue;
+    for (const { value, index } of candidates) {
+      if ((first === -1 || index < first) && serialized.startsWith(value, at)) first = index;
     }
   }
+  // Report the first question in source order, as the per-question scan did.
+  if (first !== -1) throw new Error(`Public index contains protected value from ${rawQuestions[first].id}`);
+}
+
+function protectedValues(raw) {
+  return [
+    raw.summary,
+    raw.accessibleText,
+    raw.solution,
+    raw.independentSolution,
+    raw.sourceQuestionUrl,
+    raw.sourceUrl,
+    raw.pdfUrl,
+    raw.sourceMarkSchemeUrl,
+    raw.markschemeUrl,
+    ...strings(raw.questionImages),
+    ...strings(raw.markschemeImages),
+  ];
 }
 
 export async function generateBankIndexes() {
