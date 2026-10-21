@@ -114,5 +114,16 @@ declare const data: {
     combinedQuestionCount: number;
     addedPaperCount: number;
   };
+  hl2019Paper2Release: {
+    schemaVersion: string;
+    source: string;
+    sourceCommit: string;
+    labelsSha256: string;
+    baseCommit: string;
+    baseQuestionCount: number;
+    addedQuestionCount: number;
+    combinedQuestionCount: number;
+    addedPaperCount: number;
+  };
 };
 export default data;
