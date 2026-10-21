@@ -1,0 +1,145 @@
+{
+  "summary": {
+    "reviewedPairs": 3,
+    "validPairs": 3,
+    "heldPairs": 0,
+    "scope": "IB Math AA HL November 2020 Paper 3 Calculus, Discrete mathematics, and Sets, relations and groups; covers viewed rendered. Identity verdict only, not a content or marks review."
+  },
+  "cases": [
+    {
+      "bankSlug": "ib-hl",
+      "paperId": "2020-november-tz0-p3-calculus",
+      "questionSha256": "d24fce24bc33d75c12d73a71bb17e9365ae35eb66a7c47310bcf268feb54152e",
+      "markschemeSha256": "7407cc28e762d67391b9c0a44dc66a0caf8dc524e2efd512e99ec4670ae4788b",
+      "verdict": "valid-pair",
+      "evidence": "The question paper cover (page 2, after the IB licence page) prints only the numeric component code, not the N20/5/MATHL/HP3 code the automatic check reads; its subject, level, paper, option and date match the paired mark scheme cover.",
+      "category": "published-component-label",
+      "extractedHeaderFields": {
+        "question": {
+          "coverPage": 2,
+          "subjectLiteral": "Mathematics",
+          "levelLiteral": "Higher level",
+          "paperLiteral": "Paper 3 \u2013 calculus",
+          "dateOrSessionLiteral": "Tuesday 10 November 2020 (afternoon)",
+          "examCodeLiteral": "8820 \u2013 7208",
+          "maximumMarkLiteral": "[50 marks]"
+        },
+        "markscheme": {
+          "coverPage": 1,
+          "subjectLiteral": "Calculus",
+          "levelLiteral": "Higher level",
+          "paperLiteral": "Paper 3",
+          "sessionLiteral": "November 2020",
+          "examCodeLiteral": "N20/5/MATHL/HP3/ENG/TZ0/SE/M"
+        }
+      },
+      "visualEvidence": [
+        {
+          "document": "question",
+          "sourcePdfSha256": "d24fce24bc33d75c12d73a71bb17e9365ae35eb66a7c47310bcf268feb54152e",
+          "page": 2,
+          "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/official-sources-20261013/ib-hl-nov2020-p3/identity-evidence/2020-november-tz0-p3-calculus-question-p2.png",
+          "imageSha256": "5c3be866720b81cd4feab66304ebfe96fa4030f7955c9e58ce1a0f6580b554d0"
+        },
+        {
+          "document": "markscheme",
+          "sourcePdfSha256": "7407cc28e762d67391b9c0a44dc66a0caf8dc524e2efd512e99ec4670ae4788b",
+          "page": 1,
+          "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/official-sources-20261013/ib-hl-nov2020-p3/identity-evidence/2020-november-tz0-p3-calculus-markscheme-p1.png",
+          "imageSha256": "3954dcb26d5a0c5f8509c6e137f40947a3ca71b70fd57b27c721539d67eef7ed"
+        }
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "bankSlug": "ib-hl",
+      "paperId": "2020-november-tz0-p3-discrete-mathematics",
+      "questionSha256": "0cbe23fe2da4b6fccb1d84a732d9658cea64ddabc3bd247bc364df874d70e3a0",
+      "markschemeSha256": "db08bf08bcf9650c1c88172d2f9f05529f7066ad5cabea93728c698052f8bc24",
+      "verdict": "valid-pair",
+      "evidence": "The question paper cover (page 2, after the IB licence page) prints only the numeric component code, not the N20/5/MATHL/HP3 code the automatic check reads; its subject, level, paper, option and date match the paired mark scheme cover.",
+      "category": "published-component-label",
+      "extractedHeaderFields": {
+        "question": {
+          "coverPage": 2,
+          "subjectLiteral": "Mathematics",
+          "levelLiteral": "Higher level",
+          "paperLiteral": "Paper 3 \u2013 discrete mathematics",
+          "dateOrSessionLiteral": "Tuesday 10 November 2020 (afternoon)",
+          "examCodeLiteral": "8820 \u2013 7207",
+          "maximumMarkLiteral": "[50 marks]"
+        },
+        "markscheme": {
+          "coverPage": 1,
+          "subjectLiteral": "Discrete mathematics",
+          "levelLiteral": "Higher level",
+          "paperLiteral": "Paper 3",
+          "sessionLiteral": "November 2020",
+          "examCodeLiteral": "N20/5/MATHL/HP3/ENG/TZ0/DM/M"
+        }
+      },
+      "visualEvidence": [
+        {
+          "document": "question",
+          "sourcePdfSha256": "0cbe23fe2da4b6fccb1d84a732d9658cea64ddabc3bd247bc364df874d70e3a0",
+          "page": 2,
+          "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/official-sources-20261013/ib-hl-nov2020-p3/identity-evidence/2020-november-tz0-p3-discrete-mathematics-question-p2.png",
+          "imageSha256": "31ff4398a7d5350e8b86f6ecd943f3e7f66cea25bc5b94016917f5be133b2e50"
+        },
+        {
+          "document": "markscheme",
+          "sourcePdfSha256": "db08bf08bcf9650c1c88172d2f9f05529f7066ad5cabea93728c698052f8bc24",
+          "page": 1,
+          "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/official-sources-20261013/ib-hl-nov2020-p3/identity-evidence/2020-november-tz0-p3-discrete-mathematics-markscheme-p1.png",
+          "imageSha256": "189fa58594611e11f64af0eec22d24beb868102dc9fe8a49ce53dc14f33ceb45"
+        }
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "bankSlug": "ib-hl",
+      "paperId": "2020-november-tz0-p3-sets-relations-and-groups",
+      "questionSha256": "56977b38d9b423b34535d8746f23cd6fceef157675650212c0435b480584f810",
+      "markschemeSha256": "497ac259a5dfa7ec2c395938a62cadd014934b274c20f9480e7c4928f38e52d2",
+      "verdict": "valid-pair",
+      "evidence": "The question paper cover (page 2, after the IB licence page) prints only the numeric component code, not the N20/5/MATHL/HP3 code the automatic check reads; its subject, level, paper, option and date match the paired mark scheme cover.",
+      "category": "published-component-label",
+      "extractedHeaderFields": {
+        "question": {
+          "coverPage": 2,
+          "subjectLiteral": "Mathematics",
+          "levelLiteral": "Higher level",
+          "paperLiteral": "Paper 3 \u2013 sets, relations and groups",
+          "dateOrSessionLiteral": "Tuesday 10 November 2020 (afternoon)",
+          "examCodeLiteral": "8820 \u2013 7209",
+          "maximumMarkLiteral": "[50 marks]"
+        },
+        "markscheme": {
+          "coverPage": 1,
+          "subjectLiteral": "Sets, relations and groups",
+          "levelLiteral": "Higher level",
+          "paperLiteral": "Paper 3",
+          "sessionLiteral": "November 2020",
+          "examCodeLiteral": "N20/5/MATHL/HP3/ENG/TZ0/SG/M"
+        }
+      },
+      "visualEvidence": [
+        {
+          "document": "question",
+          "sourcePdfSha256": "56977b38d9b423b34535d8746f23cd6fceef157675650212c0435b480584f810",
+          "page": 2,
+          "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/official-sources-20261013/ib-hl-nov2020-p3/identity-evidence/2020-november-tz0-p3-sets-relations-and-groups-question-p2.png",
+          "imageSha256": "8c781b046e5f8b87b7aae970100d03d521673151c9dfdbca72b52f336566245f"
+        },
+        {
+          "document": "markscheme",
+          "sourcePdfSha256": "497ac259a5dfa7ec2c395938a62cadd014934b274c20f9480e7c4928f38e52d2",
+          "page": 1,
+          "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/official-sources-20261013/ib-hl-nov2020-p3/identity-evidence/2020-november-tz0-p3-sets-relations-and-groups-markscheme-p1.png",
+          "imageSha256": "5fe53e0f0740dda5fe93b5373a48cea0cef1c1900d092cc66c144c81f986913c"
+        }
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ]
+}
