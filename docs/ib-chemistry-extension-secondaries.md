@@ -33,6 +33,7 @@ Checks:
 
   Each entry is bound to the row's primary subtopic and fails closed.
 - The sealed runtime, storage manifests and candidate seal are byte-identical. No assets change.
+- The public bank index (`scripts/generate-bank-index.mjs`), which the bank page filters on, normalizes rows separately. #405 shipped the overlay only in the loader, so bank-page filters still showed primaries. The logic now lives in `src/lib/ib-chemistry-secondaries.mjs`, shared by both, and a test compares index and loader labels for every Chemistry question.
 
 ## Noted, not changed
 
