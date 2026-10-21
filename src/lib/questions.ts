@@ -33,6 +33,7 @@ import { project0610Sections } from "@/lib/igcse-0610-official.mjs";
 import { project0654Sections } from "@/lib/igcse-0654-official.mjs";
 import { project0625Sections } from "@/lib/igcse-0625-official.mjs";
 import { project0620Sections } from "@/lib/igcse-0620-official.mjs";
+import { ibChemistryExtensionSecondaries } from "@/lib/reviewed-ib-chemistry-secondaries";
 
 const GRANULAR_LABELS = new Map<string, string[]>();
 const overlayBankForSlug = (slug: string) => ({
@@ -246,11 +247,12 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const coordinated = slug === "igcse-coordinated-sciences-0654" ? project0654Sections(raw) : null;
   const physics0625 = slug === "igcse-physics-0625" ? project0625Sections(raw) : null;
   const chemistry0620 = slug === "igcse-chemistry-0620" ? project0620Sections(raw) : null;
+  const ibChemistryExtension = ibChemistryExtensionSecondaries(slug, text(raw.id), strings(raw.subtopics), strings(raw.secondaryTopics));
   const primaryTopic = aa?.primaryTopic ?? biology?.primaryTopic ?? chemistry0620?.primaryTopic ?? physics0625?.primaryTopic ?? coordinated?.primaryTopic ?? igcseBiology?.primaryTopic ?? additional?.primaryTopic ?? (text(raw.primaryTopic) || "Other");
-  const originalSecondaryTopics = aa?.secondaryTopics ?? biology?.secondaryTopics ?? chemistry0620?.secondaryTopics ?? physics0625?.secondaryTopics ?? coordinated?.secondaryTopics ?? igcseBiology?.secondaryTopics ?? additional?.secondaryTopics ?? strings(raw.secondaryTopics);
+  const originalSecondaryTopics = aa?.secondaryTopics ?? biology?.secondaryTopics ?? chemistry0620?.secondaryTopics ?? physics0625?.secondaryTopics ?? coordinated?.secondaryTopics ?? igcseBiology?.secondaryTopics ?? additional?.secondaryTopics ?? ibChemistryExtension?.secondaryTopics ?? strings(raw.secondaryTopics);
   const secondaryTopics = slug === "igcse" ? [...new Set([...originalSecondaryTopics, ...(sourceAddition?.secondaryTopics ?? []), ...(official0580?.secondaryTopics ?? [])])].filter((topic) => topic !== primaryTopic) : slug === "igcse-additional" ? [...new Set([...originalSecondaryTopics, ...(official0606?.secondaryTopics ?? [])])].filter(topic => topic !== primaryTopic) : originalSecondaryTopics;
   const controlledSkills = aa?.skills ?? biology?.skills ?? strings(raw.skills);
-  const studentSubtopics = aa?.subtopics ?? biology?.subtopics ?? chemistry0620?.subtopics ?? physics0625?.subtopics ?? coordinated?.subtopics ?? igcseBiology?.subtopics ?? economics0455?.subtopics ?? strings(raw.subtopics);
+  const studentSubtopics = aa?.subtopics ?? biology?.subtopics ?? chemistry0620?.subtopics ?? physics0625?.subtopics ?? coordinated?.subtopics ?? igcseBiology?.subtopics ?? economics0455?.subtopics ?? ibChemistryExtension?.subtopics ?? strings(raw.subtopics);
   const secondarySubtopics = biology ? biology.subtopics.slice(1) : strings(raw.secondarySubtopics);
   const detailedSubtopics = strings(raw.detailedSubtopics);
   const subtopics = Array.from(new Set(
