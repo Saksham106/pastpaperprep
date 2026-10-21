@@ -100,7 +100,8 @@ function printedMarks(bank, raw, marks) {
 function activeMarkschemeImageCount(bank, raw) {
   const ibScience = ibScienceCropRepairs.banks[bank]?.[raw.id];
   if (ibScience) {
-    const sourcePaths=[...strings(raw.markschemeImages),...strings(raw.officialMarkscheme?.images)];
+    // Economics rows repeat the same crops in both lists; the runtime de-duplicates them for private banks.
+    const sourcePaths=Array.from(new Set([...strings(raw.markschemeImages),...strings(raw.officialMarkscheme?.images)]));
     if(JSON.stringify(sourcePaths)!==JSON.stringify(ibScience.oldPaths)||ibScience.newPaths.length<1)throw new Error(`Reviewed IB science crop count disagrees with ${bank}:${raw.id}`);
     return ibScience.newPaths.length;
   }

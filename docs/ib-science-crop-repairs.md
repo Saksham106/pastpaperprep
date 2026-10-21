@@ -1,6 +1,6 @@
-# Reviewed IB science answer-crop repairs
+# Reviewed IB answer-crop repairs (sciences and Economics)
 
-Exact cohort: `ib-chemistry-sl` `2025-may-tz1-sl-p2-q4` and `ib-chemistry-hl` `2023-may-tz2-hl-p2-q6`.
+Exact cohort: `ib-chemistry-sl` `2025-may-tz1-sl-p2-q4`, `ib-chemistry-hl` `2023-may-tz2-hl-p2-q6`, and the nine IB Economics questions listed below (13 bank entries). The file keeps its original `ib-science` name and namespace; the mechanism is bank-generic.
 
 ## ib-chemistry-sl 2025-may-tz1-sl-p2-q4
 
@@ -21,6 +21,32 @@ Found while writing the 2023 explanations (2026-10-21). Pinned official mark sch
 - Repair: move the bottom boundary to 553 points, just below the row rule at 551.5–552.0, keeping the top and width. Exactly 47 source-owned raster rows are added on the existing 1.75 pixel/point grid (rows 921–967). Every previously decoded RGB pixel is preserved, verified pixel-for-pixel, and the result is saved losslessly. Grid alignment against a fresh render: mean absolute difference 0.115 at offset 0 versus 4.76 at ±1 row.
 - The page-14 crop (`…-page-14.webp`, SHA-256 `5156935ea5c7d2e15750e6602d7ce6a99cd5fef5c2f21bafdb3e637b8ed0e1c8`) holds only the page header and the table header above Q7, with no Q6 content, so the repair drops it. The public index answer-image count goes from 3 to 2. The page-12 crop is unchanged.
 - All three original objects were read from production R2 and matched by full SHA-256 and exact key. The builder (`build.py`, deterministic), the R2 originals, the candidate, its PNG preview and `candidate.json` are kept in `../research/ib-chem-hl-2023-q6-ms/`.
+
+## IB Economics mark-scheme continuation audit
+
+Found while writing the 2021–2023 Economics explanations (2026-10-21). `../research/ib-economics-ms-continuation-audit/audit.py` maps every served Economics answer crop (210 questions, 76 official mark-scheme PDFs; 2021–2025 from the source workspace's `economics-official-ms-image-manifest.json`, May 2026 from its `may-2026` segmentation manifest) to its source page and bounds. It splits each PDF into consecutive question spans and requires every text line in a span to sit wholly inside one of that question's crops. Page numbers, reference codes and the section headings above the next question ("Section B", "Macroeconomics") are not answer rows. Diagrams are not checked, only text lines.
+
+Nine questions had answer rows students never saw:
+
+| Question | Banks | Gap | Repair |
+|---|---|---|---|
+| `2021-may-none-hl-p2-q01` | HL | page 7: 1(d) negative impacts list and "Any reasonable evaluation" | add page 7 crop |
+| `2021-november-none-hl-p3-q01` | HL | page 7: part (i) [4] and its level descriptors | add page 7 crop |
+| `2021-november-none-sl-p2-q01` | SL | page 7: rest of the final evaluation part's costs of subsidies, and "Any reasonable evaluation" | add page 7 crop |
+| `2022-may-none-hl-p2-q01` | HL | page 12: rest of the final evaluation part, including the whole "Costs of trade with Japan" list | add page 12 crop |
+| `2022-may-none-sl-p2-q01` | SL | page 12: rest of the final evaluation part's list of costs of EU membership | add page 12 crop |
+| `2024-may-tz2-hlsl-p2-q01` | HL, SL | page 8: last line cut by the crop's bottom edge | extend bottom |
+| `2025-may-tz1-hlsl-p2-q02` | HL, SL | pages 18 and 23: last line cut by the bottom edge | extend both |
+| `2025-may-tz3-hlsl-p2-q02` | HL, SL | page 25: last line cut by the bottom edge | extend bottom |
+| `2026-may-tz3-hlsl-p2-q02` | HL, SL | page 18: last line cut by the bottom edge | extend bottom |
+
+- Cause: segmentation ended a question on the page before the next question's first page, dropping a continuation above the next question, and fixed answer-crop bottoms at 804 points while some pages print to about 813.
+- `build.py` (deterministic) renders repairs with the source pipeline's exact settings (scale 2, full page width, no alpha). A fresh render of an existing crop reproduces the served bytes' pixels exactly.
+- Extended crops move only the bottom edge, 4 points below the cut line. The old crop's pixels are verified identical at the top of the new one.
+- Added pages run from the pipeline's 42-point top margin to the next question's first crop (or 4 points below the last missing line).
+- All 76 distinct old crops (122 objects across both banks) were read from production R2 and match the source manifests' SHA-256. HL and SL copies of each shared crop are identical.
+- Candidates, `plan.json`, `report.json` and the R2 originals are kept in `../research/ib-economics-ms-continuation-audit/`.
+- Each served Economics row lists its crops in both `markschemeImages` and `officialMarkscheme.images`. The repair binds to the de-duplicated list the runtime serves, and the public index generator now de-duplicates the same way.
 
 ## Runtime and storage
 
