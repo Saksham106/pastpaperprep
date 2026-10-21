@@ -1,0 +1,3384 @@
+{
+ "schemaVersion": "reviewed-ib-chemistry-extension-secondaries.v1",
+ "sources": {
+  "sourceCommit": "85cae43c22852460af47699c94cca16d86380755",
+  "reconciledResultsSha256": "af5d0a796bef5227bbbdd4f8e79ba3faa1fb77bb60c8ce889aa953465e38c718",
+  "taxonomySha256": "98304b2aa38eb2c082ad2c8510ddd85c108311e950cf93d598e64a1a9d756d30",
+  "reviewManifestSha256": "f77578ea72d71c0af9f8b99fe25da679016eccfb67f6957d650d908da12d91be",
+  "verificationSha256": "3ed76fdc77048bddd19bc3b393a941862dd32039d9756f7085a38eea6432b4a3"
+ },
+ "counts": {
+  "rows": 376,
+  "links": 531
+ },
+ "banks": {
+  "ib-chemistry-hl": {
+   "2016-may-tz0-hl-p1-q11": {
+    "primarySubtopic": "Ionic, covalent and metallic bonding",
+    "secondarySubtopics": [
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-may-tz0-hl-p1-q16": {
+    "primarySubtopic": "Calorimetry and enthalpy",
+    "secondarySubtopics": [
+     "Hess cycles, Born-Haber cycles and bond enthalpy"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-may-tz0-hl-p1-q24": {
+    "primarySubtopic": "Le Chatelier's principle",
+    "secondarySubtopics": [
+     "Equilibrium constants and reaction quotient"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-may-tz0-hl-p1-q29": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Titrations, curves and indicators"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-may-tz0-hl-p1-q40": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Analytical techniques"
+    ],
+    "secondaryTopics": [
+     "Measurement, data and practical work"
+    ]
+   },
+   "2016-may-tz0-hl-p2-q1": {
+    "primarySubtopic": "Acid-base theories",
+    "secondarySubtopics": [
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2016-may-tz0-hl-p2-q4": {
+    "primarySubtopic": "Entropy, Gibbs energy and spontaneity",
+    "secondarySubtopics": [
+     "Hess cycles, Born-Haber cycles and bond enthalpy",
+     "Electron configurations and emission spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2016-may-tz0-hl-p3-q1": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Graphical and data processing",
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": [
+     "Measurement, data and practical work",
+     "Bonding, structure and materials"
+    ]
+   },
+   "2016-may-tz0-hl-p3-q10": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Biomolecules and medicinal chemistry",
+     "Representations, nomenclature and isomerism"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-may-tz0-hl-p3-q11": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Calorimetry and enthalpy"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2016-may-tz0-hl-p3-q12": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-may-tz0-hl-p3-q13": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-may-tz0-hl-p3-q16": {
+    "primarySubtopic": "Synthesis and mechanisms",
+    "secondarySubtopics": [
+     "Combustion, fuels, biofuels and energy technologies"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2016-may-tz0-hl-p3-q18": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Le Chatelier's principle"
+    ],
+    "secondaryTopics": [
+     "Equilibrium"
+    ]
+   },
+   "2016-may-tz0-hl-p3-q21": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Combustion, fuels, biofuels and energy technologies"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2016-may-tz0-hl-p3-q23": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-may-tz0-hl-p3-q26": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Representations, nomenclature and isomerism",
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-may-tz0-hl-p3-q3": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Transition elements and complexes"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2016-may-tz0-hl-p3-q5": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Ionic, covalent and metallic bonding"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-may-tz0-hl-p3-q7": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-november-tz0-hl-p1-q36": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Synthesis and mechanisms"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2016-november-tz0-hl-p1-q7": {
+    "primarySubtopic": "Electron configurations and emission spectra",
+    "secondarySubtopics": [
+     "Periodic table and trends"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-november-tz0-hl-p2-q1": {
+    "primarySubtopic": "Entropy, Gibbs energy and spontaneity",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids",
+     "Equilibrium constants and reaction quotient"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials",
+     "Equilibrium"
+    ]
+   },
+   "2016-november-tz0-hl-p2-q2": {
+    "primarySubtopic": "Titrations, curves and indicators",
+    "secondarySubtopics": [
+     "pH, strong and weak acids and bases, Ka and Kb",
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2016-november-tz0-hl-p2-q3": {
+    "primarySubtopic": "Collision theory and rate factors",
+    "secondarySubtopics": [
+     "Rate laws, orders, Arrhenius and mechanisms",
+     "Graphical and data processing"
+    ],
+    "secondaryTopics": [
+     "Measurement, data and practical work"
+    ]
+   },
+   "2016-november-tz0-hl-p2-q4": {
+    "primarySubtopic": "Entropy, Gibbs energy and spontaneity",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra",
+     "Electrochemical cells and potentials",
+     "Electrolysis, batteries and fuel cells"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity",
+     "Redox and electrochemistry"
+    ]
+   },
+   "2016-november-tz0-hl-p2-q5": {
+    "primarySubtopic": "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+    "secondarySubtopics": [
+     "Synthesis and mechanisms",
+     "Representations, nomenclature and isomerism"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2016-november-tz0-hl-p2-q6": {
+    "primarySubtopic": "Representations, nomenclature and isomerism",
+    "secondarySubtopics": [
+     "Synthesis and mechanisms"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-november-tz0-hl-p2-q7": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-november-tz0-hl-p3-q10": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Transition elements and complexes"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2016-november-tz0-hl-p3-q12": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology",
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2016-november-tz0-hl-p3-q13": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Representations, nomenclature and isomerism"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-november-tz0-hl-p3-q19": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Le Chatelier's principle"
+    ],
+    "secondaryTopics": [
+     "Equilibrium"
+    ]
+   },
+   "2016-november-tz0-hl-p3-q20": {
+    "primarySubtopic": "Synthesis and mechanisms",
+    "secondarySubtopics": [
+     "Combustion, fuels, biofuels and energy technologies"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2016-november-tz0-hl-p3-q21": {
+    "primarySubtopic": "Entropy, Gibbs energy and spontaneity",
+    "secondarySubtopics": [
+     "Electrolysis, batteries and fuel cells"
+    ],
+    "secondaryTopics": [
+     "Redox and electrochemistry"
+    ]
+   },
+   "2016-november-tz0-hl-p3-q22": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra",
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity",
+     "Bonding, structure and materials"
+    ]
+   },
+   "2016-november-tz0-hl-p3-q24": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-november-tz0-hl-p3-q26": {
+    "primarySubtopic": "Representations, nomenclature and isomerism",
+    "secondarySubtopics": [
+     "Biomolecules and medicinal chemistry"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-november-tz0-hl-p3-q27": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-november-tz0-hl-p3-q28": {
+    "primarySubtopic": "Nuclear atom, isotopes and mass spectra",
+    "secondarySubtopics": [
+     "Biomolecules and medicinal chemistry"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2016-november-tz0-hl-p3-q4": {
+    "primarySubtopic": "Nuclear atom, isotopes and mass spectra",
+    "secondarySubtopics": [
+     "The mole and reacting quantities",
+     "Electrolysis, batteries and fuel cells"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry",
+     "Redox and electrochemistry"
+    ]
+   },
+   "2016-november-tz0-hl-p3-q6": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Yield and atom economy"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2017-may-tz1-hl-p1-q20": {
+    "primarySubtopic": "Rate laws, orders, Arrhenius and mechanisms",
+    "secondarySubtopics": [
+     "Synthesis and mechanisms"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2017-may-tz1-hl-p1-q27": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz1-hl-p1-q29": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Oxidation states and half-equations"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz1-hl-p1-q5": {
+    "primarySubtopic": "Electron configurations and emission spectra",
+    "secondarySubtopics": [
+     "Periodic table and trends"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz1-hl-p2-q2": {
+    "primarySubtopic": "Nuclear atom, isotopes and mass spectra",
+    "secondarySubtopics": [
+     "Electron configurations and emission spectra",
+     "Transition elements and complexes"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz1-hl-p2-q3": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Entropy, Gibbs energy and spontaneity",
+     "Oxidation states and half-equations"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2017-may-tz1-hl-p2-q5": {
+    "primarySubtopic": "Titrations, curves and indicators",
+    "secondarySubtopics": [
+     "Hess cycles, Born-Haber cycles and bond enthalpy",
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels",
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-may-tz1-hl-p2-q7": {
+    "primarySubtopic": "Functional groups and reactions",
+    "secondarySubtopics": [
+     "Synthesis and mechanisms"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz1-hl-p3-q11": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology",
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-may-tz1-hl-p3-q13": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-may-tz1-hl-p3-q14": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Collision theory and rate factors"
+    ],
+    "secondaryTopics": [
+     "Kinetics"
+    ]
+   },
+   "2017-may-tz1-hl-p3-q15": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Titrations, curves and indicators"
+    ],
+    "secondaryTopics": [
+     "Acids and bases"
+    ]
+   },
+   "2017-may-tz1-hl-p3-q18": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Combustion, fuels, biofuels and energy technologies"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2017-may-tz1-hl-p3-q19": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Transition elements and complexes"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2017-may-tz1-hl-p3-q25": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography",
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-may-tz1-hl-p3-q3": {
+    "primarySubtopic": "Titrations, curves and indicators",
+    "secondarySubtopics": [
+     "Graphical and data processing"
+    ],
+    "secondaryTopics": [
+     "Measurement, data and practical work"
+    ]
+   },
+   "2017-may-tz1-hl-p3-q6": {
+    "primarySubtopic": "Periodic table and trends",
+    "secondarySubtopics": [
+     "Ionic, covalent and metallic bonding"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-may-tz1-hl-p3-q9": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Energy profiles and catalysts"
+    ],
+    "secondaryTopics": [
+     "Kinetics"
+    ]
+   },
+   "2017-may-tz2-hl-p1-q18": {
+    "primarySubtopic": "Rate laws, orders, Arrhenius and mechanisms",
+    "secondarySubtopics": [
+     "Collision theory and rate factors"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz2-hl-p1-q21": {
+    "primarySubtopic": "Energy profiles and catalysts",
+    "secondarySubtopics": [
+     "Rate laws, orders, Arrhenius and mechanisms"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz2-hl-p1-q37": {
+    "primarySubtopic": "Functional groups and reactions",
+    "secondarySubtopics": [
+     "Synthesis and mechanisms"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz2-hl-p2-q1": {
+    "primarySubtopic": "Titrations, curves and indicators",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra",
+     "The mole and reacting quantities",
+     "Electron configurations and emission spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity",
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2017-may-tz2-hl-p2-q2": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Entropy, Gibbs energy and spontaneity",
+     "Transition elements and complexes",
+     "Oxidation states and half-equations"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels",
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2017-may-tz2-hl-p2-q4": {
+    "primarySubtopic": "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+    "secondarySubtopics": [
+     "Entropy, Gibbs energy and spontaneity"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2017-may-tz2-hl-p2-q5": {
+    "primarySubtopic": "Rate laws, orders, Arrhenius and mechanisms",
+    "secondarySubtopics": [
+     "Collision theory and rate factors",
+     "Acid deposition"
+    ],
+    "secondaryTopics": [
+     "Acids and bases"
+    ]
+   },
+   "2017-may-tz2-hl-p2-q7": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz2-hl-p2-q8": {
+    "primarySubtopic": "Titrations, curves and indicators",
+    "secondarySubtopics": [
+     "pH, strong and weak acids and bases, Ka and Kb",
+     "The mole and reacting quantities",
+     "Acid-base theories"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2017-may-tz2-hl-p2-q9": {
+    "primarySubtopic": "Entropy, Gibbs energy and spontaneity",
+    "secondarySubtopics": [
+     "Calorimetry and enthalpy"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz2-hl-p3-q1": {
+    "primarySubtopic": "Uncertainty and error",
+    "secondarySubtopics": [
+     "Combustion, fuels, biofuels and energy technologies",
+     "Graphical and data processing",
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels",
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2017-may-tz2-hl-p3-q11": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz2-hl-p3-q16": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2017-may-tz2-hl-p3-q17": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Electrolysis, batteries and fuel cells"
+    ],
+    "secondaryTopics": [
+     "Redox and electrochemistry"
+    ]
+   },
+   "2017-may-tz2-hl-p3-q18": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Le Chatelier's principle"
+    ],
+    "secondaryTopics": [
+     "Equilibrium"
+    ]
+   },
+   "2017-may-tz2-hl-p3-q19": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Combustion, fuels, biofuels and energy technologies"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2017-may-tz2-hl-p3-q2": {
+    "primarySubtopic": "The mole and reacting quantities",
+    "secondarySubtopics": [
+     "Uncertainty and error"
+    ],
+    "secondaryTopics": [
+     "Measurement, data and practical work"
+    ]
+   },
+   "2017-may-tz2-hl-p3-q20": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "The mole and reacting quantities",
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2017-may-tz2-hl-p3-q21": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz2-hl-p3-q22": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz2-hl-p3-q23": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz2-hl-p3-q3": {
+    "primarySubtopic": "Functional groups and reactions",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology",
+     "Yield and atom economy"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials",
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2017-may-tz2-hl-p3-q7": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-may-tz2-hl-p3-q9": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-november-tz0-hl-p1-q15": {
+    "primarySubtopic": "Intermolecular forces and solids",
+    "secondarySubtopics": [
+     "Ionic, covalent and metallic bonding"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-hl-p1-q22": {
+    "primarySubtopic": "Collision theory and rate factors",
+    "secondarySubtopics": [
+     "Energy profiles and catalysts"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-hl-p2-q1": {
+    "primarySubtopic": "The mole and reacting quantities",
+    "secondarySubtopics": [
+     "Collision theory and rate factors"
+    ],
+    "secondaryTopics": [
+     "Kinetics"
+    ]
+   },
+   "2017-november-tz0-hl-p2-q2": {
+    "primarySubtopic": "Nuclear atom, isotopes and mass spectra",
+    "secondarySubtopics": [
+     "Electron configurations and emission spectra",
+     "The mole and reacting quantities",
+     "Rate laws, orders, Arrhenius and mechanisms"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry",
+     "Kinetics"
+    ]
+   },
+   "2017-november-tz0-hl-p2-q3": {
+    "primarySubtopic": "Periodic table and trends",
+    "secondarySubtopics": [
+     "Transition elements and complexes"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-hl-p2-q7": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Electrolysis, batteries and fuel cells"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-hl-p2-q8": {
+    "primarySubtopic": "Synthesis and mechanisms",
+    "secondarySubtopics": [
+     "Representations, nomenclature and isomerism",
+     "Functional groups and reactions",
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-hl-p3-q10": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Formulae and equations"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2017-november-tz0-hl-p3-q12": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-november-tz0-hl-p3-q15": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-november-tz0-hl-p3-q2": {
+    "primarySubtopic": "Experimental design, safety and evaluation",
+    "secondarySubtopics": [
+     "Uncertainty and error"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-hl-p3-q20": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Combustion, fuels, biofuels and energy technologies"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2017-november-tz0-hl-p3-q22": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography",
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-hl-p3-q24": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-hl-p3-q25": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-hl-p3-q7": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz1-hl-p1-q16": {
+    "primarySubtopic": "Calorimetry and enthalpy",
+    "secondarySubtopics": [
+     "Hess cycles, Born-Haber cycles and bond enthalpy"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz1-hl-p1-q27": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Titrations, curves and indicators"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz1-hl-p2-q1": {
+    "primarySubtopic": "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+    "secondarySubtopics": [
+     "The mole and reacting quantities",
+     "Transition elements and complexes",
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry",
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2018-may-tz1-hl-p2-q2": {
+    "primarySubtopic": "Nuclear atom, isotopes and mass spectra",
+    "secondarySubtopics": [
+     "Electron configurations and emission spectra",
+     "Ionic, covalent and metallic bonding"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-may-tz1-hl-p2-q3": {
+    "primarySubtopic": "Entropy, Gibbs energy and spontaneity",
+    "secondarySubtopics": [
+     "Calorimetry and enthalpy",
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2018-may-tz1-hl-p2-q4": {
+    "primarySubtopic": "Energy profiles and catalysts",
+    "secondarySubtopics": [
+     "Rate laws, orders, Arrhenius and mechanisms"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz1-hl-p2-q5": {
+    "primarySubtopic": "Acid-base theories",
+    "secondarySubtopics": [
+     "pH, strong and weak acids and bases, Ka and Kb",
+     "Buffers and salt hydrolysis"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz1-hl-p2-q6": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Oxidation states and half-equations",
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2018-may-tz1-hl-p2-q7": {
+    "primarySubtopic": "Functional groups and reactions",
+    "secondarySubtopics": [
+     "Synthesis and mechanisms"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz1-hl-p3-q1": {
+    "primarySubtopic": "Collision theory and rate factors",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-may-tz1-hl-p3-q12": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Particles, states, mixtures and separation"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2018-may-tz1-hl-p3-q14": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Electrolysis, batteries and fuel cells",
+     "Nuclear atom, isotopes and mass spectra"
+    ],
+    "secondaryTopics": [
+     "Redox and electrochemistry",
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2018-may-tz1-hl-p3-q15": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology",
+     "Combustion, fuels, biofuels and energy technologies"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials",
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2018-may-tz1-hl-p3-q16": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Representations, nomenclature and isomerism",
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz1-hl-p3-q17": {
+    "primarySubtopic": "The mole and reacting quantities",
+    "secondarySubtopics": [
+     "Biomolecules and medicinal chemistry",
+     "Formulae and equations"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2018-may-tz1-hl-p3-q19": {
+    "primarySubtopic": "Nuclear atom, isotopes and mass spectra",
+    "secondarySubtopics": [
+     "Biomolecules and medicinal chemistry"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2018-may-tz1-hl-p3-q2": {
+    "primarySubtopic": "Uncertainty and error",
+    "secondarySubtopics": [
+     "Formulae and equations",
+     "Collision theory and rate factors"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry",
+     "Kinetics"
+    ]
+   },
+   "2018-may-tz1-hl-p3-q20": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Particles, states, mixtures and separation"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2018-may-tz1-hl-p3-q5": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-may-tz1-hl-p3-q6": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids",
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-may-tz2-hl-p1-q23": {
+    "primarySubtopic": "Equilibrium constants and reaction quotient",
+    "secondarySubtopics": [
+     "Le Chatelier's principle"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-hl-p2-q1": {
+    "primarySubtopic": "Uncertainty and error",
+    "secondarySubtopics": [
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2018-may-tz2-hl-p2-q2": {
+    "primarySubtopic": "Energy profiles and catalysts",
+    "secondarySubtopics": [
+     "Collision theory and rate factors",
+     "pH, strong and weak acids and bases, Ka and Kb"
+    ],
+    "secondaryTopics": [
+     "Acids and bases"
+    ]
+   },
+   "2018-may-tz2-hl-p2-q3": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Electron configurations and emission spectra",
+     "Transition elements and complexes"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2018-may-tz2-hl-p2-q4": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Entropy, Gibbs energy and spontaneity"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2018-may-tz2-hl-p2-q5": {
+    "primarySubtopic": "Entropy, Gibbs energy and spontaneity",
+    "secondarySubtopics": [
+     "Hess cycles, Born-Haber cycles and bond enthalpy"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-hl-p2-q6": {
+    "primarySubtopic": "Rate laws, orders, Arrhenius and mechanisms",
+    "secondarySubtopics": [
+     "Equilibrium constants and reaction quotient"
+    ],
+    "secondaryTopics": [
+     "Equilibrium"
+    ]
+   },
+   "2018-may-tz2-hl-p2-q7": {
+    "primarySubtopic": "Intermolecular forces and solids",
+    "secondarySubtopics": [
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-hl-p2-q8": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-hl-p2-q9": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Synthesis and mechanisms"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-hl-p3-q1": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-hl-p3-q10": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-hl-p3-q13": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Electrolysis, batteries and fuel cells"
+    ],
+    "secondaryTopics": [
+     "Redox and electrochemistry"
+    ]
+   },
+   "2018-may-tz2-hl-p3-q16": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2018-may-tz2-hl-p3-q17": {
+    "primarySubtopic": "Synthesis and mechanisms",
+    "secondarySubtopics": [
+     "Combustion, fuels, biofuels and energy technologies"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2018-may-tz2-hl-p3-q2": {
+    "primarySubtopic": "Functional groups and reactions",
+    "secondarySubtopics": [
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-may-tz2-hl-p3-q22": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2018-may-tz2-hl-p3-q23": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-hl-p3-q24": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Biomolecules and medicinal chemistry"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2018-may-tz2-hl-p3-q27": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2018-may-tz2-hl-p3-q3": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Energy profiles and catalysts"
+    ],
+    "secondaryTopics": [
+     "Kinetics"
+    ]
+   },
+   "2018-may-tz2-hl-p3-q4": {
+    "primarySubtopic": "Transition elements and complexes",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-may-tz2-hl-p3-q7": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Biomolecules and medicinal chemistry"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-hl-p3-q8": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis",
+     "Representations, nomenclature and isomerism"
+    ],
+    "secondaryTopics": [
+     "Acids and bases"
+    ]
+   },
+   "2018-november-tz0-hl-p1-q18": {
+    "primarySubtopic": "Rate laws, orders, Arrhenius and mechanisms",
+    "secondarySubtopics": [
+     "Collision theory and rate factors"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-november-tz0-hl-p1-q30": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Entropy, Gibbs energy and spontaneity"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2018-november-tz0-hl-p1-q33": {
+    "primarySubtopic": "Functional groups and reactions",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-november-tz0-hl-p1-q6": {
+    "primarySubtopic": "Acid-base theories",
+    "secondarySubtopics": [
+     "Periodic table and trends"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2018-november-tz0-hl-p2-q1": {
+    "primarySubtopic": "Rate laws, orders, Arrhenius and mechanisms",
+    "secondarySubtopics": [
+     "The mole and reacting quantities",
+     "Electrolysis, batteries and fuel cells",
+     "Calorimetry and enthalpy"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry",
+     "Redox and electrochemistry",
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2018-november-tz0-hl-p2-q2": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Formulae and equations"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2018-november-tz0-hl-p2-q3": {
+    "primarySubtopic": "Electron configurations and emission spectra",
+    "secondarySubtopics": [
+     "Entropy, Gibbs energy and spontaneity"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2018-november-tz0-hl-p2-q5": {
+    "primarySubtopic": "Entropy, Gibbs energy and spontaneity",
+    "secondarySubtopics": [
+     "Equilibrium constants and reaction quotient"
+    ],
+    "secondaryTopics": [
+     "Equilibrium"
+    ]
+   },
+   "2018-november-tz0-hl-p2-q6": {
+    "primarySubtopic": "Titrations, curves and indicators",
+    "secondarySubtopics": [
+     "pH, strong and weak acids and bases, Ka and Kb",
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+     "Acid-base theories"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-november-tz0-hl-p2-q8": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Representations, nomenclature and isomerism"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-november-tz0-hl-p2-q9": {
+    "primarySubtopic": "Acid-base theories",
+    "secondarySubtopics": [
+     "Synthesis and mechanisms"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2018-november-tz0-hl-p3-q1": {
+    "primarySubtopic": "Titrations, curves and indicators",
+    "secondarySubtopics": [
+     "Uncertainty and error",
+     "Analytical techniques"
+    ],
+    "secondaryTopics": [
+     "Measurement, data and practical work"
+    ]
+   },
+   "2018-november-tz0-hl-p3-q12": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Combustion, fuels, biofuels and energy technologies",
+     "Nuclear atom, isotopes and mass spectra"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels",
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2018-november-tz0-hl-p3-q14": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Le Chatelier's principle"
+    ],
+    "secondaryTopics": [
+     "Equilibrium"
+    ]
+   },
+   "2018-november-tz0-hl-p3-q15": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Electrolysis, batteries and fuel cells",
+     "Combustion, fuels, biofuels and energy technologies"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2018-november-tz0-hl-p3-q16": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-november-tz0-hl-p3-q18": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis",
+     "Formulae and equations"
+    ],
+    "secondaryTopics": [
+     "Acids and bases",
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2018-november-tz0-hl-p3-q2": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2018-november-tz0-hl-p3-q21": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Representations, nomenclature and isomerism"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-november-tz0-hl-p3-q8": {
+    "primarySubtopic": "Collision theory and rate factors",
+    "secondarySubtopics": [
+     "Biomolecules and medicinal chemistry"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2018-november-tz0-hl-p3-q9": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2019-may-tz1-hl-p1-q15": {
+    "primarySubtopic": "Calorimetry and enthalpy",
+    "secondarySubtopics": [
+     "Hess cycles, Born-Haber cycles and bond enthalpy"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz1-hl-p1-q27": {
+    "primarySubtopic": "Acid-base theories",
+    "secondarySubtopics": [
+     "pH, strong and weak acids and bases, Ka and Kb"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz1-hl-p1-q36": {
+    "primarySubtopic": "Functional groups and reactions",
+    "secondarySubtopics": [
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2019-may-tz1-hl-p3-q15": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2019-may-tz1-hl-p3-q16": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2019-may-tz1-hl-p3-q17": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Electrolysis, batteries and fuel cells"
+    ],
+    "secondaryTopics": [
+     "Redox and electrochemistry"
+    ]
+   },
+   "2019-may-tz1-hl-p3-q18": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Combustion, fuels, biofuels and energy technologies",
+     "Polymers, materials, alloys and nanotechnology"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels",
+     "Bonding, structure and materials"
+    ]
+   },
+   "2019-may-tz1-hl-p3-q19": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz1-hl-p3-q24": {
+    "primarySubtopic": "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2019-may-tz1-hl-p3-q25": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Representations, nomenclature and isomerism"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz1-hl-p3-q3": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Electrolysis, batteries and fuel cells"
+    ],
+    "secondaryTopics": [
+     "Redox and electrochemistry"
+    ]
+   },
+   "2019-may-tz1-hl-p3-q4": {
+    "primarySubtopic": "Particles, states, mixtures and separation",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology",
+     "Energy profiles and catalysts"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials",
+     "Kinetics"
+    ]
+   },
+   "2019-may-tz1-hl-p3-q8": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology",
+     "Calorimetry and enthalpy"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials",
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2019-may-tz1-hl-p3-q9": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz2-hl-p1-q26": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis",
+     "Titrations, curves and indicators"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz2-hl-p1-q40": {
+    "primarySubtopic": "Ionic, covalent and metallic bonding",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2019-may-tz2-hl-p3-q1": {
+    "primarySubtopic": "Intermolecular forces and solids",
+    "secondarySubtopics": [
+     "Le Chatelier's principle"
+    ],
+    "secondaryTopics": [
+     "Equilibrium"
+    ]
+   },
+   "2019-may-tz2-hl-p3-q11": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2019-may-tz2-hl-p3-q13": {
+    "primarySubtopic": "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+    "secondarySubtopics": [
+     "Biomolecules and medicinal chemistry"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2019-may-tz2-hl-p3-q15": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Particles, states, mixtures and separation"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2019-may-tz2-hl-p3-q16": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2019-may-tz2-hl-p3-q19": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Electrochemical cells and potentials"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz2-hl-p3-q22": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Titrations, curves and indicators"
+    ],
+    "secondaryTopics": [
+     "Acids and bases"
+    ]
+   },
+   "2019-may-tz2-hl-p3-q23": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis"
+    ],
+    "secondaryTopics": [
+     "Acids and bases"
+    ]
+   },
+   "2019-may-tz2-hl-p3-q25": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Representations, nomenclature and isomerism"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz2-hl-p3-q27": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2019-may-tz2-hl-p3-q4": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Energy profiles and catalysts",
+     "Electrolysis, batteries and fuel cells"
+    ],
+    "secondaryTopics": [
+     "Kinetics",
+     "Redox and electrochemistry"
+    ]
+   },
+   "2019-may-tz2-hl-p3-q5": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2019-may-tz2-hl-p3-q9": {
+    "primarySubtopic": "Collision theory and rate factors",
+    "secondarySubtopics": [
+     "Biomolecules and medicinal chemistry"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2019-november-tz0-hl-p1-q16": {
+    "primarySubtopic": "Calorimetry and enthalpy",
+    "secondarySubtopics": [
+     "Hess cycles, Born-Haber cycles and bond enthalpy"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-november-tz0-hl-p1-q22": {
+    "primarySubtopic": "Graphical and data processing",
+    "secondarySubtopics": [
+     "Rate laws, orders, Arrhenius and mechanisms"
+    ],
+    "secondaryTopics": [
+     "Kinetics"
+    ]
+   },
+   "2019-november-tz0-hl-p3-q1": {
+    "primarySubtopic": "Rate laws, orders, Arrhenius and mechanisms",
+    "secondarySubtopics": [
+     "Collision theory and rate factors",
+     "Acid deposition",
+     "Graphical and data processing"
+    ],
+    "secondaryTopics": [
+     "Acids and bases",
+     "Measurement, data and practical work"
+    ]
+   },
+   "2019-november-tz0-hl-p3-q10": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis"
+    ],
+    "secondaryTopics": [
+     "Acids and bases"
+    ]
+   },
+   "2019-november-tz0-hl-p3-q17": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2019-november-tz0-hl-p3-q20": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Electrolysis, batteries and fuel cells",
+     "Combustion, fuels, biofuels and energy technologies",
+     "Oxidation states and half-equations"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2019-november-tz0-hl-p3-q22": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-november-tz0-hl-p3-q24": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography",
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-november-tz0-hl-p3-q25": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2019-november-tz0-hl-p3-q26": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Representations, nomenclature and isomerism"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-november-tz0-hl-p3-q27": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2019-november-tz0-hl-p3-q3": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Energy profiles and catalysts"
+    ],
+    "secondaryTopics": [
+     "Kinetics"
+    ]
+   },
+   "2019-november-tz0-hl-p3-q6": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Ionic, covalent and metallic bonding",
+     "Oxidation states and half-equations"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2019-may-tz1-hl-p2-q1": {
+    "primarySubtopic": "Synthesis and mechanisms",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography",
+     "Representations, nomenclature and isomerism"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz1-hl-p2-q2": {
+    "primarySubtopic": "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+    "secondarySubtopics": [
+     "pH, strong and weak acids and bases, Ka and Kb",
+     "Formulae and equations",
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Acids and bases",
+     "Matter, amounts and stoichiometry",
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2019-may-tz1-hl-p2-q3": {
+    "primarySubtopic": "Hess cycles, Born-Haber cycles and bond enthalpy",
+    "secondarySubtopics": [
+     "Periodic table and trends",
+     "Yield and atom economy",
+     "Ionic, covalent and metallic bonding"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity",
+     "Matter, amounts and stoichiometry",
+     "Bonding, structure and materials"
+    ]
+   },
+   "2019-may-tz1-hl-p2-q4": {
+    "primarySubtopic": "Collision theory and rate factors",
+    "secondarySubtopics": [
+     "Rate laws, orders, Arrhenius and mechanisms",
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2019-may-tz1-hl-p2-q5": {
+    "primarySubtopic": "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+    "secondarySubtopics": [
+     "Titrations, curves and indicators",
+     "Buffers and salt hydrolysis",
+     "Le Chatelier's principle"
+    ],
+    "secondaryTopics": [
+     "Acids and bases",
+     "Equilibrium"
+    ]
+   },
+   "2019-may-tz1-hl-p2-q6": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Transition elements and complexes",
+     "Nuclear atom, isotopes and mass spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2019-may-tz2-hl-p2-q1": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Hess cycles, Born-Haber cycles and bond enthalpy",
+     "Intermolecular forces and solids",
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels",
+     "Bonding, structure and materials"
+    ]
+   },
+   "2019-may-tz2-hl-p2-q2": {
+    "primarySubtopic": "Collision theory and rate factors",
+    "secondarySubtopics": [
+     "Entropy, Gibbs energy and spontaneity",
+     "Rate laws, orders, Arrhenius and mechanisms",
+     "Energy profiles and catalysts"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2019-may-tz2-hl-p2-q3": {
+    "primarySubtopic": "Periodic table and trends",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra",
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2019-may-tz2-hl-p2-q4": {
+    "primarySubtopic": "Periodic table and trends",
+    "secondarySubtopics": [
+     "Transition elements and complexes",
+     "Nuclear atom, isotopes and mass spectra",
+     "Oxidation states and half-equations",
+     "Electrolysis, batteries and fuel cells",
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Redox and electrochemistry",
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2019-may-tz2-hl-p2-q5": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Acid-base theories",
+     "Buffers and salt hydrolysis",
+     "Titrations, curves and indicators",
+     "Ionic, covalent and metallic bonding",
+     "Solutions and gases"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials",
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2019-may-tz2-hl-p2-q6": {
+    "primarySubtopic": "Representations, nomenclature and isomerism",
+    "secondarySubtopics": [
+     "Synthesis and mechanisms",
+     "Entropy, Gibbs energy and spontaneity"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2019-november-tz0-hl-p2-q2": {
+    "primarySubtopic": "Redox titration and corrosion",
+    "secondarySubtopics": [
+     "The mole and reacting quantities",
+     "Uncertainty and error"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry",
+     "Measurement, data and practical work"
+    ]
+   },
+   "2019-november-tz0-hl-p2-q3": {
+    "primarySubtopic": "Synthesis and mechanisms",
+    "secondarySubtopics": [
+     "Rate laws, orders, Arrhenius and mechanisms",
+     "Hess cycles, Born-Haber cycles and bond enthalpy"
+    ],
+    "secondaryTopics": [
+     "Kinetics",
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2019-november-tz0-hl-p2-q4": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Le Chatelier's principle",
+     "Entropy, Gibbs energy and spontaneity"
+    ],
+    "secondaryTopics": [
+     "Equilibrium",
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2019-november-tz0-hl-p2-q5": {
+    "primarySubtopic": "Titrations, curves and indicators",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-november-tz0-hl-p2-q6": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Transition elements and complexes",
+     "Hess cycles, Born-Haber cycles and bond enthalpy",
+     "Energy profiles and catalysts",
+     "Entropy, Gibbs energy and spontaneity"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity",
+     "Energetics, thermodynamics and fuels",
+     "Kinetics"
+    ]
+   },
+   "2019-november-tz0-hl-p2-q7": {
+    "primarySubtopic": "Solutions and gases",
+    "secondarySubtopics": [
+     "The mole and reacting quantities",
+     "Periodic table and trends",
+     "Formulae and equations"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   }
+  },
+  "ib-chemistry-sl": {
+   "2016-may-tz0-sl-p1-q18": {
+    "primarySubtopic": "Le Chatelier's principle",
+    "secondarySubtopics": [
+     "Equilibrium constants and reaction quotient"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-may-tz0-sl-p1-q22": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Electrolysis, batteries and fuel cells"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-may-tz0-sl-p2-q1": {
+    "primarySubtopic": "The mole and reacting quantities",
+    "secondarySubtopics": [
+     "Acid-base theories",
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+     "Oxidation states and half-equations"
+    ],
+    "secondaryTopics": [
+     "Acids and bases",
+     "Bonding, structure and materials",
+     "Redox and electrochemistry"
+    ]
+   },
+   "2016-may-tz0-sl-p2-q2": {
+    "primarySubtopic": "Entropy, Gibbs energy and spontaneity",
+    "secondarySubtopics": [
+     "The mole and reacting quantities",
+     "Calorimetry and enthalpy",
+     "Formulae and equations"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2016-may-tz0-sl-p2-q4": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra",
+     "Electron configurations and emission spectra",
+     "Polymers, materials, alloys and nanotechnology"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity",
+     "Bonding, structure and materials"
+    ]
+   },
+   "2016-may-tz0-sl-p3-q1": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Graphical and data processing",
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": [
+     "Measurement, data and practical work",
+     "Bonding, structure and materials"
+    ]
+   },
+   "2016-may-tz0-sl-p3-q10": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Calorimetry and enthalpy"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2016-may-tz0-sl-p3-q12": {
+    "primarySubtopic": "Synthesis and mechanisms",
+    "secondarySubtopics": [
+     "Combustion, fuels, biofuels and energy technologies"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2016-may-tz0-sl-p3-q14": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Le Chatelier's principle"
+    ],
+    "secondaryTopics": [
+     "Equilibrium"
+    ]
+   },
+   "2016-may-tz0-sl-p3-q17": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-may-tz0-sl-p3-q18": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2016-may-tz0-sl-p3-q3": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Electron configurations and emission spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2016-may-tz0-sl-p3-q5": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Ionic, covalent and metallic bonding"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-may-tz0-sl-p3-q9": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Biomolecules and medicinal chemistry"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-november-tz0-sl-p2-q1": {
+    "primarySubtopic": "Hess cycles, Born-Haber cycles and bond enthalpy",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids",
+     "Equilibrium constants and reaction quotient"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials",
+     "Equilibrium"
+    ]
+   },
+   "2016-november-tz0-sl-p2-q2": {
+    "primarySubtopic": "Titrations, curves and indicators",
+    "secondarySubtopics": [
+     "pH, strong and weak acids and bases, Ka and Kb",
+     "The mole and reacting quantities",
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry",
+     "Bonding, structure and materials"
+    ]
+   },
+   "2016-november-tz0-sl-p2-q4": {
+    "primarySubtopic": "Nuclear atom, isotopes and mass spectra",
+    "secondarySubtopics": [
+     "Electrolysis, batteries and fuel cells",
+     "Oxidation states and half-equations"
+    ],
+    "secondaryTopics": [
+     "Redox and electrochemistry"
+    ]
+   },
+   "2016-november-tz0-sl-p3-q10": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Representations, nomenclature and isomerism"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-november-tz0-sl-p3-q13": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Le Chatelier's principle"
+    ],
+    "secondaryTopics": [
+     "Equilibrium"
+    ]
+   },
+   "2016-november-tz0-sl-p3-q14": {
+    "primarySubtopic": "Synthesis and mechanisms",
+    "secondarySubtopics": [
+     "Combustion, fuels, biofuels and energy technologies"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2016-november-tz0-sl-p3-q15": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2016-november-tz0-sl-p3-q18": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2016-november-tz0-sl-p3-q20": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2016-november-tz0-sl-p3-q4": {
+    "primarySubtopic": "Nuclear atom, isotopes and mass spectra",
+    "secondarySubtopics": [
+     "The mole and reacting quantities",
+     "Electrolysis, batteries and fuel cells"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry",
+     "Redox and electrochemistry"
+    ]
+   },
+   "2016-november-tz0-sl-p3-q6": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Yield and atom economy"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2016-november-tz0-sl-p3-q9": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology",
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-may-tz1-sl-p2-q2": {
+    "primarySubtopic": "Nuclear atom, isotopes and mass spectra",
+    "secondarySubtopics": [
+     "Electron configurations and emission spectra"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz1-sl-p2-q4": {
+    "primarySubtopic": "Ionic, covalent and metallic bonding",
+    "secondarySubtopics": [
+     "Hess cycles, Born-Haber cycles and bond enthalpy",
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2017-may-tz1-sl-p2-q5": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "The mole and reacting quantities",
+     "Polymers, materials, alloys and nanotechnology"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry",
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-may-tz1-sl-p3-q10": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology",
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-may-tz1-sl-p3-q12": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-may-tz1-sl-p3-q13": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Collision theory and rate factors"
+    ],
+    "secondaryTopics": [
+     "Kinetics"
+    ]
+   },
+   "2017-may-tz1-sl-p3-q15": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-may-tz1-sl-p3-q19": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz1-sl-p3-q3": {
+    "primarySubtopic": "Titrations, curves and indicators",
+    "secondarySubtopics": [
+     "Graphical and data processing"
+    ],
+    "secondaryTopics": [
+     "Measurement, data and practical work"
+    ]
+   },
+   "2017-may-tz1-sl-p3-q4": {
+    "primarySubtopic": "Titrations, curves and indicators",
+    "secondarySubtopics": [
+     "Calorimetry and enthalpy"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2017-may-tz1-sl-p3-q6": {
+    "primarySubtopic": "Periodic table and trends",
+    "secondarySubtopics": [
+     "Ionic, covalent and metallic bonding"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-may-tz1-sl-p3-q9": {
+    "primarySubtopic": "Energy profiles and catalysts",
+    "secondarySubtopics": [
+     "Particles, states, mixtures and separation"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2017-may-tz2-sl-p1-q16": {
+    "primarySubtopic": "Rate laws, orders, Arrhenius and mechanisms",
+    "secondarySubtopics": [
+     "Collision theory and rate factors"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz2-sl-p2-q1": {
+    "primarySubtopic": "Titrations, curves and indicators",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra",
+     "The mole and reacting quantities",
+     "Electron configurations and emission spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity",
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2017-may-tz2-sl-p2-q2": {
+    "primarySubtopic": "Uncertainty and error",
+    "secondarySubtopics": [
+     "Oxidation states and half-equations"
+    ],
+    "secondaryTopics": [
+     "Redox and electrochemistry"
+    ]
+   },
+   "2017-may-tz2-sl-p2-q4": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Oxidation states and half-equations",
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Redox and electrochemistry",
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-may-tz2-sl-p2-q6": {
+    "primarySubtopic": "Functional groups and reactions",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-may-tz2-sl-p2-q8": {
+    "primarySubtopic": "Nuclear atom, isotopes and mass spectra",
+    "secondarySubtopics": [
+     "Calorimetry and enthalpy",
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels",
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2017-may-tz2-sl-p3-q1": {
+    "primarySubtopic": "Uncertainty and error",
+    "secondarySubtopics": [
+     "Graphical and data processing",
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2017-may-tz2-sl-p3-q10": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz2-sl-p3-q12": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2017-may-tz2-sl-p3-q14": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Le Chatelier's principle"
+    ],
+    "secondaryTopics": [
+     "Equilibrium"
+    ]
+   },
+   "2017-may-tz2-sl-p3-q15": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2017-may-tz2-sl-p3-q17": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz2-sl-p3-q18": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography",
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-may-tz2-sl-p3-q5": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Energy profiles and catalysts"
+    ],
+    "secondaryTopics": [
+     "Kinetics"
+    ]
+   },
+   "2017-may-tz2-sl-p3-q8": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-november-tz0-sl-p1-q14": {
+    "primarySubtopic": "Calorimetry and enthalpy",
+    "secondarySubtopics": [
+     "Hess cycles, Born-Haber cycles and bond enthalpy"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-sl-p2-q1": {
+    "primarySubtopic": "The mole and reacting quantities",
+    "secondarySubtopics": [
+     "Collision theory and rate factors"
+    ],
+    "secondaryTopics": [
+     "Kinetics"
+    ]
+   },
+   "2017-november-tz0-sl-p2-q2": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Electron configurations and emission spectra",
+     "Periodic table and trends"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2017-november-tz0-sl-p2-q4": {
+    "primarySubtopic": "Formulae and equations",
+    "secondarySubtopics": [
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-sl-p2-q5": {
+    "primarySubtopic": "Acid-base theories",
+    "secondarySubtopics": [
+     "Le Chatelier's principle"
+    ],
+    "secondaryTopics": [
+     "Equilibrium"
+    ]
+   },
+   "2017-november-tz0-sl-p2-q6": {
+    "primarySubtopic": "Synthesis and mechanisms",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography",
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-sl-p3-q10": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2017-november-tz0-sl-p3-q17": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-sl-p3-q19": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-sl-p3-q2": {
+    "primarySubtopic": "Experimental design, safety and evaluation",
+    "secondarySubtopics": [
+     "Uncertainty and error"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-sl-p3-q20": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis"
+    ],
+    "secondaryTopics": []
+   },
+   "2017-november-tz0-sl-p3-q8": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Formulae and equations"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2017-november-tz0-sl-p3-q9": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-may-tz1-sl-p1-q12": {
+    "primarySubtopic": "Ionic, covalent and metallic bonding",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz1-sl-p2-q2": {
+    "primarySubtopic": "Ionic, covalent and metallic bonding",
+    "secondarySubtopics": [
+     "Electron configurations and emission spectra",
+     "pH, strong and weak acids and bases, Ka and Kb"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity",
+     "Acids and bases"
+    ]
+   },
+   "2018-may-tz1-sl-p2-q3": {
+    "primarySubtopic": "Calorimetry and enthalpy",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-may-tz1-sl-p2-q5": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Acid deposition"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz1-sl-p2-q6": {
+    "primarySubtopic": "Electrochemical cells and potentials",
+    "secondarySubtopics": [
+     "Oxidation states and half-equations"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz1-sl-p3-q1": {
+    "primarySubtopic": "Collision theory and rate factors",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-may-tz1-sl-p3-q10": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Particles, states, mixtures and separation"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2018-may-tz1-sl-p3-q12": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra",
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity",
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2018-may-tz1-sl-p3-q13": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz1-sl-p3-q14": {
+    "primarySubtopic": "The mole and reacting quantities",
+    "secondarySubtopics": [
+     "Biomolecules and medicinal chemistry",
+     "Formulae and equations"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2018-may-tz1-sl-p3-q2": {
+    "primarySubtopic": "Uncertainty and error",
+    "secondarySubtopics": [
+     "Formulae and equations",
+     "Collision theory and rate factors"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry",
+     "Kinetics"
+    ]
+   },
+   "2018-may-tz1-sl-p3-q6": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids",
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-may-tz2-sl-p1-q13": {
+    "primarySubtopic": "Energy profiles and catalysts",
+    "secondarySubtopics": [
+     "Calorimetry and enthalpy"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2018-may-tz2-sl-p1-q14": {
+    "primarySubtopic": "Calorimetry and enthalpy",
+    "secondarySubtopics": [
+     "Hess cycles, Born-Haber cycles and bond enthalpy"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-sl-p1-q18": {
+    "primarySubtopic": "Le Chatelier's principle",
+    "secondarySubtopics": [
+     "Energy profiles and catalysts"
+    ],
+    "secondaryTopics": [
+     "Kinetics"
+    ]
+   },
+   "2018-may-tz2-sl-p1-q3": {
+    "primarySubtopic": "Solutions and gases",
+    "secondarySubtopics": [
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-sl-p2-q2": {
+    "primarySubtopic": "Energy profiles and catalysts",
+    "secondarySubtopics": [
+     "Collision theory and rate factors",
+     "Acid-base theories",
+     "pH, strong and weak acids and bases, Ka and Kb"
+    ],
+    "secondaryTopics": [
+     "Acids and bases"
+    ]
+   },
+   "2018-may-tz2-sl-p2-q3": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Oxidation states and half-equations",
+     "Electron configurations and emission spectra",
+     "Periodic table and trends"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2018-may-tz2-sl-p2-q4": {
+    "primarySubtopic": "Hess cycles, Born-Haber cycles and bond enthalpy",
+    "secondarySubtopics": [
+     "Calorimetry and enthalpy"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-sl-p2-q6": {
+    "primarySubtopic": "Intermolecular forces and solids",
+    "secondarySubtopics": [
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-sl-p2-q7": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-sl-p3-q1": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-sl-p3-q14": {
+    "primarySubtopic": "Synthesis and mechanisms",
+    "secondarySubtopics": [
+     "Combustion, fuels, biofuels and energy technologies"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2018-may-tz2-sl-p3-q18": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2018-may-tz2-sl-p3-q19": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-may-tz2-sl-p3-q2": {
+    "primarySubtopic": "Functional groups and reactions",
+    "secondarySubtopics": [
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-may-tz2-sl-p3-q3": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Energy profiles and catalysts"
+    ],
+    "secondaryTopics": [
+     "Kinetics"
+    ]
+   },
+   "2018-may-tz2-sl-p3-q6": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Uncertainty and error"
+    ],
+    "secondaryTopics": [
+     "Measurement, data and practical work"
+    ]
+   },
+   "2018-may-tz2-sl-p3-q7": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Ionic, covalent and metallic bonding"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-november-tz0-sl-p1-q16": {
+    "primarySubtopic": "Rate laws, orders, Arrhenius and mechanisms",
+    "secondarySubtopics": [
+     "Collision theory and rate factors"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-november-tz0-sl-p1-q26": {
+    "primarySubtopic": "Functional groups and reactions",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-november-tz0-sl-p1-q3": {
+    "primarySubtopic": "Nuclear atom, isotopes and mass spectra",
+    "secondarySubtopics": [
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2018-november-tz0-sl-p2-q1": {
+    "primarySubtopic": "Rate laws, orders, Arrhenius and mechanisms",
+    "secondarySubtopics": [
+     "The mole and reacting quantities",
+     "Calorimetry and enthalpy",
+     "Collision theory and rate factors"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry",
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2018-november-tz0-sl-p2-q3": {
+    "primarySubtopic": "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+    "secondarySubtopics": [
+     "Electron configurations and emission spectra",
+     "Oxidation states and half-equations"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity",
+     "Redox and electrochemistry"
+    ]
+   },
+   "2018-november-tz0-sl-p2-q6": {
+    "primarySubtopic": "Formulae and equations",
+    "secondarySubtopics": [
+     "pH, strong and weak acids and bases, Ka and Kb"
+    ],
+    "secondaryTopics": [
+     "Acids and bases"
+    ]
+   },
+   "2018-november-tz0-sl-p2-q7": {
+    "primarySubtopic": "Calorimetry and enthalpy",
+    "secondarySubtopics": [
+     "Uncertainty and error"
+    ],
+    "secondaryTopics": [
+     "Measurement, data and practical work"
+    ]
+   },
+   "2018-november-tz0-sl-p3-q1": {
+    "primarySubtopic": "Titrations, curves and indicators",
+    "secondarySubtopics": [
+     "Uncertainty and error",
+     "Analytical techniques"
+    ],
+    "secondaryTopics": [
+     "Measurement, data and practical work"
+    ]
+   },
+   "2018-november-tz0-sl-p3-q11": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Le Chatelier's principle"
+    ],
+    "secondaryTopics": [
+     "Equilibrium"
+    ]
+   },
+   "2018-november-tz0-sl-p3-q12": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Lewis structures, VSEPR, hybridization, formal charge and resonance"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2018-november-tz0-sl-p3-q14": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis",
+     "Formulae and equations"
+    ],
+    "secondaryTopics": [
+     "Acids and bases",
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2018-november-tz0-sl-p3-q2": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Ionic, covalent and metallic bonding"
+    ],
+    "secondaryTopics": []
+   },
+   "2018-november-tz0-sl-p3-q4": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Electrolysis, batteries and fuel cells"
+    ],
+    "secondaryTopics": [
+     "Redox and electrochemistry"
+    ]
+   },
+   "2018-november-tz0-sl-p3-q7": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2019-may-tz1-sl-p1-q14": {
+    "primarySubtopic": "Calorimetry and enthalpy",
+    "secondarySubtopics": [
+     "Hess cycles, Born-Haber cycles and bond enthalpy"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz1-sl-p1-q26": {
+    "primarySubtopic": "Functional groups and reactions",
+    "secondarySubtopics": [
+     "Synthesis and mechanisms"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz1-sl-p2-q1": {
+    "primarySubtopic": "Representations, nomenclature and isomerism",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz1-sl-p2-q2": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Acid-base theories"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz1-sl-p2-q3": {
+    "primarySubtopic": "Hess cycles, Born-Haber cycles and bond enthalpy",
+    "secondarySubtopics": [
+     "The mole and reacting quantities",
+     "Oxidation states and half-equations"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry",
+     "Redox and electrochemistry"
+    ]
+   },
+   "2019-may-tz1-sl-p2-q4": {
+    "primarySubtopic": "Collision theory and rate factors",
+    "secondarySubtopics": [
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2019-may-tz1-sl-p2-q6": {
+    "primarySubtopic": "Nuclear atom, isotopes and mass spectra",
+    "secondarySubtopics": [
+     "Electrochemical cells and potentials"
+    ],
+    "secondaryTopics": [
+     "Redox and electrochemistry"
+    ]
+   },
+   "2019-may-tz1-sl-p3-q12": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2019-may-tz1-sl-p3-q14": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography",
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz1-sl-p3-q16": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "The mole and reacting quantities"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2019-may-tz1-sl-p3-q3": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Electron configurations and emission spectra",
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity",
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2019-may-tz1-sl-p3-q4": {
+    "primarySubtopic": "Particles, states, mixtures and separation",
+    "secondarySubtopics": [
+     "Energy profiles and catalysts",
+     "Polymers, materials, alloys and nanotechnology"
+    ],
+    "secondaryTopics": [
+     "Kinetics",
+     "Bonding, structure and materials"
+    ]
+   },
+   "2019-may-tz1-sl-p3-q5": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2019-may-tz1-sl-p3-q7": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology",
+     "Calorimetry and enthalpy"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials",
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2019-may-tz1-sl-p3-q8": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-may-tz2-sl-p2-q1": {
+    "primarySubtopic": "Mass spectrometry, IR, NMR and chromatography",
+    "secondarySubtopics": [
+     "Hess cycles, Born-Haber cycles and bond enthalpy"
+    ],
+    "secondaryTopics": [
+     "Energetics, thermodynamics and fuels"
+    ]
+   },
+   "2019-may-tz2-sl-p2-q2": {
+    "primarySubtopic": "Uncertainty and error",
+    "secondarySubtopics": [
+     "Collision theory and rate factors",
+     "Energy profiles and catalysts",
+     "Graphical and data processing"
+    ],
+    "secondaryTopics": [
+     "Kinetics"
+    ]
+   },
+   "2019-may-tz2-sl-p2-q4": {
+    "primarySubtopic": "Representations, nomenclature and isomerism",
+    "secondarySubtopics": [
+     "Periodic table and trends"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2019-may-tz2-sl-p2-q5": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Acid-base theories",
+     "The mole and reacting quantities",
+     "Le Chatelier's principle"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry",
+     "Equilibrium"
+    ]
+   },
+   "2019-may-tz2-sl-p3-q10": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Particles, states, mixtures and separation",
+     "Uncertainty and error"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry",
+     "Measurement, data and practical work"
+    ]
+   },
+   "2019-may-tz2-sl-p3-q11": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Nuclear atom, isotopes and mass spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2019-may-tz2-sl-p3-q15": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Titrations, curves and indicators"
+    ],
+    "secondaryTopics": [
+     "Acids and bases"
+    ]
+   },
+   "2019-may-tz2-sl-p3-q16": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Buffers and salt hydrolysis"
+    ],
+    "secondaryTopics": [
+     "Acids and bases"
+    ]
+   },
+   "2019-may-tz2-sl-p3-q2": {
+    "primarySubtopic": "Uncertainty and error",
+    "secondarySubtopics": [
+     "Collision theory and rate factors"
+    ],
+    "secondaryTopics": [
+     "Kinetics"
+    ]
+   },
+   "2019-may-tz2-sl-p3-q4": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Energy profiles and catalysts",
+     "Electrolysis, batteries and fuel cells"
+    ],
+    "secondaryTopics": [
+     "Kinetics",
+     "Redox and electrochemistry"
+    ]
+   },
+   "2019-may-tz2-sl-p3-q5": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2019-may-tz2-sl-p3-q6": {
+    "primarySubtopic": "Collision theory and rate factors",
+    "secondarySubtopics": [
+     "Biomolecules and medicinal chemistry"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2019-november-tz0-sl-p1-q15": {
+    "primarySubtopic": "Calorimetry and enthalpy",
+    "secondarySubtopics": [
+     "Hess cycles, Born-Haber cycles and bond enthalpy"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-november-tz0-sl-p1-q9": {
+    "primarySubtopic": "Intermolecular forces and solids",
+    "secondarySubtopics": [
+     "Ionic, covalent and metallic bonding"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-november-tz0-sl-p2-q2": {
+    "primarySubtopic": "The mole and reacting quantities",
+    "secondarySubtopics": [
+     "Uncertainty and error"
+    ],
+    "secondaryTopics": [
+     "Measurement, data and practical work"
+    ]
+   },
+   "2019-november-tz0-sl-p2-q3": {
+    "primarySubtopic": "Calorimetry and enthalpy",
+    "secondarySubtopics": [
+     "Polymers, materials, alloys and nanotechnology",
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2019-november-tz0-sl-p2-q4": {
+    "primarySubtopic": "pH, strong and weak acids and bases, Ka and Kb",
+    "secondarySubtopics": [
+     "Acid-base theories"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-november-tz0-sl-p2-q5": {
+    "primarySubtopic": "Collision theory and rate factors",
+    "secondarySubtopics": [
+     "Energy profiles and catalysts",
+     "Electron configurations and emission spectra"
+    ],
+    "secondaryTopics": [
+     "Atomic structure and periodicity"
+    ]
+   },
+   "2019-november-tz0-sl-p2-q6": {
+    "primarySubtopic": "The mole and reacting quantities",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2019-november-tz0-sl-p3-q1": {
+    "primarySubtopic": "Rate laws, orders, Arrhenius and mechanisms",
+    "secondarySubtopics": [
+     "Collision theory and rate factors",
+     "Acid deposition",
+     "Graphical and data processing"
+    ],
+    "secondaryTopics": [
+     "Acids and bases",
+     "Measurement, data and practical work"
+    ]
+   },
+   "2019-november-tz0-sl-p3-q12": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Mass spectrometry, IR, NMR and chromatography"
+    ],
+    "secondaryTopics": [
+     "Organic chemistry and molecular analysis"
+    ]
+   },
+   "2019-november-tz0-sl-p3-q14": {
+    "primarySubtopic": "Combustion, fuels, biofuels and energy technologies",
+    "secondarySubtopics": [
+     "Formulae and equations"
+    ],
+    "secondaryTopics": [
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2019-november-tz0-sl-p3-q15": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Functional groups and reactions"
+    ],
+    "secondaryTopics": []
+   },
+   "2019-november-tz0-sl-p3-q16": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "pH, strong and weak acids and bases, Ka and Kb",
+     "Buffers and salt hydrolysis",
+     "Formulae and equations"
+    ],
+    "secondaryTopics": [
+     "Acids and bases",
+     "Matter, amounts and stoichiometry"
+    ]
+   },
+   "2019-november-tz0-sl-p3-q3": {
+    "primarySubtopic": "Polymers, materials, alloys and nanotechnology",
+    "secondarySubtopics": [
+     "Energy profiles and catalysts"
+    ],
+    "secondaryTopics": [
+     "Kinetics"
+    ]
+   },
+   "2019-november-tz0-sl-p3-q5": {
+    "primarySubtopic": "Electrolysis, batteries and fuel cells",
+    "secondarySubtopics": [
+     "Ionic, covalent and metallic bonding",
+     "Oxidation states and half-equations"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   },
+   "2019-november-tz0-sl-p3-q9": {
+    "primarySubtopic": "Biomolecules and medicinal chemistry",
+    "secondarySubtopics": [
+     "Intermolecular forces and solids"
+    ],
+    "secondaryTopics": [
+     "Bonding, structure and materials"
+    ]
+   }
+  }
+ }
+}
