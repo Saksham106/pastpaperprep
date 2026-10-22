@@ -6,11 +6,13 @@ import { getEntitlementBanks } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { hasBankAccess } from "@/lib/access";
 import { LIFETIME_OFFER } from "@/lib/lifetime-offer";
+import { LAPSED_SUBSCRIPTION_STATUSES } from "@/lib/checkout-errors";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { createStripeClient } from "@/lib/stripe";
 import { expireOpenCheckoutSession, hasUnsettledLifetimePayment } from "@/lib/lifetime-payment-fence";
 import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
+import { lifetimeCheckoutCancelUrl, lifetimeCheckoutSuccessUrl } from "@/lib/stripe-checkout";
 
 export const runtime = "nodejs";
 
@@ -18,9 +20,9 @@ async function handlePOST() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user?.email) return NextResponse.json({ error: "Authentication required" }, { status: 401 });
-  if (!isStripeBillingEnabled()) return NextResponse.json({ error: "Billing is not available yet" }, { status: 503 });
+  if (!isStripeBillingEnabled()) return NextResponse.json({ error: "Billing is not available yet", code: "BILLING_UNAVAILABLE" }, { status: 503 });
   const access = await fetchAccessEntitlements(supabase as never, user.id);
-  if (access.error) return NextResponse.json({ error: "Could not verify account access" }, { status: 503 });
+  if (access.error) return NextResponse.json({ error: "Could not verify account access", code: "CHECKOUT_UNAVAILABLE" }, { status: 503 });
   if (getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, access.rows as never[]))) {
     return createLifetimeConversionCheckout();
   }
@@ -32,11 +34,11 @@ async function handlePOST() {
   try {
     const { data: reservation, error: reserveError } = await admin.rpc("reserve_billing_checkout", { p_user_id: user.id, p_intent_id: intentId });
     if (reserveError) throw reserveError;
-    if (reservation !== true) return NextResponse.json({ error: "Another checkout is already in progress" }, { status: 409 });
+    if (reservation !== true) return NextResponse.json({ error: "Another checkout is already in progress", code: "CHECKOUT_IN_PROGRESS" }, { status: 409 });
     reserved = true;
     const { data: eligible, error: confirmError } = await admin.rpc("confirm_billing_checkout", { p_user_id: user.id, p_intent_id: intentId });
     if (confirmError) throw confirmError;
-    if (eligible !== true) return NextResponse.json({ error: "Account access changed; reload before checkout" }, { status: 409 });
+    if (eligible !== true) return NextResponse.json({ error: "Account access changed; reload before checkout", code: "ACCESS_CHANGED" }, { status: 409 });
     const config = getStripeConfig();
     const stripe = createStripeClient(config.secretKey);
     const { data: mapped, error: mapError } = await admin.rpc("get_stripe_customer_id", { p_user_id: user.id });
@@ -53,14 +55,17 @@ async function handlePOST() {
     let after: string | undefined;
     do {
       const page = await stripe.subscriptions.list({ customer: customerId, status: "all", limit: 100, ...(after ? { starting_after: after } : {}) });
+      if (page.data.some((sub) => LAPSED_SUBSCRIPTION_STATUSES.has(sub.status))) {
+        return NextResponse.json({ error: "A subscription on this account has an unpaid invoice. Update the payment method in the billing portal first.", code: "PAYMENT_ISSUE" }, { status: 409 });
+      }
       if (page.data.some((sub) => sub.status !== "canceled" && sub.status !== "incomplete_expired")) {
-        return NextResponse.json({ error: "Lifetime checkout is unavailable while a subscription is billed to this account. Contact support to review your billing first." }, { status: 409 });
+        return NextResponse.json({ error: "Lifetime checkout is unavailable while a subscription is billed to this account. Contact support to review your billing first.", code: "BILLING_SUPPORT" }, { status: 409 });
       }
       after = page.has_more ? page.data.at(-1)?.id : undefined;
       if (page.has_more && !after) throw new Error("Subscription pagination did not advance");
     } while (after);
     if (await hasUnsettledLifetimePayment(stripe, customerId)) {
-      return NextResponse.json({ error: "Your Lifetime payment is still being confirmed. Refresh your account in a minute." }, { status: 409 });
+      return NextResponse.json({ error: "Your Lifetime payment is still being confirmed. Refresh your account in a minute.", code: "LIFETIME_PAYMENT_PENDING" }, { status: 409 });
     }
     const openSessions = [];
     let openAfter: string | undefined;
@@ -74,7 +79,9 @@ async function handlePOST() {
     for (const openSession of openSessions) {
       if (!resumableUrl && openSession.mode === "payment" && openSession.metadata?.purchase_type === "lifetime" &&
         openSession.metadata?.product_id === LIFETIME_OFFER.productId && openSession.metadata?.user_id === user.id &&
-        openSession.client_reference_id === user.id && openSession.customer === customerId) {
+        openSession.client_reference_id === user.id && openSession.customer === customerId &&
+        // A session with older return links (no session_id, bare cancel link) is replaced, not resumed.
+        openSession.cancel_url === lifetimeCheckoutCancelUrl(config.siteUrl)) {
         const lineItems = await stripe.checkout.sessions.listLineItems(openSession.id, { limit: 2, expand: ["data.price.product"] });
         const line = lineItems.data.length === 1 ? lineItems.data[0] : null;
         const product = line?.price?.product;
@@ -98,7 +105,7 @@ async function handlePOST() {
     const session = await stripe.checkout.sessions.create({
       mode: "payment", customer: customerId, client_reference_id: user.id,
       line_items: [{ quantity: 1, price_data: { currency: LIFETIME_OFFER.currency, unit_amount: LIFETIME_OFFER.amountCents, product_data: { name: "Lifetime All Access", description: "All current and future question banks. One-time payment; no subscription or renewals.", metadata: { purchase_type: "lifetime", product_id: LIFETIME_OFFER.productId } } } }],
-      success_url: `${config.siteUrl}/account?checkout=lifetime-pending`, cancel_url: `${config.siteUrl}/pricing?checkout=cancelled`,
+      success_url: lifetimeCheckoutSuccessUrl(config.siteUrl), cancel_url: lifetimeCheckoutCancelUrl(config.siteUrl),
       metadata, payment_intent_data: { metadata },
       integration_identifier: `pastpaperprep-lifetime-${randomUUID().replaceAll("-", "").slice(0, 8)}`,
     } as Parameters<typeof stripe.checkout.sessions.create>[0], { idempotencyKey: `pastpaperprep-lifetime-${intentId}`, timeout: 30_000 });
@@ -107,7 +114,7 @@ async function handlePOST() {
     return NextResponse.json({ url: session.url });
   } catch (error) {
     console.error("Lifetime Checkout failed", error instanceof Error ? { name: error.name, message: error.message } : { type: typeof error });
-    return NextResponse.json({ error: "Lifetime checkout is temporarily unavailable" }, { status: 503 });
+    return NextResponse.json({ error: "Lifetime checkout is temporarily unavailable", code: "CHECKOUT_UNAVAILABLE" }, { status: 503 });
   } finally {
     // Release once the session exists too: a lease held while Checkout is open
     // blocks a buyer who presses Back and picks a subscription instead.

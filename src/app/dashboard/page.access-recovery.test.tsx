@@ -11,7 +11,8 @@ vi.mock("@/lib/supabase/server", () => ({ createClient: async () => ({
   rpc: mocks.rpc,
 }) }));
 vi.mock("@/app/auth/actions", () => ({ signOut: vi.fn() }));
-vi.mock("next/navigation", () => ({ redirect: vi.fn() }));
+vi.mock("next/navigation", () => ({ redirect: vi.fn(), useRouter: () => ({ refresh: vi.fn() }) }));
+vi.mock("next/headers", () => ({ cookies: async () => ({ get: () => undefined }) }));
 vi.mock("@/components/DashboardContent", () => ({ DashboardContent: () => <div>Normal dashboard</div> }));
 vi.mock("@/components/AccountBillingHub", () => ({ AccountBillingHub: () => <div>Normal billing</div> }));
 vi.mock("@/components/PaperBuilder", () => ({ PaperBuilder: () => <div>Normal builder</div> }));
