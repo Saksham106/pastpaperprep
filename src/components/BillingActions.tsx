@@ -7,6 +7,7 @@ import type { ProductId } from "@/lib/access";
 import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
 import { getCatalogBank } from "@/lib/catalog";
 import { trackProductEvent } from "@/lib/product-analytics";
+import { checkoutErrorCopy, copyForCheckoutError, isCheckoutErrorCode, NETWORK_ERROR_COPY, type CheckoutErrorCopy } from "@/lib/checkout-errors";
 
 type Navigate = (url: string) => void;
 type BillingError = { error?: unknown };
@@ -29,6 +30,20 @@ async function responsePayload(response: Response): Promise<Record<string, unkno
 }
 
 type BillingInterval = "monthly" | "annual";
+
+/** Short copy for a failed checkout, with the one step that fixes it. */
+function CheckoutErrorNotice({ error, navigate }: { error: CheckoutErrorCopy; navigate: Navigate }) {
+  const { action } = error;
+  return (
+    <div className="checkout-error">
+      <p role="alert">
+        {error.message}
+        {action?.kind === "link" ? <> {action.href.startsWith("mailto:") ? <a href={action.href}>{action.label}</a> : <Link href={action.href}>{action.label}</Link>}</> : null}
+      </p>
+      {action?.kind === "portal" ? <PortalButton navigate={navigate} label={action.label} /> : null}
+    </div>
+  );
+}
 
 type BankGroup = {
   label: string;
@@ -169,7 +184,7 @@ export function CheckoutButton({
 }) {
   const [localPending, setLocalPending] = useState(false);
   const pending = sharedPending ?? localPending;
-  const [error, setError] = useState("");
+  const [error, setError] = useState<CheckoutErrorCopy | null>(null);
   const [needsLogin, setNeedsLogin] = useState(false);
 
   const customBankQuery = selectedBankIds?.length
@@ -185,9 +200,21 @@ export function CheckoutButton({
     if (pending) return;
     trackProductEvent("checkout_start", { interval, productId, bankCount: selectedBankIds?.length ?? 0 });
     setPending(true);
-    setError("");
+    setError(null);
     setNeedsLogin(false);
     let responseStatus: number | undefined;
+    const fail = (copy: CheckoutErrorCopy, errorCode?: string) => {
+      trackProductEvent("checkout_error", {
+        interval,
+        productId,
+        ...(responseStatus !== undefined ? { status: responseStatus } : {}),
+        ...(errorCode ? { errorCode } : {}),
+        errorCategory: responseStatus !== undefined
+          ? responseStatus >= 500 ? "server_error" : responseStatus >= 400 ? "client_error" : "unexpected_response"
+          : "network_or_invalid_response",
+      });
+      setError(copy);
+    };
     try {
       const response = await fetch("/api/billing/checkout", {
         method: "POST",
@@ -206,22 +233,16 @@ export function CheckoutButton({
         return;
       }
       if (!response.ok) {
-        const message = (payload as BillingError).error;
-        throw new Error(typeof message === "string" ? message : "Checkout is temporarily unavailable");
+        // Only an allowlisted code reaches analytics, never the server's text.
+        fail(checkoutErrorCopy(response.status, payload), isCheckoutErrorCode(payload.code) ? payload.code : undefined);
+        return;
       }
       const checkoutUrl = trustedStripeUrl(payload.url, "checkout.stripe.com");
       trackProductEvent("checkout_redirect", { interval, productId });
       navigate(checkoutUrl);
-    } catch (caught) {
-      trackProductEvent("checkout_error", {
-        interval,
-        productId,
-        ...(responseStatus !== undefined ? { status: responseStatus } : {}),
-        errorCategory: responseStatus !== undefined
-          ? responseStatus >= 500 ? "server_error" : responseStatus >= 400 ? "client_error" : "unexpected_response"
-          : "network_or_invalid_response",
-      });
-      setError(caught instanceof Error ? caught.message : "Checkout is temporarily unavailable");
+    } catch {
+      // fetch rejected (offline, "Failed to fetch") or the response was not a Stripe URL.
+      fail(responseStatus === undefined ? NETWORK_ERROR_COPY : checkoutErrorCopy(responseStatus, {}));
     } finally {
       setPending(false);
     }
@@ -237,16 +258,16 @@ export function CheckoutButton({
           Sign in to continue
         </Link>
       ) : null}
-      {error ? <p role="alert">{error}</p> : null}
+      {error ? <CheckoutErrorNotice error={error} navigate={navigate} /> : null}
     </div>
   );
 }
 
-export function LifetimeCheckout({ authenticated, previewOnly = false, accessCovered = false, complimentary = false }: { authenticated: boolean; previewOnly?: boolean; accessCovered?: boolean; complimentary?: boolean }) {
+export function LifetimeCheckout({ authenticated, previewOnly = false, accessCovered = false, complimentary = false, navigate = defaultNavigate }: { authenticated: boolean; previewOnly?: boolean; accessCovered?: boolean; complimentary?: boolean; navigate?: Navigate }) {
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<CheckoutErrorCopy | null>(null);
   const [needsLogin, setNeedsLogin] = useState(false);
-  const [eligibility, setEligibility] = useState<"loading" | "eligible" | "conversion_eligible" | "covered" | "billing_support" | "error">(authenticated ? "loading" : "eligible");
+  const [eligibility, setEligibility] = useState<"loading" | "eligible" | "conversion_eligible" | "covered" | "billing_support" | "payment_issue" | "error">(authenticated ? "loading" : "eligible");
   useEffect(() => {
     if (!authenticated || previewOnly) return;
     const controller = new AbortController();
@@ -259,6 +280,7 @@ export function LifetimeCheckout({ authenticated, previewOnly = false, accessCov
         else if (result.state === "conversion_eligible" && validOffer && result.renewalStopsAfterPayment === true) setEligibility("conversion_eligible");
         else if (result.state === "covered" && result.reason === "access_covered") setEligibility("covered");
         else if (result.state === "billing_support" && result.reason === "billing_support") setEligibility("billing_support");
+        else if (result.state === "billing_support" && result.reason === "payment_issue") setEligibility("payment_issue");
         else throw new Error("Eligibility could not be verified.");
       })
       .catch(() => { if (!controller.signal.aborted) setEligibility("error"); });
@@ -269,21 +291,24 @@ export function LifetimeCheckout({ authenticated, previewOnly = false, accessCov
   if (previewOnly) return <div className="billing-actions"><button className="button primary" disabled type="button">Unlock lifetime access</button><p className="custom-bundle-selection-note">Preview only — checkout is disabled.</p></div>;
   if (eligibility === "loading") return <div className="billing-actions"><button className="button primary" disabled type="button">Checking billing eligibility…</button></div>;
   if (eligibility === "covered") return <div className="billing-actions"><button className="button primary" disabled type="button">Access is already active</button><p className="custom-bundle-selection-note">This account already has lifetime or complimentary access.</p></div>;
+  if (eligibility === "payment_issue") return <div className="billing-actions"><button className="button primary" disabled type="button">Lifetime checkout unavailable</button><CheckoutErrorNotice error={copyForCheckoutError("PAYMENT_ISSUE")} navigate={navigate} /></div>;
   if (eligibility === "billing_support" || eligibility === "error") return <div className="billing-actions"><button className="button primary" disabled type="button">Lifetime checkout unavailable</button><p className="custom-bundle-selection-note">We couldn’t safely verify this billing arrangement. Manage billing or contact support before purchasing.</p></div>;
   if (!authenticated) return <Link className="button primary" href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Unlock lifetime access</Link>;
   async function start() {
     if (pending) return;
-    setPending(true); setError("");
+    setPending(true); setError(null);
+    let responseStatus: number | undefined;
     try {
       const response = await fetch("/api/billing/lifetime/checkout", { method: "POST", credentials: "same-origin", cache: "no-store" });
+      responseStatus = response.status;
       const payload = await responsePayload(response);
       if (response.status === 401) { setNeedsLogin(true); return; }
-      if (!response.ok) throw new Error(typeof payload.error === "string" ? payload.error : "Checkout is temporarily unavailable");
-      window.location.assign(trustedStripeUrl(payload.url, "checkout.stripe.com"));
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Checkout is temporarily unavailable"); }
+      if (!response.ok) { setError(checkoutErrorCopy(response.status, payload)); return; }
+      navigate(trustedStripeUrl(payload.url, "checkout.stripe.com"));
+    } catch { setError(responseStatus === undefined ? NETWORK_ERROR_COPY : checkoutErrorCopy(responseStatus, {})); }
     finally { setPending(false); }
   }
-  return <div className="billing-actions"><button className="button primary" type="button" disabled={pending} onClick={start}>{pending ? "Opening secure checkout…" : "Unlock lifetime access"}</button>{eligibility === "conversion_eligible" ? <p className="custom-bundle-selection-note">After this payment is verified, your current subscription renewals stop. No automatic credit or refund for prepaid time.</p> : null}{needsLogin ? <Link href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Sign in to continue</Link> : null}{error ? <p role="alert">{error}</p> : null}</div>;
+  return <div className="billing-actions"><button className="button primary" type="button" disabled={pending} onClick={start}>{pending ? "Opening secure checkout…" : "Unlock lifetime access"}</button>{eligibility === "conversion_eligible" ? <p className="custom-bundle-selection-note">After this payment is verified, your current subscription renewals stop. No automatic credit or refund for prepaid time.</p> : null}{needsLogin ? <Link href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Sign in to continue</Link> : null}{error ? <CheckoutErrorNotice error={error} navigate={navigate} /> : null}</div>;
 }
 
 export function CheckoutButtons({ productId, navigate = defaultNavigate }: { productId: ProductId; navigate?: Navigate }) {
@@ -457,7 +482,7 @@ export function CustomBundleCheckout({
   );
 }
 
-export function PortalButton({ navigate = defaultNavigate }: { navigate?: Navigate }) {
+export function PortalButton({ navigate = defaultNavigate, label = "Manage billing" }: { navigate?: Navigate; label?: string }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
 
@@ -482,7 +507,7 @@ export function PortalButton({ navigate = defaultNavigate }: { navigate?: Naviga
   return (
     <div className="billing-actions compact">
       <button className="button secondary" type="button" disabled={pending} onClick={openPortal}>
-        {pending ? "Opening portal…" : "Manage billing"}
+        {pending ? "Opening portal…" : label}
       </button>
       {error ? <p role="alert">{error}</p> : null}
     </div>

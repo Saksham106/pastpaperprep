@@ -7,6 +7,7 @@ import { getBillingBanks, getEntitlementBanks } from "@/lib/banks";
 import { validateCustomBankIds } from "@/lib/custom-bundles";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { startCheckout } from "@/lib/stripe-checkout";
+import { LAPSED_SUBSCRIPTION_STATUSES, type CheckoutErrorCode } from "@/lib/checkout-errors";
 import { getBillingPlan, getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { readEditableCurrentPlan } from "@/lib/account-plan-target";
 import { createStripeClient } from "@/lib/stripe";
@@ -23,7 +24,9 @@ function customIntegrationIdentifier(): string {
   return `pastpaperprep-custom-bundle-${letters}`;
 }
 
-class BillingStateConflictError extends Error {}
+class BillingStateConflictError extends Error {
+  constructor(message: string, readonly code: CheckoutErrorCode = "BILLING_CONFLICT") { super(message); }
+}
 class ManageExistingPlanError extends BillingStateConflictError {}
 
 function safeBillingError(error: unknown) {
@@ -46,7 +49,7 @@ async function handlePOST(request: Request) {
     return NextResponse.json({ error: "Authentication required" }, { status: 401 });
   }
   if (!isStripeBillingEnabled()) {
-    return NextResponse.json({ error: "Billing is not available yet" }, { status: 503 });
+    return NextResponse.json({ error: "Billing is not available yet", code: "BILLING_UNAVAILABLE" }, { status: 503 });
   }
 
   let body: CheckoutBody;
@@ -68,14 +71,14 @@ async function handlePOST(request: Request) {
     if (accessResult.error) throw accessResult.error;
     const entitlements = accessResult.rows as import("@/lib/access").AccessEntitlement[];
     if (entitlements.some((entitlement) => entitlement.productId === "lifetime_all_access" && getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, [entitlement])))) {
-      return NextResponse.json({ error: "Your Lifetime All Access purchase already covers every current and future bank" }, { status: 409 });
+      return NextResponse.json({ error: "Your Lifetime All Access purchase already covers every current and future bank", code: "LIFETIME_ACTIVE" }, { status: 409 });
     }
     const alreadyPaid = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
 
     const paidBundle = alreadyPaid && (plan.productId === "bundle_custom" || plan.productId === "bundle_all");
     const alreadyAllAccess = entitlements.some((entitlement) => entitlement.productId === "bundle_all" && getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, [entitlement])));
     if (paidBundle && plan.productId === "bundle_all" && alreadyAllAccess) {
-      return NextResponse.json({ error: "All Access is already covered" }, { status: 409 });
+      return NextResponse.json({ error: "All Access is already covered", code: "ALREADY_COVERED" }, { status: 409 });
     }
     if (paidBundle && body.acknowledgeSeparateSubscription !== true) {
       return NextResponse.json({ error: "Acknowledge that this is a separate subscription and existing plans will continue unchanged" }, { status: 400 });
@@ -88,13 +91,13 @@ async function handlePOST(request: Request) {
       ? getBillingBanks().find(({ slug }) => BANK_PRODUCTS[slug] === plan.productId)?.slug
       : undefined;
     if (alreadyPaid && addOnBank && hasBankAccess(addOnBank, entitlements)) {
-      return NextResponse.json({ error: "Choose a bank you do not already have; existing plans cannot be repurchased" }, { status: 409 });
+      return NextResponse.json({ error: "Choose a bank you do not already have; existing plans cannot be repurchased", code: "BANKS_ALREADY_OWNED" }, { status: 409 });
     }
     if (paidBundle && plan.productId === "bundle_custom" && (requestedSlugs.length < 2 || requestedSlugs.length > 5 || uncoveredSlugs.length !== requestedSlugs.length)) {
-      return NextResponse.json({ error: "Paid bundle selections must contain 2–5 uncovered banks" }, { status: 409 });
+      return NextResponse.json({ error: "Paid bundle selections must contain 2–5 uncovered banks", code: "BANKS_ALREADY_OWNED" }, { status: 409 });
     }
     if (alreadyPaid && !paidBundle && !addOnBank) {
-      return NextResponse.json({ error: "Choose a bank you do not already have; existing plans cannot be repurchased" }, { status: 409 });
+      return NextResponse.json({ error: "Choose a bank you do not already have; existing plans cannot be repurchased", code: "BANKS_ALREADY_OWNED" }, { status: 409 });
     }
     const referralCode = await getCheckoutReferral(user.id);
     const admin = createAdminClient();
@@ -105,7 +108,7 @@ async function handlePOST(request: Request) {
     });
     if (reservationError) throw reservationError;
     if (reservationGranted !== true) {
-      throw new BillingStateConflictError("Another checkout is already in progress");
+      throw new BillingStateConflictError("Another checkout is already in progress", "CHECKOUT_IN_PROGRESS");
     }
     reservation = { admin, intentId };
     const { data: mappedCustomerId, error: mappingError } = await admin.rpc("get_stripe_customer_id", {
@@ -156,6 +159,7 @@ async function handlePOST(request: Request) {
       async createSession(input) {
         let startingAfter: string | undefined;
         let billingConflict = false;
+        let paymentIssue = false;
         let activeSubscriptionCount = 0;
         let editorCandidate: Awaited<ReturnType<typeof stripe.subscriptions.list>>["data"][number] | null = null;
         do {
@@ -174,6 +178,8 @@ async function handlePOST(request: Request) {
             activeSubscriptionCount += 1;
             editorCandidate = activeSubscriptionCount === 1 ? subscription : null;
             if (subscription.metadata?.user_id && subscription.metadata.user_id !== user.id) { billingConflict = true; break; }
+            // An unpaid bill blocks every new purchase; the portal is where it gets paid.
+            if (LAPSED_SUBSCRIPTION_STATUSES.has(subscription.status)) { billingConflict = true; paymentIssue = true; break; }
             if (process.env.STRIPE_PLAN_EDITOR_ENABLED === "true" && (subscription.schedule != null || subscription.pending_update != null)) { billingConflict = true; break; }
             if (!addOnBank && !paidBundle) { billingConflict = true; break; }
             if (subscription.status !== "active" && subscription.status !== "trialing") { billingConflict = true; break; }
@@ -225,6 +231,9 @@ async function handlePOST(request: Request) {
           openSessionStartingAfter = openSessions.data.at(-1)?.id;
           if (!openSessionStartingAfter) throw new Error("Stripe Checkout Session pagination did not advance");
         } while (true);
+        if (paymentIssue) {
+          throw new BillingStateConflictError("A subscription on this account has an unpaid invoice. Update the payment method in the billing portal first.", "PAYMENT_ISSUE");
+        }
         if (billingConflict) {
           throw new BillingStateConflictError(process.env.STRIPE_PLAN_EDITOR_ENABLED === "true"
             ? "An existing Stripe subscription is connected to this account. Manage it at /account/subscription instead of starting a separate bill."
@@ -251,7 +260,7 @@ async function handlePOST(request: Request) {
               ? { p_user_id: user.id, p_intent_id: intentId, p_product_id: input.productId }
               : { p_user_id: user.id, p_intent_id: intentId, p_product_id: input.productId, p_selected_bank_ids: plan.productId === "bundle_all" ? [] : uncoveredSlugs, p_acknowledged: true });
             if (eligibilityError) throw eligibilityError;
-            if (stillEligible !== true) throw new BillingStateConflictError("Bank access changed; reload pricing before checkout");
+            if (stillEligible !== true) throw new BillingStateConflictError("Bank access changed; reload pricing before checkout", "ACCESS_CHANGED");
           }
           return openSessionUrl;
         }
@@ -264,7 +273,7 @@ async function handlePOST(request: Request) {
         });
         if (confirmationError) throw confirmationError;
         if (checkoutConfirmed !== true) {
-          throw new BillingStateConflictError("Access or billing state changed; manage it from your account");
+          throw new BillingStateConflictError("Access or billing state changed; manage it from your account", "ACCESS_CHANGED");
         }
         sessionCreationAttempted = true;
         const selectedBankMetadata = input.selectedBankIds ? JSON.stringify(input.selectedBankIds) : undefined;
@@ -321,7 +330,7 @@ async function handlePOST(request: Request) {
     }
     if (error instanceof BillingStateConflictError) {
       if (error instanceof ManageExistingPlanError) return NextResponse.json({ error: error.message, code: "MANAGE_EXISTING_PLAN", manageUrl: "/account/subscription" }, { status: 409 });
-      return NextResponse.json({ error: error.message }, { status: 409 });
+      return NextResponse.json({ error: error.message, code: error.code }, { status: 409 });
     }
     if (error instanceof Error && (
       error.message === "Unknown billing interval"
@@ -337,7 +346,7 @@ async function handlePOST(request: Request) {
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
     console.error("Stripe checkout creation failed", safeBillingError(error));
-    return NextResponse.json({ error: "Checkout is temporarily unavailable" }, { status: 503 });
+    return NextResponse.json({ error: "Checkout is temporarily unavailable", code: "CHECKOUT_UNAVAILABLE" }, { status: 503 });
   }
 }
 

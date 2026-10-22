@@ -1,4 +1,5 @@
 import { LIFETIME_OFFER } from "@/lib/lifetime-offer";
+import { LAPSED_SUBSCRIPTION_STATUSES } from "@/lib/checkout-errors";
 
 type Subscription = {
   status?: unknown;
@@ -22,7 +23,7 @@ export type LifetimeEligibility =
   | { state: "eligible"; priceCents: 29900; currency: "usd"; creditCents: 0; renewalStopsAfterPayment: false }
   | { state: "conversion_eligible"; priceCents: 29900; currency: "usd"; creditCents: 0; renewalStopsAfterPayment: true }
   | { state: "covered"; reason: "access_covered" }
-  | { state: "billing_support"; reason: "billing_support" };
+  | { state: "billing_support"; reason: "billing_support" | "payment_issue" };
 const BILLABLE = new Set(["active", "trialing", "past_due", "unpaid", "paused", "incomplete"]);
 export function classifyLifetimeEligibility(input: Input): LifetimeEligibility {
   const now = Date.now();
@@ -31,6 +32,8 @@ export function classifyLifetimeEligibility(input: Input): LifetimeEligibility {
     ((e.expiresAt ?? e.expires_at) == null || Date.parse(String(e.expiresAt ?? e.expires_at)) > now))) return { state: "covered", reason: "access_covered" };
   const active = input.subscriptions.filter((s) => typeof s.status === "string" && BILLABLE.has(s.status));
   if (!active.length) return { state: "eligible", priceCents: LIFETIME_OFFER.amountCents, currency: LIFETIME_OFFER.currency, creditCents: 0, renewalStopsAfterPayment: false };
+  // An unpaid bill is fixed in the billing portal, not by support.
+  if (active.some((s) => LAPSED_SUBSCRIPTION_STATUSES.has(s.status as string))) return { state: "billing_support", reason: "payment_issue" };
   if (!input.customerOwned || active.length !== 1 || input.catalogMatches.length !== 1 || input.catalogMatches[0] !== true) return { state: "billing_support", reason: "billing_support" };
   const sub = active[0];
   const items = sub.items?.data;

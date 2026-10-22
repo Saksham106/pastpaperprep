@@ -84,7 +84,9 @@ describe("CheckoutButtons", () => {
     fetchMock.mockResolvedValue({ ok: false, status: 409, json: async () => ({ code: "MANAGE_EXISTING_PLAN", manageUrl: "https://evil.example/", error: "Try My Account" }) });
     render(<CheckoutButton interval="monthly" productId="bank_ib_hl" navigate={navigate} />);
     fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
-    expect(await screen.findByRole("alert")).toHaveTextContent("Try My Account");
+    expect(await screen.findByRole("alert")).toHaveTextContent("Change your current plan from your subscription page.");
+    expect(screen.getByRole("link", { name: "Manage subscription" })).toHaveAttribute("href", "/account/subscription");
+    expect(screen.queryByText("Try My Account")).not.toBeInTheDocument();
     expect(navigate).not.toHaveBeenCalled();
   });
 
@@ -121,8 +123,8 @@ describe("CheckoutButtons", () => {
     fireEvent.click(monthly);
     expect(fetchMock).toHaveBeenCalledTimes(1);
 
-    resolveFetch({ ok: false, status: 503, json: async () => ({ error: "Billing is not available yet" }) });
-    expect(await screen.findByRole("alert")).toHaveTextContent("Billing is not available yet");
+    resolveFetch({ ok: false, status: 503, json: async () => ({ error: "Billing is not available yet", code: "BILLING_UNAVAILABLE" }) });
+    expect(await screen.findByRole("alert")).toHaveTextContent("Checkout isn’t available right now. Try again later.");
   });
 
   it("offers sign-in after an unauthenticated checkout request", async () => {
@@ -136,10 +138,62 @@ describe("CheckoutButtons", () => {
   });
 
   it("shows a fail-closed message while billing is disabled", async () => {
-    fetchMock.mockResolvedValue({ ok: false, status: 503, json: async () => ({ error: "Billing is not available yet" }) });
+    fetchMock.mockResolvedValue({ ok: false, status: 503, json: async () => ({ error: "Billing is not available yet", code: "BILLING_UNAVAILABLE" }) });
     render(<CheckoutButtons productId="bundle_all" />);
     fireEvent.click(screen.getByRole("button", { name: /choose annual/i }));
-    expect(await screen.findByRole("alert")).toHaveTextContent("Billing is not available yet");
+    expect(await screen.findByRole("alert")).toHaveTextContent("Checkout isn’t available right now. Try again later.");
+  });
+
+  it("replaces raw server conflict text with copy that links to the subscription page", async () => {
+    fetchMock.mockResolvedValue({ ok: false, status: 409, json: async () => ({ error: "Existing Stripe billing state conflicts with this bank purchase", code: "BILLING_CONFLICT" }) });
+    render(<CheckoutButton interval="monthly" productId="bank_ib_hl" />);
+    fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("You already have a subscription. Change it from your subscription page.");
+    expect(screen.getByRole("link", { name: "Manage subscription" })).toHaveAttribute("href", "/account/subscription");
+    expect(document.body).not.toHaveTextContent(/stripe billing state/i);
+    expect(analytics.trackProductEvent).toHaveBeenCalledWith("checkout_error", expect.objectContaining({ status: 409, errorCode: "BILLING_CONFLICT" }));
+  });
+
+  it("explains a changed access state without the server's wording", async () => {
+    fetchMock.mockResolvedValue({ ok: false, status: 409, json: async () => ({ error: "Access or billing state changed; manage it from your account", code: "ACCESS_CHANGED" }) });
+    render(<CheckoutButton interval="monthly" productId="bank_ib_hl" />);
+    fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Your access just changed. Refresh the page and try again.");
+    expect(document.body).not.toHaveTextContent(/billing state changed/i);
+  });
+
+  it("sends a lapsed subscriber to the billing portal to fix payment", async () => {
+    const navigate = vi.fn();
+    fetchMock.mockResolvedValueOnce({ ok: false, status: 409, json: async () => ({ error: "unpaid invoice", code: "PAYMENT_ISSUE" }) });
+    render(<CheckoutButton interval="monthly" productId="bank_ib_hl" navigate={navigate} />);
+    fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Your last payment didn’t go through. Update your payment method to continue.");
+
+    fetchMock.mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ url: "https://billing.stripe.com/p/session/test" }) });
+    fireEvent.click(screen.getByRole("button", { name: "Update payment" }));
+    await waitFor(() => expect(fetchMock).toHaveBeenLastCalledWith("/api/billing/portal", { method: "POST" }));
+    await waitFor(() => expect(navigate).toHaveBeenCalledWith("https://billing.stripe.com/p/session/test"));
+  });
+
+  it("shows a connection message instead of the browser's fetch error", async () => {
+    fetchMock.mockRejectedValue(new TypeError("Failed to fetch"));
+    render(<CheckoutButton interval="monthly" productId="bank_ib_hl" />);
+    fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Couldn’t reach checkout. Check your connection and try again.");
+    expect(document.body).not.toHaveTextContent("Failed to fetch");
+    expect(analytics.trackProductEvent).toHaveBeenCalledWith("checkout_error", expect.objectContaining({ errorCategory: "network_or_invalid_response" }));
+  });
+
+  it("keeps fixed validation messages and hides unknown 5xx text", async () => {
+    fetchMock.mockResolvedValueOnce({ ok: false, status: 400, json: async () => ({ error: "Select at least two banks" }) });
+    render(<CheckoutButton interval="monthly" productId="bundle_custom" selectedBankIds={["igcse"]} />);
+    fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Select at least two banks");
+
+    fetchMock.mockResolvedValueOnce({ ok: false, status: 500, json: async () => ({ error: "relation entitlements does not exist" }) });
+    fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
+    await waitFor(() => expect(screen.getByRole("alert")).toHaveTextContent("Checkout couldn’t open. Try again in a minute."));
+    expect(document.body).not.toHaveTextContent(/relation/);
   });
 });
 
@@ -278,6 +332,24 @@ describe("PlanCheckout", () => {
     render(<LifetimeCheckout authenticated />);
     expect(await screen.findByRole("button", { name: /access is already active/i })).toBeDisabled();
     expect(screen.queryByRole("button", { name: "Unlock lifetime access" })).not.toBeInTheDocument();
+  });
+
+  it("points a lapsed subscriber at the portal instead of Lifetime checkout", async () => {
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({ state: "billing_support", reason: "payment_issue" }) });
+    render(<LifetimeCheckout authenticated />);
+    expect(await screen.findByRole("button", { name: /lifetime checkout unavailable/i })).toBeDisabled();
+    expect(screen.getByRole("alert")).toHaveTextContent("Your last payment didn’t go through.");
+    expect(screen.getByRole("button", { name: "Update payment" })).toBeEnabled();
+  });
+
+  it("maps Lifetime checkout failures to short copy", async () => {
+    fetchMock
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ state: "eligible", priceCents: 29900, currency: "usd", creditCents: 0, renewalStopsAfterPayment: false }) })
+      .mockResolvedValueOnce({ ok: false, status: 409, json: async () => ({ error: "Lifetime checkout is unavailable while a subscription is billed to this account. Contact support to review your billing first.", code: "BILLING_SUPPORT" }) });
+    render(<LifetimeCheckout authenticated />);
+    fireEvent.click(await screen.findByRole("button", { name: "Unlock lifetime access" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Your billing needs a quick check before this purchase.");
+    expect(screen.getByRole("link", { name: "Email support" })).toHaveAttribute("href", "mailto:hello@pastpaperprep.com");
   });
 
   it("fails closed for a server-classified complex billing arrangement", async () => {

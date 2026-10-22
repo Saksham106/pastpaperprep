@@ -60,9 +60,22 @@ describe("lifetime conversion checkout and recovery", () => {
   m.pending.mockResolvedValue({ data: pending(), error: null }); const wrong = session(); wrong.line_items.data[0].price.unit_amount = 1; m.sessionRetrieve.mockResolvedValue(wrong);
   expect((await POST()).status).toBe(503); expect(m.create).not.toHaveBeenCalled();
  });
+ it("sends a lapsed subscriber to fix payment before reserving a conversion", async () => {
+  m.list.mockResolvedValue({ data: [{ ...subscription(), status: "past_due" }], has_more: false });
+  const response = await POST();
+  expect(response.status).toBe(409); expect(await response.json()).toMatchObject({ code: "PAYMENT_ISSUE" });
+  expect(m.rpc).not.toHaveBeenCalledWith("reserve_lifetime_conversion", expect.anything()); expect(m.create).not.toHaveBeenCalled();
+ });
+ it("codes support-review rejections and returns cancelled conversions to the Lifetime offer", async () => {
+  m.list.mockResolvedValue({ data: [subscription(), { ...subscription(), id: "sub_2" }], has_more: false });
+  expect(await (await POST()).json()).toMatchObject({ code: "BILLING_SUPPORT" });
+  m.list.mockResolvedValue({ data: [subscription()], has_more: false });
+  expect((await POST()).status).toBe(200);
+  expect(m.create).toHaveBeenCalledWith(expect.objectContaining({ cancel_url: "https://example.test/pricing?plan=lifetime&checkout=cancelled" }), expect.anything());
+ });
  it("aborts a known unattempted create when the target changed under reservation", async () => {
   m.retrieve.mockResolvedValue({ ...subscription(), status: "past_due" });
-  expect((await POST()).status).toBe(409); expect(m.create).not.toHaveBeenCalled();
+  const response = await POST(); expect(response.status).toBe(409); expect(await response.json()).toMatchObject({ code: "ACCESS_CHANGED" }); expect(m.create).not.toHaveBeenCalled();
   expect(m.rpc).toHaveBeenCalledWith("abort_lifetime_conversion", expect.objectContaining({ p_user_id: "user_1" }));
  });
 });
