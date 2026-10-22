@@ -12,7 +12,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createStripeClient } from "@/lib/stripe";
 import { expireOpenCheckoutSession, hasUnsettledLifetimePayment } from "@/lib/lifetime-payment-fence";
 import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
-import { lifetimeCheckoutCancelUrl } from "@/lib/stripe-checkout";
+import { lifetimeCheckoutCancelUrl, lifetimeCheckoutSuccessUrl } from "@/lib/stripe-checkout";
 
 export const runtime = "nodejs";
 
@@ -65,7 +65,7 @@ async function handlePOST() {
       if (page.has_more && !after) throw new Error("Subscription pagination did not advance");
     } while (after);
     if (await hasUnsettledLifetimePayment(stripe, customerId)) {
-      return NextResponse.json({ error: "Your Lifetime payment is still being confirmed. Refresh your account in a minute." }, { status: 409 });
+      return NextResponse.json({ error: "Your Lifetime payment is still being confirmed. Refresh your account in a minute.", code: "LIFETIME_PAYMENT_PENDING" }, { status: 409 });
     }
     const openSessions = [];
     let openAfter: string | undefined;
@@ -79,7 +79,9 @@ async function handlePOST() {
     for (const openSession of openSessions) {
       if (!resumableUrl && openSession.mode === "payment" && openSession.metadata?.purchase_type === "lifetime" &&
         openSession.metadata?.product_id === LIFETIME_OFFER.productId && openSession.metadata?.user_id === user.id &&
-        openSession.client_reference_id === user.id && openSession.customer === customerId) {
+        openSession.client_reference_id === user.id && openSession.customer === customerId &&
+        // A session with older return links (no session_id, bare cancel link) is replaced, not resumed.
+        openSession.cancel_url === lifetimeCheckoutCancelUrl(config.siteUrl)) {
         const lineItems = await stripe.checkout.sessions.listLineItems(openSession.id, { limit: 2, expand: ["data.price.product"] });
         const line = lineItems.data.length === 1 ? lineItems.data[0] : null;
         const product = line?.price?.product;
@@ -103,7 +105,7 @@ async function handlePOST() {
     const session = await stripe.checkout.sessions.create({
       mode: "payment", customer: customerId, client_reference_id: user.id,
       line_items: [{ quantity: 1, price_data: { currency: LIFETIME_OFFER.currency, unit_amount: LIFETIME_OFFER.amountCents, product_data: { name: "Lifetime All Access", description: "All current and future question banks. One-time payment; no subscription or renewals.", metadata: { purchase_type: "lifetime", product_id: LIFETIME_OFFER.productId } } } }],
-      success_url: `${config.siteUrl}/account?checkout=lifetime-pending`, cancel_url: lifetimeCheckoutCancelUrl(config.siteUrl),
+      success_url: lifetimeCheckoutSuccessUrl(config.siteUrl), cancel_url: lifetimeCheckoutCancelUrl(config.siteUrl),
       metadata, payment_intent_data: { metadata },
       integration_identifier: `pastpaperprep-lifetime-${randomUUID().replaceAll("-", "").slice(0, 8)}`,
     } as Parameters<typeof stripe.checkout.sessions.create>[0], { idempotencyKey: `pastpaperprep-lifetime-${intentId}`, timeout: 30_000 });

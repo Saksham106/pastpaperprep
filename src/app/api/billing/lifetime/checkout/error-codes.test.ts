@@ -6,6 +6,7 @@ const m = vi.hoisted(() => ({
   subscriptionsList: vi.fn(),
   sessionsList: vi.fn(),
   sessionsCreate: vi.fn(),
+  sessionsExpire: vi.fn(),
   conversion: vi.fn(),
 }));
 vi.mock("server-only", () => ({}));
@@ -17,7 +18,7 @@ vi.mock("@/lib/lifetime-conversion-checkout", () => ({ createLifetimeConversionC
 vi.mock("@/lib/stripe-config", () => ({ getStripeConfig: () => ({ secretKey: "test-fixture", siteUrl: "https://example.test" }), isStripeBillingEnabled: () => true }));
 vi.mock("@/lib/stripe", () => ({ createStripeClient: () => ({
   subscriptions: { list: m.subscriptionsList },
-  checkout: { sessions: { list: m.sessionsList, create: m.sessionsCreate } },
+  checkout: { sessions: { list: m.sessionsList, create: m.sessionsCreate, expire: m.sessionsExpire } },
 }) }));
 
 import { POST } from "@/app/api/billing/lifetime/checkout/route";
@@ -78,8 +79,31 @@ describe("POST /api/billing/lifetime/checkout error codes", () => {
     expect(await response.json()).toEqual({ error: "Lifetime checkout is temporarily unavailable", code: "CHECKOUT_UNAVAILABLE" });
   });
 
-  it("returns a cancelled Lifetime checkout to the Lifetime offer", async () => {
+  it("returns a cancelled Lifetime checkout to the Lifetime offer and reports the session on success", async () => {
     expect((await post()).status).toBe(200);
-    expect(m.sessionsCreate).toHaveBeenCalledWith(expect.objectContaining({ cancel_url: "https://example.test/pricing?plan=lifetime&checkout=cancelled" }), expect.anything());
+    expect(m.sessionsCreate).toHaveBeenCalledWith(expect.objectContaining({
+      cancel_url: "https://example.test/pricing?plan=lifetime&checkout=cancelled",
+      success_url: "https://example.test/account?checkout=lifetime-pending&session_id={CHECKOUT_SESSION_ID}",
+    }), expect.anything());
+  });
+
+  it("codes a Lifetime payment that is still being confirmed", async () => {
+    m.sessionsList.mockImplementation(async ({ status }: { status: string }) => ({ data: status === "complete" ? [{ id: "cs_paid", mode: "payment", metadata: { purchase_type: "lifetime" }, payment_intent: { status: "processing" } }] : [], has_more: false }));
+
+    const response = await post();
+
+    expect(response.status).toBe(409);
+    expect(await response.json()).toMatchObject({ code: "LIFETIME_PAYMENT_PENDING" });
+  });
+
+  it("replaces an open Lifetime session that has older return links instead of resuming it", async () => {
+    const old = { id: "cs_old", mode: "payment", url: "https://checkout.stripe.com/c/pay/cs_old", expires_at: 4_102_444_800, customer: "cus_1", client_reference_id: "user_1", cancel_url: "https://example.test/pricing?checkout=cancelled", metadata: { purchase_type: "lifetime", product_id: "lifetime_all_access", user_id: "user_1" } };
+    m.sessionsList.mockImplementation(async ({ status }: { status: string }) => ({ data: status === "open" ? [old] : [], has_more: false }));
+    m.sessionsExpire.mockResolvedValue({ id: "cs_old", status: "expired" });
+
+    const response = await post();
+
+    expect(await response.json()).toEqual({ url: "https://checkout.stripe.com/c/pay/cs_life" });
+    expect(m.sessionsExpire).toHaveBeenCalledWith("cs_old");
   });
 });

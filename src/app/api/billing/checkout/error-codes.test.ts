@@ -196,6 +196,15 @@ describe("POST /api/billing/checkout error codes", () => {
     expect(await failed.json()).toEqual({ error: "Checkout is temporarily unavailable", code: "CHECKOUT_UNAVAILABLE" });
   });
 
+  it("codes a Lifetime payment that is still being confirmed", async () => {
+    sessionsList.mockImplementation(async ({ status }: { status: string }) => ({ data: status === "complete" ? [{ id: "cs_life", mode: "payment", metadata: { purchase_type: "lifetime" }, payment_intent: { status: "processing" } }] : [], has_more: false }));
+
+    const response = await checkout({ interval: "monthly", productId: "bank_ib_sl" });
+
+    expect(response.status).toBe(409);
+    expect(await response.json()).toMatchObject({ code: "LIFETIME_PAYMENT_PENDING" });
+  });
+
   it("sends Stripe a cancel link that keeps the interval, product and banks", async () => {
     const response = await checkout({ interval: "annual", productId: "bundle_custom", selectedBankIds: ["igcse", "ib-sl"] });
 
@@ -205,3 +214,67 @@ describe("POST /api/billing/checkout error codes", () => {
     expect(Object.fromEntries(cancelUrl.searchParams)).toEqual({ interval: "annual", product: "bundle_custom", banks: "ib-sl,igcse", checkout: "cancelled" });
   });
 });
+
+// Regression (owner review of 42a22145): six-plus banks normalise to bundle_all, so reuse matched an
+// open session whose cancel link restored the first selection.
+describe("POST /api/billing/checkout open-session reuse keeps the picked banks", () => {
+  type FakeSession = { id: string; status: string; url: string; expires_at: number; cancel_url: string; metadata: Record<string, string> };
+  let open: FakeSession[];
+  let created: number;
+  const sixBanks = ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"];
+  const changedSix = ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-chemistry-hl"];
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    billingEnabled = true;
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery());
+    userRpc.mockResolvedValue({ data: [], error: null });
+    mockAdminRpc("cus_existing");
+    getCheckoutReferral.mockResolvedValue(null);
+    subscriptionsList.mockResolvedValue({ data: [] });
+    open = [];
+    created = 0;
+    sessionsList.mockImplementation(async ({ status }: { status: string }) => ({ data: status === "open" ? [...open] : [], has_more: false }));
+    sessionsCreate.mockImplementation(async (params: { cancel_url: string; metadata: Record<string, string> }) => {
+      created += 1;
+      const session = { id: `cs_${created}`, status: "open", url: `https://checkout.stripe.com/c/pay/cs_${created}`, expires_at: 4_102_444_800, cancel_url: params.cancel_url, metadata: params.metadata };
+      open.push(session);
+      return session;
+    });
+    sessionsExpire.mockImplementation(async (id: string) => {
+      open = open.filter((session) => session.id !== id);
+      return { id, status: "expired" };
+    });
+  });
+
+  const cancelBanks = () => new URL(sessionsCreate.mock.calls.at(-1)![0].cancel_url).searchParams.get("banks");
+
+  it("replaces the open session when the six-bank selection changes", async () => {
+    const first = await (await checkout({ interval: "annual", productId: "bundle_custom", selectedBankIds: sixBanks })).json();
+    const second = await (await checkout({ interval: "annual", productId: "bundle_custom", selectedBankIds: changedSix })).json();
+
+    expect(sessionsCreate).toHaveBeenCalledTimes(2);
+    expect(second.url).not.toBe(first.url);
+    expect(sessionsExpire).toHaveBeenCalledWith("cs_1");
+    expect(cancelBanks()?.split(",")).toContain("ib-chemistry-hl");
+  });
+
+  it("does not hand a builder selection the session opened from direct All Access", async () => {
+    await checkout({ interval: "annual", productId: "bundle_all" });
+    await checkout({ interval: "annual", productId: "bundle_custom", selectedBankIds: sixBanks });
+
+    expect(sessionsCreate).toHaveBeenCalledTimes(2);
+    expect(cancelBanks()?.split(",").sort()).toEqual([...sixBanks].sort());
+  });
+
+  it("still resumes the same selection instead of opening another session", async () => {
+    const first = await (await checkout({ interval: "annual", productId: "bundle_custom", selectedBankIds: sixBanks })).json();
+    const again = await (await checkout({ interval: "annual", productId: "bundle_custom", selectedBankIds: [...sixBanks].reverse() })).json();
+
+    expect(again.url).toBe(first.url);
+    expect(sessionsCreate).toHaveBeenCalledTimes(1);
+    expect(sessionsExpire).not.toHaveBeenCalled();
+  });
+});
+

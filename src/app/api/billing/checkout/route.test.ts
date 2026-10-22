@@ -829,6 +829,7 @@ describe("POST /api/billing/checkout", () => {
       status: "open",
       expires_at: 4_102_444_800,
       url: "https://checkout.stripe.com/c/pay/cs_open",
+      cancel_url: "https://pastpaperprep.com/pricing?interval=annual&product=bundle_all&checkout=cancelled",
       metadata: {
         user_id: user.id,
         product_id: "bundle_all",
@@ -870,6 +871,7 @@ describe("POST /api/billing/checkout", () => {
           status: "open",
           expires_at: 4_102_444_800,
           url: "https://checkout.stripe.com/c/pay/cs_matching",
+          cancel_url: "https://pastpaperprep.com/pricing?interval=annual&product=bundle_all&checkout=cancelled",
           metadata: { user_id: user.id, product_id: "bundle_all", billing_interval: "annual", price_id: "price_all_annual" },
         }],
         has_more: false,

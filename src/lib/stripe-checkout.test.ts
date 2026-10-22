@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { checkoutCancelUrl, lifetimeCheckoutCancelUrl, startCheckout } from "@/lib/stripe-checkout";
+import { checkoutCancelUrl, lifetimeCheckoutCancelUrl, lifetimeCheckoutSuccessUrl, startCheckout } from "@/lib/stripe-checkout";
 import type { StripeConfig } from "@/lib/stripe-config";
 
 const config: StripeConfig = {
@@ -40,7 +40,7 @@ describe("Stripe checkout orchestration", () => {
       userId: user.id,
       interval: "annual",
       productId: "bundle_all",
-      successUrl: "https://pastpaperprep.com/account?checkout=success",
+      successUrl: "https://pastpaperprep.com/account?checkout=success&session_id={CHECKOUT_SESSION_ID}",
       cancelUrl: "https://pastpaperprep.com/pricing?interval=annual&product=bundle_all&checkout=cancelled",
     });
   });
@@ -131,5 +131,6 @@ describe("Stripe checkout orchestration", () => {
     expect(checkoutCancelUrl("https://pastpaperprep.com", { interval: "annual", productId: "bundle_custom", bankIds: ["igcse", "ib-hl"] }))
       .toBe("https://pastpaperprep.com/pricing?interval=annual&product=bundle_custom&banks=ib-hl%2Cigcse&checkout=cancelled");
     expect(lifetimeCheckoutCancelUrl("https://pastpaperprep.com")).toBe("https://pastpaperprep.com/pricing?plan=lifetime&checkout=cancelled");
+    expect(lifetimeCheckoutSuccessUrl("https://pastpaperprep.com")).toBe("https://pastpaperprep.com/account?checkout=lifetime-pending&session_id={CHECKOUT_SESSION_ID}");
   });
 });

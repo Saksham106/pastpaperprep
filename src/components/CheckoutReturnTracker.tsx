@@ -11,12 +11,13 @@ import {
 } from "@/lib/checkout-pending";
 import { trackProductEvent } from "@/lib/product-analytics";
 
-/** Drops `?checkout=` once reported, so reloading the page is not counted as another return. */
+/** Drops `?checkout=` (and Stripe's `session_id`) once reported, so reloading the page is not counted as another return. */
 export function clearCheckoutParam() {
   try {
     const url = new URL(window.location.href);
     if (!url.searchParams.has("checkout")) return;
     url.searchParams.delete("checkout");
+    url.searchParams.delete("session_id");
     window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
   } catch { /* address bar cleanup is cosmetic */ }
 }

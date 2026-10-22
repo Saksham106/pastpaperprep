@@ -12,7 +12,8 @@ import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
 import { getEntitlementBanks } from "@/lib/banks";
 import { createClient } from "@/lib/supabase/server";
 import { CheckoutReturnStatus } from "@/components/CheckoutReturnTracker";
-import { CHECKOUT_PENDING_COOKIE, readCheckoutReturn } from "@/lib/checkout-pending";
+import { CHECKOUT_PENDING_COOKIE } from "@/lib/checkout-pending";
+import { readCheckoutReturn } from "@/lib/checkout-return";
 
 export const metadata = { title: "Your account" };
 
@@ -20,9 +21,9 @@ export const metadata = { title: "Your account" };
 export default async function AccountPage({
   searchParams,
 }: {
-  searchParams: Promise<{ checkout?: string | string[] }>;
+  searchParams: Promise<{ checkout?: string | string[]; session_id?: string | string[] }>;
 }) {
-  const checkout = (await searchParams).checkout;
+  const { checkout, session_id: sessionId } = await searchParams;
   const supabase = await createClient();
   const { data: claimsData } = await supabase.auth.getClaims();
 
@@ -47,7 +48,13 @@ export default async function AccountPage({
   const entitlements = accessResult.rows as AccessEntitlement[];
   const hasAnyBankAccess = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
   // The URL marker is stripped on arrival; the cookie keeps the pending state across refreshes.
-  const checkoutReturn = readCheckoutReturn(checkout, (await cookies()).get(CHECKOUT_PENDING_COOKIE)?.value, entitlements);
+  const checkoutReturn = await readCheckoutReturn({
+    urlStatus: checkout,
+    urlSessionId: sessionId,
+    cookieValue: (await cookies()).get(CHECKOUT_PENDING_COOKIE)?.value,
+    entitlements,
+    userId: claimsData.claims.sub,
+  });
 
   return (
     <section className="account-page account-overview-page">

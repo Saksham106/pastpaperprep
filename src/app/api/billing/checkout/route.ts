@@ -241,12 +241,14 @@ async function handlePOST(request: Request) {
             : "Existing Stripe billing state conflicts with this bank purchase");
         }
         if (await hasUnsettledLifetimePayment(stripe, input.customerId)) {
-          throw new BillingStateConflictError("Your Lifetime payment is still being confirmed. Refresh your account in a minute.");
+          throw new BillingStateConflictError("Your Lifetime payment is still being confirmed. Refresh your account in a minute.", "LIFETIME_PAYMENT_PENDING");
         }
         const minimumUsableExpiry = Math.floor(Date.now() / 1000) + 60;
-        const matchingOpenSession = openSessionData.find(({ expires_at, metadata }) => (
+        const matchingOpenSession = openSessionData.find(({ expires_at, metadata, cancel_url: cancelUrl }) => (
           // A paid bundle's consent belongs to this newly reserved intent, not an earlier Checkout Session.
           (!paidBundle || metadata?.billing_intent_id === intentId)
+          // Six-plus banks all bill as All Access; only the cancel link remembers which banks were picked.
+          && cancelUrl === input.cancelUrl
           && typeof expires_at === "number"
           && expires_at > minimumUsableExpiry
           && metadata?.user_id === input.userId

@@ -10,7 +10,7 @@ import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { LIFETIME_OFFER } from "@/lib/lifetime-offer";
 import { classifyLifetimeEligibility } from "@/lib/lifetime-eligibility";
 import { LAPSED_SUBSCRIPTION_STATUSES } from "@/lib/checkout-errors";
-import { lifetimeCheckoutCancelUrl } from "@/lib/stripe-checkout";
+import { lifetimeCheckoutCancelUrl, lifetimeCheckoutSuccessUrl } from "@/lib/stripe-checkout";
 
 export const runtime = "nodejs";
 const NO_STORE = { "Cache-Control": "private, no-store, max-age=0" };
@@ -27,7 +27,7 @@ function validLifetimeSession(session: Stripe.Checkout.Session, userId: string, 
 }
 function checkoutParams(userId: string, customerId: string, intentId: string, expiresSeconds: number, siteUrl: string): Stripe.Checkout.SessionCreateParams {
  const metadata = { user_id: userId, product_id: LIFETIME_OFFER.productId, purchase_type: "lifetime", billing_intent_id: intentId, conversion_intent_id: intentId };
- return { mode: "payment", customer: customerId, client_reference_id: userId, line_items: [{ quantity: 1, price_data: { currency: LIFETIME_OFFER.currency, unit_amount: LIFETIME_OFFER.amountCents, product_data: { name: "Lifetime All Access", description: "One-time purchase; subscription renewals stop after confirmed payment.", metadata: { purchase_type: "lifetime", product_id: LIFETIME_OFFER.productId } } } }], success_url: `${siteUrl}/account?checkout=lifetime-pending`, cancel_url: lifetimeCheckoutCancelUrl(siteUrl), expires_at: expiresSeconds, metadata, payment_intent_data: { metadata }, integration_identifier: `pastpaperprep-lifetime-${intentId.replaceAll("-", "").slice(0, 8)}` } as Stripe.Checkout.SessionCreateParams;
+ return { mode: "payment", customer: customerId, client_reference_id: userId, line_items: [{ quantity: 1, price_data: { currency: LIFETIME_OFFER.currency, unit_amount: LIFETIME_OFFER.amountCents, product_data: { name: "Lifetime All Access", description: "One-time purchase; subscription renewals stop after confirmed payment.", metadata: { purchase_type: "lifetime", product_id: LIFETIME_OFFER.productId } } } }], success_url: lifetimeCheckoutSuccessUrl(siteUrl), cancel_url: lifetimeCheckoutCancelUrl(siteUrl), expires_at: expiresSeconds, metadata, payment_intent_data: { metadata }, integration_identifier: `pastpaperprep-lifetime-${intentId.replaceAll("-", "").slice(0, 8)}` } as Stripe.Checkout.SessionCreateParams;
 }
 export async function createLifetimeConversionCheckout() {
   const supabase = await createClient();
