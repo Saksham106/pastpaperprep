@@ -308,8 +308,14 @@ async function handlePOST(request: Request) {
       },
     });
 
-    // Retain the lease while this Checkout Session is open. The next request
-    // must wait for lease expiry and then inspect open sessions at Stripe.
+    // The lease only serialises eligibility checks and session creation. Holding
+    // it while Stripe Checkout is open blocked buyers who pressed Back and chose
+    // another plan; the next request expires any other open session instead.
+    const { error: releaseError } = await admin.rpc("release_billing_checkout", {
+      p_user_id: user.id,
+      p_intent_id: intentId,
+    });
+    if (releaseError) console.error("Stripe checkout reservation release failed", safeBillingError(releaseError));
     return NextResponse.json({ url });
   } catch (error) {
     if (reservation && !sessionCreationAttempted) {

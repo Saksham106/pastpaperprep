@@ -27,6 +27,7 @@ async function handlePOST() {
   const intentId = randomUUID();
   let reserved = false;
   let sessionAttempted = false;
+  let sessionCreated = false;
   try {
     const { data: reservation, error: reserveError } = await admin.rpc("reserve_billing_checkout", { p_user_id: user.id, p_intent_id: intentId });
     if (reserveError) throw reserveError;
@@ -90,12 +91,15 @@ async function handlePOST() {
       integration_identifier: `pastpaperprep-lifetime-${randomUUID().replaceAll("-", "").slice(0, 8)}`,
     } as Parameters<typeof stripe.checkout.sessions.create>[0], { idempotencyKey: `pastpaperprep-lifetime-${intentId}`, timeout: 30_000 });
     if (!session.url) throw new Error("Stripe did not return checkout URL");
+    sessionCreated = true;
     return NextResponse.json({ url: session.url });
   } catch (error) {
     console.error("Lifetime Checkout failed", error instanceof Error ? { name: error.name, message: error.message } : { type: typeof error });
     return NextResponse.json({ error: "Lifetime checkout is temporarily unavailable" }, { status: 503 });
   } finally {
-    if (reserved && !sessionAttempted) await admin.rpc("release_billing_checkout", { p_user_id: user.id, p_intent_id: intentId });
+    // Release once the session exists too: a lease held while Checkout is open
+    // blocks a buyer who presses Back and picks a subscription instead.
+    if (reserved && (!sessionAttempted || sessionCreated)) await admin.rpc("release_billing_checkout", { p_user_id: user.id, p_intent_id: intentId });
   }
 }
 

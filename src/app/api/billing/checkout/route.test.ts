@@ -289,7 +289,58 @@ describe("POST /api/billing/checkout", () => {
       p_user_id: user.id,
       p_intent_id: intentId,
     });
-    expect(adminRpc.mock.calls.some(([functionName]) => functionName === "release_billing_checkout")).toBe(false);
+    const releaseCall = adminRpc.mock.calls.findIndex(([functionName]) => functionName === "release_billing_checkout");
+    expect(adminRpc.mock.calls[releaseCall]?.[1]).toEqual({ p_user_id: user.id, p_intent_id: intentId });
+    expect(adminRpc.mock.invocationCallOrder[releaseCall]).toBeGreaterThan(sessionsCreate.mock.invocationCallOrder[0]);
+  });
+
+  it("lets a buyer who backed out of One Bank checkout start Build your plan straight away", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    let heldIntent: unknown = null;
+    adminRpc.mockImplementation(async (functionName: string, args?: Record<string, unknown>) => {
+      if (functionName === "reserve_billing_checkout") {
+        if (heldIntent) return { data: false, error: null };
+        heldIntent = args?.p_intent_id;
+        return { data: true, error: null };
+      }
+      if (functionName === "release_billing_checkout") {
+        const released = heldIntent === args?.p_intent_id;
+        if (released) heldIntent = null;
+        return { data: released, error: null };
+      }
+      if (functionName === "confirm_billing_checkout") return { data: true, error: null };
+      if (functionName === "get_stripe_customer_id") return { data: "cus_existing", error: null };
+      return { data: null, error: new Error("Unexpected billing RPC") };
+    });
+    sessionsCreate
+      .mockResolvedValueOnce({ id: "cs_one_bank", url: "https://checkout.stripe.com/c/pay/cs_one_bank" })
+      .mockResolvedValueOnce({ id: "cs_bundle", url: "https://checkout.stripe.com/c/pay/cs_bundle" });
+
+    const first = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ interval: "monthly", productId: "bank_ib_sl" }),
+    }));
+    expect(first.status).toBe(200);
+
+    // The buyer pressed Back on Stripe Checkout, so that session is still open.
+    sessionsList.mockResolvedValue({ data: [{
+      id: "cs_one_bank",
+      status: "open",
+      expires_at: 4_102_444_800,
+      url: "https://checkout.stripe.com/c/pay/cs_one_bank",
+      metadata: { user_id: user.id, product_id: "bank_ib_sl", billing_interval: "monthly", price_id: "price_single_monthly" },
+    }] });
+    const second = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ interval: "monthly", productId: "bundle_custom", selectedBankIds: ["ib-sl", "igcse"] }),
+    }));
+
+    expect(second.status).toBe(200);
+    await expect(second.json()).resolves.toEqual({ url: "https://checkout.stripe.com/c/pay/cs_bundle" });
+    expect(sessionsExpire).toHaveBeenCalledWith("cs_one_bank");
+    expect(sessionsExpire.mock.invocationCallOrder[0]).toBeLessThan(sessionsCreate.mock.invocationCallOrder[1]);
+    expect(heldIntent).toBeNull();
   });
 
   it("uses account-bound referral instead of a browser cookie for checkout and subscription metadata", async () => {
@@ -558,7 +609,7 @@ describe("POST /api/billing/checkout", () => {
     }), expect.any(Object));
   });
 
-  it("keeps a successful session's reservation even if a release RPC would fail", async () => {
+  it("still returns a created session's URL when releasing the reservation fails", async () => {
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     getUser.mockResolvedValue({ data: { user } });
     mockAdminRpc("cus_existing");
@@ -579,7 +630,7 @@ describe("POST /api/billing/checkout", () => {
 
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toEqual({ url: "https://checkout.stripe.com/session" });
-    expect(adminRpc.mock.calls.some(([functionName]) => functionName === "release_billing_checkout")).toBe(false);
+    expect(adminRpc).toHaveBeenCalledWith("release_billing_checkout", expect.objectContaining({ p_user_id: user.id }));
   });
 
   it("creates an unmapped Stripe customer with a stable idempotency key", async () => {
@@ -796,7 +847,7 @@ describe("POST /api/billing/checkout", () => {
     expect(sessionsList).toHaveBeenCalledWith({ customer: "cus_existing", status: "open", limit: 100 });
     expect(sessionsExpire).not.toHaveBeenCalled();
     expect(sessionsCreate).not.toHaveBeenCalled();
-    expect(adminRpc.mock.calls.some(([functionName]) => functionName === "release_billing_checkout")).toBe(false);
+    expect(adminRpc).toHaveBeenCalledWith("release_billing_checkout", expect.objectContaining({ p_user_id: user.id }));
   });
 
   it("paginates open Checkout Sessions before deciding whether to resume", async () => {
