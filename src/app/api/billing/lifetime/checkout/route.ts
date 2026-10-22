@@ -10,6 +10,7 @@ import { LAPSED_SUBSCRIPTION_STATUSES } from "@/lib/checkout-errors";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { createStripeClient } from "@/lib/stripe";
+import { expireOpenCheckoutSession, hasUnsettledLifetimePayment } from "@/lib/lifetime-payment-fence";
 import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { lifetimeCheckoutCancelUrl } from "@/lib/stripe-checkout";
 
@@ -29,6 +30,7 @@ async function handlePOST() {
   const intentId = randomUUID();
   let reserved = false;
   let sessionAttempted = false;
+  let sessionCreated = false;
   try {
     const { data: reservation, error: reserveError } = await admin.rpc("reserve_billing_checkout", { p_user_id: user.id, p_intent_id: intentId });
     if (reserveError) throw reserveError;
@@ -62,13 +64,22 @@ async function handlePOST() {
       after = page.has_more ? page.data.at(-1)?.id : undefined;
       if (page.has_more && !after) throw new Error("Subscription pagination did not advance");
     } while (after);
+    if (await hasUnsettledLifetimePayment(stripe, customerId)) {
+      return NextResponse.json({ error: "Your Lifetime payment is still being confirmed. Refresh your account in a minute." }, { status: 409 });
+    }
+    const openSessions = [];
     let openAfter: string | undefined;
     do {
       const openPage = await stripe.checkout.sessions.list({ customer: customerId, status: "open", limit: 100, ...(openAfter ? { starting_after: openAfter } : {}) });
-      for (const openSession of openPage.data) {
-        if (openSession.mode !== "payment" || openSession.metadata?.purchase_type !== "lifetime" ||
-          openSession.metadata?.product_id !== LIFETIME_OFFER.productId || openSession.metadata?.user_id !== user.id ||
-          openSession.client_reference_id !== user.id || openSession.customer !== customerId) continue;
+      openSessions.push(...openPage.data);
+      openAfter = openPage.has_more ? openPage.data.at(-1)?.id : undefined;
+      if (openPage.has_more && !openAfter) throw new Error("Open Checkout pagination did not advance");
+    } while (openAfter);
+    let resumableUrl: string | undefined;
+    for (const openSession of openSessions) {
+      if (!resumableUrl && openSession.mode === "payment" && openSession.metadata?.purchase_type === "lifetime" &&
+        openSession.metadata?.product_id === LIFETIME_OFFER.productId && openSession.metadata?.user_id === user.id &&
+        openSession.client_reference_id === user.id && openSession.customer === customerId) {
         const lineItems = await stripe.checkout.sessions.listLineItems(openSession.id, { limit: 2, expand: ["data.price.product"] });
         const line = lineItems.data.length === 1 ? lineItems.data[0] : null;
         const product = line?.price?.product;
@@ -78,13 +89,15 @@ async function handlePOST() {
           line.price.currency === LIFETIME_OFFER.currency && !line.price.recurring &&
           productMetadata?.purchase_type === "lifetime" && productMetadata?.product_id === LIFETIME_OFFER.productId;
         if (matchesOffer && openSession.url && openSession.expires_at > Math.floor(Date.now() / 1000) + 60) {
-          return NextResponse.json({ url: openSession.url });
+          resumableUrl = openSession.url;
+          continue;
         }
-        await stripe.checkout.sessions.expire(openSession.id, {}, { idempotencyKey: `pastpaperprep-expire-lifetime-${openSession.id}` });
       }
-      openAfter = openPage.has_more ? openPage.data.at(-1)?.id : undefined;
-      if (openPage.has_more && !openAfter) throw new Error("Open Checkout pagination did not advance");
-    } while (openAfter);
+      // Any other open Checkout for this customer, including an abandoned
+      // subscription one, must not stay payable beside Lifetime.
+      await expireOpenCheckoutSession(stripe, openSession.id);
+    }
+    if (resumableUrl) return NextResponse.json({ url: resumableUrl });
     sessionAttempted = true;
     const metadata = { user_id: user.id, product_id: LIFETIME_OFFER.productId, purchase_type: "lifetime", billing_intent_id: intentId };
     const session = await stripe.checkout.sessions.create({
@@ -95,12 +108,15 @@ async function handlePOST() {
       integration_identifier: `pastpaperprep-lifetime-${randomUUID().replaceAll("-", "").slice(0, 8)}`,
     } as Parameters<typeof stripe.checkout.sessions.create>[0], { idempotencyKey: `pastpaperprep-lifetime-${intentId}`, timeout: 30_000 });
     if (!session.url) throw new Error("Stripe did not return checkout URL");
+    sessionCreated = true;
     return NextResponse.json({ url: session.url });
   } catch (error) {
     console.error("Lifetime Checkout failed", error instanceof Error ? { name: error.name, message: error.message } : { type: typeof error });
     return NextResponse.json({ error: "Lifetime checkout is temporarily unavailable", code: "CHECKOUT_UNAVAILABLE" }, { status: 503 });
   } finally {
-    if (reserved && !sessionAttempted) await admin.rpc("release_billing_checkout", { p_user_id: user.id, p_intent_id: intentId });
+    // Release once the session exists too: a lease held while Checkout is open
+    // blocks a buyer who presses Back and picks a subscription instead.
+    if (reserved && (!sessionAttempted || sessionCreated)) await admin.rpc("release_billing_checkout", { p_user_id: user.id, p_intent_id: intentId });
   }
 }
 

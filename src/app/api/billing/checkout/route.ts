@@ -11,6 +11,7 @@ import { LAPSED_SUBSCRIPTION_STATUSES, type CheckoutErrorCode } from "@/lib/chec
 import { getBillingPlan, getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { readEditableCurrentPlan } from "@/lib/account-plan-target";
 import { createStripeClient } from "@/lib/stripe";
+import { expireOpenCheckoutSession, hasUnsettledLifetimePayment } from "@/lib/lifetime-payment-fence";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
@@ -239,6 +240,9 @@ async function handlePOST(request: Request) {
             ? "An existing Stripe subscription is connected to this account. Manage it at /account/subscription instead of starting a separate bill."
             : "Existing Stripe billing state conflicts with this bank purchase");
         }
+        if (await hasUnsettledLifetimePayment(stripe, input.customerId)) {
+          throw new BillingStateConflictError("Your Lifetime payment is still being confirmed. Refresh your account in a minute.");
+        }
         const minimumUsableExpiry = Math.floor(Date.now() / 1000) + 60;
         const matchingOpenSession = openSessionData.find(({ expires_at, metadata }) => (
           // A paid bundle's consent belongs to this newly reserved intent, not an earlier Checkout Session.
@@ -264,7 +268,7 @@ async function handlePOST(request: Request) {
           }
           return openSessionUrl;
         }
-        await Promise.all(openSessionData.map(({ id }) => stripe.checkout.sessions.expire(id)));
+        await Promise.all(openSessionData.map(({ id }) => expireOpenCheckoutSession(stripe, id)));
         const { data: checkoutConfirmed, error: confirmationError } = await admin.rpc(paidBundle ? "confirm_paid_bundle_billing_checkout" : addOnBank ? "confirm_addon_billing_checkout" : "confirm_billing_checkout", {
           p_user_id: user.id,
           p_intent_id: intentId,
@@ -317,8 +321,14 @@ async function handlePOST(request: Request) {
       },
     });
 
-    // Retain the lease while this Checkout Session is open. The next request
-    // must wait for lease expiry and then inspect open sessions at Stripe.
+    // The lease only serialises eligibility checks and session creation. Holding
+    // it while Stripe Checkout is open blocked buyers who pressed Back and chose
+    // another plan; the next request expires any other open session instead.
+    const { error: releaseError } = await admin.rpc("release_billing_checkout", {
+      p_user_id: user.id,
+      p_intent_id: intentId,
+    });
+    if (releaseError) console.error("Stripe checkout reservation release failed", safeBillingError(releaseError));
     return NextResponse.json({ url });
   } catch (error) {
     if (reservation && !sessionCreationAttempted) {
