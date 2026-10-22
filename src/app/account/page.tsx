@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { signOut } from "@/app/auth/actions";
 import { AccountPlanOverview } from "@/components/AccountPlanOverview";
@@ -10,7 +11,9 @@ import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
 import { getEntitlementBanks } from "@/lib/banks";
 import { createClient } from "@/lib/supabase/server";
-import { CheckoutReturnTracker } from "@/components/CheckoutReturnTracker";
+import { CheckoutReturnStatus } from "@/components/CheckoutReturnTracker";
+import { CHECKOUT_PENDING_COOKIE } from "@/lib/checkout-pending";
+import { readCheckoutReturn } from "@/lib/checkout-return";
 
 export const metadata = { title: "Your account" };
 
@@ -18,9 +21,9 @@ export const metadata = { title: "Your account" };
 export default async function AccountPage({
   searchParams,
 }: {
-  searchParams: Promise<{ checkout?: string | string[] }>;
+  searchParams: Promise<{ checkout?: string | string[]; session_id?: string | string[] }>;
 }) {
-  const checkout = (await searchParams).checkout;
+  const { checkout, session_id: sessionId } = await searchParams;
   const supabase = await createClient();
   const { data: claimsData } = await supabase.auth.getClaims();
 
@@ -44,6 +47,14 @@ export default async function AccountPage({
   }
   const entitlements = accessResult.rows as AccessEntitlement[];
   const hasAnyBankAccess = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
+  // The URL marker is stripped on arrival; the cookie keeps the pending state across refreshes.
+  const checkoutReturn = await readCheckoutReturn({
+    urlStatus: checkout,
+    urlSessionId: sessionId,
+    cookieValue: (await cookies()).get(CHECKOUT_PENDING_COOKIE)?.value,
+    entitlements,
+    userId: claimsData.claims.sub,
+  });
 
   return (
     <section className="account-page account-overview-page">
@@ -58,14 +69,8 @@ export default async function AccountPage({
         </form>
       </div>
 
-      {(checkout === "success" || checkout === "lifetime-pending") && <CheckoutReturnTracker status={checkout} />}
-      {checkout === "success" && (
-        <div className="account-checkout-status" role="status">
-          <strong>Finishing your plan setup.</strong>
-          <span>If you just completed checkout, your access should appear shortly. Refresh this page in a few seconds if it is not visible yet.</span>
-        </div>
-      )}
-      <article className="account-card"><AccountPlanOverview hasBankAccess={hasAnyBankAccess} /></article>
+      {checkoutReturn ? <CheckoutReturnStatus {...checkoutReturn} /> : null}
+      <article className="account-card"><AccountPlanOverview hasBankAccess={hasAnyBankAccess} setupPending={Boolean(checkoutReturn && !checkoutReturn.settled)} /></article>
       <section className="account-setting-row account-appearance-row" role="group" aria-label="Appearance">
         <div><strong>Appearance</strong><span>Choose light or dark mode.</span></div>
         <ThemeToggle showLabel />

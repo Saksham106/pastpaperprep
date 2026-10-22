@@ -21,6 +21,12 @@ describe("lifetime eligibility", () => {
   it("preserves free checkout eligibility", () => {
     expect(classifyLifetimeEligibility({ entitlements: [], lifetimeOwned: false, subscriptions: [], customerOwned: true, catalogMatches: [] }).state).toBe("eligible");
   });
+  it("sends lapsed subscriptions to the billing portal instead of support", () => {
+    for (const status of ["past_due", "unpaid", "incomplete"]) {
+      expect(classifyLifetimeEligibility({ entitlements: [], lifetimeOwned: false, subscriptions: [{ ...standard, status }], customerOwned: true, catalogMatches: [true] })).toEqual({ state: "billing_support", reason: "payment_issue" });
+    }
+    expect(classifyLifetimeEligibility({ entitlements: [], lifetimeOwned: false, subscriptions: [{ ...standard, status: "paused" }], customerOwned: true, catalogMatches: [true] })).toEqual({ state: "billing_support", reason: "billing_support" });
+  });
   it("fails closed for scheduled or stacked subscriptions", () => {
     expect(classifyLifetimeEligibility({ entitlements: [], lifetimeOwned: false, subscriptions: [{ ...standard, schedule: "sched_1" }], customerOwned: true, catalogMatches: [true] }).state).toBe("billing_support");
     expect(classifyLifetimeEligibility({ entitlements: [], lifetimeOwned: false, subscriptions: [standard, standard], customerOwned: true, catalogMatches: [true, true] }).state).toBe("billing_support");

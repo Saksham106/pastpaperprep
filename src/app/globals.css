@@ -895,6 +895,8 @@ main { min-height: 72vh; }
 .billing-actions .button { width: 100%; }
 .billing-actions > a, .billing-actions [role="alert"] { margin: 0; font-size: .84rem; }
 .billing-actions [role="alert"] { color: var(--danger); }
+.checkout-error { display: grid; gap: 8px; }
+.checkout-error [role="alert"] a { color: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
 .billing-actions.compact { width: fit-content; }
 .pricing-free-strip { margin-top: 18px; padding: 17px 19px; display: flex; align-items: center; justify-content: space-between; gap: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
 .pricing-free-strip > div { display: grid; gap: 2px; }

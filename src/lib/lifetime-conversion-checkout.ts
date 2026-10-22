@@ -9,12 +9,14 @@ import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { LIFETIME_OFFER } from "@/lib/lifetime-offer";
 import { classifyLifetimeEligibility } from "@/lib/lifetime-eligibility";
+import { LAPSED_SUBSCRIPTION_STATUSES } from "@/lib/checkout-errors";
+import { lifetimeCheckoutCancelUrl, lifetimeCheckoutSuccessUrl } from "@/lib/stripe-checkout";
 
 export const runtime = "nodejs";
 const NO_STORE = { "Cache-Control": "private, no-store, max-age=0" };
 const BILLABLE = new Set(["active", "trialing", "past_due", "unpaid", "paused", "incomplete"]);
 const RECOVERY_LIMIT = 100;
-const support = () => NextResponse.json({ error: "Billing requires support review" }, { status: 503, headers: NO_STORE });
+const support = () => NextResponse.json({ error: "Billing requires support review", code: "BILLING_SUPPORT" }, { status: 503, headers: NO_STORE });
 const sameSnapshot = (a: Record<string, unknown>, b: Record<string, unknown>) => ["priceId", "itemId", "quantity", "productId", "selectedBankIds", "interval", "periodStart", "periodEnd", "status", "customerId"].every((key) => JSON.stringify(a[key]) === JSON.stringify(b[key]));
 function validLifetimeSession(session: Stripe.Checkout.Session, userId: string, customerId: string, intentId: string) {
   const lines = session.line_items;
@@ -25,13 +27,13 @@ function validLifetimeSession(session: Stripe.Checkout.Session, userId: string, 
 }
 function checkoutParams(userId: string, customerId: string, intentId: string, expiresSeconds: number, siteUrl: string): Stripe.Checkout.SessionCreateParams {
  const metadata = { user_id: userId, product_id: LIFETIME_OFFER.productId, purchase_type: "lifetime", billing_intent_id: intentId, conversion_intent_id: intentId };
- return { mode: "payment", customer: customerId, client_reference_id: userId, line_items: [{ quantity: 1, price_data: { currency: LIFETIME_OFFER.currency, unit_amount: LIFETIME_OFFER.amountCents, product_data: { name: "Lifetime All Access", description: "One-time purchase; subscription renewals stop after confirmed payment.", metadata: { purchase_type: "lifetime", product_id: LIFETIME_OFFER.productId } } } }], success_url: `${siteUrl}/account?checkout=lifetime-pending`, cancel_url: `${siteUrl}/pricing?checkout=cancelled`, expires_at: expiresSeconds, metadata, payment_intent_data: { metadata }, integration_identifier: `pastpaperprep-lifetime-${intentId.replaceAll("-", "").slice(0, 8)}` } as Stripe.Checkout.SessionCreateParams;
+ return { mode: "payment", customer: customerId, client_reference_id: userId, line_items: [{ quantity: 1, price_data: { currency: LIFETIME_OFFER.currency, unit_amount: LIFETIME_OFFER.amountCents, product_data: { name: "Lifetime All Access", description: "One-time purchase; subscription renewals stop after confirmed payment.", metadata: { purchase_type: "lifetime", product_id: LIFETIME_OFFER.productId } } } }], success_url: lifetimeCheckoutSuccessUrl(siteUrl), cancel_url: lifetimeCheckoutCancelUrl(siteUrl), expires_at: expiresSeconds, metadata, payment_intent_data: { metadata }, integration_identifier: `pastpaperprep-lifetime-${intentId.replaceAll("-", "").slice(0, 8)}` } as Stripe.Checkout.SessionCreateParams;
 }
 export async function createLifetimeConversionCheckout() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user?.email) return NextResponse.json({ error: "Authentication required" }, { status: 401, headers: NO_STORE });
-  if (!isStripeBillingEnabled()) return NextResponse.json({ error: "Billing is not available yet" }, { status: 503, headers: NO_STORE });
+  if (!isStripeBillingEnabled()) return NextResponse.json({ error: "Billing is not available yet", code: "BILLING_UNAVAILABLE" }, { status: 503, headers: NO_STORE });
   const admin = createAdminClient();
   let sessionCreationAttempted = false;
   let reservedIntentId: string | null = null;
@@ -46,26 +48,27 @@ export async function createLifetimeConversionCheckout() {
     if (pendingConversion?.status === "paid") return support();
     const purchases = await admin.from("lifetime_purchases").select("status").eq("user_id", user.id).eq("status", "paid").limit(1);
     if (purchases.error) throw purchases.error;
-    if (purchases.data.length) return NextResponse.json({ error: "Lifetime All Access is already owned" }, { status: 409, headers: NO_STORE });
+    if (purchases.data.length) return NextResponse.json({ error: "Lifetime All Access is already owned", code: "LIFETIME_ACTIVE" }, { status: 409, headers: NO_STORE });
     const mapping = await admin.rpc("get_stripe_customer_id", { p_user_id: user.id });
     if (mapping.error) throw mapping.error;
     const customerId = typeof mapping.data === "string" ? mapping.data : null;
-    if (!customerId) return NextResponse.json({ error: "Lifetime conversion requires a verified Stripe customer" }, { status: 409, headers: NO_STORE });
+    if (!customerId) return NextResponse.json({ error: "Lifetime conversion requires a verified Stripe customer", code: "BILLING_SUPPORT" }, { status: 409, headers: NO_STORE });
     const listed = await stripe.subscriptions.list({ customer: customerId, status: "all", limit: 100 });
-    if (listed.has_more || listed.data.some((sub) => sub.customer !== customerId || (sub.metadata.user_id !== undefined && sub.metadata.user_id !== user.id))) return NextResponse.json({ error: "Billing requires support review" }, { status: 409, headers: NO_STORE });
+    if (listed.has_more || listed.data.some((sub) => sub.customer !== customerId || (sub.metadata.user_id !== undefined && sub.metadata.user_id !== user.id))) return NextResponse.json({ error: "Billing requires support review", code: "BILLING_SUPPORT" }, { status: 409, headers: NO_STORE });
     const subscriptions = listed.data.filter((sub) => BILLABLE.has(sub.status));
-    if (subscriptions.length !== 1) return NextResponse.json({ error: "No single convertible subscription was found" }, { status: 409, headers: NO_STORE });
+    if (subscriptions.length !== 1) return NextResponse.json({ error: "No single convertible subscription was found", code: "BILLING_SUPPORT" }, { status: 409, headers: NO_STORE });
     const sub = subscriptions[0];
+    if (LAPSED_SUBSCRIPTION_STATUSES.has(sub.status)) return NextResponse.json({ error: "A subscription on this account has an unpaid invoice. Update the payment method in the billing portal first.", code: "PAYMENT_ISSUE" }, { status: 409, headers: NO_STORE });
     let target;
-    try { target = readEditableCurrentPlan(sub, config); } catch { return NextResponse.json({ error: "Subscription requires support review" }, { status: 409, headers: NO_STORE }); }
-    if (sub.metadata.user_id !== user.id || sub.status !== "active" || sub.customer !== customerId || sub.cancel_at_period_end !== false || sub.cancel_at != null || sub.pending_update != null || sub.schedule != null) return NextResponse.json({ error: "Subscription requires support review" }, { status: 409, headers: NO_STORE });
+    try { target = readEditableCurrentPlan(sub, config); } catch { return NextResponse.json({ error: "Subscription requires support review", code: "BILLING_SUPPORT" }, { status: 409, headers: NO_STORE }); }
+    if (sub.metadata.user_id !== user.id || sub.status !== "active" || sub.customer !== customerId || sub.cancel_at_period_end !== false || sub.cancel_at != null || sub.pending_update != null || sub.schedule != null) return NextResponse.json({ error: "Subscription requires support review", code: "BILLING_SUPPORT" }, { status: 409, headers: NO_STORE });
     const item = sub.items.data[0];
     const catalog = await admin.rpc("get_checkout_price_catalog", { p_price_id: target.priceId });
-    if (catalog.error || !Array.isArray(catalog.data) || catalog.data.filter((row: { price_id?: unknown; product_id?: unknown; billing_interval?: unknown; active?: unknown; grandfathered?: unknown }) => row.price_id === target.priceId && row.product_id === target.productId && row.billing_interval === target.interval && (row.active === true || row.grandfathered === true)).length !== 1) return NextResponse.json({ error: "Subscription price requires support review" }, { status: 409, headers: NO_STORE });
+    if (catalog.error || !Array.isArray(catalog.data) || catalog.data.filter((row: { price_id?: unknown; product_id?: unknown; billing_interval?: unknown; active?: unknown; grandfathered?: unknown }) => row.price_id === target.priceId && row.product_id === target.productId && row.billing_interval === target.interval && (row.active === true || row.grandfathered === true)).length !== 1) return NextResponse.json({ error: "Subscription price requires support review", code: "BILLING_SUPPORT" }, { status: 409, headers: NO_STORE });
     const eligibility = classifyLifetimeEligibility({ entitlements: access.rows as never[], lifetimeOwned: false, subscriptions: [sub], customerOwned: true, catalogMatches: [true] });
-    if (eligibility.state !== "conversion_eligible") return NextResponse.json({ error: "Subscription requires support review" }, { status: 409, headers: NO_STORE });
+    if (eligibility.state !== "conversion_eligible") return NextResponse.json({ error: "Subscription requires support review", code: "BILLING_SUPPORT" }, { status: 409, headers: NO_STORE });
     const periods = { current_period_start: item.current_period_start, current_period_end: item.current_period_end };
-    if (!Number.isSafeInteger(periods.current_period_start) || !Number.isSafeInteger(periods.current_period_end)) return NextResponse.json({ error: "Subscription period requires support review" }, { status: 409, headers: NO_STORE });
+    if (!Number.isSafeInteger(periods.current_period_start) || !Number.isSafeInteger(periods.current_period_end)) return NextResponse.json({ error: "Subscription period requires support review", code: "BILLING_SUPPORT" }, { status: 409, headers: NO_STORE });
     const snapshot = { priceId: target.priceId, itemId: item.id, quantity: item.quantity, productId: target.productId, selectedBankIds: target.selectedBankIds ?? [], interval: target.interval, periodStart: new Date(periods.current_period_start * 1000).toISOString(), periodEnd: new Date(periods.current_period_end * 1000).toISOString(), status: sub.status, customerId };
     if (pendingConversion) {
       const stored = pendingConversion.subscription_snapshot as Record<string, unknown>;
@@ -110,13 +113,13 @@ export async function createLifetimeConversionCheckout() {
     const expiresAt = new Date(Date.now() + 31 * 60 * 1000);
     const reservation = await admin.rpc("reserve_lifetime_conversion", { p_user_id: user.id, p_intent_id: intentId, p_customer_id: customerId, p_subscription_id: sub.id, p_snapshot: snapshot, p_expires_at: expiresAt.toISOString() });
     if (reservation.error) throw reservation.error;
-    if (reservation.data !== true) return NextResponse.json({ error: "Another billing change is in progress" }, { status: 409, headers: NO_STORE });
+    if (reservation.data !== true) return NextResponse.json({ error: "Another billing change is in progress", code: "CHECKOUT_IN_PROGRESS" }, { status: 409, headers: NO_STORE });
     reservedIntentId = intentId;
     const current = await stripe.subscriptions.retrieve(sub.id, { expand: ["items.data.price"] });
     let currentTarget;
-    try { currentTarget = readEditableCurrentPlan(current, config); } catch { return NextResponse.json({ error: "Subscription changed; reload billing" }, { status: 409, headers: NO_STORE }); }
+    try { currentTarget = readEditableCurrentPlan(current, config); } catch { return NextResponse.json({ error: "Subscription changed; reload billing", code: "ACCESS_CHANGED" }, { status: 409, headers: NO_STORE }); }
     const currentPeriods = { current_period_start: current.items.data[0]?.current_period_start, current_period_end: current.items.data[0]?.current_period_end };
-    if (current.customer !== customerId || current.status !== "active" || JSON.stringify(currentTarget) !== JSON.stringify(target) || current.items.data[0].id !== item.id || currentPeriods.current_period_start !== periods.current_period_start || currentPeriods.current_period_end !== periods.current_period_end) return NextResponse.json({ error: "Subscription changed; reload billing" }, { status: 409, headers: NO_STORE });
+    if (current.customer !== customerId || current.status !== "active" || JSON.stringify(currentTarget) !== JSON.stringify(target) || current.items.data[0].id !== item.id || currentPeriods.current_period_start !== periods.current_period_start || currentPeriods.current_period_end !== periods.current_period_end) return NextResponse.json({ error: "Subscription changed; reload billing", code: "ACCESS_CHANGED" }, { status: 409, headers: NO_STORE });
     sessionCreationAttempted = true;
     const session = await stripe.checkout.sessions.create(checkoutParams(user.id, customerId, intentId, Math.floor(expiresAt.getTime() / 1000), config.siteUrl), { idempotencyKey: `pastpaperprep-lifetime-${intentId}`, timeout: 30_000 });
     if (!session.url) throw new Error("Stripe did not return checkout URL");
@@ -126,7 +129,7 @@ export async function createLifetimeConversionCheckout() {
     return NextResponse.json({ url: session.url }, { headers: NO_STORE });
   } catch (error) {
     console.error("Lifetime conversion checkout failed", error instanceof Error ? { name: error.name, message: error.message } : { type: typeof error });
-    return NextResponse.json({ error: "Lifetime checkout is temporarily unavailable" }, { status: 503, headers: NO_STORE });
+    return NextResponse.json({ error: "Lifetime checkout is temporarily unavailable", code: "CHECKOUT_UNAVAILABLE" }, { status: 503, headers: NO_STORE });
   } finally {
     if (reservedIntentId && !sessionCreationAttempted) {
       const aborted = await admin.rpc("abort_lifetime_conversion", { p_user_id: user.id, p_intent_id: reservedIntentId });

@@ -5,7 +5,10 @@ const track = vi.hoisted(() => vi.fn());
 vi.mock("@/lib/product-analytics", async (importOriginal) => ({ ...(await importOriginal<object>()), trackProductEvent: track }));
 
 import { PricingContent } from "@/components/PricingContent";
-import { CheckoutReturnTracker } from "@/components/CheckoutReturnTracker";
+import { CheckoutReturnStatus } from "@/components/CheckoutReturnTracker";
+
+vi.mock("next/navigation", () => ({ useRouter: () => ({ refresh: vi.fn() }) }));
+const pending = { status: "success" as const, startedAt: Date.parse("2026-10-22T12:00:00.000Z") };
 
 const eventsNamed = (name: string) => track.mock.calls.filter(([event]) => event === name);
 
@@ -26,14 +29,14 @@ describe("pricing and checkout funnel events", () => {
   });
 
   it("reports a completed checkout return once", () => {
-    const { rerender } = render(<CheckoutReturnTracker status="success" />);
-    rerender(<CheckoutReturnTracker status="success" />);
+    const { rerender } = render(<CheckoutReturnStatus pending={pending} settled={false} fromCheckout elapsedMs={0} />);
+    rerender(<CheckoutReturnStatus pending={pending} settled={false} fromCheckout elapsedMs={0} />);
     expect(eventsNamed("checkout_returned")).toEqual([["checkout_returned", { status: "success" }]]);
   });
 
   it("clears the checkout status from the address so a reload is not counted again", () => {
     window.history.replaceState({}, "", "/account?checkout=success&x=1");
-    render(<CheckoutReturnTracker status="success" />);
+    render(<CheckoutReturnStatus pending={pending} settled={false} fromCheckout elapsedMs={0} />);
     expect(window.location.search).toBe("?x=1");
     window.history.replaceState({}, "", "/pricing?checkout=cancelled");
     render(<PricingContent authenticated={false} hasPaidAccess={false} checkoutStatus="cancelled" />);

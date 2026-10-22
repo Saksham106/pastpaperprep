@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { startCheckout } from "@/lib/stripe-checkout";
+import { checkoutCancelUrl, lifetimeCheckoutCancelUrl, lifetimeCheckoutSuccessUrl, startCheckout } from "@/lib/stripe-checkout";
 import type { StripeConfig } from "@/lib/stripe-config";
 
 const config: StripeConfig = {
@@ -40,8 +40,8 @@ describe("Stripe checkout orchestration", () => {
       userId: user.id,
       interval: "annual",
       productId: "bundle_all",
-      successUrl: "https://pastpaperprep.com/account?checkout=success",
-      cancelUrl: "https://pastpaperprep.com/pricing?checkout=cancelled",
+      successUrl: "https://pastpaperprep.com/account?checkout=success&session_id={CHECKOUT_SESSION_ID}",
+      cancelUrl: "https://pastpaperprep.com/pricing?interval=annual&product=bundle_all&checkout=cancelled",
     });
   });
 
@@ -91,6 +91,7 @@ describe("Stripe checkout orchestration", () => {
       priceId: "price_custom_annual",
       quantity: 2,
       selectedBankIds: ["ib-sl", "igcse"],
+      cancelUrl: "https://pastpaperprep.com/pricing?interval=annual&product=bundle_custom&banks=ib-sl%2Cigcse&checkout=cancelled",
     }));
   });
 
@@ -104,5 +105,32 @@ describe("Stripe checkout orchestration", () => {
 
     await startCheckout({ interval: "monthly", productId: "bundle_custom", selectedBankIds: ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"], user, config }, dependencies);
     expect(dependencies.createSession).toHaveBeenCalledWith(expect.objectContaining({ productId: "bundle_all", priceId: "price_all_monthly", quantity: 1 }));
+    // Backing out of Stripe returns to the builder with all six picks, not to All Access.
+    const cancelUrl = new URL(dependencies.createSession.mock.calls[0][0].cancelUrl);
+    expect(Object.fromEntries(cancelUrl.searchParams)).toEqual({
+      interval: "monthly", product: "bundle_custom", banks: "ib-ai-hl,ib-ai-sl,ib-hl,ib-sl,igcse,igcse-additional", checkout: "cancelled",
+    });
+  });
+
+  it("returns a cancelled single-bank checkout to that bank and interval", async () => {
+    const dependencies = {
+      findCustomerId: vi.fn().mockResolvedValue("cus_existing"),
+      createCustomer: vi.fn(),
+      saveCustomer: vi.fn(),
+      createSession: vi.fn().mockResolvedValue("https://checkout.stripe.com/session"),
+    };
+
+    await startCheckout({ interval: "monthly", productId: "bank_ib_sl", user, config }, dependencies);
+
+    expect(dependencies.createSession).toHaveBeenCalledWith(expect.objectContaining({
+      cancelUrl: "https://pastpaperprep.com/pricing?interval=monthly&product=bank_ib_sl&checkout=cancelled",
+    }));
+  });
+
+  it("builds cancel links with sorted banks and a Lifetime return", () => {
+    expect(checkoutCancelUrl("https://pastpaperprep.com", { interval: "annual", productId: "bundle_custom", bankIds: ["igcse", "ib-hl"] }))
+      .toBe("https://pastpaperprep.com/pricing?interval=annual&product=bundle_custom&banks=ib-hl%2Cigcse&checkout=cancelled");
+    expect(lifetimeCheckoutCancelUrl("https://pastpaperprep.com")).toBe("https://pastpaperprep.com/pricing?plan=lifetime&checkout=cancelled");
+    expect(lifetimeCheckoutSuccessUrl("https://pastpaperprep.com")).toBe("https://pastpaperprep.com/account?checkout=lifetime-pending&session_id={CHECKOUT_SESSION_ID}");
   });
 });
