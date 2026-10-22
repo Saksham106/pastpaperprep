@@ -10,6 +10,7 @@ import { startCheckout } from "@/lib/stripe-checkout";
 import { getBillingPlan, getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { readEditableCurrentPlan } from "@/lib/account-plan-target";
 import { createStripeClient } from "@/lib/stripe";
+import { expireOpenCheckoutSession, hasUnsettledLifetimePayment } from "@/lib/lifetime-payment-fence";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
@@ -230,6 +231,9 @@ async function handlePOST(request: Request) {
             ? "An existing Stripe subscription is connected to this account. Manage it at /account/subscription instead of starting a separate bill."
             : "Existing Stripe billing state conflicts with this bank purchase");
         }
+        if (await hasUnsettledLifetimePayment(stripe, input.customerId)) {
+          throw new BillingStateConflictError("Your Lifetime payment is still being confirmed. Refresh your account in a minute.");
+        }
         const minimumUsableExpiry = Math.floor(Date.now() / 1000) + 60;
         const matchingOpenSession = openSessionData.find(({ expires_at, metadata }) => (
           // A paid bundle's consent belongs to this newly reserved intent, not an earlier Checkout Session.
@@ -255,7 +259,7 @@ async function handlePOST(request: Request) {
           }
           return openSessionUrl;
         }
-        await Promise.all(openSessionData.map(({ id }) => stripe.checkout.sessions.expire(id)));
+        await Promise.all(openSessionData.map(({ id }) => expireOpenCheckoutSession(stripe, id)));
         const { data: checkoutConfirmed, error: confirmationError } = await admin.rpc(paidBundle ? "confirm_paid_bundle_billing_checkout" : addOnBank ? "confirm_addon_billing_checkout" : "confirm_billing_checkout", {
           p_user_id: user.id,
           p_intent_id: intentId,

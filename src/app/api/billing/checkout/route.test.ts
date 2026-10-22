@@ -1014,4 +1014,71 @@ describe("POST /api/billing/checkout", () => {
     expect(sessionsCreate).toHaveBeenCalledOnce();
     expect(adminRpc.mock.calls.some(([functionName]) => functionName === "release_billing_checkout")).toBe(false);
   });
+
+  it("expires an abandoned Lifetime Checkout before issuing a subscription one", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    mockAdminRpc("cus_existing");
+    sessionsList.mockImplementation(async ({ status }: { status: string }) => ({ data: status === "open" ? [{
+      id: "cs_lifetime",
+      mode: "payment",
+      status: "open",
+      expires_at: 4_102_444_800,
+      url: "https://checkout.stripe.com/c/pay/cs_lifetime",
+      metadata: { user_id: user.id, product_id: "lifetime_all_access", purchase_type: "lifetime" },
+    }] : [] }));
+    sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/c/pay/cs_bank" });
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ interval: "monthly", productId: "bank_ib_sl" }),
+    }));
+
+    expect(response.status).toBe(200);
+    expect(sessionsExpire).toHaveBeenCalledWith("cs_lifetime");
+    expect(sessionsExpire.mock.invocationCallOrder[0]).toBeLessThan(sessionsCreate.mock.invocationCallOrder[0]);
+  });
+
+  it("refuses a subscription Checkout while a paid Lifetime purchase awaits fulfilment", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    mockAdminRpc("cus_existing");
+    sessionsList.mockImplementation(async ({ status }: { status: string }) => ({ data: status === "complete" ? [{
+      id: "cs_lifetime_paid",
+      mode: "payment",
+      status: "complete",
+      metadata: { user_id: user.id, purchase_type: "lifetime" },
+      payment_intent: { status: "succeeded", latest_charge: { refunded: false } },
+    }] : [] }));
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ interval: "monthly", productId: "bank_ib_sl" }),
+    }));
+
+    expect(response.status).toBe(409);
+    expect(sessionsCreate).not.toHaveBeenCalled();
+    expect(adminRpc).toHaveBeenCalledWith("release_billing_checkout", expect.objectContaining({ p_user_id: user.id }));
+  });
+
+  it("does not create a new Checkout when an older one cannot be confirmed expired", async () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    mockAdminRpc("cus_existing");
+    sessionsList.mockImplementation(async ({ status }: { status: string }) => ({ data: status === "open" ? [{
+      id: "cs_paying_elsewhere",
+      status: "open",
+      url: "https://checkout.stripe.com/c/pay/cs_paying_elsewhere",
+      metadata: { user_id: user.id, product_id: "bundle_all", billing_interval: "annual", price_id: "price_all_annual" },
+    }] : [] }));
+    sessionsExpire.mockResolvedValue({ id: "cs_paying_elsewhere", status: "complete" });
+
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ interval: "monthly", productId: "bank_ib_sl" }),
+    }));
+
+    expect(response.status).toBe(503);
+    expect(sessionsCreate).not.toHaveBeenCalled();
+  });
 });
