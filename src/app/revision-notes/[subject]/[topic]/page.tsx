@@ -6,6 +6,7 @@ import { getLandingManifest, topicPath } from "@/lib/search-landing";
 import { resolveSubject } from "@/lib/past-paper-pages";
 import { getGradeThresholds } from "@/lib/grade-thresholds";
 import type { BankSlug } from "@/lib/catalog";
+import { socialPreview } from "@/lib/seo";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ subject: 
     title: { absolute: topic.title },
     description: topic.description,
     alternates: { canonical: path },
-    openGraph: { url: path, type: "article" },
+    openGraph: { url: path, type: "article", ...socialPreview() },
   };
 }
 

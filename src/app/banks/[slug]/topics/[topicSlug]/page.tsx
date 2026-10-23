@@ -4,6 +4,7 @@ import { BankQuestionExplorer } from "@/components/BankQuestionExplorer";
 import { SearchDetail } from "@/components/SearchLanding";
 import { loadBankExplorer } from "@/lib/bank-explorer";
 import { getCatalogBank, getCatalogBanksForDisplay } from "@/lib/catalog";
+import { socialPreview } from "@/lib/seo";
 import {
   bankSearchName,
   getLandingManifest,
@@ -35,7 +36,7 @@ export async function generateMetadata({
         title: `${topic.label} Past Paper Questions – ${bankSearchName(bank)}`,
         description: `Practise ${topic.count.toLocaleString()} ${bankSearchName(bank)} ${topic.label} past-paper questions from ${bank.years}. Start with the free questions, check answers, and build a worksheet.`,
         alternates: { canonical: topicPath(bank.slug, topic) },
-        openGraph: { url: topicPath(bank.slug, topic) },
+        openGraph: { url: topicPath(bank.slug, topic), ...socialPreview(bank.qualification) },
       }
     : {};
 }

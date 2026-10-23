@@ -6,12 +6,13 @@ import { JsonLd } from "@/components/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Testimonial } from "@/components/Testimonial";
 import { ABOUT_TESTIMONIAL } from "@/lib/testimonials";
+import { socialPreview } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "About us",
   description: "What PastPaperPrep does, who it is for, how its question banks work, and how archive coverage is handled.",
   alternates: { canonical: "/about" },
-  openGraph: { url: "/about" },
+  openGraph: { url: "/about", ...socialPreview() },
 };
 
 /** Screenshots of the live site, October 2026 (public/product). */

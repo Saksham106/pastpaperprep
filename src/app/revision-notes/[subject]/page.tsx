@@ -4,6 +4,7 @@ import { RevisionNotesIndex } from "@/components/RevisionNotes";
 import { getNotesSubject, NOTES_SUBJECTS } from "@/lib/revision-notes";
 import { resolveSubject } from "@/lib/past-paper-pages";
 import { getGradeThresholds } from "@/lib/grade-thresholds";
+import { socialPreview } from "@/lib/seo";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ subject: 
     title: { absolute: `${subject.name} Revision Notes: All ${subject.topics.length} Topics` },
     description: `Free ${subject.name} revision notes for every syllabus topic, with Extended content marked, exam tips and links to real past-paper questions.`,
     alternates: { canonical: path },
-    openGraph: { url: path, type: "website" },
+    openGraph: { url: path, type: "website", ...socialPreview() },
   };
 }
 

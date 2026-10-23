@@ -19,6 +19,7 @@ import { generateMetadata as generateBankMetadata } from "@/app/banks/[slug]/pag
 import { generateMetadata as generateSyllabusMetadata } from "@/app/syllabus/[bankSlug]/page";
 import { metadata as igcseHubMetadata } from "@/app/cambridge-igcse/page";
 import { metadata as ibHubMetadata } from "@/app/ib/page";
+import { metadata as aboutMetadata } from "@/app/about/page";
 import { BANK_CATALOG } from "@/lib/catalog";
 import { subjectSearchName } from "@/lib/past-paper-seo";
 import { BANKS } from "@/lib/banks";
@@ -40,24 +41,30 @@ describe("canonical search metadata", () => {
     });
     expect(rootMetadata.openGraph).toMatchObject({
       images: [{
-        url: "/pastpaperprep-share.png",
+        url: "/social/do-better-igcse.png",
         width: 1200,
         height: 630,
         alt: expect.stringMatching(/PastPaperPrep/i),
       }],
+      videos: [{ url: "https://pastpaperprep.com/social/do-better-igcse.mp4", type: "video/mp4", width: 1200, height: 630 }],
     });
     expect(rootMetadata.twitter).toMatchObject({
       card: "summary_large_image",
-      images: ["/pastpaperprep-share.png"],
+      images: ["/social/do-better-igcse.png"],
     });
   });
 
-  it("ships the dedicated social card at the declared dimensions", () => {
-    const image = readFileSync(join(process.cwd(), "public/pastpaperprep-share.png"));
-    expect(image.subarray(1, 4).toString("ascii")).toBe("PNG");
-    expect(image.readUInt32BE(16)).toBe(1200);
-    expect(image.readUInt32BE(20)).toBe(630);
-    expect(image.byteLength).toBeLessThan(5_000_000);
+  it("ships the link-preview posters and looping videos at the declared size", () => {
+    for (const scale of ["igcse", "ib"]) {
+      const image = readFileSync(join(process.cwd(), `public/social/do-better-${scale}.png`));
+      expect(image.subarray(1, 4).toString("ascii")).toBe("PNG");
+      expect(image.readUInt32BE(16)).toBe(1200);
+      expect(image.readUInt32BE(20)).toBe(630);
+      // Messages caps a preview's image, icon and video at 10 MB combined.
+      const video = readFileSync(join(process.cwd(), `public/social/do-better-${scale}.mp4`));
+      expect(video.subarray(4, 8).toString("ascii")).toBe("ftyp");
+      expect(image.byteLength + video.byteLength).toBeLessThan(1_000_000);
+    }
   });
 
   it("gives the homepage and pricing page distinct canonical metadata", () => {
@@ -66,10 +73,11 @@ describe("canonical search metadata", () => {
     expect(homeMetadata.openGraph).toMatchObject({
       url: "/",
       type: "website",
-      images: [{ url: "/pastpaperprep-share.png", width: 1200, height: 630 }],
+      images: [{ url: "/social/do-better-igcse.png", width: 1200, height: 630 }],
+      videos: [{ url: "https://pastpaperprep.com/social/do-better-igcse.mp4" }],
     });
     expect(pricingMetadata.alternates?.canonical).toBe("/pricing");
-    expect(pricingMetadata.openGraph).toMatchObject({ images: [{ url: "/pastpaperprep-share.png" }] });
+    expect(pricingMetadata.openGraph).toMatchObject({ images: [{ url: "/social/do-better-igcse.png" }] });
     expect(pricingMetadata.description).toMatch(/IGCSE and IB Maths/i);
     expect(pricingMetadata.description).toMatch(/Chemistry/i);
     expect(pricingMetadata.description).toMatch(/Economics/i);
@@ -77,6 +85,7 @@ describe("canonical search metadata", () => {
 
   it("canonicalizes every filterable bank to its clean landing URL", async () => {
     for (const bank of BANKS) {
+      const scale = BANK_CATALOG.find(({ slug }) => slug === bank.slug)?.qualification === "IB Diploma" ? "ib" : "igcse";
       const metadata = await generateBankMetadata({ params: Promise.resolve({ slug: bank.slug }) });
       const title = typeof metadata.title === "string" ? metadata.title : (metadata.title as { absolute: string }).absolute;
       expect(title).toMatch(/ Topical Past Papers?(?: Questions)?$/);
@@ -86,10 +95,19 @@ describe("canonical search metadata", () => {
       expect(metadata.openGraph).toMatchObject({
         url: `/banks/${bank.slug}`,
         type: "website",
-        images: [{ url: "/pastpaperprep-share.png" }],
+        images: [{ url: `/social/do-better-${scale}.png` }],
+        videos: [{ url: `https://pastpaperprep.com/social/do-better-${scale}.mp4` }],
       });
-      expect(metadata.twitter).toMatchObject({ images: ["/pastpaperprep-share.png"] });
+      expect(metadata.twitter).toMatchObject({ images: [`/social/do-better-${scale}.png`] });
     }
+  });
+
+  it("keeps the link preview on pages that set their own openGraph url", () => {
+    expect(aboutMetadata.openGraph).toMatchObject({
+      url: "/about",
+      images: [{ url: "/social/do-better-igcse.png" }],
+      videos: [{ url: "https://pastpaperprep.com/social/do-better-igcse.mp4" }],
+    });
   });
 
   it("keeps login and authenticated application surfaces out of the index", () => {
@@ -117,6 +135,8 @@ describe("canonical search metadata", () => {
     const ib = await generateSyllabusMetadata({ params: Promise.resolve({ bankSlug: "ib-biology-hl" }) });
     expect(ib.title).toEqual({ absolute: "IB Biology HL Syllabus: Topics, Papers and Marks" });
     expect(ib.description).toContain("(first assessment 2025)");
+    // A page-level openGraph replaces the layout's, so IB pages carry their own 4 → 7 preview.
+    expect(ib.openGraph).toMatchObject({ images: [{ url: "/social/do-better-ib.png" }], videos: [{ url: "https://pastpaperprep.com/social/do-better-ib.mp4" }] });
     expect(JSON.stringify(igcseHubMetadata)).toMatch(/0580.*0606.*0610.*0620.*0625.*0654.*0455/);
     expect(ibHubMetadata.title).toBe("IB Past Papers by Topic: Maths, Sciences and Economics");
   });

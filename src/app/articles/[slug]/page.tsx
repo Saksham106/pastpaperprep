@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticleContent } from "@/components/Articles";
 import { ARTICLES, getArticle } from "@/lib/articles";
-import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
+import { SOCIAL_IMAGE_URL, socialPreview } from "@/lib/seo";
 
 const SITE_URL = "https://pastpaperprep.com";
 
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       publishedTime: article.publishedAt,
       modifiedTime: article.updatedAt,
       authors: ["PastPaperPrep Team"],
-      images: [SOCIAL_IMAGE],
+      ...socialPreview(),
     },
     twitter: {
       card: "summary_large_image",

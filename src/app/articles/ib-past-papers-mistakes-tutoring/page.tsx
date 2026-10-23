@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
+import { socialPreview } from "@/lib/seo";
 
 const title = "How to use IB past papers when you keep making the same mistake";
 const description = "A past paper shows where you lost marks. Learn how to diagnose repeat mistakes, practise a focused topic, and know when a tutor can help.";
@@ -13,9 +13,9 @@ export const metadata: Metadata = {
   alternates: { canonical: path },
   openGraph: {
     title: `${title} | PastPaperPrep`, description, url: path, type: "article",
-    publishedTime: publishedAt, modifiedTime: publishedAt, authors: ["Saksham Goel"], images: [SOCIAL_IMAGE],
+    publishedTime: publishedAt, modifiedTime: publishedAt, authors: ["Saksham Goel"], ...socialPreview("ib"),
   },
-  twitter: { card: "summary_large_image", title, description, images: [SOCIAL_IMAGE_URL] },
+  twitter: { card: "summary_large_image", title, description, images: [socialPreview("ib").images[0].url] },
 };
 
 export default function PietroPastPapersArticle() {

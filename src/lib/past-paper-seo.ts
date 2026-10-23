@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { CatalogBank } from './catalog';
-import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from './seo';
+import { socialPreview } from './seo';
 import { paperName, paperSearchCodes, sessionRank, shortSession, slashCode, subjectSlugForBank, type PastPaperQualification } from './past-paper-catalog';
 import type { WholePaperSummary } from './whole-paper-types';
 
@@ -198,12 +198,13 @@ export function pageTitle(title: string): string | { absolute: string } {
 }
 
 /** Page metadata with the layout's full social card. A page-level openGraph replaces the layout's object, so rebuild it. */
-export function pastPaperMetadata(copy: Pick<PageCopy, 'title' | 'description'>, path: string): Metadata {
+export function pastPaperMetadata(copy: Pick<PageCopy, 'title' | 'description'>, path: string, qualification?: PastPaperQualification): Metadata {
+  const preview = socialPreview(qualification);
   return {
     title: pageTitle(copy.title),
     description: copy.description,
     alternates: { canonical: path },
-    openGraph: { siteName: 'PastPaperPrep', type: 'website', locale: 'en_US', url: path, title: copy.title, description: copy.description, images: [SOCIAL_IMAGE] },
-    twitter: { card: 'summary_large_image', title: copy.title, description: copy.description, images: [SOCIAL_IMAGE_URL] },
+    openGraph: { siteName: 'PastPaperPrep', type: 'website', locale: 'en_US', url: path, title: copy.title, description: copy.description, ...preview },
+    twitter: { card: 'summary_large_image', title: copy.title, description: copy.description, images: [preview.images[0].url] },
   };
 }
