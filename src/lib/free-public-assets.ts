@@ -2,7 +2,7 @@ import { isPreviewQuestion } from "@/lib/access";
 import { ASSET_KINDS, assetPathsForKind, deliveredAssetPaths, type AssetKind } from "@/lib/asset-kinds";
 import type { AssetManifest } from "@/lib/asset-manifest";
 import type { BankSlug } from "@/lib/banks";
-import { explanationAssetSignOptions, previewAssetSignOptions } from "@/lib/private-asset-providers";
+import { explanationAssetSignOptions, isR2OnlyObjectPath, previewAssetSignOptions } from "@/lib/private-asset-providers";
 import { FREE_ASSET_INDEX_VERSION, freePublicAssetUrl, type FreeAssetIndex } from "@/lib/free-asset-index";
 import type { QuestionRichDetails } from "@/lib/questions";
 import { reviewedBlankTailForSignedAsset } from "@/lib/reviewed-blank-tails";
@@ -16,7 +16,8 @@ import { reviewedBlankTailForSignedAsset } from "@/lib/reviewed-blank-tails";
  */
 export type FreePublicAsset = { bank: BankSlug; questionId: string; kind: AssetKind; source: "r2" | "supabase"; path: string };
 
-function sourceFor(bank: BankSlug, kind: AssetKind): "r2" | "supabase" {
+function sourceFor(bank: BankSlug, kind: AssetKind, path: string): "r2" | "supabase" {
+  if (isR2OnlyObjectPath(path)) return "r2";
   const options = kind === "explanation" ? explanationAssetSignOptions() : previewAssetSignOptions(bank);
   return options.provider === "r2" ? "r2" : "supabase";
 }
@@ -35,7 +36,7 @@ export function listFreePublicAssets(bank: BankSlug, manifest: AssetManifest): F
     for (const kind of ASSET_KINDS) {
       for (const path of assetPathsForKind(entry, kind)) {
         if (!isSafeFreeAssetPath(path)) throw new Error(`${bank}: unsafe asset path for ${questionId}`);
-        assets.push({ bank, questionId, kind, source: sourceFor(bank, kind), path });
+        assets.push({ bank, questionId, kind, source: sourceFor(bank, kind, path), path });
       }
     }
   }

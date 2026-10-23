@@ -37,6 +37,16 @@ export function premiumAssetSignOptions(bank: BankSlug): SignPrivateAssetOptions
   return R2_PRIVATE_BANKS.has(bank) ? { provider: "r2" } : {};
 }
 
+/**
+ * Objects uploaded to R2 only, inside banks that otherwise sign from Supabase: the IB
+ * shared-stimulus repair crops (docs/ib-shared-stimulus-repairs.md). They always sign from R2.
+ */
+const R2_ONLY_OBJECT_PATH = /^ib-(?:biology|chemistry|physics)-(?:hl|sl)\/repairs\/ib-shared-stimulus-v1-d53ab265e7e81518\//;
+
+export function isR2OnlyObjectPath(path: string): boolean {
+  return R2_ONLY_OBJECT_PATH.test(path);
+}
+
 /** Worked explanations live only in R2 (`explanations/<bank>/`), for free and paid questions alike. */
 export function explanationAssetSignOptions(): SignPrivateAssetOptions {
   return { provider: "r2" };

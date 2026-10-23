@@ -8,7 +8,7 @@ import { isExplanationObjectPath } from "@/lib/explanations";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getPrivateBankObjectPrefix as getMappedPrivateBankObjectPrefix } from "@/lib/private-runtime-mapping";
 import type { BankSlug } from "@/lib/banks";
-import type { AssetStorageProvider, SignPrivateAssetOptions } from "@/lib/private-asset-providers";
+import { isR2OnlyObjectPath, type AssetStorageProvider, type SignPrivateAssetOptions } from "@/lib/private-asset-providers";
 import { serverLog } from "@/lib/server-logs";
 
 export function getPrivateBankObjectPrefix(bank: BankSlug): string {
@@ -115,6 +115,18 @@ async function signWithR2(paths: string[], expiresIn: number) {
   return new Map(entries);
 }
 
+/** A Supabase batch, except objects that exist only in R2, which sign there. Keeps request order. */
+async function signSupabaseBatch(paths: string[], expiresIn: number) {
+  const r2Only = paths.filter(isR2OnlyObjectPath);
+  if (!r2Only.length) return signWithSupabase(paths, expiresIn);
+  const rest = paths.filter((path) => !isR2OnlyObjectPath(path));
+  const [fromSupabase, fromR2] = await Promise.all([
+    rest.length ? signWithSupabase(rest, expiresIn) : new Map<string, string>(),
+    signWithR2(r2Only, expiresIn),
+  ]);
+  return new Map(paths.map((path) => [path, fromSupabase.get(path) ?? fromR2.get(path)!] as const));
+}
+
 export async function signPrivateAssetUrls(
   paths: string[],
   expiresIn: number,
@@ -127,7 +139,7 @@ export async function signPrivateAssetUrls(
   const bank = paths[0].split("/")[0];
   const started = performance.now();
   try {
-    const urls = await (provider === "r2" ? signWithR2(paths, expiresIn) : signWithSupabase(paths, expiresIn));
+    const urls = await (provider === "r2" ? signWithR2(paths, expiresIn) : signSupabaseBatch(paths, expiresIn));
     serverLog("info", "asset_signing", { provider, bank, assets: paths.length, long_lived: Boolean(options.longLived), duration_ms: Math.round(performance.now() - started), outcome: "signed" });
     return urls;
   } catch (error) {

@@ -52,6 +52,26 @@ describe("signPrivateAssetUrls", () => {
     expect(createSignedUrls).toHaveBeenCalledOnce();
   });
 
+  it("signs R2-only repair crops from R2 inside a Supabase batch, in request order", async () => {
+    vi.stubEnv("R2_ACCOUNT_ID", "92278648535014b5231edfe207b9391d");
+    vi.stubEnv("R2_ACCESS_KEY_ID", "a".repeat(32));
+    vi.stubEnv("R2_SECRET_ACCESS_KEY", "b".repeat(64));
+    vi.stubEnv("R2_BUCKET_NAME", "pastpaperprep-assets");
+    const repair = "ib-biology-sl/repairs/ib-shared-stimulus-v1-d53ab265e7e81518/260c5b12.webp";
+    const original = "ib-biology-sl/questions/2020-november-tz0-sl-p1-q1-page-3.webp";
+
+    const urls = await signPrivateAssetUrls([repair, original], 600, { provider: "supabase", longLived: true });
+
+    expect([...urls.keys()]).toEqual([repair, original]);
+    expect(createSignedUrls).toHaveBeenCalledWith([original], 600);
+    expect(new URL(urls.get(repair)!).hostname).toBe("92278648535014b5231edfe207b9391d.r2.cloudflarestorage.com");
+    expect(urls.get(original)).toBe(`https://supabase.example/${original}`);
+
+    createSignedUrls.mockClear();
+    await signPrivateAssetUrls([repair], 600, { provider: "supabase" });
+    expect(createSignedUrls).not.toHaveBeenCalled();
+  });
+
   it("creates private R2 GET URLs for every requested object", async () => {
     vi.stubEnv("ASSET_STORAGE_PROVIDER", "r2");
     vi.stubEnv("R2_ACCOUNT_ID", "92278648535014b5231edfe207b9391d");
