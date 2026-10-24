@@ -139,5 +139,6 @@ describe("canonical search metadata", () => {
     expect(ib.openGraph).toMatchObject({ images: [{ url: "/social/do-better-ib.png" }], videos: [{ url: "https://pastpaperprep.com/social/do-better-ib.mp4" }] });
     expect(JSON.stringify(igcseHubMetadata)).toMatch(/0580.*0606.*0610.*0620.*0625.*0654.*0455/);
     expect(ibHubMetadata.title).toBe("IB Past Papers by Topic: Maths, Sciences and Economics");
+    expect(ibHubMetadata.openGraph).toMatchObject({ url: "/ib", images: [{ url: "/social/do-better-ib.png" }] });
   });
 });
