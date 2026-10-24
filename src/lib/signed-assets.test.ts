@@ -620,6 +620,68 @@ describe("fetchFreeAssets with the static free index", () => {
       } finally { vi.useRealTimers(); }
     });
 
+    describe("recovery probe", () => {
+      const isPublic = (input: RequestInfo | URL) => String(input).startsWith("https://free.pastpaperprep.com/");
+      const probeFetcher = (reachable: () => boolean) => {
+        const base = makeFetcher();
+        return vi.fn<(input: RequestInfo | URL, init?: RequestInit) => Promise<Response>>(async (input) => {
+          if (!isPublic(input)) return base(input);
+          if (!reachable()) throw new TypeError("Failed to fetch");
+          return new Response(null, { status: 200 });
+        });
+      };
+      const probes = (fetcher: ReturnType<typeof probeFetcher>) => fetcher.mock.calls.filter(([url]) => isPublic(url));
+      const settle = async () => { for (let i = 0; i < 20; i += 1) await Promise.resolve(); };
+      const trip = (fetcher: ReturnType<typeof probeFetcher>) => {
+        preferSignedFreeAssets("ib-hl", requests[0], fetcher);
+        preferSignedFreeAssets("ib-hl", requests[1], fetcher);
+      };
+
+      it("checks the host in the background at most every 30 minutes, without delaying signed links", async () => {
+        vi.useFakeTimers({ now: 4_000_000 });
+        try {
+          const fetcher = probeFetcher(() => false);
+          trip(fetcher);
+          expect(allSigned((await fetchFreeAssets("ib-hl", requests, fetcher)).assets)).toBe(true);
+          await settle();
+          expect(probes(fetcher)).toHaveLength(0); // the failures that tripped the switch were the latest check
+          vi.advanceTimersByTime(30 * 60_000);
+          expect(allSigned((await fetchFreeAssets("ib-hl", requests, fetcher)).assets)).toBe(true);
+          await settle();
+          expect(probes(fetcher)).toHaveLength(1);
+          const [url, init] = probes(fetcher)[0];
+          expect(String(url)).toMatch(/^https:\/\/free\.pastpaperprep\.com\//);
+          expect(init).toMatchObject({ mode: "no-cors", cache: "no-store" });
+          await fetchFreeAssets("ib-sl", requests, fetcher);
+          await settle();
+          expect(probes(fetcher)).toHaveLength(1);
+          expect(allSigned((await fetchFreeAssets("ib-hl", requests, fetcher)).assets)).toBe(true);
+          vi.advanceTimersByTime(30 * 60_000);
+          await fetchFreeAssets("ib-hl", requests, fetcher);
+          await settle();
+          expect(probes(fetcher)).toHaveLength(2);
+        } finally { vi.useRealTimers(); }
+      });
+
+      it("returns to public links once a check reaches the host, e.g. after a network change", async () => {
+        vi.useFakeTimers({ now: 4_000_000 });
+        try {
+          let reachable = false;
+          const fetcher = probeFetcher(() => reachable);
+          trip(fetcher);
+          reachable = true;
+          vi.advanceTimersByTime(30 * 60_000);
+          expect(allSigned((await fetchFreeAssets("ib-hl", requests, fetcher)).assets)).toBe(true);
+          await settle();
+          expect(allPublic((await fetchFreeAssets("ib-hl", requests, fetcher)).assets)).toBe(true);
+          // Failing again later trips the switch again.
+          trip(fetcher);
+          vi.advanceTimersByTime(60_000);
+          expect(allSigned((await fetchFreeAssets("ib-sl", requests, fetcher)).assets)).toBe(true);
+        } finally { vi.useRealTimers(); }
+      });
+    });
+
     describe("with the page's own fetch", () => {
       const KEY = "pastpaperprep:free-public-host-unavailable-until";
       afterEach(() => {
@@ -645,6 +707,21 @@ describe("fetchFreeAssets with the static free index", () => {
         vi.advanceTimersByTime(24 * 60 * 60 * 1000);
         expect(allPublic((await fresh.fetchFreeAssets("ib-hl", requests)).assets)).toBe(true);
         expect(localStorage.getItem(KEY)).toBeNull();
+      });
+
+      it("forgets the stored switch once a check reaches the host", async () => {
+        vi.useFakeTimers({ now: 4_000_000 });
+        localStorage.setItem(KEY, String(4_000_000 + 60 * 60_000));
+        vi.resetModules();
+        const fresh = await import("@/lib/signed-assets");
+        const page = makeFetcher(); // answers the public probe
+        vi.stubGlobal("fetch", page);
+        expect(allSigned((await fresh.fetchFreeAssets("ib-hl", requests)).assets)).toBe(true);
+        vi.advanceTimersByTime(30 * 60_000);
+        await fresh.fetchFreeAssets("ib-hl", requests);
+        for (let i = 0; i < 20; i += 1) await Promise.resolve();
+        expect(localStorage.getItem(KEY)).toBeNull();
+        expect(allPublic((await fresh.fetchFreeAssets("ib-hl", requests)).assets)).toBe(true);
       });
 
       it.each(["not-a-number", String(4_000_000 + 48 * 60 * 60 * 1000), "1"])("ignores a stored value of %s", async (stored) => {

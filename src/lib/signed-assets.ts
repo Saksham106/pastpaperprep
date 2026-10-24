@@ -1,5 +1,5 @@
 import type { AssetKind, AssetRequest } from "@/lib/asset-access";
-import { isAssetKind } from "@/lib/asset-kinds";
+import { ASSET_KINDS, isAssetKind } from "@/lib/asset-kinds";
 import { isMcqAnswer, type McqAnswer } from "@/lib/mcq-answer";
 import type { QuestionRichDetails } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
@@ -305,17 +305,30 @@ const FREE_PUBLIC_HOST_FAILURE_THRESHOLD = 2;
 const FREE_PUBLIC_HOST_FAILURE_WINDOW_MS = 10 * 60_000;
 const FREE_PUBLIC_HOST_UNAVAILABLE_MS = 24 * 60 * 60 * 1000;
 const FREE_PUBLIC_HOST_STORAGE_KEY = "pastpaperprep:free-public-host-unavailable-until";
-type PublicHostState = { failedAt: Map<string, number>; unavailableUntil: number };
+/** While switched, check the host this often so a visitor who changes network gets public links back. */
+const FREE_PUBLIC_HOST_PROBE_INTERVAL_MS = 30 * 60_000;
+const FREE_PUBLIC_HOST_PROBE_TIMEOUT_MS = 15_000;
+type PublicHostState = { failedAt: Map<string, number>; unavailableUntil: number; probedAt: number; probing: boolean };
 const publicHosts = new WeakMap<Fetcher, PublicHostState>();
 
 function publicFailureKey(bank: BankSlug, request: AssetRequest): string {
   return `${bank}:${signedAssetKey(request.questionId, request.kind)}`;
 }
 
+function publicHost(fetcher: Fetcher): PublicHostState {
+  let host = publicHosts.get(fetcher);
+  if (!host) publicHosts.set(fetcher, host = { failedAt: new Map(), unavailableUntil: 0, probedAt: 0, probing: false });
+  return host;
+}
+
 // Only the page's own fetch speaks for this browser's network, so only it reads or writes the
 // stored switch; injected fetchers keep the decision in memory. The value is just an expiry time.
+function ownsStoredSwitch(fetcher: Fetcher): boolean {
+  return fetcher === globalThis.fetch && typeof window !== "undefined";
+}
+
 function storedPublicHostUnavailableUntil(fetcher: Fetcher, now: number): number {
-  if (fetcher !== globalThis.fetch || typeof window === "undefined") return 0;
+  if (!ownsStoredSwitch(fetcher)) return 0;
   try {
     const until = Number(window.localStorage.getItem(FREE_PUBLIC_HOST_STORAGE_KEY));
     if (Number.isFinite(until) && until > now && until <= now + FREE_PUBLIC_HOST_UNAVAILABLE_MS) return until;
@@ -325,19 +338,66 @@ function storedPublicHostUnavailableUntil(fetcher: Fetcher, now: number): number
 }
 
 function publicHostUnavailable(fetcher: Fetcher, now: number): boolean {
-  return (publicHosts.get(fetcher)?.unavailableUntil ?? 0) > now || storedPublicHostUnavailableUntil(fetcher, now) > now;
+  const host = publicHost(fetcher);
+  if (host.unavailableUntil > now) return true;
+  const stored = storedPublicHostUnavailableUntil(fetcher, now);
+  if (!stored) return false;
+  // Adopt a switch another tab or visit recorded; its failures count as the latest check.
+  host.unavailableUntil = stored;
+  host.probedAt = now;
+  return true;
 }
 
 function recordPublicHostFailure(fetcher: Fetcher, key: string, now: number): void {
-  let host = publicHosts.get(fetcher);
-  if (!host) publicHosts.set(fetcher, host = { failedAt: new Map(), unavailableUntil: 0 });
+  const host = publicHost(fetcher);
   for (const [failedKey, at] of host.failedAt) if (now - at >= FREE_PUBLIC_HOST_FAILURE_WINDOW_MS) host.failedAt.delete(failedKey);
   if (!host.failedAt.has(key)) host.failedAt.set(key, now);
   if (host.failedAt.size < FREE_PUBLIC_HOST_FAILURE_THRESHOLD) return;
   host.failedAt.clear();
   host.unavailableUntil = now + FREE_PUBLIC_HOST_UNAVAILABLE_MS;
-  if (fetcher !== globalThis.fetch || typeof window === "undefined") return;
+  host.probedAt = now;
+  if (!ownsStoredSwitch(fetcher)) return;
   try { window.localStorage.setItem(FREE_PUBLIC_HOST_STORAGE_KEY, String(host.unavailableUntil)); } catch { /* memory only */ }
+}
+
+function markPublicHostReachable(fetcher: Fetcher): void {
+  const host = publicHost(fetcher);
+  host.unavailableUntil = 0;
+  host.failedAt.clear();
+  if (!ownsStoredSwitch(fetcher)) return;
+  try { window.localStorage.removeItem(FREE_PUBLIC_HOST_STORAGE_KEY); } catch { /* memory only */ }
+}
+
+function firstPublicUrl(index: FreeAssetIndex | null): string | undefined {
+  for (const question of Object.values(index?.questions ?? {})) {
+    for (const kind of ASSET_KINDS) {
+      const url = question?.[kind]?.urls?.[0];
+      if (isFreePublicAssetUrl(url)) return url;
+    }
+  }
+}
+
+/**
+ * In the background, and never delaying the signed links being returned: fetch one public
+ * object. no-cors means any response proves the host is reachable without needing CORS, and
+ * no-store keeps a cached copy from vouching for the current network.
+ */
+function probePublicHost(bank: BankSlug, fetcher: Fetcher, now: number): void {
+  const host = publicHost(fetcher);
+  if (host.probing || now - host.probedAt < FREE_PUBLIC_HOST_PROBE_INTERVAL_MS) return;
+  host.probing = true;
+  host.probedAt = now;
+  const loaded = loadFreeAssetIndex(bank, fetcher);
+  void loaded.index
+    .then(async (index) => {
+      const url = firstPublicUrl(index);
+      if (!url) return;
+      const response = await fetcher(url, { mode: "no-cors", cache: "no-store", signal: AbortSignal.timeout(FREE_PUBLIC_HOST_PROBE_TIMEOUT_MS) });
+      void response.body?.cancel().catch(() => {});
+      markPublicHostReachable(fetcher);
+    })
+    .catch(() => { /* still unreachable: try again after the interval */ })
+    .finally(() => { host.probing = false; });
 }
 
 /** Free assets only: no identity, private links or entitlement decisions are stored here. */
@@ -404,6 +464,7 @@ export async function fetchFreeAssets(
   fetcher: Fetcher = fetch,
 ): Promise<{ assets: Map<string, SignedAsset>; failedKeys: string[] }> {
   const hostUnavailable = publicHostUnavailable(fetcher, Date.now());
+  if (hostUnavailable) probePublicHost(bank, fetcher, Date.now());
   const results = await Promise.all(requests.map(async (request) => {
     const key = signedAssetKey(request.questionId, request.kind);
     const failureKey = publicFailureKey(bank, request);
