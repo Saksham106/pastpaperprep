@@ -39,7 +39,7 @@ export async function fetchExplanation(
   if (!explanation && free && isFreePublicAssetUrl(url)) {
     // The public copy is missing, unreachable or not this question's: fall back to a signed link once.
     assertCurrent();
-    preferSignedFreeAssets(bank);
+    preferSignedFreeAssets(bank, { questionId, kind: "explanation" }, fetcher);
     const signed = (await fetchFreeAssets(bank, [{ questionId, kind: "explanation" }], fetcher)).assets.get(signedAssetKey(questionId, "explanation"))?.urls[0];
     explanation = signed ? await read(signed) : null;
   }

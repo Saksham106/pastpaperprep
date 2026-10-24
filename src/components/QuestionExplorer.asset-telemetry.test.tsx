@@ -5,6 +5,7 @@ const trackProductEvent = vi.hoisted(() => vi.fn());
 vi.mock("@/lib/product-analytics", async (importOriginal) => ({ ...(await importOriginal<typeof import("@/lib/product-analytics")>()), trackProductEvent }));
 
 import { QuestionExplorer } from "@/components/QuestionExplorer";
+import { fetchFreeAssets, preferSignedFreeAssets } from "@/lib/signed-assets";
 import { isPreviewQuestion } from "@/lib/access";
 import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
 import { loadBankQuestions } from "@/lib/question-fixtures";
@@ -52,6 +53,77 @@ describe("QuestionExplorer image failure telemetry", () => {
     fireEvent.error(await screen.findByRole("img", { name: /official mark scheme page 1/i }));
     expect(failures()).toContainEqual({ bank: "igcse", question_id: question.id, kind: "answer", outcome: "failed", host: "supabase" });
   });
+  it("retries a failed free image immediately after signer recovery without repeating automatic rescue", async () => {
+    const [question] = prepareQuestionsForDelivery(loadBankQuestions("igcse").filter((item) => isPreviewQuestion("igcse", item.id)).slice(0, 1), []);
+    const details = { summary: "", accessibleText: "", solution: null, sourceQuestionUrl: null, sourceMarkSchemeUrl: null };
+    const publicUrl = `https://free.pastpaperprep.com/images/igcse/questions/${question.id}.webp`;
+    let recovered = false;
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === "/free-assets/igcse.json") return Response.json({ version: 1, bank: "igcse", questions: { [question.id]: { details, question: { urls: [publicUrl], displayCrops: [null] } } } });
+      if (url.startsWith("/api/assets/free?")) return recovered
+        ? Response.json({ expiresIn: 3600, maxAge: 900, asset: { questionId: question.id, kind: "question", urls: ["https://wrig.supabase.co/recovered.webp"] } })
+        : new Response(null, { status: 503 });
+      throw new Error(`Unexpected request: ${url}`);
+    });
+    vi.stubGlobal("fetch", fetcher);
+    render(<QuestionExplorer questions={[question]} bankSlug="igcse" access={{ authenticated: false, bankAccess: false, canExportPdf: false }} />);
+    const image = await screen.findByRole("img", { name: /original question/i });
+    fireEvent.error(image);
+    fireEvent.error(image);
+    await screen.findByRole("button", { name: "Retry images" });
+    const signerCalls = () => fetcher.mock.calls.filter(([url]) => String(url).startsWith("/api/assets/free?"));
+    expect(signerCalls()).toHaveLength(1);
+    recovered = true;
+    fireEvent.click(screen.getByRole("button", { name: "Retry images" }));
+    // Explicit retry can probe the public object again; if still broken it must start a new rescue.
+    const retried = await screen.findByRole("img", { name: /original question/i });
+    if (retried.getAttribute("src")?.includes("free.pastpaperprep.com")) fireEvent.error(retried);
+    await waitFor(() => expect(screen.getByRole("img", { name: /original question/i }).getAttribute("src")).toContain("recovered.webp"));
+    expect(signerCalls()).toHaveLength(2);
+  });
+
+  it.each(["answer", "explanation"] as const)("explicit %s retry escapes a failed rescue without bypassing cooldown on intent", async (kind) => {
+    const [original] = prepareQuestionsForDelivery(loadBankQuestions("igcse").filter((item) => isPreviewQuestion("igcse", item.id) && item.markschemeImageCount > 0).slice(0, 1), []);
+    const question = { ...original, hasExplanation: true };
+    const details = { summary: "", accessibleText: "", solution: null, sourceQuestionUrl: null, sourceMarkSchemeUrl: null };
+    const publicUrl = `https://free.pastpaperprep.com/images/igcse/${question.id}.webp`;
+    let recovered = false;
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === "/free-assets/igcse.json") return Response.json({ version: 1, bank: "igcse", questions: { [question.id]: { details, question: { urls: [publicUrl], displayCrops: [null] }, explanation: { urls: [publicUrl], displayCrops: [null] } } } });
+      if (url === publicUrl) return new Response(null, { status: 404 });
+      if (url === "https://wrig.supabase.co/recovered-explanation.json") return Response.json({ schemaVersion: 1, bank: "igcse", questionId: question.id, totalMarks: 1, parts: [{ label: "", marks: 1, approach: "Recovered explanation", steps: [{ text: "Compute it.", marks: ["A1"] }], answer: "4" }] });
+      if (url.startsWith("/api/assets/free?")) return recovered
+        ? Response.json({ expiresIn: 3600, maxAge: 900, asset: { questionId: question.id, kind, urls: [kind === "answer" ? "https://wrig.supabase.co/recovered-answer.webp" : "https://wrig.supabase.co/recovered-explanation.json"] } })
+        : new Response(null, { status: 503 });
+      throw new Error(`Unexpected request: ${url}`);
+    });
+    vi.stubGlobal("fetch", fetcher);
+    // Reproduce a prior public answer failure with the real recovery cache, not a helper mock.
+    if (kind === "answer") preferSignedFreeAssets("igcse", { questionId: question.id, kind }, fetcher);
+    render(<QuestionExplorer questions={[question]} bankSlug="igcse" access={{ authenticated: false, bankAccess: false, canExportPdf: false }} />);
+    const buttonName = kind === "answer" ? "Show answer" : "Explanation";
+    fireEvent.click(await screen.findByRole("button", { name: buttonName }));
+    await screen.findByText(kind === "answer" ? "The answer could not load. Try again." : "The explanation could not load. Try again.");
+    const request = { questionId: question.id, kind };
+    await fetchFreeAssets("igcse", [request], fetcher);
+    const signerCalls = () => fetcher.mock.calls.filter(([url]) => String(url).startsWith("/api/assets/free?"));
+    expect(signerCalls()).toHaveLength(1);
+    recovered = true;
+    fireEvent.pointerEnter(screen.getByRole("button", { name: buttonName }));
+    fireEvent.focus(screen.getByRole("button", { name: buttonName }));
+    await fetchFreeAssets("igcse", [request], fetcher);
+    expect(signerCalls()).toHaveLength(1);
+    fireEvent.click(screen.getByRole("button", { name: buttonName }));
+    if (kind === "answer") {
+      await waitFor(() => expect(screen.getByRole("img", { name: /official mark scheme page 1/i }).getAttribute("src")).toContain("recovered-answer.webp"));
+    } else {
+      await screen.findByText("Recovered explanation");
+    }
+    expect(signerCalls()).toHaveLength(2);
+  });
+
   it("switches a free question to a signed link by itself when its public link fails", async () => {
     const [question] = prepareQuestionsForDelivery(loadBankQuestions("igcse").filter((item) => isPreviewQuestion("igcse", item.id)).slice(0, 1), []);
     const details = { summary: "", accessibleText: "", solution: null, sourceQuestionUrl: null, sourceMarkSchemeUrl: null };

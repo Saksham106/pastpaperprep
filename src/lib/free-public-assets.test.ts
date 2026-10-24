@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { isPreviewQuestion } from "@/lib/access";
 import type { AssetManifest, AssetManifestEntry } from "@/lib/asset-manifest";
 import { buildFreeAssetIndex, isSafeFreeAssetPath, listFreePublicAssets } from "@/lib/free-public-assets";
+import { fetchFreeAssets } from "@/lib/signed-assets";
 
 const details = { summary: "s", accessibleText: "a", solution: null, sourceQuestionUrl: null, sourceMarkSchemeUrl: null };
 const entry = (id: string, explanation = true): AssetManifestEntry => ({
@@ -64,9 +65,44 @@ describe("free public assets", () => {
     expect(() => listFreePublicAssets("igcse", bad)).toThrow(/unsafe asset path/);
   });
 
-  it("omits kinds a question has no files for", () => {
-    const index = buildFreeAssetIndex("igcse", new Map([[FREE, entry(FREE, false)]]), (_id, value) => value);
-    expect(index.questions[FREE].explanation).toBeUndefined();
+  it("round-trips explicit empty/text-only entries without signing but rescues stale omissions", async () => {
+    const index = buildFreeAssetIndex("igcse", new Map([[FREE, { ...entry(FREE, false), questionAssetPaths: [], markschemeAssetPaths: [] }]]),
+      (_id, value) => ({ ...value, solution: "Text-only answer" }));
+    const calls: string[] = [];
+    const fetcher = async (input: RequestInfo | URL) => {
+      calls.push(String(input));
+      return Response.json(index);
+    };
+    const requests = ["question", "answer", "explanation"].map((kind) => ({ questionId: FREE, kind: kind as "question" | "answer" | "explanation" }));
+    const result = await fetchFreeAssets("igcse", requests, fetcher);
+    expect(result.failedKeys).toEqual([]);
+    expect(result.assets.size).toBe(3);
+    for (const asset of result.assets.values()) expect(asset).toMatchObject({ urls: [], details: { ...details, solution: "Text-only answer" } });
+    expect(calls).toEqual(["/free-assets/igcse.json"]);
+
+    // An old index omitting a kind is not evidence that the answer is empty.
+    delete index.questions[FREE].answer;
+    const staleCalls: string[] = [];
+    const staleFetcher = async (input: RequestInfo | URL) => {
+      staleCalls.push(String(input));
+      return String(input).startsWith("/free-assets/") ? Response.json(index)
+        : Response.json({ expiresIn: 3600, maxAge: 0, asset: { questionId: FREE, kind: "answer", urls: ["https://assets.example/answer.webp"] } });
+    };
+    const stale = await fetchFreeAssets("igcse", [{ questionId: FREE, kind: "answer" }], staleFetcher);
+    expect(stale.assets.get(`${FREE}:answer`)?.urls).toEqual(["https://assets.example/answer.webp"]);
+    expect(staleCalls).toHaveLength(2);
+  });
+
+  it("encodes known text-only and absent kinds explicitly with projected rich details", () => {
+    const index = buildFreeAssetIndex("igcse", new Map([[FREE, {
+      ...entry(FREE, false), questionAssetPaths: [], markschemeAssetPaths: [],
+    }]]), (_id, value) => ({ ...value, solution: "Text-only answer" }));
+    expect(index.questions[FREE]).toEqual({
+      details: { ...details, solution: "Text-only answer" },
+      question: { urls: [], displayCrops: [] },
+      answer: { urls: [], displayCrops: [] },
+      explanation: { urls: [], displayCrops: [] },
+    });
   });
 });
 

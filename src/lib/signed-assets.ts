@@ -1,5 +1,5 @@
 import type { AssetKind, AssetRequest } from "@/lib/asset-access";
-import { isAssetKind } from "@/lib/asset-kinds";
+import { ASSET_KINDS, isAssetKind } from "@/lib/asset-kinds";
 import { isMcqAnswer, type McqAnswer } from "@/lib/mcq-answer";
 import type { QuestionRichDetails } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
@@ -291,14 +291,133 @@ const FREE_PUBLIC_ASSET_LIFETIME_MS = 24 * 60 * 60 * 1000;
 
 type LoadedIndex = { loadedAt: number; index: Promise<FreeAssetIndex | null> };
 const freeIndexes = new WeakMap<Fetcher, Map<BankSlug, LoadedIndex>>();
-const signedFallbackBanks = new Set<BankSlug>();
+/** Retry public delivery after a minute; a broken object must not disable its bank. */
+const FREE_PUBLIC_FAILURE_COOLDOWN_MS = 60_000;
+type PublicFailure = { until: number; rescue?: Promise<SignedAsset | null> };
+const publicFailures = new WeakMap<Fetcher, Map<string, PublicFailure>>();
 
 /**
- * Stop using free.pastpaperprep.com for a bank in this tab, after one of its public images failed
- * to load; later requests go back to the signing route, which reads the private stores.
+ * Two different public assets failing close together means this browser can't reach the free
+ * host (some networks block it), not that one object is broken: switch every bank to signed
+ * links, and remember it for a day so the next visit doesn't fail on the public host first.
  */
-export function preferSignedFreeAssets(bank: BankSlug): void {
-  signedFallbackBanks.add(bank);
+const FREE_PUBLIC_HOST_FAILURE_THRESHOLD = 2;
+const FREE_PUBLIC_HOST_FAILURE_WINDOW_MS = 10 * 60_000;
+const FREE_PUBLIC_HOST_UNAVAILABLE_MS = 24 * 60 * 60 * 1000;
+const FREE_PUBLIC_HOST_STORAGE_KEY = "pastpaperprep:free-public-host-unavailable-until";
+/** While switched, check the host this often so a visitor who changes network gets public links back. */
+const FREE_PUBLIC_HOST_PROBE_INTERVAL_MS = 30 * 60_000;
+const FREE_PUBLIC_HOST_PROBE_TIMEOUT_MS = 15_000;
+type PublicHostState = { failedAt: Map<string, number>; unavailableUntil: number; probedAt: number; probing: boolean };
+const publicHosts = new WeakMap<Fetcher, PublicHostState>();
+
+function publicFailureKey(bank: BankSlug, request: AssetRequest): string {
+  return `${bank}:${signedAssetKey(request.questionId, request.kind)}`;
+}
+
+function publicHost(fetcher: Fetcher): PublicHostState {
+  let host = publicHosts.get(fetcher);
+  if (!host) publicHosts.set(fetcher, host = { failedAt: new Map(), unavailableUntil: 0, probedAt: 0, probing: false });
+  return host;
+}
+
+// Only the page's own fetch speaks for this browser's network, so only it reads or writes the
+// stored switch; injected fetchers keep the decision in memory. The value is just an expiry time.
+function ownsStoredSwitch(fetcher: Fetcher): boolean {
+  return fetcher === globalThis.fetch && typeof window !== "undefined";
+}
+
+function storedPublicHostUnavailableUntil(fetcher: Fetcher, now: number): number {
+  if (!ownsStoredSwitch(fetcher)) return 0;
+  try {
+    const until = Number(window.localStorage.getItem(FREE_PUBLIC_HOST_STORAGE_KEY));
+    if (Number.isFinite(until) && until > now && until <= now + FREE_PUBLIC_HOST_UNAVAILABLE_MS) return until;
+    window.localStorage.removeItem(FREE_PUBLIC_HOST_STORAGE_KEY);
+  } catch { /* storage unavailable: the in-memory switch still applies */ }
+  return 0;
+}
+
+function publicHostUnavailable(fetcher: Fetcher, now: number): boolean {
+  const host = publicHost(fetcher);
+  if (host.unavailableUntil > now) return true;
+  const stored = storedPublicHostUnavailableUntil(fetcher, now);
+  if (!stored) return false;
+  // Adopt a switch another tab or visit recorded; its failures count as the latest check.
+  host.unavailableUntil = stored;
+  host.probedAt = now;
+  return true;
+}
+
+function recordPublicHostFailure(fetcher: Fetcher, key: string, now: number): void {
+  const host = publicHost(fetcher);
+  for (const [failedKey, at] of host.failedAt) if (now - at >= FREE_PUBLIC_HOST_FAILURE_WINDOW_MS) host.failedAt.delete(failedKey);
+  if (!host.failedAt.has(key)) host.failedAt.set(key, now);
+  if (host.failedAt.size < FREE_PUBLIC_HOST_FAILURE_THRESHOLD) return;
+  host.failedAt.clear();
+  host.unavailableUntil = now + FREE_PUBLIC_HOST_UNAVAILABLE_MS;
+  host.probedAt = now;
+  if (!ownsStoredSwitch(fetcher)) return;
+  try { window.localStorage.setItem(FREE_PUBLIC_HOST_STORAGE_KEY, String(host.unavailableUntil)); } catch { /* memory only */ }
+}
+
+function markPublicHostReachable(fetcher: Fetcher): void {
+  const host = publicHost(fetcher);
+  host.unavailableUntil = 0;
+  host.failedAt.clear();
+  if (!ownsStoredSwitch(fetcher)) return;
+  try { window.localStorage.removeItem(FREE_PUBLIC_HOST_STORAGE_KEY); } catch { /* memory only */ }
+}
+
+function firstPublicUrl(index: FreeAssetIndex | null): string | undefined {
+  for (const question of Object.values(index?.questions ?? {})) {
+    for (const kind of ASSET_KINDS) {
+      const url = question?.[kind]?.urls?.[0];
+      if (isFreePublicAssetUrl(url)) return url;
+    }
+  }
+}
+
+/**
+ * In the background, and never delaying the signed links being returned: fetch one public
+ * object. no-cors means any response proves the host is reachable without needing CORS, and
+ * no-store keeps a cached copy from vouching for the current network.
+ */
+function probePublicHost(bank: BankSlug, fetcher: Fetcher, now: number): void {
+  const host = publicHost(fetcher);
+  if (host.probing || now - host.probedAt < FREE_PUBLIC_HOST_PROBE_INTERVAL_MS) return;
+  host.probing = true;
+  host.probedAt = now;
+  const loaded = loadFreeAssetIndex(bank, fetcher);
+  void loaded.index
+    .then(async (index) => {
+      const url = firstPublicUrl(index);
+      if (!url) return;
+      const response = await fetcher(url, { mode: "no-cors", cache: "no-store", signal: AbortSignal.timeout(FREE_PUBLIC_HOST_PROBE_TIMEOUT_MS) });
+      void response.body?.cancel().catch(() => {});
+      markPublicHostReachable(fetcher);
+    })
+    .catch(() => { /* still unreachable: try again after the interval */ })
+    .finally(() => { host.probing = false; });
+}
+
+/** Free assets only: no identity, private links or entitlement decisions are stored here. */
+export function preferSignedFreeAssets(bank: BankSlug, request: AssetRequest, fetcher: Fetcher = fetch): void {
+  let failures = publicFailures.get(fetcher);
+  if (!failures) publicFailures.set(fetcher, failures = new Map());
+  const now = Date.now();
+  for (const [key, failure] of failures) if (failure.until <= now) failures.delete(key);
+  const key = publicFailureKey(bank, request);
+  if (!failures.has(key)) failures.set(key, { until: now + FREE_PUBLIC_FAILURE_COOLDOWN_MS });
+  recordPublicHostFailure(fetcher, key, now);
+}
+
+/**
+ * Explicit user retries may probe again without resetting unrelated automatic recovery.
+ * An unreachable-host switch stays: probing a blocked host again would only slow the retry.
+ */
+export function resetFreeAssetRecovery(bank: BankSlug, requests: readonly AssetRequest[], fetcher: Fetcher = fetch): void {
+  const failures = publicFailures.get(fetcher);
+  for (const request of requests) failures?.delete(publicFailureKey(bank, request));
 }
 
 /**
@@ -328,7 +447,7 @@ function loadFreeAssetIndex(bank: BankSlug, fetcher: Fetcher): LoadedIndex {
 function publicFreeAsset(index: FreeAssetIndex | null, loadedAt: number, request: AssetRequest): SignedAsset | null {
   const question = index?.questions[request.questionId];
   const entry = question?.[request.kind];
-  if (!question || !entry) return null;
+  if (!question || !entry || !validDetails(question.details)) return null;
   const asset = { questionId: request.questionId, kind: request.kind, urls: entry.urls, displayCrops: entry.displayCrops, details: question.details, ...(entry.mcqAnswer !== undefined ? { mcqAnswer: entry.mcqAnswer } : {}) };
   if (!validAsset(asset) || !asset.urls.every(isFreePublicAssetUrl)) return null;
   return { ...asset, expiresAt: loadedAt + FREE_PUBLIC_ASSET_LIFETIME_MS };
@@ -336,46 +455,64 @@ function publicFreeAsset(index: FreeAssetIndex | null, loadedAt: number, request
 
 /**
  * Free-year assets: public links from the static per-bank index when it has them, otherwise
- * the CDN-cached signing route (one request per asset so cache keys ignore filters).
+ * the CDN-cached signing route (one request per asset so cache keys ignore filters). While the
+ * public host is unreachable from this browser, every asset goes straight to the signing route.
  */
 export async function fetchFreeAssets(
   bank: BankSlug,
   requests: readonly AssetRequest[],
   fetcher: Fetcher = fetch,
 ): Promise<{ assets: Map<string, SignedAsset>; failedKeys: string[] }> {
-  const loaded = signedFallbackBanks.has(bank) ? null : loadFreeAssetIndex(bank, fetcher);
-  const index = loaded ? await loaded.index : null;
+  const hostUnavailable = publicHostUnavailable(fetcher, Date.now());
+  if (hostUnavailable) probePublicHost(bank, fetcher, Date.now());
   const results = await Promise.all(requests.map(async (request) => {
     const key = signedAssetKey(request.questionId, request.kind);
-    const publicAsset = loaded ? publicFreeAsset(index, loaded.loadedAt, request) : null;
-    if (publicAsset) return { key, asset: publicAsset };
-    try {
-      const query = new URLSearchParams({ bank, id: request.questionId, kind: request.kind });
-      for (let attempt = 0; attempt < 2; attempt += 1) {
-        const response = await fetcher(`/api/assets/free?${query}`, attempt ? { cache: "reload", headers: { "cache-control": "no-cache", pragma: "no-cache" } } : undefined);
-        const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
-        if (
-          !response.ok || !payload ||
-          typeof payload.expiresIn !== "number" || !Number.isSafeInteger(payload.expiresIn) ||
-          payload.expiresIn <= FREE_ASSET_SAFETY_SECONDS || payload.expiresIn > FREE_ASSET_EXPIRES_IN ||
-          typeof payload.maxAge !== "number" || !Number.isSafeInteger(payload.maxAge) ||
-          payload.maxAge < 0 || payload.maxAge >= payload.expiresIn - FREE_ASSET_SAFETY_SECONDS ||
-          !validAsset(payload.asset) ||
-          signedAssetKey(payload.asset.questionId, payload.asset.kind) !== key
-        ) throw new Error("Invalid free asset response");
-        // Assume the full CDN window even without Age; honor a reported older copy too.
-        const reportedAge = Number(response.headers?.get("age"));
-        const age = Math.max(Number.isFinite(reportedAge) ? reportedAge : 0, payload.maxAge);
-        const lifetime = payload.expiresIn - age - FREE_ASSET_SAFETY_SECONDS;
-        // Never turn an expired link into a one-second success: it can trigger a refetch loop.
-        // Try one synchronous revalidation, then surface a normal per-asset failure.
-        if (lifetime <= 0) continue;
-        return { key, asset: { ...payload.asset, expiresAt: Date.now() + lifetime * 1000 } as SignedAsset };
-      }
-      throw new Error("Expired free asset response");
-    } catch {
-      return { key, asset: null };
+    const failureKey = publicFailureKey(bank, request);
+    let failure = publicFailures.get(fetcher)?.get(failureKey);
+    if (failure && failure.until <= Date.now()) {
+      publicFailures.get(fetcher)?.delete(failureKey);
+      failure = undefined;
     }
+    // Known public failures must not wait for an unrelated static-index refresh.
+    if (!failure && !hostUnavailable) {
+      const loaded = loadFreeAssetIndex(bank, fetcher);
+      const index = await loaded.index;
+      const publicAsset = publicFreeAsset(index, loaded.loadedAt, request);
+      if (publicAsset) return { key, asset: publicAsset };
+    }
+    const rescue = async (): Promise<SignedAsset | null> => {
+      try {
+        const query = new URLSearchParams({ bank, id: request.questionId, kind: request.kind });
+        for (let attempt = 0; attempt < 2; attempt += 1) {
+          const response = await fetcher(`/api/assets/free?${query}`, attempt ? { cache: "reload", headers: { "cache-control": "no-cache", pragma: "no-cache" } } : undefined);
+          const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
+          if (
+            !response.ok || !payload ||
+            typeof payload.expiresIn !== "number" || !Number.isSafeInteger(payload.expiresIn) ||
+            payload.expiresIn <= FREE_ASSET_SAFETY_SECONDS || payload.expiresIn > FREE_ASSET_EXPIRES_IN ||
+            typeof payload.maxAge !== "number" || !Number.isSafeInteger(payload.maxAge) ||
+            payload.maxAge < 0 || payload.maxAge >= payload.expiresIn - FREE_ASSET_SAFETY_SECONDS ||
+            !validAsset(payload.asset) ||
+            signedAssetKey(payload.asset.questionId, payload.asset.kind) !== key
+          ) throw new Error("Invalid free asset response");
+          // Assume the full CDN window even without Age; honor a reported older copy too.
+          const reportedAge = Number(response.headers?.get("age"));
+          const age = Math.max(Number.isFinite(reportedAge) ? reportedAge : 0, payload.maxAge);
+          const lifetime = payload.expiresIn - age - FREE_ASSET_SAFETY_SECONDS;
+          // Never turn an expired link into a one-second success: it can trigger a refetch loop.
+          // Try one synchronous revalidation, then surface a normal per-asset failure.
+          if (lifetime <= 0) continue;
+          return { ...payload.asset, expiresAt: Math.min(Date.now() + lifetime * 1000, failure?.until ?? Infinity) } as SignedAsset;
+        }
+        throw new Error("Expired free asset response");
+      } catch {
+        return null;
+      }
+    };
+    // Keep both successful and failed rescue results for this cooldown. Duplicate image
+    // callbacks and concurrent renders must not produce another fallback request.
+    const asset = await (failure ? (failure.rescue ??= rescue()) : rescue());
+    return { key, asset: isSignedAssetFresh(asset ?? undefined) ? asset : null };
   }));
   return {
     assets: new Map(results.flatMap(({ key, asset }) => asset ? [[key, asset] as const] : [])),

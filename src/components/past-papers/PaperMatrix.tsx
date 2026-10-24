@@ -1,6 +1,6 @@
 "use client";
 
-import Link from 'next/link';
+import { IntentPrefetchLink as Link } from '@/components/IntentPrefetchLink';
 import { useEffect, useState, type CSSProperties } from 'react';
 import { filterMatrixByTier, type MatrixTier, type PaperMatrixData } from '@/lib/past-paper-catalog';
 import styles from './PaperMatrix.module.css';

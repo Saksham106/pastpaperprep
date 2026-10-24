@@ -60,7 +60,8 @@ export function buildFreeAssetIndex(
     for (const kind of ASSET_KINDS) {
       const paths = deliveredAssetPaths(entry, kind);
       const mcqAnswer = kind === "answer" ? entry.mcqAnswer : undefined;
-      if (!paths.length && !mcqAnswer) continue;
+      // An explicit empty entry is a successful text-only/absent result, not an index miss.
+      // Keep omitted entries in older indexes distinguishable so they still use safe fallback.
       question[kind] = {
         urls: paths.map(freePublicAssetUrl),
         displayCrops: paths.map((path) => reviewedBlankTailForSignedAsset(bank, questionId, kind, path)),
