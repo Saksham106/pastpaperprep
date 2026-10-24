@@ -28,6 +28,14 @@ describe("safeErrorMessage", () => {
     expect(safeErrorMessage("Failed to fetch")).toBe("Failed to fetch");
     expect(safeErrorMessage("JWT issued at future")).toBe("JWT issued at future");
   });
+  it("keeps Chromium's fixed closed- and errored-stream enqueue messages, and only those exact texts", () => {
+    const closed = "Failed to execute 'enqueue' on 'ReadableStreamDefaultController': Cannot enqueue a chunk into a readable stream that is closed or has been requested to be closed";
+    const errored = "Failed to execute 'enqueue' on 'ReadableStreamDefaultController': Cannot enqueue a chunk into an errored readable stream";
+    expect(safeErrorMessage(closed)).toBe(closed);
+    expect(safeErrorMessage(errored)).toBe(errored);
+    expect(safeErrorMessage(`${closed} for alice@example.com`)).toBeUndefined();
+    expect(safeErrorMessage("Failed to execute 'enqueue' on 'ReadableStreamDefaultController': Alice Smith")).toBeUndefined();
+  });
   it("drops unrecognized text containing emails, URLs, ids, secrets and quoted prose", () => {
     const safe = safeErrorMessage("account alice@example.com token=secret at https://pastpaperprep.com/r/abc?x=1 user 7f1b6a2e-0000-4000-8000-000000000000 card 4242424242424242 jwt eyJhbGciOiJIUzI1NiIsInR5cCI6 said \"my name is Alice Smith\"");
     expect(safe).toBeUndefined();
