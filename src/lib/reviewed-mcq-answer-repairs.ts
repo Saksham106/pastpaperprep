@@ -7,6 +7,7 @@ import scienceMsRowRepairs from '@/data/reviewed-science-ms-row-repairs.json';
 import scienceCropRepairs0620And0625 from '@/data/reviewed-science-crop-repairs-0620-0625.json';
 import scienceMsContinuationRepairs from '@/data/reviewed-science-ms-continuation-repairs.json';
 import economicsWrittenRepairs from '@/data/reviewed-economics-written-answer-repairs.json';
+import economicsMsRowRepairs from '@/data/reviewed-economics-ms-row-repairs.json';
 import ibMatrixRepairs from '@/data/reviewed-ib-matrix-head-repairs.json';
 import ibBoundaryRepairs from '@/data/reviewed-ib-boundary-batch-repairs.json';
 import ibScienceCropRepairs from '@/data/reviewed-ib-science-crop-repairs.json';
@@ -83,6 +84,23 @@ export function reviewedMarkschemePaths(bank: BankSlug, questionId: string, path
     return [...maths.newPaths];
   }
   if (bank !== repairs.bank) {
+    // Economics mark-scheme rows served to the wrong question (docs/economics-ms-row-repairs.md). Checked first: they
+    // replace the 2026-10-02 written-answer crop, and are bound to the raw runtime paths.
+    const economicsRows = bank === economicsMsRowRepairs.bank && Object.prototype.hasOwnProperty.call(economicsMsRowRepairs.entries, questionId)
+      ? (economicsMsRowRepairs.entries as Record<string, IbCropRepair>)[questionId] : undefined;
+    if (economicsRows) {
+      // A kept path keeps its old hash; a new one lives under the namespace by hash.
+      if (JSON.stringify(paths)!==JSON.stringify(economicsRows.oldPaths) || economicsRows.oldPaths.length!==economicsRows.oldSha256.length ||
+          economicsRows.newPaths.length<1 || economicsRows.newPaths.length!==economicsRows.sha256.length || new Set(economicsRows.newPaths).size!==economicsRows.newPaths.length ||
+          !/^repairs\/economics-ms-rows-v1-[a-f0-9]{16}$/.test(economicsMsRowRepairs.namespace) ||
+          economicsRows.newPaths.some((path,i)=>{
+            const oldIndex=economicsRows.oldPaths.indexOf(path);
+            return !/^[a-f0-9]{64}$/.test(economicsRows.sha256[i]) || (oldIndex>=0
+              ? economicsRows.sha256[i]!==economicsRows.oldSha256[oldIndex]
+              : path!==`${economicsMsRowRepairs.namespace}/${economicsRows.sha256[i]}.webp`);
+          })) throw new Error(`Reviewed economics mark-scheme row repair disagrees with ${bank}:${questionId}`);
+      return [...economicsRows.newPaths];
+    }
     const scienceWrittenEntries = (bank === 'igcse-economics-0455' ? economicsWrittenRepairs : scienceWrittenRepairs) as Partial<Record<BankSlug, Record<string,{oldPaths:string[];newPaths:string[];sha256:string[]}>>>;
     const writtenNamespace = bank === 'igcse-economics-0455' ? /^repairs\/economics-written-v1-[a-f0-9]{16}\/[a-f0-9]{64}\.webp$/ : /^repairs\/science-written-v1-[a-f0-9]{16}\/[a-f0-9]{64}\.webp$/;
     // Written answers whose crop misses one of the question's own mark-scheme table rows or shows another question's

@@ -45,6 +45,7 @@ const scienceWrittenAnswerRepairs = JSON.parse(await readFile(join(root, "src", 
 const scienceMsRowRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-science-ms-row-repairs.json"), "utf8")).banks;
 const scienceCropRepairs0620And0625 = JSON.parse(await readFile(join(root, "src", "data", "reviewed-science-crop-repairs-0620-0625.json"), "utf8")).banks;
 const scienceMsContinuationRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-science-ms-continuation-repairs.json"), "utf8")).banks;
+const economicsMsRowRepairs = JSON.parse(await readFile(join(root, "src", "data", "reviewed-economics-ms-row-repairs.json"), "utf8"));
 const ibMatrixRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-matrix-head-repairs.json'), 'utf8'));
 const ibBoundaryRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-boundary-batch-repairs.json'), 'utf8'));
 const ibScienceCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-science-crop-repairs.json'), 'utf8'));
@@ -104,6 +105,14 @@ function activeMarkschemeImageCount(bank, raw) {
     const sourcePaths=Array.from(new Set([...strings(raw.markschemeImages),...strings(raw.officialMarkscheme?.images)]));
     if(JSON.stringify(sourcePaths)!==JSON.stringify(ibScience.oldPaths)||ibScience.newPaths.length<1)throw new Error(`Reviewed IB science crop count disagrees with ${bank}:${raw.id}`);
     return ibScience.newPaths.length;
+  }
+  const economicsRows = bank === economicsMsRowRepairs.bank && Object.prototype.hasOwnProperty.call(economicsMsRowRepairs.entries, raw.id)
+    ? economicsMsRowRepairs.entries[raw.id] : null;
+  if (economicsRows) {
+    // Same projection as src/lib/reviewed-mcq-answer-repairs.ts: private banks de-duplicate the two answer lists.
+    const sourcePaths=Array.from(new Set([...strings(raw.markschemeImages),...strings(raw.officialMarkscheme?.images)]));
+    if(JSON.stringify(sourcePaths)!==JSON.stringify(economicsRows.oldPaths)||economicsRows.newPaths.length<1)throw new Error(`Reviewed economics mark-scheme row count disagrees with ${bank}:${raw.id}`);
+    return economicsRows.newPaths.length;
   }
   const ibBoundary = ibBoundaryRepairs.banks[bank]?.[raw.id];
   if (ibBoundary) {
