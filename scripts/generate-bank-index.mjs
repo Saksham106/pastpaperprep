@@ -49,6 +49,7 @@ const economicsMsRowRepairs = JSON.parse(await readFile(join(root, "src", "data"
 const ibMatrixRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-matrix-head-repairs.json'), 'utf8'));
 const ibBoundaryRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-boundary-batch-repairs.json'), 'utf8'));
 const ibScienceCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-science-crop-repairs.json'), 'utf8'));
+const ibMathsMsRowRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-maths-ms-row-repairs.json'), 'utf8')).banks;
 const ibSharedStimulusRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-shared-stimulus-repairs.json'), 'utf8')).banks;
 const ibQuestionBoundaryRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-question-boundary-repairs.json'), 'utf8')).banks;
 const historicalCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-historical-crop-repairs.json'), 'utf8'));
@@ -113,6 +114,13 @@ function activeMarkschemeImageCount(bank, raw) {
     const sourcePaths=Array.from(new Set([...strings(raw.markschemeImages),...strings(raw.officialMarkscheme?.images)]));
     if(JSON.stringify(sourcePaths)!==JSON.stringify(economicsRows.oldPaths)||economicsRows.newPaths.length<1)throw new Error(`Reviewed economics mark-scheme row count disagrees with ${bank}:${raw.id}`);
     return economicsRows.newPaths.length;
+  }
+  const ibMathsRows = Object.prototype.hasOwnProperty.call(ibMathsMsRowRepairs[bank] ?? {}, raw.id) ? ibMathsMsRowRepairs[bank][raw.id] : null;
+  if (ibMathsRows) {
+    // Same projection as src/lib/reviewed-mcq-answer-repairs.ts, checked before the sealed IB overlays.
+    const sourcePaths=[...strings(raw.markschemeImages),...strings(raw.officialMarkscheme?.images)];
+    if(JSON.stringify(sourcePaths)!==JSON.stringify(ibMathsRows.oldPaths)||ibMathsRows.newPaths.length<1)throw new Error(`Reviewed IB maths mark-scheme row count disagrees with ${bank}:${raw.id}`);
+    return ibMathsRows.newPaths.length;
   }
   const ibBoundary = ibBoundaryRepairs.banks[bank]?.[raw.id];
   if (ibBoundary) {

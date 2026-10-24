@@ -1,0 +1,48 @@
+{
+ "schema": "ib-maths-ms-row-repairs-readback-v1",
+ "state": "verified_readback",
+ "bucket": "pastpaperprep-assets",
+ "method": "wrangler r2 object get/put --remote (logged-in CLI): key checked absent, put image/webp + private, max-age=31536000, immutable, full GET readback SHA-256 + size",
+ "guarantee": "check-absent, put, full read-back by SHA-256 and size, serialized by one local writer (an exclusive lock per uploader). Detects pre-existing different bytes before writing and corrupt bytes after writing. Not an atomic create: wrangler r2 object put has no conditional-create option, so a concurrent foreign writer between the check and the put cannot be ruled out.",
+ "writerLock": "held for every row",
+ "manifestSha256": "986ae65f07601fe00d3e39006d73256e7327c0f687d16069924bf17fb36b66d4",
+ "objectCount": 5,
+ "uploaded": 5,
+ "records": [
+  {
+   "objectKey": "ib-ai-hl/repairs/ib-maths-ms-rows-v1-34ef8561fff49920/6948dd3832d1a4073ab66f21c9f7f20a103e5ce2dde7d7fd16b4768e14626aeb.webp",
+   "sha256": "6948dd3832d1a4073ab66f21c9f7f20a103e5ce2dde7d7fd16b4768e14626aeb",
+   "bytes": 42480,
+   "existedBefore": false,
+   "verifiedAt": "2026-10-24T03:54:55.458Z"
+  },
+  {
+   "objectKey": "ib-ai-hl/repairs/ib-maths-ms-rows-v1-34ef8561fff49920/7c2a7bd154c64ae26e9260c7028af6b1c4c028178b6f1ce0cbdccdb93ea22220.webp",
+   "sha256": "7c2a7bd154c64ae26e9260c7028af6b1c4c028178b6f1ce0cbdccdb93ea22220",
+   "bytes": 32194,
+   "existedBefore": false,
+   "verifiedAt": "2026-10-24T03:54:58.675Z"
+  },
+  {
+   "objectKey": "ib-ai-hl/repairs/ib-maths-ms-rows-v1-34ef8561fff49920/eef7ce66499f7c3746e6bfe541df9855e24fbbe44f562a84ed368045f4796eb0.webp",
+   "sha256": "eef7ce66499f7c3746e6bfe541df9855e24fbbe44f562a84ed368045f4796eb0",
+   "bytes": 21082,
+   "existedBefore": false,
+   "verifiedAt": "2026-10-24T03:55:02.981Z"
+  },
+  {
+   "objectKey": "ib-hl/repairs/ib-maths-ms-rows-v1-34ef8561fff49920/0313b980a8de004fac7b4825f161138807af14272d3b879cf52b7be12d3070a1.webp",
+   "sha256": "0313b980a8de004fac7b4825f161138807af14272d3b879cf52b7be12d3070a1",
+   "bytes": 16032,
+   "existedBefore": false,
+   "verifiedAt": "2026-10-24T03:55:07.693Z"
+  },
+  {
+   "objectKey": "ib-hl/repairs/ib-maths-ms-rows-v1-34ef8561fff49920/b31d56c06772f9667f85390de1aef2c989957063c464185611b713d1190edcaf.webp",
+   "sha256": "b31d56c06772f9667f85390de1aef2c989957063c464185611b713d1190edcaf",
+   "bytes": 27946,
+   "existedBefore": false,
+   "verifiedAt": "2026-10-24T03:55:11.508Z"
+  }
+ ]
+}

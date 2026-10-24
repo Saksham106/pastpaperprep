@@ -24,7 +24,8 @@ export const EXPECTED_ASSET_COUNTS = {
   // Reviewed Q12 foreign-only tail retired; Q13 immutable restoration is a one-for-one replacement.
   // May 2026: official Chemistry papers add 409 (HL) and 288 (SL) premium crops; 2026 is not a free-preview year.
   // May 2026: official AI TZ1-TZ3 papers added (+254 HL, +161 SL images, all premium).
-  "ib-ai-hl": { preview: 236, premium: 1370, all: 1606 },
+  // MS row repair (docs/ib-maths-ms-row-repairs.md): 2024 May TZ1 P3 Q1/Q2 answers go from 9 crops to 8 (-1).
+  "ib-ai-hl": { preview: 236, premium: 1369, all: 1605 },
   "ib-ai-sl": { preview: 155, premium: 1008, all: 1163 },
   // Shared-stimulus repair (docs/ib-shared-stimulus-repairs.md): one 2017 Paper 3 data-block crop each.
   // IB science crop repair (docs/ib-science-crop-repairs.md): 2023 May TZ2 P2 Q6 page-13 and page-14 answer crops become one (-1).
