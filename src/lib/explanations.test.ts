@@ -158,7 +158,7 @@ describe("explanation client with public free links", () => {
     expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual(["/free-assets/ib-hl.json", publicUrl]);
   });
 
-  // These run last: a failed public link switches the bank to signed links for the rest of the tab.
+  // Each fetcher/asset has isolated, bounded rescue state; unrelated assets stay public.
   it.each([
     ["malformed", "ib-sl", () => new Response("not JSON")],
     ["another question's", "ib-ai-sl", () => new Response(JSON.stringify({ ...doc, questionId: "other" }))],

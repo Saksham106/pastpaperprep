@@ -1,5 +1,5 @@
-import { describe, expect, it, vi } from "vitest";
-import { FREE_ASSET_CDN_MAX_AGE, FREE_ASSET_EXPIRES_IN, fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, preferSignedFreeAssets, signAssetBatches, signedAssetKey } from "@/lib/signed-assets";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { FREE_ASSET_CDN_MAX_AGE, FREE_ASSET_EXPIRES_IN, fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, isSignedAssetFresh, preferSignedFreeAssets, resetFreeAssetRecovery, signAssetBatches, signedAssetKey } from "@/lib/signed-assets";
 
 const requests = Array.from({ length: 21 }, (_, index) => ({
   questionId: `question-${index + 1}`,
@@ -439,6 +439,12 @@ describe("fetchFreeAssets with the static free index", () => {
   } }));
   const signed = (id: string) => new Response(JSON.stringify({ expiresIn: 3600, maxAge: 900, asset: { questionId: id, kind: "question", urls: [`https://assets.example/${id}.webp`] } }));
 
+  it("does not accept a purported empty public entry without validated rich details", async () => {
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/free-assets/")
+      ? Response.json({ version: 1, bank: "ib-hl", questions: { a: { question: { urls: [], displayCrops: [] } } } }) : signed("a"));
+    expect((await fetchFreeAssets("ib-hl", [{ questionId: "a", kind: "question" }], fetcher)).assets.get("a:question")?.urls).toEqual(["https://assets.example/a.webp"]);
+  });
+
   it("serves listed questions from public links without calling the signing route", async () => {
     const fetcher = vi.fn<(input: RequestInfo | URL) => Promise<Response>>(async () => index("ib-hl"));
     const { assets, failedKeys } = await fetchFreeAssets("ib-hl", [{ questionId: "a", kind: "question" }], fetcher);
@@ -484,6 +490,43 @@ describe("fetchFreeAssets with the static free index", () => {
     } finally { vi.useRealTimers(); }
   });
 
+  it("settles known-failure rescue while a day-old index refresh remains pending", async () => {
+    vi.useFakeTimers({ now: 5_000_000 });
+    let releaseIndex!: () => void;
+    try {
+      let reads = 0;
+      const fetcher = vi.fn((input: RequestInfo | URL) => {
+        if (!String(input).startsWith("/free-assets/")) return Promise.resolve(signed("a"));
+        if (++reads === 1) return Promise.resolve(index("ib-hl"));
+        return new Promise<Response>((resolve) => { releaseIndex = () => resolve(index("ib-hl")); });
+      });
+      const request = { questionId: "a", kind: "question" as const };
+      expect((await fetchFreeAssets("ib-hl", [request], fetcher)).assets.get("a:question")?.urls).toEqual([publicUrl("a")]);
+      vi.advanceTimersByTime(24 * 60 * 60 * 1000 + 1);
+      // An unrelated public lookup starts a refresh that may never respond.
+      const lookup = fetchFreeAssets("ib-hl", [request], fetcher);
+      preferSignedFreeAssets("ib-hl", request, fetcher);
+      let settled = false;
+      const rescue = fetchFreeAssets("ib-hl", [request, request], fetcher).then((result) => {
+        settled = true;
+        return result;
+      });
+      await vi.advanceTimersByTimeAsync(0);
+      expect(settled).toBe(true);
+      expect(fetcher.mock.calls.filter(([url]) => String(url).startsWith("/api/"))).toHaveLength(1);
+      expect((await rescue).assets.get("a:question")?.urls).toEqual(["https://assets.example/a.webp"]);
+      expect((await rescue).failedKeys).toEqual([]);
+      // Reuse the coalesced rescue without waiting on (or restarting) the index.
+      expect((await fetchFreeAssets("ib-hl", [request], fetcher)).assets.get("a:question")?.urls).toEqual(["https://assets.example/a.webp"]);
+      expect(fetcher).toHaveBeenCalledTimes(3);
+      releaseIndex();
+      await lookup;
+    } finally {
+      releaseIndex?.();
+      vi.useRealTimers();
+    }
+  });
+
   it("does not keep a failed index read", async () => {
     let calls = 0;
     const fetcher = vi.fn(async (input: RequestInfo | URL) => {
@@ -495,12 +538,312 @@ describe("fetchFreeAssets with the static free index", () => {
     expect((await fetchFreeAssets("ib-chemistry-hl", [{ questionId: "a", kind: "question" }], fetcher)).assets.get("a:question")?.urls).toEqual([publicUrl("a")]);
   });
 
-  it("goes back to signed links for a bank once a public link has failed", async () => {
-    const fetcher = vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/free-assets/") ? index("ib-biology-hl") : signed("a"));
-    preferSignedFreeAssets("ib-biology-hl");
-    const { assets } = await fetchFreeAssets("ib-biology-hl", [{ questionId: "a", kind: "question" }], fetcher);
-    expect(fetcher.mock.calls.map(([input]) => String(input))).toEqual(["/api/assets/free?bank=ib-biology-hl&id=a&kind=question"]);
-    expect(assets.get("a:question")?.urls).toEqual(["https://assets.example/a.webp"]);
+  describe("unreachable public host", () => {
+    const requests = [{ questionId: "a", kind: "question" as const }, { questionId: "b", kind: "answer" as const }, { questionId: "a", kind: "explanation" as const }];
+    const makeFetcher = () => vi.fn(async (input: RequestInfo | URL) => {
+      const url = new URL(String(input), "https://example.test");
+      if (url.pathname.startsWith("/free-assets/")) return Response.json({ version: 1, bank: url.pathname.split("/").pop()!.replace(".json", ""), questions: {
+        a: { details, question: { urls: [publicUrl("a")], displayCrops: [null] }, explanation: { urls: [publicUrl("explanation")], displayCrops: [null] } },
+        b: { details, answer: { urls: [publicUrl("answer")], displayCrops: [null] } },
+      } });
+      return Response.json({ expiresIn: 3600, maxAge: 0, asset: { questionId: url.searchParams.get("id"), kind: url.searchParams.get("kind"), urls: ["https://assets.example/rescue.webp"] } });
+    });
+    const apiCalls = (fetcher: ReturnType<typeof makeFetcher>) => fetcher.mock.calls.filter(([url]) => String(url).startsWith("/api/")).length;
+    const indexCalls = (fetcher: ReturnType<typeof makeFetcher>) => fetcher.mock.calls.filter(([url]) => String(url).startsWith("/free-assets/")).length;
+    const allSigned = (assets: Map<string, { urls: string[] }>) => [...assets.values()].every((asset) => asset.urls[0] === "https://assets.example/rescue.webp");
+    const allPublic = (assets: Map<string, { urls: string[] }>) => [...assets.values()].every((asset) => asset.urls[0].startsWith("https://free.pastpaperprep.com/"));
+
+    it("switches every bank to signed links for a day once two different public assets fail", async () => {
+      vi.useFakeTimers({ now: 4_000_000 });
+      try {
+        const fetcher = makeFetcher();
+        expect(allPublic((await fetchFreeAssets("ib-hl", requests, fetcher)).assets)).toBe(true);
+        preferSignedFreeAssets("ib-hl", requests[0], fetcher);
+        preferSignedFreeAssets("ib-sl", requests[1], fetcher); // a different bank still counts: one host serves both
+        const rescued = await fetchFreeAssets("ib-hl", requests, fetcher);
+        expect(rescued.failedKeys).toEqual([]);
+        expect(allSigned(rescued.assets)).toBe(true);
+        // An untouched bank skips its public index entirely and keeps the signed link's full life.
+        const reads = indexCalls(fetcher);
+        const other = await fetchFreeAssets("ib-physics-hl", [requests[0]], fetcher);
+        expect(other.assets.get("a:question")).toMatchObject({ urls: ["https://assets.example/rescue.webp"], expiresAt: 4_000_000 + (3600 - 300) * 1000 });
+        expect(indexCalls(fetcher)).toBe(reads);
+        // Past the per-asset cooldown the switch still holds.
+        vi.advanceTimersByTime(60_000);
+        expect(allSigned((await fetchFreeAssets("ib-hl", requests, fetcher)).assets)).toBe(true);
+        // Another fetcher has its own network state.
+        expect(allPublic((await fetchFreeAssets("ib-hl", requests, makeFetcher())).assets)).toBe(true);
+        vi.advanceTimersByTime(24 * 60 * 60 * 1000);
+        expect(allPublic((await fetchFreeAssets("ib-hl", requests, fetcher)).assets)).toBe(true);
+      } finally { vi.useRealTimers(); }
+    });
+
+    it("keeps per-asset recovery for one broken object, even when it fails repeatedly", async () => {
+      vi.useFakeTimers({ now: 4_000_000 });
+      try {
+        const fetcher = makeFetcher();
+        preferSignedFreeAssets("ib-hl", requests[0], fetcher);
+        preferSignedFreeAssets("ib-hl", requests[0], fetcher); // duplicate onError for the same image
+        const { assets } = await fetchFreeAssets("ib-hl", requests, fetcher);
+        expect(assets.get("a:question")?.urls).toEqual(["https://assets.example/rescue.webp"]);
+        expect(assets.get("b:answer")?.urls).toEqual([publicUrl("answer")]);
+        expect(assets.get("a:explanation")?.urls).toEqual([publicUrl("explanation")]);
+        // The same object failing again after its cooldown is still one object.
+        vi.advanceTimersByTime(60_000);
+        preferSignedFreeAssets("ib-hl", requests[0], fetcher);
+        expect((await fetchFreeAssets("ib-hl", [requests[1]], fetcher)).assets.get("b:answer")?.urls).toEqual([publicUrl("answer")]);
+      } finally { vi.useRealTimers(); }
+    });
+
+    it("does not add up isolated failures that are far apart", async () => {
+      vi.useFakeTimers({ now: 4_000_000 });
+      try {
+        const fetcher = makeFetcher();
+        preferSignedFreeAssets("ib-hl", requests[0], fetcher);
+        vi.advanceTimersByTime(10 * 60_000);
+        preferSignedFreeAssets("ib-hl", requests[1], fetcher);
+        const { assets } = await fetchFreeAssets("ib-hl", requests, fetcher);
+        expect(assets.get("b:answer")?.urls).toEqual(["https://assets.example/rescue.webp"]);
+        expect(assets.get("a:question")?.urls).toEqual([publicUrl("a")]);
+        expect(apiCalls(fetcher)).toBe(1);
+      } finally { vi.useRealTimers(); }
+    });
+
+    it("keeps the switch through an explicit retry", async () => {
+      vi.useFakeTimers({ now: 4_000_000 });
+      try {
+        const fetcher = makeFetcher();
+        preferSignedFreeAssets("ib-hl", requests[0], fetcher);
+        preferSignedFreeAssets("ib-hl", requests[1], fetcher);
+        resetFreeAssetRecovery("ib-hl", requests, fetcher);
+        expect(allSigned((await fetchFreeAssets("ib-hl", requests, fetcher)).assets)).toBe(true);
+      } finally { vi.useRealTimers(); }
+    });
+
+    describe("recovery probe", () => {
+      const isPublic = (input: RequestInfo | URL) => String(input).startsWith("https://free.pastpaperprep.com/");
+      const probeFetcher = (reachable: () => boolean) => {
+        const base = makeFetcher();
+        return vi.fn<(input: RequestInfo | URL, init?: RequestInit) => Promise<Response>>(async (input) => {
+          if (!isPublic(input)) return base(input);
+          if (!reachable()) throw new TypeError("Failed to fetch");
+          return new Response(null, { status: 200 });
+        });
+      };
+      const probes = (fetcher: ReturnType<typeof probeFetcher>) => fetcher.mock.calls.filter(([url]) => isPublic(url));
+      const settle = async () => { for (let i = 0; i < 20; i += 1) await Promise.resolve(); };
+      const trip = (fetcher: ReturnType<typeof probeFetcher>) => {
+        preferSignedFreeAssets("ib-hl", requests[0], fetcher);
+        preferSignedFreeAssets("ib-hl", requests[1], fetcher);
+      };
+
+      it("checks the host in the background at most every 30 minutes, without delaying signed links", async () => {
+        vi.useFakeTimers({ now: 4_000_000 });
+        try {
+          const fetcher = probeFetcher(() => false);
+          trip(fetcher);
+          expect(allSigned((await fetchFreeAssets("ib-hl", requests, fetcher)).assets)).toBe(true);
+          await settle();
+          expect(probes(fetcher)).toHaveLength(0); // the failures that tripped the switch were the latest check
+          vi.advanceTimersByTime(30 * 60_000);
+          expect(allSigned((await fetchFreeAssets("ib-hl", requests, fetcher)).assets)).toBe(true);
+          await settle();
+          expect(probes(fetcher)).toHaveLength(1);
+          const [url, init] = probes(fetcher)[0];
+          expect(String(url)).toMatch(/^https:\/\/free\.pastpaperprep\.com\//);
+          expect(init).toMatchObject({ mode: "no-cors", cache: "no-store" });
+          await fetchFreeAssets("ib-sl", requests, fetcher);
+          await settle();
+          expect(probes(fetcher)).toHaveLength(1);
+          expect(allSigned((await fetchFreeAssets("ib-hl", requests, fetcher)).assets)).toBe(true);
+          vi.advanceTimersByTime(30 * 60_000);
+          await fetchFreeAssets("ib-hl", requests, fetcher);
+          await settle();
+          expect(probes(fetcher)).toHaveLength(2);
+        } finally { vi.useRealTimers(); }
+      });
+
+      it("returns to public links once a check reaches the host, e.g. after a network change", async () => {
+        vi.useFakeTimers({ now: 4_000_000 });
+        try {
+          let reachable = false;
+          const fetcher = probeFetcher(() => reachable);
+          trip(fetcher);
+          reachable = true;
+          vi.advanceTimersByTime(30 * 60_000);
+          expect(allSigned((await fetchFreeAssets("ib-hl", requests, fetcher)).assets)).toBe(true);
+          await settle();
+          expect(allPublic((await fetchFreeAssets("ib-hl", requests, fetcher)).assets)).toBe(true);
+          // Failing again later trips the switch again.
+          trip(fetcher);
+          vi.advanceTimersByTime(60_000);
+          expect(allSigned((await fetchFreeAssets("ib-sl", requests, fetcher)).assets)).toBe(true);
+        } finally { vi.useRealTimers(); }
+      });
+    });
+
+    describe("with the page's own fetch", () => {
+      const KEY = "pastpaperprep:free-public-host-unavailable-until";
+      afterEach(() => {
+        localStorage.removeItem(KEY);
+        vi.unstubAllGlobals();
+        vi.useRealTimers();
+      });
+
+      it("remembers the switch in this browser for a day, storing only its expiry", async () => {
+        vi.useFakeTimers({ now: 4_000_000 });
+        vi.stubGlobal("fetch", makeFetcher());
+        preferSignedFreeAssets("ib-hl", requests[0]);
+        expect(localStorage.getItem(KEY)).toBeNull();
+        preferSignedFreeAssets("ib-hl", requests[1]);
+        expect(localStorage.getItem(KEY)).toBe(String(4_000_000 + 24 * 60 * 60 * 1000));
+        // A new tab: fresh module state and a fresh fetch still skip the public host.
+        vi.resetModules();
+        const fresh = await import("@/lib/signed-assets");
+        const nextTab = makeFetcher();
+        vi.stubGlobal("fetch", nextTab);
+        expect(allSigned((await fresh.fetchFreeAssets("ib-hl", requests)).assets)).toBe(true);
+        expect(indexCalls(nextTab)).toBe(0);
+        vi.advanceTimersByTime(24 * 60 * 60 * 1000);
+        expect(allPublic((await fresh.fetchFreeAssets("ib-hl", requests)).assets)).toBe(true);
+        expect(localStorage.getItem(KEY)).toBeNull();
+      });
+
+      it("forgets the stored switch once a check reaches the host", async () => {
+        vi.useFakeTimers({ now: 4_000_000 });
+        localStorage.setItem(KEY, String(4_000_000 + 60 * 60_000));
+        vi.resetModules();
+        const fresh = await import("@/lib/signed-assets");
+        const page = makeFetcher(); // answers the public probe
+        vi.stubGlobal("fetch", page);
+        expect(allSigned((await fresh.fetchFreeAssets("ib-hl", requests)).assets)).toBe(true);
+        vi.advanceTimersByTime(30 * 60_000);
+        await fresh.fetchFreeAssets("ib-hl", requests);
+        for (let i = 0; i < 20; i += 1) await Promise.resolve();
+        expect(localStorage.getItem(KEY)).toBeNull();
+        expect(allPublic((await fresh.fetchFreeAssets("ib-hl", requests)).assets)).toBe(true);
+      });
+
+      it.each(["not-a-number", String(4_000_000 + 48 * 60 * 60 * 1000), "1"])("ignores a stored value of %s", async (stored) => {
+        vi.useFakeTimers({ now: 4_000_000 });
+        localStorage.setItem(KEY, stored);
+        vi.resetModules();
+        const fresh = await import("@/lib/signed-assets");
+        vi.stubGlobal("fetch", makeFetcher());
+        expect(allPublic((await fresh.fetchFreeAssets("ib-hl", requests)).assets)).toBe(true);
+        expect(localStorage.getItem(KEY)).toBeNull();
+      });
+
+      it("keeps an injected fetcher's switch out of storage", async () => {
+        vi.useFakeTimers({ now: 4_000_000 });
+        const fetcher = makeFetcher();
+        preferSignedFreeAssets("ib-hl", requests[0], fetcher);
+        preferSignedFreeAssets("ib-hl", requests[1], fetcher);
+        expect(localStorage.getItem(KEY)).toBeNull();
+      });
+    });
+  });
+
+  it.each(["network", "invalid"])("retries a rejected or invalid index load: %s", async (mode) => {
+    let reads = 0;
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => {
+      if (!String(input).startsWith("/free-assets/")) return signed("a");
+      if (++reads > 1) return index("ib-hl");
+      if (mode === "network") throw new TypeError("network unavailable");
+      return Response.json({ version: 999, bank: "ib-hl", questions: {} });
+    });
+    expect((await fetchFreeAssets("ib-hl", [{ questionId: "a", kind: "question" }], fetcher)).assets.get("a:question")?.urls).toEqual(["https://assets.example/a.webp"]);
+    expect((await fetchFreeAssets("ib-hl", [{ questionId: "a", kind: "question" }], fetcher)).assets.get("a:question")?.urls).toEqual([publicUrl("a")]);
+    expect(reads).toBe(2);
+  });
+
+  it("does not reuse a rescue link beyond its shorter safe signed lifetime", async () => {
+    vi.useFakeTimers({ now: 3_000_000 });
+    try {
+      const fetcher = vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/free-assets/") ? index("ib-hl")
+        : Response.json({ expiresIn: 301, maxAge: 0, asset: { questionId: "a", kind: "question", urls: ["https://assets.example/a.webp"] } }));
+      const request = { questionId: "a", kind: "question" as const };
+      preferSignedFreeAssets("ib-hl", request, fetcher);
+      expect((await fetchFreeAssets("ib-hl", [request], fetcher)).assets.size).toBe(1);
+      vi.advanceTimersByTime(1000);
+      const next = await fetchFreeAssets("ib-hl", [request], fetcher);
+      expect(next.assets.size).toBe(0);
+      expect(next.failedKeys).toEqual(["a:question"]);
+      expect(fetcher).toHaveBeenCalledTimes(1); // no index lookup or request storm inside the cooldown
+    } finally { vi.useRealTimers(); }
+  });
+
+  it.each([true, false])("coalesces repeated outage rescue and allows a fresh public probe, rescue=%s", async (succeeds) => {
+    vi.useFakeTimers({ now: 2_000_000 });
+    try {
+      const fetcher = vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/free-assets/")
+        ? index("ib-hl") : succeeds ? signed("a") : new Response(null, { status: 503 }));
+      const request = { questionId: "a", kind: "question" as const };
+      preferSignedFreeAssets("ib-hl", request, fetcher);
+      const results = await Promise.all(Array.from({ length: 8 }, () => fetchFreeAssets("ib-hl", [request], fetcher)));
+      vi.advanceTimersByTime(30_000);
+      preferSignedFreeAssets("ib-hl", request, fetcher); // duplicate onError must not extend cooldown
+      await fetchFreeAssets("ib-hl", [request], fetcher);
+      expect(fetcher.mock.calls.filter(([url]) => String(url).startsWith("/api/"))).toHaveLength(1);
+      if (succeeds) expect(results[0].assets.get("a:question")!.expiresAt).toBe(2_060_000);
+      else expect(results[0].failedKeys).toEqual(["a:question"]);
+      vi.advanceTimersByTime(30_000);
+      expect((await fetchFreeAssets("ib-hl", [request], fetcher)).assets.get("a:question")?.urls).toEqual([publicUrl("a")]);
+    } finally { vi.useRealTimers(); }
+  });
+
+  it.each([false, true])("resets only the explicitly retried asset, bank and fetcher, stale=%s", async (stale) => {
+    vi.useFakeTimers({ now: 4_000_000 });
+    try {
+      let recovered = false;
+      const fetcher = vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/free-assets/")
+        ? index("ib-hl") : recovered ? signed("a") : stale
+          ? Response.json({ expiresIn: 301, maxAge: 0, asset: { questionId: "a", kind: "question", urls: ["https://assets.example/old.webp"] } })
+          : new Response(null, { status: 503 }));
+      const otherFetcher = vi.fn(async () => new Response(null, { status: 503 }));
+      const request = { questionId: "a", kind: "question" as const };
+      // One failure per fetcher: two different ones would switch the whole host to signed links.
+      preferSignedFreeAssets("ib-hl", request, fetcher);
+      preferSignedFreeAssets("ib-hl", request, otherFetcher);
+      await fetchFreeAssets("ib-hl", [request], fetcher);
+      await fetchFreeAssets("ib-hl", [request], otherFetcher);
+      vi.advanceTimersByTime(1000); // stale signed success, or the cached null, remains inside cooldown
+      recovered = true;
+      await fetchFreeAssets("ib-hl", [request], fetcher);
+      expect(fetcher).toHaveBeenCalledTimes(1);
+      resetFreeAssetRecovery("ib-sl", [request], fetcher); // another bank's retry leaves this one alone
+      resetFreeAssetRecovery("ib-hl", [{ questionId: "a", kind: "answer" }], fetcher); // and another kind's
+      await fetchFreeAssets("ib-hl", [request], fetcher);
+      expect(fetcher).toHaveBeenCalledTimes(1);
+      resetFreeAssetRecovery("ib-hl", [request], fetcher);
+      expect((await fetchFreeAssets("ib-hl", [request], fetcher)).assets.get("a:question")?.urls).toEqual([publicUrl("a")]);
+      preferSignedFreeAssets("ib-hl", request, fetcher); // public object still broken: fresh rescue now allowed
+      expect((await fetchFreeAssets("ib-hl", [request], fetcher)).assets.get("a:question")?.urls).toEqual(["https://assets.example/a.webp"]);
+      expect((await fetchFreeAssets("ib-hl", [request], otherFetcher)).assets.size).toBe(0);
+      expect(fetcher).toHaveBeenCalledTimes(3); // one index probe, one new rescue, no unrelated retries
+      expect(otherFetcher).toHaveBeenCalledTimes(1);
+    } finally { vi.useRealTimers(); }
+  });
+
+  it("rescues only the failing asset and returns to public delivery after a bounded cooldown", async () => {
+    vi.useFakeTimers({ now: 1_000_000 });
+    try {
+      const fetcher = vi.fn(async (input: RequestInfo | URL) => String(input).startsWith("/free-assets/")
+        ? Response.json({ version: 1, bank: "ib-biology-hl", questions: {
+          a: { details, question: { urls: [publicUrl("a")], displayCrops: [null] }, answer: { urls: [publicUrl("answer")], displayCrops: [null] } },
+          b: { details, question: { urls: [publicUrl("b")], displayCrops: [null] } },
+        } }) : signed("a"));
+      preferSignedFreeAssets("ib-biology-hl", { questionId: "a", kind: "question" }, fetcher);
+      const { assets } = await fetchFreeAssets("ib-biology-hl", [
+        { questionId: "a", kind: "question" }, { questionId: "a", kind: "answer" }, { questionId: "b", kind: "question" },
+      ], fetcher);
+      expect(assets.get("a:question")?.urls).toEqual(["https://assets.example/a.webp"]);
+      expect(assets.get("a:answer")?.urls).toEqual([publicUrl("answer")]);
+      expect(assets.get("b:question")?.urls).toEqual([publicUrl("b")]);
+      vi.advanceTimersByTime(60_000);
+      expect((await fetchFreeAssets("ib-biology-hl", [{ questionId: "a", kind: "question" }], fetcher)).assets.get("a:question")?.urls).toEqual([publicUrl("a")]);
+      expect(fetcher).toHaveBeenCalledTimes(2);
+    } finally { vi.useRealTimers(); }
   });
 });
 
