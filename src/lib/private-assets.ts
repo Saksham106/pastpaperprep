@@ -115,14 +115,22 @@ async function signWithR2(paths: string[], expiresIn: number) {
   return new Map(entries);
 }
 
-/** A Supabase batch, except objects that exist only in R2, which sign there. Keeps request order. */
-async function signSupabaseBatch(paths: string[], expiresIn: number) {
+/**
+ * A Supabase batch, except objects that exist only in R2, which sign there. Keeps request order.
+ * `onFailure` names the store whose rejection the batch rethrows, for the failure log.
+ */
+async function signSupabaseBatch(paths: string[], expiresIn: number, onFailure: (provider: AssetStorageProvider) => void) {
   const r2Only = paths.filter(isR2OnlyObjectPath);
   if (!r2Only.length) return signWithSupabase(paths, expiresIn);
   const rest = paths.filter((path) => !isR2OnlyObjectPath(path));
+  let failed = false;
+  const attribute = (provider: AssetStorageProvider) => (error: unknown): never => {
+    if (!failed) { failed = true; onFailure(provider); }
+    throw error;
+  };
   const [fromSupabase, fromR2] = await Promise.all([
-    rest.length ? signWithSupabase(rest, expiresIn) : new Map<string, string>(),
-    signWithR2(r2Only, expiresIn),
+    rest.length ? signWithSupabase(rest, expiresIn).catch(attribute("supabase")) : new Map<string, string>(),
+    signWithR2(r2Only, expiresIn).catch(attribute("r2")),
   ]);
   return new Map(paths.map((path) => [path, fromSupabase.get(path) ?? fromR2.get(path)!] as const));
 }
@@ -138,13 +146,14 @@ export async function signPrivateAssetUrls(
   // Object keys start with the bank's folder; nothing else from the path is logged.
   const bank = paths[0].split("/")[0];
   const started = performance.now();
+  let failedProvider = provider;
   try {
-    const urls = await (provider === "r2" ? signWithR2(paths, expiresIn) : signSupabaseBatch(paths, expiresIn));
+    const urls = await (provider === "r2" ? signWithR2(paths, expiresIn) : signSupabaseBatch(paths, expiresIn, (store) => { failedProvider = store; }));
     serverLog("info", "asset_signing", { provider, bank, assets: paths.length, long_lived: Boolean(options.longLived), duration_ms: Math.round(performance.now() - started), outcome: "signed" });
     return urls;
   } catch (error) {
     serverLog("error", "asset_signing", {
-      provider, bank, assets: paths.length, long_lived: Boolean(options.longLived), duration_ms: Math.round(performance.now() - started), outcome: "failed",
+      provider: failedProvider, bank, assets: paths.length, long_lived: Boolean(options.longLived), duration_ms: Math.round(performance.now() - started), outcome: "failed",
       message: safeErrorMessage(error instanceof Error ? error.message : (error as { message?: unknown } | null)?.message),
     });
     throw error;
