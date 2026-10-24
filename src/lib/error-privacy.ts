@@ -97,6 +97,9 @@ const DIAGNOSTIC_MESSAGES = new Set([
   "Load failed", "NetworkError when attempting to fetch resource.", "JWT issued at future",
   "Unexpected end of JSON input", "Invalid JSON input", "Database key already exists",
   "Database unique constraint violation", "No such customer", "Value is not a function",
+  // Chromium, when Next's inline page data arrives after its stream was closed or errored.
+  "Failed to execute 'enqueue' on 'ReadableStreamDefaultController': Cannot enqueue a chunk into a readable stream that is closed or has been requested to be closed",
+  "Failed to execute 'enqueue' on 'ReadableStreamDefaultController': Cannot enqueue a chunk into an errored readable stream",
 ]);
 const REACT_ERROR = /^(?:Minified React error #|React error #)(\d{1,4})(?:\D|$)/;
 
