@@ -31,11 +31,7 @@ export function PaperWorkspace({ reader, marking, bank, practice = true, childre
     <div ref={main} className={styles.main}><PastPaperReader paper={reader} kind={kind} onKindChange={setKind} analyticsBank={bank} /></div>
     <aside className={styles.rail} aria-label={markingOpen ? 'Marking' : 'About this paper'}>
       {markingOpen && marking ? <div className={styles.markPanel}><PaperMarkingWorkspace paper={marking} practice={practice} onClose={() => setMarkingOpen(false)} /></div> : <>
-        {marking ? <section className={styles.finished}>
-          <h2>Finished?</h2>
-          <p>Mark it with the scheme and see which topics cost you marks.</p>
-          <button ref={markButton} type="button" className={styles.markButton} onClick={openMarking}><CheckSquare aria-hidden="true" weight="bold" />Mark this paper</button>
-        </section> : <p className={styles.held}>Self-marking isn&apos;t available for this paper yet.</p>}
+        {marking ? <button ref={markButton} type="button" className={styles.markButton} onClick={openMarking}><CheckSquare aria-hidden="true" weight="bold" />Mark this paper</button> : <p className={styles.held}>Self-marking isn&apos;t available for this paper yet.</p>}
         {hasPeriodicTable(bank) && <div className={styles.reference}><PeriodicTableButton source="past-paper" /></div>}
         {children}
       </>}

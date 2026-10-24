@@ -675,6 +675,10 @@ main { min-height: 72vh; }
 .answer-toggle { min-height: 36px; padding: 0 14px; color: var(--cobalt-strong); background: var(--cobalt-faint); border: 1px solid color-mix(in srgb, var(--cobalt) 40%, var(--line)); border-radius: 8px; font-weight: 750; cursor: pointer; }
 .answer-toggle:hover { border-color: var(--cobalt); }
 .answer-toggle[aria-expanded="true"] { background: transparent; }
+.source-links .full-paper-button, .full-paper-button { min-height: 34px; padding: 0 12px; font-size: .84rem; display: inline-flex; align-items: center; gap: 7px; color: var(--ink); background: var(--surface-raised); border: 1px solid var(--line); border-radius: 8px; font-weight: 700; white-space: nowrap; }
+.full-paper-button svg { color: var(--muted); }
+.full-paper-button:hover { color: var(--cobalt-strong); border-color: var(--cobalt); }
+.full-paper-button:hover svg { color: currentColor; }
 .answer-panel-label { margin: 0; color: var(--success); font: 700 .68rem/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
 .mcq-answer { display: grid; gap: 6px; }
 .mcq-answer-row { margin: 0; display: flex; align-items: center; gap: 12px; }
@@ -683,7 +687,11 @@ main { min-height: 72vh; }
 .mcq-answer-or { color: var(--muted); font-size: .85rem; }
 .mcq-answer-note { margin: 0; color: var(--muted); font-size: .8rem; line-height: 1.45; }
 .source-links a { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); font-size: .78rem; white-space: nowrap; }
-.source-links a:hover { color: var(--cobalt); }
+.source-links a:not(.full-paper-button):hover { color: var(--cobalt); }
+/* Keep the card's quiet links on one line; the whole group wraps below the buttons when space runs out. */
+.source-links { flex-wrap: nowrap; }
+.question-actions { flex-wrap: wrap; row-gap: 8px; }
+.question-actions .source-links { margin-left: auto; }
 .transcript-icon-button, .study-icon-button { width: 34px; height: 34px; display: grid; place-items: center; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 9px; }
 .transcript-icon-button:hover, .transcript-icon-button[aria-expanded="true"], .study-icon-button:hover, .study-icon-button.is-saved { color: var(--cobalt); border-color: var(--cobalt); }
 .study-state { display: inline-flex; align-items: center; gap: 4px; color: var(--success); font-size: .75rem; }
@@ -1317,6 +1325,8 @@ main { min-height: 72vh; }
 .pdf-close:hover { background: var(--surface); }
 .access-upgrade-dialog { text-align: center; }
 .access-upgrade-dialog .button { width: 100%; margin-top: 20px; }
+.access-upgrade-dialog .signin-prompt-alt { margin: 12px 0 0; color: var(--muted); font-size: .88rem; }
+.signin-prompt-alt a { color: var(--cobalt-strong); font-weight: 700; }
 .access-upgrade-icon { width: 52px; height: 52px; margin: 0 auto 14px; display: grid; place-items: center; color: var(--surface-raised); background: var(--cobalt); border-radius: 12px; }
 .access-upgrade-icon svg { width: 25px; height: 25px; }
 
