@@ -5,7 +5,7 @@ import { CALCULATOR_FILTER_BANKS } from "@/lib/calculator-policy.mjs";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, FilePlus, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
+import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, FilePlus, FileText, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
 import type { PdfAnswerPlacement, PdfContent } from "@/lib/pdf-export";
 import { AnswerPlacementPrompt } from "@/components/AnswerPlacementPrompt";
 import { LargeExportConfirm } from "@/components/LargeExportConfirm";
@@ -47,6 +47,7 @@ import { WorksheetEditCard } from "@/components/WorksheetEditCard";
 import { McqAnswerView } from "@/components/McqAnswerView";
 import { SourceCropImage } from "@/components/SourceCropImage";
 import { QuestionReport } from "@/components/QuestionReport";
+import { fullPaperQuestionHref } from "@/lib/paper-question-links";
 import "./worksheet-workspace.css";
 
 type MultiKey = ExplorerFilterKey;
@@ -222,6 +223,38 @@ const dailyDownloadLimitMessage = "Daily download limit reached. Try again tomor
 const assetFailureMessage = (error: unknown, fallback: string) =>
   error instanceof Error && error.message === dailyDownloadLimitMessage ? dailyDownloadLimitMessage : fallback;
 
+/** Modal basics shared by the explorer's small dialogs: body scroll lock, Escape to close, Tab kept inside. */
+function trapDialogFocus(dialog: HTMLElement | null, onClose: () => void) {
+  const previousOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
+  const focusable = () => [...(dialog?.querySelectorAll<HTMLElement>("button:not([disabled]), a[href]") ?? [])];
+  focusable()[0]?.focus();
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      onClose();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    const items = focusable();
+    if (!items.length) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
+  document.addEventListener("keydown", onKeyDown);
+  return () => {
+    document.removeEventListener("keydown", onKeyDown);
+    document.body.style.overflow = previousOverflow;
+  };
+}
+
 export function QuestionExplorer(props: Parameters<typeof SessionQuestionExplorer>[0]) {
   const subscribeToOwner = useCallback((listener: () => void) => subscribeToSessionChanges(listener), []);
   const observedOwner = useSyncExternalStore(subscribeToOwner, cacheOwner, () => null);
@@ -256,6 +289,7 @@ function SessionQuestionExplorer({
   bootstrapUrl,
   hydrateFromLocation = false,
   routePreset,
+  fullPaperHrefs,
 }: {
 questions: UnifiedQuestion[];
 bankSlug?: BankSlug;
@@ -269,6 +303,8 @@ access: ExplorerAccess;
   hydrateFromLocation?: boolean;
   /** Filters a topic or paper route implies, e.g. `{ topic: "Algebra and graphs" }`. */
   routePreset?: ExplorerSearchParams;
+  /** Paper key -> free full-paper page; cards link back to the whole paper when present. */
+  fullPaperHrefs?: Record<string, string>;
 }) {
   const [scopeOwner] = useState(() => typeof document === "undefined" ? null : cacheOwner());
   const activeScopeRef = useRef(true);
@@ -324,6 +360,8 @@ access: ExplorerAccess;
   const worksheetReady = loadedWorksheetReady ?? !worksheetId;
   const [pdfOpen, setPdfOpen] = useState(false);
   const [pdfUpgradeOpen, setPdfUpgradeOpen] = useState(false);
+  /** Signed-out visitors see study tools; using one asks them to sign in (and remembers a question to save). */
+  const [signinPrompt, setSigninPrompt] = useState<null | { reason: "save"; questionId: string } | { reason: "saved-filter" }>(null);
   const [pdfContent, setPdfContent] = useState<PdfContent>("both");
   // Questions-and-answers downloads ask where answers go once Download is pressed.
   const [placementPromptOpen, setPlacementPromptOpen] = useState(false);
@@ -342,6 +380,7 @@ access: ExplorerAccess;
   // would spend the daily signed-asset allowance on images that already loaded.
   const resignedExpiryRef = useRef(new Map<string, number>());
   const [savedIds, setSavedIds] = useState(new Set(studyState.savedIds));
+  const [studyStateLoaded, setStudyStateLoaded] = useState(false);
   const [attemptedIds, setAttemptedIds] = useState(new Set(studyState.attemptedIds));
   const [studyError, setStudyError] = useState("");
   const [shareStatus, setShareStatus] = useState("");
@@ -365,6 +404,10 @@ access: ExplorerAccess;
   const pdfRunRef = useRef(0);
   const pdfDialogRef = useRef<HTMLElement>(null);
   const pdfUpgradeDialogRef = useRef<HTMLElement>(null);
+  const signinPromptRef = useRef<HTMLElement>(null);
+  const pendingSaveRef = useRef<string | null>(null);
+  /** Saves confirmed since the page loaded; an older bootstrap snapshot must not undo them. */
+  const savedEditsRef = useRef(new Map<string, boolean>());
   const worksheetUnsavedDialogRef = useRef<HTMLElement>(null);
   const explorerRootRef = useRef<HTMLElement>(null);
 
@@ -475,6 +518,18 @@ access: ExplorerAccess;
   const returnPath = hydrated ? `${window.location.pathname}${window.location.search}` : "/";
   const signupHref = `/login?mode=sign-up&next=${encodeURIComponent(returnPath)}`;
   const signinHref = `/login?next=${encodeURIComponent(returnPath)}`;
+  const promptReturnPath = (() => {
+    if (!signinPrompt || !hydrated) return returnPath;
+    const params = new URLSearchParams(window.location.search);
+    if (signinPrompt.reason === "save") params.set("save", signinPrompt.questionId); else params.set("saved", "1");
+    return `${window.location.pathname}?${params}`;
+  })();
+  const openSigninPrompt = (prompt: NonNullable<typeof signinPrompt>) => {
+    // One modal at a time: Filters closes first, so it releases its scroll lock and Escape before the prompt takes them.
+    setFiltersOpen(false);
+    setSigninPrompt(prompt);
+    trackProductEvent("study_signin_prompt", { bank: bank ?? "unknown", reason: prompt.reason });
+  };
   // Upgrade nudges: only for people without this bank, on the normal bank view.
   const nudgesActive = Boolean(bank) && !provisional && !resolvedAccess.bankAccess && hasFreeTier(bank as BankSlug) && !worksheetId && !sharedSetView;
   const nudgeBank = bank ?? "unknown";
@@ -619,7 +674,10 @@ access: ExplorerAccess;
         setResolvedAccess(payload.access);
         setResolvedExportMarker(payload.exportMarker);
         if (bank && owner) writeCachedAccess(bank, owner, { access: payload.access, ...(payload.exportMarker ? { exportMarker: payload.exportMarker } : {}) });
-        setSavedIds(new Set(payload.studyState.savedIds));
+        const snapshot = new Set(payload.studyState.savedIds);
+        for (const [questionId, saved] of savedEditsRef.current) if (saved) snapshot.add(questionId); else snapshot.delete(questionId);
+        setSavedIds(snapshot);
+        setStudyStateLoaded(true);
         setAttemptedIds(new Set(payload.studyState.attemptedIds));
         if (payload.studyStateUnavailable) {
           setStudyError("Saved and attempted question state could not load. Your bank access is unaffected.");
@@ -813,38 +871,23 @@ access: ExplorerAccess;
 
   useEffect(() => {
     if (!pdfUpgradeOpen) return;
-    const dialog = pdfUpgradeDialogRef.current;
     const trigger = pdfTriggerRef.current;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const focusable = () => [...(dialog?.querySelectorAll<HTMLElement>("button:not([disabled]), a[href]") ?? [])];
-    focusable()[0]?.focus();
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        setPdfUpgradeOpen(false);
-        return;
-      }
-      if (event.key !== "Tab") return;
-      const items = focusable();
-      if (!items.length) return;
-      const first = items[0];
-      const last = items[items.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = previousOverflow;
-      trigger?.focus();
-    };
+    const release = trapDialogFocus(pdfUpgradeDialogRef.current, () => setPdfUpgradeOpen(false));
+    return () => { release(); trigger?.focus(); };
   }, [pdfUpgradeOpen]);
+
+  useEffect(() => {
+    if (!signinPrompt) return;
+    const trigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const release = trapDialogFocus(signinPromptRef.current, () => setSigninPrompt(null));
+    return () => { release(); trigger?.focus(); };
+  }, [signinPrompt]);
+
+  useEffect(() => {
+    const questionId = new URLSearchParams(window.location.search).get("save");
+    if (questionId && /^[A-Za-z0-9._:-]{1,120}$/.test(questionId)) pendingSaveRef.current = questionId;
+  }, []);
+
 
   useEffect(() => {
     if (!locationHydrated || bootstrapPending) return;
@@ -1222,6 +1265,7 @@ access: ExplorerAccess;
     try {
       await updateStudyState(questionId, saving ? "save" : "unsave");
       if (!scopeIsCurrent()) return;
+      savedEditsRef.current.set(questionId, saving);
       setSavedIds((current) => {
         const next = new Set(current);
         if (saving) next.add(questionId); else next.delete(questionId);
@@ -1231,6 +1275,21 @@ access: ExplorerAccess;
       setStudyError("Could not update saved questions. Try again.");
     }
   };
+
+  // Back from signing in to save a question: save it once the account's study state has loaded.
+  useEffect(() => {
+    const questionId = pendingSaveRef.current;
+    // Wait for the account's real study state, not the cached access that can resolve first.
+    if (!questionId || !studyStateLoaded || !resolvedAccess.authenticated) return;
+    pendingSaveRef.current = null;
+    if (savedIds.has(questionId)) return;
+    void updateStudyState(questionId, "save").then(() => {
+      if (!scopeIsCurrent()) return;
+      savedEditsRef.current.set(questionId, true);
+      setSavedIds((current) => new Set(current).add(questionId));
+    }).catch(() => setStudyError("Could not update saved questions. Try again."));
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once, when the signed-in study state first loads
+  }, [studyStateLoaded, resolvedAccess.authenticated]);
 
   const recordAttempt = async (questionId: string) => {
     if (!scopeIsCurrent() || attemptedIds.has(questionId)) return;
@@ -1411,7 +1470,7 @@ access: ExplorerAccess;
         <aside ref={filterDialogRef} className={`filter-sidebar ${filtersOpen ? "is-open" : ""}`} role={filtersOpen ? "dialog" : undefined} aria-modal={filtersOpen ? true : undefined} aria-labelledby={filtersOpen ? "filter-sidebar-title" : undefined} aria-label={filtersOpen ? undefined : "Question filters"}>
           <div className="filter-sidebar-heading"><strong id="filter-sidebar-title">Filters</strong><button className="filter-close" type="button" aria-label="Close filters" onClick={() => setFiltersOpen(false)}><X /></button></div>
           {!resolvedAccess.bankAccess && bankHasFreeTier && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={effectiveFreeOnly} onChange={() => { setFreeOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Free questions only</span></label></div></div>}
-          {resolvedAccess.authenticated && <div className="filter-group" role="group" aria-labelledby="filter-study"><h3 id="filter-study">Study</h3><div className="filter-options"><label><input aria-label="Saved questions only" type="checkbox" checked={savedOnly} onChange={() => { setSavedOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Saved questions only</span></label></div></div>}
+          {(resolvedAccess.authenticated || !bootstrapPending) && <div className="filter-group" role="group" aria-labelledby="filter-study"><h3 id="filter-study">Study</h3><div className="filter-options"><label><input aria-label="Saved questions only" type="checkbox" checked={savedOnly} onChange={() => { if (!resolvedAccess.authenticated) { openSigninPrompt({ reason: "saved-filter" }); return; } setSavedOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Saved questions only</span></label></div></div>}
           <FilterGroup label="Topics" filterKey="topics" values={options.topics} selected={filters.topics ?? []} onToggle={toggle} />
           <FilterGroup label="Subtopics" filterKey="subtopics" values={visibleSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} bank={bank} />
           <FilterGroup label="Earlier syllabus" filterKey="subtopics" values={earlierSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} bank={bank} />
@@ -1454,11 +1513,11 @@ access: ExplorerAccess;
               const unlocked = resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
               const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
               const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
-              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} scopeIsCurrent={scopeIsCurrent} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAssetError={() => markAnswerAssetFailed(question.id, answerAsset)} onAnswerAsset={(asset) => {
+              return <Fragment key={question.id}><QuestionCard question={question} fullPaperHref={fullPaperQuestionHref(fullPaperHrefs, question.id, question.number)} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} scopeIsCurrent={scopeIsCurrent} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAssetError={() => markAnswerAssetFailed(question.id, answerAsset)} onAnswerAsset={(asset) => {
                 if (!scopeIsCurrent()) return;
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
-              }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => toggleSaved(question.id)} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString("en-US")} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink("locked_card"), onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{nudgesActive && milestoneQuestionId === question.id && <PracticeMilestone bank={nudgeBank} facts={yearFacts} href={upgradeLink("practice_milestone")} onDismiss={() => setMilestoneQuestionId("")} />}{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
+              }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => { if (bootstrapPending) return; if (resolvedAccess.authenticated) void toggleSaved(question.id); else openSigninPrompt({ reason: "save", questionId: question.id }); }} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString("en-US")} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink("locked_card"), onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{nudgesActive && milestoneQuestionId === question.id && <PracticeMilestone bank={nudgeBank} facts={yearFacts} href={upgradeLink("practice_milestone")} onDismiss={() => setMilestoneQuestionId("")} />}{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
             })}
           </div>
           {!savedWorksheetView && !sharedSetView && filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
@@ -1493,6 +1552,7 @@ access: ExplorerAccess;
           {worksheetStatus && <p role={worksheetStatus.endsWith("…") ? "status" : "alert"}>{worksheetStatus}</p>}
         </>}
       </section></div>}
+      {signinPrompt && <div className="pdf-backdrop" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) setSigninPrompt(null); }}><section ref={signinPromptRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="signin-prompt-title"><button className="pdf-close" aria-label="Close" onClick={() => setSigninPrompt(null)}><X /></button><span className="access-upgrade-icon"><BookmarkSimple aria-hidden="true" weight="bold" /></span><h2 id="signin-prompt-title">{signinPrompt.reason === "save" ? "Save this question" : "Your saved questions"}</h2><p>Create a free account to save questions and come back to them anytime.</p><Link className="button primary" href={`/login?mode=sign-up&next=${encodeURIComponent(promptReturnPath)}`} onClick={() => trackProductEvent("study_signin_prompt_click", { bank: bank ?? "unknown", reason: signinPrompt.reason, action: "sign_up" })}>Create free account</Link><p className="signin-prompt-alt">Have an account? <Link href={`/login?next=${encodeURIComponent(promptReturnPath)}`} onClick={() => trackProductEvent("study_signin_prompt_click", { bank: bank ?? "unknown", reason: signinPrompt.reason, action: "sign_in" })}>Sign in</Link></p></section></div>}
       {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">Saving PDFs needs paid access</h2><p>Save and download PDFs with paid access to this question bank.</p><Testimonial testimonial={PDF_TESTIMONIAL} variant="inline" signedOutOnly /><Link className="button primary" href={upgradeLink("pdf_dialog")} onClick={() => { if (bank) trackUpgrade("click", bank, "pdf_dialog"); }}>{PLANS_LABEL}</Link></section></div>}
       {hasPeriodicTable(bank) && <PeriodicTableButton variant="floating" source="bank" />}
     </section>
@@ -1518,8 +1578,9 @@ function decodeImages(urls: readonly string[], timeoutMs = 1500): Promise<void> 
     .then(() => clearTimeout(timer));
 }
 
-function QuestionCard({ question, unlocked, authenticated, localPreview, scopeIsCurrent, freeAnswer, priority = false, questionAsset, answerAsset, onQuestionAssetError, onAnswerAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt, onReveal, locked }: {
+function QuestionCard({ question, fullPaperHref, unlocked, authenticated, localPreview, scopeIsCurrent, freeAnswer, priority = false, questionAsset, answerAsset, onQuestionAssetError, onAnswerAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt, onReveal, locked }: {
   question: UnifiedQuestion;
+  fullPaperHref?: string;
   unlocked: boolean;
   authenticated: boolean;
   localPreview: boolean;
@@ -1669,7 +1730,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, scopeIs
       {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <SourceCropImage key={source} bankSlug={question.bankSlug} questionId={question.id} src={source} priority={priority && index === 0} crop={questionAsset.displayCrops?.[index]} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status"><span className="placeholder-shimmer" aria-hidden="true" /><span className="placeholder-bars" aria-hidden="true"><i /><i /><i /><i /></span><span className="sr-only">Loading original question</span></div>}{question.accessibleText ? <p className="sr-only question-transcript">{question.accessibleText}</p> : null}</div> : <div className="question-locked"><strong>{locked?.title ?? "Paid plan required"}</strong><span>{locked?.body ?? "Unlock this bank’s full question set, answers, and PDF export."}</span><Link className={locked ? "button primary question-locked-upgrade" : "question-locked-action"} href={locked?.href ?? plansHrefFor(authenticated)} onClick={locked?.onClick}>{locked ? `Unlock from ${UPGRADE_PRICE_LABEL}` : PLANS_LABEL}</Link></div>}
       <div className="question-actions">
         <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer} onPointerEnter={prefetchAnswer} onFocus={prefetchAnswer} onTouchStart={prefetchAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{showExplanationButton && <button className="answer-toggle" disabled={explanationLoading} aria-expanded={explanationOpen} onClick={toggleExplanation}>{explanationLoading ? "Loading explanation..." : explanationOpen ? "Hide explanation" : "Explanation"}</button>}{answerError && <span className="muted" role="alert">{answerError}</span>}{explanationError && <span className="muted" role="alert">{explanationError}</span>}</div>
-        <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{authenticated && unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}{unlocked && <QuestionReport bank={question.bankSlug} questionId={question.id} hasExplanation={Boolean(question.hasExplanation)} freePreview={isPreviewQuestion(question.bankSlug, question.id)} />}</div>
+        <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{unlocked && fullPaperHref && <Link className="full-paper-button" href={fullPaperHref} title="Open the whole paper at this question, with its mark scheme" onClick={() => trackProductEvent("question_full_paper_click", { bank: question.bankSlug })}><FileText aria-hidden="true" weight="bold" />Full paper</Link>}{unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}{unlocked && <QuestionReport bank={question.bankSlug} questionId={question.id} hasExplanation={Boolean(question.hasExplanation)} freePreview={isPreviewQuestion(question.bankSlug, question.id)} />}</div>
       </div>
       {answerOpen && <div className="answer-panel">{answerAsset?.mcqAnswer ? <McqAnswerView answer={answerAsset.mcqAnswer} /> : <>{answerAsset?.urls.length ? <p className="answer-panel-label">Mark scheme</p> : null}{answerAsset?.urls.map((source, index) => <Image unoptimized width={0} height={0} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} onError={answerAssetFailed} />)}</>}{question.solution && (answerAsset?.urls.length || answerAsset?.mcqAnswer ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
       {explanationOpen && explanation && <div className="answer-panel explanation-panel"><p className="answer-panel-label">Explanation</p><ExplanationPanel explanation={explanation} /></div>}

@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import { IntentPrefetchLink } from '@/components/IntentPrefetchLink';
-import { ArrowLeft, ArrowRight } from '@phosphor-icons/react/dist/ssr';
+import { ArrowDown, ArrowLeft, ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { courseToneForBank } from '@/components/CourseIcon';
 import { JsonLd } from '@/components/JsonLd';
 import type { PaperReaderConfig } from '@/lib/paper-reader-config';
 import { chipLabel, paperHref, paperName, paperNumberSlug, paperOption, qualificationOfBank, sessionRank, shortSession, subjectSlugForBank } from '@/lib/past-paper-catalog';
 import type { PaperView } from '@/lib/past-paper-pages';
+import { archiveQuestions, paperTopicSummary, questionPages, type PaperTopic } from '@/lib/paper-question-links';
+import { topicFilterHref } from '@/lib/search-landing';
 import { breadcrumbJsonLd, formatDuration, paperCodes, paperCopy, paperCourseTitle, paperJsonLd, subjectSearchName } from '@/lib/past-paper-seo';
 import type { WholePaperSummary } from '@/lib/whole-paper-types';
 import { PaperWorkspace } from './PaperWorkspace';
@@ -30,8 +32,16 @@ function ChipRow({ label, papers, current, text }: { label: string; papers: Whol
   return <nav aria-label={label} className={styles.chipRow}><h3>{label}</h3><div className={styles.pill}>{papers.map(p => <IntentPrefetchLink key={p.id} href={paperHref(p)} aria-current={p.id === current ? 'page' : undefined}>{text(p)}</IntentPrefetchLink>)}</div></nav>;
 }
 
+function TopicButton({ bank, topic }: { bank: string; topic: PaperTopic }) {
+  const questions = topic.numbers.map(n => `Q${n}`).join(', ');
+  return <Link className={styles.topic} href={topicFilterHref(bank, topic.topic)} title={`Practise ${topic.topic} (${questions} in this paper)`}>{topic.topic}<ArrowRight aria-hidden="true" weight="bold" /></Link>;
+}
+
 export function PastPaperPaperPage({ view }: { view: PaperView }) {
   const { bank, detail, all, practice } = view;
+  const questions = view.questions ?? archiveQuestions(detail);
+  const topics = practice ? paperTopicSummary(questions) : [];
+  const RAIL_TOPICS = 4;
   const p = detail.summary;
   const subject = subjectSlugForBank(bank.slug);
   const name = subjectSearchName(bank);
@@ -49,7 +59,7 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
   const tz = /^tz[1-9]$/i.test(p.variant) ? p.variant.toUpperCase() : null;
   const facts = [p.route === 'Core' || p.route === 'Extended' ? p.route : null, p.durationMinutes !== null ? formatDuration(p.durationMinutes) : null, p.maxMarks !== null ? `${p.maxMarks} marks` : null, p.qualification === 'Cambridge IGCSE' && /^\d$/.test(p.variant) ? `Variant ${p.variant}` : tz].filter((fact): fact is string => !!fact);
   const codes = paperCodes(bank, p);
-  const reader: PaperReaderConfig = { id: p.id, title: copy.h1, subject: p.subject, syllabusCode: p.syllabusCode, qualification: p.qualification, sessionLabel: `${p.session} ${p.year}`, component: p.paper, paperName: label, variant: p.variant, durationMinutes: p.durationMinutes, maxMarks: p.maxMarks, sources: detail.sources, bankSlug: bank.slug, reportAvailable: p.reportAvailable };
+  const reader: PaperReaderConfig = { id: p.id, title: copy.h1, subject: p.subject, syllabusCode: p.syllabusCode, qualification: p.qualification, sessionLabel: `${p.session} ${p.year}`, component: p.paper, paperName: label, variant: p.variant, durationMinutes: p.durationMinutes, maxMarks: p.maxMarks, sources: detail.sources, bankSlug: bank.slug, reportAvailable: p.reportAvailable, questionPages: questionPages(questions) };
   const marking = p.reportAvailable && p.maxMarks !== null ? { id: p.id, version: detail.version, bankSlug: bank.slug, title: copy.h1, maxMarks: p.maxMarks, questions: detail.questions } : null;
   const paperNumber = p.paper.toUpperCase();
   return <article className={`${shell.page} ${styles.page}`} data-subject-tone={courseToneForBank(bank)}>
@@ -73,17 +83,31 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
         {session.length > 0 && <ChipRow label="Same session" papers={session} text={shortName} />}
         {(previous || next) && <nav aria-label={`Paper ${paperNumber} in other sessions`} className={styles.neighbours}>
           <h3>Paper {paperNumber} · other sessions</h3>
-          <div>{previous ? <Link href={paperHref(previous)}><small><ArrowLeft aria-hidden="true" /> Previous · {shortSession(previous.session)} {previous.year}</small><b>{paperName(previous)}</b></Link> : <span />}
-            {next ? <Link href={paperHref(next)}><small>Next · {shortSession(next.session)} {next.year} <ArrowRight aria-hidden="true" /></small><b>{paperName(next)}</b></Link> : <span />}</div>
+          <div>{previous ? <Link href={paperHref(previous)} aria-label={`Previous: ${shortSession(previous.session)} ${previous.year} ${paperName(previous)}`}><ArrowLeft aria-hidden="true" weight="bold" /><span><b>{shortSession(previous.session)} {previous.year}</b>{previous.component !== p.component && <small>{paperName(previous)}</small>}</span></Link> : <span />}
+            {next ? <Link href={paperHref(next)} className={styles.next} aria-label={`Next: ${shortSession(next.session)} ${next.year} ${paperName(next)}`}><span><b>{shortSession(next.session)} {next.year}</b>{next.component !== p.component && <small>{paperName(next)}</small>}</span><ArrowRight aria-hidden="true" weight="bold" /></Link> : <span />}</div>
         </nav>}
         <div className={styles.more}><Link href={`/past-papers/${subject}/${p.year}`}>All {p.year} papers</Link><Link href={`/past-papers/${subject}/${paperNumberSlug(p.paper)}`}>Every Paper {paperNumber}</Link></div>
       </section>
-      {practice && <Link className={styles.practice} href={`/banks/${bank.slug}?paper=${encodeURIComponent(String(parseInt(p.paper, 10)))}`}>Practise Paper {paperNumber} questions by topic <ArrowRight aria-hidden="true" weight="bold" /></Link>}
+      {practice && <section className={styles.box} aria-labelledby="rail-practice">
+        <div>
+          <h3 id="rail-practice">Practise these topics</h3>
+          {topics.length > 0 && <div className={styles.topicList}>{topics.slice(0, RAIL_TOPICS).map(t => <TopicButton key={t.topic} bank={bank.slug} topic={t} />)}</div>}
+        </div>
+        <div className={styles.more}>
+          {topics.length > RAIL_TOPICS && <a href="#paper-questions">All {topics.length} topics <ArrowDown aria-hidden="true" weight="bold" /></a>}
+          <Link href={`/banks/${bank.slug}?paper=${encodeURIComponent(String(parseInt(p.paper, 10)))}`}>All Paper {paperNumber} questions by topic</Link>
+        </div>
+      </section>}
     </PaperWorkspace>
-    {detail.questions.length > 0 && <section className={styles.questions} aria-labelledby="paper-questions">
-      <h2 id="paper-questions">What&apos;s in this paper</h2>
-      <p>{detail.questions.length} questions{p.maxMarks !== null && ` · ${p.maxMarks} marks`}. Topics come from our question bank.</p>
-      <ol aria-label="Questions in this paper">{detail.questions.map(q => <li key={q.id}><b>Q{q.number}</b><span>{q.topics.join(', ')}</span><em>{q.maxMarks} {q.maxMarks === 1 ? 'mark' : 'marks'}</em></li>)}</ol>
+    {questions.length > 0 && <section className={styles.questions} aria-labelledby="paper-questions">
+      <h2 id="paper-questions">{topics.length ? 'Practise by topic' : 'What\u2019s in this paper'}</h2>
+      {topics.length > 0 && <>
+        <p>Pick a topic for more questions like it.</p>
+        <div className={styles.topicList}>{topics.map(t => <TopicButton key={t.topic} bank={bank.slug} topic={t} />)}</div>
+        <h3>Question by question</h3>
+      </>}
+      <p className={styles.count}>{questions.length} questions{p.maxMarks !== null && ` · ${p.maxMarks} marks`}</p>
+      <ol aria-label="Questions in this paper">{questions.map(q => <li key={q.id}><b>Q{q.number}</b><span>{q.topics.map((topic, i) => <span key={topic}>{i > 0 && ', '}{practice ? <Link href={topicFilterHref(bank.slug, topic)}>{topic}</Link> : topic}</span>)}</span>{q.marks !== null && <em>{q.marks} {q.marks === 1 ? 'mark' : 'marks'}</em>}</li>)}</ol>
     </section>}
     <p className={styles.aliases}><span>Also listed as</span>{codes.join(' · ')}</p>
   </article>;

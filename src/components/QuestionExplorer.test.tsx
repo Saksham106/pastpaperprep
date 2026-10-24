@@ -211,6 +211,108 @@ describe("QuestionExplorer", () => {
     expect(new URL(signin.getAttribute("href")!, "https://pastpaperprep.com").searchParams.get("next")).toBe(expectedReturnPath);
   });
 
+  it("asks signed-out visitors to sign in when they save a question or open saved questions", async () => {
+    window.history.replaceState({}, "", "/banks/ib-sl?free=1");
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => isPreviewQuestion("ib-sl", question.id)).slice(0, 2), []);
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={{ authenticated: false, bankAccess: false, canExportPdf: false }} hydrateFromLocation />);
+
+    fireEvent.click(await screen.findByRole("button", { name: `Save question ${questions[0].id}` }));
+    const dialog = screen.getByRole("dialog", { name: "Save this question" });
+    const next = new URL(within(dialog).getByRole("link", { name: "Create free account" }).getAttribute("href")!, "https://pastpaperprep.com").searchParams.get("next")!;
+    expect(new URL(next, "https://pastpaperprep.com").searchParams.get("save")).toBe(questions[0].id);
+    expect(vi.mocked(fetch).mock.calls.some(([input]) => String(input) === "/api/study-state")).toBe(false);
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("checkbox", { name: /saved questions only/i }));
+    expect(screen.getByRole("dialog", { name: "Your saved questions" })).toBeInTheDocument();
+    expect(screen.getByRole("checkbox", { name: /saved questions only/i })).not.toBeChecked();
+  });
+
+  it("saves the question a visitor picked before signing in", async () => {
+    signIn();
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 3), []);
+    const target = questions[1];
+    window.history.replaceState({}, "", `/banks/ib-sl?save=${encodeURIComponent(target.id)}`);
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      if (url === "/api/banks/bootstrap?bank=ib-sl") return new Response(JSON.stringify({ access: fullAccess, studyState: { savedIds: [], attemptedIds: [] } }), { status: 200, headers: { "content-type": "application/json" } });
+      if (url === "/api/study-state") return new Response(JSON.stringify({ saved: true }), { status: 200 });
+      const body = JSON.parse(String(init?.body));
+      return new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }), { status: 200 });
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={{ authenticated: false, bankAccess: false, canExportPdf: false }} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+
+    await waitFor(() => expect(fetchMock.mock.calls.filter(([input]) => String(input) === "/api/study-state").map(([, init]) => JSON.parse(String(init?.body)))).toEqual([{ bank: "ib-sl", questionId: target.id, action: "save" }]));
+    expect(await screen.findByRole("button", { name: `Remove question from saved ${target.id}` })).toBeInTheDocument();
+  });
+
+  it("closes Filters before the sign-in prompt so scrolling comes back when it closes", async () => {
+    window.history.replaceState({}, "", "/banks/ib-sl?free=1");
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((question) => isPreviewQuestion("ib-sl", question.id)).slice(0, 2), []);
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={{ authenticated: false, bankAccess: false, canExportPdf: false }} hydrateFromLocation />);
+
+    fireEvent.click(await screen.findByRole("button", { name: /^filters/i }));
+    await waitFor(() => expect(document.body.style.overflow).toBe("hidden"));
+    fireEvent.click(screen.getByRole("checkbox", { name: /saved questions only/i }));
+    expect(screen.getByRole("dialog", { name: "Your saved questions" })).toBeInTheDocument();
+    expect(screen.queryByRole("dialog", { name: "Filters" })).not.toBeInTheDocument();
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(document.body.style.overflow).toBe("");
+  });
+
+  it("keeps a post-sign-in save when the account snapshot arrives after cached access", async () => {
+    signIn();
+    writeCachedAccess("ib-sl", sessionFingerprint(document.cookie)!, { access: fullAccess });
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 3), []);
+    const target = questions[1];
+    window.history.replaceState({}, "", `/banks/ib-sl?save=${encodeURIComponent(target.id)}`);
+    let releaseBootstrap!: (response: Response) => void;
+    const bootstrap = new Promise<Response>((resolve) => { releaseBootstrap = resolve; });
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      if (url === "/api/banks/bootstrap?bank=ib-sl") return bootstrap;
+      if (url === "/api/study-state") return new Response(JSON.stringify({ saved: true }), { status: 200 });
+      const body = JSON.parse(String(init?.body));
+      return new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }), { status: 200 });
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    const studyCalls = () => fetchMock.mock.calls.filter(([input]) => String(input) === "/api/study-state").map(([, init]) => JSON.parse(String(init?.body)).action);
+
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={{ authenticated: false, bankAccess: false, canExportPdf: false }} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    await screen.findByRole("button", { name: `Save question ${target.id}` });
+    expect(studyCalls()).toEqual([]);
+
+    await act(async () => { releaseBootstrap(new Response(JSON.stringify({ access: fullAccess, studyState: { savedIds: [], attemptedIds: [] } }), { status: 200, headers: { "content-type": "application/json" } })); });
+    expect(await screen.findByRole("button", { name: `Remove question from saved ${target.id}` })).toBeInTheDocument();
+    expect(studyCalls()).toEqual(["save"]);
+  });
+
+  it("does not let a late account snapshot undo a save made from cached access", async () => {
+    signIn();
+    writeCachedAccess("ib-sl", sessionFingerprint(document.cookie)!, { access: fullAccess });
+    const questions = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").slice(0, 2), []);
+    let releaseBootstrap!: (response: Response) => void;
+    const bootstrap = new Promise<Response>((resolve) => { releaseBootstrap = resolve; });
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      if (url === "/api/banks/bootstrap?bank=ib-sl") return bootstrap;
+      if (url === "/api/study-state") return new Response(JSON.stringify({ saved: true }), { status: 200 });
+      const body = JSON.parse(String(init?.body));
+      return new Response(JSON.stringify({ expiresIn: 600, assets: body.requests.map((request: { questionId: string; kind: string }) => ({ ...request, urls: [`https://assets.example/${request.questionId}.webp`] })) }), { status: 200 });
+    }));
+
+    render(<QuestionExplorer questions={questions} bankSlug="ib-sl" access={{ authenticated: false, bankAccess: false, canExportPdf: false }} bootstrapUrl="/api/banks/bootstrap?bank=ib-sl" hydrateFromLocation />);
+    fireEvent.click(await screen.findByRole("button", { name: `Save question ${questions[0].id}` }));
+    await screen.findByRole("button", { name: `Remove question from saved ${questions[0].id}` });
+
+    await act(async () => { releaseBootstrap(new Response(JSON.stringify({ access: fullAccess, studyState: { savedIds: [], attemptedIds: [] } }), { status: 200, headers: { "content-type": "application/json" } })); });
+    expect(screen.getByRole("button", { name: `Remove question from saved ${questions[0].id}` })).toBeInTheDocument();
+  });
+
   it("hydrates shared filters and member access without making the bank page dynamic", async () => {
     signIn();
     const all = loadBankQuestions("ib-sl");
