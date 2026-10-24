@@ -31,6 +31,17 @@ describe("free public assets", () => {
     expect(listFreePublicAssets("igcse-biology-0610", new Map([[id, entry(id, false)]])).map((asset) => asset.source)).toEqual(["r2", "r2"]);
   });
 
+  it("copies R2-only repair crops from R2 in Supabase-backed banks", () => {
+    const id = "2020-november-tz0-sl-p1-q1";
+    const repair = "ib-biology-sl/repairs/ib-shared-stimulus-v1-d53ab265e7e81518/a.webp";
+    const assets = listFreePublicAssets("ib-biology-sl", new Map([[id, { ...entry(id, false), questionAssetPaths: [repair, `ib-biology-sl/questions/${id}-page-3.webp`] }]]));
+    expect(assets.map(({ path, source }) => [path, source])).toEqual([
+      [repair, "r2"],
+      [`ib-biology-sl/questions/${id}-page-3.webp`, "supabase"],
+      [`bank/markschemes/${id}.webp`, "supabase"],
+    ]);
+  });
+
   it("builds a static index of public links for free questions only", () => {
     const index = buildFreeAssetIndex("igcse", manifest, (_id, value) => ({ ...value, solution: "worked" }));
     expect(Object.keys(index.questions)).toEqual([FREE]);
