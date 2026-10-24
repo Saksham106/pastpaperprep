@@ -1,0 +1,113 @@
+{
+ "schema": "reviewed-economics-ms-row-repairs-v1",
+ "bank": "igcse-economics-0455",
+ "namespace": "repairs/economics-ms-rows-v1-553ea0b9b40c08cd",
+ "source": {
+  "builder": "scripts/build-economics-ms-row-repairs.py",
+  "research": "research/economics-ms-row-repair-20261023",
+  "packageSha256": "553ea0b9b40c08cd1c75d396c6abdeae9c68058e27c81882cf617e3476abe5ab",
+  "builderSha256": "64257b9ccc3655e414d5e6cfef3d40559e1f552eae4d8cfdc457bd8e55b44e01"
+ },
+ "officialSchemeGaps": {
+  "0455-2022-s-21-q4": {
+   "rows": [
+    {
+     "part": "4(a)",
+     "printedLabel": "",
+     "marks": 2
+    },
+    {
+     "part": "4(b)",
+     "printedLabel": "4(d)",
+     "marks": 4
+    },
+    {
+     "part": "4(c)",
+     "printedLabel": "4(d)",
+     "marks": 6
+    }
+   ],
+   "missingRows": [
+    "4(d)"
+   ],
+   "schemeMarks": 12,
+   "printedMarks": 20
+  }
+ },
+ "entries": {
+  "0455-2022-s-21-q2": {
+   "oldPaths": [
+    "markschemes/0455-2022-s-21/q2-1-12.webp",
+    "markschemes/0455-2022-s-21/q2-2-13.webp",
+    "markschemes/0455-2022-s-21/q2-3-14.webp",
+    "markschemes/0455-2022-s-21/q2-4-15.webp"
+   ],
+   "oldSha256": [
+    "92f01bb27829889111246e2c633f0d0ce0b3c9b339e4406b68450fb5ca529029",
+    "6612d3c1076d753d1e2a6a40d6cfdce286ed6ef059fa3b7c232c0d24a9fe18e1",
+    "ede7bf09e91f3f80bee6f73ef5f91c185f52a4e7203a2980fed996ade9f2bcd1",
+    "809102d2ee7cc5a2ae57b9b5cd7d6286a52e19902e580e3df9d8475936339b10"
+   ],
+   "newPaths": [
+    "markschemes/0455-2022-s-21/q2-1-12.webp",
+    "markschemes/0455-2022-s-21/q2-2-13.webp",
+    "markschemes/0455-2022-s-21/q2-3-14.webp",
+    "repairs/economics-ms-rows-v1-553ea0b9b40c08cd/e8a6c0bf1c742fbe9db2733c4fae3461b98e95a5abbd0422a81d2ee9ef18cce2.webp"
+   ],
+   "sha256": [
+    "92f01bb27829889111246e2c633f0d0ce0b3c9b339e4406b68450fb5ca529029",
+    "6612d3c1076d753d1e2a6a40d6cfdce286ed6ef059fa3b7c232c0d24a9fe18e1",
+    "ede7bf09e91f3f80bee6f73ef5f91c185f52a4e7203a2980fed996ade9f2bcd1",
+    "e8a6c0bf1c742fbe9db2733c4fae3461b98e95a5abbd0422a81d2ee9ef18cce2"
+   ],
+   "sourcePdfSha256": "1e24d415c6276140787970b5fc52f71fae7c6ae5b0a0ae4437d12092241c58bc",
+   "reason": "Page-15 crop ended inside the next table (a repeated header and the top of the 3(a) line); it now ends at the rule closing 2(d)."
+  },
+  "0455-2022-s-21-q3": {
+   "oldPaths": [
+    "markschemes/0455-2022-s-21/q3-1-15.webp",
+    "markschemes/0455-2022-s-21/q3-2-16.webp",
+    "markschemes/0455-2022-s-21/q3-3-17.webp",
+    "markschemes/0455-2022-s-21/q3-4-18.webp"
+   ],
+   "oldSha256": [
+    "27108e9cbf9fefc7468b2657d1c604e5cd970e60839018dbed9a6d503e1efcde",
+    "d1cba32fb80af3ea834f4fc929ec85feb6e14054ae9b2e4231ee2bb96e89d275",
+    "09dd5dc83374fc917889e564423d736fe3afccc8eb7bd8166f9f6f1493664774",
+    "0a8136ede550b9d4191987905c42c915ac7312e6c3b58a2398bd7202a660314a"
+   ],
+   "newPaths": [
+    "markschemes/0455-2022-s-21/q3-1-15.webp",
+    "markschemes/0455-2022-s-21/q3-2-16.webp",
+    "markschemes/0455-2022-s-21/q3-3-17.webp",
+    "repairs/economics-ms-rows-v1-553ea0b9b40c08cd/4b2165f98525721ca12d8a4fe320fe503a6bf6545f71392f9594a270d1a2d8a8.webp"
+   ],
+   "sha256": [
+    "27108e9cbf9fefc7468b2657d1c604e5cd970e60839018dbed9a6d503e1efcde",
+    "d1cba32fb80af3ea834f4fc929ec85feb6e14054ae9b2e4231ee2bb96e89d275",
+    "09dd5dc83374fc917889e564423d736fe3afccc8eb7bd8166f9f6f1493664774",
+    "4b2165f98525721ca12d8a4fe320fe503a6bf6545f71392f9594a270d1a2d8a8"
+   ],
+   "sourcePdfSha256": "1e24d415c6276140787970b5fc52f71fae7c6ae5b0a0ae4437d12092241c58bc",
+   "reason": "Page-18 crop included the unlabelled 4(a) row (\"Define privatisation.\"); it now ends at the rule closing 3(d)."
+  },
+  "0455-2022-s-21-q4": {
+   "oldPaths": [
+    "markschemes/0455-2022-s-21/q4-1-19.webp"
+   ],
+   "oldSha256": [
+    "3b21db09880e38d2a23efebd4a0476dda90dccae1fab1b28bad9b297dbec0b3e"
+   ],
+   "newPaths": [
+    "repairs/economics-ms-rows-v1-553ea0b9b40c08cd/99a7fe82f6a5e952c4b5071173c08b7a87ada9d91c306311bf0f918652a0907c.webp",
+    "repairs/economics-ms-rows-v1-553ea0b9b40c08cd/cb46248805c106333f0a10ca0a912c5655ea39b0be55973cb6a5ef56a42b3d15.webp"
+   ],
+   "sha256": [
+    "99a7fe82f6a5e952c4b5071173c08b7a87ada9d91c306311bf0f918652a0907c",
+    "cb46248805c106333f0a10ca0a912c5655ea39b0be55973cb6a5ef56a42b3d15"
+   ],
+   "sourcePdfSha256": "1e24d415c6276140787970b5fc52f71fae7c6ae5b0a0ae4437d12092241c58bc",
+   "reason": "Adds the 4(a) row from page 18 before the page-19 rows (printed \"4(d)\" twice by Cambridge: they are 4(b) and 4(c))."
+  }
+ }
+}

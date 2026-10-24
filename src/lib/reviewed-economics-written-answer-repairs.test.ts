@@ -8,6 +8,8 @@ import{metadataFromRaw}from'../../scripts/generate-bank-index.mjs';
 import{normalizeBankQuestions}from'@/lib/questions';
 const repairs=JSON.parse(readFileSync('src/data/reviewed-economics-written-answer-repairs.json','utf8'))as Record<string,Record<string,{oldPaths:string[];newPaths:string[];sha256:string[]}>>;
 const held=JSON.parse(readFileSync('data/storage/economics-written-answer-repairs.manifest.json','utf8')).heldQuestionIds as Record<string,string[]>;
+// Answers a later row repair replaces (docs/economics-ms-row-repairs.md); that overlay's test covers them.
+const later=JSON.parse(readFileSync('src/data/reviewed-economics-ms-row-repairs.json','utf8')).entries as Record<string,unknown>;
 describe('reviewed Economics written-answer crops',()=>{
  test('sealed receipt binds every approved object to the exact immutable manifest',()=>{
   const bytes=readFileSync('data/storage/economics-written-answer-repairs.manifest.json');const manifest=JSON.parse(bytes.toString());const receipt=JSON.parse(readFileSync('data/storage/economics-written-answer-repairs.receipt.json','utf8'));
@@ -26,13 +28,14 @@ describe('reviewed Economics written-answer crops',()=>{
     if(pending)await expect(loadBankQuestions(bank)).rejects.toThrow(/not backed by verified storage/);
     const after=new Map((pending?normalizeBankQuestions(bank,JSON.parse(before),{economicsAssetMode:'private',applyReviewedBlankPages:true}):await loadBankQuestions(bank)).map(q=>[q.id,q]));
     for(const [qid,entry]of Object.entries(repairs[bank])){
+     if(later[qid]){expect(after.get(qid)?.markschemeAssetPaths.some(p=>p.includes('/economics-ms-rows-v1-'))).toBe(true);continue;}
      expect(reviewedMarkschemePaths(bank,qid,entry.oldPaths)).toEqual(entry.newPaths);
      expect(after.get(qid)?.markschemeAssetPaths).toEqual(entry.newPaths.map(p=>getPrivateBankObjectPrefix(bank)+p));
      expect(after.get(qid)?.markschemeImageCount).toBe(entry.newPaths.length);
      expect(metadataFromRaw(raw.find((q:{id:string})=>q.id===qid),{bank,normalizedProduction:true}).markschemeImageCount).toBe(entry.newPaths.length);
      expect(after.get(qid)?.questionAssetPaths).toEqual(old.get(qid)?.questionAssetPaths);
     }
-    for(const qid of held[bank])expect(after.get(qid)?.markschemeAssetPaths).toEqual(old.get(qid)?.markschemeAssetPaths);
+    for(const qid of held[bank])if(!later[qid])expect(after.get(qid)?.markschemeAssetPaths).toEqual(old.get(qid)?.markschemeAssetPaths);
     expect(JSON.stringify(raw)).toBe(before);
    }finally{vi.unstubAllEnvs();}
   });
