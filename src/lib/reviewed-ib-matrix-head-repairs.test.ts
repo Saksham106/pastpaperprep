@@ -7,6 +7,8 @@ import {metadataFromRaw} from '../../scripts/generate-bank-index.mjs';
 const raw=JSON.parse(readFileSync('src/data/raw/ib-ai-hl.json','utf8')).questions;
 const id12='2025-november-tz0-p1-q12',id13='2025-november-tz0-p1-q13';
 const row12=raw.find((q:{id:string})=>q.id===id12),row13=raw.find((q:{id:string})=>q.id===id13);
+// Repaired since by a later overlay (docs/ib-maths-ms-row-repairs.md), which has its own test.
+const later=JSON.parse(readFileSync('src/data/reviewed-ib-maths-ms-row-repairs.json','utf8')).banks['ib-ai-hl']as Record<string,unknown>;
 test('sealed receipt binds exact reviewed cohort, original paths, and one fully read-back object',()=>{
  const bytes=readFileSync('data/storage/ib-matrix-head-repairs.manifest.json');const manifest=JSON.parse(bytes.toString());const receipt=JSON.parse(readFileSync('data/storage/ib-matrix-head-repairs.receipt.json','utf8'));const repairs=JSON.parse(readFileSync('src/data/reviewed-ib-matrix-head-repairs.json','utf8'));
  expect(manifest.entries).toEqual(repairs.entries);expect(Object.keys(repairs.entries).sort()).toEqual([id12,id13]);expect(manifest.objects).toHaveLength(1);
@@ -22,7 +24,7 @@ test('actual legacy IB loader activates both repairs and preserves all unrelated
  const byId=new Map(all.map(q=>[q.id,q]));
  expect(byId.get(id12)?.markschemeAssetPaths).toEqual([`ib-ai-hl/${row12.officialMarkscheme.images[0]}`]);
  expect(byId.get(id13)?.markschemeAssetPaths[0]).toMatch(/^ib-ai-hl\/repairs\/ib-matrix-head-v1-[a-f0-9]{16}\/[a-f0-9]{64}\.webp$/);
- for(const r of raw){const q=byId.get(r.id);expect(q?.questionAssetPaths).toEqual(r.questionImages.map((p:string)=>`ib-ai-hl/${p}`));if(r.id!==id12&&r.id!==id13)expect(q?.markschemeAssetPaths).toEqual(r.officialMarkscheme.images.map((p:string)=>`ib-ai-hl/${p}`));}
+ for(const r of raw){const q=byId.get(r.id);expect(q?.questionAssetPaths).toEqual(r.questionImages.map((p:string)=>`ib-ai-hl/${p}`));if(r.id!==id12&&r.id!==id13&&!later[r.id])expect(q?.markschemeAssetPaths).toEqual(r.officialMarkscheme.images.map((p:string)=>`ib-ai-hl/${p}`));}
  expect(JSON.stringify(raw)).toBe(before);
 });
 test('canonical metadata updates only reviewed answer count, other banks unaffected',()=>{

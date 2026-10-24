@@ -1,0 +1,106 @@
+{
+ "schema": "reviewed-ib-maths-ms-row-repairs-v1",
+ "namespace": "repairs/ib-maths-ms-rows-v1-34ef8561fff49920",
+ "source": {
+  "builder": "scripts/build-ib-maths-ms-row-repairs.py",
+  "research": "research/ib-maths-ms-row-repair-20261024",
+  "packageSha256": "34ef8561fff49920049b6bb62b71efa742797e59b91fe74382b1a8b216997c8b",
+  "builderSha256": "89c5aab694216b60a770dabb2f258a1dea60a03dd1c4506a0994e2b9394cbb7c"
+ },
+ "banks": {
+  "ib-hl": {
+   "2021-may-tz1-p1-q1": {
+    "oldPaths": [
+     "markschemes/2021-may-tz1-p1-q1-page-8.webp"
+    ],
+    "oldSha256": [
+     "ceaa9ac3bace4517075ab87de31cd6d882923c83b1a4c7aae61b97c128fc5c78"
+    ],
+    "newPaths": [
+     "repairs/ib-maths-ms-rows-v1-34ef8561fff49920/b31d56c06772f9667f85390de1aef2c989957063c464185611b713d1190edcaf.webp"
+    ],
+    "sha256": [
+     "b31d56c06772f9667f85390de1aef2c989957063c464185611b713d1190edcaf"
+    ],
+    "sourcePdfSha256": "774a9e2157865907117e1c238c151bb9c7328be8edfc24ec1d79e818e126fdea",
+    "reason": "Served only Q2's last rows (u1 = -6, d = 2): an earlier anchor pass read the u1 subscript as the Q1 heading. Now all of 1(a) and 1(b), page 8 from the \"1.\" label to the \"2\" label."
+   },
+   "2021-may-tz1-p1-q2": {
+    "oldPaths": [
+     "markschemes/2021-may-tz1-p1-q2-page-8.webp"
+    ],
+    "oldSha256": [
+     "b804ae980fc161c73e93aeb32fc26aa4bd7de917d52484e3349561815e0b26da"
+    ],
+    "newPaths": [
+     "repairs/ib-maths-ms-rows-v1-34ef8561fff49920/0313b980a8de004fac7b4825f161138807af14272d3b879cf52b7be12d3070a1.webp"
+    ],
+    "sha256": [
+     "0313b980a8de004fac7b4825f161138807af14272d3b879cf52b7be12d3070a1"
+    ],
+    "sourcePdfSha256": "774a9e2157865907117e1c238c151bb9c7328be8edfc24ec1d79e818e126fdea",
+    "reason": "Served the whole of page 8, Q1 included. Now page 8 from the \"2\" label to the page bottom (Q3 starts on page 9)."
+   }
+  },
+  "ib-ai-hl": {
+   "2024-may-tz1-p3-q1": {
+    "oldPaths": [
+     "markschemes/2024-may-tz1-p3-q1-page-7.webp",
+     "markschemes/2024-may-tz1-p3-q1-page-8.webp",
+     "markschemes/2024-may-tz1-p3-q1-page-9.webp",
+     "markschemes/2024-may-tz1-p3-q1-page-10.webp"
+    ],
+    "oldSha256": [
+     "58c6a1e556ed5cc622a0444b5661d67ba95f48695f6644064b2e41af7cfefe00",
+     "953578b6665b47d2a24954e75aa9ad127e142fa9e056ef2a94b5b61ddf25aab7",
+     "defd94ff256bb6db4dd9988afa62bb2342089e001e2e3a6b17b870118fd26787",
+     "52719aa4387e333496b824199fd33757a1ba82b5bed2fa3384b2defded6fd8cb"
+    ],
+    "newPaths": [
+     "markschemes/2024-may-tz1-p3-q1-page-7.webp",
+     "markschemes/2024-may-tz1-p3-q1-page-8.webp",
+     "markschemes/2024-may-tz1-p3-q1-page-9.webp",
+     "repairs/ib-maths-ms-rows-v1-34ef8561fff49920/6948dd3832d1a4073ab66f21c9f7f20a103e5ce2dde7d7fd16b4768e14626aeb.webp",
+     "repairs/ib-maths-ms-rows-v1-34ef8561fff49920/eef7ce66499f7c3746e6bfe541df9855e24fbbe44f562a84ed368045f4796eb0.webp"
+    ],
+    "sha256": [
+     "58c6a1e556ed5cc622a0444b5661d67ba95f48695f6644064b2e41af7cfefe00",
+     "953578b6665b47d2a24954e75aa9ad127e142fa9e056ef2a94b5b61ddf25aab7",
+     "defd94ff256bb6db4dd9988afa62bb2342089e001e2e3a6b17b870118fd26787",
+     "6948dd3832d1a4073ab66f21c9f7f20a103e5ce2dde7d7fd16b4768e14626aeb",
+     "eef7ce66499f7c3746e6bfe541df9855e24fbbe44f562a84ed368045f4796eb0"
+    ],
+    "sourcePdfSha256": "701028832e8daa1a09a31dc6c50e1f38a1b4773a3a24e19732b41127050c7e73",
+    "reason": "Stopped at page 10 y 147.3 (the mu2 subscript read as the Q2 heading), losing the (h) hypotheses, p-value and conclusion and all of (i). Now runs to the end of page 11; pages 7-9 unchanged."
+   },
+   "2024-may-tz1-p3-q2": {
+    "oldPaths": [
+     "markschemes/2024-may-tz1-p3-q2-page-10.webp",
+     "markschemes/2024-may-tz1-p3-q2-page-11.webp",
+     "markschemes/2024-may-tz1-p3-q2-page-12.webp",
+     "markschemes/2024-may-tz1-p3-q2-page-13.webp",
+     "markschemes/2024-may-tz1-p3-q2-page-14.webp"
+    ],
+    "oldSha256": [
+     "ea7f6f53a3ad38d48ddb64d58eaf8f216eca964cee2c187b99adf70f265837ff",
+     "52d17ac5bed5aee5907b774d6a9f66acbe183566248bcb41ae5e73c3f7e8ffcf",
+     "e4005f82c6c843130cccf3b2c3edc29a36322288e1a421826dda71ee5d2a91e2",
+     "398f4a82735ec11632b3791d2740db8c5acfe9d736ba0a0146fe8dc5c4b6c63c",
+     "6531af25d2b301d602104ed477776023ca442c4a60afed8d2452eb9dcded6b4d"
+    ],
+    "newPaths": [
+     "repairs/ib-maths-ms-rows-v1-34ef8561fff49920/7c2a7bd154c64ae26e9260c7028af6b1c4c028178b6f1ce0cbdccdb93ea22220.webp",
+     "markschemes/2024-may-tz1-p3-q2-page-13.webp",
+     "markschemes/2024-may-tz1-p3-q2-page-14.webp"
+    ],
+    "sha256": [
+     "7c2a7bd154c64ae26e9260c7028af6b1c4c028178b6f1ce0cbdccdb93ea22220",
+     "398f4a82735ec11632b3791d2740db8c5acfe9d736ba0a0146fe8dc5c4b6c63c",
+     "6531af25d2b301d602104ed477776023ca442c4a60afed8d2452eb9dcded6b4d"
+    ],
+    "sourcePdfSha256": "701028832e8daa1a09a31dc6c50e1f38a1b4773a3a24e19732b41127050c7e73",
+    "reason": "Started with Q1's (h) and (i) rows on pages 10-11. Now starts at the printed \"2\" on page 12; pages 13-14 unchanged."
+   }
+  }
+ }
+}

@@ -11,6 +11,7 @@ import economicsMsRowRepairs from '@/data/reviewed-economics-ms-row-repairs.json
 import ibMatrixRepairs from '@/data/reviewed-ib-matrix-head-repairs.json';
 import ibBoundaryRepairs from '@/data/reviewed-ib-boundary-batch-repairs.json';
 import ibScienceCropRepairs from '@/data/reviewed-ib-science-crop-repairs.json';
+import ibMathsMsRowRepairs from '@/data/reviewed-ib-maths-ms-row-repairs.json';
 import type { BankSlug } from '@/lib/banks';
 import { historicalMarkschemePaths } from '@/lib/reviewed-biology-historical-crops';
 
@@ -40,6 +41,23 @@ export function reviewedMarkschemePaths(bank: BankSlug, questionId: string, path
             ? entry.sha256[i]!==entry.oldSha256[oldIndex]
             : path!==`${ibScienceCropRepairs.namespace}/${entry.sha256[i]}.webp`);
         })) throw new Error(`Reviewed IB science crop repair disagrees with ${bank}:${questionId}`);
+    return [...entry.newPaths];
+  }
+  // IB maths mark-scheme rows served to the wrong question (docs/ib-maths-ms-row-repairs.md). Checked before the sealed
+  // boundary and matrix overlays, whose cohorts it never shares.
+  const ibMathsRows = (ibMathsMsRowRepairs.banks as Partial<Record<BankSlug, Record<string, IbCropRepair>>>)[bank];
+  if (ibMathsRows && Object.prototype.hasOwnProperty.call(ibMathsRows, questionId)) {
+    const entry = ibMathsRows[questionId];
+    // A kept path keeps its old hash; a new one lives under the namespace by hash.
+    if (JSON.stringify(paths)!==JSON.stringify(entry.oldPaths) || entry.oldPaths.length!==entry.oldSha256.length ||
+        entry.newPaths.length<1 || entry.newPaths.length!==entry.sha256.length || new Set(entry.newPaths).size!==entry.newPaths.length ||
+        !/^repairs\/ib-maths-ms-rows-v1-[a-f0-9]{16}$/.test(ibMathsMsRowRepairs.namespace) ||
+        entry.newPaths.some((path,i)=>{
+          const oldIndex=entry.oldPaths.indexOf(path);
+          return !/^[a-f0-9]{64}$/.test(entry.sha256[i]) || (oldIndex>=0
+            ? entry.sha256[i]!==entry.oldSha256[oldIndex]
+            : path!==`${ibMathsMsRowRepairs.namespace}/${entry.sha256[i]}.webp`);
+        })) throw new Error(`Reviewed IB maths mark-scheme row repair disagrees with ${bank}:${questionId}`);
     return [...entry.newPaths];
   }
   if (bank === 'ib-hl') {
