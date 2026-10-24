@@ -66,6 +66,11 @@ locally). It is create-only, uses the single-writer lock, re-reads every object 
 free years (ib-hl 2017, ib-ai-hl 2021), so nothing goes to Supabase or the public bucket. The superseded objects
 stay in place.
 
+Result (2026-10-24, owner approved, wrangler 4.151.0 logged in): **5 created (each key absent at its check), 0
+already present; 5/5 readback match**, 139,734 bytes. The writer lock was held for every row and released. The
+superseded objects stay in place: `ib-hl/markschemes/2021-may-tz1-p1-q{1,2}-page-8.webp` and
+`ib-ai-hl/markschemes/2024-may-tz1-p3-q1-page-10.webp`, `…-q2-page-{10,11,12}.webp`.
+
 ## Follow-ups
 
 - The ib-ai-hl transcripts have the same misassignment. Q1's `markschemeTranscript` stops inside (h), and Q2's
