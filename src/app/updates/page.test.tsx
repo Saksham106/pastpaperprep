@@ -44,9 +44,9 @@ describe("Updates page", () => {
   it("makes a row with one link clickable through its title, and keeps several links separate", () => {
     render(<UpdatesPage />);
     const log = screen.getByRole("region", { name: "All updates" });
-    expect(within(log).getByRole("link", { name: "Fewer download limits" })).toHaveAttribute("href", "/worksheets");
-    expect(within(log).queryByRole("link", { name: "IB 2024 explanations" })).toBeNull();
-    expect(within(log).getByRole("link", { name: "Biology HL" })).toHaveAttribute("href", "/banks/ib-biology-hl");
+    expect(within(log).getByRole("link", { name: "Additional Maths 2022 and 2023 explanations" })).toHaveAttribute("href", "/banks/igcse-additional");
+    expect(within(log).queryByRole("link", { name: "IB Chemistry, Biology and Economics 2021–2023" })).toBeNull();
+    expect(within(log).getAllByRole("link", { name: "Biology HL" })[0]).toHaveAttribute("href", "/banks/ib-biology-hl");
   });
 
   it("shows each date once, with that day's updates under it", () => {
