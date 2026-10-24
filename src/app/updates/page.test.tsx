@@ -71,4 +71,11 @@ describe("Updates page", () => {
     // Nothing dated after "now" is advertised (an entry written ahead of its release).
     expect(recentNews(3, after(-1)).map(({ title }) => title)).not.toContain(notable[0].title);
   });
+
+  it("advertises new explanations on the homepage, but not fixes", () => {
+    const latest = UPDATES.find(({ tag }) => tag === "Explanations")!;
+    const news = recentNews(UPDATES.length, new Date(`${latest.date}T12:00:00Z`));
+    expect(news.map(({ title }) => title)).toContain(latest.title);
+    expect(news.some(({ tag }) => tag === "Improvement")).toBe(false);
+  });
 });

@@ -8,8 +8,9 @@ import { updateId, type Update, type UpdateLink, type UpdateTag } from "@/lib/up
 import styles from "./updates.module.css";
 
 const FILTERS: { key: string; label: string; tags: readonly UpdateTag[] }[] = [
-  { key: "all", label: "All", tags: ["New bank", "New papers", "Feature", "Improvement"] },
+  { key: "all", label: "All", tags: ["New bank", "New papers", "Explanations", "Feature", "Improvement"] },
   { key: "content", label: "New banks & papers", tags: ["New bank", "New papers"] },
+  { key: "explanations", label: "Explanations", tags: ["Explanations"] },
   { key: "features", label: "Features", tags: ["Feature"] },
   { key: "fixes", label: "Improvements", tags: ["Improvement"] },
 ];
