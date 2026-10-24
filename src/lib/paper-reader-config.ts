@@ -15,6 +15,8 @@ export type PaperReaderConfig = {
   sources: { question: string; markscheme: string };
   archiveHref?: string;
   reportAvailable?: boolean;
+  /** Question number -> question-paper page, so /past-papers/...#q3 opens at question 3. */
+  questionPages?: Record<number, number>;
 };
 
 export const DEFAULT_PAPER_READER_CONFIG: PaperReaderConfig = {
