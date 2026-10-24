@@ -380,6 +380,7 @@ access: ExplorerAccess;
   // would spend the daily signed-asset allowance on images that already loaded.
   const resignedExpiryRef = useRef(new Map<string, number>());
   const [savedIds, setSavedIds] = useState(new Set(studyState.savedIds));
+  const [studyStateLoaded, setStudyStateLoaded] = useState(false);
   const [attemptedIds, setAttemptedIds] = useState(new Set(studyState.attemptedIds));
   const [studyError, setStudyError] = useState("");
   const [shareStatus, setShareStatus] = useState("");
@@ -405,6 +406,8 @@ access: ExplorerAccess;
   const pdfUpgradeDialogRef = useRef<HTMLElement>(null);
   const signinPromptRef = useRef<HTMLElement>(null);
   const pendingSaveRef = useRef<string | null>(null);
+  /** Saves confirmed since the page loaded; an older bootstrap snapshot must not undo them. */
+  const savedEditsRef = useRef(new Map<string, boolean>());
   const worksheetUnsavedDialogRef = useRef<HTMLElement>(null);
   const explorerRootRef = useRef<HTMLElement>(null);
 
@@ -522,6 +525,8 @@ access: ExplorerAccess;
     return `${window.location.pathname}?${params}`;
   })();
   const openSigninPrompt = (prompt: NonNullable<typeof signinPrompt>) => {
+    // One modal at a time: Filters closes first, so it releases its scroll lock and Escape before the prompt takes them.
+    setFiltersOpen(false);
     setSigninPrompt(prompt);
     trackProductEvent("study_signin_prompt", { bank: bank ?? "unknown", reason: prompt.reason });
   };
@@ -669,7 +674,10 @@ access: ExplorerAccess;
         setResolvedAccess(payload.access);
         setResolvedExportMarker(payload.exportMarker);
         if (bank && owner) writeCachedAccess(bank, owner, { access: payload.access, ...(payload.exportMarker ? { exportMarker: payload.exportMarker } : {}) });
-        setSavedIds(new Set(payload.studyState.savedIds));
+        const snapshot = new Set(payload.studyState.savedIds);
+        for (const [questionId, saved] of savedEditsRef.current) if (saved) snapshot.add(questionId); else snapshot.delete(questionId);
+        setSavedIds(snapshot);
+        setStudyStateLoaded(true);
         setAttemptedIds(new Set(payload.studyState.attemptedIds));
         if (payload.studyStateUnavailable) {
           setStudyError("Saved and attempted question state could not load. Your bank access is unaffected.");
@@ -1254,6 +1262,7 @@ access: ExplorerAccess;
     try {
       await updateStudyState(questionId, saving ? "save" : "unsave");
       if (!scopeIsCurrent()) return;
+      savedEditsRef.current.set(questionId, saving);
       setSavedIds((current) => {
         const next = new Set(current);
         if (saving) next.add(questionId); else next.delete(questionId);
@@ -1267,14 +1276,17 @@ access: ExplorerAccess;
   // Back from signing in to save a question: save it once the account's study state has loaded.
   useEffect(() => {
     const questionId = pendingSaveRef.current;
-    if (!questionId || bootstrapPending || !resolvedAccess.authenticated) return;
+    // Wait for the account's real study state, not the cached access that can resolve first.
+    if (!questionId || !studyStateLoaded || !resolvedAccess.authenticated) return;
     pendingSaveRef.current = null;
     if (savedIds.has(questionId)) return;
     void updateStudyState(questionId, "save").then(() => {
-      if (scopeIsCurrent()) setSavedIds((current) => new Set(current).add(questionId));
+      if (!scopeIsCurrent()) return;
+      savedEditsRef.current.set(questionId, true);
+      setSavedIds((current) => new Set(current).add(questionId));
     }).catch(() => setStudyError("Could not update saved questions. Try again."));
-  // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once, when the signed-in state first resolves
-  }, [bootstrapPending, resolvedAccess.authenticated]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once, when the signed-in study state first loads
+  }, [studyStateLoaded, resolvedAccess.authenticated]);
 
   const recordAttempt = async (questionId: string) => {
     if (!scopeIsCurrent() || attemptedIds.has(questionId)) return;
