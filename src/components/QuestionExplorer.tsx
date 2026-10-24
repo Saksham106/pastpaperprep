@@ -217,6 +217,10 @@ const cacheOwner = (): string | null => sessionLifecycleOwner(document.cookie);
 const privateCacheOwner = (): string | null => sessionFingerprint(document.cookie);
 const serverHasNoAuthCookie = () => false;
 const anonymousAccess: ExplorerAccess = { authenticated: false, bankAccess: false, canExportPdf: false };
+const dailyDownloadLimitMessage = "Daily download limit reached. Try again tomorrow.";
+/** Preserve only approved guidance, never private storage or upstream error details. */
+const assetFailureMessage = (error: unknown, fallback: string) =>
+  error instanceof Error && error.message === dailyDownloadLimitMessage ? dailyDownloadLimitMessage : fallback;
 
 export function QuestionExplorer(props: Parameters<typeof SessionQuestionExplorer>[0]) {
   const subscribeToOwner = useCallback((listener: () => void) => subscribeToSessionChanges(listener), []);
@@ -912,11 +916,11 @@ access: ExplorerAccess;
       for (const key of assets.keys()) delivered.add(key);
       applySignedAssets(assets, owner);
     } })
-      .then(({ failedKeys }) => {
+      .then(({ failedKeys, error }) => {
         if (!scopeIsCurrent()) return;
         if (!failedKeys.length) { setAssetError(""); return; }
         setFailedAssetKeys((current) => new Set([...current, ...failedKeys]));
-        setAssetError("Some question images could not load.");
+        setAssetError(assetFailureMessage(error, "Some question images could not load."));
       })
       .catch(() => {
         if (!scopeIsCurrent()) return;
@@ -1155,6 +1159,22 @@ access: ExplorerAccess;
     setAssetError("");
     setFailedAssetKeys(new Set());
     setAssetEpoch(Date.now());
+  };
+
+  const markAnswerAssetFailed = (questionId: string, asset: SignedAsset | undefined) => {
+    if (!scopeIsCurrent() || !asset) return;
+    const publicLinkFailed = isFreePublicAssetUrl(asset.urls[0]);
+    // Attribute the failed host before removing the link. Public links retain automatic fallback.
+    trackAssetLoadFailure(bank ?? "unknown", questionId, "answer", publicLinkFailed ? "public_fallback" : "failed", asset.urls[0]);
+    if (publicLinkFailed) return;
+    const key = signedAssetKey(questionId, "answer");
+    if (bank) forgetAsset(bank, key, asset.urls[0] ?? "");
+    setSignedAssets((current) => {
+      if (current.get(key) !== asset) return current;
+      const next = new Map(current);
+      next.delete(key);
+      return next;
+    });
   };
 
   const markQuestionAssetFailed = (questionId: string) => {
@@ -1431,7 +1451,7 @@ access: ExplorerAccess;
               const unlocked = resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
               const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
               const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
-              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} scopeIsCurrent={scopeIsCurrent} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAssetError={() => trackAssetLoadFailure(bank ?? "unknown", question.id, "answer", isFreePublicAssetUrl(answerAsset?.urls[0]) ? "public_fallback" : "failed", answerAsset?.urls[0])} onAnswerAsset={(asset) => {
+              return <Fragment key={question.id}><QuestionCard question={question} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} scopeIsCurrent={scopeIsCurrent} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAssetError={() => markAnswerAssetFailed(question.id, answerAsset)} onAnswerAsset={(asset) => {
                 if (!scopeIsCurrent()) return;
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
@@ -1583,8 +1603,15 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, scopeIs
   };
   // A public free answer link that fails: switch the bank to signed links and load it again.
   const answerAssetFailed = () => {
+    if (!scopeIsCurrent()) return;
     onAnswerAssetError();
-    if (!freeAnswer || !isFreePublicAssetUrl(answerAsset?.urls[0])) return;
+    if (!isFreePublicAssetUrl(answerAsset?.urls[0])) {
+      answerRequestRef.current = null;
+      setAnswerOpen(false);
+      setAnswerError("The answer could not load. Try again.");
+      return;
+    }
+    if (!freeAnswer) return;
     preferSignedFreeAssets(question.bankSlug);
     answerRequestRef.current = null;
     void fetchFreeAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }]).then(({ assets }) => {
@@ -1614,9 +1641,9 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, scopeIs
         // Answer images render at their natural size, so open the panel once they are decoded.
         await decodeImages(asset.urls);
         if (!scopeIsCurrent()) return;
-      } catch {
+      } catch (error) {
         if (!scopeIsCurrent()) return;
-        setAnswerError("The answer could not load. Try again.");
+        setAnswerError(assetFailureMessage(error, "The answer could not load. Try again."));
         setAnswerLoading(false);
         return;
       }
