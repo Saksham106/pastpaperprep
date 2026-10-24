@@ -124,13 +124,13 @@ export const updateId = ({ date, title }: Pick<Update, "date" | "title">) => `${
 export type UpdateNews = { date: string; tag: UpdateTag; title: string; body: string; href: string };
 const NEWS_MAX_AGE_DAYS = 30;
 
-/** The newest banks, papers and features (not fixes) from the last month, for the homepage and dashboard.
+/** The newest updates from the last month, for the homepage and dashboard.
  *  Empty once everything is over a month old, so those places never advertise stale news. */
 export function recentNews(count: number, now = new Date()): UpdateNews[] {
   const cutoff = now.getTime() - NEWS_MAX_AGE_DAYS * 86_400_000;
   const shipped = (update: Update) => { const at = new Date(`${update.date}T00:00:00Z`).getTime(); return at >= cutoff && at <= now.getTime(); };
   return UPDATES
-    .filter((update) => update.tag !== "Improvement" && shipped(update))
+    .filter(shipped)
     .slice(0, count)
     .map((update) => ({ date: update.date, tag: update.tag, title: update.title, body: update.body, href: `/updates#${updateId(update)}` }));
 }

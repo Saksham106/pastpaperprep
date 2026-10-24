@@ -9,7 +9,7 @@ import { localPreviewBankIndexUrl, publicBankIndexUrl } from "@/lib/question-ind
 type BankExplorerData = NonNullable<Awaited<ReturnType<typeof loadBankExplorer>>>;
 
 /** The public question-bank explorer, shared by bank, topic, and paper routes. */
-export function BankQuestionExplorer({ slug, explorer, routePreset }: { slug: BankSlug; explorer: BankExplorerData; routePreset?: ExplorerSearchParams }) {
+export function BankQuestionExplorer({ slug, explorer, routePreset, fullPaperHrefs }: { slug: BankSlug; explorer: BankExplorerData; routePreset?: ExplorerSearchParams; fullPaperHrefs?: Record<string, string> }) {
   const { localPreview, initialState, initialQuestions } = explorer;
   // Question images come from signed Storage/R2 URLs; open those connections while JS loads.
   for (const origin of assetOriginsForBank(slug)) preconnect(origin);
@@ -24,6 +24,7 @@ export function BankQuestionExplorer({ slug, explorer, routePreset }: { slug: Ba
       bootstrapUrl={localPreview ? undefined : `/api/banks/bootstrap?bank=${encodeURIComponent(slug)}`}
       hydrateFromLocation
       routePreset={routePreset}
+      fullPaperHrefs={fullPaperHrefs}
     />
   );
 }

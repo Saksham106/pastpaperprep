@@ -74,6 +74,12 @@ function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, ana
     } else if (stageRef.current) stageRef.current.scrollTop = 0;
     setPositions(previous => ({ ...previous, [kind]: next })); setEditing({ kind, page: next, value: String(next) });
   }
+  // A question card links to "#q<number>": the stage opens the question paper at that question's page once the PDF loads.
+  useEffect(() => {
+    const number = /^#q(\d{1,3})$/.exec(window.location.hash)?.[1];
+    const page = number ? paper.questionPages?.[Number(number)] : undefined;
+    if (page) scrollAnchors.current.question = { page, fraction: 0 };
+  }, [paper.questionPages]);
   useEffect(() => {
     let disposed = false;
     let task: ReturnType<typeof import("pdfjs-dist")["getDocument"]> | undefined;

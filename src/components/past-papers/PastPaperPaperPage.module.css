@@ -14,21 +14,35 @@
 .pill a[aria-current="page"] { color: var(--surface); background: var(--ink); box-shadow: none; }
 .neighbours div { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; }
 .neighbours div > span:empty { display: none; }
-.neighbours a { min-width: 0; padding: 10px 12px; display: grid; gap: 4px; border: 1px solid var(--line); border-radius: 12px; transition: border-color 150ms ease; }
+.neighbours a { min-width: 0; padding: 10px 12px; display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 12px; transition: border-color 150ms ease, color 150ms ease; }
+.neighbours a > svg { flex: none; color: var(--muted); }
+.neighbours a:hover > svg { color: var(--course-accent, var(--cobalt)); }
+.neighbours a > span { min-width: 0; display: grid; gap: 3px; }
+.neighbours a.next { justify-content: space-between; text-align: right; }
 .neighbours a:hover { border-color: var(--course-accent, var(--cobalt)); }
-.neighbours small { display: flex; align-items: center; gap: 4px; color: var(--muted); font-size: .74rem; font-weight: 600; }
-.neighbours b { font-size: .9rem; font-weight: 700; }
+.neighbours small { color: var(--muted); font-size: .74rem; font-weight: 600; }
+.neighbours b { font-size: .88rem; font-weight: 700; line-height: 1.25; }
 .more { display: flex; flex-wrap: wrap; gap: 6px 16px; }
-.more a, .practice { color: var(--course-accent, var(--cobalt)); font-weight: 700; font-size: .88rem; text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); text-underline-offset: 4px; }
-.more a:hover, .practice:hover { text-decoration-color: currentColor; }
-.practice { padding: 0 4px; display: inline-flex; align-items: center; gap: 6px; }
+.more a { color: var(--course-accent, var(--cobalt)); font-weight: 700; font-size: .88rem; text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); text-underline-offset: 4px; }
+.more a:hover { text-decoration-color: currentColor; }
 
 .questions { max-width: 920px; margin-top: 48px; }
 .questions h2 { margin: 0; font: 400 1.6rem/1.2 var(--font-serif); }
 .questions > p { margin: 6px 0 14px; color: var(--muted); font-size: .9rem; }
+.questions h3 { margin: 32px 0 0; font: 400 1.2rem/1.2 var(--font-serif); }
+.questions > p.count { margin-top: 4px; }
+
+/* Topic buttons: compact pills, beside the reader (most-tested few) and all of them below it. */
+.topicList { display: flex; flex-wrap: wrap; gap: 6px; }
+.topic { min-height: 34px; padding: 6px 10px 6px 12px; display: inline-flex; align-items: center; gap: 6px; color: var(--ink); background: var(--subject-panel-tint, var(--surface)); border: 1px solid transparent; border-radius: 999px; font-weight: 650; font-size: .85rem; line-height: 1.2; transition: border-color 150ms ease, color 150ms ease; }
+.topic svg { flex: none; width: 12px; height: 12px; color: var(--course-accent, var(--cobalt)); }
+.topic:hover { color: var(--course-accent, var(--cobalt)); border-color: var(--course-accent, var(--cobalt)); }
+.more a { display: inline-flex; align-items: center; gap: 4px; }
 .questions ol { margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; list-style: none; }
 .questions li { padding: 10px 0; display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; border-bottom: 1px solid var(--line); font-size: .92rem; }
 .questions li b { color: var(--muted); font: 600 .84rem/1.4 var(--font-mono); }
+.questions li a { color: inherit; text-decoration: underline; text-decoration-color: var(--line-strong, var(--line)); text-underline-offset: 3px; }
+.questions li a:hover { color: var(--course-accent, var(--cobalt)); text-decoration-color: currentColor; }
 .questions li em { color: var(--muted); font: 500 .8rem/1.5 var(--font-mono); font-style: normal; white-space: nowrap; }
 .aliases { margin: 28px 0 0; color: var(--muted); font: 500 .8rem/1.5 var(--font-mono); }
 .aliases span { margin-right: 10px; font-family: var(--font-body); font-weight: 650; }

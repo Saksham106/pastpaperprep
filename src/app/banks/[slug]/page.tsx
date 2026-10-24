@@ -1,3 +1,4 @@
+import { fullPaperHrefs } from "@/lib/paper-question-links";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -133,7 +134,7 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
         </div>
       </section>
       <div className="shell">
-        <BankQuestionExplorer slug={slug} explorer={explorer} />
+        <BankQuestionExplorer slug={slug} explorer={explorer} fullPaperHrefs={fullPapers ? fullPaperHrefs(fullPapers.papers) : undefined} />
         <BankSeoContent bank={bank} topicLinks={topicLinks} topicHeading={catalogBank ? `${subjectSearchName(catalogBank)} questions by topic` : undefined} />
         <QuickFacts id="bank-facts-heading" title={`${bank.shortName}: quick facts`} facts={facts} />
       </div>
