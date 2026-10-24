@@ -73,5 +73,8 @@ uses the same level table: L3 6–8, L2 3–5, L1 1–2, 0. The Section A Discus
 `WRANGLER_BIN=<wrangler> node scripts/upload-reviewed-economics-ms-row-repairs.mjs <package>` (`--dry-run` checks
 locally). It is create-only, uses the single-writer lock, re-reads every object in full and writes
 `data/storage/economics-ms-row-repairs.receipt.json`. 2022 is not 0455's free year (2021), so nothing goes to
-the public bucket. The superseded objects stay in place: `markschemes/0455-2022-s-21/q2-4-15.webp`, `q3-4-18.webp`
+the public bucket.
+
+Result (2026-10-24, owner approved, wrangler 4.151.0 logged in to account `92278648…`): **4 created (each key
+absent at its check), 0 already present; 4/4 readback match**, 69,130 bytes. The writer lock was held for every row and released. The superseded objects stay in place: `markschemes/0455-2022-s-21/q2-4-15.webp`, `q3-4-18.webp`
 and `repairs/economics-written-v1-…/cb462488….webp` (the last is still byte-identical to Q4's second crop).

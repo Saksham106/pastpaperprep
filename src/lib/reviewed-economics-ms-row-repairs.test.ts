@@ -36,9 +36,9 @@ describe('reviewed Economics mark-scheme row repairs',()=>{
   expect(q4.sha256[1]).toBe(written[bank]['0455-2022-s-21-q4'].sha256[0]);
   expect(overlay.officialSchemeGaps['0455-2022-s-21-q4'].missingRows).toEqual(['4(d)']);
  });
- test.skipIf(!existsSync(receiptFile))('sealed remote receipt binds every immutable object and the exact manifest',()=>{
+ test('sealed remote receipt binds every immutable object and the exact manifest',()=>{
   const receipt=JSON.parse(readFileSync(receiptFile,'utf8'));
-  expect(receipt.state).toBe('verified_readback');
+  expect([receipt.state,receipt.bucket,receipt.objectCount]).toEqual(['verified_readback','pastpaperprep-assets',4]);
   expect(receipt.manifestSha256).toBe(createHash('sha256').update(manifestBytes).digest('hex'));
   expect(receipt.records.map(({objectKey,sha256,bytes}:{objectKey:string;sha256:string;bytes:number})=>({objectKey,sha256,bytes}))).toEqual(manifest.objects);
  });

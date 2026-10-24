@@ -1,0 +1,41 @@
+{
+ "schema": "economics-ms-row-repairs-readback-v1",
+ "state": "verified_readback",
+ "bucket": "pastpaperprep-assets",
+ "method": "wrangler r2 object get/put --remote (logged-in CLI): key checked absent, put image/webp + private, max-age=31536000, immutable, full GET readback SHA-256 + size",
+ "guarantee": "check-absent, put, full read-back by SHA-256 and size, serialized by one local writer (an exclusive lock per uploader). Detects pre-existing different bytes before writing and corrupt bytes after writing. Not an atomic create: wrangler r2 object put has no conditional-create option, so a concurrent foreign writer between the check and the put cannot be ruled out.",
+ "writerLock": "held for every row",
+ "manifestSha256": "f4d1b7910c61a62df1ee1e474e83f380a9b649bbb3ea3c2ee19bdd611d9f5ffa",
+ "objectCount": 4,
+ "uploaded": 4,
+ "records": [
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-ms-rows-v1-553ea0b9b40c08cd/4b2165f98525721ca12d8a4fe320fe503a6bf6545f71392f9594a270d1a2d8a8.webp",
+   "sha256": "4b2165f98525721ca12d8a4fe320fe503a6bf6545f71392f9594a270d1a2d8a8",
+   "bytes": 18382,
+   "existedBefore": false,
+   "verifiedAt": "2026-10-24T02:12:56.905Z"
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-ms-rows-v1-553ea0b9b40c08cd/99a7fe82f6a5e952c4b5071173c08b7a87ada9d91c306311bf0f918652a0907c.webp",
+   "sha256": "99a7fe82f6a5e952c4b5071173c08b7a87ada9d91c306311bf0f918652a0907c",
+   "bytes": 9308,
+   "existedBefore": false,
+   "verifiedAt": "2026-10-24T02:13:00.594Z"
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-ms-rows-v1-553ea0b9b40c08cd/cb46248805c106333f0a10ca0a912c5655ea39b0be55973cb6a5ef56a42b3d15.webp",
+   "sha256": "cb46248805c106333f0a10ca0a912c5655ea39b0be55973cb6a5ef56a42b3d15",
+   "bytes": 32650,
+   "existedBefore": false,
+   "verifiedAt": "2026-10-24T02:13:03.933Z"
+  },
+  {
+   "objectKey": "igcse-economics-0455/releases/combined-2019-2025-e82f835aa7d/repairs/economics-ms-rows-v1-553ea0b9b40c08cd/e8a6c0bf1c742fbe9db2733c4fae3461b98e95a5abbd0422a81d2ee9ef18cce2.webp",
+   "sha256": "e8a6c0bf1c742fbe9db2733c4fae3461b98e95a5abbd0422a81d2ee9ef18cce2",
+   "bytes": 8790,
+   "existedBefore": false,
+   "verifiedAt": "2026-10-24T02:13:06.945Z"
+  }
+ ]
+}
