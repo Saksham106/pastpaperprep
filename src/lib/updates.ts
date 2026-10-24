@@ -19,9 +19,7 @@ export type Update = {
 
 export const COMING_SOON: readonly string[] = [
   "Ask AI for help on any question you're stuck on",
-  "Worked explanations for Chemistry 0620 2022",
-  "Explanations for older years of Maths 0580, Additional Maths 0606 and the IGCSE sciences",
-  "Explanations for Co-ordinated Sciences 0654 and the older IB science papers",
+  "Chemistry 0620 2022 explanations, then older IGCSE years",
 ];
 
 const pair = (label: string, slug: string, suffix = "") => ({ label, options: [{ label: "HL", href: `${slug}-hl${suffix}` }, { label: "SL", href: `${slug}-sl${suffix}` }] });
