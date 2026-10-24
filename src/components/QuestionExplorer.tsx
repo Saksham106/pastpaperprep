@@ -1186,7 +1186,7 @@ access: ExplorerAccess;
     const expiredAt = lapsedSignedAssetExpiry(signedAssets.get(key));
     const retrying = expiredAt !== undefined && resignedExpiryRef.current.get(key) !== expiredAt;
     // A failed public free link re-queues only this question for transient signed rescue;
-    // other questions and kinds keep using their public links.
+    // other questions keep their public links unless a second one fails (host unreachable).
     const publicLinkFailed = Boolean(bank && isFreePublicAssetUrl(signedAssets.get(key)?.urls[0]));
     trackAssetLoadFailure(bank ?? "unknown", questionId, "question", retrying ? "expired_resign" : publicLinkFailed ? "public_fallback" : "failed", signedAssets.get(key)?.urls[0]);
     if (bank && publicLinkFailed) preferSignedFreeAssets(bank, { questionId, kind: "question" });

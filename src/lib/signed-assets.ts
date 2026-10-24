@@ -296,8 +296,48 @@ const FREE_PUBLIC_FAILURE_COOLDOWN_MS = 60_000;
 type PublicFailure = { until: number; rescue?: Promise<SignedAsset | null> };
 const publicFailures = new WeakMap<Fetcher, Map<string, PublicFailure>>();
 
+/**
+ * Two different public assets failing close together means this browser can't reach the free
+ * host (some networks block it), not that one object is broken: switch every bank to signed
+ * links, and remember it for a day so the next visit doesn't fail on the public host first.
+ */
+const FREE_PUBLIC_HOST_FAILURE_THRESHOLD = 2;
+const FREE_PUBLIC_HOST_FAILURE_WINDOW_MS = 10 * 60_000;
+const FREE_PUBLIC_HOST_UNAVAILABLE_MS = 24 * 60 * 60 * 1000;
+const FREE_PUBLIC_HOST_STORAGE_KEY = "pastpaperprep:free-public-host-unavailable-until";
+type PublicHostState = { failedAt: Map<string, number>; unavailableUntil: number };
+const publicHosts = new WeakMap<Fetcher, PublicHostState>();
+
 function publicFailureKey(bank: BankSlug, request: AssetRequest): string {
   return `${bank}:${signedAssetKey(request.questionId, request.kind)}`;
+}
+
+// Only the page's own fetch speaks for this browser's network, so only it reads or writes the
+// stored switch; injected fetchers keep the decision in memory. The value is just an expiry time.
+function storedPublicHostUnavailableUntil(fetcher: Fetcher, now: number): number {
+  if (fetcher !== globalThis.fetch || typeof window === "undefined") return 0;
+  try {
+    const until = Number(window.localStorage.getItem(FREE_PUBLIC_HOST_STORAGE_KEY));
+    if (Number.isFinite(until) && until > now && until <= now + FREE_PUBLIC_HOST_UNAVAILABLE_MS) return until;
+    window.localStorage.removeItem(FREE_PUBLIC_HOST_STORAGE_KEY);
+  } catch { /* storage unavailable: the in-memory switch still applies */ }
+  return 0;
+}
+
+function publicHostUnavailable(fetcher: Fetcher, now: number): boolean {
+  return (publicHosts.get(fetcher)?.unavailableUntil ?? 0) > now || storedPublicHostUnavailableUntil(fetcher, now) > now;
+}
+
+function recordPublicHostFailure(fetcher: Fetcher, key: string, now: number): void {
+  let host = publicHosts.get(fetcher);
+  if (!host) publicHosts.set(fetcher, host = { failedAt: new Map(), unavailableUntil: 0 });
+  for (const [failedKey, at] of host.failedAt) if (now - at >= FREE_PUBLIC_HOST_FAILURE_WINDOW_MS) host.failedAt.delete(failedKey);
+  if (!host.failedAt.has(key)) host.failedAt.set(key, now);
+  if (host.failedAt.size < FREE_PUBLIC_HOST_FAILURE_THRESHOLD) return;
+  host.failedAt.clear();
+  host.unavailableUntil = now + FREE_PUBLIC_HOST_UNAVAILABLE_MS;
+  if (fetcher !== globalThis.fetch || typeof window === "undefined") return;
+  try { window.localStorage.setItem(FREE_PUBLIC_HOST_STORAGE_KEY, String(host.unavailableUntil)); } catch { /* memory only */ }
 }
 
 /** Free assets only: no identity, private links or entitlement decisions are stored here. */
@@ -308,9 +348,13 @@ export function preferSignedFreeAssets(bank: BankSlug, request: AssetRequest, fe
   for (const [key, failure] of failures) if (failure.until <= now) failures.delete(key);
   const key = publicFailureKey(bank, request);
   if (!failures.has(key)) failures.set(key, { until: now + FREE_PUBLIC_FAILURE_COOLDOWN_MS });
+  recordPublicHostFailure(fetcher, key, now);
 }
 
-/** Explicit user retries may probe again without resetting unrelated automatic recovery. */
+/**
+ * Explicit user retries may probe again without resetting unrelated automatic recovery.
+ * An unreachable-host switch stays: probing a blocked host again would only slow the retry.
+ */
 export function resetFreeAssetRecovery(bank: BankSlug, requests: readonly AssetRequest[], fetcher: Fetcher = fetch): void {
   const failures = publicFailures.get(fetcher);
   for (const request of requests) failures?.delete(publicFailureKey(bank, request));
@@ -351,13 +395,15 @@ function publicFreeAsset(index: FreeAssetIndex | null, loadedAt: number, request
 
 /**
  * Free-year assets: public links from the static per-bank index when it has them, otherwise
- * the CDN-cached signing route (one request per asset so cache keys ignore filters).
+ * the CDN-cached signing route (one request per asset so cache keys ignore filters). While the
+ * public host is unreachable from this browser, every asset goes straight to the signing route.
  */
 export async function fetchFreeAssets(
   bank: BankSlug,
   requests: readonly AssetRequest[],
   fetcher: Fetcher = fetch,
 ): Promise<{ assets: Map<string, SignedAsset>; failedKeys: string[] }> {
+  const hostUnavailable = publicHostUnavailable(fetcher, Date.now());
   const results = await Promise.all(requests.map(async (request) => {
     const key = signedAssetKey(request.questionId, request.kind);
     const failureKey = publicFailureKey(bank, request);
@@ -367,7 +413,7 @@ export async function fetchFreeAssets(
       failure = undefined;
     }
     // Known public failures must not wait for an unrelated static-index refresh.
-    if (!failure) {
+    if (!failure && !hostUnavailable) {
       const loaded = loadFreeAssetIndex(bank, fetcher);
       const index = await loaded.index;
       const publicAsset = publicFreeAsset(index, loaded.loadedAt, request);
