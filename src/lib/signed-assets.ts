@@ -291,14 +291,29 @@ const FREE_PUBLIC_ASSET_LIFETIME_MS = 24 * 60 * 60 * 1000;
 
 type LoadedIndex = { loadedAt: number; index: Promise<FreeAssetIndex | null> };
 const freeIndexes = new WeakMap<Fetcher, Map<BankSlug, LoadedIndex>>();
-const signedFallbackBanks = new Set<BankSlug>();
+/** Retry public delivery after a minute; a broken object must not disable its bank. */
+const FREE_PUBLIC_FAILURE_COOLDOWN_MS = 60_000;
+type PublicFailure = { until: number; rescue?: Promise<SignedAsset | null> };
+const publicFailures = new WeakMap<Fetcher, Map<string, PublicFailure>>();
 
-/**
- * Stop using free.pastpaperprep.com for a bank in this tab, after one of its public images failed
- * to load; later requests go back to the signing route, which reads the private stores.
- */
-export function preferSignedFreeAssets(bank: BankSlug): void {
-  signedFallbackBanks.add(bank);
+function publicFailureKey(bank: BankSlug, request: AssetRequest): string {
+  return `${bank}:${signedAssetKey(request.questionId, request.kind)}`;
+}
+
+/** Free assets only: no identity, private links or entitlement decisions are stored here. */
+export function preferSignedFreeAssets(bank: BankSlug, request: AssetRequest, fetcher: Fetcher = fetch): void {
+  let failures = publicFailures.get(fetcher);
+  if (!failures) publicFailures.set(fetcher, failures = new Map());
+  const now = Date.now();
+  for (const [key, failure] of failures) if (failure.until <= now) failures.delete(key);
+  const key = publicFailureKey(bank, request);
+  if (!failures.has(key)) failures.set(key, { until: now + FREE_PUBLIC_FAILURE_COOLDOWN_MS });
+}
+
+/** Explicit user retries may probe again without resetting unrelated automatic recovery. */
+export function resetFreeAssetRecovery(bank: BankSlug, requests: readonly AssetRequest[], fetcher: Fetcher = fetch): void {
+  const failures = publicFailures.get(fetcher);
+  for (const request of requests) failures?.delete(publicFailureKey(bank, request));
 }
 
 /**
@@ -328,7 +343,7 @@ function loadFreeAssetIndex(bank: BankSlug, fetcher: Fetcher): LoadedIndex {
 function publicFreeAsset(index: FreeAssetIndex | null, loadedAt: number, request: AssetRequest): SignedAsset | null {
   const question = index?.questions[request.questionId];
   const entry = question?.[request.kind];
-  if (!question || !entry) return null;
+  if (!question || !entry || !validDetails(question.details)) return null;
   const asset = { questionId: request.questionId, kind: request.kind, urls: entry.urls, displayCrops: entry.displayCrops, details: question.details, ...(entry.mcqAnswer !== undefined ? { mcqAnswer: entry.mcqAnswer } : {}) };
   if (!validAsset(asset) || !asset.urls.every(isFreePublicAssetUrl)) return null;
   return { ...asset, expiresAt: loadedAt + FREE_PUBLIC_ASSET_LIFETIME_MS };
@@ -343,39 +358,54 @@ export async function fetchFreeAssets(
   requests: readonly AssetRequest[],
   fetcher: Fetcher = fetch,
 ): Promise<{ assets: Map<string, SignedAsset>; failedKeys: string[] }> {
-  const loaded = signedFallbackBanks.has(bank) ? null : loadFreeAssetIndex(bank, fetcher);
-  const index = loaded ? await loaded.index : null;
   const results = await Promise.all(requests.map(async (request) => {
     const key = signedAssetKey(request.questionId, request.kind);
-    const publicAsset = loaded ? publicFreeAsset(index, loaded.loadedAt, request) : null;
-    if (publicAsset) return { key, asset: publicAsset };
-    try {
-      const query = new URLSearchParams({ bank, id: request.questionId, kind: request.kind });
-      for (let attempt = 0; attempt < 2; attempt += 1) {
-        const response = await fetcher(`/api/assets/free?${query}`, attempt ? { cache: "reload", headers: { "cache-control": "no-cache", pragma: "no-cache" } } : undefined);
-        const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
-        if (
-          !response.ok || !payload ||
-          typeof payload.expiresIn !== "number" || !Number.isSafeInteger(payload.expiresIn) ||
-          payload.expiresIn <= FREE_ASSET_SAFETY_SECONDS || payload.expiresIn > FREE_ASSET_EXPIRES_IN ||
-          typeof payload.maxAge !== "number" || !Number.isSafeInteger(payload.maxAge) ||
-          payload.maxAge < 0 || payload.maxAge >= payload.expiresIn - FREE_ASSET_SAFETY_SECONDS ||
-          !validAsset(payload.asset) ||
-          signedAssetKey(payload.asset.questionId, payload.asset.kind) !== key
-        ) throw new Error("Invalid free asset response");
-        // Assume the full CDN window even without Age; honor a reported older copy too.
-        const reportedAge = Number(response.headers?.get("age"));
-        const age = Math.max(Number.isFinite(reportedAge) ? reportedAge : 0, payload.maxAge);
-        const lifetime = payload.expiresIn - age - FREE_ASSET_SAFETY_SECONDS;
-        // Never turn an expired link into a one-second success: it can trigger a refetch loop.
-        // Try one synchronous revalidation, then surface a normal per-asset failure.
-        if (lifetime <= 0) continue;
-        return { key, asset: { ...payload.asset, expiresAt: Date.now() + lifetime * 1000 } as SignedAsset };
-      }
-      throw new Error("Expired free asset response");
-    } catch {
-      return { key, asset: null };
+    const failureKey = publicFailureKey(bank, request);
+    let failure = publicFailures.get(fetcher)?.get(failureKey);
+    if (failure && failure.until <= Date.now()) {
+      publicFailures.get(fetcher)?.delete(failureKey);
+      failure = undefined;
     }
+    // Known public failures must not wait for an unrelated static-index refresh.
+    if (!failure) {
+      const loaded = loadFreeAssetIndex(bank, fetcher);
+      const index = await loaded.index;
+      const publicAsset = publicFreeAsset(index, loaded.loadedAt, request);
+      if (publicAsset) return { key, asset: publicAsset };
+    }
+    const rescue = async (): Promise<SignedAsset | null> => {
+      try {
+        const query = new URLSearchParams({ bank, id: request.questionId, kind: request.kind });
+        for (let attempt = 0; attempt < 2; attempt += 1) {
+          const response = await fetcher(`/api/assets/free?${query}`, attempt ? { cache: "reload", headers: { "cache-control": "no-cache", pragma: "no-cache" } } : undefined);
+          const payload = await response.json().catch(() => null) as Record<string, unknown> | null;
+          if (
+            !response.ok || !payload ||
+            typeof payload.expiresIn !== "number" || !Number.isSafeInteger(payload.expiresIn) ||
+            payload.expiresIn <= FREE_ASSET_SAFETY_SECONDS || payload.expiresIn > FREE_ASSET_EXPIRES_IN ||
+            typeof payload.maxAge !== "number" || !Number.isSafeInteger(payload.maxAge) ||
+            payload.maxAge < 0 || payload.maxAge >= payload.expiresIn - FREE_ASSET_SAFETY_SECONDS ||
+            !validAsset(payload.asset) ||
+            signedAssetKey(payload.asset.questionId, payload.asset.kind) !== key
+          ) throw new Error("Invalid free asset response");
+          // Assume the full CDN window even without Age; honor a reported older copy too.
+          const reportedAge = Number(response.headers?.get("age"));
+          const age = Math.max(Number.isFinite(reportedAge) ? reportedAge : 0, payload.maxAge);
+          const lifetime = payload.expiresIn - age - FREE_ASSET_SAFETY_SECONDS;
+          // Never turn an expired link into a one-second success: it can trigger a refetch loop.
+          // Try one synchronous revalidation, then surface a normal per-asset failure.
+          if (lifetime <= 0) continue;
+          return { ...payload.asset, expiresAt: Math.min(Date.now() + lifetime * 1000, failure?.until ?? Infinity) } as SignedAsset;
+        }
+        throw new Error("Expired free asset response");
+      } catch {
+        return null;
+      }
+    };
+    // Keep both successful and failed rescue results for this cooldown. Duplicate image
+    // callbacks and concurrent renders must not produce another fallback request.
+    const asset = await (failure ? (failure.rescue ??= rescue()) : rescue());
+    return { key, asset: isSignedAssetFresh(asset ?? undefined) ? asset : null };
   }));
   return {
     assets: new Map(results.flatMap(({ key, asset }) => asset ? [[key, asset] as const] : [])),

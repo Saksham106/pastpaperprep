@@ -27,7 +27,7 @@ import { currentQuestionIds } from "@/lib/question-id-aliases";
 import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/questions";
 import type { AssetRequest } from "@/lib/asset-access";
 import type { BankSlug } from "@/lib/banks";
-import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, PdfSignError, pdfFailureReason, isSignedAssetFresh, signAssetBatches, lapsedSignedAssetExpiry, preferSignedFreeAssets, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
+import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, PdfSignError, pdfFailureReason, isSignedAssetFresh, signAssetBatches, lapsedSignedAssetExpiry, preferSignedFreeAssets, resetFreeAssetRecovery, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
 import { FREE_PUBLIC_ASSET_ORIGIN, isFreePublicAssetUrl } from "@/lib/free-asset-index";
 import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
 import { documentHasSupabaseAuthCookie, subscribeToSessionChanges } from "@/lib/supabase/auth-cookie";
@@ -1156,6 +1156,9 @@ access: ExplorerAccess;
   };
 
   const retryQuestionAssets = () => {
+    if (bank) resetFreeAssetRecovery(bank, catalogQuestions
+      .filter((question) => question.bankSlug === bank && isPreviewQuestion(bank, question.id) && failedAssetKeys.has(signedAssetKey(question.id, "question")))
+      .map((question) => ({ questionId: question.id, kind: "question" as const })));
     setAssetError("");
     setFailedAssetKeys(new Set());
     setAssetEpoch(Date.now());
@@ -1182,11 +1185,11 @@ access: ExplorerAccess;
     const key = signedAssetKey(questionId, "question");
     const expiredAt = lapsedSignedAssetExpiry(signedAssets.get(key));
     const retrying = expiredAt !== undefined && resignedExpiryRef.current.get(key) !== expiredAt;
-    // A public free link that fails (for example a resolver that can't see free.pastpaperprep.com)
-    // switches this bank to signed links and re-queues the question, without asking the visitor.
+    // A failed public free link re-queues only this question for transient signed rescue;
+    // other questions and kinds keep using their public links.
     const publicLinkFailed = Boolean(bank && isFreePublicAssetUrl(signedAssets.get(key)?.urls[0]));
     trackAssetLoadFailure(bank ?? "unknown", questionId, "question", retrying ? "expired_resign" : publicLinkFailed ? "public_fallback" : "failed", signedAssets.get(key)?.urls[0]);
-    if (bank && publicLinkFailed) preferSignedFreeAssets(bank);
+    if (bank && publicLinkFailed) preferSignedFreeAssets(bank, { questionId, kind: "question" });
     if (bank) forgetAsset(bank, key, signedAssets.get(key)?.urls[0] ?? "");
     setSignedAssets((current) => {
       const next = new Map(current);
@@ -1555,6 +1558,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, scopeIs
     if (explanationOpen) { setExplanationOpen(false); return; }
     trackProductEvent("explanation_open", { bank: question.bankSlug, freePreview: isPreviewQuestion(question.bankSlug, question.id) });
     if (!explanation) {
+      if (explanationError && freeAnswer) resetFreeAssetRecovery(question.bankSlug, [{ questionId: question.id, kind: "explanation" }]);
       explanationRequestRef.current = true;
       setExplanationLoading(true);
       setExplanationError("");
@@ -1601,7 +1605,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, scopeIs
     }
     return answerRequestRef.current.promise;
   };
-  // A public free answer link that fails: switch the bank to signed links and load it again.
+  // A public free answer link that fails: rescue only this answer and load it again.
   const answerAssetFailed = () => {
     if (!scopeIsCurrent()) return;
     onAnswerAssetError();
@@ -1612,7 +1616,7 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, scopeIs
       return;
     }
     if (!freeAnswer) return;
-    preferSignedFreeAssets(question.bankSlug);
+    preferSignedFreeAssets(question.bankSlug, { questionId: question.id, kind: "answer" });
     answerRequestRef.current = null;
     void fetchFreeAssets(question.bankSlug, [{ questionId: question.id, kind: "answer" }]).then(({ assets }) => {
       const asset = assets.get(signedAssetKey(question.id, "answer"));
@@ -1631,6 +1635,10 @@ function QuestionCard({ question, unlocked, authenticated, localPreview, scopeIs
   const toggleAnswer = async () => {
     if (!scopeIsCurrent()) return;
     if (answerOpen) { setAnswerOpen(false); return; }
+    if (answerError && freeAnswer) {
+      resetFreeAssetRecovery(question.bankSlug, [{ questionId: question.id, kind: "answer" }]);
+      answerRequestRef.current = null;
+    }
     trackProductEvent("answer_reveal", { bank: question.bankSlug, freePreview: isPreviewQuestion(question.bankSlug, question.id) });
     if (question.markschemeImageCount > 0 && !hasFreshAnswerAsset()) {
       setAnswerLoading(true);

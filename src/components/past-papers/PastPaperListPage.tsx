@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { IntentPrefetchLink } from '@/components/IntentPrefetchLink';
 import { ArrowLeft, ArrowRight, CaretDown } from '@phosphor-icons/react/dist/ssr';
 import { CourseIcon, courseToneForBank } from '@/components/CourseIcon';
 import { JsonLd } from '@/components/JsonLd';
@@ -53,8 +54,8 @@ export function PastPaperListPage({ view }: { view: ListView }) {
       {next ? <Link href={`${subjectPath}/${next}`}><span>Next year: {next}</span><ArrowRight aria-hidden="true" /></Link> : <span />}
     </nav>}
     <div className={styles.browse}>
-      <nav aria-label="Browse by year"><h2>Browse by year</h2><div>{years.map(y => <Link key={y} href={`${subjectPath}/${y}`} aria-current={view.kind === 'year' && view.year === y ? 'page' : undefined}>{y}</Link>)}</div></nav>
-      <nav aria-label="Browse by paper"><h2>Browse by paper</h2><div>{columns.map(c => <Link key={c.paper} href={c.href} aria-current={view.kind === 'paperNumber' && view.paper === c.paper ? 'page' : undefined}>{c.label}{c.note && <small>{c.note}</small>}</Link>)}</div></nav>
+      <nav aria-label="Browse by year"><h2>Browse by year</h2><div>{years.map(y => <IntentPrefetchLink key={y} href={`${subjectPath}/${y}`} aria-current={view.kind === 'year' && view.year === y ? 'page' : undefined}>{y}</IntentPrefetchLink>)}</div></nav>
+      <nav aria-label="Browse by paper"><h2>Browse by paper</h2><div>{columns.map(c => <IntentPrefetchLink key={c.paper} href={c.href} aria-current={view.kind === 'paperNumber' && view.paper === c.paper ? 'page' : undefined}>{c.label}{c.note && <small>{c.note}</small>}</IntentPrefetchLink>)}</div></nav>
     </div>
     {view.practice && <Link className={styles.practice} href={`/banks/${bank.slug}`}>Practise {name} questions by topic <ArrowRight aria-hidden="true" weight="bold" /></Link>}
     {getGradeThresholds(subject) && <Link className={styles.practice} href={`/grade-thresholds/${subject}`}>{name} grade thresholds <ArrowRight aria-hidden="true" weight="bold" /></Link>}

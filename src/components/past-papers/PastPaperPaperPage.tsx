@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { IntentPrefetchLink } from '@/components/IntentPrefetchLink';
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { courseToneForBank } from '@/components/CourseIcon';
 import { JsonLd } from '@/components/JsonLd';
@@ -26,7 +27,7 @@ function neighbour(all: readonly WholePaperSummary[], p: WholePaperSummary, dire
 }
 
 function ChipRow({ label, papers, current, text }: { label: string; papers: WholePaperSummary[]; current?: string; text: (p: WholePaperSummary) => string }) {
-  return <nav aria-label={label} className={styles.chipRow}><h3>{label}</h3><div className={styles.pill}>{papers.map(p => <Link key={p.id} href={paperHref(p)} aria-current={p.id === current ? 'page' : undefined}>{text(p)}</Link>)}</div></nav>;
+  return <nav aria-label={label} className={styles.chipRow}><h3>{label}</h3><div className={styles.pill}>{papers.map(p => <IntentPrefetchLink key={p.id} href={paperHref(p)} aria-current={p.id === current ? 'page' : undefined}>{text(p)}</IntentPrefetchLink>)}</div></nav>;
 }
 
 export function PastPaperPaperPage({ view }: { view: PaperView }) {
