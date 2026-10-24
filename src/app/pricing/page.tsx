@@ -6,7 +6,7 @@ import { hasBankAccess, type AccessEntitlement, type ProductId } from "@/lib/acc
 import { hasComplimentaryAllAccess } from "@/lib/complimentary-access";
 import { getBillingBanks, getEntitlementBanks, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
-import { SOCIAL_IMAGE } from "@/lib/seo";
+import { socialPreview } from "@/lib/seo";
 import { createClient } from "@/lib/supabase/server";
 import { isFutureIssuedJwtError } from "@/lib/access-recovery";
 import { captureServerException } from "@/lib/server-error-tracking";
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description: "Choose one bank, build your exact bundle, or get All Access across every PastPaperPrep question bank.",
     url: "/pricing",
     type: "website",
-    images: [SOCIAL_IMAGE],
+    ...socialPreview(),
   },
 };
 

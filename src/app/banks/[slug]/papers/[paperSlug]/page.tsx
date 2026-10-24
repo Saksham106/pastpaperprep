@@ -5,6 +5,7 @@ import { SearchDetail } from "@/components/SearchLanding";
 import { FullPapersLink } from "@/components/past-papers/FullPapersLink";
 import { loadBankExplorer } from "@/lib/bank-explorer";
 import { getCatalogBank, getCatalogBanksForDisplay } from "@/lib/catalog";
+import { socialPreview } from "@/lib/seo";
 import {
   bankSearchName,
   getLandingManifest,
@@ -36,7 +37,7 @@ export async function generateMetadata({
         title: `${paper.label} Past Paper Questions – ${bankSearchName(bank)}`,
         description: `Practise ${paper.count.toLocaleString()} ${bankSearchName(bank)} ${paper.label} past-paper questions from ${bank.years}. Filter by topic and year, check answers, and build a worksheet.`,
         alternates: { canonical: paperPath(bank.slug, paper) },
-        openGraph: { url: paperPath(bank.slug, paper) },
+        openGraph: { url: paperPath(bank.slug, paper), ...socialPreview(bank.qualification) },
       }
     : {};
 }

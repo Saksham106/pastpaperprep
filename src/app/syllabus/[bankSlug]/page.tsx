@@ -11,6 +11,7 @@ import { resolveSubject } from "@/lib/past-paper-pages";
 import { subjectSlugForBank } from "@/lib/past-paper-catalog";
 import { fitTitle, subjectSearchName } from "@/lib/past-paper-seo";
 import { assessmentGuideFor } from "@/lib/assessment-guides";
+import { socialPreview } from "@/lib/seo";
 export const dynamicParams = false;
 export async function generateStaticParams() {
   return getCatalogBanksForDisplay().map((bank) => ({ bankSlug: bank.slug }));
@@ -35,7 +36,7 @@ export async function generateMetadata({
     title: { absolute: fitTitle(`${name} Syllabus: Topics, Papers and Marks`, `${name} Syllabus: Topics and Papers`, `${name} Syllabus`) },
     description,
     alternates: { canonical: `/syllabus/${bank.slug}` },
-    openGraph: { url: `/syllabus/${bank.slug}` },
+    openGraph: { url: `/syllabus/${bank.slug}`, ...socialPreview(bank.qualification) },
   };
 }
 export default async function SyllabusPage({

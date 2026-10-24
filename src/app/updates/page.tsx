@@ -5,12 +5,13 @@ import { pastPaperLinksEnabled } from "@/lib/past-paper-nav";
 import { COMING_SOON, UPDATES, linkResolver } from "@/lib/updates";
 import { UpdatesTimeline } from "./UpdatesTimeline";
 import styles from "./updates.module.css";
+import { socialPreview } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "What's new",
   description: "New question banks, papers and features on PastPaperPrep, newest first.",
   alternates: { canonical: "/updates" },
-  openGraph: { url: "/updates" },
+  openGraph: { url: "/updates", ...socialPreview() },
 };
 
 export default function UpdatesPage() {

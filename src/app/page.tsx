@@ -3,7 +3,7 @@ import { MarketingHome, type HomePaperLinks } from "@/components/MarketingHome";
 import { hubBanks } from "@/lib/past-paper-pages";
 import { InviteHandoff } from "@/components/InviteHandoff";
 import { JsonLd } from "@/components/JsonLd";
-import { SOCIAL_IMAGE } from "@/lib/seo";
+import { socialPreview } from "@/lib/seo";
 import { COMING_SOON, recentNews } from "@/lib/updates";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     description: "Free IGCSE & IB past papers and mark schemes. Practise Maths, science and Economics by topic, with worked explanations and printable sets.",
     url: "/",
     type: "website",
-    images: [SOCIAL_IMAGE],
+    ...socialPreview(),
   },
 };
 

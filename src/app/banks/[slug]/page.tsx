@@ -14,7 +14,7 @@ import { resolveSubject } from "@/lib/past-paper-pages";
 import { subjectSlugForBank } from "@/lib/past-paper-catalog";
 import { fitTitle, pageTitle, subjectSearchName } from "@/lib/past-paper-seo";
 import { getLandingManifest, topicFilterHref, topicPath } from "@/lib/search-landing";
-import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
+import { socialPreview } from "@/lib/seo";
 import { hasPublishedExplanations } from "@/lib/explanations";
 import { bankLastUpdated, formatUpdateDate } from "@/lib/updates";
 import { bankFacts } from "@/lib/quick-facts";
@@ -45,6 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!bank) return {};
   const path = `/banks/${bank.slug}`;
   const { title, description } = topicalCopy(bank.slug, bank.shortName);
+  const preview = socialPreview(getCatalogBank(bank.slug)?.qualification);
   return {
     title: pageTitle(title),
     description,
@@ -54,9 +55,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description,
       url: path,
       type: "website",
-      images: [SOCIAL_IMAGE],
+      ...preview,
     },
-    twitter: { card: "summary_large_image", title, description, images: [SOCIAL_IMAGE_URL] },
+    twitter: { card: "summary_large_image", title, description, images: [preview.images[0].url] },
   };
 }
 

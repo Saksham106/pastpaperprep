@@ -7,7 +7,7 @@ import { pastPaperLinksEnabled } from "@/lib/past-paper-nav";
 import { SiteTelemetry } from "@/components/SiteTelemetry";
 import { BankNavigationFeedback } from "@/components/BankNavigationFeedback";
 import { PageTransition } from "@/components/PageTransition";
-import { SOCIAL_IMAGE, SOCIAL_IMAGE_URL } from "@/lib/seo";
+import { SOCIAL_IMAGE_URL, socialPreview } from "@/lib/seo";
 import "./globals.css";
 import "./motion.css";
 import { SESSION_HINT_SCRIPT } from "@/lib/supabase/auth-cookie";
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     description: "Topic-by-topic practice across Cambridge IGCSE and IB Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences, and Economics.",
     type: "website",
     locale: "en_US",
-    images: [SOCIAL_IMAGE],
+    ...socialPreview(),
   },
   twitter: {
     card: "summary_large_image",
