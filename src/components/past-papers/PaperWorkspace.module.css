@@ -3,14 +3,11 @@
 .workspace[data-marking] { grid-template-columns: minmax(0, 1fr) 420px; }
 .main { min-width: 0; scroll-margin-top: 78px; }
 .rail { position: sticky; top: 78px; display: grid; gap: 14px; }
-.finished { padding: 20px; background: var(--subject-panel-tint, var(--cobalt-faint)); border: 1px solid color-mix(in srgb, var(--course-pastel, var(--cobalt-soft)) 70%, var(--line)); border-radius: 18px; }
-.finished h2 { margin: 0; font: 400 1.3rem/1.2 var(--font-serif); }
-.finished p { margin: 6px 0 14px; color: var(--ink-soft); font-size: .9rem; line-height: 1.45; }
 .markButton, .dockMark { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: var(--accent-contrast); background: var(--cobalt); border: 0; border-radius: 12px; box-shadow: 0 8px 20px -10px rgb(47 91 234 / .7); font: 760 .95rem/1 var(--font-body); cursor: pointer; transition: background-color 150ms ease; }
 .markButton { width: 100%; }
 .markButton svg, .dockMark svg { width: 17px; height: 17px; }
 .markButton:hover, .dockMark:hover { background: var(--cobalt-strong); }
-.held { margin: 0; padding: 14px 16px; color: var(--muted); background: var(--surface-raised); border: 1px solid var(--line); border-radius: 14px; font-size: .9rem; }
+.held { margin: 0; padding: 0 4px; color: var(--muted); font-size: .86rem; }
 .markPanel { max-height: calc(100dvh - 96px); overflow: auto; overscroll-behavior: contain; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 20px; }
 .dock { display: none; }
 .workspace :is(button):focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }

@@ -34,8 +34,18 @@ describe('PastPaperPaperPage', () => {
     render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail, all: siblings, practice: true }} />);
     const list = screen.getByRole('list', { name: 'Questions in this paper' });
     expect(within(list).getAllByRole('listitem')).toHaveLength(2);
-    expect(within(list).getByText('Algebra and graphs, Coordinate geometry')).toBeInTheDocument();
+    expect(within(list).getAllByRole('listitem')[1]).toHaveTextContent('Q2Algebra and graphs, Coordinate geometry4 marks');
     expect(within(list).getByText('4 marks')).toBeInTheDocument();
+    expect(within(list).getByRole('link', { name: 'Coordinate geometry' })).toHaveAttribute('href', '/banks/igcse?topic=Coordinate%20geometry');
+  });
+
+  it('lists a held paper\'s questions from the bank, without marking or page jumps', () => {
+    const held = { ...detail, summary: { ...detail.summary, reportAvailable: false }, questions: [] };
+    render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail: held, all: siblings, practice: true, questions: [{ id: '0580-2024-june-42-q1', number: 1, marks: null, topics: ['Number'] }] }} />);
+    expect(screen.getByTestId('workspace')).toHaveAttribute('data-marking', 'no');
+    const list = screen.getByRole('list', { name: 'Questions in this paper' });
+    expect(within(list).getByRole('link', { name: 'Number' })).toHaveAttribute('href', '/banks/igcse?topic=Number');
+    expect(within(list).queryByText(/mark/)).not.toBeInTheDocument();
   });
 
   it('links variants, the same session, neighbouring sessions and practice', () => {
@@ -47,7 +57,7 @@ describe('PastPaperPaperPage', () => {
     expect(screen.getByRole('link', { name: /Next.*Oct\/Nov 2025.*Paper 41/ })).toHaveAttribute('href', '/past-papers/igcse-maths-0580/2025-oct-nov-41');
     expect(screen.getByRole('link', { name: 'All 2024 papers' })).toHaveAttribute('href', '/past-papers/igcse-maths-0580/2024');
     expect(screen.getByRole('link', { name: 'Every Paper 4' })).toHaveAttribute('href', '/past-papers/igcse-maths-0580/paper-4');
-    expect(screen.getByRole('link', { name: /Practise Paper 4 questions by topic/ })).toHaveAttribute('href', '/banks/igcse?paper=4');
+    expect(screen.getByRole('link', { name: 'All Paper 4 questions by topic' })).toHaveAttribute('href', '/banks/igcse?paper=4');
     expect(screen.getByTestId('workspace')).toHaveAttribute('data-marking', 'yes');
   });
 
@@ -69,7 +79,8 @@ describe('PastPaperPaperPage', () => {
   });
   it('leaves out practice links when the bank has no question-bank page yet', () => {
     render(<PastPaperPaperPage view={{ kind: 'paper', bank, detail, all: siblings, practice: false }} />);
-    expect(screen.queryByRole('link', { name: /questions by topic/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'All Paper 4 questions by topic' })).not.toBeInTheDocument();
+    expect(within(screen.getByRole('list', { name: 'Questions in this paper' })).queryAllByRole('link')).toHaveLength(0);
     expect(screen.getByTestId('workspace')).toHaveAttribute('data-practice', 'false');
   });
   it('suggests same-session papers from the student\'s own route', () => {
