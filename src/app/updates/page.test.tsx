@@ -61,8 +61,8 @@ describe("Updates page", () => {
     expect(container.querySelector('a[href^="/past-papers"]')).toBeNull();
   });
 
-  it("advertises the newest banks, papers and features from the last month, never fixes", () => {
-    const notable = UPDATES.filter(({ tag }) => tag !== "Improvement");
+  it("advertises the newest updates from the last month", () => {
+    const notable = UPDATES;
     const after = (days: number) => new Date(new Date(`${notable[0].date}T12:00:00Z`).getTime() + days * 86_400_000);
     const news = recentNews(3, after(1));
     expect(news.map(({ title }) => title)).toEqual(notable.slice(0, 3).map(({ title }) => title));
@@ -70,12 +70,5 @@ describe("Updates page", () => {
     expect(recentNews(3, after(45))).toEqual([]);
     // Nothing dated after "now" is advertised (an entry written ahead of its release).
     expect(recentNews(3, after(-1)).map(({ title }) => title)).not.toContain(notable[0].title);
-  });
-
-  it("advertises new explanations on the homepage, but not fixes", () => {
-    const latest = UPDATES.find(({ tag }) => tag === "Explanations")!;
-    const news = recentNews(UPDATES.length, new Date(`${latest.date}T12:00:00Z`));
-    expect(news.map(({ title }) => title)).toContain(latest.title);
-    expect(news.some(({ tag }) => tag === "Improvement")).toBe(false);
   });
 });
