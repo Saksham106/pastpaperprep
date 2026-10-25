@@ -1,0 +1,127 @@
+{
+ "schema": "reviewed-0580-question-splits-v1",
+ "bank": "igcse",
+ "namespace": "repairs/0580-question-split-v1-4cb1bf3ffe1503f9",
+ "source": {
+  "repository": "Saksham106/igcse-0580-topic-practice",
+  "packageSha256": "4cb1bf3ffe1503f93baee2f646f5fc5f240ea1bc5adfddb9b63a36a553a6cbc4",
+  "questionPdfSha256": "53144f655d86f073ab49ea8bd396ac52a0bde684aaccf26e5b7c5b8bd004a710",
+  "override": {
+   "question": {
+    "7": [
+     12,
+     60.62
+    ]
+   },
+   "note": "The Question 6(c) grid's y-axis label '7' (page 11, x≈61) sits in the question-number column and was taken as the Question 7 heading, splitting 6(c)/6(d) into Q7. The real Question 7 heading is on page 12 at y=60.62; physically reviewed against the original question paper (sha256 53144f65…a710)."
+  }
+ },
+ "entries": {
+  "0580-2020-june-41-q6": {
+   "oldPaths": [
+    "questions/0580-2020-june-41-q6.webp"
+   ],
+   "oldSha256": [
+    "fe7041d171772eff9120dbacf8ba69e23f18a9f459aab893fb8060862604ad10"
+   ],
+   "newPaths": [
+    "repairs/0580-question-split-v1-4cb1bf3ffe1503f9/045e280c7ed39c32b233b533e8e89912e6b42e25b0f6a403bc51dd3a931c93a9.webp"
+   ],
+   "sha256": [
+    "045e280c7ed39c32b233b533e8e89912e6b42e25b0f6a403bc51dd3a931c93a9"
+   ],
+   "marks": {
+    "old": 3,
+    "new": 10,
+    "printed": [
+     1,
+     2,
+     5,
+     2
+    ]
+   },
+   "accessibleText": {
+    "oldSha256": "b1d597ef3d5f8d5714e97db76abfcd2c3772bc247ab9680b3ffaffd219774ef3",
+    "text": "6 Raheem makes baskets and mats. Each week he makes x baskets and y mats. He makes fewer than 10 mats. The number of mats he makes is greater than or equal to the number of baskets he makes. (a) One of the inequalities that shows this information is y 10 1 . Write down the other inequality. ................................................. [1] (b) He takes 2 4 1 hours to make a basket and 1 2 1 hours to make a mat. Each week he works for a maximum of 22.5 hours. Show that x y 3 2 30 G + . [2] 11 (c) On the grid, draw three straight lines and shade the unwanted regions to show these inequalities. 0 2 4 6 8 10 12 14 16 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 16 1 3 5 7 9 11 13 15 y x [5] (d) He makes $40 profit on each basket he sells and $28 profit on each mat he sells. Calculate the maximum profit he can make each week. $ ................................................ [2]"
+   },
+   "printGeometry": [
+    "repairs/0580-question-split-v1-4cb1bf3ffe1503f9/045e280c7ed39c32b233b533e8e89912e6b42e25b0f6a403bc51dd3a931c93a9.webp",
+    "045e280c7ed39c32b233b533e8e89912e6b42e25b0f6a403bc51dd3a931c93a9",
+    1070,
+    3078,
+    513,
+    1476.93,
+    [
+     [
+      0,
+      1534,
+      736.18,
+      10,
+      1
+     ],
+     [
+      1534,
+      1544,
+      740.75,
+      11,
+      1
+     ]
+    ]
+   ]
+  },
+  "0580-2020-june-41-q7": {
+   "oldPaths": [
+    "questions/0580-2020-june-41-q7.webp"
+   ],
+   "oldSha256": [
+    "b296b35901032c9a8412b898388e15394d0573a8feb7bc2b6460fb9aa50471de"
+   ],
+   "newPaths": [
+    "repairs/0580-question-split-v1-4cb1bf3ffe1503f9/3753a5fbd9ee4effe1e5c2c43c1388b9e37c2cb8ffa055971c1a6edd070a5e96.webp"
+   ],
+   "sha256": [
+    "3753a5fbd9ee4effe1e5c2c43c1388b9e37c2cb8ffa055971c1a6edd070a5e96"
+   ],
+   "marks": {
+    "old": 24,
+    "new": 17,
+    "printed": [
+     3,
+     3,
+     3,
+     2,
+     3,
+     3
+    ]
+   },
+   "accessibleText": {
+    "oldSha256": "3eb721c8affd4a7212cc22dfbde15e73bfbedcfd7a100d7521f73a9a6bc2d17d",
+    "text": "7 72° 80 m North NOT TO SCALE 115 m A B C The diagram shows the positions of three points A, B and C in a field. (a) Show that BC is 118.1 m, correct to 1 decimal place. [3] (b) Calculate angle ABC. Angle ABC = ................................................ [3] 13 (c) The bearing of C from A is 147°. Find the bearing of (i) A from B, ................................................. [3] (ii) B from C. ................................................. [2] (d) Mitchell takes 35 seconds to run from A to C. Calculate his average running speed in kilometres per hour. ........................................ km/h [3] (e) Calculate the shortest distance from point B to AC. ............................................. m [3]"
+   },
+   "printGeometry": [
+    "repairs/0580-question-split-v1-4cb1bf3ffe1503f9/3753a5fbd9ee4effe1e5c2c43c1388b9e37c2cb8ffa055971c1a6edd070a5e96.webp",
+    "3753a5fbd9ee4effe1e5c2c43c1388b9e37c2cb8ffa055971c1a6edd070a5e96",
+    1070,
+    3079,
+    513,
+    1477.11,
+    [
+     [
+      0,
+      1535,
+      736.36,
+      12,
+      1
+     ],
+     [
+      1535,
+      1544,
+      740.75,
+      13,
+      1
+     ]
+    ]
+   ]
+  }
+ }
+}

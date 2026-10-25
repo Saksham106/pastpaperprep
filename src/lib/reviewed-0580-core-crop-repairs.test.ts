@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { describe, expect, test } from "vitest";
 import repairs from "@/data/reviewed-0580-core-crop-repairs.json";
+import questionSplits0580 from "@/data/reviewed-0580-question-splits.json";
 import repairGeometry from "@/data/print-geometry-0580-core-crop-repairs.json";
 import historicalGeometry from "@/data/print-geometry-0580.json";
 import mathsRepairs from "@/data/reviewed-maths-source-answer-repairs.json";
@@ -59,7 +60,8 @@ describe("reviewed 0580 Core 2021-2025 crop repairs", () => {
     const loaded = new Map((await loadBankQuestions("igcse")).map((question) => [question.id, question]));
     const unrepaired = new Map(normalizeBankQuestions("igcse", raw.questions as never[]).map((question) => [question.id, question]));
     for (const [id, question] of loaded) {
-      const entry = entries[id];
+      // The reviewed 0580 question splits (reviewed-0580-question-splits.test.ts) also serve new question crops.
+      const entry = entries[id] ?? (questionSplits0580.entries as Record<string, { newPaths: string[] }>)[id];
       expect(question.questionAssetPaths).toEqual(entry ? entry.newPaths.map((path) => `igcse/${path}`) : unrepaired.get(id)?.questionAssetPaths);
       expect(question.questionImageCount).toBe(unrepaired.get(id)?.questionImageCount);
     }
