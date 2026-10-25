@@ -38,3 +38,10 @@ Every newly free year is from the older syllabus. Current-syllabus papers stay p
   - About 750 MB of superseded original crops that the runtime data and release receipts still list (repair overlays swap them out at load time).
   - About 8 MB scattered across mixed folders.
 - Expected total afterwards: about 8.9 GB.
+
+## Receipt: copy run (25 October, owner-approved)
+- `copy-deploy` deployed `ppp-free-copy` with 38,654 allowed R2 free paths. The Worker's self-test against the real `pastpaperprep-free` bucket passed: a second create-only put was refused.
+- `copy`: 28,959 copied, 9,695 already present. The latter are 7,949 public before the run plus 1,746 found on retry, after round-1 replies were lost. The failure log is empty.
+- `verify`: 38,654 of 38,654 read back from free.pastpaperprep.com, matching the private object's SHA-256 and size.
+- `copy-delete` removed the Worker (its URL now returns 404), and no `_copy-selftest/` keys remain.
+- Bucket listing afterwards: `pastpaperprep-free` 17,335 → 47,916 objects (+30,581), 4.667 → 5.306 GB. `pastpaperprep-assets` 3.770 GB. Total 9.08 GB, about 8.91 GB after the planned 163 MB cleanup.
