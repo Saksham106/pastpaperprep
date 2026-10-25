@@ -1,4 +1,12 @@
-import { test, expect } from 'vitest';
+import { test, expect, vi } from 'vitest';
+// The sealed baseline predates the reviewed 0580 question splits (reviewed-0580-question-splits.test.ts), which
+// re-cut two rows' crops, marks and text; replay it without them.
+vi.mock('@/lib/reviewed-0580-question-splits', () => ({
+ reviewed0580SplitQuestionPaths: (_bank: string, _id: string, paths: readonly string[]) => [...paths],
+ reviewed0580SplitMarks: (_bank: string, _id: string, marks: number | null) => marks,
+ reviewed0580SplitText: (_bank: string, _id: string, text: string) => text,
+ reviewed0580SplitGeometry: () => null,
+}));
 import { readFileSync } from 'node:fs';
 import {createHash} from 'node:crypto';
 import { normalizeBankQuestions } from './questions';

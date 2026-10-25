@@ -55,6 +55,7 @@ const ibQuestionBoundaryRepairs = JSON.parse(await readFile(join(root, 'src', 'd
 const historicalCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-historical-crop-repairs.json'), 'utf8'));
 const biologyPrintedMarks = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-printed-marks.json'), 'utf8'));
 const questionSplits0606 = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-0606-question-splits.json'), 'utf8'));
+const questionSplits0580 = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-0580-question-splits.json'), 'utf8'));
 const removedPartMarks = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-science-removed-part-marks.json'), 'utf8')).entries;
 // Same projection as src/lib/reviewed-biology-historical-crops.ts (counts and marks only).
 function historicalEntry(bank, raw) {
@@ -87,6 +88,12 @@ function printedMarks(bank, raw, marks) {
   if (removed) {
     if (marks !== removed.old) throw new Error(`Reviewed removed-part marks disagree with ${bank}:${raw.id}`);
     return removed.new;
+  }
+  // Same projection as src/lib/reviewed-0580-question-splits.ts.
+  const split0580 = bank === questionSplits0580.bank ? questionSplits0580.entries[raw.id] : undefined;
+  if (split0580) {
+    if (marks !== split0580.marks.old) throw new Error(`Reviewed 0580 question split disagrees with ${bank}:${raw.id}`);
+    return split0580.marks.new;
   }
   const split = bank === questionSplits0606.bank ? questionSplits0606.entries[raw.id] : undefined;
   if (split) {

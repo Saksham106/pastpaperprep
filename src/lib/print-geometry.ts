@@ -7,6 +7,7 @@ import type { BankSlug } from "@/lib/banks";
 import { reviewedBlankTailForSignedAsset, reviewedBlankSourcePage } from "@/lib/reviewed-blank-tails";
 import { reviewed0606RightEdgeGeometry } from "@/lib/reviewed-0606-ms-right-edge-repairs";
 import { reviewed0606SplitGeometry } from "@/lib/reviewed-0606-question-splits";
+import { reviewed0580SplitGeometry } from "@/lib/reviewed-0580-question-splits";
 
 export type PhysicalSizePt = readonly [number, number];
 export type SourcePrintSegment = {
@@ -56,7 +57,8 @@ function geometryForSignedPath(
 ): { size: PhysicalSizePt; rasterSize?: [number, number]; segments?: SourcePrintSegment[] } | null {
   if (bank === "igcse") {
     const index = kind === "question" ? 0 : 1;
-    const entry = [repaired0580Entries[questionId]?.[index], verified0580Entries[questionId]?.[index]]
+    const split = kind === "question" ? reviewed0580SplitGeometry(questionId, path) : null;
+    const entry = [split, repaired0580Entries[questionId]?.[index], verified0580Entries[questionId]?.[index]]
       .find((candidate) => candidate && (path === candidate[0] || path.endsWith(`/${candidate[0]}`)));
     if (!entry) return null;
     const [, imageSha256, widthPx, heightPx, widthPt, heightPt, segments] = entry;
