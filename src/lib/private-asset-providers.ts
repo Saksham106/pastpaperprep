@@ -27,9 +27,22 @@ const R2_PRIVATE_BANKS: ReadonlySet<string> = new Set<BankSlug>([
   "ib-economics-sl",
 ]);
 
-/** Preview assets: R2 for the R2-backed private banks, Supabase for everything else. */
+/**
+ * Published banks whose free years also sign from R2. Their free set grew past what Supabase
+ * retains, and R2 already holds every object these banks serve, so Supabase keeps none of them.
+ */
+const R2_PREVIEW_BANKS: ReadonlySet<string> = new Set<BankSlug>([
+  "ib-chemistry-hl",
+  "ib-chemistry-sl",
+  "ib-physics-hl",
+  "ib-physics-sl",
+  "ib-biology-hl",
+  "ib-biology-sl",
+]);
+
+/** Preview assets: R2 for the R2-backed banks, Supabase for everything else. */
 export function previewAssetSignOptions(bank: BankSlug): SignPrivateAssetOptions {
-  return R2_PRIVATE_BANKS.has(bank) ? { provider: "r2" } : { provider: "supabase" };
+  return R2_PRIVATE_BANKS.has(bank) || R2_PREVIEW_BANKS.has(bank) ? { provider: "r2" } : { provider: "supabase" };
 }
 
 /** Premium assets keep the configured default, pinned to R2 for the R2-backed private banks. */

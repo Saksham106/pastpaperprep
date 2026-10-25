@@ -90,12 +90,13 @@ export const FREE_QUESTION_YEARS: Record<ProductionBankSlug, readonly number[]> 
   "ib-sl": [2017],
   "ib-ai-hl": [2021],
   "ib-ai-sl": [2021],
-  "ib-chemistry-hl": [2020],
-  "ib-chemistry-sl": [2020],
-  "ib-physics-hl": [2020],
-  "ib-physics-sl": [2020],
-  "ib-biology-hl": [2020],
-  "ib-biology-sl": [2020],
+  // IB sciences: every paper set under the 2016 guide up to 2020.
+  "ib-chemistry-hl": [2016, 2017, 2018, 2019, 2020],
+  "ib-chemistry-sl": [2016, 2017, 2018, 2019, 2020],
+  "ib-physics-hl": [2016, 2017, 2018, 2019, 2020],
+  "ib-physics-sl": [2016, 2017, 2018, 2019, 2020],
+  "ib-biology-hl": [2016, 2017, 2018, 2019, 2020],
+  "ib-biology-sl": [2016, 2017, 2018, 2019, 2020],
 };
 
 /**
@@ -106,24 +107,28 @@ export const FREE_QUESTION_YEARS: Record<ProductionBankSlug, readonly number[]> 
  * clicks an advertised free link always gets a non-empty set of real questions whose
  * assets are signed, while every other question, answer, and PDF stays gated.
  *
- * `PRIVATE_FREE_QUESTION_YEARS` — one documented older exam year per private bank.
+ * `PRIVATE_FREE_QUESTION_YEARS` — the documented older exam years per private bank
+ * (IGCSE up to 2021, IB Computer Science up to 2020, IB Economics 2021).
  * `PRIVATE_PREVIEW_QUESTION_IDS` — an explicit ID set, used only where a bank has no
  * usable year semantics. Both are authoritative, never inferred from the corpus.
  */
 export const PRIVATE_FREE_QUESTION_YEARS: Partial<Record<BankSlug, readonly number[]>> = {
-  "igcse-biology-0610": [2021],
-  "igcse-economics-0455": [2021],
-  "igcse-chemistry-0620": [2021],
-  "igcse-physics-0625": [2021],
-  "igcse-coordinated-sciences-0654": [2021],
+  "igcse-biology-0610": [2019, 2020, 2021],
+  "igcse-economics-0455": [2019, 2020, 2021],
+  "igcse-chemistry-0620": [2019, 2020, 2021],
+  "igcse-physics-0625": [2019, 2020, 2021],
+  "igcse-coordinated-sciences-0654": [2020, 2021],
+  "igcse-computer-science-0478": [2019, 2020, 2021],
+  "ib-computer-science-hl": [2019, 2020],
+  "ib-computer-science-sl": [2019, 2020],
   "ib-economics-hl": [2021],
   "ib-economics-sl": [2021],
 };
 
 export const PRIVATE_PREVIEW_QUESTION_IDS: Partial<Record<BankSlug, readonly string[]>> = {};
 
-/** Pure syllabus-prefixed id (`0580-2016-…`, `0654-2021-…`), then the IB year-first form. */
-const SYLLABUS_PREFIXED_ID = /^(?:\d{4})-(\d{4})-/;
+/** Syllabus-prefixed id (`0580-2016-…`, `0654-2021-…`, `ib-cs-2019-…`), then the IB year-first form. */
+const SYLLABUS_PREFIXED_ID = /^(?:\d{4}|ib-cs)-(\d{4})-/;
 const YEAR_FIRST_ID = /^(\d{4})-/;
 
 export function questionYear(questionId: string): number | null {

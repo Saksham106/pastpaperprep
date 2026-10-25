@@ -9,6 +9,16 @@
  *   npx tsx scripts/publish-free-assets.mts upload <work-dir>     # ~3 parallel; resumable, retries throttled files
  *   npx tsx scripts/publish-free-assets.mts verify <work-dir>     # every object from free.pastpaperprep.com
  *
+ * R2-backed files can instead be copied inside Cloudflare by a one-off Worker
+ * (scripts/free-copy-worker/), so nothing passes through this machine:
+ *
+ *   ONLY_SOURCE=r2 npx tsx scripts/publish-free-assets.mts copy-deploy <work-dir>  # deploy, free set bundled in
+ *   ONLY_SOURCE=r2 npx tsx scripts/publish-free-assets.mts copy <work-dir>         # create-only copy, seals each file
+ *   ONLY_SOURCE=r2 npx tsx scripts/publish-free-assets.mts verify <work-dir>
+ *   npx tsx scripts/publish-free-assets.mts copy-delete <work-dir>                 # delete the Worker
+ *
+ * `ONLY_SOURCE=r2|supabase` limits every phase to files from that store.
+ *
  * Run with the production release flags set, after `npm run generate:asset-manifest`. The list is
  * computed here from the manifests and the free-year rules, never read from an editable file.
  * Files are read and placed without following symlinks below the canonical work folder, and
@@ -22,10 +32,11 @@
  * Supabase banks: a bulk `supabase --experimental storage cp -r ss:///question-assets/<bank>
  * <work>/supabase-all/ --linked -j 16` first avoids per-file rate limits; download copies from it.
  */
-import { createHash } from "node:crypto";
+import { createHash, randomBytes } from "node:crypto";
 import { spawn } from "node:child_process";
-import { appendFileSync, existsSync, lstatSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { basename, join, resolve } from "node:path";
+import { appendFileSync, closeSync, constants, copyFileSync, existsSync, lstatSync, mkdirSync, openSync, readFileSync, rmSync, writeFileSync, writeSync } from "node:fs";
+import { basename, dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { loadBankAssetManifest } from "@/lib/asset-manifest";
 import { getAvailableBanks } from "@/lib/banks";
 import { FREE_PUBLIC_ASSET_PREFIX, freePublicAssetUrl } from "@/lib/free-asset-index";
@@ -33,6 +44,9 @@ import { isSafeFreeAssetPath, listFreePublicAssets } from "@/lib/free-public-ass
 import { canonicalRoot, placeConfined, privateStaging, readConfined, workerCount } from "./lib/safe-files";
 
 type Item = { source: "r2" | "supabase"; path: string };
+/** Every phase that writes `log/<phase>-failed.txt`; each such path is guarded against symlinks. */
+const PHASES = ["download", "upload", "verify", "copy"] as const;
+const failureLog = (phase: (typeof PHASES)[number]) => `log/${phase}-failed.txt`;
 type Seal = { sha256: string; bytes: number };
 const PUBLIC_BUCKET = "pastpaperprep-free";
 const PRIVATE_BUCKET = "pastpaperprep-assets";
@@ -51,7 +65,9 @@ async function freeSet(): Promise<Item[]> {
     }
   }
   if (!items.size) throw new Error("No free assets listed; are the release flags set?");
-  return [...items.values()].sort((a, b) => a.path.localeCompare(b.path));
+  const only = process.env.ONLY_SOURCE;
+  if (only !== undefined && only !== "r2" && only !== "supabase") throw new Error("ONLY_SOURCE must be r2 or supabase");
+  return [...items.values()].filter((item) => !only || item.source === only).sort((a, b) => a.path.localeCompare(b.path));
 }
 
 /** The canonical work folder with plain (non-symlink) `files`, `log`, seal and log files. */
@@ -63,7 +79,7 @@ function workDir(path: string): string {
     if (stat && (stat.isSymbolicLink() || !stat.isDirectory())) throw new Error(`${area} in the work folder isn't a plain folder`);
     if (!stat) mkdirSync(join(work, area));
   }
-  for (const name of ["sealed.tsv", "log/uploaded.txt", "log/download-failed.txt", "log/upload-failed.txt", "log/verify-failed.txt"]) {
+  for (const name of ["sealed.tsv", "copy-worker.json", "log/copied.txt", "log/uploaded.txt", ...PHASES.map(failureLog)]) {
     if (lstatSync(join(work, name), { throwIfNoEntry: false })?.isSymbolicLink()) throw new Error(`${name} in the work folder is a symlink`);
   }
   return work;
@@ -112,9 +128,14 @@ function validBytes(path: string, bytes: Buffer): boolean {
   try { JSON.parse(bytes.toString("utf8")); return true; } catch { return false; }
 }
 /** Coverage is counted from what actually completed, never assumed from an empty failure list. */
-function finish(phase: string, items: Item[], completed: ReadonlySet<string>, work: string) {
+function finish(phase: (typeof PHASES)[number], items: Item[], completed: ReadonlySet<string>, work: string) {
   const missing = items.filter(({ path }) => !completed.has(path)).map(({ path }) => path);
-  writeFileSync(join(work, "log", `${phase}-failed.txt`), missing.join("\n"));
+  const log = join(work, failureLog(phase));
+  // O_NOFOLLOW: the OS refuses a symlink at the log path, including one planted during the run.
+  let fd: number;
+  try { fd = openSync(log, constants.O_WRONLY | constants.O_CREAT | constants.O_TRUNC | constants.O_NOFOLLOW, 0o600); }
+  catch { throw new Error(`${failureLog(phase)} in the work folder is a symlink or unwritable`); }
+  try { writeSync(fd, missing.join("\n")); } finally { closeSync(fd); }
   console.log(`${phase} ${missing.length ? "incomplete" : "done"}: ${items.length - missing.length} of ${items.length}`);
   if (missing.length) process.exitCode = 1;
 }
@@ -207,14 +228,117 @@ async function verify(workPath: string) {
   finish("verify", items, completed, work);
 }
 
+const COPY_WORKER = "ppp-free-copy";
+const COPY_BATCH = 10; // matches MAX_BATCH in the Worker
+type CopyWorker = { url: string; token: string };
+type CopyResult = { path: string; status: string; sha256?: string; bytes?: number };
+
+function readCopyWorker(work: string): CopyWorker {
+  const file = join(work, "copy-worker.json");
+  if (!existsSync(file)) throw new Error("No copy-worker.json; run copy-deploy first");
+  const parsed = JSON.parse(readFileSync(file, "utf8")) as CopyWorker;
+  // The deployed workers.dev Worker, or a local `wrangler dev` / test double on loopback.
+  const url = /^https:\/\/[a-z0-9.-]+\.workers\.dev$|^http:\/\/127\.0\.0\.1:\d{2,5}$/;
+  if (!url.test(parsed.url) || !/^[a-f0-9]{64}$/.test(parsed.token)) throw new Error("copy-worker.json is malformed");
+  return parsed;
+}
+
+/** Refuses to copy unless the Worker proves create-only puts are refused for an existing key. */
+async function requireCreateOnly(worker: CopyWorker) {
+  const response = await fetch(`${worker.url}/selftest`, { method: "POST", headers: { "x-copy-token": worker.token } }).catch(() => null);
+  const result = response?.ok ? await response.json().catch(() => null) as { ok?: unknown } | null : null;
+  if (result?.ok !== true) throw new Error("Copy Worker self-test failed: create-only writes are not proven; nothing was copied");
+}
+
+/** Deploys the copy Worker from a private temp folder with the R2 free set bundled in. */
+async function copyDeploy(workPath: string) {
+  const work = workDir(workPath);
+  const items = await freeSet();
+  if (items.some((item) => item.source !== "r2")) throw new Error("copy-deploy covers R2 files only; set ONLY_SOURCE=r2");
+  const staging = privateStaging("ppp-copy-worker-");
+  try {
+    const dir = staging.path();
+    mkdirSync(dir);
+    copyFileSync(join(dirname(fileURLToPath(import.meta.url)), "free-copy-worker", "worker.mjs"), join(dir, "worker.mjs"));
+    writeFileSync(join(dir, "allowlist.json"), JSON.stringify({ paths: items.map(({ path }) => checkedPath(path)) }));
+    writeFileSync(join(dir, "wrangler.jsonc"), JSON.stringify({
+      name: COPY_WORKER, main: "worker.mjs", compatibility_date: "2026-10-01", workers_dev: true,
+      r2_buckets: [{ binding: "PRIVATE", bucket_name: PRIVATE_BUCKET }, { binding: "FREE", bucket_name: PUBLIC_BUCKET }],
+    }, null, 2));
+    const deployed = await run("npx", ["-y", "wrangler@4", "deploy"], dir);
+    const url = /https:\/\/[a-z0-9.-]+\.workers\.dev/.exec(deployed.out.toString("utf8"))?.[0];
+    if (deployed.code !== 0 || !url) throw new Error("wrangler deploy failed or printed no workers.dev URL");
+    const token = randomBytes(32).toString("hex");
+    const secret = await new Promise<number>((done) => {
+      const child = spawn("npx", ["-y", "wrangler@4", "secret", "put", "COPY_TOKEN", "--name", COPY_WORKER], { cwd: dir, stdio: ["pipe", "ignore", "ignore"] });
+      child.on("error", () => done(1));
+      child.on("close", (code) => done(code ?? 1));
+      child.stdin.end(token);
+    });
+    if (secret !== 0) throw new Error("wrangler secret put failed; run copy-delete");
+    writeFileSync(join(work, "copy-worker.json"), JSON.stringify({ url, token }), { mode: 0o600 });
+    console.log(`deployed ${COPY_WORKER} at ${url} with ${items.length} allowed paths`);
+  } finally { staging.dispose(); }
+}
+
+/** Create-only copy through the Worker. Each answer seals the private object's hash and size for verify. */
+async function copy(workPath: string) {
+  const work = workDir(workPath);
+  const items = await freeSet();
+  if (items.some((item) => item.source !== "r2")) throw new Error("copy covers R2 files only; set ONLY_SOURCE=r2");
+  const worker = readCopyWorker(work);
+  await requireCreateOnly(worker);
+  const log = join(work, "log", "copied.txt");
+  const completed = new Set<string>();
+  for (let round = 1; round <= 5; round++) {
+    const seals = readSeals(work);
+    const done = lines(log);
+    const todo = items.filter(({ path }) => !completed.has(path) && !(done.has(path) && seals.has(path)));
+    for (const { path } of items) if (done.has(path) && seals.has(path)) completed.add(path);
+    if (!todo.length) break;
+    console.log(`round ${round}: ${todo.length} to copy`);
+    const batches: string[][] = [];
+    for (let i = 0; i < todo.length; i += COPY_BATCH) batches.push(todo.slice(i, i + COPY_BATCH).map(({ path }) => checkedPath(path)));
+    const counts: Record<string, number> = {};
+    await pool(batches, workerCount(process.env.JOBS, 6), async (paths) => {
+      const response = await fetch(`${worker.url}/copy`, { method: "POST", headers: { "content-type": "application/json", "x-copy-token": worker.token }, body: JSON.stringify({ paths }) }).catch(() => null);
+      if (!response?.ok) return;
+      const { results } = await response.json() as { results: CopyResult[] };
+      for (const result of results) {
+        counts[result.status] = (counts[result.status] ?? 0) + 1;
+        if ((result.status !== "copied" && result.status !== "exists") || !paths.includes(result.path)) continue;
+        if (!/^[a-f0-9]{64}$/.test(result.sha256 ?? "") || !Number.isSafeInteger(result.bytes) || (result.bytes ?? 0) < 1 || (result.bytes ?? 0) > MAX_ASSET_BYTES) continue;
+        appendFileSync(join(work, "sealed.tsv"), `${result.path}\t${result.sha256}\t${result.bytes}\n`);
+        appendFileSync(log, `${result.path}\n`);
+        completed.add(result.path);
+      }
+    });
+    console.log(`round ${round}: ${JSON.stringify(counts)}`);
+    if (Object.keys(counts).some((status) => status === "refused" || status === "missing" || status === "invalid")) break; // retrying won't help
+  }
+  finish("copy", items, completed, work);
+}
+
+async function copyDelete(workPath: string) {
+  const work = workDir(workPath);
+  const { code } = await run("npx", ["-y", "wrangler@4", "delete", "--name", COPY_WORKER, "--force"]);
+  if (code !== 0) throw new Error(`wrangler delete ${COPY_WORKER} failed; delete it in the dashboard`);
+  rmSync(join(work, "copy-worker.json"), { force: true });
+  console.log(`deleted ${COPY_WORKER}`);
+}
+
 const [phase, work] = process.argv.slice(2);
 try {
   jobs(); // reject a bad JOBS before any phase runs
-  if (!work) throw new Error("usage: publish-free-assets.mts download|upload|verify <work-dir>");
+  const usage = "usage: publish-free-assets.mts download|upload|verify|copy-deploy|copy|copy-delete <work-dir>";
+  if (!work) throw new Error(usage);
   if (phase === "download") await download(work);
   else if (phase === "upload") await upload(work);
   else if (phase === "verify") await verify(work);
-  else throw new Error("usage: publish-free-assets.mts download|upload|verify <work-dir>");
+  else if (phase === "copy-deploy") await copyDeploy(work);
+  else if (phase === "copy") await copy(work);
+  else if (phase === "copy-delete") await copyDelete(work);
+  else throw new Error(usage);
 } catch (error) {
   console.error(error instanceof Error ? error.message : String(error));
   process.exitCode = 1;

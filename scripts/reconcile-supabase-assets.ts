@@ -8,6 +8,7 @@ import { isPreviewQuestion } from "@/lib/access";
 import { BANKS, type LegacyProductionBankSlug } from "@/lib/banks";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import { buildAssetRetentionPlan, EXPECTED_ASSET_TOTALS } from "@/lib/asset-retention";
+import { previewAssetSignOptions } from "@/lib/private-asset-providers";
 
 const REPO_ROOT = resolve(import.meta.dirname, "..");
 const WORKSPACE_ROOT = resolve(REPO_ROOT, "..", "..");
@@ -114,7 +115,9 @@ function assertPlan(previewPaths: Set<string>, premiumPaths: Set<string>, allPat
   if (allPaths.size !== previewPaths.size + premiumPaths.size) {
     throw new Error("Refusing to continue: preview and premium path sets do not partition the corpus.");
   }
-  const missingOfficialPreview = BANKS.flatMap(({ slug }) => loadBankQuestions(slug))
+  // Only banks whose free years sign from Supabase need their preview mark schemes retained there.
+  const missingOfficialPreview = BANKS.filter(({ slug }) => previewAssetSignOptions(slug).provider === "supabase")
+    .flatMap(({ slug }) => loadBankQuestions(slug))
     .filter((question) => isPreviewQuestion(question.bankSlug, question.id))
     .flatMap((question) => question.markschemeAssetPaths)
     .filter((path) => !previewPaths.has(path));

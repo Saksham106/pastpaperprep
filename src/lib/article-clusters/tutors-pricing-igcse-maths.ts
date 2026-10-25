@@ -127,7 +127,7 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
       {
         heading: "What you get without paying",
         paragraphs: [
-          "Every whole past paper and its mark scheme is free to read, with no sign-up. Every topic bank except Computer Science also has free exam years: guests see up to 20 matching questions, and a free account opens the rest of that free selection.",
+          "Every whole past paper and its mark scheme is free to read, with no sign-up. Every topic bank also has free exam years: guests see up to 20 matching questions, and a free account opens the rest of that free selection.",
           "Start free if you are unsure. A plan adds the newest exam years in the topic banks and PDF worksheets.",
         ],
       },

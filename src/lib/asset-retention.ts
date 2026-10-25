@@ -1,5 +1,6 @@
 import { isPreviewQuestion } from "@/lib/access";
 import type { BankSlug } from "@/lib/banks";
+import { previewAssetSignOptions } from "@/lib/private-asset-providers";
 import type { UnifiedQuestion } from "@/lib/questions";
 
 type BankQuestions = {
@@ -29,16 +30,17 @@ export const EXPECTED_ASSET_COUNTS = {
   "ib-ai-sl": { preview: 155, premium: 1008, all: 1163 },
   // Shared-stimulus repair (docs/ib-shared-stimulus-repairs.md): one 2017 Paper 3 data-block crop each.
   // IB science crop repair (docs/ib-science-crop-repairs.md): 2023 May TZ2 P2 Q6 page-13 and page-14 answer crops become one (-1).
-  "ib-chemistry-hl": { preview: 232, premium: 5934, all: 6166 },
-  "ib-chemistry-sl": { preview: 159, premium: 4166, all: 4325 },
+  // Oct 2026: IB science free years widened to 2016-2020 and signed from R2, so Supabase retains no IB science previews.
+  "ib-chemistry-hl": { preview: 0, premium: 6166, all: 6166 },
+  "ib-chemistry-sl": { preview: 0, premium: 4325, all: 4325 },
   // May 2026: official Physics papers add 395 (HL) and 258 (SL) premium crops; 2026 is not a free-preview year.
-  "ib-physics-hl": { preview: 226, premium: 5790, all: 6016 },
-  "ib-physics-sl": { preview: 159, premium: 3894, all: 4053 },
+  "ib-physics-hl": { preview: 0, premium: 6016, all: 6016 },
+  "ib-physics-sl": { preview: 0, premium: 4053, all: 4053 },
   // May 2026: official papers add 380 (HL; the withheld 2026-may-tz1-hl-p1b-q2 serves none) and 295 (SL) premium crops; 2026 is not a free-preview year.
   // Shared-stimulus repair: HL +6 new crops, 4 no longer served; SL +4 new (the 2020 micrograph is free preview), 2 no longer served.
   // Question-boundary repair (docs/ib-question-boundary-repairs.md): Q1/Q2 re-cut in five papers, HL -4 and SL -2 net.
-  "ib-biology-hl": { preview: 211, premium: 5778, all: 5989 },
-  "ib-biology-sl": { preview: 156, premium: 4510, all: 4666 },
+  "ib-biology-hl": { preview: 0, premium: 5989, all: 5989 },
+  "ib-biology-sl": { preview: 0, premium: 4666, all: 4666 },
 } as const satisfies Record<string, { preview: number; premium: number; all: number }>;
 
 export const EXPECTED_ASSET_TOTALS = Object.values(EXPECTED_ASSET_COUNTS).reduce(
@@ -53,17 +55,19 @@ export const EXPECTED_ASSET_TOTALS = Object.values(EXPECTED_ASSET_COUNTS).reduce
 /**
  * Derive storage retention from the same normalized paths and preview policy
  * used by the signing route. Shared paths stay in Supabase if any preview
- * question can request them.
+ * question can request them from Supabase; banks whose previews sign from R2
+ * retain nothing there.
  */
 export function buildAssetRetentionPlan(banks: readonly BankQuestions[]): AssetRetentionPlan {
   const allPaths = new Set<string>();
   const previewPaths = new Set<string>();
 
   for (const { slug, questions } of banks) {
+    const previewsInSupabase = previewAssetSignOptions(slug).provider === "supabase";
     for (const question of questions) {
       const paths = [...question.questionAssetPaths, ...question.markschemeAssetPaths];
       for (const path of paths) allPaths.add(path);
-      if (isPreviewQuestion(slug, question.id)) {
+      if (previewsInSupabase && isPreviewQuestion(slug, question.id)) {
         for (const path of paths) previewPaths.add(path);
       }
     }

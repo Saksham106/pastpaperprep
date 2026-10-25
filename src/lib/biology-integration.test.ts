@@ -139,13 +139,14 @@ describe("IB Biology HL/SL integration", () => {
     // Shared-stimulus repair (docs/ib-shared-stimulus-repairs.md): +4 net, one of them the free 2020 SL micrograph.
     // Question-boundary repair (docs/ib-question-boundary-repairs.md): -6 net, all premium.
     expect(plan.allPaths.size).toBe(5550 + 4432 + 675 + 4 - 6);
-    expect(plan.previewPaths.size).toBe(366 + 1);
-    expect(plan.premiumPaths.size).toBe(9616 + 675 + 3 - 6);
+    // Free years 2016-2020 sign from R2, so Supabase retains none of them.
+    expect(plan.previewPaths.size).toBe(0);
+    expect(plan.premiumPaths.size).toBe(plan.allPaths.size);
   });
 
-  it("makes every actual 2020 Biology paper the explicit free preview year", () => {
-    expect(FREE_QUESTION_YEARS["ib-biology-hl"]).toEqual([2020]);
-    expect(FREE_QUESTION_YEARS["ib-biology-sl"]).toEqual([2020]);
+  it("makes every 2016-2020 Biology paper free", () => {
+    expect(FREE_QUESTION_YEARS["ib-biology-hl"]).toEqual([2016, 2017, 2018, 2019, 2020]);
+    expect(FREE_QUESTION_YEARS["ib-biology-sl"]).toEqual([2016, 2017, 2018, 2019, 2020]);
     expect(PREVIEW_QUESTION_IDS["ib-biology-hl"]).toHaveLength(3);
     expect(PREVIEW_QUESTION_IDS["ib-biology-sl"]).toHaveLength(3);
     for (const bank of BIOLOGY_BANKS) {
@@ -153,6 +154,7 @@ describe("IB Biology HL/SL integration", () => {
     }
     expect(isPreviewQuestion("ib-biology-hl", "2020-november-tz0-hl-p1-q1")).toBe(true);
     expect(isPreviewQuestion("ib-biology-sl", "2025-may-tz1-sl-p1-q1")).toBe(false);
+    expect(isPreviewQuestion("ib-biology-sl", "2021-may-tz1-sl-p1-q1")).toBe(false);
     expect(hasBankAccess("ib-biology-hl", [{ productId: "bundle_ib_biology", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }], new Date("2026-08-25T00:00:00Z"))).toBe(true);
     expect(hasBankAccess("ib-biology-sl", [{ productId: "bundle_ib_biology", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }], new Date("2026-08-25T00:00:00Z"))).toBe(true);
   });

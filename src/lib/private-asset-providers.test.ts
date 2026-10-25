@@ -11,8 +11,13 @@ describe("bank asset storage provider mapping", () => {
     expect(previewAssetSignOptions(bank)).toEqual({ provider: "r2" });
   });
 
-  it.each(["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-biology-hl", "ib-biology-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl"] as const)("preserves retained Supabase previews for %s", (bank) => {
+  it.each(["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"] as const)("preserves retained Supabase previews for %s", (bank) => {
     expect(previewAssetSignOptions(bank)).toEqual({ provider: "supabase" });
+  });
+
+  it.each(["ib-biology-hl", "ib-biology-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl"] as const)("signs %s free years (2016-2020) from R2, which holds every object they serve", (bank) => {
+    expect(previewAssetSignOptions(bank)).toEqual({ provider: "r2" });
+    expect(premiumAssetSignOptions(bank)).toEqual({});
   });
 
   it.each(["ib-economics-hl", "ib-economics-sl"] as const)("keeps %s premium assets pinned to R2", (bank) => {
