@@ -22,5 +22,6 @@ describe("free-tier copy follows the access policy", () => {
     const guide = getArticle("pastpaperprep-pricing-which-plan")!.sections.flatMap(({ paragraphs }) => paragraphs).join(" ");
     const csHasFree = banks.some((bank) => bank.subject === "Computer Science" && hasFreeTier(bank.slug));
     expect(guide.includes("Every topic bank except Computer Science also has free exam years")).toBe(!csHasFree);
+    expect(guide.includes("Every topic bank also has free exam years")).toBe(csHasFree);
   });
 });

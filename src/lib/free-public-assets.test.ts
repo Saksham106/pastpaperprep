@@ -32,15 +32,21 @@ describe("free public assets", () => {
     expect(listFreePublicAssets("igcse-biology-0610", new Map([[id, entry(id, false)]])).map((asset) => asset.source)).toEqual(["r2", "r2"]);
   });
 
-  it("copies R2-only repair crops from R2 in Supabase-backed banks", () => {
-    const id = "2020-november-tz0-sl-p1-q1";
+  it("copies every IB science free file, repair crops included, from R2", () => {
+    const id = "2016-may-tz1-sl-p1-q1";
     const repair = "ib-biology-sl/repairs/ib-shared-stimulus-v1-d53ab265e7e81518/a.webp";
     const assets = listFreePublicAssets("ib-biology-sl", new Map([[id, { ...entry(id, false), questionAssetPaths: [repair, `ib-biology-sl/questions/${id}-page-3.webp`] }]]));
     expect(assets.map(({ path, source }) => [path, source])).toEqual([
       [repair, "r2"],
-      [`ib-biology-sl/questions/${id}-page-3.webp`, "supabase"],
-      [`bank/markschemes/${id}.webp`, "supabase"],
+      [`ib-biology-sl/questions/${id}-page-3.webp`, "r2"],
+      [`bank/markschemes/${id}.webp`, "r2"],
     ]);
+  });
+
+  it("copies Supabase-backed banks' free files from Supabase", () => {
+    const assets = listFreePublicAssets("igcse", new Map([[FREE, entry(FREE, false)]]));
+    expect(assets.length).toBeGreaterThan(0);
+    expect(assets.every(({ source }) => source === "supabase")).toBe(true);
   });
 
   it("builds a static index of public links for free questions only", () => {

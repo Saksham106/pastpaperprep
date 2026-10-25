@@ -16,7 +16,8 @@ describe("buildAssetRetentionPlan", () => {
     expect(plan.previewPaths.size).toBe(EXPECTED_ASSET_TOTALS.preview);
     expect(plan.premiumPaths.size).toBe(EXPECTED_ASSET_TOTALS.premium);
     expect(plan.previewPaths.has("ib-hl/markschemes/2017-may-tz1-p1-q1-page-7.webp")).toBe(true);
-    expect(plan.previewPaths.has("ib-physics-hl/markschemes/2020-november-tz0-hl-p1-q1-page-3.webp")).toBe(true);
+    // IB science free years sign from R2, so Supabase no longer retains them.
+    expect(plan.previewPaths.has("ib-physics-hl/markschemes/2020-november-tz0-hl-p1-q1-page-3.webp")).toBe(false);
     expect([...plan.previewPaths].every((path) => plan.allPaths.has(path))).toBe(true);
     expect([...plan.premiumPaths].every((path) => !plan.previewPaths.has(path))).toBe(true);
   }, 20_000);

@@ -36,6 +36,25 @@ npx tsx scripts/publish-free-assets.mts upload /tmp/free     # about 3 parallel;
 npx tsx scripts/publish-free-assets.mts verify /tmp/free     # every object from free.pastpaperprep.com
 ```
 
+### R2-backed files: copy inside Cloudflare
+
+Every R2-backed bank's free files (the IGCSE release banks, IB CS, IB Economics and, since
+October 2026, the IB sciences) can skip the download/upload round trip. A one-off Worker
+(`scripts/free-copy-worker/`) copies them from `pastpaperprep-assets` to `pastpaperprep-free`
+inside Cloudflare. The free set is bundled into the Worker as its allowlist, so it can copy
+nothing else. Writes are atomically create-only: R2 evaluates `If-None-Match: *` as part of the
+write, so an existing object is never replaced, even one created mid-run. Before copying anything,
+`copy` asks the Worker to prove this on a scratch key (`_copy-selftest/`, deleted straight away)
+and stops if the proof fails. Each answer carries the file's SHA-256, so `verify` can check the
+public copy. The run fits the Workers and R2 free tiers.
+
+```bash
+ONLY_SOURCE=r2 npx tsx scripts/publish-free-assets.mts copy-deploy /tmp/free-copy   # owner approval: deploys a Worker
+ONLY_SOURCE=r2 npx tsx scripts/publish-free-assets.mts copy /tmp/free-copy          # owner approval: writes to the bucket
+ONLY_SOURCE=r2 npx tsx scripts/publish-free-assets.mts verify /tmp/free-copy
+npx tsx scripts/publish-free-assets.mts copy-delete /tmp/free-copy
+```
+
 Files are cached at Cloudflare's edge for up to a week. **If you replace an existing object** (same
 path, new bytes or headers), purge those URLs in Cloudflare (Caching → Configuration → Custom Purge)
 before `verify`, or it will read the old copy.

@@ -51,7 +51,7 @@ describe("home page", () => {
     }
     expect(rows.find((row) => row.dataset.bankSlug === "igcse-economics-0455")?.closest("[data-subject-tone]")?.getAttribute("data-subject-tone")).toBe("economics");
     const computerScience = rows.find((row) => row.dataset.bankSlug === "igcse-computer-science-0478");
-    expect(computerScience?.getAttribute("href")).toBe("/banks/igcse-computer-science-0478");
+    expect(computerScience?.getAttribute("href")).toBe("/banks/igcse-computer-science-0478?free=1");
     expect(computerScience?.closest("[data-subject-tone]")?.getAttribute("data-subject-tone")).toBe("computer-science");
     expect(rows.find((row) => row.dataset.bankSlug === "igcse-additional")?.closest("[data-subject-tone]")?.getAttribute("data-subject-tone")).toBe("math");
     const cards = container.querySelectorAll("#question-banks [data-subject-tone]");
