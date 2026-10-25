@@ -7,7 +7,7 @@ import privateIndex from "@/data/private-index/igcse-computer-science-0478.json"
 import taxonomy from "@/data/igcse-computer-science-0478-taxonomy.json";
 import { BANK_CATALOG, getCatalogBank, getCatalogBanksForDisplay } from "@/lib/catalog";
 import { getAvailableBanks, isIGCSEReleaseBank } from "@/lib/banks";
-import { bankEntryHref, hasBankAccess, hasFreeTier } from "@/lib/access";
+import { bankEntryHref, hasBankAccess, hasFreeTier, isPreviewQuestion } from "@/lib/access";
 import { normalizeEntitlements } from "@/lib/entitlements";
 import { getBillingPlan, isStripePriceAllowedForProduct, validateStripeConfig } from "@/lib/stripe-config";
 import { getPrivateBankObjectPrefix } from "@/lib/private-runtime-mapping";
@@ -75,18 +75,20 @@ describe("IGCSE Computer Science 0478 release candidate", () => {
     expect(getAvailableBanks(RELEASE_OFF).some((bank) => bank.slug === BANK)).toBe(false);
   });
 
-  it("has no free tier, so its entry link is the plain bank page", () => {
-    expect(hasFreeTier(BANK)).toBe(false);
-    expect(bankEntryHref(BANK)).toBe(`/banks/${BANK}`);
+  it("makes exactly its 2019-2021 papers free and links to the free view", () => {
+    expect(hasFreeTier(BANK)).toBe(true);
+    expect(bankEntryHref(BANK)).toBe(`/banks/${BANK}?free=1`);
+    for (const question of production.questions) expect(isPreviewQuestion(BANK, question.id)).toBe(question.year <= 2021);
   });
 
-  it("opens its static bank page on the full locked bank, never an empty free-only view", async () => {
+  it("opens its static bank page on a non-empty free view of real free questions", async () => {
     vi.stubEnv("PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS", "true");
     vi.stubEnv("PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED", "true");
     const { loadBankExplorer } = await import("@/lib/bank-explorer");
     const explorer = await loadBankExplorer(BANK);
-    expect(explorer?.initialState.freeOnly).toBe(false);
+    expect(explorer?.initialState.freeOnly).toBe(true);
     expect(explorer?.initialQuestions.length).toBeGreaterThan(0);
+    expect(explorer?.initialQuestions.every((question) => isPreviewQuestion(BANK, question.id))).toBe(true);
     vi.unstubAllEnvs();
   });
 

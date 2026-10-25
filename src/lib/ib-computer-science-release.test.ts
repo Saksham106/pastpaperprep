@@ -138,10 +138,12 @@ describe.each(BANKS)("IB Computer Science $level release", (bank) => {
     for (const other of ["bundle_igcse", "bundle_ib_aa", "bundle_ib_chemistry", "bank_igcse_computer_science_0478", "bank_ib_chemistry_hl"]) expect(hasBankAccess(bank.slug, entitlement(other))).toBe(false);
   });
 
-  it("has no free tier, so it opens locked and its entry link is the plain bank page", () => {
-    expect(hasFreeTier(bank.slug)).toBe(false);
-    expect(bankEntryHref(bank.slug)).toBe(`/banks/${bank.slug}`);
-    expect(production.questions.some((question) => isPreviewQuestion(bank.slug, question.id))).toBe(false);
+  it("makes exactly its 2019 and 2020 papers free and links to the free view", () => {
+    expect(hasFreeTier(bank.slug)).toBe(true);
+    expect(bankEntryHref(bank.slug)).toBe(`/banks/${bank.slug}?free=1`);
+    for (const question of production.questions) {
+      expect(isPreviewQuestion(bank.slug, question.id)).toBe(question.year <= 2020);
+    }
   });
 
   it(`ships ${bank.rows} ${bank.level} questions across ${bank.papers} papers, 2019-2026`, () => {

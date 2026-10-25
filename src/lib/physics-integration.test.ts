@@ -177,13 +177,14 @@ describe("IB Physics HL/SL integration", () => {
     }
     // 653 official May 2026 question and mark-scheme crops (HL 395, SL 258) are added to the pre-2026 5196 and 4220.
     expect(plan.allPaths.size).toBe(5196 + 4220 + 653);
-    expect(plan.previewPaths.size).toBe(385);
-    expect(plan.premiumPaths.size).toBe(9031 + 653);
+    // Free years 2016-2020 sign from R2, so Supabase retains none of them.
+    expect(plan.previewPaths.size).toBe(0);
+    expect(plan.premiumPaths.size).toBe(plan.allPaths.size);
   });
 
-  it("uses the explicit 2020 preview policy and scopes pair access", () => {
-    expect(FREE_QUESTION_YEARS["ib-physics-hl"]).toEqual([2020]);
-    expect(FREE_QUESTION_YEARS["ib-physics-sl"]).toEqual([2020]);
+  it("makes 2016-2020 free and scopes pair access", () => {
+    expect(FREE_QUESTION_YEARS["ib-physics-hl"]).toEqual([2016, 2017, 2018, 2019, 2020]);
+    expect(FREE_QUESTION_YEARS["ib-physics-sl"]).toEqual([2016, 2017, 2018, 2019, 2020]);
     expect(PREVIEW_QUESTION_IDS["ib-physics-hl"]).toHaveLength(3);
     expect(PREVIEW_QUESTION_IDS["ib-physics-sl"]).toHaveLength(3);
     expect(PREVIEW_QUESTION_IDS["ib-physics-hl"].every((id) => questions("ib-physics-hl").some((question) => question.id === id))).toBe(true);

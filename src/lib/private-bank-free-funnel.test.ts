@@ -38,17 +38,21 @@ const RELEASE_ENVIRONMENT: Record<string, string> = {
   PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED: "true",
 };
 
-/** Frozen free-tier census for the private release banks: one documented older exam year each. */
+/** Frozen free-tier census for the private release banks: their documented older exam years. */
+const IGCSE_FREE_YEARS = [2019, 2020, 2021];
 const PRIVATE_FREE = {
-  "igcse-biology-0610": { total: 5211, free: 685, unfinalized: true },
-  "igcse-economics-0455": { total: 1862, free: 241, unfinalized: true },
-  "igcse-chemistry-0620": { total: 5129, free: 709 },
-  "igcse-physics-0625": { total: 5789, free: 766 },
-  "ib-economics-hl": { total: 128, free: 26 },
-  "ib-economics-sl": { total: 104, free: 20 },
+  "igcse-biology-0610": { total: 5211, free: 2058, years: IGCSE_FREE_YEARS, unfinalized: true },
+  "igcse-economics-0455": { total: 1862, free: 745, years: IGCSE_FREE_YEARS, unfinalized: true },
+  "igcse-chemistry-0620": { total: 5129, free: 1905, years: IGCSE_FREE_YEARS },
+  "igcse-physics-0625": { total: 5789, free: 2298, years: IGCSE_FREE_YEARS },
+  "igcse-computer-science-0478": { total: 847, free: 286, years: IGCSE_FREE_YEARS },
+  "ib-computer-science-hl": { total: 506, free: 94, years: [2019, 2020] },
+  "ib-computer-science-sl": { total: 391, free: 71, years: [2019, 2020] },
+  "ib-economics-hl": { total: 128, free: 26, years: [2021] },
+  "ib-economics-sl": { total: 104, free: 20, years: [2021] },
 } as const;
 
-const COORDINATED = { total: 4721, free: 799 };
+const COORDINATED = { total: 4721, free: 1490 };
 
 const PROTECTED_INDEX_KEYS = [
   "summary", "accessibleText", "solution", "sourceQuestionUrl", "sourceMarkSchemeUrl",
@@ -81,14 +85,13 @@ beforeEach(async () => {
 afterEach(() => vi.unstubAllEnvs());
 
 describe("private-bank free funnel", () => {
-  it("advertises a free tier for every displayed bank except owner-approved paid-only banks, linking each to ?free=1", () => {
-    // Owner decisions: Computer Science 0478 (2026-10-18) and IB Computer Science HL/SL launch with no free years.
-    const paidOnly = new Set(["igcse-computer-science-0478", "ib-computer-science-hl", "ib-computer-science-sl"]);
+  it("advertises a free tier for every displayed bank, linking each to ?free=1", () => {
+    // Owner decision 2026-10-24: Computer Science 0478 and IB Computer Science HL/SL gain free years too.
     const displayed = getAvailableBanks();
     expect(displayed.length).toBeGreaterThan(0);
     for (const bank of displayed) {
-      expect(hasFreeTier(bank.slug)).toBe(!paidOnly.has(bank.slug));
-      expect(bankEntryHref(bank.slug)).toBe(paidOnly.has(bank.slug) ? `/banks/${bank.slug}` : `/banks/${bank.slug}?free=1`);
+      expect(hasFreeTier(bank.slug)).toBe(true);
+      expect(bankEntryHref(bank.slug)).toBe(`/banks/${bank.slug}?free=1`);
     }
     for (const slug of Object.keys(PRIVATE_FREE)) expect(displayed.map((bank) => bank.slug)).toContain(slug);
     expect(displayed.map((bank) => bank.slug)).toContain("igcse-coordinated-sciences-0654");
@@ -116,12 +119,13 @@ describe("private-bank free funnel", () => {
     expect(questions).toHaveLength(expected.total);
     expect(countFreeQuestions(slug as never, questions as never)).toBe(expected.free);
     const free = questions.filter((question) => isPreviewQuestion(slug as never, question.id));
-    expect(free.every((question) => question.year === 2021)).toBe(true);
-    expect(free.length).toBe(questions.filter((question) => question.year === 2021).length);
+    const years: readonly number[] = expected.years;
+    expect(free.every((question) => years.includes(question.year))).toBe(true);
+    expect(free.length).toBe(questions.filter((question) => years.includes(question.year)).length);
     expect(free.length).toBeGreaterThan(0);
   });
 
-  it("gives the Co-ordinated Sciences candidate the same bounded free year without loading an unfinalized runtime", () => {
+  it("gives the Co-ordinated Sciences candidate its bounded free years (2020–2021) without loading an unfinalized runtime", () => {
     const questions = (coordinatedRuntime as unknown as RawRuntime).questions;
     expect(questions).toHaveLength(COORDINATED.total);
     expect(countFreeQuestions("igcse-coordinated-sciences-0654", questions)).toBe(COORDINATED.free);

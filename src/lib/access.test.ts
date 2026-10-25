@@ -7,6 +7,7 @@ import {
   canViewQuestionAsset,
   hasBankAccess,
   isPreviewQuestion,
+  questionYear,
   type AccessEntitlement,
 } from "@/lib/access";
 
@@ -93,12 +94,12 @@ describe("preview and premium actions", () => {
       "ib-sl": [2017],
       "ib-ai-hl": [2021],
       "ib-ai-sl": [2021],
-      "ib-chemistry-hl": [2020],
-      "ib-chemistry-sl": [2020],
-      "ib-physics-hl": [2020],
-      "ib-physics-sl": [2020],
-      "ib-biology-hl": [2020],
-      "ib-biology-sl": [2020],
+      "ib-chemistry-hl": [2016, 2017, 2018, 2019, 2020],
+      "ib-chemistry-sl": [2016, 2017, 2018, 2019, 2020],
+      "ib-physics-hl": [2016, 2017, 2018, 2019, 2020],
+      "ib-physics-sl": [2016, 2017, 2018, 2019, 2020],
+      "ib-biology-hl": [2016, 2017, 2018, 2019, 2020],
+      "ib-biology-sl": [2016, 2017, 2018, 2019, 2020],
     });
     expect(isPreviewQuestion("igcse", "0580-2018-june-22-q1")).toBe(true);
     expect(isPreviewQuestion("igcse", "0580-2019-june-22-q1")).toBe(false);
@@ -112,6 +113,21 @@ describe("preview and premium actions", () => {
     expect(isPreviewQuestion("ib-chemistry-hl", "2020-november-tz0-hl-p1-q1")).toBe(true);
     expect(isPreviewQuestion("ib-biology-hl", "2020-november-tz0-hl-p1-q1")).toBe(true);
     expect(isPreviewQuestion("ib-biology-sl", "2021-may-tz1-sl-p1-q1")).toBe(false);
+    expect(isPreviewQuestion("ib-physics-hl", "2016-may-tz1-hl-p1-q1")).toBe(true);
+    expect(isPreviewQuestion("igcse-biology-0610", "0610-2019-s-21-q1")).toBe(true);
+    expect(isPreviewQuestion("igcse-biology-0610", "0610-2022-s-21-q1")).toBe(false);
+    expect(isPreviewQuestion("igcse-coordinated-sciences-0654", "0654-2020-summer-21-q1")).toBe(true);
+    expect(isPreviewQuestion("igcse-computer-science-0478", "0478-2021-s-12-q1")).toBe(true);
+    expect(isPreviewQuestion("igcse-computer-science-0478", "0478-2022-s-12-q1")).toBe(false);
+    expect(isPreviewQuestion("ib-computer-science-hl", "ib-cs-2020-november-hl-p1-q1")).toBe(true);
+    expect(isPreviewQuestion("ib-computer-science-hl", "ib-cs-2021-may-hl-p1-tz1-q1")).toBe(false);
+  });
+
+  it("reads the year from every question id form", () => {
+    expect(questionYear("0478-2019-s-12-q1")).toBe(2019);
+    expect(questionYear("ib-cs-2019-may-hl-p1-q1")).toBe(2019);
+    expect(questionYear("2016-may-tz1-hl-p1-q1")).toBe(2016);
+    expect(questionYear("ib-cs-x")).toBeNull();
   });
 
   it("allows the explicit public sample questions and answers", () => {

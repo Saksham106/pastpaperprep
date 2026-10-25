@@ -40,7 +40,8 @@ describe('reviewed 0455 Paper 2 Q1 source-material crops', () => {
       expect(entry.newPaths[i]).toBe(`${overlay.namespace}/${entry.sha256[i]}.webp`);
       expect(entry.sha256.filter((h, j) => j !== i)).toEqual(entry.oldSha256.filter((h, j) => j !== i));
       expect(reviewedEconomicsQuestionPaths(bank, id, row.questionImages)).toEqual(entry.newPaths);
-      expect(isPreviewQuestion(bank, id)).toBe(false); // no free-bucket copy needed
+      // 2019-2021 rows are free years, so their repaired crop is copied to the free bucket too.
+      expect(isPreviewQuestion(bank, id)).toBe(Number(id.slice(5, 9)) <= 2021);
     }
   });
 
