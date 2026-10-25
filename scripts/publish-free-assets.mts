@@ -34,7 +34,7 @@
  */
 import { createHash, randomBytes } from "node:crypto";
 import { spawn } from "node:child_process";
-import { appendFileSync, copyFileSync, existsSync, lstatSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { appendFileSync, closeSync, constants, copyFileSync, existsSync, lstatSync, mkdirSync, openSync, readFileSync, rmSync, writeFileSync, writeSync } from "node:fs";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadBankAssetManifest } from "@/lib/asset-manifest";
@@ -44,6 +44,9 @@ import { isSafeFreeAssetPath, listFreePublicAssets } from "@/lib/free-public-ass
 import { canonicalRoot, placeConfined, privateStaging, readConfined, workerCount } from "./lib/safe-files";
 
 type Item = { source: "r2" | "supabase"; path: string };
+/** Every phase that writes `log/<phase>-failed.txt`; each such path is guarded against symlinks. */
+const PHASES = ["download", "upload", "verify", "copy"] as const;
+const failureLog = (phase: (typeof PHASES)[number]) => `log/${phase}-failed.txt`;
 type Seal = { sha256: string; bytes: number };
 const PUBLIC_BUCKET = "pastpaperprep-free";
 const PRIVATE_BUCKET = "pastpaperprep-assets";
@@ -76,7 +79,7 @@ function workDir(path: string): string {
     if (stat && (stat.isSymbolicLink() || !stat.isDirectory())) throw new Error(`${area} in the work folder isn't a plain folder`);
     if (!stat) mkdirSync(join(work, area));
   }
-  for (const name of ["sealed.tsv", "copy-worker.json", "log/copied.txt", "log/uploaded.txt", "log/download-failed.txt", "log/upload-failed.txt", "log/verify-failed.txt"]) {
+  for (const name of ["sealed.tsv", "copy-worker.json", "log/copied.txt", "log/uploaded.txt", ...PHASES.map(failureLog)]) {
     if (lstatSync(join(work, name), { throwIfNoEntry: false })?.isSymbolicLink()) throw new Error(`${name} in the work folder is a symlink`);
   }
   return work;
@@ -125,9 +128,14 @@ function validBytes(path: string, bytes: Buffer): boolean {
   try { JSON.parse(bytes.toString("utf8")); return true; } catch { return false; }
 }
 /** Coverage is counted from what actually completed, never assumed from an empty failure list. */
-function finish(phase: string, items: Item[], completed: ReadonlySet<string>, work: string) {
+function finish(phase: (typeof PHASES)[number], items: Item[], completed: ReadonlySet<string>, work: string) {
   const missing = items.filter(({ path }) => !completed.has(path)).map(({ path }) => path);
-  writeFileSync(join(work, "log", `${phase}-failed.txt`), missing.join("\n"));
+  const log = join(work, failureLog(phase));
+  // O_NOFOLLOW: the OS refuses a symlink at the log path, including one planted during the run.
+  let fd: number;
+  try { fd = openSync(log, constants.O_WRONLY | constants.O_CREAT | constants.O_TRUNC | constants.O_NOFOLLOW, 0o600); }
+  catch { throw new Error(`${failureLog(phase)} in the work folder is a symlink or unwritable`); }
+  try { writeSync(fd, missing.join("\n")); } finally { closeSync(fd); }
   console.log(`${phase} ${missing.length ? "incomplete" : "done"}: ${items.length - missing.length} of ${items.length}`);
   if (missing.length) process.exitCode = 1;
 }
@@ -229,8 +237,17 @@ function readCopyWorker(work: string): CopyWorker {
   const file = join(work, "copy-worker.json");
   if (!existsSync(file)) throw new Error("No copy-worker.json; run copy-deploy first");
   const parsed = JSON.parse(readFileSync(file, "utf8")) as CopyWorker;
-  if (!/^https:\/\/[a-z0-9.-]+\.workers\.dev$/.test(parsed.url) || !/^[a-f0-9]{64}$/.test(parsed.token)) throw new Error("copy-worker.json is malformed");
+  // The deployed workers.dev Worker, or a local `wrangler dev` / test double on loopback.
+  const url = /^https:\/\/[a-z0-9.-]+\.workers\.dev$|^http:\/\/127\.0\.0\.1:\d{2,5}$/;
+  if (!url.test(parsed.url) || !/^[a-f0-9]{64}$/.test(parsed.token)) throw new Error("copy-worker.json is malformed");
   return parsed;
+}
+
+/** Refuses to copy unless the Worker proves create-only puts are refused for an existing key. */
+async function requireCreateOnly(worker: CopyWorker) {
+  const response = await fetch(`${worker.url}/selftest`, { method: "POST", headers: { "x-copy-token": worker.token } }).catch(() => null);
+  const result = response?.ok ? await response.json().catch(() => null) as { ok?: unknown } | null : null;
+  if (result?.ok !== true) throw new Error("Copy Worker self-test failed: create-only writes are not proven; nothing was copied");
 }
 
 /** Deploys the copy Worker from a private temp folder with the R2 free set bundled in. */
@@ -270,6 +287,7 @@ async function copy(workPath: string) {
   const items = await freeSet();
   if (items.some((item) => item.source !== "r2")) throw new Error("copy covers R2 files only; set ONLY_SOURCE=r2");
   const worker = readCopyWorker(work);
+  await requireCreateOnly(worker);
   const log = join(work, "log", "copied.txt");
   const completed = new Set<string>();
   for (let round = 1; round <= 5; round++) {
