@@ -17,6 +17,7 @@ import { removedPartMarks } from "@/lib/reviewed-science-removed-part-marks";
 import { reviewed0606SplitMarks, reviewed0606SplitQuestionPaths, reviewed0606SplitText } from "@/lib/reviewed-0606-question-splits";
 import { reviewed0606RightEdgePaths } from "@/lib/reviewed-0606-ms-right-edge-repairs";
 import { reviewed0580CoreQuestionPaths } from "@/lib/reviewed-0580-core-crop-repairs";
+import { reviewed0580SplitMarks, reviewed0580SplitQuestionPaths, reviewed0580SplitText } from "@/lib/reviewed-0580-question-splits";
 import { reviewedEconomicsQuestionPaths } from "@/lib/reviewed-economics-question-crops";
 import { reviewedScienceQuestionPaths } from "@/lib/reviewed-science-question-crops";
 import { reviewedCs0478QuestionPaths } from "@/lib/reviewed-cs-0478-mask-repairs";
@@ -236,7 +237,7 @@ function assetUrl(slug: BankSlug, path: string, economicsAssetMode: "local" | "p
 function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode: "local" | "private", applyReviewedBlankPages: boolean): UnifiedQuestion {
   const sourceAddition = slug === 'igcse' ? verified0580RetrievalAdditions(raw) : null;
   const official0580 = slug === "igcse" ? project0580Sections(raw) : null;
-  const accessibleText = reviewed0606SplitText(slug, text(raw.id), text(raw.accessibleText));
+  const accessibleText = reviewed0580SplitText(slug, text(raw.id), reviewed0606SplitText(slug, text(raw.id), text(raw.accessibleText)));
   const summary = text(raw.summary) || accessibleText.slice(0, 220);
   const aa = aaClassification(slug, raw);
   const biology = biologyClassification(slug, raw);
@@ -290,7 +291,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
   const sourceQuestionImages = strings(raw.questionImages);
   const questionImages = cleanSourceCropPaths(slug, applyReviewedBlankPages
     // Bank-scoped reviewed question-crop repairs; each returns other banks' paths unchanged.
-    ? reviewed0580CoreQuestionPaths(slug, text(raw.id), historicalQuestionPaths(slug, text(raw.id), activeQuestionCropPaths(slug, text(raw.id), activeQuestionImagePaths(slug, text(raw.id), reviewedEconomicsQuestionPaths(slug, text(raw.id), reviewedScienceQuestionPaths(slug, text(raw.id), reviewed0606SplitQuestionPaths(slug, text(raw.id), reviewedCs0478QuestionPaths(slug, text(raw.id), sourceQuestionImages))))))))
+    ? reviewed0580SplitQuestionPaths(slug, text(raw.id), reviewed0580CoreQuestionPaths(slug, text(raw.id), historicalQuestionPaths(slug, text(raw.id), activeQuestionCropPaths(slug, text(raw.id), activeQuestionImagePaths(slug, text(raw.id), reviewedEconomicsQuestionPaths(slug, text(raw.id), reviewedScienceQuestionPaths(slug, text(raw.id), reviewed0606SplitQuestionPaths(slug, text(raw.id), reviewedCs0478QuestionPaths(slug, text(raw.id), sourceQuestionImages)))))))))
     : IB_SHARED_STIMULUS_BANKS.has(slug) || IB_QUESTION_BOUNDARY_BANKS.has(slug)
       ? reviewedIbQuestionPaths(slug, text(raw.id), reviewedIbBoundaryPaths(slug, text(raw.id), sourceQuestionImages))
     : sourceQuestionImages).map((path) => assetUrl(slug, path, economicsAssetMode));
@@ -337,7 +338,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     zone: text(raw.timezone) || text(raw.zone),
     component: text(raw.component),
     calculator: calculatorAllowed(slug, { paper, year: integer(raw.year) }),
-    marks: reviewedIbBoundaryMarks(slug, text(raw.id), removedPartMarks(slug, text(raw.id), reviewed0606SplitMarks(slug, text(raw.id), printedMarks(slug, text(raw.id), historicalMarks(slug, text(raw.id), typeof raw.marks === "number" ? raw.marks : null))))),
+    marks: reviewed0580SplitMarks(slug, text(raw.id), reviewedIbBoundaryMarks(slug, text(raw.id), removedPartMarks(slug, text(raw.id), reviewed0606SplitMarks(slug, text(raw.id), printedMarks(slug, text(raw.id), historicalMarks(slug, text(raw.id), typeof raw.marks === "number" ? raw.marks : null)))))),
     summary,
     accessibleText,
     searchText: searchable,

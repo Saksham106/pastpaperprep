@@ -1,0 +1,21 @@
+{
+ "schema": "0580-question-splits-upload-v1",
+ "namespace": "repairs/0580-question-split-v1-4cb1bf3ffe1503f9",
+ "questionReplacementCount": 2,
+ "objectCount": 2,
+ "objectBytes": 213532,
+ "objects": [
+  {
+   "objectKey": "igcse/repairs/0580-question-split-v1-4cb1bf3ffe1503f9/045e280c7ed39c32b233b533e8e89912e6b42e25b0f6a403bc51dd3a931c93a9.webp",
+   "sha256": "045e280c7ed39c32b233b533e8e89912e6b42e25b0f6a403bc51dd3a931c93a9",
+   "bytes": 154672,
+   "sourcePath": "site/questions/0580-2020-june-41-q6.webp"
+  },
+  {
+   "objectKey": "igcse/repairs/0580-question-split-v1-4cb1bf3ffe1503f9/3753a5fbd9ee4effe1e5c2c43c1388b9e37c2cb8ffa055971c1a6edd070a5e96.webp",
+   "sha256": "3753a5fbd9ee4effe1e5c2c43c1388b9e37c2cb8ffa055971c1a6edd070a5e96",
+   "bytes": 58860,
+   "sourcePath": "site/questions/0580-2020-june-41-q7.webp"
+  }
+ ]
+}

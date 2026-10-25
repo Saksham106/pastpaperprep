@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vitest';
 import repairs from '@/data/reviewed-maths-source-answer-repairs.json';
 import coreCrops from '@/data/reviewed-0580-core-crop-repairs.json';
 import questionSplits0606 from '@/data/reviewed-0606-question-splits.json';
+import questionSplits0580 from '@/data/reviewed-0580-question-splits.json';
 import { readFileSync } from 'node:fs';
 const manifest = JSON.parse(readFileSync('data/storage/maths-source-answer-repairs.manifest.json','utf8')) as {heldQuestionIds:Record<string,string[]>};
 const maths = JSON.parse(readFileSync('src/data/raw/igcse.json','utf8'));
@@ -46,7 +47,8 @@ describe('reviewed IGCSE maths source-answer repairs', () => {
       // Reviewed 0580 Core crop repairs (reviewed-0580-core-crop-repairs.test.ts) change question paths only;
       // the 0606 right-edge repairs (reviewed-0606-ms-right-edge-repairs.test.ts) chain after these answer repairs.
       // and the reviewed 0606 question split (reviewed-0606-question-splits.test.ts) replaces one stitched crop.
-      const coreCropRepairs=bank==='igcse'?coreCrops.questions as Record<string,{newPaths:string[]}>:questionSplits0606.entries as Record<string,{newPaths:string[]}>;
+      // So do the reviewed 0580 question splits (reviewed-0580-question-splits.test.ts).
+      const coreCropRepairs=bank==='igcse'?{...coreCrops.questions,...questionSplits0580.entries} as Record<string,{newPaths:string[]}>:questionSplits0606.entries as Record<string,{newPaths:string[]}>;
       for(const [qid,q]of loaded)expect(q.questionAssetPaths).toEqual(coreCropRepairs[qid]?coreCropRepairs[qid].newPaths.map(p=>`${bank}/${p}`):original.get(qid)?.questionAssetPaths);
       for(const [qid,entry]of Object.entries(repairs[bank]))expect(loaded.get(qid)?.markschemeAssetPaths).toEqual(reviewed0606RightEdgePaths(bank,qid,entry.newPaths).map(p=>`${bank}/${p}`));
     }
