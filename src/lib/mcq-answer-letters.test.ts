@@ -72,15 +72,19 @@ describe("MCQ detection", () => {
 
 const OVERLAY_PATH = join(process.cwd(), "src", "data", "reviewed-mcq-answer-letters.json");
 // Imported 2026-10-13 from ../research/mcq-answer-letters-2026-10 (receipt: docs/reviewed-mcq-answer-letters.md).
-const OVERLAY_SHA256 = "25d84993b7417afaf12b6868eb1bd8326a6ff637f083498a5398d5bf71f4c69f";
-// May 2026 IB Biology, IB Chemistry (210 each) and IB Physics (195) keys, read independently from the official mark schemes; merged over the research file.
-const MAY_2026_ADDITIONS = [
+const OVERLAY_SHA256 = "51743d5653ffc9e9e2c85f90a1617eb3d4021194ea703292c6f3b9220f23ebcd";
+// Reviewed additions merged over the research file: May 2026 IB Biology, IB Chemistry (210 each) and IB Physics (195) keys,
+// read independently from the official mark schemes, then the 0654/23 Nov 2020 key correction.
+const REVIEWED_ADDITIONS = [
   { path: join(process.cwd(), "docs", "ib-biology-may-2026", "mcq-answer-letters-2026.json"), sha256: "6ea073620eca9521ee2d07642e7a40296c0bb29feec3f2bb3bdb57156c99ded7" },
   { path: join(process.cwd(), "docs", "ib-chemistry-may-2026", "mcq-answer-letters-2026.json"), sha256: "c513c55fa201414c39367fa69e87de8548c729d6915f471d26148f08533e34a8" },
   { path: join(process.cwd(), "docs", "ib-physics-may-2026", "mcq-answer-letters-2026.json"), sha256: "75d8347ee954d60f2bb58cc34d808e144db2ca4c6193e580e2eebb8b0ab0a214" },
+  // 0654/23 Nov 2020: five rows of a misprinted official key, corrected (docs/0654-w20-23-mcq-key-misprint.md).
+  { path: join(process.cwd(), "docs", "0654-w20-23-mcq-key", "mcq-answer-letters.json"), sha256: "7ae13a88b172860bed582ab608b4b49470aea5daedb2b5226b4d3ee49995643a" },
 ];
-// The research folder sits beside the repository; from a worktree under .worktrees/ it is three levels up.
-const SOURCE_PATH = [["..", "research"], ["..", "..", "..", "research"]]
+// The research folder sits beside the repository; from a worktree under .worktrees/ it is three levels up,
+// from one under .claude/worktrees/ four.
+const SOURCE_PATH = [["..", "research"], ["..", "..", "..", "research"], ["..", "..", "..", "..", "research"]]
   .map((up) => join(process.cwd(), ...up, "mcq-answer-letters-2026-10", "reviewed-mcq-answer-letters.json"))
   .find((path) => existsSync(path)) ?? "";
 const SOURCE_SHA256 = "15d10333310abe4420463ffa924912234ff7d9e98509d90be27c57775cd2170e";
@@ -99,7 +103,7 @@ describe("reviewed MCQ answer letters file", () => {
     const receipt = readFileSync(join(process.cwd(), "docs", "reviewed-mcq-answer-letters.md"), "utf8");
     expect(receipt).toContain(OVERLAY_SHA256);
     expect(receipt).toContain(SOURCE_SHA256);
-    for (const addition of MAY_2026_ADDITIONS) expect(receipt).toContain(addition.sha256);
+    for (const addition of REVIEWED_ADDITIONS) expect(receipt).toContain(addition.sha256);
     const counts = Object.fromEntries(Object.entries(REVIEWED_MCQ_ANSWER_LETTERS.banks).map(([bank, entries]) => [bank, Object.keys(entries ?? {}).length]));
     expect(counts).toEqual({
       // 0455 includes its 119 2026 Paper 1 letters; 0610 is only the 240 May/June 2026 MCQs.
@@ -107,6 +111,8 @@ describe("reviewed MCQ answer letters file", () => {
       "ib-biology-hl": 1320, "ib-biology-sl": 1020,
       "ib-chemistry-hl": 1320, "ib-chemistry-sl": 990,
       "ib-physics-hl": 1320, "ib-physics-sl": 947,
+      // Only the five corrected rows of 0654/23 Nov 2020; every other 0654 letter stays in production data.
+      "igcse-coordinated-sciences-0654": 5,
     });
   });
 
@@ -127,16 +133,34 @@ describe("reviewed MCQ answer letters file", () => {
     expect(REVIEWED_MCQ_ANSWER_LETTERS.banks["ib-biology-hl"]!["2022-may-tz1-hl-p1-q28"]).toEqual({ answers: ["C"], note: null });
   });
 
+  it("corrects the five misprinted 0654/23 Nov 2020 rows and leaves the rest of that paper official", async () => {
+    const bank = "igcse-coordinated-sciences-0654";
+    const answers = buildMcqAnswerMap(bank, await loadBankRawQuestions(bank));
+    const paper = (n: number) => answers.get(`0654-2020-winter-23-q${n}`);
+    // Cambridge prints D B B A D D B for rows 8–14; this paper's own questions are B D B B A D D.
+    const corrected = { 8: "B", 9: "D", 11: "B", 12: "A", 14: "D" } as const;
+    for (const [n, letter] of Object.entries(corrected)) {
+      expect(paper(Number(n))?.answers).toEqual([letter]);
+      expect(paper(Number(n))?.note).toMatch(/^Cambridge's published key prints [A-D] here.*Corrected answer shown\.$/);
+    }
+    // Rows 10, 13 and 15 already carry the right letter; every other row keeps the official key.
+    const official = "CBCADDBDBBADDBBBDDAACDABACCDABCACDBDDADB";
+    for (let n = 1; n <= 40; n++) {
+      if (n in corrected) continue;
+      expect(paper(n)).toEqual({ answers: [official[n - 1]], note: null });
+    }
+  });
+
   it.skipIf(!SOURCE_PATH)("re-imports byte for byte from the full reviewed file", async () => {
     const source = readFileSync(SOURCE_PATH);
     expect(sha256(source)).toBe(SOURCE_SHA256);
     const rows = new Map<BankSlug, readonly Row[]>();
     for (const bank of MCQ_ANSWER_BANKS) rows.set(bank, await loadBankRawQuestions(bank));
     const merged = JSON.parse(source.toString("utf8"));
-    for (const addition of MAY_2026_ADDITIONS) {
+    for (const addition of REVIEWED_ADDITIONS) {
       const bytes = readFileSync(addition.path);
       expect(sha256(bytes)).toBe(addition.sha256);
-      for (const [bank, entries] of Object.entries(JSON.parse(bytes.toString("utf8")).banks)) Object.assign(merged.banks[bank], entries);
+      for (const [bank, entries] of Object.entries(JSON.parse(bytes.toString("utf8")).banks)) Object.assign(merged.banks[bank] ??= {}, entries);
     }
     const result = importReviewedMcqAnswerLetters(merged, (bank) => rows.get(bank) ?? []);
     expect(formatReviewedMcqAnswerLetters(result.letters)).toBe(readFileSync(OVERLAY_PATH, "utf8"));
@@ -256,7 +280,9 @@ describe("MCQ letter map", () => {
       const map = await loadBankMcqAnswers(bank);
       const lettered = questions.filter((question) => typeof question.answer === "string");
       expect(map.size).toBe(lettered.length);
-      for (const question of lettered) expect(map.get(question.id as string)).toEqual({ answers: [question.answer], note: null });
+      // The source letter, except where the reviewed file corrects a misprinted key (0654/23 Nov 2020 only).
+      const reviewed = REVIEWED_MCQ_ANSWER_LETTERS.banks[bank] ?? {};
+      for (const question of lettered) expect(map.get(question.id as string)).toEqual(reviewed[question.id as string] ?? { answers: [question.answer], note: null });
       total += map.size;
     }
     // 15,556 before the 240 Biology 0610 May/June 2026 MCQs landed.
