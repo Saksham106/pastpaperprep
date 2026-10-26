@@ -35,6 +35,28 @@ declare const data: {
       answers: Array<string>;
       note: null;
     }>;
+    "igcse-coordinated-sciences-0654": {
+      "0654-2020-winter-23-q8": {
+        answers: Array<string>;
+        note: string;
+      };
+      "0654-2020-winter-23-q9": {
+        answers: Array<string>;
+        note: string;
+      };
+      "0654-2020-winter-23-q11": {
+        answers: Array<string>;
+        note: string;
+      };
+      "0654-2020-winter-23-q12": {
+        answers: Array<string>;
+        note: string;
+      };
+      "0654-2020-winter-23-q14": {
+        answers: Array<string>;
+        note: string;
+      };
+    };
   };
 };
 export default data;
