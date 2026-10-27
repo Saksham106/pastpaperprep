@@ -1,0 +1,154 @@
+{
+  "course": "ib-economics",
+  "attachmentOccurrences": 16,
+  "byteDistinctAttachments": 13,
+  "uniqueBooklets": 10,
+  "uniquePages": 312,
+  "deduplication": "Byte-distinct variants excluded only after every page matched at 0.7x raster scale in the source review. Selected PDFs remain byte-exact.",
+  "documents": [
+    {
+      "course": "ib-economics",
+      "slug": "what-is-economics",
+      "title": "What Is Economics?",
+      "section": "Introduction to economics",
+      "topics": [
+        "Economic concepts",
+        "Scarcity and choice",
+        "Revision notes and activities"
+      ],
+      "fileName": "what-is-economics.pdf",
+      "sha256": "ca4bbd278a9ea1ffe49e22daed0acb390ebdf70f1b5780e2f13f7b8c12d73aef",
+      "pages": 43
+    },
+    {
+      "course": "ib-economics",
+      "slug": "demand",
+      "title": "Demand (Includes HL Subtopics)",
+      "section": "Microeconomics",
+      "topics": [
+        "Demand",
+        "Includes HL-only subtopics",
+        "Revision notes and activities"
+      ],
+      "fileName": "demand.pdf",
+      "level": "SL and HL (includes HL-only subtopics)",
+      "sha256": "074b17f0cf280fc2994dc586091c4cec278dda3e60f6a2d43dc1e1210194c621",
+      "pages": 33
+    },
+    {
+      "course": "ib-economics",
+      "slug": "supply",
+      "title": "Supply (Includes HL Subtopics)",
+      "section": "Microeconomics",
+      "topics": [
+        "Supply",
+        "Includes HL-only subtopics",
+        "Revision notes and activities"
+      ],
+      "fileName": "supply.pdf",
+      "level": "SL and HL (includes HL-only subtopics)",
+      "sha256": "ebb99372ab1cb62c332dde149df40615bc009846ede01ff08b7668033281d572",
+      "pages": 43
+    },
+    {
+      "course": "ib-economics",
+      "slug": "competitive-market-equilibrium",
+      "title": "Competitive Market Equilibrium",
+      "section": "Microeconomics",
+      "topics": [
+        "Market equilibrium",
+        "Revision notes and activities"
+      ],
+      "fileName": "competitive-market-equilibrium.pdf",
+      "level": "SL and HL (includes HL-only subtopics)",
+      "sha256": "c96359694f2863118ed401bcc18e0fa08aa52c48c6a9cd6f87fe9b295aaa774d",
+      "pages": 51
+    },
+    {
+      "course": "ib-economics",
+      "slug": "monetary-policy",
+      "title": "Monetary Policy (Includes HL Subtopics)",
+      "section": "Macroeconomics: demand-side and supply-side policies",
+      "topics": [
+        "Demand management",
+        "Monetary policy",
+        "Includes HL-only subtopics"
+      ],
+      "fileName": "monetary-policy.pdf",
+      "level": "SL and HL (includes HL-only subtopics)",
+      "sha256": "0aceb9c0378b0ce8d3b6f1325f7c1508b5a57f28c7444b3d101a79749814364d",
+      "pages": 96
+    },
+    {
+      "course": "ib-economics",
+      "slug": "demand-side-policies-fiscal-policy",
+      "title": "Demand-Side Policies: Fiscal Policy — Revision Notes",
+      "section": "Macroeconomics: demand-side and supply-side policies",
+      "topics": [
+        "Fiscal policy",
+        "Multiplier",
+        "Automatic stabilisers"
+      ],
+      "fileName": "demand-side-policies-fiscal-policy.pdf",
+      "sha256": "86ed23f349f9c84ff03fefac75709ad555e7aa8661f258735f3baf4967d40293",
+      "pages": 8
+    },
+    {
+      "course": "ib-economics",
+      "slug": "demand-side-and-supply-side-policies",
+      "title": "Demand-Side and Supply-Side Policies — Question Bank",
+      "section": "Macroeconomics: demand-side and supply-side policies",
+      "topics": [
+        "Demand-side policies",
+        "Supply-side policies",
+        "Exam-style questions"
+      ],
+      "fileName": "demand-side-and-supply-side-policies.pdf",
+      "level": "SL and HL (includes HL-only subtopics)",
+      "sha256": "66149df57aff9b9f0af6f41e0963fa391d4b28ca0b48acc02797cdc1fa4ece82",
+      "pages": 7
+    },
+    {
+      "course": "ib-economics",
+      "slug": "inequality-and-poverty-part-1",
+      "title": "Inequality and Poverty — Revision Notes, Part 1",
+      "section": "Macroeconomics: inequality and poverty",
+      "topics": [
+        "Income and wealth inequality",
+        "Lorenz curve",
+        "Poverty"
+      ],
+      "fileName": "inequality-and-poverty-part-1.pdf",
+      "sha256": "707956ce9a1cf5861529a41faca2e83d08c430f1017faecf5de8533389af7f25",
+      "pages": 6
+    },
+    {
+      "course": "ib-economics",
+      "slug": "inequality-and-poverty-part-2",
+      "title": "Inequality and Poverty — Revision Notes, Part 2",
+      "section": "Macroeconomics: inequality and poverty",
+      "topics": [
+        "Taxation",
+        "Redistribution",
+        "Worked examples"
+      ],
+      "fileName": "inequality-and-poverty-part-2.pdf",
+      "sha256": "8d3dee840c1dfa3a0f249d3d739017b7e51ef9c14b8a888300db4a92e2d6f607",
+      "pages": 7
+    },
+    {
+      "course": "ib-economics",
+      "slug": "poverty-and-inequality-paper-2",
+      "title": "Poverty and Inequality — Paper 2 Data Response",
+      "section": "Macroeconomics: inequality and poverty",
+      "topics": [
+        "Poverty",
+        "Inequality",
+        "Paper 2 data-response questions"
+      ],
+      "fileName": "poverty-and-inequality-paper-2.pdf",
+      "sha256": "db03ab5b0a088a7f27a8772b0f3da993a26a582bee7d286ef57be2fa4bfe7d8d",
+      "pages": 18
+    }
+  ]
+}

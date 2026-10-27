@@ -25,7 +25,7 @@ export function SiteFooter() {
       <div className="footer-brand"><Link href="/" aria-label="PastPaperPrep home"><BookOpenText weight="bold" /><strong>PastPaperPrep</strong></Link><p>Focused practice for Cambridge IGCSE and IB Diploma question banks.</p><GooglePreferredSourceButton className="footer-preferred-source" /></div>
       <nav className="footer-links" aria-label="Footer navigation">
         {[...groups.entries()].map(([title, links]) => <FooterGroup title={title} links={links} key={title} />)}
-        <FooterGroup title="Exam-style practice" links={[["/banks/ib-sl/exam-style", "IB Math AA SL"], ["/banks/ib-hl/exam-style", "IB Math AA HL"], ["/banks/igcse/exam-style", "IGCSE 0580"], ["/banks/igcse-additional/exam-style", "IGCSE 0606"]]} />
+        <FooterGroup title="Exam-style practice" links={[["/banks/ib-sl/exam-style", "IB Math AA SL"], ["/banks/ib-hl/exam-style", "IB Math AA HL"], ["/banks/igcse/exam-style", "IGCSE 0580"], ["/banks/igcse-additional/exam-style", "IGCSE 0606"], ["/banks/ib-economics/exam-style", "IB Economics"]]} />
         <FooterGroup title="Resources" links={[...(pastPaperLinksEnabled() ? [["/past-papers", "Free past papers"] as const] : []), ["/cambridge-igcse", "Cambridge IGCSE hub"], ["/ib", "IB Diploma hub"], ["/about", "About PastPaperPrep"], ["/updates", "What's new"], ["/articles", "Revision guides"], ["/faq", "Frequently asked questions"]]} />
       </nav>
       {/* The skyline stands behind the wordmark, on the same ground line. */}
