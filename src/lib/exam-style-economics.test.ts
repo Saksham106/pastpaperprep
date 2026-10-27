@@ -26,6 +26,12 @@ describe("IB Economics private worksheet inventory", () => {
     }
   });
 
+  it("warns SL students about every source-confirmed mixed-level booklet", () => {
+    for (const slug of ["demand", "supply", "competitive-market-equilibrium", "monetary-policy", "demand-side-and-supply-side-policies"]) {
+      expect(getExamStyleWorksheet("ib-economics", slug)?.level).toBe("SL and HL (includes HL-only subtopics)");
+    }
+  });
+
   it("bundles every registered PDF privately without byte-identical duplicates or public copies", () => {
     const privateDir = join(process.cwd(), "private/exam-style/ib-economics");
     const expected = course.worksheets.map(({ fileName }) => fileName).sort();
