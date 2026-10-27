@@ -21,8 +21,10 @@ function renderDisplayMath(tex: string): string {
   return katex.renderToString(tex, { ...KATEX, displayMode: true });
 }
 
-/** "a(ii)" -> "(a)(ii)"; "" stays empty. */
+/** "a(ii)" -> "(a)(ii)"; bare "ii(a)" -> "(ii)(a)"; "" stays empty. */
 export function formatPartLabel(label: string): string {
+  const bare = /^([ivx]+)(?:\(([a-z])\))?$/.exec(label);
+  if (bare) return `(${bare[1]})${bare[2] ? `(${bare[2]})` : ""}`;
   const match = /^([a-z])(\(([ivx]+)\)(?:([1-9])|\(([a-z])\))?)?$/.exec(label);
   if (!match) return label;
   return `(${match[1]})${match[3] ? `(${match[3]})` : ""}${match[4] ? ` ${match[4]}.` : ""}${match[5] ? `(${match[5]})` : ""}`;
