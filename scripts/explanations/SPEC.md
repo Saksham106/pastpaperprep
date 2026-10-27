@@ -104,7 +104,7 @@ Mark scheme images can contain neighbouring questions. Use only the rows for thi
 
 ## Self-check before writing the file
 
-- Part labels and marks match the printed question; marks add to `totalMarks`. When the paper numbers sub-subparts with their own marks ("(c)(ii) 1." and "2."), make each its own part, labelled `c(ii)1` and `c(ii)2`. When they are lettered ("(b)(ii)(a)" and "(b)", each with its own printed mark), label them `b(ii)(a)` and `b(ii)(b)`. When the paper numbers parts with bare numerals and no letter ("(i)", "(ii)", common before 2020), label them `i`, `ii`, `iii`; never invent an `a`.
+- Part labels and marks match the printed question; marks add to `totalMarks`. When the paper numbers sub-subparts with their own marks ("(c)(ii) 1." and "2."), make each its own part, labelled `c(ii)1` and `c(ii)2`. When they are lettered ("(b)(ii)(a)" and "(b)", each with its own printed mark), label them `b(ii)(a)` and `b(ii)(b)`. When the paper numbers parts with bare numerals and no letter ("(i)", "(ii)", common before 2020), label them `i`, `ii`, `iii`; never invent an `a`. When such a part is lettered below with its own printed marks ("(ii)(a)" and "(b)"), label them `ii(a)` and `ii(b)`; never merge them.
 - Every final answer matches the scheme.
 - Every main-method mark code in the scheme is attached once.
 - JSON parses; `node scripts/explanations/validate.mjs <file>` passes.

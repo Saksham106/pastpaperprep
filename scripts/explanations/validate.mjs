@@ -8,8 +8,8 @@ import katex from "katex";
 const MARK_CODE = /^(\(?(M|A|R|B|N|SC|AG|E|C|P|S|G|L)\d*\)?( ?\(?dep\)?)?|✓)$/;
 const SCIENCE = /^(igcse-(biology|chemistry|physics|coordinated-sciences)-|ib-(biology|chemistry|physics)-)/;
 // Cambridge papers number some sub-subparts, "(c)(ii) 1." and "2.", each with its own printed marks: label "c(ii)1";
-// others letter them, "(b)(ii)(a)" and "(b)": label "b(ii)(a)". Older papers number parts with bare numerals, "(i)" and "(ii)": label "ii".
-const LABEL = /^([a-z](\([ivx]+\)([1-9]|\([a-z]\))?)?|[ivx]+)?$/;
+// others letter them, "(b)(ii)(a)" and "(b)": label "b(ii)(a)". Older papers number parts with bare numerals, "(i)" and "(ii)", sometimes lettered below, "(ii)(a)": labels "ii", "ii(a)".
+const LABEL = /^([a-z](\([ivx]+\)([1-9]|\([a-z]\))?)?|[ivx]+(\([a-z]\))?)?$/;
 
 // Marks carried by a part's codes. AG and SC carry none. Science schemes (Cambridge and IB) may number their marking
 // points M1, M2, ...: when a science part's M codes are exactly M1..Mk, each is one mark, not a weighted method mark.
