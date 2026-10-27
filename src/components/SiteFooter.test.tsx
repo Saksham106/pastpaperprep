@@ -36,12 +36,13 @@ describe("SiteFooter", () => {
     expect(screen.queryByRole("link", { name: /IB IB/i })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Revision guides" })).toHaveAttribute("href", "/articles");
     expect(screen.getByRole("heading", { name: "Exam-style practice" })).toBeInTheDocument();
-    const examStyleLinks = screen.getAllByRole("link").filter((link) => ["IB Math AA SL", "IB Math AA HL", "IGCSE 0580", "IGCSE 0606"].includes(link.textContent ?? ""));
+    const examStyleLinks = screen.getAllByRole("link").filter((link) => ["IB Math AA SL", "IB Math AA HL", "IGCSE 0580", "IGCSE 0606", "IB Economics"].includes(link.textContent ?? ""));
     expect(examStyleLinks.map((link) => [link.textContent, link.getAttribute("href")])).toEqual([
       ["IB Math AA SL", "/banks/ib-sl/exam-style"],
       ["IB Math AA HL", "/banks/ib-hl/exam-style"],
       ["IGCSE 0580", "/banks/igcse/exam-style"],
       ["IGCSE 0606", "/banks/igcse-additional/exam-style"],
+      ["IB Economics", "/banks/ib-economics/exam-style"],
     ]);
     expect(screen.queryByRole("link", { name: /exam-style practice|trigonometry/i })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Frequently asked questions" })).toHaveAttribute("href", "/faq");

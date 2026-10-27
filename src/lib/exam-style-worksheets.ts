@@ -1,4 +1,4 @@
-export type ExamStyleCourse = "ib-math-aa-sl" | "ib-math-aa-hl" | "igcse-0580" | "igcse-0606";
+export type ExamStyleCourse = "ib-math-aa-sl" | "ib-math-aa-hl" | "igcse-0580" | "igcse-0606" | "ib-economics";
 export type ExamStyleWorksheet = {
   slug: string;
   title: string;
@@ -6,6 +6,7 @@ export type ExamStyleWorksheet = {
   course: ExamStyleCourse;
   topics: readonly string[];
   section?: string;
+  level?: "SL and HL" | "SL and HL (includes HL-only subtopics)" | "HL only";
 };
 
 export const EXAM_STYLE_COURSES: Record<ExamStyleCourse, { label: string; route: string; worksheets: readonly ExamStyleWorksheet[] }> = {
@@ -44,6 +45,23 @@ export const EXAM_STYLE_COURSES: Record<ExamStyleCourse, { label: string; route:
       { course: "igcse-0580", slug: "differentiation-0580", title: "Differentiation", fileName: "differentiation-0580.pdf", topics: ["Differentiating powers", "Gradients", "Tangents and normals", "Stationary points", "Second derivative"] },
       { course: "igcse-0580", slug: "factorisation", title: "Factorisation", fileName: "factorisation.pdf", topics: ["Common factors", "Difference of two squares", "Quadratic factorisation", "Mixed factorisation"] },
       { course: "igcse-0580", slug: "indices", title: "Indices", fileName: "indices.pdf", topics: ["Laws of indices", "Algebraic indices", "Zero and negative indices", "Fractional indices", "Index equations"] },
+    ],
+  },
+  "ib-economics": {
+    label: "IB Economics",
+    // Subject-wide collection: do not imply that these mixed-level PDFs are HL-only.
+    route: "/ib",
+    worksheets: [
+      {"course": "ib-economics", "slug": "what-is-economics", "title": "What Is Economics?", "section": "Introduction to economics", "topics": ["Economic concepts", "Scarcity and choice", "Revision notes and activities"], "fileName": "what-is-economics.pdf"},
+      {"course": "ib-economics", "slug": "demand", "title": "Demand (Includes HL Subtopics)", "section": "Microeconomics", "topics": ["Demand", "Includes HL-only subtopics", "Revision notes and activities"], "fileName": "demand.pdf", "level": "SL and HL (includes HL-only subtopics)"},
+      {"course": "ib-economics", "slug": "supply", "title": "Supply (Includes HL Subtopics)", "section": "Microeconomics", "topics": ["Supply", "Includes HL-only subtopics", "Revision notes and activities"], "fileName": "supply.pdf", "level": "SL and HL (includes HL-only subtopics)"},
+      {"course": "ib-economics", "slug": "competitive-market-equilibrium", "title": "Competitive Market Equilibrium", "section": "Microeconomics", "topics": ["Market equilibrium", "Revision notes and activities"], "fileName": "competitive-market-equilibrium.pdf"},
+      {"course": "ib-economics", "slug": "monetary-policy", "title": "Monetary Policy (Includes HL Subtopics)", "section": "Macroeconomics: demand-side and supply-side policies", "topics": ["Demand management", "Monetary policy", "Includes HL-only subtopics"], "fileName": "monetary-policy.pdf", "level": "SL and HL (includes HL-only subtopics)"},
+      {"course": "ib-economics", "slug": "demand-side-policies-fiscal-policy", "title": "Demand-Side Policies: Fiscal Policy — Revision Notes", "section": "Macroeconomics: demand-side and supply-side policies", "topics": ["Fiscal policy", "Multiplier", "Automatic stabilisers"], "fileName": "demand-side-policies-fiscal-policy.pdf"},
+      {"course": "ib-economics", "slug": "demand-side-and-supply-side-policies", "title": "Demand-Side and Supply-Side Policies — Question Bank", "section": "Macroeconomics: demand-side and supply-side policies", "topics": ["Demand-side policies", "Supply-side policies", "Exam-style questions"], "fileName": "demand-side-and-supply-side-policies.pdf"},
+      {"course": "ib-economics", "slug": "inequality-and-poverty-part-1", "title": "Inequality and Poverty — Revision Notes, Part 1", "section": "Macroeconomics: inequality and poverty", "topics": ["Income and wealth inequality", "Lorenz curve", "Poverty"], "fileName": "inequality-and-poverty-part-1.pdf"},
+      {"course": "ib-economics", "slug": "inequality-and-poverty-part-2", "title": "Inequality and Poverty — Revision Notes, Part 2", "section": "Macroeconomics: inequality and poverty", "topics": ["Taxation", "Redistribution", "Worked examples"], "fileName": "inequality-and-poverty-part-2.pdf"},
+      {"course": "ib-economics", "slug": "poverty-and-inequality-paper-2", "title": "Poverty and Inequality — Paper 2 Data Response", "section": "Macroeconomics: inequality and poverty", "topics": ["Poverty", "Inequality", "Paper 2 data-response questions"], "fileName": "poverty-and-inequality-paper-2.pdf"},
     ],
   },
   "igcse-0606": {

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createHash } from "node:crypto";
 import importInventory from "../../../../../../../docs/exam-style/ib-worksheet-import.json";
+import economicsInventory from "../../../../../../../docs/exam-style/ib-economics-import.json";
 const { createClient, getClaims } = vi.hoisted(() => ({ createClient: vi.fn(), getClaims: vi.fn() }));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 import { GET } from "./route";
@@ -14,9 +15,12 @@ describe("GET /api/exam-style/worksheets/[course]/[slug]", () => {
     createClient.mockResolvedValue({ auth: { getClaims } });
   });
 
-  it.each(importInventory.documents)("serves the source-exact $course/$slug only after sign-in", async ({ course, slug, sha256, fileName }) => {
+  it.each([...importInventory.documents, ...economicsInventory.documents])("serves the source-exact $course/$slug only after sign-in", async ({ course, slug, sha256, fileName }) => {
     const params = { params: Promise.resolve({ course, slug }) };
-    expect((await GET(new Request("https://example.test"), params)).status).toBe(401);
+    const anonymous = await GET(new Request("https://example.test"), params);
+    expect(anonymous.status).toBe(401);
+    expect(anonymous.headers.get("cache-control")).toBe("private, no-store, max-age=0");
+    expect(await anonymous.json()).toEqual({ error: "Sign in required" });
     getClaims.mockResolvedValue({ data: { claims: { sub: "user-id" } } });
     const response = await GET(new Request("https://example.test"), params);
     expect(response.status).toBe(200);

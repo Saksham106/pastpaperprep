@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { ExamStylePdfViewer } from "@/components/ExamStylePdfViewer";
 import type { ExamStyleWorksheet } from "@/lib/exam-style-worksheets";
 
@@ -11,10 +11,13 @@ export function ExamStyleWorksheetLibrary({ worksheets }: { worksheets: readonly
   return (
     <section className="exam-style-workspace" aria-labelledby="worksheet-heading">
       <div className="exam-style-set-list" role="group" aria-label="Exam-style practice sets">
-        {worksheets.map((worksheet) => (
-          <button className={`exam-style-set-option${worksheet.slug === selected.slug ? " is-selected" : ""}`} key={worksheet.slug} type="button" aria-pressed={worksheet.slug === selected.slug} onClick={() => setSelectedSlug(worksheet.slug)}>
-            <span><strong>{worksheet.title}</strong><small>{worksheet.topics.join(" · ")}</small></span>
-          </button>
+        {worksheets.map((worksheet, index) => (
+          <Fragment key={worksheet.slug}>
+            {worksheet.section && worksheet.section !== worksheets[index - 1]?.section ? <h2 className="exam-style-topic-heading">{worksheet.section}</h2> : null}
+            <button className={`exam-style-set-option${worksheet.slug === selected.slug ? " is-selected" : ""}`} type="button" aria-pressed={worksheet.slug === selected.slug} onClick={() => setSelectedSlug(worksheet.slug)}>
+              <span><strong>{worksheet.title}</strong>{worksheet.level ? <small>{worksheet.level}</small> : null}<small>{worksheet.topics.join(" · ")}</small></span>
+            </button>
+          </Fragment>
         ))}
       </div>
       <div className="exam-style-viewer">
