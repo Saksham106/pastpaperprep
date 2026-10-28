@@ -1,6 +1,6 @@
 # Crop repairs v2 (IB Chemistry, IB Physics, 0606), 2026-10-27
 
-Found while writing explanations: 41 held explanations pointed at crops that were cut off or missing context. Each defect was confirmed against the source PDF (scoping notes: `/tmp/crop-scope/notes.md`, to be moved to `../research/ib-crop-repairs-v2/`). The owner approved the full scope. **Storage upload is not done and needs owner approval.**
+Found while writing explanations: 41 held explanations pointed at crops that were cut off or missing context. Each defect was confirmed against the source PDF (scoping notes: `../research/ib-crop-repairs-v2/scoping-notes.md`). The owner approved the full scope and the upload (2026-10-27).
 
 ## Defects and repairs
 
@@ -39,7 +39,7 @@ The explanation tooling now reads the served marks: `scripts/explanations/served
 
 Before upload, `PPP_REPAIR_STAGE=<package dir> node scripts/explanations/prepare-batch.mjs …` reads the repair crops from the package, so held explanations can be re-checked now.
 
-## Storage (needs owner approval)
+## Storage (owner-approved 2026-10-27)
 
 | Manifest | Objects | Private R2 `pastpaperprep-assets` | Public `pastpaperprep-free` (`images/<key>`) | Supabase `question-assets` |
 |---|---:|---:|---:|---:|
@@ -48,7 +48,9 @@ Before upload, `PPP_REPAIR_STAGE=<package dir> node scripts/explanations/prepare
 | `data/storage/ib-question-boundary-repairs-v2.manifest.json` | 14 | 14 | 14 | — |
 | `data/storage/0606-ms-continuation-repairs.manifest.json` | 2 | 2 | 1 (2017) | 2 |
 
-Uploads are create-only under new content-addressed keys. Nothing is replaced or deleted, and superseded objects stay in the bucket unreferenced. No upload script or receipt exists yet.
+Uploads are create-only under new content-addressed keys. Nothing is replaced or deleted, and superseded objects stay in the bucket unreferenced.
+
+`WRANGLER_BIN=<wrangler> node scripts/upload-reviewed-crop-repairs-v2.mjs` (logged-in Wrangler and the linked Supabase CLI) checks each key is absent, puts it, then reads it back in full by SHA-256 and size: private R2 for every object, `images/<key>` in the public free bucket for free-year objects (read back through `free.pastpaperprep.com`), and Supabase `question-assets` for the two 0606 objects. It logs to `docs/crop-repairs-v2-upload-log.jsonl` and writes `data/storage/crop-repairs-v2.receipt.json`. `--verify` re-reads every store and writes nothing.
 
 ## Explanations to re-check after upload
 
