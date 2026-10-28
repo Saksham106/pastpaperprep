@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowsOut, ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import type { PDFDocumentProxy, PDFPageProxy, RenderTask } from "pdfjs-dist";
+import { loadPaperPdfLibrary } from "@/lib/paper-pdf-library";
 
 /** Render pages ourselves rather than embedding Chrome's PDF plugin and its download toolbar. */
 export function ExamStylePdfViewer({ src, title, eyebrow, headingId }: { src: string; title: string; eyebrow: string; headingId: string }) {
@@ -66,7 +67,7 @@ export function ExamStylePdfViewer({ src, title, eyebrow, headingId }: { src: st
         }
         const bytes = new Uint8Array(await response.arrayBuffer());
         if (disposed) return;
-        const pdfjs = await import("pdfjs-dist");
+        const pdfjs = await loadPaperPdfLibrary();
         if (disposed) return;
         pdfjs.GlobalWorkerOptions.workerSrc = "/pdfjs/pdf.worker.min.mjs";
         loadingTask = pdfjs.getDocument({ data: bytes });

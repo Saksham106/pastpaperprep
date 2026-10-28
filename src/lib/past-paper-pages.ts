@@ -1,7 +1,7 @@
 import 'server-only';
 import { BANK_CATALOG, getCatalogBank, getCatalogBanksForDisplay, type BankSlug, type CatalogBank } from './catalog';
 import { courseToneForBank, type CourseTone } from '@/components/CourseIcon';
-import { bankForSubjectSlug, paperNumberSlug, paperSlug, qualificationOfBank, subjectSlugForBank, type PastPaperQualification } from './past-paper-catalog';
+import { bankForSubjectSlug, closestPaperEntry, paperNumberSlug, paperSlug, qualificationOfBank, subjectSlugForBank, type PastPaperQualification } from './past-paper-catalog';
 import { subjectSearchName, yearRange } from './past-paper-seo';
 import { findWholePaperBySlug, getWholePaperSummaries, wholePaperArchiveEnabled } from './whole-paper-archive';
 import type { WholePaperDetail, WholePaperSummary } from './whole-paper-types';
@@ -54,6 +54,14 @@ export async function resolveEntry(slug: string, entry: string): Promise<YearVie
   }
   const detail = findWholePaperBySlug(bank.slug, entry);
   return detail ? { kind: 'paper', bank, detail, all, practice, questions: paperQuestions(bank.slug, detail) } : null;
+}
+
+/** Where an unknown entry under a real subject should go: the paper's real URL, else that year's or the subject's list. */
+export async function pastPaperFallback(slug: string, entry: string): Promise<{ href: string; permanent: boolean } | null> {
+  const subject = await resolveSubject(slug);
+  if (!subject) return null;
+  const closest = closestPaperEntry(entry, entriesFor(subject.papers));
+  return closest ? { href: `/past-papers/${slug}/${closest.entry}`, permanent: closest.exact } : { href: `/past-papers/${slug}`, permanent: false };
 }
 
 function entriesFor(papers: readonly WholePaperSummary[]): string[] {

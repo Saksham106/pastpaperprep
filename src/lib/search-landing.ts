@@ -174,6 +174,12 @@ export function topicFilterHref(bankSlug: string, label: string) {
   return `/banks/${bankSlug}?topic=${encodeURIComponent(label)}`;
 }
 
+/** Only the top topics get a landing page, so pages drop out as counts shift. Old links land on the bank filtered to that topic. */
+export function retiredTopicHref(manifest: LandingManifest, topicSlug: string) {
+  const topic = manifest.syllabusTopics.find((item) => item.slug === topicSlug);
+  return topic ? topicFilterHref(manifest.bankSlug, topic.label) : `/banks/${manifest.bankSlug}`;
+}
+
 export function paperFilterHref(bankSlug: string, paper: number) {
   return `/banks/${bankSlug}?paper=${encodeURIComponent(String(paper))}`;
 }

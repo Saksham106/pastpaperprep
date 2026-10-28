@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { BankQuestionExplorer } from "@/components/BankQuestionExplorer";
 import { SearchDetail } from "@/components/SearchLanding";
 import { loadBankExplorer } from "@/lib/bank-explorer";
@@ -9,9 +9,11 @@ import {
   bankSearchName,
   getLandingManifest,
   landingDetailStats,
+  retiredTopicHref,
   topicPath,
 } from "@/lib/search-landing";
-export const dynamicParams = false;
+// Unbuilt topics render on request so links to retired topic pages redirect instead of 404ing.
+export const dynamicParams = true;
 export async function generateStaticParams() {
   const out: Array<{ slug: string; topicSlug: string }> = [];
   for (const bank of getCatalogBanksForDisplay())
@@ -54,7 +56,7 @@ export default async function TopicPage({
     notFound();
   const manifest = await getLandingManifest(bank.slug);
   const topic = manifest.topics.find((item) => item.slug === topicSlug);
-  if (!topic) notFound();
+  if (!topic) permanentRedirect(retiredTopicHref(manifest, topicSlug));
   const routePreset = { topic: topic.label };
   const explorer = await loadBankExplorer(bank.slug, routePreset);
   if (!explorer) notFound();
