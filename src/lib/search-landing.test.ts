@@ -5,6 +5,7 @@ import {
   officialQualificationSource,
   paperFilterHref,
   paperPath,
+  retiredTopicHref,
   topicFilterHref,
   topicPath,
 } from "@/lib/search-landing";
@@ -48,6 +49,19 @@ describe("search landing manifests", () => {
     expect(paperPath("igcse", manifest.papers[0])).toBe("/banks/igcse/papers/paper-2");
     expect(topicFilterHref("igcse", "Algebra and graphs")).toBe("/banks/igcse?topic=Algebra%20and%20graphs");
     expect(paperFilterHref("igcse", 2)).toBe("/banks/igcse?paper=2");
+  });
+
+  it("sends a topic page that dropped out of the landing set to the bank filtered by that topic", () => {
+    const questions = [
+      ...Array.from({ length: 30 }, () => question({ primaryTopic: "Calculus" })),
+      ...Array.from({ length: 25 }, () => question({ primaryTopic: "Functions" })),
+      ...Array.from({ length: 21 }, () => question({ primaryTopic: "Vectors" })),
+    ];
+    const manifest = buildLandingManifest("ib-hl", questions);
+
+    expect(manifest.topics.some(({ slug }) => slug === "vectors")).toBe(false);
+    expect(retiredTopicHref(manifest, "vectors")).toBe("/banks/ib-hl?topic=Vectors");
+    expect(retiredTopicHref(manifest, "no-such-topic")).toBe("/banks/ib-hl");
   });
 
   it("uses current 0610 syllabus headings and totals equivalent historical papers together", () => {

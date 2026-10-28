@@ -37,6 +37,7 @@ export async function onRequestError(error: unknown, request: unknown, context: 
     : context.routeType === "route" ? "/api/[route]" : "/[route]";
   const code = errorCode(error);
   const userId = accountIdFromCookieHeader(cookieHeader(request));
+  const method = request && typeof request === "object" && "method" in request && typeof request.method === "string" ? request.method.toUpperCase().slice(0, 10) : "";
   captureServerException(error, {
     router_kind: context.routerKind.slice(0, 20),
     route_type: context.routeType.slice(0, 20),
@@ -44,5 +45,6 @@ export async function onRequestError(error: unknown, request: unknown, context: 
     ...(code ? { error_code: code } : {}),
     ...(digest ? { digest } : {}),
     ...(userId ? { user_id: userId } : {}),
+    ...(method ? { method } : {}),
   });
 }

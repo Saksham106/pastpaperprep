@@ -41,6 +41,32 @@ describe("server exception privacy boundary", () => {
     expect(captureExceptionImmediate.mock.calls[0][2]).toMatchObject({ route: "/[route]", provider_code: "unexpected_failure", $process_person_profile: false });
   });
 
+  it("adds release, region and method without letting a deploy split an issue", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    vi.stubEnv("VERCEL_REGION", "iad1");
+    vi.stubEnv("VERCEL_GIT_COMMIT_SHA", "99e8cb22e0de1d7b4154fef0252fa881802db971");
+    const { captureServerException } = await import("./server-error-tracking");
+    captureServerException(new Error("x"), { route: "/api/assets/free", error_code: "signing_failed", method: "GET" });
+    vi.stubEnv("VERCEL_GIT_COMMIT_SHA", "007d1e125a6811d70dffb528be595e5b58240b3b");
+    captureServerException(new Error("x"), { route: "/api/assets/free", error_code: "signing_failed", method: "GET" });
+    const [first, second] = captureExceptionImmediate.mock.calls.map((call) => call[2] as Record<string, unknown>);
+    expect(first).toMatchObject({ release: "99e8cb22e0de", region: "iad1", method: "GET" });
+    expect(second.release).toBe("007d1e125a68");
+    expect(first.$exception_fingerprint).toBe(second.$exception_fingerprint);
+  });
+
+  it("drops release, region and method values outside the expected shapes", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    vi.stubEnv("VERCEL_REGION", "alice@example.com");
+    vi.stubEnv("VERCEL_GIT_COMMIT_SHA", "my-branch");
+    const { captureServerException } = await import("./server-error-tracking");
+    captureServerException(new Error("x"), { method: "DROP TABLE" });
+    const properties = captureExceptionImmediate.mock.calls[0][2] as Record<string, unknown>;
+    expect(properties).not.toHaveProperty("release");
+    expect(properties).not.toHaveProperty("region");
+    expect(properties).not.toHaveProperty("method");
+  });
+
   it("returns the correlation id it reports, reusing a valid one from the caller", async () => {
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
     const { captureServerException } = await import("./server-error-tracking");

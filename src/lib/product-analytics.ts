@@ -1,5 +1,6 @@
 "use client";
 
+import { browserErrorContext, reactMismatchKind } from "@/lib/browser-error-context";
 import { readBrowserAnalyticsConsent, stableAnalyticsDistinctId } from "@/lib/analytics-consent";
 import { boundExceptionFrames, safeErrorMessage, scrubStack } from "@/lib/error-privacy";
 import { accountIdFromCookieHeader } from "@/lib/supabase/auth-cookie";
@@ -115,6 +116,12 @@ export function sanitizeAnalyticsEvent<T extends { properties?: Record<string, u
   return { ...event, properties: scrub(event.properties) as Record<string, unknown> };
 }
 
+/** Never lets a context read stop the report itself. */
+function pageContext() {
+  if (typeof document === "undefined" || typeof window === "undefined") return {};
+  try { return browserErrorContext(document, window); } catch { return {}; }
+}
+
 const reportedErrors = new WeakSet<object>();
 // A timer or loop can throw a fresh error object every few seconds; report each kind a few times per page load.
 // The key includes the scrubbed top frames, so a noisy source can't use up another code location's budget. It never leaves the page.
@@ -134,9 +141,12 @@ export function captureAppException(error: unknown) {
   // A server render failure reaches the error boundary with the same digest the server reported.
   const digest = (error as { digest?: unknown }).digest;
   const userId = browserAccountId();
+  const mismatch = reactMismatchKind(error.message);
   const properties = {
     ...(typeof digest === "string" && /^[A-Za-z0-9_-]{1,40}$/.test(digest) ? { digest } : {}),
     ...(userId ? { user_id: userId } : {}),
+    ...(mismatch ? { react_mismatch: mismatch } : {}),
+    ...pageContext(),
   };
   void loadClient().then(client => {
     if (!client) return;

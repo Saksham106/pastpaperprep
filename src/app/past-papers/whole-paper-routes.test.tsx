@@ -3,8 +3,12 @@ import { cleanup, render, screen } from '@testing-library/react';
 import { getCatalogBank } from '@/lib/catalog';
 import type { WholePaperDetail, WholePaperSummary } from '@/lib/whole-paper-types';
 
-vi.mock('next/navigation', () => ({ notFound: () => { throw new Error('NOT_FOUND'); } }));
-const pages = vi.hoisted(() => ({ hubBanks: vi.fn(), resolveSubject: vi.fn(), resolveEntry: vi.fn(), pastPaperParams: vi.fn() }));
+vi.mock('next/navigation', () => ({
+  notFound: () => { throw new Error('NOT_FOUND'); },
+  permanentRedirect: (href: string) => { throw new Error(`308 ${href}`); },
+  redirect: (href: string) => { throw new Error(`307 ${href}`); },
+}));
+const pages = vi.hoisted(() => ({ hubBanks: vi.fn(), resolveSubject: vi.fn(), resolveEntry: vi.fn(), pastPaperParams: vi.fn(), pastPaperFallback: vi.fn() }));
 vi.mock('@/lib/past-paper-pages', () => pages);
 vi.mock('@/components/past-papers/PastPaperHub', () => ({ PastPaperHub: ({ qualification }: { qualification?: string }) => <div data-testid="hub">{qualification ?? 'all'}</div> }));
 vi.mock('@/components/past-papers/PastPaperListPage', () => ({ PastPaperListPage: ({ view }: { view: { kind: string } }) => <div data-testid="list">{view.kind}</div> }));
@@ -29,7 +33,7 @@ afterEach(() => cleanup());
 
 describe('free past-paper routes', () => {
   it('builds nothing and 404s everywhere while the archive is off', async () => {
-    pages.hubBanks.mockResolvedValue([]); pages.resolveSubject.mockResolvedValue(null); pages.resolveEntry.mockResolvedValue(null);
+    pages.hubBanks.mockResolvedValue([]); pages.resolveSubject.mockResolvedValue(null); pages.resolveEntry.mockResolvedValue(null); pages.pastPaperFallback.mockResolvedValue(null);
     pages.pastPaperParams.mockResolvedValue({ slugs: [], entries: [] });
     expect(await slugParams()).toEqual([]);
     expect(await entryParams()).toEqual([]);
@@ -37,6 +41,14 @@ describe('free past-paper routes', () => {
     await expect(SlugPage(params({ slug: 'igcse' }))).rejects.toThrow('NOT_FOUND');
     await expect(SlugPage(params({ slug: 'igcse-maths-0580' }))).rejects.toThrow('NOT_FOUND');
     await expect(EntryPage(params({ slug: 'igcse-maths-0580', entry: '2024' }))).rejects.toThrow('NOT_FOUND');
+  });
+
+  it('redirects unbuilt entries under a real subject instead of 404ing', async () => {
+    pages.resolveEntry.mockResolvedValue(null);
+    pages.pastPaperFallback.mockResolvedValue({ href: '/past-papers/igcse-maths-0580/2024-may-june-42', permanent: true });
+    await expect(EntryPage(params({ slug: 'igcse-maths-0580', entry: '2024-May-June-42' }))).rejects.toThrow('308 /past-papers/igcse-maths-0580/2024-may-june-42');
+    pages.pastPaperFallback.mockResolvedValue({ href: '/past-papers/igcse-maths-0580/2024', permanent: false });
+    await expect(EntryPage(params({ slug: 'igcse-maths-0580', entry: '2024-may-june-49' }))).rejects.toThrow('307 /past-papers/igcse-maths-0580/2024');
   });
 
   it('pre-builds exactly the resolver params', async () => {

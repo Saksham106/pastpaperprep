@@ -65,6 +65,20 @@ export function paperName(p: WholePaperSummary): string {
   return [`Paper ${p.paper.toUpperCase()}`, timezone(p), raw && optionLabel(raw)].filter(Boolean).join(' ');
 }
 export const paperNumberSlug = (paper: string) => `paper-${paper.toLowerCase()}`;
+
+/** Nearest real entry for a guessed /past-papers URL (`paper 1`, `nov`, `tz0`, a time zone that sitting didn't have).
+ * `exact` means the same paper under its real slug; otherwise it is that year's list. */
+export function closestPaperEntry(entry: string, entries: readonly string[]): { entry: string; exact: boolean } | null {
+  const known = new Set(entries);
+  let raw = entry;
+  try { raw = decodeURIComponent(entry); } catch { /* keep the raw segment */ }
+  const normalized = raw.toLowerCase().trim().replace(/[\s_]+/g, '-').replace(/^(\d{4})-nov-/, '$1-november-').replace(/-tz0$/, '');
+  for (const candidate of [normalized, normalized.replace(/-tz\d$/, '')]) {
+    if (candidate !== entry && known.has(candidate)) return { entry: candidate, exact: true };
+  }
+  const year = /^(\d{4})-/.exec(normalized)?.[1];
+  return year && known.has(year) ? { entry: year, exact: false } : null;
+}
 export const paperHref = (p: WholePaperSummary) => `/past-papers/${SUBJECT_SLUGS[p.bankSlug]}/${paperSlug(p)}`;
 /** Cambridge's own file names, which students paste into search. */
 export function fileAliases(p: WholePaperSummary): { question: string; markscheme: string } | null {

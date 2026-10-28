@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { BANK_CATALOG } from './catalog';
 import type { WholePaperManifest } from './whole-paper-types';
-import { SUBJECT_SLUGS, bankForSubjectSlug, buildPaperMatrix, chipLabel, fileAliases, filterMatrixByTier, matchPapers, paperName, paperSlug, parsePaperQuery, subjectSlugForBank } from './past-paper-catalog';
+import { SUBJECT_SLUGS, bankForSubjectSlug, buildPaperMatrix, closestPaperEntry, chipLabel, fileAliases, filterMatrixByTier, matchPapers, paperName, paperSlug, parsePaperQuery, subjectSlugForBank } from './past-paper-catalog';
 
 const papers = (slug: string) => (JSON.parse(readFileSync(join(process.cwd(), 'src/data/paper-archives', `${slug}.json`), 'utf8')) as WholePaperManifest).papers.map(p => p.summary);
 const find = (slug: string, id: string) => papers(slug).find(p => p.id === id)!;
@@ -177,5 +177,25 @@ describe('displayed search codes', () => {
     }
     expect(checked).toBeGreaterThan(2000);
     expect(misses.slice(0, 10)).toEqual([]);
+  });
+});
+
+describe('guessed past-paper URLs', () => {
+  const entries = ['2022', '2022-november-paper-1', '2024', '2024-november-paper-2', '2025', '2025-november-paper-1a-tz1', '2025-november-paper-2-tz1', '2026', '2026-may-paper-1-tz1', '2025-oct-nov-21'];
+  it('finds the same paper under its real slug', () => {
+    expect(closestPaperEntry('2022-november-paper-1-tz0', entries)).toEqual({ entry: '2022-november-paper-1', exact: true });
+    expect(closestPaperEntry('2024-november-paper-2-tz3', entries)).toEqual({ entry: '2024-november-paper-2', exact: true });
+    expect(closestPaperEntry('2025-nov-paper-2-tz1', entries)).toEqual({ entry: '2025-november-paper-2-tz1', exact: true });
+    expect(closestPaperEntry('2026-may-paper%201-tz1', entries)).toEqual({ entry: '2026-may-paper-1-tz1', exact: true });
+    expect(closestPaperEntry('2025-Oct-Nov-21', entries)).toEqual({ entry: '2025-oct-nov-21', exact: true });
+  });
+  it('falls back to the year list when the paper itself does not exist', () => {
+    expect(closestPaperEntry('2025-november-paper-1a-tz2', entries)).toEqual({ entry: '2025', exact: false });
+    expect(closestPaperEntry('2026-may-paper%201', entries)).toEqual({ entry: '2026', exact: false });
+  });
+  it('gives up on entries with no usable year', () => {
+    expect(closestPaperEntry('2019-november-paper-1', entries)).toBeNull();
+    expect(closestPaperEntry('%E0%A4%A', entries)).toBeNull();
+    expect(closestPaperEntry('paper-9', entries)).toBeNull();
   });
 });

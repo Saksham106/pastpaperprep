@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import { withPostHogConfig } from "@posthog/nextjs-config";
 import { getPostHogBuildConfig } from "@/lib/posthog-build-config";
+import { bankUrlAliases } from "@/lib/bank-url-aliases";
 
 const nextConfig: NextConfig = {
   experimental: {
@@ -19,6 +20,13 @@ const nextConfig: NextConfig = {
   outputFileTracingExcludes: {
     "/past-papers": ["./private/paper-archives/source-bindings.json", "./private/paper-archives/checkpoints/**", "./private/paper-archives/receipt.json", "./private/paper-preview/**", "./private/chemistry-paper-archive/**"],
     "/past-papers/**": ["./private/paper-archives/source-bindings.json", "./private/paper-archives/checkpoints/**", "./private/paper-archives/receipt.json", "./private/paper-preview/**", "./private/chemistry-paper-archive/**"],
+  },
+  async redirects() {
+    return [
+      // There is no bank index page; the home page lists every bank.
+      { source: "/banks", destination: "/#question-banks", permanent: false },
+      ...bankUrlAliases().map(({ alias, bank }) => ({ source: `/banks/${alias}/:path*`, destination: `/banks/${bank}/:path*`, permanent: true })),
+    ];
   },
   async headers() {
     return [{

@@ -70,7 +70,10 @@ describe("serverless performance boundaries", () => {
       expect(page).not.toContain('from "next/headers"');
       expect(page).not.toContain('from "@/lib/supabase/server"');
       expect(page).not.toContain("searchParams:");
-      expect(page).toContain("export const dynamicParams = false");
+      expect(page).toMatch(route.includes("/topics/")
+        // Retired topic pages render on request only to redirect, before any explorer work.
+        ? /export const dynamicParams = true;[\s\S]*if \(!topic\) permanentRedirect\([\s\S]*loadBankExplorer\(/
+        : /export const dynamicParams = false/);
       expect(page).toContain("loadBankExplorer(");
       expect(page).toContain("<BankQuestionExplorer");
     }

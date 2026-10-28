@@ -15,6 +15,7 @@ const ENUMS: Record<string, Set<string>> = {
   error_source: new Set(["handled_response", "auth_provider"]),
   stage: new Set(["manifest", "signing", "entitlement", "quota", "response"]),
   storage_provider: new Set(["local", "supabase", "r2", "unknown"]),
+  method: new Set(["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]),
   bank: new Set(BANK_CATALOG.map((bank) => bank.slug)),
 };
 function safeMetadata(metadata: Record<string, unknown>) {
@@ -61,6 +62,11 @@ export function captureServerException(error: unknown, metadata: Record<string, 
   // Preview deploys share the PostHog project; tag the environment so their failures stay separable.
   const vercelEnv = process.env.VERCEL_ENV;
   if (vercelEnv === "production" || vercelEnv === "preview" || vercelEnv === "development") properties.vercel_env = vercelEnv;
+  // Which deploy and region served the request: answers "did this start with a release?" without splitting issues.
+  const release = process.env.VERCEL_GIT_COMMIT_SHA;
+  if (release && /^[0-9a-f]{7,40}$/.test(release)) properties.release = release.slice(0, 12);
+  const region = process.env.VERCEL_REGION;
+  if (region && /^[a-z]{3}\d{1,2}$/.test(region)) properties.region = region;
   const environment = typeof properties.vercel_env === "string" ? properties.vercel_env : process.env.NODE_ENV === "production" ? "production" : process.env.NODE_ENV === "test" ? "test" : "development";
   properties.signal_kind = "server";
   properties.correlation_id ??= globalThis.crypto.randomUUID();

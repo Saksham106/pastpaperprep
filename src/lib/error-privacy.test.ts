@@ -64,6 +64,41 @@ describe("safeErrorMessage", () => {
   ])("reports an unrecognised chunk location as <chunk>: %s", (message) => {
     expect(safeErrorMessage(message)).toBe("Failed to load chunk <chunk>");
   });
+  it("keeps Safari's and Firefox's TypeError and ReferenceError shapes without the evaluated code", () => {
+    expect(safeErrorMessage("undefined is not an object (evaluating 'user.profile.email')")).toBe("undefined is not an object (evaluating '<expression>')");
+    expect(safeErrorMessage("null is not an object (evaluating 'document.querySelector(\"#alice@example.com\").value')")).toBe("null is not an object (evaluating '<expression>')");
+    expect(safeErrorMessage("undefined is not an object")).toBe("undefined is not an object");
+    expect(safeErrorMessage("t.at is not a function. (In 't.at(-1)', 't.at' is undefined)")).toBe("Value is not a function");
+    expect(safeErrorMessage("Can't find variable: alice")).toBe("Can't find variable: <identifier>");
+    expect(safeErrorMessage("Can't find variable: cooldown")).toBe("Can't find variable: cooldown");
+    expect(safeErrorMessage("can't access property \"email\", user is undefined")).toBe("can't access property '<property>', value is undefined");
+    expect(safeErrorMessage("can't access property 0, rows is null")).toBe("can't access property '<property>', value is null");
+    expect(safeErrorMessage("user.email is undefined")).toBe("Value is undefined");
+    expect(safeErrorMessage("Alice Smith token=abc is null")).toBe("Value is null");
+  });
+
+  it("maps every browser template to itself, since the SDK applies the boundary twice", () => {
+    for (const raw of [
+      "undefined is not an object (evaluating 'a.b')", "Can't find variable: alice", "can't access property \"x\", y is null",
+      "user.email is undefined", "t.at is not a function. (In 't.at(-1)', 't.at' is undefined)",
+      "Failed to fetch dynamically imported module: https://pastpaperprep.com/a.js",
+    ]) {
+      const once = safeErrorMessage(raw);
+      expect(once).toBeDefined();
+      expect(safeErrorMessage(once)).toBe(once);
+    }
+  });
+
+  it("keeps the browsers' fixed loading, abort and observer messages", () => {
+    for (const message of [
+      "Importing a module script failed.", "The operation was aborted.", "signal is aborted without reason", "The user aborted a request.",
+      "Script error.", "The network connection was lost.", "ResizeObserver loop completed with undelivered notifications.",
+      "ResizeObserver loop limit exceeded", "The request timed out.", "cancelled",
+    ]) expect(safeErrorMessage(message)).toBe(message);
+    expect(safeErrorMessage("Failed to fetch dynamically imported module: https://pastpaperprep.com/_next/static/chunks/abc.js?token=secret")).toBe("Failed to fetch dynamically imported module");
+    expect(safeErrorMessage("error loading dynamically imported module: https://pastpaperprep.com/x.js")).toBe("Failed to fetch dynamically imported module");
+  });
+
   it("rejects non-strings and empty messages", () => {
     expect(safeErrorMessage(undefined)).toBeUndefined();
     expect(safeErrorMessage("   ")).toBeUndefined();
