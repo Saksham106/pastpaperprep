@@ -9,6 +9,7 @@ import { printGeometryForSignedAssets } from "@/lib/print-geometry";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { normalizeBankQuestions } from "@/lib/questions";
 import { reviewed0606RightEdgeGeometry, reviewed0606RightEdgePaths } from "@/lib/reviewed-0606-ms-right-edge-repairs";
+import { reviewed0606ContinuationPaths } from "@/lib/reviewed-0606-ms-continuation-repairs";
 import { reviewedMarkschemePaths } from "@/lib/reviewed-mcq-answer-repairs";
 import { reviewed0606SplitQuestionPaths } from "@/lib/reviewed-0606-question-splits";
 import { verify0606PdfMetadata } from "@/lib/verified-0606-client";
@@ -82,13 +83,14 @@ describe("reviewed 0606 mark-scheme edge repairs", () => {
       const split = reviewed0606SplitQuestionPaths("igcse-additional", row.id, row.questionImages);
       expect(question.questionAssetPaths).toEqual(JSON.stringify(split) === JSON.stringify(row.questionImages)
         ? baseline.get(row.id)!.questionAssetPaths : split.map((path) => `igcse-additional/${path}`));
-      const expected = reviewed0606RightEdgePaths("igcse-additional", row.id, reviewedMarkschemePaths("igcse-additional", row.id, row.markschemeImages));
+      // Continuation rows are added after this overlay (docs/ib-crop-repairs-v2.md).
+      const expected = reviewed0606ContinuationPaths("igcse-additional", row.id, reviewed0606RightEdgePaths("igcse-additional", row.id, reviewedMarkschemePaths("igcse-additional", row.id, row.markschemeImages)));
       expect(question.markschemeAssetPaths).toEqual(expected.map((path) => `igcse-additional/${path}`));
       if (entries[row.id]) {
         expect(question.markschemeAssetPaths).toEqual(entries[row.id].newPaths.map((path) => `igcse-additional/${path}`));
         changed += 1;
       } else {
-        expect(expected).toEqual(reviewedMarkschemePaths("igcse-additional", row.id, row.markschemeImages));
+        expect(reviewed0606RightEdgePaths("igcse-additional", row.id, reviewedMarkschemePaths("igcse-additional", row.id, row.markschemeImages))).toEqual(reviewedMarkschemePaths("igcse-additional", row.id, row.markschemeImages));
       }
     }
     expect(changed).toBe(273);

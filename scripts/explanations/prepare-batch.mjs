@@ -5,6 +5,7 @@
 //   node scripts/explanations/prepare-batch.mjs --bank ib-hl --ids id1,id2
 //   node scripts/explanations/prepare-batch.mjs --bank ib-hl --all [--pending] [--years 2026,2025]
 // Images come from the bank's source workspace; any that are missing locally are fetched from R2
+// (or, for repair crops not uploaded yet, read from PPP_REPAIR_STAGE)
 // (read-only, owner's Wrangler login; set WRANGLER to a local binary) into research/explanations/_r2src.
 // Writes <research>/explanations/<bank>/_manifests/<name>.json and prints its path.
 import { createHash } from "node:crypto";
@@ -14,6 +15,7 @@ import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, statSync, writ
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { calculatorAllowed } from "../../src/lib/calculator-policy.mjs";
+import { servedMarks } from "./served-marks.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 // Sibling workspaces sit next to the main checkout; resolve through Git so this works from a worktree too.
@@ -101,10 +103,15 @@ const hash = (s) => createHash("sha256").update(s).digest("hex");
 export const outputPathFor = (bank, id) => join(researchRoot, bank, `${id}.json`);
 
 const extensionSources = new Map();
+// Reviewed repair crops that are built but not uploaded yet can be read from their build package, so held explanations
+// can be re-checked before the upload: PPP_REPAIR_STAGE=<package dir> holding objects/<object key>.
+const repairStage = process.env.PPP_REPAIR_STAGE;
 function sourceFile(bank, config, rel) {
   if (!/^https?:/.test(rel)) {
     const local = config.imageRoot && join(config.imageRoot, relOfKey(bank, rel));
-    return local && present(local) ? local : join(r2Cache(bank), rel);
+    if (local && present(local)) return local;
+    const staged = repairStage && rel.includes("/repairs/") && join(repairStage, "objects", rel);
+    return staged && present(staged) ? staged : join(r2Cache(bank), rel);
   }
   const ext = config.extension;
   if (!ext || !rel.startsWith(ext.publicRoot)) throw new Error(`Unmapped image URL ${rel}`);
@@ -242,7 +249,8 @@ async function main() {
       paper: q.paper,
       year: q.year,
       session: q.session,
-      marks: q.marks ?? q.maxMarks ?? q.maximumMarks,
+      // The printed total students are served, after the reviewed overlays (served-marks.mjs).
+      marks: servedMarks(bank, q.id, q.marks ?? q.maxMarks ?? q.maximumMarks),
       calculator: config.calculator(q),
       questionImages: questionImagesOf(q).map((p) => toPng(bank, config, p)),
       markschemeImages: msImages.map((p) => toPng(bank, config, p)),

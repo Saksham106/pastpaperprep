@@ -26,38 +26,12 @@ import { BANKS, outputPathFor, researchRoot } from "./prepare-batch.mjs";
 import { loadLocalPath } from "./local-files.mjs";
 import { publishSet } from "./publish-set.mjs";
 import { resolveTwins } from "./twins.mjs";
+import { servedMarks } from "./served-marks.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const AVAILABLE = join(repoRoot, "src/data/explanations/available.json");
-// A reviewed 0606 question split serves its question's printed marks (src/lib/reviewed-0606-question-splits.ts).
-const QUESTION_SPLITS_0606 = JSON.parse(readFileSync(join(repoRoot, "src/data/reviewed-0606-question-splits.json"), "utf8"));
-// And a reviewed 0580 question split (src/lib/reviewed-0580-question-splits.ts).
-const QUESTION_SPLITS_0580 = JSON.parse(readFileSync(join(repoRoot, "src/data/reviewed-0580-question-splits.json"), "utf8"));
-// So does a question whose part the exam board removed (src/lib/reviewed-science-removed-part-marks.ts).
-const REMOVED_PART_MARKS = JSON.parse(readFileSync(join(repoRoot, "src/data/reviewed-science-removed-part-marks.json"), "utf8")).entries;
-// And a reviewed IB question-boundary repair (src/lib/reviewed-ib-question-boundaries.ts).
-const IB_BOUNDARY_MARKS = JSON.parse(readFileSync(join(repoRoot, "src/data/reviewed-ib-question-boundary-repairs.json"), "utf8")).banks;
-function splitMarks(bank, questionId, marks) {
-  const boundary = IB_BOUNDARY_MARKS[bank]?.[questionId];
-  if (boundary) {
-    if ((marks ?? null) !== boundary.marks.old) throw new Error(`Reviewed IB question boundary disagrees with ${bank}:${questionId}`);
-    return boundary.marks.new;
-  }
-  const removed = REMOVED_PART_MARKS[bank]?.[questionId];
-  if (removed) {
-    if ((marks ?? null) !== removed.old) throw new Error(`Reviewed removed-part marks disagree with ${bank}:${questionId}`);
-    return removed.new;
-  }
-  const split0580 = bank === QUESTION_SPLITS_0580.bank ? QUESTION_SPLITS_0580.entries[questionId] : undefined;
-  if (split0580) {
-    if ((marks ?? null) !== split0580.marks.old) throw new Error(`Reviewed 0580 question split disagrees with ${bank}:${questionId}`);
-    return split0580.marks.new;
-  }
-  const split = bank === QUESTION_SPLITS_0606.bank ? QUESTION_SPLITS_0606.entries[questionId] : undefined;
-  if (!split) return marks;
-  if (marks !== split.marks.old) throw new Error(`Reviewed 0606 question split disagrees with ${bank}:${questionId}`);
-  return split.marks.new;
-}
+// The marks students are served (reviewed splits, removed parts, IB boundaries, Biology printed totals).
+const splitMarks = servedMarks;
 const PUBLISHABLE = new Set(["pass", "pass-after-fix", "pass-after-minor-fix"]);
 const argv = process.argv.slice(2);
 const bank = argv[argv.indexOf("--bank") + 1];

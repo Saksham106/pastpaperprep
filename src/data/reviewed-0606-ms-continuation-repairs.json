@@ -1,0 +1,87 @@
+{
+ "schema": "reviewed-0606-ms-continuation-repairs-v1",
+ "bank": "igcse-additional",
+ "namespace": "repairs/0606-ms-continuation-v1-a04d4eb780e5e341",
+ "source": {
+  "package": "research/ib-crop-repairs-v2 (built by scripts/ib-crop-repairs-v2/build_crops.py)",
+  "packageSha256": "fabed4ee97b6915531dc1e8b4ae271b57d2e9ac234038e22331d33a9adb087e7",
+  "builderSha256": "a0a5bb4055d6db6f2c2fbc41386e20af27e9834859af0c397b9bc910c131088a"
+ },
+ "reason": "Mark-scheme rows on the next or previous page that the served crop left out: 2019 Nov 23 6(ii) final A1 (page 6) and 2017 June 21 9(i) (page 5, dropped by the source-grid repair).",
+ "entries": {
+  "0606-2017-june-21-q9": {
+   "oldPaths": [
+    "repairs/maths-source-grid-v1-a90bf96b0b5e9a1e/d86efeb6e96301c950ed7e78a89b4a613370f7855cc482b933e112a4b644bb77.webp"
+   ],
+   "oldSha256": [
+    "d86efeb6e96301c950ed7e78a89b4a613370f7855cc482b933e112a4b644bb77"
+   ],
+   "newPaths": [
+    "repairs/0606-ms-continuation-v1-a04d4eb780e5e341/166e7bdb91f6d1592eb1304fd26872a3ede9b2da3f8f109eada4e04e8d76d04b.webp",
+    "repairs/maths-source-grid-v1-a90bf96b0b5e9a1e/d86efeb6e96301c950ed7e78a89b4a613370f7855cc482b933e112a4b644bb77.webp"
+   ],
+   "sha256": [
+    "166e7bdb91f6d1592eb1304fd26872a3ede9b2da3f8f109eada4e04e8d76d04b",
+    "d86efeb6e96301c950ed7e78a89b4a613370f7855cc482b933e112a4b644bb77"
+   ],
+   "printGeometry": [
+    {
+     "physicalSizePt": [
+      526.62,
+      202.76
+     ],
+     "imageDimensions": [
+      1098,
+      423
+     ],
+     "segments": [
+      [
+       0,
+       423,
+       202.76,
+       5
+      ]
+     ]
+    },
+    null
+   ]
+  },
+  "0606-2019-november-23-q6": {
+   "oldPaths": [
+    "markschemes/0606-2019-november-23-q6.webp"
+   ],
+   "oldSha256": [
+    "954b6f970a5c535cabfa44eded5fe8319d43f3ae567bfbae83ff2c0ed3a0f59d"
+   ],
+   "newPaths": [
+    "markschemes/0606-2019-november-23-q6.webp",
+    "repairs/0606-ms-continuation-v1-a04d4eb780e5e341/200d4504bfd82042f80cc266022ec69579091e1ce860e7f775d03c57f5bfc48f.webp"
+   ],
+   "sha256": [
+    "954b6f970a5c535cabfa44eded5fe8319d43f3ae567bfbae83ff2c0ed3a0f59d",
+    "200d4504bfd82042f80cc266022ec69579091e1ce860e7f775d03c57f5bfc48f"
+   ],
+   "printGeometry": [
+    null,
+    {
+     "physicalSizePt": [
+      513,
+      31.04
+     ],
+     "imageDimensions": [
+      1070,
+      65
+     ],
+     "segments": [
+      [
+       0,
+       65,
+       31.04,
+       6
+      ]
+     ]
+    }
+   ]
+  }
+ }
+}

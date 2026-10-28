@@ -16,6 +16,7 @@ import { printedMarks } from "@/lib/reviewed-biology-printed-marks";
 import { removedPartMarks } from "@/lib/reviewed-science-removed-part-marks";
 import { reviewed0606SplitMarks, reviewed0606SplitQuestionPaths, reviewed0606SplitText } from "@/lib/reviewed-0606-question-splits";
 import { reviewed0606RightEdgePaths } from "@/lib/reviewed-0606-ms-right-edge-repairs";
+import { reviewed0606ContinuationPaths } from "@/lib/reviewed-0606-ms-continuation-repairs";
 import { reviewed0580CoreQuestionPaths } from "@/lib/reviewed-0580-core-crop-repairs";
 import { reviewed0580SplitMarks, reviewed0580SplitQuestionPaths, reviewed0580SplitText } from "@/lib/reviewed-0580-question-splits";
 import { reviewedEconomicsQuestionPaths } from "@/lib/reviewed-economics-question-crops";
@@ -299,7 +300,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     ? Array.from(new Set([...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)]))
     : [...strings(raw.markschemeImages), ...strings(officialMarkscheme.images)];
   const activeMarkschemePaths = applyReviewedBlankPages || slug === 'ib-ai-hl' || slug === 'ib-hl' || IB_SCIENCE_CROP_REPAIR_BANKS.has(slug)
-    ? reviewed0606RightEdgePaths(slug, text(raw.id), reviewedMarkschemePaths(slug, text(raw.id), markschemeImagePaths)) : markschemeImagePaths;
+    ? reviewed0606ContinuationPaths(slug, text(raw.id), reviewed0606RightEdgePaths(slug, text(raw.id), reviewedMarkschemePaths(slug, text(raw.id), markschemeImagePaths))) : markschemeImagePaths;
   const markschemeImages = cleanSourceCropPaths(slug, activeMarkschemePaths).map((path) => assetUrl(slug, path, economicsAssetMode));
   const searchable = [
     primaryTopic,
