@@ -117,7 +117,7 @@ Messages pass through `safeErrorMessage`, which returns only fixed diagnostics o
 | `online`, `connection`, `save_data` | `navigator.onLine`, Network Information `effectiveType` (`slow-2g`…`4g`) and data saver, where the browser exposes them |
 | `release` | first 12 characters of the build's commit SHA |
 
-To read a hydration error: `react_mismatch` says what differed; `page_translated` or a non-zero `foreign_*` points at the visitor's browser rather than our render. Recent events and failed API calls in the same visit are already linked by `$session_id`.
+To read a hydration error: `react_mismatch` says what differed; `page_translated` or a non-zero `foreign_*` is a clue that the visitor's browser changed the page, not proof that our render is correct. Compare against reports where both are false before ruling out a bug. Recent events and failed API calls in the same visit are already linked by `$session_id`.
 
 Safari's and Firefox's TypeError/ReferenceError shapes map to fixed templates (`undefined is not an object (evaluating '<expression>')`, `Can't find variable: <identifier>`, `can't access property '<property>', value is undefined`, `Value is null`); the evaluated source text is dropped. Fixed browser texts for failed module loads, aborts, lost connections and `ResizeObserver` loops are kept verbatim.
 
