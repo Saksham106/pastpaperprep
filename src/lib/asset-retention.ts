@@ -31,8 +31,11 @@ export const EXPECTED_ASSET_COUNTS = {
   // Shared-stimulus repair (docs/ib-shared-stimulus-repairs.md): one 2017 Paper 3 data-block crop each.
   // IB science crop repair (docs/ib-science-crop-repairs.md): 2023 May TZ2 P2 Q6 page-13 and page-14 answer crops become one (-1).
   // Oct 2026: IB science free years widened to 2016-2020 and signed from R2, so Supabase retains no IB science previews.
-  "ib-chemistry-hl": { preview: 0, premium: 6166, all: 6166 },
-  "ib-chemistry-sl": { preview: 0, premium: 4325, all: 4325 },
+  // Crop repairs v2 (docs/ib-crop-repairs-v2.md): rotated mark schemes re-cut one-for-one except 49 header-only strips
+  // dropped (HL -26, SL -23); new 2017 May TZ2 / 2019 Nov P1 stimuli (HL +2, SL +2) with two stimulus-only crops retired
+  // (HL -1, SL -1); 2017 May TZ1 P3 Q2-Q5 reuse the v1 data block.
+  "ib-chemistry-hl": { preview: 0, premium: 6141, all: 6141 },
+  "ib-chemistry-sl": { preview: 0, premium: 4303, all: 4303 },
   // May 2026: official Physics papers add 395 (HL) and 258 (SL) premium crops; 2026 is not a free-preview year.
   "ib-physics-hl": { preview: 0, premium: 6016, all: 6016 },
   "ib-physics-sl": { preview: 0, premium: 4053, all: 4053 },

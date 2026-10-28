@@ -7,6 +7,7 @@ import type {BankSlug} from '@/lib/banks';
 import {metadataFromRaw} from '../../scripts/generate-bank-index.mjs';
 // Question crops follow the separate shared-stimulus overlay (docs/ib-shared-stimulus-repairs.md).
 import {reviewedIbQuestionPaths} from '@/lib/reviewed-ib-shared-stimulus';
+import {rotatedChemistryMarkschemePaths} from '@/lib/reviewed-ib-chemistry-rotated-ms';
 const repairs=JSON.parse(readFileSync('src/data/reviewed-ib-science-crop-repairs.json','utf8'));
 // Exact reviewed cohort: bank, question, which answer crops are new, and the public answer-image count after repair.
 const cohorts=[
@@ -65,7 +66,8 @@ test.each(cohorts)('$bank: actual loader activates the repair and leaves every o
  for(const r of raw){const q=byId.get(r.id);
   // This overlay never touches question crops; Economics question paths follow their own runtime rules.
   if(!economics(bank))expect(q?.questionAssetPaths).toEqual(reviewedIbQuestionPaths(bank as BankSlug,r.id,r.questionImages??[]).map(p=>key(bank,p)));
-  if(!repaired.has(r.id))expect(served(q?.markschemeAssetPaths)).toEqual(answerPaths(bank,r).map(p=>key(bank,p)));}
+  // The rotated Chemistry re-cuts (docs/ib-crop-repairs-v2.md) are their own overlay, never the same question.
+  if(!repaired.has(r.id))expect(served(q?.markschemeAssetPaths)).toEqual((rotatedChemistryMarkschemePaths(bank as BankSlug,r.id,answerPaths(bank,r))??answerPaths(bank,r)).map(p=>key(bank,p)));}
  expect(JSON.stringify(raw)).toBe(before);
 });
 test.each(cohorts)('$bank $id: index metadata counts the repaired answer images',({bank,id,count})=>{

@@ -1,0 +1,38 @@
+{
+ "schema": "reviewed-crop-repairs-upload-v1",
+ "namespace": "repairs/0606-ms-continuation-v1-a04d4eb780e5e341",
+ "privateBucket": "pastpaperprep-assets",
+ "supabaseBucket": "question-assets",
+ "publicFreeBucket": "pastpaperprep-free",
+ "objectCount": 2,
+ "freeObjectCount": 1,
+ "objectBytes": 24836,
+ "objects": [
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-continuation-v1-a04d4eb780e5e341/166e7bdb91f6d1592eb1304fd26872a3ede9b2da3f8f109eada4e04e8d76d04b.webp",
+   "path": "repairs/0606-ms-continuation-v1-a04d4eb780e5e341/166e7bdb91f6d1592eb1304fd26872a3ede9b2da3f8f109eada4e04e8d76d04b.webp",
+   "sha256": "166e7bdb91f6d1592eb1304fd26872a3ede9b2da3f8f109eada4e04e8d76d04b",
+   "bytes": 23622,
+   "contentType": "image/webp",
+   "width": 1098,
+   "height": 423,
+   "questionIds": [
+    "0606-2017-june-21-q9"
+   ],
+   "freeYear": true
+  },
+  {
+   "objectKey": "igcse-additional/repairs/0606-ms-continuation-v1-a04d4eb780e5e341/200d4504bfd82042f80cc266022ec69579091e1ce860e7f775d03c57f5bfc48f.webp",
+   "path": "repairs/0606-ms-continuation-v1-a04d4eb780e5e341/200d4504bfd82042f80cc266022ec69579091e1ce860e7f775d03c57f5bfc48f.webp",
+   "sha256": "200d4504bfd82042f80cc266022ec69579091e1ce860e7f775d03c57f5bfc48f",
+   "bytes": 1214,
+   "contentType": "image/webp",
+   "width": 1070,
+   "height": 65,
+   "questionIds": [
+    "0606-2019-november-23-q6"
+   ],
+   "freeYear": false
+  }
+ ]
+}

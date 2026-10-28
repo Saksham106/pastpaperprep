@@ -52,9 +52,14 @@ export function premiumAssetSignOptions(bank: BankSlug): SignPrivateAssetOptions
 
 /**
  * Objects uploaded to R2 only, inside banks that otherwise sign from Supabase: the IB
- * shared-stimulus repair crops (docs/ib-shared-stimulus-repairs.md). They always sign from R2.
+ * shared-stimulus repair crops (docs/ib-shared-stimulus-repairs.md) and the 2026-10-27 IB crop repairs
+ * (docs/ib-crop-repairs-v2.md). They always sign from R2.
  */
-const R2_ONLY_OBJECT_PATH = /^ib-(?:biology|chemistry|physics)-(?:hl|sl)\/repairs\/ib-shared-stimulus-v1-d53ab265e7e81518\//;
+const R2_ONLY_OBJECT_PATH = new RegExp([
+  /^ib-(?:biology|chemistry|physics)-(?:hl|sl)\/repairs\/ib-shared-stimulus-v1-d53ab265e7e81518\//.source,
+  /^ib-chemistry-(?:hl|sl)\/repairs\/(?:ib-chem-rotated-ms-v1-48bd656d4ed1c039|ib-shared-stimulus-v2-d754c69922df87d2)\//.source,
+  /^ib-physics-(?:hl|sl)\/repairs\/ib-question-boundary-v2-3f2282f55b5345a5\//.source,
+].join("|"));
 
 export function isR2OnlyObjectPath(path: string): boolean {
   return R2_ONLY_OBJECT_PATH.test(path);

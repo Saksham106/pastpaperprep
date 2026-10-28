@@ -58,7 +58,9 @@ describe('reviewed IB shared-stimulus question crops',()=>{
     expect(after.get(qid)?.questionAssetPaths).toEqual(entry.newPaths.map(p=>key(bank,p)));
     expect(metadataFromRaw(q,{bank,normalizedProduction:true}).questionImageCount).toBe(entry.newPaths.length);
    }
-   for(const q of after.values())if(!repairs[q.id])expect(q.questionAssetPaths.some(p=>p.includes('/ib-shared-stimulus-v1-'))).toBe(false);
+   // The v2 overlay (docs/ib-crop-repairs-v2.md) reuses a v1 data block for 2017 May TZ1 Paper 3 Q2-Q5.
+   const v2=JSON.parse(readFileSync('src/data/reviewed-ib-shared-stimulus-repairs-v2.json','utf8')).banks[bank]??{};
+   for(const q of after.values())if(!repairs[q.id]&&!v2[q.id])expect(q.questionAssetPaths.some(p=>p.includes('/ib-shared-stimulus-v1-'))).toBe(false);
    expect(JSON.stringify(raw)).toBe(before);
   }
  });

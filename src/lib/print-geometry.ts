@@ -6,6 +6,7 @@ import verified0606March2026 from "@/data/print-geometry-0606-2026-march.json";
 import type { BankSlug } from "@/lib/banks";
 import { reviewedBlankTailForSignedAsset, reviewedBlankSourcePage } from "@/lib/reviewed-blank-tails";
 import { reviewed0606RightEdgeGeometry } from "@/lib/reviewed-0606-ms-right-edge-repairs";
+import { reviewed0606ContinuationGeometry } from "@/lib/reviewed-0606-ms-continuation-repairs";
 import { reviewed0606SplitGeometry } from "@/lib/reviewed-0606-question-splits";
 import { reviewed0580SplitGeometry } from "@/lib/reviewed-0580-question-splits";
 
@@ -74,7 +75,8 @@ function geometryForSignedPath(
   if (bank === "igcse-additional") {
     // A reviewed edge repair keeps the historical vertical geometry at its wider width.
     // So does a reviewed question split, at its own question's segment.
-    const repaired = kind === "answer" ? reviewed0606RightEdgeGeometry(questionId, path) : reviewed0606SplitGeometry(questionId, path);
+    // An added continuation crop carries its own single-segment geometry.
+    const repaired = kind === "answer" ? reviewed0606ContinuationGeometry(questionId, path) ?? reviewed0606RightEdgeGeometry(questionId, path) : reviewed0606SplitGeometry(questionId, path);
     if (repaired) {
       return {
         size: repaired.physicalSizePt,

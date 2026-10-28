@@ -14,6 +14,7 @@ import ibScienceCropRepairs from '@/data/reviewed-ib-science-crop-repairs.json';
 import ibMathsMsRowRepairs from '@/data/reviewed-ib-maths-ms-row-repairs.json';
 import type { BankSlug } from '@/lib/banks';
 import { historicalMarkschemePaths } from '@/lib/reviewed-biology-historical-crops';
+import { rotatedChemistryMarkschemePaths } from '@/lib/reviewed-ib-chemistry-rotated-ms';
 
 type Repair = { oldPaths: string[]; newPaths: string[]; sha256: string };
 const entries = repairs.entries as Record<string, Repair>;
@@ -30,6 +31,12 @@ export const IB_SCIENCE_CROP_REPAIR_BANKS: ReadonlySet<BankSlug> = new Set(Objec
 export function reviewedMarkschemePaths(bank: BankSlug, questionId: string, paths: readonly string[]): string[] {
   if (IB_SCIENCE_CROP_REPAIR_BANKS.has(bank)) {
     const entry = ibScienceCropBanks[bank]?.[questionId];
+    // IB Chemistry 2017-2019 rotated mark schemes (docs/ib-crop-repairs-v2.md); never the same question as this file's.
+    const rotated = rotatedChemistryMarkschemePaths(bank, questionId, paths);
+    if (rotated) {
+      if (entry) throw new Error(`Two reviewed IB answer-crop repairs for ${bank}:${questionId}`);
+      return rotated;
+    }
     if (!entry) return [...paths];
     // Bound to the exact old paths; a kept path keeps its old hash, a new one lives under the namespace by hash.
     if (JSON.stringify(paths)!==JSON.stringify(entry.oldPaths) || entry.oldPaths.length!==entry.oldSha256.length ||

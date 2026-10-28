@@ -51,7 +51,18 @@ const ibBoundaryRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'r
 const ibScienceCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-science-crop-repairs.json'), 'utf8'));
 const ibMathsMsRowRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-maths-ms-row-repairs.json'), 'utf8')).banks;
 const ibSharedStimulusRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-shared-stimulus-repairs.json'), 'utf8')).banks;
-const ibQuestionBoundaryRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-question-boundary-repairs.json'), 'utf8')).banks;
+const ibQuestionBoundaryRepairsV1 = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-question-boundary-repairs.json'), 'utf8')).banks;
+const ibQuestionBoundaryRepairsV2 = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-question-boundary-repairs-v2.json'), 'utf8')).banks;
+// Same union as src/lib/reviewed-ib-question-boundaries.ts (v1 Biology, v2 Physics; never the same question).
+const ibQuestionBoundaryRepairs = {};
+for (const banks of [ibQuestionBoundaryRepairsV1, ibQuestionBoundaryRepairsV2]) for (const [bank, entries] of Object.entries(banks)) {
+  for (const id of Object.keys(entries)) if (ibQuestionBoundaryRepairs[bank]?.[id]) throw new Error(`Two reviewed IB question boundaries for ${bank}:${id}`);
+  ibQuestionBoundaryRepairs[bank] = { ...(ibQuestionBoundaryRepairs[bank] ?? {}), ...entries };
+}
+const ibSharedStimulusRepairsV2 = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-shared-stimulus-repairs-v2.json'), 'utf8')).banks;
+const ibChemistryRotatedMs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-ib-chemistry-rotated-ms-repairs.json'), 'utf8')).banks;
+const continuation0606 = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-0606-ms-continuation-repairs.json'), 'utf8'));
+const rightEdge0606 = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-0606-ms-right-edge-repairs.json'), 'utf8'));
 const historicalCropRepairs = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-historical-crop-repairs.json'), 'utf8'));
 const biologyPrintedMarks = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-biology-printed-marks.json'), 'utf8'));
 const questionSplits0606 = JSON.parse(await readFile(join(root, 'src', 'data', 'reviewed-0606-question-splits.json'), 'utf8'));
@@ -107,6 +118,20 @@ function printedMarks(bank, raw, marks) {
   return repair.new;
 }
 function activeMarkschemeImageCount(bank, raw) {
+  // Same projection as src/lib/reviewed-0606-ms-continuation-repairs.ts, applied after the source-grid and right-edge overlays.
+  const continuation = bank === continuation0606.bank && Object.prototype.hasOwnProperty.call(continuation0606.entries, raw.id) ? continuation0606.entries[raw.id] : null;
+  if (continuation) {
+    const served = rightEdge0606.entries[raw.id]?.newPaths ?? mathsAnswerRepairs[bank]?.[raw.id]?.newPaths ?? strings(raw.markschemeImages);
+    if (JSON.stringify(served) !== JSON.stringify(continuation.oldPaths) || continuation.newPaths.length <= served.length) throw new Error(`Reviewed 0606 continuation count disagrees with ${bank}:${raw.id}`);
+    return continuation.newPaths.length;
+  }
+  // Same projection as src/lib/reviewed-ib-chemistry-rotated-ms.ts.
+  const rotated = ibChemistryRotatedMs[bank]?.[raw.id];
+  if (rotated) {
+    const sourcePaths=Array.from(new Set([...strings(raw.markschemeImages),...strings(raw.officialMarkscheme?.images)]));
+    if(JSON.stringify(sourcePaths)!==JSON.stringify(rotated.oldPaths)||rotated.newPaths.length<1||ibScienceCropRepairs.banks[bank]?.[raw.id])throw new Error(`Reviewed IB Chemistry rotated mark-scheme count disagrees with ${bank}:${raw.id}`);
+    return rotated.newPaths.length;
+  }
   const ibScience = ibScienceCropRepairs.banks[bank]?.[raw.id];
   if (ibScience) {
     // Economics rows repeat the same crops in both lists; the runtime de-duplicates them for private banks.
@@ -164,7 +189,8 @@ function activeQuestionImageCount(bank, raw) {
     if (JSON.stringify(paths) !== JSON.stringify(ibBoundary.oldPaths)) throw new Error(`Reviewed IB question boundary disagrees with ${bank}:${raw.id}`);
     return ibBoundary.newPaths.length;
   }
-  const ibShared = ibSharedStimulusRepairs[bank]?.[raw.id];
+  if (ibSharedStimulusRepairs[bank]?.[raw.id] && ibSharedStimulusRepairsV2[bank]?.[raw.id]) throw new Error(`Two reviewed IB shared-stimulus crops for ${bank}:${raw.id}`);
+  const ibShared = ibSharedStimulusRepairs[bank]?.[raw.id] ?? ibSharedStimulusRepairsV2[bank]?.[raw.id];
   if (ibShared) {
     if (JSON.stringify(paths) !== JSON.stringify(ibShared.oldPaths)) throw new Error(`Reviewed IB shared-stimulus crop disagrees with ${bank}:${raw.id}`);
     return ibShared.newPaths.length;

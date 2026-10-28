@@ -1,0 +1,352 @@
+{
+ "schema": "reviewed-ib-shared-stimulus-repairs-v2",
+ "namespace": "repairs/ib-shared-stimulus-v2-d754c69922df87d2",
+ "source": {
+  "package": "research/ib-crop-repairs-v2 (built by scripts/ib-crop-repairs-v2/build_crops.py)",
+  "packageSha256": "fabed4ee97b6915531dc1e8b4ae271b57d2e9ac234038e22331d33a9adb087e7",
+  "builderSha256": "a0a5bb4055d6db6f2c2fbc41386e20af27e9834859af0c397b9bc910c131088a"
+ },
+ "banks": {
+  "ib-chemistry-hl": {
+   "2017-may-tz1-hl-p3-q2": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-hl-p3-q2-page-3.webp"
+    ],
+    "oldSha256": [
+     "ad84763a8d2dad9d3fdcf6eef466a76e46259c9795b7da43f51445aa5626bc85"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v1-d53ab265e7e81518/7343265f4f45740cc19df07c08cdfa7dcbcb786d64743bb53994159ed777f59f.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-hl-p3-q2-page-3.webp"
+    ],
+    "sha256": [
+     "7343265f4f45740cc19df07c08cdfa7dcbcb786d64743bb53994159ed777f59f",
+     "ad84763a8d2dad9d3fdcf6eef466a76e46259c9795b7da43f51445aa5626bc85"
+    ]
+   },
+   "2017-may-tz1-hl-p3-q3": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-hl-p3-q3-page-3.webp"
+    ],
+    "oldSha256": [
+     "c3b419a9ec1b898c6c139ae7a5c64cd4702db2a6a6c2a11b26cb492160e56964"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v1-d53ab265e7e81518/7343265f4f45740cc19df07c08cdfa7dcbcb786d64743bb53994159ed777f59f.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-hl-p3-q3-page-3.webp"
+    ],
+    "sha256": [
+     "7343265f4f45740cc19df07c08cdfa7dcbcb786d64743bb53994159ed777f59f",
+     "c3b419a9ec1b898c6c139ae7a5c64cd4702db2a6a6c2a11b26cb492160e56964"
+    ]
+   },
+   "2017-may-tz1-hl-p3-q4": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-hl-p3-q4-page-3.webp"
+    ],
+    "oldSha256": [
+     "76ea814bd227c1d9b5bf12c992316b3fc46419311f2d9d26faa6a36387dca0f7"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v1-d53ab265e7e81518/7343265f4f45740cc19df07c08cdfa7dcbcb786d64743bb53994159ed777f59f.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-hl-p3-q4-page-3.webp"
+    ],
+    "sha256": [
+     "7343265f4f45740cc19df07c08cdfa7dcbcb786d64743bb53994159ed777f59f",
+     "76ea814bd227c1d9b5bf12c992316b3fc46419311f2d9d26faa6a36387dca0f7"
+    ]
+   },
+   "2017-may-tz1-hl-p3-q5": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-hl-p3-q5-page-4.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-hl-p3-q5-page-5.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-hl-p3-q5-page-6.webp"
+    ],
+    "oldSha256": [
+     "1450e2a6f8808963de5ef0d6fb28be14bb5b08e9d2b780f9a3dc11ff57f4e7a3",
+     "209cc6253e1745b4521df1636a3340155ccc9ccd0f34ee514cb984b6bbee9dfa",
+     "1f84acbef803970fb33ae5e0c0b15cae48bba0440b16b97a9c023be28addd9ea"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v1-d53ab265e7e81518/7343265f4f45740cc19df07c08cdfa7dcbcb786d64743bb53994159ed777f59f.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-hl-p3-q5-page-4.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-hl-p3-q5-page-5.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-hl-p3-q5-page-6.webp"
+    ],
+    "sha256": [
+     "7343265f4f45740cc19df07c08cdfa7dcbcb786d64743bb53994159ed777f59f",
+     "1450e2a6f8808963de5ef0d6fb28be14bb5b08e9d2b780f9a3dc11ff57f4e7a3",
+     "209cc6253e1745b4521df1636a3340155ccc9ccd0f34ee514cb984b6bbee9dfa",
+     "1f84acbef803970fb33ae5e0c0b15cae48bba0440b16b97a9c023be28addd9ea"
+    ]
+   },
+   "2017-may-tz2-hl-p1-q17": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz2-hl-p1-q17-page-8.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz2-hl-p1-q17-page-9.webp"
+    ],
+    "oldSha256": [
+     "da46aac34892cc4f61c73fa811c520d91bfb4632b2ad5f251a48f3e141680f74",
+     "15db23da1c6d4f6115c0fd158e1cdccd07f8e70a6b8a1bb37593749f53610779"
+    ],
+    "newPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz2-hl-p1-q17-page-8.webp"
+    ],
+    "sha256": [
+     "da46aac34892cc4f61c73fa811c520d91bfb4632b2ad5f251a48f3e141680f74"
+    ]
+   },
+   "2017-may-tz2-hl-p1-q18": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz2-hl-p1-q18-page-9.webp"
+    ],
+    "oldSha256": [
+     "079adcec15660c640d3cc50a34bbcb7ae7c53f4553de9161e38678f681e34756"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v2-d754c69922df87d2/ac8fe6f49f75289ea1e74c16197371f15414433ba28117aa11c09ff67798eb34.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz2-hl-p1-q18-page-9.webp"
+    ],
+    "sha256": [
+     "ac8fe6f49f75289ea1e74c16197371f15414433ba28117aa11c09ff67798eb34",
+     "079adcec15660c640d3cc50a34bbcb7ae7c53f4553de9161e38678f681e34756"
+    ]
+   },
+   "2017-may-tz2-hl-p1-q19": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz2-hl-p1-q19-page-9.webp"
+    ],
+    "oldSha256": [
+     "6055aea0e0ddbd18169f695b5f41924a1c21eae1e9b12cd8e0a7e4718ca6352c"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v2-d754c69922df87d2/ac8fe6f49f75289ea1e74c16197371f15414433ba28117aa11c09ff67798eb34.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz2-hl-p1-q19-page-9.webp"
+    ],
+    "sha256": [
+     "ac8fe6f49f75289ea1e74c16197371f15414433ba28117aa11c09ff67798eb34",
+     "6055aea0e0ddbd18169f695b5f41924a1c21eae1e9b12cd8e0a7e4718ca6352c"
+    ]
+   },
+   "2019-november-tz0-hl-p1-q13": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2019-november-tz0-hl-p1-q13-page-7.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2019-november-tz0-hl-p1-q13-page-8.webp"
+    ],
+    "oldSha256": [
+     "ee708a0ff4eee7e1f81f297920790554995ac89512b66564c588d3b4c68ed2bf",
+     "382c1e362256e4a1b7be21e97b3c2589d4fd65e01f66486acb53781580c49de7"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v2-d754c69922df87d2/1b63b49d767df7391ceb90966e5dfdd98250693b0d88d0ee9994452d8fafeb6d.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2019-november-tz0-hl-p1-q13-page-8.webp"
+    ],
+    "sha256": [
+     "1b63b49d767df7391ceb90966e5dfdd98250693b0d88d0ee9994452d8fafeb6d",
+     "382c1e362256e4a1b7be21e97b3c2589d4fd65e01f66486acb53781580c49de7"
+    ]
+   },
+   "2019-november-tz0-hl-p1-q14": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2019-november-tz0-hl-p1-q14-page-8.webp"
+    ],
+    "oldSha256": [
+     "84bbb4a12ae1db6d578d5263ee844a43e29f7b93caaed4f9c9afd4ef7f881f2b"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v2-d754c69922df87d2/98651f15b71552836b1ef9414ffd5eeef2028265477fa807496807ddfe43770b.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2019-november-tz0-hl-p1-q14-page-8.webp"
+    ],
+    "sha256": [
+     "98651f15b71552836b1ef9414ffd5eeef2028265477fa807496807ddfe43770b",
+     "84bbb4a12ae1db6d578d5263ee844a43e29f7b93caaed4f9c9afd4ef7f881f2b"
+    ]
+   },
+   "2019-november-tz0-hl-p1-q15": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2019-november-tz0-hl-p1-q15-page-8.webp"
+    ],
+    "oldSha256": [
+     "8acbd9e0999ef2e2446f3f129bc4ca7f412a3fc86da215c51e24274976967094"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v2-d754c69922df87d2/98651f15b71552836b1ef9414ffd5eeef2028265477fa807496807ddfe43770b.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2019-november-tz0-hl-p1-q15-page-8.webp"
+    ],
+    "sha256": [
+     "98651f15b71552836b1ef9414ffd5eeef2028265477fa807496807ddfe43770b",
+     "8acbd9e0999ef2e2446f3f129bc4ca7f412a3fc86da215c51e24274976967094"
+    ]
+   }
+  },
+  "ib-chemistry-sl": {
+   "2017-may-tz1-sl-p3-q2": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-sl-p3-q2-page-3.webp"
+    ],
+    "oldSha256": [
+     "ad84763a8d2dad9d3fdcf6eef466a76e46259c9795b7da43f51445aa5626bc85"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v1-d53ab265e7e81518/18b8e8f96bfe78d2b65d615b529cd966f2f471201d89be3ce6acf7776ed63020.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-sl-p3-q2-page-3.webp"
+    ],
+    "sha256": [
+     "18b8e8f96bfe78d2b65d615b529cd966f2f471201d89be3ce6acf7776ed63020",
+     "ad84763a8d2dad9d3fdcf6eef466a76e46259c9795b7da43f51445aa5626bc85"
+    ]
+   },
+   "2017-may-tz1-sl-p3-q3": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-sl-p3-q3-page-3.webp"
+    ],
+    "oldSha256": [
+     "c3b419a9ec1b898c6c139ae7a5c64cd4702db2a6a6c2a11b26cb492160e56964"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v1-d53ab265e7e81518/18b8e8f96bfe78d2b65d615b529cd966f2f471201d89be3ce6acf7776ed63020.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-sl-p3-q3-page-3.webp"
+    ],
+    "sha256": [
+     "18b8e8f96bfe78d2b65d615b529cd966f2f471201d89be3ce6acf7776ed63020",
+     "c3b419a9ec1b898c6c139ae7a5c64cd4702db2a6a6c2a11b26cb492160e56964"
+    ]
+   },
+   "2017-may-tz1-sl-p3-q4": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-sl-p3-q4-page-3.webp"
+    ],
+    "oldSha256": [
+     "b67fcda07033babb82d4d666ee0bc9197529c12c2d313679a86ce217fbaec316"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v1-d53ab265e7e81518/18b8e8f96bfe78d2b65d615b529cd966f2f471201d89be3ce6acf7776ed63020.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-sl-p3-q4-page-3.webp"
+    ],
+    "sha256": [
+     "18b8e8f96bfe78d2b65d615b529cd966f2f471201d89be3ce6acf7776ed63020",
+     "b67fcda07033babb82d4d666ee0bc9197529c12c2d313679a86ce217fbaec316"
+    ]
+   },
+   "2017-may-tz1-sl-p3-q5": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-sl-p3-q5-page-4.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-sl-p3-q5-page-5.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-sl-p3-q5-page-6.webp"
+    ],
+    "oldSha256": [
+     "e4598bff6dfd87760a00771b887b9c94932b7725a28683712adfa65646fefe41",
+     "548aaf37d37ca04f81b3c5043bed6c3ddce8b4c148f7d170b0f0ac02bf6a36c1",
+     "f3c84f33f9287f3ee400d3800dc38fb35ec94f04d886784981cfdb4fe411d326"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v1-d53ab265e7e81518/18b8e8f96bfe78d2b65d615b529cd966f2f471201d89be3ce6acf7776ed63020.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-sl-p3-q5-page-4.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-sl-p3-q5-page-5.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz1-sl-p3-q5-page-6.webp"
+    ],
+    "sha256": [
+     "18b8e8f96bfe78d2b65d615b529cd966f2f471201d89be3ce6acf7776ed63020",
+     "e4598bff6dfd87760a00771b887b9c94932b7725a28683712adfa65646fefe41",
+     "548aaf37d37ca04f81b3c5043bed6c3ddce8b4c148f7d170b0f0ac02bf6a36c1",
+     "f3c84f33f9287f3ee400d3800dc38fb35ec94f04d886784981cfdb4fe411d326"
+    ]
+   },
+   "2017-may-tz2-sl-p1-q15": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz2-sl-p1-q15-page-7.webp"
+    ],
+    "oldSha256": [
+     "61a739d891aec12c4c652f499b9c8a4a3b98e6f2ce3e44a2356688535d528b2c"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v2-d754c69922df87d2/e714665837f384bd82880e458be8200a6bc9c23d8e42729b581879362d0b69f4.webp"
+    ],
+    "sha256": [
+     "e714665837f384bd82880e458be8200a6bc9c23d8e42729b581879362d0b69f4"
+    ]
+   },
+   "2017-may-tz2-sl-p1-q16": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz2-sl-p1-q16-page-7.webp"
+    ],
+    "oldSha256": [
+     "9e30fdbbbba0c08d98f10510e9f83c19c07227707dadf3588d9d4252062f8e89"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v2-d754c69922df87d2/4b71d91d555b66447438e952ba79d4d536cd56f9c956d16c398d17b2a9d9da39.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz2-sl-p1-q16-page-7.webp"
+    ],
+    "sha256": [
+     "4b71d91d555b66447438e952ba79d4d536cd56f9c956d16c398d17b2a9d9da39",
+     "9e30fdbbbba0c08d98f10510e9f83c19c07227707dadf3588d9d4252062f8e89"
+    ]
+   },
+   "2017-may-tz2-sl-p1-q17": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz2-sl-p1-q17-page-7.webp"
+    ],
+    "oldSha256": [
+     "b364540aea5f2aacce110cfb29deae78a5c4d03f0a7bf384d8cc87c18f9aabd6"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v2-d754c69922df87d2/4b71d91d555b66447438e952ba79d4d536cd56f9c956d16c398d17b2a9d9da39.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2017-may-tz2-sl-p1-q17-page-7.webp"
+    ],
+    "sha256": [
+     "4b71d91d555b66447438e952ba79d4d536cd56f9c956d16c398d17b2a9d9da39",
+     "b364540aea5f2aacce110cfb29deae78a5c4d03f0a7bf384d8cc87c18f9aabd6"
+    ]
+   },
+   "2019-november-tz0-sl-p1-q12": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2019-november-tz0-sl-p1-q12-page-6.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2019-november-tz0-sl-p1-q12-page-7.webp"
+    ],
+    "oldSha256": [
+     "76031ed60e9319e51d35f8df3924f7364035c8077b3bb507b3d40fd1651f227f",
+     "2cbdfc9649e83a7e16fa7b95a641a1843cb1c68fda0557e0db4c5ef5a17ce176"
+    ],
+    "newPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2019-november-tz0-sl-p1-q12-page-6.webp"
+    ],
+    "sha256": [
+     "76031ed60e9319e51d35f8df3924f7364035c8077b3bb507b3d40fd1651f227f"
+    ]
+   },
+   "2019-november-tz0-sl-p1-q13": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2019-november-tz0-sl-p1-q13-page-7.webp"
+    ],
+    "oldSha256": [
+     "07b9d950cddef1bbb2077c6be9eea9ff934020d26d1de85fbe6c30a373818fa6"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v2-d754c69922df87d2/c689cd5f2efc0a87464e00cad7996d6f93856cc4de94bbda9a479148a2d01904.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2019-november-tz0-sl-p1-q13-page-7.webp"
+    ],
+    "sha256": [
+     "c689cd5f2efc0a87464e00cad7996d6f93856cc4de94bbda9a479148a2d01904",
+     "07b9d950cddef1bbb2077c6be9eea9ff934020d26d1de85fbe6c30a373818fa6"
+    ]
+   },
+   "2019-november-tz0-sl-p1-q14": {
+    "oldPaths": [
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2019-november-tz0-sl-p1-q14-page-8.webp"
+    ],
+    "oldSha256": [
+     "7cd1e16f7c99e2e7f8e592d5a3d97e81841d652d21fb559f8396f651d93d11e5"
+    ],
+    "newPaths": [
+     "repairs/ib-shared-stimulus-v2-d754c69922df87d2/c689cd5f2efc0a87464e00cad7996d6f93856cc4de94bbda9a479148a2d01904.webp",
+     "https://saksham106.github.io/ib-chemistry-topic-practice/questions/2019-november-tz0-sl-p1-q14-page-8.webp"
+    ],
+    "sha256": [
+     "c689cd5f2efc0a87464e00cad7996d6f93856cc4de94bbda9a479148a2d01904",
+     "7cd1e16f7c99e2e7f8e592d5a3d97e81841d652d21fb559f8396f651d93d11e5"
+    ]
+   }
+  }
+ },
+ "reuses": "repairs/ib-shared-stimulus-v1-d53ab265e7e81518"
+}

@@ -9,6 +9,8 @@ const maths = JSON.parse(readFileSync('src/data/raw/igcse.json','utf8'));
 const additional = JSON.parse(readFileSync('src/data/raw/igcse-additional.json','utf8'));
 import { reviewedMarkschemePaths } from '@/lib/reviewed-mcq-answer-repairs';
 import { reviewed0606RightEdgePaths } from '@/lib/reviewed-0606-ms-right-edge-repairs';
+// Continuation rows are added after both overlays (docs/ib-crop-repairs-v2.md).
+import { reviewed0606ContinuationPaths } from '@/lib/reviewed-0606-ms-continuation-repairs';
 import { loadBankQuestions } from '@/lib/question-loader';
 import { normalizeBankQuestions } from '@/lib/questions';
 import type { BankSlug } from '@/lib/banks';
@@ -25,10 +27,13 @@ describe('reviewed IGCSE maths source-answer repairs', () => {
         const row=rows.find(q=>q.id===qid)!;
         expect(reviewedMarkschemePaths(bank,qid,row.markschemeImages)).toEqual(entry.newPaths);
         // A later reviewed 0606 edge repair may supersede individual images, bound to these exact paths.
-        const active = reviewed0606RightEdgePaths(bank,qid,entry.newPaths);
-        expect(active).toHaveLength(entry.newPaths.length);
+        const edged = reviewed0606RightEdgePaths(bank,qid,entry.newPaths);
+        expect(edged).toHaveLength(entry.newPaths.length);
+        // A reviewed continuation (docs/ib-crop-repairs-v2.md) keeps these crops and adds the rows they missed.
+        const active = reviewed0606ContinuationPaths(bank,qid,edged);
+        expect(active.filter((p)=>edged.includes(p))).toEqual(edged);
         expect(normalized.get(qid)?.markschemeAssetPaths).toEqual(active.map(p=>`${bank}/${p}`));
-        expect(normalized.get(qid)?.markschemeImageCount).toBe(entry.newPaths.length);
+        expect(normalized.get(qid)?.markschemeImageCount).toBe(active.length);
         count++;
       }
       expect(JSON.stringify(rows)).toBe(before);
@@ -50,7 +55,7 @@ describe('reviewed IGCSE maths source-answer repairs', () => {
       // So do the reviewed 0580 question splits (reviewed-0580-question-splits.test.ts).
       const coreCropRepairs=bank==='igcse'?{...coreCrops.questions,...questionSplits0580.entries} as Record<string,{newPaths:string[]}>:questionSplits0606.entries as Record<string,{newPaths:string[]}>;
       for(const [qid,q]of loaded)expect(q.questionAssetPaths).toEqual(coreCropRepairs[qid]?coreCropRepairs[qid].newPaths.map(p=>`${bank}/${p}`):original.get(qid)?.questionAssetPaths);
-      for(const [qid,entry]of Object.entries(repairs[bank]))expect(loaded.get(qid)?.markschemeAssetPaths).toEqual(reviewed0606RightEdgePaths(bank,qid,entry.newPaths).map(p=>`${bank}/${p}`));
+      for(const [qid,entry]of Object.entries(repairs[bank]))expect(loaded.get(qid)?.markschemeAssetPaths).toEqual(reviewed0606ContinuationPaths(bank,qid,reviewed0606RightEdgePaths(bank,qid,entry.newPaths)).map(p=>`${bank}/${p}`));
     }
   });
   test('stale exact old paths fail closed',()=> {
