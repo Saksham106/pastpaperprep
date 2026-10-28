@@ -37,7 +37,7 @@ No email, name or account ID is ever sent without consent.
 | `checkout_start` / `checkout_auth_required` / `checkout_redirect` / `checkout_error` | checkout buttons | `interval`, `productId` |
 | `checkout_cancelled` | pricing with `?checkout=cancelled` (Stripe cancel) | none |
 | `checkout_returned` | account with `?checkout=success` or `lifetime-pending` | `status` |
-| `$exception` | uncaught browser errors, unhandled rejections, error boundaries | scrubbed message (`safeErrorMessage`), stack, `digest?` (matches the server render error) |
+| `$exception` | uncaught browser errors, unhandled rejections, error boundaries | scrubbed message (`safeErrorMessage`), stack, `digest?` (matches the server render error), `react_mismatch?` (`text`/`html` for React #418), plus the browser context below |
 | `api_request_failed` | any own `/api/*` call answering 5xx, 400, 408, 413 or 429, or failing on the network (`api-failure-monitor`) | `route` (ids as `[id]`), `method`, `status` (0 = network), `outcome`, `duration_ms`, `correlation_id?`, `user_id?` |
 | `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign`, `public_fallback` when a free.pastpaperprep.com link failed and the bank switched to signed links, or `failed`), `host` (`r2`, `supabase`, `free`, `self`, `other`), `user_id?` |
 | `past_paper_search` | past-paper search box (Enter or a suggestion) | `found` |
@@ -59,7 +59,7 @@ No email, name or account ID is ever sent without consent.
 | Event | Source | Properties |
 |---|---|---|
 | `conversion_outcome` | sign-up confirmation, Stripe `invoice.paid`, lifetime checkout | `outcome` (`signup_confirmed`, `payment_initial_paid`, `payment_renewal_paid`, `lifetime_paid`), `product?`, `interval?`, `identified`; purchases also `bank_scope` (`banks` or `all`), `bank_count`, `banks` (bank slugs the purchase covers, by the same rule as access checks; custom bundles from `selected_bank_ids`; omitted for all-access) |
-| `$exception` | unhandled server errors (`onRequestError`) | scrubbed message, `route`, `router_kind`, `route_type`, `error_code?`, `digest?`, `correlation_id` |
+| `$exception` | unhandled server errors (`onRequestError`) | scrubbed message, `route`, `router_kind`, `route_type`, `method?`, `error_code?`, `digest?`, `correlation_id`, plus `release?` (first 12 of the commit SHA) and `region?` (e.g. `iad1`) on every server exception |
 | `$exception` with `error_source: handled_response` | an API route answered 5xx (`withFailureReporting`) | `route`, `http_status`, `error_code`, `bank?`, `stage?`, `storage_provider?`, `correlation_id` (also sent as the `x-correlation-id` response header) |
 | `$exception` with `error_source: auth_provider` | auth provider failures | `auth_phase`, `provider_code` |
 
@@ -103,6 +103,23 @@ Vercel Hobby keeps runtime logs for about an hour, so production and preview ser
 To trace a failure: take `correlation_id` from `api_request_failed` (browser) or the `x-correlation-id` header, then search it in Logs and Error tracking. Render errors match on `digest`.
 
 Messages pass through `safeErrorMessage`, which returns only fixed diagnostics or normalized templates. Arbitrary text is omitted and exception producers use a generic fallback; parser inputs, dynamic property names outside a small code-controlled vocabulary, quoted secrets and personal prose are never retained as messages. React production errors keep only their code (`React error #418`). A failed script load keeps the `ChunkLoadError` name and only its generated chunk path (`Failed to load chunk /_next/static/immutable/chunks/<file>.js`), or `<chunk>` when the path isn't one; the module id and the browser's cause text are dropped. Known diagnostic outputs remain readable through a second SDK sanitization pass. Server exception names also use an explicit category allowlist.
+
+**Browser context** (`browser-error-context.ts`, on every browser `$exception`) separates our bugs from the visitor's setup. Booleans, counts and fixed vocabularies only; never page text, element or attribute names, or URLs:
+
+| Property | Meaning |
+|---|---|
+| `page_translated` | Chrome/Edge's `translated-ltr`/`-rtl` class on `<html>`, or `<html lang>` changed from `en`. Translation rewrites text before React hydrates and is the only way we have reproduced React #418 |
+| `page_lang` | primary language subtag of `<html lang>` (`en`, `es`, `zh`…), `other` if not a 2–3 letter code, `none` if missing |
+| `foreign_elements` | custom elements (tag with a hyphen) on the page that Next didn't render, capped at 50; extensions such as Grammarly add these |
+| `foreign_root_attributes` | attributes on `<html>`/`<body>` that our layout, next-themes and scroll locks don't set (extensions such as Dark Reader and Grammarly add these) |
+| `page_age_s` | seconds since the page loaded (capped at a day): load-time failures vs long-open tabs running an old release |
+| `visibility`, `ready_state` | `document.visibilityState` and `document.readyState` |
+| `online`, `connection`, `save_data` | `navigator.onLine`, Network Information `effectiveType` (`slow-2g`…`4g`) and data saver, where the browser exposes them |
+| `release` | first 12 characters of the build's commit SHA |
+
+To read a hydration error: `react_mismatch` says what differed; `page_translated` or a non-zero `foreign_*` points at the visitor's browser rather than our render. Recent events and failed API calls in the same visit are already linked by `$session_id`.
+
+Safari's and Firefox's TypeError/ReferenceError shapes map to fixed templates (`undefined is not an object (evaluating '<expression>')`, `Can't find variable: <identifier>`, `can't access property '<property>', value is undefined`, `Value is null`); the evaluated source text is dropped. Fixed browser texts for failed module loads, aborts, lost connections and `ResizeObserver` loops are kept verbatim.
 
 Expected Next navigation/access markers and explicit auth/limit outcomes are excluded on both browser and server. A keyword such as `cooldown` inside a `ReferenceError` or `TypeError` is not an expected outcome: programming crashes still emit one exception per error object. Each browser error kind (name, scrubbed message and top three scrubbed frames) is reported at most three times per page load, so a throwing timer can't flood error tracking or use up another code location's budget. Page errors are skipped only when every stack line is a recognised browser-extension frame (`chrome-extension://`, `moz-extension://`, …); mixed, eval, unparsed or over-long stacks are still reported.
 

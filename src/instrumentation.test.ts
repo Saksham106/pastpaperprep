@@ -15,7 +15,7 @@ describe("onRequestError telemetry", () => {
     const id = "7f1b6a2e-0000-4000-8000-000000000000";
     const cookie = `sb-wrig-auth-token=base64-${Buffer.from(JSON.stringify({ user: { id } })).toString("base64url")}`;
     await onRequestError(new Error("boom"), { path: "/dashboard", method: "GET", headers: { cookie } }, { routerKind: "App Router", routePath: "/dashboard", routeType: "render" });
-    expect(captureServerException.mock.calls[0][1]).toMatchObject({ route: "/dashboard", user_id: id });
+    expect(captureServerException.mock.calls[0][1]).toMatchObject({ route: "/dashboard", user_id: id, method: "GET" });
     await onRequestError(new Error("boom"), request, { routerKind: "App Router", routePath: "/account", routeType: "render" });
     expect(captureServerException.mock.calls[1][1]).not.toHaveProperty("user_id");
   });

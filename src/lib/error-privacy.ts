@@ -100,6 +100,11 @@ const DIAGNOSTIC_MESSAGES = new Set([
   // Chromium, when Next's inline page data arrives after its stream was closed or errored.
   "Failed to execute 'enqueue' on 'ReadableStreamDefaultController': Cannot enqueue a chunk into a readable stream that is closed or has been requested to be closed",
   "Failed to execute 'enqueue' on 'ReadableStreamDefaultController': Cannot enqueue a chunk into an errored readable stream",
+  // Fixed browser texts for failed script loads, aborted requests, lost connections and layout observers.
+  "Importing a module script failed.", "Failed to fetch dynamically imported module", "The operation was aborted.",
+  "signal is aborted without reason", "The user aborted a request.", "Script error.", "The network connection was lost.",
+  "The request timed out.", "cancelled", "ResizeObserver loop completed with undelivered notifications.", "ResizeObserver loop limit exceeded",
+  "undefined is not an object", "null is not an object", "Value is undefined", "Value is null",
 ]);
 const REACT_ERROR = /^(?:Minified React error #|React error #)(\d{1,4})(?:\D|$)/;
 
@@ -123,7 +128,17 @@ export function safeErrorMessage(message: unknown): string | undefined {
   }
   const reference = text.match(/^([A-Za-z_$][\w$]*|<identifier>) is not defined$/);
   if (reference) return `${DIAGNOSTIC_WORDS.has(reference[1]) ? reference[1] : "<identifier>"} is not defined`;
-  if (/^.+ is not a function$/.test(text)) return "Value is not a function";
+  if (/^.+ is not a function(?:\. \(In .+\))?$/.test(text)) return "Value is not a function";
+  // Safari and Firefox phrase the same TypeErrors differently. The evaluated expression is source text and is dropped.
+  const safariObject = text.match(/^(undefined|null) is not an object \(evaluating .+\)$/);
+  if (safariObject) return `${safariObject[1]} is not an object (evaluating '<expression>')`;
+  const safariVariable = text.match(/^Can't find variable: ([A-Za-z_$][\w$]*|<identifier>)$/);
+  if (safariVariable) return `Can't find variable: ${DIAGNOSTIC_WORDS.has(safariVariable[1]) ? safariVariable[1] : "<identifier>"}`;
+  const firefoxAccess = text.match(/^can't access property .+, .+ is (undefined|null)$/);
+  if (firefoxAccess) return `can't access property '<property>', value is ${firefoxAccess[1]}`;
+  const firefoxValue = text.match(/^.+ is (undefined|null)$/);
+  if (firefoxValue) return `Value is ${firefoxValue[1]}`;
+  if (/^(?:Failed to fetch|error loading) dynamically imported module: /.test(text)) return "Failed to fetch dynamically imported module";
   if (/^Unexpected token .+ is not valid JSON$/.test(text)
     || /^Expected (?:property name|','|':'|double-quoted property name).+ in JSON at position /.test(text)) return "Invalid JSON input";
   if (/^Key \([^)]*\)=\([^)]*\) already exists\.?$/.test(text)) return "Database key already exists";

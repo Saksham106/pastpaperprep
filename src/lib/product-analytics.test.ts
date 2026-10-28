@@ -24,6 +24,7 @@ describe("PostHog product analytics", () => {
     posthogConsented.opt_in_capturing.mockReset();
     posthogConsented.opt_out_capturing.mockReset();
     document.cookie = "ppp_analytics_consent=v2.accepted; Path=/";
+    document.documentElement.lang = "en"; // as the root layout renders it
   });
 
   it("captures anonymous baseline in always-cookieless mode before any choice and after rejection", async () => {
@@ -347,7 +348,8 @@ describe("PostHog product analytics", () => {
     await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledTimes(1));
     const [captured, properties] = posthog.captureException.mock.calls[0] as [Error, Record<string, string>];
     expect(captured.message).toBe("React error #418");
-    expect(properties).toEqual({ digest: "2918384837" });
+    expect(properties).toEqual({ digest: "2918384837", react_mismatch: "html", page_translated: false, page_lang: "en", foreign_elements: 0, foreign_root_attributes: 0, page_age_s: expect.any(Number), visibility: "visible", ready_state: "complete", online: true });
+    expect(JSON.stringify(properties)).not.toContain("Alice");
   });
 
   it("reports programming crashes containing control-flow keywords once per error", async () => {
@@ -450,10 +452,28 @@ describe("PostHog product analytics", () => {
       await initializeProductAnalytics();
       captureAppException(new TypeError("x"));
       await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledTimes(1));
-      expect(posthog.captureException.mock.calls[0][1]).toEqual({ user_id: id });
+      expect(posthog.captureException.mock.calls[0][1]).toEqual({ user_id: id, page_translated: false, page_lang: "en", foreign_elements: 0, foreign_root_attributes: 0, page_age_s: expect.any(Number), visibility: "visible", ready_state: "complete", online: true });
       expect(JSON.stringify(posthog.captureException.mock.calls)).not.toContain("student@example.com");
     } finally {
       document.cookie = "sb-wrig-auth-token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    }
+  });
+
+  it("adds translation and extension context to every browser exception", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    document.documentElement.lang = "es";
+    document.documentElement.classList.add("translated-ltr");
+    document.body.setAttribute("data-gr-ext-installed", "");
+    try {
+      const { initializeProductAnalytics, captureAppException } = await import("@/lib/product-analytics");
+      await initializeProductAnalytics();
+      captureAppException(new TypeError("Cannot read properties of undefined (reading 'x')"));
+      await vi.waitFor(() => expect(posthog.captureException).toHaveBeenCalledTimes(1));
+      expect(posthog.captureException.mock.calls[0][1]).toEqual({ page_translated: true, page_lang: "es", foreign_elements: 0, foreign_root_attributes: 1, page_age_s: expect.any(Number), visibility: "visible", ready_state: "complete", online: true });
+    } finally {
+      document.documentElement.lang = "en";
+      document.documentElement.classList.remove("translated-ltr");
+      document.body.removeAttribute("data-gr-ext-installed");
     }
   });
 
