@@ -8,6 +8,8 @@ import { MAX_DRAFT_QUESTIONS, type DraftTarget, type PaperDraftTarget } from "@/
 export type BuilderState = {
   bank?: string; route: CourseRouteSelection; from?: number; to?: number; selection: string[]; target: DraftTarget; seed?: number;
   ids: string[]; removed: string[]; reordered: boolean;
+  /** Also take questions that cover a picked topic in only some of their parts. */
+  partial: boolean;
 };
 const QUESTION_ID = /^[A-Za-z0-9._:-]{1,120}$/;
 const MAX_REMOVED = 200;
@@ -47,6 +49,7 @@ export function parseBuilderState(params: URLSearchParams): BuilderState {
     ids: [...new Set(params.getAll("q").filter((id) => QUESTION_ID.test(id)))].slice(0, MAX_DRAFT_QUESTIONS),
     removed: [...new Set(params.getAll("x").filter((id) => QUESTION_ID.test(id)))].slice(0, MAX_REMOVED),
     reordered: params.get("o") === "1",
+    partial: params.get("p") === "1",
   };
   if (bank && /^[a-z0-9-]{1,40}$/.test(bank)) state.bank = bank;
   const from = year(params.get("from")), to = year(params.get("to"));
@@ -69,5 +72,6 @@ export function serializeBuilderState(state: BuilderState): string {
   for (const id of state.ids) params.append("q", id);
   for (const id of state.removed.slice(0, MAX_REMOVED)) params.append("x", id);
   if (state.reordered) params.set("o", "1");
+  if (state.partial) params.set("p", "1");
   return params.toString();
 }

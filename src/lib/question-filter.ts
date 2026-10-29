@@ -32,6 +32,13 @@ function filterableTopics(question: UnifiedQuestion): string[] {
   return topics;
 }
 
+/** Whether the question is mainly on this topic, not just tagged with it for one of its parts. */
+export function isMainTopic(question: Pick<UnifiedQuestion, "bankSlug" | "primaryTopic" | "subtopics">, topic: string): boolean {
+  if (topic === EARLIER_MATHS_TOPIC && isCleanMathsBank(question.bankSlug)) return isEarlierMathsQuestion(question);
+  if (question.bankSlug === "igcse-biology-0610" && canonicalBiology0610Topic(question.primaryTopic) === topic) return true;
+  return question.primaryTopic === topic;
+}
+
 function filterableSubtopics(question: UnifiedQuestion): string[] {
   return isLocalEconomicsBank(question.bankSlug)
     ? [...new Set(question.subtopics)]

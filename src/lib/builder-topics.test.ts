@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
-import { buildTopicIndex, countNodes, knownKeys, selectionMatcher, subtopicKey, toggleKey, topicKey, type BuilderQuestion } from "@/lib/builder-topics";
+import { buildTopicIndex, countNodes, knownKeys, partlyCovered, selectionMatcher, subtopicKey, toggleKey, topicKey, type BuilderQuestion } from "@/lib/builder-topics";
 import type { BankSlug } from "@/lib/catalog";
 import { getMathsPickerTopics } from "@/lib/maths-picker";
 import { filterQuestions } from "@/lib/question-filter";
@@ -25,9 +25,9 @@ describe("builder topic index", () => {
     expect(labels.some((label) => /^\d+(\.\d+)*$/.test(label))).toBe(false);
   });
 
-  it("counts each node exactly as the bank page filter would", () => {
+  it("counts each node exactly as the bank page filter would when partial matches are included", () => {
     const all = biology.map((question) => ({ ...question, skills: question.skills ?? [], searchText: "", courseEra: "", secondarySubtopics: [] })) as unknown as UnifiedQuestion[];
-    const counts = countNodes(biologyIndex, biology.map((question) => question.id));
+    const counts = countNodes(biologyIndex, biology.map((question) => question.id), "any");
     const node = biologyIndex.tree[2];
     expect(counts.get(node.key)).toBe(filterQuestions(all, { topics: [node.key.slice(2)] }).length);
     const sub = node.subtopics[0];
@@ -35,7 +35,7 @@ describe("builder topic index", () => {
   });
 
   it("drops nodes that have no questions in the bank", () => {
-    const counts = countNodes(biologyIndex, biology.map((question) => question.id));
+    const counts = countNodes(biologyIndex, biology.map((question) => question.id), "any");
     expect(biologyIndex.tree.every((node) => (counts.get(node.key) ?? 0) > 0 && node.subtopics.every((subtopic) => (counts.get(subtopic.key) ?? 0) > 0))).toBe(true);
   });
 
@@ -60,10 +60,57 @@ describe("builder topic index", () => {
       const keys = biologyIndex.keysById.get(question.id) ?? [];
       return keys.includes(second.subtopics[0].key) && !keys.includes(first.key);
     })!;
-    expect(selectionMatcher(biologyIndex, new Set())(inFirst.id)).toBe(true);
-    const match = selectionMatcher(biologyIndex, new Set([first.key, second.subtopics[0].key]));
+    expect(selectionMatcher(biologyIndex, new Set(), "any")(inFirst.id)).toBe(true);
+    const match = selectionMatcher(biologyIndex, new Set([first.key, second.subtopics[0].key]), "any");
     expect(match(inFirst.id) && match(inSecondOnly.id)).toBe(true);
-    expect(selectionMatcher(biologyIndex, new Set([first.key]))(inSecondOnly.id)).toBe(false);
+    expect(selectionMatcher(biologyIndex, new Set([first.key]), "any")(inSecondOnly.id)).toBe(false);
+  });
+});
+
+describe("main-topic scope", () => {
+  const biology = load("igcse-biology-0610");
+  const biologyIndex = buildTopicIndex(biology, "igcse-biology-0610");
+  const chemistry = load("igcse-chemistry-0620");
+  const chemistryIndex = buildTopicIndex(chemistry, "igcse-chemistry-0620");
+  const classification = topicKey("Characteristics and classification of living organisms");
+
+  // A student report: picking classification gave a 15-mark measles question about immunity,
+  // tagged with classification only for its 2-mark "label the virus" part.
+  it("by default leaves out questions that only partly cover a picked topic", () => {
+    const measles = biology.find((question) => question.id === "0610-2019-m-42-q6")!;
+    expect(measles.primaryTopic).toBe("Diseases and immunity");
+    expect(selectionMatcher(biologyIndex, new Set([classification]))(measles.id)).toBe(false);
+    expect(selectionMatcher(biologyIndex, new Set([classification]), "any")(measles.id)).toBe(true);
+    expect(selectionMatcher(biologyIndex, new Set([topicKey("Diseases and immunity")]))(measles.id)).toBe(true);
+  });
+
+  it("counts only questions whose main topic is the node's, and every tagged question when partial matches are included", () => {
+    const ids = chemistry.map((question) => question.id);
+    const main = countNodes(chemistryIndex, ids);
+    const any = countNodes(chemistryIndex, ids, "any");
+    let partial = 0;
+    for (const node of chemistryIndex.tree) {
+      const topic = node.key.slice(2);
+      expect(main.get(node.key) ?? 0).toBe(chemistry.filter((question) => question.primaryTopic === topic && chemistryIndex.keysById.get(question.id)?.includes(node.key)).length);
+      expect(main.get(node.key) ?? 0).toBeLessThanOrEqual(any.get(node.key) ?? 0);
+      partial += (any.get(node.key) ?? 0) - (main.get(node.key) ?? 0);
+    }
+    expect(partial).toBeGreaterThan(0);
+  });
+
+  it("keeps a picked subtopic to questions mainly on its parent topic", () => {
+    for (const question of chemistry) {
+      for (const key of chemistryIndex.mainKeysById.get(question.id) ?? []) {
+        expect(question.primaryTopic).toBe(key.slice(2).split("␟")[0]);
+      }
+    }
+  });
+
+  it("names the picked topics a partial match covers", () => {
+    const measles = biology.find((question) => question.id === "0610-2019-m-42-q6")!;
+    const labels = (selection: string[]) => partlyCovered(biologyIndex, new Set(selection), measles.id);
+    expect(labels([classification])).toEqual(["Characteristics and classification of living organisms"]);
+    expect(labels([classification, topicKey("Diseases and immunity")])).toEqual([]);
   });
 });
 
