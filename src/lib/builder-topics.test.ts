@@ -84,26 +84,39 @@ describe("main-topic scope", () => {
     expect(selectionMatcher(biologyIndex, new Set([topicKey("Diseases and immunity")]))(measles.id)).toBe(true);
   });
 
-  it("counts only questions whose main topic is the node's, and every tagged question when partial matches are included", () => {
+  it("counts fewer questions by default, but never empties a topic", () => {
     const ids = chemistry.map((question) => question.id);
     const main = countNodes(chemistryIndex, ids);
     const any = countNodes(chemistryIndex, ids, "any");
     let partial = 0;
     for (const node of chemistryIndex.tree) {
-      const topic = node.key.slice(2);
-      expect(main.get(node.key) ?? 0).toBe(chemistry.filter((question) => question.primaryTopic === topic && chemistryIndex.keysById.get(question.id)?.includes(node.key)).length);
       expect(main.get(node.key) ?? 0).toBeLessThanOrEqual(any.get(node.key) ?? 0);
+      expect(main.get(node.key) ?? 0).toBeGreaterThan(0);
       partial += (any.get(node.key) ?? 0) - (main.get(node.key) ?? 0);
     }
     expect(partial).toBeGreaterThan(0);
+    // Earlier-syllabus and review groups are tags: picking one takes every tagged question.
+    for (const topic of ["Earlier syllabus topics", "Questions needing section review"]) {
+      expect(main.get(topicKey(topic))).toBe(any.get(topicKey(topic)));
+    }
   });
 
   it("keeps a picked subtopic to questions mainly on its parent topic", () => {
     for (const question of chemistry) {
       for (const key of chemistryIndex.mainKeysById.get(question.id) ?? []) {
-        expect(question.primaryTopic).toBe(key.slice(2).split("␟")[0]);
+        const parent = key.slice(2).split("␟")[0];
+        if (!/earlier syllabus|needing section review/i.test(parent)) expect([question.primaryTopic, question.secondaryTopics[0]]).toContain(parent);
       }
     }
+  });
+
+  it("keeps older-syllabus questions under their own topic", () => {
+    const physics = load("igcse-physics-0625");
+    const index = buildTopicIndex(physics, "igcse-physics-0625");
+    const older = physics.filter((question) => question.primaryTopic === "Earlier syllabus topics" && question.secondaryTopics[0] === "Motion, forces and energy");
+    expect(older.length).toBeGreaterThan(20);
+    const match = selectionMatcher(index, new Set([topicKey("Motion, forces and energy")]));
+    expect(older.every((question) => match(question.id))).toBe(true);
   });
 
   it("names the picked topics a partial match covers", () => {

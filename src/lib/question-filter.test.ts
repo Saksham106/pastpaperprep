@@ -1,6 +1,46 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 import { filterQuestions } from "@/lib/question-filter";
+import { publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
 import type { UnifiedQuestion } from "@/lib/questions";
+
+describe("main-topic-only matching", () => {
+  const load = (bank: "igcse-biology-0610" | "igcse-physics-0625" | "igcse-chemistry-0620") =>
+    (JSON.parse(readFileSync(join(process.cwd(), "public", "bank-index", PUBLIC_BANK_INDEX_FILES[bank]), "utf8")) as PublicBankIndex).questions
+      .map((question) => publicMetadataToQuestion(question, bank));
+  const biology = load("igcse-biology-0610");
+  const physics = load("igcse-physics-0625");
+  const chemistry = load("igcse-chemistry-0620");
+  const ids = (questions: UnifiedQuestion[]) => new Set(questions.map((item) => item.id));
+
+  // A student report: a 15-mark immunity question came up for classification because of a 2-mark part.
+  it("leaves out a question that only partly covers the picked topic", () => {
+    const topics = ["Characteristics and classification of living organisms"];
+    expect(ids(filterQuestions(biology, { topics })).has("0610-2019-m-42-q6")).toBe(true);
+    expect(ids(filterQuestions(biology, { topics, mainTopicOnly: true })).has("0610-2019-m-42-q6")).toBe(false);
+  });
+
+  it("keeps older-syllabus questions under their own topic", () => {
+    const older = physics.filter((item) => item.primaryTopic === "Earlier syllabus topics" && item.secondaryTopics[0] === "Motion, forces and energy");
+    expect(older.length).toBeGreaterThan(20);
+    const matched = ids(filterQuestions(physics, { topics: ["Motion, forces and energy"], mainTopicOnly: true }));
+    expect(older.every((item) => matched.has(item.id))).toBe(true);
+  });
+
+  it("treats earlier-syllabus and review groups as tags, not main topics", () => {
+    for (const topic of ["Earlier syllabus topics", "Questions needing section review"]) {
+      const all = filterQuestions(chemistry, { topics: [topic] });
+      expect(all.length).toBeGreaterThan(100);
+      expect(filterQuestions(chemistry, { topics: [topic], mainTopicOnly: true })).toHaveLength(all.length);
+    }
+  });
+
+  it("changes nothing when no topic is picked", () => {
+    expect(filterQuestions(chemistry, { mainTopicOnly: true })).toHaveLength(chemistry.length);
+  });
+});
 
 const question = (id: string, code: string, facet: string): UnifiedQuestion => ({
   id, bankSlug: "ib-economics-hl", number: 1, paper: 1, year: 2024, session: "May",

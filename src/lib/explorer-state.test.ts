@@ -73,6 +73,18 @@ describe("question explorer URL state", () => {
     }, { persistFreeChoice: true }).toString()).toBe("free=0");
   });
 
+  it("matches picked topics by main topic unless partial matches are asked for, or a topic page implies them", () => {
+    const base = { search: "", sort: "paper" as const, courseRoute: "all" as const, filters: {}, freeOnly: false, savedOnly: false, visible: 24 };
+    expect(parseExplorerState({}).partialTopics).toBeUndefined();
+    expect(parseExplorerState({ partial: "1" }).partialTopics).toBe(true);
+    expect(parseExplorerState({}, { defaultPartialTopics: true }).partialTopics).toBe(true);
+    expect(parseExplorerState({ partial: "0" }, { defaultPartialTopics: true }).partialTopics).toBeUndefined();
+    expect(serializeExplorerState({ ...base, partialTopics: true }).toString()).toBe("partial=1");
+    expect(serializeExplorerState(base).toString()).toBe("");
+    expect(serializeExplorerState({ ...base, partialTopics: true }, { defaultPartialTopics: true }).toString()).toBe("");
+    expect(serializeExplorerState(base, { defaultPartialTopics: true }).toString()).toBe("partial=0");
+  });
+
   it("accepts only the supported same-page course routes", () => {
     expect(parseExplorerState({ route: "extended" }).courseRoute).toBe("extended");
     expect(parseExplorerState({ route: "both" }).courseRoute).toBe("all");

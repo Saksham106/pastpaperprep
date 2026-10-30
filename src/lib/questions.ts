@@ -180,6 +180,8 @@ export type QuestionFilters = {
   paper?: string;
   search?: string;
   topics?: string[];
+  /** Picked topics must be a question's main topic, not just tag one of its parts. */
+  mainTopicOnly?: boolean;
   subtopics?: string[];
   granularLabels?: string[];
   officialCodeRefs?: string[];

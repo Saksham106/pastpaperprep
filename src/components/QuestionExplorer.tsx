@@ -325,6 +325,9 @@ access: ExplorerAccess;
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [freeOnly, setFreeOnly] = useState(initialState.freeOnly);
   const [savedOnly, setSavedOnly] = useState(initialState.savedOnly);
+  // A topic page lists everything tagged with its topic; the bank page keeps to main topics.
+  const topicPage = Boolean(routePreset?.topic);
+  const [partialTopics, setPartialTopics] = useState(Boolean(initialState.partialTopics));
   const [courseRoute, setCourseRoute] = useState<CourseRouteSelection>(initialState.courseRoute);
   const [showAllSubtopics, setShowAllSubtopics] = useState(false);
   const [showMoreFilters, setShowMoreFilters] = useState(() => (
@@ -464,10 +467,10 @@ access: ExplorerAccess;
     );
     const routeQuestions = catalogQuestions.filter((question) => matchesCourseRoute(question.syllabusRoute, effectiveCourseRoute));
     return remoteSearch
-      ? filterQuestions(routeQuestions, { ...filters, search: undefined, sort })
+      ? filterQuestions(routeQuestions, { ...filters, mainTopicOnly: !partialTopics, search: undefined, sort })
         .filter((question) => searchResult!.ids.has(question.id))
-      : filterQuestions(routeQuestions, { ...filters, search, sort });
-  }, [bankSlug, catalogQuestions, effectiveCourseRoute, filters, indexLoaded, search, searchResult, sort]);
+      : filterQuestions(routeQuestions, { ...filters, mainTopicOnly: !partialTopics, search, sort });
+  }, [bankSlug, catalogQuestions, effectiveCourseRoute, filters, indexLoaded, partialTopics, search, searchResult, sort]);
   const filtered = useMemo(() => {
     const accessible = effectiveFreeOnly ? matching.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matching;
     return savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible;
@@ -615,7 +618,7 @@ access: ExplorerAccess;
         const current = raw[key];
         raw[key] = current === undefined ? value : Array.isArray(current) ? [...current, value] : [current, value];
       }
-      const next = parseExplorerState(routePreset && !locationParams.has("set") && !locationParams.has("worksheet") ? withRoutePreset(raw, routePreset) : raw, { defaultFreeOnly: !access.bankAccess && (bank ? hasFreeTier(bank as BankSlug) : true) });
+      const next = parseExplorerState(routePreset && !locationParams.has("set") && !locationParams.has("worksheet") ? withRoutePreset(raw, routePreset) : raw, { defaultFreeOnly: !access.bankAccess && (bank ? hasFreeTier(bank as BankSlug) : true), defaultPartialTopics: Boolean(routePreset?.topic) });
       if (locationParams.has("set") && !locationParams.has("worksheet")) {
         try { setSharedIds(currentQuestionIds(bank ?? "", parseSharedSet(locationParams.get("set") ?? ""))); setSharedError(""); }
         catch { setSharedIds(null); setSharedError("This shared question link is invalid."); }
@@ -626,6 +629,7 @@ access: ExplorerAccess;
       setVisible(next.visible);
       setFreeOnly(next.freeOnly);
       setSavedOnly(next.savedOnly);
+      setPartialTopics(Boolean(next.partialTopics));
       setCourseRoute(supportsCourseRoute(bank) ? next.courseRoute : "all");
       setShowMoreFilters(SECONDARY_FILTER_KEYS.some((key) => Boolean(next.filters[key]?.length)));
       setLocationHydrated(true);
@@ -891,12 +895,12 @@ access: ExplorerAccess;
 
   useEffect(() => {
     if (!locationHydrated || bootstrapPending) return;
-    const query = sharedSetView ? new URLSearchParams(window.location.search) : serializeExplorerState({ search, sort, filters, freeOnly: effectiveFreeOnly, savedOnly, courseRoute: effectiveCourseRoute, visible }, { persistFreeChoice: !resolvedAccess.bankAccess });
+    const query = sharedSetView ? new URLSearchParams(window.location.search) : serializeExplorerState({ search, sort, filters, freeOnly: effectiveFreeOnly, savedOnly, courseRoute: effectiveCourseRoute, visible, partialTopics }, { persistFreeChoice: !resolvedAccess.bankAccess, defaultPartialTopics: topicPage });
     const params = routePreset && !sharedSetView && !worksheetId ? stripRoutePreset(preserveClearedRoutePreset(new URLSearchParams(query), routePreset), routePreset) : new URLSearchParams(query);
     if (worksheetId) { params.set("worksheet", worksheetId); if (worksheetMode === "edit") params.set("mode", "edit"); }
     const nextUrl = `${window.location.pathname}${params.size ? `?${params}` : ""}${window.location.hash}`;
     window.history.replaceState(window.history.state, "", nextUrl);
-  }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, resolvedAccess.bankAccess, routePreset, savedOnly, search, sharedSetView, sort, visible, worksheetId, worksheetMode]);
+  }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, partialTopics, resolvedAccess.bankAccess, routePreset, savedOnly, search, sharedSetView, sort, topicPage, visible, worksheetId, worksheetMode]);
 
   const applySignedAssets = (assets: Map<string, SignedAsset>, owner: string | null) => {
     if (!scopeIsCurrent() || !assets.size) return;
@@ -1143,6 +1147,7 @@ access: ExplorerAccess;
     setFilters({});
     setFreeOnly(false);
     setSavedOnly(false);
+    setPartialTopics(topicPage);
     setCourseRoute("all");
     setShowAllSubtopics(false);
     setVisible(EXPLORER_PAGE_SIZE);
@@ -1472,6 +1477,7 @@ access: ExplorerAccess;
           {!resolvedAccess.bankAccess && bankHasFreeTier && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={effectiveFreeOnly} onChange={() => { setFreeOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Free questions only</span></label></div></div>}
           {(resolvedAccess.authenticated || !bootstrapPending) && <div className="filter-group" role="group" aria-labelledby="filter-study"><h3 id="filter-study">Study</h3><div className="filter-options"><label><input aria-label="Saved questions only" type="checkbox" checked={savedOnly} onChange={() => { if (!resolvedAccess.authenticated) { openSigninPrompt({ reason: "saved-filter" }); return; } setSavedOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Saved questions only</span></label></div></div>}
           <FilterGroup label="Topics" filterKey="topics" values={options.topics} selected={filters.topics ?? []} onToggle={toggle} />
+          {!!filters.topics?.length && <div className="filter-group filter-partial"><div className="filter-options"><label><input type="checkbox" checked={partialTopics} onChange={() => { setPartialTopics((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Include questions that partly cover a topic</span></label></div></div>}
           <FilterGroup label="Subtopics" filterKey="subtopics" values={visibleSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} bank={bank} />
           <FilterGroup label="Earlier syllabus" filterKey="subtopics" values={earlierSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} bank={bank} />
           {!filters.topics?.length && subtopicGroups.all.length > 0 && <button className="text-button subtopic-more" type="button" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide subtopics" : "Show all subtopics"}</button>}
