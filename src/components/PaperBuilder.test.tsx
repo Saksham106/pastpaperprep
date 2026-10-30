@@ -76,6 +76,28 @@ describe("PaperBuilder", () => {
     expect(rows().length).toBe(Math.min(10, count));
   });
 
+  it("keeps to questions mainly on the picked topics unless partial matches are asked for", async () => {
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    const topic = "Experimental techniques and chemical analysis";
+    const item = within(topicList()).getAllByRole("listitem").find((row) => row.querySelector("label span")?.textContent === topic)!;
+    const count = () => Number(item.querySelector(".builder-count")!.textContent);
+    const mainCount = count();
+    expect(mainCount).toBe(chemistry.questions.filter((question: { primaryTopic: string; questionImageCount: number; marks: number | null }) =>
+      question.primaryTopic === topic && question.questionImageCount > 0 && Number.isInteger(question.marks) && question.marks! > 0).length);
+    fireEvent.click(within(item).getAllByRole("checkbox")[0]);
+    fireEvent.change(screen.getByLabelText("Number of questions"), { target: { value: "50" } });
+    expect(rows().length).toBe(Math.min(50, mainCount));
+    expect(rows().every((row) => row.querySelector("strong")!.textContent === topic)).toBe(true);
+
+    fireEvent.click(screen.getByLabelText("Include questions that partly cover a topic"));
+    expect(count()).toBeGreaterThan(mainCount);
+    expect(screen.getByText(new RegExp(`✓ ${count()} questions match`))).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /shuffle/i }));
+    expect(rowSources().some((source) => source.startsWith(`Also covers ${topic}`))).toBe(true);
+    await waitFor(() => expect(new URLSearchParams(window.location.search).get("p")).toBe("1"));
+  });
+
   it("resizes by questions or marks", async () => {
     render(<PaperBuilder banks={[bank]} />);
     await ready();

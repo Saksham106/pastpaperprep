@@ -17,6 +17,8 @@ export type ExplorerState = {
   savedOnly: boolean;
   courseRoute: CourseRouteSelection;
   visible: number;
+  /** Also show questions that cover a picked topic in only some of their parts. */
+  partialTopics?: boolean;
 };
 
 const PARAMS: Array<[string, ExplorerFilterKey]> = [
@@ -50,7 +52,8 @@ function boundedPage(value: string | string[] | undefined): number {
   return Number.isFinite(parsed) && parsed > 0 ? Math.min(parsed, MAX_SHARED_PAGES) : 1;
 }
 
-export function parseExplorerState(params: ExplorerSearchParams, options: { defaultFreeOnly?: boolean } = {}): ExplorerState {
+/** Topic pages list everything tagged with their topic, so they start with partial matches on. */
+export function parseExplorerState(params: ExplorerSearchParams, options: { defaultFreeOnly?: boolean; defaultPartialTopics?: boolean } = {}): ExplorerState {
   const rawSearch = first(params.q).trim();
   const rawSort = first(params.sort) as QuestionSort;
   const filters: ExplorerFilters = {};
@@ -60,7 +63,9 @@ export function parseExplorerState(params: ExplorerSearchParams, options: { defa
     if (selected.length) Object.assign(filters, { [key]: selected });
   }
 
+  const partial = first(params.partial);
   return {
+    ...((partial ? partial === "1" : options.defaultPartialTopics) ? { partialTopics: true } : {}),
     search: rawSearch.length <= 200 ? rawSearch : "",
     sort: SORTS.has(rawSort) ? rawSort : "paper",
     filters,
@@ -71,7 +76,7 @@ export function parseExplorerState(params: ExplorerSearchParams, options: { defa
   };
 }
 
-export function serializeExplorerState(state: ExplorerState, options: { persistFreeChoice?: boolean } = {}): URLSearchParams {
+export function serializeExplorerState(state: ExplorerState, options: { persistFreeChoice?: boolean; defaultPartialTopics?: boolean } = {}): URLSearchParams {
   const params = new URLSearchParams();
   const search = state.search.trim();
   if (search) params.set("q", search.slice(0, 200));
@@ -86,6 +91,7 @@ export function serializeExplorerState(state: ExplorerState, options: { persistF
   if (state.freeOnly) params.set("free", "1");
   else if (options.persistFreeChoice) params.set("free", "0");
   if (state.savedOnly) params.set("saved", "1");
+  if (Boolean(state.partialTopics) !== Boolean(options.defaultPartialTopics)) params.set("partial", state.partialTopics ? "1" : "0");
   const page = Math.min(MAX_SHARED_PAGES, Math.max(1, Math.ceil(state.visible / EXPLORER_PAGE_SIZE)));
   if (page > 1) params.set("page", String(page));
   return params;

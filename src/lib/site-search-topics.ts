@@ -24,7 +24,7 @@ export function buildSearchTopics(bankSlug: string, questions: readonly UnifiedQ
   const shown = (key: "topic" | "subtopic", label: string) => {
     const state = parseExplorerState(Object.fromEntries(new URL(filtered(key, label), "https://x").searchParams));
     const kept = (key === "topic" ? state.filters.topics : state.filters.subtopics)?.includes(label);
-    return kept ? filterQuestions([...questions], { ...state.filters, sort: "paper" }).length : 0;
+    return kept ? filterQuestions([...questions], { ...state.filters, mainTopicOnly: !state.partialTopics, sort: "paper" }).length : 0;
   };
 
   const topicLabels = new Set<string>();

@@ -22,7 +22,7 @@ describe("site search topic links", () => {
         // A visitor's explorer defaults to free-only; the link must override that, not hide the topic.
         const state = parseExplorerState(Object.fromEntries(new URL(topic.href, "https://x").searchParams), { defaultFreeOnly: true });
         expect(state.freeOnly, topic.href).toBe(false);
-        expect(filterQuestions([...questions], { ...state.filters, sort: "paper" }).length, topic.href).toBe(topic.count);
+        expect(filterQuestions([...questions], { ...state.filters, mainTopicOnly: !state.partialTopics, sort: "paper" }).length, topic.href).toBe(topic.count);
       }
     }
   });

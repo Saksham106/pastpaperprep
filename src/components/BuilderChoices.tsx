@@ -15,6 +15,8 @@ type Props = {
   selection: ReadonlySet<string>;
   onToggle: (key: string) => void;
   onClearTopics: () => void;
+  partial: boolean;
+  onPartial: (partial: boolean) => void;
   years: number[];
   from?: number; to?: number;
   onYears: (from: number | undefined, to: number | undefined) => void;
@@ -58,7 +60,7 @@ function TopicRow({ node, counts, selection, onToggle }: { node: TopicNode; coun
 }
 
 export function BuilderChoices(props: Props) {
-  const { tree, counts, selection, onToggle, onClearTopics, years, from, to, onYears, size, onSize, papers, paperTargets, paperMode, onPaperTargets, matching, disabled } = props;
+  const { tree, counts, selection, onToggle, onClearTopics, partial, onPartial, years, from, to, onYears, size, onSize, papers, paperTargets, paperMode, onPaperTargets, matching, disabled } = props;
   const [papersOpen, setPapersOpen] = useState(paperTargets.length > 0);
   const amountFor = (paper: number) => paperTargets.find((item) => item.paper === paper)?.amount ?? 0;
   const setPaperAmount = (paper: number, amount: number) => {
@@ -70,6 +72,7 @@ export function BuilderChoices(props: Props) {
     <fieldset className="builder-field" disabled={disabled}>
       <legend>Topics{selection.size > 0 && <button type="button" className="builder-link" onClick={onClearTopics}>All topics</button>}</legend>
       <ul className="builder-topics" aria-label="Topics">{tree.map((node) => <TopicRow key={node.key} node={node} counts={counts} selection={selection} onToggle={onToggle} />)}</ul>
+      <label className="builder-partial"><input type="checkbox" checked={partial} onChange={(event) => onPartial(event.target.checked)} /><span>Include questions that partly cover a topic</span></label>
     </fieldset>
 
     <fieldset className="builder-field builder-years" disabled={disabled}>

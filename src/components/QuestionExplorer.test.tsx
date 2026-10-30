@@ -10,7 +10,8 @@ import { suggestWorksheetTitle } from "@/lib/worksheet-title";
 import { parseExplorerState } from "@/lib/explorer-state";
 import { PREVIEW_QUESTION_IDS, isPreviewQuestion } from "@/lib/access";
 import { prepareQuestionsForDelivery } from "@/lib/question-delivery";
-import { toPublicQuestionMetadata } from "@/lib/question-index";
+import { publicMetadataToQuestion, toPublicQuestionMetadata, type PublicBankIndex } from "@/lib/question-index";
+import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 import { loadBankQuestions } from "@/lib/question-fixtures";
 import { loadBankQuestions as loadEconomicsBankQuestions } from "@/lib/question-loader";
 import { freeAssetIds, freeAssetResponse, isFreeAssetRequest } from "../../test/free-asset-fetch";
@@ -120,6 +121,26 @@ describe("QuestionExplorer", () => {
     await waitFor(() => expect(screen.getByText(`${expected} ${expected === 1 ? "question" : "questions"}`)).toBeInTheDocument());
     await waitFor(() => expect(window.location.pathname).toBe("/banks/ib-sl/topics/a-topic"));
     expect(new URLSearchParams(window.location.search).has("topic")).toBe(false);
+  });
+
+  it("shows questions mainly on a picked topic unless partial matches are asked for", async () => {
+    window.history.replaceState({}, "", "/banks/igcse-biology-0610");
+    const topic = "Characteristics and classification of living organisms";
+    const index = JSON.parse(readFileSync(join(process.cwd(), "public", "bank-index", PUBLIC_BANK_INDEX_FILES["igcse-biology-0610"]), "utf8")) as PublicBankIndex;
+    const bank = index.questions.map((question) => publicMetadataToQuestion(question, "igcse-biology-0610"));
+    const main = bank.find((question) => question.primaryTopic === topic)!;
+    // 15 marks on immunity; only a 2-mark part is on classification.
+    const partial = bank.find((question) => question.id === "0610-2019-m-42-q6")!;
+    expect(partial.secondaryTopics).toContain(topic);
+    const questions = prepareQuestionsForDelivery([main, partial], [{ productId: "bank_igcse_biology_0610", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    render(<QuestionExplorer questions={questions} bankSlug="igcse-biology-0610" access={fullAccess} />);
+
+    expect(screen.queryByLabelText("Include questions that partly cover a topic")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("checkbox", { name: `Topics: ${topic}` }));
+    expect(screen.getByText("1 question")).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText("Include questions that partly cover a topic"));
+    expect(screen.getByText("2 questions")).toBeInTheDocument();
+    await waitFor(() => expect(new URLSearchParams(window.location.search).get("partial")).toBe("1"));
   });
 
   it("puts the text of viewable questions into the server HTML for screen readers and search", () => {

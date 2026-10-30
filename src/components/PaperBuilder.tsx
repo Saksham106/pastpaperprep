@@ -6,7 +6,7 @@ import type { BankSlug } from "@/lib/banks";
 import { BuilderChoices, type SizeTarget } from "@/components/BuilderChoices";
 import { BuilderSheet } from "@/components/BuilderSheet";
 import { PaperPreview } from "@/components/PaperPreview";
-import { buildTopicIndex, countNodes, knownKeys, selectionMatcher, toggleKey, type BuilderQuestion, type TopicIndex } from "@/lib/builder-topics";
+import { buildTopicIndex, countNodes, knownKeys, partlyCovered, selectionMatcher, toggleKey, type BuilderQuestion, type TopicIndex } from "@/lib/builder-topics";
 import { parseBuilderState, serializeBuilderState } from "@/lib/builder-url";
 import { deriveCourseRoute, matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { paperCalculator } from "@/lib/paper-builder";
@@ -28,7 +28,7 @@ type Saved = { id: string; revision: number; title: string; ids: string };
 type DraftState = { pool: readonly BuilderQuestion[] | null; target: DraftTarget | null; seed: number; manualOrder: boolean; draft: DraftResult };
 
 const EMPTY_DRAFT: DraftResult = { ids: [], totalMarks: 0, exact: true, shortBy: 0 };
-const EMPTY_INDEX: TopicIndex = { tree: [], keysById: new Map() };
+const EMPTY_INDEX: TopicIndex = { tree: [], keysById: new Map(), mainKeysById: new Map() };
 const ROUTES = [["all", "All papers"], ["core", "Core"], ["extended", "Extended"]] as const;
 const randomSeed = () => crypto.getRandomValues(new Uint32Array(1))[0];
 
@@ -47,6 +47,7 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
   const [from, setFrom] = useState<number>();
   const [to, setTo] = useState<number>();
   const [selection, setSelection] = useState<Set<string>>(() => new Set());
+  const [partial, setPartial] = useState(false);
   const [pendingKeys, setPendingKeys] = useState<string[] | null>(null);
   const [size, setSize] = useState<SizeTarget>({ kind: "questions", amount: 10 });
   const [paperTargets, setPaperTargets] = useState<PaperDraftTarget[]>([]);
@@ -86,6 +87,7 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
     if (state.ids.length) setDraftState((current) => ({ ...current, draft: { ...current.draft, ids: state.ids } }));
     if (state.removed.length) setRemoved(new Set(state.removed));
     if (state.reordered) setManualOrder(true);
+    setPartial(state.partial);
     setHydrated(true);
     /* eslint-enable react-hooks/set-state-in-effect */
   }, [banks, startBank?.slug]);
@@ -121,11 +123,12 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
     // inRoute only reads bank, route and routed, which are listed.
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [questions, bank, route, routed, from, to]);
-  const counts = useMemo(() => countNodes(topicIndex, basePool.map((question) => question.id)), [topicIndex, basePool]);
+  const scope = partial ? "any" : "main";
+  const counts = useMemo(() => countNodes(topicIndex, basePool.map((question) => question.id), scope), [topicIndex, basePool, scope]);
   const matching = useMemo(() => {
-    const match = selectionMatcher(topicIndex, selection);
+    const match = selectionMatcher(topicIndex, selection, scope);
     return basePool.filter((question) => match(question.id));
-  }, [topicIndex, selection, basePool]);
+  }, [topicIndex, selection, basePool, scope]);
   const pool = useMemo(() => matching.filter((question) => !removed.has(question.id)), [matching, removed]);
   // A link may name papers this bank lacks or this route excludes; they would leave an empty, uneditable paper.
   const usablePapers = useMemo(() => new Set(questions.map((question) => question.paper).filter(inRoute)),
@@ -164,9 +167,9 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
     if (!hydrated || pendingKeys) return;
     if (!questions.length) return;
     const query = serializeBuilderState({ bank: bank || undefined, route, from, to, selection: [...selection], target, seed,
-      ids: draft.ids, removed: [...removed], reordered: manualOrder });
+      ids: draft.ids, removed: [...removed], reordered: manualOrder, partial });
     window.history.replaceState(window.history.state, "", `${window.location.pathname}?${query}`);
-  }, [hydrated, pendingKeys, questions.length, bank, route, from, to, selection, target, seed, draft.ids, removed, manualOrder]);
+  }, [hydrated, pendingKeys, questions.length, bank, route, from, to, selection, target, seed, draft.ids, removed, manualOrder, partial]);
 
   useEffect(() => {
     if (reader === null) return;
@@ -305,6 +308,7 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
       {loading ? <p className="builder-loading" role="status">Loading questions…</p> : <BuilderChoices
         tree={topicIndex.tree} counts={counts} selection={selection} matching={pool.length} disabled={Boolean(busy)}
         onToggle={(key) => setSelection(toggleKey(topicIndex.tree, selection, key))} onClearTopics={() => setSelection(new Set())}
+        partial={partial} onPartial={setPartial}
         years={years} from={from} to={to} onYears={(nextFrom, nextTo) => {
           if (nextFrom && nextTo && nextFrom > nextTo) [nextFrom, nextTo] = [nextTo, nextFrom];
           setFrom(nextFrom); setTo(nextTo);
@@ -316,6 +320,7 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
         title={shownTitle} onTitle={(value) => { setTitle(value); setTitleEdited(value.trim() !== ""); }}
         questions={sheet} totalMarks={draft.totalMarks} status={status} busy={Boolean(busy)}
         canSwap={(id) => swapCandidate(draft.ids, id, pool, target, seed) !== null}
+        partlyCovers={(id) => partial && selection.size ? partlyCovered(topicIndex, selection, id) : []}
         onShuffle={shuffle} onMove={move} onSwap={swap} onRemove={remove}
         onOpen={(index) => { readerOpener.current = document.activeElement as HTMLElement | null; setReader(index); }}
         actions={<>

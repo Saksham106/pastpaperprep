@@ -13,6 +13,8 @@ type Props = {
   totalMarks: number;
   status: string;
   canSwap: (id: string) => boolean;
+  /** Picked topics a question covers only in part, named so the student sees why it is here. */
+  partlyCovers?: (id: string) => string[];
   onShuffle: () => void;
   onMove: (id: string, direction: -1 | 1) => void;
   onSwap: (id: string) => void;
@@ -22,7 +24,7 @@ type Props = {
   busy?: boolean;
 };
 
-export function BuilderSheet({ title, onTitle, questions, totalMarks, status, canSwap, onShuffle, onMove, onSwap, onRemove, onOpen, actions, busy }: Props) {
+export function BuilderSheet({ title, onTitle, questions, totalMarks, status, canSwap, partlyCovers, onShuffle, onMove, onSwap, onRemove, onOpen, actions, busy }: Props) {
   return <section id="builder-sheet" className="builder-sheet" aria-label="Your paper">
     <header className="builder-sheet-head">
       <div>
@@ -38,10 +40,11 @@ export function BuilderSheet({ title, onTitle, questions, totalMarks, status, ca
     {questions.length ? <ol className="builder-rows" aria-label="Questions in this paper">{questions.map((question, index) => {
       const topic = formatQuestionTopic(question.bankSlug, question.primaryTopic);
       const subtopic = displayedQuestionSubtopics(question)[0];
+      const covers = partlyCovers?.(question.id) ?? [];
       return <li key={question.id} className="builder-row">
         <button type="button" className="builder-row-open" onClick={() => onOpen(index)} aria-label={`Preview question ${index + 1}: ${topic}`}>
           <span className="builder-row-number">{index + 1}</span>
-          <span className="builder-row-text"><strong>{topic}</strong><small>{subtopic && subtopic !== topic ? `${subtopic} · ` : ""}{pdfSourceLabel(question)}</small></span>
+          <span className="builder-row-text"><strong>{topic}</strong><small>{covers.length ? `Also covers ${covers.join(", ")} · ` : subtopic && subtopic !== topic ? `${subtopic} · ` : ""}{pdfSourceLabel(question)}</small></span>
           <span className="builder-row-marks"><CalculatorBadge value={question.calculator} />{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>
         </button>
         <span className="builder-row-actions">

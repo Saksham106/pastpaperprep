@@ -32,6 +32,22 @@ function filterableTopics(question: UnifiedQuestion): string[] {
   return topics;
 }
 
+// "Earlier syllabus" and "needs review" labels group questions by status, not by content.
+const STATUS_TOPIC = /earlier syllabus|needing section review/i;
+
+/** Whether the question is mainly on this topic, not just tagged with it for one of its parts. */
+export function isMainTopic(question: Pick<UnifiedQuestion, "bankSlug" | "primaryTopic" | "secondaryTopics" | "subtopics">, topic: string): boolean {
+  if (topic === EARLIER_MATHS_TOPIC && isCleanMathsBank(question.bankSlug)) return isEarlierMathsQuestion(question);
+  if (STATUS_TOPIC.test(topic)) return filterableTopics(question as UnifiedQuestion).includes(topic);
+  const main = [question.primaryTopic];
+  // An older-syllabus row is filed under the status label; its own topic is its first real secondary.
+  if (STATUS_TOPIC.test(question.primaryTopic)) {
+    const own = question.secondaryTopics.find((secondary) => !STATUS_TOPIC.test(secondary));
+    if (own) main.push(own);
+  }
+  return main.some((value) => value === topic || (question.bankSlug === "igcse-biology-0610" && canonicalBiology0610Topic(value) === topic));
+}
+
 function filterableSubtopics(question: UnifiedQuestion): string[] {
   return isLocalEconomicsBank(question.bankSlug)
     ? [...new Set(question.subtopics)]
@@ -59,6 +75,7 @@ export function filterQuestions(questions: UnifiedQuestion[], filters: QuestionF
     if (filters.year && question.year !== Number(filters.year)) return false;
     if (filters.paper && question.paper !== Number(filters.paper)) return false;
     if (!includesAny(selectedTopics, filterableTopics(question))) return false;
+    if (filters.mainTopicOnly && selectedTopics && !selectedTopics.some((topic) => isMainTopic(question, topic))) return false;
     // `skills` is the canonical filterable classification vocabulary. Keep
     // accepting legacy `subtopics`, but never let a correctly classified
     // secondary skill disappear because an older bank omitted it there.
