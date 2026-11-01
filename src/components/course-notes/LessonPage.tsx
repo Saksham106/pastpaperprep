@@ -34,6 +34,7 @@ function practiceFor(item: string): PracticeInfo | undefined {
   const group = (taxonomyJson.groups as Group[]).find((entry) => entry.memberOfficialItems.includes(item));
   if (!group) return undefined;
   return {
+    group: group.id,
     items: practiseItemsLabel(group.memberOfficialItems),
     counts: groupQuestionCounts(group.id),
     hrefs: { SL: groupPracticeHref(group.id, "SL"), HL: groupPracticeHref(group.id, "HL") },
@@ -90,7 +91,7 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
   const neighbours = course.lessons.map((entry) => ({ item: entry.item, title: entry.title, href: lessonPath(course, entry), level: entry.level }));
 
   return (
-    <LessonShell topic={lesson.topic}>
+    <LessonShell topic={lesson.topic} lesson={lesson.item}>
       <div className={styles.lessonLayout}>
         <LessonRail item={lesson.item} sections={sections} />
         <article className={styles.lesson}>

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { LevelSwitch, useNotesLevel, type NotesLevel } from "./LevelSwitch";
+import { useNotesContext } from "./notes-context";
+import { trackPracticeClick } from "./track";
 import { useNotesProgress } from "./useNotesProgress";
 import styles from "./course-notes.module.css";
 
@@ -17,6 +19,7 @@ export type TopicStage = {
 };
 
 function Stage({ stage, level, understood, nextItem }: { stage: TopicStage; level: NotesLevel; understood: Set<string>; nextItem?: string }) {
+  const ctx = useNotesContext();
   const shown = stage.lessons.filter((lesson) => level === "HL" || lesson.level === "SL");
   if (!shown.length) return null;
   const done = shown.filter((lesson) => understood.has(lesson.item)).length;
@@ -26,7 +29,7 @@ function Stage({ stage, level, understood, nextItem }: { stage: TopicStage; leve
     <div className={styles.stage} data-stage={stage.id} data-progress={progress} style={{ "--p": `${Math.round((100 * done) / shown.length)}%` } as CSSProperties}>
       <span className={styles.node} aria-hidden="true" />
       <div className={styles.gName} data-group-name>{shown.length > 1 ? stage.name : ""}</div>
-      <div className={styles.gQs}><Link href={stage.hrefs[level]} title={`Practice: ${stage.name}`}>{questions}</Link></div>
+      <div className={styles.gQs}><Link href={stage.hrefs[level]} onClick={() => trackPracticeClick(ctx, level === "SL" ? "ib-sl" : "ib-hl", stage.id)} title={`Practice: ${stage.name}`}>{questions}</Link></div>
       <div className={styles.cards}>
         {shown.map((lesson) => {
           const isDone = understood.has(lesson.item);

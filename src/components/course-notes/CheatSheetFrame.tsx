@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { trackProductEvent } from "@/lib/product-analytics";
 import { LevelSwitch, useNotesLevel } from "./LevelSwitch";
+import { trackCheatsheetPrint } from "./track";
 import styles from "./cheatsheet.module.css";
 
 /** Hides the site chrome and prints the sheet on A4 with no page margin. Global on purpose: the chrome lives in the root layout. */
@@ -21,7 +21,7 @@ type Props = {
 export function CheatSheetFrame({ title, slug, crumbs, children }: Props) {
   const [level, setLevel] = useNotesLevel();
   const print = () => {
-    trackProductEvent("notes_cheatsheet_print", { topic: slug, level });
+    trackCheatsheetPrint({ level }, slug);
     window.print();
   };
   return (

@@ -1,5 +1,7 @@
 "use client";
 import { useState, type ReactNode } from "react";
+import { useNotesContext } from "./notes-context";
+import { trackExampleStep } from "./track";
 import styles from "./course-notes.module.css";
 
 type Props = {
@@ -13,6 +15,7 @@ type Props = {
 
 export function ExampleSteps({ id, question, steps, answer, check }: Props) {
   const all = [...steps, answer];
+  const ctx = useNotesContext();
   const [shown, setShown] = useState(1);
   const done = shown >= all.length;
   const heading = `${id}-heading`;
@@ -32,10 +35,16 @@ export function ExampleSteps({ id, question, steps, answer, check }: Props) {
       </ol>
       {done ? null : (
         <div className={styles.exCtrl}>
-          <button type="button" className={styles.btnQuiet} onClick={() => setShown((n) => Math.min(n + 1, all.length))}>
+          <button type="button" className={styles.btnQuiet} onClick={() => {
+              trackExampleStep(ctx, id, Math.min(shown + 1, all.length));
+              setShown((n) => Math.min(n + 1, all.length));
+            }}>
             Show next step
           </button>
-          <button type="button" className={styles.link} onClick={() => setShown(all.length)}>
+          <button type="button" className={styles.link} onClick={() => {
+              trackExampleStep(ctx, id, "all");
+              setShown(all.length);
+            }}>
             Show all
           </button>
         </div>

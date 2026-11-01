@@ -1,6 +1,9 @@
 "use client";
 
 import { useCallback, useSyncExternalStore } from "react";
+import { useContext } from "react";
+import { LessonItemContext } from "./notes-context";
+import { trackLevelSwitch } from "./track";
 import styles from "./course-notes.module.css";
 
 export type NotesLevel = "SL" | "HL";
@@ -27,6 +30,11 @@ function subscribe(onChange: () => void) {
   };
 }
 
+/** The stored level, read directly (for one-off effects that must not see the hydration default). */
+export function readStoredLevel(): NotesLevel {
+  return read() === "SL" ? "SL" : "HL";
+}
+
 /** The student's level. "HL" on the server and during hydration, then the stored choice. */
 export function useNotesLevel(): [NotesLevel, (level: NotesLevel) => void] {
   const raw = useSyncExternalStore(subscribe, read, () => null);
@@ -42,10 +50,14 @@ export function useNotesLevel(): [NotesLevel, (level: NotesLevel) => void] {
 }
 
 export function LevelSwitch({ level, onChange }: { level: NotesLevel; onChange: (level: NotesLevel) => void }) {
+  const lesson = useContext(LessonItemContext);
   return (
     <div className={styles.levelSwitch} role="group" aria-label="Level">
       {(["SL", "HL"] as const).map((entry) => (
-        <button key={entry} type="button" aria-pressed={level === entry} onClick={() => onChange(entry)}>
+        <button key={entry} type="button" aria-pressed={level === entry} onClick={() => {
+            if (entry !== level) trackLevelSwitch(lesson ? { lesson, level: entry } : { level: entry });
+            onChange(entry);
+          }}>
           {entry}
         </button>
       ))}

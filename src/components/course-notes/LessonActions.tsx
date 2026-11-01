@@ -2,12 +2,15 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { trackProductEvent } from "@/lib/product-analytics";
 import { useNotesLevel, type NotesLevel } from "./LevelSwitch";
+import { useNotesContext } from "./notes-context";
+import { trackPracticeClick, trackReport, trackUnderstood } from "./track";
 import { useNotesProgress } from "./useNotesProgress";
 import styles from "./course-notes.module.css";
 
 export type PracticeInfo = {
+  /** Taxonomy group id, sent with practice clicks. */
+  group: string;
   /** Item label for the button and copy, e.g. "5.16" or "3.14–3.18". */
   items: string;
   counts: { SL: number; HL: number };
@@ -18,6 +21,7 @@ const plural = (n: number) => `${n} past-paper question${n === 1 ? "" : "s"}`;
 
 export function PractiseBand({ practice }: { practice: PracticeInfo }) {
   const [level] = useNotesLevel();
+  const ctx = useNotesContext();
   const count = practice.counts[level];
   const other: NotesLevel = level === "SL" ? "HL" : "SL";
   // A group with nothing at this level (an HL-only group in the SL view) points at the other bank instead.
@@ -35,7 +39,7 @@ export function PractiseBand({ practice }: { practice: PracticeInfo }) {
           <p><b>{plural(shown)}</b> on {practice.items} in the AA {level} bank, each with a mark scheme and a worked explanation.</p>
         )}
       </div>
-      {shown === 0 ? null : <Link className={`${styles.btn} ${styles.btnPrimary}`} href={practice.hrefs[bankLevel]}>Practise {practice.items} →</Link>}
+      {shown === 0 ? null : <Link className={`${styles.btn} ${styles.btnPrimary}`} href={practice.hrefs[bankLevel]} onClick={() => trackPracticeClick(ctx, bankLevel === "SL" ? "ib-sl" : "ib-hl", practice.group)}>Practise {practice.items} →</Link>}
     </section>
   );
 }
@@ -50,12 +54,12 @@ export const REPORT_ISSUES = [
   { issue: "other", label: "Something else" },
 ] as const;
 
-function ReportProblem({ item }: { item: string }) {
-  const [level] = useNotesLevel();
+function ReportProblem() {
+  const ctx = useNotesContext();
   const [open, setOpen] = useState(false);
   const [sent, setSent] = useState(false);
   const send = (issue: (typeof REPORT_ISSUES)[number]["issue"]) => {
-    trackProductEvent("notes_report", { lesson: item, level, issue });
+    trackReport(ctx, issue);
     setSent(true);
     setOpen(false);
   };
@@ -81,6 +85,7 @@ function ReportProblem({ item }: { item: string }) {
 
 export function LessonFooter({ item, lessons }: { item: string; lessons: Neighbour[] }) {
   const [level] = useNotesLevel();
+  const ctx = useNotesContext();
   const { understood, mark, unmark } = useNotesProgress();
   const done = understood.has(item);
   // AHL lessons are skipped in the SL view.
@@ -90,7 +95,14 @@ export function LessonFooter({ item, lessons }: { item: string; lessons: Neighbo
   const next = at >= 0 ? visible[at + 1] : undefined;
   return (
     <footer className={styles.lFoot}>
-      <button type="button" className={`${styles.btn} ${styles.got}`} aria-pressed={done} onClick={() => (done ? unmark(item) : mark(item))}>
+      <button type="button" className={`${styles.btn} ${styles.got}`} aria-pressed={done} onClick={() => {
+          if (done) {
+            unmark(item);
+            return;
+          }
+          trackUnderstood(ctx);
+          mark(item);
+        }}>
         {done ? "Understood ✓" : "I've got this ✓"}
       </button>
       {done ? <span className={styles.gotNote} role="status">Saved on this device</span> : null}
@@ -98,7 +110,7 @@ export function LessonFooter({ item, lessons }: { item: string; lessons: Neighbo
         {prev ? <Link href={prev.href} rel="prev">← {prev.item} {prev.title}</Link> : <span />}
         {next ? <Link href={next.href} rel="next">{next.item} {next.title} →</Link> : null}
       </div>
-      <ReportProblem item={item} />
+      <ReportProblem />
     </footer>
   );
 }
