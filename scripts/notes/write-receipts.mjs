@@ -1,6 +1,6 @@
 // Runs scripts/notes/check-math.py for every lesson and writes math-receipts.json
 // ({ [item]: { sha256, passedAt } }) for passing lessons only.
-// sha256 covers the lesson bytes, its sidecar bytes and mathparse.py together, so weakening a sidecar invalidates the receipt.
+// sha256 covers the lesson bytes, its sidecar bytes, mathparse.py and check-math.py together, so weakening a sidecar or the checker invalidates the receipt.
 // An unchanged hash keeps its existing passedAt.
 // Python: AA_NOTES_PYTHON, else the venv at ../research/aa-course-notes/.venv (sibling of the main checkout).
 import { spawnSync } from "node:child_process";
@@ -18,7 +18,7 @@ const receiptsFile = join(courseRoot, "math-receipts.json");
 export function receiptHash(item) {
   const dashed = item.replace(".", "-");
   const hash = createHash("sha256");
-  for (const file of [join(lessonsDir, `${dashed}.json`), join(notesDir, "sidecars", `${dashed}.py`), join(notesDir, "mathparse.py")]) {
+  for (const file of [join(lessonsDir, `${dashed}.json`), join(notesDir, "sidecars", `${dashed}.py`), join(notesDir, "mathparse.py"), join(notesDir, "check-math.py")]) {
     hash.update(existsSync(file) ? readFileSync(file) : "missing");
     hash.update("\0");
   }

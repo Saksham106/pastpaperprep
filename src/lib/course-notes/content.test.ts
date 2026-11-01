@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import itemsJson from "@/data/aa-official-subtopics/items.json";
@@ -50,7 +50,7 @@ describe("ib-math-aa course content", () => {
   it("lesson without a passing receipt for its current hash fails npm test", () => {
     const receipts = JSON.parse(readFileSync(join(root, "math-receipts.json"), "utf8")) as Record<string, { sha256: string; passedAt: string }>;
     for (const lesson of course.lessons) {
-      // The hash covers the lesson, its sidecar and mathparse.py, so weakening a sidecar also invalidates the receipt.
+      // The hash covers the lesson, its sidecar, mathparse.py and check-math.py, so weakening a sidecar also invalidates the receipt.
       const sha256 = receiptHash(lesson.item);
       expect(receipts[lesson.item], `${lesson.item} has no maths receipt; run node scripts/notes/write-receipts.mjs`).toBeDefined();
       expect(receipts[lesson.item].sha256, `${lesson.item} (or its sidecar / mathparse.py) changed since its receipt; run node scripts/notes/write-receipts.mjs`).toBe(sha256);
@@ -109,5 +109,20 @@ describe("ib-math-aa course content", () => {
     for (const topic of course.topics) expect(paths).toContain(`${topicPath(course, topic.n)}/cheat-sheet`);
     expect(paths).toContain("/revision-notes/ib-math-aa/glossary");
     expect(paths).toContain("/revision-notes/ib-math-aa/command-terms");
+  });
+});
+
+const UNSAFE_SVG = /<script|\son\w+\s*=|javascript:|<foreignObject/i;
+
+describe("figure SVG safety", () => {
+  it("the unsafe-markup pattern rejects script, event handlers, javascript: and foreignObject", () => {
+    for (const bad of ["<svg><script>x</script></svg>", '<svg onload="x()"></svg>', '<svg><a href="javascript:x"/></svg>', "<svg><foreignObject/></svg>", "<svg\nonclick = 'x'></svg>"]) expect(UNSAFE_SVG.test(bad), bad).toBe(true);
+    expect(UNSAFE_SVG.test('<svg viewBox="0 0 1 1"><path d="M0 0L1 1"/></svg>')).toBe(false);
+  });
+
+  it("no figure SVG contains script, event handlers, javascript: URLs or foreignObject", () => {
+    const dir = join(root, "figures");
+    const files = existsSync(dir) ? readdirSync(dir).filter((name) => name.endsWith(".svg")) : [];
+    for (const file of files) expect(readFileSync(join(dir, file), "utf8"), file).not.toMatch(UNSAFE_SVG);
   });
 });

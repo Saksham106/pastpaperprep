@@ -29,12 +29,43 @@ jobs:
         with:
           python-version: '3.12'
       - run: npm ci
+      # The course-notes maths gate needs SymPy; its vitest tests fail on CI if no python is given.
+      - name: Install SymPy for the maths gate
+        run: |
+          python -m venv "$RUNNER_TEMP/notes-venv"
+          "$RUNNER_TEMP/notes-venv/bin/pip" install sympy antlr4-python3-runtime==4.11
+          echo "AA_NOTES_PYTHON=$RUNNER_TEMP/notes-venv/bin/python" >> "$GITHUB_ENV"
       - name: Lint
         run: npm run lint
       - name: Typecheck
         run: npm run typecheck
       - name: Test
         run: npm test
+
+  # Cheap, node-free check that every course lesson's published maths passes SymPy.
+  notes-math:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install sympy antlr4-python3-runtime==4.11
+      - name: Check every lesson's maths
+        run: |
+          shopt -s nullglob
+          files=(src/content/notes/ib-math-aa/lessons/*.json)
+          test "${#files[@]}" -gt 0
+          fail=0
+          for file in "${files[@]}"; do
+            name=$(basename "$file" .json)
+            item="${name/-/.}"
+            out=$(python scripts/notes/check-math.py "$item") || fail=1
+            echo "== $item"; echo "$out"
+            if grep -q '^FAIL' <<<"$out"; then fail=1; fi
+          done
+          exit $fail
 
   build:
     runs-on: ubuntu-latest

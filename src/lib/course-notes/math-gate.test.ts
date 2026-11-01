@@ -3,10 +3,14 @@ import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
-// Spawns the SymPy checker, so it only runs where the research venv exists (skips on CI).
+// Spawns the SymPy checker. Locally it skips without the research venv; on CI (AA_NOTES_PYTHON set by the workflow) it must run, so a missing python fails.
 const python = [process.env.AA_NOTES_PYTHON, ...["../research", "../../../research"].map((rel) => resolve(process.cwd(), rel, "aa-course-notes/.venv/bin/python"))].find((p): p is string => !!p && existsSync(p));
 const script = resolve(process.cwd(), "scripts/notes/check-math.py");
 const verify = (id: string, tex: string) => spawnSync(python!, [script, "--verify", "5.16", id, tex], { encoding: "utf8" });
+
+describe.runIf(process.env.CI === "true" && !python)("math gate on CI", () => {
+  it("has a python with SymPy (set AA_NOTES_PYTHON)", () => expect(python, "AA_NOTES_PYTHON must point at a python with sympy on CI").toBeDefined());
+});
 
 describe.skipIf(!python)("check-math.py verifies the published answer text", () => {
   it("passes the whole 5.16 lesson as written", () => {
