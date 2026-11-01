@@ -21,6 +21,17 @@ describe("lessonForGroup", () => {
     const expected = lesson.level === "SL" ? { href: lessonPath(course, lesson), label: lesson.title } : null;
     expect(lessonForGroup(visible, group.id, "SL")).toEqual(expected);
   });
+  it("never returns an AHL lesson at SL, even when it is the first written item of a shared group", () => {
+    const shared = groups.find((g) => g.memberOfficialItems.length >= 2)!;
+    const [first, second] = [...shared.memberOfficialItems].sort((a, b) => a.localeCompare(b, "en", { numeric: true }));
+    const make = (item: string, level: "SL" | "AHL") => ({ ...lesson, item, level, slug: `s-${item.replace(".", "-")}` });
+    const ahlOnly = { ...visible, lessons: [make(first, "AHL")] };
+    expect(lessonForGroup(ahlOnly, shared.id, "SL")).toBeNull();
+    expect(lessonForGroup(ahlOnly, shared.id, "HL")?.label).toBe(lesson.title);
+    const both = { ...visible, lessons: [make(first, "AHL"), make(second, "SL")] };
+    expect(lessonForGroup(both, shared.id, "SL")?.href).toBe(lessonPath(both, both.lessons[1]));
+    expect(lessonForGroup(both, shared.id, "HL")?.href).toBe(lessonPath(both, both.lessons[0]));
+  });
   it("is null for a group with no written lesson, or an unknown group", () => {
     const empty = groups.find((g) => !g.memberOfficialItems.some((item) => course.lessons.some((l) => l.item === item)))!;
     expect(lessonForGroup(visible, empty.id, "HL")).toBeNull();

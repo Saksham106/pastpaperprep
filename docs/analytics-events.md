@@ -20,6 +20,8 @@ No email, name or account ID is ever sent without consent.
 | `question_filter_change` | bank page | `bank`, `filter` |
 | `answer_reveal` | bank page | `bank`, `freePreview` |
 | `explanation_open` | bank page, Explanation button | `bank`, `freePreview` |
+| `question_full_paper_click` | bank page, "Full paper" link on an unlocked question card | `bank` |
+| `question_notes_click` | bank page, "Learn this topic" link on an AA question card; only rendered while the AA notes course is visible | `bank` |
 | `question_report` | bank page, flag on an unlocked question card ("Report a problem"); once per question per page session | `bank`, `questionId`, `issue` (`question_image`, `mark_scheme`, `explanation`, `other`), `freePreview`, `hasExplanation`. No free text. |
 | `pdf_builder_open` | Save PDF / Download PDF | `bank`, `questionCount` |
 | `pdf_export_attempt` / `_success` / `_error` / `_blocked` | Download PDF. Since 2026-10-20 `_error` and `_blocked` carry `reason` (`daily_limit`, `auth`, `sign_unavailable`, `network`, `build`, `other`) and `status?`; hitting the daily limit is `pdf_export_blocked`, not an error | `bank`, `questionCount`, `content`, `source` (`worksheet` = My Worksheets, `save_dialog` = icon in the Save PDF card, `builder`) |

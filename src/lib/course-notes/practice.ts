@@ -41,3 +41,13 @@ export function groupPracticeHref(groupId: string, level: PracticeLevel): string
   if (!group) throw new Error(`Unknown AA group ${groupId}`);
   return `/banks/${BANKS[level]}?topic=${encodeURIComponent(group.parentTopic)}&subtopic=${encodeURIComponent(group.studentFacingName)}`;
 }
+
+/**
+ * The group a lesson's practice panel uses: the first taxonomy group containing the item.
+ * With a level, prefer the first such group that has questions at that level, falling back to the first group.
+ */
+export function practiceGroupForItem(item: string, level?: PracticeLevel, groups: readonly (Group & { memberOfficialItems: string[] })[] = taxonomyJson.groups as (Group & { memberOfficialItems: string[] })[]): (Group & { memberOfficialItems: string[] }) | undefined {
+  const members = groups.filter((entry) => entry.memberOfficialItems.includes(item));
+  if (!level) return members[0];
+  return members.find((entry) => groupQuestionCounts(entry.id)[level] > 0) ?? members[0];
+}

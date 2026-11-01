@@ -1,8 +1,7 @@
 import Link from "next/link";
 import itemsJson from "@/data/aa-official-subtopics/items.json";
-import taxonomyJson from "@/data/aa-official-subtopics/taxonomy.json";
 import { lessonPath, topicPath, type Course } from "@/lib/course-notes/course";
-import { groupPracticeHref, groupQuestionCounts } from "@/lib/course-notes/practice";
+import { groupPracticeHref, groupQuestionCounts, practiceGroupForItem } from "@/lib/course-notes/practice";
 import { renderTex } from "@/lib/course-notes/render";
 import type { Lesson } from "@/lib/course-notes/types";
 import { formatUpdateDate, lastUpdated } from "@/lib/updates";
@@ -14,7 +13,6 @@ import { LessonRail, type RailSection } from "./LessonRail";
 import { LessonShell } from "./LessonShell";
 import styles from "./course-notes.module.css";
 
-type Group = { id: string; memberOfficialItems: string[] };
 
 const ITEM_NAMES = new Map((itemsJson.items as { item: string; name: string }[]).map((entry) => [entry.item, entry.name]));
 
@@ -31,7 +29,7 @@ export function practiseItemsLabel(items: string[]): string {
 }
 
 function practiceFor(item: string): PracticeInfo | undefined {
-  const group = (taxonomyJson.groups as Group[]).find((entry) => entry.memberOfficialItems.includes(item));
+  const group = practiceGroupForItem(item);
   if (!group) return undefined;
   return {
     group: group.id,

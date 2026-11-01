@@ -3,7 +3,7 @@ import taxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import overlay from "@/data/aa-official-subtopics/overlay.json";
 import { parseExplorerState } from "@/lib/explorer-state";
 import { COURSES } from "./course";
-import { groupPracticeHref, groupQuestionCounts, topicQuestionCount } from "./practice";
+import { groupPracticeHref, groupQuestionCounts, practiceGroupForItem, topicQuestionCount } from "./practice";
 
 const groups = taxonomy.groups as { id: string; studentFacingName: string; parentTopic: string }[];
 const records = overlay.records as { level: "SL" | "HL"; groupIds: string[]; status: string }[];
@@ -53,16 +53,29 @@ describe("groupPracticeHref", () => {
 });
 
 describe("practice links for lessons", () => {
-  it("every lesson's group practice href resolves to at least one question at each level it is taught", () => {
+  type FullGroup = (typeof groups)[number] & { memberOfficialItems: string[] };
+  it("the group the lesson page uses resolves to at least one question at each level, or falls back to a group that does", () => {
     for (const lesson of COURSES[0].lessons) {
-      const memberGroups = groups.filter((g) => (g as unknown as { memberOfficialItems: string[] }).memberOfficialItems.includes(lesson.item));
-      expect(memberGroups.length, lesson.item).toBeGreaterThan(0);
-      for (const level of lesson.level === "SL" ? (["SL", "HL"] as const) : (["HL"] as const)) {
-        const withQuestions = memberGroups.filter((g) => groupQuestionCounts(g.id)[level] > 0);
-        expect(withQuestions.length, `${lesson.item} ${level}`).toBeGreaterThan(0);
-        const url = new URL(groupPracticeHref(withQuestions[0].id, level), "https://example.test");
-        expect(parseExplorerState(Object.fromEntries(url.searchParams)).filters.subtopics).toEqual([withQuestions[0].studentFacingName]);
+      for (const level of ["SL", "HL"] as const) {
+        const group = practiceGroupForItem(lesson.item, level);
+        expect(group, `${lesson.item} ${level}`).toBeDefined();
+        const anyHasQuestions = (groups as FullGroup[]).some((g) => g.memberOfficialItems.includes(lesson.item) && groupQuestionCounts(g.id)[level] > 0);
+        if (anyHasQuestions) expect(groupQuestionCounts(group!.id)[level], `${lesson.item} ${level}`).toBeGreaterThan(0);
+        const url = new URL(groupPracticeHref(group!.id, level), "https://example.test");
+        expect(parseExplorerState(Object.fromEntries(url.searchParams)).filters.subtopics).toEqual([group!.studentFacingName]);
       }
     }
+  });
+  it("without a level it matches the lesson page's first group", () => {
+    const lesson = COURSES[0].lessons[0];
+    expect(practiceGroupForItem(lesson.item)?.id).toBe((groups as FullGroup[]).find((g) => g.memberOfficialItems.includes(lesson.item))!.id);
+  });
+  it("falls back to the first group when none has questions, and skips an empty first group", () => {
+    const [empty] = (groups as FullGroup[]).filter((g) => groupQuestionCounts(g.id).HL === 0 && groupQuestionCounts(g.id).SL === 0).concat({ id: "synthetic-empty", studentFacingName: "E", parentTopic: "T", memberOfficialItems: [] });
+    const full = (groups as FullGroup[]).find((g) => groupQuestionCounts(g.id).HL > 0)!;
+    const synthetic = [{ ...empty, memberOfficialItems: ["9.9"] }, { ...full, memberOfficialItems: ["9.9"] }];
+    expect(practiceGroupForItem("9.9", "HL", synthetic)?.id).toBe(full.id);
+    expect(practiceGroupForItem("9.9", "HL", [synthetic[0]])?.id).toBe(empty.id);
+    expect(practiceGroupForItem("0.0", "HL", synthetic)).toBeUndefined();
   });
 });
