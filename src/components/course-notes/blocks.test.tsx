@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render, screen, within } from "@testing-library/react";
 import { isValidElement, type ReactNode } from "react";
 import userEvent from "@testing-library/user-event";
-import type { Block, GlossaryTerm as Term } from "@/lib/course-notes/types";
+import type { Block, GlossaryTerm as Term, Lesson } from "@/lib/course-notes/types";
 import { Inline } from "./Inline";
 import { Blocks } from "./Blocks";
 import { ExampleSteps } from "./ExampleSteps";
@@ -234,17 +234,18 @@ describe("Result block", () => {
 });
 
 describe("Blocks keys", () => {
-  it("renders the full seed lesson without React key warnings", () => {
+  // Smoke test only: jsdom does not emit the server-path key warning. The tree-walk test below is the real key guarantee.
+  it("renders the full seed lesson without errors", () => {
     const spy = vi.spyOn(console, "error").mockImplementation(() => {});
-    const lesson = seedLesson as unknown as import("@/lib/course-notes/types").Lesson;
+    const lesson = seedLesson as unknown as Lesson;
     render(<>{lesson.sections.map((section) => <Blocks key={section.id} blocks={section.blocks} glossary={[]} level="HL" lessonHref={lessonHref} />)}</>);
-    const keyWarnings = spy.mock.calls.filter((call) => String(call[0]).includes("unique \"key\""));
+    const errors = spy.mock.calls;
     spy.mockRestore();
-    expect(keyWarnings).toEqual([]);
+    expect(errors).toEqual([]);
   });
 
   it("gives every element in an array prop a key (the server render path warns on these)", () => {
-    const lesson = seedLesson as unknown as import("@/lib/course-notes/types").Lesson;
+    const lesson = seedLesson as unknown as Lesson;
     const unkeyed: string[] = [];
     const walk = (node: ReactNode) => {
       if (Array.isArray(node)) {
