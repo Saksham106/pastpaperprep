@@ -116,6 +116,26 @@
 .figure figcaption { font-size: 14px; color: var(--muted); margin-top: 6px; }
 .interactive { margin: 22px 0; padding: 14px 16px; border: 1px dashed var(--line-strong); border-radius: 14px; background: var(--surface); }
 
+/* Interactive widgets (docs/superpowers/mockups/aa-notes/lesson.css .interactive) */
+.widget { margin: 22px 0; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.iHead { display: flex; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.4; }
+.iHead span { color: var(--muted); }
+.iBody { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: 16px; padding: 12px 16px; align-items: center; }
+.iBody svg { width: 100%; height: auto; display: block; }
+.iRead { font-size: 14.5px; line-height: 1.5; }
+.iRead p { margin: 0 0 8px; }
+.iRead output { font: 600 14px var(--font-mono); }
+.iRead select { border: 1px solid var(--line-strong); background: var(--surface-raised); color: var(--ink); border-radius: 8px; padding: 3px 8px; font: inherit; }
+.iCaption { margin: 0; padding: 0 16px 12px; font-size: 13px; color: var(--muted); }
+.sw { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.swA { background: var(--t1); }
+.swB { background: var(--t5); }
+.slider { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 8px; align-items: center; margin: 8px 0; font-size: 14px; }
+.slider label { grid-column: 1 / -1; }
+.slider input[type="range"] { width: 100%; accent-color: var(--cobalt); }
+@media (prefers-reduced-motion: reduce) { .widget, .widget * { transition: none !important; animation: none !important; } }
+@media (max-width: 720px) { .iBody { grid-template-columns: 1fr; } }
+
 @media (max-width: 720px) {
   .block { font-size: 16.5px; }
 }

@@ -6,6 +6,7 @@ import { CalculatorSteps } from "./CalculatorSteps";
 import { CheckQuestion } from "./CheckQuestion";
 import { ExampleSteps } from "./ExampleSteps";
 import { FORMULA_TAG_LABEL, FormulaBlock } from "./FormulaBlock";
+import { INTERACTIVES } from "./interactives/registry";
 import { Inline, defaultLessonHref, type LessonHref } from "./Inline";
 import styles from "./course-notes.module.css";
 
@@ -79,12 +80,15 @@ export function Blocks({ blocks, glossary, level, lessonHref = defaultLessonHref
             {block.caption ? <figcaption>{inline(block.caption)}</figcaption> : null}
           </figure>
         );
-      case "interactive":
+      case "interactive": {
+        const Widget = INTERACTIVES[block.widget] ?? null;
+        if (Widget) return <Widget alt={block.alt} props={block.props} />;
         return (
           <div className={styles.interactive} data-widget={block.widget} data-props={JSON.stringify(block.props)}>
             <p className={styles.small}>{block.alt}</p>
           </div>
         );
+      }
       case "calculator":
         return (
           <CalculatorSteps
