@@ -182,14 +182,14 @@ describe("Blocks", () => {
     const blocks: Block[] = [
       { type: "formula", tex: "x^2", tag: "booklet" },
       { type: "figure", id: "fig-1", alt: "A parabola", caption: "Caption" },
-      { type: "interactive", widget: "euler-step", props: {}, alt: "Area picture" },
+      { type: "interactive", widget: "not-built-yet", props: {}, alt: "Area picture" } as unknown as Block,
     ];
     const { container } = render(<Blocks blocks={blocks} glossary={[]} level="SL" lessonHref={lessonHref} figures={{ "fig-1": "<svg viewBox='0 0 1 1'></svg>" }} />);
     expect(container.querySelector("math")).not.toBeNull();
     expect(screen.getByText("In the formula booklet")).toBeTruthy();
     expect(container.querySelector("svg")).not.toBeNull();
     expect(screen.getByRole("img", { name: "A parabola" })).toBeTruthy();
-    expect(container.querySelector('[data-widget="euler-step"]')).not.toBeNull();
+    expect(container.querySelector('[data-widget="not-built-yet"]')).not.toBeNull();
     expect(screen.getByText("Area picture")).toBeTruthy();
   });
 

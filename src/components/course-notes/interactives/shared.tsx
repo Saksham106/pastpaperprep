@@ -1,16 +1,6 @@
 import { useId, type ReactNode } from "react";
 import styles from "../course-notes.module.css";
-
-/** Fixed-decimal display with a real minus sign and no negative zero. */
-export function fmt(n: number, dp = 2): string {
-  const s = n.toFixed(dp);
-  return (Number(s) === 0 ? (0).toFixed(dp) : s).replace("-", "−");
-}
-
-/** Shortest display of a slider-sized number (at most 2 decimals), with a real minus sign. */
-export function num(n: number): string {
-  return String(Number(n.toFixed(2))).replace("-", "−");
-}
+import { fmt } from "./format";
 
 export type Frame = { xMin: number; xMax: number; yMin: number; yMax: number; left: number; top: number; width: number; height: number };
 
@@ -72,7 +62,7 @@ export function Grid({ f, labelEvery = 1 }: { f: Frame; labelEvery?: number }) {
   );
 }
 
-export function Slider({ label, value, min, max, step, onChange, format }: {
+export function Slider({ label, value, min, max, step, onChange, format, live = false }: {
   label: string;
   value: number;
   min: number;
@@ -80,13 +70,15 @@ export function Slider({ label, value, min, max, step, onChange, format }: {
   step: number;
   onChange: (v: number) => void;
   format: (v: number) => string;
+  /** Announce changes politely. Leave off unless this is the one key readout of the widget. */
+  live?: boolean;
 }) {
   const id = useId();
   return (
     <div className={styles.slider}>
       <label htmlFor={id}>{label}</label>
       <input id={id} type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} />
-      <output htmlFor={id} aria-live="polite">{format(value)}</output>
+      <output htmlFor={id} aria-live={live ? "polite" : undefined}>{format(value)}</output>
     </div>
   );
 }
@@ -112,4 +104,21 @@ export function WidgetFrame({ id, title, hint = "Drag the slider", caption, svg,
       <figcaption className={styles.iCaption}>{caption}</figcaption>
     </figure>
   );
+}
+
+/**
+ * Convert a pointer event to the user units of the widget's outer svg[role=img].
+ * Uses the svg's screen CTM, so nested svgs (clip frames), scaling and viewBox offsets are all accounted for.
+ */
+export function pointerToSvg(e: { clientX: number; clientY: number }, from: Element): { x: number; y: number } {
+  const svg = (from.closest("svg[role=img]") ?? from) as SVGSVGElement;
+  const ctm = svg.getScreenCTM?.();
+  if (ctm) {
+    const m = ctm.inverse();
+    return { x: m.a * e.clientX + m.c * e.clientY + m.e, y: m.b * e.clientX + m.d * e.clientY + m.f };
+  }
+  // Fallback: assume the viewBox fills the box (xMidYMid scaling is not modelled).
+  const r = svg.getBoundingClientRect();
+  const [vx, vy, vw, vh] = (svg.getAttribute("viewBox") ?? `0 0 ${r.width} ${r.height}`).split(/[\s,]+/).map(Number);
+  return { x: vx + ((e.clientX - r.left) / r.width) * vw, y: vy + ((e.clientY - r.top) / r.height) * vh };
 }

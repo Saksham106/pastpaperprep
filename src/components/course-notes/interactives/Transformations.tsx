@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import styles from "../course-notes.module.css";
-import { Clip, curvePath, fmt, Grid, num, Slider, sx, sy, WidgetFrame, type Frame } from "./shared";
+import { fmt, num } from "./format";
+import { Clip, curvePath, Grid, Slider, sx, sy, WidgetFrame, type Frame } from "./shared";
 import { BASES, formatEquation, imageOfPoint, transformed, type BaseId, type Params } from "./transformations-math";
 import type { WidgetProps } from "./types";
 
@@ -32,6 +33,8 @@ export function renderTransformationsSvg(alt: string, s: TransformationsState) {
 export default function Transformations({ alt }: WidgetProps) {
   const [s, setS] = useState<TransformationsState>(TRANSFORMATIONS_DEFAULT);
   const set = (k: keyof Params) => (v: number) => setS((p) => ({ ...p, [k]: v }));
+  // b = 0 would collapse the graph; step over it in whichever direction the slider was moving.
+  const changeB = (v: number) => setS((p) => ({ ...p, b: v === 0 ? (p.b > 0 ? -0.25 : 0.25) : v }));
   const key = imageOfPoint(BASES[s.base].keyX, BASES[s.base].f(BASES[s.base].keyX), s);
   return (
     <WidgetFrame
@@ -51,10 +54,10 @@ export default function Transformations({ alt }: WidgetProps) {
         </select>
       </p>
       <Slider label="a (vertical stretch)" value={s.a} min={-3} max={3} step={0.25} onChange={set("a")} format={num} />
-      <Slider label="b (horizontal stretch)" value={s.b} min={-3} max={3} step={0.25} onChange={set("b")} format={num} />
+      <Slider label="b (horizontal scale 1/b)" value={s.b} min={-3} max={3} step={0.25} onChange={changeB} format={num} />
       <Slider label="c (shift right)" value={s.c} min={-4} max={4} step={0.5} onChange={set("c")} format={num} />
       <Slider label="d (shift up)" value={s.d} min={-4} max={4} step={0.5} onChange={set("d")} format={num} />
-      <p className={styles.small}>{key ? `${BASES[s.base].keyLabel} maps to (${fmt(key.x)}, ${fmt(key.y)})` : "b = 0 collapses the graph to a horizontal line"}</p>
+      <p className={styles.small}>{key ? `${BASES[s.base].keyLabel} maps to (${fmt(key.x)}, ${fmt(key.y)})` : ""}</p>
     </WidgetFrame>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { fmt, Slider, WidgetFrame } from "./shared";
+import { fmt } from "./format";
+import { Slider, WidgetFrame } from "./shared";
 import { useState } from "react";
 import { toDegrees, unitCirclePoint } from "./unit-circle-math";
 import { numProp, type WidgetProps } from "./types";
@@ -83,7 +84,7 @@ export default function UnitCircleGraphs({ alt, props }: WidgetProps) {
     >
       <Slider label="θ (radians)" value={theta} min={0} max={6.28} step={0.01} onChange={setTheta} format={(v) => `${fmt(v)} rad`} />
       <p>θ = {fmt(toDegrees(theta), 0)}°</p>
-      <p>cos θ = <output aria-live="polite" data-testid="cos">{fmt(cos, 3)}</output></p>
+      <p>cos θ = <output data-testid="cos">{fmt(cos, 3)}</output></p>
       <p>sin θ = <output aria-live="polite" data-testid="sin">{fmt(sin, 3)}</output></p>
     </WidgetFrame>
   );

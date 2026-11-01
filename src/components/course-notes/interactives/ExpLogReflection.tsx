@@ -2,7 +2,8 @@
 
 import { useState, type SVGProps } from "react";
 import styles from "../course-notes.module.css";
-import { Clip, curvePath, fmt, Grid, num, Slider, sx, sy, WidgetFrame, type Frame } from "./shared";
+import { fmt, num } from "./format";
+import { Clip, curvePath, Grid, Slider, sx, sy, WidgetFrame, type Frame, pointerToSvg } from "./shared";
 import { expPoint, logBase, pointRange, reflect, WINDOW } from "./exp-log-math";
 import { numProp, type WidgetProps } from "./types";
 
@@ -67,10 +68,7 @@ export default function ExpLogReflection({ alt, props }: WidgetProps) {
     onPointerDown: (e) => e.currentTarget.setPointerCapture(e.pointerId),
     onPointerMove: (e) => {
       if (!e.currentTarget.hasPointerCapture(e.pointerId)) return;
-      const svg = e.currentTarget.ownerSVGElement;
-      if (!svg) return;
-      const r = svg.getBoundingClientRect();
-      const px = ((e.clientX - r.left) / r.width) * 360;
+      const { x: px } = pointerToSvg(e, e.currentTarget);
       const x = F.xMin + ((px - F.left) / F.width) * (F.xMax - F.xMin);
       setRawX(clamp(Math.round(x * 10) / 10, lo, hi));
     },
@@ -86,9 +84,9 @@ export default function ExpLogReflection({ alt, props }: WidgetProps) {
     >
       <Slider label="a (base)" value={a} min={0.2} max={4} step={0.05} onChange={changeA} format={(v) => fmt(v)} />
       <Slider label="x (point on y = aˣ)" value={x0} min={Math.ceil(lo * 10) / 10} max={Math.floor(hi * 10) / 10} step={0.1} onChange={setRawX} format={(v) => fmt(v, 1)} />
-      <p>P = (<output aria-live="polite" data-testid="p">{fmt(p.x, 2)}, {fmt(p.y, 2)}</output>) on y = aˣ</p>
+      <p>P = (<output data-testid="p">{fmt(p.x, 2)}, {fmt(p.y, 2)}</output>) on y = aˣ</p>
       <p>Q = (<output aria-live="polite" data-testid="q">{fmt(q.x, 2)}, {fmt(q.y, 2)}</output>) on y = logₐx</p>
-      <p>logₐ({fmt(p.y, 2)}) = <output aria-live="polite" data-testid="log">{fmt(logBase(a, p.y), 2)}</output></p>
+      <p>logₐ({fmt(p.y, 2)}) = <output data-testid="log">{fmt(logBase(a, p.y), 2)}</output></p>
       <p className={styles.small}>a must be positive and not 1 (now {num(a)}).</p>
     </WidgetFrame>
   );

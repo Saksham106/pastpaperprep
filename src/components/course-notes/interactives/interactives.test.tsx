@@ -1,6 +1,6 @@
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
-import { renderToStaticMarkup } from "react-dom/server";
+import { renderToStaticMarkup, renderToString } from "react-dom/server";
 import { INTERACTIVE_IDS, type Block } from "@/lib/course-notes/types";
 import { Blocks } from "../Blocks";
 import { INTERACTIVES } from "./registry";
@@ -13,6 +13,8 @@ import { partsAreas } from "./parts-area-math";
 import { BASES, formatEquation, imageOfPoint, transformed } from "./transformations-math";
 import { discriminant, realRoots } from "./discriminant-math";
 import { expPoint, logBase, pointRange, reflect } from "./exp-log-math";
+import { fmt, num } from "./format";
+import { pointerToSvg } from "./shared";
 import { toDegrees, unitCirclePoint } from "./unit-circle-math";
 
 afterEach(cleanup);
@@ -45,6 +47,14 @@ describe("registry", () => {
 });
 
 describe("first frame is plain server-rendered SVG", () => {
+  it.each(INTERACTIVE_IDS.filter((id) => INTERACTIVES[id]))("Blocks server output for %s has the svg synchronously", (id) => {
+    const html = renderToString(<Blocks blocks={[{ type: "interactive", widget: id, props: {}, alt: "Static alt" }]} glossary={[]} level="SL" />);
+    expect(html).toContain('role="img"');
+    expect(html).toContain('aria-label="Static alt"');
+    expect(html).toContain("<svg");
+    expect(html).toContain("<input");
+  });
+
   it("every built widget's pure render produces role=img markup with its alt", () => {
     const frames = [
       renderPartsAreaSvg("alt", { b: 2 }),
@@ -84,10 +94,11 @@ describe("parts-area", () => {
     expect(screen.getByTestId("area-rect").textContent).toBe("3.38");
   });
 
-  it("has an accessible slider with a live readout", () => {
-    render(<PartsArea alt="alt" />);
+  it("has an accessible slider with a visible label and one live result", () => {
+    const { container } = render(<PartsArea alt="alt" />);
     expect(slider("b").type).toBe("range");
-    expect(slider("b").parentElement!.querySelector("output")!.getAttribute("aria-live")).toBe("polite");
+    expect(slider("b").parentElement!.querySelector("output")).not.toBeNull();
+    expect(container.querySelectorAll("output[aria-live]")).toHaveLength(1);
   });
 });
 
@@ -230,5 +241,77 @@ describe("unit-circle-graphs", () => {
     expect(readout(/^θ /)).toBe("3.14 rad");
     expect(screen.getByTestId("cos").textContent).toBe("−1.000");
     expect(screen.getByTestId("sin").textContent).toBe("0.002");
+  });
+});
+
+describe("format", () => {
+  it("uses a real minus sign and never prints negative zero", () => {
+    expect(fmt(-3)).toBe("−3.00");
+    expect(fmt(-0.001)).toBe("0.00");
+    expect(num(-0.5)).toBe("−0.5");
+    expect(num(2)).toBe("2");
+  });
+});
+
+describe("only one live region per widget", () => {
+  it.each([
+    ["transformations", <Transformations key="t" alt="a" />],
+    ["discriminant-roots", <DiscriminantRoots key="d" alt="a" />],
+    ["exp-log-reflection", <ExpLogReflection key="e" alt="a" />],
+    ["unit-circle-graphs", <UnitCircleGraphs key="u" alt="a" />],
+    ["parts-area", <PartsArea key="p" alt="a" />],
+  ])("%s", (_id, el) => {
+    const { container } = render(el);
+    expect(container.querySelectorAll("[aria-live]")).toHaveLength(1);
+  });
+});
+
+describe("transformations b slider", () => {
+  it("is labelled with the 1/b scale and steps over b = 0", () => {
+    render(<Transformations alt="alt" />);
+    expect(slider("b (horizontal scale 1/b)")).toBeTruthy();
+    setSlider(/^b /, 0.25);
+    setSlider(/^b /, 0);
+    expect(readout(/^b /)).toBe("−0.25");
+    setSlider(/^b /, 0);
+    expect(readout(/^b /)).toBe("0.25");
+  });
+});
+
+describe("pointerToSvg", () => {
+  it("maps through the outer svg's screen CTM, not the nested clip svg", () => {
+    document.body.innerHTML = '<svg role="img" viewBox="0 0 360 260"><svg id="inner"><circle id="c"/></svg></svg>';
+    const outer = document.querySelector('svg[role="img"]') as unknown as SVGSVGElement;
+    // 2 CSS px per user unit, the svg's top-left sits at (10, 20) on screen.
+    outer.getScreenCTM = () => ({ inverse: () => ({ a: 0.5, b: 0, c: 0, d: 0.5, e: -5, f: -10 }) }) as unknown as DOMMatrix;
+    const circle = document.getElementById("c")!;
+    expect(pointerToSvg({ clientX: 370, clientY: 120 }, circle)).toEqual({ x: 180, y: 50 });
+  });
+
+  it("falls back to the bounding box and viewBox when there is no CTM", () => {
+    document.body.innerHTML = '<svg role="img" viewBox="0 0 360 260"><circle id="c"/></svg>';
+    const outer = document.querySelector("svg") as unknown as SVGSVGElement;
+    outer.getScreenCTM = () => null;
+    outer.getBoundingClientRect = () => ({ left: 10, top: 20, width: 720, height: 520 }) as DOMRect;
+    expect(pointerToSvg({ clientX: 370, clientY: 120 }, document.getElementById("c")!)).toEqual({ x: 180, y: 50 });
+  });
+});
+
+describe("exp-log drag", () => {
+  it("puts the point under the cursor on the outer svg's scale", () => {
+    const { container } = render(<ExpLogReflection alt="alt" />);
+    const outer = container.querySelector('svg[role="img"]') as unknown as SVGSVGElement;
+    outer.getScreenCTM = () => ({ inverse: () => ({ a: 0.5, b: 0, c: 0, d: 0.5, e: -5, f: -10 }) }) as unknown as DOMMatrix;
+    const dot = container.querySelector("circle[style*='grab']") as SVGCircleElement;
+    dot.setPointerCapture = vi.fn();
+    dot.hasPointerCapture = () => true;
+    // x = 2 sits at user x = 18 + (2 + 3.5) / 11 * 324 = 180, i.e. client x = 2 * 180 + 10 = 370.
+    // jsdom has no PointerEvent, so send a MouseEvent under the pointer event name (React reads clientX from it).
+    act(() => {
+      dot.dispatchEvent(new MouseEvent("pointermove", { bubbles: true, clientX: 370, clientY: 100 }));
+    });
+    expect(readout(/^x /)).toBe("2.0");
+    expect(screen.getByTestId("p").textContent).toBe("2.00, 4.00");
+    expect(screen.getByTestId("q").textContent).toBe("4.00, 2.00");
   });
 });

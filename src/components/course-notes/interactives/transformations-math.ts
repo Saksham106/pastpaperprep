@@ -1,4 +1,4 @@
-import { num } from "./shared";
+import { num } from "./format";
 
 export type BaseId = "square" | "abs" | "sin" | "exp";
 export type Params = { a: number; b: number; c: number; d: number };

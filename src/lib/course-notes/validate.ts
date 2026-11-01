@@ -99,6 +99,7 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
       if (block.tag === "learn" && block.bookletId) fail(path, "learn formula must not have a bookletId");
     }
     if (block.type === "interactive" && !(INTERACTIVE_IDS as readonly string[]).includes(block.widget)) fail(path, `unknown interactive ${block.widget}`);
+    if ((block.type === "interactive" || block.type === "figure") && block.alt.includes("$")) fail(path, `${block.type} alt must be plain words with no $ (it is the accessible name)`);
     if (block.type === "hlNote" && !ctx.lessonItems.has(block.lesson)) fail(path, `hlNote links to unknown lesson ${block.lesson}`);
   }));
 

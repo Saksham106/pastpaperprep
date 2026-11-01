@@ -107,6 +107,12 @@ describe("validateLesson", () => {
     expect(withBlock({ type: "interactive", widget: "parts-area", props: {}, alt: "a" })).toEqual([]);
   });
 
+  it("rejects $ in interactive and figure alt text", () => {
+    expect(withBlock({ type: "interactive", widget: "parts-area", props: {}, alt: "Curve $v=u^2$" })).toEqual([expect.stringContaining("interactive alt must be plain words")]);
+    expect(withBlock({ type: "figure", id: "fig-x", alt: "A $x$ graph" })).toEqual([expect.stringContaining("figure alt must be plain words")]);
+    expect(withBlock({ type: "figure", id: "fig-x", alt: "A parabola" })).toEqual([]);
+  });
+
   it("reports a topic mismatch", () => {
     const lesson = clone();
     lesson.topic = 3;

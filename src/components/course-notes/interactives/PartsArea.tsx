@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import styles from "../course-notes.module.css";
-import { fmt, Slider, WidgetFrame } from "./shared";
+import { fmt } from "./format";
+import { Slider, WidgetFrame } from "./shared";
 import { partsAreas } from "./parts-area-math";
 import { numProp, type WidgetProps } from "./types";
 
@@ -52,7 +53,7 @@ export default function PartsArea({ alt, props }: WidgetProps) {
       svg={renderPartsAreaSvg(alt, { b })}
     >
       <p>For the curve v = u² from u = 0 to u = b:</p>
-      <p><span className={`${styles.sw} ${styles.swA}`} />∫v du = <output data-testid="area-under">{fmt(area.underCurve)}</output></p>
+      <p><span className={`${styles.sw} ${styles.swA}`} />∫v du = <output data-testid="area-under" aria-live="polite">{fmt(area.underCurve)}</output></p>
       <p><span className={`${styles.sw} ${styles.swB}`} />∫u dv = <output data-testid="area-left">{fmt(area.leftOfCurve)}</output></p>
       <p>Together they fill the rectangle b × b² = <output data-testid="area-rect">{fmt(area.rectangle)}</output></p>
       <Slider label="b" value={b} min={0.5} max={2.4} step={0.01} onChange={setB} format={(v) => fmt(v)} />
