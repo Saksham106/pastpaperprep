@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { IntentPrefetchLink } from '@/components/IntentPrefetchLink';
 import { ArrowDown, ArrowLeft, ArrowRight } from '@phosphor-icons/react/dist/ssr';
+import { notesTopicLinksForBank } from '@/lib/course-notes/group-lessons';
 import { courseToneForBank } from '@/components/CourseIcon';
 import { JsonLd } from '@/components/JsonLd';
 import type { PaperReaderConfig } from '@/lib/paper-reader-config';
@@ -77,7 +78,7 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
       <h1>{copy.h1}</h1>
       <ul className={styles.facts} aria-label="Paper facts">{facts.map(fact => <li key={fact}>{fact}</li>)}</ul>
     </header>
-    <PaperWorkspace reader={reader} marking={marking} bank={bank.slug} practice={practice}>
+    <PaperWorkspace reader={reader} marking={marking} bank={bank.slug} practice={practice} notesLinks={notesTopicLinksForBank(bank.slug)}>
       <section className={styles.box} aria-label="Related papers">
         {variants.length > 1 && <ChipRow label="Other variants" papers={variants} current={p.id} text={chipLabel} />}
         {session.length > 0 && <ChipRow label="Same session" papers={session} text={shortName} />}

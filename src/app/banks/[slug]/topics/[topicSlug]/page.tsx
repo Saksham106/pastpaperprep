@@ -5,6 +5,7 @@ import { SearchDetail } from "@/components/SearchLanding";
 import { loadBankExplorer } from "@/lib/bank-explorer";
 import { getCatalogBank, getCatalogBanksForDisplay } from "@/lib/catalog";
 import { socialPreview } from "@/lib/seo";
+import { notesLinksForBank } from "@/lib/course-notes/group-lessons";
 import {
   bankSearchName,
   getLandingManifest,
@@ -73,7 +74,7 @@ export default async function TopicPage({
         .filter((item) => item.slug !== topic.slug)
         .map((item) => ({ label: item.label, href: topicPath(bank.slug, item), count: item.count }))}
     >
-      <BankQuestionExplorer slug={bank.slug} explorer={explorer} routePreset={routePreset} />
+      <BankQuestionExplorer slug={bank.slug} explorer={explorer} routePreset={routePreset} notesLinks={notesLinksForBank(bank.slug)} />
     </SearchDetail>
   );
 }

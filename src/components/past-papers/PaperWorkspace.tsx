@@ -7,11 +7,12 @@ import { PaperMarkingWorkspace, type PaperMarkingPaper } from '@/components/Pape
 import type { PaperReaderConfig } from '@/lib/paper-reader-config';
 import { trackProductEvent } from '@/lib/product-analytics';
 import { PeriodicTableButton } from '@/components/PeriodicTableButton';
+import type { NotesLink } from '@/lib/paper-marking-report';
 import { hasPeriodicTable } from '@/lib/periodic-table';
 import styles from './PaperWorkspace.module.css';
 
 /** Paper page client shell: the reader, a rail (server-rendered children) and marking, which replaces the rail. */
-export function PaperWorkspace({ reader, marking, bank, practice = true, children }: { reader: PaperReaderConfig; marking: PaperMarkingPaper | null; bank: string; practice?: boolean; children: ReactNode }) {
+export function PaperWorkspace({ reader, marking, bank, practice = true, notesLinks, children }: { reader: PaperReaderConfig; marking: PaperMarkingPaper | null; bank: string; practice?: boolean; notesLinks?: Record<string, NotesLink>; children: ReactNode }) {
   const [kind, setKind] = useState<PaperDocumentKind>('question');
   const [markingOpen, setMarkingOpen] = useState(false);
   const markButton = useRef<HTMLButtonElement>(null);
@@ -30,7 +31,7 @@ export function PaperWorkspace({ reader, marking, bank, practice = true, childre
   return <div className={styles.workspace} data-marking={markingOpen || undefined}>
     <div ref={main} className={styles.main}><PastPaperReader paper={reader} kind={kind} onKindChange={setKind} analyticsBank={bank} /></div>
     <aside className={styles.rail} aria-label={markingOpen ? 'Marking' : 'About this paper'}>
-      {markingOpen && marking ? <div className={styles.markPanel}><PaperMarkingWorkspace paper={marking} practice={practice} onClose={() => setMarkingOpen(false)} /></div> : <>
+      {markingOpen && marking ? <div className={styles.markPanel}><PaperMarkingWorkspace paper={marking} practice={practice} notesLinks={notesLinks} onClose={() => setMarkingOpen(false)} /></div> : <>
         {marking ? <button ref={markButton} type="button" className={styles.markButton} onClick={openMarking}><CheckSquare aria-hidden="true" weight="bold" />Mark this paper</button> : <p className={styles.held}>Self-marking isn&apos;t available for this paper yet.</p>}
         {hasPeriodicTable(bank) && <div className={styles.reference}><PeriodicTableButton source="past-paper" /></div>}
         {children}

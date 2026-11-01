@@ -19,6 +19,13 @@ const manifest: LandingManifest = {
 };
 
 describe("SearchLanding", () => {
+  it("links the IB hub to the course notes only when given a notes href", () => {
+    const view = render(<QualificationHub qualification="IB Diploma" title="IB practice" intro="Browse IB banks." />);
+    expect(screen.queryByRole("link", { name: /Maths AA course notes/ })).not.toBeInTheDocument();
+    view.rerender(<QualificationHub qualification="IB Diploma" title="IB practice" intro="Browse IB banks." notesHref="/revision-notes/ib-math-aa" />);
+    expect(screen.getByRole("link", { name: /Maths AA course notes/ })).toHaveAttribute("href", "/revision-notes/ib-math-aa");
+  });
+
   it("gives qualification hubs contextual routes to both new selection guides", () => {
     const { rerender } = render(<QualificationHub qualification="IB Diploma" title="IB practice" intro="Browse IB banks." />);
     expect(screen.getByRole("link", { name: "RevisionDojo vs Save My Exams" })).toHaveAttribute("href", "/articles/revisiondojo-vs-save-my-exams");
