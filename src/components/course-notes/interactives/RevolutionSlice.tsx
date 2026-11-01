@@ -71,7 +71,7 @@ export default function RevolutionSlice({ alt, props }: WidgetProps) {
       </p>
       <Slider label="b (right end of the rotated region)" value={b} min={0.5} max={4} step={0.1} onChange={setB} format={(v) => fmt(v, 1)} />
       <Slider label="x₀ (position of the disc)" value={x0} min={0} max={b} step={0.05} onChange={setRawX} format={(v) => fmt(v, 2)} />
-      <p>Disc radius f(x₀) = <output data-testid="radius">{fmt(discRadius(shape, x0), 3)}</output>, area = <output data-testid="disc-area">{fmt(discArea(shape, x0), 3)}</output></p>
+      <p>Disc radius f(x₀) = <output aria-live="off" data-testid="radius">{fmt(discRadius(shape, x0), 3)}</output>, area = <output aria-live="off" data-testid="disc-area">{fmt(discArea(shape, x0), 3)}</output></p>
       <p>{s.formula}</p>
       <p>V = <output data-testid="volume" aria-live="polite">{fmt(V, 3)} (volume of {s.label} rotated about the x-axis, 0 ≤ x ≤ {num(b)})</output></p>
     </WidgetFrame>

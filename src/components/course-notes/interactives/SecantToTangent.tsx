@@ -68,7 +68,7 @@ export default function SecantToTangent({ alt, props }: WidgetProps) {
       <Slider label="h (Q is at x = 1 + h)" value={h} min={0.01} max={1.5} step={0.01} onChange={setH} format={(v) => fmt(v)} />
       <p>P = (1, {fmt(f(1))}), Q = ({fmt(1 + h)}, {fmt(f(1 + h), 3)})</p>
       <p>Secant gradient = <output data-testid="secant" aria-live="polite">{fmt(secantGradient(f, h), 3)}</output></p>
-      <p>Tangent gradient f′(1) = <output data-testid="tangent">{fmt(df(1), 0)}</output></p>
+      <p>Tangent gradient f′(1) = <output aria-live="off" data-testid="tangent">{fmt(df(1), 0)}</output></p>
     </WidgetFrame>
   );
 }

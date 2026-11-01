@@ -53,8 +53,8 @@ export default function RiemannSums({ alt, props }: WidgetProps) {
       </p>
       <Slider label="n (rectangles)" value={n} min={1} max={50} step={1} onChange={setN} format={(v) => String(v)} />
       <p>Sum = <output data-testid="sum" aria-live="polite">{fmt(sum, 3)}</output></p>
-      <p>Exact ∫₀² x² dx = 8/3 ≈ <output data-testid="exact">{fmt(EXACT, 3)}</output></p>
-      <p>Error = <output data-testid="error">{fmt(sum - EXACT, 3)}</output></p>
+      <p>Exact ∫₀² x² dx = 8/3 ≈ <output aria-live="off" data-testid="exact">{fmt(EXACT, 3)}</output></p>
+      <p>Error = <output aria-live="off" data-testid="error">{fmt(sum - EXACT, 3)}</output></p>
     </WidgetFrame>
   );
 }

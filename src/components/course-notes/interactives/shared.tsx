@@ -78,7 +78,7 @@ export function Slider({ label, value, min, max, step, onChange, format, live = 
     <div className={styles.slider}>
       <label htmlFor={id}>{label}</label>
       <input id={id} type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} />
-      <output htmlFor={id} aria-live={live ? "polite" : undefined}>{format(value)}</output>
+      <output htmlFor={id} aria-live={live ? "polite" : "off"}>{format(value)}</output>
     </div>
   );
 }

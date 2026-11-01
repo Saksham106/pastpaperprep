@@ -53,9 +53,9 @@ export default function DiscriminantRoots({ alt, props }: WidgetProps) {
       svg={renderDiscriminantSvg(alt, s)}
     >
       <p>y = {s.a === 1 ? "" : s.a === -1 ? "−" : num(s.a)}x² {s.b < 0 ? "−" : "+"} {num(Math.abs(s.b))}x {s.c < 0 ? "−" : "+"} {num(Math.abs(s.c))}</p>
-      <p>Δ = b² − 4ac = <output data-testid="delta">{out.delta}</output></p>
+      <p>Δ = b² − 4ac = <output aria-live="off" data-testid="delta">{out.delta}</output></p>
       <p><output aria-live="polite" data-testid="root-count">{out.count}</output></p>
-      <p>Roots: <output data-testid="roots">{out.roots}</output></p>
+      <p>Roots: <output aria-live="off" data-testid="roots">{out.roots}</output></p>
       <Slider label="a" value={s.a} min={-3} max={3} step={0.25} onChange={set("a")} format={num} />
       <Slider label="b" value={s.b} min={-6} max={6} step={0.5} onChange={set("b")} format={num} />
       <Slider label="c" value={s.c} min={-6} max={6} step={0.5} onChange={set("c")} format={num} />

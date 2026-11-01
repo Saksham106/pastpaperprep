@@ -66,9 +66,9 @@ export default function RadianArc({ alt, props }: WidgetProps) {
     >
       <Slider label="θ (radians)" value={theta} min={0} max={TAU} step={0.01} onChange={(v) => setTheta(v >= 6.28 ? TAU : v)} format={(v) => `${fmt(v)} rad`} />
       <Slider label="r (radius)" value={r} min={0.5} max={3} step={0.1} onChange={setR} format={(v) => fmt(v, 1)} />
-      <p>θ = <output data-testid="degrees">{fmt(radToDeg(theta), 1)}</output>°</p>
+      <p>θ = <output aria-live="off" data-testid="degrees">{fmt(radToDeg(theta), 1)}</output>°</p>
       <p>Arc length s = rθ = <output data-testid="arc" aria-live="polite">{fmt(arcLength(r, theta), 3)}</output></p>
-      <p>Sector area A = ½r²θ = <output data-testid="sector">{fmt(sectorArea(r, theta), 3)}</output></p>
+      <p>Sector area A = ½r²θ = <output aria-live="off" data-testid="sector">{fmt(sectorArea(r, theta), 3)}</output></p>
     </WidgetFrame>
   );
 }

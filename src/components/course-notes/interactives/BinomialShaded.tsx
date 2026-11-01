@@ -65,7 +65,7 @@ export default function BinomialShaded({ alt, props }: WidgetProps) {
       </p>
       <Slider label="k" value={k} min={0} max={n} step={1} onChange={setK} format={(v) => String(v)} />
       <p>Probability = <output data-testid="prob" aria-live="polite">{fmt(prob, 4)} ({eventLabel(mode, k)})</output></p>
-      <p>Mean np = <output data-testid="mean">{fmt(binomMean(n, p), 2)}</output>, variance np(1 − p) = <output data-testid="variance">{fmt(binomVariance(n, p), 2)}</output></p>
+      <p>Mean np = <output aria-live="off" data-testid="mean">{fmt(binomMean(n, p), 2)}</output>, variance np(1 − p) = <output aria-live="off" data-testid="variance">{fmt(binomVariance(n, p), 2)}</output></p>
     </WidgetFrame>
   );
 }

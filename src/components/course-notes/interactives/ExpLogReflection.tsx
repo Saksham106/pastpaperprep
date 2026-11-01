@@ -84,9 +84,9 @@ export default function ExpLogReflection({ alt, props }: WidgetProps) {
     >
       <Slider label="a (base)" value={a} min={0.2} max={4} step={0.05} onChange={changeA} format={(v) => fmt(v)} />
       <Slider label="x (point on y = aˣ)" value={x0} min={Math.ceil(lo * 10) / 10} max={Math.floor(hi * 10) / 10} step={0.1} onChange={setRawX} format={(v) => fmt(v, 1)} />
-      <p>P = (<output data-testid="p">{fmt(p.x, 2)}, {fmt(p.y, 2)}</output>) on y = aˣ</p>
+      <p>P = (<output aria-live="off" data-testid="p">{fmt(p.x, 2)}, {fmt(p.y, 2)}</output>) on y = aˣ</p>
       <p>Q = (<output aria-live="polite" data-testid="q">{fmt(q.x, 2)}, {fmt(q.y, 2)}</output>) on y = logₐx</p>
-      <p>logₐ({fmt(p.y, 2)}) = <output data-testid="log">{fmt(logBase(a, p.y), 2)}</output></p>
+      <p>logₐ({fmt(p.y, 2)}) = <output aria-live="off" data-testid="log">{fmt(logBase(a, p.y), 2)}</output></p>
       <p className={styles.small}>a must be positive and not 1 (now {num(a)}).</p>
     </WidgetFrame>
   );

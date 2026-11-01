@@ -83,7 +83,7 @@ export default function NormalShaded({ alt, props }: WidgetProps) {
       {showA && <Slider label="a (lower bound)" value={a} min={lo} max={mode === "between" ? b : hi} step={step} onChange={(v) => setZa((v - mu) / sigma)} format={(v) => num(v)} />}
       {showB && <Slider label="b (upper bound)" value={b} min={mode === "between" ? a : lo} max={hi} step={step} onChange={(v) => setZb((v - mu) / sigma)} format={(v) => num(v)} />}
       <p>Probability = <output data-testid="prob" aria-live="polite">{fmt(prob, 4)} ({normalEventLabel(mode, a, b)})</output></p>
-      <p>z-scores: {showA && <>a → <output data-testid="za">{fmt(za, 2)}</output> </>}{showB && <>b → <output data-testid="zb">{fmt(zb, 2)}</output></>}</p>
+      <p>z-scores: {showA && <>a → <output aria-live="off" data-testid="za">{fmt(za, 2)}</output> </>}{showB && <>b → <output aria-live="off" data-testid="zb">{fmt(zb, 2)}</output></>}</p>
     </WidgetFrame>
   );
 }

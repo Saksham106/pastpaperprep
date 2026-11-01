@@ -72,9 +72,9 @@ export default function RegressionTwoLines({ alt, props }: WidgetProps) {
     >
       <Slider label="x of the ringed point" value={pt.x} min={LIM.lo} max={LIM.hi} step={0.1} onChange={(x) => setPt((q) => ({ ...q, x }))} format={(v) => fmt(v, 1)} />
       <Slider label="y of the ringed point" value={pt.y} min={LIM.lo} max={LIM.hi} step={0.1} onChange={(y) => setPt((q) => ({ ...q, y }))} format={(v) => fmt(v, 1)} />
-      <p>Mean point (x̄, ȳ) = (<output data-testid="mean">{fmt(s.xbar, 2)}, {fmt(s.ybar, 2)}</output>)</p>
-      <p>y on x: <output data-testid="yx">{eqYX}</output></p>
-      <p>x on y: <output data-testid="xy">{eqXY}</output></p>
+      <p>Mean point (x̄, ȳ) = (<output aria-live="off" data-testid="mean">{fmt(s.xbar, 2)}, {fmt(s.ybar, 2)}</output>)</p>
+      <p>y on x: <output aria-live="off" data-testid="yx">{eqYX}</output></p>
+      <p>x on y: <output aria-live="off" data-testid="xy">{eqXY}</output></p>
       <p>Pearson&apos;s r = <output data-testid="result" aria-live="polite">{fmt(s.r, 3)} (y on x: {eqYX}; x on y: {eqXY})</output></p>
     </WidgetFrame>
   );
