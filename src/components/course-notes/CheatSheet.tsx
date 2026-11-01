@@ -24,7 +24,7 @@ export function CheatSheet({ course, topic }: { course: Course; topic?: Course["
       <div className={styles.cols}>
         {topics.map((entry) => (
           <section key={entry.n} className={styles.topic} data-topic={entry.n}>
-            {topic ? null : <h3 className={styles.topicH}><Link href={entry.href}>{entry.n} {entry.name}</Link></h3>}
+            {topic ? null : <h3 className={styles.topicH} data-all-ahl={entry.allAhl ? "" : undefined}><Link href={entry.href}>{entry.n} {entry.name}</Link></h3>}
             {entry.blocks.map((block) => {
               const ahl = block.level === "AHL";
               const heading = (

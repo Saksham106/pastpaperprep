@@ -1,9 +1,11 @@
 import "katex/dist/katex.min.css";
 import Link from "next/link";
+import itemsJson from "@/data/aa-official-subtopics/items.json";
 import { lessonPath, type Course } from "@/lib/course-notes/course";
 import { renderInlineHtml } from "@/lib/course-notes/render";
 import styles from "./cheatsheet.module.css";
 
+const SYLLABUS_NAMES = new Map((itemsJson.items as { item: string; name: string }[]).map((entry) => [entry.item, entry.name]));
 const byTerm = (a: { term: string }, b: { term: string }) => a.term.localeCompare(b.term, "en", { sensitivity: "base" });
 const letterOf = (term: string) => term.trim().charAt(0).toUpperCase();
 
@@ -36,7 +38,7 @@ export function GlossaryIndex({ course }: { course: Course }) {
                   <dd>
                     <span dangerouslySetInnerHTML={{ __html: renderInlineHtml(entry.definition, { lessonHref }) }} />
                     <span className={styles.taught} data-taught>
-                      {lesson ? <>Taught in <Link href={lessonPath(course, lesson)}>{lesson.item} {lesson.title}</Link></> : `Taught in ${entry.lesson}`}
+                      {lesson ? <>Taught in <Link href={lessonPath(course, lesson)}>{lesson.item} {lesson.title}</Link></> : `Taught in ${entry.lesson} ${SYLLABUS_NAMES.get(entry.lesson) ?? ""}`.trim()}
                     </span>
                   </dd>
                 </div>

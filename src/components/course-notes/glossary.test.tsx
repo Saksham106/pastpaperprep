@@ -10,7 +10,7 @@ const course: Course = {
   ...base,
   lessons: [lessonFixture],
   glossary: [
-    { id: "vertex", term: "vertex", definition: "Turning point of a parabola.", lesson: "2.9" },
+    { id: "vertex", term: "vertex", definition: "Turning point of a parabola.", lesson: "5.5" },
     { id: "axis", term: "Axis of symmetry", definition: "The line $x=-\\frac{b}{2a}$.", lesson: "2.5" },
     { id: "discriminant", term: "discriminant", definition: "$b^2-4ac$", lesson: "2.5" },
   ],
@@ -30,7 +30,7 @@ describe("GlossaryIndex", () => {
     expect(within(axis).getByRole("link", { name: "2.5 Quadratics" }).getAttribute("href")).toMatch(/2-5-quadratics$/);
     const vertex = document.querySelector('[data-term="vertex"]') as HTMLElement;
     expect(vertex.querySelector("a")).toBeNull();
-    expect(vertex.textContent).toContain("Taught in 2.9");
+    expect(vertex.textContent).toContain("Taught in 5.5 Antidifferentiation, definite integrals and area");
     expect(screen.getByRole("link", { name: "V" })).toBeTruthy();
   });
 });

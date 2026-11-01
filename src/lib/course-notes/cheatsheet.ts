@@ -4,7 +4,7 @@ import type { FormulaTag, Level } from "./types";
 
 export type SheetRow = { kind: "formula" | "fact" | "line"; /** TeX for formula, inline text otherwise. */ value: string; tag: FormulaTag };
 export type SheetBlock = { key: string; /** Lesson item, absent for the method block. */ item?: string; title: string; href?: string; level: Level; rows: SheetRow[] };
-export type SheetTopic = { n: number; name: string; href: string; blocks: SheetBlock[] };
+export type SheetTopic = { n: number; name: string; href: string; blocks: SheetBlock[]; /** Every block is AHL: the topic heading is hidden in the SL view. */ allAhl: boolean };
 
 export const METHOD_TITLE = "Which method when";
 
@@ -31,6 +31,7 @@ export function topicBlocks(course: Course, topic: Course["topics"][number]): Sh
 /** The topic sheet, or the course sheet (the union of the topic sheets) when `topic` is omitted. */
 export function sheetTopics(course: Course, topic?: Course["topics"][number]): SheetTopic[] {
   return (topic ? [topic] : course.topics)
-    .map((entry) => ({ n: entry.n, name: entry.name, href: topicPath(course, entry.n), blocks: topicBlocks(course, entry) }))
-    .filter((entry) => entry.blocks.length > 0);
+    .map((entry) => ({ n: entry.n, name: entry.name, href: topicPath(course, entry.n), blocks: topicBlocks(course, entry), allAhl: false }))
+    .filter((entry) => entry.blocks.length > 0)
+    .map((entry) => ({ ...entry, allAhl: entry.blocks.every((block) => block.level === "AHL") }));
 }

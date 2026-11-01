@@ -15,7 +15,6 @@
   --t4: #fde9ad; --t4-ink: #845c00; --muted: #66645f; --line: #d8d8d1; --cobalt-faint: #edf1ff; --cobalt-strong: #2347bd; --burgundy: #7f293a;
   width: 210mm; max-width: calc(100vw - 24px); min-height: 297mm; margin: 0 auto; background: #fff; color: #191917;
   box-shadow: 0 2px 4px rgb(0 0 0 / .06), 0 18px 50px rgb(0 0 0 / .12); padding: 12mm 12mm 10mm; font-size: 10.6px; line-height: 1.38;
-  -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
 .head { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #191917; padding-bottom: 6px; margin-bottom: 8px; }
 .head h2 { margin: 0; font: 400 22px var(--font-serif); }
@@ -40,12 +39,12 @@
 .key .tgL { background: #fde9ad; color: #845c00; }
 .foot { margin-top: 8px; padding-top: 5px; border-top: 1px solid var(--line); font: 8.5px var(--font-mono); color: var(--muted); }
 .sheet :global(.katex) { font-size: 1.04em; }
-.sheet[data-level="SL"] [data-ahl] { display: none; }
+.sheet[data-level="SL"] [data-ahl], .sheet[data-level="SL"] [data-all-ahl] { display: none; }
 
 @media print {
   .page { padding: 0; }
   .tools, .key { display: none; }
-  .sheet { box-shadow: none; margin: 0; max-width: none; width: auto; min-height: 0; }
+  .sheet { box-shadow: none; margin: 0; max-width: none; width: auto; min-height: 0; padding: 0; }
 }
 
 /* Glossary and command terms */

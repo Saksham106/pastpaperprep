@@ -7,7 +7,7 @@ import { LevelSwitch, useNotesLevel } from "./LevelSwitch";
 import styles from "./cheatsheet.module.css";
 
 /** Hides the site chrome and prints the sheet on A4 with no page margin. Global on purpose: the chrome lives in the root layout. */
-export const PRINT_CSS = "@media print { @page { size: A4; margin: 0; } html, body { background: #fff !important; } .site-header, .site-footer, [data-print-hide] { display: none !important; } }";
+export const PRINT_CSS = "@media print { @page { size: A4; margin: 12mm; } html, body { background: #fff !important; } .site-header, .site-footer, [data-print-hide] { display: none !important; } }";
 
 type Props = {
   title: string;
@@ -26,7 +26,7 @@ export function CheatSheetFrame({ title, slug, crumbs, children }: Props) {
   };
   return (
     <div className={`${styles.page} shell`} data-cheatsheet={slug}>
-      <style>{PRINT_CSS}</style>
+      <style data-print-css>{PRINT_CSS}</style>
       <div className={styles.tools} data-print-hide>
         <div className={styles.crumbs}>
           {crumbs.map((crumb) => (
