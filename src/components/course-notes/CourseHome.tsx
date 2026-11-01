@@ -1,19 +1,35 @@
-import Link from "next/link";
-import { topicPath, type Course } from "@/lib/course-notes/course";
+import itemsJson from "@/data/aa-official-subtopics/items.json";
+import { lessonPath, type Course } from "@/lib/course-notes/course";
+import { CourseHomeView } from "./CourseHomeView";
+import type { HomeItem } from "./LessonSearch";
+
+type SyllabusItem = { item: string; topic: number; level: "SL" | "AHL"; name: string };
+
+/** All syllabus items in order. Written lessons link; the rest render as "Not written yet" (preview only). */
+export function homeItems(course: Course): HomeItem[] {
+  const lessons = new Map(course.lessons.map((lesson) => [lesson.item, lesson]));
+  return (itemsJson.items as SyllabusItem[])
+    .map((entry) => {
+      const lesson = lessons.get(entry.item);
+      return {
+        item: entry.item,
+        topic: entry.topic,
+        level: entry.level,
+        name: entry.name,
+        ...(lesson ? { href: lessonPath(course, lesson), synonyms: lesson.synonyms } : {}),
+      };
+    })
+    .sort((a, b) => a.topic - b.topic || a.item.localeCompare(b.item, "en", { numeric: true }));
+}
 
 export function CourseHome({ course }: { course: Course }) {
   const base = `/revision-notes/${course.slug}`;
   return (
-    <main>
-      <h1>{course.name} course notes</h1>
-      <ul>
-        {course.topics.map((topic) => (
-          <li key={topic.n}><Link href={topicPath(course, topic.n)}>{topic.name}</Link></li>
-        ))}
-        <li><Link href={`${base}/cheat-sheet`}>Cheat sheet</Link></li>
-        <li><Link href={`${base}/glossary`}>Glossary</Link></li>
-        <li><Link href={`${base}/command-terms`}>Command terms</Link></li>
-      </ul>
-    </main>
+    <CourseHomeView
+      name={course.name}
+      base={base}
+      topics={course.topics.map((topic) => ({ n: topic.n, name: topic.name, href: `${base}/${topic.slug}`, cheatSheetHref: `${base}/${topic.slug}/cheat-sheet` }))}
+      items={homeItems(course)}
+    />
   );
 }
