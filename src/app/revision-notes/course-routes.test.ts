@@ -98,8 +98,10 @@ describe("course routes", () => {
   it("leaves the unpublished course out of the sitemap", () => {
     delete process.env.NOTES_PREVIEW;
     expect(notesPaths().some((p) => p.includes(course.slug))).toBe(false);
+    expect(notesPaths().some((p) => /cheat-sheet|glossary|command-terms/.test(p) && p.includes("ib-math-aa"))).toBe(false);
     process.env.NOTES_PREVIEW = "1";
     expect(notesPaths()).toContain(`/revision-notes/${course.slug}`);
+    for (const tail of ["cheat-sheet", "glossary", "command-terms", `${topic.slug}/cheat-sheet`]) expect(notesPaths()).toContain(`/revision-notes/${course.slug}/${tail}`);
   });
 
   it("still renders 0620 pages", async () => {

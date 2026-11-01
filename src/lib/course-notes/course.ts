@@ -2,8 +2,8 @@
 import courseJson from "@/content/notes/ib-math-aa/course.json";
 import commandTermsJson from "@/content/notes/ib-math-aa/command-terms.json";
 import glossaryJson from "@/content/notes/ib-math-aa/glossary.json";
-import { figures, lessons } from "@/content/notes/ib-math-aa";
-import type { GlossaryTerm, Lesson } from "./types";
+import { cheatSheets, figures, lessons } from "@/content/notes/ib-math-aa";
+import type { CheatSheetFile, GlossaryTerm, Lesson } from "./types";
 
 export type CommandTerm = { id: string; term: string; definition: string };
 
@@ -16,6 +16,8 @@ export type Course = {
   lessons: Lesson[];
   glossary: GlossaryTerm[];
   commandTerms: CommandTerm[];
+  /** Sheet-only lines keyed by topic slug; a topic without a file has none. */
+  cheatSheets: Record<string, CheatSheetFile>;
   /** Figure id to inline SVG markup, for `figure` blocks. */
   figures: Record<string, string>;
 };
@@ -28,6 +30,7 @@ export const COURSES: readonly Course[] = [
     lessons: [...lessons].sort((a, b) => a.topic - b.topic || a.item.localeCompare(b.item, "en", { numeric: true })),
     glossary: glossaryJson as GlossaryTerm[],
     commandTerms: commandTermsJson as CommandTerm[],
+    cheatSheets,
     figures,
   },
 ];
@@ -52,5 +55,9 @@ export function coursePaths(): string[] {
     `/revision-notes/${course.slug}`,
     ...course.topics.map((topic) => topicPath(course, topic.n)),
     ...course.lessons.map((lesson) => lessonPath(course, lesson)),
+    `/revision-notes/${course.slug}/cheat-sheet`,
+    ...course.topics.map((topic) => `${topicPath(course, topic.n)}/cheat-sheet`),
+    `/revision-notes/${course.slug}/glossary`,
+    `/revision-notes/${course.slug}/command-terms`,
   ]);
 }

@@ -75,3 +75,7 @@ export type ItemsFile = {
     booklet: { id: string; label: string }[];
   }[];
 };
+
+/** Sheet-only lines ("which method when") that no lesson block carries. `text` is inline text. */
+export type CheatSheetLine = { text: string; tag: FormulaTag; level: Level };
+export type CheatSheetFile = { lines: CheatSheetLine[] };

@@ -105,5 +105,9 @@ describe("ib-math-aa course content", () => {
     expect(paths).toContain("/revision-notes/ib-math-aa");
     expect(paths).toContain(lessonPath(course, getLesson("ib-math-aa", "5.16")!));
     expect(paths).toContain(topicPath(course, 5));
+    expect(paths).toContain("/revision-notes/ib-math-aa/cheat-sheet");
+    for (const topic of course.topics) expect(paths).toContain(`${topicPath(course, topic.n)}/cheat-sheet`);
+    expect(paths).toContain("/revision-notes/ib-math-aa/glossary");
+    expect(paths).toContain("/revision-notes/ib-math-aa/command-terms");
   });
 });
