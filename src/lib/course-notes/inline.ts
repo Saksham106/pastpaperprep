@@ -42,5 +42,6 @@ export function parseInline(text: string): InlineNode[] {
     }
   }
   flush();
+  for (const node of nodes) if (node.kind === "text" && /\[\[|\{\{/.test(node.value)) throw new Error(`Malformed markup near "${node.value.match(/(\[\[|\{\{).{0,20}/)?.[0]}"`);
   return nodes;
 }

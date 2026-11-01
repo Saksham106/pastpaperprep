@@ -25,4 +25,10 @@ describe("parseInline", () => {
   it("passes plain brackets through", () => {
     expect(parseInline("[a] {b}")).toEqual([{ kind: "text", value: "[a] {b}" }]);
   });
+  it("throws on empty math", () => {
+    expect(() => parseInline("a $$ b")).toThrow(/Empty math/);
+  });
+  it.each(["[[Discriminant|x]]", "[[id]]", "{{lesson:5}}"])("throws on malformed markup %s", (text) => {
+    expect(() => parseInline(`see ${text}`)).toThrow(/Malformed markup/);
+  });
 });

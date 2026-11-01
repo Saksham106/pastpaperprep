@@ -3,7 +3,7 @@ import katex from "katex";
 import { parseInline } from "./inline";
 import { INTERACTIVE_IDS, type Block, type CheckBlock, type GlossaryTerm, type ItemsFile, type Lesson } from "./types";
 
-type Ctx = { items: ItemsFile; glossary: GlossaryTerm[]; lessonItems: Set<string> };
+export type ValidationContext = { items: ItemsFile; glossary: GlossaryTerm[]; lessonItems: Set<string> };
 type Piece = { path: string; text: string; hl?: true };
 
 const message = (error: unknown) => (error instanceof Error ? error.message : String(error));
@@ -29,9 +29,9 @@ function blockPieces(block: Block, path: string): Piece[] {
   }
 }
 
-export function validateLesson(lesson: Lesson, ctx: Ctx): string[] {
+export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[] {
   const errors: string[] = [];
-  const fail = (path: string, text: string) => errors.push(`${lesson.item} ${path}: ${text}`.replace(/ : /, ": "));
+  const fail = (path: string, text: string) => errors.push(path ? `${lesson.item} ${path}: ${text}` : `${lesson.item}: ${text}`);
   const item = ctx.items.items.find((entry) => entry.item === lesson.item);
   const glossary = new Set(ctx.glossary.map((term) => term.id));
   const levelOf = new Map(ctx.items.items.map((entry) => [entry.item, entry.level]));

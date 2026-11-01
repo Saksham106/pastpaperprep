@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { glossaryFixture, lessonFixture } from "./__fixtures__/lesson";
 import { itemsFixture } from "./__fixtures__/items";
-import type { Block, Lesson } from "./types";
+import type { Block, CheckBlock, Lesson } from "./types";
 import { validateLesson } from "./validate";
 
 const ctx = { items: itemsFixture, glossary: glossaryFixture, lessonItems: new Set(["2.5", "2.13"]) };
@@ -95,5 +95,59 @@ describe("validateLesson", () => {
     const bad = { type: "interactive", widget: "nope", props: {}, alt: "a" } as unknown as Block;
     expect(withBlock(bad)).toEqual([expect.stringContaining("unknown interactive nope")]);
     expect(withBlock({ type: "interactive", widget: "parts-area", props: {}, alt: "a" })).toEqual([]);
+  });
+
+  it("reports a topic mismatch", () => {
+    const lesson = clone();
+    lesson.topic = 3;
+    expect(run(lesson)).toEqual(["2.5 topic: 3 disagrees with items.json (2)"]);
+  });
+
+  it("reports an unknown prerequisite", () => {
+    const lesson = clone();
+    lesson.prerequisites = ["9.9"];
+    expect(run(lesson)).toEqual(["2.5 prerequisites: unknown item 9.9"]);
+  });
+
+  it("reports an unknown goal bullet", () => {
+    const lesson = clone();
+    lesson.goals[0].bullets.push("2.5.zzz");
+    expect(run(lesson)).toEqual(["2.5 goals[0]: unknown bullet 2.5.zzz"]);
+  });
+
+  it("reports a goal bullet belonging to another item", () => {
+    const lesson = clone();
+    lesson.level = "AHL";
+    lesson.goals[0].bullets.push("2.13.a");
+    expect(run(lesson).filter((e) => e.includes("belongs to"))).toEqual(["2.5 goals[0]: bullet 2.13.a belongs to item 2.13"]);
+  });
+
+  it("reports an unknown hlNote lesson", () => {
+    const lesson = clone();
+    blocks(lesson)[5] = { type: "hlNote", text: "More later.", lesson: "9.9" };
+    expect(run(lesson)).toEqual(["2.5 sections[0].blocks[5]: hlNote links to unknown lesson 9.9"]);
+  });
+
+  it("requires at least two options with exactly one correct", () => {
+    const msg = "options need at least 2 entries and exactly one correct";
+    const one: CheckBlock = { type: "check", id: "m1", prompt: "p", explain: "x", options: [{ text: "a", correct: true }] };
+    expect(withBlock(one)).toEqual([expect.stringContaining(msg)]);
+    const none = { ...one, options: [{ text: "a", correct: false }, { text: "b", correct: false }] };
+    expect(withBlock(none)).toEqual([expect.stringContaining(msg)]);
+    const two = { ...one, options: [{ text: "a", correct: true }, { text: "b", correct: true }] };
+    expect(withBlock(two)).toEqual([expect.stringContaining(msg)]);
+  });
+
+  it("requires a finite numeric value and non-negative tolerance", () => {
+    const msg = "check needs options or a numeric answer with tolerance";
+    const base: CheckBlock = { type: "check", id: "n1", prompt: "p", explain: "x" };
+    expect(withBlock({ ...base, answer: { value: Number.NaN, tolerance: 0 } })).toEqual([expect.stringContaining(msg)]);
+    expect(withBlock({ ...base, answer: { value: 1, tolerance: -1 } })).toEqual([expect.stringContaining(msg)]);
+  });
+
+  it("surfaces malformed markup with its location", () => {
+    const lesson = clone();
+    blocks(lesson)[0] = { type: "text", text: "A [[Discriminant|x]] and {{lesson:5}}" };
+    expect(run(lesson)).toEqual([expect.stringMatching(/^2\.5 sections\[0\]\.blocks\[0\]: Malformed markup near "\[\[Discriminant/)]);
   });
 });
