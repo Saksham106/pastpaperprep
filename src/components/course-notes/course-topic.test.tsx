@@ -69,6 +69,29 @@ describe("CourseTopic", () => {
     expect(hlBand.querySelectorAll("[data-stage]").length).toBe(groups.filter((group) => !group.applicability.includes("SL")).length);
   });
 
+  it("keeps HL-band links present and clickable in the SL view", async () => {
+    window.localStorage.setItem("notes-level", "SL");
+    render(<CourseTopic course={course} topic={calculus} />);
+    const hlBand = document.querySelector("[data-band='hl']") as HTMLElement;
+    await within(hlBand).findByText(/switch to HL to study these/);
+    expect(within(hlBand).getByRole("link", { name: /5\.16 By parts/ }).getAttribute("href")).toMatch(/5-16-by-parts$/);
+    expect(within(hlBand).getAllByRole("link").length).toBeGreaterThan(1);
+    expect(hlBand.hasAttribute("inert")).toBe(false);
+  });
+
+  it("tags every AHL card with a text marker, in both bands", () => {
+    render(<CourseTopic course={course} topic={calculus} />);
+    const ahl = items.items.filter((entry) => entry.topic === 5 && entry.level === "AHL").map((entry) => entry.item);
+    const tagged = [...document.querySelectorAll("[data-lesson]")].filter((card) => card.querySelector("[data-ahl-tag]")).map((card) => card.getAttribute("data-lesson"));
+    expect(tagged.sort()).toEqual([...ahl].sort());
+    expect(screen.getAllByText("◆ HL").length).toBe(ahl.length);
+  });
+
+  it("includes the lesson summary in the card for keyboard focus", () => {
+    render(<CourseTopic course={course} topic={calculus} />);
+    expect(within(screen.getByRole("link", { name: /5\.1 Limits/ })).getByText("Summary of 5.1")).toBeTruthy();
+  });
+
   it("does not dim the HL band in the HL view", () => {
     render(<CourseTopic course={course} topic={calculus} />);
     expect(document.querySelector("[data-band='hl']")?.getAttribute("data-dimmed")).toBe("false");
@@ -86,7 +109,7 @@ describe("CourseTopic", () => {
 
   it("shows the real meta line and the cheat sheet link", () => {
     render(<CourseTopic course={course} topic={calculus} />);
-    expect(screen.getByText(/^19 lessons · 8 HL only · 156 past-paper questions in the HL bank$/)).toBeTruthy();
+    expect(screen.getByText(/^19 lessons · 8 HL only · 147 past-paper questions in the HL bank$/)).toBeTruthy();
     expect(screen.getByRole("link", { name: "Calculus cheat sheet" }).getAttribute("href")).toMatch(/\/calculus\/cheat-sheet$/);
   });
 });

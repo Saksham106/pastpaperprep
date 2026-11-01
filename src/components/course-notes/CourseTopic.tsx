@@ -1,7 +1,7 @@
 import itemsJson from "@/data/aa-official-subtopics/items.json";
 import taxonomyJson from "@/data/aa-official-subtopics/taxonomy.json";
 import { lessonPath, topicPath, type Course } from "@/lib/course-notes/course";
-import { groupPracticeHref, groupQuestionCounts } from "@/lib/course-notes/practice";
+import { groupPracticeHref, groupQuestionCounts, topicQuestionCount } from "@/lib/course-notes/practice";
 import { CourseTopicView, type TopicStage } from "./CourseTopicView";
 
 type SyllabusItem = { item: string; topic: number; level: "SL" | "AHL"; name: string };
@@ -32,12 +32,7 @@ export function topicStages(course: Course, topic: Course["topics"][number]): To
 
 export function CourseTopic({ course, topic }: { course: Course; topic: Course["topics"][number] }) {
   const stages = topicStages(course, topic);
-  // Sum of the groups' counts, so the header agrees with the numbers under each stage.
-  const questionTotals = { SL: 0, HL: 0 };
-  for (const stage of stages) {
-    if (!stage.hlOnly) questionTotals.SL += stage.counts.SL;
-    questionTotals.HL += stage.counts.HL;
-  }
+  const questionTotals = { SL: topicQuestionCount(topic.name, "SL"), HL: topicQuestionCount(topic.name, "HL") };
   return (
     <CourseTopicView
       topic={{ n: topic.n, name: topic.name, cheatSheetHref: `${topicPath(course, topic.n)}/cheat-sheet`, questionTotals }}

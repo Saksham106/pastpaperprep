@@ -27,6 +27,14 @@ export function groupQuestionCounts(groupId: string): { SL: number; HL: number }
   return { SL: entry?.SL ?? 0, HL: entry?.HL ?? 0 };
 }
 
+/** Distinct accepted questions at a level across all of a topic's groups (one that sits in two groups counts once). */
+export function topicQuestionCount(topicName: string, level: PracticeLevel): number {
+  const ids = new Set([...GROUPS.values()].filter((group) => group.parentTopic === topicName).map((group) => group.id));
+  const seen = new Set<string>();
+  for (const record of ACCEPTED) if (record.level === level && record.groupIds.some((id) => ids.has(id))) seen.add(record.id);
+  return seen.size;
+}
+
 /** Bank page filtered to the group: `topic` is the parent topic, `subtopic` the group's student-facing name. */
 export function groupPracticeHref(groupId: string, level: PracticeLevel): string {
   const group = GROUPS.get(groupId);

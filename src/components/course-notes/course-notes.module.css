@@ -231,7 +231,7 @@
 .bandH span { font-size: 13px; color: var(--muted); }
 .bandSl h2 { color: var(--cobalt-strong); }
 .bandHl h2 { color: var(--burgundy); }
-.bandHl[data-dimmed="true"] { opacity: .35; pointer-events: none; }
+.bandHl[data-dimmed="true"] { opacity: .55; }
 .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: 0 12px; }
 .stage { position: relative; padding-top: 30px; min-width: 0; display: grid; grid-row: span 3; grid-template-rows: subgrid; align-content: start; }
 .stage::before { content: ""; position: absolute; top: 9px; left: 0; right: -12px; height: 3px; background: var(--line); }
@@ -267,3 +267,7 @@ a.card:hover { border-color: var(--cobalt); }
   .stage[data-progress="part"]::before { background: linear-gradient(180deg, var(--done) var(--p), var(--line) var(--p)); }
   .node { top: 0; }
 }
+.ahlTag { font: 500 10.5px/1 var(--font-mono); letter-spacing: .04em; color: var(--burgundy); margin-left: 6px; }
+.cn > span { display: inline-flex; align-items: center; }
+.tip { display: none; margin-top: 6px; font-size: 12px; line-height: 1.35; color: var(--ink-soft); }
+a.card:focus-visible .tip { display: block; }

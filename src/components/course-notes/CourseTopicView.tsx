@@ -34,13 +34,13 @@ function Stage({ stage, level, understood, nextItem }: { stage: TopicStage; leve
           const cls = [styles.card, isDone ? styles.cardDone : "", isNext ? styles.cardNext : "", lesson.href ? "" : styles.cardUnwritten].filter(Boolean).join(" ");
           const inner = (
             <>
-              <span className={styles.cn}>{lesson.item}<b>{isDone ? "✓" : isNext ? "Next up" : ""}</b></span>
+              <span className={styles.cn}><span>{lesson.item}{lesson.level === "AHL" ? <span className={styles.ahlTag} data-ahl-tag>◆ HL</span> : null}</span><b>{isDone ? "✓" : isNext ? "Next up" : ""}</b></span>
               <span className={styles.ct}>{lesson.name}</span>
-              {lesson.href ? null : <span className={styles.cs}>Not written yet</span>}
+              {lesson.href ? (lesson.summary ? <span className={styles.tip}>{lesson.summary}</span> : null) : <span className={styles.cs}>Not written yet</span>}
             </>
           );
           return lesson.href ? (
-            <Link key={lesson.item} data-lesson={lesson.item} className={cls} href={lesson.href} title={lesson.summary} aria-label={`${lesson.item} ${lesson.name}${isDone ? ", understood" : ""}${isNext ? ", next up" : ""}`}>{inner}</Link>
+            <Link key={lesson.item} data-lesson={lesson.item} className={cls} href={lesson.href} title={lesson.summary} aria-label={`${lesson.item} ${lesson.name}${lesson.level === "AHL" ? ", HL only" : ""}${isDone ? ", understood" : ""}${isNext ? ", next up" : ""}`}>{inner}</Link>
           ) : (
             <div key={lesson.item} data-lesson={lesson.item} className={cls}>{inner}</div>
           );
