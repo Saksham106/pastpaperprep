@@ -55,7 +55,7 @@ describe("registry", () => {
   it.each(INTERACTIVE_IDS)("%s renders a static SVG with its alt, or the placeholder", async (id) => {
     const alt = `Alt text for ${id}`;
     const blocks: Block[] = [{ type: "interactive", widget: id, props: {}, alt }];
-    const { container } = render(<Blocks blocks={blocks} glossary={[]} level="SL" />);
+    const { container } = render(<Blocks blocks={blocks} glossary={[]} lessonHref={(item) => `/lesson/${item}`} />);
     if (INTERACTIVES[id]) {
       const img = await screen.findByRole("img", { name: alt });
       expect(img.tagName.toLowerCase()).toBe("svg");
@@ -69,14 +69,14 @@ describe("registry", () => {
 
   it("keeps the placeholder for an id it has never heard of", () => {
     const blocks = [{ type: "interactive", widget: "not-a-widget", props: {}, alt: "Mystery" }] as unknown as Block[];
-    render(<Blocks blocks={blocks} glossary={[]} level="SL" />);
+    render(<Blocks blocks={blocks} glossary={[]} lessonHref={(item) => `/lesson/${item}`} />);
     expect(screen.getByText("Mystery")).toBeTruthy();
   });
 });
 
 describe("first frame is plain server-rendered SVG", () => {
   it.each(INTERACTIVE_IDS.filter((id) => INTERACTIVES[id]))("Blocks server output for %s has the svg synchronously", (id) => {
-    const html = renderToString(<Blocks blocks={[{ type: "interactive", widget: id, props: {}, alt: "Static alt" }]} glossary={[]} level="SL" />);
+    const html = renderToString(<Blocks blocks={[{ type: "interactive", widget: id, props: {}, alt: "Static alt" }]} glossary={[]} lessonHref={(item) => `/lesson/${item}`} />);
     expect(html).toContain('role="img"');
     expect(html).toContain('aria-label="Static alt"');
     expect(html).toContain("<svg");
@@ -627,7 +627,7 @@ describe("format", () => {
 describe("exactly one live region per widget", () => {
   it.each(INTERACTIVE_IDS)("%s has one polite result and no output without an explicit aria-live", async (id) => {
     const blocks: Block[] = [{ type: "interactive", widget: id, props: {}, alt: `Alt ${id}` }];
-    const { container } = render(<Blocks blocks={blocks} glossary={[]} level="SL" />);
+    const { container } = render(<Blocks blocks={blocks} glossary={[]} lessonHref={(item) => `/lesson/${item}`} />);
     await screen.findByRole("img", { name: `Alt ${id}` });
     expect(container.querySelectorAll('[aria-live="polite"]')).toHaveLength(1);
     expect(container.querySelectorAll("[aria-live]:not(output)")).toHaveLength(0);

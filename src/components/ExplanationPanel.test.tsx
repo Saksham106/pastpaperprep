@@ -29,4 +29,11 @@ describe("ExplanationPanel code blocks", () => {
     view.rerender(<ExplanationPanel explanation={explanation} revise={{ href: "/revision-notes/ib-math-aa/calculus/5-5-x", label: "The chain rule" }} />);
     expect(view.getByRole("link", { name: "Revise The chain rule" })).toHaveAttribute("href", "/revision-notes/ib-math-aa/calculus/5-5-x");
   });
+
+  it("renders the Revise link once, after the parts, when several parts have a mistake", () => {
+    const part = (label: string) => ({ label, marks: 1, approach: "A.", steps: [{ text: "Do.", marks: ["✓"] }], answer: "2x", mistake: "Slip." });
+    const explanation: Explanation = { schemaVersion: 1, bank: "ib-hl", questionId: "q", totalMarks: 2, parts: [part("a"), part("b")] };
+    const view = render(<ExplanationPanel explanation={explanation} revise={{ href: "/r", label: "Rule" }} />);
+    expect(view.getAllByRole("link", { name: /Revise/ })).toHaveLength(1);
+  });
 });

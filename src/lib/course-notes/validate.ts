@@ -42,7 +42,15 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
     if (item.level !== lesson.level) fail("level", `${lesson.level} disagrees with items.json (${item.level})`);
     if (item.topic !== lesson.topic) fail("topic", `${lesson.topic} disagrees with items.json (${item.topic})`);
   }
-  for (const prerequisite of lesson.prerequisites) if (!levelOf.has(prerequisite)) fail("prerequisites", `unknown item ${prerequisite}`);
+  for (const prerequisite of lesson.prerequisites) {
+    if (!levelOf.has(prerequisite)) fail("prerequisites", `unknown item ${prerequisite}`);
+    else if (lesson.level === "SL" && levelOf.get(prerequisite) === "AHL") fail("prerequisites", `SL lesson lists AHL item ${prerequisite} as a prerequisite`);
+  }
+  const sectionIds = new Set<string>();
+  lesson.sections.forEach((section, s) => {
+    if (sectionIds.has(section.id)) fail(`sections[${s}]`, `duplicate section id ${section.id}`);
+    sectionIds.add(section.id);
+  });
 
   const goalBullets = new Set(lesson.goals.flatMap((goal) => goal.bullets));
   lesson.goals.forEach((goal, g) => goal.bullets.forEach((id) => {
@@ -69,6 +77,7 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
   const bookletOk = new Set([lesson.item, ...lesson.prerequisites].flatMap((code) => ctx.items.items.find((entry) => entry.item === code)?.booklet.map((entry) => entry.id) ?? []));
   const checkShape = (check: CheckBlock, path: string) => {
     claim(check.id, path);
+    if (check.options && check.answer) fail(path, "check has both options and an answer; use one");
     if (check.options) {
       if (check.options.length < 2 || check.options.filter((option) => option.correct).length !== 1) fail(path, "options need at least 2 entries and exactly one correct");
       // Options render inside a <button>, so they may hold only text and maths, never a term or lesson link.

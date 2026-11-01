@@ -1,6 +1,7 @@
 import Link from "next/link";
 import itemsJson from "@/data/aa-official-subtopics/items.json";
 import { lessonPath, topicPath, type Course } from "@/lib/course-notes/course";
+import { compareItems } from "@/lib/course-notes/items";
 import { groupPracticeHref, groupQuestionCounts, practiceGroupForItem } from "@/lib/course-notes/practice";
 import { renderTex } from "@/lib/course-notes/render";
 import type { Lesson } from "@/lib/course-notes/types";
@@ -16,11 +17,9 @@ import styles from "./course-notes.module.css";
 
 const ITEM_NAMES = new Map((itemsJson.items as { item: string; name: string }[]).map((entry) => [entry.item, entry.name]));
 
-const byItem = (a: string, b: string) => a.localeCompare(b, "en", { numeric: true });
-
 /** "3.14–3.18" for consecutive items in one topic, otherwise "2.8 and 2.13" (or "a, b and c"). */
 export function practiseItemsLabel(items: string[]): string {
-  const sorted = [...items].sort(byItem);
+  const sorted = [...items].sort(compareItems);
   if (sorted.length < 2) return sorted[0] ?? "";
   const parts = sorted.map((item) => item.split(".").map(Number));
   const consecutive = parts.every((part, i) => i === 0 || (part[0] === parts[i - 1][0] && part[1] === parts[i - 1][1] + 1));
@@ -129,7 +128,7 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
               <details>
                 <summary><span>Before you start</span><small>{lesson.before.length} quick question{lesson.before.length === 1 ? "" : "s"} on what this builds on</small></summary>
                 <div className={styles.beforeBody}>
-                  <Blocks blocks={lesson.before} glossary={course.glossary} level="HL" figures={course.figures} lessonHref={lessonHref} />
+                  <Blocks blocks={lesson.before} glossary={course.glossary} figures={course.figures} lessonHref={lessonHref} />
                   {lesson.prerequisites.length ? <p className={styles.revise}>Revise first: {prerequisiteList}</p> : null}
                 </div>
               </details>
@@ -139,7 +138,7 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
           {bodySections.map((section) => (
             <section key={section.id} id={`s-${section.id}`}>
               <h2>{section.heading}</h2>
-              <Blocks blocks={section.blocks} glossary={course.glossary} level="HL" figures={course.figures} lessonHref={lessonHref} />
+              <Blocks blocks={section.blocks} glossary={course.glossary} figures={course.figures} lessonHref={lessonHref} />
             </section>
           ))}
 

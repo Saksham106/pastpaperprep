@@ -61,7 +61,7 @@ describe("LessonPage", () => {
   it("hlNote blocks carry data-hl-note so the SL view can hide them", () => {
     const { container } = render(<LessonPage course={course} lesson={current} />);
     expect(container.querySelectorAll("[data-hl-note]").length).toBe(1);
-    expect(container.querySelector("main")?.getAttribute("data-view")).toBe("HL");
+    expect(container.querySelector("[data-view]")?.getAttribute("data-view")).toBe("HL");
   });
 
   it("I've got this adds the item to progress and clicking again removes it", async () => {
@@ -90,7 +90,7 @@ describe("LessonPage", () => {
   it("Report a problem fires notes_report with a fixed issue and shows the email", async () => {
     const user = userEvent.setup();
     render(<LessonPage course={course} lesson={current} />);
-    expect(screen.getByText("hello@pastpaperprep.com")).toBeTruthy();
+    expect(screen.getByRole("link", { name: "hello@pastpaperprep.com" }).getAttribute("href")).toBe("mailto:hello@pastpaperprep.com");
     await user.click(screen.getByText("Report a problem"));
     expect(within(document.getElementById("report-menu") as HTMLElement).getAllByRole("button").length).toBe(5);
     await user.click(screen.getByText("A maths error"));

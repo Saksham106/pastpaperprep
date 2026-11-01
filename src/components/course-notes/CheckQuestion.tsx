@@ -13,7 +13,17 @@ type Props = {
   explain: ReactNode;
 };
 
-type Result = { ok: boolean; picked?: number } | null;
+type Result = { ok: boolean; picked?: number; invalid?: boolean } | null;
+
+/** Plain numbers, a Unicode minus, or a simple fraction like 1/2 or −3/4. Null when it is none of these. */
+export function parseNumeric(raw: string): number | null {
+  const text = raw.trim().replace(/[\u2212\u2013]/g, "-").replace(/\s+/g, "");
+  const plain = /^[+-]?(\d+\.?\d*|\.\d+)$/;
+  if (plain.test(text)) return Number(text);
+  const fraction = /^([+-]?(?:\d+\.?\d*|\.\d+))\/(\d+\.?\d*|\.\d+)$/.exec(text);
+  if (!fraction || Number(fraction[2]) === 0) return null;
+  return Number(fraction[1]) / Number(fraction[2]);
+}
 
 export function CheckQuestion({ id, prompt, hint, options, answer, explain }: Props) {
   const ctx = useNotesContext();
@@ -30,8 +40,12 @@ export function CheckQuestion({ id, prompt, hint, options, answer, explain }: Pr
   const inputId = `${id}-input`;
 
   const submitNumber = () => {
-    const value = Number(typed.trim());
-    if (!answer || typed.trim() === "" || Number.isNaN(value)) return;
+    if (!answer) return;
+    const value = parseNumeric(typed);
+    if (value === null) {
+      setResult({ ok: false, invalid: true });
+      return;
+    }
     const ok = Math.abs(value - answer.value) <= answer.tolerance + 1e-9;
     record(`n:${value}`, ok);
     setResult({ ok });
@@ -89,7 +103,9 @@ export function CheckQuestion({ id, prompt, hint, options, answer, explain }: Pr
         </div>
       )}
       <div data-testid="check-feedback" aria-live="polite" className={`${styles.fb} ${result ? (result.ok ? styles.fbOk : styles.fbNo) : ""}`}>
-        {result ? (
+        {result?.invalid ? (
+          <b>Enter a number, like 2.5, −3 or 1/2.</b>
+        ) : result ? (
           <>
             <b>{result.ok ? "Correct." : "Not quite."}</b> {explain}
           </>

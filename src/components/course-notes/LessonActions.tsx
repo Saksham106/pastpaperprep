@@ -71,7 +71,7 @@ function ReportProblem() {
       ) : (
         <button type="button" className={styles.link} aria-expanded={open} aria-controls="report-menu" onClick={() => setOpen((value) => !value)}>Report a problem</button>
       )}{" "}
-      or email <span>hello@pastpaperprep.com</span>
+      or email <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a>
       {open ? (
         <div id="report-menu" role="group" aria-label="What is wrong?" className={styles.reportMenu}>
           {REPORT_ISSUES.map(({ issue, label }) => (

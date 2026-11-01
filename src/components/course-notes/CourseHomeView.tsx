@@ -38,7 +38,7 @@ export function CourseHomeView({ name, base, topics, items }: { name: string; ba
   const currentTopic = next?.topic ?? topics[0]?.n;
 
   return (
-    <main className={`${styles.home} shell`} data-view={level}>
+    <div className={`${styles.home} shell`} data-view={level}>
       <div className={styles.courseTop}>
         <div className={styles.crumbs}>
           <Link href="/revision-notes">Notes</Link> › IB › Maths AA
@@ -130,6 +130,6 @@ export function CourseHomeView({ name, base, topics, items }: { name: string; ba
         <Link href={`${base}/glossary`}>Glossary</Link>
         <Link href={`${base}/command-terms`}>Command terms</Link>
       </div>
-    </main>
+    </div>
   );
 }

@@ -1,22 +1,19 @@
 // Maps bank subtopic groups to written lessons. Server-side: loads the course.
-import taxonomyJson from "@/data/aa-official-subtopics/taxonomy.json";
 import { COURSES, getCourse, isCourseVisible, lessonPath, lessonsForTopic, type Course } from "./course";
+import { GROUPS } from "./groups";
+import { compareItems } from "./items";
 import type { PracticeLevel } from "./practice";
-
-type Group = { id: string; studentFacingName: string; parentTopic: string; memberOfficialItems: string[]; applicability: string[]; teachingOrder: number };
-const GROUPS = taxonomyJson.groups as Group[];
 
 export type LessonLink = { href: string; label: string };
 
 const BANK_LEVELS: Record<string, PracticeLevel> = { "ib-sl": "SL", "ib-hl": "HL" };
-const itemOrder = (a: string, b: string) => a.localeCompare(b, "en", { numeric: true });
 
 /** First written lesson among the group's items, in syllabus order, at that level (SL sees only SL items). Null when none, or the course is hidden. */
 export function lessonForGroup(course: Course, groupId: string, level: PracticeLevel): LessonLink | null {
   if (!isCourseVisible(course)) return null;
   const group = GROUPS.find((entry) => entry.id === groupId);
   if (!group) return null;
-  for (const item of [...group.memberOfficialItems].sort(itemOrder)) {
+  for (const item of [...group.memberOfficialItems].sort(compareItems)) {
     const lesson = course.lessons.find((entry) => entry.item === item && (level === "HL" || entry.level === "SL"));
     if (lesson) return { href: lessonPath(course, lesson), label: lesson.title };
   }

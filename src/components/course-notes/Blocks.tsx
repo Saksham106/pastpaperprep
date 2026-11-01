@@ -7,22 +7,19 @@ import { CheckQuestion } from "./CheckQuestion";
 import { ExampleSteps } from "./ExampleSteps";
 import { FORMULA_TAG_LABEL, FormulaBlock } from "./FormulaBlock";
 import { INTERACTIVES } from "./interactives/registry";
-import { Inline, defaultLessonHref, type LessonHref } from "./Inline";
+import { Inline, type LessonHref } from "./Inline";
 import styles from "./course-notes.module.css";
 
 export type BlocksProps = {
   blocks: Block[];
   glossary: GlossaryTerm[];
-  /** The student's chosen level. `AHL` is treated as HL. */
-  level: "SL" | "HL" | "AHL";
-  lessonHref?: LessonHref;
+  lessonHref: LessonHref;
   /** Pre-built SVG markup keyed by figure id. */
   figures?: Record<string, string>;
 };
 
-export function Blocks({ blocks, glossary, level, lessonHref = defaultLessonHref, figures = {} }: BlocksProps) {
+export function Blocks({ blocks, glossary, lessonHref, figures = {} }: BlocksProps) {
   const inline = (text: string, key?: string | number) => <Inline key={key} text={text} glossary={glossary} lessonHref={lessonHref} />;
-  const showHl = level === "HL" || level === "AHL";
 
   const check = (block: CheckBlock) => (
     <CheckQuestion
@@ -100,7 +97,6 @@ export function Blocks({ blocks, glossary, level, lessonHref = defaultLessonHref
           />
         );
       case "hlNote":
-        if (!showHl) return null;
         return (
           <aside className={`${styles.side} ${styles.sideHl}`} data-hl-note>
             <b>HL only</b>

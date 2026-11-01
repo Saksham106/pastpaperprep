@@ -56,9 +56,9 @@ export default function ExplanationPanel({ explanation, revise }: { explanation:
           </ol>
           <p className={styles.answer}><span className={styles.tag}>Answer</span><Inline text={part.answer} /></p>
           {part.mistake && <p className={styles.mistake}><span className={styles.tag}>Watch out</span><Inline text={part.mistake} /></p>}
-          {part.mistake && revise && <p className={styles.revise}><a href={revise.href}>Revise {revise.label}</a></p>}
         </section>
       ))}
+      {revise && explanation.parts.some((part) => part.mistake) && <p className={styles.revise}><a href={revise.href}>Revise {revise.label}</a></p>}
     </div>
   );
 }

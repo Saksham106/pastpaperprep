@@ -101,6 +101,29 @@ describe("validateLesson", () => {
     expect(withBlock({ type: "check", id: "c2", prompt: "p", explain: "x" })).toEqual([expect.stringContaining("needs options or a numeric answer")]);
   });
 
+  it("rejects a check with both options and a numeric answer", () => {
+    const options = [{ text: "a", correct: true }, { text: "b", correct: false }];
+    expect(withBlock({ type: "check", id: "c9", prompt: "p", options, answer: { value: 1, tolerance: 0 }, explain: "x" })).toEqual([expect.stringContaining("both options and an answer")]);
+    expect(withBlock({ type: "check", id: "c9", prompt: "p", options, explain: "x" })).toEqual([]);
+  });
+
+  it("rejects duplicate section ids within a lesson", () => {
+    const lesson = clone();
+    lesson.sections.push({ ...structuredClone(lesson.sections[0]), blocks: [] });
+    expect(run(lesson)).toEqual([expect.stringContaining(`duplicate section id ${lesson.sections[0].id}`)]);
+    lesson.sections[1].id = "another-section";
+    expect(run(lesson)).toEqual([]);
+  });
+
+  it("rejects an SL lesson with an AHL prerequisite, but allows an AHL lesson to have one", () => {
+    const ahl = itemsFixture.items.find((entry) => entry.level === "AHL")!;
+    const lesson = clone();
+    lesson.prerequisites = [ahl.item];
+    expect(run(lesson)).toEqual([expect.stringContaining(`SL lesson lists AHL item ${ahl.item} as a prerequisite`)]);
+    lesson.level = "AHL";
+    expect(run(lesson).filter((e) => e.includes("prerequisite"))).toEqual([]);
+  });
+
   it("rejects unknown interactive widgets", () => {
     const bad = { type: "interactive", widget: "nope", props: {}, alt: "a" } as unknown as Block;
     expect(withBlock(bad)).toEqual([expect.stringContaining("unknown interactive nope")]);

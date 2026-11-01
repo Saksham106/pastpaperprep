@@ -67,7 +67,7 @@ export function CourseTopicView({ topic, courseHref, stages }: { topic: { n: num
   const bandCount = (list: TopicStage[]) => list.reduce((sum, stage) => sum + stage.lessons.filter(visible).length, 0);
 
   return (
-    <main className={`${styles.topicPage} shell`} data-view={level} style={{ "--tone": `var(--t${topic.n})`, "--tone-ink": `var(--t${topic.n}-ink)` } as CSSProperties}>
+    <div className={`${styles.topicPage} shell`} data-view={level} style={{ "--tone": `var(--t${topic.n})`, "--tone-ink": `var(--t${topic.n}-ink)` } as CSSProperties}>
       <div className={styles.tTop}>
         <div className={styles.crumbs}>
           <Link href={courseHref}>IB Maths AA notes</Link> › Topic {topic.n}
@@ -105,6 +105,6 @@ export function CourseTopicView({ topic, courseHref, stages }: { topic: { n: num
           </div>
         </section>
       ) : null}
-    </main>
+    </div>
   );
 }

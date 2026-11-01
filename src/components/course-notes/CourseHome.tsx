@@ -1,5 +1,6 @@
 import itemsJson from "@/data/aa-official-subtopics/items.json";
 import { lessonPath, type Course } from "@/lib/course-notes/course";
+import { compareItems } from "@/lib/course-notes/items";
 import { CourseHomeView } from "./CourseHomeView";
 import type { HomeItem } from "./LessonSearch";
 
@@ -19,7 +20,7 @@ export function homeItems(course: Course): HomeItem[] {
         ...(lesson ? { href: lessonPath(course, lesson), synonyms: lesson.synonyms } : {}),
       };
     })
-    .sort((a, b) => a.topic - b.topic || a.item.localeCompare(b.item, "en", { numeric: true }));
+    .sort((a, b) => a.topic - b.topic || compareItems(a.item, b.item));
 }
 
 export function CourseHome({ course }: { course: Course }) {

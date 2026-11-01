@@ -1,13 +1,12 @@
 // Practice links and question counts for course-notes groups. Server-side: reads the AA overlay.
 import overlayJson from "@/data/aa-official-subtopics/overlay.json";
-import taxonomyJson from "@/data/aa-official-subtopics/taxonomy.json";
+import { GROUPS as GROUP_LIST, type Group } from "./groups";
 
 export type PracticeLevel = "SL" | "HL";
 
-type Group = { id: string; studentFacingName: string; parentTopic: string };
 type OverlayRecord = { id: string; level: PracticeLevel; groupIds: string[]; status: string };
 
-const GROUPS = new Map((taxonomyJson.groups as Group[]).map((group) => [group.id, group]));
+const GROUPS = new Map(GROUP_LIST.map((group) => [group.id, group]));
 const ACCEPTED = (overlayJson.records as OverlayRecord[]).filter((record) => record.status === "accepted");
 
 const BANKS: Record<PracticeLevel, string> = { SL: "ib-sl", HL: "ib-hl" };
@@ -42,12 +41,7 @@ export function groupPracticeHref(groupId: string, level: PracticeLevel): string
   return `/banks/${BANKS[level]}?topic=${encodeURIComponent(group.parentTopic)}&subtopic=${encodeURIComponent(group.studentFacingName)}`;
 }
 
-/**
- * The group a lesson's practice panel uses: the first taxonomy group containing the item.
- * With a level, prefer the first such group that has questions at that level, falling back to the first group.
- */
-export function practiceGroupForItem(item: string, level?: PracticeLevel, groups: readonly (Group & { memberOfficialItems: string[] })[] = taxonomyJson.groups as (Group & { memberOfficialItems: string[] })[]): (Group & { memberOfficialItems: string[] }) | undefined {
-  const members = groups.filter((entry) => entry.memberOfficialItems.includes(item));
-  if (!level) return members[0];
-  return members.find((entry) => groupQuestionCounts(entry.id)[level] > 0) ?? members[0];
+/** The group a lesson's practice panel uses: AA groups map one-to-one to items, so the group containing the item. */
+export function practiceGroupForItem(item: string, groups: readonly Group[] = GROUP_LIST): Group | undefined {
+  return groups.find((entry) => entry.memberOfficialItems.includes(item));
 }

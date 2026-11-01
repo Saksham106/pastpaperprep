@@ -7,10 +7,9 @@ import type { GlossaryTerm as Term } from "@/lib/course-notes/types";
 import { GlossaryTerm } from "./GlossaryTerm";
 
 export type LessonHref = (item: string) => string;
-export const defaultLessonHref: LessonHref = (item) => `/notes/${item}`;
 
 /** Server component: inline text with `$tex$`, `[[term|label]]` and `{{lesson:x}}` as a React tree. */
-export function Inline({ text, glossary, lessonHref = defaultLessonHref }: { text: string; glossary: Term[]; lessonHref?: LessonHref }) {
+export function Inline({ text, glossary, lessonHref }: { text: string; glossary: Term[]; lessonHref: LessonHref }) {
   const nodes = parseInline(text);
   return (
     <>

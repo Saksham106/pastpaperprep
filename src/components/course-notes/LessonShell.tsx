@@ -17,9 +17,9 @@ export function LessonShell({ topic, lesson, children }: { topic: number; lesson
   }, [lesson]);
   return (
     <LessonItemContext.Provider value={lesson}>
-      <main className={`${styles.lessonPage} shell`} data-view={level} style={{ "--tone": `var(--t${topic})`, "--tone-ink": `var(--t${topic}-ink)` } as CSSProperties}>
+      <div className={`${styles.lessonPage} shell`} data-view={level} style={{ "--tone": `var(--t${topic})`, "--tone-ink": `var(--t${topic}-ink)` } as CSSProperties}>
         {children}
-      </main>
+      </div>
     </LessonItemContext.Provider>
   );
 }

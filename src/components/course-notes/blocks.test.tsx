@@ -136,6 +136,24 @@ describe("CheckQuestion", () => {
     expect(screen.getByTestId("check-feedback").textContent).toContain("Correct");
   });
 
+  it("accepts a Unicode minus and simple fractions, and asks for a number otherwise", async () => {
+    const user = userEvent.setup();
+    render(<CheckQuestion id="c4" prompt={<span>Value?</span>} answer={{ value: -0.5, tolerance: 0.001 }} explain={<span>numeric</span>} />);
+    const box = screen.getByRole("textbox");
+    for (const typed of ["\u22120.5", "-1/2", "\u22121/2"]) {
+      await user.clear(box);
+      await user.type(box, typed);
+      await user.click(screen.getByRole("button", { name: "Check" }));
+      expect(screen.getByTestId("check-feedback").textContent, typed).toContain("Correct");
+    }
+    for (const typed of ["abc", "1/0", ""]) {
+      await user.clear(box);
+      if (typed) await user.type(box, typed);
+      await user.click(screen.getByRole("button", { name: "Check" }));
+      expect(screen.getByTestId("check-feedback").textContent, typed).toContain("Enter a number");
+    }
+  });
+
   it("reveals the hint on request", async () => {
     const user = userEvent.setup();
     render(<CheckQuestion id="c3" prompt={<span>Q</span>} hint={<span>try u</span>} options={options} explain={<span>e</span>} />);
@@ -170,13 +188,8 @@ describe("CalculatorSteps", () => {
 describe("Blocks", () => {
   const hl: Block = { type: "hlNote", text: "HL only extra", lesson: "5.16" };
 
-  it("does not render hlNote at SL", () => {
-    render(<Blocks blocks={[hl]} glossary={[]} level="SL" lessonHref={lessonHref} />);
-    expect(screen.queryByText("HL only extra")).toBeNull();
-  });
-
-  it("renders hlNote at HL", () => {
-    render(<Blocks blocks={[hl]} glossary={[]} level="HL" lessonHref={lessonHref} />);
+  it("always renders hlNote; the level switch hides it with CSS only", () => {
+    render(<Blocks blocks={[hl]} glossary={[]} lessonHref={lessonHref} />);
     expect(screen.getByText("HL only extra")).toBeTruthy();
   });
 
@@ -186,7 +199,7 @@ describe("Blocks", () => {
       { type: "figure", id: "fig-1", alt: "A parabola", caption: "Caption" },
       { type: "interactive", widget: "not-built-yet", props: {}, alt: "Area picture" } as unknown as Block,
     ];
-    const { container } = render(<Blocks blocks={blocks} glossary={[]} level="SL" lessonHref={lessonHref} figures={{ "fig-1": "<svg viewBox='0 0 1 1'></svg>" }} />);
+    const { container } = render(<Blocks blocks={blocks} glossary={[]} lessonHref={lessonHref} figures={{ "fig-1": "<svg viewBox='0 0 1 1'></svg>" }} />);
     expect(container.querySelector("math")).not.toBeNull();
     expect(screen.getByText("In the formula booklet")).toBeTruthy();
     expect(container.querySelector("svg")).not.toBeNull();
@@ -199,7 +212,7 @@ describe("Blocks", () => {
     const blocks: Block[] = [
       { type: "check", id: "c", prompt: "Pick", options: [{ text: "[[integrand|int]] {{lesson:5.5}} $x^2$", correct: true }, { text: "b", correct: false }], explain: "ok" },
     ];
-    const { container } = render(<Blocks blocks={blocks} glossary={glossary} level="SL" lessonHref={lessonHref} />);
+    const { container } = render(<Blocks blocks={blocks} glossary={glossary} lessonHref={lessonHref} />);
     expect(container.querySelectorAll("button button, button a")).toHaveLength(0);
     const option = container.querySelector("button");
     expect(option?.querySelector("math")).not.toBeNull();
@@ -213,7 +226,7 @@ describe("Blocks", () => {
         check: { type: "check", id: "c", prompt: "Check?", options: [{ text: "a", correct: true }], explain: "ok" },
       },
     ];
-    render(<Blocks blocks={blocks} glossary={[]} level="SL" lessonHref={lessonHref} />);
+    render(<Blocks blocks={blocks} glossary={[]} lessonHref={lessonHref} />);
     expect(screen.getByText("first")).toBeTruthy();
     expect(screen.queryByText("second")).toBeNull();
     expect(screen.queryByText("Check?")).toBeNull();
@@ -223,7 +236,7 @@ describe("Blocks", () => {
 describe("Result block", () => {
   it("keeps maths in the why line outside the label element", () => {
     const blocks: Block[] = [{ type: "result", statement: "Statement.", why: "Because $x^2$ grows." }];
-    const { container } = render(<Blocks blocks={blocks} glossary={[]} level="SL" lessonHref={lessonHref} />);
+    const { container } = render(<Blocks blocks={blocks} glossary={[]} lessonHref={lessonHref} />);
     const label = screen.getByText("Why");
     expect(label.querySelector("math, .katex")).toBeNull();
     expect(label.textContent).toBe("Why");
@@ -238,7 +251,7 @@ describe("Blocks keys", () => {
   it("renders the full seed lesson without errors", () => {
     const spy = vi.spyOn(console, "error").mockImplementation(() => {});
     const lesson = seedLesson as unknown as Lesson;
-    render(<>{lesson.sections.map((section) => <Blocks key={section.id} blocks={section.blocks} glossary={[]} level="HL" lessonHref={lessonHref} />)}</>);
+    render(<>{lesson.sections.map((section) => <Blocks key={section.id} blocks={section.blocks} glossary={[]} lessonHref={lessonHref} />)}</>);
     const errors = spy.mock.calls;
     spy.mockRestore();
     expect(errors).toEqual([]);
@@ -262,7 +275,7 @@ describe("Blocks keys", () => {
       }
     };
     for (const section of lesson.sections) {
-      const tree = Blocks({ blocks: section.blocks, glossary: [], level: "HL", lessonHref }) as { props: { children: ReactNode[] } };
+      const tree = Blocks({ blocks: section.blocks, glossary: [], lessonHref }) as { props: { children: ReactNode[] } };
       for (const wrapper of tree.props.children) walk((wrapper as { props: { children: ReactNode } } | null)?.props.children);
     }
     expect(unkeyed).toEqual([]);
