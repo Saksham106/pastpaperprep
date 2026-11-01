@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson B · Margin notes</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="lesson.css">
+<style>
+  .bar { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  .bar-in { max-width: 1120px; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; gap: 18px; height: 52px; }
+  .bar .t { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; }
+  .bar .t b { font-family: var(--font-mono); font-weight: 500; color: var(--burgundy); margin-right: 6px; }
+  .steps-nav { display: flex; gap: 4px; margin-left: auto; overflow-x: auto; }
+  .steps-nav a { font-size: 13px; padding: 5px 10px; border-radius: 999px; text-decoration: none; color: var(--muted); white-space: nowrap; }
+  .steps-nav a.seen { color: var(--ink-soft); }
+  .steps-nav a.on { background: var(--t5); color: var(--t5-ink); font-weight: 600; }
+  .bar .line { height: 3px; background: var(--t5-ink); width: 0; }
+  .page { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+  /* Body column + margin column. Asides sit beside the paragraph they follow. */
+  .lesson section, .lesson .l-head { display: grid; grid-template-columns: minmax(0, 700px) 300px; column-gap: 56px; }
+  .lesson section > *, .lesson .l-head > * { grid-column: 1; }
+  .lesson section > h2 { grid-column: 1; }
+  .lesson section > .side { grid-column: 2; align-self: start; margin-top: 4px; padding-left: 14px; border-left: 2px solid var(--line-strong); color: var(--ink-soft); }
+  .side-term { transition: background .2s, border-color .2s; border-radius: 0 8px 8px 0; padding: 8px 10px 8px 14px !important; }
+  .side-term.flash { background: var(--cobalt-faint); border-left-color: var(--cobalt) !important; }
+  .side-term b { font: 400 16px var(--font-serif); }
+  .side-calc { border-left-color: var(--cobalt) !important; }
+  .side-note { border-left-color: var(--t5-ink) !important; }
+  .lesson .practise { display: flex; }
+  @media (max-width: 1060px) {
+    .lesson section, .lesson .l-head { display: block; }
+    .lesson section > .side { margin: 12px 0; padding: 10px 14px; background: var(--surface); border-radius: 0 10px 10px 0; }
+    .side-term { display: none; } .side-term.flash { display: block; }
+    .steps-nav { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="bar"><div class="bar-in"><span class="t"><b>5.16</b>Integration by substitution and parts</span><nav class="steps-nav" id="nav" aria-label="Sections"></nav></div><div class="line" id="line"></div></div>
+<div class="page"><article class="lesson" id="lesson"></article></div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="data.js"></script><script src="common.js"></script><script src="lesson-content.js"></script>
+<script>
+MOCK.header("Lesson B · Margin notes");
+const SHORT = { minute: "Intro", before: "Warm-up", parts: "Parts", repeated: "Parts twice", subst: "Substitution", mistakes: "Mistakes", tips: "Exam tips", takeaways: "Takeaways", practise: "Practise" };
+document.getElementById("nav").innerHTML = LESSON.toc.map(([id]) => `<a href="#${id}" data-id="${id}">${SHORT[id]}</a>`).join("");
+initLesson({
+  onTerm(t) {
+    const def = document.querySelector(`.side-term[data-for="${t.dataset.term}"]`);
+    document.querySelectorAll(".side-term").forEach((d) => d.classList.toggle("flash", d === def && !d.classList.contains("flash")));
+    t.setAttribute("aria-expanded", String(def.classList.contains("flash")));
+  },
+});
+const links = [...document.querySelectorAll("#nav a")];
+addEventListener("scroll", () => {
+  let k = 0;
+  links.forEach((a, i) => { const s = document.getElementById(a.dataset.id); if (s && s.getBoundingClientRect().top < 160) k = i; });
+  links.forEach((a, i) => { a.classList.toggle("on", i === k); a.classList.toggle("seen", i < k); });
+  const h = document.documentElement; document.getElementById("line").style.width = (100 * h.scrollTop) / (h.scrollHeight - h.clientHeight) + "%";
+});
+dispatchEvent(new Event("scroll"));
+</script>
+</body>
+</html>

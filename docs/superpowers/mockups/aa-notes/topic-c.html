@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Topic C · Chapters</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="topic.css">
+<style>
+  .chap { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 28px; padding: 22px 0; border-top: 1px solid var(--line); }
+  .chap.hl-start { border-top: 2px solid var(--burgundy); }
+  .divider { margin-top: 26px; font: 500 12px var(--font-mono); letter-spacing: .08em; color: var(--burgundy); }
+  .chap h2 { margin: 0; font: 400 22px/1.2 var(--font-serif); }
+  .practice { margin-top: 12px; font-size: 13px; color: var(--muted); }
+  .bar { display: grid; grid-template-columns: 28px 1fr 30px; gap: 8px; align-items: center; margin-top: 6px; font: 500 11px var(--font-mono); }
+  .bar i { display: block; height: 8px; border-radius: 6px; background: var(--t5); }
+  .bar b { display: block; height: 8px; border-radius: 6px; background: var(--t5-ink); }
+  .practice a { display: inline-block; margin-top: 10px; font-weight: 600; font-size: 14px; }
+  .lessons { list-style: none; margin: 0; padding: 0; }
+  .lessons a { display: grid; grid-template-columns: 18px 44px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 11px 12px; margin: 0 -12px; border-radius: 10px; color: var(--ink); text-decoration: none; }
+  .lessons a:hover { background: var(--cobalt-faint); }
+  .lessons .mark-sl, .lessons .mark-ahl { margin-top: 5px; }
+  .lessons .n { font: 500 12.5px var(--font-mono); color: var(--muted); padding-top: 2px; }
+  .lessons .ahl .n { color: var(--burgundy); }
+  .lessons strong { font-weight: 600; display: block; }
+  .lessons p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+  .lessons .state { font-size: 13px; color: var(--done); font-weight: 600; padding-top: 2px; }
+  .sl-hidden .hl { display: none; }
+  @media (max-width: 760px) { .chap { grid-template-columns: 1fr; gap: 10px; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="t-top" id="top"></div>
+  <div id="chapters"></div>
+  <div style="height:60px"></div>
+</main>
+<script src="data.js"></script><script src="common.js"></script><script src="topic.js"></script>
+<script>
+const M = window.MOCK, T = window.TOPIC; M.header("Topic C · Chapters");
+const MAX = Math.max(...T.groups.map((g) => Math.max(g.count.SL, g.count.HL)));
+function chapter(g, first) {
+  const bar = (lbl, n) => `<div class="bar"><span>${lbl}</span><i><b style="width:${(n / MAX) * 100}%"></b></i><span>${n}</span></div>`;
+  return `<section class="chap${first ? " hl-start" : ""}${g.hlOnly ? " hl" : ""}">
+    <div><h2>${g.name}</h2>
+      <div class="practice">Past-paper questions${g.hlOnly ? "" : bar("SL", g.count.SL)}${bar("HL", g.count.HL)}
+        <a href="#">Practise ${g.items.join(", ")} →</a></div></div>
+    <ol class="lessons">${g.lessons.map((i) => `<li class="${i.level === "AHL" ? "ahl" : ""}"><a href="lesson-a.html">
+      <span class="${i.level === "AHL" ? "mark-ahl" : "mark-sl"}${M.DONE.has(i.num) ? " mark-done" : ""}"></span><span class="n">${i.num}</span>
+      <span><strong>${i.name}</strong><p>${T.BLURB[i.num]}</p></span><span class="state">${M.DONE.has(i.num) ? "Understood ✓" : ""}</span></a></li>`).join("")}</ol>
+  </section>`;
+}
+function draw() {
+  const lvl = M.level(), sl = T.groups.filter((g) => !g.hlOnly), hl = T.groups.filter((g) => g.hlOnly);
+  const el = document.getElementById("chapters");
+  el.className = lvl === "SL" ? "sl-hidden" : "";
+  el.innerHTML = sl.map((g) => chapter(g, false)).join("") + `<div class="divider hl">◆ HL ONLY</div>` + hl.map((g, k) => chapter(g, k === 0)).join("");
+}
+T.top(document.getElementById("top"), draw);
+draw();
+</script>
+</body>
+</html>

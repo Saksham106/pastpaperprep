@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roadmap C · Course trail</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="course.css">
+<style>
+  .trail { position: relative; margin-top: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 10px; }
+  .trail svg { display: block; width: 100%; height: auto; }
+  .node { cursor: pointer; }
+  .node .n { font: 500 11px var(--font-mono); text-anchor: middle; dominant-baseline: central; }
+  .node .nm { font: 12px var(--font-body); fill: var(--ink-soft); text-anchor: middle; }
+  .node:hover .nm, .node:focus .nm { fill: var(--ink); font-weight: 600; }
+  .node:hover .halo, .node:focus .halo { opacity: 1; }
+  .node:focus { outline: none; }
+  .halo { fill: none; stroke: var(--cobalt); stroke-width: 2; opacity: 0; }
+  .node.off { opacity: .3; }
+  .flag rect { rx: 8; }
+  .flag text { font: 500 11.5px var(--font-mono); letter-spacing: .05em; }
+  .here text { font: 600 11px var(--font-body); fill: #fff; }
+  :root[data-theme="dark"] .here text { fill: #0d1430; }
+  @media (max-width: 760px) { .trail { padding: 4px; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="course-top">
+    <div class="crumbs"><a href="#">IB</a> › <a href="#">Maths AA</a> › Notes</div>
+    <div class="row">
+      <div>
+        <h1>IB Maths AA notes</h1>
+        <p class="meta">The full course, in syllabus order. Follows the IB guide for exams up to Nov 2028.</p>
+      </div>
+      <div id="level"></div>
+    </div>
+    <div class="course-tools">
+      <div id="search"></div>
+      <a class="btn btn-primary continue" href="lesson-a.html"><span><small>Continue</small>2.7 Quadratic equations and inequalities</span> →</a>
+    </div>
+  </div>
+  <div class="legend">
+    <span><svg width="18" height="18"><circle cx="9" cy="9" r="7" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="2.5"/></svg>SL and HL</span>
+    <span><svg width="18" height="18"><rect x="4" y="4" width="10" height="10" transform="rotate(45 9 9)" fill="var(--surface)" stroke="var(--burgundy)" stroke-width="2.5"/></svg>HL only (AHL)</span>
+    <span><svg width="18" height="18"><circle cx="9" cy="9" r="7" fill="var(--done)"/></svg>Understood</span>
+  </div>
+  <div class="trail" id="trail"></div>
+  <div class="sheets"><span class="lbl">Cheat sheets</span><a class="main" href="cheatsheet.html">Whole course</a><a href="cheatsheet.html">1 Number and algebra</a><a href="cheatsheet.html">2 Functions</a><a href="cheatsheet.html">3 Geometry and trigonometry</a><a href="cheatsheet.html">4 Statistics and probability</a><a href="cheatsheet.html">5 Calculus</a></div>
+</main>
+<script src="data.js"></script><script src="common.js"></script>
+<script>
+const M = window.MOCK; M.header("Roadmap C · Course trail");
+function wrap2(s, n) {
+  const words = s.split(" "); const lines = [""];
+  for (const w of words) { const cur = lines[lines.length - 1]; if ((cur + " " + w).trim().length > n && cur) lines.push(w); else lines[lines.length - 1] = (cur + " " + w).trim(); }
+  if (lines.length > 2) { lines[1] = (lines[1] + " " + lines.slice(2).join(" ")).slice(0, n - 1).trimEnd() + "…"; lines.length = 2; }
+  return lines;
+}
+function draw() {
+  const lvl = M.level(), small = innerWidth < 760;
+  const PER = small ? 4 : 10, W = small ? 420 : 1180, X0 = small ? 60 : 90, X1 = W - X0, ROW = small ? 170 : 150, Y0 = 92;
+  const step = (X1 - X0) / (PER - 1);
+  const list = M.items;
+  const P = list.map((it, k) => { const r = Math.floor(k / PER), c = k % PER; return { it, x: r % 2 ? X1 - c * step : X0 + c * step, y: Y0 + r * ROW, r }; });
+  const H = P[P.length - 1].y + 80;
+  let segs = "", nodes = "", flags = "";
+  for (let k = 1; k < P.length; k++) {
+    const a = P[k - 1], b = P[k], t = b.it.topic.n, off = lvl === "SL" && (a.it.level === "AHL" || b.it.level === "AHL");
+    let d;
+    if (a.r === b.r) d = `M${a.x} ${a.y} L${b.x} ${b.y}`;
+    else { const out = a.x > W / 2 ? 70 : -70; d = `M${a.x} ${a.y} C ${a.x + out} ${a.y}, ${b.x + out} ${b.y}, ${b.x} ${b.y}`; }
+    segs += `<path d="${d}" fill="none" stroke="${M.topicVar(t)}" stroke-width="14" stroke-linecap="round" ${off ? 'stroke-dasharray="1 12" opacity=".8"' : ""}/>`;
+  }
+  P.forEach(({ it, x, y }, k) => {
+    const done = M.DONE.has(it.num), ahl = it.level === "AHL", off = ahl && lvl === "SL";
+    const fill = done ? "var(--done)" : "var(--surface-raised)", txt = done ? "var(--surface)" : "var(--ink)";
+    const shape = ahl
+      ? `<rect x="${x - 15}" y="${y - 15}" width="30" height="30" rx="4" transform="rotate(45 ${x} ${y})" fill="${fill}" stroke="var(--burgundy)" stroke-width="3"/>`
+      : `<circle cx="${x}" cy="${y}" r="19" fill="${fill}" stroke="${M.topicInk(it.topic.n)}" stroke-width="3"/>`;
+    const lines = wrap2(it.name, small ? 13 : 17);
+    nodes += `<g class="node${off ? " off" : ""}" tabindex="0" role="link" aria-label="${it.num} ${it.name}${ahl ? ", HL only" : ""}">
+      <title>${it.num} ${it.name}</title><circle class="halo" cx="${x}" cy="${y}" r="26"/>${shape}
+      <text class="n" x="${x}" y="${y}" fill="${txt}">${it.num}</text>
+      ${lines.map((l, j) => `<text class="nm" x="${x}" y="${y + 40 + j * 15}">${l}</text>`).join("")}</g>`;
+    if (it.topic.items[0].num === it.num) {
+      const label = `TOPIC ${it.topic.n} · ${it.topic.name.toUpperCase()}`, w = label.length * 7.4 + 22;
+      const fx = x - 20 + w > W - 6 ? x + 20 - w : x - 20;
+      flags += `<g class="flag"><rect x="${fx}" y="${y - 58}" width="${w}" height="24" fill="${M.topicVar(it.topic.n)}"/><text x="${fx + 11}" y="${y - 42}" fill="${M.topicInk(it.topic.n)}">${label}</text></g>`;
+    }
+    if (it.num === "2.7") flags += `<g class="here"><rect x="${x - 34}" y="${y - 60}" width="68" height="24" rx="12" fill="var(--cobalt)"/><path d="M${x - 6} ${y - 37} l6 8 l6 -8z" fill="var(--cobalt)"/><text x="${x}" y="${y - 44}" text-anchor="middle">Next up</text></g>`;
+  });
+  document.getElementById("trail").innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Course trail through all lessons">${segs}${nodes}${flags}</svg>`;
+  document.querySelectorAll(".node").forEach((g) => g.addEventListener("click", () => (location.href = "lesson-a.html")));
+}
+M.levelSwitch(document.getElementById("level"), draw);
+M.searchBox(document.getElementById("search"), () => "lesson-a.html");
+addEventListener("resize", () => draw());
+draw();
+</script>
+</body>
+</html>

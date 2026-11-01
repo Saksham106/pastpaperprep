@@ -216,7 +216,7 @@ If ibo.org blocks the fetch, ask the owner to download the two PDFs. This step g
    - an originality check: no long runs of text shared with the guide, the booklet text or bank question text
 3. **Verify.** An independent verifier agent (Opus, medium effort, blind to the writer's reasoning) reads the lesson against the source pack. It checks correctness, completeness against the guide, level boundaries, IB notation, and whether a 16-year-old could learn the topic from it. It returns pass / minor / critical with reasons.
 4. **Fix.** A fixer applies the verifier's findings. Critical fixes get a second verify.
-5. **Human review.** The owner reads at least one full lesson per topic and every cheat sheet before launch. Recommended: a paid review by an experienced IB AA teacher of all 83 lessons, or at least the AHL ones. That is an owner decision (§13).
+5. **Human review.** After the whole course passes, the owner has an IB AA teacher review it (§13). Their fixes go back through steps 2–4.
 6. **After launch.** "Report a problem" reports and analytics feed a fix queue. Every content change updates "Last reviewed" through the changelog.
 
 **Prerequisites** are drafted by the writer and checked by the verifier. They must form an acyclic graph, which a test enforces.
@@ -254,7 +254,7 @@ Batches go topic by topic (5 batches). Each batch is written, verified and fixed
 
 ## 12. Access, SEO and analytics
 
-- **Access (recommended):** all notes, cheat sheets, glossary and interactives are free and public, without sign-in. They are the top of the funnel. The bank's existing free-year rules and the 20-question gate turn practice clicks into sign-ups and purchases. If the owner wants some notes paid, the content can't sit in static public pages, and the build changes (§13).
+- **Access (decided: free):** all notes, cheat sheets, glossary and interactives are free and public, without sign-in. They are the top of the funnel. The bank's existing free-year rules and the 20-question gate turn practice clicks into sign-ups and purchases. If the owner wants some notes paid, the content can't sit in static public pages, and the build changes (§13).
 - **SEO:** each lesson has its own title, a description from its summary, a canonical URL, and `LearningResource` / `Course` structured data (Course on the home page). Breadcrumbs follow Course → Topic → Lesson. Pages go in the sitemap only at launch, all together, once verified. Use honest "Updated" dates from the changelog and no fake freshness.
 - **Copy:** use "Follows the IB Maths AA guide (first assessment 2021)", never "official notes". Include the existing "not affiliated with the IB" notice. Keep copy short: no helper paragraphs and no repeated labels.
 - **Analytics** (new events, documented in `docs/analytics-events.md`; all carry `lesson` = syllabus number and `level` = sl/hl):
@@ -272,11 +272,11 @@ Batches go topic by topic (5 batches). Each batch is written, verified and fixed
   Also add `notes` to `auth_page_view.from`, so sign-ups from notes can be counted.
 - **Success measures** (first 60 days after launch): lesson views; share of lesson views that click "Practise this" (target to set after the first two weeks); practice clicks → answer reveals; sign-ups and purchases from notes; reports per 1,000 views; return visits by consented users.
 
-## 13. Owner decisions (open)
+## 13. Owner decisions
 
-1. **Free or paid notes.** Recommended: all free (§12).
-2. **Teacher review.** Pay an IB AA teacher to review all lessons (recommended), only AHL, or none. If a teacher is used, their sign-off per topic is a launch gate, and the schedule allows about a week per topic for round trips. If not, the owner's sample read plus the pipeline is the only human check.
-3. **Design options.** Pick from 2–4 mockups each for the course roadmap, topic mind map and lesson page before building.
+1. **Free or paid notes.** Decided 2026-11-01: all notes are free (§12).
+2. **Teacher review.** Decided 2026-11-01: once the whole course has passed the pipeline, the owner has it reviewed by an IB AA teacher. The owner arranges this. Fixes from the review go through the same checks, and launch follows the review.
+3. **Design options** (open). Mockups are in `docs/superpowers/mockups/aa-notes/` (open `index.html`): 3 course home options, 3 topic page options, 2 lesson layouts, 1 cheat sheet. Pick from 2–4 mockups each for the course roadmap, topic mind map and lesson page before building.
 
 ## 14. Calls made in this design (owner can override)
 
