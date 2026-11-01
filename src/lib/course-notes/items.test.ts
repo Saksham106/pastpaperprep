@@ -62,7 +62,7 @@ describe("aa-official-subtopics items.json", () => {
   });
 
   // Items the booklet covers, directly or as a second use of a formula (SL 1.2 to AHL 5.19).
-  const bookletItems = ["1.2", "1.3", "1.4", "1.5", "1.7", "1.8", "1.9", "1.10", "1.12", "1.13", "1.14", "2.1", "2.6", "2.7", "2.9", "2.12", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.9", "3.10", "3.12", "3.13", "3.14", "3.16", "3.17", "3.18", "4.1", "4.2", "4.3", "4.5", "4.6", "4.7", "4.8", "4.11", "4.12", "4.13", "4.14", "5.3", "5.5", "5.6", "5.7", "5.9", "5.10", "5.11", "5.12", "5.14", "5.15", "5.16", "5.17", "5.18", "5.19"];
+  const bookletItems = ["1.2", "1.3", "1.4", "1.5", "1.7", "1.8", "1.9", "1.10", "1.12", "1.13", "1.14", "2.1", "2.6", "2.7", "2.9", "2.10", "2.12", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.8", "3.9", "3.10", "3.12", "3.13", "3.14", "3.16", "3.17", "3.18", "4.1", "4.2", "4.3", "4.5", "4.6", "4.7", "4.8", "4.11", "4.12", "4.13", "4.14", "5.3", "5.4", "5.5", "5.6", "5.9", "5.10", "5.11", "5.12", "5.13", "5.14", "5.15", "5.16", "5.17", "5.18", "5.19"];
 
   it("booklet ids are unique, labelled, and attached to the items the booklet covers", () => {
     // A formula may list a second item (alsoItems), so an id repeats across items but never within one.
@@ -72,6 +72,7 @@ describe("aa-official-subtopics items.json", () => {
       for (const entry of item.booklet) {
         expect(entry.id, item.item).toMatch(/^bk-\d-\d+-[a-z0-9-]+$/);
         expect(entry.label.trim().length, entry.id).toBeGreaterThan(0);
+        expect(entry.label, entry.id).not.toMatch(/[\\{}$]/);
       }
     }
     expect(file.items.filter((i) => i.booklet.length > 0).map((i) => i.item)).toEqual(bookletItems);
@@ -94,12 +95,16 @@ describe("aa-official-subtopics items.json", () => {
 
   const bookletResolvedPath = resolvedPath && join(dirname(resolvedPath), "booklet.resolved.json");
 
-  it.skipIf(!bookletResolvedPath || !existsSync(bookletResolvedPath))("booklet ids match the non-prior-learning entries of booklet.resolved.json", () => {
-    const resolved = JSON.parse(readFileSync(bookletResolvedPath!, "utf8")) as { entries: { id: string; priorLearning: boolean }[] };
-    const expected = resolved.entries.filter((e) => !e.priorLearning).map((e) => e.id).sort();
-    const actual = file.items.flatMap((i) => i.booklet.map((entry) => entry.id));
-    expect(new Set(actual).size).toBe(expected.length);
-    expect([...new Set(actual)].sort()).toEqual(expected);
+  it.skipIf(!bookletResolvedPath || !existsSync(bookletResolvedPath))("each booklet id sits on exactly [item, ...alsoItems] from booklet.resolved.json", () => {
+    const resolved = JSON.parse(readFileSync(bookletResolvedPath!, "utf8")) as {
+      entries: { id: string; item: string | null; alsoItems: string[]; priorLearning: boolean }[];
+    };
+    const formulas = resolved.entries.filter((e) => !e.priorLearning);
+    const placed = new Map<string, string[]>();
+    for (const item of file.items) for (const entry of item.booklet) placed.set(entry.id, [...(placed.get(entry.id) ?? []), item.item]);
+    expect([...placed.keys()].sort()).toEqual(formulas.map((e) => e.id).sort());
+    expect(placed.size).toBe(formulas.length);
+    for (const e of formulas) expect(placed.get(e.id)!.sort(), e.id).toEqual([e.item!, ...e.alsoItems].sort());
   });
 
   it.skipIf(!resolvedPath)("no bullet text shares an 8-word run with items.resolved.json", () => {

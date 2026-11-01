@@ -227,6 +227,10 @@
         {
           "id": "bk-1-7-log-change-base",
           "label": "Change of base"
+        },
+        {
+          "id": "bk-2-9-exp-log",
+          "label": "Exponential and logarithmic functions"
         }
       ]
     },
@@ -422,8 +426,16 @@
       ],
       "booklet": [
         {
+          "id": "bk-1-13-polar-euler",
+          "label": "Polar and Euler forms"
+        },
+        {
           "id": "bk-1-14-de-moivre",
           "label": "De Moivre's theorem"
+        },
+        {
+          "id": "bk-2-12-roots-sum-product",
+          "label": "Sum and product of polynomial roots"
         }
       ]
     },
@@ -729,7 +741,12 @@
           "text": "Apply graphing and equation solving to real-life situations, including exponential growth."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-2-7-quadratic-formula",
+          "label": "Quadratic formula"
+        }
+      ]
     },
     {
       "item": "2.11",
@@ -1126,7 +1143,24 @@
           "text": "The general solution of trig equations is not required."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-5-tan-identity",
+          "label": "tan in terms of sin and cos"
+        },
+        {
+          "id": "bk-3-6-pythagorean",
+          "label": "Pythagorean identity"
+        },
+        {
+          "id": "bk-3-6-double-sin",
+          "label": "Double angle for sin"
+        },
+        {
+          "id": "bk-3-6-double-cos",
+          "label": "Double angle for cos"
+        }
+      ]
     },
     {
       "item": "3.9",
@@ -1317,6 +1351,10 @@
         }
       ],
       "booklet": [
+        {
+          "id": "bk-3-12-magnitude",
+          "label": "Magnitude of a vector"
+        },
         {
           "id": "bk-3-13-angle-between",
           "label": "Angle between two vectors"
@@ -1518,7 +1556,7 @@
       "bullets": [
         {
           "id": "4.3-b1",
-          "text": "Find mean, median and mode; the mean can be found by formula or with technology."
+          "text": "Find mean, median and mode; find the mean both by formula and with technology."
         },
         {
           "id": "4.3-b2",
@@ -1539,16 +1577,12 @@
       ],
       "booklet": [
         {
+          "id": "bk-4-2-iqr",
+          "label": "Interquartile range"
+        },
+        {
           "id": "bk-4-3-mean",
           "label": "Mean from a frequency table"
-        },
-        {
-          "id": "bk-4-14-variance-data",
-          "label": "Variance from a frequency table"
-        },
-        {
-          "id": "bk-4-14-sd-data",
-          "label": "Standard deviation from a frequency table"
         }
       ]
     },
@@ -1974,7 +2008,12 @@
           "text": "Get the equation of the tangent and of the normal at a chosen point, analytically and with technology."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-2-1-line-equations",
+          "label": "Equations of a straight line"
+        }
+      ]
     },
     {
       "item": "5.5",
@@ -2083,12 +2122,7 @@
           "text": "Describe graph behaviour and the relationship between the graphs of f, f′ and f″, using technology to explore."
         }
       ],
-      "booklet": [
-        {
-          "id": "bk-5-9-acceleration",
-          "label": "Acceleration"
-        }
-      ]
+      "booklet": []
     },
     {
       "item": "5.8",
@@ -2270,7 +2304,28 @@
           "text": "Use l'Hôpital's rule repeatedly."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-19-maclaurin-exp",
+          "label": "Maclaurin series for e^x"
+        },
+        {
+          "id": "bk-5-19-maclaurin-ln",
+          "label": "Maclaurin series for ln(1+x)"
+        },
+        {
+          "id": "bk-5-19-maclaurin-sin",
+          "label": "Maclaurin series for sin x"
+        },
+        {
+          "id": "bk-5-19-maclaurin-cos",
+          "label": "Maclaurin series for cos x"
+        },
+        {
+          "id": "bk-5-19-maclaurin-arctan",
+          "label": "Maclaurin series for arctan x"
+        }
+      ]
     },
     {
       "item": "5.14",
@@ -2412,7 +2467,7 @@
       "booklet": [
         {
           "id": "bk-5-17-area-y-axis",
-          "label": "Area against the y-axis"
+          "label": "Area between a curve and the y-axis"
         },
         {
           "id": "bk-5-17-volume-revolution",
@@ -2478,6 +2533,10 @@
         }
       ],
       "booklet": [
+        {
+          "id": "bk-1-10-binomial-rational",
+          "label": "Binomial expansion for rational n"
+        },
         {
           "id": "bk-5-19-maclaurin-general",
           "label": "Maclaurin series"

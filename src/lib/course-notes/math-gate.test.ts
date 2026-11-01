@@ -34,6 +34,7 @@ describe.skipIf(!python)("check-math.py verifies the published answer text", () 
     expect(bare.stdout).toMatch(/^FAIL ex-parts-xe2x \(.*not evaluated/);
     const restated = verify("ex-parts-xe2x", String.raw`\int x\mathrm{e}^{2x}\,\mathrm{d}x = \int x\mathrm{e}^{2x}\,\mathrm{d}x`);
     expect(restated.status).toBe(1);
+    expect(restated.stdout).toMatch(/^FAIL ex-parts-xe2x \(.*not evaluated/);
   });
 
   it("fails, never skips, text that cannot be parsed or an id with no assertion", () => {
