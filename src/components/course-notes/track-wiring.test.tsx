@@ -42,6 +42,14 @@ describe("notes events", () => {
     expect(views).toEqual([["notes_lesson_view", { lesson: "5.16", level: "HL" }]]);
   });
 
+  it("fires a lesson view for a new lesson on a reused shell", () => {
+    const { rerender } = render(<LessonShell topic={5} lesson="5.16">x</LessonShell>);
+    rerender(<LessonShell topic={5} lesson="5.17">x</LessonShell>);
+    rerender(<LessonShell topic={5} lesson="5.17">x</LessonShell>);
+    const views = track.mock.calls.filter(([name]) => name === "notes_lesson_view").map(([, props]) => props.lesson);
+    expect(views).toEqual(["5.16", "5.17"]);
+  });
+
   it("reports the stored level on a lesson view", () => {
     window.localStorage.setItem("notes-level", "SL");
     render(<LessonPage course={course} lesson={lesson} />);
@@ -68,9 +76,36 @@ describe("notes events", () => {
     await user.click(screen.getByRole("button", { name: "right one" }));
     const calls = track.mock.calls.filter(([name]) => name === "notes_check_answer");
     expect(calls).toEqual([
-      ["notes_check_answer", { lesson: "5.16", level: "HL", check: "c1", correct: false }],
-      ["notes_check_answer", { lesson: "5.16", level: "HL", check: "c1", correct: true }],
+      ["notes_check_answer", { lesson: "5.16", level: "HL", check: "c1", correct: false, attempt: 1 }],
+      ["notes_check_answer", { lesson: "5.16", level: "HL", check: "c1", correct: true, attempt: 2 }],
     ]);
+  });
+
+  it("skips a re-click of the same option and counts attempts by distinct answer", async () => {
+    const user = userEvent.setup();
+    const options = [{ content: "right one", correct: true }, { content: "wrong one", correct: false }];
+    render(inLesson(<CheckQuestion id="c1" prompt="Pick" options={options} explain="why" />));
+    await user.click(screen.getByRole("button", { name: "wrong one" }));
+    await user.click(screen.getByRole("button", { name: "wrong one" }));
+    expect(track.mock.calls.filter(([name]) => name === "notes_check_answer").length).toBe(1);
+    await user.click(screen.getByRole("button", { name: "right one" }));
+    await user.click(screen.getByRole("button", { name: "right one" }));
+    const calls = track.mock.calls.filter(([name]) => name === "notes_check_answer");
+    expect(calls.map(([, props]) => props.attempt)).toEqual([1, 2]);
+  });
+
+  it("skips a repeated numeric submit of the same value", async () => {
+    const user = userEvent.setup();
+    render(inLesson(<CheckQuestion id="c2" prompt="v" answer={{ value: 2, tolerance: 0.1 }} explain="why" />));
+    await user.type(screen.getByRole("textbox"), "9");
+    await user.click(screen.getByRole("button", { name: "Check" }));
+    await user.click(screen.getByRole("button", { name: "Check" }));
+    expect(track.mock.calls.filter(([name]) => name === "notes_check_answer").length).toBe(1);
+    await user.clear(screen.getByRole("textbox"));
+    await user.type(screen.getByRole("textbox"), "2");
+    await user.click(screen.getByRole("button", { name: "Check" }));
+    const calls = track.mock.calls.filter(([name]) => name === "notes_check_answer");
+    expect(calls[1][1]).toEqual({ lesson: "5.16", level: "HL", check: "c2", correct: true, attempt: 2 });
   });
 
   it("fires notes_check_answer for a numeric check", async () => {
@@ -78,7 +113,7 @@ describe("notes events", () => {
     render(inLesson(<CheckQuestion id="c2" prompt="v" answer={{ value: 2, tolerance: 0.1 }} explain="why" />));
     await user.type(screen.getByRole("textbox"), "9");
     await user.click(screen.getByRole("button", { name: "Check" }));
-    expect(track).toHaveBeenCalledWith("notes_check_answer", { lesson: "5.16", level: "HL", check: "c2", correct: false });
+    expect(track).toHaveBeenCalledWith("notes_check_answer", { lesson: "5.16", level: "HL", check: "c2", correct: false, attempt: 1 });
   });
 
   it("fires notes_glossary_open on open only, with the term id", async () => {

@@ -17,8 +17,9 @@ export const trackLessonView = (ctx: NotesContext) => trackProductEvent("notes_l
 export const trackExampleStep = (ctx: NotesContext, example: string, step: number | "all") =>
   trackProductEvent("notes_example_step", { ...ctx, example, step });
 
-export const trackCheckAnswer = (ctx: NotesContext, check: string, correct: boolean) =>
-  trackProductEvent("notes_check_answer", { ...ctx, check, correct });
+/** `attempt` counts this check's distinct answers on the page (1 = first try). */
+export const trackCheckAnswer = (ctx: NotesContext, check: string, correct: boolean, attempt: number) =>
+  trackProductEvent("notes_check_answer", { ...ctx, check, correct, attempt });
 
 export const trackGlossaryOpen = (ctx: NotesContext, term: string) =>
   trackProductEvent("notes_glossary_open", { ...ctx, term });

@@ -1,7 +1,6 @@
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
-import { useContext } from "react";
+import { useCallback, useContext, useSyncExternalStore } from "react";
 import { LessonItemContext } from "./notes-context";
 import { trackLevelSwitch } from "./track";
 import styles from "./course-notes.module.css";

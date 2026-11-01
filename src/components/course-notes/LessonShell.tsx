@@ -9,10 +9,10 @@ import styles from "./course-notes.module.css";
 /** Page root: carries the student's level as `data-view` so CSS can hide HL-only notes in the SL view. Also the lesson context and the once-per-mount lesson view. */
 export function LessonShell({ topic, lesson, children }: { topic: number; lesson?: string; children: ReactNode }) {
   const [level] = useNotesLevel();
-  const viewed = useRef(false);
+  const viewed = useRef<string | undefined>(undefined);
   useEffect(() => {
-    if (!lesson || viewed.current) return;
-    viewed.current = true;
+    if (!lesson || viewed.current === lesson) return;
+    viewed.current = lesson;
     trackLessonView({ lesson, level: readStoredLevel() });
   }, [lesson]);
   return (

@@ -1,5 +1,5 @@
 "use client";
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { useNotesContext } from "./notes-context";
 import { trackCheckAnswer } from "./track";
 import styles from "./course-notes.module.css";
@@ -17,6 +17,13 @@ type Result = { ok: boolean; picked?: number } | null;
 
 export function CheckQuestion({ id, prompt, hint, options, answer, explain }: Props) {
   const ctx = useNotesContext();
+  // Distinct answers already sent for this check on this page view.
+  const answered = useRef<Set<string>>(new Set());
+  const record = (key: string, ok: boolean) => {
+    if (answered.current.has(key)) return;
+    answered.current.add(key);
+    trackCheckAnswer(ctx, id, ok, answered.current.size);
+  };
   const [result, setResult] = useState<Result>(null);
   const [showHint, setShowHint] = useState(false);
   const [typed, setTyped] = useState("");
@@ -26,7 +33,7 @@ export function CheckQuestion({ id, prompt, hint, options, answer, explain }: Pr
     const value = Number(typed.trim());
     if (!answer || typed.trim() === "" || Number.isNaN(value)) return;
     const ok = Math.abs(value - answer.value) <= answer.tolerance + 1e-9;
-    trackCheckAnswer(ctx, id, ok);
+    record(`n:${value}`, ok);
     setResult({ ok });
   };
 
@@ -53,7 +60,7 @@ export function CheckQuestion({ id, prompt, hint, options, answer, explain }: Pr
               type="button"
               data-state={result?.picked === i ? (option.correct ? "right" : "wrong") : undefined}
               onClick={() => {
-                trackCheckAnswer(ctx, id, option.correct);
+                record(`o:${i}`, option.correct);
                 setResult({ ok: option.correct, picked: i });
               }}
             >

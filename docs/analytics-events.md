@@ -49,7 +49,7 @@ No email, name or account ID is ever sent without consent.
 | `past_paper_practice_click` | the report's one practice button | `bank` |
 | `notes_lesson_view` | IB Maths AA lesson page, once per page mount | `lesson` (item, e.g. `5.16`), `level` (`SL`, `HL`) |
 | `notes_example_step` | lesson, worked example: Show next step / Show all | `lesson`, `level`, `example` (id), `step` (number revealed, or `all`) |
-| `notes_check_answer` | lesson, "Before you start" and in-section checks, when an option is chosen or a number checked | `lesson`, `level`, `check` (id), `correct` |
+| `notes_check_answer` | lesson, "Before you start" and in-section checks, when an option is chosen or a number checked | `lesson`, `level`, `check` (id), `correct`, `attempt` (1, 2, … per distinct answer to that check; a repeat of the same option or number sends nothing) |
 | `notes_glossary_open` | lesson, a glossary term pop-up opening | `lesson`, `level`, `term` (id) |
 | `notes_practice_click` | lesson "Practise this" button; topic page question-count links | `lesson?` (lesson only), `level`, `bank` (`ib-sl`, `ib-hl`), `group` (taxonomy group id) |
 | `notes_understood` | lesson, "I've got this" marking a lesson. Un-marking sends nothing | `lesson`, `level` |

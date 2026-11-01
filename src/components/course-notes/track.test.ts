@@ -14,7 +14,7 @@ describe("notes tracking helpers", () => {
     t.trackLessonView(ctx);
     t.trackExampleStep(ctx, "ex-1", 2);
     t.trackExampleStep(ctx, "ex-1", "all");
-    t.trackCheckAnswer(ctx, "chk-1", false);
+    t.trackCheckAnswer(ctx, "chk-1", false, 1);
     t.trackGlossaryOpen(ctx, "derivative");
     t.trackPracticeClick(ctx, "ib-hl", "integration-by-parts");
     t.trackUnderstood(ctx);
@@ -26,7 +26,7 @@ describe("notes tracking helpers", () => {
       ["notes_lesson_view", { lesson: "5.16", level: "HL" }],
       ["notes_example_step", { lesson: "5.16", level: "HL", example: "ex-1", step: 2 }],
       ["notes_example_step", { lesson: "5.16", level: "HL", example: "ex-1", step: "all" }],
-      ["notes_check_answer", { lesson: "5.16", level: "HL", check: "chk-1", correct: false }],
+      ["notes_check_answer", { lesson: "5.16", level: "HL", check: "chk-1", correct: false, attempt: 1 }],
       ["notes_glossary_open", { lesson: "5.16", level: "HL", term: "derivative" }],
       ["notes_practice_click", { lesson: "5.16", level: "HL", bank: "ib-hl", group: "integration-by-parts" }],
       ["notes_understood", { lesson: "5.16", level: "HL" }],
