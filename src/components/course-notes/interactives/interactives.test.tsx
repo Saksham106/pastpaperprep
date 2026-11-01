@@ -13,6 +13,16 @@ import { partsAreas } from "./parts-area-math";
 import { BASES, formatEquation, imageOfPoint, transformed } from "./transformations-math";
 import { discriminant, realRoots } from "./discriminant-math";
 import { expPoint, logBase, pointRange, reflect } from "./exp-log-math";
+import RadianArc, { renderRadianArcSvg } from "./RadianArc";
+import SecantToTangent, { renderSecantSvg } from "./SecantToTangent";
+import DerivativeSign, { renderDerivativeSignSvg } from "./DerivativeSign";
+import RiemannSums, { renderRiemannSvg } from "./RiemannSums";
+import AreaBetweenCurves, { renderAreaBetweenSvg } from "./AreaBetweenCurves";
+import { arcLength, radToDeg, sectorArea } from "./radian-arc-math";
+import { SECANT_CURVES, secantGradient } from "./secant-math";
+import { df, f as cubicF, STATIONARY, trendAt } from "./derivative-sign-math";
+import { EXACT, riemannSum } from "./riemann-math";
+import { areaTo } from "./area-between-math";
 import { fmt, num } from "./format";
 import { pointerToSvg } from "./shared";
 import { toDegrees, unitCirclePoint } from "./unit-circle-math";
@@ -62,6 +72,11 @@ describe("first frame is plain server-rendered SVG", () => {
       renderDiscriminantSvg("alt", { a: 1, b: -3, c: 2 }),
       renderExpLogSvg("alt", { a: 2, x0: 1 }),
       renderUnitCircleSvg("alt", { theta: Math.PI / 6 }),
+      renderRadianArcSvg("alt", { r: 2, theta: Math.PI / 3 }),
+      renderSecantSvg("alt", { curve: "square", h: 0.5 }),
+      renderDerivativeSignSvg("alt", { x: 0 }),
+      renderRiemannSvg("alt", { n: 4, mode: "left" }),
+      renderAreaBetweenSvg("alt", { pair: "x-x2", b: 1 }),
     ];
     for (const f of frames) {
       const html = renderToStaticMarkup(f);
@@ -244,6 +259,132 @@ describe("unit-circle-graphs", () => {
   });
 });
 
+describe("radian-arc", () => {
+  it("r = 2, θ = π/3 gives s = 2π/3 = 2.094 and A = ½·4·π/3 = 2π/3 = 2.094", () => {
+    expect(arcLength(2, Math.PI / 3)).toBeCloseTo(2.0944, 4);
+    expect(sectorArea(2, Math.PI / 3)).toBeCloseTo(2.0944, 4);
+  });
+  it("θ = π is 180°, and θ = 2π with r = 1 gives the circumference 2π and area π", () => {
+    expect(radToDeg(Math.PI)).toBeCloseTo(180, 10);
+    expect(arcLength(1, 2 * Math.PI)).toBeCloseTo(6.2832, 4);
+    expect(sectorArea(1, 2 * Math.PI)).toBeCloseTo(Math.PI, 10);
+  });
+  it("starts at r = 2, θ = π/3 and follows the sliders", () => {
+    render(<RadianArc alt="alt" />);
+    expect(screen.getByTestId("arc").textContent).toBe("2.094");
+    expect(screen.getByTestId("sector").textContent).toBe("2.094");
+    expect(screen.getByTestId("degrees").textContent).toBe("60.0");
+    setSlider(/^θ /, 3.14); // s = 2 × 3.14 = 6.28, A = ½ × 4 × 3.14 = 6.28
+    expect(readout(/^θ /)).toBe("3.14 rad");
+    expect(screen.getByTestId("arc").textContent).toBe("6.280");
+    expect(screen.getByTestId("degrees").textContent).toBe("179.9");
+    setSlider(/^r /, 3); // s = 3 × 3.14 = 9.42, A = ½ × 9 × 3.14 = 14.13
+    expect(screen.getByTestId("arc").textContent).toBe("9.420");
+    expect(screen.getByTestId("sector").textContent).toBe("14.130");
+  });
+});
+
+describe("secant-to-tangent", () => {
+  it("y = x²: h = 0.5 gives (2.25 − 1)/0.5 = 2.5 and h = 0.1 gives (1.21 − 1)/0.1 = 2.1", () => {
+    const { f } = SECANT_CURVES.square;
+    expect(secantGradient(f, 0.5)).toBeCloseTo(2.5, 10);
+    expect(secantGradient(f, 0.1)).toBeCloseTo(2.1, 10);
+  });
+  it("y = x³: h = 1 gives (8 − 1)/1 = 7 and the tangent gradient is 3", () => {
+    expect(secantGradient(SECANT_CURVES.cube.f, 1)).toBeCloseTo(7, 10);
+    expect(SECANT_CURVES.cube.df(1)).toBe(3);
+  });
+  it("reads the secant gradient from the slider and the tangent gradient 2", () => {
+    render(<SecantToTangent alt="alt" />);
+    expect(screen.getByTestId("tangent").textContent).toBe("2");
+    setSlider(/^h /, 0.5);
+    expect(screen.getByTestId("secant").textContent).toBe("2.500");
+    setSlider(/^h /, 0.1);
+    expect(screen.getByTestId("secant").textContent).toBe("2.100");
+    fireEvent.change(screen.getByLabelText(/Curve/), { target: { value: "cube" } }); // (1.331 − 1)/0.1 = 3.31
+    expect(screen.getByTestId("secant").textContent).toBe("3.310");
+    expect(screen.getByTestId("tangent").textContent).toBe("3");
+  });
+});
+
+describe("derivative-sign", () => {
+  it("x = 0: f′ = 3·0 − 3 = −3, decreasing; x = 2: f′ = 12 − 3 = 9, increasing", () => {
+    expect(df(0)).toBe(-3);
+    expect(trendAt(0)).toBe("decreasing");
+    expect(df(2)).toBe(9);
+    expect(trendAt(2)).toBe("increasing");
+  });
+  it("x = ±1 are stationary points with f(1) = 1 − 3 = −2 and f(−1) = −1 + 3 = 2", () => {
+    expect(df(1)).toBe(0);
+    expect(df(-1)).toBe(0);
+    expect(trendAt(1)).toBe("stationary");
+    expect(STATIONARY).toEqual([{ x: -1, y: 2 }, { x: 1, y: -2 }]);
+    expect(cubicF(2)).toBe(2); // 8 − 6
+  });
+  it("starts at x = 0 and follows the slider", () => {
+    render(<DerivativeSign alt="alt" />);
+    expect(screen.getByTestId("derivative").textContent).toBe("−3.00");
+    expect(screen.getByTestId("trend").textContent).toBe("decreasing");
+    setSlider("x", 2); // 3·4 − 3 = 9
+    expect(screen.getByTestId("derivative").textContent).toBe("9.00");
+    expect(screen.getByTestId("trend").textContent).toBe("increasing");
+    setSlider("x", 1);
+    expect(screen.getByTestId("derivative").textContent).toBe("0.00");
+    expect(screen.getByTestId("trend").textContent).toBe("stationary");
+  });
+});
+
+describe("riemann-sums", () => {
+  // n = 4 on [0, 2]: width 0.5, left x = 0, 0.5, 1, 1.5; right x = 0.5, 1, 1.5, 2; mid x = 0.25, 0.75, 1.25, 1.75.
+  it("left, n = 4: 0.5·(0 + 0.25 + 1 + 2.25) = 1.75", () => {
+    expect(riemannSum(4, "left")).toBeCloseTo(1.75, 10);
+  });
+  it("right, n = 4: 0.5·(0.25 + 1 + 2.25 + 4) = 3.75", () => {
+    expect(riemannSum(4, "right")).toBeCloseTo(3.75, 10);
+  });
+  it("midpoint, n = 4: 0.5·(0.0625 + 0.5625 + 1.5625 + 3.0625) = 2.625", () => {
+    expect(riemannSum(4, "mid")).toBeCloseTo(2.625, 10);
+  });
+  it("converges to 8/3 as n grows and n = 1 left is 0, right is 2·4 = 8", () => {
+    expect(EXACT).toBeCloseTo(2.6667, 4);
+    expect(riemannSum(1, "left")).toBe(0);
+    expect(riemannSum(1, "right")).toBe(8);
+    expect(Math.abs(riemannSum(50, "mid") - EXACT)).toBeLessThan(0.001);
+  });
+  it("reads the sum for the chosen rule and n", () => {
+    render(<RiemannSums alt="alt" />);
+    setSlider(/^n /, 4);
+    expect(screen.getByTestId("sum").textContent).toBe("2.625");
+    fireEvent.change(screen.getByLabelText(/Rectangle heights/), { target: { value: "left" } });
+    expect(screen.getByTestId("sum").textContent).toBe("1.750");
+    fireEvent.change(screen.getByLabelText(/Rectangle heights/), { target: { value: "right" } });
+    expect(screen.getByTestId("sum").textContent).toBe("3.750");
+    expect(screen.getByTestId("exact").textContent).toBe("2.667");
+    expect(screen.getByTestId("error").textContent).toBe("1.083"); // 3.75 − 2.6667
+  });
+});
+
+describe("area-between-curves", () => {
+  it("y = x and y = x² on [0, 1]: [x²/2 − x³/3] = 1/2 − 1/3 = 1/6 ≈ 0.167", () => {
+    expect(areaTo("x-x2", 1)).toBeCloseTo(1 / 6, 10);
+  });
+  it("up to b = 0.5: 1/8 − 1/24 = 1/12 ≈ 0.083", () => {
+    expect(areaTo("x-x2", 0.5)).toBeCloseTo(1 / 12, 10);
+  });
+  it("y = x + 2 and y = x² on [−1, 2]: (2 + 4 − 8/3) − (1/2 − 2 + 1/3) = 10/3 + 7/6 = 9/2", () => {
+    expect(areaTo("x+2-x2", 2)).toBeCloseTo(4.5, 10);
+    expect(areaTo("x+2-x2", -1)).toBe(0);
+  });
+  it("reads the area, starting from the full enclosed region", () => {
+    render(<AreaBetweenCurves alt="alt" />);
+    expect(screen.getByTestId("area").textContent).toBe("0.167");
+    setSlider(/^b /, 0.5);
+    expect(screen.getByTestId("area").textContent).toBe("0.083");
+    fireEvent.change(screen.getByLabelText(/Curves/), { target: { value: "x+2-x2" } });
+    expect(screen.getByTestId("area").textContent).toBe("4.500");
+  });
+});
+
 describe("format", () => {
   it("uses a real minus sign and never prints negative zero", () => {
     expect(fmt(-3)).toBe("−3.00");
@@ -260,6 +401,11 @@ describe("only one live region per widget", () => {
     ["exp-log-reflection", <ExpLogReflection key="e" alt="a" />],
     ["unit-circle-graphs", <UnitCircleGraphs key="u" alt="a" />],
     ["parts-area", <PartsArea key="p" alt="a" />],
+    ["radian-arc", <RadianArc key="r" alt="a" />],
+    ["secant-to-tangent", <SecantToTangent key="s" alt="a" />],
+    ["derivative-sign", <DerivativeSign key="ds" alt="a" />],
+    ["riemann-sums", <RiemannSums key="rs" alt="a" />],
+    ["area-between-curves", <AreaBetweenCurves key="ab" alt="a" />],
   ])("%s", (_id, el) => {
     const { container } = render(el);
     expect(container.querySelectorAll("[aria-live]")).toHaveLength(1);
