@@ -10,7 +10,7 @@
       "bullets": [
         {
           "id": "1.1-b1",
-          "text": "Do arithmetic with numbers in standard form a × 10^k, where 1 ≤ a < 10 and k is an integer."
+          "text": "Do arithmetic with numbers in standard form a × 10^k, taking 1 ≤ a < 10 and k any integer."
         },
         {
           "id": "1.1-b2",
@@ -46,7 +46,16 @@
           "text": "Judge and predict from real data that is only roughly arithmetic, approximating the common difference."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-1-2-nth-term",
+          "label": "nth term of an arithmetic sequence"
+        },
+        {
+          "id": "bk-1-2-sum",
+          "label": "Sum of an arithmetic sequence"
+        }
+      ]
     },
     {
       "item": "1.3",
@@ -75,7 +84,16 @@
           "text": "Link geometric sequences to exponential models (topic 2) and regression (topic 4)."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-1-3-nth-term",
+          "label": "nth term of a geometric sequence"
+        },
+        {
+          "id": "bk-1-3-sum",
+          "label": "Sum of a finite geometric sequence"
+        }
+      ]
     },
     {
       "item": "1.4",
@@ -104,7 +122,12 @@
           "text": "Deriving the compound-interest formula is not examined."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-1-4-compound-interest",
+          "label": "Compound interest"
+        }
+      ]
     },
     {
       "item": "1.5",
@@ -125,7 +148,12 @@
           "text": "Evaluate logarithms numerically with technology."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-1-5-log-definition",
+          "label": "Exponent and logarithm link"
+        }
+      ]
     },
     {
       "item": "1.6",
@@ -179,7 +207,28 @@
           "text": "Solve exponential equations, including by taking logarithms, e.g. (1/3)^x = 9^(x+1) and 2^(x−1) = 10."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-1-5-log-definition",
+          "label": "Exponent and logarithm link"
+        },
+        {
+          "id": "bk-1-7-log-product",
+          "label": "Log of a product"
+        },
+        {
+          "id": "bk-1-7-log-quotient",
+          "label": "Log of a quotient"
+        },
+        {
+          "id": "bk-1-7-log-power",
+          "label": "Log of a power"
+        },
+        {
+          "id": "bk-1-7-log-change-base",
+          "label": "Change of base"
+        }
+      ]
     },
     {
       "item": "1.8",
@@ -196,7 +245,12 @@
           "text": "Use the condition |r| < 1 with modulus notation."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-1-8-sum-infinity",
+          "label": "Sum to infinity"
+        }
+      ]
     },
     {
       "item": "1.9",
@@ -206,7 +260,7 @@
       "bullets": [
         {
           "id": "1.9-b1",
-          "text": "Expand (a + b)^n for n a positive integer using the binomial theorem."
+          "text": "Expand (a + b)^n for n ∈ ℕ using the binomial theorem; ℕ includes 0 in IB notation."
         },
         {
           "id": "1.9-b2",
@@ -221,7 +275,16 @@
           "text": "Counting principles may be used to build up the theorem."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-1-9-binomial-theorem",
+          "label": "Binomial expansion"
+        },
+        {
+          "id": "bk-1-9-ncr",
+          "label": "Binomial coefficient nCr"
+        }
+      ]
     },
     {
       "item": "1.10",
@@ -239,14 +302,27 @@
         },
         {
           "id": "1.10-b3",
-          "text": "Expand (a + b)^n when n is rational, so fractional and negative powers are allowed; factor out a^n and use a^n(1 + b/a)^n."
+          "text": "Expand (a + b)^n when n is rational, so fractional and negative powers are allowed; factor a out of the bracket, leaving a^n outside: a^n(1 + b/a)^n."
         },
         {
           "id": "1.10-b4",
           "text": "Proving the binomial theorem is not required."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-1-10-combinations",
+          "label": "Combinations"
+        },
+        {
+          "id": "bk-1-10-permutations",
+          "label": "Permutations"
+        },
+        {
+          "id": "bk-1-10-binomial-rational",
+          "label": "Binomial expansion for rational n"
+        }
+      ]
     },
     {
       "item": "1.11",
@@ -284,7 +360,12 @@
           "text": "Plot complex numbers on the complex plane (Argand diagram)."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-1-12-cartesian-form",
+          "label": "Cartesian form of a complex number"
+        }
+      ]
     },
     {
       "item": "1.13",
@@ -309,7 +390,16 @@
           "text": "Convert between Cartesian, polar and Euler forms."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-1-13-polar-euler",
+          "label": "Polar and Euler forms"
+        },
+        {
+          "id": "bk-1-14-de-moivre",
+          "label": "De Moivre's theorem"
+        }
+      ]
     },
     {
       "item": "1.14",
@@ -330,7 +420,12 @@
           "text": "Find powers and roots of complex numbers."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-1-14-de-moivre",
+          "label": "De Moivre's theorem"
+        }
+      ]
     },
     {
       "item": "1.15",
@@ -405,7 +500,16 @@
           "text": "Calculate gradients in real settings such as roads and bridges."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-2-1-line-equations",
+          "label": "Equations of a straight line"
+        },
+        {
+          "id": "bk-2-1-gradient",
+          "label": "Gradient formula"
+        }
+      ]
     },
     {
       "item": "2.2",
@@ -518,7 +622,12 @@
           "text": "Change from one form to another."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-2-6-axis-of-symmetry",
+          "label": "Axis of symmetry of a quadratic"
+        }
+      ]
     },
     {
       "item": "2.7",
@@ -539,7 +648,16 @@
           "text": "Find parameter values giving a stated root type, e.g. for 3kx^2 + 2x + k = 0."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-2-7-quadratic-formula",
+          "label": "Quadratic formula"
+        },
+        {
+          "id": "bk-2-7-discriminant",
+          "label": "Discriminant"
+        }
+      ]
     },
     {
       "item": "2.8",
@@ -585,7 +703,12 @@
           "text": "Recognise exponential and logarithmic functions as inverses; link to compound interest and depreciation (1.4)."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-2-9-exp-log",
+          "label": "Exponential and logarithmic functions"
+        }
+      ]
     },
     {
       "item": "2.10",
@@ -656,7 +779,12 @@
           "text": "Use the sum −a_{n−1}/a_n and product (−1)^n a_0/a_n of the roots of a_n x^n + … + a_0 = 0."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-2-12-roots-sum-product",
+          "label": "Sum and product of polynomial roots"
+        }
+      ]
     },
     {
       "item": "2.13",
@@ -708,7 +836,7 @@
         },
         {
           "id": "2.15-b2",
-          "text": "Solve with a graph or algebra when the polynomials are simple (degree 3 at most); otherwise use technology."
+          "text": "Solve with a graph or algebra when the polynomials are simple (degree 3 at most); technology may be used for these and for any other functions."
         }
       ],
       "booklet": []
@@ -757,7 +885,36 @@
           "text": "At SL, only right-angled trigonometry is set in 3D; identify right-angled triangles inside solids to find lengths and angles."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-1-distance-3d",
+          "label": "Distance between two 3D points"
+        },
+        {
+          "id": "bk-3-1-midpoint-3d",
+          "label": "Midpoint in 3D"
+        },
+        {
+          "id": "bk-3-1-pyramid-volume",
+          "label": "Volume of a pyramid"
+        },
+        {
+          "id": "bk-3-1-cone-volume",
+          "label": "Volume of a cone"
+        },
+        {
+          "id": "bk-3-1-cone-curved-area",
+          "label": "Curved surface area of a cone"
+        },
+        {
+          "id": "bk-3-1-sphere-volume",
+          "label": "Volume of a sphere"
+        },
+        {
+          "id": "bk-3-1-sphere-area",
+          "label": "Surface area of a sphere"
+        }
+      ]
     },
     {
       "item": "3.2",
@@ -786,7 +943,20 @@
           "text": "Draw well-labelled diagrams; use inverse functions for angles (SL 2.2); the ambiguous case of the sine rule is not included here."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-2-sine-rule",
+          "label": "Sine rule"
+        },
+        {
+          "id": "bk-3-2-cosine-rule",
+          "label": "Cosine rule"
+        },
+        {
+          "id": "bk-3-2-triangle-area",
+          "label": "Area of a triangle"
+        }
+      ]
     },
     {
       "item": "3.3",
@@ -807,7 +977,20 @@
           "text": "Draw labelled diagrams from a written description."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-2-sine-rule",
+          "label": "Sine rule"
+        },
+        {
+          "id": "bk-3-2-cosine-rule",
+          "label": "Cosine rule"
+        },
+        {
+          "id": "bk-3-2-triangle-area",
+          "label": "Area of a triangle"
+        }
+      ]
     },
     {
       "item": "3.4",
@@ -824,7 +1007,16 @@
           "text": "Find arc length and sector area."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-4-arc-length",
+          "label": "Arc length"
+        },
+        {
+          "id": "bk-3-4-sector-area",
+          "label": "Sector area"
+        }
+      ]
     },
     {
       "item": "3.5",
@@ -849,7 +1041,12 @@
           "text": "Extend the sine rule to the ambiguous case."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-5-tan-identity",
+          "label": "tan in terms of sin and cos"
+        }
+      ]
     },
     {
       "item": "3.6",
@@ -870,7 +1067,20 @@
           "text": "Relate trig ratios to each other, e.g. find tanθ from sinθ, or sin2x from cosx = 3/4 for acute x, without finding the angle."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-6-pythagorean",
+          "label": "Pythagorean identity"
+        },
+        {
+          "id": "bk-3-6-double-sin",
+          "label": "Double angle for sin"
+        },
+        {
+          "id": "bk-3-6-double-cos",
+          "label": "Double angle for cos"
+        }
+      ]
     },
     {
       "item": "3.7",
@@ -937,7 +1147,24 @@
           "text": "Know arcsin, arccos and arctan: their domains, ranges and graphs."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-9-sec",
+          "label": "Definition of sec"
+        },
+        {
+          "id": "bk-3-9-cosec",
+          "label": "Definition of cosec"
+        },
+        {
+          "id": "bk-3-9-pythagorean-tan",
+          "label": "Pythagorean identity with tan and sec"
+        },
+        {
+          "id": "bk-3-9-pythagorean-cot",
+          "label": "Pythagorean identity with cot and cosec"
+        }
+      ]
     },
     {
       "item": "3.10",
@@ -958,7 +1185,24 @@
           "text": "Derive the double angle identities from the compound angle identities."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-10-compound-sin",
+          "label": "Compound angle for sin"
+        },
+        {
+          "id": "bk-3-10-compound-cos",
+          "label": "Compound angle for cos"
+        },
+        {
+          "id": "bk-3-10-compound-tan",
+          "label": "Compound angle for tan"
+        },
+        {
+          "id": "bk-3-10-double-tan",
+          "label": "Double angle for tan"
+        }
+      ]
     },
     {
       "item": "3.11",
@@ -1008,7 +1252,12 @@
           "text": "Prove geometrical properties using vectors."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-12-magnitude",
+          "label": "Magnitude of a vector"
+        }
+      ]
     },
     {
       "item": "3.13",
@@ -1029,7 +1278,20 @@
           "text": "For non-zero vectors, v·w = 0 means perpendicular; for parallel vectors |v·w| = |v||w|."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-13-scalar-components",
+          "label": "Scalar product from components"
+        },
+        {
+          "id": "bk-3-13-scalar-angle",
+          "label": "Scalar product with the angle"
+        },
+        {
+          "id": "bk-3-13-angle-between",
+          "label": "Angle between two vectors"
+        }
+      ]
     },
     {
       "item": "3.14",
@@ -1054,7 +1316,24 @@
           "text": "Apply to simple kinematics, with λ as time, b as velocity and |b| as speed."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-13-angle-between",
+          "label": "Angle between two vectors"
+        },
+        {
+          "id": "bk-3-14-line-vector",
+          "label": "Vector equation of a line"
+        },
+        {
+          "id": "bk-3-14-line-parametric",
+          "label": "Parametric equations of a line"
+        },
+        {
+          "id": "bk-3-14-line-cartesian",
+          "label": "Cartesian equations of a line"
+        }
+      ]
     },
     {
       "item": "3.15",
@@ -1096,7 +1375,20 @@
           "text": "Interpret |v × w| geometrically, using it for the area of a parallelogram and a triangle."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-16-cross-components",
+          "label": "Vector product from components"
+        },
+        {
+          "id": "bk-3-16-cross-magnitude",
+          "label": "Magnitude of the vector product"
+        },
+        {
+          "id": "bk-3-16-parallelogram-area",
+          "label": "Area of a parallelogram from vectors"
+        }
+      ]
     },
     {
       "item": "3.17",
@@ -1117,7 +1409,20 @@
           "text": "Write the Cartesian equation ax + by + cz = d."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-17-plane-parametric",
+          "label": "Vector equation of a plane"
+        },
+        {
+          "id": "bk-3-17-plane-normal",
+          "label": "Plane from a normal vector"
+        },
+        {
+          "id": "bk-3-17-plane-cartesian",
+          "label": "Cartesian equation of a plane"
+        }
+      ]
     },
     {
       "item": "3.18",
@@ -1127,7 +1432,7 @@
       "bullets": [
         {
           "id": "3.18-b1",
-          "text": "Find intersections of a line with a plane, two planes, and three planes, by solving equations and interpreting the solutions geometrically."
+          "text": "Solve for where a line meets a plane, where two planes meet and where three planes meet, and interpret each solution geometrically."
         },
         {
           "id": "3.18-b2",
@@ -1138,7 +1443,12 @@
           "text": "Link to systems of linear equations (1.16)."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-3-13-angle-between",
+          "label": "Angle between two vectors"
+        }
+      ]
     },
     {
       "item": "4.1",
@@ -1163,7 +1473,12 @@
           "text": "Know sampling techniques and their effectiveness: simple random, convenience, systematic, quota, stratified."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-4-2-iqr",
+          "label": "Interquartile range"
+        }
+      ]
     },
     {
       "item": "4.2",
@@ -1188,7 +1503,12 @@
           "text": "Draw and read box and whisker diagrams, with outliers marked by crosses; compare two distributions and judge from symmetry whether data may be normal."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-4-2-iqr",
+          "label": "Interquartile range"
+        }
+      ]
     },
     {
       "item": "4.3",
@@ -1198,7 +1518,7 @@
       "bullets": [
         {
           "id": "4.3-b1",
-          "text": "Find mean, median and mode, using formula and technology."
+          "text": "Find mean, median and mode; the mean can be found by formula or with technology."
         },
         {
           "id": "4.3-b2",
@@ -1217,7 +1537,20 @@
           "text": "Find quartiles of discrete data using technology, knowing that methods differ so by-hand and technology values may differ."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-4-3-mean",
+          "label": "Mean from a frequency table"
+        },
+        {
+          "id": "bk-4-14-variance-data",
+          "label": "Variance from a frequency table"
+        },
+        {
+          "id": "bk-4-14-sd-data",
+          "label": "Standard deviation from a frequency table"
+        }
+      ]
     },
     {
       "item": "4.4",
@@ -1279,7 +1612,16 @@
           "text": "Find the expected number of occurrences, e.g. 128 students, P(absent) = 0.1, expect 12.8."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-4-5-probability",
+          "label": "Probability of an event"
+        },
+        {
+          "id": "bk-4-5-complement",
+          "label": "Complementary events"
+        }
+      ]
     },
     {
       "item": "4.6",
@@ -1312,7 +1654,24 @@
           "text": "Problems can be solved from diagrams without explicit formulae."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-4-6-union",
+          "label": "Probability of A or B"
+        },
+        {
+          "id": "bk-4-6-mutually-exclusive",
+          "label": "Mutually exclusive events"
+        },
+        {
+          "id": "bk-4-6-conditional",
+          "label": "Conditional probability"
+        },
+        {
+          "id": "bk-4-6-independent",
+          "label": "Independent events"
+        }
+      ]
     },
     {
       "item": "4.7",
@@ -1333,7 +1692,12 @@
           "text": "Apply to problems; E(X) = 0 means a fair game where X is a player's gain."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-4-7-expected-value",
+          "label": "Expected value, discrete"
+        }
+      ]
     },
     {
       "item": "4.8",
@@ -1354,7 +1718,16 @@
           "text": "Link to expected number of occurrences (SL 4.5)."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-4-8-binomial-mean",
+          "label": "Binomial mean"
+        },
+        {
+          "id": "bk-4-8-binomial-variance",
+          "label": "Binomial variance"
+        }
+      ]
     },
     {
       "item": "4.9",
@@ -1413,7 +1786,16 @@
           "text": "Use P(A|B) = P(A) = P(A|B′) for independent events, and test for independence."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-4-6-conditional",
+          "label": "Conditional probability"
+        },
+        {
+          "id": "bk-4-6-independent",
+          "label": "Independent events"
+        }
+      ]
     },
     {
       "item": "4.12",
@@ -1430,7 +1812,12 @@
           "text": "Do inverse normal calculations when the mean or standard deviation is unknown, using technology and z-values."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-4-12-z-score",
+          "label": "Standardised normal variable"
+        }
+      ]
     },
     {
       "item": "4.13",
@@ -1447,7 +1834,16 @@
           "text": "Link to independent events (SL 4.6)."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-4-13-bayes-two",
+          "label": "Bayes' theorem, two events"
+        },
+        {
+          "id": "bk-4-13-bayes-three",
+          "label": "Bayes' theorem, three events"
+        }
+      ]
     },
     {
       "item": "4.14",
@@ -1476,7 +1872,36 @@
           "text": "Apply linear transformations: E(aX + b) = aE(X) + b and Var(aX + b) = a^2 Var(X)."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-4-14-variance-data",
+          "label": "Variance from a frequency table"
+        },
+        {
+          "id": "bk-4-14-sd-data",
+          "label": "Standard deviation from a frequency table"
+        },
+        {
+          "id": "bk-4-14-linear-transform",
+          "label": "Linear transformation of a random variable"
+        },
+        {
+          "id": "bk-4-14-continuous-mean",
+          "label": "Expected value, continuous"
+        },
+        {
+          "id": "bk-4-14-variance-general",
+          "label": "Variance of a random variable"
+        },
+        {
+          "id": "bk-4-14-variance-discrete",
+          "label": "Variance, discrete"
+        },
+        {
+          "id": "bk-4-14-variance-continuous",
+          "label": "Variance, continuous"
+        }
+      ]
     },
     {
       "item": "5.1",
@@ -1531,7 +1956,12 @@
           "text": "Differentiate sums of such terms, e.g. ax^n + bx^(n−1) + …, where all exponents are integers."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-3-power-derivative",
+          "label": "Derivative of a power"
+        }
+      ]
     },
     {
       "item": "5.4",
@@ -1569,7 +1999,16 @@
           "text": "Find the area between a curve y = f(x) > 0 and the x-axis; link anti-derivatives, definite integrals and area, and write a correct integral expression first."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-5-power-integral",
+          "label": "Integral of a power"
+        },
+        {
+          "id": "bk-5-5-area-positive",
+          "label": "Area under a positive curve"
+        }
+      ]
     },
     {
       "item": "5.6",
@@ -1594,7 +2033,40 @@
           "text": "Use the product and quotient rules."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-3-power-derivative",
+          "label": "Derivative of a power"
+        },
+        {
+          "id": "bk-5-6-sin",
+          "label": "Derivative of sin x"
+        },
+        {
+          "id": "bk-5-6-cos",
+          "label": "Derivative of cos x"
+        },
+        {
+          "id": "bk-5-6-exp",
+          "label": "Derivative of e^x"
+        },
+        {
+          "id": "bk-5-6-ln",
+          "label": "Derivative of ln x"
+        },
+        {
+          "id": "bk-5-6-chain-rule",
+          "label": "Chain rule"
+        },
+        {
+          "id": "bk-5-6-product-rule",
+          "label": "Product rule"
+        },
+        {
+          "id": "bk-5-6-quotient-rule",
+          "label": "Quotient rule"
+        }
+      ]
     },
     {
       "item": "5.7",
@@ -1611,7 +2083,12 @@
           "text": "Describe graph behaviour and the relationship between the graphs of f, f′ and f″, using technology to explore."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-9-acceleration",
+          "label": "Acceleration"
+        }
+      ]
     },
     {
       "item": "5.8",
@@ -1665,7 +2142,20 @@
           "text": "Know that speed is the magnitude of velocity."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-9-acceleration",
+          "label": "Acceleration"
+        },
+        {
+          "id": "bk-5-9-distance",
+          "label": "Distance travelled"
+        },
+        {
+          "id": "bk-5-9-displacement",
+          "label": "Displacement"
+        }
+      ]
     },
     {
       "item": "5.10",
@@ -1686,7 +2176,28 @@
           "text": "Integrate by inspection (reverse chain rule) or substitution for ∫ k g′(x) f(g(x)) dx, e.g. ∫2x(x^2 + 1)^4 dx, ∫4x sin x^2 dx, ∫ sinx/cosx dx."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-5-power-integral",
+          "label": "Integral of a power"
+        },
+        {
+          "id": "bk-5-10-int-reciprocal",
+          "label": "Integral of 1/x"
+        },
+        {
+          "id": "bk-5-10-int-sin",
+          "label": "Integral of sin x"
+        },
+        {
+          "id": "bk-5-10-int-cos",
+          "label": "Integral of cos x"
+        },
+        {
+          "id": "bk-5-10-int-exp",
+          "label": "Integral of e^x"
+        }
+      ]
     },
     {
       "item": "5.11",
@@ -1707,7 +2218,12 @@
           "text": "Find areas between curves; technology can show how integrals relate to areas."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-11-area-abs",
+          "label": "Area between a curve and the x-axis"
+        }
+      ]
     },
     {
       "item": "5.12",
@@ -1732,7 +2248,12 @@
           "text": "Find higher derivatives, using notation d^n y/dx^n and f^(n)(x)."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-12-first-principles",
+          "label": "Derivative from first principles"
+        }
+      ]
     },
     {
       "item": "5.13",
@@ -1770,7 +2291,12 @@
           "text": "Solve optimisation problems using the chain rule or implicit differentiation, including optimum at an end point."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-6-chain-rule",
+          "label": "Chain rule"
+        }
+      ]
     },
     {
       "item": "5.15",
@@ -1780,7 +2306,7 @@
       "bullets": [
         {
           "id": "5.15-b1",
-          "text": "Differentiate tanx, secx, cosecx, cotx, a^x, log_a x, arcsinx, arccosx and arctanx."
+          "text": "Differentiate the trig functions tan x, cot x, sec x and cosec x, the general exponential a^x and logarithm log_a x, and the inverse trig functions arcsin x, arccos x and arctan x."
         },
         {
           "id": "5.15-b2",
@@ -1791,7 +2317,56 @@
           "text": "Use partial fractions to rearrange an integrand, e.g. 1/(x^2 + 3x + 2) gives ln|(x + 1)/(x + 2)| + C."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-15-d-tan",
+          "label": "Derivative of tan x"
+        },
+        {
+          "id": "bk-5-15-d-sec",
+          "label": "Derivative of sec x"
+        },
+        {
+          "id": "bk-5-15-d-cosec",
+          "label": "Derivative of cosec x"
+        },
+        {
+          "id": "bk-5-15-d-cot",
+          "label": "Derivative of cot x"
+        },
+        {
+          "id": "bk-5-15-d-a-power-x",
+          "label": "Derivative of a^x"
+        },
+        {
+          "id": "bk-5-15-d-log-a",
+          "label": "Derivative of log base a"
+        },
+        {
+          "id": "bk-5-15-d-arcsin",
+          "label": "Derivative of arcsin x"
+        },
+        {
+          "id": "bk-5-15-d-arccos",
+          "label": "Derivative of arccos x"
+        },
+        {
+          "id": "bk-5-15-d-arctan",
+          "label": "Derivative of arctan x"
+        },
+        {
+          "id": "bk-5-15-int-a-power-x",
+          "label": "Integral of a^x"
+        },
+        {
+          "id": "bk-5-15-int-arctan",
+          "label": "Integral giving arctan"
+        },
+        {
+          "id": "bk-5-15-int-arcsin",
+          "label": "Integral giving arcsin"
+        }
+      ]
     },
     {
       "item": "5.16",
@@ -1812,7 +2387,12 @@
           "text": "Use integration by parts repeatedly, e.g. ∫x^2 e^x dx and ∫e^x sinx dx."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-16-parts",
+          "label": "Integration by parts"
+        }
+      ]
     },
     {
       "item": "5.17",
@@ -1829,7 +2409,16 @@
           "text": "Find the volume when a region is rotated around either axis."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-17-area-y-axis",
+          "label": "Area against the y-axis"
+        },
+        {
+          "id": "bk-5-17-volume-revolution",
+          "label": "Volume of revolution"
+        }
+      ]
     },
     {
       "item": "5.18",
@@ -1858,7 +2447,16 @@
           "text": "Solve y′ + P(x)y = Q(x) with the integrating factor."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-18-euler-method",
+          "label": "Euler's method"
+        },
+        {
+          "id": "bk-5-18-integrating-factor",
+          "label": "Integrating factor"
+        }
+      ]
     },
     {
       "item": "5.19",
@@ -1879,7 +2477,32 @@
           "text": "Develop Maclaurin series from differential equations."
         }
       ],
-      "booklet": []
+      "booklet": [
+        {
+          "id": "bk-5-19-maclaurin-general",
+          "label": "Maclaurin series"
+        },
+        {
+          "id": "bk-5-19-maclaurin-exp",
+          "label": "Maclaurin series for e^x"
+        },
+        {
+          "id": "bk-5-19-maclaurin-ln",
+          "label": "Maclaurin series for ln(1+x)"
+        },
+        {
+          "id": "bk-5-19-maclaurin-sin",
+          "label": "Maclaurin series for sin x"
+        },
+        {
+          "id": "bk-5-19-maclaurin-cos",
+          "label": "Maclaurin series for cos x"
+        },
+        {
+          "id": "bk-5-19-maclaurin-arctan",
+          "label": "Maclaurin series for arctan x"
+        }
+      ]
     }
   ]
 }

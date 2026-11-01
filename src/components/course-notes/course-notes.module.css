@@ -12,6 +12,7 @@
   --t5: #ffd6c7;
   --t5-ink: #a8401f;
   --done: var(--success);
+  --burgundy-soft: #f6e4e8;
 }
 .block { --wrong: #c2412d; font-size: 17px; line-height: 1.68; }
 .home { --wrong: #c2412d; }
@@ -28,6 +29,7 @@
   --t5: #4a2b20;
   --t5-ink: #f0a98c;
   --wrong: #f0907f;
+  --burgundy-soft: #3a2228;
 }
 
 .block p { margin: 0 0 14px; }

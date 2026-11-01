@@ -28,6 +28,14 @@ describe.skipIf(!python)("check-math.py verifies the published answer text", () 
     expect(verify("check-integrate-ln", String.raw`x\ln x + C`).status).toBe(1);
   });
 
+  it("fails a bare integral with no stated value, however it is written", () => {
+    const bare = verify("ex-parts-xe2x", String.raw`\int x\mathrm{e}^{2x}\,\mathrm{d}x`);
+    expect(bare.status).toBe(1);
+    expect(bare.stdout).toMatch(/^FAIL ex-parts-xe2x \(.*not evaluated/);
+    const restated = verify("ex-parts-xe2x", String.raw`\int x\mathrm{e}^{2x}\,\mathrm{d}x = \int x\mathrm{e}^{2x}\,\mathrm{d}x`);
+    expect(restated.status).toBe(1);
+  });
+
   it("fails, never skips, text that cannot be parsed or an id with no assertion", () => {
     const garbage = verify("ex-subst-definite", String.raw`= \frac{`);
     expect(garbage.status).toBe(1);

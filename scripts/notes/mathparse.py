@@ -4,7 +4,7 @@ Needs antlr4-python3-runtime==4.11 (what sympy.parsing.latex.parse_latex require
 """
 import re
 
-from sympy import E, Symbol
+from sympy import Derivative, E, Integral, Limit, Sum, Symbol
 from sympy.parsing.latex import parse_latex
 
 
@@ -44,4 +44,7 @@ def parse_answer(tex: str):
         expr = parse_latex(rhs)
     except Exception as error:  # noqa: BLE001 - parse_latex raises assorted antlr errors
         raise ValueError(f"cannot parse {tex!r} (as {rhs!r}): {type(error).__name__}: {error}") from error
+    # An answer that is still an unevaluated integral, derivative, limit or sum has not been worked out.
+    if expr.has(Integral, Derivative, Limit, Sum):
+        raise ValueError(f"answer {tex!r} is not evaluated: it still contains an Integral, Derivative, Limit or Sum")
     return expr.subs(Symbol("e"), E)

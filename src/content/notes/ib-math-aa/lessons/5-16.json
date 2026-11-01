@@ -102,7 +102,8 @@
         {
           "type": "formula",
           "tex": "\\int u\\,\\frac{\\mathrm{d}v}{\\mathrm{d}x}\\,\\mathrm{d}x = uv - \\int v\\,\\frac{\\mathrm{d}u}{\\mathrm{d}x}\\,\\mathrm{d}x",
-          "tag": "learn",
+          "tag": "booklet",
+          "bookletId": "bk-5-16-parts",
           "cheatSheet": true
         },
         {
@@ -254,7 +255,8 @@
         {
           "type": "formula",
           "tex": "\\int u\\frac{\\mathrm{d}v}{\\mathrm{d}x}\\mathrm{d}x = uv - \\int v\\frac{\\mathrm{d}u}{\\mathrm{d}x}\\mathrm{d}x",
-          "tag": "learn",
+          "tag": "booklet",
+          "bookletId": "bk-5-16-parts",
           "cheatSheet": true
         },
         {
