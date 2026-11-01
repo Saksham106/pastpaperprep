@@ -98,7 +98,7 @@ export function Blocks({ blocks, glossary, level, lessonHref = defaultLessonHref
       case "hlNote":
         if (!showHl) return null;
         return (
-          <aside className={`${styles.side} ${styles.sideHl}`}>
+          <aside className={`${styles.side} ${styles.sideHl}`} data-hl-note>
             <b>HL only</b>
             <p>
               {inline(block.text)} <Link href={lessonHref(block.lesson)}>Learn it in {block.lesson} →</Link>

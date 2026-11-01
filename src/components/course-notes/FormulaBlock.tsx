@@ -12,3 +12,8 @@ export function FormulaBlock({ tex, tag }: { tex: string; tag: FormulaTag }) {
     </div>
   );
 }
+
+/** Tag chip alone, for the key-takeaways grid (`short` reads "In booklet"). */
+export function FormulaTagLabel({ tag, short = false }: { tag: FormulaTag; short?: boolean }) {
+  return <span className={`${styles.fTag} ${tag === "booklet" ? styles.fTagBooklet : styles.fTagLearn}`}>{short && tag === "booklet" ? "In booklet" : FORMULA_TAG_LABEL[tag]}</span>;
+}
