@@ -2,13 +2,15 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { isValidElement, type ReactElement, type ReactNode } from "react";
 import { COURSES, lessonPath } from "@/lib/course-notes/course";
 import { notesPaths } from "@/lib/revision-notes";
-import * as subjectPage from "./[subject]/page";
-import * as topicPage from "./[subject]/[topic]/page";
-import * as lessonPageRoute from "./[subject]/[topic]/[lesson]/page";
-import * as cheatRoute from "./[subject]/cheat-sheet/page";
-import * as topicCheatRoute from "./[subject]/[topic]/cheat-sheet/page";
-import * as glossaryRoute from "./[subject]/glossary/page";
-import * as commandRoute from "./[subject]/command-terms/page";
+import * as chemistryHome from "./[subject]/page";
+import * as chemistryTopic from "./[subject]/[topic]/page";
+import * as subjectPage from "./ib-math-aa/page";
+import * as topicPage from "./ib-math-aa/[topic]/page";
+import * as lessonPageRoute from "./ib-math-aa/[topic]/[lesson]/page";
+import * as cheatRoute from "./ib-math-aa/cheat-sheet/page";
+import * as topicCheatRoute from "./ib-math-aa/[topic]/cheat-sheet/page";
+import * as glossaryRoute from "./ib-math-aa/glossary/page";
+import * as commandRoute from "./ib-math-aa/command-terms/page";
 import { JsonLd } from "@/components/JsonLd";
 
 const course = COURSES[0];
@@ -27,30 +29,44 @@ const find = (node: ReactNode, test: (el: ReactElement<Record<string, unknown>>)
 const jsonLdTypes = (page: ReactNode) =>
   find(page, (el) => el.type === JsonLd).map((el) => (el.props.data as { "@type": string })["@type"]);
 
-describe("course routes", () => {
-  it("emits no course params unless the course is visible, and keeps 0620", async () => {
+const paramsOf = (path: string) => { const [, , , t, l] = path.split("/"); return { topic: t, lesson: l }; };
+const staticRoutes = [subjectPage, cheatRoute, glossaryRoute, commandRoute];
+const topicRoutes = [topicPage, topicCheatRoute];
+const everyRoute = [...staticRoutes, ...topicRoutes, lessonPageRoute];
+
+describe("course routes (own static tree under ib-math-aa)", () => {
+  it("emits no params unless the course is visible, and leaves the [subject] routes as before", async () => {
     delete process.env.NOTES_PREVIEW;
-    expect(await subjectPage.generateStaticParams()).toEqual([{ subject: "igcse-chemistry-0620" }]);
-    expect(await topicPage.generateStaticParams()).toEqual(expect.not.arrayContaining([{ subject: course.slug, topic: topic.slug }]));
-    expect(await lessonPageRoute.generateStaticParams()).toEqual([]);
-    for (const route of [cheatRoute, glossaryRoute, commandRoute, topicCheatRoute]) expect(await route.generateStaticParams()).toEqual([]);
+    for (const route of everyRoute) expect(await route.generateStaticParams(), "hidden").toEqual([]);
+    expect(await chemistryHome.generateStaticParams()).toEqual([{ subject: "igcse-chemistry-0620" }]);
+    expect((await chemistryTopic.generateStaticParams()).every((p) => p.subject === "igcse-chemistry-0620")).toBe(true);
   });
 
-  it("emits course, topic and lesson params with NOTES_PREVIEW=1; static segments are course-only", async () => {
+  it("emits params for the course, its topics and lessons with NOTES_PREVIEW=1", async () => {
     process.env.NOTES_PREVIEW = "1";
-    expect(await subjectPage.generateStaticParams()).toContainEqual({ subject: course.slug });
-    const topics = await topicPage.generateStaticParams();
-    for (const t of course.topics) expect(topics).toContainEqual({ subject: course.slug, topic: t.slug });
-    expect(topics.filter((p) => p.subject === "igcse-chemistry-0620")).toHaveLength(12);
+    for (const route of staticRoutes) expect(await route.generateStaticParams()).toEqual([{}]);
+    for (const route of topicRoutes) expect(await route.generateStaticParams()).toEqual(course.topics.map((t) => ({ topic: t.slug })));
     const lessons = await lessonPageRoute.generateStaticParams();
     expect(lessons).toHaveLength(course.lessons.length);
-    expect(lessons).toContainEqual({ subject: course.slug, topic: lessonPath(course, lesson).split("/")[3], lesson: lessonPath(course, lesson).split("/").pop() });
-    for (const route of [cheatRoute, glossaryRoute, commandRoute]) {
-      expect(await route.generateStaticParams()).toEqual([{ subject: course.slug }]);
-      expect(route.dynamicParams).toBe(false);
-    }
-    expect(await topicCheatRoute.generateStaticParams()).toHaveLength(course.topics.length);
-    for (const route of [subjectPage, topicPage, lessonPageRoute, topicCheatRoute]) expect(route.dynamicParams).toBe(false);
+    expect(lessons).toContainEqual(paramsOf(lessonPath(course, lesson)));
+    expect((await chemistryHome.generateStaticParams()).some((p) => p.subject === course.slug)).toBe(false);
+    expect((await chemistryTopic.generateStaticParams()).some((p) => p.subject === course.slug)).toBe(false);
+  });
+
+  it("is dynamicParams = false on every page", () => {
+    for (const route of [...everyRoute, chemistryHome, chemistryTopic]) expect(route.dynamicParams).toBe(false);
+  });
+
+  it("404s every page while the course is hidden, and 404s unknown topics and lessons when visible", async () => {
+    delete process.env.NOTES_PREVIEW;
+    const topicParams = { params: Promise.resolve({ topic: topic.slug }) };
+    await expect(subjectPage.default()).rejects.toThrow();
+    for (const route of [cheatRoute, glossaryRoute, commandRoute]) await expect(route.default()).rejects.toThrow();
+    for (const route of topicRoutes) await expect(route.default(topicParams)).rejects.toThrow();
+    await expect(lessonPageRoute.default({ params: Promise.resolve(paramsOf(lessonPath(course, lesson))) })).rejects.toThrow();
+    process.env.NOTES_PREVIEW = "1";
+    for (const route of topicRoutes) await expect(route.default({ params: Promise.resolve({ topic: "nope" }) })).rejects.toThrow();
+    await expect(lessonPageRoute.default({ params: Promise.resolve({ topic: topic.slug, lesson: "nope" }) })).rejects.toThrow();
   });
 
   it("gives every page a canonical path and an absolute title of 60 characters or fewer", async () => {
@@ -62,36 +78,27 @@ describe("course routes", () => {
       expect(meta.alternates?.canonical).toBe(path);
     };
     const base = `/revision-notes/${course.slug}`;
-    const s = { subject: course.slug };
-    await check(await subjectPage.generateMetadata({ params: Promise.resolve(s) }), base);
+    await check(await subjectPage.generateMetadata(), base);
     for (const t of course.topics) {
-      await check(await topicPage.generateMetadata({ params: Promise.resolve({ ...s, topic: t.slug }) }), `${base}/${t.slug}`);
-      await check(await topicCheatRoute.generateMetadata({ params: Promise.resolve({ ...s, topic: t.slug }) }), `${base}/${t.slug}/cheat-sheet`);
+      await check(await topicPage.generateMetadata({ params: Promise.resolve({ topic: t.slug }) }), `${base}/${t.slug}`);
+      await check(await topicCheatRoute.generateMetadata({ params: Promise.resolve({ topic: t.slug }) }), `${base}/${t.slug}/cheat-sheet`);
     }
     for (const l of course.lessons) {
       const path = lessonPath(course, l);
-      await check(await lessonPageRoute.generateMetadata({ params: Promise.resolve({ ...s, topic: path.split("/")[3], lesson: path.split("/")[4] }) }), path);
+      await check(await lessonPageRoute.generateMetadata({ params: Promise.resolve(paramsOf(path)) }), path);
     }
-    await check(await cheatRoute.generateMetadata({ params: Promise.resolve(s) }), `${base}/cheat-sheet`);
-    await check(await glossaryRoute.generateMetadata({ params: Promise.resolve(s) }), `${base}/glossary`);
-    await check(await commandRoute.generateMetadata({ params: Promise.resolve(s) }), `${base}/command-terms`);
+    await check(await cheatRoute.generateMetadata(), `${base}/cheat-sheet`);
+    await check(await glossaryRoute.generateMetadata(), `${base}/glossary`);
+    await check(await commandRoute.generateMetadata(), `${base}/command-terms`);
   });
 
-  it("404s the course-only segments for 0620", async () => {
+  it("emits Course JSON-LD (with a description) on the home and LearningResource on lessons", async () => {
     process.env.NOTES_PREVIEW = "1";
-    for (const route of [cheatRoute, glossaryRoute, commandRoute]) {
-      expect(await route.generateStaticParams()).not.toContainEqual({ subject: "igcse-chemistry-0620" });
-      expect(route.dynamicParams).toBe(false);
-    }
-    await expect(cheatRoute.default({ params: Promise.resolve({ subject: "igcse-chemistry-0620" }) })).rejects.toThrow();
-  });
-
-  it("emits Course JSON-LD on the home and LearningResource on lessons", async () => {
-    process.env.NOTES_PREVIEW = "1";
-    const home = await subjectPage.default({ params: Promise.resolve({ subject: course.slug }) });
+    const home = await subjectPage.default();
     expect(jsonLdTypes(home)).toContain("Course");
-    const path = lessonPath(course, lesson).split("/");
-    const page = await lessonPageRoute.default({ params: Promise.resolve({ subject: course.slug, topic: path[3], lesson: path[4] }) });
+    const data = find(home, (el) => el.type === JsonLd)[0].props.data as { description?: string };
+    expect(data.description?.length).toBeGreaterThan(20);
+    const page = await lessonPageRoute.default({ params: Promise.resolve(paramsOf(lessonPath(course, lesson))) });
     expect(jsonLdTypes(page)).toContain("LearningResource");
   });
 
@@ -105,7 +112,7 @@ describe("course routes", () => {
   });
 
   it("still renders 0620 pages", async () => {
-    const page = await subjectPage.default({ params: Promise.resolve({ subject: "igcse-chemistry-0620" }) });
+    const page = await chemistryHome.default({ params: Promise.resolve({ subject: "igcse-chemistry-0620" }) });
     expect(isValidElement(page)).toBe(true);
   });
 });

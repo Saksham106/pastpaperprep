@@ -3,6 +3,8 @@ import courseJson from "@/content/notes/ib-math-aa/course.json";
 import commandTermsJson from "@/content/notes/ib-math-aa/command-terms.json";
 import glossaryJson from "@/content/notes/ib-math-aa/glossary.json";
 import { cheatSheets, figures, lessons } from "@/content/notes/ib-math-aa";
+import { compareItems } from "./items";
+import { isVisibleWhen } from "./visibility";
 import type { CheatSheetFile, GlossaryTerm, Lesson } from "./types";
 
 export type CommandTerm = { id: string; term: string; definition: string };
@@ -27,7 +29,7 @@ const base = courseJson as Pick<Course, "slug" | "name" | "published" | "banks" 
 export const COURSES: readonly Course[] = [
   {
     ...base,
-    lessons: [...lessons].sort((a, b) => a.topic - b.topic || a.item.localeCompare(b.item, "en", { numeric: true })),
+    lessons: [...lessons].sort((a, b) => a.topic - b.topic || compareItems(a.item, b.item)),
     glossary: glossaryJson as GlossaryTerm[],
     commandTerms: commandTermsJson as CommandTerm[],
     cheatSheets,
@@ -47,7 +49,13 @@ export const topicPath = (course: Course, topic: number): string => `/revision-n
 
 export const lessonPath = (course: Course, lesson: Lesson): string => `${topicPath(course, lesson.topic)}/${lesson.item.replace(".", "-")}-${lesson.slug}`;
 
-export const isCourseVisible = (course: Course): boolean => course.published || process.env.NOTES_PREVIEW === "1";
+export const isCourseVisible = (course: Course): boolean => isVisibleWhen(course.published);
+
+/** The AA course when visible, else undefined (route pages then 404). */
+export const getVisibleCourse = (): Course | undefined => {
+  const course = COURSES[0];
+  return course && isCourseVisible(course) ? course : undefined;
+};
 
 /** Static params and sitemap source: nothing until the course is published (or previewed). */
 export function coursePaths(): string[] {

@@ -2,26 +2,25 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { LessonPage } from "@/components/course-notes/LessonPage";
-import { COURSES, getCourse, isCourseVisible, lessonPath } from "@/lib/course-notes/course";
+import { getVisibleCourse, lessonPath } from "@/lib/course-notes/course";
 import { SITE_URL, lessonMeta } from "@/lib/course-notes/seo";
 
-type Props = { params: Promise<{ subject: string; topic: string; lesson: string }> };
+type Props = { params: Promise<{ topic: string; lesson: string }> };
 
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return COURSES.filter(isCourseVisible).flatMap((course) =>
-    course.lessons.map((lesson) => {
-      const [, , , topic, slug] = lessonPath(course, lesson).split("/");
-      return { subject: course.slug, topic, lesson: slug };
-    }),
-  );
+  const course = getVisibleCourse();
+  return (course?.lessons ?? []).map((lesson) => {
+    const [, , , topic, slug] = lessonPath(course!, lesson).split("/");
+    return { topic, lesson: slug };
+  });
 }
 
 const resolve = async (params: Props["params"]) => {
-  const { subject, topic, lesson } = await params;
-  const course = getCourse(subject);
-  if (!course || !isCourseVisible(course)) return undefined;
-  const found = course.lessons.find((entry) => lessonPath(course, entry) === `/revision-notes/${subject}/${topic}/${lesson}`);
+  const course = getVisibleCourse();
+  if (!course) return undefined;
+  const { topic, lesson } = await params;
+  const found = course.lessons.find((entry) => lessonPath(course, entry) === `/revision-notes/${course.slug}/${topic}/${lesson}`);
   return found ? { course, lesson: found } : undefined;
 };
 

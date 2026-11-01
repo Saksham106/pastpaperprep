@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CheatSheet } from "@/components/course-notes/CheatSheet";
-import { COURSES, getCourse, isCourseVisible } from "@/lib/course-notes/course";
+import { getVisibleCourse } from "@/lib/course-notes/course";
 import { cheatSheetMeta } from "@/lib/course-notes/seo";
 
-type Props = { params: Promise<{ subject: string; topic: string }> };
+type Props = { params: Promise<{ topic: string }> };
 
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return COURSES.filter(isCourseVisible).flatMap((course) => course.topics.map((topic) => ({ subject: course.slug, topic: topic.slug })));
+  return (getVisibleCourse()?.topics ?? []).map((topic) => ({ topic: topic.slug }));
 }
 
 const resolve = async (params: Props["params"]) => {
-  const { subject, topic } = await params;
-  const course = getCourse(subject);
-  if (!course || !isCourseVisible(course)) return undefined;
-  const found = course.topics.find((entry) => entry.slug === topic);
-  return found ? { course, topic: found } : undefined;
+  const course = getVisibleCourse();
+  const { topic: topicSlug } = await params;
+  const topic = course?.topics.find((entry) => entry.slug === topicSlug);
+  return course && topic ? { course, topic } : undefined;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
