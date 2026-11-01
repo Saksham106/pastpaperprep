@@ -55,7 +55,7 @@ What makes this different from other notes sites is the link to the question ban
 
 **Why this edition:** the IB is replacing the course. According to secondary sources (the IB page was behind a bot check), the new guide is published in February 2027, first teaching is August 2027, first exams are May 2029, and the last exams on the current course are November 2028. Every current student, every paying customer and every question in the bank uses the current guide. So that guide is what we build.
 
-**Edition-ready structure:** every lesson records `edition: "aa-2021"`. When the 2029 guide comes out (Feb 2027), we map its items to existing lessons. Unchanged ones get a second edition tag, changed ones get a new version, and the roadmap gets an edition switch ("Exams to Nov 2028" / "Exams from May 2029"). That is a follow-up project. Nothing in this release should make it harder.
+**Edition-ready structure:** every lesson records `edition: "aa-2021"`. When the 2029 guide comes out (Feb 2027), we map its items to existing lessons. Unchanged ones get a second edition tag, changed ones get a new version, and the course home gets an edition switch ("Exams to Nov 2028" / "Exams from May 2029"). That is a follow-up project. Nothing in this release should make it harder.
 
 **Copyright rules for content**
 - The guide's structure and numbering are used as reference facts. Its text is never pasted into lessons. Learning goals are rewritten in our own words.
@@ -79,7 +79,7 @@ The 50 student-facing groups are used only for practice links and for clustering
 | 4 Statistics and probability | 4.1–4.12 | 4.13–4.14 |
 | 5 Calculus | 5.1–5.11 | 5.12–5.19 |
 
-**Prerequisites:** each lesson lists the lessons it builds on, for example 5.16 (substitution and parts) needs 5.5, 5.10 and 5.15. This is real data that drives the "before you start" check, the roadmap's prerequisite lines and the "stuck?" links. Schools teach in different orders, so prerequisites matter more than syllabus order.
+**Prerequisites:** each lesson lists the lessons it builds on, for example 5.16 (substitution and parts) needs 5.5, 5.10 and 5.15. This is real data that drives the "before you start" check, the "Builds on" links and the "stuck?" links. Schools teach in different orders, so prerequisites matter more than syllabus order.
 
 ## 6. Pages and URLs
 
@@ -87,8 +87,8 @@ All pages live under the existing notes family, are statically generated (`gener
 
 | URL | Page |
 |---|---|
-| `/revision-notes/ib-math-aa` | Course home: roadmap, search, level switch, progress |
-| `/revision-notes/ib-math-aa/<topic>` | Topic page: topic map, lesson list, link to the topic cheat sheet |
+| `/revision-notes/ib-math-aa` | Course home: topic columns, search, level switch, progress |
+| `/revision-notes/ib-math-aa/<topic>` | Topic page: groups flowing left to right, link to the topic cheat sheet |
 | `/revision-notes/ib-math-aa/<topic>/<item>-<slug>` | Lesson, e.g. `/calculus/5-16-integration-by-substitution-and-parts` |
 | `/revision-notes/ib-math-aa/<topic>/cheat-sheet` | Topic cheat sheet (SL/HL toggle) |
 | `/revision-notes/ib-math-aa/cheat-sheet` | Whole-course cheat sheet (SL/HL toggle) |
@@ -99,25 +99,38 @@ All pages live under the existing notes family, are statically generated (`gener
 
 Topic slugs: `number-and-algebra`, `functions`, `geometry-and-trigonometry`, `statistics-and-probability`, `calculus`.
 
-### 6.1 Course home (the roadmap)
+### 6.1 Course home
+
+Chosen 2026-11-01 (mockup `home.html`). The owner rejected the transit map, course trail and mind map as hard to scan. Keep it a simple list.
 
 The first screen has, in order:
-- **The level switch:** SL / HL. It is large, obvious and styled like the IGCSE / IB tabs elsewhere. It is remembered in `localStorage`, with HL as the default because AA HL has the most usage. In SL view, AHL lessons are hidden from lists and shown faded on the map with an "HL only" label. In HL view, everything shows and AHL lessons carry the AHL badge.
+- **The level switch:** SL / HL. It is large, obvious and styled like the IGCSE / IB tabs elsewhere. It is remembered in `localStorage`, with HL as the default because AA HL has the most usage. In SL view, AHL lessons are hidden and each topic shows "+N HL-only lessons". In HL view, AHL lessons sit under an "HL only" divider in each topic.
 - **Find your place:** one search box. It matches lesson names, syllabus numbers ("2.5"), and synonyms or class wording ("inverse functions", "by parts", "Bayes"). Synonyms are stored per lesson.
-- **The roadmap.** This is the "cool visual". Each topic is a lane, like a transit map, with lessons as stops in syllabus order. SL stops and AHL stops look different (shape plus label, not colour alone). Hovering or focusing a stop shows its prerequisite lines across lanes. Stops fill in as the student marks lessons understood, and each lane shows "7 of 11 understood". A "List" toggle shows the same content as a plain accessible list, and this is also the mobile default if the map doesn't fit.
+- **Continue:** a button to the next lesson not yet understood.
+- **Overall progress:** one thin bar, "17 of 83 lessons understood".
+- **Topic columns:** one column per topic, in a wrapping grid (`auto-fill`, about 208px minimum). Five topics fit on one row on desktop, and a course with more topics simply wraps to more rows.
+  - Each column header has the topic tone, the number and name, a dot strip with one dot per lesson (filled when understood; diamonds for AHL), and "6 of 16 understood".
+  - Below it, every lesson is a plain horizontal row: number, full name and a tick. The next lesson is highlighted "Next up".
+  - On phones the columns stack as collapsible sections, with the current topic open.
 - **Cheat sheet links:** the whole-course sheet, and one per topic.
 
 No hero paragraph and no marketing band. This is a workspace, so the content comes first.
 
-### 6.2 Topic page (the mind map)
+### 6.2 Topic page
 
-- A mind map of the topic: the topic in the centre, branches for the student-facing groups (e.g. Calculus → "Differentiation and tangents", "Areas and volumes of revolution"…), and lessons as leaves. Leaves show SL/AHL, progress, and a small count of linked past-paper questions. That count is real data from the overlay.
-- Below the map: the lesson list with one line each (number, name, level badge, reading time, a progress tick), then the topic cheat sheet link.
-- The owner's design rules reject decorative node graphics. The roadmap and mind map are allowed only because every node and line carries real data: syllabus items, prerequisites, progress and question counts. Before building, show 2–4 visual options for both and expect the owner to mix and match. One option should be a non-graph alternative, such as an illustrated stepped path.
+Chosen 2026-11-01 (mockup `topic-v2.html`). It keeps the organisation by group that the owner liked in the mind map, and the left-to-right progress of the learning-order view, without the mind-map shape.
+
+- **Header:** topic number and name, "19 lessons · 8 HL only · 156 past-paper questions in the HL bank", the level switch, the topic cheat sheet and a Continue button.
+- **Two bands:** "SL and HL", then "HL only". In SL view the HL band is faded with "switch to HL to study these".
+- **Groups as stages, left to right** in teaching order. A progress line runs along the top through one node per group. It fills green as groups are understood (half-filled for a partly done group), so progress reads left to right.
+  - Each stage shows the group name (left out when the group is a single lesson, so the same name isn't repeated) and its real past-paper count, linked to practice.
+  - Below that come its lessons as stacked cards: number, name, a tick or "Next up". Hovering a card shows its one-line summary.
+- Names, counts and cards line up across stages (CSS subgrid). On phones the bands turn into a vertical timeline.
+- Every visual element is real data: syllabus items, groups, question counts and progress. Prerequisites stay on the lesson page ("Builds on"), not on a graph.
 
 ### 6.3 Lesson page
 
-Reading column about 68–72 characters wide. On desktop a slim sticky contents rail on the left shows the sections and a progress indicator. On mobile it collapses to a "Contents" button.
+Chosen 2026-11-01 (mockup `lesson-a.html`). Reading column about 68–72 characters wide. On desktop a slim sticky "On this page" contents rail on the left lists the sections, highlights the current one, and shows reading progress. Glossary terms open a pop-up definition. On mobile the rail collapses to a sticky "Contents" bar.
 
 From top to bottom:
 1. **Header.** The item number and level badge ("5.16 · AHL"), the title, reading time, and the papers it appears on (P1 no calculator / P2 calculator / P3 HL). Prerequisite chips link to earlier lessons, and "Last reviewed <date>" comes from the changelog.
@@ -240,7 +253,7 @@ Batches go topic by topic (5 batches). Each batch is written, verified and fixed
 
 ## 10. Progress and personal features
 
-- **Progress:** "I've got this" per lesson, stored in `localStorage`, shown on the roadmap, topic map and lesson list. No account needed.
+- **Progress:** "I've got this" per lesson, stored in `localStorage`, shown on the course home, topic page and lesson. No account needed.
 - **Account sync** of progress needs a Supabase table and a production migration. That is a follow-up, and needs owner approval.
 - **Study path for a test (follow-up, not this release):** the student picks lessons ("my test is on 5.1–5.11"). The site shows them in order with prerequisites, then one practice link per lesson. For paid users it also offers "Save PDF" of a mixed practice set through the existing worksheets builder. This uses existing pieces only.
 
@@ -276,7 +289,7 @@ Batches go topic by topic (5 batches). Each batch is written, verified and fixed
 
 1. **Free or paid notes.** Decided 2026-11-01: all notes are free (§12).
 2. **Teacher review.** Decided 2026-11-01: once the whole course has passed the pipeline, the owner has it reviewed by an IB AA teacher. The owner arranges this. Fixes from the review go through the same checks, and launch follows the review.
-3. **Design options** (open). Mockups are in `docs/superpowers/mockups/aa-notes/` (open `index.html`): 3 course home options, 3 topic page options, 2 lesson layouts, 1 cheat sheet. Pick from 2–4 mockups each for the course roadmap, topic mind map and lesson page before building.
+3. **Design options.** Decided 2026-11-01 after two rounds: course home `home.html`, topic page `topic-v2.html`, lesson `lesson-a.html`, cheat sheet `cheatsheet.html` (all in `docs/superpowers/mockups/aa-notes/`). Round-1 options stay there for reference.
 
 ## 14. Calls made in this design (owner can override)
 
@@ -306,9 +319,9 @@ Batches go topic by topic (5 batches). Each batch is written, verified and fixed
 
 ## 16. Build order
 
-Steps 1, 2 and 3 run in parallel. Only the roadmap, mind map and lesson layout wait for the owner's design pick. The renderer, validators, data files and the whole content pipeline don't wait.
+Step 1 is done (§13.3). Steps 2 and 3 run in parallel.
 
-1. **Design options** (§13.3): mockups, then owner picks.
+1. **Design options** (§13.3): done 2026-11-01.
 2. **Platform:**
    - routes, the block renderer and server-side KaTeX
    - the glossary, interactive island loader and cheat sheet generator
