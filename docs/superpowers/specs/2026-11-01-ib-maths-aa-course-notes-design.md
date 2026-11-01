@@ -101,17 +101,17 @@ Topic slugs: `number-and-algebra`, `functions`, `geometry-and-trigonometry`, `st
 
 ### 6.1 Course home
 
-Chosen 2026-11-01 (mockup `home.html`). The owner rejected the transit map, course trail and mind map as hard to scan. Keep it a simple list.
+Chosen 2026-11-01 (mockup `home.html`). The owner rejected the transit map, course trail and mind map as hard to scan, and then preferred topic rows to vertical topic columns. Keep it a simple list.
 
 The first screen has, in order:
 - **The level switch:** SL / HL. It is large, obvious and styled like the IGCSE / IB tabs elsewhere. It is remembered in `localStorage`, with HL as the default because AA HL has the most usage. In SL view, AHL lessons are hidden and each topic shows "+N HL-only lessons". In HL view, AHL lessons sit under an "HL only" divider in each topic.
 - **Find your place:** one search box. It matches lesson names, syllabus numbers ("2.5"), and synonyms or class wording ("inverse functions", "by parts", "Bayes"). Synonyms are stored per lesson.
 - **Continue:** a button to the next lesson not yet understood.
 - **Overall progress:** one thin bar, "17 of 83 lessons understood".
-- **Topic columns:** one column per topic, in a wrapping grid (`auto-fill`, about 208px minimum). Five topics fit on one row on desktop, and a course with more topics simply wraps to more rows.
-  - Each column header has the topic tone, the number and name, a dot strip with one dot per lesson (filled when understood; diamonds for AHL), and "6 of 16 understood".
-  - Below it, every lesson is a plain horizontal row: number, full name and a tick. The next lesson is highlighted "Next up".
-  - On phones the columns stack as collapsible sections, with the current topic open.
+- **Topic rows** (owner's pick 2026-11-01, over vertical columns): one full-width row per topic, stacked in syllabus order. A course with more topics just has more rows.
+  - The left of each row (about 270px, in the topic tone) has the number and name, a dot strip with one dot per lesson (filled when understood; diamonds for AHL), "6 of 16 understood", and links to the topic page and topic cheat sheet.
+  - The right of the row lists every lesson as a plain horizontal line: number, full name and a tick. Lessons flow down, then across, in up to three columns (like a book index). There's an "SL and HL" block, then an "HL only" block, and the next lesson is highlighted "Next up".
+  - On tablets the left part narrows and the lessons use two columns. On phones each topic is a collapsible section (header on top, lessons in one column), with the current topic open.
 - **Cheat sheet links:** the whole-course sheet, and one per topic.
 
 No hero paragraph and no marketing band. This is a workspace, so the content comes first.
