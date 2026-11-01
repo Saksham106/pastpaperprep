@@ -1,8 +1,8 @@
-import { createHash } from "node:crypto";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import itemsJson from "@/data/aa-official-subtopics/items.json";
+import { receiptHash } from "../../../scripts/notes/write-receipts.mjs";
 import { buildIndexSource } from "../../../scripts/notes/build-content-index.mjs";
 import { COURSES, coursePaths, getCourse, getLesson, isCourseVisible, lessonPath, lessonsForTopic, topicPath } from "./course";
 import type { Block, ItemsFile } from "./types";
@@ -50,10 +50,10 @@ describe("ib-math-aa course content", () => {
   it("lesson without a passing receipt for its current hash fails npm test", () => {
     const receipts = JSON.parse(readFileSync(join(root, "math-receipts.json"), "utf8")) as Record<string, { sha256: string; passedAt: string }>;
     for (const lesson of course.lessons) {
-      const bytes = readFileSync(join(root, "lessons", `${lesson.item.replace(".", "-")}.json`));
-      const sha256 = createHash("sha256").update(bytes).digest("hex");
+      // The hash covers the lesson, its sidecar and mathparse.py, so weakening a sidecar also invalidates the receipt.
+      const sha256 = receiptHash(lesson.item);
       expect(receipts[lesson.item], `${lesson.item} has no maths receipt; run node scripts/notes/write-receipts.mjs`).toBeDefined();
-      expect(receipts[lesson.item].sha256, `${lesson.item} changed since its receipt; run node scripts/notes/write-receipts.mjs`).toBe(sha256);
+      expect(receipts[lesson.item].sha256, `${lesson.item} (or its sidecar / mathparse.py) changed since its receipt; run node scripts/notes/write-receipts.mjs`).toBe(sha256);
       expect(receipts[lesson.item].passedAt).toMatch(/^\d{4}-\d{2}-\d{2}/);
     }
   });

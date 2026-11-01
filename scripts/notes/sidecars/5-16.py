@@ -1,31 +1,55 @@
-"""SymPy assertions for lesson 5.16 (integration by substitution and parts). Not shipped to the browser."""
+"""SymPy assertions for lesson 5.16 (integration by substitution and parts). Not shipped to the browser.
+
+verify(id, value) receives the lesson's own published answer: the TeX of an example's `answer`, or the TeX
+of the correct option of a check (a float for numeric checks). It raises if the published text is wrong.
+"""
+import sys
+from pathlib import Path
+
 from sympy import Rational, cos, diff, exp, integrate, log, simplify, sin, sqrt, symbols
 
-x = symbols("x", positive=True)
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from mathparse import parse_answer  # noqa: E402
+
+x = symbols("x")
 
 
-def antiderivative_is(answer, integrand):
-    """Differentiating the stated answer must give the integrand back."""
-    return simplify(diff(answer, x) - integrand) == 0
+def same(a, b):
+    if simplify(a - b) != 0:
+        raise AssertionError(f"published {a} is not equal to {b}")
 
 
-CHECKS = {
-    # Before you start
-    "before-product-rule": lambda: simplify(diff(x * exp(x), x) - (exp(x) + x * exp(x))) == 0,
-    "before-integrate-cos": lambda: antiderivative_is(sin(x), cos(x)),
-    # Example 1: x e^{2x}
-    "ex-parts-xe2x": lambda: antiderivative_is(Rational(1, 2) * x * exp(2 * x) - Rational(1, 4) * exp(2 * x), x * exp(2 * x))
-    # the intermediate integral in step 3
-    and antiderivative_is(Rational(1, 4) * exp(2 * x), Rational(1, 2) * exp(2 * x)),
-    # Check yourself: integral of ln x
-    "check-integrate-ln": lambda: antiderivative_is(x * log(x) - x, log(x)),
-    # Example 2: e^x sin x, and the intermediate e^x cos x from the second round
-    "ex-parts-twice-exsinx": lambda: antiderivative_is(Rational(1, 2) * exp(x) * (sin(x) - cos(x)), exp(x) * sin(x))
-    and antiderivative_is(Rational(1, 2) * exp(x) * (sin(x) + cos(x)), exp(x) * cos(x)),
-    # Example 3: exact value, via the stated u-form and directly in x
-    "ex-subst-definite": lambda: (
-        integrate(x * sqrt(x + 1), (x, 0, 3)) == Rational(116, 15)
-        and (Rational(2, 5) * 4 ** Rational(5, 2) - Rational(2, 3) * 4 ** Rational(3, 2)) - (Rational(2, 5) - Rational(2, 3)) == Rational(116, 15)
-        and Rational(62, 5) - Rational(14, 3) == Rational(116, 15)
-    ),
+def antiderivative_is(tex, integrand):
+    """Differentiating the published answer must give the integrand back."""
+    answer = parse_answer(tex)
+    same(diff(answer, x), integrand)
+
+
+def derivative_is(tex, function):
+    same(parse_answer(tex), diff(function, x))
+
+
+def definite_is(tex):
+    """The published value must equal the exact integral, which must itself be 116/15."""
+    exact = integrate(x * sqrt(x + 1), (x, 0, 3))
+    same(exact, Rational(116, 15))
+    same(parse_answer(tex), exact)
+
+
+# id -> assertion on the published answer.
+_CHECKS = {
+    "before-product-rule": lambda tex: derivative_is(tex, x * exp(x)),
+    "before-integrate-cos": lambda tex: antiderivative_is(tex, cos(x)),
+    "ex-parts-xe2x": lambda tex: antiderivative_is(tex, x * exp(2 * x)),
+    "check-integrate-ln": lambda tex: antiderivative_is(tex, log(x)),
+    "ex-parts-twice-exsinx": lambda tex: antiderivative_is(tex, exp(x) * sin(x)),
+    "ex-subst-definite": lambda tex: definite_is(tex),
 }
+
+
+def verify(id, value):
+    if id not in _CHECKS:
+        raise KeyError(f"no assertion for {id}")
+    if not isinstance(value, str):
+        raise TypeError(f"{id}: expected TeX, got {value!r}")
+    _CHECKS[id](value)
