@@ -6,7 +6,7 @@ export type FormulaTag = "booklet" | "learn";
 export const INTERACTIVE_IDS = [
   "parts-area", "transformations", "discriminant-roots", "exp-log-reflection", "unit-circle-graphs", "radian-arc",
   "secant-to-tangent", "derivative-sign", "riemann-sums", "area-between-curves", "revolution-slice", "binomial-shaded",
-  "normal-shaded", "normal-approx-binomial", "regression-residuals", "argand-multiply", "roots-of-unity", "vector-angle",
+  "normal-shaded", "z-standardise", "regression-two-lines", "argand-multiply", "roots-of-unity", "vector-angle",
   "maclaurin-partials", "euler-step",
 ] as const;
 export type InteractiveId = (typeof INTERACTIVE_IDS)[number];

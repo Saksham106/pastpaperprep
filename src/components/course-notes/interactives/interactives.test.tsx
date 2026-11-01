@@ -18,6 +18,15 @@ import SecantToTangent, { renderSecantSvg } from "./SecantToTangent";
 import DerivativeSign, { renderDerivativeSignSvg } from "./DerivativeSign";
 import RiemannSums, { renderRiemannSvg } from "./RiemannSums";
 import AreaBetweenCurves, { renderAreaBetweenSvg } from "./AreaBetweenCurves";
+import RevolutionSlice, { renderRevolutionSvg } from "./RevolutionSlice";
+import BinomialShaded, { renderBinomialSvg } from "./BinomialShaded";
+import NormalShaded, { renderNormalSvg } from "./NormalShaded";
+import ZStandardise, { renderZStandardiseSvg } from "./ZStandardise";
+import RegressionTwoLines, { renderRegressionSvg } from "./RegressionTwoLines";
+import { REV_SHAPES } from "./revolution-math";
+import { binomMean, binomPmf, binomProb, binomVariance, choose } from "./binomial-math";
+import { erf, inverseNormal, inverseNormalRaw, normalCdf, normalProb, phi } from "./normal-math";
+import { DRAG_START, FIXED_POINTS, regression } from "./regression-math";
 import { arcLength, radToDeg, sectorArea } from "./radian-arc-math";
 import { SECANT_CURVES, secantGradient } from "./secant-math";
 import { df, f as cubicF, STATIONARY, trendAt } from "./derivative-sign-math";
@@ -77,12 +86,17 @@ describe("first frame is plain server-rendered SVG", () => {
       renderDerivativeSignSvg("alt", { x: 0 }),
       renderRiemannSvg("alt", { n: 4, mode: "left" }),
       renderAreaBetweenSvg("alt", { pair: "x-x2", b: 1 }),
+      renderRevolutionSvg("alt", { shape: "sqrt", b: 2, x0: 1 }),
+      renderBinomialSvg("alt", { n: 10, p: 0.5, mode: "eq", k: 5 }),
+      renderNormalSvg("alt", { mu: 100, sigma: 15, za: -1, zb: 1, mode: "between" }),
+      renderZStandardiseSvg("alt", { mu: 100, sigma: 15, z: 2 }),
+      renderRegressionSvg("alt", DRAG_START),
     ];
     for (const f of frames) {
       const html = renderToStaticMarkup(f);
       expect(html).toContain('role="img"');
       expect(html).toContain('aria-label="alt"');
-      expect(html).toContain("<path");
+      expect(html).toMatch(/<path|<rect/);
     }
   });
 });
@@ -391,6 +405,202 @@ describe("area-between-curves", () => {
   });
 });
 
+describe("revolution-slice", () => {
+  // y = √x: V = π∫₀ᵇ x dx = πb²/2, so b = 4 gives 8π ≈ 25.133 and b = 2 gives 2π ≈ 6.283.
+  it("√x: b = 4 gives 8π and b = 2 gives 2π", () => {
+    expect(REV_SHAPES.sqrt.volume(4)).toBeCloseTo(8 * Math.PI, 10);
+    expect(REV_SHAPES.sqrt.volume(2)).toBeCloseTo(2 * Math.PI, 10);
+  });
+  // y = x: V = π∫₀ᵇ x² dx = πb³/3, so b = 2 gives 8π/3 ≈ 8.378.
+  it("y = x: b = 2 gives 8π/3", () => {
+    expect(REV_SHAPES.line.volume(2)).toBeCloseTo(8.3776, 4);
+  });
+  it("reads the volume, disc radius and area, and follows the controls", () => {
+    render(<RevolutionSlice alt="alt" />);
+    expect(screen.getByTestId("volume").textContent).toBe("6.283 (volume of y = √x rotated about the x-axis, 0 ≤ x ≤ 2)");
+    expect(screen.getByTestId("radius").textContent).toBe("1.000"); // √1
+    expect(screen.getByTestId("disc-area").textContent).toBe("3.142"); // π·1
+    setSlider(/^b /, 4);
+    expect(screen.getByTestId("volume").textContent).toBe("25.133 (volume of y = √x rotated about the x-axis, 0 ≤ x ≤ 4)");
+    setSlider(/^x₀/, 4); // √4 = 2, area 4π
+    expect(screen.getByTestId("radius").textContent).toBe("2.000");
+    expect(screen.getByTestId("disc-area").textContent).toBe("12.566");
+    fireEvent.change(screen.getByLabelText(/Curve/), { target: { value: "line" } });
+    setSlider(/^b /, 2);
+    expect(screen.getByTestId("volume").textContent).toBe("8.378 (volume of y = x rotated about the x-axis, 0 ≤ x ≤ 2)");
+    expect(screen.getByTestId("radius").textContent).toBe("2.000"); // x₀ clamped to b = 2
+  });
+  it("draws the curve, a dashed mirror and one disc", () => {
+    const html = renderToStaticMarkup(renderRevolutionSvg("alt", { shape: "sqrt", b: 2, x0: 1 }));
+    expect(html).toContain("stroke-dasharray");
+    expect(html.match(/<ellipse/g)).toHaveLength(1);
+  });
+});
+
+describe("binomial-shaded", () => {
+  // B(10, 0.5): P(X = 5) = C(10,5)/2¹⁰ = 252/1024 = 0.24609; P(X ≤ 3) = (1 + 10 + 45 + 120)/1024 = 176/1024 = 0.17188.
+  it("B(10, 0.5): P(X = 5) = 252/1024 and P(X ≤ 3) = 176/1024", () => {
+    expect(choose(10, 5)).toBe(252);
+    expect(binomPmf(10, 0.5, 5)).toBeCloseTo(252 / 1024, 12);
+    expect(binomProb(10, 0.5, "le", 3)).toBeCloseTo(176 / 1024, 12);
+    expect(binomProb(10, 0.5, "ge", 3)).toBeCloseTo(1 - 56 / 1024, 12); // P(X ≥ 3) = 1 − (1 + 10 + 45)/1024
+  });
+  it("means and variances: B(10, 0.5) → 5, 2.5; B(20, 0.3) → 6, 4.2", () => {
+    expect(binomMean(10, 0.5)).toBe(5);
+    expect(binomVariance(10, 0.5)).toBe(2.5);
+    expect(binomMean(20, 0.3)).toBeCloseTo(6, 12);
+    expect(binomVariance(20, 0.3)).toBeCloseTo(4.2, 12);
+  });
+  it("coefficients stay exact up to n = 30 and the pmf sums to 1", () => {
+    expect(choose(30, 15)).toBe(155117520);
+    expect(choose(30, 0)).toBe(1);
+    expect(binomProb(30, 0.95, "ge", 0)).toBeCloseTo(1, 12);
+  });
+  it("reads the event probability, mean and variance", () => {
+    render(<BinomialShaded alt="alt" />);
+    expect(screen.getByTestId("prob").textContent).toBe("0.2461 (P(X = 5))");
+    expect(screen.getByTestId("mean").textContent).toBe("5.00");
+    expect(screen.getByTestId("variance").textContent).toBe("2.50");
+    fireEvent.change(screen.getByLabelText(/Event/), { target: { value: "le" } });
+    setSlider("k", 3);
+    expect(screen.getByTestId("prob").textContent).toBe("0.1719 (P(X ≤ 3))");
+    setSlider(/^n /, 20);
+    setSlider(/^p /, 0.3);
+    expect(screen.getByTestId("mean").textContent).toBe("6.00");
+    expect(screen.getByTestId("variance").textContent).toBe("4.20");
+  });
+  it("k follows n downwards", () => {
+    render(<BinomialShaded alt="alt" />);
+    setSlider(/^n /, 3);
+    expect(readout("k")).toBe("3");
+    expect(screen.getByTestId("prob").textContent).toBe("0.1250 (P(X = 3))");
+  });
+  it("shades only the event's bars", () => {
+    const html = renderToStaticMarkup(renderBinomialSvg("alt", { n: 10, p: 0.5, mode: "le", k: 3 }));
+    expect(html.match(/fill="var\(--t1\)"/g)).toHaveLength(4);
+  });
+});
+
+describe("normal-shaded", () => {
+  // Reference values: Φ(1) = 0.841344746, Φ(2) = 0.977249868, Φ(1.96) = 0.975002105, Φ(−1) = 0.158655254.
+  it("erf and Φ agree with known values to 1e-9", () => {
+    expect(erf(1)).toBeCloseTo(0.8427007929497149, 12);
+    expect(phi(1)).toBeCloseTo(0.8413447460685429, 12);
+    expect(phi(-1)).toBeCloseTo(0.15865525393145707, 12);
+    expect(phi(2)).toBeCloseTo(0.9772498680518208, 12);
+    expect(phi(0)).toBe(0.5);
+    expect(phi(3.5)).toBeCloseTo(0.9997673709209645, 12);
+    expect(phi(-5)).toBeCloseTo(2.866515718791939e-7, 15);
+  });
+  it("N(0, 1): P(Z < 1) = 0.84134, P(−1 < Z < 1) = 0.68269, P(−1.96 < Z < 1.96) = 0.95000", () => {
+    expect(normalCdf(1, 0, 1)).toBeCloseTo(0.84134, 5);
+    expect(normalProb("between", -1, 1, 0, 1)).toBeCloseTo(0.68269, 5);
+    expect(normalProb("between", -1.96, 1.96, 0, 1)).toBeCloseTo(0.95, 4);
+  });
+  it("N(100, 15²): P(X < 130) = Φ(2) = 0.97725, P(X > 85) = Φ(1) = 0.84134", () => {
+    expect(normalProb("below", 0, 130, 100, 15)).toBeCloseTo(0.97725, 5);
+    expect(normalProb("above", 85, 0, 100, 15)).toBeCloseTo(0.84134, 5);
+  });
+  it("starts at the 68% region and the modes change the readout", () => {
+    render(<NormalShaded alt="alt" />);
+    expect(screen.getByTestId("prob").textContent).toBe("0.6827 (P(85 < X < 115))");
+    fireEvent.change(screen.getByLabelText(/Event/), { target: { value: "below" } });
+    setSlider(/^b /, 130);
+    expect(screen.getByTestId("prob").textContent).toBe("0.9772 (P(X < 130))");
+    fireEvent.change(screen.getByLabelText(/Event/), { target: { value: "above" } });
+    expect(screen.getByTestId("prob").textContent).toBe("0.8413 (P(X > 85))");
+  });
+  it("N(0, 1) with a = −1.96 and b = 1.96 reads 0.9500", () => {
+    render(<NormalShaded alt="alt" />);
+    setSlider(/^μ /, 0);
+    setSlider(/^σ /, 1);
+    setSlider(/^a /, -1.96);
+    setSlider(/^b /, 1.96);
+    expect(screen.getByTestId("prob").textContent).toBe("0.9500 (P(−1.96 < X < 1.96))");
+  });
+});
+
+describe("z-standardise", () => {
+  // μ = 100, σ = 15, x = 130: z = (130 − 100)/15 = 2 and Φ(2) = 0.97725.
+  it("x = 130 gives z = 2 and P = 0.97725", () => {
+    expect(((130 - 100) / 15)).toBe(2);
+    expect(phi(2)).toBeCloseTo(0.97725, 5);
+  });
+  // Φ⁻¹(0.9) = 1.28155, so x = 100 + 1.28155 × 15 = 119.22.
+  it("inverse normal: p = 0.9 gives z = 1.2816 and x = 119.22", () => {
+    expect(inverseNormal(0.9)).toBeCloseTo(1.2815515655446004, 10);
+    expect(100 + inverseNormal(0.9) * 15).toBeCloseTo(119.2233, 3);
+    expect(inverseNormal(0.975)).toBeCloseTo(1.959963984540054, 10);
+    expect(inverseNormal(0.5)).toBe(0);
+    expect(inverseNormal(0.001)).toBeCloseTo(-3.090232306167813, 9);
+  });
+  it("Acklam's raw algorithm is within 2e-9 relative error and the round trip is exact", () => {
+    for (const [p, z] of [[0.01, -2.3263478740408408], [0.9, 1.2815515655446004], [0.999, 3.090232306167813], [0.975, 1.959963984540054]]) {
+      expect(Math.abs((inverseNormalRaw(p) - z) / z)).toBeLessThan(2e-9);
+    }
+    for (const p of [0.03, 0.2, 0.3, 0.45, 0.7, 0.98]) {
+      const z = inverseNormal(p);
+      expect(Math.abs((inverseNormalRaw(p) - z) / z)).toBeLessThan(2e-8);
+    }
+    for (const p of [1e-6, 0.01, 0.1, 0.5, 0.9, 0.99, 1 - 1e-6]) expect(phi(inverseNormal(p))).toBeCloseTo(p, 12);
+    expect(inverseNormal(0)).toBe(-Infinity);
+  });
+  it("reads z and the probability, then the inverse direction", () => {
+    render(<ZStandardise alt="alt" />);
+    setSlider("x", 130);
+    expect(screen.getByTestId("result").textContent).toBe("z = 2.0000, probability = 0.97725 (P(X < 130.00) = P(Z < 2.0000), x = 130.00)");
+    fireEvent.change(screen.getByLabelText(/Start from/), { target: { value: "p" } });
+    expect(screen.getByTestId("result").textContent).toBe("z = 1.2816, probability = 0.90000 (P(X < 119.22) = P(Z < 1.2816), x = 119.22)");
+  });
+});
+
+describe("regression-two-lines", () => {
+  // x̄ = 15/5 = 3, ȳ = 20/5 = 4, Sxx = 4 + 1 + 0 + 1 + 4 = 10, Syy = 4 + 1 + 1 + 0 + 4 = 10,
+  // Sxy = (−2)(−2) + (−1)(−1) + 0·1 + 1·0 + 2·2 = 9. So m = 0.9, c = 4 − 2.7 = 1.3, d = 0.9, c₂ = 3 − 3.6 = −0.6, r = 0.9.
+  it("the fixed data give x̄ = 3, ȳ = 4, Sxx = Syy = 10, Sxy = 9", () => {
+    const s = regression([...FIXED_POINTS, DRAG_START]);
+    expect([s.xbar, s.ybar, s.sxx, s.syy, s.sxy]).toEqual([3, 4, 10, 10, 9]);
+    expect(s.m).toBeCloseTo(0.9, 12);
+    expect(s.c).toBeCloseTo(1.3, 12);
+    expect(s.d).toBeCloseTo(0.9, 12);
+    expect(s.c2).toBeCloseTo(-0.6, 12);
+    expect(s.r).toBeCloseTo(0.9, 12);
+  });
+  // Moving the fifth point to (5, 5): ȳ = 19/5 = 3.8, Sxx = 10, Syy = 3.24 + 0.64 + 1.44 + 0.04 + 1.44 = 6.8,
+  // Sxy = (−2)(−1.8) + (−1)(−0.8) + 0 + 1(0.2) + 2(1.2) = 3.6 + 0.8 + 0.2 + 2.4 = 7. Lines meet at (3, 3.8).
+  it("moving the point to (5, 5) gives m = 0.7 and d = 7/6.8", () => {
+    const s = regression([...FIXED_POINTS, { x: 5, y: 5 }]);
+    expect(s.sxy).toBeCloseTo(7, 12);
+    expect(s.syy).toBeCloseTo(6.8, 12);
+    expect(s.m).toBeCloseTo(0.7, 12);
+    expect(s.m * s.xbar + s.c).toBeCloseTo(s.ybar, 12);
+    expect(s.c2 + s.d * s.ybar).toBeCloseTo(s.xbar, 12);
+    expect(s.r * s.r).toBeCloseTo(s.m * s.d, 12); // r² = m·d
+  });
+  it("shows r and both equations, and the sliders move the point", () => {
+    render(<RegressionTwoLines alt="alt" />);
+    expect(screen.getByTestId("result").textContent).toBe("0.900 (y on x: y = 0.9x + 1.3; x on y: x = 0.9y − 0.6)");
+    expect(screen.getByTestId("mean").textContent).toBe("3.00, 4.00");
+    setSlider(/^y of/, 5);
+    expect(screen.getByTestId("yx").textContent).toBe("y = 0.7x + 1.7"); // c = 3.8 − 2.1
+    expect(screen.getByTestId("mean").textContent).toBe("3.00, 3.80");
+  });
+  it("dragging the ringed point sets it from the pointer on the outer svg's scale", () => {
+    const { container } = render(<RegressionTwoLines alt="alt" />);
+    const outer = container.querySelector('svg[role="img"]') as unknown as SVGSVGElement;
+    outer.getScreenCTM = () => ({ inverse: () => ({ a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 }) }) as unknown as DOMMatrix;
+    const dot = container.querySelector("circle[style*='grab']") as SVGCircleElement;
+    dot.setPointerCapture = vi.fn();
+    dot.hasPointerCapture = () => true;
+    // x = 3 is at user x = 28 + 3/7 · 322 = 166; y = 2 is at user y = 10 + (7 − 2)/7 · 232 = 175.7.
+    act(() => {
+      dot.dispatchEvent(new MouseEvent("pointermove", { bubbles: true, clientX: 166, clientY: 175.7 }));
+    });
+    expect(readout(/^x of/)).toBe("3.0");
+    expect(readout(/^y of/)).toBe("2.0");
+  });
+});
+
 describe("format", () => {
   it("uses a real minus sign and never prints negative zero", () => {
     expect(fmt(-3)).toBe("−3.00");
@@ -412,6 +622,11 @@ describe("only one live region per widget", () => {
     ["derivative-sign", <DerivativeSign key="ds" alt="a" />],
     ["riemann-sums", <RiemannSums key="rs" alt="a" />],
     ["area-between-curves", <AreaBetweenCurves key="ab" alt="a" />],
+    ["revolution-slice", <RevolutionSlice key="rv" alt="a" />],
+    ["binomial-shaded", <BinomialShaded key="bs" alt="a" />],
+    ["normal-shaded", <NormalShaded key="ns" alt="a" />],
+    ["z-standardise", <ZStandardise key="zs" alt="a" />],
+    ["regression-two-lines", <RegressionTwoLines key="rl" alt="a" />],
   ])("%s", (_id, el) => {
     const { container } = render(el);
     expect(container.querySelectorAll("[aria-live]")).toHaveLength(1);
