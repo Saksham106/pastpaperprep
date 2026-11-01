@@ -193,6 +193,17 @@ describe("Blocks", () => {
     expect(screen.getByText("Area picture")).toBeTruthy();
   });
 
+  it("never nests a term or link inside an option button", () => {
+    const blocks: Block[] = [
+      { type: "check", id: "c", prompt: "Pick", options: [{ text: "[[integrand|int]] {{lesson:5.5}} $x^2$", correct: true }, { text: "b", correct: false }], explain: "ok" },
+    ];
+    const { container } = render(<Blocks blocks={blocks} glossary={glossary} level="SL" lessonHref={lessonHref} />);
+    expect(container.querySelectorAll("button button, button a")).toHaveLength(0);
+    const option = container.querySelector("button");
+    expect(option?.querySelector("math")).not.toBeNull();
+    expect(option?.textContent).toContain("int");
+  });
+
   it("wires an example with its check through the client islands", () => {
     const blocks: Block[] = [
       {

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { renderInlineHtml } from "@/lib/course-notes/render";
 import type { Block, CheckBlock, GlossaryTerm } from "@/lib/course-notes/types";
 import { CalculatorSteps } from "./CalculatorSteps";
 import { CheckQuestion } from "./CheckQuestion";
@@ -27,7 +28,7 @@ export function Blocks({ blocks, glossary, level, lessonHref = defaultLessonHref
       id={block.id}
       prompt={inline(block.prompt)}
       hint={block.hint ? inline(block.hint) : undefined}
-      options={block.options?.map((o) => ({ content: inline(o.text), correct: o.correct }))}
+      options={block.options?.map((o) => ({ content: <span dangerouslySetInnerHTML={{ __html: renderInlineHtml(o.text) }} />, correct: o.correct }))}
       answer={block.answer}
       explain={inline(block.explain)}
     />

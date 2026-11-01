@@ -71,6 +71,16 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
     claim(check.id, path);
     if (check.options) {
       if (check.options.length < 2 || check.options.filter((option) => option.correct).length !== 1) fail(path, "options need at least 2 entries and exactly one correct");
+      // Options render inside a <button>, so they may hold only text and maths, never a term or lesson link.
+      check.options.forEach((option, o) => {
+        let nodes;
+        try {
+          nodes = parseInline(option.text);
+        } catch {
+          return; // malformed markup is reported with the other pieces
+        }
+        if (nodes.some((node) => node.kind === "term" || node.kind === "lesson")) fail(`${path}.options[${o}]`, "option text may contain only plain text and $maths$, no glossary terms or lesson links");
+      });
     } else if (!check.answer || !Number.isFinite(check.answer.value) || !(check.answer.tolerance >= 0)) fail(path, "check needs options or a numeric answer with tolerance");
   };
   lesson.before.forEach((check, b) => checkShape(check, `before[${b}]`));

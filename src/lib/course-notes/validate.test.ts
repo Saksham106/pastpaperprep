@@ -32,6 +32,16 @@ describe("validateLesson", () => {
     expect(run(lesson)).toEqual([expect.stringContaining("summary: Unclosed")]);
   });
 
+  it("rejects glossary terms and lesson links inside check options, including before[]", () => {
+    const option = (text: string) => ({ type: "check", id: "opt-x", prompt: "Pick", options: [{ text, correct: true }, { text: "b", correct: false }], explain: "e" }) as CheckBlock;
+    const sections = withBlock(option("[[nope|x]]"));
+    expect(sections).toContain("2.5 sections[0].blocks[" + (blocks(clone()).length) + "].options[0]: option text may contain only plain text and $maths$, no glossary terms or lesson links");
+    const lesson = clone();
+    lesson.before.push({ ...option("see {{lesson:2.13}}"), id: "opt-before" });
+    expect(run(lesson)).toContain(`2.5 before[${lesson.before.length - 1}].options[0]: option text may contain only plain text and $maths$, no glossary terms or lesson links`);
+    expect(withBlock(option("$x^2$ and plain"))).toEqual([]);
+  });
+
   it("reports an unknown glossary id and an unknown lesson link", () => {
     const lesson = clone();
     blocks(lesson)[0] = { type: "text", text: "[[nope|x]] and {{lesson:9.9}}" };
