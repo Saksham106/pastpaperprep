@@ -21,7 +21,7 @@ export type BlocksProps = {
 };
 
 export function Blocks({ blocks, glossary, level, lessonHref = defaultLessonHref, figures = {} }: BlocksProps) {
-  const inline = (text: string) => <Inline text={text} glossary={glossary} lessonHref={lessonHref} />;
+  const inline = (text: string, key?: string | number) => <Inline key={key} text={text} glossary={glossary} lessonHref={lessonHref} />;
   const showHl = level === "HL" || level === "AHL";
 
   const check = (block: CheckBlock) => (
@@ -45,7 +45,7 @@ export function Blocks({ blocks, glossary, level, lessonHref = defaultLessonHref
             <b>{inline(block.term)}</b>
             <p>{inline(block.statement)}</p>
             <p className={styles.plain}>
-              <span>In plain words</span> {inline(block.plain)}
+              <span className={styles.plainLabel}>In plain words</span> {inline(block.plain)}
             </p>
           </aside>
         );
@@ -57,7 +57,7 @@ export function Blocks({ blocks, glossary, level, lessonHref = defaultLessonHref
             <b>Result</b>
             <p>{inline(block.statement)}</p>
             <p className={styles.why}>
-              <span>Why</span> {inline(block.why)}
+              <span className={styles.whyLabel}>Why</span> {inline(block.why)}
             </p>
           </aside>
         );
@@ -66,7 +66,7 @@ export function Blocks({ blocks, glossary, level, lessonHref = defaultLessonHref
           <ExampleSteps
             id={block.id}
             question={inline(block.question)}
-            steps={block.steps.map((s) => inline(s))}
+            steps={block.steps.map((s, i) => inline(s, i))}
             answer={inline(block.answer)}
             check={block.check ? check(block.check) : undefined}
           />
@@ -93,9 +93,9 @@ export function Blocks({ blocks, glossary, level, lessonHref = defaultLessonHref
         return (
           <CalculatorSteps
             steps={{
-              ti84: block.steps.ti84.map((s) => inline(s)),
-              nspire: block.steps.nspire.map((s) => inline(s)),
-              casio: block.steps.casio.map((s) => inline(s)),
+              ti84: block.steps.ti84.map((s, i) => inline(s, i)),
+              nspire: block.steps.nspire.map((s, i) => inline(s, i)),
+              casio: block.steps.casio.map((s, i) => inline(s, i)),
             }}
           />
         );

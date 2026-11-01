@@ -1,5 +1,6 @@
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render, screen, within } from "@testing-library/react";
+import { isValidElement, type ReactNode } from "react";
 import userEvent from "@testing-library/user-event";
 import type { Block, GlossaryTerm as Term } from "@/lib/course-notes/types";
 import { Inline } from "./Inline";
@@ -8,6 +9,7 @@ import { ExampleSteps } from "./ExampleSteps";
 import { CheckQuestion } from "./CheckQuestion";
 import { CalculatorSteps } from "./CalculatorSteps";
 import { GlossaryTerm } from "./GlossaryTerm";
+import seedLesson from "@/content/notes/ib-math-aa/lessons/5-16.json";
 
 const glossary: Term[] = [{ id: "integrand", term: "Integrand", definition: "The function inside $\\int f(x)\\,dx$.", lesson: "5.5" }];
 const lessonHref = (item: string) => `/notes/${item}`;
@@ -215,5 +217,53 @@ describe("Blocks", () => {
     expect(screen.getByText("first")).toBeTruthy();
     expect(screen.queryByText("second")).toBeNull();
     expect(screen.queryByText("Check?")).toBeNull();
+  });
+});
+
+describe("Result block", () => {
+  it("keeps maths in the why line outside the label element", () => {
+    const blocks: Block[] = [{ type: "result", statement: "Statement.", why: "Because $x^2$ grows." }];
+    const { container } = render(<Blocks blocks={blocks} glossary={[]} level="SL" lessonHref={lessonHref} />);
+    const label = screen.getByText("Why");
+    expect(label.querySelector("math, .katex")).toBeNull();
+    expect(label.textContent).toBe("Why");
+    const math = container.querySelector("math") as Element;
+    expect(label.contains(math)).toBe(false);
+    expect(label.parentElement?.contains(math)).toBe(true);
+  });
+});
+
+describe("Blocks keys", () => {
+  it("renders the full seed lesson without React key warnings", () => {
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const lesson = seedLesson as unknown as import("@/lib/course-notes/types").Lesson;
+    render(<>{lesson.sections.map((section) => <Blocks key={section.id} blocks={section.blocks} glossary={[]} level="HL" lessonHref={lessonHref} />)}</>);
+    const keyWarnings = spy.mock.calls.filter((call) => String(call[0]).includes("unique \"key\""));
+    spy.mockRestore();
+    expect(keyWarnings).toEqual([]);
+  });
+
+  it("gives every element in an array prop a key (the server render path warns on these)", () => {
+    const lesson = seedLesson as unknown as import("@/lib/course-notes/types").Lesson;
+    const unkeyed: string[] = [];
+    const walk = (node: ReactNode) => {
+      if (Array.isArray(node)) {
+        for (const child of node) {
+          if (isValidElement(child) && child.key === null) unkeyed.push(String((child.type as { name?: string }).name ?? child.type));
+          walk(child as ReactNode);
+        }
+        return;
+      }
+      if (!isValidElement(node)) return;
+      // Static JSX children are fine unkeyed; only dynamic arrays passed as named props matter.
+      for (const [name, value] of Object.entries(node.props as Record<string, unknown>)) {
+        if (name !== "children" && value && typeof value === "object") walk(value as ReactNode);
+      }
+    };
+    for (const section of lesson.sections) {
+      const tree = Blocks({ blocks: section.blocks, glossary: [], level: "HL", lessonHref }) as { props: { children: ReactNode[] } };
+      for (const wrapper of tree.props.children) walk((wrapper as { props: { children: ReactNode } } | null)?.props.children);
+    }
+    expect(unkeyed).toEqual([]);
   });
 });
