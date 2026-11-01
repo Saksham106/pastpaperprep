@@ -1,0 +1,36 @@
+{
+  "slug": "ib-math-aa",
+  "name": "IB Maths AA",
+  "published": false,
+  "banks": {
+    "SL": "ib-sl",
+    "HL": "ib-hl"
+  },
+  "topics": [
+    {
+      "n": 1,
+      "slug": "number-and-algebra",
+      "name": "Number and algebra"
+    },
+    {
+      "n": 2,
+      "slug": "functions",
+      "name": "Functions"
+    },
+    {
+      "n": 3,
+      "slug": "geometry-and-trigonometry",
+      "name": "Geometry and trigonometry"
+    },
+    {
+      "n": 4,
+      "slug": "statistics-and-probability",
+      "name": "Statistics and probability"
+    },
+    {
+      "n": 5,
+      "slug": "calculus",
+      "name": "Calculus"
+    }
+  ]
+}

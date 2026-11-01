@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.16",
+  "slug": "integration-by-substitution-and-parts",
+  "title": "Integration by substitution and parts",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "Some integrals can't be done by recognising a standard form. Two tools cover most of them. Substitution changes the variable so a messy [[integrand|integrand]] becomes a standard one. Integration by parts undoes the product rule, so you can integrate a product such as $x\\mathrm{e}^{x}$ by trading it for an easier integral.",
+  "goals": [
+    {
+      "text": "Integrate a product with integration by parts, and choose $u$ well.",
+      "bullets": [
+        "5.16-b2"
+      ]
+    },
+    {
+      "text": "Use parts twice, including integrals that come back to where they started.",
+      "bullets": [
+        "5.16-b3"
+      ]
+    },
+    {
+      "text": "Choose and carry out a substitution, rewriting every $x$ and $\\mathrm{d}x$ in terms of $u$.",
+      "bullets": [
+        "5.16-b1"
+      ]
+    },
+    {
+      "text": "Change the limits of a [[definite|definite integral]] when you substitute.",
+      "bullets": [
+        "5.16-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.10",
+    "5.15"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "integration by parts",
+    "u substitution",
+    "change of variable",
+    "integrate a product"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-product-rule",
+      "prompt": "Differentiate $x\\mathrm{e}^{x}$.",
+      "options": [
+        {
+          "text": "$\\mathrm{e}^{x}$",
+          "correct": false
+        },
+        {
+          "text": "$\\mathrm{e}^{x}+x\\mathrm{e}^{x}$",
+          "correct": true
+        },
+        {
+          "text": "$x\\mathrm{e}^{x-1}$",
+          "correct": false
+        }
+      ],
+      "explain": "The product rule gives $1\\cdot\\mathrm{e}^x + x\\cdot\\mathrm{e}^x$. Revise it in {{lesson:5.15}}."
+    },
+    {
+      "type": "check",
+      "id": "before-integrate-cos",
+      "prompt": "Find $\\int \\cos x\\,\\mathrm{d}x$.",
+      "options": [
+        {
+          "text": "$\\sin x + C$",
+          "correct": true
+        },
+        {
+          "text": "$-\\sin x + C$",
+          "correct": false
+        },
+        {
+          "text": "$-\\cos x + C$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{\\mathrm{d}}{\\mathrm{d}x}\\sin x = \\cos x$, so the answer is $\\sin x + C$. Revise it in {{lesson:5.10}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "parts",
+      "heading": "Integration by parts",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The product rule says $\\dfrac{\\mathrm{d}}{\\mathrm{d}x}(uv) = u\\dfrac{\\mathrm{d}v}{\\mathrm{d}x} + v\\dfrac{\\mathrm{d}u}{\\mathrm{d}x}$. Integrate both sides and rearrange, and you get a rule for integrating a product:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\int u\\,\\frac{\\mathrm{d}v}{\\mathrm{d}x}\\,\\mathrm{d}x = uv - \\int v\\,\\frac{\\mathrm{d}u}{\\mathrm{d}x}\\,\\mathrm{d}x",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "result",
+          "statement": "Integration by parts swaps one integral for another.",
+          "why": "It only helps if the new integral, $\\int v\\,\\frac{\\mathrm{d}u}{\\mathrm{d}x}\\,\\mathrm{d}x$, is easier than the one you started with."
+        },
+        {
+          "type": "text",
+          "text": "You choose which factor is $u$ (you will differentiate it) and which is $\\dfrac{\\mathrm{d}v}{\\mathrm{d}x}$ (you will integrate it). Pick $u$ so that differentiating makes it simpler. A polynomial like $x$ or $x^2$ is usually a good $u$, because it shrinks each time you differentiate. The exception is $\\ln x$: you can't easily integrate it, so when it appears, it is almost always $u$."
+        },
+        {
+          "type": "interactive",
+          "widget": "parts-area",
+          "props": {},
+          "alt": "Area picture of integration by parts for the curve $v=u^2$: the area under the curve and the area to its left together fill the rectangle $b \\times b^2$."
+        },
+        {
+          "type": "example",
+          "id": "ex-parts-xe2x",
+          "question": "Find $\\displaystyle\\int x\\,\\mathrm{e}^{2x}\\,\\mathrm{d}x$.",
+          "steps": [
+            "Let $u = x$, so $\\dfrac{\\mathrm{d}u}{\\mathrm{d}x} = 1$. Let $\\dfrac{\\mathrm{d}v}{\\mathrm{d}x} = \\mathrm{e}^{2x}$, so $v = \\tfrac12\\mathrm{e}^{2x}$.",
+            "Apply the formula: $\\displaystyle\\int x\\,\\mathrm{e}^{2x}\\,\\mathrm{d}x = \\tfrac12 x\\,\\mathrm{e}^{2x} - \\int \\tfrac12\\mathrm{e}^{2x}\\,\\mathrm{d}x$.",
+            "The new integral is standard: $\\displaystyle\\int \\tfrac12\\mathrm{e}^{2x}\\,\\mathrm{d}x = \\tfrac14\\mathrm{e}^{2x}$.",
+            "Check by differentiating your answer: $\\tfrac12\\mathrm{e}^{2x} + x\\mathrm{e}^{2x} - \\tfrac12\\mathrm{e}^{2x} = x\\mathrm{e}^{2x}$."
+          ],
+          "answer": "$\\displaystyle\\int x\\,\\mathrm{e}^{2x}\\,\\mathrm{d}x = \\tfrac12 x\\,\\mathrm{e}^{2x} - \\tfrac14\\mathrm{e}^{2x} + C$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-integrate-ln",
+          "prompt": "Find $\\displaystyle\\int \\ln x\\,\\mathrm{d}x$.",
+          "hint": "Write it as $\\int \\ln x \\cdot 1\\,\\mathrm{d}x$ and take $u = \\ln x$.",
+          "options": [
+            {
+              "text": "$\\dfrac{1}{x} + C$",
+              "correct": false
+            },
+            {
+              "text": "$x\\ln x + C$",
+              "correct": false
+            },
+            {
+              "text": "$x\\ln x - x + C$",
+              "correct": true
+            },
+            {
+              "text": "$\\tfrac12(\\ln x)^2 + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$u=\\ln x$, $v=x$ gives $x\\ln x - \\int x\\cdot\\frac1x\\,\\mathrm{d}x = x\\ln x - x + C$."
+        }
+      ]
+    },
+    {
+      "id": "repeated",
+      "heading": "Using parts twice",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes the new integral still needs parts. With $x^2\\mathrm{e}^{x}$ you apply it twice, and $x^2$ drops to $x$, then to $1$. With $\\mathrm{e}^{x}\\sin x$ nothing ever simplifies. After two rounds the original integral comes back, and you solve for it like an unknown."
+        },
+        {
+          "type": "example",
+          "id": "ex-parts-twice-exsinx",
+          "question": "Find $\\displaystyle I = \\int \\mathrm{e}^{x}\\sin x\\,\\mathrm{d}x$.",
+          "steps": [
+            "Parts with $u=\\sin x$, $\\dfrac{\\mathrm{d}v}{\\mathrm{d}x}=\\mathrm{e}^{x}$: $\\;I = \\mathrm{e}^{x}\\sin x - \\displaystyle\\int \\mathrm{e}^{x}\\cos x\\,\\mathrm{d}x$.",
+            "Parts again with $u=\\cos x$, $\\dfrac{\\mathrm{d}v}{\\mathrm{d}x}=\\mathrm{e}^{x}$: $\\;\\displaystyle\\int \\mathrm{e}^{x}\\cos x\\,\\mathrm{d}x = \\mathrm{e}^{x}\\cos x + \\int \\mathrm{e}^{x}\\sin x\\,\\mathrm{d}x = \\mathrm{e}^{x}\\cos x + I$.",
+            "Substitute back: $I = \\mathrm{e}^{x}\\sin x - \\mathrm{e}^{x}\\cos x - I$, so $2I = \\mathrm{e}^{x}(\\sin x - \\cos x)$."
+          ],
+          "answer": "$\\displaystyle\\int \\mathrm{e}^{x}\\sin x\\,\\mathrm{d}x = \\tfrac12\\mathrm{e}^{x}(\\sin x - \\cos x) + C$",
+          "video": null
+        },
+        {
+          "type": "result",
+          "statement": "In the second round, make the trig function $u$ again.",
+          "why": "If you switch and make $\\mathrm{e}^x$ the $u$, you undo the first step and get $I = I$."
+        }
+      ]
+    },
+    {
+      "id": "subst",
+      "heading": "Substitution",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.10}} you met integrals where the derivative of the inside is already there, like $\\int 2x\\cos(x^2)\\,\\mathrm{d}x$. At HL you also substitute when it isn't. The method:"
+        },
+        {
+          "type": "text",
+          "text": "1. Choose $u$, often the inside of a bracket, root or power."
+        },
+        {
+          "type": "text",
+          "text": "2. Find $\\dfrac{\\mathrm{d}u}{\\mathrm{d}x}$ and rewrite $\\mathrm{d}x$ in terms of $\\mathrm{d}u$."
+        },
+        {
+          "type": "text",
+          "text": "3. Rewrite every $x$ in terms of $u$, then integrate."
+        },
+        {
+          "type": "text",
+          "text": "4. For a definite integral, change the limits to $u$-values. For an indefinite one, substitute back."
+        },
+        {
+          "type": "example",
+          "id": "ex-subst-definite",
+          "question": "Find the exact value of $\\displaystyle\\int_0^3 x\\sqrt{x+1}\\,\\mathrm{d}x$.",
+          "steps": [
+            "Let $u = x+1$. Then $\\mathrm{d}u = \\mathrm{d}x$ and $x = u-1$.",
+            "Change the limits: $x=0 \\Rightarrow u=1$, and $x=3 \\Rightarrow u=4$.",
+            "$\\displaystyle\\int_1^4 (u-1)\\,u^{1/2}\\,\\mathrm{d}u = \\int_1^4 \\left(u^{3/2} - u^{1/2}\\right)\\mathrm{d}u = \\Big[\\tfrac25u^{5/2} - \\tfrac23u^{3/2}\\Big]_1^4$",
+            "$= \\left(\\tfrac{64}{5} - \\tfrac{16}{3}\\right) - \\left(\\tfrac25 - \\tfrac23\\right) = \\tfrac{62}{5} - \\tfrac{14}{3}$"
+          ],
+          "answer": "$\\displaystyle\\int_0^3 x\\sqrt{x+1}\\,\\mathrm{d}x = \\tfrac{116}{15}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MATH, then fnInt(",
+              "Enter X*sqrt(X+1), X, 0, 3"
+            ],
+            "nspire": [
+              "Menu, Calculus, Numerical Integral",
+              "Lower limit 0, upper limit 3, then x*sqrt(x+1)"
+            ],
+            "casio": [
+              "RUN-MAT, OPTN, CALC, integral dx",
+              "Enter X*sqrt(X+1), 0, 3"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2, check a definite integral numerically: $\\tfrac{116}{15} \\approx 7.733$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\int u\\frac{\\mathrm{d}v}{\\mathrm{d}x}\\mathrm{d}x = uv - \\int v\\frac{\\mathrm{d}u}{\\mathrm{d}x}\\mathrm{d}x",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Choose $u$ that gets simpler when differentiated; $\\ln x$ is always $u$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If the integral comes back after two rounds, solve for it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Substitute everything: $x$, $\\mathrm{d}x$ and the limits.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Losing the minus sign. It is $uv - \\int v\\,\\frac{\\mathrm{d}u}{\\mathrm{d}x}\\,\\mathrm{d}x$. In the second round of repeated parts the signs flip again, so bracket the whole integral.",
+    "Leaving an $x$ behind. After substituting, no $x$ and no $\\mathrm{d}x$ may remain.",
+    "Keeping the old limits. Either change the limits to $u$-values, or substitute back before using the $x$ limits. Mixing the two loses the accuracy marks.",
+    "Dropping $+\\,C$ on an indefinite integral. Mark schemes often take a mark for it."
+  ],
+  "examTips": [
+    "\"Use integration by parts\" means a method mark for a correct $u$, $v$ and formula, even if the algebra slips later. Write those three things down clearly.",
+    "\"Show that\" with an exact answer means no calculator: every line must be there. You can still check the number on your calculator.",
+    "\"Hence\" means use the result you just found, usually as the $u$ or the substitution."
+  ],
+  "readingMinutes": 14
+}
