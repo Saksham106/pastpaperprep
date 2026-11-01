@@ -1,0 +1,8 @@
+{
+  "item": "1.1",
+  "summary": "Remember that calculator or computer notation is not acceptable in written answers, so convert it.",
+  "sections": [{ "id": "s", "heading": "Bounces", "blocks": [
+    { "type": "text", "text": "Suppose $h_0 = 2$. A ball is dropped from a height $h$ and bounces to a fraction of its previous height each time." },
+    { "type": "mistake", "text": "Students forget that the ball travels both up and down after every bounce." }
+  ] }]
+}

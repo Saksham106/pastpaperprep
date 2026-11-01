@@ -21,7 +21,9 @@ afterEach(() => {
 describe("ib-math-aa course content", () => {
   it("every lesson file passes validateLesson", () => {
     expect(course.lessons.length).toBeGreaterThan(0);
-    for (const lesson of course.lessons) expect(validateLesson(lesson, ctx), lesson.item).toEqual([]);
+    // Report every failing lesson at once, keyed by item, so a writer can find the errors for their own lesson.
+    const failures = Object.fromEntries(course.lessons.map((lesson) => [lesson.item, validateLesson(lesson, ctx)]).filter(([, errors]) => errors.length));
+    expect(failures).toEqual({});
   });
 
   it("every glossary term points at a real lesson item", () => {

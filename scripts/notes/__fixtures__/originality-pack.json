@@ -1,0 +1,21 @@
+{
+  "guide": {
+    "content": ["Operations with numbers in the form of a power of ten where the leading digit is between one and ten."],
+    "guidance": ["Students should be aware that calculator or computer notation is not acceptable in written answers."],
+    "notes": ""
+  },
+  "booklet": { "entries": [{ "id": "bk-x", "label": "The sum of an infinite geometric sequence" }], "priorLearning": [] },
+  "questions": {
+    "SL": {
+      "questions": [
+        {
+          "id": "2020-may-p1-tz1-q1",
+          "text": "1. [Maximum mark: 6] A ball is dropped from a height and bounces to a fraction of its previous height each time it lands.",
+          "markScheme": "recognizing the bounce heights form a geometric sequence with common ratio r (M1) A1",
+          "markedSteps": [{ "part": "a", "marks": 2, "steps": ["Each bounce reaches a fixed fraction of the height before it (M1)"], "answer": "The total distance is twice the sum of the bounce heights" }]
+        }
+      ]
+    }
+  },
+  "mistakes": { "entries": [{ "text": "Forgetting that the ball travels both up and down after every single bounce.", "from": ["2020-may-p1-tz1-q1 (a)"] }] }
+}

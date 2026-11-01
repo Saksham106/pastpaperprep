@@ -50,3 +50,34 @@ describe.skipIf(!python)("check-math.py verifies the published answer text", () 
     expect(unknown.stdout).toMatch(/no assertion for no-such-id/);
   });
 });
+
+describe.skipIf(!python)("mathparse.py helpers refuse to half-check an answer", () => {
+  const probe = (code: string) => spawnSync(python!, ["-c", `import sys; sys.path.insert(0, ${JSON.stringify(resolve(process.cwd(), "scripts/notes"))}); from mathparse import *\n${code}`], { encoding: "utf8" });
+  const value = (code: string) => {
+    const run = probe(`print(${code})`);
+    expect(run.status, run.stderr).toBe(0);
+    return run.stdout.trim();
+  };
+  const raises = (code: string) => {
+    const run = probe(code);
+    expect(run.status).not.toBe(0);
+    return run.stderr;
+  };
+
+  it("parse_answer refuses several answers, \\pm, \\approx and vectors instead of reading only the last one", () => {
+    expect(raises(String.raw`parse_answer(r"x = 2 \text{ or } x = 3")`)).toMatch(/parse_list/);
+    expect(raises(String.raw`parse_answer(r"x = -1, \; x = 4")`)).toMatch(/parse_list/);
+    expect(raises(String.raw`parse_answer(r"x = \pm 2")`)).toMatch(/parse_list/);
+    expect(raises(String.raw`parse_answer(r"\approx 0.342")`)).toMatch(/parse_approx/);
+    expect(raises(String.raw`parse_answer(r"\begin{pmatrix}1\\2\end{pmatrix}")`)).toMatch(/parse_vector/);
+  });
+
+  it("parses lists, rounded values, vectors, points and the imaginary unit", () => {
+    expect(value(String.raw`parse_list(r"$x = 1 \pm \sqrt{2}$")`)).toBe("[1 + sqrt(2), 1 - sqrt(2)]");
+    expect(value(String.raw`parse_list(r"x = 2 \text{ or } x = 3")`)).toBe("[2, 3]");
+    expect(value(String.raw`parse_approx(r"\mathrm{P}(X<3) \approx 0.0450")[1]`)).toBe("3");
+    expect(value(String.raw`parse_vector(r"\boldsymbol{n} = \begin{pmatrix}1\\-2\\3\end{pmatrix}")`)).toBe("[1, -2, 3]");
+    expect(value(String.raw`parse_point(r"(2, -\tfrac{1}{3})")`)).toBe("[2, -1/3]");
+    expect(value(String.raw`parse_answer(r"z = 3 + 4\mathrm{i}")`)).toBe("3 + 4*I");
+  });
+});
