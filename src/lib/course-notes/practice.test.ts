@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import taxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import overlay from "@/data/aa-official-subtopics/overlay.json";
 import { parseExplorerState } from "@/lib/explorer-state";
+import { COURSES } from "./course";
 import { groupPracticeHref, groupQuestionCounts, topicQuestionCount } from "./practice";
 
 const groups = taxonomy.groups as { id: string; studentFacingName: string; parentTopic: string }[];
@@ -49,4 +50,19 @@ describe("groupPracticeHref", () => {
     expect(groupPracticeHref(id, "HL")).toContain("%2C");
   });
   it("throws for an unknown group", () => expect(() => groupPracticeHref("nope", "SL")).toThrow());
+});
+
+describe("practice links for lessons", () => {
+  it("every lesson's group practice href resolves to at least one question at each level it is taught", () => {
+    for (const lesson of COURSES[0].lessons) {
+      const memberGroups = groups.filter((g) => (g as unknown as { memberOfficialItems: string[] }).memberOfficialItems.includes(lesson.item));
+      expect(memberGroups.length, lesson.item).toBeGreaterThan(0);
+      for (const level of lesson.level === "SL" ? (["SL", "HL"] as const) : (["HL"] as const)) {
+        const withQuestions = memberGroups.filter((g) => groupQuestionCounts(g.id)[level] > 0);
+        expect(withQuestions.length, `${lesson.item} ${level}`).toBeGreaterThan(0);
+        const url = new URL(groupPracticeHref(withQuestions[0].id, level), "https://example.test");
+        expect(parseExplorerState(Object.fromEntries(url.searchParams)).filters.subtopics).toEqual([withQuestions[0].studentFacingName]);
+      }
+    }
+  });
 });

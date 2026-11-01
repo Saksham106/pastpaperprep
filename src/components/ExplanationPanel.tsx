@@ -34,7 +34,7 @@ function Inline({ text, className }: { text: string; className?: string }) {
   return <span className={className} dangerouslySetInnerHTML={{ __html: renderInlineMath(text) }} />;
 }
 
-export default function ExplanationPanel({ explanation }: { explanation: Explanation }) {
+export default function ExplanationPanel({ explanation, revise }: { explanation: Explanation; revise?: { href: string; label: string } }) {
   const multiPart = explanation.parts.length > 1 || explanation.parts[0]?.label !== "";
   return (
     <div className={styles.parts}>
@@ -56,6 +56,7 @@ export default function ExplanationPanel({ explanation }: { explanation: Explana
           </ol>
           <p className={styles.answer}><span className={styles.tag}>Answer</span><Inline text={part.answer} /></p>
           {part.mistake && <p className={styles.mistake}><span className={styles.tag}>Watch out</span><Inline text={part.mistake} /></p>}
+          {part.mistake && revise && <p className={styles.revise}><a href={revise.href}>Revise {revise.label}</a></p>}
         </section>
       ))}
     </div>

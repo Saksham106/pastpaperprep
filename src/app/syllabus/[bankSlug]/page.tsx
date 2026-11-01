@@ -11,6 +11,7 @@ import { resolveSubject } from "@/lib/past-paper-pages";
 import { subjectSlugForBank } from "@/lib/past-paper-catalog";
 import { fitTitle, subjectSearchName } from "@/lib/past-paper-seo";
 import { assessmentGuideFor } from "@/lib/assessment-guides";
+import { syllabusNotesForBank } from "@/lib/course-notes/group-lessons";
 import { socialPreview } from "@/lib/seo";
 export const dynamicParams = false;
 export async function generateStaticParams() {
@@ -54,6 +55,6 @@ export default async function SyllabusPage({
   const subject = subjectSlugForBank(slug);
   const fullPapersHref = (await resolveSubject(subject)) ? `/past-papers/${subject}` : undefined;
   return (
-    <SyllabusLanding bank={bank} manifest={await getLandingManifest(slug)} fullPapersHref={fullPapersHref} />
+    <SyllabusLanding bank={bank} manifest={await getLandingManifest(slug)} fullPapersHref={fullPapersHref} aaNotes={syllabusNotesForBank(slug)} />
   );
 }

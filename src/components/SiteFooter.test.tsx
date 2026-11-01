@@ -15,6 +15,15 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("link", { name: "Free past papers" })).toHaveAttribute("href", "/past-papers");
   });
 
+  it("links the AA notes only while the course is visible", () => {
+    const view = render(<SiteFooter />);
+    expect(screen.queryByRole("link", { name: "IB Maths AA notes" })).not.toBeInTheDocument();
+    view.unmount();
+    vi.stubEnv("NOTES_PREVIEW", "1");
+    render(<SiteFooter />);
+    expect(screen.getByRole("link", { name: "IB Maths AA notes" })).toHaveAttribute("href", "/revision-notes/ib-math-aa");
+  });
+
   it("reopens the consent banner via the cookie settings control", () => {
     const dispatch = vi.spyOn(window, "dispatchEvent");
     render(<SiteFooter />);

@@ -3,6 +3,7 @@ import { Geist, IBM_Plex_Mono, Young_Serif } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SessionAwareSiteHeader } from "@/components/SessionAwareSiteHeader";
+import { notesNavVisible } from "@/lib/course-notes/visibility";
 import { pastPaperLinksEnabled } from "@/lib/past-paper-nav";
 import { SiteTelemetry } from "@/components/SiteTelemetry";
 import { BankNavigationFeedback } from "@/components/BankNavigationFeedback";
@@ -64,7 +65,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head><script dangerouslySetInnerHTML={{ __html: SESSION_HINT_SCRIPT }} /></head>
       <body data-build-revision={process.env.NEXT_PUBLIC_BUILD_REVISION ?? "local"}>
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableColorScheme storageKey="pastpaperprep-theme" disableTransitionOnChange>
-          <SessionAwareSiteHeader pastPapers={pastPaperLinksEnabled()} />
+          <SessionAwareSiteHeader pastPapers={pastPaperLinksEnabled()} notes={notesNavVisible()} />
           <BankNavigationFeedback />
           <main><PageTransition>{children}</PageTransition></main>
           <SiteFooter />

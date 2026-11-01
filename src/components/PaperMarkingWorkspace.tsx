@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, Minus, Plus } from '@phosphor-icons/react/dist/ssr';
 import { PAPER_MARKING_PREVIEW } from '@/lib/paper-marking-preview';
-import { createPaperMarkingReport, topicPracticeHref, type QuestionMarks, type TopicReview, type MarkingManifest } from '@/lib/paper-marking-report';
+import { createPaperMarkingReport, topicPracticeHref, topicLessonRecommendation, type NotesLink, type QuestionMarks, type TopicReview, type MarkingManifest } from '@/lib/paper-marking-report';
 import { trackProductEvent } from '@/lib/product-analytics';
 import styles from './PaperMarkingWorkspace.module.css';
 
@@ -18,11 +18,11 @@ function TopicEvidence({ topic }: { topic: TopicReview }) {
   </li>;
 }
 
-export function PaperMarkingWorkspace({ paper = PAPER_MARKING_PREVIEW, onClose, practice = true }: { paper?: PaperMarkingPaper; onClose?: () => void; practice?: boolean }) {
-  return <PaperMarkingSession key={JSON.stringify([paper.bankSlug, paper.id, paper.version])} paper={paper} onClose={onClose} practice={practice} />;
+export function PaperMarkingWorkspace({ paper = PAPER_MARKING_PREVIEW, onClose, practice = true, notesLinks }: { paper?: PaperMarkingPaper; onClose?: () => void; practice?: boolean; notesLinks?: Record<string, NotesLink> }) {
+  return <PaperMarkingSession key={JSON.stringify([paper.bankSlug, paper.id, paper.version])} paper={paper} onClose={onClose} practice={practice} notesLinks={notesLinks} />;
 }
 
-function PaperMarkingSession({ paper, onClose, practice }: { paper: PaperMarkingPaper; onClose?: () => void; practice: boolean }) {
+function PaperMarkingSession({ paper, onClose, practice, notesLinks }: { paper: PaperMarkingPaper; onClose?: () => void; practice: boolean; notesLinks?: Record<string, NotesLink> }) {
   const [values, setValues] = useState<Record<string, string>>({});
   const latest = useRef<Record<string, string>>({});
   const [showReport, setShowReport] = useState(false);
@@ -93,6 +93,7 @@ function PaperMarkingSession({ paper, onClose, practice }: { paper: PaperMarking
   const valid = !Object.values(errors).some(Boolean);
   const report = valid ? createPaperMarkingReport(paper, marks) : null;
   const top = report?.priorities[0];
+  const lesson = report ? topicLessonRecommendation(report.priorities, notesLinks) : null;
   function openReport() {
     if (!valid || !report?.markedMaximum) return;
     setShowReport(true);
@@ -133,6 +134,7 @@ function PaperMarkingSession({ paper, onClose, practice }: { paper: PaperMarking
         <ol className={styles.topics} aria-label="Topics to review">{(showAll ? report.priorities : report.priorities.slice(0, 3)).map(topic => <TopicEvidence key={topic.topic} topic={topic} />)}</ol>
         {report.priorities.length > 3 && <button type="button" className={styles.quiet} onClick={() => setShowAll(!showAll)}>{showAll ? 'Show top 3 only' : `Show all ${report.priorities.length} topics`}</button>}
         {top && practice && <a className={styles.primary} href={topicPracticeHref(top.topic, paper.bankSlug)} onClick={() => trackProductEvent('past_paper_practice_click', { bank: paper.bankSlug })}>Practise {top.topic}<ArrowRight aria-hidden="true" weight="bold" /></a>}
+        {lesson && <a className={styles.quiet} href={lesson.href}>Revise {lesson.topic} first</a>}
       </> : <p>No revision priorities from the marked questions.</p>}
       {report.successfulTopics.length > 0 && <details className={styles.details}><summary>Topics with full marks</summary><ul>{report.successfulTopics.map(topic => <li key={topic.topic}>{topic.topic}: {topic.fullMarkEvidence.map(q => `Q${q.number}`).join(', ')}</li>)}</ul></details>}
       <details className={styles.details}><summary>How topics are ranked</summary><p>Topics where more questions lost marks than got full marks come first, then repeated losses, then average loss. It looks at whole questions, so it can&apos;t tell which part lost the mark.</p></details>

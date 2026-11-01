@@ -123,4 +123,11 @@ describe("SearchLanding", () => {
     render(<SearchDetail eyebrow="Topic practice" bank={bank} title="IB Physics Mechanics questions" kind="topic" label="Mechanics and motion" canonicalPath="/banks/ib-physics-hl/topics/mechanics-and-motion" stats={stats} related={[]}>{null}</SearchDetail>);
     expect(screen.getByText(/connect kinematics and force models to graphs/i)).toBeInTheDocument();
   });
+
+  it("lists AA lesson links on the syllabus page only when given", () => {
+    const view = render(<SyllabusLanding bank={bank} manifest={manifest} />);
+    expect(screen.queryByRole("heading", { name: "Learn each subtopic first" })).not.toBeInTheDocument();
+    view.rerender(<SyllabusLanding bank={bank} manifest={manifest} aaNotes={[{ name: "Series", topic: "Calculus", href: "/revision-notes/ib-math-aa/calculus/5-16-x", label: "Lesson" }]} />);
+    expect(screen.getByRole("link", { name: /Series/ })).toHaveAttribute("href", "/revision-notes/ib-math-aa/calculus/5-16-x");
+  });
 });

@@ -18,4 +18,15 @@ describe("ExplanationPanel code blocks", () => {
     expect(block?.textContent).toBe(code);
     expect(block?.querySelector("b, .katex")).toBeNull();
   });
+
+  it("shows a Revise link under the mistake note only when a lesson is passed", () => {
+    const explanation: Explanation = {
+      schemaVersion: 1, bank: "ib-hl", questionId: "q", totalMarks: 1,
+      parts: [{ label: "", marks: 1, approach: "Differentiate.", steps: [{ text: "Apply the rule.", marks: ["✓"] }], answer: "2x", mistake: "Forgetting the chain rule." }],
+    };
+    const view = render(<ExplanationPanel explanation={explanation} />);
+    expect(view.queryByRole("link", { name: /Revise/ })).toBeNull();
+    view.rerender(<ExplanationPanel explanation={explanation} revise={{ href: "/revision-notes/ib-math-aa/calculus/5-5-x", label: "The chain rule" }} />);
+    expect(view.getByRole("link", { name: "Revise The chain rule" })).toHaveAttribute("href", "/revision-notes/ib-math-aa/calculus/5-5-x");
+  });
 });

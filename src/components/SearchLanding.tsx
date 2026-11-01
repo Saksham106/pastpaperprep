@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { PAGE_NAVIGATION } from "@/components/PageTransition";
-import { ArrowRight, ChartBar, Clock, FileText, LockKey, Target } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, BookOpenText, ChartBar, Clock, FileText, LockKey, Target } from "@phosphor-icons/react/dist/ssr";
 import type { CatalogBank, Qualification } from "@/lib/catalog";
 import { getCatalogBanksForDisplay } from "@/lib/catalog";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -114,7 +114,7 @@ function ArchiveStats({ bank, manifest }: { bank: CatalogBank; manifest: Landing
   </aside>;
 }
 
-export function SyllabusLanding({ bank, manifest, fullPapersHref }: { bank: CatalogBank; manifest: LandingManifest; fullPapersHref?: string }) {
+export function SyllabusLanding({ bank, manifest, fullPapersHref, aaNotes = [] }: { bank: CatalogBank; manifest: LandingManifest; fullPapersHref?: string; aaNotes?: { name: string; topic: string; href: string; label: string }[] }) {
   const notesSubject = notesSubjectForBank(bank.slug);
   const subjectSlug = subjectSlugForBank(bank.slug);
   const canonicalPath = `/syllabus/${bank.slug}`;
@@ -178,6 +178,10 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref }: { bank: Cata
         </section>
 
         <section className="landing-method"><div><Target aria-hidden="true" /><h2>Use the map without overthinking it</h2></div><ol><li>Repair one narrow topic.</li><li>Remove the label and mix methods.</li><li>Finish with the correct paper under timed conditions.</li></ol></section>
+        {aaNotes.length > 0 && <section className="paper-practice" aria-labelledby="syllabus-notes-heading">
+          <header><div><p className="eyebrow">Revision notes</p><h2 id="syllabus-notes-heading">Learn each subtopic first</h2></div></header>
+          <div className="paper-link-grid">{aaNotes.map((note) => <Link transitionTypes={PAGE_NAVIGATION} key={note.href + note.name} href={note.href}><BookOpenText aria-hidden="true" /><span><strong>{note.name}</strong><small>{note.label}</small></span><ArrowRight weight="bold" /></Link>)}</div>
+        </section>}
         <nav className="bank-seo-links" aria-label={`${bank.shortName} revision resources`}>
           {fullPapersHref ? <Link transitionTypes={PAGE_NAVIGATION} href={fullPapersHref}>Free full papers and mark schemes</Link> : null}
           {notesSubject ? <Link transitionTypes={PAGE_NAVIGATION} href={`/revision-notes/${notesSubject.subjectSlug}`}>Revision notes</Link> : null}

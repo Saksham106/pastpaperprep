@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { HeaderNavigation } from "@/components/HeaderNavigation";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-export function SiteHeader({ authenticated = false, pastPapers = false }: { authenticated?: boolean; pastPapers?: boolean }) {
+export function SiteHeader({ authenticated = false, pastPapers = false, notes = false }: { authenticated?: boolean; pastPapers?: boolean; notes?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const sentinelRef = useRef<HTMLSpanElement>(null);
@@ -43,7 +43,7 @@ export function SiteHeader({ authenticated = false, pastPapers = false }: { auth
         <span>PastPaperPrep</span>
       </Link>
       <div className="header-actions">
-        <HeaderNavigation authenticated={authenticated} pastPapers={pastPapers} menuOpen={menuOpen} onNavigate={() => setMenuOpen(false)} workspaceIcon={<SquaresFour data-testid="workspace-icon" aria-hidden="true" weight="bold" />} trailing={<ThemeToggle showLabel />} />
+        <HeaderNavigation authenticated={authenticated} pastPapers={pastPapers} notes={notes} menuOpen={menuOpen} onNavigate={() => setMenuOpen(false)} workspaceIcon={<SquaresFour data-testid="workspace-icon" aria-hidden="true" weight="bold" />} trailing={<ThemeToggle showLabel />} />
         {/* Phones: the bar keeps the one action that matters, opening the question banks. */}
         <Link transitionTypes={PAGE_NAVIGATION} className="nav-quick" href="/dashboard" aria-label="Open question banks" title="Open question banks" onClick={() => setMenuOpen(false)}><SquaresFour aria-hidden="true" weight="bold" /></Link>
         <button ref={menuToggleRef} className="menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="site-menu" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen((open) => !open)}>

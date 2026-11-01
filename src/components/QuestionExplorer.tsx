@@ -290,6 +290,7 @@ function SessionQuestionExplorer({
   hydrateFromLocation = false,
   routePreset,
   fullPaperHrefs,
+  notesLinks,
 }: {
 questions: UnifiedQuestion[];
 bankSlug?: BankSlug;
@@ -305,6 +306,8 @@ access: ExplorerAccess;
   routePreset?: ExplorerSearchParams;
   /** Paper key -> free full-paper page; cards link back to the whole paper when present. */
   fullPaperHrefs?: Record<string, string>;
+  /** AA subtopic group name -> lesson link. Only passed while the course is visible. */
+  notesLinks?: Record<string, { href: string; label: string }>;
 }) {
   const [scopeOwner] = useState(() => typeof document === "undefined" ? null : cacheOwner());
   const activeScopeRef = useRef(true);
@@ -1519,7 +1522,7 @@ access: ExplorerAccess;
               const unlocked = resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id);
               const questionAsset = signedAssets.get(signedAssetKey(question.id, "question"));
               const answerAsset = signedAssets.get(signedAssetKey(question.id, "answer"));
-              return <Fragment key={question.id}><QuestionCard question={question} fullPaperHref={fullPaperQuestionHref(fullPaperHrefs, question.id, question.number)} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} scopeIsCurrent={scopeIsCurrent} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAssetError={() => markAnswerAssetFailed(question.id, answerAsset)} onAnswerAsset={(asset) => {
+              return <Fragment key={question.id}><QuestionCard question={question} notesLink={notesLinkFor(notesLinks, question)} fullPaperHref={fullPaperQuestionHref(fullPaperHrefs, question.id, question.number)} unlocked={unlocked} authenticated={resolvedAccess.authenticated} localPreview={localPreview} scopeIsCurrent={scopeIsCurrent} freeAnswer={!localPreview && isPreviewQuestion(question.bankSlug, question.id)} priority={index === 0} questionAsset={isSignedAssetFresh(questionAsset, assetEpoch) ? questionAsset : undefined} answerAsset={isSignedAssetFresh(answerAsset, assetEpoch) ? answerAsset : undefined} onQuestionAssetError={() => markQuestionAssetFailed(question.id)} onAnswerAssetError={() => markAnswerAssetFailed(question.id, answerAsset)} onAnswerAsset={(asset) => {
                 if (!scopeIsCurrent()) return;
                 setSignedAssets((current) => new Map(current).set(signedAssetKey(question.id, "answer"), asset));
                 if (asset.details) setCatalogQuestions((current) => current.map((item) => item.id === question.id ? mergeQuestionRichDetails(item, asset.details!) : item));
@@ -1584,8 +1587,16 @@ function decodeImages(urls: readonly string[], timeoutMs = 1500): Promise<void> 
     .then(() => clearTimeout(timer));
 }
 
-function QuestionCard({ question, fullPaperHref, unlocked, authenticated, localPreview, scopeIsCurrent, freeAnswer, priority = false, questionAsset, answerAsset, onQuestionAssetError, onAnswerAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt, onReveal, locked }: {
+/** Lesson for a question's first AA subtopic group that has one; undefined outside AA or while the course is hidden. */
+function notesLinkFor(links: Record<string, { href: string; label: string }> | undefined, question: UnifiedQuestion) {
+  if (!links) return undefined;
+  for (const name of question.subtopics ?? []) if (links[name]) return links[name];
+  return undefined;
+}
+
+function QuestionCard({ question, notesLink, fullPaperHref, unlocked, authenticated, localPreview, scopeIsCurrent, freeAnswer, priority = false, questionAsset, answerAsset, onQuestionAssetError, onAnswerAssetError, onAnswerAsset, selected, selectable, onSelect, saved, attempted, onToggleSaved, onAttempt, onReveal, locked }: {
   question: UnifiedQuestion;
+  notesLink?: { href: string; label: string };
   fullPaperHref?: string;
   unlocked: boolean;
   authenticated: boolean;
@@ -1736,10 +1747,10 @@ function QuestionCard({ question, fullPaperHref, unlocked, authenticated, localP
       {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <SourceCropImage key={source} bankSlug={question.bankSlug} questionId={question.id} src={source} priority={priority && index === 0} crop={questionAsset.displayCrops?.[index]} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status"><span className="placeholder-shimmer" aria-hidden="true" /><span className="placeholder-bars" aria-hidden="true"><i /><i /><i /><i /></span><span className="sr-only">Loading original question</span></div>}{question.accessibleText ? <p className="sr-only question-transcript">{question.accessibleText}</p> : null}</div> : <div className="question-locked"><strong>{locked?.title ?? "Paid plan required"}</strong><span>{locked?.body ?? "Unlock this bank’s full question set, answers, and PDF export."}</span><Link className={locked ? "button primary question-locked-upgrade" : "question-locked-action"} href={locked?.href ?? plansHrefFor(authenticated)} onClick={locked?.onClick}>{locked ? `Unlock from ${UPGRADE_PRICE_LABEL}` : PLANS_LABEL}</Link></div>}
       <div className="question-actions">
         <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer} onPointerEnter={prefetchAnswer} onFocus={prefetchAnswer} onTouchStart={prefetchAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{showExplanationButton && <button className="answer-toggle" disabled={explanationLoading} aria-expanded={explanationOpen} onClick={toggleExplanation}>{explanationLoading ? "Loading explanation..." : explanationOpen ? "Hide explanation" : "Explanation"}</button>}{answerError && <span className="muted" role="alert">{answerError}</span>}{explanationError && <span className="muted" role="alert">{explanationError}</span>}</div>
-        <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{unlocked && fullPaperHref && <Link className="full-paper-button" href={fullPaperHref} title="Open the whole paper at this question, with its mark scheme" onClick={() => trackProductEvent("question_full_paper_click", { bank: question.bankSlug })}><FileText aria-hidden="true" weight="bold" />Full paper</Link>}{unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}{unlocked && <QuestionReport bank={question.bankSlug} questionId={question.id} hasExplanation={Boolean(question.hasExplanation)} freePreview={isPreviewQuestion(question.bankSlug, question.id)} />}</div>
+        <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{notesLink && <Link className="notes-link" href={notesLink.href} title={notesLink.label} onClick={() => trackProductEvent("question_notes_click", { bank: question.bankSlug })}>Learn this topic</Link>}{unlocked && fullPaperHref && <Link className="full-paper-button" href={fullPaperHref} title="Open the whole paper at this question, with its mark scheme" onClick={() => trackProductEvent("question_full_paper_click", { bank: question.bankSlug })}><FileText aria-hidden="true" weight="bold" />Full paper</Link>}{unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}{unlocked && <QuestionReport bank={question.bankSlug} questionId={question.id} hasExplanation={Boolean(question.hasExplanation)} freePreview={isPreviewQuestion(question.bankSlug, question.id)} />}</div>
       </div>
       {answerOpen && <div className="answer-panel">{answerAsset?.mcqAnswer ? <McqAnswerView answer={answerAsset.mcqAnswer} /> : <>{answerAsset?.urls.length ? <p className="answer-panel-label">Mark scheme</p> : null}{answerAsset?.urls.map((source, index) => <Image unoptimized width={0} height={0} key={source} src={source} alt={`Official mark scheme page ${index + 1}`} onError={answerAssetFailed} />)}</>}{question.solution && (answerAsset?.urls.length || answerAsset?.mcqAnswer ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
-      {explanationOpen && explanation && <div className="answer-panel explanation-panel"><p className="answer-panel-label">Explanation</p><ExplanationPanel explanation={explanation} /></div>}
+      {explanationOpen && explanation && <div className="answer-panel explanation-panel"><p className="answer-panel-label">Explanation</p><ExplanationPanel explanation={explanation} revise={notesLink} /></div>}
     </article>
   );
 }

@@ -20,6 +20,7 @@ import { hasPublishedExplanations } from "@/lib/explanations";
 import { bankLastUpdated, formatUpdateDate } from "@/lib/updates";
 import { bankFacts } from "@/lib/quick-facts";
 import { QuickFacts } from "@/components/QuickFacts";
+import { notesLinksForBank } from "@/lib/course-notes/group-lessons";
 import { freeQuestionYears, hasFreeTier } from "@/lib/access";
 
 export const dynamicParams = false;
@@ -134,7 +135,7 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
         </div>
       </section>
       <div className="shell">
-        <BankQuestionExplorer slug={slug} explorer={explorer} fullPaperHrefs={fullPapers ? fullPaperHrefs(fullPapers.papers) : undefined} />
+        <BankQuestionExplorer slug={slug} explorer={explorer} fullPaperHrefs={fullPapers ? fullPaperHrefs(fullPapers.papers) : undefined} notesLinks={notesLinksForBank(slug)} />
         <BankSeoContent bank={bank} topicLinks={topicLinks} topicHeading={catalogBank ? `${subjectSearchName(catalogBank)} questions by topic` : undefined} />
         <QuickFacts id="bank-facts-heading" title={`${bank.shortName}: quick facts`} facts={facts} />
       </div>
