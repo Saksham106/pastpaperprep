@@ -32,7 +32,16 @@ import { SECANT_CURVES, secantGradient } from "./secant-math";
 import { df, f as cubicF, STATIONARY, trendAt } from "./derivative-sign-math";
 import { EXACT, riemannSum } from "./riemann-math";
 import { areaTo } from "./area-between-math";
-import { fmt, num } from "./format";
+import ArgandMultiply, { renderArgandSvg } from "./ArgandMultiply";
+import RootsOfUnity, { renderRootsSvg } from "./RootsOfUnity";
+import VectorAngle, { renderVectorSvg } from "./VectorAngle";
+import MaclaurinPartials, { renderMaclaurinSvg } from "./MaclaurinPartials";
+import EulerStep, { renderEulerSvg } from "./EulerStep";
+import { arg, modulus, multiplyPolar, nthRoots, sumComplex, wrapArg } from "./complex-math";
+import { angleDegrees, cosAngle, dot, isPerpendicular, norm } from "./vector-math";
+import { fnValue, maclaurinError, partialSum, partialSumLabel } from "./maclaurin-math";
+import { eulerPoints, exactY } from "./euler-math";
+import { fmt, fmtComplex, num } from "./format";
 import { pointerToSvg } from "./shared";
 import { toDegrees, unitCirclePoint } from "./unit-circle-math";
 
@@ -91,6 +100,11 @@ describe("first frame is plain server-rendered SVG", () => {
       renderNormalSvg("alt", { mu: 100, sigma: 15, za: -1, zb: 1, mode: "between" }),
       renderZStandardiseSvg("alt", { mu: 100, sigma: 15, z: 2 }),
       renderRegressionSvg("alt", DRAG_START),
+      renderArgandSvg("alt", { r1: 1.5, d1: 60, r2: 2, d2: 30 }),
+      renderRootsSvg("alt", { n: 4, mode: "unity", r: 2, deg: 90 }),
+      renderVectorSvg("alt", { a: { x: 3, y: 4 }, b: { x: 4, y: 1 } }),
+      renderMaclaurinSvg("alt", { fn: "exp", n: 3, x0: 1 }),
+      renderEulerSvg("alt", { h: 0.25 }),
     ];
     for (const f of frames) {
       const html = renderToStaticMarkup(f);
@@ -127,7 +141,7 @@ describe("parts-area", () => {
     const { container } = render(<PartsArea alt="alt" />);
     expect(slider("b").type).toBe("range");
     expect(slider("b").parentElement!.querySelector("output")).not.toBeNull();
-    expect(container.querySelectorAll("output[aria-live]")).toHaveLength(1);
+    expect(container.querySelectorAll('output[aria-live="polite"]')).toHaveLength(1);
   });
 });
 
@@ -610,26 +624,21 @@ describe("format", () => {
   });
 });
 
-describe("only one live region per widget", () => {
-  it.each([
-    ["transformations", <Transformations key="t" alt="a" />],
-    ["discriminant-roots", <DiscriminantRoots key="d" alt="a" />],
-    ["exp-log-reflection", <ExpLogReflection key="e" alt="a" />],
-    ["unit-circle-graphs", <UnitCircleGraphs key="u" alt="a" />],
-    ["parts-area", <PartsArea key="p" alt="a" />],
-    ["radian-arc", <RadianArc key="r" alt="a" />],
-    ["secant-to-tangent", <SecantToTangent key="s" alt="a" />],
-    ["derivative-sign", <DerivativeSign key="ds" alt="a" />],
-    ["riemann-sums", <RiemannSums key="rs" alt="a" />],
-    ["area-between-curves", <AreaBetweenCurves key="ab" alt="a" />],
-    ["revolution-slice", <RevolutionSlice key="rv" alt="a" />],
-    ["binomial-shaded", <BinomialShaded key="bs" alt="a" />],
-    ["normal-shaded", <NormalShaded key="ns" alt="a" />],
-    ["z-standardise", <ZStandardise key="zs" alt="a" />],
-    ["regression-two-lines", <RegressionTwoLines key="rl" alt="a" />],
-  ])("%s", (_id, el) => {
-    const { container } = render(el);
-    expect(container.querySelectorAll("[aria-live]")).toHaveLength(1);
+describe("exactly one live region per widget", () => {
+  it.each(INTERACTIVE_IDS)("%s has one polite result and no output without an explicit aria-live", async (id) => {
+    const blocks: Block[] = [{ type: "interactive", widget: id, props: {}, alt: `Alt ${id}` }];
+    const { container } = render(<Blocks blocks={blocks} glossary={[]} level="SL" />);
+    await screen.findByRole("img", { name: `Alt ${id}` });
+    expect(container.querySelectorAll('[aria-live="polite"]')).toHaveLength(1);
+    expect(container.querySelectorAll("[aria-live]:not(output)")).toHaveLength(0);
+    const outputs = [...container.querySelectorAll("output")];
+    expect(outputs.length).toBeGreaterThan(1);
+    for (const o of outputs) expect(["polite", "off"]).toContain(o.getAttribute("aria-live"));
+  });
+
+  it("the Slider readout is aria-live off unless live is set", () => {
+    render(<PartsArea alt="a" />);
+    expect(slider("b").parentElement!.querySelector("output")!.getAttribute("aria-live")).toBe("off");
   });
 });
 
@@ -680,5 +689,257 @@ describe("exp-log drag", () => {
     expect(readout(/^x /)).toBe("2.0");
     expect(screen.getByTestId("p").textContent).toBe("2.00, 4.00");
     expect(screen.getByTestId("q").textContent).toBe("4.00, 2.00");
+  });
+});
+
+describe("argand-multiply", () => {
+  // z = 1 + i, w = 1 − i: zw = 1 − i + i − i² = 1 + 1 = 2. |z||w| = √2·√2 = 2 and arg z + arg w = π/4 − π/4 = 0.
+  it("(1 + i)(1 − i) = 2", () => {
+    const m = multiplyPolar(Math.SQRT2, Math.PI / 4, Math.SQRT2, -Math.PI / 4);
+    expect(m.z.re).toBeCloseTo(1, 12);
+    expect(m.z.im).toBeCloseTo(1, 12);
+    expect(m.w.im).toBeCloseTo(-1, 12);
+    expect(m.zw.re).toBeCloseTo(2, 12);
+    expect(m.zw.im).toBeCloseTo(0, 12);
+    expect(m.modulus).toBeCloseTo(2, 12);
+    expect(m.arg).toBeCloseTo(0, 12);
+  });
+  // z = 2cis(π/3), w = 3cis(π/6): zw = 6cis(π/2) = 6(0 + 1i) = 6i.
+  it("2cis(π/3) × 3cis(π/6) = 6cis(π/2) = 6i", () => {
+    const m = multiplyPolar(2, Math.PI / 3, 3, Math.PI / 6);
+    expect(m.modulus).toBe(6);
+    expect(m.arg).toBeCloseTo(Math.PI / 2, 12);
+    expect(m.zw.re).toBeCloseTo(0, 12);
+    expect(m.zw.im).toBeCloseTo(6, 12);
+    expect(modulus(m.zw)).toBeCloseTo(6, 12);
+    expect(arg(m.zw)).toBeCloseTo(Math.PI / 2, 12);
+  });
+  // 120° + 90° = 210°, which is −150° once reduced to (−180°, 180°]. 90° + 90° = 180° stays +180° (π, not −π).
+  it("reduces the sum of arguments to (−π, π]", () => {
+    expect(wrapArg((2 * Math.PI) / 3 + Math.PI / 2)).toBeCloseTo((-5 * Math.PI) / 6, 12);
+    expect(wrapArg(Math.PI / 2 + Math.PI / 2)).toBe(Math.PI);
+    expect(wrapArg(-Math.PI)).toBe(Math.PI);
+    expect(wrapArg(-Math.PI / 2 - Math.PI)).toBeCloseTo(Math.PI / 2, 12);
+  });
+  it("formats with a real minus and no negative zero", () => {
+    expect(fmtComplex(0, 6)).toBe("0.00 + 6.00i");
+    expect(fmtComplex(-0.0001, -0.5)).toBe("0.00 − 0.50i");
+  });
+  // Sliders: z = 1.5cis 60°, w = 2cis 30°: zw = 3cis 90° = 0 + 3i.
+  it("shows both forms in the one live result and follows the sliders", () => {
+    render(<ArgandMultiply alt="alt" />);
+    expect(screen.getByTestId("result").textContent).toBe("3.00 cis 90° = 0.00 + 3.00i");
+    expect(screen.getByTestId("z").textContent).toBe("0.75 + 1.30i"); // 1.5(½, √3/2)
+    expect(screen.getByTestId("w").textContent).toBe("1.73 + 1.00i"); // 2(√3/2, ½)
+    setSlider(/^arg w/, 120); // 60° + 120° = 180°
+    expect(readout(/^arg w/)).toBe("120°");
+    expect(screen.getByTestId("arg").textContent).toBe("180°");
+    expect(screen.getByTestId("result").textContent).toBe("3.00 cis 180° = −3.00 + 0.00i");
+    setSlider(/^arg w/, 150); // 210° reduces to −150°
+    expect(screen.getByTestId("arg").textContent).toBe("−150°");
+    setSlider(/^\|z\|/, 2);
+    expect(screen.getByTestId("modulus").textContent).toBe("4.00");
+  });
+  it("dragging z sets its modulus and argument from the pointer on the outer svg's scale", () => {
+    const { container } = render(<ArgandMultiply alt="alt" />);
+    const outer = container.querySelector('svg[role="img"]') as unknown as SVGSVGElement;
+    outer.getScreenCTM = () => ({ inverse: () => ({ a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 }) }) as unknown as DOMMatrix;
+    const dot = container.querySelector("circle[style*='grab']") as SVGCircleElement;
+    dot.setPointerCapture = vi.fn();
+    dot.hasPointerCapture = () => true;
+    // Scale is 240/13 user units per unit; centre at (180, 130). The point 1.2 + 1.2i is at user (180 + 1.2s, 130 − 1.2s):
+    // modulus 1.2√2 = 1.70, argument 45°.
+    const s = 240 / 13;
+    act(() => {
+      dot.dispatchEvent(new MouseEvent("pointermove", { bubbles: true, clientX: 180 + 1.2 * s, clientY: 130 - 1.2 * s }));
+    });
+    expect(readout(/^\|z\|/)).toBe("1.7");
+    expect(readout(/^arg z/)).toBe("45°");
+  });
+});
+
+describe("roots-of-unity", () => {
+  it("n = 4 gives 1, i, −1, −i", () => {
+    const r = nthRoots(4);
+    const want = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+    r.forEach((q, k) => {
+      expect(q.z.re).toBeCloseTo(want[k][0], 12);
+      expect(q.z.im).toBeCloseTo(want[k][1], 12);
+    });
+  });
+  // n = 3: cis(0) = 1, cis(2π/3) = −½ + (√3/2)i, cis(4π/3) = −½ − (√3/2)i. Sum = 1 − ½ − ½ = 0.
+  it("n = 3 gives 1 and −½ ± (√3/2)i, and the roots sum to 0", () => {
+    const r = nthRoots(3);
+    expect(r[1].z.re).toBeCloseTo(-0.5, 12);
+    expect(r[1].z.im).toBeCloseTo(Math.sqrt(3) / 2, 12);
+    expect(r[2].z.re).toBeCloseTo(-0.5, 12);
+    expect(r[2].z.im).toBeCloseTo(-Math.sqrt(3) / 2, 12);
+    const sum = sumComplex(r.map((q) => q.z));
+    expect(sum.re).toBeCloseTo(0, 12);
+    expect(sum.im).toBeCloseTo(0, 12);
+    for (let n = 2; n <= 12; n++) expect(modulus(sumComplex(nthRoots(n).map((q) => q.z)))).toBeLessThan(1e-12);
+  });
+  // z² = 4cis(π): modulus 4^(1/2) = 2, arguments (π + 2πk)/2 = π/2 and 3π/2 ≡ −π/2, so z = ±2i.
+  it("z² = 4 cis π has roots 2i and −2i", () => {
+    const r = nthRoots(2, 4, Math.PI);
+    expect(r[0].modulus).toBeCloseTo(2, 12);
+    expect(r[0].z.re).toBeCloseTo(0, 12);
+    expect(r[0].z.im).toBeCloseTo(2, 12);
+    expect(r[1].z.im).toBeCloseTo(-2, 12);
+    expect(r[1].arg).toBeCloseTo(-Math.PI / 2, 12);
+  });
+  it("lists the roots in the one live result and the n slider updates it", () => {
+    render(<RootsOfUnity alt="alt" />);
+    expect(screen.getByTestId("result").textContent).toBe("1.00 + 0.00i; 0.00 + 1.00i; −1.00 + 0.00i; 0.00 − 1.00i");
+    expect(screen.getByTestId("sum").textContent).toBe("0.00 + 0.00i");
+    setSlider("n", 3);
+    expect(readout("n")).toBe("3");
+    expect(screen.getByTestId("result").textContent).toBe("1.00 + 0.00i; −0.50 + 0.87i; −0.50 − 0.87i");
+    expect(screen.getByTestId("step").textContent).toBe("120");
+  });
+  it("the second mode solves zⁿ = r cis θ", () => {
+    render(<RootsOfUnity alt="alt" props={{ mode: "general", n: 2, r: 2.25, theta: 180 }} />);
+    expect(screen.getByTestId("result").textContent).toBe("0.00 + 1.50i; 0.00 − 1.50i"); // modulus √2.25 = 1.5
+    expect(screen.getByTestId("modulus").textContent).toBe("1.500");
+  });
+  it("the polygon has one vertex per root", () => {
+    const html = renderToStaticMarkup(renderRootsSvg("alt", { n: 5, mode: "unity", r: 2, deg: 90 }));
+    expect(html.match(/<circle/g)!.length).toBe(1 + 5); // dashed unit circle and five roots
+  });
+});
+
+describe("vector-angle", () => {
+  // a = (3, 4), b = (4, −3): a·b = 12 − 12 = 0, so θ = 90°.
+  it("(3, 4) and (4, −3) are perpendicular", () => {
+    const a = { x: 3, y: 4 };
+    const b = { x: 4, y: -3 };
+    expect(dot(a, b)).toBe(0);
+    expect(norm(a)).toBe(5);
+    expect(isPerpendicular(a, b)).toBe(true);
+    expect(angleDegrees(a, b)).toBeCloseTo(90, 12);
+  });
+  // a = (1, 0), b = (1, 1): a·b = 1, |a| = 1, |b| = √2, cos θ = 1/√2, θ = 45°.
+  it("(1, 0) and (1, 1) meet at 45°", () => {
+    const a = { x: 1, y: 0 };
+    const b = { x: 1, y: 1 };
+    expect(dot(a, b)).toBe(1);
+    expect(cosAngle(a, b)).toBeCloseTo(Math.SQRT1_2, 12);
+    expect(angleDegrees(a, b)).toBeCloseTo(45, 12);
+    expect(isPerpendicular(a, b)).toBe(false);
+  });
+  it("opposite vectors give 180° and a zero vector gives no angle", () => {
+    expect(angleDegrees({ x: 1, y: 2 }, { x: -2, y: -4 })).toBeCloseTo(180, 4);
+    expect(angleDegrees({ x: 0, y: 0 }, { x: 1, y: 1 })).toBeNull();
+  });
+  it("shows a·b and θ in the one live result, and marks perpendicular", () => {
+    render(<VectorAngle alt="alt" props={{ a1: 3, a2: 4, b1: 4, b2: -3 }} />);
+    expect(screen.getByTestId("result").textContent).toBe("a·b = 0.00, θ = 90.0°, so the vectors are perpendicular");
+    setSlider("b₂", 1); // b = (4, 1): a·b = 16, |a||b| = 5√17, cos θ = 0.7761, θ = 39.1°
+    expect(readout("b₂")).toBe("1");
+    expect(screen.getByTestId("result").textContent).toBe("a·b = 16.00, θ = 39.1°");
+    expect(screen.getByTestId("norm-b").textContent).toBe("4.123");
+  });
+  it("dragging a tip snaps to half units on the outer svg's scale", () => {
+    const { container } = render(<VectorAngle alt="alt" />);
+    const outer = container.querySelector('svg[role="img"]') as unknown as SVGSVGElement;
+    outer.getScreenCTM = () => ({ inverse: () => ({ a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 }) }) as unknown as DOMMatrix;
+    const dot0 = container.querySelector("circle[style*='grab']") as SVGCircleElement; // a's tip
+    dot0.setPointerCapture = vi.fn();
+    dot0.hasPointerCapture = () => true;
+    const s = 20; // 240 user units over 12 units
+    act(() => {
+      dot0.dispatchEvent(new MouseEvent("pointermove", { bubbles: true, clientX: 180 + 2.1 * s, clientY: 130 - 1.4 * s }));
+    });
+    expect(readout("a₁")).toBe("2");
+    expect(readout("a₂")).toBe("1.5");
+  });
+});
+
+describe("maclaurin-partials", () => {
+  // e^x with 3 terms: 1 + x + x²/2 at x = 1 is 2.5. e − 2.5 = 0.2182818…
+  it("eˣ with three terms at x = 1 is 2.5, error 0.21828", () => {
+    expect(partialSum("exp", 3, 1)).toBe(2.5);
+    expect(maclaurinError("exp", 3, 1)).toBeCloseTo(Math.E - 2.5, 12);
+    expect(maclaurinError("exp", 3, 1)).toBeCloseTo(0.21828, 5);
+  });
+  // sin x with 2 terms: x − x³/6 at x = 1 is 5/6 = 0.833333. sin 1 = 0.841471, error 0.008138.
+  it("sin x with two terms at x = 1 is 0.83333, error 0.00813", () => {
+    expect(partialSum("sin", 2, 1)).toBeCloseTo(5 / 6, 12);
+    expect(maclaurinError("sin", 2, 1)).toBeCloseTo(Math.sin(1) - 5 / 6, 12);
+    expect(maclaurinError("sin", 2, 1)).toBeCloseTo(0.00814, 5);
+  });
+  // cos x with 3 terms: 1 − x²/2 + x⁴/24 at x = 1 is 1 − 0.5 + 0.0416667 = 0.5416667.
+  it("cos x with three terms at x = 1 is 0.54167", () => {
+    expect(partialSum("cos", 3, 1)).toBeCloseTo(13 / 24, 12);
+  });
+  // ln(1 + x) with 3 terms: x − x²/2 + x³/3 at x = 0.5 is 0.5 − 0.125 + 0.0416667 = 0.4166667; ln 1.5 = 0.405465.
+  it("ln(1 + x) with three terms at x = 0.5 is 0.41667", () => {
+    expect(partialSum("ln", 3, 0.5)).toBeCloseTo(5 / 12, 12);
+    expect(fnValue("ln", 0.5)).toBeCloseTo(Math.log(1.5), 12);
+  });
+  it("writes the partial sums out", () => {
+    expect(partialSumLabel("exp", 3)).toBe("1 + x + x²/2");
+    expect(partialSumLabel("sin", 2)).toBe("x − x³/6");
+    expect(partialSumLabel("cos", 3)).toBe("1 − x²/2 + x⁴/24");
+    expect(partialSumLabel("ln", 3)).toBe("x − x²/2 + x³/3");
+  });
+  it("shows Pₙ(x₀), f(x₀) and the error in the one live result", () => {
+    render(<MaclaurinPartials alt="alt" />);
+    expect(screen.getByTestId("result").textContent).toBe("P₃(1) = 2.50000, f(1) = 2.71828, error |f − P₃| = 0.21828");
+    setSlider(/^n /, 4); // adds x³/6: 2.66667, error 0.05162
+    expect(readout(/^n /)).toBe("4");
+    expect(screen.getByTestId("result").textContent).toBe("P₄(1) = 2.66667, f(1) = 2.71828, error |f − P₄| = 0.05162");
+    fireEvent.change(screen.getByLabelText("Function"), { target: { value: "sin" } });
+    setSlider(/^n /, 2);
+    expect(screen.getByTestId("result").textContent).toBe("P₂(1) = 0.83333, f(1) = 0.84147, error |f − P₂| = 0.00814");
+  });
+  it("ln(1 + x) shows (−1, 1] and warns when x₀ is outside it", () => {
+    render(<MaclaurinPartials alt="alt" props={{ fn: "ln", n: 3, x0: 1 }} />);
+    expect(screen.getByTestId("convergence").textContent).toBe("−1 < x ≤ 1");
+    expect(screen.getByTestId("result").textContent).toBe("P₃(1) = 0.83333, f(1) = 0.69315, error |f − P₃| = 0.14019");
+    setSlider("x₀", 2);
+    expect(screen.getByText(/x₀ is outside it/)).toBeTruthy();
+  });
+  it("clamps n and x₀ when the function changes", () => {
+    render(<MaclaurinPartials alt="alt" props={{ n: 8, x0: 5 }} />);
+    fireEvent.change(screen.getByLabelText("Function"), { target: { value: "ln" } });
+    expect(readout("x₀")).toBe("2.0");
+    fireEvent.change(screen.getByLabelText("Function"), { target: { value: "sin" } });
+    expect(readout(/^n /)).toBe("6");
+  });
+});
+
+describe("euler-step", () => {
+  // h = 0.5: y1 = 1 + 0.5(0 + 1) = 1.5, y2 = 1.5 + 0.5(0.5 + 1.5) = 2.5. Exact y(1) = 2e − 2 = 3.43656.
+  it("h = 0.5 gives 1.5 then 2.5", () => {
+    const p = eulerPoints(0.5);
+    expect(p.map((q) => q.y)).toEqual([1, 1.5, 2.5]);
+    expect(p.map((q) => q.x)).toEqual([0, 0.5, 1]);
+    expect(exactY(1)).toBeCloseTo(3.43656, 5);
+  });
+  // h = 0.25: y1 = 1 + 0.25(0 + 1) = 1.25; y2 = 1.25 + 0.25(0.25 + 1.25) = 1.625;
+  // y3 = 1.625 + 0.25(0.5 + 1.625) = 2.15625; y4 = 2.15625 + 0.25(0.75 + 2.15625) = 2.8828125.
+  it("h = 0.25 gives 1.25, 1.625, 2.15625, 2.8828125", () => {
+    expect(eulerPoints(0.25).map((q) => q.y)).toEqual([1, 1.25, 1.625, 2.15625, 2.8828125]);
+  });
+  it("the exact curve solves the equation and the estimate improves as h shrinks", () => {
+    expect(exactY(0)).toBe(1);
+    const h = 1e-6;
+    expect((exactY(0.5 + h) - exactY(0.5 - h)) / (2 * h)).toBeCloseTo(0.5 + exactY(0.5), 6); // y′ = x + y
+    const err = (step: number) => exactY(1) - eulerPoints(step).at(-1)!.y;
+    expect(err(0.05)).toBeLessThan(err(0.1));
+    expect(err(0.1)).toBeLessThan(err(0.25));
+    expect(eulerPoints(0.05)).toHaveLength(21);
+  });
+  it("shows the estimate against the exact value, and the slider changes h", () => {
+    render(<EulerStep alt="alt" />);
+    expect(screen.getByTestId("result").textContent).toBe("Euler estimate of y(1) = 2.8828 with h = 0.25, exact y(1) = 2e − 2 = 3.4366, error 0.5538");
+    expect(screen.getByTestId("steps").textContent).toBe("4");
+    setSlider(/^h /, 5); // the largest step, h = 0.5
+    expect(readout(/^h /)).toBe("0.5");
+    expect(screen.getByTestId("result").textContent).toBe("Euler estimate of y(1) = 2.5000 with h = 0.5, exact y(1) = 2e − 2 = 3.4366, error 0.9366");
+    setSlider(/^h /, 0);
+    expect(readout(/^h /)).toBe("0.05");
+    expect(screen.getByTestId("steps").textContent).toBe("20");
   });
 });
