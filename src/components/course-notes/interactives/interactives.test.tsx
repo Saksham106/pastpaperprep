@@ -281,6 +281,10 @@ describe("radian-arc", () => {
     setSlider(/^r /, 3); // s = 3 × 3.14 = 9.42, A = ½ × 9 × 3.14 = 14.13
     expect(screen.getByTestId("arc").textContent).toBe("9.420");
     expect(screen.getByTestId("sector").textContent).toBe("14.130");
+    setSlider(/^θ /, 6.28); // end stop is a full circle: s = 2π·3 = 18.850, A = ½ × 9 × 2π = 28.274
+    expect(screen.getByTestId("arc").textContent).toBe("18.850");
+    expect(screen.getByTestId("sector").textContent).toBe("28.274");
+    expect(screen.getByTestId("degrees").textContent).toBe("360.0");
   });
 });
 
@@ -323,14 +327,11 @@ describe("derivative-sign", () => {
   });
   it("starts at x = 0 and follows the slider", () => {
     render(<DerivativeSign alt="alt" />);
-    expect(screen.getByTestId("derivative").textContent).toBe("−3.00");
-    expect(screen.getByTestId("trend").textContent).toBe("decreasing");
+    expect(screen.getByTestId("derivative").textContent).toBe("−3.00 (decreasing)");
     setSlider("x", 2); // 3·4 − 3 = 9
-    expect(screen.getByTestId("derivative").textContent).toBe("9.00");
-    expect(screen.getByTestId("trend").textContent).toBe("increasing");
+    expect(screen.getByTestId("derivative").textContent).toBe("9.00 (increasing)");
     setSlider("x", 1);
-    expect(screen.getByTestId("derivative").textContent).toBe("0.00");
-    expect(screen.getByTestId("trend").textContent).toBe("stationary");
+    expect(screen.getByTestId("derivative").textContent).toBe("0.00 (stationary)");
   });
 });
 
@@ -374,6 +375,11 @@ describe("area-between-curves", () => {
   it("y = x + 2 and y = x² on [−1, 2]: (2 + 4 − 8/3) − (1/2 − 2 + 1/3) = 10/3 + 7/6 = 9/2", () => {
     expect(areaTo("x+2-x2", 2)).toBeCloseTo(4.5, 10);
     expect(areaTo("x+2-x2", -1)).toBe(0);
+  });
+  it("prints a real minus sign for the lower intersection", () => {
+    render(<AreaBetweenCurves alt="alt" />);
+    fireEvent.change(screen.getByLabelText(/Curves/), { target: { value: "x+2-x2" } });
+    expect(screen.getByText(/They meet at x = −1 and x = 2/)).toBeTruthy();
   });
   it("reads the area, starting from the full enclosed region", () => {
     render(<AreaBetweenCurves alt="alt" />);

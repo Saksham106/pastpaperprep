@@ -50,8 +50,7 @@ export default function DerivativeSign({ alt, props }: WidgetProps) {
     >
       <p>f(x) = x³ − 3x, so f′(x) = 3x² − 3</p>
       <Slider label="x" value={x} min={-2.2} max={2.2} step={0.1} onChange={setX} format={(v) => fmt(v, 1)} />
-      <p>f′({fmt(x, 1)}) = <output data-testid="derivative" aria-live="polite">{fmt(d, 2)}</output></p>
-      <p>So f is <output data-testid="trend">{trend}</output> here</p>
+      <p>f′({fmt(x, 1)}) = <output data-testid="derivative" aria-live="polite">{fmt(d, 2)} ({trend})</output></p>
     </WidgetFrame>
   );
 }

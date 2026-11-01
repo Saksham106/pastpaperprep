@@ -6,13 +6,18 @@ import { Clip, curvePath, Grid, Slider, sx, sy, WidgetFrame, type Frame } from "
 import { P_X, SECANT_CURVES, secantGradient, type SecantCurve } from "./secant-math";
 import { numProp, type WidgetProps } from "./types";
 
-const FRAME: Frame = { xMin: -0.5, xMax: 3, yMin: -1, yMax: 9, left: 28, top: 10, width: 322, height: 232 };
+const BASE = { left: 28, top: 10, width: 322, height: 232 };
+// The cubic needs a taller window so Q stays on the plot up to h = 1.5 (2.5³ = 15.6).
+const FRAMES: Record<SecantCurve, Frame> = {
+  square: { xMin: -0.5, xMax: 3, yMin: -1, yMax: 9, ...BASE },
+  cube: { xMin: -0.5, xMax: 3, yMin: -1, yMax: 16, ...BASE },
+};
 
 export type SecantState = { curve: SecantCurve; h: number };
 
 export function renderSecantSvg(alt: string, { curve, h }: SecantState) {
   const { f, df } = SECANT_CURVES[curve];
-  const f0 = FRAME;
+  const f0 = FRAMES[curve];
   const m = secantGradient(f, h);
   const qx = P_X + h;
   const qy = f(qx);

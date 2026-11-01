@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { fmt } from "./format";
+import { fmt, num } from "./format";
 import { Clip, curvePath, Grid, Slider, sx, sy, WidgetFrame, type Frame } from "./shared";
 import { areaTo, PAIRS, type CurvePair } from "./area-between-math";
 import { numProp, type WidgetProps } from "./types";
@@ -70,9 +70,9 @@ export default function AreaBetweenCurves({ alt, props }: WidgetProps) {
           </select>
         </label>
       </p>
-      <p>They meet at x = {p.lo} and x = {p.hi}</p>
+      <p>They meet at x = {num(p.lo)} and x = {p.hi}</p>
       <Slider label="b (upper bound)" value={b} min={p.lo} max={p.hi} step={0.01} onChange={setB} format={(v) => fmt(v)} />
-      <p>Area from x = {p.lo} to x = b = <output data-testid="area" aria-live="polite">{fmt(areaTo(pair, b), 3)}</output></p>
+      <p>Area from x = {num(p.lo)} to x = b = <output data-testid="area" aria-live="polite">{fmt(areaTo(pair, b), 3)}</output></p>
     </WidgetFrame>
   );
 }

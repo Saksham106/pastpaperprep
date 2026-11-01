@@ -9,7 +9,7 @@ import { numProp, type WidgetProps } from "./types";
 const TAU = 2 * Math.PI;
 const CX = 150;
 const CY = 130;
-const PX = 40; // pixels per unit of radius (max r = 3 gives 120)
+const PX = 36; // pixels per unit of radius (max r = 3 gives 108, leaving room for the s label)
 
 export type RadianArcState = { r: number; theta: number };
 
@@ -64,7 +64,7 @@ export default function RadianArc({ alt, props }: WidgetProps) {
       caption="One radian is the angle whose arc is as long as the radius, so the arc length is s = rθ and the sector is the fraction θ/2π of the circle, A = ½r²θ."
       svg={renderRadianArcSvg(alt, { r, theta })}
     >
-      <Slider label="θ (radians)" value={theta} min={0} max={6.28} step={0.01} onChange={setTheta} format={(v) => `${fmt(v)} rad`} />
+      <Slider label="θ (radians)" value={theta} min={0} max={TAU} step={0.01} onChange={(v) => setTheta(v >= 6.28 ? TAU : v)} format={(v) => `${fmt(v)} rad`} />
       <Slider label="r (radius)" value={r} min={0.5} max={3} step={0.1} onChange={setR} format={(v) => fmt(v, 1)} />
       <p>θ = <output data-testid="degrees">{fmt(radToDeg(theta), 1)}</output>°</p>
       <p>Arc length s = rθ = <output data-testid="arc" aria-live="polite">{fmt(arcLength(r, theta), 3)}</output></p>
