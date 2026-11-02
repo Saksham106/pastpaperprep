@@ -245,11 +245,11 @@ Match length to the item's size (bullet count in `items.json`) and difficulty:
 
 | Item size | Teaching sections | Reading time |
 |---|---|---|
-| 1–2 bullets | 2–3 | 5–9 minutes |
-| 3–4 bullets | 3–4 | 9–15 minutes |
-| 5+ bullets, or hard items (5.14, 5.15, 3.14–3.18, 4.14) | 4–6 | 14–22 minutes |
+| 1–2 bullets | 2–3 | 10–17 minutes |
+| 3–4 bullets | 3–4 | 15–22 minutes |
+| 5+ bullets, or hard items (5.14, 5.15, 3.14–3.18, 4.14) | 4–6 | 20–28 minutes |
 
-`readingMinutes` is the prose word count divided by 150 (maths reads slowly), plus 1 minute per worked example, rounded. A lesson that needs more than about 22 minutes is probably saying things twice.
+`readingMinutes` is the prose word count divided by 150 (maths reads slowly), plus 1 minute per worked example, rounded. These bands already allow for §6's two examples per teaching section and the Paper 2 GDC example. A lesson above its band is probably saying things twice: cut repetition before recording a deviation.
 
 ## 16. Figures
 
