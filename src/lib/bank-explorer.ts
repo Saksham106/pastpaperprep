@@ -20,7 +20,7 @@ export async function loadBankExplorer(slug: BankSlug, routePreset: ExplorerSear
   if (!allQuestions) return null;
   const filterableQuestions = allQuestions.map((question) => publicMetadataToQuestion(toPublicQuestionMetadata(question), slug));
   // Banks without a free tier (e.g. Computer Science 0478) open on the full, locked bank.
-  const initialState = parseExplorerState(routePreset, { defaultFreeOnly: !localPreview && hasFreeTier(slug), defaultPartialTopics: Boolean(routePreset.topic) });
+  const initialState = parseExplorerState(routePreset, { defaultFreeOnly: !localPreview && hasFreeTier(slug), defaultPartialTopics: Boolean(routePreset.topic), bank: slug });
   const routeMatches = filterQuestions(filterableQuestions, {
     ...initialState.filters,
     mainTopicOnly: !initialState.partialTopics,

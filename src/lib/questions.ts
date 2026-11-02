@@ -187,6 +187,8 @@ export type QuestionFilters = {
   subtopics?: string[];
   granularLabels?: string[];
   officialCodeRefs?: string[];
+  /** AA only: keep questions tagged with any of these syllabus items; other banks ignore it. */
+  officialItems?: string[];
   retrievalFacets?: string[];
   years?: string[];
   papers?: string[];

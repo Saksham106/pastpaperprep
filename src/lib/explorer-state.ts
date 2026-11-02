@@ -1,11 +1,12 @@
 import type { QuestionFilters, QuestionSort } from "@/lib/questions";
 import type { CourseRouteSelection } from "@/lib/course-route";
+import { AA_BANK_SLUGS, isAaItemId } from "@/lib/aa-item-ids";
 
 export const EXPLORER_PAGE_SIZE = 24;
 const MAX_SHARED_PAGES = 10;
 const SORTS = new Set<QuestionSort>(["paper", "topic", "marks-desc", "marks-asc"]);
 
-export type ExplorerFilterKey = "topics" | "subtopics" | "granularLabels" | "officialCodeRefs" | "retrievalFacets" | "years" | "papers" | "sessions" | "subjects" | "zones" | "courseEras" | "options" | "components" | "calculator";
+export type ExplorerFilterKey = "topics" | "subtopics" | "granularLabels" | "officialCodeRefs" | "officialItems" | "retrievalFacets" | "years" | "papers" | "sessions" | "subjects" | "zones" | "courseEras" | "options" | "components" | "calculator";
 export type ExplorerFilters = Pick<QuestionFilters, ExplorerFilterKey>;
 export type ExplorerSearchParams = Record<string, string | string[] | undefined>;
 
@@ -26,6 +27,7 @@ const PARAMS: Array<[string, ExplorerFilterKey]> = [
   ["subtopic", "subtopics"],
   ["granularLabel", "granularLabels"],
   ["officialCode", "officialCodeRefs"],
+  ["item", "officialItems"],
   ["facet", "retrievalFacets"],
   ["year", "years"],
   ["paper", "papers"],
@@ -53,7 +55,7 @@ function boundedPage(value: string | string[] | undefined): number {
 }
 
 /** Topic pages list everything tagged with their topic, so they start with partial matches on. */
-export function parseExplorerState(params: ExplorerSearchParams, options: { defaultFreeOnly?: boolean; defaultPartialTopics?: boolean } = {}): ExplorerState {
+export function parseExplorerState(params: ExplorerSearchParams, options: { defaultFreeOnly?: boolean; defaultPartialTopics?: boolean; bank?: string } = {}): ExplorerState {
   const rawSearch = first(params.q).trim();
   const rawSort = first(params.sort) as QuestionSort;
   const filters: ExplorerFilters = {};
@@ -61,6 +63,12 @@ export function parseExplorerState(params: ExplorerSearchParams, options: { defa
   for (const [param, key] of PARAMS) {
     const selected = values(params[param]);
     if (selected.length) Object.assign(filters, { [key]: selected });
+  }
+  // `item` is an AA syllabus item: unknown values are dropped, and the param means nothing on other banks.
+  if (filters.officialItems) {
+    const known = options.bank && !AA_BANK_SLUGS.has(options.bank) ? [] : filters.officialItems.filter(isAaItemId);
+    if (known.length) filters.officialItems = known;
+    else delete filters.officialItems;
   }
 
   const partial = first(params.partial);

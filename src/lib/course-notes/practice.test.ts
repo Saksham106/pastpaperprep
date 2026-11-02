@@ -4,7 +4,7 @@ import overlay from "@/data/aa-official-subtopics/overlay.json";
 import { parseExplorerState } from "@/lib/explorer-state";
 import { COURSES } from "./course";
 import type { Group } from "./groups";
-import { groupPracticeHref, groupQuestionCounts, practiceGroupForItem, topicQuestionCount } from "./practice";
+import { groupPracticeHref, groupQuestionCounts, itemPracticeHref, itemQuestionCount, practiceGroupForItem, topicQuestionCount } from "./practice";
 
 const groups = taxonomy.groups as { id: string; studentFacingName: string; parentTopic: string }[];
 const records = overlay.records as { level: "SL" | "HL"; groupIds: string[]; status: string }[];
@@ -72,5 +72,28 @@ describe("practice links for lessons", () => {
     const synthetic = [{ ...a, memberOfficialItems: ["9.9"] }, { ...b, memberOfficialItems: ["9.9"] }];
     expect(practiceGroupForItem("9.9", synthetic)?.id).toBe(a.id);
     expect(practiceGroupForItem("0.0", synthetic)).toBeUndefined();
+  });
+});
+
+describe("item practice", () => {
+  const overlayRecords = (overlay.records as { level: "SL" | "HL"; status: string; officialItems?: string[] }[]).filter((r) => r.status === "accepted");
+  it("itemQuestionCount counts accepted records carrying the item, per level", () => {
+    for (const lesson of COURSES[0].lessons) {
+      for (const level of ["SL", "HL"] as const) {
+        expect(itemQuestionCount(lesson.item, level), `${lesson.item} ${level}`).toBe(overlayRecords.filter((r) => r.level === level && r.officialItems?.includes(lesson.item)).length);
+      }
+    }
+    expect(itemQuestionCount("9.99", "HL")).toBe(0);
+  });
+  it("is never more than its group's count", () => {
+    for (const lesson of COURSES[0].lessons) {
+      const group = practiceGroupForItem(lesson.item)!;
+      for (const level of ["SL", "HL"] as const) expect(itemQuestionCount(lesson.item, level)).toBeLessThanOrEqual(groupQuestionCounts(group.id)[level]);
+    }
+  });
+  it("itemPracticeHref points at the level's bank with the item param", () => {
+    expect(itemPracticeHref("5.16", "SL")).toBe("/banks/ib-sl?item=5.16");
+    expect(itemPracticeHref("5.16", "HL")).toBe("/banks/ib-hl?item=5.16");
+    expect(parseExplorerState(Object.fromEntries(new URL(itemPracticeHref("5.16", "HL"), "https://example.test").searchParams)).filters).toEqual({ officialItems: ["5.16"] });
   });
 });
