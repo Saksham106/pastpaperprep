@@ -8,6 +8,14 @@ import rawHl from "@/data/raw/ib-hl.json";
 import aaOverlay from "@/data/aa-official-subtopics/overlay.json";
 import aaReport from "@/data/aa-official-subtopics/report.json";
 import granularOverlay from "@/data/math-granular-label-overlay.json";
+import aaItems from "@/data/aa-official-subtopics/items.json";
+import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
+import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
+import { toPublicQuestionMetadata, type PublicBankIndex } from "@/lib/question-index";
+import { metadataFromRaw } from "../../scripts/generate-bank-index.mjs";
+import { derivedItems, isSingleItemRecord, unionItems } from "../../scripts/aa/official-items.mjs";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 const raw = {
   id: "2026-may-p1-tz1-q4",
@@ -167,5 +175,69 @@ describe("official AA normal subtopics", () => {
       expect(filterQuestions(hl, { topics: [topic], subtopics: [subtopic] }).map((q) => q.id), `${id} ${subtopic}`).toContain(id);
     }
   });
-});
 
+  describe("item-level official tags (officialItems)", () => {
+    const itemOrder = new Map(aaItems.items.map((entry, index) => [entry.item, index]));
+    const groupById = new Map(aaTaxonomy.groups.map((group) => [group.id, group]));
+    const data = { groupById, itemOrder };
+    const records = aaOverlay.records as Array<(typeof aaOverlay.records)[number] & { officialItems?: string[] }>;
+    const accepted = records.filter((record) => record.status === "accepted");
+
+    it("only names items that exist and belong to one of the record's groups", () => {
+      for (const record of records) {
+        if (!record.officialItems) continue;
+        expect(record.status, record.id).toBe("accepted");
+        expect(record.officialItems.length, record.id).toBeGreaterThan(0);
+        expect(new Set(record.officialItems).size, record.id).toBe(record.officialItems.length);
+        const members = new Set(record.groupIds.flatMap((id) => groupById.get(id)?.memberOfficialItems ?? []));
+        for (const item of record.officialItems) {
+          expect(itemOrder.has(item), `${record.id} ${item}`).toBe(true);
+          expect(members.has(item), `${record.id} ${item} not in its groups`).toBe(true);
+        }
+        const sorted = [...record.officialItems].sort((a, b) => itemOrder.get(a)! - itemOrder.get(b)!);
+        expect(record.officialItems, record.id).toEqual(sorted);
+      }
+    });
+
+    it("derives officialItems for every accepted record whose groups are all single-item", () => {
+      const single = accepted.filter((record) => isSingleItemRecord(record, groupById));
+      expect(single.length).toBeGreaterThan(0);
+      for (const record of single) {
+        expect(record.officialItems, record.id).toEqual(unionItems(record, data));
+        expect(derivedItems(record, data), record.id).toEqual(record.officialItems);
+      }
+      // The two populations partition the accepted records.
+      expect(single.length + accepted.filter((record) => !isSingleItemRecord(record, groupById)).length).toBe(accepted.length);
+    });
+
+    it("every accepted record has at least one officialItems entry", () => {
+      for (const record of accepted) expect(record.officialItems?.length, record.id).toBeGreaterThan(0);
+    });
+
+    it("exposes identical officialItems from the loader and the bank-index generator", () => {
+      for (const [bank, rawBank] of [["ib-sl", rawSl], ["ib-hl", rawHl]] as const) {
+        const questions = (rawBank as { questions: Array<{ id: string }> }).questions;
+        const loaded = new Map(normalizeBankQuestions(bank, questions as never[]).map((question) => [question.id, question]));
+        let checked = 0;
+        for (const rawQuestion of questions) {
+          const row = loaded.get(rawQuestion.id)!;
+          const index = metadataFromRaw(rawQuestion, { bank });
+          expect(row.officialItems ?? [], rawQuestion.id).toEqual(index.officialItems ?? []);
+          expect(toPublicQuestionMetadata(row).officialItems ?? [], rawQuestion.id).toEqual(index.officialItems ?? []);
+          if (row.officialItems) checked += 1;
+        }
+        expect(checked, bank).toBeGreaterThan(0);
+      }
+    });
+
+    it("writes the same officialItems into the generated public bank index", () => {
+      for (const bank of ["ib-sl", "ib-hl"] as const) {
+        const file = join(process.cwd(), "public", "bank-index", PUBLIC_BANK_INDEX_FILES[bank]);
+        const index = JSON.parse(readFileSync(file, "utf8")) as PublicBankIndex;
+        const loaded = new Map(normalizeBankQuestions(bank, (bank === "ib-sl" ? rawSl : rawHl).questions as never[]).map((question) => [question.id, question]));
+        expect(index.questions.length).toBe(loaded.size);
+        for (const metadata of index.questions) expect(metadata.officialItems ?? [], metadata.id).toEqual(loaded.get(metadata.id)!.officialItems ?? []);
+      }
+    });
+  });
+});

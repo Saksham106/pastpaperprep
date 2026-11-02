@@ -1,8 +1,7 @@
 import Link from "next/link";
 import itemsJson from "@/data/aa-official-subtopics/items.json";
 import { lessonPath, topicPath, type Course } from "@/lib/course-notes/course";
-import { compareItems } from "@/lib/course-notes/items";
-import { groupPracticeHref, groupQuestionCounts, practiceGroupForItem } from "@/lib/course-notes/practice";
+import { itemPracticeHref, itemQuestionCount, practiceGroupForItem } from "@/lib/course-notes/practice";
 import { renderTex } from "@/lib/course-notes/render";
 import type { Lesson } from "@/lib/course-notes/types";
 import { formatUpdateDate, lastUpdated } from "@/lib/updates";
@@ -17,24 +16,14 @@ import styles from "./course-notes.module.css";
 
 const ITEM_NAMES = new Map((itemsJson.items as { item: string; name: string }[]).map((entry) => [entry.item, entry.name]));
 
-/** "3.14–3.18" for consecutive items in one topic, otherwise "2.8 and 2.13" (or "a, b and c"). */
-export function practiseItemsLabel(items: string[]): string {
-  const sorted = [...items].sort(compareItems);
-  if (sorted.length < 2) return sorted[0] ?? "";
-  const parts = sorted.map((item) => item.split(".").map(Number));
-  const consecutive = parts.every((part, i) => i === 0 || (part[0] === parts[i - 1][0] && part[1] === parts[i - 1][1] + 1));
-  if (consecutive) return `${sorted[0]}–${sorted[sorted.length - 1]}`;
-  return `${sorted.slice(0, -1).join(", ")} and ${sorted[sorted.length - 1]}`;
-}
-
 function practiceFor(item: string): PracticeInfo | undefined {
   const group = practiceGroupForItem(item);
   if (!group) return undefined;
   return {
     group: group.id,
-    items: practiseItemsLabel(group.memberOfficialItems),
-    counts: groupQuestionCounts(group.id),
-    hrefs: { SL: groupPracticeHref(group.id, "SL"), HL: groupPracticeHref(group.id, "HL") },
+    items: item,
+    counts: { SL: itemQuestionCount(item, "SL"), HL: itemQuestionCount(item, "HL") },
+    hrefs: { SL: itemPracticeHref(item, "SL"), HL: itemPracticeHref(item, "HL") },
   };
 }
 

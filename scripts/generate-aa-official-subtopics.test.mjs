@@ -8,11 +8,15 @@ const root = process.cwd();
 const research = "/Users/sakshamgoel/Documents/ProjectsInternships/research/aa-official-subtopics";
 const script = join(root, "scripts/generate_aa_official_subtopics.py");
 
-function generate(corrections) {
+function generate(corrections, seedTags = false) {
   const repo = mkdtempSync(join(tmpdir(), "aa-overlay-"));
   try {
     mkdirSync(join(repo, "src/data/raw"), { recursive: true });
     for (const bank of ["ib-hl", "ib-sl"]) copyFileSync(join(root, `src/data/raw/${bank}.json`), join(repo, `src/data/raw/${bank}.json`));
+    if (seedTags) {
+      mkdirSync(join(repo, "src/data/aa-official-subtopics"), { recursive: true });
+      copyFileSync(join(root, "src/data/aa-official-subtopics/overlay.json"), join(repo, "src/data/aa-official-subtopics/overlay.json"));
+    }
     let generator = script;
     if (corrections) {
       // Same generator, pointed at an edited corrections file with its hash re-pinned.
@@ -33,7 +37,17 @@ function generate(corrections) {
 
 describe.skipIf(!existsSync(research))("AA official subtopic generator", () => {
   it("reproduces the committed overlay, including the #139 printed-source corrections", () => {
-    expect(generate()).toBe(readFileSync(join(root, "src/data/aa-official-subtopics/overlay.json"), "utf8"));
+    // `officialItems` is added by scripts/aa/*.mjs after generation; the generator itself never invents it.
+    const committed = JSON.parse(readFileSync(join(root, "src/data/aa-official-subtopics/overlay.json"), "utf8"));
+    for (const record of committed.records) delete record.officialItems;
+    expect(JSON.parse(generate())).toEqual(committed);
+  });
+
+  it("keeps officialItems already in the overlay it regenerates, right after subtopics", () => {
+    const keys = JSON.parse(generate(undefined, true)).records.map((record) => Object.keys(record));
+    const tagged = keys.filter((list) => list.includes("officialItems"));
+    expect(tagged.length).toBeGreaterThan(0);
+    for (const list of tagged) expect(list.indexOf("officialItems")).toBe(list.indexOf("subtopics") + 1);
   });
 
   it("refuses edited or invalid corrections", () => {

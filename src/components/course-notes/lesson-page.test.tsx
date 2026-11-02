@@ -11,7 +11,8 @@ const reviewed = vi.hoisted(() => ({ date: "2026-10-20" as string | undefined })
 vi.mock("@/lib/product-analytics", () => ({ trackProductEvent: track }));
 vi.mock("@/lib/updates", async (importOriginal) => ({ ...(await importOriginal<typeof import("@/lib/updates")>()), lastUpdated: () => reviewed.date }));
 
-import { LessonPage, practiseItemsLabel } from "./LessonPage";
+import { itemQuestionCount } from "@/lib/course-notes/practice";
+import { LessonPage } from "./LessonPage";
 
 const base = getCourse("ib-math-aa") as Course;
 const make = (item: string, topic: Lesson["topic"], level: Lesson["level"], title: string, slug: string, extra: Partial<Lesson> = {}): Lesson => ({ ...lessonFixture, item, topic, level, title, slug, ...extra });
@@ -133,17 +134,11 @@ describe("LessonPage", () => {
     expect(screen.queryByText(/Last reviewed/)).toBeNull();
   });
 
-  it("Practise this names the group's items and counts at the current level", () => {
+  it("Practise this counts the lesson's own item at the current level", () => {
     const { container } = render(<LessonPage course={{ ...course, lessons: [...course.lessons] }} lesson={make("5.16", 5, "AHL", "By parts", "by-parts")} />);
     const band = container.querySelector("[data-practise]") as HTMLElement;
     expect(band.textContent).toMatch(/\d+ past-paper questions? on 5\.16 in the AA HL bank, each with a mark scheme and a worked explanation\./);
-    expect(within(band).getByRole("link", { name: "Practise 5.16 →" }).getAttribute("href")).toContain("/banks/ib-hl?subtopic=Integration%20by%20substitution%20and%20parts");
-  });
-
-  it("labels item ranges", () => {
-    expect(practiseItemsLabel(["3.14", "3.15", "3.16", "3.17", "3.18"])).toBe("3.14–3.18");
-    expect(practiseItemsLabel(["2.13", "2.8"])).toBe("2.8 and 2.13");
-    expect(practiseItemsLabel(["5.16"])).toBe("5.16");
-    expect(practiseItemsLabel(["2.9", "3.1"])).toBe("2.9 and 3.1");
+    expect(within(band).getByRole("link", { name: "Practise 5.16 →" }).getAttribute("href")).toBe("/banks/ib-hl?item=5.16");
+    expect(band.textContent).toContain(`${itemQuestionCount("5.16", "HL")} past-paper question`);
   });
 });

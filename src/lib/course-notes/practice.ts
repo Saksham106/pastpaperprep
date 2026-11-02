@@ -4,7 +4,7 @@ import { GROUPS as GROUP_LIST, type Group } from "./groups";
 
 export type PracticeLevel = "SL" | "HL";
 
-type OverlayRecord = { id: string; level: PracticeLevel; groupIds: string[]; status: string };
+type OverlayRecord = { id: string; level: PracticeLevel; groupIds: string[]; status: string; officialItems?: string[] };
 
 const GROUPS = new Map(GROUP_LIST.map((group) => [group.id, group]));
 const ACCEPTED = (overlayJson.records as OverlayRecord[]).filter((record) => record.status === "accepted");
@@ -20,10 +20,24 @@ for (const record of ACCEPTED) {
   }
 }
 
+const countsByItem = new Map<string, { SL: number; HL: number }>();
+for (const record of ACCEPTED) {
+  for (const item of new Set(record.officialItems ?? [])) {
+    const entry = countsByItem.get(item) ?? { SL: 0, HL: 0 };
+    entry[record.level] += 1;
+    countsByItem.set(item, entry);
+  }
+}
+
 /** Accepted questions in the group, per bank level. */
 export function groupQuestionCounts(groupId: string): { SL: number; HL: number } {
   const entry = countsByGroup.get(groupId);
   return { SL: entry?.SL ?? 0, HL: entry?.HL ?? 0 };
+}
+
+/** Accepted questions tagged with a syllabus item (e.g. "5.16") at that level. */
+export function itemQuestionCount(item: string, level: PracticeLevel): number {
+  return countsByItem.get(item)?.[level] ?? 0;
 }
 
 /** Distinct accepted questions at a level across all of a topic's groups (one that sits in two groups counts once). */
@@ -52,6 +66,15 @@ export function groupPracticeHref(groupId: string, level: PracticeLevel): string
   const group = GROUPS.get(groupId);
   if (!group) throw new Error(`Unknown AA group ${groupId}`);
   return `/banks/${BANKS[level]}?subtopic=${encodeURIComponent(group.studentFacingName)}&subject=${encodeURIComponent(AA_SUBJECTS[level])}`;
+}
+
+/**
+ * Bank page filtered to one syllabus item, opening exactly the questions `itemQuestionCount()` counts.
+ * `item` only matches accepted current-course records (the only ones carrying item tags), so no
+ * `subject` or `topic` param is needed.
+ */
+export function itemPracticeHref(item: string, level: PracticeLevel): string {
+  return `/banks/${BANKS[level]}?item=${encodeURIComponent(item)}`;
 }
 
 /** The group a lesson's practice panel uses: AA groups map one-to-one to items, so the group containing the item. */

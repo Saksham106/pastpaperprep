@@ -1,6 +1,7 @@
 import { canonicalBiology0610Topic } from "@/lib/biology-0610-topic-aliases";
 import type { QuestionFilters, UnifiedQuestion } from "@/lib/questions";
 import { isLocalEconomicsBank } from "@/lib/banks";
+import { AA_BANK_SLUGS } from "@/lib/aa-item-ids";
 import { EARLIER_MATHS_TOPIC, isCleanMathsBank, isEarlierMathsQuestion, mathsSubtopicMatches } from "@/lib/maths-picker";
 import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_SECTIONS, display0610Sections } from "@/lib/igcse-0610-official.mjs";
 import { COORDINATED_0654_EARLIER, COORDINATED_0654_SECTIONS, display0654Sections } from "@/lib/igcse-0654-official.mjs";
@@ -103,6 +104,7 @@ export function filterQuestions(questions: UnifiedQuestion[], filters: QuestionF
     } else if (!includesAny(filters.subtopics, filterableSubtopics(question))) return false;
     if (!includesAny(filters.granularLabels, question.granularLabels ?? [])) return false;
     if (!includesAny(filters.officialCodeRefs, question.officialCodeRefs ?? [])) return false;
+    if (filters.officialItems?.length && AA_BANK_SLUGS.has(question.bankSlug) && !includesAny(filters.officialItems, question.officialItems ?? [])) return false;
     if (!includesAny(filters.retrievalFacets, question.retrievalFacets ?? [])) return false;
     if (!includesAny(filters.years, [String(question.year)])) return false;
     if (!includesAny(filters.papers, [String(question.paper)])) return false;

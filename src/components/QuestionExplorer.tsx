@@ -306,7 +306,7 @@ access: ExplorerAccess;
   routePreset?: ExplorerSearchParams;
   /** Paper key -> free full-paper page; cards link back to the whole paper when present. */
   fullPaperHrefs?: Record<string, string>;
-  /** AA subtopic group name -> lesson link. Only passed while the course is visible. */
+  /** AA syllabus item id and subtopic group name -> lesson link. Only passed while the course is visible. */
   notesLinks?: Record<string, { href: string; label: string }>;
 }) {
   const [scopeOwner] = useState(() => typeof document === "undefined" ? null : cacheOwner());
@@ -621,7 +621,7 @@ access: ExplorerAccess;
         const current = raw[key];
         raw[key] = current === undefined ? value : Array.isArray(current) ? [...current, value] : [current, value];
       }
-      const next = parseExplorerState(routePreset && !locationParams.has("set") && !locationParams.has("worksheet") ? withRoutePreset(raw, routePreset) : raw, { defaultFreeOnly: !access.bankAccess && (bank ? hasFreeTier(bank as BankSlug) : true), defaultPartialTopics: Boolean(routePreset?.topic) });
+      const next = parseExplorerState(routePreset && !locationParams.has("set") && !locationParams.has("worksheet") ? withRoutePreset(raw, routePreset) : raw, { defaultFreeOnly: !access.bankAccess && (bank ? hasFreeTier(bank as BankSlug) : true), defaultPartialTopics: Boolean(routePreset?.topic), bank });
       if (locationParams.has("set") && !locationParams.has("worksheet")) {
         try { setSharedIds(currentQuestionIds(bank ?? "", parseSharedSet(locationParams.get("set") ?? ""))); setSharedError(""); }
         catch { setSharedIds(null); setSharedError("This shared question link is invalid."); }
@@ -1515,7 +1515,7 @@ access: ExplorerAccess;
           {!savedWorksheetView && !sharedSetView && activeCount > 0 && <div className="active-filters">
             {effectiveFreeOnly && <button aria-label="Remove free questions only filter" onClick={() => setFreeOnly(false)}>Free only <X /></button>}
             {savedOnly && <button aria-label="Remove saved questions only filter" onClick={() => setSavedOnly(false)}>Saved only <X /></button>}
-            {Object.entries(filters).flatMap(([key, values]) => (values ?? []).map((value) => <button key={`${key}-${value}`} onClick={() => toggle(key as MultiKey, value)}>{formatPublicLabel(bank === "igcse" || bank === "igcse-additional" ? formatMathsPickerLabel(bank, value) : value)} <X /></button>))}
+            {Object.entries(filters).flatMap(([key, values]) => (values ?? []).map((value) => <button key={`${key}-${value}`} onClick={() => toggle(key as MultiKey, value)}>{key === "officialItems" ? `Syllabus ${value}` : formatPublicLabel(bank === "igcse" || bank === "igcse-additional" ? formatMathsPickerLabel(bank, value) : value)} <X /></button>))}
           </div>}
           <div className="question-list">
             {shownQuestions.map((question, index) => {
@@ -1587,9 +1587,10 @@ function decodeImages(urls: readonly string[], timeoutMs = 1500): Promise<void> 
     .then(() => clearTimeout(timer));
 }
 
-/** Lesson for a question's first AA subtopic group that has one; undefined outside AA or while the course is hidden. */
+/** Lesson for a question's first tagged syllabus item that has one, else its first AA subtopic group that has one; undefined outside AA or while the course is hidden. */
 function notesLinkFor(links: Record<string, { href: string; label: string }> | undefined, question: UnifiedQuestion) {
   if (!links) return undefined;
+  for (const item of question.officialItems ?? []) if (links[item]) return links[item];
   for (const name of question.subtopics ?? []) if (links[name]) return links[name];
   return undefined;
 }

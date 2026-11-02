@@ -122,4 +122,25 @@ describe("route presets", () => {
     expect(stripRoutePreset(narrowed, preset).toString()).toBe(narrowed.toString());
     expect(stripRoutePreset(narrowed, {}).toString()).toBe(narrowed.toString());
   });
+
+  describe("item param (AA syllabus item)", () => {
+    it("parses, and round-trips through the URL", () => {
+      const state = parseExplorerState({ item: "5.16" });
+      expect(state.filters).toEqual({ officialItems: ["5.16"] });
+      const query = serializeExplorerState(state);
+      expect(query.toString()).toBe("item=5.16");
+      expect(parseExplorerState(Object.fromEntries(query)).filters).toEqual({ officialItems: ["5.16"] });
+      expect(parseExplorerState({ item: ["1.11", "5.15"] }, { bank: "ib-hl" }).filters.officialItems).toEqual(["1.11", "5.15"]);
+    });
+
+    it("ignores junk and unknown items like an absent param", () => {
+      for (const item of ["abc", "9.99", "5.016", "5.", " ", "__proto__"]) expect(parseExplorerState({ item }).filters, item).toEqual({});
+      expect(parseExplorerState({ item: ["abc", "5.16"] }).filters).toEqual({ officialItems: ["5.16"] });
+    });
+
+    it("is ignored on non-AA banks and kept on the AA banks", () => {
+      for (const bank of ["igcse", "ib-chemistry", "igcse-biology-0610"]) expect(parseExplorerState({ item: "5.16" }, { bank }).filters, bank).toEqual({});
+      for (const bank of ["ib-sl", "ib-hl"]) expect(parseExplorerState({ item: "5.16" }, { bank }).filters, bank).toEqual({ officialItems: ["5.16"] });
+    });
+  });
 });

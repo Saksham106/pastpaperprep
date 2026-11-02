@@ -11,7 +11,7 @@ import styles from "./course-notes.module.css";
 export type PracticeInfo = {
   /** Taxonomy group id, sent with practice clicks. */
   group: string;
-  /** Item label for the button and copy, e.g. "5.16" or "3.14–3.18". */
+  /** The lesson's syllabus item, for the button and copy, e.g. "5.16". */
   items: string;
   counts: { SL: number; HL: number };
   hrefs: { SL: string; HL: string };
@@ -24,7 +24,7 @@ export function PractiseBand({ practice }: { practice: PracticeInfo }) {
   const ctx = useNotesContext();
   const count = practice.counts[level];
   const other: NotesLevel = level === "SL" ? "HL" : "SL";
-  // A group with nothing at this level (an HL-only group in the SL view) points at the other bank instead.
+  // An item with nothing at this level (an HL-only group in the SL view) points at the other bank instead.
   const bankLevel = count === 0 && practice.counts[other] > 0 ? other : level;
   const shown = practice.counts[bankLevel];
   return (

@@ -18,6 +18,7 @@ export type PublicQuestionMetadata = {
   granularLabels: string[];
   officialCodeRefs?: string[];
   retrievalFacets?: string[];
+  officialItems?: string[];
   subject: string;
   option: string;
   zone: string;
@@ -49,6 +50,7 @@ export function toPublicQuestionMetadata(question: UnifiedQuestion): PublicQuest
     granularLabels: [...(question.granularLabels ?? [])],
     ...(question.officialCodeRefs?.length ? { officialCodeRefs: [...question.officialCodeRefs] } : {}),
     ...(question.retrievalFacets?.length ? { retrievalFacets: [...question.retrievalFacets] } : {}),
+    ...(question.officialItems?.length ? { officialItems: [...question.officialItems] } : {}),
     subject: question.subject,
     option: question.option,
     zone: question.zone,
