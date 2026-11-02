@@ -26,6 +26,15 @@ describe("ib-math-aa course content", () => {
     expect(failures).toEqual({});
   });
 
+  it("glossary lives in one file per lesson, named by a real item, and the index merges them all", () => {
+    const dir = join(root, "glossary");
+    const files = readdirSync(dir).filter((name) => name.endsWith(".json"));
+    for (const file of files) expect(lessonItems.has(file.replace(/\.json$/, "").replace("-", ".")), file).toBe(true);
+    expect(existsSync(join(root, "glossary.json"))).toBe(false);
+    const ids = new Set(files.flatMap((file) => (JSON.parse(readFileSync(join(dir, file), "utf8")) as { id: string }[]).map((entry) => entry.id)));
+    expect(new Set(course.glossary.map((entry) => entry.id))).toEqual(ids);
+  });
+
   it("every glossary term points at a real lesson item", () => {
     for (const term of course.glossary) expect(lessonItems.has(term.lesson), term.id).toBe(true);
   });

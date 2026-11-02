@@ -1,8 +1,7 @@
 // Course registry and publish gate. Client-safe (plain data, no katex).
 import courseJson from "@/content/notes/ib-math-aa/course.json";
 import commandTermsJson from "@/content/notes/ib-math-aa/command-terms.json";
-import glossaryJson from "@/content/notes/ib-math-aa/glossary.json";
-import { cheatSheets, figures, lessons } from "@/content/notes/ib-math-aa";
+import { cheatSheets, figures, glossary, lessons } from "@/content/notes/ib-math-aa";
 import { compareItems } from "./items";
 import { isVisibleWhen } from "./visibility";
 import type { CheatSheetFile, GlossaryTerm, Lesson } from "./types";
@@ -30,7 +29,7 @@ export const COURSES: readonly Course[] = [
   {
     ...base,
     lessons: [...lessons].sort((a, b) => a.topic - b.topic || compareItems(a.item, b.item)),
-    glossary: glossaryJson as GlossaryTerm[],
+    glossary,
     commandTerms: commandTermsJson as CommandTerm[],
     cheatSheets,
     figures,

@@ -3,7 +3,7 @@ import { dirname, join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import itemsJson from "@/data/aa-official-subtopics/items.json";
 import taxonomy from "@/data/aa-official-subtopics/taxonomy.json";
-import glossary from "@/content/notes/ib-math-aa/glossary.json";
+import { glossary } from "@/content/notes/ib-math-aa";
 import type { ItemsFile } from "./types";
 
 const file: ItemsFile = itemsJson as ItemsFile;
