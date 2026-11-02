@@ -355,6 +355,7 @@ declare const data: {
         reviewAddition?: string;
       };
     };
+    officialItems?: Array<string>;
     sourceReassessment?: string;
     sourceCropSha256?: string;
   }>;

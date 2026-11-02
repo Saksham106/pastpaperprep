@@ -26,7 +26,9 @@ describe("source-confirmed IB subtopic repair",()=>{
   expect(new Set(before[key].filter(row=>!after[key].some(next=>next.id===row.id)).map(row=>row.id))).toEqual(retired);
   expect(after[key].length).toBe(before[key].length-retired.size+added.length);
   const old=new Map(before[key].map(row=>[row.id,row]));
-  const kept=after[key].filter(row=>!isAdded(row));
+  // Later, separately reviewed addition: AA rows carry item-level `officialItems` tags (scripts/aa/*.mjs); no other field may move.
+  const withoutItems=row=>Object.fromEntries(Object.entries(row).filter(([field])=>field!=="officialItems"));
+  const kept=after[key].filter(row=>!isAdded(row)).map(path.includes("aa-official")?withoutItems:row=>row);
   const changed=new Set(kept.filter(row=>JSON.stringify(row)!==JSON.stringify(old.get(row.id))).map(row=>row.id));
   for(const id of ids)expect(changed.has(id)).toBe(true);
   if(path.includes("aa-official"))expect(changed).toEqual(ids);

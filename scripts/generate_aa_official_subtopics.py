@@ -36,13 +36,18 @@ def load_corrections(groups: dict) -> dict:
     return out
 
 
-def emit(record: dict, corrections: dict) -> dict:
+def emit(record: dict, corrections: dict, tags: dict) -> dict:
     row = {key: record[key] for key in ("id", "bank", "level", "primaryTopic", "secondaryTopics", "groupIds", "subtopics", "status", "blockedReason")}
     correction = corrections.get((record["level"], record["id"]))
     if correction:
         row.update(primaryTopic=correction["primaryTopic"], secondaryTopics=list(correction["secondaryTopics"]), groupIds=list(correction["groupIds"]),
                    subtopics=list(correction["groupIds"]), status="accepted", blockedReason=None,
                    sourceReassessment=correction["sourceReassessment"], sourceCropSha256=correction["sourceCropSha256"])
+    # `officialItems` is written by scripts/aa/*.mjs, not derived here: keep what the committed overlay already holds,
+    # placed right after `subtopics` as those scripts do.
+    tagged = tags.get((record["level"], record["id"]))
+    if tagged is not None:
+        row = {key: value for pair in row.items() for key, value in ([pair, ("officialItems", tagged)] if pair[0] == "subtopics" else [pair])}
     row["provenance"] = record["provenance"]
     return row
 
@@ -93,13 +98,17 @@ def main() -> None:
     corrections = load_corrections(groups)
     if not all(key in {(record["level"], record["id"]) for record in records} for key in corrections):
         raise SystemExit("correction targets a row outside the overlay")
+    existing_path = repo / "src/data/aa-official-subtopics/overlay.json"
+    tags = {}
+    if existing_path.exists():
+        tags = {(row["level"], row["id"]): row["officialItems"] for row in json.loads(existing_path.read_text())["records"] if "officialItems" in row}
     output = {
         "schemaVersion": "aa-official-subtopics-runtime-v1",
         "sourceOverlaySchema": source["schemaVersion"],
         "taxonomySha256": sha(taxonomy_path),
         "sourceHashes": source["inputHashes"],
         "sourceTruth": source["sourceTruth"],
-        "records": [emit(record, corrections) for record in records],
+        "records": [emit(record, corrections, tags) for record in records],
     }
     out_dir = repo / "src/data/aa-official-subtopics"
     out_dir.mkdir(parents=True, exist_ok=True)
