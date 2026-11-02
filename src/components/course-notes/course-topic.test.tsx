@@ -53,7 +53,7 @@ describe("CourseTopic", () => {
     const first = groups[0];
     const counts = groupQuestionCounts(first.id);
     const link = within(document.querySelector(`[data-stage="${first.id}"]`) as HTMLElement).getByRole("link", { name: `${counts.SL} SL · ${counts.HL} HL questions` });
-    expect(link.getAttribute("href")).toContain("/banks/ib-hl?topic=Calculus&subtopic=Limits%20and%20derivative%20foundations");
+    expect(link.getAttribute("href")).toContain("/banks/ib-hl?subtopic=Limits%20and%20derivative%20foundations&subject=");
     const hlOnly = groups.find((group) => !group.applicability.includes("SL"))!;
     const hlCounts = groupQuestionCounts(hlOnly.id);
     expect(within(document.querySelector(`[data-stage="${hlOnly.id}"]`) as HTMLElement).getByRole("link", { name: `${hlCounts.HL} HL questions` })).toBeTruthy();

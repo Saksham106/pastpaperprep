@@ -134,7 +134,7 @@ describe("LessonPage", () => {
     const { container } = render(<LessonPage course={{ ...course, lessons: [...course.lessons] }} lesson={make("5.16", 5, "AHL", "By parts", "by-parts")} />);
     const band = container.querySelector("[data-practise]") as HTMLElement;
     expect(band.textContent).toMatch(/\d+ past-paper questions? on 5\.16 in the AA HL bank, each with a mark scheme and a worked explanation\./);
-    expect(within(band).getByRole("link", { name: "Practise 5.16 →" }).getAttribute("href")).toContain("/banks/ib-hl?topic=Calculus");
+    expect(within(band).getByRole("link", { name: "Practise 5.16 →" }).getAttribute("href")).toContain("/banks/ib-hl?subtopic=Integration%20by%20substitution%20and%20parts");
   });
 
   it("labels item ranges", () => {
