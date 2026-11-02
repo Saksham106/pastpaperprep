@@ -110,6 +110,8 @@ Use the IB guide's notation everywhere. The pack's verbatim guide text shows it 
 | Angles | radians by default in calculus and graphs; say "degrees" when you use them | |
 | Rounding | exact answers, or 3 significant figures unless the question says otherwise. Angles in degrees follow the same rule. | |
 
+Bracket the argument of a trig, log or exponential function whenever a product follows it: `\sin(x)(1+x)` or `(1+x)\sin x`, never `\sin x(1+x)`, which reads two ways. Never write a bare `\log`: use `\log_{10}` or `\ln` (the gate refuses `\log` with no base).
+
 Write `\dfrac` for display fractions in running text only when the fraction holds a derivative or would be cramped; otherwise `\frac` or `\tfrac`. Everything must render in KaTeX: the validator renders every `$…$` and every formula `tex`.
 
 ## 6. Worked examples
@@ -144,7 +146,7 @@ Write `\dfrac` for display fractions in running text only when the fraction hold
 
 - One `check` after each major idea. Aim for 2 per teaching section: one direct ("can you do the basic move?") and one exam-style. A nested `check` inside an `example` ("Now you try") counts.
 - **Multiple choice** (`options`): 3–4 options, exactly one `correct: true`. Distractors are the answers real mistakes produce (sign slip, forgotten factor, wrong rule), never silly ones. The SymPy gate checks every distractor too: each must be readable and genuinely wrong, so never offer two equivalent forms of the right answer (e.g. $\ln|2x| + C$ beside $\ln|x| + C$). Option text is plain text and `$maths$` only: no glossary terms and no lesson links (options render inside buttons).
-- **Numeric** (`answer: { value, tolerance }`): for answers a student types. Set `tolerance` to half a unit in the last place of the required answer: 0.0005 for a 3 s.f. value like 0.342, 0 for an integer. The gate rejects anything looser.
+- **Numeric** (`answer: { value, tolerance }`): for answers a student types. The value is the truth rounded to the required precision (3 s.f. unless the prompt says otherwise), and `tolerance` is at most half a unit in that required place: 0.0005 for 0.342, 0 for an exact integer. The sidecar declares the required precision and the gate rejects a looser tolerance, so 0.34 ± 0.005 can't stand in for a 3 s.f. answer.
 - A check has `options` or `answer`, never both.
 - `hint` is required. It nudges without giving the answer away ("Write it as $\ln x \cdot 1$.").
 - `explain` shows the working in 1–3 sentences, so a student who got it wrong learns why.
@@ -182,7 +184,9 @@ Read the component in `src/components/course-notes/interactives/` before you des
 ## 9. Glossary
 
 - Underline a glossary term with `[[term-id|shown text]]` on its **first use in each section**, and in the summary or a goal if it appears there. Don't underline it again in the same section.
-- Every `[[id|…]]` needs an entry in `src/content/notes/ib-math-aa/glossary.json`: `{ "id", "term", "definition", "lesson" }`. `lesson` is the item code of the lesson that **teaches** the term, which may not be the lesson you are writing.
+- The glossary is one file per lesson: `src/content/notes/ib-math-aa/glossary/<item-dashed>.json`, a JSON array of `{ "id", "term", "definition", "lesson" }`. The build merges every file into the course glossary.
+- Every `[[id|…]]` needs an entry in some glossary file. Search `glossary/*.json` for the id first and reuse it. A new term goes in **your own lesson's** file only. `lesson` is the item code of the lesson that **teaches** the term, which may not be the lesson you are writing.
+- The same id may appear in two files only if the entries are identical; differing entries fail the build. Never edit another lesson's glossary file.
 - Reuse an existing id when one fits. Add a new term only for a real piece of vocabulary a student might not know (domain, asymptote, discriminant, injective, radian, scalar product). Don't add everyday words.
 - The shown label in `[[id|label]]` is plain words: no maths, no backslashes.
 - `id` is lowercase kebab-case (`[a-z0-9-]+`). `definition` is one sentence, may use `$…$`, and must not use `[[…]]` or `{{…}}`.
@@ -252,7 +256,7 @@ Match length to the item's size (bullet count in `items.json`) and difficulty:
 - Use a figure when a picture makes the idea clear and nothing needs to move: a labelled triangle, a tree diagram, a sketched graph with its key features.
 - Save it as `src/content/notes/ib-math-aa/figures/<id>.svg` and use the same `id` in the block. Prefix ids with the item: `3-2-sine-rule-triangle`.
 - Hand-write clean SVG: a `viewBox`, no fixed `width`/`height`, `currentColor` for lines and text, and the theme variables (`var(--t1-ink)` … `var(--t5-ink)`, `var(--muted)`) for colour, so it works in dark mode. No `<script>`, no `on…=` handlers, no `javascript:` URLs, no `<foreignObject>`: a test rejects them.
-- After adding a figure, rerun `node scripts/notes/build-content-index.mjs`, which inlines the SVG.
+- Figure files are per lesson, so name them `<item-dashed>-<what>.svg`. `validate-lesson.mjs` checks the file exists and is safe; the batch step regenerates the index that inlines it.
 - `alt` is the full description a blind student needs, in plain words with no `$` ("Right-angled triangle with hypotenuse 10 and angle 30 degrees at A"). `caption` is optional and may use inline markup.
 
 ## 17. Calculator steps
@@ -263,7 +267,7 @@ IB allows non-CAS graphic display calculators. Give steps for all three models i
 - `nspire`: TI-Nspire CX (non-CAS)
 - `casio`: Casio fx-CG50
 
-Write each step as a short instruction with key names in capitals or as on-screen menu names, separated by commas: "2nd, TRACE (CALC), 5: intersect". Use the example's actual numbers. Inline `$…$` renders here but isn't validated, so keep maths out of calculator steps (write `X*sqrt(X+1)`, as typed). End with what to read off the screen. Steps are parsed as inline text and validated, so keep maths out (write `X*sqrt(X+1)`, as typed) and write a literal dollar sign as `\$`.
+Write each step as a short instruction with key names in capitals or as on-screen menu names, separated by commas: "2nd, TRACE (CALC), 5: intersect". Use the example's actual numbers. End with what to read off the screen. Steps are parsed as inline text and validated, so keep maths out (write `X*sqrt(X+1)`, as typed) and write a literal dollar sign as `\$`.
 
 **Use only the paths in this table.** Any other keystroke path must end with "(check on your model)"; a verifier treats an unmarked path that is not in this table as a critical finding. Menu numbering can differ by OS version.
 

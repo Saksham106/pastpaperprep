@@ -13,7 +13,7 @@ Read `docs/course-notes/aa-style-guide.md` in full before you start. It is the s
 | Format | `src/lib/course-notes/types.ts`, `src/lib/course-notes/inline.ts` |
 | Rules the validator enforces | `src/lib/course-notes/validate.ts` |
 | Bullets and booklet ids | `src/data/aa-official-subtopics/items.json` |
-| Glossary | `src/content/notes/ib-math-aa/glossary.json` |
+| Glossary | `src/content/notes/ib-math-aa/glossary/*.json` (one file per lesson) |
 | Format example (format only; its content will be rewritten) | `src/content/notes/ib-math-aa/lessons/5-16.json` and `scripts/notes/sidecars/5-16.py` |
 | Approved look | `docs/superpowers/mockups/aa-notes/lesson-a.html` |
 | SymPy | the venv at `../research/aa-course-notes/.venv/bin/python` (or `$AA_NOTES_PYTHON`) |
@@ -22,13 +22,12 @@ Read `docs/course-notes/aa-style-guide.md` in full before you start. It is the s
 
 1. `src/content/notes/ib-math-aa/lessons/<item-dashed>.json`: the lesson.
 2. `scripts/notes/sidecars/<item-dashed>.py`: the SymPy assertions for every example and check.
-3. New glossary entries in `glossary.json`, if any.
-4. Figure SVGs in `src/content/notes/ib-math-aa/figures/`, if any.
-5. The regenerated `src/content/notes/ib-math-aa/index.ts`.
-6. Writer notes, only if you deviate from the style guide: `../research/aa-course-notes/writer-notes/<item-dashed>.md` (outside Git), one line per deviation with its reason (style guide §18). The verifier reads this file and nothing else you write.
-7. A short report (step 4).
+3. `src/content/notes/ib-math-aa/glossary/<item-dashed>.json`: new glossary terms, if any.
+4. Figure SVGs `src/content/notes/ib-math-aa/figures/<item-dashed>-<what>.svg`, if any.
+5. Writer notes, only if you deviate from the style guide: `../research/aa-course-notes/writer-notes/<item-dashed>.md` (outside Git), one line per deviation with its reason (style guide §18). The verifier reads this file and nothing else you write.
+6. A short report (step 4).
 
-Touch nothing else. Never edit `validate.ts`, `types.ts`, `check-math.py`, `mathparse.py`, `items.json`, another item's lesson or sidecar, `math-receipts.json`, `src/lib/bank-index-manifest.ts` or `public/bank-index/`. Never copy the pack, or any text from it, into the repo. Don't commit: the batch commits.
+Up to about five writers work in this one worktree at the same time, so **create only these files, all named by your item**, and touch nothing shared. Never run `build-content-index.mjs`, `write-receipts.mjs`, vitest or any git command: the batch step does those once for everyone. Never edit `index.ts`, another lesson's glossary file, `validate.ts`, `types.ts`, `check-math.py`, `mathparse.py`, `items.json`, another item's lesson or sidecar, `math-receipts.json`, `src/lib/bank-index-manifest.ts` or `public/bank-index/`. Never copy the pack, or any text from it, into the repo. Don't commit: the batch commits.
 
 ## Step 1. Read the pack
 
@@ -57,7 +56,7 @@ Follow the style guide. Hard requirements the validator enforces (each failure n
 - Check option text holds only plain text and `$maths$`: no `[[term]]`, no `{{lesson:…}}`.
 - A `booklet` formula has a `bookletId` owned by this item or by one of its `prerequisites`. A `learn` formula has no `bookletId`.
 - `interactive.widget` is one of the 20 ids, and its `props` use only the keys and values in the style guide's §8 table. `interactive.alt` and `figure.alt` are plain words with no `$`.
-- Every `[[term-id|label]]` is in `glossary.json`, and its label is plain words (no maths). Every `{{lesson:x.y}}` is a real item. An SL lesson links to an AHL lesson only inside an `hlNote`.
+- Every `[[term-id|label]]` is in a glossary file, and its label is plain words (no maths). Every `{{lesson:x.y}}` is a real item. An SL lesson links to an AHL lesson only inside an `hlNote`.
 - An `hlNote.lesson` is a real item code.
 - Every `$…$` and every formula `tex` renders in KaTeX. In JSON, every backslash is doubled: `"$\\frac{1}{2}$"`. This includes `definition.term`, `figure.caption` and calculator steps, which are parsed as inline text too: a literal dollar sign there is `\\$` in JSON.
 - `example` blocks carry `"video": null`.
@@ -66,12 +65,10 @@ Keep `definition.term` plain words, and keep maths out of calculator steps (writ
 
 ### Glossary entries
 
-Other writers edit `glossary.json` at the same time. So:
-
-- Re-read the file right before you edit it, and reuse an existing id where one fits.
-- Add your entries with a small targeted insertion (one Edit per entry, before the closing `]`). Never rewrite the whole file, reorder it, or change or delete anyone else's entry.
-- `lesson` is the item that teaches the term. If that lesson is in another topic and not written yet, still point at it.
-- Keep the file valid JSON.
+- Before adding a term, search `src/content/notes/ib-math-aa/glossary/*.json` for its id (and for the word). If it exists, use that id as it is.
+- Put new terms only in your own file, `glossary/<item-dashed>.json`: a JSON array of `{ "id", "term", "definition", "lesson" }`. Create the file if you have new terms; leave it out if you don't.
+- `lesson` is the item that teaches the term. If that lesson isn't written yet, still point at it.
+- If two writers add the same id at once, the build fails unless the entries are identical. The batch step resolves any conflict; don't edit other files to fix it.
 
 ### The sidecar
 
@@ -96,8 +93,9 @@ Use the helpers in `scripts/notes/mathparse.py`. They raise `ValueError` for tex
 
 | Answer form | Helper |
 |---|---|
-| One exact value or expression | `parse_answer(tex)` then compare with `simplify(a - b) == 0`. Lone letters before brackets are products (`x(2x+1)`, `\frac{n(n+1)}{2}`); pass `functions=("f",)` if `f(x)` really is a function. `\pi`, `\mathrm{e}`, `\mathrm{i}`, `\lvert\,\rvert` and `r\,\mathrm{cis}\,\theta` are understood. |
+| One exact value or expression | `parse_answer(tex)` then compare with `simplify(a - b) == 0`. A bare `\log` with no base is refused. Lone letters before brackets are products (`x(2x+1)`, `\frac{n(n+1)}{2}`); pass `functions=("f",)` if `f(x)` really is a function. `\pi`, `\mathrm{e}`, `\mathrm{i}`, `\lvert\,\rvert` and `r\,\mathrm{cis}\,\theta` are understood. |
 | An antiderivative (`… + C`, including `\ln\lvert x\rvert`) | `check_antiderivative(tex, integrand, var="x")` |
+| A numeric check's value | `check_numeric(value, truth, sf=3, tolerance=tolerance)` (or `dp=`), plus a `NUMERIC` entry |
 | A rounded value (`\approx`) | `check_rounded(tex, truth, sf=3)` or `dp=2`; `unit="°"` or `unit="cm^2"` when the answer carries a unit. Requires exactly that precision and the ROUND_HALF_UP value of the truth; a rounded value written with `=` fails. |
 | Several rounded values | `check_rounded_list(tex, [truth1, truth2], sf=3)` |
 | Several exact values of one unknown (`\text{ or }`, `\pm`, commas) | `parse_list(tex)`, compared sorted with the true list |
@@ -114,7 +112,8 @@ Template:
 """SymPy assertions for lesson <item> (<title>). Not shipped to the browser.
 
 check-math.py passes verify(id, value) the lesson's own published text: an example's `answer`, a check's correct
-option (must pass) and each distractor (must raise AssertionError), or a float for a numeric check.
+option (must pass) and each distractor (must raise AssertionError). A numeric check gets verify(id, value, tolerance=...)
+and must declare its required precision in NUMERIC.
 """
 import sys
 from pathlib import Path
@@ -122,7 +121,7 @@ from pathlib import Path
 from sympy import Rational, diff, integrate, simplify, solve, symbols  # whatever you need
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from mathparse import check_antiderivative, check_rounded, parse_answer, parse_list  # noqa: E402
+from mathparse import check_antiderivative, check_numeric, check_rounded, parse_answer, parse_list  # noqa: E402
 
 x = symbols("x")
 
@@ -131,12 +130,6 @@ def same(tex, truth):
     published = parse_answer(tex)
     if simplify(published - truth) != 0:
         raise AssertionError(f"published {published} is not {truth}")
-
-
-def near(value, truth, tol):
-    """A numeric check's value must be within the tolerance a correct answer needs."""
-    if abs(float(value) - float(truth)) > tol:
-        raise AssertionError(f"published {value} is not within {tol} of {float(truth)}")
 
 
 def roots_are(tex, equation):
@@ -151,37 +144,40 @@ CHECKS = {
     "ex-quadratic-roots": lambda tex: roots_are(tex, 2 * x**2 - 3 * x - 2),
     "ex-area-p2": lambda tex: check_rounded(tex, integrate(x * (4 - x), (x, 0, 4))),
     "check-integrate-recip": lambda tex: check_antiderivative(tex, 1 / x),
-    "check-gradient": lambda v: near(v, diff(x**3, x).subs(x, 2), 0),
+    # Numeric checks take (value, tolerance): the value must be the truth rounded to the required precision.
+    "check-gradient": lambda v, tolerance: check_numeric(v, diff(x**3, x).subs(x, 2), sf=3, tolerance=tolerance),
+    "check-area-numeric": lambda v, tolerance: check_numeric(v, integrate(x * (4 - x), (x, 0, 4)), sf=3, tolerance=tolerance),
 }
 
+# Required precision of every numeric check ({"sf": 3} or {"dp": 2}); the gate holds `tolerance` to half a unit there.
+NUMERIC = {"check-gradient": {"sf": 3}, "check-area-numeric": {"sf": 3}}
 
-def verify(id, value):
+
+def verify(id, value, tolerance=None):
     if id not in CHECKS:
         raise KeyError(f"no assertion for {id}")
-    CHECKS[id](value)
+    CHECKS[id](value) if tolerance is None else CHECKS[id](value, tolerance)
 ```
 
-Numeric checks receive a float, not TeX: assert them with `near`, using the same tolerance as the lesson. `check-math.py` proves the final answers and the distractors. Steps, hints, explanations and calculator keystrokes are checked by you now and by the verifier later, so check them carefully.
+Numeric checks receive a float and the lesson's tolerance, not TeX: assert them with `check_numeric` and list each in `NUMERIC`. `check-math.py` proves the final answers and the distractors. Steps, hints, explanations and calculator keystrokes are checked by you now and by the verifier later, so check them carefully.
 
-## Step 3. Run the checks and fix until all pass
+## Step 3. Check and fix until it passes
 
-Run from the repository root (your worktree):
+Run one command from the repository root (your worktree), as often as you like:
 
 ```bash
-node scripts/notes/build-content-index.mjs
-npx vitest run src/lib/course-notes
-../research/aa-course-notes/.venv/bin/python scripts/notes/check-math.py <item>   # or $AA_NOTES_PYTHON
-node scripts/notes/originality.mjs src/content/notes/ib-math-aa/lessons/<item-dashed>.json ../research/aa-course-notes/packs/<item-dashed>.json
+node scripts/notes/validate-lesson.mjs <item>
 ```
 
-(Use `../../../research/…` for the venv and the pack when you are in a `.worktrees/` worktree.)
+It reads your files directly (no index needed) and runs, for your lesson only:
 
-- **Index.** Rerun `build-content-index.mjs` after adding or renaming a lesson or figure.
-- **Validator.** In `content.test.ts`, "every lesson file passes validateLesson" prints every failing lesson keyed by item. Fix every error under your item. Other writers' items may show errors while they work; leave them alone. The test "lesson without a passing receipt…" fails for your item until the batch writes receipts: that one is expected. Every other test must pass.
-- **SymPy.** Every line must be `PASS`. A `FAIL` means the published answer is wrong, a distractor is accepted or unreadable, a numeric tolerance is too loose, the TeX can't be parsed, an id has no assertion, or the sidecar has a stale id. Fix the lesson if the answer is wrong. Fix the sidecar if it is checking the wrong thing. Never weaken an assertion to get a pass. Don't run `write-receipts.mjs`: the batch does that.
-- **Originality.** Exit 0 means no 8-word run is shared with the pack. Each `HIT` names the path and the shared words: rewrite that sentence in your own words. Don't fix it by inserting maths or swapping single words to break the run. Standard IB wording ("find the equation of the tangent to the curve at the point", "give your answer correct to three significant figures") is allowed and not flagged.
+- **validator**: every `validateLesson` rule with all glossary files merged, plus the per-lesson content checks (file name, figure files and their safety, slug clash, prerequisite cycle). Each error names the path.
+- **check-math**: your sidecar against the published answers. A `FAIL` means a published answer is wrong, a distractor is accepted or unreadable, a numeric tolerance is too loose or its precision isn't declared, TeX can't be parsed, an id has no assertion, or the sidecar has a stale id. Fix the lesson if the answer is wrong; fix the sidecar if it checks the wrong thing. Never weaken an assertion to get a pass.
+- **originality**: no 8-word run shared with your pack. Each hit names the path and the shared words: rewrite that sentence in your own words. Don't break a run by inserting maths or swapping single words. Standard IB wording ("find the equation of the tangent to the curve at the point", "give your answer correct to three significant figures") is allowed.
 
-Repeat until all four pass. Then read the lesson once more, top to bottom, as the student: is every step explained, every symbol defined, every bullet taught?
+It ends `PASS <item>` (exit 0) or `FAIL <item>` (exit 1). Repeat until it passes. Then read the lesson once more, top to bottom, as the student: is every step explained, every symbol defined, every bullet taught?
+
+Don't run `build-content-index.mjs`, `write-receipts.mjs`, vitest or git. Other writers share this worktree; the batch step runs those once, after every writer has finished.
 
 ## Step 4. Report
 
@@ -192,7 +188,7 @@ ITEM: <item> <title>
 STATUS: done | blocked
 FILES: <paths written or changed>
 GLOSSARY: <new term ids, or none>
-CHECKS: validator <pass/fail>, check-math <n PASS / n FAIL>, originality <pass/fail>
+CHECKS: validate-lesson.mjs <PASS/FAIL> (validator, check-math, originality)
 COVERAGE: <bullet id> -> <section ids>, one line per bullet
 PREREQUISITES: <list>; changes from the pack's suggestion and why
 DEVIATIONS: <none, or "see writer notes" with a one-line summary>

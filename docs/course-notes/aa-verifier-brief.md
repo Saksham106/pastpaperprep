@@ -17,7 +17,7 @@ The one exception is the writer notes file, `../research/aa-course-notes/writer-
 | Source pack (private) | `../research/aa-course-notes/packs/<item-dashed>.json` (`../../../research/…` from a `.worktrees/` worktree) |
 | The standard | `docs/course-notes/aa-style-guide.md` |
 | Format and rules | `src/lib/course-notes/types.ts`, `validate.ts`, `inline.ts`; `scripts/notes/mathparse.py`, `check-math.py` |
-| Glossary | `src/content/notes/ib-math-aa/glossary.json` (the entries the lesson uses) |
+| Glossary | `src/content/notes/ib-math-aa/glossary/*.json` (the entries the lesson uses) |
 | Figures | `src/content/notes/ib-math-aa/figures/<id>.svg` for any figure blocks |
 | Writer notes (deviations only) | `../research/aa-course-notes/writer-notes/<item-dashed>.md`, if present |
 | SymPy | `../research/aa-course-notes/.venv/bin/python` (or `$AA_NOTES_PYTHON`) |
@@ -75,7 +75,7 @@ Read the sidecar line by line:
 - Rounded answers use `check_rounded` (exact precision, ROUND_HALF_UP); equations use `check_same_equation`; numeric checks use a tolerance of at most half a unit in the last place.
 - Each multiple-choice distractor is rejected with an `AssertionError` (the gate prints `distractor k rejected`), so no option is an equivalent form of the right answer.
 
-Then run `…/.venv/bin/python scripts/notes/check-math.py <item>`. Every line must be `PASS`. To be sure an assertion bites, run one with a deliberately wrong answer: `check-math.py --verify <item> <id> '<wrong tex>'` must print `FAIL`.
+Then run `node scripts/notes/validate-lesson.mjs <item>` (validator, check-math and originality for this lesson). Every check must be `PASS`. To be sure an assertion bites, run one example or multiple-choice id with a deliberately wrong answer: `…/.venv/bin/python scripts/notes/check-math.py --verify <item> <id> '<wrong tex>'` must print `FAIL`.
 
 ### 7. Calculator steps are plausible
 
@@ -85,9 +85,9 @@ Then run `…/.venv/bin/python scripts/notes/check-math.py <item>`. Every line m
 
 ### 8. Originality and format
 
-- Run `node scripts/notes/originality.mjs <lesson> <pack>`. Any hit is critical (copied text).
+- An originality hit in `validate-lesson.mjs` is critical (copied text).
 - Compare every example and check with the pack's questions. **Reusing a pack question's set-up or numbers, even in new words, is critical**: the examples must be our own.
-- Run `npx vitest run src/lib/course-notes`. Any validator error under this item is critical. (A missing maths receipt for this item is expected before the batch writes receipts.)
+- Any validator error in `validate-lesson.mjs` is critical. Don't run vitest, `build-content-index.mjs`, `write-receipts.mjs` or git: other agents share the worktree.
 
 ## Severity
 
@@ -108,7 +108,7 @@ FINDINGS:
 1. [critical|minor] <json path or "sidecar:<id>"> — <what is wrong, with the correct value or statement> — <the fix>
 2. …
 COVERAGE: <bullet id> -> <section ids that teach it>, one line per bullet
-CHECKS: validator <pass/fail>, check-math <n PASS / n FAIL>, wrong-answer probe <FAIL as expected / passed wrongly>, originality <pass/fail>
+CHECKS: validate-lesson.mjs <PASS/FAIL>, wrong-answer probe <FAIL as expected / passed wrongly>
 ```
 
 For `pass`, write `FINDINGS: none`. Give the correct maths in each finding, so the fixer doesn't have to re-derive it.
