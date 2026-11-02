@@ -39,6 +39,7 @@ declare const data: {
     secondaryTopics: Array<string>;
     groupIds: Array<string>;
     subtopics: Array<string>;
+    officialItems?: Array<string>;
     status: string;
     blockedReason: string | null;
     provenance: {
@@ -355,7 +356,6 @@ declare const data: {
         reviewAddition?: string;
       };
     };
-    officialItems?: Array<string>;
     sourceReassessment?: string;
     sourceCropSha256?: string;
   }>;
