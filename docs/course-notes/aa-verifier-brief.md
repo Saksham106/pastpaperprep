@@ -71,7 +71,7 @@ Read the sidecar line by line:
 - There is an assertion for every example and check id.
 - The sidecar defines `CHECKS`, with no stale ids. Each assertion parses the `value` it is given (the published answer) and compares it with a truth computed **independently** by SymPy from the question's data. The truth is not the writer's own answer typed back in.
 - The assertion checks the right question: the integrand, equation, distribution and parameters in the sidecar match the lesson's question text exactly.
-- Nothing passes unconditionally: no `return True`, no swallowed exceptions, no comparing a value with itself, no unused `value`.
+- Nothing passes unconditionally: no `return True`, no swallowed exceptions, no comparing a value with itself, no unused `value`. A property check (rather than an equality with a computed truth) must reject degenerate answers too: probe it with `0`.
 - Rounded answers use `check_rounded` (exact precision, ROUND_HALF_UP); equations use `check_same_equation`; numeric checks use a tolerance of at most half a unit at the required precision. Each `NUMERIC` declaration (and the `sf=`/`dp=` passed to `check_numeric` or `check_rounded`) is 3 s.f., or exactly the precision the question's own text states; any other precision is critical. Truths are exact SymPy values, not float literals.
 - Each multiple-choice distractor is rejected with an `AssertionError` (the gate prints `distractor k rejected`), so no option is an equivalent form of the right answer.
 

@@ -189,7 +189,9 @@ def _integrating_factor(tex, P):
     e^{int P}. Compare with the exact e^{int P dx}."""
     published = parse_answer(tex)
     truth = exp(integrate(P, x))
-    if simplify(published / truth).free_symbols or simplify(diff(published, x) - P * published) != 0:
+    ratio = simplify(published / truth)
+    # I = 0 satisfies I' = P I, but multiplying by zero destroys the equation: the factor must be a nonzero multiple.
+    if ratio == 0 or ratio.free_symbols or simplify(diff(published, x) - P * published) != 0:
         raise AssertionError(f"{published} is not an integrating factor for P = {P}")
 
 

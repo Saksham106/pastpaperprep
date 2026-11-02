@@ -45,6 +45,12 @@ describe.skipIf(!python)("check-math.py verifies the published answer text", () 
     expect(restated.stdout).toMatch(/^FAIL ex-parts-xe2x \(.*not evaluated/);
   });
 
+  it("rejects a zero integrating factor in the live 5.18 lesson (a property check must exclude degenerate answers)", () => {
+    const run = spawnSync(python!, [script, "--verify", "5.18", "check-if-factor", "0"], { encoding: "utf8" });
+    expect(run.status).toBe(1);
+    expect(run.stdout).toMatch(/^FAIL check-if-factor/);
+  });
+
   it("fails, never skips, text that cannot be parsed or an id with no assertion", () => {
     const garbage = verify("ex-subst-definite", String.raw`= \frac{`);
     expect(garbage.status).toBe(1);

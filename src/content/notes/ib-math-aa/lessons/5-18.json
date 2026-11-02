@@ -697,7 +697,7 @@
         },
         {
           "type": "text",
-          "text": "Too big or too small? On a [[concave-up|concave-up]] curve every tangent lies below the curve, so Euler's method underestimates. On a [[concave-down|concave-down]] curve it overestimates (see {{lesson:5.8}})."
+          "text": "Too big or too small? Each step follows a tangent. From a point on a [[concave-up|concave-up]] curve the tangent lies below the curve, so that step underestimates; on a [[concave-down|concave-down]] curve it overestimates (see {{lesson:5.8}}). With small steps the estimate stays on the same side, and that is the reason exam questions expect. With a large step it can fail: for $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = -10y$, $y(0) = 1$ and $h = 0.2$, Euler gives $-1$ and then $1$, either side of the true curve."
         },
         {
           "type": "text",
@@ -799,7 +799,7 @@
         },
         {
           "type": "fact",
-          "text": "Euler: $y_{n+1} = y_{n} + h \\times f(x_{n}, y_{n})$. A concave-up curve gives an underestimate. A concave-down curve gives an overestimate.",
+          "text": "Euler: $y_{n+1} = y_{n} + h \\times f(x_{n}, y_{n})$. With small steps, a concave-up curve gives an underestimate and a concave-down curve an overestimate.",
           "tag": "booklet",
           "cheatSheet": true
         }
