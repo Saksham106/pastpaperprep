@@ -68,7 +68,7 @@ Keep `definition.term` plain words, and keep maths out of calculator steps (writ
 - Before adding a term, search `src/content/notes/ib-math-aa/glossary/*.json` for its id (and for the word). If it exists, use that id as it is.
 - Put new terms only in your own file, `glossary/<item-dashed>.json`: a JSON array of `{ "id", "term", "definition", "lesson" }`. Create the file if you have new terms; leave it out if you don't.
 - `lesson` is the item that teaches the term. If that lesson isn't written yet, still point at it.
-- If two writers add the same id at once, the build fails unless the entries are identical. The batch step resolves any conflict; don't edit other files to fix it.
+- If two writers add the same id at once, the build fails unless the entries are identical. The batch step resolves any conflict; don't edit other files to fix it. If `validate-lesson.mjs` fails only because of another lesson's glossary file, say so in your writer notes and carry on.
 
 ### The sidecar
 
@@ -76,7 +76,7 @@ Keep `definition.term` plain words, and keep maths out of calculator steps (writ
 
 - for an `example`: the TeX string in `answer`, which must pass;
 - for a multiple-choice check: the correct option's TeX, which must pass, **and every distractor**, each of which must make `verify` raise `AssertionError` (wrong). A distractor that passes (for example an equivalent form of the right answer) or can't be read fails the gate;
-- for a numeric check: `float(answer.value)`, which must pass. The gate also requires `tolerance` to be at most half a unit in the value's last decimal place (0.0005 for 0.342).
+- for a numeric check: `float(answer.value)`, which must pass. Declare its precision in `NUMERIC = {id: {"sf": 3}}` (or `{"dp": 2}`): 3 s.f. unless the question itself states another precision. The gate requires `tolerance` to be at most half a unit at that precision (0.0005 for 0.342 at 3 s.f.).
 
 The sidecar defines `CHECKS = {id: assertion}` and `verify`. `verify` raises `KeyError` for an id it doesn't know. Every example and check id needs an entry, and every entry needs a matching id in the lesson: a stale id fails.
 
@@ -88,6 +88,7 @@ The rules:
 4. **Wrong must raise `AssertionError`.** Let a parse failure raise `ValueError`; a mismatch raises `AssertionError`. That is how the gate tells "wrong distractor" from "unreadable distractor".
 5. **Word answers** (an option like "increasing" or "two distinct real roots") map to a truth you compute: compute the discriminant's sign and check the option names that case; any other option raises `AssertionError`.
 6. Import only SymPy, the standard library and `mathparse`.
+7. **Exact truths.** Build truths from exact SymPy values (`Rational(2675, 1000)`, `S("2.675")`, `sqrt(2)`), never float literals: `2.675` as a float rounds the wrong way at a half.
 
 Use the helpers in `scripts/notes/mathparse.py`. They raise `ValueError` for text they can't read and `AssertionError` for a wrong answer. Pick the one that matches the answer's form:
 

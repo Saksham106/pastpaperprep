@@ -68,6 +68,7 @@ const record = (name, errors) => results.push({ name, errors });
     for (const term of glossary) if (!lessonItems.has(term.lesson)) errors.push(`glossary term ${term.id} points at unknown lesson ${term.lesson}`);
     const figures = lesson.sections.flatMap((section) => section.blocks.filter((block) => block.type === "figure"));
     for (const figure of figures) {
+      if (!figure.id.startsWith(`${dashed}-`)) errors.push(`figure ${figure.id} must be named ${dashed}-<what>`);
       const svg = join(courseRoot, "figures", `${figure.id}.svg`);
       if (!existsSync(svg)) errors.push(`figure ${figure.id} has no file figures/${figure.id}.svg`);
       else if (UNSAFE_SVG.test(readFileSync(svg, "utf8"))) errors.push(`figures/${figure.id}.svg contains script, an event handler, javascript: or foreignObject`);
@@ -99,7 +100,8 @@ const record = (name, errors) => results.push({ name, errors });
   else {
     const run = spawnSync(python, [join(repoRoot, "scripts/notes/check-math.py"), item], { encoding: "utf8", env: process.env });
     const lines = `${run.stdout}${run.stderr}`.split("\n").filter((line) => line.trim());
-    record("check-math", run.status === 0 ? [] : lines.filter((line) => !line.startsWith("PASS")).concat(lines.length ? [] : ["check-math.py printed nothing"]));
+    const passed = lines.some((line) => line.startsWith("PASS"));
+    record("check-math", run.status === 0 && passed ? [] : lines.filter((line) => !line.startsWith("PASS")).concat(passed ? [] : ["check-math.py printed no PASS line"]));
   }
 }
 
