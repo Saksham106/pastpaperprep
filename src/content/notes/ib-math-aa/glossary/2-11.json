@@ -1,0 +1,38 @@
+[
+  {
+    "id": "transformation",
+    "term": "transformation",
+    "definition": "A rule that changes a graph by translating, reflecting or stretching it; the result is called the image.",
+    "lesson": "2.11"
+  },
+  {
+    "id": "translation",
+    "term": "translation",
+    "definition": "A transformation that slides every point of a graph the same distance in the same direction, without turning or resizing it.",
+    "lesson": "2.11"
+  },
+  {
+    "id": "reflection",
+    "term": "reflection",
+    "definition": "A transformation that flips a graph over a mirror line, such as the $x$-axis or the $y$-axis.",
+    "lesson": "2.11"
+  },
+  {
+    "id": "vertical-stretch",
+    "term": "vertical stretch",
+    "definition": "The transformation $y = pf(x)$, which multiplies every $y$-coordinate by the scale factor $p$ and keeps every $x$-coordinate.",
+    "lesson": "2.11"
+  },
+  {
+    "id": "horizontal-stretch",
+    "term": "horizontal stretch",
+    "definition": "The transformation $y = f(qx)$, which multiplies every $x$-coordinate by the scale factor $\\frac{1}{q}$ and keeps every $y$-coordinate.",
+    "lesson": "2.11"
+  },
+  {
+    "id": "invariant-point",
+    "term": "invariant point",
+    "definition": "A point that a transformation leaves where it is, such as a point on the mirror line of a reflection.",
+    "lesson": "2.11"
+  }
+]

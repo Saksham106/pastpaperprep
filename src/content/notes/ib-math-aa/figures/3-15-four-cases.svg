@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 370" role="img" aria-labelledby="t">
+  <title id="t">The four ways two lines can sit: coincident, parallel, intersecting and skew</title>
+  <g stroke="var(--muted)" stroke-width="1" opacity="0.5">
+    <line x1="240" y1="10" x2="240" y2="360"/>
+    <line x1="10" y1="185" x2="470" y2="185"/>
+  </g>
+  <g font-size="15" font-weight="700" font-family="inherit" fill="currentColor">
+    <text x="20" y="28">Coincident</text>
+    <text x="260" y="28">Parallel</text>
+    <text x="20" y="208">Intersecting</text>
+    <text x="260" y="208">Skew</text>
+  </g>
+  <!-- coincident: one line drawn twice -->
+  <line x1="30" y1="160" x2="215" y2="55" stroke="var(--t1-ink)" stroke-width="6" stroke-linecap="round" opacity="0.55"/>
+  <line x1="30" y1="160" x2="215" y2="55" stroke="var(--t3-ink)" stroke-width="2.5" stroke-dasharray="8 6"/>
+  <!-- parallel -->
+  <line x1="260" y1="160" x2="455" y2="80" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="260" y1="115" x2="455" y2="35" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <!-- intersecting -->
+  <line x1="30" y1="340" x2="215" y2="225" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="30" y1="235" x2="215" y2="340" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <circle cx="118.3" cy="285.1" r="5" fill="currentColor"/>
+  <!-- skew: a box with two edges extended -->
+  <g stroke="var(--muted)" stroke-width="1.3" fill="none">
+    <rect x="290" y="265" width="120" height="65"/>
+    <line x1="290" y1="265" x2="330" y2="232"/>
+    <line x1="410" y1="265" x2="450" y2="232"/>
+    <line x1="410" y1="330" x2="450" y2="297"/>
+    <line x1="330" y1="232" x2="450" y2="232"/>
+    <line x1="450" y1="232" x2="450" y2="297"/>
+    <line x1="330" y1="232" x2="330" y2="297" stroke-dasharray="4 4"/>
+    <line x1="330" y1="297" x2="450" y2="297" stroke-dasharray="4 4"/>
+  </g>
+  <line x1="268" y1="265" x2="432" y2="265" stroke="var(--t1-ink)" stroke-width="3"/>
+  <line x1="268" y1="348" x2="352" y2="279" stroke="var(--t3-ink)" stroke-width="3"/>
+  <g font-size="14" font-family="inherit">
+    <text x="190" y="50" fill="var(--t1-ink)">L₁</text>
+    <text x="205" y="80" fill="var(--t3-ink)">L₂</text>
+    <text x="440" y="100" fill="var(--t1-ink)">L₁</text>
+    <text x="440" y="56" fill="var(--t3-ink)">L₂</text>
+    <text x="190" y="222" fill="var(--t1-ink)">L₁</text>
+    <text x="190" y="348" fill="var(--t3-ink)">L₂</text>
+    <text x="410" y="258" fill="var(--t1-ink)">L₁</text>
+    <text x="350" y="272" fill="var(--t3-ink)">L₂</text>
+  </g>
+</svg>

@@ -1,0 +1,810 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.12",
+  "slug": "vectors-in-2d-and-3d",
+  "title": "Vectors in 2D and 3D",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "A [[vector|vector]] has a size and a direction, so it can describe a movement such as “4 across and 3 up”. You write vectors with components or with $\\boldsymbol{i}$, $\\boldsymbol{j}$ and $\\boldsymbol{k}$, then add, subtract and scale them. Their lengths give distances in 3D, and their algebra proves facts about shapes.",
+  "goals": [
+    {
+      "text": "Draw a [[vector|vector]] as an arrow, and tell a [[position-vector|position vector]] from a [[displacement-vector|displacement vector]].",
+      "bullets": [
+        "3.12-b1"
+      ]
+    },
+    {
+      "text": "Write vectors as column vectors or with the [[base-vectors|base vectors]] $\\boldsymbol{i}$, $\\boldsymbol{j}$, $\\boldsymbol{k}$.",
+      "bullets": [
+        "3.12-b2"
+      ]
+    },
+    {
+      "text": "Add, subtract and scale vectors, using the [[zero-vector|zero vector]] $\\boldsymbol{0}$ and $-\\boldsymbol{v}$.",
+      "bullets": [
+        "3.12-b3",
+        "3.12-b4"
+      ]
+    },
+    {
+      "text": "Spot [[parallel-vectors|parallel vectors]] and [[collinear|collinear]] points.",
+      "bullets": [
+        "3.12-b4"
+      ]
+    },
+    {
+      "text": "Find a [[vector-magnitude|magnitude]], a [[unit-vector|unit vector]], $\\overrightarrow{AB} = \\boldsymbol{b} - \\boldsymbol{a}$ and the distance $AB$.",
+      "bullets": [
+        "3.12-b5",
+        "3.12-b6"
+      ]
+    },
+    {
+      "text": "Prove geometric facts with vectors.",
+      "bullets": [
+        "3.12-b7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "vectors in 3d",
+    "position vector",
+    "magnitude of a vector",
+    "unit vector",
+    "parallel vectors",
+    "vector proof"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-distance-3d",
+      "prompt": "Find the distance between the points $(2, -1, 3)$ and $(-2, 1, 7)$.",
+      "hint": "Subtract matching coordinates, square, add, then take the square root.",
+      "options": [
+        {
+          "text": "$6$",
+          "correct": true
+        },
+        {
+          "text": "$10$",
+          "correct": false
+        },
+        {
+          "text": "$36$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\sqrt{(2 - (-2))^{2} + (-1 - 1)^{2} + (3 - 7)^{2}} = \\sqrt{16 + 4 + 16} = \\sqrt{36} = 6$. Revise it in {{lesson:3.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-midpoint-3d",
+      "prompt": "Find the midpoint of the points $(3, -5, 2)$ and $(-1, 1, 8)$.",
+      "hint": "Add matching coordinates, then halve each total.",
+      "options": [
+        {
+          "text": "$(1, -2, 5)$",
+          "correct": true
+        },
+        {
+          "text": "$(-2, 3, 3)$",
+          "correct": false
+        },
+        {
+          "text": "$(2, -4, 10)$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\left(\\frac{3 + (-1)}{2}, \\frac{-5 + 1}{2}, \\frac{2 + 8}{2}\\right) = (1, -2, 5)$. Revise it in {{lesson:3.1}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "vectors",
+      "heading": "Vectors as arrows",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A mass of 5 kg is only a size: a [[scalar|scalar]]. “Walk 300 m” is not enough to follow. “Walk 300 m north-east” is, because it adds a direction."
+        },
+        {
+          "type": "definition",
+          "term": "vector",
+          "statement": "A vector is a quantity with both a magnitude (its size) and a direction.",
+          "plain": "A vector tells you how far and which way."
+        },
+        {
+          "type": "text",
+          "text": "You draw a [[vector|vector]] as a directed line segment: an arrow. Its length is the magnitude and its arrowhead gives the direction."
+        },
+        {
+          "type": "text",
+          "text": "The arrow from A to B is written $\\overrightarrow{AB}$. A single vector is printed in bold, such as $\\boldsymbol{v}$. By hand, underline it: $\\underline{v}$."
+        },
+        {
+          "type": "figure",
+          "id": "3-12-grid-arrows",
+          "alt": "Square grid numbered 0 to 10 across and 0 to 6 up. Arrow P Q goes from (1, 2) to (5, 5). Arrow R S goes from (6, 0) to (10, 3), the same length and direction as P Q. Arrow T U goes from (9, 6) to (6, 2).",
+          "caption": "$\\overrightarrow{PQ}$ and $\\overrightarrow{RS}$ are equal vectors: both go 4 across and 3 up."
+        },
+        {
+          "type": "result",
+          "statement": "Two vectors are equal when they have the same magnitude and direction, wherever you draw them.",
+          "why": "A vector records the movement, not where it starts."
+        },
+        {
+          "type": "text",
+          "text": "Count the movement on the grid to get the components. $\\overrightarrow{PQ}$ goes 4 right and 3 up, so it is the column vector $\\begin{pmatrix}4\\\\3\\end{pmatrix}$. Moves left or down are negative."
+        },
+        {
+          "type": "example",
+          "id": "ex-grid-tu",
+          "question": "Use the grid in the figure to write $\\overrightarrow{TU}$ as a column vector.",
+          "steps": [
+            "The tail T is at $(9, 6)$ and the arrowhead U is at $(6, 2)$.",
+            "Across: 9 to 6 is 3 left, so the first component is $-3$.",
+            "Up: 6 to 2 is 4 down, so the second component is $-4$.",
+            "Check: 3 left and 4 down from $(9, 6)$ lands on $(6, 2)$, which is U."
+          ],
+          "answer": "$\\overrightarrow{TU} = \\begin{pmatrix}-3\\\\-4\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Now fix an origin O. The [[position-vector|position vector]] of a point A is $\\overrightarrow{OA}$, written $\\boldsymbol{a}$. Its components are the coordinates of A: if A is $(2, -1, 5)$, then $\\boldsymbol{a} = \\begin{pmatrix}2\\\\-1\\\\5\\end{pmatrix}$."
+        },
+        {
+          "type": "text",
+          "text": "A position vector always starts at O. A vector between two points, such as $\\overrightarrow{AB}$, is a [[displacement-vector|displacement vector]]: the move from A to B."
+        },
+        {
+          "type": "check",
+          "id": "check-position-vector",
+          "prompt": "The point E has coordinates $(-3, 0, 4)$. Write its position vector $\\boldsymbol{e}$ as a column vector.",
+          "hint": "$\\boldsymbol{e} = \\overrightarrow{OE}$ starts at O. Its components are the coordinates of E.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}-3\\\\0\\\\4\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}3\\\\0\\\\-4\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-3\\\\4\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "The components of $\\overrightarrow{OE}$ are the coordinates of E, including the 0. $\\begin{pmatrix}3\\\\0\\\\-4\\end{pmatrix}$ is $\\overrightarrow{EO}$, which points back to O."
+        },
+        {
+          "type": "text",
+          "text": "In 3D a vector has three components, along the $x$-, $y$- and $z$-axes. The [[base-vectors|base vectors]] are one-unit steps along each axis:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{i} = \\begin{pmatrix}1\\\\0\\\\0\\end{pmatrix}, \\quad \\boldsymbol{j} = \\begin{pmatrix}0\\\\1\\\\0\\end{pmatrix}, \\quad \\boldsymbol{k} = \\begin{pmatrix}0\\\\0\\\\1\\end{pmatrix}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Any vector is a sum of steps along the axes, so exam questions write it in either of two ways:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix} = v_{1}\\boldsymbol{i} + v_{2}\\boldsymbol{j} + v_{3}\\boldsymbol{k}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The numbers $v_{1}$, $v_{2}$ and $v_{3}$ are the components. A missing base vector means a zero component. In 2D there is no $\\boldsymbol{k}$: $\\begin{pmatrix}4\\\\3\\end{pmatrix} = 4\\boldsymbol{i} + 3\\boldsymbol{j}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-ijk-to-column",
+          "question": "The point D has position vector $\\boldsymbol{d} = 6\\boldsymbol{i} - \\boldsymbol{k}$. Write $\\boldsymbol{d}$ as a column vector, and write down the coordinates of D.",
+          "steps": [
+            "The $\\boldsymbol{i}$ term is $6\\boldsymbol{i}$, so the first component is 6.",
+            "There is no $\\boldsymbol{j}$ term, so the second component is 0.",
+            "$-\\boldsymbol{k}$ means $-1\\boldsymbol{k}$, so the third component is $-1$.",
+            "The coordinates of D are the components of its position vector: $(6, 0, -1)$."
+          ],
+          "answer": "$\\boldsymbol{d} = \\begin{pmatrix}6\\\\0\\\\-1\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-ijk-column",
+          "prompt": "Write $3\\boldsymbol{j} - 2\\boldsymbol{k}$ as a column vector.",
+          "hint": "Which base vector is missing? Its component is 0.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}0\\\\3\\\\-2\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}3\\\\-2\\\\0\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}3\\\\-2\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "There is no $\\boldsymbol{i}$ term, so the first component is 0. It uses $\\boldsymbol{k}$, so it is a 3D vector."
+        }
+      ]
+    },
+    {
+      "id": "add-subtract",
+      "heading": "Adding and subtracting vectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Walk along $\\boldsymbol{u}$, then along $\\boldsymbol{v}$. The single arrow from your start to your finish is the sum $\\boldsymbol{u} + \\boldsymbol{v}$. So put the tail of $\\boldsymbol{v}$ on the head of $\\boldsymbol{u}$, then join start to finish."
+        },
+        {
+          "type": "figure",
+          "id": "3-12-triangle-law",
+          "alt": "Arrow u, then arrow v drawn from the head of u. The arrow from the start of u to the head of v is u plus v. Dashed copies of v then u, taken in the other order, complete a parallelogram and end at the same point.",
+          "caption": "Taking $\\boldsymbol{v}$ first, then $\\boldsymbol{u}$, reaches the same point, so $\\boldsymbol{u} + \\boldsymbol{v} = \\boldsymbol{v} + \\boldsymbol{u}$."
+        },
+        {
+          "type": "text",
+          "text": "With components, add matching components: moves along the same axis add up."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{u} + \\boldsymbol{v} = \\begin{pmatrix}u_{1} + v_{1}\\\\u_{2} + v_{2}\\\\u_{3} + v_{3}\\end{pmatrix}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The [[zero-vector|zero vector]] $\\boldsymbol{0}$ has every component 0. It is the move that goes nowhere, so $\\boldsymbol{v} + \\boldsymbol{0} = \\boldsymbol{v}$."
+        },
+        {
+          "type": "text",
+          "text": "The [[vector|vector]] $-\\boldsymbol{v}$ has the same length as $\\boldsymbol{v}$ but points the opposite way. So $\\boldsymbol{v} + (-\\boldsymbol{v}) = \\boldsymbol{0}$, and $\\overrightarrow{BA} = -\\overrightarrow{AB}$ for any two points."
+        },
+        {
+          "type": "text",
+          "text": "Subtracting means adding the negative: $\\boldsymbol{u} - \\boldsymbol{v} = \\boldsymbol{u} + (-\\boldsymbol{v})$. With components, subtract matching components."
+        },
+        {
+          "type": "example",
+          "id": "ex-add-subtract",
+          "question": "Given $\\boldsymbol{u} = \\begin{pmatrix}3\\\\-1\\\\4\\end{pmatrix}$, $\\boldsymbol{v} = \\begin{pmatrix}-2\\\\5\\\\1\\end{pmatrix}$ and $\\boldsymbol{w} = 2\\boldsymbol{j} - 6\\boldsymbol{k}$, find $\\boldsymbol{u} - \\boldsymbol{v} + \\boldsymbol{w}$.",
+          "steps": [
+            "Write $\\boldsymbol{w}$ as a column vector. It has no $\\boldsymbol{i}$ term, so $\\boldsymbol{w} = \\begin{pmatrix}0\\\\2\\\\-6\\end{pmatrix}$.",
+            "First components: $3 - (-2) + 0 = 5$. Subtracting $-2$ adds 2.",
+            "Second components: $-1 - 5 + 2 = -4$.",
+            "Third components: $4 - 1 + (-6) = -3$."
+          ],
+          "answer": "$\\boldsymbol{u} - \\boldsymbol{v} + \\boldsymbol{w} = \\begin{pmatrix}5\\\\-4\\\\-3\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To get from A to B, you can go back from A to O, then out from O to B:"
+        },
+        {
+          "type": "figure",
+          "id": "3-12-position-vectors",
+          "alt": "Origin O with arrows to points A and B, labelled a and b. A third arrow goes from A to B and is labelled b minus a."
+        },
+        {
+          "type": "result",
+          "statement": "$\\overrightarrow{AB} = \\overrightarrow{AO} + \\overrightarrow{OB} = -\\boldsymbol{a} + \\boldsymbol{b}$, so $\\overrightarrow{AB} = \\boldsymbol{b} - \\boldsymbol{a}$.",
+          "why": "$\\overrightarrow{AO}$ is $\\overrightarrow{OA}$ reversed, which is $-\\boldsymbol{a}$."
+        },
+        {
+          "type": "text",
+          "text": "Read it as “end minus start”."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\overrightarrow{AB} = \\boldsymbol{a} - \\boldsymbol{b}$. That is $\\overrightarrow{BA}$, the same arrow pointing backwards. Take the end point minus the start point."
+        },
+        {
+          "type": "example",
+          "id": "ex-ab-from-points",
+          "question": "The points A and B have coordinates $(4, -1, 2)$ and $(1, 3, -5)$. Find $\\overrightarrow{AB}$.",
+          "steps": [
+            "Write the [[position-vector|position vectors]]: $\\boldsymbol{a} = \\begin{pmatrix}4\\\\-1\\\\2\\end{pmatrix}$ and $\\boldsymbol{b} = \\begin{pmatrix}1\\\\3\\\\-5\\end{pmatrix}$.",
+            "End minus start: $\\overrightarrow{AB} = \\boldsymbol{b} - \\boldsymbol{a} = \\begin{pmatrix}1 - 4\\\\3 - (-1)\\\\-5 - 2\\end{pmatrix}$.",
+            "Work out each component: $\\overrightarrow{AB} = \\begin{pmatrix}-3\\\\4\\\\-7\\end{pmatrix}$.",
+            "Check: A plus $\\overrightarrow{AB}$ is $(4 - 3, -1 + 4, 2 - 7) = (1, 3, -5)$, which is B."
+          ],
+          "answer": "$\\overrightarrow{AB} = \\begin{pmatrix}-3\\\\4\\\\-7\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-find-point",
+          "prompt": "$\\overrightarrow{AB} = \\begin{pmatrix}2\\\\-6\\\\1\\end{pmatrix}$ and A is the point $(-1, 4, 3)$. Find the coordinates of B.",
+          "hint": "$\\boldsymbol{b} - \\boldsymbol{a} = \\overrightarrow{AB}$, so $\\boldsymbol{b} = \\boldsymbol{a} + \\overrightarrow{AB}$.",
+          "options": [
+            {
+              "text": "$(1, -2, 4)$",
+              "correct": true
+            },
+            {
+              "text": "$(-3, 10, 2)$",
+              "correct": false
+            },
+            {
+              "text": "$(3, -10, -2)$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\boldsymbol{b} = \\begin{pmatrix}-1\\\\4\\\\3\\end{pmatrix} + \\begin{pmatrix}2\\\\-6\\\\1\\end{pmatrix} = \\begin{pmatrix}1\\\\-2\\\\4\\end{pmatrix}$, so B is $(1, -2, 4)$."
+        },
+        {
+          "type": "text",
+          "text": "Without numbers, write the arrow you need as a route made of arrows you know."
+        },
+        {
+          "type": "check",
+          "id": "check-parallelogram-diagonal",
+          "prompt": "PQRS is a parallelogram with $\\overrightarrow{PQ} = \\boldsymbol{u}$ and $\\overrightarrow{PS} = \\boldsymbol{w}$. Find $\\overrightarrow{QS}$ in terms of $\\boldsymbol{u}$ and $\\boldsymbol{w}$.",
+          "hint": "Go from Q back to P, then from P to S.",
+          "options": [
+            {
+              "text": "$\\boldsymbol{w} - \\boldsymbol{u}$",
+              "correct": true
+            },
+            {
+              "text": "$\\boldsymbol{u} - \\boldsymbol{w}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{u} + \\boldsymbol{w}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\overrightarrow{QS} = \\overrightarrow{QP} + \\overrightarrow{PS} = -\\boldsymbol{u} + \\boldsymbol{w}$: end minus start, measured from P."
+        }
+      ]
+    },
+    {
+      "id": "scalar-multiples",
+      "heading": "Scalar multiples and parallel vectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$\\boldsymbol{v} + \\boldsymbol{v}$ is two copies of $\\boldsymbol{v}$ end to end. It points the same way and is twice as long, so you write it $2\\boldsymbol{v}$."
+        },
+        {
+          "type": "text",
+          "text": "For any [[scalar|scalar]] $k$, multiply every component by $k$. If $k > 0$, $k\\boldsymbol{v}$ points the same way as $\\boldsymbol{v}$; if $k < 0$, the opposite way."
+        },
+        {
+          "type": "formula",
+          "tex": "k\\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix} = \\begin{pmatrix}kv_{1}\\\\kv_{2}\\\\kv_{3}\\end{pmatrix}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-combination",
+          "question": "Given $\\boldsymbol{a} = 2\\boldsymbol{i} - 3\\boldsymbol{j} + \\boldsymbol{k}$ and $\\boldsymbol{b} = -\\boldsymbol{i} + 4\\boldsymbol{j}$, find $3\\boldsymbol{a} - 2\\boldsymbol{b}$.",
+          "steps": [
+            "Write both as column [[vector|vectors]]: $\\boldsymbol{a} = \\begin{pmatrix}2\\\\-3\\\\1\\end{pmatrix}$ and $\\boldsymbol{b} = \\begin{pmatrix}-1\\\\4\\\\0\\end{pmatrix}$. There is no $\\boldsymbol{k}$ in $\\boldsymbol{b}$.",
+            "Scale: $3\\boldsymbol{a} = \\begin{pmatrix}6\\\\-9\\\\3\\end{pmatrix}$ and $2\\boldsymbol{b} = \\begin{pmatrix}-2\\\\8\\\\0\\end{pmatrix}$.",
+            "Subtract matching components: $3\\boldsymbol{a} - 2\\boldsymbol{b} = \\begin{pmatrix}6 - (-2)\\\\-9 - 8\\\\3 - 0\\end{pmatrix}$.",
+            "Simplify: $\\begin{pmatrix}8\\\\-17\\\\3\\end{pmatrix}$, which is $8\\boldsymbol{i} - 17\\boldsymbol{j} + 3\\boldsymbol{k}$."
+          ],
+          "answer": "$3\\boldsymbol{a} - 2\\boldsymbol{b} = \\begin{pmatrix}8\\\\-17\\\\3\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "definition",
+          "term": "parallel vectors",
+          "statement": "Two non-zero vectors $\\boldsymbol{v}$ and $\\boldsymbol{w}$ are parallel when $\\boldsymbol{w} = k\\boldsymbol{v}$ for some scalar $k$.",
+          "plain": "One is a stretched, shrunk or reversed copy of the other."
+        },
+        {
+          "type": "text",
+          "text": "To test whether two vectors are [[parallel-vectors|parallel]], divide matching components. If every ratio is the same number $k$, they are parallel. A zero component must match a zero component."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-find",
+          "question": "The vectors $\\begin{pmatrix}6\\\\s\\\\-9\\end{pmatrix}$ and $\\begin{pmatrix}-4\\\\2\\\\t\\end{pmatrix}$ are parallel. Find the value of $s$ and the value of $t$.",
+          "steps": [
+            "Parallel means $\\begin{pmatrix}6\\\\s\\\\-9\\end{pmatrix} = k\\begin{pmatrix}-4\\\\2\\\\t\\end{pmatrix}$, so $6 = -4k$, $s = 2k$ and $-9 = kt$.",
+            "The first equation gives $k = \\frac{6}{-4} = -\\frac{3}{2}$.",
+            "Then $s = 2 \\times \\left(-\\frac{3}{2}\\right) = -3$.",
+            "And $-9 = -\\frac{3}{2}t$, so $t = 6$.",
+            "Check: $-\\frac{3}{2}\\begin{pmatrix}-4\\\\2\\\\6\\end{pmatrix} = \\begin{pmatrix}6\\\\-3\\\\-9\\end{pmatrix}$, the first vector with $s = -3$."
+          ],
+          "answer": "$s = -3, \\; t = 6$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-which",
+          "prompt": "Which vector is parallel to $\\begin{pmatrix}3\\\\-6\\\\2\\end{pmatrix}$?",
+          "hint": "Look for one number $k$ that multiplies all three components.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}-6\\\\12\\\\-4\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}6\\\\-12\\\\-4\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}1\\\\-2\\\\2\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\begin{pmatrix}-6\\\\12\\\\-4\\end{pmatrix} = -2\\begin{pmatrix}3\\\\-6\\\\2\\end{pmatrix}$. It points the opposite way, but it is still parallel."
+        },
+        {
+          "type": "text",
+          "text": "Three points are [[collinear|collinear]] when one straight line passes through all of them. Parallel arrows can lie on different lines, so use two arrows that share a point."
+        },
+        {
+          "type": "result",
+          "statement": "A, B and C are collinear when $\\overrightarrow{AC} = k\\overrightarrow{AB}$ for some scalar $k$.",
+          "why": "Both arrows are parallel and start at A, so they lie on one line through A."
+        },
+        {
+          "type": "example",
+          "id": "ex-collinear-t",
+          "question": "The points $A(2, -1, 3)$, $B(5, 1, 2)$ and $C(11, t, 0)$ are collinear. Find the value of $t$.",
+          "steps": [
+            "Find $\\overrightarrow{AB} = \\boldsymbol{b} - \\boldsymbol{a} = \\begin{pmatrix}3\\\\2\\\\-1\\end{pmatrix}$.",
+            "Find $\\overrightarrow{AC} = \\begin{pmatrix}11 - 2\\\\t - (-1)\\\\0 - 3\\end{pmatrix} = \\begin{pmatrix}9\\\\t + 1\\\\-3\\end{pmatrix}$.",
+            "Collinear means $\\overrightarrow{AC} = k\\overrightarrow{AB}$. The first components give $9 = 3k$, so $k = 3$. The third components agree: $-3 = 3 \\times (-1)$.",
+            "The second components must match too: $t + 1 = 3 \\times 2 = 6$, so $t = 5$.",
+            "So $\\overrightarrow{AC} = 3\\overrightarrow{AB}$: C is three times as far from A as B is."
+          ],
+          "answer": "$t = 5$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-collinear-k",
+          "prompt": "The points $P(1, 4)$, $Q(3, 1)$ and $R(k, -8)$ are collinear. Find $k$.",
+          "hint": "Compare the second components of $\\overrightarrow{PQ}$ and $\\overrightarrow{PR}$ to find the scalar.",
+          "answer": {
+            "value": 9,
+            "tolerance": 0
+          },
+          "explain": "$\\overrightarrow{PQ} = \\begin{pmatrix}2\\\\-3\\end{pmatrix}$ and $\\overrightarrow{PR} = \\begin{pmatrix}k - 1\\\\-12\\end{pmatrix}$. Since $-12 = 4 \\times (-3)$, $\\overrightarrow{PR} = 4\\overrightarrow{PQ}$. So $k - 1 = 8$ and $k = 9$."
+        }
+      ]
+    },
+    {
+      "id": "magnitude",
+      "heading": "Magnitude, unit vectors and distance",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[vector-magnitude|magnitude]] $\\lvert\\boldsymbol{v}\\rvert$ of a [[vector|vector]] is the length of its arrow. In 2D the components are the short sides of a right-angled triangle, so $\\left\\lvert\\begin{pmatrix}4\\\\3\\end{pmatrix}\\right\\rvert = \\sqrt{4^{2} + 3^{2}} = 5$."
+        },
+        {
+          "type": "text",
+          "text": "In 3D, use Pythagoras twice, as for a cuboid's space diagonal in {{lesson:3.1}}. The formula is in the booklet:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\lvert\\boldsymbol{v}\\rvert = \\sqrt{v_{1}^{2} + v_{2}^{2} + v_{3}^{2}}, \\text{ where } \\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix}",
+          "tag": "booklet",
+          "bookletId": "bk-3-12-magnitude",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "In 2D, leave out $v_{3}$. A magnitude is a [[scalar|scalar]] and is never negative. Also $\\lvert -\\boldsymbol{v}\\rvert = \\lvert\\boldsymbol{v}\\rvert$, and $\\lvert k\\boldsymbol{v}\\rvert = \\lvert k\\rvert\\,\\lvert\\boldsymbol{v}\\rvert$."
+        },
+        {
+          "type": "definition",
+          "term": "unit vector",
+          "statement": "A unit vector has magnitude 1. The unit vector in the direction of a non-zero vector $\\boldsymbol{v}$ is $\\frac{\\boldsymbol{v}}{\\lvert\\boldsymbol{v}\\rvert}$.",
+          "plain": "Same direction, length exactly 1."
+        },
+        {
+          "type": "text",
+          "text": "So divide every component by $\\lvert\\boldsymbol{v}\\rvert$. The [[base-vectors|base vectors]] $\\boldsymbol{i}$, $\\boldsymbol{j}$ and $\\boldsymbol{k}$ are [[unit-vector|unit vectors]]. For length $L$ in the direction of $\\boldsymbol{v}$, use $L\\frac{\\boldsymbol{v}}{\\lvert\\boldsymbol{v}\\rvert}$; for the opposite direction, use $-L$."
+        },
+        {
+          "type": "example",
+          "id": "ex-unit-vector",
+          "question": "Find the unit vector in the direction of $\\boldsymbol{v} = 4\\boldsymbol{i} - 4\\boldsymbol{j} + 7\\boldsymbol{k}$.",
+          "steps": [
+            "Find the magnitude: $\\lvert\\boldsymbol{v}\\rvert = \\sqrt{4^{2} + (-4)^{2} + 7^{2}} = \\sqrt{16 + 16 + 49} = \\sqrt{81} = 9$.",
+            "Divide every component by 9: $\\frac{1}{9}\\begin{pmatrix}4\\\\-4\\\\7\\end{pmatrix}$.",
+            "Check the length is 1: $\\left(\\frac{4}{9}\\right)^{2} + \\left(-\\frac{4}{9}\\right)^{2} + \\left(\\frac{7}{9}\\right)^{2} = \\frac{81}{81} = 1$."
+          ],
+          "answer": "$\\frac{\\boldsymbol{v}}{\\lvert\\boldsymbol{v}\\rvert} = \\begin{pmatrix}\\frac{4}{9}\\\\-\\frac{4}{9}\\\\\\frac{7}{9}\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-length-opposite",
+          "prompt": "Find the vector of magnitude 12 in the opposite direction to $\\begin{pmatrix}2\\\\-1\\\\2\\end{pmatrix}$.",
+          "hint": "Find its magnitude first. Opposite means a negative scalar.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}-8\\\\4\\\\-8\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}8\\\\-4\\\\8\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-24\\\\12\\\\-24\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "The magnitude is $\\sqrt{4 + 1 + 4} = 3$. So the answer is $-\\frac{12}{3}\\begin{pmatrix}2\\\\-1\\\\2\\end{pmatrix} = -4\\begin{pmatrix}2\\\\-1\\\\2\\end{pmatrix} = \\begin{pmatrix}-8\\\\4\\\\-8\\end{pmatrix}$."
+        },
+        {
+          "type": "text",
+          "text": "The distance between two points is the length of the arrow that joins them:"
+        },
+        {
+          "type": "formula",
+          "tex": "AB = \\lvert\\overrightarrow{AB}\\rvert = \\lvert\\boldsymbol{b} - \\boldsymbol{a}\\rvert",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "It is the distance formula from {{lesson:3.1}}, written with vectors."
+        },
+        {
+          "type": "example",
+          "id": "ex-distance-exact",
+          "question": "The points A and B have [[position-vector|position vectors]] $\\boldsymbol{a} = \\boldsymbol{i} - 2\\boldsymbol{j}$ and $\\boldsymbol{b} = 4\\boldsymbol{i} + 2\\boldsymbol{j} - 5\\boldsymbol{k}$. Find the exact distance $AB$.",
+          "steps": [
+            "Write $\\boldsymbol{a}$ as a 3D column vector. There is no $\\boldsymbol{k}$, so $\\boldsymbol{a} = \\begin{pmatrix}1\\\\-2\\\\0\\end{pmatrix}$.",
+            "End minus start: $\\overrightarrow{AB} = \\boldsymbol{b} - \\boldsymbol{a} = \\begin{pmatrix}4 - 1\\\\2 - (-2)\\\\-5 - 0\\end{pmatrix} = \\begin{pmatrix}3\\\\4\\\\-5\\end{pmatrix}$.",
+            "Use the magnitude formula: $\\lvert\\overrightarrow{AB}\\rvert = \\sqrt{3^{2} + 4^{2} + (-5)^{2}} = \\sqrt{50}$.",
+            "Simplify the surd: $\\sqrt{50} = \\sqrt{25}\\sqrt{2} = 5\\sqrt{2}$. On Paper 1, leave it exact."
+          ],
+          "answer": "$AB = 5\\sqrt{2}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-distance",
+          "question": "The point P is $(2, -1, 3)$ and the point Q is $(t, 2t, 1 - t)$, where $t$ is a real number. Use your calculator to find the values of $t$ for which $PQ = 7$. Give your answers to 3 s.f.",
+          "steps": [
+            "End minus start: $\\overrightarrow{PQ} = \\begin{pmatrix}t - 2\\\\2t - (-1)\\\\(1 - t) - 3\\end{pmatrix} = \\begin{pmatrix}t - 2\\\\2t + 1\\\\-2 - t\\end{pmatrix}$.",
+            "Square both sides of $PQ = 7$: $(t - 2)^{2} + (2t + 1)^{2} + (-2 - t)^{2} = 49$.",
+            "Expand: $(t^{2} - 4t + 4) + (4t^{2} + 4t + 1) + (t^{2} + 4t + 4) = 49$, so $6t^{2} + 4t + 9 = 49$.",
+            "Rearrange to $6t^{2} + 4t - 40 = 0$. Write this down before using your calculator: it earns the method mark.",
+            "The root finder gives $t = -2.9367\\ldots$ and $t = 2.2700\\ldots$. Both are valid."
+          ],
+          "answer": "$t \\approx -2.94 \\text{ or } t \\approx 2.27$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "APPS, PlySmlt2",
+              "Choose Poly Root Finder, set the degree to 2 (check on your model)",
+              "Enter the coefficients 6, 4 and -40, then SOLVE (check on your model)",
+              "Read -2.9367... and 2.2700..., so t = -2.94 or t = 2.27 to 3 s.f."
+            ],
+            "nspire": [
+              "Calculator page, Menu, Algebra, Polynomial Tools",
+              "Find Roots of Polynomial, degree 2, real roots (check on your model)",
+              "Enter the coefficients 6, 4 and -40",
+              "Read -2.9367... and 2.2700..., so t = -2.94 or t = 2.27 to 3 s.f."
+            ],
+            "casio": [
+              "EQUA, Polynomial (F2)",
+              "Choose degree 2 (check on your model)",
+              "Enter a = 6, b = 4 and c = -40, then SOLVE (check on your model)",
+              "Read -2.9367... and 2.2700..., so t = -2.94 or t = 2.27 to 3 s.f."
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When a length is given, square it first. Working with $PQ^{2} = 49$ keeps square roots out of the algebra."
+        },
+        {
+          "type": "check",
+          "id": "check-magnitude-combo",
+          "prompt": "Given $\\boldsymbol{u} = \\begin{pmatrix}1\\\\-2\\\\4\\end{pmatrix}$ and $\\boldsymbol{v} = \\begin{pmatrix}-1\\\\1\\\\2\\end{pmatrix}$, find $\\lvert 2\\boldsymbol{u} - \\boldsymbol{v}\\rvert$. Give your answer to 3 s.f.",
+          "hint": "Find the vector $2\\boldsymbol{u} - \\boldsymbol{v}$ first, then its magnitude.",
+          "answer": {
+            "value": 8.37,
+            "tolerance": 0.005
+          },
+          "explain": "$2\\boldsymbol{u} - \\boldsymbol{v} = \\begin{pmatrix}3\\\\-5\\\\6\\end{pmatrix}$, so $\\lvert 2\\boldsymbol{u} - \\boldsymbol{v}\\rvert = \\sqrt{9 + 25 + 36} = \\sqrt{70} = 8.366\\ldots \\approx 8.37$."
+        }
+      ]
+    },
+    {
+      "id": "proofs",
+      "heading": "Proving geometric facts with vectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[vector|Vectors]] turn a geometry problem into algebra. Write every arrow in terms of a few vectors you know, then read the geometry off the algebra."
+        },
+        {
+          "type": "text",
+          "text": "1. Choose two vectors to build from that are not [[parallel-vectors|parallel]], such as the [[position-vector|position vectors]] $\\boldsymbol{a}$ and $\\boldsymbol{b}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Write each vector you need as a route, such as $\\overrightarrow{AB} = \\boldsymbol{b} - \\boldsymbol{a}$."
+        },
+        {
+          "type": "text",
+          "text": "3. Read off the geometry. A [[scalar|scalar]] multiple $k$ means parallel, with lengths in the ratio $\\lvert k\\rvert$. Equal position vectors mean the same point."
+        },
+        {
+          "type": "result",
+          "statement": "The midpoint M of [AB] has position vector $\\boldsymbol{m} = \\frac{1}{2}(\\boldsymbol{a} + \\boldsymbol{b})$.",
+          "why": "$\\boldsymbol{m} = \\boldsymbol{a} + \\frac{1}{2}\\overrightarrow{AB} = \\boldsymbol{a} + \\frac{1}{2}(\\boldsymbol{b} - \\boldsymbol{a}) = \\frac{1}{2}(\\boldsymbol{a} + \\boldsymbol{b})$."
+        },
+        {
+          "type": "text",
+          "text": "This is the midpoint formula from {{lesson:3.1}}, written with vectors."
+        },
+        {
+          "type": "figure",
+          "id": "3-12-midpoints",
+          "alt": "Triangle O A B with arrow a from O to A and arrow b from O to B. M is the midpoint of O A and N is the midpoint of O B. A dashed arrow joins M to N, parallel to A B."
+        },
+        {
+          "type": "example",
+          "id": "ex-midpoint-theorem",
+          "question": "In triangle OAB, $\\overrightarrow{OA} = \\boldsymbol{a}$ and $\\overrightarrow{OB} = \\boldsymbol{b}$. M is the midpoint of [OA] and N is the midpoint of [OB]. Find $\\overrightarrow{MN}$ in terms of $\\boldsymbol{a}$ and $\\boldsymbol{b}$. Hence show that [MN] is parallel to [AB] and half its length.",
+          "steps": [
+            "M is halfway along [OA], so $\\overrightarrow{OM} = \\frac{1}{2}\\boldsymbol{a}$. Likewise $\\overrightarrow{ON} = \\frac{1}{2}\\boldsymbol{b}$.",
+            "End minus start: $\\overrightarrow{MN} = \\overrightarrow{ON} - \\overrightarrow{OM} = \\frac{1}{2}\\boldsymbol{b} - \\frac{1}{2}\\boldsymbol{a}$.",
+            "Factor out $\\frac{1}{2}$: $\\overrightarrow{MN} = \\frac{1}{2}(\\boldsymbol{b} - \\boldsymbol{a}) = \\frac{1}{2}\\overrightarrow{AB}$.",
+            "Conclude in words: $\\overrightarrow{MN}$ is a scalar multiple of $\\overrightarrow{AB}$, so [MN] is parallel to [AB], and it is half as long."
+          ],
+          "answer": "$\\overrightarrow{MN} = \\frac{1}{2}\\boldsymbol{b} - \\frac{1}{2}\\boldsymbol{a}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-diagonals-bisect",
+          "question": "ABCD is a parallelogram with $\\overrightarrow{AB} = \\boldsymbol{u}$ and $\\overrightarrow{AD} = \\boldsymbol{w}$. X is the midpoint of the diagonal [BD]. Find $\\overrightarrow{AX}$ in terms of $\\boldsymbol{u}$ and $\\boldsymbol{w}$. Hence prove that the diagonals of a parallelogram bisect each other.",
+          "steps": [
+            "Opposite sides are equal vectors, so $\\overrightarrow{BC} = \\boldsymbol{w}$ and the diagonal $\\overrightarrow{AC} = \\boldsymbol{u} + \\boldsymbol{w}$.",
+            "The other diagonal: $\\overrightarrow{BD} = \\overrightarrow{BA} + \\overrightarrow{AD} = \\boldsymbol{w} - \\boldsymbol{u}$.",
+            "Route to X: A to B, then halfway along [BD]. $\\overrightarrow{AX} = \\boldsymbol{u} + \\frac{1}{2}(\\boldsymbol{w} - \\boldsymbol{u}) = \\frac{1}{2}\\boldsymbol{u} + \\frac{1}{2}\\boldsymbol{w}$.",
+            "So $\\overrightarrow{AX} = \\frac{1}{2}\\overrightarrow{AC}$: X is also the midpoint of [AC]. The diagonals share a midpoint, so they bisect each other."
+          ],
+          "answer": "$\\overrightarrow{AX} = \\frac{1}{2}\\boldsymbol{u} + \\frac{1}{2}\\boldsymbol{w}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-centroid",
+          "prompt": "In triangle OAB, $\\overrightarrow{OA} = \\boldsymbol{a}$ and $\\overrightarrow{OB} = \\boldsymbol{b}$. M is the midpoint of [AB], and G is the point on [OM] with $\\overrightarrow{OG} = \\frac{2}{3}\\overrightarrow{OM}$. Find $\\overrightarrow{OG}$.",
+          "hint": "Find $\\overrightarrow{OM}$ with the midpoint result first.",
+          "options": [
+            {
+              "text": "$\\frac{1}{3}(\\boldsymbol{a} + \\boldsymbol{b})$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{2}{3}(\\boldsymbol{a} + \\boldsymbol{b})$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{3}(\\boldsymbol{b} - \\boldsymbol{a})$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\overrightarrow{OM} = \\frac{1}{2}(\\boldsymbol{a} + \\boldsymbol{b})$, so $\\overrightarrow{OG} = \\frac{2}{3} \\times \\frac{1}{2}(\\boldsymbol{a} + \\boldsymbol{b}) = \\frac{1}{3}(\\boldsymbol{a} + \\boldsymbol{b})$."
+        },
+        {
+          "type": "check",
+          "id": "check-collinear-proof",
+          "prompt": "$\\overrightarrow{OA} = \\boldsymbol{a}$, $\\overrightarrow{OB} = \\boldsymbol{b}$ and $\\overrightarrow{OC} = 3\\boldsymbol{b} - 2\\boldsymbol{a}$, where $\\boldsymbol{a}$ and $\\boldsymbol{b}$ are not parallel. Which statement is true?",
+          "hint": "Find $\\overrightarrow{AB}$ and $\\overrightarrow{AC}$ with end minus start, then compare them.",
+          "options": [
+            {
+              "text": "$\\overrightarrow{AC} = 3\\overrightarrow{AB}$, so collinear",
+              "correct": true
+            },
+            {
+              "text": "$\\overrightarrow{AC} = 2\\overrightarrow{AB}$, so collinear",
+              "correct": false
+            },
+            {
+              "text": "$\\overrightarrow{AC} = -3\\overrightarrow{AB}$, so collinear",
+              "correct": false
+            },
+            {
+              "text": "C is not on the line (AB)",
+              "correct": false
+            }
+          ],
+          "explain": "$\\overrightarrow{AC} = (3\\boldsymbol{b} - 2\\boldsymbol{a}) - \\boldsymbol{a} = 3\\boldsymbol{b} - 3\\boldsymbol{a} = 3(\\boldsymbol{b} - \\boldsymbol{a}) = 3\\overrightarrow{AB}$. The arrows are parallel and share A, so A, B and C are [[collinear|collinear]]."
+        },
+        {
+          "type": "text",
+          "text": "The scalar product in {{lesson:3.13}} adds a test for right angles."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\lvert\\boldsymbol{v}\\rvert = \\sqrt{v_{1}^{2} + v_{2}^{2} + v_{3}^{2}}, \\text{ where } \\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix}",
+          "tag": "booklet",
+          "bookletId": "bk-3-12-magnitude",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix} = v_{1}\\boldsymbol{i} + v_{2}\\boldsymbol{j} + v_{3}\\boldsymbol{k}$. A missing base vector means a zero component.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\overrightarrow{AB} = \\boldsymbol{b} - \\boldsymbol{a}$ (end minus start), and the distance $AB = \\lvert\\boldsymbol{b} - \\boldsymbol{a}\\rvert$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Non-zero $\\boldsymbol{v}$ and $\\boldsymbol{w}$ are parallel when $\\boldsymbol{w} = k\\boldsymbol{v}$. A, B and C are collinear when $\\overrightarrow{AC} = k\\overrightarrow{AB}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Unit vector in the direction of $\\boldsymbol{v}$: $\\frac{\\boldsymbol{v}}{\\lvert\\boldsymbol{v}\\rvert}$. Length $L$ in that direction: $L\\frac{\\boldsymbol{v}}{\\lvert\\boldsymbol{v}\\rvert}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The midpoint of [AB] has position vector $\\frac{1}{2}(\\boldsymbol{a} + \\boldsymbol{b})$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Vector proof: write every arrow in terms of two non-parallel vectors such as $\\boldsymbol{a}$ and $\\boldsymbol{b}$. A scalar multiple means parallel; equal position vectors mean the same point.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Losing a sign when subtracting a negative component: $3 - (-2) = 5$, not $1$. Bracket negative components first.",
+    "Writing $-4^{2}$ for a component of $-4$ in a magnitude. That is $-16$; you need $(-4)^{2} = 16$.",
+    "Dividing only some components to make a unit vector. Divide every component by $\\lvert\\boldsymbol{v}\\rvert$.",
+    "Calling points collinear because two arrows are parallel, with no shared point. Use arrows that both start at the same point.",
+    "Giving a point when the question asks for a vector, or a vector when it asks for a distance. Re-read the question first."
+  ],
+  "examTips": [
+    "In a **show that** or **prove** question, write each route you use. End with a sentence that gives the reason, such as “a scalar multiple, so parallel”. A bare conclusion loses the reasoning mark.",
+    "On Paper 1, give magnitudes exact, as a surd such as $5\\sqrt{2}$ (simplified is neater), not the decimal $7.07$.",
+    "On Paper 2, write down the equation you put into your calculator, then give each answer to 3 s.f."
+  ],
+  "readingMinutes": 28
+}

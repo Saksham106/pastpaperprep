@@ -1,0 +1,38 @@
+[
+  {
+    "id": "root",
+    "term": "root",
+    "definition": "A value of $x$ that makes an equation true; the roots of $f(x) = 0$ are the zeros of $f$, where its graph meets the $x$-axis.",
+    "lesson": "2.7"
+  },
+  {
+    "id": "completing-the-square",
+    "term": "completing the square",
+    "definition": "Rewriting $x^{2} + bx$ as $\\left(x + \\frac{b}{2}\\right)^{2} - \\left(\\frac{b}{2}\\right)^{2}$, which turns a quadratic into the vertex form $a(x - h)^{2} + k$.",
+    "lesson": "2.6"
+  },
+  {
+    "id": "critical-value",
+    "term": "critical value",
+    "definition": "A value where an expression equals zero, used as a boundary when you solve an inequality such as $x^{2} - x - 12 < 0$.",
+    "lesson": "2.7"
+  },
+  {
+    "id": "discriminant",
+    "term": "discriminant",
+    "definition": "The number $\\Delta = b^{2} - 4ac$ for the quadratic $ax^{2} + bx + c$; its sign tells you whether there are two distinct, two equal or no real roots.",
+    "lesson": "2.7"
+  },
+  {
+    "id": "repeated-root",
+    "term": "repeated root",
+    "definition": "A root that appears twice, as in $(x - 3)^{2} = 0$; a quadratic has one when $\\Delta = 0$, and its graph touches the $x$-axis there.",
+    "lesson": "2.7"
+  },
+  {
+    "id": "parameter",
+    "term": "parameter",
+    "definition": "A letter such as $k$ that stands for a fixed but unknown number in an equation, as opposed to the variable $x$.",
+    "lesson": "2.7"
+  }
+]

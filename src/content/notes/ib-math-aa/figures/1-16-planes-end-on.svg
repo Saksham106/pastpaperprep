@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 240" role="img" aria-labelledby="t">
+  <title id="t">Three planes seen end-on: meeting in one common line, and forming a prism</title>
+  <g stroke="var(--muted)" stroke-width="1" fill="none">
+    <rect x="20" y="10" width="220" height="196" rx="6"/>
+    <rect x="290" y="10" width="230" height="196" rx="6"/>
+  </g>
+  <line x1="40" y1="110" x2="220" y2="110" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="85" y1="187.9" x2="175" y2="32.1" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <line x1="175" y1="187.9" x2="85" y2="32.1" stroke="var(--t5-ink)" stroke-width="2.5"/>
+  <circle cx="130" cy="110" r="5" fill="currentColor"/>
+  <line x1="300" y1="170" x2="510" y2="170" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="318.3" y1="190" x2="413.3" y2="27.1" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <line x1="481.7" y1="190" x2="386.7" y2="27.1" stroke="var(--t5-ink)" stroke-width="2.5"/>
+  <g font-size="15" font-family="inherit" fill="currentColor" text-anchor="middle">
+    <text x="130" y="230">common line: infinitely many</text>
+    <text x="405" y="230">prism: no solution</text>
+  </g>
+</svg>

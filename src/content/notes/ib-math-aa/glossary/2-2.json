@@ -1,0 +1,38 @@
+[
+  {
+    "id": "function",
+    "term": "function",
+    "definition": "A rule that gives exactly one output $f(x)$ for each input $x$ in its domain.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "domain",
+    "term": "domain",
+    "definition": "The set of input values for which a function is defined.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "range",
+    "term": "range",
+    "definition": "The set of output values a function takes over its domain.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "mathematical-model",
+    "term": "mathematical model",
+    "definition": "A function that describes a real situation, used over a domain the context allows.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "inverse-function",
+    "term": "inverse function",
+    "definition": "The function $f^{-1}$ that undoes $f$: if $f(a) = b$, then $f^{-1}(b) = a$.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "one-to-one",
+    "term": "one-to-one",
+    "definition": "A function in which no two different inputs give the same output, so it has an inverse.",
+    "lesson": "2.2"
+  }
+]

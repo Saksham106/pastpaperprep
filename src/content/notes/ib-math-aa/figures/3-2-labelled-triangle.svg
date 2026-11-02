@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 230" role="img" aria-labelledby="t">
+  <title id="t">Triangle ABC with each side named after the angle it faces, and the height h from C</title>
+  <polygon points="40,190 320,190 200,50" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="200" y1="50" x2="200" y2="190" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <path d="M200,176 L214,176 L214,190" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+  <path d="M68.0,190.0 A28,28 0 0 0 61.1,171.6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M304.4,171.8 A24,24 0 0 0 296.0,190.0" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <g font-size="15" font-family="inherit" font-style="italic" fill="currentColor">
+    <text x="20" y="196">A</text>
+    <text x="328" y="196">B</text>
+    <text x="194" y="40">C</text>
+  </g>
+  <g font-size="15" font-family="inherit" font-style="italic">
+    <text x="268" y="116" fill="var(--t1-ink)">a</text>
+    <text x="106" y="112" fill="var(--t2-ink)">b</text>
+    <text x="120" y="212" fill="var(--t3-ink)">c</text>
+    <text x="186" y="126" fill="var(--muted)">h</text>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="t">
+  <title id="t">Origin O with arrows to points A and B, labelled a and b. A third arrow goes from A to B and is labelled b minus a.</title>
+  <line x1="40.0" y1="200.0" x2="250.0" y2="165.0" stroke="var(--t1-ink)" stroke-width="2.2"/><path d="M241.7,170.5 L250.0,165.0 L240.3,162.5" fill="none" stroke="var(--t1-ink)" stroke-width="2.2" stroke-linejoin="round"/>
+  <line x1="40.0" y1="200.0" x2="140.0" y2="40.0" stroke="var(--t5-ink)" stroke-width="2.2"/><path d="M138.6,49.9 L140.0,40.0 L131.7,45.6" fill="none" stroke="var(--t5-ink)" stroke-width="2.2" stroke-linejoin="round"/>
+  <line x1="250.0" y1="165.0" x2="140.0" y2="40.0" stroke="var(--t3-ink)" stroke-width="2.6"/><path d="M149.1,44.2 L140.0,40.0 L143.0,49.5" fill="none" stroke="var(--t3-ink)" stroke-width="2.6" stroke-linejoin="round"/>
+  <circle cx="40" cy="200" r="3.5" fill="currentColor"/>
+  <circle cx="250" cy="165" r="3.5" fill="currentColor"/>
+  <circle cx="140" cy="40" r="3.5" fill="currentColor"/>
+  <g font-size="15" font-family="inherit">
+    <text x="22" y="206" fill="currentColor">O</text>
+    <text x="258" y="171" fill="currentColor">A</text>
+    <text x="136" y="30" fill="currentColor">B</text>
+    <text x="145.0" y="202.5" fill="var(--t1-ink)" font-weight="bold">a</text>
+    <text x="72.0" y="120.0" fill="var(--t5-ink)" font-weight="bold">b</text>
+    <text x="207.0" y="102.5" fill="var(--t3-ink)" font-weight="bold">b − a</text>
+  </g>
+</svg>

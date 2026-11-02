@@ -1,0 +1,14 @@
+[
+  {
+    "id": "polar-form",
+    "term": "Polar (modulus-argument) form",
+    "definition": "A complex number written as $r(\\cos\\theta + \\mathrm{i}\\sin\\theta) = r\\,\\mathrm{cis}\\,\\theta$, where $r > 0$ is its modulus and $\\theta$ its argument.",
+    "lesson": "1.13"
+  },
+  {
+    "id": "euler-form",
+    "term": "Euler form",
+    "definition": "A complex number written as $r\\mathrm{e}^{\\mathrm{i}\\theta}$, where $r > 0$ is its modulus and $\\theta$ its argument; the polar form written as a power of $\\mathrm{e}$.",
+    "lesson": "1.13"
+  }
+]

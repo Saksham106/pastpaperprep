@@ -1,0 +1,20 @@
+[
+  {
+    "id": "geometric-sequence",
+    "term": "geometric sequence",
+    "definition": "A sequence in which each term is the one before multiplied by the same non-zero number, such as $3, 6, 12, 24, \\dots$",
+    "lesson": "1.3"
+  },
+  {
+    "id": "common-ratio",
+    "term": "common ratio",
+    "definition": "The fixed number $r$ that each term of a geometric sequence is multiplied by to give the next, found as $r = \\frac{u_{2}}{u_{1}}$.",
+    "lesson": "1.3"
+  },
+  {
+    "id": "geometric-series",
+    "term": "geometric series",
+    "definition": "The sum of the terms of a geometric sequence, such as $4 + 12 + 36 + \\dots$",
+    "lesson": "1.3"
+  }
+]

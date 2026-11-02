@@ -1,0 +1,14 @@
+[
+  {
+    "id": "exponent",
+    "term": "exponent",
+    "definition": "The raised number $n$ in a power $a^{n}$, also called the index or power; for a positive integer $n$ it counts how many copies of the base $a$ are multiplied together.",
+    "lesson": "1.5"
+  },
+  {
+    "id": "logarithm",
+    "term": "logarithm",
+    "definition": "$\\log_{a} b$ is the exponent you raise the base $a$ to in order to get $b$, so $\\log_{a} b = x$ means $a^{x} = b$ (for $a > 0$, $a \\neq 1$, $b > 0$).",
+    "lesson": "1.5"
+  }
+]

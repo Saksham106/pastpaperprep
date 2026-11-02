@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 196" role="img" aria-labelledby="t">
+  <title id="t">Two box and whisker diagrams of test marks on one scale. Class A: 30, 48, 57, 66, 84, symmetric. Class B: 35, 58, 65, 69, 78, with a long left whisker</title>
+  <g stroke="var(--muted)" stroke-width="0.6">
+    <line x1="70.0" y1="18" x2="70.0" y2="152"/>
+    <line x1="115.0" y1="18" x2="115.0" y2="152"/>
+    <line x1="160.0" y1="18" x2="160.0" y2="152"/>
+    <line x1="205.0" y1="18" x2="205.0" y2="152"/>
+    <line x1="250.0" y1="18" x2="250.0" y2="152"/>
+    <line x1="295.0" y1="18" x2="295.0" y2="152"/>
+    <line x1="340.0" y1="18" x2="340.0" y2="152"/>
+  </g>
+  <g stroke="var(--t4-ink)" stroke-width="2" fill="none">
+    <rect x="151.0" y="36.0" width="81.0" height="28" fill="var(--t4-ink)" fill-opacity="0.14"/>
+    <line x1="191.5" y1="36.0" x2="191.5" y2="64.0"/>
+    <line x1="70.0" y1="50.0" x2="151.0" y2="50.0"/>
+    <line x1="232.0" y1="50.0" x2="313.0" y2="50.0"/>
+    <line x1="70.0" y1="42.0" x2="70.0" y2="58.0"/>
+    <line x1="313.0" y1="42.0" x2="313.0" y2="58.0"/>
+  </g>
+  <text x="60" y="54.0" fill="currentColor" font-size="12" font-family="inherit" text-anchor="end">Class A</text>
+  <g stroke="var(--t4-ink)" stroke-width="2" fill="none">
+    <rect x="196.0" y="100.0" width="49.5" height="28" fill="var(--t4-ink)" fill-opacity="0.14"/>
+    <line x1="227.5" y1="100.0" x2="227.5" y2="128.0"/>
+    <line x1="92.5" y1="114.0" x2="196.0" y2="114.0"/>
+    <line x1="245.5" y1="114.0" x2="286.0" y2="114.0"/>
+    <line x1="92.5" y1="106.0" x2="92.5" y2="122.0"/>
+    <line x1="286.0" y1="106.0" x2="286.0" y2="122.0"/>
+  </g>
+  <text x="60" y="118.0" fill="currentColor" font-size="12" font-family="inherit" text-anchor="end">Class B</text>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="70" y1="152" x2="340" y2="152"/>
+    <line x1="70.0" y1="152" x2="70.0" y2="157"/>
+    <line x1="115.0" y1="152" x2="115.0" y2="157"/>
+    <line x1="160.0" y1="152" x2="160.0" y2="157"/>
+    <line x1="205.0" y1="152" x2="205.0" y2="157"/>
+    <line x1="250.0" y1="152" x2="250.0" y2="157"/>
+    <line x1="295.0" y1="152" x2="295.0" y2="157"/>
+    <line x1="340.0" y1="152" x2="340.0" y2="157"/>
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="70.0" y="170">30</text>
+    <text x="115.0" y="170">40</text>
+    <text x="160.0" y="170">50</text>
+    <text x="205.0" y="170">60</text>
+    <text x="250.0" y="170">70</text>
+    <text x="295.0" y="170">80</text>
+    <text x="340.0" y="170">90</text>
+    <text x="205.0" y="190">Test mark</text>
+  </g>
+</svg>

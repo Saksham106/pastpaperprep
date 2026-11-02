@@ -1,0 +1,32 @@
+[
+  {
+    "id": "binomial-theorem",
+    "term": "binomial theorem",
+    "definition": "The rule that expands $(a + b)^{n}$, for $n \\in \\mathbb{N}$, as the sum of the terms ${}^{n}C_{r}\\,a^{n-r}b^{r}$ for $r = 0, 1, \\dots, n$.",
+    "lesson": "1.9"
+  },
+  {
+    "id": "binomial-coefficient",
+    "term": "binomial coefficient",
+    "definition": "The number ${}^{n}C_{r} = \\frac{n!}{r!\\,(n-r)!}$: the number of ways to choose $r$ objects from $n$, and the coefficient of $a^{n-r}b^{r}$ in $(a + b)^{n}$.",
+    "lesson": "1.9"
+  },
+  {
+    "id": "pascals-triangle",
+    "term": "Pascal's triangle",
+    "definition": "A triangle of numbers in which each entry is the sum of the two above it; row $n$, counted from row $0$, gives the coefficients of $(a + b)^{n}$.",
+    "lesson": "1.9"
+  },
+  {
+    "id": "factorial",
+    "term": "factorial",
+    "definition": "For a whole number $n \\ge 1$, $n!$ is the product $n \\times (n - 1) \\times \\dots \\times 2 \\times 1$; by definition $0! = 1$.",
+    "lesson": "1.9"
+  },
+  {
+    "id": "constant-term",
+    "term": "constant term",
+    "definition": "The term of an expression with no power of the variable in it, that is, the term in $x^{0}$.",
+    "lesson": "1.9"
+  }
+]

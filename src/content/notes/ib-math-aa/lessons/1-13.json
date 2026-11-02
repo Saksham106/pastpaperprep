@@ -1,0 +1,689 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.13",
+  "slug": "complex-numbers-in-polar-form",
+  "title": "Complex numbers in polar form",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "A complex number is a point on the Argand diagram, so you can describe it by its distance from O and its angle instead of by $a$ and $b$. That gives the [[polar-form|polar form]] $r\\,\\mathrm{cis}\\,\\theta$ and the [[euler-form|Euler form]] $r\\mathrm{e}^{\\mathrm{i}\\theta}$. In these forms multiplying is quick: multiply the distances and add the angles, which is a stretch and a turn about O.",
+  "goals": [
+    {
+      "text": "Find the modulus and [[complex-argument|argument]] of $a + b\\mathrm{i}$ and write it as $r(\\cos\\theta + \\mathrm{i}\\sin\\theta) = r\\,\\mathrm{cis}\\,\\theta$, with the angle in the right quadrant.",
+      "bullets": [
+        "1.13-b1",
+        "1.13-b4"
+      ]
+    },
+    {
+      "text": "Write a complex number in Euler form $r\\mathrm{e}^{\\mathrm{i}\\theta}$, keeping $-\\pi < \\theta \\le \\pi$.",
+      "bullets": [
+        "1.13-b2",
+        "1.13-b4"
+      ]
+    },
+    {
+      "text": "Convert between Cartesian, polar and Euler forms, exactly on Paper 1 and with a calculator on Paper 2.",
+      "bullets": [
+        "1.13-b4"
+      ]
+    },
+    {
+      "text": "Multiply and divide in polar or Euler form, and describe the result as a stretch and a turn about O.",
+      "bullets": [
+        "1.13-b3"
+      ]
+    },
+    {
+      "text": "Add and subtract complex numbers in any form, and describe the result on an Argand diagram.",
+      "bullets": [
+        "1.13-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.12",
+    "3.4",
+    "3.5"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "modulus argument form",
+    "polar form of a complex number",
+    "cis form",
+    "Euler form",
+    "exponential form complex number",
+    "convert a + bi to polar form"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-modulus",
+      "prompt": "Find the modulus of $-5 + 12\\mathrm{i}$.",
+      "hint": "The modulus of $a + b\\mathrm{i}$ is its distance from O on the Argand diagram.",
+      "answer": {
+        "value": 13,
+        "tolerance": 0
+      },
+      "explain": "$\\lvert -5 + 12\\mathrm{i}\\rvert = \\sqrt{(-5)^{2} + 12^{2}} = \\sqrt{169} = 13$. Revise it in {{lesson:1.12}}."
+    },
+    {
+      "type": "check",
+      "id": "before-exact-cos",
+      "prompt": "Write down the exact value of $\\cos\\frac{5\\pi}{6}$.",
+      "hint": "Which quadrant is $\\frac{5\\pi}{6}$ in? Its reference angle is $\\frac{\\pi}{6}$.",
+      "options": [
+        {
+          "text": "$\\frac{\\sqrt{3}}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$-\\frac{\\sqrt{3}}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$-\\frac{1}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{1}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\cos\\frac{5\\pi}{6} = -\\cos\\frac{\\pi}{6} = -\\frac{\\sqrt{3}}{2}$. Revise it in {{lesson:3.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-radians",
+      "prompt": "Write $135^{\\circ}$ in radians.",
+      "hint": "$180^{\\circ}$ is $\\pi$ radians, so multiply by $\\frac{\\pi}{180}$.",
+      "options": [
+        {
+          "text": "$\\frac{3\\pi}{4}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{4\\pi}{3}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{3\\pi}{8}$",
+          "correct": false
+        }
+      ],
+      "explain": "$135 \\times \\frac{\\pi}{180} = \\frac{3\\pi}{4}$. Revise it in {{lesson:3.4}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "polar",
+      "heading": "Modulus-argument (polar) form",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.12}} you plotted $z = a + b\\mathrm{i}$ as the point $(a, b)$ on an [[argand-diagram|Argand diagram]]. You also met its modulus $\\lvert z\\rvert$, the distance from O to the point."
+        },
+        {
+          "type": "text",
+          "text": "The [[complex-argument|argument]] $\\arg z$ is the angle from the positive real axis to the line from O to $z$. Anticlockwise angles are positive and clockwise angles are negative."
+        },
+        {
+          "type": "text",
+          "text": "A distance $r = \\lvert z\\rvert$ and a direction $\\theta = \\arg z$ fix the point just as well as $a$ and $b$ do. The triangle below links them."
+        },
+        {
+          "type": "figure",
+          "id": "1-13-polar-diagram",
+          "alt": "Argand diagram. The point z equals a plus b i is joined to the origin O by a line of length r. The line makes angle theta with the positive real axis. A horizontal side of length a runs along the real axis and a vertical side of length b runs up to the point, making a right-angled triangle.",
+          "caption": "$a = r\\cos\\theta$ and $b = r\\sin\\theta$, so $z = r\\cos\\theta + \\mathrm{i}\\,r\\sin\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "Take out the common factor $r$: $z = r(\\cos\\theta + \\mathrm{i}\\sin\\theta)$. The bracket comes up so often that it has a short name, $\\mathrm{cis}\\,\\theta$, short for “cos plus i sin”."
+        },
+        {
+          "type": "definition",
+          "term": "Modulus-argument (polar) form",
+          "statement": "A non-zero complex number $z$ is in [[polar-form|polar form]] when it is written $z = r(\\cos\\theta + \\mathrm{i}\\sin\\theta) = r\\,\\mathrm{cis}\\,\\theta$, where $r = \\lvert z\\rvert > 0$ and $\\theta = \\arg z$.",
+          "plain": "Say how far the point is from O and in which direction."
+        },
+        {
+          "type": "formula",
+          "tex": "z = r(\\cos\\theta + \\mathrm{i}\\sin\\theta) = r\\mathrm{e}^{\\mathrm{i}\\theta} = r\\,\\mathrm{cis}\\,\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-1-13-polar-euler",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This line is in the formula booklet, so you don't need to memorise it."
+        },
+        {
+          "type": "text",
+          "text": "Adding a full turn, $2\\pi$, to $\\theta$ gives the same point. So use $-\\pi < \\theta \\le \\pi$ unless the question asks for another range, such as $0 \\le \\theta < 2\\pi$."
+        },
+        {
+          "type": "text",
+          "text": "To write $z = a + b\\mathrm{i}$ in polar form:"
+        },
+        {
+          "type": "text",
+          "text": "1. Find the modulus: $r = \\sqrt{a^{2} + b^{2}}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Sketch the point, so you can see which quadrant it is in."
+        },
+        {
+          "type": "text",
+          "text": "3. Find the acute angle $\\alpha$ between the line and the real axis: $\\tan\\alpha = \\left\\lvert\\frac{b}{a}\\right\\rvert$."
+        },
+        {
+          "type": "text",
+          "text": "4. Turn $\\alpha$ into $\\theta$. First quadrant: $\\theta = \\alpha$. Second: $\\theta = \\pi - \\alpha$. Third: $\\theta = -(\\pi - \\alpha)$. Fourth: $\\theta = -\\alpha$."
+        },
+        {
+          "type": "example",
+          "id": "ex-polar-first-quadrant",
+          "question": "Write $z = 4 + 4\\mathrm{i}$ in polar form, with $-\\pi < \\theta \\le \\pi$.",
+          "steps": [
+            "Find the modulus: $r = \\sqrt{4^{2} + 4^{2}} = \\sqrt{32} = 4\\sqrt{2}$.",
+            "Both parts are positive, so $z$ is in the first quadrant. There $\\theta = \\alpha$, and $\\tan\\alpha = \\frac{4}{4} = 1$ gives $\\theta = \\frac{\\pi}{4}$.",
+            "Check by converting back: $4\\sqrt{2}\\left(\\cos\\frac{\\pi}{4} + \\mathrm{i}\\sin\\frac{\\pi}{4}\\right) = 4\\sqrt{2}\\left(\\frac{\\sqrt{2}}{2} + \\frac{\\sqrt{2}}{2}\\mathrm{i}\\right) = 4 + 4\\mathrm{i}$."
+          ],
+          "answer": "$z = 4\\sqrt{2}\\,\\mathrm{cis}\\,\\frac{\\pi}{4}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-polar-third-quadrant",
+          "question": "Write $z = -6 - 2\\sqrt{3}\\mathrm{i}$ in the form $r\\,\\mathrm{cis}\\,\\theta$, where $r > 0$ and $-\\pi < \\theta \\le \\pi$.",
+          "steps": [
+            "Find the modulus: $r = \\sqrt{(-6)^{2} + \\left(-2\\sqrt{3}\\right)^{2}} = \\sqrt{36 + 12} = \\sqrt{48} = 4\\sqrt{3}$.",
+            "Both parts are negative, so $z$ is in the third quadrant.",
+            "Find the acute angle: $\\tan\\alpha = \\frac{2\\sqrt{3}}{6} = \\frac{1}{\\sqrt{3}}$, so $\\alpha = \\frac{\\pi}{6}$.",
+            "Third quadrant, measured clockwise: $\\theta = -\\left(\\pi - \\frac{\\pi}{6}\\right) = -\\frac{5\\pi}{6}$.",
+            "Check: $\\cos\\left(-\\frac{5\\pi}{6}\\right) = -\\frac{\\sqrt{3}}{2}$ and $\\sin\\left(-\\frac{5\\pi}{6}\\right) = -\\frac{1}{2}$. Multiplying by $4\\sqrt{3}$ gives $-6 - 2\\sqrt{3}\\mathrm{i}$."
+          ],
+          "answer": "$z = 4\\sqrt{3}\\,\\mathrm{cis}\\left(-\\frac{5\\pi}{6}\\right)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Trusting $\\arctan\\frac{b}{a}$. Here $\\arctan\\frac{-2\\sqrt{3}}{-6} = \\frac{\\pi}{6}$, which points into the first quadrant. $\\arctan$ only gives angles between $-\\frac{\\pi}{2}$ and $\\frac{\\pi}{2}$, so sketch the point and adjust."
+        },
+        {
+          "type": "check",
+          "id": "check-polar-second-quadrant",
+          "prompt": "Write $z = -\\sqrt{2} + \\sqrt{6}\\mathrm{i}$ in polar form, with $-\\pi < \\theta \\le \\pi$.",
+          "hint": "Sketch it first: which quadrant is it in?",
+          "options": [
+            {
+              "text": "$2\\sqrt{2}\\,\\mathrm{cis}\\left(-\\frac{\\pi}{3}\\right)$",
+              "correct": false
+            },
+            {
+              "text": "$2\\sqrt{2}\\,\\mathrm{cis}\\,\\frac{2\\pi}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$2\\sqrt{2}\\,\\mathrm{cis}\\,\\frac{\\pi}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$8\\,\\mathrm{cis}\\,\\frac{2\\pi}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$r = \\sqrt{2 + 6} = 2\\sqrt{2}$. $\\tan\\alpha = \\frac{\\sqrt{6}}{\\sqrt{2}} = \\sqrt{3}$, so $\\alpha = \\frac{\\pi}{3}$. The point is in the second quadrant, so $\\theta = \\pi - \\frac{\\pi}{3} = \\frac{2\\pi}{3}$."
+        },
+        {
+          "type": "text",
+          "text": "Going back to Cartesian form is easier: find $\\cos\\theta$ and $\\sin\\theta$, then multiply out. On Paper 1 use the exact values from {{lesson:3.5}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-polar-to-cartesian",
+          "question": "Write $z = 6\\,\\mathrm{cis}\\left(-\\frac{2\\pi}{3}\\right)$ in Cartesian form.",
+          "steps": [
+            "Use exact values: $\\cos\\left(-\\frac{2\\pi}{3}\\right) = -\\frac{1}{2}$ and $\\sin\\left(-\\frac{2\\pi}{3}\\right) = -\\frac{\\sqrt{3}}{2}$.",
+            "Multiply out: $z = 6\\left(-\\frac{1}{2} - \\frac{\\sqrt{3}}{2}\\mathrm{i}\\right) = -3 - 3\\sqrt{3}\\mathrm{i}$.",
+            "Sense check: an argument of $-\\frac{2\\pi}{3}$ points into the third quadrant, and both parts are negative."
+          ],
+          "answer": "$z = -3 - 3\\sqrt{3}\\mathrm{i}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cis-to-cartesian",
+          "prompt": "Write $8\\,\\mathrm{cis}\\,\\frac{5\\pi}{6}$ in Cartesian form.",
+          "hint": "Which quadrant? That fixes the signs of the two parts.",
+          "options": [
+            {
+              "text": "$-4 + 4\\sqrt{3}\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$4\\sqrt{3} + 4\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$-4\\sqrt{3} + 4\\mathrm{i}$",
+              "correct": true
+            },
+            {
+              "text": "$-4\\sqrt{3} - 4\\mathrm{i}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\cos\\frac{5\\pi}{6} = -\\frac{\\sqrt{3}}{2}$ and $\\sin\\frac{5\\pi}{6} = \\frac{1}{2}$, so $8\\left(-\\frac{\\sqrt{3}}{2} + \\frac{1}{2}\\mathrm{i}\\right) = -4\\sqrt{3} + 4\\mathrm{i}$."
+        }
+      ]
+    },
+    {
+      "id": "euler",
+      "heading": "Euler form",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A third notation packs $\\cos\\theta + \\mathrm{i}\\sin\\theta$ into one power of $\\mathrm{e}$."
+        },
+        {
+          "type": "result",
+          "statement": "Euler's formula: $\\mathrm{e}^{\\mathrm{i}\\theta} = \\cos\\theta + \\mathrm{i}\\sin\\theta$ for every real $\\theta$, measured in radians.",
+          "why": "Put $x = \\mathrm{i}\\theta$ into the Maclaurin series for $\\mathrm{e}^{x}$ ({{lesson:5.19}}). The real terms give the series for $\\cos\\theta$ and the imaginary terms give $\\mathrm{i}\\sin\\theta$."
+        },
+        {
+          "type": "definition",
+          "term": "Euler form",
+          "statement": "A non-zero complex number is in [[euler-form|Euler form]] when it is written $z = r\\mathrm{e}^{\\mathrm{i}\\theta}$, with the same $r = \\lvert z\\rvert > 0$ and $\\theta = \\arg z$ as in [[polar-form|polar form]].",
+          "plain": "It is the polar form written as a power of e."
+        },
+        {
+          "type": "text",
+          "text": "So $r\\,\\mathrm{cis}\\,\\theta$ and $r\\mathrm{e}^{\\mathrm{i}\\theta}$ are the same number. The real work is getting $r$ and $\\theta$ from $a$ and $b$."
+        },
+        {
+          "type": "text",
+          "text": "$\\mathrm{e}^{\\theta\\mathrm{i}}$ means the same as $\\mathrm{e}^{\\mathrm{i}\\theta}$. For example, $\\mathrm{e}^{\\pi\\mathrm{i}} = \\cos\\pi + \\mathrm{i}\\sin\\pi = -1$."
+        },
+        {
+          "type": "text",
+          "text": "For a number on an axis, read the angle off the diagram: $0$, $\\frac{\\pi}{2}$, $\\pi$ or $-\\frac{\\pi}{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-euler-axis",
+          "question": "Write $z = -5\\mathrm{i}$ in Euler form, with $-\\pi < \\theta \\le \\pi$.",
+          "steps": [
+            "$z$ is on the negative imaginary axis, 5 units from O, so $r = 5$.",
+            "The negative imaginary axis is a quarter turn clockwise from the positive real axis, so $\\theta = -\\frac{\\pi}{2}$.",
+            "Check: $5\\left(\\cos\\left(-\\frac{\\pi}{2}\\right) + \\mathrm{i}\\sin\\left(-\\frac{\\pi}{2}\\right)\\right) = 5(0 - \\mathrm{i}) = -5\\mathrm{i}$."
+          ],
+          "answer": "$z = 5\\mathrm{e}^{-\\frac{\\pi}{2}\\mathrm{i}}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-euler-third-quadrant",
+          "prompt": "Write $z = -2 - 2\\mathrm{i}$ in the form $r\\mathrm{e}^{\\mathrm{i}\\theta}$, where $r > 0$ and $-\\pi < \\theta \\le \\pi$.",
+          "hint": "The point is in the third quadrant, so $\\theta$ is negative.",
+          "options": [
+            {
+              "text": "$2\\sqrt{2}\\mathrm{e}^{\\frac{\\pi}{4}\\mathrm{i}}$",
+              "correct": false
+            },
+            {
+              "text": "$2\\sqrt{2}\\mathrm{e}^{\\frac{5\\pi}{4}\\mathrm{i}}$",
+              "correct": false
+            },
+            {
+              "text": "$2\\sqrt{2}\\mathrm{e}^{-\\frac{3\\pi}{4}\\mathrm{i}}$",
+              "correct": true
+            },
+            {
+              "text": "$8\\mathrm{e}^{-\\frac{3\\pi}{4}\\mathrm{i}}$",
+              "correct": false
+            }
+          ],
+          "explain": "$r = \\sqrt{4 + 4} = 2\\sqrt{2}$ and the acute angle is $\\frac{\\pi}{4}$. In the third quadrant $\\theta = -\\left(\\pi - \\frac{\\pi}{4}\\right) = -\\frac{3\\pi}{4}$. $\\frac{5\\pi}{4}$ is out of range."
+        },
+        {
+          "type": "text",
+          "text": "When the angle is not a special one, find it with a calculator in radian mode and give it to 3 s.f. The quadrant rules still apply."
+        },
+        {
+          "type": "example",
+          "id": "ex-euler-decimal",
+          "question": "Write $z = -4 + 3\\mathrm{i}$ in Euler form, with $-\\pi < \\theta \\le \\pi$. Give $\\theta$ to 3 s.f.",
+          "steps": [
+            "Find the modulus: $r = \\sqrt{(-4)^{2} + 3^{2}} = \\sqrt{25} = 5$.",
+            "The real part is negative and the imaginary part is positive, so $z$ is in the second quadrant.",
+            "In radian mode, the acute angle is $\\alpha = \\arctan\\frac{3}{4} = 0.643501\\ldots$",
+            "Second quadrant: $\\theta = \\pi - 0.643501\\ldots = 2.498091\\ldots$ Round only at the end."
+          ],
+          "answer": "$z \\approx 5\\mathrm{e}^{2.50\\mathrm{i}}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-arg-decimal",
+          "prompt": "Find $\\arg(-1 - 3\\mathrm{i})$, with $-\\pi < \\arg z \\le \\pi$. Give your answer to 3 s.f.",
+          "hint": "It is in the third quadrant, so $-\\pi < \\theta < -\\frac{\\pi}{2}$.",
+          "answer": {
+            "value": -1.89,
+            "tolerance": 0.005
+          },
+          "explain": "The acute angle is $\\arctan 3 = 1.2490\\ldots$ In the third quadrant $\\theta = -(\\pi - 1.2490\\ldots) = -1.8925\\ldots \\approx -1.89$."
+        }
+      ]
+    },
+    {
+      "id": "multiply-divide",
+      "heading": "Multiplying and dividing",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Try a product in both forms. In Cartesian form, $(1 + \\mathrm{i})(1 + \\mathrm{i}) = 1 + 2\\mathrm{i} + \\mathrm{i}^{2} = 2\\mathrm{i}$."
+        },
+        {
+          "type": "text",
+          "text": "In [[polar-form|polar form]], $1 + \\mathrm{i} = \\sqrt{2}\\,\\mathrm{cis}\\,\\frac{\\pi}{4}$ and $2\\mathrm{i} = 2\\,\\mathrm{cis}\\,\\frac{\\pi}{2}$. The moduli multiplied, $\\sqrt{2} \\times \\sqrt{2} = 2$. The arguments added, $\\frac{\\pi}{4} + \\frac{\\pi}{4} = \\frac{\\pi}{2}$."
+        },
+        {
+          "type": "text",
+          "text": "[[euler-form|Euler form]] shows why this always happens. When you multiply powers of $\\mathrm{e}$, you add the exponents:"
+        },
+        {
+          "type": "formula",
+          "tex": "r_{1}\\mathrm{e}^{\\mathrm{i}\\theta_{1}} \\times r_{2}\\mathrm{e}^{\\mathrm{i}\\theta_{2}} = r_{1}r_{2}\\,\\mathrm{e}^{\\mathrm{i}(\\theta_{1} + \\theta_{2})} \\qquad \\frac{r_{1}\\mathrm{e}^{\\mathrm{i}\\theta_{1}}}{r_{2}\\mathrm{e}^{\\mathrm{i}\\theta_{2}}} = \\frac{r_{1}}{r_{2}}\\,\\mathrm{e}^{\\mathrm{i}(\\theta_{1} - \\theta_{2})}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "result",
+          "statement": "$\\lvert zw\\rvert = \\lvert z\\rvert\\lvert w\\rvert$ and $\\arg(zw) = \\arg z + \\arg w$. Also $\\left\\lvert\\frac{z}{w}\\right\\rvert = \\frac{\\lvert z\\rvert}{\\lvert w\\rvert}$ and $\\arg\\left(\\frac{z}{w}\\right) = \\arg z - \\arg w$, adding or subtracting $2\\pi$ if needed to stay in range.",
+          "why": "Use the laws of exponents. Expanding $\\mathrm{cis}\\,\\theta_{1}\\,\\mathrm{cis}\\,\\theta_{2}$ with the compound-angle identities in {{lesson:3.10}} gives the same answer."
+        },
+        {
+          "type": "text",
+          "text": "The same rule holds in cis notation. Repeated, it gives powers, which is De Moivre's theorem in {{lesson:1.14}}."
+        },
+        {
+          "type": "text",
+          "text": "So multiplying $z$ by $w$ stretches its distance from O by the factor $\\lvert w\\rvert$ and turns it anticlockwise about O through $\\arg w$."
+        },
+        {
+          "type": "text",
+          "text": "Dividing by $w$ undoes both: divide the distance from O by $\\lvert w\\rvert$, and turn clockwise through $\\arg w$. Multiplying by $\\mathrm{i} = \\mathrm{e}^{\\frac{\\pi}{2}\\mathrm{i}}$ is a quarter turn anticlockwise."
+        },
+        {
+          "type": "text",
+          "text": "Drag $z$ or move the sliders. The solid line $zw$ always has length $\\lvert z\\rvert\\lvert w\\rvert$ and angle $\\arg z + \\arg w$."
+        },
+        {
+          "type": "interactive",
+          "widget": "argand-multiply",
+          "props": {},
+          "alt": "An Argand diagram with z, w and their product zw drawn as lines from the origin. Sliders change the modulus and argument of z and of w, and z can be dragged. The length of zw is always the product of the lengths of z and w, and its angle is the sum of their angles."
+        },
+        {
+          "type": "example",
+          "id": "ex-multiply-euler",
+          "question": "Given $z = 3\\mathrm{e}^{\\frac{\\pi}{4}\\mathrm{i}}$ and $w = 2\\mathrm{e}^{\\frac{\\pi}{3}\\mathrm{i}}$, find $zw$ in Euler form.",
+          "steps": [
+            "Multiply the moduli: $3 \\times 2 = 6$.",
+            "Add the arguments: $\\frac{\\pi}{4} + \\frac{\\pi}{3} = \\frac{3\\pi}{12} + \\frac{4\\pi}{12} = \\frac{7\\pi}{12}$.",
+            "$\\frac{7\\pi}{12}$ is already in range."
+          ],
+          "answer": "$zw = 6\\mathrm{e}^{\\frac{7\\pi}{12}\\mathrm{i}}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-divide-euler",
+          "prompt": "Find $\\frac{8\\mathrm{e}^{\\frac{\\pi}{8}\\mathrm{i}}}{2\\mathrm{e}^{\\frac{5\\pi}{8}\\mathrm{i}}}$ in Euler form.",
+          "hint": "Divide the moduli. Subtract the arguments, top minus bottom.",
+          "options": [
+            {
+              "text": "$4\\mathrm{e}^{\\frac{\\pi}{2}\\mathrm{i}}$",
+              "correct": false
+            },
+            {
+              "text": "$4\\mathrm{e}^{-\\frac{\\pi}{2}\\mathrm{i}}$",
+              "correct": true
+            },
+            {
+              "text": "$6\\mathrm{e}^{-\\frac{\\pi}{2}\\mathrm{i}}$",
+              "correct": false
+            },
+            {
+              "text": "$16\\mathrm{e}^{\\frac{3\\pi}{4}\\mathrm{i}}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{8}{2} = 4$ and $\\frac{\\pi}{8} - \\frac{5\\pi}{8} = -\\frac{\\pi}{2}$, so the answer is $4\\mathrm{e}^{-\\frac{\\pi}{2}\\mathrm{i}}$, which is $-4\\mathrm{i}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-multiply-reduce",
+          "question": "Given $z = 4\\,\\mathrm{cis}\\,\\frac{3\\pi}{4}$ and $w = \\frac{1}{2}\\,\\mathrm{cis}\\,\\frac{2\\pi}{3}$, find $zw$ in the form $r\\,\\mathrm{cis}\\,\\theta$, where $r > 0$ and $-\\pi < \\theta \\le \\pi$.",
+          "steps": [
+            "Multiply the moduli: $4 \\times \\frac{1}{2} = 2$.",
+            "Add the arguments: $\\frac{3\\pi}{4} + \\frac{2\\pi}{3} = \\frac{9\\pi}{12} + \\frac{8\\pi}{12} = \\frac{17\\pi}{12}$.",
+            "$\\frac{17\\pi}{12} > \\pi$, so subtract a full turn: $\\frac{17\\pi}{12} - 2\\pi = -\\frac{7\\pi}{12}$.",
+            "Sense check: turning $z$, in the second quadrant, a further $\\frac{2\\pi}{3}$ anticlockwise lands in the third quadrant."
+          ],
+          "answer": "$zw = 2\\,\\mathrm{cis}\\left(-\\frac{7\\pi}{12}\\right)$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-divide-mixed",
+          "question": "Let $p = -5 - 5\\mathrm{i}$ and $q = 5\\,\\mathrm{cis}\\,\\frac{\\pi}{3}$. Find $\\frac{p}{q}$ in the form $r\\,\\mathrm{cis}\\,\\theta$, where $r > 0$ and $-\\pi < \\theta \\le \\pi$.",
+          "steps": [
+            "Write $p$ in polar form first. $\\lvert p\\rvert = \\sqrt{25 + 25} = 5\\sqrt{2}$. It is in the third quadrant with acute angle $\\frac{\\pi}{4}$, so $\\arg p = -\\frac{3\\pi}{4}$.",
+            "Divide the moduli: $\\frac{5\\sqrt{2}}{5} = \\sqrt{2}$.",
+            "Subtract the arguments: $-\\frac{3\\pi}{4} - \\frac{\\pi}{3} = -\\frac{9\\pi}{12} - \\frac{4\\pi}{12} = -\\frac{13\\pi}{12}$.",
+            "$-\\frac{13\\pi}{12} < -\\pi$, so add a full turn: $-\\frac{13\\pi}{12} + 2\\pi = \\frac{11\\pi}{12}$."
+          ],
+          "answer": "$\\frac{p}{q} = \\sqrt{2}\\,\\mathrm{cis}\\,\\frac{11\\pi}{12}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying imaginary parts to get the imaginary part of a product. With $z = w = \\mathrm{i}$, $\\mathrm{Im}(zw) = \\mathrm{Im}(-1) = 0$, not $1 \\times 1$. Work out the product first, then read off its imaginary part."
+        }
+      ]
+    },
+    {
+      "id": "add-subtract",
+      "heading": "Adding, subtracting and the Argand diagram",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Adding is where [[polar-form|polar form]] and [[euler-form|Euler form]] don't help. There is no rule that gives $\\lvert z + w\\rvert$ from $\\lvert z\\rvert$ and $\\lvert w\\rvert$ alone."
+        },
+        {
+          "type": "text",
+          "text": "So add (or subtract) in Cartesian form, then convert back if the question asks."
+        },
+        {
+          "type": "text",
+          "text": "On an [[argand-diagram|Argand diagram]], treat $z$ and $w$ as arrows from O. Then $z + w$ is the far corner of their parallelogram, and adding $w$ translates every point by the arrow $w$."
+        },
+        {
+          "type": "text",
+          "text": "Subtracting: $z - w$ is the arrow from the point $w$ to the point $z$. So $\\lvert z - w\\rvert$ is the distance between the two points."
+        },
+        {
+          "type": "text",
+          "text": "Taking the conjugate $z^{*}$ reflects in the real axis, as in {{lesson:1.12}}."
+        },
+        {
+          "type": "figure",
+          "id": "1-13-sum-parallelogram",
+          "alt": "Argand diagram showing a parallelogram with corners O, z, z plus w and w. The long diagonal from O to z plus w is the sum. The other diagonal, drawn dashed from w to z, is labelled z minus w.",
+          "caption": "The sum is the diagonal from O. The other diagonal, from $w$ to $z$, has length $\\lvert z - w\\rvert$."
+        },
+        {
+          "type": "example",
+          "id": "ex-add-polar",
+          "question": "Given $z = 3\\,\\mathrm{cis}\\,\\frac{\\pi}{4}$ and $w = 3\\,\\mathrm{cis}\\,\\frac{3\\pi}{4}$, find $z + w$ in polar form.",
+          "steps": [
+            "Convert to Cartesian form: $z = \\frac{3\\sqrt{2}}{2} + \\frac{3\\sqrt{2}}{2}\\mathrm{i}$ and $w = -\\frac{3\\sqrt{2}}{2} + \\frac{3\\sqrt{2}}{2}\\mathrm{i}$.",
+            "Add the real parts and the imaginary parts: $z + w = 0 + 3\\sqrt{2}\\mathrm{i}$.",
+            "This point is on the positive imaginary axis, $3\\sqrt{2}$ from O. So $r = 3\\sqrt{2}$ and $\\theta = \\frac{\\pi}{2}$.",
+            "The picture agrees: equal moduli make a rhombus, whose diagonal bisects the angle between $\\frac{\\pi}{4}$ and $\\frac{3\\pi}{4}$."
+          ],
+          "answer": "$z + w = 3\\sqrt{2}\\,\\mathrm{cis}\\,\\frac{\\pi}{2}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the moduli and the arguments. Here that gives $6\\,\\mathrm{cis}\\,\\pi = -6$, nowhere near $3\\sqrt{2}\\mathrm{i}$. To add, go through Cartesian form."
+        },
+        {
+          "type": "example",
+          "id": "ex-add-gdc",
+          "question": "Let $z = 4\\mathrm{e}^{0.9\\mathrm{i}}$ and $w = 1 - 2\\mathrm{i}$. Use your calculator to write $z + w$ in the form $r\\mathrm{e}^{\\mathrm{i}\\theta}$, where $r > 0$ and $-\\pi < \\theta \\le \\pi$. Give $r$ and $\\theta$ to 3 s.f.",
+          "steps": [
+            "Set radians first. Degree mode reads $0.9$ as $0.9^{\\circ}$.",
+            "Write down what you enter: $4\\mathrm{e}^{0.9\\mathrm{i}} + 1 - 2\\mathrm{i}$. This line earns the method mark.",
+            "The calculator gives $3.486438\\ldots + 1.133307\\ldots\\mathrm{i}$. By hand this is $(4\\cos 0.9 + 1) + (4\\sin 0.9 - 2)\\mathrm{i}$.",
+            "Modulus: $r = \\sqrt{3.486438\\ldots^{2} + 1.133307\\ldots^{2}} = 3.666012\\ldots$",
+            "Both parts are positive, so the point is in the first quadrant: $\\theta = \\arctan\\frac{1.133307\\ldots}{3.486438\\ldots} = 0.314287\\ldots$"
+          ],
+          "answer": "$z + w \\approx 3.67\\mathrm{e}^{0.314\\mathrm{i}}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, RADIAN",
+              "MODE, a+bi",
+              "Type 4e^(0.9i)+1-2i and press ENTER (e^( is 2nd LN and i is 2nd . ; check on your model)",
+              "Read 3.486438... + 1.133307...i",
+              "MATH, CMPLX, abs( on Ans gives 3.666012..., and angle( on Ans gives 0.314287... (check on your model)",
+              "So r = 3.67 and theta = 0.314 to 3 s.f."
+            ],
+            "nspire": [
+              "Settings, Angle: Radian",
+              "Settings, Real or Complex: Rectangular",
+              "Calculator page: type 4*e^(0.9*i)+1-2*i, enter (e^ is the e^x key and i is in the pi key menu; check on your model)",
+              "Read 3.486438... + 1.133307...i",
+              "Menu, Number, Complex Number Tools, Magnitude, then Argument, each on ans (check on your model)",
+              "So r = 3.67 and theta = 0.314 to 3 s.f."
+            ],
+            "casio": [
+              "SHIFT MENU (SET UP), Angle: Rad",
+              "SET UP (SHIFT MENU), Complex Mode: a+bi",
+              "RUN-MAT: type 4e^(0.9i)+1-2i, EXE (e^ is SHIFT ln and i is SHIFT 0; check on your model)",
+              "Read 3.486438... + 1.133307...i",
+              "OPTN, COMPLEX, Abs, then Arg, each on Ans (check on your model)",
+              "So r = 3.67 and theta = 0.314 to 3 s.f."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rotate",
+          "prompt": "The point that represents $z = 5 - \\mathrm{i}$ is rotated clockwise about O through $\\frac{\\pi}{2}$. Which complex number does its image represent?",
+          "hint": "A clockwise quarter turn is multiplying by $\\mathrm{e}^{-\\frac{\\pi}{2}\\mathrm{i}} = -\\mathrm{i}$.",
+          "options": [
+            {
+              "text": "$1 + 5\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$-5 + \\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$5 + \\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$-1 - 5\\mathrm{i}$",
+              "correct": true
+            }
+          ],
+          "explain": "$(5 - \\mathrm{i})(-\\mathrm{i}) = -5\\mathrm{i} + \\mathrm{i}^{2} = -1 - 5\\mathrm{i}$. Multiplying by $\\mathrm{i}$ instead turns anticlockwise and gives $1 + 5\\mathrm{i}$."
+        },
+        {
+          "type": "check",
+          "id": "check-distance",
+          "prompt": "Points A and B represent $a = 5\\mathrm{e}^{\\frac{\\pi}{2}\\mathrm{i}}$ and $b = -1 + \\mathrm{i}$. Find the distance AB. Give your answer to 3 s.f.",
+          "hint": "Write $a$ in Cartesian form, then find $\\lvert a - b\\rvert$.",
+          "answer": {
+            "value": 4.12,
+            "tolerance": 0.005
+          },
+          "explain": "$a = 5\\mathrm{i}$, so $a - b = 1 + 4\\mathrm{i}$ and $AB = \\sqrt{1^{2} + 4^{2}} = \\sqrt{17} \\approx 4.12$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "z = r(\\cos\\theta + \\mathrm{i}\\sin\\theta) = r\\mathrm{e}^{\\mathrm{i}\\theta} = r\\,\\mathrm{cis}\\,\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-1-13-polar-euler",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$r = \\sqrt{a^{2} + b^{2}}$. For $\\theta$, sketch the point first: $\\arctan\\frac{b}{a}$ alone can point into the wrong quadrant.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Use $-\\pi < \\theta \\le \\pi$ unless told otherwise. Add or subtract $2\\pi$ to get there.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Multiply: multiply the moduli and add the arguments. Divide: divide the moduli and subtract the arguments.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Add and subtract in Cartesian form. $\\lvert z - w\\rvert$ is the distance between the points $z$ and $w$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "About O: adding $w$ translates, multiplying by $w$ enlarges by $\\lvert w\\rvert$ and rotates through $\\arg w$, and $z^{*}$ reflects in the real axis.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Taking $\\theta = \\arctan\\frac{b}{a}$ without a sketch. In the second or third quadrant it points the opposite way.",
+    "Leaving the argument out of range, such as $\\frac{5\\pi}{4}$ when $-\\pi < \\theta \\le \\pi$ is asked for. Subtract $2\\pi$ to get $-\\frac{3\\pi}{4}$.",
+    "Working on Paper 2 in degree mode. It reads $\\mathrm{e}^{0.9\\mathrm{i}}$ as a turn of $0.9^{\\circ}$. Set radians first.",
+    "Dropping the square root: $\\lvert a + b\\mathrm{i}\\rvert = \\sqrt{a^{2} + b^{2}}$, not $a^{2} + b^{2}$. Keep $\\lvert z\\rvert$ and $\\lvert z\\rvert^{2}$ apart.",
+    "Finding $\\mathrm{Im}(zw)$ as $\\mathrm{Im}(z) \\times \\mathrm{Im}(w)$. Multiply the numbers out first, then take the imaginary part."
+  ],
+  "examTips": [
+    "“Write in the form $r\\mathrm{e}^{\\mathrm{i}\\theta}$, where $r > 0$ and $-\\pi < \\theta \\le \\pi$” needs both conditions. Check the range before moving on.",
+    "On Paper 1, give exact values: $4\\sqrt{3}$, not $6.93$, and $-\\frac{5\\pi}{6}$, not $-2.62$. “Find” needs working: show $r$ and the quadrant.",
+    "On Paper 2, set radian mode first. Write down what you enter, then give 3 s.f.",
+    "When a later part says “hence”, use the polar or Euler form you found. A wrong earlier form used correctly can still earn follow-through marks."
+  ],
+  "readingMinutes": 23
+}

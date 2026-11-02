@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 225" role="img" aria-labelledby="t">
+  <title id="t">Isosceles triangle OAB with OA and OB of length 1 and angle 2 theta at O, split by the height OM into two right-angled triangles with angle theta at O, height cos theta and half-bases sin theta</title>
+  <polygon points="160,28 45.3,191.8 274.7,191.8" fill="var(--t1-ink)" fill-opacity="0.12"/>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="160" y1="28" x2="45.3" y2="191.8"/>
+    <line x1="160" y1="28" x2="274.7" y2="191.8"/>
+    <line x1="45.3" y1="191.8" x2="274.7" y2="191.8"/>
+  </g>
+  <line x1="160" y1="28" x2="160" y2="191.8" stroke="var(--t5-ink)" stroke-width="2" stroke-dasharray="5 4"/>
+  <path d="M170 191.8 V181.8 H160" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M142.8 52.6 A30 30 0 0 0 160 58" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M160 58 A30 30 0 0 0 177.2 52.6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="155" y="20">O</text>
+    <text x="30" y="198">A</text>
+    <text x="280" y="198">B</text>
+    <text x="155" y="212">M</text>
+    <text x="88" y="106">1</text>
+    <text x="224" y="106">1</text>
+    <text x="139" y="78" font-style="italic">θ</text>
+    <text x="171" y="78" font-style="italic">θ</text>
+    <text x="166" y="128" fill="var(--t5-ink)">cos θ</text>
+    <text x="102" y="212" text-anchor="middle">sin θ</text>
+    <text x="218" y="212" text-anchor="middle">sin θ</text>
+  </g>
+</svg>

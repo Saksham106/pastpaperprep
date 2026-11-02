@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 250" role="img" aria-labelledby="t">
+  <title id="t">Right cone with vertical height h, base radius r and slant height l forming a right-angled triangle</title>
+  <polygon points="150,30 150,210 240,210" fill="var(--t3-ink)" fill-opacity="0.15" stroke="none"/>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="60" y1="210" x2="150" y2="30"/>
+    <path d="M60,210 A90,18 0 0,0 240,210"/>
+  </g>
+  <path d="M60,210 A90,18 0 0,1 240,210" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.55" stroke-dasharray="5 4"/>
+  <line x1="150" y1="30" x2="150" y2="210" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="150" y1="210" x2="240" y2="210" stroke="var(--t2-ink)" stroke-width="2"/>
+  <line x1="150" y1="30" x2="240" y2="210" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <path d="M150,200 L160,200 L160,210" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <g font-size="15" fill="currentColor" font-family="inherit" font-style="italic">
+    <text x="134" y="128">h</text>
+    <text x="192" y="226" fill="var(--t2-ink)">r</text>
+    <text x="203" y="116" fill="var(--t3-ink)">l</text>
+  </g>
+</svg>

@@ -1,0 +1,705 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.9",
+  "slug": "exponential-and-logarithmic-functions",
+  "title": "Exponential and logarithmic functions",
+  "level": "SL",
+  "topic": 2,
+  "summary": "An [[exponential-function|exponential function]] such as $2^{x}$ or $\\mathrm{e}^{x}$ has the variable in the power, so it grows or decays by the same factor at every step. A [[logarithmic-function|logarithmic function]] such as $\\log_{2} x$ or $\\ln x$ undoes it, so the two graphs are mirror images in $y = x$. Together they model interest, depreciation and anything that changes by a fixed percentage.",
+  "goals": [
+    {
+      "text": "Sketch $y = a^{x}$ and $y = \\mathrm{e}^{x}$, and state their [[domain|domain]], [[range|range]], intercept and [[asymptote|asymptote]].",
+      "bullets": [
+        "2.9-b1"
+      ]
+    },
+    {
+      "text": "Sketch $y = \\log_{a} x$ and $y = \\ln x$, and find the [[domain|domain]] and asymptote of a log function.",
+      "bullets": [
+        "2.9-b2"
+      ]
+    },
+    {
+      "text": "Use $a^{x} = \\mathrm{e}^{x\\ln a}$ and $\\log_{a} a^{x} = x = a^{\\log_{a} x}$ to rewrite expressions and solve equations.",
+      "bullets": [
+        "2.9-b3"
+      ]
+    },
+    {
+      "text": "Find the inverse of an exponential or log function, and explain why their graphs are reflections in $y = x$.",
+      "bullets": [
+        "2.9-b4"
+      ]
+    },
+    {
+      "text": "Model [[compound-interest|compound interest]] and [[depreciation|depreciation]] with exponential functions, and find when a value is reached.",
+      "bullets": [
+        "2.9-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.5",
+    "1.7",
+    "2.3",
+    "2.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "exponential graph",
+    "graph of e to the x",
+    "logarithm graph",
+    "ln x graph",
+    "exponential and log as inverses",
+    "a to the x equals e to the x ln a"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-log-value",
+      "prompt": "Write down the value of $\\log_{3} 81$.",
+      "hint": "What power of $3$ gives $81$?",
+      "answer": {
+        "value": 4,
+        "tolerance": 0
+      },
+      "explain": "$3^{4} = 81$, so $\\log_{3} 81 = 4$. Revise it in {{lesson:1.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-power-law",
+      "prompt": "Simplify $\\left(5^{x}\\right)^{2}$.",
+      "hint": "When you raise a power to a power, what happens to the indices?",
+      "options": [
+        {
+          "text": "$5^{2x}$",
+          "correct": true
+        },
+        {
+          "text": "$5^{x + 2}$",
+          "correct": false
+        },
+        {
+          "text": "$5^{x^{2}}$",
+          "correct": false
+        },
+        {
+          "text": "$10^{x}$",
+          "correct": false
+        }
+      ],
+      "explain": "Multiply the indices: $\\left(5^{x}\\right)^{2} = 5^{x \\times 2} = 5^{2x}$. Revise it in {{lesson:1.7}}."
+    },
+    {
+      "type": "check",
+      "id": "before-reflect",
+      "prompt": "The point $(3, 8)$ lies on the graph of $y = f(x)$, and $f$ has an inverse. Which point lies on the graph of $y = f^{-1}(x)$?",
+      "hint": "$f(3) = 8$. What does $f^{-1}$ do to $8$?",
+      "options": [
+        {
+          "text": "$(8, 3)$",
+          "correct": true
+        },
+        {
+          "text": "$\\left(3, \\tfrac{1}{8}\\right)$",
+          "correct": false
+        },
+        {
+          "text": "$(-3, -8)$",
+          "correct": false
+        }
+      ],
+      "explain": "$f(3) = 8$, so $f^{-1}(8) = 3$, and $(8, 3)$ is on $y = f^{-1}(x)$. The inverse swaps the coordinates; it is not a reciprocal. Revise it in {{lesson:2.5}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "exponential",
+      "heading": "Exponential functions and their graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Start with $1$ and keep doubling: $1, 2, 4, 8, 16, \\ldots$ After $x$ doublings you have $2^{x}$. Going backwards halves instead: $2^{-1} = \\tfrac{1}{2}$ and $2^{-2} = \\tfrac{1}{4}$."
+        },
+        {
+          "type": "text",
+          "text": "So on the graph of $y = 2^{x}$, each step of $1$ to the right multiplies $y$ by $2$. The halves to the left get tiny but never reach $0$. This is an [[exponential-function|exponential function]]."
+        },
+        {
+          "type": "definition",
+          "term": "exponential function",
+          "statement": "An exponential function is a function $f(x) = a^{x}$, for $x \\in \\mathbb{R}$, where the base $a$ is a constant with $a > 0$ and $a \\ne 1$. The variable is in the exponent.",
+          "plain": "The input is the power, so equal steps in $x$ multiply the output by the same factor."
+        },
+        {
+          "type": "text",
+          "text": "The base $1$ is left out because $1^{x} = 1$ for every $x$, which is just a flat line. Negative bases are left out because powers such as $(-2)^{1/2}$ are not real numbers."
+        },
+        {
+          "type": "text",
+          "text": "One base matters more than any other: $\\mathrm{e} = 2.71828\\ldots$, the number behind $\\ln$ in {{lesson:1.5}}. The function $f(x) = \\mathrm{e}^{x}$ is often called simply the exponential function."
+        },
+        {
+          "type": "figure",
+          "id": "2-9-exp-graphs",
+          "alt": "Three curves on one set of axes: y equals 2 to the power x and y equals e to the power x rise from left to right, with e to the x rising faster, while y equals one half to the power x falls from left to right. All three cross the y-axis at the point (0, 1). Each one gets closer and closer to the x-axis, drawn dashed as the asymptote y equals 0, but never touches it.",
+          "caption": "Every graph $y = a^{x}$ crosses the $y$-axis at $(0, 1)$, because $a^{0} = 1$."
+        },
+        {
+          "type": "result",
+          "statement": "For $y = a^{x}$, with $a > 0$ and $a \\ne 1$: the [[domain|domain]] is $x \\in \\mathbb{R}$ and the [[range|range]] is $y > 0$. The $y$-intercept is $(0, 1)$, and the line $y = 0$ is a horizontal [[asymptote|asymptote]]. The graph is increasing when $a > 1$ and decreasing when $0 < a < 1$.",
+          "why": "$a^{0} = 1$ for every base, and a positive number raised to any power is positive, so $a^{x}$ never reaches $0$."
+        },
+        {
+          "type": "text",
+          "text": "A base between $0$ and $1$ gives decay. Since $\\left(\\tfrac{1}{2}\\right)^{x} = 2^{-x}$, the graph of $y = \\left(\\tfrac{1}{2}\\right)^{x}$ is the graph of $y = 2^{x}$ reflected in the $y$-axis."
+        },
+        {
+          "type": "example",
+          "id": "ex-exp-values",
+          "question": "Let $f(x) = \\left(\\tfrac{1}{3}\\right)^{x}$, for $x \\in \\mathbb{R}$. Find $f(-2)$, and describe the main features of the graph of $y = f(x)$.",
+          "steps": [
+            "A negative power means flip the fraction: $f(-2) = \\left(\\tfrac{1}{3}\\right)^{-2} = 3^{2} = 9$.",
+            "Find the $y$-intercept: $f(0) = \\left(\\tfrac{1}{3}\\right)^{0} = 1$, so the graph crosses the $y$-axis at $(0, 1)$.",
+            "The base $\\tfrac{1}{3}$ is between $0$ and $1$, so $f$ is decreasing. Check: $f(1) = \\tfrac{1}{3}$ is less than $f(0) = 1$.",
+            "As $x$ gets large, $\\left(\\tfrac{1}{3}\\right)^{x}$ gets closer and closer to $0$. So $y = 0$ is the horizontal asymptote, and the range is $f(x) > 0$."
+          ],
+          "answer": "$f(-2) = 9$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-exp-decreasing",
+          "prompt": "Each function has domain $x \\in \\mathbb{R}$. Which one is decreasing?",
+          "hint": "Look at each base. Is it bigger or smaller than $1$?",
+          "options": [
+            {
+              "text": "$y = 1.3^{x}$",
+              "correct": false
+            },
+            {
+              "text": "$y = 0.7^{x}$",
+              "correct": true
+            },
+            {
+              "text": "$y = \\mathrm{e}^{x}$",
+              "correct": false
+            },
+            {
+              "text": "$y = 3^{x}$",
+              "correct": false
+            }
+          ],
+          "explain": "A base between $0$ and $1$ gives decay, so $0.7^{x}$ is decreasing. The bases $1.3$, $\\mathrm{e}$ and $3$ are all bigger than $1$, so those functions increase."
+        },
+        {
+          "type": "text",
+          "text": "Exam functions often add or multiply by a constant. To find the asymptote, ask what the function gets close to when the exponential part gets close to $0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-exp-intercept",
+          "question": "Let $f(x) = 6 - 2\\mathrm{e}^{x}$, for $x \\in \\mathbb{R}$. Write down the equation of the horizontal asymptote of the graph of $y = f(x)$, and find the exact coordinates of the point where the graph meets the $x$-axis.",
+          "steps": [
+            "As $x$ becomes very negative, $\\mathrm{e}^{x}$ gets closer and closer to $0$. So $f(x)$ gets close to $6 - 0 = 6$, and the asymptote is $y = 6$.",
+            "$2\\mathrm{e}^{x}$ is always positive, so $f(x)$ is always less than $6$. The range is $f(x) < 6$, and the graph stays below its asymptote.",
+            "On the $x$-axis, $y = 0$: $6 - 2\\mathrm{e}^{x} = 0$, so $\\mathrm{e}^{x} = 3$.",
+            "Take natural logs of both sides. From {{lesson:1.5}}, $\\mathrm{e}^{x} = 3$ means $x = \\ln 3$.",
+            "Check: $f(\\ln 3) = 6 - 2(3) = 0$. For a sketch, add the $y$-intercept, $f(0) = 6 - 2 = 4$."
+          ],
+          "answer": "$(\\ln 3, 0)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving $y = 0$ as the asymptote of a function like $6 - 2\\mathrm{e}^{x}$. The exponential part tends to $0$, so the asymptote is the constant that is left, $y = 6$."
+        },
+        {
+          "type": "check",
+          "id": "check-exp-range",
+          "prompt": "Let $g(x) = 2^{x} + 3$, for $x \\in \\mathbb{R}$. What is the range of $g$?",
+          "hint": "What values can $2^{x}$ take? Then add $3$.",
+          "options": [
+            {
+              "text": "$g(x) > 3$",
+              "correct": true
+            },
+            {
+              "text": "$g(x) > 0$",
+              "correct": false
+            },
+            {
+              "text": "$g(x) \\ge 3$",
+              "correct": false
+            }
+          ],
+          "explain": "$2^{x} > 0$ for every $x$, but it never equals $0$. So $2^{x} + 3 > 3$, and the value $3$ itself is never reached."
+        },
+        {
+          "type": "examTip",
+          "text": "To \"sketch\" an exponential graph, label the $y$-intercept and draw the asymptote as a dashed line with its equation. The curve must get closer and closer to the asymptote without crossing it."
+        }
+      ]
+    },
+    {
+      "id": "logarithmic",
+      "heading": "Logarithmic functions and their graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.5}} you met logarithms: $\\log_{a} x$ is the power you raise $a$ to in order to get $x$. For example, $\\log_{2} 8 = 3$ because $2^{3} = 8$."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{x} = b \\Leftrightarrow x = \\log_{a} b, \\quad \\text{where } a > 0,\\ b > 0,\\ a \\ne 1",
+          "tag": "booklet",
+          "bookletId": "bk-1-5-log-definition"
+        },
+        {
+          "type": "definition",
+          "term": "logarithmic function",
+          "statement": "A logarithmic function is a function $f(x) = \\log_{a} x$, for $x > 0$, where $a > 0$ and $a \\ne 1$. With base $\\mathrm{e}$ it is the [[natural-logarithm|natural logarithm]], $f(x) = \\ln x$.",
+          "plain": "It answers the question: what power of $a$ gives $x$?"
+        },
+        {
+          "type": "result",
+          "statement": "The functions $x \\mapsto a^{x}$ and $x \\mapsto \\log_{a} x$ are [[inverse-function|inverse functions]], and so are $\\mathrm{e}^{x}$ and $\\ln x$. So the graph of $y = \\log_{a} x$ is the reflection of the graph of $y = a^{x}$ in the line $y = x$.",
+          "why": "If $a^{p} = q$, then $\\log_{a} q = p$: the point $(p, q)$ on one graph becomes $(q, p)$ on the other."
+        },
+        {
+          "type": "text",
+          "text": "Drag the point along $y = 2^{x}$ and watch its mirror image move along $y = \\log_{2} x$. Then move the base slider below $1$ to see a decreasing pair."
+        },
+        {
+          "type": "interactive",
+          "widget": "exp-log-reflection",
+          "props": {
+            "a": 2
+          },
+          "alt": "The curve y equals a to the power x and its mirror image, the curve y equals log base a of x, with the dashed line y equals x between them. A point you can drag on the exponential curve is joined to its reflection on the log curve, and the readout shows that their coordinates are swapped. A slider changes the base a, starting at 2."
+        },
+        {
+          "type": "text",
+          "text": "Reflecting swaps $x$ and $y$, so every feature of $y = a^{x}$ swaps too."
+        },
+        {
+          "type": "result",
+          "statement": "For $y = \\log_{a} x$ with $a > 1$: the [[domain|domain]] is $x > 0$ and the [[range|range]] is $y \\in \\mathbb{R}$. The $x$-intercept is $(1, 0)$, and the line $x = 0$ is a vertical [[asymptote|asymptote]]. The graph passes through $(a, 1)$ and is increasing.",
+          "why": "These are the features of $y = a^{x}$ with $x$ and $y$ swapped: the range $y > 0$ becomes the domain $x > 0$, and $(0, 1)$ becomes $(1, 0)$."
+        },
+        {
+          "type": "text",
+          "text": "With a base between $0$ and $1$, the log graph decreases instead. Its domain, intercept and asymptote stay the same."
+        },
+        {
+          "type": "figure",
+          "id": "2-9-log-graphs",
+          "alt": "Two curves on one set of axes, y equals log base 2 of x and y equals ln x. Both cross the x-axis at the point (1, 0) and rise slowly to the right. The first passes through (2, 1) and the second through (e, 1). To the left, both fall steeply towards the y-axis, drawn dashed as the asymptote x equals 0, without touching it.",
+          "caption": "$y = \\log_{2} x$ passes through $(2, 1)$ and $y = \\ln x$ through $(\\mathrm{e}, 1)$, because $\\log_{a} a = 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-log-inverse-value",
+          "question": "Let $f(x) = \\log_{10} x$, for $x > 0$. Write down $f^{-1}(x)$, and hence find $f^{-1}(-2)$.",
+          "steps": [
+            "$\\log_{10} x$ and $10^{x}$ undo each other, so $f^{-1}(x) = 10^{x}$.",
+            "Substitute $-2$: $f^{-1}(-2) = 10^{-2} = \\tfrac{1}{100}$.",
+            "Check by applying $f$: $\\log_{10} \\tfrac{1}{100} = -2$, because $10^{-2} = \\tfrac{1}{100}$."
+          ],
+          "answer": "$f^{-1}(-2) = \\tfrac{1}{100}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Reading $f^{-1}$ as a reciprocal. The inverse of $10^{x}$ is $\\log_{10} x$, not $\\frac{1}{10^{x}}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-log-domain",
+          "question": "Let $f(x) = \\ln(10 - 2x)$. Find the largest possible domain of $f$, state the equation of the vertical asymptote of its graph, and find the coordinates of its $x$-intercept.",
+          "steps": [
+            "You can only take the log of a positive number, so $10 - 2x > 0$. This gives $x < 5$, so the domain is $x < 5$.",
+            "The vertical asymptote is where the bracket reaches $0$: $10 - 2x = 0$, so the asymptote is $x = 5$. As $x$ gets close to $5$ from below, $f(x)$ falls without limit.",
+            "The graph meets the $x$-axis where $f(x) = 0$. Since $\\ln 1 = 0$, solve $10 - 2x = 1$.",
+            "So $x = \\tfrac{9}{2}$. Check: $f\\left(\\tfrac{9}{2}\\right) = \\ln(10 - 9) = \\ln 1 = 0$."
+          ],
+          "answer": "$\\left(\\tfrac{9}{2}, 0\\right)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing a log domain with $\\ge$. The log of $0$ is undefined, so the inequality is strict: $10 - 2x > 0$, not $10 - 2x \\ge 0$."
+        },
+        {
+          "type": "check",
+          "id": "check-log-domain",
+          "prompt": "Find the largest possible domain of $h(x) = \\ln(3x + 12)$.",
+          "hint": "The expression inside the log must be positive.",
+          "options": [
+            {
+              "text": "$x > -4$",
+              "correct": true
+            },
+            {
+              "text": "$x \\ge -4$",
+              "correct": false
+            },
+            {
+              "text": "$x > 4$",
+              "correct": false
+            },
+            {
+              "text": "$x > -12$",
+              "correct": false
+            }
+          ],
+          "explain": "$3x + 12 > 0$ gives $3x > -12$, so $x > -4$. The endpoint is left out because $\\ln 0$ is undefined."
+        },
+        {
+          "type": "text",
+          "text": "To find the inverse of a harder exponential or log function, use the method from {{lesson:2.5}}. Write $y = f(x)$, make $x$ the subject, then swap $x$ and $y$. Logs undo exponentials, and exponentials undo logs."
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-exp",
+          "question": "Let $f(x) = 3\\mathrm{e}^{2x}$, for $x \\in \\mathbb{R}$. Find $f^{-1}(x)$ and state its domain.",
+          "steps": [
+            "Write $y = 3\\mathrm{e}^{2x}$ and divide by $3$: $\\mathrm{e}^{2x} = \\tfrac{y}{3}$.",
+            "Take natural logs, since $\\ln$ undoes $\\mathrm{e}$: $2x = \\ln\\left(\\tfrac{y}{3}\\right)$, so $x = \\tfrac{1}{2}\\ln\\left(\\tfrac{y}{3}\\right)$.",
+            "Swap the letters: $f^{-1}(x) = \\tfrac{1}{2}\\ln\\left(\\tfrac{x}{3}\\right)$.",
+            "The domain of $f^{-1}$ is the range of $f$. Since $\\mathrm{e}^{2x} > 0$, $f(x) > 0$, so the domain is $x > 0$. That also keeps the log defined.",
+            "Check: $f(0) = 3$, and $f^{-1}(3) = \\tfrac{1}{2}\\ln 1 = 0$."
+          ],
+          "answer": "$f^{-1}(x) = \\tfrac{1}{2}\\ln\\left(\\tfrac{x}{3}\\right), \\; x > 0$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-ln",
+          "prompt": "Let $g(x) = \\ln(x + 2)$, for $x > -2$. Find $g^{-1}(x)$.",
+          "hint": "Write $y = \\ln(x + 2)$. What undoes $\\ln$?",
+          "options": [
+            {
+              "text": "$g^{-1}(x) = \\mathrm{e}^{x - 2}$",
+              "correct": false
+            },
+            {
+              "text": "$g^{-1}(x) = \\mathrm{e}^{x} - 2$",
+              "correct": true
+            },
+            {
+              "text": "$g^{-1}(x) = \\mathrm{e}^{x} + 2$",
+              "correct": false
+            },
+            {
+              "text": "$g^{-1}(x) = \\frac{1}{\\ln(x + 2)}$",
+              "correct": false
+            }
+          ],
+          "explain": "$y = \\ln(x + 2)$ gives $x + 2 = \\mathrm{e}^{y}$, so $x = \\mathrm{e}^{y} - 2$. Swapping the letters gives $g^{-1}(x) = \\mathrm{e}^{x} - 2$, for $x \\in \\mathbb{R}$."
+        }
+      ]
+    },
+    {
+      "id": "relationships",
+      "heading": "Changing the base and cancelling",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every positive number is a power of $\\mathrm{e}$. For example, $\\mathrm{e}^{\\ln 5} = 5$, because $\\ln 5$ is the power of $\\mathrm{e}$ that gives $5$."
+        },
+        {
+          "type": "text",
+          "text": "So any base $a$ can be written as $\\mathrm{e}^{\\ln a}$. The power law from {{lesson:1.7}} then gives $a^{x} = \\left(\\mathrm{e}^{\\ln a}\\right)^{x} = \\mathrm{e}^{x\\ln a}$."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{x} = \\mathrm{e}^{x\\ln a}, \\qquad \\log_{a} a^{x} = x = a^{\\log_{a} x}, \\quad \\text{where } a, x > 0,\\ a \\ne 1",
+          "tag": "booklet",
+          "bookletId": "bk-2-9-exp-log",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "You don't need to memorise these; they are in the formula booklet. You do need to know when to use them."
+        },
+        {
+          "type": "text",
+          "text": "The first one rewrites any exponential with base $\\mathrm{e}$. The power $\\ln a$ is positive when $a > 1$ and negative when $0 < a < 1$, which matches growth and decay."
+        },
+        {
+          "type": "text",
+          "text": "The second says $\\log_{a}$ and $a^{x}$ undo each other, in either order. It is the [[identity-function|identity]] rule $(f^{-1} \\circ f)(x) = (f \\circ f^{-1})(x) = x$ from {{lesson:2.5}}, for this pair of functions."
+        },
+        {
+          "type": "example",
+          "id": "ex-base-e",
+          "question": "Write $f(x) = 0.5^{x}$ in the form $f(x) = \\mathrm{e}^{kx}$, giving the exact value of $k$.",
+          "steps": [
+            "Use $a^{x} = \\mathrm{e}^{x\\ln a}$ with $a = 0.5$: $0.5^{x} = \\mathrm{e}^{x\\ln 0.5}$, so $k = \\ln 0.5$.",
+            "Tidy it with a log law: $\\ln 0.5 = \\ln\\left(2^{-1}\\right) = -\\ln 2$.",
+            "Check: $k$ is negative, which fits decay, since $0.5 < 1$. Also $\\mathrm{e}^{-\\ln 2} = \\tfrac{1}{2}$, the base you started with."
+          ],
+          "answer": "$k = -\\ln 2$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-cancel-power",
+          "question": "Simplify $8^{\\log_{2} x}$, for $x > 0$.",
+          "steps": [
+            "The bases $8$ and $2$ differ, so nothing cancels yet. Write $8$ as a power of $2$: $8 = 2^{3}$.",
+            "Use the power law to move the $3$: $8^{\\log_{2} x} = \\left(2^{3}\\right)^{\\log_{2} x} = \\left(2^{\\log_{2} x}\\right)^{3}$.",
+            "Now the bases match, and $2^{\\log_{2} x} = x$. So the expression is $x^{3}$.",
+            "Check with $x = 4$: $\\log_{2} 4 = 2$, and $8^{2} = 64 = 4^{3}$."
+          ],
+          "answer": "$8^{\\log_{2} x} = x^{3}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Cancelling a power and a log with different bases. $8^{\\log_{2} x}$ is not $x$: first write $8 = 2^{3}$ so the bases match."
+        },
+        {
+          "type": "check",
+          "id": "check-cancel",
+          "prompt": "Simplify $\\mathrm{e}^{3\\ln x}$, for $x > 0$.",
+          "hint": "Use a log law to move the $3$ inside the log first.",
+          "options": [
+            {
+              "text": "$3x$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{e}^{3}x$",
+              "correct": false
+            },
+            {
+              "text": "$x^{3}$",
+              "correct": true
+            },
+            {
+              "text": "$x + 3$",
+              "correct": false
+            }
+          ],
+          "explain": "$3\\ln x = \\ln\\left(x^{3}\\right)$, so $\\mathrm{e}^{3\\ln x} = \\mathrm{e}^{\\ln(x^{3})} = x^{3}$."
+        },
+        {
+          "type": "text",
+          "text": "Cancelling also solves equations, because $\\ln$ undoes $\\mathrm{e}^{x}$. Just remember that $\\mathrm{e}^{x}$ is never $0$ or negative: its [[range|range]] is $y > 0$."
+        },
+        {
+          "type": "mistake",
+          "text": "Keeping a solution from $\\mathrm{e}^{x} = 0$ or $\\mathrm{e}^{x} = -2$. An exponential with a positive base is always positive, so reject these and say why. An extra wrong answer can cost you the final mark."
+        },
+        {
+          "type": "check",
+          "id": "check-solve-exp",
+          "prompt": "Solve $\\mathrm{e}^{2x} = 5\\mathrm{e}^{x}$.",
+          "hint": "Divide both sides by $\\mathrm{e}^{x}$. Why is that allowed?",
+          "options": [
+            {
+              "text": "$x = \\ln 5 \\text{ or } x = 0$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\ln 5$",
+              "correct": true
+            },
+            {
+              "text": "$x = 5$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\tfrac{1}{2}\\ln 5$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{e}^{x}$ is never $0$, so you can divide by it: $\\mathrm{e}^{x} = 5$, which gives $x = \\ln 5$. There is no second solution, because $\\mathrm{e}^{x} = 0$ is impossible."
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "heading": "Growth and decay: interest and depreciation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.4}} you worked with [[compound-interest|compound interest]]. If $V_{0}$ is invested at $r$% per year, added once a year, its value after $t$ years is $V(t) = V_{0}\\left(1 + \\tfrac{r}{100}\\right)^{t}$."
+        },
+        {
+          "type": "text",
+          "text": "As a function of $t$, this is an [[exponential-function|exponential function]] with base $1 + \\tfrac{r}{100}$. The base is bigger than $1$, so the value grows."
+        },
+        {
+          "type": "text",
+          "text": "[[depreciation|Depreciation]] works the same way. If something loses $r$% of its value each year, then $V(t) = V_{0}\\left(1 - \\tfrac{r}{100}\\right)^{t}$. Now the base is between $0$ and $1$, so the value decays towards $0$ but never reaches it."
+        },
+        {
+          "type": "text",
+          "text": "Use $a^{x} = \\mathrm{e}^{x\\ln a}$ to rewrite a model with base $\\mathrm{e}$. Use logs, the inverse of exponentials, to find when a value is reached."
+        },
+        {
+          "type": "example",
+          "id": "ex-depreciation-exact",
+          "question": "A machine costs $30\\,000$ euros when new and loses 20% of its value each year. Its value after $t$ years is $V(t) = 30\\,000 \\times 0.8^{t}$. This can also be written as $V(t) = 30\\,000\\,\\mathrm{e}^{kt}$. Find the exact value of $k$.",
+          "steps": [
+            "Losing 20% leaves 80% each year, so the yearly multiplier is $0.8$.",
+            "Use $a^{x} = \\mathrm{e}^{x\\ln a}$: $0.8^{t} = \\mathrm{e}^{t\\ln 0.8}$. Compare this with $\\mathrm{e}^{kt}$ to see that $k = \\ln 0.8$.",
+            "$k = \\ln 0.8$ is already exact. You can also write it as $k = \\ln\\left(\\tfrac{4}{5}\\right)$. The decimal $-0.223$ is not exact.",
+            "Check: $k < 0$, which matches a value that is falling."
+          ],
+          "answer": "$k = \\ln\\left(\\tfrac{4}{5}\\right)$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "\"Find the exact value\" means leave logs and fractions as they are, such as $\\ln\\left(\\tfrac{4}{5}\\right)$. A rounded decimal does not answer the question."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2, use your GDC to find when a model reaches a value. Write down the equation first: that line earns the method mark."
+        },
+        {
+          "type": "example",
+          "id": "ex-interest-years",
+          "question": "Ana invests $2400$ euros at 3.5% per year, compounded yearly. Use your calculator to find the number of complete years until her investment is first worth more than $3000$ euros.",
+          "steps": [
+            "The yearly multiplier is $1 + \\tfrac{3.5}{100} = 1.035$, so $V(t) = 2400 \\times 1.035^{t}$.",
+            "Write down the equation: $2400 \\times 1.035^{t} = 3000$.",
+            "Solve it on your GDC: $t = 6.48646\\ldots$ By hand you could take logs instead: $t = \\frac{\\ln 1.25}{\\ln 1.035}$.",
+            "Interest is added once a year, so test whole years. After $6$ years, $V(6) = 2950.21$, still below $3000$. After $7$ years, $V(7) = 3053.47$.",
+            "So round up, not down: it takes $7$ complete years."
+          ],
+          "answer": "$t = 7$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = 2400*1.035^X and Y2 = 3000, then GRAPH (set a window such as X from 0 to 10 and Y from 0 to 4000)",
+              "2nd TRACE (CALC), 5: intersect; choose the two graphs and give a guess near X = 6",
+              "Read x = 6.48646..., then round up to 7 complete years"
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = 2400*1.035^x and f2(x) = 3000",
+              "Menu, Window/Zoom, Window Settings: x from 0 to 10, y from 0 to 4000 (check on your model)",
+              "Menu, Analyze Graph, Intersection; click to the left and then the right of the crossing",
+              "Read x = 6.48646..., then round up to 7 complete years"
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = 2400*1.035^X and Y2 = 3000",
+              "SHIFT F3 (V-Window): Xmin 0, Xmax 10, Ymin 0, Ymax 4000, then EXIT (check on your model)",
+              "DRAW, then SHIFT F5 (G-SOLV), INTSECT",
+              "Read X = 6.48646..., then round up to 7 complete years"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding a time such as $t = 6.49$ down to $6$. After $6$ years the target has not been reached yet, so the answer is $7$ complete years."
+        },
+        {
+          "type": "check",
+          "id": "check-depreciation-value",
+          "prompt": "A phone costs $900$ euros and loses 18% of its value each year. Find its value after $4$ years, in euros, to 3 s.f.",
+          "hint": "The yearly multiplier is $1 - 0.18$. Raise it to the power $4$.",
+          "answer": {
+            "value": 407,
+            "tolerance": 0.5
+          },
+          "explain": "$V(4) = 900 \\times 0.82^{4} = 406.909\\ldots$, which is $407$ euros to 3 s.f."
+        },
+        {
+          "type": "check",
+          "id": "check-interest-model",
+          "prompt": "Ben invests $500$ euros at 6% per year, compounded yearly. Which function gives the value of his investment after $t$ years?",
+          "hint": "What do you multiply by each year to add 6%?",
+          "options": [
+            {
+              "text": "$V(t) = 500 \\times 0.94^{t}$",
+              "correct": false
+            },
+            {
+              "text": "$V(t) = 500 \\times 0.06^{t}$",
+              "correct": false
+            },
+            {
+              "text": "$V(t) = 500 \\times 1.06^{t}$",
+              "correct": true
+            },
+            {
+              "text": "$V(t) = 500 \\times 1.6^{t}$",
+              "correct": false
+            }
+          ],
+          "explain": "Adding 6% means multiplying by $1 + 0.06 = 1.06$ each year. The base $0.94$ would be a 6% loss each year, which is depreciation."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$y = a^{x}$ ($a > 0$, $a \\ne 1$): domain $x \\in \\mathbb{R}$, range $y > 0$, through $(0, 1)$, asymptote $y = 0$. It grows if $a > 1$ and decays if $0 < a < 1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$y = \\log_{a} x$: domain $x > 0$, range $y \\in \\mathbb{R}$, through $(1, 0)$ and $(a, 1)$, asymptote $x = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$a^{x}$ and $\\log_{a} x$ are inverses, and so are $\\mathrm{e}^{x}$ and $\\ln x$. Their graphs are reflections in $y = x$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "a^{x} = \\mathrm{e}^{x\\ln a}, \\qquad \\log_{a} a^{x} = x = a^{\\log_{a} x}, \\quad \\text{where } a, x > 0,\\ a \\ne 1",
+          "tag": "booklet",
+          "bookletId": "bk-2-9-exp-log",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{e}^{x} > 0$ for every $x$, so $\\mathrm{e}^{x} = 0$ or $\\mathrm{e}^{x} = -2$ has no solution.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Compound interest: $V(t) = V_{0}\\left(1 + \\tfrac{r}{100}\\right)^{t}$. Depreciation: $V(t) = V_{0}\\left(1 - \\tfrac{r}{100}\\right)^{t}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Reading $f^{-1}$ as one over $f$. The inverse of $a^{x}$ is $\\log_{a} x$, and it sends each output of $f$ back to its input.",
+    "Keeping a root from $\\mathrm{e}^{x} = -2$ or $\\mathrm{e}^{x} = 0$. An exponential with a positive base is always positive, so reject it and say why.",
+    "Cancelling a power and a log with different bases, as in $8^{\\log_{2} x} = x$. Rewrite the base first: $8 = 2^{3}$, so the answer is $x^{3}$.",
+    "Using $\\ge$ in a log domain. $\\ln 0$ is undefined, so $\\ln(3x + 12)$ needs $x > -4$, not $x \\ge -4$.",
+    "Rounding a time down when the question asks for complete years. If $t = 6.49$, the target is reached during year $7$, so the answer is $7$.",
+    "Giving a decimal such as $k = -0.223$ when the exact value is asked for. Leave it as $k = \\ln\\left(\\tfrac{4}{5}\\right)$."
+  ],
+  "examTips": [
+    "\"Write down the equation of the asymptote\": give a full equation, such as $y = 6$ or $x = 5$, not just a number.",
+    "\"Find the exact value\": keep $\\ln$ and fractions, as in $k = \\ln\\left(\\tfrac{4}{5}\\right)$.",
+    "On Paper 2, write down the equation you solve, such as $2400 \\times 1.035^{t} = 3000$, before the GDC answer. If the question asks for complete years, test the whole numbers either side.",
+    "\"Sketch\": label the intercept, $(0, 1)$ or $(1, 0)$, and draw the asymptote as a dashed line with its equation."
+  ],
+  "readingMinutes": 27
+}

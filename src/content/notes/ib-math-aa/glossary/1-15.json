@@ -1,0 +1,26 @@
+[
+  {
+    "id": "mathematical-induction",
+    "term": "mathematical induction",
+    "definition": "A proof that a statement $P(n)$ holds for every positive integer $n$: show $P(1)$ is true, then show that $P(k)$ true implies $P(k + 1)$ true.",
+    "lesson": "1.15"
+  },
+  {
+    "id": "proof-by-contradiction",
+    "term": "proof by contradiction",
+    "definition": "A proof that assumes the statement is false and deduces something impossible, so the statement must be true.",
+    "lesson": "1.15"
+  },
+  {
+    "id": "counterexample",
+    "term": "counterexample",
+    "definition": "A particular case for which a statement is false, which shows that the statement is not always true.",
+    "lesson": "1.15"
+  },
+  {
+    "id": "irrational-number",
+    "term": "irrational number",
+    "definition": "A real number that cannot be written as $\\frac{p}{q}$ with $p, q \\in \\mathbb{Z}$ and $q \\ne 0$, such as $\\sqrt{3}$ or $\\pi$.",
+    "lesson": "1.15"
+  }
+]

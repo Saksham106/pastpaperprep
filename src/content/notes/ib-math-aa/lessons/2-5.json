@@ -1,0 +1,649 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.5",
+  "slug": "composite-and-inverse-functions",
+  "title": "Composite and inverse functions",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A [[composite-function|composite function]] feeds the output of one function into another: $(f \\circ g)(x) = f(g(x))$. An [[inverse-function|inverse function]] undoes a function, so composing the two gives back $x$. You'll find inverses by rearranging, and see why only [[one-to-one|one-to-one]] functions have them.",
+  "goals": [
+    {
+      "text": "Form and evaluate a [[composite-function|composite function]] such as $(f \\circ g)(x)$, applying the functions in the right order.",
+      "bullets": [
+        "2.5-b1"
+      ]
+    },
+    {
+      "text": "Use the [[identity-function|identity function]] and $(f \\circ f^{-1})(x) = (f^{-1} \\circ f)(x) = x$ to check an inverse or find one of its values.",
+      "bullets": [
+        "2.5-b2"
+      ]
+    },
+    {
+      "text": "Find $f^{-1}(x)$ by rearranging, and state its domain.",
+      "bullets": [
+        "2.5-b3"
+      ]
+    },
+    {
+      "text": "Explain why only a [[one-to-one|one-to-one]] function has an inverse, and sketch $y = f^{-1}(x)$ as a reflection in $y = x$.",
+      "bullets": [
+        "2.5-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "composite functions",
+    "f of g of x",
+    "how to find the inverse function",
+    "f inverse of x",
+    "one-to-one function",
+    "inverse as reflection in y = x"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-evaluate",
+      "prompt": "Let $f(x) = x^{2} - 3x$. Find $f(-2)$.",
+      "hint": "Put $-2$ in brackets wherever you see $x$.",
+      "options": [
+        {
+          "text": "$f(-2) = 10$",
+          "correct": true
+        },
+        {
+          "text": "$f(-2) = -2$",
+          "correct": false
+        },
+        {
+          "text": "$f(-2) = 2$",
+          "correct": false
+        }
+      ],
+      "explain": "$f(-2) = (-2)^{2} - 3(-2) = 4 + 6 = 10$. Revise it in {{lesson:2.2}}."
+    },
+    {
+      "type": "check",
+      "id": "before-range",
+      "prompt": "Let $f(x) = x^{2} + 5$, for $x \\in \\mathbb{R}$. What is the range of $f$?",
+      "hint": "What is the smallest value $x^{2}$ can take?",
+      "options": [
+        {
+          "text": "$f(x) \\ge 5$",
+          "correct": true
+        },
+        {
+          "text": "$f(x) \\ge 0$",
+          "correct": false
+        },
+        {
+          "text": "$f(x) > 5$",
+          "correct": false
+        }
+      ],
+      "explain": "$x^{2} \\ge 0$, so $x^{2} + 5 \\ge 5$, and $x = 0$ gives exactly $5$. So the range is $f(x) \\ge 5$. Revise it in {{lesson:2.2}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "composite",
+      "heading": "Composite functions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Think of a function as a machine: a number goes in, a number comes out. Feed $x$ into $g$, then feed its output, $g(x)$, into $f$. What comes out is $f(g(x))$, and the two machines together make a [[composite-function|composite function]]."
+        },
+        {
+          "type": "definition",
+          "term": "composite function",
+          "statement": "The composite function $f \\circ g$ is defined by $(f \\circ g)(x) = f(g(x))$. It applies $g$ first, then applies $f$ to the result.",
+          "plain": "Do $g$, then do $f$ to whatever $g$ gave you."
+        },
+        {
+          "type": "formula",
+          "tex": "(f \\circ g)(x) = f(g(x))",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Read $f \\circ g$ as \"$f$ of $g$\". The function next to $x$ acts first, so $g$ goes first even though $f$ is written first."
+        },
+        {
+          "type": "example",
+          "id": "ex-composite-value",
+          "question": "Let $f(x) = \\sqrt{x + 5}$, for $x \\ge -5$, and $g(x) = 3x - 2$, for $x \\in \\mathbb{R}$. Find $(f \\circ g)(2)$.",
+          "steps": [
+            "$(f \\circ g)(2) = f(g(2))$, so start with the inside function.",
+            "Find $g(2)$: $g(2) = 3(2) - 2 = 4$.",
+            "Feed this output into $f$: $f(4) = \\sqrt{4 + 5} = \\sqrt{9} = 3$.",
+            "Compare the other order: $(g \\circ f)(2) = g(\\sqrt{7}) = 3\\sqrt{7} - 2$. A different number: the order matters."
+          ],
+          "answer": "$(f \\circ g)(2) = 3$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Applying the functions in the wrong order. In $(f \\circ g)(x)$, start with $g(x)$ and substitute it into $f$, not the other way round."
+        },
+        {
+          "type": "check",
+          "id": "check-composite-order",
+          "prompt": "Let $f(x) = x^{3}$ and $g(x) = x - 2$, for $x \\in \\mathbb{R}$. Find $(f \\circ g)(x)$.",
+          "hint": "Which function acts on $x$ first? Put its output into the other one.",
+          "options": [
+            {
+              "text": "$(f \\circ g)(x) = (x - 2)^{3}$",
+              "correct": true
+            },
+            {
+              "text": "$(f \\circ g)(x) = x^{3} - 2$",
+              "correct": false
+            },
+            {
+              "text": "$(f \\circ g)(x) = x^{3}(x - 2)$",
+              "correct": false
+            }
+          ],
+          "explain": "$g$ acts first, giving $x - 2$. Then $f$ cubes it: $f(x - 2) = (x - 2)^{3}$. The answer $x^{3} - 2$ is $(g \\circ f)(x)$, the other order."
+        },
+        {
+          "type": "example",
+          "id": "ex-composite-solve",
+          "question": "Let $f(x) = x^{2} - 4x$ and $g(x) = 2x + 1$, for $x \\in \\mathbb{R}$. Solve $(f \\circ g)(x) = 5$.",
+          "steps": [
+            "Form the composite first: $(f \\circ g)(x) = f(2x + 1) = (2x + 1)^{2} - 4(2x + 1)$.",
+            "Expand: $4x^{2} + 4x + 1 - 8x - 4 = 4x^{2} - 4x - 3$.",
+            "Set it equal to $5$: $4x^{2} - 4x - 3 = 5$, so $4x^{2} - 4x - 8 = 0$.",
+            "Divide by $4$ and factorise: $x^{2} - x - 2 = 0$, so $(x - 2)(x + 1) = 0$.",
+            "Check both: $f(g(2)) = f(5) = 5$ and $f(g(-1)) = f(-1) = 5$. Both work, so give both."
+          ],
+          "answer": "$x = -1 \\text{ or } x = 2$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-composite-number",
+          "prompt": "Let $f(x) = 2x^{2} - 1$ and $g(x) = 3 - x$, for $x \\in \\mathbb{R}$. Find $(g \\circ f)(-2)$.",
+          "hint": "Work out $f(-2)$ first, then put that number into $g$.",
+          "answer": {
+            "value": -4,
+            "tolerance": 0
+          },
+          "explain": "$f(-2) = 2(4) - 1 = 7$. Then $g(7) = 3 - 7 = -4$."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 a composite may give an equation you can't solve by hand. Write it down, then let your GDC solve it."
+        },
+        {
+          "type": "example",
+          "id": "ex-composite-gdc",
+          "question": "Let $f(x) = \\mathrm{e}^{x}$ and $g(x) = x^{2} - 2$, for $x \\in \\mathbb{R}$. Use your calculator to solve $(f \\circ g)(x) = (g \\circ f)(x)$. Give your answers to 3 s.f.",
+          "steps": [
+            "Form each composite: $(f \\circ g)(x) = \\mathrm{e}^{x^{2} - 2}$ and $(g \\circ f)(x) = (\\mathrm{e}^{x})^{2} - 2 = \\mathrm{e}^{2x} - 2$.",
+            "Write down the equation you will solve: $\\mathrm{e}^{x^{2} - 2} = \\mathrm{e}^{2x} - 2$, or $\\mathrm{e}^{x^{2} - 2} - \\mathrm{e}^{2x} + 2 = 0$.",
+            "Graph $y = \\mathrm{e}^{x^{2} - 2} - \\mathrm{e}^{2x} + 2$ and find its zeros: $x = 0.384330\\ldots$ and $x = 2.72958\\ldots$.",
+            "Check there are no others. For $x < 0$, $\\mathrm{e}^{2x} - 2$ is negative but $\\mathrm{e}^{x^{2} - 2}$ is positive. For large $x$, $x^{2} - 2$ outgrows $2x$, so the curve stays above the axis.",
+            "Round only at the end: $0.384$ and $2.73$."
+          ],
+          "answer": "$x \\approx 0.384 \\text{ or } x \\approx 2.73$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = e^(X^2-2)-e^(2X)+2, then GRAPH",
+              "2nd TRACE (CALC), 2: zero; set a left bound, right bound and guess around the first crossing",
+              "Read x = 0.384330...; repeat 2: zero for the second crossing, x = 2.72958..."
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = e^(x^2-2)-e^(2x)+2",
+              "Menu, Analyze Graph, Zero; click to the left and then the right of the first crossing",
+              "Read x = 0.384330...; repeat for the second crossing, x = 2.72958..."
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = e^(X^2-2)-e^(2X)+2, DRAW",
+              "SHIFT F5 (G-SOLV), ROOT; read x = 0.384330...",
+              "Press the right arrow to move to the next root, x = 2.72958... (check on your model)"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "identity",
+      "heading": "The identity function",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.2}} you met the [[inverse-function|inverse function]] $f^{-1}$. It undoes $f$: if $f$ sends $3$ to $10$, then $f^{-1}$ sends $10$ back to $3$."
+        },
+        {
+          "type": "text",
+          "text": "So doing $f$ and then $f^{-1}$ leaves every number unchanged. A function that changes nothing has a name."
+        },
+        {
+          "type": "definition",
+          "term": "identity function",
+          "statement": "The identity function is the function $x \\mapsto x$. It maps every value in its domain to itself.",
+          "plain": "It does nothing: whatever goes in comes straight back out."
+        },
+        {
+          "type": "formula",
+          "tex": "(f \\circ f^{-1})(x) = (f^{-1} \\circ f)(x) = x",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "result",
+          "statement": "A function composed with its inverse, in either order, is the [[identity-function|identity function]]: $(f \\circ f^{-1})(x) = x$ and $(f^{-1} \\circ f)(x) = x$.",
+          "why": "$f^{-1}$ reverses $f$, and $f$ reverses $f^{-1}$."
+        },
+        {
+          "type": "text",
+          "text": "The first holds for every $x$ in the domain of $f^{-1}$, and the second for every $x$ in the domain of $f$."
+        },
+        {
+          "type": "text",
+          "text": "Use this to check that two functions are inverses, or to find a value of $f^{-1}$ without its formula."
+        },
+        {
+          "type": "example",
+          "id": "ex-identity-verify",
+          "question": "Let $f(x) = 5x - 2$ and $g(x) = \\frac{x + 2}{5}$, for $x \\in \\mathbb{R}$. Show that $g$ is the inverse of $f$.",
+          "steps": [
+            "Compose them one way: $(f \\circ g)(x) = f\\left(\\frac{x + 2}{5}\\right) = 5 \\cdot \\frac{x + 2}{5} - 2$.",
+            "The $5$s cancel: $(x + 2) - 2 = x$.",
+            "Compose them the other way: $(g \\circ f)(x) = g(5x - 2) = \\frac{(5x - 2) + 2}{5} = \\frac{5x}{5} = x$.",
+            "Both orders give the identity function, so $g = f^{-1}$."
+          ],
+          "answer": "$(f \\circ g)(x) = (g \\circ f)(x) = x$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-value",
+          "question": "Let $f(x) = x^{3} + 2x - 5$, for $x \\in \\mathbb{R}$. As $x$ increases, $x^{3}$ and $2x$ both increase, so $f$ has an inverse. Find $f^{-1}(7)$.",
+          "steps": [
+            "A formula for $f^{-1}(x)$ is too hard here. Let $a = f^{-1}(7)$ and apply $f$ to both sides: $f(a) = f(f^{-1}(7)) = 7$.",
+            "So solve $a^{3} + 2a - 5 = 7$, which is $a^{3} + 2a - 12 = 0$.",
+            "Try small whole numbers: $a = 2$ gives $8 + 4 - 12 = 0$. It works.",
+            "$f$ is increasing, so no other input gives $7$."
+          ],
+          "answer": "$f^{-1}(7) = 2$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-identity-value",
+          "prompt": "The function $f$ has an inverse, and $f(3) = 10$. Write down $f^{-1}(10)$.",
+          "hint": "$f^{-1}$ sends each output of $f$ back to its input.",
+          "options": [
+            {
+              "text": "$f^{-1}(10) = 3$",
+              "correct": true
+            },
+            {
+              "text": "$f^{-1}(10) = \\frac{1}{10}$",
+              "correct": false
+            },
+            {
+              "text": "$f^{-1}(10) = \\frac{1}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$f$ sends $3$ to $10$, so $f^{-1}$ sends $10$ back to $3$. The inverse is not the reciprocal, so it isn't $\\frac{1}{10}$."
+        },
+        {
+          "type": "check",
+          "id": "check-identity-compose",
+          "prompt": "Let $f(x) = \\frac{x + 1}{x - 3}$, for $x \\ne 3$. The domain of $f^{-1}$ includes $12$. Without finding $f^{-1}(x)$, write down $(f \\circ f^{-1})(12)$.",
+          "hint": "What does $f$ do to the output of $f^{-1}$?",
+          "options": [
+            {
+              "text": "$(f \\circ f^{-1})(12) = 12$",
+              "correct": true
+            },
+            {
+              "text": "$(f \\circ f^{-1})(12) = \\frac{13}{9}$",
+              "correct": false
+            },
+            {
+              "text": "$(f \\circ f^{-1})(12) = \\frac{37}{11}$",
+              "correct": false
+            }
+          ],
+          "explain": "$f$ undoes $f^{-1}$, so $(f \\circ f^{-1})(12) = 12$. The value $\\frac{13}{9}$ is $f(12)$, and $\\frac{37}{11}$ is $f^{-1}(12)$."
+        }
+      ]
+    },
+    {
+      "id": "finding",
+      "heading": "Finding the inverse",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$f$ takes $x$ to $y$. Its inverse takes $y$ back to $x$. So to find $f^{-1}$, make $x$ the subject of $y = f(x)$."
+        },
+        {
+          "type": "text",
+          "text": "1. Write $y = f(x)$."
+        },
+        {
+          "type": "text",
+          "text": "2. Rearrange to make $x$ the subject."
+        },
+        {
+          "type": "text",
+          "text": "3. Swap the letters $x$ and $y$, and write the result as $f^{-1}(x) = \\ldots$."
+        },
+        {
+          "type": "text",
+          "text": "4. Check: the [[domain|domain]] of $f^{-1}$ is the [[range|range]] of $f$. Test one value to be sure."
+        },
+        {
+          "type": "text",
+          "text": "You may also swap $x$ and $y$ first, then rearrange. Either way, end with $f^{-1}(x)$ in terms of $x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-linear",
+          "question": "Let $f(x) = 7 - 2x$, for $x \\in \\mathbb{R}$. Find $f^{-1}(x)$.",
+          "steps": [
+            "Write $y = 7 - 2x$.",
+            "Make $x$ the subject: $2x = 7 - y$, so $x = \\frac{7 - y}{2}$.",
+            "Swap the letters: $f^{-1}(x) = \\frac{7 - x}{2}$.",
+            "Check: $f(1) = 5$, and $f^{-1}(5) = \\frac{7 - 5}{2} = 1$."
+          ],
+          "answer": "$f^{-1}(x) = \\frac{7 - x}{2}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $f^{-1}(x) = \\frac{1}{f(x)}$. The $-1$ means \"inverse\", not \"one over\". Rearrange $y = f(x)$ for $x$ instead."
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-linear",
+          "prompt": "Let $f(x) = \\frac{x}{4} - 3$, for $x \\in \\mathbb{R}$. Find $f^{-1}(x)$.",
+          "hint": "Write $y = \\frac{x}{4} - 3$. Add $3$ first, then multiply by $4$.",
+          "options": [
+            {
+              "text": "$f^{-1}(x) = 4x + 12$",
+              "correct": true
+            },
+            {
+              "text": "$f^{-1}(x) = 4x + 3$",
+              "correct": false
+            },
+            {
+              "text": "$f^{-1}(x) = 4x - 12$",
+              "correct": false
+            },
+            {
+              "text": "$f^{-1}(x) = \\frac{4}{x - 12}$",
+              "correct": false
+            }
+          ],
+          "explain": "$y + 3 = \\frac{x}{4}$, so $x = 4(y + 3) = 4y + 12$. Swapping the letters gives $f^{-1}(x) = 4x + 12$."
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-rational",
+          "question": "Let $f(x) = \\frac{2x + 1}{x - 3}$, for $x \\ne 3$. Find $f^{-1}(x)$ and state the domain of $f^{-1}$.",
+          "steps": [
+            "Write $y = \\frac{2x + 1}{x - 3}$ and multiply both sides by $x - 3$: $y(x - 3) = 2x + 1$.",
+            "Expand and collect the $x$ terms on one side: $xy - 3y = 2x + 1$, so $xy - 2x = 3y + 1$.",
+            "Take out the factor $x$: $x(y - 2) = 3y + 1$, so $x = \\frac{3y + 1}{y - 2}$.",
+            "Swap the letters: $f^{-1}(x) = \\frac{3x + 1}{x - 2}$.",
+            "The domain of $f^{-1}$ is the range of $f$. The output $2$ is impossible: $\\frac{2x + 1}{x - 3} = 2$ gives $2x + 1 = 2x - 6$, which has no solution. So the domain of $f^{-1}$ is $x \\ne 2$."
+          ],
+          "answer": "$f^{-1}(x) = \\frac{3x + 1}{x - 2}, \\; x \\ne 2$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-domain",
+          "question": "Let $f(x) = (x - 2)^{2} + 1$, for $x \\ge 2$. Find $f^{-1}(x)$ and state its domain.",
+          "steps": [
+            "Find the range of $f$ first. For $x \\ge 2$, $(x - 2)^{2}$ takes every value $\\ge 0$, so $f(x) \\ge 1$. So the domain of $f^{-1}$ is $x \\ge 1$.",
+            "Write $y = (x - 2)^{2} + 1$, so $(x - 2)^{2} = y - 1$ and $x - 2 = \\pm\\sqrt{y - 1}$.",
+            "The domain of $f$ is $x \\ge 2$, so $x - 2 \\ge 0$. Keep the positive root: $x = 2 + \\sqrt{y - 1}$.",
+            "Swap the letters: $f^{-1}(x) = 2 + \\sqrt{x - 1}$, for $x \\ge 1$.",
+            "Check: $f(4) = 4 + 1 = 5$, and $f^{-1}(5) = 2 + \\sqrt{4} = 4$."
+          ],
+          "answer": "$f^{-1}(x) = 2 + \\sqrt{x - 1}, \\; x \\ge 1$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Taking the domain of $f^{-1}$ from its formula. Its domain is the range of $f$, so find that range first."
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-domain",
+          "prompt": "Let $f(x) = 5 - x^{2}$, for $x \\ge 0$. State the domain of $f^{-1}$.",
+          "hint": "The domain of $f^{-1}$ is the range of $f$. What is the largest value of $5 - x^{2}$?",
+          "options": [
+            {
+              "text": "$x \\le 5$",
+              "correct": true
+            },
+            {
+              "text": "$x \\ge 0$",
+              "correct": false
+            },
+            {
+              "text": "$x \\ge 5$",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{2} \\ge 0$, so $f(x) \\le 5$, and every value up to $5$ is reached. So the domain of $f^{-1}$ is $x \\le 5$. The answer $x \\ge 0$ is the domain of $f$."
+        },
+        {
+          "type": "examTip",
+          "text": "\"Find $f^{-1}(x)$\" has a method mark for the rearranging, so show each line. End with $f^{-1}(x) = \\ldots$ in terms of $x$."
+        }
+      ]
+    },
+    {
+      "id": "one-to-one",
+      "heading": "When an inverse exists, and its graph",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[inverse-function|inverse]] sends each output back to the input it came from. But $x \\mapsto x^{2}$, for $x \\in \\mathbb{R}$, sends both $3$ and $-3$ to $9$. Undoing $9$ has no single answer, so this function has no inverse."
+        },
+        {
+          "type": "definition",
+          "term": "one-to-one function",
+          "statement": "A function $f$ is one-to-one if different inputs always give different outputs: $f(a) = f(b)$ only when $a = b$.",
+          "plain": "No output is shared by two inputs."
+        },
+        {
+          "type": "result",
+          "statement": "A function has an inverse function exactly when it is [[one-to-one|one-to-one]].",
+          "why": "If each output comes from one input, reversing every arrow gives a function. A shared output would give two answers."
+        },
+        {
+          "type": "text",
+          "text": "Test this on a graph with horizontal lines. If any horizontal line meets the graph twice, two inputs share an output, so the function is not one-to-one."
+        },
+        {
+          "type": "figure",
+          "id": "2-5-horizontal-line-test",
+          "alt": "Two graphs side by side. On the left, the parabola y equals x squared is crossed twice by a dashed horizontal line, so it is not one-to-one. On the right, the curve y equals one half x cubed is crossed only once by a dashed horizontal line, so it is one-to-one.",
+          "caption": "A horizontal line meets $y = x^{2}$ twice but meets $y = \\tfrac{1}{2}x^{3}$ only once."
+        },
+        {
+          "type": "example",
+          "id": "ex-not-one-to-one",
+          "question": "Let $f(x) = x^{2} - 6x$, for $x \\in \\mathbb{R}$. Show that $f$ does not have an inverse.",
+          "steps": [
+            "Find two different inputs with the same output. The parabola is symmetric about $x = 3$, so try $1$ and $5$.",
+            "$f(1) = 1 - 6 = -5$ and $f(5) = 25 - 30 = -5$.",
+            "Two inputs share an output, so $f$ is not one-to-one and has no inverse."
+          ],
+          "answer": "$f$ is not one-to-one: $f(1) = f(5)$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-one-to-one",
+          "prompt": "Each function below has domain $x \\in \\mathbb{R}$. Which one has an inverse?",
+          "hint": "Picture a horizontal line moving up each graph. Does it ever meet the graph twice?",
+          "options": [
+            {
+              "text": "$f(x) = x^{2} + 1$",
+              "correct": false
+            },
+            {
+              "text": "$f(x) = x^{3} - 1$",
+              "correct": true
+            },
+            {
+              "text": "$f(x) = (x - 1)^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "The two parabolas share outputs: $(-1)^{2} + 1 = 1^{2} + 1$, and $(0 - 1)^{2} = (2 - 1)^{2}$. The cubic $x^{3} - 1$ always increases, so each output comes from one input and it has an inverse."
+        },
+        {
+          "type": "text",
+          "text": "Now the graph of $f^{-1}$. If $f(a) = b$, the point $(a, b)$ is on $y = f(x)$. Then $f^{-1}(b) = a$, so the point $(b, a)$ is on $y = f^{-1}(x)$."
+        },
+        {
+          "type": "result",
+          "statement": "The graph of $y = f^{-1}(x)$ is the reflection of the graph of $y = f(x)$ in the line $y = x$.",
+          "why": "Every point $(a, b)$ becomes $(b, a)$, its mirror image in $y = x$."
+        },
+        {
+          "type": "text",
+          "text": "Drag the point along $y = 2^{x}$. Its mirror image lands on $y = \\log_{2} x$, the inverse of $2^{x}$. The coordinates of the two points are always swapped."
+        },
+        {
+          "type": "interactive",
+          "widget": "exp-log-reflection",
+          "props": {
+            "a": 2
+          },
+          "alt": "The curve y equals 2 to the power x and its reflection, the curve y equals log base 2 of x, with the dashed mirror line y equals x between them. A point you can drag on the first curve is joined to its mirror image on the second curve, and the readout shows that their coordinates are swapped."
+        },
+        {
+          "type": "example",
+          "id": "ex-reflection-point",
+          "question": "Let $f(x) = \\frac{1}{2}x^{3} + 4$, for $x \\in \\mathbb{R}$. Find the coordinates of the point where the graph of $y = f^{-1}(x)$ crosses the $x$-axis.",
+          "steps": [
+            "You need the point $(c, 0)$ on $y = f^{-1}(x)$. Swapping coordinates, $(0, c)$ is on $y = f(x)$: where $y = f(x)$ crosses the $y$-axis.",
+            "$f(0) = \\frac{1}{2}(0)^{3} + 4 = 4$, so $(0, 4)$ is on $y = f(x)$.",
+            "Swap the coordinates: $(4, 0)$ is on $y = f^{-1}(x)$.",
+            "Check: rearranging gives $f^{-1}(x) = \\sqrt[3]{2(x - 4)}$, and $f^{-1}(4) = 0$."
+          ],
+          "answer": "$(4, 0)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing only \"it is a reflection\". Always name the mirror line: a reflection in the line $y = x$."
+        },
+        {
+          "type": "check",
+          "id": "check-reflection-point",
+          "prompt": "The point $(5, -2)$ lies on the graph of $y = f(x)$, where $f$ is one-to-one. Which point must lie on the graph of $y = f^{-1}(x)$?",
+          "hint": "$f(5) = -2$. What is $f^{-1}(-2)$?",
+          "options": [
+            {
+              "text": "$(-2, 5)$",
+              "correct": true
+            },
+            {
+              "text": "$(5, 2)$",
+              "correct": false
+            },
+            {
+              "text": "$(-5, 2)$",
+              "correct": false
+            }
+          ],
+          "explain": "$f(5) = -2$, so $f^{-1}(-2) = 5$, and $(-2, 5)$ is on $y = f^{-1}(x)$. Reflecting in $y = x$ swaps the coordinates."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also restrict a domain to make an inverse exist, and meet functions that are their own inverse.",
+          "lesson": "2.14"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "(f \\circ g)(x) = f(g(x))",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In $(f \\circ g)(x)$, the function next to $x$ acts first: do $g$, then $f$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "(f \\circ f^{-1})(x) = (f^{-1} \\circ f)(x) = x",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To find $f^{-1}(x)$: write $y = f(x)$, make $x$ the subject, then swap $x$ and $y$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The domain of $f^{-1}$ is the range of $f$. $f^{-1}(x)$ is not $\\frac{1}{f(x)}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A function has an inverse only if it is one-to-one: no horizontal line meets its graph twice.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The graph of $y = f^{-1}(x)$ is the reflection of $y = f(x)$ in the line $y = x$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Composing in the wrong order. In $(f \\circ g)(x)$ the function next to $x$ acts first, so substitute $g(x)$ into $f$.",
+    "Treating $f^{-1}(x)$ as $\\frac{1}{f(x)}$. The inverse undoes $f$. Find it by making $x$ the subject of $y = f(x)$.",
+    "Rearranging for $x$ but never swapping the letters. Finish with $f^{-1}(x) = \\ldots$ written in terms of $x$.",
+    "Saying $f^{-1}$ works for every real $x$ because its formula does, or copying the domain of $f$. The domain of $f^{-1}$ is the range of $f$.",
+    "Describing the graph of $f^{-1}$ as \"a reflection\" without the mirror line. Say \"a reflection in the line $y = x$\"."
+  ],
+  "examTips": [
+    "\"Find $(f \\circ g)(x)$\": show the substitution line, such as $f(g(x)) = f(2x + 1)$, then simplify.",
+    "\"State the domain of $f^{-1}$\" needs no working: give the range of $f$ as an inequality in $x$, such as $x \\ge 1$.",
+    "On Paper 2, write down the equation you solve before giving the GDC's values, and round to 3 s.f. only at the end."
+  ],
+  "readingMinutes": 22
+}

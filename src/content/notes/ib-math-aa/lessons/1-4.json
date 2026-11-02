@@ -1,0 +1,651 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.4",
+  "slug": "financial-applications-of-geometric-sequences",
+  "title": "Financial applications of geometric sequences",
+  "level": "SL",
+  "topic": 1,
+  "summary": "With [[compound-interest|compound interest]], each period's interest is added to the balance and then earns interest itself. So the balances form a geometric sequence, and one booklet formula handles yearly, half-yearly, quarterly and monthly compounding. The same idea models [[depreciation|depreciation]] and the [[real-value|real value]] of savings after inflation.",
+  "goals": [
+    {
+      "text": "Explain how [[compound-interest|compound interest]] differs from [[simple-interest|simple interest]], and why compound balances form a geometric sequence.",
+      "bullets": [
+        "1.4-b1",
+        "1.4-b3"
+      ]
+    },
+    {
+      "text": "Use the compound interest formula with yearly, half-yearly, quarterly or monthly compounding, and see why it works.",
+      "bullets": [
+        "1.4-b1",
+        "1.4-b5"
+      ]
+    },
+    {
+      "text": "Model [[depreciation|depreciation]] at a fixed yearly rate, and find the rate from two values.",
+      "bullets": [
+        "1.4-b2"
+      ]
+    },
+    {
+      "text": "Use your calculator's finance solver to find a value, a rate or a number of periods.",
+      "bullets": [
+        "1.4-b3"
+      ]
+    },
+    {
+      "text": "Find the [[real-value|real value]] of an investment when prices rise with [[inflation|inflation]].",
+      "bullets": [
+        "1.4-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "compound interest formula",
+    "compounded monthly or quarterly",
+    "depreciation",
+    "real value and inflation",
+    "TVM solver",
+    "finance app on calculator"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-nth-term-geometric",
+      "prompt": "In a geometric sequence, $u_{1} = 5$ and each term is $3$ times the one before. Find $u_{6}$.",
+      "hint": "Use $u_{n} = u_{1}r^{n-1}$. How many times do you multiply by $3$ to get from $u_{1}$ to $u_{6}$?",
+      "options": [
+        {
+          "text": "$1215$",
+          "correct": true
+        },
+        {
+          "text": "$3645$",
+          "correct": false
+        },
+        {
+          "text": "$90$",
+          "correct": false
+        }
+      ],
+      "explain": "$u_{6} = 5 \\times 3^{5} = 1215$: from $u_{1}$ to $u_{6}$ is $5$ steps. Revise it in {{lesson:1.3}}."
+    },
+    {
+      "type": "check",
+      "id": "before-ratio-from-terms",
+      "prompt": "In a geometric sequence, $u_{4} = 1250$ and $u_{5} = 1175$. Find the common ratio.",
+      "hint": "Divide a term by the term before it.",
+      "answer": {
+        "value": 0.94,
+        "tolerance": 0
+      },
+      "explain": "$r = \\frac{1175}{1250} = 0.94$. A ratio below $1$ means the terms are falling. Revise it in {{lesson:1.3}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "compound",
+      "heading": "From simple to compound interest",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Put $2000$ euros in an account paying $5\\%$ a year. With [[simple-interest|simple interest]] you earn $5\\%$ of $2000$, so $100$ euros, every year. That interest never earns interest itself."
+        },
+        {
+          "type": "text",
+          "text": "With [[compound-interest|compound interest]], each year's interest is added to the balance. Next year you earn $5\\%$ of the new, bigger balance. So the balances go $2000$, $2100$, $2205$, $2315.25$, and so on."
+        },
+        {
+          "type": "text",
+          "text": "Adding $5\\%$ is the same as multiplying by $1.05$. So the balances form a geometric sequence with common ratio $1.05$."
+        },
+        {
+          "type": "definition",
+          "term": "compound interest",
+          "statement": "Interest is compound when it is added to the balance at the end of each period, so later interest is worked out on the new balance. At $r\\%$ per period, the balance is multiplied by $1 + \\frac{r}{100}$ each period.",
+          "plain": "You earn interest on your interest, so the balance grows faster and faster."
+        },
+        {
+          "type": "figure",
+          "id": "1-4-simple-vs-compound",
+          "alt": "Graph of the balance of 1000 euros over 10 years at 10 percent a year. The simple interest points lie on a straight line from 1000 up to 2000. The compound interest points start at the same place but curve upwards, ending at about 2594.",
+          "caption": "Simple interest grows in a straight line. Compound interest curves upwards and pulls ahead."
+        },
+        {
+          "type": "text",
+          "text": "Watch the term numbers. If $u_{n}$ is the balance at the end of year $n$, then $u_{1} = 2100$, not $2000$, and $u_{n} = 2000 \\times 1.05^{n}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-simple-vs-compound",
+          "question": "Lena invests $2500$ euros for $3$ years at $4\\%$ per year. How much more does she have at the end if the interest is compound, added yearly, than if it is simple?",
+          "steps": [
+            "Simple interest: each year earns $4\\%$ of the original $2500$, which is $100$ euros. After $3$ years that is $2500 + 3 \\times 100 = 2800$ euros.",
+            "Compound interest multiplies the balance by $1.04$ each year. After $3$ years it is $2500 \\times 1.04^{3}$.",
+            "Work out the power by hand: $1.04^{2} = 1.0816$, then $1.0816 \\times 1.04 = 1.124864$.",
+            "So the compound balance is $2500 \\times 1.124864 = 2812.16$ euros.",
+            "Subtract: $2812.16 - 2800 = 12.16$ euros. That is interest on earlier interest: $4\\%$ of $100$ in year 2 plus $4\\%$ of $204$ in year 3, $4 + 8.16 = 12.16$."
+          ],
+          "answer": "$2812.16 - 2800 = 12.16\\text{ euros}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-deposit-from-balances",
+          "question": "Omar's account pays compound interest once a year at a fixed rate. He makes no other deposits or withdrawals. His balance is $1590$ euros at the end of year 1 and $1685.40$ euros at the end of year 2. Find the interest rate and the amount he first invested.",
+          "steps": [
+            "The yearly balances form a geometric sequence, so divide one balance by the one before it: $\\frac{1685.40}{1590}$.",
+            "By hand, $1590 \\times 1.06 = 1685.4$, so the ratio is $1.06$ and the interest rate is $6\\%$.",
+            "The year-1 balance is one year of growth after the deposit $PV$: $PV \\times 1.06 = 1590$.",
+            "Divide: $PV = \\frac{1590}{1.06} = 1500$ euros.",
+            "Check: $1500 \\times 1.06^{2} = 1500 \\times 1.1236 = 1685.40$."
+          ],
+          "answer": "$r = 6\\%, \\; PV = 1500\\text{ euros}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-compound-by-hand",
+          "prompt": "Without a calculator: $4000$ euros is invested at $3\\%$ per year compound interest, added yearly. What is it worth after $2$ years?",
+          "hint": "Multiply by $1.03$ once for each year.",
+          "options": [
+            {
+              "text": "$4243.60$",
+              "correct": true
+            },
+            {
+              "text": "$4240$",
+              "correct": false
+            },
+            {
+              "text": "$4120$",
+              "correct": false
+            }
+          ],
+          "explain": "$4000 \\times 1.03^{2} = 4000 \\times 1.0609 = 4243.60$. The value $4240$ is simple interest, which misses the interest on the first year's interest."
+        },
+        {
+          "type": "check",
+          "id": "check-fourth-year-interest",
+          "prompt": "$2000$ euros is invested at $5\\%$ per year compound interest, added yearly. How much interest is added during the 4th year alone? Give your answer to the nearest cent.",
+          "hint": "Find the balance at the end of year 3. The 4th year's interest is $5\\%$ of that.",
+          "answer": {
+            "value": 115.76,
+            "tolerance": 0.005
+          },
+          "explain": "At the end of year 3 the balance is $2000 \\times 1.05^{3} = 2315.25$. The 4th year adds $5\\%$ of this, $115.7625$, so $115.76$ euros."
+        }
+      ]
+    },
+    {
+      "id": "formula",
+      "heading": "The compound interest formula",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A bank advertises $6\\%$ a year, compounded monthly. It does not add $6\\%$ once a year. It adds $\\frac{6}{12} = 0.5\\%$ at the end of every month, $12$ times a year."
+        },
+        {
+          "type": "text",
+          "text": "Each month's interest then earns interest too. After one year, $1000$ euros becomes $1000 \\times 1.005^{12} \\approx 1061.68$ euros. That is a little more than the $1060$ euros from yearly compounding."
+        },
+        {
+          "type": "formula",
+          "tex": "FV = PV \\times \\left(1 + \\frac{r}{100k}\\right)^{kn}",
+          "tag": "booklet",
+          "bookletId": "bk-1-4-compound-interest",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "$PV$ is the [[present-value|present value]], the amount at the start, and $FV$ is the [[future-value|future value]] after $n$ years. $r$ is the quoted yearly rate, the [[nominal-interest-rate|nominal rate]], as a percentage: $r = 6$ for $6\\%$."
+        },
+        {
+          "type": "text",
+          "text": "$k$ is the number of times interest is added each year: $k = 1$ for yearly, $2$ for half-yearly, $4$ for quarterly and $12$ for monthly. So $\\frac{r}{k}$ is the percentage for one period, and $kn$ is the number of periods."
+        },
+        {
+          "type": "text",
+          "text": "The formula is in the formula booklet. You need to know what $k$ and $n$ mean, and how to rearrange it."
+        },
+        {
+          "type": "result",
+          "statement": "Compounding $k$ times a year for $n$ years multiplies $PV$ by $1 + \\frac{r}{100k}$ a total of $kn$ times.",
+          "why": "Each period multiplies the balance by $1 + \\frac{r}{100k}$, so the balances are geometric. $PV$ is the starting term, that multiplier is the common ratio, and $FV$ is $kn$ steps on. You won't be asked to derive the formula in an exam."
+        },
+        {
+          "type": "example",
+          "id": "ex-half-yearly-by-hand",
+          "question": "Without a calculator: Sam invests $4000$ euros at $6\\%$ nominal interest per year, compounded half-yearly. Find the value of the investment after $18$ months, to the nearest cent.",
+          "steps": [
+            "Half-yearly means $k = 2$. Each half-year earns $\\frac{6}{2} = 3\\%$, so the multiplier per period is $1 + \\frac{6}{100 \\times 2} = 1.03$.",
+            "$18$ months is $n = 1.5$ years, so there are $kn = 2 \\times 1.5 = 3$ periods.",
+            "Substitute: $FV = 4000 \\times 1.03^{3}$.",
+            "By hand: $1.03^{2} = 1.0609$, and $1.0609 \\times 1.03 = 1.092727$.",
+            "So $FV = 4000 \\times 1.092727 = 4370.908$, which is $4370.91$ euros to the nearest cent."
+          ],
+          "answer": "$FV \\approx 4370.91\\text{ euros}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-present-value",
+          "question": "Use your calculator. Kofi's account pays $4.4\\%$ nominal interest per year, with quarterly compounding. How much must he invest now to have $20\\,000$ euros after $6$ years? Give your answer to the nearest cent.",
+          "steps": [
+            "Here $FV = 20\\,000$ and $PV$ is unknown. Quarterly means $k = 4$, so there are $kn = 4 \\times 6 = 24$ periods.",
+            "Substitute: $20\\,000 = PV \\times \\left(1 + \\frac{4.4}{400}\\right)^{24} = PV \\times 1.011^{24}$.",
+            "Divide both sides by the bracket: $PV = \\frac{20\\,000}{1.011^{24}}$.",
+            "Calculator: $1.011^{24} = 1.300252\\ldots$, so $PV = 15\\,381.626\\ldots$",
+            "To the nearest cent, he must invest $15\\,381.63$ euros."
+          ],
+          "answer": "$PV \\approx 15381.63\\text{ euros}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-quarterly-expression",
+          "prompt": "Which expression gives the value of $3000$ euros after $7$ years, if it earns $5\\%$ nominal interest per year with quarterly compounding?",
+          "hint": "Find the rate for one quarter. Then count the quarters in $7$ years.",
+          "options": [
+            {
+              "text": "$3000 \\times 1.0125^{28}$",
+              "correct": true
+            },
+            {
+              "text": "$3000 \\times 1.05^{28}$",
+              "correct": false
+            },
+            {
+              "text": "$3000 \\times 1.0125^{7}$",
+              "correct": false
+            },
+            {
+              "text": "$3000 \\times 1.05^{7}$",
+              "correct": false
+            }
+          ],
+          "explain": "Each quarter earns $\\frac{5}{4} = 1.25\\%$, so the multiplier is $1.0125$. There are $4 \\times 7 = 28$ quarters."
+        },
+        {
+          "type": "check",
+          "id": "check-monthly-value",
+          "prompt": "$2500$ euros is invested for $3$ years at $5.4\\%$ nominal interest per year, compounded monthly. Find its value at the end, to the nearest cent.",
+          "hint": "Here $k = 12$, so each month earns $\\frac{5.4}{12}\\%$, and there are $36$ months.",
+          "answer": {
+            "value": 2938.58,
+            "tolerance": 0.005
+          },
+          "explain": "$FV = 2500 \\times \\left(1 + \\frac{5.4}{1200}\\right)^{36} = 2500 \\times 1.0045^{36} = 2938.582\\ldots$, so $2938.58$ euros."
+        }
+      ]
+    },
+    {
+      "id": "depreciation",
+      "heading": "Depreciation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Cars and machines often lose the same percentage of their value each year. This is [[depreciation|depreciation]]."
+        },
+        {
+          "type": "text",
+          "text": "A machine that loses $12\\%$ a year keeps $88\\%$, so its value is multiplied by $0.88$ each year. The values form a geometric sequence with ratio $0.88$: they fall, but never reach zero."
+        },
+        {
+          "type": "definition",
+          "term": "depreciation",
+          "statement": "An item depreciates at $r\\%$ per year when it loses $r\\%$ of its value each year. Its value is multiplied by $1 - \\frac{r}{100}$ every year.",
+          "plain": "Each year it keeps the same fraction of the value it had a year before."
+        },
+        {
+          "type": "formula",
+          "tex": "FV = PV \\times \\left(1 - \\frac{r}{100}\\right)^{n}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is the booklet's compound interest formula with $k = 1$ and $-r$ in place of $r$. $PV$ is the value when new."
+        },
+        {
+          "type": "example",
+          "id": "ex-laptop",
+          "question": "Without a calculator: a laptop costs $1500$ euros new and depreciates at $20\\%$ per year. Find its value after $3$ years.",
+          "steps": [
+            "Losing $20\\%$ a year means keeping $80\\%$, so the multiplier is $1 - \\frac{20}{100} = 0.8$.",
+            "Substitute: $FV = 1500 \\times 0.8^{3}$.",
+            "By hand: $0.8^{3} = 0.512$.",
+            "So $FV = 1500 \\times 0.512 = 768$ euros."
+          ],
+          "answer": "$FV = 768\\text{ euros}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the kept percentage as the depreciation rate. A multiplier of $0.8$ means $20\\%$ of the value is lost each year, not $80\\%$."
+        },
+        {
+          "type": "example",
+          "id": "ex-depreciation-rate",
+          "question": "A farmer buys a tractor for $85\\,000$ euros. Four years later it is worth $52\\,000$ euros. It has lost value at the same rate of $r\\%$ each year. Find $r$, to 3 significant figures.",
+          "steps": [
+            "Write the model with $n = 4$: $85\\,000\\left(1 - \\frac{r}{100}\\right)^{4} = 52\\,000$.",
+            "Divide both sides by $85\\,000$: $\\left(1 - \\frac{r}{100}\\right)^{4} = \\frac{52\\,000}{85\\,000} = 0.611764\\ldots$",
+            "Take the fourth root of both sides: $1 - \\frac{r}{100} = 0.611764\\ldots^{1/4} = 0.884394\\ldots$",
+            "So $\\frac{r}{100} = 0.115605\\ldots$ and $r = 11.5605\\ldots$",
+            "Check: $85\\,000 \\times 0.884394\\ldots^{4} = 52\\,000$. To 3 s.f., the rate is $11.6\\%$."
+          ],
+          "answer": "$r \\approx 11.6\\%$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-depreciation-rate-from-values",
+          "prompt": "A minibus is worth $64\\,000$ euros. One year later it is worth $59\\,520$ euros. It depreciates at a fixed yearly rate. What is that rate?",
+          "hint": "Divide the later value by the earlier one. That multiplier is the fraction of the value kept each year.",
+          "options": [
+            {
+              "text": "$7\\%$",
+              "correct": true
+            },
+            {
+              "text": "$93\\%$",
+              "correct": false
+            },
+            {
+              "text": "$0.07\\%$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{59\\,520}{64\\,000} = 0.93$, so it keeps $93\\%$ of its value each year. It loses $7\\%$ a year."
+        },
+        {
+          "type": "check",
+          "id": "check-depreciation-value",
+          "prompt": "A bike bought for $950$ euros depreciates by $8\\%$ per year. Find its value after $6$ years, to 3 significant figures.",
+          "hint": "Find the yearly multiplier first, then raise it to the power $6$.",
+          "answer": {
+            "value": 576,
+            "tolerance": 0.5
+          },
+          "explain": "$FV = 950 \\times 0.92^{6} = 576.037\\ldots$, so the bike is worth about $576$ euros."
+        }
+      ]
+    },
+    {
+      "id": "solver",
+      "heading": "Using your calculator's finance solver",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On Paper 2, your calculator's finance solver (the TVM solver) saves time. It solves the compound interest formula for whichever value you leave out."
+        },
+        {
+          "type": "text",
+          "text": "Its fields are $N$ (the number of periods), $I\\%$ (the nominal rate), $PV$, $FV$, and $P/Y$ and $C/Y$ (payments and compounding periods per year). $PMT$ is for regular payments: set it to $0$."
+        },
+        {
+          "type": "text",
+          "text": "With no payments, set both $P/Y$ and $C/Y$ to $k$. Then $N = kn$ counts periods, not years. For depreciation, enter $I\\%$ as a negative number, such as $-10$ for a loss of $10\\%$ a year, with $P/Y = C/Y = 1$."
+        },
+        {
+          "type": "result",
+          "statement": "Money you pay in is negative and money you get back is positive. So an investment of $7500$ is entered as $PV = -7500$, and $FV$ comes out positive.",
+          "why": "They are payments in opposite directions. With the same sign, the solver usually reports an error."
+        },
+        {
+          "type": "example",
+          "id": "ex-solver-months",
+          "question": "Ana invests $7500$ euros at $3.9\\%$ nominal interest per year, compounded monthly. Interest is added at the end of each month. Use your calculator to find the least number of months until her balance is more than $10\\,000$ euros.",
+          "steps": [
+            "Write down the equation, for the method mark: $7500\\left(1 + \\frac{3.9}{1200}\\right)^{N} = 10\\,000$.",
+            "Solver entries: $I\\% = 3.9$, $PV = -7500$, $PMT = 0$, $FV = 10\\,000$, $P/Y = C/Y = 12$. Solve for $N$.",
+            "The solver gives $N = 88.66\\ldots$ months.",
+            "Interest is added only at the end of a month, so round up: the balance first passes $10\\,000$ euros at the end of month $89$.",
+            "Check both sides: $9978.56\\ldots$ euros after $88$ months and $10\\,010.99\\ldots$ euros after $89$ months."
+          ],
+          "answer": "$N = 89$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "APPS, Finance, TVM Solver",
+              "Enter N = 0, I% = 3.9, PV = -7500, PMT = 0, FV = 10000, P/Y = 12, C/Y = 12",
+              "Move the cursor to N, then press ALPHA, ENTER (SOLVE) (check on your model)",
+              "Read N = 88.66..., then round up to 89 months"
+            ],
+            "nspire": [
+              "Calculator page, Menu, Finance, Finance Solver",
+              "Enter I(%) = 3.9, PV = -7500, Pmt = 0, FV = 10000, PpY = 12, CpY = 12",
+              "Move to the N field and press enter to solve for it (check on your model)",
+              "Read N = 88.66..., then round up to 89 months"
+            ],
+            "casio": [
+              "TVM, Compound Interest",
+              "Enter I% = 3.9, PV = -7500, PMT = 0, FV = 10000, P/Y = 12, C/Y = 12",
+              "Press F1 (n) to solve for the number of periods (check on your model)",
+              "Read n = 88.66..., then round up to 89 months"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "A spreadsheet gives the same answer: put $7500$ in A1, type =A1*(1+0.039/12) in A2, and fill down until a cell passes $10\\,000$."
+        },
+        {
+          "type": "example",
+          "id": "ex-solver-rate",
+          "question": "Use your calculator. What nominal annual rate, compounded quarterly, turns $12\\,000$ euros into $15\\,000$ euros in $6$ years? Give your answer to 3 s.f.",
+          "steps": [
+            "Quarterly means $k = 4$, so $N = 4 \\times 6 = 24$ periods.",
+            "Write down the equation: $12\\,000\\left(1 + \\frac{r}{400}\\right)^{24} = 15\\,000$.",
+            "On the solver: $N = 24$, $PV = -12\\,000$, $PMT = 0$, $FV = 15\\,000$, $P/Y = C/Y = 4$. Solve for $I\\%$ to get $3.7364\\ldots$",
+            "By algebra instead: $\\left(1 + \\frac{r}{400}\\right)^{24} = 1.25$, so $1 + \\frac{r}{400} = 1.25^{1/24} = 1.009341\\ldots$, which gives $r = 3.7364\\ldots$",
+            "To 3 s.f., the rate is $3.74\\%$."
+          ],
+          "answer": "$r \\approx 3.74\\%$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-tvm-n",
+          "prompt": "Money is invested for $9$ years with interest compounded monthly. You set $P/Y = C/Y = 12$ on the finance solver. What value of $N$ do you enter?",
+          "hint": "$N$ counts compounding periods, not years.",
+          "answer": {
+            "value": 108,
+            "tolerance": 0
+          },
+          "explain": "There are $12$ months in each of $9$ years, so $N = 12 \\times 9 = 108$."
+        },
+        {
+          "type": "check",
+          "id": "check-tvm-depreciation",
+          "prompt": "A van loses $13\\%$ of its value each year. On the finance solver, with $P/Y = C/Y = 1$, what do you enter for $I\\%$?",
+          "hint": "Is the value going up or down each year?",
+          "options": [
+            {
+              "text": "$-13$",
+              "correct": true
+            },
+            {
+              "text": "$13$",
+              "correct": false
+            },
+            {
+              "text": "$87$",
+              "correct": false
+            }
+          ],
+          "explain": "The value falls by $13\\%$ a year, so the rate is negative: $I\\% = -13$. Entering $87$ would mean growth of $87\\%$ a year."
+        }
+      ]
+    },
+    {
+      "id": "inflation",
+      "heading": "Inflation and real value",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Suppose your savings grow by $3\\%$ a year, but prices also rise by $3\\%$ a year. You have more euros, but they buy no more than before."
+        },
+        {
+          "type": "text",
+          "text": "The yearly percentage rise in prices is called [[inflation|inflation]]. To judge an investment fairly, remove its effect."
+        },
+        {
+          "type": "definition",
+          "term": "real value",
+          "statement": "The real value of a future amount is what it is worth in today's prices, after allowing for inflation.",
+          "plain": "It tells you how much the money will really buy."
+        },
+        {
+          "type": "text",
+          "text": "To find a [[real-value|real value]], use the real interest rate: the interest rate minus the inflation rate. Then use the compound interest formula as usual."
+        },
+        {
+          "type": "formula",
+          "tex": "FV_{\\text{real}} = PV \\times \\left(1 + \\frac{r - i}{100k}\\right)^{kn}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Here $i$ is the yearly inflation rate, as a percentage. On the finance solver, enter $I\\% = r - i$."
+        },
+        {
+          "type": "text",
+          "text": "Subtracting the rates is an approximation, but use it unless a question says otherwise. Dividing $FV$ by $\\left(1 + \\frac{i}{100}\\right)^{n}$ instead gives a slightly different value."
+        },
+        {
+          "type": "example",
+          "id": "ex-real-value-yearly",
+          "question": "Ravi invests $8000$ euros for $10$ years at $5.5\\%$ per year, compounded yearly. Inflation is $2.3\\%$ per year over this time. Find the real value of his investment after $10$ years, to the nearest euro.",
+          "steps": [
+            "Real interest rate: $5.5 - 2.3 = 3.2\\%$ per year.",
+            "Use the compound interest formula with $r = 3.2$ and $k = 1$: $FV_{\\text{real}} = 8000 \\times 1.032^{10}$.",
+            "Calculator: $8000 \\times 1.032^{10} = 10\\,961.93\\ldots$, so about $10\\,962$ euros in today's prices.",
+            "The actual balance is $8000 \\times 1.055^{10} = 13\\,665.15\\ldots$ euros, so inflation removes about $2700$ euros of buying power."
+          ],
+          "answer": "$FV_{\\text{real}} \\approx 10962\\text{ euros}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-real-value-monthly",
+          "question": "Use your calculator. Mia invests $25\\,000$ euros for $8$ years at $4.2\\%$ nominal interest per year, compounded monthly. Inflation is expected to be $1.8\\%$ per year. Find the real value of her investment after $8$ years, to the nearest euro.",
+          "steps": [
+            "Real rate: $4.2 - 1.8 = 2.4\\%$ per year. It is still compounded monthly, so $k = 12$ and $kn = 96$.",
+            "Write down: $FV_{\\text{real}} = 25\\,000 \\times \\left(1 + \\frac{2.4}{1200}\\right)^{96} = 25\\,000 \\times 1.002^{96}$.",
+            "On the solver, use $I\\% = 2.4$ and $N = 96$. Either way, $FV_{\\text{real}} = 30\\,285.95\\ldots$, so about $30\\,286$ euros in today's prices."
+          ],
+          "answer": "$FV_{\\text{real}} \\approx 30286\\text{ euros}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-real-rate",
+          "prompt": "A savings account pays $3.1\\%$ per year. Inflation is $4.4\\%$ per year. What is the real interest rate?",
+          "hint": "Subtract the inflation rate from the interest rate, and watch the sign.",
+          "options": [
+            {
+              "text": "$-1.3\\%$",
+              "correct": true
+            },
+            {
+              "text": "$1.3\\%$",
+              "correct": false
+            },
+            {
+              "text": "$7.5\\%$",
+              "correct": false
+            }
+          ],
+          "explain": "$3.1 - 4.4 = -1.3$, so the real rate is $-1.3\\%$. The account loses buying power each year, even though its balance grows."
+        },
+        {
+          "type": "check",
+          "id": "check-real-value",
+          "prompt": "$6000$ euros is invested for $5$ years at $4\\%$ per year, compounded yearly. Inflation is $2.5\\%$ per year. Using the real interest rate, find the real value after $5$ years, to the nearest cent.",
+          "hint": "The real rate is $4 - 2.5$ per cent per year.",
+          "answer": {
+            "value": 6463.7,
+            "tolerance": 0.005
+          },
+          "explain": "The real rate is $1.5\\%$, so $FV_{\\text{real}} = 6000 \\times 1.015^{5} = 6463.704\\ldots$, which is $6463.70$ euros."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "FV = PV \\times \\left(1 + \\frac{r}{100k}\\right)^{kn}",
+          "tag": "booklet",
+          "bookletId": "bk-1-4-compound-interest",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Compound interest multiplies by the same number each period, so balances are geometric. Simple interest adds the same amount, so balances are arithmetic.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$k = 1, 2, 4, 12$ for yearly, half-yearly, quarterly and monthly. The rate per period is $\\frac{r}{k}\\%$ and the power is $kn$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "FV = PV \\times \\left(1 - \\frac{r}{100}\\right)^{n}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Finance solver: $PMT = 0$, $P/Y = C/Y = k$, $N = kn$. Money paid in is negative; depreciation has a negative $I\\%$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "FV_{\\text{real}} = PV \\times \\left(1 + \\frac{r - i}{100k}\\right)^{kn}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "When interest is added only at the end of each period, round a number of periods up.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the yearly rate for every period. With $6\\%$ compounded monthly, each month earns $0.5\\%$, so the multiplier is $1.005$, not $1.06$.",
+    "Using $n$ as the power when interest is added more than once a year. The power is the number of periods, $kn$: $5$ years compounded quarterly is $20$ periods.",
+    "Mixing up simple and compound interest. Simple interest uses the original amount; compound interest uses the current balance.",
+    "Giving the kept percentage as the depreciation rate. A multiplier of $0.88$ means $12\\%$ is lost each year, not $88\\%$.",
+    "Rounding a number of periods to the nearest whole number. If the solver gives $N = 30.2$ quarters, the target is first passed at the end of quarter $31$."
+  ],
+  "examTips": [
+    "\"Find\" on Paper 2: write the formula with your numbers in, such as $PV = \\frac{20\\,000}{1.011^{24}}$, or list your solver entries. That line earns the method mark.",
+    "Give the accuracy the question asks for, such as the nearest cent; if it doesn't say, give 3 s.f. Never round in the middle: keep the full calculator value for later parts.",
+    "To show in which year a target is first reached, give the values at the end of the years on both sides."
+  ],
+  "readingMinutes": 28
+}

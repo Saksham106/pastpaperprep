@@ -1,0 +1,44 @@
+[
+  {
+    "id": "compound-interest",
+    "term": "compound interest",
+    "definition": "Interest that is added to an investment and then earns interest itself, so at a rate of $r$ per cent the value is multiplied by $1 + \\frac{r}{100}$ each period.",
+    "lesson": "1.4"
+  },
+  {
+    "id": "depreciation",
+    "term": "depreciation",
+    "definition": "A loss of value over time; at a rate of $r$ per cent a year the value is multiplied by $1 - \\frac{r}{100}$ each year.",
+    "lesson": "1.4"
+  },
+  {
+    "id": "nominal-interest-rate",
+    "term": "nominal interest rate",
+    "definition": "The yearly interest rate a bank quotes before compounding is taken into account; compounded $k$ times a year, each period earns $\\frac{r}{k}$ per cent.",
+    "lesson": "1.4"
+  },
+  {
+    "id": "present-value",
+    "term": "present value",
+    "definition": "The amount invested or owed at the start, written $PV$.",
+    "lesson": "1.4"
+  },
+  {
+    "id": "future-value",
+    "term": "future value",
+    "definition": "The value of an investment or item at a later time, written $FV$.",
+    "lesson": "1.4"
+  },
+  {
+    "id": "inflation",
+    "term": "inflation",
+    "definition": "The general rise in prices over time, given as a percentage per year.",
+    "lesson": "1.4"
+  },
+  {
+    "id": "real-value",
+    "term": "real value",
+    "definition": "What a future amount of money is worth in today's prices, after allowing for inflation.",
+    "lesson": "1.4"
+  }
+]

@@ -1,0 +1,732 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.7",
+  "slug": "quadratic-equations-and-inequalities",
+  "title": "Quadratic equations and inequalities",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A quadratic equation $ax^{2} + bx + c = 0$ has at most two solutions, called [[root|roots]] or zeros. You find them by factorising, by [[completing-the-square|completing the square]] or with the quadratic formula, and the same roots solve quadratic inequalities. The [[discriminant|discriminant]] $b^{2} - 4ac$ tells you how many real roots there are before you solve anything.",
+  "goals": [
+    {
+      "text": "Solve a quadratic equation by factorising, and know that its solutions are called [[root|roots]] or zeros.",
+      "bullets": [
+        "2.7-b1"
+      ]
+    },
+    {
+      "text": "Solve a quadratic equation by [[completing-the-square|completing the square]] or with the quadratic formula, exactly on Paper 1 and with a GDC on Paper 2.",
+      "bullets": [
+        "2.7-b1"
+      ]
+    },
+    {
+      "text": "Solve a quadratic inequality using its roots and a sketch of the [[parabola|parabola]].",
+      "bullets": [
+        "2.7-b1"
+      ]
+    },
+    {
+      "text": "Use the [[discriminant|discriminant]] $\\Delta = b^{2} - 4ac$ to tell how many real roots an equation has: two different ones, one repeated one, or none.",
+      "bullets": [
+        "2.7-b2"
+      ]
+    },
+    {
+      "text": "Find the values of a [[parameter|parameter]] that give a quadratic equation a stated type of roots.",
+      "bullets": [
+        "2.7-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "solve a quadratic equation",
+    "quadratic formula",
+    "completing the square",
+    "quadratic inequality",
+    "discriminant and nature of roots",
+    "values of k for real roots"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-vertex-form",
+      "prompt": "Which point is the vertex of the parabola $y = 2(x + 1)^{2} - 5$?",
+      "hint": "In $a(x - h)^{2} + k$ the vertex is $(h, k)$. Write $x + 1$ as $x - (-1)$.",
+      "options": [
+        {
+          "text": "$(-1, -5)$",
+          "correct": true
+        },
+        {
+          "text": "$(1, -5)$",
+          "correct": false
+        },
+        {
+          "text": "$(-1, 5)$",
+          "correct": false
+        }
+      ],
+      "explain": "$x + 1 = x - (-1)$, so $h = -1$ and $k = -5$. The vertex is $(-1, -5)$. Revise it in {{lesson:2.6}}."
+    },
+    {
+      "type": "check",
+      "id": "before-factored-intercepts",
+      "prompt": "Where does the graph of $y = (x - 2)(x + 6)$ cross the $x$-axis?",
+      "hint": "In $a(x - p)(x - q)$ the $x$-intercepts are at $x = p$ and $x = q$.",
+      "options": [
+        {
+          "text": "$x = 2 \\text{ or } x = -6$",
+          "correct": true
+        },
+        {
+          "text": "$x = -2 \\text{ or } x = 6$",
+          "correct": false
+        },
+        {
+          "text": "$x = 2 \\text{ or } x = 6$",
+          "correct": false
+        }
+      ],
+      "explain": "$y = 0$ when $x - 2 = 0$ or $x + 6 = 0$, so at $x = 2$ and $x = -6$. Revise it in {{lesson:2.6}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "factorising",
+      "heading": "Roots and solving by factorising",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "If two numbers multiply to give $0$, one of them must be $0$. This one fact solves most quadratic equations on Paper 1."
+        },
+        {
+          "type": "definition",
+          "term": "root",
+          "statement": "A root of $f(x) = 0$ is a value of $x$ that makes the equation true. The roots are also called the zeros of $f$, and they are where the graph of $y = f(x)$ meets the $x$-axis.",
+          "plain": "A solution of the equation."
+        },
+        {
+          "type": "text",
+          "text": "A quadratic equation is one that can be written as $ax^{2} + bx + c = 0$ with $a \\neq 0$. It has at most two roots, because a [[parabola|parabola]] crosses the $x$-axis at most twice."
+        },
+        {
+          "type": "result",
+          "statement": "If $pq = 0$, then $p = 0$ or $q = 0$. So if $(x - \\alpha)(x - \\beta) = 0$, the roots are $x = \\alpha$ and $x = \\beta$.",
+          "why": "If neither number were $0$, their product could not be $0$."
+        },
+        {
+          "type": "text",
+          "text": "1. Rearrange so one side is $0$."
+        },
+        {
+          "type": "text",
+          "text": "2. Factorise the other side into two brackets."
+        },
+        {
+          "type": "text",
+          "text": "3. Set each bracket equal to $0$ and solve."
+        },
+        {
+          "type": "example",
+          "id": "ex-factorise-monic",
+          "question": "Solve $x^{2} + 3x - 28 = 0$.",
+          "steps": [
+            "One side is already $0$. Look for two numbers that multiply to $-28$ and add to $3$.",
+            "$7 \\times (-4) = -28$ and $7 + (-4) = 3$, so $x^{2} + 3x - 28 = (x + 7)(x - 4)$.",
+            "Set each bracket equal to $0$: $x + 7 = 0$ or $x - 4 = 0$, so $x = -7$ or $x = 4$.",
+            "Check $x = 4$: $16 + 12 - 28 = 0$. Check $x = -7$: $49 - 21 - 28 = 0$."
+          ],
+          "answer": "$x = -7 \\text{ or } x = 4$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "When $a \\neq 1$, split the middle term. Find two numbers that multiply to $ac$ and add to $b$, then factorise in pairs."
+        },
+        {
+          "type": "example",
+          "id": "ex-factorise-split",
+          "question": "Solve $6x^{2} = 7x + 3$.",
+          "steps": [
+            "Rearrange so one side is $0$: $6x^{2} - 7x - 3 = 0$. Here $a = 6$, $b = -7$, $c = -3$.",
+            "$ac = -18$. Two numbers that multiply to $-18$ and add to $-7$ are $-9$ and $2$.",
+            "Split the middle term: $6x^{2} - 9x + 2x - 3 = 0$.",
+            "Factorise in pairs: $3x(2x - 3) + 1(2x - 3) = 0$, so $(3x + 1)(2x - 3) = 0$.",
+            "So $3x + 1 = 0$ or $2x - 3 = 0$, giving $x = -\\tfrac{1}{3}$ or $x = \\tfrac{3}{2}$.",
+            "Check $x = \\tfrac{3}{2}$: $6 \\times \\tfrac{9}{4} = 13.5$ and $7 \\times \\tfrac{3}{2} + 3 = 13.5$."
+          ],
+          "answer": "$x = -\\tfrac{1}{3} \\text{ or } x = \\tfrac{3}{2}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing $5x^{2} = 20x$ by $x$ loses the root $x = 0$. Write $5x(x - 4) = 0$ instead, so $x = 0$ or $x = 4$."
+        },
+        {
+          "type": "check",
+          "id": "check-common-factor",
+          "prompt": "Solve $3x^{2} = 12x$.",
+          "hint": "Bring everything to one side, then take out the common factor.",
+          "options": [
+            {
+              "text": "$x = 0 \\text{ or } x = 4$",
+              "correct": true
+            },
+            {
+              "text": "$x = 4$",
+              "correct": false
+            },
+            {
+              "text": "$x = 0 \\text{ or } x = -4$",
+              "correct": false
+            }
+          ],
+          "explain": "$3x^{2} - 12x = 0$, so $3x(x - 4) = 0$, giving $x = 0$ or $x = 4$. Dividing by $x$ at the start loses $x = 0$."
+        },
+        {
+          "type": "check",
+          "id": "check-factorise-split",
+          "prompt": "Solve $2x^{2} + 5x - 12 = 0$.",
+          "hint": "Find two numbers that multiply to $2 \\times (-12) = -24$ and add to $5$.",
+          "options": [
+            {
+              "text": "$x = \\tfrac{3}{2} \\text{ or } x = -4$",
+              "correct": true
+            },
+            {
+              "text": "$x = -\\tfrac{3}{2} \\text{ or } x = 4$",
+              "correct": false
+            },
+            {
+              "text": "$x = 3 \\text{ or } x = -4$",
+              "correct": false
+            }
+          ],
+          "explain": "The numbers are $8$ and $-3$, so $2x^{2} + 8x - 3x - 12 = 2x(x + 4) - 3(x + 4) = (2x - 3)(x + 4)$. Then $2x - 3 = 0$ gives $x = \\tfrac{3}{2}$, not $3$."
+        }
+      ]
+    },
+    {
+      "id": "square-and-formula",
+      "heading": "Completing the square and the quadratic formula",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Try to factorise $x^{2} - 8x + 3$. No two whole numbers multiply to $3$ and add to $-8$. The [[root|roots]] exist, but they are not whole numbers. You need a method that always works."
+        },
+        {
+          "type": "text",
+          "text": "You can solve $(x - 4)^{2} = 13$ at once: take square roots of both sides. [[completing-the-square|Completing the square]] rewrites any quadratic in this shape. It is the vertex form from {{lesson:2.6}}."
+        },
+        {
+          "type": "formula",
+          "tex": "x^{2} + bx = \\left(x + \\frac{b}{2}\\right)^{2} - \\left(\\frac{b}{2}\\right)^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Halve the coefficient of $x$ to get the number in the bracket. Then subtract its square, because squaring the bracket adds it."
+        },
+        {
+          "type": "example",
+          "id": "ex-complete-square",
+          "question": "Solve $x^{2} - 8x + 3 = 0$ by completing the square. Give your answers in exact form.",
+          "steps": [
+            "Half of $-8$ is $-4$, so $x^{2} - 8x = (x - 4)^{2} - 16$.",
+            "Substitute into the equation: $(x - 4)^{2} - 16 + 3 = 0$, so $(x - 4)^{2} - 13 = 0$.",
+            "Rearrange: $(x - 4)^{2} = 13$.",
+            "Take square roots, with both signs: $x - 4 = \\pm\\sqrt{13}$.",
+            "Add $4$: $x = 4 \\pm \\sqrt{13}$. That is $x = 4 + \\sqrt{13} \\approx 7.61$ or $x = 4 - \\sqrt{13} \\approx 0.394$."
+          ],
+          "answer": "$x = 4 \\pm \\sqrt{13}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Taking only the positive square root. $(x - 4)^{2} = 13$ means $x - 4$ is $\\sqrt{13}$ or $-\\sqrt{13}$, so write $\\pm$ and give both roots."
+        },
+        {
+          "type": "text",
+          "text": "Completing the square on $ax^{2} + bx + c = 0$ itself, with letters instead of numbers, gives a formula for the roots of every quadratic."
+        },
+        {
+          "type": "formula",
+          "tex": "ax^{2} + bx + c = 0 \\;\\Rightarrow\\; x = \\frac{-b \\pm \\sqrt{b^{2} - 4ac}}{2a}, \\quad a \\neq 0",
+          "tag": "booklet",
+          "bookletId": "bk-2-7-quadratic-formula",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The quadratic formula is in the formula booklet, so you don't need to memorise it. You do need to read off $a$, $b$ and $c$ with their signs."
+        },
+        {
+          "type": "example",
+          "id": "ex-formula-exact",
+          "question": "Solve $3x^{2} - 4x - 2 = 0$. Give your answers in the form $\\frac{p \\pm \\sqrt{q}}{r}$, where $p, q, r \\in \\mathbb{Z}$.",
+          "steps": [
+            "Read off the coefficients, signs included: $a = 3$, $b = -4$, $c = -2$.",
+            "Find the part under the root first: $b^{2} - 4ac = (-4)^{2} - 4(3)(-2) = 16 + 24 = 40$.",
+            "Substitute into the formula: $x = \\frac{-(-4) \\pm \\sqrt{40}}{2(3)} = \\frac{4 \\pm \\sqrt{40}}{6}$.",
+            "Simplify the surd: $\\sqrt{40} = \\sqrt{4 \\times 10} = 2\\sqrt{10}$, so $x = \\frac{4 \\pm 2\\sqrt{10}}{6}$.",
+            "Divide top and bottom by $2$: $x = \\frac{2 \\pm \\sqrt{10}}{3}$. Check: $x \\approx 1.72$ gives $3(1.72)^{2} - 4(1.72) - 2 \\approx 0$."
+          ],
+          "answer": "$x = \\frac{2 \\pm \\sqrt{10}}{3}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 your GDC solves a quadratic directly with its polynomial root finder. Write down the equation you are solving first, since that line earns the method mark."
+        },
+        {
+          "type": "example",
+          "id": "ex-stone-gdc",
+          "question": "A stone is thrown from a cliff. Its height above the sea, in metres, $t$ seconds after it is thrown is $h(t) = 18 + 7t - 4.9t^{2}$. Use your calculator to find how long the stone takes to reach the sea. Give your answer to 3 s.f.",
+          "steps": [
+            "The stone reaches the sea when $h(t) = 0$. Write down the equation: $-4.9t^{2} + 7t + 18 = 0$.",
+            "Enter $a = -4.9$, $b = 7$, $c = 18$ in the polynomial root finder. The GDC gives $t = 2.75968\\ldots$ and $t = -1.33111\\ldots$",
+            "Time after the throw can't be negative, so reject $t = -1.33\\ldots$",
+            "Check: $h(2.76) = 18 + 19.32 - 37.33 \\approx 0$.",
+            "So the stone reaches the sea after $2.76$ seconds, to 3 s.f."
+          ],
+          "answer": "$t \\approx 2.76\\text{ s}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "APPS, PlySmlt2, then choose the polynomial root finder (check on your model)",
+              "Set ORDER to 2, then NEXT (check on your model)",
+              "Enter a2 = -4.9, a1 = 7, a0 = 18, then SOLVE (check on your model)",
+              "Read the roots 2.75968... and -1.33111..."
+            ],
+            "nspire": [
+              "Calculator page, Menu, Algebra, Polynomial Tools",
+              "Find Roots of Polynomial; Degree 2, Real roots (check on your model)",
+              "Enter a2 = -4.9, a1 = 7, a0 = 18, then OK (check on your model)",
+              "Read the roots 2.75969 and -1.33112"
+            ],
+            "casio": [
+              "EQUA, Polynomial (F2)",
+              "Choose degree 2 (F1) (check on your model)",
+              "Enter a = -4.9, b = 7, c = 18, then SOLVE (F1) (check on your model)",
+              "Read X1 and X2: 2.7596887 and -1.3311173"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-complete-square",
+          "prompt": "Solve $x^{2} + 10x + 18 = 0$ by completing the square.",
+          "hint": "Half of $10$ is $5$, so start with $x^{2} + 10x = (x + 5)^{2} - 25$.",
+          "options": [
+            {
+              "text": "$x = -5 \\pm \\sqrt{7}$",
+              "correct": true
+            },
+            {
+              "text": "$x = 5 \\pm \\sqrt{7}$",
+              "correct": false
+            },
+            {
+              "text": "$x = -5 \\pm \\sqrt{43}$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x + 5)^{2} - 25 + 18 = 0$, so $(x + 5)^{2} = 7$ and $x + 5 = \\pm\\sqrt{7}$. Then $x = -5 \\pm \\sqrt{7}$: the sign inside the bracket flips when you solve."
+        },
+        {
+          "type": "check",
+          "id": "check-formula-gdc",
+          "prompt": "Find the larger root of $2x^{2} - 7x + 1 = 0$. Give your answer to 3 s.f.",
+          "hint": "Use the formula with $a = 2$, $b = -7$, $c = 1$, or your GDC's root finder.",
+          "answer": {
+            "value": 3.35,
+            "tolerance": 0.005
+          },
+          "explain": "$x = \\frac{7 \\pm \\sqrt{49 - 8}}{4} = \\frac{7 \\pm \\sqrt{41}}{4}$. The larger root is $\\frac{7 + \\sqrt{41}}{4} = 3.3507\\ldots$, so $3.35$ to 3 s.f."
+        }
+      ]
+    },
+    {
+      "id": "inequalities",
+      "heading": "Quadratic inequalities",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When is $x^{2} - x - 12$ negative? The graph of $y = x^{2} - x - 12$ answers this. It is a [[parabola|parabola]] that opens upwards and crosses the $x$-axis at $x = -3$ and $x = 4$."
+        },
+        {
+          "type": "figure",
+          "id": "2-7-inequality-sign",
+          "alt": "Graph of y equals x squared minus x minus 12. The parabola opens upwards and crosses the x-axis at minus 3 and at 4. To the left of minus 3 and to the right of 4 the curve is above the x-axis, labelled y greater than 0. Between minus 3 and 4 it dips below the x-axis, labelled y less than 0.",
+          "caption": "Between its [[root|roots]] the parabola $y = x^{2} - x - 12$ is below the $x$-axis. Outside them it is above."
+        },
+        {
+          "type": "text",
+          "text": "The graph can only change sign where it crosses the axis. So the roots split the number line into pieces where the sign stays the same. These boundary values are called [[critical-value|critical values]]."
+        },
+        {
+          "type": "result",
+          "statement": "Let $a > 0$ and let $ax^{2} + bx + c = 0$ have roots $\\alpha < \\beta$. Then $ax^{2} + bx + c < 0$ when $\\alpha < x < \\beta$, and $ax^{2} + bx + c > 0$ when $x < \\alpha$ or $x > \\beta$.",
+          "why": "A parabola with $a > 0$ opens upwards, so it is below the axis only between its two roots."
+        },
+        {
+          "type": "text",
+          "text": "1. Rearrange so one side is $0$, with a positive $x^{2}$ term."
+        },
+        {
+          "type": "text",
+          "text": "2. Solve the equation to find the critical values."
+        },
+        {
+          "type": "text",
+          "text": "3. Sketch the parabola and mark the critical values."
+        },
+        {
+          "type": "text",
+          "text": "4. Read off where the graph is above or below the axis. Use $\\le$ or $\\ge$ if the inequality includes $0$, and $<$ or $>$ if it doesn't."
+        },
+        {
+          "type": "example",
+          "id": "ex-inequality-basic",
+          "question": "Solve $x^{2} - x - 12 < 0$.",
+          "steps": [
+            "Find the critical values: $x^{2} - x - 12 = (x + 3)(x - 4) = 0$, so $x = -3$ or $x = 4$.",
+            "The $x^{2}$ term is positive, so the parabola opens upwards.",
+            "You want where it is below the axis, which is between the roots.",
+            "The inequality is strict, so the critical values themselves are not included. Check $x = 0$: $-12 < 0$, as expected."
+          ],
+          "answer": "$-3 < x < 4$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-inequality-rearrange",
+          "question": "Solve $3 + 5x \\ge 2x^{2}$.",
+          "steps": [
+            "Move every term to the right, so the $x^{2}$ term stays positive: $0 \\ge 2x^{2} - 5x - 3$, that is $2x^{2} - 5x - 3 \\le 0$.",
+            "Factorise: $ac = -6$, and $-6$ and $1$ multiply to $-6$ and add to $-5$. So $2x^{2} - 6x + x - 3 = 2x(x - 3) + (x - 3) = (2x + 1)(x - 3)$.",
+            "The critical values are $x = -\\tfrac{1}{2}$ and $x = 3$.",
+            "The parabola $y = 2x^{2} - 5x - 3$ opens upwards. It is at or below the axis between the roots, including the roots themselves.",
+            "Check $x = 0$ in the original: $3 \\ge 0$, true. Check $x = 4$: $23 \\ge 32$, false, so $x = 4$ is correctly left out."
+          ],
+          "answer": "$-\\tfrac{1}{2} \\le x \\le 3$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing both sides by $x$. Its sign is unknown, and dividing by a negative reverses the inequality. Factorise instead."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2, when the roots are not nice numbers, graph the quadratic on your GDC and find its zeros. Then read the answer off the graph in the same way."
+        },
+        {
+          "type": "check",
+          "id": "check-inequality-common-factor",
+          "prompt": "Solve $x^{2} > 9x$.",
+          "hint": "Rearrange to $x^{2} - 9x > 0$ and factorise. Don't divide by $x$.",
+          "options": [
+            {
+              "text": "$x < 0 \\text{ or } x > 9$",
+              "correct": true
+            },
+            {
+              "text": "$x > 9$",
+              "correct": false
+            },
+            {
+              "text": "$0 < x < 9$",
+              "correct": false
+            }
+          ],
+          "explain": "$x(x - 9) > 0$ has critical values $0$ and $9$. The parabola opens upwards, so it is above the axis outside the roots: $x < 0$ or $x > 9$. For example $x = -1$ gives $1 > -9$, true."
+        },
+        {
+          "type": "check",
+          "id": "check-inequality-closed",
+          "prompt": "Solve $x^{2} + 4x - 5 \\le 0$.",
+          "hint": "Factorise to find the critical values, then decide: between them or outside them?",
+          "options": [
+            {
+              "text": "$-5 \\le x \\le 1$",
+              "correct": true
+            },
+            {
+              "text": "$x \\le -5 \\text{ or } x \\ge 1$",
+              "correct": false
+            },
+            {
+              "text": "$-1 \\le x \\le 5$",
+              "correct": false
+            },
+            {
+              "text": "$-5 < x < 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x + 5)(x - 1) \\le 0$ has critical values $-5$ and $1$. The parabola opens upwards, so it is at or below the axis from $-5$ to $1$. The ends are included because of $\\le$."
+        }
+      ]
+    },
+    {
+      "id": "discriminant",
+      "heading": "The discriminant and the nature of the roots",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Look at the part of the quadratic formula under the square root, $b^{2} - 4ac$. Positive: $\\pm$ gives two different [[root|roots]]. Zero: both signs give the same root. Negative: there is no real square root."
+        },
+        {
+          "type": "definition",
+          "term": "discriminant",
+          "statement": "The discriminant of $ax^{2} + bx + c$, where $a \\neq 0$, is $\\Delta = b^{2} - 4ac$.",
+          "plain": "The number under the square root in the quadratic formula, which tells you how many real roots there are."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta = b^{2} - 4ac",
+          "tag": "booklet",
+          "bookletId": "bk-2-7-discriminant",
+          "cheatSheet": true
+        },
+        {
+          "type": "result",
+          "statement": "For $ax^{2} + bx + c = 0$: if $\\Delta > 0$ there are two distinct real roots; if $\\Delta = 0$ there are two equal real roots; if $\\Delta < 0$ there are no real roots.",
+          "why": "The roots are $\\frac{-b \\pm \\sqrt{\\Delta}}{2a}$. The $\\pm\\sqrt{\\Delta}$ gives two values, one value or none."
+        },
+        {
+          "type": "text",
+          "text": "Two equal real roots means one [[repeated-root|repeated root]], $x = -\\frac{b}{2a}$. The graph then touches the $x$-axis at its vertex without crossing it."
+        },
+        {
+          "type": "interactive",
+          "widget": "discriminant-roots",
+          "props": {
+            "a": 1,
+            "b": -4,
+            "c": 3
+          },
+          "alt": "A parabola y equals a x squared plus b x plus c with a slider for each of a, b and c. It starts as x squared minus 4x plus 3, which crosses the x-axis at 1 and 3. As you drag, the value of the discriminant, the number of real roots and the roots themselves update, and each real root is marked where the curve meets the x-axis."
+        },
+        {
+          "type": "text",
+          "text": "Drag $c$ from $3$ up to $4$: the [[parabola|parabola]] lifts until it just touches the axis and $\\Delta = 0$. Keep going and it leaves the axis, so $\\Delta < 0$ and there are no real roots."
+        },
+        {
+          "type": "example",
+          "id": "ex-nature-of-roots",
+          "question": "Find the value of the discriminant of $2x^{2} - 5x + 4 = 0$. Hence state the nature of its roots.",
+          "steps": [
+            "Read off $a = 2$, $b = -5$, $c = 4$.",
+            "Substitute: $\\Delta = (-5)^{2} - 4(2)(4) = 25 - 32 = -7$.",
+            "$\\Delta < 0$, so the equation has no real roots. The graph of $y = 2x^{2} - 5x + 4$ stays above the $x$-axis."
+          ],
+          "answer": "$\\Delta = -7$, so no real roots",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A [[parameter|parameter]] is a letter, such as $k$ or $m$, standing for a fixed number you don't know yet. To find the values that give a type of roots, turn the condition into a statement about $\\Delta$, then solve it."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{two distinct real roots: } \\Delta > 0 \\qquad \\text{two equal real roots: } \\Delta = 0 \\qquad \\text{no real roots: } \\Delta < 0",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "For \"two equal real roots\" you solve the equation $\\Delta = 0$. For \"no real roots\" or \"two distinct real roots\" you get a quadratic inequality in the parameter: solve it as in the last section."
+        },
+        {
+          "type": "example",
+          "id": "ex-parameter-no-roots",
+          "question": "The equation $(m - 2)x^{2} + 4x + (m + 1) = 0$ has no real roots. Find the possible values of $m$.",
+          "steps": [
+            "No real roots, so $\\Delta < 0$. Here $a = m - 2$, $b = 4$, $c = m + 1$.",
+            "Substitute: $\\Delta = 16 - 4(m - 2)(m + 1) = 16 - 4(m^{2} - m - 2) = -4m^{2} + 4m + 24$.",
+            "Solve $-4m^{2} + 4m + 24 < 0$. Divide by $-4$ and reverse the inequality: $m^{2} - m - 6 > 0$.",
+            "Factorise: $(m - 3)(m + 2) > 0$. The critical values are $m = -2$ and $m = 3$.",
+            "The graph of $y = m^{2} - m - 6$ opens upwards. It lies above the axis when $m$ is beyond either root: $m < -2$ or $m > 3$.",
+            "Check that $a = m - 2$ is never $0$ in this set: $m = 2$ is not included. Test $m = 4$: $2x^{2} + 4x + 5$ has $\\Delta = 16 - 40 < 0$."
+          ],
+          "answer": "$m < -2 \\text{ or } m > 3$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\Delta \\ge 0$ for \"two distinct real roots\". $\\Delta = 0$ gives a repeated root, so distinct roots need the strict $\\Delta > 0$."
+        },
+        {
+          "type": "text",
+          "text": "If the parameter is in the $x^{2}$ term, find the value that makes that term $0$. At that value the equation is not a quadratic, so it can't have two distinct roots. Leave that value out of your answer."
+        },
+        {
+          "type": "check",
+          "id": "check-parameter-distinct-roots",
+          "prompt": "The equation $kx^{2} - 6x + (k + 8) = 0$ has two distinct real roots. Find the possible values of $k$.",
+          "hint": "Use $\\Delta > 0$ with $a = k$, $b = -6$ and $c = k + 8$. Then ask what happens when $k = 0$.",
+          "options": [
+            {
+              "text": "$-9 < k < 1, \\; k \\neq 0$",
+              "correct": true
+            },
+            {
+              "text": "$-9 < k < 1$",
+              "correct": false
+            },
+            {
+              "text": "$k < -9 \\text{ or } k > 1$",
+              "correct": false
+            },
+            {
+              "text": "$-1 < k < 9, \\; k \\neq 0$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta = 36 - 4k(k + 8) > 0$ gives $k^{2} + 8k - 9 < 0$, so $(k + 9)(k - 1) < 0$ and $-9 < k < 1$. At $k = 0$ the equation is $-6x + 8 = 0$, which has only one root, so $k = 0$ is left out."
+        },
+        {
+          "type": "examTip",
+          "text": "Write the condition, such as $\\Delta > 0$, and your substitution into $b^{2} - 4ac$ before you simplify. Those lines earn method marks even if a later slip costs the answer mark."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, an equation with $\\Delta < 0$ still has two roots. They are complex numbers that form a conjugate pair.",
+          "lesson": "1.14"
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also find the sum and product of the roots straight from the coefficients, without solving.",
+          "lesson": "2.12"
+        },
+        {
+          "type": "check",
+          "id": "check-nature-of-roots",
+          "prompt": "Which describes the roots of $9x^{2} - 30x + 25 = 0$?",
+          "hint": "Work out $b^{2} - 4ac$ with $a = 9$, $b = -30$, $c = 25$.",
+          "options": [
+            {
+              "text": "Two equal real roots",
+              "correct": true
+            },
+            {
+              "text": "Two distinct real roots",
+              "correct": false
+            },
+            {
+              "text": "No real roots",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta = 900 - 4(9)(25) = 900 - 900 = 0$, so there are two equal real roots. In fact $9x^{2} - 30x + 25 = (3x - 5)^{2}$."
+        },
+        {
+          "type": "check",
+          "id": "check-parameter-equal-roots",
+          "prompt": "The equation $4x^{2} + cx + 9 = 0$ has two equal real roots, and $c > 0$. Find $c$.",
+          "hint": "Set $\\Delta = c^{2} - 4(4)(9)$ equal to $0$.",
+          "answer": {
+            "value": 12,
+            "tolerance": 0
+          },
+          "explain": "$c^{2} - 144 = 0$, so $c = \\pm 12$. Since $c > 0$, $c = 12$, and then $4x^{2} + 12x + 9 = (2x + 3)^{2}$."
+        },
+        {
+          "type": "check",
+          "id": "check-line-meets-curve",
+          "prompt": "How many times does the line $y = 2x + 1$ meet the curve $y = x^{2} + 4x + 3$?",
+          "hint": "Set the two expressions equal, collect terms on one side, then find $\\Delta$.",
+          "options": [
+            {
+              "text": "$0$",
+              "correct": true
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{2} + 4x + 3 = 2x + 1$ gives $x^{2} + 2x + 2 = 0$. Then $\\Delta = 4 - 8 = -4 < 0$, so there are no real solutions: the line misses the curve."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "To solve $ax^{2} + bx + c = 0$: rearrange to $= 0$, then factorise, complete the square or use the formula. The solutions are called roots or zeros.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "ax^{2} + bx + c = 0 \\;\\Rightarrow\\; x = \\frac{-b \\pm \\sqrt{b^{2} - 4ac}}{2a}, \\quad a \\neq 0",
+          "tag": "booklet",
+          "bookletId": "bk-2-7-quadratic-formula",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Completing the square: $x^{2} + bx = \\left(x + \\frac{b}{2}\\right)^{2} - \\left(\\frac{b}{2}\\right)^{2}$. Then take square roots with $\\pm$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Quadratic inequality: find the critical values, sketch the parabola, read off. With $a > 0$, $< 0$ is between the roots and $> 0$ is outside them.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta = b^{2} - 4ac",
+          "tag": "booklet",
+          "bookletId": "bk-2-7-discriminant",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\Delta > 0$ gives two distinct real roots. $\\Delta = 0$ gives one repeated root (two equal roots). $\\Delta < 0$ means the equation has no real roots.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Parameter questions: write the condition on $\\Delta$, substitute, solve the equation or inequality in the parameter, and reject any value the question rules out.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using $\\Delta \\ge 0$ for two distinct real roots. A repeated root has $\\Delta = 0$, so distinct roots need $\\Delta > 0$.",
+    "Giving the region between the critical values when the parabola is positive outside them, or the reverse. Sketch it before you write the answer.",
+    "Taking only the positive square root. $(x + p)^{2} = q$ gives $x + p = \\pm\\sqrt{q}$, so there are two roots.",
+    "Dividing by $x$ or by a parameter. It can lose a root such as $x = 0$, or reverse an inequality if the divisor is negative. Factorise instead.",
+    "Keeping a value the question rules out, such as $k = 0$ when it says $k \\neq 0$, or a negative time in a context. Check each answer against the conditions."
+  ],
+  "examTips": [
+    "\"Solve\" means find every root. On Paper 1, show the factorisation or the substitution into the formula, and leave answers exact, for example $\\frac{2 \\pm \\sqrt{10}}{3}$.",
+    "On Paper 2, write down the equation you put into the GDC, then give each root to 3 s.f. Reject roots that make no sense in the context and say why.",
+    "\"Show that\" a line and a curve meet when a quadratic equals $0$: set the two expressions equal and rearrange line by line until you reach the given equation exactly."
+  ],
+  "readingMinutes": 26
+}

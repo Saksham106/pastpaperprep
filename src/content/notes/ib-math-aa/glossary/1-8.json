@@ -1,0 +1,14 @@
+[
+  {
+    "id": "sum-to-infinity",
+    "term": "sum to infinity",
+    "definition": "The finite value $S_{\\infty}$ that the partial sums of a convergent series get closer and closer to; for a geometric series with $\\lvert r\\rvert < 1$ it is $\\frac{u_{1}}{1 - r}$.",
+    "lesson": "1.8"
+  },
+  {
+    "id": "partial-sum",
+    "term": "partial sum",
+    "definition": "The sum $S_{n}$ of the first $n$ terms of a series: the running total so far.",
+    "lesson": "1.8"
+  }
+]

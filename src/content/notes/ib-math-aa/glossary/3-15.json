@@ -1,0 +1,26 @@
+[
+  {
+    "id": "coincident-lines",
+    "term": "coincident lines",
+    "definition": "Two descriptions of the same line, so every point is shared: the direction vectors are multiples of each other and a point of one line lies on the other.",
+    "lesson": "3.15"
+  },
+  {
+    "id": "parallel-lines",
+    "term": "parallel lines",
+    "definition": "Two different lines with the same direction, so their direction vectors are multiples of each other and they have no point in common.",
+    "lesson": "3.15"
+  },
+  {
+    "id": "intersecting-lines",
+    "term": "intersecting lines",
+    "definition": "Two lines with different directions that meet at exactly one point, the point of intersection.",
+    "lesson": "3.15"
+  },
+  {
+    "id": "skew-lines",
+    "term": "skew lines",
+    "definition": "Two lines in three dimensions that are not parallel and have no point in common.",
+    "lesson": "3.15"
+  }
+]

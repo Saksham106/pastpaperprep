@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 330" role="img" aria-labelledby="t">
+  <title id="t">Perpendicular lines with gradients two thirds and minus three halves, each shown by its rise and run triangle</title>
+  <line x1="22.0" y1="275.3" x2="342.0" y2="62.0" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="43.3" y1="30.0" x2="235.3" y2="318.0" stroke="var(--t5-ink)" stroke-width="2.5"/>
+  <path d="M150,190 L246,190 L246,126" fill="none" stroke="var(--t1-ink)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <path d="M150,190 L150,286 L214,286" fill="none" stroke="var(--t5-ink)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <path d="M160.0,183.3 L166.6,193.3 L156.7,200.0" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <circle cx="150" cy="190" r="4" fill="currentColor"/>
+  <g font-size="13" font-family="inherit">
+    <text x="192" y="206" fill="var(--t1-ink)">3</text>
+    <text x="253" y="163" fill="var(--t1-ink)">2</text>
+    <text x="134" y="243" fill="var(--t5-ink)">3</text>
+    <text x="178" y="303" fill="var(--t5-ink)">2</text>
+    <text x="268" y="142" fill="var(--t1-ink)">gradient 2/3</text>
+    <text x="84" y="60" fill="var(--t5-ink)">gradient −3/2</text>
+  </g>
+</svg>

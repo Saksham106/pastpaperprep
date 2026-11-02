@@ -1,0 +1,697 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.8",
+  "slug": "trigonometric-equations",
+  "title": "Trigonometric equations",
+  "level": "SL",
+  "topic": 3,
+  "summary": "An equation such as $2\\sin x = 1$ has many solutions, because the sine graph repeats. Solving it means finding every solution in the interval you are given, and no others. Many harder equations become a quadratic in $\\sin x$, $\\cos x$ or $\\tan x$ once you use an identity.",
+  "goals": [
+    {
+      "text": "Solve $\\sin x = k$, $\\cos x = k$ and $\\tan x = k$, finding every solution in a given interval and none outside it.",
+      "bullets": [
+        "3.8-b1",
+        "3.8-b3"
+      ]
+    },
+    {
+      "text": "Use a sketch to count the solutions, and solve equations graphically on your GDC.",
+      "bullets": [
+        "3.8-b1"
+      ]
+    },
+    {
+      "text": "Solve equations such as $\\sin 2x = k$ or $\\cos(x + 40^{\\circ}) = k$ by changing the interval first.",
+      "bullets": [
+        "3.8-b1"
+      ]
+    },
+    {
+      "text": "Solve equations that are a [[disguised-quadratic|disguised quadratic]] in $\\sin x$, $\\cos x$ or $\\tan x$, and reject impossible values.",
+      "bullets": [
+        "3.8-b2"
+      ]
+    },
+    {
+      "text": "Use the [[pythagorean-identity|Pythagorean identity]] and the [[double-angle-identity|double angle identities]] to leave only one ratio.",
+      "bullets": [
+        "3.8-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.7",
+    "3.5",
+    "3.6",
+    "3.7"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "solve trig equations",
+    "solve sin x = k in an interval",
+    "trig equations quadratic in sin x",
+    "solve cos 2x equation",
+    "how many solutions trig equation",
+    "solve sin 2x = k"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-exact-cos",
+      "prompt": "Write down the exact value of $\\cos\\frac{5\\pi}{6}$.",
+      "hint": "$\\frac{5\\pi}{6}$ is in the second quadrant. Is cosine positive or negative there?",
+      "options": [
+        {
+          "text": "$-\\frac{\\sqrt{3}}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{\\sqrt{3}}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$-\\frac{1}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "The reference angle is $\\frac{\\pi}{6}$, and $\\cos\\frac{\\pi}{6} = \\frac{\\sqrt{3}}{2}$. Cosine is negative in the second quadrant, so the value is $-\\frac{\\sqrt{3}}{2}$. Revise it in {{lesson:3.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-quadratic",
+      "prompt": "Solve $2u^{2} - u - 3 = 0$.",
+      "hint": "Look for two numbers that multiply to $2 \\times (-3) = -6$ and add to $-1$.",
+      "options": [
+        {
+          "text": "$u = -1 \\text{ or } u = \\frac{3}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$u = 1 \\text{ or } u = -\\frac{3}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$u = -\\frac{1}{2} \\text{ or } u = 3$",
+          "correct": false
+        }
+      ],
+      "explain": "$2u^{2} - u - 3 = (2u - 3)(u + 1)$, so $u = \\frac{3}{2}$ or $u = -1$. Swapping the signs gives the second option. Revise it in {{lesson:2.7}}."
+    },
+    {
+      "type": "check",
+      "id": "before-cos-double",
+      "prompt": "Which expression is equal to $\\cos 2x$ for every $x$?",
+      "hint": "Start from $\\cos 2x = \\cos^{2}x - \\sin^{2}x$ and replace $\\cos^{2}x$.",
+      "options": [
+        {
+          "text": "$1 - 2\\sin^{2}x$",
+          "correct": true
+        },
+        {
+          "text": "$2\\sin^{2}x - 1$",
+          "correct": false
+        },
+        {
+          "text": "$1 - \\sin^{2}x$",
+          "correct": false
+        }
+      ],
+      "explain": "Replace $\\cos^{2}x$ with $1 - \\sin^{2}x$: $\\cos 2x = 1 - \\sin^{2}x - \\sin^{2}x = 1 - 2\\sin^{2}x$. The last option is $\\cos^{2}x$, not $\\cos 2x$. Revise it in {{lesson:3.6}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "one-ratio",
+      "heading": "Equations with one trig ratio",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Your calculator says $\\sin^{-1}(0.5) = \\frac{\\pi}{6}$. But $\\sin\\frac{5\\pi}{6}$ is also $0.5$, and so is $\\sin\\frac{13\\pi}{6}$. Sine is a [[periodic-function|periodic function]], so its equations have many solutions."
+        },
+        {
+          "type": "text",
+          "text": "That is why every trig equation comes with an interval, such as $0 \\le x \\le 2\\pi$. To solve it, you find every solution inside the interval, and none outside it."
+        },
+        {
+          "type": "figure",
+          "id": "3-8-sine-crossings",
+          "alt": "Graph of y equals sine x from 0 to 2 pi, with a horizontal line y equals k for a value of k between 0 and 1. The line crosses the curve twice, at x equals alpha and at x equals pi minus alpha. Two bars under the axis show that the gap from 0 to alpha equals the gap from pi minus alpha to pi.",
+          "caption": "The sine curve is symmetric about $x = \\frac{\\pi}{2}$. So the second crossing is as far before $\\pi$ as the first is after $0$."
+        },
+        {
+          "type": "result",
+          "statement": "If $\\alpha$ is one solution, the next comes from symmetry: $\\pi - \\alpha$ for $\\sin x = k$, $2\\pi - \\alpha$ for $\\cos x = k$, and $\\alpha + \\pi$ for $\\tan x = k$. Then add or subtract whole periods.",
+          "why": "The sine graph is symmetric about $x = \\frac{\\pi}{2}$, the cosine graph about $x = 0$, and $\\tan x$ repeats every $\\pi$, so for tangent stepping by $\\pi$ is enough."
+        },
+        {
+          "type": "text",
+          "text": "For exact answers on Paper 1, use the [[reference-angle|reference angle]]. The size of $k$ fixes the reference angle $\\alpha$. The sign of $k$ tells you which [[quadrant|quadrants]] the solutions are in."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{Q1: } \\alpha \\qquad \\text{Q2: } \\pi - \\alpha \\qquad \\text{Q3: } \\pi + \\alpha \\qquad \\text{Q4: } 2\\pi - \\alpha",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Q1 to Q4 are the first to fourth quadrants, numbered anticlockwise from an angle of $0$, so Q1 runs from $0$ to $\\frac{\\pi}{2}$. Sine is positive in Q1 and Q2, cosine in Q1 and Q4, tangent in Q1 and Q3. In degrees, $\\pi$ is $180^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "1. Get one ratio alone: $\\sin x = k$, $\\cos x = k$ or $\\tan x = k$."
+        },
+        {
+          "type": "text",
+          "text": "2. Find $\\alpha$ from the size of $k$. Use the sign of $k$ to pick the quadrants."
+        },
+        {
+          "type": "text",
+          "text": "3. Add or subtract whole periods to cover the interval. Cross out anything outside it."
+        },
+        {
+          "type": "text",
+          "text": "You are always given an interval. A formula for every solution (the general solution) is not required."
+        },
+        {
+          "type": "example",
+          "id": "ex-sin-neg-root2",
+          "question": "Solve $\\sqrt{2}\\sin x + 1 = 0$ for $0 \\le x \\le 2\\pi$.",
+          "steps": [
+            "Get $\\sin x$ alone: $\\sqrt{2}\\sin x = -1$, so $\\sin x = -\\frac{1}{\\sqrt{2}}$.",
+            "Find the reference angle: $\\sin\\frac{\\pi}{4} = \\frac{1}{\\sqrt{2}}$, so $\\alpha = \\frac{\\pi}{4}$.",
+            "$\\sin x$ is negative, so $x$ is in Q3 or Q4: $x = \\pi + \\frac{\\pi}{4} = \\frac{5\\pi}{4}$ and $x = 2\\pi - \\frac{\\pi}{4} = \\frac{7\\pi}{4}$.",
+            "Both lie in the interval. Adding or subtracting $2\\pi$ takes them outside it, so there are no others.",
+            "Check: $\\sin\\frac{5\\pi}{4} = -\\frac{1}{\\sqrt{2}}$, and $\\sqrt{2} \\times \\left(-\\frac{1}{\\sqrt{2}}\\right) + 1 = 0$."
+          ],
+          "answer": "$x = \\frac{5\\pi}{4} \\text{ or } x = \\frac{7\\pi}{4}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing only the angle your calculator gives. $\\sin^{-1}$ returns one angle, but $\\sin x = k$ usually has two in each turn. Use the quadrants or a sketch to find the other."
+        },
+        {
+          "type": "text",
+          "text": "Sometimes $\\sin x$ and $\\cos x$ both appear, with nothing else. If $\\cos x = 0$ gives no solution, you may divide by $\\cos x$ and use this booklet identity:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta}",
+          "tag": "booklet",
+          "bookletId": "bk-3-5-tan-identity",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-tan-degrees",
+          "question": "Solve $\\sqrt{3}\\sin x + \\cos x = 0$ for $-180^{\\circ} \\le x \\le 360^{\\circ}$.",
+          "steps": [
+            "If $\\cos x = 0$, then $\\sin x = \\pm 1$, and the left side is $\\pm\\sqrt{3}$, not $0$. So no solution has $\\cos x = 0$, and you may divide by $\\cos x$.",
+            "Divide by $\\cos x$: $\\sqrt{3}\\tan x + 1 = 0$, so $\\tan x = -\\frac{1}{\\sqrt{3}}$.",
+            "The reference angle is $30^{\\circ}$, since $\\tan 30^{\\circ} = \\frac{1}{\\sqrt{3}}$. Tangent is negative in Q2 and Q4: $x = 180^{\\circ} - 30^{\\circ} = 150^{\\circ}$ and $x = 360^{\\circ} - 30^{\\circ} = 330^{\\circ}$.",
+            "Tangent repeats every $180^{\\circ}$, so step down from $150^{\\circ}$: $150^{\\circ} - 180^{\\circ} = -30^{\\circ}$ is in the interval, but $-210^{\\circ}$ is not.",
+            "Check $x = -30^{\\circ}$: $\\sqrt{3} \\times \\left(-\\frac{1}{2}\\right) + \\frac{\\sqrt{3}}{2} = 0$."
+          ],
+          "answer": "$x = -30^{\\circ} \\text{ or } x = 150^{\\circ} \\text{ or } x = 330^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cos-half",
+          "prompt": "Solve $2\\cos x + 1 = 0$ for $0 \\le x \\le 2\\pi$.",
+          "hint": "Get $\\cos x$ alone. In which two quadrants is cosine negative?",
+          "options": [
+            {
+              "text": "$x = \\frac{2\\pi}{3} \\text{ or } x = \\frac{4\\pi}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$x = \\frac{2\\pi}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{\\pi}{3} \\text{ or } x = \\frac{5\\pi}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{2\\pi}{3} \\text{ or } x = \\frac{5\\pi}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\cos x = -\\frac{1}{2}$ has reference angle $\\frac{\\pi}{3}$. Cosine is negative in Q2 and Q3, so $x = \\pi - \\frac{\\pi}{3} = \\frac{2\\pi}{3}$ and $x = \\pi + \\frac{\\pi}{3} = \\frac{4\\pi}{3}$. The angles $\\frac{\\pi}{3}$ and $\\frac{5\\pi}{3}$ solve $\\cos x = \\frac{1}{2}$ instead."
+        },
+        {
+          "type": "check",
+          "id": "check-sin-larger",
+          "prompt": "Solve $4\\sin x = 3$ for $0 \\le x \\le \\pi$. Give the larger solution to 3 s.f.",
+          "hint": "Your GDC gives the smaller solution. The other one is the same distance before $\\pi$.",
+          "answer": {
+            "value": 2.29,
+            "tolerance": 0.005
+          },
+          "explain": "$\\sin x = 0.75$, so $\\alpha = \\sin^{-1}(0.75) = 0.84806\\ldots$ The second solution is $\\pi - 0.84806\\ldots = 2.29353\\ldots \\approx 2.29$. Keep the full value of $\\alpha$ until the end."
+        }
+      ]
+    },
+    {
+      "id": "graphs",
+      "heading": "Solving with a graph",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Solving $f(x) = k$ means finding where the graph $y = f(x)$ meets the horizontal line $y = k$. Each crossing is one solution."
+        },
+        {
+          "type": "text",
+          "text": "So sketch the curve over the whole interval and draw the line. Count the crossings before you calculate anything. If your list is shorter than your count, you have missed one."
+        },
+        {
+          "type": "example",
+          "id": "ex-count-solutions",
+          "question": "How many solutions does $4\\sin x = 1$ have for $0 \\le x \\le 3\\pi$?",
+          "steps": [
+            "Rearrange: $\\sin x = \\frac{1}{4}$. Sketch $y = \\sin x$ from $0$ to $3\\pi$, and the line $y = \\frac{1}{4}$.",
+            "From $0$ to $\\pi$ the curve is an arch above the axis, so the line crosses it twice.",
+            "From $\\pi$ to $2\\pi$ the curve is below the axis: no crossings. From $2\\pi$ to $3\\pi$ the arch repeats: two more.",
+            "Check: with $\\alpha = \\sin^{-1}\\frac{1}{4} \\approx 0.253$, the solutions are $\\alpha$, $\\pi - \\alpha$, $2\\pi + \\alpha$ and $3\\pi - \\alpha$. All four lie between $0$ and $3\\pi$."
+          ],
+          "answer": "$\\text{number of solutions} = 4$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "An equation such as $3\\sin x = x + 1$ has no algebraic method. On Paper 2, graph both sides on your GDC, find where they intersect, and write down the equation you graphed."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-intersect",
+          "question": "Use your GDC to solve $3\\sin x = x + 1$ for $0 \\le x \\le 2\\pi$. Give your answers to 3 s.f.",
+          "steps": [
+            "The interval is in radians, so set your GDC to radian mode.",
+            "Graph $y = 3\\sin x$ and $y = x + 1$ for $0 \\le x \\le 2\\pi$.",
+            "Count first. $3\\sin x \\le 3$, but $x + 1 > 3$ once $x > 2$. So they meet only before $x = 2$, and the graph shows two crossings.",
+            "Use intersect at each crossing: $x = 0.538470\\ldots$ and $x = 1.868254\\ldots$",
+            "Round only at the end: $x \\approx 0.538$ and $x \\approx 1.87$."
+          ],
+          "answer": "$x \\approx 0.538 \\text{ or } x \\approx 1.87$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, RADIAN",
+              "Y=, enter Y1 = 3sin(X) and Y2 = X+1",
+              "WINDOW: Xmin 0, Xmax 6.3, Ymin -4, Ymax 8 (check on your model)",
+              "GRAPH, 2nd TRACE (CALC), 5: intersect, then ENTER on each curve and move the cursor near the left crossing for the guess",
+              "Read X = 0.538470…, then repeat near the right crossing to read X = 1.868254…"
+            ],
+            "nspire": [
+              "Settings (on, Settings), Angle: Radian",
+              "Graphs page, enter f1(x) = 3*sin(x) and f2(x) = x+1",
+              "Menu, Window/Zoom, Window Settings: XMin 0, XMax 6.3, YMin -4, YMax 8 (check on your model)",
+              "Menu, Analyze Graph, Intersection, then mark a lower and an upper bound either side of the left crossing",
+              "Read x = 0.538470…, then repeat for the right crossing to read x = 1.868254…"
+            ],
+            "casio": [
+              "SHIFT MENU (SET UP), Angle: Rad",
+              "GRAPH, enter Y1 = 3sin X and Y2 = X+1",
+              "SHIFT F3 (V-Window): Xmin 0, Xmax 6.3, Ymin -4, Ymax 8, then EXIT (check on your model)",
+              "DRAW",
+              "SHIFT F5 (G-SOLV), INTSECT",
+              "Read X = 0.538470…, then press the right arrow key to jump to the next crossing and read X = 1.868254… (check on your model)"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-count-tan",
+          "prompt": "How many solutions does $\\tan x = 2$ have for $0 \\le x \\le 3\\pi$?",
+          "hint": "$\\tan x$ repeats every $\\pi$, and each branch of its graph takes every value exactly once.",
+          "options": [
+            {
+              "text": "$3$",
+              "correct": true
+            },
+            {
+              "text": "$6$",
+              "correct": false
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            }
+          ],
+          "explain": "With $\\alpha = \\tan^{-1}2 \\approx 1.11$, the solutions are $\\alpha$, $\\alpha + \\pi$ and $\\alpha + 2\\pi$. The next one, $\\alpha + 3\\pi$, is past $3\\pi$. Six would mean two solutions per period, which is true for sine but not for tangent."
+        },
+        {
+          "type": "check",
+          "id": "check-gdc-cos",
+          "prompt": "Use your GDC to solve $2\\cos x = x$ for $0 \\le x \\le 2\\pi$. Give your answer to 3 s.f.",
+          "hint": "Graph $y = 2\\cos x$ and $y = x$ in radian mode. How many times do they cross?",
+          "answer": {
+            "value": 1.03,
+            "tolerance": 0.005
+          },
+          "explain": "$2\\cos x$ is never more than $2$, but the line $y = x$ is above $2$ once $x > 2$. So there is one crossing, and intersect gives $x = 1.02986\\ldots \\approx 1.03$."
+        }
+      ]
+    },
+    {
+      "id": "compound",
+      "heading": "Multiple and shifted angles",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In $\\sin 2x = k$, you take the sine of $2x$, not of $x$. As $x$ runs from $0$ to $2\\pi$, the angle $2x$ runs from $0$ to $4\\pi$. That is two full turns, so there are twice as many solutions."
+        },
+        {
+          "type": "text",
+          "text": "1. Name the whole angle, such as $u = 2x$, and change both ends of the interval the same way."
+        },
+        {
+          "type": "text",
+          "text": "2. Solve for $u$ in its new interval, as in the first section."
+        },
+        {
+          "type": "text",
+          "text": "3. Undo the change on every value of $u$. Each $u$ gives one $x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sin-2x",
+          "question": "Solve $2\\sin 2x = \\sqrt{3}$ for $0 \\le x \\le 2\\pi$.",
+          "steps": [
+            "Get the sine alone: $\\sin 2x = \\frac{\\sqrt{3}}{2}$. Let $u = 2x$.",
+            "Change the interval: $0 \\le x \\le 2\\pi$ gives $0 \\le u \\le 4\\pi$.",
+            "The [[reference-angle|reference angle]] is $\\frac{\\pi}{3}$. Sine is positive, so Q1 and Q2: $u = \\frac{\\pi}{3}$ and $u = \\frac{2\\pi}{3}$.",
+            "Add $2\\pi$ for the second turn: $u = \\frac{7\\pi}{3}$ and $u = \\frac{8\\pi}{3}$. Adding $2\\pi$ again goes past $4\\pi$.",
+            "Halve each one: $x = \\frac{\\pi}{6}, \\frac{\\pi}{3}, \\frac{7\\pi}{6}, \\frac{4\\pi}{3}$. That is four solutions, two for each turn of $u$."
+          ],
+          "answer": "$x = \\frac{\\pi}{6} \\text{ or } x = \\frac{\\pi}{3} \\text{ or } x = \\frac{7\\pi}{6} \\text{ or } x = \\frac{4\\pi}{3}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Keeping the old interval for $2x$. If you only solve $0 \\le 2x \\le 2\\pi$, you lose half the answers. Double the interval first, and halve every angle at the end."
+        },
+        {
+          "type": "example",
+          "id": "ex-cos-shift-degrees",
+          "question": "Solve $2\\cos(x + 40^{\\circ}) = 1$ for $0^{\\circ} \\le x \\le 360^{\\circ}$.",
+          "steps": [
+            "Get the cosine alone: $\\cos(x + 40^{\\circ}) = \\frac{1}{2}$. Let $u = x + 40^{\\circ}$.",
+            "Change the interval by adding $40^{\\circ}$ to both ends: $40^{\\circ} \\le u \\le 400^{\\circ}$.",
+            "The reference angle is $60^{\\circ}$. Cosine is positive, so Q1 and Q4: $u = 60^{\\circ}$ and $u = 300^{\\circ}$. The next one, $420^{\\circ}$, is too big.",
+            "Subtract $40^{\\circ}$ from each: $x = 20^{\\circ}$ and $x = 260^{\\circ}$.",
+            "Check: $\\cos(260^{\\circ} + 40^{\\circ}) = \\cos 300^{\\circ} = \\frac{1}{2}$."
+          ],
+          "answer": "$x = 20^{\\circ} \\text{ or } x = 260^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "For the smallest positive $x$, convert the values of $u$ in order. The first may give a negative $x$; then take the next."
+        },
+        {
+          "type": "check",
+          "id": "check-tan-3x",
+          "prompt": "Solve $\\tan 3x = 1$ for $0 \\le x \\le \\pi$.",
+          "hint": "Let $u = 3x$. What interval is $u$ in, and how often does $\\tan u$ repeat?",
+          "options": [
+            {
+              "text": "$x = \\frac{\\pi}{12} \\text{ or } x = \\frac{5\\pi}{12} \\text{ or } x = \\frac{3\\pi}{4}$",
+              "correct": true
+            },
+            {
+              "text": "$x = \\frac{\\pi}{12}$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{\\pi}{12} \\text{ or } x = \\frac{5\\pi}{12}$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{\\pi}{4} \\text{ or } x = \\frac{5\\pi}{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "Here $0 \\le u \\le 3\\pi$, and $\\tan u = 1$ at $u = \\frac{\\pi}{4}, \\frac{5\\pi}{4}, \\frac{9\\pi}{4}$, each $\\pi$ apart. Dividing by $3$ gives $x = \\frac{\\pi}{12}, \\frac{5\\pi}{12}, \\frac{3\\pi}{4}$."
+        },
+        {
+          "type": "check",
+          "id": "check-ferris",
+          "prompt": "A Ferris wheel seat is $h(t) = 14 - 11\\cos\\left(\\frac{\\pi t}{12}\\right)$ metres above the ground, $t$ minutes after the ride starts, for $0 \\le t \\le 24$. Find the first time at which the seat is $20$ m high. Give your answer to 3 s.f.",
+          "hint": "Set $h(t) = 20$ and let $u = \\frac{\\pi t}{12}$, so $0 \\le u \\le 2\\pi$. Use radian mode.",
+          "answer": {
+            "value": 8.2,
+            "tolerance": 0.005
+          },
+          "explain": "$14 - 11\\cos u = 20$ gives $\\cos u = -\\frac{6}{11}$. The smaller angle is $u = \\cos^{-1}\\left(-\\frac{6}{11}\\right) = 2.14772\\ldots$ Then $t = \\frac{12u}{\\pi} = 8.2037\\ldots \\approx 8.20$ minutes."
+        }
+      ]
+    },
+    {
+      "id": "quadratic",
+      "heading": "Equations that become quadratics",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Look at $2\\cos^{2}x + 3\\cos x + 1 = 0$. Write $c$ for $\\cos x$, and it becomes $2c^{2} + 3c + 1 = 0$. This is a [[disguised-quadratic|disguised quadratic]]: solve it for $c$, then solve $\\cos x = c$."
+        },
+        {
+          "type": "text",
+          "text": "1. Use an identity if needed so only one ratio is left. Move everything to one side."
+        },
+        {
+          "type": "text",
+          "text": "2. Factorise, or use the quadratic formula, to find the values of the ratio."
+        },
+        {
+          "type": "text",
+          "text": "3. Reject any $\\sin x$ or $\\cos x$ outside $[-1, 1]$. Any value of $\\tan x$ is possible."
+        },
+        {
+          "type": "text",
+          "text": "4. Solve each equation left, as in the first section."
+        },
+        {
+          "type": "example",
+          "id": "ex-quad-cos",
+          "question": "Solve $2\\cos^{2}x + 3\\cos x + 1 = 0$ for $0 \\le x \\le 2\\pi$.",
+          "steps": [
+            "Let $c = \\cos x$: $2c^{2} + 3c + 1 = 0$.",
+            "Factorise: $(2c + 1)(c + 1) = 0$, so $\\cos x = -\\frac{1}{2}$ or $\\cos x = -1$. Both lie between $-1$ and $1$, so keep both.",
+            "$\\cos x = -\\frac{1}{2}$: the [[reference-angle|reference angle]] is $\\frac{\\pi}{3}$, in Q2 and Q3, so $x = \\frac{2\\pi}{3}$ or $x = \\frac{4\\pi}{3}$.",
+            "$\\cos x = -1$: the cosine graph reaches its lowest value $-1$ only at $x = \\pi$ in this interval.",
+            "Check $x = \\pi$: $2(-1)^{2} + 3(-1) + 1 = 0$."
+          ],
+          "answer": "$x = \\frac{2\\pi}{3} \\text{ or } x = \\pi \\text{ or } x = \\frac{4\\pi}{3}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "If the equation mixes $\\sin x$ and $\\cos x$, an identity can leave just one ratio. The [[pythagorean-identity|Pythagorean identity]] swaps $\\cos^{2}x$ and $\\sin^{2}x$:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos^{2}\\theta + \\sin^{2}\\theta = 1",
+          "tag": "booklet",
+          "bookletId": "bk-3-6-pythagorean",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "So $\\cos^{2}x = 1 - \\sin^{2}x$. It is in the formula booklet; you need to spot when to use it."
+        },
+        {
+          "type": "example",
+          "id": "ex-quad-pythag",
+          "question": "(a) Show that $\\cos^{2}x = \\sin x + 1$ is equivalent to $\\sin^{2}x + \\sin x = 0$. (b) Hence solve $\\cos^{2}x = \\sin x + 1$ for $0 \\le x \\le 2\\pi$.",
+          "steps": [
+            "(a) Replace $\\cos^{2}x$ with $1 - \\sin^{2}x$: $1 - \\sin^{2}x = \\sin x + 1$.",
+            "Subtract $1$ from both sides, then add $\\sin^{2}x$ to both sides: $0 = \\sin^{2}x + \\sin x$. This is the given equation.",
+            "(b) Factorise, and don't divide by $\\sin x$: $\\sin x(\\sin x + 1) = 0$. So $\\sin x = 0$ or $\\sin x = -1$.",
+            "$\\sin x = 0$ where the sine graph meets the axis: $x = 0$, $\\pi$ and $2\\pi$. The interval includes its ends, so $0$ and $2\\pi$ count.",
+            "$\\sin x = -1$ at the lowest point of the curve: $x = \\frac{3\\pi}{2}$."
+          ],
+          "answer": "$x = 0 \\text{ or } x = \\pi \\text{ or } x = \\frac{3\\pi}{2} \\text{ or } x = 2\\pi$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing both sides by $\\sin x$. That throws away every solution of $\\sin x = 0$. Move everything to one side and factorise instead."
+        },
+        {
+          "type": "text",
+          "text": "A $\\sin 2x$ or $\\cos 2x$ term needs a [[double-angle-identity|double angle identity]]. Both are in the formula booklet:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin 2\\theta = 2\\sin\\theta\\cos\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-6-double-sin",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos 2\\theta = \\cos^{2}\\theta - \\sin^{2}\\theta = 2\\cos^{2}\\theta - 1 = 1 - 2\\sin^{2}\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-6-double-cos",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Pick the form of $\\cos 2x$ that matches the other terms: $1 - 2\\sin^{2}x$ beside $\\sin x$, $2\\cos^{2}x - 1$ beside $\\cos x$."
+        },
+        {
+          "type": "text",
+          "text": "$\\sin 2x$ has only one form: write it as $2\\sin x\\cos x$. Then look for a common factor to take out."
+        },
+        {
+          "type": "mistake",
+          "text": "Using $\\cos 2x = \\cos^{2}x - \\sin^{2}x$ and stopping there. Both ratios are left, so you can't factorise. Choose the form that matches the other terms."
+        },
+        {
+          "type": "example",
+          "id": "ex-double-angle",
+          "question": "Solve $\\cos 2x = 4\\sin x - 1$ for $0 \\le x \\le 2\\pi$. Give your answers to 3 s.f.",
+          "steps": [
+            "The other term uses $\\sin x$, so write $\\cos 2x = 1 - 2\\sin^{2}x$: $1 - 2\\sin^{2}x = 4\\sin x - 1$.",
+            "Move everything to one side: $2\\sin^{2}x + 4\\sin x - 2 = 0$. Divide by $2$: $\\sin^{2}x + 2\\sin x - 1 = 0$.",
+            "This doesn't factorise, so use the quadratic formula with $s = \\sin x$: $s = \\frac{-2 \\pm \\sqrt{4 + 4}}{2} = -1 \\pm \\sqrt{2}$.",
+            "$-1 - \\sqrt{2} \\approx -2.41$ is below $-1$, so reject it. Keep $\\sin x = \\sqrt{2} - 1 = 0.41421\\ldots$",
+            "Sine is positive, so Q1 and Q2: $x = \\sin^{-1}(\\sqrt{2} - 1) = 0.427079\\ldots$ and $x = \\pi - 0.427079\\ldots = 2.714513\\ldots$",
+            "Round only at the end: $x \\approx 0.427$ and $x \\approx 2.71$."
+          ],
+          "answer": "$x \\approx 0.427 \\text{ or } x \\approx 2.71$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cos2x-cos",
+          "prompt": "Solve $\\cos 2x + \\cos x = 0$ for $0 \\le x \\le 2\\pi$.",
+          "hint": "The other term uses $\\cos x$, so pick the form of $\\cos 2x$ that has only $\\cos x$ in it.",
+          "options": [
+            {
+              "text": "$x = \\frac{\\pi}{3} \\text{ or } x = \\pi \\text{ or } x = \\frac{5\\pi}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$x = \\frac{\\pi}{3} \\text{ or } x = \\frac{5\\pi}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$x = 0 \\text{ or } x = \\frac{2\\pi}{3} \\text{ or } x = \\frac{4\\pi}{3} \\text{ or } x = 2\\pi$",
+              "correct": false
+            }
+          ],
+          "explain": "$2\\cos^{2}x - 1 + \\cos x = 0$ factorises as $(2\\cos x - 1)(\\cos x + 1) = 0$. So $\\cos x = \\frac{1}{2}$, giving $\\frac{\\pi}{3}$ and $\\frac{5\\pi}{3}$, or $\\cos x = -1$, giving $\\pi$. Swapping the signs in the factors gives the last option."
+        },
+        {
+          "type": "check",
+          "id": "check-sin2x-factor",
+          "prompt": "Solve $2\\sin 2x = \\sin x$ for $0 \\le x \\le 2\\pi$. Give any answer that is not exact to 3 s.f.",
+          "hint": "Write $\\sin 2x$ as $2\\sin x\\cos x$. Move everything to one side and take out $\\sin x$; don't divide by it.",
+          "options": [
+            {
+              "text": "$x = 0 \\text{ or } x \\approx 1.32 \\text{ or } x = \\pi \\text{ or } x \\approx 4.97 \\text{ or } x = 2\\pi$",
+              "correct": true
+            },
+            {
+              "text": "$x \\approx 1.32 \\text{ or } x \\approx 4.97$",
+              "correct": false
+            },
+            {
+              "text": "$x = 0 \\text{ or } x \\approx 1.32 \\text{ or } x = \\pi \\text{ or } x = 2\\pi$",
+              "correct": false
+            },
+            {
+              "text": "$x = 0 \\text{ or } x = \\pi \\text{ or } x = 2\\pi$",
+              "correct": false
+            }
+          ],
+          "explain": "$4\\sin x\\cos x - \\sin x = 0$ factorises as $\\sin x(4\\cos x - 1) = 0$. So $\\sin x = 0$, giving $0$, $\\pi$ and $2\\pi$, or $\\cos x = \\frac{1}{4}$, giving $\\cos^{-1}\\frac{1}{4} = 1.3181\\ldots$ and $2\\pi - 1.3181\\ldots = 4.9650\\ldots$ Dividing by $\\sin x$ loses the first three; writing $\\sin 2x$ as $2\\sin x$ loses the last two."
+        },
+        {
+          "type": "check",
+          "id": "check-tan-quadratic",
+          "prompt": "Solve $3\\tan^{2}x - 5\\tan x - 2 = 0$ for $0 \\le x \\le \\pi$. Give the larger solution to 3 s.f.",
+          "hint": "Factorise as a quadratic in $\\tan x$. A negative value of $\\tan x$ is allowed: where in $[0, \\pi]$ is $\\tan x$ negative?",
+          "answer": {
+            "value": 2.82,
+            "tolerance": 0.005
+          },
+          "explain": "$(3\\tan x + 1)(\\tan x - 2) = 0$, so $\\tan x = 2$ or $\\tan x = -\\frac{1}{3}$. $\\tan x = 2$ gives $x = 1.107\\ldots$ $\\tan x = -\\frac{1}{3}$ is in Q2, so $x = \\pi - \\tan^{-1}\\frac{1}{3} = 2.8198\\ldots \\approx 2.82$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also solve equations with $\\sec x$, $\\operatorname{cosec} x$ and $\\cot x$, using identities such as $1 + \\tan^{2}x = \\sec^{2}x$.",
+          "lesson": "3.9"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "\"Solve\" means every solution in the interval and none outside it. Sketch the graph first to count them.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $\\alpha$ is one solution: $\\sin x = k$ also has $\\pi - \\alpha$, $\\cos x = k$ also has $2\\pi - \\alpha$, and $\\tan x = k$ also has $\\alpha + \\pi$. Then add or subtract whole periods.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For an angle such as $2x$ or $x + 40^{\\circ}$, change the interval for the whole angle first, solve, then convert back.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Treat $a\\sin^{2}x + b\\sin x + c = 0$ as a quadratic in $\\sin x$. Reject any $\\sin x$ or $\\cos x$ outside $[-1, 1]$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Factorise. Dividing by $\\sin x$ or $\\cos x$ loses every solution where it is $0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Match $\\cos 2x$ to the equation: $1 - 2\\sin^{2}x$ with $\\sin x$ terms, $2\\cos^{2}x - 1$ with $\\cos x$ terms.",
+          "tag": "booklet",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving only the angle your calculator shows. Use the quadrants or a sketch to find the second solution in each turn, such as $\\frac{5\\pi}{6}$ beside $\\frac{\\pi}{6}$.",
+    "Solving $\\sin 2x = k$ over the original interval. Double the interval for $2x$ first, then halve every angle at the end.",
+    "Listing values outside the interval, such as $\\frac{3\\pi}{2}$ when $-\\pi \\le x \\le \\pi$. An extra answer can cost the final mark, so check each one against the interval.",
+    "Cancelling $\\sin x$ or $\\cos x$ from both sides. That loses the solutions where it is $0$, so factorise instead.",
+    "Writing $\\cos 2x$ as $\\cos^{2}x - \\sin^{2}x$ when the other terms use $\\sin x$. Pick $1 - 2\\sin^{2}x$, so only one ratio is left.",
+    "Keeping an impossible value such as $\\sin x = 2$. Sine and cosine lie between $-1$ and $1$, so reject it and say why."
+  ],
+  "examTips": [
+    "\"Solve\" means find every solution in the interval. On Paper 1 give exact values such as $\\frac{2\\pi}{3}$. On Paper 2 give 3 s.f. unless the question says otherwise.",
+    "Answer in the units of the interval. If it is $0 \\le x \\le 2\\pi$, give radians and set your GDC to radian mode. If it uses degrees, give degrees.",
+    "\"Hence\" after a \"show that\" means use the equation you just reached. It is usually a quadratic in one ratio, ready to factorise.",
+    "On Paper 2, write down the equation you graph before the answers, and round only at the end."
+  ],
+  "readingMinutes": 22
+}

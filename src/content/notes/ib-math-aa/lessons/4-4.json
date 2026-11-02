@@ -1,0 +1,748 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "4.4",
+  "slug": "correlation-and-regression-y-on-x",
+  "title": "Correlation and regression (y on x)",
+  "level": "SL",
+  "topic": 4,
+  "summary": "Pairs of measurements, such as a car's age and its price, are [[bivariate-data|bivariate data]]. You learn to describe the link between them, measure a straight-line link with Pearson's $r$, and predict with the [[regression-line|regression line]] of $y$ on $x$. You also learn when a prediction can't be trusted.",
+  "goals": [
+    {
+      "text": "Describe the [[correlation|correlation]] on a [[scatter-diagram|scatter diagram]]: positive, negative or zero; strong, weak or none.",
+      "bullets": [
+        "4.4-b1"
+      ]
+    },
+    {
+      "text": "Draw a scatter diagram and a [[line-of-best-fit|line of best fit]] by eye through the [[mean-point|mean point]].",
+      "bullets": [
+        "4.4-b3"
+      ]
+    },
+    {
+      "text": "Find Pearson's $r$ with your GDC, compare it with a [[critical-value-of-r|critical value]], and know it only measures straight-line links.",
+      "bullets": [
+        "4.4-b2"
+      ]
+    },
+    {
+      "text": "Explain why correlation does not prove causation.",
+      "bullets": [
+        "4.4-b4"
+      ]
+    },
+    {
+      "text": "Find the regression line $y = ax + b$ with your GDC, predict with it, and interpret $a$ and $b$ in context.",
+      "bullets": [
+        "4.4-b5",
+        "4.4-b6"
+      ]
+    },
+    {
+      "text": "Spot unreliable predictions: [[extrapolation|extrapolation]], and using a $y$ on $x$ line to predict $x$.",
+      "bullets": [
+        "4.4-b7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1",
+    "4.2",
+    "4.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "line of best fit",
+    "pearson correlation coefficient",
+    "scatter graph",
+    "linear regression",
+    "correlation vs causation",
+    "extrapolation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gradient",
+      "prompt": "Write down the gradient of the line $y = 12 - 1.5x$.",
+      "hint": "Write the line as $y = mx + c$. The gradient is the number multiplying $x$.",
+      "answer": {
+        "value": -1.5,
+        "tolerance": 0
+      },
+      "explain": "$y = -1.5x + 12$, so the gradient is $-1.5$. Revise it in {{lesson:2.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-substitute",
+      "prompt": "For the line $y = 0.4x + 15$, find $y$ when $x = 30$.",
+      "hint": "Replace $x$ with $30$.",
+      "answer": {
+        "value": 27,
+        "tolerance": 0
+      },
+      "explain": "$y = 0.4 \\times 30 + 15 = 12 + 15 = 27$. Revise it in {{lesson:2.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-mean",
+      "prompt": "Find the mean of $14$, $9$, $21$ and $16$.",
+      "hint": "Add the values, then divide by how many there are.",
+      "answer": {
+        "value": 15,
+        "tolerance": 0
+      },
+      "explain": "$14 + 9 + 21 + 16 = 60$, and $60 \\div 4 = 15$. Revise it in {{lesson:4.3}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "scatter",
+      "heading": "Scatter diagrams and lines of best fit",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Does a town's altitude affect its summer temperature? To find out, you need two measurements from each town, kept in pairs. Data like this is [[bivariate-data|bivariate data]]."
+        },
+        {
+          "type": "definition",
+          "term": "Scatter diagram",
+          "statement": "A [[scatter-diagram|scatter diagram]] plots each pair $(x, y)$ of bivariate data as one point.",
+          "plain": "One point for each person or thing."
+        },
+        {
+          "type": "text",
+          "text": "Put the variable that might explain the other on the horizontal axis, as $x$, and the one you want to predict on the vertical axis, as $y$."
+        },
+        {
+          "type": "definition",
+          "term": "Correlation",
+          "statement": "[[correlation|Correlation]] describes how closely the points follow a straight line, and which way that line slopes.",
+          "plain": "How strongly, and in which direction, two variables move together."
+        },
+        {
+          "type": "text",
+          "text": "Describe it with two words. Direction: positive if $y$ tends to rise as $x$ rises, negative if it tends to fall, zero if there is no trend. Strength: strong if the points lie close to a line, weak if loosely spread around one, none if there is no pattern."
+        },
+        {
+          "type": "figure",
+          "id": "4-4-correlation-types",
+          "alt": "Six small scatter diagrams. Strong positive: points rise in a narrow band. Weak positive: points rise but are widely spread. No correlation: no trend. Weak negative: points fall but are widely spread. Strong negative: points fall in a narrow band. Curved: points rise and then fall along a curve.",
+          "caption": "The last panel has a clear pattern, but not a straight-line one."
+        },
+        {
+          "type": "example",
+          "id": "ex-altitude-scatter",
+          "question": "Eight weather stations on a mountain record their altitude $x$, in hundreds of metres, and their mean July temperature $y$, in °C. $x$: $2, 5, 8, 11, 14, 17, 20, 24$. $y$: $24.1, 22.6, 20.2, 18.9, 16.4, 15.1, 12.3, 10.2$. Draw a scatter diagram and describe the correlation.",
+          "steps": [
+            "Altitude might explain temperature, so it goes on the $x$-axis. Plot the eight points.",
+            "Direction: each time $x$ goes up, $y$ goes down, so the correlation is negative.",
+            "Strength: the points lie very close to a straight line, so it is strong."
+          ],
+          "answer": "$\\text{strong negative correlation}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-car-direction",
+          "prompt": "As a used car gets older, its price tends to fall. What correlation would a scatter diagram of age $x$ against price $y$ show?",
+          "hint": "Does $y$ go up or down as $x$ goes up?",
+          "options": [
+            {
+              "text": "Positive correlation",
+              "correct": false
+            },
+            {
+              "text": "Negative correlation",
+              "correct": true
+            },
+            {
+              "text": "Zero correlation",
+              "correct": false
+            }
+          ],
+          "explain": "Price falls as age rises, so the correlation is negative."
+        },
+        {
+          "type": "text",
+          "text": "A straight line through the middle of the points sums up a strong trend. You can draw it by eye, but it must pass through one special point."
+        },
+        {
+          "type": "definition",
+          "term": "Mean point",
+          "statement": "The [[mean-point|mean point]] is $(\\bar{x}, \\bar{y})$, where $\\bar{x}$ is the mean of the $x$ values and $\\bar{y}$ is the mean of the $y$ values.",
+          "plain": "The centre of the data, made from the two means."
+        },
+        {
+          "type": "text",
+          "text": "To draw a [[line-of-best-fit|line of best fit]] by eye, plot the mean point first. Rule a line through it that follows the trend, with about as many points above as below."
+        },
+        {
+          "type": "figure",
+          "id": "4-4-best-fit-line",
+          "alt": "Scatter diagram of printing time in seconds against number of pages, for six print jobs. The mean point, at 12 pages and 42 seconds, is marked with a ring. A straight line passes through the ring, with points close to it on both sides.",
+          "caption": "The line passes through the mean point $(12, 42)$."
+        },
+        {
+          "type": "text",
+          "text": "To find the equation of your line, read a second point off it. Then use these booklet formulas from {{lesson:2.1}}."
+        },
+        {
+          "type": "formula",
+          "tex": "m = \\frac{y_{2} - y_{1}}{x_{2} - x_{1}}",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-gradient"
+        },
+        {
+          "type": "formula",
+          "tex": "y - y_{1} = m(x - x_{1})",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-line-equations"
+        },
+        {
+          "type": "example",
+          "id": "ex-print-line",
+          "question": "A printer takes $y$ seconds to print a job of $x$ pages. For six jobs, $x$: $3, 7, 10, 14, 18, 20$ and $y$: $21, 30, 36, 47, 55, 63$. (a) Find the mean point. (b) A line of best fit drawn through the mean point also passes through $(2, 18)$. Find its equation.",
+          "steps": [
+            "(a) $\\bar{x} = \\frac{3 + 7 + 10 + 14 + 18 + 20}{6} = \\frac{72}{6} = 12$ and $\\bar{y} = \\frac{21 + 30 + 36 + 47 + 55 + 63}{6} = \\frac{252}{6} = 42$. So the mean point is $(12, 42)$.",
+            "(b) Gradient from the two points: $m = \\frac{42 - 18}{12 - 2} = \\frac{24}{10} = 2.4$.",
+            "Point-gradient form through the mean point: $y - 42 = 2.4(x - 12)$, so $y = 2.4x - 28.8 + 42 = 2.4x + 13.2$.",
+            "Check with the other point: $2.4 \\times 2 + 13.2 = 18$. Correct."
+          ],
+          "answer": "$y = 2.4x + 13.2$",
+          "check": {
+            "type": "check",
+            "id": "check-print-estimate",
+            "prompt": "Now you try: use $y = 2.4x + 13.2$ to estimate the time, in seconds, for a $16$-page job.",
+            "hint": "Substitute $x = 16$.",
+            "answer": {
+              "value": 51.6,
+              "tolerance": 0.05
+            },
+            "explain": "$2.4 \\times 16 + 13.2 = 38.4 + 13.2 = 51.6$ seconds."
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing the line freehand, missing the mean point, or forcing it through $(0, 0)$. Rule it through $(\\bar{x}, \\bar{y})$."
+        }
+      ]
+    },
+    {
+      "id": "pearson",
+      "heading": "Pearson's correlation coefficient",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Strong and weak are judgements. Pearson's $r$ puts a number on the correlation, so everyone agrees."
+        },
+        {
+          "type": "definition",
+          "term": "Pearson's product-moment correlation coefficient",
+          "statement": "[[pearsons-r|Pearson's product-moment correlation coefficient]], $r$, measures the strength and direction of the linear correlation between two variables.",
+          "plain": "One number for how close the points are to a straight line, and which way it slopes."
+        },
+        {
+          "type": "formula",
+          "tex": "-1 \\le r \\le 1",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The sign gives the direction. $r = \\pm 1$ means every point lies exactly on a line; $r = 0$ means no linear correlation. As a rough guide, $\\lvert r\\rvert$ above about $0.75$ is strong, $0.25$ to $0.75$ is weak, and below $0.25$ there is little or none."
+        },
+        {
+          "type": "text",
+          "text": "Your GDC finds $r$ along with the regression line (keystrokes in the regression section). By hand, which exams don't ask for, it is:"
+        },
+        {
+          "type": "formula",
+          "tex": "r = \\frac{S_{xy}}{\\sqrt{S_{xx}\\,S_{yy}}}, \\quad S_{xy} = \\sum (x - \\bar{x})(y - \\bar{y}), \\quad S_{xx} = \\sum (x - \\bar{x})^{2}, \\quad S_{yy} = \\sum (y - \\bar{y})^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$r$ only measures how close the points are to a straight line. Data can follow a perfect curve and still have $r$ close to $0$."
+        },
+        {
+          "type": "figure",
+          "id": "4-4-curve-r-zero",
+          "alt": "Heights of a ball in metres against time in seconds: 0 at 0 seconds, 25 at 1, 40 at 2, 45 at 3, 40 at 4, 25 at 5 and 0 at 6. The points lie exactly on an upside-down parabola."
+        },
+        {
+          "type": "example",
+          "id": "ex-ball-r-zero",
+          "question": "A ball is thrown straight up. Its height $h$ metres after $t$ seconds is: $t$: $0, 1, 2, 3, 4, 5, 6$; $h$: $0, 25, 40, 45, 40, 25, 0$. (a) Use $S_{th}$ to find Pearson's $r$. (b) Comment on your answer.",
+          "steps": [
+            "Means: $\\bar{t} = \\frac{21}{7} = 3$ and $\\bar{h} = \\frac{175}{7} = 25$.",
+            "$t - \\bar{t}$: $-3, -2, -1, 0, 1, 2, 3$. $h - \\bar{h}$: $-25, 0, 15, 20, 15, 0, -25$.",
+            "Products: $75, 0, -15, 0, 15, 0, -75$. They add to $S_{th} = 0$, so $r = \\frac{0}{\\sqrt{S_{tt}\\,S_{hh}}} = 0$.",
+            "(b) The heights follow an exact rule, yet $r = 0$. The relationship is strong but not linear, so $r$ is the wrong measure here."
+          ],
+          "answer": "$r = 0$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Saying two variables are unrelated because $r$ is near $0$. $r$ only rules out a straight-line link: look at the scatter diagram for a curve."
+        },
+        {
+          "type": "text",
+          "text": "With few points, a fairly large $r$ can happen by chance. A [[critical-value-of-r|critical value]], given in the question, says how large $\\lvert r\\rvert$ must be for $n$ pairs."
+        },
+        {
+          "type": "result",
+          "statement": "If $\\lvert r\\rvert$ is greater than the critical value, there is significant linear correlation. If it is less, there isn't.",
+          "why": "Unrelated data gives an $\\lvert r\\rvert$ that large only rarely (usually $5\\%$ of the time), so it is unlikely to be a fluke."
+        },
+        {
+          "type": "example",
+          "id": "ex-tree-critical",
+          "question": "For $9$ trees, trunk diameter and height have $r = 0.812$. The critical value of $r$ for $9$ pairs is $0.666$. Determine whether there is significant linear correlation.",
+          "steps": [
+            "Compare $\\lvert r\\rvert$ with the critical value: $0.812 > 0.666$.",
+            "So the correlation is significant. It is also strong and positive: taller trees tend to have thicker trunks."
+          ],
+          "answer": "$\\text{significant linear correlation}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-r-meaning",
+          "prompt": "A data set has $r = -0.97$. Which statement is correct?",
+          "hint": "The sign of $r$ gives the direction; its size says how close the points are to a line.",
+          "options": [
+            {
+              "text": "There is strong negative linear correlation",
+              "correct": true
+            },
+            {
+              "text": "$y$ falls by $0.97$ for each increase of $1$ in $x$",
+              "correct": false
+            },
+            {
+              "text": "There is weak negative linear correlation",
+              "correct": false
+            }
+          ],
+          "explain": "$-0.97$ is close to $-1$: strong negative. $r$ is not a gradient, so it doesn't say how fast $y$ changes."
+        },
+        {
+          "type": "check",
+          "id": "check-critical",
+          "prompt": "For $10$ pairs, $r = -0.58$ and the critical value is $0.632$. What can you conclude?",
+          "hint": "Compare $\\lvert r\\rvert$, not $r$, with the critical value.",
+          "options": [
+            {
+              "text": "There is significant negative linear correlation",
+              "correct": false
+            },
+            {
+              "text": "There is no significant linear correlation",
+              "correct": true
+            },
+            {
+              "text": "The critical value can't be used, because $r$ is negative",
+              "correct": false
+            }
+          ],
+          "explain": "$\\lvert r\\rvert = 0.58 < 0.632$, so it is not significant. A negative $r$ is fine: you compare its size."
+        }
+      ]
+    },
+    {
+      "id": "causation",
+      "heading": "Correlation is not causation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Strong correlation shows that two variables move together. It doesn't show that changing one would change the other."
+        },
+        {
+          "type": "definition",
+          "term": "Causation",
+          "statement": "There is [[causation|causation]] when a change in one variable directly produces a change in the other.",
+          "plain": "One thing actually makes the other happen."
+        },
+        {
+          "type": "text",
+          "text": "Often a third variable drives both. Sometimes the link is a coincidence, more likely with few data points. So remember: correlation does not imply causation."
+        },
+        {
+          "type": "example",
+          "id": "ex-fire-stations",
+          "question": "Across $15$ towns, the number of fire stations and the number of house fires per year have $r = 0.88$. The critical value for $15$ pairs is $0.514$. (a) Describe the correlation. (b) A councillor says closing fire stations would reduce fires. Comment.",
+          "steps": [
+            "(a) $r$ is positive and close to $1$, and $0.88 > 0.514$: strong, significant positive correlation.",
+            "(b) Correlation doesn't show causation. Bigger towns have more houses, so more fires, and need more fire stations. Population drives both, so the data gives no evidence that closing stations would reduce fires."
+          ],
+          "answer": "$\\text{strong positive correlation}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-app-scores",
+          "question": "For $12$ students, the minutes per week spent on a revision app and the test score have $r = 0.41$. The critical value for $12$ pairs is $0.576$. A teacher says the app raises scores. Comment.",
+          "steps": [
+            "Test the correlation first: $\\lvert r\\rvert = 0.41 < 0.576$, so it is not significant: it could be chance.",
+            "Even a significant correlation wouldn't prove the claim: keen students may use the app more and also work harder in other ways."
+          ],
+          "answer": "$\\text{no significant linear correlation}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "When you comment on a causal claim, name a likely third variable from the context, not just the rule."
+        },
+        {
+          "type": "check",
+          "id": "check-shoe-reading",
+          "prompt": "For children aged $5$ to $11$, shoe size and reading score have strong positive correlation. Which is the best explanation?",
+          "hint": "Think of something that makes both numbers grow.",
+          "options": [
+            {
+              "text": "Having bigger feet helps children to read",
+              "correct": false
+            },
+            {
+              "text": "Older children tend to have bigger feet and also read better",
+              "correct": true
+            },
+            {
+              "text": "Reading more makes children's feet grow",
+              "correct": false
+            }
+          ],
+          "explain": "Age is a third variable: older children have bigger feet and read better."
+        },
+        {
+          "type": "check",
+          "id": "check-library-accidents",
+          "prompt": "For $14$ districts, the number of public libraries and the number of road accidents per year have $r = 0.83$. The critical value for $14$ pairs is $0.532$. A newspaper says libraries cause road accidents. Which comment is best?",
+          "hint": "Compare $\\lvert r\\rvert$ with $0.532$ first. Then think of something that makes both numbers grow.",
+          "options": [
+            {
+              "text": "The claim is proved, because the correlation is significant",
+              "correct": false
+            },
+            {
+              "text": "The correlation is significant, but population could drive both, so it does not show causation",
+              "correct": true
+            },
+            {
+              "text": "The correlation is not significant, so there is no link",
+              "correct": false
+            }
+          ],
+          "explain": "$0.83 > 0.532$, so the correlation is significant. Bigger districts have more libraries and more traffic, so population could drive both. Correlation does not imply causation."
+        }
+      ]
+    },
+    {
+      "id": "regression",
+      "heading": "The regression line of y on x",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Lines drawn by eye vary from person to person. The regression line is fixed by a rule."
+        },
+        {
+          "type": "definition",
+          "term": "Regression line of y on x",
+          "statement": "The [[regression-line|regression line]] of $y$ on $x$ is the line $y = ax + b$ that minimises the sum of the squared vertical distances from the points to the line. It passes through the [[mean-point|mean point]] $(\\bar{x}, \\bar{y})$.",
+          "plain": "The best straight line for predicting $y$ from $x$."
+        },
+        {
+          "type": "figure",
+          "id": "4-4-vertical-distances",
+          "alt": "Six points with a straight line through them. A short vertical dashed segment joins each point to the line.",
+          "caption": "The squares of these vertical distances add up to as little as possible."
+        },
+        {
+          "type": "text",
+          "text": "Here $a$ is the [[gradient|gradient]] and $b$ is the [[y-intercept|y-intercept]]: watch the letters. Your GDC finds both."
+        },
+        {
+          "type": "example",
+          "id": "ex-cycle-regression",
+          "question": "A cyclist records the distance $x$ km and time $y$ minutes of seven rides. $x$: $12, 18, 25, 30, 34, 41, 47$. $y$: $38, 55, 71, 88, 95, 118, 131$. (a) Use your calculator to find the regression line of $y$ on $x$. (b) Write down the value of $r$. (c) Estimate the time for a $28$ km ride. Give your answers to 3 s.f.",
+          "steps": [
+            "(a) Enter $x$ in the first list and $y$ in the second. Run linear regression ($ax + b$): $a = 2.6821\\ldots$, $b = 5.8284\\ldots$.",
+            "(b) $r = 0.99871\\ldots \\approx 0.999$: very strong positive correlation.",
+            "(c) Use the stored values: $y = 2.6821\\ldots \\times 28 + 5.8284\\ldots = 80.928\\ldots \\approx 80.9$ minutes."
+          ],
+          "answer": "$y \\approx 2.68x + 5.83$",
+          "check": {
+            "type": "check",
+            "id": "check-cycle-22",
+            "prompt": "Now you try: estimate the time, in minutes, for a $22$ km ride. Give your answer to 3 s.f.",
+            "hint": "Substitute $x = 22$, using the full values of $a$ and $b$.",
+            "answer": {
+              "value": 64.8,
+              "tolerance": 0.05
+            },
+            "explain": "$2.6821\\ldots \\times 22 + 5.8284\\ldots = 64.835\\ldots \\approx 64.8$ minutes."
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "STAT, 1: Edit, type the distances into L1 and the times into L2 (check on your model)",
+              "MODE, set Stat Diagnostics to ON so that r is shown",
+              "STAT, CALC, 4: LinReg(ax+b), Xlist L1, Ylist L2, ENTER",
+              "Read a = 2.682..., b = 5.828... and r = 0.9987..."
+            ],
+            "nspire": [
+              "Lists & Spreadsheet page, type the distances into column A and the times into column B (check on your model)",
+              "Menu, Statistics, Stat Calculations, Linear Regression (mx+b)",
+              "Choose column A as the X List and column B as the Y List, then OK (check on your model)",
+              "Read m = 2.682... (this is a), b = 5.828... and r = 0.9987..."
+            ],
+            "casio": [
+              "STAT, type the distances into List 1 and the times into List 2 (check on your model)",
+              "CALC, REG, X, ax+b",
+              "Read a = 2.682..., b = 5.828... and r = 0.9987..."
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Entering the lists the wrong way round. For the line of $y$ on $x$, $x$ goes in the first list; swapping gives a different line."
+        },
+        {
+          "type": "examTip",
+          "text": "Write $a$ and $b$ to 3 s.f., but predict with the full stored values. Rounding first can change the last figure."
+        },
+        {
+          "type": "result",
+          "statement": "In $y = ax + b$, $a$ is the average change in $y$ for each increase of $1$ in $x$, and $b$ is the predicted $y$ when $x = 0$.",
+          "why": "$a$ is the gradient, the rise for a run of $1$. $b$ is where the line meets the $y$-axis."
+        },
+        {
+          "type": "text",
+          "text": "Say what $a$ and $b$ mean using the question's variables and units. $b$ only has a real meaning if $x = 0$ makes sense and is near the data."
+        },
+        {
+          "type": "example",
+          "id": "ex-taxi-interpret",
+          "question": "For a sample of taxi trips, the regression line of fare $y$ dollars on distance $x$ km is $y = 1.85x + 3.20$. (a) Interpret $1.85$ and $3.20$. (b) Find how much more the model predicts for a trip $6$ km longer.",
+          "steps": [
+            "(a) $a = 1.85$: each extra kilometre adds about $1.85$ dollars to the fare, on average.",
+            "$b = 3.20$: the predicted fare for $0$ km, like a fixed starting charge of $3.20$ dollars.",
+            "(b) Each kilometre adds $a$ dollars, so $6$ more add $6a = 6 \\times 1.85 = 11.1$ dollars.",
+            "Substituting $x = 6$ would give the fare for a $6$ km trip, not the extra cost."
+          ],
+          "answer": "$6a = 6 \\times 1.85 = 11.1$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-interpret-a",
+          "prompt": "In the cycling model $y = 2.68x + 5.83$ ($x$ in km, $y$ in minutes), what does $2.68$ mean?",
+          "hint": "$2.68$ is the gradient. What does a gradient measure?",
+          "options": [
+            {
+              "text": "A ride takes about $2.68$ minutes",
+              "correct": false
+            },
+            {
+              "text": "The ride time increases as the distance increases",
+              "correct": false
+            },
+            {
+              "text": "Each extra kilometre adds about $2.68$ minutes, on average",
+              "correct": true
+            }
+          ],
+          "explain": "$a$ is a rate, in minutes per kilometre. Saying the time increases gives only the direction."
+        },
+        {
+          "type": "check",
+          "id": "check-interpret-b",
+          "prompt": "The rides were between $12$ and $47$ km. What does $b = 5.83$ represent?",
+          "hint": "$b$ is $y$ when $x = 0$. Is $x = 0$ near the data?",
+          "options": [
+            {
+              "text": "The predicted time for a $0$ km ride, which has no real meaning",
+              "correct": true
+            },
+            {
+              "text": "The extra time for each kilometre",
+              "correct": false
+            },
+            {
+              "text": "The time of the shortest ride",
+              "correct": false
+            }
+          ],
+          "explain": "$b$ is the predicted time at $x = 0$, far outside the data, so it has no real meaning."
+        }
+      ]
+    },
+    {
+      "id": "prediction",
+      "heading": "Making reliable predictions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Trust a prediction from the $y$ on $x$ line only if three things hold. First, the correlation is strong or significant."
+        },
+        {
+          "type": "definition",
+          "term": "Interpolation and extrapolation",
+          "statement": "[[interpolation|Interpolation]] is predicting $y$ for an $x$ inside the range of the data. [[extrapolation|Extrapolation]] is predicting for an $x$ outside it.",
+          "plain": "Outside the data, you are assuming the pattern carries on."
+        },
+        {
+          "type": "text",
+          "text": "Second, $x$ is inside the data, because the pattern may stop beyond it. Third, you are predicting $y$. The [[regression-line|regression line]] of $y$ on $x$ minimises vertical distances, so to predict $x$ from $y$ use the line of $x$ on $y$ ({{lesson:4.10}}), never a rearranged one."
+        },
+        {
+          "type": "interactive",
+          "widget": "regression-two-lines",
+          "props": {},
+          "alt": "Four fixed points and one point you can drag. A solid line shows the y on x regression line and a dashed line the x on y line. Both pass through the mean point, marked with a small ring. The value of r and both equations update as you drag."
+        },
+        {
+          "type": "text",
+          "text": "Drag the point off the trend of the other four and watch $\\lvert r\\rvert$ fall: the two lines spread apart. Drag it back along the trend and they close up. They would match only if $r = \\pm 1$, with every point on one line."
+        },
+        {
+          "type": "example",
+          "id": "ex-cycle-reliability",
+          "question": "For the cyclist's rides ($x$ from $12$ to $47$ km, $r \\approx 0.999$), the line of $y$ on $x$ is $y = 2.68x + 5.83$. (a) Estimate the time for a $40$ km ride. (b) Comment on using the line for a $90$ km ride. (c) Explain why solving $100 = 2.68x + 5.83$ is the wrong way to find the distance of a $100$-minute ride.",
+          "steps": [
+            "(a) $y = 2.6821\\ldots \\times 40 + 5.8284\\ldots = 113.11\\ldots \\approx 113$ minutes. This is interpolation with $r$ near $1$, so it is reliable.",
+            "(b) $90$ km is far outside the data: extrapolation. On a much longer ride the cyclist may tire, so it is unreliable.",
+            "(c) That rearranges the $y$ on $x$ line to predict $x$. Use the line of $x$ on $y$ instead."
+          ],
+          "answer": "$y \\approx 113$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-child-height",
+          "question": "A model built from children aged $2$ to $10$ gives height $y$ cm in terms of age $x$ years: $y = 6.1x + 77$. (a) Predict the height of an $8$-year-old. (b) Use the model for a $30$-year-old, and comment.",
+          "steps": [
+            "(a) $y = 6.1 \\times 8 + 77 = 48.8 + 77 = 125.8$ cm. Age $8$ is inside the data, so this is reasonable.",
+            "(b) $y = 6.1 \\times 30 + 77 = 260$ cm, which is impossible. People stop growing in their late teens, so extrapolating to age $30$ fails."
+          ],
+          "answer": "$y = 6.1 \\times 8 + 77 = 125.8$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-which-line",
+          "prompt": "You have the regression line of $y$ on $x$ and a value of $y$. How should you estimate $x$?",
+          "hint": "Which variable does each regression line predict?",
+          "options": [
+            {
+              "text": "Rearrange the $y$ on $x$ line for $x$",
+              "correct": false
+            },
+            {
+              "text": "Use the line of $x$ on $y$",
+              "correct": true
+            },
+            {
+              "text": "Substitute $y$ into the $y$ on $x$ line in place of $x$",
+              "correct": false
+            }
+          ],
+          "explain": "The $y$ on $x$ line is built to predict $y$. To predict $x$, use the separate line of $x$ on $y$."
+        },
+        {
+          "type": "check",
+          "id": "check-extrapolation",
+          "prompt": "Data has $x$ values from $10$ to $60$ and $r = 0.94$. For which $x$ is a prediction of $y$ most reliable?",
+          "hint": "Which value is inside the range of the data?",
+          "options": [
+            {
+              "text": "$x = 75$",
+              "correct": false
+            },
+            {
+              "text": "$x = 35$",
+              "correct": true
+            },
+            {
+              "text": "$x = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "$35$ is inside $10$ to $60$: interpolation. $75$ and $0$ are outside: extrapolation."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Describe correlation by direction (positive, negative, zero) and strength (strong, weak, none).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "-1 \\le r \\le 1",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$r$ near $\\pm 1$: strong linear correlation; near $0$: none, though there may be a curve. $\\lvert r\\rvert$ above the critical value: significant.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A line of best fit by eye, and the regression line, pass through the mean point $(\\bar{x}, \\bar{y})$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Correlation does not imply causation: look for a third variable.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In $y = ax + b$, $a$ is the change in $y$ per $1$ increase in $x$; $b$ is $y$ when $x = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Use the $y$ on $x$ line only to predict $y$, and only inside the range of the data.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Swapping the lists on the GDC. For the line of $y$ on $x$, $x$ goes in the first list.",
+    "Rearranging the $y$ on $x$ line to predict $x$ from $y$. Use the line of $x$ on $y$.",
+    "Substituting a data point's $x$ into the line to find its $y$. Only the mean point must lie on the line.",
+    "Interpreting $a$ as a value, or saying only that $y$ rises with $x$. Say how much $y$ changes per unit of $x$.",
+    "Substituting $x = 6$ to find the effect of $6$ more units. The change is $6a$.",
+    "Claiming causation because $r$ is near $1$. Correlation does not imply causation."
+  ],
+  "examTips": [
+    "Write down $r$: read it from your GDC, no working needed, to 3 s.f. with its sign.",
+    "Interpret, in context: use the question's variables and units, such as about $2.68$ minutes per extra kilometre.",
+    "On Paper 2, write the substitution before the answer, using the stored values of $a$ and $b$.",
+    "Comment on reliability: say whether $x$ is inside the data range, and how strong the correlation is."
+  ],
+  "readingMinutes": 28
+}

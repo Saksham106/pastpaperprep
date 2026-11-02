@@ -1,0 +1,686 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.14",
+  "slug": "odd-even-and-inverse-functions",
+  "title": "Odd, even and inverse functions",
+  "level": "AHL",
+  "topic": 2,
+  "summary": "An [[even-function|even function]] has a graph that mirrors in the $y$-axis, and an [[odd-function|odd function]] has a graph that looks the same after a half-turn about the origin. You test for both by simplifying $f(-x)$. You'll also cut a domain down so that an inverse exists, and recognise [[self-inverse|self-inverse]] functions, which undo themselves.",
+  "goals": [
+    {
+      "text": "Decide whether a function is even, odd or neither by simplifying $f(-x)$, and use the symmetry of its graph.",
+      "bullets": [
+        "2.14-b1"
+      ]
+    },
+    {
+      "text": "Recognise odd and even trigonometric and other [[periodic-function|periodic functions]], and combine symmetry with the period to find values.",
+      "bullets": [
+        "2.14-b1"
+      ]
+    },
+    {
+      "text": "Restrict a domain so that an inverse exists, then find $f^{-1}(x)$ and its domain, choosing the sign of any square root.",
+      "bullets": [
+        "2.14-b2"
+      ]
+    },
+    {
+      "text": "Evaluate $f^{-1}(a)$ on a restricted domain by solving $f(x) = a$, with a calculator where needed.",
+      "bullets": [
+        "2.14-b2"
+      ]
+    },
+    {
+      "text": "Recognise a [[self-inverse|self-inverse]] function from its graph, or show that $(f \\circ f)(x) = x$.",
+      "bullets": [
+        "2.14-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.5",
+    "2.11"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "even and odd functions",
+    "f(-x) = -f(x)",
+    "is sin odd or even",
+    "periodic function",
+    "restricting the domain for an inverse",
+    "self-inverse function"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-reflect-y-axis",
+      "prompt": "The point $(3, -4)$ lies on the graph of $y = f(x)$. Which point must lie on the graph of $y = f(-x)$?",
+      "hint": "$y = f(-x)$ is the reflection of $y = f(x)$ in the $y$-axis.",
+      "options": [
+        {
+          "text": "$(-3, -4)$",
+          "correct": true
+        },
+        {
+          "text": "$(3, 4)$",
+          "correct": false
+        },
+        {
+          "text": "$(-3, 4)$",
+          "correct": false
+        },
+        {
+          "text": "$(-4, 3)$",
+          "correct": false
+        }
+      ],
+      "explain": "Reflecting in the $y$-axis changes the sign of the $x$-coordinate only. At $x = -3$, $f(-x) = f(3) = -4$. Revise it in {{lesson:2.11}}."
+    },
+    {
+      "type": "check",
+      "id": "before-inverse-domain",
+      "prompt": "Let $f(x) = \\sqrt{x - 2} + 1$, for $x \\ge 2$. What is the domain of $f^{-1}$?",
+      "hint": "The domain of $f^{-1}$ is the range of $f$. What is the smallest value $f(x)$ takes?",
+      "options": [
+        {
+          "text": "$x \\ge 1$",
+          "correct": true
+        },
+        {
+          "text": "$x \\ge 2$",
+          "correct": false
+        },
+        {
+          "text": "$x \\ge 0$",
+          "correct": false
+        },
+        {
+          "text": "$x \\ge 3$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\sqrt{x - 2} \\ge 0$, so $f(x) \\ge 1$, and every value from $1$ upwards is reached. That range is the domain of $f^{-1}$. Revise it in {{lesson:2.5}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "even-odd",
+      "heading": "Even and odd functions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Take $f(x) = x^{2}$. Then $f(3) = 9$ and $f(-3) = 9$. An input and its negative give the same output, so the graph mirrors in the $y$-axis."
+        },
+        {
+          "type": "text",
+          "text": "Now take $g(x) = x^{3}$. Then $g(2) = 8$ and $g(-2) = -8$. The outputs are negatives, so a half-turn ($180^{\\circ}$) about the origin lands the graph on itself."
+        },
+        {
+          "type": "definition",
+          "term": "Even function",
+          "statement": "A function $f$ is even if $f(-x) = f(x)$ for every $x$ in its domain.",
+          "plain": "Changing the sign of the input leaves the output unchanged."
+        },
+        {
+          "type": "definition",
+          "term": "Odd function",
+          "statement": "A function $f$ is odd if $f(-x) = -f(x)$ for every $x$ in its domain.",
+          "plain": "Changing the sign of the input changes the sign of the output."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{even: } f(-x) = f(x) \\qquad \\text{odd: } f(-x) = -f(x)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Learn these: they aren't in the formula booklet. Both need a domain where $-x$ is in it whenever $x$ is."
+        },
+        {
+          "type": "figure",
+          "id": "2-14-odd-even",
+          "alt": "Two graphs side by side. On the left, an even function shaped like a W, symmetric in the y-axis; the points at x equals a and x equals negative a are at the same height and joined by a dashed horizontal line. On the right, an odd function that passes through the origin; the points at x equals a and x equals negative a are joined by a dashed line through the origin, one above the x-axis and one the same distance below.",
+          "caption": "An even graph is symmetric in the $y$-axis. An odd graph has half-turn symmetry about the origin."
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:2.11}} you saw that $y = f(-x)$ reflects $y = f(x)$ in the $y$-axis. So $f$ is [[even-function|even]] when that reflection changes nothing. A half-turn is a reflection in the $y$-axis followed by one in the $x$-axis."
+        },
+        {
+          "type": "text",
+          "text": "1. To test by algebra, write $f(-x)$: replace every $x$ with $(-x)$, brackets included."
+        },
+        {
+          "type": "text",
+          "text": "2. Simplify. Use $(-x)^{n} = x^{n}$ when $n$ is even and $(-x)^{n} = -x^{n}$ when $n$ is odd."
+        },
+        {
+          "type": "text",
+          "text": "3. Compare. If you get $f(x)$, $f$ is even. If you get $-f(x)$, $f$ is [[odd-function|odd]]."
+        },
+        {
+          "type": "text",
+          "text": "If you get neither, show it with one number $a$: $f(-a) \\ne f(a)$ and $f(-a) \\ne -f(a)$. Then $f$ is neither even nor odd."
+        },
+        {
+          "type": "text",
+          "text": "A polynomial is even when every power of $x$ is even, and odd when every power is odd. A constant is $x^{0}$, an even power."
+        },
+        {
+          "type": "example",
+          "id": "ex-classify-polynomials",
+          "question": "Determine whether each function is even, odd or neither. $f(x) = 2x^{6} - 7x^{2}$, $g(x) = 4x - x^{3}$ and $h(x) = x^{2} + x$, each for $x \\in \\mathbb{R}$.",
+          "steps": [
+            "$f(-x) = 2(-x)^{6} - 7(-x)^{2} = 2x^{6} - 7x^{2}$. This is $f(x)$, so $f$ is even.",
+            "$g(-x) = 4(-x) - (-x)^{3} = -4x + x^{3} = -(4x - x^{3})$. This is $-g(x)$, so $g$ is odd.",
+            "$h(-x) = (-x)^{2} + (-x) = x^{2} - x$. This is not $h(x)$, and $-h(x) = -x^{2} - x$ isn't it either.",
+            "Confirm with numbers: $h(1) = 2$ and $h(-1) = 0$. Since $0 \\ne 2$ and $0 \\ne -2$, $h$ is neither even nor odd."
+          ],
+          "answer": "$f$ is even, $g$ is odd and $h$ is neither",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Calling $f$ even because $f(-2) = f(2)$. One value can't prove a rule for every $x$."
+        },
+        {
+          "type": "check",
+          "id": "check-which-odd",
+          "prompt": "Each function has domain $x \\in \\mathbb{R}$. Which one is odd?",
+          "hint": "Replace $x$ with $-x$ in each. A constant term or an even power stops a function being odd.",
+          "options": [
+            {
+              "text": "$x^{3} + 1$",
+              "correct": false
+            },
+            {
+              "text": "$5x - x^{5}$",
+              "correct": true
+            },
+            {
+              "text": "$x^{4} - x^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$x^{3} + x^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$5(-x) - (-x)^{5} = -5x + x^{5} = -(5x - x^{5})$. Each of the others has a constant or an even power, which keeps its sign."
+        },
+        {
+          "type": "text",
+          "text": "Symmetry gives you points for free. If $f$ is odd and $(a, b)$ is on its graph, so is $(-a, -b)$. And if $f$ is odd and defined at $0$, then $f(0) = -f(0)$, so $f(0) = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-odd-graph-point",
+          "question": "The function $f$ is odd, with domain $-5 \\le x \\le 5$. For $0 \\le x \\le 5$, its only turning point is a local maximum at $(2, 5)$, and its graph meets the $x$-axis only at $x = 0$ and $x = 4$. (a) Write down the coordinates of the local minimum for $-5 \\le x \\le 0$. (b) Solve $f(x) = 0$ for $-5 \\le x \\le 5$.",
+          "steps": [
+            "(a) Odd sends each point $(a, b)$ to $(-a, -b)$. So the local maximum $(2, 5)$ becomes a local minimum at $(-2, -5)$: a peak turned upside down is a trough.",
+            "(b) The zeros $x = 0$ and $x = 4$ give partners $x = 0$ and $x = -4$. The origin is its own partner."
+          ],
+          "answer": "$\\text{minimum: } (-2, -5), \\; x = -4 \\text{ or } x = 0 \\text{ or } x = 4$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Sketching the left half of an odd function by reflecting the right half in the $y$-axis. That draws an even graph. Reflect it in the $y$-axis and then in the $x$-axis."
+        },
+        {
+          "type": "check",
+          "id": "check-even-point",
+          "prompt": "The function $g$ is even. Its graph has a local minimum at $(-3, -1)$. Which point must also be a local minimum?",
+          "hint": "An even graph mirrors in the $y$-axis. Which coordinate changes sign?",
+          "options": [
+            {
+              "text": "$(3, -1)$",
+              "correct": true
+            },
+            {
+              "text": "$(3, 1)$",
+              "correct": false
+            },
+            {
+              "text": "$(-3, 1)$",
+              "correct": false
+            },
+            {
+              "text": "$(-1, -3)$",
+              "correct": false
+            }
+          ],
+          "explain": "Mirroring in the $y$-axis sends $(a, b)$ to $(-a, b)$, so $(-3, -1)$ goes to $(3, -1)$."
+        }
+      ]
+    },
+    {
+      "id": "periodic",
+      "heading": "Odd and even periodic functions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The graphs of $\\sin x$, $\\cos x$ and $\\tan x$ ({{lesson:3.7}}) repeat forever. They are [[periodic-function|periodic]]."
+        },
+        {
+          "type": "definition",
+          "term": "Periodic function",
+          "statement": "A function $f$ is periodic if there is a constant $p > 0$ with $f(x + p) = f(x)$ for every $x$ in its domain. The smallest such $p$ is the period.",
+          "plain": "The graph repeats every $p$ units."
+        },
+        {
+          "type": "result",
+          "statement": "$\\cos x$ is even: $\\cos(-x) = \\cos x$. $\\sin x$ and $\\tan x$ are odd: $\\sin(-x) = -\\sin x$ and $\\tan(-x) = -\\tan x$.",
+          "why": "On the unit circle, the angle $-x$ is the reflection of $x$ in the horizontal axis. That keeps $\\cos x$ and changes the sign of $\\sin x$. Then $\\tan x = \\frac{\\sin x}{\\cos x}$ is odd over even."
+        },
+        {
+          "type": "text",
+          "text": "Being periodic doesn't decide the symmetry. $\\sin x$ and $\\cos x$ share the period $2\\pi$, but one is [[odd-function|odd]] and one is [[even-function|even]]. $\\sin x + 1$ is neither."
+        },
+        {
+          "type": "result",
+          "statement": "odd $\\times$ odd $=$ even, even $\\times$ even $=$ even, odd $\\times$ even $=$ odd. The same holds for quotients.",
+          "why": "Odd behaves like $-1$ and even like $+1$. For odd $f$ and $g$, $f(-x)g(-x) = \\big(-f(x)\\big)\\big(-g(x)\\big) = f(x)g(x)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-trig-quotient",
+          "question": "Let $f(x) = \\frac{\\sin x}{2 + \\cos x}$, for $x \\in \\mathbb{R}$. (a) Show that $f$ is odd. (b) Given that $f\\left(\\frac{\\pi}{3}\\right) = \\frac{\\sqrt{3}}{5}$, write down $f\\left(-\\frac{\\pi}{3}\\right)$.",
+          "steps": [
+            "(a) Replace $x$ with $-x$: $f(-x) = \\frac{\\sin(-x)}{2 + \\cos(-x)}$.",
+            "Use $\\sin(-x) = -\\sin x$ and $\\cos(-x) = \\cos x$: $f(-x) = \\frac{-\\sin x}{2 + \\cos x} = -\\frac{\\sin x}{2 + \\cos x}$.",
+            "So $f(-x) = -f(x)$ for every $x$, and $f$ is odd.",
+            "(b) $f$ is odd, so $f\\left(-\\frac{\\pi}{3}\\right) = -f\\left(\\frac{\\pi}{3}\\right) = -\\frac{\\sqrt{3}}{5}$.",
+            "Check directly: $\\sin\\left(-\\frac{\\pi}{3}\\right) = -\\frac{\\sqrt{3}}{2}$ and $2 + \\cos\\left(-\\frac{\\pi}{3}\\right) = \\frac{5}{2}$. Dividing gives $-\\frac{\\sqrt{3}}{5}$."
+          ],
+          "answer": "$f\\left(-\\frac{\\pi}{3}\\right) = -\\frac{\\sqrt{3}}{5}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-which-even-trig",
+          "prompt": "Each function has domain $x \\in \\mathbb{R}$. Which one is even?",
+          "hint": "Treat $x$ and $\\sin x$ as odd, $\\cos x$ and $x^{2}$ as even, then combine the signs.",
+          "options": [
+            {
+              "text": "$x\\sin x$",
+              "correct": true
+            },
+            {
+              "text": "$x\\cos x$",
+              "correct": false
+            },
+            {
+              "text": "$\\sin x + \\cos x$",
+              "correct": false
+            },
+            {
+              "text": "$x^{2}\\sin x$",
+              "correct": false
+            }
+          ],
+          "explain": "$x\\sin x$ is odd times odd, so it is even: $(-x)\\sin(-x) = (-x)(-\\sin x) = x\\sin x$. $x\\cos x$ and $x^{2}\\sin x$ are odd, and $\\sin x + \\cos x$ is neither."
+        },
+        {
+          "type": "text",
+          "text": "The period lets you slide an input by $p$. Then the symmetry turns a negative input into a positive one."
+        },
+        {
+          "type": "example",
+          "id": "ex-period-parity-value",
+          "question": "The function $f$ is odd and periodic with period $8$, and $f(3) = 2$. Find $f(5)$.",
+          "steps": [
+            "Use the period to slide the input: $f(5) = f(5 - 8) = f(-3)$.",
+            "Use oddness: $f(-3) = -f(3)$.",
+            "Substitute the given value: $-f(3) = -2$."
+          ],
+          "answer": "$f(5) = -2$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-period-even-value",
+          "prompt": "The function $g$ is even and periodic with period $10$, and $g(3) = -7$. Find $g(7)$.",
+          "hint": "Subtract one period from $7$, then use $g(-x) = g(x)$.",
+          "answer": {
+            "value": -7,
+            "tolerance": 0
+          },
+          "explain": "$g(7) = g(7 - 10) = g(-3)$. Since $g$ is even, $g(-3) = g(3) = -7$."
+        }
+      ]
+    },
+    {
+      "id": "restrict",
+      "heading": "Restricting the domain to find an inverse",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.5}} you saw that only a [[one-to-one|one-to-one]] function has an [[inverse-function|inverse]]. $f(x) = x^{2}$, for $x \\in \\mathbb{R}$, fails: $3$ and $-3$ both give $9$."
+        },
+        {
+          "type": "text",
+          "text": "Throw away the left half. On the [[domain|domain]] $x \\ge 0$, each output comes from one input, so there is an inverse: $\\sqrt{x}$."
+        },
+        {
+          "type": "figure",
+          "id": "2-14-restrict-domain",
+          "alt": "The parabola y equals x squared, with its right half for x at least 0 drawn solid and its left half faint and dashed. The curve y equals the square root of x is drawn as the reflection of the solid half in the dashed line y equals x.",
+          "caption": "Keeping only $x \\ge 0$ makes $y = x^{2}$ one-to-one. Its inverse, $y = \\sqrt{x}$, is the reflection in $y = x$."
+        },
+        {
+          "type": "text",
+          "text": "An [[even-function|even function]] is never one-to-one on $\\mathbb{R}$, because $f(-a) = f(a)$. It always needs a restricted domain before it has an inverse."
+        },
+        {
+          "type": "result",
+          "statement": "A function that only increases, or only decreases, on an interval is one-to-one there. So restrict the domain to an interval with no turning point inside it.",
+          "why": "If the graph never turns back, no horizontal line can meet it twice."
+        },
+        {
+          "type": "text",
+          "text": "1. Find where the graph turns: complete the square for a quadratic, or solve $f'(x) = 0$."
+        },
+        {
+          "type": "text",
+          "text": "2. Keep one side of the turning point. The question usually says which, for example $x \\le k$."
+        },
+        {
+          "type": "text",
+          "text": "3. Make $x$ the subject of $y = f(x)$. If a square root gives two signs, the domain decides which to keep. Say why."
+        },
+        {
+          "type": "text",
+          "text": "4. Swap $x$ and $y$. The domain of $f^{-1}$ is the [[range|range]] of the restricted $f$."
+        },
+        {
+          "type": "example",
+          "id": "ex-restrict-quadratic",
+          "question": "Let $f(x) = x^{2} - 8x + 3$, for $x \\le k$. (a) Find the largest value of $k$ for which $f$ has an inverse. (b) For this value of $k$, find $f^{-1}(x)$ and state its domain.",
+          "steps": [
+            "(a) Complete the square: $x^{2} - 8x + 3 = (x - 4)^{2} - 16 + 3 = (x - 4)^{2} - 13$. The vertex is $(4, -13)$.",
+            "The parabola only decreases for $x \\le 4$, so it is one-to-one there. A larger $k$ would take in both sides of the vertex. So $k = 4$.",
+            "(b) Write $y = (x - 4)^{2} - 13$, so $(x - 4)^{2} = y + 13$ and $x - 4 = \\pm\\sqrt{y + 13}$.",
+            "Choose the sign: $x \\le 4$, so $x - 4 \\le 0$. Take the negative root: $x = 4 - \\sqrt{y + 13}$.",
+            "Swap $x$ and $y$: $f^{-1}(x) = 4 - \\sqrt{x + 13}$.",
+            "The range of $f$ on $x \\le 4$ is $y \\ge -13$, the vertex upwards. So $f^{-1}$ has domain $x \\ge -13$. Check: $f(1) = -4$ and $4 - \\sqrt{-4 + 13} = 1$."
+          ],
+          "answer": "$f^{-1}(x) = 4 - \\sqrt{x + 13}, \\; x \\ge -13$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-restrict-root",
+          "prompt": "Let $f(x) = (x + 3)^{2} - 2$, for $x \\le -3$. Find $f^{-1}(x)$.",
+          "hint": "On $x \\le -3$, the bracket $x + 3$ is never positive. Which root does that pick?",
+          "options": [
+            {
+              "text": "$-3 - \\sqrt{x + 2}$",
+              "correct": true
+            },
+            {
+              "text": "$-3 + \\sqrt{x + 2}$",
+              "correct": false
+            },
+            {
+              "text": "$3 - \\sqrt{x + 2}$",
+              "correct": false
+            },
+            {
+              "text": "$-3 - \\sqrt{x - 2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$y = (x + 3)^{2} - 2$ gives $x + 3 = \\pm\\sqrt{y + 2}$. Here $x + 3 \\le 0$, so $x = -3 - \\sqrt{y + 2}$. Then swap the letters."
+        },
+        {
+          "type": "example",
+          "id": "ex-restrict-even-log",
+          "question": "Let $f(x) = \\ln(x^{2} + 4)$, for $x \\in \\mathbb{R}$. (a) Show that $f$ is even, and explain why $f$ has no inverse. (b) The function $g$ is defined by $g(x) = \\ln(x^{2} + 4)$, for $x \\ge 0$. Find $g^{-1}(x)$ and state its domain.",
+          "steps": [
+            "(a) $f(-x) = \\ln\\big((-x)^{2} + 4\\big) = \\ln(x^{2} + 4) = f(x)$, so $f$ is even. Then $f(-1) = f(1) = \\ln 5$: two inputs share an output, so $f$ is not one-to-one and has no inverse.",
+            "(b) Write $y = \\ln(x^{2} + 4)$. Take exponentials: $\\mathrm{e}^{y} = x^{2} + 4$, so $x^{2} = \\mathrm{e}^{y} - 4$.",
+            "Choose the sign: the domain of $g$ is $x \\ge 0$, so take the positive root, $x = \\sqrt{\\mathrm{e}^{y} - 4}$.",
+            "Swap $x$ and $y$: $g^{-1}(x) = \\sqrt{\\mathrm{e}^{x} - 4}$.",
+            "Domain of $g^{-1}$ = range of $g$. On $x \\ge 0$, $x^{2} + 4$ goes from $4$ upwards, so $g(x) \\ge \\ln 4$. The domain is $x \\ge \\ln 4$."
+          ],
+          "answer": "$g^{-1}(x) = \\sqrt{\\mathrm{e}^{x} - 4}, \\; x \\ge \\ln 4$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-restrict-k",
+          "prompt": "Let $f(x) = 2x^{2} + 10x - 1$, for $x \\ge k$. Find the smallest value of $k$ for which $f$ has an inverse.",
+          "hint": "Find the $x$-coordinate of the vertex, by completing the square or by solving $f'(x) = 0$.",
+          "answer": {
+            "value": -2.5,
+            "tolerance": 0
+          },
+          "explain": "$f'(x) = 4x + 10 = 0$ at $x = -2.5$. To the right of the vertex the parabola only increases, so the smallest $k$ is $-2.5$."
+        },
+        {
+          "type": "text",
+          "text": "$f^{-1}(a)$ is the input $x$ with $f(x) = a$. On Paper 2, solve $f(x) = a$ with your GDC and keep the solution in the domain."
+        },
+        {
+          "type": "example",
+          "id": "ex-restrict-gdc",
+          "question": "Let $f(x) = x^{3} - 4x + 1$, for $x \\ge a$, where $a$ is the smallest value for which $f$ has an inverse. (a) Find the exact value of $a$. (b) Use your calculator to find $f^{-1}(5)$. Give your answer to 3 s.f.",
+          "steps": [
+            "(a) $f'(x) = 3x^{2} - 4 = 0$ gives $x = \\pm\\frac{2}{\\sqrt{3}}$. At $x = \\frac{2}{\\sqrt{3}}$, $f''(x) = 6x > 0$, so this is a local minimum, and $f$ only increases after it. So $a = \\frac{2}{\\sqrt{3}} = 1.1547\\ldots$",
+            "(b) $f^{-1}(5)$ is the value of $x \\ge a$ with $f(x) = 5$. Write down the equation you solve: $x^{3} - 4x + 1 = 5$.",
+            "Graph $y = x^{3} - 4x + 1$ and $y = 5$ and find where they meet. The calculator gives $x = 2.38297\\ldots$, which is greater than $1.1547\\ldots$, so it is in the domain.",
+            "Round only at the end: $f^{-1}(5) \\approx 2.38$."
+          ],
+          "answer": "$a = \\frac{2}{\\sqrt{3}}, \\; f^{-1}(5) \\approx 2.38$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = X^3-4X+1 and Y2 = 5",
+              "GRAPH",
+              "2nd, TRACE (CALC), 5: intersect",
+              "Choose Y1, then Y2, then move the cursor near X = 2.4 for the guess",
+              "Read X = 2.38297..., so f inverse of 5 is 2.38 to 3 s.f."
+            ],
+            "nspire": [
+              "Graphs page: enter f1(x) = x^3-4x+1 and f2(x) = 5",
+              "Menu, Analyze Graph, Intersection",
+              "Set the lower bound left of x = 2.4 and the upper bound right of it",
+              "Read x = 2.38297..., so f inverse of 5 is 2.38 to 3 s.f."
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = X^3-4X+1 and Y2 = 5",
+              "DRAW",
+              "SHIFT F5 (G-SOLV), INTSECT",
+              "Read X = 2.38297..., so f inverse of 5 is 2.38 to 3 s.f."
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Working out $\\frac{1}{f(5)}$ for $f^{-1}(5)$. The $-1$ means inverse, not reciprocal. Solve $f(x) = 5$ instead."
+        }
+      ]
+    },
+    {
+      "id": "self-inverse",
+      "heading": "Self-inverse functions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.8}} you saw that $f(x) = \\frac{1}{x}$ undoes itself: $f\\big(f(x)\\big) = \\frac{1}{1/x} = x$. A function that is its own inverse is called [[self-inverse|self-inverse]]."
+        },
+        {
+          "type": "definition",
+          "term": "Self-inverse function",
+          "statement": "A function $f$ is self-inverse if $f^{-1}(x) = f(x)$ for every $x$ in its domain. Equivalently, $(f \\circ f)(x) = x$ for every $x$ in its domain.",
+          "plain": "Doing it twice gets you back where you started."
+        },
+        {
+          "type": "result",
+          "statement": "$f$ is self-inverse exactly when the graph of $y = f(x)$ is symmetric in the line $y = x$.",
+          "why": "Reflecting in $y = x$ turns the graph of $f$ into the graph of $f^{-1}$. Those are the same graph exactly when $f^{-1} = f$."
+        },
+        {
+          "type": "figure",
+          "id": "2-14-self-inverse",
+          "alt": "Two graphs side by side, each with the dashed line y equals x. On the left, the line y equals 6 minus x runs from (0, 6) to (6, 0). On the right, a quarter circle of radius 5 runs from (0, 5) to (5, 0). Each graph is unchanged by reflection in y equals x.",
+          "caption": "$y = 6 - x$, drawn for $0 \\le x \\le 6$, and $y = \\sqrt{25 - x^{2}}$, for $0 \\le x \\le 5$, are both symmetric in $y = x$, so both are self-inverse."
+        },
+        {
+          "type": "text",
+          "text": "1. To test by algebra, show that $(f \\circ f)(x) = x$ for every $x$ in the domain."
+        },
+        {
+          "type": "text",
+          "text": "2. Or find $f^{-1}(x)$ the usual way, and show that it is the same formula with the same domain."
+        },
+        {
+          "type": "example",
+          "id": "ex-self-inverse-line",
+          "question": "Let $f(x) = 6 - x$, for $x \\in \\mathbb{R}$. Show that $f$ is self-inverse.",
+          "steps": [
+            "Feed $f(x)$ into $f$: $(f \\circ f)(x) = f(6 - x) = 6 - (6 - x)$.",
+            "Simplify: $6 - 6 + x = x$.",
+            "This holds for every real $x$, so $f^{-1}(x) = 6 - x = f(x)$.",
+            "The graph agrees: $y = 6 - x$ crosses $y = x$ at right angles, so reflecting it in $y = x$ gives the same line."
+          ],
+          "answer": "$(f \\circ f)(x) = x$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Every line $y = c - x$ is self-inverse, and so is $y = x$."
+        },
+        {
+          "type": "check",
+          "id": "check-self-inverse-cube",
+          "prompt": "Each function has domain $x \\in \\mathbb{R}$. Which one is self-inverse?",
+          "hint": "Work out $f\\big(f(x)\\big)$ for each. Only one gives back $x$.",
+          "options": [
+            {
+              "text": "$\\sqrt[3]{8 - x^{3}}$",
+              "correct": true
+            },
+            {
+              "text": "$8 - x^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt[3]{8 - x}$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt[3]{x} - 8$",
+              "correct": false
+            }
+          ],
+          "explain": "For $f(x) = \\sqrt[3]{8 - x^{3}}$, $f\\big(f(x)\\big) = \\sqrt[3]{8 - (8 - x^{3})} = \\sqrt[3]{x^{3}} = x$. For the others, try $x = 0$: they don't return $0$."
+        },
+        {
+          "type": "text",
+          "text": "The domain matters. Take $f(x) = \\sqrt{25 - x^{2}}$, for $0 \\le x \\le 5$. Then $(f \\circ f)(x) = \\sqrt{25 - (25 - x^{2})} = \\sqrt{x^{2}}$. This is $x$ only because $x \\ge 0$ here."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\sqrt{x^{2}} = x$ for every $x$. In fact $\\sqrt{x^{2}} = \\lvert x\\rvert$, which equals $x$ only when $x \\ge 0$. Use the domain to decide."
+        },
+        {
+          "type": "check",
+          "id": "check-self-inverse-value",
+          "prompt": "Let $f(x) = \\sqrt{25 - x^{2}}$, for $0 \\le x \\le 5$. This function is self-inverse. Find $f^{-1}(3)$.",
+          "hint": "If $f$ is self-inverse, then $f^{-1}(3) = f(3)$.",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "$f^{-1}(3) = f(3) = \\sqrt{25 - 9} = 4$. Check: $f(4) = \\sqrt{25 - 16} = 3$."
+        },
+        {
+          "type": "example",
+          "id": "ex-self-inverse-log",
+          "question": "Let $f(x) = \\ln\\left(\\frac{\\mathrm{e}^{x} + 1}{\\mathrm{e}^{x} - 1}\\right)$, for $x > 0$. Find $f^{-1}(x)$ and its domain, and hence show that $f$ is self-inverse.",
+          "steps": [
+            "Write $y = \\ln\\left(\\frac{\\mathrm{e}^{x} + 1}{\\mathrm{e}^{x} - 1}\\right)$, so $\\mathrm{e}^{y} = \\frac{\\mathrm{e}^{x} + 1}{\\mathrm{e}^{x} - 1}$.",
+            "Multiply up: $\\mathrm{e}^{y}\\mathrm{e}^{x} - \\mathrm{e}^{y} = \\mathrm{e}^{x} + 1$. Collect the $\\mathrm{e}^{x}$ terms: $\\mathrm{e}^{x}(\\mathrm{e}^{y} - 1) = \\mathrm{e}^{y} + 1$.",
+            "Divide and take logs: $x = \\ln\\left(\\frac{\\mathrm{e}^{y} + 1}{\\mathrm{e}^{y} - 1}\\right)$. Swap the letters: $f^{-1}(x) = \\ln\\left(\\frac{\\mathrm{e}^{x} + 1}{\\mathrm{e}^{x} - 1}\\right)$, the same formula as $f$.",
+            "Now the domain. For $x > 0$, $\\mathrm{e}^{x} > 1$, so $\\frac{\\mathrm{e}^{x} + 1}{\\mathrm{e}^{x} - 1} = 1 + \\frac{2}{\\mathrm{e}^{x} - 1} > 1$, and $f(x) > 0$.",
+            "For $x > 0$, $\\frac{2}{\\mathrm{e}^{x} - 1}$ takes every positive value, so the range of $f$ is $f(x) > 0$. That is the domain of $f^{-1}$.",
+            "Same formula and same domain, so $f^{-1} = f$ and $f$ is self-inverse."
+          ],
+          "answer": "$f^{-1}(x) = \\ln\\left(\\frac{\\mathrm{e}^{x} + 1}{\\mathrm{e}^{x} - 1}\\right), \\; x > 0$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "“Show that $f$ is self-inverse” needs a general argument, such as $(f \\circ f)(x) = x$. A sketch is not enough."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\text{even: } f(-x) = f(x) \\qquad \\text{odd: } f(-x) = -f(x)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Even: symmetric in the $y$-axis. Odd: half-turn symmetry about the origin, and $f(0) = 0$ if $0$ is in the domain.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\cos x$ is even; $\\sin x$ and $\\tan x$ are odd. Periodic means $f(x + p) = f(x)$. Odd $\\times$ odd and even $\\times$ even are even; odd $\\times$ even is odd.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "No inverse? Restrict the domain to one side of the turning point. Choose the sign of the root from that domain. The domain of $f^{-1}$ is the range of $f$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$f^{-1}(a)$ is the solution of $f(x) = a$ in the domain of $f$, not $\\frac{1}{f(a)}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Self-inverse: $f^{-1}(x) = f(x)$, or $(f \\circ f)(x) = x$. The graph is symmetric in $y = x$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Concluding $f$ is even from one value, such as $f(-1) = f(1)$. Simplify $f(-x)$ for a general $x$.",
+    "Drawing the missing half of an odd graph by mirroring in the $y$-axis. Rotate it $180^{\\circ}$ about the origin instead.",
+    "Keeping $\\pm$ in an inverse, or picking a sign with no reason. The restricted domain fixes the sign: say how.",
+    "Writing $\\sqrt{x^{2}} = x$ without checking the domain. It equals $\\lvert x\\rvert$, so it is $x$ only for $x \\ge 0$.",
+    "Finding $f^{-1}(a)$ as $\\frac{1}{f(a)}$. Solve $f(x) = a$, and keep only a solution in the domain of $f$."
+  ],
+  "examTips": [
+    "“Show that $f$ is odd”: write $f(-x)$, simplify step by step, and end with $f(-x) = -f(x)$. The conclusion is given (AG), so the marks are for the working.",
+    "For $f^{-1}(x)$ on a restricted domain, give a reason for your choice of root and state the domain of $f^{-1}$: the range of $f$.",
+    "On Paper 2, write down the equation $f(x) = a$ before you solve it on your GDC for $f^{-1}(a)$."
+  ],
+  "readingMinutes": 22
+}

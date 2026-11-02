@@ -1,0 +1,20 @@
+[
+  {
+    "id": "conjugate-pair",
+    "term": "conjugate pair",
+    "definition": "Two complex numbers $a + b\\mathrm{i}$ and $a - b\\mathrm{i}$, with $a, b \\in \\mathbb{R}$ and $b \\ne 0$: each is the complex conjugate of the other.",
+    "lesson": "1.14"
+  },
+  {
+    "id": "de-moivres-theorem",
+    "term": "De Moivre's theorem",
+    "definition": "For an integer $n$, $\\left[r(\\cos\\theta + \\mathrm{i}\\sin\\theta)\\right]^{n} = r^{n}(\\cos n\\theta + \\mathrm{i}\\sin n\\theta)$: raise the modulus to the power $n$ and multiply the argument by $n$.",
+    "lesson": "1.14"
+  },
+  {
+    "id": "roots-of-unity",
+    "term": "roots of unity",
+    "definition": "The $n$ solutions of $z^{n} = 1$, which are $\\mathrm{cis}\\,\\frac{2\\pi k}{n}$ for $k = 0, 1, \\ldots, n - 1$.",
+    "lesson": "1.14"
+  }
+]

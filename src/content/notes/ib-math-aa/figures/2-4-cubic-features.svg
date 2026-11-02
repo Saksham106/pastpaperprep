@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 280" role="img" aria-labelledby="t">
+  <title id="t">Graph of y equals x cubed minus 5x plus 1 with its y-intercept, three zeros, local maximum and local minimum marked</title>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="30" y1="157.1" x2="340" y2="157.1"/>
+    <line x1="180.0" y1="265" x2="180.0" y2="15"/>
+  </g>
+  <path d="M42.5,260.8 L45.0,246.0 L47.5,231.9 L50.0,218.4 L52.5,205.7 L55.0,193.6 L57.5,182.1 L60.0,171.3 L62.5,161.0 L65.0,151.4 L67.5,142.4 L70.0,134.0 L72.5,126.1 L75.0,118.8 L77.5,112.0 L80.0,105.7 L82.5,100.0 L85.0,94.7 L87.5,90.0 L90.0,85.7 L92.5,81.9 L95.0,78.5 L97.5,75.6 L100.0,73.1 L102.5,71.0 L105.0,69.3 L107.5,68.0 L110.0,67.0 L112.5,66.5 L115.0,66.2 L117.5,66.3 L120.0,66.8 L122.5,67.5 L125.0,68.5 L127.5,69.8 L130.0,71.4 L132.5,73.3 L135.0,75.4 L137.5,77.7 L140.0,80.2 L142.5,82.9 L145.0,85.9 L147.5,89.0 L150.0,92.3 L152.5,95.7 L155.0,99.3 L157.5,103.0 L160.0,106.8 L162.5,110.7 L165.0,114.7 L167.5,118.8 L170.0,123.0 L172.5,127.2 L175.0,131.4 L177.5,135.7 L180.0,140.0 L182.5,144.3 L185.0,148.6 L187.5,152.8 L190.0,157.0 L192.5,161.2 L195.0,165.3 L197.5,169.3 L200.0,173.2 L202.5,177.0 L205.0,180.7 L207.5,184.3 L210.0,187.7 L212.5,191.0 L215.0,194.1 L217.5,197.1 L220.0,199.8 L222.5,202.3 L225.0,204.6 L227.5,206.7 L230.0,208.6 L232.5,210.2 L235.0,211.5 L237.5,212.5 L240.0,213.2 L242.5,213.7 L245.0,213.8 L247.5,213.5 L250.0,213.0 L252.5,212.0 L255.0,210.7 L257.5,209.0 L260.0,206.9 L262.5,204.4 L265.0,201.5 L267.5,198.1 L270.0,194.3 L272.5,190.0 L275.0,185.3 L277.5,180.0 L280.0,174.3 L282.5,168.0 L285.0,161.2 L287.5,153.9 L290.0,146.0 L292.5,137.6 L295.0,128.6 L297.5,119.0 L300.0,108.7 L302.5,97.9 L305.0,86.4 L307.5,74.3 L310.0,61.6 L312.5,48.1 L315.0,34.0 L317.5,19.2" fill="none" stroke="var(--t2-ink)" stroke-width="2.5"/>
+  <circle cx="63.5" cy="157.1" r="4" fill="var(--surface, white)" stroke="currentColor" stroke-width="2"/>
+  <circle cx="190.1" cy="157.1" r="4" fill="var(--surface, white)" stroke="currentColor" stroke-width="2"/>
+  <circle cx="286.4" cy="157.1" r="4" fill="var(--surface, white)" stroke="currentColor" stroke-width="2"/>
+  <circle cx="180.0" cy="140.0" r="4" fill="currentColor"/>
+  <circle cx="115.5" cy="66.2" r="4" fill="currentColor"/>
+  <circle cx="244.5" cy="213.8" r="4" fill="currentColor"/>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="332" y="173.1">x</text>
+    <text x="186.0" y="25">y</text>
+    <text x="75.5" y="56.2">local max</text>
+    <text x="216.5" y="233.8">local min</text>
+    <text x="188.0" y="132.0">(0, 1)</text>
+    <text x="29.5" y="175.1">zero</text>
+    <text x="197.1" y="149.1">zero</text>
+    <text x="292.4" y="175.1">zero</text>
+  </g>
+</svg>

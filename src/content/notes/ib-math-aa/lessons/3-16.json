@@ -1,0 +1,664 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.16",
+  "slug": "vector-product",
+  "title": "Vector product",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "The [[vector-product|vector product]] $\\boldsymbol{v} \\times \\boldsymbol{w}$ turns two vectors into a new vector at right angles to both. Its length is the area of the parallelogram they make, so half of it gives a triangle's area. It is the zero vector exactly when the two vectors are parallel.",
+  "goals": [
+    {
+      "text": "Work out $\\boldsymbol{v} \\times \\boldsymbol{w}$ from components, and use the [[right-hand-screw-rule|right-hand screw rule]] to say which way it points.",
+      "bullets": [
+        "3.16-b1"
+      ]
+    },
+    {
+      "text": "Find a vector, or a unit vector, perpendicular to two given vectors.",
+      "bullets": [
+        "3.16-b1"
+      ]
+    },
+    {
+      "text": "Expand and simplify vector products with their rules, including $\\boldsymbol{w} \\times \\boldsymbol{v} = -\\boldsymbol{v} \\times \\boldsymbol{w}$ and $\\boldsymbol{v} \\times \\boldsymbol{v} = \\boldsymbol{0}$.",
+      "bullets": [
+        "3.16-b2"
+      ]
+    },
+    {
+      "text": "Use $\\boldsymbol{v} \\times \\boldsymbol{w} = \\boldsymbol{0}$ to show that non-zero vectors are parallel, or to find an unknown that makes them parallel.",
+      "bullets": [
+        "3.16-b3"
+      ]
+    },
+    {
+      "text": "Find the area of a parallelogram or a triangle from $\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert$, exactly or to 3 s.f.",
+      "bullets": [
+        "3.16-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.12",
+    "3.13"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "cross product",
+    "a cross b",
+    "vector perpendicular to two vectors",
+    "area of a triangle with vectors",
+    "right hand rule vectors"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-magnitude",
+      "prompt": "Find $\\lvert\\boldsymbol{u}\\rvert$ for $\\boldsymbol{u} = \\begin{pmatrix}4\\\\-4\\\\7\\end{pmatrix}$.",
+      "hint": "Square each component, add, then take the square root.",
+      "answer": {
+        "value": 9,
+        "tolerance": 0
+      },
+      "explain": "$\\lvert\\boldsymbol{u}\\rvert = \\sqrt{4^{2} + (-4)^{2} + 7^{2}} = \\sqrt{81} = 9$. Revise it in {{lesson:3.12}}."
+    },
+    {
+      "type": "check",
+      "id": "before-displacement",
+      "prompt": "P is $(3, -1, 2)$ and Q is $(1, 2, 5)$. Find $\\overrightarrow{PQ}$.",
+      "hint": "Start at P and end at Q, so subtract the coordinates of P from those of Q.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}-2\\\\3\\\\3\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}2\\\\-3\\\\-3\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}4\\\\1\\\\7\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\overrightarrow{PQ} = \\boldsymbol{q} - \\boldsymbol{p} = \\begin{pmatrix}-2\\\\3\\\\3\\end{pmatrix}$. Revise it in {{lesson:3.12}}."
+    },
+    {
+      "type": "check",
+      "id": "before-perpendicular",
+      "prompt": "Which vector is perpendicular to $\\begin{pmatrix}1\\\\2\\\\-2\\end{pmatrix}$?",
+      "hint": "Perpendicular vectors have a scalar product of $0$.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}2\\\\0\\\\1\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}2\\\\1\\\\-2\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}1\\\\-1\\\\1\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$1 \\times 2 + 2 \\times 0 + (-2) \\times 1 = 0$, so the scalar product is $0$. The others give $8$ and $-3$. Revise it in {{lesson:3.13}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "definition",
+      "heading": "The vector product",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.13}} the [[scalar-product|scalar product]] turned two vectors into a number. The [[vector-product|vector product]] turns two vectors into a new vector. That vector is perpendicular to both of the ones you started with."
+        },
+        {
+          "type": "text",
+          "text": "Why would you want that? Draw $\\boldsymbol{v}$ and $\\boldsymbol{w}$ from the same point. If they are not parallel, together they fix one flat plane. A vector at right angles to that plane is what you need for planes in {{lesson:3.17}}, and its length measures area."
+        },
+        {
+          "type": "text",
+          "text": "There are two directions at right angles to the plane: one side of it and the other. A rule called the [[right-hand-screw-rule|right-hand screw rule]] picks one of them."
+        },
+        {
+          "type": "definition",
+          "term": "Vector product",
+          "statement": "The vector product of $\\boldsymbol{v}$ and $\\boldsymbol{w}$ is the vector $\\boldsymbol{v} \\times \\boldsymbol{w} = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta\\,\\boldsymbol{n}$. The angle $\\theta$ from $\\boldsymbol{v}$ to $\\boldsymbol{w}$ lies from $0^{\\circ}$ to $180^{\\circ}$. The vector $\\boldsymbol{n}$ has length $1$, is perpendicular to both $\\boldsymbol{v}$ and $\\boldsymbol{w}$, and points the way the right-hand screw rule gives.",
+          "plain": "It is read v cross w, and it is also called the cross product."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v} \\times \\boldsymbol{w} = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta\\,\\boldsymbol{n}",
+          "tag": "learn",
+          "cheatSheet": false
+        },
+        {
+          "type": "text",
+          "text": "Read the definition in two parts. The number $\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta$ is the length. The [[unit-vector|unit vector]] $\\boldsymbol{n}$ only gives the direction."
+        },
+        {
+          "type": "text",
+          "text": "The right-hand screw rule: point the fingers of your right hand along $\\boldsymbol{v}$. Curl them towards $\\boldsymbol{w}$ through the angle $\\theta$. Your thumb now points along $\\boldsymbol{v} \\times \\boldsymbol{w}$."
+        },
+        {
+          "type": "text",
+          "text": "The name comes from an ordinary screw. Turn it from $\\boldsymbol{v}$ towards $\\boldsymbol{w}$ and it moves in the direction of $\\boldsymbol{v} \\times \\boldsymbol{w}$."
+        },
+        {
+          "type": "figure",
+          "id": "3-16-right-hand-rule",
+          "alt": "Vectors v and w are drawn from the same point in a flat shaded plane, with the angle theta between them and a curved arrow turning from v towards w. The vector v cross w points straight up out of the plane. A dashed vector w cross v points straight down, the opposite way.",
+          "caption": "Turning from $\\boldsymbol{v}$ to $\\boldsymbol{w}$ gives $\\boldsymbol{v} \\times \\boldsymbol{w}$ upwards. Turning the other way gives $\\boldsymbol{w} \\times \\boldsymbol{v}$ downwards."
+        },
+        {
+          "type": "text",
+          "text": "For example, take the [[base-vectors|base vectors]] $\\boldsymbol{i}$ and $\\boldsymbol{j}$. They are perpendicular unit vectors, so the length of $\\boldsymbol{i} \\times \\boldsymbol{j}$ is $1 \\times 1 \\times \\sin 90^{\\circ} = 1$. Curl your fingers from the $x$-axis to the $y$-axis and your thumb points up the $z$-axis, so $\\boldsymbol{i} \\times \\boldsymbol{j} = \\boldsymbol{k}$."
+        },
+        {
+          "type": "text",
+          "text": "In practice you don't use the angle. You work out the vector product from components with this formula. It is in the formula booklet, so you don't need to memorise it."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v} \\times \\boldsymbol{w} = \\begin{pmatrix}v_{2}w_{3} - v_{3}w_{2}\\\\v_{3}w_{1} - v_{1}w_{3}\\\\v_{1}w_{2} - v_{2}w_{1}\\end{pmatrix}, \\text{ where } \\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix}, \\; \\boldsymbol{w} = \\begin{pmatrix}w_{1}\\\\w_{2}\\\\w_{3}\\end{pmatrix}",
+          "tag": "booklet",
+          "bookletId": "bk-3-16-cross-components",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "A way to read it: for the first component, cover the first row of both vectors and cross-multiply what is left, $v_{2}w_{3} - v_{3}w_{2}$. Do the same for the third component, covering the third row."
+        },
+        {
+          "type": "text",
+          "text": "The middle component is the odd one. Covering the second row gives $v_{1}w_{3} - v_{3}w_{1}$, and you must change its sign. That is why the booklet writes it as $v_{3}w_{1} - v_{1}w_{3}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cross-components",
+          "question": "Find $\\boldsymbol{v} \\times \\boldsymbol{w}$ for $\\boldsymbol{v} = \\begin{pmatrix}2\\\\-1\\\\3\\end{pmatrix}$ and $\\boldsymbol{w} = \\begin{pmatrix}1\\\\4\\\\-2\\end{pmatrix}$.",
+          "steps": [
+            "First component, $v_{2}w_{3} - v_{3}w_{2}$: $(-1)(-2) - (3)(4) = 2 - 12 = -10$.",
+            "Second component, $v_{3}w_{1} - v_{1}w_{3}$: $(3)(1) - (2)(-2) = 3 + 4 = 7$.",
+            "Third component, $v_{1}w_{2} - v_{2}w_{1}$: $(2)(4) - (-1)(1) = 8 + 1 = 9$.",
+            "Check it is perpendicular to both with scalar products: $2(-10) + (-1)(7) + 3(9) = 0$ and $1(-10) + 4(7) + (-2)(9) = 0$. Both are $0$, so the answer passes."
+          ],
+          "answer": "$\\boldsymbol{v} \\times \\boldsymbol{w} = \\begin{pmatrix}-10\\\\7\\\\9\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Getting the middle component with the wrong sign. It is $v_{3}w_{1} - v_{1}w_{3}$, the other way round from the pattern of the first and third. The scalar product check catches this slip."
+        },
+        {
+          "type": "check",
+          "id": "check-cross-ijk",
+          "prompt": "Find $(\\boldsymbol{i} + 3\\boldsymbol{j} - 2\\boldsymbol{k}) \\times (4\\boldsymbol{i} + \\boldsymbol{k})$.",
+          "hint": "Write the vectors as columns. The second vector has no $\\boldsymbol{j}$ term, so its middle component is $0$.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}3\\\\-9\\\\-12\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}3\\\\9\\\\-12\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-3\\\\9\\\\12\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}4\\\\0\\\\-2\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "Use $\\begin{pmatrix}1\\\\3\\\\-2\\end{pmatrix}$ and $\\begin{pmatrix}4\\\\0\\\\1\\end{pmatrix}$. The components are $3(1) - (-2)(0) = 3$, then $(-2)(4) - 1(1) = -9$, then $1(0) - 3(4) = -12$."
+        },
+        {
+          "type": "text",
+          "text": "Because $\\boldsymbol{v} \\times \\boldsymbol{w}$ is perpendicular to both vectors, dividing it by its length gives a unit vector perpendicular to both. Its negative works too: it points the other way along the same line."
+        },
+        {
+          "type": "example",
+          "id": "ex-unit-normal",
+          "question": "Find a unit vector perpendicular to both $\\begin{pmatrix}3\\\\0\\\\-1\\end{pmatrix}$ and $\\begin{pmatrix}0\\\\2\\\\-1\\end{pmatrix}$.",
+          "steps": [
+            "Any multiple of the vector product is perpendicular to both, so start there: $\\begin{pmatrix}3\\\\0\\\\-1\\end{pmatrix} \\times \\begin{pmatrix}0\\\\2\\\\-1\\end{pmatrix} = \\begin{pmatrix}(0)(-1) - (-1)(2)\\\\(-1)(0) - (3)(-1)\\\\(3)(2) - (0)(0)\\end{pmatrix} = \\begin{pmatrix}2\\\\3\\\\6\\end{pmatrix}$.",
+            "Check: $3(2) + 0(3) + (-1)(6) = 0$ and $0(2) + 2(3) + (-1)(6) = 0$.",
+            "Its length is $\\sqrt{2^{2} + 3^{2} + 6^{2}} = \\sqrt{49} = 7$.",
+            "Divide by the length to make a unit vector. The vector $-\\frac{1}{7}\\begin{pmatrix}2\\\\3\\\\6\\end{pmatrix}$ is an equally good answer."
+          ],
+          "answer": "$\\boldsymbol{n} = \\begin{pmatrix}\\frac{2}{7}\\\\\\frac{3}{7}\\\\\\frac{6}{7}\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The length of $\\boldsymbol{v} \\times \\boldsymbol{w}$ has its own booklet formula. Use it when you know two lengths and the angle between them, but not the components."
+        },
+        {
+          "type": "formula",
+          "tex": "\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta, \\text{ where } \\theta \\text{ is the angle between } \\boldsymbol{v} \\text{ and } \\boldsymbol{w}",
+          "tag": "booklet",
+          "bookletId": "bk-3-16-cross-magnitude",
+          "cheatSheet": true
+        },
+        {
+          "type": "check",
+          "id": "check-cross-magnitude",
+          "prompt": "$\\lvert\\boldsymbol{a}\\rvert = 5$, $\\lvert\\boldsymbol{b}\\rvert = 4$ and the angle between $\\boldsymbol{a}$ and $\\boldsymbol{b}$ is $150^{\\circ}$. Find $\\lvert \\boldsymbol{a} \\times \\boldsymbol{b} \\rvert$.",
+          "hint": "Use $\\lvert\\boldsymbol{a}\\rvert\\lvert\\boldsymbol{b}\\rvert\\sin\\theta$. What is $\\sin 150^{\\circ}$?",
+          "answer": {
+            "value": 10,
+            "tolerance": 0
+          },
+          "explain": "$\\lvert \\boldsymbol{a} \\times \\boldsymbol{b} \\rvert = 5 \\times 4 \\times \\sin 150^{\\circ} = 20 \\times \\frac{1}{2} = 10$."
+        },
+        {
+          "type": "mistake",
+          "text": "Finding an angle with $\\sin\\theta = \\frac{\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert}{\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert}$. Both $\\theta$ and $180^{\\circ} - \\theta$ have the same sine, and $\\sin^{-1}$ only gives the acute one. Use the scalar product from {{lesson:3.13}} for angles."
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "heading": "Rules for vector products",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[vector-product|Vector products]] expand like brackets, just as scalar products do. There is one big difference: the order matters."
+        },
+        {
+          "type": "text",
+          "text": "1. Swapping the order reverses the direction: $\\boldsymbol{w} \\times \\boldsymbol{v} = -\\boldsymbol{v} \\times \\boldsymbol{w}$. Curl your fingers from $\\boldsymbol{w}$ to $\\boldsymbol{v}$ and your thumb points the other way."
+        },
+        {
+          "type": "text",
+          "text": "2. You can expand brackets: $\\boldsymbol{u} \\times (\\boldsymbol{v} + \\boldsymbol{w}) = \\boldsymbol{u} \\times \\boldsymbol{v} + \\boldsymbol{u} \\times \\boldsymbol{w}$."
+        },
+        {
+          "type": "text",
+          "text": "3. A scalar moves to the front: $(k\\boldsymbol{v}) \\times \\boldsymbol{w} = k(\\boldsymbol{v} \\times \\boldsymbol{w})$."
+        },
+        {
+          "type": "text",
+          "text": "4. A vector crossed with itself gives the [[zero-vector|zero vector]]: $\\boldsymbol{v} \\times \\boldsymbol{v} = \\boldsymbol{0}$. The angle is $0^{\\circ}$ and $\\sin 0^{\\circ} = 0$."
+        },
+        {
+          "type": "result",
+          "statement": "$\\boldsymbol{w} \\times \\boldsymbol{v} = -\\boldsymbol{v} \\times \\boldsymbol{w}$",
+          "why": "Swap $\\boldsymbol{v}$ and $\\boldsymbol{w}$ in the component formula. The first component $v_{2}w_{3} - v_{3}w_{2}$ becomes $w_{2}v_{3} - w_{3}v_{2}$, which is its negative, and the same happens to the other two."
+        },
+        {
+          "type": "text",
+          "text": "Rules 2 and 3 can be checked the same way, one component at a time. Each component is ordinary arithmetic with numbers."
+        },
+        {
+          "type": "mistake",
+          "text": "Treating $\\boldsymbol{b} \\times \\boldsymbol{a}$ as $\\boldsymbol{a} \\times \\boldsymbol{b}$ when you collect terms. Replace it with $-\\boldsymbol{a} \\times \\boldsymbol{b}$ before you add."
+        },
+        {
+          "type": "example",
+          "id": "ex-expand-cross",
+          "question": "Simplify $(\\boldsymbol{a} + 2\\boldsymbol{b}) \\times (\\boldsymbol{a} - \\boldsymbol{b})$, giving your answer in terms of $\\boldsymbol{a} \\times \\boldsymbol{b}$.",
+          "steps": [
+            "Expand like two brackets, using rules 2 and 3, and keep every product in its order: $\\boldsymbol{a} \\times \\boldsymbol{a} - \\boldsymbol{a} \\times \\boldsymbol{b} + 2\\boldsymbol{b} \\times \\boldsymbol{a} - 2\\boldsymbol{b} \\times \\boldsymbol{b}$.",
+            "Rule 4 gives $\\boldsymbol{a} \\times \\boldsymbol{a} = \\boldsymbol{0}$ and $\\boldsymbol{b} \\times \\boldsymbol{b} = \\boldsymbol{0}$.",
+            "Rule 1 gives $\\boldsymbol{b} \\times \\boldsymbol{a} = -\\boldsymbol{a} \\times \\boldsymbol{b}$, so $2\\boldsymbol{b} \\times \\boldsymbol{a} = -2\\boldsymbol{a} \\times \\boldsymbol{b}$.",
+            "Collect: $-\\boldsymbol{a} \\times \\boldsymbol{b} - 2\\boldsymbol{a} \\times \\boldsymbol{b} = -3\\,\\boldsymbol{a} \\times \\boldsymbol{b}$."
+          ],
+          "answer": "$(\\boldsymbol{a} + 2\\boldsymbol{b}) \\times (\\boldsymbol{a} - \\boldsymbol{b}) = -3\\,\\boldsymbol{a} \\times \\boldsymbol{b}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-expand-cross",
+          "prompt": "Simplify $(2\\boldsymbol{a} + \\boldsymbol{b}) \\times (\\boldsymbol{a} - 3\\boldsymbol{b})$.",
+          "hint": "Expand all four products in order. Then use $\\boldsymbol{a} \\times \\boldsymbol{a} = \\boldsymbol{0}$ and $\\boldsymbol{b} \\times \\boldsymbol{a} = -\\boldsymbol{a} \\times \\boldsymbol{b}$.",
+          "options": [
+            {
+              "text": "$-7\\,\\boldsymbol{a} \\times \\boldsymbol{b}$",
+              "correct": true
+            },
+            {
+              "text": "$-5\\,\\boldsymbol{a} \\times \\boldsymbol{b}$",
+              "correct": false
+            },
+            {
+              "text": "$-6\\,\\boldsymbol{a} \\times \\boldsymbol{b}$",
+              "correct": false
+            },
+            {
+              "text": "$7\\,\\boldsymbol{a} \\times \\boldsymbol{b}$",
+              "correct": false
+            }
+          ],
+          "explain": "$2\\boldsymbol{a} \\times \\boldsymbol{a} - 6\\boldsymbol{a} \\times \\boldsymbol{b} + \\boldsymbol{b} \\times \\boldsymbol{a} - 3\\boldsymbol{b} \\times \\boldsymbol{b} = \\boldsymbol{0} - 6\\boldsymbol{a} \\times \\boldsymbol{b} - \\boldsymbol{a} \\times \\boldsymbol{b} - \\boldsymbol{0} = -7\\,\\boldsymbol{a} \\times \\boldsymbol{b}$."
+        },
+        {
+          "type": "text",
+          "text": "The rules also let you use a vector product you already know, without any components for the vectors themselves."
+        },
+        {
+          "type": "example",
+          "id": "ex-given-cross",
+          "question": "Given that $\\boldsymbol{p} \\times \\boldsymbol{q} = \\begin{pmatrix}1\\\\-2\\\\4\\end{pmatrix}$, find $(2\\boldsymbol{q}) \\times (\\boldsymbol{p} + \\boldsymbol{q})$.",
+          "steps": [
+            "Expand the bracket with rule 2: $(2\\boldsymbol{q}) \\times \\boldsymbol{p} + (2\\boldsymbol{q}) \\times \\boldsymbol{q}$.",
+            "Rule 3 moves the $2$ to the front: $2(\\boldsymbol{q} \\times \\boldsymbol{p}) + 2(\\boldsymbol{q} \\times \\boldsymbol{q})$.",
+            "Rule 4 gives $\\boldsymbol{q} \\times \\boldsymbol{q} = \\boldsymbol{0}$. Rule 1 gives $\\boldsymbol{q} \\times \\boldsymbol{p} = -\\boldsymbol{p} \\times \\boldsymbol{q}$.",
+            "So the answer is $-2(\\boldsymbol{p} \\times \\boldsymbol{q}) = -2\\begin{pmatrix}1\\\\-2\\\\4\\end{pmatrix}$."
+          ],
+          "answer": "$(2\\boldsymbol{q}) \\times (\\boldsymbol{p} + \\boldsymbol{q}) = \\begin{pmatrix}-2\\\\4\\\\-8\\end{pmatrix}$",
+          "video": null
+        }
+      ]
+    },
+    {
+      "id": "parallel",
+      "heading": "Parallel vectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "If $\\boldsymbol{v}$ and $\\boldsymbol{w}$ are parallel, the angle between them is $0^{\\circ}$ or $180^{\\circ}$. Both have $\\sin\\theta = 0$, so $\\boldsymbol{v} \\times \\boldsymbol{w}$ has length $0$. It is the [[zero-vector|zero vector]]."
+        },
+        {
+          "type": "text",
+          "text": "The reverse is also true, as long as neither vector is the zero vector itself."
+        },
+        {
+          "type": "result",
+          "statement": "For non-zero vectors, $\\boldsymbol{v} \\times \\boldsymbol{w} = \\boldsymbol{0}$ exactly when $\\boldsymbol{v}$ and $\\boldsymbol{w}$ are parallel.",
+          "why": "$\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta$ with $\\lvert\\boldsymbol{v}\\rvert$ and $\\lvert\\boldsymbol{w}\\rvert$ not zero. So it is $0$ only when $\\sin\\theta = 0$, which means $\\theta = 0^{\\circ}$ or $180^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "Put this beside {{lesson:3.13}}. A zero [[scalar-product|scalar product]] means perpendicular. A zero [[vector-product|vector product]] means [[parallel-vectors|parallel]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-test",
+          "question": "Use the vector product to show that $\\boldsymbol{v} = \\begin{pmatrix}5\\\\-1\\\\3\\end{pmatrix}$ and $\\boldsymbol{w} = \\begin{pmatrix}-10\\\\2\\\\-6\\end{pmatrix}$ are parallel.",
+          "steps": [
+            "First component: $(-1)(-6) - (3)(2) = 6 - 6 = 0$.",
+            "Second component: $(3)(-10) - (5)(-6) = -30 + 30 = 0$.",
+            "Third component: $(5)(2) - (-1)(-10) = 10 - 10 = 0$.",
+            "Both vectors are non-zero and their vector product is the zero vector, so they are parallel. Indeed $\\boldsymbol{w} = -2\\boldsymbol{v}$, so they point opposite ways."
+          ],
+          "answer": "$\\boldsymbol{v} \\times \\boldsymbol{w} = \\begin{pmatrix}0\\\\0\\\\0\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-unknowns",
+          "question": "The vectors $\\begin{pmatrix}p\\\\2\\\\-3\\end{pmatrix}$ and $\\begin{pmatrix}4\\\\-1\\\\q\\end{pmatrix}$ are parallel. Use the vector product to find $p$ and $q$.",
+          "steps": [
+            "Parallel vectors have a vector product of $\\boldsymbol{0}$: $\\begin{pmatrix}p\\\\2\\\\-3\\end{pmatrix} \\times \\begin{pmatrix}4\\\\-1\\\\q\\end{pmatrix} = \\begin{pmatrix}2q - 3\\\\-12 - pq\\\\-p - 8\\end{pmatrix} = \\begin{pmatrix}0\\\\0\\\\0\\end{pmatrix}$.",
+            "The first component gives $2q - 3 = 0$, so $q = \\tfrac{3}{2}$.",
+            "The third component gives $-p - 8 = 0$, so $p = -8$.",
+            "Check the middle component: $-12 - (-8)\\left(\\tfrac{3}{2}\\right) = -12 + 12 = 0$. All three are zero."
+          ],
+          "answer": "$p = -8, \\; q = \\tfrac{3}{2}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-k",
+          "prompt": "Find $k$ so that $\\begin{pmatrix}k\\\\4\\\\-2\\end{pmatrix} \\times \\begin{pmatrix}3\\\\6\\\\-3\\end{pmatrix} = \\boldsymbol{0}$.",
+          "hint": "Write out the second or third component in terms of $k$ and set it equal to $0$.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "The third component is $6k - (4)(3) = 6k - 12$, so $k = 2$. Then the first vector is $\\tfrac{2}{3}$ of the second."
+        },
+        {
+          "type": "text",
+          "text": "Three points A, B and C are [[collinear|collinear]] when $\\overrightarrow{AB}$ and $\\overrightarrow{AC}$ are parallel. They share the point A, so they lie on one line. That gives a quick test: $\\overrightarrow{AB} \\times \\overrightarrow{AC} = \\boldsymbol{0}$."
+        },
+        {
+          "type": "check",
+          "id": "check-collinear",
+          "prompt": "Are the points $\\mathrm{A}(2, 0, -1)$, $\\mathrm{B}(3, 2, 1)$ and $\\mathrm{C}(5, 6, 5)$ collinear?",
+          "hint": "Find $\\overrightarrow{AB}$ and $\\overrightarrow{AC}$, then their vector product.",
+          "options": [
+            {
+              "text": "They are collinear",
+              "correct": true
+            },
+            {
+              "text": "They are not collinear",
+              "correct": false
+            },
+            {
+              "text": "They are not collinear, because $\\overrightarrow{AB} \\cdot \\overrightarrow{AC} \\ne 0$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\overrightarrow{AB} = \\begin{pmatrix}1\\\\2\\\\2\\end{pmatrix}$ and $\\overrightarrow{AC} = \\begin{pmatrix}3\\\\6\\\\6\\end{pmatrix}$, so $\\overrightarrow{AB} \\times \\overrightarrow{AC} = \\boldsymbol{0}$. A non-zero scalar product says nothing about being parallel."
+        }
+      ]
+    },
+    {
+      "id": "area",
+      "heading": "Areas of parallelograms and triangles",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Draw a parallelogram with adjacent sides $\\boldsymbol{v}$ and $\\boldsymbol{w}$ and the angle $\\theta$ between them. Take $\\boldsymbol{v}$ as the base."
+        },
+        {
+          "type": "figure",
+          "id": "3-16-parallelogram-area",
+          "alt": "A parallelogram with base v along the bottom and side w leaving the same corner at angle theta. A dashed vertical height drops from the top of w to the base, meeting it at a right angle, and is labelled length of w times sine theta. A dashed diagonal joins the ends of v and w, cutting the parallelogram into two equal triangles, and the lower triangle is shaded.",
+          "caption": "The height is $\\lvert\\boldsymbol{w}\\rvert\\sin\\theta$. The diagonal cuts the parallelogram into two equal triangles."
+        },
+        {
+          "type": "text",
+          "text": "Area of a parallelogram is base times height. This is in the prior-learning section of the formula booklet. The base is $\\lvert\\boldsymbol{v}\\rvert$ and the height is $\\lvert\\boldsymbol{w}\\rvert\\sin\\theta$, so the area is $\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "That is exactly $\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert$. So the length of the [[vector-product|vector product]] is the area of the parallelogram. This is in the booklet too."
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert, \\text{ where } \\boldsymbol{v} \\text{ and } \\boldsymbol{w} \\text{ form two adjacent sides of a parallelogram}",
+          "tag": "booklet",
+          "bookletId": "bk-3-16-parallelogram-area",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "A diagonal cuts the parallelogram into two equal triangles. So a triangle with sides $\\boldsymbol{v}$ and $\\boldsymbol{w}$ from the same corner has half the area. This matches $\\frac{1}{2}ab\\sin C$ from {{lesson:3.2}}."
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\frac{1}{2}\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert, \\text{ where } \\boldsymbol{v} \\text{ and } \\boldsymbol{w} \\text{ form two sides of a triangle from the same vertex}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "For triangle ABC, use two sides that leave the same corner, such as $\\overrightarrow{AB}$ and $\\overrightarrow{AC}$. Don't use the position vectors of the points: they are arrows from the origin, not sides."
+        },
+        {
+          "type": "example",
+          "id": "ex-area-parallelogram",
+          "question": "A parallelogram has adjacent sides $2\\boldsymbol{i} + \\boldsymbol{j} - \\boldsymbol{k}$ and $\\boldsymbol{i} - \\boldsymbol{j} + 3\\boldsymbol{k}$. Find its exact area.",
+          "steps": [
+            "Write the sides as columns: $\\boldsymbol{v} = \\begin{pmatrix}2\\\\1\\\\-1\\end{pmatrix}$ and $\\boldsymbol{w} = \\begin{pmatrix}1\\\\-1\\\\3\\end{pmatrix}$.",
+            "Vector product: $\\boldsymbol{v} \\times \\boldsymbol{w} = \\begin{pmatrix}(1)(3) - (-1)(-1)\\\\(-1)(1) - (2)(3)\\\\(2)(-1) - (1)(1)\\end{pmatrix} = \\begin{pmatrix}2\\\\-7\\\\-3\\end{pmatrix}$.",
+            "Check: $2(2) + 1(-7) + (-1)(-3) = 0$ and $1(2) + (-1)(-7) + 3(-3) = 0$.",
+            "The area is its length: $\\sqrt{2^{2} + (-7)^{2} + (-3)^{2}} = \\sqrt{4 + 49 + 9} = \\sqrt{62}$."
+          ],
+          "answer": "$A = \\sqrt{62}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting the $\\frac{1}{2}$ for a triangle, or halving for a parallelogram. $\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert$ is the parallelogram. The triangle is half of it."
+        },
+        {
+          "type": "example",
+          "id": "ex-area-triangle-p2",
+          "question": "The points $\\mathrm{P}(1, -2, 3)$, $\\mathrm{Q}(4, 0, 1)$ and $\\mathrm{R}(-1, 3, 2)$ form a triangle. Use your calculator to find the area of triangle PQR. Give your answer to 3 s.f.",
+          "steps": [
+            "Two sides from corner P: $\\overrightarrow{PQ} = \\begin{pmatrix}3\\\\2\\\\-2\\end{pmatrix}$ and $\\overrightarrow{PR} = \\begin{pmatrix}-2\\\\5\\\\-1\\end{pmatrix}$.",
+            "Vector product: $\\overrightarrow{PQ} \\times \\overrightarrow{PR} = \\begin{pmatrix}(2)(-1) - (-2)(5)\\\\(-2)(-2) - (3)(-1)\\\\(3)(5) - (2)(-2)\\end{pmatrix} = \\begin{pmatrix}8\\\\7\\\\19\\end{pmatrix}$.",
+            "Write down what you put into the calculator: area $= \\frac{1}{2}\\sqrt{8^{2} + 7^{2} + 19^{2}} = \\frac{1}{2}\\sqrt{474}$. This line earns the method mark.",
+            "The calculator gives $10.8857\\ldots$. Round only now."
+          ],
+          "answer": "$A \\approx 10.9$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Work out the vector product (8, 7, 19) by hand first: the TI-84 Plus CE has no vector product key (check on your model)",
+              "Home screen: type sqrt(8^2+7^2+19^2)/2, ENTER (check on your model)",
+              "Read 10.8857..., so the area is 10.9 to 3 s.f."
+            ],
+            "nspire": [
+              "Calculator page, Menu, Matrix & Vector, Vector, Cross Product, then type crossP([3,2,-2],[-2,5,-1]), enter (check on your model)",
+              "Menu, Matrix & Vector, Norms, Norm, then type norm(ans)/2, enter (check on your model)",
+              "Read 10.8857..., so the area is 10.9 to 3 s.f."
+            ],
+            "casio": [
+              "RUN-MAT, OPTN, MAT/VCT, VCT, CrossP(, then type CrossP([3,2,-2],[-2,5,-1]), EXE (check on your model)",
+              "OPTN, MAT/VCT, VCT, Norm(, then type Norm(Ans)/2, EXE (check on your model)",
+              "Read 10.8857..., so the area is 10.9 to 3 s.f."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-triangle-area",
+          "prompt": "Find the area of the triangle with vertices $\\mathrm{O}(0, 0, 0)$, $\\mathrm{A}(3, 0, 4)$ and $\\mathrm{B}(0, 2, 1)$. Give your answer to 3 s.f.",
+          "hint": "From the origin, the sides are just the position vectors of A and B. Find their vector product, then halve its length.",
+          "answer": {
+            "value": 5.22,
+            "tolerance": 0.005
+          },
+          "explain": "$\\overrightarrow{OA} \\times \\overrightarrow{OB} = \\begin{pmatrix}-8\\\\-3\\\\6\\end{pmatrix}$, with length $\\sqrt{109}$. The area is $\\frac{1}{2}\\sqrt{109} = 5.2201\\ldots$"
+        },
+        {
+          "type": "text",
+          "text": "Exam questions often run this backwards: you are given the area and must find an unknown."
+        },
+        {
+          "type": "example",
+          "id": "ex-area-unknown",
+          "question": "The triangle OAB has $\\overrightarrow{OA} = \\begin{pmatrix}1\\\\0\\\\2\\end{pmatrix}$ and $\\overrightarrow{OB} = \\begin{pmatrix}0\\\\k\\\\1\\end{pmatrix}$. Its area is $3$. Find the possible values of $k$.",
+          "steps": [
+            "Vector product: $\\overrightarrow{OA} \\times \\overrightarrow{OB} = \\begin{pmatrix}(0)(1) - (2)(k)\\\\(2)(0) - (1)(1)\\\\(1)(k) - (0)(0)\\end{pmatrix} = \\begin{pmatrix}-2k\\\\-1\\\\k\\end{pmatrix}$.",
+            "Its length is $\\sqrt{4k^{2} + 1 + k^{2}} = \\sqrt{5k^{2} + 1}$.",
+            "Set the triangle's area equal to $3$: $\\frac{1}{2}\\sqrt{5k^{2} + 1} = 3$, so $\\sqrt{5k^{2} + 1} = 6$.",
+            "Square both sides: $5k^{2} + 1 = 36$, so $k^{2} = 7$. Both signs work, because squaring hides the sign of $k$."
+          ],
+          "answer": "$k = \\pm\\sqrt{7}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-parallelogram-area",
+          "prompt": "$\\mathrm{A}(0, 1, 1)$, $\\mathrm{B}(2, 1, 0)$ and $\\mathrm{D}(1, 3, 1)$ are three vertices of the parallelogram ABCD, where D is next to A. Find the area of ABCD.",
+          "hint": "The adjacent sides from A are $\\overrightarrow{AB}$ and $\\overrightarrow{AD}$.",
+          "options": [
+            {
+              "text": "$\\sqrt{21}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{\\sqrt{21}}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$5$",
+              "correct": false
+            },
+            {
+              "text": "$21$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\overrightarrow{AB} \\times \\overrightarrow{AD} = \\begin{pmatrix}2\\\\0\\\\-1\\end{pmatrix} \\times \\begin{pmatrix}1\\\\2\\\\0\\end{pmatrix} = \\begin{pmatrix}2\\\\-1\\\\4\\end{pmatrix}$, with length $\\sqrt{4 + 1 + 16} = \\sqrt{21}$. Halving gives the triangle ABD, not the parallelogram."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v} \\times \\boldsymbol{w} = \\begin{pmatrix}v_{2}w_{3} - v_{3}w_{2}\\\\v_{3}w_{1} - v_{1}w_{3}\\\\v_{1}w_{2} - v_{2}w_{1}\\end{pmatrix}, \\text{ where } \\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix}, \\; \\boldsymbol{w} = \\begin{pmatrix}w_{1}\\\\w_{2}\\\\w_{3}\\end{pmatrix}",
+          "tag": "booklet",
+          "bookletId": "bk-3-16-cross-components",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\boldsymbol{v} \\times \\boldsymbol{w}$ is perpendicular to both $\\boldsymbol{v}$ and $\\boldsymbol{w}$. Its direction follows the right-hand screw rule. Check your answer with two scalar products of $0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Order matters: $\\boldsymbol{w} \\times \\boldsymbol{v} = -\\boldsymbol{v} \\times \\boldsymbol{w}$. Brackets expand, scalars move to the front, and $\\boldsymbol{v} \\times \\boldsymbol{v} = \\boldsymbol{0}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta, \\text{ where } \\theta \\text{ is the angle between } \\boldsymbol{v} \\text{ and } \\boldsymbol{w}",
+          "tag": "booklet",
+          "bookletId": "bk-3-16-cross-magnitude",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For non-zero vectors, $\\boldsymbol{v} \\times \\boldsymbol{w} = \\boldsymbol{0}$ means parallel, and $\\boldsymbol{v} \\cdot \\boldsymbol{w} = 0$ means perpendicular.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert, \\text{ where } \\boldsymbol{v} \\text{ and } \\boldsymbol{w} \\text{ form two adjacent sides of a parallelogram}",
+          "tag": "booklet",
+          "bookletId": "bk-3-16-parallelogram-area",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\frac{1}{2}\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert, \\text{ where } \\boldsymbol{v} \\text{ and } \\boldsymbol{w} \\text{ form two sides of a triangle from the same vertex}",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Getting the middle component of the vector product wrong. It is $v_{3}w_{1} - v_{1}w_{3}$, so check that your answer has a scalar product of $0$ with both vectors.",
+    "Working out $\\boldsymbol{w} \\times \\boldsymbol{v}$ when the question asks for $\\boldsymbol{v} \\times \\boldsymbol{w}$. The result points the opposite way, which matters for a direction or a later angle.",
+    "Using $\\frac{\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert}{\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert}$ and $\\sin^{-1}$ to find an angle. That only gives the acute angle, so use the scalar product, whose sign shows whether the angle is obtuse.",
+    "Crossing the position vector of a point with a side. Position vectors start at the origin, so use two displacement vectors that leave the same corner, such as $\\overrightarrow{AB}$ and $\\overrightarrow{AC}$.",
+    "Missing out the $\\frac{1}{2}$ for a triangle, or putting it in for a parallelogram. The length $\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert$ is the parallelogram's area.",
+    "Writing $\\boldsymbol{b} \\times \\boldsymbol{a} = \\boldsymbol{a} \\times \\boldsymbol{b}$ when expanding. Swapping the order changes the sign."
+  ],
+  "examTips": [
+    "“Find” a vector perpendicular to two vectors: show each component of the vector product. A sign slip with no working gets no method mark, so write the products out.",
+    "“Use a vector method” for an area means showing the vector product and its length. Area from $\\frac{1}{2}ab\\sin C$ alone may not earn the marks.",
+    "“Show that” vectors are parallel: work out all three components of the vector product, show each is $0$, and say the vectors are non-zero and so parallel.",
+    "On Paper 1, leave an area as an exact surd such as $\\sqrt{62}$. On Paper 2, write the expression you put into the calculator and give the area to 3 s.f."
+  ],
+  "readingMinutes": 25
+}

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 240" role="img" aria-labelledby="t">
+  <title id="t">Square grid numbered 0 to 10 across and 0 to 6 up. Arrow P Q goes from (1, 2) to (5, 5). Arrow R S goes from (6, 0) to (10, 3), the same length and direction as P Q. Arrow T U goes from (9, 6) to (6, 2).</title>
+  <g stroke="var(--muted)" stroke-width="0.6" opacity="0.6">
+    <line x1="30" y1="210" x2="30" y2="30"/>
+    <line x1="60" y1="210" x2="60" y2="30"/>
+    <line x1="90" y1="210" x2="90" y2="30"/>
+    <line x1="120" y1="210" x2="120" y2="30"/>
+    <line x1="150" y1="210" x2="150" y2="30"/>
+    <line x1="180" y1="210" x2="180" y2="30"/>
+    <line x1="210" y1="210" x2="210" y2="30"/>
+    <line x1="240" y1="210" x2="240" y2="30"/>
+    <line x1="270" y1="210" x2="270" y2="30"/>
+    <line x1="300" y1="210" x2="300" y2="30"/>
+    <line x1="330" y1="210" x2="330" y2="30"/>
+    <line x1="30" y1="210" x2="330" y2="210"/>
+    <line x1="30" y1="180" x2="330" y2="180"/>
+    <line x1="30" y1="150" x2="330" y2="150"/>
+    <line x1="30" y1="120" x2="330" y2="120"/>
+    <line x1="30" y1="90" x2="330" y2="90"/>
+    <line x1="30" y1="60" x2="330" y2="60"/>
+    <line x1="30" y1="30" x2="330" y2="30"/>
+  </g>
+  <g font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="middle">
+    <text x="30" y="226">0</text>
+    <text x="60" y="226">1</text>
+    <text x="90" y="226">2</text>
+    <text x="120" y="226">3</text>
+    <text x="150" y="226">4</text>
+    <text x="180" y="226">5</text>
+    <text x="210" y="226">6</text>
+    <text x="240" y="226">7</text>
+    <text x="270" y="226">8</text>
+    <text x="300" y="226">9</text>
+    <text x="330" y="226">10</text>
+  </g>
+  <g font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="end">
+    <text x="24" y="184">1</text>
+    <text x="24" y="154">2</text>
+    <text x="24" y="124">3</text>
+    <text x="24" y="94">4</text>
+    <text x="24" y="64">5</text>
+    <text x="24" y="34">6</text>
+  </g>
+  <line x1="60.0" y1="150.0" x2="180.0" y2="60.0" stroke="var(--t1-ink)" stroke-width="2.2"/><path d="M175.1,68.7 L180.0,60.0 L170.3,62.2" fill="none" stroke="var(--t1-ink)" stroke-width="2.2" stroke-linejoin="round"/>
+  <circle cx="60" cy="150" r="3.5" fill="var(--t1-ink)"/>
+  <line x1="210.0" y1="210.0" x2="330.0" y2="120.0" stroke="var(--t1-ink)" stroke-width="2.2"/><path d="M325.1,128.7 L330.0,120.0 L320.3,122.2" fill="none" stroke="var(--t1-ink)" stroke-width="2.2" stroke-linejoin="round"/>
+  <circle cx="210" cy="210" r="3.5" fill="var(--t1-ink)"/>
+  <line x1="300.0" y1="30.0" x2="210.0" y2="150.0" stroke="var(--t3-ink)" stroke-width="2.2"/><path d="M212.2,140.3 L210.0,150.0 L218.7,145.1" fill="none" stroke="var(--t3-ink)" stroke-width="2.2" stroke-linejoin="round"/>
+  <circle cx="300" cy="30" r="3.5" fill="var(--t3-ink)"/>
+  <g font-size="14" font-family="inherit" font-weight="bold">
+    <text x="46" y="155" fill="var(--t1-ink)">P</text>
+    <text x="176" y="52" fill="var(--t1-ink)">Q</text>
+    <text x="196" y="206" fill="var(--t1-ink)">R</text>
+    <text x="332" y="112" fill="var(--t1-ink)">S</text>
+    <text x="307" y="42" fill="var(--t3-ink)">T</text>
+    <text x="196" y="155" fill="var(--t3-ink)">U</text>
+  </g>
+</svg>

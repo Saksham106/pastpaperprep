@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 215" role="img" aria-labelledby="t">
+  <title id="t">Two self-inverse graphs, each with the dashed line y equals x. Left: the line y equals 6 minus x from (0, 6) to (6, 0). Right: the quarter circle y equals the square root of 25 minus x squared from (0, 5) to (5, 0). Each graph is its own reflection in y equals x.</title>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="20" y1="170" x2="190" y2="170"/>
+    <line x1="30" y1="180" x2="30" y2="12"/>
+    <line x1="200" y1="170" x2="350" y2="170"/>
+    <line x1="210" y1="180" x2="210" y2="12"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4">
+    <line x1="30" y1="170" x2="170" y2="30"/>
+    <line x1="210" y1="170" x2="350" y2="30"/>
+  </g>
+  <path d="M30.0,26.0 L174.0,170.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <path d="M210.0,50.0 L211.5,50.0 L213.0,50.0 L214.5,50.1 L216.0,50.2 L217.5,50.2 L219.0,50.3 L220.5,50.5 L222.0,50.6 L223.5,50.8 L225.0,50.9 L226.5,51.1 L228.0,51.4 L229.5,51.6 L231.0,51.9 L232.5,52.1 L234.0,52.4 L235.5,52.7 L237.0,53.1 L238.5,53.4 L240.0,53.8 L241.5,54.2 L243.0,54.6 L244.5,55.1 L246.0,55.5 L247.5,56.0 L249.0,56.5 L250.5,57.0 L252.0,57.6 L253.5,58.2 L255.0,58.8 L256.5,59.4 L258.0,60.0 L259.5,60.7 L261.0,61.4 L262.5,62.1 L264.0,62.8 L265.5,63.6 L267.0,64.4 L268.5,65.2 L270.0,66.1 L271.5,67.0 L273.0,67.9 L274.5,68.8 L276.0,69.8 L277.5,70.8 L279.0,71.8 L280.5,72.9 L282.0,74.0 L283.5,75.1 L285.0,76.3 L286.5,77.5 L288.0,78.8 L289.5,80.1 L291.0,81.5 L292.5,82.9 L294.0,84.3 L295.5,85.8 L297.0,87.4 L298.5,89.0 L300.0,90.6 L301.5,92.4 L303.0,94.2 L304.5,96.0 L306.0,98.0 L307.5,100.0 L309.0,102.2 L310.5,104.4 L312.0,106.8 L313.5,109.3 L315.0,111.9 L316.5,114.7 L318.0,117.7 L319.5,120.9 L321.0,124.4 L322.5,128.2 L324.0,132.5 L325.5,137.4 L327.0,143.3 L328.5,151.1 L330.0,170.0" fill="none" stroke="var(--t5-ink)" stroke-width="2.5"/>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="35" y="20">y</text>
+    <text x="182" y="185">x</text>
+    <text x="215" y="20">y</text>
+    <text x="342" y="185">x</text>
+    <text x="16" y="30">6</text>
+    <text x="171" y="185">6</text>
+    <text x="196" y="54">5</text>
+    <text x="327" y="185">5</text>
+    <text x="128" y="30">y = x</text>
+    <text x="296" y="30">y = x</text>
+  </g>
+  <g font-size="12" font-family="inherit">
+    <text x="75" y="205" fill="var(--t1-ink)">y = 6 − x</text>
+    <text x="235" y="205" fill="var(--t5-ink)">y = √(25 − x²)</text>
+  </g>
+</svg>

@@ -1,0 +1,779 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.16",
+  "slug": "modulus-and-related-graph-transformations",
+  "title": "Modulus and related graph transformations",
+  "level": "AHL",
+  "topic": 2,
+  "summary": "The [[modulus|modulus]] $\\lvert f(x)\\rvert$ keeps the size of $f(x)$ and drops its sign. From the graph of $f$ you can sketch $y = \\lvert f(x)\\rvert$, $y = f(\\lvert x\\rvert)$, $y = \\frac{1}{f(x)}$, $y = [f(x)]^{2}$ and $y = f(ax + b)$, using a few rules that move points. You then solve modulus equations and inequalities by splitting into cases, by squaring, or with your GDC.",
+  "goals": [
+    {
+      "text": "Sketch $y = \\lvert f(x)\\rvert$ and $y = f(\\lvert x\\rvert)$ from the graph of $f$, with cusps, intercepts and asymptotes, and check them with graphing software.",
+      "bullets": [
+        "2.16-b1",
+        "2.16-b3"
+      ]
+    },
+    {
+      "text": "Sketch $y = \\frac{1}{f(x)}$ and $y = [f(x)]^{2}$ from the graph of $f$, showing how asymptotes and turning points move.",
+      "bullets": [
+        "2.16-b1"
+      ]
+    },
+    {
+      "text": "Map the graph of $y = f(x)$ onto $y = f(ax + b)$, in either order of transformations, and explore it with a dynamic graph.",
+      "bullets": [
+        "2.16-b1",
+        "2.16-b3"
+      ]
+    },
+    {
+      "text": "Solve modulus equations and inequalities by cases, by squaring, or with a GDC, rejecting any false roots.",
+      "bullets": [
+        "2.16-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.11",
+    "2.15"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "modulus graph",
+    "absolute value graph",
+    "graph of f(|x|)",
+    "sketch 1/f(x)",
+    "modulus equations and inequalities",
+    "f(ax+b) transformation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-horizontal-stretch",
+      "prompt": "The point $(6, 5)$ lies on the graph of $y = f(x)$. Which point must lie on the graph of $y = f(3x)$?",
+      "hint": "Which value of $x$ makes $3x = 6$?",
+      "options": [
+        {
+          "text": "$(2, 5)$",
+          "correct": true
+        },
+        {
+          "text": "$(18, 5)$",
+          "correct": false
+        },
+        {
+          "text": "$(6, 15)$",
+          "correct": false
+        },
+        {
+          "text": "$(2, 15)$",
+          "correct": false
+        }
+      ],
+      "explain": "At $x = 2$, $f(3x) = f(6) = 5$. Replacing $x$ by $3x$ is a horizontal stretch with scale factor $\\frac{1}{3}$: $x$-coordinates are divided by $3$ and $y$-coordinates stay. Revise it in {{lesson:2.11}}."
+    },
+    {
+      "type": "check",
+      "id": "before-quadratic-inequality",
+      "prompt": "Solve $x^{2} < 2x + 8$.",
+      "hint": "Move every term to one side and factorise.",
+      "options": [
+        {
+          "text": "$-2 < x < 4$",
+          "correct": true
+        },
+        {
+          "text": "$x < -2 \\text{ or } x > 4$",
+          "correct": false
+        },
+        {
+          "text": "$-4 < x < 2$",
+          "correct": false
+        },
+        {
+          "text": "$x < 4$",
+          "correct": false
+        }
+      ],
+      "explain": "$x^{2} - 2x - 8 = (x + 2)(x - 4) < 0$. The parabola opens upwards, so it is below the axis between its roots. Revise it in {{lesson:2.15}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "modulus-graphs",
+      "heading": "Modulus graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[modulus|modulus]] of a number is its size, without its sign. You write it with two vertical bars: $\\lvert -5\\rvert = 5$ and $\\lvert 5\\rvert = 5$. On a number line, $\\lvert x\\rvert$ is the distance from $x$ to $0$."
+        },
+        {
+          "type": "definition",
+          "term": "Modulus",
+          "statement": "For a real number $x$, $\\lvert x\\rvert = x$ if $x \\ge 0$, and $\\lvert x\\rvert = -x$ if $x < 0$.",
+          "plain": "The modulus turns a negative number positive and leaves every other number as it is."
+        },
+        {
+          "type": "text",
+          "text": "So $\\lvert x\\rvert$ is never negative. The graph of $y = \\lvert x\\rvert$ is a V shape with its corner at the origin."
+        },
+        {
+          "type": "text",
+          "text": "Now put a function inside. In $y = \\lvert f(x)\\rvert$ the modulus acts on the output. Where $f(x) \\ge 0$ nothing changes. Where $f(x) < 0$ the $y$-coordinate changes sign, so that part of the graph is reflected in the $x$-axis."
+        },
+        {
+          "type": "result",
+          "statement": "To sketch $y = \\lvert f(x)\\rvert$, keep the parts of $y = f(x)$ on or above the $x$-axis. Reflect the parts below it in the $x$-axis: each point $(x, y)$ with $y < 0$ moves to $(x, -y)$.",
+          "why": "$\\lvert f(x)\\rvert$ is $f(x)$ when $f(x) \\ge 0$, and $-f(x)$ when $f(x) < 0$."
+        },
+        {
+          "type": "text",
+          "text": "1. The $x$-intercepts are [[invariant-point|invariant points]]. Where the graph crossed the axis with a non-zero gradient (the usual case), it now bounces off it at a sharp point, a [[cusp|cusp]]. Where the graph only touched the axis, or crossed it with zero gradient as $y = x^{3}$ does at the origin, it stays smooth."
+        },
+        {
+          "type": "text",
+          "text": "2. [[asymptote|Asymptotes]] on a reflected part are reflected too. A horizontal asymptote $y = -2$ becomes $y = 2$ on that side. An [[oblique-asymptote|oblique asymptote]] $y = mx + c$ becomes $y = -mx - c$. Vertical asymptotes stay where they are."
+        },
+        {
+          "type": "text",
+          "text": "3. No part of the graph is below the $x$-axis, so the [[range|range]] has no negative values."
+        },
+        {
+          "type": "text",
+          "text": "In $y = f(\\lvert x\\rvert)$ the modulus acts on the input instead. For $x \\ge 0$, $\\lvert x\\rvert = x$, so the graph is the same as $y = f(x)$. For $x < 0$, $f(\\lvert x\\rvert) = f(-x)$, which is the right-hand half mirrored."
+        },
+        {
+          "type": "result",
+          "statement": "To sketch $y = f(\\lvert x\\rvert)$, delete the part of $y = f(x)$ to the left of the $y$-axis. Then reflect the part on the right in the $y$-axis.",
+          "why": "$f(\\lvert -x\\rvert) = f(\\lvert x\\rvert)$, so the graph is symmetric in the $y$-axis: $y = f(\\lvert x\\rvert)$ is an [[even-function|even function]]."
+        },
+        {
+          "type": "text",
+          "text": "The $y$-intercept is invariant, and there is often a cusp on the $y$-axis. Anything only to the left of the $y$-axis disappears, including the $x$-intercepts and vertical asymptotes there."
+        },
+        {
+          "type": "figure",
+          "id": "2-16-modulus-pair",
+          "alt": "Two panels. Both show the dashed parabola y equals f of x, where f of x equals x squared minus 2x minus 3, with x-intercepts minus 1 and 3 and lowest point 1, minus 4. Left panel: y equals the modulus of f of x. The part between minus 1 and 3 is reflected above the x-axis, giving a hump with top 1, 4 and sharp corners at minus 1 and 3. Right panel: y equals f of the modulus of x. The right half of the parabola is kept and mirrored in the y-axis, giving a W shape with lowest points minus 1, minus 4 and 1, minus 4, a sharp corner at 0, minus 3 and x-intercepts minus 3 and 3.",
+          "caption": "Left: $y = \\lvert f(x)\\rvert$ reflects the dip below the axis. Right: $y = f(\\lvert x\\rvert)$ mirrors the right-hand half. Here $f(x) = x^{2} - 2x - 3$."
+        },
+        {
+          "type": "example",
+          "id": "ex-modulus-quadratic",
+          "question": "Let $f(x) = x^{2} - 2x - 3$. Sketch the graph of $y = \\lvert f(x)\\rvert$ and write down the coordinates of its local maximum.",
+          "steps": [
+            "Factorise: $f(x) = (x + 1)(x - 3)$. The $x$-intercepts are $-1$ and $3$, and the $y$-intercept is $-3$.",
+            "The vertex is halfway between the roots, at $x = 1$: $f(1) = 1 - 2 - 3 = -4$. So $y = f(x)$ is below the $x$-axis for $-1 < x < 3$, with lowest point $(1, -4)$.",
+            "Reflect that part in the $x$-axis. The lowest point $(1, -4)$ becomes a highest point $(1, 4)$, and the $y$-intercept becomes $3$.",
+            "Outside $-1 \\le x \\le 3$ the graph is unchanged. At $x = -1$ and $x = 3$ draw sharp cusps on the axis, not rounded turns."
+          ],
+          "answer": "$(1, 4)$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-f-modulus-x",
+          "question": "For the same $f$, sketch $y = f(\\lvert x\\rvert)$ and solve $f(\\lvert x\\rvert) = 0$.",
+          "steps": [
+            "For $x \\ge 0$ keep $y = f(x)$: it starts at $(0, -3)$, falls to $(1, -4)$, then rises through $(3, 0)$.",
+            "Delete the part with $x < 0$. The root $x = -1$ goes with it.",
+            "Reflect the right-hand part in the $y$-axis. You get a W shape with lowest points $(-1, -4)$ and $(1, -4)$, and a cusp at $(0, -3)$.",
+            "The roots are $x = 3$ and its mirror image $x = -3$. Check: $f(\\lvert -3\\rvert) = f(3) = 0$."
+          ],
+          "answer": "$x = -3 \\text{ or } x = 3$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-modulus-asymptote",
+          "prompt": "Let $f(x) = \\frac{1 - 3x}{x + 2}$. Which line is a horizontal asymptote of $y = \\lvert f(x)\\rvert$?",
+          "hint": "Find the horizontal asymptote of $y = f(x)$ first. Is it below the $x$-axis?",
+          "options": [
+            {
+              "text": "$y = 3$",
+              "correct": true
+            },
+            {
+              "text": "$y = -3$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\frac{1}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$y = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "For large $\\lvert x\\rvert$, $f(x)$ is close to $\\frac{-3x}{x} = -3$. That asymptote is below the $x$-axis, so the modulus reflects it to $y = 3$. The value $\\frac{1}{2}$ is the $y$-intercept, not an asymptote."
+        },
+        {
+          "type": "text",
+          "text": "A rational function needs more care, because a vertical asymptote splits its graph into branches."
+        },
+        {
+          "type": "example",
+          "id": "ex-f-modulus-rational",
+          "question": "Let $f(x) = \\frac{3x - 6}{x + 2}$, $x \\ne -2$. Sketch $y = f(\\lvert x\\rvert)$ and find its range.",
+          "steps": [
+            "Features of $y = f(x)$: vertical asymptote $x = -2$, horizontal asymptote $y = 3$, $x$-intercept $2$ and $y$-intercept $f(0) = -3$.",
+            "Write $f(x) = 3 - \\frac{12}{x + 2}$. For $x \\ge 0$, $\\frac{12}{x + 2}$ shrinks towards $0$ as $x$ grows. So the graph rises from $(0, -3)$ through $(2, 0)$ towards $y = 3$.",
+            "The asymptote $x = -2$ is to the left of the $y$-axis, so it is deleted. Reflect the right-hand part in the $y$-axis: $y = f(\\lvert x\\rvert)$ has no vertical asymptote, and a cusp at $(0, -3)$.",
+            "The lowest value is $-3$, at $x = 0$. The graph gets closer and closer to $3$ at both ends but never reaches it."
+          ],
+          "answer": "$-3 \\le y < 3$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Keeping a vertical asymptote from the left of the $y$-axis in $y = f(\\lvert x\\rvert)$. The left half is thrown away, and its asymptotes go with it. A vertical asymptote at $x = a$ with $a > 0$ gains a mirror image at $x = -a$."
+        },
+        {
+          "type": "check",
+          "id": "check-roots-f-modulus",
+          "prompt": "Let $f(x) = (x - 1)(x + 2)(x - 4)$. How many solutions does the equation $f(\\lvert x\\rvert) = 0$ have?",
+          "hint": "Which roots of $f$ are to the right of the $y$-axis? Each of those gives two solutions.",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "The roots of $f$ are $-2$, $1$ and $4$. Only $1$ and $4$ are positive, so $f(\\lvert x\\rvert) = 0$ when $x = \\pm 1$ or $x = \\pm 4$. The root $-2$ is lost."
+        },
+        {
+          "type": "text",
+          "text": "Graphing software or your GDC checks a sketch like this quickly. Enter abs( around $f(x)$, then around $x$, and compare each graph with $y = f(x)$."
+        }
+      ]
+    },
+    {
+      "id": "reciprocal-square",
+      "heading": "Reciprocal and squared graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Both $y = \\frac{1}{f(x)}$ and $y = [f(x)]^{2}$ change each $y$-coordinate on its own, and the $x$-coordinates never move. So you build each graph one height at a time."
+        },
+        {
+          "type": "text",
+          "text": "Start with the reciprocal, which you met for $y = \\frac{1}{x}$ in {{lesson:2.8}}. If $f(x) = 4$ then $\\frac{1}{f(x)} = \\frac{1}{4}$, and if $f(x) = \\frac{1}{10}$ then $\\frac{1}{f(x)} = 10$. Large heights become small, and small heights become large."
+        },
+        {
+          "type": "text",
+          "text": "1. The sign stays the same: $y = \\frac{1}{f(x)}$ is above the $x$-axis exactly where $y = f(x)$ is."
+        },
+        {
+          "type": "text",
+          "text": "2. Points with $y = 1$ or $y = -1$ are [[invariant-point|invariant]]."
+        },
+        {
+          "type": "text",
+          "text": "3. Each root of $f$ gives a vertical [[asymptote|asymptote]] of $y = \\frac{1}{f(x)}$."
+        },
+        {
+          "type": "text",
+          "text": "4. Where $f(x) \\to \\pm\\infty$, $\\frac{1}{f(x)} \\to 0$. At a vertical asymptote of $f$, the new graph reaches the $x$-axis, drawn with an open circle because $f$ has no value there. If $f(x) \\to \\pm\\infty$ as $x \\to \\pm\\infty$, the $x$-axis becomes a horizontal asymptote."
+        },
+        {
+          "type": "text",
+          "text": "5. A horizontal asymptote $y = k$ with $k \\ne 0$ becomes $y = \\frac{1}{k}$."
+        },
+        {
+          "type": "result",
+          "statement": "A local maximum $(a, b)$ of $f$, with $b \\ne 0$, becomes a local minimum $\\left(a, \\frac{1}{b}\\right)$ of $y = \\frac{1}{f(x)}$. A local minimum becomes a local maximum.",
+          "why": "Near a maximum, $f(x) \\le b$, and all these values have the same sign as $b$. Taking reciprocals of numbers with one sign reverses their order, so $\\frac{1}{f(x)} \\ge \\frac{1}{b}$."
+        },
+        {
+          "type": "figure",
+          "id": "2-16-reciprocal",
+          "alt": "The dashed parabola y equals 2 x squared minus 8x plus 6 crosses the x-axis at 1 and 3 and has its lowest point at 2, minus 2. Its reciprocal y equals 1 over f of x is drawn solid in three branches, split by dashed vertical asymptotes x equals 1 and x equals 3. The outer branches lie above the x-axis, rise steeply next to the asymptotes and flatten towards the x-axis further out. The middle branch lies below the x-axis, falls steeply next to both asymptotes and has its highest point at 2, minus one half, directly above the parabola's lowest point.",
+          "caption": "$f(x) = 2x^{2} - 8x + 6$ (dashed) and $y = \\frac{1}{f(x)}$. The roots $1$ and $3$ become asymptotes, and the minimum $(2, -2)$ becomes the maximum $\\left(2, -\\frac{1}{2}\\right)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-reciprocal-quadratic",
+          "question": "Let $f(x) = 2x^{2} - 8x + 6$. Sketch $y = \\frac{1}{f(x)}$ and write down the coordinates of its local maximum.",
+          "steps": [
+            "Factorise: $f(x) = 2(x - 1)(x - 3)$. Rule 3: the roots give the vertical asymptotes $x = 1$ and $x = 3$.",
+            "The vertex of $f$ is at $x = 2$: $f(2) = 8 - 16 + 6 = -2$. So $(2, -2)$ is a local minimum of $f$.",
+            "It becomes a local maximum of $y = \\frac{1}{f(x)}$, at $\\left(2, \\frac{1}{-2}\\right) = \\left(2, -\\frac{1}{2}\\right)$.",
+            "Between the asymptotes $f(x) < 0$, so the middle branch is below the axis. It falls towards $-\\infty$ next to each asymptote.",
+            "Outside them $f(x) > 0$ and $f(x) \\to \\infty$, so the outer branches are above the axis and approach $y = 0$. The $y$-intercept is $\\frac{1}{f(0)} = \\frac{1}{6}$."
+          ],
+          "answer": "$\\left(2, -\\tfrac{1}{2}\\right)$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-reciprocal-rational",
+          "question": "Let $f(x) = \\frac{4x - 2}{x - 3}$, $x \\ne 3$. Sketch $y = \\frac{1}{f(x)}$ and find the equations of its asymptotes.",
+          "steps": [
+            "Features of $y = f(x)$: vertical asymptote $x = 3$, horizontal asymptote $y = 4$, root $x = \\frac{1}{2}$ and $y$-intercept $\\frac{2}{3}$.",
+            "Rule 3: the root $x = \\frac{1}{2}$ gives a vertical asymptote of $y = \\frac{1}{f(x)}$.",
+            "Rule 5: the horizontal asymptote $y = 4$ becomes $y = \\frac{1}{4}$.",
+            "Rule 4: near $x = 3$, $f(x) \\to \\pm\\infty$, so $\\frac{1}{f(x)} \\to 0$. That is not an asymptote: the graph reaches $(3, 0)$, drawn as an open circle.",
+            "The $y$-intercept is $1 \\div \\frac{2}{3} = \\frac{3}{2}$. Check: for $x \\ne 3$, $\\frac{1}{f(x)} = \\frac{x - 3}{4x - 2}$, which has exactly these asymptotes."
+          ],
+          "answer": "$x = \\tfrac{1}{2}, \\; y = \\tfrac{1}{4}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing a vertical asymptote on $y = \\frac{1}{f(x)}$ where $f$ has one. There $\\frac{1}{f(x)} \\to 0$, so the graph reaches the $x$-axis instead."
+        },
+        {
+          "type": "check",
+          "id": "check-reciprocal-turning",
+          "prompt": "Let $f(x) = x^{2} - 6x + 13$. The graph of $y = \\frac{1}{f(x)}$ has a local maximum. Where is it?",
+          "hint": "Complete the square to find the vertex of $f$. Which coordinate changes?",
+          "options": [
+            {
+              "text": "$\\left(3, \\tfrac{1}{4}\\right)$",
+              "correct": true
+            },
+            {
+              "text": "$(3, 4)$",
+              "correct": false
+            },
+            {
+              "text": "$\\left(\\tfrac{1}{3}, \\tfrac{1}{4}\\right)$",
+              "correct": false
+            },
+            {
+              "text": "$\\left(3, -\\tfrac{1}{4}\\right)$",
+              "correct": false
+            }
+          ],
+          "explain": "$f(x) = (x - 3)^{2} + 4$ has a local minimum at $(3, 4)$. Only the $y$-coordinate changes, so $y = \\frac{1}{f(x)}$ has a local maximum at $\\left(3, \\frac{1}{4}\\right)$."
+        },
+        {
+          "type": "text",
+          "text": "Now the square. Squaring keeps $0$ and $1$, turns $-1$ into $1$, and makes every height positive or zero. Heights further than $1$ from the axis move further away, and heights closer than $1$ move closer."
+        },
+        {
+          "type": "text",
+          "text": "1. The graph of $y = [f(x)]^{2}$ is never below the $x$-axis."
+        },
+        {
+          "type": "text",
+          "text": "2. Each root of $f$ stays a root, and the graph touches the axis there smoothly: a local minimum, not a [[cusp|cusp]]."
+        },
+        {
+          "type": "text",
+          "text": "3. A turning point $(a, b)$ of $f$ stays a turning point, at $(a, b^{2})$. If $b < 0$, a minimum becomes a maximum and a maximum becomes a minimum. By the chain rule, $\\frac{\\mathrm{d}}{\\mathrm{d}x}[f(x)]^{2} = 2f(x)f'(x)$, which is zero where $f(x) = 0$ or $f'(x) = 0$."
+        },
+        {
+          "type": "text",
+          "text": "4. Vertical asymptotes stay, with both sides going to $+\\infty$. A horizontal asymptote $y = k$ becomes $y = k^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "Compare $y = \\lvert f(x)\\rvert$. Neither graph goes below the axis, but $\\lvert f(x)\\rvert$ usually has a cusp where $f$ crosses the axis, while $[f(x)]^{2}$ is smooth there."
+        },
+        {
+          "type": "example",
+          "id": "ex-square-quadratic",
+          "question": "Let $f(x) = x^{2} - 4$. Sketch $y = [f(x)]^{2}$ and write down the coordinates of its local maximum.",
+          "steps": [
+            "$f(x) = (x - 2)(x + 2)$ has roots $\\pm 2$ and a local minimum at $(0, -4)$.",
+            "Rule 2: the roots give local minima $(-2, 0)$ and $(2, 0)$, where the graph touches the axis smoothly.",
+            "Rule 3: the minimum $(0, -4)$ has $b = -4 < 0$, so it becomes a local maximum at $\\left(0, (-4)^{2}\\right) = (0, 16)$.",
+            "For $\\lvert x\\rvert > 2$, $f(x)$ is positive and growing, so the squared graph rises steeply at both ends. The result is a W shape.",
+            "Check with the chain rule: $\\frac{\\mathrm{d}}{\\mathrm{d}x}(x^{2} - 4)^{2} = 4x(x^{2} - 4)$, which is zero at $x = 0$ and $x = \\pm 2$."
+          ],
+          "answer": "$(0, 16)$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-square-turning",
+          "prompt": "Let $f(x) = x^{3} - 3x$. How many turning points does the graph of $y = [f(x)]^{2}$ have?",
+          "hint": "Count the roots of $f$ and the turning points of $f$. Each one gives a turning point of the squared graph.",
+          "answer": {
+            "value": 5,
+            "tolerance": 0
+          },
+          "explain": "$f(x) = x(x^{2} - 3)$ has three roots, $0$ and $\\pm\\sqrt{3}$, which become minima on the axis. Its turning points at $x = -1$ and $x = 1$ stay turning points. That makes $5$."
+        }
+      ]
+    },
+    {
+      "id": "inside-bracket",
+      "heading": "Two horizontal changes in one bracket",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.11}} each bracket held one change, such as $f(x + 3)$ or $f(2x)$. Now one bracket holds two, as in $f(2x + 3)$. Both are horizontal changes, so their order matters."
+        },
+        {
+          "type": "text",
+          "text": "Ask which $x$ gives the old input. A point $(p, q)$ on $y = f(x)$ moves to where $ax + b = p$, which is $x = \\frac{p - b}{a}$. The $y$-coordinate stays $q$."
+        },
+        {
+          "type": "formula",
+          "tex": "(p, q) \\text{ on } y = f(x) \\;\\longmapsto\\; \\left(\\frac{p - b}{a},\\, q\\right) \\text{ on } y = f(ax + b)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Subtract $b$, then divide by $a$. As transformations, that is a [[translation|translation]] followed by a [[horizontal-stretch|horizontal stretch]]. You can also do the stretch first, as long as the translation changes to match."
+        },
+        {
+          "type": "result",
+          "statement": "For $a > 0$, the graph of $y = f(ax + b)$ is the graph of $y = f(x)$ after either: a translation by $\\begin{pmatrix}-b\\\\0\\end{pmatrix}$, then a horizontal stretch with scale factor $\\frac{1}{a}$; or a horizontal stretch with scale factor $\\frac{1}{a}$, then a translation by $\\begin{pmatrix}-\\frac{b}{a}\\\\0\\end{pmatrix}$.",
+          "why": "Translating gives $f(x + b)$, and then replacing $x$ by $ax$ gives $f(ax + b)$. For the other order, $f(ax + b) = f\\left(a\\left(x + \\frac{b}{a}\\right)\\right)$."
+        },
+        {
+          "type": "text",
+          "text": "If $a < 0$, use the scale factor $\\frac{1}{\\lvert a\\rvert}$ and add a [[reflection|reflection]] in the $y$-axis. The point rule $x = \\frac{p - b}{a}$ still works."
+        },
+        {
+          "type": "example",
+          "id": "ex-bracket-point",
+          "question": "The point $(4, 7)$ is a local maximum of $y = f(x)$. Where is the matching local maximum of $y = f(2x - 6)$?",
+          "steps": [
+            "The new graph takes the old input $4$ where $2x - 6 = 4$.",
+            "Solve: $2x = 10$, so $x = 5$. The height is unchanged, $7$.",
+            "Check by translating first: $6$ units right gives $(10, 7)$, then halving the $x$-coordinate gives $(5, 7)$.",
+            "Check by stretching first: halving gives $(2, 7)$, then a translation of $\\frac{6}{2} = 3$ units right gives $(5, 7)$."
+          ],
+          "answer": "$(5, 7)$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-bracket-describe",
+          "question": "The curve $y = f(x)$ has a vertical asymptote $x = 4$ and a local minimum $(-2, -3)$. Let $g(x) = f\\left(\\frac{1}{2}x + 1\\right)$. Describe a sequence of transformations that maps the graph of $f$ onto the graph of $g$, and find the local minimum of $y = g(x)$.",
+          "steps": [
+            "Here $a = \\frac{1}{2}$ and $b = 1$. Translate by $\\begin{pmatrix}-1\\\\0\\end{pmatrix}$, then stretch horizontally with scale factor $\\frac{1}{a} = 2$.",
+            "The other order also works: stretch horizontally with scale factor $2$, then translate by $\\begin{pmatrix}-2\\\\0\\end{pmatrix}$, since $\\frac{b}{a} = 2$.",
+            "For the minimum, solve $\\frac{1}{2}x + 1 = -2$. So $\\frac{1}{2}x = -3$ and $x = -6$. The height stays $-3$.",
+            "The asymptote moves the same way: $\\frac{1}{2}x + 1 = 4$ gives $x = 6$. So $y = g(x)$ has the vertical asymptote $x = 6$."
+          ],
+          "answer": "$(-6, -3)$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A dynamic graphing tool lets you watch this happen. Below, choose base $x^{2}$, then set the slider b to $2$ and the slider c to $-1.5$. The widget writes $y = (2(x + 1.5))^{2}$, which is $y = (2x + 3)^{2}$, and the point $(1, 1)$ lands on $(-1, 1)$, as $\\frac{1 - 3}{2} = -1$ predicts."
+        },
+        {
+          "type": "interactive",
+          "widget": "transformations",
+          "props": {},
+          "alt": "A dashed base curve and its transformed image drawn solid, with sliders for a vertical stretch, a horizontal scale, a shift right and a shift up. An open dot on the base curve and a filled dot on the image show where one point moves, and the image's equation is printed above the sliders."
+        },
+        {
+          "type": "mistake",
+          "text": "Using $a$ as the scale factor. Replacing $x$ by $2x$ halves every distance from the $y$-axis, so the scale factor is $\\frac{1}{2}$, not $2$. If you stretch first, the translation is $\\frac{b}{a}$ units, not $b$ units."
+        },
+        {
+          "type": "check",
+          "id": "check-bracket-order",
+          "prompt": "Which sequence maps the graph of $y = f(x)$ onto the graph of $y = f(3x - 6)$?",
+          "hint": "Apply each step to $f(x)$ in turn. A translation $h$ units right replaces $x$ by $x - h$, and a horizontal stretch with scale factor $\\frac{1}{3}$ replaces $x$ by $3x$.",
+          "options": [
+            {
+              "text": "Translate $6$ units right, then stretch horizontally with scale factor $\\tfrac{1}{3}$",
+              "correct": true
+            },
+            {
+              "text": "Stretch horizontally with scale factor $\\tfrac{1}{3}$, then translate $6$ units right",
+              "correct": false
+            },
+            {
+              "text": "Translate $2$ units right, then stretch horizontally with scale factor $\\tfrac{1}{3}$",
+              "correct": false
+            },
+            {
+              "text": "Translate $6$ units right, then stretch horizontally with scale factor $3$",
+              "correct": false
+            }
+          ],
+          "explain": "Translating $6$ units right gives $f(x - 6)$, and then replacing $x$ by $3x$ gives $f(3x - 6)$. Stretching first and then translating $6$ units right gives $f(3(x - 6)) = f(3x - 18)$ instead."
+        },
+        {
+          "type": "check",
+          "id": "check-bracket-intercept",
+          "prompt": "The only $x$-intercept of $y = f(x)$ is at $x = 10$. Find the $x$-intercept of $y = f(4x + 2)$.",
+          "hint": "Which $x$ makes the input $4x + 2$ equal to $10$?",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "$4x + 2 = 10$ gives $x = 2$. As transformations: translate $2$ units left to $x = 8$, then divide by $4$."
+        }
+      ]
+    },
+    {
+      "id": "solving",
+      "heading": "Solving modulus equations and inequalities",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$\\lvert A\\rvert = k$ asks for the numbers at distance $k$ from $0$. When $k > 0$ there are two, $k$ and $-k$. That gives the first method."
+        },
+        {
+          "type": "formula",
+          "tex": "\\lvert f(x)\\rvert = k \\iff f(x) = k \\text{ or } f(x) = -k \\qquad (k \\ge 0)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-modulus-linear",
+          "question": "Solve $\\lvert 2x - 5\\rvert = 7$.",
+          "steps": [
+            "Split into two cases: $2x - 5 = 7$ or $2x - 5 = -7$.",
+            "First case: $2x = 12$, so $x = 6$.",
+            "Second case: $2x = -2$, so $x = -1$.",
+            "Check: $\\lvert 12 - 5\\rvert = 7$ and $\\lvert -2 - 5\\rvert = 7$."
+          ],
+          "answer": "$x = -1 \\text{ or } x = 6$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-modulus-linear",
+          "prompt": "Solve $\\lvert 3x + 2\\rvert = 8$.",
+          "hint": "Set $3x + 2$ equal to $8$, then to $-8$.",
+          "options": [
+            {
+              "text": "$x = 2$",
+              "correct": false
+            },
+            {
+              "text": "$x = 2 \\text{ or } x = -\\tfrac{10}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$x = 2 \\text{ or } x = -2$",
+              "correct": false
+            },
+            {
+              "text": "$x = -2 \\text{ or } x = \\tfrac{10}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$3x + 2 = 8$ gives $x = 2$. $3x + 2 = -8$ gives $3x = -10$, so $x = -\\frac{10}{3}$."
+        },
+        {
+          "type": "text",
+          "text": "When the other side holds $x$ too, as in $\\lvert f(x)\\rvert = g(x)$, split into the same two cases. A [[modulus|modulus]] is never negative, so a solution must also make $g(x) \\ge 0$. Check every answer in the original equation."
+        },
+        {
+          "type": "example",
+          "id": "ex-modulus-false-root",
+          "question": "Solve $\\lvert x + 1\\rvert = 2x - 4$.",
+          "steps": [
+            "Case 1: $x + 1 = 2x - 4$, so $x = 5$.",
+            "Case 2: $x + 1 = -(2x - 4)$. So $x + 1 = -2x + 4$, $3x = 3$ and $x = 1$.",
+            "Check $x = 5$: $\\lvert 6\\rvert = 6$ and $2(5) - 4 = 6$. It works.",
+            "Check $x = 1$: $\\lvert 2\\rvert = 2$, but $2(1) - 4 = -2$. A modulus can't equal a negative number, so reject $x = 1$."
+          ],
+          "answer": "$x = 5$",
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "2-16-false-root",
+          "alt": "The V-shaped graph y equals the modulus of x plus 1, with its corner at minus 1, 0, and the line y equals 2x minus 4. They meet once, at 5, 6. A dashed line continues the left arm of the V, y equals minus x minus 1, below the x-axis. It meets the line at 1, minus 2, marked with an open circle, which is not on the V.",
+          "caption": "The line meets the V once, at $(5, 6)$. The rejected value $x = 1$ is where the line meets the dashed continuation of the left arm, which is not part of $y = \\lvert x + 1\\rvert$."
+        },
+        {
+          "type": "text",
+          "text": "When both sides are moduli, square both sides. Both sides are never negative, so squaring keeps an equation true and keeps an inequality the same way round."
+        },
+        {
+          "type": "formula",
+          "tex": "\\lvert f(x)\\rvert < \\lvert g(x)\\rvert \\iff [f(x)]^{2} < [g(x)]^{2}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "For a modulus compared with a positive number $k$, the distance idea is quicker. Numbers less than $k$ from $0$ lie between $-k$ and $k$, and numbers more than $k$ from $0$ lie outside."
+        },
+        {
+          "type": "formula",
+          "tex": "\\lvert f(x)\\rvert < k \\iff -k < f(x) < k \\qquad \\lvert f(x)\\rvert > k \\iff f(x) < -k \\text{ or } f(x) > k",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-modulus-square",
+          "question": "Solve $\\lvert x - 3\\rvert > \\lvert 2x + 1\\rvert$.",
+          "steps": [
+            "Both sides are never negative, so square them: $(x - 3)^{2} > (2x + 1)^{2}$.",
+            "Expand: $x^{2} - 6x + 9 > 4x^{2} + 4x + 1$.",
+            "Move every term to the right: $0 > 3x^{2} + 10x - 8$. Factorise: $(3x - 2)(x + 4) < 0$.",
+            "The parabola $y = (3x - 2)(x + 4)$ opens upwards, so it is negative between its roots $-4$ and $\\frac{2}{3}$.",
+            "Check $x = 0$ in the original: $\\lvert -3\\rvert = 3$ and $\\lvert 1\\rvert = 1$, and $3 > 1$ is true."
+          ],
+          "answer": "$-4 < x < \\tfrac{2}{3}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-modulus-inequality",
+          "prompt": "Solve $\\lvert 2x - 1\\rvert \\le 5$.",
+          "hint": "Write it as $-5 \\le 2x - 1 \\le 5$.",
+          "options": [
+            {
+              "text": "$-2 \\le x \\le 3$",
+              "correct": true
+            },
+            {
+              "text": "$x \\le -2 \\text{ or } x \\ge 3$",
+              "correct": false
+            },
+            {
+              "text": "$x \\le 3$",
+              "correct": false
+            },
+            {
+              "text": "$-3 \\le x \\le 2$",
+              "correct": false
+            }
+          ],
+          "explain": "Add $1$ throughout: $-4 \\le 2x \\le 6$. Halve: $-2 \\le x \\le 3$. Solving only $2x - 1 \\le 5$ gives $x \\le 3$, which wrongly includes values such as $x = -5$."
+        },
+        {
+          "type": "mistake",
+          "text": "Solving only $f(x) = k$ and forgetting $f(x) = -k$. A modulus equation has two cases, so expect two sets of answers before you check them."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2, use your GDC when algebra can't find the [[critical-value|critical values]]. Graph both sides, with the modulus, and find where they meet. This is the method of {{lesson:2.15}}, with part of one graph reflected."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-modulus",
+          "question": "Use your calculator to solve $\\lvert \\mathrm{e}^{x} - 4\\rvert < x + 1$. Give the end points to 3 s.f.",
+          "steps": [
+            "Graph $y = \\lvert \\mathrm{e}^{x} - 4\\rvert$ and $y = x + 1$. The first graph has a cusp where $\\mathrm{e}^{x} = 4$, at $x = \\ln 4 = 1.386\\ldots$.",
+            "Find the intersections: $x = 0.792059\\ldots$ and $x = 1.936847\\ldots$. Zoom out: for large $x$ the exponential grows far faster than the line, and for $x \\le -1$ the line is not above the axis. So there are no more.",
+            "Between the intersections the line is above the modulus graph. Test $x = 1$: $\\lvert \\mathrm{e} - 4\\rvert = 1.28\\ldots$, which is less than $2$.",
+            "Without the modulus, $\\mathrm{e}^{x} - 4 = x + 1$ also has the root $x = -4.99\\ldots$. There $x + 1 < 0$, so it can't equal a modulus. Graphing the modulus keeps this false root out.",
+            "The inequality is strict, so the end points are excluded. Round them only now."
+          ],
+          "answer": "$0.792 < x < 1.94$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = abs(e^(X)-4) and Y2 = X+1",
+              "For abs(, press MATH, NUM, 1: abs( (check on your model)",
+              "GRAPH",
+              "2nd, TRACE (CALC), 5: intersect",
+              "Choose Y1, then Y2, then move the cursor near X = 0.8 for the guess",
+              "Read X = 0.792059...",
+              "Repeat with a guess near X = 2 and read X = 1.936847..."
+            ],
+            "nspire": [
+              "Graphs page: enter f1(x) = abs(e^(x)-4) and f2(x) = x+1, typing abs( from the keyboard (check on your model)",
+              "Menu, Analyze Graph, Intersection",
+              "Set the lower bound left of x = 0.8 and the upper bound right of it, then read x = 0.792059...",
+              "Repeat around x = 2 and read x = 1.936847..."
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = Abs(e^(X)-4) and Y2 = X+1",
+              "For Abs, press OPTN, NUM, Abs (check on your model)",
+              "DRAW",
+              "SHIFT F5 (G-SOLV), INTSECT",
+              "Read X = 0.792059..., then press the right arrow for the next point (check on your model)",
+              "Read X = 1.936847..."
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Write down what you give the GDC, such as $\\lvert \\mathrm{e}^{x} - 4\\rvert = x + 1$, and the unrounded intersections. That working earns the method marks."
+        },
+        {
+          "type": "check",
+          "id": "check-gdc-log-modulus",
+          "prompt": "The solution of $\\lvert \\ln x\\rvert < 3 - x$ is $a < x < b$. Use your calculator to find $a$. Give your answer to 3 s.f.",
+          "hint": "Graph $y = \\lvert \\ln x\\rvert$ and $y = 3 - x$. The left meeting point is on the reflected part, where $0 < x < 1$.",
+          "answer": {
+            "value": 0.0525,
+            "tolerance": 5e-05
+          },
+          "explain": "The graphs meet at $x = 0.052469\\ldots$ and $x = 2.207940\\ldots$. For $0 < x < 1$ the graph is $y = -\\ln x$, which is very steep near $0$. So $a = 0.0525$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$y = \\lvert f(x)\\rvert$: reflect the parts below the $x$-axis in the $x$-axis. Where $f$ crossed the axis there is usually a cusp.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$y = f(\\lvert x\\rvert)$: delete the left half, then reflect the right half in the $y$-axis. The graph is even.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$y = \\frac{1}{f(x)}$: roots become vertical asymptotes, points at height $\\pm 1$ stay, and $(a, b)$ moves to $\\left(a, \\frac{1}{b}\\right)$ with maximum and minimum swapped.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$y = [f(x)]^{2}$: never negative. Roots become smooth minima on the axis, and $(a, b)$ moves to $(a, b^{2})$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$y = f(ax + b)$, $a > 0$: translate by $\\begin{pmatrix}-b\\\\0\\end{pmatrix}$, then stretch horizontally with scale factor $\\frac{1}{a}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\lvert f(x)\\rvert = k \\iff f(x) = k \\text{ or } f(x) = -k \\qquad (k \\ge 0)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Moduli on both sides: square both sides. A modulus against $x$: split into cases, then check each answer.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Rounding off the points where $y = \\lvert f(x)\\rvert$ meets the $x$-axis. Where $f$ crossed the axis with a non-zero gradient (the usual case), the reflection makes a sharp cusp, so draw a clear corner.",
+    "Reflecting part of a graph but not its asymptote. If that part of $y = f(x)$ approaches $y = 2x - 1$ below the axis, then $y = \\lvert f(x)\\rvert$ approaches $y = -2x + 1$ there.",
+    "For $y = f(\\lvert x\\rvert)$, mirroring the left half instead of the right, or keeping an asymptote that was left of the $y$-axis. Keep the right half and copy it onto the left.",
+    "Putting a vertical asymptote on $y = \\frac{1}{f(x)}$ where $f$ has one. There $\\frac{1}{f(x)} \\to 0$, so the graph reaches the $x$-axis at an open circle.",
+    "Giving the scale factor of $f(2x + 3)$ as $2$, or translating by $3$ after stretching first. The scale factor is $\\frac{1}{2}$, and after the stretch the translation is $\\frac{3}{2}$ units.",
+    "Dividing both sides of $\\lvert f(x)\\rvert \\le [f(x)]^{2}$ by $\\lvert f(x)\\rvert$. You get $\\lvert f(x)\\rvert \\ge 1$ and lose the roots of $f$, where both sides are $0$. Deal with $f(x) = 0$ separately before you divide."
+  ],
+  "examTips": [
+    "“Sketch” a transformed graph: label the new intercepts, turning points and asymptote equations, mark any cusps clearly, and stop at the ends of a given domain.",
+    "For $\\lvert f(x)\\rvert = g(x)$, show both cases, then check each value in the original. Reject any value that makes $g(x)$ negative, and say why.",
+    "“Hence” after a sketch means read the answer from that sketch: count where a horizontal line meets the graph, or read where one graph is above the other.",
+    "On Paper 2, write down the functions you graph and the unrounded intersections. Give the end points to 3 s.f. only at the end."
+  ],
+  "readingMinutes": 28
+}

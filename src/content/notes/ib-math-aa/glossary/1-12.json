@@ -1,0 +1,50 @@
+[
+  {
+    "id": "complex-number",
+    "term": "complex number",
+    "definition": "A number $z = a + b\\mathrm{i}$, where $a, b \\in \\mathbb{R}$ and $\\mathrm{i}^{2} = -1$.",
+    "lesson": "1.12"
+  },
+  {
+    "id": "cartesian-form",
+    "term": "Cartesian form",
+    "definition": "The way of writing a complex number as $a + b\\mathrm{i}$, real part first, with $a, b \\in \\mathbb{R}$.",
+    "lesson": "1.12"
+  },
+  {
+    "id": "real-part",
+    "term": "real part",
+    "definition": "For $z = a + b\\mathrm{i}$ with $a$ and $b$ real, the real number $\\mathrm{Re}(z) = a$.",
+    "lesson": "1.12"
+  },
+  {
+    "id": "imaginary-part",
+    "term": "imaginary part",
+    "definition": "For $z = a + b\\mathrm{i}$ with $a$ and $b$ real, the real number $\\mathrm{Im}(z) = b$ that multiplies $\\mathrm{i}$.",
+    "lesson": "1.12"
+  },
+  {
+    "id": "complex-conjugate",
+    "term": "complex conjugate",
+    "definition": "For $z = a + b\\mathrm{i}$, the number $z^{*} = a - b\\mathrm{i}$: the reflection of $z$ in the real axis.",
+    "lesson": "1.12"
+  },
+  {
+    "id": "complex-modulus",
+    "term": "modulus of a complex number",
+    "definition": "The distance of $z = a + b\\mathrm{i}$ from the origin on an Argand diagram, $\\lvert z\\rvert = \\sqrt{a^{2} + b^{2}}$.",
+    "lesson": "1.12"
+  },
+  {
+    "id": "complex-argument",
+    "term": "argument of a complex number",
+    "definition": "The angle $\\arg z$ from the positive real axis to the line from the origin to $z$, in radians, usually with $-\\pi < \\arg z \\le \\pi$.",
+    "lesson": "1.12"
+  },
+  {
+    "id": "argand-diagram",
+    "term": "Argand diagram",
+    "definition": "A plane with a horizontal real axis and a vertical imaginary axis, where $a + b\\mathrm{i}$ is the point $(a, b)$; also called the complex plane.",
+    "lesson": "1.12"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "vector-product",
+    "term": "vector product",
+    "definition": "The vector $\\boldsymbol{v} \\times \\boldsymbol{w} = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta\\,\\boldsymbol{n}$, perpendicular to both $\\boldsymbol{v}$ and $\\boldsymbol{w}$, whose length is the area of the parallelogram they form; also called the cross product.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "right-hand-screw-rule",
+    "term": "right-hand screw rule",
+    "definition": "The rule that fixes the direction of $\\boldsymbol{v} \\times \\boldsymbol{w}$: curl the fingers of your right hand from $\\boldsymbol{v}$ towards $\\boldsymbol{w}$ and your thumb points along $\\boldsymbol{v} \\times \\boldsymbol{w}$.",
+    "lesson": "3.16"
+  }
+]

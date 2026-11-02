@@ -1,0 +1,817 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.2",
+  "slug": "arithmetic-sequences-and-series",
+  "title": "Arithmetic sequences and series",
+  "level": "SL",
+  "topic": 1,
+  "summary": "An [[arithmetic-sequence|arithmetic sequence]] goes up or down by the same amount every step. Two numbers, the first term and that step, tell you every term and the sum of as many terms as you like. You'll use this for counting problems, simple interest and real data that grows roughly steadily.",
+  "goals": [
+    {
+      "text": "Spot an [[arithmetic-sequence|arithmetic sequence]], find its [[common-difference|common difference]] and write its $n$th term.",
+      "bullets": [
+        "1.2-b1"
+      ]
+    },
+    {
+      "text": "Find the first term and common difference from any two terms.",
+      "bullets": [
+        "1.2-b1"
+      ]
+    },
+    {
+      "text": "Add up the first $n$ terms with either sum formula, and find $n$ when the sum is given.",
+      "bullets": [
+        "1.2-b2"
+      ]
+    },
+    {
+      "text": "Read, write and evaluate sums in [[sigma-notation|sigma notation]].",
+      "bullets": [
+        "1.2-b3"
+      ]
+    },
+    {
+      "text": "Model [[simple-interest|simple interest]] and other steady changes, using a spreadsheet or your calculator to list terms.",
+      "bullets": [
+        "1.2-b4"
+      ]
+    },
+    {
+      "text": "Estimate a common difference from real data that is only roughly steady, then predict and judge the prediction.",
+      "bullets": [
+        "1.2-b5"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "arithmetic progression",
+    "nth term formula",
+    "common difference",
+    "sum of an arithmetic series",
+    "sigma notation",
+    "simple interest sequence"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-solve-linear",
+      "prompt": "Solve $7 + 3(n - 1) = 52$.",
+      "hint": "Subtract $7$ first, then divide by $3$. Don't stop at $n - 1$.",
+      "options": [
+        {
+          "text": "$n = 16$",
+          "correct": true
+        },
+        {
+          "text": "$n = 15$",
+          "correct": false
+        },
+        {
+          "text": "$n = 14$",
+          "correct": false
+        }
+      ],
+      "explain": "$3(n - 1) = 45$, so $n - 1 = 15$ and $n = 16$. You'll solve equations like this to find which term has a given value."
+    },
+    {
+      "type": "check",
+      "id": "before-simultaneous",
+      "prompt": "Solve the simultaneous equations $a + 2d = 17$ and $a + 7d = 2$.",
+      "hint": "Subtract the first equation from the second to get rid of $a$.",
+      "options": [
+        {
+          "text": "$a = 23, \\; d = -3$",
+          "correct": true
+        },
+        {
+          "text": "$a = 11, \\; d = 3$",
+          "correct": false
+        },
+        {
+          "text": "$a = 20, \\; d = -3$",
+          "correct": false
+        }
+      ],
+      "explain": "Subtracting gives $5d = -15$, so $d = -3$. Then $a = 17 - 2(-3) = 23$. This is how you find a sequence from two of its terms."
+    },
+    {
+      "type": "check",
+      "id": "before-quadratic-positive",
+      "prompt": "Solve $n^{2} + 4n - 96 = 0$, given that $n > 0$.",
+      "hint": "Find two numbers that multiply to $-96$ and add to $4$.",
+      "options": [
+        {
+          "text": "$n = 8$",
+          "correct": true
+        },
+        {
+          "text": "$n = 12$",
+          "correct": false
+        },
+        {
+          "text": "$n = -12$",
+          "correct": false
+        }
+      ],
+      "explain": "$n^{2} + 4n - 96 = (n + 12)(n - 8)$, so $n = -12$ or $n = 8$. Only $n = 8$ is positive. Sum questions often end in a quadratic like this."
+    }
+  ],
+  "sections": [
+    {
+      "id": "nth-term",
+      "heading": "Arithmetic sequences and the nth term",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A cinema's first row has $14$ seats, and each row behind has $3$ more: $14, 17, 20, 23, \\ldots$ Every step adds the same amount. So you can find row $40$ without listing $39$ rows first."
+        },
+        {
+          "type": "text",
+          "text": "An ordered list of numbers like this is a [[sequence|sequence]]. Its numbers are its terms, and $u_{n}$ means the $n$th term. Here $u_{1} = 14$, $u_{2} = 17$ and $u_{4} = 23$."
+        },
+        {
+          "type": "definition",
+          "term": "arithmetic sequence",
+          "statement": "A sequence is arithmetic when the difference between consecutive terms is constant. That constant is the common difference, $d = u_{n+1} - u_{n}$.",
+          "plain": "You add the same number every time to get the next term."
+        },
+        {
+          "type": "text",
+          "text": "To test a sequence, subtract each term from the one after it. If every [[common-difference|common difference]] is the same, it is arithmetic. A negative $d$ means the terms go down."
+        },
+        {
+          "type": "text",
+          "text": "To reach $u_{n}$ from $u_{1}$, you take $n - 1$ steps, not $n$. Each step adds $d$, so you add $d$ a total of $n - 1$ times."
+        },
+        {
+          "type": "formula",
+          "tex": "u_{n} = u_{1} + (n - 1)d",
+          "tag": "booklet",
+          "bookletId": "bk-1-2-nth-term",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This formula is in the formula booklet."
+        },
+        {
+          "type": "example",
+          "id": "ex-nth-term-basic",
+          "question": "The sequence $23, 17, 11, 5, \\ldots$ is arithmetic. Find a formula for $u_{n}$, and hence find $u_{20}$.",
+          "steps": [
+            "Find the common difference: $d = 17 - 23 = -6$. Check another pair: $11 - 17 = -6$.",
+            "Write down the first term: $u_{1} = 23$.",
+            "Substitute into the formula: $u_{n} = 23 + (n - 1)(-6)$.",
+            "Simplify: $u_{n} = 23 - 6n + 6 = 29 - 6n$.",
+            "Put $n = 20$: $u_{20} = 29 - 6(20) = 29 - 120 = -91$.",
+            "Check with a term you know: $u_{4} = 29 - 24 = 5$, as in the list."
+          ],
+          "answer": "$u_{20} = -91$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-recognise",
+          "prompt": "Which of these sequences is arithmetic?",
+          "hint": "Work out the gap between each pair of neighbouring terms. Are all the gaps equal?",
+          "options": [
+            {
+              "text": "$15, 11, 7, 3, \\ldots$",
+              "correct": true
+            },
+            {
+              "text": "$3, 6, 12, 24, \\ldots$",
+              "correct": false
+            },
+            {
+              "text": "$1, 4, 9, 16, \\ldots$",
+              "correct": false
+            },
+            {
+              "text": "$10, 8, 5, 1, \\ldots$",
+              "correct": false
+            }
+          ],
+          "explain": "In $15, 11, 7, 3$ every gap is $-4$, so $d = -4$. In the others the gaps change."
+        },
+        {
+          "type": "check",
+          "id": "check-nth-term",
+          "prompt": "An arithmetic sequence has $u_{1} = 7$ and $d = 2.5$. Find $u_{30}$.",
+          "hint": "From $u_{1}$ to $u_{30}$ there are $29$ steps.",
+          "answer": {
+            "value": 79.5,
+            "tolerance": 0
+          },
+          "explain": "$u_{30} = 7 + 29(2.5) = 7 + 72.5 = 79.5$."
+        },
+        {
+          "type": "text",
+          "text": "The formula also works backwards. To find which term equals a value, set $u_{n}$ equal to it and solve for $n$. If $n$ is not a positive integer, the value is not a term."
+        },
+        {
+          "type": "check",
+          "id": "check-which-term",
+          "prompt": "Which term of the arithmetic sequence $4.5, 6.25, 8, \\ldots$ is equal to $76.25$?",
+          "hint": "Find $d$, then solve $4.5 + (n - 1)d = 76.25$.",
+          "answer": {
+            "value": 42,
+            "tolerance": 0
+          },
+          "explain": "$d = 1.75$, so $1.75(n - 1) = 71.75$. Then $n - 1 = 41$ and $n = 42$."
+        },
+        {
+          "type": "text",
+          "text": "Exam questions often give two terms instead of $u_{1}$ and $d$. Write each one with the formula. That gives two equations in $u_{1}$ and $d$."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-terms",
+          "question": "In an arithmetic sequence, $u_{4} = 19$ and $u_{11} = -9$. Find $u_{1}$ and $d$.",
+          "steps": [
+            "Write the 4th term with the formula: $u_{1} + 3d = 19$.",
+            "Write the 11th term the same way: $u_{1} + 10d = -9$.",
+            "Take the first equation away from the second: $7d = -28$, so $d = -4$.",
+            "Substitute back: $u_{1} + 3(-4) = 19$, so $u_{1} = 31$.",
+            "Check the 11th term: $31 + 10(-4) = -9$. Correct."
+          ],
+          "answer": "$u_{1} = 31, \\; d = -4$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Counting terms instead of steps. From $u_{4}$ to $u_{11}$ there are $11 - 4 = 7$ steps, so divide the change by $7$."
+        },
+        {
+          "type": "check",
+          "id": "check-two-terms",
+          "prompt": "An arithmetic sequence has $u_{3} = 14$ and $u_{8} = 39$. Find $d$.",
+          "hint": "How many steps of size $d$ take you from the 3rd term to the 8th?",
+          "options": [
+            {
+              "text": "$d = 5$",
+              "correct": true
+            },
+            {
+              "text": "$d = \\tfrac{25}{6}$",
+              "correct": false
+            },
+            {
+              "text": "$d = \\tfrac{25}{8}$",
+              "correct": false
+            },
+            {
+              "text": "$d = -5$",
+              "correct": false
+            }
+          ],
+          "explain": "The terms rise by $39 - 14 = 25$ over $8 - 3 = 5$ steps, so $d = \\frac{25}{5} = 5$."
+        }
+      ]
+    },
+    {
+      "id": "sum",
+      "heading": "The sum of the first n terms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "How do you add $4 + 7 + 10 + 13 + 16 + 19$ quickly? Pair the first and last terms: $4 + 19 = 23$. So do $7 + 16$ and $10 + 13$."
+        },
+        {
+          "type": "text",
+          "text": "Write the sum forwards, then backwards underneath it. Each column adds to $23$, and there are $6$ columns. Twice the sum is $6 \\times 23 = 138$, so the sum is $69$."
+        },
+        {
+          "type": "figure",
+          "id": "1-2-pairing",
+          "alt": "Six bars with heights 4, 7, 10, 13, 16 and 19 form a staircase. A second copy of the staircase is turned upside down and placed on top, so each column has total height 23. Together they make a rectangle 6 columns wide and 23 high.",
+          "caption": "Two copies of the sum make a $6 \\times 23$ rectangle, so one copy is half of $138$."
+        },
+        {
+          "type": "text",
+          "text": "The same trick works for any arithmetic sum. The sum of the first $n$ terms is a [[series|series]], written $S_{n}$. Every column adds to $u_{1} + u_{n}$, and there are $n$ columns, so $2S_{n} = n(u_{1} + u_{n})$. Since $u_{n} = u_{1} + (n - 1)d$, the column total $u_{1} + u_{n}$ is also $2u_{1} + (n - 1)d$, which gives the second form below."
+        },
+        {
+          "type": "formula",
+          "tex": "S_{n} = \\frac{n}{2}\\left(2u_{1} + (n - 1)d\\right); \\quad S_{n} = \\frac{n}{2}\\left(u_{1} + u_{n}\\right)",
+          "tag": "booklet",
+          "bookletId": "bk-1-2-sum",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Both forms are in the formula booklet. Use $\\frac{n}{2}(u_{1} + u_{n})$ when you know the last term, and the other when you know $d$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sum-last-term",
+          "question": "Find the value of $3 + 10 + 17 + \\cdots + 213$.",
+          "steps": [
+            "This is arithmetic with $u_{1} = 3$ and $d = 7$. First count the terms.",
+            "Set the $n$th term equal to the last term: $3 + 7(n - 1) = 213$.",
+            "Solve: $7(n - 1) = 210$, so $n - 1 = 30$ and $n = 31$.",
+            "You know the first and last terms, so use $S_{n} = \\frac{n}{2}(u_{1} + u_{n})$: $S_{31} = \\frac{31}{2}(3 + 213)$.",
+            "Finish: $\\frac{31}{2} \\times 216 = 31 \\times 108 = 3348$."
+          ],
+          "answer": "$S_{31} = 3348$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Sometimes you know the sum and need $n$. Put the numbers into the sum formula and solve for $n$. It is usually a quadratic."
+        },
+        {
+          "type": "example",
+          "id": "ex-find-n",
+          "question": "An arithmetic sequence has first term $5$ and common difference $4$. The sum of its first $n$ terms is $230$. Find $n$.",
+          "steps": [
+            "Substitute into the sum formula: $\\frac{n}{2}\\left(2(5) + (n - 1)(4)\\right) = 230$.",
+            "Simplify the bracket: $10 + 4n - 4 = 4n + 6$, so $\\frac{n}{2}(4n + 6) = n(2n + 3)$.",
+            "Form a quadratic: $2n^{2} + 3n - 230 = 0$.",
+            "Factorise: $(2n + 23)(n - 10) = 0$, so $n = 10$ or $n = -11.5$.",
+            "$n$ counts terms, so it must be a positive integer. Reject $-11.5$.",
+            "Check: $u_{10} = 5 + 9(4) = 41$ and $S_{10} = \\frac{10}{2}(5 + 41) = 230$."
+          ],
+          "answer": "$n = 10$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Keeping a negative or fractional value of $n$. A number of terms is a positive integer, so reject any other root and say why."
+        },
+        {
+          "type": "check",
+          "id": "check-sum-formula",
+          "prompt": "An arithmetic sequence has $u_{1} = -7$ and $d = 3$. Find $S_{16}$.",
+          "hint": "Use $S_{n} = \\frac{n}{2}\\left(2u_{1} + (n - 1)d\\right)$. Here $n - 1 = 15$.",
+          "options": [
+            {
+              "text": "$248$",
+              "correct": true
+            },
+            {
+              "text": "$272$",
+              "correct": false
+            },
+            {
+              "text": "$496$",
+              "correct": false
+            },
+            {
+              "text": "$304$",
+              "correct": false
+            }
+          ],
+          "explain": "$S_{16} = 8\\left(2(-7) + 15(3)\\right) = 8(-14 + 45) = 8 \\times 31 = 248$."
+        },
+        {
+          "type": "check",
+          "id": "check-sum-first-last",
+          "prompt": "An arithmetic sequence has first term $12$ and 20th term $69$. Find the sum of its first $20$ terms.",
+          "hint": "You know the first and last terms you are adding. Which sum formula uses them?",
+          "answer": {
+            "value": 810,
+            "tolerance": 0
+          },
+          "explain": "$S_{20} = \\frac{20}{2}(12 + 69) = 10 \\times 81 = 810$."
+        }
+      ]
+    },
+    {
+      "id": "sigma",
+      "heading": "Sigma notation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Writing out $5 + 8 + 11 + \\cdots + 62$ is slow. [[sigma-notation|Sigma notation]] packs the whole sum into one short line. The Greek capital letter $\\sum$ (sigma) means \"add up\"."
+        },
+        {
+          "type": "definition",
+          "term": "sigma notation",
+          "statement": "The letter $r$ is a counter. It takes every whole number from the value below the $\\sum$ to the value above it, and you add the results.",
+          "plain": "Put each counter value into the expression, then add all the results."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sum_{r=1}^{n} u_{r} = u_{1} + u_{2} + \\cdots + u_{n}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The counter need not start at $1$. From $r = a$ to $r = b$ there are $b - a + 1$ terms. For example, $r = 4$ to $r = 9$ gives $6$ terms, not $5$."
+        },
+        {
+          "type": "result",
+          "statement": "If the expression is linear, such as $3r + 2$, the terms form an [[arithmetic-sequence|arithmetic sequence]] with [[common-difference|common difference]] equal to the coefficient of $r$.",
+          "why": "Raising $r$ by $1$ raises $3r + 2$ by exactly $3$ every time."
+        },
+        {
+          "type": "text",
+          "text": "So to evaluate the sum: find the first term, the last term and the number of terms. Then use $S_{n} = \\frac{n}{2}(u_{1} + u_{n})$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sigma-evaluate",
+          "question": "Evaluate $\\sum_{r=1}^{20}(3r + 2)$.",
+          "steps": [
+            "First term, $r = 1$: $3(1) + 2 = 5$.",
+            "Last term, $r = 20$: $3(20) + 2 = 62$.",
+            "Number of terms: $20 - 1 + 1 = 20$.",
+            "The terms go up by $3$, so this is arithmetic. Use $S_{n} = \\frac{n}{2}(u_{1} + u_{n})$: $\\frac{20}{2}(5 + 62) = 10 \\times 67 = 670$."
+          ],
+          "answer": "$\\sum_{r=1}^{20}(3r + 2) = 670$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To write a sum in sigma notation, find a formula for its general term. Then find the counter values of the first and last terms."
+        },
+        {
+          "type": "example",
+          "id": "ex-sigma-write",
+          "question": "Write $7 + 11 + 15 + \\cdots + 87$ in sigma notation, and hence find its value.",
+          "steps": [
+            "It is arithmetic with $u_{1} = 7$ and $d = 4$.",
+            "General term: $u_{r} = 7 + 4(r - 1) = 4r + 3$.",
+            "Last term: $4r + 3 = 87$ gives $r = 21$. So the counter runs from $1$ to $21$.",
+            "Write the sum: $\\sum_{r=1}^{21}(4r + 3)$. Check the first term: $4(1) + 3 = 7$.",
+            "Evaluate: $\\frac{21}{2}(7 + 87) = 21 \\times 47 = 987$."
+          ],
+          "answer": "$7 + 11 + 15 + \\cdots + 87 = \\sum_{r=1}^{21}(4r + 3) = 987$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-sigma-count",
+          "prompt": "How many terms are added in $\\sum_{r=4}^{15}(2r - 1)$?",
+          "hint": "List a small case to test your rule: $r = 4, 5, 6$ is how many terms?",
+          "options": [
+            {
+              "text": "$12$",
+              "correct": true
+            },
+            {
+              "text": "$11$",
+              "correct": false
+            },
+            {
+              "text": "$15$",
+              "correct": false
+            }
+          ],
+          "explain": "From $r = 4$ to $r = 15$ there are $15 - 4 + 1 = 12$ terms. Subtracting alone misses one end."
+        },
+        {
+          "type": "check",
+          "id": "check-sigma-lower-limit",
+          "prompt": "Evaluate $\\sum_{k=5}^{30}(40 - 2k)$.",
+          "hint": "The counter starts at $5$. Find the first term, the last term and how many terms there are.",
+          "answer": {
+            "value": 130,
+            "tolerance": 0
+          },
+          "explain": "The first term is $40 - 10 = 30$ and the last is $40 - 60 = -20$. There are $30 - 5 + 1 = 26$ terms, so the sum is $13(30 - 20) = 130$."
+        },
+        {
+          "type": "examTip",
+          "text": "On Paper 2 your calculator can check a sigma sum, as the steps below do for $\\sum_{r=1}^{20}(3r + 2)$. Still write the first term, last term and number of terms, since that working earns the method marks."
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "2nd, STAT (LIST), MATH, 5: sum(",
+              "Then 2nd, STAT (LIST), OPS, 5: seq(",
+              "Type 3X+2,X,1,20)) and press ENTER",
+              "Read 670"
+            ],
+            "nspire": [
+              "Calculator page, Menu, Calculus, Sum",
+              "Fill in the template: 3r+2, with r from 1 to 20 (check on your model)",
+              "Press enter and read 670"
+            ],
+            "casio": [
+              "RUN-MAT, OPTN, CALC, Σ(",
+              "Type 3X+2,X,1,20) and press EXE (check on your model)",
+              "Read 670"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "contexts",
+      "heading": "Simple interest and other models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "With [[simple-interest|simple interest]], the bank pays a fixed percentage of the amount you first put in, every year. The interest never earns interest itself. So the same amount is added each year, and the balances form an [[arithmetic-sequence|arithmetic sequence]]."
+        },
+        {
+          "type": "text",
+          "text": "If you invest $P$ at $R\\%$ simple interest a year, the yearly interest is $I = P \\times \\frac{R}{100}$. After $n$ years the balance is $P + nI$."
+        },
+        {
+          "type": "text",
+          "text": "[[compound-interest|Compound interest]] multiplies the balance instead. That is a geometric model, taught in {{lesson:1.4}}."
+        },
+        {
+          "type": "text",
+          "text": "Decide what $u_{1}$ stands for before you write anything. If $u_{n}$ is the balance at the end of year $n$, then $u_{1} = P + I$, not $P$."
+        },
+        {
+          "type": "example",
+          "id": "ex-simple-interest",
+          "question": "Priya invests $2400$ euros in an account paying $3.5\\%$ simple interest per year. Let $u_{n}$ be her balance, in euros, at the end of year $n$. Find her balance at the end of year $9$.",
+          "steps": [
+            "Yearly interest: $2400 \\times \\frac{3.5}{100} = 84$ euros. It is the same every year.",
+            "So the balances form an arithmetic sequence with $u_{1} = 2400 + 84 = 2484$ and $d = 84$.",
+            "General term: $u_{n} = 2484 + 84(n - 1) = 2400 + 84n$.",
+            "Put $n = 9$: $u_{9} = 2400 + 84 \\times 9 = 2400 + 756 = 3156$."
+          ],
+          "answer": "$u_{9} = 3156$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A spreadsheet builds the same list. Put $u_{1}$ in cell A1, type =A1+84 in A2, and fill down. A calculator's sequence command lists the terms too, as in the steps below. In an exam, read $u_{1}$ and $d$ off such a list, then use the formulas."
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "2nd, STAT (LIST), OPS, 5: seq(",
+              "Type 2400+84X,X,1,9) and press ENTER",
+              "Read the list 2484, 2568, 2652, ... So u1 = 2484 and d = 2568 - 2484 = 84"
+            ],
+            "nspire": [
+              "Calculator page, Menu, Statistics, List Operations, Sequence (check on your model)",
+              "Type 2400+84*n,n,1,9) and press enter",
+              "Read the list 2484, 2568, 2652, ... So u1 = 2484 and d = 2568 - 2484 = 84"
+            ],
+            "casio": [
+              "RUN-MAT, OPTN, LIST, Seq (check on your model)",
+              "Type 2400+84X,X,1,9,1) and press EXE",
+              "Read the list 2484, 2568, 2652, ... So u1 = 2484 and d = 2568 - 2484 = 84"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-spreadsheet",
+          "prompt": "A spreadsheet has $150$ in cell A1. Cell A2 holds =A1+12, and this is filled down column A. What value is in cell A40?",
+          "hint": "Cell A40 is the 40th term. How many times has $12$ been added?",
+          "options": [
+            {
+              "text": "$618$",
+              "correct": true
+            },
+            {
+              "text": "$630$",
+              "correct": false
+            },
+            {
+              "text": "$468$",
+              "correct": false
+            }
+          ],
+          "explain": "A1 is $u_{1} = 150$ and each row adds $12$. So A40 is $150 + 39 \\times 12 = 618$."
+        },
+        {
+          "type": "check",
+          "id": "check-simple-interest-years",
+          "prompt": "Tom invests \\$800 at $4.5\\%$ simple interest per year. After how many complete years will his balance first be more than \\$1100?",
+          "hint": "Find the yearly interest, then solve $800 + (\\text{interest}) \\times n > 1100$.",
+          "answer": {
+            "value": 9,
+            "tolerance": 0
+          },
+          "explain": "The yearly interest is $800 \\times 0.045 = 36$. Then $800 + 36n > 1100$ gives $n > 8.33\\ldots$. The first whole number of years is $9$."
+        },
+        {
+          "type": "text",
+          "text": "Arithmetic models also fit rows of seats, stacks and weekly savings. Questions often ask how many rows or weeks fit under a limit."
+        },
+        {
+          "type": "example",
+          "id": "ex-rows-gdc",
+          "question": "A hall has $18$ seats in its front row. Each row behind has $3$ more seats than the row in front of it. The hall may hold at most $1000$ seats. Use your calculator to find the greatest number of complete rows the hall can have.",
+          "steps": [
+            "The rows form an arithmetic sequence with $u_{1} = 18$ and $d = 3$. The total seats in $n$ rows is $S_{n}$.",
+            "Write down the equation for the boundary: $\\frac{n}{2}\\left(2(18) + 3(n - 1)\\right) = 1000$.",
+            "Solve it on your calculator: $n = 20.899\\ldots$ (the other root is negative).",
+            "$n$ must be a whole number, and $S_{n}$ must not go over $1000$. So round down to $n = 20$.",
+            "Check both sides: $S_{20} = 10(36 + 57) = 930$, which fits, and $S_{21} = \\frac{21}{2}(36 + 60) = 1008$, which is too many."
+          ],
+          "answer": "$n = 20$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MATH, Solver",
+              "Enter 0 = X/2*(36+3(X-1))-1000 (check on your model)",
+              "Put a starting guess such as X = 20, then ALPHA, ENTER (SOLVE) (check on your model)",
+              "Read X = 20.899..."
+            ],
+            "nspire": [
+              "Calculator page, Menu, Algebra, Numerical Solve",
+              "Type x/2*(36+3(x-1))=1000,x then add the condition x>0 (check on your model)",
+              "Press enter and read x = 20.899..."
+            ],
+            "casio": [
+              "EQUA, Solver (F3)",
+              "Enter X/2*(36+3(X-1))=1000, then EXE",
+              "Give X a starting value such as 20, then SOLVE (F6) (check on your model)",
+              "Read X = 20.899..."
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding $n$ to the nearest whole number. $20.9$ rows would round to $21$, but $21$ rows need $1008$ seats. Round in the direction the limit allows, then check both neighbours."
+        }
+      ]
+    },
+    {
+      "id": "real-data",
+      "heading": "Data that is only roughly arithmetic",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Real measurements are never perfectly steady. If the differences are close to each other, an [[arithmetic-sequence|arithmetic sequence]] is still a useful [[mathematical-model|mathematical model]]."
+        },
+        {
+          "type": "text",
+          "text": "Estimate the [[common-difference|common difference]] $d$ by the mean of the differences. When you add the differences, all the middle terms cancel. So the mean is the last value minus the first, divided by the number of gaps."
+        },
+        {
+          "type": "formula",
+          "tex": "d \\approx \\frac{\\text{last value} - \\text{first value}}{\\text{number of gaps}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Five values have four gaps between them, not five. Then predict with $u_{n} = u_{1} + (n - 1)d$, using your estimate of $d$."
+        },
+        {
+          "type": "example",
+          "id": "ex-approx-d",
+          "question": "A seedling's height is measured at the end of weeks $1$ to $5$: $4.1$, $6.0$, $7.8$, $9.9$ and $11.7$ cm. Estimate the common difference. Use an arithmetic model to predict the height, in cm, at the end of week $9$.",
+          "steps": [
+            "Find the differences: $1.9$, $1.8$, $2.1$ and $1.8$. They are close, so an arithmetic model is reasonable.",
+            "Estimate $d$ from the first and last values: $d \\approx \\frac{11.7 - 4.1}{4} = \\frac{7.6}{4} = 1.9$.",
+            "Write the model: $u_{n} = 4.1 + 1.9(n - 1)$.",
+            "Predict week $9$: $u_{9} = 4.1 + 8 \\times 1.9 = 4.1 + 15.2 = 19.3$."
+          ],
+          "answer": "$u_{9} \\approx 19.3$",
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "1-2-rough-data",
+          "alt": "Graph of seedling height against week. Five measured points for weeks 1 to 5 lie close to, but not exactly on, a straight dashed line. The line continues to week 9, where it reaches about 19.3 centimetres.",
+          "caption": "The model line goes through the first and last data points. The middle points wobble around it."
+        },
+        {
+          "type": "text",
+          "text": "Judge a prediction before you trust it. A value just beyond the data is fairly safe. One far beyond assumes the steady change carries on, and real growth often slows."
+        },
+        {
+          "type": "example",
+          "id": "ex-club-members",
+          "question": "A climbing club records its members at the start of each month from January to June: $212$, $230$, $245$, $266$, $281$, $299$. Let $u_{1}$ be January's number. Use an arithmetic model to predict the members in December, and comment on how reliable the prediction is.",
+          "steps": [
+            "Check the differences: $18$, $15$, $21$, $15$, $18$. They vary a little, so the data is roughly arithmetic.",
+            "Estimate $d$: six values have five gaps, so $d \\approx \\frac{299 - 212}{5} = 17.4$.",
+            "December is month $12$, so $n = 12$: $u_{12} = 212 + 11 \\times 17.4 = 403.4$.",
+            "Members are whole people, so give about $403$.",
+            "Comment: December is six months past the last record. The growth may slow down, so treat $403$ as a rough guide only."
+          ],
+          "answer": "$u_{12} \\approx 403$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-approx-d",
+          "prompt": "A shop sells $50$, $57$, $65$, $71$ and $80$ bikes in five successive months. Estimate the common difference.",
+          "hint": "How many gaps are there between five values?",
+          "options": [
+            {
+              "text": "$7.5$",
+              "correct": true
+            },
+            {
+              "text": "$6$",
+              "correct": false
+            },
+            {
+              "text": "$7$",
+              "correct": false
+            },
+            {
+              "text": "$9$",
+              "correct": false
+            }
+          ],
+          "explain": "There are four gaps, so $d \\approx \\frac{80 - 50}{4} = 7.5$. Using one gap, or dividing by $5$, gives a poorer estimate."
+        },
+        {
+          "type": "check",
+          "id": "check-predict",
+          "prompt": "Use $u_{1} = 50$ and $d \\approx 7.5$ from the bike sales to predict the sales in month $9$.",
+          "hint": "Month $9$ is $8$ steps after month $1$.",
+          "answer": {
+            "value": 110,
+            "tolerance": 0
+          },
+          "explain": "$u_{9} = 50 + 8 \\times 7.5 = 110$ bikes. It is only four months past the data, so it is a fair estimate."
+        },
+        {
+          "type": "examTip",
+          "text": "\"Comment\" or \"interpret\" asks for a sentence in context. Say whether the prediction lies inside or far beyond the data, and why the steady change might not continue."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "u_{n} = u_{1} + (n - 1)d",
+          "tag": "booklet",
+          "bookletId": "bk-1-2-nth-term",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "S_{n} = \\frac{n}{2}\\left(2u_{1} + (n - 1)d\\right); \\quad S_{n} = \\frac{n}{2}\\left(u_{1} + u_{n}\\right)",
+          "tag": "booklet",
+          "bookletId": "bk-1-2-sum",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Arithmetic means a constant gap: $d = u_{n+1} - u_{n}$. From $u_{m}$ to $u_{n}$ there are $n - m$ steps.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Given two terms, write each as $u_{1} + (n - 1)d$ and solve the two equations together.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\sum_{r=a}^{b}$ adds $b - a + 1$ terms. For a linear expression, use the first term, last term and $\\frac{n}{2}(u_{1} + u_{n})$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Simple interest adds $P \\times \\frac{R}{100}$ every year, so the balances are arithmetic. Decide what $u_{1}$ means first.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Rough data: $d \\approx \\frac{\\text{last} - \\text{first}}{\\text{number of gaps}}$. Predictions far beyond the data are less reliable.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$n$ is a positive integer. Reject other roots, and round in the direction the question's limit allows.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing the $n$th term as $u_{1} + nd$. The 7th term is $u_{1} + 6d$: there is one step fewer than the term number.",
+    "Dividing the change between two terms by a term number. From $u_{2}$ to $u_{6}$ is $4$ steps, so divide the change by $4$.",
+    "Keeping $n = 0$, a negative $n$ or a decimal $n$. The number of terms is a positive integer, so reject the other root and give a reason.",
+    "Rounding $n$ the wrong way in a \"how many fit\" question. Check the sums on both sides of the limit before you decide.",
+    "Compounding simple interest. Simple interest is always a percentage of the original amount, so the same sum is added each year."
+  ],
+  "examTips": [
+    "\"Write down\" the common difference needs no working. \"Find\" needs the formula with your numbers substituted, which earns the method mark even if the arithmetic slips.",
+    "On Paper 1, set up two terms as two equations, such as $u_{1} + 3d = 19$ and $u_{1} + 10d = -9$, and show the subtraction.",
+    "On Paper 2, write down the equation or sum you put into your calculator before the answer. Then state why you round $n$ up or down.",
+    "Later parts often use $u_{1}$ or $d$ from an earlier part. A wrong earlier value used correctly can still earn follow-through marks, so always carry on."
+  ],
+  "readingMinutes": 28
+}

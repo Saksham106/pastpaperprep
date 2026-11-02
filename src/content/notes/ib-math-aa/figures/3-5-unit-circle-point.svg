@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 280" role="img" aria-labelledby="t">
+  <title id="t">The unit circle with a radius of length 1 at angle theta ending at P, with horizontal leg cos theta and vertical leg sin theta</title>
+  <g stroke="currentColor" stroke-width="1.4">
+    <line x1="20" y1="150" x2="280" y2="150"/>
+    <line x1="150" y1="20" x2="150" y2="270"/>
+  </g>
+  <circle cx="150" cy="150" r="100" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+  <line x1="150" y1="150" x2="214.3" y2="73.4" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="150" y1="150" x2="214.3" y2="150" stroke="var(--t1-ink)" stroke-width="3"/>
+  <line x1="214.3" y1="150" x2="214.3" y2="73.4" stroke="var(--t5-ink)" stroke-width="3"/>
+  <path d="M202.3 150 L202.3 138 L214.3 138" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+  <path d="M178 150 A28 28 0 0 0 168.0 128.6" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <circle cx="214.3" cy="73.4" r="4.5" fill="currentColor"/>
+  <circle cx="250" cy="150" r="3" fill="currentColor"/>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="274" y="142" text-anchor="end">x</text>
+    <text x="158" y="30">y</text>
+    <text x="136" y="166">O</text>
+    <text x="254" y="166">(1, 0)</text>
+    <text x="196" y="60">P(cos θ, sin θ)</text>
+    <text x="172" y="104">1</text>
+    <text x="183" y="140">θ</text>
+  </g>
+  <g font-size="13" font-family="inherit">
+    <text x="182" y="168" text-anchor="middle" fill="var(--t1-ink)">cos θ</text>
+    <text x="220" y="116" fill="var(--t5-ink)">sin θ</text>
+  </g>
+</svg>

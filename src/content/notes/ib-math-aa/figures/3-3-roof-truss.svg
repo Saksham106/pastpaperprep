@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="t">
+  <title id="t">Roof truss: a horizontal bottom beam AB, sloping beams of 5.2 m from A and 3.8 m from B meeting at the ridge R at 98 degrees, and a dashed vertical height h from R down to M on AB</title>
+  <line x1="20" y1="180" x2="294" y2="180" stroke="currentColor" stroke-width="2.5"/>
+  <line x1="20" y1="180" x2="194" y2="66" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="294" y1="180" x2="194" y2="66" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <line x1="194" y1="66" x2="194" y2="180" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <polyline points="184,180 184,170 194,170" fill="none" stroke="currentColor" stroke-width="1"/>
+  <path d="M179.4,75.6 A17.5,17.5 0 0 0 205.5,79.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <g fill="currentColor">
+    <circle cx="20" cy="180" r="3.5"/>
+    <circle cx="294" cy="180" r="3.5"/>
+    <circle cx="194" cy="66" r="3.5"/>
+    <circle cx="194" cy="180" r="3"/>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="8" y="200" font-style="italic">A</text>
+    <text x="290" y="200" font-style="italic">B</text>
+    <text x="188" y="56" font-style="italic">R</text>
+    <text x="188" y="200" font-style="italic">M</text>
+    <text x="80" y="112" fill="var(--t1-ink)">5.2 m</text>
+    <text x="250" y="116" fill="var(--t3-ink)">3.8 m</text>
+    <text x="180" y="104">98°</text>
+    <text x="200" y="140" font-style="italic">h</text>
+    <text x="96" y="214" opacity="0.7">bottom beam (horizontal)</text>
+  </g>
+</svg>

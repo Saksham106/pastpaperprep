@@ -1,0 +1,687 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.5",
+  "slug": "exponents-and-introductory-logarithms",
+  "title": "Exponents and introductory logarithms",
+  "level": "SL",
+  "topic": 1,
+  "summary": "An [[exponent|exponent]] counts how many copies of a number you multiply together. A few laws let you multiply, divide and raise powers quickly, and they explain what zero and negative exponents mean. A [[logarithm|logarithm]] runs the other way: $\\log_{a} b$ is the exponent that turns $a$ into $b$. Your GDC evaluates logs in base $10$ and base $\\mathrm{e}$.",
+  "goals": [
+    {
+      "text": "Multiply, divide and raise powers with the laws of exponents.",
+      "bullets": [
+        "1.5-b1"
+      ]
+    },
+    {
+      "text": "Use zero and negative exponents, and rewrite a term such as $\\frac{2}{x^{3}}$ as $2x^{-3}$.",
+      "bullets": [
+        "1.5-b1"
+      ]
+    },
+    {
+      "text": "Switch between $a^{x} = b$ and $\\log_{a} b = x$, and explain why $b$ must be positive.",
+      "bullets": [
+        "1.5-b2"
+      ]
+    },
+    {
+      "text": "Recognise $\\log_{10} x$ and the [[natural-logarithm|natural logarithm]] $\\ln x = \\log_{\\mathrm{e}} x$.",
+      "bullets": [
+        "1.5-b2"
+      ]
+    },
+    {
+      "text": "Evaluate logarithms with your GDC, in base $10$, base $\\mathrm{e}$ and any other base.",
+      "bullets": [
+        "1.5-b3"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "laws of indices",
+    "index laws",
+    "negative exponents",
+    "what is a logarithm",
+    "log base 10",
+    "natural log ln"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-power-value",
+      "prompt": "Evaluate $3^{4}$.",
+      "hint": "Multiply four $3$s together.",
+      "answer": {
+        "value": 81,
+        "tolerance": 0
+      },
+      "explain": "$3^{4} = 3 \\times 3 \\times 3 \\times 3 = 81$."
+    },
+    {
+      "type": "check",
+      "id": "before-minus-square",
+      "prompt": "What is the value of $-3^{2}$?",
+      "hint": "The power is done before the minus sign, unless brackets say otherwise.",
+      "options": [
+        {
+          "text": "$9$",
+          "correct": false
+        },
+        {
+          "text": "$-9$",
+          "correct": true
+        },
+        {
+          "text": "$-6$",
+          "correct": false
+        },
+        {
+          "text": "$6$",
+          "correct": false
+        }
+      ],
+      "explain": "Only the $3$ is squared, so $-3^{2} = -(3^{2}) = -9$. With brackets, $(-3)^{2} = 9$."
+    },
+    {
+      "type": "check",
+      "id": "before-reciprocal",
+      "prompt": "What is the reciprocal of $\\frac{2}{5}$?",
+      "hint": "The reciprocal of a number is what you multiply it by to get $1$.",
+      "options": [
+        {
+          "text": "$-\\frac{2}{5}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{5}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$-\\frac{5}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "Flip the fraction: $\\frac{2}{5} \\times \\frac{5}{2} = 1$, so the reciprocal is $\\frac{5}{2}$. A reciprocal never changes the sign."
+    }
+  ],
+  "sections": [
+    {
+      "id": "laws",
+      "heading": "The laws of exponents",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Look at $2^{3} \\times 2^{4}$. Write each power out: $(2 \\times 2 \\times 2) \\times (2 \\times 2 \\times 2 \\times 2)$. That is seven $2$s multiplied together, so it equals $2^{7}$. You add the [[exponent|exponents]]."
+        },
+        {
+          "type": "definition",
+          "term": "exponent",
+          "statement": "In $a^{n}$, the number $a$ is the base and $n$ is the exponent (also called the index or power). For a positive integer $n$, $a^{n}$ is $n$ copies of $a$ multiplied together.",
+          "plain": "The exponent counts how many copies of the base you multiply."
+        },
+        {
+          "type": "text",
+          "text": "The same counting gives every law. Dividing cancels copies, so you subtract exponents. Raising a power to a power repeats a whole block of copies, so you multiply exponents."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{m} \\times a^{n} = a^{m+n} \\qquad \\frac{a^{m}}{a^{n}} = a^{m-n} \\qquad \\left(a^{m}\\right)^{n} = a^{mn}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "A power of a product or a quotient goes onto every factor inside the bracket. For example, $(5x)^{2} = 5x \\times 5x = 25x^{2}$."
+        },
+        {
+          "type": "formula",
+          "tex": "(ab)^{n} = a^{n}b^{n} \\qquad \\left(\\frac{a}{b}\\right)^{n} = \\frac{a^{n}}{b^{n}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "These laws work only when the bases match: $2^{3} \\times 5^{4}$ can't be written as one power. They aren't in the formula booklet, so learn them."
+        },
+        {
+          "type": "example",
+          "id": "ex-laws-algebra",
+          "question": "Simplify $\\frac{(3x^{2}y)^{3}}{9x^{4}y}$.",
+          "steps": [
+            "Raise every factor in the bracket to the power $3$: $(3x^{2}y)^{3} = 3^{3}\\left(x^{2}\\right)^{3}y^{3} = 27x^{6}y^{3}$.",
+            "Now divide, taking the numbers, the $x$s and the $y$s separately. Numbers: $\\frac{27}{9} = 3$.",
+            "For $x$, subtract the exponents: $\\frac{x^{6}}{x^{4}} = x^{2}$.",
+            "For $y$, remember that $y = y^{1}$: $\\frac{y^{3}}{y^{1}} = y^{2}$.",
+            "Put the parts together: $3x^{2}y^{2}$."
+          ],
+          "answer": "$\\frac{(3x^{2}y)^{3}}{9x^{4}y} = 3x^{2}y^{2}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-laws-bracket",
+          "prompt": "Simplify $(2a^{3})^{4}$.",
+          "hint": "The power $4$ goes onto the $2$ and onto $a^{3}$.",
+          "options": [
+            {
+              "text": "$2a^{12}$",
+              "correct": false
+            },
+            {
+              "text": "$16a^{12}$",
+              "correct": true
+            },
+            {
+              "text": "$8a^{12}$",
+              "correct": false
+            },
+            {
+              "text": "$16a^{7}$",
+              "correct": false
+            }
+          ],
+          "explain": "$(2a^{3})^{4} = 2^{4}\\left(a^{3}\\right)^{4} = 16a^{12}$. Leaving the $2$ alone gives $2a^{12}$, and $2 \\times 4$ gives $8a^{12}$. Adding $3 + 4$ gives the wrong exponent $7$."
+        },
+        {
+          "type": "text",
+          "text": "Exam questions often mix bases such as $3$, $9$ and $27$. Rewrite each as a power of the smallest base first."
+        },
+        {
+          "type": "example",
+          "id": "ex-laws-find-n",
+          "question": "Given that $\\frac{9^{4} \\times 27}{3^{n}} = 3^{5}$, find $n$.",
+          "steps": [
+            "Write each base as a power of $3$: $9 = 3^{2}$ and $27 = 3^{3}$.",
+            "Use the power of a power law: $9^{4} = \\left(3^{2}\\right)^{4} = 3^{8}$.",
+            "Combine the top: $3^{8} \\times 3^{3} = 3^{11}$. Then divide: $\\frac{3^{11}}{3^{n}} = 3^{11-n}$.",
+            "Now $3^{11-n} = 3^{5}$. The bases match, so the exponents are equal: $11 - n = 5$.",
+            "So $n = 6$. Check: $\\frac{3^{11}}{3^{6}} = 3^{5}$."
+          ],
+          "answer": "$n = 6$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-laws-find-n",
+          "prompt": "Given that $8^{2} \\times 2^{n} = 4^{5}$, find $n$.",
+          "hint": "Write $8$ and $4$ as powers of $2$ first.",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "$8^{2} = \\left(2^{3}\\right)^{2} = 2^{6}$ and $4^{5} = \\left(2^{2}\\right)^{5} = 2^{10}$. So $2^{6+n} = 2^{10}$, which gives $6 + n = 10$ and $n = 4$."
+        }
+      ]
+    },
+    {
+      "id": "zero-negative",
+      "heading": "Zero and negative exponents",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "What could $2^{0}$ or $2^{-1}$ mean? Look at a pattern: $2^{3} = 8$, $2^{2} = 4$, $2^{1} = 2$. Each time the [[exponent|exponent]] drops by $1$, the value halves."
+        },
+        {
+          "type": "text",
+          "text": "Keep halving. Next come $2^{0} = 1$, then $2^{-1} = \\frac{1}{2}$, then $2^{-2} = \\frac{1}{4}$. A negative exponent gives the reciprocal of the positive power."
+        },
+        {
+          "type": "text",
+          "text": "The quotient law agrees. $\\frac{a^{3}}{a^{3}} = a^{3-3} = a^{0}$, and anything divided by itself is $1$. Also $\\frac{a^{2}}{a^{5}} = a^{-3}$, while cancelling gives $\\frac{1}{a^{3}}$."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{0} = 1 \\qquad a^{-n} = \\frac{1}{a^{n}} \\qquad (a \\neq 0)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "All the laws above work for any integer exponents, negative or zero. For example, $x^{4} \\times x^{-7} = x^{4-7} = x^{-3}$ and $\\left(x^{-2}\\right)^{3} = x^{-6}$."
+        },
+        {
+          "type": "text",
+          "text": "For a fraction, a negative exponent flips it: $\\left(\\frac{a}{b}\\right)^{-n} = \\left(\\frac{b}{a}\\right)^{n}$. A negative exponent never makes the value negative: $2^{-3} = \\frac{1}{8}$, not $-8$."
+        },
+        {
+          "type": "text",
+          "text": "Watch what the exponent is attached to. In $2x^{-3}$ only $x$ has the exponent, so $2x^{-3} = \\frac{2}{x^{3}}$. In $(2x)^{-3}$ the whole bracket has it, so $(2x)^{-3} = \\frac{1}{8x^{3}}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-negative-evaluate",
+          "question": "Find the exact value of $4^{-2} + \\left(\\frac{2}{5}\\right)^{-1} - 9^{0}$.",
+          "steps": [
+            "A negative exponent is a reciprocal: $4^{-2} = \\frac{1}{4^{2}} = \\frac{1}{16}$.",
+            "A power of $-1$ flips the fraction: $\\left(\\frac{2}{5}\\right)^{-1} = \\frac{5}{2}$.",
+            "Any non-zero number to the power $0$ is $1$: $9^{0} = 1$.",
+            "Use a common denominator of $16$: $\\frac{1}{16} + \\frac{40}{16} - \\frac{16}{16} = \\frac{25}{16}$."
+          ],
+          "answer": "$4^{-2} + \\left(\\frac{2}{5}\\right)^{-1} - 9^{0} = \\frac{25}{16}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-coefficient-negative",
+          "prompt": "Which expression is equal to $3x^{-2}$?",
+          "hint": "Which part carries the exponent $-2$: the $3$, the $x$, or both?",
+          "options": [
+            {
+              "text": "$\\frac{1}{3x^{2}}$",
+              "correct": false
+            },
+            {
+              "text": "$-3x^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{x^{2}}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{9x^{2}}$",
+              "correct": false
+            }
+          ],
+          "explain": "Only $x$ has the exponent, so $3x^{-2} = 3 \\times \\frac{1}{x^{2}} = \\frac{3}{x^{2}}$. The option $\\frac{1}{9x^{2}}$ is $(3x)^{-2}$ instead."
+        },
+        {
+          "type": "text",
+          "text": "Calculus often needs the reverse: write a fraction as a term $ax^{n}$. Move the power of $x$ from the bottom to the top and make its exponent negative. The number stays where it is. You'll use this to differentiate in {{lesson:5.3}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-negative-form",
+          "question": "Write $\\frac{5}{2x^{3}} - \\frac{4}{x}$ in the form $ax^{p} + bx^{q}$, where $a$, $b$, $p$ and $q$ are constants.",
+          "steps": [
+            "Split the first term: $\\frac{5}{2x^{3}} = \\frac{5}{2} \\times \\frac{1}{x^{3}}$.",
+            "Use $\\frac{1}{x^{3}} = x^{-3}$, so the first term is $\\frac{5}{2}x^{-3}$. The $2$ stays in the number $\\frac{5}{2}$.",
+            "For the second term, $x = x^{1}$, so $\\frac{4}{x} = 4x^{-1}$.",
+            "Combine: $\\frac{5}{2}x^{-3} - 4x^{-1}$. So $a = \\frac{5}{2}$, $p = -3$, $b = -4$ and $q = -1$.",
+            "Check with $x = 1$: the original gives $\\frac{5}{2} - 4 = -\\frac{3}{2}$, and so does the new form."
+          ],
+          "answer": "$\\frac{5}{2x^{3}} - \\frac{4}{x} = \\frac{5}{2}x^{-3} - 4x^{-1}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Moving the number with the letter. In $\\frac{5}{2x^{3}}$ only $x^{3}$ moves to the top, so it is $\\frac{5}{2}x^{-3}$, not $10x^{-3}$."
+        },
+        {
+          "type": "check",
+          "id": "check-negative-fraction",
+          "prompt": "Find the exact value of $\\left(\\frac{2}{3}\\right)^{-3}$.",
+          "hint": "Flip the fraction first, then cube it.",
+          "options": [
+            {
+              "text": "$-\\frac{8}{27}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{8}{27}$",
+              "correct": false
+            },
+            {
+              "text": "$-2$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{27}{8}$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\left(\\frac{2}{3}\\right)^{-3} = \\left(\\frac{3}{2}\\right)^{3} = \\frac{27}{8}$. The negative exponent flips the fraction; it doesn't make the answer negative."
+        }
+      ]
+    },
+    {
+      "id": "logs",
+      "heading": "What a logarithm is",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now ask the question the other way round: $2$ to what power gives $32$? You know $2^{5} = 32$, so the answer is $5$. A [[logarithm|logarithm]] is the name for that missing [[exponent|exponent]]."
+        },
+        {
+          "type": "definition",
+          "term": "logarithm",
+          "statement": "For $a > 0$, $a \\neq 1$ and $b > 0$, $\\log_{a} b$ is the number $x$ such that $a^{x} = b$. The number $a$ is the base of the logarithm.",
+          "plain": "A logarithm is the exponent you need to turn the base into the given number."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{x} = b \\;\\Leftrightarrow\\; x = \\log_{a} b, \\quad \\text{for } a > 0,\\ a \\neq 1,\\ b > 0",
+          "tag": "booklet",
+          "bookletId": "bk-1-5-log-definition",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This link is in the formula booklet, so you needn't memorise it. You do need to use it both ways. The arrow $\\Leftrightarrow$ means each statement implies the other."
+        },
+        {
+          "type": "text",
+          "text": "In $2^{5} = 32$ the base is $2$ and the exponent is $5$. In log form the base stays the base, and the log equals the exponent: $\\log_{2} 32 = 5$."
+        },
+        {
+          "type": "check",
+          "id": "check-log-form",
+          "prompt": "Which is $6^{3} = 216$ written in logarithmic form?",
+          "hint": "The base of the power becomes the base of the log, and the log equals the exponent.",
+          "options": [
+            {
+              "text": "$\\log_{3} 216 = 6$",
+              "correct": false
+            },
+            {
+              "text": "$\\log_{216} 6 = 3$",
+              "correct": false
+            },
+            {
+              "text": "$\\log_{6} 216 = 3$",
+              "correct": true
+            },
+            {
+              "text": "$\\log_{6} 3 = 216$",
+              "correct": false
+            }
+          ],
+          "explain": "The base is $6$ and the exponent is $3$, so $\\log_{6} 216 = 3$. It asks: $6$ to what power gives $216$?"
+        },
+        {
+          "type": "text",
+          "text": "Why must $b$ be positive? A positive base raised to any power gives a positive number. So $2^{x}$ is never $0$ or negative, and $\\log_{2} 0$ and $\\log_{2}(-8)$ don't exist."
+        },
+        {
+          "type": "text",
+          "text": "Why must $a \\neq 1$? Every power of $1$ is $1$, so a base of $1$ can't produce any other number."
+        },
+        {
+          "type": "interactive",
+          "widget": "exp-log-reflection",
+          "props": {
+            "a": 2
+          },
+          "alt": "The curve y equals 2 to the power x with a draggable point. A readout shows log base 2 of the point's height, which equals its x-coordinate. A mirror curve and a slider for the base are also shown."
+        },
+        {
+          "type": "text",
+          "text": "Drag the point along $y = 2^{x}$. At $x = 2$ its height is $4$, and the readout gives $\\log_{2} 4 = 2$. The mirror curve, $y = \\log_{2} x$, comes in {{lesson:2.9}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-log-negative-value",
+          "question": "Find the value of $\\log_{5} \\frac{1}{125}$.",
+          "steps": [
+            "Let $x = \\log_{5} \\frac{1}{125}$. By the definition, $5^{x} = \\frac{1}{125}$.",
+            "Write $125$ as a power of $5$: $125 = 5^{3}$.",
+            "A reciprocal is a negative exponent: $\\frac{1}{125} = \\frac{1}{5^{3}} = 5^{-3}$.",
+            "So $5^{x} = 5^{-3}$, which gives $x = -3$."
+          ],
+          "answer": "$\\log_{5} \\frac{1}{125} = -3$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-log-undefined",
+          "prompt": "Which of these logarithms does not exist?",
+          "hint": "Can a positive base, raised to some power, give the number inside the log?",
+          "options": [
+            {
+              "text": "$\\log_{3} \\frac{1}{9}$",
+              "correct": false
+            },
+            {
+              "text": "$\\log_{2}(-8)$",
+              "correct": true
+            },
+            {
+              "text": "$\\log_{10} 0.01$",
+              "correct": false
+            },
+            {
+              "text": "$\\log_{7} 49$",
+              "correct": false
+            }
+          ],
+          "explain": "$2^{x}$ is positive for every $x$, so it can never equal $-8$. The others exist: they equal $-2$, $-2$ and $2$."
+        },
+        {
+          "type": "text",
+          "text": "The definition also solves equations that contain a log. Rewrite the log statement in exponent form, then solve."
+        },
+        {
+          "type": "example",
+          "id": "ex-log-solve-argument",
+          "question": "Solve $\\log_{2}(x + 3) = 5$.",
+          "steps": [
+            "Use the definition with base $2$: $\\log_{2}(x + 3) = 5$ means $x + 3 = 2^{5}$.",
+            "Evaluate the power: $2^{5} = 32$, so $x + 3 = 32$.",
+            "Subtract $3$: $x = 29$.",
+            "Check: $x + 3 = 32$ is positive, so the log exists, and $\\log_{2} 32 = 5$."
+          ],
+          "answer": "$x = 29$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Losing the base. $\\log_{2} y = 1$ means $y = 2^{1} = 2$, not $y = 1$. The base of the log always becomes the base of the power."
+        },
+        {
+          "type": "check",
+          "id": "check-log-solve",
+          "prompt": "Solve $\\log_{3} x = -2$.",
+          "hint": "Write it in exponent form with base $3$.",
+          "options": [
+            {
+              "text": "$x = -9$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{1}{9}$",
+              "correct": true
+            },
+            {
+              "text": "$x = -6$",
+              "correct": false
+            },
+            {
+              "text": "$x = 9$",
+              "correct": false
+            }
+          ],
+          "explain": "In exponent form, $x = 3^{-2} = \\frac{1}{9}$. A negative log means a number between $0$ and $1$, not a negative number."
+        }
+      ]
+    },
+    {
+      "id": "base-10-and-e",
+      "heading": "Base 10, base e and your calculator",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two bases are used so often that your calculator has a key for each. Base $10$ suits our number system: $\\log_{10} 1000 = 3$ because $10^{3} = 1000$."
+        },
+        {
+          "type": "text",
+          "text": "The other is base $\\mathrm{e}$, where $\\mathrm{e} = 2.71828\\ldots$ is an irrational number, like $\\pi$. It appears whenever something grows at a rate proportional to its size. You'll meet $\\mathrm{e}^{x}$ properly in {{lesson:2.9}}."
+        },
+        {
+          "type": "definition",
+          "term": "natural logarithm",
+          "statement": "The [[logarithm|logarithm]] with base $\\mathrm{e}$ is the [[natural-logarithm|natural logarithm]], written $\\ln x = \\log_{\\mathrm{e}} x$, for $x > 0$.",
+          "plain": "ln is a log whose base is the number e."
+        },
+        {
+          "type": "formula",
+          "tex": "\\ln x = \\log_{\\mathrm{e}} x",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "On a GDC, the log key gives $\\log_{10}$ and the ln key gives $\\ln$. Exam questions usually write the base out, as in $\\log_{10} x$."
+        },
+        {
+          "type": "text",
+          "text": "So $10^{x} = b$ and $\\mathrm{e}^{x} = b$ take one step each: $x = \\log_{10} b$ and $x = \\ln b$. For example, $10^{x} = 0.045$ gives $x = \\log_{10} 0.045 = -1.346\\ldots$, which is negative because $0.045 < 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-solve-e-power",
+          "question": "Solve $\\mathrm{e}^{2x} = 30$. Give your answer to 3 s.f.",
+          "steps": [
+            "The whole [[exponent|exponent]] is $2x$. Use the definition with base $\\mathrm{e}$: $2x = \\ln 30$.",
+            "Divide by $2$: $x = \\frac{\\ln 30}{2}$. This is the exact answer.",
+            "Evaluate: $\\ln 30 = 3.401197\\ldots$, so $x = 1.700598\\ldots$",
+            "Round only at the end, and keep the final zero so it shows 3 s.f.: $x \\approx 1.70$."
+          ],
+          "answer": "$x \\approx 1.70$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "On Paper 1, leave an answer such as $x = \\frac{\\ln 30}{2}$ exact. On Paper 2, write the log you evaluate before the decimal, and round to 3 s.f. unless told otherwise."
+        },
+        {
+          "type": "check",
+          "id": "check-ten-solve",
+          "prompt": "Solve $10^{x} = 0.3$. Give your answer to 3 s.f.",
+          "hint": "Write it as $x = \\log_{10}(\\dots)$, then use the log key.",
+          "answer": {
+            "value": -0.523,
+            "tolerance": 0.0005
+          },
+          "explain": "By the definition, $x = \\log_{10} 0.3 = -0.52287\\ldots \\approx -0.523$."
+        },
+        {
+          "type": "text",
+          "text": "For any other base, use the definition. $\\log_{2} 50$ is the $x$ with $2^{x} = 50$, so find where $y = 2^{x}$ meets $y = 50$. This works on every GDC. In {{lesson:1.7}} you'll also meet the change of base rule."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-base-two",
+          "question": "Use your calculator to find $\\log_{2} 50$. Give your answer to 3 s.f.",
+          "steps": [
+            "Estimate first: $2^{5} = 32$ and $2^{6} = 64$, so $\\log_{2} 50$ lies between $5$ and $6$.",
+            "Write down the equation you solve: $2^{x} = 50$.",
+            "Graph $y = 2^{x}$ and $y = 50$ and find where they meet: $x = 5.643856\\ldots$",
+            "Round to 3 s.f.: $\\log_{2} 50 \\approx 5.64$. It lies between $5$ and $6$, as the estimate said."
+          ],
+          "answer": "$\\log_{2} 50 \\approx 5.64$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = 2^X and Y2 = 50, then GRAPH",
+              "WINDOW: X from 0 to 8, Y from 0 to 70 (check on your model)",
+              "2nd TRACE (CALC), 5: intersect, then ENTER three times",
+              "Read X = 5.6438..."
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = 2^x and f2(x) = 50",
+              "Menu, Window/Zoom, Window Settings: x from 0 to 8, y from 0 to 70 (check on your model)",
+              "Menu, Analyze Graph, Intersection; click either side of the crossing",
+              "Read x = 5.6438..."
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = 2^X and Y2 = 50",
+              "SHIFT F3 (V-Window): Xmin 0, Xmax 8, Ymin 0, Ymax 70 (check on your model)",
+              "DRAW, then SHIFT F5 (G-SOLV), INTSECT",
+              "Read X = 5.6438..."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ph-concentration",
+          "prompt": "Chemists measure acidity by $\\mathrm{pH} = -\\log_{10} h$, where $h$ is the hydrogen ion concentration. A solution has $\\mathrm{pH} = 5.6$. Find $h$, to 3 s.f.",
+          "hint": "First make $\\log_{10} h$ the subject. Then write it in exponent form with base $10$.",
+          "options": [
+            {
+              "text": "$h \\approx 3.98 \\times 10^{5}$",
+              "correct": false
+            },
+            {
+              "text": "$h \\approx 2.51 \\times 10^{-6}$",
+              "correct": true
+            },
+            {
+              "text": "$h \\approx 3.70 \\times 10^{-3}$",
+              "correct": false
+            },
+            {
+              "text": "$h \\approx 0.748$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\log_{10} h = -5.6$, so $h = 10^{-5.6} = 2.511\\ldots \\times 10^{-6}$. Losing the minus sign gives $10^{5.6}$, and using base $\\mathrm{e}$ gives $3.70 \\times 10^{-3}$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Same base: multiply means add exponents, divide means subtract, and a power of a power means multiply. A power of a bracket goes onto every factor inside.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$a^{0} = 1$ and $a^{-n} = \\frac{1}{a^{n}}$. A negative exponent gives a reciprocal, never a negative number, and $2x^{-3} = \\frac{2}{x^{3}}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "a^{x} = b \\;\\Leftrightarrow\\; x = \\log_{a} b, \\quad \\text{for } a > 0,\\ a \\neq 1,\\ b > 0",
+          "tag": "booklet",
+          "bookletId": "bk-1-5-log-definition",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "You can only take the log of a positive number. A logarithm itself can be negative: $\\log_{5} \\frac{1}{125} = -3$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\ln x = \\log_{\\mathrm{e}} x$. Solve $10^{x} = b$ with $x = \\log_{10} b$, and $\\mathrm{e}^{x} = b$ with $x = \\ln b$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For a log in another base on the GDC, solve $a^{x} = b$ by intersecting $y = a^{x}$ with $y = b$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving part of a bracket out of the power. $(2x)^{4} = 16x^{4}$, not $2x^{4}$: the exponent applies to every factor inside the bracket.",
+    "Multiplying exponents when you multiply powers. $a^{3} \\times a^{4} = a^{7}$; you multiply exponents only for a power of a power, $\\left(a^{3}\\right)^{4} = a^{12}$.",
+    "Misreading a negative exponent. $2^{-3} = \\frac{1}{8}$, not $-8$. And $2x^{-3} = \\frac{2}{x^{3}}$, not $\\frac{1}{2x^{3}}$, because only $x$ carries the $-3$.",
+    "Losing the base when you write a number as a log. To write $3$ as a base-$3$ log, use $3 = \\log_{3} 27$, not $\\log_{3} 3$, which equals $1$.",
+    "Taking the log of zero or a negative number. $\\log_{10} 0$ and $\\ln(-2)$ don't exist, so check that what is inside every log is positive."
+  ],
+  "examTips": [
+    "Write down the value of a log such as $\\log_{2} 32$: no working is needed. Ask yourself what power of $2$ gives $32$.",
+    "Simplify, or express in the form $ax^{n}$: the final answer has one number and one power of each letter. Follow any instruction about positive or negative exponents."
+  ],
+  "readingMinutes": 22
+}

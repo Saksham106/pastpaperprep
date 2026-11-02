@@ -1,0 +1,544 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.13",
+  "slug": "rational-functions",
+  "title": "Rational functions",
+  "level": "AHL",
+  "topic": 2,
+  "summary": "A [[rational-function|rational function]] is one polynomial divided by another. At HL the top or the bottom can be quadratic, so the graph can have two vertical [[asymptote|asymptotes]] or a slanted one. You'll find every asymptote, the intercepts and the range, then sketch the graph.",
+  "goals": [
+    {
+      "text": "Find the vertical and horizontal asymptotes of $y = \\frac{ax + b}{cx^{2} + dx + e}$, and see $y = \\frac{1}{x}$ as the simplest case.",
+      "bullets": [
+        "2.13-b1",
+        "2.13-b2"
+      ]
+    },
+    {
+      "text": "Divide to find the [[oblique-asymptote|oblique asymptote]] of $y = \\frac{ax^{2} + bx + c}{dx + e}$.",
+      "bullets": [
+        "2.13-b1",
+        "2.13-b2"
+      ]
+    },
+    {
+      "text": "Sketch a rational function with every asymptote and axis intercept labelled.",
+      "bullets": [
+        "2.13-b2"
+      ]
+    },
+    {
+      "text": "Find the range of a rational function from its turning points.",
+      "bullets": [
+        "2.13-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.8",
+    "2.12"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "oblique asymptote",
+    "slant asymptote",
+    "quadratic over linear",
+    "linear over quadratic",
+    "sketch a rational function",
+    "range of a rational function"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-horizontal-linear",
+      "prompt": "What is the horizontal asymptote of the graph of $y = \\frac{4x - 1}{2x + 5}$?",
+      "hint": "Divide the coefficients of $x$, top over bottom.",
+      "options": [
+        {
+          "text": "$y = 2$",
+          "correct": true
+        },
+        {
+          "text": "$y = -\\frac{1}{5}$",
+          "correct": false
+        },
+        {
+          "text": "$x = -\\frac{5}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{4}{2} = 2$, so the horizontal asymptote is $y = 2$. $y = -\\frac{1}{5}$ divides the constants, and $x = -\\frac{5}{2}$ is the vertical asymptote. Revise it in {{lesson:2.8}}."
+    },
+    {
+      "type": "check",
+      "id": "before-remainder",
+      "prompt": "Find the remainder when $x^{2} + 5x + 1$ is divided by $x + 2$.",
+      "hint": "By the remainder theorem, substitute the value of $x$ that makes $x + 2 = 0$.",
+      "answer": {
+        "value": -5,
+        "tolerance": 0
+      },
+      "explain": "Put $x = -2$: $4 - 10 + 1 = -5$. Revise it in {{lesson:2.12}}."
+    },
+    {
+      "type": "check",
+      "id": "before-quadratic-zeros",
+      "prompt": "Solve $x^{2} - 2x - 15 = 0$.",
+      "hint": "Find two numbers that multiply to $-15$ and add to $-2$.",
+      "options": [
+        {
+          "text": "$x = -3 \\text{ or } x = 5$",
+          "correct": true
+        },
+        {
+          "text": "$x = 3 \\text{ or } x = -5$",
+          "correct": false
+        },
+        {
+          "text": "$x = -3 \\text{ or } x = -5$",
+          "correct": false
+        }
+      ],
+      "explain": "$x^{2} - 2x - 15 = (x + 3)(x - 5)$, so $x = -3$ or $x = 5$. Revise it in {{lesson:2.12}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "linear-over-quadratic",
+      "heading": "Linear over quadratic",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.8}} the top and the bottom of a [[rational-function|rational function]] were both linear. Now the bottom can be quadratic: $f(x) = \\frac{ax + b}{cx^{2} + dx + e}$, with $c \\ne 0$."
+        },
+        {
+          "type": "text",
+          "text": "Take $f(x) = \\frac{2x + 1}{x^{2} - 4x - 5}$. Far out, the $x^{2}$ on the bottom grows much faster than the $2x$ on top. For example, $f(100) = \\frac{201}{9595} \\approx 0.021$. So the graph flattens towards the $x$-axis."
+        },
+        {
+          "type": "text",
+          "text": "The bottom factorises as $(x + 1)(x - 5)$, so it is 0 at $x = -1$ and at $x = 5$. Near each of these values the fraction blows up. So the graph has two vertical [[asymptote|asymptotes]], not one."
+        },
+        {
+          "type": "result",
+          "statement": "The graph of $y = \\frac{ax + b}{cx^{2} + dx + e}$ has a vertical asymptote at each real root of $cx^{2} + dx + e = 0$ where the top is not 0. Its horizontal asymptote is $y = 0$.",
+          "why": "Divide the top and the bottom by $x^{2}$. As $x \\to \\pm\\infty$ the top tends to 0 and the bottom tends to $c$, so the fraction tends to 0."
+        },
+        {
+          "type": "formula",
+          "tex": "y = \\frac{ax + b}{cx^{2} + dx + e}: \\quad \\text{vertical asymptotes where } cx^{2} + dx + e = 0 \\text{ and } ax + b \\ne 0, \\quad \\text{horizontal asymptote } y = 0",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Learn this: it isn't in the formula booklet. The [[discriminant|discriminant]] of the bottom tells you whether there are two, one or no vertical asymptotes."
+        },
+        {
+          "type": "text",
+          "text": "Check that the top isn't 0 at the same $x$. In $\\frac{x - 1}{x^{2} - 1}$ both are 0 at $x = 1$. The factor $x - 1$ cancels, leaving $\\frac{1}{x + 1}$ with a gap at $x = 1$. Only $x = -1$ is an asymptote."
+        },
+        {
+          "type": "text",
+          "text": "The [[reciprocal-function|reciprocal function]] $y = \\frac{1}{x}$ is the simplest rational function: a constant on top and $x$ on the bottom. The same two rules give its asymptotes. The bottom is 0 at $x = 0$, and far out the fraction tends to 0, so $y = 0$."
+        },
+        {
+          "type": "text",
+          "text": "Unlike in {{lesson:2.8}}, this graph can cross its horizontal asymptote. It meets $y = 0$ where the top is 0, at $x = -\\frac{b}{a}$. It never crosses a vertical asymptote, because $f$ isn't defined there."
+        },
+        {
+          "type": "example",
+          "id": "ex-lq-asymptotes",
+          "question": "Let $f(x) = \\frac{2x + 1}{x^{2} - 4x - 5}$, for $x \\ne -1$, $x \\ne 5$. Find the equations of the vertical asymptotes of the graph of $f$.",
+          "steps": [
+            "Set the bottom equal to 0 and factorise: $x^{2} - 4x - 5 = (x + 1)(x - 5) = 0$.",
+            "So $x = -1$ or $x = 5$.",
+            "Check the top at each value: $2(-1) + 1 = -1$ and $2(5) + 1 = 11$. Neither is 0, so both lines are asymptotes, not gaps.",
+            "The bottom has the higher power of $x$, so the horizontal asymptote is $y = 0$. The graph crosses it at $x = -\\frac{1}{2}$, where the top is 0."
+          ],
+          "answer": "$x = -1 \\text{ and } x = 5$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing the asymptotes as $-1$ and $5$, or as $x \\ne -1$. The first are numbers and the second is a domain restriction. An asymptote is a line, so write $x = -1$ and $x = 5$."
+        },
+        {
+          "type": "check",
+          "id": "check-lq-horizontal",
+          "prompt": "What is the horizontal asymptote of the graph of $y = \\frac{5x - 1}{2x^{2} + 3}$?",
+          "hint": "Which has the higher power of $x$, the top or the bottom?",
+          "options": [
+            {
+              "text": "$y = 0$",
+              "correct": true
+            },
+            {
+              "text": "$y = \\frac{5}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$y = -\\frac{1}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "The bottom has $x^{2}$ and the top only $x$, so the fraction tends to 0: $y = 0$. $y = \\frac{5}{2}$ uses the linear-over-linear rule, which needs the same power on top and bottom. $y = -\\frac{1}{3}$ divides the constants."
+        },
+        {
+          "type": "text",
+          "text": "To sketch, you need to know whether the graph goes up or down beside each vertical asymptote. Signs are enough to decide."
+        },
+        {
+          "type": "text",
+          "text": "1. Draw each asymptote as a dashed line, labelled with its equation."
+        },
+        {
+          "type": "text",
+          "text": "2. Mark the intercepts as coordinates: $\\left(0, \\frac{b}{e}\\right)$ if $e \\ne 0$, and $\\left(-\\frac{b}{a}, 0\\right)$ if $a \\ne 0$."
+        },
+        {
+          "type": "text",
+          "text": "3. Find the sign of $f(x)$ just left and just right of each vertical asymptote. Positive means the curve shoots up. Negative means it plunges down."
+        },
+        {
+          "type": "text",
+          "text": "4. Join up each piece through its intercepts. Far out, each end gets close to $y = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-lq-sketch",
+          "question": "Let $h(x) = \\frac{6 - 2x}{x^{2} + 2x - 8}$, for $x \\ne -4$, $x \\ne 2$. (a) Write down the equations of the asymptotes of $y = h(x)$. (b) Find where the graph meets each axis, as coordinates. (c) Sketch $y = h(x)$.",
+          "steps": [
+            "(a) The bottom is $(x + 4)(x - 2)$, and the top is not 0 at $x = -4$ or $x = 2$. So the vertical asymptotes are $x = -4$ and $x = 2$. The bottom has the higher power, so the horizontal asymptote is $y = 0$.",
+            "(b) $h(0) = \\frac{6}{-8} = -\\frac{3}{4}$, so the $y$-intercept is $\\left(0, -\\frac{3}{4}\\right)$. The top is 0 when $x = 3$, so the $x$-intercept is $(3, 0)$.",
+            "(c) Near $x = 2$ the top is positive. At $x = 2.1$ the bottom is $(+)(+)$, so $h \\to +\\infty$. At $x = 1.9$ it is $(+)(-)$, so $h \\to -\\infty$.",
+            "Near $x = -4$ the top is positive too. At $x = -3.9$ the bottom is $(+)(-)$, so $h \\to -\\infty$. At $x = -4.1$ it is $(-)(-)$, so $h \\to +\\infty$.",
+            "So the middle piece comes up from $-\\infty$, passes through $\\left(0, -\\frac{3}{4}\\right)$ and falls back to $-\\infty$. It stays below the $x$-axis, since $h$ is 0 only at $x = 3$.",
+            "The right piece falls from $+\\infty$, crosses the axis at $(3, 0)$ and creeps back up to $y = 0$ from below. For $x < -4$ the top and the bottom are both positive, so the left piece lies above $y = 0$. Draw all three pieces as in the figure."
+          ],
+          "answer": "$\\left(0, -\\tfrac{3}{4}\\right) \\text{ and } (3, 0)$",
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "2-13-three-branches",
+          "alt": "Sketch of y equals 6 minus 2x over x squared plus 2x minus 8. Dashed vertical lines x equals minus 4 and x equals 2 split the graph into three pieces, and the x-axis is the horizontal asymptote. The left piece lies above the x-axis and rises steeply towards x equals minus 4. The middle piece lies below the x-axis: it comes up from far below next to x equals minus 4, passes through the point 0, minus three quarters, and falls steeply next to x equals 2. The right piece falls from high up next to x equals 2, crosses the x-axis at 3, 0, then approaches the x-axis from below.",
+          "caption": "Three pieces. The middle one sits between the vertical asymptotes, and the right one crosses $y = 0$ at $(3, 0)$."
+        },
+        {
+          "type": "check",
+          "id": "check-lq-vertical-count",
+          "prompt": "How many vertical asymptotes does the graph of $y = \\frac{x + 2}{x^{2} + 6x + 10}$ have?",
+          "hint": "Find the discriminant of the bottom.",
+          "answer": {
+            "value": 0,
+            "tolerance": 0
+          },
+          "explain": "$\\Delta = 6^{2} - 4(1)(10) = -4 < 0$, so the bottom is never 0. There are no vertical asymptotes, and the graph is one unbroken curve."
+        },
+        {
+          "type": "check",
+          "id": "check-lq-cross",
+          "prompt": "The graph of $y = \\frac{x - 6}{x^{2} + 4}$ crosses its horizontal asymptote at $x = k$. Find $k$.",
+          "hint": "The horizontal asymptote is $y = 0$. When is the fraction equal to 0?",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "explain": "The fraction is 0 when its top is 0: $x - 6 = 0$, so $k = 6$. The graph crosses $y = 0$ at $(6, 0)$."
+        }
+      ]
+    },
+    {
+      "id": "quadratic-over-linear",
+      "heading": "Quadratic over linear: oblique asymptotes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now swap them: a quadratic on top and a linear bottom, $f(x) = \\frac{ax^{2} + bx + c}{dx + e}$, with $a \\ne 0$ and $d \\ne 0$. The top grows faster than the bottom, so the graph doesn't level off. There is no horizontal [[asymptote|asymptote]]."
+        },
+        {
+          "type": "text",
+          "text": "Split $g(x) = \\frac{x^{2} + 1}{x}$ into $x + \\frac{1}{x}$. Far out, $\\frac{1}{x}$ is tiny, so $g(x)$ is close to $x$. For example, $g(10) = 10.1$. The graph hugs the slanted line $y = x$."
+        },
+        {
+          "type": "definition",
+          "term": "oblique asymptote",
+          "statement": "A line $y = mx + k$, with $m \\ne 0$, that a graph gets closer and closer to as $x \\to \\pm\\infty$.",
+          "plain": "A slanted line that the curve settles along, far out on both sides."
+        },
+        {
+          "type": "text",
+          "text": "To find it, divide the top by the bottom, as you did with polynomials in {{lesson:2.12}}. You get a linear quotient $px + q$ and a constant remainder $r$."
+        },
+        {
+          "type": "result",
+          "statement": "If $ax^{2} + bx + c = (px + q)(dx + e) + r$, then $\\frac{ax^{2} + bx + c}{dx + e} = px + q + \\frac{r}{dx + e}$. When $r \\ne 0$, the [[oblique-asymptote|oblique asymptote]] is $y = px + q$ and the vertical asymptote is $x = -\\frac{e}{d}$.",
+          "why": "As $x \\to \\pm\\infty$, $\\frac{r}{dx + e} \\to 0$, so $f(x)$ gets as close as you like to $px + q$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{ax^{2} + bx + c}{dx + e} = px + q + \\frac{r}{dx + e} \\quad \\Rightarrow \\quad \\text{oblique asymptote } y = px + q, \\quad \\text{vertical asymptote } x = -\\frac{e}{d}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-ql-division",
+          "question": "Let $f(x) = \\frac{x^{2} + 3x - 1}{x - 2}$, for $x \\ne 2$. Divide to find the equation of the oblique asymptote of $y = f(x)$.",
+          "steps": [
+            "Divide $x^{2} + 3x - 1$ by $x - 2$. First term: $x^{2} \\div x = x$. Subtract $x(x - 2) = x^{2} - 2x$ to leave $5x - 1$.",
+            "Next term: $5x \\div x = 5$. Subtract $5(x - 2) = 5x - 10$ to leave the remainder $9$.",
+            "So $f(x) = x + 5 + \\frac{9}{x - 2}$.",
+            "Check by expanding: $(x + 5)(x - 2) + 9 = x^{2} + 3x - 10 + 9 = x^{2} + 3x - 1$.",
+            "As $x \\to \\pm\\infty$, $\\frac{9}{x - 2} \\to 0$, so $f(x)$ gets close to $x + 5$. The vertical asymptote is $x = 2$."
+          ],
+          "answer": "$y = x + 5$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Instead of long division, you can compare coefficients. Write $ax^{2} + bx + c \\equiv (px + q)(dx + e) + r$ and expand. The $x^{2}$ terms give $p$, then the $x$ terms give $q$."
+        },
+        {
+          "type": "mistake",
+          "text": "Matching the constant terms to find $q$. The constant term also holds the remainder $r$, so only the $x^{2}$ and $x$ coefficients fix $p$ and $q$."
+        },
+        {
+          "type": "text",
+          "text": "The remainder term also tells you which side of the asymptote the curve is on. Where $\\frac{r}{dx + e} > 0$, the curve is above the line. Where it is negative, the curve is below."
+        },
+        {
+          "type": "check",
+          "id": "check-ql-oblique",
+          "prompt": "Which line is the oblique asymptote of $y = \\frac{x^{2} - x + 5}{x - 3}$?",
+          "hint": "Divide: start with $x^{2} \\div x = x$, then subtract $x(x - 3)$.",
+          "options": [
+            {
+              "text": "$y = x + 2$",
+              "correct": true
+            },
+            {
+              "text": "$y = x - 4$",
+              "correct": false
+            },
+            {
+              "text": "$y = x$",
+              "correct": false
+            },
+            {
+              "text": "$y = x - 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{2} - x + 5 = (x + 2)(x - 3) + 11$, so the asymptote is $y = x + 2$. $y = x - 4$ comes from dividing by $x + 3$ by mistake, $y = x$ keeps only the leading terms, and $y = x - 1$ ignores the $-3$ in the bottom."
+        },
+        {
+          "type": "example",
+          "id": "ex-ql-sketch",
+          "question": "Let $f(x) = \\frac{2x^{2} - 5x - 3}{x + 2}$, for $x \\ne -2$. (a) State the vertical asymptote as an equation. (b) Find the oblique asymptote. (c) Find the axis intercepts as coordinates. (d) Sketch $y = f(x)$.",
+          "steps": [
+            "(a) The bottom is 0 at $x = -2$, and the top there is $8 + 10 - 3 = 15 \\ne 0$. So the vertical asymptote is $x = -2$.",
+            "(b) Compare coefficients in $2x^{2} - 5x - 3 \\equiv (px + q)(x + 2) + r = px^{2} + (2p + q)x + 2q + r$.",
+            "The $x^{2}$ terms give $p = 2$. The $x$ terms give $2p + q = -5$, so $q = -9$. The constants give $2q + r = -3$, so $r = 15$. The oblique asymptote is $y = 2x - 9$.",
+            "(c) The top factorises as $(2x + 1)(x - 3)$, so the $x$-intercepts are $\\left(-\\frac{1}{2}, 0\\right)$ and $(3, 0)$. Also $f(0) = -\\frac{3}{2}$, so the $y$-intercept is $\\left(0, -\\frac{3}{2}\\right)$.",
+            "(d) $f(x) = 2x - 9 + \\frac{15}{x + 2}$. For $x > -2$ the last term is positive, so the right piece lies above $y = 2x - 9$. It comes down from $+\\infty$, passes through all three intercepts, then rises along the line.",
+            "For $x < -2$ the last term is negative, so the left piece lies below the line. It follows the line up from the far left, turns, then plunges to $-\\infty$ beside $x = -2$."
+          ],
+          "answer": "$y = 2x - 9$",
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "2-13-oblique-sketch",
+          "alt": "Sketch of y equals 2x squared minus 5x minus 3 over x plus 2. A dashed vertical line x equals minus 2 and a dashed slanted line y equals 2x minus 9 are the asymptotes. The right piece comes down from high up next to x equals minus 2, crosses the x-axis at minus a half, 0, passes through 0, minus three halves, crosses the x-axis again at 3, 0, then rises just above the slanted line. The left piece follows just below the slanted line from the far left, turns at a highest point, then falls steeply next to x equals minus 2.",
+          "caption": "The right piece sits above $y = 2x - 9$ and the left piece below it, as the sign of $\\frac{15}{x + 2}$ predicts."
+        },
+        {
+          "type": "check",
+          "id": "check-ql-unknown",
+          "prompt": "The graph of $y = \\frac{3x^{2} + bx + 1}{x + 2}$ has the oblique asymptote $y = 3x + 1$. Find $b$.",
+          "hint": "Write $3x^{2} + bx + 1 \\equiv (3x + 1)(x + 2) + r$ and compare the $x$ terms.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "$(3x + 1)(x + 2) = 3x^{2} + 7x + 2$, so the $x$ terms give $b = 7$. The constants then give $r = 1 - 2 = -1$, which doesn't affect $b$."
+        }
+      ]
+    },
+    {
+      "id": "range",
+      "heading": "Turning points and the range",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.8}} the range was every real number except one. Here the graph can turn. A [[local-maximum|local maximum]] on one piece and a [[local-minimum|local minimum]] on another can leave a band of $y$-values that the graph never reaches."
+        },
+        {
+          "type": "text",
+          "text": "The turning values themselves are reached. So the [[range|range]] uses $\\le$ and $\\ge$ at those values, not $<$ and $>$."
+        },
+        {
+          "type": "text",
+          "text": "Find the turning values with your GDC on Paper 2, or with calculus ({{lesson:5.8}}). An algebra method using the [[discriminant|discriminant]] ({{lesson:2.7}}) also works: rearrange to a quadratic in $x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-range-discriminant",
+          "question": "Let $g(x) = \\frac{4x}{x^{2} + 4}$, for $x \\in \\mathbb{R}$. Find the range of $g$.",
+          "steps": [
+            "The bottom, $x^{2} + 4$, is never 0, so there is no vertical [[asymptote|asymptote]]. The horizontal asymptote is $y = 0$.",
+            "Write $y = \\frac{4x}{x^{2} + 4}$ and multiply by $x^{2} + 4$: $yx^{2} + 4y = 4x$, so $yx^{2} - 4x + 4y = 0$.",
+            "A value $y$ is in the range when this equation has a real solution $x$. For $y \\ne 0$ it is a quadratic in $x$, so its discriminant must be $\\ge 0$: $(-4)^{2} - 4(y)(4y) \\ge 0$.",
+            "So $16 - 16y^{2} \\ge 0$, which gives $y^{2} \\le 1$ and $-1 \\le y \\le 1$. The value $y = 0$ is reached too, at $x = 0$.",
+            "Check the ends: $g(2) = \\frac{8}{8} = 1$ and $g(-2) = -1$. These are the local maximum and minimum values."
+          ],
+          "answer": "$-1 \\le y \\le 1$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-range-discriminant",
+          "prompt": "The range of $y = \\frac{2x}{x^{2} + 9}$ is $-k \\le y \\le k$. Find $k$. Give your answer to 3 s.f.",
+          "hint": "Rearrange to $yx^{2} - 2x + 9y = 0$ and make its discriminant $\\ge 0$.",
+          "answer": {
+            "value": 0.333,
+            "tolerance": 0.0005
+          },
+          "explain": "$(-2)^{2} - 4(y)(9y) \\ge 0$ gives $4 - 36y^{2} \\ge 0$, so $y^{2} \\le \\frac{1}{9}$. So $k = \\frac{1}{3} \\approx 0.333$."
+        },
+        {
+          "type": "text",
+          "text": "With a vertical asymptote, the range often has two parts. Each piece runs off to $+\\infty$ or $-\\infty$, and the gap sits between the turning values."
+        },
+        {
+          "type": "example",
+          "id": "ex-range-gdc",
+          "question": "Let $f(x) = \\frac{x^{2} + x + 7}{x - 3}$, for $x \\ne 3$. Use your calculator to find the range of $f$. Give the boundary values to 3 s.f.",
+          "steps": [
+            "Find the asymptotes first. The vertical one is $x = 3$. Dividing gives $f(x) = x + 4 + \\frac{19}{x - 3}$, so the oblique one is $y = x + 4$.",
+            "Graph $y = \\frac{x^{2} + x + 7}{x - 3}$. The left piece rises to a local maximum, then plunges to $-\\infty$ beside $x = 3$. The right piece falls from $+\\infty$ to a local minimum, then climbs along $y = x + 4$.",
+            "Use the maximum and minimum tools (keystrokes below). The local maximum is $(-1.3588\\ldots, -1.7177\\ldots)$ and the local minimum is $(7.3588\\ldots, 15.7177\\ldots)$.",
+            "The left piece takes every value up to $-1.7177\\ldots$, and the right piece every value from $15.7177\\ldots$ upwards. Nothing in between is reached.",
+            "Round only now. (The exact values are $7 - 2\\sqrt{19}$ and $7 + 2\\sqrt{19}$, which calculus or the discriminant gives.)"
+          ],
+          "answer": "$y \\le -1.72 \\text{ or } y \\ge 15.7$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = (X^2+X+7)/(X-3)",
+              "WINDOW, set Xmin=-10, Xmax=20, Ymin=-15, Ymax=30 (check on your model)",
+              "GRAPH, then 2nd, TRACE (CALC), 4: maximum",
+              "Left Bound at X=-6, Right Bound at X=2, then ENTER for Guess (check on your model)",
+              "Read Y=-1.7177...",
+              "2nd, TRACE (CALC), 3: minimum, with bounds X=4 and X=15, then read Y=15.7177..."
+            ],
+            "nspire": [
+              "Add a Graphs page, enter f1(x)=(x^2+x+7)/(x-3)",
+              "Menu, Window/Zoom, Window Settings: XMin -10, XMax 20, YMin -15, YMax 30 (check on your model)",
+              "Menu, Analyze Graph, Maximum",
+              "Click at x=-6 for the lower bound and at x=2 for the upper bound (check on your model)",
+              "Read y=-1.7177..., then Menu, Analyze Graph, Minimum between x=4 and x=15 to read y=15.7177..."
+            ],
+            "casio": [
+              "GRAPH, enter Y1=(X^2+X+7)/(X-3)",
+              "SHIFT, F3 (V-Window): Xmin -10, Xmax 20, Ymin -15, Ymax 30 (check on your model)",
+              "DRAW, then SHIFT, F5 (G-SOLV), MAX, and read Y=-1.7177... (check on your model)",
+              "SHIFT, F5 (G-SOLV), MIN, and read Y=15.7177... (check on your model)"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-range-choice",
+          "prompt": "The graph of $y = \\frac{x^{2} + 8}{x - 1}$ has a local maximum at $(-2, -4)$ and a local minimum at $(4, 8)$. What is its range?",
+          "hint": "Which piece runs down to $-\\infty$, and which runs up to $+\\infty$?",
+          "options": [
+            {
+              "text": "$y \\le -4 \\text{ or } y \\ge 8$",
+              "correct": true
+            },
+            {
+              "text": "$y < -4 \\text{ or } y > 8$",
+              "correct": false
+            },
+            {
+              "text": "$-4 \\le y \\le 8$",
+              "correct": false
+            },
+            {
+              "text": "$y \\ge -4$",
+              "correct": false
+            }
+          ],
+          "explain": "The left piece runs from $-\\infty$ up to its maximum, $-4$. The right piece runs from its minimum, $8$, up to $+\\infty$. Both turning values are reached, so the inequalities include them."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "y = \\frac{ax + b}{cx^{2} + dx + e}: \\quad \\text{vertical asymptotes where } cx^{2} + dx + e = 0 \\text{ and } ax + b \\ne 0, \\quad \\text{horizontal asymptote } y = 0",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{ax^{2} + bx + c}{dx + e} = px + q + \\frac{r}{dx + e} \\quad \\Rightarrow \\quad \\text{oblique asymptote } y = px + q, \\quad \\text{vertical asymptote } x = -\\frac{e}{d}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Vertical asymptotes sit where the bottom is 0 and the top is not. The graph never crosses them, but it may cross $y = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The reciprocal function $y = \\frac{1}{x}$ is the simplest case, with asymptotes $x = 0$ and $y = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To sketch: dashed asymptotes with equations, intercepts as coordinates, and the sign of $f(x)$ just either side of each vertical asymptote.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Range: use the turning values, with $\\le$ and $\\ge$. Or rearrange to a quadratic in $x$ and make its discriminant at least 0.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving an asymptote as a number, or as $x \\ne 5$. Asymptotes are lines, so write equations such as $x = 5$, $y = 0$ or $y = 2x - 9$.",
+    "Putting a piece on the wrong side of an asymptote. Test the sign of $f(x)$ just either side of each vertical asymptote before you draw.",
+    "Comparing constant terms to find the oblique asymptote. The constant also holds the remainder, so use only the $x^{2}$ and $x$ coefficients.",
+    "Writing a range with strict inequalities. The turning values are reached, so use $\\le$ and $\\ge$.",
+    "Thinking the graph can never cross $y = 0$. A linear-over-quadratic graph crosses its horizontal asymptote at its $x$-intercept.",
+    "Giving only $x$-values when a question asks for the coordinates of the intercepts. Write points, such as $(3, 0)$."
+  ],
+  "examTips": [
+    "\"Write down the equations of the asymptotes\": no working is needed, but each must be a full equation, such as $x = -2$ or $y = 2x - 9$.",
+    "\"Sketch\": show every asymptote as a dashed line with its equation, and every intercept with its coordinates. If the question gives a domain such as $-10 \\le x \\le 10$, draw only that part.",
+    "\"Find the oblique asymptote\": show the division or the coefficient comparison. That line earns the method mark, even if a slip follows.",
+    "\"Find the range\" on Paper 2: write down the turning values from your GDC to full accuracy, then give the range to 3 s.f. with $\\le$ and $\\ge$."
+  ],
+  "readingMinutes": 22
+}

@@ -1,0 +1,619 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.4",
+  "slug": "key-features-of-graphs",
+  "title": "Key features of graphs",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A graph's key features are the points and lines that describe it: where it crosses the axes, its highest and lowest points, its symmetry and the [[asymptote|asymptotes]] it approaches. On Paper 2 your GDC finds them in seconds, and it also finds where two graphs meet. Knowing what each feature means tells you which one a question wants.",
+  "goals": [
+    {
+      "text": "Find the intercepts of a graph and the [[zero-of-a-function|zeros]] of a function, by hand or with a GDC.",
+      "bullets": [
+        "2.4-b1"
+      ]
+    },
+    {
+      "text": "Find maximum and minimum points and values, the [[vertex|vertex]] of a parabola and an [[axis-of-symmetry|axis of symmetry]].",
+      "bullets": [
+        "2.4-b1"
+      ]
+    },
+    {
+      "text": "Recognise vertical and horizontal [[asymptote|asymptotes]] and write their equations.",
+      "bullets": [
+        "2.4-b1"
+      ]
+    },
+    {
+      "text": "Find the points where two graphs intersect, with a GDC when the algebra is hard.",
+      "bullets": [
+        "2.4-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "x and y intercepts",
+    "zeros of a function",
+    "maximum and minimum on a GDC",
+    "vertical and horizontal asymptotes",
+    "points of intersection of two graphs",
+    "key features of a graph"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-point-on-graph",
+      "prompt": "Which point lies on the graph of $y = 5 - 2x$?",
+      "hint": "A point $(a, b)$ lies on the graph when putting $x = a$ into the equation gives $y = b$.",
+      "options": [
+        {
+          "text": "$(3, -1)$",
+          "correct": true
+        },
+        {
+          "text": "$(-1, 3)$",
+          "correct": false
+        },
+        {
+          "text": "$(2, 9)$",
+          "correct": false
+        }
+      ],
+      "explain": "At $x = 3$, $y = 5 - 6 = -1$, so $(3, -1)$ is on the line. At $x = -1$ you get $y = 7$, and at $x = 2$ you get $y = 1$. Revise it in {{lesson:2.3}}."
+    },
+    {
+      "type": "check",
+      "id": "before-missing-coordinate",
+      "prompt": "The point $(k, 11)$ lies on the graph of $y = 3x - 4$. Find $k$.",
+      "hint": "Put $y = 11$ into the equation and solve for $x$.",
+      "answer": {
+        "value": 5,
+        "tolerance": 0
+      },
+      "explain": "$11 = 3k - 4$, so $3k = 15$ and $k = 5$. Revise it in {{lesson:2.3}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "intercepts",
+      "heading": "Intercepts and zeros",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Where a graph crosses the axes is often the first thing a question asks for, and the easiest to find."
+        },
+        {
+          "type": "text",
+          "text": "Points on the $y$-axis have $x = 0$, so the graph of $y = f(x)$ meets it at $(0, f(0))$, the $y$-intercept. Points on the $x$-axis have $y = 0$, so the $x$-intercepts are where $f(x) = 0$. There may be none, one or several."
+        },
+        {
+          "type": "definition",
+          "term": "zero of a function",
+          "statement": "A zero of a function $f$ is a value $a$ with $f(a) = 0$. The zeros of $f$ are the roots of the equation $f(x) = 0$, and the $x$-coordinates of the $x$-intercepts of its graph.",
+          "plain": "An x-value where the graph touches or crosses the x-axis."
+        },
+        {
+          "type": "formula",
+          "tex": "y\\text{-intercept: } (0,\\ f(0)) \\qquad x\\text{-intercepts: } (a,\\ 0) \\text{ where } f(a) = 0",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "figure",
+          "id": "2-4-cubic-features",
+          "alt": "Graph of y equals x cubed minus 5x plus 1. It crosses the y-axis at (0, 1) and crosses the x-axis three times, at three zeros near minus 2.3, 0.2 and 2.1. It rises to a local maximum to the left of the y-axis and falls to a local minimum to the right of it.",
+          "caption": "The graph of $y = x^{3} - 5x + 1$ with its key features marked. You'll find the three zeros on a GDC below."
+        },
+        {
+          "type": "example",
+          "id": "ex-intercepts-quadratic",
+          "question": "Let $f(x) = x^{2} + 2x - 15$. Find the coordinates of the points where the graph of $f$ meets the axes.",
+          "steps": [
+            "For the $y$-intercept, put $x = 0$: $f(0) = 0 + 0 - 15 = -15$. So the graph meets the $y$-axis at $(0, -15)$.",
+            "For the $x$-intercepts, solve $f(x) = 0$: $x^{2} + 2x - 15 = 0$.",
+            "Factorise: two numbers that multiply to $-15$ and add to $2$ are $5$ and $-3$. So $(x + 5)(x - 3) = 0$, giving $x = -5$ or $x = 3$.",
+            "Check $x = -5$: $25 - 10 - 15 = 0$. Check $x = 3$: $9 + 6 - 15 = 0$.",
+            "Each zero gives a point with $y = 0$: $(-5, 0)$ and $(3, 0)$."
+          ],
+          "answer": "$(0, -15), \\; (-5, 0), \\; (3, 0)$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "When $f(x) = 0$ won't factorise, use your GDC. Graph $y = f(x)$, then use the zero (or root) tool on each crossing in turn."
+        },
+        {
+          "type": "example",
+          "id": "ex-zeros-gdc",
+          "question": "Let $f(x) = x^{3} - 5x + 1$. Use your GDC to find the zeros of $f$. Give your answers to 3 s.f.",
+          "steps": [
+            "Write down what you are solving: $x^{3} - 5x + 1 = 0$. Graph $y = x^{3} - 5x + 1$.",
+            "The graph crosses the $x$-axis three times, so there are three zeros. Make sure your window shows all three before you start.",
+            "Use the zero tool on each crossing. The GDC gives $x = -2.33005\\ldots$, $x = 0.201639\\ldots$ and $x = 2.12841\\ldots$",
+            "Round each to 3 s.f. Check one: $f(0.2) = 0.008 - 1 + 1 = 0.008$, close to $0$ as expected."
+          ],
+          "answer": "$x \\approx -2.33 \\text{ or } x \\approx 0.202 \\text{ or } x \\approx 2.13$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = X^3-5X+1, then GRAPH",
+              "2nd TRACE (CALC), 2: zero",
+              "Move to the left of the first crossing, ENTER; to the right of it, ENTER; then ENTER for the guess (check on your model)",
+              "Read X = -2.33005...; repeat for the other two crossings"
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = x^3-5x+1",
+              "Menu, Analyze Graph, Zero",
+              "Click to the left and then to the right of the first crossing (check on your model)",
+              "Read x = -2.33006; repeat for the other two crossings"
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = X^3-5X+1, then DRAW",
+              "SHIFT F5 (G-SOLV), ROOT",
+              "Read X = -2.33005...; press the right arrow to move to the next root (check on your model)"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-y-intercept",
+          "prompt": "What is the $y$-intercept of the graph of $y = (x - 4)(2x + 3)$?",
+          "hint": "The $y$-intercept is where $x = 0$.",
+          "options": [
+            {
+              "text": "$(0, -12)$",
+              "correct": true
+            },
+            {
+              "text": "$(0, 12)$",
+              "correct": false
+            },
+            {
+              "text": "$(4, 0)$",
+              "correct": false
+            }
+          ],
+          "explain": "At $x = 0$, $y = (-4)(3) = -12$, so the point is $(0, -12)$. The point $(4, 0)$ is an $x$-intercept, not the $y$-intercept."
+        },
+        {
+          "type": "check",
+          "id": "check-zero-gdc",
+          "prompt": "Let $g(x) = 2^{x} - x - 3$. Use your GDC to find the positive zero of $g$. Give your answer to 3 s.f.",
+          "hint": "Graph $y = 2^{x} - x - 3$ and use the zero tool on the crossing to the right of the $y$-axis.",
+          "answer": {
+            "value": 2.44,
+            "tolerance": 0.005
+          },
+          "explain": "The graph crosses the $x$-axis twice. The positive crossing is at $x = 2.4449\\ldots$, so $2.44$ to 3 s.f."
+        }
+      ]
+    },
+    {
+      "id": "max-min",
+      "heading": "Maximum and minimum points, vertex and symmetry",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Read a graph from left to right like a walk over hills. A hilltop is a [[local-maximum|local maximum]] point and a valley bottom is a [[local-minimum|local minimum]] point. Your GDC's maximum and minimum tools find them."
+        },
+        {
+          "type": "definition",
+          "term": "maximum value",
+          "statement": "The maximum value of $f$ on its domain is the largest value that $f(x)$ takes. The minimum value is the smallest.",
+          "plain": "The height of the highest point on the whole graph, or of the lowest point for the minimum."
+        },
+        {
+          "type": "text",
+          "text": "The maximum value need not be at a local maximum. If the domain has end points, the graph may be higher there, so check them too."
+        },
+        {
+          "type": "example",
+          "id": "ex-max-on-domain",
+          "question": "Let $f(x) = x^{3} - 2x^{2} - 4x + 3$, for $-2 \\le x \\le 4$. Use your GDC to find the coordinates of the local maximum point. Then find the maximum value of $f$ on this domain.",
+          "steps": [
+            "Graph $y = x^{3} - 2x^{2} - 4x + 3$ with $x$ from $-2$ to $4$. There is a hilltop just left of the $y$-axis and a valley at $x = 2$.",
+            "Use the maximum tool on the hilltop: $x = -0.666666\\ldots$, $y = 4.48148\\ldots$ So the local maximum point is $(-0.667, 4.48)$ to 3 s.f.",
+            "Now find the values at the end points: $f(-2) = -8 - 8 + 8 + 3 = -5$ and $f(4) = 64 - 32 - 16 + 3 = 19$.",
+            "Compare: $19 > 4.48\\ldots$, so the graph is highest at the right-hand end point, $x = 4$."
+          ],
+          "answer": "Local maximum $(-0.667, 4.48)$; maximum value $f(4) = 19$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = X^3-2X^2-4X+3",
+              "WINDOW: Xmin = -2, Xmax = 4, Ymin = -10, Ymax = 20, then GRAPH (check on your model)",
+              "2nd TRACE (CALC), 4: maximum; set a left bound, a right bound and a guess around the hilltop (check on your model)",
+              "Read X = -0.666666..., Y = 4.48148..."
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = x^3-2x^2-4x+3",
+              "Menu, Window/Zoom, Window Settings: XMin -2, XMax 4, YMin -10, YMax 20 (check on your model)",
+              "Menu, Analyze Graph, Maximum; click to the left and then to the right of the hilltop (check on your model)",
+              "Read x = -0.666667, y = 4.48148"
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = X^3-2X^2-4X+3",
+              "SHIFT F3 (V-Window): Xmin -2, Xmax 4, Ymin -10, Ymax 20, then EXIT (check on your model)",
+              "DRAW, SHIFT F5 (G-SOLV), MAX",
+              "Read X = -0.6666666, Y = 4.4814814"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the local maximum, $4.48$, as the maximum value. On a restricted domain, always check the end points as well."
+        },
+        {
+          "type": "text",
+          "text": "A parabola has exactly one turning point, called its [[vertex|vertex]]. It is a minimum point if the parabola opens upwards and a maximum point if it opens downwards."
+        },
+        {
+          "type": "text",
+          "text": "A graph has an [[axis-of-symmetry|axis of symmetry]] if folding it along that line makes the halves match. A parabola's axis is the vertical line through its vertex."
+        },
+        {
+          "type": "result",
+          "statement": "If a parabola has zeros $p$ and $q$, its axis of symmetry is the line $x = \\frac{p + q}{2}$, and its vertex lies on that line.",
+          "why": "Folding along the axis of symmetry swaps the two zeros, so the axis sits exactly halfway between them."
+        },
+        {
+          "type": "example",
+          "id": "ex-vertex-symmetry",
+          "question": "The graph of $y = x^{2} - 8x + 7$ is a parabola. Find the equation of its axis of symmetry and the coordinates of its vertex.",
+          "steps": [
+            "Find the zeros: $x^{2} - 8x + 7 = (x - 1)(x - 7) = 0$, so $x = 1$ or $x = 7$.",
+            "The axis of symmetry is halfway between them: $x = \\frac{1 + 7}{2} = 4$.",
+            "The vertex lies on $x = 4$. Its $y$-coordinate is $4^{2} - 8(4) + 7 = 16 - 32 + 7 = -9$.",
+            "The parabola opens upwards (the $x^{2}$ term is positive), so the vertex $(4, -9)$ is its minimum point."
+          ],
+          "answer": "$(4, -9)$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Some graphs are symmetric about the $y$-axis. For $y = x^{4} - 3x^{2}$, $x$ and $-x$ give the same $y$, so the left half mirrors the right. {{lesson:2.6}} gives a formula for any parabola's axis."
+        },
+        {
+          "type": "check",
+          "id": "check-axis-symmetry",
+          "prompt": "A parabola meets the $x$-axis at $(-6, 0)$ and $(2, 0)$. What is the equation of its axis of symmetry?",
+          "hint": "The axis is halfway between the two zeros. Add them and halve.",
+          "options": [
+            {
+              "text": "$x = -2$",
+              "correct": true
+            },
+            {
+              "text": "$x = 4$",
+              "correct": false
+            },
+            {
+              "text": "$x = -4$",
+              "correct": false
+            },
+            {
+              "text": "$y = -2$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{-6 + 2}{2} = -2$, so the axis is the vertical line $x = -2$. Half the gap between the zeros is $4$, a distance, not a position."
+        },
+        {
+          "type": "check",
+          "id": "check-min-gdc",
+          "prompt": "Let $h(x) = x^{2} - 4\\ln x$, for $x > 0$. Use your GDC to find the minimum value of $h$. Give your answer to 3 s.f.",
+          "hint": "Graph $y = x^{2} - 4\\ln x$ and use the minimum tool. You want the $y$-coordinate.",
+          "answer": {
+            "value": 0.614,
+            "tolerance": 0.0005
+          },
+          "explain": "The minimum point is $(1.41421\\ldots, 0.613705\\ldots)$. The minimum value is its $y$-coordinate, $0.614$ to 3 s.f."
+        }
+      ]
+    },
+    {
+      "id": "asymptotes",
+      "heading": "Vertical and horizontal asymptotes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Take $f(x) = 1 + \\frac{1}{x - 2}$. $f(2)$ does not exist, and just right of $2$, $f(2.1) = 11$, $f(2.01) = 101$, $f(2.001) = 1001$. The graph shoots up beside the line $x = 2$."
+        },
+        {
+          "type": "text",
+          "text": "Far to the right, $f(100) = 1.0102\\ldots$: the fraction is tiny, so the graph flattens out towards the line $y = 1$."
+        },
+        {
+          "type": "figure",
+          "id": "2-4-asymptotes",
+          "alt": "Graph of y equals 1 plus 1 over x minus 2. It has two separate branches. Dashed lines show the vertical line x equals 2 and the horizontal line y equals 1. Each branch bends to run alongside both dashed lines, getting closer and closer to them.",
+          "caption": "The two branches of $y = 1 + \\frac{1}{x - 2}$ approach the dashed [[asymptote|asymptotes]] $x = 2$ and $y = 1$."
+        },
+        {
+          "type": "definition",
+          "term": "asymptote",
+          "statement": "An asymptote of a graph is a straight line that the graph gets closer and closer to as $x$ or $y$ grows without limit.",
+          "plain": "A line the curve hugs more and more closely as it heads off the edge of the page."
+        },
+        {
+          "type": "text",
+          "text": "The arrow $x \\to \\infty$ is read \"$x$ tends to infinity\": $x$ grows without limit. Likewise $x \\to -\\infty$ means $x$ heads off to the left."
+        },
+        {
+          "type": "text",
+          "text": "A vertical asymptote $x = a$ appears where $f(x)$ grows without limit, up or down, as $x$ gets close to $a$. Look for a denominator that is $0$ at $x = a$, or the edge of a logarithm's domain."
+        },
+        {
+          "type": "text",
+          "text": "A horizontal asymptote $y = b$ describes the far left or far right: $f(x)$ gets closer and closer to $b$ as $x \\to \\infty$ or as $x \\to -\\infty$."
+        },
+        {
+          "type": "text",
+          "text": "On a GDC, a branch running off the screen or flattening out suggests an asymptote. Test it in the table with $x$ closer and closer to $a$, or larger and larger."
+        },
+        {
+          "type": "example",
+          "id": "ex-asymptotes-rational",
+          "question": "Find the equations of the vertical and horizontal asymptotes of the graph of $y = \\frac{4x - 1}{x + 2}$.",
+          "steps": [
+            "The denominator $x + 2$ is $0$ at $x = -2$. The numerator there is $4(-2) - 1 = -9$, which is not $0$. So $y$ grows without limit near $x = -2$: there is a vertical asymptote $x = -2$.",
+            "For large $x$, the $-1$ and the $+2$ hardly matter, so $y \\approx \\frac{4x}{x} = 4$.",
+            "Check with a large value: at $x = 1000$, $y = \\frac{3999}{1002} = 3.99\\ldots$, close to $4$. Far to the left, $x = -1000$ gives $\\frac{-4001}{-998} = 4.00\\ldots$, also close to $4$.",
+            "So there is a horizontal asymptote $y = 4$."
+          ],
+          "answer": "$x = -2 \\text{ and } y = 4$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "{{lesson:2.8}} gives a quick rule for the asymptotes of every function of this type."
+        },
+        {
+          "type": "example",
+          "id": "ex-asymptote-exponential",
+          "question": "Let $g(x) = 3 - 2\\mathrm{e}^{-x}$. Find the equation of the horizontal asymptote of the graph of $g$, and hence write down the range of $g$.",
+          "steps": [
+            "As $x \\to \\infty$, $\\mathrm{e}^{-x} = \\frac{1}{\\mathrm{e}^{x}}$ gets closer and closer to $0$. So $g(x)$ gets closer and closer to $3 - 0 = 3$.",
+            "As $x \\to -\\infty$, $\\mathrm{e}^{-x}$ grows without limit, so $g(x)$ heads down without limit. There is no asymptote on the left.",
+            "$g(x)$ is defined for every real $x$, so there is no vertical asymptote.",
+            "$2\\mathrm{e}^{-x}$ is always positive, so $g(x)$ is always less than $3$, and it takes every value below $3$. The range is $g(x) < 3$, with a strict inequality."
+          ],
+          "answer": "Asymptote $y = 3$; range $g(x) < 3$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing the range as $g(x) \\le 3$. The graph only approaches $y = 3$ and never reaches it, so the inequality is strict."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also meet oblique asymptotes, which are sloping lines, for rational functions with a quadratic on top and a linear expression underneath.",
+          "lesson": "2.13"
+        },
+        {
+          "type": "check",
+          "id": "check-vertical-asymptote",
+          "prompt": "Which line is a vertical asymptote of the graph of $y = \\frac{5}{2x - 6}$?",
+          "hint": "Find the value of $x$ that makes the denominator $0$.",
+          "options": [
+            {
+              "text": "$x = 3$",
+              "correct": true
+            },
+            {
+              "text": "$x = -3$",
+              "correct": false
+            },
+            {
+              "text": "$x = 6$",
+              "correct": false
+            },
+            {
+              "text": "$y = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "$2x - 6 = 0$ when $x = 3$, so $x = 3$ is the vertical asymptote. The line $y = 0$ is an asymptote too, but a horizontal one."
+        },
+        {
+          "type": "check",
+          "id": "check-horizontal-asymptote",
+          "prompt": "What is the horizontal asymptote of the graph of $y = 5 + \\frac{2}{x - 1}$?",
+          "hint": "What happens to $\\frac{2}{x - 1}$ when $x$ is very large?",
+          "options": [
+            {
+              "text": "$y = 5$",
+              "correct": true
+            },
+            {
+              "text": "$y = 7$",
+              "correct": false
+            },
+            {
+              "text": "$x = 1$",
+              "correct": false
+            },
+            {
+              "text": "$y = 2$",
+              "correct": false
+            }
+          ],
+          "explain": "As $x \\to \\infty$, $\\frac{2}{x - 1}$ gets closer and closer to $0$, so $y$ approaches $5$. The line $x = 1$ is the vertical asymptote."
+        }
+      ]
+    },
+    {
+      "id": "intersections",
+      "heading": "Where two graphs meet",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A point where two graphs cross lies on both, so its coordinates fit both equations at once."
+        },
+        {
+          "type": "result",
+          "statement": "The graphs of $y = f(x)$ and $y = g(x)$ meet at $x = a$ exactly when $f(a) = g(a)$. Each solution of $f(x) = g(x)$ gives one point of intersection, $(a, f(a))$.",
+          "why": "At a shared point, both equations give the same $y$ for the same $x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-line-parabola",
+          "question": "Find the coordinates of the points where the line $y = 2x - 3$ meets the curve $y = x^{2} - 3x + 1$.",
+          "steps": [
+            "Set the two expressions for $y$ equal: $x^{2} - 3x + 1 = 2x - 3$.",
+            "Collect everything on one side: $x^{2} - 5x + 4 = 0$.",
+            "Factorise: $(x - 1)(x - 4) = 0$, so $x = 1$ or $x = 4$.",
+            "Put each into the line, which is easier: $x = 1$ gives $y = -1$, and $x = 4$ gives $y = 5$.",
+            "Check in the curve: $1 - 3 + 1 = -1$ and $16 - 12 + 1 = 5$. Both points lie on both graphs."
+          ],
+          "answer": "$(1, -1) \\text{ and } (4, 5)$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "When the equation $f(x) = g(x)$ can't be solved by algebra, graph both functions on your GDC and use its intersect tool on each crossing."
+        },
+        {
+          "type": "example",
+          "id": "ex-intersect-gdc",
+          "question": "Let $f(x) = \\ln(x + 2)$ for $x > -2$, and $g(x) = x^{2} - 3$. Use your GDC to find the coordinates of the points where the graphs of $f$ and $g$ intersect. Give your answers to 3 s.f.",
+          "steps": [
+            "Write down the equation you are solving: $\\ln(x + 2) = x^{2} - 3$. Graph $y = \\ln(x + 2)$ and $y = x^{2} - 3$.",
+            "Zoom out to count the crossings. The log graph starts at its vertical asymptote $x = -2$ and rises slowly, while the parabola rises fast on both sides. They cross twice.",
+            "Use the intersect tool on the left crossing: $x = -1.51129\\ldots$, $y = -0.715992\\ldots$",
+            "Use it again on the right crossing: $x = 2.10024\\ldots$, $y = 1.41104\\ldots$",
+            "Round only at the end. The points are $(-1.51, -0.716)$ and $(2.10, 1.41)$. Keep the zero in $2.10$: it shows 3 s.f."
+          ],
+          "answer": "$(-1.51, -0.716) \\text{ and } (2.10, 1.41)$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = ln(X+2) and Y2 = X^2-3, then GRAPH",
+              "2nd TRACE (CALC), 5: intersect",
+              "ENTER on the first curve, ENTER on the second, then move near the left crossing and ENTER for the guess (check on your model)",
+              "Read X = -1.51129..., Y = -0.715992...; repeat near the right crossing"
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = ln(x+2) and f2(x) = x^2-3",
+              "Menu, Analyze Graph, Intersection",
+              "Click to the left and then to the right of one crossing (check on your model)",
+              "Read the coordinates; repeat for the other crossing"
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = ln(X+2) and Y2 = X^2-3, then DRAW",
+              "SHIFT F5 (G-SOLV), INTSECT",
+              "Read X = -1.511293, Y = -0.715992; press the right arrow for the next crossing (check on your model)"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at the first crossing the GDC shows. Zoom out, count the crossings, then find every one."
+        },
+        {
+          "type": "check",
+          "id": "check-intersection-count",
+          "prompt": "How many points of intersection do the graphs of $y = \\mathrm{e}^{x}$ and $y = x + 2$ have?",
+          "hint": "Graph both, and compare them at $x = 0$ and far out on each side.",
+          "options": [
+            {
+              "text": "$2$",
+              "correct": true
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$0$",
+              "correct": false
+            },
+            {
+              "text": "$3$",
+              "correct": false
+            }
+          ],
+          "explain": "Far to the left and far to the right the curve is above the line. At $x = 0$ it is below ($1 < 2$). So they cross twice, near $x = -1.84$ and $x = 1.15$."
+        },
+        {
+          "type": "check",
+          "id": "check-intersect-trig",
+          "prompt": "Use your GDC, in radians, to find the positive solution of $3\\cos x = x$. Give your answer to 3 s.f.",
+          "hint": "Set radians first: MODE, RADIAN (TI-84); Settings, Angle: Radian (Nspire); SHIFT MENU (SET UP), Angle: Rad (Casio). Then graph $y = 3\\cos x$ and $y = x$, and use the intersect tool on the crossing to the right of the $y$-axis.",
+          "answer": {
+            "value": 1.17,
+            "tolerance": 0.005
+          },
+          "explain": "The graphs cross once for $x > 0$, at $x = 1.17012\\ldots$, so $1.17$ to 3 s.f. Degree mode gives a wrong answer. Radians are covered in {{lesson:3.4}}."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$y$-intercept: $(0, f(0))$. Zeros of $f$: the roots of $f(x) = 0$, which are the $x$-coordinates of the $x$-intercepts.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Maximum or minimum value on a domain: compare the local maxima and minima with the values at the end points.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A parabola with zeros $p$ and $q$ has axis of symmetry $x = \\frac{p + q}{2}$; its vertex lies on it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Vertical asymptote $x = a$: $f(x)$ grows without limit as $x$ nears $a$. Horizontal asymptote $y = b$: $f(x)$ approaches $b$ as $x \\to \\infty$ or as $x \\to -\\infty$ (one side is enough). Give each as an equation.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Intersections of $y = f(x)$ and $y = g(x)$: solve $f(x) = g(x)$, then find each $y$. On a GDC, use intersect on every crossing.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving an asymptote as a number, such as $3$. An asymptote is a line, so write its equation, $y = 3$.",
+    "Using $\\le$ for a value the graph only approaches. If the graph never reaches $y = 3$, the range is $g(x) < 3$.",
+    "Missing a zero or an intersection. Zoom out until you can count every crossing, then find each one.",
+    "Leaving the GDC in degree mode for a trig graph. Use radians unless the question works in degrees.",
+    "Taking a local maximum as the maximum value on a restricted domain. Compare it with the values at the end points."
+  ],
+  "examTips": [
+    "\"Write down\" an intercept or asymptote needs no working, but the form matters: coordinates for a point, an equation for a line.",
+    "On Paper 2, write down the equation you solve or the functions you graph, then give the GDC answer to 3 s.f. Find each $y$ from the unrounded $x$.",
+    "\"Sketch\" means the right shape with the key features labelled: intercepts, maximum and minimum points, and asymptotes drawn dashed with their equations. Stay inside the given domain."
+  ],
+  "readingMinutes": 25
+}

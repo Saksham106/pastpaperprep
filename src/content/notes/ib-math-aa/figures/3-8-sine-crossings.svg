@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" role="img" aria-labelledby="t">
+  <title id="t">The line y = k meets y = sin x twice between 0 and 2 pi, at alpha and at pi minus alpha</title>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="35" y1="130" x2="393.0" y2="130"/>
+    <line x1="45" y1="198.0" x2="45" y2="30.0"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <line x1="127.5" y1="127" x2="127.5" y2="133" stroke="currentColor"/>
+    <text x="127.5" y="146" text-anchor="middle">π/2</text>
+    <line x1="210.0" y1="127" x2="210.0" y2="133" stroke="currentColor"/>
+    <text x="210.0" y="146" text-anchor="middle">π</text>
+    <line x1="292.5" y1="127" x2="292.5" y2="133" stroke="currentColor"/>
+    <text x="292.5" y="122" text-anchor="middle">3π/2</text>
+    <line x1="375.0" y1="127" x2="375.0" y2="133" stroke="currentColor"/>
+    <text x="375.0" y="146" text-anchor="middle">2π</text>
+    <text x="37" y="54.0" text-anchor="end">1</text>
+    <text x="37" y="214.0" text-anchor="end">−1</text>
+    <text x="395.0" y="134">x</text>
+    <text x="51" y="28.0">y</text>
+  </g>
+  <path d="M45.0,130.0 L47.8,125.8 L50.5,121.6 L53.2,117.5 L56.0,113.4 L58.8,109.3 L61.5,105.3 L64.2,101.3 L67.0,97.5 L69.8,93.7 L72.5,90.0 L75.2,86.4 L78.0,83.0 L80.8,79.7 L83.5,76.5 L86.2,73.4 L89.0,70.5 L91.8,67.8 L94.5,65.3 L97.2,62.9 L100.0,60.7 L102.8,58.7 L105.5,56.9 L108.2,55.3 L111.0,53.9 L113.8,52.7 L116.5,51.7 L119.2,51.0 L122.0,50.4 L124.8,50.1 L127.5,50.0 L130.2,50.1 L133.0,50.4 L135.8,51.0 L138.5,51.7 L141.2,52.7 L144.0,53.9 L146.8,55.3 L149.5,56.9 L152.2,58.7 L155.0,60.7 L157.8,62.9 L160.5,65.3 L163.2,67.8 L166.0,70.5 L168.8,73.4 L171.5,76.5 L174.2,79.7 L177.0,83.0 L179.8,86.4 L182.5,90.0 L185.2,93.7 L188.0,97.5 L190.8,101.3 L193.5,105.3 L196.2,109.3 L199.0,113.4 L201.8,117.5 L204.5,121.6 L207.2,125.8 L210.0,130.0 L212.8,134.2 L215.5,138.4 L218.2,142.5 L221.0,146.6 L223.8,150.7 L226.5,154.7 L229.2,158.7 L232.0,162.5 L234.7,166.3 L237.5,170.0 L240.2,173.6 L243.0,177.0 L245.7,180.3 L248.5,183.5 L251.2,186.6 L254.0,189.5 L256.8,192.2 L259.5,194.7 L262.2,197.1 L265.0,199.3 L267.8,201.3 L270.5,203.1 L273.2,204.7 L276.0,206.1 L278.8,207.3 L281.5,208.3 L284.2,209.0 L287.0,209.6 L289.8,209.9 L292.5,210.0 L295.2,209.9 L298.0,209.6 L300.8,209.0 L303.5,208.3 L306.2,207.3 L309.0,206.1 L311.7,204.7 L314.5,203.1 L317.2,201.3 L320.0,199.3 L322.8,197.1 L325.5,194.7 L328.2,192.2 L331.0,189.5 L333.8,186.6 L336.5,183.5 L339.2,180.3 L342.0,177.0 L344.7,173.6 L347.5,170.0 L350.2,166.3 L353.0,162.5 L355.8,158.7 L358.5,154.7 L361.2,150.7 L364.0,146.6 L366.8,142.5 L369.5,138.4 L372.2,134.2 L375.0,130.0" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <line x1="45" y1="82.0" x2="375.0" y2="82.0" stroke="var(--t1-ink)" stroke-width="2"/>
+  <line x1="78.8" y1="82.0" x2="78.8" y2="130" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 4"/>
+  <circle cx="78.8" cy="82.0" r="4" fill="var(--t1-ink)"/>
+  <line x1="176.2" y1="82.0" x2="176.2" y2="130" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 4"/>
+  <circle cx="176.2" cy="82.0" r="4" fill="var(--t1-ink)"/>
+  <line x1="45.0" y1="164" x2="78.8" y2="164" stroke="var(--t2-ink)" stroke-width="2"/>
+  <line x1="45.0" y1="159" x2="45.0" y2="169" stroke="var(--t2-ink)" stroke-width="2"/>
+  <line x1="78.8" y1="159" x2="78.8" y2="169" stroke="var(--t2-ink)" stroke-width="2"/>
+  <line x1="176.2" y1="164" x2="210.0" y2="164" stroke="var(--t2-ink)" stroke-width="2"/>
+  <line x1="176.2" y1="159" x2="176.2" y2="169" stroke="var(--t2-ink)" stroke-width="2"/>
+  <line x1="210.0" y1="159" x2="210.0" y2="169" stroke="var(--t2-ink)" stroke-width="2"/>
+  <g font-size="13" font-family="inherit">
+    <text x="78.8" y="146" text-anchor="middle" fill="currentColor">α</text>
+    <text x="176.2" y="146" text-anchor="end" fill="currentColor">π − α</text>
+    <text x="371.0" y="74.0" text-anchor="end" fill="var(--t1-ink)">y = k</text>
+    <text x="168.8" y="44.0" fill="currentColor">y = sin x</text>
+    <text x="61.9" y="184" text-anchor="middle" fill="var(--t2-ink)">α</text>
+    <text x="193.1" y="184" text-anchor="middle" fill="var(--t2-ink)">α</text>
+    <text x="127.5" y="184" text-anchor="middle" fill="var(--t2-ink)">equal gaps</text>
+  </g>
+</svg>

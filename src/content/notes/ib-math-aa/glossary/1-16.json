@@ -1,0 +1,26 @@
+[
+  {
+    "id": "augmented-matrix",
+    "term": "augmented matrix",
+    "definition": "A grid holding the coefficients of each equation in a linear system, one row per equation, with the right-hand sides in a final column after a bar.",
+    "lesson": "1.16"
+  },
+  {
+    "id": "row-echelon-form",
+    "term": "row echelon form",
+    "definition": "The staircase shape of an augmented matrix in which each row's first non-zero entry lies to the right of the one in the row above, with any rows of zeros last, ready for back-substitution.",
+    "lesson": "1.16"
+  },
+  {
+    "id": "inconsistent-system",
+    "term": "inconsistent system",
+    "definition": "A system of equations with no solution; row reduction gives a row that says $0 = c$ with $c \\neq 0$.",
+    "lesson": "1.16"
+  },
+  {
+    "id": "general-solution-of-a-system",
+    "term": "general solution (of a linear system)",
+    "definition": "Every solution of a linear system with infinitely many solutions, written with each unknown in terms of a parameter such as $\\lambda$.",
+    "lesson": "1.16"
+  }
+]

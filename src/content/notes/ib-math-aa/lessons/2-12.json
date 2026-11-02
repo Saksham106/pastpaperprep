@@ -1,0 +1,723 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.12",
+  "slug": "polynomial-functions",
+  "title": "Polynomial functions",
+  "level": "AHL",
+  "topic": 2,
+  "summary": "A [[polynomial|polynomial]] is a sum of whole-number powers of $x$, such as $2x^{3} - 5x + 1$. Its factors give its zeros and the shape of its graph. The factor and remainder theorems find factors without dividing, and the coefficients give the sum and product of the roots without solving.",
+  "goals": [
+    {
+      "text": "Read the zeros, $y$-intercept and end shape of a polynomial graph from its factors, and build a polynomial from its graph.",
+      "bullets": [
+        "2.12-b1"
+      ]
+    },
+    {
+      "text": "Use the remainder and factor theorems to find remainders, test factors and find unknown coefficients.",
+      "bullets": [
+        "2.12-b2"
+      ]
+    },
+    {
+      "text": "Factorise a polynomial fully and solve polynomial equations, exactly or with your calculator, including complex roots.",
+      "bullets": [
+        "2.12-b1",
+        "2.12-b2"
+      ]
+    },
+    {
+      "text": "Find the sum and product of the roots straight from the coefficients, and use them to find unknown roots and coefficients.",
+      "bullets": [
+        "2.12-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.12",
+    "2.7"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "factor theorem",
+    "remainder theorem",
+    "sum and product of roots",
+    "solving cubic equations",
+    "polynomial division",
+    "roots of a polynomial"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-solve-quadratic",
+      "prompt": "Solve $2x^{2} + x - 6 = 0$.",
+      "hint": "Look for two numbers that multiply to $2 \\times (-6) = -12$ and add to $1$.",
+      "options": [
+        {
+          "text": "$x = \\frac{3}{2} \\text{ or } x = -2$",
+          "correct": true
+        },
+        {
+          "text": "$x = -\\frac{3}{2} \\text{ or } x = 2$",
+          "correct": false
+        },
+        {
+          "text": "$x = 3 \\text{ or } x = -2$",
+          "correct": false
+        },
+        {
+          "text": "$x = \\frac{2}{3} \\text{ or } x = -2$",
+          "correct": false
+        }
+      ],
+      "explain": "$2x^{2} + x - 6 = (2x - 3)(x + 2)$, so $2x - 3 = 0$ or $x + 2 = 0$. Revise it in {{lesson:2.7}}."
+    },
+    {
+      "type": "check",
+      "id": "before-discriminant",
+      "prompt": "How many real roots does $3x^{2} - 2x + 4 = 0$ have?",
+      "hint": "Find the sign of the discriminant, $\\Delta = b^{2} - 4ac$.",
+      "options": [
+        {
+          "text": "Two distinct real roots",
+          "correct": false
+        },
+        {
+          "text": "Two equal real roots",
+          "correct": false
+        },
+        {
+          "text": "No real roots",
+          "correct": true
+        }
+      ],
+      "explain": "$\\Delta = (-2)^{2} - 4(3)(4) = 4 - 48 = -44$. That is negative, so there are no real roots. Revise it in {{lesson:2.7}}."
+    },
+    {
+      "type": "check",
+      "id": "before-conjugate-product",
+      "prompt": "Find $(3 + 2\\mathrm{i})(3 - 2\\mathrm{i})$.",
+      "hint": "Expand the brackets, then use $\\mathrm{i}^{2} = -1$.",
+      "options": [
+        {
+          "text": "$13$",
+          "correct": true
+        },
+        {
+          "text": "$5$",
+          "correct": false
+        },
+        {
+          "text": "$9 - 4\\mathrm{i}$",
+          "correct": false
+        },
+        {
+          "text": "$-5$",
+          "correct": false
+        }
+      ],
+      "explain": "$9 - 6\\mathrm{i} + 6\\mathrm{i} - 4\\mathrm{i}^{2} = 9 + 4 = 13$. A complex number times its conjugate is always real. Revise it in {{lesson:1.12}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "graphs",
+      "heading": "Polynomials, their zeros and their graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You already know two kinds of [[polynomial|polynomial]]: straight lines $y = mx + c$ and quadratics $y = ax^{2} + bx + c$. Allow higher powers of $x$, such as $x^{3}$ and $x^{4}$, and you get the whole family."
+        },
+        {
+          "type": "definition",
+          "term": "polynomial",
+          "statement": "A polynomial of degree $n$ is $f(x) = a_{n}x^{n} + a_{n-1}x^{n-1} + \\dots + a_{1}x + a_{0}$, where $n \\in \\mathbb{N}$, the coefficients $a_{0}, a_{1}, \\dots, a_{n}$ are constants and $a_{n} \\neq 0$.",
+          "plain": "A sum of terms, each a number times a whole-number power of $x$."
+        },
+        {
+          "type": "text",
+          "text": "The [[degree-of-a-polynomial|degree]] $n$ is the highest power. $a_{n}$ is the [[leading-coefficient|leading coefficient]] and $a_{0}$ is the constant term. For $4x^{3} - x + 7$, the degree is $3$, $a_{3} = 4$, $a_{2} = 0$ and $a_{0} = 7$."
+        },
+        {
+          "type": "text",
+          "text": "Zeros, roots and factors are three views of one idea. If $f(a) = 0$, then $a$ is a [[zero-of-a-function|zero]] of $f$ and a [[root|root]] of $f(x) = 0$. The graph meets the $x$-axis at $(a, 0)$, and $(x - a)$ is a factor of $f(x)$."
+        },
+        {
+          "type": "text",
+          "text": "So a polynomial written as factors shows its zeros at once. Set each bracket equal to $0$: $2(x + 1)(x - 4)$ has zeros $-1$ and $4$."
+        },
+        {
+          "type": "definition",
+          "term": "multiplicity",
+          "statement": "If $f(x) = (x - a)^{k}g(x)$, where $k \\in \\mathbb{Z}^{+}$ and $g(a) \\neq 0$, then $a$ is a root of multiplicity $k$.",
+          "plain": "How many times the factor $(x - a)$ appears."
+        },
+        {
+          "type": "text",
+          "text": "The [[multiplicity|multiplicity]] decides what the graph does at a zero. Look at $y = (x + 2)(x - 1)^{2}(x - 3)$ below. Its roots $-2$ and $3$ have multiplicity $1$, and $1$ has multiplicity $2$."
+        },
+        {
+          "type": "figure",
+          "id": "2-12-cross-and-touch",
+          "alt": "Graph of y equals x plus 2, times x minus 1 squared, times x minus 3. Both ends point upwards. The curve crosses the x-axis at minus 2, passes through 0, minus 6, touches the x-axis at 1 and turns back down, then crosses at 3.",
+          "caption": "$y = (x + 2)(x - 1)^{2}(x - 3)$ crosses the axis at its single roots and touches it at the [[repeated-root|repeated root]] $x = 1$."
+        },
+        {
+          "type": "result",
+          "statement": "At a root of odd multiplicity, the graph crosses the $x$-axis. At a root of even multiplicity, it touches the axis and turns back.",
+          "why": "Close to $x = a$ the other factors keep one sign, so $(x - a)^{k}$ decides the sign of $f(x)$. An odd power changes sign at $a$. An even power never goes negative."
+        },
+        {
+          "type": "text",
+          "text": "A root of multiplicity $3$ also crosses, but the curve flattens as it passes through. That point is a [[point-of-inflexion|point of inflexion]] on the axis, like $y = x^{3}$ at the origin."
+        },
+        {
+          "type": "text",
+          "text": "The ends of the graph follow the leading term $a_{n}x^{n}$, which outweighs the rest when $x$ is large. Even degree: both ends point up if $a_{n} > 0$, or both down if $a_{n} < 0$. Odd degree: the ends point opposite ways, rising to the right if $a_{n} > 0$."
+        },
+        {
+          "type": "text",
+          "text": "Two more facts help you sketch. The [[y-intercept|y-intercept]] is $f(0) = a_{0}$. A polynomial of degree $n$ has at most $n$ real zeros and at most $n - 1$ turning points."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-zeros",
+          "question": "Let $f(x) = -2(x + 3)(x - 1)^{2}$. Find the zeros of $f$. Then describe the graph of $y = f(x)$: its $y$-intercept, what it does at each zero, and its two ends.",
+          "steps": [
+            "Set each factor equal to $0$. $x + 3 = 0$ gives $x = -3$, and $(x - 1)^{2} = 0$ gives $x = 1$.",
+            "$x = -3$ has multiplicity $1$, so the graph crosses there. $x = 1$ has multiplicity $2$, so the graph touches the axis there and turns back.",
+            "$y$-intercept: $f(0) = -2(3)(-1)^{2} = -6$, so the graph passes through $(0, -6)$.",
+            "Leading term: $-2 \\times x \\times x^{2} = -2x^{3}$. The degree is odd and $a_{3} = -2 < 0$, so the graph comes down from the top left and falls to the bottom right.",
+            "So the curve falls through $(-3, 0)$ to a minimum, rises through $(0, -6)$ to touch the axis at $(1, 0)$, then falls again."
+          ],
+          "answer": "$x = -3 \\text{ or } x = 1$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-touch-root",
+          "prompt": "At which zero does the graph of $y = (x + 2)^{3}(x - 4)^{2}(x - 1)$ touch the $x$-axis without crossing it?",
+          "hint": "Find the multiplicity of each root. Which one is even?",
+          "options": [
+            {
+              "text": "$x = -2$",
+              "correct": false
+            },
+            {
+              "text": "$x = 4$",
+              "correct": true
+            },
+            {
+              "text": "$x = 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x - 4)$ appears twice, so $x = 4$ has even multiplicity and the graph touches there. At $x = -2$ (multiplicity $3$) and at $x = 1$ (multiplicity $1$) it crosses."
+        },
+        {
+          "type": "text",
+          "text": "To go backwards from a graph, write a factor for each zero, with the right power. Then find the leading coefficient from one more point."
+        },
+        {
+          "type": "example",
+          "id": "ex-from-graph",
+          "question": "The graph of a cubic $y = f(x)$ crosses the $x$-axis at $x = -1$ and touches it at $x = 3$. It meets the $y$-axis at $(0, 18)$. Find $f(x)$.",
+          "steps": [
+            "Crossing at $x = -1$ gives a single factor $(x + 1)$. Touching at $x = 3$ gives a squared factor $(x - 3)^{2}$.",
+            "Those factors already make degree $3$, so only a constant $a$ is unknown: $f(x) = a(x + 1)(x - 3)^{2}$.",
+            "Use the $y$-intercept: $f(0) = a(1)(-3)^{2} = 9a$. So $9a = 18$ and $a = 2$.",
+            "Check the shape: the degree is odd and $a = 2 > 0$, so the graph rises to the right."
+          ],
+          "answer": "$f(x) = 2(x + 1)(x - 3)^{2}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-find-scale",
+          "prompt": "The cubic $y = a(x + 2)(x - 1)(x - 4)$ passes through the point $(2, 12)$. Find $a$.",
+          "hint": "Substitute $x = 2$ and $y = 12$, then solve for $a$.",
+          "answer": {
+            "value": -1.5,
+            "tolerance": 0
+          },
+          "explain": "$12 = a(4)(1)(-2) = -8a$, so $a = -\\frac{12}{8} = -1.5$."
+        },
+        {
+          "type": "examTip",
+          "text": "“Sketch” means the right shape with the key features labelled: the intercepts, and any turning points you know. Make it clear where the curve touches the axis and where it crosses."
+        }
+      ]
+    },
+    {
+      "id": "factor-remainder",
+      "heading": "The remainder and factor theorems",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Divide $23$ by $4$ and you get $5$ remainder $3$, because $23 = 4 \\times 5 + 3$. [[polynomial|Polynomials]] divide in the same way."
+        },
+        {
+          "type": "text",
+          "text": "Divide $f(x)$ by $(x - a)$. You get a quotient $q(x)$, one [[degree-of-a-polynomial|degree]] lower than $f$, and a remainder $R$. The remainder is a constant, because its degree must be lower than that of $x - a$."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = (x - a)\\,q(x) + R",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Now put $x = a$. The first term becomes $0 \\times q(a) = 0$, so $f(a) = R$. You can find the remainder without dividing at all."
+        },
+        {
+          "type": "result",
+          "statement": "[[remainder-theorem|Remainder theorem]]: when $f(x)$ is divided by $(x - a)$, the remainder is $f(a)$. When it is divided by $(cx + d)$, the remainder is $f\\left(-\\frac{d}{c}\\right)$.",
+          "why": "Substitute the value that makes the divisor zero into $f(x) = (\\text{divisor}) \\times q(x) + R$."
+        },
+        {
+          "type": "result",
+          "statement": "[[factor-theorem|Factor theorem]]: $(x - a)$ is a factor of $f(x)$ exactly when $f(a) = 0$.",
+          "why": "A factor divides exactly, with remainder $0$. By the remainder theorem, that remainder is $f(a)$."
+        },
+        {
+          "type": "text",
+          "text": "Always substitute the value that makes the divisor zero. For $(x + 2)$ use $x = -2$. For $(2x - 1)$ use $x = \\frac{1}{2}$."
+        },
+        {
+          "type": "check",
+          "id": "check-remainder-linear",
+          "prompt": "Find the remainder when $2x^{3} + 3x^{2} - 5x + 4$ is divided by $(2x + 1)$.",
+          "hint": "Which value of $x$ makes $2x + 1 = 0$?",
+          "options": [
+            {
+              "text": "$7$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{5}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$10$",
+              "correct": false
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            }
+          ],
+          "explain": "$2x + 1 = 0$ at $x = -\\frac{1}{2}$. So the remainder is $-\\frac{1}{4} + \\frac{3}{4} + \\frac{5}{2} + 4 = 7$."
+        },
+        {
+          "type": "text",
+          "text": "To factorise fully, first find one factor $(x - a)$ with the factor theorem. Try small integers that divide the constant term: $\\pm 1$, $\\pm 2$, and so on."
+        },
+        {
+          "type": "text",
+          "text": "Then write $f(x) = (x - a)(\\ldots)$ and find the quadratic in the bracket by comparing coefficients. Long division gives the same quadratic, if you prefer it."
+        },
+        {
+          "type": "example",
+          "id": "ex-factorise-cubic",
+          "question": "Show that $(x - 2)$ is a factor of $f(x) = 2x^{3} + x^{2} - 13x + 6$. Hence factorise $f(x)$ fully.",
+          "steps": [
+            "$f(2) = 2(8) + 4 - 26 + 6 = 0$. So, by the factor theorem, $(x - 2)$ is a factor.",
+            "Write $f(x) = (x - 2)(2x^{2} + bx + c)$. The $2x^{2}$ is needed to make $2x^{3}$.",
+            "Compare constant terms: $-2c = 6$, so $c = -3$.",
+            "Compare $x^{2}$ terms: $b - 4 = 1$, so $b = 5$. Check the $x$ terms: $c - 2b = -3 - 10 = -13$, which matches.",
+            "Factorise the quadratic: $2x^{2} + 5x - 3 = (2x - 1)(x + 3)$."
+          ],
+          "answer": "$f(x) = (x - 2)(2x - 1)(x + 3)$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "When coefficients are unknown, each fact about a factor or a remainder gives one equation. Two unknowns need two facts."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-unknowns",
+          "question": "Let $f(x) = 2x^{3} + ax^{2} + bx - 6$, where $a, b \\in \\mathbb{R}$. $(x + 2)$ is a factor of $f(x)$, and dividing $f(x)$ by $(2x - 1)$ leaves a remainder of $-5$. Find $a$ and $b$.",
+          "steps": [
+            "$(x + 2)$ is a factor, so $f(-2) = 0$: $-16 + 4a - 2b - 6 = 0$. This simplifies to $2a - b = 11$.",
+            "The remainder on dividing by $(2x - 1)$ is $f\\left(\\frac{1}{2}\\right)$, so $\\frac{1}{4} + \\frac{a}{4} + \\frac{b}{2} - 6 = -5$.",
+            "Multiply by $4$: $1 + a + 2b - 24 = -20$, so $a + 2b = 3$.",
+            "Solve: the first equation gives $b = 2a - 11$. Substitute: $a + 4a - 22 = 3$, so $a = 5$ and $b = -1$.",
+            "Check with $f(x) = 2x^{3} + 5x^{2} - x - 6$: $f(-2) = -16 + 20 + 2 - 6 = 0$ and $f\\left(\\frac{1}{2}\\right) = \\frac{1}{4} + \\frac{5}{4} - \\frac{1}{2} - 6 = -5$."
+          ],
+          "answer": "$a = 5, \\; b = -1$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Substituting the wrong sign. The factor $(x + 2)$ means $f(-2) = 0$, not $f(2) = 0$."
+        },
+        {
+          "type": "text",
+          "text": "A repeated factor needs one more step. If $(x - a)^{2}$ is a factor, $f(a) = 0$ gives only one equation. Write $f(x) = (x - a)^{2}$ times the other factor, and compare coefficients."
+        },
+        {
+          "type": "check",
+          "id": "check-double-factor",
+          "prompt": "$(x - 1)^{2}$ is a factor of $x^{3} + px + q$. Find $p$ and $q$.",
+          "hint": "Write $x^{3} + px + q = (x - 1)^{2}(x + c)$. There is no $x^{2}$ term, so find $c$ first.",
+          "options": [
+            {
+              "text": "$p = -3, \\; q = 2$",
+              "correct": true
+            },
+            {
+              "text": "$p = 3, \\; q = -2$",
+              "correct": false
+            },
+            {
+              "text": "$p = -3, \\; q = -2$",
+              "correct": false
+            },
+            {
+              "text": "$p = -1, \\; q = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x^{2} - 2x + 1)(x + c) = x^{3} + (c - 2)x^{2} + (1 - 2c)x + c$. No $x^{2}$ term means $c = 2$, so $p = 1 - 4 = -3$ and $q = 2$."
+        }
+      ]
+    },
+    {
+      "id": "equations",
+      "heading": "Solving polynomial equations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To solve $f(x) = 0$, factorise $f(x)$ and set each factor equal to zero. On Paper 1 that means the factor theorem, then a quadratic. On Paper 2 your calculator can find the [[root|roots]]."
+        },
+        {
+          "type": "result",
+          "statement": "A [[polynomial|polynomial]] equation of [[degree-of-a-polynomial|degree]] $n$ has exactly $n$ roots, if you count repeated roots and complex roots. Its real roots are where the graph meets the $x$-axis.",
+          "why": "Each root $a$ gives a factor $(x - a)$, and the degrees of the factors add up to $n$."
+        },
+        {
+          "type": "text",
+          "text": "When a quadratic factor has $\\Delta < 0$, its two roots are complex. They form a conjugate pair, $p + q\\mathrm{i}$ and $p - q\\mathrm{i}$."
+        },
+        {
+          "type": "text",
+          "text": "This is true for any polynomial with real coefficients: a non-real root always comes with its conjugate. You'll meet the reason in {{lesson:1.14}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-solve-complex",
+          "question": "Solve $z^{3} - z^{2} + 3z + 5 = 0$, for $z \\in \\mathbb{C}$.",
+          "steps": [
+            "Try integers that divide $5$. $z = 1$ gives $1 - 1 + 3 + 5 = 8$, which is not zero. $z = -1$ gives $-1 - 1 - 3 + 5 = 0$, so $(z + 1)$ is a factor.",
+            "Write $z^{3} - z^{2} + 3z + 5 = (z + 1)(z^{2} + bz + 5)$. Compare $z^{2}$ terms: $b + 1 = -1$, so $b = -2$. Check the $z$ terms: $5 + b = 3$, which matches.",
+            "Solve $z^{2} - 2z + 5 = 0$ with the quadratic formula: $z = \\frac{2 \\pm \\sqrt{4 - 20}}{2} = \\frac{2 \\pm \\sqrt{-16}}{2}$.",
+            "$\\sqrt{-16} = 4\\mathrm{i}$, so $z = 1 \\pm 2\\mathrm{i}$. That is a conjugate pair.",
+            "Degree $3$ means $3$ roots, and you have them all: one real and two complex."
+          ],
+          "answer": "$z = -1 \\text{ or } z = 1 \\pm 2\\mathrm{i}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-count-real-roots",
+          "prompt": "How many real roots does $x^{4} + 3x^{2} - 4 = 0$ have?",
+          "hint": "Let $u = x^{2}$ and factorise $u^{2} + 3u - 4$.",
+          "options": [
+            {
+              "text": "$0$",
+              "correct": false
+            },
+            {
+              "text": "$2$",
+              "correct": true
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x^{2} + 4)(x^{2} - 1) = 0$. $x^{2} = 1$ gives $x = \\pm 1$, and $x^{2} = -4$ gives the complex roots $\\pm 2\\mathrm{i}$. So $2$ of the $4$ roots are real."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2, use your calculator when the roots aren't tidy numbers. Write down the equation you are solving first."
+        },
+        {
+          "type": "example",
+          "id": "ex-box-gdc",
+          "question": "An open box is made from a $20$ cm by $12$ cm sheet of card. A square of side $x$ cm is cut from each corner and the sides are folded up, so the volume is $V = x(20 - 2x)(12 - 2x)$. Use your calculator to find the values of $x$ for which $V = 200$. Give your answers to 3 s.f.",
+          "steps": [
+            "Every side must have a positive length, so $x > 0$ and $12 - 2x > 0$. That gives $0 < x < 6$.",
+            "Expand: $(20 - 2x)(12 - 2x) = 240 - 64x + 4x^{2}$, so $V = 4x^{3} - 64x^{2} + 240x$.",
+            "Write down the equation: $4x^{3} - 64x^{2} + 240x - 200 = 0$. Divide by $4$: $x^{3} - 16x^{2} + 60x - 50 = 0$.",
+            "The calculator gives three roots: $x = 1.17378\\ldots$, $x = 3.89786\\ldots$ and $x = 10.9283\\ldots$.",
+            "Reject $x = 10.9283\\ldots$, because it is outside $0 < x < 6$. A cut that big would leave a negative width."
+          ],
+          "answer": "$x \\approx 1.17 \\text{ or } x \\approx 3.90$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "APPS, PlySmlt2",
+              "Choose the polynomial root finder and set the order to 3 (check on your model)",
+              "Enter the coefficients 1, -16, 60, -50, then SOLVE (check on your model)",
+              "Read x = 1.17378..., 3.89786... and 10.9283..."
+            ],
+            "nspire": [
+              "Calculator page: Menu, Algebra, Polynomial Tools",
+              "Choose Find Roots of Polynomial, degree 3, real roots (check on your model)",
+              "Enter the coefficients 1, -16, 60, -50 (check on your model)",
+              "Read x = 1.17378..., 3.89786... and 10.9283..."
+            ],
+            "casio": [
+              "EQUA, Polynomial (F2)",
+              "Choose degree 3 (check on your model)",
+              "Enter a = 1, b = -16, c = 60, d = -50, then SOLVE (check on your model)",
+              "Read x = 1.17378..., 3.89786... and 10.9283..."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-solve-cubic",
+          "prompt": "Given that $x = 2$ is a root, solve $x^{3} - 3x^{2} - 10x + 24 = 0$.",
+          "hint": "Write the cubic as $(x - 2)(x^{2} + bx + c)$ and compare coefficients.",
+          "options": [
+            {
+              "text": "$x = -3 \\text{ or } x = 2 \\text{ or } x = 4$",
+              "correct": true
+            },
+            {
+              "text": "$x = 3 \\text{ or } x = 2 \\text{ or } x = -4$",
+              "correct": false
+            },
+            {
+              "text": "$x = -3 \\text{ or } x = -2 \\text{ or } x = 4$",
+              "correct": false
+            },
+            {
+              "text": "$x = 3 \\text{ or } x = -2 \\text{ or } x = -4$",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{3} - 3x^{2} - 10x + 24 = (x - 2)(x^{2} - x - 12) = (x - 2)(x - 4)(x + 3)$. Set each factor equal to $0$."
+        }
+      ]
+    },
+    {
+      "id": "sum-product",
+      "heading": "Sum and product of the roots",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Multiply out a quadratic from its [[root|roots]] $\\alpha$ and $\\beta$: $(x - \\alpha)(x - \\beta) = x^{2} - (\\alpha + \\beta)x + \\alpha\\beta$. The coefficients carry the sum and the product of the roots."
+        },
+        {
+          "type": "text",
+          "text": "So for $ax^{2} + bx + c = 0$, divide by $a$ and match terms: $\\alpha + \\beta = -\\frac{b}{a}$ and $\\alpha\\beta = \\frac{c}{a}$. You get both without solving."
+        },
+        {
+          "type": "text",
+          "text": "A cubic works the same way: $(x - \\alpha)(x - \\beta)(x - \\gamma) = x^{3} - (\\alpha + \\beta + \\gamma)x^{2} + (\\alpha\\beta + \\beta\\gamma + \\gamma\\alpha)x - \\alpha\\beta\\gamma$. Now the product has a minus sign, from the three factors of $-1$."
+        },
+        {
+          "type": "text",
+          "text": "The pattern holds for any [[degree-of-a-polynomial|degree]]. For $a_{n}x^{n} + a_{n-1}x^{n-1} + \\dots + a_{1}x + a_{0} = 0$, with all $n$ roots counted:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{Sum} = \\dfrac{-a_{n-1}}{a_{n}}, \\qquad \\text{product} = \\dfrac{(-1)^{n}a_{0}}{a_{n}}",
+          "tag": "booklet",
+          "bookletId": "bk-2-12-roots-sum-product",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet, so you don't need to memorise it. The sum uses the coefficient of the second-highest power. The product uses the constant term, and $(-1)^{n}$ flips its sign when $n$ is odd."
+        },
+        {
+          "type": "example",
+          "id": "ex-sum-product-quartic",
+          "question": "For the equation $2x^{4} - 3x^{3} + 5x - 8 = 0$, $S$ is the sum of its roots and $P$ is their product. Find $S$ and $P$.",
+          "steps": [
+            "Read the coefficients: $n = 4$, $a_{4} = 2$, $a_{3} = -3$ and $a_{0} = -8$. The missing $x^{2}$ term doesn't matter.",
+            "Sum: $S = \\frac{-a_{3}}{a_{4}} = \\frac{-(-3)}{2} = \\frac{3}{2}$.",
+            "Product: $P = \\frac{(-1)^{4}a_{0}}{a_{4}} = \\frac{-8}{2} = -4$.",
+            "Both results count all four roots, real or complex."
+          ],
+          "answer": "$S = \\frac{3}{2}, \\; P = -4$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-product-cubic",
+          "prompt": "Find the product of the roots of $5x^{3} + 2x^{2} - x + 15 = 0$.",
+          "hint": "Here $n = 3$, so $(-1)^{n} = -1$.",
+          "options": [
+            {
+              "text": "$-3$",
+              "correct": true
+            },
+            {
+              "text": "$3$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{2}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{(-1)^{3}(15)}{5} = -3$. The value $-\\frac{2}{5}$ is the sum of the roots, not the product."
+        },
+        {
+          "type": "text",
+          "text": "Many expressions in $\\alpha$ and $\\beta$ can be rewritten using only the sum and the product. For example, $\\alpha^{2} + \\beta^{2} = (\\alpha + \\beta)^{2} - 2\\alpha\\beta$."
+        },
+        {
+          "type": "check",
+          "id": "check-sum-squares",
+          "prompt": "The roots of $3x^{2} - 6x + 2 = 0$ are $\\alpha$ and $\\beta$. Find $\\alpha^{2} + \\beta^{2}$.",
+          "hint": "Find $\\alpha + \\beta$ and $\\alpha\\beta$ first.",
+          "options": [
+            {
+              "text": "$\\frac{8}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{16}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{10}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\alpha + \\beta = 2$ and $\\alpha\\beta = \\frac{2}{3}$. So $\\alpha^{2} + \\beta^{2} = 2^{2} - 2 \\times \\frac{2}{3} = \\frac{8}{3}$."
+        },
+        {
+          "type": "text",
+          "text": "Often the question tells you how the roots are related. Write the roots with as few letters as you can, then use the sum or the product."
+        },
+        {
+          "type": "check",
+          "id": "check-opposite-roots",
+          "prompt": "The equation $x^{3} - 3x^{2} + kx + 12 = 0$ has roots $\\alpha$, $-\\alpha$ and $\\beta$. Find $k$.",
+          "hint": "The sum of the roots gives $\\beta$. Then $\\beta$ is a root, so use the factor theorem.",
+          "options": [
+            {
+              "text": "$k = -4$",
+              "correct": true
+            },
+            {
+              "text": "$k = 4$",
+              "correct": false
+            },
+            {
+              "text": "$k = -12$",
+              "correct": false
+            },
+            {
+              "text": "$k = 8$",
+              "correct": false
+            }
+          ],
+          "explain": "The sum is $\\alpha - \\alpha + \\beta = 3$, so $\\beta = 3$. Then $27 - 27 + 3k + 12 = 0$ gives $k = -4$. The roots are $2$, $-2$ and $3$."
+        },
+        {
+          "type": "text",
+          "text": "With complex roots, use the conjugate pairs. The pair $p \\pm q\\mathrm{i}$ adds to $2p$ and multiplies to $p^{2} + q^{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-conjugate-root",
+          "question": "The equation $2z^{3} + bz^{2} + cz + 15 = 0$, where $b, c \\in \\mathbb{R}$, has a root $2 - \\mathrm{i}$. Let $r$ be its real root. Find $r$ and $b$.",
+          "steps": [
+            "The coefficients are real, so the conjugate $2 + \\mathrm{i}$ is also a root. The three roots are $2 - \\mathrm{i}$, $2 + \\mathrm{i}$ and $r$.",
+            "The conjugate pair adds to $4$ and multiplies to $(2 - \\mathrm{i})(2 + \\mathrm{i}) = 4 + 1 = 5$.",
+            "Product of the roots: $5r = \\frac{(-1)^{3}(15)}{2} = -\\frac{15}{2}$, so $r = -\\frac{3}{2}$.",
+            "Sum of the roots: $4 - \\frac{3}{2} = \\frac{-b}{2}$. So $\\frac{5}{2} = -\\frac{b}{2}$, which gives $b = -5$.",
+            "Check: $(2z + 3)(z^{2} - 4z + 5) = 2z^{3} - 5z^{2} - 2z + 15$. It has $b = -5$ and the right constant term."
+          ],
+          "answer": "$r = -\\frac{3}{2}, \\; b = -5$",
+          "video": null
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$f(a) = 0$ means $a$ is a zero of $f$, $(x - a)$ is a factor, and the graph meets the $x$-axis at $(a, 0)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "At a root of odd multiplicity the graph crosses the axis. At a root of even multiplicity it touches and turns back.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Remainder theorem: dividing $f(x)$ by $(x - a)$ leaves remainder $f(a)$. Factor theorem: $(x - a)$ is a factor exactly when $f(a) = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Degree $n$ means $n$ roots, counting repeated and complex roots. With real coefficients, non-real roots come in conjugate pairs.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{Sum} = \\dfrac{-a_{n-1}}{a_{n}}, \\qquad \\text{product} = \\dfrac{(-1)^{n}a_{0}}{a_{n}}",
+          "tag": "booklet",
+          "bookletId": "bk-2-12-roots-sum-product",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $ax^{2} + bx + c = 0$: $\\alpha + \\beta = -\\frac{b}{a}$ and $\\alpha\\beta = \\frac{c}{a}$.",
+          "tag": "booklet",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using only $f(a) = 0$ when $(x - a)^{2}$ is a factor. That is one equation, so write $f(x) = (x - a)^{2}$ times the other factor and compare coefficients.",
+    "Getting the sign of the product wrong for an odd degree. The product is $\\frac{(-1)^{n}a_{0}}{a_{n}}$, so for a cubic it is $-\\frac{a_{0}}{a_{n}}$.",
+    "Stopping at a linear factor times a quadratic when the question asks for linear factors. Factorise the quadratic too.",
+    "Keeping values the question rules out. If it says $k > 0$, or that the roots are real, test each answer against that condition and reject any that fail.",
+    "Pairing a complex root with the wrong partner. The conjugate of $2 - \\mathrm{i}$ is $2 + \\mathrm{i}$, not $-2 + \\mathrm{i}$ or $-2 - \\mathrm{i}$."
+  ],
+  "examTips": [
+    "“Show that $(x - a)$ is a factor”: write out $f(a)$ with the numbers substituted, show that it equals $0$, then say that the factor theorem gives the result.",
+    "“Find the value of $a$ and of $b$”: write each condition as an equation in $a$ and $b$ before you solve. Those equations earn method marks even if the solving slips.",
+    "On Paper 1, give exact roots, including complex ones such as $1 \\pm 2\\mathrm{i}$. On Paper 2, write down the equation you solve, then give each root to 3 s.f."
+  ],
+  "readingMinutes": 25
+}

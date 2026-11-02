@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="t">
+  <title id="t">A vertical cliff TF and a point O on level ground. The angle of depression at T, measured down from the horizontal, equals the angle of elevation at O, measured up from the ground.</title>
+  <line x1="20" y1="190" x2="300" y2="190" stroke="currentColor" stroke-width="2"/>
+  <line x1="60" y1="190" x2="60" y2="50" stroke="currentColor" stroke-width="2.5"/>
+  <polyline points="60,180 70,180 70,190" fill="none" stroke="currentColor" stroke-width="1"/>
+  <line x1="60" y1="50" x2="300" y2="50" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <line x1="60" y1="50" x2="260" y2="190" stroke="var(--t1-ink)" stroke-width="2"/>
+  <path d="M110,50 A50,50 0 0 1 101,78.7" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+  <path d="M210,190 A50,50 0 0 1 219,161.3" fill="none" stroke="var(--t5-ink)" stroke-width="2"/>
+  <g fill="currentColor">
+    <circle cx="60" cy="50" r="3.5"/>
+    <circle cx="60" cy="190" r="3"/>
+    <circle cx="260" cy="190" r="3.5"/>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="44" y="46" font-style="italic">T</text>
+    <text x="44" y="206" font-style="italic">F</text>
+    <text x="256" y="208" font-style="italic">O</text>
+    <text x="230" y="42" fill="var(--muted)" font-size="12">horizontal</text>
+    <text x="116" y="74" fill="var(--t3-ink)">depression</text>
+    <text x="146" y="180" fill="var(--t5-ink)">elevation</text>
+    <text x="150" y="112" fill="var(--t1-ink)" font-size="12">line of sight</text>
+  </g>
+</svg>

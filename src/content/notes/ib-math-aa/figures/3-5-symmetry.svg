@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 300" role="img" aria-labelledby="t">
+  <title id="t">Four points on the unit circle at theta, pi minus theta, pi plus theta and minus theta, with coordinates c, s with different signs</title>
+  <g stroke="currentColor" stroke-width="1.4">
+    <line x1="60" y1="150" x2="320" y2="150"/>
+    <line x1="190" y1="30" x2="190" y2="270"/>
+  </g>
+  <circle cx="190" cy="150" r="90" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+  <polygon points="263.7,98.4 116.3,98.4 116.3,201.6 263.7,201.6" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 3"/>
+  <g stroke-width="2">
+    <line x1="190" y1="150" x2="263.7" y2="98.4" stroke="var(--t1-ink)"/>
+    <line x1="190" y1="150" x2="116.3" y2="98.4" stroke="var(--t2-ink)"/>
+    <line x1="190" y1="150" x2="116.3" y2="201.6" stroke="var(--t3-ink)"/>
+    <line x1="190" y1="150" x2="263.7" y2="201.6" stroke="var(--t5-ink)"/>
+  </g>
+  <circle cx="263.7" cy="98.4" r="4.5" fill="var(--t1-ink)"/>
+  <circle cx="116.3" cy="98.4" r="4.5" fill="var(--t2-ink)"/>
+  <circle cx="116.3" cy="201.6" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="263.7" cy="201.6" r="4.5" fill="var(--t5-ink)"/>
+  <path d="M215 150 A25 25 0 0 0 210.5 135.7" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <g font-size="13" font-family="inherit">
+    <text x="272" y="90" fill="var(--t1-ink)">θ: (c, s)</text>
+    <text x="108" y="90" text-anchor="end" fill="var(--t2-ink)">π − θ: (−c, s)</text>
+    <text x="108" y="222" text-anchor="end" fill="var(--t3-ink)">π + θ: (−c, −s)</text>
+    <text x="272" y="222" fill="var(--t5-ink)">−θ: (c, −s)</text>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="218" y="144">θ</text>
+    <text x="176" y="166">O</text>
+    <text x="314" y="142" text-anchor="end">x</text>
+    <text x="198" y="40">y</text>
+  </g>
+</svg>

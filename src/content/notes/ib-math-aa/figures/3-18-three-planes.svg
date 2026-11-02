@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" role="img" aria-labelledby="t">
+  <title id="t">Three planes seen end-on: a common line, a prism, two parallel planes, three parallel planes</title>
+  <g stroke="var(--muted)" stroke-width="1" fill="none">
+    <rect x="6" y="6" width="150" height="176" rx="6"/>
+    <rect x="166" y="6" width="150" height="176" rx="6"/>
+    <rect x="326" y="6" width="150" height="176" rx="6"/>
+    <rect x="486" y="6" width="150" height="176" rx="6"/>
+  </g>
+  <line x1="18" y1="94" x2="144" y2="94" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="45" y1="168" x2="117" y2="20" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <line x1="117" y1="168" x2="45" y2="20" stroke="var(--t5-ink)" stroke-width="2.5"/>
+  <circle cx="81" cy="94" r="4.5" fill="currentColor"/>
+  <line x1="176" y1="140" x2="306" y2="140" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="186" y1="162" x2="262" y2="28" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <line x1="296" y1="162" x2="220" y2="28" stroke="var(--t5-ink)" stroke-width="2.5"/>
+  <line x1="336" y1="62" x2="466" y2="62" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="336" y1="126" x2="466" y2="126" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <line x1="356" y1="168" x2="446" y2="20" stroke="var(--t5-ink)" stroke-width="2.5"/>
+  <line x1="496" y1="50" x2="626" y2="50" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="496" y1="94" x2="626" y2="94" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <line x1="496" y1="138" x2="626" y2="138" stroke="var(--t5-ink)" stroke-width="2.5"/>
+  <g font-size="14" font-family="inherit" fill="currentColor" text-anchor="middle">
+    <text x="81" y="204">common line</text>
+    <text x="81" y="224">infinitely many</text>
+    <text x="241" y="204">triangular prism</text>
+    <text x="241" y="224">no solution</text>
+    <text x="401" y="204">two parallel</text>
+    <text x="401" y="224">no solution</text>
+    <text x="561" y="204">three parallel</text>
+    <text x="561" y="224">no solution</text>
+  </g>
+</svg>

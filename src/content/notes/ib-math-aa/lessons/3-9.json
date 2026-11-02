@@ -1,0 +1,763 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.9",
+  "slug": "reciprocal-and-inverse-trigonometric-functions",
+  "title": "Reciprocal and inverse trigonometric functions",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "Flip sine, cosine and tangent and you get three [[reciprocal-trig-function|reciprocal ratios]]: $\\operatorname{cosec}\\theta$, $\\sec\\theta$ and $\\cot\\theta$. They bring two more Pythagorean identities, which swap one ratio for another and turn equations into quadratics. The [[inverse-trig-function|inverse trig functions]] $\\arcsin x$, $\\arccos x$ and $\\arctan x$ run the other way: they give back an angle, from a fixed range.",
+  "goals": [
+    {
+      "text": "Define $\\sec\\theta$, $\\operatorname{cosec}\\theta$ and $\\cot\\theta$, find their exact values and say where each is undefined.",
+      "bullets": [
+        "3.9-b1"
+      ]
+    },
+    {
+      "text": "Use $1 + \\tan^{2}\\theta = \\sec^{2}\\theta$ and $1 + \\cot^{2}\\theta = \\operatorname{cosec}^{2}\\theta$ to find one ratio from another, taking the sign from the quadrant.",
+      "bullets": [
+        "3.9-b2"
+      ]
+    },
+    {
+      "text": "Prove identities and solve equations that contain the reciprocal ratios.",
+      "bullets": [
+        "3.9-b1",
+        "3.9-b2"
+      ]
+    },
+    {
+      "text": "Evaluate $\\arcsin x$, $\\arccos x$ and $\\arctan x$, and state their domains and ranges.",
+      "bullets": [
+        "3.9-b3"
+      ]
+    },
+    {
+      "text": "Sketch their graphs, and find the domain and range of a transformed inverse trig function.",
+      "bullets": [
+        "3.9-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.5",
+    "3.6",
+    "3.7",
+    "3.8"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "sec cosec cot",
+    "reciprocal trig functions",
+    "1 + tan^2 = sec^2",
+    "arcsin arccos arctan",
+    "inverse trig functions domain and range",
+    "graph of arctan"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-pyth-cos",
+      "prompt": "Given that $\\cos\\theta = -\\frac{1}{4}$ and $\\frac{\\pi}{2} < \\theta < \\pi$, find the exact value of $\\sin\\theta$.",
+      "hint": "Use $\\sin^{2}\\theta + \\cos^{2}\\theta = 1$. Then pick the sign from the quadrant.",
+      "options": [
+        {
+          "text": "$\\frac{\\sqrt{15}}{4}$",
+          "correct": true
+        },
+        {
+          "text": "$-\\frac{\\sqrt{15}}{4}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{3}{4}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{15}{16}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\sin^{2}\\theta = 1 - \\frac{1}{16} = \\frac{15}{16}$, so $\\sin\\theta = \\pm\\frac{\\sqrt{15}}{4}$. The angle is in the second quadrant, where sine is positive. Revise it in {{lesson:3.6}}."
+    },
+    {
+      "type": "check",
+      "id": "before-inverse-domain",
+      "prompt": "The function $f(x) = 2 + \\mathrm{e}^{x}$ has domain $x \\in \\mathbb{R}$. What is the domain of $f^{-1}$?",
+      "hint": "Every output of $f$ becomes an input of $f^{-1}$. Which values can $\\mathrm{e}^{x}$ take?",
+      "options": [
+        {
+          "text": "$x > 0$",
+          "correct": false
+        },
+        {
+          "text": "$x > 2$",
+          "correct": true
+        },
+        {
+          "text": "$x \\ge 2$",
+          "correct": false
+        },
+        {
+          "text": "$x < 2$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\mathrm{e}^{x} > 0$ for every $x$, so $f(x) > 2$. The range of $f$ becomes the domain of $f^{-1}$, so it is $x > 2$. Revise it in {{lesson:2.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-solve-sin",
+      "prompt": "Solve $2\\sin x = -\\sqrt{3}$ for $0 \\le x \\le 2\\pi$.",
+      "hint": "First write $\\sin x = -\\frac{\\sqrt{3}}{2}$. Sine is negative in the third and fourth quadrants.",
+      "options": [
+        {
+          "text": "$x = \\frac{\\pi}{3} \\text{ or } x = \\frac{2\\pi}{3}$",
+          "correct": false
+        },
+        {
+          "text": "$x = \\frac{4\\pi}{3} \\text{ or } x = \\frac{5\\pi}{3}$",
+          "correct": true
+        },
+        {
+          "text": "$x = \\frac{7\\pi}{6} \\text{ or } x = \\frac{11\\pi}{6}$",
+          "correct": false
+        },
+        {
+          "text": "$x = \\frac{2\\pi}{3} \\text{ or } x = \\frac{4\\pi}{3}$",
+          "correct": false
+        }
+      ],
+      "explain": "The reference angle is $\\frac{\\pi}{3}$. In the third and fourth quadrants that gives $\\pi + \\frac{\\pi}{3} = \\frac{4\\pi}{3}$ and $2\\pi - \\frac{\\pi}{3} = \\frac{5\\pi}{3}$. Revise it in {{lesson:3.8}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "reciprocal",
+      "heading": "Secant, cosecant and cotangent",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Fractions such as $\\frac{1}{\\cos\\theta}$ come up so often that they have their own names. There are three [[reciprocal-trig-function|reciprocal ratios]], one for each ratio you already know."
+        },
+        {
+          "type": "definition",
+          "term": "secant, cosecant and cotangent",
+          "statement": "For an angle $\\theta$, $\\sec\\theta = \\frac{1}{\\cos\\theta}$, $\\operatorname{cosec}\\theta = \\frac{1}{\\sin\\theta}$ and $\\cot\\theta = \\frac{\\cos\\theta}{\\sin\\theta}$, wherever the denominator is not zero.",
+          "plain": "Each one is 1 divided by cosine, sine or tangent."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sec\\theta = \\frac{1}{\\cos\\theta}",
+          "tag": "booklet",
+          "bookletId": "bk-3-9-sec",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\operatorname{cosec}\\theta = \\frac{1}{\\sin\\theta}",
+          "tag": "booklet",
+          "bookletId": "bk-3-9-cosec",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\cot\\theta = \\frac{1}{\\tan\\theta} = \\frac{\\cos\\theta}{\\sin\\theta}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "$\\sec\\theta$ and $\\operatorname{cosec}\\theta$ are in the formula booklet. Learn $\\cot\\theta$: the booklet doesn't give it."
+        },
+        {
+          "type": "text",
+          "text": "To pair them up, look at the third letter. Sec goes with cos, cosec with sin, and cot with tan."
+        },
+        {
+          "type": "text",
+          "text": "Each one is undefined where its denominator is zero. $\\sec\\theta$ is undefined where $\\cos\\theta = 0$, at odd multiples of $\\frac{\\pi}{2}$. $\\operatorname{cosec}\\theta$ and $\\cot\\theta$ are undefined where $\\sin\\theta = 0$, at multiples of $\\pi$."
+        },
+        {
+          "type": "text",
+          "text": "Use the form $\\cot\\theta = \\frac{\\cos\\theta}{\\sin\\theta}$ when $\\tan\\theta$ has no value. For example, $\\tan\\frac{\\pi}{2}$ is undefined, but $\\cot\\frac{\\pi}{2} = \\frac{0}{1} = 0$."
+        },
+        {
+          "type": "result",
+          "statement": "Each reciprocal ratio has the same sign as the ratio it comes from.",
+          "why": "1 divided by a positive number is positive, and 1 divided by a negative number is negative."
+        },
+        {
+          "type": "text",
+          "text": "So the [[quadrant|quadrant]] signs from {{lesson:3.5}} still work. In the second quadrant, only $\\sin\\theta$ and $\\operatorname{cosec}\\theta$ are positive."
+        },
+        {
+          "type": "example",
+          "id": "ex-recip-sec-exact",
+          "question": "Find the exact value of $\\sec\\frac{5\\pi}{4}$.",
+          "steps": [
+            "Find the cosine first. $\\frac{5\\pi}{4} = \\pi + \\frac{\\pi}{4}$ is in the third quadrant, with reference angle $\\frac{\\pi}{4}$.",
+            "Cosine is negative in the third quadrant, so $\\cos\\frac{5\\pi}{4} = -\\frac{\\sqrt{2}}{2}$.",
+            "Flip it: $\\sec\\frac{5\\pi}{4} = 1 \\div \\left(-\\frac{\\sqrt{2}}{2}\\right) = -\\frac{2}{\\sqrt{2}}$.",
+            "Simplify: $-\\frac{2}{\\sqrt{2}} = -\\frac{2\\sqrt{2}}{2} = -\\sqrt{2}$. It is negative, like the cosine."
+          ],
+          "answer": "$\\sec\\frac{5\\pi}{4} = -\\sqrt{2}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-recip-cot-exact",
+          "prompt": "Find the exact value of $\\cot\\frac{5\\pi}{3}$.",
+          "hint": "Find $\\cos\\frac{5\\pi}{3}$ and $\\sin\\frac{5\\pi}{3}$ first. Then divide the cosine by the sine.",
+          "options": [
+            {
+              "text": "$\\frac{\\sqrt{3}}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\sqrt{3}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{\\sqrt{3}}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$-\\frac{2\\sqrt{3}}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\cos\\frac{5\\pi}{3} = \\frac{1}{2}$ and $\\sin\\frac{5\\pi}{3} = -\\frac{\\sqrt{3}}{2}$. So $\\cot\\frac{5\\pi}{3} = -\\frac{1}{\\sqrt{3}} = -\\frac{\\sqrt{3}}{3}$. The value $-\\sqrt{3}$ is $\\tan\\frac{5\\pi}{3}$, not its reciprocal."
+        },
+        {
+          "type": "mistake",
+          "text": "Pressing $\\cos^{-1}$ to find $\\sec$. That key is $\\arccos$, the inverse function. For $\\sec$, type 1 ÷ cos( … )."
+        },
+        {
+          "type": "check",
+          "id": "check-recip-gdc",
+          "prompt": "Use your calculator to find $\\operatorname{cosec} 2.5$, where $2.5$ is in radians. Give your answer to 3 s.f.",
+          "hint": "There is no cosec key. In radian mode, work out $1 \\div \\sin 2.5$.",
+          "answer": {
+            "value": 1.67,
+            "tolerance": 0.005
+          },
+          "explain": "$\\sin 2.5 = 0.59847\\ldots$, so $\\operatorname{cosec} 2.5 = \\frac{1}{0.59847\\ldots} = 1.6709\\ldots \\approx 1.67$."
+        },
+        {
+          "type": "example",
+          "id": "ex-recip-show",
+          "question": "Show that $\\frac{\\tan x + \\cot x}{\\sec x} = \\operatorname{cosec} x$, for every $x$ where both sides are defined.",
+          "steps": [
+            "Start from the left side, the more complicated one. A safe first move is to write everything in sines and cosines: $\\tan x + \\cot x = \\frac{\\sin x}{\\cos x} + \\frac{\\cos x}{\\sin x}$.",
+            "Use a common denominator: $\\frac{\\sin^{2}x + \\cos^{2}x}{\\sin x\\cos x} = \\frac{1}{\\sin x\\cos x}$, by the [[pythagorean-identity|Pythagorean identity]].",
+            "Dividing by $\\sec x$ is the same as multiplying by $\\cos x$: $\\frac{1}{\\sin x\\cos x} \\times \\cos x = \\frac{1}{\\sin x}$.",
+            "Finally, $\\frac{1}{\\sin x} = \\operatorname{cosec} x$, the right side, so the proof is complete."
+          ],
+          "answer": "$\\frac{\\tan x + \\cot x}{\\sec x} = \\operatorname{cosec} x$",
+          "video": null
+        }
+      ]
+    },
+    {
+      "id": "identities",
+      "heading": "Two more Pythagorean identities",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.6}} you met the [[pythagorean-identity|Pythagorean identity]] $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$. Divide every term by $\\cos^{2}\\theta$. You get $1 + \\tan^{2}\\theta = \\sec^{2}\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "Divide every term by $\\sin^{2}\\theta$ instead. You get $\\cot^{2}\\theta + 1 = \\operatorname{cosec}^{2}\\theta$."
+        },
+        {
+          "type": "formula",
+          "tex": "1 + \\tan^{2}\\theta = \\sec^{2}\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-9-pythagorean-tan",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "1 + \\cot^{2}\\theta = \\operatorname{cosec}^{2}\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-9-pythagorean-cot",
+          "cheatSheet": true
+        },
+        {
+          "type": "result",
+          "statement": "Both are [[identity|identities]]: they hold for every $\\theta$ where both sides are defined.",
+          "why": "Each is $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$ divided through by a square that is not zero."
+        },
+        {
+          "type": "text",
+          "text": "Both are in the formula booklet. Use them to swap $\\tan\\theta$ for $\\sec\\theta$, or $\\cot\\theta$ for $\\operatorname{cosec}\\theta$. Finding one ratio from another means taking a square root, which gives $\\pm$. The quadrant decides the sign."
+        },
+        {
+          "type": "example",
+          "id": "ex-ident-sec-tan",
+          "question": "Given that $\\sec\\theta = -3$ and $\\pi < \\theta < \\frac{3\\pi}{2}$, find the exact value of $\\tan\\theta$.",
+          "steps": [
+            "Choose the identity that links $\\sec\\theta$ and $\\tan\\theta$: $1 + \\tan^{2}\\theta = \\sec^{2}\\theta$.",
+            "Substitute: $1 + \\tan^{2}\\theta = (-3)^{2} = 9$, so $\\tan^{2}\\theta = 8$.",
+            "Take the square root: $\\tan\\theta = \\pm\\sqrt{8} = \\pm 2\\sqrt{2}$.",
+            "Pick the sign. $\\theta$ is in the third quadrant, where $\\sin\\theta$ and $\\cos\\theta$ are both negative. So $\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta}$ is positive.",
+            "Check: $\\sec\\theta = -3$ means $\\cos\\theta = -\\frac{1}{3}$, which is negative, as the third quadrant needs."
+          ],
+          "answer": "$\\tan\\theta = 2\\sqrt{2}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Keeping both signs, or choosing one with no reason. Name the quadrant and the sign it gives: that reason can earn its own mark."
+        },
+        {
+          "type": "check",
+          "id": "check-ident-cosec",
+          "prompt": "Given that $\\cot\\theta = 3$ and $\\pi < \\theta < \\frac{3\\pi}{2}$, find the exact value of $\\operatorname{cosec}\\theta$.",
+          "hint": "Use $1 + \\cot^{2}\\theta = \\operatorname{cosec}^{2}\\theta$. Then ask: what sign does $\\sin\\theta$ have in the third quadrant?",
+          "options": [
+            {
+              "text": "$\\sqrt{10}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\sqrt{10}$",
+              "correct": true
+            },
+            {
+              "text": "$-\\frac{\\sqrt{10}}{10}$",
+              "correct": false
+            },
+            {
+              "text": "$-2\\sqrt{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\operatorname{cosec}^{2}\\theta = 1 + 9 = 10$, so $\\operatorname{cosec}\\theta = \\pm\\sqrt{10}$. In the third quadrant $\\sin\\theta < 0$, so $\\operatorname{cosec}\\theta < 0$. The value $-\\frac{\\sqrt{10}}{10}$ is $\\sin\\theta$ itself."
+        },
+        {
+          "type": "text",
+          "text": "In a proof, look for $\\sec^{2}\\theta - \\tan^{2}\\theta$ or $\\operatorname{cosec}^{2}\\theta - \\cot^{2}\\theta$. Rearranging the identities shows that each one is $1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-ident-show-sec4",
+          "question": "Show that $\\sec^{4}x - \\tan^{4}x = 1 + 2\\tan^{2}x$.",
+          "steps": [
+            "Start from the left side. It is a difference of two squares: $\\sec^{4}x - \\tan^{4}x = (\\sec^{2}x - \\tan^{2}x)(\\sec^{2}x + \\tan^{2}x)$.",
+            "The first bracket is $1$, because $\\sec^{2}x = 1 + \\tan^{2}x$.",
+            "In the second bracket, replace $\\sec^{2}x$ with $1 + \\tan^{2}x$: $\\sec^{2}x + \\tan^{2}x = 1 + 2\\tan^{2}x$.",
+            "So the left side is $1 \\times (1 + 2\\tan^{2}x) = 1 + 2\\tan^{2}x$, which is the right side."
+          ],
+          "answer": "$\\sec^{4}x - \\tan^{4}x = 1 + 2\\tan^{2}x$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The identities also solve equations that mix two ratios. Replace the squared ratio so only one ratio is left. Then solve the quadratic, as in {{lesson:3.8}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-ident-solve",
+          "question": "Solve $\\tan^{2}x = \\sec x + 1$ for $0 \\le x \\le 2\\pi$.",
+          "steps": [
+            "Replace $\\tan^{2}x$ with $\\sec^{2}x - 1$, so only $\\sec x$ is left: $\\sec^{2}x - 1 = \\sec x + 1$.",
+            "Rearrange into a quadratic in $\\sec x$: $\\sec^{2}x - \\sec x - 2 = 0$.",
+            "Factorise: $(\\sec x - 2)(\\sec x + 1) = 0$, so $\\sec x = 2$ or $\\sec x = -1$.",
+            "Turn each into a cosine. $\\sec x = 2$ gives $\\cos x = \\frac{1}{2}$, so $x = \\frac{\\pi}{3}$ or $x = 2\\pi - \\frac{\\pi}{3} = \\frac{5\\pi}{3}$.",
+            "$\\sec x = -1$ gives $\\cos x = -1$, so $x = \\pi$.",
+            "Check $x = \\pi$ in the original: $\\tan^{2}\\pi = 0$ and $\\sec\\pi + 1 = -1 + 1 = 0$."
+          ],
+          "answer": "$x = \\frac{\\pi}{3} \\text{ or } x = \\pi \\text{ or } x = \\frac{5\\pi}{3}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing both sides by a factor such as $\\cot x$. Every solution that makes that factor zero is lost. Move everything to one side and factorise instead."
+        },
+        {
+          "type": "check",
+          "id": "check-ident-solve-cot",
+          "prompt": "Solve $\\operatorname{cosec}^{2}x - 1 = \\sqrt{3}\\cot x$ for $0 < x < 2\\pi$.",
+          "hint": "Replace $\\operatorname{cosec}^{2}x - 1$ with $\\cot^{2}x$. Then factorise. Don't divide by $\\cot x$.",
+          "options": [
+            {
+              "text": "$x = \\frac{\\pi}{6}, \\frac{7\\pi}{6}$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{\\pi}{6}, \\frac{\\pi}{2}, \\frac{7\\pi}{6}, \\frac{3\\pi}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$x = \\frac{\\pi}{3}, \\frac{\\pi}{2}, \\frac{4\\pi}{3}, \\frac{3\\pi}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{\\pi}{6}, \\frac{\\pi}{2}, \\frac{5\\pi}{6}, \\frac{3\\pi}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\cot^{2}x - \\sqrt{3}\\cot x = 0$ factorises to $\\cot x(\\cot x - \\sqrt{3}) = 0$. $\\cot x = 0$ gives $x = \\frac{\\pi}{2}, \\frac{3\\pi}{2}$. $\\cot x = \\sqrt{3}$ means $\\tan x = \\frac{1}{\\sqrt{3}}$, so $x = \\frac{\\pi}{6}, \\frac{7\\pi}{6}$."
+        }
+      ]
+    },
+    {
+      "id": "inverse",
+      "heading": "The inverse functions arcsin, arccos and arctan",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "If $\\sin\\theta = \\frac{1}{2}$, what is $\\theta$? It could be $\\frac{\\pi}{6}$, $\\frac{5\\pi}{6}$, $\\frac{13\\pi}{6}$ and infinitely many more. Sine is not [[one-to-one|one-to-one]], so it has no inverse as it stands."
+        },
+        {
+          "type": "text",
+          "text": "The fix is to keep one piece of the graph that is one-to-one and still takes every value from $-1$ to $1$. For sine, that piece is $-\\frac{\\pi}{2} \\le x \\le \\frac{\\pi}{2}$. Its inverse is $\\arcsin x$."
+        },
+        {
+          "type": "figure",
+          "id": "3-9-restricted-sine",
+          "alt": "Graphs of y equals sin x for x from minus pi over 2 to pi over 2, and of y equals arcsin x for x from minus 1 to 1, with the dashed line y equals x. The sine piece rises from (minus pi over 2, minus 1) through the origin to (pi over 2, 1). The arcsin curve rises from (minus 1, minus pi over 2) through the origin to (1, pi over 2). Each curve is the reflection of the other in the line y equals x.",
+          "caption": "Sine on $-\\frac{\\pi}{2} \\le x \\le \\frac{\\pi}{2}$ and its inverse, $\\arcsin x$. Each is the [[reflection|reflection]] of the other in $y = x$."
+        },
+        {
+          "type": "definition",
+          "term": "arcsin",
+          "statement": "For $-1 \\le x \\le 1$, $\\arcsin x$ is the angle $\\theta$ with $-\\frac{\\pi}{2} \\le \\theta \\le \\frac{\\pi}{2}$ and $\\sin\\theta = x$.",
+          "plain": "It answers the question: which angle in this range has sine $x$?"
+        },
+        {
+          "type": "text",
+          "text": "Cosine and tangent work the same way, each on its own piece. Cosine uses $0 \\le x \\le \\pi$, because on sine's piece each cosine value would appear twice. Tangent uses $-\\frac{\\pi}{2} < x < \\frac{\\pi}{2}$, the piece between two asymptotes."
+        },
+        {
+          "type": "text",
+          "text": "These are the [[inverse-trig-function|inverse trig functions]]. The [[domain|domain]] of each is the set of values its trig piece takes. Its [[range|range]] is the piece itself."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{array}{lll} \\text{function} & \\text{domain} & \\text{range} \\\\ \\hline \\arcsin x & -1 \\le x \\le 1 & -\\frac{\\pi}{2} \\le y \\le \\frac{\\pi}{2} \\\\ \\arccos x & -1 \\le x \\le 1 & 0 \\le y \\le \\pi \\\\ \\arctan x & x \\in \\mathbb{R} & -\\frac{\\pi}{2} < y < \\frac{\\pi}{2} \\end{array}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Learn this table: it is not in the formula booklet. The inequalities for $\\arctan x$ are strict, because it never reaches $\\pm\\frac{\\pi}{2}$."
+        },
+        {
+          "type": "text",
+          "text": "You will also see $\\sin^{-1}x$ for $\\arcsin x$. The $-1$ means inverse function, not reciprocal: $\\frac{1}{\\sin x}$ is $\\operatorname{cosec} x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-inv-arccos-exact",
+          "question": "Find the exact value of $\\arccos\\left(-\\frac{\\sqrt{3}}{2}\\right)$.",
+          "steps": [
+            "You want the angle $\\theta$ with $0 \\le \\theta \\le \\pi$ and $\\cos\\theta = -\\frac{\\sqrt{3}}{2}$.",
+            "Ignore the sign for a moment: $\\cos\\frac{\\pi}{6} = \\frac{\\sqrt{3}}{2}$, so the reference angle is $\\frac{\\pi}{6}$.",
+            "Cosine is negative in the second quadrant, which lies inside $0 \\le \\theta \\le \\pi$. So $\\theta = \\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6}$.",
+            "Check: $\\cos\\frac{5\\pi}{6} = -\\frac{\\sqrt{3}}{2}$, and $\\frac{5\\pi}{6}$ is between $0$ and $\\pi$."
+          ],
+          "answer": "$\\arccos\\left(-\\frac{\\sqrt{3}}{2}\\right) = \\frac{5\\pi}{6}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-inv-arctan-exact",
+          "prompt": "Find the exact value of $\\arctan\\left(-\\sqrt{3}\\right)$.",
+          "hint": "The answer must lie strictly between $-\\frac{\\pi}{2}$ and $\\frac{\\pi}{2}$.",
+          "options": [
+            {
+              "text": "$\\frac{2\\pi}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{\\pi}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{5\\pi}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{\\pi}{6}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\tan\\frac{\\pi}{3} = \\sqrt{3}$, so $\\tan\\left(-\\frac{\\pi}{3}\\right) = -\\sqrt{3}$, and $-\\frac{\\pi}{3}$ is in the range of $\\arctan$. The angles $\\frac{2\\pi}{3}$ and $\\frac{5\\pi}{3}$ have the right tangent but lie outside that range."
+        },
+        {
+          "type": "text",
+          "text": "Undoing in the other order needs care. $\\sin(\\arcsin x) = x$ for every $x$ from $-1$ to $1$. But $\\arcsin(\\sin\\theta)$ gives back $\\theta$ only when $\\theta$ is already in the range of $\\arcsin$."
+        },
+        {
+          "type": "example",
+          "id": "ex-inv-arccos-cos",
+          "question": "Find the exact value of $\\arccos\\left(\\cos\\frac{7\\pi}{4}\\right)$.",
+          "steps": [
+            "Don't cancel to $\\frac{7\\pi}{4}$: $\\arccos$ always gives an angle from $0$ to $\\pi$.",
+            "Work out the inside first. $\\frac{7\\pi}{4}$ is in the fourth quadrant, with reference angle $\\frac{\\pi}{4}$. Cosine is positive there, so $\\cos\\frac{7\\pi}{4} = \\frac{\\sqrt{2}}{2}$.",
+            "Now find $\\arccos\\frac{\\sqrt{2}}{2}$: the angle from $0$ to $\\pi$ whose cosine is $\\frac{\\sqrt{2}}{2}$. That is $\\frac{\\pi}{4}$."
+          ],
+          "answer": "$\\arccos\\left(\\cos\\frac{7\\pi}{4}\\right) = \\frac{\\pi}{4}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Cancelling $\\arcsin(\\sin\\theta)$ to $\\theta$ when $\\theta$ is outside $-\\frac{\\pi}{2} \\le \\theta \\le \\frac{\\pi}{2}$. Work out the inside first, then find the angle in the range."
+        },
+        {
+          "type": "text",
+          "text": "Inverse and reciprocal ratios often meet. To find $\\sec(\\arctan a)$, call the angle $\\theta = \\arctan a$. Then $\\tan\\theta = a$, and the range of $\\arctan$ tells you the quadrant."
+        },
+        {
+          "type": "check",
+          "id": "check-inv-sec-arctan",
+          "prompt": "Find the exact value of $\\sec(\\arctan 4)$.",
+          "hint": "Let $\\theta = \\arctan 4$, so $\\tan\\theta = 4$. Use $1 + \\tan^{2}\\theta = \\sec^{2}\\theta$. What sign does $\\cos\\theta$ have when $-\\frac{\\pi}{2} < \\theta < \\frac{\\pi}{2}$?",
+          "options": [
+            {
+              "text": "$-\\sqrt{17}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\sqrt{17}}{17}$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{15}$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{17}$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\sec^{2}\\theta = 1 + 16 = 17$, so $\\sec\\theta = \\pm\\sqrt{17}$. Every angle in the range of $\\arctan$ has $\\cos\\theta > 0$, so $\\sec\\theta = \\sqrt{17}$."
+        }
+      ]
+    },
+    {
+      "id": "graphs",
+      "heading": "Graphs, domains and ranges",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.5}} you saw that the graph of $y = f^{-1}(x)$ is the [[reflection|reflection]] of $y = f(x)$ in the line $y = x$. So each inverse trig graph is its trig piece, reflected. The $\\arcsin x$ graph above stops at $x = \\pm 1$, the ends of its [[domain|domain]]."
+        },
+        {
+          "type": "figure",
+          "id": "3-9-arccos",
+          "alt": "Graph of y equals arccos x for x from minus 1 to 1. It falls from the end point (minus 1, pi) through (0, pi over 2) to the end point (1, 0). The curve is steep at both ends. No part of it lies below y equals 0 or above y equals pi.",
+          "caption": "$y = \\arccos x$ falls from $(-1, \\pi)$ to $(1, 0)$. It is the only one of the three that decreases."
+        },
+        {
+          "type": "figure",
+          "id": "3-9-arctan",
+          "alt": "Graph of y equals arctan x for x from minus 6 to 6. It rises from left to right through the origin and the point (1, pi over 4). As x gets very large it gets closer and closer to the dashed horizontal asymptote y equals pi over 2. As x gets very negative it gets closer to the dashed asymptote y equals minus pi over 2. It never reaches either line.",
+          "caption": "$y = \\arctan x$ and its horizontal asymptotes $y = \\pm\\frac{\\pi}{2}$."
+        },
+        {
+          "type": "text",
+          "text": "$y = \\arctan x$ has domain $\\mathbb{R}$, so it goes on for ever both ways. The vertical [[asymptote|asymptotes]] $x = \\pm\\frac{\\pi}{2}$ of $y = \\tan x$ reflect to horizontal asymptotes $y = \\pm\\frac{\\pi}{2}$. The curve gets ever closer to them but never reaches them."
+        },
+        {
+          "type": "result",
+          "statement": "For a transformed inverse trig function, the domain comes from the inside: an $\\arcsin$ or $\\arccos$ input must lie from $-1$ to $1$. The [[range|range]] comes from the outside: apply the stretch and shift to the original range. This works when the inside takes every value the inverse function accepts, as a linear inside such as $3 - 2x$ does.",
+          "why": "The inside decides which x values are allowed. If it reaches every input, the outputs fill the original range, which the outside then stretches and moves. But $x^{2}$ reaches only $x \\ge 0$, so $\\arctan(x^{2})$ has range $0 \\le y < \\frac{\\pi}{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-graph-domain",
+          "question": "Find the largest possible domain of $f(x) = \\arcsin(3 - 2x)$.",
+          "steps": [
+            "$\\arcsin$ only accepts inputs from $-1$ to $1$, so you need $-1 \\le 3 - 2x \\le 1$.",
+            "Subtract $3$ from every part: $-4 \\le -2x \\le -2$.",
+            "Divide every part by $-2$. Dividing by a negative number reverses the inequalities: $2 \\ge x \\ge 1$.",
+            "Write it smallest first: $1 \\le x \\le 2$. Check an end: $x = 2$ gives $\\arcsin(-1) = -\\frac{\\pi}{2}$, which exists."
+          ],
+          "answer": "$1 \\le x \\le 2$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-graph-range",
+          "question": "Let $g(x) = 2\\arccos x - \\pi$, for $-1 \\le x \\le 1$. Describe the transformations that map the graph of $y = \\arccos x$ onto the graph of $y = g(x)$. Hence find the range of $g$.",
+          "steps": [
+            "Multiplying the output by $2$ is a [[vertical-stretch|vertical stretch]] with scale factor $2$. It is a stretch, not a compression, because $2 > 1$.",
+            "Subtracting $\\pi$ afterwards is a [[translation|translation]] of $\\pi$ down, by the vector $\\begin{pmatrix}0\\\\-\\pi\\end{pmatrix}$.",
+            "Now the range, written with $y = g(x)$. Start from $0 \\le \\arccos x \\le \\pi$.",
+            "Stretch: $0 \\le 2\\arccos x \\le 2\\pi$. Translate: $-\\pi \\le 2\\arccos x - \\pi \\le \\pi$.",
+            "Both ends are reached, at $x = 1$ and $x = -1$, so use $\\le$."
+          ],
+          "answer": "$-\\pi \\le y \\le \\pi$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "Order matters. Translating $\\frac{\\pi}{2}$ down, then stretching by $2$, also gives $g$: the stretch doubles the shift. State your order."
+        },
+        {
+          "type": "check",
+          "id": "check-graph-range-arctan",
+          "prompt": "Find the range of $h(x) = \\pi - 2\\arctan x$, for $x \\in \\mathbb{R}$.",
+          "hint": "Start from $-\\frac{\\pi}{2} < \\arctan x < \\frac{\\pi}{2}$. Multiplying by $-2$ reverses the inequalities.",
+          "options": [
+            {
+              "text": "$0 \\le y \\le 2\\pi$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\pi}{2} < y < \\frac{3\\pi}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$0 < y < 2\\pi$",
+              "correct": true
+            },
+            {
+              "text": "$-\\pi < y < \\pi$",
+              "correct": false
+            }
+          ],
+          "explain": "Multiply by $-2$: $-\\pi < -2\\arctan x < \\pi$. Add $\\pi$: $0 < h(x) < 2\\pi$. The ends come from asymptotes and are never reached, so the inequalities stay strict."
+        },
+        {
+          "type": "text",
+          "text": "An equation that mixes an inverse trig function with a polynomial usually has no algebraic solution. On Paper 2, graph both sides and find where they meet."
+        },
+        {
+          "type": "example",
+          "id": "ex-graph-gdc",
+          "question": "Use your calculator to solve $\\arccos x = 2x$. Give your answer to 3 s.f.",
+          "steps": [
+            "Set radian mode: $\\arccos x$ is an angle in radians.",
+            "Write down what you will graph: $y = \\arccos x$ and $y = 2x$. This line earns the method mark.",
+            "Expect one solution. On $-1 \\le x \\le 1$, $\\arccos x$ decreases while $2x$ increases, so the graphs cross once.",
+            "The graphs meet at $x = 0.51493\\ldots$.",
+            "Check: $\\arccos 0.51493 \\approx 1.0299$ and $2 \\times 0.51493 \\approx 1.0299$."
+          ],
+          "answer": "$x \\approx 0.515$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, RADIAN",
+              "Y=, enter Y1 = cos⁻¹(X) and Y2 = 2X. For cos⁻¹ press 2nd, COS (check on your model)",
+              "GRAPH",
+              "2nd, TRACE (CALC), 5: intersect",
+              "Choose Y1, then Y2, then move the cursor near X = 0.5 for the guess",
+              "Read X = 0.51493..., so x = 0.515 to 3 s.f."
+            ],
+            "nspire": [
+              "Settings, Angle: Radian",
+              "Graphs page: enter f1(x) = cos⁻¹(x) and f2(x) = 2x. For cos⁻¹ press ctrl, cos (check on your model)",
+              "Menu, Analyze Graph, Intersection",
+              "Set the lower bound left of x = 0.5 and the upper bound right of it",
+              "Read x = 0.51493..., so x = 0.515 to 3 s.f."
+            ],
+            "casio": [
+              "SHIFT MENU (SET UP), Angle: Rad",
+              "GRAPH, enter Y1 = cos⁻¹(X) and Y2 = 2X. For cos⁻¹ press SHIFT, cos (check on your model)",
+              "DRAW",
+              "SHIFT F5 (G-SOLV), INTSECT",
+              "Read X = 0.51493..., so x = 0.515 to 3 s.f."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-graph-gdc",
+          "prompt": "Use your calculator to find the $x$-coordinate of the point where the graphs of $y = \\arcsin x$ and $y = 1 - x$ meet. Give your answer to 3 s.f.",
+          "hint": "Use radian mode. Graph both and use intersect. Remember that $y = \\arcsin x$ only exists for $-1 \\le x \\le 1$.",
+          "answer": {
+            "value": 0.489,
+            "tolerance": 0.0005
+          },
+          "explain": "Solving $\\arcsin x = 1 - x$ on the calculator gives $x = 0.48902\\ldots \\approx 0.489$. Both sides are then about $0.511$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\sec\\theta = \\frac{1}{\\cos\\theta}",
+          "tag": "booklet",
+          "bookletId": "bk-3-9-sec",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\operatorname{cosec}\\theta = \\frac{1}{\\sin\\theta}",
+          "tag": "booklet",
+          "bookletId": "bk-3-9-cosec",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\cot\\theta = \\frac{1}{\\tan\\theta} = \\frac{\\cos\\theta}{\\sin\\theta}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "1 + \\tan^{2}\\theta = \\sec^{2}\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-9-pythagorean-tan",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "1 + \\cot^{2}\\theta = \\operatorname{cosec}^{2}\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-9-pythagorean-cot",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{array}{lll} \\text{function} & \\text{domain} & \\text{range} \\\\ \\hline \\arcsin x & -1 \\le x \\le 1 & -\\frac{\\pi}{2} \\le y \\le \\frac{\\pi}{2} \\\\ \\arccos x & -1 \\le x \\le 1 & 0 \\le y \\le \\pi \\\\ \\arctan x & x \\in \\mathbb{R} & -\\frac{\\pi}{2} < y < \\frac{\\pi}{2} \\end{array}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A reciprocal ratio has the sign of its parent ratio. After a square root, the quadrant decides between $+$ and $-$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\arcsin(\\sin\\theta) = \\theta$ only when $\\theta$ is in the range of $\\arcsin$. Otherwise work out the inside first.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Choosing the sign without checking the quadrant. $\\tan^{2}\\theta = 8$ gives $\\tan\\theta = \\pm 2\\sqrt{2}$, and only the quadrant of $\\theta$ tells you which. Write that reason down.",
+    "Reading $\\cos^{-1}x$ as $\\frac{1}{\\cos x}$. $\\cos^{-1}x$ is $\\arccos x$, an angle. The reciprocal of $\\cos x$ is $\\sec x$.",
+    "Dividing both sides of an equation by $\\cot x$, $\\sin x$ or another trig factor. Solutions that make the factor zero vanish. Factorise instead.",
+    "Working on both sides of an identity at once, or starting from the result. Start from one side and change it, line by line, into the other.",
+    "Giving the domain of an inverse as all real numbers. The domain of $f^{-1}$ is the range of $f$, so for $h(x) = \\pi - 2\\arctan x$ the domain of $h^{-1}$ is $0 < x < 2\\pi$.",
+    "Calling a vertical stretch with scale factor 2 a compression, or ignoring the order of transformations. A translation done before a stretch gets stretched too."
+  ],
+  "examTips": [
+    "“Find the exact value” means no decimals, as on Paper 1. When a square root gives $\\pm$, name the quadrant and the sign it gives.",
+    "“Show that” or “prove” an identity: start from one side and reach the other. Never start from the result or work on both sides at once.",
+    "“State the domain” or “range”: write inequalities and check each end. Use $<$ at an asymptote and $\\le$ at an end point the graph reaches.",
+    "On Paper 2, set radian mode, write down the equation you solve, then give the answer to 3 s.f."
+  ],
+  "readingMinutes": 23
+}

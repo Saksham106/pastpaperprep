@@ -1,0 +1,628 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.10",
+  "slug": "solving-equations-graphically-and-analytically",
+  "title": "Solving equations graphically and analytically",
+  "level": "SL",
+  "topic": 2,
+  "summary": "To solve an equation is to find every $x$ that makes it true. Algebra gives exact answers, and a graph shows them too: the solutions of $f(x) = g(x)$ are the $x$-coordinates where $y = f(x)$ and $y = g(x)$ meet. When no algebra works, your GDC finds those crossings, and real models such as population growth lead to exactly these equations.",
+  "goals": [
+    {
+      "text": "Solve $f(x) = g(x)$ from a graph, reading the solutions as $x$-coordinates of intersection points, and count solutions from a sketch.",
+      "bullets": [
+        "2.10-b1"
+      ]
+    },
+    {
+      "text": "Solve equations by an [[analytic-solution|analytic method]], including [[disguised-quadratic|disguised quadratics]] such as $\\mathrm{e}^{2x} - 7\\mathrm{e}^{x} + 12 = 0$, and reject impossible roots.",
+      "bullets": [
+        "2.10-b1"
+      ]
+    },
+    {
+      "text": "Use your GDC to solve equations with no suitable analytic method, such as $\\mathrm{e}^{x} = x + 3$ or $x^{5} - 3x + 1 = 0$.",
+      "bullets": [
+        "2.10-b2"
+      ]
+    },
+    {
+      "text": "Turn a real-life model, including exponential growth, into an equation, solve it, and interpret the answer in context.",
+      "bullets": [
+        "2.10-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.5",
+    "2.3",
+    "2.7"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "solve equations graphically",
+    "disguised quadratic",
+    "e to the 2x substitution",
+    "solve equations on GDC",
+    "intersection of two graphs",
+    "exponential growth equation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-quadratic",
+      "prompt": "Solve $x^{2} + 2x - 15 = 0$.",
+      "hint": "Find two numbers that multiply to $-15$ and add to $2$.",
+      "options": [
+        {
+          "text": "$x = -5 \\text{ or } x = 3$",
+          "correct": true
+        },
+        {
+          "text": "$x = 5 \\text{ or } x = -3$",
+          "correct": false
+        },
+        {
+          "text": "$x = -15 \\text{ or } x = 1$",
+          "correct": false
+        }
+      ],
+      "explain": "$x^{2} + 2x - 15 = (x + 5)(x - 3)$, so $x = -5$ or $x = 3$. Revise it in {{lesson:2.7}}."
+    },
+    {
+      "type": "check",
+      "id": "before-ln",
+      "prompt": "Solve $\\mathrm{e}^{x} = 6$.",
+      "hint": "Which function undoes $\\mathrm{e}^{x}$?",
+      "options": [
+        {
+          "text": "$x = \\ln 6$",
+          "correct": true
+        },
+        {
+          "text": "$x = \\mathrm{e}^{6}$",
+          "correct": false
+        },
+        {
+          "text": "$x = \\frac{6}{\\mathrm{e}}$",
+          "correct": false
+        },
+        {
+          "text": "$x = \\log_{10} 6$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\ln$ undoes $\\mathrm{e}^{x}$: $\\mathrm{e}^{x} = 6$ means $x = \\ln 6$. Revise it in {{lesson:1.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-asymptote",
+      "prompt": "Write down the equation of the horizontal asymptote of $y = 5 - 2\\mathrm{e}^{-x}$.",
+      "hint": "What happens to $\\mathrm{e}^{-x}$ as $x$ gets very large?",
+      "options": [
+        {
+          "text": "$y = 5$",
+          "correct": true
+        },
+        {
+          "text": "$y = 3$",
+          "correct": false
+        },
+        {
+          "text": "$y = -2$",
+          "correct": false
+        }
+      ],
+      "explain": "As $x$ grows, $\\mathrm{e}^{-x}$ gets closer and closer to $0$, so $y$ gets close to $5$. The value $3$ is the $y$-intercept. Revise it in {{lesson:2.3}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "graphs",
+      "heading": "Solving equations with graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To solve an equation is to find every $x$ that makes it true. Take $x^{2} - 2x = x + 4$. Draw each side as a graph: $y = x^{2} - 2x$ and $y = x + 4$. Where they cross, both sides are equal, so that $x$ is a solution."
+        },
+        {
+          "type": "figure",
+          "id": "2-10-two-graphs",
+          "alt": "A parabola, y equals x squared minus 2x, and a straight line, y equals x plus 4, on the same axes. They cross at two points, (-1, 3) and (4, 8). Dashed lines drop from each crossing point to the x-axis at x equals -1 and x equals 4.",
+          "caption": "The graphs meet where $x = -1$ and $x = 4$, so these are the solutions of $x^{2} - 2x = x + 4$."
+        },
+        {
+          "type": "result",
+          "statement": "The solutions of $f(x) = g(x)$ are the $x$-coordinates of the points where the graphs of $y = f(x)$ and $y = g(x)$ intersect.",
+          "why": "At a crossing point both graphs have the same $y$-value for the same $x$, so $f(x) = g(x)$ there."
+        },
+        {
+          "type": "text",
+          "text": "You can also move everything to one side. The solutions of $f(x) = g(x)$ are the [[zero-of-a-function|zeros]] of $y = f(x) - g(x)$: where that one graph meets the $x$-axis."
+        },
+        {
+          "type": "example",
+          "id": "ex-graph-read",
+          "question": "The figure shows $y = x^{2} - 2x$ and $y = x + 4$. Use it to write down the solutions of $x^{2} - 2x = x + 4$. Then confirm them by algebra.",
+          "steps": [
+            "Read the $x$-coordinates of the two crossing points: $x = -1$ and $x = 4$.",
+            "Confirm by algebra. Move everything to one side: $x^{2} - 3x - 4 = 0$.",
+            "Factorise: $(x + 1)(x - 4) = 0$, so $x = -1$ or $x = 4$.",
+            "Check one in the original equation. At $x = 4$ the left side is $16 - 8 = 8$, and the right side is $4 + 4 = 8$."
+          ],
+          "answer": "$x = -1 \\text{ or } x = 4$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the crossing points, or their $y$-coordinates, as the solutions. An equation in $x$ is solved by $x$-values only."
+        },
+        {
+          "type": "check",
+          "id": "check-graph-zeros",
+          "prompt": "The solutions of $\\ln x = 2 - x$ are the $x$-intercepts of which graph?",
+          "hint": "Move every term to the left-hand side, keeping track of signs.",
+          "options": [
+            {
+              "text": "$y = \\ln x - x - 2$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\ln x + x - 2$",
+              "correct": true
+            },
+            {
+              "text": "$y = \\ln x + x + 2$",
+              "correct": false
+            }
+          ],
+          "explain": "Subtract $2 - x$ from both sides: $\\ln x - (2 - x) = \\ln x + x - 2$. Its zeros are exactly the solutions. The minus sign in front of the bracket changes both signs inside it."
+        },
+        {
+          "type": "text",
+          "text": "A sketch also tells you how many solutions there are, even when you can't find them exactly. Count the crossing points."
+        },
+        {
+          "type": "example",
+          "id": "ex-graph-count",
+          "question": "By sketching two graphs on the same axes, find the number of solutions of $\\mathrm{e}^{x} = 4 - x^{2}$.",
+          "steps": [
+            "Sketch $y = \\mathrm{e}^{x}$: always positive, through $(0, 1)$, rising steeply on the right.",
+            "Sketch $y = 4 - x^{2}$: a parabola opening downwards, vertex $(0, 4)$, crossing the $x$-axis at $x = \\pm 2$.",
+            "At $x = -2$, $0$, $2$ the parabola is at $0$, $4$, $0$ and the exponential at about $0.14$, $1$, $7.4$. The curves swap order in each gap, and the sketch shows one crossing in each.",
+            "For $x < -2$ or $x > 2$ the parabola is below the $x$-axis but $\\mathrm{e}^{x}$ is above it, so there are no other crossings."
+          ],
+          "answer": "$\\text{number of solutions} = 2$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-graph-count",
+          "prompt": "The curve $y = x^{3} - 3x$ has turning points at $(-1, 2)$ and $(1, -2)$. How many solutions does $x^{3} - 3x = 1$ have?",
+          "hint": "Draw the horizontal line $y = 1$ across a sketch of the cubic, and count the crossings.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "The line $y = 1$ lies between the turning-point heights $-2$ and $2$. It crosses the rising left arm, the falling middle part and the rising right arm: $3$ solutions."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also solve inequalities such as $f(x) \\ge g(x)$, both from graphs and by algebra.",
+          "lesson": "2.15"
+        }
+      ]
+    },
+    {
+      "id": "algebra",
+      "heading": "Solving by algebra",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[analytic-solution|analytic solution]] is found by algebra: factorising, the quadratic formula, logarithms. It gives exact answers, such as $x = \\ln 3$. Paper 1 has no calculator, so this is what it expects."
+        },
+        {
+          "type": "definition",
+          "term": "analytic solution",
+          "statement": "A solution found exactly by algebraic steps, rather than read from a graph or a calculator.",
+          "plain": "Algebra gives you the exact value, not a decimal."
+        },
+        {
+          "type": "text",
+          "text": "Some equations look hard but hide a quadratic. In $\\mathrm{e}^{2x} - 7\\mathrm{e}^{x} + 12 = 0$, notice that $\\mathrm{e}^{2x} = (\\mathrm{e}^{x})^{2}$. Write $u = \\mathrm{e}^{x}$ and the equation becomes $u^{2} - 7u + 12 = 0$."
+        },
+        {
+          "type": "definition",
+          "term": "disguised quadratic",
+          "statement": "An equation that becomes a quadratic $au^{2} + bu + c = 0$ after a substitution such as $u = \\mathrm{e}^{x}$, $u = 2^{x}$ or $u = \\ln x$.",
+          "plain": "Swap one expression for a single letter, and a quadratic appears."
+        },
+        {
+          "type": "text",
+          "text": "1. Spot the square: $\\mathrm{e}^{2x} = (\\mathrm{e}^{x})^{2}$, $4^{x} = (2^{x})^{2}$, or $(\\ln x)^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Substitute $u$ and solve the quadratic for $u$."
+        },
+        {
+          "type": "text",
+          "text": "3. Undo the substitution for each value of $u$."
+        },
+        {
+          "type": "text",
+          "text": "4. Reject any impossible value. $\\mathrm{e}^{x}$ and $a^{x}$ (with $a > 0$) are positive for every $x$, so $\\mathrm{e}^{x} = -2$ and $\\mathrm{e}^{x} = 0$ give no solution."
+        },
+        {
+          "type": "text",
+          "text": "If the quadratic in $u$ won't factorise, use the quadratic formula. You don't need to memorise it: it's in the formula booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "ax^{2} + bx + c = 0 \\Rightarrow x = \\dfrac{-b \\pm \\sqrt{b^{2} - 4ac}}{2a}, \\quad a \\neq 0",
+          "tag": "booklet",
+          "bookletId": "bk-2-7-quadratic-formula"
+        },
+        {
+          "type": "example",
+          "id": "ex-exp-quadratic",
+          "question": "Solve $\\mathrm{e}^{2x} - 7\\mathrm{e}^{x} + 12 = 0$, giving exact answers.",
+          "steps": [
+            "Let $u = \\mathrm{e}^{x}$. Then $\\mathrm{e}^{2x} = (\\mathrm{e}^{x})^{2} = u^{2}$, so $u^{2} - 7u + 12 = 0$.",
+            "Factorise: $(u - 3)(u - 4) = 0$, so $u = 3$ or $u = 4$.",
+            "Undo the substitution: $\\mathrm{e}^{x} = 3$ or $\\mathrm{e}^{x} = 4$.",
+            "Take natural logs: $x = \\ln 3$ or $x = \\ln 4$. Both values of $u$ are positive, so both give solutions."
+          ],
+          "answer": "$x = \\ln 3 \\text{ or } x = \\ln 4$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\mathrm{e}^{2x}$ as $2\\mathrm{e}^{x}$ or as $\\mathrm{e}^{x^{2}}$. By the laws of exponents, $\\mathrm{e}^{2x} = (\\mathrm{e}^{x})^{2}$, which is $u^{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-exp-reciprocal",
+          "question": "Solve $\\mathrm{e}^{x} - 8\\mathrm{e}^{-x} = 2$.",
+          "steps": [
+            "$\\mathrm{e}^{-x} = \\frac{1}{\\mathrm{e}^{x}}$. Multiply every term by $\\mathrm{e}^{x}$ to clear it: $\\mathrm{e}^{2x} - 8 = 2\\mathrm{e}^{x}$.",
+            "Rearrange to zero and let $u = \\mathrm{e}^{x}$: $u^{2} - 2u - 8 = 0$.",
+            "Factorise: $(u - 4)(u + 2) = 0$, so $u = 4$ or $u = -2$.",
+            "$\\mathrm{e}^{x} = -2$ is impossible, because $\\mathrm{e}^{x} > 0$ for every $x$. Reject it.",
+            "$\\mathrm{e}^{x} = 4$ gives $x = \\ln 4$. Check: $\\mathrm{e}^{\\ln 4} = 4$, and $4 - \\frac{8}{4} = 2$."
+          ],
+          "answer": "$x = \\ln 4$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-exp-formula",
+          "question": "Solve $\\mathrm{e}^{2x} - 2\\mathrm{e}^{x} - 4 = 0$, giving your answer exactly.",
+          "steps": [
+            "Let $u = \\mathrm{e}^{x}$: $u^{2} - 2u - 4 = 0$. This doesn't factorise, so use the quadratic formula with $a = 1$, $b = -2$, $c = -4$.",
+            "$u = \\frac{2 \\pm \\sqrt{(-2)^{2} - 4(1)(-4)}}{2} = \\frac{2 \\pm \\sqrt{20}}{2} = \\frac{2 \\pm 2\\sqrt{5}}{2} = 1 \\pm \\sqrt{5}$.",
+            "$\\sqrt{5} > 1$, so $1 - \\sqrt{5}$ is negative. $\\mathrm{e}^{x}$ can't be negative, so reject it.",
+            "So $\\mathrm{e}^{x} = 1 + \\sqrt{5}$. Take natural logs: $x = \\ln(1 + \\sqrt{5})$."
+          ],
+          "answer": "$x = \\ln(1 + \\sqrt{5})$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "\"Solve\" means find every solution and only those. When you reject a root, write the reason, such as \"$\\mathrm{e}^{x} > 0$\"."
+        },
+        {
+          "type": "check",
+          "id": "check-ln-quadratic",
+          "prompt": "Solve $(\\ln x)^{2} - \\ln x - 6 = 0$.",
+          "hint": "Let $u = \\ln x$. Once you have $u$, undo the log.",
+          "options": [
+            {
+              "text": "$x = \\mathrm{e}^{3} \\text{ or } x = \\mathrm{e}^{-2}$",
+              "correct": true
+            },
+            {
+              "text": "$x = 3 \\text{ or } x = -2$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\mathrm{e}^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\mathrm{e}^{-3} \\text{ or } x = \\mathrm{e}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$u^{2} - u - 6 = (u - 3)(u + 2) = 0$, so $\\ln x = 3$ or $\\ln x = -2$. A log can be negative, so keep both: $x = \\mathrm{e}^{3}$ or $x = \\mathrm{e}^{-2}$."
+        },
+        {
+          "type": "check",
+          "id": "check-power-quadratic",
+          "prompt": "Solve $4^{x} - 2^{x+1} - 15 = 0$. Give your answer to 3 s.f.",
+          "hint": "$4^{x} = (2^{x})^{2}$ and $2^{x+1} = 2 \\times 2^{x}$. Let $u = 2^{x}$.",
+          "answer": {
+            "value": 2.32,
+            "tolerance": 0.005
+          },
+          "explain": "$u^{2} - 2u - 15 = (u - 5)(u + 3) = 0$. $2^{x} = -3$ is impossible, so $2^{x} = 5$ and $x = \\log_{2} 5 = \\frac{\\ln 5}{\\ln 2} \\approx 2.32$."
+        }
+      ]
+    },
+    {
+      "id": "technology",
+      "heading": "Solving with your GDC",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some equations have no suitable [[analytic-solution|analytic method]]. In $\\mathrm{e}^{x} = x + 3$, $x$ is both in an exponent and outside one, so no algebra step frees it. On Paper 2, use your GDC in one of two ways."
+        },
+        {
+          "type": "text",
+          "text": "1. Graph each side as its own function and find every intersection. The $x$-coordinates are the solutions."
+        },
+        {
+          "type": "text",
+          "text": "2. Or rearrange to $f(x) - g(x) = 0$, graph that one function and find its [[zero-of-a-function|zeros]]."
+        },
+        {
+          "type": "examTip",
+          "text": "Write down the equation you put into your GDC, such as $\\mathrm{e}^{x} = x + 3$, before the answers. That line earns the method mark."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-intersect",
+          "question": "Use your calculator to solve $\\mathrm{e}^{x} = x + 3$. Give your answers to 3 s.f.",
+          "steps": [
+            "Write down the equation you are solving, $\\mathrm{e}^{x} = x + 3$, and graph $y = \\mathrm{e}^{x}$ and $y = x + 3$.",
+            "Choose a [[viewing-window|viewing window]] that shows both crossings, such as $-5 \\le x \\le 3$ and $-2 \\le y \\le 8$. The left crossing is close to the $x$-axis and easy to miss.",
+            "Find the intersections: $x = -2.94753\\ldots$ and $x = 1.50524\\ldots$.",
+            "Check there are no more. The curve $y = \\mathrm{e}^{x}$ bends upwards everywhere, so a straight line can cross it at most twice.",
+            "Round only at the end, to 3 s.f."
+          ],
+          "answer": "$x \\approx -2.95 \\text{ or } x \\approx 1.51$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = e^(X) and Y2 = X+3",
+              "WINDOW: Xmin = -5, Xmax = 3, Ymin = -2, Ymax = 8, then GRAPH (check on your model)",
+              "2nd TRACE (CALC), 5: intersect",
+              "ENTER on the first curve, ENTER on the second, then move near the left crossing and ENTER for the guess (check on your model)",
+              "Read X = -2.94753...; repeat near the right crossing, X = 1.50524..."
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = e^(x) and f2(x) = x+3",
+              "Menu, Analyze Graph, Intersection",
+              "Click to the left and then to the right of the left crossing (check on your model)",
+              "Read x = -2.94753; repeat for the right crossing, x = 1.50524"
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = e^(X) and Y2 = X+3",
+              "SHIFT F3 (V-WINDOW): Xmin = -5, Xmax = 3, Ymin = -2, Ymax = 8, then EXIT and DRAW (check on your model)",
+              "SHIFT F5 (G-SOLV), INTSECT",
+              "Read X = -2.947530; press the right arrow for the next crossing, X = 1.505241 (check on your model)"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-poly",
+          "question": "Use your calculator to solve $x^{5} - 3x + 1 = 0$. Give your answers to 3 s.f.",
+          "steps": [
+            "Look for a whole-number root first. Any such root divides $1$, but $x = 1$ and $x = -1$ both fail. There is no formula for degree 5, so use the GDC.",
+            "Graph $y = x^{5} - 3x + 1$ and find its zeros: $x = -1.38879\\ldots$, $x = 0.334734\\ldots$ and $x = 1.21464\\ldots$.",
+            "Check there are no more. The graph has only two turning points, and it turns above the $x$-axis (a peak of about $3.11$) and then below it (a dip to about $-1.11$). So it crosses the $x$-axis exactly three times.",
+            "Round only at the end, to 3 s.f."
+          ],
+          "answer": "$x \\approx -1.39 \\text{ or } x \\approx 0.335 \\text{ or } x \\approx 1.21$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at the crossings you can see on the screen. Zoom out, and think about how each graph behaves far to the left and far to the right."
+        },
+        {
+          "type": "check",
+          "id": "check-gdc-one",
+          "prompt": "Use your calculator to solve $\\ln x = 3 - x$. Give your answer to 3 s.f.",
+          "hint": "Graph $y = \\ln x$ and $y = 3 - x$, and find where they cross.",
+          "answer": {
+            "value": 2.21,
+            "tolerance": 0.005
+          },
+          "explain": "$\\ln x$ increases and $3 - x$ decreases, so they cross exactly once, at $x = 2.20794\\ldots \\approx 2.21$."
+        },
+        {
+          "type": "check",
+          "id": "check-gdc-hidden",
+          "prompt": "The equation $x^{3} = 2^{x}$ has two positive solutions. One is $x \\approx 1.37$. Use your calculator to find the other, to 3 s.f.",
+          "hint": "The second crossing is far above a standard screen. Raise the largest $y$ to about $1200$, or find the zeros of $y = x^{3} - 2^{x}$.",
+          "answer": {
+            "value": 9.94,
+            "tolerance": 0.005
+          },
+          "explain": "The curves cross again at $x = 9.93953\\ldots \\approx 9.94$, where both are close to $1000$. A small window only shows the first crossing."
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "heading": "Equations from real-life models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[mathematical-model|mathematical model]] turns a real question into an equation. \"When does the population reach $18\\,000$?\" becomes $P(t) = 18\\,000$. Solve it, then answer in the words of the question."
+        },
+        {
+          "type": "text",
+          "text": "Many models use exponential growth, $P(t) = P_{0}\\mathrm{e}^{kt}$ with $k > 0$ (see {{lesson:2.9}}). $P_{0}$ is the starting value, at $t = 0$. With $k < 0$ the same form models decay."
+        },
+        {
+          "type": "result",
+          "statement": "To solve $P_{0}\\mathrm{e}^{kt} = A$, divide by $P_{0}$, then take natural logs: $t = \\frac{1}{k}\\ln\\left(\\frac{A}{P_{0}}\\right)$.",
+          "why": "$\\ln$ undoes $\\mathrm{e}$, so $\\ln(\\mathrm{e}^{kt}) = kt$."
+        },
+        {
+          "type": "text",
+          "text": "Then interpret: check the units of $t$, round the way the context needs, and answer the question asked."
+        },
+        {
+          "type": "example",
+          "id": "ex-model-growth",
+          "question": "A town's population $t$ years after the start of 2025 is modelled by $P(t) = 12\\,000\\mathrm{e}^{0.025t}$. The council will open a new school once the population is above $18\\,000$. Find the smallest whole number $n$ for which $P(n) > 18\\,000$.",
+          "steps": [
+            "Set up the equation for the boundary: $12\\,000\\mathrm{e}^{0.025t} = 18\\,000$.",
+            "Divide by $12\\,000$: $\\mathrm{e}^{0.025t} = 1.5$.",
+            "Take natural logs: $0.025t = \\ln 1.5$, so $t = 40\\ln 1.5 = 16.218\\ldots$.",
+            "The population passes $18\\,000$ only after $t = 16.218\\ldots$, so $n = 16$ is too early. Round up, not to the nearest whole number: $n = 17$.",
+            "Check: $P(16) \\approx 17\\,902$, still below, and $P(17) \\approx 18\\,355$, above."
+          ],
+          "answer": "$n = 17$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding $16.2$ down to $16$. At $t = 16$ the population hasn't reached $18\\,000$ yet. When a question asks when a level is first passed, round up."
+        },
+        {
+          "type": "example",
+          "id": "ex-model-find-k",
+          "question": "A car's value, in dollars, $t$ years after it is bought is $V(t) = 32\\,000\\mathrm{e}^{-kt}$, where $k$ is a positive constant. After $2$ years it is worth $24\\,000$ dollars. Find the exact value of $k$, then find when the car is worth $18\\,000$ dollars.",
+          "steps": [
+            "Use the data point: $32\\,000\\mathrm{e}^{-2k} = 24\\,000$, so $\\mathrm{e}^{-2k} = \\frac{3}{4}$.",
+            "Take natural logs: $-2k = \\ln\\frac{3}{4}$, so $k = -\\frac{1}{2}\\ln\\frac{3}{4} = \\frac{1}{2}\\ln\\frac{4}{3}$. This is positive, as it should be.",
+            "Now set up the second equation: $32\\,000\\mathrm{e}^{-kt} = 18\\,000$, so $\\mathrm{e}^{-kt} = \\frac{9}{16}$.",
+            "$\\frac{9}{16} = \\left(\\frac{3}{4}\\right)^{2}$, so taking logs gives $-kt = 2\\ln\\frac{3}{4} = -2\\ln\\frac{4}{3}$, and $kt = 2\\ln\\frac{4}{3}$.",
+            "Substitute $k$: $\\frac{t}{2}\\ln\\frac{4}{3} = 2\\ln\\frac{4}{3}$, so $t = 4$ years. Check: $32\\,000 \\times \\left(\\frac{3}{4}\\right)^{2} = 18\\,000$."
+          ],
+          "answer": "$k = \\frac{1}{2}\\ln\\left(\\frac{4}{3}\\right), \\; t = 4$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-model-time",
+          "prompt": "A culture of bacteria grows as $N(t) = 250\\mathrm{e}^{0.4t}$, where $t$ is in hours. Find the time it takes for the number of bacteria to reach $1000$. Give your answer to 3 s.f.",
+          "hint": "Divide by $250$ first, then take natural logs.",
+          "answer": {
+            "value": 3.47,
+            "tolerance": 0.005
+          },
+          "explain": "$\\mathrm{e}^{0.4t} = 4$, so $0.4t = \\ln 4$ and $t = \\frac{\\ln 4}{0.4} = 3.4657\\ldots \\approx 3.47$ hours."
+        },
+        {
+          "type": "check",
+          "id": "check-model-double",
+          "prompt": "The value of an investment after $t$ years is $A(t) = 500\\mathrm{e}^{0.05t}$. Find the exact time it takes for the value to double.",
+          "hint": "Doubling means $A(t) = 1000$. Divide by $500$ before you take logs.",
+          "options": [
+            {
+              "text": "$t = 20\\ln 2$",
+              "correct": true
+            },
+            {
+              "text": "$t = 20\\ln 1000$",
+              "correct": false
+            },
+            {
+              "text": "$t = \\frac{\\ln 2}{20}$",
+              "correct": false
+            },
+            {
+              "text": "$t = \\ln 40$",
+              "correct": false
+            }
+          ],
+          "explain": "$500\\mathrm{e}^{0.05t} = 1000$ gives $\\mathrm{e}^{0.05t} = 2$, so $0.05t = \\ln 2$ and $t = \\frac{\\ln 2}{0.05} = 20\\ln 2$."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 a model may give an equation you can't solve by algebra. Graph the model and the target line, and find where they meet."
+        },
+        {
+          "type": "example",
+          "id": "ex-model-gdc",
+          "question": "The concentration of a medicine in a patient's blood, $t$ hours after a dose, is $C(t) = 20t\\mathrm{e}^{-0.4t}$ mg per litre. The medicine works while $C(t) \\ge 12$. Use your calculator to find for how long the medicine works. Give your answer to 3 s.f.",
+          "steps": [
+            "Write down the equation for the start and end times: $20t\\mathrm{e}^{-0.4t} = 12$.",
+            "Graph $y = 20x\\mathrm{e}^{-0.4x}$ and $y = 12$ for $0 \\le x \\le 12$. The curve rises to a peak of about $18.4$ and then falls, so it crosses the line twice.",
+            "Find the intersections: $t_{1} = 0.839402\\ldots$ and $t_{2} = 5.57100\\ldots$. Keep these full values.",
+            "The medicine works between these times: $t_{2} - t_{1} = 4.73159\\ldots$.",
+            "Interpret: the medicine works for about $4.73$ hours."
+          ],
+          "answer": "$t_{2} - t_{1} \\approx 4.73 \\text{ hours}$",
+          "video": null
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The solutions of $f(x) = g(x)$ are the $x$-coordinates where $y = f(x)$ and $y = g(x)$ meet, or the zeros of $y = f(x) - g(x)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Disguised quadratic: let $u = \\mathrm{e}^{x}$, so $\\mathrm{e}^{2x} = u^{2}$. Solve for $u$, then undo with $\\ln$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{e}^{x} > 0$ and $a^{x} > 0$ for every $x$: reject any root that makes them zero or negative.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "ax^{2} + bx + c = 0 \\Rightarrow x = \\dfrac{-b \\pm \\sqrt{b^{2} - 4ac}}{2a}, \\quad a \\neq 0",
+          "tag": "booklet",
+          "bookletId": "bk-2-7-quadratic-formula",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "No analytic method? On Paper 2, write down the equation, then find intersections or zeros on your GDC.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "P_{0}\\mathrm{e}^{kt} = A \\;\\Rightarrow\\; t = \\frac{1}{k}\\ln\\left(\\frac{A}{P_{0}}\\right)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Models: set the model equal to the target, solve, then interpret. Round up for the first time a level is passed.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Keeping a root such as $\\mathrm{e}^{x} = -2$ or $\\mathrm{e}^{x} = 0$. An exponential is always positive, so reject it and say why.",
+    "Squaring a bracket such as $(\\mathrm{e}^{x} - 3)^{2}$ as $\\mathrm{e}^{2x} + 9$. Expand it in full: $\\mathrm{e}^{2x} - 6\\mathrm{e}^{x} + 9$.",
+    "Giving a decimal when the question asks for an exact value. Leave logs and roots in the answer, as in $x = \\ln(1 + \\sqrt{5})$.",
+    "Rounding a time down when the question asks when a level is first reached or passed. Check the whole number just below: if the level isn't reached there, round up.",
+    "Substituting $t = 1$ for one year when $t$ is measured in months. Read the units of the variable before you substitute.",
+    "Missing a solution because the viewing window is too small. Zoom out, and think about each graph's behaviour at both ends."
+  ],
+  "examTips": [
+    "\"Solve\" means find every solution. Show why you reject a root, such as \"$\\mathrm{e}^{x} > 0$\".",
+    "On Paper 2, write down the equation you give your GDC, then the answers to 3 s.f. Don't round values you will use again.",
+    "\"Exact\" means no decimals: keep $\\ln$, square roots and fractions in the answer.",
+    "In context questions, answer the question asked, with units: a time in hours, or a whole number of years."
+  ],
+  "readingMinutes": 26
+}

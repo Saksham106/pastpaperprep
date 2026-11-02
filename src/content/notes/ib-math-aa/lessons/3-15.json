@@ -1,0 +1,670 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.15",
+  "slug": "relationships-between-lines",
+  "title": "Relationships between lines",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "Two lines in 3D can be the same line, be [[parallel-lines|parallel]], cross at one point, or be [[skew-lines|skew]]: not parallel, yet never meeting. Two tests tell them apart. Compare the [[direction-vector|direction vectors]], then look for a common point. When the lines meet, the same working gives the point of intersection.",
+  "goals": [
+    {
+      "text": "Tell whether two lines are coincident, parallel, intersecting or skew, starting from their direction vectors.",
+      "bullets": [
+        "3.15-b1"
+      ]
+    },
+    {
+      "text": "Show that two lines are skew, giving both parts of the reason.",
+      "bullets": [
+        "3.15-b1"
+      ]
+    },
+    {
+      "text": "Find the point where two lines meet, and check it in every component equation.",
+      "bullets": [
+        "3.15-b2"
+      ]
+    },
+    {
+      "text": "Find an unknown constant that makes two lines meet.",
+      "bullets": [
+        "3.15-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.14"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "skew lines",
+    "do two lines intersect",
+    "point of intersection of two lines",
+    "coincident lines vectors",
+    "parallel lines in 3d",
+    "show that the lines are skew"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-point-on-line",
+      "prompt": "Which point lies on the line $\\boldsymbol{r} = \\begin{pmatrix}2\\\\-1\\\\3\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\4\\\\-2\\end{pmatrix}$?",
+      "hint": "Find $\\lambda$ from one component. Then test the other two components with the same $\\lambda$.",
+      "options": [
+        {
+          "text": "$(4, 7, -1)$",
+          "correct": true
+        },
+        {
+          "text": "$(3, 3, 5)$",
+          "correct": false
+        },
+        {
+          "text": "$(1, 4, -2)$",
+          "correct": false
+        },
+        {
+          "text": "$(1, -5, 1)$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\lambda = 2$ gives $(2 + 2, -1 + 8, 3 - 4) = (4, 7, -1)$. For $(3, 3, 5)$, the $x$- and $y$-components need $\\lambda = 1$, but then $z = 1$, not $5$. Revise it in {{lesson:3.14}}."
+    },
+    {
+      "type": "check",
+      "id": "before-read-direction",
+      "prompt": "A line has Cartesian equations $\\frac{x - 3}{2} = \\frac{4 - y}{5} = z + 1$. Which is a direction vector of the line?",
+      "hint": "Set each part equal to $\\lambda$, then solve for $x$, $y$ and $z$.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}2\\\\5\\\\1\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}3\\\\4\\\\-1\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}2\\\\-5\\\\1\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}2\\\\-5\\\\0\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{4 - y}{5} = \\lambda$ gives $y = 4 - 5\\lambda$, and $z + 1 = \\lambda$ gives $z = -1 + \\lambda$. So the direction is $\\begin{pmatrix}2\\\\-5\\\\1\\end{pmatrix}$. The vector $\\begin{pmatrix}3\\\\4\\\\-1\\end{pmatrix}$ is the point on the line. Revise it in {{lesson:3.14}}."
+    },
+    {
+      "type": "check",
+      "id": "before-multiple",
+      "prompt": "Find the number $k$ for which $\\begin{pmatrix}-4\\\\6\\\\-2\\end{pmatrix} = k\\begin{pmatrix}2\\\\-3\\\\1\\end{pmatrix}$.",
+      "hint": "Divide matching components. Every component must give the same $k$.",
+      "answer": {
+        "value": -2,
+        "tolerance": 0
+      },
+      "explain": "$-4 = 2k$, $6 = -3k$ and $-2 = k$ all give $k = -2$. So the two vectors are parallel. Revise it in {{lesson:3.12}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "cases",
+      "heading": "Four ways two lines can sit",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Draw two lines on a sheet of paper. They cross at one point, run side by side without meeting, or lie on top of each other. In 3D there is a fourth option."
+        },
+        {
+          "type": "text",
+          "text": "Picture a road on a bridge and a railway underneath it, heading off in another direction. They are not parallel, but they never meet. Lines like these are called skew."
+        },
+        {
+          "type": "definition",
+          "term": "Skew lines",
+          "statement": "Two lines are skew if they are not parallel and have no point in common. Skew lines can only occur in three dimensions.",
+          "plain": "They point different ways and still never touch."
+        },
+        {
+          "type": "text",
+          "text": "So any two lines $L_1$ and $L_2$ fall into exactly one of four cases."
+        },
+        {
+          "type": "text",
+          "text": "1. [[coincident-lines|Coincident]]: they are the same line, so every point is shared."
+        },
+        {
+          "type": "text",
+          "text": "2. [[parallel-lines|Parallel]]: the same direction, but no point in common."
+        },
+        {
+          "type": "text",
+          "text": "3. [[intersecting-lines|Intersecting]]: different directions and exactly one point in common."
+        },
+        {
+          "type": "text",
+          "text": "4. [[skew-lines|Skew]]: different directions and no point in common."
+        },
+        {
+          "type": "figure",
+          "id": "3-15-four-cases",
+          "alt": "Four small panels. Coincident: two lines drawn exactly on top of each other. Parallel: two lines with the same slope, a fixed gap apart. Intersecting: two lines crossing at one marked point. Skew: a box drawn in 3D, with one line along the top front edge and another along the bottom left edge running from front to back. The two lines point different ways and never touch.",
+          "caption": "Only skew lines need three dimensions. Edges of a box show them well."
+        },
+        {
+          "type": "text",
+          "text": "In 2D, two lines that are not parallel always meet. In 3D that is no longer true, so different directions alone don't tell you the lines cross."
+        },
+        {
+          "type": "text",
+          "text": "The first test uses only the [[direction-vector|direction vectors]] $\\boldsymbol{b}_1$ and $\\boldsymbol{b}_2$. It splits the four cases into two pairs."
+        },
+        {
+          "type": "result",
+          "statement": "Two lines have the same direction exactly when $\\boldsymbol{b}_2 = k\\boldsymbol{b}_1$ for some number $k \\ne 0$. Such lines are parallel or coincident. Otherwise they intersect or are skew.",
+          "why": "Multiplying a direction vector by $k$ changes its length, and reverses it if $k < 0$. The line it points along stays the same, as in {{lesson:3.14}}."
+        },
+        {
+          "type": "text",
+          "text": "To test, divide matching components. If every one gives the same $k$, the directions match."
+        },
+        {
+          "type": "text",
+          "text": "Same direction still leaves two cases. Take any point on $L_2$ and test whether it lies on $L_1$. If it does, the lines share a point and a direction, so they are coincident. If not, they are parallel."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-not-coincident",
+          "question": "Determine whether the lines $L_1: \\boldsymbol{r} = \\begin{pmatrix}1\\\\3\\\\-2\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\-1\\\\4\\end{pmatrix}$ and $L_2: \\boldsymbol{r} = \\begin{pmatrix}0\\\\5\\\\3\\end{pmatrix} + \\mu\\begin{pmatrix}-6\\\\3\\\\-12\\end{pmatrix}$ are coincident or parallel.",
+          "steps": [
+            "Compare the directions: $\\begin{pmatrix}-6\\\\3\\\\-12\\end{pmatrix} = -3\\begin{pmatrix}2\\\\-1\\\\4\\end{pmatrix}$. Every component gives $k = -3$, so the lines have the same direction.",
+            "Test whether the point $(0, 5, 3)$ of $L_2$ lies on $L_1$. Set $\\begin{pmatrix}1 + 2\\lambda\\\\3 - \\lambda\\\\-2 + 4\\lambda\\end{pmatrix} = \\begin{pmatrix}0\\\\5\\\\3\\end{pmatrix}$.",
+            "From $x$: $1 + 2\\lambda = 0$, so $\\lambda = -\\frac{1}{2}$. From $y$: $3 - \\lambda = 5$, so $\\lambda = -2$.",
+            "The components need different values of $\\lambda$, so $(0, 5, 3)$ is not on $L_1$. The lines share a direction but no point."
+          ],
+          "answer": "$L_1 \\text{ and } L_2 \\text{ are parallel}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-coincident-find-a",
+          "question": "The lines $L_1: \\boldsymbol{r} = \\begin{pmatrix}1\\\\3\\\\-2\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\-1\\\\4\\end{pmatrix}$ and $L_2: \\boldsymbol{r} = \\begin{pmatrix}5\\\\a\\\\6\\end{pmatrix} + \\mu\\begin{pmatrix}-4\\\\2\\\\-8\\end{pmatrix}$ are coincident. Find the value of $a$.",
+          "steps": [
+            "Check the directions first: $\\begin{pmatrix}-4\\\\2\\\\-8\\end{pmatrix} = -2\\begin{pmatrix}2\\\\-1\\\\4\\end{pmatrix}$. So the lines are parallel or coincident.",
+            "Coincident means the point $(5, a, 6)$ lies on $L_1$. Use the components without $a$ to find $\\lambda$.",
+            "From $x$: $1 + 2\\lambda = 5$, so $\\lambda = 2$. Check in $z$: $-2 + 4(2) = 6$, which matches.",
+            "The $y$-component must agree for the same $\\lambda$: $a = 3 - 2 = 1$.",
+            "For any other value of $a$, the point is off $L_1$, and the lines are parallel instead."
+          ],
+          "answer": "$a = 1$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Comparing the position vectors instead of the directions. Parallel depends only on $\\boldsymbol{b}_1$ and $\\boldsymbol{b}_2$. The points matter only when you test for coincident lines."
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-line",
+          "prompt": "Which line is parallel to $L: \\boldsymbol{r} = \\begin{pmatrix}2\\\\0\\\\-1\\end{pmatrix} + \\lambda\\begin{pmatrix}3\\\\-6\\\\9\\end{pmatrix}$, but not the same line?",
+          "hint": "Look for a direction that is a multiple of $\\begin{pmatrix}3\\\\-6\\\\9\\end{pmatrix}$, and a point that is not on $L$.",
+          "options": [
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}1\\\\1\\\\1\\end{pmatrix} + \\mu\\begin{pmatrix}-1\\\\2\\\\-3\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}3\\\\-6\\\\9\\end{pmatrix} + \\mu\\begin{pmatrix}2\\\\0\\\\-1\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}2\\\\0\\\\-1\\end{pmatrix} + \\mu\\begin{pmatrix}1\\\\2\\\\3\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}1\\\\1\\\\1\\end{pmatrix} + \\mu\\begin{pmatrix}1\\\\-2\\\\9\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\begin{pmatrix}3\\\\-6\\\\9\\end{pmatrix} = -3\\begin{pmatrix}-1\\\\2\\\\-3\\end{pmatrix}$. The point $(1, 1, 1)$ is not on $L$: $x$ needs $\\lambda = -\\frac{1}{3}$ but $y$ needs $\\lambda = -\\frac{1}{6}$. The direction $\\begin{pmatrix}1\\\\2\\\\3\\end{pmatrix}$ drops the minus sign on the middle component."
+        },
+        {
+          "type": "check",
+          "id": "check-coincident-word",
+          "prompt": "How are the lines $L_1: \\boldsymbol{r} = \\begin{pmatrix}1\\\\-1\\\\4\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\1\\\\-1\\end{pmatrix}$ and $L_2: \\boldsymbol{r} = \\begin{pmatrix}5\\\\1\\\\2\\end{pmatrix} + \\mu\\begin{pmatrix}-4\\\\-2\\\\2\\end{pmatrix}$ related?",
+          "hint": "Compare the directions. Then test whether $(5, 1, 2)$ lies on $L_1$.",
+          "options": [
+            {
+              "text": "Coincident",
+              "correct": true
+            },
+            {
+              "text": "Parallel",
+              "correct": false
+            },
+            {
+              "text": "Intersecting",
+              "correct": false
+            },
+            {
+              "text": "Skew",
+              "correct": false
+            }
+          ],
+          "explain": "$\\begin{pmatrix}-4\\\\-2\\\\2\\end{pmatrix} = -2\\begin{pmatrix}2\\\\1\\\\-1\\end{pmatrix}$. Then $\\lambda = 2$ gives $(1 + 4, -1 + 2, 4 - 2) = (5, 1, 2)$. The lines share a point as well as a direction, so they are the same line."
+        }
+      ]
+    },
+    {
+      "id": "intersection",
+      "heading": "Finding the point of intersection",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Suppose $L_1$ and $L_2$ meet at a point P. P is on $L_1$, so some value of $\\lambda$ gives it. P is also on $L_2$, so some value of $\\mu$ gives it."
+        },
+        {
+          "type": "text",
+          "text": "The two values are usually different. Each line has its own parameter, so give them different letters. Using $\\lambda$ for both would force the lines to reach P at the same value, which is almost never true."
+        },
+        {
+          "type": "text",
+          "text": "Setting the two general points equal gives one equation per component. In 3D that is three equations in just two unknowns, $\\lambda$ and $\\mu$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{a}_{1} + \\lambda\\boldsymbol{b}_{1} = \\boldsymbol{a}_{2} + \\mu\\boldsymbol{b}_{2}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "1. Write both lines with different parameters, such as $\\lambda$ and $\\mu$."
+        },
+        {
+          "type": "text",
+          "text": "2. Set the $x$-, $y$- and $z$-components equal. You get three equations."
+        },
+        {
+          "type": "text",
+          "text": "3. Solve two of them for $\\lambda$ and $\\mu$. Pick the pair that looks easiest."
+        },
+        {
+          "type": "text",
+          "text": "4. Substitute both values into the third equation. If it holds, the lines meet. If it fails, they don't."
+        },
+        {
+          "type": "text",
+          "text": "5. Put $\\lambda$ into $L_1$, or $\\mu$ into $L_2$, to get the point. Doing both is a quick check."
+        },
+        {
+          "type": "text",
+          "text": "Step 4 matters. Two equations in two unknowns nearly always have a solution, so they can't tell you on their own whether the lines meet."
+        },
+        {
+          "type": "text",
+          "text": "In 2D there are only two equations, so step 4 has nothing to test."
+        },
+        {
+          "type": "example",
+          "id": "ex-intersect-2d",
+          "question": "Find the point of intersection of the lines $L_1: \\boldsymbol{r} = \\begin{pmatrix}1\\\\2\\end{pmatrix} + \\lambda\\begin{pmatrix}3\\\\1\\end{pmatrix}$ and $L_2: \\boldsymbol{r} = \\begin{pmatrix}9\\\\1\\end{pmatrix} + \\mu\\begin{pmatrix}2\\\\-3\\end{pmatrix}$.",
+          "steps": [
+            "Set the general points equal: $\\begin{pmatrix}1 + 3\\lambda\\\\2 + \\lambda\\end{pmatrix} = \\begin{pmatrix}9 + 2\\mu\\\\1 - 3\\mu\\end{pmatrix}$.",
+            "From the $y$-components: $\\lambda = -1 - 3\\mu$.",
+            "Substitute into the $x$-components: $1 + 3(-1 - 3\\mu) = 9 + 2\\mu$, so $-2 - 9\\mu = 9 + 2\\mu$.",
+            "Then $-11\\mu = 11$, so $\\mu = -1$ and $\\lambda = -1 - 3(-1) = 2$.",
+            "Put $\\lambda = 2$ into $L_1$: $(1 + 6, 2 + 2) = (7, 4)$. Check with $\\mu = -1$ in $L_2$: $(9 - 2, 1 + 3) = (7, 4)$."
+          ],
+          "answer": "$(7, 4)$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-intersect-3d",
+          "question": "Show that the lines $L_1: \\boldsymbol{r} = \\begin{pmatrix}-1\\\\5\\\\1\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\-3\\\\2\\end{pmatrix}$ and $L_2: \\boldsymbol{r} = \\begin{pmatrix}6\\\\1\\\\4\\end{pmatrix} + \\mu\\begin{pmatrix}3\\\\2\\\\-1\\end{pmatrix}$ intersect, and find their point of intersection.",
+          "steps": [
+            "Equate the components: $-1 + 2\\lambda = 6 + 3\\mu$, $\\;5 - 3\\lambda = 1 + 2\\mu$ and $\\;1 + 2\\lambda = 4 - \\mu$.",
+            "The $z$-equation gives $\\mu = 3 - 2\\lambda$. Substitute into the $x$-equation: $-1 + 2\\lambda = 6 + 3(3 - 2\\lambda) = 15 - 6\\lambda$.",
+            "So $8\\lambda = 16$, which gives $\\lambda = 2$ and then $\\mu = 3 - 4 = -1$.",
+            "Check in the $y$-equation, the one not used yet: $5 - 3(2) = -1$ and $1 + 2(-1) = -1$. Both sides agree, so the lines intersect.",
+            "Put $\\lambda = 2$ into $L_1$: $(-1 + 4, 5 - 6, 1 + 4) = (3, -1, 5)$. Check with $\\mu = -1$ in $L_2$: $(6 - 3, 1 - 2, 4 + 1) = (3, -1, 5)$."
+          ],
+          "answer": "$(3, -1, 5)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Putting $\\lambda$ into $L_2$. The value of $\\lambda$ belongs to $L_1$, and $\\mu$ belongs to $L_2$. Mixing them gives a point on one line, but not the point where they meet."
+        },
+        {
+          "type": "example",
+          "id": "ex-intersect-unknown",
+          "question": "The lines $L_1: \\boldsymbol{r} = \\begin{pmatrix}2\\\\0\\\\1\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\1\\\\-2\\end{pmatrix}$ and $L_2: \\boldsymbol{r} = \\begin{pmatrix}c\\\\3\\\\-4\\end{pmatrix} + \\mu\\begin{pmatrix}2\\\\-1\\\\1\\end{pmatrix}$ intersect. Find the value of $c$ and the point of intersection.",
+          "steps": [
+            "Equate the components: $2 + \\lambda = c + 2\\mu$, $\\;\\lambda = 3 - \\mu$ and $\\;1 - 2\\lambda = -4 + \\mu$.",
+            "The $x$-equation contains $c$, so solve the other two first. Substitute $\\lambda = 3 - \\mu$ into the $z$-equation: $1 - 2(3 - \\mu) = -4 + \\mu$.",
+            "That gives $-5 + 2\\mu = -4 + \\mu$, so $\\mu = 1$ and $\\lambda = 2$.",
+            "The lines meet only if the $x$-equation holds too: $2 + 2 = c + 2(1)$, so $c = 2$.",
+            "The point is $L_1$ at $\\lambda = 2$: $(2 + 2, 0 + 2, 1 - 4) = (4, 2, -3)$. Check with $\\mu = 1$ in $L_2$: $(2 + 2, 3 - 1, -4 + 1) = (4, 2, -3)$."
+          ],
+          "answer": "$c = 2, \\; (4, 2, -3)$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-intersection-point",
+          "prompt": "Find the point where $L_1: \\boldsymbol{r} = \\begin{pmatrix}0\\\\1\\\\2\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\2\\\\-1\\end{pmatrix}$ meets $L_2: \\boldsymbol{r} = \\begin{pmatrix}5\\\\2\\\\3\\end{pmatrix} + \\mu\\begin{pmatrix}1\\\\-1\\\\1\\end{pmatrix}$.",
+          "hint": "Use the $x$- and $y$-equations to find $\\lambda$ and $\\mu$. Then put $\\lambda$ into $L_1$.",
+          "options": [
+            {
+              "text": "$(2, 5, 0)$",
+              "correct": true
+            },
+            {
+              "text": "$(-3, -5, 5)$",
+              "correct": false
+            },
+            {
+              "text": "$(7, 0, 5)$",
+              "correct": false
+            },
+            {
+              "text": "$(2, 5, 4)$",
+              "correct": false
+            }
+          ],
+          "explain": "The equations $\\lambda = 5 + \\mu$ and $1 + 2\\lambda = 2 - \\mu$ give $\\mu = -3$ and $\\lambda = 2$. The $z$-equation checks: $2 - 2 = 3 - 3 = 0$. So the point is $L_1$ at $\\lambda = 2$. The point $(-3, -5, 5)$ comes from putting $\\mu$ into $L_1$."
+        },
+        {
+          "type": "check",
+          "id": "check-intersect-p",
+          "prompt": "The lines $\\boldsymbol{r} = \\begin{pmatrix}1\\\\-2\\\\3\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\1\\\\0\\end{pmatrix}$ and $\\boldsymbol{r} = \\begin{pmatrix}4\\\\0\\\\p\\end{pmatrix} + \\mu\\begin{pmatrix}1\\\\1\\\\-1\\end{pmatrix}$ intersect. Find $p$.",
+          "hint": "The $x$- and $y$-equations don't involve $p$. Solve them first.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "$1 + 2\\lambda = 4 + \\mu$ and $-2 + \\lambda = \\mu$ give $\\lambda = 1$ and $\\mu = -1$. The $z$-equation then needs $3 = p - \\mu = p + 1$, so $p = 2$."
+        }
+      ]
+    },
+    {
+      "id": "skew",
+      "heading": "Showing that lines are skew",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[skew-lines|Skew lines]] fail both tests: the directions are not multiples, and the third equation fails."
+        },
+        {
+          "type": "text",
+          "text": "Look at a closed box. Take the front edge of the lid and the left edge of the floor, which runs from front to back. They point different ways and never touch, so they are skew."
+        },
+        {
+          "type": "result",
+          "statement": "Two lines are skew exactly when both of these hold: their [[direction-vector|direction vectors]] are not multiples of each other, and no values of $\\lambda$ and $\\mu$ satisfy all three component equations.",
+          "why": "Not [[parallel-lines|parallel]] rules out parallel and [[coincident-lines|coincident]] lines. No common point rules out [[intersecting-lines|intersecting]] lines. Skew is the only case left."
+        },
+        {
+          "type": "text",
+          "text": "So a proof that two lines are skew has two parts. Leave either out and the proof has a gap: lines with no common point could still be parallel."
+        },
+        {
+          "type": "example",
+          "id": "ex-skew-vector",
+          "question": "Show that the lines $L_1: \\boldsymbol{r} = \\begin{pmatrix}1\\\\0\\\\2\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\2\\\\1\\end{pmatrix}$ and $L_2: \\boldsymbol{r} = \\begin{pmatrix}2\\\\-1\\\\4\\end{pmatrix} + \\mu\\begin{pmatrix}1\\\\1\\\\-2\\end{pmatrix}$ are skew.",
+          "steps": [
+            "Not parallel: if $\\begin{pmatrix}1\\\\1\\\\-2\\end{pmatrix} = k\\begin{pmatrix}1\\\\2\\\\1\\end{pmatrix}$, the $x$-components give $k = 1$ but the $y$-components give $k = \\frac{1}{2}$. So the directions are not multiples of each other.",
+            "Equate the components: $1 + \\lambda = 2 + \\mu$, $\\;2\\lambda = -1 + \\mu$ and $\\;2 + \\lambda = 4 - 2\\mu$.",
+            "From the $x$-equation, $\\lambda = 1 + \\mu$. Substitute into the $y$-equation: $2 + 2\\mu = -1 + \\mu$, so $\\mu = -3$ and $\\lambda = -2$.",
+            "Test the $z$-equation. The left side is $2 + (-2) = 0$, but the right side is $4 - 2(-3) = 10$. Since $0 \\ne 10$, there is no common point.",
+            "Different directions and no shared point: that combination is exactly what skew means."
+          ],
+          "answer": "$L_1 \\text{ and } L_2 \\text{ are skew}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-skew-cartesian",
+          "question": "The line $L_1$ has Cartesian equations $\\frac{x - 2}{3} = \\frac{y + 1}{-1} = \\frac{z - 4}{2}$, and $L_2: \\boldsymbol{r} = \\begin{pmatrix}1\\\\2\\\\0\\end{pmatrix} + \\mu\\begin{pmatrix}1\\\\0\\\\1\\end{pmatrix}$. Show that $L_1$ and $L_2$ are skew.",
+          "steps": [
+            "Give $L_1$ its own parameter. Setting each part equal to $\\lambda$ gives $x = 2 + 3\\lambda$, $y = -1 - \\lambda$ and $z = 4 + 2\\lambda$.",
+            "Not parallel: the directions are $\\begin{pmatrix}3\\\\-1\\\\2\\end{pmatrix}$ and $\\begin{pmatrix}1\\\\0\\\\1\\end{pmatrix}$. The second has a zero $y$-component and the first doesn't, so neither is a multiple of the other.",
+            "Equate the components: $2 + 3\\lambda = 1 + \\mu$, $\\;-1 - \\lambda = 2$ and $\\;4 + 2\\lambda = \\mu$.",
+            "The $y$-equation gives $\\lambda = -3$ at once. Then the $x$-equation gives $\\mu = 1 + 3(-3) = -8$.",
+            "Test the $z$-equation: $4 + 2(-3) = -2$, but $\\mu = -8$. Since $-2 \\ne -8$, there is no common point.",
+            "Not parallel and no common point, so the lines are skew."
+          ],
+          "answer": "$L_1 \\text{ and } L_2 \\text{ are skew}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping once the third equation fails. That shows the lines don't meet, but parallel lines don't meet either. Show that the directions are not multiples as well."
+        },
+        {
+          "type": "check",
+          "id": "check-skew-classify",
+          "prompt": "How are the lines $L_1: \\boldsymbol{r} = \\begin{pmatrix}0\\\\2\\\\1\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\-1\\\\3\\end{pmatrix}$ and $L_2: \\boldsymbol{r} = \\begin{pmatrix}4\\\\0\\\\2\\end{pmatrix} + \\mu\\begin{pmatrix}1\\\\1\\\\-1\\end{pmatrix}$ related?",
+          "hint": "The directions are not multiples. Solve the $x$- and $y$-equations, then test $z$.",
+          "options": [
+            {
+              "text": "Coincident",
+              "correct": false
+            },
+            {
+              "text": "Parallel",
+              "correct": false
+            },
+            {
+              "text": "Intersecting",
+              "correct": false
+            },
+            {
+              "text": "Skew",
+              "correct": true
+            }
+          ],
+          "explain": "$\\lambda = 4 + \\mu$ and $2 - \\lambda = \\mu$ give $\\mu = -1$ and $\\lambda = 3$. Then $z$ is $1 + 9 = 10$ on $L_1$ but $2 + 1 = 3$ on $L_2$. Not parallel and no common point, so they are skew."
+        },
+        {
+          "type": "check",
+          "id": "check-no-common-point",
+          "prompt": "The lines $L_1: \\boldsymbol{r} = \\begin{pmatrix}1\\\\0\\\\2\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\-1\\\\3\\end{pmatrix}$ and $L_2: \\boldsymbol{r} = \\begin{pmatrix}0\\\\4\\\\1\\end{pmatrix} + \\mu\\begin{pmatrix}-4\\\\2\\\\-6\\end{pmatrix}$ have no point in common. How are they related?",
+          "hint": "Before you say skew, compare the direction vectors.",
+          "options": [
+            {
+              "text": "Skew",
+              "correct": false
+            },
+            {
+              "text": "Parallel",
+              "correct": true
+            },
+            {
+              "text": "Intersecting",
+              "correct": false
+            },
+            {
+              "text": "Coincident",
+              "correct": false
+            }
+          ],
+          "explain": "$\\begin{pmatrix}-4\\\\2\\\\-6\\end{pmatrix} = -2\\begin{pmatrix}2\\\\-1\\\\3\\end{pmatrix}$, so the lines have the same direction. With no common point they are parallel, not skew."
+        }
+      ]
+    },
+    {
+      "id": "classify",
+      "heading": "Deciding which case you have",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To decide how two lines are related, run the two tests in order."
+        },
+        {
+          "type": "text",
+          "text": "1. Compare the [[direction-vector|direction vectors]]. Is one a multiple of the other?"
+        },
+        {
+          "type": "text",
+          "text": "2. If yes, test one point of $L_2$ on $L_1$. On the line means [[coincident-lines|coincident]]. Off the line means [[parallel-lines|parallel]]."
+        },
+        {
+          "type": "text",
+          "text": "3. If no, solve two component equations for $\\lambda$ and $\\mu$, then test the third. If it holds, the lines [[intersecting-lines|intersect]], and you can find the point. If it fails, they are [[skew-lines|skew]]."
+        },
+        {
+          "type": "text",
+          "text": "If one line holds an unknown, solve the two equations without it first. Then use the last equation to find it."
+        },
+        {
+          "type": "example",
+          "id": "ex-find-q-intersect",
+          "question": "The lines $L_1: \\boldsymbol{r} = \\begin{pmatrix}3\\\\1\\\\-2\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\-2\\\\2\\end{pmatrix}$ and $L_2: \\boldsymbol{r} = \\begin{pmatrix}6\\\\q\\\\1\\end{pmatrix} + \\mu\\begin{pmatrix}2\\\\-1\\\\1\\end{pmatrix}$ are given. Find the value of $q$ for which the lines intersect, and say how they are related for every other value of $q$.",
+          "steps": [
+            "Equate the components: $3 + \\lambda = 6 + 2\\mu$, $\\;1 - 2\\lambda = q - \\mu$ and $\\;-2 + 2\\lambda = 1 + \\mu$.",
+            "The $y$-equation contains $q$, so use $x$ and $z$. From $x$: $\\lambda = 3 + 2\\mu$. Substitute into $z$: $-2 + 2(3 + 2\\mu) = 1 + \\mu$.",
+            "So $4 + 4\\mu = 1 + \\mu$, which gives $\\mu = -1$ and $\\lambda = 3 + 2(-1) = 1$.",
+            "The lines meet only if the $y$-equation holds too: $1 - 2(1) = q - (-1)$, so $-1 = q + 1$ and $q = -2$. They then meet at $L_1$ with $\\lambda = 1$, which is $(4, -1, 0)$.",
+            "The directions $\\begin{pmatrix}1\\\\-2\\\\2\\end{pmatrix}$ and $\\begin{pmatrix}2\\\\-1\\\\1\\end{pmatrix}$ are not multiples: the $x$-components double, but the $y$-components halve. So for $q \\ne -2$ the lines are not parallel and don't meet. They are skew."
+          ],
+          "answer": "$q = -2 \\text{; for every other } q \\text{ the lines are skew}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-skew",
+          "question": "The lines $L_1: \\boldsymbol{r} = \\begin{pmatrix}4\\\\-2\\\\7\\end{pmatrix} + \\lambda\\begin{pmatrix}3\\\\5\\\\-2\\end{pmatrix}$ and $L_2: \\boldsymbol{r} = \\begin{pmatrix}-6\\\\10\\\\3\\end{pmatrix} + \\mu\\begin{pmatrix}4\\\\-3\\\\1\\end{pmatrix}$ are given. Use your calculator to determine whether $L_1$ and $L_2$ intersect.",
+          "steps": [
+            "Directions first. The $x$-components have ratio $\\frac{4}{3}$ but the $y$-components have ratio $-\\frac{3}{5}$. So the lines are not parallel.",
+            "Equate the $x$- and $y$-components and tidy them into the form the solver needs: $3\\lambda - 4\\mu = -10$ and $5\\lambda + 3\\mu = 12$. Write these down: they earn the method mark.",
+            "Solve them with the simultaneous equation solver: $\\lambda = 0.620689\\ldots$ and $\\mu = 2.965517\\ldots$. Some models show them as fractions, $\\frac{18}{29}$ and $\\frac{86}{29}$. Keep the full values.",
+            "Test the $z$-equation with those values. $L_1$ gives $7 - 2\\lambda = 5.758620\\ldots$, and $L_2$ gives $3 + \\mu = 5.965517\\ldots$.",
+            "The two values differ, so there is no common point. The lines are not parallel either, so they are skew. (Exactly, $\\lambda = \\frac{18}{29}$ and $\\mu = \\frac{86}{29}$.)"
+          ],
+          "answer": "$L_1 \\text{ and } L_2 \\text{ are skew}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "APPS, PlySmlt2",
+              "Choose SIMULTANEOUS EQN SOLVER, set 2 equations and 2 unknowns, NEXT (check on your model)",
+              "Enter the rows 3, -4, -10 and 5, 3, 12 (check on your model)",
+              "SOLVE, then read X1 = 0.620689... (lambda) and X2 = 2.965517... (mu) (check on your model)"
+            ],
+            "nspire": [
+              "Calculator page, Menu, Algebra, Solve System of Linear Equations",
+              "Number of equations: 2, variables: x,y, OK (check on your model)",
+              "Enter 3x-4y=-10 and 5x+3y=12, ENTER",
+              "Read x = 18/29 (lambda) and y = 86/29 (mu), or 0.620689... and 2.965517... in Approximate mode"
+            ],
+            "casio": [
+              "MENU, EQUA, F1 (Simultaneous)",
+              "Number of unknowns: 2 (check on your model)",
+              "Enter the rows 3, -4, -10 and 5, 3, 12, then EXE (check on your model)",
+              "Read x = 18/29 (lambda) and y = 86/29 (mu), or 0.620689... and 2.965517... if decimals are shown (check on your model)"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "The calculator solves the pair of equations, but you test the third one yourself. Show both sides of it with numbers."
+        },
+        {
+          "type": "check",
+          "id": "check-classify-cartesian",
+          "prompt": "How are $L_1: \\frac{x - 5}{2} = \\frac{y + 3}{4} = \\frac{2 - z}{2}$ and $L_2: \\boldsymbol{r} = \\begin{pmatrix}7\\\\1\\\\0\\end{pmatrix} + \\mu\\begin{pmatrix}-1\\\\-2\\\\1\\end{pmatrix}$ related?",
+          "hint": "Read the direction of $L_1$ carefully: its last part has $-z$ on top.",
+          "options": [
+            {
+              "text": "Parallel",
+              "correct": false
+            },
+            {
+              "text": "Coincident",
+              "correct": true
+            },
+            {
+              "text": "Intersecting",
+              "correct": false
+            },
+            {
+              "text": "Skew",
+              "correct": false
+            }
+          ],
+          "explain": "$L_1$ has direction $\\begin{pmatrix}2\\\\4\\\\-2\\end{pmatrix} = -2\\begin{pmatrix}-1\\\\-2\\\\1\\end{pmatrix}$. The point $(7, 1, 0)$ makes every part of $L_1$ equal $1$, so it lies on $L_1$. Same direction and a shared point, so the lines are coincident."
+        },
+        {
+          "type": "check",
+          "id": "check-h-intersect",
+          "prompt": "The lines $\\boldsymbol{r} = \\begin{pmatrix}2\\\\1\\\\-1\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\3\\\\2\\end{pmatrix}$ and $\\boldsymbol{r} = \\begin{pmatrix}0\\\\-4\\\\5\\end{pmatrix} + \\mu\\begin{pmatrix}1\\\\1\\\\h\\end{pmatrix}$ intersect. Find $h$.",
+          "hint": "The $x$- and $y$-equations don't involve $h$. Solve them first.",
+          "answer": {
+            "value": -18,
+            "tolerance": 0
+          },
+          "explain": "$2 + \\lambda = \\mu$ and $1 + 3\\lambda = -4 + \\mu$ give $\\lambda = -\\frac{3}{2}$ and $\\mu = \\frac{1}{2}$. The $z$-equation then needs $-1 + 2\\left(-\\frac{3}{2}\\right) = 5 + \\frac{1}{2}h$, so $-4 = 5 + \\frac{h}{2}$ and $h = -18$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Two lines are coincident, parallel, intersecting or skew. Skew lines are not parallel and never meet, so they exist only in 3D."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Same direction means $\\boldsymbol{b}_2 = k\\boldsymbol{b}_1$. Then test one point: on the other line means coincident, off it means parallel."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{a}_{1} + \\lambda\\boldsymbol{b}_{1} = \\boldsymbol{a}_{2} + \\mu\\boldsymbol{b}_{2}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "For a common point, use different parameters, solve two component equations and test the third. Put $\\lambda$ into $L_1$ for the point."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "To show lines are skew, show both: the directions are not multiples, and the third equation fails."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the same parameter for both lines. The lines usually reach their common point at different parameter values, so write $\\lambda$ for one line and $\\mu$ for the other.",
+    "Calling lines skew after showing only that they don't meet. Parallel lines don't meet either, so also show that the directions are not multiples.",
+    "Putting $\\lambda$ into $L_2$, or $\\mu$ into $L_1$. Each value belongs to its own line. Check the point by putting the other value into the other line.",
+    "Calling lines coincident because their directions match. One point of $L_2$ must also lie on $L_1$; if it doesn't, the lines are parallel.",
+    "Sign slips when expanding, such as writing $-3(2 - \\mu)$ as $-6 - 3\\mu$. The wrong $\\lambda$ or $\\mu$ then makes the third equation seem to fail."
+  ],
+  "examTips": [
+    "\"Show that the lines are skew\" needs two reasons: the directions are not multiples, and the third equation fails. Write the failing equation with its numbers.",
+    "\"Find the point of intersection\" wants coordinates. Show the test of the third equation, since it is part of the method.",
+    "On Paper 2, write down the two equations you enter in the solver, then the values of $\\lambda$ and $\\mu$. Carry the full values into the third equation."
+  ],
+  "readingMinutes": 28
+}

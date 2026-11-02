@@ -1,0 +1,654 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.8",
+  "slug": "reciprocal-and-rational-functions",
+  "title": "Reciprocal and linear-over-linear rational functions",
+  "level": "SL",
+  "topic": 2,
+  "summary": "The [[reciprocal-function|reciprocal function]] $f(x) = \\frac{1}{x}$ has two separate branches that hug the axes, and it is its own inverse. Every function $\\frac{ax + b}{cx + d}$ has the same shape, moved and stretched. You'll read its asymptotes straight from $a$, $c$ and $d$, then sketch it with its intercepts.",
+  "goals": [
+    {
+      "text": "Sketch $y = \\frac{1}{x}$ and explain why the reciprocal function is [[self-inverse|self-inverse]].",
+      "bullets": [
+        "2.8-b1"
+      ]
+    },
+    {
+      "text": "Write down the [[asymptote|asymptotes]] $x = -\\frac{d}{c}$ and $y = \\frac{a}{c}$ of $y = \\frac{ax + b}{cx + d}$, and use them to find unknown constants.",
+      "bullets": [
+        "2.8-b3"
+      ]
+    },
+    {
+      "text": "Sketch $y = \\frac{ax + b}{cx + d}$ with its asymptotes and axis intercepts, and state its domain and range.",
+      "bullets": [
+        "2.8-b2",
+        "2.8-b3"
+      ]
+    },
+    {
+      "text": "Find the inverse of a linear-over-linear function, spot when it is self-inverse, and solve problems with it on your calculator.",
+      "bullets": [
+        "2.8-b2",
+        "2.8-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.2",
+    "2.3",
+    "2.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "reciprocal function",
+    "graph of 1 over x",
+    "linear over linear function",
+    "vertical and horizontal asymptotes",
+    "rational function sketch",
+    "self-inverse function"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-undefined",
+      "prompt": "For which value of $x$ is $f(x) = \\frac{x + 1}{2x - 7}$ not defined?",
+      "hint": "You can't divide by 0. When is the bottom 0?",
+      "answer": {
+        "value": 3.5,
+        "tolerance": 0
+      },
+      "explain": "$2x - 7 = 0$ gives $x = 3.5$, so $3.5$ is left out of the domain. Revise it in {{lesson:2.2}}."
+    },
+    {
+      "type": "check",
+      "id": "before-x-intercept",
+      "prompt": "Where does the graph of $y = 12 - 3x$ meet the $x$-axis?",
+      "hint": "On the $x$-axis, $y = 0$.",
+      "options": [
+        {
+          "text": "$(4, 0)$",
+          "correct": true
+        },
+        {
+          "text": "$(-4, 0)$",
+          "correct": false
+        },
+        {
+          "text": "$(0, 12)$",
+          "correct": false
+        }
+      ],
+      "explain": "$12 - 3x = 0$ gives $x = 4$. The point $(0, 12)$ is where it meets the $y$-axis. Revise it in {{lesson:2.3}}."
+    },
+    {
+      "type": "check",
+      "id": "before-inverse-linear",
+      "prompt": "Let $f(x) = 3x - 4$, for $x \\in \\mathbb{R}$. Find $f^{-1}(x)$.",
+      "hint": "Write $y = 3x - 4$, make $x$ the subject, then swap $x$ and $y$.",
+      "options": [
+        {
+          "text": "$f^{-1}(x) = \\frac{x + 4}{3}$",
+          "correct": true
+        },
+        {
+          "text": "$f^{-1}(x) = \\frac{1}{3x - 4}$",
+          "correct": false
+        },
+        {
+          "text": "$f^{-1}(x) = \\frac{x - 4}{3}$",
+          "correct": false
+        },
+        {
+          "text": "$f^{-1}(x) = 3x + 4$",
+          "correct": false
+        }
+      ],
+      "explain": "$y = 3x - 4$ gives $x = \\frac{y + 4}{3}$, so $f^{-1}(x) = \\frac{x + 4}{3}$. The option $\\frac{1}{3x - 4}$ is the reciprocal of $f(x)$, not its inverse. Revise it in {{lesson:2.5}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "reciprocal",
+      "heading": "The reciprocal function",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Divide 1 by a small number and you get a big one: $\\frac{1}{0.1} = 10$ and $\\frac{1}{0.001} = 1000$. Divide 1 by a big number and you get a tiny one: $\\frac{1}{1000} = 0.001$. And you can't divide by 0 at all."
+        },
+        {
+          "type": "definition",
+          "term": "reciprocal function",
+          "statement": "The reciprocal function is $f(x) = \\frac{1}{x}$, for $x \\in \\mathbb{R}$, $x \\ne 0$. It sends each input to its reciprocal.",
+          "plain": "Flip the number over: 4 goes to one quarter."
+        },
+        {
+          "type": "text",
+          "text": "So as $x$ gets close to 0 from the right, $\\frac{1}{x}$ shoots up, and from the left it shoots down. Far from 0, the graph flattens towards the $x$-axis."
+        },
+        {
+          "type": "figure",
+          "id": "2-8-reciprocal",
+          "alt": "Graph of y equals 1 over x on axes labelled x and y. One branch is in the top-right quarter and one in the bottom-left. Each branch gets closer and closer to both axes without touching them. A dashed line y equals x passes through the origin. The points 2, 0.5 and 0.5, 2 are marked on the curve, joined by a dotted segment that the line y equals x cuts in half at right angles.",
+          "caption": "Reflecting $y = \\frac{1}{x}$ in $y = x$ gives the same curve: $(2, 0.5)$ goes to $(0.5, 2)$, which is also on it."
+        },
+        {
+          "type": "result",
+          "statement": "The graph of $y = \\frac{1}{x}$ has two branches, top-right and bottom-left. Its [[asymptote|asymptotes]] are the two axes, $x = 0$ and $y = 0$. Its [[domain|domain]] is $x \\ne 0$ and its [[range|range]] is $y \\ne 0$.",
+          "why": "0 is not allowed as an input, and no input gives 0 as an output."
+        },
+        {
+          "type": "text",
+          "text": "The curve is symmetric in the line $y = x$: if $b = \\frac{1}{a}$, then $a = \\frac{1}{b}$. Reflecting in $y = x$ gives the graph of the [[inverse-function|inverse]] ({{lesson:2.5}}), so the reciprocal function is its own inverse."
+        },
+        {
+          "type": "definition",
+          "term": "self-inverse",
+          "statement": "A function $f$ is self-inverse if $f^{-1}(x) = f(x)$ for every $x$ in its domain. Equivalently, $(f \\circ f)(x) = x$.",
+          "plain": "Doing it twice gets you back where you started."
+        },
+        {
+          "type": "example",
+          "id": "ex-reciprocal-inverse",
+          "question": "Let $f(x) = \\frac{1}{x}$, for $x \\ne 0$. Find $f^{-1}(x)$ by algebra, and show that $f$ is self-inverse.",
+          "steps": [
+            "Write $y = \\frac{1}{x}$.",
+            "Make $x$ the subject. Multiply both sides by $x$ to get $xy = 1$, then divide by $y$: $x = \\frac{1}{y}$.",
+            "Swap $x$ and $y$: $y = \\frac{1}{x}$. So $f^{-1}(x) = \\frac{1}{x}$.",
+            "This is the same rule as $f$, with the same domain $x \\ne 0$. So $f^{-1} = f$, and $f$ is self-inverse.",
+            "Check: $f(f(5)) = f\\left(\\tfrac{1}{5}\\right) = 5$."
+          ],
+          "answer": "$f^{-1}(x) = \\frac{1}{x}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking self-inverse means $\\frac{1}{f(x)} = f(x)$. For $f(x) = \\frac{1}{x}$, $\\frac{1}{f(x)} = x$. The $-1$ in $f^{-1}$ means inverse, not reciprocal."
+        },
+        {
+          "type": "text",
+          "text": "Multiplying by a constant keeps the shape. For $k > 0$, $y = \\frac{k}{x}$ is a vertical stretch of $y = \\frac{1}{x}$, with the same asymptotes ({{lesson:2.11}}). It is self-inverse too, since $y = \\frac{k}{x}$ rearranges to $x = \\frac{k}{y}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-reciprocal-distance",
+          "question": "Let $g(x) = \\frac{9}{x}$, for $x \\ne 0$. (a) Show that $g$ is self-inverse. (b) The line $y = x$ meets the graph of $g$ at the points A and B. Find the exact distance AB.",
+          "steps": [
+            "(a) Write $y = \\frac{9}{x}$, so $xy = 9$ and $x = \\frac{9}{y}$. Swapping $x$ and $y$ gives $g^{-1}(x) = \\frac{9}{x} = g(x)$.",
+            "(b) Where they meet, $\\frac{9}{x} = x$. Multiply by $x$, which is allowed as $x \\ne 0$: $x^{2} = 9$, so $x = 3$ or $x = -3$.",
+            "The points lie on $y = x$, so they are $A(3, 3)$ and $B(-3, -3)$, one on each branch.",
+            "Use the distance between two points, from the prior-learning part of the formula booklet: $AB = \\sqrt{(3 - (-3))^{2} + (3 - (-3))^{2}} = \\sqrt{72}$.",
+            "Simplify: $\\sqrt{72} = \\sqrt{36 \\times 2} = 6\\sqrt{2}$."
+          ],
+          "answer": "$AB = 6\\sqrt{2}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-reciprocal-swap",
+          "prompt": "The point $\\left(4, \\tfrac{1}{4}\\right)$ lies on $y = \\frac{1}{x}$. The curve is symmetric in the line $y = x$. Which point must also lie on it, by that symmetry?",
+          "hint": "Reflecting in $y = x$ swaps the two coordinates.",
+          "options": [
+            {
+              "text": "$\\left(\\tfrac{1}{4}, 4\\right)$",
+              "correct": true
+            },
+            {
+              "text": "$\\left(-4, \\tfrac{1}{4}\\right)$",
+              "correct": false
+            },
+            {
+              "text": "$\\left(4, -\\tfrac{1}{4}\\right)$",
+              "correct": false
+            }
+          ],
+          "explain": "Swapping the coordinates gives $\\left(\\tfrac{1}{4}, 4\\right)$, and $\\frac{1}{1/4} = 4$. The other two points reflect in an axis instead, and neither is on the curve."
+        },
+        {
+          "type": "check",
+          "id": "check-reciprocal-range",
+          "prompt": "What is the range of $f(x) = \\frac{1}{x}$, for $x \\ne 0$?",
+          "hint": "Can $\\frac{1}{x}$ ever equal 0? Can it be negative?",
+          "options": [
+            {
+              "text": "$y \\ne 0$",
+              "correct": true
+            },
+            {
+              "text": "$y > 0$",
+              "correct": false
+            },
+            {
+              "text": "$y \\ge 0$",
+              "correct": false
+            }
+          ],
+          "explain": "1 divided by any number is never 0, so 0 is missing. Negative inputs give negative outputs, and every other value is reached: $y = \\frac{1}{x}$ when $x = \\frac{1}{y}$."
+        }
+      ]
+    },
+    {
+      "id": "asymptotes",
+      "heading": "Asymptotes of linear-over-linear functions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[rational-function|rational function]] is a fraction with a polynomial on the top and on the bottom. In this lesson both are linear: $f(x) = \\frac{ax + b}{cx + d}$, with $c \\ne 0$."
+        },
+        {
+          "type": "text",
+          "text": "Try $f(x) = \\frac{2x + 3}{x - 1}$. At $x = 1$ the bottom is 0, so $f(1)$ doesn't exist. Just right of it, $f(1.01) = 502$. Just left, $f(0.99) = -498$. The graph shoots up and down beside the line $x = 1$."
+        },
+        {
+          "type": "text",
+          "text": "Far out, $f(1000) = \\frac{2003}{999} = 2.005\\ldots$ The $+3$ and $-1$ hardly matter next to $2x$ and $x$, so $f(x)$ is close to $\\frac{2x}{x} = 2$. The graph levels off towards the line $y = 2$."
+        },
+        {
+          "type": "result",
+          "statement": "The graph of $y = \\frac{ax + b}{cx + d}$ has the vertical [[asymptote|asymptote]] $x = -\\frac{d}{c}$, where the bottom is 0. It has the horizontal asymptote $y = \\frac{a}{c}$, the ratio of the $x$-coefficients.",
+          "why": "Dividing top and bottom by $x$ gives $\\frac{a + \\frac{b}{x}}{c + \\frac{d}{x}}$, and $\\frac{b}{x}$ and $\\frac{d}{x}$ shrink to 0 as $x$ grows."
+        },
+        {
+          "type": "formula",
+          "tex": "y = \\frac{ax + b}{cx + d}: \\quad \\text{vertical asymptote } x = -\\frac{d}{c}, \\quad \\text{horizontal asymptote } y = \\frac{a}{c}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "These are not in the formula booklet, so learn them. They assume $ad - bc \\ne 0$; otherwise the graph is just a horizontal line with a gap."
+        },
+        {
+          "type": "text",
+          "text": "The [[domain|domain]] is every real number except $-\\frac{d}{c}$. The [[range|range]] is every real number except $\\frac{a}{c}$, because the graph never meets its horizontal asymptote. Try solving $\\frac{ax + b}{cx + d} = \\frac{a}{c}$: it simplifies to $bc = ad$, which is false."
+        },
+        {
+          "type": "example",
+          "id": "ex-asymptotes-basic",
+          "question": "Let $f(x) = \\frac{6x + 1}{2x - 3}$, for $x \\ne \\frac{3}{2}$. Write down the equations of the vertical and horizontal asymptotes of the graph of $f$.",
+          "steps": [
+            "Match to $\\frac{ax + b}{cx + d}$: $a = 6$, $b = 1$, $c = 2$, $d = -3$.",
+            "Vertical: $x = -\\frac{d}{c} = -\\frac{-3}{2} = \\frac{3}{2}$. Check: the bottom, $2x - 3$, is 0 at $x = \\frac{3}{2}$.",
+            "Horizontal: $y = \\frac{a}{c} = \\frac{6}{2} = 3$."
+          ],
+          "answer": "$x = \\tfrac{3}{2} \\text{ and } y = 3$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing an asymptote as a number, such as 3, or as $x \\ne \\frac{3}{2}$. The second is a domain restriction. An asymptote is a line, so give its equation: $x = \\frac{3}{2}$."
+        },
+        {
+          "type": "check",
+          "id": "check-horizontal-asymptote",
+          "prompt": "What is the horizontal asymptote of the graph of $y = \\frac{5x + 2}{3x - 1}$?",
+          "hint": "Look only at the coefficients of $x$, on the top and on the bottom.",
+          "options": [
+            {
+              "text": "$y = \\frac{5}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$y = -2$",
+              "correct": false
+            },
+            {
+              "text": "$y = 5$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{1}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "Divide the $x$-coefficients: $y = \\frac{5}{3}$. $y = -2$ divides the constant terms, $y = 5$ ignores the 3, and $x = \\frac{1}{3}$ is the vertical asymptote."
+        },
+        {
+          "type": "example",
+          "id": "ex-asymptotes-unknowns",
+          "question": "The graph of $y = \\frac{ax + 3}{2x + d}$ has asymptotes $x = 4$ and $y = -3$. Find $a$ and $d$.",
+          "steps": [
+            "Here the $x$-coefficient on the bottom is $c = 2$.",
+            "The vertical asymptote is $x = -\\frac{d}{2}$, so $-\\frac{d}{2} = 4$, which gives $d = -8$.",
+            "The horizontal asymptote is $y = \\frac{a}{2}$, so $\\frac{a}{2} = -3$, which gives $a = -6$.",
+            "Check: $y = \\frac{-6x + 3}{2x - 8}$. Its bottom is 0 at $x = 4$, and $\\frac{-6}{2} = -3$."
+          ],
+          "answer": "$a = -6, \\; d = -8$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-vertical-asymptote",
+          "prompt": "The graph of $y = \\frac{x - 7}{4x + 10}$ has a vertical asymptote $x = k$. Find $k$.",
+          "hint": "Set the bottom equal to 0.",
+          "answer": {
+            "value": -2.5,
+            "tolerance": 0
+          },
+          "explain": "$4x + 10 = 0$ gives $x = -\\frac{10}{4} = -2.5$. The top there is $-9.5$, not 0, so this really is an asymptote."
+        }
+      ]
+    },
+    {
+      "id": "sketching",
+      "heading": "Sketching the graph",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The graph of $y = \\frac{ax + b}{cx + d}$ has the same shape as $y = \\frac{1}{x}$: two branches. They are moved so that they hug the new [[asymptote|asymptotes]] instead of the axes."
+        },
+        {
+          "type": "text",
+          "text": "1. Draw both asymptotes as dashed lines. Label each with its equation."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the axis intercepts. If $d \\ne 0$, the [[y-intercept|y-intercept]] is $\\left(0, \\frac{b}{d}\\right)$. If $d = 0$, there is none, because $x = 0$ is then the vertical asymptote."
+        },
+        {
+          "type": "text",
+          "text": "The graph meets the $x$-axis where the top is 0. If $a \\ne 0$, the [[x-intercept|x-intercept]] is $\\left(-\\frac{b}{a}, 0\\right)$. If $a = 0$, the top is never 0, so there is no $x$-intercept: $y = \\frac{9}{x}$ is an example."
+        },
+        {
+          "type": "text",
+          "text": "3. The asymptotes split the plane into four regions. The branches lie in two opposite regions. Plot an intercept to see which pair."
+        },
+        {
+          "type": "text",
+          "text": "4. Draw each branch through its points. It gets closer and closer to both asymptotes without touching them."
+        },
+        {
+          "type": "formula",
+          "tex": "y\\text{-intercept } \\left(0, \\frac{b}{d}\\right) \\; (d \\ne 0) \\qquad x\\text{-intercept } \\left(-\\frac{b}{a}, 0\\right) \\; (a \\ne 0)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-sketch-basic",
+          "question": "Let $f(x) = \\frac{3x - 6}{x + 3}$, for $x \\ne -3$. Find the axis intercepts, then sketch the graph of $f$, showing its asymptotes.",
+          "steps": [
+            "Asymptotes: the bottom is 0 at $x = -3$, and $\\frac{a}{c} = \\frac{3}{1} = 3$. So draw dashed lines $x = -3$ and $y = 3$.",
+            "$y$-intercept: $f(0) = \\frac{-6}{3} = -2$, so $(0, -2)$.",
+            "$x$-intercept: the top is 0 when $3x - 6 = 0$, so $x = 2$. That gives $(2, 0)$.",
+            "Both intercepts are right of $x = -3$ and below $y = 3$. So one branch is in the bottom-right region, and the other is in the top-left.",
+            "Check the left branch with $x = -6$: $f(-6) = \\frac{-24}{-3} = 8$, which is above $y = 3$. Draw the branches as in the figure."
+          ],
+          "answer": "$(0, -2) \\text{ and } (2, 0)$",
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "2-8-sketch",
+          "alt": "Sketch of y equals 3x minus 6 over x plus 3. A dashed vertical line x equals minus 3 and a dashed horizontal line y equals 3 split the plane into four regions. The left branch lies above y equals 3 and left of x equals minus 3. The right branch lies below y equals 3 and right of x equals minus 3, and passes through the y-intercept 0, minus 2 and the x-intercept 2, 0. Each branch approaches both dashed lines without touching them.",
+          "caption": "The sketch of $y = \\frac{3x - 6}{x + 3}$: dashed asymptotes with their equations, both intercepts marked, and two branches in opposite regions."
+        },
+        {
+          "type": "mistake",
+          "text": "Putting the branches in the wrong pair of regions. Before you draw, check where an intercept sits compared with both asymptotes."
+        },
+        {
+          "type": "check",
+          "id": "check-branch-regions",
+          "prompt": "The graph of $y = \\frac{2x - 5}{x - 1}$ has asymptotes $x = 1$ and $y = 2$. In which two regions do its branches lie?",
+          "hint": "Find the $y$-intercept, then see where it sits compared with each asymptote.",
+          "options": [
+            {
+              "text": "Top-left and bottom-right",
+              "correct": true
+            },
+            {
+              "text": "Top-right and bottom-left",
+              "correct": false
+            },
+            {
+              "text": "Top-left and top-right",
+              "correct": false
+            }
+          ],
+          "explain": "At $x = 0$, $y = \\frac{-5}{-1} = 5$. The point $(0, 5)$ is left of $x = 1$ and above $y = 2$, so one branch is top-left. The other is in the opposite region, bottom-right."
+        },
+        {
+          "type": "example",
+          "id": "ex-sketch-range",
+          "question": "Let $f(x) = \\frac{x + 6}{8 - 2x}$, for $x \\ne 4$. (a) Write down the equations of the asymptotes of the graph of $f$. (b) Find the axis intercepts. (c) Sketch the graph of $f$. (d) Write down the [[range|range]] of $f$.",
+          "steps": [
+            "(a) Reorder the bottom as $-2x + 8$, so $a = 1$, $b = 6$, $c = -2$ and $d = 8$.",
+            "Vertical: $x = -\\frac{8}{-2} = 4$. Horizontal: $y = \\frac{1}{-2} = -\\frac{1}{2}$. The minus sign on $-2x$ makes the horizontal asymptote negative.",
+            "(b) $f(0) = \\frac{6}{8} = \\frac{3}{4}$, so the $y$-intercept is $\\left(0, \\frac{3}{4}\\right)$. The top is 0 at $x = -6$, so the $x$-intercept is $(-6, 0)$.",
+            "(c) Both intercepts are left of $x = 4$ and above $y = -\\frac{1}{2}$, so one branch is top-left. Check the right: $f(5) = \\frac{11}{-2} = -5.5$, below $y = -\\frac{1}{2}$, so the other branch is bottom-right. Draw both, with the labelled asymptotes and intercepts.",
+            "(d) The graph takes every value except the height of its horizontal asymptote."
+          ],
+          "answer": "$y \\ne -\\tfrac{1}{2}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "Your intercepts check your sketch. If a branch you drew misses an intercept you found, it is in the wrong region."
+        },
+        {
+          "type": "check",
+          "id": "check-y-intercept",
+          "prompt": "The graph of $y = \\frac{x - 9}{3x - 4}$ meets the $y$-axis at $(0, k)$. Find $k$.",
+          "hint": "Put $x = 0$. Watch the signs: both the top and the bottom are negative.",
+          "answer": {
+            "value": 2.25,
+            "tolerance": 0
+          },
+          "explain": "$k = \\frac{0 - 9}{0 - 4} = \\frac{-9}{-4} = 2.25$. A negative divided by a negative is positive."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also sketch rational functions with a quadratic on the top or the bottom. Some of these have an oblique (slanted) asymptote.",
+          "lesson": "2.13"
+        }
+      ]
+    },
+    {
+      "id": "inverses-models",
+      "heading": "Inverses, self-inverse functions and models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Find the [[inverse-function|inverse]] of $\\frac{ax + b}{cx + d}$ the usual way ({{lesson:2.5}}): write $y = f(x)$, make $x$ the subject, then swap $x$ and $y$. To make $x$ the subject, gather the $x$ terms on one side and factorise out $x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-rational",
+          "question": "Let $f(x) = \\frac{4x - 3}{x + 6}$, for $x \\ne -6$. Find $f^{-1}(x)$, and state its domain.",
+          "steps": [
+            "Write $y = \\frac{4x - 3}{x + 6}$ and multiply by $x + 6$: $y(x + 6) = 4x - 3$.",
+            "Expand: $xy + 6y = 4x - 3$. Move the $x$ terms left and the rest right: $xy - 4x = -6y - 3$.",
+            "Factorise out $x$: $x(y - 4) = -6y - 3$, so $x = \\frac{-6y - 3}{y - 4} = \\frac{6y + 3}{4 - y}$.",
+            "Swap $x$ and $y$: $f^{-1}(x) = \\frac{6x + 3}{4 - x}$.",
+            "Its [[domain|domain]] is the [[range|range]] of $f$. $f$ has [[asymptote|horizontal asymptote]] $y = \\frac{4}{1} = 4$, so the domain of $f^{-1}$ is $x \\ne 4$."
+          ],
+          "answer": "$f^{-1}(x) = \\frac{6x + 3}{4 - x}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Sign slips when moving terms across. $4x$ moving left becomes $-4x$, and $6y$ moving right becomes $-6y$. Test one value: $f(1) = \\frac{1}{7}$, so $f^{-1}\\left(\\frac{1}{7}\\right)$ must be 1."
+        },
+        {
+          "type": "text",
+          "text": "Compare the asymptotes. $f$ has $x = -6$ and $y = 4$, while $f^{-1}$ has $x = 4$ and $y = -6$. Reflecting in $y = x$ swaps them."
+        },
+        {
+          "type": "result",
+          "statement": "$f(x) = \\frac{ax + b}{cx + d}$ is [[self-inverse|self-inverse]] exactly when $a = -d$. Then its asymptotes $x = -\\frac{d}{c}$ and $y = \\frac{a}{c}$ cross at a point on the line $y = x$.",
+          "why": "The inverse is $f^{-1}(x) = \\frac{-dx + b}{cx - a}$, which is the same function as $f$ exactly when $a = -d$."
+        },
+        {
+          "type": "example",
+          "id": "ex-self-inverse-show",
+          "question": "Let $h(x) = \\frac{3x + 4}{2x - 3}$, for $x \\ne \\frac{3}{2}$. Show that $(h \\circ h)(x) = x$, and hence state $h^{-1}(x)$.",
+          "steps": [
+            "$(h \\circ h)(x) = h(h(x)) = \\frac{3h(x) + 4}{2h(x) - 3}$, where $h(x) = \\frac{3x + 4}{2x - 3}$.",
+            "Top: $3 \\cdot \\frac{3x + 4}{2x - 3} + 4 = \\frac{9x + 12 + 8x - 12}{2x - 3} = \\frac{17x}{2x - 3}$.",
+            "Bottom: $2 \\cdot \\frac{3x + 4}{2x - 3} - 3 = \\frac{6x + 8 - 6x + 9}{2x - 3} = \\frac{17}{2x - 3}$.",
+            "Divide. The $2x - 3$ cancels, leaving $\\frac{17x}{17} = x$.",
+            "Doing $h$ twice returns $x$, so $h$ is self-inverse and $h^{-1}(x) = \\frac{3x + 4}{2x - 3}$. This fits the result: $a = 3$ and $d = -3$."
+          ],
+          "answer": "$h^{-1}(x) = \\frac{3x + 4}{2x - 3}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-self-inverse-choice",
+          "prompt": "Which of these functions is self-inverse?",
+          "hint": "Compare $a$ with $d$, or find where the two asymptotes cross.",
+          "options": [
+            {
+              "text": "$y = \\frac{3x - 1}{x - 3}$",
+              "correct": true
+            },
+            {
+              "text": "$y = \\frac{3x - 1}{x + 3}$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\frac{x + 3}{x - 3}$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\frac{x - 3}{x + 1}$",
+              "correct": false
+            }
+          ],
+          "explain": "In $\\frac{3x - 1}{x - 3}$, $a = 3$ and $d = -3$, so $a = -d$. Its asymptotes $x = 3$ and $y = 3$ cross at $(3, 3)$, on $y = x$. None of the others has $a = -d$."
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-asymptote",
+          "prompt": "Let $f(x) = \\frac{2x + 9}{x - 7}$, for $x \\ne 7$. The graph of $y = f^{-1}(x)$ has a vertical asymptote $x = k$. Find $k$.",
+          "hint": "Reflecting in $y = x$ swaps the two asymptotes.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "$f$ has asymptotes $x = 7$ and $y = 2$. The inverse has them swapped: $x = 2$ and $y = 7$. So $k = 2$."
+        },
+        {
+          "type": "text",
+          "text": "These functions also model quantities that level off. The horizontal asymptote gives the limiting value."
+        },
+        {
+          "type": "example",
+          "id": "ex-typing-gdc",
+          "question": "Maya is learning to type. After $t$ weeks of practice, her speed is modelled by $S(t) = \\frac{60t + 20}{t + 4}$ words per minute. Her brother's speed is modelled by $B(t) = 15 + 4t$ words per minute. Both models apply for $0 \\le t \\le 10$. (a) State the horizontal asymptote of the graph of $S$ as an equation, and interpret it. (b) Use your calculator to find the values of $t$ for which their speeds are equal. Give your answers to 3 s.f.",
+          "steps": [
+            "(a) $\\frac{a}{c} = \\frac{60}{1}$, so the horizontal asymptote is $S = 60$.",
+            "In context: Maya's speed stays below 60 words per minute while the model applies. It only reaches about 44 at $t = 10$. If the model kept going, her speed would level off towards 60.",
+            "(b) Write down the equation you solve: $\\frac{60t + 20}{t + 4} = 15 + 4t$.",
+            "Graph $y = \\frac{60x + 20}{x + 4}$ and $y = 15 + 4x$ for $0 \\le x \\le 10$, then find both intersections (keystrokes below).",
+            "They meet at $t = 1.8528\\ldots$ and $t = 5.3971\\ldots$ Round only at the end.",
+            "Check: $S(2) = 23.3\\ldots$ and $B(2) = 23$, so Maya is just ahead at $t = 2$, between the two answers."
+          ],
+          "answer": "$t \\approx 1.85 \\text{ or } t \\approx 5.40$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = (60X+20)/(X+4) and Y2 = 15+4X",
+              "WINDOW, set Xmin=0, Xmax=10, Ymin=0, Ymax=60 (check on your model)",
+              "GRAPH, then 2nd, TRACE (CALC), 5: intersect",
+              "ENTER for First curve and Second curve, move near the left crossing, then ENTER for Guess (check on your model)",
+              "Read X=1.8528..., then repeat near X=5.4 to get X=5.3971..."
+            ],
+            "nspire": [
+              "Add a Graphs page, enter f1(x)=(60x+20)/(x+4) and f2(x)=15+4x",
+              "Menu, Window/Zoom, Window Settings: XMin 0, XMax 10, YMin 0, YMax 60 (check on your model)",
+              "Menu, Analyze Graph, Intersection",
+              "Click to the left of the first crossing, then to the right of it (check on your model)",
+              "Read x=1.8528..., then repeat for the second crossing to get x=5.3971..."
+            ],
+            "casio": [
+              "GRAPH, enter Y1=(60X+20)/(X+4) and Y2=15+4X",
+              "SHIFT, F3 (V-Window): Xmin 0, Xmax 10, Ymin 0, Ymax 60 (check on your model)",
+              "DRAW, then SHIFT, F5 (G-SOLV), INTSECT",
+              "Read X=1.8528..., then press the right arrow for the next crossing, X=5.3971... (check on your model)"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-typing-40",
+          "prompt": "In the same model, find the value of $t$ at which Maya's speed is 40 words per minute.",
+          "hint": "Set $S(t) = 40$ and multiply both sides by $t + 4$.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "$60t + 20 = 40(t + 4) = 40t + 160$, so $20t = 140$ and $t = 7$ weeks."
+        },
+        {
+          "type": "examTip",
+          "text": "On Paper 2, write down the equation you put into your calculator, such as $\\frac{60t + 20}{t + 4} = 15 + 4t$, before its answers. That line earns the method mark."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$y = \\frac{1}{x}$: two branches, asymptotes $x = 0$ and $y = 0$, domain $x \\ne 0$, range $y \\ne 0$. It is self-inverse: $f^{-1}(x) = \\frac{1}{x}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "y = \\frac{ax + b}{cx + d}: \\quad \\text{vertical asymptote } x = -\\frac{d}{c}, \\quad \\text{horizontal asymptote } y = \\frac{a}{c}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "y\\text{-intercept } \\left(0, \\frac{b}{d}\\right) \\; (d \\ne 0) \\qquad x\\text{-intercept } \\left(-\\frac{b}{a}, 0\\right) \\; (a \\ne 0)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Domain $x \\ne -\\frac{d}{c}$, range $y \\ne \\frac{a}{c}$. The graph never meets its asymptotes.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To sketch: dashed asymptotes with equations, both intercepts, then two branches in opposite regions. Place an intercept to choose the regions.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Reflecting in $y = x$ swaps the asymptotes. $\\frac{ax + b}{cx + d}$ is self-inverse exactly when $a = -d$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing an asymptote as a number, or as $x \\ne \\ldots$. Asymptotes are lines, so write equations such as $x = 2$ and $y = -1$.",
+    "Dividing the constant terms for the horizontal asymptote. It comes from the $x$-coefficients: $y = \\frac{a}{c}$.",
+    "Losing a minus sign when the bottom is written like $8 - 2x$. Reorder it as $-2x + 8$ first, so you see that $c = -2$.",
+    "Drawing the branches in the wrong pair of regions, or letting a branch cross the horizontal asymptote. Place an intercept first, and keep each branch on one side of each asymptote.",
+    "Writing the range with $\\le$ or $\\ge$, or as only one side of the asymptote. The value $\\frac{a}{c}$ is never reached, but values on both sides are: write $y \\ne \\frac{a}{c}$.",
+    "Giving the domain of $f^{-1}$ as the domain of $f$. It is the range of $f$: $x \\ne \\frac{a}{c}$."
+  ],
+  "examTips": [
+    "\"Write down\" the asymptotes: no working is needed, but each must be a full equation, $x = \\ldots$ or $y = \\ldots$.",
+    "\"Sketch\": label both asymptotes with their equations and each intercept with its value. A correct shape with missing labels loses marks.",
+    "\"Find $f^{-1}(x)$\": show each rearranging line and end with $f^{-1}(x) = \\ldots$ in terms of $x$. If asked for its domain, use the range of $f$."
+  ],
+  "readingMinutes": 22
+}

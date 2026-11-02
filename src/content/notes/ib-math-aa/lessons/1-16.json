@@ -1,0 +1,588 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.16",
+  "slug": "systems-of-linear-equations",
+  "title": "Systems of linear equations",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "A system of linear equations asks for values of $x$, $y$ and $z$ that make every equation true at once. You solve it by eliminating unknowns, by hand with an [[augmented-matrix|augmented matrix]] or with your GDC. Only three outcomes are possible: one solution, none, or infinitely many. You learn to tell them apart and to describe each one.",
+  "goals": [
+    {
+      "text": "Solve up to three linear equations in three unknowns by elimination and by row reduction.",
+      "bullets": [
+        "1.16-b1",
+        "1.16-b2"
+      ]
+    },
+    {
+      "text": "Solve a system with your GDC, writing down the system you entered.",
+      "bullets": [
+        "1.16-b2"
+      ]
+    },
+    {
+      "text": "Tell from the reduced system whether there is one solution, no solution or infinitely many.",
+      "bullets": [
+        "1.16-b1"
+      ]
+    },
+    {
+      "text": "Recognise a system with no solution as [[inconsistent-system|inconsistent]], and find the parameter values that cause it.",
+      "bullets": [
+        "1.16-b3"
+      ]
+    },
+    {
+      "text": "Write the [[general-solution-of-a-system|general solution]] in terms of a parameter when there are infinitely many solutions.",
+      "bullets": [
+        "1.16-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "simultaneous equations with three unknowns",
+    "row reduction",
+    "Gaussian elimination",
+    "augmented matrix",
+    "inconsistent system",
+    "infinitely many solutions"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-two-by-two",
+      "prompt": "Solve the simultaneous equations $3x + 2y = 7$ and $x - y = 4$.",
+      "hint": "Use the second equation to write $x$ in terms of $y$, then substitute into the first.",
+      "options": [
+        {
+          "text": "$x = 3, \\; y = -1$",
+          "correct": true
+        },
+        {
+          "text": "$x = 1, \\; y = 2$",
+          "correct": false
+        },
+        {
+          "text": "$x = 3, \\; y = 1$",
+          "correct": false
+        },
+        {
+          "text": "$x = 5, \\; y = 1$",
+          "correct": false
+        }
+      ],
+      "explain": "From the second equation, $x = 4 + y$. Then $3(4 + y) + 2y = 7$, so $5y = -5$ and $y = -1$, $x = 3$. Revise it in {{lesson:2.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-parallel-lines",
+      "prompt": "How many points do the lines $y = 2x + 1$ and $4x - 2y = 6$ have in common?",
+      "hint": "Rearrange the second line into the form $y = mx + c$ and compare gradients and intercepts.",
+      "options": [
+        {
+          "text": "None",
+          "correct": true
+        },
+        {
+          "text": "Exactly one",
+          "correct": false
+        },
+        {
+          "text": "Infinitely many",
+          "correct": false
+        }
+      ],
+      "explain": "The second line is $y = 2x - 3$. Both gradients are $2$ but the intercepts differ, so the lines are parallel and never meet. Revise it in {{lesson:2.1}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "elimination",
+      "heading": "Elimination and row reduction",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.1}} you worked with straight lines. Two linear equations in $x$ and $y$ are two lines. Solving them together finds where the lines cross."
+        },
+        {
+          "type": "figure",
+          "id": "1-16-two-lines",
+          "alt": "Three small diagrams side by side. Left: two lines crossing at one marked point, labelled one solution. Middle: two parallel lines that never meet, labelled no solution. Right: two lines lying exactly on top of each other, labelled infinitely many.",
+          "caption": "Two equations in $x$ and $y$ have one solution, none, or infinitely many."
+        },
+        {
+          "type": "text",
+          "text": "With three unknowns, an equation such as $x + y + z = 4$ describes a plane in 3D space. Solving three of them together finds the points that lie on all three planes. You meet planes properly in {{lesson:3.17}}."
+        },
+        {
+          "type": "definition",
+          "term": "System of linear equations",
+          "statement": "A system of linear equations is a set of equations, each of the form $ax + by + cz = d$, where $a$, $b$, $c$ and $d$ are constants. A solution is a set of values of $x$, $y$ and $z$ that satisfies every equation at once.",
+          "plain": "Several equations in the same unknowns, solved together."
+        },
+        {
+          "type": "result",
+          "statement": "A system of linear equations has exactly one solution, no solution, or infinitely many solutions. It can never have exactly two.",
+          "why": "If two different points satisfy every equation, so does every point on the line through them, because each equation is linear. So two solutions force infinitely many."
+        },
+        {
+          "type": "text",
+          "text": "The method is elimination, which you already use with two equations. Use one equation to remove $x$ from the other two. Then use one of those to remove $y$ from the last. One equation in $z$ is left: solve it, then substitute back."
+        },
+        {
+          "type": "example",
+          "id": "ex-elimination-unique",
+          "question": "Solve the system $\\begin{cases} x + y + z = 4 \\\\ 2x - y + z = 8 \\\\ x + 3y - 2z = -7 \\end{cases}$",
+          "steps": [
+            "Label the equations (1), (2) and (3). Remove $x$ from (2): (2) $- 2 \\times$ (1) gives $-3y - z = 0$. Call this (4).",
+            "Remove $x$ from (3): (3) $-$ (1) gives $2y - 3z = -11$. Call this (5).",
+            "From (4), $z = -3y$. Substitute into (5): $2y + 9y = -11$, so $11y = -11$ and $y = -1$.",
+            "Back-substitute: $z = -3(-1) = 3$. Then (1) gives $x = 4 - y - z = 4 + 1 - 3 = 2$.",
+            "Check in (3), which you have not used directly: $2 + 3(-1) - 2(3) = 2 - 3 - 6 = -7$. It works."
+          ],
+          "answer": "$x = 2, \\; y = -1, \\; z = 3$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Writing $x$, $y$ and $z$ on every line is slow. An [[augmented-matrix|augmented matrix]] keeps only the numbers, one row per equation."
+        },
+        {
+          "type": "definition",
+          "term": "Augmented matrix",
+          "statement": "The augmented matrix of a system lists the coefficients of $x$, $y$ and $z$ in each equation, then a bar, then the right-hand side. Row $R_{1}$ holds equation (1), and so on.",
+          "plain": "The numbers of the system in a grid, with the letters left out."
+        },
+        {
+          "type": "result",
+          "statement": "Three row operations never change the solutions: swap two rows, multiply a row by a non-zero number, and add or subtract a multiple of one row to or from another.",
+          "why": "Each one turns true equations into true equations, and each can be undone. So no solution is gained or lost."
+        },
+        {
+          "type": "definition",
+          "term": "Row echelon form",
+          "statement": "An augmented matrix is in [[row-echelon-form|row echelon form]] when each row's first non-zero entry lies to the right of the first non-zero entry of the row above, and any rows of zeros come last. So zeros fill the bottom-left and the rows form a staircase. Using row operations to reach it is called row reduction.",
+          "plain": "Zeros fill the bottom-left corner, so you can solve from the bottom row up."
+        },
+        {
+          "type": "example",
+          "id": "ex-row-reduce-unique",
+          "question": "Use row reduction to solve $\\begin{cases} 2x + y - z = 3 \\\\ x - y + 2z = 7 \\\\ 3x + 2y + z = 6 \\end{cases}$",
+          "steps": [
+            "Write the augmented matrix, swapping $R_{1}$ and $R_{2}$ so the first row starts with $1$: $\\left(\\begin{array}{ccc|c} 1 & -1 & 2 & 7 \\\\ 2 & 1 & -1 & 3 \\\\ 3 & 2 & 1 & 6 \\end{array}\\right)$.",
+            "Clear the first column. $R_{2} - 2R_{1}$ gives $(0,\\ 3,\\ -5 \\mid -11)$, and $R_{3} - 3R_{1}$ gives $(0,\\ 5,\\ -5 \\mid -15)$.",
+            "Divide the new $R_{3}$ by $5$ to get $(0,\\ 1,\\ -1 \\mid -3)$. Then the new $R_{2}$ minus $3$ times this row gives $(0,\\ 0,\\ -2 \\mid -2)$.",
+            "Put the rows in staircase order: $\\left(\\begin{array}{ccc|c} 1 & -1 & 2 & 7 \\\\ 0 & 1 & -1 & -3 \\\\ 0 & 0 & -2 & -2 \\end{array}\\right)$.",
+            "Back-substitute from the bottom. $-2z = -2$, so $z = 1$. Then $y - z = -3$, so $y = -2$. Then $x - y + 2z = 7$, so $x = 7 - 2 - 2 = 3$.",
+            "Check in the first original equation: $2(3) + (-2) - 1 = 3$. It works."
+          ],
+          "answer": "$x = 3, \\; y = -2, \\; z = 1$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "Name each row operation as you use it, such as $R_{2} - 2R_{1}$. If you slip later, an examiner who can follow your method can still award method marks."
+        },
+        {
+          "type": "mistake",
+          "text": "Changing the coefficients in a row but not the number after the bar. A row operation acts on the whole row, right-hand side included."
+        },
+        {
+          "type": "check",
+          "id": "check-row-operation",
+          "prompt": "Equation (1) is $x + 2y - z = 4$ and equation (2) is $3x + y + 2z = 5$. Which equation does (2) $- 3 \\times$ (1) give?",
+          "hint": "Multiply every term of (1) by $3$, including the $4$, before you subtract.",
+          "options": [
+            {
+              "text": "$-5y + 5z = -7$",
+              "correct": true
+            },
+            {
+              "text": "$-5y + 5z = 1$",
+              "correct": false
+            },
+            {
+              "text": "$-5y - z = -7$",
+              "correct": false
+            },
+            {
+              "text": "$-5y + 5z = 17$",
+              "correct": false
+            }
+          ],
+          "explain": "$3 \\times$ (1) is $3x + 6y - 3z = 12$. Subtracting it from (2) gives $(1 - 6)y + (2 + 3)z = 5 - 12$, so $-5y + 5z = -7$."
+        },
+        {
+          "type": "check",
+          "id": "check-unique-z",
+          "prompt": "Solve $\\begin{cases} x + 2y + z = 3 \\\\ 2x - y + 3z = 3 \\\\ 3x + y - z = -4 \\end{cases}$ and give the value of $z$.",
+          "hint": "Use the first equation to remove $x$ from the other two. Then remove $y$.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "(2) $- 2 \\times$ (1) gives $-5y + z = -3$, and (3) $- 3 \\times$ (1) gives $-5y - 4z = -13$. Subtracting these, $5z = 10$, so $z = 2$. Then $y = 1$ and $x = -1$."
+        }
+      ]
+    },
+    {
+      "id": "technology",
+      "heading": "Solving with your GDC",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On Paper 2 your GDC solves a system in seconds. Each model has a simultaneous-equation solver: you type the [[augmented-matrix|augmented matrix]] row by row, and it returns $x$, $y$ and $z$."
+        },
+        {
+          "type": "text",
+          "text": "Examiners can't see your screen. Write down the system, or its augmented matrix, before the values. That line shows your method."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-unique",
+          "question": "Use your calculator to solve $\\begin{cases} 1.2x + 0.5y - 2z = 3.1 \\\\ 0.8x - 1.5y + z = -2.4 \\\\ 2.5x + y + 0.6z = 7.3 \\end{cases}$ Give your answers to 3 s.f.",
+          "steps": [
+            "Each equation is already in the form $ax + by + cz = d$, so you can read the rows straight off.",
+            "Write down what you enter: $\\left(\\begin{array}{ccc|c} 1.2 & 0.5 & -2 & 3.1 \\\\ 0.8 & -1.5 & 1 & -2.4 \\\\ 2.5 & 1 & 0.6 & 7.3 \\end{array}\\right)$.",
+            "The solver gives $x = 1.7955\\ldots$, $y = 2.6910\\ldots$ and $z = 0.20009\\ldots$",
+            "Round each one to 3 s.f. Keep the zeros in $0.200$: they show the precision.",
+            "Check with the unrounded values in the third equation: $2.5(1.7955\\ldots) + 2.6910\\ldots + 0.6(0.20009\\ldots) = 7.3$."
+          ],
+          "answer": "$x \\approx 1.80, \\; y \\approx 2.69, \\; z \\approx 0.200$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "APPS, PlySmlt2",
+              "Choose the simultaneous equation solver, with 3 equations and 3 unknowns (check on your model)",
+              "Row 1: 1.2, 0.5, -2, 3.1. Row 2: 0.8, -1.5, 1, -2.4. Row 3: 2.5, 1, 0.6, 7.3",
+              "SOLVE (GRAPH key) (check on your model)",
+              "Read x = 1.7955..., y = 2.6910... and z = 0.20009..."
+            ],
+            "nspire": [
+              "Calculator page: Menu, Algebra, Solve System of Linear Equations",
+              "Number of equations: 3, variables x, y, z, OK (check on your model)",
+              "Type 1.2x+0.5y-2z=3.1, then 0.8x-1.5y+z=-2.4, then 2.5x+y+0.6z=7.3, enter",
+              "Read x = 1.7955..., y = 2.6910... and z = 0.20009..."
+            ],
+            "casio": [
+              "EQUA, Simultaneous (F1)",
+              "Number of unknowns: 3 (check on your model)",
+              "Row 1: 1.2, 0.5, -2, 3.1. Row 2: 0.8, -1.5, 1, -2.4. Row 3: 2.5, 1, 0.6, 7.3",
+              "SOLVE (F1) (check on your model)",
+              "Read x = 1.7955..., y = 2.6910... and z = 0.20009..."
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "If there is no unique solution, the solver says so or shows the answer in terms of a free variable. Either way, show which case it is by row reduction, as the next two sections do."
+        },
+        {
+          "type": "text",
+          "text": "Many exam questions hide a system inside a context. Give each unknown a letter, write one equation for each fact, then solve."
+        },
+        {
+          "type": "example",
+          "id": "ex-parabola-points",
+          "question": "The curve $y = ax^{2} + bx + c$ passes through the points $(-1, 8)$, $(2, -1)$ and $(4, 13)$. Find the equation of the curve.",
+          "steps": [
+            "Each point gives one equation. With $x = -1$ and $y = 8$: $a - b + c = 8$. Call this (1).",
+            "With $x = 2$ and $y = -1$: $4a + 2b + c = -1$. With $x = 4$ and $y = 13$: $16a + 4b + c = 13$. Call these (2) and (3).",
+            "Remove $c$, which has coefficient $1$ in every equation. (2) $-$ (1) gives $3a + 3b = -9$, so $a + b = -3$. (3) $-$ (2) gives $12a + 2b = 14$, so $6a + b = 7$.",
+            "Subtract: $5a = 10$, so $a = 2$. Then $b = -3 - 2 = -5$, and (1) gives $c = 8 - a + b = 8 - 2 - 5 = 1$.",
+            "Check $(4, 13)$: $2(16) - 5(4) + 1 = 13$. On Paper 2 the GDC solver gives the same $a$, $b$ and $c$ from the augmented matrix of (1), (2) and (3)."
+          ],
+          "answer": "$y = 2x^{2} - 5x + 1$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-shop-price",
+          "prompt": "Pens, notebooks and folders each have a fixed price. Three pens, two notebooks and one folder cost 12.80 dollars. One pen, one notebook and two folders cost 8.85 dollars. Two pens, three notebooks and four folders cost 20.95 dollars. Use your calculator to find the price of one notebook, in dollars. Give your answer to the nearest cent.",
+          "hint": "Let $p$, $n$ and $f$ be the three prices. Write one equation for each sentence, then use the solver.",
+          "answer": {
+            "value": 3.25,
+            "tolerance": 0.005
+          },
+          "explain": "The system is $3p + 2n + f = 12.80$, $p + n + 2f = 8.85$ and $2p + 3n + 4f = 20.95$. The solver gives $p = 1.40$, $n = 3.25$ and $f = 2.10$."
+        },
+        {
+          "type": "check",
+          "id": "check-parabola-a",
+          "prompt": "The curve $y = ax^{2} + bx + c$ passes through $(0, 3)$, $(1, 2)$ and $(2, 5)$. Find $a$.",
+          "hint": "The point $(0, 3)$ gives $c$ straight away. Then use the other two points.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "$c = 3$. Then $a + b + 3 = 2$ and $4a + 2b + 3 = 5$, so $a + b = -1$ and $2a + b = 1$. Subtracting gives $a = 2$, and $b = -3$."
+        }
+      ]
+    },
+    {
+      "id": "inconsistent",
+      "heading": "No solution: inconsistent systems",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes row reduction ends with a row such as $(0,\\ 0,\\ 0 \\mid 3)$. Read it as an equation: $0x + 0y + 0z = 3$, that is $0 = 3$. No values of $x$, $y$ and $z$ make that true."
+        },
+        {
+          "type": "definition",
+          "term": "Inconsistent system",
+          "statement": "A system of equations with no solution is [[inconsistent-system|inconsistent]]. After row reduction, an inconsistent system has a row $(0,\\ 0,\\ 0 \\mid c)$ with $c \\neq 0$.",
+          "plain": "The equations contradict each other, so nothing satisfies them all."
+        },
+        {
+          "type": "text",
+          "text": "In pictures, the three planes share no point. Either two of them are parallel and distinct, or each pair meets in a line and the three lines are parallel, like the sides of a prism."
+        },
+        {
+          "type": "figure",
+          "id": "1-16-planes-end-on",
+          "alt": "Two diagrams of three planes seen end-on, so that each plane looks like a straight line. Left: the three lines pass through one common point, which is the shared line of the planes seen end-on, labelled infinitely many. Right: the three lines cross in pairs to form a triangle, with no point on all three, labelled no solution.",
+          "caption": "Three planes seen along their lines of intersection: through one common line (left), and a prism (right)."
+        },
+        {
+          "type": "example",
+          "id": "ex-inconsistent-show",
+          "question": "Show that this system has no solution: $\\begin{cases} x + 2y - z = 3 \\\\ 2x - y + 3z = 1 \\\\ 3x + y + 2z = 7 \\end{cases}$",
+          "steps": [
+            "Write the [[augmented-matrix|augmented matrix]]: $\\left(\\begin{array}{ccc|c} 1 & 2 & -1 & 3 \\\\ 2 & -1 & 3 & 1 \\\\ 3 & 1 & 2 & 7 \\end{array}\\right)$.",
+            "$R_{2} - 2R_{1}$ gives $(0,\\ -5,\\ 5 \\mid -5)$, and $R_{3} - 3R_{1}$ gives $(0,\\ -5,\\ 5 \\mid -2)$.",
+            "Now the new $R_{3}$ minus the new $R_{2}$ gives $(0,\\ 0,\\ 0 \\mid 3)$, which says $0 = 3$.",
+            "That is impossible, so no $(x, y, z)$ satisfies all three equations. The system is inconsistent.",
+            "You can see why: the left side of the third equation is the sum of the first two, but $3 + 1 = 4$, not $7$."
+          ],
+          "answer": "$\\text{number of solutions} = 0$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Exam questions often put a [[parameter|parameter]], such as $m$ or $k$, into the system. Reduce as usual, carrying the parameter along. Then ask what happens when its coefficient in the last row is zero."
+        },
+        {
+          "type": "example",
+          "id": "ex-param-no-solution",
+          "question": "Consider the system $\\begin{cases} x + 2y + z = 4 \\\\ 2x + 5y + 3z = 7 \\\\ x + 3y + mz = 5 \\end{cases}$ where $m \\in \\mathbb{R}$. Which value of $m$ makes the system inconsistent?",
+          "steps": [
+            "Remove $x$. $R_{2} - 2R_{1}$ gives $(0,\\ 1,\\ 1 \\mid -1)$, and $R_{3} - R_{1}$ gives $(0,\\ 1,\\ m - 1 \\mid 1)$.",
+            "Remove $y$. The new $R_{3}$ minus the new $R_{2}$ gives $(0,\\ 0,\\ m - 2 \\mid 2)$, which says $(m - 2)z = 2$.",
+            "If $m \\neq 2$, you can divide: $z = \\frac{2}{m - 2}$. Back-substitution then gives one value each for $y$ and $x$, so there is a unique solution.",
+            "If $m = 2$, the last row says $0 = 2$. That is impossible, so the system is inconsistent.",
+            "The right-hand side $2$ is never $0$, so this system never has infinitely many solutions."
+          ],
+          "answer": "$m = 2$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by an expression such as $m - 2$ without saying $m \\neq 2$. Set aside the value that makes it zero and test it as its own case."
+        },
+        {
+          "type": "check",
+          "id": "check-reduced-row-meaning",
+          "prompt": "After row reduction, the augmented matrix of a system is $\\left(\\begin{array}{ccc|c} 1 & -2 & 3 & 4 \\\\ 0 & 1 & -1 & 2 \\\\ 0 & 0 & 0 & 5 \\end{array}\\right)$. How many solutions does the system have?",
+          "hint": "Write the last row as an equation in $x$, $y$ and $z$.",
+          "options": [
+            {
+              "text": "None: the system is inconsistent",
+              "correct": true
+            },
+            {
+              "text": "Exactly one",
+              "correct": false
+            },
+            {
+              "text": "Infinitely many",
+              "correct": false
+            }
+          ],
+          "explain": "The last row says $0x + 0y + 0z = 5$, that is $0 = 5$. Nothing satisfies it, so the system has no solution."
+        },
+        {
+          "type": "check",
+          "id": "check-param-a",
+          "prompt": "The system $\\begin{cases} x + y + z = 3 \\\\ x + 2y + 3z = 5 \\\\ 2x + 3y + az = 9 \\end{cases}$ has no solution for exactly one value of $a$. Find it.",
+          "hint": "Remove $x$, then $y$. Look at the coefficient of $z$ left in the last row.",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "$R_{2} - R_{1}$ gives $(0,\\ 1,\\ 2 \\mid 2)$ and $R_{3} - 2R_{1}$ gives $(0,\\ 1,\\ a - 2 \\mid 3)$. Subtracting, $(a - 4)z = 1$. When $a = 4$ this says $0 = 1$, so $a = 4$."
+        }
+      ]
+    },
+    {
+      "id": "general",
+      "heading": "Infinitely many solutions: the general solution",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now suppose row reduction ends with a whole row of zeros, $(0,\\ 0,\\ 0 \\mid 0)$. It says $0 = 0$, which is always true. That equation added nothing new: it was a combination of the others."
+        },
+        {
+          "type": "text",
+          "text": "Usually that leaves only two equations for three unknowns. One unknown is free to take any value, and the other two follow from it. There are infinitely many solutions."
+        },
+        {
+          "type": "definition",
+          "term": "General solution of a system",
+          "statement": "When a system has infinitely many solutions, its [[general-solution-of-a-system|general solution]] gives $x$, $y$ and $z$ in terms of a parameter, such as $\\lambda$. Each real value of $\\lambda$ gives one solution, and every solution comes from some $\\lambda$.",
+          "plain": "One formula that produces every solution as you vary a single number."
+        },
+        {
+          "type": "text",
+          "text": "Here is the method. Reduce to [[row-echelon-form|row echelon form]]. Let the free unknown, usually $z$, equal $\\lambda$. Solve the middle row for $y$ in terms of $\\lambda$, then the top row for $x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-general-two-eq",
+          "question": "Find the general solution of $\\begin{cases} x + y - z = 3 \\\\ 2x - y + 4z = 0 \\end{cases}$",
+          "steps": [
+            "There are two equations and three unknowns, so expect one unknown to be free.",
+            "Remove $y$ by adding the equations: $3x + 3z = 3$, so $x + z = 1$.",
+            "Let $z = \\lambda$. Then $x = 1 - \\lambda$.",
+            "From the first equation, $y = 3 - x + z = 3 - (1 - \\lambda) + \\lambda = 2 + 2\\lambda$.",
+            "Check in the second equation: $2(1 - \\lambda) - (2 + 2\\lambda) + 4\\lambda = 2 - 2\\lambda - 2 - 2\\lambda + 4\\lambda = 0$. It holds for every $\\lambda$."
+          ],
+          "answer": "$x = 1 - \\lambda, \\; y = 2 + 2\\lambda, \\; z = \\lambda$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Each solution is the point $(1 - \\lambda,\\ 2 + 2\\lambda,\\ \\lambda)$. As $\\lambda$ varies, these points trace the line $\\boldsymbol{r} = \\begin{pmatrix}1\\\\2\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}-1\\\\2\\\\1\\end{pmatrix}$, where the planes meet. You write lines this way in {{lesson:3.14}}, and {{lesson:3.18}} links each case to planes."
+        },
+        {
+          "type": "text",
+          "text": "Your answer may look different from someone else's, for example if you let $x = \\lambda$ instead. Both are right if they describe the same line. Test yours by substituting it into every equation."
+        },
+        {
+          "type": "example",
+          "id": "ex-general-param",
+          "question": "Consider the system $\\begin{cases} x + 2y - z = 3 \\\\ 3x + py + z = 5 \\\\ x - 2y + 3z = -1 \\end{cases}$ where $p \\in \\mathbb{R}$. For which value of $p$ are there infinitely many solutions? Give the general solution in that case.",
+          "steps": [
+            "Remove $x$. $R_{2} - 3R_{1}$ gives $(0,\\ p - 6,\\ 4 \\mid -4)$, and $R_{3} - R_{1}$ gives $(0,\\ -4,\\ 4 \\mid -4)$.",
+            "Both new rows have $4$ in the $z$ place and $-4$ after the bar. Subtracting them leaves $(0,\\ p - 2,\\ 0 \\mid 0)$, which says $(p - 2)y = 0$.",
+            "If $p \\neq 2$, then $y = 0$, and the other rows fix $z = -1$ and $x = 2$: one solution. If $p = 2$, this row is all zeros, so there are infinitely many solutions.",
+            "With $p = 2$, two equations are left: $x + 2y - z = 3$ and $-4y + 4z = -4$. Let $z = \\lambda$. The second gives $y = z + 1 = 1 + \\lambda$.",
+            "Then $x = 3 - 2y + z = 3 - 2 - 2\\lambda + \\lambda = 1 - \\lambda$. Check in $3x + 2y + z = 5$: $3 - 3\\lambda + 2 + 2\\lambda + \\lambda = 5$. It works."
+          ],
+          "answer": "$p = 2, \\; x = 1 - \\lambda, \\; y = 1 + \\lambda, \\; z = \\lambda$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Making the coefficient in the last row zero and stopping there. A row $(0,\\ 0,\\ 0 \\mid c)$ gives infinitely many solutions only when $c = 0$ as well. When $c \\neq 0$ there are none."
+        },
+        {
+          "type": "examTip",
+          "text": "“Interpret geometrically” asks how the planes are arranged. Infinitely many solutions along a line means all three planes pass through one shared line. They are not parallel, and they are not all the same plane."
+        },
+        {
+          "type": "check",
+          "id": "check-general-solution",
+          "prompt": "Which is the general solution of $\\begin{cases} x + y + z = 2 \\\\ x - y + 3z = 4 \\end{cases}$",
+          "hint": "Add the equations to remove $y$. Then let $z = \\lambda$.",
+          "options": [
+            {
+              "text": "$x = 3 - 2\\lambda, \\; y = -1 + \\lambda, \\; z = \\lambda$",
+              "correct": true
+            },
+            {
+              "text": "$x = 3 + 2\\lambda, \\; y = -1 - \\lambda, \\; z = \\lambda$",
+              "correct": false
+            },
+            {
+              "text": "$x = 3 - 2\\lambda, \\; y = 1 - \\lambda, \\; z = \\lambda$",
+              "correct": false
+            },
+            {
+              "text": "$x = 3 - 2\\lambda, \\; y = -1 + \\lambda$",
+              "correct": false
+            }
+          ],
+          "explain": "Adding gives $2x + 4z = 6$, so $x = 3 - 2\\lambda$. Then $y = 2 - x - z = -1 + \\lambda$. A general solution must give all three unknowns, including $z = \\lambda$."
+        },
+        {
+          "type": "check",
+          "id": "check-x-equals-y",
+          "prompt": "A system has general solution $x = 2 + \\lambda$, $y = 1 - 3\\lambda$, $z = 2\\lambda$. Find the value of $z$ in the solution where $x = y$.",
+          "hint": "Solve $2 + \\lambda = 1 - 3\\lambda$ for $\\lambda$ first.",
+          "answer": {
+            "value": -0.5,
+            "tolerance": 0
+          },
+          "explain": "$4\\lambda = -1$, so $\\lambda = -\\frac{1}{4}$. Then $z = 2\\lambda = -0.5$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A system of linear equations has exactly one solution, no solution or infinitely many.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Row operations: swap two rows, multiply a row by a non-zero number, add a multiple of one row to another. Apply each to the whole row, right-hand side included.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Reduce the augmented matrix to row echelon form, then back-substitute from the bottom row.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A row $(0,\\ 0,\\ 0 \\mid c)$ with $c \\neq 0$ means no solution: the system is inconsistent.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A row $(0,\\ 0,\\ 0 \\mid 0)$ with two independent rows left means infinitely many solutions. Let one unknown (often $z$) be $\\lambda$ and give $x$, $y$ and $z$ in terms of $\\lambda$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Paper 2: write down the system or augmented matrix you enter, then the GDC values to 3 s.f.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Making only the coefficient in the last row zero. For infinitely many solutions the right-hand side must be zero too. A row $(0,\\ 0,\\ 0 \\mid c)$ with $c \\neq 0$ means no solution.",
+    "Saying that three planes meeting in a line are parallel or coincident. Parallel planes never meet, and coincident planes are one plane. Say they meet in a common line.",
+    "Giving only $x$ and $y$ in terms of $\\lambda$. A general solution states all three unknowns, including $z = \\lambda$.",
+    "Dividing by an expression such as $m - 2$ without checking $m = 2$. Test the value that makes it zero as a separate case.",
+    "Applying a row operation to the coefficients but not to the number after the bar. Every entry in the row changes."
+  ],
+  "examTips": [
+    "“Solve” on Paper 2: write down the system or augmented matrix you entered, then the solver's values to 3 s.f.",
+    "“Find the value of $k$”: reduce until the last row holds only $k$ and numbers. No solution needs the coefficient zero and the right side non-zero. Infinitely many needs both zero.",
+    "“Interpret geometrically”: one solution means the three planes meet at a point, infinitely many usually means they meet in a common line (or all three are the same plane), and no solution means they share no point.",
+    "Give a general solution with every unknown in terms of one parameter, and substitute it back into each equation as a check."
+  ],
+  "readingMinutes": 22
+}

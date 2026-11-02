@@ -1,0 +1,681 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "4.1",
+  "slug": "sampling-data-quality-and-outliers",
+  "title": "Sampling, data quality and outliers",
+  "level": "SL",
+  "topic": 4,
+  "summary": "Statistics is only as good as the data behind it. Here you learn the difference between a [[population|population]] and a [[sample|sample]], how to choose a fair sample, and how to spot data you can't trust. You also meet the rule for an [[outlier|outlier]], and what to do when you find one.",
+  "goals": [
+    {
+      "text": "Use the words population, sample and [[random-sample|random sample]], and tell [[discrete-data|discrete data]] from [[continuous-data|continuous data]].",
+      "bullets": [
+        "4.1-b1"
+      ]
+    },
+    {
+      "text": "Judge whether a data source is reliable, and explain where [[sampling-bias|sampling bias]], missing values and recording errors come from.",
+      "bullets": [
+        "4.1-b2"
+      ]
+    },
+    {
+      "text": "Use the $1.5 \\times \\mathrm{IQR}$ rule to identify outliers, and decide whether each one is a valid value or an error.",
+      "bullets": [
+        "4.1-b3"
+      ]
+    },
+    {
+      "text": "Describe simple random, systematic, stratified, quota and convenience sampling, and judge how well each represents the population.",
+      "bullets": [
+        "4.1-b4"
+      ]
+    },
+    {
+      "text": "Work out how many members a stratified sample takes from each group.",
+      "bullets": [
+        "4.1-b4"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "sampling methods",
+    "stratified sampling",
+    "sampling bias",
+    "discrete and continuous data",
+    "outlier 1.5 IQR rule",
+    "systematic sampling"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-mean",
+      "prompt": "Find the mean of $7$, $9$, $4$, $12$ and $8$.",
+      "hint": "Add the values, then divide by how many there are.",
+      "answer": {
+        "value": 8,
+        "tolerance": 0
+      },
+      "explain": "$7 + 9 + 4 + 12 + 8 = 40$, and $40 \\div 5 = 8$."
+    },
+    {
+      "type": "check",
+      "id": "before-median",
+      "prompt": "Write down the median of $3$, $5$, $7$, $10$, $11$ and $14$.",
+      "hint": "The values are already in order. With an even number of values, the median is halfway between the middle two.",
+      "answer": {
+        "value": 8.5,
+        "tolerance": 0
+      },
+      "explain": "The middle two values are $7$ and $10$, so the median is $\\frac{7 + 10}{2} = 8.5$."
+    },
+    {
+      "type": "check",
+      "id": "before-fraction-of",
+      "prompt": "In a club of $240$ members, $\\frac{3}{8}$ are juniors. How many juniors are there?",
+      "hint": "Find $\\frac{1}{8}$ of $240$ first.",
+      "answer": {
+        "value": 90,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{1}{8}$ of $240$ is $30$, so $\\frac{3}{8}$ of $240$ is $3 \\times 30 = 90$."
+    }
+  ],
+  "sections": [
+    {
+      "id": "populations",
+      "heading": "Populations, samples and types of data",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A school wants to know how long its $1200$ students spend on homework. Asking all of them is slow. Asking $80$ is quicker, and gives a good estimate if the $80$ are chosen well."
+        },
+        {
+          "type": "definition",
+          "term": "Population and sample",
+          "statement": "The [[population|population]] is the whole group that a statistical question is about. A [[sample|sample]] is the part of the population that data is collected from.",
+          "plain": "The population is everyone you want to know about; the sample is who you actually asked."
+        },
+        {
+          "type": "text",
+          "text": "You use the sample to estimate facts about the population. Collecting data from every member instead is called a census."
+        },
+        {
+          "type": "definition",
+          "term": "Random sample",
+          "statement": "A [[random-sample|random sample]] is chosen so that every member of the population has the same chance of being selected.",
+          "plain": "Nobody is more likely to be picked than anyone else."
+        },
+        {
+          "type": "definition",
+          "term": "Discrete and continuous data",
+          "statement": "[[discrete-data|Discrete data]] can take only separate values, usually from counting. [[continuous-data|Continuous data]] is measured, and can take any value in a range.",
+          "plain": "If you count it, it is discrete. If you measure it, it is continuous."
+        },
+        {
+          "type": "text",
+          "text": "Watch for two traps. Shoe sizes are discrete: they jump from $7$ to $7.5$ to $8$, with nothing in between. A height recorded as $162$ cm is still continuous: it was only rounded."
+        },
+        {
+          "type": "example",
+          "id": "ex-data-types",
+          "question": "A cycling club records, for each member: (a) the number of races entered this season; (b) the time taken to ride $40$ km; (c) the number of gears on their bike; (d) their mass in kg. Classify each as discrete or continuous.",
+          "steps": [
+            "Ask of each one: is it counted or measured?",
+            "(a) Races are counted, so this is discrete. (c) Gears are counted too, so this is discrete.",
+            "(b) Time is measured and can take any value in a range, so this is continuous.",
+            "(d) Mass is measured, so this is continuous, even if it is recorded to the nearest kg."
+          ],
+          "answer": "$\\text{(a) discrete, (b) continuous, (c) discrete, (d) continuous}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-sample-estimate",
+          "question": "An orchard has $1500$ apple trees. The farmer inspects a random sample of $60$ trees and finds leaf disease on $9$ of them. (a) State the population and the sample. (b) Estimate the number of diseased trees in the orchard.",
+          "steps": [
+            "(a) The population is all $1500$ trees in the orchard. The sample is the $60$ trees inspected.",
+            "(b) In the sample, $\\frac{9}{60}$ of the trees are diseased. The sample is random, so assume the same fraction holds for the orchard.",
+            "Scale up: $\\frac{9}{60} \\times 1500 = 225$ trees. Another random sample would give a slightly different estimate."
+          ],
+          "answer": "$\\frac{9}{60} \\times 1500 = 225$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-continuous",
+          "prompt": "Which of these is continuous data?",
+          "hint": "Ask whether each one is counted or measured.",
+          "options": [
+            {
+              "text": "The number of apps on a phone",
+              "correct": false
+            },
+            {
+              "text": "The time a phone battery lasts on one charge",
+              "correct": true
+            },
+            {
+              "text": "The number of messages sent in a day",
+              "correct": false
+            }
+          ],
+          "explain": "Time is measured, so it is continuous. Apps and messages are counted, so they are discrete."
+        },
+        {
+          "type": "check",
+          "id": "check-population",
+          "prompt": "A council wants to know what the $18\\,000$ adults in a town think of a new bus route. It asks $400$ of them. What is the population?",
+          "hint": "The population is the whole group the question is about, not just the people asked.",
+          "options": [
+            {
+              "text": "All $18\\,000$ adults in the town",
+              "correct": true
+            },
+            {
+              "text": "The $400$ adults who were asked",
+              "correct": false
+            },
+            {
+              "text": "The people who use the new bus route",
+              "correct": false
+            }
+          ],
+          "explain": "The council wants to know about every adult in the town, so the population is all $18\\,000$. The $400$ asked are the sample."
+        }
+      ]
+    },
+    {
+      "id": "reliability",
+      "heading": "Reliable data and bias",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A large data set can still mislead. Before you trust one, ask who collected it, how the members were chosen, and whether any values are missing or impossible."
+        },
+        {
+          "type": "text",
+          "text": "To judge a data source, ask who collected the data, and why. A firm that surveys people about its own product gains from a good result. Then ask how the data was collected. A source that doesn't say how its members were chosen is hard to trust."
+        },
+        {
+          "type": "definition",
+          "term": "Sampling bias",
+          "statement": "[[sampling-bias|Sampling bias]] happens when the way a [[sample|sample]] is chosen makes some members of the [[population|population]] more likely to be included than others. The sample then does not represent the population.",
+          "plain": "The sample leans one way because of how it was picked, not by bad luck."
+        },
+        {
+          "type": "text",
+          "text": "Bias has three common causes. Part of the population may be out of reach: an online survey misses people without internet. People who volunteer choose themselves, and they often hold strong views. Some people don't reply, and they may differ from those who do."
+        },
+        {
+          "type": "text",
+          "text": "A bigger sample doesn't remove bias. Asking $5000$ volunteers instead of $500$ still leaves out everyone who didn't volunteer."
+        },
+        {
+          "type": "text",
+          "text": "Missing data: someone skips a question, or a sensor fails. Never record a blank as $0$. Leave it out, and say how many values are missing."
+        },
+        {
+          "type": "text",
+          "text": "Recording errors: a slipped decimal point, a wrong unit or a typing slip. Look for values that are impossible or far out of line. Correct one only if you know the true value; otherwise remove it and say so."
+        },
+        {
+          "type": "example",
+          "id": "ex-recording-error",
+          "question": "A farmer records the masses, in grams, of seven eggs: $58.2$, $61.0$, $5.97$, $59.4$, $62.3$, $60.1$, $57.8$. (a) Identify the value that is most likely a recording error, and explain why. (b) That egg is weighed again: its mass is $59.7$ g. Find the mean mass of the seven eggs. Give your answer to 3 s.f.",
+          "steps": [
+            "(a) Six masses lie between $57$ and $63$ g. An egg of under $6$ g is not realistic here, so $5.97$ is almost certainly an error: the decimal point has slipped.",
+            "(b) Replace $5.97$ with $59.7$ and add: $58.2 + 61.0 + 59.7 + 59.4 + 62.3 + 60.1 + 57.8 = 418.5$.",
+            "Divide by $7$: $\\frac{418.5}{7} = 59.785\\ldots \\approx 59.8$ g. This lies among the typical masses, as it should."
+          ],
+          "answer": "$\\text{mean} = \\frac{418.5}{7} \\approx 59.8\\text{ g}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-gym-bias",
+          "question": "A gym has $2000$ members. To find out how often members train, the manager asks the $50$ people in the gym at 6 pm one Monday. Of these, $38$ say they train at least four times a week. (a) Use this sample to estimate how many members train at least four times a week. (b) Explain why your estimate is likely to be too high.",
+          "steps": [
+            "(a) In the sample, $\\frac{38}{50}$ train at least four times a week. Apply this to all members: $\\frac{38}{50} \\times 2000 = 1520$.",
+            "(b) Say who could be chosen: only people in the gym at that time.",
+            "Members who train often are far more likely to be there on a given evening than members who rarely come. So frequent trainers are over-represented, and $1520$ is likely to be too high."
+          ],
+          "answer": "$\\frac{38}{50} \\times 2000 = 1520$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-self-selection",
+          "prompt": "A radio station asks listeners to phone in with their view of a new law. Of the callers, $85\\%$ oppose it. What is the main problem with using this to judge public opinion?",
+          "hint": "Think about who decides to phone in.",
+          "options": [
+            {
+              "text": "The sample is too small to be useful",
+              "correct": false
+            },
+            {
+              "text": "The callers chose themselves, so people with strong views are over-represented",
+              "correct": true
+            },
+            {
+              "text": "A percentage as high as $85\\%$ cannot be accurate",
+              "correct": false
+            }
+          ],
+          "explain": "People who feel strongly are the most likely to call, so the sample is biased. More callers would be biased in the same way."
+        },
+        {
+          "type": "check",
+          "id": "check-source-reliability",
+          "prompt": "A drinks company asks $300$ shoppers at its own factory shop which lemonade they like best. It reports that $72\\%$ prefer its own brand. What is the main reason to doubt this source?",
+          "hint": "Who ran the survey, and where were the shoppers found?",
+          "options": [
+            {
+              "text": "A sample of $300$ shoppers is too small to be useful",
+              "correct": false
+            },
+            {
+              "text": "The company gains from the result, and its own shop's customers already like its drinks",
+              "correct": true
+            },
+            {
+              "text": "The company should have asked every lemonade drinker instead",
+              "correct": false
+            }
+          ],
+          "explain": "The company wants a good result, and it asked people who chose to shop with it, so the sample leans towards its brand. Asking more of the same shoppers would not fix this, and asking everyone is not practical."
+        },
+        {
+          "type": "check",
+          "id": "check-missing-mean",
+          "prompt": "A weather sensor logs these noon temperatures, in °C: $14.2$, $15.0$, $0$, $13.6$, $14.8$. The $0$ is a missing reading: the sensor failed that day. Find the mean of the real readings.",
+          "hint": "Leave the missing reading out, and divide by the number of real readings.",
+          "answer": {
+            "value": 14.4,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{14.2 + 15.0 + 13.6 + 14.8}{4} = \\frac{57.6}{4} = 14.4$ °C. Keeping the $0$ gives $11.52$ °C, far too low."
+        }
+      ]
+    },
+    {
+      "id": "outliers",
+      "heading": "Outliers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Look at these test scores: $52$, $55$, $58$, $60$, $61$, $63$, $95$. The $95$ sits far above the rest, but is it far enough to count as unusual? You need a rule that everyone applies the same way."
+        },
+        {
+          "type": "text",
+          "text": "The rule uses the quartiles. With the data in order, the lower quartile $Q_{1}$ has a quarter of the values below it, and the upper quartile $Q_{3}$ has three quarters. You'll find them in {{lesson:4.3}}; here they are given, or read from your GDC."
+        },
+        {
+          "type": "text",
+          "text": "The [[interquartile-range|interquartile range]] (IQR) is the gap between the quartiles: the spread of the middle half of the data. It is in the formula booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{IQR} = Q_{3} - Q_{1}",
+          "tag": "booklet",
+          "bookletId": "bk-4-2-iqr",
+          "cheatSheet": true
+        },
+        {
+          "type": "definition",
+          "term": "Outlier",
+          "statement": "A data value $x$ is an [[outlier|outlier]] if $x < Q_{1} - 1.5 \\times \\mathrm{IQR}$ or $x > Q_{3} + 1.5 \\times \\mathrm{IQR}$.",
+          "plain": "An outlier lies more than one and a half IQRs beyond the nearest quartile."
+        },
+        {
+          "type": "text",
+          "text": "This rule is not in the booklet, so learn it. The two boundaries are called the lower and upper fences."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{lower fence} = Q_{1} - 1.5 \\times \\mathrm{IQR}, \\qquad \\text{upper fence} = Q_{3} + 1.5 \\times \\mathrm{IQR}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "figure",
+          "id": "4-1-outlier-fences",
+          "alt": "A number line with a box from Q1 to Q3, whose width is the IQR. A distance of 1.5 times the IQR is marked from Q1 down to the lower fence and from Q3 up to the upper fence. The regions beyond the two fences are shaded and labelled outliers.",
+          "caption": "Measure $1.5 \\times \\mathrm{IQR}$ out from the nearest quartile, never from the median."
+        },
+        {
+          "type": "text",
+          "text": "The inequalities are strict. A value exactly equal to a fence is not an outlier."
+        },
+        {
+          "type": "example",
+          "id": "ex-largest-not-outlier",
+          "question": "For a class's push-up scores, $Q_{1} = 15$, the median is $22$ and $Q_{3} = 27$. Every score is a whole number. Find the largest score that would not be an outlier.",
+          "steps": [
+            "Find the IQR: $27 - 15 = 12$, so $1.5 \\times \\mathrm{IQR} = 18$.",
+            "Upper fence, measured from $Q_{3}$, not the median: $27 + 18 = 45$.",
+            "A score is an outlier only if it is greater than $45$, so a score of exactly $45$ is not an outlier."
+          ],
+          "answer": "$\\text{largest} = 45$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding $1.5 \\times \\mathrm{IQR}$ to the median. Here that gives $22 + 18 = 40$, which is wrong. Always start from the nearest quartile."
+        },
+        {
+          "type": "text",
+          "text": "The rule only flags a value as unusual; it doesn't make it wrong. Check each outlier against the context."
+        },
+        {
+          "type": "text",
+          "text": "If the value is possible, it is a valid member of the [[sample|sample]]: keep it. If it is impossible, or clearly a slip, it is an error: correct it if you know the true value, or remove it and say so."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-puzzle",
+          "question": "The times, in seconds, for $11$ students to solve a puzzle are $42$, $38$, $51$, $45$, $47$, $40$, $112$, $44$, $49$, $36$, $46$. (a) Use your calculator to find $Q_{1}$ and $Q_{3}$. (b) Hence identify any outliers. (c) State, with a reason, whether the outlier should be removed.",
+          "steps": [
+            "(a) Enter the times in a list and run one-variable statistics. Write down what you read off: $Q_{1} = 40$ and $Q_{3} = 49$.",
+            "(b) $\\mathrm{IQR} = 49 - 40 = 9$, so $1.5 \\times \\mathrm{IQR} = 13.5$.",
+            "Lower fence: $40 - 13.5 = 26.5$. Upper fence: $49 + 13.5 = 62.5$.",
+            "No time is below $26.5$, and only $112 > 62.5$. So $112$ s is the only outlier.",
+            "(c) A student who got stuck could take nearly two minutes. The value is possible, so it is valid: keep it."
+          ],
+          "answer": "$\\text{outliers: } 112$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "STAT, 1: Edit, type the 11 times into L1 (check on your model)",
+              "STAT, CALC, 1: 1-Var Stats, list L1, ENTER",
+              "Scroll down and read Q1 = 40 and Q3 = 49"
+            ],
+            "nspire": [
+              "Lists & Spreadsheet page, type the 11 times into column A (check on your model)",
+              "Menu, Statistics, Stat Calculations, One-Variable Statistics, choose column A as the X1 list (check on your model)",
+              "Read Q1X = 40 and Q3X = 49"
+            ],
+            "casio": [
+              "STAT, type the 11 times into List 1 (check on your model)",
+              "CALC, 1-VAR (in SET, 1Var XList: List1 and 1Var Freq: 1, check on your model)",
+              "Scroll down and read Q1 = 40 and Q3 = 49"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "On Paper 2, write down the quartiles your GDC gives. Then show the fence with numbers in, such as $49 + 1.5 \\times 9$: that line earns the method mark."
+        },
+        {
+          "type": "check",
+          "id": "check-scores-fence",
+          "prompt": "For the test scores at the start of this section, $Q_{1} = 55$ and $Q_{3} = 63$. Find the upper fence.",
+          "hint": "Find the IQR first, then add one and a half IQRs to $Q_{3}$.",
+          "answer": {
+            "value": 75,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{IQR} = 63 - 55 = 8$, so the upper fence is $63 + 1.5 \\times 8 = 75$. The score of $95$ is above $75$, so it is an outlier."
+        },
+        {
+          "type": "check",
+          "id": "check-outlier-context",
+          "prompt": "The ages of the members of a chess club have $Q_{1} = 14$ and $Q_{3} = 19$. Two of the recorded ages are $67$ and $145$. Which statement is correct?",
+          "hint": "Find the upper fence. Then ask whether each age is possible for a club member.",
+          "options": [
+            {
+              "text": "Both are outliers, so both should be removed",
+              "correct": false
+            },
+            {
+              "text": "Only $145$ is an outlier",
+              "correct": false
+            },
+            {
+              "text": "Both are outliers; $67$ is probably valid but $145$ must be an error",
+              "correct": true
+            }
+          ],
+          "explain": "The upper fence is $19 + 1.5 \\times 5 = 26.5$, so both ages are outliers. A $67$-year-old can play chess, so keep that value. Nobody is $145$, so that is an error."
+        }
+      ]
+    },
+    {
+      "id": "sampling",
+      "heading": "Sampling methods",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The five methods below differ in how random they are, and in what you need before you start. Most need a numbered list of the whole [[population|population]]."
+        },
+        {
+          "type": "definition",
+          "term": "Simple random sampling",
+          "statement": "In [[simple-random-sampling|simple random sampling]], every possible [[sample|sample]] of the chosen size is equally likely. Number every member of the population, then use random numbers to pick the sample.",
+          "plain": "It works like drawing names out of a hat."
+        },
+        {
+          "type": "text",
+          "text": "Effectiveness: no sampling bias, but it needs a full list, and by chance it can miss a small group."
+        },
+        {
+          "type": "definition",
+          "term": "Systematic sampling",
+          "statement": "In [[systematic-sampling|systematic sampling]], you list the population in order and choose every $k$th member, where $k = \\frac{N}{n}$ for a population of size $N$ and a sample of size $n$. The first member is chosen at random from the first $k$.",
+          "plain": "Pick a random start, then take every $k$th one after it."
+        },
+        {
+          "type": "text",
+          "text": "Effectiveness: quick and evenly spread. It goes wrong if the list has a repeating pattern that lines up with $k$."
+        },
+        {
+          "type": "definition",
+          "term": "Stratified sampling",
+          "statement": "In [[stratified-sampling|stratified sampling]], you split the population into groups called strata, such as year groups. Then you take a [[random-sample|random sample]] from each stratum, with sizes in the same proportion as in the population.",
+          "plain": "Each group gets its fair share of the sample, chosen at random within the group."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{number from a stratum} = \\frac{\\text{size of stratum}}{\\text{size of population}} \\times \\text{sample size}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Effectiveness: usually the most representative method. It needs each stratum's size and a list of its members."
+        },
+        {
+          "type": "definition",
+          "term": "Quota sampling",
+          "statement": "In [[quota-sampling|quota sampling]], you fix how many members to take from each group (the quota). The collector then chooses anyone who fits, until each quota is full.",
+          "plain": "Like stratified sampling, but the collector picks the people, not chance."
+        },
+        {
+          "type": "text",
+          "text": "Effectiveness: quick and needs no list, so it suits street surveys. The collector's choices can bias it, for example by approaching only people who look friendly."
+        },
+        {
+          "type": "definition",
+          "term": "Convenience sampling",
+          "statement": "In [[convenience-sampling|convenience sampling]], you take the members that are easiest to reach, such as the first people you meet.",
+          "plain": "Whoever is handy gets asked."
+        },
+        {
+          "type": "text",
+          "text": "Effectiveness: the quickest and cheapest method, but the most likely to be biased."
+        },
+        {
+          "type": "mistake",
+          "text": "Calling the first $30$ people through the door a systematic sample. Systematic means every $k$th member of an ordered list; the first $30$ is a convenience sample."
+        },
+        {
+          "type": "example",
+          "id": "ex-stratified-rounding",
+          "question": "A factory has $212$ workers on the day shift, $158$ on the evening shift and $94$ on the night shift. A stratified sample of $50$ workers is chosen. Find the number of workers to choose from each shift.",
+          "steps": [
+            "Total workers: $212 + 158 + 94 = 464$.",
+            "Day: $\\frac{212}{464} \\times 50 = 22.84\\ldots$, so $23$.",
+            "Evening: $\\frac{158}{464} \\times 50 = 17.02\\ldots$, so $17$.",
+            "Night: $\\frac{94}{464} \\times 50 = 10.12\\ldots$, so $10$.",
+            "You can only choose whole people, so round each one, then check the total: $23 + 17 + 10 = 50$. Choose the workers at random within each shift."
+          ],
+          "answer": "$\\text{day } 23, \\; \\text{evening } 17, \\; \\text{night } 10$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-systematic",
+          "question": "A bakery makes $1350$ loaves in a day, numbered $1$ to $1350$ as they leave the oven. An inspector weighs a systematic sample of $45$ loaves. (a) Find the sampling interval $k$. (b) Describe how to choose the sample. (c) The random start is loaf $17$. Find $t$, the number of the last loaf chosen.",
+          "steps": [
+            "(a) $k = \\frac{N}{n} = \\frac{1350}{45} = 30$.",
+            "(b) Choose a random whole number from $1$ to $30$ as the first loaf, then take every $30$th loaf after it.",
+            "(c) The loaves are $17$, $47$, $77$, $\\ldots$. The $45$th is $44$ steps of $30$ after the first: $t = 17 + 44 \\times 30 = 1337$.",
+            "Check: the next one would be $1367$, beyond $1350$, so the sample has exactly $45$ loaves."
+          ],
+          "answer": "$k = 30, \\; t = 1337$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-name-quota",
+          "prompt": "A researcher stands in a shopping centre and interviews passers-by until she has spoken to $30$ men and $30$ women. Which sampling method is this?",
+          "hint": "Were the group sizes fixed in advance? Who decided which people to ask?",
+          "options": [
+            {
+              "text": "Stratified sampling",
+              "correct": false
+            },
+            {
+              "text": "Convenience sampling",
+              "correct": false
+            },
+            {
+              "text": "Quota sampling",
+              "correct": true
+            },
+            {
+              "text": "Systematic sampling",
+              "correct": false
+            }
+          ],
+          "explain": "The numbers were fixed, but she chose whom to ask, so it is not random. That is quota sampling. Stratified sampling would pick at random within each group."
+        },
+        {
+          "type": "check",
+          "id": "check-stratified-year1",
+          "prompt": "A college has $1080$ students, of whom $432$ are in Year 1. A stratified sample of $75$ students is taken. How many Year 1 students are in the sample?",
+          "hint": "Find the fraction of the college that is in Year 1, then take that fraction of the sample.",
+          "answer": {
+            "value": 30,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{432}{1080} \\times 75 = 0.4 \\times 75 = 30$. Divide by the population, $1080$, not by the sample size."
+        },
+        {
+          "type": "check",
+          "id": "check-best-method",
+          "prompt": "A hospital has a full list of its staff. It wants a random sample that represents nurses, doctors and office staff in the right proportions. Which method is best?",
+          "hint": "Which method is both random and sure to match the size of each group?",
+          "options": [
+            {
+              "text": "Simple random sampling",
+              "correct": false
+            },
+            {
+              "text": "Stratified sampling",
+              "correct": true
+            },
+            {
+              "text": "Quota sampling",
+              "correct": false
+            },
+            {
+              "text": "Convenience sampling",
+              "correct": false
+            }
+          ],
+          "explain": "Stratified sampling fixes each group's share and picks at random within it. Quota sampling is not random, and a simple random sample could under-represent a small group by chance."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The population is the whole group; a sample is the part you collect data from. Counted data is discrete; measured data is continuous.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A sample is biased if the way it is chosen favours some members. Say who is favoured and why.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Leave missing values out, never record them as $0$. Correct a recording error only if you know the true value.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{IQR} = Q_{3} - Q_{1}",
+          "tag": "booklet",
+          "bookletId": "bk-4-2-iqr",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{outlier: } x < Q_{1} - 1.5 \\times \\mathrm{IQR} \\quad \\text{or} \\quad x > Q_{3} + 1.5 \\times \\mathrm{IQR}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A value equal to a fence is not an outlier. Keep valid outliers; remove only errors.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Simple random: every sample equally likely. Systematic: every $k$th, $k = \\frac{N}{n}$, random start. Stratified: random within groups, in proportion. Quota: fixed numbers, collector chooses. Convenience: easiest to reach.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{number from a stratum} = \\frac{\\text{size of stratum}}{\\text{size of population}} \\times \\text{sample size}",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Calling a value that equals a fence an outlier. The inequalities are strict, so a value on the fence is not an outlier.",
+    "Adding $1.5 \\times \\mathrm{IQR}$ to the median. Measure from $Q_{3}$ for the upper fence and from $Q_{1}$ for the lower one.",
+    "Saying only that a sample is too small or not representative. Name the group the method favours, and say why its answers would differ.",
+    "Calling the first few people to arrive a systematic sample. That is convenience sampling; systematic takes every $k$th member of an ordered list.",
+    "Dividing by the sample size in stratified sampling. Each stratum's fraction is its size over the population size.",
+    "Deleting an outlier just because it is one. Remove a value only if it is impossible or a known error."
+  ],
+  "examTips": [
+    "State or identify a sampling method: the name is enough. Describe one: say how members are picked; for systematic sampling, give $k$ and the random start.",
+    "Explain why a sample is biased: the mark needs a reason tied to the context, such as who is left out and why they would answer differently.",
+    "Verify that a value is or is not an outlier: write the fence with numbers substituted, then compare the value with it using $<$ or $>$.",
+    "Estimate a population count from a sample: write the fraction you scale by, such as $\\frac{38}{50} \\times 2000$, for the method mark."
+  ],
+  "readingMinutes": 28
+}

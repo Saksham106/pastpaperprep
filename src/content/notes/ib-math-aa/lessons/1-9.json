@@ -1,0 +1,704 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.9",
+  "slug": "binomial-theorem",
+  "title": "Binomial theorem",
+  "level": "SL",
+  "topic": 1,
+  "summary": "The [[binomial-theorem|binomial theorem]] expands any whole-number power of a two-term bracket, such as $(2x - 3)^{5}$, without multiplying it out by hand. The numbers in front of the terms are the [[binomial-coefficient|binomial coefficients]] ${}^{n}C_{r}$. You can read them from [[pascals-triangle|Pascal's triangle]], work them out with a formula, or get them from your GDC. Exam questions usually ask for just one term or one coefficient.",
+  "goals": [
+    {
+      "text": "Expand a power such as $(x + 3)^{4}$ using a row of [[pascals-triangle|Pascal's triangle]].",
+      "bullets": [
+        "1.9-b1",
+        "1.9-b2"
+      ]
+    },
+    {
+      "text": "Explain, by counting choices, why the coefficients are the [[binomial-coefficient|binomial coefficients]] ${}^{n}C_{r}$.",
+      "bullets": [
+        "1.9-b4",
+        "1.9-b2"
+      ]
+    },
+    {
+      "text": "Work out ${}^{n}C_{r}$ with the formula and with your GDC, and find $r$ or $n$ from a given value.",
+      "bullets": [
+        "1.9-b3"
+      ]
+    },
+    {
+      "text": "Expand $(a + b)^{n}$ for any $n \\in \\mathbb{N}$ with the [[binomial-theorem|binomial theorem]].",
+      "bullets": [
+        "1.9-b1"
+      ]
+    },
+    {
+      "text": "Find a single term or coefficient, including a [[constant-term|constant term]] or an unknown inside the bracket.",
+      "bullets": [
+        "1.9-b1"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "binomial expansion",
+    "pascal's triangle",
+    "nCr",
+    "n choose r",
+    "coefficient of x in an expansion",
+    "term independent of x"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-expand-square",
+      "prompt": "Expand $(x + 5)^{2}$.",
+      "hint": "Write it as $(x + 5)(x + 5)$ and multiply every term in one bracket by every term in the other.",
+      "options": [
+        {
+          "text": "$x^{2} + 25$",
+          "correct": false
+        },
+        {
+          "text": "$x^{2} + 5x + 25$",
+          "correct": false
+        },
+        {
+          "text": "$x^{2} + 10x + 25$",
+          "correct": true
+        }
+      ],
+      "explain": "$(x + 5)(x + 5) = x^{2} + 5x + 5x + 25 = x^{2} + 10x + 25$. The two middle terms are the ones people forget. You met this before the course; this lesson builds on it."
+    },
+    {
+      "type": "check",
+      "id": "before-power-of-product",
+      "prompt": "Simplify $(3x)^{4}$.",
+      "hint": "The power applies to everything inside the bracket, the $3$ as well as the $x$.",
+      "options": [
+        {
+          "text": "$3x^{4}$",
+          "correct": false
+        },
+        {
+          "text": "$12x^{4}$",
+          "correct": false
+        },
+        {
+          "text": "$81x^{4}$",
+          "correct": true
+        }
+      ],
+      "explain": "$(3x)^{4} = 3^{4}x^{4} = 81x^{4}$. Writing $3x^{4}$ raises only the $x$, and $12x^{4}$ multiplies by $4$ instead of raising to the power $4$."
+    },
+    {
+      "type": "check",
+      "id": "before-negative-power",
+      "prompt": "Evaluate $(-2)^{5}$.",
+      "hint": "Multiply five copies of $-2$. Is an odd number of minus signs positive or negative?",
+      "answer": {
+        "value": -32,
+        "tolerance": 0
+      },
+      "explain": "$(-2)^{5} = -32$. An odd power of a negative number is negative; an even power is positive."
+    }
+  ],
+  "sections": [
+    {
+      "id": "pascal",
+      "heading": "Expanding brackets with Pascal's triangle",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Multiplying out $(a + b)^{2}$ gives $a^{2} + 2ab + b^{2}$. For $(a + b)^{3}$, multiply that answer by $(a + b)$ once more and collect like terms. Do it again for $(a + b)^{4}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{aligned} (a+b)^{2} &= a^{2} + 2ab + b^{2} \\\\ (a+b)^{3} &= a^{3} + 3a^{2}b + 3ab^{2} + b^{3} \\\\ (a+b)^{4} &= a^{4} + 4a^{3}b + 6a^{2}b^{2} + 4ab^{3} + b^{4} \\end{aligned}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Look at the powers. The power of $a$ falls by one from term to term, and the power of $b$ rises by one. In every term the two powers add up to $n$, so $(a + b)^{n}$ has $n + 1$ terms."
+        },
+        {
+          "type": "text",
+          "text": "Only the numbers in front change: $1, 2, 1$, then $1, 3, 3, 1$, then $1, 4, 6, 4, 1$. These are the [[binomial-coefficient|binomial coefficients]]. Stacked in rows, they make [[pascals-triangle|Pascal's triangle]]."
+        },
+        {
+          "type": "definition",
+          "term": "Pascal's triangle",
+          "statement": "A triangle of numbers in which row $n$, counting from row $0$, lists the coefficients of $(a + b)^{n}$. Each row starts and ends with $1$, and every other entry is the sum of the two entries just above it.",
+          "plain": "Add two neighbours to get the number between them in the next row."
+        },
+        {
+          "type": "figure",
+          "id": "1-9-pascal-triangle",
+          "alt": "Pascal's triangle, rows 0 to 6, each row labelled n equals 0 to 6 on the left. Row 0 is 1. Row 1 is 1, 1. Row 2 is 1, 2, 1. Row 3 is 1, 3, 3, 1. Row 4 is 1, 4, 6, 4, 1. Row 5 is 1, 5, 10, 10, 5, 1. Row 6 is 1, 6, 15, 20, 15, 6, 1. The 4 and the 6 in row 4 are circled, with arrows down to the circled 10 between them in row 5.",
+          "caption": "Row $n$ gives the coefficients of $(a + b)^{n}$. Each entry is the sum of the two above it, as in $4 + 6 = 10$."
+        },
+        {
+          "type": "text",
+          "text": "Row $0$ is a single $1$, because $(a + b)^{0} = 1$. In IB notation $\\mathbb{N}$ includes $0$, so $n = 0$ is allowed."
+        },
+        {
+          "type": "text",
+          "text": "To expand, take row $n$ and attach the falling and rising powers. Bracket each term first, so its number and sign are raised too."
+        },
+        {
+          "type": "example",
+          "id": "ex-pascal-x-plus-3",
+          "question": "Use Pascal's triangle to expand $(x + 3)^{4}$.",
+          "steps": [
+            "Row $4$ of the triangle is $1, 4, 6, 4, 1$.",
+            "Here the first term is $x$ and the second is $3$. Powers of $x$ fall from $4$ to $0$ while powers of $3$ rise from $0$ to $4$: $x^{4} + 4 \\cdot x^{3} \\cdot 3 + 6 \\cdot x^{2} \\cdot 3^{2} + 4 \\cdot x \\cdot 3^{3} + 3^{4}$.",
+            "Work out the powers of $3$: $3^{2} = 9$, $3^{3} = 27$ and $3^{4} = 81$.",
+            "Multiply out each term: $x^{4} + 12x^{3} + 54x^{2} + 108x + 81$.",
+            "Check by putting $x = 1$ into both sides: $4^{4} = 256$, and $1 + 12 + 54 + 108 + 81 = 256$."
+          ],
+          "answer": "$(x + 3)^{4} = x^{4} + 12x^{3} + 54x^{2} + 108x + 81$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-pascal-row",
+          "prompt": "Which list gives the coefficients of $(a + b)^{6}$?",
+          "hint": "Build the triangle down to row $6$. Row $0$ is the single $1$ at the top.",
+          "options": [
+            {
+              "text": "$1, 5, 10, 10, 5, 1$",
+              "correct": false
+            },
+            {
+              "text": "$1, 6, 15, 20, 15, 6, 1$",
+              "correct": true
+            },
+            {
+              "text": "$1, 6, 15, 15, 6, 1$",
+              "correct": false
+            }
+          ],
+          "explain": "Row $5$ is $1, 5, 10, 10, 5, 1$. Adding neighbours gives row $6$: $1, 6, 15, 20, 15, 6, 1$. It has $7$ entries, one for each of the $7$ terms."
+        },
+        {
+          "type": "mistake",
+          "text": "Raising only the letter to the power. In $(3x - 2)^{4}$ the first term is $(3x)^{4} = 81x^{4}$, not $3x^{4}$. Bracket each term, as in $(3x)^{4}$ and $(-2)^{3}$, before you multiply."
+        },
+        {
+          "type": "example",
+          "id": "ex-pascal-3x-minus-2",
+          "question": "Expand and simplify $(3x - 2)^{4}$.",
+          "steps": [
+            "Row $4$ is $1, 4, 6, 4, 1$. The first term is $3x$ and the second is $-2$: keep the minus sign with the $2$.",
+            "Write every term with brackets: $(3x)^{4} + 4(3x)^{3}(-2) + 6(3x)^{2}(-2)^{2} + 4(3x)(-2)^{3} + (-2)^{4}$.",
+            "Work out the powers: $(3x)^{4} = 81x^{4}$, $(3x)^{3} = 27x^{3}$ and $(3x)^{2} = 9x^{2}$. Also $(-2)^{2} = 4$, $(-2)^{3} = -8$ and $(-2)^{4} = 16$.",
+            "Multiply out each term: $81x^{4} - 216x^{3} + 216x^{2} - 96x + 16$. The signs alternate because odd powers of $-2$ are negative.",
+            "Check with $x = 1$: $(3 - 2)^{4} = 1$, and $81 - 216 + 216 - 96 + 16 = 1$."
+          ],
+          "answer": "$(3x - 2)^{4} = 81x^{4} - 216x^{3} + 216x^{2} - 96x + 16$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-expand-y-minus-4",
+          "prompt": "Expand $(y - 4)^{3}$.",
+          "hint": "Use row $3$, which is $1, 3, 3, 1$, with second term $-4$. Square and cube the $-4$ as well.",
+          "options": [
+            {
+              "text": "$y^{3} - 12y^{2} - 12y - 4$",
+              "correct": false
+            },
+            {
+              "text": "$y^{3} - 12y^{2} + 48y - 64$",
+              "correct": true
+            },
+            {
+              "text": "$y^{3} - 12y^{2} + 48y + 64$",
+              "correct": false
+            },
+            {
+              "text": "$y^{3} - 64$",
+              "correct": false
+            }
+          ],
+          "explain": "The terms are $y^{3}$, $3y^{2}(-4) = -12y^{2}$, $3y(-4)^{2} = 48y$ and $(-4)^{3} = -64$. Forgetting to square and cube the $-4$ gives $-12y - 4$ at the end."
+        }
+      ]
+    },
+    {
+      "id": "counting",
+      "heading": "Counting and the binomial coefficients",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Why does the triangle work? Write $(a + b)^{4}$ as $(a + b)(a + b)(a + b)(a + b)$. Multiplying out means picking $a$ or $b$ from each bracket, multiplying the picks, and adding every possible result."
+        },
+        {
+          "type": "text",
+          "text": "You get $a^{2}b^{2}$ whenever $b$ comes from exactly two brackets: 1st and 2nd, 1st and 3rd, 1st and 4th, 2nd and 3rd, 2nd and 4th, or 3rd and 4th. That is $6$ ways, so the term is $6a^{2}b^{2}$, as in row $4$."
+        },
+        {
+          "type": "text",
+          "text": "In general, the coefficient of $a^{n-r}b^{r}$ in $(a + b)^{n}$ counts the ways to choose which $r$ of the $n$ brackets give $b$."
+        },
+        {
+          "type": "definition",
+          "term": "binomial coefficient",
+          "statement": "For whole numbers $0 \\le r \\le n$, ${}^{n}C_{r}$ is the number of ways to choose $r$ objects from $n$ different objects when the order does not matter. It is also written $\\binom{n}{r}$, read as $n$ choose $r$.",
+          "plain": "How many ways you can pick $r$ things out of $n$."
+        },
+        {
+          "type": "text",
+          "text": "To count choices you use the [[factorial|factorial]] $n!$, the product of every whole number from $n$ down to $1$. For example, $5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$. By definition $0! = 1$."
+        },
+        {
+          "type": "formula",
+          "tex": "{}^{n}C_{r} = \\dfrac{n!}{r!\\,(n-r)!}",
+          "tag": "booklet",
+          "bookletId": "bk-1-9-ncr",
+          "cheatSheet": true
+        },
+        {
+          "type": "result",
+          "statement": "${}^{n}C_{r} = \\dfrac{n!}{r!\\,(n-r)!}$ is the number of ways to choose $r$ objects from $n$.",
+          "why": "Picking $r$ objects one after another can be done in $n(n-1)\\cdots(n-r+1) = \\frac{n!}{(n-r)!}$ ordered ways. Each group of $r$ objects turns up in $r!$ different orders, so divide by $r!$."
+        },
+        {
+          "type": "text",
+          "text": "The formula is in the booklet. On Paper 1 you still need to use it by hand. Cancel the larger factorial on the bottom before you multiply anything."
+        },
+        {
+          "type": "example",
+          "id": "ex-ncr-formula",
+          "question": "Without a calculator, find ${}^{9}C_{4}$.",
+          "steps": [
+            "Use the formula with $n = 9$ and $r = 4$: ${}^{9}C_{4} = \\frac{9!}{4!\\,5!}$.",
+            "Write $9! = 9 \\times 8 \\times 7 \\times 6 \\times 5!$, so the $5!$ cancels: ${}^{9}C_{4} = \\frac{9 \\times 8 \\times 7 \\times 6}{4 \\times 3 \\times 2 \\times 1}$.",
+            "Cancel before multiplying: $8$ cancels with $4 \\times 2$, and $9$ divided by $3$ is $3$. This leaves $3 \\times 7 \\times 6$.",
+            "So ${}^{9}C_{4} = 126$."
+          ],
+          "answer": "${}^{9}C_{4} = 126$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "Never multiply out a big factorial such as $9!$ on Paper 1. Cancelling first keeps the numbers small and shows the examiner your method."
+        },
+        {
+          "type": "text",
+          "text": "Entry $r$ of row $n$ in Pascal's triangle is ${}^{n}C_{r}$, counting entries from $0$. Also ${}^{n}C_{0} = {}^{n}C_{n} = 1$ and ${}^{n}C_{1} = n$."
+        },
+        {
+          "type": "text",
+          "text": "${}^{n}C_{r} = {}^{n}C_{n-r}$, because choosing $r$ objects to take is the same as choosing $n - r$ to leave. That is why each row is symmetrical."
+        },
+        {
+          "type": "check",
+          "id": "check-ncr-10-2",
+          "prompt": "Find ${}^{10}C_{2}$ without a calculator.",
+          "hint": "Cancel the $8!$ on the bottom. What is left over $2!$?",
+          "answer": {
+            "value": 45,
+            "tolerance": 0
+          },
+          "explain": "${}^{10}C_{2} = \\frac{10!}{2!\\,8!} = \\frac{10 \\times 9}{2 \\times 1} = 45$."
+        },
+        {
+          "type": "text",
+          "text": "${}^{n}C_{2}$ turns up often, so learn its short form. Cancelling $(n-2)!$ gives ${}^{n}C_{2} = \\frac{n(n-1)}{2}$. You use it to find an unknown $n$."
+        },
+        {
+          "type": "example",
+          "id": "ex-ncr-find-n",
+          "question": "Find the value of $n$ for which ${}^{n}C_{2} = 66$.",
+          "steps": [
+            "Write ${}^{n}C_{2}$ in its short form: $\\frac{n(n-1)}{2} = 66$.",
+            "Multiply both sides by $2$ and rearrange: $n^{2} - n - 132 = 0$.",
+            "Factorise: $(n - 12)(n + 11) = 0$, so $n = 12$ or $n = -11$.",
+            "$n$ counts objects, so it must be a whole number of at least $2$. Reject $n = -11$.",
+            "Check: $\\frac{12 \\times 11}{2} = 66$."
+          ],
+          "answer": "$n = 12$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 your GDC works out ${}^{n}C_{r}$ directly. It can also list ${}^{n}C_{r}$ for $r = 0, 1, 2, \\dots$ in a table. That is the quickest way to find $r$ when you know the value."
+        },
+        {
+          "type": "example",
+          "id": "ex-ncr-table",
+          "question": "Use a table of values on your calculator to find the values of $r$ for which ${}^{12}C_{r} = 495$.",
+          "steps": [
+            "Enter ${}^{12}C_{x}$ as a function of $x$, and set the table to start at $x = 0$ in steps of $1$.",
+            "Read down the table: $1, 12, 66, 220, 495, 792, 924, 792, 495, \\dots$",
+            "The value $495$ appears at $x = 4$ and again at $x = 8$.",
+            "Two answers make sense: ${}^{12}C_{4} = {}^{12}C_{8}$ by symmetry, because $4 + 8 = 12$."
+          ],
+          "answer": "$r = 4 \\text{ or } r = 8$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = 12 nCr X, taking nCr from MATH, PROB, 3: nCr",
+              "2nd WINDOW (TBLSET): TblStart = 0, step 1 (check on your model)",
+              "2nd GRAPH (TABLE), then scroll down the Y1 column (check on your model)",
+              "Read 495 at X = 4 and at X = 8"
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = nCr(12,x), taking nCr from Menu, Probability, Combinations (check on your model)",
+              "Menu, Table, Split-screen Table, then scroll the table (check on your model)",
+              "Read 495 at x = 4 and at x = 8"
+            ],
+            "casio": [
+              "MENU, TABLE, enter Y1 = 12 nCr X, taking nCr from OPTN, PROB, nCr (check on your model)",
+              "SET (F5): Start 0, End 12, Step 1, then EXE (check on your model)",
+              "TABLE (F6), then scroll down the Y1 column (check on your model)",
+              "Read 495 at X = 4 and at X = 8"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ncr-table",
+          "prompt": "Find all the values of $r$ for which ${}^{15}C_{r} = 455$.",
+          "hint": "Use a table of ${}^{15}C_{r}$, or find one value and then use symmetry.",
+          "options": [
+            {
+              "text": "$r = 3$",
+              "correct": false
+            },
+            {
+              "text": "$r = 3 \\text{ or } r = 12$",
+              "correct": true
+            },
+            {
+              "text": "$r = 3 \\text{ or } r = 13$",
+              "correct": false
+            },
+            {
+              "text": "$r = 4 \\text{ or } r = 11$",
+              "correct": false
+            }
+          ],
+          "explain": "${}^{15}C_{3} = \\frac{15 \\times 14 \\times 13}{3 \\times 2 \\times 1} = 455$, and ${}^{15}C_{12} = {}^{15}C_{3}$ because $3 + 12 = 15$. Stopping at $r = 3$ misses the second value."
+        },
+        {
+          "type": "text",
+          "text": "You will meet ${}^{n}C_{r}$ again in {{lesson:4.8}}, where it counts the ways to get $r$ successes in $n$ trials."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you use these counting ideas more widely, with permutations and combinations of objects.",
+          "lesson": "1.10"
+        }
+      ]
+    },
+    {
+      "id": "theorem",
+      "heading": "The binomial theorem",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Building the triangle is slow for large powers. Put ${}^{n}C_{r}$ in place of the row entries and you get a rule that works for any $n \\in \\mathbb{N}$. It is called the [[binomial-theorem|binomial theorem]]."
+        },
+        {
+          "type": "formula",
+          "tex": "(a+b)^{n} = a^{n} + {}^{n}C_{1}\\,a^{n-1}b + \\cdots + {}^{n}C_{r}\\,a^{n-r}b^{r} + \\cdots + b^{n}, \\quad n \\in \\mathbb{N}",
+          "tag": "booklet",
+          "bookletId": "bk-1-9-binomial-theorem",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "It is in the formula booklet. The first term is $a^{n}$ because ${}^{n}C_{0} = 1$, and the last is $b^{n}$ because ${}^{n}C_{n} = 1$."
+        },
+        {
+          "type": "text",
+          "text": "The middle piece, ${}^{n}C_{r}\\,a^{n-r}b^{r}$, is the general term. Here $r$ is the power of the second term $b$, and it runs from $0$ to $n$. So ${}^{n}C_{r}\\,a^{n-r}b^{r}$ is the $(r + 1)$th term, not the $r$th."
+        },
+        {
+          "type": "example",
+          "id": "ex-theorem-1-plus-2x",
+          "question": "Use the binomial theorem to expand $(1 + 2x)^{5}$ in ascending powers of $x$.",
+          "steps": [
+            "Here $a = 1$, $b = 2x$ and $n = 5$. Every power of $1$ is $1$, so each term is ${}^{5}C_{r}(2x)^{r}$.",
+            "The coefficients ${}^{5}C_{0}$ to ${}^{5}C_{5}$ are $1, 5, 10, 10, 5, 1$.",
+            "The powers of $2x$ are $1, 2x, 4x^{2}, 8x^{3}, 16x^{4}, 32x^{5}$.",
+            "Multiply in pairs and write the smallest power of $x$ first, as ascending order asks: $1 + 10x + 40x^{2} + 80x^{3} + 80x^{4} + 32x^{5}$.",
+            "Check with $x = 1$: $3^{5} = 243$, and $1 + 10 + 40 + 80 + 80 + 32 = 243$."
+          ],
+          "answer": "$(1 + 2x)^{5} = 1 + 10x + 40x^{2} + 80x^{3} + 80x^{4} + 32x^{5}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-theorem-half",
+          "prompt": "Expand $\\left(1 + \\frac{x}{2}\\right)^{4}$.",
+          "hint": "Each term is ${}^{4}C_{r}\\left(\\frac{x}{2}\\right)^{r}$. Raise the $\\frac{1}{2}$ to the power as well as the $x$.",
+          "options": [
+            {
+              "text": "$1 + 2x + 3x^{2} + 2x^{3} + \\frac{1}{2}x^{4}$",
+              "correct": false
+            },
+            {
+              "text": "$1 + \\frac{1}{2}x + \\frac{1}{4}x^{2} + \\frac{1}{8}x^{3} + \\frac{1}{16}x^{4}$",
+              "correct": false
+            },
+            {
+              "text": "$1 + 2x + \\frac{3}{2}x^{2} + \\frac{1}{2}x^{3} + \\frac{1}{16}x^{4}$",
+              "correct": true
+            }
+          ],
+          "explain": "The values of ${}^{4}C_{r}$ are $1, 4, 6, 4, 1$, and the powers of $\\frac{1}{2}$ are $1, \\frac{1}{2}, \\frac{1}{4}, \\frac{1}{8}, \\frac{1}{16}$. Multiplying gives $1, 2, \\frac{3}{2}, \\frac{1}{2}, \\frac{1}{16}$. The other options leave out the powers of $\\frac{1}{2}$ or the ${}^{4}C_{r}$."
+        },
+        {
+          "type": "text",
+          "text": "The two terms in the bracket can be any expressions, including negative powers of $x$. The theorem works in exactly the same way."
+        },
+        {
+          "type": "example",
+          "id": "ex-theorem-x-minus-2-over-x",
+          "question": "Expand and simplify $\\left(x - \\frac{2}{x}\\right)^{4}$.",
+          "steps": [
+            "Take $a = x$ and $b = -\\frac{2}{x}$, with the minus sign inside $b$. The coefficients for $n = 4$ are $1, 4, 6, 4, 1$.",
+            "Write the terms: $x^{4} + 4x^{3}\\left(-\\frac{2}{x}\\right) + 6x^{2}\\left(-\\frac{2}{x}\\right)^{2} + 4x\\left(-\\frac{2}{x}\\right)^{3} + \\left(-\\frac{2}{x}\\right)^{4}$.",
+            "Raise $b$ to each power: $\\left(-\\frac{2}{x}\\right)^{2} = \\frac{4}{x^{2}}$, $\\left(-\\frac{2}{x}\\right)^{3} = -\\frac{8}{x^{3}}$ and $\\left(-\\frac{2}{x}\\right)^{4} = \\frac{16}{x^{4}}$.",
+            "Multiply and cancel powers of $x$ in each term: $x^{4} - 8x^{2} + 24 - \\frac{32}{x^{2}} + \\frac{16}{x^{4}}$.",
+            "The middle term, $24$, has no $x$ in it. It is the [[constant-term|constant term]]."
+          ],
+          "answer": "$\\left(x - \\frac{2}{x}\\right)^{4} = x^{4} - 8x^{2} + 24 - \\frac{32}{x^{2}} + \\frac{16}{x^{4}}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-number-of-terms",
+          "prompt": "How many terms are there in the expansion of $(3p + q)^{14}$?",
+          "hint": "Count the values that $r$ takes in the general term.",
+          "answer": {
+            "value": 15,
+            "tolerance": 0
+          },
+          "explain": "$r$ runs from $0$ to $14$, which is $15$ values, so there are $15$ terms. In general $(a + b)^{n}$ has $n + 1$ terms."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also expand $(a + b)^{n}$ when $n$ is a negative number or a fraction, which gives a series that never ends.",
+          "lesson": "1.10"
+        }
+      ]
+    },
+    {
+      "id": "one-term",
+      "heading": "Finding one term or coefficient",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most exam questions want just one term. Expanding the whole bracket wastes time, so use the general term."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{general term: } {}^{n}C_{r}\\,a^{n-r}b^{r}, \\qquad r = 0, 1, \\dots, n",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "1. Write the general term, with $a$ and $b$ in brackets including their numbers and signs."
+        },
+        {
+          "type": "text",
+          "text": "2. Collect the powers of $x$ into a single power. Set it equal to the power you want and solve for $r$."
+        },
+        {
+          "type": "text",
+          "text": "3. Substitute that $r$ and work out the number in front. That number is the coefficient."
+        },
+        {
+          "type": "example",
+          "id": "ex-coefficient-x3",
+          "question": "What is the coefficient of $x^{3}$ when $(1 - 3x)^{7}$ is expanded?",
+          "steps": [
+            "The general term is ${}^{7}C_{r}(1)^{7-r}(-3x)^{r} = {}^{7}C_{r}(-3)^{r}x^{r}$.",
+            "For $x^{3}$ you need $r = 3$.",
+            "Work out the parts: ${}^{7}C_{3} = \\frac{7 \\times 6 \\times 5}{3 \\times 2 \\times 1} = 35$ and $(-3)^{3} = -27$.",
+            "Multiply: $35 \\times (-27) = -945$. The term is $-945x^{3}$, and the coefficient is just the number $-945$."
+          ],
+          "answer": "$-945$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the term when the question asks for the coefficient. The coefficient of $x^{3}$ above is $-945$, not $-945x^{3}$. Read which one the question wants."
+        },
+        {
+          "type": "text",
+          "text": "A [[constant-term|constant term]] is a term with no $x$ in it, the term in $x^{0}$. When the bracket mixes positive and negative powers of $x$, find it by setting the collected power to $0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-constant-term",
+          "question": "Find the constant term in the expansion of $\\left(x^{2} + \\frac{2}{x}\\right)^{6}$.",
+          "steps": [
+            "The general term is ${}^{6}C_{r}(x^{2})^{6-r}\\left(\\frac{2}{x}\\right)^{r} = {}^{6}C_{r}\\,2^{r}\\,x^{12-2r}\\,x^{-r}$.",
+            "Add the indices of $x$: $x^{12-2r-r} = x^{12-3r}$.",
+            "A term with no $x$ has index $0$, so $12 - 3r = 0$ and $r = 4$.",
+            "Substitute $r = 4$: ${}^{6}C_{4} \\times 2^{4} = 15 \\times 16 = 240$.",
+            "Check: $(x^{2})^{2}\\left(\\frac{2}{x}\\right)^{4} = x^{4} \\cdot \\frac{16}{x^{4}} = 16$, so no $x$ is left."
+          ],
+          "answer": "$240$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Taking $r$ to be the power of $x$ you want. Here the term in $x^{0}$ needs $r = 4$, not $r = 0$. Always find $r$ from the collected power of $x$ in the general term."
+        },
+        {
+          "type": "check",
+          "id": "check-coefficient-x4",
+          "prompt": "When $(3x + 2)^{6}$ is multiplied out, what number multiplies $x^{4}$?",
+          "hint": "The $x^{4}$ comes from $(3x)^{4}$, so the $2$ is raised to the power $6 - 4 = 2$.",
+          "options": [
+            {
+              "text": "$180$",
+              "correct": false
+            },
+            {
+              "text": "$2160$",
+              "correct": false
+            },
+            {
+              "text": "$4860$",
+              "correct": true
+            },
+            {
+              "text": "$2430$",
+              "correct": false
+            }
+          ],
+          "explain": "The term is ${}^{6}C_{2}(3x)^{4}(2)^{2} = 15 \\times 81x^{4} \\times 4 = 4860x^{4}$. Not raising the $3$ gives $180$, and swapping the two powers gives $2160$."
+        },
+        {
+          "type": "text",
+          "text": "Sometimes the bracket holds an unknown and you are told one coefficient. Write that coefficient in terms of the unknown, set it equal to the given value, and solve."
+        },
+        {
+          "type": "example",
+          "id": "ex-unknown-k",
+          "question": "When $(3 + kx)^{5}$ is expanded, the $x^{2}$ term has coefficient $1080$. Determine every value $k$ could take.",
+          "steps": [
+            "The general term is ${}^{5}C_{r}\\,3^{5-r}(kx)^{r}$, so the term in $x^{2}$ has $r = 2$.",
+            "Its coefficient is ${}^{5}C_{2} \\times 3^{3} \\times k^{2} = 10 \\times 27 \\times k^{2} = 270k^{2}$. The $k$ is squared along with the $x$.",
+            "Set it equal to the given value: $270k^{2} = 1080$, so $k^{2} = 4$.",
+            "Take both square roots: $k = 2$ or $k = -2$. Nothing in the question rules either out.",
+            "Check $k = -2$: $(-2x)^{2} = 4x^{2}$ is positive, so the coefficient is still $10 \\times 27 \\times 4 = 1080$."
+          ],
+          "answer": "$k = \\pm 2$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Losing a root. $k^{2} = 4$ gives $k = 2$ or $k = -2$. Keep both unless the question rules one out, for example by saying $k > 0$."
+        },
+        {
+          "type": "check",
+          "id": "check-unknown-cube",
+          "prompt": "In the expansion of $(2 - kx)^{6}$, the coefficient of $x^{3}$ is $-4320$. Find $k$.",
+          "hint": "The term in $x^{3}$ is ${}^{6}C_{3}\\,2^{3}(-kx)^{3}$. How many real cube roots does a number have?",
+          "options": [
+            {
+              "text": "$k = -3$",
+              "correct": false
+            },
+            {
+              "text": "$k = 3$",
+              "correct": true
+            },
+            {
+              "text": "$k = \\pm 3$",
+              "correct": false
+            },
+            {
+              "text": "$k = 27$",
+              "correct": false
+            }
+          ],
+          "explain": "The coefficient is $20 \\times 8 \\times (-k)^{3} = -160k^{3}$. So $-160k^{3} = -4320$, giving $k^{3} = 27$ and $k = 3$. A cube root has only one real value, so there is no second answer."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "(a+b)^{n} = a^{n} + {}^{n}C_{1}\\,a^{n-1}b + \\cdots + {}^{n}C_{r}\\,a^{n-r}b^{r} + \\cdots + b^{n}, \\quad n \\in \\mathbb{N}",
+          "tag": "booklet",
+          "bookletId": "bk-1-9-binomial-theorem",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "{}^{n}C_{r} = \\dfrac{n!}{r!\\,(n-r)!}",
+          "tag": "booklet",
+          "bookletId": "bk-1-9-ncr",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Row $n$ of Pascal's triangle gives the coefficients of $(a + b)^{n}$, starting from row $0$. Each entry is the sum of the two above it, and there are $n + 1$ terms.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "${}^{n}C_{r}$ counts the ways to choose $r$ from $n$. ${}^{n}C_{r} = {}^{n}C_{n-r}$, ${}^{n}C_{1} = n$ and ${}^{n}C_{2} = \\frac{n(n-1)}{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{general term: } {}^{n}C_{r}\\,a^{n-r}b^{r}, \\qquad r = 0, 1, \\dots, n",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For one term, bracket $a$ and $b$ with their numbers and signs, collect the power of $x$ and solve for $r$. A constant term is the term in $x^{0}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A coefficient is the number only. $k^{2} = 4$ gives $k = \\pm 2$, but $k^{3} = 27$ gives only $k = 3$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Raising only the letter to the power: $(2x)^{3} = 8x^{3}$, not $2x^{3}$. Bracket each term first.",
+    "Dropping a minus sign. In $(2 - kx)^{6}$ the second term is $-kx$, so its odd powers are negative. Keep the sign inside the bracket.",
+    "Giving the term, such as $-945x^{3}$, when the question asks for the coefficient, which is $-945$.",
+    "Taking $r$ to be the power of $x$ you want. $r$ is the power of the second term, so find it from the collected power of $x$.",
+    "Forgetting that a coefficient already contains the unknown. In $(3 + kx)^{5}$ the coefficient of $x^{2}$ is $270k^{2}$, so set $270k^{2}$, not $270$, equal to the given value.",
+    "Losing the negative root of $k^{2} = 4$, or keeping a value the question rules out, such as a negative $k$ when it says $k > 0$."
+  ],
+  "examTips": [
+    "\"Write down\" the number of terms: no working is needed. $(a + b)^{n}$ has $n + 1$ terms.",
+    "\"Show that\" ${}^{n}C_{r}$ has a given value: write the factorial formula and show the cancelling. A calculator value alone does not show it.",
+    "\"Find the coefficient\": give a number with no $x$. If the question says $k > 0$ or $x \\ne 0$, use that to reject values, and say so.",
+    "On Paper 2, write the general term with your values of $n$, $a$, $b$ and $r$ before using the calculator. That line earns the method mark."
+  ],
+  "readingMinutes": 25
+}

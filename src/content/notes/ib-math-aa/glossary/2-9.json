@@ -1,0 +1,32 @@
+[
+  {
+    "id": "exponential-function",
+    "term": "exponential function",
+    "definition": "A function $f(x) = a^{x}$, where $a > 0$ and $a \\ne 1$: the variable is in the power, so equal steps in $x$ multiply the output by the same factor.",
+    "lesson": "2.9"
+  },
+  {
+    "id": "logarithmic-function",
+    "term": "logarithmic function",
+    "definition": "A function $f(x) = \\log_{a} x$, for $x > 0$, where $a > 0$ and $a \\ne 1$; it is the inverse of $x \\mapsto a^{x}$.",
+    "lesson": "2.9"
+  },
+  {
+    "id": "natural-logarithm",
+    "term": "natural logarithm",
+    "definition": "The logarithm with base $\\mathrm{e}$, written $\\ln x = \\log_{\\mathrm{e}} x$; it is the inverse of $\\mathrm{e}^{x}$.",
+    "lesson": "1.5"
+  },
+  {
+    "id": "compound-interest",
+    "term": "compound interest",
+    "definition": "Interest that is added to an investment and then earns interest itself, so at a rate of $r$ per cent the value is multiplied by $1 + \\frac{r}{100}$ each period.",
+    "lesson": "1.4"
+  },
+  {
+    "id": "depreciation",
+    "term": "depreciation",
+    "definition": "A loss of value over time; at a rate of $r$ per cent a year the value is multiplied by $1 - \\frac{r}{100}$ each year.",
+    "lesson": "1.4"
+  }
+]

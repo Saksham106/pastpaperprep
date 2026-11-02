@@ -1,0 +1,38 @@
+[
+  {
+    "id": "polynomial",
+    "term": "polynomial",
+    "definition": "An expression $a_{n}x^{n} + \\dots + a_{1}x + a_{0}$ in which every power of $x$ is a whole number and every coefficient is a constant.",
+    "lesson": "2.12"
+  },
+  {
+    "id": "degree-of-a-polynomial",
+    "term": "degree of a polynomial",
+    "definition": "The highest power of $x$ with a non-zero coefficient; $4x^{3} - x + 7$ has degree $3$.",
+    "lesson": "2.12"
+  },
+  {
+    "id": "leading-coefficient",
+    "term": "leading coefficient",
+    "definition": "The coefficient $a_{n}$ of the highest power of $x$ in a polynomial; for $4x^{3} - x + 7$ it is $4$.",
+    "lesson": "2.12"
+  },
+  {
+    "id": "multiplicity",
+    "term": "multiplicity",
+    "definition": "The number of times a factor $(x - a)$ appears in a polynomial; a root of multiplicity $2$ is a repeated root.",
+    "lesson": "2.12"
+  },
+  {
+    "id": "remainder-theorem",
+    "term": "remainder theorem",
+    "definition": "When a polynomial $f(x)$ is divided by $(x - a)$, the remainder is $f(a)$.",
+    "lesson": "2.12"
+  },
+  {
+    "id": "factor-theorem",
+    "term": "factor theorem",
+    "definition": "$(x - a)$ is a factor of a polynomial $f(x)$ exactly when $f(a) = 0$.",
+    "lesson": "2.12"
+  }
+]

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 280" role="img" aria-labelledby="t">
+  <title id="t">Argand diagram of the three roots of z cubed minus 5 z squared plus 11 z minus 15 equals 0: the real root 3 on the real axis, and the conjugate pair 1 plus 2 i and 1 minus 2 i, which are mirror images in the real axis</title>
+  <line x1="40" y1="140" x2="296" y2="140" stroke="var(--muted)" stroke-width="1.2"/>
+  <line x1="100" y1="266" x2="100" y2="16" stroke="var(--muted)" stroke-width="1.2"/>
+  <path d="M290,136 L296,140 L290,144" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+  <path d="M96,22 L100,16 L104,22" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+  <g stroke="var(--muted)" stroke-width="1">
+    <line x1="140" y1="136" x2="140" y2="144"/>
+    <line x1="180" y1="136" x2="180" y2="144"/>
+    <line x1="220" y1="136" x2="220" y2="144"/>
+    <line x1="96" y1="60" x2="104" y2="60"/>
+    <line x1="96" y1="100" x2="104" y2="100"/>
+    <line x1="96" y1="180" x2="104" y2="180"/>
+    <line x1="96" y1="220" x2="104" y2="220"/>
+  </g>
+  <line x1="140" y1="60" x2="140" y2="220" stroke="var(--t5-ink)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <circle cx="140" cy="60" r="5" fill="var(--t1-ink)"/>
+  <circle cx="140" cy="220" r="5" fill="var(--t1-ink)"/>
+  <circle cx="220" cy="140" r="5" fill="var(--t3-ink)"/>
+  <g font-size="14" font-family="inherit">
+    <text x="150" y="56" fill="var(--t1-ink)">1 + 2i</text>
+    <text x="150" y="234" fill="var(--t1-ink)">1 − 2i</text>
+    <text x="226" y="130" fill="var(--t3-ink)">3</text>
+    <text x="84" y="156" fill="currentColor">O</text>
+    <g font-size="11" fill="var(--muted)">
+      <text x="136" y="156">1</text>
+      <text x="176" y="156">2</text>
+      <text x="84" y="64">2</text>
+      <text x="80" y="224">−2</text>
+    </g>
+    <text x="278" y="158" fill="var(--muted)" font-size="12">Re</text>
+    <text x="108" y="26" fill="var(--muted)" font-size="12">Im</text>
+  </g>
+</svg>

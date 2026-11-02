@@ -1,0 +1,634 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.10",
+  "slug": "compound-angle-identities",
+  "title": "Compound-angle identities",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "A [[compound-angle-identity|compound angle identity]] writes the sine, cosine or tangent of $A + B$ or $A - B$ using the ratios of $A$ and $B$. With them you find exact values such as $\\tan 105^{\\circ}$, prove identities and solve equations. Put $B = A$ and the double angle identities follow, including a new one for $\\tan 2\\theta$.",
+  "goals": [
+    {
+      "text": "Expand $\\sin(A \\pm B)$ and $\\cos(A \\pm B)$, and use them to find exact values.",
+      "bullets": [
+        "3.10-b1"
+      ]
+    },
+    {
+      "text": "Use the identity for $\\tan(A \\pm B)$, including to find an angle from two tangents.",
+      "bullets": [
+        "3.10-b1"
+      ]
+    },
+    {
+      "text": "Derive the double angle identities for sine, cosine and tangent from the [[compound-angle-identity|compound angle identities]].",
+      "bullets": [
+        "3.10-b3",
+        "3.10-b2"
+      ]
+    },
+    {
+      "text": "Use $\\tan 2\\theta = \\frac{2\\tan\\theta}{1 - \\tan^{2}\\theta}$ to find exact values and solve equations.",
+      "bullets": [
+        "3.10-b2"
+      ]
+    },
+    {
+      "text": "Prove identities and solve equations that need a compound angle identity.",
+      "bullets": [
+        "3.10-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.6",
+    "3.8"
+  ],
+  "papers": [
+    "P1"
+  ],
+  "synonyms": [
+    "sin(A+B) formula",
+    "compound angle formulae",
+    "addition formulas trig",
+    "sum and difference identities",
+    "tan 2x formula",
+    "tan(A+B)"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-cos-from-sin",
+      "prompt": "The angle $\\theta$ is acute and $\\sin\\theta = \\frac{2}{7}$. Find the exact value of $\\cos\\theta$.",
+      "hint": "Use $\\cos^{2}\\theta = 1 - \\sin^{2}\\theta$, then take the square root with the right sign.",
+      "options": [
+        {
+          "text": "$\\frac{5}{7}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{3\\sqrt{5}}{7}$",
+          "correct": true
+        },
+        {
+          "text": "$-\\frac{3\\sqrt{5}}{7}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{3\\sqrt{5}}{49}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\cos^{2}\\theta = 1 - \\frac{4}{49} = \\frac{45}{49}$, so $\\cos\\theta = \\frac{\\sqrt{45}}{7} = \\frac{3\\sqrt{5}}{7}$. It is positive because $\\theta$ is acute. Revise it in {{lesson:3.6}}."
+    },
+    {
+      "type": "check",
+      "id": "before-double-cos",
+      "prompt": "Given that $\\sin\\theta = \\frac{1}{4}$, find $\\cos 2\\theta$. Give your answer as a decimal.",
+      "hint": "Choose the form of $\\cos 2\\theta$ that uses only $\\sin\\theta$.",
+      "answer": {
+        "value": 0.875,
+        "tolerance": 0
+      },
+      "explain": "$\\cos 2\\theta = 1 - 2\\sin^{2}\\theta = 1 - 2 \\times \\frac{1}{16} = \\frac{7}{8} = 0.875$. Revise it in {{lesson:3.6}}."
+    },
+    {
+      "type": "check",
+      "id": "before-solve-tan",
+      "prompt": "Solve $\\tan x = -1$ for $0 \\le x < 2\\pi$.",
+      "hint": "The reference angle is $\\frac{\\pi}{4}$. Tangent is negative in two quadrants.",
+      "options": [
+        {
+          "text": "$x = \\frac{3\\pi}{4}$",
+          "correct": false
+        },
+        {
+          "text": "$x = \\frac{3\\pi}{4} \\text{ or } x = \\frac{7\\pi}{4}$",
+          "correct": true
+        },
+        {
+          "text": "$x = \\frac{3\\pi}{4} \\text{ or } x = \\frac{5\\pi}{4}$",
+          "correct": false
+        }
+      ],
+      "explain": "Tangent is negative in the second and fourth quadrants, so $x = \\pi - \\frac{\\pi}{4} = \\frac{3\\pi}{4}$ or $x = 2\\pi - \\frac{\\pi}{4} = \\frac{7\\pi}{4}$. Revise it in {{lesson:3.8}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "sin-cos",
+      "heading": "Sine and cosine of a sum or difference",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Is $\\sin(A + B)$ the same as $\\sin A + \\sin B$? Try $A = 30^{\\circ}$ and $B = 60^{\\circ}$. Then $\\sin 90^{\\circ} = 1$, but $\\sin 30^{\\circ} + \\sin 60^{\\circ} = \\frac{1}{2} + \\frac{\\sqrt{3}}{2} \\approx 1.37$."
+        },
+        {
+          "type": "text",
+          "text": "So sine does not split over a sum. An angle written as a sum or difference, such as $A + B$, is called a compound angle. The [[compound-angle-identity|compound angle identities]] tell you what its sine and cosine really are."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin(A \\pm B) = \\sin A\\cos B \\pm \\cos A\\sin B",
+          "tag": "booklet",
+          "bookletId": "bk-3-10-compound-sin",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos(A \\pm B) = \\cos A\\cos B \\mp \\sin A\\sin B",
+          "tag": "booklet",
+          "bookletId": "bk-3-10-compound-cos",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Both are in the formula booklet. Read the top signs together, or the bottom signs together; $\\mp$ means the opposite sign. So sine keeps the sign, but cosine swaps it: $\\cos(A + B) = \\cos A\\cos B - \\sin A\\sin B$."
+        },
+        {
+          "type": "result",
+          "statement": "The identities hold for every pair of angles $A$ and $B$, in degrees or radians.",
+          "why": "Mark $P(\\cos A, \\sin A)$ and $Q(\\cos B, \\sin B)$ on the unit circle, so the angle $POQ$ is $A - B$. The cosine rule from {{lesson:3.2}} gives $PQ^{2} = 1 + 1 - 2\\cos(A - B)$. The distance formula gives $PQ^{2} = (\\cos A - \\cos B)^{2} + (\\sin A - \\sin B)^{2}$, which expands to $2 - 2(\\cos A\\cos B + \\sin A\\sin B)$. The two must match, which proves the identity for $\\cos(A - B)$."
+        },
+        {
+          "type": "text",
+          "text": "The rest follow from that one. Replace $B$ with $-B$ to switch between the minus and plus versions; this works because $\\cos(-B) = \\cos B$ and $\\sin(-B) = -\\sin B$. For sine, write $\\sin(A + B) = \\cos\\left(\\left(\\frac{\\pi}{2} - A\\right) - B\\right)$ and expand."
+        },
+        {
+          "type": "example",
+          "id": "ex-cos-7pi-12",
+          "question": "Find the exact value of $\\cos\\frac{7\\pi}{12}$.",
+          "steps": [
+            "Split it into angles with known exact ratios: $\\frac{7\\pi}{12} = \\frac{4\\pi}{12} + \\frac{3\\pi}{12} = \\frac{\\pi}{3} + \\frac{\\pi}{4}$.",
+            "Use the identity for $\\cos(A + B)$, which has a minus in the middle: $\\cos\\frac{7\\pi}{12} = \\cos\\frac{\\pi}{3}\\cos\\frac{\\pi}{4} - \\sin\\frac{\\pi}{3}\\sin\\frac{\\pi}{4}$.",
+            "Substitute the exact values: $\\frac{1}{2} \\times \\frac{\\sqrt{2}}{2} - \\frac{\\sqrt{3}}{2} \\times \\frac{\\sqrt{2}}{2}$.",
+            "Multiply out, using $\\sqrt{3}\\sqrt{2} = \\sqrt{6}$: $\\frac{\\sqrt{2}}{4} - \\frac{\\sqrt{6}}{4} = \\frac{\\sqrt{2} - \\sqrt{6}}{4}$.",
+            "Check the sign. $\\frac{7\\pi}{12}$ is just over $\\frac{\\pi}{2}$, in the second quadrant, so its cosine is negative. Since $\\sqrt{2} < \\sqrt{6}$, the answer is negative."
+          ],
+          "answer": "$\\cos\\frac{7\\pi}{12} = \\frac{\\sqrt{2} - \\sqrt{6}}{4}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Splitting the function: $\\cos(A + B)$ is not $\\cos A + \\cos B$. Expand a compound angle with its identity every time."
+        },
+        {
+          "type": "check",
+          "id": "check-cos-pattern",
+          "prompt": "Find the exact value of $\\cos 80^{\\circ}\\cos 20^{\\circ} + \\sin 80^{\\circ}\\sin 20^{\\circ}$.",
+          "hint": "Which identity has $\\cos A\\cos B + \\sin A\\sin B$ on its right-hand side?",
+          "answer": {
+            "value": 0.5,
+            "tolerance": 0
+          },
+          "explain": "It is $\\cos(A - B)$ with $A = 80^{\\circ}$ and $B = 20^{\\circ}$. So it equals $\\cos 60^{\\circ} = \\frac{1}{2}$. A plus in the middle of a cosine expansion means the angles subtract."
+        },
+        {
+          "type": "text",
+          "text": "Often you are given a ratio of each angle, not the angles. Find the missing ratios with the [[pythagorean-identity|Pythagorean identity]] and the [[quadrant|quadrant]], as in {{lesson:3.6}}. Then substitute."
+        },
+        {
+          "type": "example",
+          "id": "ex-cos-diff-ratios",
+          "question": "The angle $A$ is acute and $\\cos A = \\frac{7}{25}$. The angle $B$ is obtuse and $\\sin B = \\frac{3}{5}$. Find the exact value of $\\cos(A - B)$.",
+          "steps": [
+            "Find $\\sin A$: $\\sin^{2}A = 1 - \\frac{49}{625} = \\frac{576}{625}$. $A$ is acute, so $\\sin A = \\frac{24}{25}$.",
+            "Find $\\cos B$: $\\cos^{2}B = 1 - \\frac{9}{25} = \\frac{16}{25}$. $B$ is obtuse, so its cosine is negative: $\\cos B = -\\frac{4}{5}$.",
+            "Expand. The minus in the bracket gives a plus in the middle: $\\cos(A - B) = \\cos A\\cos B + \\sin A\\sin B$.",
+            "Substitute: $\\frac{7}{25} \\times \\left(-\\frac{4}{5}\\right) + \\frac{24}{25} \\times \\frac{3}{5} = -\\frac{28}{125} + \\frac{72}{125} = \\frac{44}{125}$."
+          ],
+          "answer": "$\\cos(A - B) = \\frac{44}{125}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-sin-sum-ratios",
+          "prompt": "With the same angles $A$ and $B$, find the exact value of $\\sin(A + B)$.",
+          "hint": "Use $\\sin A = \\frac{24}{25}$ and $\\cos B = -\\frac{4}{5}$ from the example. Keep the minus sign on $\\cos B$.",
+          "options": [
+            {
+              "text": "$\\frac{117}{125}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{3}{5}$",
+              "correct": true
+            },
+            {
+              "text": "$-\\frac{117}{125}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sin(A + B) = \\sin A\\cos B + \\cos A\\sin B = -\\frac{96}{125} + \\frac{21}{125} = -\\frac{75}{125} = -\\frac{3}{5}$."
+        }
+      ]
+    },
+    {
+      "id": "tan",
+      "heading": "Tangent of a sum or difference",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For tangent, divide sine by cosine: $\\tan(A + B) = \\frac{\\sin A\\cos B + \\cos A\\sin B}{\\cos A\\cos B - \\sin A\\sin B}$."
+        },
+        {
+          "type": "text",
+          "text": "Now divide every term, top and bottom, by $\\cos A\\cos B$. Each $\\frac{\\sin}{\\cos}$ becomes a tangent, and the term $\\cos A\\cos B$ becomes $1$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan(A \\pm B) = \\frac{\\tan A \\pm \\tan B}{1 \\mp \\tan A\\tan B}",
+          "tag": "booklet",
+          "bookletId": "bk-3-10-compound-tan",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is in the booklet too. The sign on the bottom is always the opposite of the sign on top. It needs $\\tan A$, $\\tan B$ and $\\tan(A \\pm B)$ to exist."
+        },
+        {
+          "type": "example",
+          "id": "ex-tan-105",
+          "question": "Find the exact value of $\\tan 105^{\\circ}$. Give your answer in the form $a + b\\sqrt{3}$, where $a, b \\in \\mathbb{Z}$.",
+          "steps": [
+            "Write $105^{\\circ} = 60^{\\circ} + 45^{\\circ}$. You know $\\tan 60^{\\circ} = \\sqrt{3}$ and $\\tan 45^{\\circ} = 1$.",
+            "Use the top signs: $\\tan 105^{\\circ} = \\frac{\\sqrt{3} + 1}{1 - \\sqrt{3} \\times 1} = \\frac{\\sqrt{3} + 1}{1 - \\sqrt{3}}$.",
+            "The form $a + b\\sqrt{3}$ has no surd in a denominator. So multiply top and bottom by $1 + \\sqrt{3}$: $\\frac{(\\sqrt{3} + 1)^{2}}{(1 - \\sqrt{3})(1 + \\sqrt{3})}$.",
+            "Expand. The top is $3 + 2\\sqrt{3} + 1 = 4 + 2\\sqrt{3}$. The bottom is $1 - 3 = -2$.",
+            "Divide: $\\frac{4 + 2\\sqrt{3}}{-2} = -2 - \\sqrt{3}$. Check: $105^{\\circ}$ is in the second quadrant, so its tangent is negative."
+          ],
+          "answer": "$\\tan 105^{\\circ} = -2 - \\sqrt{3}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at $\\frac{\\sqrt{3} + 1}{1 - \\sqrt{3}}$ when the question asks for a form such as $a + b\\sqrt{3}$. Rationalise: multiply top and bottom by $1 + \\sqrt{3}$, then simplify."
+        },
+        {
+          "type": "check",
+          "id": "check-tan-minus-quarter",
+          "prompt": "Write $\\tan\\left(x - \\frac{\\pi}{4}\\right)$ in terms of $\\tan x$.",
+          "hint": "$\\tan\\frac{\\pi}{4} = 1$. Use the bottom signs of the identity.",
+          "options": [
+            {
+              "text": "$\\frac{\\tan x + 1}{1 - \\tan x}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\tan x - 1}{1 + \\tan x}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{\\tan x - 1}{1 - \\tan x}$",
+              "correct": false
+            },
+            {
+              "text": "$\\tan x - 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\tan\\left(x - \\frac{\\pi}{4}\\right) = \\frac{\\tan x - \\tan\\frac{\\pi}{4}}{1 + \\tan x\\tan\\frac{\\pi}{4}} = \\frac{\\tan x - 1}{1 + \\tan x}$. A minus on top means a plus on the bottom."
+        },
+        {
+          "type": "text",
+          "text": "The identity also works the other way. If you know $\\tan A$ and $\\tan B$, it gives $\\tan(A + B)$. From that you can often find the angle $A + B$ itself."
+        },
+        {
+          "type": "example",
+          "id": "ex-tan-sum-angle",
+          "question": "The angles $A$ and $B$ are acute, with $\\tan A = 2$ and $\\tan B = 3$. Find the exact value of $A + B$, in radians.",
+          "steps": [
+            "Use the identity: $\\tan(A + B) = \\frac{2 + 3}{1 - 2 \\times 3} = \\frac{5}{-5} = -1$.",
+            "Both angles are acute, so $0 < A + B < \\pi$.",
+            "In that interval, tangent is negative only in the second quadrant. The reference angle for $-1$ is $\\frac{\\pi}{4}$, so $A + B = \\pi - \\frac{\\pi}{4} = \\frac{3\\pi}{4}$.",
+            "Sense check: $\\tan A > 1$ and $\\tan B > 1$, so each angle exceeds $\\frac{\\pi}{4}$ and their sum exceeds $\\frac{\\pi}{2}$."
+          ],
+          "answer": "$A + B = \\frac{3\\pi}{4}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-tan-find-b",
+          "prompt": "The angle $A$ has $\\tan A = \\frac{1}{2}$, and $\\tan(A + B) = 3$. Find the exact value of $\\tan B$.",
+          "hint": "Let $t = \\tan B$. Write $\\frac{\\frac{1}{2} + t}{1 - \\frac{1}{2}t} = 3$, then multiply both sides by the bottom.",
+          "answer": {
+            "value": 1,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{1}{2} + t = 3 - \\frac{3}{2}t$, so $\\frac{5}{2}t = \\frac{5}{2}$ and $\\tan B = 1$."
+        }
+      ]
+    },
+    {
+      "id": "double",
+      "heading": "Double angle identities from compound angles",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Put $B = A$ in the [[compound-angle-identity|compound angle identities]]. Then $A + B = 2A$, and you get the [[double-angle-identity|double angle identities]] from {{lesson:3.6}}. This is how they are derived."
+        },
+        {
+          "type": "text",
+          "text": "Sine first: $\\sin 2A = \\sin(A + A) = \\sin A\\cos A + \\cos A\\sin A = 2\\sin A\\cos A$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin 2\\theta = 2\\sin\\theta\\cos\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-6-double-sin"
+        },
+        {
+          "type": "text",
+          "text": "Cosine gives the first form straight away: $\\cos 2A = \\cos(A + A) = \\cos A\\cos A - \\sin A\\sin A = \\cos^{2}A - \\sin^{2}A$."
+        },
+        {
+          "type": "text",
+          "text": "The [[pythagorean-identity|Pythagorean identity]], $\\cos^{2}A + \\sin^{2}A = 1$, gives the other two forms. Replace $\\sin^{2}A$ with $1 - \\cos^{2}A$ to get $2\\cos^{2}A - 1$. Replace $\\cos^{2}A$ with $1 - \\sin^{2}A$ to get $1 - 2\\sin^{2}A$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos 2\\theta = \\cos^{2}\\theta - \\sin^{2}\\theta = 2\\cos^{2}\\theta - 1 = 1 - 2\\sin^{2}\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-6-double-cos"
+        },
+        {
+          "type": "text",
+          "text": "Tangent works the same way. Put $B = A$ in $\\tan(A + B)$ to get $\\tan 2A = \\frac{\\tan A + \\tan A}{1 - \\tan A\\tan A}$:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan 2\\theta = \\frac{2\\tan\\theta}{1 - \\tan^{2}\\theta}",
+          "tag": "booklet",
+          "bookletId": "bk-3-10-double-tan",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "All three are in the booklet; the one for tangent is new at HL. It needs $\\tan\\theta$ to exist and $\\tan^{2}\\theta \\ne 1$, so that the bottom is not zero."
+        },
+        {
+          "type": "example",
+          "id": "ex-derive-tan-double",
+          "question": "Show that $\\tan 2\\theta = \\frac{2\\tan\\theta}{1 - \\tan^{2}\\theta}$ by first writing $\\tan 2\\theta$ as $\\frac{\\sin 2\\theta}{\\cos 2\\theta}$.",
+          "steps": [
+            "Start from the LHS: $\\tan 2\\theta = \\frac{\\sin 2\\theta}{\\cos 2\\theta}$.",
+            "Use the identities you derived by putting $B = A$: $\\frac{\\sin 2\\theta}{\\cos 2\\theta} = \\frac{2\\sin\\theta\\cos\\theta}{\\cos^{2}\\theta - \\sin^{2}\\theta}$.",
+            "Divide every term, top and bottom, by $\\cos^{2}\\theta$: $\\frac{2 \\cdot \\frac{\\sin\\theta}{\\cos\\theta}}{1 - \\frac{\\sin^{2}\\theta}{\\cos^{2}\\theta}}$.",
+            "Each $\\frac{\\sin\\theta}{\\cos\\theta}$ is $\\tan\\theta$, so $\\text{LHS} = \\frac{2\\tan\\theta}{1 - \\tan^{2}\\theta} = \\text{RHS}$.",
+            "Check with $\\theta = \\frac{\\pi}{6}$: $\\tan\\frac{\\pi}{3} = \\sqrt{3}$, and $\\frac{2 \\times \\frac{1}{\\sqrt{3}}}{1 - \\frac{1}{3}} = \\frac{2}{\\sqrt{3}} \\times \\frac{3}{2} = \\sqrt{3}$."
+          ],
+          "answer": "$\\tan 2\\theta = \\frac{2\\tan\\theta}{1 - \\tan^{2}\\theta}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-tan-double-value",
+          "question": "The angle $\\theta$ is obtuse and $\\tan\\theta = -2$. Find the exact value of $\\tan 2\\theta$.",
+          "steps": [
+            "Substitute into the identity: $\\tan 2\\theta = \\frac{2 \\times (-2)}{1 - (-2)^{2}}$.",
+            "Bracket the negative before you square it: $(-2)^{2} = 4$, so the bottom is $1 - 4 = -3$.",
+            "So $\\tan 2\\theta = \\frac{-4}{-3} = \\frac{4}{3}$.",
+            "Sense check: $\\tan\\theta < -1$ puts $\\theta$ between $90^{\\circ}$ and $135^{\\circ}$. Then $2\\theta$ is between $180^{\\circ}$ and $270^{\\circ}$, where tangent is positive."
+          ],
+          "answer": "$\\tan 2\\theta = \\frac{4}{3}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-tan-pi-8",
+          "prompt": "Use $\\tan\\frac{\\pi}{4} = 1$ to find the exact value of $\\tan\\frac{\\pi}{8}$.",
+          "hint": "Let $t = \\tan\\frac{\\pi}{8}$. Then $\\frac{2t}{1 - t^{2}} = 1$. Solve the quadratic, then remember that $\\frac{\\pi}{8}$ is acute.",
+          "options": [
+            {
+              "text": "$-1 - \\sqrt{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{2} - 1$",
+              "correct": true
+            },
+            {
+              "text": "$\\sqrt{2} + 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$2t = 1 - t^{2}$ gives $t^{2} + 2t - 1 = 0$, so $t = -1 \\pm \\sqrt{2}$. The angle $\\frac{\\pi}{8}$ is acute, so its tangent is positive: $\\tan\\frac{\\pi}{8} = \\sqrt{2} - 1$."
+        },
+        {
+          "type": "text",
+          "text": "In an equation with $\\tan 2x$ and $\\tan x$, replace $\\tan 2x$ to get an equation in $\\tan x$ alone. Then factorise. Don't divide by $\\tan x$, or you lose the solutions where it is zero."
+        },
+        {
+          "type": "example",
+          "id": "ex-tan-double-equation",
+          "question": "Solve $\\tan 2x = 3\\tan x$ for $0 \\le x < \\pi$.",
+          "steps": [
+            "Replace $\\tan 2x$: $\\frac{2\\tan x}{1 - \\tan^{2}x} = 3\\tan x$. This needs $x \\ne \\frac{\\pi}{2}$ and $\\tan^{2}x \\ne 1$.",
+            "Multiply both sides by $1 - \\tan^{2}x$: $2\\tan x = 3\\tan x - 3\\tan^{3}x$.",
+            "Collect on one side and factorise: $3\\tan^{3}x - \\tan x = 0$, so $\\tan x\\,(3\\tan^{2}x - 1) = 0$.",
+            "So $\\tan x = 0$ or $\\tan^{2}x = \\frac{1}{3}$, which gives $\\tan x = \\pm\\frac{1}{\\sqrt{3}}$.",
+            "In $0 \\le x < \\pi$: $\\tan x = 0$ gives $x = 0$. $\\tan x = \\frac{1}{\\sqrt{3}}$ gives $x = \\frac{\\pi}{6}$. $\\tan x = -\\frac{1}{\\sqrt{3}}$ gives $x = \\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6}$. None of these makes $\\tan^{2}x = 1$."
+          ],
+          "answer": "$x = 0 \\text{ or } x = \\frac{\\pi}{6} \\text{ or } x = \\frac{5\\pi}{6}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing both sides by $\\tan x$. That throws away $\\tan x = 0$, and with it a solution such as $x = 0$. Factorise instead."
+        },
+        {
+          "type": "check",
+          "id": "check-tan-double-third",
+          "prompt": "Given that $\\tan\\theta = \\frac{1}{3}$, find $\\tan 2\\theta$. Give your answer as a decimal.",
+          "hint": "Substitute into the identity. Work out $1 - \\tan^{2}\\theta$ first.",
+          "answer": {
+            "value": 0.75,
+            "tolerance": 0
+          },
+          "explain": "$\\tan 2\\theta = \\frac{2 \\times \\frac{1}{3}}{1 - \\frac{1}{9}} = \\frac{2}{3} \\times \\frac{9}{8} = \\frac{3}{4} = 0.75$."
+        }
+      ]
+    },
+    {
+      "id": "proofs",
+      "heading": "Proving identities and solving equations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Proofs work as in {{lesson:3.6}}. Start from one side, expand each compound angle, then simplify until you reach the other side."
+        },
+        {
+          "type": "example",
+          "id": "ex-show-sin-product",
+          "question": "Show that $\\sin(A + B)\\sin(A - B) = \\sin^{2}A - \\sin^{2}B$.",
+          "steps": [
+            "Start from the LHS and expand both brackets: $(\\sin A\\cos B + \\cos A\\sin B)(\\sin A\\cos B - \\cos A\\sin B)$.",
+            "This has the shape $(p + q)(p - q) = p^{2} - q^{2}$, a difference of two squares. So it is $\\sin^{2}A\\cos^{2}B - \\cos^{2}A\\sin^{2}B$.",
+            "The RHS has only sines, so replace each cosine squared: $\\sin^{2}A\\,(1 - \\sin^{2}B) - (1 - \\sin^{2}A)\\sin^{2}B$.",
+            "Expand: $\\sin^{2}A - \\sin^{2}A\\sin^{2}B - \\sin^{2}B + \\sin^{2}A\\sin^{2}B$.",
+            "The two middle terms cancel, so $\\text{LHS} = \\sin^{2}A - \\sin^{2}B = \\text{RHS}$."
+          ],
+          "answer": "$\\sin(A + B)\\sin(A - B) = \\sin^{2}A - \\sin^{2}B$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cos-sum-diff",
+          "prompt": "Simplify $\\cos(A + B) + \\cos(A - B)$.",
+          "hint": "Expand both. The $\\sin A\\sin B$ terms have opposite signs.",
+          "options": [
+            {
+              "text": "$2\\sin A\\sin B$",
+              "correct": false
+            },
+            {
+              "text": "$2\\cos A\\cos B$",
+              "correct": true
+            },
+            {
+              "text": "$2\\cos A$",
+              "correct": false
+            },
+            {
+              "text": "$\\cos 2A$",
+              "correct": false
+            }
+          ],
+          "explain": "$(\\cos A\\cos B - \\sin A\\sin B) + (\\cos A\\cos B + \\sin A\\sin B) = 2\\cos A\\cos B$. The cosine does not split, so $2\\cos A$ is wrong."
+        },
+        {
+          "type": "text",
+          "text": "To reach an angle such as $4\\theta$, use a double angle identity twice. Each time, choose the form that leaves only the ratio you want."
+        },
+        {
+          "type": "example",
+          "id": "ex-cos-four",
+          "question": "Show that $\\cos 4\\theta = 8\\cos^{4}\\theta - 8\\cos^{2}\\theta + 1$.",
+          "steps": [
+            "Treat $4\\theta$ as double $2\\theta$. The RHS has only cosines, so use $\\cos 4\\theta = 2\\cos^{2}(2\\theta) - 1$.",
+            "Use the same form for $\\cos 2\\theta$: $\\cos 4\\theta = 2\\left(2\\cos^{2}\\theta - 1\\right)^{2} - 1$.",
+            "Expand the square: $\\left(2\\cos^{2}\\theta - 1\\right)^{2} = 4\\cos^{4}\\theta - 4\\cos^{2}\\theta + 1$.",
+            "So $\\text{LHS} = 8\\cos^{4}\\theta - 8\\cos^{2}\\theta + 2 - 1 = 8\\cos^{4}\\theta - 8\\cos^{2}\\theta + 1 = \\text{RHS}$.",
+            "Check with $\\theta = 0$: both sides equal $1$."
+          ],
+          "answer": "$\\cos 4\\theta = 8\\cos^{4}\\theta - 8\\cos^{2}\\theta + 1$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using a form of $\\cos 2\\theta$ that brings in the other ratio, so the algebra won't finish. For cosines only use $2\\cos^{2}\\theta - 1$, and for sines only use $1 - 2\\sin^{2}\\theta$."
+        },
+        {
+          "type": "check",
+          "id": "check-cos4-value",
+          "prompt": "Given that $\\cos\\theta = \\frac{1}{3}$, find $\\cos 4\\theta$. Give your answer to 3 s.f.",
+          "hint": "Find $\\cos 2\\theta$ first with $2\\cos^{2}\\theta - 1$. Then use the same form again for $\\cos 4\\theta$.",
+          "answer": {
+            "value": 0.21,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\cos 2\\theta = 2 \\times \\frac{1}{9} - 1 = -\\frac{7}{9}$, so $\\cos 4\\theta = 2 \\times \\frac{49}{81} - 1 = \\frac{17}{81} \\approx 0.210$."
+        },
+        {
+          "type": "text",
+          "text": "In an equation, expand the compound angle, then collect the sines and the cosines. If you can show that $\\cos x \\ne 0$, dividing by $\\cos x$ leaves a single $\\tan x$, which you solve as in {{lesson:3.8}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-solve-shift",
+          "question": "Solve $\\sin\\left(x - \\frac{\\pi}{6}\\right) = \\cos x$ for $0 \\le x < 2\\pi$.",
+          "steps": [
+            "Expand the left side: $\\sin x\\cos\\frac{\\pi}{6} - \\cos x\\sin\\frac{\\pi}{6} = \\frac{\\sqrt{3}}{2}\\sin x - \\frac{1}{2}\\cos x$.",
+            "So $\\frac{\\sqrt{3}}{2}\\sin x - \\frac{1}{2}\\cos x = \\cos x$. Collect the cosines: $\\frac{\\sqrt{3}}{2}\\sin x = \\frac{3}{2}\\cos x$.",
+            "If $\\cos x = 0$, this would force $\\sin x = 0$ as well, which never happens. So you may divide by $\\cos x$: $\\sqrt{3}\\tan x = 3$, so $\\tan x = \\sqrt{3}$.",
+            "The reference angle is $\\frac{\\pi}{3}$. Tangent is positive in the first and third quadrants, so $x = \\frac{\\pi}{3}$ or $x = \\pi + \\frac{\\pi}{3} = \\frac{4\\pi}{3}$.",
+            "Check $x = \\frac{\\pi}{3}$: the left side is $\\sin\\frac{\\pi}{6} = \\frac{1}{2}$, and $\\cos\\frac{\\pi}{3} = \\frac{1}{2}$."
+          ],
+          "answer": "$x = \\frac{\\pi}{3} \\text{ or } x = \\frac{4\\pi}{3}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Later, [[de-moivres-theorem|De Moivre's theorem]] in {{lesson:1.14}} gives another route to identities for $\\cos 3\\theta$, $\\cos 4\\theta$ and other multiple angles."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\sin(A \\pm B) = \\sin A\\cos B \\pm \\cos A\\sin B",
+          "tag": "booklet",
+          "bookletId": "bk-3-10-compound-sin",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos(A \\pm B) = \\cos A\\cos B \\mp \\sin A\\sin B",
+          "tag": "booklet",
+          "bookletId": "bk-3-10-compound-cos",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan(A \\pm B) = \\frac{\\tan A \\pm \\tan B}{1 \\mp \\tan A\\tan B}",
+          "tag": "booklet",
+          "bookletId": "bk-3-10-compound-tan",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan 2\\theta = \\frac{2\\tan\\theta}{1 - \\tan^{2}\\theta}",
+          "tag": "booklet",
+          "bookletId": "bk-3-10-double-tan",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Read the top signs together or the bottom signs together. Sine keeps the sign; cosine and the bottom of tangent swap it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Put $B = A$ to derive $\\sin 2\\theta$, $\\cos 2\\theta$ and $\\tan 2\\theta$. Use $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$ for the other two forms of $\\cos 2\\theta$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For an exact value, split the angle into angles such as $\\frac{\\pi}{6}$, $\\frac{\\pi}{4}$ and $\\frac{\\pi}{3}$. Rationalise if the question asks for a form.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In equations, factorise rather than divide by $\\tan x$ or $\\cos x$, unless you have shown it can't be zero.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Splitting a compound angle: $\\sin(A + B)$ is not $\\sin A + \\sin B$. Expand it with the identity from the booklet.",
+    "Getting the middle sign of $\\cos(A \\pm B)$ wrong. Cosine swaps it, so $\\cos(A + B)$ has a minus and $\\cos(A - B)$ has a plus.",
+    "Leaving a surd in the denominator, such as $\\frac{\\sqrt{3} + 1}{1 - \\sqrt{3}}$, when a form like $a + b\\sqrt{3}$ is asked. Multiply top and bottom by $1 + \\sqrt{3}$, then simplify.",
+    "Choosing a form of $\\cos 2\\theta$ that leaves the wrong ratio, which makes the algebra hard to finish. Pick $1 - 2\\sin^{2}\\theta$ for sines only and $2\\cos^{2}\\theta - 1$ for cosines only.",
+    "Dividing by $\\tan x$ or $\\cos x$ when it could be zero. You lose solutions, so factorise instead.",
+    "Taking a positive cosine for an obtuse angle. Find the quadrant of each angle before you write the sign of a missing ratio."
+  ],
+  "examTips": [
+    "“Find the exact value” means no calculator. Split the angle, write the identity with the exact values substituted, and simplify to the form the question asks for.",
+    "“Show that”: start from one side, write each identity as you use it, and make your last line match the given result exactly.",
+    "“Hence”: use the identity you have just proved. If your earlier part went wrong, using its result correctly can still earn follow-through marks.",
+    "“Solve”: give every solution in the interval, in its units. A radian interval needs answers in radians."
+  ],
+  "readingMinutes": 22
+}

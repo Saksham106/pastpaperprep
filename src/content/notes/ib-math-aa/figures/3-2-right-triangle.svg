@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 210" role="img" aria-labelledby="t">
+  <title id="t">Right-angled triangle with its sides named from the angle theta</title>
+  <polygon points="40,170 260,170 260,40" fill="none" stroke="currentColor" stroke-width="2"/>
+  <path d="M246,170 L246,156 L260,156" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M80.0,170.0 A40,40 0 0 0 74.4,149.7" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <g font-size="14" font-family="inherit">
+    <text x="86" y="162" fill="var(--t5-ink)">θ</text>
+    <text x="0" y="0" transform="translate(118,96) rotate(-30.6)" fill="var(--t1-ink)">hypotenuse</text>
+    <text x="268" y="110" fill="var(--t2-ink)">opposite</text>
+    <text x="118" y="192" fill="var(--t3-ink)">adjacent</text>
+  </g>
+</svg>

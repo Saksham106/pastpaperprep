@@ -1,0 +1,32 @@
+[
+  {
+    "id": "vector-equation-of-a-line",
+    "term": "vector equation of a line",
+    "definition": "An equation $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}$, $\\lambda \\in \\mathbb{R}$, that gives the position vector $\\boldsymbol{r}$ of every point on a line from the position vector $\\boldsymbol{a}$ of one known point and a direction vector $\\boldsymbol{b}$.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "direction-vector",
+    "term": "direction vector",
+    "definition": "A non-zero vector parallel to a line, so that any non-zero multiple of it is also a direction vector of the same line.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "parametric-equations-of-a-line",
+    "term": "parametric equations of a line",
+    "definition": "The equations $x = x_{0} + \\lambda l$, $y = y_{0} + \\lambda m$, $z = z_{0} + \\lambda n$, which give each coordinate of a point on a line in terms of the parameter $\\lambda$.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "cartesian-equations-of-a-line",
+    "term": "Cartesian equations of a line",
+    "definition": "The equations $\\frac{x - x_{0}}{l} = \\frac{y - y_{0}}{m} = \\frac{z - z_{0}}{n}$ of the line through $(x_{0}, y_{0}, z_{0})$ with direction $\\begin{pmatrix}l\\\\m\\\\n\\end{pmatrix}$, found by removing $\\lambda$ from the parametric equations.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "angle-between-two-lines",
+    "term": "angle between two lines",
+    "definition": "The acute or right angle between two lines, found from their direction vectors by $\\cos\\theta = \\frac{\\lvert\\boldsymbol{b}_1 \\cdot \\boldsymbol{b}_2\\rvert}{\\lvert\\boldsymbol{b}_1\\rvert\\lvert\\boldsymbol{b}_2\\rvert}$.",
+    "lesson": "3.14"
+  }
+]

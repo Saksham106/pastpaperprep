@@ -1,0 +1,707 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.17",
+  "slug": "vector-equations-of-planes",
+  "title": "Vector equations of planes",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "A plane is a flat surface that goes on for ever. You can fix it by one point and two directions in it, or by one point and a [[normal-vector|normal]] that sticks straight out of it. Each way gives an equation, and exam questions expect you to move freely between all three forms.",
+  "goals": [
+    {
+      "text": "Write a vector equation $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b} + \\mu\\boldsymbol{c}$ of a plane from a point and two directions, or from three points.",
+      "bullets": [
+        "3.17-b1"
+      ]
+    },
+    {
+      "text": "Write the normal form $\\boldsymbol{r}\\cdot\\boldsymbol{n} = \\boldsymbol{a}\\cdot\\boldsymbol{n}$, using the [[vector-product|vector product]] to find a [[normal-vector|normal]] when you need one.",
+      "bullets": [
+        "3.17-b2"
+      ]
+    },
+    {
+      "text": "Write and read the Cartesian equation $ax + by + cz = d$, and test whether a point lies on a plane.",
+      "bullets": [
+        "3.17-b3"
+      ]
+    },
+    {
+      "text": "Convert a plane from any one of the three forms to the others.",
+      "bullets": [
+        "3.17-b1",
+        "3.17-b2",
+        "3.17-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.13",
+    "3.14",
+    "3.16"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "vector equation of a plane",
+    "r = a + lambda b + mu c",
+    "r dot n = a dot n",
+    "normal vector to a plane",
+    "cartesian equation of a plane",
+    "plane through three points"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-line-direction",
+      "prompt": "Which vector is a direction vector of the line through $\\mathrm{M}(2, 5, -1)$ and $\\mathrm{N}(-1, 3, 4)$?",
+      "hint": "A direction comes from subtracting the coordinates of one point from the other's.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}-3\\\\-2\\\\5\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}-1\\\\3\\\\4\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}1\\\\8\\\\3\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}3\\\\2\\\\5\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\overrightarrow{\\mathrm{MN}} = \\begin{pmatrix}-1 - 2\\\\3 - 5\\\\4 - (-1)\\end{pmatrix} = \\begin{pmatrix}-3\\\\-2\\\\5\\end{pmatrix}$. The vector $\\begin{pmatrix}-1\\\\3\\\\4\\end{pmatrix}$ is the position vector of N, not a direction. Revise it in {{lesson:3.14}}."
+    },
+    {
+      "type": "check",
+      "id": "before-perpendicular",
+      "prompt": "Which vector is perpendicular to $\\begin{pmatrix}3\\\\-2\\\\1\\end{pmatrix}$?",
+      "hint": "Two vectors are perpendicular when their scalar product is $0$.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}2\\\\1\\\\0\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}1\\\\2\\\\1\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}-3\\\\2\\\\-1\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}1\\\\-2\\\\1\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\begin{pmatrix}3\\\\-2\\\\1\\end{pmatrix} \\cdot \\begin{pmatrix}1\\\\2\\\\1\\end{pmatrix} = 3 - 4 + 1 = 0$. The vector $\\begin{pmatrix}-3\\\\2\\\\-1\\end{pmatrix}$ is parallel to it, not perpendicular. Revise it in {{lesson:3.13}}."
+    },
+    {
+      "type": "check",
+      "id": "before-cross-product",
+      "prompt": "Find $\\begin{pmatrix}2\\\\1\\\\0\\end{pmatrix} \\times \\begin{pmatrix}1\\\\-1\\\\3\\end{pmatrix}$.",
+      "hint": "Use $v_2w_3 - v_3w_2$, then $v_3w_1 - v_1w_3$, then $v_1w_2 - v_2w_1$.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}3\\\\6\\\\-3\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}3\\\\-6\\\\-3\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}-3\\\\6\\\\3\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}2\\\\-1\\\\0\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\begin{pmatrix}1(3) - 0(-1)\\\\0(1) - 2(3)\\\\2(-1) - 1(1)\\end{pmatrix} = \\begin{pmatrix}3\\\\-6\\\\-3\\end{pmatrix}$. $\\begin{pmatrix}-3\\\\6\\\\3\\end{pmatrix}$ is the product taken in the other order. Revise it in {{lesson:3.16}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "two-directions",
+      "heading": "A plane from a point and two directions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A line needs one point and one direction. On a tabletop you can slide left and right, and also forwards and back. So a plane needs one point and two directions."
+        },
+        {
+          "type": "text",
+          "text": "The two directions must not be [[parallel-vectors|parallel]], or you could only move along one line."
+        },
+        {
+          "type": "definition",
+          "term": "Vector equation of a plane",
+          "statement": "The plane through the point with position vector $\\boldsymbol{a}$ that contains the non-parallel vectors $\\boldsymbol{b}$ and $\\boldsymbol{c}$ has vector equation $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b} + \\mu\\boldsymbol{c}$, where $\\lambda, \\mu \\in \\mathbb{R}$.",
+          "plain": "Start at a known point, then move any amount along each of two directions that lie in the plane."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b} + \\mu\\boldsymbol{c}",
+          "tag": "booklet",
+          "bookletId": "bk-3-17-plane-parametric",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "$\\boldsymbol{a}$ is the [[position-vector|position vector]] of a known point A on the plane. $\\boldsymbol{b}$ and $\\boldsymbol{c}$ are two directions in the plane. $\\lambda$ (lambda) and $\\mu$ (mu) are real numbers you choose."
+        },
+        {
+          "type": "text",
+          "text": "Each pair of values of $\\lambda$ and $\\mu$ gives one point, and $\\boldsymbol{r}$ is its position vector. As $\\lambda$ and $\\mu$ take every real value, the points fill the whole plane."
+        },
+        {
+          "type": "figure",
+          "id": "3-17-plane-spanned",
+          "alt": "A plane drawn as a tilted parallelogram, with the origin O below it. Vector a runs from O to the point A on the plane. Arrows b and c point from A along the plane in different directions. A dashed path goes two steps along b, then one along c, to the point R. A dashed vector r runs from O to R.",
+          "caption": "Here $\\lambda = 2$ and $\\mu = 1$: two steps of $\\boldsymbol{b}$, then one step of $\\boldsymbol{c}$, reach R."
+        },
+        {
+          "type": "text",
+          "text": "This is the [[vector-equation-of-a-plane|vector equation]] of the plane, and it is in the booklet. It is the vector equation of a line from {{lesson:3.14}} with one more direction. Always start it with $\\boldsymbol{r} =$."
+        },
+        {
+          "type": "text",
+          "text": "A plane has many vector equations. Any point on it can be $\\boldsymbol{a}$. Any two non-parallel directions in it can be $\\boldsymbol{b}$ and $\\boldsymbol{c}$."
+        },
+        {
+          "type": "text",
+          "text": "Three points A, B and C that are not on one line fix exactly one plane. Start at A. Use the displacements from A to the other two points as the directions."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\overrightarrow{\\mathrm{AB}} + \\mu\\overrightarrow{\\mathrm{AC}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-plane-point-two-dirs",
+          "question": "The plane $\\Pi$ passes through $\\mathrm{A}(3, -1, 2)$ and contains the directions $\\begin{pmatrix}1\\\\0\\\\2\\end{pmatrix}$ and $\\begin{pmatrix}0\\\\1\\\\-1\\end{pmatrix}$. Write down a vector equation of $\\Pi$. Find the point on $\\Pi$ given by $\\lambda = 2$ and $\\mu = -3$.",
+          "steps": [
+            "Use the point as $\\boldsymbol{a}$ and the two directions as $\\boldsymbol{b}$ and $\\boldsymbol{c}$: $\\boldsymbol{r} = \\begin{pmatrix}3\\\\-1\\\\2\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\0\\\\2\\end{pmatrix} + \\mu\\begin{pmatrix}0\\\\1\\\\-1\\end{pmatrix}$.",
+            "The directions are not parallel, since their first components are $1$ and $0$.",
+            "Substitute $\\lambda = 2$ and $\\mu = -3$: $\\boldsymbol{r} = \\begin{pmatrix}3\\\\-1\\\\2\\end{pmatrix} + 2\\begin{pmatrix}1\\\\0\\\\2\\end{pmatrix} - 3\\begin{pmatrix}0\\\\1\\\\-1\\end{pmatrix}$.",
+            "Add component by component: $\\begin{pmatrix}3 + 2 + 0\\\\-1 + 0 - 3\\\\2 + 4 + 3\\end{pmatrix} = \\begin{pmatrix}5\\\\-4\\\\9\\end{pmatrix}$."
+          ],
+          "answer": "$(5, -4, 9)$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-plane-three-points",
+          "question": "Find a vector equation of the plane through $\\mathrm{D}(1, 2, -1)$, $\\mathrm{E}(4, 0, 1)$ and $\\mathrm{F}(2, 5, 0)$.",
+          "steps": [
+            "Find two directions from D: $\\overrightarrow{\\mathrm{DE}} = \\begin{pmatrix}4 - 1\\\\0 - 2\\\\1 - (-1)\\end{pmatrix} = \\begin{pmatrix}3\\\\-2\\\\2\\end{pmatrix}$.",
+            "$\\overrightarrow{\\mathrm{DF}} = \\begin{pmatrix}2 - 1\\\\5 - 2\\\\0 - (-1)\\end{pmatrix} = \\begin{pmatrix}1\\\\3\\\\1\\end{pmatrix}$.",
+            "Check they are not parallel. If $\\overrightarrow{\\mathrm{DE}} = k\\overrightarrow{\\mathrm{DF}}$, the $x$-components give $k = 3$, but $3 \\times 3 \\ne -2$. So D, E and F are not on one line.",
+            "Start at D and use the two displacements as the directions."
+          ],
+          "answer": "$\\boldsymbol{r} = \\begin{pmatrix}1\\\\2\\\\-1\\end{pmatrix} + \\lambda\\begin{pmatrix}3\\\\-2\\\\2\\end{pmatrix} + \\mu\\begin{pmatrix}1\\\\3\\\\1\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using a position vector as a direction. $\\begin{pmatrix}4\\\\0\\\\1\\end{pmatrix}$ says where E is. It is a direction in the plane only if the plane passes through the origin. Use a displacement such as $\\overrightarrow{\\mathrm{DE}}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-point-on-plane-k",
+          "question": "The point $\\mathrm{S}(6, -5, k)$ lies on the plane through D, E and F above. Find $k$.",
+          "steps": [
+            "Write the general point of the plane: $x = 1 + 3\\lambda + \\mu$, $y = 2 - 2\\lambda + 3\\mu$ and $z = -1 + 2\\lambda + \\mu$.",
+            "Use the two components without $k$: $1 + 3\\lambda + \\mu = 6$ and $2 - 2\\lambda + 3\\mu = -5$. So $3\\lambda + \\mu = 5$ and $-2\\lambda + 3\\mu = -7$.",
+            "From the first, $\\mu = 5 - 3\\lambda$. Substitute: $-2\\lambda + 15 - 9\\lambda = -7$, so $-11\\lambda = -22$ and $\\lambda = 2$. Then $\\mu = 5 - 6 = -1$.",
+            "Put both values into the $z$-component: $k = -1 + 2(2) + (-1) = 2$.",
+            "Check: $\\lambda = 2$ and $\\mu = -1$ give $x = 6$ and $y = -5$, as required."
+          ],
+          "answer": "$k = 2$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-plane-three-points",
+          "prompt": "Which is a vector equation of the plane through $\\mathrm{A}(2, 0, -3)$, $\\mathrm{B}(5, 1, -1)$ and $\\mathrm{C}(0, 4, -2)$?",
+          "hint": "Find $\\overrightarrow{\\mathrm{AB}}$ and $\\overrightarrow{\\mathrm{AC}}$, and check they are not parallel.",
+          "options": [
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}2\\\\0\\\\-3\\end{pmatrix} + \\lambda\\begin{pmatrix}5\\\\1\\\\-1\\end{pmatrix} + \\mu\\begin{pmatrix}0\\\\4\\\\-2\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}2\\\\0\\\\-3\\end{pmatrix} + \\lambda\\begin{pmatrix}3\\\\1\\\\2\\end{pmatrix} + \\mu\\begin{pmatrix}-2\\\\4\\\\1\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}2\\\\0\\\\-3\\end{pmatrix} + \\lambda\\begin{pmatrix}3\\\\1\\\\2\\end{pmatrix} + \\mu\\begin{pmatrix}-3\\\\-1\\\\-2\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}3\\\\1\\\\2\\end{pmatrix} + \\lambda\\begin{pmatrix}3\\\\1\\\\2\\end{pmatrix} + \\mu\\begin{pmatrix}-2\\\\4\\\\1\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\overrightarrow{\\mathrm{AB}} = \\begin{pmatrix}3\\\\1\\\\2\\end{pmatrix}$ and $\\overrightarrow{\\mathrm{AC}} = \\begin{pmatrix}-2\\\\4\\\\1\\end{pmatrix}$, which are not parallel. $\\overrightarrow{\\mathrm{BA}}$ is parallel to $\\overrightarrow{\\mathrm{AB}}$, and $(3, 1, 2)$ is not on the plane."
+        },
+        {
+          "type": "check",
+          "id": "check-plane-containing-line",
+          "prompt": "The line $L: \\boldsymbol{r} = \\begin{pmatrix}1\\\\-2\\\\0\\end{pmatrix} + t\\begin{pmatrix}2\\\\1\\\\1\\end{pmatrix}$ and the point $\\mathrm{G}(3, 1, 4)$ lie in the plane $\\Pi$. Which is a vector equation of $\\Pi$?",
+          "hint": "The line gives one point and one direction. For a second direction, go from a point on $L$ to G.",
+          "options": [
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}1\\\\-2\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\1\\\\1\\end{pmatrix} + \\mu\\begin{pmatrix}3\\\\1\\\\4\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}3\\\\1\\\\4\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\1\\\\1\\end{pmatrix} + \\mu\\begin{pmatrix}2\\\\3\\\\4\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}1\\\\-2\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\1\\\\1\\end{pmatrix} + \\mu\\begin{pmatrix}4\\\\2\\\\2\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "From $(1, -2, 0)$ on $L$ to G is $\\begin{pmatrix}2\\\\3\\\\4\\end{pmatrix}$, not parallel to $\\begin{pmatrix}2\\\\1\\\\1\\end{pmatrix}$, and G can be the starting point. $\\begin{pmatrix}3\\\\1\\\\4\\end{pmatrix}$ is a position vector, and $\\begin{pmatrix}4\\\\2\\\\2\\end{pmatrix}$ is parallel to the line."
+        }
+      ]
+    },
+    {
+      "id": "normal-form",
+      "heading": "The normal form",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Stand a pencil upright on a table. It is at right angles to every line you could draw on the table. A vector along the pencil is a [[normal-vector|normal]] to the plane of the table."
+        },
+        {
+          "type": "definition",
+          "term": "Normal to a plane",
+          "statement": "A normal to a plane is a non-zero vector $\\boldsymbol{n}$ that is perpendicular to every vector lying in the plane.",
+          "plain": "It points straight out of the plane."
+        },
+        {
+          "type": "text",
+          "text": "One point A and a normal $\\boldsymbol{n}$ fix a plane. Any non-zero multiple of $\\boldsymbol{n}$ is also a normal, so scale it to keep the numbers small."
+        },
+        {
+          "type": "figure",
+          "id": "3-17-normal",
+          "alt": "A plane drawn as a tilted parallelogram. From the point A on it, an arrow n points straight out of the plane. An arrow from A to another point R lies in the plane, and a small square at A marks the right angle between the two arrows.",
+          "caption": "$\\overrightarrow{\\mathrm{AR}} = \\boldsymbol{r} - \\boldsymbol{a}$ lies in the plane, so it is perpendicular to $\\boldsymbol{n}$."
+        },
+        {
+          "type": "text",
+          "text": "Take any point R on the plane, with position vector $\\boldsymbol{r}$. The vector $\\overrightarrow{\\mathrm{AR}} = \\boldsymbol{r} - \\boldsymbol{a}$ lies in the plane. So it is perpendicular to $\\boldsymbol{n}$, and its [[scalar-product|scalar product]] with $\\boldsymbol{n}$ is $0$."
+        },
+        {
+          "type": "formula",
+          "tex": "(\\boldsymbol{r} - \\boldsymbol{a}) \\cdot \\boldsymbol{n} = 0",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Expand the bracket and move $\\boldsymbol{a}\\cdot\\boldsymbol{n}$ to the right-hand side. This gives the normal form of the plane, which is in the booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{r}\\cdot\\boldsymbol{n} = \\boldsymbol{a}\\cdot\\boldsymbol{n}",
+          "tag": "booklet",
+          "bookletId": "bk-3-17-plane-normal",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The right-hand side $\\boldsymbol{a}\\cdot\\boldsymbol{n}$ is a number, so work it out. A point lies on the plane exactly when the scalar product of its position vector with $\\boldsymbol{n}$ gives that same number."
+        },
+        {
+          "type": "example",
+          "id": "ex-normal-form-basic",
+          "question": "Find an equation of the plane through $\\mathrm{A}(2, -3, 1)$ with normal $\\begin{pmatrix}4\\\\1\\\\-2\\end{pmatrix}$, in the form $\\boldsymbol{r}\\cdot\\boldsymbol{n} = \\boldsymbol{a}\\cdot\\boldsymbol{n}$. Determine whether $\\mathrm{B}(0, 5, 1)$ lies on the plane.",
+          "steps": [
+            "Find the number on the right: $\\boldsymbol{a}\\cdot\\boldsymbol{n} = \\begin{pmatrix}2\\\\-3\\\\1\\end{pmatrix} \\cdot \\begin{pmatrix}4\\\\1\\\\-2\\end{pmatrix} = 8 - 3 - 2 = 3$.",
+            "So the plane is $\\boldsymbol{r} \\cdot \\begin{pmatrix}4\\\\1\\\\-2\\end{pmatrix} = 3$.",
+            "Test B: $\\begin{pmatrix}0\\\\5\\\\1\\end{pmatrix} \\cdot \\begin{pmatrix}4\\\\1\\\\-2\\end{pmatrix} = 0 + 5 - 2 = 3$. This equals the right-hand side, so B lies on the plane.",
+            "Check: $\\overrightarrow{\\mathrm{AB}} = \\begin{pmatrix}-2\\\\8\\\\0\\end{pmatrix}$ and $\\begin{pmatrix}-2\\\\8\\\\0\\end{pmatrix} \\cdot \\begin{pmatrix}4\\\\1\\\\-2\\end{pmatrix} = -8 + 8 + 0 = 0$, so $\\overrightarrow{\\mathrm{AB}}$ lies in the plane."
+          ],
+          "answer": "$\\boldsymbol{r} \\cdot \\begin{pmatrix}4\\\\1\\\\-2\\end{pmatrix} = 3$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Given three points instead of a normal, you need a vector perpendicular to two directions in the plane. The [[vector-product|vector product]] $\\boldsymbol{b}\\times\\boldsymbol{c}$ from {{lesson:3.16}} gives one. It is in the booklet:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v}\\times\\boldsymbol{w} = \\begin{pmatrix} v_{2}w_{3} - v_{3}w_{2} \\\\ v_{3}w_{1} - v_{1}w_{3} \\\\ v_{1}w_{2} - v_{2}w_{1} \\end{pmatrix}",
+          "tag": "booklet",
+          "bookletId": "bk-3-16-cross-components"
+        },
+        {
+          "type": "example",
+          "id": "ex-normal-three-points",
+          "question": "Find an equation of the plane through $\\mathrm{D}(1, 2, -1)$, $\\mathrm{E}(4, 0, 1)$ and $\\mathrm{F}(2, 5, 0)$ in the form $\\boldsymbol{r}\\cdot\\boldsymbol{n} = \\boldsymbol{a}\\cdot\\boldsymbol{n}$.",
+          "steps": [
+            "Two directions in the plane, as before: $\\overrightarrow{\\mathrm{DE}} = \\begin{pmatrix}3\\\\-2\\\\2\\end{pmatrix}$ and $\\overrightarrow{\\mathrm{DF}} = \\begin{pmatrix}1\\\\3\\\\1\\end{pmatrix}$.",
+            "Take their vector product: $\\begin{pmatrix}3\\\\-2\\\\2\\end{pmatrix} \\times \\begin{pmatrix}1\\\\3\\\\1\\end{pmatrix} = \\begin{pmatrix}(-2)(1) - (2)(3)\\\\(2)(1) - (3)(1)\\\\(3)(3) - (-2)(1)\\end{pmatrix} = \\begin{pmatrix}-8\\\\-1\\\\11\\end{pmatrix}$.",
+            "Check the normal against both directions: $3(-8) + (-2)(-1) + 2(11) = 0$ and $1(-8) + 3(-1) + 1(11) = 0$.",
+            "Multiply by $-1$ to tidy the signs: $\\boldsymbol{n} = \\begin{pmatrix}8\\\\1\\\\-11\\end{pmatrix}$ is also a normal.",
+            "Use D for $\\boldsymbol{a}$: $\\begin{pmatrix}1\\\\2\\\\-1\\end{pmatrix} \\cdot \\begin{pmatrix}8\\\\1\\\\-11\\end{pmatrix} = 8 + 2 + 11 = 21$.",
+            "Check with E: $8(4) + 1(0) - 11(1) = 21$, the same number."
+          ],
+          "answer": "$\\boldsymbol{r} \\cdot \\begin{pmatrix}8\\\\1\\\\-11\\end{pmatrix} = 21$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Getting the middle entry of your vector product wrong. It is $v_3w_1 - v_1w_3$, the opposite way round to the other two. Check that your normal has scalar product $0$ with both directions."
+        },
+        {
+          "type": "check",
+          "id": "check-normal-constant",
+          "prompt": "The plane through $(4, -1, 2)$ with normal $\\begin{pmatrix}1\\\\4\\\\-3\\end{pmatrix}$ has equation $\\boldsymbol{r}\\cdot\\begin{pmatrix}1\\\\4\\\\-3\\end{pmatrix} = d$. Find $d$.",
+          "hint": "$d = \\boldsymbol{a}\\cdot\\boldsymbol{n}$. Multiply matching components, then add.",
+          "answer": {
+            "value": -6,
+            "tolerance": 0
+          },
+          "explain": "$d = 4(1) + (-1)(4) + 2(-3) = 4 - 4 - 6 = -6$."
+        },
+        {
+          "type": "check",
+          "id": "check-plane-perp-line",
+          "prompt": "The plane $\\Pi$ contains $\\mathrm{B}(0, 3, -1)$. It is at right angles to the line $\\boldsymbol{r} = \\begin{pmatrix}3\\\\0\\\\2\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\-1\\\\5\\end{pmatrix}$. Which is an equation of $\\Pi$?",
+          "hint": "A line perpendicular to a plane runs along its normal. Which point is on $\\Pi$?",
+          "options": [
+            {
+              "text": "$\\boldsymbol{r} \\cdot \\begin{pmatrix}2\\\\-1\\\\5\\end{pmatrix} = 16$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} \\cdot \\begin{pmatrix}2\\\\-1\\\\5\\end{pmatrix} = -8$",
+              "correct": true
+            },
+            {
+              "text": "$\\boldsymbol{r} \\cdot \\begin{pmatrix}3\\\\0\\\\2\\end{pmatrix} = -2$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} \\cdot \\begin{pmatrix}2\\\\-1\\\\5\\end{pmatrix} = 8$",
+              "correct": false
+            }
+          ],
+          "explain": "The line's direction $\\begin{pmatrix}2\\\\-1\\\\5\\end{pmatrix}$ is a normal. Using B, the right-hand side is $0(2) + 3(-1) + (-1)(5) = -8$. The value $16$ uses the line's point, which is not on $\\Pi$."
+        }
+      ]
+    },
+    {
+      "id": "cartesian",
+      "heading": "The Cartesian equation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In the normal form, write $\\boldsymbol{r} = \\begin{pmatrix}x\\\\y\\\\z\\end{pmatrix}$ and $\\boldsymbol{n} = \\begin{pmatrix}a\\\\b\\\\c\\end{pmatrix}$. The scalar product on the left becomes $ax + by + cz$. Call the number on the right $d$."
+        },
+        {
+          "type": "formula",
+          "tex": "ax + by + cz = d",
+          "tag": "booklet",
+          "bookletId": "bk-3-17-plane-cartesian",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is the [[cartesian-equation-of-a-plane|Cartesian equation]] of the plane, and it is in the booklet. Its coefficients give a [[normal-vector|normal]] at once: $ax + by + cz = d$ has normal $\\begin{pmatrix}a\\\\b\\\\c\\end{pmatrix}$."
+        },
+        {
+          "type": "text",
+          "text": "Before you read off the normal, collect $x$, $y$ and $z$ on the left. A missing letter has coefficient $0$. For example, $x - 2z = 4$ has normal $\\begin{pmatrix}1\\\\0\\\\-2\\end{pmatrix}$."
+        },
+        {
+          "type": "text",
+          "text": "To test a point, substitute its coordinates. It lies on the plane only if you get $d$. A plane through the origin has $d = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cartesian-point-normal",
+          "question": "Find the Cartesian equation of the plane through $(-1, 4, 2)$ with normal $\\begin{pmatrix}3\\\\-2\\\\5\\end{pmatrix}$.",
+          "steps": [
+            "The normal gives the left-hand side: $3x - 2y + 5z = d$.",
+            "Substitute the point to find $d$: $3(-1) - 2(4) + 5(2) = -3 - 8 + 10 = -1$.",
+            "Check by the normal form: $d = \\begin{pmatrix}-1\\\\4\\\\2\\end{pmatrix} \\cdot \\begin{pmatrix}3\\\\-2\\\\5\\end{pmatrix} = -1$ too."
+          ],
+          "answer": "$3x - 2y + 5z = -1$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Parallel planes have parallel normals. So a plane parallel to $ax + by + cz = d$ keeps the left-hand side and changes only $d$."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-plane",
+          "question": "The plane $\\Pi_1$ has equation $2x - 5y + z = 7$. Find the Cartesian equation of the plane $\\Pi_2$ through $(3, 1, -4)$ that is parallel to $\\Pi_1$.",
+          "steps": [
+            "Read the normal of $\\Pi_1$ from its coefficients: $\\begin{pmatrix}2\\\\-5\\\\1\\end{pmatrix}$.",
+            "$\\Pi_2$ is parallel, so it has the same normal: $2x - 5y + z = d$.",
+            "Substitute the point: $d = 2(3) - 5(1) + (-4) = 6 - 5 - 4 = -3$.",
+            "Since $-3 \\ne 7$, $\\Pi_2$ is not $\\Pi_1$ itself."
+          ],
+          "answer": "$2x - 5y + z = -3$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Reading the normal from an untidy equation. A term on the right-hand side changes sign when you move it to the left, so collect $x$, $y$ and $z$ first."
+        },
+        {
+          "type": "check",
+          "id": "check-read-normal",
+          "prompt": "Which vector is a normal to the plane $4y - x = 2z + 3$?",
+          "hint": "Move $2z$ to the left-hand side first, then read the coefficients of $x$, $y$ and $z$ in that order.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}4\\\\-1\\\\-2\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-1\\\\4\\\\2\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-1\\\\4\\\\-2\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}1\\\\4\\\\-2\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "Rearranged, the plane is $-x + 4y - 2z = 3$, so a normal is $\\begin{pmatrix}-1\\\\4\\\\-2\\end{pmatrix}$. $\\begin{pmatrix}-1\\\\4\\\\2\\end{pmatrix}$ forgets that $2z$ changes sign."
+        },
+        {
+          "type": "check",
+          "id": "check-point-on-plane-k",
+          "prompt": "The point $(k, 2, -1)$ lies on the plane $5x - 3y + 2z = 4$. Find $k$.",
+          "hint": "Substitute the coordinates and solve for $k$.",
+          "answer": {
+            "value": 2.4,
+            "tolerance": 0
+          },
+          "explain": "$5k - 3(2) + 2(-1) = 4$, so $5k - 8 = 4$, $5k = 12$ and $k = 2.4$."
+        }
+      ]
+    },
+    {
+      "id": "converting",
+      "heading": "Moving between the forms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "From vector form to [[cartesian-equation-of-a-plane|Cartesian form]]: $\\boldsymbol{b}$ and $\\boldsymbol{c}$ lie in the plane, so their [[vector-product|vector product]] $\\boldsymbol{n} = \\boldsymbol{b}\\times\\boldsymbol{c}$ is a [[normal-vector|normal]]. Then $d = \\boldsymbol{a}\\cdot\\boldsymbol{n}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-vector-to-cartesian",
+          "question": "Find the Cartesian equation of the plane $\\boldsymbol{r} = \\begin{pmatrix}2\\\\0\\\\-1\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\2\\\\0\\end{pmatrix} + \\mu\\begin{pmatrix}3\\\\-1\\\\1\\end{pmatrix}$.",
+          "steps": [
+            "Find a normal: $\\begin{pmatrix}1\\\\2\\\\0\\end{pmatrix} \\times \\begin{pmatrix}3\\\\-1\\\\1\\end{pmatrix} = \\begin{pmatrix}(2)(1) - (0)(-1)\\\\(0)(3) - (1)(1)\\\\(1)(-1) - (2)(3)\\end{pmatrix} = \\begin{pmatrix}2\\\\-1\\\\-7\\end{pmatrix}$.",
+            "Check: $2 - 2 + 0 = 0$ and $6 + 1 - 7 = 0$, so the normal is perpendicular to both directions.",
+            "So the plane is $2x - y - 7z = d$. Substitute the point $(2, 0, -1)$: $d = 4 - 0 + 7 = 11$.",
+            "Check with $\\lambda = \\mu = 1$, which gives the point $(6, 1, 0)$: $12 - 1 - 0 = 11$."
+          ],
+          "answer": "$2x - y - 7z = 11$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "From Cartesian to vector form, let two coordinates be the parameters, such as $y = \\lambda$ and $z = \\mu$. Then solve the equation for the third coordinate."
+        },
+        {
+          "type": "example",
+          "id": "ex-cartesian-to-vector",
+          "question": "Find a vector equation of the plane $x - 2y + 3z = 6$.",
+          "steps": [
+            "Let $y = \\lambda$ and $z = \\mu$. Then $x = 6 + 2\\lambda - 3\\mu$.",
+            "Write the general point as one vector: $\\begin{pmatrix}x\\\\y\\\\z\\end{pmatrix} = \\begin{pmatrix}6 + 2\\lambda - 3\\mu\\\\\\lambda\\\\\\mu\\end{pmatrix}$.",
+            "Split it into the constant part, the $\\lambda$ part and the $\\mu$ part: $\\begin{pmatrix}6\\\\0\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\1\\\\0\\end{pmatrix} + \\mu\\begin{pmatrix}-3\\\\0\\\\1\\end{pmatrix}$.",
+            "Check each direction against the normal $\\begin{pmatrix}1\\\\-2\\\\3\\end{pmatrix}$: $2 - 2 + 0 = 0$ and $-3 + 0 + 3 = 0$. The point $(6, 0, 0)$ gives $6 = 6$."
+          ],
+          "answer": "$\\boldsymbol{r} = \\begin{pmatrix}6\\\\0\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\1\\\\0\\end{pmatrix} + \\mu\\begin{pmatrix}-3\\\\0\\\\1\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-vector-to-cartesian",
+          "prompt": "Which is the Cartesian equation of the plane $\\boldsymbol{r} = \\begin{pmatrix}1\\\\-1\\\\3\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\0\\\\1\\end{pmatrix} + \\mu\\begin{pmatrix}1\\\\1\\\\-2\\end{pmatrix}$?",
+          "hint": "Find the vector product of the two directions, then substitute the point.",
+          "options": [
+            {
+              "text": "$x - 5y - 2z = -10$",
+              "correct": false
+            },
+            {
+              "text": "$-x - 5y + 2z = 10$",
+              "correct": false
+            },
+            {
+              "text": "$x - 5y - 2z = 0$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\begin{pmatrix}2\\\\0\\\\1\\end{pmatrix} \\times \\begin{pmatrix}1\\\\1\\\\-2\\end{pmatrix} = \\begin{pmatrix}-1\\\\5\\\\2\\end{pmatrix}$, so a normal is $\\begin{pmatrix}1\\\\-5\\\\-2\\end{pmatrix}$. Then $d = 1 + 5 - 6 = 0$: this plane passes through the origin. $-x - 5y + 2z = 10$ comes from a sign slip in the middle component."
+        },
+        {
+          "type": "check",
+          "id": "check-cartesian-to-vector",
+          "prompt": "Which is a vector equation of the plane $2x - y + z = 4$?",
+          "hint": "Let $x = \\lambda$ and $z = \\mu$, and solve for $y$. Then check each direction against the normal.",
+          "options": [
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}0\\\\-4\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\-1\\\\1\\end{pmatrix} + \\mu\\begin{pmatrix}0\\\\1\\\\1\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}0\\\\4\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\2\\\\0\\end{pmatrix} + \\mu\\begin{pmatrix}0\\\\1\\\\1\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}0\\\\-4\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\2\\\\0\\end{pmatrix} + \\mu\\begin{pmatrix}0\\\\1\\\\1\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}2\\\\0\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\2\\\\0\\end{pmatrix} + \\mu\\begin{pmatrix}2\\\\4\\\\0\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$y = 2\\lambda + \\mu - 4$, so the point is $(0, -4, 0)$ and the directions are $\\begin{pmatrix}1\\\\2\\\\0\\end{pmatrix}$ and $\\begin{pmatrix}0\\\\1\\\\1\\end{pmatrix}$. $\\begin{pmatrix}2\\\\-1\\\\1\\end{pmatrix}$ is the normal, and $\\begin{pmatrix}1\\\\2\\\\0\\end{pmatrix}$ and $\\begin{pmatrix}2\\\\4\\\\0\\end{pmatrix}$ are parallel."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 your calculator gives another route from three points. If the plane misses the origin, $d \\ne 0$, so dividing by $d$ gives $ax + by + cz = 1$ for new values of $a$, $b$ and $c$."
+        },
+        {
+          "type": "text",
+          "text": "Each point gives one linear equation in $a$, $b$ and $c$, and the calculator solves the three."
+        },
+        {
+          "type": "example",
+          "id": "ex-plane-gdc",
+          "question": "Use your calculator to find the Cartesian equation of the plane through $\\mathrm{A}(1, 2, 2)$, $\\mathrm{B}(5, 0, 2)$ and $\\mathrm{C}(-2, 1, 4)$. Give the equation with integer coefficients.",
+          "steps": [
+            "Write the plane as $ax + by + cz = 1$, assuming it misses the origin.",
+            "Substitute each point and write the system down: $a + 2b + 2c = 1$, $5a + 2c = 1$ and $-2a + b + 4c = 1$. This line earns the method mark.",
+            "The calculator gives $a = 0.1$, $b = 0.2$ and $c = 0.25$. So the plane is $0.1x + 0.2y + 0.25z = 1$.",
+            "Multiply by $20$ to clear the decimals: $2x + 4y + 5z = 20$.",
+            "Check with the vector product: $\\overrightarrow{\\mathrm{AB}} \\times \\overrightarrow{\\mathrm{AC}} = \\begin{pmatrix}4\\\\-2\\\\0\\end{pmatrix} \\times \\begin{pmatrix}-3\\\\-1\\\\2\\end{pmatrix} = \\begin{pmatrix}-4\\\\-8\\\\-10\\end{pmatrix}$, a multiple of $\\begin{pmatrix}2\\\\4\\\\5\\end{pmatrix}$."
+          ],
+          "answer": "$2x + 4y + 5z = 20$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "APPS, PlySmlt2",
+              "SIMULT EQN SOLVER, 3 equations, 3 unknowns (check on your model)",
+              "Enter the rows 1, 2, 2, 1 then 5, 0, 2, 1 then -2, 1, 4, 1",
+              "SOLVE, read X1 = 0.1, X2 = 0.2, X3 = 0.25 as a, b, c"
+            ],
+            "nspire": [
+              "Calculator page, Menu, Algebra, Solve System of Linear Equations",
+              "Number of equations 3, variables a,b,c, OK (check on your model)",
+              "Enter a+2*b+2*c=1, 5*a+2*c=1 and -2*a+b+4*c=1, ENTER",
+              "Read a = 1/10, b = 1/5 and c = 1/4 (0.1, 0.2, 0.25)"
+            ],
+            "casio": [
+              "EQUA, Simultaneous (F1)",
+              "Number of unknowns: 3 (check on your model)",
+              "Enter the rows 1, 2, 2, 1 then 5, 0, 2, 1 then -2, 1, 4, 1",
+              "SOLVE (check on your model), read 0.1, 0.2 and 0.25 as a, b and c"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "If the calculator finds no single solution, the plane may pass through the origin. Use the vector product method instead."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "booklet",
+          "cheatSheet": true,
+          "text": "Vector form: $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b} + \\mu\\boldsymbol{c}$, with $\\boldsymbol{b}$ and $\\boldsymbol{c}$ non-parallel directions in the plane. Always start with $\\boldsymbol{r} =$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Through three points A, B and C, use $\\overrightarrow{\\mathrm{AB}}$ and $\\overrightarrow{\\mathrm{AC}}$ as the directions, never a position vector."
+        },
+        {
+          "type": "fact",
+          "tag": "booklet",
+          "cheatSheet": true,
+          "text": "Normal form: $\\boldsymbol{r}\\cdot\\boldsymbol{n} = \\boldsymbol{a}\\cdot\\boldsymbol{n}$, where $\\boldsymbol{n}$ is perpendicular to the plane. Work out $\\boldsymbol{a}\\cdot\\boldsymbol{n}$ as a number."
+        },
+        {
+          "type": "fact",
+          "tag": "booklet",
+          "cheatSheet": true,
+          "text": "Cartesian form: $ax + by + cz = d$. The coefficients give a normal $\\begin{pmatrix}a\\\\b\\\\c\\end{pmatrix}$, and $d$ comes from substituting a point."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Vector form to Cartesian: $\\boldsymbol{n} = \\boldsymbol{b}\\times\\boldsymbol{c}$, then $d = \\boldsymbol{a}\\cdot\\boldsymbol{n}$. Check that $\\boldsymbol{n}$ has scalar product $0$ with $\\boldsymbol{b}$ and $\\boldsymbol{c}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Cartesian to vector form: set two coordinates equal to $\\lambda$ and $\\mu$, then solve for the third."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Parallel planes share a normal: the same left-hand side with a different $d$."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving out $\\boldsymbol{r} =$. Without it you have an expression, not the equation of a plane.",
+    "Using a position vector as a direction in the plane. Directions come from the difference of two points, such as $\\overrightarrow{\\mathrm{AB}}$.",
+    "Getting the middle component of the vector product wrong. It is $v_3w_1 - v_1w_3$. Check that your normal has scalar product $0$ with both directions.",
+    "Using the normal as a direction in the plane. It points out of the plane, so it can never be $\\boldsymbol{b}$ or $\\boldsymbol{c}$.",
+    "Reading the normal from an untidy equation. Collect $x$, $y$ and $z$ on the left first: $3x = 2y - z + 1$ has normal $\\begin{pmatrix}3\\\\-2\\\\1\\end{pmatrix}$.",
+    "Choosing two parallel directions, such as $\\overrightarrow{\\mathrm{AB}}$ and $\\overrightarrow{\\mathrm{BA}}$. They only describe a line, so check that neither direction is a multiple of the other."
+  ],
+  "examTips": [
+    "\"Write down\" a vector equation of a plane needs no working, but it must start with $\\boldsymbol{r} =$. Any point on the plane and any two non-parallel directions in it earn the marks.",
+    "\"Find the Cartesian equation\": show the vector product for the normal, then the substitution for $d$.",
+    "\"Show that\" a plane has a given equation: work forwards from the given points or directions, and make your last line the given equation.",
+    "On Paper 1, keep every value exact and scale a normal to clear fractions. On Paper 2, write down the equations you put into the calculator."
+  ],
+  "readingMinutes": 28
+}

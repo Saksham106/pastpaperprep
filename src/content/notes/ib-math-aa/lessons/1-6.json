@@ -1,0 +1,599 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.6",
+  "slug": "elementary-deductive-proof",
+  "title": "Elementary deductive proof",
+  "level": "SL",
+  "topic": 1,
+  "summary": "A [[deductive-proof|deductive proof]] shows that a statement is true in every case, through steps that each follow from the last. Trying a few numbers is never enough. You'll write proofs that run from one side to the other, use $\\equiv$ for an [[identity|identity]], and check your own working.",
+  "goals": [
+    {
+      "text": "Tell an equation from an [[identity|identity]], and use $=$ and $\\equiv$ correctly.",
+      "bullets": [
+        "1.6-b3"
+      ]
+    },
+    {
+      "text": "Lay out a proof that starts from one side and works step by step to the other, in either direction.",
+      "bullets": [
+        "1.6-b2"
+      ]
+    },
+    {
+      "text": "Prove simple results about numbers, first with a numerical case and then in general with algebra.",
+      "bullets": [
+        "1.6-b1"
+      ]
+    },
+    {
+      "text": "Check a result, and your own working, by substituting values.",
+      "bullets": [
+        "1.6-b4"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1"
+  ],
+  "synonyms": [
+    "show that proof",
+    "LHS to RHS proof",
+    "identity symbol",
+    "identically equal to",
+    "prove algebraically",
+    "odd and even proofs"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-expand-square",
+      "prompt": "Expand $(x - 6)^{2}$.",
+      "hint": "Write it as $(x - 6)(x - 6)$ and multiply every term by every term.",
+      "options": [
+        {
+          "text": "$x^{2} - 12x + 36$",
+          "correct": true
+        },
+        {
+          "text": "$x^{2} + 36$",
+          "correct": false
+        },
+        {
+          "text": "$x^{2} - 6x + 36$",
+          "correct": false
+        },
+        {
+          "text": "$x^{2} - 36$",
+          "correct": false
+        }
+      ],
+      "explain": "$(x - 6)(x - 6) = x^{2} - 6x - 6x + 36 = x^{2} - 12x + 36$. Don't lose the middle terms."
+    },
+    {
+      "type": "check",
+      "id": "before-add-fractions",
+      "prompt": "Write $\\frac{1}{4} + \\frac{1}{6}$ as a single fraction.",
+      "hint": "Find a common denominator first. Both $4$ and $6$ go into $12$.",
+      "options": [
+        {
+          "text": "$\\frac{5}{12}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{2}{10}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{1}{10}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{2}{24}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{1}{4} = \\frac{3}{12}$ and $\\frac{1}{6} = \\frac{2}{12}$, so the sum is $\\frac{5}{12}$. You never add the denominators."
+    },
+    {
+      "type": "check",
+      "id": "before-substitute",
+      "prompt": "Find the value of $3x^{2} - 5x$ when $x = -2$.",
+      "hint": "Square first: $(-2)^{2}$ is positive. Then watch the sign of $-5 \\times (-2)$.",
+      "answer": {
+        "value": 22,
+        "tolerance": 0
+      },
+      "explain": "$3 \\times (-2)^{2} - 5 \\times (-2) = 3 \\times 4 + 10 = 22$."
+    }
+  ],
+  "sections": [
+    {
+      "id": "equality-identity",
+      "heading": "Equals or identically equal",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Look at $2x + 6 = 10$. It is true when $x = 2$ and false for every other $x$. It is an equation: a statement you solve to find the values that make it true."
+        },
+        {
+          "type": "text",
+          "text": "Now look at $2(x + 3) = 2x + 6$. Try $x = 0$, $x = 5$ or $x = -1$: the two sides always match. It is true for every value of $x$, so there is nothing to solve."
+        },
+        {
+          "type": "definition",
+          "term": "identity",
+          "statement": "An identity is a statement that two expressions are equal for every value of the variables in them. It is written with the symbol $\\equiv$, read as 'is identically equal to'.",
+          "plain": "An equation is true for some values, but an identity is true for all of them."
+        },
+        {
+          "type": "formula",
+          "tex": "2(x + 3) \\equiv 2x + 6 \\qquad \\text{but} \\qquad 2x + 6 = 10",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Use $=$ for an equation you solve. Use $\\equiv$ when you state or prove that two expressions are the same for every value."
+        },
+        {
+          "type": "text",
+          "text": "Between lines of working, $=$ is fine. The $\\equiv$ matters most in the statement you prove."
+        },
+        {
+          "type": "text",
+          "text": "LHS means the left-hand side of the sign, and RHS the right-hand side."
+        },
+        {
+          "type": "example",
+          "id": "ex-identity-expand",
+          "question": "Show that $(2x + 1)(x - 3) \\equiv 2x^{2} - 5x - 3$.",
+          "steps": [
+            "Start from the LHS, the side with brackets. Multiply each term in the first bracket by each term in the second: $2x \\cdot x + 2x \\cdot (-3) + 1 \\cdot x + 1 \\cdot (-3)$.",
+            "Work out each product: $2x^{2} - 6x + x - 3$.",
+            "Collect the $x$ terms: $-6x + x = -5x$. So $\\text{LHS} = 2x^{2} - 5x - 3 = \\text{RHS}$.",
+            "Quick check with $x = 2$: $\\text{LHS} = 5 \\times (-1) = -5$ and $\\text{RHS} = 8 - 10 - 3 = -5$."
+          ],
+          "answer": "$(2x + 1)(x - 3) \\equiv 2x^{2} - 5x - 3$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "An identity holds for every $x$, so the two sides must have the same $x^{2}$ term, the same $x$ term and the same constant. You can use this to find unknown constants."
+        },
+        {
+          "type": "example",
+          "id": "ex-identity-constants",
+          "question": "Find the values of $a$ and $b$ such that $(x + a)(x + 3) \\equiv x^{2} + bx + 12$.",
+          "steps": [
+            "Expand the LHS: $(x + a)(x + 3) = x^{2} + 3x + ax + 3a = x^{2} + (a + 3)x + 3a$.",
+            "The two sides agree for every $x$, so their constant terms are equal: $3a = 12$, so $a = 4$.",
+            "Their $x$ terms are equal too: $b = a + 3 = 4 + 3 = 7$.",
+            "Check by expanding with these values: $(x + 4)(x + 3) = x^{2} + 7x + 12$. It matches the RHS."
+          ],
+          "answer": "$a = 4, \\; b = 7$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-which-identity",
+          "prompt": "Which of these is an identity?",
+          "hint": "Try $x = 2$ in both sides of each one. An identity has to work for every value.",
+          "options": [
+            {
+              "text": "$3(x - 2) \\equiv 3x - 6$",
+              "correct": true
+            },
+            {
+              "text": "$(x + 2)^{2} \\equiv x^{2} + 4$",
+              "correct": false
+            },
+            {
+              "text": "$x^{2} \\equiv 9$",
+              "correct": false
+            },
+            {
+              "text": "$4x - 1 \\equiv 4(x - 1)$",
+              "correct": false
+            }
+          ],
+          "explain": "$3(x - 2)$ expands to $3x - 6$ for every $x$. At $x = 2$ the others give $16$ and $8$, $4$ and $9$, and $7$ and $4$."
+        },
+        {
+          "type": "check",
+          "id": "check-find-constant",
+          "prompt": "Given that $(x + p)^{2} \\equiv x^{2} + 10x + q$, find the value of $q$.",
+          "hint": "Expand $(x + p)^{2}$, then match the $x$ terms to find $p$ first.",
+          "answer": {
+            "value": 25,
+            "tolerance": 0
+          },
+          "explain": "$(x + p)^{2} = x^{2} + 2px + p^{2}$. Matching the $x$ terms gives $2p = 10$, so $p = 5$. Matching the constants gives $q = p^{2} = 25$."
+        }
+      ]
+    },
+    {
+      "id": "lhs-to-rhs",
+      "heading": "Laying out an LHS to RHS proof",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a 'show that' question the result is given. The safe layout is a chain: start from one side, change it one known step at a time, and finish on exactly the other side."
+        },
+        {
+          "type": "result",
+          "statement": "To prove $\\text{LHS} \\equiv \\text{RHS}$, write $\\text{LHS} = \\ldots = \\ldots = \\text{RHS}$. Each $=$ is one step you can justify, such as expanding, collecting like terms, factorising or combining fractions.",
+          "why": "Each link in the chain is true for every value, so the first expression equals the last for every value."
+        },
+        {
+          "type": "text",
+          "text": "You may start from either side. Start from the more complicated one, because simplifying is easier than guessing how to make something longer."
+        },
+        {
+          "type": "mistake",
+          "text": "Don't start from the result and change both sides at once, for example by moving terms across the sign. That assumes what you are trying to prove. Work on one side only."
+        },
+        {
+          "type": "example",
+          "id": "ex-lhs-brackets",
+          "question": "Show that $(x + 3)(x - 1) - (x + 1)(x - 3) \\equiv 4x$.",
+          "steps": [
+            "The LHS is the complicated side, so start there. Expand each product: $(x + 3)(x - 1) = x^{2} + 2x - 3$ and $(x + 1)(x - 3) = x^{2} - 2x - 3$.",
+            "Subtract the whole second product, kept in a bracket: $\\text{LHS} = x^{2} + 2x - 3 - (x^{2} - 2x - 3)$.",
+            "Remove the bracket. The minus sign in front changes every sign inside: $= x^{2} + 2x - 3 - x^{2} + 2x + 3$.",
+            "Collect like terms. The $x^{2}$ terms cancel and so do the constants, leaving $4x = \\text{RHS}$.",
+            "Check with $x = 2$: $\\text{LHS} = 5 \\times 1 - 3 \\times (-1) = 8$ and $\\text{RHS} = 4 \\times 2 = 8$."
+          ],
+          "answer": "$(x + 3)(x - 1) - (x + 1)(x - 3) \\equiv 4x$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Sometimes the right-hand side is the longer one. Then you start from the RHS and work back to the LHS."
+        },
+        {
+          "type": "example",
+          "id": "ex-rhs-to-lhs",
+          "question": "Show that $\\frac{2}{x^{2} - 1} \\equiv \\frac{1}{x - 1} - \\frac{1}{x + 1}$, for $x \\ne 1$ and $x \\ne -1$.",
+          "steps": [
+            "The RHS has two fractions, so it is the side to simplify. Start from the RHS.",
+            "Use the common denominator $(x - 1)(x + 1)$: $\\text{RHS} = \\frac{(x + 1) - (x - 1)}{(x - 1)(x + 1)}$.",
+            "Simplify the numerator, keeping the bracket after the minus: $(x + 1) - (x - 1) = x + 1 - x + 1 = 2$.",
+            "Expand the denominator: $(x - 1)(x + 1) = x^{2} - 1$. So $\\text{RHS} = \\frac{2}{x^{2} - 1} = \\text{LHS}$.",
+            "Check with $x = 3$: $\\text{LHS} = \\frac{2}{8} = \\frac{1}{4}$ and $\\text{RHS} = \\frac{1}{2} - \\frac{1}{4} = \\frac{1}{4}$."
+          ],
+          "answer": "$\\frac{2}{x^{2} - 1} \\equiv \\frac{1}{x - 1} - \\frac{1}{x + 1}$",
+          "check": {
+            "type": "check",
+            "id": "check-fraction-constant",
+            "prompt": "Now you try. Start from the LHS to show that $\\frac{1}{x} - \\frac{1}{x + 5} \\equiv \\frac{k}{x(x + 5)}$, and find $k$.",
+            "hint": "Write both fractions over the common denominator $x(x + 5)$.",
+            "answer": {
+              "value": 5,
+              "tolerance": 0
+            },
+            "explain": "$\\frac{1}{x} - \\frac{1}{x + 5} = \\frac{(x + 5) - x}{x(x + 5)} = \\frac{5}{x(x + 5)}$, so $k = 5$."
+          },
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "In a 'show that' question your last line must match the given result exactly. End with '$= \\text{RHS}$' or 'as required', so the examiner sees you got there."
+        },
+        {
+          "type": "check",
+          "id": "check-complete-chain",
+          "prompt": "Start from the LHS and simplify. Which expression is identically equal to $(x + 5)^{2} - (x + 1)^{2}$?",
+          "hint": "Expand both squares fully, each with its middle term. Then subtract the whole second bracket.",
+          "options": [
+            {
+              "text": "$8x + 24$",
+              "correct": true
+            },
+            {
+              "text": "$24$",
+              "correct": false
+            },
+            {
+              "text": "$8x + 26$",
+              "correct": false
+            },
+            {
+              "text": "$12x + 24$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x^{2} + 10x + 25) - (x^{2} + 2x + 1) = 8x + 24$. Dropping the middle terms gives $24$. Not subtracting every term gives $8x + 26$ or $12x + 24$."
+        }
+      ]
+    },
+    {
+      "id": "deductive",
+      "heading": "Proving results about numbers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$3 + 5 = 8$, $7 + 9 = 16$ and $11 + 21 = 32$: two odd numbers make an even number. But a hundred examples still don't show it for the next pair."
+        },
+        {
+          "type": "text",
+          "text": "A proof has to cover every case at once. That is what algebra is for."
+        },
+        {
+          "type": "definition",
+          "term": "deductive proof",
+          "statement": "A deductive proof starts from facts known to be true and reaches the result through a chain of logical steps, each following from the ones before it.",
+          "plain": "Start from what you know, and let each step force the next, until the result has to be true."
+        },
+        {
+          "type": "text",
+          "text": "To cover every case, write the numbers with letters. Let $n$ stand for any integer, written $n \\in \\mathbb{Z}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{even: } 2n, \\quad \\text{odd: } 2n + 1, \\quad \\text{multiple of } k\\text{: } kn, \\quad n \\in \\mathbb{Z}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Two consecutive integers are $n$ and $n + 1$. Two unrelated numbers need two letters: any two odd numbers are $2m + 1$ and $2n + 1$, where $m, n \\in \\mathbb{Z}$."
+        },
+        {
+          "type": "text",
+          "text": "Then aim for the form the result needs: $2 \\times (\\text{an integer})$ for even, $2 \\times (\\text{an integer}) + 1$ for odd. Always say why the bracket is an integer."
+        },
+        {
+          "type": "example",
+          "id": "ex-numbers-then-algebra",
+          "question": "(a) Show that $19 \\times 21 = 20^{2} - 1$. (b) Prove that $(n - 1)(n + 1) \\equiv n^{2} - 1$. (c) Hence work out $49 \\times 51$ without a calculator.",
+          "steps": [
+            "(a) Work out each side as a number. $\\text{LHS} = 19 \\times 21 = 399$ and $\\text{RHS} = 400 - 1 = 399$. They match.",
+            "(b) $19$ and $21$ sit either side of $20$. Call the middle number $n$, so the numbers either side are $n - 1$ and $n + 1$.",
+            "Start from the LHS and expand: $(n - 1)(n + 1) = n^{2} + n - n - 1$.",
+            "The $n$ terms cancel, so $\\text{LHS} = n^{2} - 1 = \\text{RHS}$. No value of $n$ was assumed, so this holds for every $n$.",
+            "(c) Use the identity with $n = 50$: $49 \\times 51 = 50^{2} - 1 = 2499$."
+          ],
+          "answer": "$(n - 1)(n + 1) \\equiv n^{2} - 1$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-odd-product",
+          "question": "Prove that the product of any two odd numbers is odd.",
+          "steps": [
+            "Let the odd numbers be $2m + 1$ and $2n + 1$, where $m, n \\in \\mathbb{Z}$.",
+            "Multiply them out, every term by every term: $(2m + 1)(2n + 1) = 4mn + 2m + 2n + 1$.",
+            "Take a factor of $2$ out of the first three terms: $4mn + 2m + 2n + 1 = 2(2mn + m + n) + 1$.",
+            "$m$ and $n$ are integers, so $2mn + m + n$ is an integer too.",
+            "So the product is $2 \\times (\\text{an integer}) + 1$, which is odd."
+          ],
+          "answer": "$(2m + 1)(2n + 1) = 2(2mn + m + n) + 1$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-digits-reversed",
+          "question": "A two-digit number has tens digit $a$ and units digit $b$. Prove that this number plus the number with its digits reversed is always a multiple of $11$.",
+          "steps": [
+            "By place value the number is $10a + b$, just as $47 = 10 \\times 4 + 7$.",
+            "Reversing the digits gives $10b + a$.",
+            "Add them and collect like terms: $(10a + b) + (10b + a) = 11a + 11b$.",
+            "Factorise: $11a + 11b = 11(a + b)$.",
+            "$a$ and $b$ are whole numbers, so $a + b$ is an integer. So the sum is $11$ times an integer, which is a multiple of $11$.",
+            "Check with $47$: $47 + 74 = 121 = 11 \\times 11$, and $a + b = 4 + 7 = 11$. It fits."
+          ],
+          "answer": "$(10a + b) + (10b + a) = 11(a + b)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Don't use one letter for two unrelated numbers. $2n$ and $2n + 1$ are always next to each other. For any even number and any odd number, use $2m$ and $2n + 1$."
+        },
+        {
+          "type": "check",
+          "id": "check-even-plus-odd",
+          "prompt": "Let $m, n \\in \\mathbb{Z}$. Which line proves that any even number plus any odd number is odd?",
+          "hint": "Use different letters for the two numbers. Then look for the form $2 \\times (\\text{an integer}) + 1$.",
+          "options": [
+            {
+              "text": "$2m + (2n + 1) = 2(m + n) + 1$",
+              "correct": true
+            },
+            {
+              "text": "$2n + (2n + 1) = 4n + 1$",
+              "correct": false
+            },
+            {
+              "text": "$2m + (2n + 1) = 2(m + n + 1)$",
+              "correct": false
+            },
+            {
+              "text": "$2m + (2n + 1) = 2(m + n) - 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$2m + 2n + 1 = 2(m + n) + 1$, and $m + n$ is an integer, so the sum is odd. Using $n$ twice only covers an even number next to an odd one."
+        },
+        {
+          "type": "check",
+          "id": "check-square-constant",
+          "prompt": "For any integer $n$, $n(n + 6) + 9 \\equiv (n + k)^{2}$. Find $k$.",
+          "hint": "Expand $n(n + 6) + 9$ and compare it with $(n + k)^{2} = n^{2} + 2kn + k^{2}$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "$n(n + 6) + 9 = n^{2} + 6n + 9 = (n + 3)^{2}$, so $k = 3$. This proves that $n(n + 6) + 9$ is always a square number."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also prove results by induction and by contradiction, and you show a statement is false with a counterexample.",
+          "lesson": "1.15"
+        }
+      ]
+    },
+    {
+      "id": "checking",
+      "heading": "Checking a result",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "One slipped sign breaks a proof. To check an [[identity|identity]], substitute an easy value into the expression you started with and into your result. If the two values differ, there is a mistake somewhere, so find it."
+        },
+        {
+          "type": "result",
+          "statement": "If the two sides of a claimed identity differ at even one value, the identity is false. If they agree at a value, that supports it but does not prove it.",
+          "why": "An identity must hold for every value, so one failure rules it out, while one success only shows it at that value."
+        },
+        {
+          "type": "text",
+          "text": "Choose values like $x = 2$ or $x = 3$. Avoid $x = 0$ and $x = 1$ when you can: at $x = 0$ every $x$ term vanishes, and at $x = 1$ the terms $x$ and $x^{2}$ look the same. Errors can hide there."
+        },
+        {
+          "type": "example",
+          "id": "ex-check-expansion",
+          "question": "A student writes $(3x - 2)^{2} \\equiv 9x^{2} - 4$. Check this with $x = 2$, then correct it.",
+          "steps": [
+            "Substitute $x = 2$ into the left side: $(3 \\times 2 - 2)^{2} = 4^{2} = 16$.",
+            "Substitute $x = 2$ into the right side: $9 \\times 4 - 4 = 32$. The sides differ, so the expansion is wrong.",
+            "Expand properly, keeping the middle term: $(3x - 2)^{2} = (3x - 2)(3x - 2) = 9x^{2} - 6x - 6x + 4 = 9x^{2} - 12x + 4$.",
+            "Check again at $x = 2$: $36 - 24 + 4 = 16$. It now matches the left side."
+          ],
+          "answer": "$(3x - 2)^{2} \\equiv 9x^{2} - 12x + 4$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "For an equation, check by putting your answer back into the original equation. If both sides come out the same, the answer is right."
+        },
+        {
+          "type": "example",
+          "id": "ex-check-equation",
+          "question": "Solve $4(x - 3) = x + 9$, and check your answer.",
+          "steps": [
+            "Expand the bracket: $4x - 12 = x + 9$.",
+            "Subtract $x$ from both sides and add $12$ to both sides: $3x = 21$.",
+            "Divide by $3$: $x = 7$.",
+            "Check in the original equation. $\\text{LHS} = 4(7 - 3) = 16$ and $\\text{RHS} = 7 + 9 = 16$. They match, so $x = 7$ is right."
+          ],
+          "answer": "$x = 7$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-pick-expansion",
+          "prompt": "Use $x = 2$ to decide which expression is identically equal to $(x + 4)(x - 3)$.",
+          "hint": "Work out $(x + 4)(x - 3)$ at $x = 2$ first. Then test each option.",
+          "options": [
+            {
+              "text": "$x^{2} + x - 12$",
+              "correct": true
+            },
+            {
+              "text": "$x^{2} - 12$",
+              "correct": false
+            },
+            {
+              "text": "$x^{2} - x - 12$",
+              "correct": false
+            },
+            {
+              "text": "$x^{2} + 7x - 12$",
+              "correct": false
+            }
+          ],
+          "explain": "At $x = 2$ the product is $6 \\times (-1) = -6$. Only $x^{2} + x - 12$ gives $4 + 2 - 12 = -6$. The others give $-8$, $-10$ and $6$."
+        },
+        {
+          "type": "check",
+          "id": "check-find-wrong-line",
+          "prompt": "A student simplifies $(x - 5)^{2} - x(x - 4)$. Line 1: $x^{2} - 10x + 25 - x(x - 4)$. Line 2: $x^{2} - 10x + 25 - x^{2} - 4x$. Line 3: $-14x + 25$. Substitute $x = 2$ into the start and into each line. Where is the first mistake?",
+          "hint": "At $x = 2$ the starting expression is $(-3)^{2} - 2 \\times (-2) = 13$. Which line first gives a different value?",
+          "options": [
+            {
+              "text": "Line 2",
+              "correct": true
+            },
+            {
+              "text": "Line 1",
+              "correct": false
+            },
+            {
+              "text": "Line 3",
+              "correct": false
+            },
+            {
+              "text": "There is no mistake",
+              "correct": false
+            }
+          ],
+          "explain": "Line 1 gives $13$, but Line 2 gives $-3$. Removing the bracket, $-x(x - 4) = -x^{2} + 4x$, not $-x^{2} - 4x$. The correct result is $-6x + 25$."
+        },
+        {
+          "type": "mistake",
+          "text": "Don't treat a check as a proof. Two sides matching at $x = 2$ does not prove an identity. Only the general algebra does."
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 1 has no calculator, so a quick substitution is your best check. It takes seconds and catches most sign slips."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "An equation ($=$) is true for some values. An identity ($\\equiv$) is true for every value.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To prove $\\text{LHS} \\equiv \\text{RHS}$, start from the harder side and change it step by step into the other.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{even: } 2n, \\quad \\text{odd: } 2n + 1, \\quad \\text{multiple of } k\\text{: } kn, \\quad n \\in \\mathbb{Z}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Examples can suggest a result but never prove it. Use letters, such as $n \\in \\mathbb{Z}$, to cover every case.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To show a number is a multiple of $k$, write it as $k \\times (\\text{an integer})$ and say why the bracket is an integer.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Check by substituting $x = 2$ into the start and your result. A mismatch means a slip.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dropping the middle term when squaring: $(n + 3)^{2}$ is $n^{2} + 6n + 9$, not $n^{2} + 9$. Write the bracket out twice.",
+    "Checking a few numbers and calling it a proof. Examples only cover the cases you tried, so prove the general case with letters.",
+    "Losing signs when you subtract a bracket. In $A - (x^{2} - 2x - 3)$ every sign inside changes.",
+    "Stopping at an expression without saying what it shows. Write $10n + 15$ as $5(2n + 3)$, then say that $2n + 3$ is an integer, so the result is a multiple of $5$.",
+    "Starting from the given result, or working on both sides at once. Begin from one side and finish on the other."
+  ],
+  "examTips": [
+    "Show that: the result is given, so show every step, and make your last line match it exactly. End with '$= \\text{RHS}$' or 'as required'.",
+    "Prove: give a general argument with letters, and finish with a sentence stating what you proved.",
+    "Mark schemes give R marks for reasoning, such as saying why $2mn + m + n$ is an integer. Write that reason in words."
+  ],
+  "readingMinutes": 22
+}

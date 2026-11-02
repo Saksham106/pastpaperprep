@@ -1,0 +1,706 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.2",
+  "slug": "function-concepts-domain-and-range",
+  "title": "Function concepts, domain and range",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A [[function|function]] turns each input into exactly one output. Its [[domain|domain]] is the set of inputs it accepts, and its [[range|range]] is the set of outputs it gives. An [[inverse-function|inverse function]] runs it backwards, so solving $f(x) = 10$ is the same as finding $f^{-1}(10)$.",
+  "goals": [
+    {
+      "text": "Explain what a function is, and use notation such as $f(x)$, $v(t)$ and $C(n)$.",
+      "bullets": [
+        "2.2-b1"
+      ]
+    },
+    {
+      "text": "Find the domain and range of a function, using its graph to see the range.",
+      "bullets": [
+        "2.2-b1",
+        "2.2-b2"
+      ]
+    },
+    {
+      "text": "Use a function as a [[mathematical-model|model]] of a real situation, with a domain that fits the context.",
+      "bullets": [
+        "2.2-b2"
+      ]
+    },
+    {
+      "text": "Describe an inverse as undoing a function, and draw it as a reflection in $y = x$.",
+      "bullets": [
+        "2.2-b3"
+      ]
+    },
+    {
+      "text": "Solve $f(x) = k$ by finding $f^{-1}(k)$, knowing that only [[one-to-one|one-to-one]] functions have inverses.",
+      "bullets": [
+        "2.2-b4"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "domain and range",
+    "function notation",
+    "inverse function",
+    "one to one function",
+    "range of a function",
+    "f inverse"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-substitute",
+      "prompt": "Find the value of $3x^{2} - 5x$ when $x = -2$.",
+      "hint": "Put $(-2)$ in place of each $x$, keeping the brackets.",
+      "answer": {
+        "value": 22,
+        "tolerance": 0
+      },
+      "explain": "$3(-2)^{2} - 5(-2) = 3 \\times 4 + 10 = 22$. The brackets keep the square of $-2$ positive."
+    },
+    {
+      "type": "check",
+      "id": "before-solve-linear",
+      "prompt": "Solve $\\frac{x + 4}{3} = 7$.",
+      "hint": "Undo the last step first: multiply both sides by $3$.",
+      "answer": {
+        "value": 17,
+        "tolerance": 0
+      },
+      "explain": "Multiply by $3$ to get $x + 4 = 21$. Then subtract $4$: $x = 17$."
+    },
+    {
+      "type": "check",
+      "id": "before-square-root",
+      "prompt": "For which value of $x$ is $\\sqrt{9 - x}$ not a real number?",
+      "hint": "A real square root needs the number inside to be zero or positive.",
+      "options": [
+        {
+          "text": "$x = 9$",
+          "correct": false
+        },
+        {
+          "text": "$x = 10$",
+          "correct": true
+        },
+        {
+          "text": "$x = 0$",
+          "correct": false
+        },
+        {
+          "text": "$x = -9$",
+          "correct": false
+        }
+      ],
+      "explain": "At $x = 10$ the inside is $9 - 10 = -1$, and no real number squares to $-1$. At $x = 9$ you get $\\sqrt{0} = 0$, which is fine."
+    }
+  ],
+  "sections": [
+    {
+      "id": "functions",
+      "heading": "Functions and function notation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Think of a [[function|function]] as a machine. Feed in a number and it gives back exactly one number. With the rule “double it, then add 1”, an input of $3$ always gives $7$."
+        },
+        {
+          "type": "definition",
+          "term": "function",
+          "statement": "A function $f$ is a rule that assigns to each input $x$ exactly one output, written $f(x)$.",
+          "plain": "One input in, one output out, and the same input always gives the same output."
+        },
+        {
+          "type": "text",
+          "text": "In $f(x) = 2x + 1$, the letter $f$ names the function and $x$ is the input. $f(3)$ means “the output of $f$ when the input is $3$”. So $f(3) = 2(3) + 1 = 7$. It never means $f$ times $3$."
+        },
+        {
+          "type": "text",
+          "text": "Other letters work the same way: $v(t)$ could be a velocity at time $t$, and $C(n)$ the cost of $n$ tickets."
+        },
+        {
+          "type": "text",
+          "text": "The graph of $f$ is the set of all points $(x, f(x))$. Each point's height is its output, so you write $y = f(x)$."
+        },
+        {
+          "type": "result",
+          "statement": "A graph shows a function only if every vertical line meets it at most once.",
+          "why": "A vertical line $x = a$ meets every point with input $a$. Two crossings would mean two outputs for one input."
+        },
+        {
+          "type": "example",
+          "id": "ex-evaluate-notation",
+          "question": "Given $g(x) = x^{2} - 4x + 1$, find $g(-3)$.",
+          "steps": [
+            "Replace every $x$ with $(-3)$, in brackets: $g(-3) = (-3)^{2} - 4(-3) + 1$.",
+            "Work out each term: $(-3)^{2} = 9$ and $-4(-3) = +12$.",
+            "Add: $9 + 12 + 1 = 22$."
+          ],
+          "answer": "$g(-3) = 22$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-notation-expression",
+          "question": "Given $f(x) = x^{2} + 3$, find and simplify $f(x - 1)$.",
+          "steps": [
+            "The input is now the whole expression $x - 1$. Replace every $x$ in the rule with $(x - 1)$: $f(x - 1) = (x - 1)^{2} + 3$.",
+            "Expand the bracket: $(x - 1)^{2} = x^{2} - 2x + 1$.",
+            "Add the $3$: $x^{2} - 2x + 1 + 3 = x^{2} - 2x + 4$.",
+            "Check with $x = 4$: $f(3) = 12$, and $4^{2} - 2(4) + 4 = 12$ too."
+          ],
+          "answer": "$f(x - 1) = x^{2} - 2x + 4$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-evaluate-fraction",
+          "prompt": "Let $p(t) = \\frac{12}{t + 1}$. Find $p(3)$.",
+          "hint": "Put $3$ in place of $t$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "$p(3) = \\frac{12}{3 + 1} = \\frac{12}{4} = 3$."
+        },
+        {
+          "type": "check",
+          "id": "check-notation-expression",
+          "prompt": "Given $f(x) = 2x^{2} - x$, find $f(x + 1)$.",
+          "hint": "Replace every $x$ with $(x + 1)$, brackets included, then expand.",
+          "options": [
+            {
+              "text": "$2x^{2} - x + 1$",
+              "correct": false
+            },
+            {
+              "text": "$2x^{2} + 3x + 1$",
+              "correct": true
+            },
+            {
+              "text": "$2x^{2} + 3x + 3$",
+              "correct": false
+            }
+          ],
+          "explain": "$f(x + 1) = 2(x + 1)^{2} - (x + 1) = 2x^{2} + 4x + 2 - x - 1 = 2x^{2} + 3x + 1$. The minus sign applies to both terms of $(x + 1)$."
+        }
+      ]
+    },
+    {
+      "id": "domain-range",
+      "heading": "Domain and range",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some inputs break a function. You can't take the square root of a negative number or divide by zero. So each function comes with a set of inputs it accepts."
+        },
+        {
+          "type": "definition",
+          "term": "domain",
+          "statement": "The [[domain|domain]] of a function is the set of all input values for which it is defined.",
+          "plain": "The inputs you are allowed to put in."
+        },
+        {
+          "type": "definition",
+          "term": "range",
+          "statement": "The [[range|range]] of a function is the set of all output values it takes over its domain.",
+          "plain": "The outputs you can actually get out."
+        },
+        {
+          "type": "text",
+          "text": "A question may state the domain, as in “$f(x) = x^{2}$, $x \\ge 0$”. If it doesn't, take every real number that works. Two rules find the problem values:"
+        },
+        {
+          "type": "text",
+          "text": "1. A square root needs the expression inside it to be $\\ge 0$."
+        },
+        {
+          "type": "text",
+          "text": "2. A fraction needs its denominator to be non-zero. For example, $\\frac{5}{x + 2}$ has domain $x \\in \\mathbb{R}$, $x \\ne -2$."
+        },
+        {
+          "type": "text",
+          "text": "Write a domain with $x$, such as $x \\ge 4$. Write a range with the output, such as $f(x) \\ge 3$ or $y \\ge 3$. Intervals also work: $x \\ge 4$ is $x \\in [4, \\infty[$."
+        },
+        {
+          "type": "example",
+          "id": "ex-domain-range-root",
+          "question": "Find the domain and range of $f(x) = 3 + \\sqrt{x - 4}$.",
+          "steps": [
+            "Domain: the square root needs $x - 4 \\ge 0$, so $x \\ge 4$.",
+            "Range: the smallest a square root can be is $0$. Here that happens at $x = 4$, where $f(4) = 3 + 0 = 3$.",
+            "As $x$ grows, $\\sqrt{x - 4}$ grows without limit, so $f(x)$ does too. Every output is at least $3$.",
+            "Check with a value: $f(13) = 3 + \\sqrt{9} = 6$, which is $\\ge 3$."
+          ],
+          "answer": "$\\text{domain: } x \\ge 4, \\quad \\text{range: } f(x) \\ge 3$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Finding a range by reasoning alone gets hard quickly. A graph helps: the range is the stretch of the $y$-axis that the graph covers, from its lowest point to its highest."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-range-from-graph",
+          "alt": "Graph of g of x equals x minus 1 squared, minus 4, drawn only from x equals minus 1 to x equals 4. It starts at the point minus 1, 0, falls to its lowest point 1, minus 4, then rises to the end point 4, 5. Dashed lines carry the lowest and highest points across to a thick bar on the right, labelled range, which runs from height minus 4 to height 5.",
+          "caption": "The range of $g$ runs from the lowest point of the graph to the highest, here $-4 \\le g(x) \\le 5$."
+        },
+        {
+          "type": "example",
+          "id": "ex-range-restricted",
+          "question": "Let $g(x) = (x - 1)^{2} - 4$, with domain $-1 \\le x \\le 4$. What is the range of $g$?",
+          "steps": [
+            "Sketch the graph. It is a U-shaped parabola with its lowest point where $(x - 1)^{2} = 0$, at $(1, -4)$. That point lies inside the domain.",
+            "Work out the end points: $g(-1) = (-2)^{2} - 4 = 0$ and $g(4) = 3^{2} - 4 = 5$.",
+            "The lowest output is $-4$, at the turning point. The highest is $5$, at the right-hand end.",
+            "The end values alone, $0$ and $5$, would miss the dip to $-4$ in between."
+          ],
+          "answer": "$-4 \\le g(x) \\le 5$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-domain-root",
+          "prompt": "Find the domain of $k(x) = \\sqrt{10 - 4x}$.",
+          "hint": "Set the inside $\\ge 0$ and solve. Dividing by a negative number flips the inequality.",
+          "options": [
+            {
+              "text": "$x \\ge \\frac{5}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$x \\le \\frac{5}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$x \\le -\\frac{5}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$x \\ge 0$",
+              "correct": false
+            }
+          ],
+          "explain": "$10 - 4x \\ge 0$ gives $-4x \\ge -10$. Dividing by $-4$ flips the sign: $x \\le \\frac{5}{2}$."
+        },
+        {
+          "type": "check",
+          "id": "check-range-graph",
+          "prompt": "Find the range of $f(x) = 7 - x^{2}$ for $-1 \\le x \\le 3$.",
+          "hint": "Sketch it. It is an upside-down parabola with its top at $x = 0$. Is $x = 0$ inside the domain?",
+          "options": [
+            {
+              "text": "$-2 \\le f(x) \\le 6$",
+              "correct": false
+            },
+            {
+              "text": "$-2 \\le f(x) \\le 7$",
+              "correct": true
+            },
+            {
+              "text": "$-1 \\le f(x) \\le 3$",
+              "correct": false
+            },
+            {
+              "text": "$f(x) \\le 7$",
+              "correct": false
+            }
+          ],
+          "explain": "The top, $f(0) = 7$, is inside the domain. The ends give $f(-1) = 6$ and $f(3) = -2$. Using only the ends would miss the top."
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "heading": "Functions as models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[mathematical-model|mathematical model]] is a function that describes something real, such as a cost or a height. Its letters stand for real quantities with units."
+        },
+        {
+          "type": "text",
+          "text": "The context sets the [[domain|domain]]. Time can't be negative, and a number of visits is a whole number. Outside its domain a model can give nonsense, such as a negative height."
+        },
+        {
+          "type": "example",
+          "id": "ex-model-cost",
+          "question": "A climbing gym charges a joining fee plus a fee for each visit. After $n$ visits, a member has paid $C(n) = 25 + 8n$ dollars in total. (a) Find $C(6)$ and say what it means. (b) Find the number of visits after which the total paid reaches $145$ dollars.",
+          "steps": [
+            "(a) $C(6) = 25 + 8(6) = 73$. After $6$ visits the member has paid $73$ dollars in total.",
+            "(b) You want the input that gives the output $145$. Solve $25 + 8n = 145$.",
+            "Subtract $25$: $8n = 120$. Divide by $8$: $n = 15$.",
+            "Check it fits the domain: $n$ counts visits, so it must be a whole number, and $15$ is."
+          ],
+          "answer": "$C(6) = 73, \\; n = 15$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Because $n$ is a whole number ($n = 0, 1, 2, \\ldots$), the graph of $C$ is a row of dots, not a line. Its [[range|range]] is $25, 33, 41, \\ldots$, so a total of exactly $100$ dollars never happens."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2, your calculator draws the graph and you read the range from it. Check the end points and every turning point."
+        },
+        {
+          "type": "example",
+          "id": "ex-model-ball",
+          "question": "A ball is thrown upwards from a height of $1.6$ m. Its height in metres $t$ seconds later is modelled by $h(t) = 1.6 + 11t - 4.9t^{2}$, until it lands on the ground. (a) Use your calculator to find when the ball lands, and hence state a suitable domain. (b) Find the range of $h$. Give your answers to 3 s.f.",
+          "steps": [
+            "(a) The ball lands when its height is $0$. Write down the equation you solve: $1.6 + 11t - 4.9t^{2} = 0$.",
+            "Graph $y = 1.6 + 11x - 4.9x^{2}$ and find its zeros: $x = -0.137\\ldots$ and $x = 2.38198\\ldots$. Time can't be negative, so the ball lands at $t = 2.38$ s.",
+            "The model starts at $t = 0$ and stops at landing, so a suitable domain is $0 \\le t \\le 2.38$.",
+            "(b) Use the maximum tool on the same graph: the top is at $(1.12244\\ldots, 7.77346\\ldots)$. Carry the full value and round only at the end.",
+            "The lowest height over the domain is $0$, at landing. It is not the starting height $1.6$, because the ball falls below that before it lands."
+          ],
+          "answer": "$\\text{domain: } 0 \\le t \\le 2.38, \\quad \\text{range: } 0 \\le h(t) \\le 7.77$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = 1.6+11X-4.9X^2",
+              "GRAPH",
+              "2nd, TRACE (CALC), 2: zero; set a left bound, right bound and guess around X = 2.4",
+              "Read X = 2.38198..., so the ball lands at t = 2.38 s",
+              "2nd, TRACE (CALC), 4: maximum; set bounds either side of the top",
+              "Read Y = 7.77346..., so the greatest height is 7.77 m"
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = 1.6+11x-4.9x^2",
+              "Menu, Analyze Graph, Zero; click left and then right of the crossing near x = 2.4",
+              "Read x = 2.38198..., so the ball lands at t = 2.38 s",
+              "Menu, Analyze Graph, Maximum; click either side of the top",
+              "Read y = 7.77346..., so the greatest height is 7.77 m"
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = 1.6+11X-4.9X^2",
+              "DRAW, then SHIFT F5 (G-SOLV), ROOT; if the first root shown has negative X, press the right arrow for the next one (check on your model)",
+              "Read X = 2.38198..., so the ball lands at t = 2.38 s",
+              "SHIFT F5 (G-SOLV), MAX",
+              "Read Y = 7.77346..., so the greatest height is 7.77 m"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-model-domain",
+          "prompt": "A phone's battery charge, as a percentage, $t$ hours after it was fully charged is modelled by $B(t) = 100 - 6t$. The model holds until the battery is empty. Which is a suitable domain?",
+          "hint": "Time starts at $0$. When is the battery empty?",
+          "options": [
+            {
+              "text": "$t \\ge 0$",
+              "correct": false
+            },
+            {
+              "text": "$0 \\le t \\le 100$",
+              "correct": false
+            },
+            {
+              "text": "$0 \\le t \\le \\frac{50}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$0 \\le t \\le 6$",
+              "correct": false
+            }
+          ],
+          "explain": "The battery is empty when $100 - 6t = 0$, so $t = \\frac{50}{3}$. The domain runs from $t = 0$ to then. The $100$ is an output, not a time."
+        },
+        {
+          "type": "check",
+          "id": "check-model-range",
+          "prompt": "A drone takes off from a roof. Its height in metres $t$ minutes later is modelled by $h(t) = 0.5t^{3} - 6t^{2} + 18t + 2$, for $0 \\le t \\le 7$. Use your calculator to find the range of $h$.",
+          "hint": "Graph it for $0 \\le t \\le 7$. Look at the turning points as well as the two end values.",
+          "options": [
+            {
+              "text": "$2 \\le h(t) \\le 5.5$",
+              "correct": false
+            },
+            {
+              "text": "$2 \\le h(t) \\le 18$",
+              "correct": true
+            },
+            {
+              "text": "$0 \\le h(t) \\le 18$",
+              "correct": false
+            },
+            {
+              "text": "$h(t) \\le 18$",
+              "correct": false
+            }
+          ],
+          "explain": "The graph has a maximum at $(2, 18)$ and a minimum at $(6, 2)$. The end values are $h(0) = 2$ and $h(7) = 5.5$. So the outputs run from $2$ to $18$."
+        }
+      ]
+    },
+    {
+      "id": "inverses",
+      "heading": "Inverse functions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The function $f(x) = 2x + 3$ doubles its input, then adds $3$. To get from an output back to the input, undo those steps in reverse order: subtract $3$, then halve."
+        },
+        {
+          "type": "text",
+          "text": "That undoing rule is the [[inverse-function|inverse function]] of $f$, written $f^{-1}$. Here $f^{-1}(x) = \\frac{x - 3}{2}$. Test it: $f(4) = 11$, and $f^{-1}(11) = \\frac{11 - 3}{2} = 4$."
+        },
+        {
+          "type": "definition",
+          "term": "inverse function",
+          "statement": "The inverse function $f^{-1}$ reverses $f$: if $f(a) = b$, then $f^{-1}(b) = a$.",
+          "plain": "It takes each output back to the input it came from."
+        },
+        {
+          "type": "mistake",
+          "text": "$f^{-1}(x)$ is not $\\frac{1}{f(x)}$. The $-1$ is a label meaning “inverse”, not a power."
+        },
+        {
+          "type": "text",
+          "text": "Swapping input and output swaps the coordinates. If $(a, b)$ is on the graph of $f$, then $(b, a)$ is on the graph of $f^{-1}$."
+        },
+        {
+          "type": "result",
+          "statement": "The graph of $y = f^{-1}(x)$ is the reflection of the graph of $y = f(x)$ in the line $y = x$.",
+          "why": "Reflecting in $y = x$ sends each point $(a, b)$ to $(b, a)$, which is exactly what the inverse does."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-inverse-reflection",
+          "alt": "The graph of y equals f of x, where f of x is x squared plus 1 for x at least 0, rises steeply from the point 0, 1. Its reflection in the dashed line y equals x is the graph of y equals f inverse of x, which starts at 1, 0 and rises slowly. The point 2, 5 on the first curve and the point 5, 2 on the second are joined by a dotted segment that crosses y equals x at right angles.",
+          "caption": "$f(x) = x^{2} + 1$, $x \\ge 0$, and its inverse. The point $(2, 5)$ on $f$ becomes $(5, 2)$ on $f^{-1}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-undo",
+          "question": "Let $f(x) = \\frac{x}{4} + 5$. Find $f^{-1}(x)$ by undoing the steps of $f$.",
+          "steps": [
+            "List what $f$ does to its input, in order: divide by $4$, then add $5$.",
+            "Undo them in reverse order: first subtract $5$, then multiply by $4$.",
+            "Apply these to the input $x$: $x - 5$, then $4(x - 5) = 4x - 20$.",
+            "Check with a number: $f(8) = 2 + 5 = 7$, and $f^{-1}(7) = 28 - 20 = 8$, back where you started."
+          ],
+          "answer": "$f^{-1}(x) = 4x - 20$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Undoing steps works when $x$ appears once in the rule. In {{lesson:2.5}} you'll learn an algebraic method that finds inverses of harder functions."
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-linear",
+          "prompt": "Let $f(x) = 3x - 7$. Which is $f^{-1}(x)$?",
+          "hint": "$f$ multiplies by $3$, then subtracts $7$. Undo those in reverse order.",
+          "options": [
+            {
+              "text": "$\\frac{x}{3} + 7$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{x + 7}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{3x - 7}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{x - 7}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "First add $7$, then divide by $3$: $f^{-1}(x) = \\frac{x + 7}{3}$. Check: $f(2) = -1$ and $\\frac{-1 + 7}{3} = 2$."
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-reflect",
+          "prompt": "The point $(-3, 8)$ lies on the graph of $y = f(x)$. Which point must lie on the graph of $y = f^{-1}(x)$?",
+          "hint": "Reflecting in $y = x$ swaps the two coordinates.",
+          "options": [
+            {
+              "text": "$(3, -8)$",
+              "correct": false
+            },
+            {
+              "text": "$(8, -3)$",
+              "correct": true
+            },
+            {
+              "text": "$(-8, 3)$",
+              "correct": false
+            }
+          ],
+          "explain": "$f(-3) = 8$, so $f^{-1}(8) = -3$. The point is $(8, -3)$."
+        },
+        {
+          "type": "text",
+          "text": "Not every function can be undone. $f(x) = x^{2}$ sends both $3$ and $-3$ to $9$. Undoing would have to send $9$ back to two inputs, and a function gives only one output."
+        },
+        {
+          "type": "definition",
+          "term": "one-to-one",
+          "statement": "A function is [[one-to-one|one-to-one]] if no two different inputs give the same output.",
+          "plain": "Every output comes from exactly one input."
+        },
+        {
+          "type": "result",
+          "statement": "A function has an inverse only if it is one-to-one. On a graph, every horizontal line meets a one-to-one function at most once.",
+          "why": "A horizontal line $y = b$ meets the graph at every input with output $b$. Two crossings would leave $f^{-1}(b)$ with two values."
+        },
+        {
+          "type": "text",
+          "text": "Restricting the [[domain|domain]] can make a function one-to-one. $x^{2}$ with $x \\ge 0$ passes the horizontal line test, and its inverse is $\\sqrt{x}$."
+        },
+        {
+          "type": "result",
+          "statement": "Inputs and outputs trade places: $f^{-1}$ accepts exactly the outputs of $f$. So the domain of $f^{-1}$ equals the [[range|range]] of $f$, and its range equals the domain of $f$.",
+          "why": "The inverse swaps inputs and outputs, so the two sets swap roles too."
+        },
+        {
+          "type": "text",
+          "text": "Now the key link. Solving $f(x) = 10$ asks which input gives the output $10$. That input is exactly $f^{-1}(10)$. So you can find $f^{-1}(10)$ by solving $f(x) = 10$, with no formula for $f^{-1}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-solve",
+          "question": "The function $g$ is defined by $g(x) = x^{2} - 6$ for $x \\ge 0$. (a) Write down the domain of $g^{-1}$. (b) Find $g^{-1}(10)$.",
+          "steps": [
+            "(a) Since $x^{2} \\ge 0$, the smallest output is $g(0) = -6$, and outputs grow from there. So the range of $g$ is $g(x) \\ge -6$.",
+            "The domain of $g^{-1}$ is the range of $g$: $x \\ge -6$.",
+            "(b) $g^{-1}(10)$ is the input that gives $10$. Solve $x^{2} - 6 = 10$, so $x^{2} = 16$ and $x = 4$ or $x = -4$.",
+            "The domain of $g$ is $x \\ge 0$, so reject $-4$. Check: $g(4) = 16 - 6 = 10$."
+          ],
+          "answer": "$\\text{domain of } g^{-1}\\text{: } x \\ge -6, \\quad g^{-1}(10) = 4$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-gdc",
+          "question": "The function $f(x) = x^{3} + 2x - 5$ is one-to-one. Use your calculator to find $f^{-1}(20)$. Give your answer to 3 s.f.",
+          "steps": [
+            "There's no easy formula for $f^{-1}$ here. But $f^{-1}(20)$ is the input that gives $20$, so solve $f(x) = 20$.",
+            "Write down the equation first: $x^{3} + 2x - 5 = 20$, or $x^{3} + 2x - 25 = 0$.",
+            "Graph $y = x^{3} + 2x - 25$ and use the zero tool, as for the ball above: $x = 2.69651\\ldots$. It crosses only once, as a one-to-one function should.",
+            "Round only now, to 3 s.f. Keep the trailing zero: $2.70$, not $2.7$."
+          ],
+          "answer": "$f^{-1}(20) \\approx 2.70$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-value",
+          "prompt": "Let $h(x) = 2x^{3} + 1$. Find $h^{-1}(55)$.",
+          "hint": "$h^{-1}(55)$ is the input that gives the output $55$. Solve $h(x) = 55$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "$2x^{3} + 1 = 55$ gives $2x^{3} = 54$, so $x^{3} = 27$ and $x = 3$. Check: $h(3) = 54 + 1 = 55$."
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-domain",
+          "prompt": "The function $f$ is defined by $f(x) = (x - 2)^{2} + 1$ for $x \\ge 2$. What is the domain of $f^{-1}$?",
+          "hint": "The domain of $f^{-1}$ is the range of $f$. What is the smallest output of $f$?",
+          "options": [
+            {
+              "text": "$x \\ge 2$",
+              "correct": false
+            },
+            {
+              "text": "$x \\ge 1$",
+              "correct": true
+            },
+            {
+              "text": "$x \\ge 0$",
+              "correct": false
+            },
+            {
+              "text": "$x \\le 1$",
+              "correct": false
+            }
+          ],
+          "explain": "The smallest output is $f(2) = 1$, and outputs grow from there. So the range of $f$ is $f(x) \\ge 1$, and the domain of $f^{-1}$ is $x \\ge 1$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you find inverses algebraically after restricting a domain yourself, and meet self-inverse functions, where $f^{-1}(x) = f(x)$.",
+          "lesson": "2.14"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A function gives exactly one output $f(x)$ for each input $x$ in its domain.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Domain: the inputs allowed. A square root needs its inside $\\ge 0$, and a denominator can't be $0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Range: the outputs you get. Sketch the graph over the domain and read off the lowest and highest values.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a model, the context sets the domain: times are not negative, and counts are whole numbers.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$f^{-1}$ undoes $f$: if $f(a) = b$, then $f^{-1}(b) = a$. Its graph is the reflection of $y = f(x)$ in $y = x$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Only one-to-one functions have inverses. The domain of $f^{-1}$ is the range of $f$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Solving $f(x) = k$ is the same as finding $f^{-1}(k)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving the range in terms of $x$, or as the $x$-value of a turning point. A range lists outputs, so write it with $f(x)$ or $y$, such as $f(x) \\ge -4$.",
+    "Finding the range from the end points alone. The graph can dip lower or rise higher in between, so check every turning point inside the domain.",
+    "Reading $f^{-1}(x)$ as $\\frac{1}{f(x)}$. The $-1$ means “inverse”, not a power.",
+    "Keeping both roots when you solve $f(x) = k$ on a restricted domain. If the domain is $x \\ge 0$, a negative root is not an input of $f$, so reject it.",
+    "Including a value that breaks the function. A denominator can't be $0$, so that value of $x$ is left out of the domain."
+  ],
+  "examTips": [
+    "**Write down** means no working is needed, but the notation must be right: use $x$ for a domain and $f(x)$ or $y$ for a range.",
+    "To **find** a range, sketch the graph over the given domain first. Mark the end points and turning points, then read off the lowest and highest outputs.",
+    "On Paper 2, you can find $f^{-1}(k)$ without a formula. Write down the equation $f(x) = k$, then solve it on your GDC. That written equation earns the method mark.",
+    "**Interpret** means say what a value means in the context, in words and with units. Check it makes sense: a time can't be negative."
+  ],
+  "readingMinutes": 26
+}

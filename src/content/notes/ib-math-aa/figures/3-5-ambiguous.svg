@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 275" role="img" aria-labelledby="t">
+  <title id="t">Two triangles with angle A of 30 degrees, AC of 6 and BC of 3 root 2: B1 gives an acute angle, B2 an obtuse angle</title>
+  <line x1="40" y1="200" x2="390" y2="200" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M127.8 200 A169.7 169.7 0 0 0 367.8 200" fill="none" stroke="var(--muted)" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <line x1="40" y1="200" x2="247.8" y2="80" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="247.8" y1="80" x2="367.8" y2="200" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <line x1="247.8" y1="80" x2="127.8" y2="200" stroke="var(--t5-ink)" stroke-width="2.4"/>
+  <path d="M80 200 A40 40 0 0 0 74.6 180" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <path d="M343.8 200 A24 24 0 0 1 350.8 183" fill="none" stroke="var(--t1-ink)" stroke-width="1.5"/>
+  <path d="M103.8 200 A24 24 0 0 1 144.8 183" fill="none" stroke="var(--t5-ink)" stroke-width="1.5"/>
+  <g fill="currentColor">
+    <circle cx="40" cy="200" r="3.5"/>
+    <circle cx="247.8" cy="80" r="3.5"/>
+  </g>
+  <circle cx="367.8" cy="200" r="4" fill="var(--t1-ink)"/>
+  <circle cx="127.8" cy="200" r="4" fill="var(--t5-ink)"/>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="24" y="206">A</text>
+    <text x="242" y="68">C</text>
+    <text x="84" y="192">30°</text>
+    <text x="132" y="128" text-anchor="end">6</text>
+  </g>
+  <g font-size="14" font-family="inherit">
+    <text x="372" y="222" fill="var(--t1-ink)">B₁</text>
+    <text x="120" y="222" fill="var(--t5-ink)">B₂</text>
+    <text x="316" y="128" fill="var(--t1-ink)">3√2</text>
+    <text x="184" y="162" fill="var(--t5-ink)">3√2</text>
+  </g>
+</svg>

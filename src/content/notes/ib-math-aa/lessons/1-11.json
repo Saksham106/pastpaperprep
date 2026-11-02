@@ -1,0 +1,441 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.11",
+  "slug": "partial-fractions",
+  "title": "Partial fractions",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "[[partial-fractions|Partial fractions]] undo the adding of fractions. You split one fraction over two linear factors, such as $\\frac{4x + 10}{(x - 5)(x + 1)}$, into two simpler ones, $\\frac{5}{x - 5} - \\frac{1}{x + 1}$. Each simple piece is easy to integrate or to expand as a series.",
+  "goals": [
+    {
+      "text": "Recognise which fractions split into [[partial-fractions|partial fractions]]: a proper fraction over two different linear factors.",
+      "bullets": [
+        "1.11-b2"
+      ]
+    },
+    {
+      "text": "Split a fraction by writing an identity and substituting the value of $x$ that makes each factor zero.",
+      "bullets": [
+        "1.11-b1"
+      ]
+    },
+    {
+      "text": "Find the constants by comparing coefficients instead, when that is easier or as a check.",
+      "bullets": [
+        "1.11-b1"
+      ]
+    },
+    {
+      "text": "Deal with factors such as $2x - 1$ and $2 - x$, common factors, and a form the question fixes.",
+      "bullets": [
+        "1.11-b1",
+        "1.11-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "2.7"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "partial fraction decomposition",
+    "split a fraction",
+    "express in partial fractions",
+    "decompose a rational expression",
+    "A over x plus B over"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-factorise",
+      "prompt": "Factorise $x^{2} - 2x - 15$.",
+      "hint": "Find two numbers that multiply to $-15$ and add to $-2$.",
+      "options": [
+        {
+          "text": "$(x + 5)(x - 3)$",
+          "correct": false
+        },
+        {
+          "text": "$(x - 5)(x + 3)$",
+          "correct": true
+        },
+        {
+          "text": "$(x - 15)(x + 1)$",
+          "correct": false
+        },
+        {
+          "text": "$(x - 5)(x - 3)$",
+          "correct": false
+        }
+      ],
+      "explain": "$-5 \\times 3 = -15$ and $-5 + 3 = -2$, so $x^{2} - 2x - 15 = (x - 5)(x + 3)$. Revise it in {{lesson:2.7}}."
+    },
+    {
+      "type": "check",
+      "id": "before-identity",
+      "prompt": "Given that $5x - 1 \\equiv a(x + 2) + b$ for every value of $x$, find $a$ and $b$.",
+      "hint": "Expand the right side. Then match the $x$ terms, and match the constant terms.",
+      "options": [
+        {
+          "text": "$a = 5, \\; b = 9$",
+          "correct": false
+        },
+        {
+          "text": "$a = 5, \\; b = -1$",
+          "correct": false
+        },
+        {
+          "text": "$a = 5, \\; b = -11$",
+          "correct": true
+        }
+      ],
+      "explain": "The right side is $ax + 2a + b$. The $x$ terms give $a = 5$. The constants give $10 + b = -1$, so $b = -11$. Revise identities in {{lesson:1.6}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "splitting",
+      "heading": "Splitting a fraction into partial fractions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You already know how to add two fractions. Put them over a common denominator, then add the tops: $\\frac{3}{x - 3} + \\frac{1}{x + 4} = \\frac{3(x + 4) + (x - 3)}{(x - 3)(x + 4)} = \\frac{4x + 9}{(x - 3)(x + 4)}$."
+        },
+        {
+          "type": "text",
+          "text": "Partial fractions run this backwards. You start from $\\frac{4x + 9}{(x - 3)(x + 4)}$ and recover the two simple fractions it came from."
+        },
+        {
+          "type": "text",
+          "text": "Why bother? One fraction over a quadratic is hard to integrate or to expand. Each simple piece is easy. You'll use this for integrals in {{lesson:5.15}} and for series in {{lesson:1.10}}."
+        },
+        {
+          "type": "definition",
+          "term": "partial fractions",
+          "statement": "Writing a fraction whose denominator is a product of linear factors as a sum of fractions, one for each factor, each with a constant numerator.",
+          "plain": "The simple fractions you get back when you undo adding fractions."
+        },
+        {
+          "type": "text",
+          "text": "The course limits which fractions you split. The denominator has at most two different linear factors. The top has a lower [[degree-of-a-polynomial|degree]] than the bottom, which makes it a [[proper-fraction|proper fraction]]."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{px + q}{(ax + b)(cx + d)} \\equiv \\frac{A}{ax + b} + \\frac{B}{cx + d}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Here $p$ and $q$ are known numbers, and $p$ may be $0$. The factors $ax + b$ and $cx + d$ must be different. $A$ and $B$ are the constants you find."
+        },
+        {
+          "type": "text",
+          "text": "The sign $\\equiv$ says this is an [[identity|identity]]. It is true for every $x$ where the fractions are defined, not just for some $x$."
+        },
+        {
+          "type": "text",
+          "text": "So you won't be asked to split $\\frac{x + 1}{(x - 3)^{2}}$, where a factor repeats. Nor $\\frac{x + 1}{x^{2} + 4}$, where the bottom has no linear factors. A top such as $x^{2} + 1$ over a quadratic isn't proper, so that is out too."
+        },
+        {
+          "type": "check",
+          "id": "check-which-fraction",
+          "prompt": "Which fraction fits the course's limits, so you can split it into two partial fractions?",
+          "hint": "Factorise each denominator if you can. Then compare the degree of the top with the degree of the bottom.",
+          "options": [
+            {
+              "text": "$\\frac{x + 1}{x^{2} + 4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{x + 1}{x^{2} - 5x + 6}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{x + 1}{x^{2} - 6x + 9}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{x^{2} + 1}{x^{2} - 5x + 6}$",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{2} - 5x + 6 = (x - 2)(x - 3)$ has two different linear factors, and the top has degree $1$. $x^{2} + 4$ doesn't factorise, $x^{2} - 6x + 9 = (x - 3)^{2}$ repeats a factor, and $\\frac{x^{2} + 1}{x^{2} - 5x + 6}$ isn't proper."
+        },
+        {
+          "type": "text",
+          "text": "To find $A$ and $B$, follow these steps."
+        },
+        {
+          "type": "text",
+          "text": "1. Factorise the denominator fully."
+        },
+        {
+          "type": "text",
+          "text": "2. Write the identity, with $A$ over one factor and $B$ over the other."
+        },
+        {
+          "type": "text",
+          "text": "3. Multiply both sides by the whole denominator. You get the top $\\equiv A(\\ldots) + B(\\ldots)$, with no fractions left."
+        },
+        {
+          "type": "text",
+          "text": "4. Substitute the value of $x$ that makes one bracket zero. That term vanishes, leaving one equation in one unknown. Repeat with the other bracket."
+        },
+        {
+          "type": "text",
+          "text": "5. Check: recombine your fractions, or test one more value of $x$ in the original fraction."
+        },
+        {
+          "type": "result",
+          "statement": "You may substitute the values of $x$ that make a factor zero into the identity from step 3.",
+          "why": "After multiplying through, both sides are polynomials that agree for every other $x$. Two polynomials that agree at infinitely many points are the same polynomial, so they agree at those values too."
+        },
+        {
+          "type": "example",
+          "id": "ex-split-roots",
+          "question": "Express $\\frac{4x + 10}{x^{2} - 4x - 5}$ in partial fractions.",
+          "steps": [
+            "Factorise the denominator. $-5 \\times 1 = -5$ and $-5 + 1 = -4$, so $x^{2} - 4x - 5 = (x - 5)(x + 1)$.",
+            "Write the identity: $\\frac{4x + 10}{(x - 5)(x + 1)} \\equiv \\frac{A}{x - 5} + \\frac{B}{x + 1}$.",
+            "Multiply both sides by $(x - 5)(x + 1)$: $4x + 10 \\equiv A(x + 1) + B(x - 5)$.",
+            "Put $x = 5$, so the $B$ term vanishes: $30 = 6A$, so $A = 5$.",
+            "Put $x = -1$, so the $A$ term vanishes: $6 = -6B$, so $B = -1$.",
+            "Check with $x = 0$. The original gives $\\frac{10}{-5} = -2$, and $\\frac{5}{-5} - \\frac{1}{1} = -2$ too."
+          ],
+          "answer": "$\\frac{4x + 10}{x^{2} - 4x - 5} \\equiv \\frac{5}{x - 5} - \\frac{1}{x + 1}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping $A$ and $B$. The value that makes a factor zero finds the numerator over that same factor: $x = 5$ gives $A$, which sits over $x - 5$. Recombine at the end to catch a swap."
+        },
+        {
+          "type": "check",
+          "id": "check-split-x",
+          "prompt": "Express $\\frac{8}{x^{2} - 4x}$ in partial fractions.",
+          "hint": "Factorise the bottom as $x(x - 4)$. The top is a constant, so $p = 0$ here.",
+          "options": [
+            {
+              "text": "$\\frac{2}{x} - \\frac{2}{x - 4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{8}{x - 4} - \\frac{8}{x}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2}{x - 4} - \\frac{2}{x}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{2}{x - 4} + \\frac{2}{x}$",
+              "correct": false
+            }
+          ],
+          "explain": "$8 \\equiv A(x - 4) + Bx$, with $A$ over $x$ and $B$ over $x - 4$. $x = 0$ gives $8 = -4A$, so $A = -2$. $x = 4$ gives $8 = 4B$, so $B = 2$."
+        },
+        {
+          "type": "text",
+          "text": "When a factor is like $2x - 1$, the value that makes it zero is a fraction, $x = \\frac{1}{2}$. Substitute it just the same."
+        },
+        {
+          "type": "example",
+          "id": "ex-split-nonmonic",
+          "question": "Express $\\frac{5x + 8}{2x^{2} + 5x - 3}$ in partial fractions.",
+          "steps": [
+            "Factorise the bottom. $2 \\times (-3) = -6$, and $6$ and $-1$ multiply to $-6$ and add to $5$. So $2x^{2} + 6x - x - 3 = 2x(x + 3) - (x + 3) = (2x - 1)(x + 3)$.",
+            "Write the identity with $A$ over $2x - 1$ and $B$ over $x + 3$. Multiply through: $5x + 8 \\equiv A(x + 3) + B(2x - 1)$.",
+            "$2x - 1 = 0$ when $x = \\frac{1}{2}$. Then $\\frac{5}{2} + 8 = A \\times \\frac{7}{2}$, so $\\frac{21}{2} = \\frac{7}{2}A$ and $A = 3$.",
+            "$x + 3 = 0$ when $x = -3$. Then $-15 + 8 = B \\times (-7)$, so $-7 = -7B$ and $B = 1$.",
+            "Check by recombining: $3(x + 3) + (2x - 1) = 5x + 8$, the original top."
+          ],
+          "answer": "$\\frac{5x + 8}{2x^{2} + 5x - 3} \\equiv \\frac{3}{2x - 1} + \\frac{1}{x + 3}$",
+          "check": {
+            "type": "check",
+            "id": "check-split-half",
+            "prompt": "Now you try. Given that $\\frac{8x - 1}{(2x + 1)(x - 2)} \\equiv \\frac{A}{2x + 1} + \\frac{B}{x - 2}$, find the value of $A$.",
+            "hint": "Multiply through, then use the value of $x$ that makes $2x + 1$ zero.",
+            "answer": {
+              "value": 2,
+              "tolerance": 0
+            },
+            "explain": "$8x - 1 \\equiv A(x - 2) + B(2x + 1)$. Put $x = -\\frac{1}{2}$: $-5 = -\\frac{5}{2}A$, so $A = 2$. (Then $x = 2$ gives $15 = 5B$, so $B = 3$.)"
+          },
+          "video": null
+        }
+      ]
+    },
+    {
+      "id": "coefficients",
+      "heading": "Comparing coefficients and fixed forms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Substituting is usually quickest. The other way is [[comparing-coefficients|comparing coefficients]]. Expand the right side of the [[identity|identity]], then match the $x$ terms and the constant terms on the two sides."
+        },
+        {
+          "type": "result",
+          "statement": "If $px + q \\equiv rx + s$ for every $x$, then $p = r$ and $q = s$.",
+          "why": "Putting $x = 0$ gives $q = s$. Then $px = rx$ for every $x$, and $x = 1$ gives $p = r$."
+        },
+        {
+          "type": "text",
+          "text": "This gives two simultaneous equations in $A$ and $B$. It suits a question that asks for it, and it makes a good second check."
+        },
+        {
+          "type": "example",
+          "id": "ex-coeff-compare",
+          "question": "By comparing coefficients, express $\\frac{18 - x}{x^{2} + 4x - 12}$ in partial fractions.",
+          "steps": [
+            "Factorise: $-2 \\times 6 = -12$ and $-2 + 6 = 4$, so $x^{2} + 4x - 12 = (x - 2)(x + 6)$.",
+            "Write the identity with $A$ over $x - 2$ and $B$ over $x + 6$. Multiply through: $18 - x \\equiv A(x + 6) + B(x - 2)$.",
+            "Expand and collect the right side: $18 - x \\equiv (A + B)x + (6A - 2B)$.",
+            "Compare coefficients. The $x$ terms give $A + B = -1$. The constants give $6A - 2B = 18$.",
+            "Solve. Double the first equation and add it to the second: $8A = 16$, so $A = 2$. Then $B = -1 - 2 = -3$.",
+            "Check by substituting $x = 2$ into the identity: $16 = 8A$, so $A = 2$ again."
+          ],
+          "answer": "$\\frac{18 - x}{x^{2} + 4x - 12} \\equiv \\frac{2}{x - 2} - \\frac{3}{x + 6}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A question may fix the form of the answer, and then you match it exactly. If it asks for $\\frac{A}{2 - x}$, factorise so that $2 - x$ appears, not $x - 2$."
+        },
+        {
+          "type": "text",
+          "text": "To get a factor like $2 - x$, take out $-1$ from the quadratic first. Also take out any common number factor, such as the $3$ in $3x^{2} - 12$, before you split."
+        },
+        {
+          "type": "example",
+          "id": "ex-given-form",
+          "question": "Express $\\frac{3x + 1}{10 - 3x - x^{2}}$ in the form $\\frac{A}{2 - x} + \\frac{B}{x + 5}$, where $A$ and $B$ are constants.",
+          "steps": [
+            "Take out $-1$, then factorise: $10 - 3x - x^{2} = -(x^{2} + 3x - 10) = -(x - 2)(x + 5)$.",
+            "Move the minus sign into the first bracket: $-(x - 2) = 2 - x$. So the denominator is $(2 - x)(x + 5)$, which matches the form.",
+            "Multiply through: $3x + 1 \\equiv A(x + 5) + B(2 - x)$.",
+            "Put $x = 2$: $7 = 7A$, so $A = 1$. Put $x = -5$: $-14 = 7B$, so $B = -2$.",
+            "Check with $x = 0$. The original gives $\\frac{1}{10}$, and $\\frac{1}{2} - \\frac{2}{5} = \\frac{1}{10}$ too."
+          ],
+          "answer": "$\\frac{3x + 1}{10 - 3x - x^{2}} \\equiv \\frac{1}{2 - x} - \\frac{2}{x + 5}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Turning $2 - x$ into $x - 2$ without changing a sign. $\\frac{1}{2 - x} = -\\frac{1}{x - 2}$, so if you swap the bracket round, flip the sign of its numerator too."
+        },
+        {
+          "type": "check",
+          "id": "check-common-factor",
+          "prompt": "Express $\\frac{6}{3x^{2} - 12}$ in partial fractions.",
+          "hint": "Take out the common factor $3$ first. What is left factorises as a difference of two squares.",
+          "options": [
+            {
+              "text": "$\\frac{3}{2(x - 2)} - \\frac{3}{2(x + 2)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{x - 2} - \\frac{1}{x + 2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2(x + 2)} - \\frac{1}{2(x - 2)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2(x - 2)} - \\frac{1}{2(x + 2)}$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\frac{6}{3(x^{2} - 4)} = \\frac{2}{(x - 2)(x + 2)}$. Then $2 \\equiv A(x + 2) + B(x - 2)$. $x = 2$ gives $A = \\frac{1}{2}$, and $x = -2$ gives $B = -\\frac{1}{2}$."
+        },
+        {
+          "type": "check",
+          "id": "check-given-form",
+          "prompt": "Express $\\frac{5x}{(x + 1)(4 - x)}$ in the form $\\frac{A}{x + 1} + \\frac{B}{4 - x}$.",
+          "hint": "Multiply through to get $5x \\equiv A(4 - x) + B(x + 1)$. Keep the bracket $4 - x$ as it is.",
+          "options": [
+            {
+              "text": "$-\\frac{1}{x + 1} - \\frac{4}{4 - x}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1}{x + 1} + \\frac{4}{4 - x}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{4}{x + 1} - \\frac{1}{4 - x}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{x + 1} + \\frac{4}{4 - x}$",
+              "correct": false
+            }
+          ],
+          "explain": "$x = -1$ gives $-5 = 5A$, so $A = -1$. $x = 4$ gives $20 = 5B$, so $B = 4$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\frac{px + q}{(ax + b)(cx + d)} \\equiv \\frac{A}{ax + b} + \\frac{B}{cx + d}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Split only a proper fraction (top of lower degree) whose bottom has two different linear factors.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Method: factorise the bottom, write the identity, multiply through, then put in the $x$ that makes each factor zero.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Or expand and compare coefficients of $x$ and the constants, then solve the two equations.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Take out a common factor or a $-1$ first, and match any form the question fixes, such as $\\frac{B}{2 - x}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Check by recombining the fractions or by testing one more value of $x$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Swapping $A$ and $B$. The value of $x$ that makes a factor zero finds the numerator over that same factor. Recombine your fractions to catch a swap.",
+    "Using the wrong value for a factor such as $2x - 1$. Solve $2x - 1 = 0$ to get $x = \\frac{1}{2}$. With $x = 1$ or $x = -\\frac{1}{2}$, $2x - 1$ isn't zero, so its term doesn't vanish and you still have two unknowns.",
+    "Losing a sign with a factor written as $4 - x$. It equals $-(x - 4)$, so if you swap it round, change the sign of its numerator too.",
+    "Forgetting a common factor. In $\\frac{6}{3x^{2} - 12}$, take out the $3$ first, or your $A$ and $B$ come out three times too big.",
+    "Splitting a fraction that doesn't qualify. First check that the bottom has two different linear factors and the top has a lower degree."
+  ],
+  "examTips": [
+    "“Express in partial fractions”: write the identity line, such as $4x + 10 \\equiv A(x + 1) + B(x - 5)$, before you find $A$ and $B$. It shows your method, so it can earn marks even if a value slips.",
+    "“Show that” a fraction equals a given split: work forwards from the fraction you are given, finding $A$ and $B$ from the identity. Recombining the given fractions is your check.",
+    "“Hence” after a partial fractions part means use the fractions you just found, often to integrate them, as in {{lesson:5.15}}. A wrong $A$ or $B$ used correctly can still earn follow-through (FT) marks.",
+    "On Paper 1, keep $A$ and $B$ exact: write $\\frac{2}{3}$, not $0.667$."
+  ],
+  "readingMinutes": 15
+}

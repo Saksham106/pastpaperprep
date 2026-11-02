@@ -1,0 +1,747 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.1",
+  "slug": "3d-distance-midpoint-and-measurement",
+  "title": "3D distance, midpoint and measurement",
+  "level": "SL",
+  "topic": 3,
+  "summary": "In 3D, distance is Pythagoras with a third coordinate, and the midpoint averages each coordinate. You'll find volumes and surface areas of pyramids, cones, spheres and hemispheres. Then you'll find lengths and angles inside solids by spotting right-angled triangles.",
+  "goals": [
+    {
+      "text": "Find the distance between two points in 3D, and their midpoint.",
+      "bullets": [
+        "3.1-b1"
+      ]
+    },
+    {
+      "text": "Find the volume and surface area of [[right-pyramid|right pyramids]], [[right-cone|right cones]], spheres, [[hemisphere|hemispheres]] and solids built from them.",
+      "bullets": [
+        "3.1-b2"
+      ]
+    },
+    {
+      "text": "Spot right-angled triangles inside a solid and use them to find lengths.",
+      "bullets": [
+        "3.1-b4"
+      ]
+    },
+    {
+      "text": "Find the angle between two lines that meet, and the [[angle-between-line-and-plane|angle between a line and a plane]].",
+      "bullets": [
+        "3.1-b3",
+        "3.1-b4"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "3d pythagoras",
+    "distance between two points in 3d",
+    "midpoint in 3d",
+    "volume of a cone",
+    "surface area of a hemisphere",
+    "angle between a line and a plane"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-pythagoras",
+      "prompt": "A right-angled triangle has shorter sides $7$ cm and $24$ cm. Find the hypotenuse, in cm.",
+      "hint": "Square the two shorter sides and add.",
+      "options": [
+        {
+          "text": "$31$",
+          "correct": false
+        },
+        {
+          "text": "$25$",
+          "correct": true
+        },
+        {
+          "text": "$\\sqrt{527}$",
+          "correct": false
+        }
+      ],
+      "explain": "$7^{2} + 24^{2} = 625$, and $\\sqrt{625} = 25$. Pythagoras finds every length in this lesson."
+    },
+    {
+      "type": "check",
+      "id": "before-sine-angle",
+      "prompt": "In a right-angled triangle, the side opposite angle $\\theta$ is $5$ cm and the hypotenuse is $8$ cm. Find $\\theta$ to 3 s.f.",
+      "hint": "Which of sine, cosine and tangent uses the opposite side and the hypotenuse?",
+      "options": [
+        {
+          "text": "$\\theta \\approx 38.7^{\\circ}$",
+          "correct": true
+        },
+        {
+          "text": "$\\theta \\approx 51.3^{\\circ}$",
+          "correct": false
+        },
+        {
+          "text": "$\\theta \\approx 32.0^{\\circ}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\sin\\theta = \\frac{5}{8}$, so $\\theta = \\sin^{-1}\\left(\\frac{5}{8}\\right) \\approx 38.7^{\\circ}$. Cosine gives $51.3^{\\circ}$; tangent gives $32.0^{\\circ}$."
+    },
+    {
+      "type": "check",
+      "id": "before-circle-area",
+      "prompt": "Find the exact area of a circle with diameter $10$ cm.",
+      "hint": "$\\pi r^{2}$ needs the radius, not the diameter.",
+      "options": [
+        {
+          "text": "$100\\pi$",
+          "correct": false
+        },
+        {
+          "text": "$10\\pi$",
+          "correct": false
+        },
+        {
+          "text": "$25\\pi$",
+          "correct": true
+        }
+      ],
+      "explain": "The radius is $5$, so the area is $\\pi \\times 5^{2} = 25\\pi\\text{ cm}^{2}$."
+    }
+  ],
+  "sections": [
+    {
+      "id": "distance-midpoint",
+      "heading": "Distance and midpoint in 3D",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In 3D a point has three coordinates, $(x, y, z)$. Think of $x$ and $y$ as directions across a floor, and $z$ as height above it."
+        },
+        {
+          "type": "text",
+          "text": "To get from A to B, you move along $x$, then $y$, then $z$. Those moves are three edges of a box, and AB is its [[space-diagonal|space diagonal]]."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-box-diagonal",
+          "alt": "A cuboid with edges a, b and c. A dashed floor diagonal f runs from corner A to the corner below B, meeting the vertical edge c at a right angle. The space diagonal d joins A to B.",
+          "caption": "Pythagoras on the floor gives $f$. Then $f$, $c$ and $d$ make a second right-angled triangle."
+        },
+        {
+          "type": "text",
+          "text": "So use Pythagoras twice: $f^{2} = a^{2} + b^{2}$, then $d^{2} = f^{2} + c^{2} = a^{2} + b^{2} + c^{2}$. The edges are the differences in the coordinates of A and B."
+        },
+        {
+          "type": "formula",
+          "tex": "d = \\sqrt{(x_{1} - x_{2})^{2} + (y_{1} - y_{2})^{2} + (z_{1} - z_{2})^{2}}",
+          "tag": "booklet",
+          "bookletId": "bk-3-1-distance-3d",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Here $(x_{1}, y_{1}, z_{1})$ and $(x_{2}, y_{2}, z_{2})$ are the two points and $d$ is the distance between them. It is in the formula booklet."
+        },
+        {
+          "type": "example",
+          "id": "ex-distance-3d",
+          "question": "Find the distance between $\\text{A}(2, -1, 5)$ and $\\text{B}(-4, 1, 2)$.",
+          "steps": [
+            "Subtract coordinate by coordinate: $2 - (-4) = 6$, $-1 - 1 = -2$ and $5 - 2 = 3$.",
+            "Square each: $36$, $4$ and $9$. Squaring removes the signs, so the order of subtraction doesn't matter.",
+            "Add and take the square root: $\\text{AB} = \\sqrt{36 + 4 + 9} = \\sqrt{49} = 7$."
+          ],
+          "answer": "$\\text{AB} = 7$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The midpoint of a segment is halfway along it. Each of its coordinates is the mean of the matching coordinates of the ends. This is in the booklet too."
+        },
+        {
+          "type": "formula",
+          "tex": "\\left(\\frac{x_{1} + x_{2}}{2}, \\frac{y_{1} + y_{2}}{2}, \\frac{z_{1} + z_{2}}{2}\\right)",
+          "tag": "booklet",
+          "bookletId": "bk-3-1-midpoint-3d",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "For A and B above, the midpoint is $\\left(\\frac{2 - 4}{2}, \\frac{-1 + 1}{2}, \\frac{5 + 2}{2}\\right) = \\left(-1, 0, \\frac{7}{2}\\right)$."
+        },
+        {
+          "type": "text",
+          "text": "Notation: $[\\text{AB}]$ is the line segment from A to B, and AB with no arrow is its length. So \"find AB\" asks for a distance."
+        },
+        {
+          "type": "check",
+          "id": "check-midpoint-3d",
+          "prompt": "Find the midpoint of the segment joining $(-3, 7, 2)$ and $(5, -1, -6)$.",
+          "hint": "Add the two $x$-coordinates and halve. Repeat for $y$ and $z$.",
+          "options": [
+            {
+              "text": "$(1, 3, -2)$",
+              "correct": true
+            },
+            {
+              "text": "$(4, -4, -4)$",
+              "correct": false
+            },
+            {
+              "text": "$(2, 6, -4)$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{-3 + 5}{2} = 1$, $\\frac{7 - 1}{2} = 3$ and $\\frac{2 - 6}{2} = -2$. Halving the differences gives $(4, -4, -4)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-distance-find-k",
+          "question": "The points $\\text{A}(1, k, 3)$ and $\\text{B}(4, 2, -1)$ are $13$ units apart. Find the possible values of $k$.",
+          "steps": [
+            "Write $\\text{AB}^{2}$, so there is no square root: $(1 - 4)^{2} + (k - 2)^{2} + (3 - (-1))^{2} = 13^{2}$.",
+            "Work out the known squares: $9 + (k - 2)^{2} + 16 = 169$, so $(k - 2)^{2} = 144$.",
+            "Square root, keeping both signs: $k - 2 = 12$ or $k - 2 = -12$.",
+            "So $k = 14$ or $k = -10$. Check $k = -10$: $9 + (-12)^{2} + 16 = 169$."
+          ],
+          "answer": "$k = -10 \\text{ or } k = 14$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "When a coordinate is unknown, square both sides first. The square root of a square has two signs, so look for two answers."
+        },
+        {
+          "type": "check",
+          "id": "check-distance-3d",
+          "prompt": "Find the exact distance between $(3, 0, -2)$ and $(-1, 5, 1)$.",
+          "hint": "Subtract each pair of coordinates. Watch the $z$-coordinates: $-2 - 1$.",
+          "options": [
+            {
+              "text": "$5\\sqrt{2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\sqrt{30}$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{42}$",
+              "correct": false
+            },
+            {
+              "text": "$50$",
+              "correct": false
+            }
+          ],
+          "explain": "The differences are $4$, $-5$ and $-3$, so $d = \\sqrt{16 + 25 + 9} = \\sqrt{50} = 5\\sqrt{2}$. Adding coordinates gives $\\sqrt{30}$; $50$ forgets the root."
+        }
+      ]
+    },
+    {
+      "id": "solids",
+      "heading": "Volume and surface area of solids",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A pyramid narrows from its base to a point, the apex. It holds one third of the prism with the same base and height."
+        },
+        {
+          "type": "text",
+          "text": "In a [[right-pyramid|right pyramid]] the apex is directly above the centre of the base. The height $h$ is measured straight down, at right angles to the base."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{1}{3}Ah",
+          "tag": "booklet",
+          "bookletId": "bk-3-1-pyramid-volume",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "$A$ is the area of the base, whatever its shape. A [[right-cone|right cone]] is a pyramid with a circular base of radius $r$. Its sloping side has length $l$, the [[slant-height|slant height]]."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-cone-parts",
+          "alt": "A right cone. A dashed height h runs from the vertex to the centre of the base, a radius r runs to the edge, and the slant height l runs down the side, making a right-angled triangle.",
+          "caption": "$r$, $h$ and $l$ make a right-angled triangle, with $l$ as the hypotenuse."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{1}{3}\\pi r^{2}h",
+          "tag": "booklet",
+          "bookletId": "bk-3-1-cone-volume",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\pi r l",
+          "tag": "booklet",
+          "bookletId": "bk-3-1-cone-curved-area",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "$A$ is the curved area only; a solid cone also has a circular base, $\\pi r^{2}$. Use $h$ for volume and $l$ for area, linked by Pythagoras:"
+        },
+        {
+          "type": "formula",
+          "tex": "l = \\sqrt{r^{2} + h^{2}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "For a sphere of radius $r$:"
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{4}{3}\\pi r^{3}",
+          "tag": "booklet",
+          "bookletId": "bk-3-1-sphere-volume",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "A = 4\\pi r^{2}",
+          "tag": "booklet",
+          "bookletId": "bk-3-1-sphere-area",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "A [[hemisphere|hemisphere]] is half a sphere: volume $\\frac{2}{3}\\pi r^{3}$, curved surface $2\\pi r^{2}$. A solid one also has a flat face, $\\pi r^{2}$, so its total surface area is $3\\pi r^{2}$."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{2}{3}\\pi r^{3}, \\quad A_{\\text{total}} = 3\\pi r^{2}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "All the formulas above except the slant height and hemisphere ones are in the formula booklet. So are the prior-learning ones for circles, cylinders and prisms. What you must know is which length goes where."
+        },
+        {
+          "type": "example",
+          "id": "ex-cone-surface",
+          "question": "A solid right cone has base radius $5$ cm and height $12$ cm. Find its exact total surface area.",
+          "steps": [
+            "Slant height first: $l = \\sqrt{5^{2} + 12^{2}} = \\sqrt{169} = 13$ cm.",
+            "Curved area: $\\pi r l = \\pi \\times 5 \\times 13 = 65\\pi$.",
+            "Base: $\\pi r^{2} = 25\\pi$.",
+            "Total: $65\\pi + 25\\pi = 90\\pi\\text{ cm}^{2}$."
+          ],
+          "answer": "$A_{\\text{total}} = 90\\pi\\text{ cm}^{2}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Putting the height $h$ into $\\pi r l$. The curved area needs the slant height, so find $l$ first."
+        },
+        {
+          "type": "example",
+          "id": "ex-pyramid-surface",
+          "question": "A right pyramid has a square base of side $6$ cm and height $4$ cm. Find its total surface area.",
+          "steps": [
+            "The surface is the base plus four equal triangles. Base: $6^{2} = 36\\text{ cm}^{2}$.",
+            "Each triangle's height $s$ runs from the apex down the face to the middle of a base edge.",
+            "The middle of an edge is $3$ cm from the centre of the base, and the pyramid's height is vertical. So $s = \\sqrt{4^{2} + 3^{2}} = 5$ cm.",
+            "One triangle: $\\frac{1}{2} \\times 6 \\times 5 = 15$. Total: $36 + 4 \\times 15 = 96\\text{ cm}^{2}$."
+          ],
+          "answer": "$A_{\\text{total}} = 96\\text{ cm}^{2}$",
+          "check": {
+            "type": "check",
+            "id": "check-pyramid-volume",
+            "prompt": "Now you try: find the volume of this pyramid, in $\\text{cm}^{3}$.",
+            "hint": "Use the vertical height, not the height of a face.",
+            "answer": {
+              "value": 48,
+              "tolerance": 0
+            },
+            "explain": "$V = \\frac{1}{3} \\times 36 \\times 4 = 48\\text{ cm}^{3}$."
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-hemisphere-diameter-volume",
+          "prompt": "The flat face of a solid hemisphere is a circle. One of its diameters runs from $(1, 2, -3)$ to $(7, -2, 9)$. Find the exact volume of the hemisphere.",
+          "hint": "The distance between the two points is the diameter. Halve it to get $r$.",
+          "options": [
+            {
+              "text": "$\\frac{686}{3}\\pi$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{5488}{3}\\pi$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1372}{3}\\pi$",
+              "correct": false
+            }
+          ],
+          "explain": "The diameter is $\\sqrt{6^{2} + (-4)^{2} + 12^{2}} = \\sqrt{196} = 14$, so $r = 7$ and $V = \\frac{2}{3}\\pi \\times 7^{3} = \\frac{686}{3}\\pi$. Using $14$ as the radius gives $\\frac{5488}{3}\\pi$; the whole-sphere formula gives $\\frac{1372}{3}\\pi$."
+        },
+        {
+          "type": "text",
+          "text": "For a solid built from pieces, add the volumes. For surface area, count only the outside faces: where two pieces join, those faces are hidden."
+        },
+        {
+          "type": "example",
+          "id": "ex-ornament-gdc",
+          "question": "An ornament is a solid cube of side $x$ cm with a right pyramid of height $6$ cm on top. The pyramid's base is the cube's top face. The volume is $400\\text{ cm}^{3}$. Use your calculator to find $x$, to 3 s.f.",
+          "steps": [
+            "Cube: $x^{3}$. Pyramid: $\\frac{1}{3} \\times x^{2} \\times 6 = 2x^{2}$.",
+            "Write down the equation you solve: $x^{3} + 2x^{2} = 400$. This earns the method mark.",
+            "Solve it on the GDC (steps below): $x = 6.758104\\ldots$",
+            "Round at the end: $x \\approx 6.76$. Check: $6.76^{3} + 2 \\times 6.76^{2} \\approx 400.3$."
+          ],
+          "answer": "$x \\approx 6.76\\text{ cm}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MATH, Solver",
+              "Enter the equation as 0 = X^3+2X^2-400, then ENTER (check on your model)",
+              "Type a guess of 6 for X, then ALPHA, ENTER (SOLVE) (check on your model)",
+              "Read X = 6.758104..."
+            ],
+            "nspire": [
+              "Calculator page, Menu, Algebra, Numerical Solve",
+              "Complete it as nSolve(x^3+2*x^2=400,x), then enter (check on your model)",
+              "Read 6.758104..."
+            ],
+            "casio": [
+              "EQUA, Solver (F3)",
+              "Enter X^3+2X^2=400, then EXE (check on your model)",
+              "Press SOLVE (F6) (check on your model)",
+              "Read X = 6.758104..."
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Counting a hidden face. In the ornament, the cube's top is covered by the pyramid, so it isn't part of the surface area."
+        }
+      ]
+    },
+    {
+      "id": "triangles",
+      "heading": "Right-angled triangles inside solids",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "At SL, 3D questions about solids are set so that right-angled triangles are enough. The skill is finding them."
+        },
+        {
+          "type": "text",
+          "text": "Right angles come from vertical lines. A vertical height or edge meets every line in the floor through its foot at $90^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "1. Mark what you want on a sketch of the solid."
+        },
+        {
+          "type": "text",
+          "text": "2. Find a right-angled triangle that contains it, with other sides you know or can find."
+        },
+        {
+          "type": "text",
+          "text": "3. Draw that triangle flat, with the right angle marked. Then use Pythagoras or SOH CAH TOA."
+        },
+        {
+          "type": "example",
+          "id": "ex-box-diagonal",
+          "question": "A box has a square base of side $4$ cm and height $7$ cm. Find the length of a space diagonal.",
+          "steps": [
+            "Floor diagonal: $f^{2} = 4^{2} + 4^{2} = 32$, so $f = 4\\sqrt{2}$ cm. Keep it exact.",
+            "The vertical edge meets $f$ at a right angle, so $f$, that edge and the [[space-diagonal|space diagonal]] $d$ form a right-angled triangle.",
+            "$d^{2} = 32 + 7^{2} = 81$, so $d = 9$ cm.",
+            "Check with the distance formula from $(0, 0, 0)$ to $(4, 4, 7)$: $\\sqrt{16 + 16 + 49} = 9$."
+          ],
+          "answer": "$d = 9\\text{ cm}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "In a [[right-pyramid|right pyramid]], the height VX drops from the apex V to the centre X of the base. So V, X and a corner C make a right-angled triangle, with the right angle at X."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-pyramid-triangle",
+          "alt": "A right pyramid on square base ABCD with apex V. A dashed height runs from V to X, the centre of the base. Triangle V X C is shaded, with a right angle at X and the angle theta marked at C.",
+          "caption": "Triangle VXC has its right angle at X. XC is half of the diagonal AC."
+        },
+        {
+          "type": "example",
+          "id": "ex-pyramid-height",
+          "question": "A right pyramid has a square base of side $8$ cm and sloping edges of $9$ cm. Find its height.",
+          "steps": [
+            "Use triangle VXC. The base diagonal is $\\text{AC} = \\sqrt{8^{2} + 8^{2}} = 8\\sqrt{2}$.",
+            "X is halfway along it: $\\text{XC} = 4\\sqrt{2}$.",
+            "VC is the hypotenuse: $\\text{VX}^{2} = 9^{2} - (4\\sqrt{2})^{2} = 81 - 32 = 49$.",
+            "So $\\text{VX} = 7$ cm."
+          ],
+          "answer": "$\\text{VX} = 7\\text{ cm}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using the whole base diagonal for XC. The centre is halfway along the diagonal, so XC is half of it."
+        },
+        {
+          "type": "check",
+          "id": "check-rect-pyramid-edge",
+          "prompt": "A right pyramid has a rectangular base $18$ cm by $24$ cm, and its apex is $8$ cm above the centre of the base. Find a sloping edge, in cm.",
+          "hint": "Use the height and half of the base diagonal.",
+          "options": [
+            {
+              "text": "$17$",
+              "correct": true
+            },
+            {
+              "text": "$2\\sqrt{241}$",
+              "correct": false
+            },
+            {
+              "text": "$4\\sqrt{13}$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{145}$",
+              "correct": false
+            }
+          ],
+          "explain": "The base diagonal is $\\sqrt{18^{2} + 24^{2}} = 30$, so half is $15$, and the edge is $\\sqrt{15^{2} + 8^{2}} = 17$. The full diagonal gives $2\\sqrt{241}$."
+        }
+      ]
+    },
+    {
+      "id": "angles",
+      "heading": "Angles between lines and planes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two lines that meet make an angle where they cross. Put both lines in one triangle, find a right angle, and use SOH CAH TOA."
+        },
+        {
+          "type": "text",
+          "text": "To measure how a line leans against a plane (a flat surface), compare it with a line in the plane."
+        },
+        {
+          "type": "definition",
+          "term": "angle between a line and a plane",
+          "statement": "A line meets a plane at A. From a point P on the line, drop a perpendicular to the plane, meeting it at N. The angle is $\\text{P}\\hat{\\text{A}}\\text{N}$, the angle at A between AP and AN.",
+          "plain": "It is the angle between the line and its shadow when the light shines straight down onto the plane."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-line-plane-angle",
+          "alt": "A plane drawn as a parallelogram. A line meets it at A and rises to P. A dashed perpendicular drops from P to N on the plane. The angle theta at A is between AP and AN.",
+          "caption": "AN is the projection of AP on the plane. The right angle is at N."
+        },
+        {
+          "type": "text",
+          "text": "AN is called the projection of the line. Triangle PAN has its right angle at N, so the [[angle-between-line-and-plane|angle between a line and a plane]] is never more than $90^{\\circ}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cuboid-angle-base",
+          "question": "A cuboid is $4$ cm long, $3$ cm wide and $5$ cm tall. Find the angle between a [[space-diagonal|space diagonal]] and the base.",
+          "steps": [
+            "Let the diagonal run from bottom corner P to top corner Q. The corner N is directly below Q.",
+            "QN is vertical, so PN, the floor diagonal, is the projection: $\\text{PN} = \\sqrt{4^{2} + 3^{2}} = 5$.",
+            "In triangle PNQ, $\\text{QN} = 5$ is opposite $\\theta$ and PN is next to it: $\\tan\\theta = \\frac{5}{5} = 1$.",
+            "So $\\theta = 45^{\\circ}$."
+          ],
+          "answer": "$\\theta = 45^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cuboid-angle",
+          "prompt": "A cuboid is $12$ cm long, $5$ cm wide and $4$ cm tall. Find the angle between a space diagonal and the base, to 3 s.f.",
+          "hint": "Find the base diagonal first. It is the side next to the angle.",
+          "options": [
+            {
+              "text": "$\\theta \\approx 17.1^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\theta \\approx 18.4^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 17.9^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 72.9^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "The base diagonal is $\\sqrt{144 + 25} = 13$, so $\\tan\\theta = \\frac{4}{13}$ and $\\theta \\approx 17.1^{\\circ}$. Using the $12$ cm edge gives $18.4^{\\circ}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cone-vertex-angle",
+          "question": "A [[right-cone|right cone]] has base radius $6$ cm and height $8$ cm. Two lines run down its surface from the vertex to opposite ends of a diameter of the base. Find the angle between them, to 3 s.f.",
+          "steps": [
+            "The two lines and the diameter make an isosceles triangle. The cone's height splits it into two right-angled triangles.",
+            "In one half, the angle $\\alpha$ at the vertex has the radius $6$ opposite and the height $8$ next to it: $\\tan\\alpha = \\frac{6}{8}$.",
+            "So $\\alpha = 36.8698\\ldots^{\\circ}$. Don't round yet.",
+            "The angle between the lines is $\\theta = 2\\alpha = 73.7397\\ldots^{\\circ}$."
+          ],
+          "answer": "$\\theta \\approx 73.7^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cone-vertex-angle",
+          "prompt": "The cone from the solids section has base radius $5$ cm and height $12$ cm. Two lines run down its surface from the vertex to opposite ends of a diameter. Find the angle between them, to 3 s.f.",
+          "hint": "Split the angle with the height. In one half, the radius is opposite the angle at the vertex.",
+          "options": [
+            {
+              "text": "$\\theta \\approx 45.2^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\theta \\approx 22.6^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 134.8^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 67.4^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "In one half, $\\tan\\alpha = \\frac{5}{12}$, so $\\alpha = 22.619\\ldots^{\\circ}$ and $\\theta = 2\\alpha \\approx 45.2^{\\circ}$. Stopping at $\\alpha$ gives $22.6^{\\circ}$; $\\tan\\alpha = \\frac{12}{5}$ swaps opposite and adjacent, and $67.4^{\\circ}$ is the angle between one line and the base."
+        },
+        {
+          "type": "example",
+          "id": "ex-coords-angle-plane",
+          "question": "Find the angle between the line through $\\text{A}(-2, 1, 0)$ and $\\text{B}(4, -5, 7)$ and the $xy$-plane. Give your answer to 3 s.f.",
+          "steps": [
+            "A is in the $xy$-plane, as $z = 0$. N$(4, -5, 0)$ is directly below B, so $\\text{BN} = 7$ is perpendicular to the plane.",
+            "$\\text{AB} = \\sqrt{6^{2} + (-6)^{2} + 7^{2}} = \\sqrt{121} = 11$.",
+            "Triangle ANB has its right angle at N, with BN opposite $\\theta$: $\\sin\\theta = \\frac{7}{11}$.",
+            "In degree mode (steps below): $\\theta = \\sin^{-1}\\left(\\frac{7}{11}\\right) = 39.5211\\ldots^{\\circ}$."
+          ],
+          "answer": "$\\theta \\approx 39.5^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, DEGREE",
+              "2nd, SIN for the inverse sine, type 7/11), then ENTER (check on your model)",
+              "Read 39.5211..."
+            ],
+            "nspire": [
+              "Settings (on, Settings), Angle: Degree",
+              "Calculator page, trig key, choose the inverse sine, type 7/11, then enter (check on your model)",
+              "Read 39.5211..."
+            ],
+            "casio": [
+              "SHIFT MENU (SET UP), Angle: Deg",
+              "RUN-MAT, SHIFT, sin for the inverse sine, type 7/11, then EXE (check on your model)",
+              "Read 39.5211..."
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Set degree mode first unless radians are asked for. In radian mode the last example gives $0.690$, which loses the mark."
+        },
+        {
+          "type": "check",
+          "id": "check-pyramid-edge-angle",
+          "prompt": "The pyramid from the last section has base side $8$ cm, sloping edges $9$ cm and height $7$ cm. Find the angle between a sloping edge and the base, in degrees, to 3 s.f.",
+          "hint": "In triangle VXC you know the hypotenuse and the side opposite the angle at C.",
+          "answer": {
+            "value": 51.1,
+            "tolerance": 0.05
+          },
+          "explain": "$\\sin\\theta = \\frac{7}{9}$, so $\\theta = 51.057\\ldots^{\\circ} \\approx 51.1^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "Without a right angle you would need the sine or cosine rule from {{lesson:3.2}}. SL questions about solids are set so that a right-angled triangle is enough. Look for the right angle first."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also find the angle between a line and a plane from their vectors.",
+          "lesson": "3.18"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Distance in 3D: $d = \\sqrt{(x_{1} - x_{2})^{2} + (y_{1} - y_{2})^{2} + (z_{1} - z_{2})^{2}}$. The midpoint is the mean of each coordinate.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Pyramid: $V = \\frac{1}{3}Ah$. Cone: $V = \\frac{1}{3}\\pi r^{2}h$ and curved area $\\pi r l$. Sphere: $V = \\frac{4}{3}\\pi r^{3}$ and $A = 4\\pi r^{2}$.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Slant height $l = \\sqrt{r^{2} + h^{2}}$: use $h$ for a cone's volume and $l$ for its curved area.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Solid hemisphere: $V = \\frac{2}{3}\\pi r^{3}$ and total area $3\\pi r^{2}$. Combined solids: add volumes, count only outside faces.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A vertical height is at $90^{\\circ}$ to every line in the base through its foot. From the centre of a square base to a corner is half the diagonal.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The angle between a line and a plane is the angle between the line and its projection on the plane.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving out the flat face of a solid hemisphere. Its total surface area is $2\\pi r^{2} + \\pi r^{2} = 3\\pi r^{2}$.",
+    "Putting the vertical height into $\\pi r l$. The curved area of a cone needs the slant height, $l = \\sqrt{r^{2} + h^{2}}$.",
+    "Using a diameter as the radius. If two points are the ends of a diameter, halve their distance before using a sphere or hemisphere formula.",
+    "Using the whole base diagonal from the centre of the base to a corner. That distance is half the diagonal.",
+    "Leaving the calculator in radian mode. Set degree mode before finding an angle in degrees."
+  ],
+  "examTips": [
+    "\"Find\" a length, area or volume: write the formula with the numbers substituted before the answer. That line earns the method mark.",
+    "Draw the right-angled triangle you use on its own, with the right angle and known sides marked. It shows your method and stops you mixing up sides.",
+    "Keep lengths you reuse exact or unrounded, such as $4\\sqrt{2}$. Round only the final answer, to 3 s.f., and give its units."
+  ],
+  "readingMinutes": 27
+}
