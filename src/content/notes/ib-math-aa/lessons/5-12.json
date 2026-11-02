@@ -1,0 +1,703 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.12",
+  "slug": "continuity-limits-and-higher-derivatives",
+  "title": "Continuity, limits and higher derivatives",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "A function is [[continuous|continuous]] where its graph has no break, and [[differentiable|differentiable]] where it has no corner either. A sequence is [[convergent|convergent]] if it settles on one value. You'll also differentiate from the limit definition, and differentiate repeatedly.",
+  "goals": [
+    {
+      "text": "Say when a function is [[continuous|continuous]] or [[differentiable|differentiable]] at a point.",
+      "bullets": [
+        "5.12-b1"
+      ]
+    },
+    {
+      "text": "Decide whether a sequence or geometric series converges, and find limits as $n$ or $x \\to \\infty$.",
+      "bullets": [
+        "5.12-b2"
+      ]
+    },
+    {
+      "text": "Differentiate a polynomial from [[first-principles|first principles]].",
+      "bullets": [
+        "5.12-b3"
+      ]
+    },
+    {
+      "text": "Find higher derivatives, $f^{(n)}(x)$ or $\\frac{\\mathrm{d}^{n}y}{\\mathrm{d}x^{n}}$, and spot a formula for the $n$th.",
+      "bullets": [
+        "5.12-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.8",
+    "5.1",
+    "5.7"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "differentiation from first principles",
+    "continuity and differentiability",
+    "convergence and divergence",
+    "limits at infinity",
+    "nth derivative",
+    "higher order derivatives"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-chord-limit",
+      "prompt": "On a curve $y = f(x)$, the chord from $P(1, 3)$ to the point with $x = 1 + h$ has gradient $4 + h$. Write down $f'(1)$.",
+      "hint": "The gradient at $P$ is what the chord gradients approach as $h \\to 0$.",
+      "options": [
+        {
+          "text": "$4$",
+          "correct": true
+        },
+        {
+          "text": "$4 + h$",
+          "correct": false
+        },
+        {
+          "text": "$5$",
+          "correct": false
+        }
+      ],
+      "explain": "As $h \\to 0$, $4 + h \\to 4$. Revise it in {{lesson:5.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-second-derivative",
+      "prompt": "Find $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$ for $y = 2x^{3} - 5x^{2} + x$.",
+      "hint": "Differentiate once, then differentiate the answer again.",
+      "options": [
+        {
+          "text": "$6x^{2} - 10x + 1$",
+          "correct": false
+        },
+        {
+          "text": "$12x - 10$",
+          "correct": true
+        },
+        {
+          "text": "$12x^{2} - 10x$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 6x^{2} - 10x + 1$; differentiate that again. Revise it in {{lesson:5.7}}."
+    },
+    {
+      "type": "check",
+      "id": "before-sum-infinity",
+      "prompt": "Find the sum to infinity of the geometric series $9 + 3 + 1 + \\dots$",
+      "hint": "Find $u_{1}$ and $r$ first.",
+      "options": [
+        {
+          "text": "$13$",
+          "correct": false
+        },
+        {
+          "text": "$27$",
+          "correct": false
+        },
+        {
+          "text": "$\\tfrac{27}{2}$",
+          "correct": true
+        }
+      ],
+      "explain": "$u_{1} = 9$ and $r = \\tfrac{1}{3}$, so $S_{\\infty} = \\frac{9}{1 - 1/3} = \\tfrac{27}{2}$. Revise it in {{lesson:1.8}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "continuity",
+      "heading": "Continuity and differentiability",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some graphs jump from one height to another. Some turn a sharp corner. Continuity is about jumps; differentiability is about corners."
+        },
+        {
+          "type": "figure",
+          "id": "5-12-three-joins",
+          "alt": "Three small graphs side by side, each with a dashed vertical line at x equals a. Left: a jump. The graph rises to an open circle at x equals a, then restarts higher up with a filled dot. Labelled not continuous. Middle: a V shape with its sharp point at x equals a. Labelled continuous, not differentiable. Right: a straight line that runs into a curve at x equals a with no bend in direction. Labelled continuous and differentiable.",
+          "caption": "A jump, a corner and a smooth join at $x = a$."
+        },
+        {
+          "type": "definition",
+          "term": "Continuous at a point",
+          "statement": "A function $f$ is continuous at $x = a$ if $f(a)$ is defined and $\\lim_{x \\to a} f(x) = f(a)$.",
+          "plain": "Near that point you can draw the graph without lifting your pen."
+        },
+        {
+          "type": "text",
+          "text": "So the heights from the left, from the right and $f(a)$ itself must all agree. At a jump they don't, so $f$ is not [[continuous|continuous]] there."
+        },
+        {
+          "type": "definition",
+          "term": "Differentiable at a point",
+          "statement": "A function $f$ is differentiable at $x = a$ if the chord gradients $\\frac{f(a+h) - f(a)}{h}$ approach one value as $h \\to 0$, from both sides. That value is $f'(a)$.",
+          "plain": "The graph is smooth there: it has one tangent and no corner."
+        },
+        {
+          "type": "text",
+          "text": "At a corner the gradient on the left differs from the gradient on the right. There is no single tangent, so the function is not [[differentiable|differentiable]] there."
+        },
+        {
+          "type": "result",
+          "statement": "If $f$ is differentiable at $x = a$, it is also continuous there. The reverse is false.",
+          "why": "There is no tangent across a jump. But $y = \\lvert x\\rvert$ is continuous at $0$ with a corner there."
+        },
+        {
+          "type": "text",
+          "text": "For two pieces that meet at $x = a$, compare their heights at $a$: a mismatch is a jump. If the heights match, compare their gradients at $a$: a mismatch is a corner."
+        },
+        {
+          "type": "example",
+          "id": "ex-join-corner",
+          "question": "Let $f(x) = \\begin{cases} x^{2}, & x \\le 1 \\\\ 3 - 2x, & x > 1 \\end{cases}$. Decide whether $f$ is continuous at $x = 1$, and whether it is differentiable there.",
+          "steps": [
+            "Heights: the left piece gives $f(1) = 1^{2} = 1$. The right piece heads for $3 - 2(1) = 1$.",
+            "Both sides meet at height 1: no jump, so $f$ is continuous at $x = 1$.",
+            "Gradients: the left piece has gradient $2x$, which is $2$ at $x = 1$. The right piece is a line with gradient $-2$.",
+            "The gradients differ, so there is a corner at $(1, 1)$."
+          ],
+          "answer": "Continuous but not differentiable at $x = 1$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-join-smooth",
+          "question": "Let $g(x) = \\begin{cases} 4x - 4, & x < 2 \\\\ x^{2}, & x \\ge 2 \\end{cases}$. Decide whether $g$ is continuous and differentiable at $x = 2$.",
+          "steps": [
+            "Heights: the line heads for $4(2) - 4 = 4$, and $g(2) = 2^{2} = 4$. They match, so $g$ is continuous at $x = 2$.",
+            "Gradients: the line has gradient $4$. The curve has gradient $2x$, which is $4$ at $x = 2$.",
+            "They match, so there is no corner: $y = 4x - 4$ is the tangent to $y = x^{2}$ at $(2, 4)$."
+          ],
+          "answer": "Continuous and differentiable at $x = 2$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-join-jump",
+          "prompt": "Let $k(x) = \\begin{cases} x + 3, & x < 0 \\\\ 2 - x^{2}, & x \\ge 0 \\end{cases}$. Which statement is true?",
+          "hint": "Compare the heights the two pieces give at $x = 0$.",
+          "options": [
+            {
+              "text": "Continuous and differentiable at $x = 0$",
+              "correct": false
+            },
+            {
+              "text": "Continuous but not differentiable at $x = 0$",
+              "correct": false
+            },
+            {
+              "text": "Not continuous, so not differentiable at $x = 0$",
+              "correct": true
+            },
+            {
+              "text": "Differentiable but not continuous at $x = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "The left piece heads for $3$, but $k(0) = 2$. That is a jump, and a function can't be differentiable where it isn't continuous."
+        },
+        {
+          "type": "check",
+          "id": "check-join-corner",
+          "prompt": "Let $m(x) = \\begin{cases} x^{2} + 1, & x \\le 1 \\\\ 4x - 2, & x > 1 \\end{cases}$. Which statement is true?",
+          "hint": "First compare the heights at $x = 1$. If they match, compare the gradients there.",
+          "options": [
+            {
+              "text": "Continuous and differentiable at $x = 1$",
+              "correct": false
+            },
+            {
+              "text": "Not continuous, so not differentiable at $x = 1$",
+              "correct": false
+            },
+            {
+              "text": "Continuous but not differentiable at $x = 1$",
+              "correct": true
+            },
+            {
+              "text": "Differentiable but not continuous at $x = 1$",
+              "correct": false
+            }
+          ],
+          "explain": "Both pieces give height $2$ at $x = 1$, so there is no jump. But the gradients there are $2x = 2$ and $4$, so there is a corner."
+        },
+        {
+          "type": "examTip",
+          "text": "Exams don't ask you to test for continuity or differentiability. You need the words to read questions."
+        }
+      ]
+    },
+    {
+      "id": "convergence",
+      "heading": "Convergence and divergence",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In $1, \\tfrac{1}{2}, \\tfrac{1}{4}, \\tfrac{1}{8}, \\dots$ each term halves. The terms never reach 0, but they get as close to 0 as you like."
+        },
+        {
+          "type": "definition",
+          "term": "Convergent sequence",
+          "statement": "A sequence $u_{n}$ converges to $L$, written $\\lim_{n \\to \\infty} u_{n} = L$, if $u_{n}$ stays as close as you like to $L$ for all large enough $n$. Otherwise it diverges.",
+          "plain": "Far enough along, every term is as near $L$ as you want."
+        },
+        {
+          "type": "text",
+          "text": "A [[divergent|divergent]] sequence either grows without limit, like $2, 4, 8, \\dots$ (written $u_{n} \\to \\infty$), or never settles, like $1, -1, 1, -1, \\dots$"
+        },
+        {
+          "type": "text",
+          "text": "Powers $r^{n}$ show the cases: $r^{n} \\to 0$ if $\\lvert r\\rvert < 1$, $r^{n} \\to \\infty$ if $r > 1$, and $r^{n}$ never settles if $r \\le -1$. (If $r = 1$, every power is 1.)"
+        },
+        {
+          "type": "text",
+          "text": "This explains the sum to infinity from {{lesson:1.8}}. The partial sum is $S_{n} = \\dfrac{u_{1}(1 - r^{n})}{1 - r}$. When $\\lvert r\\rvert < 1$, $r^{n} \\to 0$, so $S_{n}$ is [[convergent|convergent]] with limit:"
+        },
+        {
+          "type": "formula",
+          "tex": "S_{\\infty} = \\frac{u_{1}}{1 - r}, \\quad \\lvert r\\rvert < 1",
+          "tag": "booklet",
+          "bookletId": "bk-1-8-sum-infinity",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "When $\\lvert r\\rvert \\ge 1$, $S_{n}$ diverges, and the series has no sum to infinity."
+        },
+        {
+          "type": "example",
+          "id": "ex-geometric-series",
+          "question": "Consider the geometric series $12 + 8 + \\tfrac{16}{3} + \\dots$ Write $S_{n}$ in terms of $n$. Hence explain why the series converges, and find its limit.",
+          "steps": [
+            "Find the ratio: $r = \\frac{8}{12} = \\frac{2}{3}$, and $u_{1} = 12$.",
+            "Partial sum: $S_{n} = \\dfrac{12\\left(1 - (\\frac{2}{3})^{n}\\right)}{1 - \\frac{2}{3}} = 36\\left(1 - \\left(\\tfrac{2}{3}\\right)^{n}\\right)$.",
+            "Since $\\lvert r\\rvert = \\tfrac{2}{3} < 1$, $\\left(\\tfrac{2}{3}\\right)^{n} \\to 0$ as $n \\to \\infty$. So $S_{n} \\to 36(1 - 0) = 36$.",
+            "Check with the booklet formula: $S_{\\infty} = \\frac{12}{1 - 2/3} = 36$."
+          ],
+          "answer": "$S_{\\infty} = 36$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-which-converges",
+          "prompt": "Which geometric series has a sum to infinity?",
+          "hint": "Find the common ratio $r$ of each series. Then use the condition for a sum to infinity.",
+          "options": [
+            {
+              "text": "$4 + 6 + 9 + \\dots$",
+              "correct": false
+            },
+            {
+              "text": "$32 - 24 + 18 - \\dots$",
+              "correct": true
+            },
+            {
+              "text": "$5 - 5 + 5 - \\dots$",
+              "correct": false
+            },
+            {
+              "text": "$0.1 + 0.2 + 0.4 + \\dots$",
+              "correct": false
+            }
+          ],
+          "explain": "$32 - 24 + 18 - \\dots$ has $r = -\\tfrac{3}{4}$, so $\\lvert r\\rvert < 1$. The others have $r = 1.5$, $r = -1$ and $r = 2$. With $r = -1$ the partial sums go $5, 0, 5, 0, \\dots$ and never settle."
+        },
+        {
+          "type": "text",
+          "text": "The same idea works for a function as $x \\to \\infty$. For a fraction of two polynomials of the same degree, divide every term by the highest power of $x$. Terms such as $\\frac{1}{x}$ or $\\frac{5}{x^{2}}$ then tend to 0."
+        },
+        {
+          "type": "example",
+          "id": "ex-limit-infinity",
+          "question": "Find $\\displaystyle\\lim_{x \\to \\infty} \\frac{6x^{2} - x}{2x^{2} + 5}$.",
+          "steps": [
+            "Divide top and bottom by $x^{2}$: $\\dfrac{6x^{2} - x}{2x^{2} + 5} = \\dfrac{6 - \\frac{1}{x}}{2 + \\frac{5}{x^{2}}}$.",
+            "As $x \\to \\infty$, $\\frac{1}{x} \\to 0$ and $\\frac{5}{x^{2}} \\to 0$.",
+            "So the fraction tends to $\\frac{6 - 0}{2 + 0} = 3$."
+          ],
+          "answer": "$\\displaystyle\\lim_{x \\to \\infty} \\frac{6x^{2} - x}{2x^{2} + 5} = 3$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-limit-rational",
+          "prompt": "Find $\\displaystyle\\lim_{x \\to \\infty} \\frac{5 - 2x}{x + 3}$.",
+          "hint": "Divide top and bottom by $x$.",
+          "options": [
+            {
+              "text": "$\\tfrac{5}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$-2$",
+              "correct": true
+            }
+          ],
+          "explain": "Dividing by $x$ gives $\\dfrac{\\frac{5}{x} - 2}{1 + \\frac{3}{x}} \\to \\frac{0 - 2}{1 + 0} = -2$."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-partial-sums",
+          "question": "The geometric series $50 + 45 + 40.5 + \\dots$ converges. Use your calculator to find the least number of terms $n$ for which $S_{n}$ is within 1 of $S_{\\infty}$.",
+          "steps": [
+            "Here $u_{1} = 50$ and $r = \\frac{45}{50} = 0.9$. So $S_{\\infty} = \\frac{50}{1 - 0.9} = 500$ and $S_{n} = 500(1 - 0.9^{n})$.",
+            "The gap is $S_{\\infty} - S_{n} = 500 \\times 0.9^{n}$. You need $500 \\times 0.9^{n} < 1$.",
+            "Write down the equation you solve on the GDC: $500 \\times 0.9^{n} = 1$. It gives $n = 58.984\\ldots$",
+            "The gap shrinks as $n$ grows, and $n$ counts terms, so take the next whole number up: $n = 59$.",
+            "Check: $500 \\times 0.9^{58} \\approx 1.11$, which is too big, and $500 \\times 0.9^{59} \\approx 0.998$, which is below 1."
+          ],
+          "answer": "$n = 59$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MATH, Solver",
+              "Enter 0 = 500*0.9^X-1, then type a guess such as X = 50",
+              "ALPHA, ENTER (SOLVE) (check on your model)",
+              "Read X = 58.984..."
+            ],
+            "nspire": [
+              "Calculator page, Menu, Algebra, Numerical Solve",
+              "Enter 500*0.9^x=1, x",
+              "Read x = 58.984..."
+            ],
+            "casio": [
+              "EQUA, Solver (F3)",
+              "Enter 500*0.9^X=1, then SOLVE (F6) (check on your model)",
+              "Read X = 58.984..."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "first-principles",
+      "heading": "Differentiation from first principles",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.1}} you estimated a gradient from chords. The chord from $x$ to $x + h$ has gradient $\\frac{f(x+h) - f(x)}{h}$. Now you find its limit exactly, by algebra. This is differentiating from [[first-principles|first principles]]."
+        },
+        {
+          "type": "formula",
+          "tex": "y = f(x) \\Rightarrow \\frac{\\mathrm{d}y}{\\mathrm{d}x} = f'(x) = \\lim_{h \\to 0}\\left(\\frac{f(x+h) - f(x)}{h}\\right)",
+          "tag": "booklet",
+          "bookletId": "bk-5-12-first-principles",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "It's in the formula booklet; you need the method. Putting $h = 0$ straight in gives $\\frac{0}{0}$, so the algebra cancels the $h$ first."
+        },
+        {
+          "type": "text",
+          "text": "1. Write $f(x + h)$: replace every $x$ with $(x + h)$, then expand."
+        },
+        {
+          "type": "text",
+          "text": "2. Subtract $f(x)$. Every term without an $h$ cancels."
+        },
+        {
+          "type": "text",
+          "text": "3. Divide by $h$. Every term left has a factor $h$, so this cancels cleanly."
+        },
+        {
+          "type": "text",
+          "text": "4. Let $h \\to 0$. The terms that still contain $h$ vanish."
+        },
+        {
+          "type": "interactive",
+          "widget": "secant-to-tangent",
+          "props": {
+            "curve": "cube",
+            "h": 1
+          },
+          "alt": "Graph of y equals x cubed with point P at (1, 1) and a second point Q a distance h to the right. A slider moves Q towards P. The chord PQ swings onto the dashed tangent at P, and the chord gradient readout heads for 3."
+        },
+        {
+          "type": "text",
+          "text": "For $y = x^{3}$ at $P(1, 1)$, the chord gradient is $\\frac{(1+h)^{3} - 1}{h} = 3 + 3h + h^{2}$. Slide $h$ towards 0: the readout heads for 3, the gradient of the tangent."
+        },
+        {
+          "type": "example",
+          "id": "ex-fp-quadratic",
+          "question": "Let $f(x) = 3x^{2} - 5x$. Find $f'(x)$ from first principles.",
+          "steps": [
+            "Replace $x$ with $(x + h)$: $f(x+h) = 3(x+h)^{2} - 5(x+h) = 3x^{2} + 6xh + 3h^{2} - 5x - 5h$.",
+            "Subtract $f(x) = 3x^{2} - 5x$: $f(x+h) - f(x) = 6xh + 3h^{2} - 5h$.",
+            "Divide by $h$: $\\dfrac{f(x+h) - f(x)}{h} = 6x + 3h - 5$, for $h \\ne 0$.",
+            "Let $h \\to 0$: $f'(x) = \\lim_{h \\to 0}(6x + 3h - 5) = 6x - 5$.",
+            "Check with the power rule: $\\frac{\\mathrm{d}}{\\mathrm{d}x}(3x^{2} - 5x) = 6x - 5$. It matches."
+          ],
+          "answer": "$f'(x) = 6x - 5$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $3x^{2} + h$ for $3(x+h)^{2}$. Put $(x + h)$ in brackets wherever $x$ was, then expand: $3(x+h)^{2} = 3x^{2} + 6xh + 3h^{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-fp-cubic",
+          "question": "Let $f(x) = 2x^{3} + x$. Use the definition of the derivative from first principles to show that $f'(x) = 6x^{2} + 1$.",
+          "steps": [
+            "Expand the cube first: $(x+h)^{3} = x^{3} + 3x^{2}h + 3xh^{2} + h^{3}$. Use the binomial theorem, or multiply $(x+h)^{2}$ by $(x+h)$.",
+            "So $f(x+h) = 2x^{3} + 6x^{2}h + 6xh^{2} + 2h^{3} + x + h$.",
+            "Subtract $f(x) = 2x^{3} + x$: $f(x+h) - f(x) = 6x^{2}h + 6xh^{2} + 2h^{3} + h$.",
+            "Write the limit and divide by $h$: $f'(x) = \\lim_{h \\to 0}\\left(6x^{2} + 6xh + 2h^{2} + 1\\right)$.",
+            "Let $h \\to 0$: the terms $6xh$ and $2h^{2}$ vanish, leaving $6x^{2} + 1$, as required."
+          ],
+          "answer": "$f'(x) = 6x^{2} + 1$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-fp-quotient",
+          "prompt": "Let $f(x) = 4 - x^{2}$. Simplify $\\dfrac{f(x+h) - f(x)}{h}$.",
+          "hint": "Expand $-(x+h)^{2}$ carefully: the minus sign applies to every term.",
+          "options": [
+            {
+              "text": "$-2x - h$",
+              "correct": true
+            },
+            {
+              "text": "$-2x + h$",
+              "correct": false
+            },
+            {
+              "text": "$-2x$",
+              "correct": false
+            }
+          ],
+          "explain": "$f(x+h) - f(x) = 4 - x^{2} - 2xh - h^{2} - 4 + x^{2} = -2xh - h^{2}$. Dividing by $h$ gives $-2x - h$. Only after that does $h \\to 0$ give $f'(x) = -2x$."
+        },
+        {
+          "type": "text",
+          "text": "For the gradient at one point $x = a$, put the number in from the start: $f'(a) = \\lim_{h \\to 0} \\dfrac{f(a+h) - f(a)}{h}$."
+        },
+        {
+          "type": "check",
+          "id": "check-fp-at-point",
+          "prompt": "Let $f(x) = x^{3} + 2x^{2}$. Use first principles to find $f'(-1)$.",
+          "hint": "Work out $f(-1 + h)$ and $f(-1)$, subtract, then divide by $h$.",
+          "answer": {
+            "value": -1,
+            "tolerance": 0
+          },
+          "explain": "$f(-1+h) = 1 - h - h^{2} + h^{3}$ and $f(-1) = 1$. So $\\frac{f(-1+h) - f(-1)}{h} = -1 - h + h^{2} \\to -1$."
+        },
+        {
+          "type": "result",
+          "statement": "For every positive integer $n$, first principles gives $\\dfrac{\\mathrm{d}}{\\mathrm{d}x}\\left(x^{n}\\right) = nx^{n-1}$.",
+          "why": "By the binomial theorem, $(x+h)^{n}$ is $x^{n} + nx^{n-1}h$ plus terms in $h^{2}$ or higher powers of $h$. Subtract $x^{n}$, divide by $h$ and let $h \\to 0$: only $nx^{n-1}$ is left."
+        },
+        {
+          "type": "examTip",
+          "text": "\"From first principles\" means use the limit. Use the power rule only to check."
+        }
+      ]
+    },
+    {
+      "id": "higher",
+      "heading": "Higher derivatives",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.7}} you differentiated $f'(x)$ to get $f''(x)$. You can keep going."
+        },
+        {
+          "type": "definition",
+          "term": "The nth derivative",
+          "statement": "The $n$th derivative of $y = f(x)$, written $f^{(n)}(x)$ or $\\dfrac{\\mathrm{d}^{n}y}{\\mathrm{d}x^{n}}$, is the result of differentiating $n$ times.",
+          "plain": "The derivative of the derivative, again and again, n times."
+        },
+        {
+          "type": "text",
+          "text": "The first three use primes: $f'$, $f''$, $f'''$. From the fourth on, bracket the number: $f^{(4)}(x)$. Without brackets, $f^{4}(x)$ reads as a power."
+        },
+        {
+          "type": "formula",
+          "tex": "f^{(n)}(x) = \\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(f^{(n-1)}(x)\\right), \\qquad \\frac{\\mathrm{d}^{n}y}{\\mathrm{d}x^{n}} = \\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(\\frac{\\mathrm{d}^{n-1}y}{\\mathrm{d}x^{n-1}}\\right)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-third-poly",
+          "question": "Find $\\dfrac{\\mathrm{d}^{3}y}{\\mathrm{d}x^{3}}$ for $y = x^{5} - 3x^{3} + 2x$.",
+          "steps": [
+            "First: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 5x^{4} - 9x^{2} + 2$.",
+            "Second: $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}} = 20x^{3} - 18x$.",
+            "Third: $\\dfrac{\\mathrm{d}^{3}y}{\\mathrm{d}x^{3}} = 60x^{2} - 18$.",
+            "Going on gives $120x$, then $120$, then $0$. A polynomial of degree 5 has every derivative after the fifth equal to 0."
+          ],
+          "answer": "$\\dfrac{\\mathrm{d}^{3}y}{\\mathrm{d}x^{3}} = 60x^{2} - 18$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-third-quartic",
+          "prompt": "Let $f(x) = x^{4} - 2x^{3} + 7x$. Find $f'''(x)$.",
+          "hint": "Count the primes: differentiate three times.",
+          "options": [
+            {
+              "text": "$12x^{2} - 12x$",
+              "correct": false
+            },
+            {
+              "text": "$24x - 12$",
+              "correct": true
+            },
+            {
+              "text": "$24$",
+              "correct": false
+            }
+          ],
+          "explain": "$f'(x) = 4x^{3} - 6x^{2} + 7$, $f''(x) = 12x^{2} - 12x$ and $f'''(x) = 24x - 12$. The other options are $f''(x)$ and $f^{(4)}(x)$."
+        },
+        {
+          "type": "text",
+          "text": "Sometimes a pattern gives $f^{(n)}(x)$ for every $n$ at once."
+        },
+        {
+          "type": "example",
+          "id": "ex-nth-product",
+          "question": "Let $f(x) = x\\mathrm{e}^{-x}$. Find $f'(x)$, $f''(x)$ and $f'''(x)$. Hence suggest a formula for $f^{(n)}(x)$.",
+          "steps": [
+            "Product rule: $f'(x) = 1 \\cdot \\mathrm{e}^{-x} + x \\cdot \\left(-\\mathrm{e}^{-x}\\right) = (1 - x)\\mathrm{e}^{-x} = -(x - 1)\\mathrm{e}^{-x}$.",
+            "Again: $f''(x) = -\\mathrm{e}^{-x} - (1 - x)\\mathrm{e}^{-x} = (x - 2)\\mathrm{e}^{-x}$.",
+            "Again: $f'''(x) = \\mathrm{e}^{-x} - (x - 2)\\mathrm{e}^{-x} = (3 - x)\\mathrm{e}^{-x} = -(x - 3)\\mathrm{e}^{-x}$.",
+            "Pattern: the sign alternates, starting with minus, and the number subtracted from $x$ is $n$."
+          ],
+          "answer": "$f^{(n)}(x) = (-1)^{n}(x - n)\\mathrm{e}^{-x}$",
+          "video": null
+        },
+        {
+          "type": "result",
+          "statement": "A formula for $f^{(n)}(x)$ spotted from a pattern is proved by induction on $n$.",
+          "why": "Check $n = 1$. Then assume it for $n = k$ and differentiate once more to get it for $n = k + 1$. See {{lesson:1.15}}."
+        },
+        {
+          "type": "text",
+          "text": "For $x\\mathrm{e}^{-x}$ the step is one product rule. If $f^{(k)}(x) = (-1)^{k}(x - k)\\mathrm{e}^{-x}$, then $f^{(k+1)}(x) = (-1)^{k}\\left(\\mathrm{e}^{-x} - (x - k)\\mathrm{e}^{-x}\\right) = (-1)^{k+1}\\left(x - (k + 1)\\right)\\mathrm{e}^{-x}$."
+        },
+        {
+          "type": "check",
+          "id": "check-fourth-cos",
+          "prompt": "Let $f(x) = \\cos(2x)$. Find $f^{(4)}(x)$.",
+          "hint": "By the chain rule, each derivative brings out a factor 2. Track the sign through $\\cos$, $-\\sin$, $-\\cos$, $\\sin$.",
+          "options": [
+            {
+              "text": "$\\cos(2x)$",
+              "correct": false
+            },
+            {
+              "text": "$-16\\cos(2x)$",
+              "correct": false
+            },
+            {
+              "text": "$8\\sin(2x)$",
+              "correct": false
+            },
+            {
+              "text": "$16\\cos(2x)$",
+              "correct": true
+            }
+          ],
+          "explain": "$f'(x) = -2\\sin(2x)$, $f''(x) = -4\\cos(2x)$, $f'''(x) = 8\\sin(2x)$ and $f^{(4)}(x) = 16\\cos(2x)$. Four factors of 2 give $16$."
+        },
+        {
+          "type": "check",
+          "id": "check-third-root",
+          "prompt": "Let $y = \\sqrt{x}$. Find the value of $\\dfrac{\\mathrm{d}^{3}y}{\\mathrm{d}x^{3}}$ when $x = 1$, as a decimal.",
+          "hint": "Write $y = x^{1/2}$ and use the power rule three times.",
+          "answer": {
+            "value": 0.375,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\tfrac{1}{2}x^{-1/2}$, $\\frac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}} = -\\tfrac{1}{4}x^{-3/2}$ and $\\frac{\\mathrm{d}^{3}y}{\\mathrm{d}x^{3}} = \\tfrac{3}{8}x^{-5/2}$. At $x = 1$ this is $\\tfrac{3}{8} = 0.375$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Continuous at $a$: no jump, so $\\lim_{x \\to a} f(x) = f(a)$. Differentiable at $a$: no corner either, so there is one tangent.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Differentiable implies continuous, not the reverse: $y = \\lvert x\\rvert$ is continuous at $0$ but has a corner.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A sequence converges if it settles on one value; otherwise it diverges. $r^{n} \\to 0$ when $\\lvert r\\rvert < 1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "S_{\\infty} = \\frac{u_{1}}{1 - r}, \\quad \\lvert r\\rvert < 1",
+          "tag": "booklet",
+          "bookletId": "bk-1-8-sum-infinity",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "y = f(x) \\Rightarrow \\frac{\\mathrm{d}y}{\\mathrm{d}x} = f'(x) = \\lim_{h \\to 0}\\left(\\frac{f(x+h) - f(x)}{h}\\right)",
+          "tag": "booklet",
+          "bookletId": "bk-5-12-first-principles",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "First principles: expand $f(x+h)$, subtract $f(x)$, divide by $h$, then let $h \\to 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$f^{(n)}(x) = \\frac{\\mathrm{d}^{n}y}{\\mathrm{d}x^{n}}$: differentiate $n$ times. Spot the pattern, then prove it by induction.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Putting $h = 0$ before dividing. That gives $\\frac{0}{0}$. Cancel the factor $h$ first, then let $h \\to 0$.",
+    "Subtracting $f(x)$ without brackets. Put the whole of $f(x)$ in brackets, as in $f(x+h) - \\left(3x^{2} - 5x\\right)$ for $f(x) = 3x^{2} - 5x$, so every term changes sign.",
+    "Dropping the chain-rule factor after the first round. Every derivative of $\\cos(2x)$ brings out another 2, so $f^{(4)}(x)$ has $2^{4}$."
+  ],
+  "examTips": [
+    "\"From first principles\": show each stage. Expand $f(x+h)$, subtract $f(x)$, divide by $h$, and write $\\lim_{h \\to 0}$ until the last line.",
+    "\"Write down\" a limit as $t \\to \\infty$: just the value. If asked to comment, say whether the model still holds for large $t$.",
+    "\"Hence suggest\" a formula for $f^{(n)}(x)$: show the first few derivatives in full, then the pattern. \"Prove\" it by induction."
+  ],
+  "readingMinutes": 22
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "continuous",
+    "term": "Continuous",
+    "definition": "A function is continuous at $x = a$ if $f(a)$ exists and $\\lim_{x \\to a} f(x) = f(a)$: near $a$ its graph has no break or jump.",
+    "lesson": "5.12"
+  },
+  {
+    "id": "differentiable",
+    "term": "Differentiable",
+    "definition": "A function is differentiable at $x = a$ if its derivative $f'(a)$ exists there: the graph is smooth at that point, with one tangent and no corner.",
+    "lesson": "5.12"
+  },
+  {
+    "id": "convergent",
+    "term": "Convergent",
+    "definition": "A sequence or series is convergent if its terms (or its partial sums) settle on one finite value as $n \\to \\infty$.",
+    "lesson": "5.12"
+  },
+  {
+    "id": "divergent",
+    "term": "Divergent",
+    "definition": "A sequence or series is divergent if it does not converge: its values grow without limit or never settle on one value.",
+    "lesson": "5.12"
+  },
+  {
+    "id": "first-principles",
+    "term": "First principles",
+    "definition": "Finding a derivative straight from its definition, $f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$, without the differentiation rules.",
+    "lesson": "5.12"
+  },
+  {
+    "id": "higher-derivative",
+    "term": "Higher derivative",
+    "definition": "A derivative found by differentiating more than once; the $n$th derivative is written $f^{(n)}(x)$ or $\\frac{\\mathrm{d}^{n}y}{\\mathrm{d}x^{n}}$.",
+    "lesson": "5.12"
+  }
+]

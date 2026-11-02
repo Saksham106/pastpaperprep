@@ -1,0 +1,26 @@
+[
+  {
+    "id": "reciprocal-trig-function",
+    "term": "reciprocal trig function",
+    "definition": "One of $\\sec x = \\frac{1}{\\cos x}$, $\\operatorname{cosec}x = \\frac{1}{\\sin x}$ and $\\cot x = \\frac{1}{\\tan x}$.",
+    "lesson": "3.9"
+  },
+  {
+    "id": "inverse-trig-function",
+    "term": "inverse trig function",
+    "definition": "One of $\\arcsin x$, $\\arccos x$ and $\\arctan x$: the angle, in a restricted range, whose sine, cosine or tangent is $x$.",
+    "lesson": "3.9"
+  },
+  {
+    "id": "partial-fractions",
+    "term": "partial fractions",
+    "definition": "Simpler fractions that add up to a given fraction, such as $\\frac{1}{x-1} - \\frac{1}{x+2}$ for $\\frac{3}{(x-1)(x+2)}$.",
+    "lesson": "1.11"
+  },
+  {
+    "id": "family-of-curves",
+    "term": "family of curves",
+    "definition": "All the curves $y = F(x) + C$ given by one indefinite integral: the same shape, shifted up or down by different constants $C$.",
+    "lesson": "5.15"
+  }
+]

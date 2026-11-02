@@ -1,0 +1,32 @@
+[
+  {
+    "id": "displacement",
+    "term": "displacement",
+    "definition": "The position of a particle measured from a fixed point O on its line of motion, with a sign: $s < 0$ means it is on the negative side of O.",
+    "lesson": "5.9"
+  },
+  {
+    "id": "velocity",
+    "term": "velocity",
+    "definition": "The rate of change of displacement, $v = \\frac{\\mathrm{d}s}{\\mathrm{d}t}$. Its sign gives the direction of motion.",
+    "lesson": "5.9"
+  },
+  {
+    "id": "acceleration",
+    "term": "acceleration",
+    "definition": "The rate of change of velocity, $a = \\frac{\\mathrm{d}v}{\\mathrm{d}t} = \\frac{\\mathrm{d}^{2}s}{\\mathrm{d}t^{2}}$.",
+    "lesson": "5.9"
+  },
+  {
+    "id": "speed",
+    "term": "speed",
+    "definition": "The magnitude of velocity, $\\lvert v\\rvert$: how fast a particle moves, whatever its direction, so it is never negative.",
+    "lesson": "5.9"
+  },
+  {
+    "id": "distance-travelled",
+    "term": "distance travelled",
+    "definition": "The total length of path a particle covers, counting motion in both directions as positive: $\\int_{t_{1}}^{t_{2}} \\lvert v(t)\\rvert\\,\\mathrm{d}t$.",
+    "lesson": "5.9"
+  }
+]

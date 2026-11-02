@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 420" role="img" aria-labelledby="t">
+  <title id="t">Graphs of f of x equals x cubed minus 3x, its derivative 3x squared minus 3, and its second derivative 6x, stacked with matching x-values</title>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="25" y1="70.0" x2="340" y2="70.0"/>
+    <line x1="180" y1="130.0" x2="180" y2="10.0"/>
+  </g>
+  <path d="M48.0,122.8 L51.3,114.8 L54.6,107.3 L57.9,100.3 L61.2,93.8 L64.5,87.7 L67.8,82.1 L71.1,77.0 L74.4,72.2 L77.7,67.9 L81.0,64.0 L84.3,60.5 L87.6,57.4 L90.9,54.6 L94.2,52.2 L97.5,50.1 L100.8,48.3 L104.1,46.9 L107.4,45.8 L110.7,44.9 L114.0,44.3 L117.3,44.0 L120.6,43.9 L123.9,44.1 L127.2,44.5 L130.5,45.0 L133.8,45.8 L137.1,46.8 L140.4,47.9 L143.7,49.2 L147.0,50.6 L150.3,52.2 L153.6,53.9 L156.9,55.7 L160.2,57.6 L163.5,59.5 L166.8,61.5 L170.1,63.6 L173.4,65.7 L176.7,67.8 L180.0,70.0 L183.3,72.2 L186.6,74.3 L189.9,76.4 L193.2,78.5 L196.5,80.5 L199.8,82.4 L203.1,84.3 L206.4,86.1 L209.7,87.8 L213.0,89.4 L216.3,90.8 L219.6,92.1 L222.9,93.2 L226.2,94.2 L229.5,95.0 L232.8,95.5 L236.1,95.9 L239.4,96.1 L242.7,96.0 L246.0,95.7 L249.3,95.1 L252.6,94.2 L255.9,93.1 L259.2,91.7 L262.5,89.9 L265.8,87.8 L269.1,85.4 L272.4,82.6 L275.7,79.5 L279.0,76.0 L282.3,72.1 L285.6,67.8 L288.9,63.0 L292.2,57.9 L295.5,52.3 L298.8,46.2 L302.1,39.7 L305.4,32.7 L308.7,25.2 L312.0,17.2" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <text x="250" y="24" font-size="13" fill="var(--t1-ink)" font-family="inherit">y = f(x)</text>
+  <text x="332" y="85.0" font-size="12" fill="currentColor" font-family="inherit">x</text>
+  <circle cx="120.0" cy="43.9" r="3.5" fill="currentColor"/>
+  <text x="106.0" y="34.9" font-size="12" fill="currentColor" font-family="inherit">max</text>
+  <circle cx="240.0" cy="96.1" r="3.5" fill="currentColor"/>
+  <text x="228.0" y="116.1" font-size="12" fill="currentColor" font-family="inherit">min</text>
+  <text x="38" y="24" font-size="12" fill="var(--muted)" font-family="inherit">concave-down</text>
+  <text x="262" y="126" font-size="12" fill="var(--muted)" font-family="inherit">concave-up</text>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="25" y1="238.2" x2="340" y2="238.2"/>
+    <line x1="180" y1="270.0" x2="180" y2="150.0"/>
+  </g>
+  <path d="M48.0,156.9 L51.3,162.0 L54.6,166.9 L57.9,171.7 L61.2,176.4 L64.5,180.9 L67.8,185.4 L71.1,189.7 L74.4,193.8 L77.7,197.9 L81.0,201.8 L84.3,205.5 L87.6,209.2 L90.9,212.7 L94.2,216.1 L97.5,219.4 L100.8,222.5 L104.1,225.5 L107.4,228.4 L110.7,231.2 L114.0,233.8 L117.3,236.3 L120.6,238.7 L123.9,240.9 L127.2,243.0 L130.5,245.0 L133.8,246.9 L137.1,248.6 L140.4,250.2 L143.7,251.7 L147.0,253.0 L150.3,254.2 L153.6,255.3 L156.9,256.3 L160.2,257.1 L163.5,257.8 L166.8,258.4 L170.1,258.8 L173.4,259.2 L176.7,259.3 L180.0,259.4 L183.3,259.3 L186.6,259.2 L189.9,258.8 L193.2,258.4 L196.5,257.8 L199.8,257.1 L203.1,256.3 L206.4,255.3 L209.7,254.2 L213.0,253.0 L216.3,251.7 L219.6,250.2 L222.9,248.6 L226.2,246.9 L229.5,245.0 L232.8,243.0 L236.1,240.9 L239.4,238.7 L242.7,236.3 L246.0,233.8 L249.3,231.2 L252.6,228.4 L255.9,225.5 L259.2,222.5 L262.5,219.4 L265.8,216.1 L269.1,212.7 L272.4,209.2 L275.7,205.5 L279.0,201.8 L282.3,197.9 L285.6,193.8 L288.9,189.7 L292.2,185.4 L295.5,180.9 L298.8,176.4 L302.1,171.7 L305.4,166.9 L308.7,162.0 L312.0,156.9" fill="none" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <text x="250" y="164" font-size="13" fill="var(--t3-ink)" font-family="inherit">y = f′(x)</text>
+  <text x="332" y="253.2" font-size="12" fill="currentColor" font-family="inherit">x</text>
+  <circle cx="120.0" cy="238.2" r="3.5" fill="currentColor"/>
+  <circle cx="240.0" cy="238.2" r="3.5" fill="currentColor"/>
+  <circle cx="180.0" cy="259.4" r="3.5" fill="currentColor"/>
+  <text x="188.0" y="273.4" font-size="12" fill="currentColor" font-family="inherit">min of f′</text>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="25" y1="350.0" x2="340" y2="350.0"/>
+    <line x1="180" y1="410.0" x2="180" y2="290.0"/>
+  </g>
+  <path d="M48.0,406.6 L51.3,405.2 L54.6,403.7 L57.9,402.3 L61.2,400.9 L64.5,399.5 L67.8,398.1 L71.1,396.7 L74.4,395.3 L77.7,393.8 L81.0,392.4 L84.3,391.0 L87.6,389.6 L90.9,388.2 L94.2,386.8 L97.5,385.4 L100.8,383.9 L104.1,382.5 L107.4,381.1 L110.7,379.7 L114.0,378.3 L117.3,376.9 L120.6,375.5 L123.9,374.0 L127.2,372.6 L130.5,371.2 L133.8,369.8 L137.1,368.4 L140.4,367.0 L143.7,365.6 L147.0,364.1 L150.3,362.7 L153.6,361.3 L156.9,359.9 L160.2,358.5 L163.5,357.1 L166.8,355.7 L170.1,354.2 L173.4,352.8 L176.7,351.4 L180.0,350.0 L183.3,348.6 L186.6,347.2 L189.9,345.8 L193.2,344.3 L196.5,342.9 L199.8,341.5 L203.1,340.1 L206.4,338.7 L209.7,337.3 L213.0,335.9 L216.3,334.4 L219.6,333.0 L222.9,331.6 L226.2,330.2 L229.5,328.8 L232.8,327.4 L236.1,326.0 L239.4,324.5 L242.7,323.1 L246.0,321.7 L249.3,320.3 L252.6,318.9 L255.9,317.5 L259.2,316.1 L262.5,314.6 L265.8,313.2 L269.1,311.8 L272.4,310.4 L275.7,309.0 L279.0,307.6 L282.3,306.2 L285.6,304.7 L288.9,303.3 L292.2,301.9 L295.5,300.5 L298.8,299.1 L302.1,297.7 L305.4,296.3 L308.7,294.8 L312.0,293.4" fill="none" stroke="var(--t5-ink)" stroke-width="2.5"/>
+  <text x="40" y="304" font-size="13" fill="var(--t5-ink)" font-family="inherit">y = f″(x)</text>
+  <text x="332" y="365.0" font-size="12" fill="currentColor" font-family="inherit">x</text>
+  <circle cx="180.0" cy="350.0" r="3.5" fill="currentColor"/>
+  <text x="40" y="324" font-size="12" fill="var(--muted)" font-family="inherit">f″(x) &lt; 0 for x &lt; 0</text>
+  <text x="230" y="404" font-size="12" fill="var(--muted)" font-family="inherit">f″(x) &gt; 0 for x &gt; 0</text>
+  <line x1="120.0" y1="12" x2="120.0" y2="410" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="114.0" y="418" font-size="12" fill="currentColor" font-family="inherit">x = −1</text>
+  <line x1="180.0" y1="12" x2="180.0" y2="410" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="184.0" y="418" font-size="12" fill="currentColor" font-family="inherit">x = 0</text>
+  <line x1="240.0" y1="12" x2="240.0" y2="410" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="234.0" y="418" font-size="12" fill="currentColor" font-family="inherit">x = 1</text>
+</svg>

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "composite-function",
+    "term": "composite function",
+    "definition": "A function made by applying one function to the output of another: $(f \\circ g)(x) = f(g(x))$.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "chain-rule",
+    "term": "chain rule",
+    "definition": "The rule for differentiating a composite function: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{\\mathrm{d}y}{\\mathrm{d}u} \\times \\frac{\\mathrm{d}u}{\\mathrm{d}x}$, the outside's derivative times the inside's.",
+    "lesson": "5.6"
+  },
+  {
+    "id": "product-rule",
+    "term": "product rule",
+    "definition": "The rule for differentiating a product: if $y = uv$, then $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = u\\frac{\\mathrm{d}v}{\\mathrm{d}x} + v\\frac{\\mathrm{d}u}{\\mathrm{d}x}$.",
+    "lesson": "5.6"
+  },
+  {
+    "id": "quotient-rule",
+    "term": "quotient rule",
+    "definition": "The rule for differentiating a fraction: if $y = \\frac{u}{v}$, then $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{v\\frac{\\mathrm{d}u}{\\mathrm{d}x} - u\\frac{\\mathrm{d}v}{\\mathrm{d}x}}{v^{2}}$.",
+    "lesson": "5.6"
+  }
+]

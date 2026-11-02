@@ -1,0 +1,778 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.10",
+  "slug": "indefinite-integration-and-substitution",
+  "title": "Indefinite integration and substitution",
+  "level": "SL",
+  "topic": 5,
+  "summary": "Read any derivative backwards and you have an integral. You'll integrate $x^{n}$, $\\sin x$, $\\cos x$, $\\mathrm{e}^{x}$ and $\\frac{1}{x}$, then the same with $ax + b$ inside. Then you'll undo the chain rule, by [[integration-by-inspection|inspection]] or [[integration-by-substitution|substitution]].",
+  "goals": [
+    {
+      "text": "Integrate $x^{n}$ for any rational $n \\neq -1$, and $\\sin x$, $\\cos x$, $\\mathrm{e}^{x}$ and $\\frac{1}{x}$.",
+      "bullets": [
+        "5.10-b1"
+      ]
+    },
+    {
+      "text": "Integrate any of these with a linear expression $ax + b$ inside, by dividing by $a$.",
+      "bullets": [
+        "5.10-b2"
+      ]
+    },
+    {
+      "text": "Spot an integrand of the form $k\\,g'(x)\\,f(g(x))$ and integrate it by [[integration-by-inspection|inspection]].",
+      "bullets": [
+        "5.10-b3"
+      ]
+    },
+    {
+      "text": "Integrate the same kind of integrand by [[integration-by-substitution|substitution]], letting $u = g(x)$.",
+      "bullets": [
+        "5.10-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.5",
+    "5.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "integrate 1/x",
+    "integrate sin and cos",
+    "integrate e^x",
+    "reverse chain rule",
+    "integration by inspection",
+    "u substitution"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-power-integral",
+      "prompt": "Find $\\int \\left(3x^{2} - \\frac{4}{x^{3}}\\right)\\mathrm{d}x$.",
+      "hint": "Write $\\frac{4}{x^{3}}$ as $4x^{-3}$. Raise each power by 1, then divide by the new power.",
+      "options": [
+        {
+          "text": "$x^{3} + \\frac{2}{x^{2}} + C$",
+          "correct": true
+        },
+        {
+          "text": "$x^{3} - \\frac{2}{x^{2}} + C$",
+          "correct": false
+        },
+        {
+          "text": "$6x + \\frac{12}{x^{4}} + C$",
+          "correct": false
+        },
+        {
+          "text": "$x^{3} - \\frac{1}{x^{4}} + C$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\int (-4x^{-3})\\,\\mathrm{d}x = \\frac{-4x^{-2}}{-2} = 2x^{-2} = \\frac{2}{x^{2}}$, and $\\int 3x^{2}\\,\\mathrm{d}x = x^{3}$. Revise it in {{lesson:5.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-chain-sin",
+      "prompt": "Differentiate $y = \\sin(4x)$.",
+      "hint": "Use the chain rule: the derivative of the outside, times the derivative of the inside.",
+      "options": [
+        {
+          "text": "$4\\cos(4x)$",
+          "correct": true
+        },
+        {
+          "text": "$\\cos(4x)$",
+          "correct": false
+        },
+        {
+          "text": "$-4\\cos(4x)$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{1}{4}\\cos(4x)$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\sin$ differentiates to $\\cos$, times $4$ from the inside: $4\\cos(4x)$. Revise it in {{lesson:5.6}}."
+    },
+    {
+      "type": "check",
+      "id": "before-derivative-ln",
+      "prompt": "Differentiate $y = \\ln(5x)$.",
+      "hint": "Use the chain rule with inside $5x$, or write $\\ln(5x) = \\ln 5 + \\ln x$ first.",
+      "options": [
+        {
+          "text": "$\\frac{1}{x}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{5}{x}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{1}{5x}$",
+          "correct": false
+        }
+      ],
+      "explain": "The chain rule gives $\\frac{1}{5x} \\times 5 = \\frac{1}{x}$. The $5$ only adds the constant $\\ln 5$. Revise it in {{lesson:5.6}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "standard",
+      "heading": "Five standard integrals",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Integration undoes differentiation, so every derivative you know gives an integral. Read it backwards: $\\frac{\\mathrm{d}}{\\mathrm{d}x}(\\sin x) = \\cos x$, so $\\int \\cos x\\,\\mathrm{d}x = \\sin x + C$."
+        },
+        {
+          "type": "text",
+          "text": "The power rule from {{lesson:5.5}} works for any rational power, such as $\\frac{1}{2}$ or $-\\frac{2}{3}$, except $-1$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\int x^{n}\\,\\mathrm{d}x = \\frac{x^{n+1}}{n+1} + C, \\quad n \\neq -1",
+          "tag": "booklet",
+          "bookletId": "bk-5-5-power-integral",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Write roots as powers first: $\\sqrt{x} = x^{\\frac{1}{2}}$ and $\\frac{1}{\\sqrt[3]{x}} = x^{-\\frac{1}{3}}$. Dividing by a fraction such as $\\frac{3}{2}$ is the same as multiplying by $\\frac{2}{3}$."
+        },
+        {
+          "type": "text",
+          "text": "Now the trig and exponential functions. Read each derivative from {{lesson:5.6}} backwards."
+        },
+        {
+          "type": "formula",
+          "tex": "\\int \\sin x\\,\\mathrm{d}x = -\\cos x + C",
+          "tag": "booklet",
+          "bookletId": "bk-5-10-int-sin",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\int \\cos x\\,\\mathrm{d}x = \\sin x + C",
+          "tag": "booklet",
+          "bookletId": "bk-5-10-int-cos",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\int \\mathrm{e}^{x}\\,\\mathrm{d}x = \\mathrm{e}^{x} + C",
+          "tag": "booklet",
+          "bookletId": "bk-5-10-int-exp",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "All of these are in the formula booklet. Watch the sign on $\\sin x$: since $\\cos x$ differentiates to $-\\sin x$, it is $-\\cos x$ that differentiates to $\\sin x$. As everywhere in calculus, $x$ is in radians."
+        },
+        {
+          "type": "text",
+          "text": "The power rule fails for $\\frac{1}{x} = x^{-1}$: it would divide by $-1 + 1 = 0$. But $\\ln x$ differentiates to $\\frac{1}{x}$."
+        },
+        {
+          "type": "text",
+          "text": "$\\ln x$ needs $x > 0$, but $\\frac{1}{x}$ exists for $x < 0$ too. There, the chain rule gives $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\ln(-x) = \\frac{-1}{-x} = \\frac{1}{x}$. The modulus $|x|$, the size of $x$ without its sign, covers both cases."
+        },
+        {
+          "type": "formula",
+          "tex": "\\int \\frac{1}{x}\\,\\mathrm{d}x = \\ln|x| + C",
+          "tag": "booklet",
+          "bookletId": "bk-5-10-int-reciprocal",
+          "cheatSheet": true
+        },
+        {
+          "type": "figure",
+          "id": "5-10-ln-modulus",
+          "alt": "The graph of y equals ln of the modulus of x. It has two branches that are mirror images in the y-axis. They cross the x-axis at 1 and minus 1 and fall steeply towards the y-axis. The tangent at x equals 2 has gradient one half, and the tangent at x equals minus 2 has gradient minus one half.",
+          "caption": "The gradient of $y = \\ln|x|$ is $\\frac{1}{x}$ on both branches: positive on the right, negative on the left."
+        },
+        {
+          "type": "example",
+          "id": "ex-standard-plain",
+          "question": "Find $\\int \\left(4\\sqrt{x} + \\frac{3}{x} - 2\\cos x\\right)\\mathrm{d}x$.",
+          "steps": [
+            "Write the root as a power, $4x^{\\frac{1}{2}}$, then integrate term by term.",
+            "Raise the power to $\\frac{3}{2}$ and divide by $\\frac{3}{2}$: $\\int 4x^{\\frac{1}{2}}\\,\\mathrm{d}x = 4 \\times \\frac{2}{3}x^{\\frac{3}{2}} = \\frac{8}{3}x^{\\frac{3}{2}}$.",
+            "Use the booklet for the other two terms: $\\int \\frac{3}{x}\\,\\mathrm{d}x = 3\\ln|x|$ and $\\int (-2\\cos x)\\,\\mathrm{d}x = -2\\sin x$.",
+            "Add the pieces and one constant: $\\frac{8}{3}x^{\\frac{3}{2}} + 3\\ln|x| - 2\\sin x + C$.",
+            "Check by differentiating: $\\frac{8}{3} \\times \\frac{3}{2}x^{\\frac{1}{2}} + \\frac{3}{x} - 2\\cos x = 4\\sqrt{x} + \\frac{3}{x} - 2\\cos x$."
+          ],
+          "answer": "$\\int \\left(4\\sqrt{x} + \\frac{3}{x} - 2\\cos x\\right)\\mathrm{d}x = \\frac{8}{3}x^{\\frac{3}{2}} + 3\\ln|x| - 2\\sin x + C$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-integrate-root",
+          "prompt": "Find $\\int 5x^{\\frac{2}{3}}\\,\\mathrm{d}x$.",
+          "hint": "Add 1 to the power: $\\frac{2}{3} + 1 = \\frac{5}{3}$. Then divide by $\\frac{5}{3}$.",
+          "options": [
+            {
+              "text": "$3x^{\\frac{5}{3}} + C$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{25}{3}x^{\\frac{5}{3}} + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{10}{3}x^{-\\frac{1}{3}} + C$",
+              "correct": false
+            },
+            {
+              "text": "$5x^{\\frac{5}{3}} + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$5 \\times \\frac{3}{5}x^{\\frac{5}{3}} = 3x^{\\frac{5}{3}}$. Multiplying by $\\frac{5}{3}$ gives $\\frac{25}{3}$, and $\\frac{10}{3}x^{-\\frac{1}{3}}$ is the derivative."
+        },
+        {
+          "type": "check",
+          "id": "check-integrate-trig",
+          "prompt": "Find $\\int \\left(4\\sin x - \\frac{2}{x}\\right)\\mathrm{d}x$.",
+          "hint": "$\\sin x$ integrates to $-\\cos x$, and $\\frac{1}{x}$ integrates to $\\ln|x|$.",
+          "options": [
+            {
+              "text": "$-4\\cos x - 2\\ln|x| + C$",
+              "correct": true
+            },
+            {
+              "text": "$4\\cos x - 2\\ln|x| + C$",
+              "correct": false
+            },
+            {
+              "text": "$4\\cos x + \\frac{2}{x^{2}} + C$",
+              "correct": false
+            },
+            {
+              "text": "$-4\\cos x + \\frac{2}{x^{2}} + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\int 4\\sin x\\,\\mathrm{d}x = -4\\cos x$ and $\\int \\frac{2}{x}\\,\\mathrm{d}x = 2\\ln|x|$. The answers with $\\frac{2}{x^{2}}$ differentiate $-\\frac{2}{x}$ instead of integrating it."
+        },
+        {
+          "type": "example",
+          "id": "ex-curve-standard",
+          "question": "Exam style, as in {{lesson:5.5}}: a curve with gradient $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2\\mathrm{e}^{x} - 3\\sin x$ goes through $(0, 8)$. Find its equation.",
+          "steps": [
+            "Integrate each term, with the constant: $y = 2\\mathrm{e}^{x} - 3(-\\cos x) + C = 2\\mathrm{e}^{x} + 3\\cos x + C$.",
+            "The point is a [[boundary-condition|boundary condition]]: $y = 8$ when $x = 0$. Substitute: $8 = 2\\mathrm{e}^{0} + 3\\cos 0 + C$.",
+            "$\\mathrm{e}^{0} = 1$ and $\\cos 0 = 1$, so $8 = 2 + 3 + C$, and $C = 3$.",
+            "Check: at $x = 0$, $y = 2 + 3 + 3 = 8$."
+          ],
+          "answer": "$y = 2\\mathrm{e}^{x} + 3\\cos x + 3$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Taking $\\mathrm{e}^{0}$ as $0$. Any non-zero number to the power $0$ is $1$, so $\\mathrm{e}^{0} = 1$."
+        },
+        {
+          "type": "check",
+          "id": "check-constant-exp",
+          "prompt": "Given $f'(x) = 6\\mathrm{e}^{x} - 4\\cos x$ and $f(0) = 10$, find the value of the [[constant-of-integration|constant of integration]], $C$.",
+          "hint": "Integrate to get $f(x)$ with $+\\,C$. Then use $\\mathrm{e}^{0} = 1$ and $\\sin 0 = 0$.",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "$f(x) = 6\\mathrm{e}^{x} - 4\\sin x + C$. At $x = 0$: $10 = 6 - 0 + C$, so $C = 4$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also integrate $\\sec^{2} x$, $a^{x}$, and expressions such as $\\frac{1}{1 + x^{2}}$ that integrate to inverse trig functions.",
+          "lesson": "5.15"
+        }
+      ]
+    },
+    {
+      "id": "linear",
+      "heading": "A linear expression inside",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Differentiate $\\sin(5x - 2)$ with the chain rule and you get $5\\cos(5x - 2)$. The $5$ is the derivative of the inside, $5x - 2$."
+        },
+        {
+          "type": "text",
+          "text": "So integrating $\\cos(5x - 2)$ must undo that factor of $5$. Divide by it: $\\int \\cos(5x - 2)\\,\\mathrm{d}x = \\frac{1}{5}\\sin(5x - 2) + C$."
+        },
+        {
+          "type": "result",
+          "statement": "If $\\int f(x)\\,\\mathrm{d}x = F(x) + C$, then $\\int f(ax + b)\\,\\mathrm{d}x = \\frac{1}{a}F(ax + b) + C$, for constants $a \\neq 0$ and $b$.",
+          "why": "By the chain rule, $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left[\\frac{1}{a}F(ax + b)\\right] = \\frac{1}{a} \\times a\\,f(ax + b) = f(ax + b)$."
+        },
+        {
+          "type": "text",
+          "text": "So integrate as if the bracket were $x$, then divide by $a$, the number in front of $x$. These forms aren't in the booklet; they all follow from that one idea."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{aligned}\\int (ax+b)^{n}\\,\\mathrm{d}x &= \\frac{(ax+b)^{n+1}}{a(n+1)} + C, \\quad n \\neq -1 \\\\\\int \\frac{1}{ax+b}\\,\\mathrm{d}x &= \\frac{1}{a}\\ln|ax+b| + C \\\\\\int \\mathrm{e}^{ax+b}\\,\\mathrm{d}x &= \\frac{1}{a}\\mathrm{e}^{ax+b} + C \\\\\\int \\sin(ax+b)\\,\\mathrm{d}x &= -\\frac{1}{a}\\cos(ax+b) + C \\\\\\int \\cos(ax+b)\\,\\mathrm{d}x &= \\frac{1}{a}\\sin(ax+b) + C\\end{aligned}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-linear-cos",
+          "question": "Find $\\int \\cos(4x - 1)\\,\\mathrm{d}x$.",
+          "steps": [
+            "The inside is $4x - 1$. It is linear, with $a = 4$.",
+            "Integrate as if the bracket were $x$: $\\cos$ integrates to $\\sin$, giving $\\sin(4x - 1)$.",
+            "Divide by $a = 4$, and add the constant: $\\frac{1}{4}\\sin(4x - 1) + C$.",
+            "Check: by the chain rule, the derivative is $\\frac{1}{4} \\times 4\\cos(4x - 1) = \\cos(4x - 1)$."
+          ],
+          "answer": "$\\int \\cos(4x - 1)\\,\\mathrm{d}x = \\frac{1}{4}\\sin(4x - 1) + C$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying by $a$ instead of dividing, which is differentiating. When $a$ is a fraction such as $\\frac{1}{3}$, dividing by it means multiplying by $3$."
+        },
+        {
+          "type": "check",
+          "id": "check-linear-sin-third",
+          "prompt": "Find $\\int \\sin\\left(\\frac{x}{3}\\right)\\mathrm{d}x$.",
+          "hint": "Here $a = \\frac{1}{3}$. Dividing by $\\frac{1}{3}$ means multiplying by $3$.",
+          "options": [
+            {
+              "text": "$-3\\cos\\left(\\frac{x}{3}\\right) + C$",
+              "correct": true
+            },
+            {
+              "text": "$-\\frac{1}{3}\\cos\\left(\\frac{x}{3}\\right) + C$",
+              "correct": false
+            },
+            {
+              "text": "$3\\cos\\left(\\frac{x}{3}\\right) + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{3}\\cos\\left(\\frac{x}{3}\\right) + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sin$ integrates to $-\\cos$; dividing by $\\frac{1}{3}$ gives the factor $3$. A factor $\\frac{1}{3}$ multiplies by $a$ instead."
+        },
+        {
+          "type": "example",
+          "id": "ex-linear-mixed",
+          "question": "Find $\\int \\left(\\frac{6}{\\sqrt{3x + 2}} - 4\\mathrm{e}^{-2x}\\right)\\mathrm{d}x$.",
+          "steps": [
+            "Write the first term as a power: $\\frac{6}{\\sqrt{3x + 2}} = 6(3x + 2)^{-\\frac{1}{2}}$. Its inside is $3x + 2$, so $a = 3$.",
+            "Raise the power by 1 to $\\frac{1}{2}$, divide by the new power $\\frac{1}{2}$, then divide by $a = 3$: $\\frac{6(3x + 2)^{\\frac{1}{2}}}{\\frac{1}{2} \\times 3} = 4\\sqrt{3x + 2}$.",
+            "In the second term $a = -2$, so $\\int (-4\\mathrm{e}^{-2x})\\,\\mathrm{d}x = \\frac{-4}{-2}\\mathrm{e}^{-2x} = 2\\mathrm{e}^{-2x}$.",
+            "Add one constant: $4\\sqrt{3x + 2} + 2\\mathrm{e}^{-2x} + C$.",
+            "Check: differentiating gives $4 \\times \\frac{1}{2}(3x + 2)^{-\\frac{1}{2}} \\times 3 + 2 \\times (-2)\\mathrm{e}^{-2x} = \\frac{6}{\\sqrt{3x + 2}} - 4\\mathrm{e}^{-2x}$."
+          ],
+          "answer": "$\\int \\left(\\frac{6}{\\sqrt{3x + 2}} - 4\\mathrm{e}^{-2x}\\right)\\mathrm{d}x = 4\\sqrt{3x + 2} + 2\\mathrm{e}^{-2x} + C$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by the derivative of an inside that isn't linear. $\\int \\cos(x^{2})\\,\\mathrm{d}x$ is not $\\frac{\\sin(x^{2})}{2x} + C$. Dividing by $a$ only works for $ax + b$."
+        },
+        {
+          "type": "check",
+          "id": "check-linear-reciprocal",
+          "prompt": "Find $\\int \\frac{1}{4x + 3}\\,\\mathrm{d}x$.",
+          "hint": "$\\frac{1}{x}$ integrates to $\\ln|x|$. Here the inside is $4x + 3$, so $a = 4$.",
+          "options": [
+            {
+              "text": "$\\frac{1}{4}\\ln|4x + 3| + C$",
+              "correct": true
+            },
+            {
+              "text": "$\\ln|4x + 3| + C$",
+              "correct": false
+            },
+            {
+              "text": "$4\\ln|4x + 3| + C$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{4}{(4x + 3)^{2}} + C$",
+              "correct": false
+            }
+          ],
+          "explain": "Integrate as if $4x + 3$ were $x$, then divide by $4$. The last option is the derivative of $\\frac{1}{4x + 3}$."
+        },
+        {
+          "type": "text",
+          "text": "Your GDC can't find an indefinite integral. On Paper 2 you integrate by hand, then use it for the numbers."
+        },
+        {
+          "type": "example",
+          "id": "ex-linear-gdc",
+          "question": "A function $f$ is defined for $x > 0$, with $f'(x) = \\frac{3}{x} + \\mathrm{e}^{0.5x}$ and $f(2) = 4$. Use your calculator to find $f(5)$. Give your answer to 3 s.f.",
+          "steps": [
+            "Integrate term by term. In $\\mathrm{e}^{0.5x}$, $a = 0.5$, and dividing by $0.5$ doubles: $f(x) = 3\\ln x + 2\\mathrm{e}^{0.5x} + C$. You can write $\\ln x$ for $\\ln|x|$ because $x > 0$.",
+            "Use $f(2) = 4$: $4 = 3\\ln 2 + 2\\mathrm{e} + C$, so $C = 4 - 3\\ln 2 - 2\\mathrm{e}$. Don't round it.",
+            "Write down what you evaluate, then evaluate it: $f(5) = 3\\ln 5 + 2\\mathrm{e}^{2.5} + 4 - 3\\ln 2 - 2\\mathrm{e} = 25.6772\\ldots$",
+            "Check on the GDC: $f(5) = f(2) + \\int_{2}^{5} f'(x)\\,\\mathrm{d}x = 4 + 21.6772\\ldots$, the same value. So $f(5) = 25.7$ to 3 s.f."
+          ],
+          "answer": "$f(5) \\approx 25.7$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Home screen: type 3ln(5)+2e^(2.5)+4-3ln(2)-2e^(1), then ENTER",
+              "Read 25.677…",
+              "To check: MATH, 9: fnInt(",
+              "Fill in lower limit 2, upper limit 5, then 3/X+e^(0.5X), then ENTER",
+              "Read 21.677…, add f(2) = 4 to get 25.677…, which is 25.7 to 3 s.f."
+            ],
+            "nspire": [
+              "Calculator page: type 3ln(5)+2e^(2.5)+4-3ln(2)-2e^(1), then enter",
+              "Read 25.677…",
+              "To check: Menu, Calculus, Numerical Integral",
+              "Lower limit 2, upper limit 5, then 3/x+e^(0.5x), then x in the box after d, then enter",
+              "Read 21.677…, add f(2) = 4 to get 25.677…, which is 25.7 to 3 s.f."
+            ],
+            "casio": [
+              "RUN-MAT: type 3ln(5)+2e^(2.5)+4-3ln(2)-2e^(1), then EXE",
+              "Read 25.677…",
+              "To check: RUN-MAT, OPTN, CALC, ∫dx",
+              "Fill in 3/X+e^(0.5X) with lower limit 2 and upper limit 5, then EXE",
+              "Read 21.677…, add f(2) = 4 to get 25.677…, which is 25.7 to 3 s.f."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "inspection",
+      "heading": "Reversing the chain rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Differentiate $(x^{2} + 4)^{3}$ with the chain rule: $3(x^{2} + 4)^{2} \\times 2x = 6x(x^{2} + 4)^{2}$. Read that backwards and you have an integral: $\\int 6x(x^{2} + 4)^{2}\\,\\mathrm{d}x = (x^{2} + 4)^{3} + C$."
+        },
+        {
+          "type": "text",
+          "text": "It worked because the integrand holds an inner function, $g(x) = x^{2} + 4$, and its derivative, $2x$, as a factor. A constant in front doesn't matter: you can always fix a constant."
+        },
+        {
+          "type": "result",
+          "statement": "If $F$ is an [[antiderivative|antiderivative]] of $f$, then $\\int k\\,g'(x)\\,f(g(x))\\,\\mathrm{d}x = k\\,F(g(x)) + C$ for any constant $k$.",
+          "why": "By the chain rule, $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left[k\\,F(g(x))\\right] = k\\,f(g(x))\\,g'(x)$, which is the integrand."
+        },
+        {
+          "type": "text",
+          "text": "Finding the answer this way, by spotting it, is called [[integration-by-inspection|integration by inspection]]. Here is the method."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the inner function $g(x)$: the part inside a bracket, root, exponent or trig function."
+        },
+        {
+          "type": "text",
+          "text": "2. Check that $g'(x)$ is a factor of the rest, up to a constant."
+        },
+        {
+          "type": "text",
+          "text": "3. Guess: integrate the outer function, keeping $g(x)$ inside it unchanged."
+        },
+        {
+          "type": "text",
+          "text": "4. Differentiate your guess. Then multiply by whatever constant makes it match the integrand."
+        },
+        {
+          "type": "example",
+          "id": "ex-inspect-power",
+          "question": "Find $\\int x(x^{2} - 3)^{4}\\,\\mathrm{d}x$.",
+          "steps": [
+            "The inner function is $g(x) = x^{2} - 3$, with $g'(x) = 2x$. The factor $x$ is $g'(x)$ times the constant $\\frac{1}{2}$, so inspection works.",
+            "Guess by raising the power, as for $x^{4}$: try $(x^{2} - 3)^{5}$.",
+            "Differentiate the guess: $5(x^{2} - 3)^{4} \\times 2x = 10x(x^{2} - 3)^{4}$. That is 10 times too big.",
+            "Divide by 10 and add the constant: $\\frac{1}{10}(x^{2} - 3)^{5} + C$.",
+            "Check: $\\frac{1}{10} \\times 10x(x^{2} - 3)^{4} = x(x^{2} - 3)^{4}$."
+          ],
+          "answer": "$\\int x(x^{2} - 3)^{4}\\,\\mathrm{d}x = \\frac{1}{10}(x^{2} - 3)^{5} + C$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Fixing a missing $x$. Inspection only fixes constants: $\\int (x^{2} + 1)^{4}\\,\\mathrm{d}x$ is not $\\frac{(x^{2} + 1)^{5}}{10x} + C$. Expand it instead."
+        },
+        {
+          "type": "check",
+          "id": "check-inspect-trig",
+          "prompt": "Find $\\int 6x\\sin\\left(x^{2}\\right)\\mathrm{d}x$.",
+          "hint": "The inner function is $x^{2}$. Guess $\\cos\\left(x^{2}\\right)$, differentiate it, and compare.",
+          "options": [
+            {
+              "text": "$-3\\cos\\left(x^{2}\\right) + C$",
+              "correct": true
+            },
+            {
+              "text": "$3\\cos\\left(x^{2}\\right) + C$",
+              "correct": false
+            },
+            {
+              "text": "$-12\\cos\\left(x^{2}\\right) + C$",
+              "correct": false
+            },
+            {
+              "text": "$-3x^{2}\\cos\\left(x^{2}\\right) + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{\\mathrm{d}}{\\mathrm{d}x}\\cos\\left(x^{2}\\right) = -2x\\sin\\left(x^{2}\\right)$, which is $-\\frac{1}{3}$ of the integrand. So multiply by $-3$. The option with $-12$ multiplies by $-2$ instead of dividing by it."
+        },
+        {
+          "type": "text",
+          "text": "Watch for a fraction whose top is the derivative of its bottom, $\\frac{g'(x)}{g(x)}$. The outer function is $\\frac{1}{u}$, which integrates to $\\ln|u|$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\int \\frac{g'(x)}{g(x)}\\,\\mathrm{d}x = \\ln|g(x)| + C",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-inspect-log",
+          "question": "Find $\\int \\frac{\\sin x}{\\cos x}\\,\\mathrm{d}x$.",
+          "steps": [
+            "Take the bottom as $g(x) = \\cos x$. Its derivative is $g'(x) = -\\sin x$.",
+            "The top, $\\sin x$, is $-1$ times $g'(x)$. So the integrand is $-\\frac{g'(x)}{g(x)}$.",
+            "Integrate: $-\\ln|\\cos x| + C$.",
+            "Check by the chain rule: $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(-\\ln|\\cos x|\\right) = -\\frac{-\\sin x}{\\cos x} = \\frac{\\sin x}{\\cos x}$."
+          ],
+          "answer": "$\\int \\frac{\\sin x}{\\cos x}\\,\\mathrm{d}x = -\\ln|\\cos x| + C$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-inspect-log",
+          "prompt": "Find $\\int \\frac{6x^{2}}{x^{3} + 5}\\,\\mathrm{d}x$.",
+          "hint": "The derivative of the bottom, $x^{3} + 5$, is $3x^{2}$. How many of those are on top?",
+          "options": [
+            {
+              "text": "$2\\ln|x^{3} + 5| + C$",
+              "correct": true
+            },
+            {
+              "text": "$6\\ln|x^{3} + 5| + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\ln|x^{3} + 5| + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2}\\ln|x^{3} + 5| + C$",
+              "correct": false
+            }
+          ],
+          "explain": "The top, $6x^{2}$, is twice the derivative of the bottom, so the answer is $2\\ln|x^{3} + 5| + C$."
+        }
+      ]
+    },
+    {
+      "id": "substitution",
+      "heading": "Integration by substitution",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Inspection asks you to see the answer. When you can't, [[integration-by-substitution|substitution]] does the same job one written step at a time. You rename the inner function as a single letter, $u$."
+        },
+        {
+          "type": "text",
+          "text": "Let $u = g(x)$. Then $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = g'(x)$, which you write as $\\mathrm{d}u = g'(x)\\,\\mathrm{d}x$. So the piece $g'(x)\\,\\mathrm{d}x$ in the integral becomes $\\mathrm{d}u$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\int k\\,g'(x)\\,f(g(x))\\,\\mathrm{d}x = k\\int f(u)\\,\\mathrm{d}u, \\quad \\text{where } u = g(x)",
+          "tag": "learn",
+          "cheatSheet": false
+        },
+        {
+          "type": "text",
+          "text": "This is shorthand, but the chain rule result in the last section guarantees the answer."
+        },
+        {
+          "type": "text",
+          "text": "1. Choose $u$: the inner function $g(x)$."
+        },
+        {
+          "type": "text",
+          "text": "2. Find $\\frac{\\mathrm{d}u}{\\mathrm{d}x}$, then write $\\mathrm{d}u$ in terms of $\\mathrm{d}x$."
+        },
+        {
+          "type": "text",
+          "text": "3. Rewrite the whole integral in terms of $u$. No $x$ may be left, not even in $\\mathrm{d}x$."
+        },
+        {
+          "type": "text",
+          "text": "4. Integrate with respect to $u$, then put $u = g(x)$ back and add $+\\,C$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sub-root",
+          "question": "Use the substitution $u = x^{3} + 2$ to find $\\int 3x^{2}\\sqrt{x^{3} + 2}\\,\\mathrm{d}x$.",
+          "steps": [
+            "Let $u = x^{3} + 2$. Then $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 3x^{2}$, so $\\mathrm{d}u = 3x^{2}\\,\\mathrm{d}x$.",
+            "Replace $x^{3} + 2$ by $u$, and $3x^{2}\\,\\mathrm{d}x$ by $\\mathrm{d}u$. The integral becomes $\\int \\sqrt{u}\\,\\mathrm{d}u = \\int u^{\\frac{1}{2}}\\,\\mathrm{d}u$.",
+            "Integrate: $\\frac{u^{\\frac{3}{2}}}{\\frac{3}{2}} = \\frac{2}{3}u^{\\frac{3}{2}}$.",
+            "Put $u = x^{3} + 2$ back: $\\frac{2}{3}(x^{3} + 2)^{\\frac{3}{2}} + C$.",
+            "Check: differentiating gives $\\frac{2}{3} \\times \\frac{3}{2}(x^{3} + 2)^{\\frac{1}{2}} \\times 3x^{2} = 3x^{2}\\sqrt{x^{3} + 2}$."
+          ],
+          "answer": "$\\int 3x^{2}\\sqrt{x^{3} + 2}\\,\\mathrm{d}x = \\frac{2}{3}(x^{3} + 2)^{\\frac{3}{2}} + C$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Integrating with an $x$ still inside, as in $\\int \\sqrt{u}\\,x^{2}\\,\\mathrm{d}u$. Replace every $x$ first, and put $u = g(x)$ back at the end."
+        },
+        {
+          "type": "example",
+          "id": "ex-sub-exam",
+          "question": "Find $\\int \\frac{\\cos x}{(2 + \\sin x)^{3}}\\,\\mathrm{d}x$.",
+          "steps": [
+            "The bracket holds the inner function. Let $u = 2 + \\sin x$. Then $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = \\cos x$, so $\\mathrm{d}u = \\cos x\\,\\mathrm{d}x$.",
+            "The top, $\\cos x\\,\\mathrm{d}x$, becomes $\\mathrm{d}u$, and the bottom becomes $u^{3}$. So the integral is $\\int \\frac{1}{u^{3}}\\,\\mathrm{d}u = \\int u^{-3}\\,\\mathrm{d}u$.",
+            "Use the power rule, not $\\ln$, because the bottom is cubed: $\\frac{u^{-2}}{-2} = -\\frac{1}{2u^{2}}$.",
+            "Put $u = 2 + \\sin x$ back: $-\\frac{1}{2(2 + \\sin x)^{2}} + C$.",
+            "Check: $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left[-\\frac{1}{2}(2 + \\sin x)^{-2}\\right] = (2 + \\sin x)^{-3}\\cos x$, which is the integrand."
+          ],
+          "answer": "$\\int \\frac{\\cos x}{(2 + \\sin x)^{3}}\\,\\mathrm{d}x = -\\frac{1}{2(2 + \\sin x)^{2}} + C$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-sub-root",
+          "prompt": "Find $\\int \\frac{x}{\\sqrt{x^{2} + 9}}\\,\\mathrm{d}x$.",
+          "hint": "Let $u = x^{2} + 9$, so $\\mathrm{d}u = 2x\\,\\mathrm{d}x$ and $x\\,\\mathrm{d}x = \\frac{1}{2}\\,\\mathrm{d}u$.",
+          "options": [
+            {
+              "text": "$\\sqrt{x^{2} + 9} + C$",
+              "correct": true
+            },
+            {
+              "text": "$2\\sqrt{x^{2} + 9} + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2}\\sqrt{x^{2} + 9} + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2}\\ln(x^{2} + 9) + C$",
+              "correct": false
+            }
+          ],
+          "explain": "It becomes $\\frac{1}{2}\\int u^{-\\frac{1}{2}}\\,\\mathrm{d}u = \\sqrt{u} + C = \\sqrt{x^{2} + 9} + C$. The $\\ln$ answer ignores the square root."
+        },
+        {
+          "type": "check",
+          "id": "check-sub-trig-power",
+          "prompt": "Find $\\int \\sin x\\,(\\cos x)^{4}\\,\\mathrm{d}x$.",
+          "hint": "Let $u = \\cos x$. What is $\\mathrm{d}u$? Watch the sign.",
+          "options": [
+            {
+              "text": "$-\\frac{1}{5}(\\cos x)^{5} + C$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{5}(\\cos x)^{5} + C$",
+              "correct": false
+            },
+            {
+              "text": "$-(\\cos x)^{5} + C$",
+              "correct": false
+            }
+          ],
+          "explain": "With $u = \\cos x$, $\\mathrm{d}u = -\\sin x\\,\\mathrm{d}x$, so the integral is $-\\int u^{4}\\,\\mathrm{d}u = -\\frac{u^{5}}{5} + C$. A plus sign forgets the minus in $\\mathrm{d}u$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also use substitutions that the question gives you, for integrals that are not of the form $k\\,g'(x)\\,f(g(x))$.",
+          "lesson": "5.16"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\int x^{n}\\,\\mathrm{d}x = \\frac{x^{n+1}}{n+1} + C, \\quad n \\neq -1",
+          "tag": "booklet",
+          "bookletId": "bk-5-5-power-integral",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\int \\frac{1}{x}\\,\\mathrm{d}x = \\ln|x| + C",
+          "tag": "booklet",
+          "bookletId": "bk-5-10-int-reciprocal",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\int \\sin x\\,\\mathrm{d}x = -\\cos x + C$, $\\int \\cos x\\,\\mathrm{d}x = \\sin x + C$ and $\\int \\mathrm{e}^{x}\\,\\mathrm{d}x = \\mathrm{e}^{x} + C$.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Linear inside: integrate as if $ax + b$ were $x$, then divide by $a$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $k\\,g'(x)\\,f(g(x))$: guess $F(g(x))$, differentiate it, then fix the constant.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\int \\frac{g'(x)}{g(x)}\\,\\mathrm{d}x = \\ln|g(x)| + C",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Substitution: let $u = g(x)$, replace $g'(x)\\,\\mathrm{d}x$ by $\\mathrm{d}u$, integrate, then put $g(x)$ back.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Every indefinite integral ends $+\\,C$. Check it by differentiating.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Differentiating instead of integrating. $\\int \\mathrm{e}^{3x}\\,\\mathrm{d}x$ is $\\frac{1}{3}\\mathrm{e}^{3x} + C$, not $3\\mathrm{e}^{3x}$: integrating divides by $a$.",
+    "Losing a minus sign. $\\int \\sin x\\,\\mathrm{d}x = -\\cos x + C$ and $\\int \\mathrm{e}^{-x}\\,\\mathrm{d}x = -\\mathrm{e}^{-x} + C$. Differentiate your answer to catch it.",
+    "Multiplying by $a$ when $a$ is a fraction. The inside of $\\cos\\left(\\frac{x}{2}\\right)$ has $a = \\frac{1}{2}$, so $\\int \\cos\\left(\\frac{x}{2}\\right)\\mathrm{d}x = 2\\sin\\left(\\frac{x}{2}\\right) + C$.",
+    "Using the power rule on $\\frac{1}{x}$, which divides by zero. $\\int \\frac{1}{x}\\,\\mathrm{d}x = \\ln|x| + C$.",
+    "Leaving out $+\\,C$. The answer is incomplete, and a later part that needs the constant can't be done."
+  ],
+  "examTips": [
+    "On a \"find\" question, write the integrand in the form you integrate, such as $6(3x + 2)^{-\\frac{1}{2}}$. That line shows your method even if the last step slips.",
+    "\"By inspection or otherwise\" means any correct method earns the marks. If you use substitution, write down $u = \\ldots$ and $\\mathrm{d}u = \\ldots$.",
+    "On Paper 1, leave answers exact, such as $3 - \\ln 2$. On Paper 2, write down what you evaluate, keep $C$ unrounded, and give the final value to 3 s.f."
+  ],
+  "readingMinutes": 22
+}

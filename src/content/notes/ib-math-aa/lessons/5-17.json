@@ -1,0 +1,573 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.17",
+  "slug": "areas-and-volumes-of-revolution",
+  "title": "Areas and volumes of revolution",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "A region can be sliced in either direction. Slice it into horizontal strips, and $\\int |x|\\,\\mathrm{d}y$ gives its area against the $y$-axis. Spin a region about an axis and it sweeps out a [[solid-of-revolution|solid of revolution]]. Slice that into thin discs, and an integral adds up their volumes.",
+  "goals": [
+    {
+      "text": "Find the area between a curve and the $y$-axis by integrating with respect to $y$.",
+      "bullets": [
+        "5.17-b1"
+      ]
+    },
+    {
+      "text": "Rewrite a curve as $x$ in terms of $y$, and use $y$-values as the limits.",
+      "bullets": [
+        "5.17-b1",
+        "5.17-b2"
+      ]
+    },
+    {
+      "text": "Find the volume of a [[solid-of-revolution|solid of revolution]] when a region is rotated about the $x$-axis.",
+      "bullets": [
+        "5.17-b2"
+      ]
+    },
+    {
+      "text": "Find the volume when a region is rotated about the $y$-axis.",
+      "bullets": [
+        "5.17-b2"
+      ]
+    },
+    {
+      "text": "Subtract volumes when the solid has a hole, and use your GDC for volume integrals you can't do by hand.",
+      "bullets": [
+        "5.17-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.11"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "volume of revolution",
+    "solid of revolution",
+    "area between a curve and the y axis",
+    "rotate about the y axis",
+    "disc method",
+    "washer method"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-area-x",
+      "prompt": "Find the area enclosed by the curve $y = 3x - x^{2}$ and the $x$-axis.",
+      "hint": "The curve meets the axis at $x = 0$ and $x = 3$, and it is above the axis between them.",
+      "options": [
+        {
+          "text": "$18$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{9}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{27}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\Big[\\frac{3x^{2}}{2} - \\frac{x^{3}}{3}\\Big]_{0}^{3} = \\frac{27}{2} - 9 = \\frac{9}{2}$. Integrating $3x$ as $3x^{2}$ gives $18$, and dropping the $x^{2}$ term gives $\\frac{27}{2}$. Revise it in {{lesson:5.11}}."
+    },
+    {
+      "type": "check",
+      "id": "before-between",
+      "prompt": "The curves $y = 2x$ and $y = x^{2}$ meet at $x = 0$ and $x = 2$. Find the area of the region they enclose.",
+      "hint": "Test $x = 1$ to see which curve is on top. Then integrate top minus bottom.",
+      "options": [
+        {
+          "text": "$\\frac{4}{3}$",
+          "correct": true
+        },
+        {
+          "text": "$-\\frac{4}{3}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{20}{3}$",
+          "correct": false
+        }
+      ],
+      "explain": "At $x = 1$, $2x = 2$ and $x^{2} = 1$, so $y = 2x$ is on top. $\\int_{0}^{2} (2x - x^{2})\\,\\mathrm{d}x = 4 - \\frac{8}{3} = \\frac{4}{3}$. Bottom minus top gives $-\\frac{4}{3}$, and adding the curves gives $\\frac{20}{3}$. Revise it in {{lesson:5.11}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "y-axis-area",
+      "heading": "Area between a curve and the y-axis",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.11}} you cut a region into thin vertical strips. Each strip had height $y$ and width $\\mathrm{d}x$, so the area was $\\int |y|\\,\\mathrm{d}x$."
+        },
+        {
+          "type": "text",
+          "text": "A region against the $y$-axis is easier to cut into horizontal strips. A strip at height $y$ runs from the $y$-axis to the curve, so its length is $x$ and its thickness is $\\mathrm{d}y$."
+        },
+        {
+          "type": "figure",
+          "id": "5-17-horizontal-strip",
+          "alt": "The curve y equals ln x rises from the point 1 on the x-axis up to height 2. The region between the curve and the y-axis, from y equals 0 up to the dashed line y equals 2, is shaded. One thin horizontal strip across the region is highlighted. It runs from the y-axis to the curve, so its length is x and its thickness is d y.",
+          "caption": "Each strip has area about $x\\,\\mathrm{d}y$. Adding the strips from $y = 0$ to $y = 2$ gives $\\int_{0}^{2} x\\,\\mathrm{d}y$."
+        },
+        {
+          "type": "text",
+          "text": "Adding up the strips gives the area between a curve, the $y$-axis and the lines $y = a$ and $y = b$:"
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\int_{a}^{b} |x|\\,\\mathrm{d}y",
+          "tag": "booklet",
+          "bookletId": "bk-5-17-area-y-axis",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet, so you don't need to memorise it. It is the {{lesson:5.11}} formula with $x$ and $y$ swapped. The modulus matters when the curve is left of the $y$-axis, where $x$ is negative."
+        },
+        {
+          "type": "text",
+          "text": "1. Rewrite the curve as $x$ in terms of $y$."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the limits as $y$-values. If you are given points, use their $y$-coordinates."
+        },
+        {
+          "type": "text",
+          "text": "3. Integrate with respect to $y$. If the curve crosses the $y$-axis between the limits, split there, as you did at the $x$-axis in {{lesson:5.11}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-yarea-quadratic",
+          "question": "The curve $x = 4y - y^{2}$ and the $y$-axis enclose a region. Find its area.",
+          "steps": [
+            "The curve is already written as $x$ in terms of $y$. It meets the $y$-axis where $x = 0$: $y(4 - y) = 0$, so $y = 0$ and $y = 4$.",
+            "Test $y = 2$: $x = 8 - 4 = 4 > 0$. So the region is right of the $y$-axis, and $|x| = x$.",
+            "Write the area as an integral in $y$: $A = \\int_{0}^{4} (4y - y^{2})\\,\\mathrm{d}y$.",
+            "Integrate and substitute: $\\Big[2y^{2} - \\frac{y^{3}}{3}\\Big]_{0}^{4} = 32 - \\frac{64}{3} = \\frac{32}{3}$."
+          ],
+          "answer": "$A = \\frac{32}{3}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Often the curve is given as $y$ in terms of $x$. Then make $x$ the subject first. This can turn a hard integral into an easy one."
+        },
+        {
+          "type": "example",
+          "id": "ex-yarea-ln",
+          "question": "The curve $y = \\ln x$, the line $y = 2$ and both coordinate axes enclose a region. Find its exact area.",
+          "steps": [
+            "The region sits against the $y$-axis, so integrate with respect to $y$. Make $x$ the subject: $y = \\ln x$ gives $x = \\mathrm{e}^{y}$.",
+            "The limits are $y$-values. The $x$-axis is $y = 0$, and the top is $y = 2$. Since $\\mathrm{e}^{y} > 0$, the region is right of the $y$-axis.",
+            "Write the area and integrate: $A = \\int_{0}^{2} \\mathrm{e}^{y}\\,\\mathrm{d}y = \\Big[\\mathrm{e}^{y}\\Big]_{0}^{2} = \\mathrm{e}^{2} - \\mathrm{e}^{0}$.",
+            "Since $\\mathrm{e}^{0} = 1$, $A = \\mathrm{e}^{2} - 1 \\approx 6.39$. In $x$ you would need $\\int \\ln x\\,\\mathrm{d}x$ and a rectangle taken away, so $\\mathrm{d}y$ is the shorter route."
+          ],
+          "answer": "$A = \\mathrm{e}^{2} - 1$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using $x$-values as the limits of a $\\mathrm{d}y$ integral. Above, $x$ runs up to $\\mathrm{e}^{2}$, but the limits are $y = 0$ and $y = 2$."
+        },
+        {
+          "type": "check",
+          "id": "check-yarea-cube",
+          "prompt": "Find the area enclosed by the curve $y = x^{3}$, the line $y = 8$ and the $y$-axis.",
+          "hint": "Rewrite the curve as $x = y^{\\frac{1}{3}}$. The limits are $y = 0$ and $y = 8$.",
+          "options": [
+            {
+              "text": "$12$",
+              "correct": true
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{64}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$A = \\int_{0}^{8} y^{\\frac{1}{3}}\\,\\mathrm{d}y = \\Big[\\frac{3}{4}y^{\\frac{4}{3}}\\Big]_{0}^{8} = \\frac{3}{4} \\times 16 = 12$. $4$ is the area under the curve, a different region. $\\frac{64}{3}$ uses $\\frac{4}{3}$ in place of $\\frac{3}{4}$."
+        },
+        {
+          "type": "check",
+          "id": "check-yarea-left",
+          "prompt": "Find the area enclosed by the curve $x = 2y^{2} - 4y$ and the $y$-axis.",
+          "hint": "Find where $x = 0$. Then test a $y$-value in between: is the curve left or right of the $y$-axis?",
+          "options": [
+            {
+              "text": "$-\\frac{8}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{8}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{40}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "The curve meets the $y$-axis at $y = 0$ and $y = 2$. At $y = 1$, $x = -2$, so the region is left of the axis. $\\int_{0}^{2} (2y^{2} - 4y)\\,\\mathrm{d}y = \\frac{16}{3} - 8 = -\\frac{8}{3}$, so the area is $\\frac{8}{3}$. $\\frac{40}{3}$ comes from integrating $2y^{2} + 4y$."
+        }
+      ]
+    },
+    {
+      "id": "x-axis-volume",
+      "heading": "Volume of revolution about the x-axis",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Take the region under $y = f(x)$ from $x = a$ to $x = b$. Rotate it through $2\\pi$ radians (one full turn, $360^{\\circ}$) about the $x$-axis. It sweeps out a [[solid-of-revolution|solid of revolution]], such as a cone, a bowl or a vase."
+        },
+        {
+          "type": "text",
+          "text": "Cut the solid at right angles to the $x$-axis. Every slice is a thin disc. The disc at $x$ has radius $y$, so its face has area $\\pi y^{2}$. Its thickness is $\\mathrm{d}x$, so its volume is about $\\pi y^{2}\\,\\mathrm{d}x$."
+        },
+        {
+          "type": "interactive",
+          "widget": "revolution-slice",
+          "props": {
+            "shape": "sqrt",
+            "b": 2,
+            "x0": 1
+          },
+          "alt": "The curve y equals root x from 0 to b and its dashed mirror image in the x-axis outline a solid. An upright disc stands at x0, with radius equal to root x0. Sliders move b and x0, and the disc radius, the disc area and the total volume are shown as numbers."
+        },
+        {
+          "type": "text",
+          "text": "Move $x_{0}$ and watch the disc's radius follow the curve. Adding every disc from $0$ to $b$ gives $V = \\pi\\int_{0}^{b} x\\,\\mathrm{d}x = \\frac{\\pi b^{2}}{2}$, because $(\\sqrt{x})^{2} = x$."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\int_{a}^{b} \\pi y^{2}\\,\\mathrm{d}x \\quad \\text{or} \\quad V = \\int_{a}^{b} \\pi x^{2}\\,\\mathrm{d}y",
+          "tag": "booklet",
+          "bookletId": "bk-5-17-volume-revolution",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Both forms are in the formula booklet. The first is for rotation about the $x$-axis, with $y$ written in terms of $x$. You'll use the second in the next section."
+        },
+        {
+          "type": "example",
+          "id": "ex-volx-cone",
+          "question": "The region bounded by the line $y = \\frac{x}{2}$, the $x$-axis and the line $x = 6$ is rotated through $2\\pi$ about the $x$-axis. Find the exact volume of the solid formed.",
+          "steps": [
+            "Picture the solid. It is a cone with its tip at the origin. Its base is the circle at $x = 6$, with radius $y = 3$.",
+            "Write the volume: $V = \\int_{0}^{6} \\pi\\left(\\frac{x}{2}\\right)^{2}\\mathrm{d}x = \\pi\\int_{0}^{6} \\frac{x^{2}}{4}\\,\\mathrm{d}x$.",
+            "Integrate: $\\pi\\Big[\\frac{x^{3}}{12}\\Big]_{0}^{6} = \\pi \\times \\frac{216}{12} = 18\\pi$.",
+            "Check with the cone formula from {{lesson:3.1}}: $\\frac{1}{3}\\pi r^{2}h = \\frac{1}{3}\\pi \\times 9 \\times 6 = 18\\pi$."
+          ],
+          "answer": "$V = 18\\pi$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting to square $y$, or putting $2\\pi$ in front. The disc's area is $\\pi y^{2}$, so the integral is $\\pi\\int y^{2}\\,\\mathrm{d}x$. The $2\\pi$ in the question is the angle of the turn, not part of the formula."
+        },
+        {
+          "type": "check",
+          "id": "check-volx-recip",
+          "prompt": "Let $R$ be the region under $y = \\frac{2}{x}$ from $x = 1$ to $x = 4$. $R$ is rotated through $2\\pi$ about the $x$-axis. Find the volume of the solid formed.",
+          "hint": "Square $y$ first: $\\left(\\frac{2}{x}\\right)^{2} = 4x^{-2}$.",
+          "options": [
+            {
+              "text": "$4\\pi\\ln 2$",
+              "correct": false
+            },
+            {
+              "text": "$6\\pi$",
+              "correct": false
+            },
+            {
+              "text": "$3\\pi$",
+              "correct": true
+            }
+          ],
+          "explain": "$V = \\pi\\int_{1}^{4} 4x^{-2}\\,\\mathrm{d}x = \\pi\\Big[-4x^{-1}\\Big]_{1}^{4} = \\pi(-1 + 4) = 3\\pi$. Not squaring gives $\\pi\\int_{1}^{4} \\frac{2}{x}\\,\\mathrm{d}x = 4\\pi\\ln 2$, and $2\\pi$ in front gives $6\\pi$."
+        },
+        {
+          "type": "text",
+          "text": "Now take a region between two curves, with $y = f(x)$ above $y = g(x)$ and both $\\ge 0$. Rotating it gives a solid with a hole down the middle. Each slice is a disc of radius $f(x)$ with a smaller disc of radius $g(x)$ cut out, like a washer."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\pi\\int_{a}^{b} \\left(\\big(f(x)\\big)^{2} - \\big(g(x)\\big)^{2}\\right)\\mathrm{d}x, \\quad \\text{where } f(x) \\ge g(x) \\ge 0",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is the outer volume minus the volume of the hole. It is not $\\pi\\int \\big(f(x) - g(x)\\big)^{2}\\,\\mathrm{d}x$. Square each radius, then subtract."
+        },
+        {
+          "type": "example",
+          "id": "ex-volx-washer",
+          "question": "The curves $y = 2x$ and $y = x^{2}$ enclose a region. The region is rotated through $2\\pi$ about the $x$-axis. Find the exact volume of the solid formed.",
+          "steps": [
+            "Find where the curves meet: $2x = x^{2}$, so $x(x - 2) = 0$, and $x = 0$ or $x = 2$.",
+            "At $x = 1$, $2x = 2$ and $x^{2} = 1$. So $y = 2x$ gives the outer radius and $y = x^{2}$ the inner radius. Both are $\\ge 0$ for $0 \\le x \\le 2$.",
+            "Write the volume: $V = \\pi\\int_{0}^{2} \\left((2x)^{2} - (x^{2})^{2}\\right)\\mathrm{d}x = \\pi\\int_{0}^{2} (4x^{2} - x^{4})\\,\\mathrm{d}x$.",
+            "Integrate: $\\pi\\Big[\\frac{4x^{3}}{3} - \\frac{x^{5}}{5}\\Big]_{0}^{2} = \\pi\\left(\\frac{32}{3} - \\frac{32}{5}\\right)$.",
+            "Simplify: $\\pi \\times \\frac{160 - 96}{15} = \\frac{64\\pi}{15}$."
+          ],
+          "answer": "$V = \\frac{64\\pi}{15}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-volx-washer",
+          "prompt": "The curve $y = 4 - x^{2}$ and the line $y = 3$ enclose a region. It is rotated through $2\\pi$ about the $x$-axis. Find the volume of the solid formed.",
+          "hint": "They meet at $x = \\pm 1$. The outer radius is $4 - x^{2}$ and the inner radius is $3$.",
+          "options": [
+            {
+              "text": "$\\frac{16\\pi}{15}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{136\\pi}{15}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{406\\pi}{15}$",
+              "correct": false
+            }
+          ],
+          "explain": "$V = \\pi\\int_{-1}^{1} \\left((4 - x^{2})^{2} - 3^{2}\\right)\\mathrm{d}x = \\pi\\int_{-1}^{1} (7 - 8x^{2} + x^{4})\\,\\mathrm{d}x = \\frac{136\\pi}{15}$. Squaring the gap, $\\pi\\int_{-1}^{1} (1 - x^{2})^{2}\\,\\mathrm{d}x$, gives $\\frac{16\\pi}{15}$. Forgetting to take away the hole gives $\\frac{406\\pi}{15}$."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 you often can't do the volume integral by hand. Write it down, then let your GDC evaluate it."
+        },
+        {
+          "type": "example",
+          "id": "ex-volx-gdc",
+          "question": "Let $R$ be the region between the curve $y = \\ln(x^{2} + 1)$ and the $x$-axis, from $x = 0$ to $x = 2$. $R$ is rotated through $360^{\\circ}$ about the $x$-axis. Use your calculator to find the volume of the solid formed. Give your answer to 3 s.f.",
+          "steps": [
+            "The curve passes through the origin, since $\\ln 1 = 0$, and $y \\ge 0$. So no part of $R$ is below the axis, and the radius at $x$ is $y$.",
+            "Write down the integral you key in: $V = \\pi\\int_{0}^{2} \\big(\\ln(x^{2} + 1)\\big)^{2}\\,\\mathrm{d}x$. This line earns the method mark.",
+            "The GDC gives $4.88068\\ldots$",
+            "Check: the radius reaches $\\ln 5 \\approx 1.61$, so the solid fits inside a cylinder of volume $\\pi \\times 1.61^{2} \\times 2 \\approx 16.3$.",
+            "Round only at the end: $V \\approx 4.88$ to 3 s.f."
+          ],
+          "answer": "$V \\approx 4.88$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MATH, 9: fnInt(",
+              "Fill in lower limit 0, upper limit 2, then π*(ln(X^2+1))^2, then ENTER",
+              "Read 4.88068…, which is 4.88 to 3 s.f."
+            ],
+            "nspire": [
+              "Calculator page: Menu, Calculus, Numerical Integral",
+              "Lower limit 0, upper limit 2, then π*(ln(x^2+1))^2, then x in the box after d, then enter",
+              "Read 4.88068…, which is 4.88 to 3 s.f."
+            ],
+            "casio": [
+              "RUN-MAT, OPTN, CALC, ∫dx",
+              "Fill in π*(ln(X^2+1))^2 with lower limit 0 and upper limit 2, then EXE",
+              "Read 4.88068…, which is 4.88 to 3 s.f."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "y-axis-volume",
+      "heading": "Volume of revolution about the y-axis",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Rotate a region about the $y$-axis instead, and slice the solid horizontally. The slice at height $y$ is a disc of radius $x$ and thickness $\\mathrm{d}y$. Its volume is about $\\pi x^{2}\\,\\mathrm{d}y$."
+        },
+        {
+          "type": "figure",
+          "id": "5-17-y-axis-disc",
+          "alt": "The curve y equals x squared for x from 0 to 2, and its dashed mirror image, outline a bowl 4 units tall with a circular rim at y equals 4. A thin horizontal disc is highlighted at about y equals 2.5. Its radius runs from the y-axis out to the curve, so the radius is x and the thickness is d y.",
+          "caption": "The disc at height $y$ has radius $x$, so its volume is about $\\pi x^{2}\\,\\mathrm{d}y$."
+        },
+        {
+          "type": "text",
+          "text": "Adding the discs gives the second booklet form, $V = \\int_{a}^{b} \\pi x^{2}\\,\\mathrm{d}y$. The method swaps the roles of $x$ and $y$:"
+        },
+        {
+          "type": "text",
+          "text": "1. Rewrite the curve as $x^{2}$ in terms of $y$. You often don't need $x$ itself."
+        },
+        {
+          "type": "text",
+          "text": "2. Use $y$-values as the limits."
+        },
+        {
+          "type": "text",
+          "text": "3. Integrate $\\pi x^{2}$ with respect to $y$."
+        },
+        {
+          "type": "example",
+          "id": "ex-voly-parabola",
+          "question": "Let $R$ be the region between the curve $y = x^{2}$ for $x \\ge 0$, the $y$-axis and the line $y = 4$. $R$ is rotated through $2\\pi$ about the $y$-axis. Find the exact volume of the solid formed.",
+          "steps": [
+            "The axis of rotation is the $y$-axis, so use $V = \\int \\pi x^{2}\\,\\mathrm{d}y$.",
+            "Rewrite the curve: $y = x^{2}$ gives $x^{2} = y$. There is no need to take a square root.",
+            "The region runs from the lowest point of the curve, $y = 0$, up to $y = 4$. These are the limits.",
+            "Integrate: $V = \\pi\\int_{0}^{4} y\\,\\mathrm{d}y = \\pi\\Big[\\frac{y^{2}}{2}\\Big]_{0}^{4} = 8\\pi$."
+          ],
+          "answer": "$V = 8\\pi$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using $\\pi\\int y^{2}\\,\\mathrm{d}x$ for a rotation about the $y$-axis. That rotates about the $x$-axis: here $\\pi\\int_{0}^{2} x^{4}\\,\\mathrm{d}x = \\frac{32\\pi}{5}$ is the volume of a different solid. Read which axis the question names."
+        },
+        {
+          "type": "text",
+          "text": "When you make $x$ the subject, one $y$ may give two values of $x$. Pick the one that matches the region."
+        },
+        {
+          "type": "example",
+          "id": "ex-voly-branch",
+          "question": "The region bounded by the curve $y = (x - 2)^{2}$ and the two coordinate axes is rotated through $2\\pi$ about the $y$-axis. Find the exact volume of the solid formed.",
+          "steps": [
+            "The curve meets the $y$-axis at $(0, 4)$ and touches the $x$-axis at $(2, 0)$. The region lies between them, with $0 \\le x \\le 2$.",
+            "Make $x$ the subject: $x - 2 = \\pm\\sqrt{y}$, so $x = 2 \\pm \\sqrt{y}$. The region has $x \\le 2$, so take $x = 2 - \\sqrt{y}$.",
+            "The region runs from $y = 0$ to $y = 4$. Write the volume: $V = \\pi\\int_{0}^{4} (2 - \\sqrt{y})^{2}\\,\\mathrm{d}y$.",
+            "Expand the bracket: $(2 - \\sqrt{y})^{2} = 4 - 4y^{\\frac{1}{2}} + y$.",
+            "Integrate: $\\pi\\Big[4y - \\frac{8}{3}y^{\\frac{3}{2}} + \\frac{y^{2}}{2}\\Big]_{0}^{4} = \\pi\\left(16 - \\frac{64}{3} + 8\\right) = \\frac{8\\pi}{3}$.",
+            "Check: the solid fits inside a cylinder of radius $2$ and height $4$, of volume $16\\pi$, and it narrows to a point at the top. So a much smaller answer makes sense."
+          ],
+          "answer": "$V = \\frac{8\\pi}{3}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "$\\pi\\int x^{2}\\,\\mathrm{d}y$ needs the region to reach the $y$-axis. If it doesn't, the solid has a hole down the middle. Find the volume without the hole, then take away the hole, just as with washers. Each piece gets its own $y$-limits."
+        },
+        {
+          "type": "example",
+          "id": "ex-voly-hole-limits",
+          "question": "The region under the curve $y = \\sqrt{x}$, above the $x$-axis and between the lines $x = 1$ and $x = 4$, is rotated through $2\\pi$ about the $y$-axis. Find the exact volume of the solid formed.",
+          "steps": [
+            "The region starts at $x = 1$, so it doesn't reach the $y$-axis. The solid has a hole down the middle.",
+            "Without the hole, the solid is a cylinder of radius $4$. Its height runs from $y = 0$ up to the curve at $x = 4$, which is $y = \\sqrt{4} = 2$. Its volume is $\\pi \\times 4^{2} \\times 2 = 32\\pi$.",
+            "The hole has two parts. Below $y = 1$ (the curve's height at $x = 1$), the inner edge is the line $x = 1$. That part is a cylinder of radius $1$ and height $1$, with volume $\\pi$.",
+            "Above $y = 1$, the inner edge is the curve. Make $x$ the subject: $x = y^{2}$, so $x^{2} = y^{4}$. This part runs from $y = 1$ to $y = 2$: $\\pi\\int_{1}^{2} y^{4}\\,\\mathrm{d}y = \\pi\\Big[\\frac{y^{5}}{5}\\Big]_{1}^{2} = \\frac{31\\pi}{5}$.",
+            "Take away the hole: $V = 32\\pi - \\pi - \\frac{31\\pi}{5} = \\frac{124\\pi}{5}$.",
+            "Check the limits. Taking away $\\pi\\int_{0}^{2} y^{4}\\,\\mathrm{d}y$ instead would give $32\\pi - \\frac{32\\pi}{5} = \\frac{128\\pi}{5}$. That is too big: below $y = 1$ the hole reaches out to $x = 1$, not just to the curve."
+          ],
+          "answer": "$V = \\frac{124\\pi}{5}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-voly-hole",
+          "prompt": "The region bounded by $y = x^{3}$, the $x$-axis and the line $x = 2$ is rotated through $2\\pi$ about the $y$-axis. Find the volume of the solid formed.",
+          "hint": "Think of a cylinder of radius $2$ and height $8$. The hole in it is the solid from rotating the region between the curve and the $y$-axis.",
+          "options": [
+            {
+              "text": "$\\frac{128\\pi}{7}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{64\\pi}{5}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{96\\pi}{5}$",
+              "correct": false
+            }
+          ],
+          "explain": "The cylinder has volume $\\pi \\times 2^{2} \\times 8 = 32\\pi$. With $x^{2} = y^{\\frac{2}{3}}$, the hole is $\\pi\\int_{0}^{8} y^{\\frac{2}{3}}\\,\\mathrm{d}y = \\frac{96\\pi}{5}$. So $V = 32\\pi - \\frac{96\\pi}{5} = \\frac{64\\pi}{5}$. $\\frac{96\\pi}{5}$ is the hole alone, and $\\frac{128\\pi}{7}$ rotates about the $x$-axis."
+        },
+        {
+          "type": "check",
+          "id": "check-voly-dish",
+          "prompt": "The inside of a dish is the solid formed when the region between $y = \\frac{x^{4}}{4}$, the $y$-axis and the line $y = 4$ is rotated through $360^{\\circ}$ about the $y$-axis. Lengths are in cm. Find the volume of the inside of the dish in $\\text{cm}^{3}$. Give your answer to 3 s.f.",
+          "hint": "Rearrange to $x^{4} = 4y$, so $x^{2} = 2\\sqrt{y}$. Then integrate $\\pi x^{2}$ from $y = 0$ to $y = 4$.",
+          "answer": {
+            "value": 33.5,
+            "tolerance": 0.05
+          },
+          "explain": "$V = \\pi\\int_{0}^{4} 2y^{\\frac{1}{2}}\\,\\mathrm{d}y = \\pi\\Big[\\frac{4}{3}y^{\\frac{3}{2}}\\Big]_{0}^{4} = \\frac{32\\pi}{3} \\approx 33.5\\text{ cm}^{3}$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "A = \\int_{a}^{b} |x|\\,\\mathrm{d}y",
+          "tag": "booklet",
+          "bookletId": "bk-5-17-area-y-axis",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Against the $y$-axis: write $x$ in terms of $y$, and use $y$-values as the limits.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\int_{a}^{b} \\pi y^{2}\\,\\mathrm{d}x \\quad \\text{or} \\quad V = \\int_{a}^{b} \\pi x^{2}\\,\\mathrm{d}y",
+          "tag": "booklet",
+          "bookletId": "bk-5-17-volume-revolution",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The $\\pi$ comes from the disc's area, $\\pi r^{2}$. Square the radius, and never put $2\\pi$ in front.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "About the $y$-axis, write $x^{2}$ in terms of $y$ and integrate in $y$. Choose the branch of $x$ that matches the region.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\pi\\int_{a}^{b} \\left(\\big(f(x)\\big)^{2} - \\big(g(x)\\big)^{2}\\right)\\mathrm{d}x, \\quad f(x) \\ge g(x) \\ge 0",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If the region doesn't reach the axis of rotation, the solid has a hole. Take the volume of the hole away.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the wrong formula for the axis. About the $y$-axis it is $\\pi\\int x^{2}\\,\\mathrm{d}y$, not $\\pi\\int y^{2}\\,\\mathrm{d}x$, so rewrite the curve as $x^{2}$ in terms of $y$.",
+    "Using $x$-values as the limits of a $\\mathrm{d}y$ integral. Find the $y$-coordinates where the region starts and stops.",
+    "Putting $2\\pi$ before the integral, or leaving the radius unsquared. The volume is $\\pi\\int y^{2}\\,\\mathrm{d}x$. Rotating through $2\\pi$ or $360^{\\circ}$ just means one full turn.",
+    "Squaring the gap between two curves. Use $\\pi\\int \\left(\\big(f(x)\\big)^{2} - \\big(g(x)\\big)^{2}\\right)\\mathrm{d}x$, not $\\pi\\int \\big(f(x) - g(x)\\big)^{2}\\,\\mathrm{d}x$.",
+    "Forgetting the hole. When the region doesn't reach the axis of rotation, subtract the volume of the hole. If the outer and inner parts span different heights, give each integral its own limits."
+  ],
+  "examTips": [
+    "\"Find the volume\": write the integral, with $\\pi$, the squared radius and the limits, before you evaluate it. That line earns the method marks.",
+    "On Paper 1, leave a volume exact as a multiple of $\\pi$, such as $\\frac{64\\pi}{15}$. On Paper 2, give 3 s.f. unless told otherwise, and round only at the end.",
+    "\"Show that\" a volume equals a given expression: start from $V = \\int \\pi x^{2}\\,\\mathrm{d}y$ (or $\\mathrm{d}x$) and write every step. A GDC value can't show an exact result."
+  ],
+  "readingMinutes": 22
+}

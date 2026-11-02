@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 260" role="img" aria-labelledby="t">
+  <title id="t">Cone-shaped tank, vertex down, 25 cm tall with top radius 10 cm, holding water of depth h with surface radius r</title>
+  <polygon points="121.2,133 198.8,133 160,230" fill="var(--t2-ink)" fill-opacity="0.25" stroke="var(--t2-ink)" stroke-width="1"/>
+  <line x1="121.2" y1="133" x2="198.8" y2="133" stroke="var(--t2-ink)" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="80" y1="30" x2="160" y2="230"/>
+    <line x1="240" y1="30" x2="160" y2="230"/>
+    <ellipse cx="160" cy="30" rx="80" ry="9"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6" stroke-dasharray="4 3">
+    <line x1="160" y1="30" x2="160" y2="230"/>
+    <line x1="160" y1="30" x2="240" y2="30"/>
+    <line x1="160" y1="133" x2="198.8" y2="133"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1" opacity="0.7">
+    <line x1="275" y1="30" x2="275" y2="230"/>
+    <line x1="268" y1="30" x2="282" y2="30"/>
+    <line x1="268" y1="230" x2="282" y2="230"/>
+    <line x1="225" y1="133" x2="225" y2="230"/>
+    <line x1="218" y1="133" x2="232" y2="133"/>
+    <line x1="218" y1="230" x2="232" y2="230"/>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="194" y="22">10</text>
+    <text x="283" y="135">25</text>
+    <text x="232" y="186" font-style="italic">h</text>
+    <text x="174" y="127" font-style="italic">r</text>
+    <text x="90" y="200" fill="var(--t2-ink)">water</text>
+  </g>
+</svg>

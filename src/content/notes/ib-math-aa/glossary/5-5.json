@@ -22,5 +22,11 @@
     "term": "boundary condition",
     "definition": "A known value, such as $y = 5$ when $x = 2$, used to find the constant of integration.",
     "lesson": "5.5"
+  },
+  {
+    "id": "definite",
+    "term": "definite integral",
+    "definition": "An integral with limits, $\\int_a^b f(x)\\,\\mathrm{d}x$. Its value is a number, not a function.",
+    "lesson": "5.5"
   }
 ]

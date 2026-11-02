@@ -1,0 +1,20 @@
+[
+  {
+    "id": "implicit-equation",
+    "term": "Implicit equation",
+    "definition": "An equation that links $x$ and $y$ without giving $y$ on its own as a function of $x$, such as $x^{2} + xy + y^{2} = 12$.",
+    "lesson": "5.14"
+  },
+  {
+    "id": "implicit-differentiation",
+    "term": "Implicit differentiation",
+    "definition": "Finding $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ from an implicit equation by differentiating every term with respect to $x$, multiplying each derivative of a $y$ term by $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$.",
+    "lesson": "5.14"
+  },
+  {
+    "id": "related-rates",
+    "term": "Related rates",
+    "definition": "Rates of change of linked quantities, such as $\\frac{\\mathrm{d}V}{\\mathrm{d}t}$ and $\\frac{\\mathrm{d}r}{\\mathrm{d}t}$, connected by the chain rule.",
+    "lesson": "5.14"
+  }
+]

@@ -6,10 +6,10 @@
   "title": "Tangents and normals",
   "level": "SL",
   "topic": 5,
-  "summary": "A [[tangent-line|tangent]] is the straight line that touches a curve at a point with the same gradient as the curve. The [[normal-line|normal]] goes through the same point at right angles to it. You need two things for either line: the point, from $f(a)$, and the gradient, from $f'(a)$.",
+  "summary": "A [[tangent|tangent]] is the straight line that touches a curve at a point with the same gradient as the curve. The [[normal-line|normal]] goes through the same point at right angles to it. You need two things for either line: the point, from $f(a)$, and the gradient, from $f'(a)$.",
   "goals": [
     {
-      "text": "Write the [[tangent-line|tangent]] to $y = f(x)$ at $x = a$, taking the point from $f(a)$ and the gradient from $f'(a)$.",
+      "text": "Write the [[tangent|tangent]] to $y = f(x)$ at $x = a$, taking the point from $f(a)$ and the gradient from $f'(a)$.",
       "bullets": [
         "5.4-b1"
       ]
@@ -120,7 +120,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Zoom in far enough on a smooth curve and it looks straight. That straight line is the [[tangent-line|tangent]] at the point. It touches the curve there and has exactly the curve's gradient."
+          "text": "Zoom in far enough on a smooth curve and it looks straight. That straight line is the [[tangent|tangent]] at the point. It touches the curve there and has exactly the curve's gradient."
         },
         {
           "type": "definition",
@@ -250,7 +250,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "In geometry, \"normal\" means \"at right angles\". The [[normal-line|normal]] to a curve goes through the same point as the [[tangent-line|tangent]] but crosses it at $90^{\\circ}$."
+          "text": "In geometry, \"normal\" means \"at right angles\". The [[normal-line|normal]] to a curve goes through the same point as the [[tangent|tangent]] but crosses it at $90^{\\circ}$."
         },
         {
           "type": "figure",

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "local-maximum",
+    "term": "local maximum",
+    "definition": "A point on a graph that is at least as high as every point close to it, like the top of a hill. There $f'(x) = 0$ for a smooth curve.",
+    "lesson": "5.8"
+  },
+  {
+    "id": "local-minimum",
+    "term": "local minimum",
+    "definition": "A point on a graph that is at least as low as every point close to it, like the bottom of a valley. There $f'(x) = 0$ for a smooth curve.",
+    "lesson": "5.8"
+  },
+  {
+    "id": "concave-up",
+    "term": "concave-up",
+    "definition": "Bending upwards like a cup on an interval, where $f''(x) > 0$ and the gradient is increasing.",
+    "lesson": "5.8"
+  },
+  {
+    "id": "concave-down",
+    "term": "concave-down",
+    "definition": "Bending downwards like an upside-down cup on an interval, where $f''(x) < 0$ and the gradient is decreasing.",
+    "lesson": "5.8"
+  },
+  {
+    "id": "point-of-inflexion",
+    "term": "point of inflexion",
+    "definition": "A point where a graph changes between concave-up and concave-down, so $f''(x) = 0$ and $f''(x)$ changes sign there.",
+    "lesson": "5.8"
+  }
+]
