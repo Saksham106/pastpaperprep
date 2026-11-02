@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { resetPersistedStoresForTests } from "./persisted-store";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render, screen } from "@testing-library/react";
@@ -32,6 +33,7 @@ const items = () => [...document.querySelectorAll("[data-block]")].map((el) => e
 
 beforeEach(() => {
   window.localStorage.clear();
+  resetPersistedStoresForTests();
   track.mockClear();
 });
 afterEach(cleanup);

@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { resetPersistedStoresForTests } from "./persisted-store";
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { getCourse, type Course } from "@/lib/course-notes/course";
@@ -25,6 +26,7 @@ const course: Course = { ...base, lessons: [lesson] };
 
 beforeEach(() => {
   window.localStorage.clear();
+  resetPersistedStoresForTests();
   track.mockClear();
 });
 afterEach(() => {

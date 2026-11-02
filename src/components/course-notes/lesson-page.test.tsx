@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { resetPersistedStoresForTests } from "./persisted-store";
 import { cleanup, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { getCourse, type Course } from "@/lib/course-notes/course";
@@ -26,6 +27,7 @@ const course: Course = {
 
 beforeEach(() => {
   window.localStorage.clear();
+  resetPersistedStoresForTests();
   track.mockClear();
   reviewed.date = "2026-10-20";
 });
@@ -81,6 +83,7 @@ describe("LessonPage", () => {
     expect(foot().getByRole("link", { name: /2\.13 Rational functions/ }).getAttribute("rel")).toBe("next");
     cleanup();
     window.localStorage.setItem("notes-level", "SL");
+    resetPersistedStoresForTests(); // a fresh page load reads the stored level
     render(<LessonPage course={course} lesson={current} />);
     expect(foot().queryByRole("link", { name: /2\.13/ })).toBeNull();
     expect(foot().getByRole("link", { name: /2\.14 Modelling/ }).getAttribute("href")).toMatch(/2-14-modelling$/);

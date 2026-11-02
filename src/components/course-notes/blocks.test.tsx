@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { resetPersistedStoresForTests } from "./persisted-store";
 import { cleanup, render, screen, within } from "@testing-library/react";
 import { isValidElement, type ReactNode } from "react";
 import userEvent from "@testing-library/user-event";
@@ -14,7 +15,10 @@ import seedLesson from "@/content/notes/ib-math-aa/lessons/5-16.json";
 const glossary: Term[] = [{ id: "integrand", term: "Integrand", definition: "The function inside $\\int f(x)\\,dx$.", lesson: "5.5" }];
 const lessonHref = (item: string) => `/notes/${item}`;
 
-beforeEach(() => window.localStorage.clear());
+beforeEach(() => {
+  window.localStorage.clear();
+  resetPersistedStoresForTests();
+});
 afterEach(cleanup);
 
 describe("Inline", () => {

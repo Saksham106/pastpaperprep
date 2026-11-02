@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { resetPersistedStoresForTests } from "./persisted-store";
 import { cleanup, render, screen, within } from "@testing-library/react";
 import taxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import items from "@/data/aa-official-subtopics/items.json";
@@ -19,7 +20,10 @@ const groups = (taxonomy.groups as { id: string; studentFacingName: string; pare
   .filter((group) => group.parentTopic === "Calculus")
   .sort((a, b) => a.teachingOrder - b.teachingOrder);
 
-beforeEach(() => window.localStorage.clear());
+beforeEach(() => {
+  window.localStorage.clear();
+  resetPersistedStoresForTests();
+});
 afterEach(cleanup);
 
 describe("CourseTopic", () => {

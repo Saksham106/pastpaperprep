@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { resetPersistedStoresForTests } from "./persisted-store";
 import { cleanup, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { getCourse, type Course } from "@/lib/course-notes/course";
@@ -28,7 +29,10 @@ const course: Course = {
   ],
 };
 
-beforeEach(() => window.localStorage.clear());
+beforeEach(() => {
+  window.localStorage.clear();
+  resetPersistedStoresForTests();
+});
 afterEach(cleanup);
 
 const topicSection = (n: number) => screen.getByRole("region", { name: new RegExp(`^${course.topics[n - 1].name}`) });
@@ -90,6 +94,7 @@ describe("CourseHome", () => {
 
     window.localStorage.setItem("notes-progress:ib-math-aa", JSON.stringify(["1.1", "1.2", "2.5"]));
     window.localStorage.setItem("notes-level", "SL");
+    resetPersistedStoresForTests(); // a fresh page load reads the stored values
     render(<CourseHome course={course} />);
     await vi.waitFor(() => expect(screen.queryByRole("link", { name: /^Continue/ })).toBeNull());
   });
