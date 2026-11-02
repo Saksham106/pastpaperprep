@@ -1,0 +1,480 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.2",
+  "slug": "increasing-and-decreasing-functions",
+  "title": "Increasing and decreasing functions",
+  "level": "SL",
+  "topic": 5,
+  "summary": "A function is increasing where its graph goes up as you move left to right, and decreasing where it goes down. The sign of $f'(x)$ tells you which. Positive means up, negative means down, and zero means a flat tangent at a [[stationary-point|stationary point]].",
+  "goals": [
+    {
+      "text": "Say whether a function is [[increasing-function|increasing]] or [[decreasing-function|decreasing]] at a point, from the sign of $f'(x)$.",
+      "bullets": [
+        "5.2-b1",
+        "5.2-b2"
+      ]
+    },
+    {
+      "text": "Describe what $f'(x) > 0$, $f'(x) = 0$ and $f'(x) < 0$ look like on the graph of $y = f(x)$.",
+      "bullets": [
+        "5.2-b2"
+      ]
+    },
+    {
+      "text": "Read where $f$ increases and decreases from the graph of $y = f'(x)$.",
+      "bullets": [
+        "5.2-b2",
+        "5.2-b1"
+      ]
+    },
+    {
+      "text": "Find the intervals where a function is increasing or decreasing, by algebra on Paper 1 and with your GDC on Paper 2.",
+      "bullets": [
+        "5.2-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.1",
+    "2.7"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "increasing and decreasing intervals",
+    "where is f increasing",
+    "sign of the derivative",
+    "positive or negative gradient",
+    "graph of f prime",
+    "stationary point meaning"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gradient",
+      "prompt": "The tangent to the curve $y = f(x)$ at the point where $x = 2$ is the line $y = 5 - 3x$. What is $f'(2)$?",
+      "hint": "The derivative at a point is the gradient of the tangent there.",
+      "options": [
+        {
+          "text": "$f'(2) = -3$",
+          "correct": true
+        },
+        {
+          "text": "$f'(2) = 5$",
+          "correct": false
+        },
+        {
+          "text": "$f'(2) = 3$",
+          "correct": false
+        }
+      ],
+      "explain": "The line $y = 5 - 3x$ has gradient $-3$, and $f'(2)$ is the gradient of the tangent at $x = 2$. Revise it in {{lesson:5.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-quadratic-inequality",
+      "prompt": "Solve $x^{2} - x - 6 < 0$.",
+      "hint": "Factorise, then sketch the parabola. Where is it below the $x$-axis?",
+      "options": [
+        {
+          "text": "$-2 < x < 3$",
+          "correct": true
+        },
+        {
+          "text": "$x < -2 \\text{ or } x > 3$",
+          "correct": false
+        },
+        {
+          "text": "$-3 < x < 2$",
+          "correct": false
+        }
+      ],
+      "explain": "$x^{2} - x - 6 = (x + 2)(x - 3)$. The parabola opens upwards, so it dips below the $x$-axis only between $-2$ and $3$. Revise it in {{lesson:2.7}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "sign",
+      "heading": "The sign of the derivative",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Picture walking along the graph of $y = f(x)$ from left to right. Where the path climbs, the function is [[increasing-function|increasing]]. Where it drops, the function is [[decreasing-function|decreasing]]."
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:5.1}} you saw that $f'(x)$ is the gradient of the tangent. Where the graph climbs, tangents slope up and $f'(x) > 0$. Where it drops, they slope down and $f'(x) < 0$."
+        },
+        {
+          "type": "definition",
+          "term": "increasing function",
+          "statement": "A function $f$ is increasing on an interval if, for any two values $a < b$ in that interval, $f(a) < f(b)$.",
+          "plain": "As $x$ gets bigger, $f(x)$ gets bigger too."
+        },
+        {
+          "type": "definition",
+          "term": "decreasing function",
+          "statement": "A function $f$ is decreasing on an interval if, for any two values $a < b$ in that interval, $f(a) > f(b)$.",
+          "plain": "As $x$ gets bigger, $f(x)$ gets smaller."
+        },
+        {
+          "type": "result",
+          "statement": "If $f'(x) > 0$ for every $x$ in an interval, $f$ is increasing on it. If $f'(x) < 0$ for every $x$ in an interval, $f$ is decreasing on it.",
+          "why": "$f'(x)$ is the gradient of the tangent. A positive gradient means the graph rises as you move right, and a negative one means it falls."
+        },
+        {
+          "type": "text",
+          "text": "When $f'(x) = 0$, the tangent is horizontal and the graph is flat for an instant. A point like this is a [[stationary-point|stationary point]]."
+        },
+        {
+          "type": "text",
+          "text": "The graph often turns at a stationary point, but not always: $y = x^{3}$ is flat at the origin yet rises on both sides. You will sort out these cases in {{lesson:5.8}}."
+        },
+        {
+          "type": "text",
+          "text": "Move the slider to slide the point along $f(x) = x^{3} - 3x$, whose derivative is $f'(x) = 3x^{2} - 3$ (you will learn to find it in {{lesson:5.3}}). Watch the sign of $f'(x)$ switch at $x = -1$ and $x = 1$, where the tangent is flat."
+        },
+        {
+          "type": "interactive",
+          "widget": "derivative-sign",
+          "props": {
+            "x": -1.5
+          },
+          "alt": "Graph of f of x equals x cubed minus 3x with a point you can move and its tangent line. The curve is marked increasing for x below minus 1 and above 1, and decreasing between minus 1 and 1. The stationary points at x equals minus 1 and 1 are circled."
+        },
+        {
+          "type": "example",
+          "id": "ex-sign-at-point",
+          "question": "A function has derivative $f'(x) = x^{2} - 9$. Is $f$ increasing or decreasing at $x = 2$?",
+          "steps": [
+            "Substitute $x = 2$ into the derivative: $f'(2) = 2^{2} - 9$.",
+            "Work it out: $f'(2) = 4 - 9 = -5$.",
+            "The gradient is negative, so the tangent at $x = 2$ slopes down.",
+            "So $f$ is decreasing at $x = 2$."
+          ],
+          "answer": "Decreasing, because $f'(2) = -5 < 0$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-rate-context",
+          "question": "Water flows in and out of a tank. The volume is $V$ litres, $t$ minutes after a valve is opened, and $\\dfrac{\\mathrm{d}V}{\\mathrm{d}t} = 12 - 3t$ for $0 \\le t \\le 6$. Find the times when the volume is increasing.",
+          "steps": [
+            "$V$ goes up when its rate of change is positive, so solve $\\dfrac{\\mathrm{d}V}{\\mathrm{d}t} > 0$.",
+            "$12 - 3t > 0$ gives $3t < 12$, so $t < 4$.",
+            "Keep to the times allowed, $0 \\le t \\le 6$: the volume increases for $0 \\le t < 4$.",
+            "Check: at $t = 5$, $\\dfrac{\\mathrm{d}V}{\\mathrm{d}t} = -3 < 0$, so after $t = 4$ the tank loses water."
+          ],
+          "answer": "$0 \\le t < 4$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "A quantity that is falling has a negative rate of change. A tank losing 2 litres per minute has $\\dfrac{\\mathrm{d}V}{\\mathrm{d}t} = -2$, not $2$."
+        },
+        {
+          "type": "check",
+          "id": "check-sign-word",
+          "prompt": "A function has derivative $f'(x) = x^{2} - 5x + 4$. At $x = 2$, is $f$ increasing, decreasing or stationary?",
+          "hint": "Work out $f'(2)$ and look at its sign.",
+          "options": [
+            {
+              "text": "Increasing",
+              "correct": false
+            },
+            {
+              "text": "Decreasing",
+              "correct": true
+            },
+            {
+              "text": "Stationary",
+              "correct": false
+            }
+          ],
+          "explain": "$f'(2) = 4 - 10 + 4 = -2$. This is negative, so $f$ is decreasing at $x = 2$."
+        },
+        {
+          "type": "check",
+          "id": "check-rate-sign",
+          "prompt": "At time $t = 3$ minutes, the temperature $T$ of a drink, in degrees Celsius, is falling by $1.5$ degrees per minute. What is $\\dfrac{\\mathrm{d}T}{\\mathrm{d}t}$ at $t = 3$?",
+          "hint": "A falling quantity has a tangent that slopes down. What sign is its gradient?",
+          "options": [
+            {
+              "text": "$\\dfrac{\\mathrm{d}T}{\\mathrm{d}t} = -1.5$",
+              "correct": true
+            },
+            {
+              "text": "$\\dfrac{\\mathrm{d}T}{\\mathrm{d}t} = 1.5$",
+              "correct": false
+            },
+            {
+              "text": "$\\dfrac{\\mathrm{d}T}{\\mathrm{d}t} = -4.5$",
+              "correct": false
+            }
+          ],
+          "explain": "The temperature is decreasing, so its rate of change is negative: $\\dfrac{\\mathrm{d}T}{\\mathrm{d}t} = -1.5$ degrees per minute."
+        }
+      ]
+    },
+    {
+      "id": "derivative-graph",
+      "heading": "Reading the graph of the derivative",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you are given the graph of $y = f'(x)$, not of $f$. Don't read it as if it were $f$. Look only at its sign: is the curve above or below the $x$-axis?"
+        },
+        {
+          "type": "text",
+          "text": "Above the $x$-axis, $f'(x) > 0$, so $f$ is [[increasing-function|increasing]]. Below it, $f'(x) < 0$, so $f$ is [[decreasing-function|decreasing]]. Where the curve meets the $x$-axis, $f'(x) = 0$, so the graph of $f$ has a horizontal tangent: a [[stationary-point|stationary point]]."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-derivative-graph",
+          "alt": "Graph of y equals f prime of x. It is a parabola opening downwards that crosses the x-axis at x equals minus 1 and x equals 4. It is above the x-axis between these values and below it outside them. Its highest point is at x equals 1.5.",
+          "caption": "This is the graph of $y = f'(x)$, not of $f$."
+        },
+        {
+          "type": "example",
+          "id": "ex-graph-increasing",
+          "question": "The diagram shows the graph of $y = f'(x)$. It crosses the $x$-axis at $x = -1$ and $x = 4$. Find the values of $x$ for which $f$ is increasing.",
+          "steps": [
+            "$f$ is increasing where $f'(x) > 0$. That is where the graph of $y = f'(x)$ lies above the $x$-axis.",
+            "The curve is above the axis between its two crossings, $x = -1$ and $x = 4$.",
+            "Outside those values it is below the axis, so $f$ is decreasing there."
+          ],
+          "answer": "$-1 < x < 4$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-graph-stationary",
+          "question": "Use the same graph of $y = f'(x)$. Find the $x$-coordinates of the points where the graph of $y = f(x)$ has a horizontal tangent, and describe how $f$ behaves on each side of them.",
+          "steps": [
+            "A horizontal tangent on $y = f(x)$ means $f'(x) = 0$. That is where the graph of $y = f'(x)$ meets the $x$-axis.",
+            "This happens at $x = -1$ and at $x = 4$.",
+            "At $x = -1$, $f'(x)$ goes from negative to positive. So $f$ stops decreasing and starts increasing: its graph turns at a low point.",
+            "At $x = 4$, $f'(x)$ goes from positive to negative. So $f$ turns from increasing to decreasing, at a high point.",
+            "The top of the $f'$ curve, at $x = 1.5$, is not a stationary point of $f$. The curve is above the $x$-axis there, so $f'(1.5) > 0$ and $f$ is still increasing, just most steeply."
+          ],
+          "answer": "$x = -1 \\text{ or } x = 4$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "The graph of $y = f'(x)$ rises for $x < 1.5$, but that does not make $f$ increasing there. $f$ is increasing wherever $f'(x)$ is positive, whether the $f'$ curve is going up or down."
+        },
+        {
+          "type": "check",
+          "id": "check-graph-decreasing",
+          "prompt": "Use the same graph of $y = f'(x)$. For which values of $x$ is $f$ decreasing?",
+          "hint": "Where is the graph of $y = f'(x)$ below the $x$-axis?",
+          "options": [
+            {
+              "text": "$x < -1 \\text{ or } x > 4$",
+              "correct": true
+            },
+            {
+              "text": "$-1 < x < 4$",
+              "correct": false
+            },
+            {
+              "text": "$x > 1.5$",
+              "correct": false
+            }
+          ],
+          "explain": "$f'(x) < 0$ where the curve is below the $x$-axis: to the left of $x = -1$ and to the right of $x = 4$. The curve going down after $x = 1.5$ is not the same as being below the axis."
+        }
+      ]
+    },
+    {
+      "id": "intervals",
+      "heading": "Finding the intervals",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Here $f'(x)$ is given to you. From {{lesson:5.3}} on, you will find it yourself."
+        },
+        {
+          "type": "text",
+          "text": "You need the sign of $f'(x)$ for every $x$. For the functions in this course, $f'(x)$ can only change sign where $f'(x) = 0$ or where it is undefined. Those values cut the number line into pieces, and the sign is fixed on each piece."
+        },
+        {
+          "type": "text",
+          "text": "1. Solve $f'(x) = 0$ to find where the sign can change."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the sign of $f'(x)$ on each piece. Sketch $y = f'(x)$, or test one value in each piece."
+        },
+        {
+          "type": "text",
+          "text": "3. Answer with inequalities in $x$: $f'(x) > 0$ where $f$ is [[increasing-function|increasing]], $f'(x) < 0$ where it is [[decreasing-function|decreasing]]."
+        },
+        {
+          "type": "examTip",
+          "text": "The question asks for values of $x$, so give inequalities such as $-2 < x < 4$. You may also write this as $x \\in \\left]-2, 4\\right[$. The roots of $f'(x) = 0$ on their own are not the answer."
+        },
+        {
+          "type": "example",
+          "id": "ex-intervals-quadratic",
+          "question": "Let $f(x) = \\tfrac{1}{3}x^{3} - x^{2} - 8x + 5$. Its derivative is $f'(x) = x^{2} - 2x - 8$. Find the interval on which $f$ is decreasing.",
+          "steps": [
+            "$f$ is decreasing where $f'(x) < 0$, so solve $x^{2} - 2x - 8 < 0$.",
+            "Find where the sign can change: $x^{2} - 2x - 8 = (x + 2)(x - 4) = 0$, so $x = -2$ or $x = 4$.",
+            "$y = f'(x)$ is a parabola that opens upwards, so it is below the $x$-axis between its roots.",
+            "Test a value to be sure: $0$ lies between $-2$ and $4$, and $f'(0) = -8 < 0$."
+          ],
+          "answer": "$-2 < x < 4$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "If $f'(x)$ is a product, a factor that is always positive cannot change the sign. Factors like $\\mathrm{e}^{x}$ or $x^{2} + 1$ are always positive, so the sign comes from the other factors."
+        },
+        {
+          "type": "check",
+          "id": "check-intervals-factor",
+          "prompt": "A function has derivative $f'(x) = (6 - 2x)\\mathrm{e}^{x}$. For which values of $x$ is $f$ increasing?",
+          "hint": "$\\mathrm{e}^{x}$ is positive for every $x$. Which factor decides the sign?",
+          "options": [
+            {
+              "text": "$x < 3$",
+              "correct": true
+            },
+            {
+              "text": "$x > 3$",
+              "correct": false
+            },
+            {
+              "text": "$x < -3$",
+              "correct": false
+            }
+          ],
+          "explain": "Since $\\mathrm{e}^{x} > 0$, $f'(x)$ has the same sign as $6 - 2x$. $6 - 2x > 0$ gives $6 > 2x$, so $x < 3$."
+        },
+        {
+          "type": "check",
+          "id": "check-everywhere-word",
+          "prompt": "A function has derivative $f'(x) = x^{2} - 4x + 7$. Which statement is true?",
+          "hint": "Complete the square, or find the discriminant of $x^{2} - 4x + 7$.",
+          "options": [
+            {
+              "text": "$f$ is increasing for all $x$",
+              "correct": true
+            },
+            {
+              "text": "$f$ is decreasing for $x < 2$ and increasing for $x > 2$",
+              "correct": false
+            },
+            {
+              "text": "$f$ is decreasing for all $x$",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{2} - 4x + 7 = (x - 2)^{2} + 3$, which is at least $3$, so $f'(x) > 0$ for every $x$. The discriminant, $16 - 28 < 0$, agrees."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2, $f'(x) = 0$ is often too hard to solve by hand. Graph $y = f'(x)$ on your GDC and find where it crosses the $x$-axis."
+        },
+        {
+          "type": "example",
+          "id": "ex-intervals-gdc",
+          "question": "A function $f$ has derivative $f'(x) = x^{3} - 5x + 1$, for $x \\in \\mathbb{R}$. Use your calculator to find the values of $x$ for which $f$ is increasing. Give the end points to 3 s.f.",
+          "steps": [
+            "$f$ is increasing where $f'(x) > 0$. A cubic like this has no factorising trick, so graph $y = x^{3} - 5x + 1$ on your GDC.",
+            "Write down the equation you solve: $x^{3} - 5x + 1 = 0$. The GDC gives three roots: $x = -2.33005\\ldots$, $x = 0.201639\\ldots$ and $x = 2.12841\\ldots$.",
+            "The graph is above the $x$-axis between the first two roots and to the right of the third. Check one point in each region: $f'(-3) = -11 < 0$, $f'(0) = 1 > 0$, $f'(1) = -3 < 0$ and $f'(3) = 13 > 0$.",
+            "Keep the full values until the end, then round each end point to 3 s.f.: $-2.33$, $0.202$ and $2.13$. The answer has two parts, joined by \"or\"."
+          ],
+          "answer": "$-2.33 < x < 0.202 \\text{ or } x > 2.13$",
+          "check": {
+            "type": "check",
+            "id": "check-gdc-endpoint",
+            "prompt": "Now you try. A function $g$ has derivative $g'(x) = x^{4} - 4x - 1$. It is decreasing for $a < x < b$. Find $b$, correct to 3 s.f.",
+            "hint": "Graph $y = x^{4} - 4x - 1$ and find where it crosses the $x$-axis. Which crossing is larger?",
+            "answer": {
+              "value": 1.66,
+              "tolerance": 0.005
+            },
+            "explain": "$g'(x) = 0$ at $x \\approx -0.249$ and $x \\approx 1.66$. Between them the graph is below the axis (for example $g'(0) = -1$), so $g$ is decreasing for $-0.249 < x < 1.66$ and $b \\approx 1.66$."
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = X^3-5X+1, then GRAPH",
+              "2nd TRACE (CALC), 2: zero; set a left bound, right bound and guess around the first crossing",
+              "Read x = -2.33005...; repeat 2: zero for the other two crossings, x = 0.201639... and x = 2.12841..."
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = x^3-5x+1",
+              "Menu, Analyze Graph, Zero; click to the left and then the right of the first crossing",
+              "Read x = -2.33005...; repeat for the other two crossings, x = 0.201639... and x = 2.12841..."
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = X^3-5X+1, DRAW",
+              "SHIFT F5 (G-SOLV), ROOT; read x = -2.33005...",
+              "Press the right arrow to move to the next root, x = 0.201639..., and again for x = 2.12841... (check on your model)"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$f'(x) > 0$ on an interval: $f$ is increasing there, and the tangent slopes up.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$f'(x) < 0$ on an interval: $f$ is decreasing there, and the tangent slopes down.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$f'(x) = 0$: the tangent is horizontal, at a stationary point.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "On a graph of $y = f'(x)$, read only the sign: above the $x$-axis $f$ increases, below it $f$ decreases.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To find the intervals: solve $f'(x) = 0$, find the sign of $f'(x)$ on each piece, then answer with inequalities in $x$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Picking the wrong side of the roots. After solving $f'(x) = 0$, sketch $y = f'(x)$ or test a value to see where it is negative. Don't guess.",
+    "Giving only the roots of $f'(x) = 0$. They show where the sign can change. The answer is an inequality such as $-2 < x < 4$.",
+    "Reading a graph of $y = f'(x)$ as if it were $f$. On the graph of $f'$, only the sign matters: above the $x$-axis, $f$ is increasing.",
+    "Using a positive rate for a falling quantity. If $V$ is decreasing, $\\dfrac{\\mathrm{d}V}{\\mathrm{d}t}$ is negative.",
+    "Forgetting to flip the inequality when you divide by a negative number. $6 - 2x > 0$ means $-2x > -6$, so $x < 3$."
+  ],
+  "examTips": [
+    "\"Find the values of $x$ for which $f$ is increasing\" needs working. Write $f'(x) > 0$ first: the method mark is for that line.",
+    "On Paper 2, write down the equation you solved, such as $x^{3} - 5x + 1 = 0$, before the GDC's values. Give the end points to 3 s.f.",
+    "\"Show that $f$ is increasing\" means show $f'(x) > 0$ for every $x$ in the domain, with a reason: a square is never negative, $\\mathrm{e}^{x} > 0$, or the discriminant is negative."
+  ],
+  "readingMinutes": 17
+}

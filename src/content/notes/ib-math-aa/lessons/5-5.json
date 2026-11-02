@@ -1,0 +1,699 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.5",
+  "slug": "antidifferentiation-definite-integrals-and-area",
+  "title": "Antidifferentiation, definite integrals and area",
+  "level": "SL",
+  "topic": 5,
+  "summary": "Integration undoes differentiation. You'll integrate sums of powers of $x$, use a known point to find the constant, and use your GDC to evaluate [[definite|definite integrals]]. For a curve above the $x$-axis, the definite integral is the area under it, and that ties the three ideas together.",
+  "goals": [
+    {
+      "text": "Find an [[antiderivative|antiderivative]] of a sum of integer powers of $x$, term by term, ending with $+\\,C$.",
+      "bullets": [
+        "5.5-b1"
+      ]
+    },
+    {
+      "text": "Use a [[boundary-condition|boundary condition]] to find $C$ and so the exact curve.",
+      "bullets": [
+        "5.5-b2"
+      ]
+    },
+    {
+      "text": "Evaluate a [[definite|definite integral]] on your GDC.",
+      "bullets": [
+        "5.5-b3"
+      ]
+    },
+    {
+      "text": "Write the integral for the area under a curve above the $x$-axis, then evaluate it.",
+      "bullets": [
+        "5.5-b4"
+      ]
+    },
+    {
+      "text": "Explain how antiderivatives, definite integrals and area are linked.",
+      "bullets": [
+        "5.5-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "integration",
+    "antiderivative",
+    "indefinite integral",
+    "constant of integration",
+    "area under a curve",
+    "definite integral on calculator"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-differentiate-poly",
+      "prompt": "Differentiate $y = 4x^{3} - 5x + 2$.",
+      "hint": "Multiply by the power, then lower the power by 1. What happens to a constant?",
+      "options": [
+        {
+          "text": "$12x^{2} - 5$",
+          "correct": true
+        },
+        {
+          "text": "$12x^{2} - 3$",
+          "correct": false
+        },
+        {
+          "text": "$x^{4} - \\frac{5}{2}x^{2} + 2x$",
+          "correct": false
+        },
+        {
+          "text": "$12x^{3} - 5$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 12x^{2} - 5$, because the constant $2$ differentiates to $0$. Revise it in {{lesson:5.3}}."
+    },
+    {
+      "type": "check",
+      "id": "before-differentiate-negative",
+      "prompt": "Differentiate $f(x) = \\frac{3}{x^{2}}$.",
+      "hint": "Write it as $3x^{-2}$ first.",
+      "options": [
+        {
+          "text": "$-\\frac{6}{x^{3}}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{6}{x^{3}}$",
+          "correct": false
+        },
+        {
+          "text": "$-\\frac{6}{x}$",
+          "correct": false
+        }
+      ],
+      "explain": "$f(x) = 3x^{-2}$, so $f'(x) = 3 \\times (-2)x^{-3} = -\\frac{6}{x^{3}}$. The power goes down from $-2$ to $-3$. Revise it in {{lesson:5.3}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "antiderivatives",
+      "heading": "Antidifferentiation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Differentiating $x^{3}$ gives $3x^{2}$. Now go backwards: which function has derivative $3x^{2}$? You already know one, $x^{3}$."
+        },
+        {
+          "type": "text",
+          "text": "Finding a function from its derivative is called antidifferentiation, or integration. The function you find is an [[antiderivative|antiderivative]]."
+        },
+        {
+          "type": "text",
+          "text": "But $x^{3} + 5$ and $x^{3} - 2$ also differentiate to $3x^{2}$, because a constant differentiates to $0$. So every antiderivative of $3x^{2}$ has the form $x^{3} + C$, where $C$ is a constant. $C$ is the [[constant-of-integration|constant of integration]]."
+        },
+        {
+          "type": "definition",
+          "term": "Indefinite integral",
+          "statement": "The indefinite integral of $f(x)$, written $\\int f(x)\\,\\mathrm{d}x$, is the family of all its antiderivatives: $\\int f(x)\\,\\mathrm{d}x = F(x) + C$, where $F'(x) = f(x)$ and $C$ is any constant.",
+          "plain": "It answers the question: what could I have differentiated to get this?"
+        },
+        {
+          "type": "text",
+          "text": "The function inside, $f(x)$, is the [[integrand|integrand]]. The $\\mathrm{d}x$ says that $x$ is the variable. Always write it, and always write $+\\,C$."
+        },
+        {
+          "type": "text",
+          "text": "To differentiate $x^{n}$ you multiply by the power, then lower the power by 1. To undo that, do the reverse steps in reverse order: raise the power by 1, then divide by the new power."
+        },
+        {
+          "type": "formula",
+          "tex": "\\int x^{n}\\,\\mathrm{d}x = \\frac{x^{n+1}}{n+1} + C, \\quad n \\neq -1",
+          "tag": "booklet",
+          "bookletId": "bk-5-5-power-integral",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "You don't need to memorise this rule, because it's in the formula booklet. In this lesson $n$ is an integer: positive, zero or negative, but never $-1$."
+        },
+        {
+          "type": "result",
+          "statement": "A constant factor stays where it is: $\\int a x^{n}\\,\\mathrm{d}x = \\frac{a x^{n+1}}{n+1} + C$. A sum is integrated one term at a time.",
+          "why": "Both rules are true for derivatives, so they are true in reverse. Differentiate the answer and each term comes back."
+        },
+        {
+          "type": "text",
+          "text": "A constant term such as $5$ is $5x^{0}$, so it integrates to $5x$."
+        },
+        {
+          "type": "text",
+          "text": "Why not $n = -1$? The rule would give $\\frac{x^{0}}{0}$, and you can't divide by zero. $\\int \\frac{1}{x}\\,\\mathrm{d}x$ needs a new function, which you meet in {{lesson:5.10}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-integrate-poly",
+          "question": "Find $\\int (6x^{2} - 4x + 5)\\,\\mathrm{d}x$.",
+          "steps": [
+            "Integrate one term at a time. For each term, raise the power by 1 and divide by the new power.",
+            "$\\int 6x^{2}\\,\\mathrm{d}x = \\frac{6x^{3}}{3} = 2x^{3}$.",
+            "$\\int (-4x)\\,\\mathrm{d}x = \\frac{-4x^{2}}{2} = -2x^{2}$, and $\\int 5\\,\\mathrm{d}x = 5x$.",
+            "Add the pieces, then the constant: $2x^{3} - 2x^{2} + 5x + C$.",
+            "Check by differentiating: $6x^{2} - 4x + 5$. That is the integrand, so the answer is right."
+          ],
+          "answer": "$\\int (6x^{2} - 4x + 5)\\,\\mathrm{d}x = 2x^{3} - 2x^{2} + 5x + C$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Differentiating out of habit. $\\int 6x^{2}\\,\\mathrm{d}x$ is $2x^{3}$, not $12x$: when you integrate, the power goes up."
+        },
+        {
+          "type": "check",
+          "id": "check-integrate-power",
+          "prompt": "Find $\\int 8x^{3}\\,\\mathrm{d}x$.",
+          "hint": "Raise the power to 4, then divide by 4.",
+          "options": [
+            {
+              "text": "$2x^{4} + C$",
+              "correct": true
+            },
+            {
+              "text": "$24x^{2} + C$",
+              "correct": false
+            },
+            {
+              "text": "$8x^{4} + C$",
+              "correct": false
+            },
+            {
+              "text": "$32x^{4} + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{8x^{4}}{4} = 2x^{4}$, then add $C$. $24x^{2}$ is the derivative, not the integral."
+        },
+        {
+          "type": "text",
+          "text": "Before you integrate, every term must look like $ax^{n}$. Expand brackets. Split a fraction over a single power of $x$. Then write $\\frac{3}{x^{2}}$ as $3x^{-2}$."
+        },
+        {
+          "type": "mistake",
+          "text": "Integrating each factor of a product separately. Expand first, and keep every term: $(x - 3)^{2} = x^{2} - 6x + 9$, not $x^{2} + 9$."
+        },
+        {
+          "type": "check",
+          "id": "check-integrate-brackets",
+          "prompt": "Find $\\int (2x + 1)^{2}\\,\\mathrm{d}x$.",
+          "hint": "Expand the bracket first: $(2x + 1)^{2} = (2x + 1)(2x + 1)$ has three terms.",
+          "options": [
+            {
+              "text": "$\\frac{4x^{3}}{3} + 2x^{2} + x + C$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{4x^{3}}{3} + x + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{(2x + 1)^{3}}{3} + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2x^{3}}{3} + 2x^{2} + x + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$(2x + 1)^{2} = 4x^{2} + 4x + 1$, which integrates to $\\frac{4x^{3}}{3} + 2x^{2} + x + C$. Dropping the middle term $4x$ loses $2x^{2}$, and $(2x)^{2}$ is $4x^{2}$, not $2x^{2}$. Differentiating $\\frac{(2x + 1)^{3}}{3}$ gives $2(2x + 1)^{2}$, not $(2x + 1)^{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-integrate-negative-power",
+          "question": "Find $\\int \\frac{2x^{4} + 3}{x^{2}}\\,\\mathrm{d}x$.",
+          "steps": [
+            "Split the fraction over $x^{2}$: $\\frac{2x^{4} + 3}{x^{2}} = \\frac{2x^{4}}{x^{2}} + \\frac{3}{x^{2}} = 2x^{2} + 3x^{-2}$.",
+            "Integrate $2x^{2}$: the power goes up to $3$, so you get $\\frac{2x^{3}}{3}$.",
+            "Integrate $3x^{-2}$: the power goes up from $-2$ to $-1$, so divide by $-1$. This gives $\\frac{3x^{-1}}{-1} = -3x^{-1} = -\\frac{3}{x}$.",
+            "Combine, and add the constant: $\\frac{2x^{3}}{3} - \\frac{3}{x} + C$.",
+            "Check: differentiating gives $2x^{2} + 3x^{-2}$, which is the integrand after splitting."
+          ],
+          "answer": "$\\int \\frac{2x^{4} + 3}{x^{2}}\\,\\mathrm{d}x = \\frac{2x^{3}}{3} - \\frac{3}{x} + C$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-integrate-negative",
+          "prompt": "Find $\\int \\frac{6}{x^{4}}\\,\\mathrm{d}x$.",
+          "hint": "Write it as $6x^{-4}$. Adding 1 to $-4$ gives $-3$.",
+          "options": [
+            {
+              "text": "$-\\frac{2}{x^{3}} + C$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{2}{x^{3}} + C$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{6}{5x^{5}} + C$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{24}{x^{5}} + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{6x^{-3}}{-3} = -2x^{-3} = -\\frac{2}{x^{3}}$, then add $C$. An answer with $x^{5}$ lowered the power instead of raising it."
+        }
+      ]
+    },
+    {
+      "id": "boundary",
+      "heading": "Finding the constant",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$\\int 2x\\,\\mathrm{d}x = x^{2} + C$ is not one curve but a whole family. Each value of $C$ slides $y = x^{2}$ up or down. At any given $x$, every curve in the family has the same gradient."
+        },
+        {
+          "type": "figure",
+          "id": "5-5-family-of-curves",
+          "alt": "Five parabolas y equals x squared plus C, for C equal to minus 2, minus 1, 0, 1 and 2, stacked one above another. The curve with C equal to 1 is highlighted and passes through the marked point (1, 2).",
+          "caption": "Only $y = x^{2} + 1$ passes through $(1, 2)$."
+        },
+        {
+          "type": "text",
+          "text": "To pick one curve, you need one more fact: a point on it, such as $y = 2$ when $x = 1$. This extra fact is a [[boundary-condition|boundary condition]]. It fixes the [[constant-of-integration|constant of integration]]."
+        },
+        {
+          "type": "text",
+          "text": "1. Integrate, and include $+\\,C$."
+        },
+        {
+          "type": "text",
+          "text": "2. Substitute the known $x$ and $y$ values into the integrated equation."
+        },
+        {
+          "type": "text",
+          "text": "3. Solve for $C$."
+        },
+        {
+          "type": "text",
+          "text": "4. Write the full equation with the value of $C$ in it."
+        },
+        {
+          "type": "example",
+          "id": "ex-boundary-curve",
+          "question": "A curve has gradient function $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 4x - 3$, and $(2, 5)$ lies on it. Find the equation of the curve.",
+          "steps": [
+            "Integrate, with the constant: $y = \\int (4x - 3)\\,\\mathrm{d}x = 2x^{2} - 3x + C$.",
+            "The point $(2, 5)$ means $y = 5$ when $x = 2$. Substitute: $5 = 2(2)^{2} - 3(2) + C$.",
+            "Simplify: $5 = 8 - 6 + C = 2 + C$, so $C = 3$.",
+            "Check: at $x = 2$, $y = 8 - 6 + 3 = 5$, as required."
+          ],
+          "answer": "$y = 2x^{2} - 3x + 3$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Putting the point into $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ instead of $y$. The point lies on the curve, so it goes into the integrated equation."
+        },
+        {
+          "type": "example",
+          "id": "ex-boundary-function",
+          "question": "A function $f$ has derivative $f'(x) = 6x^{2} - \\frac{2}{x^{2}}$, for $x \\neq 0$. Given that $f(1) = 7$, find $f(x)$.",
+          "steps": [
+            "Rewrite the second term as a power: $f'(x) = 6x^{2} - 2x^{-2}$.",
+            "Integrate term by term: $f(x) = \\frac{6x^{3}}{3} - \\frac{2x^{-1}}{-1} + C = 2x^{3} + \\frac{2}{x} + C$.",
+            "Use $f(1) = 7$, which means $x = 1$ gives $7$: $7 = 2(1)^{3} + \\frac{2}{1} + C = 4 + C$.",
+            "So $C = 3$.",
+            "Check by differentiating $2x^{3} + 2x^{-1} + 3$: you get $6x^{2} - 2x^{-2}$, which is $f'(x)$."
+          ],
+          "answer": "$f(x) = 2x^{3} + \\frac{2}{x} + 3$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "\"Find the equation of the curve\" wants $y = \\ldots$ with $C$ replaced by its value. Stopping at $C = 3$ doesn't answer the question."
+        },
+        {
+          "type": "check",
+          "id": "check-find-constant",
+          "prompt": "A curve has $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 6x + 2$, and $y = 12$ when $x = 2$. Find the value of the constant of integration, $C$.",
+          "hint": "Integrate to get $y$ with $+\\,C$, then put in $x = 2$ and $y = 12$.",
+          "answer": {
+            "value": -4,
+            "tolerance": 0
+          },
+          "explain": "$y = 3x^{2} + 2x + C$. At $x = 2$: $12 = 12 + 4 + C$, so $C = -4$."
+        },
+        {
+          "type": "check",
+          "id": "check-boundary-function",
+          "prompt": "Given $f'(x) = 3x^{2} - 4x$ and $f(2) = 1$, find $f(x)$.",
+          "hint": "Integrate first. Then put $x = 2$ and $f(x) = 1$ into your $f(x)$.",
+          "options": [
+            {
+              "text": "$f(x) = x^{3} - 2x^{2} + 1$",
+              "correct": true
+            },
+            {
+              "text": "$f(x) = x^{3} - 2x^{2} - 3$",
+              "correct": false
+            },
+            {
+              "text": "$f(x) = x^{3} - 2x^{2} + 3$",
+              "correct": false
+            },
+            {
+              "text": "$f(x) = x^{3} - 2x^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$f(x) = x^{3} - 2x^{2} + C$, and $f(2) = 8 - 8 + C = 1$, so $C = 1$. Using $f'(2)$ gives $C = -3$, and swapping the $2$ and the $1$ gives $C = 3$."
+        }
+      ]
+    },
+    {
+      "id": "definite",
+      "heading": "Definite integrals on your GDC",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An indefinite integral is a function. Put a number at each end of the integral sign and you get a single number instead: a [[definite|definite integral]]."
+        },
+        {
+          "type": "definition",
+          "term": "Definite integral",
+          "statement": "$\\int_{a}^{b} f(x)\\,\\mathrm{d}x$ is the definite integral of $f(x)$ from $x = a$ to $x = b$. The number $a$ is the lower limit and $b$ is the upper limit.",
+          "plain": "It turns a function and an interval into one number."
+        },
+        {
+          "type": "text",
+          "text": "In the next section you'll see what that number means. In this lesson your GDC does the evaluating, so the skill is to write the integral correctly and key it in exactly as written."
+        },
+        {
+          "type": "example",
+          "id": "ex-definite-poly",
+          "question": "Use your GDC to find $\\int_{1}^{3} \\left(x^{3} - 2x + \\frac{1}{x^{2}}\\right)\\mathrm{d}x$. Give your answer to 3 s.f.",
+          "steps": [
+            "Read off the parts: the integrand is $x^{3} - 2x + \\frac{1}{x^{2}}$, the lower limit is $1$ and the upper limit is $3$.",
+            "Enter it on the GDC, as in the keystrokes below. Put the limits in the right places.",
+            "The screen shows $12.6666\\ldots$",
+            "Round only now, at the end: $12.7$ to 3 s.f."
+          ],
+          "answer": "$\\int_{1}^{3} \\left(x^{3} - 2x + \\frac{1}{x^{2}}\\right)\\mathrm{d}x \\approx 12.7$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MATH, 9: fnInt(",
+              "Fill in lower limit 1, upper limit 3, then X^3-2X+1/X^2, then ENTER",
+              "Read 12.666…, which is 12.7 to 3 s.f."
+            ],
+            "nspire": [
+              "Calculator page, Menu, Calculus, Numerical Integral",
+              "Lower limit 1, upper limit 3, then x^3-2x+1/x^2, then x in the box after d, then enter",
+              "Read 12.666…, which is 12.7 to 3 s.f."
+            ],
+            "casio": [
+              "RUN-MAT, OPTN, CALC, ∫dx",
+              "Fill in X^3-2X+1/X^2 with lower limit 1 and upper limit 3, then EXE",
+              "Read 12.666…, which is 12.7 to 3 s.f."
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-definite-gdc-only",
+          "question": "Use your GDC to find $\\int_{0}^{2} \\sqrt{x^{3} + 1}\\,\\mathrm{d}x$. Give your answer to 3 s.f.",
+          "steps": [
+            "There is no simple antiderivative of $\\sqrt{x^{3} + 1}$. The GDC doesn't need one: it works the value out numerically.",
+            "Write down what you key in: $\\int_{0}^{2} \\sqrt{x^{3} + 1}\\,\\mathrm{d}x$, with lower limit $0$ and upper limit $2$. This line shows your method.",
+            "Type the integrand as sqrt(X^3+1). Close the bracket after the $1$, or the GDC finds the square root of $x^{3}$ only.",
+            "The screen shows $3.24130\\ldots$, which is $3.24$ to 3 s.f."
+          ],
+          "answer": "$\\int_{0}^{2} \\sqrt{x^{3} + 1}\\,\\mathrm{d}x \\approx 3.24$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping the limits. $\\int_{3}^{1}$ gives the negative of $\\int_{1}^{3}$, so the lower limit goes at the bottom of the integral sign and first on the GDC."
+        },
+        {
+          "type": "check",
+          "id": "check-definite-value",
+          "prompt": "Use your GDC to find $\\int_{-1}^{2} (x^{3} - 3x^{2} + 5)\\,\\mathrm{d}x$. Give your answer to 3 s.f.",
+          "hint": "Lower limit $-1$, upper limit $2$. Use the negative key for $-1$, not the minus key.",
+          "answer": {
+            "value": 9.75,
+            "tolerance": 0.005
+          },
+          "explain": "The GDC gives $9.75$ exactly, which is already 3 s.f."
+        },
+        {
+          "type": "check",
+          "id": "check-definite-swapped",
+          "prompt": "Use your GDC to find $\\int_{1}^{3} (x^{2} + 1)\\,\\mathrm{d}x$, to 3 s.f.",
+          "hint": "The lower limit is $1$. Keep the whole integrand, $x^{2} + 1$.",
+          "options": [
+            {
+              "text": "$\\approx 10.7$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx -10.7$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 8.67$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 12.0$",
+              "correct": false
+            }
+          ],
+          "explain": "The value is $10.666\\ldots \\approx 10.7$. $-10.7$ comes from swapped limits, $8.67$ from leaving out the $+1$, and $12.0$ from using $0$ as the lower limit instead of $1$."
+        }
+      ]
+    },
+    {
+      "id": "area",
+      "heading": "Area under a curve",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Take the region under $y = x^{2}$ from $x = 0$ to $x = 2$. Cover it with thin rectangles and add up their areas. The thinner the rectangles, the closer the total gets to the true area."
+        },
+        {
+          "type": "interactive",
+          "widget": "riemann-sums",
+          "props": {
+            "n": 4,
+            "mode": "mid"
+          },
+          "alt": "Rectangles under the curve y equals x squared from x equals 0 to x equals 2. A slider sets the number of rectangles, and the total of their areas gets closer to 8 thirds, about 2.667, as they get thinner."
+        },
+        {
+          "type": "text",
+          "text": "The totals head towards $\\frac{8}{3} \\approx 2.667$, and that limit is the [[definite|definite integral]] $\\int_{0}^{2} x^{2}\\,\\mathrm{d}x$. Each rectangle is height times width, $f(x)$ times a small width. That is where $f(x)\\,\\mathrm{d}x$ comes from, and $\\int$ is a stretched S for \"sum\"."
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\int_{a}^{b} y\\,\\mathrm{d}x",
+          "tag": "booklet",
+          "bookletId": "bk-5-5-area-positive",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet too. $A$ is the area between the curve $y = f(x)$, the $x$-axis and the lines $x = a$ and $x = b$. It holds when the curve is above the $x$-axis, $f(x) > 0$, between $a$ and $b$."
+        },
+        {
+          "type": "text",
+          "text": "Below the axis, the integral and the area are not the same. You'll handle that case in {{lesson:5.11}}."
+        },
+        {
+          "type": "text",
+          "text": "Why does an [[antiderivative|antiderivative]] give an area? Let $A(x)$ be the area under the curve from $a$ up to $x$. Move $x$ on by a tiny width $h$. The extra strip is almost a rectangle of height $f(x)$ and width $h$, so the area grows at the rate $f(x)$."
+        },
+        {
+          "type": "result",
+          "statement": "The area function is an antiderivative: $A'(x) = f(x)$. So if $F$ is any antiderivative of $f$, the area from $a$ to $b$ is $F(b) - F(a)$.",
+          "why": "$A(x)$ and $F(x)$ have the same derivative, so they differ by a constant $k$: $A(x) = F(x) + k$. The area from $a$ to $a$ is $0$, so $k = -F(a)$, and $A(b) = F(b) - F(a)$."
+        },
+        {
+          "type": "text",
+          "text": "That is the link between the three ideas. Antiderivatives give definite integrals, and the definite integral of a positive function is an area. In {{lesson:5.11}} you'll use this to find exact values by hand."
+        },
+        {
+          "type": "example",
+          "id": "ex-area-link",
+          "question": "Use an antiderivative to find the area under $y = x^{2}$ between $x = 0$ and $x = 2$. Compare it with the rectangles.",
+          "steps": [
+            "The curve is above the $x$-axis for $0 < x \\le 2$, so write the area as an integral first: $A = \\int_{0}^{2} x^{2}\\,\\mathrm{d}x$.",
+            "An antiderivative of $x^{2}$ is $F(x) = \\frac{x^{3}}{3}$.",
+            "Subtract: $A = F(2) - F(0) = \\frac{8}{3} - 0 = \\frac{8}{3}$.",
+            "That is $2.666\\ldots$, the value the rectangles approached. Your GDC gives the same number."
+          ],
+          "answer": "$A = \\frac{8}{3}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "Write a correct integral expression, with its limits, before you calculate, for example $A = \\int_{1}^{4} (x^{2} + 2)\\,\\mathrm{d}x$. IB expects this line, and it is where the method mark sits."
+        },
+        {
+          "type": "text",
+          "text": "When a region is enclosed by the curve and the $x$-axis, the limits are where the curve meets the axis. Find those $x$-intercepts first."
+        },
+        {
+          "type": "example",
+          "id": "ex-area-enclosed",
+          "question": "The curve $y = 3 + 2x - \\frac{1}{2}x^{2}$ and the $x$-axis enclose a region. Find its area. Give your answer to 3 s.f.",
+          "steps": [
+            "Find where the curve meets the axis. Solve $3 + 2x - \\frac{1}{2}x^{2} = 0$. Multiply by $-2$: $x^{2} - 4x - 6 = 0$.",
+            "The quadratic formula gives $x = \\frac{4 \\pm \\sqrt{16 + 24}}{2} = 2 \\pm \\sqrt{10}$. These are $-1.162\\ldots$ and $5.162\\ldots$, which the GDC's zero tool confirms.",
+            "The parabola opens downwards, so it is above the axis between these points. Write the area as an integral: $A = \\int_{2 - \\sqrt{10}}^{2 + \\sqrt{10}} \\left(3 + 2x - \\frac{1}{2}x^{2}\\right)\\mathrm{d}x$.",
+            "Key it in with the exact limits, typed as 2-sqrt(10) and 2+sqrt(10). Don't round the limits first.",
+            "The GDC gives $21.0818\\ldots$, so the area is $21.1$ to 3 s.f."
+          ],
+          "answer": "$A \\approx 21.1$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter 3+2X-0.5X^2, GRAPH",
+              "2nd TRACE (CALC), 2: zero, once for each x-intercept: -1.162… and 5.162…",
+              "MATH, 9: fnInt(",
+              "Fill in lower limit 2-sqrt(10), upper limit 2+sqrt(10), then 3+2X-0.5X^2, then ENTER",
+              "Read 21.081…, which is 21.1 to 3 s.f."
+            ],
+            "nspire": [
+              "Graphs page, enter 3+2x-0.5x^2",
+              "Menu, Analyze Graph, Zero, once for each x-intercept",
+              "Calculator page, Menu, Calculus, Numerical Integral",
+              "Lower limit 2-sqrt(10), upper limit 2+sqrt(10), then 3+2x-0.5x^2, then x in the box after d, then enter",
+              "Read 21.081…, which is 21.1 to 3 s.f."
+            ],
+            "casio": [
+              "GRAPH, enter 3+2X-0.5X^2, DRAW",
+              "SHIFT F5 (G-SOLV), ROOT, once for each x-intercept",
+              "RUN-MAT, OPTN, CALC, ∫dx",
+              "Fill in 3+2X-0.5X^2 with lower limit 2-sqrt(10) and upper limit 2+sqrt(10), then EXE",
+              "Read 21.081…, which is 21.1 to 3 s.f."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-area-gdc",
+          "prompt": "The curve $y = x^{3} - 2x^{2} + 4$ is above the $x$-axis for $0 \\le x \\le 2$. Use your GDC to find the area under it between $x = 0$ and $x = 2$. Give your answer to 3 s.f.",
+          "hint": "Write the integral first: the integrand is the curve's equation, and the limits are $0$ and $2$.",
+          "answer": {
+            "value": 6.67,
+            "tolerance": 0.005
+          },
+          "explain": "$A = \\int_{0}^{2} (x^{3} - 2x^{2} + 4)\\,\\mathrm{d}x = 6.666\\ldots \\approx 6.67$."
+        },
+        {
+          "type": "check",
+          "id": "check-area-enclosed",
+          "prompt": "The curve $y = 4 - x^{2}$ and the $x$-axis enclose a region. Find its area.",
+          "hint": "The limits are the $x$-intercepts. Solve $4 - x^{2} = 0$.",
+          "options": [
+            {
+              "text": "$\\frac{32}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{16}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{32}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "The curve meets the axis at $x = -2$ and $x = 2$, so $A = \\int_{-2}^{2} (4 - x^{2})\\,\\mathrm{d}x = \\frac{32}{3}$. $\\frac{16}{3}$ uses only $x = 0$ to $2$, and $-\\frac{32}{3}$ has the limits swapped."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\int x^{n}\\,\\mathrm{d}x = \\frac{x^{n+1}}{n+1} + C, \\quad n \\neq -1",
+          "tag": "booklet",
+          "bookletId": "bk-5-5-power-integral",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Every indefinite integral ends $+\\,C$. Check it by differentiating back.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Rewrite first: expand brackets, split fractions, and write $\\frac{a}{x^{n}}$ as $ax^{-n}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Boundary condition: integrate with $+\\,C$, substitute the point, solve for $C$, then write the full equation.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A definite integral $\\int_{a}^{b} f(x)\\,\\mathrm{d}x$ is a number. Write it down, then evaluate it on the GDC.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\int_{a}^{b} y\\,\\mathrm{d}x",
+          "tag": "booklet",
+          "bookletId": "bk-5-5-area-positive",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $F'(x) = f(x)$ and $f(x) > 0$ on $[a, b]$, the area under the curve is $F(b) - F(a)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Differentiating when you meant to integrate. Integration raises the power: $\\int 3x^{2}\\,\\mathrm{d}x = x^{3} + C$, not $6x$.",
+    "Leaving out $+\\,C$. The answer is then incomplete, and a boundary condition has no constant to find.",
+    "Expanding a bracket carelessly before integrating. $(x - 1)^{2}$ is $x^{2} - 2x + 1$; the middle term is the one that goes missing.",
+    "Using the power rule on $x^{-1}$. It would divide by zero. $\\int \\frac{1}{x}\\,\\mathrm{d}x$ is a different integral, taught in {{lesson:5.10}}.",
+    "Substituting a point the wrong way round. The point $(3, 0)$ means $x = 3$ and $y = 0$.",
+    "Giving a negative area. An area is positive, so check the curve is above the axis and the lower limit really is the smaller one."
+  ],
+  "examTips": [
+    "\"Find the equation of the curve\" means a full equation, $y = \\ldots$, with the value of $C$ in it.",
+    "On an area question, write the integral with its limits before the value. It shows your method, which can still earn marks if the GDC entry slips.",
+    "On Paper 2, give areas and integrals to 3 s.f. unless told otherwise. Keep full calculator values, such as the limits, until the very end."
+  ],
+  "readingMinutes": 23
+}

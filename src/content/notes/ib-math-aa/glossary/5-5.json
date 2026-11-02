@@ -4,5 +4,23 @@
     "term": "integrand",
     "definition": "The function being integrated: in $\\int f(x)\\,\\mathrm{d}x$ it is $f(x)$.",
     "lesson": "5.5"
+  },
+  {
+    "id": "antiderivative",
+    "term": "antiderivative",
+    "definition": "A function whose derivative is the given function: $F(x)$ is an antiderivative of $f(x)$ when $F'(x) = f(x)$.",
+    "lesson": "5.5"
+  },
+  {
+    "id": "constant-of-integration",
+    "term": "constant of integration",
+    "definition": "The $+\\,C$ at the end of an indefinite integral, there because any constant differentiates to $0$.",
+    "lesson": "5.5"
+  },
+  {
+    "id": "boundary-condition",
+    "term": "boundary condition",
+    "definition": "A known value, such as $y = 5$ when $x = 2$, used to find the constant of integration.",
+    "lesson": "5.5"
   }
 ]

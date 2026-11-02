@@ -1,0 +1,20 @@
+[
+  {
+    "id": "increasing-function",
+    "term": "increasing function",
+    "definition": "A function whose value goes up as $x$ goes up on an interval, so $a < b$ gives $f(a) < f(b)$.",
+    "lesson": "5.2"
+  },
+  {
+    "id": "decreasing-function",
+    "term": "decreasing function",
+    "definition": "A function whose value goes down as $x$ goes up on an interval, so $a < b$ gives $f(a) > f(b)$.",
+    "lesson": "5.2"
+  },
+  {
+    "id": "stationary-point",
+    "term": "stationary point",
+    "definition": "A point on a curve where the gradient is zero, $f'(x) = 0$, so the tangent is horizontal.",
+    "lesson": "5.2"
+  }
+]
