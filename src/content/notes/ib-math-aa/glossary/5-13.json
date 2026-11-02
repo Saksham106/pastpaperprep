@@ -10,11 +10,5 @@
     "term": "l'Hôpital's rule",
     "definition": "If $\\lim_{x \\to a}\\frac{f(x)}{g(x)}$ has the form $\\frac{0}{0}$ or $\\frac{\\infty}{\\infty}$, it equals $\\lim_{x \\to a}\\frac{f'(x)}{g'(x)}$, provided this second limit exists.",
     "lesson": "5.13"
-  },
-  {
-    "id": "maclaurin-series",
-    "term": "Maclaurin series",
-    "definition": "The power series $f(0) + f'(0)x + \\frac{f''(0)}{2!}x^{2} + \\ldots$ that matches a function and all its derivatives at $x = 0$.",
-    "lesson": "5.19"
   }
 ]

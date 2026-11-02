@@ -1,11 +1,5 @@
 [
   {
-    "id": "composite-function",
-    "term": "composite function",
-    "definition": "A function made by applying one function to the output of another: $(f \\circ g)(x) = f(g(x))$.",
-    "lesson": "2.5"
-  },
-  {
     "id": "chain-rule",
     "term": "chain rule",
     "definition": "The rule for differentiating a composite function: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{\\mathrm{d}y}{\\mathrm{d}u} \\times \\frac{\\mathrm{d}u}{\\mathrm{d}x}$, the outside's derivative times the inside's.",

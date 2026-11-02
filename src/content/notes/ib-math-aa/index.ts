@@ -20,6 +20,9 @@ import lesson_5_6 from "./lessons/5-6.json";
 import lesson_5_7 from "./lessons/5-7.json";
 import lesson_5_8 from "./lessons/5-8.json";
 import lesson_5_9 from "./lessons/5-9.json";
+import glossary_1_11 from "./glossary/1-11.json";
+import glossary_2_5 from "./glossary/2-5.json";
+import glossary_3_9 from "./glossary/3-9.json";
 import glossary_5_1 from "./glossary/5-1.json";
 import glossary_5_10 from "./glossary/5-10.json";
 import glossary_5_11 from "./glossary/5-11.json";
@@ -30,6 +33,7 @@ import glossary_5_15 from "./glossary/5-15.json";
 import glossary_5_16 from "./glossary/5-16.json";
 import glossary_5_17 from "./glossary/5-17.json";
 import glossary_5_18 from "./glossary/5-18.json";
+import glossary_5_19 from "./glossary/5-19.json";
 import glossary_5_2 from "./glossary/5-2.json";
 import glossary_5_3 from "./glossary/5-3.json";
 import glossary_5_4 from "./glossary/5-4.json";
@@ -41,7 +45,7 @@ import glossary_5_9 from "./glossary/5-9.json";
 
 export const lessons = [lesson_5_1, lesson_5_10, lesson_5_11, lesson_5_12, lesson_5_13, lesson_5_14, lesson_5_15, lesson_5_16, lesson_5_17, lesson_5_18, lesson_5_19, lesson_5_2, lesson_5_3, lesson_5_4, lesson_5_5, lesson_5_6, lesson_5_7, lesson_5_8, lesson_5_9] as unknown as Lesson[];
 
-export const glossary: GlossaryTerm[] = mergeGlossary({ "5-1": glossary_5_1 as GlossaryTerm[], "5-10": glossary_5_10 as GlossaryTerm[], "5-11": glossary_5_11 as GlossaryTerm[], "5-12": glossary_5_12 as GlossaryTerm[], "5-13": glossary_5_13 as GlossaryTerm[], "5-14": glossary_5_14 as GlossaryTerm[], "5-15": glossary_5_15 as GlossaryTerm[], "5-16": glossary_5_16 as GlossaryTerm[], "5-17": glossary_5_17 as GlossaryTerm[], "5-18": glossary_5_18 as GlossaryTerm[], "5-2": glossary_5_2 as GlossaryTerm[], "5-3": glossary_5_3 as GlossaryTerm[], "5-4": glossary_5_4 as GlossaryTerm[], "5-5": glossary_5_5 as GlossaryTerm[], "5-6": glossary_5_6 as GlossaryTerm[], "5-7": glossary_5_7 as GlossaryTerm[], "5-8": glossary_5_8 as GlossaryTerm[], "5-9": glossary_5_9 as GlossaryTerm[] });
+export const glossary: GlossaryTerm[] = mergeGlossary({ "1-11": glossary_1_11 as GlossaryTerm[], "2-5": glossary_2_5 as GlossaryTerm[], "3-9": glossary_3_9 as GlossaryTerm[], "5-1": glossary_5_1 as GlossaryTerm[], "5-10": glossary_5_10 as GlossaryTerm[], "5-11": glossary_5_11 as GlossaryTerm[], "5-12": glossary_5_12 as GlossaryTerm[], "5-13": glossary_5_13 as GlossaryTerm[], "5-14": glossary_5_14 as GlossaryTerm[], "5-15": glossary_5_15 as GlossaryTerm[], "5-16": glossary_5_16 as GlossaryTerm[], "5-17": glossary_5_17 as GlossaryTerm[], "5-18": glossary_5_18 as GlossaryTerm[], "5-19": glossary_5_19 as GlossaryTerm[], "5-2": glossary_5_2 as GlossaryTerm[], "5-3": glossary_5_3 as GlossaryTerm[], "5-4": glossary_5_4 as GlossaryTerm[], "5-5": glossary_5_5 as GlossaryTerm[], "5-6": glossary_5_6 as GlossaryTerm[], "5-7": glossary_5_7 as GlossaryTerm[], "5-8": glossary_5_8 as GlossaryTerm[], "5-9": glossary_5_9 as GlossaryTerm[] });
 
 export const cheatSheets: Record<string, CheatSheetFile> = { };
 
