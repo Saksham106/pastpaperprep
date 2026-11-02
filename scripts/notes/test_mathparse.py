@@ -83,6 +83,23 @@ def test_rounded_refuses_several_values_and_checks_lists():
     fails(lambda: mp.check_rounded_list(r"x \approx 1.23", [Rational(12345, 10000), Rational(45612, 10000)]))
 
 
+def test_check_numeric_uses_the_required_precision():
+    truth = Rational(3421, 10000)
+    mp.check_numeric(0.342, truth)
+    fails(lambda: mp.check_numeric(0.34, truth))
+    fails(lambda: mp.check_numeric(0.3421, truth))
+    mp.check_numeric(0.342, truth, tolerance=0.0005)
+    fails(lambda: mp.check_numeric(0.342, truth, tolerance=0.005))
+    mp.check_numeric(12.0, 12, dp=0)
+    mp.check_numeric(2.35, Rational(2345, 1000), dp=2)
+
+
+def test_bare_log_is_refused():
+    fails(lambda: mp.parse_answer(r"\log 100"), ValueError)
+    fails(lambda: mp.parse_answer(r"x = \log(5)"), ValueError)
+    equal(mp.parse_answer(r"\log_{10} 100"), 2)
+
+
 # 5. Common answer forms.
 def test_degrees():
     angle = acos(Rational(2, 3)) * 180 / pi  # 48.18968...

@@ -19,6 +19,7 @@ Checking (raise AssertionError when the published answer is wrong)
   check_antiderivative(tex, integrand, var="x")      d/dx of the answer equals the integrand at sample points
   check_rounded(tex, truth, sf=3, dp=None, unit=None) exactly the required precision, ROUND_HALF_UP of the truth
   check_rounded_list(tex, truths, ...)              several rounded values, compared as a sorted list
+  check_numeric(value, truth, sf=3, dp=None, tolerance=None)  a numeric check's float and its tolerance
   check_assignments(tex, truth)                     named values, names kept
   check_same_line(tex, point, direction)            same line, any point on it and any parallel direction
   check_same_set(tex, truth_set, var="x")           inequalities / intervals as sets
@@ -106,6 +107,8 @@ def _parse(rhs: str, original: str, functions=()):
     rhs = re.sub(r"\s*\+\s*C\s*$", "", rhs).strip()
     if not rhs:
         raise ValueError(f"no expression found in {original!r}")
+    if re.search(r"\\log(?!\s*_)", rhs):
+        raise ValueError(f"{original!r} uses \\log with no base; write \\log_{{10}} or \\ln")
     if _CIS.strip() in rhs:
         modulus, argument = rhs.split(_CIS.strip(), 1)
         r = _parse(modulus, original, functions) if modulus.strip() else 1
@@ -284,6 +287,18 @@ def check_rounded(tex: str, truth, sf=3, dp=None, unit=None):
         raise AssertionError(f"published {value} is not {N(truth, 12)} rounded ({expected})")
 
 
+def check_numeric(value, truth, sf=3, dp=None, tolerance=None):
+    """A numeric check's value must be the truth rounded half-up to `sf` figures (or `dp` places), and its
+    tolerance, if given, at most half a unit in that required place."""
+    expected = round_half_up(truth, sf, dp)
+    if float(value) != float(expected):
+        raise AssertionError(f"published {value} is not {N(truth, 12)} rounded ({expected})")
+    if tolerance is not None:
+        limit = Decimal(1).scaleb(expected.as_tuple().exponent) / 2
+        if Decimal(repr(float(tolerance))) > limit:
+            raise AssertionError(f"tolerance {tolerance} is looser than half a unit in the required place ({limit})")
+
+
 def check_rounded_list(tex: str, truths, sf=3, dp=None, unit=None):
     """Several rounded values (`x \\approx 1.23 \\text{ or } x \\approx 4.56`), compared in increasing order."""
     cleaned = _strip_decorations(tex)
@@ -421,5 +436,5 @@ def parse_point(tex: str):
 __all__ = [
     "parse_answer", "parse_list", "parse_assignments", "parse_approx", "parse_with_unit", "parse_degrees", "parse_vector",
     "parse_vector_line", "parse_point", "parse_set", "parse_equation", "round_half_up", "check_antiderivative", "check_rounded",
-    "check_rounded_list", "check_assignments", "check_same_line", "check_same_set", "check_same_equation",
+    "check_rounded_list", "check_numeric", "check_assignments", "check_same_line", "check_same_set", "check_same_equation",
 ]

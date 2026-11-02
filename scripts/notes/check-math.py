@@ -11,7 +11,9 @@ sidecar the lesson's OWN published text:
   - an example's `answer` TeX;
   - a multiple-choice check's correct option TeX, which must pass, and EVERY other option, each of which must be
     rejected with an AssertionError (so two equivalent answers offered as options fail the gate);
-  - a numeric check's value, whose `tolerance` must be at most half a unit in the value's last decimal place.
+  - a numeric check's value and tolerance, as verify(id, value, tolerance=...). The sidecar declares each numeric
+    check's required precision in NUMERIC = {id: {"sf": 3}} (or {"dp": 2}); the tolerance must be at most half a
+    unit in that required place, so 0.34 +/- 0.005 cannot stand in for a 3 s.f. answer.
 Parsing is done by scripts/notes/mathparse.py; text that cannot be parsed FAILS, it is never skipped.
 Exit status is non-zero if anything fails, if an example/check id has no assertion, or if CHECKS has a stale id.
 
@@ -69,11 +71,14 @@ def load(item):
     return lesson, (runpy.run_path(str(sidecar)) if sidecar.exists() else None), sidecar
 
 
-def run_one(verify, id_, value):
+def run_one(verify, id_, value, tolerance=None):
     try:
         if value is None:
             raise ValueError("no single correct answer to verify")
-        verify(id_, float(value) if isinstance(value, (int, float)) else value)
+        if tolerance is None:
+            verify(id_, value)
+        else:
+            verify(id_, float(value), tolerance=float(tolerance))
     except KeyError as error:
         return False, f" ({error.args[0]})"
     except Exception as error:  # noqa: BLE001 - any error is a failure, including parse errors
@@ -92,10 +97,12 @@ def reject_one(verify, id_, text):
     return False, " (accepted as correct: a distractor must be wrong)"
 
 
-def half_unit(value):
-    """Half a unit in the last decimal place of the published numeric value (0.342 -> 0.0005, 12 -> 0.5)."""
-    exponent = Decimal(repr(value)).normalize().as_tuple().exponent if isinstance(value, float) else 0
-    return Decimal(1).scaleb(min(exponent, 0)) / 2
+def required_half_unit(value, precision):
+    """Half a unit in the REQUIRED place: `dp` decimal places, or the `sf`-th significant figure of the value."""
+    if "dp" in precision:
+        return Decimal(1).scaleb(-int(precision["dp"])) / 2
+    magnitude = Decimal(repr(float(value))).adjusted() if value else 0
+    return Decimal(1).scaleb(magnitude - int(precision["sf"]) + 1) / 2
 
 
 def main():
@@ -121,16 +128,22 @@ def main():
 
     verify = namespace["verify"]
     items = published_items(lesson)
+    numeric_spec = namespace.get("NUMERIC", {})
     for entry in items:
-        ok, detail = run_one(verify, entry["id"], entry["value"])
+        ok, detail = run_one(verify, entry["id"], entry["value"], entry.get("tolerance"))
         report(ok, f"{entry['id']}{detail}")
         for k, text in enumerate(entry.get("distractors", [])):
             ok, detail = reject_one(verify, entry["id"], text)
             report(ok, f"{entry['id']} distractor {k + 1} rejected{detail}")
         if entry["kind"] == "numeric":
-            limit = half_unit(entry["value"])
+            precision = numeric_spec.get(entry["id"]) if isinstance(numeric_spec, dict) else None
+            if not precision or not ({"sf", "dp"} & set(precision)):
+                report(False, f"{entry['id']} tolerance: the sidecar must declare its precision in NUMERIC, e.g. {{\"{entry['id']}\": {{\"sf\": 3}}}}")
+                continue
+            limit = required_half_unit(entry["value"], precision)
+            place = f"{precision['dp']} d.p." if "dp" in precision else f"{precision['sf']} s.f."
             ok = Decimal(repr(float(entry["tolerance"]))) <= limit
-            report(ok, f"{entry['id']} tolerance {entry['tolerance']}{'' if ok else f' is looser than half a unit in the last place ({limit})'}")
+            report(ok, f"{entry['id']} tolerance {entry['tolerance']}{'' if ok else f' is looser than half a unit at {place} ({limit})'}")
     checks = namespace.get("CHECKS", namespace.get("_CHECKS"))
     if not isinstance(checks, dict):
         report(False, f"{sidecar.name}: define CHECKS = {{id: assertion}} so stale ids can be found")

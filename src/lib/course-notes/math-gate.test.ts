@@ -122,6 +122,26 @@ describe.skipIf(!python)("check-math.py checks distractors, tolerances and stale
     expect(run.status).toBe(1);
   });
 
+  it("holds a numeric check to the required precision, not the published value's own last place", () => {
+    const numeric = (value: number, tolerance: number) =>
+      gate((lesson) => {
+        lesson.sections[0].blocks[2].answer = { value, tolerance };
+      });
+    const loose = numeric(0.34, 0.005);
+    expect(loose.stdout).toMatch(/^FAIL check-root /m);
+    expect(loose.status).toBe(1);
+    expect(numeric(0.342, 0.0005).status).toBe(0);
+    const wide = numeric(0.342, 0.005);
+    expect(wide.stdout).toMatch(/^FAIL check-root tolerance 0.005 is looser than half a unit at 3 s.f. \(0.0005\)/m);
+    expect(wide.status).toBe(1);
+  });
+
+  it("fails a numeric check whose sidecar does not declare its precision", () => {
+    const run = gate((_, sidecar) => sidecar.replace('NUMERIC = {"check-root": {"sf": 3}}', "NUMERIC = {}"));
+    expect(run.stdout).toMatch(/^FAIL check-root .*declare its precision/m);
+    expect(run.status).toBe(1);
+  });
+
   it("fails a stale sidecar id", () => {
     const run = gate((_, sidecar) => sidecar.replace("CHECKS = {", 'CHECKS = {\n    "ex-removed": lambda tex: None,'));
     expect(run.stdout).toMatch(/^FAIL ex-removed \(stale/m);
