@@ -115,7 +115,8 @@ def _parse(rhs: str, original: str, functions=()):
         theta = _parse(argument, original, functions)
         return r * (cos(theta) + I * sin(theta))
     try:
-        expr = parse_latex(_products(rhs, functions))
+        # strict: the whole text must parse. The lenient default silently drops trailing input ("116/15 +", "116/15, 999").
+        expr = parse_latex(_products(rhs, functions), strict=True)
     except Exception as error:  # noqa: BLE001 - parse_latex raises assorted antlr errors
         raise ValueError(f"cannot parse {original!r} (as {rhs!r}): {type(error).__name__}: {error}") from error
     # An answer that is still an unevaluated integral, derivative, limit, sum or product has not been worked out.

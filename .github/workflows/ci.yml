@@ -51,7 +51,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install sympy antlr4-python3-runtime==4.11
+      - run: pip install sympy==1.14.0 antlr4-python3-runtime==4.11
       - name: Check every lesson's maths
         run: |
           shopt -s nullglob

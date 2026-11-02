@@ -100,6 +100,13 @@ def test_bare_log_is_refused():
     equal(mp.parse_answer(r"\log_{10} 100"), 2)
 
 
+def test_trailing_input_is_refused():
+    equal(mp.parse_answer(r"\frac{116}{15}"), Rational(116, 15))
+    fails(lambda: mp.parse_answer(r"\frac{116}{15} +"), ValueError)
+    fails(lambda: mp.parse_answer(r"\frac{116}{15}, 999"), ValueError)
+    fails(lambda: mp.parse_answer(r"x^{2} )"), ValueError)
+
+
 # 5. Common answer forms.
 def test_degrees():
     angle = acos(Rational(2, 3)) * 180 / pi  # 48.18968...
