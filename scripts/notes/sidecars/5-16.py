@@ -1,7 +1,7 @@
 """SymPy assertions for lesson 5.16 (integration by substitution and parts). Not shipped to the browser.
 
-verify(id, value) receives the lesson's own published answer: the TeX of an example's `answer`, or the TeX
-of the correct option of a check (a float for numeric checks). It raises if the published text is wrong.
+verify(id, value) receives the lesson's own published text: an example's `answer` TeX, or a check's option TeX.
+check-math.py passes the correct option, which must pass, and every distractor, each of which must raise AssertionError.
 """
 import sys
 from pathlib import Path
@@ -9,7 +9,7 @@ from pathlib import Path
 from sympy import Rational, cos, diff, exp, integrate, log, simplify, sin, sqrt, symbols
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from mathparse import parse_answer  # noqa: E402
+from mathparse import check_antiderivative, parse_answer  # noqa: E402
 
 x = symbols("x")
 
@@ -20,9 +20,8 @@ def same(a, b):
 
 
 def antiderivative_is(tex, integrand):
-    """Differentiating the published answer must give the integrand back."""
-    answer = parse_answer(tex)
-    same(diff(answer, x), integrand)
+    """Differentiating the published answer must give the integrand back (checked at sample points)."""
+    check_antiderivative(tex, integrand)
 
 
 def derivative_is(tex, function):
@@ -37,7 +36,7 @@ def definite_is(tex):
 
 
 # id -> assertion on the published answer.
-_CHECKS = {
+CHECKS = {
     "before-product-rule": lambda tex: derivative_is(tex, x * exp(x)),
     "before-integrate-cos": lambda tex: antiderivative_is(tex, cos(x)),
     "ex-parts-xe2x": lambda tex: antiderivative_is(tex, x * exp(2 * x)),
@@ -48,8 +47,8 @@ _CHECKS = {
 
 
 def verify(id, value):
-    if id not in _CHECKS:
+    if id not in CHECKS:
         raise KeyError(f"no assertion for {id}")
     if not isinstance(value, str):
         raise TypeError(f"{id}: expected TeX, got {value!r}")
-    _CHECKS[id](value)
+    CHECKS[id](value)

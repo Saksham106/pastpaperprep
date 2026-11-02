@@ -1,6 +1,7 @@
 import { spawnSync } from "node:child_process";
-import { existsSync } from "node:fs";
-import { resolve } from "node:path";
+import { copyFileSync, existsSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 // Spawns the SymPy checker. Locally it skips without the research venv; on CI (AA_NOTES_PYTHON set by the workflow) it must run, so a missing python fails.
@@ -68,7 +69,7 @@ describe.skipIf(!python)("mathparse.py helpers refuse to half-check an answer", 
     expect(raises(String.raw`parse_answer(r"x = 2 \text{ or } x = 3")`)).toMatch(/parse_list/);
     expect(raises(String.raw`parse_answer(r"x = -1, \; x = 4")`)).toMatch(/parse_list/);
     expect(raises(String.raw`parse_answer(r"x = \pm 2")`)).toMatch(/parse_list/);
-    expect(raises(String.raw`parse_answer(r"\approx 0.342")`)).toMatch(/parse_approx/);
+    expect(raises(String.raw`parse_answer(r"\approx 0.342")`)).toMatch(/check_rounded/);
     expect(raises(String.raw`parse_answer(r"\begin{pmatrix}1\\2\end{pmatrix}")`)).toMatch(/parse_vector/);
   });
 
@@ -79,5 +80,51 @@ describe.skipIf(!python)("mathparse.py helpers refuse to half-check an answer", 
     expect(value(String.raw`parse_vector(r"\boldsymbol{n} = \begin{pmatrix}1\\-2\\3\end{pmatrix}")`)).toBe("[1, -2, 3]");
     expect(value(String.raw`parse_point(r"(2, -\tfrac{1}{3})")`)).toBe("[2, -1/3]");
     expect(value(String.raw`parse_answer(r"z = 3 + 4\mathrm{i}")`)).toBe("3 + 4*I");
+  });
+});
+
+describe.skipIf(!python)("check-math.py checks distractors, tolerances and stale ids", () => {
+  const fixtures = resolve(process.cwd(), "scripts/notes/__fixtures__/gate");
+  // Copies the fixture lesson and sidecar into a temp folder, applies a mutation, and runs the gate on it.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- the fixture lesson is mutated freely
+  const gate = (mutate?: (lesson: any, sidecar: string) => string | void) => {
+    const dir = mkdtempSync(join(tmpdir(), "aa-gate-"));
+    const lesson = JSON.parse(readFileSync(join(fixtures, "9-99.json"), "utf8"));
+    let sidecar = readFileSync(join(fixtures, "9-99.py"), "utf8").replace("parents[2]", "parents[0]");
+    sidecar = mutate?.(lesson, sidecar) ?? sidecar;
+    writeFileSync(join(dir, "9-99.json"), JSON.stringify(lesson));
+    writeFileSync(join(dir, "9-99.py"), sidecar);
+    copyFileSync(resolve(process.cwd(), "scripts/notes/mathparse.py"), join(dir, "mathparse.py"));
+    return spawnSync(python!, [script, "9.99"], { encoding: "utf8", env: { ...process.env, AA_NOTES_LESSONS_DIR: dir, AA_NOTES_SIDECARS_DIR: dir } });
+  };
+
+  it("passes the fixture, with each distractor rejected and the tolerance accepted", () => {
+    const run = gate();
+    expect(run.stdout).toMatch(/^PASS check-recip distractor 2 rejected$/m);
+    expect(run.stdout).toMatch(/^PASS check-root tolerance 0.0005$/m);
+    expect(run.stdout, run.stdout + run.stderr).not.toMatch(/FAIL/);
+    expect(run.status).toBe(0);
+  });
+
+  it("fails when an equivalent antiderivative is offered as a distractor", () => {
+    const run = gate((lesson) => {
+      lesson.sections[0].blocks[1].options[1].text = "$\\ln|2x| + C$";
+    });
+    expect(run.stdout).toMatch(/^FAIL check-recip distractor 1 rejected \(accepted as correct/m);
+    expect(run.status).toBe(1);
+  });
+
+  it("fails a numeric tolerance looser than half a unit in the last place", () => {
+    const run = gate((lesson) => {
+      lesson.sections[0].blocks[2].answer.tolerance = 0.001;
+    });
+    expect(run.stdout).toMatch(/^FAIL check-root tolerance 0.001 is looser/m);
+    expect(run.status).toBe(1);
+  });
+
+  it("fails a stale sidecar id", () => {
+    const run = gate((_, sidecar) => sidecar.replace("CHECKS = {", 'CHECKS = {\n    "ex-removed": lambda tex: None,'));
+    expect(run.stdout).toMatch(/^FAIL ex-removed \(stale/m);
+    expect(run.status).toBe(1);
   });
 });

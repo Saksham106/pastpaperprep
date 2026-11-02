@@ -1,0 +1,26 @@
+{
+  "item": "9.99",
+  "before": [],
+  "sections": [
+    {
+      "id": "s",
+      "heading": "Fixture",
+      "blocks": [
+        { "type": "example", "id": "ex-recip", "question": "Find $\\int \\frac{2}{2x+1}\\,\\mathrm{d}x$.", "steps": ["Reverse chain rule."], "answer": "$\\int \\frac{2}{2x+1}\\,\\mathrm{d}x = \\ln|2x+1| + C$", "video": null },
+        {
+          "type": "check",
+          "id": "check-recip",
+          "prompt": "Find $\\int \\frac{1}{x}\\,\\mathrm{d}x$.",
+          "hint": "Which function has derivative $\\frac{1}{x}$?",
+          "options": [
+            { "text": "$\\ln|x| + C$", "correct": true },
+            { "text": "$x^{-2} + C$", "correct": false },
+            { "text": "$-\\frac{1}{x^{2}} + C$", "correct": false }
+          ],
+          "explain": "Differentiate $\\ln|x|$."
+        },
+        { "type": "check", "id": "check-root", "prompt": "Solve $x^{2} = 0.117$ for $x > 0$, to 3 s.f.", "hint": "Square root.", "answer": { "value": 0.342, "tolerance": 0.0005 }, "explain": "$\\sqrt{0.117} \\approx 0.342$." }
+      ]
+    }
+  ]
+}
