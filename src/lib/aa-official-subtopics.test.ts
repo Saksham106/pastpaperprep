@@ -182,7 +182,6 @@ describe("official AA normal subtopics", () => {
     const data = { groupById, itemOrder };
     const records = aaOverlay.records as Array<(typeof aaOverlay.records)[number] & { officialItems?: string[] }>;
     const accepted = records.filter((record) => record.status === "accepted");
-    const allTagged = accepted.every((record) => record.officialItems?.length);
 
     it("only names items that exist and belong to one of the record's groups", () => {
       for (const record of records) {
@@ -211,7 +210,7 @@ describe("official AA normal subtopics", () => {
       expect(single.length + accepted.filter((record) => !isSingleItemRecord(record, groupById)).length).toBe(accepted.length);
     });
 
-    it.skipIf(!allTagged)("every accepted record has at least one officialItems entry", () => {
+    it("every accepted record has at least one officialItems entry", () => {
       for (const record of accepted) expect(record.officialItems?.length, record.id).toBeGreaterThan(0);
     });
 
