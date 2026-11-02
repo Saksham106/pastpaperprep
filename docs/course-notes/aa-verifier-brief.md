@@ -6,6 +6,8 @@ You are the independent check on one lesson of the IB Maths AA course notes. Stu
 
 Judge the lesson against the source pack and the style guide only. Don't read the writer's report, journal or reasoning, and don't trust any claim the lesson makes about itself. Work every answer out yourself.
 
+The one exception is the writer notes file, `../research/aa-course-notes/writer-notes/<item-dashed>.md`, if it exists. It lists deliberate deviations from the style guide with reasons (style guide §18). Accept a recorded deviation if the reason holds; a deviation that isn't recorded there is a finding.
+
 ## Inputs
 
 | What | Where |
@@ -17,6 +19,7 @@ Judge the lesson against the source pack and the style guide only. Don't read th
 | Format and rules | `src/lib/course-notes/types.ts`, `validate.ts`, `inline.ts`; `scripts/notes/mathparse.py`, `check-math.py` |
 | Glossary | `src/content/notes/ib-math-aa/glossary.json` (the entries the lesson uses) |
 | Figures | `src/content/notes/ib-math-aa/figures/<id>.svg` for any figure blocks |
+| Writer notes (deviations only) | `../research/aa-course-notes/writer-notes/<item-dashed>.md`, if present |
 | SymPy | `../research/aa-course-notes/.venv/bin/python` (or `$AA_NOTES_PYTHON`) |
 
 You may run the machine checks and your own SymPy in scratch files outside the repository (for example under `/tmp`). Don't edit the lesson, the sidecar, the glossary or any repo file: you report, the fixer fixes.
@@ -29,7 +32,7 @@ Work through every block in order. For each finding, note its JSON path (e.g. `s
 
 - Every statement, definition, formula and `result` is mathematically true, including its conditions (domains, $n \neq -1$, $a > 0$, $|r| < 1$, radians).
 - Every step of every worked example follows from the one before. Re-derive each one. A right final answer with a wrong step is still critical.
-- Every final answer, check answer and numeric value is right, rounded correctly, and to the precision stated.
+- Every final answer, check answer and numeric value is right, exact or rounded correctly (3 s.f. unless the question says otherwise, angles in degrees included), with no intermediate value rounded early.
 - Every multiple-choice check has exactly one correct option. Each distractor is genuinely wrong, and plausible.
 - Each `hint` and `explain` is true and consistent with the answer.
 - Formula `tex` matches the booklet's formula where tagged `booklet`.
@@ -55,8 +58,8 @@ Work through every block in order. For each finding, note its JSON path (e.g. `s
 
 - Intuition comes before the formal statement, and the formal statement before the examples.
 - Every symbol and term is explained at first use; glossary terms are underlined on first use per section and their entries are correct.
-- At least 2 worked examples per teaching section, building to exam standard. At least one Paper 2-style calculator example where P2 applies (or a stated reason why not).
-- A check after each major idea. The `before` checks test the real prerequisites and link to them.
+- At least 2 worked examples per teaching section, building to exam standard. At least one Paper 2-style calculator example where P2 applies (or a reason recorded in the writer notes). Steps model exam technique: no early rounding, the GDC expression written down on Paper 2, "show that" worked forwards.
+- A check after each major idea, each with a useful hint (ideally 2 per teaching section: one direct, one exam-style). The `before` checks test the real prerequisites and link to them, or test prior learning when the item has no prerequisites.
 - No step is skipped. Steps are small enough to follow.
 - `mistakes` are real (grounded in the pack's `mistakes`), rewritten, and say what to do instead. `examTips` use IB command terms correctly.
 - Sentences are short and plain. Nothing is padded or repeated.
@@ -66,28 +69,30 @@ Work through every block in order. For each finding, note its JSON path (e.g. `s
 Read the sidecar line by line:
 
 - There is an assertion for every example and check id.
-- Each assertion parses the `value` it is given (the published answer) and compares it with a truth computed **independently** by SymPy from the question's data. The truth is not the writer's own answer typed back in.
+- The sidecar defines `CHECKS`, with no stale ids. Each assertion parses the `value` it is given (the published answer) and compares it with a truth computed **independently** by SymPy from the question's data. The truth is not the writer's own answer typed back in.
 - The assertion checks the right question: the integrand, equation, distribution and parameters in the sidecar match the lesson's question text exactly.
 - Nothing passes unconditionally: no `return True`, no swallowed exceptions, no comparing a value with itself, no unused `value`.
-- Rounded answers are checked at the stated significant figures; numeric checks with a sensible tolerance.
+- Rounded answers use `check_rounded` (exact precision, ROUND_HALF_UP); equations use `check_same_equation`; numeric checks use a tolerance of at most half a unit in the last place.
+- Each multiple-choice distractor is rejected with an `AssertionError` (the gate prints `distractor k rejected`), so no option is an equivalent form of the right answer.
 
 Then run `…/.venv/bin/python scripts/notes/check-math.py <item>`. Every line must be `PASS`. To be sure an assertion bites, run one with a deliberately wrong answer: `check-math.py --verify <item> <id> '<wrong tex>'` must print `FAIL`.
 
 ### 7. Calculator steps are plausible
 
 - The steps for the TI-84 Plus CE, TI-Nspire CX and Casio fx-CG50 would produce the example's answer, in the right mode (radians or degrees), with the example's numbers.
-- Menu paths match the style guide's reference table or are marked "(check on your model)". A path you believe is wrong is a minor finding; one that gives a wrong answer is critical.
+- The angle mode is set where it matters, normalcdf "less than" uses the -1E99 lower bound, and invNorm uses the right tail.
+- Menu paths match the style guide's §17 table or are marked "(check on your model)". **An unmarked path that is not in the table is critical.** A marked path you believe is wrong is minor; any path that gives a wrong answer is critical.
 
 ### 8. Originality and format
 
 - Run `node scripts/notes/originality.mjs <lesson> <pack>`. Any hit is critical (copied text).
-- Skim for close paraphrase of a pack question (same context and numbers in new words). That is a minor finding: the examples must be our own.
+- Compare every example and check with the pack's questions. **Reusing a pack question's set-up or numbers, even in new words, is critical**: the examples must be our own.
 - Run `npx vitest run src/lib/course-notes`. Any validator error under this item is critical. (A missing maths receipt for this item is expected before the batch writes receipts.)
 
 ## Severity
 
-- **critical**: anything that makes the lesson wrong, unsafe to publish or unable to teach. Wrong maths in a statement, step, answer, option or explanation; a bullet not taught; AHL content outside an `hlNote` in an SL lesson; content beyond the syllabus presented as required; a sidecar that doesn't really test the published answer; copied text; a calculator method that gives a wrong answer; a validator error; something that would leave a student unable to follow the lesson.
-- **minor**: worth fixing, but the lesson is correct and teaches. Unclear wording, a notation slip that doesn't change meaning, a missing underline or glossary entry, a weak distractor, a thin explanation, a doubtful keystroke, length off target, style-guide departures.
+- **critical**: anything that makes the lesson wrong, unsafe to publish or unable to teach. Wrong maths in a statement, step, answer, option or explanation; a bullet not taught; AHL content outside an `hlNote` in an SL lesson; content beyond the syllabus presented as required; a sidecar that doesn't really test the published answer; copied text, or a pack question's set-up or numbers reused; a calculator method that gives a wrong answer, or an unmarked keystroke path not in the style guide's table; a deviation from the style guide that is not recorded in the writer notes and leaves the lesson weaker; a validator error; something that would leave a student unable to follow the lesson.
+- **minor**: worth fixing, but the lesson is correct and teaches. Unclear wording, a notation slip that doesn't change meaning, a missing underline or glossary entry, a weak distractor, a thin explanation, a doubtful keystroke marked "(check on your model)", length off target, minor style-guide departures.
 - **pass**: no findings, or only trivial ones you would not ask anyone to fix. Don't invent findings to look thorough.
 
 The verdict is the most severe finding.
