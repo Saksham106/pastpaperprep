@@ -1,7 +1,7 @@
 // Server/build-time only: imports katex. Never import this from a client component.
 import katex from "katex";
 import { parseInline } from "./inline";
-import { INTERACTIVE_IDS, type Block, type CheckBlock, type GlossaryTerm, type ItemsFile, type Lesson } from "./types";
+import { INTERACTIVE_IDS, INTERACTIVE_PROPS, type Block, type CheckBlock, type GlossaryTerm, type ItemsFile, type Lesson } from "./types";
 
 export type ValidationContext = { items: ItemsFile; glossary: GlossaryTerm[]; lessonItems: Set<string> };
 type Piece = { path: string; text: string; hl?: true };
@@ -21,7 +21,9 @@ function blockPieces(block: Block, path: string): Piece[] {
   switch (block.type) {
     case "text": case "examTip": case "mistake": case "fact": return [{ path, text: block.text }];
     case "hlNote": return [{ path, text: block.text, hl: true }];
-    case "definition": return [{ path, text: block.statement }, { path, text: block.plain }];
+    case "definition": return [{ path, text: block.term }, { path, text: block.statement }, { path, text: block.plain }];
+    case "figure": return block.caption ? [{ path, text: block.caption }] : [];
+    case "calculator": return [...block.steps.ti84, ...block.steps.nspire, ...block.steps.casio].map((text) => ({ path, text }));
     case "result": return [{ path, text: block.statement }, { path, text: block.why }];
     case "example": return [{ path, text: block.question }, ...block.steps.map((text) => ({ path, text })), { path, text: block.answer }, ...(block.check ? checkPieces(block.check, path) : [])];
     case "check": return checkPieces(block, path);
@@ -77,6 +79,7 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
   const bookletOk = new Set([lesson.item, ...lesson.prerequisites].flatMap((code) => ctx.items.items.find((entry) => entry.item === code)?.booklet.map((entry) => entry.id) ?? []));
   const checkShape = (check: CheckBlock, path: string) => {
     claim(check.id, path);
+    if (!check.hint?.trim()) fail(path, "check needs a hint");
     if (check.options && check.answer) fail(path, "check has both options and an answer; use one");
     if (check.options) {
       if (check.options.length < 2 || check.options.filter((option) => option.correct).length !== 1) fail(path, "options need at least 2 entries and exactly one correct");
@@ -107,7 +110,20 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
       if (block.tag === "booklet" && !(block.bookletId && bookletOk.has(block.bookletId))) fail(path, `booklet formula needs a bookletId from items.json (got ${block.bookletId ?? "none"})`);
       if (block.tag === "learn" && block.bookletId) fail(path, "learn formula must not have a bookletId");
     }
-    if (block.type === "interactive" && !(INTERACTIVE_IDS as readonly string[]).includes(block.widget)) fail(path, `unknown interactive ${block.widget}`);
+    if (block.type === "interactive") {
+      if (!(INTERACTIVE_IDS as readonly string[]).includes(block.widget)) fail(path, `unknown interactive ${block.widget}`);
+      else {
+        const spec = INTERACTIVE_PROPS[block.widget];
+        for (const [key, value] of Object.entries(block.props ?? {})) {
+          const allowed = spec[key];
+          if (!allowed) fail(path, `${block.widget} has no prop ${key} (allowed: ${Object.keys(spec).join(", ") || "none"})`);
+          else if (typeof allowed[0] === "number") {
+            const [min, max] = allowed as readonly [number, number];
+            if (typeof value !== "number" || !(value >= min && value <= max)) fail(path, `prop ${key} must be a number from ${min} to ${max}`);
+          } else if (!(allowed as readonly string[]).includes(value as string)) fail(path, `prop ${key} must be one of ${allowed.join(", ")}`);
+        }
+      }
+    }
     if ((block.type === "interactive" || block.type === "figure") && block.alt.includes("$")) fail(path, `${block.type} alt must be plain words with no $ (it is the accessible name)`);
     if (block.type === "hlNote" && !ctx.lessonItems.has(block.lesson)) fail(path, `hlNote links to unknown lesson ${block.lesson}`);
   }));
@@ -122,7 +138,9 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
     }
     for (const node of nodes) {
       if (node.kind === "math") texes.push({ path: piece.path, tex: node.tex });
+      else if (node.kind === "text" && /\\["']/.test(node.value)) fail(piece.path, `stray backslash before a quote: write " not \\"`);
       else if (node.kind === "term" && !glossary.has(node.id)) fail(piece.path, `unknown glossary term ${node.id}`);
+      else if (node.kind === "term" && /[$\\]/.test(node.label)) fail(piece.path, `glossary label must be plain words, no maths (${node.label})`);
       else if (node.kind === "lesson") {
         if (!ctx.lessonItems.has(node.item)) fail(piece.path, `unknown lesson link ${node.item}`);
         else if (lesson.level === "SL" && levelOf.get(node.item) === "AHL" && !piece.hl) fail(piece.path, `SL lesson links to AHL lesson ${node.item} outside an hlNote`);

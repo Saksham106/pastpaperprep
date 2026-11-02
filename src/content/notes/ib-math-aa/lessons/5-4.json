@@ -1,0 +1,552 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.4",
+  "slug": "tangents-and-normals",
+  "title": "Tangents and normals",
+  "level": "SL",
+  "topic": 5,
+  "summary": "A [[tangent|tangent]] is the straight line that touches a curve at a point with the same gradient as the curve. The [[normal-line|normal]] goes through the same point at right angles to it. You need two things for either line: the point, from $f(a)$, and the gradient, from $f'(a)$.",
+  "goals": [
+    {
+      "text": "Write the [[tangent|tangent]] to $y = f(x)$ at $x = a$, taking the point from $f(a)$ and the gradient from $f'(a)$.",
+      "bullets": [
+        "5.4-b1"
+      ]
+    },
+    {
+      "text": "Write the [[normal-line|normal]], using the negative reciprocal of the tangent's gradient, including when the tangent is horizontal.",
+      "bullets": [
+        "5.4-b1"
+      ]
+    },
+    {
+      "text": "Work backwards from a given gradient to the point where the tangent touches.",
+      "bullets": [
+        "5.4-b1"
+      ]
+    },
+    {
+      "text": "Use your GDC to find the gradient at a point on Paper 2, then write the tangent or normal.",
+      "bullets": [
+        "5.4-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1",
+    "5.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "equation of a tangent",
+    "equation of a normal",
+    "tangent line to a curve",
+    "normal line perpendicular to tangent",
+    "gradient at a point"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-power-rule",
+      "prompt": "Differentiate $f(x) = x^{3} - \\frac{4}{x}$.",
+      "hint": "Write $\\frac{4}{x}$ as $4x^{-1}$ first, then use the power rule on each term.",
+      "options": [
+        {
+          "text": "$f'(x) = 3x^{2} + \\frac{4}{x^{2}}$",
+          "correct": true
+        },
+        {
+          "text": "$f'(x) = 3x^{2} - \\frac{4}{x^{2}}$",
+          "correct": false
+        },
+        {
+          "text": "$f'(x) = 3x^{2} - 4$",
+          "correct": false
+        }
+      ],
+      "explain": "$-4x^{-1}$ differentiates to $(-1)(-4)x^{-2} = \\frac{4}{x^{2}}$, so $f'(x) = 3x^{2} + \\frac{4}{x^{2}}$. Revise it in {{lesson:5.3}}."
+    },
+    {
+      "type": "check",
+      "id": "before-line-point-gradient",
+      "prompt": "Find the equation of the line through $(2, -1)$ with gradient $3$.",
+      "hint": "Use $y - y_{1} = m(x - x_{1})$ with $x_{1} = 2$ and $y_{1} = -1$.",
+      "options": [
+        {
+          "text": "$y = 3x - 7$",
+          "correct": true
+        },
+        {
+          "text": "$y = 3x - 5$",
+          "correct": false
+        },
+        {
+          "text": "$y = 3x + 7$",
+          "correct": false
+        }
+      ],
+      "explain": "$y - (-1) = 3(x - 2)$ gives $y + 1 = 3x - 6$, so $y = 3x - 7$. Revise it in {{lesson:2.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-perpendicular",
+      "prompt": "A line has gradient $3$. What is the gradient of a line perpendicular to it?",
+      "hint": "Perpendicular gradients multiply to $-1$.",
+      "options": [
+        {
+          "text": "$-\\frac{1}{3}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{1}{3}$",
+          "correct": false
+        },
+        {
+          "text": "$-3$",
+          "correct": false
+        }
+      ],
+      "explain": "$3 \\times m = -1$, so $m = -\\frac{1}{3}$. Revise it in {{lesson:2.1}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "tangent",
+      "heading": "The tangent at a point",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Zoom in far enough on a smooth curve and it looks straight. That straight line is the [[tangent|tangent]] at the point. It touches the curve there and has exactly the curve's gradient."
+        },
+        {
+          "type": "definition",
+          "term": "tangent",
+          "statement": "At the point $(a, f(a))$ on $y = f(x)$, the tangent is the straight line through that point with gradient $f'(a)$.",
+          "plain": "It is the straight line that runs along the curve at that one point."
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:5.3}} you found $f'(a)$, the gradient of the curve at $x = a$. In {{lesson:2.1}} you wrote a line from a point and a gradient. A tangent needs exactly those two things."
+        },
+        {
+          "type": "formula",
+          "tex": "y = mx + c; \\quad ax + by + d = 0; \\quad y - y_{1} = m(x - x_{1})",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-line-equations",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "These three forms of a line are in the formula booklet, so you don't need to memorise them. The last one, with a point $(x_{1}, y_{1})$ and gradient $m$, is the quickest for tangents."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the point. Its $x$-coordinate is $a$ and its $y$-coordinate is $f(a)$."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the gradient. Differentiate, then substitute: $m = f'(a)$. It must be a number, with no $x$ left in it."
+        },
+        {
+          "type": "text",
+          "text": "3. Put the point and the gradient into $y - y_{1} = m(x - x_{1})$. Rearrange only if the question asks for a form."
+        },
+        {
+          "type": "example",
+          "id": "ex-tangent-quadratic",
+          "question": "Find the equation of the tangent to the curve $y = x^{2} - 3x + 1$ at the point where $x = 4$.",
+          "steps": [
+            "Find the point. When $x = 4$, $y = 16 - 12 + 1 = 5$, so the point is $(4, 5)$.",
+            "Differentiate: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 2x - 3$.",
+            "Substitute $x = 4$ for the gradient: $m = 2(4) - 3 = 5$.",
+            "Use the point-gradient form: $y - 5 = 5(x - 4)$, so $y = 5x - 15$.",
+            "Check: the curve minus the line is $x^{2} - 8x + 16 = (x - 4)^{2}$. The repeated root at $x = 4$ shows the line touches the curve there."
+          ],
+          "answer": "$y = 5x - 15$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "The point comes from $f$ and the gradient from $f'$. Swapping them, for example taking $y_{1} = f'(a)$, gives a line through the wrong point."
+        },
+        {
+          "type": "example",
+          "id": "ex-tangent-integer-form",
+          "question": "Let $f(x) = 2x^{3} - \\frac{8}{x}$, for $x \\neq 0$. Find the tangent line at the point where $x = 2$. Give it in the form $ax + by + d = 0$, where $a, b, d \\in \\mathbb{Z}$.",
+          "steps": [
+            "Find the point: $f(2) = 2(8) - \\frac{8}{2} = 16 - 4 = 12$, so the point is $(2, 12)$.",
+            "Write $\\frac{8}{x}$ as $8x^{-1}$, so $f(x) = 2x^{3} - 8x^{-1}$.",
+            "Differentiate: $f'(x) = 6x^{2} + 8x^{-2} = 6x^{2} + \\frac{8}{x^{2}}$.",
+            "Gradient at $x = 2$: $f'(2) = 6(4) + \\frac{8}{4} = 24 + 2 = 26$.",
+            "Line: $y - 12 = 26(x - 2)$, so $y = 26x - 40$.",
+            "Move every term to one side, keeping integer coefficients: $26x - y - 40 = 0$."
+          ],
+          "answer": "$26x - y - 40 = 0$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-tangent-cubic",
+          "prompt": "Find the tangent to $y = x^{3} - 4x$ where $x = 1$.",
+          "hint": "Find $y$ at $x = 1$ from the curve, and the gradient from $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ at $x = 1$.",
+          "options": [
+            {
+              "text": "$y = -x - 2$",
+              "correct": true
+            },
+            {
+              "text": "$y = -x$",
+              "correct": false
+            },
+            {
+              "text": "$y = -3x$",
+              "correct": false
+            },
+            {
+              "text": "$y = -x + 4$",
+              "correct": false
+            }
+          ],
+          "explain": "The point is $(1, -3)$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 3x^{2} - 4$ gives $m = -1$. So $y + 3 = -(x - 1)$, which is $y = -x - 2$."
+        },
+        {
+          "type": "text",
+          "text": "Sometimes a question gives the gradient and asks for the point. Solve $f'(x) = m$ for $x$, then use $f$ to find $y$."
+        },
+        {
+          "type": "check",
+          "id": "check-gradient-point",
+          "prompt": "The tangent to $y = x^{2} - 6x + 1$ at the point P has gradient $4$. Find the coordinates of P.",
+          "hint": "Set the derivative equal to $4$ and solve for $x$. Then use the curve, not the derivative, for $y$.",
+          "options": [
+            {
+              "text": "$(5, -4)$",
+              "correct": true
+            },
+            {
+              "text": "$(5, 4)$",
+              "correct": false
+            },
+            {
+              "text": "$(-1, 8)$",
+              "correct": false
+            }
+          ],
+          "explain": "$2x - 6 = 4$ gives $x = 5$. Then $y = 25 - 30 + 1 = -4$, so P is $(5, -4)$."
+        },
+        {
+          "type": "examTip",
+          "text": "\"Find the equation of the tangent\" needs the point and the gradient shown. Unless a form is asked for, an answer like $y - 5 = 5(x - 4)$ is a complete equation. If the question says $ax + by + d = 0$ with integers, rearrange fully."
+        }
+      ]
+    },
+    {
+      "id": "normal",
+      "heading": "The normal at a point",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In geometry, \"normal\" means \"at right angles\". The [[normal-line|normal]] to a curve goes through the same point as the [[tangent|tangent]] but crosses it at $90^{\\circ}$."
+        },
+        {
+          "type": "figure",
+          "id": "5-4-tangent-normal",
+          "alt": "The parabola y equals x squared minus 4x plus 5 with the point P at 3, 2 marked. A solid line, the tangent, touches the curve at P and rises with gradient 2. A dashed line, the normal, passes through P and falls with gradient minus one half. A small square at P shows the two lines meet at a right angle.",
+          "caption": "At $P(3, 2)$ the tangent has gradient $2$ and the normal has gradient $-\\frac{1}{2}$."
+        },
+        {
+          "type": "definition",
+          "term": "normal",
+          "statement": "At the point $(a, f(a))$ on $y = f(x)$, the normal is the straight line through that point perpendicular to the tangent.",
+          "plain": "It sticks straight out from the curve at that point, at a right angle to it."
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:2.1}} you saw that two lines at right angles have gradients whose product is $-1$: $m_{1} \\times m_{2} = -1$. That makes the normal's gradient the negative reciprocal of the tangent's. Flip the fraction and change the sign."
+        },
+        {
+          "type": "formula",
+          "tex": "m_{\\text{normal}} = -\\frac{1}{f'(a)}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The method is the same as for a tangent, with one extra step. Find the point, find $f'(a)$, turn it into $-\\frac{1}{f'(a)}$, then write the line."
+        },
+        {
+          "type": "example",
+          "id": "ex-normal-quadratic",
+          "question": "Find the equation of the normal to the curve $y = x^{2} - 4x + 5$ at the point $P(3, 2)$.",
+          "steps": [
+            "Check that P is on the curve: $9 - 12 + 5 = 2$. It is.",
+            "Differentiate: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 2x - 4$, so the tangent's gradient at $x = 3$ is $2(3) - 4 = 2$.",
+            "Take the negative reciprocal: the normal's gradient is $-\\frac{1}{2}$.",
+            "Line through $(3, 2)$: $y - 2 = -\\frac{1}{2}(x - 3)$.",
+            "Expand: $y = -\\frac{1}{2}x + \\frac{3}{2} + 2 = -\\frac{1}{2}x + \\frac{7}{2}$.",
+            "Check: $2 \\times \\left(-\\frac{1}{2}\\right) = -1$, so the lines are perpendicular."
+          ],
+          "answer": "$y = -\\tfrac{1}{2}x + \\tfrac{7}{2}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Turning $2$ into $\\frac{1}{2}$ is only half the job. The normal's gradient also changes sign, so it is $-\\frac{1}{2}$. Check that the two gradients multiply to $-1$."
+        },
+        {
+          "type": "result",
+          "statement": "If $f'(a) = 0$, the tangent is the horizontal line $y = f(a)$ and the normal is the vertical line $x = a$.",
+          "why": "You can't divide by $0$, so $-\\frac{1}{f'(a)}$ doesn't exist. A vertical line has no gradient, and its equation is $x = a$."
+        },
+        {
+          "type": "check",
+          "id": "check-normal-vertical",
+          "prompt": "Find the equation of the normal to $y = x^{2} - 6x + 11$ at the point where $x = 3$.",
+          "hint": "Work out $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ at $x = 3$. If it is $0$, the tangent is horizontal, so the normal is vertical.",
+          "options": [
+            {
+              "text": "$x = 3$",
+              "correct": true
+            },
+            {
+              "text": "$y = 2$",
+              "correct": false
+            },
+            {
+              "text": "$x = 2$",
+              "correct": false
+            },
+            {
+              "text": "$y = 3$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2x - 6$ is $0$ at $x = 3$, and the point is $(3, 2)$. The tangent is the horizontal line $y = 2$, so the normal is the vertical line through the point: $x = 3$."
+        },
+        {
+          "type": "example",
+          "id": "ex-normal-triangle",
+          "question": "The curve $y = x^{3} - 3x^{2} + 4$ passes through $P(1, 2)$. The tangent at P meets the $x$-axis at A. The normal at P meets the $x$-axis at B. Find the area of triangle PAB.",
+          "steps": [
+            "Differentiate: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 3x^{2} - 6x$. At $x = 1$ the tangent's gradient is $3 - 6 = -3$, so the normal's gradient is $\\frac{1}{3}$.",
+            "Tangent: $y - 2 = -3(x - 1)$, so $y = -3x + 5$. Set $y = 0$: $x = \\frac{5}{3}$, so A is $\\left(\\frac{5}{3}, 0\\right)$.",
+            "Normal: $y - 2 = \\frac{1}{3}(x - 1)$. Set $y = 0$: $-6 = x - 1$, so $x = -5$ and B is $(-5, 0)$.",
+            "AB lies on the $x$-axis, so take it as the base: $\\frac{5}{3} - (-5) = \\frac{20}{3}$. The height is the $y$-coordinate of P, which is $2$.",
+            "Area $= \\frac{1}{2} \\times \\text{base} \\times \\text{height} = \\frac{1}{2} \\times \\frac{20}{3} \\times 2$. This triangle formula is in the prior-learning part of the formula booklet."
+          ],
+          "answer": "$\\text{Area of triangle PAB} = \\tfrac{20}{3}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-normal-equation",
+          "prompt": "Find the equation of the normal to $y = x^{2} + 2x - 3$ at the point $(1, 0)$.",
+          "hint": "Find the tangent's gradient at $x = 1$ first, then flip it and change its sign.",
+          "options": [
+            {
+              "text": "$x + 4y - 1 = 0$",
+              "correct": true
+            },
+            {
+              "text": "$y = 4x - 4$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\tfrac{1}{4}x - \\tfrac{1}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$y = -\\tfrac{1}{4}x + \\tfrac{17}{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2x + 2$ gives $4$ at $x = 1$, so the normal's gradient is $-\\frac{1}{4}$. Then $y - 0 = -\\frac{1}{4}(x - 1)$, which rearranges to $x + 4y - 1 = 0$."
+        },
+        {
+          "type": "check",
+          "id": "check-normal-intercept",
+          "prompt": "The normal to $y = x^{3}$ at the point where $x = 2$ crosses the $y$-axis. Find the $y$-coordinate of the crossing point. Give your answer to 3 s.f.",
+          "hint": "The point is $(2, 8)$. Find the tangent's gradient there, then the normal's, then set $x = 0$ in the normal's equation.",
+          "answer": {
+            "value": 8.17,
+            "tolerance": 0.005
+          },
+          "explain": "The tangent's gradient is $3(2)^{2} = 12$, so the normal's is $-\\frac{1}{12}$. At $x = 0$: $y = 8 - \\frac{1}{12}(0 - 2) = 8 + \\frac{1}{6} = 8.1666\\ldots \\approx 8.17$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also find tangents and normals to curves given implicitly, such as circles, by implicit differentiation.",
+          "lesson": "5.14"
+        }
+      ]
+    },
+    {
+      "id": "technology",
+      "heading": "Tangents and normals with a GDC",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On Paper 2 your GDC can give $f'(a)$ as a number. That helps when the function is messy, or is one you can't yet differentiate by hand."
+        },
+        {
+          "type": "text",
+          "text": "The GDC only gives the gradient. You still find the point, write down the line, and show both in your working."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-tangent-crossing",
+          "question": "Let $f(x) = \\frac{10}{1 + x^{2}}$. Use your calculator to find $f'(1.5)$. Hence find where the tangent to the graph of $f$ at $x = 1.5$ crosses the $x$-axis. Give your answer to 3 s.f.",
+          "steps": [
+            "Find the point: $f(1.5) = \\frac{10}{1 + 2.25} = \\frac{10}{3.25} = 3.0769\\ldots$",
+            "Write down what you put into the GDC: $f'(1.5) = -2.8402\\ldots$ Keep every digit, or store it.",
+            "Tangent: $y - 3.0769\\ldots = -2.8402\\ldots(x - 1.5)$.",
+            "Set $y = 0$: $-3.0769\\ldots = -2.8402\\ldots(x - 1.5)$. Divide both sides by $-2.8402\\ldots$: $x - 1.5 = 1.0833\\ldots$, so $x = 2.5833\\ldots$",
+            "Round only now, at the end: $x \\approx 2.58$."
+          ],
+          "answer": "$x \\approx 2.58$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MATH, 8: nDeriv(",
+              "Enter 10/(1+X^2) as the function and X=1.5 as the point, then ENTER",
+              "Read -2.840237359 (nDeriv( is a close estimate), the gradient at x = 1.5"
+            ],
+            "nspire": [
+              "Calculator page, Menu, Calculus, Numerical Derivative at a Point",
+              "Set the variable to x, the value to 1.5 and the order to 1 (check on your model)",
+              "Type 10/(1+x^2) in the template, then enter",
+              "Read -2.84024, the gradient at x = 1.5"
+            ],
+            "casio": [
+              "RUN-MAT, OPTN, CALC, d/dx",
+              "Enter 10/(1+X^2) as the function and 1.5 as the point, then EXE",
+              "Read -2.840236686, the gradient at x = 1.5"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding the gradient to $-2.84$ before you use it can change the third figure of the final answer. Carry the full value and round once, at the end."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-normal-meets-again",
+          "question": "The curve $y = 0.5x^{3} - x^{2} + 2$ passes through $P(1, 1.5)$. The normal at P meets the curve at two more points. Find their $x$-coordinates. Give your answers to 3 s.f.",
+          "steps": [
+            "Differentiate: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 1.5x^{2} - 2x$. At $x = 1$ the tangent's gradient is $1.5 - 2 = -0.5$.",
+            "The normal's gradient is $-\\frac{1}{-0.5} = 2$.",
+            "Normal: $y - 1.5 = 2(x - 1)$, so $y = 2x - 0.5$.",
+            "Write down the equation you solve: $0.5x^{3} - x^{2} + 2 = 2x - 0.5$.",
+            "Graph both sides on your GDC and find the intersections: $x = -1.7912\\ldots$, $x = 1$ and $x = 2.7912\\ldots$. The root $x = 1$ is P itself."
+          ],
+          "answer": "$x \\approx -1.79 \\text{ or } x \\approx 2.79$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = 0.5X^3-X^2+2 and Y2 = 2X-0.5",
+              "GRAPH, then 2nd TRACE (CALC), 5: intersect",
+              "Press ENTER for each curve, move the cursor near the left crossing, ENTER (check on your model)",
+              "Read x = -1.791287847, then repeat near the right crossing for x = 2.791287847"
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = 0.5x^3-x^2+2 and f2(x) = 2x-0.5",
+              "Menu, Analyze Graph, Intersection",
+              "Click a lower bound and an upper bound around the left crossing (check on your model)",
+              "Read x = -1.79129, then repeat around the right crossing for x = 2.79129"
+            ],
+            "casio": [
+              "GRAPH, enter Y1: 0.5X^3-X^2+2 and Y2: 2X-0.5",
+              "DRAW, then SHIFT F5 (G-SOLV), INTSECT",
+              "Use the right arrow key to step from one crossing to the next (check on your model)",
+              "Read x = -1.791287847 and x = 2.791287847"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "You could also factorise here, because $x = 1$ must be a root. On Paper 2 the GDC is quicker and just as good, as long as you write the equation down first."
+        },
+        {
+          "type": "check",
+          "id": "check-gdc-intercept",
+          "prompt": "Let $f(x) = \\frac{12}{x^{2} + 2}$. Use your calculator to find $f'(1)$. The tangent at $x = 1$ crosses the $y$-axis: find the $y$-coordinate there. Give your answer to 3 s.f.",
+          "hint": "The point is $(1, f(1))$. Put the GDC value of $f'(1)$ into $y - y_{1} = m(x - x_{1})$, then set $x = 0$.",
+          "answer": {
+            "value": 6.67,
+            "tolerance": 0.005
+          },
+          "explain": "$f(1) = 4$ and the GDC gives $f'(1) = -2.6666\\ldots$ At $x = 0$: $y = 4 - 2.6666\\ldots(0 - 1) = 6.6666\\ldots \\approx 6.67$."
+        },
+        {
+          "type": "examTip",
+          "text": "On Paper 2, write the value your GDC gives, such as $f'(1.5) = -2.8402\\ldots$, before you write the line. If a later step slips, that line can still earn the method mark."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Point from $f$: $(a, f(a))$. Gradient from $f'$: $f'(a)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Tangent: $y - f(a) = f'(a)(x - a)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "m_{\\text{normal}} = -\\frac{1}{f'(a)}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $f'(a) = 0$, the tangent is $y = f(a)$ and the normal is $x = a$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Given a gradient $m$, solve $f'(x) = m$ for $x$, then use $f$ for $y$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "On Paper 2, get $f'(a)$ from the GDC, keep every digit, and round only the final answer.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Taking the $y$-coordinate from $f'(a)$ instead of $f(a)$. The point is on the curve, so use $f$. Only the gradient comes from $f'$.",
+    "Leaving $x$ in the gradient, as in $y - 5 = (2x - 3)(x - 4)$. Substitute $x = a$ into $f'(x)$ first, so $m$ is a number.",
+    "Using the tangent's gradient for the normal. The normal's gradient is $-\\frac{1}{f'(a)}$.",
+    "Flipping the gradient but not changing its sign, so $-2$ becomes $-\\frac{1}{2}$ instead of $\\frac{1}{2}$. The two gradients must multiply to $-1$.",
+    "Giving only a gradient, or writing the line as \"$L = x + 1$\". A line is an equation in $x$ and $y$, such as $y = x + 1$."
+  ],
+  "examTips": [
+    "\"Find the equation of the tangent\": show $f'(x)$, the value $f'(a)$ and the point $(a, f(a))$ before the line. That working can earn method marks even if the final line slips.",
+    "\"Hence\" straight after the tangent's gradient usually wants the normal's gradient in one step, with no new working. If your tangent's gradient was wrong but you use it correctly, you can still earn follow-through (FT) marks.",
+    "Paper 1 has no calculator. Keep gradients as exact fractions, like $-\\frac{1}{3}$, not $-0.333$."
+  ],
+  "readingMinutes": 15
+}

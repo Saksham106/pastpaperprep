@@ -214,12 +214,13 @@ describe("Blocks", () => {
 
   it("never nests a term or link inside an option button", () => {
     const blocks: Block[] = [
-      { type: "check", id: "c", prompt: "Pick", options: [{ text: "[[integrand|int]] {{lesson:5.5}} $x^2$", correct: true }, { text: "b", correct: false }], explain: "ok" },
+      { type: "check", id: "c", prompt: "Pick", hint: "h", options: [{ text: "[[integrand|int]] {{lesson:5.5}} $x^2$", correct: true }, { text: "b", correct: false }], explain: "ok" },
     ];
     const { container } = render(<Blocks blocks={blocks} glossary={glossary} lessonHref={lessonHref} />);
     expect(container.querySelectorAll("button button, button a")).toHaveLength(0);
-    const option = container.querySelector("button");
-    expect(option?.querySelector("math")).not.toBeNull();
+    // The hint toggle is also a button; pick the option button.
+    const option = [...container.querySelectorAll("button")].find((button) => button.querySelector("math"));
+    expect(option).toBeDefined();
     expect(option?.textContent).toContain("int");
   });
 
@@ -227,7 +228,7 @@ describe("Blocks", () => {
     const blocks: Block[] = [
       {
         type: "example", id: "e1", question: "Find $x$.", steps: ["first", "second"], answer: "done", video: null,
-        check: { type: "check", id: "c", prompt: "Check?", options: [{ text: "a", correct: true }], explain: "ok" },
+        check: { type: "check", id: "c", prompt: "Check?", hint: "h", options: [{ text: "a", correct: true }], explain: "ok" },
       },
     ];
     render(<Blocks blocks={blocks} glossary={[]} lessonHref={lessonHref} />);

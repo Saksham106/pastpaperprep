@@ -1,0 +1,534 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.1",
+  "slug": "limits-and-derivative-as-rate-of-change",
+  "title": "Limits and the derivative as a rate of change",
+  "level": "SL",
+  "topic": 5,
+  "summary": "A [[limit|limit]] is the value a function's output heads for as the input gets close to a number. Limits give the gradient of a curve at a single point. That gradient, written $f'(x)$ or $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$, is the [[derivative|derivative]]: how steep the curve is, and how fast one quantity changes as another changes.",
+  "goals": [
+    {
+      "text": "Estimate a [[limit|limit]] from a table of values or a graph.",
+      "bullets": [
+        "5.1-b1"
+      ]
+    },
+    {
+      "text": "Explain the gradient of a curve at a point as the limit of [[chord|chord]] gradients.",
+      "bullets": [
+        "5.1-b3"
+      ]
+    },
+    {
+      "text": "Read the [[derivative|derivative]] as the gradient function, written $f'(x)$ or $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$.",
+      "bullets": [
+        "5.1-b2"
+      ]
+    },
+    {
+      "text": "Interpret a derivative such as $\\frac{\\mathrm{d}V}{\\mathrm{d}r}$ or $\\frac{\\mathrm{d}s}{\\mathrm{d}t}$ as a rate of change, with its sign and units.",
+      "bullets": [
+        "5.1-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "limits",
+    "gradient of a curve",
+    "what is a derivative",
+    "rate of change",
+    "dy/dx notation",
+    "chord and tangent"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gradient-two-points",
+      "prompt": "Find the gradient of the line through $(1, 3)$ and $(4, 12)$.",
+      "hint": "Divide the change in $y$ by the change in $x$.",
+      "options": [
+        {
+          "text": "$3$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{1}{3}$",
+          "correct": false
+        },
+        {
+          "text": "$9$",
+          "correct": false
+        }
+      ],
+      "explain": "$m = \\frac{12 - 3}{4 - 1} = \\frac{9}{3} = 3$. Revise it in {{lesson:2.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-general-form-gradient",
+      "prompt": "Find the gradient of the line $3x + 2y = 8$.",
+      "hint": "Rearrange into the form $y = mx + c$.",
+      "options": [
+        {
+          "text": "$-\\frac{3}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{3}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$-3$",
+          "correct": false
+        },
+        {
+          "text": "$4$",
+          "correct": false
+        }
+      ],
+      "explain": "$2y = -3x + 8$, so $y = -\\frac{3}{2}x + 4$ and the gradient is $-\\frac{3}{2}$. Revise it in {{lesson:2.1}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "limits",
+      "heading": "The idea of a limit",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Take $f(x) = \\dfrac{x^{2} - 4}{x - 2}$. At $x = 2$ it gives $\\frac{0}{0}$, so $f(2)$ doesn't exist. You can still ask where $f(x)$ is heading as $x$ gets close to 2."
+        },
+        {
+          "type": "text",
+          "text": "Try $x = 1.9$, $1.99$, $1.999$: you get $3.9$, $3.99$, $3.999$. From above, $x = 2.1$, $2.01$, $2.001$ give $4.1$, $4.01$, $4.001$. Both sides close in on 4."
+        },
+        {
+          "type": "definition",
+          "term": "limit",
+          "statement": "If $f(x)$ gets as close as you like to $L$ whenever $x$ is close enough to $a$ (but not equal to $a$), then $L$ is the limit of $f(x)$ as $x$ tends to $a$. You write $\\lim_{x \\to a} f(x) = L$.",
+          "plain": "The value the output is heading for, whether or not it ever gets there."
+        },
+        {
+          "type": "text",
+          "text": "Read the arrow $\\to$ as \"tends to\". A [[limit|limit]] ignores what happens exactly at $x = a$. The function may be undefined there, or have another value. Only the values near $a$ count."
+        },
+        {
+          "type": "figure",
+          "id": "5-1-limit-graph",
+          "alt": "Graph of y equals f of x: a straight line rising from left to right through the point 0, 2. At x equals 2 the line has an open circle at height 4, showing a missing point. A separate filled dot sits below it at the point 2, 1. Dashed guide lines mark x equals 2 on the x-axis and heights 1 and 4 on the y-axis.",
+          "caption": "The graph of $y = f(x)$. The open circle at $(2, 4)$ is a gap in the line. The filled dot shows $f(2) = 1$."
+        },
+        {
+          "type": "text",
+          "text": "Here $f(x) = x + 2$ except at $x = 2$, where $f(2) = 1$. Follow the line towards $x = 2$ from either side: the heights approach 4."
+        },
+        {
+          "type": "check",
+          "id": "check-limit-graph",
+          "prompt": "Use the graph above. Write down $\\lim_{x \\to 2} f(x)$.",
+          "hint": "Follow the line towards $x = 2$ from both sides. Ignore the single dot.",
+          "options": [
+            {
+              "text": "$4$",
+              "correct": true
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            }
+          ],
+          "explain": "Both parts of the line head for height 4. The dot shows $f(2) = 1$, which is a different thing. And 2 is where $x$ is heading, not $f(x)$."
+        },
+        {
+          "type": "text",
+          "text": "On this course you estimate limits from a table or a graph, not by algebra. Check that the values from both sides of $a$ settle on the same number."
+        },
+        {
+          "type": "example",
+          "id": "ex-limit-table",
+          "question": "The table shows values of $g(x) = \\dfrac{x^{3} - 1}{x - 1}$ near $x = 1$. $\\begin{array}{c|cccccc} x & 0.9 & 0.99 & 0.999 & 1.001 & 1.01 & 1.1 \\\\ \\hline g(x) & 2.71 & 2.9701 & 2.997001 & 3.003001 & 3.0301 & 3.31 \\end{array}$ Estimate $\\displaystyle\\lim_{x \\to 1} g(x)$.",
+          "steps": [
+            "Substituting $x = 1$ gives $\\frac{0}{0}$, so use the values near 1 instead.",
+            "From the left, $2.71$, $2.9701$, $2.997001$ rise towards 3.",
+            "From the right, $3.31$, $3.0301$, $3.003001$ fall towards 3.",
+            "Both sides settle on 3. A closer value agrees: $g(1.0001) = 3.00030001$."
+          ],
+          "answer": "$\\lim_{x \\to 1} \\frac{x^{3} - 1}{x - 1} = 3$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-limit-gdc",
+          "question": "Use your calculator to estimate $\\displaystyle\\lim_{h \\to 0} \\frac{2^{h} - 1}{h}$. Give your answer to 3 s.f.",
+          "steps": [
+            "$h = 0$ gives $\\frac{0}{0}$, so work out the expression for small $h$ on both sides of 0.",
+            "$h = 0.01$ gives $0.69555\\ldots$ and $h = 0.001$ gives $0.69338\\ldots$",
+            "$h = -0.01$ gives $0.69075\\ldots$ and $h = -0.001$ gives $0.69290\\ldots$",
+            "The two sides trap the limit between $0.69290$ and $0.69338$. Both round to $0.693$."
+          ],
+          "answer": "$\\lim_{h \\to 0} \\frac{2^{h} - 1}{h} \\approx 0.693$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "On the home screen type (2^0.01-1)/0.01, then ENTER",
+              "Type (2^0.001-1)/0.001, then ENTER",
+              "For negative h type (2^(-0.01)-1)/(-0.01), using the (-) key for each minus sign, then ENTER",
+              "Repeat with -0.001 and read off the four values"
+            ],
+            "nspire": [
+              "On a Calculator page type (2^0.01-1)/0.01, then enter",
+              "Type (2^0.001-1)/0.001, then enter",
+              "For negative h type (2^(-0.01)-1)/(-0.01), using the (-) key for each minus sign, then enter",
+              "Repeat with -0.001 and read off the four values"
+            ],
+            "casio": [
+              "In RUN-MAT type (2^0.01-1)/0.01, then EXE",
+              "Type (2^0.001-1)/0.001, then EXE",
+              "For negative h type (2^(-0.01)-1)/(-0.01), using the (-) key for each minus sign, then EXE",
+              "Repeat with -0.001 and read off the four values"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-limit-sqrt",
+          "prompt": "The table shows $k(x) = \\dfrac{\\sqrt{x} - 2}{x - 4}$ near $x = 4$, to 5 decimal places. $\\begin{array}{c|cccccc} x & 3.9 & 3.99 & 3.999 & 4.001 & 4.01 & 4.1 \\\\ \\hline k(x) & 0.25158 & 0.25016 & 0.25002 & 0.24998 & 0.24984 & 0.24846 \\end{array}$ Estimate $\\displaystyle\\lim_{x \\to 4} k(x)$ to 3 s.f.",
+          "hint": "Which number are the values from both sides closing in on?",
+          "answer": {
+            "value": 0.25,
+            "tolerance": 0.0005
+          },
+          "explain": "From the left the values fall to $0.25002$. From the right they rise to $0.24998$. Both head for $0.250$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also work out limits exactly, using l'Hôpital's rule or Maclaurin series.",
+          "lesson": "5.13"
+        }
+      ]
+    },
+    {
+      "id": "gradient-limit",
+      "heading": "From chords to the tangent",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A straight line has one gradient everywhere. A curve's steepness changes as you move along it. So what is \"the gradient at a point\"?"
+        },
+        {
+          "type": "text",
+          "text": "It is the gradient of the [[tangent|tangent]] there: the line that touches the curve at that point and runs in the curve's direction. But you know only one point on the tangent. The gradient formula from {{lesson:2.1}} needs two. It is in the formula booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "m = \\frac{y_{2} - y_{1}}{x_{2} - x_{1}}",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-gradient"
+        },
+        {
+          "type": "text",
+          "text": "So take a second point $Q$ on the curve, a step $h$ along from $P$. The line $PQ$ is a [[chord|chord]], also called a secant. Let $h$ shrink towards 0: the chord swings round and settles on the tangent."
+        },
+        {
+          "type": "interactive",
+          "widget": "secant-to-tangent",
+          "props": {
+            "h": 1,
+            "curve": "square"
+          },
+          "alt": "Graph of y equals x squared with a fixed point P at x equals 1 and a second point Q at x equals 1 plus h. The chord PQ is drawn as a solid line and the tangent at P as a dashed line. A slider moves Q towards P, and the chord gradient is shown beside the tangent gradient of 2."
+        },
+        {
+          "type": "text",
+          "text": "Drag $h$ down to $0.01$. The chord gradient reads $2.010$, and it heads for 2, the gradient of the tangent at $P(1, 1)$."
+        },
+        {
+          "type": "result",
+          "statement": "The gradient of the curve $y = f(x)$ at $x = a$ is the [[limit|limit]] of the chord gradients $\\dfrac{f(a + h) - f(a)}{h}$ as $h \\to 0$. It is written $f'(a)$.",
+          "why": "Each chord gradient is an average over a small step. As the step shrinks to nothing, the chord becomes the tangent."
+        },
+        {
+          "type": "text",
+          "text": "At SL you estimate this limit from chord gradients. You don't work it out by algebra."
+        },
+        {
+          "type": "example",
+          "id": "ex-chord-square",
+          "question": "Let $f(x) = x^{2}$. Find the gradients of the chords from $P(3, 9)$ to the points on the curve with $x = 3.1$, $3.01$ and $3.001$. Use them to estimate $f'(3)$.",
+          "steps": [
+            "$x = 3.1$: $Q = (3.1, 9.61)$, so the gradient is $\\dfrac{9.61 - 9}{3.1 - 3} = \\dfrac{0.61}{0.1} = 6.1$.",
+            "$x = 3.01$: $Q = (3.01, 9.0601)$, so the gradient is $\\dfrac{0.0601}{0.01} = 6.01$.",
+            "$x = 3.001$: $Q = (3.001, 9.006001)$, so the gradient is $\\dfrac{0.006001}{0.001} = 6.001$.",
+            "As $Q$ moves towards $P$, the gradients close in on 6."
+          ],
+          "answer": "$f'(3) = 6$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-chord-gradient",
+          "prompt": "On $y = x^{2}$, find the gradient of the chord from $P(1, 1)$ to $Q(1.5, 2.25)$.",
+          "hint": "Use $m = \\frac{y_{2} - y_{1}}{x_{2} - x_{1}}$ with the two points.",
+          "answer": {
+            "value": 2.5,
+            "tolerance": 0
+          },
+          "explain": "$m = \\frac{2.25 - 1}{1.5 - 1} = \\frac{1.25}{0.5} = 2.5$. Set $h = 0.5$ in the widget to see this chord. It is steeper than the tangent."
+        },
+        {
+          "type": "example",
+          "id": "ex-chord-cube",
+          "question": "Let $f(x) = x^{3}$. The table shows the gradient of the chord from $P(2, 8)$ to $Q(2 + h, f(2 + h))$. $\\begin{array}{c|cccccc} h & -0.1 & -0.01 & -0.001 & 0.001 & 0.01 & 0.1 \\\\ \\hline \\text{gradient of } PQ & 11.41 & 11.9401 & 11.994001 & 12.006001 & 12.0601 & ? \\end{array}$ (a) Show that the gradient when $h = 0.1$ is $12.61$. (b) Estimate $f'(2)$.",
+          "steps": [
+            "(a) When $h = 0.1$, $Q$ has $x = 2.1$ and $y = 2.1^{3} = 9.261$.",
+            "The gradient is $\\dfrac{9.261 - 8}{2.1 - 2} = \\dfrac{1.261}{0.1} = 12.61$, as required.",
+            "(b) For negative $h$, $Q$ is left of $P$, and the gradients rise: $11.41$, $11.9401$, $11.994001$.",
+            "For positive $h$ they fall: $12.61$, $12.0601$, $12.006001$. Both sides close in on 12."
+          ],
+          "answer": "$f'(2) = 12$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-tangent-estimate",
+          "prompt": "For $f(x) = x^{2} + x$, the chords from $P(2, 6)$ with $h = 0.1$, $0.01$ and $0.001$ have gradients $5.1$, $5.01$ and $5.001$. Estimate $f'(2)$.",
+          "hint": "Which number are the gradients heading for as $h$ shrinks?",
+          "options": [
+            {
+              "text": "$5$",
+              "correct": true
+            },
+            {
+              "text": "$5.001$",
+              "correct": false
+            },
+            {
+              "text": "$6$",
+              "correct": false
+            },
+            {
+              "text": "$5.1$",
+              "correct": false
+            }
+          ],
+          "explain": "Each gradient is $5 + h$, so they approach 5. $5.001$ is still a chord gradient. 6 is $f(2)$, the height of $P$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you evaluate this limit by algebra to differentiate polynomials from first principles.",
+          "lesson": "5.12"
+        }
+      ]
+    },
+    {
+      "id": "derivative",
+      "heading": "The derivative: gradient and rate of change",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Repeat the chord method at other points on $y = x^{2}$. The gradient is 2 at $x = 1$, 4 at $x = 2$ and 6 at $x = 3$: always $2x$. So the gradient is itself a function of $x$."
+        },
+        {
+          "type": "definition",
+          "term": "derivative",
+          "statement": "The derivative of $f$ is the function $f'$ whose value at each $x$ is the gradient of the curve $y = f(x)$ at that point. It is also called the gradient function.",
+          "plain": "A formula for how steep the curve is at any point."
+        },
+        {
+          "type": "text",
+          "text": "If $y = f(x)$, write the [[derivative|derivative]] as $f'(x)$, read \"f prime of x\", or as $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$, read \"d y by d x\". Each $\\mathrm{d}$ stands for a tiny change, but treat $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ as one symbol, not a fraction."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f'(x) \\quad \\text{when } y = f(x)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "check",
+          "id": "check-gradient-function",
+          "prompt": "Chord estimates give the gradient of $y = x^{3}$ as 3 at $x = 1$, 12 at $x = 2$ and 27 at $x = 3$. Which gradient function fits?",
+          "hint": "Test each option at all three $x$-values.",
+          "options": [
+            {
+              "text": "$3x^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$3x$",
+              "correct": false
+            },
+            {
+              "text": "$x^{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$3 \\times 1^{2} = 3$, $3 \\times 2^{2} = 12$, $3 \\times 3^{2} = 27$. $3x$ fits only $x = 1$, and $x^{3}$ gives the heights of the curve, not its gradients."
+        },
+        {
+          "type": "text",
+          "text": "A gradient is the change in $y$ for each unit increase in $x$. So $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ is also the rate of change of $y$ with respect to $x$, at one point."
+        },
+        {
+          "type": "text",
+          "text": "Other letters work the same way. $\\dfrac{\\mathrm{d}V}{\\mathrm{d}r}$ is the rate of change of a volume $V$ with respect to a radius $r$. $\\dfrac{\\mathrm{d}s}{\\mathrm{d}t}$ is the rate of change of a displacement $s$ with time $t$: the velocity, which you use in {{lesson:5.9}}."
+        },
+        {
+          "type": "result",
+          "statement": "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ is the rate of change of $y$ with respect to $x$. Its units are units of $y$ per unit of $x$. If it is positive, $y$ is increasing at that point; if negative, $y$ is decreasing.",
+          "why": "A chord gradient is an average rate over an interval. Shrinking the interval to a point gives the rate at that point."
+        },
+        {
+          "type": "text",
+          "text": "From {{lesson:5.3}} you will find derivatives with rules. Until then, a question gives you the derivative, or you use your calculator."
+        },
+        {
+          "type": "example",
+          "id": "ex-cube-volume-rate",
+          "question": "A metal cube expands as it is heated. Its edge is $x$ cm and its volume is $V = x^{3}$ cm³. You are given $\\dfrac{\\mathrm{d}V}{\\mathrm{d}x} = 3x^{2}$. Find the rate of change of $V$ with respect to $x$ when $V = 64$.",
+          "steps": [
+            "The derivative is in terms of $x$, but you are given $V$. So find $x$ first: $x^{3} = 64$, so $x = 4$.",
+            "Substitute $x = 4$ into the derivative: $3 \\times 4^{2} = 48$.",
+            "The units are cm³ of volume per cm of edge. When $x = 4$, $V$ increases by about 48 cm³ for each extra cm of edge (48 cm³ per cm)."
+          ],
+          "answer": "$\\frac{\\mathrm{d}V}{\\mathrm{d}x} = 48\\text{ cm}^{3}\\text{ per cm}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-circle-area-rate",
+          "prompt": "A circle has radius $r$ and area $A = \\pi r^{2}$, with $\\dfrac{\\mathrm{d}A}{\\mathrm{d}r} = 2\\pi r$. Find $\\dfrac{\\mathrm{d}A}{\\mathrm{d}r}$ when $A = 25\\pi$.",
+          "hint": "The derivative needs $r$, not $A$. Find $r$ first.",
+          "options": [
+            {
+              "text": "$10\\pi$",
+              "correct": true
+            },
+            {
+              "text": "$50\\pi^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$25\\pi$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\pi r^{2} = 25\\pi$ gives $r = 5$, so $\\frac{\\mathrm{d}A}{\\mathrm{d}r} = 2\\pi \\times 5 = 10\\pi$. Putting $25\\pi$ in place of $r$ gives $50\\pi^{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cooling-gdc",
+          "question": "A cup of tea cools so that its temperature after $t$ minutes is $T = 20 + 60\\mathrm{e}^{-0.1t}$ degrees Celsius. (a) Use your calculator to find $\\dfrac{\\mathrm{d}T}{\\mathrm{d}t}$ when $t = 5$. Give your answer to 3 s.f. (b) Interpret your answer.",
+          "steps": [
+            "(a) Write down what you put into the calculator, for the method mark: $\\dfrac{\\mathrm{d}T}{\\mathrm{d}t}$ at $t = 5$, for $T = 20 + 60\\mathrm{e}^{-0.1t}$.",
+            "The calculator gives $-3.6391\\ldots$ Round only at the end: $-3.64$. The units are degrees Celsius per minute.",
+            "(b) The rate is negative, so the temperature is falling. After 5 minutes the tea is cooling at about $3.64$ degrees Celsius per minute."
+          ],
+          "answer": "$\\frac{\\mathrm{d}T}{\\mathrm{d}t} \\approx -3.64^{\\circ}\\text{C per minute}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MATH, 8: nDeriv(",
+              "Enter 20+60e^(-0.1X), X, 5 and press ENTER. For e^( press 2nd, LN (check on your model)",
+              "Read off -3.6391..., so dT/dt is about -3.64"
+            ],
+            "nspire": [
+              "On a Calculator page: Menu, Calculus, Numerical Derivative at a Point",
+              "Set the variable to x and the point to 5, then OK (check on your model)",
+              "Enter 20+60e^(-0.1x) in the template, then enter",
+              "Read off -3.6391..., so dT/dt is about -3.64"
+            ],
+            "casio": [
+              "RUN-MAT, OPTN, CALC, d/dx",
+              "Enter 20+60e^(-0.1X) and the point X = 5 in the template, then EXE (check on your model)",
+              "Read off -3.6391..., so dT/dt is about -3.64"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-population-rate",
+          "prompt": "A population after $t$ years is $P = 500 \\times 1.04^{t}$. Use your calculator to find $\\dfrac{\\mathrm{d}P}{\\mathrm{d}t}$ when $t = 10$, to 3 s.f.",
+          "hint": "Use the derivative-at-a-point tool with 500 times 1.04 to the power $x$, at $x = 10$.",
+          "answer": {
+            "value": 29.0,
+            "tolerance": 0.05
+          },
+          "explain": "The calculator gives $29.028\\ldots$, so $\\frac{\\mathrm{d}P}{\\mathrm{d}t} \\approx 29.0$. When $t = 10$ the population is growing by about 29 per year."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$\\lim_{x \\to a} f(x) = L$: $f(x)$ approaches $L$ as $x$ approaches $a$. The value at $a$ itself doesn't matter.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Estimate a limit from values on both sides of $a$: a table, a graph or your calculator.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The gradient of a curve at $P$ is the tangent's gradient: the limit of the chord gradients as $Q$ approaches $P$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f'(x) \\quad \\text{when } y = f(x)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The derivative is the gradient function and a rate of change, e.g. $\\frac{\\mathrm{d}V}{\\mathrm{d}r}$, $\\frac{\\mathrm{d}s}{\\mathrm{d}t}$. Units: top variable per unit of the bottom one.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Positive derivative: increasing. Negative derivative: decreasing.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Stopping at $\\frac{0}{0}$. It only shows there is a gap at $x = a$. Estimate the limit from values on both sides of $a$.",
+    "Taking the limit to be $f(a)$. The limit is what $f(x)$ approaches near $a$; the value at $a$ can differ, or be missing.",
+    "Giving the last chord gradient, such as $6.001$, as the gradient of the curve. Give the value the chord gradients approach.",
+    "Substituting the given $V$ into a derivative written in terms of $x$. Find $x$ first, then substitute.",
+    "Losing the sign of a rate. A quantity that is decreasing has a negative rate of change."
+  ],
+  "examTips": [
+    "\"Estimate\" a limit: look at values on both sides of $a$, then state the single number they approach.",
+    "\"Interpret\" a derivative: give the rate in context with units, and say whether the quantity is increasing or decreasing.",
+    "On Paper 2, write down the function and the point you put into your calculator, e.g. $\\frac{\\mathrm{d}T}{\\mathrm{d}t}$ at $t = 5$. Give 3 s.f. unless told otherwise."
+  ],
+  "readingMinutes": 19
+}

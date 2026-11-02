@@ -1,0 +1,823 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.18",
+  "slug": "first-order-differential-equations",
+  "title": "First-order differential equations",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "A [[differential-equation|differential equation]] links a function with its derivative, such as $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2y$. Solving it means finding the function. Three exact methods cover the course: separating the variables, $y = vx$ and the [[integrating-factor|integrating factor]]. When none works, [[eulers-method|Euler's method]] estimates the answer.",
+  "goals": [
+    {
+      "text": "Check that a function solves a differential equation, and use a given point to turn the [[general-solution|general solution]] into a [[particular-solution|particular solution]].",
+      "bullets": [
+        "5.18-b1"
+      ]
+    },
+    {
+      "text": "Solve equations by separating the variables, including the [[logistic-equation|logistic equation]] with partial fractions.",
+      "bullets": [
+        "5.18-b1",
+        "5.18-b3"
+      ]
+    },
+    {
+      "text": "Solve a [[homogeneous-differential-equation|homogeneous equation]] $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f\\left(\\frac{y}{x}\\right)$ with the substitution $y = vx$.",
+      "bullets": [
+        "5.18-b1",
+        "5.18-b4"
+      ]
+    },
+    {
+      "text": "Solve $\\frac{\\mathrm{d}y}{\\mathrm{d}x} + P(x)y = Q(x)$ with an integrating factor.",
+      "bullets": [
+        "5.18-b1",
+        "5.18-b5"
+      ]
+    },
+    {
+      "text": "Estimate a solution with Euler's method, and say whether the estimate is too big or too small.",
+      "bullets": [
+        "5.18-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.10",
+    "5.15",
+    "5.16"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "differential equations",
+    "separation of variables",
+    "logistic equation",
+    "homogeneous differential equation y = vx",
+    "integrating factor method",
+    "Euler's method"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-int-ln",
+      "prompt": "Find $\\int \\frac{2x}{x^{2} + 5}\\,\\mathrm{d}x$.",
+      "hint": "The top is the derivative of the bottom.",
+      "options": [
+        {
+          "text": "$\\ln(x^{2} + 5) + C$",
+          "correct": true
+        },
+        {
+          "text": "$2x\\ln(x^{2} + 5) + C$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{1}{2}\\ln(x^{2} + 5) + C$",
+          "correct": false
+        }
+      ],
+      "explain": "The top, $2x$, is the derivative of $x^{2} + 5$, so the integral is a log: $\\ln(x^{2} + 5) + C$. Revise it in {{lesson:5.10}}."
+    },
+    {
+      "type": "check",
+      "id": "before-int-pf",
+      "prompt": "Find $\\int \\frac{2}{x(x + 2)}\\,\\mathrm{d}x$.",
+      "hint": "Split it as $\\frac{A}{x} + \\frac{B}{x + 2}$ first.",
+      "options": [
+        {
+          "text": "$\\ln\\lvert x\\rvert - \\ln\\lvert x + 2\\rvert + C$",
+          "correct": true
+        },
+        {
+          "text": "$\\ln\\lvert x\\rvert + \\ln\\lvert x + 2\\rvert + C$",
+          "correct": false
+        },
+        {
+          "text": "$2\\ln\\lvert x\\rvert - 2\\ln\\lvert x + 2\\rvert + C$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{2}{x(x + 2)} = \\frac{1}{x} - \\frac{1}{x + 2}$, so the integral is $\\ln\\lvert x\\rvert - \\ln\\lvert x + 2\\rvert + C$. Revise it in {{lesson:5.15}}."
+    },
+    {
+      "type": "check",
+      "id": "before-int-parts",
+      "prompt": "Find $\\int x\\mathrm{e}^{-x}\\,\\mathrm{d}x$.",
+      "hint": "Use parts with $u = x$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = \\mathrm{e}^{-x}$, so $v = -\\mathrm{e}^{-x}$.",
+      "options": [
+        {
+          "text": "$-x\\mathrm{e}^{-x} - \\mathrm{e}^{-x} + C$",
+          "correct": true
+        },
+        {
+          "text": "$-x\\mathrm{e}^{-x} + \\mathrm{e}^{-x} + C$",
+          "correct": false
+        },
+        {
+          "text": "$-\\frac{1}{2}x^{2}\\mathrm{e}^{-x} + C$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\int x\\mathrm{e}^{-x}\\,\\mathrm{d}x = -x\\mathrm{e}^{-x} + \\int \\mathrm{e}^{-x}\\,\\mathrm{d}x = -x\\mathrm{e}^{-x} - \\mathrm{e}^{-x} + C$. Revise it in {{lesson:5.16}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "solutions",
+      "heading": "Differential equations and their solutions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Until now you differentiated a given function. A differential equation turns this round: it tells you about $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$, and you find $y$."
+        },
+        {
+          "type": "definition",
+          "term": "differential equation",
+          "statement": "A differential equation is an equation that contains a derivative such as $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$. It is first order when the first derivative is the only derivative in it.",
+          "plain": "It tells you how $y$ changes. You work out $y$."
+        },
+        {
+          "type": "text",
+          "text": "For example, $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2y$ says the gradient is always twice the height. $y = A\\mathrm{e}^{2x}$ works for any constant $A$, since its derivative is $2A\\mathrm{e}^{2x} = 2y$."
+        },
+        {
+          "type": "definition",
+          "term": "general solution",
+          "statement": "The general solution of a first-order differential equation is the family of all its solutions, written with one arbitrary constant.",
+          "plain": "One formula with a $C$ (or an $A$) in it covers every solution."
+        },
+        {
+          "type": "definition",
+          "term": "particular solution",
+          "statement": "A particular solution is the member of that family that satisfies a given condition, such as $y = 3$ when $x = 0$.",
+          "plain": "The known point picks out one curve and fixes the constant."
+        },
+        {
+          "type": "text",
+          "text": "To check a solution, differentiate it and substitute into both sides. They must agree for every $x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-direct-integrate",
+          "question": "Find the particular solution of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 6x^{2} - 4$ whose curve passes through $(1, 3)$.",
+          "steps": [
+            "The right side depends only on $x$, so integrate both sides with respect to $x$: $y = \\int (6x^{2} - 4)\\,\\mathrm{d}x$.",
+            "$y = 2x^{3} - 4x + C$. This is the [[general-solution|general solution]].",
+            "Use the point $(1, 3)$: $3 = 2 - 4 + C$, so $C = 5$.",
+            "Check: $\\frac{\\mathrm{d}}{\\mathrm{d}x}(2x^{3} - 4x + 5) = 6x^{2} - 4$, and $y = 3$ when $x = 1$."
+          ],
+          "answer": "$y = 2x^{3} - 4x + 5$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-is-solution",
+          "prompt": "Which function is a solution of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = -3y$?",
+          "hint": "Differentiate each one and compare the result with $-3$ times the function.",
+          "options": [
+            {
+              "text": "$y = 4\\mathrm{e}^{-3x}$",
+              "correct": true
+            },
+            {
+              "text": "$y = \\mathrm{e}^{-3x} + 4$",
+              "correct": false
+            },
+            {
+              "text": "$y = 4\\mathrm{e}^{3x}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(4\\mathrm{e}^{-3x}\\right) = -12\\mathrm{e}^{-3x} = -3\\left(4\\mathrm{e}^{-3x}\\right)$. Adding $4$ breaks it: the derivative stays the same, but $-3y$ changes by $-12$."
+        },
+        {
+          "type": "example",
+          "id": "ex-verify-k",
+          "question": "Find the value of the constant $k$ for which $y = kx^{3}$ is a solution of $x\\frac{\\mathrm{d}y}{\\mathrm{d}x} - y = 4x^{3}$.",
+          "steps": [
+            "Differentiate the trial solution: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 3kx^{2}$.",
+            "Substitute into the left side: $x \\cdot 3kx^{2} - kx^{3} = 3kx^{3} - kx^{3} = 2kx^{3}$.",
+            "This must equal $4x^{3}$ for every $x$, so $2k = 4$."
+          ],
+          "answer": "$k = 2$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-direct-value",
+          "prompt": "Given $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{3}{x}$ for $x > 0$, and $y = 2$ when $x = 1$, find $y$ when $x = \\mathrm{e}^{2}$.",
+          "hint": "Integrate, then use the point to find $C$.",
+          "answer": {
+            "value": 8,
+            "tolerance": 0
+          },
+          "explain": "$y = 3\\ln x + C$, and $2 = 0 + C$, so $y = 3\\ln x + 2$. At $x = \\mathrm{e}^{2}$, $y = 6 + 2 = 8$."
+        }
+      ]
+    },
+    {
+      "id": "separable",
+      "heading": "Separating the variables",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many equations have the form $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x)\\,g(y)$: a function of $x$ times a function of $y$. Move every $y$ to one side with $\\mathrm{d}y$, and every $x$ to the other with $\\mathrm{d}x$. Then integrate each side."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x)\\,g(y) \\;\\Rightarrow\\; \\int \\frac{1}{g(y)}\\,\\mathrm{d}y = \\int f(x)\\,\\mathrm{d}x",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "1. Divide and multiply so that $y$ and $\\mathrm{d}y$ are on the left, and $x$ and $\\mathrm{d}x$ are on the right."
+        },
+        {
+          "type": "text",
+          "text": "2. Integrate both sides, and add $+\\,C$ straight away. One constant is enough: constants on both sides would combine into one."
+        },
+        {
+          "type": "text",
+          "text": "3. Use the given point to find the constant, then rearrange into the form the question asks for."
+        },
+        {
+          "type": "example",
+          "id": "ex-sep-exp",
+          "question": "Solve $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 3x^{2}y$, given that $y = 5$ when $x = 0$. Give $y$ in terms of $x$.",
+          "steps": [
+            "Separate the variables: $\\int \\frac{1}{y}\\,\\mathrm{d}y = \\int 3x^{2}\\,\\mathrm{d}x$.",
+            "Integrate: $\\ln\\lvert y\\rvert = x^{3} + c$.",
+            "Undo the log: $\\lvert y\\rvert = \\mathrm{e}^{x^{3} + c} = \\mathrm{e}^{c}\\,\\mathrm{e}^{x^{3}}$. So $y = A\\mathrm{e}^{x^{3}}$, where $A = \\pm\\mathrm{e}^{c}$ is a new constant.",
+            "Use $y = 5$ when $x = 0$: $5 = A\\mathrm{e}^{0}$, so $A = 5$.",
+            "Check: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 15x^{2}\\mathrm{e}^{x^{3}} = 3x^{2} \\cdot 5\\mathrm{e}^{x^{3}} = 3x^{2}y$."
+          ],
+          "answer": "$y = 5\\mathrm{e}^{x^{3}}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\mathrm{e}^{x^{3} + c}$ as $\\mathrm{e}^{x^{3}} + \\mathrm{e}^{c}$. Powers add when you multiply, so $\\mathrm{e}^{x^{3} + c} = \\mathrm{e}^{c}\\,\\mathrm{e}^{x^{3}}$: the constant multiplies."
+        },
+        {
+          "type": "check",
+          "id": "check-sep-exp",
+          "prompt": "Solve $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = (2x + 1)y$, given that $y = 4$ when $x = 0$.",
+          "hint": "Separate to $\\int \\frac{1}{y}\\,\\mathrm{d}y = \\int (2x + 1)\\,\\mathrm{d}x$.",
+          "options": [
+            {
+              "text": "$y = 4\\mathrm{e}^{x^{2} + x}$",
+              "correct": true
+            },
+            {
+              "text": "$y = \\mathrm{e}^{x^{2} + x} + 3$",
+              "correct": false
+            },
+            {
+              "text": "$y = x^{2} + x + 4$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ln\\lvert y\\rvert = x^{2} + x + c$, so $y = A\\mathrm{e}^{x^{2} + x}$, and $x = 0$ gives $A = 4$. The constant multiplies the exponential; it is not added on."
+        },
+        {
+          "type": "example",
+          "id": "ex-sep-parts",
+          "question": "Solve $\\mathrm{e}^{x}\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{x}{y}$, given that $y = 2$ when $x = 0$. Write your answer as $y^{2} = f(x)$.",
+          "steps": [
+            "Multiply both sides by $y$ and by $\\mathrm{e}^{-x}$: $y\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x\\mathrm{e}^{-x}$, so $\\int y\\,\\mathrm{d}y = \\int x\\mathrm{e}^{-x}\\,\\mathrm{d}x$.",
+            "The left side is $\\frac{1}{2}y^{2}$.",
+            "The right side needs parts, with $u = x$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = \\mathrm{e}^{-x}$, so $v = -\\mathrm{e}^{-x}$. This gives $-x\\mathrm{e}^{-x} + \\int \\mathrm{e}^{-x}\\,\\mathrm{d}x = -x\\mathrm{e}^{-x} - \\mathrm{e}^{-x} + c$, where $c$ is the one constant for the whole equation.",
+            "So $\\frac{1}{2}y^{2} = -(x + 1)\\mathrm{e}^{-x} + c$.",
+            "Use $y = 2$ when $x = 0$: $2 = -1 + c$, so $c = 3$.",
+            "Multiply by $2$ to finish."
+          ],
+          "answer": "$y^{2} = 6 - 2(x + 1)\\mathrm{e}^{-x}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-sep-value",
+          "prompt": "Given $y\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 4x$, with $y > 0$ and $y = 3$ when $x = 1$, find $y$ when $x = 2$. Give your answer to 3 s.f.",
+          "hint": "Separate to $\\int y\\,\\mathrm{d}y = \\int 4x\\,\\mathrm{d}x$, and find the constant before you put in $x = 2$.",
+          "answer": {
+            "value": 4.58,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{1}{2}y^{2} = 2x^{2} + c$, and $\\frac{9}{2} = 2 + c$ gives $c = \\frac{5}{2}$. So $y^{2} = 4x^{2} + 5$, and at $x = 2$, $y = \\sqrt{21} \\approx 4.58$."
+        }
+      ]
+    },
+    {
+      "id": "logistic",
+      "heading": "The logistic equation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some quantities grow fast at first and then level off, like a population with limited food. Growth slows to zero as the quantity nears a limit $a$."
+        },
+        {
+          "type": "definition",
+          "term": "logistic equation",
+          "statement": "The logistic equation is $\\frac{\\mathrm{d}n}{\\mathrm{d}t} = kn(a - n)$, where $n$ is the quantity at time $t$, and $k$ and $a$ are constants.",
+          "plain": "Growth is proportional to the amount there is and to the room left."
+        },
+        {
+          "type": "text",
+          "text": "Take $k > 0$. While $n$ is small, $n$ grows almost exponentially. Near $a$, the factor $a - n$ is close to zero, so growth almost stops."
+        },
+        {
+          "type": "text",
+          "text": "$\\frac{\\mathrm{d}n}{\\mathrm{d}t} = 0$ when $n = 0$ or $n = a$. These are equilibrium values. Start between them and $n$ rises towards $a$ without ever passing it."
+        },
+        {
+          "type": "text",
+          "text": "The variables separate, but $\\frac{1}{n(a - n)}$ is not a standard integral. Split it into [[partial-fractions|partial fractions]] first, as in {{lesson:5.15}}:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{1}{n(a - n)} = \\frac{1}{a}\\left(\\frac{1}{n} + \\frac{1}{a - n}\\right)",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-logistic-solve",
+          "question": "A rumour spreads through a school of $500$ students. The number $N$ who have heard it after $t$ days satisfies $\\frac{\\mathrm{d}N}{\\mathrm{d}t} = 0.002N(500 - N)$, and $N = 50$ when $t = 0$. Find $N$ in terms of $t$.",
+          "steps": [
+            "Separate: $\\int \\frac{1}{N(500 - N)}\\,\\mathrm{d}N = \\int 0.002\\,\\mathrm{d}t$.",
+            "Split the fraction: $\\frac{1}{N(500 - N)} = \\frac{1}{500}\\left(\\frac{1}{N} + \\frac{1}{500 - N}\\right)$.",
+            "Integrate. The derivative of $500 - N$ is $-1$, so an antiderivative of $\\frac{1}{500 - N}$ is $-\\ln\\lvert 500 - N\\rvert$. With one constant $c$, this gives $\\frac{1}{500}\\left(\\ln\\lvert N\\rvert - \\ln\\lvert 500 - N\\rvert\\right) = 0.002t + c$.",
+            "Multiply by $500$ and combine the logs: $\\ln\\left\\lvert\\frac{N}{500 - N}\\right\\rvert = t + 500c$. As $0 < N < 500$, the fraction is positive, so $\\frac{N}{500 - N} = B\\mathrm{e}^{t}$.",
+            "At $t = 0$: $B = \\frac{50}{450} = \\frac{1}{9}$.",
+            "Make $N$ the subject: $9N = (500 - N)\\mathrm{e}^{t}$, so $N(9 + \\mathrm{e}^{t}) = 500\\mathrm{e}^{t}$. Then divide the top and bottom by $\\mathrm{e}^{t}$."
+          ],
+          "answer": "$N = \\frac{500}{1 + 9\\mathrm{e}^{-t}}$",
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "5-18-rumour-curve",
+          "alt": "S-shaped graph of N against t for t from 0 to 8 days. It starts at 50, rises slowly, climbs most steeply at t equals ln 9, about 2.2, where N is 250, then levels off just below a dashed horizontal line at N equals 500.",
+          "caption": "$N = \\frac{500}{1 + 9\\mathrm{e}^{-t}}$ climbs fastest at $N = 250$, then levels off towards $500$."
+        },
+        {
+          "type": "text",
+          "text": "As $t \\to \\infty$, $\\mathrm{e}^{-t} \\to 0$, so $N \\to 500$. In general the same steps give $n = \\frac{a}{1 + B\\mathrm{e}^{-akt}}$, which tends to $a$. Show the working rather than quoting this."
+        },
+        {
+          "type": "mistake",
+          "text": "Calling $a$ the maximum because $\\frac{\\mathrm{d}n}{\\mathrm{d}t} = 0$ there. It is an equilibrium: the value $n$ approaches in the long run, not a turning point."
+        },
+        {
+          "type": "check",
+          "id": "check-logistic-pf",
+          "prompt": "Which is the partial-fraction form of $\\frac{1}{n(10 - n)}$?",
+          "hint": "Write it as $\\frac{A}{n} + \\frac{B}{10 - n}$, then put $n = 0$, then $n = 10$.",
+          "options": [
+            {
+              "text": "$\\frac{1}{10}\\left(\\frac{1}{n} + \\frac{1}{10 - n}\\right)$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{n} + \\frac{1}{10 - n}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{10}\\left(\\frac{1}{n} - \\frac{1}{10 - n}\\right)$",
+              "correct": false
+            }
+          ],
+          "explain": "$1 = A(10 - n) + Bn$. Putting $n = 0$ gives $A = \\frac{1}{10}$, and $n = 10$ gives $B = \\frac{1}{10}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-logistic-time",
+          "question": "For the rumour model $N = \\frac{500}{1 + 9\\mathrm{e}^{-t}}$, find the exact time when $400$ students have heard the rumour.",
+          "steps": [
+            "Set $N = 400$: $\\frac{500}{1 + 9\\mathrm{e}^{-t}} = 400$.",
+            "Rearrange: $1 + 9\\mathrm{e}^{-t} = \\frac{500}{400} = \\frac{5}{4}$, so $9\\mathrm{e}^{-t} = \\frac{1}{4}$.",
+            "So $\\mathrm{e}^{-t} = \\frac{1}{36}$, which means $\\mathrm{e}^{t} = 36$.",
+            "Take natural logs. That is about $3.58$ days."
+          ],
+          "answer": "$t = \\ln 36$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-logistic-value",
+          "prompt": "The equation $\\frac{\\mathrm{d}n}{\\mathrm{d}t} = 0.1n(10 - n)$, with $n = 2$ when $t = 0$, has a solution of the form $n = \\frac{10}{1 + B\\mathrm{e}^{-t}}$. Find $n$ when $t = 1$. Give your answer to 3 s.f.",
+          "hint": "Put $t = 0$ and $n = 2$ into the solution to find $B$ first.",
+          "answer": {
+            "value": 4.05,
+            "tolerance": 0.005
+          },
+          "explain": "$2 = \\frac{10}{1 + B}$ gives $B = 4$. Then $n = \\frac{10}{1 + 4\\mathrm{e}^{-1}} \\approx 4.05$."
+        }
+      ]
+    },
+    {
+      "id": "homogeneous",
+      "heading": "Homogeneous equations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some equations don't separate, such as $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{x + 2y}{x}$. Divide the top and bottom by $x$, though, and it becomes $1 + 2 \\cdot \\frac{y}{x}$. It depends only on the ratio $\\frac{y}{x}$."
+        },
+        {
+          "type": "definition",
+          "term": "homogeneous differential equation",
+          "statement": "A first-order differential equation is homogeneous if it can be written as $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f\\left(\\frac{y}{x}\\right)$.",
+          "plain": "The right side depends only on $\\frac{y}{x}$, not on $x$ and $y$ separately."
+        },
+        {
+          "type": "text",
+          "text": "A quick test: every term on the top and bottom has the same total power of $x$ and $y$, as in $\\frac{x^{2} + y^{2}}{xy}$."
+        },
+        {
+          "type": "text",
+          "text": "Call the ratio $v$, so $y = vx$, where $v$ is a function of $x$. The product rule gives $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$:"
+        },
+        {
+          "type": "formula",
+          "tex": "y = vx \\;\\Rightarrow\\; \\frac{\\mathrm{d}y}{\\mathrm{d}x} = v + x\\frac{\\mathrm{d}v}{\\mathrm{d}x}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Substituting gives a separable equation in $v$ and $x$. Solve it, then replace $v$ by $\\frac{y}{x}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-homog-simple",
+          "question": "Use the substitution $y = vx$ to solve $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{x + 2y}{x}$ for $x > 0$, given that $y = 3$ when $x = 1$.",
+          "steps": [
+            "Write the right side in terms of $v$: $\\frac{x + 2y}{x} = 1 + 2v$.",
+            "Substitute: $v + x\\frac{\\mathrm{d}v}{\\mathrm{d}x} = 1 + 2v$, so $x\\frac{\\mathrm{d}v}{\\mathrm{d}x} = 1 + v$.",
+            "Separate: $\\int \\frac{1}{1 + v}\\,\\mathrm{d}v = \\int \\frac{1}{x}\\,\\mathrm{d}x$, so $\\ln\\lvert 1 + v\\rvert = \\ln x + c$.",
+            "So $1 + v = Ax$ for a constant $A$. Replace $v$ by $\\frac{y}{x}$: $1 + \\frac{y}{x} = Ax$, so $y = Ax^{2} - x$.",
+            "At $x = 1$, $y = 3$: $3 = A - 1$, so $A = 4$."
+          ],
+          "answer": "$y = 4x^{2} - x$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-homog-general",
+          "prompt": "Use $y = vx$ to find the general solution of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 1 + \\frac{y}{x}$, for $x > 0$.",
+          "hint": "After substituting, you should reach $x\\frac{\\mathrm{d}v}{\\mathrm{d}x} = 1$.",
+          "options": [
+            {
+              "text": "$y = x\\ln x + Cx$",
+              "correct": true
+            },
+            {
+              "text": "$y = \\ln x + Cx$",
+              "correct": false
+            },
+            {
+              "text": "$y = x\\ln x + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{\\mathrm{d}v}{\\mathrm{d}x} = \\frac{1}{x}$, so $v = \\ln x + C$. Multiplying by $x$ multiplies every term, including $C$."
+        },
+        {
+          "type": "example",
+          "id": "ex-homog-pf",
+          "question": "Use the substitution $y = vx$ to solve $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{x + 3y}{3x + y}$, given that $y = 1$ when $x = 3$. Give your answer as an equation without logarithms.",
+          "steps": [
+            "Divide the top and bottom by $x$: the right side is $\\frac{1 + 3v}{3 + v}$.",
+            "Substitute: $v + x\\frac{\\mathrm{d}v}{\\mathrm{d}x} = \\frac{1 + 3v}{3 + v}$, so $x\\frac{\\mathrm{d}v}{\\mathrm{d}x} = \\frac{1 + 3v - v(3 + v)}{3 + v} = \\frac{1 - v^{2}}{3 + v}$.",
+            "Separate: $\\int \\frac{3 + v}{(1 - v)(1 + v)}\\,\\mathrm{d}v = \\int \\frac{1}{x}\\,\\mathrm{d}x$.",
+            "Partial fractions: $3 + v = A(1 + v) + B(1 - v)$. Put $v = 1$: $A = 2$. Put $v = -1$: $B = 1$. So the integrand is $\\frac{2}{1 - v} + \\frac{1}{1 + v}$.",
+            "Integrate. The derivative of $1 - v$ is $-1$, so the first log gets a minus sign: $-2\\ln\\lvert 1 - v\\rvert + \\ln\\lvert 1 + v\\rvert = \\ln\\lvert x\\rvert + c$.",
+            "Combine the logs: $\\ln\\left\\lvert\\frac{1 + v}{(1 - v)^{2}}\\right\\rvert = \\ln\\lvert x\\rvert + c$, so $\\left\\lvert\\frac{1 + v}{(1 - v)^{2}}\\right\\rvert = K\\lvert x\\rvert$, where $K = \\mathrm{e}^{c}$ is positive.",
+            "At $(3, 1)$, $v = \\frac{1}{3}$, so $1 + v = \\frac{4}{3}$ and $x = 3$ are both positive, and $(1 - v)^{2}$ is never negative. So the modulus signs can go: $\\frac{1 + v}{(1 - v)^{2}} = Kx$.",
+            "Put $v = \\frac{y}{x}$ and multiply the top and bottom by $x^{2}$: $\\frac{x(x + y)}{(x - y)^{2}} = Kx$, so $x + y = K(x - y)^{2}$. At $(3, 1)$: $4 = 4K$, so $K = 1$."
+          ],
+          "answer": "$x + y = (x - y)^{2}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "Keep the modulus signs until the given point fixes the sign inside them, and say why you can drop them."
+        },
+        {
+          "type": "check",
+          "id": "check-homog-value",
+          "prompt": "Use $y = vx$ to solve $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{x^{2} + y^{2}}{xy}$ for $x > 0$ and $y > 0$, given that $y = 2$ when $x = 1$. Find $y$ when $x = 2$, to 3 s.f.",
+          "hint": "The right side is $\\frac{1}{v} + v$, so the $v$ terms cancel and $x\\frac{\\mathrm{d}v}{\\mathrm{d}x} = \\frac{1}{v}$.",
+          "answer": {
+            "value": 4.64,
+            "tolerance": 0.005
+          },
+          "explain": "Separating gives $\\frac{1}{2}v^{2} = \\ln x + c$, and $v = 2$ at $x = 1$ gives $c = 2$. So $y = x\\sqrt{2\\ln x + 4}$, and at $x = 2$, $y \\approx 4.64$."
+        }
+      ]
+    },
+    {
+      "id": "integrating-factor",
+      "heading": "The integrating factor",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A linear first-order equation has the form $\\frac{\\mathrm{d}y}{\\mathrm{d}x} + P(x)y = Q(x)$, where $P$ and $Q$ are functions of $x$ only. It usually doesn't separate. Instead, you multiply by a function that turns the left side into one derivative."
+        },
+        {
+          "type": "text",
+          "text": "Read the product rule backwards: $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(\\mathrm{e}^{x^{2}}y\\right) = \\mathrm{e}^{x^{2}}\\frac{\\mathrm{d}y}{\\mathrm{d}x} + 2x\\mathrm{e}^{x^{2}}y = \\mathrm{e}^{x^{2}}\\left(\\frac{\\mathrm{d}y}{\\mathrm{d}x} + 2xy\\right)$. So $\\mathrm{e}^{x^{2}}$ turns $\\frac{\\mathrm{d}y}{\\mathrm{d}x} + 2xy$ into one derivative, and $x^{2} = \\int 2x\\,\\mathrm{d}x$."
+        },
+        {
+          "type": "definition",
+          "term": "integrating factor",
+          "statement": "For $\\frac{\\mathrm{d}y}{\\mathrm{d}x} + P(x)y = Q(x)$, the integrating factor is $I(x) = \\mathrm{e}^{\\int P(x)\\,\\mathrm{d}x}$. Multiplying the equation by it gives $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(I(x)\\,y\\right) = I(x)\\,Q(x)$.",
+          "plain": "It is the multiplier that turns the left side into the derivative of one product."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{e}^{\\int P(x)\\,\\mathrm{d}x}",
+          "tag": "booklet",
+          "bookletId": "bk-5-18-integrating-factor",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The factor is in the formula booklet. The method is not:"
+        },
+        {
+          "type": "text",
+          "text": "1. Rearrange to $\\frac{\\mathrm{d}y}{\\mathrm{d}x} + P(x)y = Q(x)$. If $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ has a coefficient, divide the whole equation by it first."
+        },
+        {
+          "type": "text",
+          "text": "2. Find $I(x) = \\mathrm{e}^{\\int P(x)\\,\\mathrm{d}x}$. You can leave out the constant of integration here."
+        },
+        {
+          "type": "text",
+          "text": "3. Write $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(I(x)\\,y\\right) = I(x)\\,Q(x)$. Integrate both sides, with $+\\,C$."
+        },
+        {
+          "type": "text",
+          "text": "4. Divide by $I(x)$. The constant is divided too."
+        },
+        {
+          "type": "formula",
+          "tex": "I(x)\\,y = \\int I(x)\\,Q(x)\\,\\mathrm{d}x",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-if-linear",
+          "question": "Solve $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x + y$, given that $y = 1$ when $x = 0$.",
+          "steps": [
+            "Rearrange: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} - y = x$, so $P(x) = -1$ and $Q(x) = x$.",
+            "The integrating factor is $\\mathrm{e}^{\\int -1\\,\\mathrm{d}x} = \\mathrm{e}^{-x}$.",
+            "Multiply through: $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(\\mathrm{e}^{-x}y\\right) = x\\mathrm{e}^{-x}$.",
+            "Integrate by parts, as in the warm-up: $\\mathrm{e}^{-x}y = -x\\mathrm{e}^{-x} - \\mathrm{e}^{-x} + C$.",
+            "Multiply by $\\mathrm{e}^{x}$: $y = -x - 1 + C\\mathrm{e}^{x}$. At $x = 0$: $1 = -1 + C$, so $C = 2$."
+          ],
+          "answer": "$y = 2\\mathrm{e}^{x} - x - 1$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by the integrating factor but leaving $+\\,C$ alone. From $\\mathrm{e}^{-x}y = \\ldots + C$, dividing by $\\mathrm{e}^{-x}$ gives $C\\mathrm{e}^{x}$, not $C$."
+        },
+        {
+          "type": "check",
+          "id": "check-if-factor",
+          "prompt": "Find the integrating factor for $\\frac{\\mathrm{d}y}{\\mathrm{d}x} + 3x^{2}y = \\sin x$.",
+          "hint": "Integrate $P(x) = 3x^{2}$, then put the result in the exponent.",
+          "options": [
+            {
+              "text": "$\\mathrm{e}^{x^{3}}$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{e}^{3x^{2}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{e}^{6x}$",
+              "correct": false
+            },
+            {
+              "text": "$x^{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\int 3x^{2}\\,\\mathrm{d}x = x^{3}$, so $I(x) = \\mathrm{e}^{x^{3}}$. The exponent is the integral of $P$, not $P$ itself."
+        },
+        {
+          "type": "example",
+          "id": "ex-if-divide",
+          "question": "Solve $\\cos x\\,\\frac{\\mathrm{d}y}{\\mathrm{d}x} + y\\sin x = 1$ for $-\\frac{\\pi}{2} < x < \\frac{\\pi}{2}$, given that $y = 3$ when $x = 0$. Write $y$ as a function of $x$.",
+          "steps": [
+            "Divide by $\\cos x$ first, so that $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ stands alone: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} + y\\tan x = \\sec x$. So $P(x) = \\tan x$.",
+            "The integrating factor is $\\mathrm{e}^{\\int \\tan x\\,\\mathrm{d}x} = \\mathrm{e}^{-\\ln(\\cos x)} = \\frac{1}{\\cos x} = \\sec x$. On this interval $\\cos x > 0$, so no modulus is needed.",
+            "Multiply through: $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(y\\sec x\\right) = \\sec^{2}x$. Check with the product rule: $\\sec x\\,\\frac{\\mathrm{d}y}{\\mathrm{d}x} + y\\sec x\\tan x$ is $\\sec x$ times the left side above.",
+            "Integrate: $y\\sec x = \\tan x + C$.",
+            "At $x = 0$: $3 = 0 + C$, so $C = 3$. Multiply by $\\cos x$."
+          ],
+          "answer": "$y = \\sin x + 3\\cos x$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-if-value",
+          "prompt": "Solve $\\frac{\\mathrm{d}y}{\\mathrm{d}x} + y = \\mathrm{e}^{-x}$, given that $y = 2$ when $x = 0$. Find $y$ when $x = 1$, to 3 s.f.",
+          "hint": "The integrating factor is $\\mathrm{e}^{x}$. What is $\\mathrm{e}^{x} \\times \\mathrm{e}^{-x}$?",
+          "answer": {
+            "value": 1.1,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(\\mathrm{e}^{x}y\\right) = 1$, so $\\mathrm{e}^{x}y = x + C$, and $C = 2$. Then $y = (x + 2)\\mathrm{e}^{-x}$, and $y = 3\\mathrm{e}^{-1} \\approx 1.10$ at $x = 1$."
+        }
+      ]
+    },
+    {
+      "id": "euler",
+      "heading": "Euler's method",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many differential equations can't be solved exactly, such as $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\sqrt{x + y}$. But the equation gives the gradient at every point. So from a known point, take a small step $h$ along the tangent: $y$ changes by gradient $\\times$ step. Then repeat from the new point."
+        },
+        {
+          "type": "formula",
+          "tex": "y_{n+1} = y_{n} + h \\times f(x_{n}, y_{n}), \\quad x_{n+1} = x_{n} + h",
+          "tag": "booklet",
+          "bookletId": "bk-5-18-euler-method",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Here $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$, $(x_{0}, y_{0})$ is the given point and $h$ is the constant step length. This is [[eulers-method|Euler's method]], and the formula is in the booklet."
+        },
+        {
+          "type": "interactive",
+          "widget": "euler-step",
+          "props": {
+            "h": 0.25
+          },
+          "alt": "The exact solution curve of dy/dx equals x plus y through (0, 1), drawn from x equals 0 to 1, with the Euler polygon for the chosen step size below it. A slider picks h from 0.05 to 0.5; smaller steps bring the polygon's end point closer to the exact value at x equals 1."
+        },
+        {
+          "type": "text",
+          "text": "The widget uses $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x + y$, $y(0) = 1$, solved exactly above: $y(1) = 2\\mathrm{e} - 2 \\approx 3.44$. Euler gives about $2.88$ with $h = 0.25$, and $3.31$ with $h = 0.05$."
+        },
+        {
+          "type": "example",
+          "id": "ex-euler-hand",
+          "question": "Given $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2x - y$ and $y = 1$ when $x = 0$, use Euler's method with step length $0.5$ to estimate $y$ when $x = 1$.",
+          "steps": [
+            "Here $f(x, y) = 2x - y$, $h = 0.5$, $x_{0} = 0$ and $y_{0} = 1$. Two steps take $x$ from $0$ to $1$. A table of $x_{n}$, $y_{n}$ and $f(x_{n}, y_{n})$ keeps it clear.",
+            "Step 1: $f(0, 1) = -1$, so $y_{1} = 1 + 0.5 \\times (-1) = 0.5$, at $x_{1} = 0.5$.",
+            "Step 2: recalculate the gradient at the new point, using its $x$ and its $y$. $f(0.5, 0.5) = 1 - 0.5 = 0.5$, so $y_{2} = 0.5 + 0.5 \\times 0.5 = 0.75$, at $x_{2} = 1$."
+          ],
+          "answer": "$y_{2} = 0.75$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-euler-value",
+          "prompt": "Given $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = xy$ and $y = 2$ when $x = 1$, use Euler's method with $h = 0.1$ to estimate $y$ when $x = 1.2$. Give your answer to 3 s.f.",
+          "hint": "That is two steps. Recalculate the gradient at $(1.1, y_{1})$ for the second one.",
+          "answer": {
+            "value": 2.44,
+            "tolerance": 0.005
+          },
+          "explain": "$y_{1} = 2 + 0.1 \\times 1 \\times 2 = 2.2$. Then $f(1.1, 2.2) = 2.42$, so $y_{2} = 2.2 + 0.242 = 2.442 \\approx 2.44$."
+        },
+        {
+          "type": "text",
+          "text": "Too big or too small? Each step follows a tangent. From a point on a [[concave-up|concave-up]] curve the tangent lies below the curve, so that step underestimates; on a [[concave-down|concave-down]] curve it overestimates (see {{lesson:5.8}}). With small steps the estimate stays on the same side, and that is the reason exam questions expect. With a large step it can fail: for $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = -10y$, $y(0) = 1$ and $h = 0.2$, Euler gives $-1$ and then $1$, either side of the true curve."
+        },
+        {
+          "type": "text",
+          "text": "To find the concavity, differentiate $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$ again, treating $y$ as a function of $x$ as in [[implicit-differentiation|implicit differentiation]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-euler-gdc",
+          "question": "Given $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\sqrt{x + y}$ and $y = 3$ when $x = 1$, use Euler's method with step length $0.2$ to estimate $y$ when $x = 2$. Give your answer to 3 s.f. State, with a reason, whether it is an underestimate or an overestimate.",
+          "steps": [
+            "Five steps take $x$ from $1$ to $2$. Write down the rule you will put into the calculator: $y_{n+1} = y_{n} + 0.2\\sqrt{x_{n} + y_{n}}$ and $x_{n+1} = x_{n} + 0.2$.",
+            "Step 1 by hand: $y_{1} = 3 + 0.2\\sqrt{4} = 3.4$, at $x_{1} = 1.2$.",
+            "Steps 2 to 5 on the calculator give $y_{2} = 3.8289\\ldots$, $y_{3} = 4.2862\\ldots$, $y_{4} = 4.7715\\ldots$ and $y_{5} = 5.2842\\ldots$. Keep full values and round only at the end.",
+            "Concavity: differentiating again, $\\frac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}} = \\frac{1 + \\frac{\\mathrm{d}y}{\\mathrm{d}x}}{2\\sqrt{x + y}}$. Here $\\frac{\\mathrm{d}y}{\\mathrm{d}x} > 0$, so this is positive and the curve is concave up.",
+            "So the tangents lie below the curve, and $5.28$ is an underestimate."
+          ],
+          "answer": "$y(2) \\approx 5.28$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Home screen: type 1, STO→, X,T,θ,n, then ALPHA, . (for a colon), then 3, STO→, ALPHA, 1 (for Y), ENTER (check on your model)",
+              "Type Y+0.2*sqrt(X+Y) (sqrt is 2nd, x²), STO→, ALPHA, 1 (for Y), then ALPHA, . (colon), then X+0.2, STO→, X,T,θ,n, ENTER; the screen shows 1.2 (check on your model)",
+              "Press ENTER four more times to repeat the line, until it shows 2 (check on your model)",
+              "Type Y, ENTER and read 5.2842… (check on your model)"
+            ],
+            "nspire": [
+              "Calculator page: type x:=1, enter, then y:=3, enter (check on your model)",
+              "Type y:=y+0.2*sqrt(x+y):x:=x+0.2, enter (check on your model)",
+              "Press ▲ to highlight that line, enter to paste it, enter to run it; repeat four times, so x reaches 2 (check on your model)",
+              "Type y, enter and read 5.2842… (check on your model)"
+            ],
+            "casio": [
+              "RUN-MAT: type 1, →, X, EXE, then 3, →, ALPHA, Y, EXE (check on your model)",
+              "Type Y+0.2*sqrt(X+Y)→Y, then a colon (PRGM menu), then X+0.2→X, EXE (check on your model)",
+              "Press EXE four more times to repeat the line, until it shows 2 (check on your model)",
+              "Type Y, EXE and read 5.2842… (check on your model)"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-euler-concavity",
+          "prompt": "Euler's method is used on $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = y^{2}$, starting from $y = 1$ at $x = 0$ and stepping to $x = 0.5$. On this interval $y > 0$. What can you say about the estimate?",
+          "hint": "Differentiate $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = y^{2}$ with respect to $x$ to find the sign of $\\frac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$.",
+          "options": [
+            {
+              "text": "It is an underestimate: the curve is concave up, so its tangents lie below it",
+              "correct": true
+            },
+            {
+              "text": "It is an overestimate: the curve is concave up, so its tangents lie above it",
+              "correct": false
+            },
+            {
+              "text": "It is an overestimate: the curve is concave down, so its tangents lie above it",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}} = 2y\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2y^{3} > 0$, so the curve is concave up and its tangents lie below it."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The general solution has one arbitrary constant. A given point fixes it and gives the particular solution.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Separable: $\\int \\frac{1}{g(y)}\\,\\mathrm{d}y = \\int f(x)\\,\\mathrm{d}x$. Add $+\\,C$ as soon as you integrate, and remember $\\mathrm{e}^{f(x) + c} = A\\mathrm{e}^{f(x)}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Logistic $\\frac{\\mathrm{d}n}{\\mathrm{d}t} = kn(a - n)$: separate, use partial fractions, and get $n = \\frac{a}{1 + B\\mathrm{e}^{-akt}}$, which tends to $a$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Homogeneous $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f\\left(\\frac{y}{x}\\right)$: put $y = vx$, so $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = v + x\\frac{\\mathrm{d}v}{\\mathrm{d}x}$, then separate.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Linear $\\frac{\\mathrm{d}y}{\\mathrm{d}x} + P(x)y = Q(x)$: multiply by $I(x) = \\mathrm{e}^{\\int P(x)\\,\\mathrm{d}x}$, then $I(x)\\,y = \\int I(x)\\,Q(x)\\,\\mathrm{d}x$.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Euler: $y_{n+1} = y_{n} + h \\times f(x_{n}, y_{n})$. With small steps, a concave-up curve gives an underestimate and a concave-down curve an overestimate.",
+          "tag": "booklet",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Forgetting $+\\,C$, or adding it only after rearranging. Add it the moment you integrate, then use the given point to find it.",
+    "Writing $\\mathrm{e}^{x^{2} + c}$ as $\\mathrm{e}^{x^{2}} + \\mathrm{e}^{c}$. The constant multiplies, giving $A\\mathrm{e}^{x^{2}}$.",
+    "Missing a factor from the inside when you integrate. $\\int \\frac{y}{4 + y^{2}}\\,\\mathrm{d}y$ is $\\frac{1}{2}\\ln(4 + y^{2}) + C$, and $\\int \\frac{1}{1 - v}\\,\\mathrm{d}v$ is $-\\ln\\lvert 1 - v\\rvert + C$. Differentiate back to check.",
+    "Finding the integrating factor before dividing through. For $\\cos x\\,\\frac{\\mathrm{d}y}{\\mathrm{d}x} + y\\sin x = 1$, divide by $\\cos x$ first, so $P(x) = \\tan x$, not $\\sin x$.",
+    "In Euler's method, using the new $x$ with the old $y$, or reusing the first gradient. Recalculate $f(x_{n}, y_{n})$ at the current point every step, and count the steps you need."
+  ],
+  "examTips": [
+    "“Solve” with a given point means find the particular solution, in the form the question asks for.",
+    "“Show that” the solution is a given equation: work forwards from the differential equation, and make your last line match the given result.",
+    "On Paper 2, write the Euler rule and the first step before the calculator value, and give the final estimate to 3 s.f.",
+    "For over- or underestimate, link concavity to the tangents: concave up means the tangents lie below the curve."
+  ],
+  "readingMinutes": 29
+}

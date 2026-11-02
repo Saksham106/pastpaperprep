@@ -1,0 +1,803 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.6",
+  "slug": "differentiation-rules-and-standard-functions",
+  "title": "Differentiation rules and standard functions",
+  "level": "SL",
+  "topic": 5,
+  "summary": "Five standard derivatives, for $x^{n}$, $\\sin x$, $\\cos x$, $\\mathrm{e}^{x}$ and $\\ln x$, and three rules let you differentiate almost every function in the course. The [[chain-rule|chain rule]] handles a function inside another function. The [[product-rule|product rule]] and [[quotient-rule|quotient rule]] handle products and fractions.",
+  "goals": [
+    {
+      "text": "Differentiate $x^{n}$ for any rational $n$, and $\\sin x$, $\\cos x$, $\\mathrm{e}^{x}$ and $\\ln x$.",
+      "bullets": [
+        "5.6-b1"
+      ]
+    },
+    {
+      "text": "Differentiate sums and constant multiples of these functions, term by term.",
+      "bullets": [
+        "5.6-b2"
+      ]
+    },
+    {
+      "text": "Use the [[chain-rule|chain rule]] on a [[composite-function|composite function]] such as $\\mathrm{e}^{x^{2} + 2}$ or $\\sin(3x - 1)$.",
+      "bullets": [
+        "5.6-b3"
+      ]
+    },
+    {
+      "text": "Use the [[product-rule|product rule]] and the [[quotient-rule|quotient rule]], with the chain rule inside them when needed.",
+      "bullets": [
+        "5.6-b4",
+        "5.6-b3"
+      ]
+    },
+    {
+      "text": "Use a derivative to find a gradient or solve $f'(x) = 0$: exactly on Paper 1, and with a GDC on Paper 2.",
+      "bullets": [
+        "5.6-b1",
+        "5.6-b2",
+        "5.6-b3",
+        "5.6-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.5",
+    "2.9",
+    "3.5",
+    "5.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "chain rule",
+    "product rule",
+    "quotient rule",
+    "derivative of sin x and cos x",
+    "derivative of e to the x",
+    "differentiate ln x"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-power-integer",
+      "prompt": "Differentiate $y = 2x^{3} - \\frac{5}{x^{2}}$.",
+      "hint": "Write $\\frac{5}{x^{2}}$ as $5x^{-2}$ first, then use the power rule on each term.",
+      "options": [
+        {
+          "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 6x^{2} + \\frac{10}{x^{3}}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 6x^{2} - \\frac{10}{x^{3}}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 6x^{2} + \\frac{10}{x}$",
+          "correct": false
+        }
+      ],
+      "explain": "$-5x^{-2}$ differentiates to $(-2)(-5)x^{-3} = \\frac{10}{x^{3}}$, so $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 6x^{2} + \\frac{10}{x^{3}}$. Revise it in {{lesson:5.3}}."
+    },
+    {
+      "type": "check",
+      "id": "before-composite",
+      "prompt": "Let $f(x) = x^{3}$ and $g(x) = 2x + 1$. Find $(f \\circ g)(x)$.",
+      "hint": "$(f \\circ g)(x) = f(g(x))$: put the whole of $g(x)$ into $f$.",
+      "options": [
+        {
+          "text": "$2x^{3} + 1$",
+          "correct": false
+        },
+        {
+          "text": "$(2x + 1)^{3}$",
+          "correct": true
+        },
+        {
+          "text": "$8x^{3} + 1$",
+          "correct": false
+        }
+      ],
+      "explain": "$f(g(x)) = f(2x + 1) = (2x + 1)^{3}$. The other order, $g(f(x))$, would give $2x^{3} + 1$. Revise it in {{lesson:2.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-exact-values",
+      "prompt": "Find the exact value of $\\cos\\frac{\\pi}{3} + \\ln(\\mathrm{e}^{2})$.",
+      "hint": "Use the unit circle for the cosine. For the log, $\\ln$ undoes $\\mathrm{e}$.",
+      "options": [
+        {
+          "text": "$\\frac{5}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{\\sqrt{3}}{2} + 2$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{1}{2} + \\mathrm{e}^{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\cos\\frac{\\pi}{3} = \\frac{1}{2}$ and $\\ln(\\mathrm{e}^{2}) = 2$, so the total is $\\frac{5}{2}$. Revise them in {{lesson:3.5}} and {{lesson:2.9}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "standard",
+      "heading": "Derivatives of the standard functions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.3}} you differentiated whole-number powers of $x$. Exam questions also use roots, $\\sin x$, $\\cos x$, $\\mathrm{e}^{x}$ and $\\ln x$. Each has its own [[derivative|derivative]], and all of them are in the formula booklet."
+        },
+        {
+          "type": "text",
+          "text": "Start with powers. The [[power-rule|power rule]] works for every rational power, not just whole numbers. Rewrite roots and fractions as powers of $x$ first."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = x^{n} \\Rightarrow f'(x) = nx^{n-1}",
+          "tag": "booklet",
+          "bookletId": "bk-5-3-power-derivative",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Here $n \\in \\mathbb{Q}$, so $n$ can be any fraction, positive or negative. Useful rewrites are $\\sqrt{x} = x^{\\frac{1}{2}}$, $\\sqrt[3]{x} = x^{\\frac{1}{3}}$ and $\\frac{1}{x^{2}} = x^{-2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-standard-roots",
+          "question": "Differentiate $f(x) = 6\\sqrt[3]{x} + \\frac{4}{\\sqrt{x}}$, for $x > 0$.",
+          "steps": [
+            "Rewrite each term as a power of $x$: $6\\sqrt[3]{x} = 6x^{\\frac{1}{3}}$ and $\\frac{4}{\\sqrt{x}} = 4x^{-\\frac{1}{2}}$.",
+            "First term: bring the power down, then lower it by $1$. $6 \\times \\frac{1}{3}x^{\\frac{1}{3} - 1} = 2x^{-\\frac{2}{3}}$.",
+            "Second term: $4 \\times \\left(-\\frac{1}{2}\\right)x^{-\\frac{1}{2} - 1} = -2x^{-\\frac{3}{2}}$. Take care: $-\\frac{1}{2} - 1 = -\\frac{3}{2}$.",
+            "Add the results. Negative and fractional powers are fine in the answer unless the question asks for another form."
+          ],
+          "answer": "$f'(x) = 2x^{-\\frac{2}{3}} - 2x^{-\\frac{3}{2}}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Now the trig functions. In calculus, angles are in radians. The results below are only true in radians."
+        },
+        {
+          "type": "figure",
+          "id": "5-6-sine-gradient",
+          "alt": "Two graphs, one above the other, for x from 0 to 2 pi. The top graph is y equals sin x, with short tangent lines drawn at x equals 0, pi over 2, pi, 3 pi over 2 and 2 pi. Their gradients are 1, 0, minus 1, 0 and 1. Dashed lines drop from each of these points to the bottom graph, y equals cos x, whose heights at the same x values are 1, 0, minus 1, 0 and 1.",
+          "caption": "The gradient of $y = \\sin x$ at each point equals the height of $y = \\cos x$ below it."
+        },
+        {
+          "type": "text",
+          "text": "Look at the tangents on $y = \\sin x$. At $x = 0$ the gradient is $1$, at $x = \\frac{\\pi}{2}$ it is $0$ and at $x = \\pi$ it is $-1$. Those are exactly the values of $\\cos x$. So the gradient function of $\\sin x$ is $\\cos x$."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\sin x \\Rightarrow f'(x) = \\cos x",
+          "tag": "booklet",
+          "bookletId": "bk-5-6-sin",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The graph of $\\cos x$ is the graph of $\\sin x$ moved $\\frac{\\pi}{2}$ to the left. So its gradient graph is $\\cos x$ moved $\\frac{\\pi}{2}$ to the left, which is $-\\sin x$. That is where the minus sign comes from."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\cos x \\Rightarrow f'(x) = -\\sin x",
+          "tag": "booklet",
+          "bookletId": "bk-5-6-cos",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The number $\\mathrm{e} \\approx 2.718$ is chosen so that $y = \\mathrm{e}^{x}$ has gradient exactly $1$ where it crosses the $y$-axis."
+        },
+        {
+          "type": "text",
+          "text": "Since $\\mathrm{e}^{x + a} = \\mathrm{e}^{a} \\times \\mathrm{e}^{x}$, the curve near $x = a$ is the curve near $x = 0$ stretched upwards by the factor $\\mathrm{e}^{a}$. The stretch multiplies the gradient by $\\mathrm{e}^{a}$ too, so the gradient at $x = a$ is $\\mathrm{e}^{a}$. The gradient always equals the height."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\mathrm{e}^{x} \\Rightarrow f'(x) = \\mathrm{e}^{x}",
+          "tag": "booklet",
+          "bookletId": "bk-5-6-exp",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "$\\ln x$ is the inverse of $\\mathrm{e}^{x}$, so its graph is the reflection of $y = \\mathrm{e}^{x}$ in the line $y = x$. Reflecting swaps the rise and the run, so a gradient $m$ becomes $\\frac{1}{m}$."
+        },
+        {
+          "type": "text",
+          "text": "The point $(x, \\ln x)$ on $y = \\ln x$ reflects to $(\\ln x, x)$ on $y = \\mathrm{e}^{x}$. The gradient there is $\\mathrm{e}^{\\ln x} = x$. So the gradient of $\\ln x$ is $\\frac{1}{x}$, for $x > 0$."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\ln x \\Rightarrow f'(x) = \\dfrac{1}{x}",
+          "tag": "booklet",
+          "bookletId": "bk-5-6-ln",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Sums and multiples work just as they did for powers in {{lesson:5.3}}. Differentiate a sum term by term, and keep a constant multiple in front."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left[a f(x) + b g(x)\\right] = a f'(x) + b g'(x)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "A constant on its own, such as $7$, $\\mathrm{e}^{2}$ or $\\ln 3$, differentiates to $0$. It has no $x$ in it, so it never changes."
+        },
+        {
+          "type": "check",
+          "id": "check-standard-sum",
+          "prompt": "Differentiate $f(x) = \\frac{3}{x} + 2\\sqrt{x} - \\cos x$, for $x > 0$.",
+          "hint": "Write the first two terms as $3x^{-1}$ and $2x^{\\frac{1}{2}}$. Then take care with the sign of the cosine term.",
+          "options": [
+            {
+              "text": "$f'(x) = -\\frac{3}{x^{2}} + \\frac{1}{\\sqrt{x}} - \\sin x$",
+              "correct": false
+            },
+            {
+              "text": "$f'(x) = -\\frac{3}{x^{2}} + \\frac{1}{\\sqrt{x}} + \\sin x$",
+              "correct": true
+            },
+            {
+              "text": "$f'(x) = \\frac{3}{x^{2}} + \\frac{1}{\\sqrt{x}} + \\sin x$",
+              "correct": false
+            },
+            {
+              "text": "$f'(x) = -\\frac{3}{x^{2}} + \\frac{1}{2\\sqrt{x}} + \\sin x$",
+              "correct": false
+            }
+          ],
+          "explain": "$3x^{-1}$ gives $-3x^{-2}$, $2x^{\\frac{1}{2}}$ gives $x^{-\\frac{1}{2}}$, and $-\\cos x$ gives $+\\sin x$. So $f'(x) = -\\frac{3}{x^{2}} + \\frac{1}{\\sqrt{x}} + \\sin x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-standard-tangent",
+          "question": "Let $f(x) = 4\\sin x - x^{2}$. Find the equation of the tangent to the graph of $f$ at the point where $x = \\frac{\\pi}{2}$.",
+          "steps": [
+            "Differentiate term by term: $f'(x) = 4\\cos x - 2x$.",
+            "Gradient: $f'\\left(\\frac{\\pi}{2}\\right) = 4\\cos\\frac{\\pi}{2} - 2 \\times \\frac{\\pi}{2} = 0 - \\pi = -\\pi$.",
+            "Point: $f\\left(\\frac{\\pi}{2}\\right) = 4\\sin\\frac{\\pi}{2} - \\left(\\frac{\\pi}{2}\\right)^{2} = 4 - \\frac{\\pi^{2}}{4}$.",
+            "Tangent, as in {{lesson:5.4}}: $y - \\left(4 - \\frac{\\pi^{2}}{4}\\right) = -\\pi\\left(x - \\frac{\\pi}{2}\\right)$.",
+            "Expand: $y = -\\pi x + \\frac{\\pi^{2}}{2} + 4 - \\frac{\\pi^{2}}{4} = -\\pi x + \\frac{\\pi^{2}}{4} + 4$."
+          ],
+          "answer": "$y = -\\pi x + \\frac{\\pi^{2}}{4} + 4$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Getting the trig signs the wrong way round. $\\sin x$ differentiates to $+\\cos x$. Only $\\cos x$ picks up a minus sign, giving $-\\sin x$."
+        },
+        {
+          "type": "check",
+          "id": "check-standard-constants",
+          "prompt": "Differentiate $y = \\mathrm{e}^{2}x + 3\\mathrm{e}^{x} - \\ln 4$.",
+          "hint": "$\\mathrm{e}^{2}$ and $\\ln 4$ are just numbers. Which terms contain $x$?",
+          "options": [
+            {
+              "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2\\mathrm{e}^{2x} + 3\\mathrm{e}^{x}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\mathrm{e}^{2} + 3\\mathrm{e}^{x}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\mathrm{e}^{2} + 3\\mathrm{e}^{x} - \\frac{1}{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{e}^{2}x$ is a number times $x$, so it gives $\\mathrm{e}^{2}$. $3\\mathrm{e}^{x}$ gives $3\\mathrm{e}^{x}$, and the constant $\\ln 4$ gives $0$."
+        }
+      ]
+    },
+    {
+      "id": "chain",
+      "heading": "The chain rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$\\sin(3x - 1)$ is not a sum of standard functions. It is $\\sin$ applied to $3x - 1$: a [[composite-function|composite function]], as in {{lesson:2.5}}. It has an inside function, $3x - 1$, and an outside function, $\\sin$."
+        },
+        {
+          "type": "text",
+          "text": "The key idea is that rates multiply. Suppose $u$ changes 3 times as fast as $x$, and $y$ changes 2 times as fast as $u$. Then $y$ changes $2 \\times 3 = 6$ times as fast as $x$."
+        },
+        {
+          "type": "text",
+          "text": "Test it on $y = (3x + 1)^{2}$. Expanding gives $9x^{2} + 6x + 1$, whose [[derivative|derivative]] is $18x + 6$. That equals $2(3x + 1) \\times 3$: the outside's derivative, $2(\\ldots)$, times the inside's derivative, $3$."
+        },
+        {
+          "type": "formula",
+          "tex": "y = g(u), \\text{ where } u = f(x) \\Rightarrow \\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{\\mathrm{d}y}{\\mathrm{d}u} \\times \\dfrac{\\mathrm{d}u}{\\mathrm{d}x}",
+          "tag": "booklet",
+          "bookletId": "bk-5-6-chain-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is the [[chain-rule|chain rule]], and it is in the booklet. In words: differentiate the outside, leave the inside alone, then multiply by the derivative of the inside."
+        },
+        {
+          "type": "text",
+          "text": "1. Name the inside: let $u$ be the expression in the brackets, under the root or in the power."
+        },
+        {
+          "type": "text",
+          "text": "2. Write $y$ in terms of $u$ and find $\\frac{\\mathrm{d}y}{\\mathrm{d}u}$. Then find $\\frac{\\mathrm{d}u}{\\mathrm{d}x}$."
+        },
+        {
+          "type": "text",
+          "text": "3. Multiply the two, then write $u$ back in terms of $x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-chain-root",
+          "question": "Let $f(x) = \\sqrt{x^{2} + 9}$. Find $f'(x)$. Hence find $f'(4)$.",
+          "steps": [
+            "Inside: $u = x^{2} + 9$, so $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 2x$.",
+            "Outside: $y = \\sqrt{u} = u^{\\frac{1}{2}}$, so $\\frac{\\mathrm{d}y}{\\mathrm{d}u} = \\frac{1}{2}u^{-\\frac{1}{2}}$.",
+            "Multiply: $f'(x) = \\frac{1}{2}(x^{2} + 9)^{-\\frac{1}{2}} \\times 2x = \\frac{x}{\\sqrt{x^{2} + 9}}$.",
+            "Substitute $x = 4$: $f'(4) = \\frac{4}{\\sqrt{16 + 9}} = \\frac{4}{\\sqrt{25}} = \\frac{4}{5}$."
+          ],
+          "answer": "$f'(4) = \\frac{4}{5}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting the inside's derivative. $\\sqrt{4x + 1}$ differentiates to $\\frac{4}{2\\sqrt{4x + 1}} = \\frac{2}{\\sqrt{4x + 1}}$, not $\\frac{1}{2\\sqrt{4x + 1}}$. Always ask what the inside differentiates to."
+        },
+        {
+          "type": "text",
+          "text": "With practice you can skip naming $u$. These patterns come up again and again, where $f(x)$ is the inside:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}}{\\mathrm{d}x}\\,\\mathrm{e}^{f(x)} = f'(x)\\,\\mathrm{e}^{f(x)} \\qquad \\frac{\\mathrm{d}}{\\mathrm{d}x}\\ln\\bigl(f(x)\\bigr) = \\frac{f'(x)}{f(x)}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}}{\\mathrm{d}x}\\sin(ax + b) = a\\cos(ax + b) \\qquad \\frac{\\mathrm{d}}{\\mathrm{d}x}\\cos(ax + b) = -a\\sin(ax + b)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "check",
+          "id": "check-chain-linear",
+          "prompt": "Differentiate $y = (2x - 5)^{4}$.",
+          "hint": "The outside is $u^{4}$ and the inside is $2x - 5$. What does the inside differentiate to?",
+          "options": [
+            {
+              "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 4(2x - 5)^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 8(2x - 5)^{3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{(2x - 5)^{5}}{10}$",
+              "correct": false
+            }
+          ],
+          "explain": "The outside gives $4(2x - 5)^{3}$ and the inside gives $2$. Multiply: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 8(2x - 5)^{3}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-chain-mixed",
+          "question": "Differentiate $y = \\ln(3x^{2} + 2) - 4\\mathrm{e}^{1 - 2x}$.",
+          "steps": [
+            "Take one term at a time. In the first, the inside is $3x^{2} + 2$, which differentiates to $6x$.",
+            "So $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\ln(3x^{2} + 2) = \\frac{1}{3x^{2} + 2} \\times 6x = \\frac{6x}{3x^{2} + 2}$.",
+            "In the second, the inside is $1 - 2x$, which differentiates to $-2$. The outside, $\\mathrm{e}^{u}$, differentiates to itself.",
+            "So $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(-4\\mathrm{e}^{1 - 2x}\\right) = -4\\mathrm{e}^{1 - 2x} \\times (-2) = 8\\mathrm{e}^{1 - 2x}$.",
+            "Add the two parts. The two minus signs made the second term positive."
+          ],
+          "answer": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{6x}{3x^{2} + 2} + 8\\mathrm{e}^{1 - 2x}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Watch the notation $\\sin^{2}x$. It means $(\\sin x)^{2}$, so the outside is squaring and the inside is $\\sin x$. Its derivative is $2\\sin x \\times \\cos x = 2\\sin x\\cos x$."
+        },
+        {
+          "type": "text",
+          "text": "Log laws from {{lesson:2.9}} can save work. Since $\\ln(x^{3}) = 3\\ln x$, its derivative is $\\frac{3}{x}$. The chain rule agrees: $\\frac{3x^{2}}{x^{3}} = \\frac{3}{x}$."
+        },
+        {
+          "type": "check",
+          "id": "check-chain-trig-value",
+          "prompt": "Let $f(x) = 3\\sin(2x) + \\cos(4x)$. Find the exact value of $f'\\left(\\frac{\\pi}{6}\\right)$.",
+          "hint": "Each term has a linear inside, so each derivative picks up a factor: $2$ for the first and $4$ for the second.",
+          "options": [
+            {
+              "text": "$3 - 2\\sqrt{3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{3}{2} - \\frac{\\sqrt{3}}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$3 + 2\\sqrt{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$f'(x) = 6\\cos(2x) - 4\\sin(4x)$. At $x = \\frac{\\pi}{6}$ this is $6\\cos\\frac{\\pi}{3} - 4\\sin\\frac{2\\pi}{3} = 6 \\times \\frac{1}{2} - 4 \\times \\frac{\\sqrt{3}}{2} = 3 - 2\\sqrt{3}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-chain-stationary",
+          "question": "Let $f(x) = \\mathrm{e}^{2x} - 6x$. Find the exact coordinates of the point where the tangent to the graph of $f$ is horizontal.",
+          "steps": [
+            "A horizontal tangent has gradient $0$, so solve $f'(x) = 0$.",
+            "Differentiate. The inside of $\\mathrm{e}^{2x}$ is $2x$, which gives $2$: $f'(x) = 2\\mathrm{e}^{2x} - 6$.",
+            "Solve: $2\\mathrm{e}^{2x} = 6$, so $\\mathrm{e}^{2x} = 3$. Take $\\ln$ of both sides: $2x = \\ln 3$, so $x = \\frac{1}{2}\\ln 3$.",
+            "Find $y$ from $f$, not from $f'$. Here $\\mathrm{e}^{2x} = 3$, so $y = 3 - 6 \\times \\frac{1}{2}\\ln 3 = 3 - 3\\ln 3$."
+          ],
+          "answer": "$\\left(\\tfrac{1}{2}\\ln 3,\\ 3 - 3\\ln 3\\right)$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-chain-gdc",
+          "prompt": "The curve $y = \\sin(x^{2})$, for $0 \\le x \\le 1$, has gradient $1$ at exactly one point. Use your calculator to find the $x$-coordinate of this point. Give your answer to 3 s.f.",
+          "hint": "Differentiate first, with the chain rule: the inside is $x^{2}$. Then solve $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 1$ on your GDC in radian mode.",
+          "answer": {
+            "value": 0.519,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\cos(x^{2}) \\times 2x = 2x\\cos(x^{2})$. Solving $2x\\cos(x^{2}) = 1$ for $0 \\le x \\le 1$ gives $x = 0.51865\\ldots \\approx 0.519$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL the chain rule also lets you differentiate equations that mix $x$ and $y$, and solve related rates problems.",
+          "lesson": "5.14"
+        }
+      ]
+    },
+    {
+      "id": "product",
+      "heading": "The product rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$x^{2}\\sin x$ is two functions multiplied together. Its [[derivative|derivative]] is not the product of their derivatives. Test that idea on $x \\times x = x^{2}$: the derivative is $2x$, but $1 \\times 1 = 1$."
+        },
+        {
+          "type": "text",
+          "text": "Picture $u \\times v$ as the area of a rectangle with sides $u$ and $v$. Let $u$ grow by a small amount $\\delta u$ and $v$ by $\\delta v$."
+        },
+        {
+          "type": "text",
+          "text": "The area gains a strip $u\\,\\delta v$, a strip $v\\,\\delta u$ and a tiny corner $\\delta u\\,\\delta v$, which is too small to matter. So the rate of change of $uv$ is $u$ times the rate of $v$, plus $v$ times the rate of $u$."
+        },
+        {
+          "type": "formula",
+          "tex": "y = uv \\Rightarrow \\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = u\\dfrac{\\mathrm{d}v}{\\mathrm{d}x} + v\\dfrac{\\mathrm{d}u}{\\mathrm{d}x}",
+          "tag": "booklet",
+          "bookletId": "bk-5-6-product-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is the [[product-rule|product rule]], and it is in the booklet. Set it out the same way every time. Write down $u$, $v$, $\\frac{\\mathrm{d}u}{\\mathrm{d}x}$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x}$ first, then fill in the formula."
+        },
+        {
+          "type": "example",
+          "id": "ex-product-basic",
+          "question": "Differentiate $y = x^{3}\\ln x$, for $x > 0$.",
+          "steps": [
+            "Let $u = x^{3}$ and $v = \\ln x$.",
+            "Then $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 3x^{2}$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = \\frac{1}{x}$.",
+            "Product rule: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x^{3} \\times \\frac{1}{x} + \\ln(x) \\times 3x^{2}$.",
+            "Simplify: $x^{3} \\times \\frac{1}{x} = x^{2}$, so $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x^{2} + 3x^{2}\\ln x$."
+          ],
+          "answer": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x^{2} + 3x^{2}\\ln x$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-product-basic",
+          "prompt": "Differentiate $y = x\\mathrm{e}^{x}$.",
+          "hint": "Let $u = x$ and $v = \\mathrm{e}^{x}$. Both $\\frac{\\mathrm{d}u}{\\mathrm{d}x}$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x}$ are quick.",
+          "options": [
+            {
+              "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\mathrm{e}^{x}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = (x + 1)\\mathrm{e}^{x}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = (x - 1)\\mathrm{e}^{x}$",
+              "correct": false
+            }
+          ],
+          "explain": "$u\\frac{\\mathrm{d}v}{\\mathrm{d}x} + v\\frac{\\mathrm{d}u}{\\mathrm{d}x} = x\\mathrm{e}^{x} + \\mathrm{e}^{x} \\times 1 = (x + 1)\\mathrm{e}^{x}$. Multiplying the two derivatives would give only $\\mathrm{e}^{x}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-product-stationary",
+          "question": "Let $f(x) = x^{2}\\mathrm{e}^{-3x}$. Find the values of $x$ for which $f'(x) = 0$.",
+          "steps": [
+            "Let $u = x^{2}$ and $v = \\mathrm{e}^{-3x}$. Then $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 2x$, and the [[chain-rule|chain rule]] gives $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = -3\\mathrm{e}^{-3x}$.",
+            "Product rule: $f'(x) = x^{2}\\left(-3\\mathrm{e}^{-3x}\\right) + \\mathrm{e}^{-3x}(2x)$.",
+            "Take out the common factor $x\\mathrm{e}^{-3x}$: $f'(x) = x\\mathrm{e}^{-3x}(2 - 3x)$.",
+            "Solve $f'(x) = 0$. $\\mathrm{e}^{-3x}$ is positive for every $x$, so it is never $0$. That leaves $x = 0$ or $2 - 3x = 0$."
+          ],
+          "answer": "$x = 0 \\text{ or } x = \\tfrac{2}{3}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "To solve $f'(x) = 0$, factorise the derivative instead of expanding it. An exponential factor such as $\\mathrm{e}^{-3x}$ is never $0$, so say so and divide it out."
+        },
+        {
+          "type": "check",
+          "id": "check-product-trig",
+          "prompt": "Let $f(x) = (2x + 1)\\sin x$. Find $f'(\\pi)$.",
+          "hint": "Let $u = 2x + 1$ and $v = \\sin x$. Use $\\sin\\pi = 0$ and $\\cos\\pi = -1$.",
+          "options": [
+            {
+              "text": "$f'(\\pi) = 2\\pi + 1$",
+              "correct": false
+            },
+            {
+              "text": "$f'(\\pi) = -2$",
+              "correct": false
+            },
+            {
+              "text": "$f'(\\pi) = -2\\pi - 1$",
+              "correct": true
+            }
+          ],
+          "explain": "$f'(x) = (2x + 1)\\cos x + 2\\sin x$. At $x = \\pi$: $(2\\pi + 1)(-1) + 2 \\times 0 = -2\\pi - 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-product-gdc",
+          "question": "Let $f(x) = x^{2}\\cos x$, for $0 < x < 2$. Find $f'(x)$. Hence use your calculator to find the $x$-coordinate of the point where the graph of $f$ has a horizontal tangent. Give your answer to 3 s.f.",
+          "steps": [
+            "Let $u = x^{2}$ and $v = \\cos x$, so $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 2x$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = -\\sin x$.",
+            "Product rule: $f'(x) = x^{2}(-\\sin x) + \\cos(x) \\times 2x = 2x\\cos x - x^{2}\\sin x$.",
+            "A horizontal tangent needs $f'(x) = 0$. Write down the equation you solve: $2x\\cos x - x^{2}\\sin x = 0$.",
+            "Set the GDC to radians. Graph $y = 2x\\cos x - x^{2}\\sin x$ and find its zero between $0$ and $2$: $x = 1.07687\\ldots$",
+            "Round only at the end, to 3 s.f."
+          ],
+          "answer": "$x \\approx 1.08$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, RADIAN",
+              "Y=, enter Y1 = 2X*cos(X)-X^2*sin(X)",
+              "GRAPH, then 2nd TRACE (CALC), 2: zero",
+              "Move to a left bound such as x = 0.5, ENTER, then a right bound such as x = 1.5, ENTER, ENTER (check on your model)",
+              "Read x = 1.07687..., the zero between 0 and 2"
+            ],
+            "nspire": [
+              "Settings (on, Settings), Angle: Radian",
+              "Graphs page, enter f1(x) = 2x*cos(x)-x^2*sin(x)",
+              "Menu, Analyze Graph, Zero",
+              "Click a lower bound near x = 0.5 and an upper bound near x = 1.5 (check on your model)",
+              "Read x = 1.07687..., the zero between 0 and 2"
+            ],
+            "casio": [
+              "SHIFT MENU (SET UP), Angle: Rad",
+              "GRAPH, enter Y1: 2X*cos(X)-X^2*sin(X)",
+              "SHIFT F3 (V-Window), set Xmin to 0 and Xmax to 2 (check on your model)",
+              "DRAW, then SHIFT F5 (G-SOLV), ROOT",
+              "If it shows the root at x = 0 first, press the right arrow key to move to the next root (check on your model)",
+              "Read X = 1.07687..., the root between 0 and 2"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Doing trig calculus with the GDC in degree mode. Every derivative of $\\sin x$ and $\\cos x$ here assumes radians, so set the mode before you graph or solve."
+        }
+      ]
+    },
+    {
+      "id": "quotient",
+      "heading": "The quotient rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A fraction $\\frac{u}{v}$ with $x$ in both the top and the bottom needs the [[quotient-rule|quotient rule]]. It is in the booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "y = \\dfrac{u}{v} \\Rightarrow \\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{v\\dfrac{\\mathrm{d}u}{\\mathrm{d}x} - u\\dfrac{\\mathrm{d}v}{\\mathrm{d}x}}{v^{2}}",
+          "tag": "booklet",
+          "bookletId": "bk-5-6-quotient-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "result",
+          "statement": "The quotient rule is the [[product-rule|product rule]] and the [[chain-rule|chain rule]] working together.",
+          "why": "Write $\\frac{u}{v} = uv^{-1}$. The product rule, with the chain rule for $v^{-1}$, gives $v^{-1}\\frac{\\mathrm{d}u}{\\mathrm{d}x} - uv^{-2}\\frac{\\mathrm{d}v}{\\mathrm{d}x}$. Put both terms over $v^{2}$ to get the formula."
+        },
+        {
+          "type": "text",
+          "text": "Order matters, because of the minus sign. The top starts with $v$, the bottom of the fraction. Say it as: bottom times the [[derivative|derivative]] of the top, minus top times the derivative of the bottom, all over the bottom squared."
+        },
+        {
+          "type": "text",
+          "text": "If only the bottom contains $x$, as in $\\frac{5}{x^{2} + 1}$, you can instead write $5(x^{2} + 1)^{-1}$ and use the chain rule. Both methods give the same answer."
+        },
+        {
+          "type": "example",
+          "id": "ex-quotient-basic",
+          "question": "Differentiate $y = \\frac{x^{2}}{x + 3}$, for $x \\neq -3$.",
+          "steps": [
+            "Let $u = x^{2}$ and $v = x + 3$. Then $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 2x$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = 1$.",
+            "Quotient rule: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{(x + 3)(2x) - x^{2}(1)}{(x + 3)^{2}}$.",
+            "Expand the top: $2x^{2} + 6x - x^{2} = x^{2} + 6x$.",
+            "Leave the bottom as $(x + 3)^{2}$. It is more useful factorised, for example to see where the derivative is $0$."
+          ],
+          "answer": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{x^{2} + 6x}{(x + 3)^{2}}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-quotient-linear",
+          "prompt": "Let $f(x) = \\frac{2x - 1}{x + 4}$, for $x \\neq -4$. Find $f'(x)$.",
+          "hint": "Let $u = 2x - 1$ and $v = x + 4$. The top of the answer starts with $v\\frac{\\mathrm{d}u}{\\mathrm{d}x}$. Bracket $u$ when you subtract.",
+          "options": [
+            {
+              "text": "$f'(x) = -\\frac{9}{(x + 4)^{2}}$",
+              "correct": false
+            },
+            {
+              "text": "$f'(x) = \\frac{7}{(x + 4)^{2}}$",
+              "correct": false
+            },
+            {
+              "text": "$f'(x) = \\frac{9}{(x + 4)^{2}}$",
+              "correct": true
+            },
+            {
+              "text": "$f'(x) = 2$",
+              "correct": false
+            }
+          ],
+          "explain": "The top is $(x + 4)(2) - (2x - 1)(1) = 2x + 8 - 2x + 1 = 9$. So $f'(x) = \\frac{9}{(x + 4)^{2}}$."
+        },
+        {
+          "type": "mistake",
+          "text": "Starting the top with $u\\frac{\\mathrm{d}v}{\\mathrm{d}x}$ instead of $v\\frac{\\mathrm{d}u}{\\mathrm{d}x}$. That flips the sign of the whole answer. Copy the booklet's order exactly."
+        },
+        {
+          "type": "example",
+          "id": "ex-quotient-stationary",
+          "question": "Let $f(x) = \\frac{\\ln x}{x}$, for $x > 0$. Find the exact coordinates of the point where $f'(x) = 0$.",
+          "steps": [
+            "Let $u = \\ln x$ and $v = x$. Then $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = \\frac{1}{x}$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = 1$.",
+            "Quotient rule: $f'(x) = \\frac{x \\times \\frac{1}{x} - \\ln(x) \\times 1}{x^{2}} = \\frac{1 - \\ln x}{x^{2}}$.",
+            "A fraction is $0$ only when its top is $0$. So $1 - \\ln x = 0$, which gives $\\ln x = 1$ and $x = \\mathrm{e}$.",
+            "Find $y$ from $f$: $f(\\mathrm{e}) = \\frac{\\ln \\mathrm{e}}{\\mathrm{e}} = \\frac{1}{\\mathrm{e}}$."
+          ],
+          "answer": "$\\left(\\mathrm{e}, \\tfrac{1}{\\mathrm{e}}\\right)$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-quotient-exp",
+          "prompt": "Let $g(x) = \\frac{\\mathrm{e}^{2x}}{x^{2} + 1}$. Find the exact value of $g'(1)$.",
+          "hint": "The top needs the chain rule: $\\mathrm{e}^{2x}$ differentiates to $2\\mathrm{e}^{2x}$. Then substitute $x = 1$ before you simplify.",
+          "options": [
+            {
+              "text": "$g'(1) = \\mathrm{e}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$g'(1) = \\frac{\\mathrm{e}^{2}}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$g'(1) = -\\frac{\\mathrm{e}^{2}}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$g'(1) = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "$g'(x) = \\frac{(x^{2} + 1)2\\mathrm{e}^{2x} - \\mathrm{e}^{2x}(2x)}{(x^{2} + 1)^{2}}$. At $x = 1$: $\\frac{2 \\times 2\\mathrm{e}^{2} - 2\\mathrm{e}^{2}}{4} = \\frac{2\\mathrm{e}^{2}}{4} = \\frac{\\mathrm{e}^{2}}{2}$."
+        },
+        {
+          "type": "examTip",
+          "text": "\"Hence\" after you have found $f'(x)$ means use that derivative in the next part. If your $f'(x)$ was wrong but you use it correctly, you can still earn follow-through (FT) marks."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also differentiate $\\tan x$, $\\sec x$, $\\operatorname{cosec} x$, $\\cot x$, $a^{x}$, $\\log_{a} x$ and the inverse trig functions.",
+          "lesson": "5.15"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$x^{n} \\to nx^{n-1}$ for any rational $n$; $\\sin x \\to \\cos x$; $\\cos x \\to -\\sin x$; $\\mathrm{e}^{x} \\to \\mathrm{e}^{x}$; $\\ln x \\to \\frac{1}{x}$.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Differentiate sums term by term and keep constant multiples. A constant on its own, like $\\mathrm{e}^{2}$ or $\\ln 3$, gives $0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Chain rule: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{\\mathrm{d}y}{\\mathrm{d}u} \\times \\frac{\\mathrm{d}u}{\\mathrm{d}x}$. Differentiate the outside, then multiply by the derivative of the inside.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{e}^{f(x)} \\to f'(x)\\mathrm{e}^{f(x)}$ and $\\ln\\bigl(f(x)\\bigr) \\to \\frac{f'(x)}{f(x)}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Product rule: $\\frac{\\mathrm{d}}{\\mathrm{d}x}(uv) = u\\frac{\\mathrm{d}v}{\\mathrm{d}x} + v\\frac{\\mathrm{d}u}{\\mathrm{d}x}$.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Quotient rule: $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(\\frac{u}{v}\\right) = \\frac{v\\frac{\\mathrm{d}u}{\\mathrm{d}x} - u\\frac{\\mathrm{d}v}{\\mathrm{d}x}}{v^{2}}$. The top starts with $v$.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Trig calculus uses radians, on paper and on the GDC.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing the derivative of $\\sin x$ as $-\\cos x$. The minus sign belongs only to $\\cos x$, whose derivative is $-\\sin x$.",
+    "Dropping the inside's derivative in the chain rule. $\\mathrm{e}^{x^{2}}$ gives $2x\\mathrm{e}^{x^{2}}$, and $(3x - 2)^{4}$ gives $12(3x - 2)^{3}$, not $4(3x - 2)^{3}$.",
+    "Multiplying the two derivatives for a product. The derivative of $uv$ is $u\\frac{\\mathrm{d}v}{\\mathrm{d}x} + v\\frac{\\mathrm{d}u}{\\mathrm{d}x}$, never $\\frac{\\mathrm{d}u}{\\mathrm{d}x} \\times \\frac{\\mathrm{d}v}{\\mathrm{d}x}$.",
+    "Reversing the top of the quotient rule. Starting with $u\\frac{\\mathrm{d}v}{\\mathrm{d}x}$ flips the sign of the answer, so always start with $v\\frac{\\mathrm{d}u}{\\mathrm{d}x}$.",
+    "Treating a constant as if it contained $x$. In $\\mathrm{e}^{3}x$ the $\\mathrm{e}^{3}$ is just a number, so the derivative is $\\mathrm{e}^{3}$. And $-x$ differentiates to $-1$, not $0$.",
+    "Using degree mode for a trig derivative on the GDC. Set radians before you graph, solve or find a gradient."
+  ],
+  "examTips": [
+    "\"Find $f'(x)$\" and then a value: write the general derivative before you substitute. A bare value such as $f'(2) = 5$ with no $f'(x)$ shown can lose the method marks.",
+    "On Paper 1, keep answers exact. $\\frac{1}{2}\\ln 3$, $\\frac{\\mathrm{e}^{2}}{2}$ and $3 - 2\\sqrt{3}$ are complete final answers.",
+    "On Paper 2, write down the equation you put into the GDC, such as $2x\\cos x - x^{2}\\sin x = 0$, then give the answer to 3 s.f."
+  ],
+  "readingMinutes": 26
+}

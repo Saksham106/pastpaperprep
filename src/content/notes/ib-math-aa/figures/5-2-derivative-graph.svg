@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" role="img" aria-labelledby="t">
+  <title id="t">Graph of y equals f prime of x, a downward parabola crossing the x-axis at minus 1 and 4</title>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="20" y1="130" x2="345" y2="130"/>
+    <line x1="123.75" y1="245" x2="123.75" y2="15"/>
+    <line x1="86.25" y1="125" x2="86.25" y2="135"/>
+    <line x1="273.75" y1="125" x2="273.75" y2="135"/>
+  </g>
+  <path d="M41.2,232.3 L45.9,220.0 L50.5,208.0 L55.1,196.5 L59.8,185.4 L64.4,174.8 L69.0,164.5 L73.6,154.7 L78.2,145.3 L82.9,136.3 L87.5,127.7 L92.1,119.6 L96.8,111.8 L101.4,104.5 L106.0,97.6 L110.6,91.1 L115.2,85.1 L119.9,79.4 L124.5,74.2 L129.1,69.4 L133.8,65.0 L138.4,61.0 L143.0,57.4 L147.6,54.3 L152.2,51.6 L156.9,49.3 L161.5,47.4 L166.1,45.9 L170.8,44.9 L175.4,44.3 L180.0,44.1 L184.6,44.3 L189.2,44.9 L193.9,45.9 L198.5,47.4 L203.1,49.3 L207.8,51.6 L212.4,54.3 L217.0,57.4 L221.6,61.0 L226.2,65.0 L230.9,69.4 L235.5,74.2 L240.1,79.4 L244.8,85.1 L249.4,91.1 L254.0,97.6 L258.6,104.5 L263.2,111.8 L267.9,119.6 L272.5,127.7 L277.1,136.3 L281.8,145.3 L286.4,154.7 L291.0,164.5 L295.6,174.8 L300.2,185.4 L304.9,196.5 L309.5,208.0 L314.1,220.0 L318.8,232.3" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <circle cx="86.25" cy="130" r="3.5" fill="currentColor"/>
+  <circle cx="273.75" cy="130" r="3.5" fill="currentColor"/>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="333" y="148">x</text>
+    <text x="130" y="26">y</text>
+    <text x="110" y="146">O</text>
+    <text x="62" y="124">−1</text>
+    <text x="280" y="150">4</text>
+  </g>
+  <g font-size="13" font-family="inherit">
+    <text x="232" y="40" fill="var(--t1-ink)">y = f′(x)</text>
+    <text x="150" y="110" fill="var(--muted)">f′(x) &gt; 0</text>
+    <text x="52" y="252" fill="var(--muted)">f′(x) &lt; 0</text>
+    <text x="262" y="252" fill="var(--muted)">f′(x) &lt; 0</text>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "limits-of-integration",
+    "term": "limits of integration",
+    "definition": "The numbers $a$ and $b$ in $\\int_a^b f(x)\\,\\mathrm{d}x$: $a$ is the lower limit and $b$ the upper limit.",
+    "lesson": "5.11"
+  },
+  {
+    "id": "fundamental-theorem",
+    "term": "fundamental theorem of calculus",
+    "definition": "The result $\\int_a^b f(x)\\,\\mathrm{d}x = F(b) - F(a)$, where $F$ is any antiderivative of $f$: integration and differentiation undo each other.",
+    "lesson": "5.11"
+  }
+]

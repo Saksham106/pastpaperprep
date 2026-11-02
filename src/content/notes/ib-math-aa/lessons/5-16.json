@@ -6,245 +6,594 @@
   "title": "Integration by substitution and parts",
   "level": "AHL",
   "topic": 5,
-  "summary": "Some integrals can't be done by recognising a standard form. Two tools cover most of them. Substitution changes the variable so a messy [[integrand|integrand]] becomes a standard one. Integration by parts undoes the product rule, so you can integrate a product such as $x\\mathrm{e}^{x}$ by trading it for an easier integral.",
+  "summary": "Two methods take you past the standard integrals. A given substitution rewrites a hard integral in a new variable, even when the derivative of the inside isn't there. [[integration-by-parts|Integration by parts]] reverses the product rule, so you can integrate products such as $x\\cos(3x)$ and single functions such as $\\ln x$.",
   "goals": [
     {
-      "text": "Integrate a product with integration by parts, and choose $u$ well.",
+      "text": "Use a given substitution when the derivative of the inside isn't there, rewriting $\\mathrm{d}x$, every leftover $x$ and the limits.",
+      "bullets": [
+        "5.16-b1"
+      ]
+    },
+    {
+      "text": "Integrate a product by parts, choosing $u$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x}$ well.",
       "bullets": [
         "5.16-b2"
       ]
     },
     {
-      "text": "Use parts twice, including integrals that come back to where they started.",
+      "text": "Integrate $\\ln x$ and inverse trig functions by parts, writing each as a product with $1$.",
+      "bullets": [
+        "5.16-b2"
+      ]
+    },
+    {
+      "text": "Use parts twice, including when the integral you started with comes back.",
       "bullets": [
         "5.16-b3"
       ]
     },
     {
-      "text": "Choose and carry out a substitution, rewriting every $x$ and $\\mathrm{d}x$ in terms of $u$.",
+      "text": "Combine a substitution with integration by parts.",
       "bullets": [
-        "5.16-b1"
-      ]
-    },
-    {
-      "text": "Change the limits of a [[definite|definite integral]] when you substitute.",
-      "bullets": [
-        "5.16-b1"
+        "5.16-b1",
+        "5.16-b2"
       ]
     }
   ],
   "prerequisites": [
+    "5.5",
     "5.10",
+    "5.11",
     "5.15"
   ],
   "papers": [
     "P1",
-    "P2",
-    "P3"
+    "P2"
   ],
   "synonyms": [
     "integration by parts",
     "u substitution",
-    "change of variable",
-    "integrate a product"
+    "integrate a product",
+    "integrate ln x",
+    "repeated integration by parts",
+    "change of variable"
   ],
   "before": [
     {
       "type": "check",
-      "id": "before-product-rule",
-      "prompt": "Differentiate $x\\mathrm{e}^{x}$.",
+      "id": "before-integrate-linear",
+      "prompt": "Find $\\int \\sin(4x)\\,\\mathrm{d}x$.",
+      "hint": "Which function differentiates to $\\sin x$? Then deal with the $4$ inside.",
       "options": [
         {
-          "text": "$\\mathrm{e}^{x}$",
+          "text": "$\\frac{1}{4}\\cos(4x) + C$",
           "correct": false
         },
         {
-          "text": "$\\mathrm{e}^{x}+x\\mathrm{e}^{x}$",
+          "text": "$-\\frac{1}{4}\\cos(4x) + C$",
           "correct": true
         },
         {
-          "text": "$x\\mathrm{e}^{x-1}$",
+          "text": "$-4\\cos(4x) + C$",
+          "correct": false
+        },
+        {
+          "text": "$4\\cos(4x) + C$",
           "correct": false
         }
       ],
-      "explain": "The product rule gives $1\\cdot\\mathrm{e}^x + x\\cdot\\mathrm{e}^x$. Revise it in {{lesson:5.15}}."
+      "explain": "$\\frac{\\mathrm{d}}{\\mathrm{d}x}\\cos(4x) = -4\\sin(4x)$, so you need $-\\frac{1}{4}\\cos(4x)$. Revise it in {{lesson:5.10}}."
     },
     {
       "type": "check",
-      "id": "before-integrate-cos",
-      "prompt": "Find $\\int \\cos x\\,\\mathrm{d}x$.",
+      "id": "before-diff-arctan",
+      "prompt": "Differentiate $y = \\arctan x$.",
+      "hint": "It is one of the inverse trig derivatives in the formula booklet.",
       "options": [
         {
-          "text": "$\\sin x + C$",
+          "text": "$\\frac{1}{\\sqrt{1 - x^{2}}}$",
+          "correct": false
+        },
+        {
+          "text": "$-\\frac{1}{1 + x^{2}}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{1}{1 + x^{2}}$",
           "correct": true
         },
         {
-          "text": "$-\\sin x + C$",
-          "correct": false
-        },
-        {
-          "text": "$-\\cos x + C$",
+          "text": "$\\frac{1}{1 - x^{2}}$",
           "correct": false
         }
       ],
-      "explain": "$\\frac{\\mathrm{d}}{\\mathrm{d}x}\\sin x = \\cos x$, so the answer is $\\sin x + C$. Revise it in {{lesson:5.10}}."
+      "explain": "$\\frac{\\mathrm{d}}{\\mathrm{d}x}\\arctan x = \\frac{1}{1 + x^{2}}$. The square root belongs to $\\arcsin x$. Revise it in {{lesson:5.15}}."
+    },
+    {
+      "type": "check",
+      "id": "before-definite-root",
+      "prompt": "Find the exact value of $\\int_{1}^{4} \\frac{3}{\\sqrt{x}}\\,\\mathrm{d}x$.",
+      "hint": "Write $\\frac{3}{\\sqrt{x}}$ as $3x^{-\\frac{1}{2}}$, integrate, then substitute the limits.",
+      "answer": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "explain": "$\\int 3x^{-\\frac{1}{2}}\\,\\mathrm{d}x = 6x^{\\frac{1}{2}}$, so the value is $6\\sqrt{4} - 6\\sqrt{1} = 12 - 6 = 6$. Revise it in {{lesson:5.11}}."
     }
   ],
   "sections": [
+    {
+      "id": "substitution",
+      "heading": "Substitution when the derivative isn't there",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.10}} you used [[integration-by-substitution|substitution]] on integrals of the form $\\int k\\,g'(x)\\,f(g(x))\\,\\mathrm{d}x$. The derivative of the inside, $g'(x)$, was already there, ready to become $\\mathrm{d}u$."
+        },
+        {
+          "type": "text",
+          "text": "Now look at $\\int x(2x - 1)^{4}\\,\\mathrm{d}x$. With $u = 2x - 1$, you get $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 2$. But the factor outside the bracket is $x$, not a number. You can still substitute: you write that leftover $x$ in terms of $u$ too."
+        },
+        {
+          "type": "text",
+          "text": "1. Start from the substitution, such as $u = 2x - 1$. When an integral is not of the form $\\int k\\,g'(x)\\,f(g(x))\\,\\mathrm{d}x$, the exam gives it to you."
+        },
+        {
+          "type": "text",
+          "text": "2. Differentiate to find $\\frac{\\mathrm{d}u}{\\mathrm{d}x}$. Rearrange it to replace $\\mathrm{d}x$, or a group such as $\\mathrm{e}^{x}\\,\\mathrm{d}x$."
+        },
+        {
+          "type": "text",
+          "text": "3. Rearrange the substitution to write every leftover $x$ in terms of $u$."
+        },
+        {
+          "type": "text",
+          "text": "4. Integrate with respect to $u$. For an indefinite integral, put $x$ back at the end. For a [[definite|definite integral]], change the [[limits-of-integration|limits]] to $u$-values instead."
+        },
+        {
+          "type": "result",
+          "statement": "After you substitute, the integral must contain only $u$ and $\\mathrm{d}u$.",
+          "why": "You are now integrating with respect to $u$, so any $x$ left inside has no meaning there."
+        },
+        {
+          "type": "example",
+          "id": "ex-sub-linear-power",
+          "question": "Use the substitution $u = 2x - 1$ to find $\\int x(2x - 1)^{4}\\,\\mathrm{d}x$.",
+          "steps": [
+            "Differentiate: $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 2$, so $\\mathrm{d}x = \\frac{1}{2}\\,\\mathrm{d}u$.",
+            "Rearrange $u = 2x - 1$ to replace the leftover $x$: $x = \\frac{u + 1}{2}$.",
+            "Substitute everything: $\\int \\frac{u + 1}{2}\\,u^{4}\\cdot\\frac{1}{2}\\,\\mathrm{d}u = \\frac{1}{4}\\int \\left(u^{5} + u^{4}\\right)\\mathrm{d}u$.",
+            "Integrate each power: $\\frac{1}{4}\\left(\\frac{u^{6}}{6} + \\frac{u^{5}}{5}\\right) + C = \\frac{u^{6}}{24} + \\frac{u^{5}}{20} + C$. Then put $u = 2x - 1$ back.",
+            "Check by differentiating: $\\frac{(2x - 1)^{5}}{2} + \\frac{(2x - 1)^{4}}{2} = \\frac{(2x - 1)^{4}}{2}\\big((2x - 1) + 1\\big) = x(2x - 1)^{4}$."
+          ],
+          "answer": "$\\int x(2x - 1)^{4}\\,\\mathrm{d}x = \\frac{(2x - 1)^{6}}{24} + \\frac{(2x - 1)^{5}}{20} + C$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-sub-root",
+          "prompt": "Use the substitution $u = \\sqrt{x}$ to find $\\int \\frac{1}{x + \\sqrt{x}}\\,\\mathrm{d}x$, for $x > 0$.",
+          "hint": "From $u = \\sqrt{x}$, $x = u^{2}$, so $\\mathrm{d}x = 2u\\,\\mathrm{d}u$. Then factorise the denominator.",
+          "options": [
+            {
+              "text": "$\\ln(x + \\sqrt{x}) + C$",
+              "correct": false
+            },
+            {
+              "text": "$2\\ln(1 + \\sqrt{x}) + C$",
+              "correct": true
+            },
+            {
+              "text": "$\\ln(1 + \\sqrt{x}) + C$",
+              "correct": false
+            },
+            {
+              "text": "$2\\ln(x + \\sqrt{x}) + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\int \\frac{2u}{u^{2} + u}\\,\\mathrm{d}u = \\int \\frac{2}{u + 1}\\,\\mathrm{d}u = 2\\ln(u + 1) + C$. No modulus is needed, since $u + 1 > 0$. Then put $u = \\sqrt{x}$ back."
+        },
+        {
+          "type": "example",
+          "id": "ex-sub-exp-definite",
+          "question": "Use the substitution $u = \\mathrm{e}^{x} + 1$ to find the exact value of $\\int_{0}^{\\ln 3} \\frac{\\mathrm{e}^{2x}}{\\mathrm{e}^{x} + 1}\\,\\mathrm{d}x$.",
+          "steps": [
+            "Differentiate: $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = \\mathrm{e}^{x}$, so $\\mathrm{e}^{x}\\,\\mathrm{d}x = \\mathrm{d}u$.",
+            "Split $\\mathrm{e}^{2x} = \\mathrm{e}^{x}\\cdot\\mathrm{e}^{x}$. One $\\mathrm{e}^{x}$ joins $\\mathrm{d}x$ to make $\\mathrm{d}u$. The other is a leftover, and $\\mathrm{e}^{x} = u - 1$.",
+            "Change the limits: $x = 0$ gives $u = \\mathrm{e}^{0} + 1 = 2$, and $x = \\ln 3$ gives $u = 3 + 1 = 4$.",
+            "The integral becomes $\\int_{2}^{4} \\frac{u - 1}{u}\\,\\mathrm{d}u = \\int_{2}^{4} \\left(1 - \\frac{1}{u}\\right)\\mathrm{d}u = \\big[u - \\ln u\\big]_{2}^{4}$. No modulus is needed, since $u > 0$.",
+            "Evaluate: $(4 - \\ln 4) - (2 - \\ln 2) = 2 - \\ln 4 + \\ln 2$. Since $\\ln 4 = 2\\ln 2$, this is $2 - \\ln 2$."
+          ],
+          "answer": "$\\int_{0}^{\\ln 3} \\frac{\\mathrm{e}^{2x}}{\\mathrm{e}^{x} + 1}\\,\\mathrm{d}x = 2 - \\ln 2$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-sub-flip-limits",
+          "prompt": "Use the substitution $u = 4 - x$ to find the exact value of $\\int_{0}^{3} \\frac{x}{\\sqrt{4 - x}}\\,\\mathrm{d}x$.",
+          "hint": "$\\mathrm{d}x = -\\mathrm{d}u$ and $x = 4 - u$. The new limits are $u = 4$ (bottom) and $u = 1$ (top). Use the minus sign to swap them.",
+          "options": [
+            {
+              "text": "$-\\frac{10}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{10}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$6\\sqrt{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\int_{4}^{1} \\frac{4 - u}{\\sqrt{u}}\\,(-\\mathrm{d}u) = \\int_{1}^{4} \\left(4u^{-\\frac{1}{2}} - u^{\\frac{1}{2}}\\right)\\mathrm{d}u = \\left[8u^{\\frac{1}{2}} - \\frac{2}{3}u^{\\frac{3}{2}}\\right]_{1}^{4} = \\frac{32}{3} - \\frac{22}{3} = \\frac{10}{3}$."
+        }
+      ]
+    },
     {
       "id": "parts",
       "heading": "Integration by parts",
       "blocks": [
         {
           "type": "text",
-          "text": "The product rule says $\\dfrac{\\mathrm{d}}{\\mathrm{d}x}(uv) = u\\dfrac{\\mathrm{d}v}{\\mathrm{d}x} + v\\dfrac{\\mathrm{d}u}{\\mathrm{d}x}$. Integrate both sides and rearrange, and you get a rule for integrating a product:"
+          "text": "Substitution can't help with $\\int x\\cos(3x)\\,\\mathrm{d}x$. It is a product of two unrelated functions."
+        },
+        {
+          "type": "text",
+          "text": "The way in is the [[product-rule|product rule]] from {{lesson:5.6}}. For two functions $u$ and $v$ of $x$, $\\frac{\\mathrm{d}}{\\mathrm{d}x}(uv) = u\\frac{\\mathrm{d}v}{\\mathrm{d}x} + v\\frac{\\mathrm{d}u}{\\mathrm{d}x}$."
+        },
+        {
+          "type": "text",
+          "text": "Integrate both sides with respect to $x$. The left side gives back $uv$. Rearrange, and you get [[integration-by-parts|integration by parts]]:"
         },
         {
           "type": "formula",
-          "tex": "\\int u\\,\\frac{\\mathrm{d}v}{\\mathrm{d}x}\\,\\mathrm{d}x = uv - \\int v\\,\\frac{\\mathrm{d}u}{\\mathrm{d}x}\\,\\mathrm{d}x",
+          "tex": "\\int u\\frac{\\mathrm{d}v}{\\mathrm{d}x}\\,\\mathrm{d}x = uv - \\int v\\frac{\\mathrm{d}u}{\\mathrm{d}x}\\,\\mathrm{d}x \\quad \\text{or} \\quad \\int u\\,\\mathrm{d}v = uv - \\int v\\,\\mathrm{d}u",
           "tag": "booklet",
           "bookletId": "bk-5-16-parts",
           "cheatSheet": true
         },
         {
-          "type": "result",
-          "statement": "Integration by parts swaps one integral for another.",
-          "why": "It only helps if the new integral, $\\int v\\,\\frac{\\mathrm{d}u}{\\mathrm{d}x}\\,\\mathrm{d}x$, is easier than the one you started with."
+          "type": "text",
+          "text": "The formula is in the booklet, so you don't need to memorise it. You do need to choose $u$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x}$ well."
         },
         {
           "type": "text",
-          "text": "You choose which factor is $u$ (you will differentiate it) and which is $\\dfrac{\\mathrm{d}v}{\\mathrm{d}x}$ (you will integrate it). Pick $u$ so that differentiating makes it simpler. A polynomial like $x$ or $x^2$ is usually a good $u$, because it shrinks each time you differentiate. The exception is $\\ln x$: you can't easily integrate it, so when it appears, it is almost always $u$."
+          "text": "The second form, $\\int u\\,\\mathrm{d}v = uv - \\int v\\,\\mathrm{d}u$, has a picture. Drag $b$. The area under the curve is $\\int v\\,\\mathrm{d}u$, the area beside it is $\\int u\\,\\mathrm{d}v$, and together they always fill the rectangle $uv$."
         },
         {
           "type": "interactive",
           "widget": "parts-area",
           "props": {},
-          "alt": "Area picture for v equals u squared: the region under the curve plus the region beside it fill the b by b-squared rectangle."
-        },
-        {
-          "type": "example",
-          "id": "ex-parts-xe2x",
-          "question": "Find $\\displaystyle\\int x\\,\\mathrm{e}^{2x}\\,\\mathrm{d}x$.",
-          "steps": [
-            "Let $u = x$, so $\\dfrac{\\mathrm{d}u}{\\mathrm{d}x} = 1$. Let $\\dfrac{\\mathrm{d}v}{\\mathrm{d}x} = \\mathrm{e}^{2x}$, so $v = \\tfrac12\\mathrm{e}^{2x}$.",
-            "Apply the formula: $\\displaystyle\\int x\\,\\mathrm{e}^{2x}\\,\\mathrm{d}x = \\tfrac12 x\\,\\mathrm{e}^{2x} - \\int \\tfrac12\\mathrm{e}^{2x}\\,\\mathrm{d}x$.",
-            "The new integral is standard: $\\displaystyle\\int \\tfrac12\\mathrm{e}^{2x}\\,\\mathrm{d}x = \\tfrac14\\mathrm{e}^{2x}$.",
-            "Check by differentiating your answer: $\\tfrac12\\mathrm{e}^{2x} + x\\mathrm{e}^{2x} - \\tfrac12\\mathrm{e}^{2x} = x\\mathrm{e}^{2x}$."
-          ],
-          "answer": "$\\displaystyle\\int x\\,\\mathrm{e}^{2x}\\,\\mathrm{d}x = \\tfrac12 x\\,\\mathrm{e}^{2x} - \\tfrac14\\mathrm{e}^{2x} + C$",
-          "video": null
-        },
-        {
-          "type": "check",
-          "id": "check-integrate-ln",
-          "prompt": "Find $\\displaystyle\\int \\ln x\\,\\mathrm{d}x$.",
-          "hint": "Write it as $\\int \\ln x \\cdot 1\\,\\mathrm{d}x$ and take $u = \\ln x$.",
-          "options": [
-            {
-              "text": "$\\dfrac{1}{x} + C$",
-              "correct": false
-            },
-            {
-              "text": "$x\\ln x + C$",
-              "correct": false
-            },
-            {
-              "text": "$x\\ln x - x + C$",
-              "correct": true
-            },
-            {
-              "text": "$\\tfrac12(\\ln x)^2 + C$",
-              "correct": false
-            }
-          ],
-          "explain": "$u=\\ln x$, $v=x$ gives $x\\ln x - \\int x\\cdot\\frac1x\\,\\mathrm{d}x = x\\ln x - x + C$."
-        }
-      ]
-    },
-    {
-      "id": "repeated",
-      "heading": "Using parts twice",
-      "blocks": [
-        {
-          "type": "text",
-          "text": "Sometimes the new integral still needs parts. With $x^2\\mathrm{e}^{x}$ you apply it twice, and $x^2$ drops to $x$, then to $1$. With $\\mathrm{e}^{x}\\sin x$ nothing ever simplifies. After two rounds the original integral comes back, and you solve for it like an unknown."
-        },
-        {
-          "type": "example",
-          "id": "ex-parts-twice-exsinx",
-          "question": "Find $\\displaystyle I = \\int \\mathrm{e}^{x}\\sin x\\,\\mathrm{d}x$.",
-          "steps": [
-            "Parts with $u=\\sin x$, $\\dfrac{\\mathrm{d}v}{\\mathrm{d}x}=\\mathrm{e}^{x}$: $\\;I = \\mathrm{e}^{x}\\sin x - \\displaystyle\\int \\mathrm{e}^{x}\\cos x\\,\\mathrm{d}x$.",
-            "Parts again with $u=\\cos x$, $\\dfrac{\\mathrm{d}v}{\\mathrm{d}x}=\\mathrm{e}^{x}$: $\\;\\displaystyle\\int \\mathrm{e}^{x}\\cos x\\,\\mathrm{d}x = \\mathrm{e}^{x}\\cos x + \\int \\mathrm{e}^{x}\\sin x\\,\\mathrm{d}x = \\mathrm{e}^{x}\\cos x + I$.",
-            "Substitute back: $I = \\mathrm{e}^{x}\\sin x - \\mathrm{e}^{x}\\cos x - I$, so $2I = \\mathrm{e}^{x}(\\sin x - \\cos x)$."
-          ],
-          "answer": "$\\displaystyle\\int \\mathrm{e}^{x}\\sin x\\,\\mathrm{d}x = \\tfrac12\\mathrm{e}^{x}(\\sin x - \\cos x) + C$",
-          "video": null
+          "alt": "The curve v equals u squared from u equals 0 to u equals b. The area under the curve and the area to its left are shaded in two colours. Together they fill the rectangle of width b and height b squared, whatever b is."
         },
         {
           "type": "result",
-          "statement": "In the second round, make the trig function $u$ again.",
-          "why": "If you switch and make $\\mathrm{e}^x$ the $u$, you undo the first step and get $I = I$."
-        }
-      ]
-    },
-    {
-      "id": "subst",
-      "heading": "Substitution",
-      "blocks": [
-        {
-          "type": "text",
-          "text": "In {{lesson:5.10}} you met integrals where the derivative of the inside is already there, like $\\int 2x\\cos(x^2)\\,\\mathrm{d}x$. At HL you also substitute when it isn't. The method:"
+          "statement": "Choose $u$ to be the factor that gets simpler when you differentiate it. Let $\\frac{\\mathrm{d}v}{\\mathrm{d}x}$ be a factor you can integrate.",
+          "why": "The new integral contains $\\frac{\\mathrm{d}u}{\\mathrm{d}x}$ instead of $u$, so a $u$ that shrinks makes the new integral easier."
         },
         {
           "type": "text",
-          "text": "1. Choose $u$, often the inside of a bracket, root or power."
-        },
-        {
-          "type": "text",
-          "text": "2. Find $\\dfrac{\\mathrm{d}u}{\\mathrm{d}x}$ and rewrite $\\mathrm{d}x$ in terms of $\\mathrm{d}u$."
-        },
-        {
-          "type": "text",
-          "text": "3. Rewrite every $x$ in terms of $u$, then integrate."
-        },
-        {
-          "type": "text",
-          "text": "4. For a definite integral, change the limits to $u$-values. For an indefinite one, substitute back."
+          "text": "A power of $x$ is usually the best $u$: $x^{2}$ becomes $2x$, then $2$. The exceptions are $\\ln x$ and the [[inverse-trig-function|inverse trig functions]]. They are hard to integrate but easy to differentiate, so they are always $u$."
         },
         {
           "type": "example",
-          "id": "ex-subst-definite",
-          "question": "Find the exact value of $\\displaystyle\\int_0^3 x\\sqrt{x+1}\\,\\mathrm{d}x$.",
+          "id": "ex-parts-x-cos3x",
+          "question": "Find $\\int x\\cos(3x)\\,\\mathrm{d}x$.",
           "steps": [
-            "Let $u = x+1$. Then $\\mathrm{d}u = \\mathrm{d}x$ and $x = u-1$.",
-            "Change the limits: $x=0 \\Rightarrow u=1$, and $x=3 \\Rightarrow u=4$.",
-            "$\\displaystyle\\int_1^4 (u-1)\\,u^{1/2}\\,\\mathrm{d}u = \\int_1^4 \\left(u^{3/2} - u^{1/2}\\right)\\mathrm{d}u = \\Big[\\tfrac25u^{5/2} - \\tfrac23u^{3/2}\\Big]_1^4$",
-            "$= \\left(\\tfrac{64}{5} - \\tfrac{16}{3}\\right) - \\left(\\tfrac25 - \\tfrac23\\right) = \\tfrac{62}{5} - \\tfrac{14}{3}$"
+            "Let $u = x$, which gets simpler, so $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 1$.",
+            "Let $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = \\cos(3x)$. Integrate it: $v = \\frac{1}{3}\\sin(3x)$. You don't need a $+\\,C$ in $v$.",
+            "Apply the formula: $\\int x\\cos(3x)\\,\\mathrm{d}x = \\frac{1}{3}x\\sin(3x) - \\int \\frac{1}{3}\\sin(3x)\\,\\mathrm{d}x$.",
+            "The new integral is standard: $\\int \\frac{1}{3}\\sin(3x)\\,\\mathrm{d}x = -\\frac{1}{9}\\cos(3x)$. Subtracting it turns the minus into a plus.",
+            "Check by differentiating: $\\frac{1}{3}\\sin(3x) + x\\cos(3x) - \\frac{1}{3}\\sin(3x) = x\\cos(3x)$."
           ],
-          "answer": "$\\displaystyle\\int_0^3 x\\sqrt{x+1}\\,\\mathrm{d}x = \\tfrac{116}{15}$",
+          "answer": "$\\int x\\cos(3x)\\,\\mathrm{d}x = \\frac{1}{3}x\\sin(3x) + \\frac{1}{9}\\cos(3x) + C$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Had you chosen $u = \\cos(3x)$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = x$, the new integral would contain $x^{2}\\sin(3x)$, which is harder. So swap."
+        },
+        {
+          "type": "text",
+          "text": "Parts also works on a single function such as $\\ln x$, $\\arcsin x$ or $\\arctan x$. Write it as a product with $1$. Take $u$ as the function and $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = 1$, so $v = x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-parts-arctan",
+          "question": "Find $\\int \\arctan x\\,\\mathrm{d}x$.",
+          "steps": [
+            "Write it as $\\int \\arctan x \\cdot 1\\,\\mathrm{d}x$. Let $u = \\arctan x$, so $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = \\frac{1}{1 + x^{2}}$, as in {{lesson:5.15}}.",
+            "Let $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = 1$, so $v = x$.",
+            "Apply the formula: $\\int \\arctan x\\,\\mathrm{d}x = x\\arctan x - \\int \\frac{x}{1 + x^{2}}\\,\\mathrm{d}x$.",
+            "The top, $x$, is half the derivative of the bottom, $1 + x^{2}$. So by inspection $\\int \\frac{x}{1 + x^{2}}\\,\\mathrm{d}x = \\frac{1}{2}\\ln(1 + x^{2})$. No modulus is needed, since $1 + x^{2} > 0$.",
+            "Check: $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(x\\arctan x - \\frac{1}{2}\\ln(1 + x^{2})\\right) = \\arctan x + \\frac{x}{1 + x^{2}} - \\frac{x}{1 + x^{2}} = \\arctan x$."
+          ],
+          "answer": "$\\int \\arctan x\\,\\mathrm{d}x = x\\arctan x - \\frac{1}{2}\\ln(1 + x^{2}) + C$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The same steps work for $\\arcsin x$. The leftover is $\\int \\frac{x}{\\sqrt{1 - x^{2}}}\\,\\mathrm{d}x$. It is not a log but a reverse chain rule power, $-\\sqrt{1 - x^{2}}$. So:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\int \\arcsin x\\,\\mathrm{d}x = x\\arcsin x + \\sqrt{1 - x^{2}} + C",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "For $\\ln x$ the leftover is $\\int 1\\,\\mathrm{d}x$, so $\\int \\ln x\\,\\mathrm{d}x = x\\ln x - x + C$."
+        },
+        {
+          "type": "check",
+          "id": "check-parts-ln-shift",
+          "prompt": "Find $\\int \\ln(x + 2)\\,\\mathrm{d}x$, for $x > -2$.",
+          "hint": "Take $u = \\ln(x + 2)$ and $v = x$. To integrate $\\frac{x}{x + 2}$, write it as $1 - \\frac{2}{x + 2}$.",
+          "options": [
+            {
+              "text": "$x\\ln(x + 2) - x + C$",
+              "correct": false
+            },
+            {
+              "text": "$x\\ln(x + 2) + C$",
+              "correct": false
+            },
+            {
+              "text": "$(x + 2)\\ln(x + 2) - x + C$",
+              "correct": true
+            },
+            {
+              "text": "$(x + 2)\\ln(x + 2) + x + C$",
+              "correct": false
+            }
+          ],
+          "explain": "Parts gives $x\\ln(x + 2) - \\int \\frac{x}{x + 2}\\,\\mathrm{d}x = x\\ln(x + 2) - x + 2\\ln(x + 2) + C$. Collect the logs: $(x + 2)\\ln(x + 2) - x + C$."
+        },
+        {
+          "type": "text",
+          "text": "For a definite integral, the $uv$ part gets the limits too: $\\int_{a}^{b} u\\frac{\\mathrm{d}v}{\\mathrm{d}x}\\,\\mathrm{d}x = \\big[uv\\big]_{a}^{b} - \\int_{a}^{b} v\\frac{\\mathrm{d}u}{\\mathrm{d}x}\\,\\mathrm{d}x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-parts-solve-k",
+          "question": "Given that $\\int_{0}^{k} x\\mathrm{e}^{-x}\\,\\mathrm{d}x = 0.5$, where $k > 0$, use integration by parts to write an equation for $k$. Then use your calculator to find $k$. Give your answer to 3 s.f.",
+          "steps": [
+            "Let $u = x$, so $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 1$. Let $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = \\mathrm{e}^{-x}$, so $v = -\\mathrm{e}^{-x}$.",
+            "Apply the formula with limits: $\\int_{0}^{k} x\\mathrm{e}^{-x}\\,\\mathrm{d}x = \\big[-x\\mathrm{e}^{-x}\\big]_{0}^{k} + \\int_{0}^{k} \\mathrm{e}^{-x}\\,\\mathrm{d}x$.",
+            "Evaluate both parts: $-k\\mathrm{e}^{-k} + \\big[-\\mathrm{e}^{-x}\\big]_{0}^{k} = -k\\mathrm{e}^{-k} - \\mathrm{e}^{-k} + 1 = 1 - (k + 1)\\mathrm{e}^{-k}$.",
+            "Set it equal to $0.5$: $(k + 1)\\mathrm{e}^{-k} = 0.5$. Write this equation down before using your calculator. It earns the method mark.",
+            "Algebra can't solve this, so graph $y = (x + 1)\\mathrm{e}^{-x}$ and $y = 0.5$. They meet at $x = -0.768\\ldots$ and $x = 1.6783\\ldots$, and only the second is positive."
+          ],
+          "answer": "$k \\approx 1.68$",
           "video": null
         },
         {
           "type": "calculator",
           "steps": {
             "ti84": [
-              "MATH, then fnInt(",
-              "Enter X*sqrt(X+1), X, 0, 3"
+              "Y=, enter Y1 = (X+1)*e^(-X) and Y2 = 0.5",
+              "GRAPH",
+              "2nd, TRACE (CALC), 5: intersect",
+              "Choose Y1, then Y2, then move the cursor near X = 2 for the guess",
+              "Read X = 1.6783..., so k = 1.68 to 3 s.f."
             ],
             "nspire": [
-              "Menu, Calculus, Numerical Integral",
-              "Lower limit 0, upper limit 3, then x*sqrt(x+1)"
+              "Graphs page: enter f1(x) = (x+1)*e^(-x) and f2(x) = 0.5",
+              "Menu, Analyze Graph, Intersection",
+              "Set the lower bound left of x = 2 and the upper bound right of it",
+              "Read x = 1.6783..., so k = 1.68 to 3 s.f."
             ],
             "casio": [
-              "RUN-MAT, OPTN, CALC, integral dx",
-              "Enter X*sqrt(X+1), 0, 3"
+              "GRAPH, enter Y1 = (X+1)*e^(-X) and Y2 = 0.5",
+              "DRAW",
+              "SHIFT F5 (G-SOLV), INTSECT",
+              "If the first point shown has negative X, press the right arrow for the next one (check on your model)",
+              "Read X = 1.6783..., so k = 1.68 to 3 s.f."
             ]
           }
         },
         {
+          "type": "check",
+          "id": "check-parts-x-sec2",
+          "prompt": "Find the exact value of $\\int_{0}^{\\frac{\\pi}{4}} x\\sec^{2}x\\,\\mathrm{d}x$.",
+          "hint": "Take $u = x$, so $v = \\tan x$. You met $\\int \\tan x\\,\\mathrm{d}x$ in {{lesson:5.10}}, written as $\\int \\frac{\\sin x}{\\cos x}\\,\\mathrm{d}x$.",
+          "options": [
+            {
+              "text": "$\\frac{\\pi}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\pi}{4} + \\frac{1}{2}\\ln 2$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\pi}{4} - \\frac{1}{2}\\ln 2$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{\\pi}{4} - \\ln 2$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\big[x\\tan x\\big]_{0}^{\\frac{\\pi}{4}} - \\int_{0}^{\\frac{\\pi}{4}} \\tan x\\,\\mathrm{d}x = \\frac{\\pi}{4} + \\big[\\ln(\\cos x)\\big]_{0}^{\\frac{\\pi}{4}} = \\frac{\\pi}{4} + \\ln\\frac{1}{\\sqrt{2}} = \\frac{\\pi}{4} - \\frac{1}{2}\\ln 2$."
+        }
+      ]
+    },
+    {
+      "id": "repeated",
+      "heading": "Using parts more than once",
+      "blocks": [
+        {
           "type": "text",
-          "text": "On Paper 2, check a definite integral numerically: $\\tfrac{116}{15} \\approx 7.733$."
+          "text": "When the new integral is still a product, use parts on it again. Two patterns come up."
+        },
+        {
+          "type": "text",
+          "text": "Pattern 1: a power such as $x^{2}$ times a sine, cosine or exponential. Each round, $u$ drops one power, so $x^{2}$ needs two rounds."
+        },
+        {
+          "type": "example",
+          "id": "ex-repeat-x2-cos",
+          "question": "Find $\\int x^{2}\\cos x\\,\\mathrm{d}x$.",
+          "steps": [
+            "Round 1: let $u = x^{2}$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = \\cos x$. Then $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 2x$ and $v = \\sin x$.",
+            "So $\\int x^{2}\\cos x\\,\\mathrm{d}x = x^{2}\\sin x - \\int 2x\\sin x\\,\\mathrm{d}x$. The new integral is still a product, but with $x$ instead of $x^{2}$.",
+            "Round 2: for $\\int 2x\\sin x\\,\\mathrm{d}x$, let $u = 2x$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = \\sin x$. Then $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 2$ and $v = -\\cos x$.",
+            "So $\\int 2x\\sin x\\,\\mathrm{d}x = -2x\\cos x + \\int 2\\cos x\\,\\mathrm{d}x = -2x\\cos x + 2\\sin x$.",
+            "Put it back inside a bracket, because the whole second integral is subtracted: $x^{2}\\sin x - \\left(-2x\\cos x + 2\\sin x\\right) = x^{2}\\sin x + 2x\\cos x - 2\\sin x$."
+          ],
+          "answer": "$\\int x^{2}\\cos x\\,\\mathrm{d}x = x^{2}\\sin x + 2x\\cos x - 2\\sin x + C$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dropping the bracket in round 2. The whole second integral is subtracted, so every sign inside it flips. Write it in a bracket first, then expand."
+        },
+        {
+          "type": "text",
+          "text": "Pattern 2: an exponential times a sine or cosine. Neither factor ever gets simpler. After two rounds, the integral you started with comes back."
+        },
+        {
+          "type": "text",
+          "text": "Call that integral $I$. You then have an equation with $I$ on both sides, and you solve it for $I$."
+        },
+        {
+          "type": "example",
+          "id": "ex-repeat-cyclic",
+          "question": "Find $\\int \\mathrm{e}^{2x}\\cos x\\,\\mathrm{d}x$.",
+          "steps": [
+            "Call the integral $I$. Round 1: let $u = \\mathrm{e}^{2x}$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = \\cos x$, so $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 2\\mathrm{e}^{2x}$ and $v = \\sin x$. Then $I = \\mathrm{e}^{2x}\\sin x - \\int 2\\mathrm{e}^{2x}\\sin x\\,\\mathrm{d}x$.",
+            "Round 2, with the exponential as $u$ again: $u = 2\\mathrm{e}^{2x}$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = \\sin x$, so $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 4\\mathrm{e}^{2x}$ and $v = -\\cos x$.",
+            "This gives $\\int 2\\mathrm{e}^{2x}\\sin x\\,\\mathrm{d}x = -2\\mathrm{e}^{2x}\\cos x + \\int 4\\mathrm{e}^{2x}\\cos x\\,\\mathrm{d}x = -2\\mathrm{e}^{2x}\\cos x + 4I$.",
+            "Substitute back, in a bracket: $I = \\mathrm{e}^{2x}\\sin x - \\left(-2\\mathrm{e}^{2x}\\cos x + 4I\\right) = \\mathrm{e}^{2x}\\sin x + 2\\mathrm{e}^{2x}\\cos x - 4I$.",
+            "Add $4I$ to both sides: $5I = \\mathrm{e}^{2x}(\\sin x + 2\\cos x)$. Divide by $5$, and add $+\\,C$ only now."
+          ],
+          "answer": "$\\int \\mathrm{e}^{2x}\\cos x\\,\\mathrm{d}x = \\frac{1}{5}\\mathrm{e}^{2x}(\\sin x + 2\\cos x) + C$",
+          "video": null
+        },
+        {
+          "type": "result",
+          "statement": "In round 2, make the same type of function $u$ as in round 1.",
+          "why": "If you swap, round 2 undoes round 1, and you only get $I = I$."
+        },
+        {
+          "type": "check",
+          "id": "check-repeat-x2-exp",
+          "prompt": "Find $\\int x^{2}\\mathrm{e}^{-x}\\,\\mathrm{d}x$.",
+          "hint": "Two rounds, with $u = x^{2}$ and then $u = 2x$. Each time, $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = \\mathrm{e}^{-x}$ gives $v = -\\mathrm{e}^{-x}$.",
+          "options": [
+            {
+              "text": "$\\mathrm{e}^{-x}(x^{2} + 2x + 2) + C$",
+              "correct": false
+            },
+            {
+              "text": "$-\\mathrm{e}^{-x}(x^{2} + 2x + 2) + C$",
+              "correct": true
+            },
+            {
+              "text": "$-\\mathrm{e}^{-x}(x^{2} + 2x) + C$",
+              "correct": false
+            },
+            {
+              "text": "$-\\mathrm{e}^{-x}(x^{2} - 2x + 2) + C$",
+              "correct": false
+            }
+          ],
+          "explain": "Round 1: $-x^{2}\\mathrm{e}^{-x} + \\int 2x\\mathrm{e}^{-x}\\,\\mathrm{d}x$. Round 2: $\\int 2x\\mathrm{e}^{-x}\\,\\mathrm{d}x = -2x\\mathrm{e}^{-x} - 2\\mathrm{e}^{-x}$. Together: $-\\mathrm{e}^{-x}(x^{2} + 2x + 2) + C$."
+        },
+        {
+          "type": "check",
+          "id": "check-repeat-cyclic",
+          "prompt": "Find $\\int \\mathrm{e}^{x}\\sin(2x)\\,\\mathrm{d}x$.",
+          "hint": "Call it $I$. Make $\\sin(2x)$, then $\\cos(2x)$, the $u$, so $\\mathrm{e}^{x}$ is always the part you integrate.",
+          "options": [
+            {
+              "text": "$\\frac{1}{5}\\mathrm{e}^{x}\\left(\\sin(2x) + 2\\cos(2x)\\right) + C$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1}{3}\\mathrm{e}^{x}\\left(\\sin(2x) - 2\\cos(2x)\\right) + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{5}\\mathrm{e}^{x}\\left(\\sin(2x) - 2\\cos(2x)\\right) + C$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{3}\\mathrm{e}^{x}\\left(\\sin(2x) - 2\\cos(2x)\\right) + C$",
+              "correct": false
+            }
+          ],
+          "explain": "Two rounds give $I = \\mathrm{e}^{x}\\sin(2x) - 2\\mathrm{e}^{x}\\cos(2x) - 4I$. So $5I = \\mathrm{e}^{x}\\left(\\sin(2x) - 2\\cos(2x)\\right)$, then divide by $5$."
+        }
+      ]
+    },
+    {
+      "id": "combining",
+      "heading": "Substitution, then parts",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some integrals need both methods. Substituting for an inside such as $\\sqrt{x}$ or $x^{2}$ often leaves a product like $u\\sin u$, and parts finishes it."
+        },
+        {
+          "type": "text",
+          "text": "The letter $u$ is now taken, so for the parts step say in words which factor you differentiate and which you integrate."
+        },
+        {
+          "type": "example",
+          "id": "ex-combo-sin-root",
+          "question": "Use the substitution $u = \\sqrt{x}$ to find $\\int \\sin\\left(\\sqrt{x}\\right)\\mathrm{d}x$, for $x > 0$.",
+          "steps": [
+            "From $u = \\sqrt{x}$, $x = u^{2}$. So $\\frac{\\mathrm{d}x}{\\mathrm{d}u} = 2u$ and $\\mathrm{d}x = 2u\\,\\mathrm{d}u$.",
+            "Substitute: $\\int \\sin\\left(\\sqrt{x}\\right)\\mathrm{d}x = \\int 2u\\sin u\\,\\mathrm{d}u$. This is a product, so use parts.",
+            "Differentiate $2u$ (giving $2$) and integrate $\\sin u$ (giving $-\\cos u$): $\\int 2u\\sin u\\,\\mathrm{d}u = -2u\\cos u + \\int 2\\cos u\\,\\mathrm{d}u = -2u\\cos u + 2\\sin u + C$.",
+            "Put $u = \\sqrt{x}$ back: $2\\sin\\left(\\sqrt{x}\\right) - 2\\sqrt{x}\\cos\\left(\\sqrt{x}\\right) + C$.",
+            "Check: the derivative is $\\frac{\\cos\\left(\\sqrt{x}\\right)}{\\sqrt{x}} - \\frac{\\cos\\left(\\sqrt{x}\\right)}{\\sqrt{x}} + \\sin\\left(\\sqrt{x}\\right) = \\sin\\left(\\sqrt{x}\\right)$."
+          ],
+          "answer": "$\\int \\sin\\left(\\sqrt{x}\\right)\\mathrm{d}x = 2\\sin\\left(\\sqrt{x}\\right) - 2\\sqrt{x}\\cos\\left(\\sqrt{x}\\right) + C$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-combo-x3-ex2",
+          "question": "Use the substitution $u = x^{2}$ to show that $\\int_{0}^{1} x^{3}\\mathrm{e}^{x^{2}}\\,\\mathrm{d}x = \\frac{1}{2}$.",
+          "steps": [
+            "$\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 2x$, so $x\\,\\mathrm{d}x = \\frac{1}{2}\\,\\mathrm{d}u$. Split $x^{3} = x^{2}\\cdot x$, and replace $x^{2}$ with $u$.",
+            "Change the limits: $x = 0$ gives $u = 0$, and $x = 1$ gives $u = 1$.",
+            "So $\\int_{0}^{1} x^{3}\\mathrm{e}^{x^{2}}\\,\\mathrm{d}x = \\frac{1}{2}\\int_{0}^{1} u\\mathrm{e}^{u}\\,\\mathrm{d}u$.",
+            "Use parts, differentiating $u$ and integrating $\\mathrm{e}^{u}$: $\\int_{0}^{1} u\\mathrm{e}^{u}\\,\\mathrm{d}u = \\big[u\\mathrm{e}^{u}\\big]_{0}^{1} - \\int_{0}^{1} \\mathrm{e}^{u}\\,\\mathrm{d}u = \\mathrm{e} - (\\mathrm{e} - 1) = 1$.",
+            "Multiply by $\\frac{1}{2}$ to get $\\frac{1}{2}$. In a “show that”, your last line must match the given result exactly."
+          ],
+          "answer": "$\\int_{0}^{1} x^{3}\\mathrm{e}^{x^{2}}\\,\\mathrm{d}x = \\frac{1}{2}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-combo-x3-cos",
+          "prompt": "Use the substitution $u = x^{2}$ to find $\\int x^{3}\\cos\\left(x^{2}\\right)\\mathrm{d}x$.",
+          "hint": "After substituting you get $\\frac{1}{2}\\int u\\cos u\\,\\mathrm{d}u$. Then use parts, differentiating $u$.",
+          "options": [
+            {
+              "text": "$\\frac{1}{2}x^{2}\\sin\\left(x^{2}\\right) - \\frac{1}{2}\\cos\\left(x^{2}\\right) + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2}x^{2}\\sin\\left(x^{2}\\right) + \\frac{1}{2}\\cos\\left(x^{2}\\right) + C$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{8}x^{4}\\sin\\left(x^{2}\\right) + C$",
+              "correct": false
+            },
+            {
+              "text": "$x^{2}\\sin\\left(x^{2}\\right) + \\cos\\left(x^{2}\\right) + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{1}{2}\\left(u\\sin u - \\int \\sin u\\,\\mathrm{d}u\\right) = \\frac{1}{2}u\\sin u + \\frac{1}{2}\\cos u + C$. Then put $u = x^{2}$ back."
         }
       ]
     },
@@ -254,26 +603,38 @@
       "blocks": [
         {
           "type": "formula",
-          "tex": "\\int u\\frac{\\mathrm{d}v}{\\mathrm{d}x}\\mathrm{d}x = uv - \\int v\\frac{\\mathrm{d}u}{\\mathrm{d}x}\\mathrm{d}x",
+          "tex": "\\int u\\frac{\\mathrm{d}v}{\\mathrm{d}x}\\,\\mathrm{d}x = uv - \\int v\\frac{\\mathrm{d}u}{\\mathrm{d}x}\\,\\mathrm{d}x \\quad \\text{or} \\quad \\int u\\,\\mathrm{d}v = uv - \\int v\\,\\mathrm{d}u",
           "tag": "booklet",
           "bookletId": "bk-5-16-parts",
           "cheatSheet": true
         },
         {
           "type": "fact",
-          "text": "Choose $u$ that gets simpler when differentiated; $\\ln x$ is always $u$.",
+          "text": "Substitution: replace $\\mathrm{d}x$, write every leftover $x$ in terms of $u$, and change the limits of a definite integral.",
           "tag": "learn",
           "cheatSheet": true
         },
         {
           "type": "fact",
-          "text": "If the integral comes back after two rounds, solve for it.",
+          "text": "Parts: choose $u$ to get simpler when differentiated. $\\ln x$ and inverse trig functions are always $u$.",
           "tag": "learn",
           "cheatSheet": true
         },
         {
           "type": "fact",
-          "text": "Substitute everything: $x$, $\\mathrm{d}x$ and the limits.",
+          "text": "$\\ln x$, $\\arcsin x$ or $\\arctan x$ on its own: use parts with $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = 1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$x^{n}$ times a trig or exponential function: parts $n$ times. Exponential times trig: parts twice, then solve for $I$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Subtract the whole second integral, in a bracket. Add $+\\,C$ once, at the end.",
           "tag": "learn",
           "cheatSheet": true
         }
@@ -281,15 +642,16 @@
     }
   ],
   "mistakes": [
-    "Losing the minus sign. It is $uv - \\int v\\,\\frac{\\mathrm{d}u}{\\mathrm{d}x}\\,\\mathrm{d}x$. In the second round of repeated parts the signs flip again, so bracket the whole integral.",
-    "Leaving an $x$ behind. After substituting, no $x$ and no $\\mathrm{d}x$ may remain.",
-    "Keeping the old limits. Either change the limits to $u$-values, or substitute back before using the $x$ limits. Mixing the two loses the accuracy marks.",
-    "Dropping $+\\,C$ on an indefinite integral. Mark schemes often take a mark for it."
+    "Losing a sign in the second round of parts. The whole second integral is subtracted, so bracket it before you expand: $-\\left(-2x\\cos x + 2\\sin x\\right)$ flips both signs.",
+    "Keeping the $x$-limits after switching to $u$. Change the limits the moment you change the variable, or put $x$ back before you use the original limits.",
+    "Missing the factor from $\\mathrm{d}x$. With $u = 2x - 1$, $\\mathrm{d}x = \\frac{1}{2}\\,\\mathrm{d}u$. Leave out the $\\frac{1}{2}$ and your answer is twice too big.",
+    "Stopping too early. An indefinite integral ends in terms of $x$, not $u$, with $+\\,C$ and any modulus signs a logarithm needs."
   ],
   "examTips": [
-    "\"Use integration by parts\" means a method mark for a correct $u$, $v$ and formula, even if the algebra slips later. Write those three things down clearly.",
-    "\"Show that\" with an exact answer means no calculator: every line must be there. You can still check the number on your calculator.",
-    "\"Hence\" means use the result you just found, usually as the $u$ or the substitution."
+    "“Use the substitution $u = \\ldots$” means you must use that one. Show the $\\mathrm{d}u$ line, the integral in $u$ and, for a definite integral, the new limits.",
+    "For parts, write down $u$, $v$, $\\frac{\\mathrm{d}u}{\\mathrm{d}x}$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x}$ first. A correct set-up earns method marks even if the algebra slips later.",
+    "“Show that” an exact value means no calculator. Work forwards from the integral, and make your final line match the given result.",
+    "On Paper 2, write down the integral or equation you put into your calculator, then give the answer to 3 s.f."
   ],
-  "readingMinutes": 14
+  "readingMinutes": 23
 }

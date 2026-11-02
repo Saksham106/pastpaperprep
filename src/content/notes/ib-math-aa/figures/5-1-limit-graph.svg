@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="t">
+  <title id="t">A line with a gap at x = 2, height 4, and a separate dot at (2, 1)</title>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="14" y1="200" x2="306" y2="200" />
+    <line x1="60" y1="230" x2="60" y2="8" />
+    <polyline points="300,196 306,200 300,204" />
+    <polyline points="56,14 60,8 64,14" />
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4" fill="none">
+    <line x1="60" y1="100" x2="134" y2="100" />
+    <line x1="60" y1="175" x2="134" y2="175" />
+    <line x1="140" y1="106" x2="140" y2="200" />
+  </g>
+  <g stroke="var(--t1-ink)" stroke-width="2.5" fill="none" stroke-linecap="round">
+    <line x1="20" y1="175" x2="134.5" y2="103.4" />
+    <line x1="145.5" y1="96.6" x2="268" y2="20" />
+    <circle cx="140" cy="100" r="6" stroke-width="2" />
+  </g>
+  <circle cx="140" cy="175" r="5" fill="var(--t1-ink)" />
+  <g fill="currentColor" font-size="12" font-family="inherit">
+    <text x="300" y="218">x</text>
+    <text x="68" y="16">y</text>
+    <text x="136" y="216">2</text>
+    <text x="46" y="104">4</text>
+    <text x="46" y="179">1</text>
+    <text x="48" y="216">0</text>
+    <text x="226" y="64">y = f(x)</text>
+  </g>
+</svg>

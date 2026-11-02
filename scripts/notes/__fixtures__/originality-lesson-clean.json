@@ -1,0 +1,8 @@
+{
+  "item": "1.1",
+  "summary": "Standard form writes a very big or very small number as $a \\times 10^{k}$, with $1 \\le a < 10$.",
+  "sections": [{ "id": "s", "heading": "Writing it", "blocks": [
+    { "type": "text", "text": "A ball that bounces loses height each time. Write the heights as a [[geometric|geometric sequence]] and add them." },
+    { "type": "text", "text": "Your calculator may show 5.2E30. In an answer, write $5.2 \\times 10^{30}$ instead." }
+  ] }]
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "differential-equation",
+    "term": "differential equation",
+    "definition": "An equation that contains a derivative, such as $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2y$; solving it means finding the function.",
+    "lesson": "5.18"
+  },
+  {
+    "id": "general-solution",
+    "term": "general solution",
+    "definition": "The family of all solutions of a differential equation, written with an arbitrary constant.",
+    "lesson": "5.18"
+  },
+  {
+    "id": "particular-solution",
+    "term": "particular solution",
+    "definition": "The one solution of a differential equation that fits a given condition, such as a known point on the curve.",
+    "lesson": "5.18"
+  },
+  {
+    "id": "logistic-equation",
+    "term": "logistic equation",
+    "definition": "The differential equation $\\frac{\\mathrm{d}n}{\\mathrm{d}t} = kn(a - n)$, whose solutions grow and then level off towards $a$.",
+    "lesson": "5.18"
+  },
+  {
+    "id": "homogeneous-differential-equation",
+    "term": "homogeneous differential equation",
+    "definition": "A first-order differential equation that can be written as $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f\\left(\\frac{y}{x}\\right)$, solved with the substitution $y = vx$.",
+    "lesson": "5.18"
+  },
+  {
+    "id": "integrating-factor",
+    "term": "integrating factor",
+    "definition": "The multiplier $\\mathrm{e}^{\\int P(x)\\,\\mathrm{d}x}$ that turns the left side of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} + P(x)y = Q(x)$ into the derivative of one product.",
+    "lesson": "5.18"
+  },
+  {
+    "id": "eulers-method",
+    "term": "Euler's method",
+    "definition": "A numerical method that estimates a solution of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$ by repeated short steps along the tangent.",
+    "lesson": "5.18"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "limit",
+    "term": "limit",
+    "definition": "The value $L$ that $f(x)$ gets closer and closer to as $x$ approaches $a$, written $\\lim_{x \\to a} f(x) = L$.",
+    "lesson": "5.1"
+  },
+  {
+    "id": "chord",
+    "term": "chord",
+    "definition": "A straight line joining two points on a curve. It is also called a secant.",
+    "lesson": "5.1"
+  },
+  {
+    "id": "derivative",
+    "term": "derivative",
+    "definition": "The gradient function $f'(x)$, or $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$: the gradient of $y = f(x)$ at each $x$, and the rate of change of $y$ with respect to $x$.",
+    "lesson": "5.1"
+  }
+]

@@ -1,0 +1,645 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.8",
+  "slug": "extrema-inflexion-and-optimisation",
+  "title": "Extrema, inflexion and optimisation",
+  "level": "SL",
+  "topic": 5,
+  "summary": "A [[local-maximum|local maximum]] or [[local-minimum|local minimum]] sits where $f'(x) = 0$; the sign of $f'$ or $f''$ says which. The same idea finds the largest area or volume in a real problem. The sign of $f''$ also shows which way a graph bends, and it switches at a [[point-of-inflexion|point of inflexion]].",
+  "goals": [
+    {
+      "text": "Find the coordinates of [[local-maximum|local maximum]] and [[local-minimum|local minimum]] points by solving $f'(x) = 0$.",
+      "bullets": [
+        "5.8-b1"
+      ]
+    },
+    {
+      "text": "Tell a maximum from a minimum by the sign change of $f'(x)$ or the sign of $f''(x)$.",
+      "bullets": [
+        "5.8-b2",
+        "5.8-b1"
+      ]
+    },
+    {
+      "text": "Solve optimisation problems about area, volume and profit.",
+      "bullets": [
+        "5.8-b3"
+      ]
+    },
+    {
+      "text": "Say where a graph is [[concave-up|concave-up]] or [[concave-down|concave-down]] from the sign of $f''(x)$.",
+      "bullets": [
+        "5.8-b5"
+      ]
+    },
+    {
+      "text": "Find [[point-of-inflexion|points of inflexion]], with zero or non-zero gradient, and know why $f''(x) = 0$ alone is not enough.",
+      "bullets": [
+        "5.8-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.2",
+    "5.7"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "maximum and minimum points",
+    "second derivative test",
+    "point of inflection",
+    "concave up and concave down",
+    "optimization problems",
+    "maximum area calculus"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-decreasing",
+      "prompt": "A function has derivative $f'(x) = 3x^{2} - 12$. For which values of $x$ is $f$ decreasing?",
+      "hint": "$f$ is decreasing where $f'(x) < 0$. Factorise $3x^{2} - 12$ first.",
+      "options": [
+        {
+          "text": "$-2 < x < 2$",
+          "correct": true
+        },
+        {
+          "text": "$x < -2 \\text{ or } x > 2$",
+          "correct": false
+        },
+        {
+          "text": "$x < 2$",
+          "correct": false
+        }
+      ],
+      "explain": "$3x^{2} - 12 = 3(x + 2)(x - 2)$, a parabola that opens upwards. It is negative between its roots, so $-2 < x < 2$. Revise it in {{lesson:5.2}}."
+    },
+    {
+      "type": "check",
+      "id": "before-second-derivative",
+      "prompt": "Let $f(x) = x^{4} - 2x^{3} + 5x$. Find $f''(x)$.",
+      "hint": "Differentiate once to get $f'(x)$, then differentiate that.",
+      "options": [
+        {
+          "text": "$f''(x) = 12x^{2} - 12x$",
+          "correct": true
+        },
+        {
+          "text": "$f''(x) = 4x^{3} - 6x^{2} + 5$",
+          "correct": false
+        },
+        {
+          "text": "$f''(x) = 12x^{2} - 6x$",
+          "correct": false
+        }
+      ],
+      "explain": "$f'(x) = 4x^{3} - 6x^{2} + 5$, and differentiating again gives $f''(x) = 12x^{2} - 12x$. Revise it in {{lesson:5.7}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "extrema",
+      "heading": "Local maximum and minimum points",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Follow the graph of $f(x) = x^{3} - 6x^{2} + 9x + 1$ from left to right. It climbs to a hilltop at $(1, 5)$, drops into a valley at $(3, 1)$, then climbs again."
+        },
+        {
+          "type": "figure",
+          "id": "5-8-cubic-features",
+          "alt": "Graph of f of x equals x cubed minus 6x squared plus 9x plus 1. The curve rises to a local maximum at (1, 5), falls through a point of inflexion at (2, 3), reaches a local minimum at (3, 1), then rises again. A dashed vertical line at x equals 2 splits the curve: to its left the curve is labelled concave-down, to its right concave-up.",
+          "caption": "The hilltop is a [[local-maximum|local maximum]] and the valley a [[local-minimum|local minimum]]. You'll meet the point at $(2, 3)$ in the last section."
+        },
+        {
+          "type": "definition",
+          "term": "local maximum point",
+          "statement": "The point $(a, f(a))$ is a local maximum point of the graph of $f$ if $f(a) \\ge f(x)$ for every $x$ close to $a$.",
+          "plain": "The top of a hill on the graph: no nearby point is higher, though points further away may be."
+        },
+        {
+          "type": "definition",
+          "term": "local minimum point",
+          "statement": "The point $(a, f(a))$ is a local minimum point of the graph of $f$ if $f(a) \\le f(x)$ for every $x$ close to $a$.",
+          "plain": "The bottom of a valley on the graph: no nearby point is lower."
+        },
+        {
+          "type": "text",
+          "text": "At a hilltop or a valley of a smooth curve the tangent is horizontal, so $f'(x) = 0$. So local maxima and minima are [[stationary-point|stationary points]], and you find them by solving $f'(x) = 0$."
+        },
+        {
+          "type": "result",
+          "statement": "Let $f'(a) = 0$. If $f'(x)$ changes from positive to negative as $x$ passes $a$, there is a local maximum at $x = a$. From negative to positive, there is a local minimum. With no sign change, there is neither.",
+          "why": "Positive $f'$ means rising and negative means falling ({{lesson:5.2}}). Rising then falling is a hilltop; falling then rising is a valley."
+        },
+        {
+          "type": "text",
+          "text": "Move the slider to slide the point along $f(x) = x^{3} - 3x$. The sign of $f'(x)$ flips from $+$ to $-$ at the maximum, $x = -1$, and from $-$ to $+$ at the minimum, $x = 1$."
+        },
+        {
+          "type": "interactive",
+          "widget": "derivative-sign",
+          "props": {
+            "x": -1.4
+          },
+          "alt": "Graph of f of x equals x cubed minus 3x with a point you move with a slider, and its tangent line. The curve is marked increasing for x below minus 1 and above 1, and decreasing between minus 1 and 1. The stationary points at x equals minus 1 and 1 are circled. The value of f prime at the point is shown below the graph."
+        },
+        {
+          "type": "text",
+          "text": "1. Find $f'(x)$ and solve $f'(x) = 0$. The solutions are the $x$-coordinates of the stationary points."
+        },
+        {
+          "type": "text",
+          "text": "2. Substitute each solution into $f(x)$, not $f'(x)$, to get its $y$-coordinate."
+        },
+        {
+          "type": "text",
+          "text": "3. Test one value of $f'(x)$ on each side of every stationary point. $+$ to $-$ is a local maximum, $-$ to $+$ a local minimum."
+        },
+        {
+          "type": "example",
+          "id": "ex-stationary-cubic",
+          "question": "Let $f(x) = 2x^{3} - 3x^{2} - 12x + 5$. Find the coordinates of the stationary points of the graph of $f$. Use the sign of $f'(x)$ to decide whether each one is a local maximum or a local minimum.",
+          "steps": [
+            "Differentiate: $f'(x) = 6x^{2} - 6x - 12$.",
+            "Set $f'(x) = 0$ and factorise: $6(x^{2} - x - 2) = 6(x + 1)(x - 2) = 0$, so $x = -1$ or $x = 2$.",
+            "Substitute into $f(x)$ for the $y$-coordinates: $f(-1) = -2 - 3 + 12 + 5 = 12$ and $f(2) = 16 - 12 - 24 + 5 = -15$.",
+            "Test one value in each gap: $f'(-2) = 24 > 0$, $f'(0) = -12 < 0$ and $f'(3) = 24 > 0$.",
+            "At $x = -1$, $f'$ goes from $+$ to $-$, so $(-1, 12)$ is a local maximum. At $x = 2$ it goes from $-$ to $+$, so $(2, -15)$ is a local minimum."
+          ],
+          "answer": "Local maximum $(-1, 12)$, local minimum $(2, -15)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Putting $x = 2$ into $f'(x)$ always gives $0$: that is how you found $x = 2$. The $y$-coordinate comes from $f(x)$."
+        },
+        {
+          "type": "check",
+          "id": "check-y-coordinate",
+          "prompt": "Let $f(x) = x^{3} - 12x + 7$. There is a local minimum on its graph at $x = 2$. What is the $y$-coordinate there?",
+          "hint": "Which function gives the height of the graph: $f$ or $f'$?",
+          "options": [
+            {
+              "text": "$-9$",
+              "correct": true
+            },
+            {
+              "text": "$0$",
+              "correct": false
+            },
+            {
+              "text": "$23$",
+              "correct": false
+            },
+            {
+              "text": "$12$",
+              "correct": false
+            }
+          ],
+          "explain": "$f(2) = 8 - 24 + 7 = -9$. Putting $x = 2$ into $f'(x) = 3x^{2} - 12$ gives $0$, which is only the gradient there."
+        },
+        {
+          "type": "text",
+          "text": "A factor that is always positive, such as $\\mathrm{e}^{x}$, never changes the sign of $f'(x)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-stationary-exp",
+          "question": "Let $f(x) = (x^{2} - 3)\\mathrm{e}^{x}$, for $x \\in \\mathbb{R}$. Find the exact coordinates of the local maximum point and the local minimum point of the graph of $f$.",
+          "steps": [
+            "Use the product rule from {{lesson:5.6}}: $f'(x) = 2x\\mathrm{e}^{x} + (x^{2} - 3)\\mathrm{e}^{x}$.",
+            "Take out the common factor: $f'(x) = \\mathrm{e}^{x}(x^{2} + 2x - 3) = \\mathrm{e}^{x}(x + 3)(x - 1)$.",
+            "Solve $f'(x) = 0$. Since $\\mathrm{e}^{x} > 0$ for every $x$, the factor $\\mathrm{e}^{x}$ is never $0$. So $x = -3$ or $x = 1$.",
+            "Find the $y$-coordinates: $f(-3) = (9 - 3)\\mathrm{e}^{-3} = 6\\mathrm{e}^{-3}$ and $f(1) = (1 - 3)\\mathrm{e} = -2\\mathrm{e}$.",
+            "The sign of $f'(x)$ is the sign of $(x + 3)(x - 1)$: positive for $x < -3$, negative for $-3 < x < 1$ and positive for $x > 1$.",
+            "So $(-3, 6\\mathrm{e}^{-3})$ is a local maximum ($+$ to $-$) and $(1, -2\\mathrm{e})$ is a local minimum ($-$ to $+$)."
+          ],
+          "answer": "Local maximum $(-3, 6\\mathrm{e}^{-3})$, local minimum $(1, -2\\mathrm{e})$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-no-sign-change",
+          "prompt": "A function has derivative $f'(x) = (x + 2)(x - 4)^{2}$. What does the graph of $f$ have at $x = 4$?",
+          "hint": "Work out the sign of $f'(3)$ and of $f'(5)$.",
+          "options": [
+            {
+              "text": "Neither a maximum nor a minimum",
+              "correct": true
+            },
+            {
+              "text": "A local minimum",
+              "correct": false
+            },
+            {
+              "text": "A local maximum",
+              "correct": false
+            }
+          ],
+          "explain": "$f'(3) = 5 > 0$ and $f'(5) = 7 > 0$. With no sign change, $f$ keeps increasing through $x = 4$. (It is a point of inflexion, which you'll meet later.)"
+        }
+      ]
+    },
+    {
+      "id": "second-derivative",
+      "heading": "The second derivative test",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Near a local minimum the curve bends like a cup. Its gradient rises from negative to positive, so the [[second-derivative|second derivative]] is positive: $f''(x) > 0$ (see {{lesson:5.7}})."
+        },
+        {
+          "type": "text",
+          "text": "Near a local maximum it bends like an upside-down cup, so the gradient falls and $f''(x) < 0$. Checking one sign is often quicker than a sign table."
+        },
+        {
+          "type": "result",
+          "statement": "Let $f'(a) = 0$. If $f''(a) > 0$, there is a local minimum at $x = a$. If $f''(a) < 0$, there is a local maximum. If $f''(a) = 0$, the test gives no answer, so go back to the sign of $f'(x)$.",
+          "why": "$f''$ is the rate of change of the gradient. A gradient rising through $0$ means falling then rising, which is a valley."
+        },
+        {
+          "type": "example",
+          "id": "ex-second-test-reciprocal",
+          "question": "Let $f(x) = 2x + \\dfrac{8}{x}$, for $x > 0$. Find the coordinates of the stationary point of the graph of $f$. Use the second derivative to show that it is a local minimum.",
+          "steps": [
+            "Write $\\dfrac{8}{x}$ as $8x^{-1}$, then differentiate: $f'(x) = 2 - 8x^{-2} = 2 - \\dfrac{8}{x^{2}}$.",
+            "Solve $f'(x) = 0$: $\\dfrac{8}{x^{2}} = 2$, so $x^{2} = 4$ and $x = \\pm 2$. The domain is $x > 0$, so reject $x = -2$. That leaves $x = 2$.",
+            "Find the $y$-coordinate: $f(2) = 4 + \\dfrac{8}{2} = 8$.",
+            "Differentiate again: $f''(x) = 16x^{-3} = \\dfrac{16}{x^{3}}$.",
+            "Substitute: $f''(2) = \\dfrac{16}{8} = 2 > 0$, so $(2, 8)$ is a local minimum."
+          ],
+          "answer": "Local minimum $(2, 8)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "The derivative of $8x^{-1}$ is $-8x^{-2}$, not $+8x^{-2}$. The power $-1$ comes down as a factor and brings its minus sign with it."
+        },
+        {
+          "type": "example",
+          "id": "ex-second-test-trig",
+          "question": "Let $f(x) = x + 2\\cos x$, for $0 \\le x \\le \\pi$. Find the exact coordinates of the local maximum point of the graph of $f$, and justify that it is a maximum.",
+          "steps": [
+            "Differentiate: $f'(x) = 1 - 2\\sin x$.",
+            "Solve $f'(x) = 0$: $\\sin x = \\tfrac{1}{2}$. For $0 \\le x \\le \\pi$ this gives $x = \\tfrac{\\pi}{6}$ or $x = \\tfrac{5\\pi}{6}$.",
+            "Differentiate again: $f''(x) = -2\\cos x$.",
+            "Test each point: $f''\\left(\\tfrac{\\pi}{6}\\right) = -2 \\cdot \\tfrac{\\sqrt{3}}{2} = -\\sqrt{3} < 0$, so $x = \\tfrac{\\pi}{6}$ is a local maximum. $f''\\left(\\tfrac{5\\pi}{6}\\right) = \\sqrt{3} > 0$, so the other point is a local minimum.",
+            "Find the $y$-coordinate of the maximum: $f\\left(\\tfrac{\\pi}{6}\\right) = \\tfrac{\\pi}{6} + 2 \\cdot \\tfrac{\\sqrt{3}}{2} = \\tfrac{\\pi}{6} + \\sqrt{3}$."
+          ],
+          "answer": "$\\left(\\tfrac{\\pi}{6}, \\tfrac{\\pi}{6} + \\sqrt{3}\\right)$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-second-test",
+          "prompt": "The graph of $f(x) = x^{3} - 6x^{2} + 5$ has stationary points at $x = 0$ and $x = 4$. Use $f''(x)$ to find the nature of the point where $x = 0$.",
+          "hint": "Find $f''(x)$, then its sign at $x = 0$.",
+          "options": [
+            {
+              "text": "A local maximum",
+              "correct": true
+            },
+            {
+              "text": "A local minimum",
+              "correct": false
+            },
+            {
+              "text": "A point of inflexion",
+              "correct": false
+            }
+          ],
+          "explain": "$f'(x) = 3x^{2} - 12x$, so $f''(x) = 6x - 12$. Then $f''(0) = -12 < 0$, so the point is a local maximum."
+        },
+        {
+          "type": "text",
+          "text": "The test fails when $f''(a) = 0$. Both $y = x^{4}$ and $y = x^{3}$ have $f'(0) = f''(0) = 0$."
+        },
+        {
+          "type": "text",
+          "text": "Yet the gradient of $x^{4}$, $4x^{3}$, goes from $-$ to $+$, so the origin is a minimum. The gradient of $x^{3}$, $3x^{2}$, stays positive, so there it is neither. So go back to the sign of $f'$."
+        },
+        {
+          "type": "check",
+          "id": "check-flat-quartic",
+          "prompt": "Let $g(x) = (x - 1)^{4} + 2$. Then $g'(1) = 0$ and $g''(1) = 0$. What does the graph of $g$ have at $(1, 2)$?",
+          "hint": "The second derivative test gives no answer here. Find the sign of $g'(x) = 4(x - 1)^{3}$ on each side of $x = 1$.",
+          "options": [
+            {
+              "text": "A local minimum",
+              "correct": true
+            },
+            {
+              "text": "A point of inflexion",
+              "correct": false
+            },
+            {
+              "text": "A local maximum",
+              "correct": false
+            }
+          ],
+          "explain": "$g'(0) = -4 < 0$ and $g'(2) = 4 > 0$. The sign goes from $-$ to $+$, so $(1, 2)$ is a local minimum."
+        }
+      ]
+    },
+    {
+      "id": "optimisation",
+      "heading": "Optimisation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Optimisation means finding the largest or smallest value of something, such as an area, a volume or a profit. That value is usually a local maximum or minimum."
+        },
+        {
+          "type": "text",
+          "text": "A problem often has two unknowns linked by a fact, called a constraint. Use the constraint to write the quantity in one variable, then differentiate."
+        },
+        {
+          "type": "text",
+          "text": "1. Name the variables and write the quantity, say $A$, in terms of them. Use the constraint to leave one variable, and note the values it can take."
+        },
+        {
+          "type": "text",
+          "text": "2. Solve $\\dfrac{\\mathrm{d}A}{\\mathrm{d}x} = 0$, rejecting impossible values such as a negative length. Justify the maximum or minimum."
+        },
+        {
+          "type": "text",
+          "text": "3. Answer the question asked. If it asks for the largest area, give $A$, not just $x$."
+        },
+        {
+          "type": "check",
+          "id": "check-constraint",
+          "prompt": "A rectangle has perimeter $24$ cm and width $x$ cm. Which expression gives its area, $A$ cm$^{2}$, in terms of $x$?",
+          "hint": "Use the perimeter to write the length in terms of $x$ first.",
+          "options": [
+            {
+              "text": "$A = x(12 - x)$",
+              "correct": true
+            },
+            {
+              "text": "$A = x(24 - x)$",
+              "correct": false
+            },
+            {
+              "text": "$A = x(24 - 2x)$",
+              "correct": false
+            }
+          ],
+          "explain": "$2x + 2 \\times \\text{length} = 24$, so the length is $12 - x$ and $A = x(12 - x)$. Using $24 - x$ forgets that the perimeter counts each side twice."
+        },
+        {
+          "type": "example",
+          "id": "ex-box-volume",
+          "question": "An open box (with no lid) has a square base of side $x$ cm and height $h$ cm. Its outer surface area is $300\\text{ cm}^{2}$. (a) Show that its volume is $V = 75x - \\tfrac{1}{4}x^{3}$. (b) Find the maximum volume of the box.",
+          "steps": [
+            "(a) The surface is the base plus four sides: $x^{2} + 4xh = 300$, so $h = \\dfrac{300 - x^{2}}{4x}$.",
+            "Substitute into $V = x^{2}h$: $V = x^{2} \\cdot \\dfrac{300 - x^{2}}{4x} = \\dfrac{x(300 - x^{2})}{4} = 75x - \\tfrac{1}{4}x^{3}$, as required.",
+            "(b) Differentiate and set to zero: $\\dfrac{\\mathrm{d}V}{\\mathrm{d}x} = 75 - \\tfrac{3}{4}x^{2} = 0$, so $x^{2} = 100$. A length is positive, so $x = 10$ and not $-10$.",
+            "Justify: $\\dfrac{\\mathrm{d}^{2}V}{\\mathrm{d}x^{2}} = -\\tfrac{3}{2}x$, which is $-15 < 0$ at $x = 10$. So this is a maximum.",
+            "Find the volume: $V = 75(10) - \\tfrac{1}{4}(1000) = 750 - 250 = 500$. Check the height makes sense: $h = \\dfrac{300 - 100}{40} = 5$ cm."
+          ],
+          "answer": "$V = 500\\text{ cm}^{3}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-profit",
+          "prompt": "A company makes $x$ hundred phone cases a week, where $0 \\le x \\le 15$. Its weekly profit, in thousands of dollars, is $P(x) = -x^{3} + 6x^{2} + 135x - 200$. Find the maximum weekly profit.",
+          "hint": "Solve $P'(x) = 0$ in the allowed range. Then work out $P$ there, not just $x$.",
+          "answer": {
+            "value": 772,
+            "tolerance": 0
+          },
+          "explain": "$P'(x) = -3x^{2} + 12x + 135 = -3(x - 9)(x + 5)$, so $x = 9$, since $x = -5$ is outside the range. $P''(9) = -6(9) + 12 = -42 < 0$, a maximum, and $P(9) = 772$, so 772 thousand dollars. Both ends give $P = -200$, which is lower."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2, $f'(x) = 0$ may be too hard to solve by hand. Graph the function and use your GDC's maximum or minimum tool."
+        },
+        {
+          "type": "example",
+          "id": "ex-temperature-gdc",
+          "question": "The temperature of a chemical mixture, in degrees Celsius, is modelled by $T(t) = 20 + 15\\mathrm{e}^{-0.1t}\\sin(0.5t)$, where $t$ is the time in minutes and $0 \\le t \\le 10$. Use your calculator to find the maximum temperature. Give your answer to 3 s.f.",
+          "steps": [
+            "The model uses radians, so set your GDC to radian mode first.",
+            "Write down what you graph: $T(t) = 20 + 15\\mathrm{e}^{-0.1t}\\sin(0.5t)$ for $0 \\le t \\le 10$.",
+            "Use the maximum tool. It gives $t = 2.74680\\ldots$ and $T = 31.1759\\ldots$.",
+            "Check the ends of the interval: $T(0) = 20$ and $T(10) = 14.708\\ldots$. Both are lower, so the largest value is at $t \\approx 2.75$.",
+            "Round only at the end: the maximum temperature is $31.2$ degrees Celsius."
+          ],
+          "answer": "$T \\approx 31.2^{\\circ}\\text{C}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, RADIAN",
+              "Y=, enter Y1 = 20+15e^(-0.1X)sin(0.5X), using 2nd LN for e^( (check on your model)",
+              "WINDOW: Xmin = 0, Xmax = 10, Ymin = 0, Ymax = 40, then GRAPH (check on your model)",
+              "2nd TRACE (CALC), 4: maximum; set a left bound, a right bound and a guess around the peak (check on your model)",
+              "Read X = 2.74680..., Y = 31.1759..."
+            ],
+            "nspire": [
+              "Settings, Angle: Radian",
+              "Graphs page, enter f1(x) = 20+15*e^(-0.1x)*sin(0.5x)",
+              "Menu, Window/Zoom, Window Settings: XMin 0, XMax 10, YMin 0, YMax 40 (check on your model)",
+              "Menu, Analyze Graph, Maximum; click to the left and then the right of the peak (check on your model)",
+              "Read x = 2.74680..., y = 31.1759..."
+            ],
+            "casio": [
+              "SHIFT MENU (SET UP), Angle: Rad",
+              "GRAPH, enter Y1 = 20+15e^(-0.1X)sin(0.5X)",
+              "SHIFT F3 (V-WIN): Xmin 0, max 10, Ymin 0, max 40, then EXIT (check on your model)",
+              "DRAW, SHIFT F5 (G-SOLV), MAX",
+              "Read X = 2.74680..., Y = 31.1759..."
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "When the question asks for the maximum temperature, the answer is the $T$-value, $31.2$. The time $t \\approx 2.75$ only says when it happens."
+        }
+      ]
+    },
+    {
+      "id": "inflexion",
+      "heading": "Concavity and points of inflexion",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In the figure in the first section, the curve bends like an upside-down cup left of $x = 2$ and like a cup right of it. Where the bend switches is a [[point-of-inflexion|point of inflexion]]."
+        },
+        {
+          "type": "definition",
+          "term": "concave-up",
+          "statement": "The graph of $f$ is concave-up on an interval where $f''(x) > 0$.",
+          "plain": "It bends upwards like a cup, and its gradient is increasing."
+        },
+        {
+          "type": "definition",
+          "term": "concave-down",
+          "statement": "The graph of $f$ is concave-down on an interval where $f''(x) < 0$.",
+          "plain": "It bends downwards like an upside-down cup, and its gradient is decreasing."
+        },
+        {
+          "type": "definition",
+          "term": "point of inflexion",
+          "statement": "A point of inflexion is a point where the graph changes from [[concave-up|concave-up]] to [[concave-down|concave-down]], or the other way round. There $f''(x) = 0$ and $f''(x)$ changes sign.",
+          "plain": "The point where the curve switches the way it bends."
+        },
+        {
+          "type": "result",
+          "statement": "$f''(a) = 0$ on its own does not prove a point of inflexion at $x = a$. You also need $f''(x)$ to change sign as $x$ passes $a$.",
+          "why": "For $y = x^{4}$, $f''(x) = 12x^{2}$ is $0$ at the origin but positive on both sides. The curve stays concave-up, and the origin is a minimum."
+        },
+        {
+          "type": "text",
+          "text": "The gradient at a point of inflexion may be zero, as for $y = x^{3}$ at the origin, where the tangent is horizontal. Or it may not: on the cubic in the figure, $f'(2) = -3$."
+        },
+        {
+          "type": "text",
+          "text": "1. Solve $f''(x) = 0$, then check that $f''(x)$ changes sign there with a value on each side."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the $y$-coordinate from $f(x)$. For the gradient there, work out $f'(x)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-inflexion-cubic",
+          "question": "Let $f(x) = x^{3} - 6x^{2} + 9x + 1$, the curve in the figure. Find the coordinates of the point of inflexion of its graph.",
+          "steps": [
+            "Differentiate twice: $f'(x) = 3x^{2} - 12x + 9$ and $f''(x) = 6x - 12$.",
+            "Solve $f''(x) = 0$: $6x - 12 = 0$, so $x = 2$.",
+            "Check the sign change: $f''(1) = -6 < 0$ and $f''(3) = 6 > 0$. So the graph is concave-down for $x < 2$ and concave-up for $x > 2$.",
+            "Find the $y$-coordinate: $f(2) = 8 - 24 + 18 + 1 = 3$.",
+            "The gradient there is $f'(2) = 12 - 24 + 9 = -3$, which is not zero: the curve is still falling as it passes through."
+          ],
+          "answer": "$(2, 3)$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-inflexion-quartic",
+          "question": "Let $f(x) = x^{4} - 4x^{3} + 10$. Find the coordinates of the points of inflexion of its graph.",
+          "steps": [
+            "Differentiate twice: $f'(x) = 4x^{3} - 12x^{2}$ and $f''(x) = 12x^{2} - 24x = 12x(x - 2)$.",
+            "Solve $f''(x) = 0$: $x = 0$ or $x = 2$.",
+            "Check the signs: $f''(-1) = 36 > 0$, $f''(1) = -12 < 0$ and $f''(3) = 36 > 0$. The sign changes at both, so both are points of inflexion.",
+            "Find the $y$-coordinates: $f(0) = 10$ and $f(2) = 16 - 32 + 10 = -6$.",
+            "Find the gradients: $f'(0) = 0$, so $(0, 10)$ has zero gradient. $f'(2) = 32 - 48 = -16$, so $(2, -6)$ has a non-zero gradient."
+          ],
+          "answer": "$(0, 10) \\text{ and } (2, -6)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Concavity comes from $f''$, not $f'$. Solving $f'(x) > 0$ finds where $f$ is increasing, not where the graph is concave-up."
+        },
+        {
+          "type": "check",
+          "id": "check-concave-down",
+          "prompt": "Let $f(x) = x^{3} + 3x^{2} - 5x + 2$. For which values of $x$ is the graph of $f$ concave-down?",
+          "hint": "Find $f''(x)$ and solve $f''(x) < 0$.",
+          "options": [
+            {
+              "text": "$x < -1$",
+              "correct": true
+            },
+            {
+              "text": "$x > -1$",
+              "correct": false
+            },
+            {
+              "text": "$x < 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$f''(x) = 6x + 6$, and $6x + 6 < 0$ gives $x < -1$. The inequality is strict: at $x = -1$ itself there is a point of inflexion."
+        },
+        {
+          "type": "check",
+          "id": "check-quartic-inflexion",
+          "prompt": "Let $g(x) = x^{4} + 4x$, so $g''(0) = 0$. Does the graph of $g$ have a point of inflexion where $x = 0$?",
+          "hint": "Write down $g''(x)$. What is its sign just left and just right of $0$?",
+          "options": [
+            {
+              "text": "No, because $g''(x)$ does not change sign at $x = 0$",
+              "correct": true
+            },
+            {
+              "text": "Yes, because $g''(0) = 0$",
+              "correct": false
+            },
+            {
+              "text": "Yes, because $g''(x)$ changes sign at $x = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "$g''(x) = 12x^{2}$ is positive on both sides of $0$. The graph stays concave-up, so there is no inflexion, even though $g''(0) = 0$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Local maxima and minima are stationary points: solve $f'(x) = 0$, then find each $y$-coordinate from $f(x)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Sign of $f'(x)$ as $x$ passes $a$: $+$ to $-$ is a local maximum, $-$ to $+$ is a local minimum, no change is neither.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $f'(a) = 0$: $f''(a) > 0$ gives a local minimum and $f''(a) < 0$ a local maximum. If $f''(a) = 0$, check the sign of $f'(x)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Optimisation: use the constraint to get one variable, set the derivative to $0$, justify, then answer the question asked.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Concave-up where $f''(x) > 0$, concave-down where $f''(x) < 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Point of inflexion: $f''(x) = 0$ and $f''(x)$ changes sign; its gradient may be zero or not. $y = x^{4}$ has $f''(0) = 0$ but no inflexion.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Putting the $x$-value into $f'(x)$ for the $y$-coordinate. That gives $0$; use $f(x)$.",
+    "Calling a point an inflexion just because $f''(x) = 0$. Check that $f''$ changes sign: $y = x^{4}$ has a minimum at the origin.",
+    "Using $f'$ for concavity. Concave-up means $f''(x) > 0$; solving $f'(x) > 0$ finds where $f$ is increasing instead.",
+    "Keeping a value the problem rules out, such as a negative length. Reject it and say why.",
+    "Giving where the maximum happens when the question asks for the maximum value. Substitute back and give the value."
+  ],
+  "examTips": [
+    "\"Justify\" a maximum or minimum: give $f''(a)$ with its sign, such as $f''(2) = 2 > 0$, or the sign of $f'(x)$ on each side. A bare \"minimum\" is not a justification.",
+    "On Paper 2, write down the function you graph, then give the GDC's maximum or minimum to 3 s.f. Check the ends of the domain too.",
+    "For where a graph is concave-up, give strict inequalities from $f''(x) > 0$, such as $x > 2$.",
+    "In an optimisation \"show that\", work forwards from the constraint to the given formula. Use that formula in later parts even if you couldn't show it."
+  ],
+  "readingMinutes": 26
+}

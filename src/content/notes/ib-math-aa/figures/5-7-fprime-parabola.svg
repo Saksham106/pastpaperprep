@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 230" role="img" aria-labelledby="t">
+  <title id="t">Graph of y equals f prime of x, an upward parabola crossing the x-axis at minus 1 and 3 with its lowest point at x equals 1</title>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="25" y1="110" x2="345" y2="110"/>
+    <line x1="130" y1="215" x2="130" y2="8"/>
+  </g>
+  <line x1="175" y1="110" x2="175" y2="190" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+  <path d="M40.0,10.0 L43.4,18.9 L46.8,27.5 L50.1,36.0 L53.5,44.2 L56.9,52.2 L60.2,59.9 L63.6,67.5 L67.0,74.8 L70.4,81.9 L73.8,88.8 L77.1,95.4 L80.5,101.8 L83.9,108.0 L87.2,114.0 L90.6,119.7 L94.0,125.2 L97.4,130.5 L100.8,135.6 L104.1,140.4 L107.5,145.0 L110.9,149.4 L114.2,153.6 L117.6,157.5 L121.0,161.2 L124.4,164.7 L127.8,167.9 L131.1,171.0 L134.5,173.8 L137.9,176.4 L141.2,178.8 L144.6,180.9 L148.0,182.8 L151.4,184.5 L154.8,185.9 L158.1,187.2 L161.5,188.2 L164.9,189.0 L168.2,189.6 L171.6,189.9 L175.0,190.0 L178.4,189.9 L181.8,189.6 L185.1,189.0 L188.5,188.2 L191.9,187.2 L195.2,185.9 L198.6,184.5 L202.0,182.8 L205.4,180.9 L208.8,178.8 L212.1,176.4 L215.5,173.8 L218.9,171.0 L222.2,167.9 L225.6,164.7 L229.0,161.2 L232.4,157.5 L235.8,153.6 L239.1,149.4 L242.5,145.0 L245.9,140.4 L249.2,135.5 L252.6,130.5 L256.0,125.2 L259.4,119.7 L262.8,113.9 L266.1,108.0 L269.5,101.8 L272.9,95.4 L276.2,88.8 L279.6,81.9 L283.0,74.8 L286.4,67.5 L289.8,60.0 L293.1,52.2 L296.5,44.2 L299.9,36.0 L303.2,27.6 L306.6,18.9 L310.0,10.0" fill="none" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <circle cx="85" cy="110" r="3.5" fill="currentColor"/>
+  <circle cx="265" cy="110" r="3.5" fill="currentColor"/>
+  <circle cx="175" cy="190" r="3.5" fill="currentColor"/>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="334" y="126">x</text>
+    <text x="136" y="20">y</text>
+    <text x="116" y="126">O</text>
+    <text x="59" y="104">−1</text>
+    <text x="273" y="126">3</text>
+    <text x="181" y="104">1</text>
+    <text x="183" y="194">(1, −4)</text>
+  </g>
+  <text x="200" y="40" font-size="13" fill="var(--t3-ink)" font-family="inherit">y = f′(x)</text>
+</svg>

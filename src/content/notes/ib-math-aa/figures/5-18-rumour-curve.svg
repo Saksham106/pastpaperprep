@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 250" role="img" aria-labelledby="t">
+  <title id="t">S-shaped graph of N against t for t from 0 to 8 days. It starts at 50, rises slowly, climbs most steeply at t equals ln 9, about 2.2, where N is 250, then levels off just below a dashed horizontal line at N equals 500.</title>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="40" y1="220" x2="340" y2="220"/>
+    <line x1="40" y1="220" x2="40" y2="8"/>
+  </g>
+  <line x1="40" y1="33.6" x2="330" y2="33.6" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <line x1="119.6" y1="220" x2="119.6" y2="126.8" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M40.0,201.4 L43.6,199.6 L47.2,197.7 L50.9,195.7 L54.5,193.5 L58.1,191.1 L61.8,188.6 L65.4,185.9 L69.0,183.1 L72.6,180.0 L76.2,176.8 L79.9,173.4 L83.5,169.8 L87.1,166.0 L90.8,162.1 L94.4,158.0 L98.0,153.8 L101.6,149.5 L105.2,145.1 L108.9,140.6 L112.5,136.0 L116.1,131.3 L119.8,126.7 L123.4,122.0 L127.0,117.4 L130.6,112.8 L134.2,108.3 L137.9,103.9 L141.5,99.6 L145.1,95.4 L148.8,91.3 L152.4,87.4 L156.0,83.7 L159.6,80.1 L163.2,76.7 L166.9,73.5 L170.5,70.4 L174.1,67.6 L177.8,64.9 L181.4,62.4 L185.0,60.0 L188.6,57.8 L192.2,55.8 L195.9,53.9 L199.5,52.2 L203.1,50.6 L206.8,49.1 L210.4,47.7 L214.0,46.5 L217.6,45.3 L221.2,44.3 L224.9,43.3 L228.5,42.5 L232.1,41.6 L235.8,40.9 L239.4,40.2 L243.0,39.6 L246.6,39.1 L250.3,38.6 L253.9,38.1 L257.5,37.7 L261.1,37.3 L264.8,37.0 L268.4,36.7 L272.0,36.4 L275.6,36.1 L279.2,35.9 L282.9,35.7 L286.5,35.5 L290.1,35.3 L293.8,35.2 L297.4,35.0 L301.0,34.9 L304.6,34.8 L308.2,34.7 L311.9,34.6 L315.5,34.5 L319.1,34.4 L322.8,34.3 L326.4,34.3 L330.0,34.2" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <circle cx="40.0" cy="201.4" r="3.5" fill="var(--t1-ink)"/>
+  <circle cx="119.6" cy="126.8" r="3.5" fill="var(--t1-ink)"/>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="342" y="226">t</text>
+    <text x="22" y="16">N</text>
+    <text x="14" y="37.6">500</text>
+    <text x="14" y="130.8">250</text>
+    <text x="20" y="205.4">50</text>
+    <text x="36" y="236">0</text>
+    <text x="109.6" y="236">ln 9</text>
+    <text x="181.0" y="236">4</text>
+    <text x="326.0" y="236">8</text>
+    <text x="127.6" y="130.8" fill="var(--t1-ink)">steepest at N = 250</text>
+  </g>
+</svg>

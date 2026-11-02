@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 190" role="img" aria-labelledby="t">
+  <title id="t">Three graphs at a point a: a jump, a corner and a smooth join</title>
+  <rect x="5" y="10" width="110" height="120" rx="8" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+  <line x1="60" y1="18" x2="60" y2="122" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 3"/>
+  <path d="M15,110 L60,80" fill="none" stroke="var(--t5-ink)" stroke-width="3"/>
+  <circle cx="60" cy="80" r="4" fill="var(--surface, white)" stroke="var(--t5-ink)" stroke-width="2"/>
+  <path d="M60,50 L105,30" fill="none" stroke="var(--t5-ink)" stroke-width="3"/>
+  <circle cx="60" cy="50" r="4" fill="var(--t5-ink)"/>
+  <text x="64" y="124" font-size="11" fill="var(--muted)" font-family="inherit">a</text>
+  <text x="60" y="150" text-anchor="middle" font-size="12" fill="currentColor" font-family="inherit">jump</text>
+  <text x="60" y="166" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="inherit">not continuous</text>
+  <rect x="125" y="10" width="110" height="120" rx="8" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+  <line x1="180" y1="18" x2="180" y2="122" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 3"/>
+  <path d="M135,40 L180,95 L225,40" fill="none" stroke="var(--t3-ink)" stroke-width="3"/>
+  <circle cx="180" cy="95" r="4" fill="var(--t3-ink)"/>
+  <text x="184" y="124" font-size="11" fill="var(--muted)" font-family="inherit">a</text>
+  <text x="180" y="150" text-anchor="middle" font-size="12" fill="currentColor" font-family="inherit">corner</text>
+  <text x="180" y="166" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="inherit">continuous,</text>
+  <text x="180" y="180" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="inherit">not differentiable</text>
+  <rect x="245" y="10" width="110" height="120" rx="8" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+  <line x1="300" y1="18" x2="300" y2="122" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 3"/>
+  <path d="M255,105 L300,75 Q330,55 345,25" fill="none" stroke="var(--t1-ink)" stroke-width="3"/>
+  <circle cx="300" cy="75" r="4" fill="var(--t1-ink)"/>
+  <text x="304" y="124" font-size="11" fill="var(--muted)" font-family="inherit">a</text>
+  <text x="300" y="150" text-anchor="middle" font-size="12" fill="currentColor" font-family="inherit">smooth join</text>
+  <text x="300" y="166" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="inherit">continuous and</text>
+  <text x="300" y="180" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="inherit">differentiable</text>
+</svg>

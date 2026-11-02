@@ -1,0 +1,754 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.19",
+  "slug": "maclaurin-series-and-deriving-expansions",
+  "title": "Maclaurin series and deriving expansions",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "A [[maclaurin-series|Maclaurin series]] writes a function as a polynomial that never ends, built from its derivatives at $x = 0$. Its first few terms give a very good approximation near $x = 0$. You learn six standard series, build new ones from them, and find series for the solutions of differential equations.",
+  "goals": [
+    {
+      "text": "Build the Maclaurin series of a function from its derivatives at $x = 0$.",
+      "bullets": [
+        "5.19-b1"
+      ]
+    },
+    {
+      "text": "Use the standard series for $\\mathrm{e}^{x}$, $\\sin x$, $\\cos x$, $\\arctan x$, $\\ln(1+x)$ and $(1+x)^{p}$, and use them to estimate values.",
+      "bullets": [
+        "5.19-b1"
+      ]
+    },
+    {
+      "text": "Get new series by substitution and by multiplying series together.",
+      "bullets": [
+        "5.19-b2"
+      ]
+    },
+    {
+      "text": "Differentiate and integrate a series term by term to get new series and to estimate integrals.",
+      "bullets": [
+        "5.19-b2"
+      ]
+    },
+    {
+      "text": "Find the series for the solution of a differential equation from its derivatives at $x = 0$.",
+      "bullets": [
+        "5.19-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.6",
+    "5.12"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "maclaurin expansion",
+    "power series",
+    "series expansion",
+    "binomial series for fractional powers",
+    "series from a differential equation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-chain-rule",
+      "prompt": "Differentiate $\\mathrm{e}^{-4x}$.",
+      "hint": "Use the chain rule: what is the derivative of the exponent $-4x$?",
+      "options": [
+        {
+          "text": "$-4\\mathrm{e}^{-4x}$",
+          "correct": true
+        },
+        {
+          "text": "$\\mathrm{e}^{-4x}$",
+          "correct": false
+        },
+        {
+          "text": "$4\\mathrm{e}^{-4x}$",
+          "correct": false
+        }
+      ],
+      "explain": "The exponent $-4x$ differentiates to $-4$, so the derivative is $-4\\mathrm{e}^{-4x}$. Revise it in {{lesson:5.6}}."
+    },
+    {
+      "type": "check",
+      "id": "before-third-derivative",
+      "prompt": "Find $f'''(x)$ when $f(x) = x^{5}$.",
+      "hint": "Differentiate three times, one step at a time.",
+      "options": [
+        {
+          "text": "$60x^{2}$",
+          "correct": true
+        },
+        {
+          "text": "$20x^{3}$",
+          "correct": false
+        },
+        {
+          "text": "$5x^{4}$",
+          "correct": false
+        },
+        {
+          "text": "$120x$",
+          "correct": false
+        }
+      ],
+      "explain": "$f'(x) = 5x^{4}$, $f''(x) = 20x^{3}$ and $f'''(x) = 60x^{2}$. Revise it in {{lesson:5.12}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "build",
+      "heading": "Building a Maclaurin series",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Polynomials are easy to work with: you can add, multiply, differentiate and integrate them in a line. Functions like $\\mathrm{e}^{x}$ and $\\cos x$ are harder. So look for a polynomial that behaves like the function near $x = 0$."
+        },
+        {
+          "type": "text",
+          "text": "Make the polynomial match the function at $x = 0$: the same value, the same gradient, the same second derivative, and so on. Each extra match makes the fit closer. Carry on forever and you get the function's [[maclaurin-series|Maclaurin series]]."
+        },
+        {
+          "type": "text",
+          "text": "Where do the factorials come from? Differentiate $a_{n}x^{n}$ $n$ times and you get $n!\\,a_{n}$, where $n! = 1 \\times 2 \\times \\cdots \\times n$. So to match the $n$th [[higher-derivative|derivative]] $f^{(n)}(0)$, the coefficient of $x^{n}$ must be $\\dfrac{f^{(n)}(0)}{n!}$."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = f(0) + x f'(0) + \\frac{x^{2}}{2!} f''(0) + \\ldots",
+          "tag": "booklet",
+          "bookletId": "bk-5-19-maclaurin-general",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet."
+        },
+        {
+          "type": "text",
+          "text": "1. Differentiate $f$ as many times as the question needs."
+        },
+        {
+          "type": "text",
+          "text": "2. Put $x = 0$ into $f$ and into each derivative."
+        },
+        {
+          "type": "text",
+          "text": "3. Divide the $n$th derivative's value by $n!$ and multiply by $x^{n}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-derive-cos",
+          "question": "Use the Maclaurin formula to find the series for $\\cos x$ up to the term in $x^{4}$.",
+          "steps": [
+            "Differentiate four times: $f(x) = \\cos x$, $f'(x) = -\\sin x$, $f''(x) = -\\cos x$, $f'''(x) = \\sin x$, $f^{(4)}(x) = \\cos x$.",
+            "Put $x = 0$: $f(0) = 1$, $f'(0) = 0$, $f''(0) = -1$, $f'''(0) = 0$, $f^{(4)}(0) = 1$.",
+            "Divide by the factorials. The coefficients of $1, x, x^{2}, x^{3}, x^{4}$ are $1$, $0$, $-\\tfrac{1}{2!} = -\\tfrac{1}{2}$, $0$ and $\\tfrac{1}{4!} = \\tfrac{1}{24}$.",
+            "The odd powers vanish because $\\sin 0 = 0$. That fits: $\\cos x$ is an even function, so its series has only even powers."
+          ],
+          "answer": "$\\cos x = 1 - \\tfrac{1}{2}x^{2} + \\tfrac{1}{24}x^{4} - \\ldots$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Try it below. With three terms, the dashed polynomial $1 - \\tfrac{1}{2}x^{2} + \\tfrac{1}{24}x^{4}$ sits on $\\cos x$ near $0$ and drifts away further out. Add terms and watch the close stretch grow."
+        },
+        {
+          "type": "interactive",
+          "widget": "maclaurin-partials",
+          "props": {
+            "fn": "cos",
+            "n": 3,
+            "x0": 1.5
+          },
+          "alt": "Graph of cos x as a solid curve with a dashed Maclaurin partial sum. Sliders set the number of terms and a point x0, and the readout gives both values and the error at that point."
+        },
+        {
+          "type": "example",
+          "id": "ex-esinx",
+          "question": "Find the Maclaurin series for $f(x) = \\mathrm{e}^{\\sin x}$ up to the term in $x^{2}$.",
+          "steps": [
+            "Value: $f(0) = \\mathrm{e}^{\\sin 0} = \\mathrm{e}^{0} = 1$.",
+            "First derivative, by the [[chain-rule|chain rule]]: $f'(x) = \\cos(x)\\,\\mathrm{e}^{\\sin x}$, so $f'(0) = 1 \\times 1 = 1$.",
+            "Second derivative, by the [[product-rule|product rule]] on $f'(x)$: $f''(x) = -\\sin(x)\\,\\mathrm{e}^{\\sin x} + \\cos^{2}(x)\\,\\mathrm{e}^{\\sin x}$, so $f''(0) = 0 + 1 = 1$.",
+            "Substitute into the formula: $f(x) = 1 + x(1) + \\dfrac{x^{2}}{2!}(1) + \\ldots$"
+          ],
+          "answer": "$\\mathrm{e}^{\\sin x} = 1 + x + \\tfrac{1}{2}x^{2} + \\ldots$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting the factorial. The coefficient of $x^{3}$ is $\\dfrac{f'''(0)}{3!}$, so divide by $6$, not by $3$."
+        },
+        {
+          "type": "check",
+          "id": "check-build-coefficients",
+          "prompt": "A function has $f(0) = 2$, $f'(0) = -1$, $f''(0) = 6$ and $f'''(0) = 12$. Which is its Maclaurin series up to the term in $x^{3}$?",
+          "hint": "Divide each derivative's value by the factorial of its order: $2! = 2$ and $3! = 6$.",
+          "options": [
+            {
+              "text": "$2 - x + 3x^{2} + 2x^{3}$",
+              "correct": true
+            },
+            {
+              "text": "$2 - x + 6x^{2} + 12x^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$2 - x + 3x^{2} + 4x^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$2 - x + 3x^{2} + 6x^{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\tfrac{6}{2!} = 3$ and $\\tfrac{12}{3!} = 2$, so the series starts $2 - x + 3x^{2} + 2x^{3}$."
+        }
+      ]
+    },
+    {
+      "id": "standard",
+      "heading": "The standard series",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Work the formula through for each standard function and you get series you'll use again and again. These five are in the formula booklet:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{e}^{x} = 1 + x + \\frac{x^{2}}{2!} + \\ldots",
+          "tag": "booklet",
+          "bookletId": "bk-5-19-maclaurin-exp",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\ln(1 + x) = x - \\frac{x^{2}}{2} + \\frac{x^{3}}{3} - \\ldots",
+          "tag": "booklet",
+          "bookletId": "bk-5-19-maclaurin-ln",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin x = x - \\frac{x^{3}}{3!} + \\frac{x^{5}}{5!} - \\ldots",
+          "tag": "booklet",
+          "bookletId": "bk-5-19-maclaurin-sin",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos x = 1 - \\frac{x^{2}}{2!} + \\frac{x^{4}}{4!} - \\ldots",
+          "tag": "booklet",
+          "bookletId": "bk-5-19-maclaurin-cos",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\arctan x = x - \\frac{x^{3}}{3} + \\frac{x^{5}}{5} - \\ldots",
+          "tag": "booklet",
+          "bookletId": "bk-5-19-maclaurin-arctan",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Learn the pattern of each one, so you can write more terms than the booklet shows: the next term of $\\mathrm{e}^{x}$ is $\\dfrac{x^{3}}{3!}$."
+        },
+        {
+          "type": "text",
+          "text": "The sixth is the binomial series. The booklet gives it for $(a+b)^{n}$ with $n$ rational:"
+        },
+        {
+          "type": "formula",
+          "tex": "(a+b)^{n} = a^{n}\\left(1 + n\\left(\\frac{b}{a}\\right) + \\frac{n(n-1)}{2!}\\left(\\frac{b}{a}\\right)^{2} + \\ldots\\right)",
+          "tag": "booklet",
+          "bookletId": "bk-1-10-binomial-rational"
+        },
+        {
+          "type": "text",
+          "text": "Put $a = 1$ and $b = x$, and call the power $p$. You get the series for $(1+x)^{p}$, for any rational $p$, fractions and negatives included. If $p$ is a positive whole number the series stops; otherwise it goes on forever."
+        },
+        {
+          "type": "formula",
+          "tex": "(1+x)^{p} = 1 + px + \\frac{p(p-1)}{2!}x^{2} + \\frac{p(p-1)(p-2)}{3!}x^{3} + \\ldots",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "A series only equals its function where it is [[convergent|convergent]]. The series for $\\mathrm{e}^{x}$, $\\sin x$ and $\\cos x$ work for every $x$. The series for $\\ln(1+x)$ needs $-1 < x \\le 1$, $\\arctan x$ needs $-1 \\le x \\le 1$, and $(1+x)^{p}$ needs $-1 < x < 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-binomial-cuberoot",
+          "question": "Find the series for $\\sqrt[3]{1+x}$ up to the term in $x^{3}$.",
+          "steps": [
+            "Write it as a power: $\\sqrt[3]{1+x} = (1+x)^{\\frac{1}{3}}$, so $p = \\tfrac{1}{3}$.",
+            "Coefficient of $x$: $p = \\tfrac{1}{3}$.",
+            "Coefficient of $x^{2}$: $\\dfrac{\\frac{1}{3}\\left(-\\frac{2}{3}\\right)}{2!} = \\dfrac{-\\frac{2}{9}}{2} = -\\tfrac{1}{9}$.",
+            "Coefficient of $x^{3}$: $\\dfrac{\\frac{1}{3}\\left(-\\frac{2}{3}\\right)\\left(-\\frac{5}{3}\\right)}{3!} = \\dfrac{\\frac{10}{27}}{6} = \\tfrac{5}{81}$.",
+            "Check the signs: two negative factors make the $x^{3}$ term positive. The series is valid for $-1 < x < 1$."
+          ],
+          "answer": "$\\sqrt[3]{1+x} = 1 + \\tfrac{1}{3}x - \\tfrac{1}{9}x^{2} + \\tfrac{5}{81}x^{3} - \\ldots$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-binomial-negative",
+          "prompt": "Which is the series for $(1+x)^{-2}$ up to the term in $x^{2}$?",
+          "hint": "Use $p = -2$. The coefficient of $x^{2}$ is $\\dfrac{p(p-1)}{2!}$.",
+          "options": [
+            {
+              "text": "$1 - 2x + 3x^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$1 - 2x - 3x^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$1 - 2x + 6x^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$1 + 2x + 3x^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\dfrac{(-2)(-3)}{2!} = 3$: two negatives make a positive, and you divide by $2$. So $1 - 2x + 3x^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "Put a small number in for $x$ and the first few terms give an estimate. The closer $x$ is to $0$, the fewer terms you need."
+        },
+        {
+          "type": "example",
+          "id": "ex-root-e",
+          "question": "Use the first four terms of the series for $\\mathrm{e}^{x}$ to find an approximation for $\\sqrt{\\mathrm{e}}$ as a fraction.",
+          "steps": [
+            "Write $\\sqrt{\\mathrm{e}} = \\mathrm{e}^{\\frac{1}{2}}$, so put $x = \\tfrac{1}{2}$.",
+            "The first four terms are $1 + x + \\dfrac{x^{2}}{2!} + \\dfrac{x^{3}}{3!}$.",
+            "Substitute: $1 + \\tfrac{1}{2} + \\dfrac{\\frac{1}{4}}{2} + \\dfrac{\\frac{1}{8}}{6} = 1 + \\tfrac{1}{2} + \\tfrac{1}{8} + \\tfrac{1}{48}$.",
+            "Use the common denominator $48$: $\\dfrac{48 + 24 + 6 + 1}{48} = \\dfrac{79}{48}$.",
+            "Sense check: $\\tfrac{79}{48} = 1.6458\\ldots$, and a calculator gives $\\sqrt{\\mathrm{e}} = 1.6487\\ldots$. The estimate is a little low, because every term left out is positive."
+          ],
+          "answer": "$\\sqrt{\\mathrm{e}} \\approx 1 + \\tfrac{1}{2} + \\tfrac{1}{8} + \\tfrac{1}{48} = \\tfrac{79}{48}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-ln-estimate",
+          "prompt": "Use the first three terms of the series for $\\ln(1+x)$ to estimate $\\ln 1.4$. Give your answer to 3 s.f.",
+          "hint": "Put $x = 0.4$ into $x - \\dfrac{x^{2}}{2} + \\dfrac{x^{3}}{3}$.",
+          "answer": {
+            "value": 0.341,
+            "tolerance": 0.0005
+          },
+          "explain": "$0.4 - 0.08 + 0.021333\\ldots = 0.341333\\ldots \\approx 0.341$. The true value is $0.336\\ldots$: at $x = 0.4$, three terms are not enough for 3 s.f."
+        }
+      ]
+    },
+    {
+      "id": "substitution",
+      "heading": "Substitution and products",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You rarely need to differentiate from scratch. Start from a standard series and change it."
+        },
+        {
+          "type": "text",
+          "text": "Substitution: replace every $x$ in a standard series by something else, such as $3x$, $-x$ or $x^{2}$. Put brackets round it first, so the whole thing is raised to the power: $(3x)^{2} = 9x^{2}$, not $3x^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "The range of validity moves with it. If the series in $u$ needs $-1 < u \\le 1$, then with $u = 3x$ you need $-1 < 3x \\le 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-ln-3x",
+          "question": "Find the series for $\\ln(1+3x)$ up to the term in $x^{3}$. For which values of $x$ is it valid?",
+          "steps": [
+            "Start from $\\ln(1+u) = u - \\dfrac{u^{2}}{2} + \\dfrac{u^{3}}{3} - \\ldots$ and put $u = 3x$.",
+            "Substitute with brackets: $\\ln(1+3x) = (3x) - \\dfrac{(3x)^{2}}{2} + \\dfrac{(3x)^{3}}{3} - \\ldots$",
+            "Simplify: $(3x)^{2} = 9x^{2}$ and $(3x)^{3} = 27x^{3}$, so the terms are $3x$, $-\\tfrac{9}{2}x^{2}$ and $9x^{3}$.",
+            "Validity: the series for $\\ln(1+u)$ needs $-1 < u \\le 1$. So $-1 < 3x \\le 1$, which gives $-\\tfrac{1}{3} < x \\le \\tfrac{1}{3}$."
+          ],
+          "answer": "$\\ln(1+3x) = 3x - \\tfrac{9}{2}x^{2} + 9x^{3} - \\ldots$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-subst-exp",
+          "prompt": "Which is the series for $\\mathrm{e}^{-3x}$ up to the term in $x^{3}$?",
+          "hint": "Put $u = -3x$ into $\\mathrm{e}^{u} = 1 + u + \\dfrac{u^{2}}{2!} + \\dfrac{u^{3}}{3!}$, keeping the brackets.",
+          "options": [
+            {
+              "text": "$1 - 3x + \\tfrac{9}{2}x^{2} - \\tfrac{9}{2}x^{3}$",
+              "correct": true
+            },
+            {
+              "text": "$1 - 3x + 9x^{2} - 27x^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$1 - 3x - \\tfrac{3}{2}x^{2} - \\tfrac{1}{2}x^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$1 - 3x + \\tfrac{9}{2}x^{2} + \\tfrac{9}{2}x^{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$(-3x)^{2} = 9x^{2}$ and $(-3x)^{3} = -27x^{3}$. Dividing by $2!$ and $3!$ gives $\\tfrac{9}{2}x^{2}$ and $-\\tfrac{9}{2}x^{3}$."
+        },
+        {
+          "type": "text",
+          "text": "Products: to expand $f(x)\\,g(x)$, write the series of each factor and multiply out. For each power you want, collect every pair of terms whose powers add up to it. Ignore anything higher."
+        },
+        {
+          "type": "example",
+          "id": "ex-product-ln",
+          "question": "Find the [[maclaurin-series|Maclaurin series]] for $\\dfrac{\\ln(1+x)}{1+x}$ up to the term in $x^{3}$.",
+          "steps": [
+            "Write it as a product: $\\ln(1+x) \\times (1+x)^{-1}$.",
+            "The two series: $\\ln(1+x) = x - \\tfrac{1}{2}x^{2} + \\tfrac{1}{3}x^{3} - \\ldots$ and, from the binomial series with $p = -1$, $(1+x)^{-1} = 1 - x + x^{2} - \\ldots$",
+            "The only $x$ term is $x \\times 1 = x$.",
+            "The $x^{2}$ terms: $x \\times (-x) + \\left(-\\tfrac{1}{2}x^{2}\\right) \\times 1 = -\\tfrac{3}{2}x^{2}$.",
+            "The $x^{3}$ terms: $x \\times x^{2} + \\left(-\\tfrac{1}{2}x^{2}\\right) \\times (-x) + \\tfrac{1}{3}x^{3} \\times 1 = \\left(1 + \\tfrac{1}{2} + \\tfrac{1}{3}\\right)x^{3} = \\tfrac{11}{6}x^{3}$."
+          ],
+          "answer": "$\\dfrac{\\ln(1+x)}{1+x} = x - \\tfrac{3}{2}x^{2} + \\tfrac{11}{6}x^{3} - \\ldots$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-product",
+          "prompt": "Find the series for $\\sqrt{1+x}\\,\\cos x$ up to the term in $x^{2}$.",
+          "hint": "$\\sqrt{1+x} = 1 + \\tfrac{1}{2}x - \\tfrac{1}{8}x^{2} + \\ldots$ and $\\cos x = 1 - \\tfrac{1}{2}x^{2} + \\ldots$. Which pairs of terms make $x^{2}$?",
+          "options": [
+            {
+              "text": "$1 + \\tfrac{1}{2}x - \\tfrac{5}{8}x^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$1 + \\tfrac{1}{2}x - \\tfrac{1}{8}x^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$1 + \\tfrac{1}{2}x - \\tfrac{1}{2}x^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$1 + \\tfrac{1}{2}x + \\tfrac{3}{8}x^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "The only $x$ term is $\\tfrac{1}{2}x \\times 1$. The $x^{2}$ terms are $1 \\times \\left(-\\tfrac{1}{2}x^{2}\\right)$ and $\\left(-\\tfrac{1}{8}x^{2}\\right) \\times 1$, which add to $-\\tfrac{5}{8}x^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "You can even substitute a whole series. Put $u = \\sin x = x - \\ldots$ into $\\mathrm{e}^{u} = 1 + u + \\tfrac{1}{2}u^{2} + \\ldots$. Up to $x^{2}$ this gives $\\mathrm{e}^{\\sin x} = 1 + x + \\tfrac{1}{2}x^{2} + \\ldots$, the same as the first section."
+        },
+        {
+          "type": "examTip",
+          "text": "Series make many limits quick. Replace each function by its series, cancel, divide by the power of $x$, then let $x \\to 0$. This is often faster than L'Hôpital's rule from {{lesson:5.13}}."
+        },
+        {
+          "type": "check",
+          "id": "check-limit",
+          "prompt": "Use series to find $\\displaystyle\\lim_{x \\to 0}\\frac{\\ln(1+2x) - 2x}{x^{2}}$.",
+          "hint": "Write $\\ln(1+2x) = (2x) - \\dfrac{(2x)^{2}}{2} + \\ldots$ and cancel the $2x$.",
+          "answer": {
+            "value": -2,
+            "tolerance": 0
+          },
+          "explain": "$\\ln(1+2x) - 2x = -2x^{2} + \\tfrac{8}{3}x^{3} - \\ldots$. Divide by $x^{2}$ to get $-2 + \\tfrac{8}{3}x - \\ldots$, which tends to $-2$."
+        }
+      ]
+    },
+    {
+      "id": "calculus",
+      "heading": "Differentiating and integrating a series",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Inside its range of validity, a series can be differentiated or integrated term by term, like a polynomial. The result is the series of the derivative, or of the integral."
+        },
+        {
+          "type": "text",
+          "text": "When you integrate, a [[constant-of-integration|constant of integration]] appears. Find it by putting $x = 0$ into both sides."
+        },
+        {
+          "type": "example",
+          "id": "ex-diff-ln",
+          "question": "Differentiate the series for $\\ln(1+x)$ to find the series for $\\dfrac{1}{1+x}$.",
+          "steps": [
+            "Differentiate the function: $\\dfrac{\\mathrm{d}}{\\mathrm{d}x}\\ln(1+x) = \\dfrac{1}{1+x}$.",
+            "Differentiate the series term by term: $x - \\dfrac{x^{2}}{2} + \\dfrac{x^{3}}{3} - \\dfrac{x^{4}}{4} + \\ldots$ becomes $1 - x + x^{2} - x^{3} + \\ldots$",
+            "Check with the binomial series, $p = -1$: the coefficients are $1$, $-1$, $\\dfrac{(-1)(-2)}{2!} = 1$ and $\\dfrac{(-1)(-2)(-3)}{3!} = -1$. They match."
+          ],
+          "answer": "$\\dfrac{1}{1+x} = 1 - x + x^{2} - x^{3} + \\ldots$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-diff-geometric",
+          "prompt": "Given $\\dfrac{1}{1-x} = 1 + x + x^{2} + x^{3} + \\ldots$, differentiate to find the series for $\\dfrac{1}{(1-x)^{2}}$ up to the term in $x^{2}$.",
+          "hint": "By the [[chain-rule|chain rule]], $\\dfrac{\\mathrm{d}}{\\mathrm{d}x}(1-x)^{-1} = (1-x)^{-2}$, with no minus sign left over.",
+          "options": [
+            {
+              "text": "$1 + 2x + 3x^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$-1 - 2x - 3x^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$1 + x + x^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$(1-x)^{-1}$ differentiates to $-1 \\times (1-x)^{-2} \\times (-1) = (1-x)^{-2}$. Term by term, $1 + x + x^{2} + x^{3}$ becomes $1 + 2x + 3x^{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-arcsin",
+          "question": "Use the series for $(1+x)^{p}$ and integration to find the series for $\\arcsin x$ up to the term in $x^{5}$.",
+          "steps": [
+            "From {{lesson:5.15}}, $\\dfrac{\\mathrm{d}}{\\mathrm{d}x}\\arcsin x = \\dfrac{1}{\\sqrt{1-x^{2}}} = \\left(1 - x^{2}\\right)^{-\\frac{1}{2}}$.",
+            "Use the binomial series with $p = -\\tfrac{1}{2}$ and $x$ replaced by $-x^{2}$: $1 + \\left(-\\tfrac{1}{2}\\right)\\left(-x^{2}\\right) + \\dfrac{\\left(-\\frac{1}{2}\\right)\\left(-\\frac{3}{2}\\right)}{2!}\\left(-x^{2}\\right)^{2} + \\ldots = 1 + \\tfrac{1}{2}x^{2} + \\tfrac{3}{8}x^{4} + \\ldots$",
+            "Integrate term by term: $\\arcsin x = C + x + \\tfrac{1}{6}x^{3} + \\tfrac{3}{40}x^{5} + \\ldots$",
+            "Find $C$: at $x = 0$, $\\arcsin 0 = 0$, so $C = 0$."
+          ],
+          "answer": "$\\arcsin x = x + \\tfrac{1}{6}x^{3} + \\tfrac{3}{40}x^{5} + \\ldots$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dropping the constant. When you integrate a series, write $+\\,C$ and find it by putting $x = 0$, even when it turns out to be $0$."
+        },
+        {
+          "type": "text",
+          "text": "Integrating a series also estimates integrals you can't find exactly, such as $\\int \\mathrm{e}^{-x^{3}}\\,\\mathrm{d}x$. On Paper 2 your calculator can then tell you how good the estimate is."
+        },
+        {
+          "type": "example",
+          "id": "ex-integral-estimate",
+          "question": "(a) Find the series for $\\mathrm{e}^{-x^{3}}$ up to the term in $x^{6}$. (b) Hence estimate $\\displaystyle\\int_{0}^{0.5} \\mathrm{e}^{-x^{3}}\\,\\mathrm{d}x$ to 5 significant figures, and compare it with your calculator's value.",
+          "steps": [
+            "(a) Put $u = -x^{3}$ into $\\mathrm{e}^{u} = 1 + u + \\dfrac{u^{2}}{2!} + \\ldots$ to get $\\mathrm{e}^{-x^{3}} = 1 - x^{3} + \\tfrac{1}{2}x^{6} - \\ldots$",
+            "(b) Integrate term by term: $\\displaystyle\\int_{0}^{0.5} \\left(1 - x^{3} + \\tfrac{1}{2}x^{6}\\right)\\mathrm{d}x = \\left[x - \\tfrac{1}{4}x^{4} + \\tfrac{1}{14}x^{7}\\right]_{0}^{0.5}$.",
+            "Substitute: $0.5 - \\tfrac{1}{4}(0.0625) + \\tfrac{1}{14}(0.0078125) = 0.5 - 0.015625 + 0.000558\\ldots = 0.484933\\ldots$",
+            "Calculator: the integral of $\\mathrm{e}^{-x^{3}}$ from $0$ to $0.5$ is $0.484917\\ldots$",
+            "The estimate is too big by about $1.6 \\times 10^{-5}$. The next term, $-\\tfrac{1}{6}x^{9}$, is negative, which is why."
+          ],
+          "answer": "$\\displaystyle\\int_{0}^{0.5} \\mathrm{e}^{-x^{3}}\\,\\mathrm{d}x \\approx 0.48493$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MATH, 9: fnInt(",
+              "Enter e^(-X^3), X, 0, 0.5, then ENTER",
+              "Read 0.484917…"
+            ],
+            "nspire": [
+              "Calculator page, Menu, Calculus, Numerical Integral",
+              "Lower limit 0, upper limit 0.5, then e^(-x^3), then x in the box after d, then enter",
+              "Read 0.484917…"
+            ],
+            "casio": [
+              "RUN-MAT, OPTN, CALC, ∫dx",
+              "Enter e^(-X^3) with lower limit 0 and upper limit 0.5, then EXE",
+              "Read 0.484917…"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-integral-numeric",
+          "prompt": "Use the series for $\\ln(1+x^{2})$ up to the term in $x^{4}$ to estimate $\\displaystyle\\int_{0}^{0.4} \\ln(1+x^{2})\\,\\mathrm{d}x$. Give your answer to 3 s.f.",
+          "hint": "Put $u = x^{2}$ into $\\ln(1+u) = u - \\dfrac{u^{2}}{2} + \\ldots$, then integrate each term.",
+          "answer": {
+            "value": 0.0203,
+            "tolerance": 5e-05
+          },
+          "explain": "$\\ln(1+x^{2}) \\approx x^{2} - \\tfrac{1}{2}x^{4}$. Integrating gives $\\left[\\tfrac{1}{3}x^{3} - \\tfrac{1}{10}x^{5}\\right]_{0}^{0.4} = 0.021333\\ldots - 0.001024 = 0.020309\\ldots \\approx 0.0203$."
+        }
+      ]
+    },
+    {
+      "id": "differential-equations",
+      "heading": "Series from a differential equation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Suppose you know $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ in terms of $x$ and $y$, and the value of $y$ at $x = 0$. You may not be able to solve this differential equation (see {{lesson:5.18}}). You can still find the [[maclaurin-series|Maclaurin series]] of its solution, because the equation gives you every derivative at $x = 0$."
+        },
+        {
+          "type": "text",
+          "text": "Write $y(0)$ for the value of $y$ at $x = 0$, $y'(0)$ for the value of $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ there, and so on. Then:"
+        },
+        {
+          "type": "text",
+          "text": "1. Put $x = 0$ and $y(0)$ into the equation to get $y'(0)$."
+        },
+        {
+          "type": "text",
+          "text": "2. Differentiate the whole equation with respect to $x$ to get $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$. A term in $y$ needs the [[chain-rule|chain rule]], as in [[implicit-differentiation|implicit differentiation]]: $\\dfrac{\\mathrm{d}}{\\mathrm{d}x}\\left(y^{2}\\right) = 2y\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$."
+        },
+        {
+          "type": "text",
+          "text": "3. Put in $x = 0$ and the values you already have, to get $y''(0)$. Repeat for $y'''(0)$."
+        },
+        {
+          "type": "text",
+          "text": "4. Substitute the values into the Maclaurin formula."
+        },
+        {
+          "type": "example",
+          "id": "ex-de-linear",
+          "question": "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = y - x^{2}$, and $y = 1$ when $x = 0$. Find the Maclaurin series for $y$ up to the term in $x^{3}$.",
+          "steps": [
+            "At $x = 0$: $y'(0) = y(0) - 0^{2} = 1$.",
+            "Differentiate: $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}} = \\dfrac{\\mathrm{d}y}{\\mathrm{d}x} - 2x$, so $y''(0) = 1 - 0 = 1$.",
+            "Differentiate again: $\\dfrac{\\mathrm{d}^{3}y}{\\mathrm{d}x^{3}} = \\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}} - 2$, so $y'''(0) = 1 - 2 = -1$.",
+            "Substitute: $y = 1 + x(1) + \\dfrac{x^{2}}{2!}(1) + \\dfrac{x^{3}}{3!}(-1) + \\ldots$"
+          ],
+          "answer": "$y = 1 + x + \\tfrac{1}{2}x^{2} - \\tfrac{1}{6}x^{3} + \\ldots$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-de-coefficient",
+          "prompt": "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = xy + 2$, and $y = 1$ when $x = 0$. What is the coefficient of $x^{2}$ in the Maclaurin series for $y$?",
+          "hint": "Differentiate $xy$ with the [[product-rule|product rule]], then put $x = 0$. Remember to divide by $2!$.",
+          "options": [
+            {
+              "text": "$\\tfrac{1}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$0$",
+              "correct": false
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}} = y + x\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$, so $y''(0) = 1 + 0 = 1$. The coefficient is $\\tfrac{1}{2!} = \\tfrac{1}{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-de-nonlinear",
+          "question": "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\mathrm{e}^{x} + y^{2}$, and $y = 0$ when $x = 0$. Find the Maclaurin series for $y$ up to the term in $x^{3}$.",
+          "steps": [
+            "At $x = 0$: $y'(0) = \\mathrm{e}^{0} + 0^{2} = 1$.",
+            "Differentiate, using the chain rule on $y^{2}$: $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}} = \\mathrm{e}^{x} + 2y\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$. So $y''(0) = 1 + 2(0)(1) = 1$.",
+            "Differentiate again, using the product rule on $2y\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$: $\\dfrac{\\mathrm{d}^{3}y}{\\mathrm{d}x^{3}} = \\mathrm{e}^{x} + 2\\left(\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}\\right)^{2} + 2y\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$.",
+            "So $y'''(0) = 1 + 2(1)^{2} + 2(0)(1) = 3$.",
+            "Substitute: $y = 0 + x(1) + \\dfrac{x^{2}}{2!}(1) + \\dfrac{x^{3}}{3!}(3) + \\ldots$"
+          ],
+          "answer": "$y = x + \\tfrac{1}{2}x^{2} + \\tfrac{1}{2}x^{3} + \\ldots$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\dfrac{\\mathrm{d}}{\\mathrm{d}x}\\left(y^{2}\\right) = 2y$. $y$ depends on $x$, so the chain rule adds the factor $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$."
+        },
+        {
+          "type": "check",
+          "id": "check-de-estimate",
+          "prompt": "Use the series $y = x + \\tfrac{1}{2}x^{2} + \\tfrac{1}{2}x^{3}$ from the last example to estimate $y$ when $x = 0.2$. Give your answer to 3 s.f.",
+          "hint": "Substitute $x = 0.2$ into each term and add.",
+          "answer": {
+            "value": 0.224,
+            "tolerance": 0.0005
+          },
+          "explain": "$0.2 + \\tfrac{1}{2}(0.04) + \\tfrac{1}{2}(0.008) = 0.2 + 0.02 + 0.004 = 0.224$."
+        },
+        {
+          "type": "examTip",
+          "text": "Write out $y(0)$, $y'(0)$, $y''(0)$ and $y'''(0)$ before you substitute. Marks go to these values, so show them even if a later step goes wrong."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "f(x) = f(0) + x f'(0) + \\frac{x^{2}}{2!} f''(0) + \\ldots",
+          "tag": "booklet",
+          "bookletId": "bk-5-19-maclaurin-general",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The coefficient of $x^{n}$ is $\\dfrac{f^{(n)}(0)}{n!}$: always divide by the factorial.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The series for $\\mathrm{e}^{x}$, $\\sin x$, $\\cos x$, $\\arctan x$ and $\\ln(1+x)$ are in the booklet. Learn their patterns to write extra terms.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "(1+x)^{p} = 1 + px + \\frac{p(p-1)}{2!}x^{2} + \\frac{p(p-1)(p-2)}{3!}x^{3} + \\ldots",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Valid for: $\\mathrm{e}^{x}$, $\\sin x$, $\\cos x$ all $x$; $\\ln(1+x)$ when $-1 < x \\le 1$; $\\arctan x$ when $-1 \\le x \\le 1$; $(1+x)^{p}$ when $-1 < x < 1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "New series: substitute with brackets, multiply and collect each power, or differentiate or integrate term by term (find $C$ at $x = 0$).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "From $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$: find $y'(0)$, differentiate the equation for $y''(0)$ and $y'''(0)$, then use the Maclaurin formula.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing by $n$ instead of $n!$. The coefficient of $x^{3}$ is $\\dfrac{f'''(0)}{3!}$, so $f'''(0) = 12$ gives $2$, not $4$.",
+    "Substituting without brackets, or not at all. With $u = 3x$, the $u^{2}$ term is $(3x)^{2} = 9x^{2}$. For $\\arctan 3x$, every $x$ in the $\\arctan x$ series becomes $3x$.",
+    "Multiplying series term by term and missing the cross terms. For each power you need, list every pair of terms whose powers add up to it.",
+    "Sign slips in binomial coefficients when $p$ is negative. Two negative factors give a positive: $\\dfrac{(-2)(-3)}{2!} = 3$.",
+    "Leaving out the constant when you integrate a series, or not showing why it is $0$. Put $x = 0$ into both sides.",
+    "Forgetting the $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ factor when you differentiate $y^{2}$ or $y^{3}$ in a differential equation."
+  ],
+  "examTips": [
+    "\"Write down\" a standard series: quote it from the booklet, no working needed. \"Find\" a new series: show the substitution line, such as $(3x) - \\dfrac{(3x)^{2}}{2} + \\ldots$, for the method mark.",
+    "\"Up to the term in $x^{3}$\" means keep every contribution to $x^{3}$ and drop everything higher. Take one more term of each factor than you think you need, then discard.",
+    "For a \"hence\" estimate, put a small $x$ into the series and keep exact fractions on Paper 1. Check that $x$ is inside the range of validity; for a product, it must be inside both ranges."
+  ],
+  "readingMinutes": 28
+}

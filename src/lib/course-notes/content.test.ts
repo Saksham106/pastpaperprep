@@ -21,7 +21,18 @@ afterEach(() => {
 describe("ib-math-aa course content", () => {
   it("every lesson file passes validateLesson", () => {
     expect(course.lessons.length).toBeGreaterThan(0);
-    for (const lesson of course.lessons) expect(validateLesson(lesson, ctx), lesson.item).toEqual([]);
+    // Report every failing lesson at once, keyed by item, so a writer can find the errors for their own lesson.
+    const failures = Object.fromEntries(course.lessons.map((lesson) => [lesson.item, validateLesson(lesson, ctx)]).filter(([, errors]) => errors.length));
+    expect(failures).toEqual({});
+  });
+
+  it("glossary lives in one file per lesson, named by a real item, and the index merges them all", () => {
+    const dir = join(root, "glossary");
+    const files = readdirSync(dir).filter((name) => name.endsWith(".json"));
+    for (const file of files) expect(lessonItems.has(file.replace(/\.json$/, "").replace("-", ".")), file).toBe(true);
+    expect(existsSync(join(root, "glossary.json"))).toBe(false);
+    const ids = new Set(files.flatMap((file) => (JSON.parse(readFileSync(join(dir, file), "utf8")) as { id: string }[]).map((entry) => entry.id)));
+    expect(new Set(course.glossary.map((entry) => entry.id))).toEqual(ids);
   });
 
   it("every glossary term points at a real lesson item", () => {
@@ -73,6 +84,9 @@ describe("ib-math-aa course content", () => {
   it("every figure block has an svg file and the lesson file name matches its item", () => {
     const ids = course.lessons.flatMap((lesson) => lesson.sections.flatMap((section) => section.blocks.filter((block): block is Extract<Block, { type: "figure" }> => block.type === "figure")));
     for (const figure of ids) expect(course.figures[figure.id], figure.id).toMatch(/^<svg/);
+    for (const lesson of course.lessons)
+      for (const section of lesson.sections)
+        for (const block of section.blocks) if (block.type === "figure") expect(block.id, block.id).toMatch(new RegExp(`^${lesson.item.replace(".", "-")}-`));
     const files = readdirSync(join(root, "lessons")).filter((name) => name.endsWith(".json")).sort();
     expect(files).toEqual(course.lessons.map((lesson) => `${lesson.item.replace(".", "-")}.json`).sort());
   });

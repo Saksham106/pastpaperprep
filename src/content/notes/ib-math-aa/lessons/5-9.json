@@ -1,0 +1,629 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.9",
+  "slug": "kinematics",
+  "title": "Kinematics",
+  "level": "SL",
+  "topic": 5,
+  "summary": "A particle moving along a straight line has a [[displacement|displacement]] $s$, a [[velocity|velocity]] $v$ and an [[acceleration|acceleration]] $a$. Differentiate to go from $s$ to $v$ to $a$, and integrate to go back. [[speed|Speed]] and [[distance-travelled|distance travelled]] ignore direction, so they both use $\\lvert v\\rvert$.",
+  "goals": [
+    {
+      "text": "Differentiate [[displacement|displacement]] to get velocity and acceleration, and find when a particle is at rest.",
+      "bullets": [
+        "5.9-b1"
+      ]
+    },
+    {
+      "text": "Find [[speed|speed]] as the size of the velocity, and use signs to tell the direction and whether the particle is speeding up.",
+      "bullets": [
+        "5.9-b4",
+        "5.9-b1"
+      ]
+    },
+    {
+      "text": "Integrate velocity to find displacement, from a known position or as $\\int_{t_{1}}^{t_{2}} v(t)\\,\\mathrm{d}t$.",
+      "bullets": [
+        "5.9-b2"
+      ]
+    },
+    {
+      "text": "Find the total [[distance-travelled|distance travelled]] as $\\int_{t_{1}}^{t_{2}} \\lvert v(t)\\rvert\\,\\mathrm{d}t$: by splitting at $v = 0$ on Paper 1, or with your GDC on Paper 2.",
+      "bullets": [
+        "5.9-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.5",
+    "5.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "displacement velocity acceleration",
+    "particle moving in a straight line",
+    "when is the particle at rest",
+    "speed and velocity difference",
+    "total distance travelled integral",
+    "integral of absolute value of velocity"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-chain-rule",
+      "prompt": "Differentiate $5\\sin(3t)$ with respect to $t$.",
+      "hint": "Use the chain rule: differentiate the sine, then multiply by the derivative of $3t$.",
+      "options": [
+        {
+          "text": "$15\\cos(3t)$",
+          "correct": true
+        },
+        {
+          "text": "$5\\cos(3t)$",
+          "correct": false
+        },
+        {
+          "text": "$-15\\cos(3t)$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\sin$ differentiates to $\\cos$, and the inside $3t$ gives a factor of $3$. So the derivative is $5 \\times 3\\cos(3t) = 15\\cos(3t)$. Revise it in {{lesson:5.6}}."
+    },
+    {
+      "type": "check",
+      "id": "before-boundary-condition",
+      "prompt": "Given $f'(t) = 6t - 2$ and $f(1) = 5$, find $f(t)$.",
+      "hint": "Integrate to get $f(t)$ with a $+\\,C$, then put $t = 1$ and $f(1) = 5$ in to find $C$.",
+      "options": [
+        {
+          "text": "$f(t) = 3t^{2} - 2t + 4$",
+          "correct": true
+        },
+        {
+          "text": "$f(t) = 3t^{2} - 2t + 5$",
+          "correct": false
+        },
+        {
+          "text": "$f(t) = 3t^{2} - 2t + 6$",
+          "correct": false
+        }
+      ],
+      "explain": "$f(t) = 3t^{2} - 2t + C$, and $f(1) = 3 - 2 + C = 5$ gives $C = 4$. Revise it in {{lesson:5.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-definite-integral",
+      "prompt": "Find $\\int_{0}^{2} (3t^{2} + 1)\\,\\mathrm{d}t$.",
+      "hint": "Find an antiderivative $F(t)$, then work out $F(2) - F(0)$.",
+      "options": [
+        {
+          "text": "$10$",
+          "correct": true
+        },
+        {
+          "text": "$13$",
+          "correct": false
+        },
+        {
+          "text": "$8$",
+          "correct": false
+        }
+      ],
+      "explain": "An antiderivative is $F(t) = t^{3} + t$, so the integral is $F(2) - F(0) = 10 - 0 = 10$. Revise it in {{lesson:5.5}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "motion",
+      "heading": "Displacement, velocity and acceleration",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Picture a bead sliding along a straight wire. Fix a point O on the wire and choose one direction as positive. The bead's [[displacement|displacement]] $s$ is its position measured from O."
+        },
+        {
+          "type": "definition",
+          "term": "Displacement",
+          "statement": "The displacement $s$ of a particle at time $t$ is its position relative to a fixed point O on its line of motion, positive on one side of O and negative on the other.",
+          "plain": "It tells you where the particle is, not how far it has moved."
+        },
+        {
+          "type": "text",
+          "text": "The rate at which $s$ changes is the [[velocity|velocity]] $v$. The rate at which $v$ changes is the [[acceleration|acceleration]] $a$. These are rates of change, as in {{lesson:5.1}}."
+        },
+        {
+          "type": "formula",
+          "tex": "v = \\dfrac{\\mathrm{d}s}{\\mathrm{d}t}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "a = \\dfrac{\\mathrm{d}v}{\\mathrm{d}t} = \\dfrac{\\mathrm{d}^{2}s}{\\mathrm{d}t^{2}}",
+          "tag": "booklet",
+          "bookletId": "bk-5-9-acceleration",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The acceleration line is in the formula booklet; learn the velocity line. Units follow the rates: with $s$ in metres and $t$ in seconds, $v$ is in $\\text{m s}^{-1}$ and $a$ in $\\text{m s}^{-2}$."
+        },
+        {
+          "type": "text",
+          "text": "A particle is at rest at an instant when $v = 0$. \"Initial\" means at $t = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rest-times",
+          "question": "A particle moves along a straight line. Its displacement from a fixed point O after $t$ seconds is $s = 2t^{3} - 15t^{2} + 24t$ metres, for $t \\ge 0$. Find expressions for $v$ and $a$. Hence find the times when the particle is at rest.",
+          "steps": [
+            "Differentiate $s$ for the velocity: $v = \\dfrac{\\mathrm{d}s}{\\mathrm{d}t} = 6t^{2} - 30t + 24$.",
+            "Differentiate again for the acceleration: $a = \\dfrac{\\mathrm{d}v}{\\mathrm{d}t} = 12t - 30$.",
+            "At rest means $v = 0$: $6t^{2} - 30t + 24 = 0$. Divide by $6$: $t^{2} - 5t + 4 = 0$.",
+            "Factorise: $(t - 1)(t - 4) = 0$, so $t = 1$ or $t = 4$. Both satisfy $t \\ge 0$, so keep both.",
+            "Check: $v(1) = 6 - 30 + 24 = 0$ and $v(4) = 96 - 120 + 24 = 0$."
+          ],
+          "answer": "$t = 1 \\text{ or } t = 4$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-velocity-at-time",
+          "prompt": "A particle has displacement $s = t^{3} - 4t^{2} + 5$ metres at time $t$ seconds. Find its velocity, in $\\text{m s}^{-1}$, at $t = 3$.",
+          "hint": "Differentiate $s$ once, then substitute $t = 3$.",
+          "options": [
+            {
+              "text": "$3$",
+              "correct": true
+            },
+            {
+              "text": "$-4$",
+              "correct": false
+            },
+            {
+              "text": "$10$",
+              "correct": false
+            }
+          ],
+          "explain": "$v = 3t^{2} - 8t$, so $v(3) = 27 - 24 = 3$. The value $-4$ is $s(3)$, the position, and $10$ is $a(3)$, from differentiating twice."
+        },
+        {
+          "type": "example",
+          "id": "ex-accel-first-rest",
+          "question": "A particle moves on a straight line. Its displacement is $s = 6\\sin\\left(\\frac{\\pi t}{3}\\right)$ metres at time $t$ seconds, for $0 \\le t \\le 6$. Find the acceleration of the particle the first time it is at rest.",
+          "steps": [
+            "Differentiate with the chain rule. The inside, $\\frac{\\pi t}{3}$, has derivative $\\frac{\\pi}{3}$. So $v = 6 \\times \\frac{\\pi}{3}\\cos\\left(\\frac{\\pi t}{3}\\right) = 2\\pi\\cos\\left(\\frac{\\pi t}{3}\\right)$.",
+            "Differentiate again: $a = 2\\pi \\times \\frac{\\pi}{3} \\times \\left(-\\sin\\left(\\frac{\\pi t}{3}\\right)\\right) = -\\frac{2\\pi^{2}}{3}\\sin\\left(\\frac{\\pi t}{3}\\right)$.",
+            "At rest means $v = 0$, so $\\cos\\left(\\frac{\\pi t}{3}\\right) = 0$. At $t = 0$ the cosine is $1$, so the first solution is $\\frac{\\pi t}{3} = \\frac{\\pi}{2}$, which gives $t = \\frac{3}{2}$.",
+            "Substitute $t = \\frac{3}{2}$ into $a$. Since $\\sin\\left(\\frac{\\pi}{2}\\right) = 1$, $a = -\\frac{2\\pi^{2}}{3}$.",
+            "Don't solve $a = 0$ here: that gives $t = 0$, $3$ or $6$, the wrong times."
+          ],
+          "answer": "$a = -\\frac{2\\pi^{2}}{3}\\text{ m s}^{-2}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-accel-at-rest",
+          "prompt": "A particle has displacement $s = t^{3} - 9t^{2} + 15t$ metres at time $t$ seconds, $t \\ge 0$. Find its acceleration, in $\\text{m s}^{-2}$, at the later of the two times when it is at rest.",
+          "hint": "Solve $v = 0$ for the two times. Then differentiate $v$ and substitute the larger time.",
+          "answer": {
+            "value": 12,
+            "tolerance": 0
+          },
+          "explain": "$v = 3t^{2} - 18t + 15 = 3(t - 1)(t - 5)$, so the particle is at rest at $t = 1$ and $t = 5$. Then $a = 6t - 18$, and $a(5) = 12$."
+        },
+        {
+          "type": "examTip",
+          "text": "\"Write down the initial velocity\" needs only $v(0)$, with no further working. Give units, such as $\\text{m s}^{-1}$, whenever the question uses them."
+        }
+      ]
+    },
+    {
+      "id": "speed",
+      "heading": "Speed and direction",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The sign of $v$ gives the direction. When $v > 0$, $s$ is increasing, so the particle moves in the positive direction. When $v < 0$ it moves in the negative direction. This is {{lesson:5.2}} again: a positive derivative means an increasing function."
+        },
+        {
+          "type": "definition",
+          "term": "Speed",
+          "statement": "The speed of a particle is the magnitude of its velocity: $\\text{speed} = \\lvert v\\rvert$.",
+          "plain": "Speed is how fast the particle goes, with no direction attached, so it is never negative."
+        },
+        {
+          "type": "text",
+          "text": "A car reversing at $3\\text{ m s}^{-1}$ has [[velocity|velocity]] $-3\\text{ m s}^{-1}$ if forwards is positive. Its [[speed|speed]] is $3\\text{ m s}^{-1}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-speed-value",
+          "question": "A particle has velocity $v = t^{2} - 6t + 5$ in $\\text{m s}^{-1}$ at time $t$ seconds, for $t \\ge 0$. Find its speed at $t = 2$, and state which way it is moving.",
+          "steps": [
+            "Substitute $t = 2$: $v = 4 - 12 + 5 = -3$.",
+            "The velocity is negative, so at $t = 2$ the particle is moving in the negative direction.",
+            "Speed is the size of the velocity: $\\lvert -3\\rvert = 3$."
+          ],
+          "answer": "$\\text{speed} = 3\\text{ m s}^{-1}$",
+          "video": null
+        },
+        {
+          "type": "result",
+          "statement": "A particle changes direction at a time when $v$ changes sign. $v = 0$ on its own is not enough.",
+          "why": "Direction is the sign of $v$. If $v$ touches $0$ but keeps its sign, as $v = (t - 2)^{2}$ does at $t = 2$, the particle pauses and carries on the same way."
+        },
+        {
+          "type": "result",
+          "statement": "A particle is speeding up when $v$ and $a$ have the same sign. It is slowing down when they have opposite signs.",
+          "why": "Speed is $\\lvert v\\rvert$. When $v$ and $a$ are both negative, $v$ gets more negative, so its size grows. When their signs differ, $v$ moves towards $0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-speeding-up",
+          "question": "The particle above has velocity $v = t^{2} - 6t + 5$ in $\\text{m s}^{-1}$, for $t \\ge 0$. Find the intervals of time when it is speeding up.",
+          "steps": [
+            "Factorise: $v = (t - 1)(t - 5)$. So $v < 0$ for $1 < t < 5$, and $v > 0$ for $0 \\le t < 1$ and $t > 5$.",
+            "Differentiate: $a = 2t - 6$. So $a < 0$ for $t < 3$ and $a > 0$ for $t > 3$.",
+            "Compare signs between the key times $1$, $3$ and $5$. The signs match on $1 < t < 3$ (both negative) and for $t > 5$ (both positive).",
+            "On $0 \\le t < 1$ and $3 < t < 5$ the signs differ, so the particle is slowing down there."
+          ],
+          "answer": "$1 < t < 3 \\text{ or } t > 5$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "\"Moving in the positive direction\" means $v > 0$. It does not mean $v$ is increasing, which is $a > 0$. Read the graph of $v$ for where it is above the axis, not where it rises."
+        },
+        {
+          "type": "check",
+          "id": "check-speed-radians",
+          "prompt": "A particle has velocity $v = 3\\cos(2t)$ in $\\text{m s}^{-1}$ at time $t$ seconds. Use your calculator, in radians, to find its speed at $t = 1$. Give your answer to 3 s.f.",
+          "hint": "Work out $v(1)$ first. Speed is its size, so drop any minus sign.",
+          "answer": {
+            "value": 1.25,
+            "tolerance": 0.005
+          },
+          "explain": "$v(1) = 3\\cos 2 = -1.2484\\ldots$, so the speed is $1.2484\\ldots \\approx 1.25\\text{ m s}^{-1}$. Degree mode gives $2.998\\ldots$, which is wrong."
+        },
+        {
+          "type": "check",
+          "id": "check-change-direction",
+          "prompt": "A particle has velocity $v = t^{3} - 6t^{2} + 9t$, for $t \\ge 0$. What happens at $t = 3$?",
+          "hint": "Factorise $v$. Then look at the sign of $v$ just before and just after $t = 3$.",
+          "options": [
+            {
+              "text": "It is at rest for an instant, then keeps moving in the positive direction",
+              "correct": true
+            },
+            {
+              "text": "It is at rest for an instant, then moves in the negative direction",
+              "correct": false
+            },
+            {
+              "text": "It is not at rest: it is moving in the positive direction",
+              "correct": false
+            }
+          ],
+          "explain": "$v = t(t - 3)^{2}$, which is $0$ at $t = 3$ but positive on both sides. The particle stops for an instant, then carries on the same way."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also describe motion with a vector line: the direction vector is the velocity and its magnitude is the speed.",
+          "lesson": "3.14"
+        }
+      ]
+    },
+    {
+      "id": "displacement",
+      "heading": "Displacement from velocity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now go the other way, from [[velocity|velocity]] back to [[displacement|displacement]]. Differentiating $s$ gives $v$, so $s$ is an [[antiderivative|antiderivative]] of $v$. Integrating $v$ gives $s$, up to a constant $C$."
+        },
+        {
+          "type": "text",
+          "text": "To find $C$ you need one known position, such as $s = 3$ when $t = 1$. This is the [[boundary-condition|boundary condition]] method from {{lesson:5.5}}. The same works one level up: $v = \\int a\\,\\mathrm{d}t$, with $C$ fixed by a known velocity."
+        },
+        {
+          "type": "example",
+          "id": "ex-position-from-velocity",
+          "question": "A particle moves in a straight line with velocity $v = 6t^{2} - 4t$ in $\\text{m s}^{-1}$. When $t = 1$, its displacement from O is $3$ m. Find an expression for its displacement $s(t)$.",
+          "steps": [
+            "Integrate the velocity: $s = \\int (6t^{2} - 4t)\\,\\mathrm{d}t = 2t^{3} - 2t^{2} + C$.",
+            "Use $s = 3$ when $t = 1$: $2 - 2 + C = 3$, so $C = 3$.",
+            "Check by differentiating: $\\dfrac{\\mathrm{d}}{\\mathrm{d}t}\\left(2t^{3} - 2t^{2} + 3\\right) = 6t^{2} - 4t$, which is $v$."
+          ],
+          "answer": "$s(t) = 2t^{3} - 2t^{2} + 3$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-velocity-from-accel",
+          "prompt": "A particle has acceleration $a = 6t$ in $\\text{m s}^{-2}$. Its initial velocity is $2\\text{ m s}^{-1}$. Find its velocity, in $\\text{m s}^{-1}$, at $t = 2$.",
+          "hint": "Integrate $a$ to get $v$ with a $+\\,C$. \"Initial\" means $t = 0$, which gives $C$.",
+          "answer": {
+            "value": 14,
+            "tolerance": 0
+          },
+          "explain": "$v = 3t^{2} + C$, and $v(0) = 2$ gives $C = 2$. So $v(2) = 12 + 2 = 14$."
+        },
+        {
+          "type": "text",
+          "text": "Often you don't need $s$ itself, only how much the position changes between two times $t_{1}$ and $t_{2}$. That change is $s(t_{2}) - s(t_{1})$. By {{lesson:5.5}}, it is the [[definite|definite integral]] of $v$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{displacement} = \\int_{t_{1}}^{t_{2}} v(t)\\,\\mathrm{d}t",
+          "tag": "booklet",
+          "bookletId": "bk-5-9-displacement",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet. It gives where the particle is at $t_{2}$ compared with where it was at $t_{1}$. You don't need the starting position, because the $C$ cancels when you subtract."
+        },
+        {
+          "type": "example",
+          "id": "ex-displacement-linear",
+          "question": "A particle has velocity $v = 8 - 2t$ in $\\text{m s}^{-1}$ at time $t$ seconds. Find its displacement from $t = 1$ to $t = 6$.",
+          "steps": [
+            "Write the integral first: $\\text{displacement} = \\int_{1}^{6} (8 - 2t)\\,\\mathrm{d}t$.",
+            "An antiderivative of $8 - 2t$ is $8t - t^{2}$.",
+            "Substitute the limits and subtract: $(48 - 36) - (8 - 1) = 12 - 7 = 5$.",
+            "So at $t = 6$ the particle is $5$ m on the positive side of where it was at $t = 1$."
+          ],
+          "answer": "$\\text{displacement} = 5\\text{ m}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-displacement-zero",
+          "prompt": "A particle has velocity $v = 3t^{2} - 6t$ in $\\text{m s}^{-1}$. Find its displacement, in metres, from $t = 0$ to $t = 3$.",
+          "hint": "Integrate $v$ from $0$ to $3$. Don't split it: displacement keeps the signs.",
+          "options": [
+            {
+              "text": "$0$",
+              "correct": true
+            },
+            {
+              "text": "$8$",
+              "correct": false
+            },
+            {
+              "text": "$-4$",
+              "correct": false
+            },
+            {
+              "text": "$9$",
+              "correct": false
+            }
+          ],
+          "explain": "An antiderivative is $t^{3} - 3t^{2}$, so the displacement is $(27 - 27) - 0 = 0$. $8$ is the distance travelled, $-4$ stops at $t = 2$, and $9$ is $v(3)$."
+        },
+        {
+          "type": "mistake",
+          "text": "Treating \"the displacement from $t_{1}$ to $t_{2}$\" as the position $s(t_{2})$. They are equal only when the particle is at O at time $t_{1}$."
+        }
+      ]
+    },
+    {
+      "id": "distance",
+      "heading": "Total distance travelled",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[distance-travelled|Distance travelled]] is what a car's mileage counter records: every metre counts, forwards or backwards. Unlike [[displacement|displacement]], it is never negative."
+        },
+        {
+          "type": "definition",
+          "term": "Distance travelled",
+          "statement": "The total distance travelled between $t_{1}$ and $t_{2}$ is the total length of path the particle covers in that time, in either direction.",
+          "plain": "It adds up every metre moved, including the way back."
+        },
+        {
+          "type": "figure",
+          "id": "5-9-velocity-areas",
+          "alt": "Velocity against time for v equals 8 minus 2t. Between t equals 1 and 4 the line is above the t-axis and the shaded triangle has area 9. Between t equals 4 and 6 it is below the axis and the shaded triangle has area 4.",
+          "caption": "For $v = 8 - 2t$ from $t = 1$ to $t = 6$: the area above the axis is $9$ and the area below is $4$."
+        },
+        {
+          "type": "text",
+          "text": "Go back to the [[velocity|velocity]] $v = 8 - 2t$. From $t = 1$ to $t = 4$, $v > 0$ and the particle moves $9$ m forwards. From $t = 4$ to $t = 6$, $v < 0$ and it moves $4$ m back. The integral of $v$ gives $9 - 4 = 5$, but the distance travelled is $9 + 4 = 13$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{distance} = \\int_{t_{1}}^{t_{2}} \\lvert v(t)\\rvert\\,\\mathrm{d}t",
+          "tag": "booklet",
+          "bookletId": "bk-5-9-distance",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is in the booklet too. Taking $\\lvert v\\rvert$ makes every backward stretch positive, so nothing cancels. On Paper 1, by hand, split the time wherever $v = 0$:"
+        },
+        {
+          "type": "text",
+          "text": "1. Solve $v = 0$ to find the times inside the interval where the particle may turn."
+        },
+        {
+          "type": "text",
+          "text": "2. Integrate $v$ over each piece between those times."
+        },
+        {
+          "type": "text",
+          "text": "3. Add the sizes of the pieces, ignoring their signs."
+        },
+        {
+          "type": "mistake",
+          "text": "Using $\\int v\\,\\mathrm{d}t$ for distance. Backward motion is then subtracted, as the $5$ instead of $13$ above shows. Integrate $\\lvert v\\rvert$, or split at $v = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-distance-quadratic",
+          "question": "A particle moves in a straight line with velocity $v = t^{2} - 4t + 3$ in $\\text{m s}^{-1}$, for $0 \\le t \\le 4$. Find its displacement over the 4 seconds, then the total distance it travels.",
+          "steps": [
+            "Factorise: $v = (t - 1)(t - 3)$, so $v = 0$ at $t = 1$ and $t = 3$. Between them $v < 0$; outside them $v > 0$.",
+            "Let $F(t) = \\frac{t^{3}}{3} - 2t^{2} + 3t$, an antiderivative of $v$. Then $F(0) = 0$, $F(1) = \\frac{1}{3} - 2 + 3 = \\frac{4}{3}$, $F(3) = 9 - 18 + 9 = 0$ and $F(4) = \\frac{64}{3} - 32 + 12 = \\frac{4}{3}$.",
+            "Displacement: $\\int_{0}^{4} v\\,\\mathrm{d}t = F(4) - F(0) = \\frac{4}{3}$ m.",
+            "The three pieces: $F(1) - F(0) = \\frac{4}{3}$, then $F(3) - F(1) = -\\frac{4}{3}$, then $F(4) - F(3) = \\frac{4}{3}$.",
+            "Add the sizes: $\\frac{4}{3} + \\frac{4}{3} + \\frac{4}{3} = 4$, three times the displacement, because the particle went back and then forwards again."
+          ],
+          "answer": "$\\text{displacement} = \\frac{4}{3}\\text{ m}, \\; \\text{distance} = 4\\text{ m}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-distance-linear",
+          "prompt": "A particle has velocity $v = 2t - 4$ in $\\text{m s}^{-1}$, for $0 \\le t \\le 5$. Find the total distance, in metres, that it travels.",
+          "hint": "Find when $v = 0$. Integrate each side of that time separately, then add the sizes.",
+          "options": [
+            {
+              "text": "$13$",
+              "correct": true
+            },
+            {
+              "text": "$5$",
+              "correct": false
+            },
+            {
+              "text": "$9$",
+              "correct": false
+            }
+          ],
+          "explain": "$v = 0$ at $t = 2$. With antiderivative $t^{2} - 4t$, the pieces are $-4$ and $9$, so the distance is $4 + 9 = 13$. $5$ is the displacement; $9$ leaves out the first piece."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2, write the integral of $\\lvert v\\rvert$ down and let the GDC evaluate it. No splitting is needed."
+        },
+        {
+          "type": "example",
+          "id": "ex-distance-gdc",
+          "question": "A particle moves in a straight line. Its velocity is $v(t) = 4\\cos(1.2t) + 0.5t$ in $\\text{m s}^{-1}$ at time $t$ seconds, for $0 \\le t \\le 5$. Use your calculator to find the displacement from $t = 0$ to $t = 5$, and the total distance travelled in that time. Give your answers to 3 s.f.",
+          "steps": [
+            "Set the GDC to radians, since the angle $1.2t$ is in radians.",
+            "Displacement: write down $\\int_{0}^{5} \\left(4\\cos(1.2t) + 0.5t\\right)\\mathrm{d}t$. The GDC gives $5.3186\\ldots$, so the displacement is $5.32$ m.",
+            "Graph $v$: it crosses the axis at $t = 1.4621\\ldots$ and $t = 3.5444\\ldots$, so the particle turns twice and the distance is more than $5.32$ m.",
+            "Distance: write down $\\int_{0}^{5} \\left\\lvert 4\\cos(1.2t) + 0.5t\\right\\rvert\\mathrm{d}t$. The GDC gives $12.636\\ldots$, which rounds to $12.6$ m."
+          ],
+          "answer": "$\\text{displacement} \\approx 5.32\\text{ m}, \\; \\text{distance} \\approx 12.6\\text{ m}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, RADIAN",
+              "MATH, 9: fnInt(",
+              "Fill in lower limit 0, upper limit 5, then 4cos(1.2X)+0.5X, then ENTER",
+              "Read 5.3186…, the displacement",
+              "fnInt( again with abs(4cos(1.2X)+0.5X) as the function; abs( is under MATH, NUM, 1: abs( (check on your model)",
+              "Read 12.636…, the distance"
+            ],
+            "nspire": [
+              "On, Settings, Angle: Radian",
+              "Calculator page, Menu, Calculus, Numerical Integral",
+              "Lower limit 0, upper limit 5, then 4cos(1.2x)+0.5x, then x in the box after d, then enter",
+              "Read 5.3186…, the displacement",
+              "Repeat with abs(4cos(1.2x)+0.5x) as the integrand, typing abs( from the keypad (check on your model)",
+              "Read 12.636…, the distance"
+            ],
+            "casio": [
+              "SHIFT MENU (SET UP), Angle: Rad",
+              "RUN-MAT, OPTN, CALC, ∫dx",
+              "Fill in 4cos(1.2X)+0.5X with lower limit 0 and upper limit 5, then EXE",
+              "Read 5.3186…, the displacement",
+              "Repeat with Abs(4cos(1.2X)+0.5X); Abs is under OPTN, NUM (check on your model)",
+              "Read 12.636…, the distance"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-distance-gdc",
+          "prompt": "A particle has velocity $v = 2\\sin(2t)$ in $\\text{m s}^{-1}$. Use your calculator to find the total distance it travels from $t = 0$ to $t = 2$. Give your answer to 3 s.f.",
+          "hint": "Radians. Integrate $\\lvert 2\\sin(2t)\\rvert$ from $0$ to $2$.",
+          "answer": {
+            "value": 2.35,
+            "tolerance": 0.005
+          },
+          "explain": "$\\int_{0}^{2} \\lvert 2\\sin(2t)\\rvert\\,\\mathrm{d}t = 2.3463\\ldots \\approx 2.35$. Without the modulus you get $1.65$, the displacement: $v$ turns negative after $t = \\frac{\\pi}{2}$."
+        },
+        {
+          "type": "examTip",
+          "text": "For \"find the total distance travelled\" on Paper 2, write the integral of $\\lvert v\\rvert$ with its limits before the value. That line shows your method and can earn a mark even if the value is wrong."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "v = \\dfrac{\\mathrm{d}s}{\\mathrm{d}t}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "a = \\dfrac{\\mathrm{d}v}{\\mathrm{d}t} = \\dfrac{\\mathrm{d}^{2}s}{\\mathrm{d}t^{2}}",
+          "tag": "booklet",
+          "bookletId": "bk-5-9-acceleration",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "At rest: $v = 0$. Changes direction: $v$ changes sign. Speed $= \\lvert v\\rvert$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Speeding up when $v$ and $a$ have the same sign; slowing down when they differ.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{displacement} = \\int_{t_{1}}^{t_{2}} v(t)\\,\\mathrm{d}t",
+          "tag": "booklet",
+          "bookletId": "bk-5-9-displacement",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{distance} = \\int_{t_{1}}^{t_{2}} \\lvert v(t)\\rvert\\,\\mathrm{d}t",
+          "tag": "booklet",
+          "bookletId": "bk-5-9-distance",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Distance on Paper 1: split at each $v = 0$, integrate each piece, add the sizes.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using $\\int v\\,\\mathrm{d}t$ for distance, or giving the final displacement as the distance. A particle that goes $9$ m out and $4$ m back has displacement $5$ m but has travelled $13$ m.",
+    "Mixing up $v = 0$ and $a = 0$. The particle is at rest when $v = 0$; where $a = 0$, the velocity may be at a maximum or minimum.",
+    "Reading \"moving in the positive direction\" as \"velocity increasing\". The first is $v > 0$; the second is $a > 0$.",
+    "Leaving the GDC in degree mode for a velocity with $\\sin$ or $\\cos$. Set radians first.",
+    "Keeping a time outside the domain. If $t \\ge 0$, reject a negative root of $v = 0$."
+  ],
+  "examTips": [
+    "\"Justify\" that a particle changes direction: show that $v$ changes sign, for example with values of $v$ either side. Showing $v = 0$ alone is not enough.",
+    "\"Find the total distance travelled\": on Paper 2, write $\\int_{t_{1}}^{t_{2}} \\lvert v(t)\\rvert\\,\\mathrm{d}t$ with the numbers in, then the GDC value. On Paper 1, show the times when $v = 0$ and each piece.",
+    "If a later part uses an earlier answer, such as a time when $v = 0$, a wrong value used correctly can still earn follow-through (FT) marks.",
+    "Give 3 s.f. unless told otherwise, with units such as $\\text{m s}^{-1}$. Carry full GDC values and round only at the end."
+  ],
+  "readingMinutes": 24
+}

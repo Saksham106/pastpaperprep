@@ -1,0 +1,928 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.15",
+  "slug": "extended-differentiation-and-integration",
+  "title": "Extended differentiation and integration",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "At HL you learn nine more derivatives: $\\tan x$ and the [[reciprocal-trig-function|reciprocal trig functions]], $a^{x}$ and $\\log_{a}x$, and the [[inverse-trig-function|inverse trig functions]]. Read backwards, they give new integrals, such as $\\arctan$ and $\\arcsin$. [[partial-fractions|Partial fractions]] turn many more fractions into logs.",
+  "goals": [
+    {
+      "text": "Differentiate $\\tan x$, $\\sec x$, $\\operatorname{cosec}x$ and $\\cot x$, with the chain rule when there is an inside function.",
+      "bullets": [
+        "5.15-b1"
+      ]
+    },
+    {
+      "text": "Differentiate $a^{x}$ and $\\log_{a}x$ for any base $a$.",
+      "bullets": [
+        "5.15-b1"
+      ]
+    },
+    {
+      "text": "Differentiate $\\arcsin x$, $\\arccos x$ and $\\arctan x$.",
+      "bullets": [
+        "5.15-b1"
+      ]
+    },
+    {
+      "text": "Integrate all of these derivatives, also with a linear expression inside, and read an indefinite integral as a [[family-of-curves|family of curves]].",
+      "bullets": [
+        "5.15-b2"
+      ]
+    },
+    {
+      "text": "Integrate one over a quadratic by completing the square, or by splitting it into [[partial-fractions|partial fractions]].",
+      "bullets": [
+        "5.15-b2",
+        "5.15-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.11",
+    "3.9",
+    "5.6",
+    "5.10"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "derivative of tan x",
+    "derivative of arctan",
+    "differentiate a to the x",
+    "derivative of log base a",
+    "integral giving arctan",
+    "integration using partial fractions"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-sec-identity",
+      "prompt": "Which expression is equal to $\\sec^{2}x$?",
+      "hint": "Divide every term of $\\sin^{2}x + \\cos^{2}x = 1$ by $\\cos^{2}x$.",
+      "options": [
+        {
+          "text": "$1 + \\tan^{2}x$",
+          "correct": true
+        },
+        {
+          "text": "$1 - \\tan^{2}x$",
+          "correct": false
+        },
+        {
+          "text": "$1 + \\cot^{2}x$",
+          "correct": false
+        },
+        {
+          "text": "$\\tan^{2}x - 1$",
+          "correct": false
+        }
+      ],
+      "explain": "Dividing by $\\cos^{2}x$ gives $\\tan^{2}x + 1 = \\sec^{2}x$. Revise it in {{lesson:3.9}}."
+    },
+    {
+      "type": "check",
+      "id": "before-partial-fractions",
+      "prompt": "Write $\\frac{4}{(x-1)(x+3)}$ in partial fractions.",
+      "hint": "Write $4 = A(x+3) + B(x-1)$, then put $x = 1$ and $x = -3$.",
+      "options": [
+        {
+          "text": "$\\frac{1}{x-1} - \\frac{1}{x+3}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{1}{x+3} - \\frac{1}{x-1}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{4}{x-1} - \\frac{4}{x+3}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{2}{x-1} - \\frac{2}{x+3}$",
+          "correct": false
+        }
+      ],
+      "explain": "$x = 1$ gives $4 = 4A$, so $A = 1$. $x = -3$ gives $4 = -4B$, so $B = -1$. Revise it in {{lesson:1.11}}."
+    },
+    {
+      "type": "check",
+      "id": "before-integrate-linear",
+      "prompt": "Find $\\int \\cos(5x)\\,\\mathrm{d}x$.",
+      "hint": "Integrate $\\cos$ first, then deal with the $5$ inside.",
+      "options": [
+        {
+          "text": "$\\frac{1}{5}\\sin(5x) + C$",
+          "correct": true
+        },
+        {
+          "text": "$5\\sin(5x) + C$",
+          "correct": false
+        },
+        {
+          "text": "$-\\frac{1}{5}\\sin(5x) + C$",
+          "correct": false
+        },
+        {
+          "text": "$\\sin(5x) + C$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{\\mathrm{d}}{\\mathrm{d}x}\\sin(5x) = 5\\cos(5x)$, so you divide by $5$. Revise it in {{lesson:5.10}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "trig",
+      "heading": "Derivatives of tan, sec, cosec and cot",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The other four trig functions are built from $\\sin x$ and $\\cos x$. $\\tan x = \\frac{\\sin x}{\\cos x}$, and the [[reciprocal-trig-function|reciprocal trig functions]] are $\\sec x = \\frac{1}{\\cos x}$, $\\operatorname{cosec}x = \\frac{1}{\\sin x}$ and $\\cot x = \\frac{1}{\\tan x}$."
+        },
+        {
+          "type": "text",
+          "text": "Use the quotient rule for $\\tan x$: $\\frac{\\cos x \\cdot \\cos x - \\sin x \\cdot (-\\sin x)}{\\cos^{2}x} = \\frac{\\cos^{2}x + \\sin^{2}x}{\\cos^{2}x}$. The top is $1$, so the derivative is $\\frac{1}{\\cos^{2}x} = \\sec^{2}x$."
+        },
+        {
+          "type": "text",
+          "text": "For $\\sec x$, write it as $(\\cos x)^{-1}$ and use the chain rule: $-(\\cos x)^{-2} \\times (-\\sin x) = \\frac{\\sin x}{\\cos^{2}x}$. Split this as $\\frac{1}{\\cos x} \\times \\frac{\\sin x}{\\cos x} = \\sec x\\tan x$."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\tan x \\Rightarrow f'(x) = \\sec^{2}x",
+          "tag": "booklet",
+          "bookletId": "bk-5-15-d-tan",
+          "cheatSheet": false
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\sec x \\Rightarrow f'(x) = \\sec x\\tan x",
+          "tag": "booklet",
+          "bookletId": "bk-5-15-d-sec",
+          "cheatSheet": false
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\operatorname{cosec}x \\Rightarrow f'(x) = -\\operatorname{cosec}x\\cot x",
+          "tag": "booklet",
+          "bookletId": "bk-5-15-d-cosec",
+          "cheatSheet": false
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\cot x \\Rightarrow f'(x) = -\\operatorname{cosec}^{2}x",
+          "tag": "booklet",
+          "bookletId": "bk-5-15-d-cot",
+          "cheatSheet": false
+        },
+        {
+          "type": "text",
+          "text": "All four are in the formula booklet. You need to use them quickly and get the signs right."
+        },
+        {
+          "type": "result",
+          "statement": "Every “co” function has a minus sign in its derivative: $\\cos x$, $\\cot x$, $\\operatorname{cosec}x$ and, later in this lesson, $\\arccos x$.",
+          "why": "Swap $\\sin$ and $\\cos$ in the working for $\\tan$ and $\\sec$ and you get $\\cot$ and $\\operatorname{cosec}$. The swap brings in $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\cos x = -\\sin x$, and with it a minus sign."
+        },
+        {
+          "type": "text",
+          "text": "With an inside function, multiply by the derivative of the inside, as in {{lesson:5.6}}. For example, $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\tan(7x) = 7\\sec^{2}(7x)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-diff-tan-cot",
+          "question": "Differentiate $f(x) = 4\\tan x - \\cot x$.",
+          "steps": [
+            "Differentiate term by term: $\\frac{\\mathrm{d}}{\\mathrm{d}x}(4\\tan x) = 4\\sec^{2}x$.",
+            "The derivative of $\\cot x$ is $-\\operatorname{cosec}^{2}x$. So $\\frac{\\mathrm{d}}{\\mathrm{d}x}(-\\cot x) = -(-\\operatorname{cosec}^{2}x) = \\operatorname{cosec}^{2}x$.",
+            "Add the two parts. The two minus signs cancel."
+          ],
+          "answer": "$f'(x) = 4\\sec^{2}x + \\operatorname{cosec}^{2}x$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-diff-sec",
+          "prompt": "Differentiate $y = \\sec(5x)$.",
+          "hint": "Use the booklet result for $\\sec$, then multiply by the derivative of the inside.",
+          "options": [
+            {
+              "text": "$5\\sec(5x)\\tan(5x)$",
+              "correct": true
+            },
+            {
+              "text": "$\\sec(5x)\\tan(5x)$",
+              "correct": false
+            },
+            {
+              "text": "$5\\sec^{2}(5x)$",
+              "correct": false
+            },
+            {
+              "text": "$-5\\sec(5x)\\tan(5x)$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sec u$ gives $\\sec u\\tan u$, and the inside $5x$ gives a factor $5$: $5\\sec(5x)\\tan(5x)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cosec-gradient",
+          "question": "Find the exact gradient of the curve $y = \\operatorname{cosec}(2x)$ at the point where $x = \\frac{\\pi}{6}$.",
+          "steps": [
+            "Use the chain rule with inside $2x$. The outside $\\operatorname{cosec}u$ differentiates to $-\\operatorname{cosec}u\\cot u$, and the inside gives a factor $2$.",
+            "So $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = -2\\operatorname{cosec}(2x)\\cot(2x)$.",
+            "At $x = \\frac{\\pi}{6}$, the inside is $2x = \\frac{\\pi}{3}$. Use the exact values $\\sin\\frac{\\pi}{3} = \\frac{\\sqrt{3}}{2}$ and $\\cos\\frac{\\pi}{3} = \\frac{1}{2}$.",
+            "So $\\operatorname{cosec}\\frac{\\pi}{3} = \\frac{2}{\\sqrt{3}}$ and $\\cot\\frac{\\pi}{3} = \\frac{1}{2} \\div \\frac{\\sqrt{3}}{2} = \\frac{1}{\\sqrt{3}}$.",
+            "Substitute: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = -2 \\times \\frac{2}{\\sqrt{3}} \\times \\frac{1}{\\sqrt{3}} = -\\frac{4}{3}$."
+          ],
+          "answer": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = -\\frac{4}{3}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting the factor from the inside. $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\cot(4x)$ is $-4\\operatorname{cosec}^{2}(4x)$, not $-\\operatorname{cosec}^{2}(4x)$."
+        },
+        {
+          "type": "check",
+          "id": "check-diff-xtan",
+          "prompt": "Differentiate $y = x\\tan x$.",
+          "hint": "It is a product: use the product rule with $u = x$ and $v = \\tan x$.",
+          "options": [
+            {
+              "text": "$\\tan x + x\\sec^{2}x$",
+              "correct": true
+            },
+            {
+              "text": "$\\sec^{2}x$",
+              "correct": false
+            },
+            {
+              "text": "$x\\sec^{2}x$",
+              "correct": false
+            },
+            {
+              "text": "$\\tan x - x\\sec^{2}x$",
+              "correct": false
+            }
+          ],
+          "explain": "$1 \\cdot \\tan x + x \\cdot \\sec^{2}x$. The product rule keeps both terms."
+        }
+      ]
+    },
+    {
+      "id": "exp-log",
+      "heading": "Exponentials and logarithms in any base",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can differentiate $\\mathrm{e}^{x}$ and $\\ln x$. Other bases, such as $2^{x}$ or $\\log_{10}x$, come back to these."
+        },
+        {
+          "type": "text",
+          "text": "Since $a = \\mathrm{e}^{\\ln a}$, you can write $a^{x} = \\mathrm{e}^{x\\ln a}$, where $\\ln a$ is just a constant. The chain rule gives $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\mathrm{e}^{x\\ln a} = \\mathrm{e}^{x\\ln a} \\times \\ln a = a^{x}\\ln a$."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = a^{x} \\Rightarrow f'(x) = a^{x}(\\ln a)",
+          "tag": "booklet",
+          "bookletId": "bk-5-15-d-a-power-x",
+          "cheatSheet": false
+        },
+        {
+          "type": "text",
+          "text": "For logs, change the base to $\\mathrm{e}$, as in {{lesson:1.7}}: $\\log_{a}x = \\frac{\\ln x}{\\ln a}$. The constant $\\frac{1}{\\ln a}$ just rides along, so the derivative is $\\frac{1}{\\ln a} \\times \\frac{1}{x}$."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\log_{a}x \\Rightarrow f'(x) = \\frac{1}{x\\ln a}",
+          "tag": "booklet",
+          "bookletId": "bk-5-15-d-log-a",
+          "cheatSheet": false
+        },
+        {
+          "type": "mistake",
+          "text": "Using the power rule on $a^{x}$. The power rule needs the variable in the base, so $\\frac{\\mathrm{d}}{\\mathrm{d}x}3^{x}$ is $3^{x}\\ln 3$, not $x \\cdot 3^{x-1}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-diff-a-power",
+          "question": "Differentiate $y = 5^{2x}$.",
+          "steps": [
+            "The exponent is $2x$, so use the chain rule. Let $u = 2x$, so that $y = 5^{u}$.",
+            "Then $\\frac{\\mathrm{d}y}{\\mathrm{d}u} = 5^{u}\\ln 5$ and $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 2$.",
+            "Multiply and put $u = 2x$ back: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 5^{2x}\\ln 5 \\times 2$.",
+            "Check another way. $5^{2x} = 25^{x}$, whose derivative is $25^{x}\\ln 25$. Since $\\ln 25 = 2\\ln 5$, the two answers agree."
+          ],
+          "answer": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2(\\ln 5)\\,5^{2x}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-diff-log3",
+          "prompt": "Differentiate $y = \\log_{3}(x^{2} + 1)$.",
+          "hint": "Use the chain rule with inside $x^{2} + 1$.",
+          "options": [
+            {
+              "text": "$\\frac{2x}{(x^{2} + 1)\\ln 3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{(x^{2} + 1)\\ln 3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2x}{x^{2} + 1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2x(\\ln 3)}{x^{2} + 1}$",
+              "correct": false
+            }
+          ],
+          "explain": "The outside gives $\\frac{1}{(x^{2} + 1)\\ln 3}$, and the inside gives $2x$. The $\\ln 3$ stays in the denominator."
+        },
+        {
+          "type": "example",
+          "id": "ex-tangent-log2",
+          "question": "Find the equation of the tangent to the curve $y = \\log_{2}x$ at the point where $x = 8$.",
+          "steps": [
+            "Find the point. $y = \\log_{2}8 = 3$, since $2^{3} = 8$. So the point is $(8, 3)$.",
+            "Differentiate: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{1}{x\\ln 2}$.",
+            "The gradient at $x = 8$ is $m = \\frac{1}{8\\ln 2}$. Leave it exact.",
+            "Use $y - y_{1} = m(x - x_{1})$: $y - 3 = \\frac{1}{8\\ln 2}(x - 8)$."
+          ],
+          "answer": "$y = \\frac{x - 8}{8\\ln 2} + 3$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-gradient-2x",
+          "prompt": "Find the gradient of $y = 2^{x}$ at $x = 3$. Give your answer to 3 significant figures.",
+          "hint": "Use $\\frac{\\mathrm{d}}{\\mathrm{d}x}a^{x} = a^{x}\\ln a$, then put $x = 3$.",
+          "answer": {
+            "value": 5.55,
+            "tolerance": 0.005
+          },
+          "explain": "$2^{3}\\ln 2 = 8\\ln 2 = 5.545\\ldots$, which is $5.55$ to 3 s.f."
+        }
+      ]
+    },
+    {
+      "id": "inverse-trig",
+      "heading": "Derivatives of the inverse trig functions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$y = \\arcsin x$ means $\\sin y = x$, with $-\\frac{\\pi}{2} \\le y \\le \\frac{\\pi}{2}$. It is one of the [[inverse-trig-function|inverse trig functions]], and it has no formula in $x$ to differentiate directly."
+        },
+        {
+          "type": "text",
+          "text": "So differentiate the other way round. From $x = \\sin y$ you get $\\frac{\\mathrm{d}x}{\\mathrm{d}y} = \\cos y$. By the chain rule, $\\frac{\\mathrm{d}y}{\\mathrm{d}x} \\times \\frac{\\mathrm{d}x}{\\mathrm{d}y} = 1$, so $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{1}{\\cos y}$."
+        },
+        {
+          "type": "text",
+          "text": "Now write $\\cos y$ in terms of $x$. Since $\\cos^{2}y = 1 - \\sin^{2}y = 1 - x^{2}$, and $\\cos y \\ge 0$ for $y$ in that range, $\\cos y = \\sqrt{1 - x^{2}}$."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\arcsin x \\Rightarrow f'(x) = \\frac{1}{\\sqrt{1 - x^{2}}}",
+          "tag": "booklet",
+          "bookletId": "bk-5-15-d-arcsin",
+          "cheatSheet": false
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\arccos x \\Rightarrow f'(x) = -\\frac{1}{\\sqrt{1 - x^{2}}}",
+          "tag": "booklet",
+          "bookletId": "bk-5-15-d-arccos",
+          "cheatSheet": false
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\arctan x \\Rightarrow f'(x) = \\frac{1}{1 + x^{2}}",
+          "tag": "booklet",
+          "bookletId": "bk-5-15-d-arctan",
+          "cheatSheet": false
+        },
+        {
+          "type": "result",
+          "statement": "The derivative of $\\arctan x$ is $\\frac{1}{1 + x^{2}}$, for every real $x$.",
+          "why": "From $x = \\tan y$: $\\frac{\\mathrm{d}x}{\\mathrm{d}y} = \\sec^{2}y = 1 + \\tan^{2}y = 1 + x^{2}$. Then take the reciprocal."
+        },
+        {
+          "type": "text",
+          "text": "$\\arccos x$ works like $\\arcsin x$, with a minus sign: it is another “co” function. The $\\arcsin$ and $\\arccos$ results hold for $-1 < x < 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-diff-arctan3x",
+          "question": "Differentiate $y = \\arctan(3x)$.",
+          "steps": [
+            "Use the chain rule with inside $u = 3x$, so $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 3$.",
+            "The outside gives $\\frac{1}{1 + u^{2}} = \\frac{1}{1 + (3x)^{2}}$.",
+            "Square the whole inside: $(3x)^{2} = 9x^{2}$, not $3x^{2}$.",
+            "Multiply by $3$ from the inside."
+          ],
+          "answer": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{3}{1 + 9x^{2}}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-diff-arccos4x",
+          "prompt": "Differentiate $y = \\arccos(4x)$.",
+          "hint": "Two things to get right: the sign for $\\arccos$, and the factor from the inside.",
+          "options": [
+            {
+              "text": "$-\\frac{4}{\\sqrt{1 - 16x^{2}}}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{4}{\\sqrt{1 - 16x^{2}}}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1}{\\sqrt{1 - 16x^{2}}}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{4}{\\sqrt{1 - 4x^{2}}}$",
+              "correct": false
+            }
+          ],
+          "explain": "$-\\frac{1}{\\sqrt{1 - (4x)^{2}}} \\times 4$, and $(4x)^{2} = 16x^{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-arcsin-gradient",
+          "question": "Find the exact gradient of $y = \\arcsin\\left(\\frac{x}{2}\\right)$ at $x = 1$.",
+          "steps": [
+            "Use the chain rule with inside $u = \\frac{x}{2}$, so $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = \\frac{1}{2}$.",
+            "So $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{1}{\\sqrt{1 - \\frac{x^{2}}{4}}} \\times \\frac{1}{2}$.",
+            "At $x = 1$: $\\sqrt{1 - \\frac{1}{4}} = \\sqrt{\\frac{3}{4}} = \\frac{\\sqrt{3}}{2}$.",
+            "So $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{1}{2} \\div \\frac{\\sqrt{3}}{2} = \\frac{1}{\\sqrt{3}}$. Rationalise the denominator to get $\\frac{\\sqrt{3}}{3}$."
+          ],
+          "answer": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{\\sqrt{3}}{3}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-diff-arctan-x2",
+          "prompt": "Differentiate $y = \\arctan(x^{2})$.",
+          "hint": "The inside is $x^{2}$. Square it in the denominator, then multiply by its derivative.",
+          "options": [
+            {
+              "text": "$\\frac{2x}{1 + x^{4}}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{1 + x^{4}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2x}{1 + x^{2}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2x}{(1 + x^{2})^{2}}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{1}{1 + (x^{2})^{2}} \\times 2x = \\frac{2x}{1 + x^{4}}$."
+        }
+      ]
+    },
+    {
+      "id": "reverse",
+      "heading": "Integrating them back",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every derivative in this lesson, read backwards, is an integral. Since $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\tan x = \\sec^{2}x$, you know that $\\int \\sec^{2}x\\,\\mathrm{d}x = \\tan x + C$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{aligned} \\int \\sec^{2}x\\,\\mathrm{d}x &= \\tan x + C \\\\ \\int \\sec x\\tan x\\,\\mathrm{d}x &= \\sec x + C \\\\ \\int \\operatorname{cosec}^{2}x\\,\\mathrm{d}x &= -\\cot x + C \\\\ \\int \\operatorname{cosec}x\\cot x\\,\\mathrm{d}x &= -\\operatorname{cosec}x + C \\end{aligned}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "These four are not in the booklet as integrals. Learn them, or rebuild them from the derivatives."
+        },
+        {
+          "type": "text",
+          "text": "The booklet does give these three, for a constant $a > 0$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\int a^{x}\\,\\mathrm{d}x = \\frac{1}{\\ln a}a^{x} + C",
+          "tag": "booklet",
+          "bookletId": "bk-5-15-int-a-power-x",
+          "cheatSheet": false
+        },
+        {
+          "type": "formula",
+          "tex": "\\int \\frac{1}{a^{2} + x^{2}}\\,\\mathrm{d}x = \\frac{1}{a}\\arctan\\left(\\frac{x}{a}\\right) + C",
+          "tag": "booklet",
+          "bookletId": "bk-5-15-int-arctan",
+          "cheatSheet": false
+        },
+        {
+          "type": "formula",
+          "tex": "\\int \\frac{1}{\\sqrt{a^{2} - x^{2}}}\\,\\mathrm{d}x = \\arcsin\\left(\\frac{x}{a}\\right) + C, \\quad \\lvert x\\rvert < a",
+          "tag": "booklet",
+          "bookletId": "bk-5-15-int-arcsin",
+          "cheatSheet": false
+        },
+        {
+          "type": "text",
+          "text": "Differentiate the $\\arctan$ one to see where the $\\frac{1}{a}$ comes from: $\\frac{1}{a} \\times \\frac{1}{1 + \\frac{x^{2}}{a^{2}}} \\times \\frac{1}{a} = \\frac{1}{a^{2} + x^{2}}$. The $\\arcsin$ one has no $\\frac{1}{a}$ in front."
+        },
+        {
+          "type": "text",
+          "text": "With a linear expression $kx + b$ inside, integrate as usual and divide by $k$, exactly as in {{lesson:5.10}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-int-cosec2",
+          "question": "Find $\\int \\operatorname{cosec}^{2}(3 - 2x)\\,\\mathrm{d}x$.",
+          "steps": [
+            "$\\operatorname{cosec}^{2}$ integrates to $-\\cot$, so start from $-\\cot(3 - 2x)$.",
+            "Differentiating $-\\cot(3 - 2x)$ gives $\\operatorname{cosec}^{2}(3 - 2x) \\times (-2)$, because the inside contributes $-2$.",
+            "To cancel that factor, divide by $-2$: $\\frac{-\\cot(3 - 2x)}{-2} = \\frac{1}{2}\\cot(3 - 2x)$.",
+            "Check: $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(\\frac{1}{2}\\cot(3 - 2x)\\right) = \\frac{1}{2} \\times \\left(-\\operatorname{cosec}^{2}(3 - 2x)\\right) \\times (-2) = \\operatorname{cosec}^{2}(3 - 2x)$."
+          ],
+          "answer": "$\\int \\operatorname{cosec}^{2}(3 - 2x)\\,\\mathrm{d}x = \\frac{1}{2}\\cot(3 - 2x) + C$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying by the inside coefficient instead of dividing. $\\int \\mathrm{e}^{-4x}\\,\\mathrm{d}x$ is $-\\frac{1}{4}\\mathrm{e}^{-4x} + C$. Writing $-4\\mathrm{e}^{-4x}$ is wrong: it differentiates to $16\\mathrm{e}^{-4x}$."
+        },
+        {
+          "type": "check",
+          "id": "check-int-a-power",
+          "prompt": "Find $\\int 6^{x}\\,\\mathrm{d}x$.",
+          "hint": "Differentiating $6^{x}$ multiplies it by $\\ln 6$. What undoes that?",
+          "options": [
+            {
+              "text": "$\\frac{6^{x}}{\\ln 6} + C$",
+              "correct": true
+            },
+            {
+              "text": "$6^{x}\\ln 6 + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{6^{x+1}}{x+1} + C$",
+              "correct": false
+            },
+            {
+              "text": "$6^{x} + C$",
+              "correct": false
+            }
+          ],
+          "explain": "Integrating divides by $\\ln 6$: $\\frac{6^{x}}{\\ln 6} + C$. The power rule doesn't apply, because $x$ is in the exponent."
+        },
+        {
+          "type": "example",
+          "id": "ex-int-arcsin-linear",
+          "question": "Find $\\int \\frac{1}{\\sqrt{25 - 4x^{2}}}\\,\\mathrm{d}x$.",
+          "steps": [
+            "Match the $\\arcsin$ form $\\frac{1}{\\sqrt{a^{2} - u^{2}}}$. Here $a^{2} = 25$ and $u^{2} = 4x^{2}$, so $a = 5$ and $u = 2x$.",
+            "If the integrand were $\\frac{1}{\\sqrt{25 - x^{2}}}$, the answer would be $\\arcsin\\left(\\frac{x}{5}\\right)$.",
+            "Here $x$ is replaced by $2x$. So write $\\arcsin\\left(\\frac{2x}{5}\\right)$ and divide by $2$, the coefficient of $x$ inside.",
+            "Check: $\\frac{1}{2} \\times \\frac{1}{\\sqrt{1 - \\frac{4x^{2}}{25}}} \\times \\frac{2}{5} = \\frac{1}{5\\sqrt{1 - \\frac{4x^{2}}{25}}} = \\frac{1}{\\sqrt{25 - 4x^{2}}}$."
+          ],
+          "answer": "$\\int \\frac{1}{\\sqrt{25 - 4x^{2}}}\\,\\mathrm{d}x = \\frac{1}{2}\\arcsin\\left(\\frac{2x}{5}\\right) + C$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-int-sec-tan",
+          "prompt": "Find $\\int \\sec(3x)\\tan(3x)\\,\\mathrm{d}x$.",
+          "hint": "Which function differentiates to $\\sec x\\tan x$? Then deal with the $3$ inside.",
+          "options": [
+            {
+              "text": "$\\frac{1}{3}\\sec(3x) + C$",
+              "correct": true
+            },
+            {
+              "text": "$3\\sec(3x) + C$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1}{3}\\sec(3x) + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{3}\\tan(3x) + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{\\mathrm{d}}{\\mathrm{d}x}\\sec(3x) = 3\\sec(3x)\\tan(3x)$, so divide by $3$."
+        },
+        {
+          "type": "text",
+          "text": "An indefinite integral is not one function. Each value of $C$ gives a different curve, so $\\int f(x)\\,\\mathrm{d}x$ is a [[family-of-curves|family of curves]], as you saw in {{lesson:5.5}}. They all have the same shape, shifted up or down."
+        },
+        {
+          "type": "text",
+          "text": "One known point on the curve fixes $C$, and so picks out a single curve."
+        },
+        {
+          "type": "example",
+          "id": "ex-family-arctan",
+          "question": "A curve $y = f(x)$ has gradient $f'(x) = \\frac{6}{9 + x^{2}}$ and passes through the point $(3, \\pi)$. Find $f(x)$.",
+          "steps": [
+            "Use the $\\arctan$ form with $a = 3$: $\\int \\frac{6}{9 + x^{2}}\\,\\mathrm{d}x = 6 \\times \\frac{1}{3}\\arctan\\left(\\frac{x}{3}\\right) + C$.",
+            "So the family is $f(x) = 2\\arctan\\left(\\frac{x}{3}\\right) + C$.",
+            "Substitute the point: $\\pi = 2\\arctan 1 + C$. Since $\\arctan 1 = \\frac{\\pi}{4}$, this is $\\pi = \\frac{\\pi}{2} + C$.",
+            "So $C = \\frac{\\pi}{2}$. The figure shows this curve among other members of the family."
+          ],
+          "answer": "$f(x) = 2\\arctan\\left(\\frac{x}{3}\\right) + \\frac{\\pi}{2}$",
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "5-15-arctan-family",
+          "alt": "Four S-shaped curves, each the graph of y equals 2 arctan of x over 3 plus a constant C, for C equal to minus 2, 0, pi over 2 and 3.5. They are the same shape, shifted up or down. The curve with C equal to pi over 2 is highlighted and passes through the point 3, pi.",
+          "caption": "Part of the family $y = 2\\arctan\\left(\\frac{x}{3}\\right) + C$. Only $C = \\frac{\\pi}{2}$ passes through $(3, \\pi)$."
+        }
+      ]
+    },
+    {
+      "id": "complete-square",
+      "heading": "Quadratic denominators: completing the square",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Take $\\frac{1}{x^{2} + 4x + 7}$. The discriminant is $16 - 28 < 0$, so the quadratic has no real roots and won't factorise."
+        },
+        {
+          "type": "text",
+          "text": "Complete the square instead: $x^{2} + 4x + 7 = (x + 2)^{2} + 3$. That is $a^{2} + u^{2}$ with $a = \\sqrt{3}$ and $u = x + 2$, which is the $\\arctan$ form with a linear inside."
+        },
+        {
+          "type": "example",
+          "id": "ex-square-arctan",
+          "question": "Find $\\int \\frac{1}{x^{2} - 6x + 13}\\,\\mathrm{d}x$.",
+          "steps": [
+            "Complete the square: $x^{2} - 6x + 13 = (x - 3)^{2} - 9 + 13 = (x - 3)^{2} + 4$.",
+            "So the integral is $\\int \\frac{1}{2^{2} + (x - 3)^{2}}\\,\\mathrm{d}x$: the $\\arctan$ form with $a = 2$ and $x - 3$ in place of $x$.",
+            "The inside $x - 3$ has coefficient $1$, so there is nothing extra to divide by. The answer is $\\frac{1}{2}\\arctan\\left(\\frac{x - 3}{2}\\right) + C$.",
+            "Check: $\\frac{1}{2} \\times \\frac{1}{1 + \\frac{(x - 3)^{2}}{4}} \\times \\frac{1}{2} = \\frac{1}{4 + (x - 3)^{2}}$, which is the integrand."
+          ],
+          "answer": "$\\int \\frac{1}{x^{2} - 6x + 13}\\,\\mathrm{d}x = \\frac{1}{2}\\arctan\\left(\\frac{x - 3}{2}\\right) + C$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-square-arctan",
+          "prompt": "Find $\\int \\frac{1}{x^{2} + 10x + 29}\\,\\mathrm{d}x$.",
+          "hint": "Complete the square: $x^{2} + 10x + 29 = (x + 5)^{2} + \\ldots$",
+          "options": [
+            {
+              "text": "$\\frac{1}{2}\\arctan\\left(\\frac{x + 5}{2}\\right) + C$",
+              "correct": true
+            },
+            {
+              "text": "$\\arctan\\left(\\frac{x + 5}{2}\\right) + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2}\\arctan\\left(\\frac{x - 5}{2}\\right) + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\ln\\lvert x^{2} + 10x + 29\\rvert + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x + 5)^{2} + 4$, so $a = 2$. A log would need the derivative of the denominator, $2x + 10$, on top, and it isn't there."
+        },
+        {
+          "type": "text",
+          "text": "The same idea works for $\\arcsin$ when there is a square root underneath and the $x^{2}$ term is negative. Take out the minus sign first, then complete the square inside the bracket. Write the quadratic as $a^{2} - (x - h)^{2}$."
+        },
+        {
+          "type": "check",
+          "id": "check-square-arcsin",
+          "prompt": "Find $\\int \\frac{1}{\\sqrt{6x - x^{2} - 5}}\\,\\mathrm{d}x$.",
+          "hint": "Show that $6x - x^{2} - 5 = 4 - (x - 3)^{2}$.",
+          "options": [
+            {
+              "text": "$\\arcsin\\left(\\frac{x - 3}{2}\\right) + C$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{2}\\arcsin\\left(\\frac{x - 3}{2}\\right) + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\arcsin\\left(\\frac{x + 3}{2}\\right) + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2}\\arctan\\left(\\frac{x - 3}{2}\\right) + C$",
+              "correct": false
+            }
+          ],
+          "explain": "Take out $-1$: $6x - x^{2} - 5 = -(x^{2} - 6x + 5) = -\\big((x - 3)^{2} - 4\\big) = 4 - (x - 3)^{2}$. So $a = 2$ and $x - 3$ is inside. The $\\arcsin$ form has no $\\frac{1}{a}$ in front."
+        },
+        {
+          "type": "example",
+          "id": "ex-velocity-gdc",
+          "question": "A particle moves along a line with velocity $v(t) = \\frac{10}{t^{2} + 4t + 8}$, in $\\text{m s}^{-1}$, where $t \\ge 0$ is the time in seconds. Use your calculator to find the distance $d$ it travels in the first $4$ seconds. Give your answer to 3 s.f.",
+          "steps": [
+            "The denominator is $(t + 2)^{2} + 4$, which is always positive. So $v(t) > 0$: the particle never turns back, and the distance is $\\int_{0}^{4} v(t)\\,\\mathrm{d}t$.",
+            "Write down what you put into the calculator: $d = \\int_{0}^{4} \\frac{10}{t^{2} + 4t + 8}\\,\\mathrm{d}t$. This line earns the method mark.",
+            "The calculator gives $2.31823\\ldots$.",
+            "Exact check: $\\int \\frac{10}{2^{2} + (t + 2)^{2}}\\,\\mathrm{d}t = 5\\arctan\\left(\\frac{t + 2}{2}\\right)$, so $d = 5\\arctan 3 - 5\\arctan 1 = 5\\arctan 3 - \\frac{5\\pi}{4} = 2.31823\\ldots$, working in radians."
+          ],
+          "answer": "$d \\approx 2.32\\text{ m}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MATH, 9: fnInt(",
+              "Enter 10/(X^2+4X+8), X, 0, 4, then ENTER",
+              "Read 2.318…"
+            ],
+            "nspire": [
+              "Calculator page, Menu, Calculus, Numerical Integral",
+              "Lower limit 0, upper limit 4, then 10/(x^2+4x+8), then x in the box after d, then enter",
+              "Read 2.318…"
+            ],
+            "casio": [
+              "RUN-MAT, OPTN, CALC, ∫dx",
+              "Enter 10/(X^2+4X+8) with lower limit 0 and upper limit 4, then EXE",
+              "Read 2.318…"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "partial-fractions",
+      "heading": "Quadratic denominators: partial fractions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "If the denominator does factorise into two different linear factors, split the fraction into [[partial-fractions|partial fractions]] first, as in {{lesson:1.11}}. Each piece then integrates to a log."
+        },
+        {
+          "type": "result",
+          "statement": "$\\int \\frac{1}{x - p}\\,\\mathrm{d}x = \\ln\\lvert x - p\\rvert + C$, so each partial fraction gives a log.",
+          "why": "It is $\\int \\frac{1}{x}\\,\\mathrm{d}x = \\ln\\lvert x\\rvert + C$ with $x - p$ inside."
+        },
+        {
+          "type": "text",
+          "text": "So with a quadratic denominator, test the discriminant $\\Delta$ first. If $\\Delta > 0$, factorise and use partial fractions. If $\\Delta < 0$, complete the square and use $\\arctan$."
+        },
+        {
+          "type": "example",
+          "id": "ex-pf-log",
+          "question": "Find $\\int \\frac{5}{x^{2} - x - 6}\\,\\mathrm{d}x$.",
+          "steps": [
+            "Factorise: $x^{2} - x - 6 = (x - 3)(x + 2)$.",
+            "Write $\\frac{5}{(x - 3)(x + 2)} = \\frac{A}{x - 3} + \\frac{B}{x + 2}$, so $5 = A(x + 2) + B(x - 3)$.",
+            "Put $x = 3$: $5 = 5A$, so $A = 1$. Put $x = -2$: $5 = -5B$, so $B = -1$.",
+            "Integrate each piece: $\\ln\\lvert x - 3\\rvert - \\ln\\lvert x + 2\\rvert + C$.",
+            "Combine with the laws of logs. Either form earns the marks."
+          ],
+          "answer": "$\\int \\frac{5}{x^{2} - x - 6}\\,\\mathrm{d}x = \\ln\\left\\lvert\\frac{x - 3}{x + 2}\\right\\rvert + C$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Splitting a quadratic that doesn't factorise. $\\frac{1}{x^{2} + 9}$ has no partial fractions: it is an $\\arctan$ integral, $\\frac{1}{3}\\arctan\\left(\\frac{x}{3}\\right) + C$."
+        },
+        {
+          "type": "check",
+          "id": "check-pf-antiderivative",
+          "prompt": "Find $\\int \\frac{2}{x^{2} - 1}\\,\\mathrm{d}x$.",
+          "hint": "Factorise $x^{2} - 1$ as a difference of two squares, then find the partial fractions.",
+          "options": [
+            {
+              "text": "$\\ln\\left\\lvert\\frac{x - 1}{x + 1}\\right\\rvert + C$",
+              "correct": true
+            },
+            {
+              "text": "$\\ln\\left\\lvert\\frac{x + 1}{x - 1}\\right\\rvert + C$",
+              "correct": false
+            },
+            {
+              "text": "$\\ln\\lvert x^{2} - 1\\rvert + C$",
+              "correct": false
+            },
+            {
+              "text": "$2\\ln\\left\\lvert\\frac{x - 1}{x + 1}\\right\\rvert + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{2}{(x - 1)(x + 1)} = \\frac{1}{x - 1} - \\frac{1}{x + 1}$, which integrates to $\\ln\\lvert x - 1\\rvert - \\ln\\lvert x + 1\\rvert + C$."
+        },
+        {
+          "type": "example",
+          "id": "ex-pf-definite",
+          "question": "Find the exact value of $\\int_{0}^{1} \\frac{3x + 5}{(x + 1)(x + 3)}\\,\\mathrm{d}x$.",
+          "steps": [
+            "Write $\\frac{3x + 5}{(x + 1)(x + 3)} = \\frac{A}{x + 1} + \\frac{B}{x + 3}$, so $3x + 5 = A(x + 3) + B(x + 1)$.",
+            "Put $x = -1$: $2 = 2A$, so $A = 1$. Put $x = -3$: $-4 = -2B$, so $B = 2$.",
+            "Integrate: $\\left[\\ln(x + 1) + 2\\ln(x + 3)\\right]_{0}^{1}$. No modulus is needed, since $x + 1$ and $x + 3$ are positive on $[0, 1]$.",
+            "Substitute the limits: $(\\ln 2 + 2\\ln 4) - (\\ln 1 + 2\\ln 3)$.",
+            "Use $\\ln 1 = 0$ and the laws of logs: $\\ln 2 + \\ln 16 - \\ln 9 = \\ln\\frac{2 \\times 16}{9}$."
+          ],
+          "answer": "$\\int_{0}^{1} \\frac{3x + 5}{(x + 1)(x + 3)}\\,\\mathrm{d}x = \\ln\\frac{32}{9}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "“Hence” after a partial-fractions part means integrate the fractions you just found. If your $A$ or $B$ was wrong, using it correctly can still earn follow-through (FT) marks."
+        },
+        {
+          "type": "check",
+          "id": "check-pf-numeric",
+          "prompt": "Find $\\int_{2}^{4} \\frac{1}{x(x - 1)}\\,\\mathrm{d}x$. Give your answer to 3 significant figures.",
+          "hint": "Show that $\\frac{1}{x(x - 1)} = \\frac{1}{x - 1} - \\frac{1}{x}$ first.",
+          "answer": {
+            "value": 0.405,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\left[\\ln(x - 1) - \\ln x\\right]_{2}^{4} = \\ln\\frac{3}{4} - \\ln\\frac{1}{2} = \\ln\\frac{3}{2}$, which is $0.405$ to 3 s.f."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Every “co” function has a minus sign in its derivative: $\\cos x$, $\\cot x$, $\\operatorname{cosec}x$ and $\\arccos x$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\frac{\\mathrm{d}}{\\mathrm{d}x}a^{x} = a^{x}\\ln a$ and $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\log_{a}x = \\frac{1}{x\\ln a}$.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\frac{\\mathrm{d}}{\\mathrm{d}x}\\arcsin x = \\frac{1}{\\sqrt{1 - x^{2}}}$ and $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\arctan x = \\frac{1}{1 + x^{2}}$; $\\arccos x$ is the $\\arcsin$ result with a minus sign.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{aligned} \\int \\sec^{2}x\\,\\mathrm{d}x &= \\tan x + C \\\\ \\int \\sec x\\tan x\\,\\mathrm{d}x &= \\sec x + C \\\\ \\int \\operatorname{cosec}^{2}x\\,\\mathrm{d}x &= -\\cot x + C \\\\ \\int \\operatorname{cosec}x\\cot x\\,\\mathrm{d}x &= -\\operatorname{cosec}x + C \\end{aligned}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "With $kx + b$ inside: differentiate, then multiply by $k$; integrate, then divide by $k$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\frac{1}{\\text{quadratic}}$: if $\\Delta < 0$, complete the square and use $\\arctan$; if $\\Delta > 0$, use partial fractions and logs.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An indefinite integral is a family of curves $F(x) + C$. One known point fixes $C$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dropping the factor from the inside. $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\tan(5x)$ is $5\\sec^{2}(5x)$, and when you integrate you divide by that $5$ instead.",
+    "Multiplying instead of dividing when you integrate $f(kx + b)$. Differentiate your answer to check it.",
+    "Losing the minus sign on a “co” function. $\\cot x$, $\\operatorname{cosec}x$ and $\\arccos x$ all have negative derivatives.",
+    "Putting $\\frac{1}{a}$ in front of the $\\arcsin$ integral. Only the $\\arctan$ integral has it, so check by differentiating.",
+    "Writing $\\ln(x^{2} + 9)$ for $\\int \\frac{1}{x^{2} + 9}\\,\\mathrm{d}x$. A log needs the derivative of the denominator on top. Here the answer is an $\\arctan$."
+  ],
+  "examTips": [
+    "“Show that” a derivative: start from the function and work forwards to the given result. Never start from the answer, and make your last line match it exactly.",
+    "On Paper 1, leave answers exact, such as $\\ln\\frac{32}{9}$. Know exact values like $\\arctan 1 = \\frac{\\pi}{4}$.",
+    "On Paper 2, write down the integral you put into your calculator, with its limits, then give the answer to 3 s.f. On Paper 1 the same question needs exact working.",
+    "Every indefinite integral ends in $+\\,C$. Leaving it out can cost an accuracy mark."
+  ],
+  "readingMinutes": 28
+}

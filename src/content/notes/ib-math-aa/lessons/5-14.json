@@ -1,0 +1,635 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.14",
+  "slug": "implicit-differentiation-related-rates-and-optimisation",
+  "title": "Implicit differentiation, related rates and optimisation",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "Some equations, such as $x^{2} + xy + y^{2} = 12$, don't give $y$ as a function of $x$. [[implicit-differentiation|Implicit differentiation]] finds their gradient anyway: differentiate both sides, using the chain rule on every $y$ term. The same chain rule links [[related-rates|related rates]] over time and solves harder optimisation problems.",
+  "goals": [
+    {
+      "text": "Differentiate an equation in $x$ and $y$ implicitly, and use the gradient to find tangents.",
+      "bullets": [
+        "5.14-b1"
+      ]
+    },
+    {
+      "text": "Link rates of change over time with the chain rule, with the right signs and units.",
+      "bullets": [
+        "5.14-b2"
+      ]
+    },
+    {
+      "text": "Optimise a quantity using the chain rule or implicit differentiation.",
+      "bullets": [
+        "5.14-b3"
+      ]
+    },
+    {
+      "text": "Check the end points of the allowed interval, because the best value can lie there.",
+      "bullets": [
+        "5.14-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.6",
+    "5.8"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "implicit differentiation",
+    "related rates of change",
+    "dy/dx in terms of x and y",
+    "rate of change with respect to time",
+    "optimisation at an end point",
+    "ladder sliding down a wall"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-chain-rule",
+      "prompt": "Differentiate $\\left(3x^{2} + 1\\right)^{5}$ with respect to $x$.",
+      "hint": "Differentiate the outside, then multiply by the derivative of the inside.",
+      "options": [
+        {
+          "text": "$5\\left(3x^{2} + 1\\right)^{4}$",
+          "correct": false
+        },
+        {
+          "text": "$30x\\left(3x^{2} + 1\\right)^{4}$",
+          "correct": true
+        },
+        {
+          "text": "$6x\\left(3x^{2} + 1\\right)^{4}$",
+          "correct": false
+        }
+      ],
+      "explain": "The chain rule gives $5\\left(3x^{2} + 1\\right)^{4} \\times 6x = 30x\\left(3x^{2} + 1\\right)^{4}$. Revise it in {{lesson:5.6}}."
+    },
+    {
+      "type": "check",
+      "id": "before-product-rule",
+      "prompt": "Differentiate $x^{2}\\sin x$ with respect to $x$.",
+      "hint": "It is a product of $x^{2}$ and $\\sin x$.",
+      "options": [
+        {
+          "text": "$2x\\cos x$",
+          "correct": false
+        },
+        {
+          "text": "$2x\\sin x + x^{2}\\cos x$",
+          "correct": true
+        },
+        {
+          "text": "$2x\\sin x - x^{2}\\cos x$",
+          "correct": false
+        }
+      ],
+      "explain": "The product rule gives $2x \\cdot \\sin x + x^{2} \\cdot \\cos x$. Revise it in {{lesson:5.6}}."
+    },
+    {
+      "type": "check",
+      "id": "before-stationary",
+      "prompt": "Find the $x$-coordinates of the stationary points of $f(x) = x^{3} - 6x^{2} + 9x + 4$.",
+      "hint": "Solve $f'(x) = 0$.",
+      "options": [
+        {
+          "text": "$x = 1 \\text{ or } x = 3$",
+          "correct": true
+        },
+        {
+          "text": "$x = -1 \\text{ or } x = -3$",
+          "correct": false
+        },
+        {
+          "text": "$x = 0 \\text{ or } x = 3$",
+          "correct": false
+        }
+      ],
+      "explain": "$f'(x) = 3x^{2} - 12x + 9 = 3(x - 1)(x - 3)$, which is zero at $x = 1$ and $x = 3$. Revise it in {{lesson:5.8}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "implicit",
+      "heading": "Implicit differentiation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In $y = x^{3} - 2x$, $y$ is given directly in terms of $x$. The curve $x^{2} + 4y^{2} = 20$ is different. It is an [[implicit-equation|implicit equation]]: $x$ and $y$ are mixed together, and making $y$ the subject is messy or impossible."
+        },
+        {
+          "type": "text",
+          "text": "You can still find $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ by [[implicit-differentiation|implicit differentiation]]. Think of $y$ as an unknown function of $x$, and differentiate every term with respect to $x$."
+        },
+        {
+          "type": "text",
+          "text": "Terms in $x$ alone differentiate as usual. A term such as $y^{2}$ is a [[composite-function|composite function]] of $x$, so it needs the [[chain-rule|chain rule]] from the formula booklet:"
+        },
+        {
+          "type": "formula",
+          "tex": "y = g(u), \\text{ where } u = f(x) \\Rightarrow \\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{\\mathrm{d}y}{\\mathrm{d}u} \\times \\dfrac{\\mathrm{d}u}{\\mathrm{d}x}",
+          "tag": "booklet",
+          "bookletId": "bk-5-6-chain-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "result",
+          "statement": "To differentiate a term in $y$ with respect to $x$, differentiate it with respect to $y$, then multiply by $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$.",
+          "why": "It is the chain rule with $u = y$: $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(y^{2}\\right) = 2y \\times \\frac{\\mathrm{d}y}{\\mathrm{d}x}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(y^{n}\\right) = ny^{n-1}\\frac{\\mathrm{d}y}{\\mathrm{d}x}, \\qquad \\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(\\sin y\\right) = \\cos y\\,\\frac{\\mathrm{d}y}{\\mathrm{d}x}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "A term such as $xy$ or $x^{2}y$ is a product of a function of $x$ and a function of $y$. Use the [[product-rule|product rule]], and keep the $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ on the $y$ part: $\\dfrac{\\mathrm{d}}{\\mathrm{d}x}(xy) = y + x\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$."
+        },
+        {
+          "type": "text",
+          "text": "1. Differentiate every term on both sides with respect to $x$. A constant gives $0$."
+        },
+        {
+          "type": "text",
+          "text": "2. Move the terms containing $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ to one side and everything else to the other."
+        },
+        {
+          "type": "text",
+          "text": "3. Factorise out $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ and divide."
+        },
+        {
+          "type": "text",
+          "text": "Your answer will usually contain both $x$ and $y$. That is expected: one $x$-value can belong to several points of the curve."
+        },
+        {
+          "type": "example",
+          "id": "ex-implicit-ellipse",
+          "question": "The curve $C$ has equation $x^{2} + 4y^{2} = 20$. (a) Find $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ in terms of $x$ and $y$. (b) Find the gradient of $C$ at the point $(2, 2)$.",
+          "steps": [
+            "(a) Differentiate each term with respect to $x$. The $4y^{2}$ term needs the chain rule, and the constant $20$ gives $0$: $2x + 8y\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 0$.",
+            "Rearrange: $8y\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -2x$, so $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -\\dfrac{x}{4y}$.",
+            "(b) Check the point is on $C$: $2^{2} + 4\\left(2^{2}\\right) = 4 + 16 = 20$. It is.",
+            "Substitute $x = 2$ and $y = 2$: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -\\dfrac{2}{4 \\times 2} = -\\dfrac{1}{4}$."
+          ],
+          "answer": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = -\\frac{1}{4}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-implicit-basic",
+          "prompt": "Find $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ for the curve $y^{3} + 3y = x^{2} + 4x$.",
+          "hint": "Both $y^{3}$ and $3y$ pick up a factor $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$.",
+          "options": [
+            {
+              "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{2x + 4}{3y^{2} + 3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{2x + 4}{3y^{2}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = (2x + 4)(3y^{2} + 3)$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{3y^{2} + 3}{2x + 4}$",
+              "correct": false
+            }
+          ],
+          "explain": "Differentiating gives $3y^{2}\\frac{\\mathrm{d}y}{\\mathrm{d}x} + 3\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2x + 4$. Factorise to $(3y^{2} + 3)\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2x + 4$, then divide by $3y^{2} + 3$. Forgetting the $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ on $3y$ loses the $+3$."
+        },
+        {
+          "type": "text",
+          "text": "To find a [[tangent|tangent]] or normal at a point, find $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ implicitly and substitute the point's $x$ and $y$. Then use $y - y_{1} = m(x - x_{1})$, as in {{lesson:5.4}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-implicit-tangent",
+          "question": "A curve has equation $x^{2}y + y^{3} = 2x + 8$. (a) Show that the point $(1, 2)$ lies on the curve. (b) Find $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ in terms of $x$ and $y$. (c) Find the equation of the tangent to the curve at $(1, 2)$, in the form $ax + by = c$ where $a, b, c \\in \\mathbb{Z}$.",
+          "steps": [
+            "(a) Substitute $x = 1$, $y = 2$. The left side is $1^{2}(2) + 2^{3} = 10$, and the right side is $2(1) + 8 = 10$. They agree.",
+            "(b) $x^{2}y$ is a product, so use the product rule: $\\dfrac{\\mathrm{d}}{\\mathrm{d}x}\\left(x^{2}y\\right) = 2xy + x^{2}\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$.",
+            "Differentiate the whole equation: $2xy + x^{2}\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} + 3y^{2}\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 2$.",
+            "Collect and factorise: $\\left(x^{2} + 3y^{2}\\right)\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 2 - 2xy$, so $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{2 - 2xy}{x^{2} + 3y^{2}}$.",
+            "(c) At $(1, 2)$: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{2 - 4}{1 + 12} = -\\dfrac{2}{13}$.",
+            "Tangent: $y - 2 = -\\dfrac{2}{13}(x - 1)$. Multiply by $13$: $13y - 26 = -2x + 2$, so $2x + 13y = 28$."
+          ],
+          "answer": "$2x + 13y = 28$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-implicit-gradient",
+          "prompt": "The point $(4, 1)$ lies on the curve $x^{2} - 3xy + y^{3} = 5$. Find the gradient there. Give your answer to 3 s.f.",
+          "hint": "Use the product rule on $3xy$. You can substitute $x = 4$ and $y = 1$ before you rearrange.",
+          "answer": {
+            "value": 0.556,
+            "tolerance": 0.0005
+          },
+          "explain": "Differentiating gives $2x - 3y - 3x\\frac{\\mathrm{d}y}{\\mathrm{d}x} + 3y^{2}\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0$. At $(4, 1)$ this is $8 - 3 - 12\\frac{\\mathrm{d}y}{\\mathrm{d}x} + 3\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0$, so $9\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 5$ and the gradient is $\\frac{5}{9} \\approx 0.556$."
+        }
+      ]
+    },
+    {
+      "id": "rates",
+      "heading": "Related rates of change",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Pump air into a balloon and its volume and radius both grow with time. Their rates are linked: at a steady flow of air, the radius grows fast at first, then more slowly."
+        },
+        {
+          "type": "text",
+          "text": "A problem that links two rates like this is a [[related-rates|related rates]] problem. The [[chain-rule|chain rule]] connects the rates. If $V$ depends on $r$, and $r$ depends on time $t$:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}V}{\\mathrm{d}t} = \\frac{\\mathrm{d}V}{\\mathrm{d}r} \\times \\frac{\\mathrm{d}r}{\\mathrm{d}t}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "A rate such as $\\dfrac{\\mathrm{d}r}{\\mathrm{d}t}$ is positive when the quantity increases and negative when it decreases. Its units are per unit of time, such as $\\text{cm s}^{-1}$ for $\\frac{\\mathrm{d}r}{\\mathrm{d}t}$ or $\\text{cm}^{3}\\text{ s}^{-1}$ for $\\frac{\\mathrm{d}V}{\\mathrm{d}t}$."
+        },
+        {
+          "type": "text",
+          "text": "1. Name the variables. Write down each rate you know, with its sign, and the rate you want."
+        },
+        {
+          "type": "text",
+          "text": "2. Write an equation linking the variables. It must be true at every moment, not just at the instant in the question."
+        },
+        {
+          "type": "text",
+          "text": "3. Differentiate with respect to $t$. Use the chain rule, or implicit differentiation when several variables change."
+        },
+        {
+          "type": "text",
+          "text": "4. Only now substitute the values at the instant. Solve for the rate you want, and give its units."
+        },
+        {
+          "type": "example",
+          "id": "ex-rates-balloon",
+          "question": "A spherical balloon is inflated so that its volume increases at a constant $100\\text{ cm}^{3}\\text{ s}^{-1}$. Find the exact rate at which its radius is increasing when the radius is $5$ cm.",
+          "steps": [
+            "Let the radius be $r$ cm and the volume $V\\text{ cm}^{3}$ at time $t$ seconds. You know $\\dfrac{\\mathrm{d}V}{\\mathrm{d}t} = 100$ and want $\\dfrac{\\mathrm{d}r}{\\mathrm{d}t}$.",
+            "Link them with the volume of a sphere, from the formula booklet: $V = \\tfrac{4}{3}\\pi r^{3}$, so $\\dfrac{\\mathrm{d}V}{\\mathrm{d}r} = 4\\pi r^{2}$.",
+            "Chain rule: $\\dfrac{\\mathrm{d}V}{\\mathrm{d}t} = \\dfrac{\\mathrm{d}V}{\\mathrm{d}r} \\times \\dfrac{\\mathrm{d}r}{\\mathrm{d}t}$, so $100 = 4\\pi r^{2}\\dfrac{\\mathrm{d}r}{\\mathrm{d}t}$.",
+            "Substitute $r = 5$: $100 = 100\\pi\\dfrac{\\mathrm{d}r}{\\mathrm{d}t}$, so $\\dfrac{\\mathrm{d}r}{\\mathrm{d}t} = \\dfrac{1}{\\pi} \\approx 0.318$.",
+            "Sense check: the rate is positive, so the radius is growing."
+          ],
+          "answer": "$\\frac{\\mathrm{d}r}{\\mathrm{d}t} = \\frac{1}{\\pi}\\text{ cm s}^{-1}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-rates-cube",
+          "prompt": "An ice cube melts so that its volume falls by $24\\text{ cm}^{3}$ each minute. It stays a cube, with edge $x$ cm. Find $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$, in cm per minute, when $x = 2$.",
+          "hint": "Is $\\frac{\\mathrm{d}V}{\\mathrm{d}t}$ positive or negative? Then use $\\frac{\\mathrm{d}V}{\\mathrm{d}t} = 3x^{2}\\frac{\\mathrm{d}x}{\\mathrm{d}t}$.",
+          "options": [
+            {
+              "text": "$-2$",
+              "correct": true
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$-\\tfrac{1}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$-288$",
+              "correct": false
+            }
+          ],
+          "explain": "The volume is falling, so $\\frac{\\mathrm{d}V}{\\mathrm{d}t} = -24$. Then $-24 = 3\\left(2^{2}\\right)\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 12\\frac{\\mathrm{d}x}{\\mathrm{d}t}$, so $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = -2$. Multiplying $-24$ by $12$ instead of dividing gives $-288$."
+        },
+        {
+          "type": "text",
+          "text": "When two lengths change together, link them with one equation, then differentiate it implicitly with respect to $t$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rates-ladder",
+          "question": "A ladder $13$ m long leans against a vertical wall, with its foot on horizontal ground. The foot slides away from the wall at $0.5\\text{ m s}^{-1}$. Let $x$ m be the distance from the foot to the wall, and $y$ m the height of the top of the ladder. Find $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t}$ when $x = 5$, and interpret its sign.",
+          "steps": [
+            "You know $\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = 0.5$, positive because $x$ is increasing. You want $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t}$.",
+            "The ladder, the wall and the ground form a right-angled triangle. So at every moment, $x^{2} + y^{2} = 13^{2} = 169$.",
+            "Differentiate implicitly with respect to $t$: $2x\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} + 2y\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = 0$.",
+            "At the instant $x = 5$, the height is $y = \\sqrt{169 - 25} = 12$.",
+            "Substitute: $2(5)(0.5) + 2(12)\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = 0$, so $24\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = -5$ and $\\dfrac{\\mathrm{d}y}{\\mathrm{d}t} = -\\dfrac{5}{24}$.",
+            "Interpret: $y$ is decreasing, so the top slides down the wall at $\\tfrac{5}{24} \\approx 0.208\\text{ m s}^{-1}$."
+          ],
+          "answer": "$\\frac{\\mathrm{d}y}{\\mathrm{d}t} = -\\frac{5}{24}\\text{ m s}^{-1}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Substituting $x = 5$ before you differentiate. Then $x$ looks like a constant, and its rate disappears. Differentiate the general equation first, then substitute."
+        },
+        {
+          "type": "check",
+          "id": "check-rates-cars",
+          "prompt": "Car A drives north away from a junction at $15\\text{ m s}^{-1}$. Car B drives east away from the same junction at $20\\text{ m s}^{-1}$. When A is $80$ m and B is $60$ m from the junction, find the rate, in $\\text{m s}^{-1}$, at which the distance between the cars is increasing.",
+          "hint": "Call the distance between them $s$, so $s^{2} = x^{2} + y^{2}$. Differentiate with respect to $t$.",
+          "answer": {
+            "value": 24,
+            "tolerance": 0.05
+          },
+          "explain": "$2s\\frac{\\mathrm{d}s}{\\mathrm{d}t} = 2x\\frac{\\mathrm{d}x}{\\mathrm{d}t} + 2y\\frac{\\mathrm{d}y}{\\mathrm{d}t}$, and at this instant $s = \\sqrt{60^{2} + 80^{2}} = 100$. So $100\\frac{\\mathrm{d}s}{\\mathrm{d}t} = 60(20) + 80(15) = 2400$, which gives $24\\text{ m s}^{-1}$."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 the instant may be given by a volume, not by the variable you differentiate with. Find that variable first, with your GDC if needed."
+        },
+        {
+          "type": "figure",
+          "id": "5-14-cone-tank",
+          "alt": "A cone-shaped tank with its point at the bottom. The tank is 25 cm tall and the radius of its open top is 10 cm. Water fills the lower part to a depth h, and the water surface is a circle of radius r.",
+          "caption": "The water is a smaller cone, similar to the tank, so $\\frac{r}{h} = \\frac{10}{25}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rates-cone-gdc",
+          "question": "A tank is a cone with its vertex at the bottom. It is $25$ cm tall and the radius of its top is $10$ cm. Water flows in at $15\\text{ cm}^{3}\\text{ s}^{-1}$. When the depth of water is $h$ cm, the water surface has radius $r$ cm. (a) Show that the volume of water is $V = \\dfrac{4\\pi}{75}h^{3}$. (b) Find the rate at which the depth is increasing when the tank holds $300\\text{ cm}^{3}$ of water. Give your answer to 3 s.f.",
+          "steps": [
+            "(a) The water forms a smaller cone, similar to the tank. So $\\dfrac{r}{h} = \\dfrac{10}{25}$, which gives $r = \\tfrac{2}{5}h$.",
+            "The volume of a cone is $\\tfrac{1}{3}\\pi r^{2}h$, from the formula booklet. Substitute: $V = \\tfrac{1}{3}\\pi\\left(\\tfrac{2}{5}h\\right)^{2}h = \\tfrac{1}{3}\\pi \\cdot \\tfrac{4}{25}h^{3} = \\dfrac{4\\pi}{75}h^{3}$, as required.",
+            "(b) The instant is given by the volume, not the depth. Write down the equation and solve it on your GDC: $\\dfrac{4\\pi}{75}h^{3} = 300$ gives $h = 12.1429\\ldots$ Store this value; don't round it.",
+            "Differentiate: $\\dfrac{\\mathrm{d}V}{\\mathrm{d}h} = \\dfrac{4\\pi}{25}h^{2}$. Chain rule: $\\dfrac{\\mathrm{d}h}{\\mathrm{d}t} = \\dfrac{\\mathrm{d}V}{\\mathrm{d}t} \\div \\dfrac{\\mathrm{d}V}{\\mathrm{d}h} = \\dfrac{15}{\\tfrac{4\\pi}{25}h^{2}} = \\dfrac{375}{4\\pi h^{2}}$.",
+            "Substitute the stored $h$: $\\dfrac{\\mathrm{d}h}{\\mathrm{d}t} = 0.20238\\ldots$ Sense check: $h \\approx 12.1$ is less than $25$, so the tank is not yet full."
+          ],
+          "answer": "$\\frac{\\mathrm{d}h}{\\mathrm{d}t} \\approx 0.202\\text{ cm s}^{-1}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MATH, Solver",
+              "Enter 0=4πX^3/75-300, then press ENTER (check on your model)",
+              "Put the cursor on X, then ALPHA ENTER (SOLVE): X = 12.1429... (check on your model)",
+              "The solver leaves this value in X. On the home screen type 375/(4πX^2), ENTER: 0.20238... (check on your model)"
+            ],
+            "nspire": [
+              "Calculator page, Menu, Algebra, Numerical Solve",
+              "Type h:=nSolve(4*π*h^3/75=300,h), enter: h = 12.1429... (check on your model)",
+              "Type 375/(4*π*h^2), enter: 0.20238... (check on your model)"
+            ],
+            "casio": [
+              "EQUA, Solver (F3)",
+              "Enter 4πX^3/75=300, EXE, then SOLVE (F6): X = 12.1429... (check on your model)",
+              "The solver stores the value in X. In RUN-MAT type 375/(4πX^2), EXE: 0.20238... (check on your model)"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "optimisation",
+      "heading": "Optimisation with the chain rule and end points",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.8}} you optimised by writing a quantity in one variable and setting its derivative to zero. HL problems add two things."
+        },
+        {
+          "type": "text",
+          "text": "First, the quantity is often a [[composite-function|composite function]], such as a distance with a square root in it. Differentiate it with the [[chain-rule|chain rule]]."
+        },
+        {
+          "type": "text",
+          "text": "Second, the variable usually has an allowed interval, such as $0 \\le x \\le 3$. The largest or smallest value can then sit at an end point, where $f'(x)$ need not be zero."
+        },
+        {
+          "type": "result",
+          "statement": "On a closed interval $[a, b]$, a differentiable function takes its greatest and least values at [[stationary-point|stationary points]] inside the interval or at the end points $x = a$ and $x = b$. Work out the value at each one and compare.",
+          "why": "Between these points $f'(x)$ keeps one sign, so the function only rises or only falls there and can't reach a new extreme."
+        },
+        {
+          "type": "example",
+          "id": "ex-opt-closest-point",
+          "question": "Find the exact shortest distance from the point $A(4, 0)$ to the curve $y = \\sqrt{x}$.",
+          "steps": [
+            "A general point on the curve is $P\\left(x, \\sqrt{x}\\right)$, with $x \\ge 0$. By Pythagoras, $AP = D = \\sqrt{(x - 4)^{2} + \\left(\\sqrt{x}\\right)^{2}} = \\sqrt{x^{2} - 7x + 16}$.",
+            "$D$ is a square root of a quadratic, so use the chain rule: $\\dfrac{\\mathrm{d}D}{\\mathrm{d}x} = \\dfrac{2x - 7}{2\\sqrt{x^{2} - 7x + 16}}$.",
+            "The denominator is never zero, because $x^{2} - 7x + 16$ has discriminant $49 - 64 < 0$. So $\\dfrac{\\mathrm{d}D}{\\mathrm{d}x} = 0$ only when $2x - 7 = 0$, that is $x = \\tfrac{7}{2}$.",
+            "Justify the minimum: $2x - 7$ is negative before $x = \\tfrac{7}{2}$ and positive after, so $D$ falls and then rises. The end point $x = 0$ gives $D = 4$, which is larger.",
+            "The shortest distance is $D = \\sqrt{\\tfrac{49}{4} - \\tfrac{49}{2} + 16} = \\sqrt{\\tfrac{15}{4}} = \\dfrac{\\sqrt{15}}{2}$."
+          ],
+          "answer": "$D_{\\min} = \\frac{\\sqrt{15}}{2}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A shortcut: $D \\ge 0$, so $D$ is smallest exactly where $D^{2}$ is smallest. Minimising $D^{2} = x^{2} - 7x + 16$ avoids the square root. Take the root at the end."
+        },
+        {
+          "type": "check",
+          "id": "check-distance-parabola",
+          "prompt": "Find the shortest distance from the point $(0, 3)$ to the curve $y = x^{2}$. Give your answer to 3 s.f.",
+          "hint": "Minimise $D^{2} = x^{2} + \\left(x^{2} - 3\\right)^{2}$, then take the square root.",
+          "answer": {
+            "value": 1.66,
+            "tolerance": 0.005
+          },
+          "explain": "$D^{2} = x^{4} - 5x^{2} + 9$, and its derivative $4x^{3} - 10x$ is zero at $x = 0$ or $x^{2} = \\frac{5}{2}$. At $x^{2} = \\frac{5}{2}$, $D^{2} = \\frac{11}{4}$, so $D = \\frac{\\sqrt{11}}{2} \\approx 1.66$. At $x = 0$, $D = 3$, which is a local maximum."
+        },
+        {
+          "type": "figure",
+          "id": "5-14-boat-shore",
+          "alt": "A straight shore with points P, Q and H along it. A boat B is 3 km out from P, at right angles to the shore. Q is x km from P, and the house H is 3 km from P, so Q to H is 3 minus x km. The route rows from B to Q, then walks from Q to H.",
+          "caption": "Row from $B$ to $Q$, then walk from $Q$ to $H$."
+        },
+        {
+          "type": "example",
+          "id": "ex-opt-endpoint-boat",
+          "question": "Mia is in a boat at $B$, $3$ km from the nearest point $P$ on a straight shore. Her house $H$ is on the shore, $3$ km from $P$. She rows at $4\\text{ km h}^{-1}$ to a point $Q$ on the shore between $P$ and $H$, then walks to $H$ at $5\\text{ km h}^{-1}$. Let $PQ = x$ km, where $0 \\le x \\le 3$. (a) Show that her total time, in hours, is $T(x) = \\dfrac{\\sqrt{9 + x^{2}}}{4} + \\dfrac{3 - x}{5}$. (b) Find the value of $x$ that minimises $T$, and the minimum time.",
+          "steps": [
+            "(a) By Pythagoras, $BQ = \\sqrt{9 + x^{2}}$ km, rowed at $4\\text{ km h}^{-1}$. Then $QH = 3 - x$ km, walked at $5\\text{ km h}^{-1}$. Time is distance divided by speed, which gives $T(x)$.",
+            "(b) Use the chain rule on the square root: $T'(x) = \\dfrac{x}{4\\sqrt{9 + x^{2}}} - \\dfrac{1}{5}$.",
+            "Solve $T'(x) = 0$: $5x = 4\\sqrt{9 + x^{2}}$. Square both sides: $25x^{2} = 144 + 16x^{2}$, so $x^{2} = 16$. Only $x = 4$ works in $5x = 4\\sqrt{9 + x^{2}}$, since the right side is positive.",
+            "But $x = 4$ is outside $0 \\le x \\le 3$. So $T$ has no stationary point in the interval, and the minimum must be at an end point.",
+            "Compare the end points: $T(0) = \\tfrac{3}{4} + \\tfrac{3}{5} = 1.35$ hours, and $T(3) = \\dfrac{\\sqrt{18}}{4} = \\dfrac{3\\sqrt{2}}{4} \\approx 1.06$ hours.",
+            "The minimum is at $x = 3$: Mia should row straight to her house. Note that $T'(3) \\approx -0.0232$, not $0$, so solving $T'(x) = 0$ alone would never find it."
+          ],
+          "answer": "$x = 3, \\; T = \\frac{3\\sqrt{2}}{4}\\text{ h}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at $f'(x) = 0$. On a closed interval, reject any stationary point outside the interval, and always work out the value at both end points too."
+        },
+        {
+          "type": "check",
+          "id": "check-endpoint-max",
+          "prompt": "Let $g(x) = \\sqrt{x^{2} - 6x + 13}$ for $0 \\le x \\le 5$. Find the greatest value of $g(x)$.",
+          "hint": "Find the stationary point with the chain rule. Then work out $g$ there and at $x = 0$ and $x = 5$.",
+          "options": [
+            {
+              "text": "$\\sqrt{13}$",
+              "correct": true
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$2\\sqrt{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$g'(x) = \\frac{x - 3}{\\sqrt{x^{2} - 6x + 13}}$ is zero at $x = 3$, where $g(3) = 2$. That is the least value. The end points give $g(0) = \\sqrt{13}$ and $g(5) = \\sqrt{8} = 2\\sqrt{2}$, so the greatest value is $\\sqrt{13}$, at an end point."
+        }
+      ]
+    },
+    {
+      "id": "implicit-optimisation",
+      "heading": "Optimisation with implicit differentiation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The highest and lowest points of an implicit curve are where the tangent is horizontal, so [[implicit-differentiation|implicit differentiation]] finds them."
+        },
+        {
+          "type": "text",
+          "text": "1. Differentiate implicitly and write $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ as a fraction."
+        },
+        {
+          "type": "text",
+          "text": "2. Set the numerator equal to zero. This gives a simple link between $x$ and $y$."
+        },
+        {
+          "type": "text",
+          "text": "3. Substitute it into the curve's equation to find the points. Check the denominator is not zero there."
+        },
+        {
+          "type": "example",
+          "id": "ex-implicit-highest",
+          "question": "The curve $x^{2} + xy + y^{2} = 12$ is a closed loop. Find the coordinates of its highest point.",
+          "steps": [
+            "Differentiate implicitly, with the product rule on $xy$: $2x + y + x\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} + 2y\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 0$.",
+            "So $(x + 2y)\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -(2x + y)$, and $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -\\dfrac{2x + y}{x + 2y}$.",
+            "At the top of the loop the tangent is horizontal, so $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 0$. The numerator must be zero: $2x + y = 0$, so $y = -2x$.",
+            "Substitute into the curve: $x^{2} + x(-2x) + (-2x)^{2} = 12$, so $3x^{2} = 12$ and $x = 2$ or $x = -2$.",
+            "This gives the points $(2, -4)$ and $(-2, 4)$. The denominator $x + 2y$ is $-6$ and $6$ there, not zero, so both gradients really are $0$.",
+            "The loop has one highest and one lowest point. The highest is the one with the larger $y$: $(-2, 4)$."
+          ],
+          "answer": "$(-2, 4)$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-implicit-greatest-y",
+          "prompt": "The curve $x^{2} - 2xy + 3y^{2} = 18$ is a closed loop. Find the greatest value of $y$ on the curve.",
+          "hint": "Find $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$, then set its numerator equal to zero to link $x$ and $y$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "$2x - 2y - 2x\\frac{\\mathrm{d}y}{\\mathrm{d}x} + 6y\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0$ gives $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{y - x}{3y - x}$. A zero numerator means $y = x$. Then $x^{2} - 2x^{2} + 3x^{2} = 18$, so $x = \\pm 3$. The highest point is $(3, 3)$, so the greatest value of $y$ is $3$."
+        },
+        {
+          "type": "text",
+          "text": "Implicit differentiation also handles a constraint. Instead of making one variable the subject, differentiate the constraint implicitly and use $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ directly."
+        },
+        {
+          "type": "example",
+          "id": "ex-implicit-rectangle",
+          "question": "A rectangle has its sides parallel to the axes and its four corners on the ellipse $x^{2} + 4y^{2} = 32$. Its corner in the first quadrant is $(x, y)$, where $0 \\le x \\le \\sqrt{32}$. Find the maximum area of the rectangle.",
+          "steps": [
+            "The rectangle is $2x$ wide and $2y$ tall, so its area is $A = 4xy$.",
+            "Differentiate $A$ with respect to $x$, using the product rule: $\\dfrac{\\mathrm{d}A}{\\mathrm{d}x} = 4y + 4x\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$.",
+            "Differentiate the constraint implicitly: $2x + 8y\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 0$, so $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -\\dfrac{x}{4y}$.",
+            "Substitute: $\\dfrac{\\mathrm{d}A}{\\mathrm{d}x} = 4y - \\dfrac{x^{2}}{y}$. Setting this to zero gives $x^{2} = 4y^{2}$.",
+            "Put $x^{2} = 4y^{2}$ into the constraint: $8y^{2} = 32$, so $y = 2$ (a length, so positive) and $x = 4$.",
+            "Check the end points: $x = 0$ gives $A = 0$, and $x = \\sqrt{32}$ gives $y = 0$ and $A = 0$. So the maximum is at $(4, 2)$, where $A = 4(4)(2) = 32$."
+          ],
+          "answer": "$A_{\\max} = 32$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "You could instead write $y = \\tfrac{1}{2}\\sqrt{32 - x^{2}}$ and use the chain rule. Either method is valid."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "y = g(u), \\text{ where } u = f(x) \\Rightarrow \\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{\\mathrm{d}y}{\\mathrm{d}u} \\times \\dfrac{\\mathrm{d}u}{\\mathrm{d}x}",
+          "tag": "booklet",
+          "bookletId": "bk-5-6-chain-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Implicit differentiation: differentiate a $y$ term with respect to $y$, then multiply by $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$. Use the product rule on terms like $xy$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}V}{\\mathrm{d}t} = \\frac{\\mathrm{d}V}{\\mathrm{d}r} \\times \\frac{\\mathrm{d}r}{\\mathrm{d}t}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Related rates: link the quantities with an equation true at all times, differentiate with respect to $t$, then substitute the instant values.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A decreasing quantity has a negative rate of change. A speed is the size of a rate, so it is positive.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "On a closed interval, compare the values at the stationary points and at both end points.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Highest or lowest point of an implicit curve: set the numerator of $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ to zero.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Forgetting the product rule on a term such as $3xy$. It differentiates to $3y + 3x\\frac{\\mathrm{d}y}{\\mathrm{d}x}$, not just $3\\frac{\\mathrm{d}y}{\\mathrm{d}x}$.",
+    "Leaving out the $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ on a $y$ term, or keeping a constant. $5y$ differentiates to $5\\frac{\\mathrm{d}y}{\\mathrm{d}x}$, and a constant differentiates to $0$.",
+    "Giving a falling quantity a positive rate. If a volume drops by $6\\text{ cm}^{3}$ every second, write $\\frac{\\mathrm{d}V}{\\mathrm{d}t} = -6$.",
+    "Multiplying when you should divide. From $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = \\frac{\\mathrm{d}y}{\\mathrm{d}x} \\times \\frac{\\mathrm{d}x}{\\mathrm{d}t}$, the rate $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ is $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ divided by $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$. Write the chain rule line before you put numbers in.",
+    "Putting a given volume in place of the height. If the instant is \"when $V = 300$\", solve for $h$ first, then substitute $h$.",
+    "Answering \"how fast\" with a negative number. The sign shows the direction of change; a speed is the size of the rate, so it is positive."
+  ],
+  "examTips": [
+    "\"Find $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ in terms of $x$ and $y$\" means leave both letters in your answer. Do not try to make $y$ the subject first.",
+    "In a related rates question, write the chain rule line with every rate named, such as $\\frac{\\mathrm{d}h}{\\mathrm{d}t} = \\frac{\\mathrm{d}h}{\\mathrm{d}V} \\times \\frac{\\mathrm{d}V}{\\mathrm{d}t}$. That line usually earns the method mark, even if a later number slips.",
+    "On Paper 2, write down the equation you solve on your GDC and store the full value. Round only the final answer to 3 s.f., and give its units.",
+    "\"Justify\" a maximum or minimum with a reason in words: a sign change of the derivative, the second derivative, or a comparison with the end points."
+  ],
+  "readingMinutes": 28
+}

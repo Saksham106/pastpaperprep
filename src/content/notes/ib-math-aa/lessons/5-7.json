@@ -1,0 +1,588 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.7",
+  "slug": "second-derivative-and-concavity",
+  "title": "Second derivative and concavity",
+  "level": "SL",
+  "topic": 5,
+  "summary": "The [[second-derivative|second derivative]], $f''(x)$, is the derivative of the derivative. It tells you how the gradient is changing, and so which way the graph bends. Where $f''(x) > 0$ the graph is [[concave-up|concave-up]], and where $f''(x) < 0$ it is [[concave-down|concave-down]].",
+  "goals": [
+    {
+      "text": "Differentiate twice to find the [[second-derivative|second derivative]], written $f''(x)$ or $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$, and find its value at a point.",
+      "bullets": [
+        "5.7-b1"
+      ]
+    },
+    {
+      "text": "Use the sign of $f''(x)$ to say where a graph is [[concave-up|concave-up]] or [[concave-down|concave-down]].",
+      "bullets": [
+        "5.7-b2"
+      ]
+    },
+    {
+      "text": "Link the graphs of $f$, $f'$ and $f''$, and read features of one from another.",
+      "bullets": [
+        "5.7-b2"
+      ]
+    },
+    {
+      "text": "Use your GDC to find where a graph is concave-up or concave-down when $f''(x) = 0$ can't be solved by hand.",
+      "bullets": [
+        "5.7-b2",
+        "5.7-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.2",
+    "5.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "second derivative",
+    "f double prime",
+    "d2y/dx2",
+    "concave up and concave down",
+    "concavity of a graph",
+    "graphs of f, f' and f''"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-differentiate",
+      "prompt": "Let $f(x) = x^{3} - 6x^{2} + 5x$. Find $f'(x)$.",
+      "hint": "Use the power rule on each term: bring the power down, then lower it by one.",
+      "options": [
+        {
+          "text": "$f'(x) = 3x^{2} - 12x + 5$",
+          "correct": true
+        },
+        {
+          "text": "$f'(x) = 3x^{2} - 12x$",
+          "correct": false
+        },
+        {
+          "text": "$f'(x) = 3x^{2} - 6x + 5$",
+          "correct": false
+        }
+      ],
+      "explain": "$x^{3}$ gives $3x^{2}$, $-6x^{2}$ gives $-12x$ and $5x$ gives $5$. Revise it in {{lesson:5.6}}."
+    },
+    {
+      "type": "check",
+      "id": "before-chain",
+      "prompt": "Let $f(x) = \\mathrm{e}^{-3x}$. Find $f'(x)$.",
+      "hint": "Use the chain rule: multiply by the derivative of the power, $-3x$.",
+      "options": [
+        {
+          "text": "$f'(x) = -3\\mathrm{e}^{-3x}$",
+          "correct": true
+        },
+        {
+          "text": "$f'(x) = \\mathrm{e}^{-3x}$",
+          "correct": false
+        },
+        {
+          "text": "$f'(x) = 3\\mathrm{e}^{-3x}$",
+          "correct": false
+        }
+      ],
+      "explain": "The derivative of $\\mathrm{e}^{u}$ is $\\mathrm{e}^{u}\\dfrac{\\mathrm{d}u}{\\mathrm{d}x}$, and here $\\dfrac{\\mathrm{d}u}{\\mathrm{d}x} = -3$. Revise it in {{lesson:5.6}}."
+    },
+    {
+      "type": "check",
+      "id": "before-decreasing",
+      "prompt": "A function has derivative $f'(x) = x^{2} - 4$. For which values of $x$ is $f$ decreasing?",
+      "hint": "$f$ is decreasing where $f'(x) < 0$. Sketch $y = x^{2} - 4$.",
+      "options": [
+        {
+          "text": "$-2 < x < 2$",
+          "correct": true
+        },
+        {
+          "text": "$x < -2 \\text{ or } x > 2$",
+          "correct": false
+        },
+        {
+          "text": "$x < -2$",
+          "correct": false
+        }
+      ],
+      "explain": "$x^{2} - 4 = (x - 2)(x + 2)$ is negative between its roots, so $f$ is decreasing for $-2 < x < 2$. Revise it in {{lesson:5.2}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "second-derivative",
+      "heading": "Differentiating twice",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When you differentiate $f(x)$, you get $f'(x)$, the gradient function. It is a function of $x$ too, so you can differentiate it again."
+        },
+        {
+          "type": "text",
+          "text": "The result is the [[second-derivative|second derivative]]. It measures how fast the gradient changes as $x$ increases."
+        },
+        {
+          "type": "definition",
+          "term": "second derivative",
+          "statement": "The second derivative of $f$ is the derivative of $f'$. It is written $f''(x)$, or $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$ when $y = f(x)$.",
+          "plain": "Differentiate once to get the gradient, then differentiate that answer again."
+        },
+        {
+          "type": "formula",
+          "tex": "f''(x) = \\frac{\\mathrm{d}}{\\mathrm{d}x}\\big(f'(x)\\big) \\qquad \\frac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}} = \\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(\\frac{\\mathrm{d}y}{\\mathrm{d}x}\\right)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Read $f''(x)$ as \"f double prime of x\". $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$ is said \"d two y by d x squared\", but nothing is squared: the 2s mean \"differentiated twice\"."
+        },
+        {
+          "type": "text",
+          "text": "Questions use both. Use $f''(x)$ when the function has a name, and $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$ when the curve is given as $y = \\ldots$"
+        },
+        {
+          "type": "text",
+          "text": "You need no new rules. You use the rules from {{lesson:5.6}} twice: the power rule, the chain rule, and the product and quotient rules."
+        },
+        {
+          "type": "example",
+          "id": "ex-second-poly",
+          "question": "Let $f(x) = 2x^{4} - 3x^{3} + x - 7$. Find $f''(x)$.",
+          "steps": [
+            "Differentiate each term once with the power rule: $f'(x) = 8x^{3} - 9x^{2} + 1$. The term $x$ gives $1$, and the constant $-7$ gives $0$.",
+            "Now differentiate $f'(x)$ term by term. $8x^{3}$ gives $24x^{2}$, and $-9x^{2}$ gives $-18x$.",
+            "The constant $1$ in $f'(x)$ gives $0$.",
+            "So $f''(x) = 24x^{2} - 18x$. Check the degree: each derivative lowers the highest power by one, so a quartic $f$ gives a quadratic $f''$."
+          ],
+          "answer": "$f''(x) = 24x^{2} - 18x$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "$f''(x)$ is not $\\big(f'(x)\\big)^{2}$, and $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$ is not $\\left(\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}\\right)^{2}$. You differentiate again. You never square."
+        },
+        {
+          "type": "example",
+          "id": "ex-second-product",
+          "question": "A curve has equation $y = x\\mathrm{e}^{2x}$. Show that $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}} = 4(x + 1)\\mathrm{e}^{2x}$.",
+          "steps": [
+            "$y$ is a product, so use the product rule. Let $u = x$ and $v = \\mathrm{e}^{2x}$. Then $\\dfrac{\\mathrm{d}u}{\\mathrm{d}x} = 1$ and, by the chain rule, $\\dfrac{\\mathrm{d}v}{\\mathrm{d}x} = 2\\mathrm{e}^{2x}$.",
+            "First derivative: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = x \\cdot 2\\mathrm{e}^{2x} + \\mathrm{e}^{2x} \\cdot 1 = (2x + 1)\\mathrm{e}^{2x}$.",
+            "This is a product again. Now let $u = 2x + 1$ and $v = \\mathrm{e}^{2x}$, so $\\dfrac{\\mathrm{d}u}{\\mathrm{d}x} = 2$ and $\\dfrac{\\mathrm{d}v}{\\mathrm{d}x} = 2\\mathrm{e}^{2x}$.",
+            "Second derivative: $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}} = (2x + 1) \\cdot 2\\mathrm{e}^{2x} + \\mathrm{e}^{2x} \\cdot 2 = (4x + 2 + 2)\\mathrm{e}^{2x}$.",
+            "Simplify: $(4x + 4)\\mathrm{e}^{2x} = 4(x + 1)\\mathrm{e}^{2x}$. This is the given result, reached by working forwards."
+          ],
+          "answer": "$\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}} = 4(x + 1)\\mathrm{e}^{2x}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "Write the first derivative as its own line before you differentiate again. That line can earn marks even if a later slip costs the final answer."
+        },
+        {
+          "type": "check",
+          "id": "check-second-power",
+          "prompt": "Let $f(x) = x^{3} + \\dfrac{4}{x}$. Find $f''(x)$.",
+          "hint": "Write $\\dfrac{4}{x}$ as $4x^{-1}$ first. Then use the power rule twice.",
+          "options": [
+            {
+              "text": "$f''(x) = 6x + \\dfrac{8}{x^{3}}$",
+              "correct": true
+            },
+            {
+              "text": "$f''(x) = 6x - \\dfrac{8}{x^{3}}$",
+              "correct": false
+            },
+            {
+              "text": "$f''(x) = 3x^{2} - \\dfrac{4}{x^{2}}$",
+              "correct": false
+            }
+          ],
+          "explain": "$f(x) = x^{3} + 4x^{-1}$, so $f'(x) = 3x^{2} - 4x^{-2}$. Again: $f''(x) = 6x + 8x^{-3} = 6x + \\dfrac{8}{x^{3}}$. The two minus signs multiply to give a plus."
+        },
+        {
+          "type": "check",
+          "id": "check-second-value",
+          "prompt": "Let $f(x) = \\ln(2x + 1)$, for $x > -\\tfrac{1}{2}$. Find $f''(1)$. Give your answer to 3 s.f.",
+          "hint": "By the chain rule, $f'(x) = \\dfrac{2}{2x + 1}$. Write it as $2(2x + 1)^{-1}$ and use the chain rule again.",
+          "answer": {
+            "value": -0.444,
+            "tolerance": 0.0005
+          },
+          "explain": "$f''(x) = -2(2x + 1)^{-2} \\times 2 = -\\dfrac{4}{(2x + 1)^{2}}$. So $f''(1) = -\\dfrac{4}{9} \\approx -0.444$."
+        }
+      ]
+    },
+    {
+      "id": "concavity",
+      "heading": "Concavity: which way the graph bends",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$f''(x)$ is the rate of change of the gradient. If $f''(x) > 0$, the gradient increases as you move right. If $f''(x) < 0$, the gradient decreases."
+        },
+        {
+          "type": "text",
+          "text": "Picture $y = x^{2}$. Its gradient is $2x$, which goes $-2$, $0$, $2$, $4$ as $x$ goes $-1$, $0$, $1$, $2$. The gradient keeps increasing, and the curve bends upwards like a cup. Here $f''(x) = 2 > 0$."
+        },
+        {
+          "type": "text",
+          "text": "Now picture $y = -x^{2}$. Its gradient, $-2x$, keeps decreasing, and the curve bends downwards like an upside-down cup. Here $f''(x) = -2 < 0$."
+        },
+        {
+          "type": "text",
+          "text": "A curve that bends upwards is [[concave-up|concave-up]]. A curve that bends downwards is [[concave-down|concave-down]]."
+        },
+        {
+          "type": "definition",
+          "term": "concave-up",
+          "statement": "The graph of $f$ is concave-up on an interval if its gradient $f'(x)$ increases as $x$ increases on that interval.",
+          "plain": "The curve bends upwards, like a cup that holds water."
+        },
+        {
+          "type": "definition",
+          "term": "concave-down",
+          "statement": "The graph of $f$ is concave-down on an interval if its gradient $f'(x)$ decreases as $x$ increases on that interval.",
+          "plain": "The curve bends downwards, like an upside-down cup."
+        },
+        {
+          "type": "result",
+          "statement": "If $f''(x) > 0$ for every $x$ in an interval, the graph of $f$ is concave-up there. If $f''(x) < 0$ for every $x$ in an interval, it is concave-down there.",
+          "why": "$f''$ is the derivative of $f'$. By {{lesson:5.2}}, a positive derivative means $f'$ is increasing, and a negative one means $f'$ is decreasing."
+        },
+        {
+          "type": "text",
+          "text": "Another way to see it: a concave-up curve lies above its tangents, and a concave-down curve lies below them."
+        },
+        {
+          "type": "text",
+          "text": "Concavity is separate from increasing and decreasing. The sign of $f'$ gives the direction, up or down. The sign of $f''$ gives the bend. So there are four combinations."
+        },
+        {
+          "type": "figure",
+          "id": "5-7-four-shapes",
+          "alt": "Four short curve pieces in a two by two grid. Top left rises and bends upwards: increasing and concave-up, with f prime positive and f double prime positive. Top right rises and bends downwards: increasing and concave-down, with f prime positive and f double prime negative. Bottom left falls and bends upwards: decreasing and concave-up, with f prime negative and f double prime positive. Bottom right falls and bends downwards: decreasing and concave-down, with both negative.",
+          "caption": "$f'$ decides up or down. $f''$ decides the bend."
+        },
+        {
+          "type": "mistake",
+          "text": "Concave-up does not mean increasing. The bottom-left piece falls the whole time. It is concave-up because its gradient, though negative, is increasing towards $0$."
+        },
+        {
+          "type": "text",
+          "text": "Where a graph switches from one concavity to the other, it has a [[point-of-inflexion|point of inflexion]]. You will find and test these in {{lesson:5.8}}."
+        },
+        {
+          "type": "text",
+          "text": "To find where a graph is concave-up or concave-down:"
+        },
+        {
+          "type": "text",
+          "text": "1. Find $f''(x)$."
+        },
+        {
+          "type": "text",
+          "text": "2. Solve $f''(x) = 0$ to find where its sign can change."
+        },
+        {
+          "type": "text",
+          "text": "3. Find the sign of $f''(x)$ on each side. Answer with inequalities in $x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-concave-at-point",
+          "question": "Let $f(x) = x^{3} - 6x^{2} + 4$. Is the graph of $f$ concave-up or concave-down at $x = 1$?",
+          "steps": [
+            "Differentiate once: $f'(x) = 3x^{2} - 12x$.",
+            "Differentiate again: $f''(x) = 6x - 12$.",
+            "Substitute $x = 1$: $f''(1) = 6 - 12 = -6$.",
+            "$f''(1) < 0$, so the gradient is decreasing at $x = 1$. The graph bends downwards there."
+          ],
+          "answer": "Concave-down, because $f''(1) = -6 < 0$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-concave-down-interval",
+          "question": "Let $f(x) = x^{4} - 6x^{2} + 2x$. On which interval is the graph of $f$ concave-down?",
+          "steps": [
+            "Differentiate twice: $f'(x) = 4x^{3} - 12x + 2$, so $f''(x) = 12x^{2} - 12$.",
+            "Concave-down means $f''(x) < 0$, so solve $12x^{2} - 12 < 0$.",
+            "Find where the sign can change: $12x^{2} - 12 = 12(x - 1)(x + 1) = 0$, so $x = -1$ or $x = 1$.",
+            "$y = 12x^{2} - 12$ is a parabola that opens upwards, so it is negative between its roots. Test a value: $f''(0) = -12 < 0$."
+          ],
+          "answer": "$-1 < x < 1$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "Write $f''(x) < 0$ (or $f''(x) > 0$) as a line before you solve. Then give an interval of $x$-values. The values where $f''(x) = 0$ on their own are not the answer."
+        },
+        {
+          "type": "check",
+          "id": "check-concave-exp",
+          "prompt": "Let $f(x) = (x - 1)\\mathrm{e}^{x}$. Its derivative is $f'(x) = x\\mathrm{e}^{x}$. Where is the graph of $f$ concave-up?",
+          "hint": "Use the product rule on $x\\mathrm{e}^{x}$. Then remember that $\\mathrm{e}^{x} > 0$ for every $x$.",
+          "options": [
+            {
+              "text": "$x > -1$",
+              "correct": true
+            },
+            {
+              "text": "$x > 0$",
+              "correct": false
+            },
+            {
+              "text": "$x < -1$",
+              "correct": false
+            }
+          ],
+          "explain": "$f''(x) = \\mathrm{e}^{x} + x\\mathrm{e}^{x} = (x + 1)\\mathrm{e}^{x}$. Since $\\mathrm{e}^{x} > 0$, $f''(x) > 0$ exactly when $x + 1 > 0$. The option $x > 0$ comes from solving $f'(x) > 0$, which is where $f$ is increasing."
+        },
+        {
+          "type": "check",
+          "id": "check-concave-word",
+          "prompt": "Let $f(x) = x^{3} - 3x^{2} - 9x + 1$. Which describes the graph of $f$ at $x = 2$?",
+          "hint": "Find the signs of $f'(2)$ and $f''(2)$ separately.",
+          "options": [
+            {
+              "text": "Decreasing and concave-up",
+              "correct": true
+            },
+            {
+              "text": "Increasing and concave-up",
+              "correct": false
+            },
+            {
+              "text": "Decreasing and concave-down",
+              "correct": false
+            },
+            {
+              "text": "Increasing and concave-down",
+              "correct": false
+            }
+          ],
+          "explain": "$f'(x) = 3x^{2} - 6x - 9$, so $f'(2) = 12 - 12 - 9 = -9 < 0$: decreasing. $f''(x) = 6x - 6$, so $f''(2) = 6 > 0$: concave-up."
+        }
+      ]
+    },
+    {
+      "id": "graphs",
+      "heading": "The graphs of f, f′ and f″",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can now link three graphs. Each one is the gradient graph of the one before it."
+        },
+        {
+          "type": "text",
+          "text": "The sign of $f'$ tells you where $f$ goes up or down. The sign of $f''$ tells you where $f'$ goes up or down. That is the same as how $f$ bends."
+        },
+        {
+          "type": "figure",
+          "id": "5-7-three-graphs",
+          "alt": "Three graphs stacked above each other with matching x-values. Top: y equals f of x, the cubic x cubed minus 3x, with a maximum at x equals minus 1 and a minimum at x equals 1. It bends downwards for x below 0 and upwards for x above 0. Middle: y equals f prime of x, the parabola 3x squared minus 3, crossing the x-axis at minus 1 and 1, with its lowest point at x equals 0. Bottom: y equals f double prime of x, the line 6x, negative for x below 0 and positive for x above 0. Dashed vertical lines at x equals minus 1, 0 and 1 join matching points.",
+          "caption": "$f(x) = x^{3} - 3x$, $f'(x) = 3x^{2} - 3$ and $f''(x) = 6x$, lined up."
+        },
+        {
+          "type": "text",
+          "text": "Follow the dashed lines. At $x = -1$ and $x = 1$, $f$ has a maximum and a minimum. There $f'$ crosses the $x$-axis, because the gradient of $f$ is $0$."
+        },
+        {
+          "type": "text",
+          "text": "At $x = 0$, $f'$ has its lowest point, so $f''(0) = 0$. $f''$ changes from negative to positive there. On $f$, the bend switches from [[concave-down|concave-down]] to [[concave-up|concave-up]], and $f$ is falling most steeply."
+        },
+        {
+          "type": "result",
+          "statement": "Where $f'(x) = 0$, the graph of $f$ has a horizontal tangent. Where $f''(x) = 0$, the graph of $f'$ has a horizontal tangent, and the graph of $f$ may change concavity.",
+          "why": "$f'$ is the gradient graph of $f$, and $f''$ is the gradient graph of $f'$. So the same rule links each pair."
+        },
+        {
+          "type": "text",
+          "text": "For a polynomial, each derivative is one degree lower. A cubic $f$ has a quadratic $f'$ and a linear $f''$. This helps you match graphs."
+        },
+        {
+          "type": "text",
+          "text": "Explore it. Slide the point along $f(x) = x^{3} - 3x$ from $x = -2$ to $x = 2$, and watch the value of $f'(x)$. It falls until $x = 0$, then rises. So the gradient decreases while the curve bends down, and increases while it bends up."
+        },
+        {
+          "type": "interactive",
+          "widget": "derivative-sign",
+          "props": {
+            "x": -2
+          },
+          "alt": "Graph of f of x equals x cubed minus 3x with a point you can move and its dashed tangent line. A readout shows the gradient f prime of x at the point. The gradient falls from 9 at x equals minus 2 to minus 3 at x equals 0, then rises to 9 again at x equals 2."
+        },
+        {
+          "type": "text",
+          "text": "On your GDC you can do the same: graph $f$, then find the derivative at several points and watch it rise or fall."
+        },
+        {
+          "type": "text",
+          "text": "Sometimes you get only the graph of $y = f'(x)$. Its sign shows where $f$ increases or decreases. Whether it rises or falls shows how $f$ bends."
+        },
+        {
+          "type": "figure",
+          "id": "5-7-fprime-parabola",
+          "alt": "Graph of y equals f prime of x. It is a parabola opening upwards that crosses the x-axis at x equals minus 1 and x equals 3. Its lowest point is at (1, minus 4).",
+          "caption": "This is the graph of $y = f'(x)$, not of $f$."
+        },
+        {
+          "type": "example",
+          "id": "ex-fprime-graph",
+          "question": "The diagram shows the graph of $y = f'(x)$. It crosses the $x$-axis at $x = -1$ and $x = 3$, and its lowest point is $(1, -4)$. For which $x$ does the graph of $f$ bend upwards (concave-up)?",
+          "steps": [
+            "Concave-up means $f''(x) > 0$. $f''$ is the gradient of $f'$, so look for where the graph of $y = f'(x)$ is rising.",
+            "The parabola falls until its lowest point at $x = 1$, then rises.",
+            "So $f''(x) < 0$ for $x < 1$ and $f''(x) > 0$ for $x > 1$.",
+            "The crossings at $x = -1$ and $x = 3$ don't matter here. They are the stationary points of $f$, which come from the sign of $f'$, not of $f''$."
+          ],
+          "answer": "$x > 1$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-fprime-graph",
+          "prompt": "Use the same graph of $y = f'(x)$. For which values of $x$ is $f$ decreasing and its graph concave-up?",
+          "hint": "Decreasing needs the graph of $f'$ below the $x$-axis. Concave-up needs it rising. Where are both true?",
+          "options": [
+            {
+              "text": "$1 < x < 3$",
+              "correct": true
+            },
+            {
+              "text": "$-1 < x < 3$",
+              "correct": false
+            },
+            {
+              "text": "$x > 1$",
+              "correct": false
+            },
+            {
+              "text": "$-1 < x < 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$f'(x) < 0$ for $-1 < x < 3$, and the graph of $f'$ rises for $x > 1$. Both hold for $1 < x < 3$."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2, $f''(x) = 0$ may have no algebraic solution. Find $f''(x)$ by hand, then graph $y = f''(x)$ on your GDC and find where it crosses the $x$-axis."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-concave-down",
+          "question": "Let $f(x) = \\mathrm{e}^{x} - x^{3}$, for $x \\in \\mathbb{R}$. Use your calculator to find where the graph of $f$ is concave-down. Give the end points to 3 s.f.",
+          "steps": [
+            "Differentiate twice by hand: $f'(x) = \\mathrm{e}^{x} - 3x^{2}$, so $f''(x) = \\mathrm{e}^{x} - 6x$.",
+            "Concave-down means $f''(x) < 0$. Write down the equation you solve on the GDC: $\\mathrm{e}^{x} - 6x = 0$.",
+            "Graph $y = \\mathrm{e}^{x} - 6x$ and find its zeros: $x = 0.204481\\ldots$ and $x = 2.83314\\ldots$",
+            "Test a point between them: $f''(1) = \\mathrm{e} - 6 \\approx -3.28 < 0$. So $f''(x) < 0$ between the zeros, and $f''(x) > 0$ outside them.",
+            "Round only at the end: the end points are $0.204$ and $2.83$ to 3 s.f."
+          ],
+          "answer": "$0.204 < x < 2.83$",
+          "check": {
+            "type": "check",
+            "id": "check-gdc-concave-up",
+            "prompt": "Now you try. The graph of $g(x) = \\mathrm{e}^{x} + x^{3}$ is concave-up for $x > a$. Find $a$, correct to 3 s.f.",
+            "hint": "Find $g''(x)$ by hand. Then graph $y = g''(x)$ and find where it crosses the $x$-axis.",
+            "answer": {
+              "value": -0.144,
+              "tolerance": 0.0005
+            },
+            "explain": "$g'(x) = \\mathrm{e}^{x} + 3x^{2}$, so $g''(x) = \\mathrm{e}^{x} + 6x$. Its only zero is $x = -0.144274\\ldots$, and $g''(x) > 0$ to the right of it, so $a \\approx -0.144$."
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = e^(X)-6X, then GRAPH",
+              "2nd TRACE (CALC), 2: zero; set a left bound, right bound and guess around the first crossing",
+              "Read x = 0.204481...; repeat 2: zero around the second crossing to read x = 2.83314..."
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = e^(x)-6x",
+              "Menu, Analyze Graph, Zero; click to the left and then the right of the first crossing",
+              "Read x = 0.204481...; repeat for the second crossing, x = 2.83314..."
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = e^(X)-6X, DRAW",
+              "SHIFT F5 (G-SOLV), ROOT; read x = 0.204481...",
+              "Press the right arrow to move to the next root, x = 2.83314... (check on your model)"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Before you answer, check which graph you are given: $f$, $f'$ or $f''$. The same picture means different things for each."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "f''(x) = \\frac{\\mathrm{d}}{\\mathrm{d}x}\\big(f'(x)\\big) \\qquad \\frac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}} = \\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(\\frac{\\mathrm{d}y}{\\mathrm{d}x}\\right)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$f''(x) > 0$: the gradient is increasing and the graph is concave-up.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$f''(x) < 0$: the gradient is decreasing and the graph is concave-down.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The sign of $f'$ gives up or down. The sign of $f''$ gives the bend. The two are separate.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Where $f'(x) = 0$, $f$ is stationary. Where $f''(x) = 0$, $f'$ is stationary and $f$ may change concavity.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To find where $f$ is concave-up: find $f''(x)$, solve $f''(x) = 0$, check the sign of $f''(x)$ on each side, then answer with inequalities.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Solving $f'(x) > 0$ when the question asks where the graph is concave-up. Concavity comes from the sign of $f''(x)$, so differentiate twice first.",
+    "Stopping after one derivative. If the question asks for $f''(x)$ or $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$, differentiate your first derivative again.",
+    "Losing a sign with negative powers. $\\dfrac{4}{x} = 4x^{-1}$ differentiates to $-4x^{-2}$, and then to $+8x^{-3}$.",
+    "Giving only the value where $f''(x) = 0$. That is where the concavity can change. The answer is a set of $x$-values, such as $-1 < x < 1$.",
+    "Reading the graph of $f'$ as if it were $f$. For the concavity of $f$, ask whether the graph of $f'$ is rising or falling, not whether it is above the axis."
+  ],
+  "examTips": [
+    "When a question asks where a graph is concave-up, write $f''(x) > 0$ as your first line, then solve. Answer with inequalities in $x$.",
+    "\"Show that $f''(x) = \\ldots$\": show the first derivative and every line of the second. Your last line must match the given result exactly.",
+    "On Paper 2, find $f''(x)$ by hand, then write down the equation you put into the GDC. Give the end points to 3 s.f.",
+    "Use the notation the question uses. If it writes $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$, answer with $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$."
+  ],
+  "readingMinutes": 21
+}

@@ -33,7 +33,7 @@ describe("validateLesson", () => {
   });
 
   it("rejects glossary terms and lesson links inside check options, including before[]", () => {
-    const option = (text: string) => ({ type: "check", id: "opt-x", prompt: "Pick", options: [{ text, correct: true }, { text: "b", correct: false }], explain: "e" }) as CheckBlock;
+    const option = (text: string) => ({ type: "check", id: "opt-x", prompt: "Pick", hint: "h", options: [{ text, correct: true }, { text: "b", correct: false }], explain: "e" }) as CheckBlock;
     const sections = withBlock(option("[[nope|x]]"));
     expect(sections).toContain("2.5 sections[0].blocks[" + (blocks(clone()).length) + "].options[0]: option text may contain only plain text and $maths$, no glossary terms or lesson links");
     const lesson = clone();
@@ -91,20 +91,20 @@ describe("validateLesson", () => {
   });
 
   it("reports duplicate example and check ids", () => {
-    expect(withBlock({ type: "check", id: "e1", prompt: "p", answer: { value: 1, tolerance: 0 }, explain: "x" })).toEqual([expect.stringContaining("duplicate id e1")]);
+    expect(withBlock({ type: "check", id: "e1", prompt: "p", hint: "h", answer: { value: 1, tolerance: 0 }, explain: "x" })).toEqual([expect.stringContaining("duplicate id e1")]);
     const lesson = clone();
     lesson.before[0].id = "c1";
     expect(run(lesson)).toEqual([expect.stringContaining("duplicate id c1")]);
   });
 
   it("reports a check with neither options nor a numeric answer", () => {
-    expect(withBlock({ type: "check", id: "c2", prompt: "p", explain: "x" })).toEqual([expect.stringContaining("needs options or a numeric answer")]);
+    expect(withBlock({ type: "check", id: "c2", prompt: "p", hint: "h", explain: "x" })).toEqual([expect.stringContaining("needs options or a numeric answer")]);
   });
 
   it("rejects a check with both options and a numeric answer", () => {
     const options = [{ text: "a", correct: true }, { text: "b", correct: false }];
-    expect(withBlock({ type: "check", id: "c9", prompt: "p", options, answer: { value: 1, tolerance: 0 }, explain: "x" })).toEqual([expect.stringContaining("both options and an answer")]);
-    expect(withBlock({ type: "check", id: "c9", prompt: "p", options, explain: "x" })).toEqual([]);
+    expect(withBlock({ type: "check", id: "c9", prompt: "p", hint: "h", options, answer: { value: 1, tolerance: 0 }, explain: "x" })).toEqual([expect.stringContaining("both options and an answer")]);
+    expect(withBlock({ type: "check", id: "c9", prompt: "p", hint: "h", options, explain: "x" })).toEqual([]);
   });
 
   it("rejects duplicate section ids within a lesson", () => {
@@ -169,7 +169,7 @@ describe("validateLesson", () => {
 
   it("requires at least two options with exactly one correct", () => {
     const msg = "options need at least 2 entries and exactly one correct";
-    const one: CheckBlock = { type: "check", id: "m1", prompt: "p", explain: "x", options: [{ text: "a", correct: true }] };
+    const one: CheckBlock = { type: "check", id: "m1", prompt: "p", hint: "h", explain: "x", options: [{ text: "a", correct: true }] };
     expect(withBlock(one)).toEqual([expect.stringContaining(msg)]);
     const none = { ...one, options: [{ text: "a", correct: false }, { text: "b", correct: false }] };
     expect(withBlock(none)).toEqual([expect.stringContaining(msg)]);
@@ -179,7 +179,7 @@ describe("validateLesson", () => {
 
   it("requires a finite numeric value and non-negative tolerance", () => {
     const msg = "check needs options or a numeric answer with tolerance";
-    const base: CheckBlock = { type: "check", id: "n1", prompt: "p", explain: "x" };
+    const base: CheckBlock = { type: "check", id: "n1", prompt: "p", hint: "h", explain: "x" };
     expect(withBlock({ ...base, answer: { value: Number.NaN, tolerance: 0 } })).toEqual([expect.stringContaining(msg)]);
     expect(withBlock({ ...base, answer: { value: 1, tolerance: -1 } })).toEqual([expect.stringContaining(msg)]);
   });
@@ -188,5 +188,40 @@ describe("validateLesson", () => {
     const lesson = clone();
     blocks(lesson)[0] = { type: "text", text: "A [[Discriminant|x]] and {{lesson:5}}" };
     expect(run(lesson)).toEqual([expect.stringMatching(/^2\.5 sections\[0\]\.blocks\[0\]: Malformed markup near "\[\[Discriminant/)]);
+  });
+
+  it("validates definition terms, figure captions and calculator steps like other inline text", () => {
+    expect(withBlock({ type: "definition", term: "Root $\\frac{1}$", statement: "s", plain: "p" })).toEqual([expect.stringMatching(/blocks\[6\]: KaTeX: /)]);
+    expect(withBlock({ type: "figure", id: "f", alt: "a triangle", caption: "See [[nope|this]]" })).toEqual([expect.stringContaining("unknown glossary term nope")]);
+    expect(withBlock({ type: "calculator", steps: { ti84: ["Costs $5"], nspire: ["ok"], casio: ["ok"] } })).toEqual([expect.stringContaining("Unclosed $")]);
+    expect(withBlock({ type: "calculator", steps: { ti84: ["Costs \\$5"], nspire: ["ok"], casio: ["see {{lesson:2.13}}"] } })).toEqual([expect.stringContaining("SL lesson links to AHL lesson 2.13 outside an hlNote")]);
+    expect(withBlock({ type: "figure", id: "f", alt: "a triangle", caption: "The [[discriminant|discriminant]] is $\\Delta$." })).toEqual([]);
+  });
+
+  it("requires a hint on every check", () => {
+    expect(withBlock({ type: "check", id: "nh", prompt: "p", hint: " ", answer: { value: 1, tolerance: 0 }, explain: "x" })).toEqual([expect.stringContaining("check needs a hint")]);
+    const lesson = clone();
+    delete (lesson.before[0] as Partial<CheckBlock>).hint;
+    expect(run(lesson)).toEqual([expect.stringContaining("before[0]: check needs a hint")]);
+  });
+
+  it("rejects maths or markup inside a glossary label", () => {
+    const lesson = clone();
+    blocks(lesson)[0] = { type: "text", text: "The [[discriminant|$\\Delta$]] decides." };
+    expect(run(lesson)).toEqual([expect.stringContaining("glossary label must be plain words")]);
+  });
+
+  it("rejects a backslash before a quote in prose", () => {
+    const lesson = clone();
+    blocks(lesson)[0] = { type: "text", text: 'On a \\"find\\" question, show working.' };
+    expect(run(lesson)).toEqual([expect.stringContaining("stray backslash before a quote")]);
+  });
+
+  it("checks interactive props against the widget's allowed keys and values", () => {
+    const widget = (props: Record<string, unknown>) => withBlock({ type: "interactive", widget: "discriminant-roots", props, alt: "a parabola" });
+    expect(widget({ a: 1, b: -3, c: 2 })).toEqual([]);
+    expect(widget({ d: 1 })).toEqual([expect.stringContaining("discriminant-roots has no prop d")]);
+    expect(widget({ a: 9 })).toEqual([expect.stringContaining("prop a must be a number from -3 to 3")]);
+    expect(withBlock({ type: "interactive", widget: "riemann-sums", props: { mode: "upper" }, alt: "rectangles" })).toEqual([expect.stringContaining("prop mode must be one of left, right, mid")]);
   });
 });

@@ -1,0 +1,526 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "5.3",
+  "slug": "differentiation-of-integer-power-polynomials",
+  "title": "Differentiation of integer-power polynomials",
+  "level": "SL",
+  "topic": 5,
+  "summary": "The [[power-rule|power rule]] says the derivative of $x^{n}$ is $nx^{n-1}$: bring the power down in front, then lower it by one. It works for every integer power, including negative ones such as $x^{-2} = \\frac{1}{x^{2}}$. Differentiate a sum one term at a time, and you can find the gradient function of any polynomial in a few lines.",
+  "goals": [
+    {
+      "text": "Differentiate $ax^{n}$ with the [[power-rule|power rule]], including constants and terms like $4x$.",
+      "bullets": [
+        "5.3-b1"
+      ]
+    },
+    {
+      "text": "Rewrite terms such as $\\frac{5}{x^{3}}$ as $5x^{-3}$, then differentiate them.",
+      "bullets": [
+        "5.3-b1"
+      ]
+    },
+    {
+      "text": "Differentiate a sum of power terms, one term at a time.",
+      "bullets": [
+        "5.3-b2"
+      ]
+    },
+    {
+      "text": "Expand brackets or split a fraction first, then differentiate and find the gradient at a point.",
+      "bullets": [
+        "5.3-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.5",
+    "5.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "power rule",
+    "derivative of x to the n",
+    "differentiate a polynomial",
+    "differentiate 1 over x",
+    "term by term differentiation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-chord-limit",
+      "prompt": "On $y = x^{2}$, chords from $x = 1$ to $x = 1 + h$ have gradients $2.1$, $2.01$ and $2.001$ for $h = 0.1$, $0.01$ and $0.001$. What is the gradient of the curve at $x = 1$?",
+      "hint": "What value do the chord gradients approach as $h$ gets closer to $0$?",
+      "options": [
+        {
+          "text": "$2$",
+          "correct": true
+        },
+        {
+          "text": "$2.001$",
+          "correct": false
+        },
+        {
+          "text": "$1$",
+          "correct": false
+        }
+      ],
+      "explain": "The chord gradients settle on $2$ as $h \\to 0$, so the gradient at $x = 1$ is $2$. The value $1$ is the height of the curve there, not its gradient. Revise it in {{lesson:5.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-negative-exponent",
+      "prompt": "Write $\\frac{3}{x^{4}}$ as a number times a power of $x$.",
+      "hint": "Use $\\frac{1}{x^{n}} = x^{-n}$. What happens to the $3$?",
+      "options": [
+        {
+          "text": "$3x^{-4}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{1}{3}x^{-4}$",
+          "correct": false
+        },
+        {
+          "text": "$3x^{4}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{3}{x^{4}} = 3 \\times \\frac{1}{x^{4}} = 3x^{-4}$. The $3$ is on top, so it stays as $3$. Revise it in {{lesson:1.5}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "power-rule",
+      "heading": "The power rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.1}} you found the gradient of a curve as the limit of chord gradients. Doing that for every curve would be slow. Look at the answers instead, and a pattern appears."
+        },
+        {
+          "type": "text",
+          "text": "In the widget, choose $y = x^{3}$ and slide $h$ towards $0$. The chord gradient settles on $3$, which is the gradient of the curve at $x = 1$."
+        },
+        {
+          "type": "interactive",
+          "widget": "secant-to-tangent",
+          "props": {
+            "curve": "cube",
+            "h": 1
+          },
+          "alt": "The curve y equals x cubed with a fixed point P at x equals 1 and a chord to a second point Q. As h shrinks, the chord turns into the tangent at P, whose gradient is 3."
+        },
+        {
+          "type": "text",
+          "text": "Find chord limits at other points, as in {{lesson:5.1}}, and you get the same story: $y = x^{2}$ has gradient $2x$, and $y = x^{3}$ has gradient $3x^{2}$. Each time the power comes down in front, and the new power is one less. This is the [[power-rule|power rule]]."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = x^{n} \\Rightarrow f'(x) = nx^{n-1}",
+          "tag": "booklet",
+          "bookletId": "bk-5-3-power-derivative",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The rule is in the formula booklet, so you don't need to memorise it. You do need to use it quickly. In this lesson $n$ is any integer: positive, zero or negative. In {{lesson:5.6}} the same rule extends to powers such as $x^{\\frac{1}{2}}$."
+        },
+        {
+          "type": "text",
+          "text": "A number in front of the power, called the coefficient, just comes along. Multiply it by the power, then lower the power by one."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = ax^{n} \\Rightarrow f'(x) = anx^{n-1}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Two special cases appear in every polynomial. A term $ax$ is $ax^{1}$, so it differentiates to $a \\times 1 \\times x^{0} = a$, since $x^{0} = 1$. A straight line has a constant gradient, so this fits."
+        },
+        {
+          "type": "text",
+          "text": "A constant $a$ differentiates to $0$. Its graph $y = a$ is a horizontal line, and a horizontal line has gradient $0$ everywhere."
+        },
+        {
+          "type": "example",
+          "id": "ex-power-5x4",
+          "question": "Differentiate $f(x) = 5x^{4}$.",
+          "steps": [
+            "Read off the coefficient and the power: $a = 5$ and $n = 4$.",
+            "Bring the power down and multiply: $5 \\times 4 = 20$.",
+            "Lower the power by one: $4 - 1 = 3$.",
+            "Put it together: $f'(x) = 20x^{3}$."
+          ],
+          "answer": "$f'(x) = 20x^{3}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-power-sphere",
+          "question": "The volume of a sphere of radius $r$ is $V = \\frac{4}{3}\\pi r^{3}$. Find $\\dfrac{\\mathrm{d}V}{\\mathrm{d}r}$, the rate at which the volume changes as the radius grows.",
+          "steps": [
+            "The variable is $r$, not $x$, but the rule is the same. The coefficient $\\frac{4}{3}\\pi$ is a constant, and the power is $3$.",
+            "Multiply the coefficient by the power: $\\frac{4}{3}\\pi \\times 3 = 4\\pi$.",
+            "Lower the power by one: $r^{3}$ becomes $r^{2}$, so $\\dfrac{\\mathrm{d}V}{\\mathrm{d}r} = 4\\pi r^{2}$.",
+            "Sense check: $4\\pi r^{2}$ is the surface area of the sphere. Growing the radius a little adds a thin shell of about that area, so the answer is reasonable."
+          ],
+          "answer": "$\\dfrac{\\mathrm{d}V}{\\mathrm{d}r} = 4\\pi r^{2}$",
+          "video": null
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also differentiate polynomials from first principles, using the limit definition of the derivative.",
+          "lesson": "5.12"
+        },
+        {
+          "type": "check",
+          "id": "check-power-basic",
+          "prompt": "Differentiate $f(x) = 4x^{7}$.",
+          "hint": "Multiply $4$ by the power, then lower the power by one.",
+          "options": [
+            {
+              "text": "$28x^{6}$",
+              "correct": true
+            },
+            {
+              "text": "$28x^{7}$",
+              "correct": false
+            },
+            {
+              "text": "$7x^{6}$",
+              "correct": false
+            }
+          ],
+          "explain": "$4 \\times 7 = 28$ and $7 - 1 = 6$, so $f'(x) = 28x^{6}$. Keeping the power at $7$, or dropping the $4$, are the usual slips."
+        },
+        {
+          "type": "check",
+          "id": "check-rate-numeric",
+          "prompt": "A stone falls $s = 4.9t^{2}$ metres in $t$ seconds. Find $\\dfrac{\\mathrm{d}s}{\\mathrm{d}t}$ when $t = 3$. This is its speed in metres per second.",
+          "hint": "Differentiate first, then substitute $t = 3$.",
+          "answer": {
+            "value": 29.4,
+            "tolerance": 0.05
+          },
+          "explain": "$\\dfrac{\\mathrm{d}s}{\\mathrm{d}t} = 2 \\times 4.9t = 9.8t$, so at $t = 3$ the speed is $9.8 \\times 3 = 29.4\\text{ m s}^{-1}$."
+        }
+      ]
+    },
+    {
+      "id": "negative-powers",
+      "heading": "Negative powers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[power-rule|power rule]] works for negative integer powers too. The only extra step is to write each term as a power of $x$ first. From {{lesson:1.5}}, $\\frac{1}{x^{n}} = x^{-n}$."
+        },
+        {
+          "type": "text",
+          "text": "Take $y = \\frac{1}{x} = x^{-1}$. Bring down the $-1$, then lower the power to $-2$. That gives $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -x^{-2} = -\\frac{1}{x^{2}}$."
+        },
+        {
+          "type": "text",
+          "text": "The minus sign matches the graph. For $x > 0$, the curve $y = \\frac{1}{x}$ falls as $x$ grows, so its gradient is negative."
+        },
+        {
+          "type": "text",
+          "text": "Lowering a negative power by one makes it more negative. So $-1$ becomes $-2$, and $-3$ becomes $-4$, not $-2$."
+        },
+        {
+          "type": "text",
+          "text": "1. Rewrite each term as $ax^{n}$. Only the power of $x$ moves: $\\frac{3}{x^{2}} = 3x^{-2}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Apply the power rule: multiply by the power, then lower the power by one."
+        },
+        {
+          "type": "text",
+          "text": "3. If you like, write the answer back as a fraction: $-6x^{-3} = -\\frac{6}{x^{3}}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-negative-6x2",
+          "question": "Differentiate $f(x) = \\frac{6}{x^{2}}$.",
+          "steps": [
+            "Rewrite as a power of $x$: $f(x) = 6x^{-2}$.",
+            "Bring the power down: $6 \\times (-2) = -12$.",
+            "Lower the power by one: $-2 - 1 = -3$. So $f'(x) = -12x^{-3}$.",
+            "Write it as a fraction: $f'(x) = -\\frac{12}{x^{3}}$."
+          ],
+          "answer": "$f'(x) = -\\frac{12}{x^{3}}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Only the $x$ moves when you rewrite. $\\frac{1}{4x^{2}}$ is $\\frac{1}{4}x^{-2}$, not $4x^{-2}$, because the $4$ is not raised to a power."
+        },
+        {
+          "type": "example",
+          "id": "ex-negative-split-coefficient",
+          "question": "Find $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ for $y = \\frac{3}{2x^{4}}$.",
+          "steps": [
+            "The $2$ has no power on it, so it stays with the $3$: $y = \\frac{3}{2}x^{-4}$.",
+            "Multiply the coefficient by the power: $\\frac{3}{2} \\times (-4) = -6$.",
+            "Lower the power by one: $-4 - 1 = -5$. So $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -6x^{-5}$.",
+            "As a fraction this is $-\\frac{6}{x^{5}}$. Both forms are correct."
+          ],
+          "answer": "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -\\frac{6}{x^{5}}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-negative-power",
+          "prompt": "Differentiate $y = \\frac{5}{x}$.",
+          "hint": "Write $\\frac{5}{x}$ as $5x^{-1}$ first.",
+          "options": [
+            {
+              "text": "$-\\frac{5}{x^{2}}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{5}{x^{2}}$",
+              "correct": false
+            },
+            {
+              "text": "$-5$",
+              "correct": false
+            }
+          ],
+          "explain": "$5x^{-1}$ differentiates to $5 \\times (-1) x^{-2} = -5x^{-2}$, which is $-\\frac{5}{x^{2}}$. The power drops from $-1$ to $-2$, not to $0$."
+        },
+        {
+          "type": "check",
+          "id": "check-negative-gradient",
+          "prompt": "For $f(x) = \\frac{8}{x^{2}}$, find $f'(2)$.",
+          "hint": "Rewrite as $8x^{-2}$, differentiate, then substitute $x = 2$.",
+          "answer": {
+            "value": -2,
+            "tolerance": 0
+          },
+          "explain": "$f'(x) = -16x^{-3} = -\\frac{16}{x^{3}}$, so $f'(2) = -\\frac{16}{8} = -2$. Substitute into $f'$, not $f$: $f(2) = 2$ is the height of the curve, not its gradient."
+        }
+      ]
+    },
+    {
+      "id": "sums",
+      "heading": "Sums of terms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To differentiate a sum, differentiate each term and add the results. The gradient of a sum is the sum of the gradients."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(f(x) + g(x)\\right) = f'(x) + g'(x)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "A constant term only moves the graph up or down. That doesn't change how steep the graph is, so the constant differentiates to $0$."
+        },
+        {
+          "type": "figure",
+          "id": "5-3-shifted-parabolas",
+          "alt": "Two parabolas, y equals x squared and y equals x squared plus 3, one directly above the other. At x equals 1 each has a dashed tangent line, and the two tangents are parallel, each with gradient 2.",
+          "caption": "Adding $3$ lifts the curve but leaves every gradient the same."
+        },
+        {
+          "type": "example",
+          "id": "ex-sum-cubic",
+          "question": "Differentiate $f(x) = 2x^{3} - 5x^{2} + 4x - 7$.",
+          "steps": [
+            "Take one term at a time. $2x^{3}$ gives $6x^{2}$.",
+            "$-5x^{2}$ gives $-10x$. Keep each minus sign with its term.",
+            "$4x$ gives $4$, and the constant $-7$ gives $0$.",
+            "Add the results: $f'(x) = 6x^{2} - 10x + 4$."
+          ],
+          "answer": "$f'(x) = 6x^{2} - 10x + 4$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "A lone $x$ term does not vanish. The derivative of $-x$ is $-1$, not $0$. Only the constant term differentiates to $0$."
+        },
+        {
+          "type": "check",
+          "id": "check-sum-poly",
+          "prompt": "Differentiate $g(x) = x^{5} - 4x^{3} + x - 9$.",
+          "hint": "Do one term at a time. What does $x$ give? What does $-9$ give?",
+          "options": [
+            {
+              "text": "$5x^{4} - 12x^{2} + 1$",
+              "correct": true
+            },
+            {
+              "text": "$5x^{4} - 12x^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$5x^{4} - 12x^{2} - 8$",
+              "correct": false
+            },
+            {
+              "text": "$5x^{4} - 4x^{2} + 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{5}$ gives $5x^{4}$, $-4x^{3}$ gives $-12x^{2}$, $x$ gives $1$ and $-9$ gives $0$. So $g'(x) = 5x^{4} - 12x^{2} + 1$."
+        },
+        {
+          "type": "text",
+          "text": "The term-by-term rule works on sums only. A product or a fraction has to be rewritten as a sum of powers first."
+        },
+        {
+          "type": "text",
+          "text": "Why not differentiate each factor of a product? Try $y = x \\times x$. Multiplying the two derivatives gives $1 \\times 1 = 1$. But $y = x^{2}$, whose derivative is $2x$. So expand the brackets first."
+        },
+        {
+          "type": "text",
+          "text": "A fraction with a single term underneath splits into separate terms. Divide every term on top by the bottom: $\\frac{x^{3} + 2}{x} = x^{2} + 2x^{-1}$. A denominator such as $x + 1$ can't be split like this; you'll differentiate those in {{lesson:5.6}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-sum-fraction",
+          "question": "Let $f(x) = \\frac{x^{4} - 3x^{2} + 5}{x^{2}}$, for $x \\ne 0$. Find the gradient of the graph of $f$ at $x = -1$.",
+          "steps": [
+            "Divide each term on top by $x^{2}$: $f(x) = x^{2} - 3 + 5x^{-2}$.",
+            "Differentiate term by term. The $-3$ is a constant, so it gives $0$: $f'(x) = 2x - 10x^{-3}$.",
+            "The gradient at $x = -1$ is $f'(-1)$, not $f(-1)$. Substitute: $f'(-1) = 2(-1) - 10(-1)^{-3}$.",
+            "Since $(-1)^{-3} = -1$, this is $-2 + 10 = 8$."
+          ],
+          "answer": "$f'(-1) = 8$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-rewrite-product",
+          "prompt": "Differentiate $y = x^{2}(x - 4)$.",
+          "hint": "Expand the brackets first.",
+          "options": [
+            {
+              "text": "$3x^{2} - 8x$",
+              "correct": true
+            },
+            {
+              "text": "$2x$",
+              "correct": false
+            },
+            {
+              "text": "$3x^{2} - 4$",
+              "correct": false
+            }
+          ],
+          "explain": "Expanding gives $y = x^{3} - 4x^{2}$, so $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 3x^{2} - 8x$. Multiplying the derivatives of the factors, $2x \\times 1$, gives the wrong answer $2x$."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 you still differentiate by hand. The calculator then solves the equation that follows."
+        },
+        {
+          "type": "example",
+          "id": "ex-sum-gdc",
+          "question": "Let $f(x) = 0.5x^{4} - 3x^{2} + \\frac{2}{x}$, for $x > 0$. Use your calculator to find the value of $x$ where the gradient of the graph of $f$ is $4$. Give your answer to 3 s.f.",
+          "steps": [
+            "Rewrite the last term as a power: $f(x) = 0.5x^{4} - 3x^{2} + 2x^{-1}$.",
+            "Differentiate term by term: $f'(x) = 2x^{3} - 6x - 2x^{-2}$.",
+            "Write down the equation you will solve: $2x^{3} - 6x - \\frac{2}{x^{2}} = 4$. Writing it down shows your method.",
+            "Graph $y = 2x^{3} - 6x - \\frac{2}{x^{2}}$ and $y = 4$, and find where they meet: $x = 2.02658\\ldots$",
+            "Round only at the end. Check: $f'(2) = 16 - 12 - 0.5 = 3.5$, a little under $4$, so a solution just above $2$ makes sense."
+          ],
+          "answer": "$x \\approx 2.03$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = 2X^3-6X-2/X^2 and Y2 = 4",
+              "GRAPH",
+              "2nd, TRACE (CALC), 5: intersect",
+              "Press ENTER for the first curve, ENTER for the second, move the cursor near x = 2 and press ENTER",
+              "Read x = 2.0265..., so x is 2.03 to 3 s.f."
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = 2x^3-6x-2/x^2 and f2(x) = 4",
+              "Menu, Analyze Graph, Intersection",
+              "Click to the left of the crossing point, then to the right of it",
+              "Read x = 2.0265..., so x is 2.03 to 3 s.f."
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = 2X^3-6X-2/X^2 and Y2 = 4",
+              "DRAW",
+              "SHIFT, F5 (G-SOLV), INTSECT",
+              "Read X = 2.0265..., so x is 2.03 to 3 s.f."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "f(x) = x^{n} \\Rightarrow f'(x) = nx^{n-1}",
+          "tag": "booklet",
+          "bookletId": "bk-5-3-power-derivative",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Multiply by the power, then lower the power by one: $ax^{n}$ gives $anx^{n-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A constant differentiates to $0$, and $ax$ differentiates to $a$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Rewrite $\\frac{a}{x^{n}}$ as $ax^{-n}$ first. One less than $-n$ is $-n - 1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Differentiate a sum term by term. Expand products and split fractions into powers first.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The gradient at $x = a$ is $f'(a)$. The height of the curve there is $f(a)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Losing a linear term. The derivative of $-x$ is $-1$, not $0$. Only the constant term differentiates to $0$.",
+    "Keeping the constant. In $x^{2} + 5$ the $5$ differentiates to $0$, so the answer is $2x$, not $2x + 5$.",
+    "Lowering a negative power the wrong way. $x^{-3}$ gives $-3x^{-4}$, because one less than $-3$ is $-4$, not $-2$.",
+    "Moving the number along with the $x$. $\\frac{1}{4x^{2}} = \\frac{1}{4}x^{-2}$, not $4x^{-2}$. Only the power of $x$ changes sign.",
+    "Differentiating each factor of a product. Expand $x^{2}(x - 4)$ to $x^{3} - 4x^{2}$ first, then differentiate.",
+    "Mixing up $f(a)$ and $f'(a)$. The gradient at $x = a$ is $f'(a)$; $f(a)$ is the $y$-coordinate of the point."
+  ],
+  "examTips": [
+    "\"Find $f'(x)$\" needs working. Show the line where you rewrite terms as powers, such as $\\frac{6}{x^{2}} = 6x^{-2}$, so a later slip doesn't hide a correct method.",
+    "\"Hence\" after \"find $f'(x)$\" means use the $f'(x)$ you just found. If it was wrong but you use it correctly, you can still earn follow-through (FT) marks.",
+    "On Paper 1, leave answers exact. $-12x^{-3}$ and $-\\frac{12}{x^{3}}$ are the same answer, so use either unless the question asks for a form.",
+    "On Paper 2, write down the derivative and the equation you put into the calculator, then give the answer to 3 s.f."
+  ],
+  "readingMinutes": 19
+}

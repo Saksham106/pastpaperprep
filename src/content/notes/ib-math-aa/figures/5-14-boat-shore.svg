@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 230" role="img" aria-labelledby="t">
+  <title id="t">Boat B 3 km from P on a straight shore; house H 3 km along the shore from P; landing point Q is x km from P</title>
+  <line x1="20" y1="180" x2="300" y2="180" stroke="currentColor" stroke-width="2"/>
+  <line x1="60" y1="30" x2="60" y2="180" stroke="currentColor" stroke-width="1" opacity="0.6" stroke-dasharray="4 3"/>
+  <polyline points="60,180 60,170 70,170 70,180" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+  <line x1="60" y1="30" x2="150" y2="180" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="150" y1="180" x2="210" y2="180" stroke="var(--t3-ink)" stroke-width="4"/>
+  <g fill="currentColor">
+    <circle cx="60" cy="30" r="4"/>
+    <circle cx="60" cy="180" r="3.5"/>
+    <circle cx="150" cy="180" r="3.5"/>
+    <circle cx="210" cy="180" r="4"/>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="44" y="26" font-style="italic">B</text>
+    <text x="54" y="200" font-style="italic">P</text>
+    <text x="145" y="200" font-style="italic">Q</text>
+    <text x="205" y="200" font-style="italic">H</text>
+    <text x="42" y="110">3</text>
+    <text x="100" y="196" font-style="italic">x</text>
+    <text x="164" y="217">3 − x</text>
+    <text x="250" y="172" opacity="0.7">shore</text>
+    <text x="112" y="100" fill="var(--t1-ink)">row</text>
+    <text x="168" y="170" fill="var(--t3-ink)">walk</text>
+  </g>
+</svg>
