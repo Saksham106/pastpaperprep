@@ -689,6 +689,7 @@ main { min-height: 72vh; }
 .mcq-answer-note { margin: 0; color: var(--muted); font-size: .8rem; line-height: 1.45; }
 .source-links a { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); font-size: .78rem; white-space: nowrap; }
 .source-links a:not(.full-paper-button):hover { color: var(--cobalt); }
+.source-links .notes-link { text-decoration: underline; text-underline-offset: 2px; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); }
 /* Keep the card's quiet links on one line; the whole group wraps below the buttons when space runs out. */
 .source-links { flex-wrap: nowrap; }
 .question-actions { flex-wrap: wrap; row-gap: 8px; }

@@ -1,3 +1,4 @@
+import { coursePaths } from "@/lib/course-notes/course";
 import type { NoteTopic, NotesSubject } from "@/lib/revision-notes/types";
 import { NOTES as statesOfMatter } from "@/lib/revision-notes/igcse-chemistry-0620/states-of-matter";
 import { NOTES as atomsElementsAndCompounds } from "@/lib/revision-notes/igcse-chemistry-0620/atoms-elements-and-compounds";
@@ -41,4 +42,4 @@ export const notesSubjectForBank = (bankSlug: string): NotesSubject | undefined 
 export const notesPaths = (): string[] => NOTES_SUBJECTS.flatMap((subject) => [
   `/revision-notes/${subject.subjectSlug}`,
   ...subject.topics.map((topic) => `/revision-notes/${subject.subjectSlug}/${topic.slug}`),
-]);
+]).concat(coursePaths());

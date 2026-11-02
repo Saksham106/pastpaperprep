@@ -1,0 +1,30 @@
+/* Course home: shared top area for the three roadmap options. */
+.course-top { padding: 28px 0 22px; }
+.course-top .row { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.course-top h1 { font-family: var(--font-serif); font-weight: 400; font-size: clamp(32px, 4.4vw, 50px); line-height: 1.05; margin: 10px 0 0; letter-spacing: -.01em; }
+.course-top .meta { margin: 10px 0 0; color: var(--muted); font-size: 15px; }
+.course-tools { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: center; margin-top: 22px; position: relative; }
+.continue { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; }
+.continue small { display: block; font: 500 11px var(--font-mono); opacity: .8; letter-spacing: .04em; text-transform: uppercase; }
+.search-results { position: absolute; left: 0; top: 54px; z-index: 30; list-style: none; margin: 0; padding: 6px; width: min(640px, 100%); background: var(--surface-raised); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 12px 32px rgb(0 0 0 / .12); }
+.search-results a { display: flex; gap: 10px; align-items: center; padding: 9px 10px; border-radius: 8px; color: var(--ink); text-decoration: none; }
+.search-results a:hover { background: var(--cobalt-faint); }
+.search-results .none { padding: 9px 10px; color: var(--muted); }
+
+.sheets { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 26px 0 60px; padding-top: 18px; border-top: 1px solid var(--line); }
+.sheets .lbl { font-weight: 600; margin-right: 6px; }
+.sheets a { font-size: 14px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-raised); color: var(--ink); text-decoration: none; }
+.sheets a:hover { border-color: var(--cobalt); color: var(--cobalt-strong); }
+.sheets a.main { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.view-toggle { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); font-size: 13px; }
+.view-toggle button { border: 0; background: none; padding: 5px 12px; border-radius: 6px; cursor: pointer; color: var(--muted); }
+.view-toggle button[aria-pressed="true"] { background: var(--surface-raised); color: var(--ink); box-shadow: 0 1px 2px rgb(0 0 0 / .08); }
+
+.legend { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+@media (max-width: 720px) {
+  .course-tools { grid-template-columns: 1fr; }
+  .continue { justify-content: center; }
+}

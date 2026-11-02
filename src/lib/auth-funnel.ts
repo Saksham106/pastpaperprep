@@ -7,6 +7,7 @@ export function authDestination(next: string): { from: string; bank?: string } {
   if (path.startsWith("/worksheets")) return { from: "worksheets" };
   if (path.startsWith("/past-papers")) return { from: "past_papers" };
   if (path.startsWith("/account")) return { from: "account" };
+  if (/^\/revision-notes\/ib-math-aa(?:\/|$)/.test(path)) return { from: "notes" };
   if (path.startsWith("/dashboard")) return { from: "dashboard" };
   return { from: path === "/" || path === "" ? "home" : "other" };
 }

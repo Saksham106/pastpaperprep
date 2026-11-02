@@ -4,9 +4,10 @@ import Link from "next/link";
 import { PAGE_NAVIGATION } from "@/components/PageTransition";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { NOTES_INDEX_HREF } from "@/lib/course-notes/visibility";
 import { requestPracticeMode } from "@/lib/practice-mode";
 
-function current(pathname: string, destination: "papers" | "banks" | "articles" | "pricing" | "account" | "worksheets" | "dashboard" | "login") {
+function current(pathname: string, destination: "papers" | "banks" | "articles" | "pricing" | "account" | "worksheets" | "dashboard" | "login" | "notes") {
   if (destination === "papers") return pathname === "/past-papers" || pathname.startsWith("/past-papers/");
   // Topic practice lives on the course picker (/dashboard) and the banks it opens.
   if (destination === "banks") return pathname === "/dashboard" || pathname.startsWith("/banks/");
@@ -14,11 +15,12 @@ function current(pathname: string, destination: "papers" | "banks" | "articles" 
   if (destination === "pricing") return pathname === "/pricing";
   if (destination === "account") return pathname === "/account" || pathname.startsWith("/account/");
   if (destination === "worksheets") return pathname === "/worksheets" || pathname.startsWith("/worksheets/");
+  if (destination === "notes") return pathname === NOTES_INDEX_HREF || pathname.startsWith(`${NOTES_INDEX_HREF}/`);
   if (destination === "login") return pathname === "/login";
   return pathname === "/dashboard";
 }
 
-export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = false, onNavigate, trailing, pastPapers = false }: { authenticated: boolean; workspaceIcon: ReactNode; menuOpen?: boolean; onNavigate?: () => void; trailing?: ReactNode; pastPapers?: boolean }) {
+export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = false, onNavigate, trailing, pastPapers = false, notes = false }: { authenticated: boolean; workspaceIcon: ReactNode; menuOpen?: boolean; onNavigate?: () => void; trailing?: ReactNode; pastPapers?: boolean; notes?: boolean }) {
   const pathname = usePathname();
   return (
     <nav id="site-menu" className="site-menu" data-open={menuOpen ? "true" : "false"} aria-label="Main navigation" onClick={(event) => { if ((event.target as Element).closest("a")) onNavigate?.(); }}>
@@ -26,6 +28,7 @@ export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = fals
       <div className="nav-pages">
         {pastPapers && <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "papers") ? "nav-active" : undefined} aria-current={current(pathname, "papers") ? "page" : undefined} href="/past-papers">Full past papers</Link>}
         <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "banks") ? "nav-active" : undefined} aria-current={current(pathname, "banks") ? "page" : undefined} href="/dashboard" onClick={() => requestPracticeMode("topics")}>Practice by topic</Link>
+        {notes && <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "notes") ? "nav-active" : undefined} aria-current={current(pathname, "notes") ? "page" : undefined} href={NOTES_INDEX_HREF}>Notes</Link>}
         <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "articles") ? "nav-active" : undefined} aria-current={current(pathname, "articles") ? "page" : undefined} href="/articles">Articles</Link>
         <Link transitionTypes={PAGE_NAVIGATION} className={`nav-pricing${current(pathname, "pricing") ? " nav-active" : ""}`} aria-current={current(pathname, "pricing") ? "page" : undefined} href="/pricing">Pricing</Link>
       </div>

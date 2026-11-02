@@ -23,6 +23,13 @@ describe("SiteHeader", () => {
     expect(screen.getByRole("link", { name: "Full past papers" })).toHaveAttribute("aria-current", "page");
   });
 
+  it("links Notes only when the course is visible", () => {
+    const view = render(<SiteHeader authenticated={false} />);
+    expect(screen.queryByRole("link", { name: "Notes" })).not.toBeInTheDocument();
+    view.rerender(<SiteHeader authenticated={false} notes />);
+    expect(screen.getByRole("link", { name: "Notes" })).toHaveAttribute("href", "/revision-notes/ib-math-aa");
+  });
+
   it("keeps pricing discoverable once a user is signed in", () => {
     render(<SiteHeader authenticated />);
 

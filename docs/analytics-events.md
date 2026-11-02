@@ -20,13 +20,15 @@ No email, name or account ID is ever sent without consent.
 | `question_filter_change` | bank page | `bank`, `filter` |
 | `answer_reveal` | bank page | `bank`, `freePreview` |
 | `explanation_open` | bank page, Explanation button | `bank`, `freePreview` |
+| `question_full_paper_click` | bank page, "Full paper" link on an unlocked question card | `bank` |
+| `question_notes_click` | bank page, "Learn this topic" link on an AA question card; only rendered while the AA notes course is visible | `bank` |
 | `question_report` | bank page, flag on an unlocked question card ("Report a problem"); once per question per page session | `bank`, `questionId`, `issue` (`question_image`, `mark_scheme`, `explanation`, `other`), `freePreview`, `hasExplanation`. No free text. |
 | `pdf_builder_open` | Save PDF / Download PDF | `bank`, `questionCount` |
 | `pdf_export_attempt` / `_success` / `_error` / `_blocked` | Download PDF. Since 2026-10-20 `_error` and `_blocked` carry `reason` (`daily_limit`, `auth`, `sign_unavailable`, `network`, `build`, `other`) and `status?`; hitting the daily limit is `pdf_export_blocked`, not an error | `bank`, `questionCount`, `content`, `source` (`worksheet` = My Worksheets, `save_dialog` = icon in the Save PDF card, `builder`) |
 | `pdf_upgrade_view` | PDF prompt for people without access | `bank` |
 | `upgrade_prompt_view` / `_click` / `_dismiss` | upgrade prompts | `bank`, `placement` |
 | `free_gate_view` / `_elevated` / `_dismiss` / `_signup_click` / `_signin_click` | 20-question sign-up prompt. Since 2026-10-15 `free_gate_view` fires once per page when the prompt first scrolls into view (it used to fire on mount, which overcounted it). | `bank`, `limit`, `remainingCount` |
-| `auth_page_view` | sign-in / sign-up page, once per mode shown (switching modes counts again) | `mode` (`sign-in`, `sign-up`), `from` (`bank`, `pricing`, `worksheets`, `past_papers`, `account`, `dashboard`, `home`, `other`), `bank?` |
+| `auth_page_view` | sign-in / sign-up page, once per mode shown (switching modes counts again) | `mode` (`sign-in`, `sign-up`), `from` (`bank`, `pricing`, `worksheets`, `past_papers`, `notes`, `account`, `dashboard`, `home`, `other`), `bank?` |
 | `google_auth_click` | Continue with Google | `mode` |
 | `signup_submit` / `signup_email_sent` / `signup_error` | email sign-up form and its result. Outcome only; the message text never leaves the page | `schoolEmail` (submit only) |
 | `signup_resend` | Resend email after sign-up | none |
@@ -47,10 +49,22 @@ No email, name or account ID is ever sent without consent.
 | `past_paper_mark_open` | "Mark this paper" / "Mark it" | `bank` |
 | `past_paper_report_view` | "See where your marks went" | `bank`, `complete` |
 | `past_paper_practice_click` | the report's one practice button | `bank` |
+| `notes_lesson_view` | IB Maths AA lesson page, once per page mount | `lesson` (item, e.g. `5.16`), `level` (`SL`, `HL`) |
+| `notes_example_step` | lesson, worked example: Show next step / Show all | `lesson`, `level`, `example` (id), `step` (number revealed, or `all`) |
+| `notes_check_answer` | lesson, "Before you start" and in-section checks, when an option is chosen or a number checked | `lesson`, `level`, `check` (id), `correct`, `attempt` (1, 2, … per distinct answer to that check; a repeat of the same option or number sends nothing) |
+| `notes_glossary_open` | lesson, a glossary term pop-up opening | `lesson`, `level`, `term` (id) |
+| `notes_practice_click` | lesson "Practise this" button; topic page question-count links | `lesson?` (lesson only), `level`, `bank` (`ib-sl`, `ib-hl`), `group` (taxonomy group id) |
+| `notes_understood` | lesson, "I've got this" marking a lesson. Un-marking sends nothing | `lesson`, `level` |
+| `notes_level_switch` | SL/HL switch on the course home, topic, cheat sheet pages | `lesson?`, `level` (the new level) |
+| `notes_search` | course-home lesson search, once per search (1 s after typing stops, or Enter, or a result click; never per keystroke). Never the query text | `level`, `found` |
+| `notes_report` | lesson, "Report a problem" | `lesson`, `level`, `issue` (`maths_error`, `unclear`, `typo`, `broken`, `other`). No free text. |
+| `notes_cheatsheet_print` | cheat sheet, Save as PDF | `topic` (topic slug, or `course`), `level` |
 
 `placement` is one of `top_note`, `feed_teaser`, `feed_timeline`, `locked_card`, `practice_milestone`, `signup_gate`, `pdf_dialog`. The same value travels to pricing as `?from=`, so `pricing_view.from` shows which prompt sent the visitor.
 
 **Free past papers funnel (everyone, ratios of totals):** `past_paper_open` → `past_paper_mark_open` → `past_paper_report_view` → `past_paper_practice_click` → `pricing_view`, broken down by `bank`. Linking to `conversion_outcome` needs analytics consent, like the other funnels.
+
+**Course notes funnel (everyone, ratios of totals):** `notes_lesson_view` → `notes_check_answer` / `notes_example_step` → `notes_understood` → `notes_practice_click` → `pricing_view`. Break down by `lesson` and `level`. Sign-ups started from the notes show as `auth_page_view` with `from = notes`.
 
 **Country.** Cookieless ingestion drops the IP, so PostHog's GeoIP can't place anonymous events. The anonymous client fills `$geoip_country_code` / `$geoip_country_name` from the browser time zone (`src/lib/timezone-country.ts`, generated from the IANA tz database) and adds `country_source: timezone`. It never overrides a real GeoIP country (consented events keep theirs). Approximate: e.g. Asia/Singapore → SG.
 

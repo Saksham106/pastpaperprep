@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roadmap A · Transit map</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="course.css">
+<style>
+  .map-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 8px; }
+  .map { position: relative; margin-top: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 8px 8px 4px; }
+  .map svg { display: block; width: 100%; height: auto; }
+  .lane-name { font: 400 19px var(--font-serif); fill: var(--ink); }
+  .lane-num { font: 500 12px var(--font-mono); }
+  .lane-prog { font: 13px var(--font-body); fill: var(--muted); }
+  .stop { cursor: pointer; }
+  .stop .lbl { font: 12.5px var(--font-body); fill: var(--ink-soft); }
+  .stop .num { font: 500 11px var(--font-mono); fill: var(--muted); text-anchor: middle; }
+  .stop:hover .lbl, .stop:focus .lbl, .stop.hot .lbl { fill: var(--ink); font-weight: 600; }
+  .stop:focus { outline: none; }
+  .stop:focus .ring, .stop:hover .ring { stroke: var(--cobalt); stroke-width: 2; opacity: 1; }
+  .stop .ring { fill: none; opacity: 0; }
+  .stop.pre .ring { stroke: var(--cobalt); stroke-width: 2; opacity: 1; stroke-dasharray: 3 3; }
+  .stop.off { opacity: .28; }
+  .arc { fill: none; stroke: var(--cobalt); stroke-width: 1.6; stroke-dasharray: 5 4; opacity: .85; }
+  .hl-tag { font: 500 10.5px var(--font-mono); fill: var(--burgundy); letter-spacing: .06em; }
+  .card { position: absolute; z-index: 20; width: 280px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; box-shadow: 0 14px 34px rgb(0 0 0 / .14); pointer-events: none; }
+  .card h3 { margin: 6px 0 6px; font: 400 18px/1.25 var(--font-serif); }
+  .card p { margin: 0; font-size: 13px; color: var(--muted); }
+  .card .go { margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--cobalt); }
+  .list { display: none; margin-top: 14px; }
+  .list section { border-top: 1px solid var(--line); padding: 14px 0; }
+  .list h2 { font: 400 20px var(--font-serif); margin: 0 0 8px; }
+  .list a { display: flex; gap: 10px; align-items: center; padding: 7px 0; color: var(--ink); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--line) 50%, transparent); }
+  .list .n { font: 500 12px var(--font-mono); color: var(--muted); width: 36px; }
+  .list .tick { margin-left: auto; color: var(--done); }
+  body.as-list .map { display: none; } body.as-list .list { display: block; }
+  @media (max-width: 760px) { .map { display: none; } .list { display: block; } .view-toggle { display: none; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="course-top">
+    <div class="crumbs"><a href="#">IB</a> › <a href="#">Maths AA</a> › Notes</div>
+    <div class="row">
+      <div>
+        <h1>IB Maths AA notes</h1>
+        <p class="meta">The full course, in syllabus order. Follows the IB guide for exams up to Nov 2028.</p>
+      </div>
+      <div id="level"></div>
+    </div>
+    <div class="course-tools">
+      <div id="search"></div>
+      <a class="btn btn-primary continue" href="lesson-a.html"><span><small>Continue</small>2.7 Quadratic equations and inequalities</span> →</a>
+    </div>
+  </div>
+
+  <div class="map-head">
+    <div class="legend">
+      <span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="2.5"/></svg>SL and HL</span>
+      <span><svg width="16" height="16"><rect x="3" y="3" width="10" height="10" transform="rotate(45 8 8)" fill="var(--surface)" stroke="var(--burgundy)" stroke-width="2.5"/></svg>HL only (AHL)</span>
+      <span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="var(--done)"/></svg>Understood</span>
+      <span>Hover a stop to see what it builds on</span>
+    </div>
+    <div class="view-toggle" role="group" aria-label="View"><button type="button" aria-pressed="true" data-v="map">Map</button><button type="button" aria-pressed="false" data-v="list">List</button></div>
+  </div>
+  <div class="map" id="map"></div>
+  <div class="list" id="list"></div>
+
+  <div class="sheets"><span class="lbl">Cheat sheets</span><a class="main" href="cheatsheet.html">Whole course</a><a href="cheatsheet.html">1 Number and algebra</a><a href="cheatsheet.html">2 Functions</a><a href="cheatsheet.html">3 Geometry and trigonometry</a><a href="cheatsheet.html">4 Statistics and probability</a><a href="cheatsheet.html">5 Calculus</a></div>
+</main>
+<script src="data.js"></script><script src="common.js"></script>
+<script>
+const M = window.MOCK; M.header("Roadmap A · Transit map");
+const W = 1180, LABEL = 230, X0 = LABEL + 30, X1 = W - 100, LANE = 150, TOP = 128;
+const pos = {};
+function draw() {
+  const lvl = M.level();
+  let svg = `<svg viewBox="0 0 ${W} ${TOP + LANE * 4 + 52}" role="img" aria-label="Course map: five topics as lines, lessons as stops">`;
+  svg += `<g id="arcs"></g>`;
+  AA.topics.forEach((t, ti) => {
+    const y = TOP + ti * LANE;
+    const n = t.items.length, step = (X1 - X0) / (n - 1);
+    const firstAhl = t.items.findIndex((i) => i.level === "AHL");
+    const xA = X0 + step * (firstAhl - 0.5);
+    const shown = t.items.filter((i) => lvl === "HL" || i.level === "SL");
+    const done = shown.filter((i) => M.DONE.has(i.num)).length;
+    svg += `<text class="lane-num" x="16" y="${y - 18}" fill="${M.topicInk(t.n)}">TOPIC ${t.n}</text>`;
+    svg += `<text class="lane-name" x="16" y="${y + 6}">${t.name.replace("Geometry and trigonometry", "Geometry and trig").replace("Statistics and probability", "Stats and probability")}</text>`;
+    svg += `<text class="lane-prog" x="16" y="${y + 28}">${done} of ${shown.length} understood</text>`;
+    svg += `<line x1="${X0 - 12}" y1="${y}" x2="${xA}" y2="${y}" stroke="${M.topicVar(t.n)}" stroke-width="12" stroke-linecap="round"/>`;
+    svg += `<line x1="${xA}" y1="${y}" x2="${X1 + 12}" y2="${y}" stroke="${M.topicVar(t.n)}" stroke-width="12" stroke-linecap="round" ${lvl === "SL" ? 'stroke-dasharray="2 10" opacity=".7"' : ""}/>`;
+    svg += `<line x1="${xA}" y1="${y - 16}" x2="${xA}" y2="${y + 16}" stroke="var(--burgundy)" stroke-width="1.5" opacity=".7"/>`;
+    svg += `<text class="hl-tag" x="${xA + 6}" y="${y + 45}">HL ONLY →</text>`;
+    t.items.forEach((it, k) => {
+      const x = X0 + k * step; pos[it.num] = { x, y };
+      const isDone = M.DONE.has(it.num), ahl = it.level === "AHL", off = ahl && lvl === "SL";
+      const fill = isDone ? "var(--done)" : "var(--surface)";
+      const shape = ahl
+        ? `<rect x="${x - 7.5}" y="${y - 7.5}" width="15" height="15" transform="rotate(45 ${x} ${y})" fill="${fill}" stroke="var(--burgundy)" stroke-width="3"/>`
+        : `<circle cx="${x}" cy="${y}" r="8.5" fill="${fill}" stroke="var(--ink-soft)" stroke-width="3"/>`;
+      const name = it.name.length > 23 ? it.name.slice(0, 22).trimEnd() + "…" : it.name;
+      svg += `<g class="stop${off ? " off" : ""}" tabindex="0" role="link" aria-label="${it.num} ${it.name}${ahl ? ", HL only" : ""}" data-num="${it.num}">
+        <circle class="ring" cx="${x}" cy="${y}" r="14"/>${shape}
+        ${isDone ? `<path d="M${x - 3.5} ${y} l2.5 2.6 l4.6 -5" fill="none" stroke="var(--surface)" stroke-width="2"/>` : ""}
+        <text class="num" x="${x}" y="${y + 27}">${it.num}</text>
+        <text class="lbl" transform="translate(${x + 2} ${y - 16}) rotate(-38)">${name}</text></g>`;
+    });
+  });
+  svg += `</svg><div class="card" id="card" hidden></div>`;
+  document.getElementById("map").innerHTML = svg;
+  bind();
+  // List view
+  document.getElementById("list").innerHTML = AA.topics.map((t) => `<section><h2>${t.n} ${t.name}</h2>${t.items.filter((i) => lvl === "HL" || i.level === "SL").map((i) => `<a href="lesson-a.html"><span class="n">${i.num}</span>${i.name} ${i.level === "AHL" ? '<span class="badge badge-ahl">AHL</span>' : ""}${M.DONE.has(i.num) ? '<span class="tick">✓</span>' : ""}</a>`).join("")}</section>`).join("");
+}
+function bind() {
+  const svg = document.querySelector("#map svg"), card = document.getElementById("card"), arcs = svg.querySelector("#arcs");
+  const show = (g) => {
+    const num = g.dataset.num, it = M.items.find((i) => i.num === num), pre = M.PREREQS[num] || [];
+    svg.querySelectorAll(".stop").forEach((s) => { s.classList.toggle("pre", pre.includes(s.dataset.num)); s.classList.toggle("hot", s === g); });
+    arcs.innerHTML = pre.map((p) => { const a = pos[p], b = pos[num]; const my = Math.min(a.y, b.y) - 46 - Math.abs(a.y - b.y) * 0.1; return `<path class="arc" d="M${a.x} ${a.y} C ${a.x} ${my}, ${b.x} ${my}, ${b.x} ${b.y}"/>`; }).join("");
+    const rect = svg.getBoundingClientRect(), scale = rect.width / W, p = pos[num];
+    card.hidden = false;
+    card.innerHTML = `<span class="badge ${it.level === "AHL" ? "badge-ahl" : "badge-sl"}">${it.num} · ${it.level === "AHL" ? "AHL" : "SL + HL"}</span><h3>${it.name}</h3><p>${pre.length ? "Builds on " + pre.join(", ") : "No prerequisites"}${M.DONE.has(num) ? " · Understood ✓" : ""}</p><div class="go">Open lesson →</div>`;
+    let left = p.x * scale + 22;
+    if (left + 290 > rect.width) left = p.x * scale - 302;
+    const below = p.y * scale < rect.height / 2;
+    card.style.left = left + "px";
+    card.style.top = (below ? p.y * scale + 34 : p.y * scale - 14) + "px";
+    card.style.transform = below ? "none" : "translateY(-100%)";
+  };
+  const hide = () => { card.hidden = true; arcs.innerHTML = ""; svg.querySelectorAll(".stop").forEach((s) => s.classList.remove("pre", "hot")); };
+  svg.querySelectorAll(".stop").forEach((g) => {
+    g.addEventListener("mouseenter", () => show(g)); g.addEventListener("focus", () => show(g));
+    g.addEventListener("mouseleave", hide); g.addEventListener("blur", hide);
+    g.addEventListener("click", () => (location.href = "lesson-a.html"));
+  });
+}
+M.levelSwitch(document.getElementById("level"), draw);
+M.searchBox(document.getElementById("search"), () => "lesson-a.html");
+document.querySelector(".view-toggle").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  document.querySelectorAll(".view-toggle button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  document.body.classList.toggle("as-list", b.dataset.v === "list");
+});
+draw();
+if (new URLSearchParams(location.search).has("demo")) setTimeout(() => document.querySelector('.stop[data-num="3.9"]').dispatchEvent(new Event("mouseenter")), 400);
+</script>
+</body>
+</html>

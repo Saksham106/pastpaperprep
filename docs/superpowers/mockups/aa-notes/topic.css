@@ -1,0 +1,12 @@
+.t-top { padding: 26px 0 18px; }
+.t-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-top: 12px; }
+.t-num { font: 500 12px var(--font-mono); letter-spacing: .08em; }
+.t-top h1 { font: 400 clamp(34px, 4.6vw, 52px)/1 var(--font-serif); margin: 6px 0 0; }
+.t-meta { margin: 10px 0 0; color: var(--muted); }
+.t-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.t-actions .level-switch button { padding: 8px 18px; font-size: 15px; }
+.qs { font: 500 11.5px var(--font-mono); color: var(--muted); }
+.mark-sl, .mark-ahl { display: inline-block; width: 10px; height: 10px; flex: none; }
+.mark-sl { border-radius: 50%; border: 2.5px solid var(--ink-soft); }
+.mark-ahl { border: 2.5px solid var(--burgundy); transform: rotate(45deg) scale(.85); }
+.mark-done { background: var(--done); border-color: var(--done); }

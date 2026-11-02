@@ -26,6 +26,9 @@
 .answer { background: var(--success-soft); }
 .answer .tag { color: var(--success); }
 .mistake { background: var(--danger-soft); }
+.revise { margin: 0; font-size: .82rem; }
+.revise a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+.revise a:hover { color: var(--cobalt); }
 .mistake .tag { color: var(--danger); }
 
 @media (max-width: 560px) {

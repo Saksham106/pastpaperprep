@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IB Maths AA notes · mockups</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  main { max-width: 900px; margin: 0 auto; padding: 34px 20px 70px; }
+  h1 { font: 400 40px var(--font-serif); margin: 0 0 6px; }
+  .lede { color: var(--muted); margin: 0 0 26px; }
+  h2 { font: 400 22px var(--font-serif); margin: 28px 0 8px; }
+  ul { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+  li a { display: grid; grid-template-columns: 34px 1fr; gap: 10px; padding: 12px 4px; border-bottom: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+  li a:hover { background: var(--cobalt-faint); }
+  li b { font: 500 13px var(--font-mono); color: var(--burgundy); padding-top: 2px; }
+  li span small { display: block; color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>IB Maths AA notes</h1>
+  <p class="lede">Design options. Mix and match: pick one per surface, or combine parts. Real syllabus data and question counts; progress is demo data. Try the SL/HL switch and Dark mode on each.</p>
+  <h2>Chosen (round 2)</h2>
+  <ul>
+    <li><a href="home.html"><b>✓</b><span>Course home (home.html)<small>One full-width row per topic: topic and progress on the left, its lessons across the row. Collapsible sections on phones.</small></span></a></li>
+    <li><a href="home-columns.html"><b>·</b><span>Course home, column version (home-columns.html)<small>The earlier round-2 layout with one vertical column per topic.</small></span></a></li>
+    <li><a href="topic-v2.html"><b>✓</b><span>Topic page (topic-v2.html)<small>Groups flowing left to right with a progress line; SL band, then HL-only band.</small></span></a></li>
+    <li><a href="lesson-a.html"><b>✓</b><span>Lesson (lesson-a.html)<small>“On this page” rail on the left, pop-up definitions.</small></span></a></li>
+    <li><a href="cheatsheet.html"><b>✓</b><span>Cheat sheet (cheatsheet.html)<small>A4, SL/HL switch, Booklet / Learn tags.</small></span></a></li>
+  </ul>
+  <h2 style="margin-top:40px;color:var(--muted)">Round 1 options (for reference)</h2>
+  <h2>Course home</h2>
+  <ul>
+    <li><a href="roadmap-a.html"><b>A</b><span>Transit map<small>Each topic is a line, lessons are stops; HL-only stops are diamonds. Hover a stop to see what it builds on.</small></span></a></li>
+    <li><a href="roadmap-b.html"><b>B</b><span>Syllabus columns<small>Five slim columns, one per topic, every lesson visible at once. The non-graph option.</small></span></a></li>
+    <li><a href="roadmap-c.html"><b>C</b><span>Course trail<small>One winding path through all 83 lessons, game-map style, with “Next up”.</small></span></a></li>
+  </ul>
+  <h2>Topic page (Calculus)</h2>
+  <ul>
+    <li><a href="topic-a.html"><b>A</b><span>Mind map<small>SL lessons branch left, HL-only right; groups show real past-paper counts.</small></span></a></li>
+    <li><a href="topic-b.html"><b>B</b><span>Learning order<small>Lessons laid out by what they build on: start here → last. Hover to light up a path.</small></span></a></li>
+    <li><a href="topic-c.html"><b>C</b><span>Chapters<small>A book-style contents page with a one-line summary per lesson and practice bars.</small></span></a></li>
+  </ul>
+  <h2>Lesson (5.16 Integration by substitution and parts)</h2>
+  <ul>
+    <li><a href="lesson-a.html"><b>A</b><span>Contents rail<small>Sticky contents on the left; tap an underlined word for a pop-up definition.</small></span></a></li>
+    <li><a href="lesson-b.html"><b>B</b><span>Margin notes<small>Definitions, tips and calculator steps sit in the right margin; section stepper at the top.</small></span></a></li>
+  </ul>
+  <h2>Cheat sheet</h2>
+  <ul>
+    <li><a href="cheatsheet.html"><b>·</b><span>Calculus cheat sheet<small>A4, two columns, SL/HL switch, every formula tagged “In booklet” or “Learn”.</small></span></a></li>
+  </ul>
+</main>
+<script src="data.js"></script><script src="common.js"></script><script>MOCK.header();</script>
+</body>
+</html>

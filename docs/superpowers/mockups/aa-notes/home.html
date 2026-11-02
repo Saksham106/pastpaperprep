@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Course home · rows (round 3)</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="course.css">
+<style>
+  .overall { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; font-size: 14px; color: var(--muted); }
+  .overall .track { flex: 0 0 220px; height: 6px; border-radius: 6px; background: var(--line); overflow: hidden; }
+  .overall .track i { display: block; height: 100%; background: var(--done); }
+  /* One full-width row per topic: topic on the left, its lessons across the row. */
+  .topics { display: grid; gap: 14px; }
+  .topic { display: grid; grid-template-columns: 270px minmax(0, 1fr); background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+  .head { background: var(--tone); padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .head .tn { font: 500 11.5px var(--font-mono); letter-spacing: .08em; color: var(--tone-ink); }
+  .head h2 { margin: -4px 0 0; font: 400 24px/1.12 var(--font-serif); }
+  .head h2 a { color: var(--ink); text-decoration: none; }
+  .head h2 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .dots { display: flex; flex-wrap: wrap; gap: 4px; }
+  .dots i { width: 9px; height: 9px; border-radius: 50%; background: color-mix(in srgb, var(--surface) 75%, transparent); }
+  .dots i.ahl { border-radius: 2px; transform: rotate(45deg) scale(.82); }
+  .dots i.done { background: var(--done); }
+  .dots i.next { background: var(--cobalt); }
+  .count { font-size: 13px; color: var(--ink-soft); }
+  .links { margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13.5px; font-weight: 600; white-space: nowrap; }
+  .links a { color: var(--tone-ink); text-decoration: none; }
+  .links a:hover { text-decoration: underline; }
+  .body { padding: 10px 14px 12px; }
+  .label { font: 500 10.5px var(--font-mono); letter-spacing: .08em; padding: 8px 8px 4px; }
+  .label.sl { color: var(--cobalt-strong); }
+  .label.hl { color: var(--burgundy); border-top: 1px dashed var(--line-strong); margin-top: 8px; padding-top: 12px; }
+  /* Lessons read down, then across, like a book index. */
+  .rows { list-style: none; margin: 0; padding: 0; columns: 3 230px; column-gap: 14px; }
+  .rows li { break-inside: avoid; }
+  .rows a { display: grid; grid-template-columns: 38px minmax(0, 1fr) 18px; gap: 4px 8px; align-items: baseline; padding: 7px 8px; border-radius: 8px; color: var(--ink); text-decoration: none; font-size: 14.5px; line-height: 1.32; }
+  .rows a:hover { background: var(--cobalt-faint); }
+  .rows .n { font: 500 12px var(--font-mono); color: var(--muted); }
+  .rows .ahl .n { color: var(--burgundy); }
+  .rows .tick { color: var(--done); font-weight: 700; }
+  .rows .next a { background: var(--cobalt-faint); box-shadow: inset 3px 0 0 var(--cobalt); }
+  .rows .next .tag { grid-column: 2; font: 600 11px var(--font-body); color: var(--cobalt-strong); }
+  .more { padding: 10px 8px 2px; font-size: 13px; color: var(--muted); border-top: 1px dashed var(--line-strong); margin-top: 8px; }
+  @media (max-width: 980px) { .topic { grid-template-columns: 210px minmax(0, 1fr); } .head h2 { font-size: 21px; } }
+  /* Phones: stacked, collapsible sections. */
+  @media (max-width: 720px) {
+    .overall .track { flex: 1 1 auto; }
+    .topic { grid-template-columns: 1fr; }
+    .head { cursor: pointer; position: relative; padding-right: 40px; }
+    .head::after { content: "▾"; position: absolute; right: 16px; top: 18px; color: var(--muted); }
+    .topic:not(.open) .body { display: none; }
+    .topic:not(.open) .head::after { content: "▸"; }
+    .links { display: none; }
+    .topic.open .links { display: flex; }
+    .rows { columns: 1; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="course-top">
+    <div class="crumbs"><a href="#">IB</a> › <a href="#">Maths AA</a> › Notes</div>
+    <div class="row">
+      <div>
+        <h1>IB Maths AA notes</h1>
+        <p class="meta">The full course, in syllabus order. Follows the IB guide for exams up to Nov 2028.</p>
+      </div>
+      <div id="level"></div>
+    </div>
+    <div class="course-tools">
+      <div id="search"></div>
+      <a class="btn btn-primary continue" href="lesson-a.html"><span><small>Continue</small>2.7 Quadratic equations and inequalities</span> →</a>
+    </div>
+  </div>
+  <div class="overall" id="overall"></div>
+  <div class="topics" id="topics"></div>
+  <div class="sheets"><span class="lbl">Cheat sheets</span><a class="main" href="cheatsheet.html">Whole course</a><a href="cheatsheet.html">1 Number and algebra</a><a href="cheatsheet.html">2 Functions</a><a href="cheatsheet.html">3 Geometry and trigonometry</a><a href="cheatsheet.html">4 Statistics and probability</a><a href="cheatsheet.html">5 Calculus</a></div>
+</main>
+<script src="data.js"></script><script src="common.js"></script>
+<script>
+const M = window.MOCK; M.header("Course home · rows (round 3)");
+const NEXT = "2.7";
+function row(i) {
+  const done = M.DONE.has(i.num), next = i.num === NEXT;
+  return `<li class="${i.level === "AHL" ? "ahl" : ""}${next ? " next" : ""}"><a href="lesson-a.html"><span class="n">${i.num}</span><span>${i.name}</span>${done ? '<span class="tick" aria-label="Understood">✓</span>' : "<span></span>"}${next ? '<span class="tag">Next up</span>' : ""}</a></li>`;
+}
+function draw() {
+  const lvl = M.level();
+  const all = M.items.filter((i) => lvl === "HL" || i.level === "SL"), doneAll = all.filter((i) => M.DONE.has(i.num)).length;
+  document.getElementById("overall").innerHTML = `<span class="track"><i style="width:${(100 * doneAll) / all.length}%"></i></span><span>${doneAll} of ${all.length} lessons understood</span>`;
+  document.getElementById("topics").innerHTML = AA.topics.map((t) => {
+    const sl = t.items.filter((i) => i.level === "SL"), ahl = t.items.filter((i) => i.level === "AHL");
+    const shown = lvl === "HL" ? t.items : sl, done = shown.filter((i) => M.DONE.has(i.num)).length;
+    const dots = shown.map((i) => `<i class="${i.level === "AHL" ? "ahl " : ""}${M.DONE.has(i.num) ? "done" : i.num === NEXT ? "next" : ""}"></i>`).join("");
+    return `<section class="topic${t.n === 2 ? " open" : ""}" style="--tone:${M.topicVar(t.n)};--tone-ink:${M.topicInk(t.n)}">
+      <div class="head"><div class="tn">TOPIC ${t.n}</div><h2><a href="topic-v2.html">${t.name}</a></h2>
+        <div class="dots" aria-hidden="true">${dots}</div><div class="count">${done} of ${shown.length} understood</div>
+        <div class="links"><a href="topic-v2.html">Topic page →</a><a href="cheatsheet.html">Cheat sheet</a></div></div>
+      <div class="body">
+        ${lvl === "HL" ? `<div class="label sl">● SL AND HL</div>` : ""}
+        <ol class="rows">${sl.map(row).join("")}</ol>
+        ${lvl === "HL" ? `<div class="label hl">◆ HL ONLY</div><ol class="rows">${ahl.map(row).join("")}</ol>` : `<div class="more">+${ahl.length} HL-only lessons</div>`}
+      </div>
+    </section>`;
+  }).join("");
+  document.querySelectorAll(".head").forEach((h) => h.addEventListener("click", (e) => { if (e.target.closest("a") || innerWidth > 720) return; h.parentElement.classList.toggle("open"); }));
+}
+M.levelSwitch(document.getElementById("level"), draw);
+M.searchBox(document.getElementById("search"), () => "lesson-a.html");
+draw();
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Topic B · Learning order</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="topic.css">
+<style>
+  .flow { position: relative; margin-top: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 12px; overflow-x: auto; }
+  .flow svg { display: block; min-width: 980px; width: 100%; height: auto; }
+  .colh { font: 500 11.5px var(--font-mono); letter-spacing: .08em; fill: var(--muted); }
+  .card { cursor: pointer; }
+  .card rect.bg { fill: var(--surface-raised); stroke: var(--line-strong); }
+  .card.ahl rect.bg { stroke: color-mix(in srgb, var(--burgundy) 55%, var(--line)); }
+  .card.done rect.bg { fill: color-mix(in srgb, var(--done) 12%, var(--surface-raised)); stroke: var(--done); }
+  .card:hover rect.bg, .card:focus rect.bg { stroke: var(--cobalt); stroke-width: 2; }
+  .card:focus { outline: none; }
+  .card .num { font: 500 11.5px var(--font-mono); fill: var(--muted); }
+  .card.ahl .num { fill: var(--burgundy); }
+  .card .nm { font: 600 13px var(--font-body); fill: var(--ink); }
+  .edge { fill: none; stroke: var(--line-strong); stroke-width: 1.6; }
+  .edge.hot { stroke: var(--cobalt); stroke-width: 2.4; }
+  .ext { font: 500 11px var(--font-mono); fill: var(--t2-ink); }
+  .dim { opacity: .25; }
+  .note { margin-top: 10px; color: var(--muted); font-size: 13.5px; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="t-top" id="top"></div>
+  <div class="legend" style="display:flex;gap:18px;font-size:13px;color:var(--muted);flex-wrap:wrap">
+    <span>Read left to right: each lesson builds on the ones its lines come from.</span>
+    <span><span class="mark-sl"></span> SL and HL</span><span><span class="mark-ahl"></span> HL only</span><span><span class="mark-sl mark-done"></span> Understood</span>
+  </div>
+  <div class="flow" id="flow"></div>
+  <p class="note">Chips like “from 2.9” are lessons in other topics. Hover a lesson to light up its path.</p>
+  <div style="height:50px"></div>
+</main>
+<script src="data.js"></script><script src="common.js"></script><script src="topic.js"></script>
+<script>
+const M = window.MOCK, T = window.TOPIC; M.header("Topic B · Learning order");
+const its = T.topic.items, inTopic = new Set(its.map((i) => i.num));
+const depth = {};
+const d = (n) => depth[n] ?? (depth[n] = Math.max(0, ...(M.PREREQS[n] || []).filter((p) => inTopic.has(p)).map((p) => d(p) + 1)));
+its.forEach((i) => d(i.num));
+const COLS = Math.max(...Object.values(depth)) + 1;
+const HEAD = ["Start here", "Next", "Then", "Then", "Then", "Last"];
+function draw() {
+  const lvl = M.level();
+  const W = 1300, CW = W / COLS, BW = CW - 46, BH = 58, VG = 18, Y0 = 56;
+  const cols = Array.from({ length: COLS }, () => []);
+  its.forEach((i) => cols[depth[i.num]].push(i));
+  const pos = {};
+  cols.forEach((c, ci) => c.forEach((i, k) => (pos[i.num] = { x: 16 + ci * CW, y: Y0 + k * (BH + VG) })));
+  const H = Y0 + Math.max(...cols.map((c) => c.length)) * (BH + VG) + 10;
+  let edges = "", cards = "", ext = "";
+  its.forEach((i) => (M.PREREQS[i.num] || []).forEach((p) => {
+    const b = pos[i.num];
+    if (pos[p]) { const a = pos[p]; edges += `<path class="edge" data-to="${i.num}" data-from="${p}" d="M${a.x + BW} ${a.y + BH / 2} C ${a.x + BW + 30} ${a.y + BH / 2}, ${b.x - 30} ${b.y + BH / 2}, ${b.x} ${b.y + BH / 2}"/>`; }
+  }));
+  its.forEach((i) => {
+    const p = pos[i.num], ahl = i.level === "AHL", done = M.DONE.has(i.num), off = ahl && lvl === "SL";
+    const words = i.name.split(" "); let l1 = "", l2 = "";
+    for (const w of words) { if ((l1 + " " + w).trim().length <= 24 && !l2) l1 = (l1 + " " + w).trim(); else l2 = (l2 + " " + w).trim(); }
+    if (l2.length > 25) l2 = l2.slice(0, 24).trimEnd() + "…";
+    const mark = ahl ? `<rect x="${p.x + 12}" y="${p.y + 12}" width="9" height="9" transform="rotate(45 ${p.x + 16.5} ${p.y + 16.5})" fill="${done ? "var(--done)" : "none"}" stroke="var(--burgundy)" stroke-width="2.2"/>`
+      : `<circle cx="${p.x + 16.5}" cy="${p.y + 16.5}" r="5" fill="${done ? "var(--done)" : "none"}" stroke="${done ? "var(--done)" : "var(--ink-soft)"}" stroke-width="2.2"/>`;
+    const externals = (M.PREREQS[i.num] || []).filter((x) => !inTopic.has(x));
+    cards += `<g class="card${ahl ? " ahl" : ""}${done ? " done" : ""}${off ? " dim" : ""}" tabindex="0" role="link" data-num="${i.num}" aria-label="${i.num} ${i.name}">
+      <rect class="bg" x="${p.x}" y="${p.y}" width="${BW}" height="${BH}" rx="10"/>${mark}
+      <text class="num" x="${p.x + 28}" y="${p.y + 20}">${i.num}${ahl ? " · AHL" : ""}</text>
+      <text class="nm" x="${p.x + 12}" y="${p.y + 38}">${l1}</text>${l2 ? `<text class="nm" x="${p.x + 12}" y="${p.y + 53}">${l2}</text>` : ""}
+      ${externals.map((x, k) => `<g><rect x="${p.x + BW - 68}" y="${p.y + 6 + k * 18}" width="62" height="15" rx="7" fill="var(--t2)"/><text class="ext" x="${p.x + BW - 37}" y="${p.y + 17 + k * 18}" text-anchor="middle">from ${x}</text></g>`).join("")}</g>`;
+  });
+  const heads = cols.map((c, ci) => `<text class="colh" x="${16 + ci * CW}" y="30">${(HEAD[ci] || "Then").toUpperCase()}</text>`).join("");
+  document.getElementById("flow").innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Calculus lessons in learning order">${heads}${edges}${cards}</svg>`;
+  const svg = document.querySelector("#flow svg");
+  svg.querySelectorAll(".card").forEach((g) => {
+    const on = () => {
+      const chain = new Set([g.dataset.num]); let grew = true;
+      while (grew) { grew = false; for (const n of [...chain]) for (const p of M.PREREQS[n] || []) if (!chain.has(p)) { chain.add(p); grew = true; } }
+      svg.querySelectorAll(".edge").forEach((e) => e.classList.toggle("hot", chain.has(e.dataset.to) && chain.has(e.dataset.from)));
+    };
+    g.addEventListener("mouseenter", on); g.addEventListener("focus", on);
+    g.addEventListener("mouseleave", () => svg.querySelectorAll(".edge").forEach((e) => e.classList.remove("hot")));
+    g.addEventListener("click", () => (location.href = "lesson-a.html"));
+  });
+}
+T.top(document.getElementById("top"), draw);
+draw();
+</script>
+</body>
+</html>

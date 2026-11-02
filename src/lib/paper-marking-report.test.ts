@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { parseExplorerState } from './explorer-state';
 import { PAPER_MARKING_PREVIEW as paper } from './paper-marking-preview';
-import { createPaperMarkingReport, topicPracticeHref } from './paper-marking-report';
+import { createPaperMarkingReport, topicLessonRecommendation, topicPracticeHref } from './paper-marking-report';
 
 describe('whole-question marking', () => {
   it.each([NaN, Infinity, -1, 1.5, 9])('rejects invalid question marks %s', score => {
@@ -68,5 +68,17 @@ describe('whole-question marking', () => {
     const partial = createPaperMarkingReport(paper, { [paper.questions[0].id]: 0 });
     expect(partial).toMatchObject({ markedTotal: 0, markedMaximum: 8, unmarkedCount: 5, complete: false, overallScore: null });
     expect(partial.priorities[0].lostEvidence[0]).toEqual({ questionId: paper.questions[0].id, number: 1, earned: 0, maxMarks: 8 });
+  });
+});
+
+describe('lesson recommendation', () => {
+  const report = createPaperMarkingReport(paper, Object.fromEntries(paper.questions.map(q => [q.id, 0])));
+  it('is null without links (course hidden) or when no priority topic has one', () => {
+    expect(topicLessonRecommendation(report.priorities, undefined)).toBeNull();
+    expect(topicLessonRecommendation(report.priorities, { Unrelated: { href: '/x', label: 'x' } })).toBeNull();
+  });
+  it('picks the highest-priority topic that has a lesson', () => {
+    const second = report.priorities[1].topic;
+    expect(topicLessonRecommendation(report.priorities, { [second]: { href: '/n', label: 'Notes' } })).toEqual({ topic: second, href: '/n', label: 'Notes' });
   });
 });

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cheat sheet · Calculus</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="base.css">
+<style>
+  .tools { max-width: 900px; margin: 22px auto 14px; padding: 0 16px; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .tools .crumbs { width: 100%; }
+  .tools h1 { margin: 0; font: 400 30px var(--font-serif); }
+  .tools .r { display: flex; gap: 10px; align-items: center; }
+  .tools .level-switch button { padding: 8px 18px; font-size: 15px; }
+  .key { max-width: 900px; margin: 0 auto 12px; padding: 0 16px; display: flex; gap: 14px; font-size: 13px; color: var(--muted); align-items: center; flex-wrap: wrap; }
+  .sheet { width: 210mm; max-width: calc(100vw - 24px); min-height: 297mm; margin: 0 auto 50px; background: #fff; color: #191917; box-shadow: 0 2px 4px rgb(0 0 0 / .06), 0 18px 50px rgb(0 0 0 / .12); padding: 12mm 12mm 10mm; font-size: 10.6px; line-height: 1.38; --t5: #ffd6c7; --t5-ink: #a8401f; --burgundy: #7f293a; --cobalt-faint: #edf1ff; --cobalt-strong: #2347bd; --t4: #fde9ad; --t4-ink: #845c00; --muted: #66645f; --line: #d8d8d1; }
+  .sh-head { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #191917; padding-bottom: 6px; margin-bottom: 8px; }
+  .sh-head h2 { margin: 0; font: 400 22px var(--font-serif); }
+  .sh-head span { font: 500 9px var(--font-mono); letter-spacing: .06em; color: var(--muted); text-align: right; }
+  .cols { columns: 2; column-gap: 7mm; }
+  .blk { break-inside: avoid; margin: 0 0 6px; padding: 5px 7px 6px; border-radius: 5px; background: #fafaf7; border: 1px solid #ecece6; }
+  .blk.ahl { border-left: 3px solid var(--burgundy); }
+  .blk h3 { margin: 0 0 3px; font-size: 11px; display: flex; gap: 6px; align-items: baseline; }
+  .blk h3 .n { font: 500 9.5px var(--font-mono); color: var(--muted); }
+  .blk.ahl h3 .n { color: var(--burgundy); }
+  .row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px; align-items: center; padding: 2px 0; border-top: 1px dashed #e6e6df; }
+  .row:first-of-type { border-top: 0; }
+  .tg { font: 500 7.5px/1 var(--font-mono); letter-spacing: .04em; padding: 2.5px 4px; border-radius: 3px; white-space: nowrap; }
+  .tg.b { background: var(--cobalt-faint); color: var(--cobalt-strong); }
+  .tg.l { background: var(--t4); color: var(--t4-ink); }
+  .sh-foot { margin-top: 8px; padding-top: 5px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font: 8.5px var(--font-mono); color: var(--muted); }
+  .sheet .katex { font-size: 1.04em; }
+  .sl-only .ahl { display: none; }
+  @media print {
+    @page { size: A4; margin: 0; }
+    body { background: #fff; }
+    .site-header, .tools, .key, .mock-label { display: none !important; }
+    .sheet { box-shadow: none; margin: 0; max-width: none; }
+  }
+</style>
+</head>
+<body>
+<div class="tools">
+  <div class="crumbs"><a href="home.html">IB Maths AA notes</a> › <a href="topic-v2.html">5 Calculus</a> › Cheat sheet</div>
+  <h1>Calculus cheat sheet</h1>
+  <div class="r"><div id="level"></div><button class="btn btn-primary" onclick="print()">Save as PDF</button></div>
+</div>
+<div class="key"><span class="tg b" style="font-size:10px;padding:4px 6px">IN BOOKLET</span> given in the exam <span class="tg l" style="font-size:10px;padding:4px 6px">LEARN</span> you must remember it <span>· Each block links to its lesson.</span></div>
+<div class="sheet" id="sheet">
+  <div class="sh-head"><h2>Calculus</h2><span id="sh-lvl">IB MATHS AA · HL<br>PASTPAPERPREP.COM/REVISION-NOTES</span></div>
+  <div class="cols" id="cols"></div>
+  <div class="sh-foot"><span>Follows the IB Maths AA guide (first assessment 2021). Not affiliated with the IB.</span><span>Mockup · booklet tags checked in the real build</span></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="data.js"></script><script src="common.js"></script>
+<script>
+MOCK.header("Cheat sheet · Calculus");
+const B = "b", L = "l";
+const SHEET = [
+  ["5.2", "Increasing and decreasing", false, [[L, "$f'(x) > 0$: increasing.  $f'(x) < 0$: decreasing"]]],
+  ["5.3", "Differentiating powers", false, [[B, "$f(x) = x^n \\Rightarrow f'(x) = nx^{n-1}$"]]],
+  ["5.4", "Tangents and normals", false, [[B, "$y - y_1 = m(x - x_1)$"], [L, "Tangent: $m = f'(x_1)$.  Normal: $m = -\\dfrac{1}{f'(x_1)}$"]]],
+  ["5.6", "Standard derivatives and rules", false, [
+    [B, "$\\sin x \\to \\cos x,\\; \\cos x \\to -\\sin x,\\; \\mathrm{e}^x \\to \\mathrm{e}^x,\\; \\ln x \\to \\tfrac1x$"],
+    [B, "Chain: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = \\dfrac{\\mathrm{d}y}{\\mathrm{d}u}\\cdot\\dfrac{\\mathrm{d}u}{\\mathrm{d}x}$"],
+    [B, "Product: $\\dfrac{\\mathrm{d}}{\\mathrm{d}x}(uv) = u\\dfrac{\\mathrm{d}v}{\\mathrm{d}x} + v\\dfrac{\\mathrm{d}u}{\\mathrm{d}x}$"],
+    [B, "Quotient: $\\dfrac{\\mathrm{d}}{\\mathrm{d}x}\\Big(\\dfrac uv\\Big) = \\dfrac{v\\frac{\\mathrm{d}u}{\\mathrm{d}x} - u\\frac{\\mathrm{d}v}{\\mathrm{d}x}}{v^2}$"]]],
+  ["5.7", "Second derivative", false, [[L, "$f''(x) > 0$: concave up.  $f''(x) < 0$: concave down"]]],
+  ["5.8", "Stationary points", false, [[L, "Stationary: $f'(x) = 0$. Max if $f''(x) < 0$, min if $f''(x) > 0$"], [L, "Inflection: $f''(x) = 0$ <i>and</i> $f''$ changes sign"]]],
+  ["5.9", "Kinematics", false, [[L, "$v = \\dfrac{\\mathrm{d}s}{\\mathrm{d}t},\\; a = \\dfrac{\\mathrm{d}v}{\\mathrm{d}t} = \\dfrac{\\mathrm{d}^2s}{\\mathrm{d}t^2}$"], [B, "Distance $= \\displaystyle\\int_{t_1}^{t_2} |v(t)|\\,\\mathrm{d}t$"]]],
+  ["5.5", "Integrating powers, area", false, [[B, "$\\displaystyle\\int x^n\\,\\mathrm{d}x = \\frac{x^{n+1}}{n+1} + C,\\; n \\ne -1$"], [B, "$A = \\displaystyle\\int_a^b y\\,\\mathrm{d}x$ (curve above the $x$-axis)"]]],
+  ["5.10", "Standard integrals", false, [
+    [B, "$\\int \\sin x = -\\cos x,\\; \\int \\cos x = \\sin x,\\; \\int \\tfrac1x = \\ln|x|,\\; \\int \\mathrm{e}^x = \\mathrm{e}^x$ (each $+\\,C$)"],
+    [L, "$\\displaystyle\\int f(ax+b)\\,\\mathrm{d}x = \\tfrac1a F(ax+b) + C$"]]],
+  ["5.11", "Areas", false, [[B, "$A = \\displaystyle\\int_a^b |y|\\,\\mathrm{d}x$"], [L, "Between curves: $\\displaystyle\\int_a^b |f(x) - g(x)|\\,\\mathrm{d}x$"]]],
+  ["5.12", "First principles", true, [[B, "$f'(x) = \\displaystyle\\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$"]]],
+  ["5.13", "L'Hôpital's rule", true, [[L, "For $\\tfrac00$ or $\\tfrac\\infty\\infty$: $\\displaystyle\\lim \\frac{f(x)}{g(x)} = \\lim \\frac{f'(x)}{g'(x)}$"]]],
+  ["5.14", "Related rates", true, [[L, "$\\dfrac{\\mathrm{d}A}{\\mathrm{d}t} = \\dfrac{\\mathrm{d}A}{\\mathrm{d}r}\\cdot\\dfrac{\\mathrm{d}r}{\\mathrm{d}t}$; implicit: differentiate $y$ terms with the chain rule"]]],
+  ["5.15", "More derivatives and integrals", true, [
+    [B, "$\\tan x \\to \\sec^2 x,\\; \\sec x \\to \\sec x\\tan x,\\; \\cot x \\to -\\csc^2 x$"],
+    [B, "$a^x \\to a^x\\ln a,\\; \\log_a x \\to \\dfrac{1}{x\\ln a}$"],
+    [B, "$\\arcsin x \\to \\dfrac{1}{\\sqrt{1-x^2}},\\; \\arctan x \\to \\dfrac{1}{1+x^2}$"],
+    [B, "$\\displaystyle\\int \\frac{1}{a^2+x^2}\\mathrm{d}x = \\frac1a\\arctan\\frac xa + C$"]]],
+  ["5.16", "Integration by parts", true, [[B, "$\\displaystyle\\int u\\frac{\\mathrm{d}v}{\\mathrm{d}x}\\,\\mathrm{d}x = uv - \\int v\\frac{\\mathrm{d}u}{\\mathrm{d}x}\\,\\mathrm{d}x$"], [L, "Substitute $x$, $\\mathrm{d}x$ <i>and</i> the limits"]]],
+  ["5.17", "Volumes of revolution", true, [[B, "$V = \\displaystyle\\int_a^b \\pi y^2\\,\\mathrm{d}x$ or $\\displaystyle\\int_a^b \\pi x^2\\,\\mathrm{d}y$"]]],
+  ["5.18", "Differential equations", true, [[B, "Euler: $y_{n+1} = y_n + h f(x_n, y_n)$"], [B, "$y' + P(x)y = Q(x)$: integrating factor $\\mathrm{e}^{\\int P(x)\\mathrm{d}x}$"], [L, "Homogeneous: let $y = vx$"]]],
+  ["5.19", "Maclaurin series", true, [[B, "$f(x) = f(0) + xf'(0) + \\dfrac{x^2}{2!}f''(0) + \\cdots$"], [B, "$\\mathrm{e}^x = 1 + x + \\dfrac{x^2}{2!} + \\cdots$"]]],
+];
+function draw() {
+  const lvl = MOCK.level();
+  document.getElementById("sheet").classList.toggle("sl-only", lvl === "SL");
+  document.getElementById("sh-lvl").innerHTML = `IB MATHS AA · ${lvl}<br>PASTPAPERPREP.COM/REVISION-NOTES`;
+}
+document.getElementById("cols").innerHTML = SHEET.map(([n, t, ahl, rows]) => `<div class="blk${ahl ? " ahl" : ""}"><h3><span class="n">${n}${ahl ? " ◆" : ""}</span>${t}</h3>${rows.map(([k, f]) => `<div class="row"><span>${f}</span><span class="tg ${k}">${k === B ? "BOOKLET" : "LEARN"}</span></div>`).join("")}</div>`).join("");
+renderMathInElement(document.getElementById("cols"), { delimiters: [{ left: "$", right: "$", display: false }], throwOnError: false });
+MOCK.levelSwitch(document.getElementById("level"), draw);
+draw();
+</script>
+</body>
+</html>

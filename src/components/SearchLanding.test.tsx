@@ -19,6 +19,13 @@ const manifest: LandingManifest = {
 };
 
 describe("SearchLanding", () => {
+  it("links the IB hub to the course notes only when given a notes href", () => {
+    const view = render(<QualificationHub qualification="IB Diploma" title="IB practice" intro="Browse IB banks." />);
+    expect(screen.queryByRole("link", { name: /Maths AA course notes/ })).not.toBeInTheDocument();
+    view.rerender(<QualificationHub qualification="IB Diploma" title="IB practice" intro="Browse IB banks." notesHref="/revision-notes/ib-math-aa" />);
+    expect(screen.getByRole("link", { name: /Maths AA course notes/ })).toHaveAttribute("href", "/revision-notes/ib-math-aa");
+  });
+
   it("gives qualification hubs contextual routes to both new selection guides", () => {
     const { rerender } = render(<QualificationHub qualification="IB Diploma" title="IB practice" intro="Browse IB banks." />);
     expect(screen.getByRole("link", { name: "RevisionDojo vs Save My Exams" })).toHaveAttribute("href", "/articles/revisiondojo-vs-save-my-exams");
@@ -122,5 +129,12 @@ describe("SearchLanding", () => {
   it("uses concise topic-specific guidance rather than cloned generic copy", () => {
     render(<SearchDetail eyebrow="Topic practice" bank={bank} title="IB Physics Mechanics questions" kind="topic" label="Mechanics and motion" canonicalPath="/banks/ib-physics-hl/topics/mechanics-and-motion" stats={stats} related={[]}>{null}</SearchDetail>);
     expect(screen.getByText(/connect kinematics and force models to graphs/i)).toBeInTheDocument();
+  });
+
+  it("lists AA lesson links on the syllabus page only when given", () => {
+    const view = render(<SyllabusLanding bank={bank} manifest={manifest} />);
+    expect(screen.queryByRole("heading", { name: "Learn each subtopic first" })).not.toBeInTheDocument();
+    view.rerender(<SyllabusLanding bank={bank} manifest={manifest} aaNotes={[{ name: "Series", topic: "Calculus", href: "/revision-notes/ib-math-aa/calculus/5-16-x", label: "Lesson" }]} />);
+    expect(screen.getByRole("link", { name: /Series/ })).toHaveAttribute("href", "/revision-notes/ib-math-aa/calculus/5-16-x");
   });
 });

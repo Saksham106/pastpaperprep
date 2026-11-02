@@ -7,7 +7,7 @@ import { PaperWorkspace } from './PaperWorkspace';
 const analytics = vi.hoisted(() => ({ trackProductEvent: vi.fn() }));
 vi.mock('@/lib/product-analytics', () => analytics);
 vi.mock('@/components/PastPaperReader', () => ({ PastPaperReader: ({ kind }: { kind: string }) => <div data-testid="reader">{kind}</div> }));
-vi.mock('@/components/PaperMarkingWorkspace', () => ({ PaperMarkingWorkspace: ({ onClose }: { onClose: () => void }) => <div data-testid="marking"><button onClick={onClose}>Back to paper</button></div> }));
+vi.mock('@/components/PaperMarkingWorkspace', () => ({ PaperMarkingWorkspace: ({ onClose, notesLinks }: { onClose: () => void; notesLinks?: Record<string, unknown> }) => <div data-testid="marking" data-notes={notesLinks ? Object.keys(notesLinks).join(',') : 'none'}><button onClick={onClose}>Back to paper</button></div> }));
 const marking = { id: '0580-2024-june-42', version: 'v1', bankSlug: 'igcse', title: 'Paper 42', maxMarks: 4, questions: [{ id: 'q1', number: 1, maxMarks: 4, topics: ['Algebra'] }] };
 beforeEach(() => analytics.trackProductEvent.mockClear());
 afterEach(() => cleanup());
@@ -45,5 +45,15 @@ describe('PaperWorkspace', () => {
     render(<PaperWorkspace reader={DEFAULT_PAPER_READER_CONFIG} marking={null} bank="igcse"><p /></PaperWorkspace>);
     expect(screen.getByText("Self-marking isn't available for this paper yet.")).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /Mark/ })).not.toBeInTheDocument();
+  });
+
+  it('passes notes links to marking when given, and none otherwise', async () => {
+    const view = render(<PaperWorkspace reader={DEFAULT_PAPER_READER_CONFIG} marking={marking} bank="ib-hl" notesLinks={{ Calculus: { href: '/revision-notes/ib-math-aa/calculus', label: 'Calculus notes' } }}><p /></PaperWorkspace>);
+    await userEvent.click(screen.getByRole('button', { name: 'Mark this paper' }));
+    expect(screen.getByTestId('marking')).toHaveAttribute('data-notes', 'Calculus');
+    view.unmount();
+    render(<PaperWorkspace reader={DEFAULT_PAPER_READER_CONFIG} marking={marking} bank="ib-hl"><p /></PaperWorkspace>);
+    await userEvent.click(screen.getByRole('button', { name: 'Mark this paper' }));
+    expect(screen.getByTestId('marking')).toHaveAttribute('data-notes', 'none');
   });
 });

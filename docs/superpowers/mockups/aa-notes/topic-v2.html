@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Topic page · round 2</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="topic.css">
+<style>
+  .band { margin-top: 26px; }
+  .band-h { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+  .band-h h2 { margin: 0; font: 500 12px var(--font-mono); letter-spacing: .08em; }
+  .band-h span { font-size: 13px; color: var(--muted); }
+  .band.sl h2 { color: var(--cobalt-strong); } .band.hl h2 { color: var(--burgundy); }
+  /* Groups run left to right in teaching order; the line on top fills as groups are understood. */
+  .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: 0 12px; }
+  .stage { position: relative; padding-top: 30px; min-width: 0; display: grid; grid-row: span 3; grid-template-rows: subgrid; align-content: start; }
+  .stage .cards { align-self: start; }
+  .stage::before { content: ""; position: absolute; top: 9px; left: 0; right: -12px; height: 3px; background: var(--line); }
+  .stage.full::before { background: var(--done); }
+  .stage.part::before { background: linear-gradient(90deg, var(--done) var(--p), var(--line) var(--p)); }
+  .stage:last-child::before { right: 0; }
+  .node { position: absolute; top: 2px; left: 0; width: 17px; height: 17px; border-radius: 50%; background: var(--surface-raised); border: 3px solid var(--line-strong); }
+  .stage.full .node { background: var(--done); border-color: var(--done); }
+  .stage.part .node { border-color: var(--done); background: linear-gradient(90deg, var(--done) 50%, var(--surface-raised) 50%); }
+  .hl .node { border-radius: 3px; transform: rotate(45deg) scale(.86); }
+  .g-name { font: 600 14px/1.3 var(--font-body); align-self: end; }
+  .g-qs { font: 500 11px var(--font-mono); color: var(--muted); margin: 3px 0 10px; }
+  .g-qs a { color: var(--muted); }
+  .card { display: block; padding: 10px 12px; margin-bottom: 8px; border-radius: 10px; background: var(--surface-raised); border: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+  .card:hover { border-color: var(--cobalt); }
+  .card .n { display: flex; justify-content: space-between; font: 500 11.5px var(--font-mono); color: var(--muted); }
+  .hl .card .n { color: var(--burgundy); }
+  .card .t { display: block; margin-top: 3px; font-size: 14px; line-height: 1.3; font-weight: 500; }
+  .card.done { background: color-mix(in srgb, var(--done) 9%, var(--surface-raised)); border-color: color-mix(in srgb, var(--done) 45%, var(--line)); }
+  .card.done .n b { color: var(--done); }
+  .card.next { border-color: var(--cobalt); box-shadow: inset 3px 0 0 var(--cobalt); }
+  .card.next .n b { color: var(--cobalt-strong); font-family: var(--font-body); }
+  .sl-view .band.hl { opacity: .35; pointer-events: none; }
+  .sl-note { display: none; font-size: 13px; color: var(--muted); }
+  .sl-view .sl-note { display: inline; }
+  @media (max-width: 720px) {
+    .flow { grid-template-columns: 1fr; }
+    .stage { padding: 0 0 6px 30px; }
+    .stage::before { top: 0; bottom: -6px; left: 7px; right: auto; width: 3px; height: auto; }
+    .stage.part::before { background: linear-gradient(180deg, var(--done) var(--p), var(--line) var(--p)); }
+    .node { top: 0; }
+    .stage { display: block; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="t-top" id="top"></div>
+  <div id="bands"></div>
+  <div style="height:60px"></div>
+</main>
+<script src="data.js"></script><script src="common.js"></script><script src="topic.js"></script>
+<script>
+const M = window.MOCK, T = window.TOPIC; M.header("Topic page · round 2");
+const NEXT = "5.5";
+function stage(g) {
+  const done = g.lessons.filter((i) => M.DONE.has(i.num)).length, p = done / g.lessons.length;
+  const cls = p === 1 ? "full" : p > 0 ? "part" : "";
+  const qs = g.hlOnly ? `${g.count.HL} HL questions` : `${g.count.SL} SL · ${g.count.HL} HL questions`;
+  const name = g.lessons.length > 1 ? g.name : "";
+  return `<div class="stage ${cls}" style="--p:${Math.round(p * 100)}%"><span class="node" aria-hidden="true"></span>
+    <div class="g-name">${name}</div><div class="g-qs"><a href="#">${qs}</a></div>
+    <div class="cards">${g.lessons.map((i) => {
+      const d = M.DONE.has(i.num), nx = i.num === NEXT;
+      return `<a class="card${d ? " done" : ""}${nx ? " next" : ""}" href="lesson-a.html" title="${T.BLURB[i.num]}"><span class="n">${i.num}<b>${d ? "✓" : nx ? "Next up" : ""}</b></span><span class="t">${i.name}</span></a>`;
+    }).join("")}</div></div>`;
+}
+function draw() {
+  const lvl = M.level(), sl = T.groups.filter((g) => !g.hlOnly), hl = T.groups.filter((g) => g.hlOnly);
+  document.body.classList.toggle("sl-view", lvl === "SL");
+  document.getElementById("bands").innerHTML = `
+    <section class="band sl"><div class="band-h"><h2>● SL AND HL</h2><span>${sl.reduce((s, g) => s + g.lessons.length, 0)} lessons</span></div><div class="flow">${sl.map(stage).join("")}</div></section>
+    <section class="band hl"><div class="band-h"><h2>◆ HL ONLY</h2><span>${hl.reduce((s, g) => s + g.lessons.length, 0)} lessons</span><span class="sl-note">· switch to HL to study these</span></div><div class="flow">${hl.map(stage).join("")}</div></section>`;
+}
+T.top(document.getElementById("top"), draw);
+draw();
+</script>
+</body>
+</html>

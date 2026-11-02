@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { QualificationHub } from "@/components/SearchLanding";
 import { socialPreview } from "@/lib/seo";
+import { NOTES_INDEX_HREF, notesNavVisible } from "@/lib/course-notes/visibility";
 export const metadata: Metadata = {
   title: "IB Past Papers by Topic: Maths, Sciences and Economics",
   description:
@@ -13,6 +14,7 @@ export default function IbPage() {
     <QualificationHub
       qualification="IB Diploma"
       title="IB Diploma past-paper practice"
+      notesHref={notesNavVisible() ? NOTES_INDEX_HREF : undefined}
       intro="Real IB Diploma past-paper questions sorted by topic, with mark schemes, for Maths AA and AI, the sciences, Economics and Computer Science at HL and SL."
     />
   );

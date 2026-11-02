@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { notesLinksForBank } from "@/lib/course-notes/group-lessons";
 import { BankQuestionExplorer } from "@/components/BankQuestionExplorer";
 import { SearchDetail } from "@/components/SearchLanding";
 import { FullPapersLink } from "@/components/past-papers/FullPapersLink";
@@ -72,7 +73,7 @@ export default async function PaperPage({
         .filter((item) => item.slug !== paper.slug)
         .map((item) => ({ label: item.label, href: paperPath(bank.slug, item), count: item.count }))}
     >
-      <BankQuestionExplorer slug={bank.slug} explorer={explorer} routePreset={routePreset} />
+      <BankQuestionExplorer slug={bank.slug} explorer={explorer} routePreset={routePreset} notesLinks={notesLinksForBank(bank.slug)} />
       <FullPapersLink bankSlug={bank.slug} paper={paper.paper} />
     </SearchDetail>
   );

@@ -56,3 +56,12 @@ export function createPaperMarkingReport(paper: MarkingManifest, marks: Question
   const complete = unmarkedCount === 0;
   return { markedTotal, markedMaximum, unmarkedCount, complete, overallScore: complete ? { earned: markedTotal, maxMarks: paper.maxMarks } : null, priorities: [...topics.values()].filter(t => t.lostEvidence.length).sort(compareReview), successfulTopics: [...topics.values()].filter(t => t.fullMarkEvidence.length) };
 }
+
+export type NotesLink = { href: string; label: string };
+
+/** The top-priority topic that has a notes page, so the lesson sits beside the practice recommendation. Null when none does. */
+export function topicLessonRecommendation(priorities: readonly TopicReview[], links: Record<string, NotesLink> | undefined): (NotesLink & { topic: string }) | null {
+  if (!links) return null;
+  for (const { topic } of priorities) if (links[topic]) return { topic, ...links[topic] };
+  return null;
+}
