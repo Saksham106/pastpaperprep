@@ -34,11 +34,24 @@ export function topicQuestionCount(topicName: string, level: PracticeLevel): num
   return seen.size;
 }
 
-/** Bank page filtered to the group: `topic` is the parent topic, `subtopic` the group's student-facing name. */
+// The `subject` value the bank index carries for current-course AA questions (note HL's capitals).
+const AA_SUBJECTS: Record<PracticeLevel, string> = {
+  SL: "Mathematics: analysis and approaches SL",
+  HL: "Mathematics: Analysis and Approaches HL",
+};
+
+/**
+ * Bank page filtered to the group, opening exactly the questions `groupQuestionCounts()` counts.
+ * - No `topic` param: the explorer matches a picked topic on the primary topic only, so a question
+ *   whose primary topic differs from the group's parent (partial fractions filed under Calculus)
+ *   would vanish.
+ * - `subject` pins the current AA course: the same bank holds older-syllabus papers whose legacy
+ *   labels reuse some group names (e.g. "Correlation and regression"), and those are not counted.
+ */
 export function groupPracticeHref(groupId: string, level: PracticeLevel): string {
   const group = GROUPS.get(groupId);
   if (!group) throw new Error(`Unknown AA group ${groupId}`);
-  return `/banks/${BANKS[level]}?topic=${encodeURIComponent(group.parentTopic)}&subtopic=${encodeURIComponent(group.studentFacingName)}`;
+  return `/banks/${BANKS[level]}?subtopic=${encodeURIComponent(group.studentFacingName)}&subject=${encodeURIComponent(AA_SUBJECTS[level])}`;
 }
 
 /** The group a lesson's practice panel uses: AA groups map one-to-one to items, so the group containing the item. */
