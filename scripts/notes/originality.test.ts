@@ -2,7 +2,7 @@ import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { findOverlaps, RUN_LENGTH, words } from "./originality.mjs";
+import { findOverlaps, RUN_LENGTH, STOCK_PHRASES, words } from "./originality.mjs";
 
 const fixtures = join(process.cwd(), "scripts/notes/__fixtures__");
 const load = (name: string) => JSON.parse(readFileSync(join(fixtures, name), "utf8"));
@@ -45,6 +45,27 @@ describe("originality findOverlaps()", () => {
   it("checks marked steps, and a short booklet label cannot reach 8 words", () => {
     expect(findOverlaps({ text: "Each bounce reaches a fixed fraction of the height before it lands" }, pack)[0]?.source).toMatch(/step 1$/);
     expect(findOverlaps({ text: "Recall the sum of an infinite geometric sequence formula" }, pack)).toEqual([]);
+  });
+});
+
+describe("originality joined steps and stock phrases", () => {
+  it("flags a run split across consecutive steps of one block", () => {
+    const lesson = { sections: [{ blocks: [{ type: "example", steps: ["A ball is dropped from", "a height and bounces to a fraction"] }] }] };
+    const hits = findOverlaps(lesson, pack);
+    expect(hits).toHaveLength(1);
+    expect(hits[0].path).toBe("sections[0].blocks[0].steps (joined)");
+  });
+
+  it("does not report a joined run already reported inside one step", () => {
+    const lesson = { steps: ["A ball is dropped from a height and bounces to a fraction.", "Then it stops."] };
+    expect(findOverlaps(lesson, pack).map((hit) => hit.path)).toEqual(["steps[0]"]);
+  });
+
+  it("ignores stock IB exam phrases on both sides", () => {
+    const stock = { questions: { SL: { questions: [{ id: "q", text: "Find the equation of the tangent to the curve at the point where x = 2. Give your answer correct to three significant figures." }] } } };
+    expect(STOCK_PHRASES.length).toBeGreaterThan(5);
+    expect(findOverlaps({ text: "Find the equation of the tangent to the curve at the point where $x = 1$." }, stock)).toEqual([]);
+    expect(findOverlaps({ text: "Give your answer correct to three significant figures, please." }, stock)).toEqual([]);
   });
 });
 

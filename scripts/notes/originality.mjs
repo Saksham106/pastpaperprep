@@ -7,6 +7,8 @@
 // Words are compared as lowercase word tokens. Maths is ignored: `$…$` spans are dropped, and so are pure-maths
 // tokens (numbers, single-letter variables other than the word "a", and function names such as sin or ln).
 // "a" is kept as a word. Glossary markup `[[id|label]]` counts as its label; lesson links count as nothing.
+// Stock IB exam phrases (STOCK_PHRASES) are cut out of both sides first, so a lesson may use the standard wording.
+// Arrays of strings (example steps, calculator steps) are also checked joined, so a run split across steps is caught.
 // Exit 0: no shared run. Exit 1: at least one shared run (printed). Exit 2: usage or file error.
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -34,10 +36,50 @@ export function words(text) {
     .filter((token) => token && (token.length > 1 || token === "a") && !MATH_WORDS.has(token));
 }
 
-/** Every string in a value, with its JSON path. */
+/** Standard IB question wording a lesson may reuse: removed from both sides before comparing. */
+export const STOCK_PHRASES = [
+  "give your answer correct to three significant figures",
+  "give your answer correct to significant figures",
+  "give your answer correct to one decimal place",
+  "find the equation of the tangent to the curve at the point",
+  "find the equation of the normal to the curve at the point",
+  "find the equation of the tangent to the graph of at the point",
+  "find the equation of the normal to the graph of at the point",
+  "find the area of the region enclosed by the curve",
+  "find the area of the region enclosed by the graph of",
+  "find the coordinates of the point of intersection of",
+  "use mathematical induction to prove that for all",
+  "the volume of the solid formed when the region is rotated through about the x-axis",
+  "write down the value of",
+  "show that the equation has no real solutions",
+  "find the probability that",
+].map((phrase) => words(phrase));
+
+/** Token runs of a text with stock phrases cut out (each run is matched separately). */
+export function segments(text) {
+  const tokens = words(text);
+  const runs = [];
+  let start = 0;
+  for (let i = 0; i < tokens.length; ) {
+    const stock = STOCK_PHRASES.filter((phrase) => phrase.length && phrase.every((token, k) => tokens[i + k] === token)).sort((a, b) => b.length - a.length)[0];
+    if (stock) {
+      runs.push(tokens.slice(start, i));
+      i += stock.length;
+      start = i;
+    } else i++;
+  }
+  runs.push(tokens.slice(start));
+  return runs.filter((run) => run.length);
+}
+
+/** Every string in a value, with its JSON path, plus each array of strings joined (marked `joined`). */
 function strings(value, path = "") {
   if (typeof value === "string") return [{ path, text: value }];
-  if (Array.isArray(value)) return value.flatMap((entry, i) => strings(entry, `${path}[${i}]`));
+  if (Array.isArray(value)) {
+    const own = value.flatMap((entry, i) => strings(entry, `${path}[${i}]`));
+    const texts = value.filter((entry) => typeof entry === "string");
+    return texts.length > 1 ? [...own, { path: `${path} (joined)`, text: texts.join(" "), parts: texts }] : own;
+  }
   if (value && typeof value === "object") return Object.entries(value).flatMap(([key, entry]) => strings(entry, path ? `${path}.${key}` : key));
   return [];
 }
@@ -69,26 +111,31 @@ export function packSources(pack) {
 export function findOverlaps(lesson, pack, n = RUN_LENGTH) {
   const index = new Map();
   for (const source of packSources(pack)) {
-    const tokens = words(source.text);
-    for (let i = 0; i + n <= tokens.length; i++) {
-      const key = tokens.slice(i, i + n).join(" ");
-      if (!index.has(key)) index.set(key, source.label);
+    for (const tokens of segments(source.text)) {
+      for (let i = 0; i + n <= tokens.length; i++) {
+        const key = tokens.slice(i, i + n).join(" ");
+        if (!index.has(key)) index.set(key, source.label);
+      }
     }
   }
   const hits = [];
-  for (const { path, text } of strings(lesson)) {
-    const tokens = words(text);
-    let i = 0;
-    while (i + n <= tokens.length) {
-      const source = index.get(tokens.slice(i, i + n).join(" "));
-      if (!source) {
-        i++;
-        continue;
+  for (const { path, text, parts } of strings(lesson)) {
+    // A joined array only reports runs that no single element already holds.
+    const singles = parts ? parts.flatMap((part) => segments(part).map((run) => ` ${run.join(" ")} `)) : [];
+    for (const tokens of segments(text)) {
+      let i = 0;
+      while (i + n <= tokens.length) {
+        const source = index.get(tokens.slice(i, i + n).join(" "));
+        if (!source) {
+          i++;
+          continue;
+        }
+        let end = i + n;
+        while (end < tokens.length && index.has(tokens.slice(end - n + 1, end + 1).join(" "))) end++;
+        const phrase = tokens.slice(i, end).join(" ");
+        if (!singles.some((single) => single.includes(` ${phrase} `))) hits.push({ path, source, words: end - i, phrase });
+        i = end;
       }
-      let end = i + n;
-      while (end < tokens.length && index.has(tokens.slice(end - n + 1, end + 1).join(" "))) end++;
-      hits.push({ path, source, words: end - i, phrase: tokens.slice(i, end).join(" ") });
-      i = end;
     }
   }
   return hits;
