@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { fmt, num } from "./format";
 import { Clip, curvePath, Grid, Slider, sx, sy, WidgetFrame, type Frame } from "./shared";
-import { discriminant, realRoots } from "./discriminant-math";
+import { discriminant, isZeroPolynomial, realRoots } from "./discriminant-math";
 import { numProp, type WidgetProps } from "./types";
 
 const F: Frame = { xMin: -6, xMax: 6, yMin: -8, yMax: 8, left: 18, top: 10, width: 324, height: 240 };
@@ -29,7 +29,8 @@ export function renderDiscriminantSvg(alt: string, { a, b, c }: DiscriminantStat
 }
 
 function summary(a: number, b: number, c: number) {
-  if (a === 0) return { delta: "undefined", count: "a = 0, so this is a straight line, not a quadratic", roots: b === 0 ? "none" : fmt(-c / b) };
+  if (isZeroPolynomial(a, b, c)) return { delta: "undefined", count: "a = 0 and b = 0 and c = 0, so every x satisfies 0 = 0", roots: "every real number" };
+  if (a === 0) return { delta: "undefined", count: b === 0 ? "a = 0 and b = 0, so y is the constant c, which is never 0" : "a = 0, so this is a straight line, not a quadratic", roots: b === 0 ? "none" : fmt(-c / b) };
   const d = discriminant(a, b, c);
   const roots = realRoots(a, b, c);
   const count = d > 1e-9 ? "2 distinct real roots" : d < -1e-9 ? "no real roots" : "1 repeated real root";

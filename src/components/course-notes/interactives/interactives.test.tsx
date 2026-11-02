@@ -11,7 +11,7 @@ import ExpLogReflection, { renderExpLogSvg } from "./ExpLogReflection";
 import UnitCircleGraphs, { renderUnitCircleSvg } from "./UnitCircleGraphs";
 import { partsAreas } from "./parts-area-math";
 import { BASES, formatEquation, imageOfPoint, transformed } from "./transformations-math";
-import { discriminant, realRoots } from "./discriminant-math";
+import { discriminant, isZeroPolynomial, realRoots } from "./discriminant-math";
 import { expPoint, logBase, pointRange, reflect } from "./exp-log-math";
 import RadianArc, { renderRadianArcSvg } from "./RadianArc";
 import SecantToTangent, { renderSecantSvg } from "./SecantToTangent";
@@ -218,6 +218,19 @@ describe("discriminant-roots", () => {
     expect(screen.getByTestId("delta").textContent).toBe("−8.00");
     expect(screen.getByTestId("root-count").textContent).toBe("no real roots");
     expect(screen.getByTestId("roots").textContent).toBe("none");
+  });
+  it("a = b = c = 0 has every real number as a root, a = b = 0 with c != 0 has none", () => {
+    expect(isZeroPolynomial(0, 0, 0)).toBe(true);
+    expect(isZeroPolynomial(0, 0, 1)).toBe(false);
+    expect(isZeroPolynomial(0, 1, 0)).toBe(false);
+    render(<DiscriminantRoots alt="alt" props={{ a: 0, b: 0, c: 0 }} />);
+    expect(screen.getByTestId("roots").textContent).toBe("every real number");
+    expect(screen.getByTestId("root-count").textContent).toMatch(/every x satisfies 0 = 0/);
+    setSlider("c", 2);
+    expect(screen.getByTestId("roots").textContent).toBe("none");
+    expect(screen.getByTestId("root-count").textContent).toMatch(/never 0/);
+    setSlider("b", 1);
+    expect(screen.getByTestId("roots").textContent).toBe("−2.00");
   });
   it("marks the roots on the graph only when real", () => {
     expect(renderToStaticMarkup(renderDiscriminantSvg("alt", { a: 1, b: -3, c: 2 })).match(/<circle/g)).toHaveLength(2);
