@@ -142,6 +142,8 @@ export type UnifiedQuestion = {
   /** Era-qualified official syllabus units and additive retrieval facets. */
   officialCodeRefs?: string[];
   retrievalFacets?: string[];
+  /** AA only: the official syllabus items (items.json ids, e.g. "3.4") this question assesses; a subset of its groups' member items. */
+  officialItems?: string[];
   classificationProvenance?: ClassificationProvenance;
   subject: string;
   courseEra: string;
@@ -334,6 +336,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     granularLabels: aa || biology ? [] : GRANULAR_LABELS.get(`${overlayBankForSlug(slug)}:${text(raw.id)}`) ?? [],
     officialCodeRefs: biology ? biology.record.officialCodes : chemistry0620?.codeRefs ?? physics0625?.codeRefs ?? coordinated?.codeRefs ?? igcseBiology?.codeRefs ?? economics0455?.codeRefs ?? [...strings(raw.officialCodeRefs), ...(official0580?.codeRefs ?? []), ...(official0606?.codeRefs ?? [])],
     retrievalFacets: strings(raw.retrievalFacets),
+    ...(aa?.record.officialItems?.length ? { officialItems: [...aa.record.officialItems] } : {}),
     classificationProvenance: aa?.provenance ?? biology?.provenance,
     subject: text(raw.subject) || text(raw.course),
     courseEra: biology?.record.era ?? text(raw.courseEra),
