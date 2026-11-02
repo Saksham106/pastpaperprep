@@ -15,7 +15,7 @@ export const lessonFixture: Lesson = {
   prerequisites: [],
   papers: ["P1", "P2"],
   synonyms: ["quadratic equation"],
-  before: [{ type: "check", id: "b1", prompt: "Expand $(x+1)^2$.", options: [{ text: "$x^2+1$", correct: false }, { text: "$x^2+2x+1$", correct: true }], explain: "Square both terms." }],
+  before: [{ type: "check", id: "b1", prompt: "Expand $(x+1)^2$.", hint: "h", options: [{ text: "$x^2+1$", correct: false }, { text: "$x^2+2x+1$", correct: true }], explain: "Square both terms." }],
   sections: [
     {
       id: "solving",
@@ -24,8 +24,8 @@ export const lessonFixture: Lesson = {
         { type: "text", text: "The [[discriminant|discriminant]] of $ax^2+bx+c$ decides the roots." },
         { type: "formula", tex: "x=\\frac{-b\\pm\\sqrt{b^2-4ac}}{2a}", tag: "booklet", bookletId: "2.5.quadratic-formula" },
         { type: "formula", tex: "\\Delta=b^2-4ac", tag: "learn" },
-        { type: "example", id: "e1", question: "Solve $x^2=4$.", steps: ["Take roots."], answer: "$x=\\pm2$", check: { type: "check", id: "e1c", prompt: "Value of $\\sqrt{9}$?", answer: { value: 3, tolerance: 0 }, explain: "Principal root." }, video: null },
-        { type: "check", id: "c1", prompt: "Roots of $x^2-1$?", answer: { value: 1, tolerance: 0.01 }, explain: "Factorise." },
+        { type: "example", id: "e1", question: "Solve $x^2=4$.", steps: ["Take roots."], answer: "$x=\\pm2$", check: { type: "check", id: "e1c", prompt: "Value of $\\sqrt{9}$?", hint: "h", answer: { value: 3, tolerance: 0 }, explain: "Principal root." }, video: null },
+        { type: "check", id: "c1", prompt: "Roots of $x^2-1$?", hint: "h", answer: { value: 1, tolerance: 0.01 }, explain: "Factorise." },
         { type: "hlNote", text: "HL goes further: see {{lesson:2.13}}.", lesson: "2.13" },
       ],
     },

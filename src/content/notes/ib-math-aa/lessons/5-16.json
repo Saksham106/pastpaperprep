@@ -53,6 +53,7 @@
       "type": "check",
       "id": "before-product-rule",
       "prompt": "Differentiate $x\\mathrm{e}^{x}$.",
+      "hint": "It is a product of $x$ and $\\mathrm{e}^{x}$: use the product rule.",
       "options": [
         {
           "text": "$\\mathrm{e}^{x}$",
@@ -73,6 +74,7 @@
       "type": "check",
       "id": "before-integrate-cos",
       "prompt": "Find $\\int \\cos x\\,\\mathrm{d}x$.",
+      "hint": "Which function differentiates to $\\cos x$?",
       "options": [
         {
           "text": "$\\sin x + C$",
