@@ -37,6 +37,8 @@ from sympy.parsing.latex import parse_latex
 
 _GREEK = r"alpha|beta|gamma|delta|epsilon|theta|lambda|mu|sigma|phi|omega|iota|pi|rho|tau"
 _CIS = " CISMARK "
+_FUNCS = r"ln|log|exp|sin|cos|tan|sec|csc|cot|arcsin|arccos|arctan|sinh|cosh|tanh"
+_NAMED = {"cosec": "csc", **{name: name for name in _FUNCS.split("|")}}
 
 
 def _strip_decorations(tex: str) -> str:
@@ -48,6 +50,9 @@ def _strip_decorations(tex: str) -> str:
     tex = re.sub(r"\\leq(?:slant)?(?![a-zA-Z])", r"\\le ", tex)
     tex = re.sub(r"\\geq(?:slant)?(?![a-zA-Z])", r"\\ge ", tex)
     tex = re.sub(r"\\(?:mathrm|operatorname|text)\{\s*cis\s*\}", _CIS, tex)
+    # \operatorname{cosec} x, \mathrm{sin} x -> \csc x, \sin x (SymPy reads the long forms as products of letters).
+    tex = re.sub(r"\\(?:mathrm|operatorname)\{\s*([A-Za-z]{2,})\s*\}", lambda m: f"\\{_NAMED[m.group(1)]} " if m.group(1) in _NAMED else m.group(0), tex)
+    tex = re.sub(r"\\cosec(?![A-Za-z])", r"\\csc", tex)
     tex = re.sub(r"\\mathrm\{e\}", " e ", tex)
     tex = re.sub(r"\\mathrm\{i\}", r" \\iota ", tex)  # imaginary unit; mapped to sympy's I after parsing
     tex = re.sub(r"\\frac(\d)(\d)", r"\\frac{\1}{\2}", tex)  # \frac12 -> \frac{1}{2}
@@ -109,6 +114,9 @@ def _parse(rhs: str, original: str, functions=()):
         raise ValueError(f"no expression found in {original!r}")
     if re.search(r"\\log(?!\s*_)", rhs):
         raise ValueError(f"{original!r} uses \\log with no base; write \\log_{{10}} or \\ln")
+    if re.search(r"\\(?:mathrm|operatorname)\{\s*[A-Za-z]{2,}\s*\}", rhs):
+        raise ValueError(f"{original!r} uses an \\operatorname/\\mathrm name SymPy can't read; write \\sin, \\csc, \\ln, ...")
+    _refuse_greedy_argument(rhs, original)
     if _CIS.strip() in rhs:
         modulus, argument = rhs.split(_CIS.strip(), 1)
         r = _parse(modulus, original, functions) if modulus.strip() else 1
@@ -119,6 +127,7 @@ def _parse(rhs: str, original: str, functions=()):
         expr = parse_latex(_products(rhs, functions), strict=True)
     except Exception as error:  # noqa: BLE001 - parse_latex raises assorted antlr errors
         raise ValueError(f"cannot parse {original!r} (as {rhs!r}): {type(error).__name__}: {error}") from error
+    _refuse_dropped_letters(rhs, expr, original, functions)
     # An answer that is still an unevaluated integral, derivative, limit, sum or product has not been worked out.
     if expr.has(Integral, Derivative, Limit, Sum, Product):
         raise ValueError(f"answer {original!r} is not evaluated: it still contains an Integral, Derivative, Limit, Sum or Product")
@@ -126,6 +135,40 @@ def _parse(rhs: str, original: str, functions=()):
     if calls:
         raise ValueError(f"{original!r} reads as a call to an undeclared function {calls[0]}; pass functions=(...) if it is one")
     return expr.subs({Symbol("e"): E, Symbol("iota"): I, Symbol("pi"): pi})
+
+
+def _refuse_greedy_argument(rhs: str, original: str):
+    """SymPy reads `\\ln 3 \\cdot x` as ln(3x) and `\\sin x \\cdot \\cos x` as sin(x cos x): a function whose argument isn't in
+    round brackets swallows a following \\cdot or \\times. Refuse it; `\\ln(3) \\cdot x` or `x \\ln 3` read correctly."""
+    for match in re.finditer(rf"\\(?:{_FUNCS})(?![A-Za-z])", rhs):
+        rest = rhs[match.end():]
+        rest = re.sub(r"^\s*(?:[_^](?:\{[^{}]*\}|\S)\s*)*", "", rest)  # powers and bases: \sin^{2}, \log_{10}
+        if rest.startswith("("):
+            continue
+        depth = 0
+        for index, char in enumerate(rest):
+            if char in "({[":
+                depth += 1
+            elif char in ")}]":
+                if depth == 0:
+                    break
+                depth -= 1
+            elif depth == 0 and char in "+-=,":
+                break
+            elif depth == 0 and (rest.startswith("\\cdot", index) or rest.startswith("\\times", index)):
+                raise ValueError(f"{original!r} is ambiguous: SymPy reads the \\cdot/\\times into the {match.group(0)} argument; put the argument in round brackets")
+
+
+def _refuse_dropped_letters(rhs: str, expr, original: str, functions=()):
+    """SymPy silently drops a letter in forms like `2x\\ln 3` (it returns 2 ln 3). Every variable letter in the text must
+    survive into the expression."""
+    text = re.sub(r"\\(?:text|mathrm|operatorname)\{[^{}]*\}", " ", rhs)
+    text = re.sub(r"\\[A-Za-z]+", " ", text)
+    letters = set(re.findall(r"[A-Za-z]", text)) - {"e", "i", "C"} - set(functions)
+    kept = {symbol.name for symbol in expr.free_symbols}
+    missing = sorted(letter for letter in letters if letter not in kept)
+    if missing and not expr.has(*[Symbol(letter) for letter in missing]):
+        raise ValueError(f"{original!r}: SymPy dropped {', '.join(missing)} while parsing; write the product with \\cdot or brackets")
 
 
 def parse_answer(tex: str, functions=()):

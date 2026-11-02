@@ -107,6 +107,19 @@ def test_trailing_input_is_refused():
     fails(lambda: mp.parse_answer(r"x^{2} )"), ValueError)
 
 
+def test_function_names_and_silent_misreads():
+    equal(mp.parse_answer(r"\operatorname{cosec} x"), 1 / sin(x))
+    equal(mp.parse_answer(r"\mathrm{cosec}\,x"), 1 / sin(x))
+    fails(lambda: mp.parse_answer(r"\operatorname{foo} x"), ValueError)
+    # SymPy reads ln 3 . x as ln(3x) and drops the x in 2x ln 3: both must be refused, not misread.
+    fails(lambda: mp.parse_answer(r"\ln 3 \cdot x"), ValueError)
+    fails(lambda: mp.parse_answer(r"\sin x \cdot \cos x"), ValueError)
+    fails(lambda: mp.parse_answer(r"2x\ln 3"), ValueError)
+    equal(mp.parse_answer(r"\ln(3) \cdot x"), x * mp.parse_answer(r"\ln 3"))
+    equal(mp.parse_answer(r"2x \cdot \ln 3"), 2 * x * mp.parse_answer(r"\ln 3"))
+    equal(mp.parse_answer(r"\sin x \cos x"), sin(x) * cos(x))
+
+
 # 5. Common answer forms.
 def test_degrees():
     angle = acos(Rational(2, 3)) * 180 / pi  # 48.18968...

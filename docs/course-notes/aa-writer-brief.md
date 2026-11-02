@@ -95,7 +95,7 @@ Use the helpers in `scripts/notes/mathparse.py`. They raise `ValueError` for tex
 
 | Answer form | Helper |
 |---|---|
-| One exact value or expression | `parse_answer(tex)` then compare with `simplify(a - b) == 0`. A bare `\log` with no base is refused. Lone letters before brackets are products (`x(2x+1)`, `\frac{n(n+1)}{2}`); pass `functions=("f",)` if `f(x)` really is a function. `\pi`, `\mathrm{e}`, `\mathrm{i}`, `\lvert\,\rvert` and `r\,\mathrm{cis}\,\theta` are understood. |
+| One exact value or expression | `parse_answer(tex)` then compare with `simplify(a - b) == 0`. A bare `\log` with no base is refused. A function whose argument isn't in round brackets can't be followed by `\cdot`/`\times` (SymPy would read `\ln 3 \cdot x` as $\ln(3x)$): write `\ln(3) \cdot x` or `x\ln 3`. A letter SymPy silently drops (`2x\ln 3`) is refused; write `2x \cdot \ln 3`. `\operatorname{cosec}` reads as `\csc`. Lone letters before brackets are products (`x(2x+1)`, `\frac{n(n+1)}{2}`); pass `functions=("f",)` if `f(x)` really is a function. `\pi`, `\mathrm{e}`, `\mathrm{i}`, `\lvert\,\rvert` and `r\,\mathrm{cis}\,\theta` are understood. |
 | An antiderivative (`… + C`, including `\ln\lvert x\rvert`) | `check_antiderivative(tex, integrand, var="x")` |
 | A numeric check's value | `check_numeric(value, truth, sf=3, tolerance=tolerance)` (or `dp=`), plus a `NUMERIC` entry |
 | A rounded value (`\approx`) | `check_rounded(tex, truth, sf=3)` or `dp=2`; `unit="°"` or `unit="cm^2"` when the answer carries a unit. Requires exactly that precision and the ROUND_HALF_UP value of the truth; a rounded value written with `=` fails. |

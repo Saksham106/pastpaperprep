@@ -211,6 +211,12 @@ describe("validateLesson", () => {
     expect(run(lesson)).toEqual([expect.stringContaining("glossary label must be plain words")]);
   });
 
+  it("rejects a backslash before a quote in prose", () => {
+    const lesson = clone();
+    blocks(lesson)[0] = { type: "text", text: 'On a \\"find\\" question, show working.' };
+    expect(run(lesson)).toEqual([expect.stringContaining("stray backslash before a quote")]);
+  });
+
   it("checks interactive props against the widget's allowed keys and values", () => {
     const widget = (props: Record<string, unknown>) => withBlock({ type: "interactive", widget: "discriminant-roots", props, alt: "a parabola" });
     expect(widget({ a: 1, b: -3, c: 2 })).toEqual([]);

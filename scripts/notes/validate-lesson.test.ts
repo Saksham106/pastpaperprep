@@ -23,13 +23,14 @@ describe.skipIf(!research || !python)("validate-lesson.mjs", () => {
 
   it("fails a mutated copy in a temp folder, naming each failing check", () => {
     const dir = mkdtempSync(join(tmpdir(), "aa-validate-"));
-    const lesson = JSON.parse(readFileSync(resolve(process.cwd(), "src/content/notes/ib-math-aa/lessons/5-16.json"), "utf8"));
+    const fixture = resolve(process.cwd(), "scripts/notes/__fixtures__/gate");
+    const lesson = JSON.parse(readFileSync(join(fixture, "5-16.json"), "utf8"));
     lesson.sections[0].blocks[0].text += " See [[no-such-term|this]].";
     lesson.sections[2].blocks.find((block: { id?: string }) => block.id === "ex-subst-definite").answer = "$\\int_0^3 x\\sqrt{x+1}\\,\\mathrm{d}x = \\tfrac{116}{16}$";
     writeFileSync(join(dir, "5-16.json"), JSON.stringify(lesson, null, 2));
-    copyFileSync(resolve(process.cwd(), "scripts/notes/sidecars/5-16.py"), join(dir, "5-16.py"));
+    copyFileSync(join(fixture, "5-16.py"), join(dir, "5-16.py"));
     copyFileSync(resolve(process.cwd(), "scripts/notes/mathparse.py"), join(dir, "mathparse.py"));
-    writeFileSync(join(dir, "5-16.py"), readFileSync(join(dir, "5-16.py"), "utf8").replace("parents[1]", "parents[0]"));
+    writeFileSync(join(dir, "5-16.py"), readFileSync(join(dir, "5-16.py"), "utf8").replace("parents[2]", "parents[0]"));
     const result = run("5.16", { AA_NOTES_LESSONS_DIR: dir, AA_NOTES_SIDECARS_DIR: dir });
     expect(result.stdout).toMatch(/^FAIL validator/m);
     expect(result.stdout).toMatch(/unknown glossary term no-such-term/);

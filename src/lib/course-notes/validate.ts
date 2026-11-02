@@ -138,6 +138,7 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
     }
     for (const node of nodes) {
       if (node.kind === "math") texes.push({ path: piece.path, tex: node.tex });
+      else if (node.kind === "text" && /\\["']/.test(node.value)) fail(piece.path, `stray backslash before a quote: write " not \\"`);
       else if (node.kind === "term" && !glossary.has(node.id)) fail(piece.path, `unknown glossary term ${node.id}`);
       else if (node.kind === "term" && /[$\\]/.test(node.label)) fail(piece.path, `glossary label must be plain words, no maths (${node.label})`);
       else if (node.kind === "lesson") {

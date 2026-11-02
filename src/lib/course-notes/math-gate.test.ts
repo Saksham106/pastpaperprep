@@ -7,15 +7,18 @@ import { describe, expect, it } from "vitest";
 // Spawns the SymPy checker. Locally it skips without the research venv; on CI (AA_NOTES_PYTHON set by the workflow) it must run, so a missing python fails.
 const python = [process.env.AA_NOTES_PYTHON, ...["../research", "../../../research"].map((rel) => resolve(process.cwd(), rel, "aa-course-notes/.venv/bin/python"))].find((p): p is string => !!p && existsSync(p));
 const script = resolve(process.cwd(), "scripts/notes/check-math.py");
-const verify = (id: string, tex: string) => spawnSync(python!, [script, "--verify", "5.16", id, tex], { encoding: "utf8" });
+// A frozen copy of the original 5.16 format example, so these probes don't depend on the live lesson's ids.
+const fixture = resolve(process.cwd(), "scripts/notes/__fixtures__/gate");
+const fixtureEnv = { ...process.env, AA_NOTES_LESSONS_DIR: fixture, AA_NOTES_SIDECARS_DIR: fixture };
+const verify = (id: string, tex: string) => spawnSync(python!, [script, "--verify", "5.16", id, tex], { encoding: "utf8", env: fixtureEnv });
 
 describe.runIf(process.env.CI === "true" && !python)("math gate on CI", () => {
   it("has a python with SymPy (set AA_NOTES_PYTHON)", () => expect(python, "AA_NOTES_PYTHON must point at a python with sympy on CI").toBeDefined());
 });
 
 describe.skipIf(!python)("check-math.py verifies the published answer text", () => {
-  it("passes the whole 5.16 lesson as written", () => {
-    const run = spawnSync(python!, [script, "5.16"], { encoding: "utf8" });
+  it("passes the whole 5.16 fixture lesson as written", () => {
+    const run = spawnSync(python!, [script, "5.16"], { encoding: "utf8", env: fixtureEnv });
     expect(run.stdout).not.toMatch(/FAIL/);
     expect(run.status).toBe(0);
   });
