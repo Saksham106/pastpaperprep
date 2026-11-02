@@ -55,6 +55,31 @@ describe.skipIf(!researchDir)("build-source-pack", () => {
     }
   });
 
+  it("counts every tagged question per paper (counted before the round-robin picks)", () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const byCode = new Map<string, any>(packs.map(({ code, pack }: { code: string; pack: unknown }) => [code, pack]));
+    expect(byCode.get("5.16").questions.HL.paperCounts).toEqual({ P1: 5, P2: 1 });
+    for (const { code, pack } of packs) {
+      for (const level of ["SL", "HL"] as const) {
+        const block = pack.questions[level];
+        if (!block) continue;
+        const counts = Object.values(block.paperCounts as Record<string, number>);
+        expect(counts.reduce((a, b) => a + b, 0), `${code} ${level}`).toBe(block.taggedTotal);
+        for (const question of block.questions) expect(block.paperCounts[question.paper], `${code} ${question.id}`).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("suggests partial fractions for 5.15 and induction for 1.14, with the prerequisites' booklet ids", () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const byCode = new Map<string, any>(packs.map(({ code, pack }: { code: string; pack: unknown }) => [code, pack]));
+    const suggested = (code: string) => byCode.get(code).prerequisites.filter((c: { use: string }) => c.use === "prerequisite").map((c: { item: string }) => c.item);
+    expect(suggested("5.15")).toContain("1.11");
+    expect(suggested("1.14")).toContain("1.15");
+    const ids = byCode.get("5.16").booklet.entries.map((bk: { id: string }) => bk.id);
+    for (const prerequisite of ["5.5", "5.10", "5.15"]) for (const bk of items.find((entry) => entry.item === prerequisite)!.booklet) expect(ids).toContain(bk.id);
+  });
+
   it("never offers an AHL item as a prerequisite to an SL lesson", () => {
     for (const { pack } of packs) {
       if (pack.item.level !== "SL") continue;

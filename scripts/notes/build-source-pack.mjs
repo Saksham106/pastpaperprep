@@ -37,7 +37,7 @@ export const packPath = (researchDir, item) => join(researchDir, "aa-course-note
  */
 export const JUDGED_PREREQUISITES = {
   "1.1": [], "1.2": [], "1.3": ["1.2"], "1.4": ["1.3"], "1.5": [], "1.6": [], "1.7": ["1.5"], "1.8": ["1.3"], "1.9": [],
-  "1.10": ["1.9"], "1.11": [], "1.12": ["2.7"], "1.13": ["1.12", "3.4", "3.5"], "1.14": ["1.9", "1.13"], "1.15": ["1.2", "1.6"], "1.16": [],
+  "1.10": ["1.9"], "1.11": [], "1.12": ["2.7"], "1.13": ["1.12", "3.4", "3.5"], "1.14": ["1.9", "1.13", "1.15"], "1.15": ["1.2", "1.6"], "1.16": [],
   "2.1": [], "2.2": [], "2.3": ["2.2"], "2.4": ["2.3"], "2.5": ["2.2"], "2.6": ["2.3", "2.4"], "2.7": ["2.6"], "2.8": ["2.2", "2.3"],
   "2.9": ["1.5", "1.7", "2.3"], "2.10": ["2.3", "2.7"], "2.11": ["2.3", "2.5"],
   "2.12": ["1.12", "2.7"], "2.13": ["2.8", "2.12"], "2.14": ["2.5", "2.11"], "2.15": ["2.7", "2.12"], "2.16": ["2.11"],
@@ -48,7 +48,7 @@ export const JUDGED_PREREQUISITES = {
   "4.9": ["4.7"], "4.10": ["4.4"], "4.11": ["4.6"], "4.12": ["4.9"], "4.13": ["4.11"], "4.14": ["4.7", "5.11"],
   "5.1": ["2.1"], "5.2": ["5.1"], "5.3": ["5.1"], "5.4": ["2.1", "5.3"], "5.5": ["5.3"], "5.6": ["2.5", "2.9", "3.5", "5.3"], "5.7": ["5.2", "5.6"],
   "5.8": ["5.2", "5.7"], "5.9": ["5.5", "5.6"], "5.10": ["5.5", "5.6"], "5.11": ["5.10"],
-  "5.12": ["5.1", "5.7"], "5.13": ["5.6", "5.12"], "5.14": ["5.6", "5.8"], "5.15": ["3.9", "5.6", "5.10"], "5.16": ["5.5", "5.10", "5.15"],
+  "5.12": ["5.1", "5.7"], "5.13": ["5.6", "5.12"], "5.14": ["5.6", "5.8"], "5.15": ["1.11", "3.9", "5.6", "5.10"], "5.16": ["5.5", "5.10", "5.15"],
   "5.17": ["5.11"], "5.18": ["5.10", "5.15", "5.16"], "5.19": ["5.6", "5.12"],
 };
 
@@ -142,10 +142,11 @@ function selectQuestions(entry, sources, groupSize) {
       if (!byPaper.has(paper)) byPaper.set(paper, []);
       byPaper.get(paper).push(candidate);
     }
-    const picked = [];
-    const queues = [...byPaper.keys()].sort().map((paper) => byPaper.get(paper));
-    while (picked.length < QUESTIONS_PER_LEVEL && queues.some((queue) => queue.length)) for (const queue of queues) if (queue.length && picked.length < QUESTIONS_PER_LEVEL) picked.push(queue.shift());
+    // Count before the round-robin, which empties the queues.
     const paperCounts = Object.fromEntries([...byPaper.entries()].sort().map(([paper, list]) => [paper, list.length]));
+    const picked = [];
+    const queues = [...byPaper.keys()].sort().map((paper) => [...byPaper.get(paper)]);
+    while (picked.length < QUESTIONS_PER_LEVEL && queues.some((queue) => queue.length)) for (const queue of queues) if (queue.length && picked.length < QUESTIONS_PER_LEVEL) picked.push(queue.shift());
     result[level] = {
       taggedTotal: tagged.length,
       paperCounts,
