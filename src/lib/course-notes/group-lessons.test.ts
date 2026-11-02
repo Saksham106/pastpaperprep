@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import taxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import { COURSES, lessonPath } from "./course";
-import { lessonForGroup, notesLinksForBank, notesTopicLinksForBank, syllabusNotesForBank } from "./group-lessons";
+import { lessonForGroup, lessonForItem, notesLinksForBank, notesTopicLinksForBank, syllabusNotesForBank } from "./group-lessons";
 import { notesNavVisible } from "./visibility";
 
 const course = COURSES[0];
@@ -45,6 +45,19 @@ describe("lessonForGroup", () => {
   });
 });
 
+describe("lessonForItem", () => {
+  it("returns the written lesson for the item, and only SL lessons at SL", () => {
+    expect(lessonForItem(visible, lesson.item, "HL")).toEqual({ href: lessonPath(course, lesson), label: lesson.title });
+    expect(lessonForItem(visible, lesson.item, "SL")).toEqual(lesson.level === "SL" ? { href: lessonPath(course, lesson), label: lesson.title } : null);
+    const ahl = { ...visible, lessons: [{ ...lesson, level: "AHL" as const }] };
+    expect(lessonForItem(ahl, lesson.item, "SL")).toBeNull();
+  });
+  it("is null for an unwritten item and while the course is hidden", () => {
+    expect(lessonForItem(visible, "9.99", "HL")).toBeNull();
+    expect(lessonForItem({ ...course, published: false }, lesson.item, "HL")).toBeNull();
+  });
+});
+
 describe("surface lookups follow visibility", () => {
   it("are empty while the course is unpublished", () => {
     expect(course.published).toBe(false);
@@ -57,6 +70,8 @@ describe("surface lookups follow visibility", () => {
     vi.stubEnv("NOTES_PREVIEW", "1");
     expect(notesNavVisible()).toBe(true);
     expect(notesLinksForBank("ib-hl")?.[group.studentFacingName]?.href).toBe(lessonPath(course, lesson));
+    for (const entry of course.lessons) expect(notesLinksForBank("ib-hl")?.[entry.item]?.href, entry.item).toBe(lessonPath(course, entry));
+    for (const entry of course.lessons.filter((l) => l.level === "AHL")) expect(notesLinksForBank("ib-sl")?.[entry.item], entry.item).toBeUndefined();
     expect(syllabusNotesForBank("ib-hl").map((n) => n.name)).toContain(group.studentFacingName);
     expect(notesTopicLinksForBank("ib-hl")).toHaveProperty("Calculus");
     expect(notesLinksForBank("igcse")).toBeUndefined();

@@ -20,12 +20,27 @@ export function lessonForGroup(course: Course, groupId: string, level: PracticeL
   return null;
 }
 
-/** Group student-facing name to lesson link for an AA bank page; undefined unless the course is visible and has a link. */
+/** The written lesson for one syllabus item at that level (SL sees only SL items). Null when none, or the course is hidden. */
+export function lessonForItem(course: Course, item: string, level: PracticeLevel): LessonLink | null {
+  if (!isCourseVisible(course)) return null;
+  const lesson = course.lessons.find((entry) => entry.item === item && (level === "HL" || entry.level === "SL"));
+  return lesson ? { href: lessonPath(course, lesson), label: lesson.title } : null;
+}
+
+/**
+ * Lesson links for an AA bank page; undefined unless the course is visible and has a link. Keys are
+ * syllabus item ids ("5.16", one per written lesson) and group student-facing names (the fallback for
+ * a question with no item tag that has a lesson). The two never collide.
+ */
 export function notesLinksForBank(bankSlug: string): Record<string, LessonLink> | undefined {
   const level = BANK_LEVELS[bankSlug];
   const course = getCourse("ib-math-aa");
   if (!level || !course || !isCourseVisible(course)) return undefined;
   const links: Record<string, LessonLink> = {};
+  for (const lesson of course.lessons) {
+    const link = lessonForItem(course, lesson.item, level);
+    if (link) links[lesson.item] = link;
+  }
   for (const group of GROUPS) {
     const link = lessonForGroup(course, group.id, level);
     if (link) links[group.studentFacingName] = link;
