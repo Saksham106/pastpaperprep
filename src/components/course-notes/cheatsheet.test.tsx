@@ -18,8 +18,10 @@ const base = getCourse("ib-math-aa") as Course;
 const sheetBlocks = (...blocks: Block[]): Lesson["sections"] => [{ id: "s", heading: "S", blocks: [{ type: "text", text: "Not on the sheet." }, ...blocks] }];
 const make = (item: string, topic: Lesson["topic"], level: Lesson["level"], title: string, slug: string, sections: Lesson["sections"]): Lesson => ({ ...lessonFixture, item, topic, level, title, slug, sections });
 
+// Synthetic course: lessons in topics 2 and 5 only, and no real sheet-only lines (those would add the other topics).
 const course: Course = {
   ...base,
+  cheatSheets: {},
   lessons: [
     make("5.3", 5, "SL", "Differentiating powers", "powers", sheetBlocks({ type: "formula", tex: "f'(x)=nx^{n-1}", tag: "booklet", cheatSheet: true }, { type: "formula", tex: "hidden=1", tag: "learn" })),
     make("5.2", 5, "SL", "Increasing and decreasing", "inc-dec", sheetBlocks({ type: "fact", text: "$f'(x)>0$: increasing.", tag: "learn", cheatSheet: true })),

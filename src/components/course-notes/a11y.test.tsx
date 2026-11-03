@@ -65,7 +65,8 @@ describe("worked-example landmarks", () => {
 
 describe("cheat sheet headings", () => {
   const sections: Lesson["sections"] = [{ id: "s", heading: "S", blocks: [{ type: "formula", tex: "x=1", tag: "booklet", cheatSheet: true }] }];
-  const course: Course = { ...base, lessons: [make("5.3", 5, "SL", "Powers", "powers", sections), make("2.5", 2, "SL", "Quadratics", "quadratics", sections)] };
+  // Synthetic course: only these two lessons and no real sheet-only lines, so the topic count is the fixture's own.
+  const course: Course = { ...base, cheatSheets: {}, lessons: [make("5.3", 5, "SL", "Powers", "powers", sections), make("2.5", 2, "SL", "Quadratics", "quadratics", sections)] };
 
   it("topic sheet: h1, h2 sheet title, then h3 block headings, no heading level skipped", async () => {
     const { container } = render(<CheatSheet course={course} topic={course.topics.find((t) => t.n === 5)!} />);

@@ -9,6 +9,7 @@ import type { Block, ItemsFile } from "./types";
 import { validateLesson } from "./validate";
 import { parseInline } from "./inline";
 import { renderTex } from "./render";
+import { setCoursePublishedForTests } from "./test-visibility";
 
 const items = itemsJson as ItemsFile;
 const course = getCourse("ib-math-aa")!;
@@ -16,7 +17,10 @@ const root = join(process.cwd(), "src/content/notes/ib-math-aa");
 const lessonItems = new Set(items.items.map((entry) => entry.item));
 const ctx = { items, glossary: course.glossary, lessonItems };
 
+let restorePublished: (() => void) | undefined;
 afterEach(() => {
+  restorePublished?.();
+  restorePublished = undefined;
   delete process.env.NOTES_PREVIEW;
 });
 
@@ -130,6 +134,7 @@ describe("ib-math-aa course content", () => {
   });
 
   it("unpublished course yields no static params and no sitemap paths unless NOTES_PREVIEW=1", () => {
+    restorePublished = setCoursePublishedForTests(false);
     expect(course.published).toBe(false);
     expect(isCourseVisible(course)).toBe(false);
     expect(coursePaths()).toEqual([]);

@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { setCoursePublishedForTests } from "@/lib/course-notes/test-visibility";
 import { SiteFooter } from "@/components/SiteFooter";
 
 describe("SiteFooter", () => {
@@ -16,10 +17,22 @@ describe("SiteFooter", () => {
   });
 
   it("links the AA notes only while the course is visible", () => {
-    const view = render(<SiteFooter />);
-    expect(screen.queryByRole("link", { name: "IB Maths AA notes" })).not.toBeInTheDocument();
-    view.unmount();
-    vi.stubEnv("NOTES_PREVIEW", "1");
+    const restore = setCoursePublishedForTests(false);
+    try {
+      vi.stubEnv("NOTES_PREVIEW", "");
+      const view = render(<SiteFooter />);
+      expect(screen.queryByRole("link", { name: "IB Maths AA notes" })).not.toBeInTheDocument();
+      view.unmount();
+      vi.stubEnv("NOTES_PREVIEW", "1");
+      render(<SiteFooter />);
+      expect(screen.getByRole("link", { name: "IB Maths AA notes" })).toHaveAttribute("href", "/revision-notes/ib-math-aa");
+    } finally {
+      restore();
+    }
+  });
+
+  it("links the AA notes for the real, published course without a preview flag", () => {
+    vi.stubEnv("NOTES_PREVIEW", "");
     render(<SiteFooter />);
     expect(screen.getByRole("link", { name: "IB Maths AA notes" })).toHaveAttribute("href", "/revision-notes/ib-math-aa");
   });
