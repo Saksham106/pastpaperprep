@@ -1,1 +1,182 @@
-[]
+[
+  {
+    "id": "calculate",
+    "term": "Calculate",
+    "definition": "Work out a number and show the key steps that lead to it. The working earns the method (M) marks and the final value the accuracy (A) mark."
+  },
+  {
+    "id": "comment",
+    "term": "Comment",
+    "definition": "Make a short judgement about a statement or a result you have found, such as whether a model or estimate is reasonable. Give the reason, in the context of the question."
+  },
+  {
+    "id": "compare",
+    "term": "Compare",
+    "definition": "Set two or more things side by side, mentioning each one in every point you make. For two data sets, give a measure of centre and a measure of spread for each, with the numbers, and say what they show in context."
+  },
+  {
+    "id": "compare-and-contrast",
+    "term": "Compare and contrast",
+    "definition": "Say both what two or more things have in common and how they differ, mentioning each one in every point you make."
+  },
+  {
+    "id": "construct",
+    "term": "Construct",
+    "definition": "Set out information as a diagram or in a logical order, such as a table, a tree diagram or a step-by-step argument."
+  },
+  {
+    "id": "contrast",
+    "term": "Contrast",
+    "definition": "Say how two or more things differ, mentioning each one in every point you make."
+  },
+  {
+    "id": "deduce",
+    "term": "Deduce",
+    "definition": "Draw a conclusion that follows from the information given or from an earlier result. Show the short chain of reasoning that gets you there."
+  },
+  {
+    "id": "demonstrate",
+    "term": "Demonstrate",
+    "definition": "Use reasoning or evidence, often a worked example, to make it clear that something is true or how it works."
+  },
+  {
+    "id": "describe",
+    "term": "Describe",
+    "definition": "Give a full account in words. For a transformation, name it and give every detail, such as the direction and distance or the scale factor."
+  },
+  {
+    "id": "determine",
+    "term": "Determine",
+    "definition": "Find the answer, or every answer, that fits the conditions, with the working that gets you there. For \"determine whether\", show the evidence and end with a clear conclusion."
+  },
+  {
+    "id": "differentiate",
+    "term": "Differentiate",
+    "definition": "Find the derivative of a function. Show each use of the chain, product or quotient rule, because those lines earn the method marks."
+  },
+  {
+    "id": "distinguish",
+    "term": "Distinguish",
+    "definition": "Say clearly what tells two or more ideas or items apart."
+  },
+  {
+    "id": "draw",
+    "term": "Draw",
+    "definition": "Make an accurate, labelled diagram or graph to scale, in pencil, with a ruler for straight lines. Plot points correctly and join them with a straight line or a smooth curve."
+  },
+  {
+    "id": "estimate",
+    "term": "Estimate",
+    "definition": "Give a sensible approximate value, and show where it comes from, such as the readings on a graph or the model you used."
+  },
+  {
+    "id": "explain",
+    "term": "Explain",
+    "definition": "Say why or how, giving reasons or causes. Tie each reason to the numbers or to the context of the question."
+  },
+  {
+    "id": "find",
+    "term": "Find",
+    "definition": "Work out the answer and show the key steps. A correct answer with no working may not get full marks, while correct working can earn method marks even if the answer is wrong."
+  },
+  {
+    "id": "hence",
+    "term": "Hence",
+    "definition": "Use the result you have just found, or were given, to get this answer. A method that ignores it usually earns no marks, even if it is correct."
+  },
+  {
+    "id": "hence-or-otherwise",
+    "term": "Hence or otherwise",
+    "definition": "Using the earlier result is usually the quickest route, but any correct method earns the marks."
+  },
+  {
+    "id": "identify",
+    "term": "Identify",
+    "definition": "Pick the right answer from several possibilities, such as which graph matches a function or which sampling method was used. A short answer is enough."
+  },
+  {
+    "id": "integrate",
+    "term": "Integrate",
+    "definition": "Find the integral of a function. An indefinite integral needs $+\\,C$, and leaving it out can cost a mark."
+  },
+  {
+    "id": "interpret",
+    "term": "Interpret",
+    "definition": "Use what you know to say what a value, graph or result means in the context of the question, in words and with units."
+  },
+  {
+    "id": "investigate",
+    "term": "Investigate",
+    "definition": "Study a situation carefully and in an organised way, step by step, to find out facts and reach a conclusion."
+  },
+  {
+    "id": "justify",
+    "term": "Justify",
+    "definition": "Give a valid reason or evidence for your answer, such as the sign of $f''(a)$ for a maximum. A bare conclusion earns no reasoning (R) mark."
+  },
+  {
+    "id": "label",
+    "term": "Label",
+    "definition": "Add names, values or equations to a diagram or graph, such as the axes, intercepts and asymptotes."
+  },
+  {
+    "id": "list",
+    "term": "List",
+    "definition": "Write several short answers, one after another, without explanation. Make sure none is missing."
+  },
+  {
+    "id": "plot",
+    "term": "Plot",
+    "definition": "Mark the given points accurately on a diagram or grid, using its scale."
+  },
+  {
+    "id": "predict",
+    "term": "Predict",
+    "definition": "Give the result you expect, usually by substituting into a model or a regression line. Show the substitution before the answer."
+  },
+  {
+    "id": "prove",
+    "term": "Prove",
+    "definition": "Give a formal, logical argument, step by step, that shows a result is true in every case, and finish with a concluding statement. Checking examples is not a proof."
+  },
+  {
+    "id": "show",
+    "term": "Show",
+    "definition": "Write out the steps of a calculation or derivation, not just the answer."
+  },
+  {
+    "id": "show-that",
+    "term": "Show that",
+    "definition": "Work forwards to the given result, showing every step, and make your last line match it exactly. A calculator value can't show an exact result, and you may use the given result in later parts even if you couldn't reach it."
+  },
+  {
+    "id": "sketch",
+    "term": "Sketch",
+    "definition": "Draw the right general shape, not to scale, with the relevant features labelled, such as intercepts, turning points and asymptotes with their equations. A correct shape with missing labels loses marks."
+  },
+  {
+    "id": "solve",
+    "term": "Solve",
+    "definition": "Find every value that makes the equation or inequality true, by algebra, a graph or, on Paper 2, your GDC. Write down the equation you solve, and reject any value that doesn't fit, saying why."
+  },
+  {
+    "id": "state",
+    "term": "State",
+    "definition": "Give a short answer, such as a name, value or equation, with no working or explanation needed."
+  },
+  {
+    "id": "suggest",
+    "term": "Suggest",
+    "definition": "Put forward a sensible possible answer, such as a reason a model might fail or a pattern for a formula. It doesn't need to be proved."
+  },
+  {
+    "id": "verify",
+    "term": "Verify",
+    "definition": "Give evidence that a stated result is true, often by substituting values and showing both sides agree. Show the numbers, then state your conclusion."
+  },
+  {
+    "id": "write-down",
+    "term": "Write down",
+    "definition": "Give the answer directly, usually read from the information or recalled. At most a little calculation is needed and no working has to be shown, but the form still counts: a point as coordinates, a line as an equation."
+  }
+]

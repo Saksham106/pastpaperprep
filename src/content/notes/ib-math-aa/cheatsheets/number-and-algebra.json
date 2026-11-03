@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Same amount added each time → arithmetic, $u_{n} = u_{1} + (n - 1)d$. Same number multiplied each time → geometric, $u_{n} = u_{1}r^{n - 1}$ (1.2, 1.3)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Two terms given → write both with the $n$th-term formula, then subtract to find $d$ or divide to find $r$ (1.2, 1.3)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Least $n$ for a term or sum to pass a value → write the inequality, solve it on the GDC, then test the whole numbers either side (1.3)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Compound interest, depreciation or a $p\\%$ change each period → geometric with $r = 1 \\pm \\frac{p}{100}$, or the finance solver on Paper 2. Simple interest is arithmetic (1.2, 1.4)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Sum to infinity → check $\\lvert r\\rvert < 1$ first, then use $S_{\\infty} = \\frac{u_{1}}{1 - r}$ (1.8)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Unknown in an exponent → write both sides with the same base, or take logs of both sides (1.7)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "One term or coefficient of $(a + b)^{n}$ → general term ${}^{n}C_{r}\\,a^{n - r}b^{r}$; match the power of $x$ to find $r$ (1.9)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Arrangements or selections → order matters: ${}^{n}P_{r}$; order doesn't matter: ${}^{n}C_{r}$. “At least one” → total minus none (1.10)",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Fraction with two different linear factors in the denominator, to integrate or expand → partial fractions first (1.11)",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Multiply, divide, powers or roots of complex numbers → polar or Euler form, with De Moivre's theorem. Add or subtract → Cartesian form (1.13, 1.14)",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Prove for every positive integer $n$ → induction. Disprove → one counterexample. Prove something can't happen, such as $\\sqrt{3}$ being rational → contradiction (1.15)",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Three linear equations in three unknowns → row-reduce the augmented matrix, or use the GDC. A row $0 = c$ with $c \\neq 0$ means no solution (1.16)",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

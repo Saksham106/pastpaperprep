@@ -1,55 +1,55 @@
 [
   {
     "id": "mean",
-    "term": "Mean",
+    "term": "mean",
     "definition": "The total of the data values divided by how many there are, written $\\bar{x}$.",
     "lesson": "4.3"
   },
   {
     "id": "median",
-    "term": "Median",
+    "term": "median",
     "definition": "The middle value of the data in order; for an even number of values, the mean of the middle two.",
     "lesson": "4.3"
   },
   {
     "id": "mode",
-    "term": "Mode",
+    "term": "mode",
     "definition": "The value that occurs most often in a data set.",
     "lesson": "4.3"
   },
   {
     "id": "mid-interval-value",
-    "term": "Mid-interval value",
+    "term": "mid-interval value",
     "definition": "The value halfway along a class, $\\frac{a + b}{2}$ for the class $a \\le x < b$, used to stand for every value in that class.",
     "lesson": "4.3"
   },
   {
     "id": "modal-class",
-    "term": "Modal class",
+    "term": "modal class",
     "definition": "For grouped data with equal class widths, the class with the highest frequency.",
     "lesson": "4.3"
   },
   {
     "id": "dispersion",
-    "term": "Dispersion",
+    "term": "dispersion",
     "definition": "How spread out a data set is, measured by the range, the interquartile range or the standard deviation.",
     "lesson": "4.3"
   },
   {
     "id": "quartile",
-    "term": "Quartile",
+    "term": "quartile",
     "definition": "One of the values that cut ordered data into quarters: a quarter of the data lies below the lower quartile $Q_{1}$, and three quarters below the upper quartile $Q_{3}$.",
     "lesson": "4.3"
   },
   {
     "id": "standard-deviation",
-    "term": "Standard deviation",
+    "term": "standard deviation",
     "definition": "A measure of the typical distance of the data values from their mean, written $\\sigma$; it is the square root of the variance.",
     "lesson": "4.3"
   },
   {
     "id": "variance",
-    "term": "Variance",
+    "term": "variance",
     "definition": "The mean of the squared distances of the data values from their mean, written $\\sigma^{2}$: the square of the standard deviation.",
     "lesson": "4.3"
   }

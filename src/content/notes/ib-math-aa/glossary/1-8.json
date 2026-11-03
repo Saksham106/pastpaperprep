@@ -13,14 +13,20 @@
   },
   {
     "id": "convergent",
-    "term": "Convergent",
+    "term": "convergent",
     "definition": "A sequence or series is convergent if its terms (or its partial sums) settle on one finite value as $n \\to \\infty$.",
     "lesson": "1.8"
   },
   {
     "id": "divergent",
-    "term": "Divergent",
+    "term": "divergent",
     "definition": "A sequence or series is divergent if it does not converge: its values grow without limit or never settle on one value.",
+    "lesson": "1.8"
+  },
+  {
+    "id": "modulus",
+    "term": "modulus",
+    "definition": "The modulus $\\lvert x\\rvert$ of a real number $x$ is its distance from $0$: $x$ if $x \\ge 0$, and $-x$ if $x < 0$.",
     "lesson": "1.8"
   }
 ]

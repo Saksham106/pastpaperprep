@@ -14,7 +14,7 @@
   {
     "id": "pascals-triangle",
     "term": "Pascal's triangle",
-    "definition": "A triangle of numbers in which each entry is the sum of the two above it; row $n$, counted from row $0$, gives the coefficients of $(a + b)^{n}$.",
+    "definition": "A triangle of numbers in which each row starts and ends with $1$ and every other entry is the sum of the two above it; row $n$, counted from row $0$, gives the coefficients of $(a + b)^{n}$.",
     "lesson": "1.9"
   },
   {

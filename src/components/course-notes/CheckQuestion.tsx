@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useNotesContext } from "./notes-context";
 import { trackCheckAnswer } from "./track";
 import styles from "./course-notes.module.css";
@@ -36,6 +36,11 @@ export function CheckQuestion({ id, prompt, hint, options, answer, explain }: Pr
   };
   const [result, setResult] = useState<Result>(null);
   const [showHint, setShowHint] = useState(false);
+  const hintRef = useRef<HTMLParagraphElement>(null);
+  // The Hint button unmounts when clicked, so move focus to the hint it revealed instead of dropping it on the page.
+  useEffect(() => {
+    if (showHint) hintRef.current?.focus();
+  }, [showHint]);
   const [typed, setTyped] = useState("");
   const inputId = `${id}-input`;
 
@@ -65,7 +70,12 @@ export function CheckQuestion({ id, prompt, hint, options, answer, explain }: Pr
           </>
         ) : null}
       </div>
-      {hint && showHint ? <p className={styles.hintText}>{hint}</p> : null}
+      {hint && showHint ? (
+        <p ref={hintRef} tabIndex={-1} className={styles.hintText}>
+          <span className={styles.srOnly}>Hint: </span>
+          {hint}
+        </p>
+      ) : null}
       {options ? (
         <div className={styles.opts}>
           {options.map((option, i) => (

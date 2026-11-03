@@ -51,7 +51,7 @@ export default function EulerStep({ alt, props }: WidgetProps) {
       svg={renderEulerSvg(alt, { h })}
     >
       <p>dy/dx = x + y, y(0) = 1, so the exact solution is y = 2eˣ − x − 1</p>
-      <Slider label="h (step size)" value={idx} min={0} max={STEP_SIZES.length - 1} step={1} onChange={setIdx} format={(v) => num(STEP_SIZES[v])} />
+      <Slider label="h (step size)" value={idx} min={0} max={STEP_SIZES.length - 1} step={1} onChange={setIdx} format={(v) => num(STEP_SIZES[v])} valueText={(v) => `h = ${num(STEP_SIZES[v])}, ${eulerPoints(STEP_SIZES[v]).length - 1} steps`} />
       <p>Steps from x = 0 to x = 1: <output aria-live="off" data-testid="steps">{pts.length - 1}</output></p>
       <p>
         <output aria-live="polite" data-testid="result">Euler estimate of y(1) = {fmt(est, 4)} with h = {num(h)}, exact y(1) = 2e − 2 = {fmt(exact, 4)}, error {fmt(exact - est, 4)}</output>

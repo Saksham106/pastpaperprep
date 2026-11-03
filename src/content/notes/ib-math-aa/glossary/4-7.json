@@ -1,31 +1,31 @@
 [
   {
     "id": "random-variable",
-    "term": "Random variable",
+    "term": "random variable",
     "definition": "A quantity whose value is decided by the outcome of a random trial, named with a capital letter such as $X$.",
     "lesson": "4.7"
   },
   {
     "id": "discrete-random-variable",
-    "term": "Discrete random variable",
+    "term": "discrete random variable",
     "definition": "A random variable whose possible values can be listed, such as $0, 1, 2, 3$.",
     "lesson": "4.7"
   },
   {
     "id": "probability-distribution",
-    "term": "Probability distribution",
+    "term": "probability distribution",
     "definition": "Every value $x$ a random variable $X$ can take, together with its probability $\\mathrm{P}(X = x)$, given as a table or a formula; the probabilities add up to $1$.",
     "lesson": "4.7"
   },
   {
     "id": "expected-value",
-    "term": "Expected value",
+    "term": "expected value",
     "definition": "The long-run mean of a random variable, $\\mathrm{E}(X) = \\sum x\\,\\mathrm{P}(X = x)$ for a discrete $X$.",
     "lesson": "4.7"
   },
   {
     "id": "fair-game",
-    "term": "Fair game",
+    "term": "fair game",
     "definition": "A game in which the expected gain of a player is $0$, so $\\mathrm{E}(X) = 0$ where $X$ is the player's gain.",
     "lesson": "4.7"
   }

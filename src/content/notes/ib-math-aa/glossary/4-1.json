@@ -1,79 +1,79 @@
 [
   {
     "id": "population",
-    "term": "Population",
+    "term": "population",
     "definition": "The whole group of people or objects that a statistical question is about.",
     "lesson": "4.1"
   },
   {
     "id": "sample",
-    "term": "Sample",
+    "term": "sample",
     "definition": "The part of a population that data is actually collected from, used to draw conclusions about the whole population.",
     "lesson": "4.1"
   },
   {
     "id": "random-sample",
-    "term": "Random sample",
+    "term": "random sample",
     "definition": "A sample chosen so that every member of the population has the same chance of being picked.",
     "lesson": "4.1"
   },
   {
     "id": "discrete-data",
-    "term": "Discrete data",
+    "term": "discrete data",
     "definition": "Data that can take only separate values, usually counts, such as the number of goals in a match.",
     "lesson": "4.1"
   },
   {
     "id": "continuous-data",
-    "term": "Continuous data",
+    "term": "continuous data",
     "definition": "Data that is measured and can take any value in a range, such as a time, a mass or a length.",
     "lesson": "4.1"
   },
   {
     "id": "sampling-bias",
-    "term": "Sampling bias",
+    "term": "sampling bias",
     "definition": "A built-in tendency of a sampling method to pick some kinds of member more often than others, so the sample misrepresents the population.",
     "lesson": "4.1"
   },
   {
     "id": "outlier",
-    "term": "Outlier",
+    "term": "outlier",
     "definition": "A data value more than $1.5 \\times \\mathrm{IQR}$ below the lower quartile or above the upper quartile.",
     "lesson": "4.1"
   },
   {
     "id": "interquartile-range",
-    "term": "Interquartile range",
+    "term": "interquartile range",
     "definition": "The upper quartile minus the lower quartile, $\\mathrm{IQR} = Q_{3} - Q_{1}$: the spread of the middle half of the data.",
     "lesson": "4.1"
   },
   {
     "id": "simple-random-sampling",
-    "term": "Simple random sampling",
+    "term": "simple random sampling",
     "definition": "Choosing a sample so that every possible group of the required size is equally likely to be picked, for example by drawing numbers at random from a full list.",
     "lesson": "4.1"
   },
   {
     "id": "systematic-sampling",
-    "term": "Systematic sampling",
+    "term": "systematic sampling",
     "definition": "Choosing every $k$th member from an ordered list of the population, starting from a randomly chosen member among the first $k$.",
     "lesson": "4.1"
   },
   {
     "id": "stratified-sampling",
-    "term": "Stratified sampling",
+    "term": "stratified sampling",
     "definition": "Splitting the population into groups by a shared feature, then taking a random sample from each group in proportion to its size.",
     "lesson": "4.1"
   },
   {
     "id": "quota-sampling",
-    "term": "Quota sampling",
+    "term": "quota sampling",
     "definition": "Setting how many members to take from each group, then letting the collector choose anyone who fits until each number is reached; the choice is not random.",
     "lesson": "4.1"
   },
   {
     "id": "convenience-sampling",
-    "term": "Convenience sampling",
+    "term": "convenience sampling",
     "definition": "Taking the members of the population that are easiest to reach, such as the first people to arrive.",
     "lesson": "4.1"
   }

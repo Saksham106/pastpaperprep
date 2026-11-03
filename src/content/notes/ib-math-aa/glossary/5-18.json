@@ -20,7 +20,7 @@
   {
     "id": "logistic-equation",
     "term": "logistic equation",
-    "definition": "The differential equation $\\frac{\\mathrm{d}n}{\\mathrm{d}t} = kn(a - n)$, whose solutions grow and then level off towards $a$.",
+    "definition": "The differential equation $\\frac{\\mathrm{d}n}{\\mathrm{d}t} = kn(a - n)$, with $k, a > 0$; a solution that starts between $0$ and $a$ grows and then levels off towards $a$.",
     "lesson": "5.18"
   },
   {

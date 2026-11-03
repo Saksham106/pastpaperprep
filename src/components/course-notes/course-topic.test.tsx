@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import userEvent from "@testing-library/user-event";
 import { resetPersistedStoresForTests } from "./persisted-store";
 import { cleanup, render, screen, within } from "@testing-library/react";
 import taxonomy from "@/data/aa-official-subtopics/taxonomy.json";
@@ -91,9 +92,24 @@ describe("CourseTopic", () => {
     expect(screen.getAllByText("◆ HL").length).toBe(ahl.length);
   });
 
-  it("includes the lesson summary in the card for keyboard focus", () => {
+  it("keeps the lesson summary behind a real button that toggles it, so touch and keyboard can reach it", async () => {
+    const user = userEvent.setup();
     render(<CourseTopic course={course} topic={calculus} />);
-    expect(within(screen.getByRole("link", { name: /5\.1 Limits/ })).getByText("Summary of 5.1")).toBeTruthy();
+    const card = document.querySelector('[data-lesson="5.1"]') as HTMLElement;
+    const button = within(card).getByRole("button", { name: /About 5\.1 Limits/ });
+    const summary = within(card).getByText("Summary of 5.1");
+    expect(button.getAttribute("aria-expanded")).toBe("false");
+    expect(summary.hidden).toBe(true);
+    expect(button.getAttribute("aria-controls")).toBe(summary.id);
+    await user.click(button);
+    expect(button.getAttribute("aria-expanded")).toBe("true");
+    expect(summary.hidden).toBe(false);
+    // The button is a sibling of the link, never inside it (interactive content cannot nest).
+    expect(within(card).getByRole("link", { name: /5\.1 Limits/ }).contains(button)).toBe(false);
+    // Keyboard: the button is in the tab order right after the card link.
+    within(card).getByRole("link", { name: /5\.1 Limits/ }).focus();
+    await user.tab();
+    expect(document.activeElement).toBe(button);
   });
 
   it("does not dim the HL band in the HL view", () => {
