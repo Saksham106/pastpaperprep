@@ -7,7 +7,8 @@ and must declare its required precision in NUMERIC.
 Truths are computed from each question's own data: parity by simplifying f(-x) - f(x) and f(-x) + f(x), inverses by
 solving f(y) = x and keeping the branch the restricted domain allows, domains of inverses as SymPy's function_range of
 the restricted f, symmetric points by reflection matrices, values of periodic functions by sliding the input by the
-period and applying the symmetry, and self-inverse claims by composing f with itself.
+period and applying the symmetry, and self-inverse claims by proving f(f(x)) = x symbolically on the stated domain
+(sample points are only a smoke check).
 """
 import re
 import sys
@@ -21,12 +22,13 @@ from sympy.calculus.util import function_range
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from mathparse import (  # noqa: E402
-    check_numeric, check_rounded, check_same_set, parse_answer, parse_list, parse_point,
+    check_numeric, check_rounded, check_same_set, check_self_inverse, parse_answer, parse_list, parse_point, proves_zero,
 )
 
 x = symbols("x")  # mathparse returns plain symbols
 y = symbols("y")
 r = symbols("r", real=True)
+POS = symbols("x_pos", positive=True)
 
 
 def same(tex, truth):
@@ -211,14 +213,10 @@ def line_composed(tex):
 
 
 def self_inverse_option(tex):
-    """f(f(s)) must return s at sample points where 8 - s^3 > 0 (so every cube root taken is of a positive number for
-    the true answer). A distractor fails at the first sample; complex principal roots also fail the comparison."""
-    f = parse_answer(tex)
-    for s in (Rational(1, 2), 1, Rational(19, 10)):
-        once = f.subs(x, s)
-        twice = f.subs(x, once)
-        if abs(N(twice - s, 30)) > 1e-20:
-            raise AssertionError(f"{f} is not self-inverse: f(f({s})) = {N(twice)}")
+    """The question says every option has domain R. check_self_inverse proves f(f(x)) = x for every real x, reading each
+    cube root as the real cube root, and needs f defined on all of R. Agreeing at a few points is not a proof: the
+    function x + (x - 1/2)(x - 1)(x - 19/10) fixes three points but g(g(0)) = -72067/8000."""
+    check_self_inverse(tex, domain=Interval(-oo, oo))
 
 
 QUARTER = sqrt(25 - x**2)
@@ -235,18 +233,18 @@ LOG_SELF = log((exp(x) + 1) / (exp(x) - 1))
 
 
 def self_inverse_log(tex):
-    """The published formula must undo f both ways at sample points of (0, oo), and must equal f (the self-inverse
-    claim). Its stated domain must be the range of f on x > 0."""
+    """The published formula g must undo f both ways and equal f, each PROVED symbolically for every x > 0 (a positive
+    symbol), with the sample points of ]0, oo[ kept as a smoke check. Its stated domain must be the range of f on x > 0."""
     formula, domain = split_inverse(tex)
-    g = parse_answer(formula)
+    g = parse_answer(formula).subs(x, POS)
+    f = LOG_SELF.subs(x, POS)
+    for what, difference in (("g(f(x)) = x", g.subs(POS, f) - POS), ("f(g(x)) = x", f.subs(POS, g) - POS),
+                             ("g = f", g - f)):
+        if not proves_zero(difference):
+            raise AssertionError(f"could not prove {what} for every x > 0 with g = {g}")
     for s in (Rational(1, 10), 1, 2, 5):
-        if abs(N(g.subs(x, LOG_SELF.subs(x, s)) - s, 30)) > 1e-20:
-            raise AssertionError(f"g(f({s})) != {s}")
-        if abs(N(LOG_SELF.subs(x, g.subs(x, s)) - s, 30)) > 1e-20:
-            raise AssertionError(f"f(g({s})) != {s}")
-    for s in (Rational(1, 3), 3):
-        if abs(N(g.subs(x, s) - LOG_SELF.subs(x, s), 30)) > 1e-20:
-            raise AssertionError("published inverse is not the same formula as f")
+        if abs(N(g.subs(POS, f.subs(POS, s)) - s, 30)) > 1e-20 or abs(N(f.subs(POS, g.subs(POS, s)) - s, 30)) > 1e-20:
+            raise AssertionError(f"g and f do not undo each other at {s}")
     check_same_set(domain, function_range(LOG_SELF.subs(x, r), r, Interval.open(0, oo)))
 
 

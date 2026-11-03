@@ -4,8 +4,8 @@ check-math.py passes verify(id, value) the lesson's own published text: an examp
 option (must pass) and each distractor (must raise AssertionError). A numeric check gets verify(id, value, tolerance=...)
 and must declare its required precision in NUMERIC.
 
-Truths are computed from each question's own function: vertical asymptotes as the real zeros of the denominator that
-are not zeros of the numerator, horizontal asymptotes as the limit at infinity, oblique asymptotes as the polynomial
+Truths are computed from each question's own function: vertical asymptotes as the real zeros of the denominator left
+after cancelling every common factor (a factor that cancels completely is a gap), horizontal asymptotes as the limit at infinity, oblique asymptotes as the polynomial
 quotient (confirmed by f - quotient -> 0), intercepts by substitution and solving, and ranges from the stationary values
 found by differentiating (with the limits at the asymptotes and at infinity confirming which values are reached).
 """
@@ -14,7 +14,8 @@ import sys
 from pathlib import Path
 
 from sympy import (
-    Interval, Poly, S, Union, denom, diff, div, limit, numer, oo, real_roots, simplify, solve, symbols,
+    Interval, Poly, S, Union, cancel, denom, diff, div, fraction, limit, numer, oo, real_roots, simplify, solve, symbols,
+    together,
 )
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -26,10 +27,31 @@ x, y, b = symbols("x y b")
 
 
 def vertical_asymptotes(f):
-    """Real zeros of the bottom where the top is not 0 (a shared zero is a gap, not an asymptote)."""
-    top, bottom = numer(f), denom(f)
-    zeros = sorted(set(real_roots(Poly(bottom, x))), key=float)
-    return [z for z in zeros if simplify(top.subs(x, z)) != 0]
+    """Cancel every common factor first, then take the real zeros of the simplified bottom. After cancel() the top and
+    the bottom share no factor, so each of those zeros is a pole (checked by the one-sided limits). A zero of the
+    original bottom that cancels completely is a gap, not an asymptote; a repeated factor that only partly cancels,
+    as in (x - 1)/(x - 1)^2, is still an asymptote."""
+    simplified = cancel(together(f))
+    top, bottom = fraction(simplified)
+    zeros = sorted(set(real_roots(Poly(bottom, x))), key=float) if Poly(bottom, x).degree() > 0 else []
+    for z in zeros:
+        assert simplify(top.subs(x, z)) != 0, f"{simplified} still shares the zero {z}"
+        assert limit(f, x, z, "-").is_infinite and limit(f, x, z, "+").is_infinite, f"x = {z} is not a pole of {f}"
+    return zeros
+
+
+def gaps(f):
+    """Zeros of the original bottom that cancel completely: the graph has a gap there, not an asymptote."""
+    poles = vertical_asymptotes(f)
+    zeros = set(real_roots(Poly(denom(together(f)), x)))
+    return sorted((z for z in zeros if all(simplify(z - p) != 0 for p in poles)), key=float)
+
+
+# The helper must follow the lesson's rule: cancel fully, then classify (owner review of PR #465). The bottom is written
+# expanded, as a question would give it: SymPy would auto-cancel (x - 1)/(x - 1)**2 before the helper saw it.
+assert vertical_asymptotes((x - 1) / (x**2 - 2 * x + 1)) == [1] and gaps((x - 1) / (x**2 - 2 * x + 1)) == []
+assert vertical_asymptotes((x - 1) / (x**2 - 1)) == [-1] and gaps((x - 1) / (x**2 - 1)) == [1]
+assert vertical_asymptotes((x - 1) ** 2 / (x**2 - 1)) == [-1] and gaps((x - 1) ** 2 / (x**2 - 1)) == [1]
 
 
 def horizontal_asymptote(f):
@@ -62,7 +84,7 @@ def intercept_points(tex, f):
     """`(0, k) \\text{ and } (m, 0)`: all axis intercepts, as a set of points."""
     pieces = [piece for piece in re.split(r"\\text\{\s*and\s*\}", tex.replace("$", "")) if piece.strip()]
     published = sorted((tuple(parse_point(piece)) for piece in pieces), key=lambda p: (float(p[0]), float(p[1])))
-    roots = [r for r in solve(numer(f), x) if r.is_real and simplify(denom(f).subs(x, r)) != 0]
+    roots = [r for r in solve(numer(cancel(f)), x) if r.is_real and simplify(denom(together(f)).subs(x, r)) != 0]
     truth = sorted([(S(0), f.subs(x, 0))] + [(r, S(0)) for r in roots], key=lambda p: (float(p[0]), float(p[1])))
     if len(published) != len(truth) or any(
         simplify(p[0] - q[0]) != 0 or simplify(p[1] - q[1]) != 0 for p, q in zip(published, truth)
@@ -157,6 +179,8 @@ CHECKS = {
     "ex-lq-sketch": lambda tex: intercept_points(tex, H_LQ),
     "check-lq-vertical-count": lambda val, tolerance: check_numeric(
         val, len(vertical_asymptotes((x + 2) / (x**2 + 6 * x + 10))), sf=3, tolerance=tolerance),
+    "check-lq-repeated-factor": lambda val, tolerance: check_numeric(
+        val, len(vertical_asymptotes((2 * x - 6) / (x**2 - 6 * x + 9))), sf=3, tolerance=tolerance),
     "check-lq-cross": lambda val, tolerance: check_numeric(
         val, solve((x - 6) / (x**2 + 4) - horizontal_asymptote((x - 6) / (x**2 + 4)), x)[0], sf=3, tolerance=tolerance),
     "ex-ql-division": lambda tex: check_same_equation(tex, y - oblique_asymptote(F_DIV)),
@@ -174,6 +198,7 @@ CHECKS = {
 NUMERIC = {
     "before-remainder": {"sf": 3},
     "check-lq-vertical-count": {"sf": 3},
+    "check-lq-repeated-factor": {"sf": 3},
     "check-lq-cross": {"sf": 3},
     "check-ql-unknown": {"sf": 3},
     "check-range-discriminant": {"sf": 3},

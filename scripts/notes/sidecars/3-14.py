@@ -11,11 +11,11 @@ closest approach by minimising the squared distance with calculus. Nothing below
 import sys
 from pathlib import Path
 
-from sympy import Matrix, Rational, S, Symbol, acos, diff, pi, simplify, solve, sqrt, symbols
+from sympy import Matrix, Rational, S, acos, diff, pi, simplify, solve, sqrt, symbols
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from mathparse import (  # noqa: E402
-    check_numeric, check_rounded, check_same_equation, check_same_line, parse_answer, parse_degrees, parse_point,
+    check_numeric, check_rounded, check_same_cartesian_line, check_same_equation, check_same_line, parse_answer, parse_degrees, parse_point,
     parse_vector, parse_vector_line, parse_with_unit,
 )
 
@@ -81,28 +81,10 @@ def exact_motion(tex, start, velocity):
 
 
 def same_cartesian_line(tex, point, direction):
-    """`(x - x0)/l = (y - y0)/m = (z - z0)/n`: substitute the true parametric point; every part must give the same
-    non-constant function of the parameter, so the published equations describe exactly the true line."""
-    body = tex.strip().strip("$")
-    depth, cuts = 0, []
-    for i, ch in enumerate(body):
-        depth += ch == "{"
-        depth -= ch == "}"
-        if ch == "=" and depth == 0:
-            cuts.append(i)
-    pieces = [body[a + 1:b] for a, b in zip([-1] + cuts, cuts + [len(body)])]
-    if len(pieces) != len(point):
-        raise AssertionError(f"{tex!r} has {len(pieces)} parts, expected {len(point)}")
-    exprs = [parse_answer(piece) for piece in pieces]
-    names = [x, y, z][: len(point)]
-    exprs = [e.subs({s: Symbol(s.name) for s in e.free_symbols}) for e in exprs]
-    on_line = {var: S(p) + t * S(d) for var, p, d in zip(names, point, direction)}
-    values = [simplify(e.subs(on_line)) for e in exprs]
-    for e, var in zip(exprs, names):
-        if e.free_symbols != {var}:
-            raise AssertionError(f"part {e} should involve only {var}")
-    if any(not v.has(t) for v in values) or any(simplify(v - values[0]) != 0 for v in values[1:]):
-        raise AssertionError(f"parts give {values} on the true line, not one common parameter")
+    """`(x - x0)/l = (y - y0)/m = (z - z0)/n` must be exactly the true line. check_same_cartesian_line requires every
+    part to be affine in its own coordinate, then compares the point and direction: substituting the true line into
+    the parts only proves containment (equal squares pass that test but also hold at (-2, 8, 4))."""
+    check_same_cartesian_line(tex, point, direction)
 
 
 # --- the data of each question -------------------------------------------------------------------------------------

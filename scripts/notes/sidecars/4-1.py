@@ -15,7 +15,6 @@ whose claim disagrees with the derived truth raises AssertionError, and an optio
 """
 import re
 import sys
-from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
 from sympy import Rational, S, floor, simplify
@@ -92,18 +91,34 @@ def check_outliers(tex, candidates, q1, q3):
         raise AssertionError(f"published outliers {published}, truth {truth}")
 
 
-def round_whole(value):
-    """An exact rational rounded half-up to a whole number of members."""
-    value = Rational(value)
-    return int((Decimal(int(value.p)) / Decimal(int(value.q))).quantize(Decimal(1), rounding=ROUND_HALF_UP))
-
-
 def stratified(groups, sample):
-    """Proportional allocation rounded to whole members; the rounded sizes must still add up to the sample."""
+    """Proportional allocation by floor + largest remainders: round every share down, then give the places still
+    missing, one each, to the strata with the largest fractional parts. A tie across the last place has no single
+    answer, so it fails. Sizes are never negative and always add up to the sample."""
     population = sum(groups.values())
-    sizes = {name: round_whole(Rational(size, population) * sample) for name, size in groups.items()}
-    assert sum(sizes.values()) == sample, f"rounded sizes {sizes} do not add to {sample}"
+    shares = {name: Rational(size, population) * sample for name, size in groups.items()}
+    sizes = {name: int(floor(share)) for name, share in shares.items()}
+    leftover = sample - sum(sizes.values())
+    assert 0 <= leftover < len(groups), leftover
+    order = sorted(shares, key=lambda name: shares[name] - sizes[name], reverse=True)
+    if 0 < leftover < len(order):
+        last_in, first_out = order[leftover - 1], order[leftover]
+        assert shares[last_in] - sizes[last_in] != shares[first_out] - sizes[first_out], "tie for the last place"
+    for name in order[:leftover]:
+        sizes[name] += 1
+    assert sum(sizes.values()) == sample and all(v >= 0 for v in sizes.values()), sizes
     return sizes
+
+
+# The reviewer's case for the old "take one from the smallest decimal part" repair, which gave -1. Floor + largest
+# remainders never goes negative: strata 1, 16, 16, 17 of 50, sample 5 -> shares 0.1, 1.6, 1.6, 1.7 -> floors 0, 1, 1, 1,
+# then the two spare places go to 1.7 and to one of the tied 1.6s (a genuine tie, so the helper refuses to pick).
+assert stratified({"a": 1, "b": 16, "c": 17}, 5) == {"a": 0, "b": 2, "c": 3}
+try:
+    stratified({"a": 1, "b": 16, "c": 16, "d": 17}, 5)
+    raise RuntimeError("a tie for the last place must be refused")
+except AssertionError:
+    pass
 
 
 def check_strata(tex, groups, sample):

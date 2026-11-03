@@ -28,7 +28,7 @@ from sympy import (
 from sympy.calculus.util import continuous_domain, function_range
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from mathparse import check_numeric, check_rounded, check_same_set, parse_answer, parse_list  # noqa: E402
+from mathparse import check_numeric, check_rounded, check_same_set, parse_answer, parse_list, proves_zero  # noqa: E402
 
 x = symbols("x", real=True)
 u = symbols("u")
@@ -37,7 +37,10 @@ u = symbols("u")
 # ------------------------------------------------------------------------------------------------ helpers
 
 def identical(f, g, lo=Rational(1, 10), hi=Rational(3, 2)):
-    """True when f and g agree at 12 random points of [lo, hi], evaluated to 40 digits."""
+    """True when f - g is PROVED to be 0 symbolically (mathparse.proves_zero). Agreement at 12 random points of
+    [lo, hi], evaluated to 40 digits, is kept only as a smoke check: on its own it never proves an identity."""
+    if not proves_zero(f - g):
+        return False
     rng = random.Random(39)
     for _ in range(12):
         point = lo + (hi - lo) * Rational(rng.randint(1, 10**6), 10**6)

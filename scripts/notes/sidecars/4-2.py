@@ -284,7 +284,7 @@ def orders(tex):
 
 
 CLASS_A = [30, 48, 57, 66, 84]
-CLASS_B = [35, 58, 65, 69, 78]
+CLASS_B = [35, 55, 65, 69, 78]
 
 
 def compare_iqrs(tex):
@@ -309,6 +309,14 @@ def may_be_normal(summary):
     lo, q1, med, q3, hi = summary
     tol = Rational(hi - lo, 10)
     return abs((med - q1) - (q3 - med)) <= tol and abs((q1 - lo) - (hi - q3)) <= tol
+
+
+# Each summary must be a box plot whose whiskers really end at the smallest and largest marks: no value is an outlier
+# under the lesson's 1.5 x IQR rule. (Owner review of PR #465: 35, 58, 65, 69, 78 made 35 an outlier.)
+for _summary in (CLASS_A, CLASS_B):
+    assert outliers([_summary[0], _summary[4]], _summary[1], _summary[3]) == [], _summary
+# Part (c): class A is symmetric (may be normal), class B is skewed.
+assert may_be_normal(CLASS_A) and not may_be_normal(CLASS_B)
 
 
 def check_normal_shape(text):

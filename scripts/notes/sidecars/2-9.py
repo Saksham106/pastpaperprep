@@ -18,7 +18,7 @@ from sympy.calculus.singularities import is_decreasing, is_strictly_decreasing
 from sympy.calculus.util import function_range
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from mathparse import check_numeric, check_same_set, parse_answer, parse_list, parse_point  # noqa: E402
+from mathparse import check_numeric, check_same_set, parse_answer, parse_list, parse_point, proves_zero  # noqa: E402
 
 x = symbols("x")  # mathparse returns plain symbols
 t = symbols("t")
@@ -190,11 +190,15 @@ def interest_years(tex):
 
 
 def interest_model(tex):
-    """V(t) for 500 at 6% compounded yearly is 500 * (106/100)^t. The published function must agree at several t."""
+    """V(t) for 500 at 6% compounded yearly is 500 * (106/100)^t. The published function (decimals read as exact
+    fractions) must be PROVED equal to it for every t; agreement at t = 0, 1, 2, 5, 10 is a smoke check only."""
     truth = 500 * (1 + Rational(6, 100)) ** t
     published = parse_answer(tex)
     if published.free_symbols - {t}:
         raise ValueError(f"unexpected variables in {published}")
+    exact = published.replace(lambda e: e.is_Float, lambda e: Rational(str(e)))
+    if not proves_zero(exact - truth):
+        raise AssertionError(f"published {published} could not be proved equal to {truth}")
     for when in (0, 1, 2, 5, 10):
         if abs((published.subs(t, when) - truth.subs(t, when)).evalf(30)) > 1e-9:
             raise AssertionError(f"published {published} differs from {truth} at t = {when}")

@@ -516,20 +516,21 @@
         {
           "type": "figure",
           "id": "4-2-two-box-plots",
-          "alt": "Two box and whisker diagrams on one test-mark scale from 30 to 90. Class A: whiskers from 30 to 84, box from 48 to 66, median 57; the box and whiskers are symmetric. Class B: whiskers from 35 to 78, box from 58 to 69, median 65; the left whisker is much longer than the right.",
+          "alt": "Two box and whisker diagrams on one test-mark scale from 30 to 90. Class A: whiskers from 30 to 84, box from 48 to 66, median 57; the box and whiskers are symmetric. Class B: whiskers from 35 to 78, box from 55 to 69, median 65; the left whisker is much longer than the right. Neither class has an outlier.",
           "caption": "Class A is symmetric. Class B has a long tail of low marks."
         },
         {
           "type": "example",
           "id": "ex-compare-classes",
-          "question": "Two classes sat the same test. Class A's five-number summary is $30, 48, 57, 66, 84$, and class B's is $35, 58, 65, 69, 78$. (a) Find the IQR of each class. (b) Compare the two distributions. (c) State which class's marks may be normally distributed, with a reason.",
+          "question": "Two classes sat the same test. Class A's five-number summary is $30, 48, 57, 66, 84$, and class B's is $35, 55, 65, 69, 78$. (a) Find the IQR of each class. (b) Compare the two distributions. (c) State which class's marks may be normally distributed, with a reason.",
           "steps": [
-            "(a) $\\mathrm{IQR}_{A} = 66 - 48 = 18$ and $\\mathrm{IQR}_{B} = 69 - 58 = 11$.",
+            "(a) $\\mathrm{IQR}_{A} = 66 - 48 = 18$ and $\\mathrm{IQR}_{B} = 69 - 55 = 14$.",
+            "Check for outliers. Class A's fences are $48 - 27 = 21$ and $66 + 27 = 93$, and class B's are $55 - 21 = 34$ and $69 + 21 = 90$. Every mark lies inside its fences, so each whisker reaches the smallest or largest mark.",
             "(b) Centre: class B's median, $65$, is higher than class A's, $57$. So class B generally scored higher.",
-            "Spread: class B's IQR, $11$, is smaller than class A's, $18$. So class B's marks were more consistent.",
-            "(c) Class A: the median is $9$ from each quartile and both whiskers are $18$ long. It is symmetric, so its marks may be normal. Class B's whiskers are $23$ and $9$ long, so its marks are skewed."
+            "Spread: class B's IQR, $14$, is smaller than class A's, $18$. So class B's marks were more consistent.",
+            "(c) Class A: the median is $9$ from each quartile and both whiskers are $18$ long. It is symmetric, so its marks may be normal. Class B's whiskers are $20$ and $9$ long, so its marks are skewed."
           ],
-          "answer": "$\\mathrm{IQR}_{A} = 18, \\; \\mathrm{IQR}_{B} = 11$",
+          "answer": "$\\mathrm{IQR}_{A} = 18, \\; \\mathrm{IQR}_{B} = 14$",
           "video": null
         },
         {
