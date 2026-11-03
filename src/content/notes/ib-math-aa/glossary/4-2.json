@@ -1,0 +1,56 @@
+[
+  {
+    "id": "frequency",
+    "term": "Frequency",
+    "definition": "The number of times a value, or a value inside a class, occurs in a data set.",
+    "lesson": "4.2"
+  },
+  {
+    "id": "frequency-table",
+    "term": "Frequency table",
+    "definition": "A table that lists each value, or each class of values, beside the number of times it occurs.",
+    "lesson": "4.2"
+  },
+  {
+    "id": "class-interval",
+    "term": "Class interval",
+    "definition": "A group of values in a grouped frequency table, written as an inequality such as $20 \\le t < 25$, so that every value falls in exactly one class.",
+    "lesson": "4.2"
+  },
+  {
+    "id": "histogram",
+    "term": "Histogram",
+    "definition": "A diagram for grouped data with one bar per class on a continuous scale; with equal class widths, each bar's height is the class frequency and neighbouring bars touch.",
+    "lesson": "4.2"
+  },
+  {
+    "id": "skewed-distribution",
+    "term": "Skewed distribution",
+    "definition": "A distribution that is not symmetric because one side trails off in a long tail: a long tail to the right is positive skew, to the left negative skew.",
+    "lesson": "4.2"
+  },
+  {
+    "id": "cumulative-frequency",
+    "term": "Cumulative frequency",
+    "definition": "The number of data values less than or equal to a given value: the running total of the frequencies.",
+    "lesson": "4.2"
+  },
+  {
+    "id": "percentile",
+    "term": "Percentile",
+    "definition": "The $k$th percentile is the value with $k\\%$ of the data below it; the median is the 50th percentile.",
+    "lesson": "4.2"
+  },
+  {
+    "id": "five-number-summary",
+    "term": "Five-number summary",
+    "definition": "The smallest value, lower quartile, median, upper quartile and largest value of a data set.",
+    "lesson": "4.2"
+  },
+  {
+    "id": "box-and-whisker-diagram",
+    "term": "Box and whisker diagram",
+    "definition": "A diagram of a data set drawn to scale, with a box from the lower to the upper quartile, a line at the median, whiskers to the most extreme values that are not outliers, and a cross for each outlier.",
+    "lesson": "4.2"
+  }
+]

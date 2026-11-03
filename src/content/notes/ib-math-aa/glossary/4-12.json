@@ -1,0 +1,14 @@
+[
+  {
+    "id": "z-value",
+    "term": "z-value (standardised value)",
+    "definition": "The number of standard deviations a value $x$ lies from the mean, $z = \\frac{x - \\mu}{\\sigma}$: positive above the mean, negative below it.",
+    "lesson": "4.12"
+  },
+  {
+    "id": "standard-normal-distribution",
+    "term": "Standard normal distribution",
+    "definition": "The normal distribution with mean $0$ and standard deviation $1$, written $Z \\sim \\mathrm{N}(0, 1)$; standardising any normal variable gives it.",
+    "lesson": "4.12"
+  }
+]

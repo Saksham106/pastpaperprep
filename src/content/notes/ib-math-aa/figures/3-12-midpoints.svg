@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 230" role="img" aria-labelledby="t">
+  <title id="t">Triangle O A B with arrow a from O to A and arrow b from O to B. M is the midpoint of O A and N is the midpoint of O B. A dashed arrow joins M to N, parallel to A B.</title>
+  <path d="M40,200 L300,180 L150,40 Z" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+  <line x1="40.0" y1="200.0" x2="300.0" y2="180.0" stroke="var(--t1-ink)" stroke-width="2.2"/><path d="M291.2,184.8 L300.0,180.0 L290.6,176.6" fill="none" stroke="var(--t1-ink)" stroke-width="2.2" stroke-linejoin="round"/>
+  <line x1="40.0" y1="200.0" x2="150.0" y2="40.0" stroke="var(--t5-ink)" stroke-width="2.2"/><path d="M148.2,49.8 L150.0,40.0 L141.5,45.2" fill="none" stroke="var(--t5-ink)" stroke-width="2.2" stroke-linejoin="round"/>
+  <line x1="170.0" y1="190.0" x2="95.0" y2="120.0" stroke="var(--t3-ink)" stroke-width="2.2" stroke-dasharray="5 3"/><path d="M104.5,123.3 L95.0,120.0 L98.9,129.2" fill="none" stroke="var(--t3-ink)" stroke-width="2.2" stroke-linejoin="round"/>
+  <circle cx="40" cy="200" r="3.5" fill="currentColor"/>
+  <circle cx="300" cy="180" r="3.5" fill="currentColor"/>
+  <circle cx="150" cy="40" r="3.5" fill="currentColor"/>
+  <circle cx="170.0" cy="190.0" r="3.5" fill="currentColor"/>
+  <circle cx="95.0" cy="120.0" r="3.5" fill="currentColor"/>
+  <g font-size="15" font-family="inherit">
+    <text x="22" y="206" fill="currentColor">O</text>
+    <text x="308" y="186" fill="currentColor">A</text>
+    <text x="146" y="30" fill="currentColor">B</text>
+    <text x="166.0" y="212.0" fill="currentColor">M</text>
+    <text x="73.0" y="120.0" fill="currentColor">N</text>
+    <text x="105.0" y="215.0" fill="var(--t1-ink)" font-weight="bold">a</text>
+    <text x="51.5" y="160.0" fill="var(--t5-ink)" font-weight="bold">b</text>
+  </g>
+</svg>

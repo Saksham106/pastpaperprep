@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 190" role="img" aria-labelledby="t">
+  <title id="t">Box and whisker diagram of fish lengths: whiskers from 14 to 42, box from 22 to 30 with the median at 26, and a cross at 47 for the outlier</title>
+  <g stroke="var(--muted)" stroke-width="0.6">
+    <line x1="24.0" y1="40" x2="24.0" y2="140"/>
+    <line x1="63.5" y1="40" x2="63.5" y2="140"/>
+    <line x1="103.0" y1="40" x2="103.0" y2="140"/>
+    <line x1="142.5" y1="40" x2="142.5" y2="140"/>
+    <line x1="182.0" y1="40" x2="182.0" y2="140"/>
+    <line x1="221.5" y1="40" x2="221.5" y2="140"/>
+    <line x1="261.0" y1="40" x2="261.0" y2="140"/>
+    <line x1="300.5" y1="40" x2="300.5" y2="140"/>
+    <line x1="340.0" y1="40" x2="340.0" y2="140"/>
+  </g>
+  <g stroke="var(--t4-ink)" stroke-width="2" fill="none">
+    <rect x="118.8" y="76" width="63.2" height="32" fill="var(--t4-ink)" fill-opacity="0.14"/>
+    <line x1="150.4" y1="76" x2="150.4" y2="108"/>
+    <line x1="55.6" y1="92" x2="118.8" y2="92"/>
+    <line x1="182.0" y1="92" x2="276.8" y2="92"/>
+    <line x1="55.6" y1="83" x2="55.6" y2="101"/>
+    <line x1="276.8" y1="83" x2="276.8" y2="101"/>
+    <path d="M311.3,87 L321.3,97 M311.3,97 L321.3,87"/>
+  </g>
+  <g fill="var(--t4-ink)" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="55.6" y="62">smallest</text>
+    <text x="118.8" y="48">Q1</text>
+    <text x="150.4" y="62">median</text>
+    <text x="182.0" y="48">Q3</text>
+    <text x="276.8" y="62">largest non-</text>
+    <text x="316.3" y="48">outlier</text>
+    <text x="276.8" y="74">outlier</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="24" y1="140" x2="340" y2="140"/>
+    <line x1="24.0" y1="140" x2="24.0" y2="145"/>
+    <line x1="63.5" y1="140" x2="63.5" y2="145"/>
+    <line x1="103.0" y1="140" x2="103.0" y2="145"/>
+    <line x1="142.5" y1="140" x2="142.5" y2="145"/>
+    <line x1="182.0" y1="140" x2="182.0" y2="145"/>
+    <line x1="221.5" y1="140" x2="221.5" y2="145"/>
+    <line x1="261.0" y1="140" x2="261.0" y2="145"/>
+    <line x1="300.5" y1="140" x2="300.5" y2="145"/>
+    <line x1="340.0" y1="140" x2="340.0" y2="145"/>
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="24.0" y="158">10</text>
+    <text x="63.5" y="158">15</text>
+    <text x="103.0" y="158">20</text>
+    <text x="142.5" y="158">25</text>
+    <text x="182.0" y="158">30</text>
+    <text x="221.5" y="158">35</text>
+    <text x="261.0" y="158">40</text>
+    <text x="300.5" y="158">45</text>
+    <text x="340.0" y="158">50</text>
+    <text x="182.0" y="178">Length, cm</text>
+  </g>
+</svg>

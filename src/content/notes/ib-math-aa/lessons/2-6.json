@@ -1,0 +1,673 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.6",
+  "slug": "quadratic-functions",
+  "title": "Quadratic functions",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A [[quadratic-function|quadratic function]] has $x^{2}$ as its highest power, and its graph is a U-shaped curve called a [[parabola|parabola]]. You can write the same quadratic in three forms: general, factorised and vertex form. Each form shows one feature at a glance, so the skill is picking the right form and moving between them.",
+  "goals": [
+    {
+      "text": "Sketch the graph of $f(x) = ax^{2} + bx + c$ from the sign of $a$ and the [[y-intercept|y-intercept]] $(0, c)$.",
+      "bullets": [
+        "2.6-b1"
+      ]
+    },
+    {
+      "text": "Find the [[axis-of-symmetry|axis of symmetry]] $x = -\\frac{b}{2a}$ and use it to find the [[vertex|vertex]].",
+      "bullets": [
+        "2.6-b1"
+      ]
+    },
+    {
+      "text": "Read the [[x-intercept|x-intercepts]] $(p, 0)$ and $(q, 0)$ from the factorised form $a(x - p)(x - q)$.",
+      "bullets": [
+        "2.6-b2"
+      ]
+    },
+    {
+      "text": "Read the vertex $(h, k)$ from the vertex form $a(x - h)^{2} + k$, and use it to state the [[range|range]].",
+      "bullets": [
+        "2.6-b3"
+      ]
+    },
+    {
+      "text": "Change a quadratic from one form to another by expanding, factorising or [[completing-the-square|completing the square]].",
+      "bullets": [
+        "2.6-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.3",
+    "2.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "completing the square",
+    "vertex form of a quadratic",
+    "factorised form of a quadratic",
+    "axis of symmetry of a parabola",
+    "turning point of a quadratic",
+    "parabola graph"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-point-on-curve",
+      "prompt": "The point $(2, k)$ lies on the graph of $y = 3x^{2} - 5x + 1$. Find $k$.",
+      "hint": "A point lies on a graph when its coordinates fit the equation. Put $x = 2$ into it.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0
+      },
+      "explain": "$k = 3(2)^{2} - 5(2) + 1 = 12 - 10 + 1 = 3$. Revise it in {{lesson:2.3}}."
+    },
+    {
+      "type": "check",
+      "id": "before-zeros",
+      "prompt": "What are the zeros of $f(x) = (x - 6)(x + 1)$?",
+      "hint": "A product is $0$ when one of its factors is $0$. Set each bracket equal to $0$.",
+      "options": [
+        {
+          "text": "$x = 6 \\text{ or } x = -1$",
+          "correct": true
+        },
+        {
+          "text": "$x = -6 \\text{ or } x = 1$",
+          "correct": false
+        },
+        {
+          "text": "$x = 6 \\text{ or } x = 1$",
+          "correct": false
+        }
+      ],
+      "explain": "$x - 6 = 0$ gives $x = 6$, and $x + 1 = 0$ gives $x = -1$. Revise it in {{lesson:2.4}}."
+    },
+    {
+      "type": "check",
+      "id": "before-axis-midpoint",
+      "prompt": "A parabola meets the $x$-axis at $x = -1$ and $x = 7$. What is the equation of its axis of symmetry?",
+      "hint": "The axis of symmetry is halfway between the two zeros.",
+      "options": [
+        {
+          "text": "$x = 3$",
+          "correct": true
+        },
+        {
+          "text": "$x = 4$",
+          "correct": false
+        },
+        {
+          "text": "$x = 6$",
+          "correct": false
+        },
+        {
+          "text": "$y = 3$",
+          "correct": false
+        }
+      ],
+      "explain": "Halfway between $-1$ and $7$ is $\\frac{-1 + 7}{2} = 3$, so the axis is the vertical line $x = 3$. Revise it in {{lesson:2.4}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "general-form",
+      "heading": "The general form and its graph",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[quadratic-function|quadratic function]] is one whose highest power of $x$ is $x^{2}$. Its graph is a smooth U-shaped curve called a [[parabola|parabola]]."
+        },
+        {
+          "type": "definition",
+          "term": "quadratic function",
+          "statement": "A quadratic function has the form $f(x) = ax^{2} + bx + c$, where $a$, $b$ and $c$ are real constants and $a \\ne 0$. This is called the general form.",
+          "plain": "A function whose biggest power of x is x squared."
+        },
+        {
+          "type": "text",
+          "text": "The number $a$ sets the shape. If $a > 0$, the parabola opens upwards like a cup, so it has a lowest point. If $a < 0$, it opens downwards like an upturned cup, so it has a highest point."
+        },
+        {
+          "type": "figure",
+          "id": "2-6-three-forms",
+          "alt": "Upward-opening parabola y equals x squared minus 2x minus 3. It crosses the y-axis at (0, minus 3) and the x-axis at (minus 1, 0) and (3, 0). Its lowest point, the vertex, is at (1, minus 4). A dashed vertical line x equals 1 passes through the vertex: this is the axis of symmetry.",
+          "caption": "One parabola, three forms: $y = x^{2} - 2x - 3 = (x + 1)(x - 3) = (x - 1)^{2} - 4$. Each form shows a different feature with no working."
+        },
+        {
+          "type": "text",
+          "text": "The general form shows the [[y-intercept|y-intercept]] at once. Put $x = 0$: every term except $c$ becomes $0$, so $f(0) = c$ and the graph meets the $y$-axis at $(0, c)$. In the figure, $c = -3$."
+        },
+        {
+          "type": "text",
+          "text": "A parabola is symmetric. Fold it along the vertical line through its [[vertex|vertex]], its turning point, and the two halves match. That line is the [[axis-of-symmetry|axis of symmetry]]."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = ax^{2} + bx + c \\;\\Rightarrow\\; \\text{the axis of symmetry is } x = -\\frac{b}{2a}",
+          "tag": "booklet",
+          "bookletId": "bk-2-6-axis-of-symmetry",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Why it works: $ax^{2} + bx = x(ax + b)$ is $0$ at $x = 0$ and at $x = -\\frac{b}{a}$. So both of these $x$-values give $y = c$. The axis lies halfway between them, at $x = -\\frac{b}{2a}$."
+        },
+        {
+          "type": "text",
+          "text": "It is in the formula booklet, so you needn't memorise it. The vertex lies on the axis: find its $x$-coordinate from the formula, then substitute it into $f$."
+        },
+        {
+          "type": "example",
+          "id": "ex-general-features",
+          "question": "Let $f(x) = 2x^{2} - 12x + 7$. Write down the $y$-intercept of the graph of $f$. Find the equation of the axis of symmetry and the coordinates of the vertex.",
+          "steps": [
+            "Here $a = 2$, $b = -12$ and $c = 7$. Since $a > 0$, the parabola opens upwards, so the vertex is its lowest point.",
+            "The $y$-intercept is $(0, c) = (0, 7)$.",
+            "Axis of symmetry: $x = -\\frac{b}{2a} = -\\frac{-12}{2 \\times 2} = \\frac{12}{4} = 3$. So the axis is the line $x = 3$.",
+            "The vertex lies on $x = 3$. Its $y$-coordinate is $f(3) = 2(9) - 12(3) + 7 = 18 - 36 + 7 = -11$.",
+            "Check with the symmetry: $f(0) = 7$ and $f(6) = 72 - 72 + 7 = 7$, equal heights $3$ units either side of the axis."
+          ],
+          "answer": "$(3, -11)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the vertex as one number, such as $-11$, or the axis as the number $3$. The vertex is a point, $(3, -11)$. The axis is a line, so write its equation, $x = 3$."
+        },
+        {
+          "type": "check",
+          "id": "check-axis-formula",
+          "prompt": "What is the equation of the axis of symmetry of $y = 5x^{2} + 20x - 3$?",
+          "hint": "Use $x = -\\frac{b}{2a}$ with $a = 5$ and $b = 20$.",
+          "options": [
+            {
+              "text": "$x = -2$",
+              "correct": true
+            },
+            {
+              "text": "$x = 2$",
+              "correct": false
+            },
+            {
+              "text": "$x = -4$",
+              "correct": false
+            },
+            {
+              "text": "$x = -10$",
+              "correct": false
+            }
+          ],
+          "explain": "$x = -\\frac{20}{2 \\times 5} = -\\frac{20}{10} = -2$. Getting $2$ drops the minus sign, $-4$ forgets the $2$, and $-10$ forgets the $a$."
+        },
+        {
+          "type": "example",
+          "id": "ex-find-coefficients",
+          "question": "The graph of $y = ax^{2} - 8x + c$ passes through the point $(0, 5)$, and its axis of symmetry is $x = -2$. Find $a$ and $c$.",
+          "steps": [
+            "The point $(0, 5)$ has $x = 0$, so it is the $y$-intercept. The $y$-intercept is $(0, c)$, so $c = 5$.",
+            "Here $b = -8$, so the axis of symmetry is $x = -\\frac{-8}{2a} = \\frac{8}{2a} = \\frac{4}{a}$.",
+            "Set this equal to the given axis: $\\frac{4}{a} = -2$. Multiply both sides by $a$: $4 = -2a$, so $a = -2$.",
+            "Check: $y = -2x^{2} - 8x + 5$ has axis $x = -\\frac{-8}{2(-2)} = -\\frac{8}{4} = -2$, as given."
+          ],
+          "answer": "$a = -2, \\; c = 5$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-max-value",
+          "prompt": "Find the maximum value of $f(x) = -3x^{2} + 12x - 5$.",
+          "hint": "Find the axis of symmetry first. The maximum value is the $y$-coordinate of the vertex.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "$x = -\\frac{12}{2(-3)} = 2$, and $f(2) = -12 + 24 - 5 = 7$. Since $a < 0$, the vertex is the highest point, so the maximum value is $7$."
+        }
+      ]
+    },
+    {
+      "id": "factorised-form",
+      "heading": "Factorised form and the x-intercepts",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Look again at the figure, written as $y = (x + 1)(x - 3)$. A product is $0$ only when one of its factors is $0$. So $y = 0$ exactly when $x + 1 = 0$ or $x - 3 = 0$, that is at $x = -1$ or $x = 3$."
+        },
+        {
+          "type": "text",
+          "text": "Those are the two [[x-intercept|x-intercepts]], $(-1, 0)$ and $(3, 0)$. You read them straight off the brackets, with no solving."
+        },
+        {
+          "type": "definition",
+          "term": "factorised form",
+          "statement": "A quadratic is in factorised form when it is written $f(x) = a(x - p)(x - q)$, where $a \\ne 0$. Its graph meets the $x$-axis at $(p, 0)$ and $(q, 0)$.",
+          "plain": "The quadratic written as a number times two brackets, which shows where it crosses the x-axis."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = a(x - p)(x - q) \\;\\Rightarrow\\; x\\text{-intercepts } (p,\\ 0) \\text{ and } (q,\\ 0)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Watch the signs. The form has a minus sign in each bracket, so $(x + 4)$ means $(x - (-4))$. It gives the intercept $(-4, 0)$, not $(4, 0)$."
+        },
+        {
+          "type": "text",
+          "text": "The [[axis-of-symmetry|axis of symmetry]] is halfway between the two intercepts, at $x = \\frac{p + q}{2}$. The [[vertex|vertex]] lies on it, so substitute that $x$ into $f$ to find the vertex."
+        },
+        {
+          "type": "example",
+          "id": "ex-factorised-vertex",
+          "question": "Let $f(x) = 2(x + 1)(x - 5)$. Write down the $x$-intercepts of the graph of $f$. Then find the coordinates of its vertex.",
+          "steps": [
+            "Write each bracket as $(x - p)$: $x + 1 = x - (-1)$. So $p = -1$ and $q = 5$, and the $x$-intercepts are $(-1, 0)$ and $(5, 0)$.",
+            "The axis of symmetry is halfway between them: $x = \\frac{-1 + 5}{2} = 2$.",
+            "The vertex lies on $x = 2$. Substitute: $f(2) = 2(2 + 1)(2 - 5) = 2(3)(-3) = -18$.",
+            "Since $a = 2 > 0$, the [[parabola|parabola]] opens upwards, so $(2, -18)$ is its lowest point."
+          ],
+          "answer": "$(2, -18)$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-equation-from-intercepts",
+          "question": "A parabola crosses the $x$-axis at $(-5, 0)$ and $(1, 0)$, and passes through the point $(2, 21)$. Find its equation in the form $y = ax^{2} + bx + c$.",
+          "steps": [
+            "The intercepts give $p = -5$ and $q = 1$, so $y = a(x + 5)(x - 1)$. Only $a$ is unknown.",
+            "Substitute the point $(2, 21)$: $21 = a(2 + 5)(2 - 1) = 7a$, so $a = 3$.",
+            "So $y = 3(x + 5)(x - 1)$. To reach the general form, expand the brackets first: $(x + 5)(x - 1) = x^{2} - x + 5x - 5 = x^{2} + 4x - 5$.",
+            "Multiply by $3$: $y = 3x^{2} + 12x - 15$.",
+            "Check with the point: at $x = 2$, $y = 3(4) + 12(2) - 15 = 12 + 24 - 15 = 21$."
+          ],
+          "answer": "$y = 3x^{2} + 12x - 15$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Reading $(x + 4)$ as an intercept at $x = 4$. Set the bracket equal to $0$ instead: $x + 4 = 0$ gives $x = -4$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also link the roots to the coefficients: the roots of $ax^{2} + bx + c = 0$ add up to $-\\frac{b}{a}$ and multiply to $\\frac{c}{a}$.",
+          "lesson": "2.12"
+        },
+        {
+          "type": "check",
+          "id": "check-read-intercepts",
+          "prompt": "Where does the graph of $y = 3(x - 4)(x + 7)$ meet the $x$-axis?",
+          "hint": "Each bracket is $0$ at one value of $x$. Solve $x - 4 = 0$ and $x + 7 = 0$.",
+          "options": [
+            {
+              "text": "$(4, 0) \\text{ and } (-7, 0)$",
+              "correct": true
+            },
+            {
+              "text": "$(-4, 0) \\text{ and } (7, 0)$",
+              "correct": false
+            },
+            {
+              "text": "$(4, 0) \\text{ and } (7, 0)$",
+              "correct": false
+            },
+            {
+              "text": "$(0, -84)$",
+              "correct": false
+            }
+          ],
+          "explain": "$x - 4 = 0$ gives $x = 4$, and $x + 7 = 0$ gives $x = -7$. The point $(0, -84)$ is the $y$-intercept, where $x = 0$."
+        },
+        {
+          "type": "check",
+          "id": "check-find-a",
+          "prompt": "The graph of $y = a(x - 1)(x - 7)$ passes through the point $(3, 24)$. Find $a$.",
+          "hint": "Substitute $x = 3$ and $y = 24$, then solve for $a$.",
+          "answer": {
+            "value": -3,
+            "tolerance": 0
+          },
+          "explain": "$24 = a(3 - 1)(3 - 7) = a(2)(-4) = -8a$, so $a = -3$."
+        }
+      ]
+    },
+    {
+      "id": "vertex-form",
+      "heading": "Vertex form and the vertex",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now write the figure's [[parabola|parabola]] as $y = (x - 1)^{2} - 4$. A square is never negative, so $(x - 1)^{2} \\ge 0$. It equals $0$ only when $x = 1$."
+        },
+        {
+          "type": "text",
+          "text": "So $y$ is never less than $0 - 4 = -4$, and it equals $-4$ only at $x = 1$. The lowest point, the [[vertex|vertex]], is $(1, -4)$. The [[axis-of-symmetry|axis of symmetry]], $x = 1$, passes through it. You read both straight off the form."
+        },
+        {
+          "type": "definition",
+          "term": "vertex form",
+          "statement": "A quadratic is in vertex form when it is written $f(x) = a(x - h)^{2} + k$, where $a \\ne 0$. Its vertex is $(h, k)$ and its axis of symmetry is $x = h$.",
+          "plain": "The quadratic written as a number times a squared bracket, plus a number, which shows the turning point."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = a(x - h)^{2} + k \\;\\Rightarrow\\; \\text{vertex } (h,\\ k), \\text{ axis } x = h",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "As with factorised form, watch the sign inside the bracket. $(x + 3)^{2}$ is $(x - (-3))^{2}$, so $h = -3$. The number outside the bracket keeps its sign: $k$ is exactly what you see."
+        },
+        {
+          "type": "text",
+          "text": "If $a > 0$, the vertex is a minimum point, so the [[range|range]] is $f(x) \\ge k$. If $a < 0$, it is a maximum point, so the range is $f(x) \\le k$. The inequality is not strict, because the graph reaches $k$ at the vertex."
+        },
+        {
+          "type": "text",
+          "text": "In the widget, keep the base as $x^{2}$ and $b$ at $1$. Then its $c$ slider plays the part of $h$ and its $d$ slider plays $k$. {{lesson:2.11}} explains these moves as transformations."
+        },
+        {
+          "type": "interactive",
+          "widget": "transformations",
+          "props": {},
+          "alt": "A dashed parabola y equals x squared and a solid copy of it, with sliders for a stretch a, a horizontal scale b, a shift right c and a shift up d. Moving c and d slides the solid parabola so its lowest point sits at (c, d). A negative a turns the solid parabola upside down, so that point becomes its highest point."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-vertex",
+          "question": "Let $f(x) = 3(x + 4)^{2} - 7$. Write down the vertex and the axis of symmetry of the parabola $y = f(x)$. Find its $y$-intercept.",
+          "steps": [
+            "Match $f$ to $a(x - h)^{2} + k$. The bracket is $(x + 4) = (x - (-4))$, so $h = -4$. The number outside is $k = -7$, and $a = 3$.",
+            "So the vertex is $(h, k) = (-4, -7)$, and the axis of symmetry is $x = -4$.",
+            "Since $a = 3 > 0$, the parabola opens upwards, so $(-4, -7)$ is its minimum point.",
+            "For the $y$-intercept, put $x = 0$: $f(0) = 3(0 + 4)^{2} - 7 = 48 - 7 = 41$. So the graph meets the $y$-axis at $(0, 41)$."
+          ],
+          "answer": "$(-4, -7)$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-vertex-and-point",
+          "question": "The graph of a quadratic function $f$ has its vertex at $(4, 6)$ and its $y$-intercept at $(0, -2)$. Find $f(x)$ in the form $a(x - h)^{2} + k$. Hence write down the range of $f$.",
+          "steps": [
+            "The vertex is $(4, 6)$, so $h = 4$ and $k = 6$: $f(x) = a(x - 4)^{2} + 6$. Only $a$ is unknown.",
+            "The $y$-intercept $(0, -2)$ means $f(0) = -2$. So $a(0 - 4)^{2} + 6 = -2$.",
+            "This gives $16a + 6 = -2$, so $16a = -8$ and $a = -\\frac{1}{2}$.",
+            "Check: $f(0) = -\\frac{1}{2}(16) + 6 = -8 + 6 = -2$.",
+            "Since $a < 0$, the parabola opens downwards and the vertex is its highest point. The graph reaches $6$ there, so the range is $f(x) \\le 6$."
+          ],
+          "answer": "$f(x) = -\\frac{1}{2}(x - 4)^{2} + 6$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-vertex-read",
+          "prompt": "What are the coordinates of the vertex of $y = 5(x + 3)^{2} - 8$?",
+          "hint": "Write the bracket in the form $(x - h)$. What is $h$?",
+          "options": [
+            {
+              "text": "$(-3, -8)$",
+              "correct": true
+            },
+            {
+              "text": "$(3, -8)$",
+              "correct": false
+            },
+            {
+              "text": "$(-3, 8)$",
+              "correct": false
+            },
+            {
+              "text": "$(3, 8)$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x + 3) = (x - (-3))$, so $h = -3$. The number outside is $k = -8$. The vertex is $(-3, -8)$."
+        },
+        {
+          "type": "check",
+          "id": "check-range",
+          "prompt": "What is the range of $g(x) = -4(x + 1)^{2} + 3$, for $x \\in \\mathbb{R}$?",
+          "hint": "Is the vertex a highest or a lowest point? Look at the sign of the number in front of the bracket.",
+          "options": [
+            {
+              "text": "$g(x) \\le 3$",
+              "correct": true
+            },
+            {
+              "text": "$g(x) < 3$",
+              "correct": false
+            },
+            {
+              "text": "$g(x) \\ge 3$",
+              "correct": false
+            },
+            {
+              "text": "$g(x) \\le -1$",
+              "correct": false
+            }
+          ],
+          "explain": "The vertex is $(-1, 3)$, and $a = -4 < 0$, so it is the highest point. The graph reaches $3$, so the range is $g(x) \\le 3$, with $\\le$ and not $<$."
+        }
+      ]
+    },
+    {
+      "id": "changing-forms",
+      "heading": "Changing from one form to another",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each form shows a different feature, so you often rewrite a quadratic before you can read off what you want. There are three moves."
+        },
+        {
+          "type": "text",
+          "text": "1. To reach the general form, expand the brackets. For example, $2(x - 3)^{2} + 1 = 2(x^{2} - 6x + 9) + 1 = 2x^{2} - 12x + 19$."
+        },
+        {
+          "type": "text",
+          "text": "2. To reach the factorised form, take out the common factor $a$, then factorise what is left. For example, $3x^{2} - 3x - 18 = 3(x^{2} - x - 6) = 3(x - 3)(x + 2)$. If the [[parabola|parabola]] never meets the $x$-axis, it has no factorised form with real $p$ and $q$."
+        },
+        {
+          "type": "text",
+          "text": "3. To reach the vertex form, which shows the [[vertex|vertex]], use [[completing-the-square|completing the square]], shown below."
+        },
+        {
+          "type": "text",
+          "text": "Start from a squared bracket: $(x + 5)^{2} = x^{2} + 10x + 25$. The number in the bracket, $5$, is half of $10$, the coefficient of $x$. So $x^{2} + 10x$ is $(x + 5)^{2}$ with $25$ taken away."
+        },
+        {
+          "type": "definition",
+          "term": "completing the square",
+          "statement": "Completing the square rewrites $x^{2} + bx$ as $\\left(x + \\frac{b}{2}\\right)^{2} - \\left(\\frac{b}{2}\\right)^{2}$. Applied to a whole quadratic, it gives the vertex form.",
+          "plain": "Turning the x squared and x terms into one squared bracket, then correcting the number left over."
+        },
+        {
+          "type": "formula",
+          "tex": "x^{2} + bx = \\left(x + \\frac{b}{2}\\right)^{2} - \\left(\\frac{b}{2}\\right)^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-complete-square",
+          "question": "Write $f(x) = x^{2} - 10x + 18$ in the form $(x - h)^{2} + k$. Hence write down the vertex of the parabola $y = f(x)$.",
+          "steps": [
+            "Half the coefficient of $x$ is $\\frac{-10}{2} = -5$, so the bracket is $(x - 5)$.",
+            "$(x - 5)^{2} = x^{2} - 10x + 25$, which is $25$ too much. So $x^{2} - 10x = (x - 5)^{2} - 25$.",
+            "Put the constant back: $f(x) = (x - 5)^{2} - 25 + 18 = (x - 5)^{2} - 7$.",
+            "Check by expanding: $(x - 5)^{2} - 7 = x^{2} - 10x + 25 - 7 = x^{2} - 10x + 18$.",
+            "Read off $h = 5$ and $k = -7$: the vertex is $(5, -7)$."
+          ],
+          "answer": "$f(x) = (x - 5)^{2} - 7$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting to take away the square of half the coefficient. $x^{2} - 10x + 18$ is not $(x - 5)^{2} + 18$, because that adds an extra $25$."
+        },
+        {
+          "type": "text",
+          "text": "When $a \\ne 1$, take $a$ out of the $x^{2}$ and $x$ terms first. Complete the square inside the bracket, then multiply back by $a$."
+        },
+        {
+          "type": "example",
+          "id": "ex-complete-square-negative-a",
+          "question": "Let $f(x) = -2x^{2} + 4x + 30$. Write $f(x)$ in the form $a(x - h)^{2} + k$.",
+          "steps": [
+            "Take $-2$ out of the first two terms: $f(x) = -2(x^{2} - 2x) + 30$. Check: $-2 \\times (-2x) = +4x$.",
+            "Complete the square inside: half of $-2$ is $-1$, so $x^{2} - 2x = (x - 1)^{2} - 1$.",
+            "Substitute: $f(x) = -2\\left[(x - 1)^{2} - 1\\right] + 30$.",
+            "Multiply out the square bracket. The $-1$ is inside it too, so it becomes $(-2)(-1) = +2$: $f(x) = -2(x - 1)^{2} + 2 + 30 = -2(x - 1)^{2} + 32$.",
+            "Check with the booklet formula: $x = -\\frac{4}{2(-2)} = 1$ and $f(1) = -2 + 4 + 30 = 32$. The vertex $(1, 32)$ matches."
+          ],
+          "answer": "$f(x) = -2(x - 1)^{2} + 32$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-complete-square",
+          "prompt": "Which is $x^{2} + 8x + 3$ written in vertex form?",
+          "hint": "Half of $8$ is $4$. Expand $(x + 4)^{2}$ and compare it with $x^{2} + 8x$.",
+          "options": [
+            {
+              "text": "$(x + 4)^{2} - 13$",
+              "correct": true
+            },
+            {
+              "text": "$(x + 4)^{2} + 3$",
+              "correct": false
+            },
+            {
+              "text": "$(x - 4)^{2} - 13$",
+              "correct": false
+            },
+            {
+              "text": "$(x + 8)^{2} - 61$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x + 4)^{2} = x^{2} + 8x + 16$, which is $16$ too much. So $x^{2} + 8x + 3 = (x + 4)^{2} - 16 + 3 = (x + 4)^{2} - 13$."
+        },
+        {
+          "type": "check",
+          "id": "check-factorise",
+          "prompt": "Which is $2x^{2} - 2x - 24$ written in factorised form?",
+          "hint": "Take out the common factor $2$ first. Then find two numbers that multiply to $-12$ and add to $-1$.",
+          "options": [
+            {
+              "text": "$2(x - 4)(x + 3)$",
+              "correct": true
+            },
+            {
+              "text": "$2(x + 4)(x - 3)$",
+              "correct": false
+            },
+            {
+              "text": "$(x - 4)(x + 3)$",
+              "correct": false
+            },
+            {
+              "text": "$(2x - 4)(x + 3)$",
+              "correct": false
+            }
+          ],
+          "explain": "$2x^{2} - 2x - 24 = 2(x^{2} - x - 12)$. The numbers $-4$ and $3$ multiply to $-12$ and add to $-1$, so it is $2(x - 4)(x + 3)$. Expand it to check."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2, a quadratic with awkward decimals is quicker on a GDC. To go from vertex form to factorised form, find the zeros $p$ and $q$ on the GDC. The value of $a$ is the same in every form."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-factorised",
+          "question": "Let $f(x) = 0.6(x - 2.3)^{2} - 4.1$. Use your GDC to find the $x$-intercepts of the graph of $f$. Hence write $f(x)$ in the form $a(x - p)(x - q)$. Give values to 3 s.f.",
+          "steps": [
+            "Write down the function you graph: $y = 0.6(x - 2.3)^{2} - 4.1$. The vertex $(2.3, -4.1)$ is below the $x$-axis and the curve opens upwards, so there are two zeros.",
+            "Use the zero tool on each crossing. The GDC gives $x = -0.314064\\ldots$ and $x = 4.91406\\ldots$",
+            "Round only now: $x \\approx -0.314$ and $x \\approx 4.91$.",
+            "The value of $a$ does not change, so $f(x) \\approx 0.6(x + 0.314)(x - 4.91)$.",
+            "Check: the zeros should sit either side of the axis $x = 2.3$, and $\\frac{-0.314 + 4.91}{2} \\approx 2.30$."
+          ],
+          "answer": "$f(x) \\approx 0.6(x + 0.314)(x - 4.91)$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = 0.6(X-2.3)^2-4.1, then GRAPH",
+              "2nd TRACE (CALC), 2: zero",
+              "Move to the left of the first crossing, ENTER; to the right of it, ENTER; then ENTER for the guess (check on your model)",
+              "Read X = -0.314064...; repeat for the other crossing to read X = 4.91406..."
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = 0.6(x-2.3)^2-4.1",
+              "Menu, Analyze Graph, Zero",
+              "Click to the left and then to the right of the first crossing (check on your model)",
+              "Read x = -0.314065; repeat for the other crossing to read x = 4.91406"
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = 0.6(X-2.3)^2-4.1, then DRAW",
+              "SHIFT F5 (G-SOLV), ROOT",
+              "Read X = -0.3140645; press the right arrow to move to the next root (check on your model)",
+              "Read X = 4.9140645"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "General form $f(x) = ax^{2} + bx + c$: $y$-intercept $(0, c)$. The parabola opens upwards if $a > 0$ and downwards if $a < 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Axis of symmetry: $x = -\\frac{b}{2a}$. The vertex lies on it, so substitute that $x$ into $f$ for the vertex's $y$-coordinate.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Factorised form $a(x - p)(x - q)$: $x$-intercepts $(p, 0)$ and $(q, 0)$, axis $x = \\frac{p + q}{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Vertex form $a(x - h)^{2} + k$: vertex $(h, k)$, axis $x = h$. Range $f(x) \\ge k$ if $a > 0$, or $f(x) \\le k$ if $a < 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Change forms by expanding, factorising or completing the square: $x^{2} + bx = \\left(x + \\frac{b}{2}\\right)^{2} - \\left(\\frac{b}{2}\\right)^{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Copying the sign from a bracket. $(x + 2)$ means $(x - (-2))$, so it gives the intercept $x = -2$, or $h = -2$ in vertex form, not $2$.",
+    "Forgetting to take away the square when completing the square. $x^{2} - 4x + 7$ is $(x - 2)^{2} - 4 + 7 = (x - 2)^{2} + 3$, not $(x - 2)^{2} + 7$.",
+    "When $a \\ne 1$, forgetting to multiply the subtracted number by $a$. In $-2\\left[(x - 1)^{2} - 1\\right]$, the $-1$ becomes $+2$.",
+    "Giving the vertex as one number, or the axis of symmetry as a number. Write the vertex as coordinates, $(h, k)$, and the axis as an equation, $x = h$.",
+    "Using a strict inequality for the range. The graph reaches $k$ at its vertex, so $k$ belongs in the range: $f(x) \\ge k$ or $f(x) \\le k$."
+  ],
+  "examTips": [
+    "\"Write down\" the vertex from vertex form, or the intercepts from factorised form, needs no working. Give a point as coordinates and a line as an equation, such as $x = 3$.",
+    "In a \"show that\" question with a given value, work forwards from the information to that value, for example with $x = -\\frac{b}{2a}$. Never substitute the value you are asked to show.",
+    "On Paper 1, give exact values such as $-\\frac{1}{2}$. On Paper 2, write down the function you graph, then give GDC answers to 3 s.f."
+  ],
+  "readingMinutes": 26
+}

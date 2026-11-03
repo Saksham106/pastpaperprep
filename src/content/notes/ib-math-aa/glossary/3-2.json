@@ -1,0 +1,26 @@
+[
+  {
+    "id": "hypotenuse",
+    "term": "hypotenuse",
+    "definition": "The longest side of a right-angled triangle: the side opposite the right angle.",
+    "lesson": "3.2"
+  },
+  {
+    "id": "included-angle",
+    "term": "included angle",
+    "definition": "The angle between two given sides of a triangle, at the corner where they meet.",
+    "lesson": "3.2"
+  },
+  {
+    "id": "sine-rule",
+    "term": "sine rule",
+    "definition": "In any triangle $ABC$, $\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}$, where each side is opposite the angle with the same letter.",
+    "lesson": "3.2"
+  },
+  {
+    "id": "cosine-rule",
+    "term": "cosine rule",
+    "definition": "In any triangle $ABC$, $c^{2} = a^{2} + b^{2} - 2ab\\cos C$, which links all three sides and one angle.",
+    "lesson": "3.2"
+  }
+]

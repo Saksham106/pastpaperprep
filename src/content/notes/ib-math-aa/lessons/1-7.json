@@ -1,0 +1,832 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.7",
+  "slug": "rational-exponents-and-logarithm-laws",
+  "title": "Rational exponents and logarithm laws",
+  "level": "SL",
+  "topic": 1,
+  "summary": "A fraction in the exponent means a root and a power: $8^{\\frac{2}{3}}$ is the cube root of $8$, squared. The [[laws-of-logarithms|laws of logarithms]] turn products into sums and powers into multiples. With [[change-of-base|change of base]], they let you solve [[exponential-equation|exponential equations]] such as $3^{x} = 20$, exactly or on a calculator.",
+  "goals": [
+    {
+      "text": "Evaluate and simplify [[rational-exponent|rational exponents]] such as $32^{-\\frac{3}{5}}$, using the exponent laws.",
+      "bullets": [
+        "1.7-b1"
+      ]
+    },
+    {
+      "text": "Switch between $y = a^{x}$ and $x = \\log_{a} y$, and use $\\log_{a} a = 1$ and $\\log_{a} 1 = 0$.",
+      "bullets": [
+        "1.7-b3"
+      ]
+    },
+    {
+      "text": "Use the [[laws-of-logarithms|laws of logarithms]] to split one log into several, or combine several into one.",
+      "bullets": [
+        "1.7-b2",
+        "1.7-b3"
+      ]
+    },
+    {
+      "text": "Rewrite a logarithm in a different base, to evaluate it or to solve an equation with mixed bases.",
+      "bullets": [
+        "1.7-b4"
+      ]
+    },
+    {
+      "text": "Solve [[exponential-equation|exponential equations]] by matching bases or by taking logarithms.",
+      "bullets": [
+        "1.7-b5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "fractional indices",
+    "laws of logs",
+    "log rules",
+    "change of base formula",
+    "solve exponential equations",
+    "take logs of both sides"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-integer-exponents",
+      "prompt": "Simplify $\\frac{x^{7} \\times x^{-2}}{x^{3}}$.",
+      "hint": "Multiplying powers adds exponents. Dividing subtracts them.",
+      "options": [
+        {
+          "text": "$x^{2}$",
+          "correct": true
+        },
+        {
+          "text": "$x^{6}$",
+          "correct": false
+        },
+        {
+          "text": "$x^{-2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$x^{7} \\times x^{-2} = x^{5}$, then $x^{5} \\div x^{3} = x^{2}$. Watch the sign of the $-2$. Revise it in {{lesson:1.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-log-form",
+      "prompt": "Which equation means the same as $10^{x} = 3$?",
+      "hint": "A logarithm gives the power. Which number is the power here?",
+      "options": [
+        {
+          "text": "$x = \\log_{10} 3$",
+          "correct": true
+        },
+        {
+          "text": "$x = \\log_{3} 10$",
+          "correct": false
+        },
+        {
+          "text": "$3 = \\log_{10} x$",
+          "correct": false
+        }
+      ],
+      "explain": "The power is $x$ and the base is $10$, so $x = \\log_{10} 3$. Revise it in {{lesson:1.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-log-value",
+      "prompt": "Find $\\log_{2} 32$.",
+      "hint": "What power of $2$ gives $32$?",
+      "answer": {
+        "value": 5,
+        "tolerance": 0
+      },
+      "explain": "$2^{5} = 32$, so $\\log_{2} 32 = 5$. Revise it in {{lesson:1.5}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "rational-exponents",
+      "heading": "Fractional exponents",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.5}} you used the exponent laws with whole-number exponents, such as $a^{m} \\times a^{n} = a^{m+n}$ and $\\left(a^{m}\\right)^{n} = a^{mn}$. These laws still hold when an exponent is a fraction. They also tell you what a fractional exponent has to mean."
+        },
+        {
+          "type": "text",
+          "text": "Try $9^{\\frac{1}{2}}$. Multiplying it by itself adds the exponents: $9^{\\frac{1}{2}} \\times 9^{\\frac{1}{2}} = 9^{1} = 9$. So $9^{\\frac{1}{2}}$ is a number whose square is $9$. It is $\\sqrt{9} = 3$."
+        },
+        {
+          "type": "text",
+          "text": "In the same way, $8^{\\frac{1}{3}} \\times 8^{\\frac{1}{3}} \\times 8^{\\frac{1}{3}} = 8^{1}$. So $8^{\\frac{1}{3}}$ is the cube root of $8$, which is $2$."
+        },
+        {
+          "type": "definition",
+          "term": "rational exponent",
+          "statement": "For $a > 0$ and positive integers $m$ and $n$: $a^{\\frac{1}{m}} = \\sqrt[m]{a}$, the $m$th root of $a$, and $a^{\\frac{n}{m}} = \\left(\\sqrt[m]{a}\\right)^{n}$. When $m$ is even, $\\sqrt[m]{a}$ means the positive root.",
+          "plain": "The bottom of the fraction is the root; the top is the power."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{\\frac{n}{m}} = \\left(\\sqrt[m]{a}\\right)^{n} = \\sqrt[m]{a^{n}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Why the positive root? The equation $x^{2} = 25$ has two solutions, $5$ and $-5$. But $25^{\\frac{1}{2}}$ has to be one number, so it is $5$."
+        },
+        {
+          "type": "text",
+          "text": "You can take the root or the power first. Taking the root first keeps the numbers small: $27^{\\frac{2}{3}} = 3^{2} = 9$. Squaring first gives $\\sqrt[3]{729}$, which is also $9$ but much harder to spot."
+        },
+        {
+          "type": "text",
+          "text": "A negative exponent still means a reciprocal, as in {{lesson:1.5}}: $a^{-p} = \\frac{1}{a^{p}}$. So you can deal with the sign, the root and the power one at a time."
+        },
+        {
+          "type": "example",
+          "id": "ex-evaluate-negative-fraction",
+          "question": "Without a calculator, find the value of $32^{-\\frac{3}{5}}$.",
+          "steps": [
+            "Deal with the minus sign first. A negative exponent means a reciprocal: $32^{-\\frac{3}{5}} = \\frac{1}{32^{\\frac{3}{5}}}$.",
+            "The denominator $5$ means a fifth root. Since $2^{5} = 32$, $\\sqrt[5]{32} = 2$.",
+            "The numerator $3$ means a cube: $32^{\\frac{3}{5}} = 2^{3} = 8$.",
+            "So $32^{-\\frac{3}{5}} = \\frac{1}{8}$.",
+            "Check: $\\left(\\frac{1}{8}\\right)^{5} = \\frac{1}{32768}$ and $32^{-3} = \\frac{1}{32768}$. Raising both sides of $32^{-\\frac{3}{5}} = \\frac{1}{8}$ to the power $5$ gives the same number, so the answer fits."
+          ],
+          "answer": "$32^{-\\frac{3}{5}} = \\frac{1}{8}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-simplify-fractional-powers",
+          "question": "Simplify $\\dfrac{\\left(9x^{4}\\right)^{\\frac{3}{2}}}{3x^{\\frac{1}{2}}}$, where $x > 0$.",
+          "steps": [
+            "A power of a product applies to every factor, the number included: $\\left(9x^{4}\\right)^{\\frac{3}{2}} = 9^{\\frac{3}{2}} \\times \\left(x^{4}\\right)^{\\frac{3}{2}}$.",
+            "Root first: $9^{\\frac{3}{2}} = \\left(\\sqrt{9}\\right)^{3} = 3^{3} = 27$.",
+            "Power of a power multiplies the exponents: $\\left(x^{4}\\right)^{\\frac{3}{2}} = x^{4 \\times \\frac{3}{2}} = x^{6}$.",
+            "Now divide. Numbers: $27 \\div 3 = 9$. Powers of $x$: subtract the exponents, $x^{6 - \\frac{1}{2}} = x^{\\frac{11}{2}}$.",
+            "Check with $x = 1$: the original is $\\frac{27}{3} = 9$, and $9 \\times 1^{\\frac{11}{2}} = 9$. They agree."
+          ],
+          "answer": "$\\dfrac{\\left(9x^{4}\\right)^{\\frac{3}{2}}}{3x^{\\frac{1}{2}}} = 9x^{\\frac{11}{2}}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting to raise the number. $\\left(9x^{4}\\right)^{\\frac{3}{2}}$ is $27x^{6}$, not $9x^{6}$: the power applies to every factor in the bracket."
+        },
+        {
+          "type": "check",
+          "id": "check-evaluate-fraction-power",
+          "prompt": "Without a calculator, find $125^{\\frac{2}{3}}$.",
+          "hint": "The $3$ means a cube root. What cubed gives $125$?",
+          "options": [
+            {
+              "text": "$25$",
+              "correct": true
+            },
+            {
+              "text": "$5$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{250}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sqrt[3]{125} = 5$, then $5^{2} = 25$. Stopping at the root gives $5$, and multiplying $125$ by $\\frac{2}{3}$ is not what the exponent means."
+        },
+        {
+          "type": "check",
+          "id": "check-single-power",
+          "prompt": "Write $\\dfrac{\\sqrt[3]{x^{2}}}{x^{2}}$ as a single power of $x$, where $x > 0$.",
+          "hint": "First write the cube root as a power: the root goes in the denominator of the exponent.",
+          "options": [
+            {
+              "text": "$x^{-\\frac{4}{3}}$",
+              "correct": true
+            },
+            {
+              "text": "$x^{-\\frac{1}{2}}$",
+              "correct": false
+            },
+            {
+              "text": "$x^{\\frac{4}{3}}$",
+              "correct": false
+            },
+            {
+              "text": "$x^{\\frac{1}{3}}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sqrt[3]{x^{2}} = x^{\\frac{2}{3}}$. Dividing subtracts exponents: $\\frac{2}{3} - 2 = -\\frac{4}{3}$."
+        }
+      ]
+    },
+    {
+      "id": "log-definition",
+      "heading": "What a logarithm undoes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.5}} you met $\\log_{a} y$ as an answer to a question: what power of $a$ gives $y$? Every law in this lesson comes from that one idea."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{x} = b \\Leftrightarrow x = \\log_{a} b, \\quad a > 0,\\ b > 0,\\ a \\neq 1",
+          "tag": "booklet",
+          "bookletId": "bk-1-5-log-definition",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This link is in the formula booklet. Read it both ways: an exponential statement can always be rewritten as a log statement, and back again. You will also see it as $y = a^{x} \\Leftrightarrow x = \\log_{a} y$: the same link with different letters."
+        },
+        {
+          "type": "text",
+          "text": "Why the conditions? A positive base raised to any power is positive, so $\\log_{a} b$ only exists when $b > 0$. The base can't be $1$, since every power of $1$ is $1$."
+        },
+        {
+          "type": "result",
+          "statement": "For any base $a > 0$, $a \\neq 1$: $\\log_{a} a = 1$ and $\\log_{a} 1 = 0$.",
+          "why": "$a^{1} = a$, so the power that gives $a$ is $1$. And $a^{0} = 1$, so the power that gives $1$ is $0$."
+        },
+        {
+          "type": "text",
+          "text": "Raising $a$ to a power and taking $\\log_{a}$ undo each other, like squaring and square-rooting a positive number. The booklet states this too. Its first part, $a^{x} = \\mathrm{e}^{x\\ln a}$, says any exponential can be written with base $\\mathrm{e}$; you will use it in {{lesson:2.9}}."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{x} = \\mathrm{e}^{x\\ln a}, \\quad \\log_{a} a^{x} = x = a^{\\log_{a} x}, \\quad a, x > 0,\\ a \\neq 1",
+          "tag": "booklet",
+          "bookletId": "bk-2-9-exp-log"
+        },
+        {
+          "type": "text",
+          "text": "On a graph, undoing each other means [[reflection|reflection]] in the line $y = x$. The point $(2, 4)$ is on $y = 2^{x}$, so $(4, 2)$ is on $y = \\log_{2} x$, because $\\log_{2} 4 = 2$. Drag the point to see this for other values."
+        },
+        {
+          "type": "interactive",
+          "widget": "exp-log-reflection",
+          "props": {
+            "a": 2
+          },
+          "alt": "Graphs of y equals 2 to the power x and y equals log base 2 of x, which are mirror images in the dashed line y equals x. A draggable point P on the exponential curve is reflected to a point Q on the log curve. Sliders change the base and the x-coordinate of P, and a readout shows the logarithm of P's y-coordinate."
+        },
+        {
+          "type": "example",
+          "id": "ex-log-fraction-value",
+          "question": "Without a calculator, find $\\log_{27} 9$.",
+          "steps": [
+            "Call the answer $x$. By the definition, $x = \\log_{27} 9$ means $27^{x} = 9$.",
+            "Write both numbers as powers of $3$: $27 = 3^{3}$ and $9 = 3^{2}$. So $\\left(3^{3}\\right)^{x} = 3^{2}$, which is $3^{3x} = 3^{2}$.",
+            "The bases match, so the exponents match: $3x = 2$, giving $x = \\frac{2}{3}$.",
+            "Check with a rational exponent: $27^{\\frac{2}{3}} = \\left(\\sqrt[3]{27}\\right)^{2} = 3^{2} = 9$. Correct."
+          ],
+          "answer": "$\\log_{27} 9 = \\frac{2}{3}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-log-equation-definition",
+          "question": "Solve $\\log_{4}(2x - 6) = \\frac{3}{2}$.",
+          "steps": [
+            "Rewrite the log statement as an exponential one. The base is $4$ and the power is $\\frac{3}{2}$: $2x - 6 = 4^{\\frac{3}{2}}$.",
+            "Root first: $4^{\\frac{3}{2}} = \\left(\\sqrt{4}\\right)^{3} = 2^{3} = 8$.",
+            "So $2x - 6 = 8$, which gives $2x = 14$ and $x = 7$.",
+            "Check: when $x = 7$, $2x - 6 = 8$, which is positive, so the log exists. And $\\log_{4} 8 = \\frac{3}{2}$ because $4^{\\frac{3}{2}} = 8$."
+          ],
+          "answer": "$x = 7$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-log-value",
+          "prompt": "Find $\\log_{8} \\frac{1}{4}$.",
+          "hint": "Write $8$ and $\\frac{1}{4}$ as powers of $2$, then match the exponents.",
+          "options": [
+            {
+              "text": "$-\\frac{2}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{2}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{3}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$8^{x} = \\frac{1}{4}$ becomes $2^{3x} = 2^{-2}$, so $3x = -2$ and $x = -\\frac{2}{3}$. A number between $0$ and $1$ always has a negative log when the base is above $1$."
+        },
+        {
+          "type": "check",
+          "id": "check-log-one-and-base",
+          "prompt": "Write down the value of $\\log_{5} 1 + \\log_{7} 7 + \\log_{3} 3^{4}$.",
+          "hint": "Use $\\log_{a} 1 = 0$, $\\log_{a} a = 1$ and $\\log_{a} a^{x} = x$.",
+          "answer": {
+            "value": 5,
+            "tolerance": 0
+          },
+          "explain": "The three terms are $0$, $1$ and $4$, so the total is $5$."
+        }
+      ]
+    },
+    {
+      "id": "log-laws",
+      "heading": "The laws of logarithms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A logarithm is an exponent. When you multiply powers of the same base, you add their exponents: $2^{3} \\times 2^{4} = 2^{7}$. So the log of a product should be the sum of the logs."
+        },
+        {
+          "type": "text",
+          "text": "Check it with numbers: $\\log_{2} 8 = 3$ and $\\log_{2} 16 = 4$, and $8 \\times 16 = 128 = 2^{7}$. So $\\log_{2} 128 = 7 = 3 + 4$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\log_{a} xy = \\log_{a} x + \\log_{a} y",
+          "tag": "booklet",
+          "bookletId": "bk-1-7-log-product"
+        },
+        {
+          "type": "formula",
+          "tex": "\\log_{a} \\frac{x}{y} = \\log_{a} x - \\log_{a} y",
+          "tag": "booklet",
+          "bookletId": "bk-1-7-log-quotient"
+        },
+        {
+          "type": "formula",
+          "tex": "\\log_{a} x^{m} = m\\log_{a} x",
+          "tag": "booklet",
+          "bookletId": "bk-1-7-log-power"
+        },
+        {
+          "type": "text",
+          "text": "These [[laws-of-logarithms|laws of logarithms]] hold for $a, x, y > 0$ with $a \\neq 1$. They are in the formula booklet, so you don't need to memorise them. You do need to spot when to use them."
+        },
+        {
+          "type": "result",
+          "statement": "$\\log_{a} xy = \\log_{a} x + \\log_{a} y$ for $a, x, y > 0$, $a \\neq 1$.",
+          "why": "Let $p = \\log_{a} x$ and $q = \\log_{a} y$, so $x = a^{p}$ and $y = a^{q}$. Then $xy = a^{p}a^{q} = a^{p+q}$, so $\\log_{a} xy = p + q$."
+        },
+        {
+          "type": "text",
+          "text": "The other two come the same way. Dividing powers subtracts exponents, which gives the quotient law. Raising a power to a power multiplies exponents, which gives the power law."
+        },
+        {
+          "type": "text",
+          "text": "Use the laws in both directions. Read left to right, they split one log into several: $\\log_{6} 45 = \\log_{6} 9 + \\log_{6} 5$, since $45 = 9 \\times 5$. Read right to left, they combine several logs into one."
+        },
+        {
+          "type": "mistake",
+          "text": "Splitting the log of a sum. There is no law for $\\log_{a}(x + y)$: it is not $\\log_{a} x + \\log_{a} y$, which equals $\\log_{a} xy$."
+        },
+        {
+          "type": "example",
+          "id": "ex-combine-single-log",
+          "question": "Write $2\\ln 10 - \\ln 4 + \\ln \\frac{1}{5}$ in the form $\\ln k$, where $k \\in \\mathbb{Z}^{+}$.",
+          "steps": [
+            "Use the power law first, so every term is a single log: $2\\ln 10 = \\ln 10^{2} = \\ln 100$.",
+            "The expression is now $\\ln 100 - \\ln 4 + \\ln \\frac{1}{5}$.",
+            "Adding logs multiplies the numbers inside, and subtracting divides: $\\ln\\left(\\frac{100 \\times \\frac{1}{5}}{4}\\right)$.",
+            "Work out the inside: $100 \\times \\frac{1}{5} = 20$, and $20 \\div 4 = 5$.",
+            "Check with a calculator if you have one: $2\\ln 10 - \\ln 4 + \\ln 0.2 \\approx 1.609$, and $\\ln 5 \\approx 1.609$."
+          ],
+          "answer": "$2\\ln 10 - \\ln 4 + \\ln \\frac{1}{5} = \\ln 5$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-log-in-terms",
+          "question": "Given that $\\log_{b} m = 5$ and $\\log_{b} n = -2$, find the value of $\\log_{b}\\left(\\dfrac{m^{2}}{\\sqrt{n}}\\right)$.",
+          "steps": [
+            "Split the quotient: $\\log_{b}\\left(\\frac{m^{2}}{\\sqrt{n}}\\right) = \\log_{b} m^{2} - \\log_{b} \\sqrt{n}$.",
+            "Write the root as a power, $\\sqrt{n} = n^{\\frac{1}{2}}$, so both terms are logs of powers.",
+            "Bring the powers down: $2\\log_{b} m - \\frac{1}{2}\\log_{b} n$.",
+            "Substitute: $2 \\times 5 - \\frac{1}{2} \\times (-2) = 10 + 1 = 11$.",
+            "Check: $m = b^{5}$ and $n = b^{-2}$, so $\\frac{m^{2}}{\\sqrt{n}} = \\frac{b^{10}}{b^{-1}} = b^{11}$. Its log in base $b$ is $11$."
+          ],
+          "answer": "$\\log_{b}\\left(\\frac{m^{2}}{\\sqrt{n}}\\right) = 11$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Attaching a power to only part of the inside. $3\\log_{a}(2x)$ is $\\log_{a}(2x)^{3} = \\log_{a} 8x^{3}$, not $\\log_{a} 2x^{3}$. Keep the bracket until the power is applied."
+        },
+        {
+          "type": "example",
+          "id": "ex-log-equation-laws",
+          "question": "Solve $\\log_{2} x + \\log_{2}(x + 6) = 4$.",
+          "steps": [
+            "Combine the left side with the product law: $\\log_{2}\\left(x(x + 6)\\right) = 4$.",
+            "Rewrite as an exponential statement: $x(x + 6) = 2^{4} = 16$.",
+            "Expand and rearrange: $x^{2} + 6x - 16 = 0$, which factorises as $(x + 8)(x - 2) = 0$. So $x = -8$ or $x = 2$.",
+            "Check each value in the original equation. When $x = -8$, $\\log_{2} x$ would be the log of a negative number, which does not exist. Reject it.",
+            "When $x = 2$: $\\log_{2} 2 + \\log_{2} 8 = 1 + 3 = 4$. Correct, so $x = 2$ is the only solution."
+          ],
+          "answer": "$x = 2$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "When you \"solve\" a log equation, check every solution in the original logs. Reject any value that makes the inside of a log zero or negative, and say why in a few words."
+        },
+        {
+          "type": "check",
+          "id": "check-combine-logs",
+          "prompt": "Simplify $\\log_{3} 20 - 2\\log_{3} 2 + \\log_{3} \\frac{9}{5}$.",
+          "hint": "Use the power law on $2\\log_{3} 2$ first, then combine everything into one log.",
+          "options": [
+            {
+              "text": "$2$",
+              "correct": true
+            },
+            {
+              "text": "$\\log_{3} 18$",
+              "correct": false
+            },
+            {
+              "text": "$\\log_{3} 144$",
+              "correct": false
+            }
+          ],
+          "explain": "$2\\log_{3} 2 = \\log_{3} 4$, so the expression is $\\log_{3}\\left(\\frac{20 \\times \\frac{9}{5}}{4}\\right) = \\log_{3} 9 = 2$. Skipping the power law gives $\\log_{3} 18$."
+        },
+        {
+          "type": "check",
+          "id": "check-log-in-terms",
+          "prompt": "Given that $\\log_{a} x = 6$ and $\\log_{a} y = 4$, find $\\log_{a}\\left(\\dfrac{\\sqrt[3]{x}}{y}\\right)$.",
+          "hint": "Write $\\sqrt[3]{x}$ as $x^{\\frac{1}{3}}$, then use the quotient and power laws.",
+          "answer": {
+            "value": -2,
+            "tolerance": 0
+          },
+          "explain": "$\\log_{a}\\left(\\frac{\\sqrt[3]{x}}{y}\\right) = \\frac{1}{3}\\log_{a} x - \\log_{a} y = \\frac{1}{3} \\times 6 - 4 = -2$."
+        }
+      ]
+    },
+    {
+      "id": "change-base",
+      "heading": "Changing the base",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Your calculator has buttons for $\\ln$ (base $\\mathrm{e}$) and usually $\\log_{10}$. So how do you find $\\log_{3} 50$? And how do you solve an equation that mixes $\\log_{2}$ and $\\log_{4}$? You [[change-of-base|change the base]]."
+        },
+        {
+          "type": "formula",
+          "tex": "\\log_{a} x = \\frac{\\log_{b} x}{\\log_{b} a}",
+          "tag": "booklet",
+          "bookletId": "bk-1-7-log-change-base",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This holds for $a, b, x > 0$, with $a \\neq 1$ and $b \\neq 1$. It is in the formula booklet. The new base $b$ can be anything you like."
+        },
+        {
+          "type": "result",
+          "statement": "$\\log_{a} x = \\dfrac{\\log_{b} x}{\\log_{b} a}$ for $a, b, x > 0$, $a \\neq 1$, $b \\neq 1$.",
+          "why": "Let $y = \\log_{a} x$, so $a^{y} = x$. Take $\\log_{b}$ of both sides: $\\log_{b} a^{y} = \\log_{b} x$, so $y\\log_{b} a = \\log_{b} x$. Divide by $\\log_{b} a$."
+        },
+        {
+          "type": "text",
+          "text": "Two choices of $b$ come up again and again. With $b = \\mathrm{e}$, $\\log_{a} x = \\frac{\\ln x}{\\ln a}$, which you can type into any calculator: $\\log_{3} 50 = \\frac{\\ln 50}{\\ln 3} \\approx 3.56$. Here $\\ln$ is the [[natural-logarithm|natural logarithm]]. With related bases, such as $8 = 2^{3}$, choose the smaller one: $\\log_{8} x = \\frac{\\log_{2} x}{\\log_{2} 8} = \\frac{\\log_{2} x}{3}$."
+        },
+        {
+          "type": "mistake",
+          "text": "Turning the fraction into a subtraction. $\\frac{\\log_{b} x}{\\log_{b} a}$ is a quotient of two logs. It is not $\\log_{b} x - \\log_{b} a$, which is the log of a quotient."
+        },
+        {
+          "type": "example",
+          "id": "ex-change-base-exact",
+          "question": "Without a calculator, find $\\log_{8} 128$.",
+          "steps": [
+            "Both $8$ and $128$ are powers of $2$, so change to base $2$: $\\log_{8} 128 = \\frac{\\log_{2} 128}{\\log_{2} 8}$.",
+            "$2^{7} = 128$, so $\\log_{2} 128 = 7$. And $2^{3} = 8$, so $\\log_{2} 8 = 3$.",
+            "Divide: $\\log_{8} 128 = \\frac{7}{3}$.",
+            "Check: $8^{\\frac{7}{3}} = \\left(\\sqrt[3]{8}\\right)^{7} = 2^{7} = 128$. Correct."
+          ],
+          "answer": "$\\log_{8} 128 = \\frac{7}{3}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-change-base-equation",
+          "question": "Solve $\\log_{2} x + \\log_{4} x + \\log_{16} x = 7$.",
+          "steps": [
+            "Change every log to base $2$, the smallest base. Since $\\log_{2} 4 = 2$ and $\\log_{2} 16 = 4$: $\\log_{4} x = \\frac{\\log_{2} x}{2}$ and $\\log_{16} x = \\frac{\\log_{2} x}{4}$.",
+            "Let $u = \\log_{2} x$. The equation becomes $u + \\frac{u}{2} + \\frac{u}{4} = 7$.",
+            "Collect the terms: $\\frac{7u}{4} = 7$, so $u = 4$.",
+            "Undo the log: $\\log_{2} x = 4$ means $x = 2^{4} = 16$.",
+            "Check: $\\log_{2} 16 + \\log_{4} 16 + \\log_{16} 16 = 4 + 2 + 1 = 7$. Correct."
+          ],
+          "answer": "$x = 16$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-change-base-exact",
+          "prompt": "Without a calculator, find $\\log_{4} 32$.",
+          "hint": "Change to base $2$, then divide one log by the other.",
+          "options": [
+            {
+              "text": "$\\frac{5}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$3$",
+              "correct": false
+            },
+            {
+              "text": "$8$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2}{5}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\log_{4} 32 = \\frac{\\log_{2} 32}{\\log_{2} 4} = \\frac{5}{2}$. Subtracting the logs gives $3$, which is the mistake of treating the fraction as a quotient inside one log."
+        },
+        {
+          "type": "check",
+          "id": "check-change-base-numeric",
+          "prompt": "Use your calculator to find $\\log_{7} 200$. Give your answer to 3 s.f.",
+          "hint": "Write it as $\\ln$ of one number divided by $\\ln$ of the other. Which goes on top?",
+          "answer": {
+            "value": 2.72,
+            "tolerance": 0.005
+          },
+          "explain": "$\\log_{7} 200 = \\frac{\\ln 200}{\\ln 7} = 2.7227\\ldots \\approx 2.72$. It lies between $2$ and $3$ because $7^{2} = 49$ and $7^{3} = 343$."
+        }
+      ]
+    },
+    {
+      "id": "exp-equations",
+      "heading": "Solving exponential equations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In an [[exponential-equation|exponential equation]] the unknown is in an exponent, as in $2^{x} = 32$ or $3^{x} = 20$. You have two methods. If both sides can be written as powers of the same base, compare the exponents. If not, take logs of both sides."
+        },
+        {
+          "type": "result",
+          "statement": "If $a^{p} = a^{q}$, where $a > 0$ and $a \\neq 1$, then $p = q$.",
+          "why": "Take $\\log_{a}$ of both sides: $\\log_{a} a^{p} = p$ and $\\log_{a} a^{q} = q$."
+        },
+        {
+          "type": "example",
+          "id": "ex-same-base",
+          "question": "Solve $\\left(\\frac{1}{4}\\right)^{x} = 8^{2x - 1}$.",
+          "steps": [
+            "Write both bases as powers of $2$: $\\frac{1}{4} = 2^{-2}$ and $8 = 2^{3}$.",
+            "Use the power-of-a-power law on each side: $\\left(2^{-2}\\right)^{x} = 2^{-2x}$ and $\\left(2^{3}\\right)^{2x - 1} = 2^{6x - 3}$. Bracket the whole exponent $2x - 1$ before multiplying.",
+            "Now $2^{-2x} = 2^{6x - 3}$, so the exponents are equal: $-2x = 6x - 3$.",
+            "Solve: $3 = 8x$, so $x = \\frac{3}{8}$.",
+            "Check: the left side is $2^{-2 \\times \\frac{3}{8}} = 2^{-\\frac{3}{4}}$. The right side is $2^{6 \\times \\frac{3}{8} - 3} = 2^{-\\frac{3}{4}}$. They match."
+          ],
+          "answer": "$x = \\frac{3}{8}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "When the bases don't match, take logs of both sides. The power law brings the unknown down from the exponent: $\\ln a^{x} = x\\ln a$. Any base works, but $\\ln$ is the usual choice."
+        },
+        {
+          "type": "example",
+          "id": "ex-take-logs-exact",
+          "question": "Solve $3^{2x - 1} = 7$, giving your answer in the form $x = \\frac{\\ln p}{\\ln q}$, where $p, q \\in \\mathbb{Z}^{+}$.",
+          "steps": [
+            "Take $\\ln$ of both sides: $\\ln 3^{2x - 1} = \\ln 7$.",
+            "Bring the power down with the power law: $(2x - 1)\\ln 3 = \\ln 7$.",
+            "Divide by $\\ln 3$ and add $1$: $2x = \\frac{\\ln 7}{\\ln 3} + 1 = \\frac{\\ln 7 + \\ln 3}{\\ln 3}$.",
+            "Combine the top with the product law, $\\ln 7 + \\ln 3 = \\ln 21$. Then divide by $2$: $x = \\frac{\\ln 21}{2\\ln 3}$.",
+            "Get the form asked for: $2\\ln 3 = \\ln 3^{2} = \\ln 9$, so $x = \\frac{\\ln 21}{\\ln 9}$.",
+            "Check with a calculator: $x = 1.3856\\ldots$, so $2x - 1 = 1.7712\\ldots$ and $3^{1.7712\\ldots} \\approx 7.00$."
+          ],
+          "answer": "$x = \\frac{\\ln 21}{\\ln 9}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Taking logs of each term of a sum. $\\ln\\left(2^{x} + 3\\right)$ is not $x\\ln 2 + \\ln 3$. Get the exponential term on its own before you take logs."
+        },
+        {
+          "type": "example",
+          "id": "ex-unknown-both-sides",
+          "question": "Solve $5^{x} = 2^{x + 3}$. Give your answer exactly.",
+          "steps": [
+            "Take $\\ln$ of both sides and use the power law: $x\\ln 5 = (x + 3)\\ln 2$.",
+            "Expand the bracket: $x\\ln 5 = x\\ln 2 + 3\\ln 2$.",
+            "Collect the $x$ terms on one side: $x\\ln 5 - x\\ln 2 = 3\\ln 2$.",
+            "Factorise and divide: $x(\\ln 5 - \\ln 2) = 3\\ln 2$, so $x = \\frac{3\\ln 2}{\\ln 5 - \\ln 2}$.",
+            "Check with a calculator: using the stored value $x = 2.2694\\ldots$, $5^{x} \\approx 38.6$ and $2^{x + 3} \\approx 38.6$."
+          ],
+          "answer": "$x = \\frac{3\\ln 2}{\\ln 5 - \\ln 2}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Some exponential equations hide a quadratic. Since $9^{x} = \\left(3^{2}\\right)^{x} = \\left(3^{x}\\right)^{2}$, the substitution $u = 3^{x}$ turns them into a [[disguised-quadratic|disguised quadratic]]. You will see more of these in {{lesson:2.10}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-hidden-quadratic",
+          "question": "Solve $9^{x} - 10 \\times 3^{x} + 21 = 0$. Give your answers exactly.",
+          "steps": [
+            "Write $9^{x} = \\left(3^{x}\\right)^{2}$ and let $u = 3^{x}$. The equation becomes $u^{2} - 10u + 21 = 0$.",
+            "Factorise: $(u - 3)(u - 7) = 0$, so $u = 3$ or $u = 7$.",
+            "Go back to $x$. If $3^{x} = 3$, then $x = 1$.",
+            "If $3^{x} = 7$, take $\\ln$ of both sides: $x\\ln 3 = \\ln 7$, so $x = \\frac{\\ln 7}{\\ln 3}$.",
+            "Check the second root: using the stored value $x = 1.7712\\ldots$, $9^{x} - 10 \\times 3^{x} + 21 \\approx 49 - 70 + 21 = 0$."
+          ],
+          "answer": "$x = 1 \\text{ or } x = \\frac{\\ln 7}{\\ln 3}$",
+          "check": {
+            "type": "check",
+            "id": "check-hidden-quadratic-count",
+            "prompt": "How many real solutions does $4^{x} - 3 \\times 2^{x} - 10 = 0$ have?",
+            "hint": "Let $u = 2^{x}$ and solve the quadratic. Can $2^{x}$ be negative?",
+            "options": [
+              {
+                "text": "One",
+                "correct": true
+              },
+              {
+                "text": "Two",
+                "correct": false
+              },
+              {
+                "text": "None",
+                "correct": false
+              }
+            ],
+            "explain": "$u^{2} - 3u - 10 = (u - 5)(u + 2) = 0$, so $2^{x} = 5$ or $2^{x} = -2$. A power of $2$ is always positive, so only $2^{x} = 5$ gives a solution."
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-medicine-decay",
+          "question": "The mass of a medicine in a patient's blood, $M$ mg, is modelled by $M = 400 \\times 0.8^{t}$, where $t$ is the time in hours after an injection. Use your calculator to find the time it takes for the mass to fall to $50$ mg. Give your answer to 3 s.f.",
+          "steps": [
+            "Write down the equation to solve: $400 \\times 0.8^{t} = 50$. This line earns the method mark.",
+            "Solve it on the GDC (steps below), or by logs: $0.8^{t} = \\frac{50}{400} = 0.125$, so $t = \\frac{\\ln 0.125}{\\ln 0.8}$.",
+            "Either way, $t = 9.318\\ldots$ Keep the full value until the end.",
+            "Round to 3 s.f.: $t \\approx 9.32$ hours.",
+            "Check: $400 \\times 0.8^{9.32} \\approx 50.0$. Falling from $400$ to $50$ is three halvings. One halving takes about $3.1$ hours, since $0.8^{3.1} \\approx 0.5$, so about $9.3$ hours in all is reasonable."
+          ],
+          "answer": "$t \\approx 9.32\\text{ hours}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MATH, Solver",
+              "Enter 0 = 400*0.8^X-50, then type a guess such as X = 5 (check on your model)",
+              "ALPHA, ENTER (SOLVE) (check on your model)",
+              "Read X = 9.3188..."
+            ],
+            "nspire": [
+              "Calculator page, Menu, Algebra, Numerical Solve",
+              "Enter 400*0.8^x=50, x (check on your model)",
+              "Press enter and read x = 9.3188..."
+            ],
+            "casio": [
+              "EQUA, Solver (F3)",
+              "Enter 400*0.8^X=50, EXE, then SOLVE (F6) (check on your model)",
+              "Read X = 9.3188..."
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "If a question asks for a whole number of hours or years, think before you round. Here the mass is still above $50$ mg after $9$ hours, so the first whole hour below $50$ mg is the $10$th."
+        },
+        {
+          "type": "check",
+          "id": "check-same-base",
+          "prompt": "Solve $25^{x} = 125^{x - 1}$.",
+          "hint": "Write both sides as powers of $5$. Remember to multiply the whole of $x - 1$.",
+          "options": [
+            {
+              "text": "$x = 3$",
+              "correct": true
+            },
+            {
+              "text": "$x = 1$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{3}{5}$",
+              "correct": false
+            }
+          ],
+          "explain": "$5^{2x} = 5^{3(x - 1)} = 5^{3x - 3}$, so $2x = 3x - 3$ and $x = 3$. Forgetting to multiply the $-1$ by $3$ gives $x = 1$."
+        },
+        {
+          "type": "check",
+          "id": "check-take-logs-numeric",
+          "prompt": "Solve $6^{x} = 50$. Give your answer to 3 s.f.",
+          "hint": "Take $\\ln$ of both sides and bring the $x$ down.",
+          "answer": {
+            "value": 2.18,
+            "tolerance": 0.005
+          },
+          "explain": "$x\\ln 6 = \\ln 50$, so $x = \\frac{\\ln 50}{\\ln 6} = 2.1833\\ldots \\approx 2.18$. It lies between $2$ and $3$ because $6^{2} = 36$ and $6^{3} = 216$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "a^{\\frac{n}{m}} = \\left(\\sqrt[m]{a}\\right)^{n}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The denominator of a fractional exponent is the root and the numerator is the power. Take the root first. An even root means the positive root.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "a^{x} = b \\Leftrightarrow x = \\log_{a} b",
+          "tag": "booklet",
+          "bookletId": "bk-1-5-log-definition",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\log_{a} a = 1$, $\\log_{a} 1 = 0$, and $\\log_{a} a^{x} = x = a^{\\log_{a} x}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\log_{a} xy = \\log_{a} x + \\log_{a} y",
+          "tag": "booklet",
+          "bookletId": "bk-1-7-log-product",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\log_{a} \\frac{x}{y} = \\log_{a} x - \\log_{a} y",
+          "tag": "booklet",
+          "bookletId": "bk-1-7-log-quotient",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\log_{a} x^{m} = m\\log_{a} x",
+          "tag": "booklet",
+          "bookletId": "bk-1-7-log-power",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\log_{a} x = \\frac{\\log_{b} x}{\\log_{b} a}",
+          "tag": "booklet",
+          "bookletId": "bk-1-7-log-change-base",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Exponential equations: match the bases and compare exponents, or take $\\ln$ of both sides. Check log equation solutions and reject any that make a log's inside zero or negative.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing a quotient of logs as a log of a quotient. In change of base, $\\frac{\\log_{10} 5}{\\log_{10} 2}$ stays a fraction; it is not $\\log_{10} 5 - \\log_{10} 2$.",
+    "Turning a number into a log with the wrong inside. In base $3$, the number $2$ is $\\log_{3} 9$, not $\\log_{3} 2$, because $3^{2} = 9$.",
+    "Undoing a log as if it vanished. $\\log_{5} y = 1$ means $y = 5^{1} = 5$, not $y = 1$.",
+    "Putting a minus sign inside a log as a factor. $-\\ln 3 = \\ln 3^{-1} = \\ln \\frac{1}{3}$; it is never $\\ln(-3)$.",
+    "Dropping the divisor when changing base. $\\log_{9} x = \\frac{\\log_{3} x}{2}$, because $\\log_{3} 9 = 2$, so the factor $\\frac{1}{2}$ must stay.",
+    "Applying a power to only part of a product. $2\\log_{a}(5x) = \\log_{a}(5x)^{2} = \\log_{a} 25x^{2}$, not $\\log_{a} 5x^{2}$."
+  ],
+  "examTips": [
+    "In a \"show that\" with logs, start from the given left-hand side and name each law as you use it. Your last line must match the given result exactly.",
+    "On Paper 1, leave answers exact, such as $\\frac{\\ln 21}{\\ln 9}$, unless the question asks for a decimal. If the question names a form, such as $\\frac{\\ln p}{\\ln q}$, give exactly that form.",
+    "On Paper 2, write down the equation you give the GDC, such as $400 \\times 0.8^{t} = 50$, before the answer. Then round only the final value, to 3 s.f. unless told otherwise.",
+    "\"Hence\" means use the part you just did. A show-that part gives you its result, so use the given result even if you could not prove it."
+  ],
+  "readingMinutes": 27
+}

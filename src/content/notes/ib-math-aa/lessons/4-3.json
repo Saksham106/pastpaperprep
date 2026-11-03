@@ -1,0 +1,735 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "4.3",
+  "slug": "central-tendency-and-dispersion",
+  "title": "Central tendency and dispersion",
+  "level": "SL",
+  "topic": 4,
+  "summary": "The [[mean|mean]], [[median|median]] and [[mode|mode]] describe the centre of a data set. The [[interquartile-range|interquartile range]] and [[standard-deviation|standard deviation]] describe its spread. You find them for lists and frequency tables, estimate the mean of grouped data, and see what shifting or scaling the data does.",
+  "goals": [
+    {
+      "text": "Find the mean, median and mode of a list or a frequency table, by formula and with your GDC.",
+      "bullets": [
+        "4.3-b1"
+      ]
+    },
+    {
+      "text": "Estimate the mean of grouped data from [[mid-interval-value|mid-interval values]], and find the [[modal-class|modal class]].",
+      "bullets": [
+        "4.3-b2"
+      ]
+    },
+    {
+      "text": "Find quartiles and the IQR by hand and with your GDC, and explain why the two can differ.",
+      "bullets": [
+        "4.3-b3",
+        "4.3-b5"
+      ]
+    },
+    {
+      "text": "Find the standard deviation and [[variance|variance]] with your GDC, and say what they measure.",
+      "bullets": [
+        "4.3-b3"
+      ]
+    },
+    {
+      "text": "Say how adding to or multiplying every value changes the mean and standard deviation.",
+      "bullets": [
+        "4.3-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "mean median mode",
+    "standard deviation and variance",
+    "interquartile range",
+    "estimate mean of grouped data",
+    "modal class",
+    "effect of adding a constant on the mean"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-cumulative-count",
+      "prompt": "How many of these $20$ students own fewer than $2$ pets? $\\begin{array}{c|cccc} \\text{pets} & 0 & 1 & 2 & 3 \\\\ \\hline f & 5 & 8 & 4 & 3 \\end{array}$",
+      "hint": "Fewer than $2$ means $0$ or $1$ pet.",
+      "answer": {
+        "value": 13,
+        "tolerance": 0
+      },
+      "explain": "$5 + 8 = 13$: a cumulative frequency. Revise it in {{lesson:4.2}}."
+    },
+    {
+      "type": "check",
+      "id": "before-class-holds",
+      "prompt": "Masses, $m$ grams, are grouped as $40 \\le m < 50$, $50 \\le m < 60$ and $60 \\le m < 70$. Which class holds a mass of exactly $60$ g?",
+      "hint": "Which class includes its left end?",
+      "options": [
+        {
+          "text": "$50 \\le m < 60$",
+          "correct": false
+        },
+        {
+          "text": "$60 \\le m < 70$",
+          "correct": true
+        },
+        {
+          "text": "Neither: $60$ is a boundary, so it is left out",
+          "correct": false
+        }
+      ],
+      "explain": "$60 \\le m < 70$ includes $60$; $50 \\le m < 60$ stops just below it. Revise it in {{lesson:4.2}}."
+    },
+    {
+      "type": "check",
+      "id": "before-box-half",
+      "prompt": "A box and whisker diagram has minimum $8$, $Q_{1} = 14$, median $19$, $Q_{3} = 25$ and maximum $40$. What percentage of the data lies between $14$ and $25$?",
+      "hint": "The box runs from one quartile to the other.",
+      "answer": {
+        "value": 50,
+        "tolerance": 0
+      },
+      "explain": "The box holds the middle half of the data, from $Q_{1}$ to $Q_{3}$. Revise it in {{lesson:4.2}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "averages",
+      "heading": "Mean, median and mode",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Nine students score $2, 5, 1, 4, 3, 4, 0, 4, 4$ on a $5$-question quiz. What is a typical score? Three different averages answer this."
+        },
+        {
+          "type": "definition",
+          "term": "Mean",
+          "statement": "The [[mean|mean]] of $n$ values is their total divided by $n$: $\\bar{x} = \\frac{\\sum x}{n}$, where $\\sum x$ (sigma $x$) is the total.",
+          "plain": "Share the total out equally between the values."
+        },
+        {
+          "type": "definition",
+          "term": "Median",
+          "statement": "The [[median|median]] is the middle value of the ordered data: the $\\frac{n+1}{2}$th value. For even $n$, average the two middle values.",
+          "plain": "Half the data lie at or below it, and half at or above it."
+        },
+        {
+          "type": "definition",
+          "term": "Mode",
+          "statement": "The [[mode|mode]] is the value that occurs most often. A data set can have more than one mode.",
+          "plain": "The most popular value."
+        },
+        {
+          "type": "example",
+          "id": "ex-quiz-averages",
+          "question": "Find the mean, median and mode of the quiz scores $2, 5, 1, 4, 3, 4, 0, 4, 4$.",
+          "steps": [
+            "Mean: the total is $27$ and $n = 9$, so $\\bar{x} = \\frac{27}{9} = 3$.",
+            "Median: in order, $0, 1, 2, 3, 4, 4, 4, 4, 5$. The median is the $\\frac{9 + 1}{2} = 5$th value, $4$.",
+            "Mode: $4$ appears four times, more than any other score.",
+            "The low scores $0$ and $1$ pull the mean below the median."
+          ],
+          "answer": "$\\bar{x} = 3, \\; \\text{median} = 4, \\; \\text{mode} = 4$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "In a frequency table, each value $x_{i}$ appears $f_{i}$ times, so it adds $f_{i}x_{i}$ to the total. This formula is in the formula booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "\\bar{x} = \\frac{\\sum_{i=1}^{k} f_{i}x_{i}}{n}, \\quad \\text{where } n = \\sum_{i=1}^{k} f_{i}",
+          "tag": "booklet",
+          "bookletId": "bk-4-3-mean",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Here $k$ is the number of different values. The total frequency $n$ counts data values, not columns."
+        },
+        {
+          "type": "example",
+          "id": "ex-car-occupants",
+          "question": "The number of people, $x$, in each of $30$ cars at a checkpoint is shown. $\\begin{array}{c|ccccc} x & 1 & 2 & 3 & 4 & 5 \\\\ \\hline f & 14 & 9 & 4 & 2 & 1 \\end{array}$ Find the mean, median and mode of $x$.",
+          "steps": [
+            "Mean: $\\sum f_{i}x_{i} = 14 + 18 + 12 + 8 + 5 = 57$, so $\\bar{x} = \\frac{57}{30} = 1.9$.",
+            "Median: with $n = 30$, average the $15$th and $16$th values. The first $14$ values are $1$, and the $15$th to $23$rd are $2$.",
+            "So the $15$th and $16$th values are both $2$, and the median is $2$.",
+            "Mode: $x = 1$ has the highest frequency, $14$."
+          ],
+          "answer": "$\\bar{x} = 1.9, \\; \\text{median} = 2, \\; \\text{mode} = 1$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Taking the middle column, $x = 3$, as the median. Count through the frequencies to find the middle data value."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2, your GDC finds the mean from a list of values and a list of frequencies (keystrokes in the next section)."
+        },
+        {
+          "type": "check",
+          "id": "check-median-even",
+          "prompt": "Find the median of $12, 7, 15, 9, 10, 18$.",
+          "hint": "Order the values first. There is an even number of them.",
+          "answer": {
+            "value": 11,
+            "tolerance": 0
+          },
+          "explain": "In order: $7, 9, 10, 12, 15, 18$. The middle two are $10$ and $12$, so the median is $11$."
+        },
+        {
+          "type": "check",
+          "id": "check-table-mean",
+          "prompt": "Find the mean of $x$. $\\begin{array}{c|cccc} x & 0 & 1 & 2 & 3 \\\\ \\hline f & 4 & 7 & 6 & 3 \\end{array}$",
+          "hint": "Find $\\sum f_{i}x_{i}$, then divide by the total frequency.",
+          "options": [
+            {
+              "text": "$\\bar{x} = 7$",
+              "correct": false
+            },
+            {
+              "text": "$\\bar{x} = 1.4$",
+              "correct": true
+            },
+            {
+              "text": "$\\bar{x} = 1.5$",
+              "correct": false
+            },
+            {
+              "text": "$\\bar{x} = 5$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sum f_{i}x_{i} = 28$ and $n = 20$, so $\\bar{x} = 1.4$. Dividing $28$ by the $4$ columns gives $7$, which is wrong."
+        },
+        {
+          "type": "check",
+          "id": "check-missing-value",
+          "prompt": "The mean of $8$ numbers is $6$. A ninth number is added, and the mean of all nine is $7$. Find the ninth number.",
+          "hint": "Turn each mean into a total, using total $= n \\times \\bar{x}$.",
+          "answer": {
+            "value": 15,
+            "tolerance": 0
+          },
+          "explain": "The totals are $9 \\times 7 = 63$ and $8 \\times 6 = 48$, so the ninth number is $63 - 48 = 15$."
+        }
+      ]
+    },
+    {
+      "id": "grouped",
+      "heading": "Grouped data",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you only know which class each value is in. Then you can't find the exact [[mean|mean]], but you can estimate it."
+        },
+        {
+          "type": "text",
+          "text": "The idea: treat every value in a class as if it sat at the middle of the class."
+        },
+        {
+          "type": "definition",
+          "term": "Mid-interval value",
+          "statement": "The [[mid-interval-value|mid-interval value]] of the class $a \\le x < b$ is $\\frac{a + b}{2}$.",
+          "plain": "The point halfway along the class."
+        },
+        {
+          "type": "text",
+          "text": "Use the booklet formula with each $x_{i}$ a mid-interval value. The result is an estimate, not the exact mean."
+        },
+        {
+          "type": "definition",
+          "term": "Modal class",
+          "statement": "When the classes have equal widths, the [[modal-class|modal class]] is the class with the highest frequency.",
+          "plain": "The most crowded class."
+        },
+        {
+          "type": "example",
+          "id": "ex-commute-grouped",
+          "question": "The journey times, $t$ minutes, of $40$ commuters are shown. $\\begin{array}{c|c} t & f \\\\ \\hline 0 \\le t < 10 & 6 \\\\ 10 \\le t < 20 & 15 \\\\ 20 \\le t < 30 & 11 \\\\ 30 \\le t < 40 & 8 \\end{array}$ (a) Write down the modal class. (b) Find an estimate of the mean journey time.",
+          "steps": [
+            "(a) The classes have equal widths, and the highest frequency is $15$. So the modal class is $10 \\le t < 20$.",
+            "(b) The mid-interval values are $5$, $15$, $25$ and $35$.",
+            "$\\sum f_{i}x_{i} = 6 \\times 5 + 15 \\times 15 + 11 \\times 25 + 8 \\times 35 = 810$.",
+            "The estimated mean is $\\frac{810}{40} = 20.25$ minutes, which sits among the busiest classes."
+          ],
+          "answer": "$\\text{modal class: } 10 \\le t < 20, \\; \\text{estimated mean} = 20.25\\text{ min}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using a class boundary, such as $10$ or $20$, as the value for a class. Use the mid-interval value, here $15$."
+        },
+        {
+          "type": "example",
+          "id": "ex-apples-gdc",
+          "question": "The masses, $m$ grams, of $60$ apples are shown. $\\begin{array}{c|c} m & f \\\\ \\hline 80 \\le m < 100 & 5 \\\\ 100 \\le m < 120 & 13 \\\\ 120 \\le m < 140 & 21 \\\\ 140 \\le m < 160 & 14 \\\\ 160 \\le m < 180 & 7 \\end{array}$ Use your calculator to find an estimate of the mean mass. Give your answer to 3 s.f.",
+          "steps": [
+            "Put the mid-interval values $90, 110, 130, 150, 170$ into one list, with the frequencies $5, 13, 21, 14, 7$ beside them. Write both lists in your answer: that earns the method mark.",
+            "Run one-variable statistics with the frequency list attached. Check that $n = 60$: if it shows $5$, the frequencies are missing.",
+            "Read off $\\bar{x} = 131.666\\ldots$, and round only now."
+          ],
+          "answer": "$\\bar{x} \\approx 132\\text{ g}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "STAT, 1: Edit, type 90, 110, 130, 150, 170 into L1 and the frequencies into L2 (check on your model)",
+              "STAT, CALC, 1: 1-Var Stats, List: L1, FreqList: L2, ENTER (check on your model)",
+              "Check n = 60, then read x̄ = 131.666…"
+            ],
+            "nspire": [
+              "Lists & Spreadsheet page, type 90, 110, 130, 150, 170 into column A and the frequencies into column B (check on your model)",
+              "Menu, Statistics, Stat Calculations, One-Variable Statistics, X1 List: a[], Frequency List: b[] (check on your model)",
+              "Check n = 60, then read x̄ = 131.666…"
+            ],
+            "casio": [
+              "STAT, type 90, 110, 130, 150, 170 into List 1 and the frequencies into List 2 (check on your model)",
+              "CALC, SET, 1Var XList: List1, 1Var Freq: List2, EXIT (check on your model)",
+              "CALC, 1-VAR, check n = 60, then read x̄ = 131.666…"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Find an estimate of the mean: use mid-interval values, show $\\frac{\\sum f_{i}x_{i}}{n}$, and call your answer an estimate, since the exact values are unknown."
+        },
+        {
+          "type": "check",
+          "id": "check-grouped-mean",
+          "prompt": "Find an estimate of the mean of $x$. $\\begin{array}{c|c} x & f \\\\ \\hline 0 \\le x < 4 & 3 \\\\ 4 \\le x < 8 & 5 \\\\ 8 \\le x < 12 & 2 \\end{array}$",
+          "hint": "Use the mid-interval values $2$, $6$ and $10$.",
+          "answer": {
+            "value": 5.6,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{3 \\times 2 + 5 \\times 6 + 2 \\times 10}{10} = \\frac{56}{10} = 5.6$."
+        },
+        {
+          "type": "check",
+          "id": "check-modal-class",
+          "prompt": "What is the modal class of these seedling heights, $h$ cm? $\\begin{array}{c|c} h & f \\\\ \\hline 10 \\le h < 20 & 7 \\\\ 20 \\le h < 30 & 12 \\\\ 30 \\le h < 40 & 15 \\\\ 40 \\le h < 50 & 6 \\end{array}$",
+          "hint": "The answer is a class, not a single number.",
+          "options": [
+            {
+              "text": "$15$",
+              "correct": false
+            },
+            {
+              "text": "$35$",
+              "correct": false
+            },
+            {
+              "text": "$30 \\le h < 40$",
+              "correct": true
+            }
+          ],
+          "explain": "The highest frequency, $15$, is in $30 \\le h < 40$. Give the class, not its frequency or its mid-interval value."
+        }
+      ]
+    },
+    {
+      "id": "spread",
+      "heading": "Range, quartiles and the IQR",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A measure of [[dispersion|dispersion]] says how spread out the data are."
+        },
+        {
+          "type": "text",
+          "text": "The simplest is the range, largest value minus smallest. One unusual value can change it a lot."
+        },
+        {
+          "type": "definition",
+          "term": "Quartiles",
+          "statement": "With the data in order, the lower [[quartile|quartile]] $Q_{1}$ has a quarter of the values below it. The upper quartile $Q_{3}$ has three quarters below it.",
+          "plain": "The quartiles and the median cut the ordered data into four equal parts."
+        },
+        {
+          "type": "text",
+          "text": "1. To find the quartiles by hand, order the data and find the [[median|median]]."
+        },
+        {
+          "type": "text",
+          "text": "2. Split the data into a lower half and an upper half. When $n$ is odd, leave the median out of both halves."
+        },
+        {
+          "type": "text",
+          "text": "3. $Q_{1}$ is the median of the lower half, and $Q_{3}$ is the median of the upper half."
+        },
+        {
+          "type": "text",
+          "text": "The [[interquartile-range|interquartile range]] (IQR) is the spread of the middle half of the data, so extreme values don't affect it. It is in the booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{IQR} = Q_{3} - Q_{1}",
+          "tag": "booklet",
+          "bookletId": "bk-4-2-iqr",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-choir-quartiles",
+          "question": "The ages of the $11$ members of a choir are $34, 19, 52, 41, 27, 63, 45, 38, 29, 56, 47$. Find $Q_{1}$, $Q_{3}$ and the interquartile range.",
+          "steps": [
+            "In order: $19, 27, 29, 34, 38, 41, 45, 47, 52, 56, 63$. The median is the $6$th value, $41$; leave it out of both halves.",
+            "Lower half: $19, 27, 29, 34, 38$, so $Q_{1} = 29$.",
+            "Upper half: $45, 47, 52, 56, 63$, so $Q_{3} = 52$.",
+            "$\\mathrm{IQR} = 52 - 29 = 23$ years."
+          ],
+          "answer": "$Q_{1} = 29, \\; Q_{3} = 52, \\; \\mathrm{IQR} = 23$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Other methods exist: some keep the median in both halves, and spreadsheets often interpolate. So the same data can give slightly different quartiles."
+        },
+        {
+          "type": "text",
+          "text": "Your GDC uses one fixed method. In their usual settings, the three models in these notes leave the median out when $n$ is odd, as above. A by-hand answer can differ from the GDC's, and each is right for its method."
+        },
+        {
+          "type": "example",
+          "id": "ex-goals-gdc",
+          "question": "The numbers of goals, $x$, in $40$ football matches are shown. $\\begin{array}{c|cccccc} x & 0 & 1 & 2 & 3 & 4 & 5 \\\\ \\hline f & 7 & 11 & 9 & 7 & 4 & 2 \\end{array}$ (a) Use your calculator to find $Q_{1}$ and $Q_{3}$. (b) Show that the data have no outliers.",
+          "steps": [
+            "(a) Enter $0$ to $5$ and the frequencies as in the apple example, and run one-variable statistics. Write down $Q_{1} = 1$ and $Q_{3} = 3$.",
+            "Check $Q_{1}$ by counting: the $10$th and $11$th values are both $1$.",
+            "(b) Use the rule from {{lesson:4.1}}. $\\mathrm{IQR} = 2$, so the fences are $1 - 1.5 \\times 2 = -2$ and $3 + 1.5 \\times 2 = 6$.",
+            "All values lie from $0$ to $5$, inside the fences, so there are no outliers."
+          ],
+          "answer": "$Q_{1} = 1, \\; Q_{3} = 3$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "Write the GDC's quartiles down before using them: later parts can then earn follow-through (FT) marks even if one is wrong."
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the range when asked for the IQR. Subtract the quartiles, not the smallest value from the largest."
+        },
+        {
+          "type": "check",
+          "id": "check-iqr-even",
+          "prompt": "Find the interquartile range of $4, 7, 9, 10, 12, 15, 17, 20$.",
+          "hint": "Each half has $4$ values. Find the median of each half.",
+          "answer": {
+            "value": 8,
+            "tolerance": 0
+          },
+          "explain": "$Q_{1} = \\frac{7 + 9}{2} = 8$ and $Q_{3} = \\frac{15 + 17}{2} = 16$, so $\\mathrm{IQR} = 8$."
+        },
+        {
+          "type": "check",
+          "id": "check-methods-differ",
+          "prompt": "For the data $2, 4, 5, 7, 11$, a student keeps the median in both halves and gets $Q_{1} = 4$. Her GDC gives $Q_{1} = 3$. Which statement is correct?",
+          "hint": "Find the lower half twice: once with the median, once without.",
+          "options": [
+            {
+              "text": "The GDC is wrong, so $Q_{1} = 4$",
+              "correct": false
+            },
+            {
+              "text": "She made an arithmetic slip, so $Q_{1} = 3$",
+              "correct": false
+            },
+            {
+              "text": "They use different methods, and each value is right for its method",
+              "correct": true
+            }
+          ],
+          "explain": "With the median, the lower half is $2, 4, 5$, so $Q_{1} = 4$. Without it, the lower half is $2, 4$, so $Q_{1} = 3$. Both methods are in use."
+        }
+      ]
+    },
+    {
+      "id": "standard-deviation",
+      "heading": "Standard deviation and variance",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[interquartile-range|IQR]] uses only the [[quartile|quartiles]]. The [[standard-deviation|standard deviation]] uses every value: it measures how far the values typically lie from the [[mean|mean]]."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-same-mean-spread",
+          "alt": "Two dot plots on the same scale from 4 to 16. Set A has six dots close together, at 8, 9, 10, 10, 11 and 12. Set B has six dots spread out, at 4, 6, 10, 10, 14 and 16. A dashed line marks the mean, 10, of both sets.",
+          "caption": "Both sets have mean $10$. Set B's values lie further from the mean, so its standard deviation is larger: about $4.16$, against $1.29$."
+        },
+        {
+          "type": "definition",
+          "term": "Standard deviation and variance",
+          "statement": "The standard deviation $\\sigma$ measures the typical distance of the values from the mean. The [[variance|variance]] is its square, $\\sigma^{2}$.",
+          "plain": "A small standard deviation means the values huddle close to the mean."
+        },
+        {
+          "type": "text",
+          "text": "In the exam you find $\\sigma$ with your GDC only. One small case by hand shows what it means: the variance is the mean of the squared distances from the mean, $\\sigma^{2} = \\frac{\\sum (x - \\bar{x})^{2}}{n}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sd-by-hand",
+          "question": "Find the variance and the standard deviation of $2, 4, 4, 5, 10$ by hand.",
+          "steps": [
+            "Mean: $\\bar{x} = \\frac{25}{5} = 5$.",
+            "Distances from the mean: $-3, -1, -1, 0, 5$. They add up to $0$, so square them first.",
+            "Squares: $9, 1, 1, 0, 25$, total $36$. So $\\sigma^{2} = \\frac{36}{5} = 7.2$.",
+            "$\\sigma = \\sqrt{7.2} = 2.683\\ldots$."
+          ],
+          "answer": "$\\sigma^{2} = 7.2, \\; \\sigma \\approx 2.68$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Your GDC shows two standard deviations. In IB Maths AA you use $\\sigma_{x}$, which divides by $n$ as above. Ignore $s_{x}$, which divides by $n - 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-nests-gdc",
+          "question": "The number of eggs, $x$, in each of $40$ nests is shown. $\\begin{array}{c|cccccc} x & 1 & 2 & 3 & 4 & 5 & 6 \\\\ \\hline f & 4 & 9 & 13 & 8 & 4 & 2 \\end{array}$ Use your calculator to find (a) the mean; (b) the standard deviation; (c) the variance.",
+          "steps": [
+            "Enter $1$ to $6$ and the frequencies, run one-variable statistics and check that $n = 40$.",
+            "(a) $\\bar{x} = 3.125$. This is exact, so give it as it is.",
+            "(b) $\\sigma_{x} = 1.28816\\ldots$, so $\\sigma \\approx 1.29$.",
+            "(c) Square the unrounded value: $(1.28816\\ldots)^{2} = 1.659375$, so $\\sigma^{2} \\approx 1.66$."
+          ],
+          "answer": "$\\bar{x} = 3.125, \\; \\sigma \\approx 1.29, \\; \\sigma^{2} \\approx 1.66$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "STAT, 1: Edit, type 1 to 6 into L1 and the frequencies into L2 (check on your model)",
+              "STAT, CALC, 1: 1-Var Stats, List: L1, FreqList: L2, ENTER (check on your model)",
+              "Check n = 40, then read x̄ = 3.125 and σx = 1.28816…, not Sx"
+            ],
+            "nspire": [
+              "Lists & Spreadsheet page, type 1 to 6 into column A and the frequencies into column B (check on your model)",
+              "Menu, Statistics, Stat Calculations, One-Variable Statistics, X1 List: a[], Frequency List: b[] (check on your model)",
+              "Check n = 40, then read x̄ = 3.125 and σx = 1.28816…, not sx"
+            ],
+            "casio": [
+              "STAT, type 1 to 6 into List 1 and the frequencies into List 2 (check on your model)",
+              "CALC, SET, 1Var XList: List1, 1Var Freq: List2, EXIT (check on your model)",
+              "CALC, 1-VAR, check n = 40, then read x̄ = 3.125 and σx = 1.28816…, not sx"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Quoting $s_{x}$ from the GDC. The standard deviation you need is $\\sigma_{x}$."
+        },
+        {
+          "type": "check",
+          "id": "check-which-sd",
+          "prompt": "Use your calculator to find the standard deviation of $3, 5, 7, 9$.",
+          "hint": "Use the GDC value that divides by $n$.",
+          "options": [
+            {
+              "text": "$\\sigma \\approx 2.58$",
+              "correct": false
+            },
+            {
+              "text": "$\\sigma \\approx 2.24$",
+              "correct": true
+            },
+            {
+              "text": "$\\sigma = 5$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sigma_{x} = \\sqrt{5} \\approx 2.24$. The value $2.58$ is $s_{x}$, and $5$ is the variance."
+        },
+        {
+          "type": "check",
+          "id": "check-consistent",
+          "prompt": "Ana's $400$ m times have mean $58.2$ s and standard deviation $0.6$ s. Bea's have mean $57.9$ s and standard deviation $1.4$ s. Which is correct?",
+          "hint": "A lower mean time is faster. A smaller standard deviation means more consistent.",
+          "options": [
+            {
+              "text": "Ana is faster on average and more consistent",
+              "correct": false
+            },
+            {
+              "text": "Bea is faster on average and more consistent",
+              "correct": false
+            },
+            {
+              "text": "Bea is faster on average, but Ana is more consistent",
+              "correct": true
+            }
+          ],
+          "explain": "Bea's lower mean means she is faster on average. Ana's smaller standard deviation means her times vary less."
+        }
+      ]
+    },
+    {
+      "id": "changes",
+      "heading": "Adding to or scaling every value",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Add $5$ marks to every test score. Every score, and so the [[mean|mean]], moves up by $5$. The gaps between scores don't change, so the spread doesn't either."
+        },
+        {
+          "type": "text",
+          "text": "Double every score instead. Every score and every gap doubles, so the mean and the [[standard-deviation|standard deviation]] both double."
+        },
+        {
+          "type": "result",
+          "statement": "If every value $x$ becomes $ax + b$, where $a > 0$, the new mean is $a\\bar{x} + b$ and the new standard deviation is $a\\sigma$. The new [[variance|variance]] is $a^{2}\\sigma^{2}$.",
+          "why": "Adding $b$ slides the data without changing any gap; multiplying by $a$ stretches every distance from the mean by $a$."
+        },
+        {
+          "type": "text",
+          "text": "$b$ can be negative: subtracting $4$ from every value lowers the mean by $4$ and leaves $\\sigma$ unchanged. The [[median|median]], [[quartile|quartiles]] and mode change like the mean; the [[interquartile-range|IQR]] and range change like $\\sigma$."
+        },
+        {
+          "type": "example",
+          "id": "ex-fahrenheit",
+          "question": "One June, a town's daily maximum temperatures have mean $18.5$ and standard deviation $3.2$, in degrees Celsius. They are converted to degrees Fahrenheit using $F = 1.8C + 32$. Find (a) the mean, (b) the standard deviation and (c) the variance in degrees Fahrenheit.",
+          "steps": [
+            "Every value is multiplied by $a = 1.8$, then $b = 32$ is added.",
+            "(a) Mean: $1.8 \\times 18.5 + 32 = 65.3$.",
+            "(b) The $+32$ has no effect on the spread, so $\\sigma_{F} = 1.8 \\times 3.2 = 5.76$.",
+            "(c) $\\sigma_{F}^{2} = 5.76^{2} = 33.1776 \\approx 33.2$. This equals $1.8^{2} \\times 3.2^{2}$: the $1.8$ is squared too."
+          ],
+          "answer": "$\\bar{F} = 65.3, \\; \\sigma_{F} = 5.76, \\; \\sigma_{F}^{2} \\approx 33.2$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-find-a-b",
+          "question": "A data set has mean $12$ and standard deviation $2.5$. Every value $x$ is changed to $ax + b$, where $a > 0$. The new mean is $50$ and the new standard deviation is $10$. Find $a$ and $b$.",
+          "steps": [
+            "Only $a$ affects the standard deviation: $2.5a = 10$, so $a = 4$.",
+            "Both affect the mean: $12a + b = 50$, so $48 + b = 50$ and $b = 2$.",
+            "Check: $4 \\times 12 + 2 = 50$ and $4 \\times 2.5 = 10$."
+          ],
+          "answer": "$a = 4, \\; b = 2$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding $b$ to the standard deviation too. Shifting the data leaves $\\sigma$ unchanged."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL the same rules apply to random variables: $\\mathrm{E}(aX + b) = a\\mathrm{E}(X) + b$ and $\\mathrm{Var}(aX + b) = a^{2}\\mathrm{Var}(X)$.",
+          "lesson": "4.14"
+        },
+        {
+          "type": "check",
+          "id": "check-ages-later",
+          "prompt": "The ages of a club's members have standard deviation $7.3$ years. Find the standard deviation of their ages in $5$ years' time.",
+          "hint": "Every age goes up by the same amount.",
+          "answer": {
+            "value": 7.3,
+            "tolerance": 0.005
+          },
+          "explain": "Adding $5$ to every age shifts the data without changing the gaps, so $\\sigma$ is still $7.3$ years."
+        },
+        {
+          "type": "check",
+          "id": "check-triple-variance",
+          "prompt": "A data set has variance $9$. Every value is multiplied by $3$. Find the new variance.",
+          "hint": "Find the standard deviation first, then multiply it by $3$.",
+          "options": [
+            {
+              "text": "$27$",
+              "correct": false
+            },
+            {
+              "text": "$9$",
+              "correct": false
+            },
+            {
+              "text": "$81$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\sigma$ goes from $3$ to $9$, so the variance goes from $9$ to $81$: it is multiplied by $3^{2}$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\bar{x} = \\frac{\\sum_{i=1}^{k} f_{i}x_{i}}{n}, \\quad \\text{where } n = \\sum_{i=1}^{k} f_{i}",
+          "tag": "booklet",
+          "bookletId": "bk-4-3-mean",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Median: the $\\frac{n+1}{2}$th value in order; for even $n$, the mean of the middle two. Mode: the most frequent value.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Grouped data: estimate the mean with mid-interval values $\\frac{a+b}{2}$. The modal class has the highest frequency.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{IQR} = Q_{3} - Q_{1}",
+          "tag": "booklet",
+          "bookletId": "bk-4-2-iqr",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Quartiles: medians of the lower and upper halves, median left out when $n$ is odd. Other methods may differ slightly.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Standard deviation: GDC only, using $\\sigma_{x}$, not $s_{x}$. Variance $= \\sigma^{2}$: square the unrounded value.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$x \\to ax + b$ with $a > 0$: mean $\\to a\\bar{x} + b$, $\\sigma \\to a\\sigma$, variance $\\to a^{2}\\sigma^{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Taking one of the middle two values, or the middle column of a table, as the median. For even $n$, average the middle two data values.",
+    "Dividing $\\sum f_{i}x_{i}$ by the number of columns. Divide by the total frequency $n$.",
+    "Using class boundaries instead of mid-interval values, or leaving the frequency list off on the GDC. Check that the GDC shows the right $n$.",
+    "Quoting $s_{x}$ from the GDC as the standard deviation. In IB Maths AA you use $\\sigma_{x}$.",
+    "Multiplying the variance by $a$, or adding $b$ to $\\sigma$. Under $ax + b$, $\\sigma$ becomes $a\\sigma$ and the variance $a^{2}\\sigma^{2}$."
+  ],
+  "examTips": [
+    "Write down the mode: no working needed. For Find the median or Find the mean, show the ordered data or $\\frac{\\sum f_{i}x_{i}}{n}$ with your numbers in, for the method mark.",
+    "On Paper 2, write down the lists you entered before the GDC's answer.",
+    "Round only the final answer, to 3 s.f. unless the question asks for another precision, such as 4 s.f."
+  ],
+  "readingMinutes": 28
+}

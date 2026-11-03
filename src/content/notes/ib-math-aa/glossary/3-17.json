@@ -1,0 +1,20 @@
+[
+  {
+    "id": "normal-vector",
+    "term": "normal to a plane",
+    "definition": "A non-zero vector $\\boldsymbol{n}$ perpendicular to every vector lying in a plane; any non-zero multiple of it is also a normal.",
+    "lesson": "3.17"
+  },
+  {
+    "id": "vector-equation-of-a-plane",
+    "term": "vector equation of a plane",
+    "definition": "An equation $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b} + \\mu\\boldsymbol{c}$, $\\lambda, \\mu \\in \\mathbb{R}$, giving every point of the plane through the point with position vector $\\boldsymbol{a}$ that contains the non-parallel directions $\\boldsymbol{b}$ and $\\boldsymbol{c}$.",
+    "lesson": "3.17"
+  },
+  {
+    "id": "cartesian-equation-of-a-plane",
+    "term": "Cartesian equation of a plane",
+    "definition": "An equation $ax + by + cz = d$ satisfied by exactly the points of a plane, where $\\begin{pmatrix}a\\\\b\\\\c\\end{pmatrix}$ is a normal to the plane.",
+    "lesson": "3.17"
+  }
+]

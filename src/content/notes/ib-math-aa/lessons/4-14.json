@@ -1,0 +1,803 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "4.14",
+  "slug": "discrete-and-continuous-random-variables",
+  "title": "Discrete and continuous random variables",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "The [[variance-of-a-random-variable|variance]] measures how spread out a random variable is, and $\\mathrm{Var}(X) = \\mathrm{E}(X^{2}) - \\left[\\mathrm{E}(X)\\right]^{2}$ is the quick way to find it. A continuous variable is described by a [[probability-density-function|probability density function]]: probabilities are areas under it, and integrals give its mean, variance, median and mode.",
+  "goals": [
+    {
+      "text": "Find $\\mathrm{E}(X^{2})$, the variance and the standard deviation of a discrete random variable.",
+      "bullets": [
+        "4.14-b1",
+        "4.14-b4"
+      ]
+    },
+    {
+      "text": "Use a probability density function, including a piecewise one: find an unknown constant and find probabilities as areas.",
+      "bullets": [
+        "4.14-b2"
+      ]
+    },
+    {
+      "text": "Find the mode from the maximum of the density and the median from half the area.",
+      "bullets": [
+        "4.14-b3"
+      ]
+    },
+    {
+      "text": "Find the mean, variance and standard deviation of a continuous random variable by integration.",
+      "bullets": [
+        "4.14-b4"
+      ]
+    },
+    {
+      "text": "Use $\\mathrm{E}(aX + b) = a\\mathrm{E}(X) + b$ and $\\mathrm{Var}(aX + b) = a^{2}\\mathrm{Var}(X)$, including to make a game fair.",
+      "bullets": [
+        "4.14-b5",
+        "4.14-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.7",
+    "5.8",
+    "5.11"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "probability density function",
+    "pdf",
+    "variance of a random variable",
+    "median of a continuous random variable",
+    "E(X squared)",
+    "Var(aX + b)"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-expected-value",
+      "prompt": "$X$ takes the values $1$, $2$ and $5$ with probabilities $0.5$, $0.3$ and $0.2$. Find $\\mathrm{E}(X)$.",
+      "hint": "Multiply each value by its probability, then add.",
+      "answer": {
+        "value": 2.1,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{E}(X) = 1(0.5) + 2(0.3) + 5(0.2) = 0.5 + 0.6 + 1 = 2.1$. Revise it in {{lesson:4.7}}."
+    },
+    {
+      "type": "check",
+      "id": "before-definite-integral",
+      "prompt": "Find the exact value of $\\int_{0}^{2} (3x^{2} - x)\\,\\mathrm{d}x$.",
+      "hint": "Integrate each power, then subtract the value at $0$ from the value at $2$.",
+      "answer": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "explain": "$\\left[x^{3} - \\frac{x^{2}}{2}\\right]_{0}^{2} = (8 - 2) - 0 = 6$. Revise it in {{lesson:5.11}}."
+    },
+    {
+      "type": "check",
+      "id": "before-stationary",
+      "prompt": "The curve $y = 12x - 2x^{3}$ has a local maximum for some $x > 0$. Find that value of $x$.",
+      "hint": "Set $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0$ and keep the positive root.",
+      "options": [
+        {
+          "text": "$\\sqrt{2}$",
+          "correct": true
+        },
+        {
+          "text": "$2$",
+          "correct": false
+        },
+        {
+          "text": "$\\sqrt{6}$",
+          "correct": false
+        },
+        {
+          "text": "$6$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 12 - 6x^{2} = 0$ gives $x^{2} = 2$, so $x = \\sqrt{2}$ for $x > 0$. Revise it in {{lesson:5.8}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "discrete-variance",
+      "heading": "Variance of a discrete random variable",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:4.7}} you found the [[expected-value|expected value]] $\\mathrm{E}(X)$, the long-run mean of a [[discrete-random-variable|discrete random variable]]. The mean alone hides a lot."
+        },
+        {
+          "type": "text",
+          "text": "Picture two games that both pay \\$5 on average. One always pays \\$5. The other pays \\$0 or \\$10 with equal chance. Same mean, very different risk. You need a number for the spread."
+        },
+        {
+          "type": "definition",
+          "term": "Variance of a random variable",
+          "statement": "The [[variance-of-a-random-variable|variance]] of $X$ is the expected squared distance of $X$ from its mean $\\mu = \\mathrm{E}(X)$: $\\mathrm{Var}(X) = \\mathrm{E}\\left[(X - \\mu)^{2}\\right]$. The standard deviation is $\\sigma = \\sqrt{\\mathrm{Var}(X)}$.",
+          "plain": "Variance measures how far the values usually land from the mean."
+        },
+        {
+          "type": "text",
+          "text": "Squaring stops the distances above and below the mean from cancelling. It also means a variance is never negative. If you get a negative variance, look for a slip."
+        },
+        {
+          "type": "text",
+          "text": "Working out every $(x - \\mu)^{2}$ is slow. Expanding the bracket gives a quicker form. You need $\\mathrm{E}(X^{2})$, the expected value of $X^{2}$: square each value, then weight it by its probability."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(X^{2}) = \\sum x^{2}\\,\\mathrm{P}(X = x)",
+          "tag": "learn"
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{Var}(X) = \\mathrm{E}\\left[(X - \\mu)^{2}\\right] = \\mathrm{E}(X^{2}) - \\left[\\mathrm{E}(X)\\right]^{2}",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-variance-general",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{Var}(X) = \\sum (x - \\mu)^{2}\\,\\mathrm{P}(X = x) = \\sum x^{2}\\,\\mathrm{P}(X = x) - \\mu^{2}",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-variance-discrete"
+        },
+        {
+          "type": "text",
+          "text": "Both forms are in the formula booklet. Read the second one as: the mean of the squares, minus the square of the mean."
+        },
+        {
+          "type": "example",
+          "id": "ex-var-table",
+          "question": "$X$ takes the values $1, 2, 3, 4$ with probabilities $0.1, 0.3, 0.4, 0.2$. Find $\\mathrm{Var}(X)$.",
+          "steps": [
+            "Find the mean: $\\mathrm{E}(X) = 1(0.1) + 2(0.3) + 3(0.4) + 4(0.2) = 0.1 + 0.6 + 1.2 + 0.8 = 2.7$.",
+            "Square each value and weight it: $\\mathrm{E}(X^{2}) = 1(0.1) + 4(0.3) + 9(0.4) + 16(0.2) = 0.1 + 1.2 + 3.6 + 3.2 = 8.1$.",
+            "Subtract the square of the mean: $\\mathrm{Var}(X) = 8.1 - 2.7^{2} = 8.1 - 7.29 = 0.81$.",
+            "So the standard deviation is $\\sigma = \\sqrt{0.81} = 0.9$. Sense check: the values sit within about one unit of $2.7$."
+          ],
+          "answer": "$\\mathrm{Var}(X) = 0.81$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-var-unknowns",
+          "question": "$X$ takes the values $0, 1, 2, 3$ with probabilities $0.2, p, q, 0.1$. Given that $\\mathrm{E}(X) = 1.4$, find $p$ and $q$, then find $\\mathrm{Var}(X)$.",
+          "steps": [
+            "The probabilities add up to $1$: $0.2 + p + q + 0.1 = 1$, so $p + q = 0.7$.",
+            "Use the mean: $0(0.2) + 1p + 2q + 3(0.1) = 1.4$, so $p + 2q = 1.1$.",
+            "Subtract the first equation from the second: $q = 0.4$, so $p = 0.3$.",
+            "Find $\\mathrm{E}(X^{2}) = 0(0.2) + 1(0.3) + 4(0.4) + 9(0.1) = 0.3 + 1.6 + 0.9 = 2.8$.",
+            "Then $\\mathrm{Var}(X) = 2.8 - 1.4^{2} = 2.8 - 1.96 = 0.84$."
+          ],
+          "answer": "$\\mathrm{Var}(X) = 0.84$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at $\\mathrm{E}(X^{2})$. That is not the variance yet: subtract $\\left[\\mathrm{E}(X)\\right]^{2}$, the square of the mean."
+        },
+        {
+          "type": "check",
+          "id": "check-var-formula",
+          "prompt": "$\\mathrm{P}(X = x) = \\frac{x}{10}$ for $x = 1, 2, 3, 4$. Given that $\\mathrm{E}(X) = 3$, find $\\mathrm{Var}(X)$.",
+          "hint": "Find $\\mathrm{E}(X^{2}) = \\sum x^{2} \\cdot \\frac{x}{10}$ first.",
+          "options": [
+            {
+              "text": "$1$",
+              "correct": true
+            },
+            {
+              "text": "$10$",
+              "correct": false
+            },
+            {
+              "text": "$7$",
+              "correct": false
+            },
+            {
+              "text": "$9$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{E}(X^{2}) = \\frac{1 + 8 + 27 + 64}{10} = 10$, so $\\mathrm{Var}(X) = 10 - 3^{2} = 1$. Subtracting $3$ instead of $3^{2}$ gives $7$."
+        },
+        {
+          "type": "check",
+          "id": "check-sd-discrete",
+          "prompt": "$X$ takes the values $-2$, $0$ and $3$ with probabilities $0.25$, $0.5$ and $0.25$. Find the standard deviation of $X$. Give your answer to 3 s.f.",
+          "hint": "Find $\\mathrm{E}(X)$ and $\\mathrm{E}(X^{2})$, then the variance. Take its square root last.",
+          "answer": {
+            "value": 1.79,
+            "tolerance": 0.005
+          },
+          "explain": "$\\mathrm{E}(X) = -0.5 + 0.75 = 0.25$ and $\\mathrm{E}(X^{2}) = 1 + 2.25 = 3.25$. So $\\mathrm{Var}(X) = 3.25 - 0.0625 = 3.1875$ and $\\sigma = \\sqrt{3.1875} \\approx 1.79$."
+        },
+        {
+          "type": "text",
+          "text": "The same formula works for data in a frequency table. There, each relative frequency $\\frac{f_{i}}{n}$ plays the part of a probability, as in {{lesson:4.3}}."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sigma^{2} = \\frac{\\sum_{i=1}^{k} f_{i}(x_{i} - \\mu)^{2}}{n} = \\frac{\\sum_{i=1}^{k} f_{i}x_{i}^{2}}{n} - \\mu^{2}",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-variance-data"
+        }
+      ]
+    },
+    {
+      "id": "density",
+      "heading": "Continuous random variables and density functions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[continuous-random-variable|continuous random variable]] can take any value in an interval, such as a waiting time. You can't list its values, so you can't give each one a probability."
+        },
+        {
+          "type": "text",
+          "text": "Instead, probability is spread along the $x$-axis like paint, thick in some places and thin in others. A curve shows how thick. The probability of landing between $a$ and $b$ is the area under the curve there."
+        },
+        {
+          "type": "definition",
+          "term": "Probability density function",
+          "statement": "The [[probability-density-function|probability density function]] (pdf) of a continuous $X$ is a function $f$ with $f(x) \\ge 0$ for all $x$ and total area $1$ under its graph. Probabilities are areas under $y = f(x)$.",
+          "plain": "The density tells you where the values of X are crowded; areas under it are probabilities."
+        },
+        {
+          "type": "formula",
+          "tex": "\\int_{-\\infty}^{\\infty} f(x)\\,\\mathrm{d}x = 1",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(a \\le X \\le b) = \\int_{a}^{b} f(x)\\,\\mathrm{d}x",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "In practice $f(x) = 0$ outside some interval. So the integral only runs over the interval where $f$ is non-zero, using the [[limits-of-integration|limits]] where the formula applies."
+        },
+        {
+          "type": "text",
+          "text": "A single point has no width, so $\\mathrm{P}(X = a) = 0$. That means $\\mathrm{P}(X < b)$ and $\\mathrm{P}(X \\le b)$ are equal. Also, $f(x)$ itself is not a probability. It can even be bigger than $1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-density-k",
+          "question": "$X$ has pdf $f(x) = kx(3 - x)^{2}$ for $0 \\le x \\le 3$, and $f(x) = 0$ otherwise. Find the value of $k$.",
+          "steps": [
+            "The total area is $1$: $\\int_{0}^{3} kx(3 - x)^{2}\\,\\mathrm{d}x = 1$.",
+            "Expand before integrating: $x(3 - x)^{2} = x(9 - 6x + x^{2}) = 9x - 6x^{2} + x^{3}$.",
+            "Integrate: $\\int_{0}^{3} (9x - 6x^{2} + x^{3})\\,\\mathrm{d}x = \\left[\\frac{9x^{2}}{2} - 2x^{3} + \\frac{x^{4}}{4}\\right]_{0}^{3}$.",
+            "Substitute the limits: $\\frac{81}{2} - 54 + \\frac{81}{4} - 0 = \\frac{162 - 216 + 81}{4} = \\frac{27}{4}$.",
+            "So $\\frac{27}{4}k = 1$. Check: $f(x) \\ge 0$ on $[0, 3]$, since $x \\ge 0$ and $(3 - x)^{2} \\ge 0$."
+          ],
+          "answer": "$k = \\frac{4}{27}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A [[piecewise-function|piecewise]] density uses different formulas on different intervals. Split every integral at the points where the formula changes, and add the pieces."
+        },
+        {
+          "type": "example",
+          "id": "ex-density-piecewise",
+          "question": "$X$ has pdf $f(x) = kx^{2}$ for $0 \\le x \\le 1$, $f(x) = k$ for $1 < x \\le 3$, and $f(x) = 0$ otherwise. Find $k$, then find $\\mathrm{P}(X \\le 2)$.",
+          "steps": [
+            "Split the total at $x = 1$: $\\int_{0}^{1} kx^{2}\\,\\mathrm{d}x + \\int_{1}^{3} k\\,\\mathrm{d}x = 1$.",
+            "Integrate each piece: $\\left[\\frac{kx^{3}}{3}\\right]_{0}^{1} + \\big[kx\\big]_{1}^{3} = \\frac{k}{3} + (3k - k) = \\frac{k}{3} + 2k$.",
+            "Solve $\\frac{7k}{3} = 1$: $k = \\frac{3}{7}$.",
+            "For $\\mathrm{P}(X \\le 2)$, take the whole first piece and part of the second: $\\frac{1}{7} + \\int_{1}^{2} \\frac{3}{7}\\,\\mathrm{d}x = \\frac{1}{7} + \\frac{3}{7} = \\frac{4}{7}$."
+          ],
+          "answer": "$k = \\frac{3}{7}, \\; \\mathrm{P}(X \\le 2) = \\frac{4}{7}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using only one piece of a piecewise density. Every integral over the whole range needs every piece, each with its own limits."
+        },
+        {
+          "type": "check",
+          "id": "check-density-sqrt-k",
+          "prompt": "$X$ has pdf $f(x) = k\\sqrt{x}$ for $0 \\le x \\le 4$, and $0$ otherwise. Find $k$.",
+          "hint": "Write $\\sqrt{x} = x^{\\frac{1}{2}}$ and set the total integral equal to $1$.",
+          "options": [
+            {
+              "text": "$\\frac{3}{16}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{16}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\int_{0}^{4} x^{\\frac{1}{2}}\\,\\mathrm{d}x = \\left[\\frac{2}{3}x^{\\frac{3}{2}}\\right]_{0}^{4} = \\frac{16}{3}$, so $\\frac{16}{3}k = 1$ and $k = \\frac{3}{16}$."
+        },
+        {
+          "type": "check",
+          "id": "check-density-prob",
+          "prompt": "For the piecewise density in the last example, with $k = \\frac{3}{7}$, find $\\mathrm{P}(X > 2.5)$. Give your answer to 3 s.f.",
+          "hint": "Above $x = 2.5$ only the flat piece $f(x) = \\frac{3}{7}$ is left, up to $x = 3$.",
+          "answer": {
+            "value": 0.214,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\int_{2.5}^{3} \\frac{3}{7}\\,\\mathrm{d}x = \\frac{3}{7} \\times 0.5 = \\frac{3}{14} \\approx 0.214$. It is a rectangle of width $0.5$ and height $\\frac{3}{7}$."
+        }
+      ]
+    },
+    {
+      "id": "mode-median",
+      "heading": "Mode and median",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The mode and the median mean the same as for data in {{lesson:4.3}}. For a density, you find them from the curve."
+        },
+        {
+          "type": "definition",
+          "term": "Mode of a continuous random variable",
+          "statement": "A mode of $X$ is a value of $x$ at which the [[probability-density-function|pdf]] $f(x)$ takes its maximum value.",
+          "plain": "It is where the values of X are most crowded: the top of the density curve."
+        },
+        {
+          "type": "text",
+          "text": "To find it, use {{lesson:5.8}}: solve $f'(x) = 0$ and check it is a maximum. Also compare the values at the ends of the interval, since the maximum can sit at an end. The mode is the $x$-value, not the height $f(x)$."
+        },
+        {
+          "type": "definition",
+          "term": "Median of a continuous random variable",
+          "statement": "The median $m$ of $X$ splits the area under the pdf in half: $\\int_{-\\infty}^{m} f(x)\\,\\mathrm{d}x = \\frac{1}{2}$.",
+          "plain": "X is equally likely to land below the median or above it."
+        },
+        {
+          "type": "formula",
+          "tex": "\\int_{-\\infty}^{m} f(x)\\,\\mathrm{d}x = \\frac{1}{2}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-mode-calculus",
+          "question": "$X$ has pdf $f(x) = \\frac{4}{27}x(3 - x)^{2}$ for $0 \\le x \\le 3$, and $0$ otherwise. Find the mode of $X$.",
+          "steps": [
+            "Expand: $f(x) = \\frac{4}{27}(9x - 6x^{2} + x^{3})$.",
+            "Differentiate: $f'(x) = \\frac{4}{27}(9 - 12x + 3x^{2}) = \\frac{4}{9}(x^{2} - 4x + 3) = \\frac{4}{9}(x - 1)(x - 3)$.",
+            "So $f'(x) = 0$ at $x = 1$ and $x = 3$. Now $f(1) = \\frac{4}{27} \\times 1 \\times 4 = \\frac{16}{27}$, while $f(3) = 0$ and $f(0) = 0$.",
+            "The largest value of $f$ on $[0, 3]$ is at $x = 1$, so that is the mode. The height $\\frac{16}{27}$ is not the answer."
+          ],
+          "answer": "$x = 1$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "For the median of a piecewise density, first find how much probability the first piece holds. That tells you which piece the median is in. The picture below shows it for the density from the last section."
+        },
+        {
+          "type": "figure",
+          "id": "4-14-piecewise-median",
+          "alt": "Graph of a density that rises along a curve from 0 at x equals 0 to three sevenths at x equals 1, then stays flat at three sevenths until x equals 3, and is zero after that. The region under the graph from x equals 0 to x equals eleven sixths is shaded and labelled area one half. A dashed vertical line marks the median, eleven sixths.",
+          "caption": "The median $m = \\frac{11}{6}$ cuts off half the area. Only $\\frac{1}{7}$ of it lies below $x = 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-median-piecewise",
+          "question": "$X$ has pdf $f(x) = \\frac{3}{7}x^{2}$ for $0 \\le x \\le 1$, $f(x) = \\frac{3}{7}$ for $1 < x \\le 3$, and $0$ otherwise. Find the median of $X$.",
+          "steps": [
+            "Find the area of the first piece: $\\int_{0}^{1} \\frac{3}{7}x^{2}\\,\\mathrm{d}x = \\frac{1}{7}$.",
+            "Since $\\frac{1}{7} < \\frac{1}{2}$, the median lies in the second piece, so $1 < m \\le 3$.",
+            "Add the area from $1$ to $m$: $\\frac{1}{7} + \\int_{1}^{m} \\frac{3}{7}\\,\\mathrm{d}x = \\frac{1}{2}$, so $\\frac{1}{7} + \\frac{3}{7}(m - 1) = \\frac{1}{2}$.",
+            "Solve: $\\frac{3}{7}(m - 1) = \\frac{5}{14}$, so $m - 1 = \\frac{5}{6}$.",
+            "Check: $m = \\frac{11}{6}$ lies in $]1, 3]$, as it must."
+          ],
+          "answer": "$m = \\frac{11}{6}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Setting only $\\int_{1}^{m} f(x)\\,\\mathrm{d}x = \\frac{1}{2}$. The probability already below $x = 1$ counts too, so start the median equation at the lowest value of $X$."
+        },
+        {
+          "type": "text",
+          "text": "Often the median equation can't be solved by algebra. On Paper 2, write the equation down, then solve it on your calculator."
+        },
+        {
+          "type": "example",
+          "id": "ex-median-gdc",
+          "question": "$X$ has pdf $f(x) = \\frac{4}{27}x(3 - x)^{2}$ for $0 \\le x \\le 3$, and $0$ otherwise. Use your calculator to find the median of $X$. Give your answer to 3 s.f.",
+          "steps": [
+            "The median satisfies $\\int_{0}^{m} \\frac{4}{27}(9x - 6x^{2} + x^{3})\\,\\mathrm{d}x = \\frac{1}{2}$.",
+            "Integrate: $\\frac{4}{27}\\left(\\frac{9m^{2}}{2} - 2m^{3} + \\frac{m^{4}}{4}\\right) = \\frac{2m^{2}}{3} - \\frac{8m^{3}}{27} + \\frac{m^{4}}{27}$.",
+            "Write the equation down before using the calculator: $\\frac{m^{4}}{27} - \\frac{8m^{3}}{27} + \\frac{2m^{2}}{3} = 0.5$. This line earns the method mark.",
+            "Graph both sides and find where they meet for $0 \\le m \\le 3$: $m = 1.15718\\ldots$",
+            "Sense check: the mode is $1$, and the density has a long tail to the right. So the median sits a little above the mode."
+          ],
+          "answer": "$m \\approx 1.16$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = X^4/27-8X^3/27+2X^2/3 and Y2 = 0.5",
+              "GRAPH",
+              "2nd, TRACE (CALC), 5: intersect",
+              "Choose Y1, then Y2, then move the cursor near X = 1.2 for the guess",
+              "Read X = 1.15718..., so m = 1.16 to 3 s.f."
+            ],
+            "nspire": [
+              "Graphs page: enter f1(x) = x^4/27-8x^3/27+2x^2/3 and f2(x) = 0.5",
+              "Menu, Analyze Graph, Intersection",
+              "Set the lower bound left of x = 1.2 and the upper bound right of it",
+              "Read x = 1.15718..., so m = 1.16 to 3 s.f."
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = X^4/27-8X^3/27+2X^2/3 and Y2 = 0.5",
+              "DRAW",
+              "SHIFT F5 (G-SOLV), INTSECT",
+              "If the point shown is not between 0 and 3, press the right arrow for the next one (check on your model)",
+              "Read X = 1.15718..., so m = 1.16 to 3 s.f."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mode-cubic",
+          "prompt": "$X$ has pdf $f(x) = \\frac{3}{4}x^{2}(2 - x)$ for $0 \\le x \\le 2$, and $0$ otherwise. Find the mode of $X$.",
+          "hint": "Expand to $\\frac{3}{4}(2x^{2} - x^{3})$, then solve $f'(x) = 0$.",
+          "options": [
+            {
+              "text": "$\\frac{4}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{8}{9}$",
+              "correct": false
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            }
+          ],
+          "explain": "$f'(x) = \\frac{3}{4}(4x - 3x^{2}) = 0$ at $x = 0$ or $x = \\frac{4}{3}$. Here $f\\left(\\frac{4}{3}\\right) = \\frac{8}{9}$ is the largest value, so the mode is $\\frac{4}{3}$. The $\\frac{8}{9}$ is the height, not the mode."
+        },
+        {
+          "type": "check",
+          "id": "check-median-power",
+          "prompt": "$X$ has pdf $f(x) = \\frac{3}{8}x^{2}$ for $0 \\le x \\le 2$, and $0$ otherwise. Find the exact median of $X$.",
+          "hint": "Solve $\\int_{0}^{m} \\frac{3}{8}x^{2}\\,\\mathrm{d}x = \\frac{1}{2}$.",
+          "options": [
+            {
+              "text": "$\\sqrt[3]{4}$",
+              "correct": true
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{m^{3}}{8} = \\frac{1}{2}$, so $m^{3} = 4$ and $m = \\sqrt[3]{4} \\approx 1.59$. The density is not symmetric, so the median is not the midpoint $1$."
+        }
+      ]
+    },
+    {
+      "id": "continuous-mean-variance",
+      "heading": "Mean and variance of a continuous random variable",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For a discrete variable, $\\mathrm{E}(X) = \\sum x\\,\\mathrm{P}(X = x)$. For a continuous one, the sum becomes an integral, and $\\mathrm{P}(X = x)$ becomes $f(x)\\,\\mathrm{d}x$, the probability in a thin strip."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(X) = \\mu = \\int_{-\\infty}^{\\infty} x f(x)\\,\\mathrm{d}x",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-continuous-mean",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{Var}(X) = \\int_{-\\infty}^{\\infty} (x - \\mu)^{2} f(x)\\,\\mathrm{d}x = \\int_{-\\infty}^{\\infty} x^{2} f(x)\\,\\mathrm{d}x - \\mu^{2}",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-variance-continuous",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "These are in the formula booklet. The second form is again $\\mathrm{E}(X^{2}) - \\left[\\mathrm{E}(X)\\right]^{2}$, with $\\mathrm{E}(X^{2}) = \\int x^{2} f(x)\\,\\mathrm{d}x$. The standard deviation is $\\sigma = \\sqrt{\\mathrm{Var}(X)}$, as before."
+        },
+        {
+          "type": "text",
+          "text": "If the density is symmetric about a line $x = c$, the mean is $c$. You can state it without integrating."
+        },
+        {
+          "type": "example",
+          "id": "ex-cont-mean-var",
+          "question": "$X$ has [[probability-density-function|pdf]] $f(x) = \\frac{4}{27}x(3 - x)^{2}$ for $0 \\le x \\le 3$, and $0$ otherwise. Find $\\mathrm{E}(X)$ and $\\mathrm{Var}(X)$.",
+          "steps": [
+            "Multiply by $x$ first: $x f(x) = \\frac{4}{27}(9x^{2} - 6x^{3} + x^{4})$.",
+            "Integrate: $\\mathrm{E}(X) = \\frac{4}{27}\\left[3x^{3} - \\frac{3x^{4}}{2} + \\frac{x^{5}}{5}\\right]_{0}^{3} = \\frac{4}{27}\\left(81 - \\frac{243}{2} + \\frac{243}{5}\\right) = \\frac{4}{27} \\times \\frac{81}{10} = \\frac{6}{5}$.",
+            "Now multiply by $x^{2}$: $\\mathrm{E}(X^{2}) = \\frac{4}{27}\\int_{0}^{3} (9x^{3} - 6x^{4} + x^{5})\\,\\mathrm{d}x = \\frac{4}{27}\\left[\\frac{9x^{4}}{4} - \\frac{6x^{5}}{5} + \\frac{x^{6}}{6}\\right]_{0}^{3}$.",
+            "Substitute: $\\frac{4}{27}\\left(\\frac{729}{4} - \\frac{1458}{5} + \\frac{243}{2}\\right) = \\frac{4}{27} \\times \\frac{243}{20} = \\frac{9}{5}$.",
+            "$\\mathrm{Var}(X) = \\frac{9}{5} - \\left(\\frac{6}{5}\\right)^{2} = \\frac{45}{25} - \\frac{36}{25} = \\frac{9}{25}$, so $\\sigma = \\frac{3}{5}$."
+          ],
+          "answer": "$\\mathrm{E}(X) = \\frac{6}{5}, \\; \\mathrm{Var}(X) = \\frac{9}{25}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Integrating $f(x)$ when you want the mean. That always gives $1$. The mean needs $x f(x)$, and $\\mathrm{E}(X^{2})$ needs $x^{2} f(x)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cont-sd-gdc",
+          "question": "$X$ has pdf $f(x) = \\frac{3}{7}x^{2}$ for $0 \\le x \\le 1$, $f(x) = \\frac{3}{7}$ for $1 < x \\le 3$, and $0$ otherwise. Use your calculator to find the standard deviation of $X$. Give your answer to 3 s.f.",
+          "steps": [
+            "Split each integral at $x = 1$. Write what you enter: $\\mathrm{E}(X) = \\int_{0}^{1} \\frac{3}{7}x^{3}\\,\\mathrm{d}x + \\int_{1}^{3} \\frac{3}{7}x\\,\\mathrm{d}x = 1.821428\\ldots$",
+            "Store it as A on the calculator, so you never retype a rounded value.",
+            "Next, $\\mathrm{E}(X^{2}) = \\int_{0}^{1} \\frac{3}{7}x^{4}\\,\\mathrm{d}x + \\int_{1}^{3} \\frac{3}{7}x^{2}\\,\\mathrm{d}x = 3.8$.",
+            "So $\\mathrm{Var}(X) = 3.8 - A^{2} = 0.482397\\ldots$ and $\\sigma = \\sqrt{0.482397\\ldots} = 0.694548\\ldots$",
+            "Rounding the mean to $1.82$ first would give $\\sigma \\approx 0.698$, which loses the accuracy mark."
+          ],
+          "answer": "$\\sigma \\approx 0.695$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MATH, 9: fnInt(, enter (3/7)X^3 from 0 to 1, then add fnInt( of (3/7)X from 1 to 3",
+              "ENTER gives 1.821428..., then STO>, ALPHA A, ENTER to store it as A (check on your model)",
+              "Do the same for E(X^2) with (3/7)X^4 from 0 to 1 and (3/7)X^2 from 1 to 3: 3.8",
+              "Type sqrt(3.8-A^2), ENTER, and read 0.694548..."
+            ],
+            "nspire": [
+              "Calculator page, Menu, Calculus, Numerical Integral",
+              "Enter (3/7)x^3 from 0 to 1 plus (3/7)x from 1 to 3, and store the result as a (check on your model)",
+              "Repeat with (3/7)x^4 from 0 to 1 plus (3/7)x^2 from 1 to 3: 3.8",
+              "Type sqrt(3.8-a^2), ENTER, and read 0.694548..."
+            ],
+            "casio": [
+              "RUN-MAT, OPTN, CALC, ∫dx",
+              "Enter (3/7)X^3 from 0 to 1 plus (3/7)X from 1 to 3, then store the result in A (check on your model)",
+              "Repeat with (3/7)X^4 from 0 to 1 plus (3/7)X^2 from 1 to 3: 3.8",
+              "Type sqrt(3.8-A^2), EXE, and read 0.694548..."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cont-var",
+          "prompt": "$X$ has pdf $f(x) = \\frac{3}{8}x^{2}$ for $0 \\le x \\le 2$, and $0$ otherwise, so $\\mathrm{E}(X) = \\frac{3}{2}$. Find $\\mathrm{Var}(X)$.",
+          "hint": "Find $\\mathrm{E}(X^{2}) = \\int_{0}^{2} \\frac{3}{8}x^{4}\\,\\mathrm{d}x$ first.",
+          "options": [
+            {
+              "text": "$\\frac{3}{20}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{12}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{9}{10}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{E}(X^{2}) = \\frac{3}{8} \\times \\frac{32}{5} = \\frac{12}{5}$, so $\\mathrm{Var}(X) = \\frac{12}{5} - \\frac{9}{4} = \\frac{3}{20}$. Stopping at $\\frac{12}{5}$ gives $\\mathrm{E}(X^{2})$, not the variance."
+        },
+        {
+          "type": "check",
+          "id": "check-cont-sd",
+          "prompt": "$X$ has pdf $f(x) = \\frac{3}{16}\\sqrt{x}$ for $0 \\le x \\le 4$, and $0$ otherwise. Find the standard deviation of $X$. Give your answer to 3 s.f.",
+          "hint": "Integrate $\\frac{3}{16}x^{\\frac{3}{2}}$ for the mean and $\\frac{3}{16}x^{\\frac{5}{2}}$ for $\\mathrm{E}(X^{2})$. Take a square root at the end.",
+          "answer": {
+            "value": 1.05,
+            "tolerance": 0.005
+          },
+          "explain": "$\\mathrm{E}(X) = \\frac{12}{5}$ and $\\mathrm{E}(X^{2}) = \\frac{48}{7}$. So $\\mathrm{Var}(X) = \\frac{48}{7} - \\frac{144}{25} = \\frac{192}{175}$ and $\\sigma = \\sqrt{\\frac{192}{175}} \\approx 1.05$."
+        }
+      ]
+    },
+    {
+      "id": "linear-transformations",
+      "heading": "Linear transformations and fair games",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Suppose every value of $X$ is doubled and then $5$ is added. The mean is doubled and moved up by $5$. The spread doubles too, but adding $5$ doesn't change it: every value slides along together."
+        },
+        {
+          "type": "text",
+          "text": "Variance is measured in squared units. So when the values are multiplied by $a$, the variance is multiplied by $a^{2}$. This works for discrete and continuous variables alike."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(aX + b) = a\\mathrm{E}(X) + b, \\quad \\mathrm{Var}(aX + b) = a^{2}\\mathrm{Var}(X)",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-linear-transform",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Take the square root of the variance rule to get the standard deviation rule. The modulus is there because a standard deviation is never negative."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sigma_{aX + b} = \\lvert a\\rvert\\,\\sigma_{X}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-linear-cost",
+          "question": "The time $X$ hours of a repair job has $\\mathrm{E}(X) = \\frac{6}{5}$ and $\\mathrm{Var}(X) = \\frac{9}{25}$. A firm charges $Y = 40X + 15$ dollars per job. Find $\\mathrm{E}(Y)$ and $\\mathrm{Var}(Y)$.",
+          "steps": [
+            "Here $a = 40$ and $b = 15$.",
+            "Mean: $\\mathrm{E}(Y) = 40 \\times \\frac{6}{5} + 15 = 48 + 15 = 63$.",
+            "Variance: $\\mathrm{Var}(Y) = 40^{2} \\times \\frac{9}{25} = 1600 \\times \\frac{9}{25} = 576$. The $15$ has no effect on spread.",
+            "So the standard deviation of the charge is $\\sqrt{576} = 24$ dollars, which is $40$ times $\\sigma_{X} = \\frac{3}{5}$."
+          ],
+          "answer": "$\\mathrm{E}(Y) = 63, \\; \\mathrm{Var}(Y) = 576$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:4.7}} you met a [[fair-game|fair game]]: one where the player's expected gain is $0$. When a gain is built from a prize, a fee and a multiplier, the rule for $\\mathrm{E}(aX + b)$ gives the fair fee in one line."
+        },
+        {
+          "type": "example",
+          "id": "ex-fair-game",
+          "question": "A spinner pays a prize of $X$ dollars, where $X$ takes the values $0, 2, 5, 10$ with probabilities $0.4, 0.3, 0.2, 0.1$. For one day, prizes are doubled, and a player pays $c$ dollars to play. Find $c$ so that the game is fair.",
+          "steps": [
+            "Find the mean prize: $\\mathrm{E}(X) = 0 + 2(0.3) + 5(0.2) + 10(0.1) = 0.6 + 1 + 1 = 2.6$.",
+            "The player's gain is $G = 2X - c$: the doubled prize minus the fee.",
+            "Use the linear rule: $\\mathrm{E}(G) = 2\\mathrm{E}(X) - c = 5.2 - c$.",
+            "A fair game needs $\\mathrm{E}(G) = 0$, so $5.2 - c = 0$.",
+            "The fee doesn't change the spread: $\\mathrm{Var}(G) = 2^{2}\\mathrm{Var}(X)$, whatever $c$ is."
+          ],
+          "answer": "$c = 5.2$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "A fair game question asks for $\\mathrm{E}(\\text{gain}) = 0$. Write the gain as a random variable first, with the fee subtracted, before you set its mean to $0$."
+        },
+        {
+          "type": "check",
+          "id": "check-linear-var",
+          "prompt": "$\\mathrm{Var}(X) = 4$. Find $\\mathrm{Var}(5 - 3X)$.",
+          "hint": "Here $a = -3$ and $b = 5$. What happens to $a$ in the variance rule?",
+          "options": [
+            {
+              "text": "$36$",
+              "correct": true
+            },
+            {
+              "text": "$-12$",
+              "correct": false
+            },
+            {
+              "text": "$12$",
+              "correct": false
+            },
+            {
+              "text": "$41$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{Var}(5 - 3X) = (-3)^{2} \\times 4 = 36$. The $5$ drops out, and squaring makes the minus sign disappear."
+        },
+        {
+          "type": "check",
+          "id": "check-linear-sd",
+          "prompt": "$X$ has mean $12$ and standard deviation $3$. Find the standard deviation of $Y = 0.5X - 4$.",
+          "hint": "Use $\\sigma_{aX + b} = \\lvert a\\rvert\\,\\sigma_{X}$.",
+          "answer": {
+            "value": 1.5,
+            "tolerance": 0
+          },
+          "explain": "$\\sigma_{Y} = 0.5 \\times 3 = 1.5$. The $-4$ shifts every value but doesn't change the spread."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\mathrm{Var}(X) = \\mathrm{E}(X^{2}) - \\left[\\mathrm{E}(X)\\right]^{2}, \\quad \\sigma = \\sqrt{\\mathrm{Var}(X)}",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-variance-general",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A pdf has $f(x) \\ge 0$ and total area $\\int f(x)\\,\\mathrm{d}x = 1$. Probabilities are areas, so $\\mathrm{P}(X = a) = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Split every integral of a piecewise density where the formula changes, and include every piece.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Mode: the $x$ where $f$ is largest (check the ends too). Median: $\\int_{-\\infty}^{m} f(x)\\,\\mathrm{d}x = \\frac{1}{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(X) = \\int x f(x)\\,\\mathrm{d}x, \\quad \\mathrm{E}(X^{2}) = \\int x^{2} f(x)\\,\\mathrm{d}x",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(aX + b) = a\\mathrm{E}(X) + b, \\quad \\mathrm{Var}(aX + b) = a^{2}\\mathrm{Var}(X)",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-linear-transform",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A game is fair when the player's expected gain is $0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Stopping at $\\mathrm{E}(X^{2})$ and calling it the variance. Always subtract $\\left[\\mathrm{E}(X)\\right]^{2}$.",
+    "Integrating $f(x)$ instead of $x f(x)$ for the mean. That just gives the total probability, $1$.",
+    "Using only one piece of a piecewise density, or the wrong limits. Split each integral where the formula changes, and start from the lowest value of $X$.",
+    "Giving the height of the density as the mode. The mode is the $x$-value where $f$ is largest.",
+    "Giving the variance when the question asks for the standard deviation. Take the square root.",
+    "Rounding $\\mathrm{E}(X)$ before squaring it. Store the full calculator value and round only the final answer."
+  ],
+  "examTips": [
+    "Show that a constant is $k$: write $\\int f(x)\\,\\mathrm{d}x = 1$ over the whole range first, then work forwards to the given value. Don't start from the answer.",
+    "On Paper 2, write down the integral or equation you put into the calculator, such as $\\int_{0}^{m} f(x)\\,\\mathrm{d}x = 0.5$. That line earns the method mark.",
+    "State or write down $\\mathrm{E}(X)$ for a symmetric density: the line of symmetry is the mean, and no working is needed.",
+    "For a median, check your answer lies in the interval where the density is non-zero, and in the piece you used."
+  ],
+  "readingMinutes": 28
+}

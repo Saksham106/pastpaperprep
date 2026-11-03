@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 250" role="img" aria-labelledby="t">
+  <title id="t">Tree diagram. First stage: rain 0.3, no rain 0.7. After rain: late 0.25, on time 0.75. After no rain: late 0.1, on time 0.9. Path products: 0.075, 0.225, 0.07 and 0.63.</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <line x1="20" y1="125" x2="135" y2="65"/>
+    <line x1="20" y1="125" x2="135" y2="185"/>
+    <line x1="165" y1="65" x2="280" y2="30"/>
+    <line x1="165" y1="65" x2="280" y2="100"/>
+    <line x1="165" y1="185" x2="280" y2="150"/>
+    <line x1="165" y1="185" x2="280" y2="220"/>
+  </g>
+  <g font-family="inherit" font-size="14" fill="currentColor">
+    <text x="142" y="70" fill="var(--t1-ink)" font-weight="bold">R</text>
+    <text x="142" y="190" fill="var(--t1-ink)" font-weight="bold">R′</text>
+    <text x="288" y="35" fill="var(--t2-ink)" font-weight="bold">L</text>
+    <text x="288" y="105" fill="var(--t2-ink)" font-weight="bold">L′</text>
+    <text x="288" y="155" fill="var(--t2-ink)" font-weight="bold">L</text>
+    <text x="288" y="225" fill="var(--t2-ink)" font-weight="bold">L′</text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="currentColor">
+    <text x="58" y="82">0.3</text>
+    <text x="58" y="180">0.7</text>
+    <text x="205" y="36">0.25</text>
+    <text x="205" y="104">0.75</text>
+    <text x="210" y="156">0.1</text>
+    <text x="210" y="224">0.9</text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="var(--muted)">
+    <text x="318" y="35">0.3 × 0.25 = 0.075</text>
+    <text x="318" y="105">0.3 × 0.75 = 0.225</text>
+    <text x="318" y="155">0.7 × 0.1 = 0.07</text>
+    <text x="318" y="225">0.7 × 0.9 = 0.63</text>
+  </g>
+</svg>

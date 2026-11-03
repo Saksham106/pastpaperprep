@@ -1,0 +1,577 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.15",
+  "slug": "function-inequalities",
+  "title": "Function inequalities",
+  "level": "AHL",
+  "topic": 2,
+  "summary": "To solve $g(x) \\ge f(x)$, find where the graph of $g$ is on or above the graph of $f$. The $x$-values where the graphs meet, and any vertical [[asymptote|asymptotes]], are the boundaries. For polynomials up to degree 3 you find them exactly by algebra. For other functions, your GDC finds them.",
+  "goals": [
+    {
+      "text": "Read the solution of $g(x) \\ge f(x)$ from the graphs of $f$ and $g$, using where they meet as boundaries.",
+      "bullets": [
+        "2.15-b1"
+      ]
+    },
+    {
+      "text": "Solve an inequality between polynomials of degree 3 or less exactly, by factorising and using a [[sign-diagram|sign diagram]].",
+      "bullets": [
+        "2.15-b1",
+        "2.15-b2"
+      ]
+    },
+    {
+      "text": "Handle $x$ in a denominator without multiplying by an expression of unknown sign.",
+      "bullets": [
+        "2.15-b1"
+      ]
+    },
+    {
+      "text": "Use your GDC to solve inequalities with logs, exponentials, rational and other functions, giving end points to 3 s.f.",
+      "bullets": [
+        "2.15-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.7",
+    "2.12"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "function inequalities",
+    "solve f(x) > g(x)",
+    "inequality from two graphs",
+    "cubic inequality",
+    "sign diagram",
+    "solve an inequality with a GDC"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-quadratic-inequality",
+      "prompt": "Solve $x^{2} - 2x - 15 > 0$.",
+      "hint": "Factorise to find the critical values. Does the parabola open up or down?",
+      "options": [
+        {
+          "text": "$-3 < x < 5$",
+          "correct": false
+        },
+        {
+          "text": "$x < -3 \\text{ or } x > 5$",
+          "correct": true
+        },
+        {
+          "text": "$x < -5 \\text{ or } x > 3$",
+          "correct": false
+        },
+        {
+          "text": "$x > 5$",
+          "correct": false
+        }
+      ],
+      "explain": "$(x + 3)(x - 5) > 0$. The parabola opens upwards, so it is above the axis outside its roots: $x < -3$ or $x > 5$. Revise it in {{lesson:2.7}}."
+    },
+    {
+      "type": "check",
+      "id": "before-factor-cubic",
+      "prompt": "Given that $(x - 2)$ is a factor of $x^{3} - 3x^{2} - 4x + 12$, factorise it fully.",
+      "hint": "Group the first two terms and the last two terms.",
+      "options": [
+        {
+          "text": "$(x - 2)^{2}(x - 3)$",
+          "correct": false
+        },
+        {
+          "text": "$(x - 2)(x + 2)(x + 3)$",
+          "correct": false
+        },
+        {
+          "text": "$(x - 2)(x + 2)(x - 3)$",
+          "correct": true
+        },
+        {
+          "text": "$(x - 2)(x - 6)(x + 1)$",
+          "correct": false
+        }
+      ],
+      "explain": "$x^{2}(x - 3) - 4(x - 3) = (x^{2} - 4)(x - 3) = (x - 2)(x + 2)(x - 3)$. Revise it in {{lesson:2.12}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "graphs",
+      "heading": "Reading an inequality from two graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.7}} you solved $x^{2} - x - 12 < 0$ by asking where one graph is below the $x$-axis. Now there are two functions on the two sides, such as $4 - x^{2} \\ge x + 2$."
+        },
+        {
+          "type": "text",
+          "text": "Draw both graphs on the same axes. At each $x$, the inequality $g(x) \\ge f(x)$ asks one question: is the point on the graph of $g$ level with or above the point on the graph of $f$?"
+        },
+        {
+          "type": "figure",
+          "id": "2-15-two-graphs",
+          "alt": "The parabola y equals 4 minus x squared and the line y equals x plus 2 on one set of axes. They meet at the points minus 2, 0 and 1, 3. Between x equals minus 2 and x equals 1 the parabola is above the line, and this strip of the x-axis is highlighted. To the left of minus 2 and to the right of 1 the parabola is below the line.",
+          "caption": "The parabola is above the line only between the two meeting points, so $4 - x^{2} \\ge x + 2$ when $-2 \\le x \\le 1$."
+        },
+        {
+          "type": "text",
+          "text": "The $x$-coordinates of the meeting points, together with any vertical [[asymptote|asymptotes]], are the [[critical-value|critical values]]. They split the number line into pieces, and on each piece one graph stays on top."
+        },
+        {
+          "type": "text",
+          "text": "In algebra, $g(x) \\ge f(x)$ exactly when the difference $g(x) - f(x)$ is $0$ or positive:"
+        },
+        {
+          "type": "formula",
+          "tex": "g(x) \\ge f(x) \\iff g(x) - f(x) \\ge 0",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "result",
+          "statement": "The sign of $g(x) - f(x)$ can change only where the graphs of $f$ and $g$ meet, or where one of them breaks: at a vertical asymptote or at the edge of its [[domain|domain]].",
+          "why": "Between those $x$-values both graphs are unbroken, so one can only get above the other by crossing it."
+        },
+        {
+          "type": "text",
+          "text": "1. Sketch both graphs on one set of axes."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the $x$-coordinates where they meet by solving $g(x) = f(x)$. Note any vertical asymptotes too."
+        },
+        {
+          "type": "text",
+          "text": "3. On each piece between these values, see which graph is on top. If you are unsure, test one $x$-value from that piece."
+        },
+        {
+          "type": "text",
+          "text": "4. Write the solution as inequalities. With $\\le$ or $\\ge$, include the meeting points. Never include an asymptote, because a function has no value there."
+        },
+        {
+          "type": "example",
+          "id": "ex-graph-parabola-line",
+          "question": "Let $f(x) = 4 - x^{2}$ and $g(x) = x + 2$, as in the figure. Solve $f(x) \\ge g(x)$.",
+          "steps": [
+            "Find where the graphs meet: $4 - x^{2} = x + 2$. Move every term to one side: $x^{2} + x - 2 = 0$.",
+            "Factorise: $(x + 2)(x - 1) = 0$, so $x = -2$ or $x = 1$. The meeting points are $(-2, 0)$ and $(1, 3)$.",
+            "Between $x = -2$ and $x = 1$ the parabola is above the line. Test $x = 0$: $f(0) = 4$ and $g(0) = 2$, and $4 \\ge 2$ is true.",
+            "Outside them the line is above. Test $x = 2$: $f(2) = 0$ and $g(2) = 4$, and $0 \\ge 4$ is false.",
+            "The inequality is $\\ge$, so the meeting points are included."
+          ],
+          "answer": "$-2 \\le x \\le 1$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-parabola-line",
+          "prompt": "Let $f(x) = x^{2} - 1$ and $g(x) = x + 1$. Solve $f(x) < g(x)$.",
+          "hint": "Solve $x^{2} - 1 = x + 1$ first. Then ask: where is the parabola below the line?",
+          "options": [
+            {
+              "text": "$x < -1 \\text{ or } x > 2$",
+              "correct": false
+            },
+            {
+              "text": "$-1 < x < 2$",
+              "correct": true
+            },
+            {
+              "text": "$-1 \\le x \\le 2$",
+              "correct": false
+            },
+            {
+              "text": "$-2 < x < 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{2} - x - 2 = (x + 1)(x - 2) = 0$ gives $x = -1$ and $x = 2$. The parabola opens upwards, so it is below the line between them. The inequality is strict, so the end points are left out."
+        },
+        {
+          "type": "text",
+          "text": "Now a function with a break. The graph of $y = \\frac{6}{x}$ has a vertical asymptote at $x = 0$, where it jumps from far below the axis to far above it."
+        },
+        {
+          "type": "example",
+          "id": "ex-graph-reciprocal-line",
+          "question": "Solve $\\frac{6}{x} < x + 1$ by sketching the graphs of $y = \\frac{6}{x}$ and $y = x + 1$.",
+          "steps": [
+            "Sketch both. The curve $y = \\frac{6}{x}$ has two branches, with asymptotes $x = 0$ and $y = 0$.",
+            "Find where they meet: $\\frac{6}{x} = x + 1$, with $x \\ne 0$. Multiplying an equation by $x$ is safe: $6 = x^{2} + x$, so $x^{2} + x - 6 = (x + 3)(x - 2) = 0$. They meet at $(-3, -2)$ and $(2, 3)$.",
+            "The critical values are $-3$, $0$ (the asymptote) and $2$. They make four pieces.",
+            "Test each piece. $x = -6$: $-1 < -5$ is false. $x = -1$: $-6 < 0$ is true. $x = 1$: $6 < 2$ is false. $x = 3$: $2 < 4$ is true.",
+            "The inequality is strict, so leave out $-3$ and $2$. Leave out $0$ too, because $\\frac{6}{x}$ has no value there."
+          ],
+          "answer": "$-3 < x < 0 \\text{ or } x > 2$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying the inequality $\\frac{6}{x} < x + 1$ by $x$. When $x < 0$ that reverses the sign, so you lose the piece $-3 < x < 0$. Use the graph, or multiply by $x^{2}$ instead (next section)."
+        },
+        {
+          "type": "check",
+          "id": "check-reciprocal-line",
+          "prompt": "Solve $\\frac{4}{x} \\le x$.",
+          "hint": "Find where $y = \\frac{4}{x}$ meets $y = x$. Remember the asymptote $x = 0$ is a boundary too.",
+          "options": [
+            {
+              "text": "$x \\le -2 \\text{ or } x \\ge 2$",
+              "correct": false
+            },
+            {
+              "text": "$x \\ge 2$",
+              "correct": false
+            },
+            {
+              "text": "$-2 \\le x < 0 \\text{ or } x \\ge 2$",
+              "correct": true
+            },
+            {
+              "text": "$-2 \\le x \\le 2$",
+              "correct": false
+            }
+          ],
+          "explain": "The graphs meet where $x^{2} = 4$, at $x = -2$ and $x = 2$. Testing $x = -3$, $-1$, $1$ and $3$ shows the curve is on or below the line for $-2 \\le x < 0$ and for $x \\ge 2$. Multiplying by $x$ gives $4 \\le x^{2}$, so $x \\le -2$ or $x \\ge 2$, which is wrong for negative $x$."
+        }
+      ]
+    },
+    {
+      "id": "algebra",
+      "heading": "Solving with algebra: polynomials up to degree 3",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A sketch tells you which pieces you want. When both sides are polynomials of degree 3 or less, algebra finds the [[critical-value|critical values]] exactly."
+        },
+        {
+          "type": "text",
+          "text": "1. Move every term to one side, so you compare $h(x) = g(x) - f(x)$ with $0$."
+        },
+        {
+          "type": "text",
+          "text": "2. Factorise $h(x)$ fully. For a cubic, find one root with the factor theorem from {{lesson:2.12}}, then factorise the quadratic that is left."
+        },
+        {
+          "type": "text",
+          "text": "3. Mark the roots on a [[sign-diagram|sign diagram]]: a number line showing where $h(x)$ is positive and where it is negative."
+        },
+        {
+          "type": "text",
+          "text": "4. Read off the pieces you want, and include the roots for $\\le$ or $\\ge$."
+        },
+        {
+          "type": "result",
+          "statement": "A polynomial changes sign at a single root. It keeps its sign at a [[repeated-root|double root]], such as the root $2$ of $(x - 2)^{2}$. A triple root, such as the root $1$ of $(x - 1)^{3}$, still swaps the sign.",
+          "why": "Near a single root $a$, only the factor $(x - a)$ changes sign. A squared factor $(x - a)^{2}$ is never negative, so it can't change the sign."
+        },
+        {
+          "type": "text",
+          "text": "For a cubic with a positive $x^{3}$ term, $h(x)$ is positive to the right of the largest root. Moving left, the sign swaps at each single root."
+        },
+        {
+          "type": "example",
+          "id": "ex-cubic-three-roots",
+          "question": "Solve $x^{3} + 6 \\ge 2x^{2} + 5x$.",
+          "steps": [
+            "Move every term to the left: $x^{3} - 2x^{2} - 5x + 6 \\ge 0$.",
+            "Look for a root among the factors of $6$. Try $x = 1$: $1 - 2 - 5 + 6 = 0$. So $(x - 1)$ is a factor.",
+            "Divide, or compare coefficients: $x^{3} - 2x^{2} - 5x + 6 = (x - 1)(x^{2} - x - 6) = (x - 1)(x - 3)(x + 2)$.",
+            "The critical values are $-2$, $1$ and $3$. The $x^{3}$ term is positive, so the sign is $+$ for $x > 3$, $-$ for $1 < x < 3$, $+$ for $-2 < x < 1$ and $-$ for $x < -2$.",
+            "You want $\\ge 0$: the $+$ pieces, with the roots included. Check $x = 0$ in the original: $6 \\ge 0$ is true."
+          ],
+          "answer": "$-2 \\le x \\le 1 \\text{ or } x \\ge 3$",
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "2-15-cubic-sign",
+          "alt": "The cubic y equals x plus 2, times x minus 1, times x minus 3, crossing the x-axis at minus 2, 1 and 3. The x-axis is marked minus to the left of minus 2, plus between minus 2 and 1, minus between 1 and 3, and plus to the right of 3.",
+          "caption": "The sign diagram of $(x + 2)(x - 1)(x - 3)$ is the sketch read along the $x$-axis: the sign swaps at each single root."
+        },
+        {
+          "type": "example",
+          "id": "ex-cubic-repeated-root",
+          "question": "Let $f(x) = x^{3}$ and $g(x) = 3x^{2} - 4$. Solve $f(x) < g(x)$.",
+          "steps": [
+            "Move every term to the left: $x^{3} - 3x^{2} + 4 < 0$.",
+            "Try $x = -1$: $-1 - 3 + 4 = 0$. So $(x + 1)$ is a factor.",
+            "Compare coefficients: $x^{3} - 3x^{2} + 4 = (x + 1)(x^{2} - 4x + 4) = (x + 1)(x - 2)^{2}$.",
+            "$(x - 2)^{2}$ is positive except at $x = 2$, where it is $0$. So the product has the sign of $x + 1$, apart from being $0$ at $x = 2$.",
+            "It is negative only when $x + 1 < 0$. At $x = 2$ the product is $0$, which is not less than $0$: the graphs touch there without crossing.",
+            "Had the question said $\\le$, the answer would be $x \\le -1$ or $x = 2$."
+          ],
+          "answer": "$x < -1$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cubic-common-factor",
+          "prompt": "Solve $x^{3} + x^{2} \\le 2x$.",
+          "hint": "Move $2x$ to the left and take out the common factor $x$. Don't divide by $x$.",
+          "options": [
+            {
+              "text": "$-2 \\le x \\le 1$",
+              "correct": false
+            },
+            {
+              "text": "$x \\le -2 \\text{ or } 0 \\le x \\le 1$",
+              "correct": true
+            },
+            {
+              "text": "$-2 \\le x \\le 0 \\text{ or } x \\ge 1$",
+              "correct": false
+            },
+            {
+              "text": "$x \\le -2 \\text{ or } 0 < x < 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{3} + x^{2} - 2x = x(x + 2)(x - 1) \\le 0$. The signs are $+$ for $x > 1$, $-$ for $0 < x < 1$, $+$ for $-2 < x < 0$ and $-$ for $x < -2$. Dividing by $x$ gives $-2 \\le x \\le 1$, which is wrong for negative $x$."
+        },
+        {
+          "type": "text",
+          "text": "When $x$ is in a denominator, you may not multiply by it: you don't know its sign. Multiply by its square instead. A square is positive whenever it isn't zero, so the inequality sign stays the same."
+        },
+        {
+          "type": "example",
+          "id": "ex-rational-square",
+          "question": "Solve $\\frac{12}{x} \\ge x + 4$.",
+          "steps": [
+            "$x \\ne 0$, so $x^{2} > 0$. Multiply both sides by $x^{2}$: $12x \\ge x^{3} + 4x^{2}$.",
+            "Move every term to the right: $0 \\ge x^{3} + 4x^{2} - 12x$. That is, $x(x^{2} + 4x - 12) \\le 0$.",
+            "Factorise: $x(x + 6)(x - 2) \\le 0$. The critical values are $-6$, $0$ and $2$.",
+            "The signs are $+$ for $x > 2$, $-$ for $0 < x < 2$, $+$ for $-6 < x < 0$ and $-$ for $x < -6$. So $x \\le -6$ or $0 \\le x \\le 2$.",
+            "Remove $x = 0$, where $\\frac{12}{x}$ has no value. Check $x = 1$ in the original: $12 \\ge 5$ is true."
+          ],
+          "answer": "$x \\le -6 \\text{ or } 0 < x \\le 2$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cubic-touch",
+          "prompt": "Solve $x^{3} - 2x^{2} > 4x - 8$.",
+          "hint": "Move every term to the left, then group: $x^{2}(x - 2) - 4(x - 2)$.",
+          "options": [
+            {
+              "text": "$x > -2$",
+              "correct": false
+            },
+            {
+              "text": "$-2 < x < 2 \\text{ or } x > 2$",
+              "correct": true
+            },
+            {
+              "text": "$x > 2$",
+              "correct": false
+            },
+            {
+              "text": "$-2 < x < 2$",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{3} - 2x^{2} - 4x + 8 = (x - 2)(x^{2} - 4) = (x + 2)(x - 2)^{2}$. It has the sign of $x + 2$, so it is positive for $x > -2$, except at $x = 2$, where it is $0$."
+        }
+      ]
+    },
+    {
+      "id": "technology",
+      "heading": "Using your GDC for other functions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Algebra can't find where $y = \\ln(x + 3)$ meets $y = x^{2} - 2x$. On Paper 2 your GDC finds such [[critical-value|critical values]], as in {{lesson:2.10}}. It also saves time on a cubic whose roots aren't whole numbers."
+        },
+        {
+          "type": "text",
+          "text": "1. Write down the two functions you graph."
+        },
+        {
+          "type": "text",
+          "text": "2. Find each intersection. Zoom out, so that no meeting point is hidden outside the [[viewing-window|viewing window]]."
+        },
+        {
+          "type": "text",
+          "text": "3. Note any vertical [[asymptote|asymptotes]] and the [[domain|domain]] of each function."
+        },
+        {
+          "type": "text",
+          "text": "4. Read which graph is on top on each piece. Round the end points to 3 s.f. only at the end."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-log-quadratic",
+          "question": "Use your calculator to solve $\\ln(x + 3) > x^{2} - 2x$. Give the end points to 3 s.f.",
+          "steps": [
+            "Graph $y = \\ln(x + 3)$ and $y = x^{2} - 2x$. The log is defined only for $x > -3$.",
+            "Find the intersections: $x = -0.398589\\ldots$ and $x = 2.652928\\ldots$. Zoom out: the log grows slowly and the parabola fast, so there are no more.",
+            "Between the intersections the log curve is above. Test $x = 0$: $\\ln 3 = 1.0986\\ldots > 0$.",
+            "Outside them the parabola is above. Close to $x = -3$ the log falls steeply below the parabola, so that end adds nothing.",
+            "The inequality is strict, so the end points are excluded. Round them only now."
+          ],
+          "answer": "$-0.399 < x < 2.65$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = ln(X+3) and Y2 = X^2-2X",
+              "GRAPH",
+              "2nd, TRACE (CALC), 5: intersect",
+              "Choose Y1, then Y2, then move the cursor near X = 0 for the guess",
+              "Read X = -0.398589...",
+              "Repeat with a guess near X = 3 and read X = 2.652928..."
+            ],
+            "nspire": [
+              "Graphs page: enter f1(x) = ln(x+3) and f2(x) = x^2-2x",
+              "Menu, Analyze Graph, Intersection",
+              "Set the lower bound left of x = 0 and the upper bound right of it, then read x = -0.398589...",
+              "Repeat around x = 3 and read x = 2.652928..."
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = ln(X+3) and Y2 = X^2-2X",
+              "DRAW",
+              "SHIFT F5 (G-SOLV), INTSECT",
+              "Read X = -0.398589..., then press the right arrow for the next point (check on your model)",
+              "Read X = 2.652928..."
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Write down the equation you give the GDC, such as $\\ln(x + 3) = x^{2} - 2x$. That line earns the method mark."
+        },
+        {
+          "type": "text",
+          "text": "A vertical asymptote is a boundary that your GDC won't report as an intersection. Find it yourself: it is where the denominator is zero."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-rational",
+          "question": "Use your calculator to solve $\\frac{2x + 1}{x - 1} \\le x + 2$. Give any end points that are not whole numbers to 3 s.f.",
+          "steps": [
+            "Graph $y = \\frac{2x + 1}{x - 1}$ and $y = x + 2$. The curve has a vertical asymptote $x = 1$, where $x - 1 = 0$.",
+            "The intersections are $x = -1.302775\\ldots$ and $x = 2.302775\\ldots$. (They solve $x^{2} - x - 3 = 0$, so they are $\\frac{1 \\pm \\sqrt{13}}{2}$.)",
+            "The critical values $-1.30\\ldots$, $1$ and $2.30\\ldots$ make four pieces. Test $x = -2$: $1 \\le 0$ is false. Test $x = 0$: $-1 \\le 2$ is true.",
+            "Test $x = 2$: $5 \\le 4$ is false. Test $x = 3$: $3.5 \\le 5$ is true.",
+            "Include the intersections, because of $\\le$. Leave out $x = 1$, where the curve isn't defined."
+          ],
+          "answer": "$-1.30 \\le x < 1 \\text{ or } x \\ge 2.30$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Reading only the intersections from the GDC and missing the asymptote. A rational function can switch sides at its vertical asymptote without meeting the other graph."
+        },
+        {
+          "type": "check",
+          "id": "check-gdc-exp-line",
+          "prompt": "The solution of $\\mathrm{e}^{-x} \\ge x + 2$ is $x \\le a$. Use your calculator to find $a$. Give your answer to 3 s.f.",
+          "hint": "Graph $y = \\mathrm{e}^{-x}$ and $y = x + 2$ and find where they meet.",
+          "answer": {
+            "value": -0.443,
+            "tolerance": 0.0005
+          },
+          "explain": "The graphs meet once, at $x = -0.442854\\ldots$. To the left the exponential is above the line, and to the right it is below. So $a = -0.443$."
+        },
+        {
+          "type": "check",
+          "id": "check-asymptote-only",
+          "prompt": "Solve $\\frac{4}{x + 1} > 2 - x$.",
+          "hint": "Try to find where the graphs meet. If they never meet, what else can split the number line?",
+          "options": [
+            {
+              "text": "$x > -1$",
+              "correct": true
+            },
+            {
+              "text": "$x < -1$",
+              "correct": false
+            },
+            {
+              "text": "$x > 2$",
+              "correct": false
+            },
+            {
+              "text": "$-1 < x < 2$",
+              "correct": false
+            }
+          ],
+          "explain": "$4 = (2 - x)(x + 1)$ gives $x^{2} - x + 2 = 0$, with discriminant $1 - 8 < 0$. So the graphs never meet, and the only boundary is the asymptote $x = -1$. Test $x = 0$: $4 > 2$ is true. Test $x = -2$: $-4 > 4$ is false."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "g(x) \\ge f(x) \\iff g(x) - f(x) \\ge 0",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$g(x) \\ge f(x)$ where the graph of $g$ is on or above the graph of $f$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Boundaries: where the graphs meet, plus vertical asymptotes and domain ends. Never include an asymptote.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Polynomials up to degree 3: move to one side, factorise, then use a sign diagram.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The sign swaps at a single root and stays the same at a double (squared) root.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Never multiply by an expression of unknown sign, such as $x$. Multiply by its square.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Paper 2: write down the functions you graph and the intersections, then round end points to 3 s.f.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Multiplying or dividing both sides by $x$, or by a bracket such as $x - 1$. Its sign is unknown, so the inequality may need to flip. Multiply by its square, or move every term to one side and factorise.",
+    "Cancelling a common factor: turning $x^{3} + x^{2} \\le 2x$ into $x^{2} + x \\le 2$ loses solutions. Take the factor out instead: $x(x + 2)(x - 1) \\le 0$.",
+    "Forgetting a vertical asymptote. It is a boundary even though the graphs don't meet there, and it is never part of the answer.",
+    "Treating a double root like a single root. $(x - 2)^{2}$ is never negative, so the sign doesn't swap at $x = 2$.",
+    "Giving only the intersections. “Solve” wants the set of $x$-values, written as inequalities or intervals.",
+    "Missing a meeting point that lies outside the GDC window. Zoom out and think about how each graph behaves at both ends."
+  ],
+  "examTips": [
+    "“Solve” an inequality means give every $x$ that works. Choose $<$ or $\\le$ at each end to match the question and the domain.",
+    "On Paper 1, show the factorised form and a sketch or sign diagram. Method marks are for that working, not only the final set.",
+    "On Paper 2, write down the functions you graph and the intersection values, unrounded. Then give the end points to 3 s.f.",
+    "“Hence” after finding where two graphs meet means use those $x$-values as your critical values."
+  ],
+  "readingMinutes": 17
+}

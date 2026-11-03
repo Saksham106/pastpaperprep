@@ -1,0 +1,687 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.11",
+  "slug": "transformations-of-graphs",
+  "title": "Transformations of graphs",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A [[transformation|transformation]] moves, mirrors or stretches a graph you already know. A change outside the function acts on $y$ as it looks, but a change inside the bracket acts on $x$ the opposite way, so $f(x - 3)$ moves the graph right. With these rules you can sketch, describe and write the equation of a new graph without plotting points.",
+  "goals": [
+    {
+      "text": "Translate a graph with $y = f(x) + b$ and $y = f(x - a)$, and find where its points and asymptotes go.",
+      "bullets": [
+        "2.11-b1"
+      ]
+    },
+    {
+      "text": "Reflect a graph in the $x$-axis with $y = -f(x)$ and in the $y$-axis with $y = f(-x)$.",
+      "bullets": [
+        "2.11-b2"
+      ]
+    },
+    {
+      "text": "Stretch a graph vertically with $y = pf(x)$ and horizontally with $y = f(qx)$, whose scale factor is $\\frac{1}{q}$.",
+      "bullets": [
+        "2.11-b3"
+      ]
+    },
+    {
+      "text": "Combine transformations in the right order, and describe a sequence that maps one graph onto another.",
+      "bullets": [
+        "2.11-b4"
+      ]
+    },
+    {
+      "text": "Know the SL limit: at most one change inside the bracket, so forms such as $f(2x - 6)$ are left to HL.",
+      "bullets": [
+        "2.11-b5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.3",
+    "2.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "graph transformations",
+    "translate a graph",
+    "reflect a graph in the x-axis",
+    "stretch a graph",
+    "f(x - a) shift right",
+    "horizontal stretch scale factor"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-y-intercept",
+      "prompt": "Find the $y$-intercept of the graph of $y = (x - 4)^{2} - 7$.",
+      "hint": "The $y$-intercept is where the graph meets the $y$-axis, so put $x = 0$.",
+      "options": [
+        {
+          "text": "$(0, 9)$",
+          "correct": true
+        },
+        {
+          "text": "$(0, -7)$",
+          "correct": false
+        },
+        {
+          "text": "$(0, -23)$",
+          "correct": false
+        }
+      ],
+      "explain": "Put $x = 0$: $(0 - 4)^{2} - 7 = 16 - 7 = 9$, so the graph crosses the $y$-axis at $(0, 9)$. Revise it in {{lesson:2.3}}."
+    },
+    {
+      "type": "check",
+      "id": "before-composite",
+      "prompt": "Given $f(x) = x^{2}$ and $g(x) = x - 3$, find $(f \\circ g)(x)$.",
+      "hint": "$(f \\circ g)(x) = f(g(x))$: put $g(x)$ into $f$.",
+      "options": [
+        {
+          "text": "$(x - 3)^{2}$",
+          "correct": true
+        },
+        {
+          "text": "$x^{2} - 3$",
+          "correct": false
+        },
+        {
+          "text": "$x^{2} - 9$",
+          "correct": false
+        }
+      ],
+      "explain": "$f(g(x)) = f(x - 3) = (x - 3)^{2}$. The answer $x^{2} - 3$ is $(g \\circ f)(x)$, the other order. Revise it in {{lesson:2.5}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "translations",
+      "heading": "Translations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Start with $y = x^{2}$ and add $2$ to every output: $y = x^{2} + 2$. Each point rises $2$ units, so the vertex goes from $(0, 0)$ to $(0, 2)$."
+        },
+        {
+          "type": "text",
+          "text": "Now replace $x$ by $x - 3$: $y = (x - 3)^{2}$. The vertex is where the bracket is zero, at $x = 3$. So this curve has moved $3$ units to the right, not to the left."
+        },
+        {
+          "type": "text",
+          "text": "Why right? The new graph reaches each height $3$ units later than $y = x^{2}$ does. At $x = 3$ it does what $y = x^{2}$ did at $x = 0$."
+        },
+        {
+          "type": "figure",
+          "id": "2-11-translations",
+          "alt": "Dashed parabola y equals x squared with its vertex at the origin. The curve y equals x squared plus 2 is the same shape with vertex (0, 2), and an arrow points up from (0, 0) to (0, 2). The curve y equals (x minus 3) squared is the same shape with vertex (3, 0), and an arrow points right from (0, 0) to (3, 0).",
+          "caption": "Adding $2$ outside moves the graph up $2$. Writing $x - 3$ inside moves it right $3$."
+        },
+        {
+          "type": "text",
+          "text": "Each of these is a [[translation|translation]]: a slide with no turning or resizing."
+        },
+        {
+          "type": "definition",
+          "term": "translation",
+          "statement": "A translation moves every point of a graph the same distance in the same direction. The graph keeps its shape, size and way up.",
+          "plain": "The graph slides; nothing turns or stretches."
+        },
+        {
+          "type": "formula",
+          "tex": "y = f(x) + b \\;:\\; \\text{translation } b \\text{ units up} \\qquad y = f(x - a) \\;:\\; \\text{translation } a \\text{ units right}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A negative $b$ moves the graph down. A negative $a$ moves it left: $y = f(x + 3)$ is $y = f(x - (-3))$, a translation $3$ units left."
+        },
+        {
+          "type": "result",
+          "statement": "Under $y = f(x - a) + b$, each point $(x, y)$ on $y = f(x)$ moves to $(x + a, y + b)$. [[asymptote|Asymptotes]] move with the graph.",
+          "why": "If $f(x_{0}) = y_{0}$, the new function at $x = x_{0} + a$ gives $f(x_{0}) + b = y_{0} + b$."
+        },
+        {
+          "type": "text",
+          "text": "You can also write a translation $a$ across and $b$ up as the column vector $\\begin{pmatrix} a \\\\ b \\end{pmatrix}$. In words, give the direction and the distance."
+        },
+        {
+          "type": "text",
+          "text": "$y = f(x - 3)$ is a [[composite-function|composite]] ({{lesson:2.5}}): first $x \\mapsto x - 3$, then $f$."
+        },
+        {
+          "type": "example",
+          "id": "ex-translate-cubic",
+          "question": "Translate the graph of $y = x^{3}$ left by $2$ units. Write down the equation of the new graph.",
+          "steps": [
+            "A move left is a horizontal translation, so it changes $x$ inside the function. Left $2$ means $a = -2$.",
+            "Replace $x$ by $x - (-2) = x + 2$: $y = (x + 2)^{3}$.",
+            "Check with one point. $(0, 0)$ on $y = x^{3}$ should move to $(-2, 0)$, and $(-2 + 2)^{3} = 0$."
+          ],
+          "answer": "$y = (x + 2)^{3}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Reading $(x + 2)^{3}$ as a move to the right because of the plus sign. Inside the bracket the sign works the other way: $x + 2$ moves the graph left $2$, and $x - 2$ moves it right $2$."
+        },
+        {
+          "type": "example",
+          "id": "ex-translate-exp",
+          "question": "Translate the graph of $y = \\mathrm{e}^{x}$ right by $2$ units and up by $5$ units, and call the image $y = g(x)$. Write down $g(x)$ and the equation of the horizontal asymptote of its graph. Find the exact $y$-intercept.",
+          "steps": [
+            "Right $2$: replace $x$ by $x - 2$. Up $5$: add $5$ outside. So $g(x) = \\mathrm{e}^{x - 2} + 5$.",
+            "The asymptote of $y = \\mathrm{e}^{x}$ is $y = 0$. The move up carries it to $y = 5$. A sideways move doesn't change a horizontal line, so the asymptote is $y = 5$.",
+            "For the $y$-intercept, put $x = 0$: $g(0) = \\mathrm{e}^{0 - 2} + 5 = \\mathrm{e}^{-2} + 5$."
+          ],
+          "answer": "$g(0) = \\mathrm{e}^{-2} + 5$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "When a question asks for an asymptote, write its equation, such as $y = 5$, not just the number $5$."
+        },
+        {
+          "type": "check",
+          "id": "check-translate-point",
+          "prompt": "The point $(5, -2)$ lies on the graph of $y = f(x)$. Which point must lie on the graph of $y = f(x + 3)$?",
+          "hint": "Does $+3$ inside the bracket move the graph left or right? Only the $x$-coordinate changes.",
+          "options": [
+            {
+              "text": "$(2, -2)$",
+              "correct": true
+            },
+            {
+              "text": "$(8, -2)$",
+              "correct": false
+            },
+            {
+              "text": "$(5, 1)$",
+              "correct": false
+            },
+            {
+              "text": "$(5, -5)$",
+              "correct": false
+            }
+          ],
+          "explain": "$f(x + 3)$ is a translation $3$ units left, so $(5, -2)$ moves to $(2, -2)$. Check: at $x = 2$ the new function gives $f(2 + 3) = f(5) = -2$."
+        },
+        {
+          "type": "check",
+          "id": "check-translate-asymptote",
+          "prompt": "Translate the graph of $y = \\frac{1}{x}$ left by $3$ units and up by $1$ unit. Find the equation of the vertical asymptote of the new graph.",
+          "hint": "The asymptote $x = 0$ moves with the graph. Which of the two moves shifts a vertical line?",
+          "options": [
+            {
+              "text": "$x = -3$",
+              "correct": true
+            },
+            {
+              "text": "$x = 3$",
+              "correct": false
+            },
+            {
+              "text": "$y = 1$",
+              "correct": false
+            },
+            {
+              "text": "$x = 1$",
+              "correct": false
+            }
+          ],
+          "explain": "The new graph is $y = \\frac{1}{x + 3} + 1$. The line $x = 0$ moves $3$ left to $x = -3$; the move up leaves a vertical line where it is. $y = 1$ is the new horizontal asymptote."
+        }
+      ]
+    },
+    {
+      "id": "reflections",
+      "heading": "Reflections in the axes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Put a minus sign in front: $y = -f(x)$. Every output changes sign, so $(x, y)$ moves to $(x, -y)$. The graph flips over the $x$-axis."
+        },
+        {
+          "type": "text",
+          "text": "Put the minus sign on the input instead: $y = f(-x)$. The new graph does at $x$ what the old one did at $-x$. So $(x, y)$ moves to $(-x, y)$, and the graph flips over the $y$-axis."
+        },
+        {
+          "type": "figure",
+          "id": "2-11-reflections",
+          "alt": "Dashed curve y equals root x, starting at the origin and passing through (4, 2). Its reflection in the x-axis, y equals minus root x, passes through (4, minus 2). Its reflection in the y-axis, y equals root of minus x, passes through (minus 4, 2). The origin lies on all three curves.",
+          "caption": "$y = -\\sqrt{x}$ flips $y = \\sqrt{x}$ over the $x$-axis. $y = \\sqrt{-x}$ flips it over the $y$-axis."
+        },
+        {
+          "type": "text",
+          "text": "Each flip is a [[reflection|reflection]] in an axis."
+        },
+        {
+          "type": "definition",
+          "term": "reflection",
+          "statement": "A reflection in a line sends each point to its mirror image: the point on the other side of the line, at the same distance from it.",
+          "plain": "The graph flips over the line, as in a mirror."
+        },
+        {
+          "type": "formula",
+          "tex": "y = -f(x) \\;:\\; \\text{reflection in the } x\\text{-axis} \\qquad y = f(-x) \\;:\\; \\text{reflection in the } y\\text{-axis}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Points on the mirror line stay where they are. They are [[invariant-point|invariant points]]. So $y = -f(x)$ keeps every $x$-intercept, and $y = f(-x)$ keeps the $y$-intercept."
+        },
+        {
+          "type": "example",
+          "id": "ex-reflect-y-axis",
+          "question": "Let $f(x) = x^{2} - 8x + 12$. The graph of $y = g(x)$ is the reflection of the graph of $y = f(x)$ in the $y$-axis. Find $g(x)$ in expanded form.",
+          "steps": [
+            "A reflection in the $y$-axis is $g(x) = f(-x)$. Replace every $x$ by $(-x)$, keeping the brackets.",
+            "$g(x) = (-x)^{2} - 8(-x) + 12$.",
+            "$(-x)^{2} = x^{2}$ and $-8(-x) = 8x$, so $g(x) = x^{2} + 8x + 12$.",
+            "Check with the intercepts. $f(x) = (x - 2)(x - 6)$ meets the $x$-axis at $2$ and $6$. $g(x) = (x + 2)(x + 6)$ meets it at $-2$ and $-6$, the mirror images. Both cross the $y$-axis at $12$, an invariant point."
+          ],
+          "answer": "$g(x) = x^{2} + 8x + 12$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up the two reflections. $-f(x)$ changes the outputs and mirrors in the $x$-axis; $f(-x)$ changes the inputs and mirrors in the $y$-axis. A reflection in the line $y = x$ is different again: it gives the inverse."
+        },
+        {
+          "type": "example",
+          "id": "ex-reflect-turning",
+          "question": "The graph of $y = f(x)$ has a local maximum point at $(3, 7)$ and crosses the $y$-axis at $(0, -2)$. Write down the coordinates of the turning point on the graph of $y = -f(x)$, and state whether it is a maximum or a minimum.",
+          "steps": [
+            "$y = -f(x)$ is a reflection in the $x$-axis: $(x, y)$ moves to $(x, -y)$.",
+            "So $(3, 7)$ moves to $(3, -7)$.",
+            "Flipping the graph upside down turns a peak into a dip, so $(3, -7)$ is a local minimum point.",
+            "The $y$-intercept flips too, to $(0, 2)$. Compare $y = f(-x)$: its maximum would be at $(-3, 7)$, and it would keep $(0, -2)$."
+          ],
+          "answer": "$(3, -7)$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-reflect-exp",
+          "prompt": "Which is the equation of the reflection of $y = \\mathrm{e}^{x}$ in the $x$-axis?",
+          "hint": "A reflection in the $x$-axis changes the sign of every $y$-value.",
+          "options": [
+            {
+              "text": "$y = -\\mathrm{e}^{x}$",
+              "correct": true
+            },
+            {
+              "text": "$y = \\mathrm{e}^{-x}$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\ln x$",
+              "correct": false
+            },
+            {
+              "text": "$y = -\\mathrm{e}^{-x}$",
+              "correct": false
+            }
+          ],
+          "explain": "Every output changes sign, so $y = -\\mathrm{e}^{x}$. $y = \\mathrm{e}^{-x}$ is the reflection in the $y$-axis, and $y = \\ln x$ is the reflection in the line $y = x$."
+        },
+        {
+          "type": "check",
+          "id": "check-reflect-poly",
+          "prompt": "Given $f(x) = 4x^{3} + x^{2} - 7$, find $f(-x)$.",
+          "hint": "Replace each $x$ by $(-x)$. An odd power keeps the minus sign; an even power loses it.",
+          "options": [
+            {
+              "text": "$-4x^{3} + x^{2} - 7$",
+              "correct": true
+            },
+            {
+              "text": "$-4x^{3} - x^{2} + 7$",
+              "correct": false
+            },
+            {
+              "text": "$-4x^{3} - x^{2} - 7$",
+              "correct": false
+            }
+          ],
+          "explain": "$4(-x)^{3} = -4x^{3}$ and $(-x)^{2} = x^{2}$, so $f(-x) = -4x^{3} + x^{2} - 7$. The second option is $-f(x)$, the reflection in the other axis."
+        }
+      ]
+    },
+    {
+      "id": "stretches",
+      "heading": "Stretches",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Multiply the whole function by $3$: $y = 3f(x)$. Every $y$-coordinate is tripled, and every $x$-coordinate stays. The graph is pulled away from the $x$-axis, while points on the $x$-axis don't move."
+        },
+        {
+          "type": "text",
+          "text": "This is a [[vertical-stretch|vertical stretch]]."
+        },
+        {
+          "type": "definition",
+          "term": "vertical stretch",
+          "statement": "For $p > 0$, the graph of $y = pf(x)$ is a vertical stretch of $y = f(x)$ with scale factor $p$. Each point $(x, y)$ moves to $(x, py)$.",
+          "plain": "Every height is multiplied by $p$."
+        },
+        {
+          "type": "text",
+          "text": "A scale factor between $0$ and $1$ squashes the graph towards the $x$-axis, but it is still called a stretch."
+        },
+        {
+          "type": "text",
+          "text": "Now multiply the input instead: $y = f(2x)$. At $x = 1$ the new graph takes the value $f(2)$, the old graph's height at $x = 2$. So every point ends up at half its old distance from the $y$-axis."
+        },
+        {
+          "type": "text",
+          "text": "This is a [[horizontal-stretch|horizontal stretch]], and its scale factor is the reciprocal of the number inside."
+        },
+        {
+          "type": "definition",
+          "term": "horizontal stretch",
+          "statement": "For $q > 0$, the graph of $y = f(qx)$ is a horizontal stretch of $y = f(x)$ with scale factor $\\frac{1}{q}$. Each point $(x, y)$ moves to $\\left(\\frac{x}{q}, y\\right)$.",
+          "plain": "Every $x$-coordinate is divided by $q$."
+        },
+        {
+          "type": "figure",
+          "id": "2-11-stretches",
+          "alt": "Dashed parabola y equals f of x, where f of x is 4 minus x squared. It crosses the x-axis at minus 2 and 2 and the y-axis at 4. The curve y equals 2 f of x crosses the x-axis at the same two points but reaches up to (0, 8). The curve y equals f of 2x keeps the top point (0, 4) but crosses the x-axis at minus 1 and 1.",
+          "caption": "With $f(x) = 4 - x^{2}$: $y = 2f(x)$ doubles every height, and $y = f(2x)$ halves every $x$-coordinate."
+        },
+        {
+          "type": "formula",
+          "tex": "y = pf(x) \\;:\\; \\text{vertical stretch, scale factor } p \\qquad y = f(qx) \\;:\\; \\text{horizontal stretch, scale factor } \\tfrac{1}{q}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Each stretch has [[invariant-point|invariant points]]. A vertical stretch keeps the $x$-intercepts, since $p \\times 0 = 0$. A horizontal stretch keeps the $y$-intercept, since $\\frac{0}{q} = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-stretch-vertical",
+          "question": "Let $f(x) = x^{2} + 2x - 8$. The graph of $y = f(x)$ is stretched vertically with scale factor $\\frac{1}{3}$ to give the graph of $y = g(x)$. Find the coordinates of the vertex of the graph of $g$.",
+          "steps": [
+            "[[completing-the-square|Complete the square]] to find the vertex of $f$: $x^{2} + 2x - 8 = (x + 1)^{2} - 9$. So the vertex of $f$ is $(-1, -9)$.",
+            "A vertical stretch with scale factor $\\frac{1}{3}$ sends $(x, y)$ to $\\left(x, \\frac{1}{3}y\\right)$. The $x$-coordinate stays $-1$.",
+            "The $y$-coordinate becomes $\\frac{1}{3} \\times (-9) = -3$, so the vertex of $g$ is $(-1, -3)$.",
+            "Check: $g(x) = \\frac{1}{3}(x + 1)^{2} - 3$, whose vertex is $(-1, -3)$. The $x$-intercepts $-4$ and $2$ are the same for $f$ and $g$, because they are invariant."
+          ],
+          "answer": "$(-1, -3)$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-stretch-horizontal",
+          "question": "The graph of $y = f(x)$ crosses the $x$-axis at $x = 3$ and $x = 9$, and has a minimum point at $(6, -3)$. Find the coordinates of the minimum point of the graph of $y = f(3x)$.",
+          "steps": [
+            "$y = f(3x)$ is $y = f(qx)$ with $q = 3$: a horizontal stretch with scale factor $\\frac{1}{3}$. Each $x$-coordinate is divided by $3$, and each $y$-coordinate stays.",
+            "The minimum $(6, -3)$ moves to $\\left(\\frac{6}{3}, -3\\right) = (2, -3)$.",
+            "Check: at $x = 2$ the new function gives $f(3 \\times 2) = f(6) = -3$, the minimum value of $f$.",
+            "The $x$-intercepts move to $1$ and $3$."
+          ],
+          "answer": "$(2, -3)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving $q$ as the scale factor of $y = f(qx)$. Multiplying $x$ by $q$ divides horizontal distances by $q$, so the scale factor is $\\frac{1}{q}$: for $y = f(2x)$ it is $\\frac{1}{2}$, not $2$."
+        },
+        {
+          "type": "check",
+          "id": "check-stretch-describe",
+          "prompt": "Which transformation maps the graph of $y = f(x)$ onto the graph of $y = f\\left(\\frac{x}{4}\\right)$?",
+          "hint": "Write $\\frac{x}{4}$ as $\\frac{1}{4}x$. What is $q$, and what is $\\frac{1}{q}$?",
+          "options": [
+            {
+              "text": "Horizontal stretch with scale factor $4$",
+              "correct": true
+            },
+            {
+              "text": "Horizontal stretch with scale factor $\\frac{1}{4}$",
+              "correct": false
+            },
+            {
+              "text": "Vertical stretch with scale factor $\\frac{1}{4}$",
+              "correct": false
+            },
+            {
+              "text": "Vertical stretch with scale factor $4$",
+              "correct": false
+            }
+          ],
+          "explain": "The change is inside the bracket, so it is horizontal. Here $q = \\frac{1}{4}$, so the scale factor is $\\frac{1}{q} = 4$: the graph becomes four times as wide."
+        },
+        {
+          "type": "check",
+          "id": "check-stretch-asymptote",
+          "prompt": "The graph of $y = f(x)$ has a vertical asymptote $x = 12$. The graph of $y = f(4x)$ has a vertical asymptote $x = k$. Find $k$.",
+          "hint": "A horizontal stretch with scale factor $\\frac{1}{4}$ divides every $x$-coordinate by $4$, and that includes the asymptote.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "$k = \\frac{12}{4} = 3$. Check: $f(4x)$ has its asymptote where $4x = 12$, which is at $x = 3$."
+        }
+      ]
+    },
+    {
+      "id": "combining",
+      "heading": "Combining transformations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Take $y = 3x^{2} + 2$. Start from $y = x^{2}$ and [[vertical-stretch|stretch vertically]] with scale factor $3$ to get $y = 3x^{2}$. Then [[translation|translate]] $2$ units up. The vertex lands at $(0, 2)$."
+        },
+        {
+          "type": "text",
+          "text": "Do it the other way round and you get a different graph. Up $2$ first gives $y = x^{2} + 2$. The stretch then multiplies everything, the $2$ included: $y = 3(x^{2} + 2) = 3x^{2} + 6$, with vertex $(0, 6)$."
+        },
+        {
+          "type": "result",
+          "statement": "For $y = pf(x) + b$, apply the vertical stretch (and the [[reflection|reflection]], if $p < 0$) first, then the vertical translation of $b$.",
+          "why": "It follows the order of operations on the output: take $f(x)$, multiply by $p$, then add $b$."
+        },
+        {
+          "type": "text",
+          "text": "Try it below with base $x^{2}$. Set the vertical stretch to $3$ and the shift up to $2$, and the vertex sits at $(0, 2)$. Go by the slider names: their letters differ from ours."
+        },
+        {
+          "type": "interactive",
+          "widget": "transformations",
+          "props": {},
+          "alt": "A dashed base curve and its transformed image drawn solid, with sliders for a vertical stretch, a horizontal scale, a shift right and a shift up. An open dot on the base curve and a filled dot on the image show where one point moves, and the image's equation is printed above the sliders."
+        },
+        {
+          "type": "text",
+          "text": "Horizontal and vertical changes don't interfere. One acts on $x$ inside the bracket, the other on $y$ outside it. So in $y = pf(x - a) + b$ you can do the horizontal translation at any stage."
+        },
+        {
+          "type": "text",
+          "text": "At SL the bracket holds at most one change: $f(x - a)$, $f(-x)$ or $f(qx)$. A form such as $f(2x - 6)$ hides a stretch and a translation in one bracket, and is not required at SL."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also transform graphs such as $y = f(ax + b)$, where the order of the two horizontal changes matters as well.",
+          "lesson": "2.16"
+        },
+        {
+          "type": "example",
+          "id": "ex-combine-order",
+          "question": "The graph of $y = \\mathrm{e}^{x}$ is reflected in the $x$-axis and then translated $4$ units up. Find the equation of the new graph and its $x$-intercept.",
+          "steps": [
+            "Reflect in the $x$-axis: $y = -\\mathrm{e}^{x}$.",
+            "Then translate $4$ up by adding $4$ to all of that: $y = -\\mathrm{e}^{x} + 4 = 4 - \\mathrm{e}^{x}$.",
+            "The $x$-intercept is where $y = 0$: $4 - \\mathrm{e}^{x} = 0$, so $\\mathrm{e}^{x} = 4$ and $x = \\ln 4$.",
+            "Compare the other order. Up $4$ first gives $y = \\mathrm{e}^{x} + 4$, and reflecting gives $y = -\\mathrm{e}^{x} - 4$. That is always below $-4$, so it never meets the $x$-axis. Order matters."
+          ],
+          "answer": "$x = \\ln 4$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Translating before stretching when the equation says the reverse. $y = 5f(x) + 1$ means stretch by $5$, then up $1$. Going up $1$ first would give $5(f(x) + 1) = 5f(x) + 5$."
+        },
+        {
+          "type": "example",
+          "id": "ex-combine-describe",
+          "question": "Let $g(x) = 5 - 2f(x + 4)$. Describe a sequence of transformations that maps the graph of $y = f(x)$ onto the graph of $y = g(x)$. The point $(1, 3)$ lies on the graph of $y = f(x)$. Find the coordinates of its image on the graph of $y = g(x)$.",
+          "steps": [
+            "Rewrite $g$ in the order $pf(\\ldots) + b$: $g(x) = -2f(x + 4) + 5$.",
+            "Inside the bracket, $x + 4$ is a translation $4$ units left.",
+            "Outside: a vertical stretch with scale factor $2$ and a reflection in the $x$-axis, then a translation $5$ units up. The stretch and the reflection may swap, but both come before the $+5$.",
+            "Track $(1, 3)$. Left $4$: $(-3, 3)$. Stretch: $(-3, 6)$. Reflect: $(-3, -6)$. Up $5$: $(-3, -1)$.",
+            "Check: $g(-3) = 5 - 2f(-3 + 4) = 5 - 2f(1) = 5 - 2 \\times 3 = -1$."
+          ],
+          "answer": "$(-3, -1)$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "In a ‘describe’ answer, name each transformation with its details, such as ‘vertical stretch, scale factor $2$’. Loose words such as ‘move’ or ‘shrink’ may not earn the mark."
+        },
+        {
+          "type": "example",
+          "id": "ex-combine-gdc",
+          "question": "Let $f(x) = x^{3} - 5x^{2} + 4x + 6$ and $g(x) = 2f(x + 3) - 5$. Use your calculator to find the local maximum point of the graph of $f$. Hence find the coordinates of the local maximum point of the graph of $g$. Give your answers to 3 s.f.",
+          "steps": [
+            "Graph $y = x^{3} - 5x^{2} + 4x + 6$ and find its maximum: $(0.464816\\ldots, 6.87941\\ldots)$. To 3 s.f., the maximum of $f$ is at about $(0.465, 6.88)$. Keep the full values for the next part.",
+            "Read the transformations from $g$. Inside, $x + 3$ is a translation $3$ units left. Outside, a vertical stretch with scale factor $2$, then a translation $5$ units down.",
+            "The scale factor $2$ is positive, so the graph is not flipped and the maximum stays a maximum.",
+            "New $x$: $0.464816\\ldots - 3 = -2.53518\\ldots$. New $y$: $2 \\times 6.87941\\ldots - 5 = 8.75883\\ldots$.",
+            "Round only now: the maximum of $g$ is at about $(-2.54, 8.76)$. To check, graph $y = g(x)$ itself and find its maximum."
+          ],
+          "answer": "$x \\approx -2.54, \\; y \\approx 8.76$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = X^3-5X^2+4X+6, then GRAPH",
+              "2nd TRACE (CALC), 4: maximum",
+              "Move left of the peak and press ENTER (Left Bound), right of it and ENTER (Right Bound), then ENTER (Guess) (check on your model)",
+              "Read X = 0.4648162..., Y = 6.8794197..."
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = x^3-5x^2+4x+6",
+              "Menu, Analyze Graph, Maximum",
+              "Click to the left of the peak, then to the right of it (check on your model)",
+              "Read x = 0.464816..., y = 6.87942..."
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = X^3-5X^2+4X+6, then DRAW",
+              "SHIFT F5 (G-SOLV), MAX",
+              "Read X = 0.4648162..., Y = 6.8794197..."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-combine-order",
+          "prompt": "The graph of $y = \\sqrt{x}$ is translated $3$ units down and then stretched vertically with scale factor $2$. Find the equation of the new graph.",
+          "hint": "Write the equation after the first step, then multiply all of it by $2$.",
+          "options": [
+            {
+              "text": "$y = 2\\sqrt{x} - 6$",
+              "correct": true
+            },
+            {
+              "text": "$y = 2\\sqrt{x} - 3$",
+              "correct": false
+            },
+            {
+              "text": "$y = 2\\sqrt{x - 3}$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\sqrt{2x} - 3$",
+              "correct": false
+            }
+          ],
+          "explain": "Down $3$ gives $y = \\sqrt{x} - 3$. The stretch doubles every $y$-value, the $-3$ included: $y = 2(\\sqrt{x} - 3) = 2\\sqrt{x} - 6$."
+        },
+        {
+          "type": "check",
+          "id": "check-combine-point",
+          "prompt": "The graph of $y = f(x)$ has a minimum point at $(-2, 5)$. Find the $y$-coordinate of the corresponding point on the graph of $y = 3 - 2f(x - 1)$.",
+          "hint": "Work on the $y$-coordinate only: multiply by $-2$, then add $3$.",
+          "answer": {
+            "value": -7,
+            "tolerance": 0
+          },
+          "explain": "$5 \\to -10 \\to -7$. The point is $(-1, -7)$, and the reflection turns it into a maximum."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "y = f(x) + b \\;:\\; \\text{translation } b \\text{ units up} \\qquad y = f(x - a) \\;:\\; \\text{translation } a \\text{ units right}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "y = -f(x) \\;:\\; \\text{reflection in the } x\\text{-axis} \\qquad y = f(-x) \\;:\\; \\text{reflection in the } y\\text{-axis}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "y = pf(x) \\;:\\; \\text{vertical stretch, scale factor } p \\qquad y = f(qx) \\;:\\; \\text{horizontal stretch, scale factor } \\tfrac{1}{q}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Outside the bracket acts on $y$ as it looks. Inside acts on $x$ the opposite way: $x - a$ moves right, and $qx$ scales by $\\frac{1}{q}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Points: $f(x - a) + b$ sends $(x, y)$ to $(x + a, y + b)$; $pf(x)$ to $(x, py)$; $f(qx)$ to $\\left(\\frac{x}{q}, y\\right)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $y = pf(x) + b$: stretch (or reflect) first, then translate.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Asymptotes, intercepts and turning points move with the graph. Transform them first, then sketch.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Moving $y = f(x - 3)$ left, or $y = f(x + 3)$ right. Inside the bracket the sign works the other way: $x - 3$ moves the graph $3$ units right.",
+    "Giving $q$ as the scale factor of $y = f(qx)$. The scale factor is $\\frac{1}{q}$, so $y = f(2x)$ halves every $x$-coordinate.",
+    "Translating before stretching. $y = pf(x) + b$ means stretch by $p$, then translate by $b$; the other order gives $pf(x) + pb$.",
+    "Confusing $-f(x)$ with $f(-x)$, or either with the inverse. $-f(x)$ mirrors in the $x$-axis, $f(-x)$ in the $y$-axis, and $f^{-1}(x)$ in the line $y = x$.",
+    "Describing with loose words such as ‘move’ or ‘shrink’, or leaving out a detail. Name the transformation and give its direction, distance or scale factor.",
+    "Forgetting to move the asymptotes, or giving one as a bare number. Move each asymptote with the graph and write it as an equation, such as $y = 5$."
+  ],
+  "examTips": [
+    "‘Describe’ needs the name and every detail: ‘translation $2$ units left’, ‘reflection in the $y$-axis’, ‘horizontal stretch, scale factor $\\frac{1}{3}$’.",
+    "‘Sketch’ means the right shape with key features labelled. Transform the intercepts, turning points and asymptotes first, then join them up.",
+    "When you describe two vertical changes, give them in the order you apply them. For $pf(x) + b$ the stretch comes before the translation."
+  ],
+  "readingMinutes": 28
+}

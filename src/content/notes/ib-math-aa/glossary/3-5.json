@@ -1,0 +1,26 @@
+[
+  {
+    "id": "unit-circle",
+    "term": "unit circle",
+    "definition": "The circle of radius $1$ centred at the origin, $x^{2} + y^{2} = 1$; the point on it at angle $\\theta$ from the positive $x$-axis is $(\\cos\\theta, \\sin\\theta)$.",
+    "lesson": "3.5"
+  },
+  {
+    "id": "quadrant",
+    "term": "quadrant",
+    "definition": "One of the four regions the $x$- and $y$-axes split the plane into, numbered first to fourth anticlockwise from the top right.",
+    "lesson": "3.5"
+  },
+  {
+    "id": "reference-angle",
+    "term": "reference angle",
+    "definition": "The acute angle between the $x$-axis and the line from the origin to the point on the unit circle; it fixes the size of a trig value, while the quadrant fixes its sign.",
+    "lesson": "3.5"
+  },
+  {
+    "id": "ambiguous-case",
+    "term": "ambiguous case",
+    "definition": "When two sides of a triangle and an angle not between them are known, the sine rule can give an acute and an obtuse angle, so two different triangles may fit.",
+    "lesson": "3.5"
+  }
+]

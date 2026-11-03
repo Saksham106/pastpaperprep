@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 270" role="img" aria-labelledby="t">
+  <title id="t">A line through A built from the position vector a and steps of the direction vector b</title>
+  <line x1="20" y1="162.9" x2="390" y2="4.3" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="40" y1="230" x2="252.1" y2="66.1" stroke="var(--muted)" stroke-width="1.8" stroke-dasharray="6 5"/>
+  <polygon points="260,60 255.15,70.07 249.03,62.15" fill="var(--muted)"/>
+  <line x1="40" y1="230" x2="114.1" y2="128.1" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <polygon points="120,120 118.17,131.03 110.07,125.15" fill="var(--t3-ink)"/>
+  <line x1="120" y1="120" x2="180.8" y2="93.9" stroke="var(--t5-ink)" stroke-width="3.5"/>
+  <polygon points="190,90 182.78,98.54 178.84,89.34" fill="var(--t5-ink)"/>
+  <g fill="currentColor">
+    <circle cx="40" cy="230" r="4"/>
+    <circle cx="50" cy="150" r="4"/>
+    <circle cx="120" cy="120" r="5"/>
+    <circle cx="190" cy="90" r="4"/>
+    <circle cx="260" cy="60" r="4"/>
+    <circle cx="330" cy="30" r="4"/>
+  </g>
+  <g font-size="14" font-family="inherit" fill="currentColor">
+    <text x="24" y="250">O</text>
+    <text x="8" y="138">λ = −1</text>
+    <text x="70" y="100">A, λ = 0</text>
+    <text x="176" y="72">λ = 1</text>
+    <text x="246" y="42">λ = 2</text>
+    <text x="316" y="14">λ = 3</text>
+    <text x="388" y="30">L</text>
+  </g>
+  <g font-size="17" font-weight="700" font-family="inherit">
+    <text x="62" y="170" fill="var(--t3-ink)">a</text>
+    <text x="146" y="92" fill="var(--t5-ink)">b</text>
+    <text x="162" y="164" fill="var(--muted)">r</text>
+  </g>
+</svg>

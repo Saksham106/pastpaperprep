@@ -120,6 +120,13 @@ def test_function_names_and_silent_misreads():
     equal(mp.parse_answer(r"\sin x \cos x"), sin(x) * cos(x))
 
 
+def test_antiderivative_accepts_constant_multiples_inside_ln_modulus():
+    mp.check_antiderivative(r"\ln|2x| + C", 1 / x)
+    mp.check_antiderivative(r"\frac{1}{2}\ln|4x^{2} - 1| + C", 4 * x / (4 * x**2 - 1))
+    fails(lambda: mp.check_antiderivative(r"\ln(|x| + 1) + C", 1 / x))
+    fails(lambda: mp.check_antiderivative(r"\ln|2x| + x + C", 1 / x))
+
+
 # 5. Common answer forms.
 def test_degrees():
     angle = acos(Rational(2, 3)) * 180 / pi  # 48.18968...
@@ -200,6 +207,51 @@ def test_existing_refusals():
     fails(lambda: mp.parse_answer(r"\approx 0.342"), ValueError)
     fails(lambda: mp.parse_answer(r"\int x\,\mathrm{d}x"), ValueError)
     equal(mp.parse_answer(r"\tfrac12 x\,\mathrm{e}^{2x} - \tfrac14\mathrm{e}^{2x} + C"), x * E ** (2 * x) / 2 - E ** (2 * x) / 4)
+
+
+# A Cartesian line must be affine in each coordinate: equal squares contain the line but also extra points (PR #465).
+def test_same_cartesian_line_is_equivalence_not_containment():
+    point, direction = (-4, 3, 1), (2, -5, 3)
+    mp.check_same_cartesian_line(r"\frac{x + 4}{2} = \frac{y - 3}{-5} = \frac{z - 1}{3}", point, direction)
+    mp.check_same_cartesian_line(r"\frac{x}{2} = \frac{y + 7}{-5} = \frac{z - 7}{3}", point, direction)
+    mp.check_same_cartesian_line(r"\frac{x + 4}{-4} = \frac{y - 3}{10} = \frac{z - 1}{-6}", point, direction)
+    mp.check_same_cartesian_line(r"x + 4 = \frac{2(y - 3)}{-5} = \frac{2(z - 1)}{3}", point, direction)
+    mp.check_same_cartesian_line(r"\frac{y - 3}{-5} = \frac{x + 4}{2} = \frac{z - 1}{3}", point, direction)
+    # The reviewer's equal-squares answer: every part is t^2 on the line, but (-2, 8, 4) also satisfies it.
+    fails(lambda: mp.check_same_cartesian_line(
+        r"\frac{(x + 4)^{2}}{4} = \frac{(y - 3)^{2}}{25} = \frac{(z - 1)^{2}}{9}", point, direction), AssertionError)
+    fails(lambda: mp.check_same_cartesian_line(r"\frac{x^{3} + 4}{2} = \frac{y - 3}{-5} = \frac{z - 1}{3}", point, direction))
+    fails(lambda: mp.check_same_cartesian_line(r"\frac{x + 4}{2} = \frac{y - 3}{5} = \frac{z - 1}{3}", point, direction))
+    fails(lambda: mp.check_same_cartesian_line(r"\frac{x + 4}{2} = \frac{y - 3}{-5} = \frac{z + 1}{3}", point, direction))
+    fails(lambda: mp.check_same_cartesian_line(r"\frac{x + 4}{2} = \frac{x - 3}{-5} = \frac{z - 1}{3}", point, direction))
+    fails(lambda: mp.check_same_cartesian_line(r"\frac{x + 4}{2} = \frac{y - 3}{-5}", point, direction))
+
+
+# Self-inverse means f(f(x)) = x proved for every x in the domain, not at a few sample points (PR #465).
+def test_self_inverse_is_proved_not_sampled():
+    mp.check_self_inverse(r"\sqrt[3]{8 - x^{3}}")
+    mp.check_self_inverse(r"\sqrt[5]{3 - x^{5}}")
+    mp.check_self_inverse(r"6 - x")
+    mp.check_self_inverse(r"-\sqrt[3]{x^{3} + 8}")
+    # Fixes 1/2, 1 and 19/10 (the old sample points) but g(g(0)) = -72067/8000.
+    fails(lambda: mp.check_self_inverse(r"x + (x - \tfrac{1}{2})(x - 1)(x - \tfrac{19}{10})"), AssertionError)
+    fails(lambda: mp.check_self_inverse(r"8 - x^{3}"), AssertionError)
+    fails(lambda: mp.check_self_inverse(r"\sqrt[3]{8 - x}"), AssertionError)
+    # Self-inverse where defined, but not defined at x = 0, so not on all real numbers.
+    fails(lambda: mp.check_self_inverse(r"\frac{1}{x}"), AssertionError)
+    mp.check_self_inverse(r"\frac{1}{x}", domain=Interval.open(0, oo))
+
+
+# An antiderivative is proved by differentiating, with ln|u| handled; agreeing at the sample points is not enough.
+def test_antiderivative_is_proved_not_sampled():
+    mp.check_antiderivative(r"\ln|4x + 3| + C", 4 / (4 * x + 3))
+    mp.check_antiderivative(r"-\ln|\cos x| + C", sin(x) / cos(x))
+    mp.check_antiderivative(r"\frac{1}{2}x^{2} + C", x)
+    samples = [-3.7, -2.3, -1.3, -0.65, -0.15, 0.35, 0.8, 1.3, 2.7, 4.1]
+    bump = "".join(f"(x - {s})" for s in samples)
+    # Its derivative is x at every default sample point (each sample is a double root of the extra term), not elsewhere.
+    wrong = rf"\frac{{1}}{{2}}x^{{2}} + {bump}{bump} + C"
+    fails(lambda: mp.check_antiderivative(wrong, x), AssertionError)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "product-principle",
+    "term": "product principle",
+    "definition": "If a task has stages, with $m$ ways to do the first and $n$ ways to do the second whatever the first choice was, the whole task can be done in $m \\times n$ ways.",
+    "lesson": "1.10"
+  },
+  {
+    "id": "addition-principle",
+    "term": "addition principle",
+    "definition": "If a task is done in one of two separate cases that cannot both happen, with $m$ ways and $n$ ways, there are $m + n$ ways in total.",
+    "lesson": "1.10"
+  },
+  {
+    "id": "permutation",
+    "term": "permutation",
+    "definition": "An arrangement of $r$ objects chosen from $n$ different objects, where the order matters; there are ${}^{n}P_{r}$ of them.",
+    "lesson": "1.10"
+  },
+  {
+    "id": "combination",
+    "term": "combination",
+    "definition": "A selection of $r$ objects from $n$ different objects, where the order does not matter; there are ${}^{n}C_{r}$ of them.",
+    "lesson": "1.10"
+  }
+]

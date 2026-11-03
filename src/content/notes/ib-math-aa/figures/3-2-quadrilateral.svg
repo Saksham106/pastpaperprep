@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340" role="img" aria-labelledby="t">
+  <title id="t">Quadrilateral ABCD split by the diagonal AC into two triangles</title>
+  <polygon points="34.0,204.0 199.1,296.0 285.2,204.0 194.0,32.4" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="34.0" y1="204.0" x2="285.2" y2="204.0" stroke="var(--t1-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <path d="M66.0,204.0 A32,32 0 0 0 55.8,180.6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M212.8,281.4 A20,20 0 0 0 181.6,286.2" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M177.6,50.0 A24,24 0 0 0 205.3,53.6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <g font-size="14" font-family="inherit" fill="currentColor">
+    <text x="18.0" y="209.0">A</text>
+    <text x="194.1" y="316.0">B</text>
+    <text x="292.2" y="209.0">C</text>
+    <text x="189.0" y="24.4">D</text>
+  </g>
+  <g font-size="13" font-family="inherit">
+    <text x="86.6" y="268.0" fill="currentColor">9 cm</text>
+    <text x="250.2" y="266.0" fill="currentColor">6 cm</text>
+    <text x="184.1" y="270.0" fill="var(--t5-ink)">104°</text>
+    <text x="70.0" y="192.0" fill="var(--t5-ink)">47°</text>
+    <text x="186.0" y="72.4" fill="var(--t5-ink)">71°</text>
+    <text x="189.6" y="220.0" fill="var(--t1-ink)">diagonal</text>
+  </g>
+</svg>

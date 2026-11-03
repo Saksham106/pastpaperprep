@@ -1,0 +1,668 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.14",
+  "slug": "vector-equations-of-lines",
+  "title": "Vector equations of lines",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "A line in 2D or 3D is fixed by one point on it and one direction. The [[vector-equation-of-a-line|vector equation]] $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}$ turns that into a formula for every point on the line. From it you get the line's other forms, the angle between two lines, and a model of straight-line motion.",
+  "goals": [
+    {
+      "text": "Write a vector equation of a line from a point and a direction, or from two points, in 2D and 3D.",
+      "bullets": [
+        "3.14-b1"
+      ]
+    },
+    {
+      "text": "Move between vector, parametric and Cartesian forms, reading the point and the direction correctly.",
+      "bullets": [
+        "3.14-b2"
+      ]
+    },
+    {
+      "text": "Find the acute angle between two lines from their direction vectors, and test whether they are perpendicular.",
+      "bullets": [
+        "3.14-b3"
+      ]
+    },
+    {
+      "text": "Model straight-line motion: read the starting position, velocity and speed, and find where and when things happen.",
+      "bullets": [
+        "3.14-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.12",
+    "3.13"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "vector equation of a line",
+    "r = a + lambda b",
+    "parametric equations of a line",
+    "cartesian equation of a line in 3d",
+    "angle between two lines",
+    "vectors kinematics velocity speed"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-displacement",
+      "prompt": "The points $\\mathrm{A}(2, -1, 4)$ and $\\mathrm{B}(5, 1, 0)$ are given. Find $\\overrightarrow{\\mathrm{AB}}$.",
+      "hint": "Subtract: $\\overrightarrow{\\mathrm{AB}} = \\boldsymbol{b} - \\boldsymbol{a}$, end point minus start point.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}3\\\\2\\\\-4\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}-3\\\\-2\\\\4\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}7\\\\0\\\\4\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}5\\\\1\\\\0\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\overrightarrow{\\mathrm{AB}} = \\begin{pmatrix}5 - 2\\\\1 - (-1)\\\\0 - 4\\end{pmatrix} = \\begin{pmatrix}3\\\\2\\\\-4\\end{pmatrix}$. The vector $\\begin{pmatrix}5\\\\1\\\\0\\end{pmatrix}$ is the position vector of B, not the displacement. Revise it in {{lesson:3.12}}."
+    },
+    {
+      "type": "check",
+      "id": "before-magnitude",
+      "prompt": "Find $\\left\\lvert\\begin{pmatrix}4\\\\-4\\\\7\\end{pmatrix}\\right\\rvert$.",
+      "hint": "Square each component, add, then take the square root.",
+      "answer": {
+        "value": 9,
+        "tolerance": 0
+      },
+      "explain": "$\\sqrt{16 + 16 + 49} = \\sqrt{81} = 9$. Revise it in {{lesson:3.12}}."
+    },
+    {
+      "type": "check",
+      "id": "before-scalar-product",
+      "prompt": "Find the [[scalar-product|scalar product]] $\\begin{pmatrix}1\\\\-2\\\\4\\end{pmatrix} \\cdot \\begin{pmatrix}3\\\\5\\\\1\\end{pmatrix}$.",
+      "hint": "Multiply matching components, then add the three results.",
+      "answer": {
+        "value": -3,
+        "tolerance": 0
+      },
+      "explain": "$1(3) + (-2)(5) + 4(1) = 3 - 10 + 4 = -3$. Revise it in {{lesson:3.13}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "vector-equation",
+      "heading": "The vector equation of a line",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In 2D you can fix a line by a point and a gradient. In 3D there is no single gradient, so you give the direction as a vector instead. One point plus one direction pins down exactly one line."
+        },
+        {
+          "type": "text",
+          "text": "Picture standing at a point A on the line. To reach any other point on it, you walk forwards or backwards along the line's direction. A [[vector-equation-of-a-line|vector equation]] says this in symbols."
+        },
+        {
+          "type": "definition",
+          "term": "Vector equation of a line",
+          "statement": "The line through the point with [[position-vector|position vector]] $\\boldsymbol{a}$, parallel to the non-zero vector $\\boldsymbol{b}$, has vector equation $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}$, where $\\lambda \\in \\mathbb{R}$.",
+          "plain": "Start at a known point, then add any multiple of the direction."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}",
+          "tag": "booklet",
+          "bookletId": "bk-3-14-line-vector",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Here is what each letter means. $\\boldsymbol{a}$ is the position vector of a known point A: the vector $\\overrightarrow{\\mathrm{OA}}$ from the origin O, as in {{lesson:3.12}}. $\\boldsymbol{b}$ is a [[direction-vector|direction vector]]: any non-zero vector parallel to the line."
+        },
+        {
+          "type": "text",
+          "text": "$\\lambda$ (lambda) is a real number you choose. Each value of $\\lambda$ gives one point, and $\\boldsymbol{r}$ is that point's position vector. $\\lambda = 0$ gives A, $\\lambda = 1$ gives the point one step of $\\boldsymbol{b}$ further on, and negative values go backwards."
+        },
+        {
+          "type": "text",
+          "text": "As $\\lambda$ runs through every real number, the points fill the whole line. That is why it is called the vector equation of the line."
+        },
+        {
+          "type": "figure",
+          "id": "3-14-line-steps",
+          "alt": "A straight line L slopes up to the right. The point A is on it. A vector a runs from the origin O to A. A bold vector b runs along the line from A. Points on the line are marked lambda equals minus 1, 0, 1, 2 and 3, one step of b apart. A dashed vector r runs from O to the point where lambda equals 2.",
+          "caption": "Each value of $\\lambda$ picks out one point. Here $\\boldsymbol{r} = \\boldsymbol{a} + 2\\boldsymbol{b}$."
+        },
+        {
+          "type": "text",
+          "text": "The formula is in the booklet. Always write the $\\boldsymbol{r} =$ at the start. Without it you have an expression, not an equation, and you lose the mark."
+        },
+        {
+          "type": "text",
+          "text": "A line has many vector equations. You can start from any point on it, and use any non-zero multiple of $\\boldsymbol{b}$ as the direction. So $\\boldsymbol{r} = \\begin{pmatrix}1\\\\2\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\-4\\end{pmatrix}$ and $\\boldsymbol{r} = \\begin{pmatrix}3\\\\-2\\end{pmatrix} + \\mu\\begin{pmatrix}-1\\\\2\\end{pmatrix}$ are the same line."
+        },
+        {
+          "type": "text",
+          "text": "The same equation works in 2D, with two components, and in 3D, with three."
+        },
+        {
+          "type": "text",
+          "text": "For a line through two points P and Q, start from either point. For the direction, use the displacement $\\overrightarrow{\\mathrm{PQ}} = \\boldsymbol{q} - \\boldsymbol{p}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{r} = \\boldsymbol{p} + \\lambda(\\boldsymbol{q} - \\boldsymbol{p})",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-line-2d-x-axis",
+          "question": "The line $L$ passes through $(-3, 2)$ and is parallel to $\\begin{pmatrix}5\\\\-2\\end{pmatrix}$. Write down a vector equation of $L$, and find where $L$ crosses the $x$-axis.",
+          "steps": [
+            "Use the point as $\\boldsymbol{a}$ and the parallel vector as $\\boldsymbol{b}$: $\\boldsymbol{r} = \\begin{pmatrix}-3\\\\2\\end{pmatrix} + \\lambda\\begin{pmatrix}5\\\\-2\\end{pmatrix}$.",
+            "Write the general point: $\\begin{pmatrix}x\\\\y\\end{pmatrix} = \\begin{pmatrix}-3 + 5\\lambda\\\\2 - 2\\lambda\\end{pmatrix}$.",
+            "On the $x$-axis, $y = 0$. So $2 - 2\\lambda = 0$, which gives $\\lambda = 1$.",
+            "Substitute $\\lambda = 1$ into the $x$-component: $x = -3 + 5(1) = 2$.",
+            "Check: one step of $\\begin{pmatrix}5\\\\-2\\end{pmatrix}$ from $(-3, 2)$ lands on $(2, 0)$, which is on the $x$-axis."
+          ],
+          "answer": "$(2, 0)$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-line-two-points-3d",
+          "question": "Find a vector equation of the line $L$ through $\\mathrm{P}(4, 0, -3)$ and $\\mathrm{Q}(1, 5, -1)$. Determine whether $\\mathrm{R}(-5, 15, 1)$ lies on $L$.",
+          "steps": [
+            "Find the direction: $\\overrightarrow{\\mathrm{PQ}} = \\begin{pmatrix}1 - 4\\\\5 - 0\\\\-1 - (-3)\\end{pmatrix} = \\begin{pmatrix}-3\\\\5\\\\2\\end{pmatrix}$.",
+            "Start at P: $\\boldsymbol{r} = \\begin{pmatrix}4\\\\0\\\\-3\\end{pmatrix} + \\lambda\\begin{pmatrix}-3\\\\5\\\\2\\end{pmatrix}$.",
+            "For R, set the general point equal to $(-5, 15, 1)$ and solve each component for $\\lambda$.",
+            "From $x$: $4 - 3\\lambda = -5$, so $\\lambda = 3$. From $y$: $5\\lambda = 15$, so $\\lambda = 3$ again.",
+            "From $z$: with $\\lambda = 3$, $-3 + 2(3) = 3$, not $1$. No single $\\lambda$ fits all three components, so R is not on $L$."
+          ],
+          "answer": "$\\boldsymbol{r} = \\begin{pmatrix}4\\\\0\\\\-3\\end{pmatrix} + \\lambda\\begin{pmatrix}-3\\\\5\\\\2\\end{pmatrix}, \\; \\mathrm{R} \\notin L$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Checking only two components. Two of them can agree on one $\\lambda$ while the third doesn't, as with R above. Test all three."
+        },
+        {
+          "type": "check",
+          "id": "check-line-through-two-points",
+          "prompt": "Which is a vector equation of the line through $\\mathrm{C}(2, -1, 3)$ and $\\mathrm{D}(0, 4, 1)$?",
+          "hint": "The direction is $\\overrightarrow{\\mathrm{CD}}$: subtract the coordinates of C from those of D.",
+          "options": [
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}2\\\\-1\\\\3\\end{pmatrix} + \\lambda\\begin{pmatrix}0\\\\4\\\\1\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}2\\\\-1\\\\3\\end{pmatrix} + \\lambda\\begin{pmatrix}-2\\\\5\\\\-2\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}2\\\\-1\\\\3\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\3\\\\4\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}0\\\\4\\\\1\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\-1\\\\3\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\overrightarrow{\\mathrm{CD}} = \\begin{pmatrix}0 - 2\\\\4 - (-1)\\\\1 - 3\\end{pmatrix} = \\begin{pmatrix}-2\\\\5\\\\-2\\end{pmatrix}$. Using $\\begin{pmatrix}0\\\\4\\\\1\\end{pmatrix}$ as the direction treats a position vector as a direction."
+        },
+        {
+          "type": "check",
+          "id": "check-point-on-line-k",
+          "prompt": "The point $(k, 7, -1)$ lies on the line $\\boldsymbol{r} = \\begin{pmatrix}1\\\\-2\\\\5\\end{pmatrix} + \\lambda\\begin{pmatrix}3\\\\3\\\\-2\\end{pmatrix}$. Find $k$.",
+          "hint": "Use a component without $k$ to find $\\lambda$ first.",
+          "answer": {
+            "value": 10,
+            "tolerance": 0
+          },
+          "explain": "From $y$: $-2 + 3\\lambda = 7$, so $\\lambda = 3$. The $z$-component agrees: $5 - 2(3) = -1$. Then $k = 1 + 3(3) = 10$."
+        }
+      ]
+    },
+    {
+      "id": "forms",
+      "heading": "Parametric and Cartesian forms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[vector-equation-of-a-line|vector equation]] packs three equations into one. Write $\\boldsymbol{r}$ as $\\begin{pmatrix}x\\\\y\\\\z\\end{pmatrix}$, the known point as $(x_0, y_0, z_0)$ and the direction as $\\begin{pmatrix}l\\\\m\\\\n\\end{pmatrix}$. Then read off each component."
+        },
+        {
+          "type": "formula",
+          "tex": "x = x_{0} + \\lambda l, \\quad y = y_{0} + \\lambda m, \\quad z = z_{0} + \\lambda n",
+          "tag": "booklet",
+          "bookletId": "bk-3-14-line-parametric",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "These are the [[parametric-equations-of-a-line|parametric equations]] of the line. Use them whenever you need a general point on the line, as in the last two examples."
+        },
+        {
+          "type": "text",
+          "text": "Now make $\\lambda$ the subject of each one: $\\lambda = \\frac{x - x_0}{l}$, and so on. All three equal the same $\\lambda$, so they equal each other. That removes $\\lambda$ and gives the [[cartesian-equations-of-a-line|Cartesian equations]] of the line."
+        },
+        {
+          "type": "formula",
+          "tex": "\\dfrac{x - x_{0}}{l} = \\dfrac{y - y_{0}}{m} = \\dfrac{z - z_{0}}{n}",
+          "tag": "booklet",
+          "bookletId": "bk-3-14-line-cartesian",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Both forms are in the booklet. In Cartesian form, the numbers subtracted in the numerators give the point. The denominators give the direction."
+        },
+        {
+          "type": "text",
+          "text": "If a component of the direction is $0$, you can't divide by it. For example, $\\boldsymbol{r} = \\begin{pmatrix}2\\\\0\\\\-1\\end{pmatrix} + \\lambda\\begin{pmatrix}4\\\\0\\\\3\\end{pmatrix}$ has $y = 0$ for every $\\lambda$. Its Cartesian equations are $\\frac{x - 2}{4} = \\frac{z + 1}{3}$ with $y = 0$."
+        },
+        {
+          "type": "text",
+          "text": "In 2D, the Cartesian form $\\frac{x - x_0}{l} = \\frac{y - y_0}{m}$ rearranges to $y - y_0 = \\frac{m}{l}(x - x_0)$. That is a straight line from {{lesson:2.1}}, with gradient $\\frac{m}{l}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-vector-to-cartesian",
+          "question": "The line $M$ has vector equation $\\boldsymbol{r} = \\begin{pmatrix}-4\\\\3\\\\1\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\-5\\\\3\\end{pmatrix}$. Write down parametric equations for $M$, and find its Cartesian equations.",
+          "steps": [
+            "Read off each component: $x = -4 + 2\\lambda$, $y = 3 - 5\\lambda$ and $z = 1 + 3\\lambda$.",
+            "Make $\\lambda$ the subject of each: $\\lambda = \\frac{x + 4}{2}$, $\\lambda = \\frac{y - 3}{-5}$ and $\\lambda = \\frac{z - 1}{3}$.",
+            "All three equal $\\lambda$, so set them equal to each other.",
+            "Check with $\\lambda = 1$, which gives the point $(-2, -2, 4)$. Each fraction is then $\\frac{2}{2} = \\frac{-5}{-5} = \\frac{3}{3} = 1$."
+          ],
+          "answer": "$\\frac{x + 4}{2} = \\frac{y - 3}{-5} = \\frac{z - 1}{3}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Going the other way, each numerator must read $x$ minus a number, with $x$ having coefficient $1$. The same goes for $y$ and $z$."
+        },
+        {
+          "type": "text",
+          "text": "Exam questions often hide a coefficient, as in $\\frac{6 - x}{3}$ or $2y + 1$. The safest move is to set every part equal to $\\lambda$ and solve for $x$, $y$ and $z$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cartesian-to-vector",
+          "question": "Find a vector equation of the line $\\frac{6 - x}{3} = \\frac{2y + 1}{4} = z + 2$.",
+          "steps": [
+            "Set each part equal to $\\lambda$ and solve for the coordinate.",
+            "$\\frac{6 - x}{3} = \\lambda$ gives $x = 6 - 3\\lambda$. The minus in front of $x$ makes the $x$-component of the direction $-3$, not $3$.",
+            "$\\frac{2y + 1}{4} = \\lambda$ gives $2y = -1 + 4\\lambda$, so $y = -\\frac{1}{2} + 2\\lambda$. Dividing by the $2$ in front of $y$ halves both numbers.",
+            "$z + 2 = \\lambda$ gives $z = -2 + \\lambda$. A part with no denominator has direction component $1$.",
+            "Collect the constants into the point and the coefficients of $\\lambda$ into the direction. Check with $\\lambda = 1$: the point $\\left(3, \\frac{3}{2}, -1\\right)$ makes all three parts equal $1$."
+          ],
+          "answer": "$\\boldsymbol{r} = \\begin{pmatrix}6\\\\-\\frac{1}{2}\\\\-2\\end{pmatrix} + \\lambda\\begin{pmatrix}-3\\\\2\\\\1\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-read-direction",
+          "prompt": "A line has Cartesian equations $\\frac{x - 2}{3} = \\frac{1 - y}{4} = \\frac{z + 5}{2}$. Which vector is a [[direction-vector|direction vector]] of the line?",
+          "hint": "Rewrite $\\frac{1 - y}{4}$ so that $y$ has coefficient $+1$ in the numerator.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}3\\\\4\\\\2\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}2\\\\1\\\\-5\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}3\\\\-4\\\\2\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}3\\\\-4\\\\-2\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{1 - y}{4} = \\frac{y - 1}{-4}$, so the denominators are $3$, $-4$ and $2$. The vector $\\begin{pmatrix}2\\\\1\\\\-5\\end{pmatrix}$ is the point on the line, not its direction."
+        },
+        {
+          "type": "check",
+          "id": "check-2d-cartesian",
+          "prompt": "The line $\\boldsymbol{r} = \\begin{pmatrix}1\\\\4\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\-6\\end{pmatrix}$ lies in the $xy$-plane. Which is its Cartesian equation?",
+          "hint": "The gradient is $\\frac{m}{l}$, and the line passes through $(1, 4)$.",
+          "options": [
+            {
+              "text": "$y = -3x + 4$",
+              "correct": false
+            },
+            {
+              "text": "$y = -\\frac{1}{3}x + \\frac{13}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$y = 3x + 1$",
+              "correct": false
+            },
+            {
+              "text": "$y = -3x + 7$",
+              "correct": true
+            }
+          ],
+          "explain": "The gradient is $\\frac{-6}{2} = -3$. Then $y - 4 = -3(x - 1)$, so $y = -3x + 7$. The gradient $-\\frac{1}{3}$ comes from dividing the wrong way round."
+        }
+      ]
+    },
+    {
+      "id": "angle",
+      "heading": "The angle between two lines",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two lines that cross make two angles, $\\theta$ and $180^{\\circ} - \\theta$. The [[angle-between-two-lines|angle between two lines]] means the acute one, or $90^{\\circ}$ if they are perpendicular."
+        },
+        {
+          "type": "text",
+          "text": "The angle depends only on which way the lines point, not on where they are. So you need just the two [[direction-vector|direction vectors]] and the [[scalar-product|scalar product]] from {{lesson:3.13}}."
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos\\theta = \\dfrac{v_{1}w_{1} + v_{2}w_{2} + v_{3}w_{3}}{\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-angle-between",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Use it with $\\boldsymbol{v}$ and $\\boldsymbol{w}$ as the lines' direction vectors. You also need their magnitudes, which are in the booklet too:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\lvert\\boldsymbol{v}\\rvert = \\sqrt{v_{1}^{2} + v_{2}^{2} + v_{3}^{2}}",
+          "tag": "booklet",
+          "bookletId": "bk-3-12-magnitude"
+        },
+        {
+          "type": "text",
+          "text": "Think of $\\boldsymbol{a}$ and $\\boldsymbol{b}$ below as the directions of two lines through the origin. Now reverse $\\boldsymbol{b}$ by moving its tip to $(2, -3)$, so that $\\boldsymbol{b} = \\begin{pmatrix}2\\\\-3\\end{pmatrix}$. It still lies along the same line, but $\\theta$ changes from about $110^{\\circ}$ to about $70^{\\circ}$."
+        },
+        {
+          "type": "interactive",
+          "widget": "vector-angle",
+          "props": {
+            "a1": 4,
+            "a2": 1,
+            "b1": -2,
+            "b2": 3
+          },
+          "alt": "Two arrows from the origin on a grid: a points to (4, 1) and b points to (-2, 3), with the angle between them marked. Dragging either tip or moving the sliders changes the arrows, and the panel shows the scalar product, both magnitudes, cos theta and the angle in degrees."
+        },
+        {
+          "type": "result",
+          "statement": "The acute angle $\\theta$ between two lines with direction vectors $\\boldsymbol{b}_1$ and $\\boldsymbol{b}_2$ satisfies $\\cos\\theta = \\frac{\\lvert \\boldsymbol{b}_1 \\cdot \\boldsymbol{b}_2\\rvert}{\\lvert \\boldsymbol{b}_1\\rvert\\lvert \\boldsymbol{b}_2\\rvert}$.",
+          "why": "Reversing one direction vector gives the same line but changes the sign of the scalar product, so a negative value just means you found the obtuse angle $180^{\\circ} - \\theta$."
+        },
+        {
+          "type": "text",
+          "text": "In particular, two lines are perpendicular exactly when $\\boldsymbol{b}_1 \\cdot \\boldsymbol{b}_2 = 0$. In 3D the lines don't have to meet for this to work, since it compares directions only. You'll sort lines that meet from lines that don't in {{lesson:3.15}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-exact",
+          "question": "Find the angle between the lines $L_1: \\boldsymbol{r} = \\begin{pmatrix}1\\\\0\\\\2\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\1\\\\-2\\end{pmatrix}$ and $L_2: \\boldsymbol{r} = \\begin{pmatrix}3\\\\1\\\\-1\\end{pmatrix} + \\mu\\begin{pmatrix}0\\\\-1\\\\1\\end{pmatrix}$.",
+          "steps": [
+            "Take the direction vectors only: $\\boldsymbol{b}_1 = \\begin{pmatrix}2\\\\1\\\\-2\\end{pmatrix}$ and $\\boldsymbol{b}_2 = \\begin{pmatrix}0\\\\-1\\\\1\\end{pmatrix}$. The points play no part.",
+            "Scalar product: $\\boldsymbol{b}_1 \\cdot \\boldsymbol{b}_2 = 2(0) + 1(-1) + (-2)(1) = -3$.",
+            "Magnitudes: $\\lvert \\boldsymbol{b}_1\\rvert = \\sqrt{4 + 1 + 4} = 3$ and $\\lvert \\boldsymbol{b}_2\\rvert = \\sqrt{0 + 1 + 1} = \\sqrt{2}$.",
+            "So $\\cos\\theta = \\frac{-3}{3\\sqrt{2}} = -\\frac{1}{\\sqrt{2}}$, which gives $135^{\\circ}$. That is the obtuse angle.",
+            "The angle between the lines is $180^{\\circ} - 135^{\\circ} = 45^{\\circ}$. Using the modulus gets there at once: $\\cos\\theta = \\frac{1}{\\sqrt{2}}$."
+          ],
+          "answer": "$\\theta = 45^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-cartesian",
+          "question": "The line $L_1$ has [[cartesian-equations-of-a-line|Cartesian equations]] $\\frac{x - 5}{2} = 4 - y = \\frac{z + 1}{2}$, and $L_2: \\boldsymbol{r} = \\begin{pmatrix}0\\\\2\\\\6\\end{pmatrix} + \\mu\\begin{pmatrix}1\\\\4\\\\-8\\end{pmatrix}$. Find the acute angle between $L_1$ and $L_2$. Give your answer in degrees to 3 s.f.",
+          "steps": [
+            "Read the direction of $L_1$. Setting $4 - y = \\lambda$ gives $y = 4 - \\lambda$, so $\\boldsymbol{b}_1 = \\begin{pmatrix}2\\\\-1\\\\2\\end{pmatrix}$. The direction of $L_2$ is $\\boldsymbol{b}_2 = \\begin{pmatrix}1\\\\4\\\\-8\\end{pmatrix}$.",
+            "Scalar product: $2(1) + (-1)(4) + 2(-8) = 2 - 4 - 16 = -18$. Keep the $z$-components.",
+            "Magnitudes: $\\lvert \\boldsymbol{b}_1\\rvert = \\sqrt{4 + 1 + 4} = 3$ and $\\lvert \\boldsymbol{b}_2\\rvert = \\sqrt{1 + 16 + 64} = 9$.",
+            "For the acute angle, take the modulus: $\\cos\\theta = \\frac{\\lvert -18\\rvert}{3 \\times 9} = \\frac{2}{3}$.",
+            "With the calculator in degree mode, $\\theta = \\arccos\\frac{2}{3} = 48.1896\\ldots^{\\circ}$."
+          ],
+          "answer": "$\\theta \\approx 48.2^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the obtuse angle. If the scalar product is negative, $\\arccos$ returns an angle over $90^{\\circ}$. Subtract it from $180^{\\circ}$, or use the modulus from the start."
+        },
+        {
+          "type": "check",
+          "id": "check-perpendicular-k",
+          "prompt": "The lines $\\boldsymbol{r} = \\begin{pmatrix}0\\\\1\\\\3\\end{pmatrix} + \\lambda\\begin{pmatrix}k\\\\2\\\\-1\\end{pmatrix}$ and $\\boldsymbol{r} = \\begin{pmatrix}2\\\\-2\\\\0\\end{pmatrix} + \\mu\\begin{pmatrix}3\\\\k\\\\4\\end{pmatrix}$ are perpendicular. Find $k$.",
+          "hint": "Perpendicular directions have a scalar product of zero.",
+          "answer": {
+            "value": 0.8,
+            "tolerance": 0
+          },
+          "explain": "$3k + 2k + (-1)(4) = 0$, so $5k = 4$ and $k = 0.8$. The points on the lines play no part."
+        },
+        {
+          "type": "check",
+          "id": "check-acute-angle",
+          "prompt": "Find the acute angle between $L_1: \\boldsymbol{r} = \\begin{pmatrix}2\\\\0\\\\1\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\2\\\\2\\end{pmatrix}$ and $L_2: \\boldsymbol{r} = \\begin{pmatrix}-1\\\\3\\\\4\\end{pmatrix} + \\mu\\begin{pmatrix}2\\\\-2\\\\-1\\end{pmatrix}$.",
+          "hint": "Use only the direction vectors. Then ask whether your angle is acute.",
+          "options": [
+            {
+              "text": "$\\theta \\approx 116^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 26.4^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 79.9^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 63.6^{\\circ}$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\boldsymbol{b}_1 \\cdot \\boldsymbol{b}_2 = 2 - 4 - 2 = -4$ and both magnitudes are $3$, so $\\cos\\theta = \\frac{4}{9}$ for the acute angle. $116^{\\circ}$ is the obtuse angle, and $79.9^{\\circ}$ comes from using the [[position-vector|position vectors]]."
+        }
+      ]
+    },
+    {
+      "id": "kinematics",
+      "heading": "Lines as motion",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[vector-equation-of-a-line|vector equation]] can also describe motion. Replace $\\lambda$ by the time $t$, and $\\boldsymbol{r}$ gives an object's position at each moment. As $t$ increases, the object moves along the line at a steady rate."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{r} = \\boldsymbol{a} + t\\boldsymbol{v}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Each part has a meaning. $\\boldsymbol{a}$ is the position at $t = 0$, the starting position. $\\boldsymbol{v}$ is the velocity: the displacement in one unit of time. The [[speed|speed]] is its magnitude, $\\lvert\\boldsymbol{v}\\rvert$."
+        },
+        {
+          "type": "text",
+          "text": "Keep track of units. If distances are in km and $t$ is in hours, the speed is in km per hour, written $\\text{km h}^{-1}$."
+        },
+        {
+          "type": "text",
+          "text": "To get a velocity with a given speed, scale a direction to the right length. A ship heading along $\\begin{pmatrix}3\\\\4\\end{pmatrix}$ at $15\\text{ km h}^{-1}$ has $\\boldsymbol{v} = \\frac{15}{5}\\begin{pmatrix}3\\\\4\\end{pmatrix} = \\begin{pmatrix}9\\\\12\\end{pmatrix}$, since $\\left\\lvert\\begin{pmatrix}3\\\\4\\end{pmatrix}\\right\\rvert = 5$."
+        },
+        {
+          "type": "example",
+          "id": "ex-boat-due-north",
+          "question": "A harbour is at the origin O, and the $y$-axis points north. A boat's position $t$ hours after 09:00 is $\\boldsymbol{r} = \\begin{pmatrix}-9\\\\4\\end{pmatrix} + t\\begin{pmatrix}6\\\\8\\end{pmatrix}$, in kilometres. Find the boat's speed, and the value of $t$ when it is due north of the harbour.",
+          "steps": [
+            "The velocity is $\\boldsymbol{v} = \\begin{pmatrix}6\\\\8\\end{pmatrix}$, so the speed is $\\lvert\\boldsymbol{v}\\rvert = \\sqrt{36 + 64} = 10\\text{ km h}^{-1}$.",
+            "Due north of O means on the positive $y$-axis, so $x = 0$.",
+            "The $x$-component of the position is $-9 + 6t$. Solve $-9 + 6t = 0$ to get $t = \\frac{3}{2}$.",
+            "Check $y$: $4 + 8\\left(\\frac{3}{2}\\right) = 16 > 0$. So at 10:30 the boat is $16$ km due north of the harbour."
+          ],
+          "answer": "$\\lvert\\boldsymbol{v}\\rvert = 10\\text{ km h}^{-1}, \\; t = \\frac{3}{2}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-drone-distance",
+          "prompt": "A drone's position after $t$ seconds is $\\boldsymbol{r} = \\begin{pmatrix}10\\\\-4\\\\0\\end{pmatrix} + t\\begin{pmatrix}2\\\\-6\\\\3\\end{pmatrix}$, in metres. How far does it travel in the first $5$ seconds?",
+          "hint": "Find the speed first. The drone moves in a straight line at that speed.",
+          "answer": {
+            "value": 35,
+            "tolerance": 0
+          },
+          "explain": "The speed is $\\sqrt{4 + 36 + 9} = 7\\text{ m s}^{-1}$, so in $5$ seconds the drone travels $7 \\times 5 = 35$ m."
+        },
+        {
+          "type": "check",
+          "id": "check-velocity-from-speed",
+          "prompt": "A ship starts at $(1, 2)$ and sails in the direction $\\begin{pmatrix}4\\\\-3\\end{pmatrix}$ at $20\\text{ km h}^{-1}$. Which equation gives its position after $t$ hours?",
+          "hint": "$\\left\\lvert\\begin{pmatrix}4\\\\-3\\end{pmatrix}\\right\\rvert = 5$. Scale the direction so that its length is $20$.",
+          "options": [
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}1\\\\2\\end{pmatrix} + t\\begin{pmatrix}4\\\\-3\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}1\\\\2\\end{pmatrix} + t\\begin{pmatrix}16\\\\-12\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}1\\\\2\\end{pmatrix} + t\\begin{pmatrix}80\\\\-60\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}4\\\\-3\\end{pmatrix} + t\\begin{pmatrix}16\\\\-12\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "Multiply the direction by $\\frac{20}{5} = 4$ to get $\\boldsymbol{v} = \\begin{pmatrix}16\\\\-12\\end{pmatrix}$, whose length is $\\sqrt{256 + 144} = 20$. The start $(1, 2)$ is the position at $t = 0$."
+        },
+        {
+          "type": "text",
+          "text": "Two moving objects collide only if they are in the same place at the same time. Paths that cross at different times don't meet. So give both objects the same $t$, and look at the vector between them."
+        },
+        {
+          "type": "text",
+          "text": "The distance between them at time $t$ is the magnitude of that vector, a function of $t$. On Paper 2 you can graph it and find its minimum."
+        },
+        {
+          "type": "example",
+          "id": "ex-closest-approach",
+          "question": "Two ships move with constant velocities. Their positions $t$ hours after noon, in km, are $\\boldsymbol{r}_{\\mathrm{A}} = \\begin{pmatrix}2\\\\9\\end{pmatrix} + t\\begin{pmatrix}5\\\\-1\\end{pmatrix}$ and $\\boldsymbol{r}_{\\mathrm{B}} = \\begin{pmatrix}-4\\\\1\\end{pmatrix} + t\\begin{pmatrix}7\\\\3\\end{pmatrix}$. Use your calculator to find the shortest distance between the ships. Give your answer to 3 s.f.",
+          "steps": [
+            "Both positions use the same $t$, so subtract them: $\\boldsymbol{r}_{\\mathrm{B}} - \\boldsymbol{r}_{\\mathrm{A}} = \\begin{pmatrix}-4 - 2\\\\1 - 9\\end{pmatrix} + t\\begin{pmatrix}7 - 5\\\\3 - (-1)\\end{pmatrix} = \\begin{pmatrix}2t - 6\\\\4t - 8\\end{pmatrix}$.",
+            "The distance is the magnitude: $d(t) = \\sqrt{(2t - 6)^{2} + (4t - 8)^{2}}$. Write this down. It is the expression you enter, and it earns the method mark.",
+            "Graph $d(t)$ for $t \\ge 0$ and find its minimum. The calculator gives $t = 2.2$ and $d = 1.78885\\ldots$.",
+            "So the ships are closest at $t = 2.2$, which is 14:12. Check: at noon $d(0) = \\sqrt{36 + 64} = 10$ km, so they do get much closer."
+          ],
+          "answer": "$d \\approx 1.79\\text{ km}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = sqrt((2X-6)^2+(4X-8)^2)",
+              "WINDOW, Xmin = 0, Xmax = 5, Ymin = 0, Ymax = 12 (check on your model)",
+              "GRAPH, then 2nd, TRACE (CALC), 3: minimum",
+              "Move left of the lowest point, ENTER, then right of it, ENTER, ENTER (check on your model)",
+              "Read X = 2.2 and Y = 1.788854..."
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = sqrt((2x-6)^2+(4x-8)^2)",
+              "Menu, Window/Zoom, Window Settings: x from 0 to 5, y from 0 to 12 (check on your model)",
+              "Menu, Analyze Graph, Minimum",
+              "Click to the left of the lowest point, then to the right of it (check on your model)",
+              "Read x = 2.2 and y = 1.78885..."
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = sqrt((2X-6)^2+(4X-8)^2)",
+              "SHIFT, F3 (V-Window): Xmin 0, Xmax 5, Ymin 0, Ymax 12 (check on your model)",
+              "DRAW, then SHIFT, F5 (G-SOLV), MIN",
+              "Read X = 2.2 and Y = 1.788854..."
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "On Paper 2, write down $d(t)$ before the answer. A bare $1.79$ with no expression can lose the method mark."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A line needs a point and a direction: $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}$. Always start with $\\boldsymbol{r} =$.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Through two points P and Q, use $\\overrightarrow{\\mathrm{PQ}} = \\boldsymbol{q} - \\boldsymbol{p}$ as the direction, not a position vector.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In Cartesian form the denominators give the direction, but only once each numerator reads $x - x_0$, $y - y_0$ or $z - z_0$. If in doubt, set each part equal to $\\lambda$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Acute angle between two lines: $\\cos\\theta = \\frac{\\lvert \\boldsymbol{b}_1 \\cdot \\boldsymbol{b}_2\\rvert}{\\lvert \\boldsymbol{b}_1\\rvert\\lvert \\boldsymbol{b}_2\\rvert}$, using direction vectors only. The lines are perpendicular when $\\boldsymbol{b}_1 \\cdot \\boldsymbol{b}_2 = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Motion: $\\boldsymbol{r} = \\boldsymbol{a} + t\\boldsymbol{v}$, with $\\boldsymbol{a}$ the starting position, $\\boldsymbol{v}$ the velocity and $\\lvert\\boldsymbol{v}\\rvert$ the speed.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving out $\\boldsymbol{r} =$. Without it you have written an expression, not an equation, and the mark for the equation is lost.",
+    "Reading the direction from Cartesian form without tidying it first. In $\\frac{7 - z}{2}$ the $z$-component is $-2$, and in $\\frac{3y - 1}{6}$ it is $2$. Rewrite each part as the coordinate minus a number, or set each part equal to $\\lambda$.",
+    "Using a position vector as the direction. The direction through P and Q is $\\boldsymbol{q} - \\boldsymbol{p}$, not $\\boldsymbol{q}$.",
+    "Stopping at an obtuse angle. A negative scalar product gives an angle over $90^{\\circ}$, so subtract it from $180^{\\circ}$.",
+    "Leaving out the $z$-components of a scalar product or a magnitude. Every component counts.",
+    "Using one parameter letter for two different lines. Give each line its own, such as $\\lambda$ and $\\mu$. In motion questions the shared $t$ is right, because both objects run on the same clock."
+  ],
+  "examTips": [
+    "\"Write down\" a vector equation needs no working, but it must start with $\\boldsymbol{r} =$. Any point on the line and any parallel direction earn the marks.",
+    "\"Find the angle\" between two lines: use the direction vectors only, and give the acute angle. Paper 1 expects exact values such as $45^{\\circ}$. On Paper 2, give degrees to 3 s.f.",
+    "To show that two lines are perpendicular, show the scalar product of their directions working out to $0$. Saying it looks like a right angle earns nothing.",
+    "In motion questions, give speeds and distances with units. If the question uses clock times, turn your value of $t$ into one."
+  ],
+  "readingMinutes": 27
+}

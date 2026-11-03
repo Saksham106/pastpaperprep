@@ -1,0 +1,739 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "4.6",
+  "slug": "probability-diagrams-rules-and-independence",
+  "title": "Probability diagrams, rules and independence",
+  "level": "SL",
+  "topic": 4,
+  "summary": "[[venn-diagram|Venn diagrams]], [[tree-diagram|tree diagrams]] and tables turn a wordy probability question into regions and branches you can read off. A few rules then cover the rest: the addition rule for \"or\", [[mutually-exclusive|mutually exclusive]] events, [[conditional-probability|conditional probability]] for \"given that\", and multiplying for [[independent-events|independent events]].",
+  "goals": [
+    {
+      "text": "Read probabilities straight off a [[venn-diagram|Venn diagram]], a table of outcomes or a sample-space diagram, often with no formula at all.",
+      "bullets": [
+        "4.6-b1",
+        "4.6-b6"
+      ]
+    },
+    {
+      "text": "Use the addition rule $\\mathrm{P}(A \\cup B) = \\mathrm{P}(A) + \\mathrm{P}(B) - \\mathrm{P}(A \\cap B)$, knowing that \"or\" includes both.",
+      "bullets": [
+        "4.6-b2"
+      ]
+    },
+    {
+      "text": "Recognise [[mutually-exclusive|mutually exclusive]] events and use $\\mathrm{P}(A \\cap B) = 0$.",
+      "bullets": [
+        "4.6-b3"
+      ]
+    },
+    {
+      "text": "Find a [[conditional-probability|conditional probability]] $\\mathrm{P}(A \\mid B)$ from a table or the formula, and use $\\mathrm{P}(A \\cap B) = \\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)$.",
+      "bullets": [
+        "4.6-b4"
+      ]
+    },
+    {
+      "text": "Draw and use [[tree-diagram|tree diagrams]] for two stages, with and without replacement.",
+      "bullets": [
+        "4.6-b1",
+        "4.6-b4",
+        "4.6-b6"
+      ]
+    },
+    {
+      "text": "Use and test [[independent-events|independence]] with $\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)$.",
+      "bullets": [
+        "4.6-b5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "venn diagram probability",
+    "tree diagram probability",
+    "conditional probability",
+    "independent events",
+    "mutually exclusive events",
+    "with and without replacement"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-complement",
+      "prompt": "The probability that a seed grows is $0.38$. Find the probability that it does not grow.",
+      "hint": "\"Grows\" and \"does not grow\" are complementary events.",
+      "answer": {
+        "value": 0.62,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{P}(A') = 1 - \\mathrm{P}(A) = 1 - 0.38 = 0.62$. Revise it in {{lesson:4.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-greater-than-five",
+      "prompt": "A fair eight-sided die is numbered $1$ to $8$. Find the probability of rolling a number greater than $5$.",
+      "hint": "List the numbers greater than $5$. Is $5$ one of them?",
+      "options": [
+        {
+          "text": "$\\frac{3}{8}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{1}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{5}{8}$",
+          "correct": false
+        }
+      ],
+      "explain": "$6$, $7$ and $8$ are greater than $5$, so the probability is $\\frac{3}{8}$. Counting $5$ as well gives $\\frac{4}{8}$. Revise it in {{lesson:4.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-two-spins",
+      "prompt": "A fair spinner numbered $1$ to $5$ is spun twice. Write down the number of outcomes in the sample space.",
+      "hint": "Each of the $5$ first results pairs with each of the $5$ second results.",
+      "answer": {
+        "value": 25,
+        "tolerance": 0
+      },
+      "explain": "There are $5 \\times 5 = 25$ ordered pairs, from $(1, 1)$ to $(5, 5)$. Revise it in {{lesson:4.5}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "venn",
+      "heading": "Venn diagrams and the addition rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some students play chess, some play the piano, and a few do both. Add the two groups and you count those few twice. A picture stops that."
+        },
+        {
+          "type": "definition",
+          "term": "Venn diagram",
+          "statement": "A [[venn-diagram|Venn diagram]] draws the [[sample-space|sample space]] $U$ as a rectangle and each [[event|event]] as a circle inside it. Where two circles overlap, the outcomes are in both events.",
+          "plain": "Each region of the picture is one kind of outcome, and you write a count or a probability in it."
+        },
+        {
+          "type": "definition",
+          "term": "Intersection and union",
+          "statement": "The [[intersection|intersection]] $A \\cap B$ is the event \"$A$ and $B$\": both happen. The [[union|union]] $A \\cup B$ is the event \"$A$ or $B$\": at least one of them happens.",
+          "plain": "The intersection is the overlap. The union is everything inside either circle."
+        },
+        {
+          "type": "figure",
+          "id": "4-6-venn-regions",
+          "alt": "A rectangle labelled U holds two overlapping circles, A on the left and B on the right. The four regions are labelled: A and not B in the left part of circle A, A and B in the overlap, not A and B in the right part of circle B, and not A and not B outside both circles.",
+          "caption": "The four regions of a two-event Venn diagram. Their probabilities add up to $1$."
+        },
+        {
+          "type": "text",
+          "text": "In maths, \"or\" includes both. \"$A$ or $B$\" means $A$ happens, $B$ happens, or both happen. So $A \\cup B$ is three regions: $A \\cap B'$, $A \\cap B$ and $A' \\cap B$."
+        },
+        {
+          "type": "text",
+          "text": "$\\mathrm{P}(A)$ covers two regions, and so does $\\mathrm{P}(B)$. Adding them counts the overlap twice. Take it away once and you get the addition rule."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cup B) = \\mathrm{P}(A) + \\mathrm{P}(B) - \\mathrm{P}(A \\cap B)",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-union",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "It's in the formula booklet. Given any three of its four probabilities, you can find the fourth."
+        },
+        {
+          "type": "example",
+          "id": "ex-cinema-venn",
+          "question": "Of $60$ people leaving a cinema, $34$ bought a snack, $25$ bought a drink and $12$ bought both. Let $S$ be the event \"bought a snack\" and $D$ the event \"bought a drink\". (a) Draw a Venn diagram showing the number of people in each region. (b) One of the $60$ people is chosen at random. Find the probability that they bought neither a snack nor a drink.",
+          "steps": [
+            "(a) Overlap first: $12$ people are in $S \\cap D$.",
+            "Snack only: $34 - 12 = 22$. Drink only: $25 - 12 = 13$.",
+            "Outside both circles: $60 - (22 + 12 + 13) = 60 - 47 = 13$. Check the four regions: $22 + 12 + 13 + 13 = 60$.",
+            "(b) \"Neither\" is the region outside both circles, $S' \\cap D'$. Read it off the diagram: $\\mathrm{P}(S' \\cap D') = \\frac{13}{60}$.",
+            "No formula needed. The rule agrees: $\\mathrm{P}(S \\cup D) = \\frac{34 + 25 - 12}{60} = \\frac{47}{60}$, and $1 - \\frac{47}{60} = \\frac{13}{60}$."
+          ],
+          "answer": "$\\mathrm{P}(S' \\cap D') = \\frac{13}{60}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Taking \"neither\" as $1 - \\mathrm{P}(A \\cap B)$. That still includes the one-circle regions. Neither is $1 - \\mathrm{P}(A \\cup B)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rule-intersection",
+          "question": "Events $A$ and $B$ have $\\mathrm{P}(A) = 0.45$, $\\mathrm{P}(B) = 0.3$ and $\\mathrm{P}(A \\cup B) = 0.6$. (a) Find $\\mathrm{P}(A \\cap B)$. (b) Find $\\mathrm{P}(A \\cap B')$.",
+          "steps": [
+            "(a) Write the addition rule with the known values in: $0.6 = 0.45 + 0.3 - \\mathrm{P}(A \\cap B)$.",
+            "Rearrange: $\\mathrm{P}(A \\cap B) = 0.45 + 0.3 - 0.6 = 0.15$.",
+            "(b) $A \\cap B'$ is the part of $A$ outside the overlap, so $\\mathrm{P}(A \\cap B') = \\mathrm{P}(A) - \\mathrm{P}(A \\cap B)$.",
+            "So $\\mathrm{P}(A \\cap B') = 0.45 - 0.15 = 0.3$.",
+            "Check the whole diagram: $0.3 + 0.15 + 0.15 + 0.4 = 1$."
+          ],
+          "answer": "$\\mathrm{P}(A \\cap B') = 0.3$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-union-numeric",
+          "prompt": "Events $A$ and $B$ have $\\mathrm{P}(A) = 0.42$, $\\mathrm{P}(B) = 0.37$ and $\\mathrm{P}(A \\cap B) = 0.16$. Find $\\mathrm{P}(A \\cup B)$.",
+          "hint": "Add $\\mathrm{P}(A)$ and $\\mathrm{P}(B)$, then take away the part you counted twice.",
+          "answer": {
+            "value": 0.63,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{P}(A \\cup B) = 0.42 + 0.37 - 0.16 = 0.63$."
+        },
+        {
+          "type": "check",
+          "id": "check-neither-class",
+          "prompt": "In a class of $30$, $18$ students study French, $11$ study Spanish and $5$ study both. One student is chosen at random. Find the probability that they study neither language.",
+          "hint": "Put $5$ in the overlap first, then fill each circle's other part.",
+          "options": [
+            {
+              "text": "$\\frac{1}{5}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{30}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{4}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{6}$",
+              "correct": false
+            }
+          ],
+          "explain": "The regions are $13$, $5$ and $6$, so $24$ study at least one and $6$ study neither: $\\frac{6}{30} = \\frac{1}{5}$. Taking $18$ and $11$ straight from $30$ counts the $5$ twice."
+        }
+      ]
+    },
+    {
+      "id": "exclusive",
+      "heading": "Mutually exclusive events",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On one roll of a die, \"a $2$\" and \"a $5$\" can't both happen. On a [[venn-diagram|Venn diagram]] their circles don't overlap."
+        },
+        {
+          "type": "definition",
+          "term": "Mutually exclusive events",
+          "statement": "Events $A$ and $B$ are [[mutually-exclusive|mutually exclusive]] when they cannot both happen. Then $A \\cap B$ has no outcomes, so $\\mathrm{P}(A \\cap B) = 0$.",
+          "plain": "If one of them happens, the other can't."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = 0",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Put $\\mathrm{P}(A \\cap B) = 0$ into the addition rule and the last term disappears:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cup B) = \\mathrm{P}(A) + \\mathrm{P}(B)",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-mutually-exclusive",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is in the booklet too. Use it only when $A$ and $B$ can't happen together."
+        },
+        {
+          "type": "example",
+          "id": "ex-dice-exclusive",
+          "question": "Two fair six-sided dice are rolled. Let $A$ be the event \"the total is $9$\" and $B$ the event \"both dice show the same number\". (a) Show that $A$ and $B$ are mutually exclusive. (b) Find $\\mathrm{P}(A \\cup B)$.",
+          "steps": [
+            "Draw a sample-space diagram of the totals. Its $36$ cells are equally likely.",
+            "$\\begin{array}{c|cccccc} + & 1 & 2 & 3 & 4 & 5 & 6 \\\\ \\hline 1 & 2 & 3 & 4 & 5 & 6 & 7 \\\\ 2 & 3 & 4 & 5 & 6 & 7 & 8 \\\\ 3 & 4 & 5 & 6 & 7 & 8 & 9 \\\\ 4 & 5 & 6 & 7 & 8 & 9 & 10 \\\\ 5 & 6 & 7 & 8 & 9 & 10 & 11 \\\\ 6 & 7 & 8 & 9 & 10 & 11 & 12 \\end{array}$",
+            "(a) The doubles are the diagonal cells, with totals $2, 4, 6, 8, 10, 12$. All are even, so none is $9$. No cell is in both events, so $A$ and $B$ are mutually exclusive.",
+            "(b) $A$ has $4$ cells: $(3, 6)$, $(4, 5)$, $(5, 4)$ and $(6, 3)$. So $\\mathrm{P}(A) = \\frac{4}{36}$. $B$ has the $6$ diagonal cells, so $\\mathrm{P}(B) = \\frac{6}{36}$.",
+            "The events are mutually exclusive, so add: $\\mathrm{P}(A \\cup B) = \\frac{4}{36} + \\frac{6}{36} = \\frac{10}{36} = \\frac{5}{18}$."
+          ],
+          "answer": "$\\mathrm{P}(A \\cup B) = \\frac{5}{18}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-exclusive-algebra",
+          "question": "Events $A$ and $B$ are mutually exclusive, with $\\mathrm{P}(A) = 0.28$ and $\\mathrm{P}(A \\cup B) = 0.73$. (a) Find $\\mathrm{P}(B)$. (b) Find $\\mathrm{P}(A' \\cap B')$.",
+          "steps": [
+            "(a) The events are mutually exclusive, so $\\mathrm{P}(A \\cup B) = \\mathrm{P}(A) + \\mathrm{P}(B)$. Substitute: $0.73 = 0.28 + \\mathrm{P}(B)$.",
+            "So $\\mathrm{P}(B) = 0.73 - 0.28 = 0.45$.",
+            "(b) $A' \\cap B'$ is \"neither $A$ nor $B$\": the region outside both circles. It is the complement of $A \\cup B$.",
+            "So $\\mathrm{P}(A' \\cap B') = 1 - 0.73 = 0.27$. Check: $0.28 + 0.45 + 0.27 = 1$, with nothing in the overlap."
+          ],
+          "answer": "$\\mathrm{P}(A' \\cap B') = 0.27$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-could-exclusive",
+          "prompt": "Events $A$ and $B$ have $\\mathrm{P}(A) = 0.58$ and $\\mathrm{P}(B) = 0.61$. Can $A$ and $B$ be mutually exclusive?",
+          "hint": "If they were mutually exclusive, what would $\\mathrm{P}(A \\cup B)$ be?",
+          "options": [
+            {
+              "text": "No, because $\\mathrm{P}(A) + \\mathrm{P}(B) > 1$",
+              "correct": true
+            },
+            {
+              "text": "Yes, because $\\mathrm{P}(A) \\ne \\mathrm{P}(B)$",
+              "correct": false
+            },
+            {
+              "text": "Yes, because each probability is less than $1$",
+              "correct": false
+            }
+          ],
+          "explain": "Mutually exclusive would give $\\mathrm{P}(A \\cup B) = 0.58 + 0.61 = 1.19 > 1$, which is impossible. The circles must overlap."
+        },
+        {
+          "type": "check",
+          "id": "check-exclusive-neither",
+          "prompt": "Events $A$ and $B$ are mutually exclusive, with $\\mathrm{P}(A) = 0.15$ and $\\mathrm{P}(B) = 0.6$. Find $\\mathrm{P}(A' \\cap B')$.",
+          "hint": "Find $\\mathrm{P}(A \\cup B)$ first. There is nothing in the overlap.",
+          "answer": {
+            "value": 0.25,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{P}(A \\cup B) = 0.15 + 0.6 = 0.75$, so neither has probability $1 - 0.75 = 0.25$."
+        }
+      ]
+    },
+    {
+      "id": "conditional",
+      "heading": "Conditional probability",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "This table of outcomes shows how $120$ students travel to school, by year group."
+        },
+        {
+          "type": "text",
+          "text": "$\\begin{array}{l|ccc|c} & \\text{Walk} & \\text{Bus} & \\text{Car} & \\text{Total} \\\\ \\hline \\text{Year 12} & 18 & 24 & 8 & 50 \\\\ \\text{Year 13} & 22 & 30 & 18 & 70 \\\\ \\hline \\text{Total} & 40 & 54 & 26 & 120 \\end{array}$"
+        },
+        {
+          "type": "text",
+          "text": "A random student walks with probability $\\frac{40}{120}$. Now say you know the student is in Year 13. Only that row matters, and $22$ of its $70$ students walk. So the probability becomes $\\frac{22}{70} = \\frac{11}{35}$."
+        },
+        {
+          "type": "text",
+          "text": "Knowing that an event has happened shrinks the [[sample-space|sample space]] to it. This gives a [[conditional-probability|conditional probability]]."
+        },
+        {
+          "type": "definition",
+          "term": "Conditional probability",
+          "statement": "$\\mathrm{P}(A \\mid B)$ is the probability that $A$ happens, given that $B$ has happened. Read the bar as \"given\".",
+          "plain": "Look only where $B$ happened, and ask what fraction of that is also $A$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\mid B) = \\dfrac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(B)}",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-conditional",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Given $B$, only the outcomes in $B$ are left, and the ones also in $A$ form $A \\cap B$. So divide the overlap by all of $B$. It's in the booklet. The given event always goes on the bottom."
+        },
+        {
+          "type": "text",
+          "text": "Multiply both sides by $\\mathrm{P}(B)$ for a second form, which finds the probability of both."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = \\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by the wrong total. For \"walks, given Year 13\" the given event is Year 13, so divide by the Year 13 total, $70$, not by $40$ or $120$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cafe-multiply",
+          "question": "At a café, $40\\%$ of customers order a hot drink. Of the customers who order a hot drink, $35\\%$ also buy a pastry. A customer is chosen at random. Find the probability that they order a hot drink and buy a pastry.",
+          "steps": [
+            "Let $H$ be \"orders a hot drink\" and $S$ be \"buys a pastry\". Then $\\mathrm{P}(H) = 0.4$.",
+            "\"$35\\%$ of those who order a hot drink\" is a conditional probability: $\\mathrm{P}(S \\mid H) = 0.35$. It is not the probability of both.",
+            "Use the second form, with $H$ as the given event: $\\mathrm{P}(H \\cap S) = \\mathrm{P}(H)\\,\\mathrm{P}(S \\mid H) = 0.4 \\times 0.35 = 0.14$."
+          ],
+          "answer": "$\\mathrm{P}(H \\cap S) = 0.4 \\times 0.35 = 0.14$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-conditional-complement",
+          "question": "Events $A$ and $B$ have $\\mathrm{P}(A) = 0.55$, $\\mathrm{P}(B) = 0.3$ and $\\mathrm{P}(A \\cup B) = 0.67$. Find $\\mathrm{P}(B \\mid A')$.",
+          "steps": [
+            "Find the overlap from the addition rule: $\\mathrm{P}(A \\cap B) = 0.55 + 0.3 - 0.67 = 0.18$.",
+            "The given event is $A'$, so $\\mathrm{P}(A')$ goes on the bottom and $\\mathrm{P}(A' \\cap B)$ on top.",
+            "The part of $B$ outside $A$ is $\\mathrm{P}(A' \\cap B) = 0.3 - 0.18 = 0.12$. And $\\mathrm{P}(A') = 1 - 0.55 = 0.45$.",
+            "Divide: $\\mathrm{P}(B \\mid A') = \\frac{\\mathrm{P}(A' \\cap B)}{\\mathrm{P}(A')} = \\frac{0.12}{0.45} = \\frac{12}{45} = \\frac{4}{15}$.",
+            "Check on a Venn diagram: outside $A$ are $0.12$ (in $B$) and $0.33$ (in neither), so $\\frac{0.12}{0.45}$ again."
+          ],
+          "answer": "$\\mathrm{P}(B \\mid A') = \\frac{4}{15}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "Name the given event first, and write its probability on the bottom."
+        },
+        {
+          "type": "check",
+          "id": "check-given-table",
+          "prompt": "Use the table of how students travel. A student is chosen at random. Given that the student walks, find the probability that they are in Year 12.",
+          "hint": "Look only at the Walk column.",
+          "options": [
+            {
+              "text": "$\\frac{9}{20}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{9}{25}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{20}$",
+              "correct": false
+            }
+          ],
+          "explain": "$18$ of the $40$ walkers are in Year 12: $\\frac{18}{40} = \\frac{9}{20}$. $\\frac{18}{50}$ divides by the Year 12 total, and $\\frac{18}{120}$ is the probability of both."
+        },
+        {
+          "type": "check",
+          "id": "check-conditional-numeric",
+          "prompt": "Events $A$ and $B$ have $\\mathrm{P}(A) = 0.32$ and $\\mathrm{P}(A \\cap B) = 0.12$. Find $\\mathrm{P}(B \\mid A)$.",
+          "hint": "The given event is $A$, so $\\mathrm{P}(A)$ goes on the bottom.",
+          "answer": {
+            "value": 0.375,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{P}(B \\mid A) = \\frac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(A)} = \\frac{0.12}{0.32} = 0.375$."
+        }
+      ]
+    },
+    {
+      "id": "trees",
+      "heading": "Tree diagrams, with and without replacement",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some experiments happen in stages: first the weather, then the bus. The first stage can change the chances at the second."
+        },
+        {
+          "type": "definition",
+          "term": "Tree diagram",
+          "statement": "A [[tree-diagram|tree diagram]] has one set of branches for each stage of an experiment. Branches from one point add to $1$. A second-stage branch carries a conditional probability: its chance given the branch before it.",
+          "plain": "Each path from left to right is one way the experiment can turn out."
+        },
+        {
+          "type": "text",
+          "text": "1. Multiply along a path. This is $\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B \\mid A)$, with $A$ the first stage."
+        },
+        {
+          "type": "text",
+          "text": "2. Add the paths you want. Different paths can't both happen, so they are [[mutually-exclusive|mutually exclusive]]."
+        },
+        {
+          "type": "figure",
+          "id": "4-6-tree-late",
+          "alt": "Tree diagram with two stages. The first stage splits into rain, probability 0.3, and no rain, probability 0.7. After rain, the bus is late with probability 0.25 or on time with probability 0.75. After no rain, the bus is late with probability 0.1 or on time with probability 0.9. The end of each path shows its product: 0.075, 0.225, 0.07 and 0.63.",
+          "caption": "The tree for Sam's bus. Multiply along each path; the four path probabilities add to $1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-tree-late",
+          "question": "On a school day, the probability that it rains is $0.3$. If it rains, the probability that Sam's bus is late is $0.25$. If it doesn't rain, the probability is $0.1$. (a) Find the probability that the bus is late. (b) Given that the bus is late, find the probability that it rained.",
+          "steps": [
+            "Let $R$ be \"it rains\" and $L$ be \"the bus is late\". Draw the tree: $R$ or $R'$, then $L$ or $L'$, with $\\mathrm{P}(L \\mid R) = 0.25$ and $\\mathrm{P}(L \\mid R') = 0.1$.",
+            "(a) Two paths end in late. Multiply along each: $\\mathrm{P}(R \\cap L) = 0.3 \\times 0.25 = 0.075$ and $\\mathrm{P}(R' \\cap L) = 0.7 \\times 0.1 = 0.07$.",
+            "Add the two paths: $\\mathrm{P}(L) = 0.075 + 0.07 = 0.145$.",
+            "(b) Now $L$ is the given event, so it goes on the bottom: $\\mathrm{P}(R \\mid L) = \\frac{\\mathrm{P}(R \\cap L)}{\\mathrm{P}(L)} = \\frac{0.075}{0.145}$.",
+            "So $\\mathrm{P}(R \\mid L) = \\frac{75}{145} = \\frac{15}{29} \\approx 0.517$. Knowing the bus is late raises the chance of rain above $0.3$."
+          ],
+          "answer": "$\\mathrm{P}(R \\mid L) = \\frac{15}{29}$",
+          "video": null
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, turning a tree round like this, to find the first stage given the second, becomes Bayes' theorem, for up to three events.",
+          "lesson": "4.13"
+        },
+        {
+          "type": "text",
+          "text": "With replacement, you put the first item back, so the second draw has the same chances. [[without-replacement|Without replacement]], you keep it out, so the second-stage probabilities change."
+        },
+        {
+          "type": "example",
+          "id": "ex-counters-without",
+          "question": "A bag holds $5$ green and $3$ white counters. Two counters are taken at random, one after the other, without replacement. Find the probability that both counters are the same colour.",
+          "steps": [
+            "First draw, from $8$ counters: $\\mathrm{P}(G) = \\frac{5}{8}$ and $\\mathrm{P}(W) = \\frac{3}{8}$.",
+            "Second draw, from $7$: after a green it is $\\frac{4}{7}$ green and $\\frac{3}{7}$ white. After a white it is $\\frac{5}{7}$ green and $\\frac{2}{7}$ white.",
+            "Same colour means green then green, or white then white. Multiply along each path: $\\frac{5}{8} \\times \\frac{4}{7} = \\frac{20}{56}$ and $\\frac{3}{8} \\times \\frac{2}{7} = \\frac{6}{56}$.",
+            "Add the two paths: $\\frac{20}{56} + \\frac{6}{56} = \\frac{26}{56} = \\frac{13}{28}$.",
+            "With replacement it would be $\\left(\\frac{5}{8}\\right)^{2} + \\left(\\frac{3}{8}\\right)^{2} = \\frac{17}{32}$, a different answer."
+          ],
+          "answer": "$\\mathrm{P}(\\text{same colour}) = \\frac{13}{28}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the probabilities along a path. Along a path you multiply. You add only across different paths."
+        },
+        {
+          "type": "check",
+          "id": "check-tree-two-attempts",
+          "prompt": "The probability that Ana passes her driving test at the first attempt is $0.7$. If she fails, the probability that she passes at the second attempt is $0.8$. Find the probability that she passes within her first two attempts.",
+          "hint": "Two paths end in a pass: pass first time, or fail and then pass.",
+          "options": [
+            {
+              "text": "$0.94$",
+              "correct": true
+            },
+            {
+              "text": "$0.56$",
+              "correct": false
+            },
+            {
+              "text": "$0.24$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.7 + 0.3 \\times 0.8 = 0.94$. $0.7 \\times 0.8$ multiplies branches on different paths, and $0.24$ is only the fail-then-pass path."
+        },
+        {
+          "type": "check",
+          "id": "check-faulty-bulbs",
+          "prompt": "A box holds $10$ bulbs, and $3$ of them are faulty. Two bulbs are chosen at random without replacement. Find the probability that both are faulty. Give your answer to 3 s.f.",
+          "hint": "After one faulty bulb is taken, how many bulbs, and how many faulty ones, are left?",
+          "answer": {
+            "value": 0.0667,
+            "tolerance": 5e-05
+          },
+          "explain": "$\\frac{3}{10} \\times \\frac{2}{9} = \\frac{6}{90} = \\frac{1}{15} = 0.0666\\ldots \\approx 0.0667$."
+        }
+      ]
+    },
+    {
+      "id": "independent",
+      "heading": "Independent events",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Toss a coin and roll a die. Getting heads doesn't change the chance of a six: it is still $\\frac{1}{6}$."
+        },
+        {
+          "type": "definition",
+          "term": "Independent events",
+          "statement": "Events $A$ and $B$ are [[independent-events|independent]] when one happening does not change the probability of the other: $\\mathrm{P}(A \\mid B) = \\mathrm{P}(A)$.",
+          "plain": "Neither event cares whether the other one happened."
+        },
+        {
+          "type": "text",
+          "text": "Put $\\mathrm{P}(A \\mid B) = \\mathrm{P}(A)$ into $\\mathrm{P}(A \\cap B) = \\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)$. You get the multiplication rule for independent events."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-independent",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "It's in the booklet, and it works both ways. If you're told the events are independent, multiply. To test them, compare the product with $\\mathrm{P}(A \\cap B)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-test-independence",
+          "question": "Use the table of how students travel. Let $T$ be \"the student is in Year 13\" and $B$ be \"the student takes the bus\". Find $\\mathrm{P}(T) \\times \\mathrm{P}(B)$, and hence determine whether $T$ and $B$ are independent.",
+          "steps": [
+            "From the table: $\\mathrm{P}(T) = \\frac{70}{120}$, $\\mathrm{P}(B) = \\frac{54}{120}$ and $\\mathrm{P}(T \\cap B) = \\frac{30}{120} = \\frac{1}{4}$.",
+            "Multiply: $\\mathrm{P}(T) \\times \\mathrm{P}(B) = \\frac{7}{12} \\times \\frac{9}{20} = \\frac{63}{240} = \\frac{21}{80}$.",
+            "Compare, showing both values: $\\frac{21}{80} = 0.2625$, but $\\mathrm{P}(T \\cap B) = 0.25$. Since $0.2625 \\ne 0.25$, the conclusion is that $T$ and $B$ are not independent."
+          ],
+          "answer": "$\\mathrm{P}(T) \\times \\mathrm{P}(B) = \\frac{21}{80}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "To show that events are independent, or not, write both numbers and compare them, as in $0.2625 \\ne 0.25$. A conclusion with no comparison doesn't earn the reasoning mark."
+        },
+        {
+          "type": "result",
+          "statement": "If $\\mathrm{P}(A) > 0$ and $\\mathrm{P}(B) > 0$, then [[mutually-exclusive|mutually exclusive]] events are never independent.",
+          "why": "Mutually exclusive gives $\\mathrm{P}(A \\cap B) = 0$, but $\\mathrm{P}(A)\\,\\mathrm{P}(B) > 0$, so the two can't be equal."
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up mutually exclusive and independent. Mutually exclusive means $\\mathrm{P}(A \\cap B) = 0$. Independent means $\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-independent-gdc",
+          "question": "Events $A$ and $B$ are independent. $\\mathrm{P}(B)$ is $0.25$ more than $\\mathrm{P}(A)$, and $\\mathrm{P}(A \\cap B) = 0.18$. Use your calculator to find $\\mathrm{P}(A)$. Give your answer to 3 s.f.",
+          "steps": [
+            "Let $\\mathrm{P}(A) = p$, so $\\mathrm{P}(B) = p + 0.25$.",
+            "Independence gives $\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)$, so $p(p + 0.25) = 0.18$.",
+            "Write down the quadratic before using the calculator: $p^{2} + 0.25p - 0.18 = 0$.",
+            "The polynomial solver gives $p = 0.317295\\ldots$ or $p = -0.567295\\ldots$.",
+            "A probability can't be negative, so reject $-0.567\\ldots$. The other root gives $\\mathrm{P}(B) = 0.567\\ldots$, which is valid. So $\\mathrm{P}(A) \\approx 0.317$."
+          ],
+          "answer": "$\\mathrm{P}(A) \\approx 0.317$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "APPS, PlySmlt2",
+              "1: POLYNOMIAL ROOT FINDER, ORDER 2 (check on your model)",
+              "Enter a2 = 1, a1 = 0.25, a0 = -0.18",
+              "SOLVE (check on your model), read the two roots 0.3172... and -0.5672..."
+            ],
+            "nspire": [
+              "Calculator page, Menu, Algebra, Polynomial Tools",
+              "Find Roots of Polynomial, Degree 2 (check on your model)",
+              "Enter a2 = 1, a1 = 0.25, a0 = -0.18, OK",
+              "Read the two roots 0.3172... and -0.5672..."
+            ],
+            "casio": [
+              "MENU, EQUA, Polynomial (F2)",
+              "Degree 2 (F1) (check on your model)",
+              "Enter a = 1, b = 0.25, c = -0.18",
+              "SOLVE (F1) (check on your model), read the two roots 0.3172... and -0.5672..."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-is-independent",
+          "prompt": "Events $A$ and $B$ have $\\mathrm{P}(A) = 0.6$, $\\mathrm{P}(B) = 0.35$ and $\\mathrm{P}(A \\cup B) = 0.74$. Are $A$ and $B$ independent?",
+          "hint": "Find $\\mathrm{P}(A \\cap B)$ with the addition rule, then compare it with $\\mathrm{P}(A) \\times \\mathrm{P}(B)$.",
+          "options": [
+            {
+              "text": "Yes, because $\\mathrm{P}(A \\cap B) = 0.21 = \\mathrm{P}(A)\\,\\mathrm{P}(B)$",
+              "correct": true
+            },
+            {
+              "text": "No, because $\\mathrm{P}(A \\cap B) \\ne 0$",
+              "correct": false
+            },
+            {
+              "text": "No, because $\\mathrm{P}(A) + \\mathrm{P}(B) \\ne 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{P}(A \\cap B) = 0.6 + 0.35 - 0.74 = 0.21 = 0.6 \\times 0.35$, so they are independent. A non-zero overlap rules out mutually exclusive, not independent."
+        },
+        {
+          "type": "check",
+          "id": "check-independent-numeric",
+          "prompt": "Events $A$ and $B$ are independent, with $\\mathrm{P}(A) = 0.4$ and $\\mathrm{P}(B) = 0.55$. Find $\\mathrm{P}(A \\cap B')$.",
+          "hint": "Find $\\mathrm{P}(A \\cap B)$ first, then take it away from $\\mathrm{P}(A)$.",
+          "answer": {
+            "value": 0.18,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{P}(A \\cap B) = 0.4 \\times 0.55 = 0.22$, so $\\mathrm{P}(A \\cap B') = 0.4 - 0.22 = 0.18$. This equals $0.4 \\times 0.45 = \\mathrm{P}(A)\\,\\mathrm{P}(B')$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Fill a Venn diagram from the middle out: the overlap, then the rest of each circle, then the outside. \"Or\" includes both: $A \\cup B$ means $A$, $B$ or both.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cup B) = \\mathrm{P}(A) + \\mathrm{P}(B) - \\mathrm{P}(A \\cap B)",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-union",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Mutually exclusive events can't both happen: $\\mathrm{P}(A \\cap B) = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cup B) = \\mathrm{P}(A) + \\mathrm{P}(B)",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-mutually-exclusive",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\mid B) = \\dfrac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(B)}",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-conditional",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = \\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Tree diagrams: multiply along a path, add across paths. Without replacement, the second-stage fractions change.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-independent",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Adding $\\mathrm{P}(A)$ and $\\mathrm{P}(B)$ and forgetting the overlap. Unless the events are mutually exclusive, subtract $\\mathrm{P}(A \\cap B)$.",
+    "Using the $A$-only region as $\\mathrm{P}(A)$. $\\mathrm{P}(A)$ is the $A$-only region plus the overlap.",
+    "Dividing by $\\mathrm{P}(B)$ when you need $\\mathrm{P}(A \\mid B')$. The given event goes on the bottom, so divide by $\\mathrm{P}(B')$.",
+    "Reading \"$35\\%$ of the hot-drink customers\" as the probability of both. It is $\\mathrm{P}(S \\mid H)$; multiply by $\\mathrm{P}(H)$ to get both.",
+    "Multiplying $\\mathrm{P}(A) \\times \\mathrm{P}(B)$ for events not known to be independent. Use the addition rule, a diagram or $\\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)$ instead.",
+    "Treating draws without replacement as if the item went back. After each draw, reduce the total and that colour by one."
+  ],
+  "examTips": [
+    "Show that events are (or are not) independent: write the values of $\\mathrm{P}(A)\\,\\mathrm{P}(B)$ and $\\mathrm{P}(A \\cap B)$, compare them, then conclude.",
+    "Find: draw and label the Venn or tree diagram first. On Paper 1, give exact answers.",
+    "Solve for an unknown probability: write the equation first, then reject any root below $0$ or above $1$ and say why.",
+    "On Paper 2, write down the equation you put into the calculator, then give the answer to 3 s.f."
+  ],
+  "readingMinutes": 28
+}

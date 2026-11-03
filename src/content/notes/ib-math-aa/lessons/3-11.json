@@ -1,0 +1,543 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.11",
+  "slug": "trigonometric-function-relationships-and-symmetry",
+  "title": "Trigonometric-function relationships and symmetry",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "Angles such as $\\pi - \\theta$, $\\pi + \\theta$ and $\\frac{\\pi}{2} - \\theta$ have the same trig values as $\\theta$, up to a sign or a swap of sine and cosine. Each of these relationships is a symmetry of the sine, cosine or tangent graph. You use them to simplify expressions, find every solution of an equation and prove identities.",
+  "goals": [
+    {
+      "text": "Rewrite the sine, cosine or tangent of $\\pi \\pm \\theta$, $2\\pi \\pm \\theta$ and $\\frac{\\pi}{2} \\pm \\theta$ in terms of $\\theta$.",
+      "bullets": [
+        "3.11-b1"
+      ]
+    },
+    {
+      "text": "Describe the lines of symmetry and the centres of [[half-turn-symmetry|half-turn symmetry]] of the sine, cosine and tangent graphs.",
+      "bullets": [
+        "3.11-b1"
+      ]
+    },
+    {
+      "text": "Use the symmetry of a graph to find further solutions of a trig equation, and the sum of its solutions.",
+      "bullets": [
+        "3.11-b1"
+      ]
+    },
+    {
+      "text": "Use these relationships to prove identities and to solve equations that mix trig functions.",
+      "bullets": [
+        "3.11-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.5",
+    "3.7"
+  ],
+  "papers": [
+    "P1"
+  ],
+  "synonyms": [
+    "related angles trig",
+    "sin(pi - x) identity",
+    "complementary angle identities",
+    "cofunction identities",
+    "symmetry of trig graphs",
+    "sin x and cos x relationship"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-exact-sin",
+      "prompt": "Find the exact value of $\\sin\\frac{5\\pi}{6}$.",
+      "hint": "$\\frac{5\\pi}{6}$ is in the second quadrant, with reference angle $\\frac{\\pi}{6}$.",
+      "options": [
+        {
+          "text": "$\\frac{1}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$-\\frac{1}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{\\sqrt{3}}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "Sine is positive in the second quadrant, so $\\sin\\frac{5\\pi}{6} = \\sin\\frac{\\pi}{6} = \\frac{1}{2}$. Revise it in {{lesson:3.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-tan-period",
+      "prompt": "What is the period of $y = \\tan x$, in radians?",
+      "hint": "How far along the $x$-axis is it from one asymptote to the next?",
+      "options": [
+        {
+          "text": "$2\\pi$",
+          "correct": false
+        },
+        {
+          "text": "$\\pi$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{\\pi}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "The graph of $y = \\tan x$ repeats every $\\pi$: its asymptotes are at $x = \\frac{\\pi}{2}$, $\\frac{3\\pi}{2}$ and so on. Sine and cosine repeat every $2\\pi$. Revise it in {{lesson:3.7}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "related",
+      "heading": "Related angles",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.5}} you moved the point $P(\\cos\\theta, \\sin\\theta)$ round the [[unit-circle|unit circle]]. Reflect $P$ in the $y$-axis. The new point is $(-\\cos\\theta, \\sin\\theta)$, at angle $\\pi - \\theta$. So the sine stays the same and the cosine changes sign."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin(\\pi - \\theta) = \\sin\\theta, \\qquad \\cos(\\pi - \\theta) = -\\cos\\theta, \\qquad \\tan(\\pi - \\theta) = -\\tan\\theta",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The tangent result follows from the other two. Divide: $\\tan(\\pi - \\theta) = \\frac{\\sin\\theta}{-\\cos\\theta} = -\\tan\\theta$. In the same way, $\\pi + \\theta$ makes both sine and cosine negative, so tangent keeps its sign: $\\tan(\\pi + \\theta) = \\tan\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "Now a new kind of angle. Reflect $P$ in the line $y = x$. Its coordinates swap, so the new point $Q$ is $(\\sin\\theta, \\cos\\theta)$. In the figure, $Q$ is $\\theta$ from the $y$-axis, so its angle from the $x$-axis is $\\frac{\\pi}{2} - \\theta$."
+        },
+        {
+          "type": "figure",
+          "id": "3-11-complement",
+          "alt": "The unit circle with centre O. The point P at angle theta in the first quadrant has coordinates c, s. The point Q, at angle theta measured from the y-axis, has coordinates s, c. Q is the mirror image of P in the dashed line y equals x.",
+          "caption": "Here $c = \\cos\\theta$ and $s = \\sin\\theta$. The angle of $Q$ is $\\frac{\\pi}{2} - \\theta$."
+        },
+        {
+          "type": "text",
+          "text": "So the cosine of $\\frac{\\pi}{2} - \\theta$ is the sine of $\\theta$, and the other way round. Two angles that add up to $\\frac{\\pi}{2}$ are called [[complementary-angles|complementary angles]]."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin\\left(\\frac{\\pi}{2} - \\theta\\right) = \\cos\\theta, \\qquad \\cos\\left(\\frac{\\pi}{2} - \\theta\\right) = \\sin\\theta",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Dividing gives $\\tan\\left(\\frac{\\pi}{2} - \\theta\\right) = \\frac{\\cos\\theta}{\\sin\\theta} = \\frac{1}{\\tan\\theta}$. This holds whenever $\\tan\\theta$ exists and is not zero. You may also see $\\frac{1}{\\tan\\theta}$ written as $\\cot\\theta$, from {{lesson:3.9}}."
+        },
+        {
+          "type": "result",
+          "statement": "For every angle $\\theta$: $\\sin\\left(\\frac{\\pi}{2} + \\theta\\right) = \\cos\\theta$ and $\\cos\\left(\\frac{\\pi}{2} + \\theta\\right) = -\\sin\\theta$.",
+          "why": "Expand with the identities from {{lesson:3.10}}: $\\sin\\left(\\frac{\\pi}{2} + \\theta\\right) = 1 \\cdot \\cos\\theta + 0 \\cdot \\sin\\theta$ and $\\cos\\left(\\frac{\\pi}{2} + \\theta\\right) = 0 \\cdot \\cos\\theta - 1 \\cdot \\sin\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "One two-step rule covers all of these angles."
+        },
+        {
+          "type": "text",
+          "text": "1. Choose the function. An angle $\\pi \\pm \\theta$ or $2\\pi \\pm \\theta$ keeps the same function. An angle $\\frac{\\pi}{2} \\pm \\theta$ or $\\frac{3\\pi}{2} \\pm \\theta$ swaps sine and cosine, and turns $\\tan\\theta$ into $\\frac{1}{\\tan\\theta}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Choose the sign. Pretend $\\theta$ is acute and find the [[quadrant|quadrant]] the whole angle lands in. The answer takes the sign that the original function has there."
+        },
+        {
+          "type": "example",
+          "id": "ex-simplify-related",
+          "question": "Simplify $2\\cos(\\pi - x) + \\sin\\left(\\frac{\\pi}{2} + x\\right)$.",
+          "steps": [
+            "First term: subtracting from $\\pi$ keeps cosine. With $x$ acute, $\\pi - x$ is in the second quadrant, where cosine is negative. So $\\cos(\\pi - x) = -\\cos x$.",
+            "Second term: adding $\\frac{\\pi}{2}$ swaps sine for cosine. With $x$ acute, $\\frac{\\pi}{2} + x$ is in the second quadrant, where sine is positive. So $\\sin\\left(\\frac{\\pi}{2} + x\\right) = \\cos x$.",
+            "Substitute: $2(-\\cos x) + \\cos x = -2\\cos x + \\cos x = -\\cos x$.",
+            "Check with $x = 0$: the original is $2\\cos\\pi + \\sin\\frac{\\pi}{2} = -2 + 1 = -1$, and $-\\cos 0 = -1$."
+          ],
+          "answer": "$2\\cos(\\pi - x) + \\sin\\left(\\frac{\\pi}{2} + x\\right) = -\\cos x$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cos-quarter-plus",
+          "prompt": "Which expression is equal to $\\cos\\left(\\frac{\\pi}{2} + \\theta\\right)$?",
+          "hint": "Adding $\\frac{\\pi}{2}$ swaps the function. Then find the sign of cosine in the second quadrant.",
+          "options": [
+            {
+              "text": "$\\sin\\theta$",
+              "correct": false
+            },
+            {
+              "text": "$-\\sin\\theta$",
+              "correct": true
+            },
+            {
+              "text": "$-\\cos\\theta$",
+              "correct": false
+            },
+            {
+              "text": "$\\cos\\theta$",
+              "correct": false
+            }
+          ],
+          "explain": "The $\\frac{\\pi}{2}$ swaps cosine for sine. With $\\theta$ acute, $\\frac{\\pi}{2} + \\theta$ is in the second quadrant, where cosine is negative. So $\\cos\\left(\\frac{\\pi}{2} + \\theta\\right) = -\\sin\\theta$."
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping the function for a multiple of $\\pi$, such as writing $\\cos(\\pi - \\theta) = \\sin\\theta$. Only $\\frac{\\pi}{2}$ and $\\frac{3\\pi}{2}$ swap sine and cosine; $\\pi$ and $2\\pi$ keep the function."
+        },
+        {
+          "type": "text",
+          "text": "Exam questions often give one ratio as a letter. Find the ratios you need from it first."
+        },
+        {
+          "type": "example",
+          "id": "ex-tan-in-terms-of-p",
+          "question": "The angle $\\alpha$ satisfies $0 < \\alpha < \\frac{\\pi}{2}$ and $\\cos\\alpha = p$. Find $\\tan\\left(\\frac{\\pi}{2} + \\alpha\\right)$ in terms of $p$.",
+          "steps": [
+            "Write tangent as sine over cosine: $\\tan\\left(\\frac{\\pi}{2} + \\alpha\\right) = \\dfrac{\\sin\\left(\\frac{\\pi}{2} + \\alpha\\right)}{\\cos\\left(\\frac{\\pi}{2} + \\alpha\\right)}$.",
+            "Use the related angles: the top is $\\cos\\alpha$ and the bottom is $-\\sin\\alpha$. So $\\tan\\left(\\frac{\\pi}{2} + \\alpha\\right) = -\\dfrac{\\cos\\alpha}{\\sin\\alpha}$.",
+            "Find $\\sin\\alpha$: $\\sin^{2}\\alpha = 1 - \\cos^{2}\\alpha = 1 - p^{2}$. The angle $\\alpha$ is acute, so $\\sin\\alpha$ is positive: $\\sin\\alpha = \\sqrt{1 - p^{2}}$.",
+            "Substitute: $\\tan\\left(\\frac{\\pi}{2} + \\alpha\\right) = -\\dfrac{p}{\\sqrt{1 - p^{2}}}$.",
+            "Sense check: $\\frac{\\pi}{2} + \\alpha$ is in the second quadrant, where tangent is negative. Since $p > 0$, the answer is negative."
+          ],
+          "answer": "$\\tan\\left(\\frac{\\pi}{2} + \\alpha\\right) = -\\frac{p}{\\sqrt{1 - p^{2}}}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-tan-complement-value",
+          "prompt": "The angle $\\beta$ is acute and $\\sin\\beta = 0.6$. Find $\\tan\\left(\\frac{\\pi}{2} - \\beta\\right)$. Give your answer to 3 s.f.",
+          "hint": "$\\tan\\left(\\frac{\\pi}{2} - \\beta\\right) = \\frac{\\cos\\beta}{\\sin\\beta}$. Find $\\cos\\beta$ first.",
+          "answer": {
+            "value": 1.33,
+            "tolerance": 0.005
+          },
+          "explain": "$\\cos^{2}\\beta = 1 - 0.36 = 0.64$, and $\\beta$ is acute, so $\\cos\\beta = 0.8$. Then $\\tan\\left(\\frac{\\pi}{2} - \\beta\\right) = \\frac{0.8}{0.6} = \\frac{4}{3} \\approx 1.33$."
+        }
+      ]
+    },
+    {
+      "id": "graphs",
+      "heading": "Symmetry in the graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each relationship is also a fact about a graph. Since $\\sin(\\pi - x) = \\sin x$, inputs equally far either side of $\\frac{\\pi}{2}$ give the same output. So the graph of $y = \\sin x$ mirrors in the line $x = \\frac{\\pi}{2}$, an [[axis-of-symmetry|axis of symmetry]]."
+        },
+        {
+          "type": "text",
+          "text": "Now take $\\sin(2\\pi - x) = -\\sin x$. The inputs $x$ and $2\\pi - x$ sit either side of $\\pi$, and their outputs are opposite. Turning the graph through $180^{\\circ}$ about $(\\pi, 0)$ leaves it unchanged. This is [[half-turn-symmetry|half-turn symmetry]], the same kind an [[odd-function|odd function]] has about the origin in {{lesson:2.14}}."
+        },
+        {
+          "type": "figure",
+          "id": "3-11-sine-symmetry",
+          "alt": "Graph of y equals sin x from 0 to 2 pi. A dashed vertical line at x equals pi over 2 is a mirror line: two points the same distance either side of it are at the same height. The point pi, 0 is circled as a centre of half-turn symmetry: two points the same distance either side of pi are at opposite heights, joined by a dotted segment through the centre.",
+          "caption": "$y = \\sin x$ mirrors in $x = \\frac{\\pi}{2}$ and has half-turn symmetry about $(\\pi, 0)$."
+        },
+        {
+          "type": "result",
+          "statement": "Let $a$ be a constant. If $f(a - x) = f(x)$ for every $x$, the graph of $y = f(x)$ is symmetric in the line $x = \\frac{a}{2}$. If $f(a - x) = -f(x)$ for every $x$, it has half-turn symmetry about $\\left(\\frac{a}{2}, 0\\right)$.",
+          "why": "The inputs $x$ and $a - x$ are equally far from $\\frac{a}{2}$, on opposite sides: equal heights give a mirror, opposite heights a half-turn."
+        },
+        {
+          "type": "text",
+          "text": "The graphs repeat, so each symmetry repeats too. Below, $k$ is any integer."
+        },
+        {
+          "type": "text",
+          "text": "1. $y = \\sin x$: mirror lines $x = \\frac{\\pi}{2} + k\\pi$, through every maximum and minimum. Half-turn centres $(k\\pi, 0)$, where the graph crosses the $x$-axis."
+        },
+        {
+          "type": "text",
+          "text": "2. $y = \\cos x$: mirror lines $x = k\\pi$, from $\\cos(-x) = \\cos x$. Half-turn centres $\\left(\\frac{\\pi}{2} + k\\pi, 0\\right)$, from $\\cos(\\pi - x) = -\\cos x$."
+        },
+        {
+          "type": "text",
+          "text": "3. $y = \\tan x$: no mirror lines. Half-turn centres $\\left(\\frac{k\\pi}{2}, 0\\right)$, from $\\tan(\\pi - x) = -\\tan x$. They are at each zero and where each asymptote meets the $x$-axis."
+        },
+        {
+          "type": "text",
+          "text": "Sine and cosine are also linked by a [[translation|translation]]. Since $\\sin\\left(x + \\frac{\\pi}{2}\\right) = \\cos x$, the cosine graph is the sine graph moved $\\frac{\\pi}{2}$ to the left."
+        },
+        {
+          "type": "example",
+          "id": "ex-show-mirror",
+          "question": "Let $f(x) = 2\\sin x + \\sin 3x$. Show that the graph of $y = f(x)$ is symmetric in the line $x = \\frac{\\pi}{2}$.",
+          "steps": [
+            "The mirror line $x = \\frac{\\pi}{2}$ is $x = \\frac{a}{2}$ with $a = \\pi$. So you need to show that $f(\\pi - x) = f(x)$.",
+            "Substitute $\\pi - x$: $f(\\pi - x) = 2\\sin(\\pi - x) + \\sin(3\\pi - 3x)$.",
+            "First term: $\\sin(\\pi - x) = \\sin x$.",
+            "Second term: take off a whole turn, $2\\pi$. Then $\\sin(3\\pi - 3x) = \\sin(\\pi - 3x) = \\sin 3x$.",
+            "So $f(\\pi - x) = 2\\sin x + \\sin 3x = f(x)$ for every $x$, and the graph is symmetric in $x = \\frac{\\pi}{2}$."
+          ],
+          "answer": "$2\\sin(\\pi - x) + \\sin(3\\pi - 3x) = 2\\sin x + \\sin 3x$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cos-centre",
+          "prompt": "The graph of $y = \\cos x$ has half-turn symmetry about which point?",
+          "hint": "Look for a point on the $x$-axis where the graph crosses it. A maximum point can't be a centre.",
+          "options": [
+            {
+              "text": "$\\left(\\frac{\\pi}{2}, 0\\right)$",
+              "correct": true
+            },
+            {
+              "text": "$(\\pi, 0)$",
+              "correct": false
+            },
+            {
+              "text": "$(0, 1)$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\cos(\\pi - x) = -\\cos x$, so inputs either side of $\\frac{\\pi}{2}$ have opposite outputs: a half-turn centre at $\\left(\\frac{\\pi}{2}, 0\\right)$. The line $x = \\pi$ is a mirror line instead, since $\\cos(2\\pi - x) = \\cos x$."
+        },
+        {
+          "type": "text",
+          "text": "Symmetry also gives extra solutions. If $x = \\alpha$ solves $\\sin x = k$, so does its mirror image $\\pi - \\alpha$. For $\\cos x = k$, the mirror line through $x = \\pi$ gives $2\\pi - \\alpha$. Then the period gives the rest, as in {{lesson:3.8}}."
+        },
+        {
+          "type": "check",
+          "id": "check-cos-other-solution",
+          "prompt": "One solution of $\\cos x = c$ is $x = \\frac{\\pi}{9}$. Find the other solution in $0 \\le x < 2\\pi$.",
+          "hint": "Use the mirror line of $y = \\cos x$ at $x = \\pi$, not the one for sine.",
+          "options": [
+            {
+              "text": "$x = \\frac{8\\pi}{9}$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{10\\pi}{9}$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{17\\pi}{9}$",
+              "correct": true
+            }
+          ],
+          "explain": "The graph of $y = \\cos x$ mirrors in $x = \\pi$, so the other solution is $2\\pi - \\frac{\\pi}{9} = \\frac{17\\pi}{9}$. The value $\\pi - \\frac{\\pi}{9}$ uses the mirror line of sine instead."
+        },
+        {
+          "type": "mistake",
+          "text": "Using sine's partner $\\pi - \\alpha$ for a cosine equation. Cosine's mirror line in $0 \\le x \\le 2\\pi$ is $x = \\pi$, so the partner of $\\alpha$ is $2\\pi - \\alpha$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sum-solutions",
+          "question": "The equation $\\sin x = k$, where $0 < k < 1$, has four solutions for $0 \\le x \\le 4\\pi$. Find the sum of the four solutions.",
+          "steps": [
+            "Let $\\alpha$ be the smallest solution. Since $0 < k < 1$, it lies in $0 < \\alpha < \\frac{\\pi}{2}$.",
+            "The mirror line $x = \\frac{\\pi}{2}$ gives a second solution, $\\pi - \\alpha$.",
+            "The graph repeats every $2\\pi$, so add $2\\pi$ to each: $2\\pi + \\alpha$ and $3\\pi - \\alpha$. The next pair would be beyond $4\\pi$.",
+            "Add them. Each $\\alpha$ cancels with a $-\\alpha$: $\\alpha + (\\pi - \\alpha) + (2\\pi + \\alpha) + (3\\pi - \\alpha) = 6\\pi$.",
+            "Sense check: the first pair is symmetric about $\\frac{\\pi}{2}$, so it adds to $\\pi$. The second pair is symmetric about $\\frac{5\\pi}{2}$, so it adds to $5\\pi$."
+          ],
+          "answer": "$x_{1} + x_{2} + x_{3} + x_{4} = 6\\pi$",
+          "video": null
+        }
+      ]
+    },
+    {
+      "id": "equations",
+      "heading": "Using the relationships in proofs and equations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When an expression mixes angles such as $\\pi - x$ and $\\frac{\\pi}{2} + x$, rewrite everything in terms of $x$ first. Then link the functions with two facts you already know."
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta}",
+          "tag": "booklet",
+          "bookletId": "bk-3-5-tan-identity"
+        },
+        {
+          "type": "text",
+          "text": "That one is in the formula booklet. The other is the [[pythagorean-identity|Pythagorean identity]] $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$ from {{lesson:3.6}}. It is in the booklet too."
+        },
+        {
+          "type": "example",
+          "id": "ex-prove-product",
+          "question": "Show that $\\sin\\left(\\frac{\\pi}{2} + x\\right)\\tan(\\pi - x) = -\\sin x$, for $\\cos x \\ne 0$.",
+          "steps": [
+            "Start from the LHS. Rewrite each factor: $\\sin\\left(\\frac{\\pi}{2} + x\\right) = \\cos x$ and $\\tan(\\pi - x) = -\\tan x$.",
+            "So $\\text{LHS} = \\cos x \\cdot (-\\tan x)$.",
+            "Write tangent as sine over cosine: $\\text{LHS} = -\\cos x \\cdot \\dfrac{\\sin x}{\\cos x}$.",
+            "Cancel $\\cos x$, which is not zero: $\\text{LHS} = -\\sin x = \\text{RHS}$."
+          ],
+          "answer": "$\\sin\\left(\\frac{\\pi}{2} + x\\right)\\tan(\\pi - x) = -\\sin x$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-simplify-quotient",
+          "prompt": "Simplify $\\dfrac{\\cos(\\pi - x)}{\\sin\\left(\\frac{\\pi}{2} + x\\right)}$, for $\\cos x \\ne 0$.",
+          "hint": "Rewrite the top and the bottom in terms of $x$ separately.",
+          "options": [
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$-1$",
+              "correct": true
+            },
+            {
+              "text": "$-\\frac{1}{\\tan x}$",
+              "correct": false
+            }
+          ],
+          "explain": "The top is $-\\cos x$ and the bottom is $\\cos x$, so the fraction is $-1$. Getting $-\\frac{1}{\\tan x}$ means $\\sin\\left(\\frac{\\pi}{2} + x\\right)$ was left as $\\sin x$; the $\\frac{\\pi}{2}$ swaps it to cosine."
+        },
+        {
+          "type": "text",
+          "text": "Symmetry also solves equations with two different functions. Turn the cosine into a sine with $\\cos x = \\sin\\left(\\frac{\\pi}{2} - x\\right)$. Then use the mirror line of sine."
+        },
+        {
+          "type": "result",
+          "statement": "$\\sin A = \\sin B$ exactly when $A = B + 2k\\pi$ or $A = \\pi - B + 2k\\pi$, for some integer $k$.",
+          "why": "On one cycle, the graph of $y = \\sin x$ takes each height at two inputs, mirror images in $x = \\frac{\\pi}{2}$; the period $2\\pi$ gives the rest."
+        },
+        {
+          "type": "example",
+          "id": "ex-sin-equals-cos",
+          "question": "Solve $\\sin 3x = \\cos x$ for $0 \\le x \\le \\frac{\\pi}{2}$.",
+          "steps": [
+            "Make both sides sines: $\\cos x = \\sin\\left(\\frac{\\pi}{2} - x\\right)$. So $\\sin 3x = \\sin\\left(\\frac{\\pi}{2} - x\\right)$.",
+            "Case 1, equal angles: $3x = \\frac{\\pi}{2} - x + 2k\\pi$. So $4x = \\frac{\\pi}{2} + 2k\\pi$, which gives $x = \\frac{\\pi}{8} + \\frac{k\\pi}{2}$.",
+            "Case 2, mirror images: $3x = \\pi - \\left(\\frac{\\pi}{2} - x\\right) + 2k\\pi = \\frac{\\pi}{2} + x + 2k\\pi$. So $2x = \\frac{\\pi}{2} + 2k\\pi$, which gives $x = \\frac{\\pi}{4} + k\\pi$.",
+            "Keep the values in $0 \\le x \\le \\frac{\\pi}{2}$. Case 1 with $k = 0$ gives $\\frac{\\pi}{8}$; $k = 1$ gives $\\frac{5\\pi}{8}$, which is too big. Case 2 with $k = 0$ gives $\\frac{\\pi}{4}$.",
+            "Check $x = \\frac{\\pi}{4}$: $\\sin\\frac{3\\pi}{4} = \\frac{\\sqrt{2}}{2}$ and $\\cos\\frac{\\pi}{4} = \\frac{\\sqrt{2}}{2}$."
+          ],
+          "answer": "$x = \\frac{\\pi}{8} \\text{ or } x = \\frac{\\pi}{4}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-smallest-root",
+          "prompt": "Find the smallest positive solution of $\\sin 5x = \\cos x$.",
+          "hint": "Write $\\cos x$ as $\\sin\\left(\\frac{\\pi}{2} - x\\right)$. Find the smallest positive value from each case, then compare.",
+          "options": [
+            {
+              "text": "$x = \\frac{\\pi}{8}$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{\\pi}{12}$",
+              "correct": true
+            },
+            {
+              "text": "$x = \\frac{\\pi}{6}$",
+              "correct": false
+            }
+          ],
+          "explain": "Equal angles: $5x = \\frac{\\pi}{2} - x$ gives $x = \\frac{\\pi}{12}$. Mirror images: $5x = \\frac{\\pi}{2} + x$ gives $x = \\frac{\\pi}{8}$. Both solve the equation, but $\\frac{\\pi}{12}$ is smaller."
+        },
+        {
+          "type": "text",
+          "text": "Sometimes the relationships lead to a quadratic in one function. Each root is a value of sine or cosine, so it must lie between $-1$ and $1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-quadratic-in-sine",
+          "question": "Solve $2\\cos^{2}x - 5\\cos\\left(\\frac{\\pi}{2} - x\\right) + 1 = 0$ for $0 \\le x \\le 2\\pi$.",
+          "steps": [
+            "Rewrite the related angle: $\\cos\\left(\\frac{\\pi}{2} - x\\right) = \\sin x$. So $2\\cos^{2}x - 5\\sin x + 1 = 0$.",
+            "Two functions are left. Use the Pythagorean identity to replace $\\cos^{2}x$ with $1 - \\sin^{2}x$: $2\\left(1 - \\sin^{2}x\\right) - 5\\sin x + 1 = 0$.",
+            "Expand to get $-2\\sin^{2}x - 5\\sin x + 3 = 0$. Multiply by $-1$: $2\\sin^{2}x + 5\\sin x - 3 = 0$, a quadratic in $\\sin x$.",
+            "Factorise: $(2\\sin x - 1)(\\sin x + 3) = 0$, so $\\sin x = \\frac{1}{2}$ or $\\sin x = -3$. Reject $\\sin x = -3$, because sine never goes below $-1$.",
+            "Solve $\\sin x = \\frac{1}{2}$. The acute angle is $\\frac{\\pi}{6}$. The mirror line $x = \\frac{\\pi}{2}$ gives $\\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6}$. Adding $2\\pi$ to either takes it past $2\\pi$.",
+            "Check $x = \\frac{\\pi}{6}$ in the original: $2 \\cdot \\frac{3}{4} - 5 \\cdot \\frac{1}{2} + 1 = 0$."
+          ],
+          "answer": "$x = \\frac{\\pi}{6} \\text{ or } x = \\frac{5\\pi}{6}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-reject-root",
+          "prompt": "Solve $2\\sin^{2}x + 3\\cos(\\pi - x) = 0$ for $0 \\le x \\le 2\\pi$.",
+          "hint": "Replace $\\cos(\\pi - x)$ with $-\\cos x$ and $\\sin^{2}x$ with $1 - \\cos^{2}x$. Then factorise the quadratic in $\\cos x$.",
+          "options": [
+            {
+              "text": "$x = \\frac{\\pi}{3} \\text{ or } x = \\frac{5\\pi}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$x = \\frac{\\pi}{3} \\text{ or } x = \\frac{2\\pi}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{2\\pi}{3} \\text{ or } x = \\frac{4\\pi}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "The equation becomes $2 - 2\\cos^{2}x - 3\\cos x = 0$. Multiply by $-1$: $2\\cos^{2}x + 3\\cos x - 2 = 0$, so $(2\\cos x - 1)(\\cos x + 2) = 0$. Reject $\\cos x = -2$, since cosine never goes below $-1$. Then $\\cos x = \\frac{1}{2}$ gives $x = \\frac{\\pi}{3}$ and, by the mirror line $x = \\pi$, $x = \\frac{5\\pi}{3}$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\sin(\\pi - \\theta) = \\sin\\theta, \\qquad \\cos(\\pi - \\theta) = -\\cos\\theta, \\qquad \\tan(\\pi - \\theta) = -\\tan\\theta",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin\\left(\\frac{\\pi}{2} - \\theta\\right) = \\cos\\theta, \\qquad \\cos\\left(\\frac{\\pi}{2} - \\theta\\right) = \\sin\\theta",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\pi$ and $2\\pi$ keep the function; $\\frac{\\pi}{2}$ and $\\frac{3\\pi}{2}$ swap sine and cosine. Take the sign from the quadrant the angle lands in when $\\theta$ is acute.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $f(a - x) = f(x)$, the graph mirrors in $x = \\frac{a}{2}$. If $f(a - x) = -f(x)$, it has half-turn symmetry about $\\left(\\frac{a}{2}, 0\\right)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$y = \\sin x$ mirrors in $x = \\frac{\\pi}{2} + k\\pi$; $y = \\cos x$ mirrors in $x = k\\pi$. Their half-turn centres are where they cross the $x$-axis.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\sin A = \\sin B$ gives $A = B + 2k\\pi$ or $A = \\pi - B + 2k\\pi$. Turn a cosine into a sine with $\\cos x = \\sin\\left(\\frac{\\pi}{2} - x\\right)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Keeping the original sign, as in $\\cos(\\pi - \\theta) = \\cos\\theta$. Take the sign from the quadrant the new angle lands in.",
+    "Solving only $A = B$ from $\\sin A = \\sin B$. Work through $A = \\pi - B$ too.",
+    "Keeping a root of a quadratic in $\\sin x$ or $\\cos x$ that lies outside $-1$ to $1$. Reject it and say why."
+  ],
+  "examTips": [
+    "“Show that”: start from one side and name each relationship as you use it, such as $\\sin(\\pi - x) = \\sin x$. Your last line must match the given result.",
+    "“Find the exact value” or “Simplify” on Paper 1: with no calculator, reduce each angle to an acute one, then use exact values.",
+    "“Solve”: after using symmetry, list every solution in the interval. If you reject a root, say why."
+  ],
+  "readingMinutes": 18
+}

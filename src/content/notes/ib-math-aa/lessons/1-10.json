@@ -1,0 +1,643 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.10",
+  "slug": "counting-principles-and-extended-binomial-theorem",
+  "title": "Counting principles and the extended binomial theorem",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "Counting principles let you count arrangements and selections without listing them. Multiply for stages, add for separate cases, and use [[permutation|permutations]] when order matters and [[combination|combinations]] when it doesn't. The binomial theorem also works for negative and fractional powers: the expansion never ends, and it is valid only for small enough $x$.",
+  "goals": [
+    {
+      "text": "Count outcomes with the [[product-principle|product principle]] and the [[addition-principle|addition principle]]: multiply for stages, add for separate cases.",
+      "bullets": [
+        "1.10-b1"
+      ]
+    },
+    {
+      "text": "Use [[permutation|permutations]] when order matters and [[combination|combinations]] when it doesn't, for objects that are all different.",
+      "bullets": [
+        "1.10-b1",
+        "1.10-b2"
+      ]
+    },
+    {
+      "text": "Count arrangements with conditions: objects kept together, kept apart, or at least one of a kind.",
+      "bullets": [
+        "1.10-b1"
+      ]
+    },
+    {
+      "text": "Expand $(a + b)^{n}$ for negative and fractional $n$ by taking $a^{n}$ outside, and state when the expansion is valid.",
+      "bullets": [
+        "1.10-b3"
+      ]
+    },
+    {
+      "text": "Use these expansions to find coefficients and approximations, without needing to prove the theorem.",
+      "bullets": [
+        "1.10-b3",
+        "1.10-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.9"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "permutations and combinations",
+    "nPr and nCr",
+    "counting principle",
+    "arrangements and selections",
+    "binomial expansion negative power",
+    "binomial expansion fractional power"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ncr-value",
+      "prompt": "Find the value of ${}^{7}C_{3}$.",
+      "hint": "Use $\\frac{n!}{r!(n-r)!}$ with $n = 7$ and $r = 3$, and cancel the $4!$.",
+      "answer": {
+        "value": 35,
+        "tolerance": 0
+      },
+      "explain": "${}^{7}C_{3} = \\frac{7 \\times 6 \\times 5}{3 \\times 2 \\times 1} = 35$. Revise it in {{lesson:1.9}}."
+    },
+    {
+      "type": "check",
+      "id": "before-binomial-term",
+      "prompt": "Find the coefficient of $x^{2}$ in the expansion of $(2 + x)^{5}$.",
+      "hint": "The term in $x^{2}$ is ${}^{5}C_{2}\\,2^{5-2}x^{2}$.",
+      "options": [
+        {
+          "text": "$10$",
+          "correct": false
+        },
+        {
+          "text": "$40$",
+          "correct": false
+        },
+        {
+          "text": "$80$",
+          "correct": true
+        },
+        {
+          "text": "$160$",
+          "correct": false
+        }
+      ],
+      "explain": "The term is ${}^{5}C_{2} \\times 2^{3}x^{2} = 10 \\times 8x^{2} = 80x^{2}$. The power of $2$ is $5 - 2 = 3$, not $2$. Revise it in {{lesson:1.9}}."
+    },
+    {
+      "type": "check",
+      "id": "before-factorial-ratio",
+      "prompt": "Find the value of $\\frac{8!}{6!}$.",
+      "hint": "Write $8! = 8 \\times 7 \\times 6!$.",
+      "answer": {
+        "value": 56,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{8 \\times 7 \\times 6!}{6!} = 8 \\times 7 = 56$. Revise it in {{lesson:1.9}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "principles",
+      "heading": "Multiply for stages, add for cases",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Listing works only for tiny problems. Choose one of 3 mains and one of 2 drinks: on a tree diagram each main branches into 2 drinks, giving $3 \\times 2 = 6$ meals. Multiplying works because every first choice leads to the same number of second choices."
+        },
+        {
+          "type": "definition",
+          "term": "product principle",
+          "statement": "If a task has two stages, with $m$ ways to do the first and then $n$ ways to do the second whatever the first choice was, the task can be done in $m \\times n$ ways. The same holds for any number of stages.",
+          "plain": "“And” means multiply: a choice here, then a choice there."
+        },
+        {
+          "type": "definition",
+          "term": "addition principle",
+          "statement": "If a task is done in one of two separate cases that cannot both happen, with $m$ ways and $n$ ways, there are $m + n$ ways in total.",
+          "plain": "“Or” means add: one case or the other, never both."
+        },
+        {
+          "type": "text",
+          "text": "The [[product-principle|product principle]] counts arrangements too. To put $n$ different objects in a row, the first place has $n$ choices, the next $n - 1$, and so on down to $1$."
+        },
+        {
+          "type": "formula",
+          "tex": "n! = n \\times (n - 1) \\times (n - 2) \\times \\cdots \\times 2 \\times 1, \\qquad 0! = 1",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "You met $n!$, read “$n$ [[factorial|factorial]]”, in {{lesson:1.9}}. So $n$ different objects can be put in a row in $n!$ ways."
+        },
+        {
+          "type": "example",
+          "id": "ex-meal-deal",
+          "question": "A café sells 4 starters, 6 mains and 3 desserts, all different. A lunch deal is one main together with either one starter or one dessert, but not both. How many different lunch deals are there?",
+          "steps": [
+            "The second course is a starter or a dessert. These are separate cases, so use the [[addition-principle|addition principle]]: $4 + 3 = 7$ ways.",
+            "Choosing the main and then the second course are two stages, so multiply: $6 \\times 7$.",
+            "Check by counting each case on its own: $6 \\times 4 = 24$ deals with a starter and $6 \\times 3 = 18$ with a dessert. Then $24 + 18 = 42$."
+          ],
+          "answer": "$\\text{number of deals} = 42$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-odd-above-4000",
+          "question": "Four-digit numbers are made from the digits 1, 2, 3, 4, 5, 6 and 7, with no digit used more than once. How many of these numbers are odd and greater than 4000?",
+          "steps": [
+            "Fill the restricted places first. The first digit must be 4, 5, 6 or 7, and the last must be 1, 3, 5 or 7.",
+            "The digits 5 and 7 fit both restricted places, so the two choices affect each other. Split into cases by the first digit.",
+            "Case 1: the first digit is 4 or 6 (2 ways). All four odd digits are free, so the last has 4 ways. The middle two places take 2 of the 5 digits left, in order: $5 \\times 4 = 20$ ways. So $2 \\times 4 \\times 20 = 160$.",
+            "Case 2: the first digit is 5 or 7 (2 ways). One odd digit is used, so the last has 3 ways. The middle again has 20 ways. So $2 \\times 3 \\times 20 = 120$.",
+            "The cases are separate, so add: $160 + 120 = 280$."
+          ],
+          "answer": "$\\text{number of four-digit numbers} = 280$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Filling the places from left to right without thinking. Fill the most restricted places first, and split into cases when two conditions compete for the same digits."
+        },
+        {
+          "type": "check",
+          "id": "check-even-three-digit",
+          "prompt": "Three-digit numbers are made from the digits 1 to 7, and digits may repeat. How many of these numbers are even?",
+          "hint": "Which place has a condition? Count its choices first.",
+          "answer": {
+            "value": 147,
+            "tolerance": 0
+          },
+          "explain": "The last digit must be 2, 4 or 6, so it has 3 ways. The other two places have 7 ways each, since digits may repeat. So $7 \\times 7 \\times 3 = 147$."
+        }
+      ]
+    },
+    {
+      "id": "perm-comb",
+      "heading": "Permutations and combinations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Twelve swimmers race in a final. Awarding gold, silver and bronze is a choice where order matters: Ana gold and Ben silver differs from Ben gold and Ana silver. There are $12 \\times 11 \\times 10 = 1320$ ways."
+        },
+        {
+          "type": "text",
+          "text": "Now pick 3 of the 12 for a relay squad with no positions. Each squad of 3 was counted $3! = 6$ times above, once per order, so there are $\\frac{1320}{6} = 220$ squads."
+        },
+        {
+          "type": "definition",
+          "term": "permutation",
+          "statement": "A permutation is an arrangement of $r$ objects chosen from $n$ different objects, in which the order matters. The number of permutations is ${}^{n}P_{r}$.",
+          "plain": "A new order is a new outcome."
+        },
+        {
+          "type": "text",
+          "text": "Count [[permutation|permutations]] with the [[product-principle|product principle]]: $n$ choices for the first place, $n - 1$ for the second, down to $n - r + 1$ for the $r$th. That product is $\\frac{n!}{(n-r)!}$."
+        },
+        {
+          "type": "formula",
+          "tex": "{}^{n}P_{r} = \\frac{n!}{(n-r)!}",
+          "tag": "booklet",
+          "bookletId": "bk-1-10-permutations",
+          "cheatSheet": true
+        },
+        {
+          "type": "definition",
+          "term": "combination",
+          "statement": "A combination is a selection of $r$ objects from $n$ different objects, in which the order does not matter. The number of combinations is ${}^{n}C_{r}$.",
+          "plain": "Only which objects are chosen counts."
+        },
+        {
+          "type": "text",
+          "text": "Each [[combination|combination]] of $r$ objects can be ordered in $r!$ ways, so ${}^{n}P_{r}$ counts it $r!$ times. Dividing gives ${}^{n}C_{r} = \\frac{{}^{n}P_{r}}{r!}$, the same ${}^{n}C_{r}$ as in the binomial theorem."
+        },
+        {
+          "type": "formula",
+          "tex": "{}^{n}C_{r} = \\frac{n!}{r!(n-r)!}",
+          "tag": "booklet",
+          "bookletId": "bk-1-10-combinations",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Both formulas are in the formula booklet. Your job is to choose between them. Ask: does swapping two chosen objects give a different outcome? If yes, use a permutation. If no, use a combination."
+        },
+        {
+          "type": "text",
+          "text": "In this course every object is different, and places are in a line or labelled. Arrangements with identical objects (such as the letters of LEVEL) and arrangements around a circle are not required."
+        },
+        {
+          "type": "check",
+          "id": "check-paintings",
+          "prompt": "A gallery has 9 different paintings and a wall with 4 hooks in a row. In how many ways can 4 of the paintings be hung on the hooks?",
+          "hint": "Does swapping two paintings between hooks make a different display?",
+          "options": [
+            {
+              "text": "$126$",
+              "correct": false
+            },
+            {
+              "text": "$3024$",
+              "correct": true
+            },
+            {
+              "text": "$6561$",
+              "correct": false
+            },
+            {
+              "text": "$15120$",
+              "correct": false
+            }
+          ],
+          "explain": "Yes, so order matters: ${}^{9}P_{4} = 9 \\times 8 \\times 7 \\times 6 = 3024$. ${}^{9}C_{4} = 126$ ignores the order."
+        },
+        {
+          "type": "example",
+          "id": "ex-polygon-diagonals",
+          "question": "A diagonal of a polygon is a line segment joining two vertices that are not next to each other. A convex polygon with $n$ sides has 54 diagonals. Find $n$.",
+          "steps": [
+            "Any 2 of the $n$ vertices give a segment, and the order of the two ends doesn't matter. So there are ${}^{n}C_{2}$ segments.",
+            "Exactly $n$ of these segments are sides, not diagonals. So ${}^{n}C_{2} - n = 54$.",
+            "Write ${}^{n}C_{2}$ without factorials: $\\frac{n!}{2!(n-2)!} = \\frac{n(n-1)}{2}$. So $\\frac{n(n-1)}{2} - n = 54$.",
+            "Multiply by 2 and collect terms: $n^{2} - n - 2n = 108$, so $n^{2} - 3n - 108 = 0$.",
+            "Factorise: $(n - 12)(n + 9) = 0$. A number of sides is positive, so reject $n = -9$.",
+            "Check: ${}^{12}C_{2} - 12 = 66 - 12 = 54$."
+          ],
+          "answer": "$n = 12$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-faulty-sample",
+          "question": "A box holds 20 batteries, of which 5 are faulty. A sample of 6 batteries is taken from the box. Use your calculator to find the number of different samples that contain exactly 2 faulty batteries.",
+          "steps": [
+            "A sample has no order, so use combinations. Choose the 2 faulty batteries from the 5 faulty ones: ${}^{5}C_{2}$ ways.",
+            "The other 4 batteries must work, so choose them from the 15 working ones: ${}^{15}C_{4}$ ways.",
+            "These are two stages of one choice, so multiply. Write down what you enter: ${}^{5}C_{2} \\times {}^{15}C_{4}$.",
+            "The calculator gives $10 \\times 1365 = 13650$.",
+            "Check the sizes: $2 + 4 = 6$ in the sample and $5 + 15 = 20$ in the box."
+          ],
+          "answer": "$\\text{number of samples} = 13650$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Type 5, then MATH, PROB, 3: nCr, then type 2",
+              "Press ×, type 15, then MATH, PROB, 3: nCr, then type 4",
+              "ENTER, and read 13650"
+            ],
+            "nspire": [
+              "Calculator page: Menu, Probability, Combinations, and type 5,2 inside the brackets",
+              "Type ×, then Menu, Probability, Combinations again, with 15,4",
+              "ENTER, and read 13650"
+            ],
+            "casio": [
+              "RUN-MAT, type 5",
+              "OPTN, PROB, nCr, then type 2",
+              "Type ×, then 15, then OPTN, PROB, nCr, then type 4",
+              "EXE, and read 13650"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying the cases of an “at least” condition. Three forwards, four forwards and five forwards are separate outcomes, so add them. Multiply only the stages inside one case."
+        },
+        {
+          "type": "check",
+          "id": "check-squad-at-least",
+          "prompt": "A squad of 5 players is chosen from 7 forwards and 6 defenders. The squad must include at least 3 forwards. How many different squads are possible?",
+          "hint": "“At least 3” means 3, 4 or 5 forwards. Count each case, then add.",
+          "answer": {
+            "value": 756,
+            "tolerance": 0
+          },
+          "explain": "${}^{7}C_{3} \\times {}^{6}C_{2} + {}^{7}C_{4} \\times {}^{6}C_{1} + {}^{7}C_{5} = 525 + 210 + 21 = 756$."
+        }
+      ]
+    },
+    {
+      "id": "restrictions",
+      "heading": "Together, apart and at least one",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most exam counting questions add a condition. Four tools handle nearly all of them."
+        },
+        {
+          "type": "text",
+          "text": "1. Together: glue the objects into one block. Arrange the block with the other objects, then multiply by the orders inside the block. With several blocks, the blocks themselves are items you arrange."
+        },
+        {
+          "type": "text",
+          "text": "2. Apart: count every arrangement, then subtract those where the objects are together."
+        },
+        {
+          "type": "text",
+          "text": "3. No two of a kind next to each other: arrange the other objects first. Then put the restricted objects into the gaps between them, one per gap, including both ends."
+        },
+        {
+          "type": "text",
+          "text": "4. At least one: count every outcome, then subtract those with none."
+        },
+        {
+          "type": "example",
+          "id": "ex-photo-apart",
+          "question": "Six friends, including Lena and Omar, stand in a row for a photo. Find the number of arrangements in which Lena and Omar are not next to each other.",
+          "steps": [
+            "Count every arrangement: $6! = 720$.",
+            "Count those with Lena and Omar together. Glue them into one block, so there are 5 items to arrange: $5! = 120$ ways.",
+            "Inside the block, Lena and Omar can stand in $2! = 2$ orders. So $120 \\times 2 = 240$ arrangements have them together.",
+            "Subtract from the total: $720 - 240 = 480$."
+          ],
+          "answer": "$\\text{number of arrangements} = 480$",
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "1-10-gaps",
+          "alt": "Five floats in a row, drawn as boxes labelled F1 to F5. Six gaps are marked with arrows: one before the first float, four between neighbouring floats, and one after the last float. Each band goes into a different gap.",
+          "caption": "Five floats make six gaps, counting both ends. Putting each band in a different gap keeps the bands apart."
+        },
+        {
+          "type": "example",
+          "id": "ex-parade-gaps",
+          "question": "A parade has 5 different floats and 3 different marching bands, moving in a single line. No two marching bands may be next to each other. How many different orders are possible?",
+          "steps": [
+            "Arrange the floats first, ignoring the bands: $5! = 120$ ways.",
+            "The 5 floats make 6 gaps: one before the first float, four between floats and one after the last.",
+            "Put each band in a different gap, so no two bands touch. The bands are different, so order matters: ${}^{6}P_{3} = 6 \\times 5 \\times 4 = 120$ ways.",
+            "The two stages multiply: $120 \\times 120 = 14400$.",
+            "Nothing is counted twice: the floats' order and each band's gap fix the whole line."
+          ],
+          "answer": "$\\text{number of orders} = 14400$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cars-apart",
+          "prompt": "Seven different cars park in a row of 7 bays. Two of the cars are red. In how many ways can the cars park so that the red cars are not next to each other?",
+          "hint": "Count every arrangement, then take away those with the two red cars glued together.",
+          "answer": {
+            "value": 3600,
+            "tolerance": 0
+          },
+          "explain": "$7! - 2 \\times 6! = 5040 - 1440 = 3600$. The gaps method agrees: arrange the 5 other cars, then put the red cars in 2 of the 6 gaps, giving $5! \\times {}^{6}P_{2} = 120 \\times 30 = 3600$."
+        },
+        {
+          "type": "check",
+          "id": "check-at-least-one-man",
+          "prompt": "A panel of 4 people is chosen from 6 women and 5 men. How many panels contain at least one man?",
+          "hint": "What is the opposite of “at least one man”?",
+          "options": [
+            {
+              "text": "$315$",
+              "correct": true
+            },
+            {
+              "text": "$600$",
+              "correct": false
+            },
+            {
+              "text": "$330$",
+              "correct": false
+            },
+            {
+              "text": "$100$",
+              "correct": false
+            }
+          ],
+          "explain": "The opposite is no men, so 4 women: ${}^{6}C_{4} = 15$ panels. Then ${}^{11}C_{4} - 15 = 330 - 15 = 315$. Picking one man first, $5 \\times {}^{10}C_{3} = 600$, counts many panels more than once. Counting only panels with exactly one man, $5 \\times {}^{6}C_{3} = 100$, misses those with two or more men."
+        },
+        {
+          "type": "examTip",
+          "text": "For “at least one” or “not next to each other”, try total minus the opposite first. Write the subtraction in full, such as $7! - 2 \\times 6!$."
+        }
+      ]
+    },
+    {
+      "id": "rational",
+      "heading": "Binomial expansions for negative and fractional powers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.9}} the [[binomial-theorem|binomial theorem]] expanded $(1 + x)^{n}$ for a positive whole number $n$. Its coefficient ${}^{n}C_{r}$ equals $\\frac{n(n-1)\\cdots(n-r+1)}{r!}$, and that form makes sense for any $n$."
+        },
+        {
+          "type": "text",
+          "text": "For $n = 3$, the $x^{4}$ coefficient is $\\frac{3 \\times 2 \\times 1 \\times 0}{4!} = 0$, and so is every later one: the expansion stops. If $n$ is negative or a fraction, no factor is ever zero, so it goes on for ever."
+        },
+        {
+          "type": "text",
+          "text": "Try $n = -1$: $(1 + x)^{-1} = 1 - x + x^{2} - x^{3} + \\ldots$, a geometric series with ratio $-x$. From {{lesson:1.8}}, its sum is $\\frac{1}{1 + x}$ only when $\\lvert x\\rvert < 1$. For other $x$ the terms do not shrink to zero, and the series has no sum."
+        },
+        {
+          "type": "formula",
+          "tex": "(1 + x)^{n} = 1 + nx + \\frac{n(n-1)}{2!}x^{2} + \\frac{n(n-1)(n-2)}{3!}x^{3} + \\cdots, \\quad \\lvert x\\rvert < 1",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "For $(a + b)^{n}$, first take $a$ out so the bracket starts with $1$: $(a + b)^{n} = a^{n}\\left(1 + \\frac{b}{a}\\right)^{n}$. Then use the series with $x$ replaced by $\\frac{b}{a}$. This form is in the formula booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "(a + b)^{n} = a^{n}\\left(1 + n\\left(\\frac{b}{a}\\right) + \\frac{n(n-1)}{2!}\\left(\\frac{b}{a}\\right)^{2} + \\cdots\\right), \\quad n \\in \\mathbb{Q}",
+          "tag": "booklet",
+          "bookletId": "bk-1-10-binomial-rational",
+          "cheatSheet": true
+        },
+        {
+          "type": "result",
+          "statement": "When $n$ is negative or a fraction, the expansion of $(a + b)^{n}$ is valid only for $\\left\\lvert\\frac{b}{a}\\right\\rvert < 1$.",
+          "why": "It is $a^{n}$ times the series for $(1 + x)^{n}$ with $x = \\frac{b}{a}$, and that series needs $\\lvert x\\rvert < 1$."
+        },
+        {
+          "type": "text",
+          "text": "You use these expansions without proof: proving the binomial theorem is not required. {{lesson:5.19}} shows where the series comes from, as a Maclaurin series."
+        },
+        {
+          "type": "example",
+          "id": "ex-expand-neg3",
+          "question": "Find the first four terms of the expansion of $(1 - 2x)^{-3}$ in ascending powers of $x$. State the values of $x$ for which the expansion is valid.",
+          "steps": [
+            "Use $(1 + u)^{n}$ with $n = -3$ and $u = -2x$. Keep $u$ in a bracket, so its sign and its power are not lost.",
+            "Term in $x$: $nu = (-3)(-2x) = 6x$.",
+            "Term in $x^{2}$: $\\frac{(-3)(-4)}{2!}(-2x)^{2} = 6 \\times 4x^{2} = 24x^{2}$.",
+            "Term in $x^{3}$: $\\frac{(-3)(-4)(-5)}{3!}(-2x)^{3} = (-10)(-8x^{3}) = 80x^{3}$.",
+            "The expansion is valid when $\\lvert -2x\\rvert < 1$, that is $\\lvert x\\rvert < \\frac{1}{2}$."
+          ],
+          "answer": "$(1 - 2x)^{-3} = 1 + 6x + 24x^{2} + 80x^{3} + \\ldots$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-validity",
+          "prompt": "For which values of $x$ is the expansion of $(2 + 5x)^{-1}$ valid?",
+          "hint": "Take $2$ out of the bracket first. What multiplies $x$ inside the new bracket?",
+          "options": [
+            {
+              "text": "$-\\frac{5}{2} < x < \\frac{5}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$-1 < x < 1$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{2}{5} < x < \\frac{2}{5}$",
+              "correct": true
+            },
+            {
+              "text": "$-\\frac{1}{5} < x < \\frac{1}{5}$",
+              "correct": false
+            }
+          ],
+          "explain": "$(2 + 5x)^{-1} = 2^{-1}\\left(1 + \\frac{5x}{2}\\right)^{-1}$, so you need $\\left\\lvert\\frac{5x}{2}\\right\\rvert < 1$. That gives $\\lvert x\\rvert < \\frac{2}{5}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cube-root",
+          "question": "(a) Find the first three terms of the expansion of $\\sqrt[3]{8 - x}$ as a series in $x$. (b) Hence find an approximation to $\\sqrt[3]{7.9}$ as a fraction.",
+          "steps": [
+            "Take 8 out: $(8 - x)^{\\frac{1}{3}} = 8^{\\frac{1}{3}}\\left(1 - \\frac{x}{8}\\right)^{\\frac{1}{3}} = 2\\left(1 - \\frac{x}{8}\\right)^{\\frac{1}{3}}$.",
+            "Expand with $n = \\frac{1}{3}$ and $u = -\\frac{x}{8}$: $1 + \\frac{1}{3}\\left(-\\frac{x}{8}\\right) + \\frac{\\frac{1}{3}\\left(-\\frac{2}{3}\\right)}{2!}\\left(-\\frac{x}{8}\\right)^{2} = 1 - \\frac{x}{24} - \\frac{x^{2}}{576}$.",
+            "Multiply by 2: $\\sqrt[3]{8 - x} = 2 - \\frac{x}{12} - \\frac{x^{2}}{288} - \\ldots$, valid for $\\left\\lvert\\frac{x}{8}\\right\\rvert < 1$, that is $\\lvert x\\rvert < 8$.",
+            "Match the whole root: $8 - x = 7.9$ gives $x = \\frac{1}{10}$, well inside $\\lvert x\\rvert < 8$.",
+            "Substitute: $2 - \\frac{1}{120} - \\frac{1}{28800} = \\frac{57600 - 240 - 1}{28800} = \\frac{57359}{28800}$.",
+            "Check: $\\frac{57359}{28800} = 1.9916319\\ldots$ and $\\sqrt[3]{7.9} = 1.9916317\\ldots$, which agree to 6 decimal places."
+          ],
+          "answer": "$\\sqrt[3]{7.9} \\approx 2 - \\frac{1}{120} - \\frac{1}{28800} = \\frac{57359}{28800}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-coefficient-x3",
+          "prompt": "Find the coefficient of $x^{3}$ in the expansion of $\\left(1 + \\frac{x}{2}\\right)^{-3}$. Give your answer as a decimal.",
+          "hint": "Use $\\frac{n(n-1)(n-2)}{3!}u^{3}$ with $n = -3$ and $u = \\frac{x}{2}$.",
+          "answer": {
+            "value": -1.25,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{(-3)(-4)(-5)}{3!} = -10$ and $\\left(\\frac{1}{2}\\right)^{3} = \\frac{1}{8}$, so the coefficient is $-\\frac{10}{8} = -1.25$."
+        },
+        {
+          "type": "example",
+          "id": "ex-coefficient-product",
+          "question": "Find the coefficient of $x^{2}$ in the expansion of $\\frac{3 - x}{\\sqrt{1 + 4x}}$ in ascending powers of $x$.",
+          "steps": [
+            "Write the root as a power: $\\frac{3 - x}{\\sqrt{1 + 4x}} = (3 - x)(1 + 4x)^{-\\frac{1}{2}}$.",
+            "Expand with $n = -\\frac{1}{2}$ and $u = 4x$, up to $x^{2}$: $1 + \\left(-\\frac{1}{2}\\right)(4x) + \\frac{\\left(-\\frac{1}{2}\\right)\\left(-\\frac{3}{2}\\right)}{2!}(4x)^{2} = 1 - 2x + 6x^{2} + \\ldots$",
+            "Multiply by $3 - x$, keeping only the products that give $x^{2}$: $3 \\times 6x^{2} = 18x^{2}$ and $(-x) \\times (-2x) = 2x^{2}$.",
+            "Add them: $18 + 2 = 20$. The expansion is valid for $\\lvert 4x\\rvert < 1$, that is $\\lvert x\\rvert < \\frac{1}{4}$."
+          ],
+          "answer": "$\\text{coefficient of } x^{2} = 20$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-find-a",
+          "prompt": "In the expansion of $(1 + ax)^{-3}$, the coefficient of $x$ is $-12$. Find the coefficient of $x^{2}$.",
+          "hint": "Use the $x$ term to find $a$ first. Then remember that $u = ax$ is squared, $a$ included.",
+          "options": [
+            {
+              "text": "$24$",
+              "correct": false
+            },
+            {
+              "text": "$48$",
+              "correct": false
+            },
+            {
+              "text": "$-96$",
+              "correct": false
+            },
+            {
+              "text": "$96$",
+              "correct": true
+            }
+          ],
+          "explain": "The $x$ term is $-3ax$, so $-3a = -12$ and $a = 4$. The $x^{2}$ term is $\\frac{(-3)(-4)}{2!}(4x)^{2} = 6 \\times 16x^{2} = 96x^{2}$. Forgetting to square $a$ gives $24$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "“And” means multiply, “or” means add. Fill the most restricted places first.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "{}^{n}P_{r} = \\frac{n!}{(n-r)!}",
+          "tag": "booklet",
+          "bookletId": "bk-1-10-permutations",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "{}^{n}C_{r} = \\frac{n!}{r!(n-r)!}",
+          "tag": "booklet",
+          "bookletId": "bk-1-10-combinations",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Order matters: ${}^{n}P_{r}$. Order doesn't matter: ${}^{n}C_{r} = \\frac{{}^{n}P_{r}}{r!}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Together: glue into a block and multiply by the orders inside it. Apart or at least one: the total minus the opposite. No two next to each other: use the gaps, including both ends.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "(a + b)^{n} = a^{n}\\left(1 + n\\left(\\frac{b}{a}\\right) + \\frac{n(n-1)}{2!}\\left(\\frac{b}{a}\\right)^{2} + \\cdots\\right), \\quad n \\in \\mathbb{Q}",
+          "tag": "booklet",
+          "bookletId": "bk-1-10-binomial-rational",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For negative or fractional $n$, take $a^{n}$ outside first. The expansion never stops and is valid only for $\\left\\lvert\\frac{b}{a}\\right\\rvert < 1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using ${}^{n}P_{r}$ for a group with no roles, or ${}^{n}C_{r}$ for different roles. If swapping two chosen people changes the outcome, order matters.",
+    "Multiplying cases that are alternatives. Separate cases are added. Only the stages inside one case are multiplied.",
+    "Forgetting the order inside a block. Two people glued together can stand in $2!$ orders, and several blocks can also swap places.",
+    "Leaving out the end gaps. With $k$ objects in a row there are $k + 1$ gaps, so a restricted object can also stand at either end.",
+    "Raising only the $x$ to a power. $(-2x)^{2} = 4x^{2}$, not $-2x^{2}$, so keep the whole of $\\frac{b}{a}$, such as $-2x$, in a bracket.",
+    "Matching the wrong part when you approximate. For $\\sqrt[3]{7.9}$ from $\\sqrt[3]{8 - x}$, solve $8 - x = 7.9$, then check that $x$ is inside the valid range."
+  ],
+  "examTips": [
+    "“Find” or “determine” the number of ways: write the counting expression, such as ${}^{5}C_{2} \\times {}^{15}C_{4}$, before the number. It earns the method mark even if the arithmetic slips.",
+    "“State the values of $x$ for which the expansion is valid”: turn $\\left\\lvert\\frac{b}{a}\\right\\rvert < 1$ into an inequality in $x$, such as $\\lvert x\\rvert < \\frac{2}{5}$.",
+    "“Hence” approximate: show the value of $x$ you substitute, how you found it, and that it lies in the valid range."
+  ],
+  "readingMinutes": 28
+}

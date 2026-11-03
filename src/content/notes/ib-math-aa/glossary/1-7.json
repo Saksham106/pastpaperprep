@@ -1,0 +1,26 @@
+[
+  {
+    "id": "rational-exponent",
+    "term": "rational exponent",
+    "definition": "An exponent that is a fraction: for $a > 0$, $a^{\\frac{n}{m}} = \\left(\\sqrt[m]{a}\\right)^{n}$, so the denominator gives the root and the numerator gives the power.",
+    "lesson": "1.7"
+  },
+  {
+    "id": "laws-of-logarithms",
+    "term": "laws of logarithms",
+    "definition": "The rules $\\log_{a} xy = \\log_{a} x + \\log_{a} y$, $\\log_{a} \\frac{x}{y} = \\log_{a} x - \\log_{a} y$ and $\\log_{a} x^{m} = m\\log_{a} x$, for $a, x, y > 0$ and $a \\neq 1$.",
+    "lesson": "1.7"
+  },
+  {
+    "id": "change-of-base",
+    "term": "change of base",
+    "definition": "Rewriting a logarithm in another base with $\\log_{a} x = \\frac{\\log_{b} x}{\\log_{b} a}$, for example to work out $\\log_{3} 50$ as $\\frac{\\ln 50}{\\ln 3}$ on a calculator.",
+    "lesson": "1.7"
+  },
+  {
+    "id": "exponential-equation",
+    "term": "exponential equation",
+    "definition": "An equation with the unknown in an exponent, such as $3^{x} = 20$; you solve it by writing both sides with the same base or by taking logarithms of both sides.",
+    "lesson": "1.7"
+  }
+]

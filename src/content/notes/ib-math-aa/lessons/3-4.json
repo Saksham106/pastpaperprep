@@ -1,0 +1,569 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.4",
+  "slug": "radians-arc-length-and-sector-area",
+  "title": "Radians, arc length and sector area",
+  "level": "SL",
+  "topic": 3,
+  "summary": "A [[radian|radian]] measures an angle by the arc it cuts off: the arc of one radian is exactly as long as the radius. With angles in radians, the arc and area of a slice of a circle have short formulas, $l = r\\theta$ and $A = \\frac{1}{2}r^{2}\\theta$. You use them on both papers, often inside a perimeter or a shaded region.",
+  "goals": [
+    {
+      "text": "Explain what one [[radian|radian]] is, and convert between degrees and radians.",
+      "bullets": [
+        "3.4-b1"
+      ]
+    },
+    {
+      "text": "Write a radian measure as an exact multiple of $\\pi$ or as a decimal.",
+      "bullets": [
+        "3.4-b1"
+      ]
+    },
+    {
+      "text": "Find the arc length, perimeter and area of a [[sector|sector]], including a major sector.",
+      "bullets": [
+        "3.4-b2"
+      ]
+    },
+    {
+      "text": "Work backwards from a given arc or area to find the radius or the angle.",
+      "bullets": [
+        "3.4-b2"
+      ]
+    },
+    {
+      "text": "Find the area of a [[circle-segment|segment]], and solve sector equations on your GDC.",
+      "bullets": [
+        "3.4-b1",
+        "3.4-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "degrees to radians",
+    "radians to degrees",
+    "arc length formula",
+    "area of a sector",
+    "perimeter of a sector",
+    "area of a segment"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-circle-fraction",
+      "prompt": "A slice of a circle of radius $4$ has an angle of $90^{\\circ}$ at the centre. Find its area.",
+      "hint": "What fraction of a full turn is $90^{\\circ}$? Take that fraction of $\\pi r^{2}$.",
+      "options": [
+        {
+          "text": "$16\\pi$",
+          "correct": false
+        },
+        {
+          "text": "$4\\pi$",
+          "correct": true
+        },
+        {
+          "text": "$2\\pi$",
+          "correct": false
+        }
+      ],
+      "explain": "$90^{\\circ}$ is $\\frac{1}{4}$ of $360^{\\circ}$, so the area is $\\frac{1}{4} \\times \\pi \\times 4^{2} = 4\\pi$. $16\\pi$ is the whole circle, and $2\\pi$ is a quarter of the circumference. This whole lesson grows from this idea."
+    },
+    {
+      "type": "check",
+      "id": "before-triangle-area",
+      "prompt": "A triangle has sides $6$ cm and $10$ cm with an angle of $30^{\\circ}$ between them. Find its area, in $\\text{cm}^{2}$.",
+      "hint": "Use $\\frac{1}{2}ab\\sin C$, and $\\sin 30^{\\circ} = \\frac{1}{2}$.",
+      "options": [
+        {
+          "text": "$15$",
+          "correct": true
+        },
+        {
+          "text": "$30$",
+          "correct": false
+        },
+        {
+          "text": "$15\\sqrt{3}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{1}{2} \\times 6 \\times 10 \\times \\frac{1}{2} = 15$. Leaving out the first $\\frac{1}{2}$ gives $30$, and using $\\sin 60^{\\circ}$ gives $15\\sqrt{3}$. Revise it in {{lesson:3.2}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "radians",
+      "heading": "Measuring angles in radians",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Degrees split a full turn into $360$ parts, a number chosen long ago. Nothing about a circle forces it."
+        },
+        {
+          "type": "text",
+          "text": "A [[radian|radian]] uses the circle itself. Take the radius as your ruler. Then measure an angle by how many radius-lengths of [[arc|arc]] it cuts off at the edge."
+        },
+        {
+          "type": "definition",
+          "term": "radian",
+          "statement": "One radian is the angle at the centre of a circle when the arc between the two radii has the same length as the radius.",
+          "plain": "Bend one radius round the edge of the circle: the angle it spans at the centre is $1$ radian."
+        },
+        {
+          "type": "interactive",
+          "widget": "radian-arc",
+          "props": {
+            "theta": 1,
+            "r": 2
+          },
+          "alt": "A circle of radius r with a shaded slice whose angle at the centre is theta. The curved edge of the slice is drawn thick and labelled s. Sliders change theta from 0 to 2 pi radians and r from 0.5 to 3. The readout shows theta in degrees, the arc length and the area of the slice."
+        },
+        {
+          "type": "text",
+          "text": "It starts at $\\theta = 1$ with $r = 2$, and the arc is $2$: the same as the radius. Change $r$, and the arc still equals $r$. Now slide $\\theta$ up until the slice fills the circle, at about $6.28$. The widget calls the arc length $s$; the formula booklet calls it $l$."
+        },
+        {
+          "type": "text",
+          "text": "Why $6.28$? The circumference is $2\\pi r$, so the whole circle holds $2\\pi \\approx 6.28$ radius-lengths of arc. A full turn is $2\\pi$ radians, and a half turn is $\\pi$ radians."
+        },
+        {
+          "type": "formula",
+          "tex": "\\pi \\text{ radians} = 180^{\\circ}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Every conversion comes from this one fact. One degree is $\\frac{\\pi}{180}$ radians, and one radian is $\\frac{180}{\\pi}$ degrees:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{radians} = \\text{degrees} \\times \\frac{\\pi}{180} \\qquad \\text{degrees} = \\text{radians} \\times \\frac{180}{\\pi}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "So $1$ radian is $\\frac{180}{\\pi} \\approx 57.3^{\\circ}$, a little under $60^{\\circ}$. Keep that in mind for quick estimates."
+        },
+        {
+          "type": "text",
+          "text": "An angle with no degree sign is in radians. You can write it two ways: $90^{\\circ}$ is exactly $\\frac{\\pi}{2}$, or about $1.57$. Paper 1 usually expects the exact multiple of $\\pi$."
+        },
+        {
+          "type": "example",
+          "id": "ex-deg-rad-exact",
+          "question": "Write $240^{\\circ}$ in radians, as an exact multiple of $\\pi$.",
+          "steps": [
+            "Multiply by $\\frac{\\pi}{180}$: $240 \\times \\frac{\\pi}{180} = \\frac{240\\pi}{180}$.",
+            "Simplify the fraction. Divide the top and bottom by $60$: $\\frac{240}{180} = \\frac{4}{3}$.",
+            "So $240^{\\circ} = \\frac{4\\pi}{3}$ radians.",
+            "Check: $240^{\\circ}$ is between $180^{\\circ}$ and $360^{\\circ}$. In the same way, $\\frac{4\\pi}{3}$ is between $\\pi$ and $2\\pi$."
+          ],
+          "answer": "$240^{\\circ} = \\frac{4\\pi}{3}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-deg-rad-decimal",
+          "question": "Write $50^{\\circ}$ in radians. Give your answer to 3 s.f.",
+          "steps": [
+            "Multiply by $\\frac{\\pi}{180}$: $50 \\times \\frac{\\pi}{180} = \\frac{5\\pi}{18}$. This is the exact value.",
+            "Work out the decimal: $\\frac{5\\pi}{18} = 0.872664\\ldots$",
+            "Round only at the end: $0.873$ radians to 3 s.f.",
+            "Check: $50^{\\circ}$ is a bit less than $57.3^{\\circ}$, so it should be a bit less than $1$ radian."
+          ],
+          "answer": "$50^{\\circ} \\approx 0.873$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "On Paper 2, check your GDC's angle mode before any trig. With $2$ radians, degree mode gives $\\sin 2 = 0.0348\\ldots$, but the right value is $0.909\\ldots$"
+        },
+        {
+          "type": "check",
+          "id": "check-convert-315",
+          "prompt": "Write $315^{\\circ}$ in radians, as an exact multiple of $\\pi$.",
+          "hint": "Multiply by $\\frac{\\pi}{180}$, then cancel the fraction.",
+          "options": [
+            {
+              "text": "$\\frac{4\\pi}{7}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{7\\pi}{8}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{7\\pi}{4}$",
+              "correct": true
+            }
+          ],
+          "explain": "$315 \\times \\frac{\\pi}{180} = \\frac{315\\pi}{180} = \\frac{7\\pi}{4}$. Dividing by $360$ instead of $180$ gives $\\frac{7\\pi}{8}$, and turning the fraction upside down gives $\\frac{4\\pi}{7}$."
+        },
+        {
+          "type": "check",
+          "id": "check-convert-7pi12",
+          "prompt": "Write $\\frac{7\\pi}{12}$ radians in degrees.",
+          "hint": "Multiply by $\\frac{180}{\\pi}$. The $\\pi$ cancels.",
+          "answer": {
+            "value": 105,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{7\\pi}{12} \\times \\frac{180}{\\pi} = \\frac{7 \\times 180}{12} = 105$, so the angle is $105^{\\circ}$."
+        }
+      ]
+    },
+    {
+      "id": "arc-sector",
+      "heading": "Arc length and sector area",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[sector|sector]] is a slice of a circle cut off by two radii, like a slice of pizza. Its curved edge is an [[arc|arc]]."
+        },
+        {
+          "type": "text",
+          "text": "Say the angle at the centre is $\\theta$ [[radian|radians]]. A full turn is $2\\pi$, so the sector is the fraction $\\frac{\\theta}{2\\pi}$ of the whole circle."
+        },
+        {
+          "type": "text",
+          "text": "Its arc is that fraction of the circumference: $\\frac{\\theta}{2\\pi} \\times 2\\pi r = r\\theta$. Its area is that fraction of the circle's area: $\\frac{\\theta}{2\\pi} \\times \\pi r^{2} = \\frac{1}{2}r^{2}\\theta$. The $2\\pi$ cancels, which is why radians give such short formulas."
+        },
+        {
+          "type": "formula",
+          "tex": "l = r\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-4-arc-length",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\frac{1}{2}r^{2}\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-4-sector-area",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Both are in the formula booklet, so you don't need to memorise them. In each, $r$ is the radius and $\\theta$ must be in radians. If you are given degrees, convert first."
+        },
+        {
+          "type": "text",
+          "text": "The perimeter of a sector is the whole way round its edge. That is two straight radii plus the arc, so $P = 2r + r\\theta$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sector-exact",
+          "question": "A sector has radius $6$ cm and an angle of $\\frac{2\\pi}{3}$ at the centre. Find the exact arc length $l$ and the exact perimeter $P$.",
+          "steps": [
+            "Arc length: $l = r\\theta = 6 \\times \\frac{2\\pi}{3} = 4\\pi$ cm.",
+            "The perimeter is the arc plus two radii: $P = 4\\pi + 6 + 6 = 12 + 4\\pi$ cm.",
+            "Check: $\\frac{2\\pi}{3}$ is a third of a full turn. A third of the circumference $12\\pi$ is $4\\pi$, as found."
+          ],
+          "answer": "$l = 4\\pi, \\; P = 12 + 4\\pi$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the arc length as the perimeter. The edge of a sector also has two straight radii, so add $2r$ to the arc."
+        },
+        {
+          "type": "example",
+          "id": "ex-sector-degrees",
+          "question": "A sector of a circle of radius $8$ cm has an angle of $135^{\\circ}$ at the centre. Find its exact area.",
+          "steps": [
+            "Convert the angle first: $135 \\times \\frac{\\pi}{180} = \\frac{3\\pi}{4}$.",
+            "Substitute into $A = \\frac{1}{2}r^{2}\\theta$: $A = \\frac{1}{2} \\times 8^{2} \\times \\frac{3\\pi}{4} = 32 \\times \\frac{3\\pi}{4}$.",
+            "Simplify: $A = 24\\pi\\text{ cm}^{2}$.",
+            "Check: $135^{\\circ}$ is $\\frac{3}{8}$ of a turn, and $\\frac{3}{8} \\times 64\\pi = 24\\pi$."
+          ],
+          "answer": "$A = 24\\pi\\text{ cm}^{2}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Putting degrees into a radian formula. $\\frac{1}{2} \\times 64 \\times 135 = 4320$ is far too big. Convert to radians first, and never use $\\frac{\\theta}{360} \\times \\pi r^{2}$ when $\\theta$ is already in radians."
+        },
+        {
+          "type": "check",
+          "id": "check-arc-length",
+          "prompt": "A sector has radius $12$ cm and an angle of $\\frac{5\\pi}{6}$ at the centre. Find its arc length, in cm.",
+          "hint": "Arc length is radius times angle.",
+          "options": [
+            {
+              "text": "$60\\pi$",
+              "correct": false
+            },
+            {
+              "text": "$10\\pi$",
+              "correct": true
+            },
+            {
+              "text": "$5\\pi$",
+              "correct": false
+            }
+          ],
+          "explain": "$l = r\\theta = 12 \\times \\frac{5\\pi}{6} = 10\\pi$. $60\\pi$ is the sector's area, $\\frac{1}{2}r^{2}\\theta$. $5\\pi$ comes from a stray $\\frac{1}{2}$, as in $\\frac{1}{2}r\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "Two radii split a circle into two sectors. The smaller one, with angle $\\theta$, is the minor sector. The larger one is the major sector, and its angle is the rest of the turn, $2\\pi - \\theta$."
+        },
+        {
+          "type": "example",
+          "id": "ex-major-sector",
+          "question": "Two radii of a circle of radius $10$ cm make an angle of $0.8$ radians. Find the exact area of the major sector.",
+          "steps": [
+            "The major sector's angle is the rest of the full turn: $2\\pi - 0.8$.",
+            "Substitute: $A = \\frac{1}{2} \\times 10^{2} \\times (2\\pi - 0.8) = 50(2\\pi - 0.8)$.",
+            "Expand: $A = 100\\pi - 40$.",
+            "Check: the whole circle $100\\pi$ minus the minor sector $\\frac{1}{2} \\times 100 \\times 0.8 = 40$ gives the same."
+          ],
+          "answer": "$A = (100\\pi - 40)\\text{ cm}^{2}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-sector-area",
+          "prompt": "A sector has radius $7.5$ cm and an angle of $2.2$ radians. Find its area in $\\text{cm}^{2}$, to 3 s.f.",
+          "hint": "Square the radius before you multiply.",
+          "answer": {
+            "value": 61.9,
+            "tolerance": 0.05
+          },
+          "explain": "$A = \\frac{1}{2} \\times 7.5^{2} \\times 2.2 = \\frac{1}{2} \\times 56.25 \\times 2.2 = 61.875$, which is $61.9$ to 3 s.f."
+        },
+        {
+          "type": "text",
+          "text": "Sometimes you know the arc or the area and need $r$ or $\\theta$. Write the formula as an equation, then solve it."
+        },
+        {
+          "type": "text",
+          "text": "One link saves time: $A = \\frac{1}{2}r^{2}\\theta = \\frac{1}{2}r(r\\theta) = \\frac{1}{2}rl$. So if you know the arc and the area, you get $r$ in one step."
+        },
+        {
+          "type": "example",
+          "id": "ex-reverse-r-theta",
+          "question": "A sector has arc length $8$ cm and area $36\\text{ cm}^{2}$. Find its radius $r$ and its angle $\\theta$.",
+          "steps": [
+            "Use $A = \\frac{1}{2}rl$ with $l = 8$: $36 = \\frac{1}{2} \\times r \\times 8 = 4r$.",
+            "So $r = 9$ cm.",
+            "Now use $l = r\\theta$: $8 = 9\\theta$, so $\\theta = \\frac{8}{9}$ radians.",
+            "Check in the area formula: $\\frac{1}{2} \\times 9^{2} \\times \\frac{8}{9} = \\frac{1}{2} \\times 72 = 36$."
+          ],
+          "answer": "$r = 9, \\; \\theta = \\frac{8}{9}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-reverse-area",
+          "prompt": "A sector has an angle of $0.4$ radians and an arc of length $6$ cm. Find its area, in $\\text{cm}^{2}$.",
+          "hint": "Find $r$ from $l = r\\theta$ first.",
+          "options": [
+            {
+              "text": "$45$",
+              "correct": true
+            },
+            {
+              "text": "$90$",
+              "correct": false
+            },
+            {
+              "text": "$1.152$",
+              "correct": false
+            }
+          ],
+          "explain": "$6 = 0.4r$, so $r = 15$, and $A = \\frac{1}{2} \\times 15^{2} \\times 0.4 = 45$. Leaving out the $\\frac{1}{2}$ gives $90$. Taking $r = 6 \\times 0.4 = 2.4$ gives $1.152$."
+        }
+      ]
+    },
+    {
+      "id": "segments",
+      "heading": "Segments and Paper 2 problems",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The straight line $AB$ joining the ends of an arc is a [[circle-chord|chord]]. It cuts the [[sector|sector]] into two pieces: the triangle $OAB$, and a [[circle-segment|segment]] between the chord and the [[arc|arc]]. As with sectors, when the angle at $O$ is less than $\\pi$, this arc is the minor arc and this segment is the minor segment."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-segment",
+          "alt": "A circle with centre O. Two radii of length r run from O to points A and B on the circle, with angle theta between them at O. The straight chord AB splits the slice into the triangle OAB, lightly shaded, and the segment between the chord and the arc, shaded darker.",
+          "caption": "Segment $=$ sector $-$ triangle $OAB$."
+        },
+        {
+          "type": "text",
+          "text": "So the segment's area is the sector's area minus the triangle's. The triangle has two sides of length $r$ with the angle $\\theta$ between them. By $\\frac{1}{2}ab\\sin C$ from {{lesson:3.2}}, its area is $\\frac{1}{2}r^{2}\\sin\\theta$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{segment area} = \\frac{1}{2}r^{2}\\theta - \\frac{1}{2}r^{2}\\sin\\theta = \\frac{1}{2}r^{2}(\\theta - \\sin\\theta)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is not in the booklet as one formula, so learn the idea: sector minus triangle. The triangle formula $\\frac{1}{2}ab\\sin C$ is in the booklet."
+        },
+        {
+          "type": "example",
+          "id": "ex-segment-quarter",
+          "question": "A circle has centre $O$ and radius $4$ cm. The chord $AB$ makes $A\\hat{O}B = \\frac{\\pi}{2}$. Find the exact area of the segment between the chord $AB$ and the minor arc $AB$.",
+          "steps": [
+            "Sector: $\\frac{1}{2} \\times 4^{2} \\times \\frac{\\pi}{2} = 4\\pi$.",
+            "Triangle: $\\frac{\\pi}{2}$ is a right angle, so $\\sin\\frac{\\pi}{2} = 1$. The area is $\\frac{1}{2} \\times 4 \\times 4 \\times 1 = 8$.",
+            "Segment $=$ sector $-$ triangle $= 4\\pi - 8$.",
+            "Check: $4\\pi - 8 \\approx 4.57$. It is positive and smaller than the sector, $4\\pi \\approx 12.6$."
+          ],
+          "answer": "$A = (4\\pi - 8)\\text{ cm}^{2}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Finding $\\sin\\theta$ in degree mode when $\\theta$ is in radians. Set your GDC to radians before you work out the triangle."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 you may be given an area and asked for the angle. Often $\\theta$ appears both on its own and inside $\\sin\\theta$, so you can't rearrange for it. Write the equation down, then solve it on your GDC."
+        },
+        {
+          "type": "example",
+          "id": "ex-segment-solve",
+          "question": "A circle has radius $7$ cm. A chord cuts off a minor segment of area $10\\text{ cm}^{2}$. Use your calculator to find the angle $\\theta$ at the centre, in radians. Give your answer to 3 s.f.",
+          "steps": [
+            "Write the segment's area: $\\frac{1}{2} \\times 7^{2}(\\theta - \\sin\\theta) = 24.5(\\theta - \\sin\\theta)$.",
+            "Write down the equation: $24.5(\\theta - \\sin\\theta) = 10$. This line earns the method mark.",
+            "In radian mode, graph both sides and find where they cross: $\\theta = 1.392269\\ldots$",
+            "A bigger angle always gives a bigger segment, so this is the only answer. It is about $80^{\\circ}$, less than $\\pi$, so the segment is minor: $\\theta \\approx 1.39$."
+          ],
+          "answer": "$\\theta \\approx 1.39$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, RADIAN",
+              "Y=, enter Y1 = 24.5*(X-sin(X)) and Y2 = 10",
+              "WINDOW: Xmin 0, Xmax 3.2, Ymin 0, Ymax 20 (check on your model)",
+              "GRAPH, 2nd TRACE (CALC), 5: intersect, then ENTER for each curve and move the cursor near the crossing for the guess",
+              "Read X = 1.392269…, which is 1.39 to 3 s.f."
+            ],
+            "nspire": [
+              "Settings (on, Settings), Angle: Radian",
+              "Graphs page, enter f1(x) = 24.5*(x-sin(x)) and f2(x) = 10",
+              "Menu, Window/Zoom, Window Settings: XMin 0, XMax 3.2, YMin 0, YMax 20 (check on your model)",
+              "Menu, Analyze Graph, Intersection, then mark a lower and an upper bound either side of the crossing",
+              "Read x = 1.392269…, which is 1.39 to 3 s.f."
+            ],
+            "casio": [
+              "SHIFT MENU (SET UP), Angle: Rad",
+              "GRAPH, enter Y1 = 24.5(X-sin X) and Y2 = 10",
+              "SHIFT F3 (V-Window): Xmin 0, Xmax 3.2, Ymin 0, Ymax 20, then EXIT (check on your model)",
+              "DRAW",
+              "SHIFT F5 (G-SOLV), INTSECT",
+              "Read X = 1.392269…, which is 1.39 to 3 s.f."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-segment-area",
+          "prompt": "In a circle of radius $8.5$ cm with centre $O$, the chord $AB$ makes $A\\hat{O}B = 1.9$ radians. Find the area of the minor segment in $\\text{cm}^{2}$, to 3 s.f.",
+          "hint": "Work out the sector and the triangle, then subtract. Use radian mode.",
+          "answer": {
+            "value": 34.5,
+            "tolerance": 0.05
+          },
+          "explain": "Sector: $\\frac{1}{2} \\times 8.5^{2} \\times 1.9 = 68.6375$. Triangle: $\\frac{1}{2} \\times 8.5^{2} \\times \\sin 1.9 = 34.185\\ldots$ Segment: $34.452\\ldots$, which is $34.5$ to 3 s.f."
+        },
+        {
+          "type": "check",
+          "id": "check-wiper",
+          "prompt": "A bus wiper blade clears the region between two arcs with the same centre, of radii $15$ cm and $55$ cm. It turns through $110^{\\circ}$. Find the area it clears in $\\text{cm}^{2}$, to 3 s.f.",
+          "hint": "Convert the angle to radians. Then take the small sector away from the big one.",
+          "answer": {
+            "value": 2690,
+            "tolerance": 5
+          },
+          "explain": "$110^{\\circ} = \\frac{11\\pi}{18}$, so the area is $\\frac{1}{2}(55^{2} - 15^{2}) \\times \\frac{11\\pi}{18} = 2687.8\\ldots \\approx 2690$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$\\pi$ radians $= 180^{\\circ}$. Multiply by $\\frac{\\pi}{180}$ to get radians, and by $\\frac{180}{\\pi}$ to get degrees.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "l = r\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-4-arc-length",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\frac{1}{2}r^{2}\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-4-sector-area",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Perimeter of a sector $= 2r + r\\theta$: two radii plus the arc.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A major sector has angle $2\\pi - \\theta$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Segment $=$ sector $-$ triangle $= \\frac{1}{2}r^{2}(\\theta - \\sin\\theta)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Every formula here needs $\\theta$ in radians. On Paper 2, set radian mode first.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving the arc as the perimeter. A sector's perimeter is $2r + r\\theta$, so always add the two radii.",
+    "Putting an angle in degrees into $l = r\\theta$ or $A = \\frac{1}{2}r^{2}\\theta$. Convert it to radians first.",
+    "Using $\\frac{\\theta}{360} \\times \\pi r^{2}$ with $\\theta$ in radians, or $\\frac{1}{2}r\\theta$ for the area. With radians the area is $\\frac{1}{2}r^{2}\\theta$.",
+    "Finding $\\sin\\theta$ in degree mode for an angle in radians. Check the mode at the start of Paper 2.",
+    "Using the minor angle for a major sector. The larger sector has angle $2\\pi - \\theta$, so check which region the question means.",
+    "Rounding too early, for example rounding $r$ before you square it. Keep the full calculator value until the final answer."
+  ],
+  "examTips": [
+    "\"Find the exact area\" means leave $\\pi$ in your answer, as in $24\\pi\\text{ cm}^{2}$. A decimal is not exact.",
+    "On Paper 2, write down the equation before you solve it on your GDC, such as $24.5(\\theta - \\sin\\theta) = 10$. That line earns the method mark.",
+    "If the question says the angle is acute, or the sector is minor, reject any GDC solution that breaks that condition.",
+    "\"Show that\" a value rounds to a given decimal: write a more accurate value first, such as $2.6179\\ldots$, then the given $2.62$."
+  ],
+  "readingMinutes": 21
+}

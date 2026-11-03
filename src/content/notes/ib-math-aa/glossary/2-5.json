@@ -2,7 +2,13 @@
   {
     "id": "composite-function",
     "term": "composite function",
-    "definition": "A function made by applying one function to the output of another: $(f \\circ g)(x) = f(g(x))$.",
+    "definition": "A function made by applying one function to the output of another: $(f \\circ g)(x) = f(g(x))$, where $g$ acts first.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "identity-function",
+    "term": "identity function",
+    "definition": "The function $x \\mapsto x$, which maps every value to itself.",
     "lesson": "2.5"
   }
 ]

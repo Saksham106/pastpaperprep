@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 270" role="img" aria-labelledby="t">
+  <title id="t">Vectors v and w lie in a flat plane, drawn from the same point. The vector v cross w points straight up out of the plane. The vector w cross v points straight down, the opposite way.</title>
+  <path d="M30,215 L230,215 L310,150 L110,150 Z" fill="var(--muted)" fill-opacity="0.12" stroke="var(--muted)" stroke-width="1.2"/>
+  <line x1="110" y1="190" x2="110" y2="262" stroke="var(--t5-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <path d="M104,252 L110,262 L116,252" fill="none" stroke="var(--t5-ink)" stroke-width="2"/>
+  <line x1="110" y1="190" x2="250" y2="190" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <path d="M240,185 L250,190 L240,195" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <line x1="110" y1="190" x2="200" y2="158" stroke="var(--t2-ink)" stroke-width="2.4"/>
+  <path d="M188.6,157.9 L200,158 L192.0,167.3" fill="none" stroke="var(--t2-ink)" stroke-width="2.4"/>
+  <line x1="110" y1="190" x2="110" y2="40" stroke="var(--t3-ink)" stroke-width="2.6"/>
+  <path d="M104,50 L110,40 L116,50" fill="none" stroke="var(--t3-ink)" stroke-width="2.6"/>
+  <path d="M155,190 A45,45 0 0 0 152.4,174.9" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M148.5,178.0 L152.4,174.9 L155.0,179.2" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <g font-size="15" font-family="inherit" font-weight="600">
+    <text x="254" y="196" fill="var(--t1-ink)">v</text>
+    <text x="204" y="154" fill="var(--t2-ink)">w</text>
+    <text x="160" y="184" fill="currentColor">θ</text>
+    <text x="120" y="52" fill="var(--t3-ink)">v × w</text>
+    <text x="120" y="258" fill="var(--t5-ink)">w × v</text>
+  </g>
+</svg>

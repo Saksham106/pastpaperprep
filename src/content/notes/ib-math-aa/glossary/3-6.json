@@ -1,0 +1,14 @@
+[
+  {
+    "id": "pythagorean-identity",
+    "term": "Pythagorean identity",
+    "definition": "The identity $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$, true for every angle $\\theta$; it is Pythagoras' theorem for the point $(\\cos\\theta, \\sin\\theta)$ on the unit circle.",
+    "lesson": "3.6"
+  },
+  {
+    "id": "double-angle-identity",
+    "term": "double angle identity",
+    "definition": "An identity that writes a ratio of $2\\theta$ in terms of ratios of $\\theta$, such as $\\sin 2\\theta = 2\\sin\\theta\\cos\\theta$ or $\\cos 2\\theta = 1 - 2\\sin^{2}\\theta$.",
+    "lesson": "3.6"
+  }
+]

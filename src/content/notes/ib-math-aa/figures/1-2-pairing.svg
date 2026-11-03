@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 310" role="img" aria-labelledby="t">
+  <title id="t">Two copies of the staircase 4, 7, 10, 13, 16, 19, one turned upside down on top of the other, make a rectangle 6 columns wide and 23 high</title>
+  <rect x="50" y="230" width="40" height="40" fill="var(--t1-ink)" fill-opacity="0.18" stroke="var(--t1-ink)" stroke-width="1.5"/>
+  <rect x="50" y="40" width="40" height="190" fill="var(--t3-ink)" fill-opacity="0.12" stroke="var(--t3-ink)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <rect x="90" y="200" width="40" height="70" fill="var(--t1-ink)" fill-opacity="0.18" stroke="var(--t1-ink)" stroke-width="1.5"/>
+  <rect x="90" y="40" width="40" height="160" fill="var(--t3-ink)" fill-opacity="0.12" stroke="var(--t3-ink)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <rect x="130" y="170" width="40" height="100" fill="var(--t1-ink)" fill-opacity="0.18" stroke="var(--t1-ink)" stroke-width="1.5"/>
+  <rect x="130" y="40" width="40" height="130" fill="var(--t3-ink)" fill-opacity="0.12" stroke="var(--t3-ink)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <rect x="170" y="140" width="40" height="130" fill="var(--t1-ink)" fill-opacity="0.18" stroke="var(--t1-ink)" stroke-width="1.5"/>
+  <rect x="170" y="40" width="40" height="100" fill="var(--t3-ink)" fill-opacity="0.12" stroke="var(--t3-ink)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <rect x="210" y="110" width="40" height="160" fill="var(--t1-ink)" fill-opacity="0.18" stroke="var(--t1-ink)" stroke-width="1.5"/>
+  <rect x="210" y="40" width="40" height="70" fill="var(--t3-ink)" fill-opacity="0.12" stroke="var(--t3-ink)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <rect x="250" y="80" width="40" height="190" fill="var(--t1-ink)" fill-opacity="0.18" stroke="var(--t1-ink)" stroke-width="1.5"/>
+  <rect x="250" y="40" width="40" height="40" fill="var(--t3-ink)" fill-opacity="0.12" stroke="var(--t3-ink)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <g font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="70.0" y="255.0" fill="var(--t1-ink)">4</text>
+    <text x="70.0" y="140.0" fill="var(--t3-ink)">19</text>
+    <text x="110.0" y="240.0" fill="var(--t1-ink)">7</text>
+    <text x="110.0" y="125.0" fill="var(--t3-ink)">16</text>
+    <text x="150.0" y="225.0" fill="var(--t1-ink)">10</text>
+    <text x="150.0" y="110.0" fill="var(--t3-ink)">13</text>
+    <text x="190.0" y="210.0" fill="var(--t1-ink)">13</text>
+    <text x="190.0" y="95.0" fill="var(--t3-ink)">10</text>
+    <text x="230.0" y="195.0" fill="var(--t1-ink)">16</text>
+    <text x="230.0" y="80.0" fill="var(--t3-ink)">7</text>
+    <text x="270.0" y="180.0" fill="var(--t1-ink)">19</text>
+    <text x="270.0" y="65.0" fill="var(--t3-ink)">4</text>
+    <text x="170.0" y="294" fill="currentColor">6 columns</text>
+    <text x="318" y="160" fill="currentColor">23</text>
+  </g>
+  <path d="M300,40 L306,40 L306,270 L300,270" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="40" y1="270" x2="294" y2="270" stroke="currentColor" stroke-width="1.2"/>
+</svg>

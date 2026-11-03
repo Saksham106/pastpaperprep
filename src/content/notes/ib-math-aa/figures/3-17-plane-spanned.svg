@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 290" role="img" aria-labelledby="t">
+  <title id="t">A plane through A built from the position vector a and steps along two directions b and c</title>
+  <polygon points="30,200 300,200 410,90 140,90" fill="var(--t1-ink)" fill-opacity="0.08" stroke="var(--t1-ink)" stroke-width="2"/>
+  <line x1="60" y1="270" x2="111.6" y2="175.9" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <polygon points="116,168 114.2,179.6 106.1,175.2" fill="var(--t3-ink)"/>
+  <line x1="60" y1="270" x2="270.4" y2="125.5" stroke="var(--muted)" stroke-width="1.8" stroke-dasharray="6 5"/>
+  <polygon points="278,120 271.6,130.4 266.4,122.8" fill="var(--muted)"/>
+  <line x1="180" y1="168" x2="240" y2="168" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="4 4"/>
+  <line x1="240" y1="168" x2="278" y2="120" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="4 4"/>
+  <line x1="116" y1="168" x2="170" y2="168" stroke="var(--t5-ink)" stroke-width="3.5"/>
+  <polygon points="180,168 168,174 168,162" fill="var(--t5-ink)"/>
+  <line x1="116" y1="168" x2="148.3" y2="127.2" stroke="var(--t2-ink)" stroke-width="3.5"/>
+  <polygon points="154,120 152.8,133.4 143.5,125.9" fill="var(--t2-ink)"/>
+  <g fill="currentColor">
+    <circle cx="60" cy="270" r="4"/>
+    <circle cx="116" cy="168" r="5"/>
+    <circle cx="240" cy="168" r="3"/>
+    <circle cx="278" cy="120" r="5"/>
+  </g>
+  <g font-size="14" font-family="inherit" fill="currentColor">
+    <text x="42" y="285">O</text>
+    <text x="96" y="160">A</text>
+    <text x="284" y="114">R</text>
+    <text x="392" y="84">plane</text>
+  </g>
+  <g font-size="17" font-weight="700" font-family="inherit">
+    <text x="70" y="222" fill="var(--t3-ink)">a</text>
+    <text x="144" y="188" fill="var(--t5-ink)">b</text>
+    <text x="124" y="132" fill="var(--t2-ink)">c</text>
+    <text x="182" y="206" fill="var(--muted)">r</text>
+  </g>
+</svg>

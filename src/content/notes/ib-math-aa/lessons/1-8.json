@@ -1,0 +1,568 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.8",
+  "slug": "infinite-geometric-series",
+  "title": "Infinite geometric series",
+  "level": "SL",
+  "topic": 1,
+  "summary": "Some geometric series go on for ever, yet still add up to a finite number, called the [[sum-to-infinity|sum to infinity]]. This happens exactly when the common ratio is between $-1$ and $1$, written $\\lvert r\\rvert < 1$. Then $S_{\\infty} = \\frac{u_{1}}{1 - r}$, which you'll use to find totals, to work back to $u_{1}$ or $r$, and to model things like a bouncing ball.",
+  "goals": [
+    {
+      "text": "Explain why the [[partial-sum|partial sums]] of a geometric series settle when $\\lvert r\\rvert < 1$.",
+      "bullets": [
+        "1.8-b1",
+        "1.8-b2"
+      ]
+    },
+    {
+      "text": "Find the [[sum-to-infinity|sum to infinity]], including negative ratios and sigma notation.",
+      "bullets": [
+        "1.8-b1"
+      ]
+    },
+    {
+      "text": "Use modulus notation to decide whether a series has a sum to infinity, and find the values of $x$ for which it does.",
+      "bullets": [
+        "1.8-b2"
+      ]
+    },
+    {
+      "text": "Work back from $S_{\\infty}$ to $u_{1}$ or $r$, rejecting any $r$ with $\\lvert r\\rvert \\ge 1$, and model a bouncing ball.",
+      "bullets": [
+        "1.8-b1",
+        "1.8-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "sum to infinity",
+    "infinite geometric series",
+    "convergent geometric series",
+    "S infinity formula",
+    "modulus r less than 1",
+    "bouncing ball series"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-geo-ratio",
+      "prompt": "Find the common ratio of the geometric sequence $81, -27, 9, \\dots$",
+      "hint": "Divide a term by the one before it, and keep the sign.",
+      "options": [
+        {
+          "text": "$-\\frac{1}{3}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{1}{3}$",
+          "correct": false
+        },
+        {
+          "text": "$-3$",
+          "correct": false
+        }
+      ],
+      "explain": "$r = \\frac{-27}{81} = -\\frac{1}{3}$. Dividing the wrong way round gives $-3$. Revise it in {{lesson:1.3}}."
+    },
+    {
+      "type": "check",
+      "id": "before-geo-sum",
+      "prompt": "Find the sum of the first $4$ terms of the geometric series $54 + 18 + 6 + \\dots$",
+      "hint": "Here $r = \\frac{1}{3}$. Use $S_{n} = \\frac{u_{1}(1 - r^{n})}{1 - r}$, or write out four terms and add.",
+      "answer": {
+        "value": 80,
+        "tolerance": 0
+      },
+      "explain": "The terms are $54, 18, 6, 2$, so $S_{4} = 80$. Revise it in {{lesson:1.3}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "why",
+      "heading": "Why an endless sum can be finite",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Stand $2$ metres from a wall. Walk half the distance to it, which is $1$ metre. Then walk half of what is left, $\\frac{1}{2}$ metre, then half of that, $\\frac{1}{4}$ metre. However many steps you take, you never pass the wall."
+        },
+        {
+          "type": "text",
+          "text": "So the total distance $1 + \\frac{1}{2} + \\frac{1}{4} + \\frac{1}{8} + \\dots$ creeps up towards $2$ and never goes past it. There are infinitely many terms, yet the total is finite."
+        },
+        {
+          "type": "text",
+          "text": "This is a [[geometric-series|geometric series]] with $u_{1} = 1$ and $r = \\frac{1}{2}$. Its [[partial-sum|partial sums]], the totals so far, are $S_{1} = 1$, $S_{2} = 1.5$, $S_{3} = 1.75$, $S_{4} = 1.875$. Each closes half the gap to $2$."
+        },
+        {
+          "type": "figure",
+          "id": "1-8-partial-sums",
+          "alt": "Graph of partial sums against n from 1 to 8 for two series that both start at 1. For ratio one half, the points rise 1, 1.5, 1.75, 1.875 and so on, getting closer and closer to a dashed line at 2. For ratio minus one half, the points go 1, 0.5, 0.75, 0.625 and so on, zigzagging above and below a dashed line at two thirds and closing in on it.",
+          "caption": "The partial sums of $1 + \\frac{1}{2} + \\frac{1}{4} + \\dots$ settle on $2$. Those of $1 - \\frac{1}{2} + \\frac{1}{4} - \\dots$ settle on $\\frac{2}{3}$."
+        },
+        {
+          "type": "text",
+          "text": "Why does the total settle? In {{lesson:1.3}} you met $S_{n} = \\frac{u_{1}(1 - r^{n})}{1 - r}$. As $n$ grows, the only part that changes is $r^{n}$."
+        },
+        {
+          "type": "text",
+          "text": "When $r$ is between $-1$ and $1$, each power of $r$ is smaller in size than the one before. For $r = \\frac{1}{2}$ the powers are $\\frac{1}{2}, \\frac{1}{4}, \\frac{1}{8}, \\dots$ So $r^{n}$ gets as close to $0$ as you like."
+        },
+        {
+          "type": "text",
+          "text": "So $S_{n}$ gets as close as you like to $\\frac{u_{1}(1 - 0)}{1 - r} = \\frac{u_{1}}{1 - r}$. The symbol $n \\to \\infty$ means that $n$ grows without limit. Read it as n tends to infinity."
+        },
+        {
+          "type": "definition",
+          "term": "sum to infinity",
+          "statement": "If the partial sums $S_{n}$ of a series get as close as you like to one finite number as $n \\to \\infty$, the series is [[convergent|convergent]]. That number is its sum to infinity, written $S_{\\infty}$.",
+          "plain": "It is the value the running total settles on if you keep adding terms for ever."
+        },
+        {
+          "type": "formula",
+          "tex": "S_{\\infty} = \\frac{u_{1}}{1 - r}, \\quad \\lvert r\\rvert < 1",
+          "tag": "booklet",
+          "bookletId": "bk-1-8-sum-infinity",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "It's in the formula booklet, so you needn't memorise it. The condition $\\lvert r\\rvert < 1$ means $-1 < r < 1$. For the wall, $S_{\\infty} = \\frac{1}{1 - \\frac{1}{2}} = 2$, as expected."
+        },
+        {
+          "type": "example",
+          "id": "ex-sum-quarter",
+          "question": "Find the sum to infinity of $40 + 10 + 2.5 + \\dots$",
+          "steps": [
+            "Find the first term and the ratio: $u_{1} = 40$ and $r = \\frac{10}{40} = \\frac{1}{4}$.",
+            "Check the condition: $\\lvert r\\rvert = \\frac{1}{4} < 1$, so the sum to infinity exists.",
+            "Substitute into the formula: $S_{\\infty} = \\frac{40}{1 - \\frac{1}{4}} = \\frac{40}{\\frac{3}{4}}$.",
+            "Dividing by $\\frac{3}{4}$ is multiplying by $\\frac{4}{3}$: $S_{\\infty} = \\frac{160}{3}$.",
+            "Check: the first three terms already add to $52.5$, and $\\frac{160}{3} = 53.3\\dots$ is a little more. The later terms are tiny."
+          ],
+          "answer": "$S_{\\infty} = \\frac{160}{3}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-sum-direct",
+          "prompt": "Find the sum to infinity of $63 + 9 + \\frac{9}{7} + \\dots$",
+          "hint": "Find $r$ by dividing the second term by the first.",
+          "answer": {
+            "value": 73.5,
+            "tolerance": 0
+          },
+          "explain": "$r = \\frac{9}{63} = \\frac{1}{7}$, so $S_{\\infty} = \\frac{63}{1 - \\frac{1}{7}} = \\frac{63}{\\frac{6}{7}} = \\frac{147}{2} = 73.5$."
+        },
+        {
+          "type": "text",
+          "text": "A negative ratio works too. The partial sums then zigzag above and below $S_{\\infty}$, like the second series in the graph."
+        },
+        {
+          "type": "example",
+          "id": "ex-sum-alternating",
+          "question": "Find the exact value of the sum to infinity of $50 - 20 + 8 - \\dots$",
+          "steps": [
+            "Find the ratio, keeping its sign: $u_{1} = 50$ and $r = \\frac{-20}{50} = -\\frac{2}{5}$.",
+            "Check the condition: $\\lvert r\\rvert = \\frac{2}{5} < 1$.",
+            "Bracket the negative ratio when you substitute: $S_{\\infty} = \\frac{50}{1 - \\left(-\\frac{2}{5}\\right)} = \\frac{50}{\\frac{7}{5}}$.",
+            "Multiply by $\\frac{5}{7}$: $S_{\\infty} = \\frac{250}{7}$.",
+            "Check: $S_{4} = 50 - 20 + 8 - 3.2 = 34.8$ and $S_{5} = 34.8 + 1.28 = 36.08$. The answer $\\frac{250}{7} = 35.7\\dots$ lies between them, as a zigzag should."
+          ],
+          "answer": "$S_{\\infty} = \\frac{250}{7}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Losing the sign of a negative ratio. With $r = -\\frac{2}{5}$, the bottom is $1 - \\left(-\\frac{2}{5}\\right) = \\frac{7}{5}$, not $\\frac{3}{5}$. Write the brackets in."
+        },
+        {
+          "type": "check",
+          "id": "check-sum-negative",
+          "prompt": "Find the sum to infinity of $24 - 6 + 1.5 - \\dots$",
+          "hint": "The ratio is negative. Bracket it inside $1 - r$.",
+          "options": [
+            {
+              "text": "$\\frac{96}{5}$",
+              "correct": true
+            },
+            {
+              "text": "$32$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{24}{5}$",
+              "correct": false
+            }
+          ],
+          "explain": "$r = \\frac{-6}{24} = -\\frac{1}{4}$, so $S_{\\infty} = \\frac{24}{1 + \\frac{1}{4}} = \\frac{96}{5}$. Dropping the minus sign gives $32$. Dividing the wrong way round gives $r = -4$ and $\\frac{24}{5}$."
+        },
+        {
+          "type": "text",
+          "text": "A sum to infinity is often written in [[sigma-notation|sigma notation]] with $\\infty$ on top. $\\sum_{k=1}^{\\infty} u_{k}$ means: add $u_{1}, u_{2}, u_{3}, \\dots$ for ever. As in {{lesson:1.3}}, put in the bottom value of $k$ to find the first term."
+        },
+        {
+          "type": "check",
+          "id": "check-sigma-infinite",
+          "prompt": "Find $\\sum_{k=1}^{\\infty} 6\\left(\\frac{1}{4}\\right)^{k}$.",
+          "hint": "Put $k = 1$ to get the first term. It is not $6$.",
+          "options": [
+            {
+              "text": "$2$",
+              "correct": true
+            },
+            {
+              "text": "$8$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "The first term is $6 \\times \\frac{1}{4} = \\frac{3}{2}$ and $r = \\frac{1}{4}$. So the sum is $\\frac{\\frac{3}{2}}{\\frac{3}{4}} = 2$. Taking $6$ as the first term gives $8$."
+        }
+      ]
+    },
+    {
+      "id": "condition",
+      "heading": "When is there a sum to infinity?",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The formula works only because $r^{n} \\to 0$. That happens exactly when $r$ is between $-1$ and $1$. The IB writes this condition with modulus notation."
+        },
+        {
+          "type": "definition",
+          "term": "modulus",
+          "statement": "The modulus of a real number $r$, written $\\lvert r\\rvert$, is its size without its sign: $\\lvert r\\rvert = r$ if $r \\ge 0$, and $\\lvert r\\rvert = -r$ if $r < 0$.",
+          "plain": "It is how far $r$ is from $0$ on the number line."
+        },
+        {
+          "type": "text",
+          "text": "So $\\lvert r\\rvert < 1$ says that $r$ is less than $1$ unit from $0$. That is the same as $-1 < r < 1$. For example, $\\lvert -0.6\\rvert = 0.6 < 1$, but $\\lvert -1.5\\rvert = 1.5$, which is too big."
+        },
+        {
+          "type": "text",
+          "text": "Outside that range, the totals never settle. With $r = 2$, the totals of $3 + 6 + 12 + \\dots$ are $3, 9, 21, 45, \\dots$ and grow without limit. With $r = 1$, $S_{n} = nu_{1}$ grows in size without limit."
+        },
+        {
+          "type": "text",
+          "text": "With $r = -1$, the terms go $u_{1}, -u_{1}, u_{1}, \\dots$ and the totals jump between $u_{1}$ and $0$ for ever."
+        },
+        {
+          "type": "text",
+          "text": "When $\\lvert r\\rvert \\ge 1$, no term is smaller in size than $\\lvert u_{1}\\rvert$, so each new term moves the total by at least that much. Such a series is [[divergent|divergent]]: it has no sum to infinity."
+        },
+        {
+          "type": "result",
+          "statement": "A geometric series is [[convergent|convergent]] exactly when $\\lvert r\\rvert < 1$, and then $S_{\\infty} = \\frac{u_{1}}{1 - r}$. When $\\lvert r\\rvert \\ge 1$, it is divergent and has no sum to infinity.",
+          "why": "If $\\lvert r\\rvert < 1$ then $r^{n} \\to 0$, so $S_{n} \\to \\frac{u_{1}}{1 - r}$. If $\\lvert r\\rvert \\ge 1$, every term has size at least $\\lvert u_{1}\\rvert$, so the total keeps moving."
+        },
+        {
+          "type": "mistake",
+          "text": "Using the formula without checking $r$. For $3 + 6 + 12 + \\dots$ it gives $\\frac{3}{1 - 2} = -3$, a negative total of positive numbers. Find $\\lvert r\\rvert$ first."
+        },
+        {
+          "type": "example",
+          "id": "ex-show-converges",
+          "question": "Show that the geometric series $\\frac{5}{4} - 1 + \\frac{4}{5} - \\dots$ has a sum to infinity, and find its exact value.",
+          "steps": [
+            "Find the ratio: $u_{1} = \\frac{5}{4}$ and $r = \\frac{-1}{\\frac{5}{4}} = -\\frac{4}{5}$.",
+            "Check the next ratio too: $\\frac{\\frac{4}{5}}{-1} = -\\frac{4}{5}$, so the ratio is the same.",
+            "Use modulus notation for the condition: $\\lvert r\\rvert = \\left\\lvert -\\frac{4}{5}\\right\\rvert = \\frac{4}{5} < 1$. So the series is convergent and has a sum to infinity.",
+            "Substitute, bracketing the negative ratio: $S_{\\infty} = \\frac{\\frac{5}{4}}{1 - \\left(-\\frac{4}{5}\\right)} = \\frac{\\frac{5}{4}}{\\frac{9}{5}}$.",
+            "Multiply by $\\frac{5}{9}$: $S_{\\infty} = \\frac{25}{36}$."
+          ],
+          "answer": "$S_{\\infty} = \\frac{25}{36}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-has-sum",
+          "prompt": "Does the series $8 - 12 + 18 - \\dots$ have a sum to infinity?",
+          "hint": "Work out $r$, then its modulus.",
+          "options": [
+            {
+              "text": "$S_{\\infty} = \\frac{16}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$S_{\\infty} = -16$",
+              "correct": false
+            },
+            {
+              "text": "No, because $\\lvert r\\rvert = \\frac{3}{2} > 1$",
+              "correct": true
+            }
+          ],
+          "explain": "$r = \\frac{-12}{8} = -\\frac{3}{2}$, so $\\lvert r\\rvert = \\frac{3}{2} > 1$ and the series is divergent. Using the formula anyway gives the meaningless $\\frac{16}{5}$, or $-16$ if you also drop the sign."
+        },
+        {
+          "type": "text",
+          "text": "Sometimes the ratio contains an unknown, such as $x$. Then $\\lvert r\\rvert < 1$ becomes an inequality in $x$. Remove the modulus by writing $-1 < r < 1$, then solve both sides at once."
+        },
+        {
+          "type": "example",
+          "id": "ex-x-range",
+          "question": "A geometric series has first term $4$ and common ratio $\\frac{3 - 2x}{5}$. Find the values of $x$ for which the series has a sum to infinity.",
+          "steps": [
+            "Write the condition with the ratio in it: $\\left\\lvert \\frac{3 - 2x}{5}\\right\\rvert < 1$.",
+            "Remove the modulus: $-1 < \\frac{3 - 2x}{5} < 1$.",
+            "Multiply all three parts by $5$. It is positive, so the signs stay: $-5 < 3 - 2x < 5$.",
+            "Subtract $3$ from all three parts: $-8 < -2x < 2$.",
+            "Divide by $-2$. Dividing by a negative number turns both signs round: $4 > x > -1$, which reads $-1 < x < 4$.",
+            "Check one value inside and one outside: $x = 0$ gives $r = \\frac{3}{5}$, which works, but $x = 5$ gives $r = -\\frac{7}{5}$, which does not."
+          ],
+          "answer": "$-1 < x < 4$",
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-x-given-sum",
+            "prompt": "For the same series, the sum to infinity is $5$. Find $x$.",
+            "hint": "Write $1 - r$ as one fraction first: $1 - \\frac{3 - 2x}{5} = \\frac{2 + 2x}{5}$.",
+            "answer": {
+              "value": 1,
+              "tolerance": 0
+            },
+            "explain": "$S_{\\infty} = \\frac{4}{\\frac{2 + 2x}{5}} = \\frac{20}{2 + 2x}$. Setting this equal to $5$ gives $2 + 2x = 4$, so $x = 1$. This lies in $-1 < x < 4$, so it is valid."
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting to turn the signs round. Dividing $-8 < -2x < 2$ by $-2$ gives $4 > x > -1$, not $4 < x < -1$, which has no solutions."
+        },
+        {
+          "type": "check",
+          "id": "check-x-range",
+          "prompt": "A geometric series has common ratio $\\frac{x + 1}{3}$. For which values of $x$ does it have a sum to infinity?",
+          "hint": "Solve $-1 < \\frac{x + 1}{3} < 1$. Multiply all three parts by $3$ first.",
+          "options": [
+            {
+              "text": "$-4 < x < 2$",
+              "correct": true
+            },
+            {
+              "text": "$x < 2$",
+              "correct": false
+            },
+            {
+              "text": "$-2 < x < 4$",
+              "correct": false
+            },
+            {
+              "text": "$-2 < x < 0$",
+              "correct": false
+            }
+          ],
+          "explain": "$-3 < x + 1 < 3$, so $-4 < x < 2$. Solving only $\\frac{x + 1}{3} < 1$ gives $x < 2$, which misses the lower limit. Forgetting the $3$ gives $-2 < x < 0$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, a condition like this one, $\\lvert x\\rvert < 1$, tells you when the binomial expansion of $(1 + x)^{n}$ works for negative or fractional $n$.",
+          "lesson": "1.10"
+        }
+      ]
+    },
+    {
+      "id": "using",
+      "heading": "Working back and modelling",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The formula $S_{\\infty} = \\frac{u_{1}}{1 - r}$ links three numbers. Know any two and you can find the third. Always check that the $r$ you find has $\\lvert r\\rvert < 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-find-ratio",
+          "question": "A geometric series has first term $15$ and sum to infinity $25$. Find the common ratio.",
+          "steps": [
+            "Substitute what you know into the formula: $\\frac{15}{1 - r} = 25$.",
+            "Multiply both sides by $1 - r$: $15 = 25(1 - r)$.",
+            "Divide by $25$: $1 - r = \\frac{15}{25} = \\frac{3}{5}$, so $r = \\frac{2}{5}$.",
+            "Check the condition: $\\lvert r\\rvert = \\frac{2}{5} < 1$, so this series really has a sum to infinity.",
+            "Check the sum: $\\frac{15}{1 - \\frac{2}{5}} = \\frac{15}{\\frac{3}{5}} = 25$."
+          ],
+          "answer": "$r = \\frac{2}{5}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-find-first",
+          "prompt": "A geometric series has common ratio $-0.6$ and sum to infinity $40$. Find the first term.",
+          "hint": "Here $1 - r = 1 - (-0.6)$.",
+          "answer": {
+            "value": 64,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{u_{1}}{1.6} = 40$, so $u_{1} = 40 \\times 1.6 = 64$. Using $1 - 0.6 = 0.4$ instead would give $16$."
+        },
+        {
+          "type": "text",
+          "text": "Harder questions give a term other than $u_{1}$. Write that term with $u_{n} = u_{1}r^{n-1}$, so you have two equations. Solving them can give two ratios. Keep only a ratio with $\\lvert r\\rvert < 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-u2-and-sum",
+          "question": "The second term of a geometric series is $-12$ and its sum to infinity is $16$. Find the common ratio and the first term.",
+          "steps": [
+            "Write both facts as equations: $u_{1}r = -12$ and $\\frac{u_{1}}{1 - r} = 16$.",
+            "From the second, $u_{1} = 16(1 - r)$. Substitute into the first: $16(1 - r)r = -12$.",
+            "Expand and rearrange: $16r - 16r^{2} = -12$, so $16r^{2} - 16r - 12 = 0$. Divide by $4$: $4r^{2} - 4r - 3 = 0$.",
+            "Factorise: $(2r - 3)(2r + 1) = 0$, so $r = \\frac{3}{2}$ or $r = -\\frac{1}{2}$.",
+            "Reject $r = \\frac{3}{2}$: its modulus is more than $1$, so that series has no sum to infinity. So $r = -\\frac{1}{2}$.",
+            "Then $u_{1} = 16\\left(1 + \\frac{1}{2}\\right) = 24$. Check: $u_{2} = 24 \\times \\left(-\\frac{1}{2}\\right) = -12$."
+          ],
+          "answer": "$r = -\\frac{1}{2}, \\; u_{1} = 24$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Keeping both roots. A ratio such as $r = \\frac{3}{2}$ solves the quadratic but breaks $\\lvert r\\rvert < 1$. Reject it, and write down that reason."
+        },
+        {
+          "type": "text",
+          "text": "Sums to infinity also model things that keep going but fade away, such as a bouncing ball. In the model the ball bounces for ever, but the total distance is still finite."
+        },
+        {
+          "type": "example",
+          "id": "ex-bounce",
+          "question": "A ball is dropped from a height of $6$ m. After each bounce it rises to $70\\%$ of the height it last fell from. Assuming it bounces for ever, find the total vertical distance it travels.",
+          "steps": [
+            "The ball falls $6$ m once. After that, every bounce is a rise and then a fall of the same height.",
+            "The rises are $6 \\times 0.7 = 4.2$ m, then $4.2 \\times 0.7 = 2.94$ m, and so on. They are geometric with $u_{1} = 4.2$ and $r = 0.7$, and $\\lvert r\\rvert < 1$.",
+            "Total of all the rises: $S_{\\infty} = \\frac{4.2}{1 - 0.7} = \\frac{4.2}{0.3} = 14$ m.",
+            "The falls after the first drop add to the same $14$ m. So the bounces add $2 \\times 14 = 28$ m.",
+            "Add the first drop: $6 + 28 = 34$ m."
+          ],
+          "answer": "$D = 34\\text{ m}$",
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-bounce-try",
+            "prompt": "A ball is dropped from $10$ m and each bounce rises to $60\\%$ of the previous height. Assuming it bounces for ever, find the total vertical distance in metres.",
+            "hint": "The first rise is $6$ m. Add the first drop once and the rises twice.",
+            "answer": {
+              "value": 40,
+              "tolerance": 0
+            },
+            "explain": "The rises sum to $\\frac{6}{1 - 0.6} = 15$ m, so the total is $10 + 2 \\times 15 = 40$ m."
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Counting the first drop twice, or leaving it out. Only the first fall has no matching rise, so add it once: $6 + 2 \\times 14$."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 you may be asked how many terms bring $S_{n}$ close to $S_{\\infty}$. Write down the inequality, then solve it on your GDC."
+        },
+        {
+          "type": "example",
+          "id": "ex-least-n",
+          "question": "Consider the geometric series $900 + 600 + 400 + \\dots$ Use your calculator to find the least number of terms for which $S_{n}$ is within $1$ of $S_{\\infty}$.",
+          "steps": [
+            "Here $u_{1} = 900$ and $r = \\frac{600}{900} = \\frac{2}{3}$, with $\\lvert r\\rvert < 1$. So $S_{\\infty} = \\frac{900}{1 - \\frac{2}{3}} = 2700$.",
+            "From {{lesson:1.3}}, $S_{n} = \\frac{900\\left(1 - \\left(\\frac{2}{3}\\right)^{n}\\right)}{1 - \\frac{2}{3}} = 2700\\left(1 - \\left(\\frac{2}{3}\\right)^{n}\\right)$.",
+            "The partial sums rise towards $2700$, so you need $S_{n} > 2699$. Write down the inequality you solve: $2700\\left(1 - \\left(\\frac{2}{3}\\right)^{n}\\right) > 2699$.",
+            "Graph $y = 2700\\left(1 - \\left(\\frac{2}{3}\\right)^{x}\\right)$ and $y = 2699$. They intersect at $x = 19.486\\dots$",
+            "Test the whole numbers either side: $S_{19} = 2698.78\\dots$ is not close enough, but $S_{20} = 2699.18\\dots$ is. So you need $20$ terms."
+          ],
+          "answer": "$n = 20$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = 2700*(1-(2/3)^X) and Y2 = 2699",
+              "WINDOW: X from 0 to 30, Y from 2690 to 2705 (check on your model)",
+              "GRAPH, then 2nd TRACE (CALC), 5: intersect; choose the two graphs and give a guess near X = 20",
+              "Read X = 19.486..., then test n = 19 and n = 20"
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = 2700*(1-(2/3)^x) and f2(x) = 2699",
+              "Menu, Window/Zoom, Window Settings: x from 0 to 30, y from 2690 to 2705 (check on your model)",
+              "Menu, Analyze Graph, Intersection; click to the left and then the right of the crossing",
+              "Read x = 19.486..., then test n = 19 and n = 20"
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = 2700*(1-(2/3)^X) and Y2 = 2699",
+              "SHIFT F3 (V-Window): Xmin 0, Xmax 30, Ymin 2690, Ymax 2705, then EXIT (check on your model)",
+              "DRAW, then SHIFT F5 (G-SOLV), INTSECT",
+              "Read X = 19.486..., then test n = 19 and n = 20"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding $19.486$ down to $19$. Nineteen terms are not quite enough. Test the whole numbers either side, and give the first one that works."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "S_{\\infty} = \\frac{u_{1}}{1 - r}, \\quad \\lvert r\\rvert < 1",
+          "tag": "booklet",
+          "bookletId": "bk-1-8-sum-infinity",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A geometric series has a sum to infinity only when $\\lvert r\\rvert < 1$, that is $-1 < r < 1$. Check this before you use the formula.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Bracket a negative ratio: $1 - \\left(-\\frac{2}{5}\\right) = \\frac{7}{5}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Ratio in $x$: solve $-1 < r < 1$ for $x$. Dividing by a negative number turns both signs round.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Solving for $r$ can give two values. Reject any with $\\lvert r\\rvert \\ge 1$, and say why.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Bouncing ball: count the first drop once, then add twice the sum of the rises.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using $S_{\\infty} = \\frac{u_{1}}{1 - r}$ when $\\lvert r\\rvert \\ge 1$. A series such as $4 + 8 + 16 + \\dots$ has no sum to infinity, so find $r$ and check it first.",
+    "Dropping the sign of a negative ratio. For $r = -\\frac{1}{3}$, $1 - r = \\frac{4}{3}$, not $\\frac{2}{3}$.",
+    "Taking the wrong first term from sigma notation. Put in the bottom value of $k$: $\\sum_{k=0}^{\\infty} 5(0.2)^{k}$ starts at $5$, but $\\sum_{k=1}^{\\infty} 5(0.2)^{k}$ starts at $1$.",
+    "Keeping a ratio with $\\lvert r\\rvert \\ge 1$ after solving a quadratic. Reject it and state the reason.",
+    "In a show that, starting from the given answer and checking that it fits. Work forwards from the information you are given to the result."
+  ],
+  "examTips": [
+    "\"Find the values of $x$ for which the sum to infinity exists\": write $\\lvert r\\rvert < 1$ with the ratio in it, then solve $-1 < r < 1$. Give the answer as a double inequality, such as $-1 < x < 4$.",
+    "\"Show that the series has a sum to infinity\": write down the value of $\\lvert r\\rvert$ and state that it is less than $1$. A value of $S_{\\infty}$ on its own does not show that it exists.",
+    "On Paper 1, leave $S_{\\infty}$ exact as a fraction, such as $\\frac{250}{7}$.",
+    "\"Find the least number of terms\" on Paper 2: write down the inequality you put into the GDC, then test the whole numbers either side of the intersection."
+  ],
+  "readingMinutes": 20
+}

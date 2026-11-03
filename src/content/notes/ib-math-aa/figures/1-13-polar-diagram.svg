@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="t">
+  <title id="t">Argand diagram: the point z equals a plus b i joined to the origin by a line of length r at angle theta to the positive real axis, with a along the real axis and b straight up</title>
+  <line x1="20" y1="200" x2="300" y2="200" stroke="var(--muted)" stroke-width="1.2"/>
+  <line x1="50" y1="225" x2="50" y2="15" stroke="var(--muted)" stroke-width="1.2"/>
+  <path d="M294,196 L300,200 L294,204" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+  <path d="M46,21 L50,15 L54,21" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+  <line x1="50" y1="200" x2="210" y2="80" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="210" y1="80" x2="210" y2="200" stroke="var(--t5-ink)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <line x1="50" y1="200" x2="210" y2="200" stroke="var(--t5-ink)" stroke-width="2.5"/>
+  <path d="M200,200 L200,190 L210,190" fill="none" stroke="currentColor" stroke-width="1"/>
+  <path d="M95,200 A45,45 0 0 0 86,173" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <circle cx="210" cy="80" r="4.5" fill="var(--t1-ink)"/>
+  <circle cx="50" cy="200" r="3" fill="currentColor"/>
+  <g font-size="14" font-family="inherit">
+    <text x="218" y="74" fill="var(--t1-ink)">z = a + bi</text>
+    <text x="116" y="128" fill="var(--t1-ink)">r</text>
+    <text x="100" y="190" fill="currentColor">θ</text>
+    <text x="126" y="218" fill="var(--t5-ink)">a</text>
+    <text x="218" y="146" fill="var(--t5-ink)">b</text>
+    <text x="34" y="216" fill="currentColor">O</text>
+    <text x="282" y="218" fill="var(--muted)" font-size="12">Re</text>
+    <text x="58" y="26" fill="var(--muted)" font-size="12">Im</text>
+  </g>
+</svg>

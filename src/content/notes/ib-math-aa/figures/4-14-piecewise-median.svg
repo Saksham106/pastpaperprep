@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 370 220" role="img" aria-labelledby="t">
+  <title id="t">A piecewise density: a curve rising from 0 to 3/7 between x = 0 and 1, then flat at 3/7 up to x = 3. The area from 0 to the median 11/6 is shaded and equals one half.</title>
+  <polygon points="40.0,180.0 44.5,179.7 49.0,178.7 53.5,177.1 58.0,174.9 62.5,172.0 67.0,168.4 71.5,164.2 76.0,159.4 80.5,154.0 85.0,147.9 89.5,141.1 94.0,133.7 98.5,125.7 103.0,117.0 107.5,107.7 112.0,97.7 116.5,87.1 121.0,75.9 125.5,64.0 130.0,51.4 205.0,51.4 205.0,180.0" fill="var(--t4-ink)" fill-opacity="0.22" stroke="none"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="20" y1="180" x2="350" y2="180"/>
+    <line x1="40" y1="200" x2="40" y2="20"/>
+  </g>
+  <line x1="40" y1="51.4" x2="130" y2="51.4" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
+  <line x1="205" y1="51.4" x2="205" y2="180" stroke="var(--t4-ink)" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <path d="M20 180 L40 180 L44.5 179.7 L49.0 178.7 L53.5 177.1 L58.0 174.9 L62.5 172.0 L67.0 168.4 L71.5 164.2 L76.0 159.4 L80.5 154.0 L85.0 147.9 L89.5 141.1 L94.0 133.7 L98.5 125.7 L103.0 117.0 L107.5 107.7 L112.0 97.7 L116.5 87.1 L121.0 75.9 L125.5 64.0 L130.0 51.4 L310 51.4" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <line x1="310" y1="51.4" x2="310" y2="180" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+  <path d="M310 180 L345 180" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="352" y="184">x</text>
+    <text x="46" y="28">y</text>
+    <text x="28" y="196">O</text>
+    <text x="126" y="196">1</text>
+    <text x="216" y="196">2</text>
+    <text x="306" y="196">3</text>
+    <text x="8" y="56">3/7</text>
+    <text x="220" y="40">y = f(x)</text>
+  </g>
+  <g font-size="14" font-weight="700" font-family="inherit" text-anchor="middle" fill="var(--t4-ink)">
+    <text x="150" y="130">area 1/2</text>
+    <text x="205" y="212">m = 11/6</text>
+  </g>
+</svg>

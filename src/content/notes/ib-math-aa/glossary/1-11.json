@@ -2,7 +2,19 @@
   {
     "id": "partial-fractions",
     "term": "partial fractions",
-    "definition": "Simpler fractions that add up to a given fraction, such as $\\frac{1}{x-1} - \\frac{1}{x+2}$ for $\\frac{3}{(x-1)(x+2)}$.",
+    "definition": "Simpler fractions, each over one linear factor, that add up to a given fraction, such as $\\frac{5}{x - 5} - \\frac{1}{x + 1}$ for $\\frac{4x + 10}{(x - 5)(x + 1)}$.",
+    "lesson": "1.11"
+  },
+  {
+    "id": "proper-fraction",
+    "term": "proper fraction",
+    "definition": "An algebraic fraction whose numerator has a lower degree than its denominator, such as $\\frac{3x + 2}{x^{2} - 1}$.",
+    "lesson": "1.11"
+  },
+  {
+    "id": "comparing-coefficients",
+    "term": "comparing coefficients",
+    "definition": "Matching the coefficient of each power of $x$ on the two sides of an identity, to get equations for unknown constants.",
     "lesson": "1.11"
   }
 ]

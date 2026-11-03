@@ -5,17 +5,20 @@ option (must pass) and each distractor (must raise AssertionError). A numeric ch
 and must declare its required precision in NUMERIC.
 
 Truths are computed independently: dsolve / integrate for exact solutions, an exact Euler recurrence for the
-numerical estimates. Where a solution is published implicitly, the assertion checks the properties only the right
-curve has: it passes through the given point and satisfies the differential equation there and along the curve.
+numerical estimates. A solution published implicitly must be the same curve as the true solution's implicit equation
+(the square root of dsolve's solution removed by a resultant), and a general solution must be the whole family, not
+just a family of solutions.
 """
 import sys
 from pathlib import Path
 
-from sympy import (Eq, Function, Rational, Symbol, cos, diff, dsolve, exp, integrate, nsolve, simplify, sin, solve,
-                   sqrt, symbols)
+from sympy import (Eq, Function, Pow, Rational, Symbol, cos, diff, dsolve, exp, integrate, nsolve, resultant, simplify,
+                   sin, solve, sqrt, symbols)
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from mathparse import check_antiderivative, check_numeric, check_rounded, parse_answer, parse_equation  # noqa: E402
+from mathparse import (  # noqa: E402
+    check_antiderivative, check_numeric, check_rounded, check_same_equation, parse_answer, parse_equation,
+)
 
 x, t, k, n = symbols("x t k n")
 yf = Function("y")
@@ -47,12 +50,23 @@ def is_solution(tex, rhs, x0, y0):
 
 
 def general_family(tex, rhs):
-    """A published general solution must contain the constant C and satisfy the equation for every C."""
+    """A published general solution must contain the constant C, satisfy the equation for every C, AND be the whole
+    family: dsolve's general solution y = g(x, C1) must be reached by C1 = h(C) with h free of x and affine in C with
+    a non-zero slope, so every C1 comes from some C. (y = x ln x + e^C x satisfies the equation for every C, but
+    misses every solution with C1 <= 0.)"""
     published = parse_answer(tex)
     if C not in published.free_symbols:
         raise AssertionError(f"published {published} has no arbitrary constant")
     if simplify(diff(published, x) - rhs(x, published)) != 0:
         raise AssertionError(f"published {published} does not satisfy the equation")
+    f, C1 = Function("f"), Symbol("C1")
+    general = dsolve(Eq(f(x).diff(x), rhs(x, f(x))), f(x)).rhs
+    matches = solve(Eq(published, general), C1)
+    if len(matches) != 1 or x in matches[0].free_symbols:
+        raise AssertionError(f"published {published} is not a reparametrisation of {general}")
+    slope = simplify(diff(matches[0], C))
+    if slope == 0 or slope.free_symbols or simplify(diff(matches[0], C, 2)) != 0:
+        raise AssertionError(f"C1 = {matches[0]} does not reach every C1, so {published} misses solutions")
 
 
 def is_solution_of_form(tex, rhs):
@@ -91,11 +105,24 @@ def logistic_time(tex):
     same(tex, real[0])
 
 
+def implicit_particular(rhs, x0, y0):
+    """dsolve's particular solution y = A(x) + B(x) sqrt(Q(x)) through (x0, y0), with the square root removed by a
+    resultant: the polynomial relation P(x, y) = 0 of exactly the solution curve's conic."""
+    sol = solve_ivp(rhs, x0, y0)
+    roots = [p for p in sol.atoms(Pow) if p.exp == Rational(1, 2)]
+    assert len(roots) == 1, sol
+    (root,) = roots
+    s_ = Symbol("s_")
+    return resultant(Y - sol.subs(root, s_), s_**2 - root.base, s_)
+
+
 def homog_pf(tex):
-    """Published implicit curve F(x, y) = 0: through (3, 1), and dy/dx = -F_x / F_y equals (x + 3y)/(3x + y)
-    at several points of the branch through (3, 1)."""
+    """Published implicit curve F(x, y) = 0 must be the SAME curve as the true solution's implicit equation (equal up
+    to a non-zero constant factor), so an extra factor that adds another branch fails. Through (3, 1), and the slope
+    -F_x / F_y matching (x + 3y)/(3x + y) at points of the branch, stay as smoke checks."""
     F = parse_equation(tex)
     F = F.subs({s: Symbol(s.name) for s in F.free_symbols})
+    check_same_equation(tex, implicit_particular(lambda xx, f: (xx + 3 * f) / (3 * xx + f), 3, 1))
     if simplify(F.subs({x: 3, Y: 1})) != 0:
         raise AssertionError("curve does not pass through (3, 1)")
     slope = -diff(F, x) / diff(F, Y)

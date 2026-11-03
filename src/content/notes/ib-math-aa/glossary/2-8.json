@@ -1,0 +1,20 @@
+[
+  {
+    "id": "reciprocal-function",
+    "term": "reciprocal function",
+    "definition": "The function $f(x) = \\frac{1}{x}$, for $x \\ne 0$, which sends each input to its reciprocal; its graph has the axes as asymptotes.",
+    "lesson": "2.8"
+  },
+  {
+    "id": "self-inverse",
+    "term": "self-inverse",
+    "definition": "A function $f$ is self-inverse if $f^{-1}(x) = f(x)$, so applying it twice gives back the input: $(f \\circ f)(x) = x$.",
+    "lesson": "2.8"
+  },
+  {
+    "id": "rational-function",
+    "term": "rational function",
+    "definition": "A function written as one polynomial divided by another, such as $f(x) = \\frac{2x + 3}{x - 1}$.",
+    "lesson": "2.8"
+  }
+]

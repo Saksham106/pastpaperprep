@@ -1,0 +1,763 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.18",
+  "slug": "intersections-and-angles-of-lines-and-planes",
+  "title": "Intersections and angles of lines and planes",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "Lines and planes can meet at a point, along a line, or not at all. Solving their equations together tells you which: the system has one solution, infinitely many or none. Their angles come from scalar products of direction and [[normal-vector|normal]] vectors.",
+  "goals": [
+    {
+      "text": "Find where a line meets a plane, or show that it is parallel to the plane or lies in it.",
+      "bullets": [
+        "3.18-b1"
+      ]
+    },
+    {
+      "text": "Find the [[line-of-intersection|line of intersection]] of two planes, and recognise parallel planes.",
+      "bullets": [
+        "3.18-b1"
+      ]
+    },
+    {
+      "text": "Solve the equations of three planes as a linear system, and describe the arrangement each kind of solution shows.",
+      "bullets": [
+        "3.18-b1",
+        "3.18-b3"
+      ]
+    },
+    {
+      "text": "Find the angle a line makes with a plane.",
+      "bullets": [
+        "3.18-b2"
+      ]
+    },
+    {
+      "text": "Find the angle between two planes, and tell when they are perpendicular.",
+      "bullets": [
+        "3.18-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.16",
+    "3.15",
+    "3.16",
+    "3.17"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "line plane intersection",
+    "intersection of two planes",
+    "intersection of three planes",
+    "angle between a line and a plane",
+    "angle between two planes",
+    "line of intersection of planes"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-plane-normal",
+      "prompt": "Which vector is normal to the plane $4x - y + 3z = 10$?",
+      "hint": "The coefficients of $x$, $y$ and $z$ in a Cartesian equation give a normal.",
+      "options": [
+        {
+          "text": "$\\boldsymbol{n} = \\begin{pmatrix}4\\\\-1\\\\3\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\boldsymbol{n} = \\begin{pmatrix}4\\\\1\\\\3\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\boldsymbol{n} = \\begin{pmatrix}4\\\\-1\\\\10\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "In $ax + by + cz = d$ the normal is $(a, b, c)$, signs included. The $10$ only fixes where the plane sits. Revise it in {{lesson:3.17}}."
+    },
+    {
+      "type": "check",
+      "id": "before-vector-product",
+      "prompt": "Find $\\begin{pmatrix}1\\\\2\\\\0\\end{pmatrix} \\times \\begin{pmatrix}0\\\\1\\\\3\\end{pmatrix}$.",
+      "hint": "Use the booklet's components, with care over the middle one.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}6\\\\-3\\\\1\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}6\\\\3\\\\1\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}-6\\\\3\\\\-1\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "The components are $2 \\times 3 - 0 \\times 1 = 6$, $0 \\times 0 - 1 \\times 3 = -3$ and $1 \\times 1 - 2 \\times 0 = 1$. Revise it in {{lesson:3.16}}."
+    },
+    {
+      "type": "check",
+      "id": "before-back-substitute",
+      "prompt": "Row reduction of a system in $x$, $y$ and $z$ gives $\\left(\\begin{array}{ccc|c} 1 & 2 & -1 & 3 \\\\ 0 & 1 & 3 & 7 \\\\ 0 & 0 & 2 & 4 \\end{array}\\right)$. Find $x$.",
+      "hint": "Start from the bottom row, which says $2z = 4$.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0
+      },
+      "explain": "$z = 2$. Then $y + 3z = 7$ gives $y = 1$, and $x + 2y - z = 3$ gives $x = 3 - 2 + 2 = 3$. Revise it in {{lesson:1.16}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "line-plane",
+      "heading": "Where a line meets a plane",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.15}} two lines meeting meant solving for two parameters. A line meeting a plane needs only one. A point of the line that is also on the plane must satisfy the plane's equation."
+        },
+        {
+          "type": "text",
+          "text": "1. Write the general point of the line, using its [[parametric-equations-of-a-line|parametric equations]]."
+        },
+        {
+          "type": "text",
+          "text": "2. Substitute it into the plane's Cartesian equation, $ax + by + cz = d$."
+        },
+        {
+          "type": "text",
+          "text": "3. Solve the equation for $\\lambda$, then put $\\lambda$ back into the line to get the point."
+        },
+        {
+          "type": "text",
+          "text": "The equation in step 2 is linear in $\\lambda$. So it has one solution, none, or every $\\lambda$ works."
+        },
+        {
+          "type": "figure",
+          "id": "3-18-line-plane-cases",
+          "alt": "Three panels, each with a flat plane drawn as a shaded parallelogram. Left: a line passes down through the plane, crossing it at one marked point, and continues dashed below it. Middle: a line runs above the plane at a constant height, shown by two equal dotted drops to the plane, so it never meets it. Right: a line is drawn lying flat on the plane.",
+          "caption": "One solution for $\\lambda$, no solution, or every $\\lambda$."
+        },
+        {
+          "type": "result",
+          "statement": "Substituting gives an equation $p\\lambda = q$. If $p \\neq 0$, the line meets the plane at one point. If $p = 0$ and $q \\neq 0$, it is parallel to the plane and never meets it. If $p = q = 0$, it lies in the plane.",
+          "why": "$p = \\boldsymbol{b} \\cdot \\boldsymbol{n}$, where $\\boldsymbol{n}$ is the [[normal-vector|normal]]. So $p = 0$ exactly when the direction is perpendicular to the normal."
+        },
+        {
+          "type": "example",
+          "id": "ex-line-meets-plane",
+          "question": "Find the coordinates of the point where the line $\\boldsymbol{r} = \\begin{pmatrix}2\\\\-1\\\\3\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\3\\\\-2\\end{pmatrix}$ meets the plane $x + 2y - z = 6$.",
+          "steps": [
+            "Write the general point of the line: $x = 2 + \\lambda$, $y = -1 + 3\\lambda$, $z = 3 - 2\\lambda$.",
+            "Substitute into the plane: $(2 + \\lambda) + 2(-1 + 3\\lambda) - (3 - 2\\lambda) = 6$.",
+            "Expand and collect: $2 + \\lambda - 2 + 6\\lambda - 3 + 2\\lambda = 6$, so $9\\lambda - 3 = 6$ and $\\lambda = 1$.",
+            "Put $\\lambda = 1$ into the line: $x = 3$, $y = 2$, $z = 1$.",
+            "Check in the plane: $3 + 2(2) - 1 = 6$. It works."
+          ],
+          "answer": "$(3, 2, 1)$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "With an unknown constant, choose it to make the coefficient of $\\lambda$, or the right-hand side, zero."
+        },
+        {
+          "type": "example",
+          "id": "ex-line-in-plane-k-d",
+          "question": "The line $L$ has equation $\\boldsymbol{r} = \\begin{pmatrix}1\\\\0\\\\4\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\-1\\\\k\\end{pmatrix}$, and the plane $\\Pi$ has equation $3x + 4y - z = d$, where $k, d \\in \\mathbb{R}$. Find $k$ and $d$ so that $L$ lies in $\\Pi$.",
+          "steps": [
+            "Substitute the general point $(1 + 2\\lambda,\\ -\\lambda,\\ 4 + k\\lambda)$ into $\\Pi$: $3(1 + 2\\lambda) + 4(-\\lambda) - (4 + k\\lambda) = d$.",
+            "Collect the $\\lambda$ terms: $(6 - 4 - k)\\lambda + 3 - 4 = d$, that is $(2 - k)\\lambda = d + 1$.",
+            "$L$ lies in $\\Pi$ only if this holds for every $\\lambda$. So the coefficient must be zero: $k = 2$.",
+            "Then the equation reads $0 = d + 1$, true only when $d = -1$. Any other $d$ makes $L$ parallel to $\\Pi$ without meeting it.",
+            "Check: $(2, -1, 2) \\cdot (3, 4, -1) = 6 - 4 - 2 = 0$, and the point $(1, 0, 4)$ gives $3 + 0 - 4 = -1$."
+          ],
+          "answer": "$k = 2, \\; d = -1$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Testing a single point. A point on the plane proves they meet; the whole line is in the plane only if $\\boldsymbol{b} \\cdot \\boldsymbol{n} = 0$ too."
+        },
+        {
+          "type": "check",
+          "id": "check-line-plane-point",
+          "prompt": "Find the point where the line $\\boldsymbol{r} = \\begin{pmatrix}0\\\\1\\\\-2\\end{pmatrix} + \\mu\\begin{pmatrix}1\\\\-1\\\\3\\end{pmatrix}$ meets the plane $2x + y + z = 7$.",
+          "hint": "Substitute $x = \\mu$, $y = 1 - \\mu$ and $z = -2 + 3\\mu$ into the plane's equation.",
+          "options": [
+            {
+              "text": "$(2, -1, 4)$",
+              "correct": true
+            },
+            {
+              "text": "$(2, -2, 6)$",
+              "correct": false
+            },
+            {
+              "text": "$(\\frac{3}{2}, -\\frac{1}{2}, \\frac{5}{2})$",
+              "correct": false
+            },
+            {
+              "text": "$(8, -7, 22)$",
+              "correct": false
+            }
+          ],
+          "explain": "$2\\mu + (1 - \\mu) + (-2 + 3\\mu) = 7$ gives $4\\mu - 1 = 7$, so $\\mu = 2$. The point is $(0, 1, -2) + 2(1, -1, 3) = (2, -1, 4)$."
+        },
+        {
+          "type": "check",
+          "id": "check-line-plane-case",
+          "prompt": "How does the line $\\boldsymbol{r} = \\begin{pmatrix}1\\\\2\\\\0\\end{pmatrix} + t\\begin{pmatrix}3\\\\1\\\\-1\\end{pmatrix}$ sit relative to the plane $x - 2y + z = -3$?",
+          "hint": "Substitute the general point into the plane. What happens to $t$?",
+          "options": [
+            {
+              "text": "It lies in the plane.",
+              "correct": true
+            },
+            {
+              "text": "It is parallel and never meets it.",
+              "correct": false
+            },
+            {
+              "text": "It meets it at exactly one point.",
+              "correct": false
+            }
+          ],
+          "explain": "$(1 + 3t) - 2(2 + t) - t = -3$ simplifies to $-3 = -3$, true for every $t$. The $t$ terms cancel because $\\boldsymbol{b} \\cdot \\boldsymbol{n} = 3 - 2 - 1 = 0$."
+        }
+      ]
+    },
+    {
+      "id": "two-planes",
+      "heading": "Where two planes meet",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two pages of an open book meet along the spine, a straight line. Two planes do the same unless they are parallel. Two equations in three unknowns usually leave one unknown free ({{lesson:1.16}})."
+        },
+        {
+          "type": "definition",
+          "term": "Line of intersection",
+          "statement": "The [[line-of-intersection|line of intersection]] of two non-parallel planes is the set of points that satisfy both of their equations.",
+          "plain": "The crease where two flat sheets meet."
+        },
+        {
+          "type": "result",
+          "statement": "Two planes with non-parallel [[normal-vector|normals]] meet in a line. If their normals are parallel, the planes are either parallel and never meet, or they are the same plane.",
+          "why": "Scale one equation so the left sides match. Equal right sides then give the same plane; different ones give no common point."
+        },
+        {
+          "type": "text",
+          "text": "To find the line, remove one unknown between the equations. Let another equal $\\lambda$ and write the rest in terms of it."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-planes-eliminate",
+          "question": "Find a vector equation of the line where the planes $x + y + 2z = 5$ and $2x - y + z = 1$ meet.",
+          "steps": [
+            "The normals $(1, 1, 2)$ and $(2, -1, 1)$ are not multiples of each other, so the planes meet in a line.",
+            "Add the equations to remove $y$: $3x + 3z = 6$, so $x = 2 - z$.",
+            "Let $z = \\lambda$. Then $x = 2 - \\lambda$.",
+            "From the first equation, $y = 5 - x - 2z = 5 - (2 - \\lambda) - 2\\lambda = 3 - \\lambda$.",
+            "So every point of the line is $(2 - \\lambda,\\ 3 - \\lambda,\\ \\lambda)$. Check in the second plane: $2(2 - \\lambda) - (3 - \\lambda) + \\lambda = 4 - 2\\lambda - 3 + \\lambda + \\lambda = 1$ for every $\\lambda$."
+          ],
+          "answer": "$\\boldsymbol{r} = \\begin{pmatrix}2\\\\3\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}-1\\\\-1\\\\1\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A second method: the line lies in both planes, so its direction is perpendicular to both normals. The vector product from {{lesson:3.16}} gives such a vector."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{d} = \\boldsymbol{n}_{1} \\times \\boldsymbol{n}_{2}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Here $\\boldsymbol{d}$ is the line's direction. For a point, set to $0$ a coordinate whose component in $\\boldsymbol{d}$ is non-zero (usually $z$). Then solve for the other two."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-planes-cross",
+          "question": "The planes $\\Pi_{1}$ and $\\Pi_{2}$ have equations $3x - 2y + z = 7$ and $x + y - 2z = -1$. Find a vector equation of their line of intersection.",
+          "steps": [
+            "Read off the normals: $\\boldsymbol{n}_{1} = \\begin{pmatrix}3\\\\-2\\\\1\\end{pmatrix}$ and $\\boldsymbol{n}_{2} = \\begin{pmatrix}1\\\\1\\\\-2\\end{pmatrix}$.",
+            "Find the direction: $\\boldsymbol{n}_{1} \\times \\boldsymbol{n}_{2} = \\begin{pmatrix}(-2)(-2) - (1)(1)\\\\(1)(1) - (3)(-2)\\\\(3)(1) - (-2)(1)\\end{pmatrix} = \\begin{pmatrix}3\\\\7\\\\5\\end{pmatrix}$.",
+            "Check it is perpendicular to both normals: $3(3) - 2(7) + 1(5) = 0$ and $1(3) + 1(7) - 2(5) = 0$.",
+            "Find a point. Set $z = 0$: $3x - 2y = 7$ and $x + y = -1$. The second gives $y = -1 - x$, so $3x + 2 + 2x = 7$, $x = 1$ and $y = -2$.",
+            "Check $(1, -2, 0)$ in both planes: $3 + 4 + 0 = 7$ and $1 - 2 - 0 = -1$."
+          ],
+          "answer": "$\\boldsymbol{r} = \\begin{pmatrix}1\\\\-2\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}3\\\\7\\\\5\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "A sign slip in the vector product's middle component. For $\\boldsymbol{v} \\times \\boldsymbol{w}$ it is $v_{3}w_{1} - v_{1}w_{3}$. Check your direction against both normals: each scalar product must be $0$."
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-planes",
+          "prompt": "How do the planes $2x - 4y + 6z = 3$ and $-x + 2y - 3z = 5$ meet?",
+          "hint": "Compare the normals, then the right-hand sides.",
+          "options": [
+            {
+              "text": "They are parallel and never meet.",
+              "correct": true
+            },
+            {
+              "text": "They meet in a line.",
+              "correct": false
+            },
+            {
+              "text": "They are the same plane.",
+              "correct": false
+            }
+          ],
+          "explain": "$(2, -4, 6) = -2(-1, 2, -3)$, so the planes are parallel. Doubling the second equation and changing signs gives $2x - 4y + 6z = -10$, not $3$, so they never meet."
+        },
+        {
+          "type": "check",
+          "id": "check-two-planes-line",
+          "prompt": "Which is a vector equation of the line where the planes $x - y + z = 2$ and $2x + y - z = 7$ meet?",
+          "hint": "Adding the equations removes both $y$ and $z$.",
+          "options": [
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}3\\\\1\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}0\\\\1\\\\1\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}3\\\\1\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}0\\\\1\\\\-1\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}3\\\\0\\\\1\\end{pmatrix} + \\lambda\\begin{pmatrix}0\\\\1\\\\1\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}3\\\\1\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\-1\\\\1\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "Adding gives $3x = 9$, so $x = 3$ all along the line. Then $y - z = 1$: let $z = \\lambda$, so $y = 1 + \\lambda$."
+        }
+      ]
+    },
+    {
+      "id": "three-planes",
+      "heading": "Where three planes meet",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Three planes give three equations in $x$, $y$ and $z$: a system like those in {{lesson:1.16}}. Its solutions are the points on all three planes, so the number of solutions shows how the planes are arranged."
+        },
+        {
+          "type": "text",
+          "text": "Usually they share one point, like the floor and two walls at the corner of a room. If they all pass through one line, like pages turning on a spine, they form a [[sheaf-of-planes|sheaf]]."
+        },
+        {
+          "type": "result",
+          "statement": "Three planes meet at a single point if the system has one solution, and in a line if the solutions need one parameter. With two parameters they are all the same plane. With no solution they share no point.",
+          "why": "The solutions of the system are exactly the points that lie on all three planes."
+        },
+        {
+          "type": "text",
+          "text": "With no solution, check the [[normal-vector|normals]]. If two are parallel, those planes are parallel. If none are, each pair meets in a line, the lines are parallel, and the planes form a triangular prism."
+        },
+        {
+          "type": "figure",
+          "id": "3-18-three-planes",
+          "alt": "Four panels, each showing three planes seen end-on, so each plane looks like a straight line. First: three lines through one shared point, labelled common line, infinitely many. Second: three lines crossing in pairs to make a triangle, labelled triangular prism, no solution. Third: two parallel lines cut by a third line, labelled two parallel, no solution. Fourth: three parallel lines, labelled three parallel, no solution.",
+          "caption": "Seen end-on, a common line looks like a point. The single-point case can't be drawn end-on."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 the GDC's equation solver finds a single point. Write down the [[augmented-matrix|augmented matrix]] you enter."
+        },
+        {
+          "type": "example",
+          "id": "ex-three-planes-gdc",
+          "question": "The planes $\\Pi_{1}$, $\\Pi_{2}$ and $\\Pi_{3}$ have equations $1.2x - y + 2z = 3.5$, $x + 2y - 0.5z = 4$ and $3x + y + z = 6.8$. Use your calculator to find the coordinates of the point where they meet. Give each coordinate to 3 s.f.",
+          "steps": [
+            "Write down what you enter: $\\left(\\begin{array}{ccc|c} 1.2 & -1 & 2 & 3.5 \\\\ 1 & 2 & -0.5 & 4 \\\\ 3 & 1 & 1 & 6.8 \\end{array}\\right)$.",
+            "The solver gives $x = 0.67777\\ldots$, $y = 2.28222\\ldots$ and $z = 2.48444\\ldots$, a unique solution. So the planes meet at one point.",
+            "Check with the unrounded values in $\\Pi_{3}$: $3(0.67777\\ldots) + 2.28222\\ldots + 2.48444\\ldots = 6.8$.",
+            "Round each to 3 s.f.: the point is $(0.678, 2.28, 2.48)$."
+          ],
+          "answer": "$x \\approx 0.678, \\; y \\approx 2.28, \\; z \\approx 2.48$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "APPS, PlySmlt2",
+              "Choose the simultaneous equation solver, with 3 equations and 3 unknowns (check on your model)",
+              "Row 1: 1.2, -1, 2, 3.5. Row 2: 1, 2, -0.5, 4. Row 3: 3, 1, 1, 6.8",
+              "SOLVE (GRAPH key) (check on your model)",
+              "Read x = 0.67777..., y = 2.28222... and z = 2.48444..."
+            ],
+            "nspire": [
+              "Calculator page: Menu, Algebra, Solve System of Linear Equations",
+              "Number of equations: 3, variables x, y, z, OK (check on your model)",
+              "Type 1.2x-y+2z=3.5, then x+2y-0.5z=4, then 3x+y+z=6.8, enter",
+              "Read x = 0.67777..., y = 2.28222... and z = 2.48444..."
+            ],
+            "casio": [
+              "EQUA, Simultaneous (F1)",
+              "Number of unknowns: 3 (check on your model)",
+              "Row 1: 1.2, -1, 2, 3.5. Row 2: 1, 2, -0.5, 4. Row 3: 3, 1, 1, 6.8",
+              "SOLVE (F1) (check on your model)",
+              "Read x = 0.67777..., y = 2.28222... and z = 2.48444..."
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "With a parameter, row reduce by hand. The last row's coefficient decides whether there is one point; its right-hand side then decides between a line and no common point."
+        },
+        {
+          "type": "example",
+          "id": "ex-three-planes-line-km",
+          "question": "The planes $\\Pi_{1}$, $\\Pi_{2}$ and $\\Pi_{3}$ have equations $x + y + z = 2$, $x + 2y - z = 1$ and $2x + 3y + kz = m$, where $k, m \\in \\mathbb{R}$. Find $k$ and $m$ so that the three planes meet in a line.",
+          "steps": [
+            "Clear the first column. $R_{2} - R_{1}$ gives $(0,\\ 1,\\ -2 \\mid -1)$ and $R_{3} - 2R_{1}$ gives $(0,\\ 1,\\ k - 2 \\mid m - 4)$.",
+            "The new $R_{3}$ minus the new $R_{2}$ gives $(0,\\ 0,\\ k \\mid m - 3)$, which says $kz = m - 3$.",
+            "If $k \\neq 0$, then $z = \\frac{m - 3}{k}$: one solution, a single point. So a line needs $k = 0$.",
+            "With $k = 0$ the row is $(0,\\ 0,\\ 0 \\mid m - 3)$. It is all zeros, giving infinitely many solutions, only when $m = 3$.",
+            "Let $z = \\lambda$. Row 2 gives $y = -1 + 2\\lambda$, and row 1 gives $x = 3 - 3\\lambda$. The line is $\\boldsymbol{r} = \\begin{pmatrix}3\\\\-1\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}-3\\\\2\\\\1\\end{pmatrix}$.",
+            "If $k = 0$ and $m \\neq 3$, there is no solution. No two normals are parallel, so the planes then form a prism."
+          ],
+          "answer": "$k = 0, \\; m = 3$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Making only the coefficient in the last row zero. A row $(0,\\ 0,\\ 0 \\mid c)$ gives a common line only when $c = 0$ too."
+        },
+        {
+          "type": "check",
+          "id": "check-matrix-to-geometry",
+          "prompt": "Row reduction of the equations of three planes gives $\\left(\\begin{array}{ccc|c} 1 & -1 & 2 & 3 \\\\ 0 & 1 & -3 & 1 \\\\ 0 & 0 & 0 & 0 \\end{array}\\right)$. How do the planes meet?",
+          "hint": "Read the last row as an equation. How many unknowns are free?",
+          "options": [
+            {
+              "text": "They meet in a line.",
+              "correct": true
+            },
+            {
+              "text": "They meet at a single point.",
+              "correct": false
+            },
+            {
+              "text": "They have no point in common.",
+              "correct": false
+            },
+            {
+              "text": "They are all the same plane.",
+              "correct": false
+            }
+          ],
+          "explain": "The last row says $0 = 0$, leaving two equations: one unknown is free, so the planes share a line."
+        },
+        {
+          "type": "check",
+          "id": "check-three-planes-a",
+          "prompt": "The planes $x + 2y - z = 1$, $2x + y + z = 4$ and $x - y + az = 3$ meet in a line for exactly one value of $a$. Find it.",
+          "hint": "Row reduce, carrying $a$ along, and look at the last row.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "$R_{2} - 2R_{1}$ gives $(0,\\ -3,\\ 3 \\mid 2)$ and $R_{3} - R_{1}$ gives $(0,\\ -3,\\ a + 1 \\mid 2)$. Subtracting leaves $(0,\\ 0,\\ a - 2 \\mid 0)$, all zeros when $a = 2$."
+        },
+        {
+          "type": "check",
+          "id": "check-prism",
+          "prompt": "Describe how the planes $x + y + z = 1$, $x - y + 2z = 3$ and $3x + y + 4z = 2$ are arranged.",
+          "hint": "Compare the third equation with twice the first plus the second.",
+          "options": [
+            {
+              "text": "They form a triangular prism.",
+              "correct": true
+            },
+            {
+              "text": "Two of the planes are parallel.",
+              "correct": false
+            },
+            {
+              "text": "They meet in a line.",
+              "correct": false
+            },
+            {
+              "text": "They meet at a single point.",
+              "correct": false
+            }
+          ],
+          "explain": "Twice the first plus the second is $3x + y + 4z = 5$, but the third has $2$ on the right, so no point is on all three. No two normals are parallel: a prism."
+        }
+      ]
+    },
+    {
+      "id": "angle-line-plane",
+      "heading": "Angle between a line and a plane",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Shine a light straight down onto a plane, and a line casts a shadow on it. The [[angle-between-line-and-plane|angle between the line and the plane]] is the angle between the line and its shadow, from $0^{\\circ}$ to $90^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "The shadow is awkward to find, but the [[normal-vector|normal]] comes straight from the plane's equation. If the line makes angle $\\theta$ with the plane, it makes $90^{\\circ} - \\theta$ with the normal."
+        },
+        {
+          "type": "figure",
+          "id": "3-18-angle-line-plane",
+          "alt": "A shaded plane with a point P on it. The normal vector n rises straight up from P. The line L leaves P upwards to the right. A dashed line on the plane runs from P directly below L, labelled projection of L, with a right angle where a dotted drop from L meets it. The angle theta is marked between L and its projection, and the angle 90 degrees minus theta between L and the normal.",
+          "caption": "The angle with the plane, $\\theta$, and the angle with the normal, $90^{\\circ} - \\theta$, add to $90^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "The booklet gives the angle between two vectors."
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos\\theta = \\dfrac{v_{1}w_{1} + v_{2}w_{2} + v_{3}w_{3}}{\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-angle-between",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "With the line's direction $\\boldsymbol{b}$ and the plane's normal $\\boldsymbol{n}$, it gives the angle with the normal. Since $\\cos(90^{\\circ} - \\theta) = \\sin\\theta$, you get a formula to learn."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin\\theta = \\dfrac{\\lvert\\boldsymbol{b}\\cdot\\boldsymbol{n}\\rvert}{\\lvert\\boldsymbol{b}\\rvert\\lvert\\boldsymbol{n}\\rvert}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "If $\\boldsymbol{n}$ points the other way, the angle with the normal is $90^{\\circ} + \\theta$ instead, and its cosine is $-\\sin\\theta$. The modulus removes that sign, so $\\theta$ is always acute."
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-line-plane-exact",
+          "question": "Find the angle between the line $\\boldsymbol{r} = \\begin{pmatrix}0\\\\2\\\\-1\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\-1\\\\2\\end{pmatrix}$ and the plane $2x + y + z = 5$.",
+          "steps": [
+            "Read off the line's direction, $\\boldsymbol{b} = \\begin{pmatrix}1\\\\-1\\\\2\\end{pmatrix}$, and the plane's normal, $\\boldsymbol{n} = \\begin{pmatrix}2\\\\1\\\\1\\end{pmatrix}$.",
+            "Scalar product: $\\boldsymbol{b}\\cdot\\boldsymbol{n} = 1(2) + (-1)(1) + 2(1) = 3$.",
+            "Magnitudes: $\\lvert\\boldsymbol{b}\\rvert = \\sqrt{1 + 1 + 4} = \\sqrt{6}$ and $\\lvert\\boldsymbol{n}\\rvert = \\sqrt{4 + 1 + 1} = \\sqrt{6}$.",
+            "So $\\sin\\theta = \\frac{3}{\\sqrt{6}\\sqrt{6}} = \\frac{3}{6} = \\frac{1}{2}$.",
+            "$\\theta$ is acute, so $\\theta = 30^{\\circ}$. The angle with the normal is $60^{\\circ}$, making $90^{\\circ}$ in total."
+          ],
+          "answer": "$\\theta = 30^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-line-plane-gdc",
+          "question": "The line $L$ passes through $\\mathrm{A}(1, -2, 3)$ and $\\mathrm{B}(4, 0, -1)$. Find the acute angle between $L$ and the plane $x - 3y + 2z = 6$. Give your answer in degrees to 3 s.f.",
+          "steps": [
+            "Direction of $L$: $\\overrightarrow{\\mathrm{AB}} = \\begin{pmatrix}3\\\\2\\\\-4\\end{pmatrix}$. Normal of the plane: $\\boldsymbol{n} = \\begin{pmatrix}1\\\\-3\\\\2\\end{pmatrix}$.",
+            "$\\overrightarrow{\\mathrm{AB}}\\cdot\\boldsymbol{n} = 3 - 6 - 8 = -11$, $\\lvert\\overrightarrow{\\mathrm{AB}}\\rvert = \\sqrt{29}$ and $\\lvert\\boldsymbol{n}\\rvert = \\sqrt{14}$.",
+            "Write down what you enter, in degree mode: $\\sin\\theta = \\frac{\\lvert -11\\rvert}{\\sqrt{29}\\sqrt{14}}$, so $\\theta = \\arcsin\\left(\\frac{11}{\\sqrt{406}}\\right) = 33.0876\\ldots^{\\circ}$.",
+            "Compare: $\\arccos\\left(\\frac{-11}{\\sqrt{406}}\\right) = 123.0876\\ldots^{\\circ}$ is the obtuse angle with the normal, and $123.0876\\ldots^{\\circ} - 90^{\\circ}$ gives the same answer."
+          ],
+          "answer": "$\\theta \\approx 33.1^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using arccos and stopping. That gives the angle with the normal: use arcsin, or subtract from $90^{\\circ}$."
+        },
+        {
+          "type": "check",
+          "id": "check-angle-line-plane-mc",
+          "prompt": "Find the acute angle between the line $\\boldsymbol{r} = \\begin{pmatrix}2\\\\0\\\\1\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\-2\\\\2\\end{pmatrix}$ and the plane $3y + 4z = 10$.",
+          "hint": "The plane has no $x$ term, so its normal is $(0, 3, 4)$.",
+          "options": [
+            {
+              "text": "$\\theta \\approx 7.66^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\theta \\approx 82.3^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 21.0^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\boldsymbol{b}\\cdot\\boldsymbol{n} = 0 - 6 + 8 = 2$, $\\lvert\\boldsymbol{b}\\rvert = 3$, $\\lvert\\boldsymbol{n}\\rvert = 5$, so $\\sin\\theta = \\frac{2}{15}$. $82.3^{\\circ}$ is the angle with the normal; $21.0^{\\circ}$ uses the point instead of the direction."
+        },
+        {
+          "type": "check",
+          "id": "check-angle-line-plane-num",
+          "prompt": "Find the acute angle, in degrees, between the line $\\frac{x - 1}{2} = \\frac{y}{-2} = \\frac{z + 3}{1}$ and the plane $4x + 4y - 7z = 0$. Give your answer to 3 s.f.",
+          "hint": "The denominators give the direction, $(2, -2, 1)$. Then use $\\sin\\theta$, not $\\cos\\theta$.",
+          "answer": {
+            "value": 15.0,
+            "tolerance": 0.05
+          },
+          "explain": "$\\boldsymbol{b}\\cdot\\boldsymbol{n} = 8 - 8 - 7 = -7$, $\\lvert\\boldsymbol{b}\\rvert = 3$ and $\\lvert\\boldsymbol{n}\\rvert = 9$. So $\\sin\\theta = \\frac{7}{27}$ and $\\theta = 15.026\\ldots^{\\circ} \\approx 15.0^{\\circ}$."
+        }
+      ]
+    },
+    {
+      "id": "angle-planes",
+      "heading": "The angle between two planes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Look along the line where two planes meet, so each appears edge-on as a straight line with its [[normal-vector|normal]] at right angles to it. Turn one plane onto the other, and its normal turns by the same angle."
+        },
+        {
+          "type": "figure",
+          "id": "3-18-angle-planes",
+          "alt": "Two planes seen edge-on as two straight lines crossing at a point, which is their line of intersection seen end-on. Plane 1 is horizontal and plane 2 rises at an angle theta to it. Normal n1 points straight up from plane 1 and normal n2 points out at right angles from plane 2. The angle between the two normals is also marked theta.",
+          "caption": "Rotating $\\Pi_{1}$ onto $\\Pi_{2}$ rotates $\\boldsymbol{n}_{1}$ onto $\\boldsymbol{n}_{2}$ by the same angle $\\theta$."
+        },
+        {
+          "type": "definition",
+          "term": "Angle between two planes",
+          "statement": "The [[angle-between-two-planes|angle between two planes]] is the acute angle $\\theta$ between their normals $\\boldsymbol{n}_{1}$ and $\\boldsymbol{n}_{2}$. It satisfies $\\cos\\theta = \\frac{\\lvert\\boldsymbol{n}_{1}\\cdot\\boldsymbol{n}_{2}\\rvert}{\\lvert\\boldsymbol{n}_{1}\\rvert\\lvert\\boldsymbol{n}_{2}\\rvert}$.",
+          "plain": "How far one plane is tilted from the other."
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos\\theta = \\dfrac{\\lvert\\boldsymbol{n}_{1}\\cdot\\boldsymbol{n}_{2}\\rvert}{\\lvert\\boldsymbol{n}_{1}\\rvert\\lvert\\boldsymbol{n}_{2}\\rvert}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "It is the booklet's formula for the normals, with a modulus, since reversing a normal flips the sign. If $\\boldsymbol{n}_{1}\\cdot\\boldsymbol{n}_{2} = 0$, the planes are perpendicular."
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-planes-exact",
+          "question": "Find the angle between the planes $2x + 2y + z = 4$ and $x + 4y - z = 2$.",
+          "steps": [
+            "Read off the normals: $\\boldsymbol{n}_{1} = \\begin{pmatrix}2\\\\2\\\\1\\end{pmatrix}$ and $\\boldsymbol{n}_{2} = \\begin{pmatrix}1\\\\4\\\\-1\\end{pmatrix}$.",
+            "Scalar product: $\\boldsymbol{n}_{1}\\cdot\\boldsymbol{n}_{2} = 2 + 8 - 1 = 9$.",
+            "Magnitudes: $\\lvert\\boldsymbol{n}_{1}\\rvert = \\sqrt{4 + 4 + 1} = 3$ and $\\lvert\\boldsymbol{n}_{2}\\rvert = \\sqrt{1 + 16 + 1} = \\sqrt{18} = 3\\sqrt{2}$.",
+            "So $\\cos\\theta = \\frac{9}{3 \\times 3\\sqrt{2}} = \\frac{1}{\\sqrt{2}}$.",
+            "This is a standard exact value, so $\\theta = 45^{\\circ}$."
+          ],
+          "answer": "$\\theta = 45^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-planes-obtuse",
+          "question": "Find the acute angle between the planes $\\Pi_{1}: 3x - y + 2z = 5$ and $\\Pi_{2}: x + 4y - 3z = 2$. Give your answer in degrees to 3 s.f.",
+          "steps": [
+            "Normals: $\\boldsymbol{n}_{1} = \\begin{pmatrix}3\\\\-1\\\\2\\end{pmatrix}$ and $\\boldsymbol{n}_{2} = \\begin{pmatrix}1\\\\4\\\\-3\\end{pmatrix}$.",
+            "$\\boldsymbol{n}_{1}\\cdot\\boldsymbol{n}_{2} = 3 - 4 - 6 = -7$, $\\lvert\\boldsymbol{n}_{1}\\rvert = \\sqrt{14}$ and $\\lvert\\boldsymbol{n}_{2}\\rvert = \\sqrt{26}$.",
+            "Without the modulus, $\\arccos\\left(\\frac{-7}{\\sqrt{14}\\sqrt{26}}\\right) = 111.524\\ldots^{\\circ}$, obtuse because the scalar product is negative.",
+            "Write down what you enter, in degree mode: $\\theta = \\arccos\\left(\\frac{7}{\\sqrt{364}}\\right) = 68.4754\\ldots^{\\circ}$, which is $180^{\\circ} - 111.524\\ldots^{\\circ}$."
+          ],
+          "answer": "$\\theta \\approx 68.5^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at an obtuse angle. A negative scalar product gives an angle over $90^{\\circ}$: take the modulus, or subtract from $180^{\\circ}$."
+        },
+        {
+          "type": "check",
+          "id": "check-perpendicular-planes",
+          "prompt": "The planes $kx + 2y - z = 1$ and $3x - y + 4z = 6$ are perpendicular. Find $k$.",
+          "hint": "Perpendicular planes have perpendicular normals.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "$\\begin{pmatrix}k\\\\2\\\\-1\\end{pmatrix}\\cdot\\begin{pmatrix}3\\\\-1\\\\4\\end{pmatrix} = 3k - 2 - 4 = 0$, so $k = 2$."
+        },
+        {
+          "type": "check",
+          "id": "check-angle-planes-mc",
+          "prompt": "Find the acute angle between the planes $x + 2y + 2z = 1$ and $2x - y - 2z = 7$.",
+          "hint": "Both normals have magnitude $3$. Watch the sign of the scalar product.",
+          "options": [
+            {
+              "text": "$\\theta \\approx 63.6^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\theta \\approx 116^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 26.4^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\boldsymbol{n}_{1}\\cdot\\boldsymbol{n}_{2} = 2 - 2 - 4 = -4$, so $\\cos\\theta = \\frac{4}{9}$ and $\\theta \\approx 63.6^{\\circ}$. $116^{\\circ}$ is the obtuse angle; $26.4^{\\circ}$ uses sine."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Line meets plane: substitute the general point into the plane and solve for $\\lambda$. One value: one point. $0 = 0$: the line lies in the plane. $0 = q \\neq 0$: parallel, no meeting.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Two planes with non-parallel normals meet in a line with direction $\\boldsymbol{n}_{1} \\times \\boldsymbol{n}_{2}$. Find a point by setting to $0$ a coordinate whose component in the direction is non-zero (usually $z$).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Three planes: one solution is a single point; a one-parameter family is a common line (a sheaf); no solution means two parallel planes or a triangular prism.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin\\theta = \\dfrac{\\lvert\\boldsymbol{b}\\cdot\\boldsymbol{n}\\rvert}{\\lvert\\boldsymbol{b}\\rvert\\lvert\\boldsymbol{n}\\rvert}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos\\theta = \\dfrac{\\lvert\\boldsymbol{n}_{1}\\cdot\\boldsymbol{n}_{2}\\rvert}{\\lvert\\boldsymbol{n}_{1}\\rvert\\lvert\\boldsymbol{n}_{2}\\rvert}",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using arccos when a line meets a plane. That gives the angle with the normal: use arcsin, or subtract from $90^{\\circ}$.",
+    "Giving an obtuse angle between two planes. Take the modulus of the scalar product, or subtract from $180^{\\circ}$.",
+    "Concluding that a line lies in a plane from one point. Also show $\\boldsymbol{b}\\cdot\\boldsymbol{n} = 0$.",
+    "Setting only the last row's coefficient to zero. A common line also needs a zero right-hand side; otherwise the planes share no point.",
+    "Sign slips in a vector product's middle component. Check the result against both normals: each scalar product must be $0$.",
+    "Using the normal as the direction of a line parallel to a plane. A parallel line needs $\\boldsymbol{b}\\cdot\\boldsymbol{n} = 0$."
+  ],
+  "examTips": [
+    "“Interpret geometrically” wants the arrangement in words: a point, a common line, parallel planes or a prism. Justify it from the normals.",
+    "To “show that” a line is parallel to a plane, show $\\boldsymbol{b}\\cdot\\boldsymbol{n} = 0$. To show it is not in the plane, show one of its points is off it.",
+    "Paper 1 angles are exact, such as $\\sin\\theta = \\frac{1}{2}$, so $\\theta = 30^{\\circ}$. On Paper 2, give the acute angle in degrees to 3 s.f.",
+    "On Paper 2, write down the expression or augmented matrix you enter before the GDC's answer. That line earns the method mark."
+  ],
+  "readingMinutes": 28
+}

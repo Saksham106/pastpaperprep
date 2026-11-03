@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 270" role="img" aria-labelledby="t">
+  <title id="t">The line y equals x tan theta through the origin at angle theta, meeting the unit circle at P, with legs cos theta and sin theta</title>
+  <g stroke="currentColor" stroke-width="1.4">
+    <line x1="20" y1="140" x2="300" y2="140"/>
+    <line x1="160" y1="20" x2="160" y2="255"/>
+  </g>
+  <circle cx="160" cy="140" r="80" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+  <line x1="37.1" y1="226" x2="290" y2="49" stroke="var(--t2-ink)" stroke-width="2.4"/>
+  <line x1="160" y1="140" x2="225.5" y2="140" stroke="var(--t1-ink)" stroke-width="3"/>
+  <line x1="225.5" y1="140" x2="225.5" y2="94.1" stroke="var(--t5-ink)" stroke-width="3"/>
+  <path d="M215.5 140 L215.5 130 L225.5 130" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+  <path d="M188 140 A28 28 0 0 0 182.9 123.9" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <circle cx="225.5" cy="94.1" r="4.5" fill="currentColor"/>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="294" y="132" text-anchor="end">x</text>
+    <text x="168" y="30">y</text>
+    <text x="146" y="156">O</text>
+    <text x="192" y="134">θ</text>
+    <text x="206" y="84">P</text>
+  </g>
+  <g font-size="13" font-family="inherit">
+    <text x="192" y="158" text-anchor="middle" fill="var(--t1-ink)">cos θ</text>
+    <text x="232" y="122" fill="var(--t5-ink)">sin θ</text>
+    <text x="300" y="36" text-anchor="end" fill="var(--t2-ink)">y = x tan θ</text>
+  </g>
+</svg>

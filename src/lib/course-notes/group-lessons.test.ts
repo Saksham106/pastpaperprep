@@ -33,8 +33,8 @@ describe("lessonForGroup", () => {
     expect(lessonForGroup(both, shared.id, "HL")?.href).toBe(lessonPath(both, both.lessons[0]));
   });
   it("is null for a group with no written lesson, or an unknown group", () => {
-    const empty = groups.find((g) => !g.memberOfficialItems.some((item) => course.lessons.some((l) => l.item === item)))!;
-    expect(lessonForGroup(visible, empty.id, "HL")).toBeNull();
+    // Every group has a lesson once the course is complete, so drop the lessons to test the empty case.
+    expect(lessonForGroup({ ...visible, lessons: [] }, group.id, "HL")).toBeNull();
     expect(lessonForGroup(visible, "nope", "HL")).toBeNull();
   });
   it("is null while the course is hidden, and returns with NOTES_PREVIEW=1", () => {

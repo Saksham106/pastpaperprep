@@ -1,0 +1,643 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.13",
+  "slug": "scalar-product-and-angles",
+  "title": "Scalar product and angles",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "The [[scalar-product|scalar product]] $\\boldsymbol{v} \\cdot \\boldsymbol{w}$ turns two vectors into one number: multiply matching components and add. That number also equals $\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\cos\\theta$, so it gives you the angle between the vectors. A scalar product of $0$ tells you they are perpendicular.",
+  "goals": [
+    {
+      "text": "Calculate a [[scalar-product|scalar product]] from column vectors or from $\\boldsymbol{i}$, $\\boldsymbol{j}$, $\\boldsymbol{k}$ form.",
+      "bullets": [
+        "3.13-b1"
+      ]
+    },
+    {
+      "text": "Expand and simplify [[scalar-product|scalar products]] using their rules, including $\\boldsymbol{v} \\cdot \\boldsymbol{v} = \\lvert\\boldsymbol{v}\\rvert^{2}$.",
+      "bullets": [
+        "3.13-b1"
+      ]
+    },
+    {
+      "text": "Find the angle between two vectors, exactly or to 3 s.f., including an angle in a triangle.",
+      "bullets": [
+        "3.13-b2"
+      ]
+    },
+    {
+      "text": "Use a zero scalar product to show two vectors are perpendicular or to find an unknown.",
+      "bullets": [
+        "3.13-b3"
+      ]
+    },
+    {
+      "text": "Recognise parallel vectors from $\\lvert \\boldsymbol{v} \\cdot \\boldsymbol{w} \\rvert = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert$.",
+      "bullets": [
+        "3.13-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.12"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "dot product",
+    "angle between two vectors",
+    "perpendicular vectors",
+    "a dot b",
+    "scalar product rules"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-magnitude",
+      "prompt": "Find $\\lvert\\boldsymbol{u}\\rvert$ for $\\boldsymbol{u} = \\begin{pmatrix}2\\\\-6\\\\3\\end{pmatrix}$.",
+      "hint": "Square each component, add, then take the square root.",
+      "answer": {
+        "value": 7,
+        "tolerance": 0
+      },
+      "explain": "$\\lvert\\boldsymbol{u}\\rvert = \\sqrt{2^{2} + (-6)^{2} + 3^{2}} = \\sqrt{49} = 7$. Revise it in {{lesson:3.12}}."
+    },
+    {
+      "type": "check",
+      "id": "before-displacement",
+      "prompt": "A is $(1, 4, -2)$ and B is $(3, -1, 5)$. Find $\\overrightarrow{AB}$.",
+      "hint": "Start at A and end at B, so subtract the coordinates of A from those of B.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}2\\\\-5\\\\7\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}-2\\\\5\\\\-7\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}4\\\\3\\\\3\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\overrightarrow{AB} = \\boldsymbol{b} - \\boldsymbol{a} = \\begin{pmatrix}2\\\\-5\\\\7\\end{pmatrix}$. Revise it in {{lesson:3.12}}."
+    },
+    {
+      "type": "check",
+      "id": "before-parallel",
+      "prompt": "Which vector is parallel to $\\begin{pmatrix}2\\\\-1\\\\3\\end{pmatrix}$?",
+      "hint": "Parallel vectors are scalar multiples of each other.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}-4\\\\2\\\\-6\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}4\\\\-1\\\\6\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}3\\\\-1\\\\2\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\begin{pmatrix}-4\\\\2\\\\-6\\end{pmatrix} = -2\\begin{pmatrix}2\\\\-1\\\\3\\end{pmatrix}$. A negative multiple is still parallel. It just points the opposite way. Revise it in {{lesson:3.12}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "definition",
+      "heading": "The scalar product",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.12}} you added vectors and multiplied them by numbers. Now you multiply two vectors together. The [[scalar-product|scalar product]] does this in the simplest way: multiply matching components, then add."
+        },
+        {
+          "type": "text",
+          "text": "For example, $\\begin{pmatrix}2\\\\5\\end{pmatrix} \\cdot \\begin{pmatrix}3\\\\-1\\end{pmatrix} = 2 \\times 3 + 5 \\times (-1) = 1$. The answer is a single number, a scalar, not a vector. That is where the name comes from."
+        },
+        {
+          "type": "definition",
+          "term": "Scalar product",
+          "statement": "The scalar product of vectors $\\boldsymbol{v}$ and $\\boldsymbol{w}$ is the number $\\boldsymbol{v} \\cdot \\boldsymbol{w}$ found by multiplying their matching components and adding the results.",
+          "plain": "It is read as v dot w, and some books call it the dot product."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v} \\cdot \\boldsymbol{w} = v_{1}w_{1} + v_{2}w_{2} + v_{3}w_{3}, \\text{ where } \\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix}, \\; \\boldsymbol{w} = \\begin{pmatrix}w_{1}\\\\w_{2}\\\\w_{3}\\end{pmatrix}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-scalar-components",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet, so you don't need to memorise it. In 2D there is no third component, so $\\boldsymbol{v} \\cdot \\boldsymbol{w} = v_{1}w_{1} + v_{2}w_{2}$."
+        },
+        {
+          "type": "text",
+          "text": "Vectors in $\\boldsymbol{i}$, $\\boldsymbol{j}$, $\\boldsymbol{k}$ form work the same way, because the coefficients are the components. So $(2\\boldsymbol{i} + \\boldsymbol{k}) \\cdot (3\\boldsymbol{i} - \\boldsymbol{j})$ uses $\\begin{pmatrix}2\\\\0\\\\1\\end{pmatrix}$ and $\\begin{pmatrix}3\\\\-1\\\\0\\end{pmatrix}$, and equals $6 + 0 + 0 = 6$."
+        },
+        {
+          "type": "example",
+          "id": "ex-dot-3d",
+          "question": "Find $\\boldsymbol{v} \\cdot \\boldsymbol{w}$ for $\\boldsymbol{v} = \\begin{pmatrix}3\\\\-2\\\\5\\end{pmatrix}$ and $\\boldsymbol{w} = \\begin{pmatrix}4\\\\6\\\\-1\\end{pmatrix}$.",
+          "steps": [
+            "Pair up the components: first with first, second with second, third with third.",
+            "Multiply each pair, keeping the signs: $3 \\times 4 = 12$, $(-2) \\times 6 = -12$ and $5 \\times (-1) = -5$.",
+            "Add the three products: $12 - 12 - 5 = -5$.",
+            "A scalar product can be positive, zero or negative. It is one number, so the answer has no components."
+          ],
+          "answer": "$\\boldsymbol{v} \\cdot \\boldsymbol{w} = -5$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-dot-ijk",
+          "prompt": "Find $(2\\boldsymbol{i} - 3\\boldsymbol{j} + \\boldsymbol{k}) \\cdot (-4\\boldsymbol{i} - 2\\boldsymbol{j} + 6\\boldsymbol{k})$.",
+          "hint": "Write each vector as a column of its coefficients. Take care with $(-3) \\times (-2)$.",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "$2 \\times (-4) + (-3) \\times (-2) + 1 \\times 6 = -8 + 6 + 6 = 4$."
+        },
+        {
+          "type": "example",
+          "id": "ex-dot-unknown",
+          "question": "The vectors $\\boldsymbol{a} = \\begin{pmatrix}p\\\\3\\\\-2\\end{pmatrix}$ and $\\boldsymbol{b} = \\begin{pmatrix}4\\\\-1\\\\p\\end{pmatrix}$ satisfy $\\boldsymbol{a} \\cdot \\boldsymbol{b} = 7$. Find $p$.",
+          "steps": [
+            "Write the scalar product in terms of $p$: $\\boldsymbol{a} \\cdot \\boldsymbol{b} = 4p + 3 \\times (-1) + (-2) \\times p$.",
+            "Simplify: $4p - 3 - 2p = 2p - 3$.",
+            "Set it equal to the given value: $2p - 3 = 7$, so $2p = 10$.",
+            "Check with $p = 5$: $\\boldsymbol{a} \\cdot \\boldsymbol{b} = 20 - 3 - 10 = 7$."
+          ],
+          "answer": "$p = 5$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-dot-2d",
+          "prompt": "Find $\\boldsymbol{u} \\cdot \\boldsymbol{w}$ for $\\boldsymbol{u} = \\begin{pmatrix}1\\\\-4\\end{pmatrix}$ and $\\boldsymbol{w} = \\begin{pmatrix}-3\\\\2\\end{pmatrix}$.",
+          "hint": "Multiply matching components, then add the two products.",
+          "options": [
+            {
+              "text": "$-11$",
+              "correct": true
+            },
+            {
+              "text": "$5$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-3\\\\-8\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$1 \\times (-3) + (-4) \\times 2 = -3 - 8 = -11$. The products must be added: a scalar product is a number, not a vector."
+        }
+      ]
+    },
+    {
+      "id": "properties",
+      "heading": "Rules for scalar products",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[scalar-product|Scalar products]] follow rules that look like ordinary multiplication. They let you expand brackets of vectors without knowing any components."
+        },
+        {
+          "type": "text",
+          "text": "1. Order doesn't matter: $\\boldsymbol{v} \\cdot \\boldsymbol{w} = \\boldsymbol{w} \\cdot \\boldsymbol{v}$. This is called being commutative."
+        },
+        {
+          "type": "text",
+          "text": "2. You can expand brackets: $\\boldsymbol{u} \\cdot (\\boldsymbol{v} + \\boldsymbol{w}) = \\boldsymbol{u} \\cdot \\boldsymbol{v} + \\boldsymbol{u} \\cdot \\boldsymbol{w}$."
+        },
+        {
+          "type": "text",
+          "text": "3. A scalar moves to the front: $(k\\boldsymbol{v}) \\cdot \\boldsymbol{w} = k(\\boldsymbol{v} \\cdot \\boldsymbol{w})$."
+        },
+        {
+          "type": "text",
+          "text": "4. A vector dotted with itself gives its length squared: $\\boldsymbol{v} \\cdot \\boldsymbol{v} = \\lvert\\boldsymbol{v}\\rvert^{2}$."
+        },
+        {
+          "type": "result",
+          "statement": "$\\boldsymbol{v} \\cdot \\boldsymbol{v} = \\lvert\\boldsymbol{v}\\rvert^{2}$",
+          "why": "$\\boldsymbol{v} \\cdot \\boldsymbol{v} = v_{1}^{2} + v_{2}^{2} + v_{3}^{2}$, and the magnitude from {{lesson:3.12}} is $\\lvert\\boldsymbol{v}\\rvert = \\sqrt{v_{1}^{2} + v_{2}^{2} + v_{3}^{2}}$."
+        },
+        {
+          "type": "text",
+          "text": "Rules 1 to 3 hold because each component works like ordinary multiplication of numbers. For example, $v_{1}w_{1} = w_{1}v_{1}$ for every pair, so the two sums are equal."
+        },
+        {
+          "type": "mistake",
+          "text": "Rule 4 gives the length squared. If $\\lvert\\boldsymbol{b}\\rvert = 3$, then $\\boldsymbol{b} \\cdot \\boldsymbol{b} = 9$, not $3$."
+        },
+        {
+          "type": "example",
+          "id": "ex-expand-brackets",
+          "question": "Given $\\lvert\\boldsymbol{a}\\rvert = 3$, $\\lvert\\boldsymbol{b}\\rvert = 5$ and $\\boldsymbol{a} \\cdot \\boldsymbol{b} = -4$, find $(2\\boldsymbol{a} + \\boldsymbol{b}) \\cdot (\\boldsymbol{a} - 3\\boldsymbol{b})$.",
+          "steps": [
+            "Expand like two brackets, using rules 2 and 3: $2\\boldsymbol{a} \\cdot \\boldsymbol{a} - 6\\boldsymbol{a} \\cdot \\boldsymbol{b} + \\boldsymbol{b} \\cdot \\boldsymbol{a} - 3\\boldsymbol{b} \\cdot \\boldsymbol{b}$.",
+            "Rule 1 says $\\boldsymbol{b} \\cdot \\boldsymbol{a} = \\boldsymbol{a} \\cdot \\boldsymbol{b}$, so collect the middle terms: $2\\boldsymbol{a} \\cdot \\boldsymbol{a} - 5\\boldsymbol{a} \\cdot \\boldsymbol{b} - 3\\boldsymbol{b} \\cdot \\boldsymbol{b}$.",
+            "Rule 4 gives $\\boldsymbol{a} \\cdot \\boldsymbol{a} = 3^{2} = 9$ and $\\boldsymbol{b} \\cdot \\boldsymbol{b} = 5^{2} = 25$.",
+            "Substitute: $2(9) - 5(-4) - 3(25) = 18 + 20 - 75 = -37$."
+          ],
+          "answer": "$(2\\boldsymbol{a} + \\boldsymbol{b}) \\cdot (\\boldsymbol{a} - 3\\boldsymbol{b}) = -37$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-dot-self-expand",
+          "prompt": "Given $\\lvert\\boldsymbol{u}\\rvert = 2$ and $\\boldsymbol{u} \\cdot \\boldsymbol{v} = 3$, find $\\boldsymbol{u} \\cdot (4\\boldsymbol{u} - \\boldsymbol{v})$.",
+          "hint": "Expand the bracket, then replace $\\boldsymbol{u} \\cdot \\boldsymbol{u}$ using rule 4.",
+          "answer": {
+            "value": 13,
+            "tolerance": 0
+          },
+          "explain": "$4\\boldsymbol{u} \\cdot \\boldsymbol{u} - \\boldsymbol{u} \\cdot \\boldsymbol{v} = 4(2^{2}) - 3 = 13$."
+        },
+        {
+          "type": "text",
+          "text": "Rule 4 also turns a length into a scalar product. To work with $\\lvert \\boldsymbol{a} - \\boldsymbol{b} \\rvert$, square it and expand."
+        },
+        {
+          "type": "example",
+          "id": "ex-length-reverse",
+          "question": "Given $\\lvert\\boldsymbol{a}\\rvert = 4$, $\\lvert\\boldsymbol{b}\\rvert = 7$ and $\\lvert \\boldsymbol{a} - \\boldsymbol{b} \\rvert = 9$, find $\\boldsymbol{a} \\cdot \\boldsymbol{b}$.",
+          "steps": [
+            "Square the length you know and use rule 4: $\\lvert \\boldsymbol{a} - \\boldsymbol{b} \\rvert^{2} = (\\boldsymbol{a} - \\boldsymbol{b}) \\cdot (\\boldsymbol{a} - \\boldsymbol{b})$.",
+            "Expand: $\\boldsymbol{a} \\cdot \\boldsymbol{a} - 2\\boldsymbol{a} \\cdot \\boldsymbol{b} + \\boldsymbol{b} \\cdot \\boldsymbol{b} = \\lvert\\boldsymbol{a}\\rvert^{2} - 2\\boldsymbol{a} \\cdot \\boldsymbol{b} + \\lvert\\boldsymbol{b}\\rvert^{2}$. The two cross terms are equal by rule 1, so they combine.",
+            "Substitute the lengths: $81 = 16 - 2\\boldsymbol{a} \\cdot \\boldsymbol{b} + 49$.",
+            "Rearrange: $2\\boldsymbol{a} \\cdot \\boldsymbol{b} = 65 - 81 = -16$."
+          ],
+          "answer": "$\\boldsymbol{a} \\cdot \\boldsymbol{b} = -8$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-length-difference",
+          "prompt": "Given $\\lvert\\boldsymbol{p}\\rvert = 6$, $\\lvert\\boldsymbol{q}\\rvert = 2$ and $\\boldsymbol{p} \\cdot \\boldsymbol{q} = 5$, find $\\lvert \\boldsymbol{p} - \\boldsymbol{q} \\rvert$.",
+          "hint": "Start from $\\lvert \\boldsymbol{p} - \\boldsymbol{q} \\rvert^{2} = (\\boldsymbol{p} - \\boldsymbol{q}) \\cdot (\\boldsymbol{p} - \\boldsymbol{q})$.",
+          "options": [
+            {
+              "text": "$\\sqrt{30}$",
+              "correct": true
+            },
+            {
+              "text": "$\\sqrt{50}$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{35}$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{40}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\lvert \\boldsymbol{p} - \\boldsymbol{q} \\rvert^{2} = 36 - 2(5) + 4 = 30$, so $\\lvert \\boldsymbol{p} - \\boldsymbol{q} \\rvert = \\sqrt{30}$. Both cross terms count, and the minus sign stays."
+        }
+      ]
+    },
+    {
+      "id": "angle",
+      "heading": "The angle between two vectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[scalar-product|scalar product]] also measures how much two vectors point the same way. It is large and positive when they point roughly together. It is negative when they point roughly apart."
+        },
+        {
+          "type": "text",
+          "text": "The angle $\\theta$ between $\\boldsymbol{v}$ and $\\boldsymbol{w}$ is measured with both vectors drawn from the same point, tail to tail. It is always from $0^{\\circ}$ to $180^{\\circ}$, or $0$ to $\\pi$ in radians."
+        },
+        {
+          "type": "figure",
+          "id": "3-13-cosine-rule-triangle",
+          "alt": "Two arrows, v and w, start from the same point O with the angle theta between them. A third side, labelled v minus w, joins the tip of w to the tip of v, making a triangle.",
+          "caption": "The sides of the triangle are $\\lvert\\boldsymbol{v}\\rvert$, $\\lvert\\boldsymbol{w}\\rvert$ and $\\lvert \\boldsymbol{v} - \\boldsymbol{w} \\rvert$, with $\\theta$ between the first two."
+        },
+        {
+          "type": "text",
+          "text": "Apply the [[cosine-rule|cosine rule]] from {{lesson:3.2}} to this triangle: $\\lvert \\boldsymbol{v} - \\boldsymbol{w} \\rvert^{2} = \\lvert\\boldsymbol{v}\\rvert^{2} + \\lvert\\boldsymbol{w}\\rvert^{2} - 2\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\cos\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "Expanding with the rules instead gives $\\lvert \\boldsymbol{v} - \\boldsymbol{w} \\rvert^{2} = \\lvert\\boldsymbol{v}\\rvert^{2} + \\lvert\\boldsymbol{w}\\rvert^{2} - 2\\boldsymbol{v} \\cdot \\boldsymbol{w}$. Compare the two lines: the last terms must be equal."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v} \\cdot \\boldsymbol{w} = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\cos\\theta, \\text{ where } \\theta \\text{ is the angle between } \\boldsymbol{v} \\text{ and } \\boldsymbol{w}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-scalar-angle",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Rearrange for $\\cos\\theta$ and write the scalar product in components. That gives the second booklet formula:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos\\theta = \\frac{v_{1}w_{1} + v_{2}w_{2} + v_{3}w_{3}}{\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-angle-between",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Both formulas are in the booklet. The magnitudes are positive, so the sign of $\\boldsymbol{v} \\cdot \\boldsymbol{w}$ tells you the type of angle at once. Positive means acute, zero means a right angle, and negative means obtuse."
+        },
+        {
+          "type": "text",
+          "text": "Drag the tips of $\\boldsymbol{a}$ and $\\boldsymbol{b}$. Watch $\\boldsymbol{a} \\cdot \\boldsymbol{b}$ and $\\cos\\theta$ change sign as $\\theta$ passes $90^{\\circ}$. Try $\\boldsymbol{b} = \\begin{pmatrix}4\\\\-3\\end{pmatrix}$ with $\\boldsymbol{a} = \\begin{pmatrix}3\\\\4\\end{pmatrix}$."
+        },
+        {
+          "type": "interactive",
+          "widget": "vector-angle",
+          "props": {},
+          "alt": "Two vectors a and b drawn from the origin on a grid, with an arc marking the angle between them. Dragging either tip updates the scalar product, both magnitudes, cos theta and the angle in degrees. When the scalar product is zero, a right-angle mark appears and the vectors are reported as perpendicular."
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-exact",
+          "question": "Find the exact angle, in degrees, between $\\boldsymbol{v} = \\begin{pmatrix}2\\\\-1\\\\2\\end{pmatrix}$ and $\\boldsymbol{w} = \\begin{pmatrix}1\\\\1\\\\4\\end{pmatrix}$.",
+          "steps": [
+            "Scalar product: $\\boldsymbol{v} \\cdot \\boldsymbol{w} = 2 - 1 + 8 = 9$.",
+            "Magnitudes: $\\lvert\\boldsymbol{v}\\rvert = \\sqrt{4 + 1 + 4} = 3$ and $\\lvert\\boldsymbol{w}\\rvert = \\sqrt{1 + 1 + 16} = \\sqrt{18} = 3\\sqrt{2}$.",
+            "Substitute into the formula: $\\cos\\theta = \\frac{9}{3 \\times 3\\sqrt{2}} = \\frac{1}{\\sqrt{2}}$.",
+            "This is an exact value from {{lesson:3.5}}: $\\cos 45^{\\circ} = \\frac{1}{\\sqrt{2}}$. The scalar product is positive, so an acute angle fits."
+          ],
+          "answer": "$\\theta = 45^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cos-2d",
+          "prompt": "Find $\\cos\\theta$, where $\\theta$ is the angle between $\\begin{pmatrix}3\\\\-1\\end{pmatrix}$ and $\\begin{pmatrix}2\\\\4\\end{pmatrix}$.",
+          "hint": "Find the scalar product and both magnitudes. Then divide.",
+          "options": [
+            {
+              "text": "$\\frac{\\sqrt{2}}{10}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{\\sqrt{2}}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2}{\\sqrt{10} + \\sqrt{20}}$",
+              "correct": false
+            }
+          ],
+          "explain": "The scalar product is $6 - 4 = 2$, and the magnitudes are $\\sqrt{10}$ and $\\sqrt{20}$. So $\\cos\\theta = \\frac{2}{\\sqrt{200}} = \\frac{2}{10\\sqrt{2}} = \\frac{\\sqrt{2}}{10}$."
+        },
+        {
+          "type": "text",
+          "text": "For an angle inside a triangle, use the two vectors that start at that corner. For the angle at B, use $\\overrightarrow{BA}$ and $\\overrightarrow{BC}$, both leaving B."
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-triangle",
+          "question": "The points $\\mathrm{A}(2, -1, 3)$, $\\mathrm{B}(5, 1, -2)$ and $\\mathrm{C}(-1, 4, 0)$ form a triangle. Use your calculator to find the size of angle ABC in degrees. Give your answer to 3 s.f.",
+          "steps": [
+            "Let $\\boldsymbol{a}$, $\\boldsymbol{b}$ and $\\boldsymbol{c}$ be the position vectors of A, B and C. Both vectors must leave B: $\\overrightarrow{BA} = \\boldsymbol{a} - \\boldsymbol{b} = \\begin{pmatrix}-3\\\\-2\\\\5\\end{pmatrix}$ and $\\overrightarrow{BC} = \\boldsymbol{c} - \\boldsymbol{b} = \\begin{pmatrix}-6\\\\3\\\\2\\end{pmatrix}$.",
+            "Scalar product: $\\overrightarrow{BA} \\cdot \\overrightarrow{BC} = 18 - 6 + 10 = 22$.",
+            "Magnitudes: $\\lvert \\overrightarrow{BA} \\rvert = \\sqrt{9 + 4 + 25} = \\sqrt{38}$ and $\\lvert \\overrightarrow{BC} \\rvert = \\sqrt{36 + 9 + 4} = 7$.",
+            "Write the expression down before you use your calculator: $\\cos\\theta = \\frac{22}{7\\sqrt{38}}$. This line earns the method mark.",
+            "In degree mode, $\\theta = \\cos^{-1}\\left(\\frac{22}{7\\sqrt{38}}\\right) = 59.3469\\ldots^{\\circ}$. Round only now."
+          ],
+          "answer": "$\\theta \\approx 59.3^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, DEGREE",
+              "Home screen: 2nd, COS (cos⁻¹), type 22/(7*sqrt(38)), close the bracket, ENTER (check on your model)",
+              "Read 59.3469..., so angle ABC = 59.3° to 3 s.f."
+            ],
+            "nspire": [
+              "Settings (on, Settings), Angle: Degree",
+              "Calculator page: type cos⁻¹(22/(7*sqrt(38))) using the trig key, then enter (check on your model)",
+              "Read 59.3469..., so angle ABC = 59.3° to 3 s.f."
+            ],
+            "casio": [
+              "SHIFT MENU (SET UP), Angle: Deg",
+              "RUN-MAT: SHIFT, cos (cos⁻¹), type 22/(7*sqrt(38)), close the bracket, EXE (check on your model)",
+              "Read 59.3469..., so angle ABC = 59.3° to 3 s.f."
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Pairing $\\overrightarrow{AB}$ with $\\overrightarrow{BC}$ gives about $121^{\\circ}$, which is $180^{\\circ}$ minus the angle you want. One of those vectors points into B. Make both vectors leave the corner."
+        },
+        {
+          "type": "check",
+          "id": "check-angle-obtuse",
+          "prompt": "Find the angle between $\\boldsymbol{p} = 4\\boldsymbol{i} - 3\\boldsymbol{k}$ and $\\boldsymbol{q} = \\boldsymbol{i} + 2\\boldsymbol{j} + 2\\boldsymbol{k}$, in degrees. Give your answer to 3 s.f.",
+          "hint": "$\\boldsymbol{p}$ has no $\\boldsymbol{j}$ term, so its second component is $0$.",
+          "answer": {
+            "value": 97.7,
+            "tolerance": 0.05
+          },
+          "explain": "$\\boldsymbol{p} \\cdot \\boldsymbol{q} = 4 + 0 - 6 = -2$, $\\lvert\\boldsymbol{p}\\rvert = 5$ and $\\lvert\\boldsymbol{q}\\rvert = 3$. So $\\cos\\theta = -\\frac{2}{15}$ and $\\theta = 97.66\\ldots^{\\circ}$. The negative scalar product gives an obtuse angle."
+        }
+      ]
+    },
+    {
+      "id": "perpendicular-parallel",
+      "heading": "Perpendicular and parallel vectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When $\\theta = 90^{\\circ}$, $\\cos\\theta = 0$, so $\\boldsymbol{v} \\cdot \\boldsymbol{w} = 0$. The reverse is true as well, as long as neither vector is the zero vector."
+        },
+        {
+          "type": "result",
+          "statement": "For non-zero vectors, $\\boldsymbol{v} \\cdot \\boldsymbol{w} = 0$ exactly when $\\boldsymbol{v}$ and $\\boldsymbol{w}$ are perpendicular.",
+          "why": "$\\lvert\\boldsymbol{v}\\rvert$ and $\\lvert\\boldsymbol{w}\\rvert$ are not zero, so $\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\cos\\theta = 0$ only when $\\cos\\theta = 0$, which means $\\theta = 90^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "The zero vector is why non-zero matters. $\\boldsymbol{0} \\cdot \\boldsymbol{w} = 0$ for every $\\boldsymbol{w}$, but the zero vector has no direction, so it can't be perpendicular to anything."
+        },
+        {
+          "type": "example",
+          "id": "ex-perp-quadratic",
+          "question": "Find the values of $k$ for which $\\begin{pmatrix}k\\\\2\\\\1\\end{pmatrix}$ and $\\begin{pmatrix}k\\\\k\\\\-8\\end{pmatrix}$ are perpendicular.",
+          "steps": [
+            "Perpendicular means the [[scalar-product|scalar product]] is $0$: $k \\times k + 2 \\times k + 1 \\times (-8) = 0$.",
+            "Simplify: $k^{2} + 2k - 8 = 0$.",
+            "Factorise: $(k + 4)(k - 2) = 0$, so $k = -4$ or $k = 2$.",
+            "Both vectors are non-zero for these values. Check $k = 2$: $4 + 4 - 8 = 0$. Check $k = -4$: $16 - 8 - 8 = 0$."
+          ],
+          "answer": "$k = -4 \\text{ or } k = 2$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-perp-m",
+          "prompt": "The vectors $\\begin{pmatrix}2\\\\m\\\\-3\\end{pmatrix}$ and $\\begin{pmatrix}m\\\\5\\\\4\\end{pmatrix}$ are perpendicular. Find $m$.",
+          "hint": "Set the scalar product equal to $0$. The unknown appears in two components.",
+          "options": [
+            {
+              "text": "$m = \\frac{12}{7}$",
+              "correct": true
+            },
+            {
+              "text": "$m = -\\frac{12}{7}$",
+              "correct": false
+            },
+            {
+              "text": "$m = \\frac{12}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$m = 6$",
+              "correct": false
+            }
+          ],
+          "explain": "$2m + 5m - 12 = 0$, so $7m = 12$ and $m = \\frac{12}{7}$."
+        },
+        {
+          "type": "text",
+          "text": "Parallel vectors point the same way, with $\\theta = 0^{\\circ}$, or opposite ways, with $\\theta = 180^{\\circ}$. So $\\cos\\theta$ is $1$ or $-1$."
+        },
+        {
+          "type": "result",
+          "statement": "For parallel vectors, $\\lvert \\boldsymbol{v} \\cdot \\boldsymbol{w} \\rvert = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert$.",
+          "why": "$\\lvert \\boldsymbol{v} \\cdot \\boldsymbol{w} \\rvert = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\lvert\\cos\\theta\\rvert$, and $\\lvert\\cos\\theta\\rvert = 1$ when $\\theta = 0^{\\circ}$ or $180^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "For any other angle, $\\lvert\\cos\\theta\\rvert < 1$, so $\\lvert \\boldsymbol{v} \\cdot \\boldsymbol{w} \\rvert$ is less than $\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert$. When the two are equal, the sign of $\\boldsymbol{v} \\cdot \\boldsymbol{w}$ tells you the direction: positive for the same way, negative for opposite ways."
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-angle",
+          "prompt": "Find the angle between $\\boldsymbol{v} = \\begin{pmatrix}2\\\\-4\\\\6\\end{pmatrix}$ and $\\boldsymbol{w} = \\begin{pmatrix}-3\\\\6\\\\-9\\end{pmatrix}$.",
+          "hint": "Compare $\\boldsymbol{v} \\cdot \\boldsymbol{w}$ with $\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert$, and look at the sign.",
+          "options": [
+            {
+              "text": "$\\theta = 0^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta = 90^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta = 180^{\\circ}$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\boldsymbol{v} \\cdot \\boldsymbol{w} = -6 - 24 - 54 = -84$ and $\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert = \\sqrt{56}\\sqrt{126} = 84$. So $\\cos\\theta = -1$: the vectors are parallel but point opposite ways, since $\\boldsymbol{w} = -\\frac{3}{2}\\boldsymbol{v}$."
+        },
+        {
+          "type": "text",
+          "text": "The rules and the zero test combine in proofs. You work with letters, not components."
+        },
+        {
+          "type": "figure",
+          "id": "3-13-rhombus",
+          "alt": "A rhombus OABC. Side OA is the vector a and side OC is the vector b, and the two sides have equal length. The diagonal from O to B is a plus b. The diagonal from C to A is a minus b. The diagonals cross at a right angle.",
+          "caption": "In a rhombus $\\lvert\\boldsymbol{a}\\rvert = \\lvert\\boldsymbol{b}\\rvert$. The diagonals are $\\boldsymbol{a} + \\boldsymbol{b}$ and $\\boldsymbol{a} - \\boldsymbol{b}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rhombus-proof",
+          "question": "OABC is a rhombus with $\\overrightarrow{OA} = \\boldsymbol{a}$ and $\\overrightarrow{OC} = \\boldsymbol{b}$, so $\\lvert\\boldsymbol{a}\\rvert = \\lvert\\boldsymbol{b}\\rvert$. Use the scalar product to show that the diagonals $\\overrightarrow{OB}$ and $\\overrightarrow{CA}$ are perpendicular.",
+          "steps": [
+            "Write the diagonals in terms of $\\boldsymbol{a}$ and $\\boldsymbol{b}$. Since $\\overrightarrow{AB} = \\overrightarrow{OC}$, $\\overrightarrow{OB} = \\boldsymbol{a} + \\boldsymbol{b}$. Also $\\overrightarrow{CA} = \\boldsymbol{a} - \\boldsymbol{b}$.",
+            "Expand their scalar product: $(\\boldsymbol{a} + \\boldsymbol{b}) \\cdot (\\boldsymbol{a} - \\boldsymbol{b}) = \\boldsymbol{a} \\cdot \\boldsymbol{a} - \\boldsymbol{a} \\cdot \\boldsymbol{b} + \\boldsymbol{b} \\cdot \\boldsymbol{a} - \\boldsymbol{b} \\cdot \\boldsymbol{b}$.",
+            "The scalar product is commutative, so $\\boldsymbol{b} \\cdot \\boldsymbol{a} = \\boldsymbol{a} \\cdot \\boldsymbol{b}$ and the middle terms cancel. State this reason in an exam answer.",
+            "Use rule 4: what is left is $\\lvert\\boldsymbol{a}\\rvert^{2} - \\lvert\\boldsymbol{b}\\rvert^{2}$, which is $0$ because $\\lvert\\boldsymbol{a}\\rvert = \\lvert\\boldsymbol{b}\\rvert$.",
+            "The diagonals are non-zero vectors with a scalar product of $0$, so they are perpendicular."
+          ],
+          "answer": "$(\\boldsymbol{a} + \\boldsymbol{b}) \\cdot (\\boldsymbol{a} - \\boldsymbol{b}) = 0$",
+          "video": null
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v} \\cdot \\boldsymbol{w} = v_{1}w_{1} + v_{2}w_{2} + v_{3}w_{3}, \\text{ where } \\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix}, \\; \\boldsymbol{w} = \\begin{pmatrix}w_{1}\\\\w_{2}\\\\w_{3}\\end{pmatrix}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-scalar-components",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Expand scalar products like brackets: $\\boldsymbol{v} \\cdot \\boldsymbol{w} = \\boldsymbol{w} \\cdot \\boldsymbol{v}$, and scalars move to the front. Also $\\boldsymbol{v} \\cdot \\boldsymbol{v} = \\lvert\\boldsymbol{v}\\rvert^{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v} \\cdot \\boldsymbol{w} = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\cos\\theta, \\text{ where } \\theta \\text{ is the angle between } \\boldsymbol{v} \\text{ and } \\boldsymbol{w}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-scalar-angle",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos\\theta = \\frac{v_{1}w_{1} + v_{2}w_{2} + v_{3}w_{3}}{\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-angle-between",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A positive scalar product means an acute angle, zero means a right angle, and negative means an obtuse angle.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Non-zero vectors are perpendicular exactly when $\\boldsymbol{v} \\cdot \\boldsymbol{w} = 0$. Parallel vectors have $\\lvert \\boldsymbol{v} \\cdot \\boldsymbol{w} \\rvert = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For the angle at a corner of a triangle, use two vectors that both leave that corner.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing $\\boldsymbol{a} \\cdot \\boldsymbol{b} = \\cos\\theta$ and leaving out the magnitudes. The rule is $\\boldsymbol{a} \\cdot \\boldsymbol{b} = \\lvert\\boldsymbol{a}\\rvert\\lvert\\boldsymbol{b}\\rvert\\cos\\theta$, so put both lengths in before you solve.",
+    "Replacing $\\boldsymbol{b} \\cdot \\boldsymbol{b}$ with $\\lvert\\boldsymbol{b}\\rvert$. It is $\\lvert\\boldsymbol{b}\\rvert^{2}$, so square the length.",
+    "Losing a minus sign when multiplying components, such as $(-3) \\times (-2)$ or $4 \\times (-5)$. Write each product with its sign before you add.",
+    "Setting two scalar products equal because two angles are equal. The vectors usually have different lengths, so set the two values of $\\cos\\theta$ equal instead, magnitudes included.",
+    "Finding an angle in radian mode when the question wants degrees. Set the mode before you use $\\cos^{-1}$.",
+    "Finding the angle at B from $\\overrightarrow{AB}$ and $\\overrightarrow{BC}$. That gives $180^{\\circ}$ minus the angle, so use two vectors that leave B."
+  ],
+  "examTips": [
+    "“Find” the angle: write $\\cos\\theta$ with your numbers substituted before you give the angle. That line earns the method mark, even if a later step slips.",
+    "“Show that” two vectors are perpendicular: work out the scalar product, show it equals $0$, and finish with a sentence such as “so the vectors are perpendicular”.",
+    "In a proof with letters, name each rule you use, such as “the scalar product is commutative”. A cancellation with no reason can lose the reasoning mark.",
+    "On Paper 1, “exact” means leaving $\\cos\\theta$ as a surd or fraction and recognising a standard angle such as $45^{\\circ}$. On Paper 2, keep the full value of $\\cos\\theta$ and round only the angle, to 3 s.f."
+  ],
+  "readingMinutes": 21
+}

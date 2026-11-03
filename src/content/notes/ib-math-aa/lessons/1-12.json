@@ -1,0 +1,700 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.12",
+  "slug": "complex-numbers-and-the-argand-diagram",
+  "title": "Complex numbers and the Argand diagram",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "A [[complex-number|complex number]] $z = a + b\\mathrm{i}$ uses a new number $\\mathrm{i}$, whose square is $-1$, so every quadratic has roots. You read off its parts, [[complex-conjugate|conjugate]], [[complex-modulus|modulus]] and [[complex-argument|argument]], and plot it as a point on an [[argand-diagram|Argand diagram]].",
+  "goals": [
+    {
+      "text": "Use $\\mathrm{i}^{2} = -1$ to write roots of negative numbers and of quadratics as $a + b\\mathrm{i}$.",
+      "bullets": [
+        "1.12-b1"
+      ]
+    },
+    {
+      "text": "Read off the [[real-part|real part]], the [[imaginary-part|imaginary part]] and the [[complex-conjugate|conjugate]], and equate parts.",
+      "bullets": [
+        "1.12-b2"
+      ]
+    },
+    {
+      "text": "Plot [[complex-number|complex numbers]] and their conjugates as points on an [[argand-diagram|Argand diagram]].",
+      "bullets": [
+        "1.12-b3"
+      ]
+    },
+    {
+      "text": "Find the [[complex-modulus|modulus]] and the [[complex-argument|argument]], with the angle in the right quadrant.",
+      "bullets": [
+        "1.12-b2",
+        "1.12-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.7",
+    "3.5"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "imaginary numbers",
+    "what is i",
+    "a + bi form",
+    "complex conjugate",
+    "modulus and argument",
+    "complex plane"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-discriminant",
+      "prompt": "How many real roots does $2x^{2} - 3x + 4 = 0$ have?",
+      "hint": "Work out $\\Delta = b^{2} - 4ac$ and look at its sign.",
+      "options": [
+        {
+          "text": "Two distinct real roots",
+          "correct": false
+        },
+        {
+          "text": "One repeated real root",
+          "correct": false
+        },
+        {
+          "text": "No real roots",
+          "correct": true
+        }
+      ],
+      "explain": "$\\Delta = (-3)^{2} - 4(2)(4) = 9 - 32 = -23$. That is negative, so there are no real roots. Revise it in {{lesson:2.7}}."
+    },
+    {
+      "type": "check",
+      "id": "before-exact-tan",
+      "prompt": "Find the angle $\\theta$ with $0 < \\theta < \\frac{\\pi}{2}$ and $\\tan\\theta = \\frac{1}{\\sqrt{3}}$.",
+      "hint": "Use $\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta}$ with the exact values you know.",
+      "options": [
+        {
+          "text": "$\\frac{\\pi}{6}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{\\pi}{4}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{\\pi}{3}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\tan\\frac{\\pi}{6} = \\frac{1/2}{\\sqrt{3}/2} = \\frac{1}{\\sqrt{3}}$. Revise it in {{lesson:3.5}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "number-i",
+      "heading": "The number i and Cartesian form",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "No real number squared is negative, so $x^{2} = -9$ has no real solution. In {{lesson:2.7}} this was the case $\\Delta < 0$: no real roots."
+        },
+        {
+          "type": "text",
+          "text": "So mathematicians added one new number, $\\mathrm{i}$, whose square is $-1$. Then $x = \\pm 3\\mathrm{i}$, because $(3\\mathrm{i})^{2} = 9\\mathrm{i}^{2} = -9$."
+        },
+        {
+          "type": "definition",
+          "term": "Imaginary unit",
+          "statement": "The imaginary unit $\\mathrm{i}$ is the number with $\\mathrm{i}^{2} = -1$. For a positive real number $k$, $\\sqrt{-k} = \\sqrt{k}\\,\\mathrm{i}$.",
+          "plain": "i is a number whose square is minus one."
+        },
+        {
+          "type": "definition",
+          "term": "Complex number in Cartesian form",
+          "statement": "A [[complex-number|complex number]] in [[cartesian-form|Cartesian form]] is $z = a + b\\mathrm{i}$, where $a, b \\in \\mathbb{R}$. The set of all complex numbers is $\\mathbb{C}$.",
+          "plain": "A complex number is a real number plus a real multiple of i."
+        },
+        {
+          "type": "formula",
+          "tex": "z = a + b\\mathrm{i}",
+          "tag": "booklet",
+          "bookletId": "bk-1-12-cartesian-form",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This form is in the formula booklet. A real number is a complex number with $b = 0$. A number such as $4\\mathrm{i}$, with $a = 0$, is purely imaginary."
+        },
+        {
+          "type": "text",
+          "text": "Powers of $\\mathrm{i}$ repeat every four: $\\mathrm{i}^{1} = \\mathrm{i}$, $\\mathrm{i}^{2} = -1$, $\\mathrm{i}^{3} = -\\mathrm{i}$, $\\mathrm{i}^{4} = 1$. For a higher power, divide by $4$ and use the remainder."
+        },
+        {
+          "type": "example",
+          "id": "ex-root-negative",
+          "question": "Write $3 - \\sqrt{-20}$ in the form $a + b\\mathrm{i}$.",
+          "steps": [
+            "Take out the minus sign as $\\mathrm{i}$: $\\sqrt{-20} = \\sqrt{20}\\,\\mathrm{i}$.",
+            "Simplify the surd: $\\sqrt{20} = \\sqrt{4 \\times 5} = 2\\sqrt{5}$.",
+            "So $3 - \\sqrt{-20} = 3 - 2\\sqrt{5}\\,\\mathrm{i}$. Here $a = 3$ and $b = -2\\sqrt{5}$, and both are real, as they must be."
+          ],
+          "answer": "$3 - \\sqrt{-20} = 3 - 2\\sqrt{5}\\,\\mathrm{i}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\sqrt{-16} = -4$. No real number squares to $-16$, so the answer must contain $\\mathrm{i}$: $\\sqrt{-16} = 4\\mathrm{i}$."
+        },
+        {
+          "type": "text",
+          "text": "With $\\mathrm{i}$, the quadratic formula works even when $\\Delta < 0$."
+        },
+        {
+          "type": "formula",
+          "tex": "ax^{2} + bx + c = 0 \\Rightarrow x = \\frac{-b \\pm \\sqrt{b^{2} - 4ac}}{2a}, \\quad a \\neq 0",
+          "tag": "booklet",
+          "bookletId": "bk-2-7-quadratic-formula"
+        },
+        {
+          "type": "example",
+          "id": "ex-quadratic-complex",
+          "question": "Solve $z^{2} - 6z + 13 = 0$, giving your answers in the form $a + b\\mathrm{i}$.",
+          "steps": [
+            "The coefficients are $1$, $-6$ and $13$. The discriminant is $\\Delta = (-6)^{2} - 4(1)(13) = 36 - 52 = -16$.",
+            "$\\Delta < 0$, so there are no real roots. Its square root is $\\sqrt{-16} = 4\\mathrm{i}$.",
+            "Use the quadratic formula: $z = \\frac{6 \\pm 4\\mathrm{i}}{2}$.",
+            "Divide both the [[real-part|real part]] and the [[imaginary-part|imaginary part]] by $2$: $z = 3 \\pm 2\\mathrm{i}$.",
+            "Check one root. $(3 + 2\\mathrm{i})^{2} = 9 + 12\\mathrm{i} + 4\\mathrm{i}^{2} = 5 + 12\\mathrm{i}$. Then $(5 + 12\\mathrm{i}) - 6(3 + 2\\mathrm{i}) + 13 = (5 - 18 + 13) + (12 - 12)\\mathrm{i} = 0$."
+          ],
+          "answer": "$z = 3 \\pm 2\\mathrm{i}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The two roots differ only in the sign of the imaginary part. This always happens when the coefficients are real. You will see why in {{lesson:1.14}}."
+        },
+        {
+          "type": "check",
+          "id": "check-i-power",
+          "prompt": "Simplify $\\mathrm{i}^{30}$.",
+          "hint": "Divide $30$ by $4$. What is the remainder?",
+          "options": [
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$-1$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\mathrm{i}$",
+              "correct": false
+            }
+          ],
+          "explain": "$30 = 4 \\times 7 + 2$, so $\\mathrm{i}^{30} = (\\mathrm{i}^{4})^{7} \\cdot \\mathrm{i}^{2} = 1 \\times (-1) = -1$."
+        },
+        {
+          "type": "check",
+          "id": "check-quadratic-complex",
+          "prompt": "Solve $z^{2} + 4z + 29 = 0$.",
+          "hint": "Find $\\Delta$ first, then write $\\sqrt{\\Delta}$ as a real multiple of $\\mathrm{i}$.",
+          "options": [
+            {
+              "text": "$z = -2 \\pm 5\\mathrm{i}$",
+              "correct": true
+            },
+            {
+              "text": "$z = 2 \\pm 5\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$z = -2 \\pm 10\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$z = -4 \\pm 10\\mathrm{i}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta = 16 - 116 = -100$, so $\\sqrt{\\Delta} = 10\\mathrm{i}$. Then $z = \\frac{-4 \\pm 10\\mathrm{i}}{2} = -2 \\pm 5\\mathrm{i}$. Divide the imaginary part by $2$ as well."
+        }
+      ]
+    },
+    {
+      "id": "parts",
+      "heading": "Real part, imaginary part and conjugate",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[complex-number|complex number]] $z = a + b\\mathrm{i}$ is built from two real numbers, $a$ and $b$. Each one has a name."
+        },
+        {
+          "type": "definition",
+          "term": "Real and imaginary parts",
+          "statement": "For $z = a + b\\mathrm{i}$ with $a, b \\in \\mathbb{R}$, $\\mathrm{Re}(z) = a$ is the [[real-part|real part]] of $z$ and $\\mathrm{Im}(z) = b$ is its [[imaginary-part|imaginary part]].",
+          "plain": "The real part stands alone. The imaginary part is the real number that multiplies i."
+        },
+        {
+          "type": "mistake",
+          "text": "Giving $\\mathrm{Im}(3 - 7\\mathrm{i})$ as $-7\\mathrm{i}$. The imaginary part is a real number, the one that multiplies $\\mathrm{i}$, so it is $-7$."
+        },
+        {
+          "type": "definition",
+          "term": "Complex conjugate",
+          "statement": "The [[complex-conjugate|conjugate]] of $z = a + b\\mathrm{i}$ is $z^{*} = a - b\\mathrm{i}$. It has the same real part as $z$ and the opposite imaginary part.",
+          "plain": "To get the conjugate, change the sign in front of the i part."
+        },
+        {
+          "type": "text",
+          "text": "Write the number as $a + b\\mathrm{i}$ before you read off its parts. For example, $4\\mathrm{i} - 9 = -9 + 4\\mathrm{i}$ has real part $-9$, not $4$."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-parts",
+          "question": "Let $z = \\sqrt{-18} - 2$. Find $\\mathrm{Re}(z)$, $\\mathrm{Im}(z)$ and $z^{*}$.",
+          "steps": [
+            "Write the root with $\\mathrm{i}$: $\\sqrt{-18} = \\sqrt{18}\\,\\mathrm{i} = 3\\sqrt{2}\\,\\mathrm{i}$, since $\\sqrt{18} = \\sqrt{9 \\times 2}$.",
+            "Put the real part first: $z = -2 + 3\\sqrt{2}\\,\\mathrm{i}$.",
+            "Read off the parts: $\\mathrm{Re}(z) = -2$ and $\\mathrm{Im}(z) = 3\\sqrt{2}$, with no $\\mathrm{i}$.",
+            "Change the sign of the imaginary part to get the conjugate: $z^{*} = -2 - 3\\sqrt{2}\\,\\mathrm{i}$."
+          ],
+          "answer": "$\\mathrm{Re}(z) = -2, \\; \\mathrm{Im}(z) = 3\\sqrt{2}, \\; z^{*} = -2 - 3\\sqrt{2}\\,\\mathrm{i}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Equal complex numbers have equal real parts and equal imaginary parts. So one complex equation gives you two real equations."
+        },
+        {
+          "type": "result",
+          "statement": "If $a + b\\mathrm{i} = c + d\\mathrm{i}$, where $a, b, c, d \\in \\mathbb{R}$, then $a = c$ and $b = d$.",
+          "why": "Rearrange to $a - c = (d - b)\\mathrm{i}$. If $d \\neq b$, then $\\mathrm{i} = \\frac{a - c}{d - b}$ would be real, which is impossible. So $d = b$, and then $a = c$."
+        },
+        {
+          "type": "example",
+          "id": "ex-equate-parts",
+          "question": "Find the real numbers $p$ and $q$ such that $(p - 2q) + (p + q)\\mathrm{i} = 8 - \\mathrm{i}$.",
+          "steps": [
+            "Equate the real parts: $p - 2q = 8$.",
+            "Equate the imaginary parts: $p + q = -1$, since $8 - \\mathrm{i} = 8 + (-1)\\mathrm{i}$.",
+            "Subtract the first equation from the second: $3q = -9$, so $q = -3$. Then $p = -1 - q = 2$.",
+            "Check: $p - 2q = 2 + 6 = 8$ and $p + q = 2 - 3 = -1$."
+          ],
+          "answer": "$p = 2, \\; q = -3$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-im-conjugate",
+          "prompt": "Let $z = 6 - 5\\mathrm{i}$. Write down $\\mathrm{Im}(z^{*})$.",
+          "hint": "Write $z^{*}$ first.",
+          "options": [
+            {
+              "text": "$-5$",
+              "correct": false
+            },
+            {
+              "text": "$5$",
+              "correct": true
+            },
+            {
+              "text": "$5\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$6$",
+              "correct": false
+            }
+          ],
+          "explain": "$z^{*} = 6 + 5\\mathrm{i}$. Its imaginary part is the real number $5$, not $5\\mathrm{i}$."
+        },
+        {
+          "type": "check",
+          "id": "check-equate-parts",
+          "prompt": "Find the real numbers $a$ and $b$ such that $(a + b) + (a - b)\\mathrm{i} = 4 - 6\\mathrm{i}$.",
+          "hint": "Equate real parts, then imaginary parts.",
+          "options": [
+            {
+              "text": "$a = 5, \\; b = -1$",
+              "correct": false
+            },
+            {
+              "text": "$a = -1, \\; b = -5$",
+              "correct": false
+            },
+            {
+              "text": "$a = -1, \\; b = 5$",
+              "correct": true
+            },
+            {
+              "text": "$a = 4, \\; b = -6$",
+              "correct": false
+            }
+          ],
+          "explain": "$a + b = 4$ and $a - b = -6$. Adding them gives $2a = -2$, so $a = -1$ and $b = 5$."
+        }
+      ]
+    },
+    {
+      "id": "argand",
+      "heading": "The Argand diagram",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[complex-number|complex number]] $a + b\\mathrm{i}$ is fixed by two real numbers, just as a point is fixed by its two coordinates. So you can draw every complex number as a point."
+        },
+        {
+          "type": "definition",
+          "term": "Argand diagram",
+          "statement": "An [[argand-diagram|Argand diagram]], or complex plane, has a horizontal real axis and a vertical imaginary axis. The number $z = a + b\\mathrm{i}$ is shown by the point $(a, b)$.",
+          "plain": "[[real-part|Real part]] across, [[imaginary-part|imaginary part]] up."
+        },
+        {
+          "type": "figure",
+          "id": "1-12-argand-points",
+          "alt": "Argand diagram with a horizontal real axis labelled Re and a vertical imaginary axis labelled Im. Points are plotted at 3 plus 2i in the first quadrant, its conjugate 3 minus 2i directly below it in the fourth quadrant, minus 4 plus i in the second quadrant, minus 2 on the real axis and minus 3i on the imaginary axis. A dashed vertical line joins 3 plus 2i to 3 minus 2i, crossing the real axis halfway.",
+          "caption": "Reflect $3 + 2\\mathrm{i}$ in the real axis to get its [[complex-conjugate|conjugate]], $3 - 2\\mathrm{i}$."
+        },
+        {
+          "type": "text",
+          "text": "Real numbers sit on the real axis, because $b = 0$. Purely imaginary numbers, such as $-3\\mathrm{i}$, sit on the imaginary axis, because $a = 0$."
+        },
+        {
+          "type": "result",
+          "statement": "On an Argand diagram, the point $z^{*}$ is $z$ reflected in the real axis. The point $-z$ is $z$ rotated by $\\pi$ about the origin.",
+          "why": "For $z^{*}$, $(a, b)$ moves to $(a, -b)$. For $-z$, it moves to $(-a, -b)$."
+        },
+        {
+          "type": "text",
+          "text": "Drawn as an arrow from $O$, $a + b\\mathrm{i}$ behaves like the vector $\\begin{pmatrix}a\\\\b\\end{pmatrix}$ of {{lesson:3.12}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-plot-conjugate",
+          "question": "The point $(-4, 1)$ on an Argand diagram represents $z$. Write down $z^{*}$.",
+          "steps": [
+            "Read across, then up: $-4$ across and $1$ up, so $z = -4 + \\mathrm{i}$.",
+            "Change the sign of the imaginary part: $z^{*} = -4 - \\mathrm{i}$. Its point, $(-4, -1)$, is in the third quadrant.",
+            "Answer with a complex number, not coordinates. The point only represents it."
+          ],
+          "answer": "$z^{*} = -4 - \\mathrm{i}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-rectangle-area",
+          "question": "Let $z = -5 + 2\\mathrm{i}$. The points $A$, $B$, $C$ and $D$ on an Argand diagram represent $z$, $z^{*}$, $-z$ and $-z^{*}$. Find the area of the quadrilateral $ABCD$.",
+          "steps": [
+            "Write each number: $z^{*} = -5 - 2\\mathrm{i}$, $-z = 5 - 2\\mathrm{i}$ and $-z^{*} = 5 + 2\\mathrm{i}$.",
+            "Plot them: $A(-5, 2)$, $B(-5, -2)$, $C(5, -2)$ and $D(5, 2)$.",
+            "Two sides are vertical and two are horizontal, so $ABCD$ is a rectangle.",
+            "Width $BC = 5 - (-5) = 10$ and height $AB = 2 - (-2) = 4$, so the area is $10 \\times 4 = 40$."
+          ],
+          "answer": "$\\text{Area of } ABCD = 40$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-quadrant",
+          "prompt": "Let $z = -2 + 5\\mathrm{i}$. In which quadrant of the Argand diagram is the point for $-z^{*}$?",
+          "hint": "Find $z^{*}$ first. Then change the sign of both parts.",
+          "options": [
+            {
+              "text": "First quadrant",
+              "correct": true
+            },
+            {
+              "text": "Second quadrant",
+              "correct": false
+            },
+            {
+              "text": "Third quadrant",
+              "correct": false
+            },
+            {
+              "text": "Fourth quadrant",
+              "correct": false
+            }
+          ],
+          "explain": "$z^{*} = -2 - 5\\mathrm{i}$, so $-z^{*} = 2 + 5\\mathrm{i}$. Both parts are positive: first quadrant."
+        },
+        {
+          "type": "check",
+          "id": "check-point-to-number",
+          "prompt": "A point on an Argand diagram is at $(0, -7)$. Which complex number does it represent?",
+          "hint": "The first coordinate is the real part. The second is the imaginary part.",
+          "options": [
+            {
+              "text": "$-7$",
+              "correct": false
+            },
+            {
+              "text": "$7\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$-7\\mathrm{i}$",
+              "correct": true
+            }
+          ],
+          "explain": "Real part $0$, imaginary part $-7$: the number is $0 - 7\\mathrm{i} = -7\\mathrm{i}$."
+        }
+      ]
+    },
+    {
+      "id": "modulus-argument",
+      "heading": "Modulus and argument",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A point can also be fixed by its distance from $O$ and its direction. For a [[complex-number|complex number]], these are its [[complex-modulus|modulus]] and its [[complex-argument|argument]]."
+        },
+        {
+          "type": "definition",
+          "term": "Modulus of a complex number",
+          "statement": "The modulus of $z = a + b\\mathrm{i}$ is its distance from the origin on an [[argand-diagram|Argand diagram]]: $\\lvert z\\rvert = \\sqrt{a^{2} + b^{2}}$.",
+          "plain": "How far the point is from zero."
+        },
+        {
+          "type": "formula",
+          "tex": "\\lvert z\\rvert = \\sqrt{a^{2} + b^{2}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is Pythagoras' theorem in the right-angled triangle with sides $\\lvert a\\rvert$ and $\\lvert b\\rvert$. A modulus is never negative."
+        },
+        {
+          "type": "definition",
+          "term": "Argument of a complex number",
+          "statement": "The argument $\\arg z$ of $z \\neq 0$ is the angle, in radians, from the positive real axis to the line from $O$ to $z$. Anticlockwise is positive.",
+          "plain": "The direction of the point, seen from zero."
+        },
+        {
+          "type": "text",
+          "text": "The question states the range. Usually it is $-\\pi < \\arg z \\le \\pi$, so points below the real axis have a negative argument."
+        },
+        {
+          "type": "figure",
+          "id": "1-12-modulus-argument",
+          "alt": "Argand diagram with the point minus 4 plus 3i in the second quadrant. A line of length 5 joins the origin to the point. The angle theta is marked from the positive real axis, turning anticlockwise to this line, so it is more than a right angle. A smaller angle alpha is marked between the line and the negative real axis. Dashed lines drop from the point to minus 4 on the real axis and across to 3 on the imaginary axis.",
+          "caption": "For $z = -4 + 3\\mathrm{i}$: $\\lvert z\\rvert = 5$, $\\alpha = \\arctan\\frac{3}{4}$ and $\\arg z = \\pi - \\alpha$."
+        },
+        {
+          "type": "text",
+          "text": "$\\tan\\theta = \\frac{b}{a}$ alone can't fix the angle, because two angles $\\pi$ apart share a tangent. So use a sketch."
+        },
+        {
+          "type": "text",
+          "text": "1. Sketch the point and note its quadrant."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the acute angle $\\alpha$ between the line from $O$ and the real axis: $\\tan\\alpha = \\frac{\\lvert b\\rvert}{\\lvert a\\rvert}$."
+        },
+        {
+          "type": "text",
+          "text": "3. Turn $\\alpha$ into $\\arg z$. First quadrant: $\\alpha$. Second: $\\pi - \\alpha$. Third: $-(\\pi - \\alpha)$. Fourth: $-\\alpha$."
+        },
+        {
+          "type": "text",
+          "text": "On the axes, $\\arg z$ is $0$ (right), $\\frac{\\pi}{2}$ (up), $\\pi$ (left) or $-\\frac{\\pi}{2}$ (down). The number $0$ has no argument."
+        },
+        {
+          "type": "example",
+          "id": "ex-mod-arg-basic",
+          "question": "Find the modulus and argument of $z = 3 - 3\\mathrm{i}$, where $-\\pi < \\arg z \\le \\pi$.",
+          "steps": [
+            "Modulus: $\\lvert z\\rvert = \\sqrt{3^{2} + (-3)^{2}} = \\sqrt{18} = 3\\sqrt{2}$.",
+            "Sketch: the [[real-part|real part]] is positive and the [[imaginary-part|imaginary part]] is negative, so the point is in the fourth quadrant.",
+            "Acute angle: $\\tan\\alpha = \\frac{3}{3} = 1$, so $\\alpha = \\frac{\\pi}{4}$.",
+            "Below the real axis, the argument is negative: $\\arg z = -\\frac{\\pi}{4}$."
+          ],
+          "answer": "$\\lvert z\\rvert = 3\\sqrt{2}, \\; \\arg z = -\\frac{\\pi}{4}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-mod-arg-exact",
+          "question": "Find the exact modulus and argument of $z = -\\sqrt{6} + \\sqrt{2}\\,\\mathrm{i}$, where $-\\pi < \\arg z \\le \\pi$.",
+          "steps": [
+            "Modulus: $\\lvert z\\rvert = \\sqrt{(-\\sqrt{6})^{2} + (\\sqrt{2})^{2}} = \\sqrt{6 + 2} = \\sqrt{8} = 2\\sqrt{2}$.",
+            "Sketch: the real part is negative and the imaginary part is positive, so the point is in the second quadrant.",
+            "Acute angle: $\\tan\\alpha = \\frac{\\sqrt{2}}{\\sqrt{6}} = \\frac{1}{\\sqrt{3}}$, so $\\alpha = \\frac{\\pi}{6}$. This is an exact value from {{lesson:3.5}}.",
+            "Second quadrant: $\\arg z = \\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6}$.",
+            "Check: $\\cos\\frac{5\\pi}{6} < 0$ and $\\sin\\frac{5\\pi}{6} > 0$, matching the second quadrant."
+          ],
+          "answer": "$\\lvert z\\rvert = 2\\sqrt{2}, \\; \\arg z = \\frac{5\\pi}{6}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Typing $\\tan^{-1}\\left(\\frac{b}{a}\\right)$ and stopping. For $-\\sqrt{6} + \\sqrt{2}\\,\\mathrm{i}$ that gives $-\\frac{\\pi}{6}$, a fourth-quadrant angle, but the point is in the second quadrant. Sketch first, then adjust."
+        },
+        {
+          "type": "result",
+          "statement": "For any $z$ and its [[complex-conjugate|conjugate]] $z^{*}$, $zz^{*} = \\lvert z\\rvert^{2}$ and $\\lvert z^{*}\\rvert = \\lvert z\\rvert$.",
+          "why": "Expand, using $\\mathrm{i}^{2} = -1$: $(a + b\\mathrm{i})(a - b\\mathrm{i}) = a^{2} - ab\\mathrm{i} + ab\\mathrm{i} - b^{2}\\mathrm{i}^{2} = a^{2} + b^{2}$. And $z^{*}$ is a reflection of $z$ in the real axis, so it is the same distance from $O$."
+        },
+        {
+          "type": "text",
+          "text": "The reflection also flips the angle: $\\arg(z^{*}) = -\\arg z$, unless $z$ is a negative real number. In {{lesson:1.13}}, $zz^{*}$ being real is how you divide."
+        },
+        {
+          "type": "example",
+          "id": "ex-mod-arg-gdc",
+          "question": "Use your calculator to find the modulus and argument of $z = -5 - 2\\mathrm{i}$, where $-\\pi < \\arg z \\le \\pi$. Give your answers to 3 s.f.",
+          "steps": [
+            "Set the calculator to radians first.",
+            "Modulus: $\\lvert z\\rvert = \\sqrt{(-5)^{2} + (-2)^{2}} = \\sqrt{29} = 5.3851\\ldots$",
+            "Sketch: both parts are negative, so the point is in the third quadrant and $\\arg z$ is negative.",
+            "Acute angle: $\\alpha = \\tan^{-1}\\left(\\frac{2}{5}\\right) = 0.38050\\ldots$. Keep the full value; don't round it yet.",
+            "Third quadrant: $\\arg z = -(\\pi - \\alpha) = -2.7610\\ldots$. The calculator's complex tools give both values directly."
+          ],
+          "answer": "$\\lvert z\\rvert \\approx 5.39, \\; \\arg z \\approx -2.76$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, RADIAN",
+              "MODE, a+bi",
+              "MATH, CPX, 5: abs(, type -5-2i (i is 2nd, decimal point), ENTER (check on your model)",
+              "Read 5.3851..., so the modulus is 5.39 to 3 s.f.",
+              "MATH, CPX, 4: angle(, type -5-2i, ENTER (check on your model)",
+              "Read -2.7610..., so the argument is -2.76 to 3 s.f."
+            ],
+            "nspire": [
+              "Settings, Angle: Radian",
+              "Settings, Real or Complex: Rectangular",
+              "Calculator page: Menu, Number, Complex Number Tools, Magnitude, type -5-2i, enter (check on your model)",
+              "Read 5.3851..., so the modulus is 5.39 to 3 s.f.",
+              "Menu, Number, Complex Number Tools, Polar Angle, type -5-2i, enter (check on your model)",
+              "Read -2.7610..., so the argument is -2.76 to 3 s.f."
+            ],
+            "casio": [
+              "SHIFT MENU (SET UP), Angle: Rad",
+              "SHIFT MENU (SET UP), Complex Mode: a+bi",
+              "RUN-MAT, OPTN, COMPLEX, Abs, type -5-2i, EXE (check on your model)",
+              "Read 5.3851..., so the modulus is 5.39 to 3 s.f.",
+              "OPTN, COMPLEX, Arg, type -5-2i, EXE (check on your model)",
+              "Read -2.7610..., so the argument is -2.76 to 3 s.f."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-arg-third",
+          "prompt": "Let $z = -3 - \\sqrt{3}\\,\\mathrm{i}$. Find $\\arg z$, where $-\\pi < \\arg z \\le \\pi$.",
+          "hint": "Find the quadrant, then $\\alpha$ from $\\tan\\alpha = \\frac{\\sqrt{3}}{3}$.",
+          "options": [
+            {
+              "text": "$\\frac{\\pi}{6}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{5\\pi}{6}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{7\\pi}{6}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{5\\pi}{6}$",
+              "correct": true
+            }
+          ],
+          "explain": "Third quadrant, $\\alpha = \\frac{\\pi}{6}$, so $\\arg z = -\\left(\\pi - \\frac{\\pi}{6}\\right) = -\\frac{5\\pi}{6}$. $\\frac{7\\pi}{6}$ points the same way but is outside the range."
+        },
+        {
+          "type": "check",
+          "id": "check-zz-star",
+          "prompt": "Let $z = 1 + 4\\mathrm{i}$. Find the value of $zz^{*}$.",
+          "hint": "Use $zz^{*} = \\lvert z\\rvert^{2}$.",
+          "answer": {
+            "value": 17,
+            "tolerance": 0
+          },
+          "explain": "$zz^{*} = \\lvert z\\rvert^{2} = 1^{2} + 4^{2} = 17$. It is real, even though $z$ is not."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "z = a + b\\mathrm{i}",
+          "tag": "booklet",
+          "bookletId": "bk-1-12-cartesian-form",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{i}^{2} = -1$, so $\\sqrt{-k} = \\sqrt{k}\\,\\mathrm{i}$ for $k > 0$. Powers of $\\mathrm{i}$ repeat every $4$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{Re}(a + b\\mathrm{i}) = a$ and $\\mathrm{Im}(a + b\\mathrm{i}) = b$, a real number. The conjugate is $z^{*} = a - b\\mathrm{i}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Equal complex numbers have equal real parts and equal imaginary parts.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Argand diagram: $a + b\\mathrm{i}$ is the point $(a, b)$. $z^{*}$ is its reflection in the real axis.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\lvert z\\rvert = \\sqrt{a^{2} + b^{2}}, \\quad zz^{*} = \\lvert z\\rvert^{2}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\arg z$: sketch, find the acute angle $\\alpha$, then use $\\alpha$, $\\pi - \\alpha$, $-(\\pi - \\alpha)$ or $-\\alpha$ by quadrant, in radians.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving the imaginary part with an $\\mathrm{i}$. $\\mathrm{Im}(4 - 9\\mathrm{i})$ is $-9$, the real number that multiplies $\\mathrm{i}$, not $-9\\mathrm{i}$.",
+    "Picking an argument in the wrong quadrant. Two angles $\\pi$ apart share a tangent, so sketch the point first.",
+    "Giving an argument outside the range, such as $\\frac{7\\pi}{6}$ for $-\\pi < \\arg z \\le \\pi$. Subtract $2\\pi$: $-\\frac{5\\pi}{6}$.",
+    "Leaving out the square root. $a^{2} + b^{2}$ is $\\lvert z\\rvert^{2}$, not $\\lvert z\\rvert$.",
+    "Leaving the calculator in degrees. Arguments are in radians unless the question says otherwise.",
+    "Answering with coordinates such as $(3, -1)$. Write the complex number, $3 - \\mathrm{i}$."
+  ],
+  "examTips": [
+    "“Find” a modulus and argument: show $\\sqrt{a^{2} + b^{2}}$ and your angle working. A quick sketch shows your quadrant.",
+    "When unknowns are given to be real, equate real parts and imaginary parts. Writing both equations shows your method.",
+    "Use exact values on Paper 1, such as $2\\sqrt{2}$ and $\\frac{5\\pi}{6}$. On Paper 2, set radians first and give answers to 3 s.f. unless told otherwise."
+  ],
+  "readingMinutes": 22
+}

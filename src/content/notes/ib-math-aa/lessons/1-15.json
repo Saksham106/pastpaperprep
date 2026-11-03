@@ -1,0 +1,742 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.15",
+  "slug": "proof-by-induction-contradiction-counterexample",
+  "title": "Proof by induction, contradiction and counterexample",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "Three ways to prove or disprove a statement. [[mathematical-induction|Mathematical induction]] proves a statement for every positive integer: show the first case, then show each case leads to the next. [[proof-by-contradiction|Proof by contradiction]] assumes the statement is false and reaches something impossible. A [[counterexample|counterexample]] is one case that shows a statement is false, with the reason why.",
+  "goals": [
+    {
+      "text": "Prove a statement for every positive integer by [[mathematical-induction|mathematical induction]], with the basis, assumption, inductive step and conclusion written out.",
+      "bullets": [
+        "1.15-b1"
+      ]
+    },
+    {
+      "text": "Use induction for sums, divisibility, repeated derivatives and powers of complex numbers.",
+      "bullets": [
+        "1.15-b1"
+      ]
+    },
+    {
+      "text": "Prove a statement by [[proof-by-contradiction|contradiction]], including that $\\sqrt{3}$ is irrational and that there are infinitely many primes.",
+      "bullets": [
+        "1.15-b2"
+      ]
+    },
+    {
+      "text": "Disprove a statement with a [[counterexample|counterexample]], and explain why your example breaks it.",
+      "bullets": [
+        "1.15-b3",
+        "1.15-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "1.6"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "proof by induction",
+    "induction divisibility",
+    "prove root 3 is irrational",
+    "proof by contradiction",
+    "counterexample",
+    "infinitely many primes proof"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-sigma-value",
+      "prompt": "Work out $\\sum_{r=1}^{4} (3r - 1)$.",
+      "hint": "Put $r = 1, 2, 3, 4$ into $3r - 1$ in turn, then add the four terms.",
+      "answer": {
+        "value": 26,
+        "tolerance": 0
+      },
+      "explain": "The terms are $2, 5, 8$ and $11$, and $2 + 5 + 8 + 11 = 26$. Revise it in {{lesson:1.2}}."
+    },
+    {
+      "type": "check",
+      "id": "before-multiple-of-three",
+      "prompt": "Let $n \\in \\mathbb{Z}$. Which line shows that $6n + 15$ is a multiple of $3$?",
+      "hint": "Take $3$ out of both terms and check by expanding the bracket again.",
+      "options": [
+        {
+          "text": "$6n + 15 = 3(2n + 5)$",
+          "correct": true
+        },
+        {
+          "text": "$6n + 15 = 3(2n + 15)$",
+          "correct": false
+        },
+        {
+          "text": "$6n + 15 = 3(3n + 5)$",
+          "correct": false
+        },
+        {
+          "text": "$6n + 15 = 3(2n) + 5$",
+          "correct": false
+        }
+      ],
+      "explain": "$3(2n + 5) = 6n + 15$, and $2n + 5$ is an integer, so $6n + 15$ is $3$ times an integer. Revise it in {{lesson:1.6}}."
+    },
+    {
+      "type": "check",
+      "id": "before-odd-square",
+      "prompt": "Let $n \\in \\mathbb{Z}$. Which line shows that $(2n + 1)^{2}$ is odd?",
+      "hint": "Expand $(2n + 1)(2n + 1)$ fully, keeping the middle terms. Then look for $2 \\times (\\text{an integer}) + 1$.",
+      "options": [
+        {
+          "text": "$(2n + 1)^{2} = 2(2n^{2} + 2n) + 1$",
+          "correct": true
+        },
+        {
+          "text": "$(2n + 1)^{2} = 4n^{2} + 1$",
+          "correct": false
+        },
+        {
+          "text": "$(2n + 1)^{2} = 2(2n^{2} + n) + 1$",
+          "correct": false
+        },
+        {
+          "text": "$(2n + 1)^{2} = 2(2n^{2} + 2n + 1)$",
+          "correct": false
+        }
+      ],
+      "explain": "$(2n + 1)^{2} = 4n^{2} + 4n + 1 = 2(2n^{2} + 2n) + 1$, and $2n^{2} + 2n$ is an integer, so the square is odd. Revise it in {{lesson:1.6}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "induction",
+      "heading": "Proof by induction",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Add up the first few odd numbers: $1 = 1$, $1 + 3 = 4$, $1 + 3 + 5 = 9$ and $1 + 3 + 5 + 7 = 16$. Every total is a square number. So you might guess that the first $n$ odd numbers add up to $n^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "Checking more cases never proves it: there are infinitely many positive integers to try."
+        },
+        {
+          "type": "text",
+          "text": "Think of a ladder instead. Suppose you can step onto the first rung. Suppose also that from any rung you can always reach the next one. Then you can climb as high as you like. Induction turns this idea into a proof."
+        },
+        {
+          "type": "definition",
+          "term": "mathematical induction",
+          "statement": "Let $P(n)$ be a statement about the positive integer $n$. If $P(1)$ is true, and $P(k)$ being true implies that $P(k + 1)$ is true for every $k \\in \\mathbb{Z}^{+}$, then $P(n)$ is true for all $n \\in \\mathbb{Z}^{+}$.",
+          "plain": "Show the first case is true, then show that each case passes its truth on to the next one."
+        },
+        {
+          "type": "text",
+          "text": "$P(n)$ is a name for the statement, such as '$1 + 3 + \\cdots + (2n - 1) = n^{2}$'. $\\mathbb{Z}^{+}$ is the set of positive integers $1, 2, 3, \\ldots$"
+        },
+        {
+          "type": "text",
+          "text": "Every induction proof has four parts. Write all four, and label them."
+        },
+        {
+          "type": "text",
+          "text": "1. Basis. Show that $P(1)$ is true. Work out the two sides separately and show they are equal."
+        },
+        {
+          "type": "text",
+          "text": "2. Assumption. Assume that $P(k)$ is true for some $k \\in \\mathbb{Z}^{+}$. Write out the statement with $k$ in place of $n$."
+        },
+        {
+          "type": "text",
+          "text": "3. Inductive step. Use the assumption to show that $P(k + 1)$ is true. Write down what you are aiming for before you start."
+        },
+        {
+          "type": "text",
+          "text": "4. Conclusion. Say that $P(1)$ is true, and that $P(k)$ true implies $P(k + 1)$ true. So $P(n)$ is true for all $n \\in \\mathbb{Z}^{+}$ by mathematical induction."
+        },
+        {
+          "type": "text",
+          "text": "Some statements start at another value, such as $n \\ge 2$. Then the basis checks that first value instead, $P(2)$, and the conclusion says 'for all $n \\ge 2$'."
+        },
+        {
+          "type": "example",
+          "id": "ex-induction-odd-sum",
+          "question": "Prove by mathematical induction that $1 + 3 + 5 + \\cdots + (2n - 1) = n^{2}$, that is $\\sum_{r=1}^{n} (2r - 1) = n^{2}$, for all $n \\in \\mathbb{Z}^{+}$.",
+          "steps": [
+            "Basis. When $n = 1$, the LHS is just the first term, $1$. The RHS is $1^{2} = 1$. They are equal, so $P(1)$ is true.",
+            "Assumption. Assume $P(k)$ is true for some $k \\in \\mathbb{Z}^{+}$, that is $1 + 3 + \\cdots + (2k - 1) = k^{2}$.",
+            "Aim. You want $P(k + 1)$: $1 + 3 + \\cdots + (2k - 1) + (2k + 1) = (k + 1)^{2}$. The new last term is $2(k + 1) - 1 = 2k + 1$.",
+            "Inductive step. Start from the LHS of $P(k + 1)$. The first $k$ terms add up to $k^{2}$ by the assumption, so $\\text{LHS} = k^{2} + (2k + 1)$.",
+            "Factorise: $k^{2} + 2k + 1 = (k + 1)^{2} = \\text{RHS}$. So if $P(k)$ is true, then $P(k + 1)$ is true.",
+            "Conclusion. $P(1)$ is true, and $P(k)$ true implies $P(k + 1)$ true. So $P(n)$ is true for all $n \\in \\mathbb{Z}^{+}$ by mathematical induction."
+          ],
+          "answer": "$\\sum_{r=1}^{n} (2r - 1) = n^{2}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "'Let $n = k$' is not an assumption. Write 'Assume $P(k)$ is true', then write out the statement with $k$ in it."
+        },
+        {
+          "type": "text",
+          "text": "With [[sigma-notation|sigma notation]], the inductive step always starts the same way. The sum of $k + 1$ terms is the sum of the first $k$ terms plus the $(k + 1)$th term."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sum_{r=1}^{k+1} u_{r} = \\sum_{r=1}^{k} u_{r} + u_{k+1}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-induction-sum-cubic",
+          "question": "Prove by induction that $\\sum_{r=1}^{n} r(r + 3) = \\frac{n(n + 1)(n + 5)}{3}$ for all $n \\in \\mathbb{Z}^{+}$.",
+          "steps": [
+            "Basis. When $n = 1$: $\\text{LHS} = 1 \\times 4 = 4$ and $\\text{RHS} = \\frac{1 \\times 2 \\times 6}{3} = 4$. So $P(1)$ is true.",
+            "Assumption. Assume $P(k)$ is true for some $k \\in \\mathbb{Z}^{+}$: $\\sum_{r=1}^{k} r(r + 3) = \\frac{k(k + 1)(k + 5)}{3}$.",
+            "Aim. Put $n = k + 1$ into the RHS. You want $\\frac{(k + 1)(k + 2)(k + 6)}{3}$.",
+            "Split off the last term. Putting $r = k + 1$ into $r(r + 3)$ gives $(k + 1)(k + 4)$. So by the assumption, $\\sum_{r=1}^{k+1} r(r + 3) = \\frac{k(k + 1)(k + 5)}{3} + (k + 1)(k + 4)$.",
+            "Take out the common factor $(k + 1)$, writing everything over $3$: $= \\frac{(k + 1)\\left[k(k + 5) + 3(k + 4)\\right]}{3} = \\frac{(k + 1)(k^{2} + 8k + 12)}{3}$.",
+            "Factorise the quadratic: $k^{2} + 8k + 12 = (k + 2)(k + 6)$. The sum is $\\frac{(k + 1)(k + 2)(k + 6)}{3}$, which is the aim. So $P(k)$ true implies $P(k + 1)$ true.",
+            "Conclusion. $P(1)$ is true, and $P(k)$ true implies $P(k + 1)$ true. So the result holds for all $n \\in \\mathbb{Z}^{+}$ by mathematical induction."
+          ],
+          "answer": "$\\sum_{r=1}^{n} r(r + 3) = \\frac{n(n + 1)(n + 5)}{3}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "Write down the target for $n = k + 1$ before the inductive step. Then take out common factors, such as $(k + 1)$, instead of expanding everything. The target shows you which factors to keep."
+        },
+        {
+          "type": "check",
+          "id": "check-induction-next-term",
+          "prompt": "You want to prove that $\\sum_{r=1}^{n} \\frac{1}{r(r + 1)} = \\frac{n}{n + 1}$ for all $n \\in \\mathbb{Z}^{+}$. Which term do you add to the sum of the first $k$ terms to get the sum of the first $k + 1$ terms?",
+          "hint": "The term you add is $u_{k+1}$. Replace every $r$ in $\\frac{1}{r(r + 1)}$ by $k + 1$.",
+          "options": [
+            {
+              "text": "$\\frac{1}{(k + 1)(k + 2)}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{k(k + 1)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{(k + 1)(k + 1)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{k + 1}{k + 2}$",
+              "correct": false
+            }
+          ],
+          "explain": "With $r = k + 1$, $r + 1 = k + 2$, so the new term is $\\frac{1}{(k + 1)(k + 2)}$. $\\frac{1}{k(k + 1)}$ is the $k$th term, already in the sum. $\\frac{k + 1}{k + 2}$ is the whole sum you are aiming for."
+        },
+        {
+          "type": "check",
+          "id": "check-induction-simplify",
+          "prompt": "Continuing, the assumption gives $\\sum_{r=1}^{k+1} \\frac{1}{r(r + 1)} = \\frac{k}{k + 1} + \\frac{1}{(k + 1)(k + 2)}$. Simplify the right-hand side.",
+          "hint": "Use the common denominator $(k + 1)(k + 2)$. Then factorise the top.",
+          "options": [
+            {
+              "text": "$\\frac{k + 1}{k + 2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{k + 1}{(k + 1)(k + 2)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{k^{2} + 2k}{(k + 1)(k + 2)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{k + 2}{k + 3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{k(k + 2) + 1}{(k + 1)(k + 2)} = \\frac{(k + 1)^{2}}{(k + 1)(k + 2)} = \\frac{k + 1}{k + 2}$. That is $\\frac{n}{n + 1}$ with $n = k + 1$, so $P(k + 1)$ is true."
+        }
+      ]
+    },
+    {
+      "id": "induction-uses",
+      "heading": "Induction for divisibility, derivatives and complex numbers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The four parts never change. Only the inductive step does, and its job is always the same: write the $k + 1$ case in terms of the $k$ case, then use the assumption."
+        },
+        {
+          "type": "text",
+          "text": "For divisibility, turn the assumption into an equation. 'This expression is divisible by $9$' means it equals $9m$ for some integer $m$. Rearrange that equation so you can substitute it."
+        },
+        {
+          "type": "example",
+          "id": "ex-induction-divisible",
+          "question": "Use mathematical induction to prove that $9$ is a factor of $4^{n} + 6n - 1$ for every $n \\in \\mathbb{Z}^{+}$.",
+          "steps": [
+            "Basis. When $n = 1$: $4^{1} + 6 \\times 1 - 1 = 9 = 9 \\times 1$, which is divisible by $9$. So $P(1)$ is true.",
+            "Assumption. Assume $P(k)$ is true for some $k \\in \\mathbb{Z}^{+}$: $4^{k} + 6k - 1 = 9m$ for some $m \\in \\mathbb{Z}$. Rearranged, $4^{k} = 9m - 6k + 1$.",
+            "Inductive step. Write the $n = k + 1$ case with one factor of $4$ split off: $4^{k+1} + 6(k + 1) - 1 = 4 \\times 4^{k} + 6k + 5$.",
+            "Replace $4^{k}$ using the assumption: $4(9m - 6k + 1) + 6k + 5 = 36m - 24k + 4 + 6k + 5 = 36m - 18k + 9$.",
+            "Take out the $9$: $36m - 18k + 9 = 9(4m - 2k + 1)$. As $m$ and $k$ are integers, $4m - 2k + 1$ is an integer. So $4^{k+1} + 6(k + 1) - 1$ is divisible by $9$, and $P(k + 1)$ is true.",
+            "Quick check with $k = 1$, so $m = 1$: $4^{2} + 12 - 1 = 27$ and $9(4 - 2 + 1) = 27$.",
+            "Conclusion. $P(1)$ is true, and $P(k)$ true implies $P(k + 1)$ true. So $4^{n} + 6n - 1$ is divisible by $9$ for all $n \\in \\mathbb{Z}^{+}$, by mathematical induction."
+          ],
+          "answer": "$4^{k+1} + 6(k + 1) - 1 = 9(4m - 2k + 1)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Don't stop at $36m - 18k + 9$. Take out the $9$ and say why the bracket is an integer: that sentence is what proves divisibility."
+        },
+        {
+          "type": "check",
+          "id": "check-divisible-step",
+          "prompt": "To prove that $3^{2n} - 1$ is divisible by $8$, you assume $3^{2k} - 1 = 8m$, where $m \\in \\mathbb{Z}$. Which expression equals $3^{2(k+1)} - 1$?",
+          "hint": "$3^{2(k+1)} = 3^{2k + 2} = 9 \\times 3^{2k}$, and the assumption gives $3^{2k} = 8m + 1$.",
+          "options": [
+            {
+              "text": "$8(9m + 1)$",
+              "correct": true
+            },
+            {
+              "text": "$72m - 1$",
+              "correct": false
+            },
+            {
+              "text": "$24m + 2$",
+              "correct": false
+            },
+            {
+              "text": "$72m$",
+              "correct": false
+            }
+          ],
+          "explain": "$9 \\times 3^{2k} - 1 = 9(8m + 1) - 1 = 72m + 8 = 8(9m + 1)$, and $9m + 1$ is an integer. $72m - 1$ forgets the $+1$ in $8m + 1$. $24m + 2$ uses $3$ instead of $9$. $72m$ drops both the $+9$ and the $-1$."
+        },
+        {
+          "type": "text",
+          "text": "For derivatives, the statement is a formula for $f^{(n)}(x)$, the $n$th [[derivative|derivative]] of $f$ (see {{lesson:5.12}}). The inductive step is one more differentiation."
+        },
+        {
+          "type": "example",
+          "id": "ex-induction-derivative",
+          "question": "Let $f(x) = x\\mathrm{e}^{2x}$. Prove by induction that $f^{(n)}(x) = 2^{n-1}(2x + n)\\mathrm{e}^{2x}$ for all $n \\in \\mathbb{Z}^{+}$.",
+          "steps": [
+            "Basis. By the product rule, $f'(x) = 1 \\cdot \\mathrm{e}^{2x} + x \\cdot 2\\mathrm{e}^{2x} = (2x + 1)\\mathrm{e}^{2x}$. The formula with $n = 1$ gives $2^{0}(2x + 1)\\mathrm{e}^{2x} = (2x + 1)\\mathrm{e}^{2x}$. They agree, so $P(1)$ is true.",
+            "Assumption. Assume $P(k)$ is true for some $k \\in \\mathbb{Z}^{+}$: $f^{(k)}(x) = 2^{k-1}(2x + k)\\mathrm{e}^{2x}$.",
+            "Aim. Put $n = k + 1$ into the formula. You want $f^{(k+1)}(x) = 2^{k}(2x + k + 1)\\mathrm{e}^{2x}$.",
+            "Inductive step. $f^{(k+1)}(x)$ is the derivative of $f^{(k)}(x)$. The constant $2^{k-1}$ stays in front. The product rule on $(2x + k)\\mathrm{e}^{2x}$ gives $f^{(k+1)}(x) = 2^{k-1}\\left[2\\mathrm{e}^{2x} + (2x + k) \\cdot 2\\mathrm{e}^{2x}\\right]$.",
+            "Take out the common factor $2\\mathrm{e}^{2x}$: $2^{k-1} \\cdot 2(1 + 2x + k)\\mathrm{e}^{2x} = 2^{k}(2x + k + 1)\\mathrm{e}^{2x}$. This is the aim, so $P(k + 1)$ is true.",
+            "Conclusion. $P(1)$ is true, and $P(k)$ true implies $P(k + 1)$ true. So the formula holds for all $n \\in \\mathbb{Z}^{+}$ by mathematical induction."
+          ],
+          "answer": "$f^{(n)}(x) = 2^{n-1}(2x + n)\\mathrm{e}^{2x}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-derivative-step",
+          "prompt": "To prove that the $n$th derivative of $\\frac{1}{x}$ is $\\frac{(-1)^{n}n!}{x^{n+1}}$, you differentiate the $n = k$ case. Which is the derivative of $\\frac{(-1)^{k}k!}{x^{k+1}}$ with respect to $x$?",
+          "hint": "Write it as $(-1)^{k}k! \\, x^{-(k+1)}$ and use the power rule. Then use $(k + 1) \\times k! = (k + 1)!$.",
+          "options": [
+            {
+              "text": "$\\frac{(-1)^{k+1}(k + 1)!}{x^{k+2}}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{(-1)^{k}(k + 1)!}{x^{k+2}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{(-1)^{k+1}k!}{x^{k+2}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{(-1)^{k+1}(k + 1)!}{x^{k}}$",
+              "correct": false
+            }
+          ],
+          "explain": "The derivative of $x^{-(k+1)}$ is $-(k + 1)x^{-(k+2)}$. The minus sign turns $(-1)^{k}$ into $(-1)^{k+1}$, and $(k + 1) \\times k! = (k + 1)!$. The result is the formula with $n = k + 1$."
+        },
+        {
+          "type": "text",
+          "text": "With complex numbers, induction often proves a rule for powers. The best known is De Moivre's theorem, proved by induction in {{lesson:1.14}}. Here is a shorter one about the [[complex-conjugate|complex conjugate]] $z^{*}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-induction-conjugate",
+          "question": "Let $z = a + b\\mathrm{i}$, where $a, b \\in \\mathbb{R}$. Prove by induction that $(z^{*})^{n} = (z^{n})^{*}$ for all $n \\in \\mathbb{Z}^{+}$.",
+          "steps": [
+            "A fact you need: for complex numbers $v = p + q\\mathrm{i}$ and $w = s + t\\mathrm{i}$, $vw = (ps - qt) + (pt + qs)\\mathrm{i}$.",
+            "And $v^{*}w^{*} = (p - q\\mathrm{i})(s - t\\mathrm{i}) = (ps - qt) - (pt + qs)\\mathrm{i}$, using $\\mathrm{i}^{2} = -1$. This is the conjugate of $vw$, so $(vw)^{*} = v^{*}w^{*}$.",
+            "Basis. When $n = 1$, both sides are $z^{*} = a - b\\mathrm{i}$. So $P(1)$ is true.",
+            "Assumption. Assume $P(k)$ is true for some $k \\in \\mathbb{Z}^{+}$: $(z^{*})^{k} = (z^{k})^{*}$.",
+            "Inductive step. $(z^{*})^{k+1} = (z^{*})^{k}z^{*} = (z^{k})^{*}z^{*}$ by the assumption. The fact with $v = z^{k}$ and $w = z$ turns this into $(z^{k}z)^{*} = (z^{k+1})^{*}$. So $P(k + 1)$ is true.",
+            "Conclusion. $P(1)$ is true, and $P(k)$ true implies $P(k + 1)$ true. So $(z^{*})^{n} = (z^{n})^{*}$ for all $n \\in \\mathbb{Z}^{+}$ by mathematical induction. As $z^{*} = a - b\\mathrm{i}$, this says the conjugate of $z^{n}$ is $(a - b\\mathrm{i})^{n}$."
+          ],
+          "answer": "$(z^{n})^{*} = (a - b\\mathrm{i})^{n}$",
+          "video": null
+        }
+      ]
+    },
+    {
+      "id": "contradiction",
+      "heading": "Proof by contradiction",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you can't build a result directly. Instead, suppose it is false and follow where that leads. If you reach something impossible, the supposition was wrong. So the result is true."
+        },
+        {
+          "type": "definition",
+          "term": "proof by contradiction",
+          "statement": "To prove a statement by contradiction, assume that it is false. Then deduce, by valid steps, something impossible or something that contradicts the assumption. So the statement must be true.",
+          "plain": "Show that the opposite of the statement can't happen."
+        },
+        {
+          "type": "text",
+          "text": "Begin with 'Assume, for a contradiction, that …' and state exactly what you assume. End by naming the contradiction and saying what it proves."
+        },
+        {
+          "type": "example",
+          "id": "ex-contradiction-integers",
+          "question": "Prove by contradiction that there are no integers $m$ and $n$ such that $6m + 9n = 100$.",
+          "steps": [
+            "Assume, for a contradiction, that there are integers $m$ and $n$ with $6m + 9n = 100$.",
+            "Factorise the LHS: $6m + 9n = 3(2m + 3n)$.",
+            "$m$ and $n$ are integers, so $2m + 3n$ is an integer. So the LHS is a multiple of $3$.",
+            "But $100 = 3 \\times 33 + 1$, so $100$ is not a multiple of $3$. A multiple of $3$ can't equal $100$.",
+            "This contradiction shows the assumption is false. So there are no integers $m$ and $n$ with $6m + 9n = 100$."
+          ],
+          "answer": "$6m + 9n = 3(2m + 3n)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Trying a few values of $m$ and $n$ proves nothing. Assume general integers, and reach the contradiction with algebra."
+        },
+        {
+          "type": "text",
+          "text": "The most famous proofs by contradiction are about [[irrational-number|irrational numbers]]. A rational number can be written as $\\frac{p}{q}$, with $p, q \\in \\mathbb{Z}$ and $q \\ne 0$."
+        },
+        {
+          "type": "text",
+          "text": "You can always cancel such a fraction until $p$ and $q$ have no common factor except $1$. The fraction is then in lowest terms."
+        },
+        {
+          "type": "result",
+          "statement": "If $p \\in \\mathbb{Z}$ and $p^{2}$ is a multiple of $3$, then $p$ is a multiple of $3$.",
+          "why": "If $p$ is not a multiple of $3$, then $p = 3j + 1$ or $p = 3j + 2$ for some $j \\in \\mathbb{Z}$. Then $p^{2} = 3(3j^{2} + 2j) + 1$ or $p^{2} = 3(3j^{2} + 4j + 1) + 1$, and neither is a multiple of $3$."
+        },
+        {
+          "type": "text",
+          "text": "The same is true with $3$ replaced by any prime, such as $2$ or $5$. It also works for cubes: if a prime is a factor of $p^{3}$, it is a factor of $p$."
+        },
+        {
+          "type": "example",
+          "id": "ex-contradiction-root3",
+          "question": "Prove that $\\sqrt{3}$ is irrational.",
+          "steps": [
+            "Assume, for a contradiction, that $\\sqrt{3}$ is rational. Then $\\sqrt{3} = \\frac{p}{q}$, where $p, q \\in \\mathbb{Z}$, $q \\ne 0$ and the fraction is in lowest terms.",
+            "Square both sides and multiply by $q^{2}$: $p^{2} = 3q^{2}$. So $p^{2}$ is a multiple of $3$, and by the result above, so is $p$.",
+            "Write $p = 3m$ for some $m \\in \\mathbb{Z}$. Then $(3m)^{2} = 3q^{2}$, so $9m^{2} = 3q^{2}$. Dividing by $3$ gives $q^{2} = 3m^{2}$.",
+            "So $q^{2}$ is a multiple of $3$, and by the same result, so is $q$.",
+            "Now $p$ and $q$ share the factor $3$. This contradicts the fraction being in lowest terms. So $\\sqrt{3}$ is irrational."
+          ],
+          "answer": "$q^{2} = 3m^{2}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cube-root-five",
+          "prompt": "To prove that $\\sqrt[3]{5}$ is irrational, assume $\\sqrt[3]{5} = \\frac{p}{q}$ in lowest terms. Cubing gives $p^{3} = 5q^{3}$, so $p = 5m$ for some $m \\in \\mathbb{Z}$. Which equation follows?",
+          "hint": "Substitute $p = 5m$ into $p^{3} = 5q^{3}$. Cube the whole of $5m$.",
+          "options": [
+            {
+              "text": "$q^{3} = 25m^{3}$",
+              "correct": true
+            },
+            {
+              "text": "$q^{3} = 5m^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$q^{3} = 125m^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$q^{3} = 25m$",
+              "correct": false
+            }
+          ],
+          "explain": "$(5m)^{3} = 125m^{3} = 5q^{3}$, so $q^{3} = 25m^{3}$. Then $q^{3}$, and so $q$, is a multiple of $5$. Now $p$ and $q$ share the factor $5$, which is the contradiction."
+        },
+        {
+          "type": "check",
+          "id": "check-rational-plus-irrational",
+          "prompt": "To prove that a rational number $a$ plus an irrational number $b$ is irrational, assume $a + b$ is rational. Write $a = \\frac{p}{q}$ and $a + b = \\frac{r}{s}$, with $p, q, r, s \\in \\mathbb{Z}$ and $q, s \\ne 0$. Which expression is $b$?",
+          "hint": "$b = (a + b) - a$. Put the two fractions over the common denominator $qs$.",
+          "options": [
+            {
+              "text": "$\\frac{qr - ps}{qs}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{ps - qr}{qs}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{r - p}{s - q}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{qr - ps}{q + s}$",
+              "correct": false
+            }
+          ],
+          "explain": "$b = \\frac{r}{s} - \\frac{p}{q} = \\frac{qr - ps}{qs}$. The top and bottom are integers and $qs \\ne 0$, so $b$ is rational. That contradicts $b$ being irrational, so $a + b$ is irrational."
+        },
+        {
+          "type": "text",
+          "text": "Euclid's proof that the primes never run out is also a proof by contradiction."
+        },
+        {
+          "type": "result",
+          "statement": "There are infinitely many prime numbers.",
+          "why": "Euclid's argument, set out in the four steps below."
+        },
+        {
+          "type": "text",
+          "text": "1. Assume, for a contradiction, that there are only finitely many primes. Call them $p_{1}, p_{2}, \\ldots, p_{n}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Let $N = p_{1}p_{2} \\cdots p_{n} + 1$. $N$ is greater than $1$, so it has at least one prime factor."
+        },
+        {
+          "type": "text",
+          "text": "3. Dividing $N$ by any $p_{i}$ on the list leaves remainder $1$. So no prime on the list is a factor of $N$."
+        },
+        {
+          "type": "text",
+          "text": "4. So $N$ has a prime factor that is not on the list. This contradicts the list holding every prime. So there are infinitely many primes."
+        },
+        {
+          "type": "text",
+          "text": "$N$ itself need not be prime. For example, $2 \\times 3 \\times 5 \\times 7 \\times 11 \\times 13 + 1 = 30031 = 59 \\times 509$. Its prime factors, $59$ and $509$, are simply not on the list."
+        },
+        {
+          "type": "check",
+          "id": "check-euclid-remainder",
+          "prompt": "Let $N = 2 \\times 3 \\times 5 \\times 7 \\times 11 + 1$. What is the remainder when $N$ is divided by $7$?",
+          "hint": "$N - 1$ has $7$ as a factor.",
+          "answer": {
+            "value": 1,
+            "tolerance": 0
+          },
+          "explain": "$N - 1 = 2310 = 7 \\times 330$, so $N = 2311$ leaves remainder $1$. The same happens for every prime on the list."
+        }
+      ]
+    },
+    {
+      "id": "counterexample",
+      "heading": "Disproving with a counterexample",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A statement that claims something for every case is false if it fails even once. So to disprove it, you need just one case where it fails."
+        },
+        {
+          "type": "definition",
+          "term": "counterexample",
+          "statement": "A counterexample to a statement is a particular case for which the statement is false. One counterexample is enough to show that the statement is not always true.",
+          "plain": "One case that breaks the rule."
+        },
+        {
+          "type": "result",
+          "statement": "To disprove a statement with a counterexample: give the specific value, show by calculation that the statement fails for it, and say in words why this makes the statement false.",
+          "why": "A claim about every case is false once one case fails. You must show the failure, because naming a value does not show that it fails."
+        },
+        {
+          "type": "example",
+          "id": "ex-counter-prime",
+          "question": "Show that the statement '$n^{2} + n + 17$ is prime for every $n \\in \\mathbb{N}$' is false.",
+          "steps": [
+            "Try small values: $n = 0, 1, 2, 3$ give $17, 19, 23, 29$, all prime. Testing one at a time is slow, so look for a value that builds in a factor.",
+            "Write $n^{2} + n + 17 = n(n + 1) + 17$. If $n = 16$, then $n + 1 = 17$, so every term has the factor $17$.",
+            "Calculate: $16^{2} + 16 + 17 = 256 + 16 + 17 = 289 = 17 \\times 17$.",
+            "$289$ has the factor $17$, which is neither $1$ nor $289$, so $289$ is not prime. As $16 \\in \\mathbb{N}$, the statement fails for $n = 16$. So it is false."
+          ],
+          "answer": "$n = 16$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "For 'show that the statement is not always true', write the counterexample, the calculation, and a sentence such as 'so the statement is false for $n = 16$'."
+        },
+        {
+          "type": "example",
+          "id": "ex-counter-gdc",
+          "question": "Consider the statement '$\\mathrm{e}^{x} > x^{3}$ for all $x > 0$'. Use your calculator to find a counterexample, and explain why it is one.",
+          "steps": [
+            "Write down what you graph: $y = \\mathrm{e}^{x}$ and $y = x^{3}$ for $0 < x \\le 5$. The calculator finds the intersections at $x \\approx 1.857$ and $x \\approx 4.536$.",
+            "Between these values the cubic is above the exponential. So any $x$ between them should break the statement. Pick an easy one: $x = 2$.",
+            "Work out both sides at $x = 2$: $\\mathrm{e}^{2} \\approx 7.389$ and $2^{3} = 8$.",
+            "So $\\mathrm{e}^{2} < 2^{3}$. Since $2 > 0$, the claim $\\mathrm{e}^{x} > x^{3}$ fails at $x = 2$, so the statement is false."
+          ],
+          "answer": "$x = 2$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, enter Y1 = e^(X) and Y2 = X^3",
+              "WINDOW: Xmin 0, Xmax 5, Ymin 0, Ymax 150 (check on your model)",
+              "GRAPH, then 2nd TRACE (CALC), 5: intersect",
+              "Move the cursor near x = 2 and press ENTER three times: x = 1.857...",
+              "Repeat near x = 4.5: x = 4.536..."
+            ],
+            "nspire": [
+              "Graphs page, enter f1(x) = e^(x) and f2(x) = x^3",
+              "Window Settings: x from 0 to 5, y from 0 to 150 (check on your model)",
+              "Menu, Analyze Graph, Intersection",
+              "Set the lower and upper bounds around each crossing: x = 1.857... and x = 4.536..."
+            ],
+            "casio": [
+              "GRAPH, enter Y1 = e^(X) and Y2 = X^3",
+              "V-Window: Xmin 0, Xmax 5, Ymin 0, Ymax 150 (check on your model)",
+              "DRAW, SHIFT F5 (G-SOLV), INTSECT: x = 1.857...",
+              "Press the right arrow for the next crossing: x = 4.536... (check on your model)"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "For 'if $A$ then $B$', a counterexample must make $A$ true and $B$ false. A value that makes $A$ false shows nothing."
+        },
+        {
+          "type": "check",
+          "id": "check-counter-prime",
+          "prompt": "Which value of $n$ is a counterexample to the statement '$n^{2} - n + 11$ is prime for all $n \\in \\mathbb{Z}^{+}$'?",
+          "hint": "Look for a value of $n$ that makes every term share a factor. Try $n = 11$ in $n(n - 1) + 11$.",
+          "options": [
+            {
+              "text": "$n = 11$",
+              "correct": true
+            },
+            {
+              "text": "$n = 5$",
+              "correct": false
+            },
+            {
+              "text": "$n = 10$",
+              "correct": false
+            },
+            {
+              "text": "$n = 3$",
+              "correct": false
+            }
+          ],
+          "explain": "$11^{2} - 11 + 11 = 121 = 11 \\times 11$, which is not prime. The others give $31$, $101$ and $17$, which are all prime, so they don't break the statement."
+        },
+        {
+          "type": "check",
+          "id": "check-counter-square",
+          "prompt": "Which value of $x$ is a counterexample to the statement 'if $x^{2} > 9$, then $x > 3$'?",
+          "hint": "A counterexample makes the 'if' part true and the 'then' part false.",
+          "options": [
+            {
+              "text": "$x = -4$",
+              "correct": true
+            },
+            {
+              "text": "$x = 4$",
+              "correct": false
+            },
+            {
+              "text": "$x = 2$",
+              "correct": false
+            },
+            {
+              "text": "$x = -2$",
+              "correct": false
+            }
+          ],
+          "explain": "$(-4)^{2} = 16 > 9$, but $-4$ is not greater than $3$. So the statement fails at $x = -4$. $x = 4$ satisfies both parts, and $x = \\pm 2$ fail the 'if' part, so they show nothing."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Induction has four parts: basis $P(1)$, assumption $P(k)$, inductive step from $P(k)$ to $P(k + 1)$, and conclusion. Write all four.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\sum_{r=1}^{k+1} u_{r} = \\sum_{r=1}^{k} u_{r} + u_{k+1}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Assume '$P(k)$ is true' in full. 'Let $n = k$' is not an assumption.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For divisibility by $d$, write the assumption as an equation with $dm$, $m \\in \\mathbb{Z}$. Finish with $d \\times (\\text{an integer})$ and say why the bracket is an integer.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Contradiction: assume the statement is false, deduce something impossible, then name the contradiction.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\sqrt{3}$ is irrational: from $\\frac{p}{q}$ in lowest terms, $p$ and $q$ both turn out to be multiples of $3$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "One counterexample disproves a 'for all' statement. Show the calculation and say why it fails.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing 'let $n = k$' as the assumption. Write 'Assume the result is true for $n = k$', then the full statement with $k$ in place of $n$.",
+    "Checking the basis on one side only. At $n = 1$, work out the LHS and the RHS separately and show they are equal.",
+    "Getting the new term wrong. Substitute $r = k + 1$ into the general term with care: for $\\frac{1}{r(r + 1)}$ it is $\\frac{1}{(k + 1)(k + 2)}$.",
+    "A conclusion without its reasons. Say the result is true for $n = 1$, and that true for $n = k$ implies true for $n = k + 1$, so it is true for all $n \\in \\mathbb{Z}^{+}$.",
+    "Testing a few numbers instead of proving. Checking cases proves nothing in general, in induction or in contradiction, so argue with letters.",
+    "Giving a counterexample with no reason. Show the calculation, then say why it makes the statement false."
+  ],
+  "examTips": [
+    "Prove by induction: each of the four parts earns marks, and the conclusion earns a reasoning (R) mark. Write the full concluding sentence even if the inductive step went wrong.",
+    "Prove by contradiction: start with 'Assume, for a contradiction, that …', and finish by naming what is contradicted. Examiners look for both.",
+    "Most induction questions are on Paper 1, so practise the algebra of the inductive step without a calculator."
+  ],
+  "readingMinutes": 27
+}

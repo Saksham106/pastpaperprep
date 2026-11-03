@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 200" role="img" aria-labelledby="t">
+  <title id="t">Two dot plots on the same scale from 4 to 16: set A clustered near its mean of 10, set B spread out from 4 to 16 with the same mean of 10</title>
+  <line x1="190" y1="22" x2="190" y2="166" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="196" y="20" fill="var(--muted)" font-size="11" font-family="inherit">mean 10</text>
+  <line x1="30" y1="78" x2="350" y2="78" stroke="currentColor" stroke-width="1.2" />
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="40" y1="74" x2="40" y2="82" />
+    <line x1="90" y1="74" x2="90" y2="82" />
+    <line x1="140" y1="74" x2="140" y2="82" />
+    <line x1="190" y1="74" x2="190" y2="82" />
+    <line x1="240" y1="74" x2="240" y2="82" />
+    <line x1="290" y1="74" x2="290" y2="82" />
+    <line x1="340" y1="74" x2="340" y2="82" />
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="40" y="96">4</text>
+    <text x="90" y="96">6</text>
+    <text x="140" y="96">8</text>
+    <text x="190" y="96">10</text>
+    <text x="240" y="96">12</text>
+    <text x="290" y="96">14</text>
+    <text x="340" y="96">16</text>
+  </g>
+  <g fill="var(--t4-ink)" stroke="none">
+    <circle cx="140" cy="68" r="5" />
+    <circle cx="165" cy="68" r="5" />
+    <circle cx="190" cy="68" r="5" />
+    <circle cx="190" cy="56" r="5" />
+    <circle cx="215" cy="68" r="5" />
+    <circle cx="240" cy="68" r="5" />
+  </g>
+  <text x="30" y="38" fill="currentColor" font-size="12" font-family="inherit">Set A</text>
+  <line x1="30" y1="166" x2="350" y2="166" stroke="currentColor" stroke-width="1.2" />
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="40" y1="162" x2="40" y2="170" />
+    <line x1="90" y1="162" x2="90" y2="170" />
+    <line x1="140" y1="162" x2="140" y2="170" />
+    <line x1="190" y1="162" x2="190" y2="170" />
+    <line x1="240" y1="162" x2="240" y2="170" />
+    <line x1="290" y1="162" x2="290" y2="170" />
+    <line x1="340" y1="162" x2="340" y2="170" />
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="40" y="184">4</text>
+    <text x="90" y="184">6</text>
+    <text x="140" y="184">8</text>
+    <text x="190" y="184">10</text>
+    <text x="240" y="184">12</text>
+    <text x="290" y="184">14</text>
+    <text x="340" y="184">16</text>
+  </g>
+  <g fill="var(--t4-ink)" stroke="none">
+    <circle cx="40" cy="156" r="5" />
+    <circle cx="90" cy="156" r="5" />
+    <circle cx="190" cy="156" r="5" />
+    <circle cx="190" cy="144" r="5" />
+    <circle cx="290" cy="156" r="5" />
+    <circle cx="340" cy="156" r="5" />
+  </g>
+  <text x="30" y="126" fill="currentColor" font-size="12" font-family="inherit">Set B</text>
+</svg>

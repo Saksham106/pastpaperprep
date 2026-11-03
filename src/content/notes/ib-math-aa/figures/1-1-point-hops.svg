@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 185" role="img" aria-labelledby="t">
+  <title id="t">The decimal point of 0.0000306 hops 5 places right to sit after the 3, giving 3.06 times 10 to the power minus 5. The decimal point at the end of 4070000000 hops 9 places left to sit after the 4, giving 4.07 times 10 to the power 9.</title>
+  <g font-size="18" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="30" y="62">0</text>
+    <text x="52" y="62">0</text>
+    <text x="74" y="62">0</text>
+    <text x="96" y="62">0</text>
+    <text x="118" y="62">0</text>
+    <text x="140" y="62">3</text>
+    <text x="162" y="62">0</text>
+    <text x="184" y="62">6</text>
+    <text x="30" y="152">4</text>
+    <text x="52" y="152">0</text>
+    <text x="74" y="152">7</text>
+    <text x="96" y="152">0</text>
+    <text x="118" y="152">0</text>
+    <text x="140" y="152">0</text>
+    <text x="162" y="152">0</text>
+    <text x="184" y="152">0</text>
+    <text x="206" y="152">0</text>
+    <text x="228" y="152">0</text>
+  </g>
+  <g fill="var(--muted)">
+    <circle cx="41" cy="61" r="2.4"/>
+    <circle cx="239" cy="151" r="2.4"/>
+  </g>
+  <g fill="var(--t1-ink)">
+    <circle cx="151" cy="61" r="3.2"/>
+    <circle cx="41" cy="151" r="3.2"/>
+  </g>
+  <g fill="none" stroke="var(--t1-ink)" stroke-width="1.6">
+    <path d="M41 42 Q52 28 63 42"/>
+    <path d="M63 42 Q74 28 85 42"/>
+    <path d="M85 42 Q96 28 107 42"/>
+    <path d="M107 42 Q118 28 129 42"/>
+    <path d="M129 42 Q140 28 151 42"/>
+  </g>
+  <polygon points="151,45 146,37 155,38" fill="var(--t1-ink)"/>
+  <g fill="none" stroke="var(--t5-ink)" stroke-width="1.6">
+    <path d="M239 132 Q228 118 217 132"/>
+    <path d="M217 132 Q206 118 195 132"/>
+    <path d="M195 132 Q184 118 173 132"/>
+    <path d="M173 132 Q162 118 151 132"/>
+    <path d="M151 132 Q140 118 129 132"/>
+    <path d="M129 132 Q118 118 107 132"/>
+    <path d="M107 132 Q96 118 85 132"/>
+    <path d="M85 132 Q74 118 63 132"/>
+    <path d="M63 132 Q52 118 41 132"/>
+  </g>
+  <polygon points="41,135 37,128 46,128" fill="var(--t5-ink)"/>
+  <g font-size="10" fill="var(--muted)" font-family="inherit" text-anchor="middle">
+    <text x="52" y="27">1</text>
+    <text x="74" y="27">2</text>
+    <text x="96" y="27">3</text>
+    <text x="118" y="27">4</text>
+    <text x="140" y="27">5</text>
+    <text x="228" y="117">1</text>
+    <text x="206" y="117">2</text>
+    <text x="184" y="117">3</text>
+    <text x="162" y="117">4</text>
+    <text x="140" y="117">5</text>
+    <text x="118" y="117">6</text>
+    <text x="96" y="117">7</text>
+    <text x="74" y="117">8</text>
+    <text x="52" y="117">9</text>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="258" y="50">0.0000306 = 3.06 × 10⁻⁵</text>
+    <text x="258" y="140">4070000000 = 4.07 × 10⁹</text>
+  </g>
+  <g font-size="12" font-family="inherit">
+    <text x="258" y="68" fill="var(--t1-ink)">5 places right, so k = −5</text>
+    <text x="258" y="158" fill="var(--t5-ink)">9 places left, so k = 9</text>
+  </g>
+</svg>

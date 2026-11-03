@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300" role="img" aria-labelledby="t">
+  <title id="t">Argand diagram with the points 3 plus 2i, its conjugate 3 minus 2i, minus 4 plus i, minus 2 and minus 3i</title>
+  <g stroke="currentColor" stroke-width="1.4">
+    <line x1="20" y1="150" x2="340" y2="150"/>
+    <line x1="180" y1="20" x2="180" y2="280"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1">
+    <line x1="30" y1="146" x2="30" y2="154"/>
+    <line x1="60" y1="146" x2="60" y2="154"/>
+    <line x1="90" y1="146" x2="90" y2="154"/>
+    <line x1="120" y1="146" x2="120" y2="154"/>
+    <line x1="150" y1="146" x2="150" y2="154"/>
+    <line x1="210" y1="146" x2="210" y2="154"/>
+    <line x1="240" y1="146" x2="240" y2="154"/>
+    <line x1="270" y1="146" x2="270" y2="154"/>
+    <line x1="300" y1="146" x2="300" y2="154"/>
+    <line x1="330" y1="146" x2="330" y2="154"/>
+    <line x1="176" y1="30" x2="184" y2="30"/>
+    <line x1="176" y1="60" x2="184" y2="60"/>
+    <line x1="176" y1="90" x2="184" y2="90"/>
+    <line x1="176" y1="120" x2="184" y2="120"/>
+    <line x1="176" y1="180" x2="184" y2="180"/>
+    <line x1="176" y1="210" x2="184" y2="210"/>
+    <line x1="176" y1="240" x2="184" y2="240"/>
+    <line x1="176" y1="270" x2="184" y2="270"/>
+  </g>
+  <g font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="middle">
+    <text x="60" y="168">−4</text>
+    <text x="240" y="168">2</text>
+    <text x="300" y="168">4</text>
+  </g>
+  <g font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="end">
+    <text x="172" y="94">2i</text>
+    <text x="172" y="214">−2i</text>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="334" y="140" text-anchor="end">Re</text>
+    <text x="188" y="28">Im</text>
+  </g>
+  <line x1="270" y1="90" x2="270" y2="210" stroke="var(--t5-ink)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <circle cx="270" cy="90" r="4.5" fill="var(--t1-ink)"/>
+  <circle cx="270" cy="210" r="4.5" fill="var(--t5-ink)"/>
+  <circle cx="60" cy="120" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="120" cy="150" r="4.5" fill="var(--t2-ink)"/>
+  <circle cx="180" cy="240" r="4.5" fill="var(--t4-ink)"/>
+  <g font-size="14" font-family="inherit">
+    <text x="280" y="86" fill="var(--t1-ink)">3 + 2i</text>
+    <text x="280" y="222" fill="var(--t5-ink)">3 − 2i</text>
+    <text x="40" y="106" fill="var(--t3-ink)">−4 + i</text>
+    <text x="120" y="138" fill="var(--t2-ink)" text-anchor="middle">−2</text>
+    <text x="190" y="252" fill="var(--t4-ink)">−3i</text>
+  </g>
+</svg>

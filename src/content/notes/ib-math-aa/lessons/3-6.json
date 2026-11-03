@@ -1,0 +1,624 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.6",
+  "slug": "trigonometric-identities",
+  "title": "Trigonometric identities",
+  "level": "SL",
+  "topic": 3,
+  "summary": "Three identities link $\\sin\\theta$ and $\\cos\\theta$ for every angle: the [[pythagorean-identity|Pythagorean identity]] $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$, and the [[double-angle-identity|double angle identities]] for $\\sin 2\\theta$ and $\\cos 2\\theta$. You use them to rewrite expressions, to prove show-that results, and to find one ratio from another without finding the angle.",
+  "goals": [
+    {
+      "text": "Use the [[pythagorean-identity|Pythagorean identity]] to simplify an expression or write it in terms of one ratio.",
+      "bullets": [
+        "3.6-b1"
+      ]
+    },
+    {
+      "text": "Use $\\sin 2\\theta = 2\\sin\\theta\\cos\\theta$ and the three forms of $\\cos 2\\theta$, choosing the form that fits.",
+      "bullets": [
+        "3.6-b2"
+      ]
+    },
+    {
+      "text": "Prove a trig [[identity|identity]] by working from one side to the other.",
+      "bullets": [
+        "3.6-b1",
+        "3.6-b2"
+      ]
+    },
+    {
+      "text": "Find $\\cos\\theta$, $\\tan\\theta$, $\\sin 2\\theta$ or $\\cos 2\\theta$ from one given ratio and the quadrant, without finding $\\theta$.",
+      "bullets": [
+        "3.6-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "sin squared plus cos squared",
+    "double angle formula",
+    "sin 2x and cos 2x",
+    "find tan from sin",
+    "proving trig identities"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-exact-cos",
+      "prompt": "Write down the exact value of $\\cos\\frac{5\\pi}{6}$.",
+      "hint": "$\\frac{5\\pi}{6}$ is in the second quadrant. Its reference angle is $\\frac{\\pi}{6}$.",
+      "options": [
+        {
+          "text": "$\\frac{\\sqrt{3}}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$-\\frac{\\sqrt{3}}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$-\\frac{1}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\cos\\frac{\\pi}{6} = \\frac{\\sqrt{3}}{2}$, and cosine is negative in the second quadrant, so $\\cos\\frac{5\\pi}{6} = -\\frac{\\sqrt{3}}{2}$. The value $-\\frac{1}{2}$ is the cosine of $\\frac{2\\pi}{3}$. Revise it in {{lesson:3.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-quadrant-signs",
+      "prompt": "The angle $\\theta$ is obtuse, so $90^{\\circ} < \\theta < 180^{\\circ}$. Which statement is true?",
+      "hint": "Picture the point on the unit circle. Which way is it from the centre, left or right? Up or down?",
+      "options": [
+        {
+          "text": "$\\sin\\theta > 0$ and $\\cos\\theta < 0$",
+          "correct": true
+        },
+        {
+          "text": "$\\sin\\theta > 0$ and $\\cos\\theta > 0$",
+          "correct": false
+        },
+        {
+          "text": "$\\sin\\theta < 0$ and $\\cos\\theta < 0$",
+          "correct": false
+        }
+      ],
+      "explain": "An obtuse angle puts the point on the unit circle above the $x$-axis and to the left of the $y$-axis. Its height, $\\sin\\theta$, is positive and its distance along, $\\cos\\theta$, is negative. Revise it in {{lesson:3.5}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "pythagorean",
+      "heading": "The Pythagorean identity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Pick any angle $\\theta$ and mark the point at that angle on the unit circle. From {{lesson:3.5}}, the point is $(\\cos\\theta, \\sin\\theta)$, and its distance from the centre is $1$."
+        },
+        {
+          "type": "text",
+          "text": "Drop a line from the point to the $x$-axis. You get a right-angled triangle with legs $\\cos\\theta$ and $\\sin\\theta$ and hypotenuse $1$. Pythagoras' theorem gives $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$. A negative leg makes no difference, because a square is never negative."
+        },
+        {
+          "type": "interactive",
+          "widget": "unit-circle-graphs",
+          "props": {
+            "theta": 2.5
+          },
+          "alt": "A unit circle on the left with a point on it at angle theta, joined to the centre. The horizontal piece from the centre and the vertical piece down to the axis are coloured to match the cosine and sine graphs on the right. A slider moves theta from 0 to 6.28 radians. The readout shows theta in degrees, cos theta and sin theta to 3 decimal places."
+        },
+        {
+          "type": "text",
+          "text": "It starts at $\\theta = 2.5$ radians, where $\\cos\\theta = -0.801\\ldots$ and $\\sin\\theta = 0.598\\ldots$. Square them and add: $0.6418\\ldots + 0.3581\\ldots = 1$. Move the slider anywhere and the total is still $1$."
+        },
+        {
+          "type": "text",
+          "text": "An [[identity|identity]] is true for every value of its variable, not just some. This one holds for every angle, so it is called the [[pythagorean-identity|Pythagorean identity]]."
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos^{2}\\theta + \\sin^{2}\\theta = 1",
+          "tag": "booklet",
+          "bookletId": "bk-3-6-pythagorean",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "$\\sin^{2}\\theta$ means $(\\sin\\theta)^{2}$: find the sine, then square it. It is not $\\sin(\\theta^{2})$."
+        },
+        {
+          "type": "text",
+          "text": "The identity is in the formula booklet. You also need its two rearrangements, which swap one squared ratio for the other:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin^{2}\\theta = 1 - \\cos^{2}\\theta \\qquad \\cos^{2}\\theta = 1 - \\sin^{2}\\theta",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-pyth-one-ratio",
+          "question": "Let $f(x) = 5\\cos^{2}x - 2\\sin x + 1$. Write $f(x)$ in terms of $\\sin x$ only.",
+          "steps": [
+            "The $\\cos^{2}x$ term is the one to change. Replace it with $1 - \\sin^{2}x$, in brackets: $f(x) = 5(1 - \\sin^{2}x) - 2\\sin x + 1$.",
+            "Expand the bracket: $f(x) = 5 - 5\\sin^{2}x - 2\\sin x + 1$.",
+            "Collect the constants: $f(x) = 6 - 2\\sin x - 5\\sin^{2}x$.",
+            "Check with $x = 0$: the original gives $5 - 0 + 1 = 6$, and the new form gives $6 - 0 - 0 = 6$."
+          ],
+          "answer": "$f(x) = 6 - 2\\sin x - 5\\sin^{2}x$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The answer is a quadratic in $\\sin x$. In {{lesson:3.8}} you solve equations such as $f(x) = 0$ this way."
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping without brackets. $5\\cos^{2}x$ becomes $5(1 - \\sin^{2}x) = 5 - 5\\sin^{2}x$, not $5 - \\sin^{2}x$."
+        },
+        {
+          "type": "check",
+          "id": "check-pyth-simplify",
+          "prompt": "Simplify $7 - 7\\cos^{2}x$.",
+          "hint": "Take out the $7$ first. What is $1 - \\cos^{2}x$?",
+          "options": [
+            {
+              "text": "$7\\cos^{2}x$",
+              "correct": false
+            },
+            {
+              "text": "$7\\sin^{2}x$",
+              "correct": true
+            },
+            {
+              "text": "$-7\\sin^{2}x$",
+              "correct": false
+            }
+          ],
+          "explain": "$7 - 7\\cos^{2}x = 7(1 - \\cos^{2}x) = 7\\sin^{2}x$. By the identity, $1 - \\cos^{2}x$ is exactly $\\sin^{2}x$, so the answer is positive. The answer $-7\\sin^{2}x$ comes from a sign slip."
+        },
+        {
+          "type": "text",
+          "text": "To prove an identity, start from one side, usually the more complicated one. Change it one step at a time until it becomes the other side. Never work on both sides at once."
+        },
+        {
+          "type": "example",
+          "id": "ex-pyth-tan-show",
+          "question": "Show that $\\tan\\theta + \\frac{1}{\\tan\\theta} = \\frac{1}{\\sin\\theta\\cos\\theta}$, where $\\sin\\theta\\cos\\theta \\ne 0$.",
+          "steps": [
+            "Start from the left-hand side (LHS). Since $\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta}$, its reciprocal is $\\frac{\\cos\\theta}{\\sin\\theta}$. So $\\text{LHS} = \\frac{\\sin\\theta}{\\cos\\theta} + \\frac{\\cos\\theta}{\\sin\\theta}$.",
+            "Use the common denominator $\\sin\\theta\\cos\\theta$: $\\text{LHS} = \\frac{\\sin^{2}\\theta + \\cos^{2}\\theta}{\\sin\\theta\\cos\\theta}$.",
+            "The top is $1$ by the Pythagorean identity. Write this line out in full: it is the key step. $\\text{LHS} = \\frac{1}{\\sin\\theta\\cos\\theta} = \\text{RHS}$.",
+            "Check with $\\theta = \\frac{\\pi}{4}$: the LHS is $1 + 1 = 2$, and the RHS is $1 \\div \\left(\\frac{\\sqrt{2}}{2} \\times \\frac{\\sqrt{2}}{2}\\right) = 1 \\div \\frac{1}{2} = 2$."
+          ],
+          "answer": "$\\tan\\theta + \\frac{1}{\\tan\\theta} = \\frac{1}{\\sin\\theta\\cos\\theta}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "In a show-that question, your last line must be exactly the given result. Show each identity as you use it, including the line where $\\cos^{2}\\theta + \\sin^{2}\\theta$ becomes $1$."
+        },
+        {
+          "type": "check",
+          "id": "check-pyth-one-ratio",
+          "prompt": "Write $2\\sin^{2}\\theta + 3\\cos\\theta$ in terms of $\\cos\\theta$ only.",
+          "hint": "Replace $\\sin^{2}\\theta$ with $1 - \\cos^{2}\\theta$, in brackets, then expand.",
+          "options": [
+            {
+              "text": "$2 + 3\\cos\\theta - 2\\cos^{2}\\theta$",
+              "correct": true
+            },
+            {
+              "text": "$1 + 3\\cos\\theta - 2\\cos^{2}\\theta$",
+              "correct": false
+            },
+            {
+              "text": "$2 + 3\\cos\\theta + 2\\cos^{2}\\theta$",
+              "correct": false
+            }
+          ],
+          "explain": "$2(1 - \\cos^{2}\\theta) + 3\\cos\\theta = 2 - 2\\cos^{2}\\theta + 3\\cos\\theta$. Forgetting to multiply the $1$ by $2$ gives the constant $1$, and a sign slip gives $+2\\cos^{2}\\theta$."
+        }
+      ]
+    },
+    {
+      "id": "double-angle",
+      "heading": "Double angle identities",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Is $\\sin 2\\theta$ the same as $2\\sin\\theta$? Try $\\theta = 30^{\\circ}$. Then $\\sin 60^{\\circ} = \\frac{\\sqrt{3}}{2} \\approx 0.866$, but $2\\sin 30^{\\circ} = 1$. Doubling the angle does not double the sine."
+        },
+        {
+          "type": "text",
+          "text": "The [[double-angle-identity|double angle identities]] say what $\\sin 2\\theta$ and $\\cos 2\\theta$ really are, in terms of $\\sin\\theta$ and $\\cos\\theta$. A diagram shows where they come from."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-double-angle-triangle",
+          "alt": "An isosceles triangle OAB with O at the top and AB along the bottom. The sides OA and OB both have length 1, and the angle AOB is 2 theta. A dashed line from O meets AB at its midpoint M at a right angle and splits the angle at O into two angles of theta. OM has length cos theta, and AM and MB each have length sin theta.",
+          "caption": "Two right-angled triangles, back to back, make a triangle with angle $2\\theta$ at $O$."
+        },
+        {
+          "type": "text",
+          "text": "Find the area of triangle $OAB$ in two ways. With $\\frac{1}{2}ab\\sin C$ from {{lesson:3.2}}, it is $\\frac{1}{2} \\times 1 \\times 1 \\times \\sin 2\\theta = \\frac{1}{2}\\sin 2\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "Now use half the base times the height. The base is $AB = 2\\sin\\theta$ and the height is $OM = \\cos\\theta$, so the area is $\\frac{1}{2} \\times 2\\sin\\theta \\times \\cos\\theta = \\sin\\theta\\cos\\theta$. The two areas are equal, so $\\sin 2\\theta = 2\\sin\\theta\\cos\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "The cosine rule on the same triangle gives $AB^{2} = 1^{2} + 1^{2} - 2\\cos 2\\theta$. Since $AB = 2\\sin\\theta$, this says $4\\sin^{2}\\theta = 2 - 2\\cos 2\\theta$. Rearrange: $\\cos 2\\theta = 1 - 2\\sin^{2}\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "The diagram needs $\\theta$ to be acute, but the identities hold for every angle. Graph $y = \\sin 2x$ and $y = 2\\sin x\\cos x$ on your GDC: the two curves lie exactly on top of each other."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin 2\\theta = 2\\sin\\theta\\cos\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-6-double-sin",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos 2\\theta = \\cos^{2}\\theta - \\sin^{2}\\theta = 2\\cos^{2}\\theta - 1 = 1 - 2\\sin^{2}\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-6-double-cos",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Both are in the formula booklet. The three forms of $\\cos 2\\theta$ are equal. Write $1 - 2\\sin^{2}\\theta$ as $(1 - \\sin^{2}\\theta) - \\sin^{2}\\theta$ to get $\\cos^{2}\\theta - \\sin^{2}\\theta$. Swap $\\sin^{2}\\theta$ for $1 - \\cos^{2}\\theta$ instead to get $2\\cos^{2}\\theta - 1$."
+        },
+        {
+          "type": "text",
+          "text": "Pick the form that fits the job. For sine only, use $1 - 2\\sin^{2}\\theta$. For cosine only, use $2\\cos^{2}\\theta - 1$."
+        },
+        {
+          "type": "text",
+          "text": "The angles need not be called $\\theta$ and $2\\theta$. Any angle and its double work, so $\\sin 6x = 2\\sin 3x\\cos 3x$ and $\\cos x = 1 - 2\\sin^{2}\\frac{x}{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-double-exact-sin",
+          "question": "Find the exact value of $\\sin 15^{\\circ}\\cos 15^{\\circ}$.",
+          "steps": [
+            "This looks like the right side of $\\sin 2\\theta = 2\\sin\\theta\\cos\\theta$ with $\\theta = 15^{\\circ}$, but the $2$ is missing.",
+            "Halve both sides of the identity: $\\sin\\theta\\cos\\theta = \\frac{1}{2}\\sin 2\\theta$.",
+            "So $\\sin 15^{\\circ}\\cos 15^{\\circ} = \\frac{1}{2}\\sin 30^{\\circ} = \\frac{1}{2} \\times \\frac{1}{2} = \\frac{1}{4}$.",
+            "Check on a calculator: $0.2588\\ldots \\times 0.9659\\ldots = 0.25$."
+          ],
+          "answer": "$\\sin 15^{\\circ}\\cos 15^{\\circ} = \\frac{1}{4}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-double-cos-form",
+          "prompt": "Write $\\cos 2\\theta$ in terms of $\\cos\\theta$ only.",
+          "hint": "Start from $\\cos^{2}\\theta - \\sin^{2}\\theta$ and replace $\\sin^{2}\\theta$.",
+          "options": [
+            {
+              "text": "$1 - 2\\cos^{2}\\theta$",
+              "correct": false
+            },
+            {
+              "text": "$2\\cos^{2}\\theta - 1$",
+              "correct": true
+            },
+            {
+              "text": "$\\cos^{2}\\theta - 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\cos^{2}\\theta - (1 - \\cos^{2}\\theta) = 2\\cos^{2}\\theta - 1$. The form $1 - 2\\cos^{2}\\theta$ has the signs the wrong way round: it is $-\\cos 2\\theta$."
+        },
+        {
+          "type": "example",
+          "id": "ex-double-square-show",
+          "question": "Show that $(\\sin x + \\cos x)^{2} = 1 + \\sin 2x$.",
+          "steps": [
+            "Start from the LHS and expand the square: $(\\sin x + \\cos x)^{2} = \\sin^{2}x + 2\\sin x\\cos x + \\cos^{2}x$.",
+            "Group the two squares: $\\text{LHS} = (\\sin^{2}x + \\cos^{2}x) + 2\\sin x\\cos x$.",
+            "The bracket is $1$ by the [[pythagorean-identity|Pythagorean identity]], and $2\\sin x\\cos x = \\sin 2x$. So $\\text{LHS} = 1 + \\sin 2x = \\text{RHS}$."
+          ],
+          "answer": "$(\\sin x + \\cos x)^{2} = 1 + \\sin 2x$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Expanding $(\\sin x + \\cos x)^{2}$ as $\\sin^{2}x + \\cos^{2}x$. That drops the middle term $2\\sin x\\cos x$, which is the $\\sin 2x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-double-tan-show",
+          "question": "Show that $\\frac{\\sin 2x}{1 + \\cos 2x} = \\tan x$, where $\\cos x \\ne 0$.",
+          "steps": [
+            "Start from the LHS. On top, use $\\sin 2x = 2\\sin x\\cos x$.",
+            "On the bottom, choose the form of $\\cos 2x$ that cancels the $1$: $1 + (2\\cos^{2}x - 1) = 2\\cos^{2}x$.",
+            "So $\\text{LHS} = \\frac{2\\sin x\\cos x}{2\\cos^{2}x}$.",
+            "Cancel $2\\cos x$ from top and bottom: $\\text{LHS} = \\frac{\\sin x}{\\cos x} = \\tan x = \\text{RHS}$.",
+            "Check with $x = \\frac{\\pi}{6}$: the LHS is $\\frac{\\sqrt{3}}{2} \\div \\frac{3}{2} = \\frac{\\sqrt{3}}{3}$, which is $\\tan\\frac{\\pi}{6}$."
+          ],
+          "answer": "$\\frac{\\sin 2x}{1 + \\cos 2x} = \\tan x$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using $\\cos 2x = \\cos^{2}x - \\sin^{2}x$ here and stopping. That leaves both $\\sin x$ and $\\cos x$ on the bottom. Choose the form that makes something cancel."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also use the compound angle identities for $\\sin(A \\pm B)$ and $\\cos(A \\pm B)$, and the double angle identity for $\\tan 2\\theta$.",
+          "lesson": "3.10"
+        },
+        {
+          "type": "check",
+          "id": "check-double-sin-value",
+          "prompt": "Find the exact value of $4\\sin\\frac{\\pi}{8}\\cos\\frac{\\pi}{8}$.",
+          "hint": "Write the $4$ as $2 \\times 2$. One $2$ belongs to the identity.",
+          "options": [
+            {
+              "text": "$\\frac{\\sqrt{2}}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{2}$",
+              "correct": true
+            },
+            {
+              "text": "$2\\sqrt{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$4\\sin\\frac{\\pi}{8}\\cos\\frac{\\pi}{8} = 2 \\times 2\\sin\\frac{\\pi}{8}\\cos\\frac{\\pi}{8} = 2\\sin\\frac{\\pi}{4} = 2 \\times \\frac{\\sqrt{2}}{2} = \\sqrt{2}$. Losing the extra $2$ gives $\\frac{\\sqrt{2}}{2}$."
+        }
+      ]
+    },
+    {
+      "id": "ratios",
+      "heading": "Finding one ratio from another",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you know one ratio, such as $\\sin\\theta = \\frac{5}{13}$, and want the others. You could find $\\theta$ on a calculator. On Paper 1 you can't, and the answer must be exact anyway."
+        },
+        {
+          "type": "text",
+          "text": "The [[pythagorean-identity|Pythagorean identity]] gives the size of the missing ratio. The quadrant of $\\theta$ gives its sign. Then $\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta}$ and the [[double-angle-identity|double angle identities]] give the rest."
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta}",
+          "tag": "booklet",
+          "bookletId": "bk-3-5-tan-identity",
+          "cheatSheet": false
+        },
+        {
+          "type": "text",
+          "text": "1. Use $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$ to find the square of the missing ratio."
+        },
+        {
+          "type": "text",
+          "text": "2. Take the square root, then choose the sign from the quadrant. Sine is positive in quadrants 1 and 2, cosine in quadrants 1 and 4, and tangent in quadrants 1 and 3."
+        },
+        {
+          "type": "text",
+          "text": "3. Find $\\tan\\theta$, $\\sin 2\\theta$ or $\\cos 2\\theta$ from the two ratios you now have."
+        },
+        {
+          "type": "example",
+          "id": "ex-ratios-obtuse",
+          "question": "The angle $\\theta$ is obtuse and $\\sin\\theta = \\frac{5}{13}$. Find the exact values of $\\cos\\theta$ and $\\tan\\theta$.",
+          "steps": [
+            "Find $\\cos^{2}\\theta$: $\\cos^{2}\\theta = 1 - \\sin^{2}\\theta = 1 - \\frac{25}{169} = \\frac{144}{169}$.",
+            "So $\\cos\\theta = \\pm\\frac{12}{13}$. An obtuse angle is in the second quadrant, where cosine is negative. So $\\cos\\theta = -\\frac{12}{13}$.",
+            "Then $\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta} = \\frac{5}{13} \\div \\left(-\\frac{12}{13}\\right) = -\\frac{5}{12}$.",
+            "Check: $\\left(\\frac{5}{13}\\right)^{2} + \\left(-\\frac{12}{13}\\right)^{2} = \\frac{25 + 144}{169} = 1$."
+          ],
+          "answer": "$\\cos\\theta = -\\frac{12}{13}, \\; \\tan\\theta = -\\frac{5}{12}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A sketch gives the same sizes. Draw a right-angled triangle with opposite side $5$ and hypotenuse $13$. Pythagoras gives the third side, $12$. Read off the sizes, then fix the signs from the quadrant."
+        },
+        {
+          "type": "mistake",
+          "text": "Taking the positive square root every time. For an obtuse angle, $\\cos\\theta$ and $\\tan\\theta$ are negative, so find the quadrant before you write the sign."
+        },
+        {
+          "type": "check",
+          "id": "check-ratios-tan",
+          "prompt": "The angle $\\theta$ is obtuse and $\\sin\\theta = \\frac{2}{3}$. Find the exact value of $\\tan\\theta$.",
+          "hint": "Find $\\cos\\theta$ first. What sign does it have for an obtuse angle?",
+          "options": [
+            {
+              "text": "$\\frac{2}{\\sqrt{5}}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{2}{\\sqrt{5}}$",
+              "correct": true
+            },
+            {
+              "text": "$-\\frac{\\sqrt{5}}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\cos^{2}\\theta = 1 - \\frac{4}{9} = \\frac{5}{9}$, and cosine is negative for an obtuse angle, so $\\cos\\theta = -\\frac{\\sqrt{5}}{3}$. Then $\\tan\\theta = \\frac{2}{3} \\div \\left(-\\frac{\\sqrt{5}}{3}\\right) = -\\frac{2}{\\sqrt{5}}$. Dividing the wrong way round gives $-\\frac{\\sqrt{5}}{2}$."
+        },
+        {
+          "type": "text",
+          "text": "Sometimes you are given no quadrant. Then both signs are possible, so give both values. For example, $\\sin\\theta > 0$ puts $\\theta$ in quadrant 1 or 2, so $\\cos\\theta$ could be positive or negative."
+        },
+        {
+          "type": "check",
+          "id": "check-ratios-no-quadrant",
+          "prompt": "You are told only that $\\sin\\theta = \\frac{8}{17}$. Find the possible values of $\\tan\\theta$.",
+          "hint": "$\\cos^{2}\\theta = 1 - \\frac{64}{289}$. With no quadrant given, which signs can $\\cos\\theta$ have?",
+          "options": [
+            {
+              "text": "$\\frac{8}{15}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pm\\frac{8}{15}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pm\\frac{15}{8}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\cos^{2}\\theta = \\frac{225}{289}$, so $\\cos\\theta = \\pm\\frac{15}{17}$. In quadrant 1, $\\tan\\theta = \\frac{8}{15}$. In quadrant 2, $\\tan\\theta = -\\frac{8}{15}$. Giving only the positive value misses quadrant 2."
+        },
+        {
+          "type": "example",
+          "id": "ex-ratios-double",
+          "question": "Given that $\\cos\\alpha = -\\frac{1}{3}$ and $\\pi < \\alpha < \\frac{3\\pi}{2}$, find the exact values of $\\sin 2\\alpha$ and $\\cos 2\\alpha$.",
+          "steps": [
+            "Find $\\sin\\alpha$ first: $\\sin^{2}\\alpha = 1 - \\frac{1}{9} = \\frac{8}{9}$. Since $\\sqrt{8} = 2\\sqrt{2}$, $\\sin\\alpha = \\pm\\frac{2\\sqrt{2}}{3}$.",
+            "$\\alpha$ is in the third quadrant, where sine is negative: $\\sin\\alpha = -\\frac{2\\sqrt{2}}{3}$.",
+            "Use the identity for $\\sin 2\\alpha$: $\\sin 2\\alpha = 2\\sin\\alpha\\cos\\alpha = 2 \\times \\left(-\\frac{2\\sqrt{2}}{3}\\right) \\times \\left(-\\frac{1}{3}\\right) = \\frac{4\\sqrt{2}}{9}$.",
+            "You were given $\\cos\\alpha$, so use the cosine-only form: $\\cos 2\\alpha = 2\\cos^{2}\\alpha - 1 = 2 \\times \\frac{1}{9} - 1 = -\\frac{7}{9}$.",
+            "Check with the Pythagorean identity for the angle $2\\alpha$: $\\left(\\frac{4\\sqrt{2}}{9}\\right)^{2} + \\left(-\\frac{7}{9}\\right)^{2} = \\frac{32 + 49}{81} = 1$."
+          ],
+          "answer": "$\\sin 2\\alpha = \\frac{4\\sqrt{2}}{9}, \\; \\cos 2\\alpha = -\\frac{7}{9}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "The forms $1 - 2\\sin^{2}\\theta$ and $2\\cos^{2}\\theta - 1$ use only squares, so the sign of the missing ratio never matters for $\\cos 2\\theta$. For $\\sin 2\\theta$ and $\\tan\\theta$ it does."
+        },
+        {
+          "type": "check",
+          "id": "check-ratios-cos2",
+          "prompt": "Given that $\\sin A = 0.3$, find $\\cos 2A$.",
+          "hint": "Which form of $\\cos 2A$ uses only $\\sin A$?",
+          "answer": {
+            "value": 0.82,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\cos 2A = 1 - 2\\sin^{2}A = 1 - 2 \\times 0.09 = 0.82$. You don't need the quadrant, because $\\sin A$ is squared."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 the given value is often a decimal. Use the same method, keep full calculator values, and round only at the end."
+        },
+        {
+          "type": "example",
+          "id": "ex-ratios-p2",
+          "question": "The angle $\\theta$ is obtuse and $\\sin\\theta = 0.42$. Find $\\sin 2\\theta$. Give your answer to 3 s.f.",
+          "steps": [
+            "Find $\\cos^{2}\\theta$: $\\cos^{2}\\theta = 1 - 0.42^{2} = 0.8236$.",
+            "$\\theta$ is obtuse, so $\\cos\\theta$ is negative: $\\cos\\theta = -\\sqrt{0.8236} = -0.907524\\ldots$ Keep this full value in your calculator.",
+            "Write down the expression you evaluate: $\\sin 2\\theta = 2 \\times 0.42 \\times (-0.907524\\ldots) = -0.762320\\ldots$",
+            "Round only now: $\\sin 2\\theta \\approx -0.762$.",
+            "Check on your GDC in degree mode: $\\theta = 180^{\\circ} - \\sin^{-1}(0.42) = 155.165\\ldots^{\\circ}$, and $\\sin(2 \\times 155.165\\ldots^{\\circ}) = -0.762320\\ldots$"
+          ],
+          "answer": "$\\sin 2\\theta \\approx -0.762$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, DEGREE",
+              "On the home screen type 2*0.42*(-sqrt(1-0.42^2)), using the (−) key for the negative sign and 2nd x² for the square root (check on your model), then ENTER",
+              "Read -0.762320…, which is -0.762 to 3 s.f.",
+              "To check, type sin(2(180-sin⁻¹(0.42))), using 2nd SIN for sin⁻¹ (check on your model), then ENTER: it shows the same value"
+            ],
+            "nspire": [
+              "Settings (on, Settings), Angle: Degree",
+              "Calculator page, type 2*0.42*(-sqrt(1-0.42^2)), enter (check on your model)",
+              "Read -0.762320…, which is -0.762 to 3 s.f.",
+              "To check, type sin(2(180-sin⁻¹(0.42))), enter (check on your model): it shows the same value"
+            ],
+            "casio": [
+              "SHIFT MENU (SET UP), Angle: Deg",
+              "RUN-MAT, type 2×0.42×(-sqrt(1-0.42^2)), using the (−) key for the negative sign and SHIFT x² for the square root (check on your model), then EXE",
+              "Read -0.762320…, which is -0.762 to 3 s.f.",
+              "To check, type sin(2(180-sin⁻¹(0.42))), using SHIFT sin for sin⁻¹ (check on your model), then EXE: it shows the same value"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\cos^{2}\\theta + \\sin^{2}\\theta = 1",
+          "tag": "booklet",
+          "bookletId": "bk-3-6-pythagorean",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\sin^{2}\\theta = 1 - \\cos^{2}\\theta$ and $\\cos^{2}\\theta = 1 - \\sin^{2}\\theta$: use them to write an expression in one ratio.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin 2\\theta = 2\\sin\\theta\\cos\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-6-double-sin",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos 2\\theta = \\cos^{2}\\theta - \\sin^{2}\\theta = 2\\cos^{2}\\theta - 1 = 1 - 2\\sin^{2}\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-3-6-double-cos",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Choose the $\\cos 2\\theta$ form that fits: $1 - 2\\sin^{2}\\theta$ for sine only, $2\\cos^{2}\\theta - 1$ for cosine only.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Given one ratio, the Pythagorean identity gives the size of another, and the quadrant gives its sign.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To prove an identity, work from one side to the other. Never work on both sides at once.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Working on both sides of a show-that at once, or starting from the given answer. Start from one side and change it until it becomes the other.",
+    "Writing $\\sin 2\\theta = 2\\sin\\theta$. The identity is $\\sin 2\\theta = 2\\sin\\theta\\cos\\theta$, so the $\\cos\\theta$ must be there.",
+    "Using $\\cos 2x = \\cos^{2}x - \\sin^{2}x$ when the target has only $\\sin x$ or only $\\cos x$. Pick $1 - 2\\sin^{2}x$ or $2\\cos^{2}x - 1$ instead.",
+    "Taking the positive root when the angle is not acute. Find the quadrant first, then give the missing ratio its sign.",
+    "Skipping the line where $\\cos^{2}\\theta + \\sin^{2}\\theta$ becomes $1$. In a proof, show each identity as you use it.",
+    "Replacing $5\\cos^{2}x$ with $5 - \\sin^{2}x$. Bracket the swap: $5(1 - \\sin^{2}x)$."
+  ],
+  "examTips": [
+    "Show that: start from one side and end with exactly the given result. Putting a number into both sides only tests the result. It does not prove it.",
+    "Hence: an identity proved in one part usually rewrites the next part. Use it straight away, for example to turn an equation into a quadratic in $\\sin x$.",
+    "Without finding the angle means use identities, not a calculator angle. On Paper 1, leave surds in the answer, as in $\\frac{4\\sqrt{2}}{9}$.",
+    "Before you write a proof, test the identity with a simple angle such as $\\theta = \\frac{\\pi}{6}$. Avoid $\\frac{\\pi}{4}$: there $\\sin\\theta = \\cos\\theta$, so a sign slip in $\\cos 2\\theta$ goes unnoticed."
+  ],
+  "readingMinutes": 22
+}

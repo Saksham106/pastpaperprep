@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 120" role="img" aria-labelledby="t">
+  <title id="t">Five floats in a row, drawn as boxes labelled F1 to F5. Six gaps are marked with arrows: one before the first float, four between neighbouring floats, and one after the last float. Each band goes into a different gap.</title>
+  <g fill="none" stroke="currentColor" stroke-width="1.6">
+    <rect x="45" y="40" width="50" height="34" rx="4"/>
+    <rect x="115" y="40" width="50" height="34" rx="4"/>
+    <rect x="185" y="40" width="50" height="34" rx="4"/>
+    <rect x="255" y="40" width="50" height="34" rx="4"/>
+    <rect x="325" y="40" width="50" height="34" rx="4"/>
+  </g>
+  <g font-size="15" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="70" y="62">F1</text>
+    <text x="140" y="62">F2</text>
+    <text x="210" y="62">F3</text>
+    <text x="280" y="62">F4</text>
+    <text x="350" y="62">F5</text>
+  </g>
+  <g fill="none" stroke="var(--t1-ink)" stroke-width="1.8">
+    <path d="M25 104 V82"/>
+    <path d="M105 104 V82"/>
+    <path d="M175 104 V82"/>
+    <path d="M245 104 V82"/>
+    <path d="M315 104 V82"/>
+    <path d="M395 104 V82"/>
+  </g>
+  <g fill="var(--t1-ink)">
+    <polygon points="25,78 20,87 30,87"/>
+    <polygon points="105,78 100,87 110,87"/>
+    <polygon points="175,78 170,87 180,87"/>
+    <polygon points="245,78 240,87 250,87"/>
+    <polygon points="315,78 310,87 320,87"/>
+    <polygon points="395,78 390,87 400,87"/>
+  </g>
+  <g font-size="12" fill="var(--t1-ink)" font-family="inherit" text-anchor="middle">
+    <text x="25" y="117">gap 1</text>
+    <text x="105" y="117">gap 2</text>
+    <text x="175" y="117">gap 3</text>
+    <text x="245" y="117">gap 4</text>
+    <text x="315" y="117">gap 5</text>
+    <text x="395" y="117">gap 6</text>
+  </g>
+  <g font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="middle">
+    <text x="220" y="22">a band may go in any gap, at most one band per gap</text>
+  </g>
+</svg>

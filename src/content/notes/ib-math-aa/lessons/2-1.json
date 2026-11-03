@@ -1,0 +1,673 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "2.1",
+  "slug": "straight-line-equations",
+  "title": "Straight-line equations",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A straight line is fixed by its [[gradient|gradient]] and one point on it. You'll write lines in three forms, find where they cross the axes, and tell parallel from perpendicular lines by their gradients. Tangents, normals and linear models later in the course all rely on this.",
+  "goals": [
+    {
+      "text": "Find the [[gradient|gradient]] of a line from two points, and recognise horizontal and vertical lines.",
+      "bullets": [
+        "2.1-b2"
+      ]
+    },
+    {
+      "text": "Write a line in gradient–intercept, general or point–gradient form, and convert between them.",
+      "bullets": [
+        "2.1-b1"
+      ]
+    },
+    {
+      "text": "Find where a line crosses the $x$-axis and the $y$-axis.",
+      "bullets": [
+        "2.1-b2"
+      ]
+    },
+    {
+      "text": "Use $m_{1} = m_{2}$ for parallel lines and $m_{1} \\times m_{2} = -1$ for perpendicular lines.",
+      "bullets": [
+        "2.1-b3"
+      ]
+    },
+    {
+      "text": "Work out the gradient of a real slope such as a ramp, road or bridge.",
+      "bullets": [
+        "2.1-b4"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "equation of a straight line",
+    "y = mx + c",
+    "gradient of a line",
+    "slope between two points",
+    "perpendicular gradient",
+    "x and y intercepts"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-substitute-point",
+      "prompt": "The point $(a, 5)$ lies on the line $y = 3x - 7$. Find $a$.",
+      "hint": "Put $x = a$ and $y = 5$ into the equation, then solve for $a$.",
+      "options": [
+        {
+          "text": "$a = 4$",
+          "correct": true
+        },
+        {
+          "text": "$a = 8$",
+          "correct": false
+        },
+        {
+          "text": "$a = -\\tfrac{2}{3}$",
+          "correct": false
+        }
+      ],
+      "explain": "$5 = 3a - 7$, so $3a = 12$ and $a = 4$. This is substitution and solving from your earlier algebra."
+    },
+    {
+      "type": "check",
+      "id": "before-make-y-subject",
+      "prompt": "Make $y$ the subject of $4x - 2y = 6$.",
+      "hint": "Move the $x$ term to the right first, then divide every term by the number in front of $y$.",
+      "options": [
+        {
+          "text": "$y = 2x - 3$",
+          "correct": true
+        },
+        {
+          "text": "$y = -2x + 3$",
+          "correct": false
+        },
+        {
+          "text": "$y = 2x + 3$",
+          "correct": false
+        },
+        {
+          "text": "$y = 2x - 6$",
+          "correct": false
+        }
+      ],
+      "explain": "$-2y = 6 - 4x$. Dividing every term by $-2$ gives $y = 2x - 3$. Dividing by a negative changes every sign."
+    },
+    {
+      "type": "check",
+      "id": "before-negative-fraction",
+      "prompt": "Work out $\\dfrac{-3 - 5}{2 - (-2)}$.",
+      "hint": "Subtracting a negative is the same as adding: $2 - (-2) = 2 + 2$.",
+      "options": [
+        {
+          "text": "$-2$",
+          "correct": true
+        },
+        {
+          "text": "$2$",
+          "correct": false
+        },
+        {
+          "text": "$-\\tfrac{1}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "The top is $-8$ and the bottom is $4$, so the value is $-2$. Careful sign work like this is most of finding a gradient."
+    }
+  ],
+  "sections": [
+    {
+      "id": "gradient",
+      "heading": "The gradient of a line",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Walk along a straight line from left to right. For every step across, you go up (or down) by the same amount. That fixed rate is the line's [[gradient|gradient]], written $m$."
+        },
+        {
+          "type": "text",
+          "text": "Between any two points on the line, the change in $y$ is the rise and the change in $x$ is the run. Rise divided by run is the same for every pair of points."
+        },
+        {
+          "type": "definition",
+          "term": "gradient",
+          "statement": "The gradient of the line through $(x_{1}, y_{1})$ and $(x_{2}, y_{2})$, where $x_{1} \\neq x_{2}$, is the change in $y$ divided by the change in $x$.",
+          "plain": "It tells you how far the line goes up for each one unit you move to the right."
+        },
+        {
+          "type": "formula",
+          "tex": "m = \\frac{y_{2} - y_{1}}{x_{2} - x_{1}}",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-gradient",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This formula is in the formula booklet. Subtract in the same order on the top and the bottom: point 2 minus point 1 both times."
+        },
+        {
+          "type": "text",
+          "text": "The sign tells you the direction. If $m > 0$ the line rises to the right. If $m < 0$ it falls. A bigger $\\lvert m\\rvert$ means a steeper line."
+        },
+        {
+          "type": "example",
+          "id": "ex-gradient-two-points",
+          "question": "Find the gradient of the line through $\\text{A}(-3, 5)$ and $\\text{B}(1, -7)$.",
+          "steps": [
+            "Label the points: $(x_{1}, y_{1}) = (-3, 5)$ and $(x_{2}, y_{2}) = (1, -7)$.",
+            "Rise: $y_{2} - y_{1} = -7 - 5 = -12$.",
+            "Run: $x_{2} - x_{1} = 1 - (-3) = 4$.",
+            "Divide: $m = \\frac{-12}{4} = -3$.",
+            "Check the sign: B is lower than A and to its right, so the line falls. A negative gradient fits."
+          ],
+          "answer": "$m = -3$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-gradient-find-k",
+          "question": "The line through $\\text{P}(2, k)$ and $\\text{Q}(k, 14)$ has gradient $3$. Find the value of $k$.",
+          "steps": [
+            "Write the gradient with the unknown in it: $m = \\frac{14 - k}{k - 2}$.",
+            "Set it equal to $3$: $\\frac{14 - k}{k - 2} = 3$.",
+            "Multiply both sides by $k - 2$: $14 - k = 3k - 6$.",
+            "Collect terms: $20 = 4k$, so $k = 5$.",
+            "Check: P is $(2, 5)$ and Q is $(5, 14)$. The gradient is $\\frac{9}{3} = 3$, as required."
+          ],
+          "answer": "$k = 5$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-gradient-two-points",
+          "prompt": "Find the gradient of the line through $(-2, 1)$ and $(4, -8)$.",
+          "hint": "Rise is the change in $y$; run is the change in $x$. Watch the double negative in the run.",
+          "options": [
+            {
+              "text": "$-\\tfrac{3}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\tfrac{3}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\tfrac{2}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\tfrac{9}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "Rise $= -8 - 1 = -9$ and run $= 4 - (-2) = 6$. So $m = \\frac{-9}{6} = -\\frac{3}{2}$."
+        },
+        {
+          "type": "text",
+          "text": "A horizontal line has no rise, so $m = 0$ and its equation is $y = c$: that is $y = mx + c$ with $m = 0$. A vertical line has no run, so its gradient is undefined. Every point on it has the same $x$, so its equation is $x = h$, where $h$ is that shared $x$-value."
+        },
+        {
+          "type": "check",
+          "id": "check-vertical-line",
+          "prompt": "Find the equation of the line through $(3, -1)$ and $(3, 6)$.",
+          "hint": "Look at the $x$-coordinates. What stays the same along this line?",
+          "options": [
+            {
+              "text": "$x = 3$",
+              "correct": true
+            },
+            {
+              "text": "$y = 3$",
+              "correct": false
+            },
+            {
+              "text": "$y = x - 1$",
+              "correct": false
+            },
+            {
+              "text": "$x = -1$",
+              "correct": false
+            }
+          ],
+          "explain": "Both points have $x = 3$, so the run is $0$ and the line is vertical. Its equation is $x = 3$."
+        }
+      ]
+    },
+    {
+      "id": "forms",
+      "heading": "Three forms of a line, and its intercepts",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A line is fixed once you know its [[gradient|gradient]] and one point on it. The three forms below just store that information in different ways."
+        },
+        {
+          "type": "formula",
+          "tex": "y = mx + c; \\quad ax + by + d = 0; \\quad y - y_{1} = m(x - x_{1})",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-line-equations",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "These are in the formula booklet. You do need to know what each one shows."
+        },
+        {
+          "type": "text",
+          "text": "1. Gradient–intercept form, $y = mx + c$. The gradient is $m$. The line crosses the $y$-axis at $(0, c)$, because $x = 0$ gives $y = c$."
+        },
+        {
+          "type": "text",
+          "text": "2. [[general-form-of-a-line|General form]], $ax + by + d = 0$. Every term sits on one side. Questions often ask for $a$, $b$ and $d$ to be integers."
+        },
+        {
+          "type": "text",
+          "text": "3. Point–gradient form, $y - y_{1} = m(x - x_{1})$. It uses one point $(x_{1}, y_{1})$ and the gradient $m$. It is the fastest way to write down a line."
+        },
+        {
+          "type": "text",
+          "text": "The [[y-intercept|y-intercept]] is where the line meets the $y$-axis, so put $x = 0$. The [[x-intercept|x-intercept]] is where it meets the $x$-axis, so put $y = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-line-point-gradient",
+          "question": "Find the equation of the line through $(4, -1)$ with gradient $-\\frac{3}{2}$. Give it in the form $y = mx + c$.",
+          "steps": [
+            "Use point–gradient form with $x_{1} = 4$, $y_{1} = -1$ and $m = -\\frac{3}{2}$: $y - (-1) = -\\frac{3}{2}(x - 4)$.",
+            "Tidy the left side and expand the bracket: $y + 1 = -\\frac{3}{2}x + 6$.",
+            "Subtract $1$ from both sides: $y = -\\frac{3}{2}x + 5$.",
+            "Check with the point: $-\\frac{3}{2}(4) + 5 = -6 + 5 = -1$. It works."
+          ],
+          "answer": "$y = -\\tfrac{3}{2}x + 5$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-line-two-points-general",
+          "question": "Find the equation of the line through $\\text{A}(-2, -3)$ and $\\text{B}(4, 1)$. Give it in the form $ax + by + d = 0$, where $a, b, d \\in \\mathbb{Z}$.",
+          "steps": [
+            "Gradient first: $m = \\frac{1 - (-3)}{4 - (-2)} = \\frac{4}{6} = \\frac{2}{3}$.",
+            "Use B in point–gradient form: $y - 1 = \\frac{2}{3}(x - 4)$.",
+            "Multiply both sides by $3$ to clear the fraction: $3y - 3 = 2(x - 4) = 2x - 8$.",
+            "Move every term to one side: $0 = 2x - 3y - 5$, so $2x - 3y - 5 = 0$.",
+            "Check with A: $2(-2) - 3(-3) - 5 = -4 + 9 - 5 = 0$. A is on the line too."
+          ],
+          "answer": "$2x - 3y - 5 = 0$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-general-form",
+          "prompt": "Write $y = -\\frac{3}{4}x + 2$ in the form $ax + by + d = 0$, where $a, b, d \\in \\mathbb{Z}$.",
+          "hint": "Multiply every term by $4$ first, then move everything to one side.",
+          "options": [
+            {
+              "text": "$3x + 4y - 8 = 0$",
+              "correct": true
+            },
+            {
+              "text": "$3x + 4y + 8 = 0$",
+              "correct": false
+            },
+            {
+              "text": "$3x + 4y - 2 = 0$",
+              "correct": false
+            },
+            {
+              "text": "$3x - 4y - 8 = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "Multiplying by $4$ gives $4y = -3x + 8$. Moving everything to the left gives $3x + 4y - 8 = 0$."
+        },
+        {
+          "type": "text",
+          "text": "To read the gradient from the general form, make $y$ the subject. From $ax + by + d = 0$ you get $y = -\\frac{a}{b}x - \\frac{d}{b}$, so the gradient is $-\\frac{a}{b}$."
+        },
+        {
+          "type": "text",
+          "text": "For example, $5x - 2y + 10 = 0$ gives $2y = 5x + 10$, so $y = \\frac{5}{2}x + 5$. Its gradient is $\\frac{5}{2}$ and its $y$-intercept is $5$."
+        },
+        {
+          "type": "example",
+          "id": "ex-intercepts-triangle",
+          "question": "The line $3x + 4y - 24 = 0$ meets the $x$-axis at A and the $y$-axis at B. O is the origin. Find the area of triangle OAB.",
+          "steps": [
+            "For A, put $y = 0$: $3x - 24 = 0$, so $x = 8$ and A is $(8, 0)$.",
+            "For B, put $x = 0$: $4y - 24 = 0$, so $y = 6$ and B is $(0, 6)$.",
+            "The triangle has a right angle at O. Its base OA is $8$ and its height OB is $6$.",
+            "Area $= \\frac{1}{2} \\times 8 \\times 6 = 24$. The triangle area formula is in the prior-learning part of the booklet."
+          ],
+          "answer": "$\\text{Area} = 24$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up the intercepts. The $x$-intercept is on the $x$-axis, where $y = 0$. Say \"on the $x$-axis, $y$ is zero\" before you substitute."
+        },
+        {
+          "type": "check",
+          "id": "check-x-intercept",
+          "prompt": "Find the $x$-coordinate of the point where the line $2x + 5y - 7 = 0$ meets the $x$-axis.",
+          "hint": "On the $x$-axis, the $y$-coordinate is $0$.",
+          "answer": {
+            "value": 3.5,
+            "tolerance": 0
+          },
+          "explain": "Put $y = 0$: $2x - 7 = 0$, so $x = 3.5$."
+        }
+      ]
+    },
+    {
+      "id": "parallel-perpendicular",
+      "heading": "Parallel and perpendicular lines",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Parallel lines never meet, so they must climb at the same rate. Two non-vertical lines are parallel exactly when their [[gradient|gradients]] are equal."
+        },
+        {
+          "type": "text",
+          "text": "Perpendicular lines meet at a right angle. Turn a line through $90^{\\circ}$ and look at its rise-and-run triangle. The rise and run swap places, and one of them changes sign."
+        },
+        {
+          "type": "figure",
+          "id": "2-1-perpendicular-triangles",
+          "alt": "Two lines crossing at a right angle. The first rises to the right with gradient two thirds, shown by a triangle that goes 3 across and 2 up. The second falls to the right with gradient minus three halves, shown by the same triangle turned through a right angle, which goes 2 across and 3 down.",
+          "caption": "Turning the triangle through $90^{\\circ}$ turns gradient $\\frac{2}{3}$ into $-\\frac{3}{2}$."
+        },
+        {
+          "type": "result",
+          "statement": "For lines with gradients $m_{1}$ and $m_{2}$: they are parallel if $m_{1} = m_{2}$, and perpendicular if $m_{1} \\times m_{2} = -1$.",
+          "why": "Turning a run of $1$ and rise of $m$ through $90^{\\circ}$ gives a run of $m$ and a rise of $-1$, so the new gradient is $-\\frac{1}{m}$, and $m \\times \\left(-\\frac{1}{m}\\right) = -1$."
+        },
+        {
+          "type": "formula",
+          "tex": "m_{1} = m_{2} \\qquad m_{1} \\times m_{2} = -1",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "So a perpendicular gradient is the [[negative-reciprocal|negative reciprocal]]: flip the fraction and change the sign. $\\frac{2}{3}$ becomes $-\\frac{3}{2}$, and $-4$ becomes $\\frac{1}{4}$."
+        },
+        {
+          "type": "text",
+          "text": "The rule needs both gradients to exist. A horizontal line ($m = 0$) and a vertical line are perpendicular, even though $0$ has no reciprocal."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-through-point",
+          "question": "Find the equation of the line parallel to $4x + 2y - 3 = 0$ that passes through $(3, 1)$. Give it in the form $y = mx + c$.",
+          "steps": [
+            "Find the given line's gradient. $2y = -4x + 3$, so $y = -2x + \\frac{3}{2}$ and $m = -2$.",
+            "Parallel lines share a gradient, so the new line also has $m = -2$.",
+            "Use point–gradient form: $y - 1 = -2(x - 3) = -2x + 6$.",
+            "Add $1$: $y = -2x + 7$. Check: $-2(3) + 7 = 1$."
+          ],
+          "answer": "$y = -2x + 7$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-perpendicular-bisector",
+          "question": "A is $(-1, 2)$ and B is $(5, 6)$. The perpendicular bisector of AB is the line through the midpoint of AB at right angles to AB. Find its equation in the form $ax + by + d = 0$, where $a, b, d \\in \\mathbb{Z}$.",
+          "steps": [
+            "Midpoint of AB: $\\left(\\frac{-1 + 5}{2}, \\frac{2 + 6}{2}\\right) = (2, 4)$. The midpoint formula is in the prior-learning part of the booklet.",
+            "Gradient of AB: $\\frac{6 - 2}{5 - (-1)} = \\frac{4}{6} = \\frac{2}{3}$.",
+            "Perpendicular gradient: the negative reciprocal of $\\frac{2}{3}$ is $-\\frac{3}{2}$. Check: $\\frac{2}{3} \\times \\left(-\\frac{3}{2}\\right) = -1$.",
+            "Line through $(2, 4)$: $y - 4 = -\\frac{3}{2}(x - 2)$.",
+            "Multiply by $2$: $2y - 8 = -3x + 6$. Rearrange: $3x + 2y - 14 = 0$."
+          ],
+          "answer": "$3x + 2y - 14 = 0$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Flipping the gradient but keeping its sign. The perpendicular to gradient $\\frac{2}{3}$ has gradient $-\\frac{3}{2}$, not $\\frac{3}{2}$. Multiply the two gradients: you must get $-1$."
+        },
+        {
+          "type": "check",
+          "id": "check-perpendicular-gradient",
+          "prompt": "Find the gradient of a line perpendicular to $2x - 5y + 1 = 0$.",
+          "hint": "Make $y$ the subject to find this line's gradient first. Then flip it and change its sign.",
+          "options": [
+            {
+              "text": "$-\\tfrac{5}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\tfrac{5}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\tfrac{2}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\tfrac{2}{5}$",
+              "correct": false
+            }
+          ],
+          "explain": "$5y = 2x + 1$, so the line has gradient $\\frac{2}{5}$. The perpendicular gradient is $-\\frac{5}{2}$, since $\\frac{2}{5} \\times \\left(-\\frac{5}{2}\\right) = -1$."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 the numbers can be awkward. Write the two equations down, then let your calculator find where the lines meet."
+        },
+        {
+          "type": "example",
+          "id": "ex-foot-of-perpendicular-gdc",
+          "question": "The line $L_{1}$ has equation $y = 0.6x + 2.4$. The line $L_{2}$ passes through $\\text{P}(7, 1)$ and is perpendicular to $L_{1}$. Use your calculator to find the point where $L_{1}$ and $L_{2}$ meet. Give your answers to 3 s.f.",
+          "steps": [
+            "Gradient of $L_{1}$: $0.6 = \\frac{3}{5}$. So $L_{2}$ has gradient $-\\frac{5}{3}$.",
+            "Equation of $L_{2}$: $y - 1 = -\\frac{5}{3}(x - 7)$. Multiply by $3$: $3y - 3 = -5x + 35$, so $5x + 3y = 38$.",
+            "Write both lines in the same layout for the solver: $0.6x - y = -2.4$ and $5x + 3y = 38$. Writing this down earns the method mark.",
+            "The calculator gives $x = 4.5294\\ldots$ and $y = 5.1176\\ldots$. Round only at the end.",
+            "Check: $0.6 \\times 4.5294\\ldots + 2.4 = 5.1176\\ldots$, so the point is on $L_{1}$."
+          ],
+          "answer": "$x \\approx 4.53, \\; y \\approx 5.12$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "APPS, PlySmlt2",
+              "Choose the simultaneous equation solver, with 2 equations and 2 unknowns (check on your model)",
+              "Row 1: 0.6, -1, -2.4. Row 2: 5, 3, 38",
+              "SOLVE, then read x = 4.5294... and y = 5.1176..."
+            ],
+            "nspire": [
+              "Calculator page, Menu, Algebra, Solve System of Linear Equations",
+              "Number of equations 2, variables x,y (check on your model)",
+              "Type 0.6x-y=-2.4 and 5x+3y=38, then enter",
+              "Read x = 4.5294... and y = 5.1176..."
+            ],
+            "casio": [
+              "EQUA, Simultaneous (F1)",
+              "Number of unknowns: 2 (check on your model)",
+              "Row 1: 0.6, -1, -2.4. Row 2: 5, 3, 38",
+              "SOLVE, then read x = 4.5294... and y = 5.1176..."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-or-perpendicular",
+          "prompt": "Are the lines $3x - 6y + 2 = 0$ and $y = -2x + 1$ parallel, perpendicular or neither?",
+          "hint": "Find both gradients. Are they equal, or do they multiply to $-1$?",
+          "options": [
+            {
+              "text": "Perpendicular",
+              "correct": true
+            },
+            {
+              "text": "Parallel",
+              "correct": false
+            },
+            {
+              "text": "Neither",
+              "correct": false
+            }
+          ],
+          "explain": "The first line is $y = \\frac{1}{2}x + \\frac{1}{3}$, with gradient $\\frac{1}{2}$. The second has gradient $-2$. Since $\\frac{1}{2} \\times (-2) = -1$, they are perpendicular."
+        }
+      ]
+    },
+    {
+      "id": "real-gradients",
+      "heading": "Gradients of real slopes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Engineers describe ramps, roads and bridges by their [[gradient|gradient]]. It is the same idea: vertical rise divided by horizontal distance."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{gradient} = \\frac{\\text{vertical rise}}{\\text{horizontal distance}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Road signs often give a gradient as a percentage. A $10\\%$ gradient means a rise of $10$ m for every $100$ m across, so $m = 0.1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-ramp-gradient",
+          "question": "A wheelchair ramp rises $0.45$ m over a horizontal distance of $5.4$ m. Find its gradient as a fraction in its simplest form.",
+          "steps": [
+            "Rise $= 0.45$ m and horizontal distance $= 5.4$ m.",
+            "Gradient $= \\frac{0.45}{5.4}$.",
+            "Multiply top and bottom by $100$: $\\frac{45}{540}$. Divide both by $45$: $\\frac{1}{12}$.",
+            "So the ramp rises $1$ m for every $12$ m across."
+          ],
+          "answer": "$m = \\tfrac{1}{12}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-road-along-surface",
+          "question": "A straight mountain road climbs $84$ m in height. Its length, measured along the road surface, is $1.2$ km. Find the gradient of the road. Give your answer to 3 s.f.",
+          "steps": [
+            "Use the same units: $1.2$ km $= 1200$ m.",
+            "The $1200$ m is along the slope, not across. It is the hypotenuse of a right-angled triangle whose vertical side is $84$ m.",
+            "Horizontal distance by Pythagoras: $\\sqrt{1200^{2} - 84^{2}} = \\sqrt{1432944} = 1197.056\\ldots$ m.",
+            "Gradient $= \\frac{84}{1197.056\\ldots} = 0.070172\\ldots$. Keep the full value until this last step.",
+            "So $m \\approx 0.0702$, about a $7.02\\%$ gradient."
+          ],
+          "answer": "$m \\approx 0.0702$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by the length along the slope. The gradient uses the horizontal distance. If you are given the slope length, find the horizontal distance with Pythagoras first."
+        },
+        {
+          "type": "check",
+          "id": "check-road-sign-rise",
+          "prompt": "A road sign warns of a $12\\%$ gradient. How many metres does the road rise over a horizontal distance of $250$ m?",
+          "hint": "Turn the percentage into a gradient first. Then rise $=$ gradient $\\times$ horizontal distance.",
+          "answer": {
+            "value": 30,
+            "tolerance": 0
+          },
+          "explain": "A $12\\%$ gradient is $m = 0.12$. Rise $= 0.12 \\times 250 = 30$ m."
+        },
+        {
+          "type": "check",
+          "id": "check-steeper-ramp",
+          "prompt": "Ramp A rises $0.6$ m over a horizontal distance of $7.5$ m. Ramp B rises $0.5$ m over a horizontal distance of $6$ m. Which ramp is steeper?",
+          "hint": "Compare the two gradients as decimals.",
+          "options": [
+            {
+              "text": "Ramp B",
+              "correct": true
+            },
+            {
+              "text": "Ramp A",
+              "correct": false
+            },
+            {
+              "text": "They are equally steep",
+              "correct": false
+            }
+          ],
+          "explain": "Ramp A: $\\frac{0.6}{7.5} = 0.08$. Ramp B: $\\frac{0.5}{6} = 0.0833\\ldots$. Ramp B has the larger gradient."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "m = \\frac{y_{2} - y_{1}}{x_{2} - x_{1}}",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-gradient",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "y = mx + c; \\quad ax + by + d = 0; \\quad y - y_{1} = m(x - x_{1})",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-line-equations",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In $ax + by + d = 0$ the gradient is $-\\frac{a}{b}$. Make $y$ the subject to see it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$y$-intercept: put $x = 0$. $x$-intercept: put $y = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Horizontal lines are $y = c$ with $m = 0$. Vertical lines are $x = h$, with no gradient.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Parallel: $m_{1} = m_{2}$. Perpendicular: $m_{1} \\times m_{2} = -1$, so flip the gradient and change its sign.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Real slopes: gradient $=$ vertical rise $\\div$ horizontal distance. A $p\\%$ gradient means $m = \\frac{p}{100}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Subtracting in a different order on the top and the bottom, such as $\\frac{y_{2} - y_{1}}{x_{1} - x_{2}}$. That flips the sign of the gradient. Take point 2 minus point 1 in both places.",
+    "Putting the run on top. The gradient is rise over run, change in $y$ divided by change in $x$.",
+    "Reading the gradient of $ax + by + d = 0$ as $a$. Make $y$ the subject first: the gradient is $-\\frac{a}{b}$.",
+    "Taking only the reciprocal, or only the negative, for a perpendicular gradient. Do both, then check that the product is $-1$.",
+    "Setting $x = 0$ to find the $x$-intercept. On the $x$-axis it is $y$ that is zero.",
+    "Using the length along a slope as the run. A real gradient divides by the horizontal distance."
+  ],
+  "examTips": [
+    "\"Write down the gradient\" needs no working when the line is in the form $y = mx + c$. From the general form, show the rearrangement first.",
+    "\"Find the equation of the line\" asks for an equation, such as $y = -2x + 7$, not just the expression $-2x + 7$. Any correct form earns the marks unless the question names one. If it says $a, b, d \\in \\mathbb{Z}$, clear every fraction.",
+    "On Paper 1, keep gradients as exact fractions like $\\frac{2}{3}$. A rounded $0.667$ makes the rest of the line inexact.",
+    "On Paper 2, write down the equations you put into your calculator before giving the point where lines meet. Give the coordinates to 3 s.f."
+  ],
+  "readingMinutes": 25
+}

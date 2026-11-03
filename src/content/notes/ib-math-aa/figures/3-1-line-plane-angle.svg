@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 230" role="img" aria-labelledby="t">
+  <title id="t">A line meets a plane at A and rises to P; the perpendicular from P meets the plane at N, and theta is the angle PAN</title>
+  <polygon points="30,200 230,200 320,130 120,130" fill="var(--t5-ink)" fill-opacity="0.12" stroke="currentColor" stroke-width="1.5"/>
+  <polygon points="90,175 250,165 250,40" fill="var(--t1-ink)" fill-opacity="0.12" stroke="none"/>
+  <line x1="90" y1="175" x2="280" y2="15" stroke="currentColor" stroke-width="2.5"/>
+  <line x1="250" y1="40" x2="250" y2="165" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="90" y1="175" x2="250" y2="165" stroke="var(--t1-ink)" stroke-width="2"/>
+  <path d="M240,165.6 L240,155.6 L250,155" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M123.9,172.9 A34,34 0 0,0 116,153.1" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <circle cx="90" cy="175" r="3.5" fill="currentColor"/>
+  <circle cx="250" cy="40" r="3.5" fill="currentColor"/>
+  <circle cx="250" cy="165" r="3.5" fill="currentColor"/>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="74" y="190">A</text>
+    <text x="258" y="44">P</text>
+    <text x="256" y="182">N</text>
+    <text x="128" y="166" font-style="italic">θ</text>
+    <text x="190" y="192" fill="var(--t5-ink)">plane</text>
+  </g>
+</svg>

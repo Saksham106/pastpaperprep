@@ -1,0 +1,786 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.5",
+  "slug": "unit-circle-trigonometry-and-exact-values",
+  "title": "Unit-circle trigonometry and exact values",
+  "level": "SL",
+  "topic": 3,
+  "summary": "The sine and cosine of any angle are the coordinates of a point on the [[unit-circle|unit circle]]. That one picture gives you tangent, the exact values of special angles in every [[quadrant|quadrant]], and the reason the sine rule can fit two different triangles.",
+  "goals": [
+    {
+      "text": "Define $\\cos\\theta$ and $\\sin\\theta$ as coordinates on the [[unit-circle|unit circle]], and give their signs in each [[quadrant|quadrant]].",
+      "bullets": [
+        "3.5-b1"
+      ]
+    },
+    {
+      "text": "Link the sine and cosine of $-\\theta$, $\\pi - \\theta$ and $\\pi + \\theta$ to those of $\\theta$.",
+      "bullets": [
+        "3.5-b1"
+      ]
+    },
+    {
+      "text": "Use $\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta}$, and write the line through the origin at angle $\\theta$ as $y = x\\tan\\theta$.",
+      "bullets": [
+        "3.5-b2"
+      ]
+    },
+    {
+      "text": "Give exact values of sine, cosine and tangent for $0$, $\\frac{\\pi}{6}$, $\\frac{\\pi}{4}$, $\\frac{\\pi}{3}$, $\\frac{\\pi}{2}$ and their multiples, in radians or degrees.",
+      "bullets": [
+        "3.5-b3"
+      ]
+    },
+    {
+      "text": "Spot the [[ambiguous-case|ambiguous case]] of the sine rule and find every possible angle.",
+      "bullets": [
+        "3.5-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.2",
+    "3.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "unit circle",
+    "exact trig values",
+    "special angles table",
+    "trig of angles bigger than 90",
+    "ambiguous case sine rule",
+    "sign of sin cos tan in each quadrant"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-right-ratio",
+      "prompt": "A right-angled triangle has sides $9$, $40$ and $41$. The angle $\\theta$ is opposite the side of length $9$. Find $\\cos\\theta$.",
+      "hint": "Cosine is adjacent over hypotenuse. The hypotenuse is the longest side.",
+      "options": [
+        {
+          "text": "$\\frac{40}{41}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{9}{41}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{9}{40}$",
+          "correct": false
+        }
+      ],
+      "explain": "The hypotenuse is $41$ and the side next to $\\theta$ is $40$, so $\\cos\\theta = \\frac{40}{41}$. Revise it in {{lesson:3.2}}."
+    },
+    {
+      "type": "check",
+      "id": "before-radians",
+      "prompt": "Write $150^{\\circ}$ in radians.",
+      "hint": "$180^{\\circ} = \\pi$ radians, so multiply by $\\frac{\\pi}{180}$.",
+      "options": [
+        {
+          "text": "$\\frac{5\\pi}{6}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{2\\pi}{3}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{5\\pi}{3}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{3\\pi}{4}$",
+          "correct": false
+        }
+      ],
+      "explain": "$150 \\times \\frac{\\pi}{180} = \\frac{150\\pi}{180} = \\frac{5\\pi}{6}$. Revise it in {{lesson:3.4}}."
+    },
+    {
+      "type": "check",
+      "id": "before-sine-rule",
+      "prompt": "In triangle ABC, $\\hat{A} = 35^{\\circ}$, $\\hat{B} = 110^{\\circ}$ and $a = 6$ cm. Find $b$ in cm, to 3 s.f.",
+      "hint": "Pair each side with the angle it faces: $\\frac{b}{\\sin B} = \\frac{a}{\\sin A}$.",
+      "answer": {
+        "value": 9.83,
+        "tolerance": 0.005
+      },
+      "explain": "$b = \\frac{6\\sin 110^{\\circ}}{\\sin 35^{\\circ}} = 9.829\\ldots \\approx 9.83$ cm. Revise it in {{lesson:3.2}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "unit-circle",
+      "heading": "Sine and cosine on the unit circle",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.2}} you defined sine and cosine in right-angled triangles, then took your calculator's values for obtuse angles. This lesson defines them on a circle, which explains those values and works for any angle. Graphs need that, since $x$ can be any number."
+        },
+        {
+          "type": "text",
+          "text": "Draw the [[unit-circle|unit circle]]: centre the origin $O$, radius $1$. Start at the point $(1, 0)$. Turn anticlockwise about $O$ through an angle $\\theta$, and call the point you reach $P$."
+        },
+        {
+          "type": "figure",
+          "id": "3-5-unit-circle-point",
+          "alt": "The unit circle with centre O. A radius of length 1 makes an angle theta with the positive x-axis and ends at the point P in the first quadrant. A horizontal segment from O, labelled cos theta, and a vertical segment up to P, labelled sin theta, make a right-angled triangle with the radius.",
+          "caption": "$P$ has coordinates $(\\cos\\theta, \\sin\\theta)$."
+        },
+        {
+          "type": "definition",
+          "term": "sine and cosine of any angle",
+          "statement": "For any angle $\\theta$, let $P$ be the point on the unit circle reached by turning through $\\theta$ anticlockwise from $(1, 0)$. Then $\\cos\\theta$ is the $x$-coordinate of $P$ and $\\sin\\theta$ is its $y$-coordinate.",
+          "plain": "Cosine is how far across the point is, and sine is how far up."
+        },
+        {
+          "type": "formula",
+          "tex": "P = (\\cos\\theta,\\ \\sin\\theta)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This agrees with SOH CAH TOA. For an acute $\\theta$, the triangle in the figure has hypotenuse $1$. So $\\cos\\theta = \\frac{\\text{adjacent}}{1}$ is the distance across, and $\\sin\\theta = \\frac{\\text{opposite}}{1}$ is the height."
+        },
+        {
+          "type": "text",
+          "text": "A negative angle means you turn clockwise instead. Adding $2\\pi$ is one more full turn, so you land on the same point. That means $\\sin(\\theta + 2\\pi) = \\sin\\theta$ and $\\cos(\\theta + 2\\pi) = \\cos\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "The axes split the plane into four [[quadrant|quadrants]], numbered anticlockwise from the top right. The signs of $P$'s coordinates give the signs of $\\cos\\theta$ and $\\sin\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "1. First quadrant, $0 < \\theta < \\frac{\\pi}{2}$: both are positive."
+        },
+        {
+          "type": "text",
+          "text": "2. Second quadrant, $\\frac{\\pi}{2} < \\theta < \\pi$: $\\sin\\theta$ is positive, $\\cos\\theta$ is negative."
+        },
+        {
+          "type": "text",
+          "text": "3. Third quadrant, $\\pi < \\theta < \\frac{3\\pi}{2}$: both are negative."
+        },
+        {
+          "type": "text",
+          "text": "4. Fourth quadrant, $\\frac{3\\pi}{2} < \\theta < 2\\pi$: $\\cos\\theta$ is positive, $\\sin\\theta$ is negative."
+        },
+        {
+          "type": "text",
+          "text": "Move the slider round all four quadrants and watch each sign change as $P$ crosses an axis. The graphs on the right are the subject of {{lesson:3.7}}."
+        },
+        {
+          "type": "interactive",
+          "widget": "unit-circle-graphs",
+          "props": {
+            "theta": 2.5
+          },
+          "alt": "A unit circle with a point at angle theta, starting at about 143 degrees in the second quadrant, beside the graphs of y equals sine x and y equals cosine x. The point's height matches the sine graph and its distance across matches the cosine graph. A slider moves theta from 0 to about 6.28 radians, and the values of cos theta and sin theta are shown."
+        },
+        {
+          "type": "example",
+          "id": "ex-circle-point",
+          "question": "The point $P\\left(-\\frac{7}{25}, \\frac{24}{25}\\right)$ lies on the unit circle. The angle from the positive $x$-axis to $OP$ is $\\theta$, where $0 \\le \\theta < 2\\pi$. Write down $\\cos\\theta$ and $\\sin\\theta$, and state which quadrant $\\theta$ is in.",
+          "steps": [
+            "Check that $P$ is on the unit circle: $\\left(-\\frac{7}{25}\\right)^{2} + \\left(\\frac{24}{25}\\right)^{2} = \\frac{49 + 576}{625} = 1$.",
+            "Cosine is the $x$-coordinate, so $\\cos\\theta = -\\frac{7}{25}$.",
+            "Sine is the $y$-coordinate, so $\\sin\\theta = \\frac{24}{25}$.",
+            "$x$ is negative and $y$ is positive, so $P$ is top left: $\\theta$ is in the second quadrant."
+          ],
+          "answer": "$\\cos\\theta = -\\frac{7}{25}, \\; \\sin\\theta = \\frac{24}{25}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Many angles share a sine or cosine, up to a sign. To see which, reflect or rotate $P$ and watch its coordinates. In the figure, $c = \\cos\\theta$ and $s = \\sin\\theta$."
+        },
+        {
+          "type": "figure",
+          "id": "3-5-symmetry",
+          "alt": "The unit circle with four points, one in each quadrant, at the corners of a dashed rectangle centred on O. The point at angle theta, in the first quadrant, has coordinates c, s. The point at pi minus theta, its mirror image in the y-axis, has coordinates minus c, s. The point at pi plus theta, opposite it through O, has coordinates minus c, minus s. The point at minus theta, its mirror image in the x-axis, has coordinates c, minus s.",
+          "caption": "Here $c = \\cos\\theta$ and $s = \\sin\\theta$."
+        },
+        {
+          "type": "result",
+          "statement": "For every angle $\\theta$: $\\sin(-\\theta) = -\\sin\\theta$ and $\\cos(-\\theta) = \\cos\\theta$. Also $\\sin(\\pi - \\theta) = \\sin\\theta$ and $\\cos(\\pi - \\theta) = -\\cos\\theta$. Finally $\\sin(\\pi + \\theta) = -\\sin\\theta$ and $\\cos(\\pi + \\theta) = -\\cos\\theta$.",
+          "why": "Turning to $-\\theta$ reflects $P$ in the $x$-axis. Turning to $\\pi - \\theta$ reflects it in the $y$-axis. Adding $\\pi$ is a half turn through $O$. Each move only changes the signs shown in the figure."
+        },
+        {
+          "type": "text",
+          "text": "Don't learn these as a list: sketch the circle and read off the signs. The angle $2\\pi - \\theta$ lands on the same point as $-\\theta$, so it follows the same rule."
+        },
+        {
+          "type": "example",
+          "id": "ex-circle-simplify",
+          "question": "Simplify $\\sin(\\pi - x) + \\sin(-x) + \\cos(\\pi + x)$.",
+          "steps": [
+            "Reflect in the $y$-axis: $\\sin(\\pi - x) = \\sin x$.",
+            "Reflect in the $x$-axis: $\\sin(-x) = -\\sin x$.",
+            "Half turn: $\\cos(\\pi + x) = -\\cos x$.",
+            "Add them: $\\sin x - \\sin x - \\cos x = -\\cos x$."
+          ],
+          "answer": "$\\sin(\\pi - x) + \\sin(-x) + \\cos(\\pi + x) = -\\cos x$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-circle-related",
+          "prompt": "The angle $\\alpha$ is acute and $\\sin\\alpha = \\frac{2}{9}$. Find $\\sin(\\pi + \\alpha)$.",
+          "hint": "A half turn sends $(c, s)$ to $(-c, -s)$.",
+          "options": [
+            {
+              "text": "$-\\frac{2}{9}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{2}{9}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{\\sqrt{77}}{9}$",
+              "correct": false
+            }
+          ],
+          "explain": "Adding $\\pi$ is a half turn, which flips the sign of the sine. So $\\sin(\\pi + \\alpha) = -\\sin\\alpha = -\\frac{2}{9}$. You don't need $\\cos\\alpha$ at all."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 1 you are often given one ratio and the quadrant, then asked for another. $P$ lies on the circle $x^{2} + y^{2} = 1$, so $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$. The square root gives two signs, and the quadrant picks one. You'll meet this identity again in {{lesson:3.6}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-circle-sign",
+          "question": "Given that $\\cos\\theta = -\\frac{5}{6}$ and $\\pi < \\theta < \\frac{3\\pi}{2}$, find the exact value of $\\sin\\theta$.",
+          "steps": [
+            "$P(\\cos\\theta, \\sin\\theta)$ is on the unit circle, so $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$.",
+            "Substitute, squaring the top and the bottom: $\\sin^{2}\\theta = 1 - \\frac{25}{36} = \\frac{11}{36}$.",
+            "Take square roots: $\\sin\\theta = \\pm\\frac{\\sqrt{11}}{6}$.",
+            "$\\theta$ is in the third quadrant, where $\\sin\\theta < 0$. So take the negative root."
+          ],
+          "answer": "$\\sin\\theta = -\\frac{\\sqrt{11}}{6}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving $\\pm$ in the answer, or keeping the positive root out of habit. Name the quadrant first, then use the sign it gives."
+        },
+        {
+          "type": "check",
+          "id": "check-circle-sign",
+          "prompt": "Given that $\\cos\\theta = -\\frac{8}{17}$ and $\\frac{\\pi}{2} < \\theta < \\pi$, find $\\sin\\theta$.",
+          "hint": "Use $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$, then the quadrant for the sign.",
+          "options": [
+            {
+              "text": "$\\frac{15}{17}$",
+              "correct": true
+            },
+            {
+              "text": "$-\\frac{15}{17}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{9}{17}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sin^{2}\\theta = 1 - \\frac{64}{289} = \\frac{225}{289}$, so $\\sin\\theta = \\pm\\frac{15}{17}$. Sine is positive in the second quadrant, so $\\sin\\theta = \\frac{15}{17}$."
+        }
+      ]
+    },
+    {
+      "id": "tangent",
+      "heading": "Tangent and lines through the origin",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The line $OP$ joins $(0, 0)$ to $(\\cos\\theta, \\sin\\theta)$. Its [[gradient|gradient]] is rise over run, $\\frac{\\sin\\theta}{\\cos\\theta}$. For an acute angle that is $\\frac{\\text{opposite}}{\\text{adjacent}}$, the $\\tan\\theta$ of {{lesson:3.2}}. So this ratio defines tangent for any angle."
+        },
+        {
+          "type": "definition",
+          "term": "tangent of any angle",
+          "statement": "For any angle $\\theta$ with $\\cos\\theta \\ne 0$, $\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta}$.",
+          "plain": "Tan is the gradient of the line from the origin to the point on the [[unit-circle|unit circle]]."
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan\\theta = \\dfrac{\\sin\\theta}{\\cos\\theta}",
+          "tag": "booklet",
+          "bookletId": "bk-3-5-tan-identity"
+        },
+        {
+          "type": "text",
+          "text": "You don't need to memorise this; it's in the formula booklet. When $\\cos\\theta = 0$, at $\\theta = \\frac{\\pi}{2}$ or $\\frac{3\\pi}{2}$, the line $OP$ is vertical and $\\tan\\theta$ is undefined."
+        },
+        {
+          "type": "result",
+          "statement": "The straight line through the origin that makes an angle $\\theta$ with the positive $x$-axis has equation $y = x\\tan\\theta$.",
+          "why": "The line has the same gradient as $OP$, which is $\\tan\\theta$, and it passes through $(0, 0)$, so its $y$-intercept is $0$."
+        },
+        {
+          "type": "figure",
+          "id": "3-5-tan-line",
+          "alt": "Axes with the unit circle. A straight line passes through the origin O at angle theta to the positive x-axis and meets the circle at P. Below P, a right-angled triangle has a horizontal side labelled cos theta and a vertical side labelled sin theta. The line is labelled y equals x tan theta."
+        },
+        {
+          "type": "text",
+          "text": "The signs follow from the quotient. $\\tan\\theta$ is positive when $\\sin\\theta$ and $\\cos\\theta$ have the same sign: the first and third [[quadrant|quadrants]]. It is negative in the second and fourth."
+        },
+        {
+          "type": "text",
+          "text": "A half turn flips both signs, so the quotient stays the same: $\\tan(\\pi + \\theta) = \\tan\\theta$. Tan repeats every $\\pi$, not every $2\\pi$. In the same way, $\\tan(-\\theta) = -\\tan\\theta$ and $\\tan(\\pi - \\theta) = -\\tan\\theta$. For an angle past $2\\pi$, take off whole turns first, or half turns for tan: $\\tan(3\\pi + \\theta) = \\tan(\\pi + \\theta) = \\tan\\theta$."
+        },
+        {
+          "type": "example",
+          "id": "ex-tan-quotient",
+          "question": "An angle $\\theta$ has $\\sin\\theta = -\\frac{20}{29}$ and $\\cos\\theta = -\\frac{21}{29}$. State its quadrant and find $\\tan\\theta$.",
+          "steps": [
+            "Both coordinates are negative, so $P$ is bottom left: the third quadrant.",
+            "Divide: $\\tan\\theta = \\dfrac{-\\frac{20}{29}}{-\\frac{21}{29}}$.",
+            "The $29$s cancel, and so do the two minus signs: $\\tan\\theta = \\frac{20}{21}$.",
+            "Check the sign: tan is positive in the third quadrant, which matches."
+          ],
+          "answer": "$\\tan\\theta = \\frac{20}{21}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-tan-sign",
+          "prompt": "For an angle $\\theta$, $\\sin\\theta > 0$ and $\\tan\\theta < 0$. Which quadrant is $\\theta$ in?",
+          "hint": "Tan is negative when sine and cosine have opposite signs.",
+          "options": [
+            {
+              "text": "Second",
+              "correct": true
+            },
+            {
+              "text": "First",
+              "correct": false
+            },
+            {
+              "text": "Third",
+              "correct": false
+            },
+            {
+              "text": "Fourth",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sin\\theta > 0$ puts $P$ above the $x$-axis. $\\tan\\theta < 0$ then needs $\\cos\\theta < 0$, so $P$ is on the left. Above and to the left is the second quadrant."
+        },
+        {
+          "type": "example",
+          "id": "ex-tan-line",
+          "question": "The angle $\\theta$ satisfies $0 < \\theta < \\pi$ and $\\cos\\theta = -\\frac{1}{3}$. Find the equation of the line through the origin that makes an angle $\\theta$ with the positive $x$-axis. Give it in the form $y = mx$, where $m$ is exact.",
+          "steps": [
+            "The line is $y = x\\tan\\theta$, so you need $\\tan\\theta$. For that you first need $\\sin\\theta$.",
+            "$\\sin^{2}\\theta = 1 - \\cos^{2}\\theta = 1 - \\frac{1}{9} = \\frac{8}{9}$.",
+            "$\\cos\\theta < 0$ and $0 < \\theta < \\pi$, so $\\theta$ is in the second quadrant and $\\sin\\theta > 0$. So $\\sin\\theta = \\frac{\\sqrt{8}}{3} = \\frac{2\\sqrt{2}}{3}$.",
+            "$\\tan\\theta = \\dfrac{\\frac{2\\sqrt{2}}{3}}{-\\frac{1}{3}} = -2\\sqrt{2}$.",
+            "A negative gradient fits: the line runs from the second quadrant down through $O$ into the fourth."
+          ],
+          "answer": "$y = -2\\sqrt{2}x$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-tan-related",
+          "prompt": "Simplify $\\tan(4\\pi - x)$.",
+          "hint": "Take off two whole turns first. Where does $-x$ land?",
+          "options": [
+            {
+              "text": "$-\\tan x$",
+              "correct": true
+            },
+            {
+              "text": "$\\tan x$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{\\tan x}$",
+              "correct": false
+            }
+          ],
+          "explain": "$4\\pi$ is two whole turns, so $4\\pi - x$ ends at the same point as $-x$: the reflection of $P$ in the $x$-axis. The sine changes sign and the cosine doesn't, so their quotient changes sign: $\\tan(4\\pi - x) = -\\tan x$."
+        }
+      ]
+    },
+    {
+      "id": "exact-values",
+      "heading": "Exact values",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Paper 1 has no calculator, so for angles built from $\\frac{\\pi}{6}$ and $\\frac{\\pi}{4}$ you give exact values: fractions and surds. Two triangles give you all of them."
+        },
+        {
+          "type": "figure",
+          "id": "3-5-exact-triangles",
+          "alt": "Two right-angled triangles. The first is half of an equilateral triangle: hypotenuse 2, shortest side 1 and third side root 3, with an angle of pi over 3, or 60 degrees, between the sides 1 and 2, and an angle of pi over 6, or 30 degrees, at the top. The second has two sides of 1 and hypotenuse root 2, with two angles of pi over 4, or 45 degrees."
+        },
+        {
+          "type": "text",
+          "text": "Cut an equilateral triangle of side $2$ in half. Each half has hypotenuse $2$, base $1$, and angles $\\frac{\\pi}{3}$ ($60^{\\circ}$) and $\\frac{\\pi}{6}$ ($30^{\\circ}$). Pythagoras gives the third side: $\\sqrt{2^{2} - 1^{2}} = \\sqrt{3}$."
+        },
+        {
+          "type": "text",
+          "text": "A right-angled triangle with two sides of $1$ has two angles of $\\frac{\\pi}{4}$ ($45^{\\circ}$). Its hypotenuse is $\\sqrt{1^{2} + 1^{2}} = \\sqrt{2}$."
+        },
+        {
+          "type": "text",
+          "text": "Read the ratios off with SOH CAH TOA. For example, $\\sin\\frac{\\pi}{6} = \\frac{1}{2}$ and $\\cos\\frac{\\pi}{4} = \\frac{1}{\\sqrt{2}} = \\frac{\\sqrt{2}}{2}$. The angles $0$ and $\\frac{\\pi}{2}$ come straight from the points $(1, 0)$ and $(0, 1)$ on the [[unit-circle|unit circle]]."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{array}{c|ccccc} \\theta & 0 & \\frac{\\pi}{6} & \\frac{\\pi}{4} & \\frac{\\pi}{3} & \\frac{\\pi}{2} \\\\ & 0^{\\circ} & 30^{\\circ} & 45^{\\circ} & 60^{\\circ} & 90^{\\circ} \\\\ \\hline \\sin\\theta & 0 & \\frac{1}{2} & \\frac{\\sqrt{2}}{2} & \\frac{\\sqrt{3}}{2} & 1 \\\\ \\cos\\theta & 1 & \\frac{\\sqrt{3}}{2} & \\frac{\\sqrt{2}}{2} & \\frac{1}{2} & 0 \\\\ \\tan\\theta & 0 & \\frac{\\sqrt{3}}{3} & 1 & \\sqrt{3} & \\text{undefined} \\end{array}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This table is not in the formula booklet, so learn it. A pattern helps: the sine row is $\\frac{\\sqrt{0}}{2}, \\frac{\\sqrt{1}}{2}, \\frac{\\sqrt{2}}{2}, \\frac{\\sqrt{3}}{2}, \\frac{\\sqrt{4}}{2}$, and the cosine row is the same backwards. The smaller angle has the smaller sine, so $\\sin\\frac{\\pi}{6} = \\frac{1}{2}$, not $\\frac{\\sqrt{3}}{2}$."
+        },
+        {
+          "type": "examTip",
+          "text": "$\\frac{1}{\\sqrt{2}}$ and $\\frac{\\sqrt{2}}{2}$ are the same number, and so are $\\frac{1}{\\sqrt{3}}$ and $\\frac{\\sqrt{3}}{3}$. If a question asks for a particular form, give that one."
+        },
+        {
+          "type": "text",
+          "text": "For a multiple such as $\\frac{5\\pi}{6}$, combine the table with the unit-circle rules. The key is the [[reference-angle|reference angle]]: the acute angle between $OP$ and the $x$-axis."
+        },
+        {
+          "type": "text",
+          "text": "1. Mark the angle on the unit circle and name its [[quadrant|quadrant]]."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the reference angle. For $\\frac{5\\pi}{6}$ it is $\\pi - \\frac{5\\pi}{6} = \\frac{\\pi}{6}$."
+        },
+        {
+          "type": "text",
+          "text": "3. Look up the value for the reference angle in the table."
+        },
+        {
+          "type": "text",
+          "text": "4. Give it the sign that the function has in that quadrant."
+        },
+        {
+          "type": "example",
+          "id": "ex-exact-cos",
+          "question": "Find the exact value of $\\cos\\frac{7\\pi}{6}$.",
+          "steps": [
+            "$\\frac{7\\pi}{6} = \\pi + \\frac{\\pi}{6}$, just past a half turn, so $P$ is in the third quadrant.",
+            "The reference angle is $\\frac{\\pi}{6}$, and $\\cos\\frac{\\pi}{6} = \\frac{\\sqrt{3}}{2}$.",
+            "Cosine is negative in the third quadrant. In symbols, $\\cos(\\pi + \\theta) = -\\cos\\theta$, so $\\cos\\frac{7\\pi}{6} = -\\cos\\frac{\\pi}{6}$."
+          ],
+          "answer": "$\\cos\\frac{7\\pi}{6} = -\\frac{\\sqrt{3}}{2}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-exact-tan-degrees",
+          "question": "Find the exact value of $\\tan 300^{\\circ}$.",
+          "steps": [
+            "$300^{\\circ} = 360^{\\circ} - 60^{\\circ}$, so $P$ is in the fourth quadrant.",
+            "The reference angle is $60^{\\circ}$, and $\\tan 60^{\\circ} = \\sqrt{3}$.",
+            "In the fourth quadrant sine is negative and cosine is positive, so tan is negative.",
+            "So $\\tan 300^{\\circ} = -\\tan 60^{\\circ}$."
+          ],
+          "answer": "$\\tan 300^{\\circ} = -\\sqrt{3}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-exact-sin",
+          "prompt": "Find the exact value of $\\sin\\frac{5\\pi}{4}$.",
+          "hint": "$\\frac{5\\pi}{4} = \\pi + \\frac{\\pi}{4}$. Which quadrant is that?",
+          "options": [
+            {
+              "text": "$-\\frac{\\sqrt{2}}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{\\sqrt{2}}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{\\sqrt{3}}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{5\\pi}{4}$ is in the third quadrant, where sine is negative. The reference angle is $\\frac{\\pi}{4}$, so $\\sin\\frac{5\\pi}{4} = -\\sin\\frac{\\pi}{4} = -\\frac{\\sqrt{2}}{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-exact-combo",
+          "question": "Without a calculator, find the exact value of $2\\sin\\frac{4\\pi}{3} - \\tan\\frac{3\\pi}{4}$.",
+          "steps": [
+            "$\\frac{4\\pi}{3} = \\pi + \\frac{\\pi}{3}$ is in the third quadrant, where sine is negative. So $\\sin\\frac{4\\pi}{3} = -\\sin\\frac{\\pi}{3} = -\\frac{\\sqrt{3}}{2}$.",
+            "$\\frac{3\\pi}{4} = \\pi - \\frac{\\pi}{4}$ is in the second quadrant, where tan is negative. So $\\tan\\frac{3\\pi}{4} = -\\tan\\frac{\\pi}{4} = -1$.",
+            "Substitute, keeping the brackets: $2\\left(-\\frac{\\sqrt{3}}{2}\\right) - (-1) = -\\sqrt{3} + 1$."
+          ],
+          "answer": "$2\\sin\\frac{4\\pi}{3} - \\tan\\frac{3\\pi}{4} = 1 - \\sqrt{3}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-exact-negative",
+          "prompt": "Find the exact value of $\\cos\\left(-\\frac{4\\pi}{3}\\right)$.",
+          "hint": "Start with $\\cos(-\\theta) = \\cos\\theta$.",
+          "options": [
+            {
+              "text": "$-\\frac{1}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{\\sqrt{3}}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\sqrt{3}}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\cos\\left(-\\frac{4\\pi}{3}\\right) = \\cos\\frac{4\\pi}{3}$. That angle is $\\pi + \\frac{\\pi}{3}$, in the third quadrant, where cosine is negative. So the value is $-\\cos\\frac{\\pi}{3} = -\\frac{1}{2}$."
+        },
+        {
+          "type": "text",
+          "text": "Going the other way, from a value back to every angle that has it, is solving a trigonometric equation. That is {{lesson:3.8}}."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, the compound-angle identities give exact values for more angles, such as $\\frac{\\pi}{12}$.",
+          "lesson": "3.10"
+        }
+      ]
+    },
+    {
+      "id": "ambiguous",
+      "heading": "The ambiguous case of the sine rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.2}} you found angles with the [[sine-rule|sine rule]] and $\\sin^{-1}$. Your calculator always gives an acute angle. But in degrees $\\sin(180^{\\circ} - \\theta) = \\sin\\theta$, so an obtuse angle has the same sine. For example, $\\sin 40^{\\circ} = \\sin 140^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "So when the sine rule gives you $\\sin B$, there are two candidates: $B$ and $180^{\\circ} - B$. Sometimes both fit a triangle. This is the [[ambiguous-case|ambiguous case]]."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}",
+          "tag": "booklet",
+          "bookletId": "bk-3-2-sine-rule"
+        },
+        {
+          "type": "text",
+          "text": "It can happen when you know two sides and an angle that is not between them. Picture it: fix the angle at A and the side AC. The side from C swings like a gate, and it can meet the base line in two places."
+        },
+        {
+          "type": "figure",
+          "id": "3-5-ambiguous",
+          "alt": "From A, a horizontal base line runs to the right. Side AC, of length 6, rises at 30 degrees to the base. From C, a side of length 3 root 2 swings down to the base line and can land at two points: B2, nearer A, and B1, further away. A dashed arc centred at C passes through both. Triangle A B1 C has an acute angle at B1; triangle A B2 C has an obtuse angle at B2.",
+          "caption": "Both triangles have $\\hat{A} = 30^{\\circ}$, $\\text{AC} = 6$ and $\\text{BC} = 3\\sqrt{2}$."
+        },
+        {
+          "type": "result",
+          "statement": "If the sine rule gives $\\sin B = k$ with $0 < k < 1$, the candidates are $B_{1} = \\sin^{-1}k$, which is acute, and $B_{2} = 180^{\\circ} - B_{1}$, which is obtuse. Each one gives a triangle only if $\\hat{A} + B < 180^{\\circ}$. When $\\hat{A}$ is acute, $B_{1}$ always passes, so only $B_{2}$ needs the test.",
+          "why": "Both angles have sine $k$. The angles of a triangle add up to $180^{\\circ}$, so the third angle, $180^{\\circ} - \\hat{A} - B$, must be positive. If $\\hat{A}$ is obtuse, even $B_{1}$ can fail: with $\\hat{A} = 150^{\\circ}$ and $\\sin B = 0.6$, $B_{1} \\approx 36.9^{\\circ}$ and $150^{\\circ} + 36.9^{\\circ} > 180^{\\circ}$, so no triangle exists."
+        },
+        {
+          "type": "text",
+          "text": "If $k > 1$, no triangle exists, because no sine is bigger than $1$. If $k = 1$, then $B = 90^{\\circ}$. That gives one triangle when $\\hat{A}$ is acute, and none otherwise."
+        },
+        {
+          "type": "example",
+          "id": "ex-ambiguous-exact",
+          "question": "In triangle ABC, $\\hat{A} = 30^{\\circ}$, $\\text{AC} = 6$ cm and $\\text{BC} = 3\\sqrt{2}$ cm. Without a calculator, find the two possible values of $\\hat{B}$.",
+          "steps": [
+            "Pair each side with the angle it faces: BC $= a$ faces $\\hat{A}$, and AC $= b$ faces $\\hat{B}$.",
+            "Write the sine rule with the unknown on top: $\\frac{\\sin B}{6} = \\frac{\\sin 30^{\\circ}}{3\\sqrt{2}}$.",
+            "So $\\sin B = \\frac{6 \\times \\frac{1}{2}}{3\\sqrt{2}} = \\frac{3}{3\\sqrt{2}} = \\frac{1}{\\sqrt{2}}$.",
+            "From the table, $B_{1} = 45^{\\circ}$. Its obtuse partner is $B_{2} = 180^{\\circ} - 45^{\\circ} = 135^{\\circ}$.",
+            "Test the obtuse one: $30^{\\circ} + 135^{\\circ} = 165^{\\circ} < 180^{\\circ}$, which leaves $15^{\\circ}$ for $\\hat{C}$. Both triangles exist, as in the figure."
+          ],
+          "answer": "$\\hat{B} = 45^{\\circ} \\text{ or } \\hat{B} = 135^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at the calculator's acute angle. With two sides and an angle not between them, always test $180^{\\circ}$ minus that angle too."
+        },
+        {
+          "type": "example",
+          "id": "ex-ambiguous-gdc",
+          "question": "In triangle PQR, $\\text{PQ} = 11$ cm, $\\text{QR} = 8$ cm and $\\hat{P} = 38^{\\circ}$. Use your calculator to find the two possible values of $\\hat{R}$. Give your answers to 3 s.f.",
+          "steps": [
+            "PQ faces $\\hat{R}$ and QR faces $\\hat{P}$. Write down the sine rule: $\\frac{\\sin R}{11} = \\frac{\\sin 38^{\\circ}}{8}$.",
+            "So $\\sin R = \\frac{11\\sin 38^{\\circ}}{8} = 0.846534\\ldots$, which is less than $1$.",
+            "$R_{1} = \\sin^{-1}(0.846534\\ldots) = 57.836\\ldots^{\\circ}$.",
+            "$R_{2} = 180^{\\circ} - 57.836\\ldots^{\\circ} = 122.163\\ldots^{\\circ}$.",
+            "Test: $38^{\\circ} + 122.16^{\\circ} = 160.16^{\\circ} < 180^{\\circ}$, so both triangles exist. Round only now."
+          ],
+          "answer": "$\\hat{R} \\approx 57.8^{\\circ} \\text{ or } \\hat{R} \\approx 122^{\\circ}$",
+          "check": {
+            "type": "check",
+            "id": "check-ambiguous-pr",
+            "prompt": "Now you try. For the triangle where $\\hat{R}$ is obtuse, find PR in cm, to 3 s.f.",
+            "hint": "Find $\\hat{Q}$ from the angle sum first. Then use the sine rule with PR facing $\\hat{Q}$.",
+            "answer": {
+              "value": 4.41,
+              "tolerance": 0.005
+            },
+            "explain": "$\\hat{Q} = 180^{\\circ} - 38^{\\circ} - 122.163\\ldots^{\\circ} = 19.836\\ldots^{\\circ}$. Then $\\text{PR} = \\frac{8\\sin 19.836\\ldots^{\\circ}}{\\sin 38^{\\circ}} = 4.409\\ldots \\approx 4.41$ cm."
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, select DEGREE",
+              "Type 11*sin(38)/8 and press ENTER; read 0.846534...",
+              "2nd, SIN (sin⁻¹), then 2nd, (-) (ANS), close the bracket, ENTER (check on your model)",
+              "Read 57.836..., the acute angle",
+              "Type 180 - then 2nd, (-) (ANS), ENTER (check on your model)",
+              "Read 122.163..., the obtuse angle"
+            ],
+            "nspire": [
+              "Settings, Angle: Degree",
+              "Calculator page, type 11*sin(38)/8 and press enter; read 0.846534...",
+              "Press the trig key, choose sin⁻¹, type ctrl (-) (ans), then enter (check on your model)",
+              "Read 57.836..., the acute angle",
+              "Type 180-, then ctrl (-) (ans), enter (check on your model)",
+              "Read 122.163..., the obtuse angle"
+            ],
+            "casio": [
+              "SHIFT MENU (SET UP), Angle: Deg",
+              "RUN-MAT, type 11sin(38)÷8, EXE; read 0.846534...",
+              "SHIFT, sin (sin⁻¹), then SHIFT, (-) (Ans), EXE (check on your model)",
+              "Read 57.836..., the acute angle",
+              "Type 180-, then SHIFT, (-) (Ans), EXE (check on your model)",
+              "Read 122.163..., the obtuse angle"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ambiguous-count",
+          "prompt": "How many different triangles have $\\hat{A} = 40^{\\circ}$, $a = 7$ and $b = 9$?",
+          "hint": "Find $\\sin B$, then test both $B$ and $180^{\\circ} - B$ against the angle sum.",
+          "options": [
+            {
+              "text": "$2$",
+              "correct": true
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$0$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sin B = \\frac{9\\sin 40^{\\circ}}{7} = 0.826\\ldots$, so $B = 55.7\\ldots^{\\circ}$ or $124.2\\ldots^{\\circ}$. Since $40^{\\circ} + 124.2\\ldots^{\\circ} < 180^{\\circ}$, both work: two triangles."
+        },
+        {
+          "type": "check",
+          "id": "check-ambiguous-obtuse",
+          "prompt": "In triangle XYZ, $\\hat{X} = 25^{\\circ}$, $\\text{YZ} = 6$ cm and $\\text{XZ} = 10$ cm. The angle $\\hat{Y}$ is obtuse. Find $\\hat{Y}$ in degrees, to 3 s.f.",
+          "hint": "YZ faces $\\hat{X}$ and XZ faces $\\hat{Y}$. Find the acute angle with $\\sin^{-1}$ first.",
+          "answer": {
+            "value": 135,
+            "tolerance": 0.5
+          },
+          "explain": "$\\sin Y = \\frac{10\\sin 25^{\\circ}}{6} = 0.704\\ldots$, which gives the acute angle $44.778\\ldots^{\\circ}$. The obtuse angle is $180^{\\circ} - 44.778\\ldots^{\\circ} = 135.22\\ldots^{\\circ} \\approx 135^{\\circ}$, and $25^{\\circ} + 135.22\\ldots^{\\circ} < 180^{\\circ}$, so it fits."
+        },
+        {
+          "type": "examTip",
+          "text": "Phrases such as “find the two possible values” or “given that the angle is obtuse” point to the ambiguous case. Write the sine rule with your numbers substituted before solving: that line earns the method mark."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "P = (\\cos\\theta,\\ \\sin\\theta)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Signs: all three are positive in the first quadrant, only $\\sin$ in the second, only $\\tan$ in the third, only $\\cos$ in the fourth.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\sin(\\pi - \\theta) = \\sin\\theta$ and $\\cos(-\\theta) = \\cos\\theta$. Adding $\\pi$ flips the signs of $\\sin$ and $\\cos$, but not of $\\tan$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan\\theta = \\dfrac{\\sin\\theta}{\\cos\\theta}",
+          "tag": "booklet",
+          "bookletId": "bk-3-5-tan-identity",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The line through the origin at angle $\\theta$ to the positive $x$-axis is $y = x\\tan\\theta$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{array}{c|ccccc} \\theta & 0 & \\frac{\\pi}{6} & \\frac{\\pi}{4} & \\frac{\\pi}{3} & \\frac{\\pi}{2} \\\\ & 0^{\\circ} & 30^{\\circ} & 45^{\\circ} & 60^{\\circ} & 90^{\\circ} \\\\ \\hline \\sin\\theta & 0 & \\frac{1}{2} & \\frac{\\sqrt{2}}{2} & \\frac{\\sqrt{3}}{2} & 1 \\\\ \\cos\\theta & 1 & \\frac{\\sqrt{3}}{2} & \\frac{\\sqrt{2}}{2} & \\frac{1}{2} & 0 \\\\ \\tan\\theta & 0 & \\frac{\\sqrt{3}}{3} & 1 & \\sqrt{3} & \\text{undefined} \\end{array}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Exact value of a multiple: the size comes from the reference angle in the table, the sign from the quadrant.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Ambiguous case: if $\\sin B = k < 1$, test $\\sin^{-1}k$ and $180^{\\circ} - \\sin^{-1}k$. Keep each angle only if the angle sum stays below $180^{\\circ}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Choosing the sign by habit. After $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$, name the quadrant and take the sign it gives. Never leave $\\pm$ in the final answer.",
+    "Squaring a surd fraction carelessly: $\\left(\\frac{2\\sqrt{2}}{3}\\right)^{2} = \\frac{8}{9}$, not $\\frac{8}{3}$. Square the top and the bottom.",
+    "Mixing up $\\sin\\frac{\\pi}{6}$ and $\\sin\\frac{\\pi}{3}$. The smaller angle has the smaller sine, so $\\sin\\frac{\\pi}{6} = \\frac{1}{2}$.",
+    "Pairing a side with the wrong angle in the sine rule. Each side goes with the angle it faces, so mark the pairs on a sketch first.",
+    "Missing the obtuse angle in the ambiguous case, or keeping an angle that makes the angle sum $180^{\\circ}$ or more. Test both $B$ and $180^{\\circ} - B$ every time, then check the angle sum for each."
+  ],
+  "examTips": [
+    "“Find the exact value” means fractions and surds. Show the reference angle and the sign from the quadrant; a decimal is not exact.",
+    "“Show that” an exact value means working forwards from the given information to the printed result. Substituting the answer back in to check it proves nothing.",
+    "On Paper 2, check degree mode, keep the full value of $\\sin B$ stored, and give both angles to 3 s.f. when the question asks for every possible value."
+  ],
+  "readingMinutes": 28
+}

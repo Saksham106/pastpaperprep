@@ -1,0 +1,814 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.14",
+  "slug": "complex-roots-and-de-moivres-theorem",
+  "title": "Complex roots and De Moivre’s theorem",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "[[de-moivres-theorem|De Moivre's theorem]] turns a power of a complex number into one step: raise the modulus to the power and multiply the argument. Run it backwards and it gives all $n$ roots of $z^{n} = w$, spaced evenly round a circle. Polynomials with real coefficients have their non-real roots in [[conjugate-pair|conjugate pairs]], which helps you find missing roots.",
+  "goals": [
+    {
+      "text": "Use [[conjugate-pair|conjugate pairs]] to find the missing roots and coefficients of a polynomial with real coefficients.",
+      "bullets": [
+        "1.14-b1"
+      ]
+    },
+    {
+      "text": "Raise a complex number to a power with De Moivre's theorem, in polar or Cartesian form.",
+      "bullets": [
+        "1.14-b2",
+        "1.14-b3"
+      ]
+    },
+    {
+      "text": "Prove De Moivre's theorem by induction for positive integers, and extend it to negative and rational powers.",
+      "bullets": [
+        "1.14-b2"
+      ]
+    },
+    {
+      "text": "Find all $n$ roots of $z^{n} = w$, including the [[roots-of-unity|roots of unity]].",
+      "bullets": [
+        "1.14-b2",
+        "1.14-b3"
+      ]
+    },
+    {
+      "text": "Combine De Moivre's theorem with the binomial theorem to write $\\cos n\\theta$ or $\\sin n\\theta$ in powers of $\\cos\\theta$ and $\\sin\\theta$.",
+      "bullets": [
+        "1.14-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.9",
+    "1.13",
+    "1.15"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "de moivre's theorem",
+    "powers of complex numbers",
+    "nth roots of a complex number",
+    "roots of unity",
+    "complex conjugate roots",
+    "multiple angle formulas from de moivre"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-polar-form",
+      "prompt": "Write $1 - \\mathrm{i}$ in the form $r\\,\\mathrm{cis}\\,\\theta$, where $r > 0$ and $-\\pi < \\theta \\le \\pi$.",
+      "hint": "Find the modulus with Pythagoras. Then decide which quadrant the point $(1, -1)$ is in.",
+      "options": [
+        {
+          "text": "$\\sqrt{2}\\,\\mathrm{cis}\\,\\frac{\\pi}{4}$",
+          "correct": false
+        },
+        {
+          "text": "$\\sqrt{2}\\,\\mathrm{cis}\\left(-\\frac{\\pi}{4}\\right)$",
+          "correct": true
+        },
+        {
+          "text": "$2\\,\\mathrm{cis}\\left(-\\frac{\\pi}{4}\\right)$",
+          "correct": false
+        },
+        {
+          "text": "$\\sqrt{2}\\,\\mathrm{cis}\\,\\frac{3\\pi}{4}$",
+          "correct": false
+        }
+      ],
+      "explain": "The modulus is $\\sqrt{1^{2} + (-1)^{2}} = \\sqrt{2}$. The point is in the fourth quadrant, so the argument is $-\\frac{\\pi}{4}$. Revise it in {{lesson:1.13}}."
+    },
+    {
+      "type": "check",
+      "id": "before-induction-parts",
+      "prompt": "A proof by induction that $2 + 4 + 6 + \\cdots + 2n = n(n + 1)$ for all $n \\in \\mathbb{Z}^{+}$ goes like this. Assume it is true for $n = k$. Add $2(k + 1)$ to both sides to get $(k + 1)(k + 2)$. So it is true for all $n \\in \\mathbb{Z}^{+}$. Which part is missing?",
+      "hint": "A proof by induction has four parts: basis, assumption, inductive step and conclusion. Which one can you not find?",
+      "options": [
+        {
+          "text": "Showing it is true for $n = 1$",
+          "correct": true
+        },
+        {
+          "text": "Assuming it is true for $n = k$",
+          "correct": false
+        },
+        {
+          "text": "Showing it is true for $n = k + 1$",
+          "correct": false
+        },
+        {
+          "text": "Concluding it is true for all $n \\in \\mathbb{Z}^{+}$",
+          "correct": false
+        }
+      ],
+      "explain": "The basis is missing. The proof never checks $n = 1$, where $2 = 1 \\times 2$. Without it, the chain of cases has nowhere to start. Revise it in {{lesson:1.15}}."
+    },
+    {
+      "type": "check",
+      "id": "before-binomial-coefficient",
+      "prompt": "Find the coefficient of $x^{2}$ in the expansion of $(2 + x)^{5}$.",
+      "hint": "The $x^{2}$ term is $\\binom{5}{2}\\,2^{3}x^{2}$.",
+      "answer": {
+        "value": 80,
+        "tolerance": 0
+      },
+      "explain": "$\\binom{5}{2} = 10$ and $2^{3} = 8$, so the coefficient is $10 \\times 8 = 80$. Revise it in {{lesson:1.9}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "conjugate-pairs",
+      "heading": "Complex roots come in conjugate pairs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Solve $z^{2} - 6z + 13 = 0$ with the quadratic formula. You get $z = \\frac{6 \\pm \\sqrt{36 - 52}}{2} = \\frac{6 \\pm 4\\mathrm{i}}{2} = 3 \\pm 2\\mathrm{i}$."
+        },
+        {
+          "type": "text",
+          "text": "The two roots, $3 + 2\\mathrm{i}$ and $3 - 2\\mathrm{i}$, are complex conjugates. The $\\pm$ in the formula makes this happen for every quadratic with real coefficients and a negative discriminant. It also happens for every [[polynomial|polynomial]] with real coefficients, whatever its degree."
+        },
+        {
+          "type": "definition",
+          "term": "conjugate pair",
+          "statement": "Two complex numbers $a + b\\mathrm{i}$ and $a - b\\mathrm{i}$, where $a, b \\in \\mathbb{R}$ and $b \\ne 0$, form a conjugate pair. Each is the complex conjugate $z^{*}$ of the other.",
+          "plain": "Same real part, opposite imaginary parts: mirror images in the real axis."
+        },
+        {
+          "type": "result",
+          "statement": "If a polynomial $p(z)$ has real coefficients and $p(w) = 0$ for a non-real number $w$, then $p(w^{*}) = 0$ as well. So the non-real roots come in [[conjugate-pair|conjugate pairs]].",
+          "why": "Taking the conjugate of $p(w) = 0$ gives $p(w^{*}) = 0^{*} = 0$, because conjugates respect sums and products and leave real coefficients alone."
+        },
+        {
+          "type": "text",
+          "text": "Here is the reason in full. From {{lesson:1.12}}, conjugating a sum gives the sum of the conjugates. Conjugating a product gives the product of the conjugates. So $(w^{n})^{*} = (w^{*})^{n}$. A real number is its own conjugate: $a^{*} = a$."
+        },
+        {
+          "type": "text",
+          "text": "Now write $p(z) = a_{n}z^{n} + \\ldots + a_{1}z + a_{0}$, with every $a$ real. Take the conjugate of both sides of $p(w) = 0$. You get $a_{n}(w^{*})^{n} + \\ldots + a_{1}w^{*} + a_{0} = 0$, which says $p(w^{*}) = 0$."
+        },
+        {
+          "type": "figure",
+          "id": "1-14-conjugate-roots",
+          "alt": "Argand diagram with three marked points: 3 on the real axis, 1 plus 2 i above it and 1 minus 2 i below it. A dashed vertical line joins the last two, showing they are reflections of each other in the real axis.",
+          "caption": "The roots of $z^{3} - 5z^{2} + 11z - 15 = 0$. The non-real roots reflect into each other in the real axis."
+        },
+        {
+          "type": "text",
+          "text": "Multiplying the two factors of a pair always gives a real quadratic: $(z - w)(z - w^{*}) = z^{2} - 2az + (a^{2} + b^{2})$ when $w = a + b\\mathrm{i}$. That is the key step in most questions."
+        },
+        {
+          "type": "text",
+          "text": "There is a bonus. The non-real roots pair off, so a real polynomial of odd degree always has at least one real root."
+        },
+        {
+          "type": "mistake",
+          "text": "The rule needs real coefficients. $z^{2} - 2\\mathrm{i}z - 1 = (z - \\mathrm{i})^{2}$ has the root $\\mathrm{i}$, but $-\\mathrm{i}$ is not a root. Check the coefficients before you write down a conjugate."
+        },
+        {
+          "type": "example",
+          "id": "ex-cubic-given-root",
+          "question": "Given that $1 + 2\\mathrm{i}$ is a root of $z^{3} - 5z^{2} + 11z - 15 = 0$, find the other two roots.",
+          "steps": [
+            "Every coefficient is real, so the conjugate $1 - 2\\mathrm{i}$ is also a root.",
+            "Multiply the two factors. Treat $z - 1$ as one term: $(z - 1 - 2\\mathrm{i})(z - 1 + 2\\mathrm{i}) = (z - 1)^{2} - (2\\mathrm{i})^{2} = z^{2} - 2z + 1 + 4 = z^{2} - 2z + 5$.",
+            "So $z^{2} - 2z + 5$ is a factor. Write $z^{3} - 5z^{2} + 11z - 15 = (z^{2} - 2z + 5)(z + c)$. The constant terms give $5c = -15$, so $c = -3$.",
+            "Check another coefficient. The $z^{2}$ terms give $c - 2 = -5$, which is true for $c = -3$.",
+            "The factor $z - 3$ gives the real root $z = 3$."
+          ],
+          "answer": "$z = 1 - 2\\mathrm{i} \\text{ or } z = 3$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-third-root",
+          "prompt": "A cubic equation with real coefficients has roots $5$ and $-4 + 7\\mathrm{i}$. What is its third root?",
+          "hint": "Which part of the number changes sign when you take its conjugate?",
+          "options": [
+            {
+              "text": "$4 - 7\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$-4 - 7\\mathrm{i}$",
+              "correct": true
+            },
+            {
+              "text": "$4 + 7\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$7 - 4\\mathrm{i}$",
+              "correct": false
+            }
+          ],
+          "explain": "Real coefficients mean the conjugate, $-4 - 7\\mathrm{i}$, must be a root too. Only the imaginary part changes sign."
+        },
+        {
+          "type": "text",
+          "text": "With unknown coefficients, the sum and product of the roots are often quicker than dividing. For $a_{n}z^{n} + a_{n-1}z^{n-1} + \\ldots + a_{0} = 0$ the formula booklet gives these, and {{lesson:2.12}} teaches them in full."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{sum of roots} = \\frac{-a_{n-1}}{a_{n}}, \\qquad \\text{product of roots} = \\frac{(-1)^{n}a_{0}}{a_{n}}",
+          "tag": "booklet",
+          "bookletId": "bk-2-12-roots-sum-product"
+        },
+        {
+          "type": "text",
+          "text": "A conjugate pair $a \\pm b\\mathrm{i}$ adds to $2a$ and multiplies to $a^{2} + b^{2}$. Both are real, so the sum and product equations stay simple."
+        },
+        {
+          "type": "example",
+          "id": "ex-quartic-sum-product",
+          "question": "The equation $z^{4} - 2z^{3} + 5z^{2} + pz + 30 = 0$, where $p \\in \\mathbb{R}$, has a root $-1 + 3\\mathrm{i}$. Find the other three roots.",
+          "steps": [
+            "The coefficients are real, so $-1 - 3\\mathrm{i}$ is also a root. The pair adds to $-2$ and multiplies to $(-1)^{2} + 3^{2} = 10$.",
+            "Call the other two roots $\\alpha$ and $\\beta$. Here $n = 4$, $a_{4} = 1$, $a_{3} = -2$ and $a_{0} = 30$. So the sum of all four roots is $\\frac{-(-2)}{1} = 2$, and their product is $\\frac{(-1)^{4} \\times 30}{1} = 30$.",
+            "Sum: $-2 + \\alpha + \\beta = 2$, so $\\alpha + \\beta = 4$. Product: $10\\alpha\\beta = 30$, so $\\alpha\\beta = 3$.",
+            "Two numbers with sum $4$ and product $3$ are the roots of $t^{2} - 4t + 3 = 0$. This factorises as $(t - 1)(t - 3) = 0$, so they are $1$ and $3$.",
+            "Check by multiplying the quadratic factors: $(z^{2} + 2z + 10)(z^{2} - 4z + 3) = z^{4} - 2z^{3} + 5z^{2} - 34z + 30$. The $z^{3}$, $z^{2}$ and constant terms match the question."
+          ],
+          "answer": "$z = -1 - 3\\mathrm{i} \\text{ or } z = 1 \\text{ or } z = 3$",
+          "check": {
+            "type": "check",
+            "id": "check-quartic-p",
+            "prompt": "Now you try: find the value of $p$ in this equation.",
+            "hint": "Look at the $z$ term in the expansion in the last step.",
+            "answer": {
+              "value": -34,
+              "tolerance": 0
+            },
+            "explain": "The product of the factors has the term $-34z$, so $p = -34$."
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cubic-constant",
+          "prompt": "The equation $z^{3} + bz^{2} + cz + d = 0$, where $b, c, d \\in \\mathbb{R}$, has roots $-3$ and $2 - \\mathrm{i}$. Find $d$.",
+          "hint": "Write down all three roots first. Then use the product of the roots, with $n = 3$.",
+          "answer": {
+            "value": 15,
+            "tolerance": 0
+          },
+          "explain": "The roots are $-3$, $2 - \\mathrm{i}$ and $2 + \\mathrm{i}$. Their product is $-3 \\times 5 = -15$. It equals $\\frac{(-1)^{3}d}{1} = -d$, so $d = 15$."
+        }
+      ]
+    },
+    {
+      "id": "de-moivre",
+      "heading": "Powers with De Moivre's theorem",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.13}} you multiplied in polar form: multiply the moduli and add the arguments. So if $z = r\\,\\mathrm{cis}\\,\\theta$, then $z^{2} = z \\times z = r^{2}\\,\\mathrm{cis}\\,2\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "Multiply by $z$ again and $z^{3} = r^{3}\\,\\mathrm{cis}\\,3\\theta$. Each extra factor multiplies the modulus by $r$ and adds $\\theta$ to the argument. After $n$ factors you have this."
+        },
+        {
+          "type": "formula",
+          "tex": "\\left[r(\\cos\\theta + \\mathrm{i}\\sin\\theta)\\right]^{n} = r^{n}(\\cos n\\theta + \\mathrm{i}\\sin n\\theta) = r^{n}\\mathrm{e}^{\\mathrm{i}n\\theta} = r^{n}\\,\\mathrm{cis}\\,n\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-1-14-de-moivre",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is [[de-moivres-theorem|De Moivre's theorem]]. Here $r$ is the modulus $\\lvert z\\rvert$ and $\\theta$ is the argument $\\arg z$. It is in the formula booklet, so you don't need to memorise it. You do need to spot when to use it: a power too big to multiply out."
+        },
+        {
+          "type": "text",
+          "text": "1. Write $z$ in polar form. Find $r$, and find $\\theta$ from a sketch so the quadrant is right."
+        },
+        {
+          "type": "text",
+          "text": "2. Raise $r$ to the power $n$ and multiply $\\theta$ by $n$."
+        },
+        {
+          "type": "text",
+          "text": "3. Add or subtract multiples of $2\\pi$ to bring the argument into the range the question asks for, usually $-\\pi < \\theta \\le \\pi$."
+        },
+        {
+          "type": "text",
+          "text": "4. If the question wants $a + b\\mathrm{i}$, use $\\cos$ and $\\sin$ of the new argument."
+        },
+        {
+          "type": "example",
+          "id": "ex-power-one-plus-i",
+          "question": "Find $(1 + \\mathrm{i})^{10}$ in the form $a + b\\mathrm{i}$.",
+          "steps": [
+            "Polar form: the modulus is $\\sqrt{1^{2} + 1^{2}} = \\sqrt{2}$. The point $(1, 1)$ is in the first quadrant, so the argument is $\\frac{\\pi}{4}$.",
+            "Use De Moivre: $(1 + \\mathrm{i})^{10} = (\\sqrt{2})^{10}\\,\\mathrm{cis}\\,\\frac{10\\pi}{4} = 32\\,\\mathrm{cis}\\,\\frac{5\\pi}{2}$.",
+            "Subtract $2\\pi$: $\\frac{5\\pi}{2} - 2\\pi = \\frac{\\pi}{2}$. So the power is $32\\left(\\cos\\frac{\\pi}{2} + \\mathrm{i}\\sin\\frac{\\pi}{2}\\right) = 32(0 + \\mathrm{i})$.",
+            "Check another way: $(1 + \\mathrm{i})^{2} = 1 + 2\\mathrm{i} - 1 = 2\\mathrm{i}$, so $(1 + \\mathrm{i})^{10} = (2\\mathrm{i})^{5} = 32\\mathrm{i}^{5} = 32\\mathrm{i}$."
+          ],
+          "answer": "$(1 + \\mathrm{i})^{10} = 32\\mathrm{i}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Raising the argument to the power but not the modulus. $\\left(2\\,\\mathrm{cis}\\,\\frac{\\pi}{7}\\right)^{3} = 8\\,\\mathrm{cis}\\,\\frac{3\\pi}{7}$, not $2\\,\\mathrm{cis}\\,\\frac{3\\pi}{7}$."
+        },
+        {
+          "type": "check",
+          "id": "check-power-third-quadrant",
+          "prompt": "Find $(-\\sqrt{3} - \\mathrm{i})^{5}$.",
+          "hint": "The point $(-\\sqrt{3}, -1)$ is in the third quadrant, so its argument is negative.",
+          "options": [
+            {
+              "text": "$-16\\sqrt{3} + 16\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{3} - \\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$16\\sqrt{3} - 16\\mathrm{i}$",
+              "correct": true
+            },
+            {
+              "text": "$16\\sqrt{3} + 16\\mathrm{i}$",
+              "correct": false
+            }
+          ],
+          "explain": "The modulus is $2$ and the argument is $-\\frac{5\\pi}{6}$. So the power is $32\\,\\mathrm{cis}\\left(-\\frac{25\\pi}{6}\\right) = 32\\,\\mathrm{cis}\\left(-\\frac{\\pi}{6}\\right) = 16\\sqrt{3} - 16\\mathrm{i}$."
+        },
+        {
+          "type": "text",
+          "text": "De Moivre also tells you when a power is real. $z^{n}$ is real when its argument $n\\theta$ is a multiple of $\\pi$. It is a positive real number when $n\\theta$ is a multiple of $2\\pi$."
+        },
+        {
+          "type": "example",
+          "id": "ex-smallest-n-positive-real",
+          "question": "Find the smallest positive integer $n$ for which $(-2 + 2\\mathrm{i})^{n}$ is a positive real number.",
+          "steps": [
+            "Polar form: the modulus is $\\sqrt{4 + 4} = 2\\sqrt{2}$. The point $(-2, 2)$ is in the second quadrant, so the argument is $\\pi - \\frac{\\pi}{4} = \\frac{3\\pi}{4}$.",
+            "By De Moivre, $(-2 + 2\\mathrm{i})^{n} = (2\\sqrt{2})^{n}\\,\\mathrm{cis}\\,\\frac{3n\\pi}{4}$. The modulus is positive, so only the argument decides the sign.",
+            "A positive real number has argument $0, 2\\pi, 4\\pi, \\ldots$. So you need $\\frac{3n\\pi}{4} = 2\\pi m$ for an integer $m$, which means $3n = 8m$.",
+            "$3$ and $8$ have no common factor, so $n$ must be a multiple of $8$. The smallest is $n = 8$.",
+            "Check: $(-2 + 2\\mathrm{i})^{8} = (2\\sqrt{2})^{8}\\,\\mathrm{cis}\\,6\\pi = 4096$, which is positive. For $n = 4$ the power is $64\\,\\mathrm{cis}\\,3\\pi = -64$: real, but negative."
+          ],
+          "answer": "$n = 8$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "De Moivre gives a second way to expand $(\\cos\\theta + \\mathrm{i}\\sin\\theta)^{n}$: the [[binomial-theorem|binomial theorem]]. Setting the two results equal turns $\\cos n\\theta$ and $\\sin n\\theta$ into powers of $\\cos\\theta$ and $\\sin\\theta$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cos-four-theta",
+          "question": "Use De Moivre's theorem to show that $\\cos 4\\theta = 8\\cos^{4}\\theta - 8\\cos^{2}\\theta + 1$.",
+          "steps": [
+            "By De Moivre, $(\\cos\\theta + \\mathrm{i}\\sin\\theta)^{4} = \\cos 4\\theta + \\mathrm{i}\\sin 4\\theta$.",
+            "Write $c = \\cos\\theta$ and $s = \\sin\\theta$. Expand the left side with the binomial theorem: $(c + \\mathrm{i}s)^{4} = c^{4} + 4c^{3}(\\mathrm{i}s) + 6c^{2}(\\mathrm{i}s)^{2} + 4c(\\mathrm{i}s)^{3} + (\\mathrm{i}s)^{4}$.",
+            "Use $\\mathrm{i}^{2} = -1$, $\\mathrm{i}^{3} = -\\mathrm{i}$ and $\\mathrm{i}^{4} = 1$: this is $c^{4} + 4\\mathrm{i}c^{3}s - 6c^{2}s^{2} - 4\\mathrm{i}cs^{3} + s^{4}$.",
+            "Two complex numbers are equal when their real parts are equal. So $\\cos 4\\theta = c^{4} - 6c^{2}s^{2} + s^{4}$.",
+            "Replace $s^{2}$ with $1 - c^{2}$: $c^{4} - 6c^{2}(1 - c^{2}) + (1 - c^{2})^{2} = c^{4} - 6c^{2} + 6c^{4} + 1 - 2c^{2} + c^{4} = 8c^{4} - 8c^{2} + 1$, as required."
+          ],
+          "answer": "$\\cos(4\\theta) = 8\\cos^{4}\\theta - 8\\cos^{2}\\theta + 1$",
+          "check": {
+            "type": "check",
+            "id": "check-sin-four-theta",
+            "prompt": "Now you try: equate the imaginary parts of the same expansion. Which expression is $\\sin 4\\theta$?",
+            "hint": "Collect the terms with $\\mathrm{i}$ in them, then drop the $\\mathrm{i}$.",
+            "options": [
+              {
+                "text": "$4\\cos^{3}\\theta\\sin\\theta + 4\\cos\\theta\\sin^{3}\\theta$",
+                "correct": false
+              },
+              {
+                "text": "$4\\mathrm{i}\\cos^{3}\\theta\\sin\\theta - 4\\mathrm{i}\\cos\\theta\\sin^{3}\\theta$",
+                "correct": false
+              },
+              {
+                "text": "$\\cos^{3}\\theta\\sin\\theta - \\cos\\theta\\sin^{3}\\theta$",
+                "correct": false
+              },
+              {
+                "text": "$4\\cos^{3}\\theta\\sin\\theta - 4\\cos\\theta\\sin^{3}\\theta$",
+                "correct": true
+              }
+            ],
+            "explain": "The terms with $\\mathrm{i}$ are $4\\mathrm{i}c^{3}s - 4\\mathrm{i}cs^{3}$. The imaginary part is the real number that multiplies $\\mathrm{i}$, so $\\sin 4\\theta = 4\\cos^{3}\\theta\\sin\\theta - 4\\cos\\theta\\sin^{3}\\theta$."
+          },
+          "video": null
+        }
+      ]
+    },
+    {
+      "id": "induction",
+      "heading": "Proving the theorem, and negative powers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can be asked to prove [[de-moivres-theorem|De Moivre's theorem]] for every positive integer $n$. Checking cases can't do that, since there are infinitely many. [[mathematical-induction|Proof by induction]] can. {{lesson:1.15}} teaches the method. Here are its four parts."
+        },
+        {
+          "type": "text",
+          "text": "1. Basis: show the statement is true for $n = 1$."
+        },
+        {
+          "type": "text",
+          "text": "2. Assumption: assume it is true for $n = k$, for some $k \\in \\mathbb{Z}^{+}$."
+        },
+        {
+          "type": "text",
+          "text": "3. Inductive step: use the assumption to show it is true for $n = k + 1$."
+        },
+        {
+          "type": "text",
+          "text": "4. Conclusion: say that it is true for $n = 1$, and that true for $n = k$ implies true for $n = k + 1$. So it is true for all $n \\in \\mathbb{Z}^{+}$."
+        },
+        {
+          "type": "text",
+          "text": "The inductive step uses the compound angle identities $\\cos(A + B) = \\cos A\\cos B - \\sin A\\sin B$ and $\\sin(A + B) = \\sin A\\cos B + \\cos A\\sin B$. They are in the formula booklet; see {{lesson:3.10}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-induction-proof",
+          "question": "Prove by induction that $(\\cos\\theta + \\mathrm{i}\\sin\\theta)^{n} = \\cos n\\theta + \\mathrm{i}\\sin n\\theta$ for all $n \\in \\mathbb{Z}^{+}$.",
+          "steps": [
+            "Basis. When $n = 1$, the left side is $\\cos\\theta + \\mathrm{i}\\sin\\theta$ and the right side is $\\cos\\theta + \\mathrm{i}\\sin\\theta$. They are equal, so the statement is true for $n = 1$.",
+            "Assumption. Assume it is true for $n = k$, for some $k \\in \\mathbb{Z}^{+}$: $(\\cos\\theta + \\mathrm{i}\\sin\\theta)^{k} = \\cos k\\theta + \\mathrm{i}\\sin k\\theta$.",
+            "Inductive step. Split off one factor and use the assumption: $(\\cos\\theta + \\mathrm{i}\\sin\\theta)^{k+1} = (\\cos k\\theta + \\mathrm{i}\\sin k\\theta)(\\cos\\theta + \\mathrm{i}\\sin\\theta)$.",
+            "Expand, using $\\mathrm{i}^{2} = -1$: $= (\\cos k\\theta\\cos\\theta - \\sin k\\theta\\sin\\theta) + \\mathrm{i}(\\sin k\\theta\\cos\\theta + \\cos k\\theta\\sin\\theta)$.",
+            "Use the compound angle identities: $= \\cos(k\\theta + \\theta) + \\mathrm{i}\\sin(k\\theta + \\theta) = \\cos\\left((k + 1)\\theta\\right) + \\mathrm{i}\\sin\\left((k + 1)\\theta\\right)$. This is the statement for $n = k + 1$.",
+            "Conclusion. The statement is true for $n = 1$, and if it is true for $n = k$ then it is true for $n = k + 1$. So, by induction, it is true for all $n \\in \\mathbb{Z}^{+}$."
+          ],
+          "answer": "$(\\cos\\theta + \\mathrm{i}\\sin\\theta)^{n} = \\cos(n\\theta) + \\mathrm{i}\\sin(n\\theta)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing “assume it is true for all $n$”. That assumes what you are proving. Assume it only for $n = k$."
+        },
+        {
+          "type": "text",
+          "text": "The modulus comes along for free. A real factor can be taken out of a power, so $\\left[r(\\cos\\theta + \\mathrm{i}\\sin\\theta)\\right]^{n} = r^{n}(\\cos\\theta + \\mathrm{i}\\sin\\theta)^{n} = r^{n}(\\cos n\\theta + \\mathrm{i}\\sin n\\theta)$."
+        },
+        {
+          "type": "text",
+          "text": "The theorem extends beyond positive integers. Negative integer powers come first: they use the positive case you just proved."
+        },
+        {
+          "type": "example",
+          "id": "ex-negative-powers",
+          "question": "Let $m \\in \\mathbb{Z}^{+}$. Show that $(\\cos\\theta + \\mathrm{i}\\sin\\theta)^{-m} = \\cos(-m\\theta) + \\mathrm{i}\\sin(-m\\theta)$, so De Moivre's theorem holds for $n = -m$.",
+          "steps": [
+            "Find the reciprocal first. Multiply top and bottom by the conjugate: $\\frac{1}{\\cos\\theta + \\mathrm{i}\\sin\\theta} = \\frac{\\cos\\theta - \\mathrm{i}\\sin\\theta}{\\cos^{2}\\theta + \\sin^{2}\\theta} = \\cos\\theta - \\mathrm{i}\\sin\\theta$.",
+            "$\\cos$ is an even function and $\\sin$ is odd, so $\\cos\\theta - \\mathrm{i}\\sin\\theta = \\cos(-\\theta) + \\mathrm{i}\\sin(-\\theta)$.",
+            "So $(\\cos\\theta + \\mathrm{i}\\sin\\theta)^{-m} = \\left[\\cos(-\\theta) + \\mathrm{i}\\sin(-\\theta)\\right]^{m}$.",
+            "$m$ is a positive integer, so the proved theorem applies, with angle $-\\theta$. This gives $\\cos(-m\\theta) + \\mathrm{i}\\sin(-m\\theta)$, which is $\\cos n\\theta + \\mathrm{i}\\sin n\\theta$ with $n = -m$."
+          ],
+          "answer": "$(\\cos\\theta + \\mathrm{i}\\sin\\theta)^{-m} = \\cos(-m\\theta) + \\mathrm{i}\\sin(-m\\theta)$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-negative-power",
+          "prompt": "Find $\\left(\\cos\\frac{\\pi}{9} + \\mathrm{i}\\sin\\frac{\\pi}{9}\\right)^{-3}$ in the form $a + b\\mathrm{i}$.",
+          "hint": "Multiply the argument by $-3$, then use exact values.",
+          "options": [
+            {
+              "text": "$\\frac{1}{2} + \\frac{\\sqrt{3}}{2}\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2} - \\frac{\\sqrt{3}}{2}\\mathrm{i}$",
+              "correct": true
+            },
+            {
+              "text": "$-\\frac{1}{2} - \\frac{\\sqrt{3}}{2}\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\sqrt{3}}{2} - \\frac{1}{2}\\mathrm{i}$",
+              "correct": false
+            }
+          ],
+          "explain": "The power is $\\cos\\left(-\\frac{\\pi}{3}\\right) + \\mathrm{i}\\sin\\left(-\\frac{\\pi}{3}\\right) = \\frac{1}{2} - \\frac{\\sqrt{3}}{2}\\mathrm{i}$."
+        },
+        {
+          "type": "check",
+          "id": "check-z-plus-inverse",
+          "prompt": "Let $z = \\cos\\theta + \\mathrm{i}\\sin\\theta$. Simplify $z^{3} + z^{-3}$.",
+          "hint": "Write both powers with De Moivre. Then use $\\cos(-x) = \\cos x$ and $\\sin(-x) = -\\sin x$.",
+          "options": [
+            {
+              "text": "$2\\cos(3\\theta)$",
+              "correct": true
+            },
+            {
+              "text": "$2\\mathrm{i}\\sin(3\\theta)$",
+              "correct": false
+            },
+            {
+              "text": "$2\\cos^{3}\\theta$",
+              "correct": false
+            },
+            {
+              "text": "$0$",
+              "correct": false
+            }
+          ],
+          "explain": "$z^{3} + z^{-3} = (\\cos 3\\theta + \\mathrm{i}\\sin 3\\theta) + (\\cos 3\\theta - \\mathrm{i}\\sin 3\\theta) = 2\\cos 3\\theta$. In general $z^{n} + z^{-n} = 2\\cos n\\theta$ and $z^{n} - z^{-n} = 2\\mathrm{i}\\sin n\\theta$."
+        }
+      ]
+    },
+    {
+      "id": "roots",
+      "heading": "Roots of complex numbers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now run [[de-moivres-theorem|De Moivre's theorem]] backwards. To solve $z^{3} = 8\\mathrm{i}$, write $z = s\\,\\mathrm{cis}\\,\\phi$. Then $z^{3} = s^{3}\\,\\mathrm{cis}\\,3\\phi$ must equal $8\\,\\mathrm{cis}\\,\\frac{\\pi}{2}$."
+        },
+        {
+          "type": "text",
+          "text": "So $s^{3} = 8$, giving $s = 2$. But $3\\phi$ only has to match $\\frac{\\pi}{2}$ up to a multiple of $2\\pi$: it could be $\\frac{\\pi}{2}$, $\\frac{5\\pi}{2}$ or $\\frac{9\\pi}{2}$. Dividing by $3$ gives three different roots."
+        },
+        {
+          "type": "text",
+          "text": "They are $2\\,\\mathrm{cis}\\,\\frac{\\pi}{6} = \\sqrt{3} + \\mathrm{i}$, $2\\,\\mathrm{cis}\\,\\frac{5\\pi}{6} = -\\sqrt{3} + \\mathrm{i}$ and $2\\,\\mathrm{cis}\\,\\frac{3\\pi}{2} = -2\\mathrm{i}$. Adding a further $2\\pi$ to $3\\phi$ just brings back the first root."
+        },
+        {
+          "type": "result",
+          "statement": "Let $w = r\\,\\mathrm{cis}\\,\\theta$ with $r > 0$. The equation $z^{n} = w$ has exactly $n$ roots, $z = r^{\\frac{1}{n}}\\,\\mathrm{cis}\\,\\frac{\\theta + 2\\pi k}{n}$ for $k = 0, 1, \\ldots, n - 1$. They lie on a circle of radius $r^{\\frac{1}{n}}$, spaced $\\frac{2\\pi}{n}$ apart.",
+          "why": "By De Moivre, each one raised to the power $n$ is $r\\,\\mathrm{cis}(\\theta + 2\\pi k) = w$. Any other $k$ repeats one of these $n$ points."
+        },
+        {
+          "type": "formula",
+          "tex": "z^{n} = r\\,\\mathrm{cis}\\,\\theta \\;\\Rightarrow\\; z = r^{\\frac{1}{n}}\\,\\mathrm{cis}\\left(\\frac{\\theta + 2\\pi k}{n}\\right), \\quad k = 0, 1, \\ldots, n - 1",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is De Moivre's theorem with exponent $\\frac{1}{n}$. It is the extension to rational exponents. The catch: a power such as $w^{\\frac{1}{n}}$ has $n$ values, not one, so you must find them all."
+        },
+        {
+          "type": "text",
+          "text": "For a rational power $\\frac{p}{q}$ in lowest terms, with $q > 0$, take the $q$ roots of $w$ first. Then raise each one to the power $p$. This gives $q$ values, $r^{\\frac{p}{q}}\\,\\mathrm{cis}\\,\\frac{p(\\theta + 2\\pi k)}{q}$ for $k = 0, 1, \\ldots, q - 1$."
+        },
+        {
+          "type": "text",
+          "text": "In practice you can choose $k$ to keep every argument in $-\\pi < \\theta \\le \\pi$. Use negative values of $k$ where you need them, instead of $k = 0$ to $n - 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rational-power",
+          "question": "Find all the values of $(4\\mathrm{i})^{\\frac{3}{2}}$, giving your answers in the form $a + b\\mathrm{i}$.",
+          "steps": [
+            "Here $p = 3$ and $q = 2$, so expect $2$ values. In polar form, $4\\mathrm{i} = 4\\,\\mathrm{cis}\\,\\frac{\\pi}{2}$.",
+            "First take the square roots. Their modulus is $4^{\\frac{1}{2}} = 2$ and their arguments are $\\frac{1}{2}\\left(\\frac{\\pi}{2} + 2\\pi k\\right) = \\frac{\\pi}{4} + k\\pi$. Take $k = 0$ and $k = -1$: the roots are $2\\,\\mathrm{cis}\\,\\frac{\\pi}{4}$ and $2\\,\\mathrm{cis}\\left(-\\frac{3\\pi}{4}\\right)$.",
+            "Now cube each root with De Moivre's theorem. Cube the modulus, $2^{3} = 8$, and multiply each argument by $3$: you get $8\\,\\mathrm{cis}\\,\\frac{3\\pi}{4}$ and $8\\,\\mathrm{cis}\\left(-\\frac{9\\pi}{4}\\right)$.",
+            "Bring $-\\frac{9\\pi}{4}$ into $-\\pi < \\theta \\le \\pi$ by adding $2\\pi$: it becomes $-\\frac{\\pi}{4}$.",
+            "Convert: $8\\,\\mathrm{cis}\\,\\frac{3\\pi}{4} = -4\\sqrt{2} + 4\\sqrt{2}\\mathrm{i}$ and $8\\,\\mathrm{cis}\\left(-\\frac{\\pi}{4}\\right) = 4\\sqrt{2} - 4\\sqrt{2}\\mathrm{i}$.",
+            "Check: each value squared should be $(4\\mathrm{i})^{3} = -64\\mathrm{i}$. Indeed $\\left(-4\\sqrt{2} + 4\\sqrt{2}\\mathrm{i}\\right)^{2} = 32 - 64\\mathrm{i} - 32 = -64\\mathrm{i}$, and the other value is its negative."
+          ],
+          "answer": "$(4\\mathrm{i})^{\\frac{3}{2}} = -4\\sqrt{2} + 4\\sqrt{2}\\mathrm{i} \\text{ or } (4\\mathrm{i})^{\\frac{3}{2}} = 4\\sqrt{2} - 4\\sqrt{2}\\mathrm{i}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-rational-power",
+          "prompt": "The cube roots of $8\\mathrm{i}$ are $\\sqrt{3} + \\mathrm{i}$, $-\\sqrt{3} + \\mathrm{i}$ and $-2\\mathrm{i}$. Find all the values of $(8\\mathrm{i})^{\\frac{2}{3}}$.",
+          "hint": "Here $p = 2$ and $q = 3$. Square each cube root. You should get three values, each with modulus $8^{\\frac{2}{3}} = 4$.",
+          "options": [
+            {
+              "text": "$2 + 2\\sqrt{3}\\mathrm{i}, \\; 2 - 2\\sqrt{3}\\mathrm{i}, \\; -4$",
+              "correct": true
+            },
+            {
+              "text": "$\\sqrt{3} + \\mathrm{i}, \\; -\\sqrt{3} + \\mathrm{i}, \\; -2\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$1 + \\sqrt{3}\\mathrm{i}, \\; 1 - \\sqrt{3}\\mathrm{i}, \\; -2$",
+              "correct": false
+            },
+            {
+              "text": "$2 + 2\\sqrt{3}\\mathrm{i}$",
+              "correct": false
+            }
+          ],
+          "explain": "Square each cube root: $(\\sqrt{3} + \\mathrm{i})^{2} = 2 + 2\\sqrt{3}\\mathrm{i}$, $(-\\sqrt{3} + \\mathrm{i})^{2} = 2 - 2\\sqrt{3}\\mathrm{i}$ and $(-2\\mathrm{i})^{2} = -4$. In polar form they are $4\\,\\mathrm{cis}\\,\\frac{2(\\frac{\\pi}{2} + 2\\pi k)}{3}$ for $k = 0, 1, 2$. Giving only one value misses the other two."
+        },
+        {
+          "type": "definition",
+          "term": "roots of unity",
+          "statement": "The $n$th roots of unity are the $n$ solutions of $z^{n} = 1$: $z = \\mathrm{cis}\\,\\frac{2\\pi k}{n}$ for $k = 0, 1, \\ldots, n - 1$.",
+          "plain": "They are the corners of a regular polygon drawn inside the unit circle, with one corner at 1."
+        },
+        {
+          "type": "text",
+          "text": "The [[roots-of-unity|roots of unity]] add up to $0$ for $n \\ge 2$. They are the roots of $z^{n} - 1 = 0$, which has no $z^{n-1}$ term, so their sum is $\\frac{-0}{1} = 0$."
+        },
+        {
+          "type": "text",
+          "text": "They also give a shortcut. If $z_{0}$ is one root of $z^{n} = w$, the others are $z_{0}$ times each $n$th root of unity. Multiplying by $\\mathrm{cis}\\,\\frac{2\\pi}{n}$ turns a root through $\\frac{2\\pi}{n}$ to the next one."
+        },
+        {
+          "type": "interactive",
+          "widget": "roots-of-unity",
+          "props": {
+            "n": 5,
+            "mode": "unity"
+          },
+          "alt": "Argand diagram with the roots of z to the power n equals 1 marked as dots on the unit circle and joined into a regular polygon. A slider changes n from 2 to 12, and a menu switches to a general right-hand side with sliders for its modulus and argument. The roots, their spacing and their sum, which is always 0, are listed below."
+        },
+        {
+          "type": "example",
+          "id": "ex-fourth-roots",
+          "question": "Solve $z^{4} = -8 - 8\\sqrt{3}\\mathrm{i}$, giving your answers in the form $a + b\\mathrm{i}$.",
+          "steps": [
+            "Polar form of the right side. The modulus is $\\sqrt{64 + 192} = \\sqrt{256} = 16$. The point is in the third quadrant, and $\\arctan\\frac{8\\sqrt{3}}{8} = \\frac{\\pi}{3}$, so the argument is $-\\pi + \\frac{\\pi}{3} = -\\frac{2\\pi}{3}$.",
+            "The roots have modulus $16^{\\frac{1}{4}} = 2$ and arguments $\\frac{1}{4}\\left(-\\frac{2\\pi}{3} + 2\\pi k\\right) = -\\frac{\\pi}{6} + \\frac{k\\pi}{2}$.",
+            "Take $k = -1, 0, 1, 2$ to stay in $-\\pi < \\theta \\le \\pi$. The arguments are $-\\frac{2\\pi}{3}$, $-\\frac{\\pi}{6}$, $\\frac{\\pi}{3}$ and $\\frac{5\\pi}{6}$.",
+            "Convert: $2\\,\\mathrm{cis}\\left(-\\frac{2\\pi}{3}\\right) = -1 - \\sqrt{3}\\mathrm{i}$, $2\\,\\mathrm{cis}\\left(-\\frac{\\pi}{6}\\right) = \\sqrt{3} - \\mathrm{i}$, $2\\,\\mathrm{cis}\\,\\frac{\\pi}{3} = 1 + \\sqrt{3}\\mathrm{i}$ and $2\\,\\mathrm{cis}\\,\\frac{5\\pi}{6} = -\\sqrt{3} + \\mathrm{i}$.",
+            "Check: the four roots are $\\frac{\\pi}{2}$ apart on a circle of radius $2$, so they form a square. Each is $\\mathrm{i}$ times the one before, and they add up to $0$."
+          ],
+          "answer": "$z = -1 - \\sqrt{3}\\mathrm{i} \\text{ or } z = \\sqrt{3} - \\mathrm{i} \\text{ or } z = 1 + \\sqrt{3}\\mathrm{i} \\text{ or } z = -\\sqrt{3} + \\mathrm{i}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cube-roots-minus-27i",
+          "prompt": "Solve $z^{3} = -27\\mathrm{i}$.",
+          "hint": "The argument of $-27\\mathrm{i}$ is $-\\frac{\\pi}{2}$. You need three roots, $\\frac{2\\pi}{3}$ apart.",
+          "options": [
+            {
+              "text": "$z = 3\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$z = -3\\mathrm{i} \\text{ or } z = \\pm\\frac{3\\sqrt{3}}{2} + \\frac{3}{2}\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$z = 3\\mathrm{i} \\text{ or } z = \\pm\\frac{3\\sqrt{3}}{2} - \\frac{3}{2}\\mathrm{i}$",
+              "correct": true
+            },
+            {
+              "text": "$z = 3\\mathrm{i} \\text{ or } z = -3\\mathrm{i}$",
+              "correct": false
+            }
+          ],
+          "explain": "The roots are $3\\,\\mathrm{cis}\\left(-\\frac{\\pi}{6} + \\frac{2\\pi k}{3}\\right)$, with arguments $-\\frac{5\\pi}{6}$, $-\\frac{\\pi}{6}$ and $\\frac{\\pi}{2}$. These give $-\\frac{3\\sqrt{3}}{2} - \\frac{3}{2}\\mathrm{i}$, $\\frac{3\\sqrt{3}}{2} - \\frac{3}{2}\\mathrm{i}$ and $3\\mathrm{i}$."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 the argument is often not a standard angle. Your calculator finds it, and the method is the same."
+        },
+        {
+          "type": "example",
+          "id": "ex-cube-roots-calculator",
+          "question": "Use your calculator to solve $z^{3} = 2 + 11\\mathrm{i}$. Give your answers in the form $a + b\\mathrm{i}$, with each part to 3 s.f. where it is not an integer.",
+          "steps": [
+            "Set the calculator to radians. The modulus is $\\sqrt{2^{2} + 11^{2}} = \\sqrt{125}$. The point is in the first quadrant, so the argument is $\\arctan\\frac{11}{2} = 1.390942\\ldots$. Store it as $A$ and don't round it.",
+            "The roots have modulus $\\left(\\sqrt{125}\\right)^{\\frac{1}{3}} = 125^{\\frac{1}{6}} = \\sqrt{5}$.",
+            "Their arguments are $\\frac{A + 2\\pi k}{3}$. With $k = 0, 1, -1$ these are $0.463647\\ldots$, $2.558042\\ldots$ and $-1.630747\\ldots$, all in $-\\pi < \\theta \\le \\pi$.",
+            "Convert with $a = \\sqrt{5}\\cos\\left(\\frac{A + 2\\pi k}{3}\\right)$ and $b = \\sqrt{5}\\sin\\left(\\frac{A + 2\\pi k}{3}\\right)$. For $k = 0$ the calculator shows $2$ and $1$. Indeed $(2 + \\mathrm{i})^{3} = 2 + 11\\mathrm{i}$, so this root has integer parts.",
+            "For $k = 1$: $-1.866025\\ldots + 1.232050\\ldots\\mathrm{i}$. For $k = -1$: $-0.133974\\ldots - 2.232050\\ldots\\mathrm{i}$. Round only now.",
+            "Check: the equation has no $z^{2}$ term, so the roots add to $0$. The real parts give $2 - 1.866 - 0.134 = 0$ and the imaginary parts give $1 + 1.232 - 2.232 = 0$."
+          ],
+          "answer": "$z = 2 + \\mathrm{i} \\text{ or } z \\approx -1.87 + 1.23\\mathrm{i} \\text{ or } z \\approx -0.134 - 2.23\\mathrm{i}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, RADIAN",
+              "MODE, a+bi",
+              "MATH, CMPLX, abs(2+11i) gives 11.180..., the square root of 125 (check on your model)",
+              "MATH, CMPLX, angle(2+11i), then STO→ A: it gives 1.3909... (check on your model)",
+              "Type sqrt(5)*cos((A+2π)/3) and sqrt(5)*sin((A+2π)/3) for k = 1",
+              "Repeat with (A-2π)/3 for k = -1",
+              "Read -1.866... and 1.232..., then -0.1339... and -2.232..."
+            ],
+            "nspire": [
+              "Settings, Angle: Radian",
+              "Settings, Real or Complex: Rectangular",
+              "Calculator page: type abs(2+11i), which gives 11.180... (check on your model)",
+              "Type angle(2+11i) and store it as a: it gives 1.3909... (check on your model)",
+              "Type sqrt(5)*cos((a+2π)/3) and sqrt(5)*sin((a+2π)/3) for k = 1",
+              "Repeat with (a-2π)/3 for k = -1",
+              "Read -1.866... and 1.232..., then -0.1339... and -2.232..."
+            ],
+            "casio": [
+              "SHIFT MENU (SET UP), Angle: Rad",
+              "SET UP (SHIFT MENU), Complex Mode: a+bi",
+              "RUN-MAT, OPTN, COMPLEX, Abs(2+11i) gives 11.180... (check on your model)",
+              "OPTN, COMPLEX, Arg(2+11i), then store it in A: it gives 1.3909... (check on your model)",
+              "Type sqrt(5)*cos((A+2π)/3) and sqrt(5)*sin((A+2π)/3) for k = 1",
+              "Repeat with (A-2π)/3 for k = -1",
+              "Read -1.866... and 1.232..., then -0.1339... and -2.232..."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-another-fourth-root",
+          "prompt": "One root of $z^{4} = w$ is $3 + \\mathrm{i}$, where $w$ is not real. Which of these is another root?",
+          "hint": "The fourth roots of unity are $1$, $\\mathrm{i}$, $-1$ and $-\\mathrm{i}$. Is the conjugate rule allowed here?",
+          "options": [
+            {
+              "text": "$3 - \\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$-3 + \\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$-1 + 3\\mathrm{i}$",
+              "correct": true
+            },
+            {
+              "text": "$1 + 3\\mathrm{i}$",
+              "correct": false
+            }
+          ],
+          "explain": "Multiply the known root by $\\mathrm{i}$: $\\mathrm{i}(3 + \\mathrm{i}) = -1 + 3\\mathrm{i}$. The conjugate $3 - \\mathrm{i}$ is not a root, because $z^{4} - w$ does not have real coefficients."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Real coefficients: non-real roots come in conjugate pairs $a \\pm b\\mathrm{i}$. Each pair gives the real factor $z^{2} - 2az + a^{2} + b^{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\left[r(\\cos\\theta + \\mathrm{i}\\sin\\theta)\\right]^{n} = r^{n}(\\cos n\\theta + \\mathrm{i}\\sin n\\theta) = r^{n}\\mathrm{e}^{\\mathrm{i}n\\theta} = r^{n}\\,\\mathrm{cis}\\,n\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-1-14-de-moivre",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Powers: raise the modulus to the power, multiply the argument, then bring the argument back into $-\\pi < \\theta \\le \\pi$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Induction proof: true for $n = 1$; assume for $n = k$; expand and use the compound angle identities for $n = k + 1$; write the conclusion.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "z^{n} = r\\,\\mathrm{cis}\\,\\theta \\;\\Rightarrow\\; z = r^{\\frac{1}{n}}\\,\\mathrm{cis}\\left(\\frac{\\theta + 2\\pi k}{n}\\right), \\quad k = 0, 1, \\ldots, n - 1",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$z^{n} = w$ has $n$ roots, equally spaced $\\frac{2\\pi}{n}$ apart on a circle. The $n$th roots of unity add up to $0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Multiple angles: expand $(\\cos\\theta + \\mathrm{i}\\sin\\theta)^{n}$ by the binomial theorem and equate real or imaginary parts.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Stopping at one root. $z^{n} = w$ has $n$ roots: after dividing the argument by $n$, keep adding $\\frac{2\\pi}{n}$ until you have all of them.",
+    "Leaving an argument outside the range asked for, such as $\\frac{5\\pi}{4}$ when it must satisfy $-\\pi < \\theta \\le \\pi$. Subtract $2\\pi$ to get $-\\frac{3\\pi}{4}$.",
+    "Taking the argument straight from $\\arctan\\frac{b}{a}$. That angle can be in the wrong quadrant: sketch the point first, and adjust by $\\pi$ if it lies on the left of the imaginary axis.",
+    "Using the calculator in degrees. The arguments in this topic are in radians, so set radian mode before any $\\cos$, $\\sin$ or argument calculation.",
+    "Giving the imaginary part with the $\\mathrm{i}$ attached. The imaginary part of $3 - 5\\mathrm{i}$ is $-5$, not $-5\\mathrm{i}$.",
+    "Forgetting to raise the modulus. $(r\\,\\mathrm{cis}\\,\\theta)^{n}$ has modulus $r^{n}$, and its $n$th roots have modulus $r^{\\frac{1}{n}}$."
+  ],
+  "examTips": [
+    "“Use De Moivre's theorem” means show the polar form and the power step, $r^{n}\\,\\mathrm{cis}\\,n\\theta$. Expanding brackets instead loses the method marks.",
+    "“Prove by induction” earns marks for each part: the basis, the assumption for $n = k$, the step to $n = k + 1$ and a full concluding sentence. Never skip the conclusion.",
+    "“Show that” with surds: keep values such as $\\sqrt{3}$ exact all the way. A decimal like $1.732$ can't show an exact result.",
+    "Give roots in the form the question asks for, $a + b\\mathrm{i}$ or $r\\mathrm{e}^{\\mathrm{i}\\theta}$, with arguments in the stated range. On Paper 2, round only the final answers to 3 s.f."
+  ],
+  "readingMinutes": 28
+}

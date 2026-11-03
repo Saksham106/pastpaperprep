@@ -1,0 +1,559 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "1.1",
+  "slug": "standard-form-and-orders-of-magnitude",
+  "title": "Standard form and orders of magnitude",
+  "level": "SL",
+  "topic": 1,
+  "summary": "[[standard-form|Standard form]] writes a number as a number from 1 to just under 10, times a power of 10, such as $3.06 \\times 10^{-5}$. It keeps huge and tiny numbers short and easy to compare. You'll convert numbers, calculate with them by hand, and write calculator output the way examiners accept.",
+  "goals": [
+    {
+      "text": "Write a number in [[standard-form|standard form]] $a \\times 10^{k}$, and back again.",
+      "bullets": [
+        "1.1-b1"
+      ]
+    },
+    {
+      "text": "Compare the sizes, or [[order-of-magnitude|orders of magnitude]], of two numbers.",
+      "bullets": [
+        "1.1-b1"
+      ]
+    },
+    {
+      "text": "Multiply, divide, raise to powers and square-root numbers in standard form by hand.",
+      "bullets": [
+        "1.1-b1"
+      ]
+    },
+    {
+      "text": "Add and subtract numbers in standard form by matching their powers of 10.",
+      "bullets": [
+        "1.1-b1"
+      ]
+    },
+    {
+      "text": "Turn a calculator display such as 7.4E-6 into $7.4 \\times 10^{-6}$.",
+      "bullets": [
+        "1.1-b2"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "scientific notation",
+    "standard index form",
+    "a times 10 to the power k",
+    "calculator E notation",
+    "order of magnitude",
+    "multiply numbers in standard form"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-multiply-powers",
+      "prompt": "Work out $10^{5} \\times 10^{-2}$.",
+      "hint": "When you multiply powers of the same number, add the indices.",
+      "options": [
+        {
+          "text": "$10^{3}$",
+          "correct": true
+        },
+        {
+          "text": "$10^{-10}$",
+          "correct": false
+        },
+        {
+          "text": "$10^{7}$",
+          "correct": false
+        }
+      ],
+      "explain": "$5 + (-2) = 3$, so the answer is $10^{3}$."
+    },
+    {
+      "type": "check",
+      "id": "before-power-of-power",
+      "prompt": "Work out $(10^{3})^{4}$.",
+      "hint": "Raising a power to a power multiplies the indices.",
+      "options": [
+        {
+          "text": "$10^{12}$",
+          "correct": true
+        },
+        {
+          "text": "$10^{7}$",
+          "correct": false
+        },
+        {
+          "text": "$10^{81}$",
+          "correct": false
+        }
+      ],
+      "explain": "The indices multiply: $3 \\times 4 = 12$, so $(10^{3})^{4} = 10^{12}$."
+    },
+    {
+      "type": "check",
+      "id": "before-negative-power",
+      "prompt": "Write $10^{-3}$ as a decimal.",
+      "hint": "A negative index means one over the positive power: $10^{-3} = \\frac{1}{10^{3}}$.",
+      "options": [
+        {
+          "text": "$0.001$",
+          "correct": true
+        },
+        {
+          "text": "$-1000$",
+          "correct": false
+        },
+        {
+          "text": "$0.0001$",
+          "correct": false
+        },
+        {
+          "text": "$-0.001$",
+          "correct": false
+        }
+      ],
+      "explain": "$10^{-3} = \\frac{1}{1000} = 0.001$. A negative power makes a number small, not negative."
+    }
+  ],
+  "sections": [
+    {
+      "id": "writing",
+      "heading": "Writing numbers in standard form",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The Earth's mass is about $5\\,970\\,000\\,000\\,000\\,000\\,000\\,000\\,000$ kg. Counting those zeros is slow, and one slip changes the size completely. [[standard-form|Standard form]] writes the digits once and lets a power of 10 carry the size: $5.97 \\times 10^{24}$ kg."
+        },
+        {
+          "type": "definition",
+          "term": "standard form",
+          "statement": "A number is in standard form when it is written as $a \\times 10^{k}$, with $1 \\le a < 10$ and $k \\in \\mathbb{Z}$ (a positive or negative whole number, or zero).",
+          "plain": "One non-zero digit before the point, then a power of 10 saying how far to move the point."
+        },
+        {
+          "type": "formula",
+          "tex": "a \\times 10^{k}, \\quad 1 \\le a < 10, \\quad k \\in \\mathbb{Z}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "1. Put the decimal point just after the first non-zero digit. This gives $a$, the front number."
+        },
+        {
+          "type": "text",
+          "text": "2. Count the places the point moved. That is the size of $k$."
+        },
+        {
+          "type": "text",
+          "text": "3. For a number of 10 or more, $k > 0$. For a number below 1, $k < 0$. From 1 to just under 10, $k = 0$."
+        },
+        {
+          "type": "figure",
+          "id": "1-1-point-hops",
+          "alt": "In 0.0000306 the decimal point hops 5 places right to sit after the 3, giving 3.06 times 10 to the power minus 5. In 4070000000 the point hops 9 places left from the end to sit after the 4, giving 4.07 times 10 to the power 9."
+        },
+        {
+          "type": "example",
+          "id": "ex-write-small",
+          "question": "A speck of dust has a mass of $0.000\\,030\\,6$ g. Write this mass in standard form.",
+          "steps": [
+            "The first non-zero digit is the $3$, so $a = 3.06$.",
+            "The point moves from just after the first $0$ to just after the $3$: $5$ places right. The mass is less than $1$, so $k = -5$.",
+            "Check by going back: moving the point in $3.06$ five places left gives $0.000\\,030\\,6$."
+          ],
+          "answer": "$m = 3.06 \\times 10^{-5}\\text{ g}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To go back, move the point $k$ places: right if $k > 0$, left if $k < 0$. So $8.1 \\times 10^{3} = 8100$ and $2.6 \\times 10^{-4} = 0.000\\,26$."
+        },
+        {
+          "type": "example",
+          "id": "ex-fix-form",
+          "question": "Write $52.8 \\times 10^{-7}$ in standard form.",
+          "steps": [
+            "$52.8$ is bigger than $10$, so this is not yet standard form. Write $52.8 = 5.28 \\times 10^{1}$.",
+            "Substitute and add the powers: $5.28 \\times 10^{1} \\times 10^{-7} = 5.28 \\times 10^{1 + (-7)} = 5.28 \\times 10^{-6}$.",
+            "The front number got $10$ times smaller, so the power went up by $1$."
+          ],
+          "answer": "$52.8 \\times 10^{-7} = 5.28 \\times 10^{-6}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-write-large",
+          "prompt": "The Sun is about $149\\,600\\,000$ km from the Earth. Write this distance in standard form, in km.",
+          "hint": "Put the point just after the $1$. How many places did it move?",
+          "options": [
+            {
+              "text": "$1.496 \\times 10^{8}$",
+              "correct": true
+            },
+            {
+              "text": "$1.496 \\times 10^{9}$",
+              "correct": false
+            },
+            {
+              "text": "$14.96 \\times 10^{7}$",
+              "correct": false
+            },
+            {
+              "text": "$1.496 \\times 10^{-8}$",
+              "correct": false
+            }
+          ],
+          "explain": "The point moves from the end of $149\\,600\\,000$ to just after the $1$: $8$ places left. Counting all $9$ digits gives $10^{9}$, which is $10$ times too big."
+        },
+        {
+          "type": "text",
+          "text": "The power $k$ is the number's [[order-of-magnitude|order of magnitude]]: each step up in $k$ makes a number about $10$ times bigger. So compare powers first, and compare front numbers only when the powers match. With negative powers, $-6$ is bigger than $-7$."
+        },
+        {
+          "type": "check",
+          "id": "check-compare-size",
+          "prompt": "$P = 4.1 \\times 10^{-6}$ and $Q = 9.7 \\times 10^{-7}$. Which number is larger?",
+          "hint": "Compare the powers of $10$ first. Which is bigger, $-6$ or $-7$?",
+          "options": [
+            {
+              "text": "$P$",
+              "correct": true
+            },
+            {
+              "text": "$Q$",
+              "correct": false
+            },
+            {
+              "text": "They are equal",
+              "correct": false
+            }
+          ],
+          "explain": "$-6 > -7$, so $P$ is larger, even though $4.1 < 9.7$: $P = 0.000\\,004\\,1$ and $Q = 0.000\\,000\\,97$."
+        },
+        {
+          "type": "text",
+          "text": "Calculators show very large or small answers in a short form such as 7.4E-6, where E means times $10$ to the power of the number after it."
+        },
+        {
+          "type": "mistake",
+          "text": "Copying 7.4E-6 onto your paper. Examiners don't accept it: write $7.4 \\times 10^{-6}$."
+        }
+      ]
+    },
+    {
+      "id": "multiply-divide",
+      "heading": "Multiplying, dividing, powers and roots",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can multiply in any order, so group the front numbers and the powers of $10$: $(3 \\times 10^{4}) \\times (2 \\times 10^{5}) = (3 \\times 2) \\times 10^{4+5} = 6 \\times 10^{9}$."
+        },
+        {
+          "type": "formula",
+          "tex": "(a \\times 10^{m}) \\times (b \\times 10^{n}) = ab \\times 10^{m+n}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{a \\times 10^{m}}{b \\times 10^{n}} = \\frac{a}{b} \\times 10^{m-n}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "If the new front number lands outside 1 to 10, rewrite it. $30 = 3 \\times 10^{1}$ pushes the power up by $1$. $0.3 = 3 \\times 10^{-1}$ pulls it down by $1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-multiply",
+          "question": "Work out $(7.5 \\times 10^{6}) \\times (4 \\times 10^{-9})$. Give your answer in [[standard-form|standard form]].",
+          "steps": [
+            "Group the front numbers and the powers: $(7.5 \\times 4) \\times (10^{6} \\times 10^{-9})$.",
+            "Multiply the front numbers: $7.5 \\times 4 = 30$.",
+            "Add the powers: $6 + (-9) = -3$. So you have $30 \\times 10^{-3}$.",
+            "$30$ is not less than $10$. Write $30 = 3 \\times 10^{1}$, so $30 \\times 10^{-3} = 3 \\times 10^{1 - 3} = 3 \\times 10^{-2}$.",
+            "Check with ordinary numbers: $7\\,500\\,000 \\times 0.000\\,000\\,004 = 0.03$, which is $3 \\times 10^{-2}$."
+          ],
+          "answer": "$(7.5 \\times 10^{6}) \\times (4 \\times 10^{-9}) = 3 \\times 10^{-2}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-divide",
+          "question": "Work out $\\dfrac{1.2 \\times 10^{5}}{4 \\times 10^{-3}}$. Give your answer in standard form.",
+          "steps": [
+            "Split the fraction into two parts: $\\frac{1.2}{4} \\times \\frac{10^{5}}{10^{-3}}$.",
+            "Divide the front numbers: $\\frac{1.2}{4} = 0.3$.",
+            "Subtract the powers: $5 - (-3) = 8$. So you have $0.3 \\times 10^{8}$.",
+            "$0.3$ is less than $1$. Write $0.3 = 3 \\times 10^{-1}$, so $0.3 \\times 10^{8} = 3 \\times 10^{-1 + 8} = 3 \\times 10^{7}$."
+          ],
+          "answer": "$\\dfrac{1.2 \\times 10^{5}}{4 \\times 10^{-3}} = 3 \\times 10^{7}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Losing the sign when you subtract a negative power. $10^{5} \\div 10^{-3} = 10^{5 - (-3)} = 10^{8}$, not $10^{2}$. Write the subtraction out with brackets."
+        },
+        {
+          "type": "check",
+          "id": "check-multiply-renormalise",
+          "prompt": "Work out $(8 \\times 10^{4}) \\times (5 \\times 10^{-11})$ in standard form.",
+          "hint": "Multiply $8 \\times 5$ and add the powers. Then check that the front number is less than $10$.",
+          "options": [
+            {
+              "text": "$4 \\times 10^{-6}$",
+              "correct": true
+            },
+            {
+              "text": "$40 \\times 10^{-7}$",
+              "correct": false
+            },
+            {
+              "text": "$4 \\times 10^{-8}$",
+              "correct": false
+            },
+            {
+              "text": "$1.3 \\times 10^{-6}$",
+              "correct": false
+            }
+          ],
+          "explain": "$8 \\times 5 = 40$ and $4 + (-11) = -7$, giving $40 \\times 10^{-7} = 4 \\times 10^{-6}$."
+        },
+        {
+          "type": "text",
+          "text": "To raise a number in standard form to a power, raise both parts. The power of $10$ is multiplied, because $(10^{m})^{n} = 10^{mn}$."
+        },
+        {
+          "type": "formula",
+          "tex": "(a \\times 10^{m})^{n} = a^{n} \\times 10^{mn}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-crystal-volume",
+          "question": "A salt crystal is a cube with edges $5 \\times 10^{-4}$ m long. Find the volume of the crystal in $\\text{m}^{3}$. Give your answer in standard form.",
+          "steps": [
+            "A cube's volume is its edge cubed (prior-learning section of the booklet): $V = (5 \\times 10^{-4})^{3}$.",
+            "Cube both parts: $5^{3} = 125$ and $(10^{-4})^{3} = 10^{-12}$. So $V = 125 \\times 10^{-12}$.",
+            "Fix the front number: $125 = 1.25 \\times 10^{2}$, so $V = 1.25 \\times 10^{2 - 12} = 1.25 \\times 10^{-10}$.",
+            "Sense check: a half-millimetre edge gives a tiny volume, so a large negative power fits."
+          ],
+          "answer": "$V = 1.25 \\times 10^{-10}\\text{ m}^{3}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Cubing only the power of $10$. The $5$ is cubed too, giving $125$, and $(10^{-4})^{3} = 10^{-12}$: multiply the powers, don't add them."
+        },
+        {
+          "type": "text",
+          "text": "For a square root, halve the power of $10$. If the power is odd, first move one factor of $10$ into the front number: $\\sqrt{2.5 \\times 10^{-7}} = \\sqrt{25 \\times 10^{-8}} = 5 \\times 10^{-4}$."
+        },
+        {
+          "type": "check",
+          "id": "check-sqrt-even-power",
+          "prompt": "Work out $\\sqrt{8.1 \\times 10^{7}}$ without a calculator. Give your answer in standard form.",
+          "hint": "The power $7$ is odd. Rewrite $8.1 \\times 10^{7}$ as $81$ times an even power of $10$ first.",
+          "options": [
+            {
+              "text": "$9 \\times 10^{3}$",
+              "correct": true
+            },
+            {
+              "text": "$9 \\times 10^{6}$",
+              "correct": false
+            },
+            {
+              "text": "$4.05 \\times 10^{7}$",
+              "correct": false
+            }
+          ],
+          "explain": "$8.1 \\times 10^{7} = 81 \\times 10^{6}$. Then $\\sqrt{81} = 9$ and $\\sqrt{10^{6}} = 10^{3}$, so the root is $9 \\times 10^{3}$, which is $9000$."
+        }
+      ]
+    },
+    {
+      "id": "add-subtract",
+      "heading": "Adding, subtracting and calculator answers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Adding works differently: $2 \\times 10^{3} + 5 \\times 10^{2} = 2000 + 500 = 2.5 \\times 10^{3}$. So write both numbers with the same power of $10$, add or subtract the front numbers, then put the result back in [[standard-form|standard form]]."
+        },
+        {
+          "type": "formula",
+          "tex": "a \\times 10^{k} \\pm b \\times 10^{k} = (a \\pm b) \\times 10^{k}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-add-match-powers",
+          "question": "Work out $4.2 \\times 10^{5} + 3.9 \\times 10^{4}$. Give your answer in standard form.",
+          "steps": [
+            "Rewrite the first number with the smaller power, $10^{4}$: $4.2 \\times 10^{5} = 42 \\times 10^{4}$.",
+            "Add the front numbers: $42 \\times 10^{4} + 3.9 \\times 10^{4} = 45.9 \\times 10^{4}$.",
+            "Fix the front number: $45.9 = 4.59 \\times 10^{1}$, so the sum is $4.59 \\times 10^{5}$.",
+            "Check with ordinary numbers: $420\\,000 + 39\\,000 = 459\\,000$, which is $4.59 \\times 10^{5}$."
+          ],
+          "answer": "$4.2 \\times 10^{5} + 3.9 \\times 10^{4} = 4.59 \\times 10^{5}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the powers when you add the numbers. $3 \\times 10^{4} + 2 \\times 10^{4} = 5 \\times 10^{4}$, not $5 \\times 10^{8}$. Powers add only when you multiply."
+        },
+        {
+          "type": "check",
+          "id": "check-subtract",
+          "prompt": "Work out $7.3 \\times 10^{8} - 4.5 \\times 10^{7}$ in standard form.",
+          "hint": "Write $7.3 \\times 10^{8}$ with the power $10^{7}$ first.",
+          "options": [
+            {
+              "text": "$6.85 \\times 10^{8}$",
+              "correct": true
+            },
+            {
+              "text": "$2.8 \\times 10^{1}$",
+              "correct": false
+            },
+            {
+              "text": "$2.8 \\times 10^{8}$",
+              "correct": false
+            },
+            {
+              "text": "$68.5 \\times 10^{7}$",
+              "correct": false
+            }
+          ],
+          "explain": "$7.3 \\times 10^{8} = 73 \\times 10^{7}$. Then $73 - 4.5 = 68.5$, so the difference is $68.5 \\times 10^{7} = 6.85 \\times 10^{8}$."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 the calculator does the arithmetic. Your job is to type it in correctly and write the answer in standard form."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-gravity",
+          "question": "The gravitational pull between the Earth and the Moon is $F = \\dfrac{G m_{1} m_{2}}{d^{2}}$ newtons, where $G = 6.67 \\times 10^{-11}$, $m_{1} = 5.97 \\times 10^{24}$, $m_{2} = 7.35 \\times 10^{22}$ and $d = 3.84 \\times 10^{8}$. Use your calculator to find $F$. Give your answer in standard form, with $a$ to 3 s.f.",
+          "steps": [
+            "Write down what you will type: $F = \\dfrac{(6.67 \\times 10^{-11})(5.97 \\times 10^{24})(7.35 \\times 10^{22})}{(3.84 \\times 10^{8})^{2}}$. This line earns the method mark.",
+            "Put the whole denominator in brackets, (3.84E8)^2, so all of $d$ is squared. If you type $\\times 10^{8}$ instead of E, leaving out the brackets divides by $3.84$ only.",
+            "The screen shows about 1.9848E20, which means $1.9848\\ldots \\times 10^{20}$.",
+            "Round the front number to 3 s.f.: $F \\approx 1.98 \\times 10^{20}$ N. Never write 1.98E20.",
+            "Estimate to check: $10^{-11 + 24 + 22 - 16} = 10^{19}$ and $\\frac{7 \\times 6 \\times 7}{4 \\times 4} \\approx 18$, so $F$ is about $1.8 \\times 10^{20}$: the same [[order-of-magnitude|order of magnitude]]."
+          ],
+          "answer": "$F \\approx 1.98 \\times 10^{20}\\text{ N}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "On the home screen, type 6.67E-11*5.97E24*7.35E22/(3.84E8)^2. Make E with 2nd, comma (EE) and minus with (-). Don't use ^ for powers of 10: it opens an exponent box that traps the rest of the line (check on your model)",
+              "ENTER",
+              "Read 1.984837952E20 (check on your model)"
+            ],
+            "nspire": [
+              "Calculator page",
+              "Type 6.67E-11*5.97E24*7.35E22/(3.84E8)^2, then enter. Make E with the EE key and minus with (-). Don't use ^ for powers of 10: it opens an exponent box that traps the rest of the line (check on your model)",
+              "Read about 1.98484E20; the digits shown depend on your settings (check on your model)"
+            ],
+            "casio": [
+              "RUN-MAT",
+              "Type 6.67E-11*5.97E24*7.35E22/(3.84E8)^2, then EXE. Make E with the ×10^x key and minus with (-). Don't use ^ for powers of 10: in Math input it opens an exponent box that traps the rest of the line (check on your model)",
+              "Read about 1.984837952E+20 (check on your model)"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-calculator-display",
+          "prompt": "Your calculator shows the answer 2.04E-7. How should you write it on your exam paper?",
+          "hint": "E means times $10$ to the power of the number after it. Keep the sign of that number.",
+          "options": [
+            {
+              "text": "$2.04 \\times 10^{-7}$",
+              "correct": true
+            },
+            {
+              "text": "2.04E-7",
+              "correct": false
+            },
+            {
+              "text": "$2.04^{-7}$",
+              "correct": false
+            },
+            {
+              "text": "$2.04 \\times 10^{7}$",
+              "correct": false
+            }
+          ],
+          "explain": "2.04E-7 means $2.04 \\times 10^{-7}$, which is $0.000\\,000\\,204$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "a \\times 10^{k}, \\quad 1 \\le a < 10, \\quad k \\in \\mathbb{Z}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Point after the first non-zero digit; $k$ counts the places moved, negative for numbers below 1.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Multiply: multiply front numbers, add powers. Divide: divide, subtract powers. Then fix $a$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$(a \\times 10^{m})^{n} = a^{n} \\times 10^{mn}$. For a square root, make the power even, then halve it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Add or subtract only with matching powers of $10$. Compare sizes by $k$ first.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Never give 7.4E-6 as an answer. Write $7.4 \\times 10^{-6}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Stopping with the front number outside 1 to 10, as in $30 \\times 10^{-7}$. Rewrite until $1 \\le a < 10$, changing the power to balance.",
+    "Moving the power the wrong way: $52.8 \\times 10^{-7}$ is $5.28 \\times 10^{-6}$, not $5.28 \\times 10^{-8}$. A smaller front number needs a bigger power.",
+    "Giving a number between 0 and 1 a positive power. Its $k$ is always negative: $0.0004 = 4 \\times 10^{-4}$."
+  ],
+  "examTips": [
+    "When standard form is asked for, $45.9 \\times 10^{4}$ loses the final accuracy (A) mark: you need $1 \\le a < 10$.",
+    "On Paper 1 there is no calculator. Split each calculation into front numbers and powers of $10$, and show both lines for the method (M) marks.",
+    "On Paper 2, write down the expression you type, then the answer. Round the front number to 3 s.f. unless told otherwise."
+  ],
+  "readingMinutes": 18
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 230" role="img" aria-labelledby="t">
+  <title id="t">Two arrows v and w start from the same point O with the angle theta between them. A third side, v minus w, joins the tip of w to the tip of v.</title>
+  <line x1="60" y1="200" x2="280" y2="170" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <path d="M270.8,176.3 L280,170 L269.4,166.4" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <line x1="60" y1="200" x2="150" y2="50" stroke="var(--t5-ink)" stroke-width="2.4"/>
+  <path d="M149.1,61.1 L150,50 L140.6,56" fill="none" stroke="var(--t5-ink)" stroke-width="2.4"/>
+  <line x1="150" y1="50" x2="278" y2="168" stroke="currentColor" stroke-width="1.8" stroke-dasharray="6 4"/>
+  <path d="M269.3,166.9 L278,168 L276,159.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M89.7,195.9 A30,30 0 0 0 75.4,174.3" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <circle cx="60" cy="200" r="3" fill="currentColor"/>
+  <g font-size="15" font-family="inherit" font-weight="600">
+    <text x="165" y="207" fill="var(--t1-ink)">v</text>
+    <text x="84" y="118" fill="var(--t5-ink)">w</text>
+    <text x="222" y="104" fill="currentColor">v − w</text>
+    <text x="94" y="188" fill="currentColor">θ</text>
+    <text x="42" y="216" fill="currentColor">O</text>
+  </g>
+</svg>

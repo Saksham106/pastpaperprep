@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 235" role="img" aria-labelledby="t">
+  <title id="t">Left: an even function, symmetric in the y-axis, with its points at x equals a and x equals negative a at the same height. Right: an odd function, with its points at x equals a and x equals negative a joined by a line through the origin, one above and one below the x-axis.</title>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="14" y1="115" x2="166" y2="115"/>
+    <line x1="90" y1="190" x2="90" y2="22"/>
+    <line x1="194" y1="115" x2="346" y2="115"/>
+    <line x1="270" y1="190" x2="270" y2="22"/>
+  </g>
+  <path d="M26.0,37.7 L28.1,57.5 L30.3,74.5 L32.4,88.9 L34.5,100.9 L36.7,110.8 L38.8,118.7 L40.9,124.8 L43.1,129.3 L45.2,132.4 L47.3,134.2 L49.5,135.0 L51.6,134.8 L53.7,133.7 L55.9,132.0 L58.0,129.8 L60.1,127.2 L62.3,124.2 L64.4,121.1 L66.5,117.8 L68.7,114.5 L70.8,111.3 L72.9,108.2 L75.1,105.4 L77.2,102.8 L79.3,100.5 L81.5,98.6 L83.6,97.0 L85.7,95.9 L87.9,95.2 L90.0,95.0 L92.1,95.2 L94.3,95.9 L96.4,97.0 L98.5,98.6 L100.7,100.5 L102.8,102.8 L104.9,105.4 L107.1,108.2 L109.2,111.3 L111.3,114.5 L113.5,117.8 L115.6,121.1 L117.7,124.2 L119.9,127.2 L122.0,129.8 L124.1,132.0 L126.3,133.7 L128.4,134.8 L130.5,135.0 L132.7,134.2 L134.8,132.4 L136.9,129.3 L139.1,124.8 L141.2,118.7 L143.3,110.8 L145.5,100.9 L147.6,88.9 L149.7,74.5 L151.9,57.5 L154.0,37.7" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <path d="M206.0,182.8 L208.1,170.2 L210.3,158.6 L212.4,148.0 L214.5,138.5 L216.7,129.8 L218.8,122.1 L220.9,115.2 L223.1,109.2 L225.2,104.0 L227.3,99.5 L229.5,95.8 L231.6,92.8 L233.7,90.4 L235.9,88.7 L238.0,87.5 L240.1,86.9 L242.3,86.7 L244.4,87.1 L246.5,87.9 L248.7,89.1 L250.8,90.6 L252.9,92.5 L255.1,94.7 L257.2,97.1 L259.3,99.8 L261.5,102.6 L263.6,105.6 L265.7,108.6 L267.9,111.8 L270.0,115.0 L272.1,118.2 L274.3,121.4 L276.4,124.4 L278.5,127.4 L280.7,130.2 L282.8,132.9 L284.9,135.3 L287.1,137.5 L289.2,139.4 L291.3,140.9 L293.5,142.1 L295.6,142.9 L297.7,143.3 L299.9,143.1 L302.0,142.5 L304.1,141.3 L306.3,139.6 L308.4,137.2 L310.5,134.2 L312.7,130.5 L314.8,126.0 L316.9,120.8 L319.1,114.8 L321.2,107.9 L323.3,100.2 L325.5,91.5 L327.6,82.0 L329.7,71.4 L331.9,59.8 L334.0,47.2" fill="none" stroke="var(--t5-ink)" stroke-width="2.5"/>
+  <g stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4">
+    <line x1="30.0" y1="72.5" x2="150.0" y2="72.5"/>
+    <line x1="210.0" y1="160.0" x2="330.0" y2="70.0"/>
+  </g>
+  <g fill="currentColor">
+    <circle cx="30.0" cy="72.5" r="4"/>
+    <circle cx="150.0" cy="72.5" r="4"/>
+    <circle cx="210.0" cy="160.0" r="4"/>
+    <circle cx="330.0" cy="70.0" r="4"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="95" y="30">y</text>
+    <text x="160" y="130">x</text>
+    <text x="275" y="30">y</text>
+    <text x="340" y="130">x</text>
+    <text x="10.0" y="88.5">−a</text>
+    <text x="158.0" y="88.5">a</text>
+    <text x="216.0" y="164.0">−a</text>
+    <text x="316.0" y="64.0">a</text>
+    <text x="22" y="212">even: mirror in the y-axis</text>
+    <text x="196" y="212">odd: half-turn about the origin</text>
+  </g>
+</svg>

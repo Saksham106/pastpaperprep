@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 215" role="img" aria-labelledby="t">
+  <title id="t">A parallelogram with base v along the bottom and side w leaving the same corner at angle theta. A dashed vertical height of length w sin theta drops from the top of w to the base. A diagonal splits the parallelogram into two equal triangles, and the lower triangle is shaded.</title>
+  <path d="M40,180 L220,180 L110,60 Z" fill="var(--t1-ink)" fill-opacity="0.12" stroke="none"/>
+  <line x1="220" y1="180" x2="290" y2="60" stroke="var(--muted)" stroke-width="1.4"/>
+  <line x1="110" y1="60" x2="290" y2="60" stroke="var(--muted)" stroke-width="1.4"/>
+  <line x1="110" y1="60" x2="220" y2="180" stroke="currentColor" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <line x1="40" y1="180" x2="220" y2="180" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <path d="M210,175 L220,180 L210,185" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <line x1="40" y1="180" x2="110" y2="60" stroke="var(--t2-ink)" stroke-width="2.4"/>
+  <path d="M100.8,64.6 L110,60 L109.4,69.6" fill="none" stroke="var(--t2-ink)" stroke-width="2.4"/>
+  <line x1="110" y1="60" x2="110" y2="180" stroke="var(--t3-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <path d="M110,170 L120,170 L120,180" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/>
+  <path d="M70,180 A30,30 0 0 0 55.1,154.1" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <g font-size="15" font-family="inherit" font-weight="600">
+    <text x="126" y="202" fill="var(--t1-ink)">v</text>
+    <text x="52" y="112" fill="var(--t2-ink)">w</text>
+    <text x="74" y="170" fill="currentColor">θ</text>
+    <text x="116" y="122" fill="var(--t3-ink)">|w| sin θ</text>
+  </g>
+</svg>

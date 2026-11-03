@@ -1,0 +1,14 @@
+[
+  {
+    "id": "exponential-function",
+    "term": "exponential function",
+    "definition": "A function $f(x) = a^{x}$, where $a > 0$ and $a \\ne 1$: the variable is in the power, so equal steps in $x$ multiply the output by the same factor.",
+    "lesson": "2.9"
+  },
+  {
+    "id": "logarithmic-function",
+    "term": "logarithmic function",
+    "definition": "A function $f(x) = \\log_{a} x$, for $x > 0$, where $a > 0$ and $a \\ne 1$; it is the inverse of $x \\mapsto a^{x}$.",
+    "lesson": "2.9"
+  }
+]

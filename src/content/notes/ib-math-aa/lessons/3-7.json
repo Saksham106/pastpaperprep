@@ -1,0 +1,703 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "3.7",
+  "slug": "circular-functions-graphs-and-transformations",
+  "title": "Circular functions, graphs and transformations",
+  "level": "SL",
+  "topic": 3,
+  "summary": "The graphs of $\\sin x$ and $\\cos x$ are waves that repeat every $2\\pi$, and $\\tan x$ repeats every $\\pi$. Every trig wave you meet is one of these, stretched and moved into the form $y = a\\sin(b(x + c)) + d$. Read off $a$, $b$, $c$ and $d$ and you know the wave's height, length and position, which is how you model tides, wheels and seasons.",
+  "goals": [
+    {
+      "text": "Sketch $y = \\sin x$, $y = \\cos x$ and $y = \\tan x$ in degrees or radians, and state their [[amplitude|amplitude]] and [[periodic-function|period]].",
+      "bullets": [
+        "3.7-b1"
+      ]
+    },
+    {
+      "text": "Read the amplitude, period, [[principal-axis|principal axis]], maximum and minimum of $y = a\\sin(b(x + c)) + d$, and find the constants from a graph.",
+      "bullets": [
+        "3.7-b2"
+      ]
+    },
+    {
+      "text": "Describe the stretches and translations that turn $y = \\sin x$ into $y = a\\sin(b(x + c)) + d$, in an order that works.",
+      "bullets": [
+        "3.7-b2",
+        "3.7-b3"
+      ]
+    },
+    {
+      "text": "Build a trig model of a real repeating situation, use it with your calculator, and rewrite a regression result in the form $a\\sin(b(x + c)) + d$.",
+      "bullets": [
+        "3.7-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.11",
+    "3.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "trig graphs",
+    "amplitude and period",
+    "transformations of sine and cosine graphs",
+    "a sin(b(x+c))+d",
+    "trig modelling Ferris wheel tides",
+    "period of tan x"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-exact-sin",
+      "prompt": "Find the exact value of $\\sin\\frac{5\\pi}{6}$.",
+      "hint": "$\\frac{5\\pi}{6}$ is in the second quadrant, where sine is positive. Its reference angle is $\\frac{\\pi}{6}$.",
+      "options": [
+        {
+          "text": "$\\frac{1}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$-\\frac{1}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{\\sqrt{3}}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\sin\\frac{5\\pi}{6} = \\sin\\left(\\pi - \\frac{\\pi}{6}\\right) = \\sin\\frac{\\pi}{6} = \\frac{1}{2}$. Revise it in {{lesson:3.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-exact-cos",
+      "prompt": "Find the exact value of $\\cos\\frac{4\\pi}{3}$.",
+      "hint": "$\\frac{4\\pi}{3}$ is in the third quadrant, where cosine is negative. Its reference angle is $\\frac{\\pi}{3}$.",
+      "options": [
+        {
+          "text": "$-\\frac{1}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{1}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$-\\frac{\\sqrt{3}}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\cos\\frac{4\\pi}{3} = -\\cos\\frac{\\pi}{3} = -\\frac{1}{2}$. Revise it in {{lesson:3.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-horizontal-stretch",
+      "prompt": "The point $(6, 5)$ lies on the graph of $y = f(x)$. Which point must lie on the graph of $y = f(2x)$?",
+      "hint": "$y = f(2x)$ is a horizontal stretch with scale factor $\\frac{1}{2}$. Which coordinate changes?",
+      "options": [
+        {
+          "text": "$(3, 5)$",
+          "correct": true
+        },
+        {
+          "text": "$(12, 5)$",
+          "correct": false
+        },
+        {
+          "text": "$(6, 10)$",
+          "correct": false
+        }
+      ],
+      "explain": "At $x = 3$ the new graph takes the value $f(2 \\times 3) = f(6) = 5$, so $(3, 5)$ is on it. Every $x$-coordinate is halved and every $y$-coordinate stays. Revise it in {{lesson:2.11}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "graphs",
+      "heading": "The graphs of sine, cosine and tangent",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.5}} you met $\\cos\\theta$ and $\\sin\\theta$ as the coordinates of a point on the unit circle. Now let the angle keep growing, and plot each one against the angle."
+        },
+        {
+          "type": "text",
+          "text": "As the point goes round, its height rises to $1$, falls to $-1$ and returns to $0$. After one full turn, $2\\pi$ radians, it is back where it started, so the graph starts again."
+        },
+        {
+          "type": "interactive",
+          "widget": "unit-circle-graphs",
+          "props": {},
+          "alt": "A point on the unit circle beside the graphs of sine and cosine for angles from 0 to 2 pi. A slider moves the angle. The height of the point equals the value on the sine graph, and its horizontal distance from the centre equals the value on the cosine graph, at that angle."
+        },
+        {
+          "type": "figure",
+          "id": "3-7-sin-cos",
+          "alt": "Graphs of y equals sin x, solid, and y equals cos x, dashed, for x from 0 to 2 pi. Both waves stay between minus 1 and 1. The sine curve starts at the origin, reaches its maximum 1 at pi over 2, crosses the axis at pi, reaches its minimum minus 1 at 3 pi over 2 and is back on the axis at 2 pi. The cosine curve starts at its maximum 1 at x equals 0, crosses the axis at pi over 2, reaches minus 1 at pi, crosses again at 3 pi over 2 and is back at 1 at 2 pi.",
+          "caption": "One full wave of $y = \\sin x$ and of $y = \\cos x$. The dots mark the maximum and minimum points."
+        },
+        {
+          "type": "text",
+          "text": "Both are smooth waves between $-1$ and $1$, with the same shape. $\\sin x$ starts at $0$. $\\cos x$ starts at its peak: it is the sine wave moved $\\frac{\\pi}{2}$ to the left."
+        },
+        {
+          "type": "text",
+          "text": "A graph that repeats like this is [[periodic-function|periodic]]. Its [[amplitude|amplitude]] measures how tall the wave is."
+        },
+        {
+          "type": "definition",
+          "term": "period",
+          "statement": "A function $f$ is periodic if there is a constant $p > 0$ with $f(x + p) = f(x)$ for every $x$ in its domain. The smallest such $p$ is the period of $f$.",
+          "plain": "The period is the length along the x-axis of one full wave."
+        },
+        {
+          "type": "definition",
+          "term": "amplitude",
+          "statement": "The amplitude of a sine or cosine wave is half the difference between its maximum and minimum values.",
+          "plain": "How far the wave reaches above or below its middle line."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin x,\\ \\cos x:\\ \\text{period } 2\\pi = 360^{\\circ},\\ \\text{amplitude } 1,\\ \\text{range } -1 \\le y \\le 1",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Now $\\tan x$. It is $\\frac{\\sin x}{\\cos x}$, which is in the formula booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta}",
+          "tag": "booklet",
+          "bookletId": "bk-3-5-tan-identity"
+        },
+        {
+          "type": "text",
+          "text": "Where $\\cos x = 0$, at $x = \\pm\\frac{\\pi}{2}, \\pm\\frac{3\\pi}{2}, \\ldots$, the fraction has no value. The graph has a vertical [[asymptote|asymptote]] there."
+        },
+        {
+          "type": "text",
+          "text": "Between two asymptotes, $\\tan x$ climbs through every real number. It has no maximum or minimum, so it has no amplitude."
+        },
+        {
+          "type": "figure",
+          "id": "3-7-tan",
+          "alt": "Graph of y equals tan x for x from 0 to 2 pi. Dashed vertical asymptotes at x equals pi over 2 and x equals 3 pi over 2 split it into three pieces. Each piece rises from left to right. The curve passes through the origin and the point (pi over 4, 1), climbs towards the asymptote at pi over 2, comes back up from very negative values through (pi, 0), climbs to the asymptote at 3 pi over 2, then rises again from very negative values to (2 pi, 0).",
+          "caption": "$y = \\tan x$ repeats every $\\pi$. It has asymptotes where $\\cos x = 0$."
+        },
+        {
+          "type": "text",
+          "text": "Each piece is a copy of the one before, moved $\\pi$ to the right. So the period of $\\tan x$ is $\\pi$, not $2\\pi$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan x:\\ \\text{period } \\pi = 180^{\\circ},\\ \\text{no amplitude},\\ \\text{asymptotes } x = \\frac{\\pi}{2} + k\\pi,\\ k \\in \\mathbb{Z}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The angle can be in degrees or radians. Only the $x$-axis labels change: $\\pi$ becomes $180^{\\circ}$ and $2\\pi$ becomes $360^{\\circ}$. A domain such as $0^{\\circ} \\le x \\le 360^{\\circ}$ is in degrees; one with no degree sign is in radians."
+        },
+        {
+          "type": "example",
+          "id": "ex-cos-minimum",
+          "question": "Write down the $x$-coordinates of the minimum points of $y = \\cos x$ for $-2\\pi \\le x \\le 2\\pi$.",
+          "steps": [
+            "One wave of $\\cos x$ starts at a maximum at $x = 0$. It falls through $0$ at $x = \\frac{\\pi}{2}$ to its minimum, $-1$, at $x = \\pi$.",
+            "The minima repeat every period, $2\\pi$. So they are at $\\pi - 2\\pi = -\\pi$, at $\\pi$, at $\\pi + 2\\pi = 3\\pi$, and so on.",
+            "Keep only the ones with $-2\\pi \\le x \\le 2\\pi$: $x = -\\pi$ and $x = \\pi$. The value $3\\pi$ is outside the domain.",
+            "Check: $\\cos(-\\pi) = \\cos\\pi = -1$, the least value cosine can take."
+          ],
+          "answer": "$x = -\\pi \\text{ or } x = \\pi$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-tan-asymptotes",
+          "question": "Find the equations of the vertical asymptotes of $y = \\tan x$ for $0^{\\circ} \\le x \\le 360^{\\circ}$.",
+          "steps": [
+            "The domain is in degrees, so work in degrees.",
+            "$\\tan x = \\frac{\\sin x}{\\cos x}$ has no value where $\\cos x = 0$. The first place is $x = 90^{\\circ}$.",
+            "The asymptotes repeat every period of $\\tan x$, which is $180^{\\circ}$. So the next is at $90^{\\circ} + 180^{\\circ} = 270^{\\circ}$.",
+            "The next, $450^{\\circ}$, is outside the domain. Write each asymptote as an equation."
+          ],
+          "answer": "$x = 90^{\\circ} \\text{ or } x = 270^{\\circ}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-sin-solutions",
+          "prompt": "How many solutions does the equation $\\sin x = 0.3$ have for $0 \\le x \\le 4\\pi$?",
+          "hint": "Sketch two full waves of $y = \\sin x$ and the line $y = 0.3$. Count the crossings.",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "The line $y = 0.3$ cuts each full wave twice, once on the way up and once on the way down. Two full waves give $4$ solutions."
+        },
+        {
+          "type": "check",
+          "id": "check-cos-range",
+          "prompt": "Find the range of $y = \\cos x$ for $0 \\le x \\le \\frac{\\pi}{2}$.",
+          "hint": "Only a quarter of the wave is drawn here. Where does $\\cos x$ start, and where has it reached by $x = \\frac{\\pi}{2}$?",
+          "options": [
+            {
+              "text": "$0 \\le y \\le 1$",
+              "correct": true
+            },
+            {
+              "text": "$-1 \\le y \\le 1$",
+              "correct": false
+            },
+            {
+              "text": "$0 \\le y \\le \\frac{\\pi}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "On this domain $\\cos x$ falls from $\\cos 0 = 1$ to $\\cos\\frac{\\pi}{2} = 0$, so $0 \\le y \\le 1$. The range $-1 \\le y \\le 1$ needs a whole wave."
+        }
+      ]
+    },
+    {
+      "id": "parameters",
+      "heading": "Amplitude, period and the principal axis",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Take $y = 3\\sin x + 2$. Multiplying by $3$ makes the wave reach $3$ above and $3$ below its middle. Adding $2$ lifts the middle up to $y = 2$. So the curve runs between $-1$ and $5$."
+        },
+        {
+          "type": "text",
+          "text": "Now take $y = \\sin(2x)$. The inside, $2x$, reaches $2\\pi$ when $x = \\pi$. So one whole wave fits between $0$ and $\\pi$. Doubling $x$ halves the [[periodic-function|period]]."
+        },
+        {
+          "type": "text",
+          "text": "The general form is $y = a\\sin(b(x + c)) + d$, with constants $a$, $b$, $c$, $d$ and $b > 0$. The middle line it swings about is the [[principal-axis|principal axis]]."
+        },
+        {
+          "type": "definition",
+          "term": "principal axis",
+          "statement": "For $y = a\\sin(b(x + c)) + d$ or $y = a\\cos(b(x + c)) + d$, the principal axis is the line $y = d$. It lies halfway between the maximum and minimum values.",
+          "plain": "The horizontal centre line the wave swings about."
+        },
+        {
+          "type": "formula",
+          "tex": "y = a\\sin\\big(b(x + c)\\big) + d:\\quad \\text{amplitude } |a| \\qquad \\text{period } \\frac{2\\pi}{b} = \\frac{360^{\\circ}}{b} \\qquad \\text{principal axis } y = d",
+          "tag": "learn"
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{maximum} = d + |a| \\qquad \\text{minimum} = d - |a|",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The [[amplitude|amplitude]] $|a|$ is a distance, so it is never negative. A negative $a$ flips the wave but keeps its height. The constant $c$ slides the wave sideways and changes none of these values."
+        },
+        {
+          "type": "text",
+          "text": "The same holds for $a\\cos(b(x + c)) + d$. For $a\\tan(b(x + c)) + d$ the period is $\\frac{\\pi}{b}$ (or $\\frac{180^{\\circ}}{b}$), with no amplitude."
+        },
+        {
+          "type": "figure",
+          "id": "3-7-features",
+          "alt": "Graph of y equals 2 sin 2x plus 3 for x from 0 to 2 pi. The wave swings about the dashed principal axis y equals 3, reaching up to y equals 5 and down to y equals 1. A vertical arrow from the axis to a maximum is labelled amplitude 2. A bracket from the maximum at pi over 4 to the next maximum at 5 pi over 4 is labelled period pi. Two full waves fit between 0 and 2 pi.",
+          "caption": "$y = 2\\sin(2x) + 3$: amplitude $2$, period $\\frac{2\\pi}{2} = \\pi$, principal axis $y = 3$, maximum $5$ and minimum $1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-parameters",
+          "question": "Let $f(x) = 2\\sin\\left(3\\left(x + \\frac{\\pi}{4}\\right)\\right) + 5$. Write down the amplitude $A$ of $f$, and find its period $p$.",
+          "steps": [
+            "Match $f$ to $a\\sin(b(x + c)) + d$: $a = 2$, $b = 3$, $c = \\frac{\\pi}{4}$ and $d = 5$.",
+            "The amplitude is $|a|$, so $A = 2$.",
+            "The period is $\\frac{2\\pi}{b} = \\frac{2\\pi}{3}$.",
+            "Check: $c$ and $d$ only move the wave, so they don't change $A$ or $p$. The curve runs between $5 - 2 = 3$ and $5 + 2 = 7$, and $\\frac{7 - 3}{2} = 2$."
+          ],
+          "answer": "$A = 2, \\; p = \\frac{2\\pi}{3}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing $2\\pi$ by only part of $b$. In $\\sin(4\\pi x)$ the whole coefficient of $x$ is $b = 4\\pi$, so the period is $\\frac{2\\pi}{4\\pi} = \\frac{1}{2}$, not $\\frac{\\pi}{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-parameters-from-graph",
+          "question": "The graph of $y = a\\cos(bx) + d$, where $a > 0$ and $b > 0$, has a maximum point at $(0, 9)$. The next minimum point is $\\left(\\frac{\\pi}{3}, 1\\right)$. Find $a$, $b$ and $d$.",
+          "steps": [
+            "The principal axis is halfway between the maximum and minimum values: $d = \\frac{9 + 1}{2} = 5$.",
+            "The amplitude is half the difference: $a = \\frac{9 - 1}{2} = 4$. It is positive, as the question needs.",
+            "From a maximum to the next minimum is half a wave. So the period is $2 \\times \\frac{\\pi}{3} = \\frac{2\\pi}{3}$.",
+            "Use period $= \\frac{2\\pi}{b}$: $\\frac{2\\pi}{b} = \\frac{2\\pi}{3}$, so $b = 3$.",
+            "Check: $y = 4\\cos(3x) + 5$ gives $4\\cos 0 + 5 = 9$ at $x = 0$ and $4\\cos\\pi + 5 = 1$ at $x = \\frac{\\pi}{3}$."
+          ],
+          "answer": "$a = 4, \\; b = 3, \\; d = 5$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-period-degrees",
+          "prompt": "The function $g(x) = 5\\sin(4x) - 1$ has $x$ in degrees. Find the period of $g$.",
+          "hint": "In degrees one full wave of $\\sin x$ takes $360^{\\circ}$. What does the $4$ do to that?",
+          "options": [
+            {
+              "text": "$90^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$1440^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$72^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "The period is $\\frac{360^{\\circ}}{4} = 90^{\\circ}$: multiplying $x$ by $4$ fits four waves into $360^{\\circ}$. The $5$ changes the height of the wave, not its length."
+        },
+        {
+          "type": "check",
+          "id": "check-minimum-value",
+          "prompt": "Find the minimum value of $h(x) = 7 - 3\\cos\\left(\\frac{\\pi x}{2}\\right)$.",
+          "hint": "$\\cos$ of anything lies between $-1$ and $1$. Which of those makes $7 - 3\\cos(\\ldots)$ smallest?",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "The smallest value comes when the cosine is $1$: $7 - 3 \\times 1 = 4$. In the general form $a = -3$ and $d = 7$, so the minimum is $d - |a| = 7 - 3 = 4$."
+        }
+      ]
+    },
+    {
+      "id": "transformations",
+      "heading": "Transformations of trig graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.11}} you transformed graphs with $y = pf(x)$, $y = f(qx)$ and $y = f(x - h) + k$. A trig graph is no different. Each constant in $y = a\\sin(b(x + c)) + d$ is one of those moves."
+        },
+        {
+          "type": "result",
+          "statement": "For $a > 0$ and $b > 0$, the graph of $y = a\\sin(b(x + c)) + d$ comes from $y = \\sin x$ by a [[horizontal-stretch|horizontal stretch]] with scale factor $\\frac{1}{b}$ and a [[vertical-stretch|vertical stretch]] with scale factor $a$, followed by a [[translation|translation]] of $c$ units to the left and $d$ units up.",
+          "why": "Build the expression from $\\sin x$. Replace $x$ by $bx$ and multiply by $a$ to get $a\\sin(bx)$. Then replace every $x$ by $x + c$ and add $d$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin x \\;\\to\\; a\\sin\\big(b(x + c)\\big) + d:\\quad \\text{horizontal stretch } \\tfrac{1}{b},\\ \\text{vertical stretch } a,\\ \\text{then translation } \\begin{pmatrix} -c \\\\ d \\end{pmatrix}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A positive $c$ moves the wave left and a negative $c$ moves it right: $\\sin\\left(x - \\frac{\\pi}{4}\\right)$ is $\\sin x$ moved $\\frac{\\pi}{4}$ right. A negative $a$ adds a [[reflection|reflection]] in the $x$-axis."
+        },
+        {
+          "type": "text",
+          "text": "The order of the horizontal moves matters: stretch first, then translate by $c$. Translate first, and the stretch squeezes the shift too, giving $\\sin(bx + c)$ instead."
+        },
+        {
+          "type": "text",
+          "text": "So if the bracket is written $bx + k$, take $b$ out first. For example, $\\sin\\left(2x + \\frac{\\pi}{3}\\right) = \\sin\\left(2\\left(x + \\frac{\\pi}{6}\\right)\\right)$ is a translation of $\\frac{\\pi}{6}$ left, not $\\frac{\\pi}{3}$."
+        },
+        {
+          "type": "mistake",
+          "text": "Reading the shift straight from $\\sin(bx + k)$. The translation is $c$ only once $b$ is factored out: $\\cos\\left(3x - \\frac{\\pi}{2}\\right) = \\cos\\left(3\\left(x - \\frac{\\pi}{6}\\right)\\right)$ moves $\\frac{\\pi}{6}$ right."
+        },
+        {
+          "type": "text",
+          "text": "Try it with the base set to $\\sin x$, $b$ set to $2$ (horizontal scale factor $\\frac{1}{2}$) and $c$ (shift right) set to $1$. The peak $\\left(\\frac{\\pi}{2}, 1\\right)$ lands at about $(1.79, 1)$. Go by the slider names: the widget's $c$ shifts right, so it is minus the $c$ in $a\\sin(b(x + c)) + d$."
+        },
+        {
+          "type": "interactive",
+          "widget": "transformations",
+          "props": {},
+          "alt": "A dashed base curve, which can be set to sine, and its transformed image drawn solid. Sliders set a vertical stretch, a horizontal scale, a shift right and a shift up, and the image's equation is printed above them. An open dot on the base curve and a filled dot on the image show where one point moves."
+        },
+        {
+          "type": "example",
+          "id": "ex-build-equation",
+          "question": "The graph of $y = \\sin x$ is stretched vertically with scale factor $4$, then stretched horizontally with scale factor $\\frac{1}{3}$, then translated $\\frac{\\pi}{6}$ units to the left. Find the equation of the new graph.",
+          "steps": [
+            "Vertical stretch, scale factor $4$: multiply the whole function by $4$. This gives $y = 4\\sin x$.",
+            "Horizontal stretch, scale factor $\\frac{1}{3}$: replace $x$ by $3x$. This gives $y = 4\\sin(3x)$.",
+            "Translation $\\frac{\\pi}{6}$ left: replace every $x$ by $x + \\frac{\\pi}{6}$. The $3$ now multiplies the whole bracket: $y = 4\\sin\\left(3\\left(x + \\frac{\\pi}{6}\\right)\\right)$.",
+            "Check with the peak $\\left(\\frac{\\pi}{2}, 1\\right)$ of $\\sin x$. The stretches send it to $\\left(\\frac{\\pi}{6}, 4\\right)$ and the translation to $(0, 4)$. Indeed $4\\sin\\left(3 \\times \\frac{\\pi}{6}\\right) = 4\\sin\\frac{\\pi}{2} = 4$."
+          ],
+          "answer": "$y = 4\\sin\\left(3\\left(x + \\frac{\\pi}{6}\\right)\\right)$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-and-max",
+          "question": "Let $g(x) = 3\\cos\\left(2\\left(x + \\frac{\\pi}{6}\\right)\\right) - 1$. (a) Describe, in order, the transformations that take the graph of $y = \\cos x$ to the graph of $y = g(x)$. (b) Hence find the coordinates of the first maximum point of the graph of $g$ with $x > 0$.",
+          "steps": [
+            "(a) Match $g$ to $a\\cos(b(x + c)) + d$: $a = 3$, $b = 2$, $c = \\frac{\\pi}{6}$ and $d = -1$.",
+            "So: a vertical stretch with scale factor $3$, a horizontal stretch with scale factor $\\frac{1}{2}$, a translation of $\\frac{\\pi}{6}$ units to the left, and a translation of $1$ unit down. The horizontal stretch must come before the horizontal translation.",
+            "(b) $\\cos x$ has a maximum at $(0, 1)$. The horizontal stretch keeps $x = 0$, and the translation moves it to $x = -\\frac{\\pi}{6}$. The height becomes $3 \\times 1 - 1 = 2$.",
+            "That maximum is not in $x > 0$. Maxima repeat every period, $\\frac{2\\pi}{2} = \\pi$, so the next one is at $x = -\\frac{\\pi}{6} + \\pi = \\frac{5\\pi}{6}$.",
+            "Check: $g\\left(\\frac{5\\pi}{6}\\right) = 3\\cos\\left(2 \\times \\pi\\right) - 1 = 3 - 1 = 2$, the largest value $g$ can take."
+          ],
+          "answer": "$\\left(\\frac{5\\pi}{6}, 2\\right)$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-image-equation",
+          "prompt": "The graph of $y = \\sin x$ is stretched horizontally with scale factor $\\frac{1}{2}$, then translated $\\frac{\\pi}{3}$ units to the right. Find the equation of the new graph.",
+          "hint": "Do the stretch first. A translation replaces every $x$, so ask what the $2$ ends up multiplying.",
+          "options": [
+            {
+              "text": "$y = \\sin\\left(2x - \\frac{\\pi}{3}\\right)$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\sin\\left(2\\left(x - \\frac{\\pi}{3}\\right)\\right)$",
+              "correct": true
+            },
+            {
+              "text": "$y = \\sin\\left(\\frac{1}{2}\\left(x - \\frac{\\pi}{3}\\right)\\right)$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\sin\\left(2\\left(x + \\frac{\\pi}{3}\\right)\\right)$",
+              "correct": false
+            }
+          ],
+          "explain": "The stretch gives $\\sin(2x)$. The translation replaces $x$ by $x - \\frac{\\pi}{3}$, so $y = \\sin\\left(2\\left(x - \\frac{\\pi}{3}\\right)\\right)$. The form $\\sin\\left(2x - \\frac{\\pi}{3}\\right)$ only moves the wave $\\frac{\\pi}{6}$."
+        },
+        {
+          "type": "check",
+          "id": "check-tan-asymptote",
+          "prompt": "Find the equation of the vertical asymptote of $y = \\tan\\left(x + \\frac{\\pi}{3}\\right)$ for $0 < x < \\pi$.",
+          "hint": "$+\\frac{\\pi}{3}$ inside the bracket moves the graph left. Where does the asymptote $x = \\frac{\\pi}{2}$ of $\\tan x$ go?",
+          "options": [
+            {
+              "text": "$x = \\frac{\\pi}{6}$",
+              "correct": true
+            },
+            {
+              "text": "$x = \\frac{5\\pi}{6}$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{\\pi}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "Moving $x = \\frac{\\pi}{2}$ left by $\\frac{\\pi}{3}$ gives $x = \\frac{\\pi}{6}$. Check: at $x = \\frac{\\pi}{6}$ the bracket is $\\frac{\\pi}{6} + \\frac{\\pi}{3} = \\frac{\\pi}{2}$, where $\\tan$ has no value."
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "heading": "Modelling periodic situations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Tides, a seat on a Ferris wheel and the hours of daylight all repeat in smooth waves, so a sine or cosine function can model them. Find the constants from the largest value, the smallest value and the time of one cycle."
+        },
+        {
+          "type": "formula",
+          "tex": "d = \\frac{\\max + \\min}{2} \\qquad |a| = \\frac{\\max - \\min}{2} \\qquad b = \\frac{2\\pi}{\\text{period}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Then pick the function and the sign of $a$ that start in the right place. $\\cos$ starts at a maximum, $-\\cos$ starts at a minimum, and $\\sin$ starts on the [[principal-axis|principal axis]], going up."
+        },
+        {
+          "type": "example",
+          "id": "ex-model-daylight",
+          "question": "In one city, the number of hours of daylight $D$ on day $t$ of the year is modelled by $D(t) = a\\cos(b(t - c)) + d$, where $a > 0$, $b > 0$ and $0 \\le c < 365$. The longest day has $16$ hours of daylight and is day $170$. The shortest day has $8$ hours. The pattern repeats every $365$ days. Find $a$, $b$, $c$ and $d$.",
+          "steps": [
+            "Principal axis: $d = \\frac{16 + 8}{2} = 12$.",
+            "Amplitude: $a = \\frac{16 - 8}{2} = 4$. It is positive, as the question says.",
+            "The period is $365$ days, so $\\frac{2\\pi}{b} = 365$ and $b = \\frac{2\\pi}{365}$.",
+            "With $a > 0$, the cosine is largest when its bracket is $0$. That must happen on day $170$, so $170 - c = 0$ and $c = 170$. Here the model writes $t - c$, so $c$ is a translation to the right.",
+            "Check: $D(170) = 4\\cos 0 + 12 = 16$. Half a year later the bracket is $\\pi$, and $4\\cos\\pi + 12 = 8$."
+          ],
+          "answer": "$a = 4, \\; b = \\frac{2\\pi}{365}, \\; c = 170, \\; d = 12$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Your calculator can also fit a sine curve to data, by sine regression. Many calculators don't give the IB form: they give $y = a\\sin(bx + k) + d$, with $b$ still inside."
+        },
+        {
+          "type": "example",
+          "id": "ex-regression-form",
+          "question": "A student records the outside temperature every hour and runs a sine regression on a calculator. It returns $y = 4.2\\sin(0.26x - 1.3) + 15.6$. Write this in the form $y = a\\sin(b(x + c)) + d$.",
+          "steps": [
+            "In the calculator's form the number added inside the bracket is not the shift, because $b$ has not been factored out.",
+            "Take $0.26$ out of the bracket: $0.26x - 1.3 = 0.26\\left(x - \\frac{1.3}{0.26}\\right) = 0.26(x - 5)$.",
+            "So $a = 4.2$, $b = 0.26$, $c = -5$ and $d = 15.6$. The wave is moved $5$ units to the right, not $1.3$.",
+            "Check by expanding: $0.26(x - 5) = 0.26x - 1.3$, as the calculator gave."
+          ],
+          "answer": "$y = 4.2\\sin(0.26(x - 5)) + 15.6$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Some also return a negative $a$, or a shift that is a whole period out. Check the result against the data before you use it."
+        },
+        {
+          "type": "example",
+          "id": "ex-model-gdc",
+          "question": "The temperature $T$, in $^{\\circ}\\mathrm{C}$, in a greenhouse $t$ hours after midnight is modelled by $T(t) = 6\\sin\\left(\\frac{\\pi}{12}(t - 9)\\right) + 22$ for $0 \\le t \\le 24$. Use your calculator to find the times when the temperature is $26\\,^{\\circ}\\mathrm{C}$. Give your answers to 3 s.f.",
+          "steps": [
+            "Set your calculator to radians, since the model has no degree sign.",
+            "Write down the equation: $6\\sin\\left(\\frac{\\pi}{12}(t - 9)\\right) + 22 = 26$. This line earns the method mark.",
+            "Graph $y = 6\\sin\\left(\\frac{\\pi}{12}(x - 9)\\right) + 22$ and $y = 26$ for $0 \\le x \\le 24$. Find both intersections: $t = 11.7873\\ldots$ and $t = 18.2126\\ldots$",
+            "Check: the period is $\\frac{2\\pi}{\\pi/12} = 24$ hours, and the maximum, $28\\,^{\\circ}\\mathrm{C}$, is at $t = 15$. The two times sit the same distance, $3.2126\\ldots$ hours, either side of $15$, as they should for a wave."
+          ],
+          "answer": "$t \\approx 11.8 \\text{ or } t \\approx 18.2$",
+          "check": {
+            "type": "check",
+            "id": "check-greenhouse-duration",
+            "prompt": "Now you try. For how many hours each day is the temperature in the greenhouse above $26\\,^{\\circ}\\mathrm{C}$? Give your answer to 3 s.f.",
+            "hint": "The temperature is above $26\\,^{\\circ}\\mathrm{C}$ between the two times you found. Use the unrounded values.",
+            "answer": {
+              "value": 6.43,
+              "tolerance": 0.005
+            },
+            "explain": "$18.2126\\ldots - 11.7873\\ldots = 6.4252\\ldots$, so about $6.43$ hours. Subtracting the rounded times, $18.2 - 11.8 = 6.4$, loses accuracy."
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, RADIAN",
+              "Y=, enter Y1 = 6sin(π/12*(X-9))+22 and Y2 = 26",
+              "WINDOW: Xmin 0, Xmax 24, Ymin 10, Ymax 30 (check on your model)",
+              "GRAPH, 2nd TRACE (CALC), 5: intersect, ENTER for each curve, then move the cursor near the first crossing for the guess",
+              "Read X = 11.7873…, then repeat near the second crossing to read X = 18.2126…"
+            ],
+            "nspire": [
+              "Settings (on, Settings), Angle: Radian",
+              "Graphs page, enter f1(x) = 6*sin(π/12*(x-9))+22 and f2(x) = 26",
+              "Menu, Window/Zoom, Window Settings: XMin 0, XMax 24, YMin 10, YMax 30 (check on your model)",
+              "Menu, Analyze Graph, Intersection, then mark a lower and an upper bound either side of the first crossing",
+              "Read x = 11.7873…, then repeat for the second crossing to read x = 18.2126…"
+            ],
+            "casio": [
+              "SHIFT MENU (SET UP), Angle: Rad",
+              "GRAPH, enter Y1 = 6sin(π÷12×(X-9))+22 and Y2 = 26",
+              "SHIFT F3 (V-Window): Xmin 0, Xmax 24, Ymin 10, Ymax 30, then EXIT (check on your model)",
+              "DRAW, then SHIFT F5 (G-SOLV), INTSECT",
+              "Read X = 11.7873…, then press the right arrow for the second crossing, X = 18.2126… (check on your model)"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving the calculator in degree mode for a model like this one. Unless the question shows a degree sign, the model works in radians. Set the mode before you graph."
+        },
+        {
+          "type": "check",
+          "id": "check-model-sign",
+          "prompt": "A weight hangs on a spring. At $t = 0$ seconds it is at its lowest point, $30$ cm above the floor. It first reaches its highest point, $50$ cm, at $t = 0.8$. Which model gives its height $h$ cm at time $t$?",
+          "hint": "Which of $\\cos$ and $-\\cos$ starts at a minimum? Lowest to highest is half a cycle.",
+          "options": [
+            {
+              "text": "$h = 40 - 10\\cos\\left(\\frac{5\\pi t}{4}\\right)$",
+              "correct": true
+            },
+            {
+              "text": "$h = 40 + 10\\cos\\left(\\frac{5\\pi t}{4}\\right)$",
+              "correct": false
+            },
+            {
+              "text": "$h = 40 - 10\\cos\\left(\\frac{5\\pi t}{2}\\right)$",
+              "correct": false
+            },
+            {
+              "text": "$h = 40 - 20\\cos\\left(\\frac{5\\pi t}{4}\\right)$",
+              "correct": false
+            }
+          ],
+          "explain": "The principal axis is $\\frac{30 + 50}{2} = 40$ and the amplitude is $10$. Lowest to highest takes half a cycle, giving a period of $1.6$ s and $b = \\frac{2\\pi}{1.6} = \\frac{5\\pi}{4}$. Starting at a minimum needs $-\\cos$."
+        },
+        {
+          "type": "check",
+          "id": "check-buoy-b",
+          "prompt": "A buoy bobs up and down $8$ times every minute. Its height is modelled by $h(t) = a\\sin(bt) + d$, with $t$ in seconds and $b > 0$. Find $b$. Give your answer to 3 s.f.",
+          "hint": "First find the period in seconds: how long does one bob take?",
+          "answer": {
+            "value": 0.838,
+            "tolerance": 0.0005
+          },
+          "explain": "One bob takes $\\frac{60}{8} = 7.5$ seconds, so $b = \\frac{2\\pi}{7.5} = 0.83775\\ldots \\approx 0.838$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\sin x,\\ \\cos x:\\ \\text{period } 2\\pi = 360^{\\circ},\\ \\text{amplitude } 1,\\ \\text{range } -1 \\le y \\le 1",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan x:\\ \\text{period } \\pi = 180^{\\circ},\\ \\text{no amplitude},\\ \\text{asymptotes } x = \\frac{\\pi}{2} + k\\pi,\\ k \\in \\mathbb{Z}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "y = a\\sin\\big(b(x + c)\\big) + d:\\quad \\text{amplitude } |a| \\qquad \\text{period } \\frac{2\\pi}{b} = \\frac{360^{\\circ}}{b} \\qquad \\text{principal axis } y = d",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "d = \\frac{\\max + \\min}{2} \\qquad |a| = \\frac{\\max - \\min}{2} \\qquad b = \\frac{2\\pi}{\\text{period}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "From $\\sin x$ to $a\\sin(b(x + c)) + d$: stretch by $\\frac{1}{b}$ horizontally and by $a$ vertically, then translate $c$ to the left and $d$ up.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Factorise $b$ out of $bx + k$ before you read the shift. Calculator regressions often give $\\sin(bx + k)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\cos$ starts at a maximum, $-\\cos$ at a minimum, and $\\sin$ on the principal axis going up.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving $2\\pi$ as the period of $\\tan x$. Tangent repeats every $\\pi$ ($180^{\\circ}$); only sine and cosine take $2\\pi$.",
+    "Dividing $2\\pi$ by only part of $b$. The period is $2\\pi$ divided by the whole coefficient of $x$, so keep any $\\pi$ that belongs to $b$.",
+    "Reading the shift before factorising. $\\sin\\left(2x + \\frac{\\pi}{3}\\right) = \\sin\\left(2\\left(x + \\frac{\\pi}{6}\\right)\\right)$ moves $\\frac{\\pi}{6}$ left, not $\\frac{\\pi}{3}$.",
+    "Choosing the wrong sign for $a$ in a model. A positive $a$ with $\\cos$ starts at a maximum and a negative $a$ starts at a minimum, so test your model at $t = 0$.",
+    "Working in the wrong angle mode. Use radians unless the question shows a degree sign, and set the mode before you graph or substitute.",
+    "Mixing hours and minutes. $5$ hours $24$ minutes is $5 + \\frac{24}{60} = 5.4$ hours, not $5.24$."
+  ],
+  "examTips": [
+    "'Write down' the amplitude or period needs no working, but on Paper 1 give it exactly, such as $\\frac{2\\pi}{3}$.",
+    "'Sketch' a trig graph with smooth, rounded turning points. Label the maximum and minimum points and the axis intercepts, and for $\\tan$ give each asymptote as an equation.",
+    "'Describe' needs the name and detail of every transformation, such as 'translation $\\frac{\\pi}{4}$ units to the right'. Give the horizontal stretch before the horizontal translation.",
+    "On Paper 2, check the angle mode, write down the equation you give the calculator, and round only the final answer to 3 s.f."
+  ],
+  "readingMinutes": 26
+}

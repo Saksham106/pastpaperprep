@@ -1,0 +1,596 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "4.5",
+  "slug": "probability-foundations-and-expected-value",
+  "title": "Probability foundations and expected value",
+  "level": "SL",
+  "topic": 4,
+  "summary": "Probability measures how likely an [[event|event]] is, on a scale from $0$ to $1$. When every [[outcome|outcome]] is [[equally-likely|equally likely]] you count: $\\mathrm{P}(A) = \\frac{n(A)}{n(U)}$. When you can't count, you estimate it from experiments, and either way you can predict how often the event should happen in many [[trial|trials]].",
+  "goals": [
+    {
+      "text": "Use the words [[trial|trial]], [[outcome|outcome]], [[sample-space|sample space]], [[event|event]] and [[equally-likely|equally likely]], and list or tabulate a sample space.",
+      "bullets": [
+        "4.5-b1"
+      ]
+    },
+    {
+      "text": "Find a theoretical probability by counting, $\\mathrm{P}(A) = \\frac{n(A)}{n(U)}$, when the outcomes are equally likely.",
+      "bullets": [
+        "4.5-b2"
+      ]
+    },
+    {
+      "text": "Estimate a probability from experimental results using [[relative-frequency|relative frequency]], and tell it apart from a theoretical probability.",
+      "bullets": [
+        "4.5-b1",
+        "4.5-b2"
+      ]
+    },
+    {
+      "text": "Use [[complementary-events|complementary events]], $\\mathrm{P}(A') = 1 - \\mathrm{P}(A)$, including for \"at least one\" questions.",
+      "bullets": [
+        "4.5-b3"
+      ]
+    },
+    {
+      "text": "Find the expected number of times an event happens in a given number of trials.",
+      "bullets": [
+        "4.5-b4"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "basic probability",
+    "sample space",
+    "experimental and theoretical probability",
+    "relative frequency",
+    "complementary events",
+    "expected number of outcomes"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-fraction-decimal",
+      "prompt": "Write $\\frac{7}{20}$ as a decimal.",
+      "hint": "Make the denominator $100$ first.",
+      "answer": {
+        "value": 0.35,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{7}{20} = \\frac{35}{100} = 0.35$."
+    },
+    {
+      "type": "check",
+      "id": "before-percent-of",
+      "prompt": "Find $15\\%$ of $240$.",
+      "hint": "$10\\%$ of $240$ is $24$. What is $5\\%$?",
+      "answer": {
+        "value": 36,
+        "tolerance": 0
+      },
+      "explain": "$10\\%$ is $24$ and $5\\%$ is $12$, so $15\\%$ is $24 + 12 = 36$. Or work out $0.15 \\times 240 = 36$."
+    },
+    {
+      "type": "check",
+      "id": "before-one-minus",
+      "prompt": "Find $1 - 0.27$.",
+      "hint": "Write $1$ as $1.00$, then subtract.",
+      "answer": {
+        "value": 0.73,
+        "tolerance": 0
+      },
+      "explain": "$1.00 - 0.27 = 0.73$. Check by adding back: $0.73 + 0.27 = 1$."
+    }
+  ],
+  "sections": [
+    {
+      "id": "sample-spaces",
+      "heading": "Trials, outcomes and sample spaces",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Before you roll a die, you can't say which number will land face up. You can say exactly which numbers could land face up: $1$, $2$, $3$, $4$, $5$ or $6$. Probability starts with that list."
+        },
+        {
+          "type": "definition",
+          "term": "Trial and outcome",
+          "statement": "A [[trial|trial]] is one run of a random experiment, such as one roll of a die. An [[outcome|outcome]] is one possible result of a trial.",
+          "plain": "Rolling the die once is a trial; rolling a $4$ is an outcome."
+        },
+        {
+          "type": "definition",
+          "term": "Sample space",
+          "statement": "The [[sample-space|sample space]] $U$ is the set of all possible outcomes of a trial. $n(U)$ is the number of outcomes in $U$.",
+          "plain": "The sample space is the complete list of what could happen."
+        },
+        {
+          "type": "definition",
+          "term": "Event",
+          "statement": "An [[event|event]] is a set of outcomes from $U$. Name it with a capital letter, such as $A$. The event happens when the outcome of the trial is one of its outcomes. $n(A)$ is the number of outcomes in $A$.",
+          "plain": "An event is a description, such as \"an even number\", and the outcomes that fit it."
+        },
+        {
+          "type": "text",
+          "text": "For one roll of a die, $U = \\{1, 2, 3, 4, 5, 6\\}$ and $n(U) = 6$. The event $A$, \"an even number\", is $A = \\{2, 4, 6\\}$, so $n(A) = 3$."
+        },
+        {
+          "type": "definition",
+          "term": "Equally likely outcomes",
+          "statement": "Outcomes are [[equally-likely|equally likely]] when each one has the same chance of happening.",
+          "plain": "Words such as \"fair\", \"unbiased\" and \"chosen at random\" tell you the outcomes are equally likely."
+        },
+        {
+          "type": "text",
+          "text": "When a trial has two stages, such as a coin and then a spinner, list the outcomes as pairs. A list works when there are only a few. For two stages with several results each, a table is quicker and you can't miss any."
+        },
+        {
+          "type": "example",
+          "id": "ex-coin-spinner",
+          "question": "A fair coin is tossed and a fair spinner numbered $1$, $2$, $3$ and $4$ is spun. (a) List the sample space. (b) Write down $n(U)$.",
+          "steps": [
+            "Write each outcome as a pair: the coin result, then the spinner number. Take heads first and go through every spinner number.",
+            "(a) With heads: $\\text{H}1, \\text{H}2, \\text{H}3, \\text{H}4$. With tails: $\\text{T}1, \\text{T}2, \\text{T}3, \\text{T}4$.",
+            "(b) Count them: $n(U) = 8$.",
+            "Check: the coin has $2$ results and the spinner has $4$, and each coin result pairs with every number, so $2 \\times 4 = 8$."
+          ],
+          "answer": "$n(U) = 8$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-spinner-table",
+          "question": "Two fair spinners are spun. The first is numbered $1$, $2$ and $3$. The second is numbered $1$, $2$, $3$ and $4$. The score is the total of the two numbers. (a) Draw a table of the sample space. (b) Let $F$ be the event \"the total is $5$\". Find $n(F)$.",
+          "steps": [
+            "(a) Put the first spinner down the side and the second along the top. Fill each cell with the total of its row and column.",
+            "$\\begin{array}{c|cccc} + & 1 & 2 & 3 & 4 \\\\ \\hline 1 & 2 & 3 & 4 & 5 \\\\ 2 & 3 & 4 & 5 & 6 \\\\ 3 & 4 & 5 & 6 & 7 \\end{array}$",
+            "Each cell is one outcome, so $n(U) = 3 \\times 4 = 12$.",
+            "(b) Find every cell holding $5$: first $1$ with second $4$, first $2$ with second $3$, first $3$ with second $2$.",
+            "Two different spins can give the same total. Each cell counts once, so $n(F) = 3$."
+          ],
+          "answer": "$n(F) = 3$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Counting \"$2$ then $3$\" and \"$3$ then $2$\" as one outcome. They are different cells in the table, so count both."
+        },
+        {
+          "type": "check",
+          "id": "check-three-coins",
+          "prompt": "A fair coin is tossed three times. Write down the number of outcomes in the sample space.",
+          "hint": "List them: start with $\\text{HHH}$, then change one letter at a time.",
+          "answer": {
+            "value": 8,
+            "tolerance": 0
+          },
+          "explain": "Each toss has $2$ results, so there are $2 \\times 2 \\times 2 = 8$: $\\text{HHH}, \\text{HHT}, \\text{HTH}, \\text{THH}, \\text{HTT}, \\text{THT}, \\text{TTH}, \\text{TTT}$."
+        },
+        {
+          "type": "check",
+          "id": "check-even-total",
+          "prompt": "Use the table of totals for the two spinners above. How many outcomes give an even total?",
+          "hint": "Go row by row and count the cells holding $2$, $4$ or $6$.",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "explain": "Row $1$ has $2$ and $4$, row $2$ has $4$ and $6$, and row $3$ has $4$ and $6$. That is $2 + 2 + 2 = 6$ outcomes."
+        }
+      ]
+    },
+    {
+      "id": "probability",
+      "heading": "Theoretical and experimental probability",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A fair die has $6$ [[equally-likely|equally likely]] [[outcome|outcomes]], and $3$ of them are even. So you expect an even number half the time: $\\frac{3}{6} = \\frac{1}{2}$. Counting like this gives a theoretical probability."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A) = \\frac{n(A)}{n(U)}",
+          "tag": "booklet",
+          "bookletId": "bk-4-5-probability",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This formula is in the formula booklet, so you don't need to memorise it. You do need to know its condition: it works only when the outcomes in $U$ are equally likely."
+        },
+        {
+          "type": "text",
+          "text": "Every probability lies between $0$ and $1$. An impossible [[event|event]] has probability $0$, and a certain event has probability $1$. If your answer is negative or bigger than $1$, look for the slip."
+        },
+        {
+          "type": "example",
+          "id": "ex-letters",
+          "question": "Each letter of the word PARALLELOGRAM is written on its own card. One card is chosen at random. Find the probability that the letter on it is a vowel.",
+          "steps": [
+            "The [[trial|trial]] is choosing one card. There are $13$ cards, each equally likely, so $n(U) = 13$.",
+            "Let $V$ be the event \"the letter is a vowel\". Count every vowel card, repeats included: three A cards, one E and one O. So $n(V) = 5$.",
+            "Use the formula: $\\mathrm{P}(V) = \\frac{n(V)}{n(U)} = \\frac{5}{13}$."
+          ],
+          "answer": "$\\mathrm{P}(V) = \\frac{5}{13}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-spinner-prime",
+          "question": "The two spinners from the table of totals are spun. Find the probability that the total is a prime number.",
+          "steps": [
+            "The $12$ cells of the table are equally likely, because each spinner is fair. So $n(U) = 12$.",
+            "The totals that can occur are $2$ to $7$. The primes among them are $2$, $3$, $5$ and $7$.",
+            "Count the prime cells row by row. Row $1$: $2, 3, 5$, which is $3$ cells. Row $2$: $3, 5$, which is $2$. Row $3$: $5, 7$, which is $2$.",
+            "So $n(\\text{prime}) = 3 + 2 + 2 = 7$ and $\\mathrm{P}(\\text{prime}) = \\frac{7}{12}$."
+          ],
+          "answer": "$\\mathrm{P}(\\text{prime}) = \\frac{7}{12}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using a list of totals, $2, 3, 4, 5, 6, 7$, as the [[sample-space|sample space]]. The totals are not equally likely: $5$ fills three cells but $2$ fills only one. Count the cells of the table instead."
+        },
+        {
+          "type": "examTip",
+          "text": "On Paper 1, give a probability as an exact value, such as $\\frac{7}{12}$ or $0.8$. Don't round a fraction like $\\frac{7}{12}$ to a decimal. On Paper 2, a decimal is fine if you give it to 3 s.f."
+        },
+        {
+          "type": "text",
+          "text": "Some events can't be counted. A drawing pin can land point up or on its side, but the two outcomes are not equally likely. To find the probability, you do the experiment many times and see what happens."
+        },
+        {
+          "type": "definition",
+          "term": "Relative frequency",
+          "statement": "The [[relative-frequency|relative frequency]] of an event is the number of times it happened (its [[frequency|frequency]]) divided by the number of trials.",
+          "plain": "It is the fraction of the trials in which the event happened."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{relative frequency} = \\frac{\\text{number of times the event happens}}{\\text{number of trials}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "A relative frequency gives an experimental probability: an estimate from data. A theoretical probability comes from counting equally likely outcomes, with no experiment."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-relative-frequency",
+          "alt": "Line graph of the relative frequency of rolling a six after each roll of a fair die, for 500 rolls. The first roll is a six, so the line starts at 1. It drops quickly, then swings between about 0.13 and 0.38 over the first 50 or so rolls. After that it settles, and by 500 rolls it is very close to a dashed horizontal line at one sixth, about 0.167.",
+          "caption": "A computer simulation of $500$ rolls of a fair die. The relative frequency of a six settles near the theoretical $\\frac{1}{6}$."
+        },
+        {
+          "type": "text",
+          "text": "The more trials you do, the closer the relative frequency tends to get to the true probability. So an estimate from many trials is more reliable than one from a few. A computer or GDC can simulate thousands of trials in seconds."
+        },
+        {
+          "type": "example",
+          "id": "ex-cup",
+          "question": "A paper cup is thrown in the air $250$ times. It lands on its side $172$ times, upside down $51$ times and the right way up $27$ times. Estimate the probability that the cup lands on its side on the next throw.",
+          "steps": [
+            "The outcomes are not equally likely, so you can't count them. Use the experiment instead.",
+            "Check the data: $172 + 51 + 27 = 250$, so every throw is counted once.",
+            "Let $S$ be the event \"lands on its side\". Its relative frequency is $\\frac{172}{250} = 0.688$. This is the estimate of $\\mathrm{P}(S)$."
+          ],
+          "answer": "$\\text{estimate of } \\mathrm{P}(S) = \\frac{172}{250} = 0.688$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-compare-die",
+          "question": "Mia rolls a six-sided die $60$ times and gets a $6$ on $18$ of the rolls. Ravi rolls the same die $600$ times and gets a $6$ on $104$ of the rolls. (a) Find each relative frequency of a $6$. (b) State which is the better estimate of $\\mathrm{P}(6)$, with a reason. (c) Comment on whether the die seems fair.",
+          "steps": [
+            "(a) Mia: $\\frac{18}{60} = 0.3$. Ravi: $\\frac{104}{600} = 0.17333\\ldots \\approx 0.173$.",
+            "(b) Ravi's estimate is better, because it comes from $10$ times as many trials.",
+            "(c) If the die were fair, the theoretical probability would be $\\frac{1}{6} = 0.1666\\ldots \\approx 0.167$.",
+            "Ravi's $0.173$ is close to $0.167$. So the data give no strong reason to think the die is unfair. Mia's $0.3$ is far off most likely because $60$ rolls is a small experiment, and small experiments vary a lot."
+          ],
+          "answer": "$\\text{estimate of } \\mathrm{P}(6) \\approx 0.173$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-two-coins",
+          "prompt": "Two fair coins are tossed. Lena says there are three outcomes, two heads, two tails or one of each, so the probability of two heads is $\\frac{1}{3}$. Find the probability of two heads.",
+          "hint": "List the outcomes as pairs, first coin then second coin. Are Lena's three outcomes equally likely?",
+          "options": [
+            {
+              "text": "$\\frac{1}{4}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "The equally likely outcomes are $\\text{HH}, \\text{HT}, \\text{TH}, \\text{TT}$. Only $\\text{HH}$ is two heads, so the probability is $\\frac{1}{4}$. \"One of each\" covers two outcomes, so Lena's three are not equally likely."
+        },
+        {
+          "type": "check",
+          "id": "check-free-throws",
+          "prompt": "A basketball player scores $39$ of her last $52$ free throws. Estimate the probability that she scores her next free throw.",
+          "hint": "Use the relative frequency: successes divided by attempts.",
+          "answer": {
+            "value": 0.75,
+            "tolerance": 0
+          },
+          "explain": "The relative frequency is $\\frac{39}{52} = \\frac{3}{4} = 0.75$. It is only an estimate, from $52$ throws."
+        }
+      ]
+    },
+    {
+      "id": "complement",
+      "heading": "Complementary events",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every time you roll a die, either you get a $6$ or you don't. Exactly one of the two happens. So their probabilities must add up to $1$."
+        },
+        {
+          "type": "definition",
+          "term": "Complementary events",
+          "statement": "The complement of an [[event|event]] $A$ is the event $A'$, read \"not $A$\". It holds every [[outcome|outcome]] in $U$ that is not in $A$. $A$ and $A'$ are [[complementary-events|complementary events]].",
+          "plain": "$A'$ is everything else that could happen."
+        },
+        {
+          "type": "text",
+          "text": "Every outcome is in exactly one of $A$ and $A'$. So $n(A) + n(A') = n(U)$. Divide by $n(U)$ to get the rule below."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A) + \\mathrm{P}(A') = 1",
+          "tag": "booklet",
+          "bookletId": "bk-4-5-complement",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet. You will mostly use it rearranged: $\\mathrm{P}(A') = 1 - \\mathrm{P}(A)$. It holds for experimental probabilities too, not just counted ones."
+        },
+        {
+          "type": "example",
+          "id": "ex-multiple-seven",
+          "question": "Thirty cards are numbered $1$ to $30$. One card is chosen at random. Let $A$ be the event \"the number is a multiple of $7$\". Find $\\mathrm{P}(A')$.",
+          "steps": [
+            "The $30$ cards are [[equally-likely|equally likely]], so $n(U) = 30$.",
+            "The multiples of $7$ up to $30$ are $7, 14, 21, 28$. So $n(A) = 4$ and $\\mathrm{P}(A) = \\frac{4}{30} = \\frac{2}{15}$.",
+            "Use the complement: $\\mathrm{P}(A') = 1 - \\frac{2}{15} = \\frac{13}{15}$.",
+            "Check by counting: $30 - 4 = 26$ cards are not multiples of $7$, and $\\frac{26}{30} = \\frac{13}{15}$."
+          ],
+          "answer": "$\\mathrm{P}(A') = \\frac{13}{15}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The complement is most useful for \"at least one\". \"At least one\" covers many cases. Its complement, \"none\", is a single case, and that is much quicker to count."
+        },
+        {
+          "type": "example",
+          "id": "ex-at-least-one-tail",
+          "question": "A fair coin is tossed three times. Find the probability of getting at least one tail.",
+          "steps": [
+            "The [[sample-space|sample space]] has $8$ equally likely outcomes: $\\text{HHH}, \\text{HHT}, \\text{HTH}, \\text{THH}, \\text{HTT}, \\text{THT}, \\text{TTH}, \\text{TTT}$.",
+            "Let $A$ be \"at least one tail\". Then $A'$ is \"no tails\", which is only $\\text{HHH}$. So $\\mathrm{P}(A') = \\frac{1}{8}$.",
+            "Use the complement: $\\mathrm{P}(A) = 1 - \\frac{1}{8} = \\frac{7}{8}$.",
+            "Check: $7$ of the $8$ outcomes contain a T, which agrees."
+          ],
+          "answer": "$\\mathrm{P}(\\text{at least one tail}) = \\frac{7}{8}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Taking the complement of \"at least one\" as \"exactly one\". The complement of \"at least one\" is \"none\". In the same way, the complement of \"at least $3$\" is \"at most $2$\", not \"at most $3$\"."
+        },
+        {
+          "type": "example",
+          "id": "ex-train",
+          "question": "The probability that Dev's train is on time is five times the probability that it is not on time. Find the probability that the train is on time.",
+          "steps": [
+            "Let $T$ be the event \"the train is on time\", so $T'$ is \"not on time\". Write the given fact as an equation: $\\mathrm{P}(T) = 5\\,\\mathrm{P}(T')$.",
+            "$T$ and $T'$ are complementary, so $\\mathrm{P}(T) + \\mathrm{P}(T') = 1$.",
+            "Substitute the first equation into the second: $5\\,\\mathrm{P}(T') + \\mathrm{P}(T') = 1$, so $6\\,\\mathrm{P}(T') = 1$ and $\\mathrm{P}(T') = \\frac{1}{6}$.",
+            "Then $\\mathrm{P}(T) = 5 \\times \\frac{1}{6} = \\frac{5}{6}$. Check: $\\frac{5}{6} + \\frac{1}{6} = 1$."
+          ],
+          "answer": "$\\mathrm{P}(T) = \\frac{5}{6}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-at-least-one-five",
+          "prompt": "A fair spinner numbered $1$, $2$, $3$, $4$ and $5$ is spun twice. Find the probability that at least one spin shows a $5$.",
+          "hint": "There are $5 \\times 5 = 25$ outcomes. How many have no $5$ at all?",
+          "options": [
+            {
+              "text": "$\\frac{9}{25}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{16}{25}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{25}$",
+              "correct": false
+            }
+          ],
+          "explain": "With no $5$, each spin has $4$ choices, so $4 \\times 4 = 16$ outcomes and $\\mathrm{P}(\\text{no } 5) = \\frac{16}{25}$. So $\\mathrm{P}(\\text{at least one } 5) = 1 - \\frac{16}{25} = \\frac{9}{25}$. Adding $\\frac{1}{5} + \\frac{1}{5}$ counts the outcome with two $5$s twice."
+        },
+        {
+          "type": "check",
+          "id": "check-tombola",
+          "prompt": "Tombola tickets are numbered $1$ to $200$. A ticket wins a prize if its number ends in $0$ or $5$. One ticket is chosen at random. Find the probability that it does not win.",
+          "hint": "A number ends in $0$ or $5$ exactly when it is a multiple of $5$. Find the probability of winning first.",
+          "answer": {
+            "value": 0.8,
+            "tolerance": 0
+          },
+          "explain": "There are $200 \\div 5 = 40$ winning tickets, so $\\mathrm{P}(\\text{win}) = \\frac{40}{200} = 0.2$. Then $\\mathrm{P}(\\text{not win}) = 1 - 0.2 = 0.8$."
+        }
+      ]
+    },
+    {
+      "id": "expected",
+      "heading": "Expected number of occurrences",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Roll a fair die $60$ times: that is $60$ [[trial|trials]]. The [[event|event]] \"a six\" has probability $\\frac{1}{6}$, so you would expect about $\\frac{1}{6}$ of the rolls to be sixes: $60 \\times \\frac{1}{6} = 10$. You might get $8$ or $13$, but $10$ is the long-run average."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{expected number of occurrences of } A = n \\times \\mathrm{P}(A), \\quad \\text{where } n \\text{ is the number of trials}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This one is not in the booklet, so learn it. The expected number does not have to be a whole number. It is an average over many repeats, so $12.6$ is a perfectly good answer."
+        },
+        {
+          "type": "example",
+          "id": "ex-parcels",
+          "question": "The probability that a parcel is delivered late is $0.035$. A courier delivers $420$ parcels. Find the expected number of parcels delivered on time.",
+          "steps": [
+            "The question asks about \"on time\", which is the complement of \"late\". So $\\mathrm{P}(\\text{on time}) = 1 - 0.035 = 0.965$.",
+            "Multiply by the number of parcels: $420 \\times 0.965 = 405.3$.",
+            "Leave the answer as $405.3$. It is an average, so it need not be a whole number of parcels."
+          ],
+          "answer": "$420 \\times 0.965 = 405.3$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding an expected number to a whole number, such as $12.6$ to $13$. Give the exact value or 3 s.f., never a forced whole number."
+        },
+        {
+          "type": "example",
+          "id": "ex-bulbs",
+          "question": "In a test, $23$ of $400$ new light bulbs failed within a year. A school fits $1500$ of the same bulbs. Estimate the number that will fail within a year.",
+          "steps": [
+            "No theoretical probability is given, so estimate it from the test. The [[relative-frequency|relative frequency]] of failing is $\\frac{23}{400} = 0.0575$.",
+            "Use it as $\\mathrm{P}(\\text{fail})$ and multiply by the number of bulbs: $\\frac{23}{400} \\times 1500 = 86.25$.",
+            "This is an estimate twice over: the probability came from an experiment, and the real count will vary around the average."
+          ],
+          "answer": "$\\frac{23}{400} \\times 1500 = 86.25$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "For \"find the expected number\", write the product, such as $420 \\times 0.965$, before the answer. That line shows the method."
+        },
+        {
+          "type": "check",
+          "id": "check-expected-prime",
+          "prompt": "The two spinners from the table of totals are spun together $84$ times. Find the expected number of times the total is a prime number.",
+          "hint": "You found $\\mathrm{P}(\\text{prime})$ earlier from the table. Multiply it by the number of trials.",
+          "options": [
+            {
+              "text": "$49$",
+              "correct": true
+            },
+            {
+              "text": "$35$",
+              "correct": false
+            },
+            {
+              "text": "$7$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{P}(\\text{prime}) = \\frac{7}{12}$, so the expected number is $84 \\times \\frac{7}{12} = 49$. Using $\\frac{5}{12}$, the probability of not prime, gives $35$."
+        },
+        {
+          "type": "check",
+          "id": "check-expected-reverse",
+          "prompt": "In $120$ trials of an experiment, the expected number of times event $B$ happens is $18$. Find $\\mathrm{P}(B)$.",
+          "hint": "Write $120 \\times \\mathrm{P}(B) = 18$ and solve.",
+          "answer": {
+            "value": 0.15,
+            "tolerance": 0
+          },
+          "explain": "$120 \\times \\mathrm{P}(B) = 18$, so $\\mathrm{P}(B) = \\frac{18}{120} = 0.15$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A trial has outcomes; the sample space $U$ lists them all; an event is a set of outcomes. For two stages, list pairs or draw a table.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A) = \\frac{n(A)}{n(U)}",
+          "tag": "booklet",
+          "bookletId": "bk-4-5-probability",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Counting works only for equally likely outcomes. Every probability is between $0$ and $1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Relative frequency $= \\frac{\\text{times the event happens}}{\\text{number of trials}}$ estimates a probability. More trials give a better estimate.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A) + \\mathrm{P}(A') = 1",
+          "tag": "booklet",
+          "bookletId": "bk-4-5-complement",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For \"at least one\", use $1 - \\mathrm{P}(\\text{none})$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Expected number of occurrences $= n \\times \\mathrm{P}(A)$ for $n$ trials. It need not be a whole number.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Treating outcomes as equally likely when they are not, such as the totals of two spinners. List or tabulate the outcomes that really are equally likely, then count those.",
+    "Counting \"$2$ then $3$\" and \"$3$ then $2$\" as one outcome. In a two-stage trial, order matters: they are two cells of the table.",
+    "Using $\\mathrm{P}(A')$ where the question needs $\\mathrm{P}(A)$. Write down which event each probability belongs to before you substitute it.",
+    "Taking the complement of \"at least one\" as \"exactly one\", or of \"at least $3$\" as \"at most $3$\". The complements are \"none\" and \"at most $2$\".",
+    "Calling a relative frequency the exact probability. It is an estimate, and one from a few trials can be far off.",
+    "Rounding an expected number to a whole number, such as $86.25$ to $86$. An expected number is an average, so give the exact value or 3 s.f. ($86.3$)."
+  ],
+  "examTips": [
+    "Write down a probability: no working is needed, but on Paper 1 give an exact value, such as $\\frac{7}{12}$ or $0.8$, not a rounded decimal. Check it lies between $0$ and $1$.",
+    "List or tabulate a sample space: show every outcome, in pairs for a two-stage trial, so the examiner can see none is missing.",
+    "Comment on an experimental result: compare the relative frequency with the theoretical probability using both numbers, and say which estimate uses more trials.",
+    "Find an expected number: write $n \\times \\mathrm{P}(A)$ with the numbers in, then the value, unrounded unless the question says otherwise."
+  ],
+  "readingMinutes": 28
+}

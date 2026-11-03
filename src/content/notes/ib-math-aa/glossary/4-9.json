@@ -1,0 +1,26 @@
+[
+  {
+    "id": "normal-distribution",
+    "term": "Normal distribution",
+    "definition": "A continuous probability distribution whose curve is bell-shaped and symmetric about its mean; $X \\sim \\mathrm{N}(\\mu, \\sigma^{2})$ has mean $\\mu$ and variance $\\sigma^{2}$.",
+    "lesson": "4.9"
+  },
+  {
+    "id": "continuous-random-variable",
+    "term": "Continuous random variable",
+    "definition": "A random variable that can take any value in an interval, such as a time or a mass; its probabilities are areas under a curve, so $\\mathrm{P}(X = a) = 0$ for any single value $a$.",
+    "lesson": "4.9"
+  },
+  {
+    "id": "empirical-rule",
+    "term": "68–95–99.7 rule",
+    "definition": "For a normal distribution, about $68\\%$, $95\\%$ and $99.7\\%$ of values lie within one, two and three standard deviations of the mean.",
+    "lesson": "4.9"
+  },
+  {
+    "id": "inverse-normal",
+    "term": "Inverse normal",
+    "definition": "Working back from a probability to a value: finding $k$ with $\\mathrm{P}(X < k) = p$ when $X$ is normal with a given mean and standard deviation.",
+    "lesson": "4.9"
+  }
+]

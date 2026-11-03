@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 300" role="img" aria-labelledby="t">
+  <title id="t">Pascal's triangle, rows 0 to 6; the 4 and 6 in row 4 add to give the 10 below them in row 5</title>
+  <defs><marker id="pt-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--t2-ink)"/></marker></defs>
+  <circle cx="188.0" cy="193.0" r="13" fill="var(--t2-ink)" fill-opacity="0.15" stroke="var(--t2-ink)" stroke-width="1.5"/>
+  <circle cx="236.0" cy="193.0" r="13" fill="var(--t2-ink)" fill-opacity="0.15" stroke="var(--t2-ink)" stroke-width="1.5"/>
+  <circle cx="212.0" cy="235.0" r="14" fill="var(--t4-ink)" fill-opacity="0.18" stroke="var(--t4-ink)" stroke-width="1.5"/>
+  <line x1="194.9" y1="205.2" x2="204.1" y2="221.1" stroke="var(--t2-ink)" stroke-width="1.5" marker-end="url(#pt-arrow)"/>
+  <line x1="229.1" y1="205.2" x2="219.9" y2="221.1" stroke="var(--t2-ink)" stroke-width="1.5" marker-end="url(#pt-arrow)"/>
+  <g font-size="15" font-family="inherit" text-anchor="middle" fill="currentColor">
+    <text x="236.0" y="30.0">1</text>
+    <text x="212.0" y="72.0">1</text>
+    <text x="260.0" y="72.0">1</text>
+    <text x="188.0" y="114.0">1</text>
+    <text x="236.0" y="114.0">2</text>
+    <text x="284.0" y="114.0">1</text>
+    <text x="164.0" y="156.0">1</text>
+    <text x="212.0" y="156.0">3</text>
+    <text x="260.0" y="156.0">3</text>
+    <text x="308.0" y="156.0">1</text>
+    <text x="140.0" y="198.0">1</text>
+    <text x="188.0" y="198.0">4</text>
+    <text x="236.0" y="198.0">6</text>
+    <text x="284.0" y="198.0">4</text>
+    <text x="332.0" y="198.0">1</text>
+    <text x="116.0" y="240.0">1</text>
+    <text x="164.0" y="240.0">5</text>
+    <text x="212.0" y="240.0">10</text>
+    <text x="260.0" y="240.0">10</text>
+    <text x="308.0" y="240.0">5</text>
+    <text x="356.0" y="240.0">1</text>
+    <text x="92.0" y="282.0">1</text>
+    <text x="140.0" y="282.0">6</text>
+    <text x="188.0" y="282.0">15</text>
+    <text x="236.0" y="282.0">20</text>
+    <text x="284.0" y="282.0">15</text>
+    <text x="332.0" y="282.0">6</text>
+    <text x="380.0" y="282.0">1</text>
+  </g>
+  <g font-size="13" font-family="inherit" text-anchor="start" fill="var(--muted)">
+    <text x="10" y="30.0">n = 0</text>
+    <text x="10" y="72.0">n = 1</text>
+    <text x="10" y="114.0">n = 2</text>
+    <text x="10" y="156.0">n = 3</text>
+    <text x="10" y="198.0">n = 4</text>
+    <text x="10" y="240.0">n = 5</text>
+    <text x="10" y="282.0">n = 6</text>
+  </g>
+</svg>

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "vector",
+    "term": "vector",
+    "definition": "A quantity with both a magnitude (size) and a direction, drawn as an arrow and written in bold, such as $\\boldsymbol{v}$, or as $\\overrightarrow{AB}$.",
+    "lesson": "3.12"
+  },
+  {
+    "id": "scalar",
+    "term": "scalar",
+    "definition": "A quantity with a magnitude only and no direction, such as a mass, a length or a real number $k$ that multiplies a vector.",
+    "lesson": "3.12"
+  },
+  {
+    "id": "position-vector",
+    "term": "position vector",
+    "definition": "The vector from the origin O to a point A, written $\\overrightarrow{OA} = \\boldsymbol{a}$; its components are the coordinates of A.",
+    "lesson": "3.12"
+  },
+  {
+    "id": "displacement-vector",
+    "term": "displacement vector",
+    "definition": "A vector describing the move from one point to another, such as $\\overrightarrow{AB} = \\boldsymbol{b} - \\boldsymbol{a}$.",
+    "lesson": "3.12"
+  },
+  {
+    "id": "base-vectors",
+    "term": "base vectors",
+    "definition": "The unit vectors $\\boldsymbol{i}$, $\\boldsymbol{j}$ and $\\boldsymbol{k}$ along the $x$-, $y$- and $z$-axes, so that $\\boldsymbol{v} = v_{1}\\boldsymbol{i} + v_{2}\\boldsymbol{j} + v_{3}\\boldsymbol{k}$.",
+    "lesson": "3.12"
+  },
+  {
+    "id": "zero-vector",
+    "term": "zero vector",
+    "definition": "The vector $\\boldsymbol{0}$ with every component 0: it has no length, and $\\boldsymbol{v} + \\boldsymbol{0} = \\boldsymbol{v}$.",
+    "lesson": "3.12"
+  },
+  {
+    "id": "parallel-vectors",
+    "term": "parallel vectors",
+    "definition": "Non-zero vectors where one is a scalar multiple of the other, $\\boldsymbol{w} = k\\boldsymbol{v}$; they point the same way if $k > 0$ and opposite ways if $k < 0$.",
+    "lesson": "3.12"
+  },
+  {
+    "id": "collinear",
+    "term": "collinear",
+    "definition": "Lying on one straight line; points A, B and C are collinear when $\\overrightarrow{AC} = k\\overrightarrow{AB}$ for some scalar $k$.",
+    "lesson": "3.12"
+  },
+  {
+    "id": "vector-magnitude",
+    "term": "magnitude of a vector",
+    "definition": "The length of a vector, $\\lvert\\boldsymbol{v}\\rvert = \\sqrt{v_{1}^{2} + v_{2}^{2} + v_{3}^{2}}$; it is never negative.",
+    "lesson": "3.12"
+  },
+  {
+    "id": "unit-vector",
+    "term": "unit vector",
+    "definition": "A vector of magnitude 1; the unit vector in the direction of $\\boldsymbol{v}$ is $\\frac{\\boldsymbol{v}}{\\lvert\\boldsymbol{v}\\rvert}$.",
+    "lesson": "3.12"
+  }
+]
