@@ -26,7 +26,7 @@ from sympy import (
 )
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from mathparse import check_numeric, check_rounded, check_rounded_list, parse_answer, parse_degrees  # noqa: E402
+from mathparse import check_numeric, check_rounded, check_rounded_list, parse_answer, parse_degrees, proves_zero  # noqa: E402
 
 x, u = symbols("x u", real=True)
 DEG = pi / 180
@@ -35,7 +35,10 @@ DEG = pi / 180
 # ------------------------------------------------------------------------------------------------ truth machinery
 
 def identical(f, g, lo, hi):
-    """f and g agree at 12 random points of the interval (40-digit evaluation): the factorisation is an identity."""
+    """The factorisation is an identity: f - g is PROVED to be 0 symbolically (mathparse.proves_zero). Agreement at
+    12 random points of the interval (40-digit evaluation) is kept as a smoke check only."""
+    if not proves_zero(f - g):
+        raise RuntimeError(f"could not prove that the factorised form is identical to {f}")
     rng = random.Random(38)
     for _ in range(12):
         point = Rational(rng.randint(1, 10**6), 10**6) * (hi - lo) + lo

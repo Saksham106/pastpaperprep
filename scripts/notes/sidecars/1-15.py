@@ -19,7 +19,9 @@ from sympy import (
 )
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from mathparse import _split, _strip_decorations, _top_level_cuts, check_numeric, check_same_equation, parse_answer  # noqa: E402
+from mathparse import (  # noqa: E402
+    _split, _strip_decorations, _top_level_cuts, check_numeric, check_same_equation, parse_answer, proves_zero,
+)
 
 x = symbols("x")
 n, k, r, m = symbols("n k r m", integer=True, positive=True)
@@ -132,9 +134,12 @@ def derivative_formula(tex):
 
 
 def derivative_step(tex):
+    """The published derivative is PROVED equal to d/dx of (-1)^k k! / x^(k+1) for every positive whole k
+    (gammasimp turns (k + 1)! into (k + 1) k!). Exact values at k = 0..6 and four x are a smoke check only."""
     truth = diff((-1) ** k * factorial(k) * x ** (-(k + 1)), x)
     published = free(parse_answer(tex))
-    # (k + 1)! against (k + 1) k! and (-1)^(k+1) against -(-1)^k: compare exactly at many integer k and rational x.
+    if not (proves_zero(gammasimp(published - truth)) or proves_zero(published - truth)):
+        raise AssertionError(f"{published} could not be proved equal to {truth}")
     for kk in range(0, 7):
         for xx in (Rational(1, 2), 2, 3, Rational(-5, 3)):
             if simplify(published.subs({k: kk, x: xx}) - truth.subs({k: kk, x: xx})) != 0:

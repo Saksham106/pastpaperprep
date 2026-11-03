@@ -18,7 +18,15 @@ export function topicBlocks(course: Course, topic: Course["topics"][number]): Sh
         return [];
       }),
     );
-    return rows.length ? [{ key: lesson.item, item: lesson.item, title: lesson.title, href: lessonPath(course, lesson), level: lesson.level, rows }] : [];
+    // A formula or fact flagged in the body and again in the takeaways is shown once (style guide §4).
+    const seen = new Set<string>();
+    const unique = rows.filter((row) => {
+      const key = `${row.kind}:${row.value.replace(/\s+/g, "")}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+    return unique.length ? [{ key: lesson.item, item: lesson.item, title: lesson.title, href: lessonPath(course, lesson), level: lesson.level, rows: unique }] : [];
   });
   const lines = course.cheatSheets[topic.slug]?.lines ?? [];
   const methodBlocks = (["SL", "AHL"] as const).flatMap((level): SheetBlock[] => {

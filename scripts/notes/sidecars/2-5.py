@@ -17,7 +17,8 @@ from sympy.calculus.util import function_range
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from mathparse import (  # noqa: E402
-    check_numeric, check_rounded_list, check_same_set, parse_answer, parse_list, parse_point,
+    _normalise_real_roots, check_numeric, check_rounded_list, check_same_set, parse_answer, parse_list, parse_point,
+    proves_zero, with_real_odd_roots,
 )
 
 x = symbols("x")  # mathparse returns plain symbols
@@ -187,6 +188,12 @@ def reflection_x_intercept(tex):
     """f = x^3/2 + 4. f^-1(x) = cube root of 2(x - 4), checked as the inverse; its graph meets the x-axis where it is 0."""
     f = r**3 / 2 + 4
     finv = real_root(2 * (r - 4), 3)
+    # Proved both ways for every real x (real cube roots); the samples below are a smoke check only.
+    if not proves_zero(f.subs(r, finv) - r):
+        raise AssertionError("could not prove f(f^-1(x)) = x")
+    as_real_root = with_real_odd_roots((2 * (r - 4)) ** Rational(1, 3))
+    if not proves_zero(_normalise_real_roots(as_real_root.subs(r, f)) - r):
+        raise AssertionError("could not prove f^-1(f(x)) = x")
     for sample in (-3, 0, 4, 7, 20):
         if abs((f.subs(r, finv.subs(r, sample)) - sample).evalf()) > 1e-12:
             raise AssertionError("cube-root formula is not the inverse")

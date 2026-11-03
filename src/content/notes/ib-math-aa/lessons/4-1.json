@@ -523,17 +523,21 @@
           "question": "A factory has $212$ workers on the day shift, $158$ on the evening shift and $94$ on the night shift. A stratified sample of $50$ workers is chosen. Find the number of workers to choose from each shift.",
           "steps": [
             "Total workers: $212 + 158 + 94 = 464$.",
-            "Day: $\\frac{212}{464} \\times 50 = 22.84\\ldots$, so $23$.",
-            "Evening: $\\frac{158}{464} \\times 50 = 17.02\\ldots$, so $17$.",
-            "Night: $\\frac{94}{464} \\times 50 = 10.12\\ldots$, so $10$.",
-            "You can only choose whole people, so round each one, then check the total: $23 + 17 + 10 = 50$. Choose the workers at random within each shift."
+            "Each shift's share: day $\\frac{212}{464} \\times 50 = 22.84\\ldots$, evening $\\frac{158}{464} \\times 50 = 17.02\\ldots$ and night $\\frac{94}{464} \\times 50 = 10.12\\ldots$.",
+            "You can only choose whole people. Round every share down: $22 + 17 + 10 = 49$. That is one short of $50$.",
+            "Give the missing place to the shift with the largest decimal part. That is the day shift, with $0.84\\ldots$, so it gets $23$.",
+            "Check the total: $23 + 17 + 10 = 50$. Choose the workers at random within each shift."
           ],
           "answer": "$\\text{day } 23, \\; \\text{evening } 17, \\; \\text{night } 10$",
           "video": null
         },
         {
           "type": "text",
-          "text": "Sometimes the rounded sizes don't add up to the sample size. For $3$ equal strata and a sample of $10$, each is $3.33\\ldots$, which gives $3 + 3 + 3 = 9$. If the total is too small, add one to the stratum with the largest decimal part. If it is too big, take one from the stratum with the smallest decimal part."
+          "text": "Rounding each share to the nearest whole number can give the wrong total. A safe method is to round every share down, then hand out the places still missing. Give them one each to the strata with the largest decimal parts. No stratum can go negative, and the total always comes out right."
+        },
+        {
+          "type": "text",
+          "text": "If two decimal parts tie for the last place, choose between those strata at random. For $3$ equal strata and a sample of $10$, each share is $3.33\\ldots$. Rounding down gives $3 + 3 + 3 = 9$, so one stratum, chosen at random, gets the tenth place."
         },
         {
           "type": "example",

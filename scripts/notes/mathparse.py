@@ -16,12 +16,14 @@ Reading
   parse_vector(tex), parse_point(tex), parse_vector_line(tex), parse_set(tex), parse_equation(tex)
 
 Checking (raise AssertionError when the published answer is wrong)
-  check_antiderivative(tex, integrand, var="x")      d/dx of the answer equals the integrand at sample points
+  check_antiderivative(tex, integrand, var="x")      d/dx of the answer equals the integrand, proved symbolically
+  check_self_inverse(tex, var="x", domain=R)        f is defined on the domain and f(f(x)) = x is proved (real odd roots)
   check_rounded(tex, truth, sf=3, dp=None, unit=None) exactly the required precision, ROUND_HALF_UP of the truth
   check_rounded_list(tex, truths, ...)              several rounded values, compared as a sorted list
   check_numeric(value, truth, sf=3, dp=None, tolerance=None)  a numeric check's float and its tolerance
   check_assignments(tex, truth)                     named values, names kept
   check_same_line(tex, point, direction)            same line, any point on it and any parallel direction
+  check_same_cartesian_line(tex, point, direction)  `(x-x0)/l = (y-y0)/m = (z-z0)/n`, each part affine: the same line
   check_same_set(tex, truth_set, var="x")           inequalities / intervals as sets
   check_same_equation(tex, truth)                   equations equal up to a non-zero constant factor
 """
@@ -29,8 +31,11 @@ import re
 from decimal import ROUND_HALF_UP, Decimal
 
 from sympy import (
-    Derivative, E, EmptySet, I, Integral, Interval, Limit, Matrix, N, Product, Rational, Sum, Symbol, Union, cos, diff, nsimplify, oo, pi, simplify, sin,
+    Abs, Derivative, E, EmptySet, Function, I, Integer, Integral, Interval, Limit, Matrix, Mul, N, Pow, Product, Rational, Sum, Symbol,
+    Union, cos, diff, exp, expand, expand_trig, factor, log, nsimplify, oo, pi, real_root, simplify, sin, trigsimp,
 )
+from sympy import S
+from sympy.calculus.util import continuous_domain
 from sympy.core.function import AppliedUndef
 from sympy.core.relational import Ge, Gt, Le, Lt
 from sympy.parsing.latex import parse_latex
@@ -356,11 +361,53 @@ def check_rounded_list(tex: str, truths, sf=3, dp=None, unit=None):
 
 # ------------------------------------------------------------------------------------------------ calculus, geometry
 
+def _log_of_modulus_as_log(expr):
+    """ln|u| -> ln u. Both have derivative u'/u wherever ln|u| is defined, so derivatives can be compared exactly."""
+    # SymPy may already have pulled constants out (ln|2x| -> ln(2|x|)), so treat any product of constants and powers of
+    # moduli: d/dx ln(c|u|^n) = n u'/u = d/dx ln(c u^n).
+    def multiplicative_modulus(arg):
+        factors = Mul.make_args(arg)
+        return any(f.has(Abs) for f in factors) and all(
+            f.is_number or isinstance(f, Abs) or (isinstance(f, Pow) and isinstance(f.base, Abs) and f.exp.is_number) for f in factors)
+
+    return expr.replace(
+        lambda e: isinstance(e, log) and multiplicative_modulus(e.args[0]),
+        lambda e: log(e.args[0].replace(lambda a: isinstance(a, Abs), lambda a: a.args[0])))
+
+
+def proves_zero(expr) -> bool:
+    """True only when SymPy reduces expr to exactly 0 (simplify, then trig and exponential rewrites). False means
+    "not proved", never "proved non-zero"."""
+    if expr == 0:
+        return True
+    attempts = (
+        lambda e: simplify(e),
+        lambda e: simplify(trigsimp(e)),
+        lambda e: simplify(expand_trig(e)),
+        lambda e: simplify(expand(e.rewrite(exp))),
+    )
+    for attempt in attempts:
+        try:
+            if attempt(expr) == 0:
+                return True
+        except Exception:  # noqa: BLE001 - a rewrite SymPy cannot do is just "not proved"
+            continue
+    return False
+
+
 def check_antiderivative(tex: str, integrand, var="x", samples=None):
-    """d/d(var) of the published antiderivative equals the integrand wherever both are real (handles ln|x|)."""
+    """d/d(var) of the published antiderivative equals the integrand as an identity, proved symbolically (ln|u| is
+    differentiated as u'/u). The sample points are a smoke check that names a point where a wrong answer differs."""
     symbol, real = Symbol(var), Symbol(var, real=True)
-    derivative = diff(parse_answer(tex).subs(symbol, real), real)
+    published = parse_answer(tex).subs(symbol, real)
+    derivative = diff(published, real)
     target = integrand.subs(symbol, real)
+    _compare_antiderivative_at_samples(tex, var, real, derivative, target, samples)
+    if not proves_zero(diff(_log_of_modulus_as_log(published), real) - target):
+        raise AssertionError(f"d/d{var} of {tex!r} could not be proved equal to {integrand}")
+
+
+def _compare_antiderivative_at_samples(tex, var, real, derivative, target, samples):
     compared = 0
     for point in samples or [-3.7, -2.3, -1.3, -0.65, -0.15, 0.35, 0.8, 1.3, 2.7, 4.1]:
         try:
@@ -374,6 +421,89 @@ def check_antiderivative(tex: str, integrand, var="x", samples=None):
             raise AssertionError(f"d/d{var} of {tex!r} is {got.real:.6g} at {var} = {point}, integrand is {want.real:.6g}")
     if compared < 3:
         raise ValueError(f"only {compared} sample point(s) inside the domain; pass samples=[...]")
+
+
+class RealRoot(Function):
+    """RealRoot(a, n): the real n-th root of a real number a, for odd n. Its rules hold for EVERY real a and b:
+    RealRoot(a, n)**n = a, RealRoot(b**n, n) = b, RealRoot(-a, n) = -RealRoot(a, n) and RealRoot(ab) splits."""
+
+    @classmethod
+    def eval(cls, a, n):
+        if not (n.is_Integer and n % 2 == 1):
+            raise ValueError(f"RealRoot needs an odd whole index, got {n}")
+        if a.is_Rational:
+            return real_root(a, n)
+        if a.could_extract_minus_sign():
+            return -cls(-a, n)
+        if a.is_Pow and a.exp.is_Integer and a.exp % n == 0:
+            return a.base ** (a.exp // n)
+        if a.is_Mul:
+            pieces = [cls(f, n) for f in a.args]
+            if any(not isinstance(p, cls) for p in pieces):
+                out = Integer(1)
+                for p in pieces:
+                    out *= p
+                return out
+        return None
+
+
+def with_real_odd_roots(expr):
+    """Every power with an odd-denominator rational exponent becomes a real root, so x^(1/3) means the real cube root
+    (as on a GDC) rather than SymPy's complex principal root."""
+    def convert(e):
+        p, q = e.exp.p, e.exp.q
+        return RealRoot(e.base, Integer(q)) ** p
+    return expr.replace(lambda e: isinstance(e, Pow) and e.exp.is_Rational and not e.exp.is_Integer and e.exp.q % 2 == 1,
+                        convert)
+
+
+def _normalise_real_roots(expr):
+    """Apply RealRoot(a, n)**(kn) = a**k and re-read every root of an expanded, factorised argument, until stable."""
+    for _ in range(20):
+        before = expr
+        expr = expr.replace(
+            lambda e: isinstance(e, Pow) and isinstance(e.base, RealRoot) and e.exp.is_Integer and e.exp % e.base.args[1] == 0,
+            lambda e: e.base.args[0] ** (e.exp // e.base.args[1]))
+        expr = expr.replace(lambda e: isinstance(e, RealRoot), lambda e: RealRoot(factor(expand(e.args[0])), e.args[1]))
+        if expr == before:
+            break
+    return expr
+
+
+def _as_real_numbers(expr):
+    return expr.replace(lambda e: isinstance(e, RealRoot), lambda e: real_root(e.args[0], e.args[1]))
+
+
+def _defined_on(f, real, domain) -> bool:
+    """f is real and continuous on all of `domain`. An odd real root keeps the sign and the zeros of its argument, so
+    swapping RealRoot(a, n) for a leaves every domain condition (non-zero denominator, positive log argument) intact."""
+    plain = f.replace(lambda e: isinstance(e, RealRoot), lambda e: e.args[0])
+    try:
+        return domain.is_subset(continuous_domain(plain, real, S.Reals)) is True
+    except NotImplementedError:
+        return False
+
+
+def check_self_inverse(tex: str, var="x", domain=Interval(-oo, oo),
+                       samples=(0, -3, -1, Rational(1, 2), 2, Rational(17, 5))):
+    """The published f is self-inverse on `domain` (default all real numbers): f is defined on all of it, and
+    f(f(x)) - x is PROVED to be 0 with real odd roots. Sample points only name a counterexample for a wrong answer;
+    agreeing at samples never passes on its own."""
+    symbol, real = Symbol(var), Symbol(var, real=True)
+    f = with_real_odd_roots(parse_answer(tex).subs(symbol, real))
+    if not _defined_on(f, real, domain):
+        raise AssertionError(f"{tex!r} is not defined at every point of {domain}")
+    difference = _normalise_real_roots(f.subs(real, f) - real)
+    if proves_zero(difference):
+        return
+    twice = _as_real_numbers(_normalise_real_roots(f.subs(real, f)))
+    for s in samples:
+        value = twice.subs(real, s)
+        if value.is_Rational and value != s:
+            raise AssertionError(f"{tex!r} is not self-inverse: f(f({s})) = {value}, not {s}")
+        if abs(N(value - s, 30)) > 1e-20:
+            raise AssertionError(f"{tex!r} is not self-inverse: f(f({s})) = {N(value, 10)}, not {s}")
+    raise AssertionError(f"could not prove f(f({var})) = {var} for {tex!r}")
 
 
 def parse_vector(tex: str):
@@ -409,6 +539,42 @@ def check_same_line(tex: str, point, direction):
         raise AssertionError(f"direction {d} is not parallel to {list(direction)}")
     if Matrix.vstack((Matrix(p) - Matrix(point)).T, true_d).rank(simplify=True) > 1:
         raise AssertionError(f"point {p} is not on the line through {list(point)}")
+
+
+def check_same_cartesian_line(tex: str, point, direction):
+    """`(x - x0)/l = (y - y0)/m = (z - z0)/n` is exactly the line through `point` with `direction`.
+
+    Each part must be AFFINE in its own coordinate (a x + b with a constant a != 0), one part per coordinate. Then the
+    equations say a_i x_i + b_i = mu for one mu, which is the line through (-b_i / a_i) with direction (1 / a_i), and it
+    is compared with check_same_line's rule. A part such as (x + 4)^2 / 4 is refused: setting squares equal also
+    admits points off the line, so substituting the true line into the parts proves only containment."""
+    names = ["x", "y", "z"][: len(point)]
+    cleaned = _strip_decorations(tex)
+    pieces = _split(cleaned, _top_level_cuts(cleaned, r"="))
+    if len(pieces) != len(point):
+        raise AssertionError(f"{tex!r} has {len(pieces)} parts, expected {len(point)}")
+    by_name = {}
+    for piece in pieces:
+        expr = _parse(piece.strip(), tex)
+        expr = expr.subs({s: Symbol(s.name) for s in expr.free_symbols})
+        used = {s.name for s in expr.free_symbols}
+        if len(used) != 1 or not used <= set(names):
+            raise AssertionError(f"part {expr} must involve exactly one of {names}")
+        (name,) = used
+        if name in by_name:
+            raise AssertionError(f"{tex!r} uses {name} in two parts")
+        var = Symbol(name)
+        slope = simplify(diff(expr, var))
+        if slope.free_symbols or slope == 0 or simplify(expr - slope * var).free_symbols:
+            raise AssertionError(f"part {expr} is not of the form a{name} + b with a != 0, so it is not a line")
+        by_name[name] = (slope, simplify(expr - slope * var))
+    published_point = [-by_name[n][1] / by_name[n][0] for n in names]
+    published_direction = [1 / by_name[n][0] for n in names]
+    true_d = Matrix(direction).T
+    if Matrix.vstack(Matrix(published_direction).T, true_d).rank(simplify=True) != 1:
+        raise AssertionError(f"direction {published_direction} is not parallel to {list(direction)}")
+    if Matrix.vstack((Matrix(published_point) - Matrix(point)).T, true_d).rank(simplify=True) > 1:
+        raise AssertionError(f"point {published_point} is not on the line through {list(point)}")
 
 
 def parse_set(tex: str, var="x"):
@@ -481,4 +647,5 @@ __all__ = [
     "parse_answer", "parse_list", "parse_assignments", "parse_approx", "parse_with_unit", "parse_degrees", "parse_vector",
     "parse_vector_line", "parse_point", "parse_set", "parse_equation", "round_half_up", "check_antiderivative", "check_rounded",
     "check_rounded_list", "check_numeric", "check_assignments", "check_same_line", "check_same_set", "check_same_equation",
+    "check_same_cartesian_line", "check_self_inverse", "proves_zero", "with_real_odd_roots", "RealRoot",
 ]

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 196" role="img" aria-labelledby="t">
-  <title id="t">Two box and whisker diagrams of test marks on one scale. Class A: 30, 48, 57, 66, 84, symmetric. Class B: 35, 58, 65, 69, 78, with a long left whisker</title>
+  <title id="t">Two box and whisker diagrams of test marks on one scale. Class A: 30, 48, 57, 66, 84, symmetric. Class B: 35, 55, 65, 69, 78, with a long left whisker. Neither class has an outlier</title>
   <g stroke="var(--muted)" stroke-width="0.6">
     <line x1="70.0" y1="18" x2="70.0" y2="152"/>
     <line x1="115.0" y1="18" x2="115.0" y2="152"/>
@@ -19,9 +19,9 @@
   </g>
   <text x="60" y="54.0" fill="currentColor" font-size="12" font-family="inherit" text-anchor="end">Class A</text>
   <g stroke="var(--t4-ink)" stroke-width="2" fill="none">
-    <rect x="196.0" y="100.0" width="49.5" height="28" fill="var(--t4-ink)" fill-opacity="0.14"/>
+    <rect x="182.5" y="100.0" width="63.0" height="28" fill="var(--t4-ink)" fill-opacity="0.14"/>
     <line x1="227.5" y1="100.0" x2="227.5" y2="128.0"/>
-    <line x1="92.5" y1="114.0" x2="196.0" y2="114.0"/>
+    <line x1="92.5" y1="114.0" x2="182.5" y2="114.0"/>
     <line x1="245.5" y1="114.0" x2="286.0" y2="114.0"/>
     <line x1="92.5" y1="106.0" x2="92.5" y2="122.0"/>
     <line x1="286.0" y1="106.0" x2="286.0" y2="122.0"/>

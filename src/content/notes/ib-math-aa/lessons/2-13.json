@@ -125,22 +125,26 @@
         },
         {
           "type": "result",
-          "statement": "The graph of $y = \\frac{ax + b}{cx^{2} + dx + e}$ has a vertical asymptote at each real root of $cx^{2} + dx + e = 0$ where the top is not 0. Its horizontal asymptote is $y = 0$.",
+          "statement": "Cancel any factor the top and the bottom share. The graph of $y = \\frac{ax + b}{cx^{2} + dx + e}$ then has a vertical asymptote at each real $x$ that still makes the simplified bottom 0. Its horizontal asymptote is $y = 0$.",
           "why": "Divide the top and the bottom by $x^{2}$. As $x \\to \\pm\\infty$ the top tends to 0 and the bottom tends to $c$, so the fraction tends to 0."
         },
         {
           "type": "formula",
-          "tex": "y = \\frac{ax + b}{cx^{2} + dx + e}: \\quad \\text{vertical asymptotes where } cx^{2} + dx + e = 0 \\text{ and } ax + b \\ne 0, \\quad \\text{horizontal asymptote } y = 0",
+          "tex": "y = \\frac{ax + b}{cx^{2} + dx + e}: \\quad \\text{cancel common factors, then vertical asymptotes where the simplified bottom is } 0, \\quad \\text{horizontal asymptote } y = 0",
           "tag": "learn",
           "cheatSheet": true
         },
         {
           "type": "text",
-          "text": "Learn this: it isn't in the formula booklet. The [[discriminant|discriminant]] of the bottom tells you whether there are two, one or no vertical asymptotes."
+          "text": "Learn this: it isn't in the formula booklet. When nothing cancels, the [[discriminant|discriminant]] of the bottom tells you whether there are two, one or no vertical asymptotes."
         },
         {
           "type": "text",
-          "text": "Check that the top isn't 0 at the same $x$. In $\\frac{x - 1}{x^{2} - 1}$ both are 0 at $x = 1$. The factor $x - 1$ cancels, leaving $\\frac{1}{x + 1}$ with a gap at $x = 1$. Only $x = -1$ is an asymptote."
+          "text": "If the top and the bottom share a factor, cancel it first. In $\\frac{x - 1}{x^{2} - 1}$ the factor $x - 1$ cancels completely, leaving $\\frac{1}{x + 1}$. So $x = 1$ is a gap in the graph, not an asymptote. Only $x = -1$ is an asymptote."
+        },
+        {
+          "type": "text",
+          "text": "A factor can cancel and still leave some of itself on the bottom. In $\\frac{x - 1}{(x - 1)^{2}}$ one $x - 1$ cancels, leaving $\\frac{1}{x - 1}$. That bottom is still 0 at $x = 1$, so $x = 1$ is a vertical asymptote, not a gap."
         },
         {
           "type": "text",
@@ -239,6 +243,17 @@
             "tolerance": 0
           },
           "explain": "$\\Delta = 6^{2} - 4(1)(10) = -4 < 0$, so the bottom is never 0. There are no vertical asymptotes, and the graph is one unbroken curve."
+        },
+        {
+          "type": "check",
+          "id": "check-lq-repeated-factor",
+          "prompt": "How many vertical asymptotes does the graph of $y = \\frac{2x - 6}{x^{2} - 6x + 9}$ have?",
+          "hint": "Factorise the top and the bottom, and cancel. Is the simplified bottom still 0 anywhere?",
+          "answer": {
+            "value": 1,
+            "tolerance": 0
+          },
+          "explain": "The top is $2(x - 3)$ and the bottom is $(x - 3)^{2}$. Cancelling one $x - 3$ leaves $\\frac{2}{x - 3}$, whose bottom is still 0 at $x = 3$. So there is one vertical asymptote, $x = 3$, and no gap."
         },
         {
           "type": "check",
@@ -489,7 +504,7 @@
       "blocks": [
         {
           "type": "formula",
-          "tex": "y = \\frac{ax + b}{cx^{2} + dx + e}: \\quad \\text{vertical asymptotes where } cx^{2} + dx + e = 0 \\text{ and } ax + b \\ne 0, \\quad \\text{horizontal asymptote } y = 0",
+          "tex": "y = \\frac{ax + b}{cx^{2} + dx + e}: \\quad \\text{cancel common factors, then vertical asymptotes where the simplified bottom is } 0, \\quad \\text{horizontal asymptote } y = 0",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -501,7 +516,7 @@
         },
         {
           "type": "fact",
-          "text": "Vertical asymptotes sit where the bottom is 0 and the top is not. The graph never crosses them, but it may cross $y = 0$.",
+          "text": "Cancel common factors first. Vertical asymptotes sit where the simplified bottom is 0, and a factor that cancels completely leaves a gap. The graph never crosses a vertical asymptote, but it may cross $y = 0$.",
           "tag": "learn",
           "cheatSheet": true
         },

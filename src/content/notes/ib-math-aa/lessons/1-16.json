@@ -430,17 +430,25 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Now suppose row reduction ends with a whole row of zeros, $(0,\\ 0,\\ 0 \\mid 0)$. It says $0 = 0$: that equation was a combination of the others and adds nothing. Usually two equations are left for three unknowns, so one unknown is free and the other two follow from it. There are infinitely many solutions."
+          "text": "Now suppose row reduction ends with a whole row of zeros, $(0,\\ 0,\\ 0 \\mid 0)$. It says $0 = 0$: that equation was a combination of the others and adds nothing. If two independent equations are left for three unknowns, one unknown is free and the other two follow from it. There are infinitely many solutions."
         },
         {
           "type": "definition",
           "term": "General solution of a system",
-          "statement": "When a system has infinitely many solutions, its [[general-solution-of-a-system|general solution]] gives $x$, $y$ and $z$ in terms of a parameter, such as $\\lambda$. Each real value of $\\lambda$ gives one solution, and every solution comes from some $\\lambda$.",
-          "plain": "One formula that produces every solution as you vary a single number."
+          "statement": "When a system has infinitely many solutions, its [[general-solution-of-a-system|general solution]] gives $x$, $y$ and $z$ in terms of parameters, such as $\\lambda$, with one parameter for each free unknown. Each choice of the parameters gives one solution, and every solution comes from some choice.",
+          "plain": "One formula that produces every solution as you vary its parameters."
         },
         {
           "type": "text",
-          "text": "Here is the method. Reduce to [[row-echelon-form|row echelon form]]. Let the free unknown, usually $z$, equal $\\lambda$. Solve the middle row for $y$ in terms of $\\lambda$, then the top row for $x$."
+          "text": "In exam questions there are usually two independent equations left. Then exactly one unknown is free, so you need one parameter, $\\lambda$, and the solutions form a line."
+        },
+        {
+          "type": "text",
+          "text": "With only one independent equation left, two unknowns are free, so you need two parameters. If every equation is a multiple of $x + y + z = 1$, let $y = \\lambda$ and $z = \\mu$. Then $x = 1 - \\lambda - \\mu$, and the solutions fill a whole plane, not a line."
+        },
+        {
+          "type": "text",
+          "text": "Here is the method when two independent rows are left. Reduce to [[row-echelon-form|row echelon form]]. Let the free unknown, usually $z$, equal $\\lambda$. Solve the middle row for $y$ in terms of $\\lambda$, then the top row for $x$."
         },
         {
           "type": "example",
@@ -546,7 +554,7 @@
         },
         {
           "type": "fact",
-          "text": "A row $(0,\\ 0,\\ 0 \\mid 0)$ with two independent rows left means infinitely many solutions. Let one unknown (often $z$) be $\\lambda$ and give $x$, $y$ and $z$ in terms of $\\lambda$.",
+          "text": "A row $(0,\\ 0,\\ 0 \\mid 0)$ with two independent rows left means infinitely many solutions on a line. Let one unknown (often $z$) be $\\lambda$ and give $x$, $y$ and $z$ in terms of $\\lambda$. Each free unknown needs its own parameter.",
           "tag": "learn",
           "cheatSheet": true
         }
