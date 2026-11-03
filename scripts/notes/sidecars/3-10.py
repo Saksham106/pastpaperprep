@@ -120,9 +120,7 @@ CHECKS = {
     "ex-show-sin-product": lambda tex: chain_is(tex, sin(A + B) * sin(A - B)),
     "check-cos-sum-diff": lambda tex: same(tex, cos(A + B) + cos(A - B)),
     "ex-cos-four": lambda tex: chain_is(tex, cos(4 * theta)),
-    "check-cos4-value": lambda v, tolerance: check_numeric(
-        v, simplify(expand_trig(cos(4 * acos(Rational(1, 3))))), sf=3, tolerance=tolerance
-    ),
+    "check-cos4-value": lambda tex: same(tex, cos(4 * acos(Rational(1, 3)))),
     "ex-solve-shift": lambda tex: roots_are(tex, solveset(sin(x - pi / 6) - cos(x), x, Interval.Ropen(0, 2 * pi))),
 }
 
@@ -131,7 +129,6 @@ NUMERIC = {
     "check-cos-pattern": {"sf": 3},
     "check-tan-find-b": {"sf": 3},
     "check-tan-double-third": {"sf": 3},
-    "check-cos4-value": {"sf": 3},
 }
 
 

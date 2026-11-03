@@ -213,7 +213,7 @@
         },
         {
           "type": "examTip",
-          "text": "When a coordinate is unknown, square both sides first. The square root of a square has two signs, so look for two answers."
+          "text": "When a coordinate is unknown, square both sides first. An equation like $(k - 2)^{2} = 144$ has two solutions, $k - 2 = \\pm 12$, so look for two answers."
         },
         {
           "type": "check",
@@ -238,7 +238,7 @@
               "correct": false
             }
           ],
-          "explain": "The differences are $4$, $-5$ and $-3$, so $d = \\sqrt{16 + 25 + 9} = \\sqrt{50} = 5\\sqrt{2}$. Adding coordinates gives $\\sqrt{30}$; $50$ forgets the root."
+          "explain": "The differences are $4$, $-5$ and $-3$, so $d = \\sqrt{16 + 25 + 9} = \\sqrt{50} = 5\\sqrt{2}$. Adding coordinates gives $\\sqrt{30}$. Using $-2 + 1$ for the $z$-difference gives $\\sqrt{42}$. The answer $50$ forgets the root."
         }
       ]
     },
@@ -627,7 +627,7 @@
               "correct": false
             }
           ],
-          "explain": "In one half, $\\tan\\alpha = \\frac{5}{12}$, so $\\alpha = 22.619\\ldots^{\\circ}$ and $\\theta = 2\\alpha \\approx 45.2^{\\circ}$. Stopping at $\\alpha$ gives $22.6^{\\circ}$; $\\tan\\alpha = \\frac{12}{5}$ swaps opposite and adjacent, and $67.4^{\\circ}$ is the angle between one line and the base."
+          "explain": "In one half, $\\tan\\alpha = \\frac{5}{12}$, so $\\alpha = 22.619\\ldots^{\\circ}$ and $\\theta = 2\\alpha \\approx 45.2^{\\circ}$. Stopping at $\\alpha$ gives $22.6^{\\circ}$. Using $\\tan\\alpha = \\frac{12}{5}$ swaps opposite and adjacent, which gives $134.8^{\\circ}$. The answer $67.4^{\\circ}$ is the angle between one line and the base."
         },
         {
           "type": "example",
@@ -679,7 +679,7 @@
         },
         {
           "type": "text",
-          "text": "Without a right angle you would need the sine or cosine rule from {{lesson:3.2}}. SL questions about solids are set so that a right-angled triangle is enough. Look for the right angle first."
+          "text": "Without a right angle you would need the sine or cosine rule from {{lesson:3.2}}."
         },
         {
           "type": "hlNote",

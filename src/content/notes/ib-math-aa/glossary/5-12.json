@@ -12,18 +12,6 @@
     "lesson": "5.12"
   },
   {
-    "id": "convergent",
-    "term": "Convergent",
-    "definition": "A sequence or series is convergent if its terms (or its partial sums) settle on one finite value as $n \\to \\infty$.",
-    "lesson": "5.12"
-  },
-  {
-    "id": "divergent",
-    "term": "Divergent",
-    "definition": "A sequence or series is divergent if it does not converge: its values grow without limit or never settle on one value.",
-    "lesson": "5.12"
-  },
-  {
     "id": "first-principles",
     "term": "First principles",
     "definition": "Finding a derivative straight from its definition, $f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$, without the differentiation rules.",

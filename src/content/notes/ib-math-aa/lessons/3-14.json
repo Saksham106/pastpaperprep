@@ -189,7 +189,7 @@
             "From $x$: $4 - 3\\lambda = -5$, so $\\lambda = 3$. From $y$: $5\\lambda = 15$, so $\\lambda = 3$ again.",
             "From $z$: with $\\lambda = 3$, $-3 + 2(3) = 3$, not $1$. No single $\\lambda$ fits all three components, so R is not on $L$."
           ],
-          "answer": "$\\boldsymbol{r} = \\begin{pmatrix}4\\\\0\\\\-3\\end{pmatrix} + \\lambda\\begin{pmatrix}-3\\\\5\\\\2\\end{pmatrix}$",
+          "answer": "$\\boldsymbol{r} = \\begin{pmatrix}4\\\\0\\\\-3\\end{pmatrix} + \\lambda\\begin{pmatrix}-3\\\\5\\\\2\\end{pmatrix}, \\; \\mathrm{R} \\notin L$",
           "video": null
         },
         {
@@ -433,7 +433,7 @@
         {
           "type": "example",
           "id": "ex-angle-cartesian",
-          "question": "The line $L_1$ has Cartesian equations $\\frac{x - 5}{2} = 4 - y = \\frac{z + 1}{2}$, and $L_2: \\boldsymbol{r} = \\begin{pmatrix}0\\\\2\\\\6\\end{pmatrix} + \\mu\\begin{pmatrix}1\\\\4\\\\-8\\end{pmatrix}$. Find the acute angle between $L_1$ and $L_2$. Give your answer in degrees to 3 s.f.",
+          "question": "The line $L_1$ has [[cartesian-equations-of-a-line|Cartesian equations]] $\\frac{x - 5}{2} = 4 - y = \\frac{z + 1}{2}$, and $L_2: \\boldsymbol{r} = \\begin{pmatrix}0\\\\2\\\\6\\end{pmatrix} + \\mu\\begin{pmatrix}1\\\\4\\\\-8\\end{pmatrix}$. Find the acute angle between $L_1$ and $L_2$. Give your answer in degrees to 3 s.f.",
           "steps": [
             "Read the direction of $L_1$. Setting $4 - y = \\lambda$ gives $y = 4 - \\lambda$, so $\\boldsymbol{b}_1 = \\begin{pmatrix}2\\\\-1\\\\2\\end{pmatrix}$. The direction of $L_2$ is $\\boldsymbol{b}_2 = \\begin{pmatrix}1\\\\4\\\\-8\\end{pmatrix}$.",
             "Scalar product: $2(1) + (-1)(4) + 2(-8) = 2 - 4 - 16 = -18$. Keep the $z$-components.",
@@ -482,7 +482,7 @@
               "correct": true
             }
           ],
-          "explain": "$\\boldsymbol{b}_1 \\cdot \\boldsymbol{b}_2 = 2 - 4 - 2 = -4$ and both magnitudes are $3$, so $\\cos\\theta = \\frac{4}{9}$ for the acute angle. $116^{\\circ}$ is the obtuse angle, and $79.9^{\\circ}$ comes from using the position vectors."
+          "explain": "$\\boldsymbol{b}_1 \\cdot \\boldsymbol{b}_2 = 2 - 4 - 2 = -4$ and both magnitudes are $3$, so $\\cos\\theta = \\frac{4}{9}$ for the acute angle. $116^{\\circ}$ is the obtuse angle, and $79.9^{\\circ}$ comes from using the [[position-vector|position vectors]]."
         }
       ]
     },
@@ -492,7 +492,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "A vector equation can also describe motion. Replace $\\lambda$ by the time $t$, and $\\boldsymbol{r}$ gives an object's position at each moment. As $t$ increases, the object moves along the line at a steady rate."
+          "text": "A [[vector-equation-of-a-line|vector equation]] can also describe motion. Replace $\\lambda$ by the time $t$, and $\\boldsymbol{r}$ gives an object's position at each moment. As $t$ increases, the object moves along the line at a steady rate."
         },
         {
           "type": "formula",
@@ -522,7 +522,7 @@
             "The $x$-component of the position is $-9 + 6t$. Solve $-9 + 6t = 0$ to get $t = \\frac{3}{2}$.",
             "Check $y$: $4 + 8\\left(\\frac{3}{2}\\right) = 16 > 0$. So at 10:30 the boat is $16$ km due north of the harbour."
           ],
-          "answer": "$t = \\frac{3}{2}$",
+          "answer": "$\\lvert\\boldsymbol{v}\\rvert = 10\\text{ km h}^{-1}, \\; t = \\frac{3}{2}$",
           "video": null
         },
         {

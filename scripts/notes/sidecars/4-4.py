@@ -26,14 +26,15 @@ from sympy import Rational, S, N, nsimplify, nsolve, simplify, sqrt, symbols
 from sympy.stats import StudentT, cdf
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from mathparse import check_numeric, check_rounded, check_same_equation, parse_answer  # noqa: E402
+from mathparse import check_numeric, check_rounded, check_same_equation, parse_answer, parse_with_unit  # noqa: E402
 
 X, Y = symbols("x y")
 
 
-def same(tex, truth):
-    """Exact comparison; a published decimal such as 11.1 is read as the rational it states."""
-    published = nsimplify(str(parse_answer(tex)), rational=True)
+def same(tex, truth, unit=None):
+    """Exact comparison; a published decimal such as 11.1 is read as the rational it states. With `unit`, the answer
+    must end with that unit (parse_with_unit raises otherwise) and the value before it is compared."""
+    published = nsimplify(str(parse_answer(parse_with_unit(tex, unit) if unit else tex)), rational=True)
     if simplify(published - truth) != 0:
         raise AssertionError(f"published {published} is not {truth}")
 
@@ -331,11 +332,11 @@ CHECKS = {
     "check-library-accidents": check_library,
     "ex-cycle-regression": lambda tex: check_rounded_line(tex, CYCLE["a"], CYCLE["b"]),
     "check-cycle-22": lambda v, tolerance: check_numeric(v, predict(CYCLE, 22), sf=3, tolerance=tolerance),
-    "ex-taxi-interpret": lambda tex: same(tex, 6 * Rational(185, 100)),
+    "ex-taxi-interpret": lambda tex: same(tex, 6 * Rational(185, 100), unit="dollars"),
     "check-interpret-a": check_interpret_a,
     "check-interpret-b": check_interpret_b,
-    "ex-cycle-reliability": lambda tex: check_rounded(tex, predict(CYCLE, 40), sf=3),
-    "ex-child-height": lambda tex: same(tex, Rational(61, 10) * 8 + 77),
+    "ex-cycle-reliability": lambda tex: check_rounded(tex, predict(CYCLE, 40), sf=3, unit="minutes"),
+    "ex-child-height": lambda tex: same(tex, Rational(61, 10) * 8 + 77, unit="cm"),
     "check-which-line": check_which_line,
     "check-extrapolation": check_extrapolation,
 }

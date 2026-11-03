@@ -292,7 +292,7 @@
         },
         {
           "type": "text",
-          "text": "Entry $r$ of row $n$ in Pascal's triangle is ${}^{n}C_{r}$, counting entries from $0$. Also ${}^{n}C_{0} = {}^{n}C_{n} = 1$ and ${}^{n}C_{1} = n$."
+          "text": "Entry $r$ of row $n$ in [[pascals-triangle|Pascal's triangle]] is ${}^{n}C_{r}$, counting entries from $0$. Also ${}^{n}C_{0} = {}^{n}C_{n} = 1$ and ${}^{n}C_{1} = n$."
         },
         {
           "type": "text",
@@ -688,7 +688,7 @@
   ],
   "mistakes": [
     "Raising only the letter to the power: $(2x)^{3} = 8x^{3}$, not $2x^{3}$. Bracket each term first.",
-    "Dropping a minus sign. In $(2 - kx)^{6}$ the second term is $-kx$, so its odd powers are negative. Keep the sign inside the bracket.",
+    "Dropping a minus sign. In $(2 - kx)^{6}$ the second term is $-kx$, so its odd powers carry a minus sign: $(-kx)^{3} = -k^{3}x^{3}$. Keep the sign inside the bracket.",
     "Giving the term, such as $-945x^{3}$, when the question asks for the coefficient, which is $-945$.",
     "Taking $r$ to be the power of $x$ you want. $r$ is the power of the second term, so find it from the collected power of $x$.",
     "Forgetting that a coefficient already contains the unknown. In $(3 + kx)^{5}$ the coefficient of $x^{2}$ is $270k^{2}$, so set $270k^{2}$, not $270$, equal to the given value.",

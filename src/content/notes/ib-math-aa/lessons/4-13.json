@@ -1,0 +1,510 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "4.13",
+  "slug": "bayes-theorem",
+  "title": "Bayes’ theorem",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "[[bayes-theorem|Bayes' theorem]] turns a conditional probability round. You know how likely the evidence is for each cause, and it tells you how likely each cause is once you have seen the evidence. It works for two or three first-stage outcomes, and it shows at once when two events are independent.",
+  "goals": [
+    {
+      "text": "Find $\\mathrm{P}(B \\mid A)$ from $\\mathrm{P}(B)$, $\\mathrm{P}(A \\mid B)$ and $\\mathrm{P}(A \\mid B')$ with [[bayes-theorem|Bayes' theorem]].",
+      "bullets": [
+        "4.13-b1"
+      ]
+    },
+    {
+      "text": "Use Bayes' theorem when the first stage has three outcomes that form a [[partition|partition]].",
+      "bullets": [
+        "4.13-b1"
+      ]
+    },
+    {
+      "text": "Combine Bayes' theorem with binomial probabilities from your calculator on Paper 2.",
+      "bullets": [
+        "4.13-b1"
+      ]
+    },
+    {
+      "text": "Spot when the evidence changes nothing, and use Bayes' theorem to decide whether two events are [[independent-events|independent]].",
+      "bullets": [
+        "4.13-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.11"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "bayes theorem",
+    "bayes rule",
+    "reverse conditional probability",
+    "probability of the cause given the evidence",
+    "bayes theorem three events",
+    "false alarm probability"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-conditional",
+      "prompt": "Events $A$ and $B$ have $\\mathrm{P}(A \\cap B) = 0.12$ and $\\mathrm{P}(B) = 0.3$. Find $\\mathrm{P}(A \\mid B)$.",
+      "hint": "The event after the bar goes on the bottom.",
+      "answer": {
+        "value": 0.4,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{P}(A \\mid B) = \\frac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(B)} = \\frac{0.12}{0.3} = 0.4$. Revise it in {{lesson:4.11}}."
+    },
+    {
+      "type": "check",
+      "id": "before-branch-product",
+      "prompt": "Events $A$ and $B$ have $\\mathrm{P}(B) = 0.6$ and $\\mathrm{P}(A \\mid B) = 0.25$. Find $\\mathrm{P}(A \\cap B)$.",
+      "hint": "Multiply along the tree path: first $B$, then $A$ once $B$ has happened.",
+      "answer": {
+        "value": 0.15,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{P}(A \\cap B) = \\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B) = 0.6 \\times 0.25 = 0.15$. Revise it in {{lesson:4.11}}."
+    },
+    {
+      "type": "check",
+      "id": "before-independent",
+      "prompt": "Events $A$ and $B$ are independent, with $\\mathrm{P}(A) = 0.3$ and $\\mathrm{P}(B) = 0.8$. Write down $\\mathrm{P}(A \\mid B)$.",
+      "hint": "For independent events, does knowing $B$ change the chance of $A$?",
+      "answer": {
+        "value": 0.3,
+        "tolerance": 0
+      },
+      "explain": "Independent means knowing $B$ tells you nothing about $A$, so $\\mathrm{P}(A \\mid B) = \\mathrm{P}(A) = 0.3$. Revise it in {{lesson:4.11}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "two-events",
+      "heading": "Bayes' theorem for two events",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:4.11}} you turned a [[tree-diagram|tree diagram]] round. You knew how the second stage ended, and you found the chance of a first-stage branch. [[bayes-theorem|Bayes' theorem]] is that method written as one formula."
+        },
+        {
+          "type": "text",
+          "text": "Questions often give the chance of the evidence for each cause. You want the reverse: the chance of the cause, given the evidence. The two can be very different."
+        },
+        {
+          "type": "text",
+          "text": "Take a factory scanner that checks bolts for cracks. Only $0.5\\%$ of bolts are cracked. It sounds an alarm for $98\\%$ of cracked bolts, and also for $3\\%$ of good ones. If the alarm sounds, how likely is a crack?"
+        },
+        {
+          "type": "text",
+          "text": "Picture $20\\,000$ bolts. Of these, $100$ are cracked, and the alarm sounds for $98$ of them. The other $19\\,900$ are good, and the alarm sounds for $3\\%$ of those, which is $597$."
+        },
+        {
+          "type": "figure",
+          "id": "4-13-bolt-counts",
+          "alt": "Tree of counts for 20000 bolts. 100 are cracked: the alarm sounds for 98 and not for 2. 19900 are good: the alarm sounds for 597 and not for 19303. The two alarm branches, 98 and 597, are highlighted.",
+          "caption": "Every alarm comes from one of the two highlighted branches. Only $98$ of the $695$ alarms are real cracks."
+        },
+        {
+          "type": "text",
+          "text": "So $695$ bolts set off the alarm, and only $98$ of them are cracked. Given an alarm, the chance of a crack is $\\frac{98}{695} \\approx 0.141$. Most alarms are false, because good bolts far outnumber cracked ones."
+        },
+        {
+          "type": "text",
+          "text": "Now use probabilities. Let $B$ be the first-stage event (cracked) and $A$ the evidence (alarm). The top is the path through $B$ to $A$. The bottom adds every path that ends in $A$, which gives $\\mathrm{P}(A)$."
+        },
+        {
+          "type": "result",
+          "statement": "For events $A$ and $B$ with $\\mathrm{P}(A) > 0$, $\\mathrm{P}(B \\mid A) = \\frac{\\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)}{\\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B) + \\mathrm{P}(B')\\,\\mathrm{P}(A \\mid B')}$.",
+          "why": "By the definition, $\\mathrm{P}(B \\mid A) = \\frac{\\mathrm{P}(B \\cap A)}{\\mathrm{P}(A)}$. The top is $\\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)$. $A$ happens either with $B$ or with $B'$, so $\\mathrm{P}(A)$ is the sum of those two paths."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(B \\mid A) = \\dfrac{\\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)}{\\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B) + \\mathrm{P}(B')\\,\\mathrm{P}(A \\mid B')}",
+          "tag": "booklet",
+          "bookletId": "bk-4-13-bayes-two"
+        },
+        {
+          "type": "text",
+          "text": "It's in the formula booklet, so you don't need to memorise it. Your job is to name the events: $B$ is the first-stage event you want, and $A$ is the one you are told happened."
+        },
+        {
+          "type": "text",
+          "text": "Check it on the bolts: $\\frac{0.005 \\times 0.98}{0.005 \\times 0.98 + 0.995 \\times 0.03} = \\frac{0.0049}{0.03475} = \\frac{98}{695}$. That matches the count."
+        },
+        {
+          "type": "example",
+          "id": "ex-spam-filter",
+          "question": "Of the emails reaching an inbox, $20\\%$ are spam. A filter flags $95\\%$ of spam emails, and it also flags $4\\%$ of genuine emails. An email is flagged. Find the probability that it is spam.",
+          "steps": [
+            "Name the events. Let $S$ be \"the email is spam\" and $F$ be \"the email is flagged\". You want $\\mathrm{P}(S \\mid F)$.",
+            "You know $\\mathrm{P}(S) = 0.2$, so $\\mathrm{P}(S') = 0.8$. Also $\\mathrm{P}(F \\mid S) = 0.95$ and $\\mathrm{P}(F \\mid S') = 0.04$.",
+            "Substitute into Bayes' theorem: $\\mathrm{P}(S \\mid F) = \\frac{0.2 \\times 0.95}{0.2 \\times 0.95 + 0.8 \\times 0.04} = \\frac{0.19}{0.19 + 0.032} = \\frac{0.19}{0.222}$.",
+            "Multiply top and bottom by $1000$ to clear the decimals: $\\frac{190}{222} = \\frac{95}{111}$.",
+            "Sense check: $\\frac{95}{111} \\approx 0.856$, far above $\\mathrm{P}(S) = 0.2$. A flag is strong evidence of spam."
+          ],
+          "answer": "$\\mathrm{P}(S \\mid F) = \\frac{95}{111}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-spam-not-flagged",
+          "prompt": "Use the spam filter from the example. An email is not flagged. Find the probability that it is spam. Give your answer to 3 s.f.",
+          "hint": "The evidence is now $F'$. Find $\\mathrm{P}(F' \\mid S)$ and $\\mathrm{P}(F' \\mid S')$ first.",
+          "answer": {
+            "value": 0.0129,
+            "tolerance": 0.00005
+          },
+          "explain": "$\\mathrm{P}(S \\mid F') = \\frac{0.2 \\times 0.05}{0.2 \\times 0.05 + 0.8 \\times 0.96} = \\frac{0.01}{0.778} = 0.012853\\ldots \\approx 0.0129$."
+        },
+        {
+          "type": "mistake",
+          "text": "Answering with the probability the question gave you, such as $\\mathrm{P}(F \\mid S) = 0.95$, when it asked for $\\mathrm{P}(S \\mid F)$. Read which event you are told has happened: that one goes after the bar."
+        },
+        {
+          "type": "example",
+          "id": "ex-tennis-serve",
+          "question": "Mia's first serve lands in on $60\\%$ of points. When it lands in, she wins the point with probability $0.7$. When it doesn't, she wins the point with probability $0.4$. (a) Show that the probability Mia loses a point is $0.42$. (b) Given that Mia loses a point, find the probability that her first serve landed in.",
+          "steps": [
+            "Let $N$ be \"the first serve lands in\" and $W$ be \"Mia wins the point\". So $\\mathrm{P}(N) = 0.6$ and $\\mathrm{P}(N') = 0.4$.",
+            "The question is about losing, so use complements: $\\mathrm{P}(W' \\mid N) = 0.3$ and $\\mathrm{P}(W' \\mid N') = 0.6$.",
+            "(a) Add the two paths that end in $W'$: $\\mathrm{P}(W') = 0.6 \\times 0.3 + 0.4 \\times 0.6 = 0.18 + 0.24 = 0.42$, as required.",
+            "(b) Bayes' theorem, with the answer to (a) on the bottom: $\\mathrm{P}(N \\mid W') = \\frac{0.6 \\times 0.3}{0.42} = \\frac{18}{42} = \\frac{3}{7}$.",
+            "A wrong (a) used correctly here can still earn follow-through marks in (b)."
+          ],
+          "answer": "$\\mathrm{P}(N \\mid W') = \\frac{3}{7}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-flood",
+          "prompt": "On $25\\%$ of days the river is high. When it is high, a footpath floods with probability $0.6$. When it is not high, the footpath floods with probability $0.04$. The footpath is flooded. Find the probability that the river is high.",
+          "hint": "The top is one path: river high, then flood. The bottom adds both paths that end in a flood.",
+          "options": [
+            {
+              "text": "$\\frac{5}{6}$",
+              "correct": true
+            },
+            {
+              "text": "$0.6$",
+              "correct": false
+            },
+            {
+              "text": "$0.15$",
+              "correct": false
+            },
+            {
+              "text": "$0.18$",
+              "correct": false
+            }
+          ],
+          "explain": "The flood paths are $0.25 \\times 0.6 = 0.15$ and $0.75 \\times 0.04 = 0.03$, so the answer is $\\frac{0.15}{0.18} = \\frac{5}{6}$. The $0.6$ is the chance of a flood given a high river: the wrong way round."
+        }
+      ]
+    },
+    {
+      "id": "three-events",
+      "heading": "Three first-stage outcomes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes the first stage has three outcomes, such as three couriers or three machines. The idea is the same: one path on top, every path to the evidence on the bottom."
+        },
+        {
+          "type": "definition",
+          "term": "Partition",
+          "statement": "Events $B_1$, $B_2$ and $B_3$ form a [[partition|partition]] when exactly one of them happens on each trial. They are [[mutually-exclusive|mutually exclusive]], and $\\mathrm{P}(B_1) + \\mathrm{P}(B_2) + \\mathrm{P}(B_3) = 1$.",
+          "plain": "Every outcome lands in exactly one of the three boxes."
+        },
+        {
+          "type": "text",
+          "text": "$B$ and $B'$ are a partition with two pieces, so the two-event version is a special case. With three pieces, the bottom of the formula gains a third path."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(B_{i} \\mid A) = \\dfrac{\\mathrm{P}(B_{i})\\,\\mathrm{P}(A \\mid B_{i})}{\\mathrm{P}(B_{1})\\,\\mathrm{P}(A \\mid B_{1}) + \\mathrm{P}(B_{2})\\,\\mathrm{P}(A \\mid B_{2}) + \\mathrm{P}(B_{3})\\,\\mathrm{P}(A \\mid B_{3})}",
+          "tag": "booklet",
+          "bookletId": "bk-4-13-bayes-three"
+        },
+        {
+          "type": "text",
+          "text": "This is [[bayes-theorem|Bayes' theorem]] for three events, and it is in the booklet too. Here $i$ is $1$, $2$ or $3$, for the event you want. The bottom adds all three paths to give $\\mathrm{P}(A)$, whichever $B_i$ you want."
+        },
+        {
+          "type": "figure",
+          "id": "4-13-courier-tree",
+          "alt": "Tree diagram with three first-stage branches: courier C1 with probability 0.5, C2 with 0.3 and C3 with 0.2. Each courier then branches to late L or on time L prime. Late probabilities are 0.04 after C1, 0.1 after C2 and 0.05 after C3. The three late paths are highlighted, with products 0.02, 0.03 and 0.01.",
+          "caption": "The three highlighted paths add up to $\\mathrm{P}(L)$, the bottom of Bayes' theorem."
+        },
+        {
+          "type": "example",
+          "id": "ex-courier-late",
+          "question": "An online shop sends $50\\%$ of its parcels with courier $C_1$, $30\\%$ with $C_2$ and $20\\%$ with $C_3$. These couriers deliver $4\\%$, $10\\%$ and $5\\%$ of their parcels late. (a) Find the probability that a parcel is late. (b) Given that a parcel is late, find the probability that it was sent with $C_2$.",
+          "steps": [
+            "Let $L$ be \"the parcel is late\". Each parcel goes with exactly one courier, and $0.5 + 0.3 + 0.2 = 1$, so $C_1$, $C_2$, $C_3$ form a partition.",
+            "(a) Add the three paths that end in $L$: $\\mathrm{P}(L) = 0.5 \\times 0.04 + 0.3 \\times 0.1 + 0.2 \\times 0.05 = 0.02 + 0.03 + 0.01 = 0.06$.",
+            "(b) Bayes' theorem with $i = 2$: $\\mathrm{P}(C_2 \\mid L) = \\frac{0.3 \\times 0.1}{0.06} = \\frac{0.03}{0.06} = \\frac{1}{2}$.",
+            "Sense check: $C_2$ carries $30\\%$ of parcels but half the late ones, as its late rate is highest. Also $\\mathrm{P}(C_1 \\mid L) = \\frac{1}{3}$ and $\\mathrm{P}(C_3 \\mid L) = \\frac{1}{6}$, and the three add up to $1$."
+          ],
+          "answer": "$\\mathrm{P}(C_{2} \\mid L) = \\frac{1}{2}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving a path out of the bottom. With three first-stage outcomes the bottom has three products. Check that your first-stage probabilities add up to $1$."
+        },
+        {
+          "type": "check",
+          "id": "check-chips-machine",
+          "prompt": "Machines $M_1$, $M_2$ and $M_3$ make $25\\%$, $35\\%$ and $40\\%$ of a factory's chips. Of their chips, $2\\%$, $4\\%$ and $1\\%$ are faulty. A chip is faulty. Find the probability that it was made by $M_2$.",
+          "hint": "Find $\\mathrm{P}(\\text{faulty})$ by adding three paths. Then divide the $M_2$ path by it.",
+          "options": [
+            {
+              "text": "$\\frac{14}{23}$",
+              "correct": true
+            },
+            {
+              "text": "$0.35$",
+              "correct": false
+            },
+            {
+              "text": "$0.04$",
+              "correct": false
+            },
+            {
+              "text": "$0.014$",
+              "correct": false
+            }
+          ],
+          "explain": "The faulty paths are $0.005$, $0.014$ and $0.004$, which add to $0.023$. So $\\mathrm{P}(M_2 \\mid \\text{faulty}) = \\frac{0.014}{0.023} = \\frac{14}{23}$. The $0.014$ is only the top."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2, the second-stage probabilities may come from a distribution. Find each one with your calculator, then put them into Bayes' theorem exactly as before."
+        },
+        {
+          "type": "example",
+          "id": "ex-spinner-types",
+          "question": "A games box holds $5$ spinners: $2$ of type $T_1$, $2$ of type $T_2$ and $1$ of type $T_3$. Each spin of a $T_1$, $T_2$ or $T_3$ spinner shows red with probability $0.2$, $0.5$ or $0.7$ respectively, independently of other spins. Ana picks a spinner at random and spins it $8$ times. She gets exactly $5$ reds. Use your calculator to find the probability that she picked a $T_3$ spinner. Give your answer to 3 s.f.",
+          "steps": [
+            "Let $R$ be \"exactly $5$ reds in $8$ spins\". The first stage is the type: $\\mathrm{P}(T_1) = 0.4$, $\\mathrm{P}(T_2) = 0.4$ and $\\mathrm{P}(T_3) = 0.2$.",
+            "Given the type, the number of reds $X$ is binomial: $\\mathrm{B}(8, 0.2)$, $\\mathrm{B}(8, 0.5)$ or $\\mathrm{B}(8, 0.7)$. So each $\\mathrm{P}(R \\mid T_i)$ is $\\mathrm{P}(X = 5)$.",
+            "Binomial pdf values: $\\mathrm{P}(R \\mid T_1) = 0.00917504$, $\\mathrm{P}(R \\mid T_2) = 0.21875$, $\\mathrm{P}(R \\mid T_3) = 0.25412184$.",
+            "Bayes' theorem with $i = 3$: $\\mathrm{P}(T_3 \\mid R) = \\frac{0.2 \\times 0.25412184}{0.4 \\times 0.00917504 + 0.4 \\times 0.21875 + 0.2 \\times 0.25412184}$.",
+            "Evaluate, rounding only at the end: $\\frac{0.050824368}{0.141994384} = 0.357932\\ldots \\approx 0.358$.",
+            "Sense check: $T_3$ gives $5$ reds most often, but there is only one in the box. So $T_2$ is still more likely, with $\\mathrm{P}(T_2 \\mid R) = 0.616\\ldots$"
+          ],
+          "answer": "$\\mathrm{P}(T_{3} \\mid R) \\approx 0.358$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "2nd, VARS (DISTR), binompdf(",
+              "Enter trials 8, p 0.2, x value 5, then ENTER: read 0.00917504",
+              "Repeat with p 0.5 and then p 0.7: read 0.21875 and 0.25412184",
+              "Type 0.2*0.25412184/(0.4*0.00917504+0.4*0.21875+0.2*0.25412184), then ENTER: read 0.357932…"
+            ],
+            "nspire": [
+              "Calculator page, Menu, Statistics, Distributions, Binomial Pdf",
+              "Num Trials 8, Prob Success 0.2, X Value 5, then OK: read 0.00917504",
+              "Repeat with Prob Success 0.5 and then 0.7: read 0.21875 and 0.25412184",
+              "Type 0.2*0.25412184/(0.4*0.00917504+0.4*0.21875+0.2*0.25412184), then enter: read 0.357932…"
+            ],
+            "casio": [
+              "STAT, DIST, BINOMIAL, Bpd",
+              "Data: Variable, x 5, Numtrial 8, p 0.2, then EXE: read 0.00917504",
+              "Repeat with p 0.5 and then p 0.7: read 0.21875 and 0.25412184",
+              "In RUN-MAT, type 0.2*0.25412184/(0.4*0.00917504+0.4*0.21875+0.2*0.25412184), then EXE: read 0.357932…"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "On Paper 2, write down each calculator value before you use it. Store long values rather than rounding them, and round only the final answer to 3 s.f."
+        },
+        {
+          "type": "check",
+          "id": "check-chips-not-faulty",
+          "prompt": "Use the three machines from the last check. A chip is not faulty. Find the probability that it was made by $M_3$. Give your answer to 3 s.f.",
+          "hint": "The evidence is now \"not faulty\", so use $0.98$, $0.96$ and $0.99$ on the second stage.",
+          "answer": {
+            "value": 0.405,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\mathrm{P}(\\text{not faulty}) = 0.25 \\times 0.98 + 0.35 \\times 0.96 + 0.4 \\times 0.99 = 0.977$. So the answer is $\\frac{0.396}{0.977} = 0.405322\\ldots \\approx 0.405$."
+        }
+      ]
+    },
+    {
+      "id": "independence",
+      "heading": "When the evidence changes nothing",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Look at [[bayes-theorem|Bayes' theorem]] when the evidence is equally likely on both branches, so $\\mathrm{P}(A \\mid B) = \\mathrm{P}(A \\mid B')$. Call this common value $q$."
+        },
+        {
+          "type": "text",
+          "text": "The bottom becomes $\\mathrm{P}(B)\\,q + \\mathrm{P}(B')\\,q = q$, because $\\mathrm{P}(B) + \\mathrm{P}(B') = 1$. So $\\mathrm{P}(B \\mid A) = \\frac{\\mathrm{P}(B)\\,q}{q} = \\mathrm{P}(B)$."
+        },
+        {
+          "type": "text",
+          "text": "If the evidence is just as likely whatever the cause, seeing it tells you nothing. The reversed probability equals the one you started with. That is what [[independent-events|independent events]] means, as in {{lesson:4.6}} and {{lesson:4.11}}."
+        },
+        {
+          "type": "result",
+          "statement": "Let $0 < \\mathrm{P}(B) < 1$ and $\\mathrm{P}(A) > 0$. Then $A$ and $B$ are independent exactly when $\\mathrm{P}(B \\mid A) = \\mathrm{P}(B)$, which happens exactly when $\\mathrm{P}(A \\mid B) = \\mathrm{P}(A \\mid B')$.",
+          "why": "The working above shows that equal branches give $\\mathrm{P}(B \\mid A) = \\mathrm{P}(B)$. Conversely, if $\\mathrm{P}(B \\mid A) = \\mathrm{P}(B)$, then $\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)$, so the events are independent and both branches equal $\\mathrm{P}(A)$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-independent"
+        },
+        {
+          "type": "text",
+          "text": "This product rule from the formula booklet is the same idea. The same holds with three branches: if $\\mathrm{P}(A \\mid B_i)$ is equal for all three, then every $\\mathrm{P}(B_i \\mid A) = \\mathrm{P}(B_i)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-music-best",
+          "question": "A running app finds that $65\\%$ of runs are done with music. Runners set a personal best on $8\\%$ of runs with music and on $8\\%$ of runs without. Let $M$ be \"the run is done with music\" and $B$ be \"the runner sets a personal best\". Given that a runner sets a personal best, find the probability that the run was done with music.",
+          "steps": [
+            "Bayes' theorem: $\\mathrm{P}(M \\mid B) = \\frac{0.65 \\times 0.08}{0.65 \\times 0.08 + 0.35 \\times 0.08} = \\frac{0.052}{0.08} = 0.65$.",
+            "The answer is $\\mathrm{P}(M)$ again. A personal best is equally likely with or without music, so it tells you nothing about the music. $M$ and $B$ are independent."
+          ],
+          "answer": "$\\mathrm{P}(M \\mid B) = 0.65$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-determine-independence",
+          "question": "Events $A$ and $B$ have $\\mathrm{P}(B) = 0.4$, $\\mathrm{P}(A \\mid B) = 0.3$ and $\\mathrm{P}(A \\mid B') = 0.5$. (a) Find $\\mathrm{P}(B \\mid A)$. (b) Determine whether $A$ and $B$ are independent.",
+          "steps": [
+            "(a) $\\mathrm{P}(B') = 1 - 0.4 = 0.6$. Bayes' theorem: $\\mathrm{P}(B \\mid A) = \\frac{0.4 \\times 0.3}{0.4 \\times 0.3 + 0.6 \\times 0.5}$.",
+            "Work out the paths: $\\frac{0.12}{0.12 + 0.3} = \\frac{0.12}{0.42}$.",
+            "Simplify: $\\frac{12}{42} = \\frac{2}{7}$.",
+            "(b) Compare with the starting probability: $\\mathrm{P}(B \\mid A) = \\frac{2}{7} \\ne 0.4 = \\mathrm{P}(B)$.",
+            "Knowing $A$ happened lowers the chance of $B$. So $A$ and $B$ are not independent. You could also see this from $\\mathrm{P}(A \\mid B) = 0.3 \\ne 0.5 = \\mathrm{P}(A \\mid B')$."
+          ],
+          "answer": "$\\mathrm{P}(B \\mid A) = \\frac{2}{7}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "\"Determine whether\" or \"show that\" events are independent needs both values, an $=$ or $\\ne$ sign between them, and a conclusion in words. A number on its own earns no reasoning mark."
+        },
+        {
+          "type": "check",
+          "id": "check-independent-complement",
+          "prompt": "Events $A$ and $B$ are independent, with $\\mathrm{P}(A) = 0.2$ and $\\mathrm{P}(B) = 0.35$. Find $\\mathrm{P}(B' \\mid A)$.",
+          "hint": "If knowing $A$ doesn't change the chance of $B$, it doesn't change the chance of $B'$ either.",
+          "options": [
+            {
+              "text": "$0.65$",
+              "correct": true
+            },
+            {
+              "text": "$0.35$",
+              "correct": false
+            },
+            {
+              "text": "$0.13$",
+              "correct": false
+            },
+            {
+              "text": "$0.8$",
+              "correct": false
+            }
+          ],
+          "explain": "Independence gives $\\mathrm{P}(B \\mid A) = \\mathrm{P}(B) = 0.35$, so $\\mathrm{P}(B' \\mid A) = 1 - 0.35 = 0.65$. The value $0.13$ is $\\mathrm{P}(A \\cap B')$: it still needs dividing by $\\mathrm{P}(A) = 0.2$."
+        },
+        {
+          "type": "check",
+          "id": "check-decide-independence",
+          "prompt": "Events $A$ and $B$ have $\\mathrm{P}(B) = 0.5$, $\\mathrm{P}(A \\mid B) = 0.2$ and $\\mathrm{P}(A \\mid B') = 0.6$. Use Bayes' theorem to decide whether $A$ and $B$ are independent.",
+          "hint": "Find $\\mathrm{P}(B \\mid A)$, then compare it with $\\mathrm{P}(B)$.",
+          "options": [
+            {
+              "text": "No, because $\\mathrm{P}(B \\mid A) = 0.25$, which is not $\\mathrm{P}(B)$",
+              "correct": true
+            },
+            {
+              "text": "Yes, because $\\mathrm{P}(B \\mid A) = 0.5$, which equals $\\mathrm{P}(B)$",
+              "correct": false
+            },
+            {
+              "text": "No, because $\\mathrm{P}(B \\mid A) = 0.1$, which is not $\\mathrm{P}(B)$",
+              "correct": false
+            },
+            {
+              "text": "Yes, because $\\mathrm{P}(A \\mid B) + \\mathrm{P}(A \\mid B') < 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{P}(B \\mid A) = \\frac{0.5 \\times 0.2}{0.5 \\times 0.2 + 0.5 \\times 0.6} = \\frac{0.1}{0.4} = 0.25 \\ne 0.5$, so they are not independent. The $0.1$ is only the top."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(B \\mid A) = \\dfrac{\\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)}{\\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B) + \\mathrm{P}(B')\\,\\mathrm{P}(A \\mid B')}",
+          "tag": "booklet",
+          "bookletId": "bk-4-13-bayes-two",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(B_{i} \\mid A) = \\dfrac{\\mathrm{P}(B_{i})\\,\\mathrm{P}(A \\mid B_{i})}{\\mathrm{P}(B_{1})\\,\\mathrm{P}(A \\mid B_{1}) + \\mathrm{P}(B_{2})\\,\\mathrm{P}(A \\mid B_{2}) + \\mathrm{P}(B_{3})\\,\\mathrm{P}(A \\mid B_{3})}",
+          "tag": "booklet",
+          "bookletId": "bk-4-13-bayes-three",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Top: the one path through the event you want. Bottom: every path that ends in the given event, which adds up to $\\mathrm{P}(A)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{P}(B \\mid A)$ and $\\mathrm{P}(A \\mid B)$ are usually different. A rare cause can stay unlikely even after strong evidence.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $\\mathrm{P}(A \\mid B) = \\mathrm{P}(A \\mid B')$, then $\\mathrm{P}(B \\mid A) = \\mathrm{P}(B)$, and $A$ and $B$ are independent.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving the conditional the question gave you. If you know $\\mathrm{P}(\\text{alarm} \\mid \\text{cracked}) = 0.98$ and want $\\mathrm{P}(\\text{cracked} \\mid \\text{alarm})$, the $0.98$ is not the answer: turn it round with Bayes' theorem.",
+    "Stopping at the top line. A path product is the chance of both events. Divide it by the total of every path that ends in the given event.",
+    "Leaving a path out of the bottom. Three first-stage outcomes give three products; check their probabilities add up to $1$.",
+    "Writing $\\mathrm{P}(A \\mid B') = 1 - \\mathrm{P}(A \\mid B)$. The complement rule changes the event before the bar, never the condition.",
+    "Rounding calculator values before dividing. Store them and round only the final answer.",
+    "Calling events independent with no comparison. Give both values, write $=$ or $\\ne$, and conclude in words."
+  ],
+  "examTips": [
+    "\"Find\" a reversed probability: name your events, then write Bayes' theorem with your letters before any numbers. That line earns the method mark.",
+    "On Paper 1, keep answers exact. Clear decimals by multiplying top and bottom by a power of $10$: $\\frac{0.19}{0.222} = \\frac{190}{222}$.",
+    "When part (b) divides by the probability from part (a), a wrong (a) used correctly can still earn follow-through marks."
+  ],
+  "readingMinutes": 21
+}

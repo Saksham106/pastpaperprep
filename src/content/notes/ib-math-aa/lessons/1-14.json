@@ -567,6 +567,21 @@
           "text": "In practice you can choose $k$ to keep every argument in $-\\pi < \\theta \\le \\pi$. Use negative values of $k$ where you need them, instead of $k = 0$ to $n - 1$."
         },
         {
+          "type": "example",
+          "id": "ex-rational-power",
+          "question": "Find all the values of $(4\\mathrm{i})^{\\frac{3}{2}}$, giving your answers in the form $a + b\\mathrm{i}$.",
+          "steps": [
+            "Here $p = 3$ and $q = 2$, so expect $2$ values. In polar form, $4\\mathrm{i} = 4\\,\\mathrm{cis}\\,\\frac{\\pi}{2}$.",
+            "First take the square roots. Their modulus is $4^{\\frac{1}{2}} = 2$ and their arguments are $\\frac{1}{2}\\left(\\frac{\\pi}{2} + 2\\pi k\\right) = \\frac{\\pi}{4} + k\\pi$. Take $k = 0$ and $k = -1$: the roots are $2\\,\\mathrm{cis}\\,\\frac{\\pi}{4}$ and $2\\,\\mathrm{cis}\\left(-\\frac{3\\pi}{4}\\right)$.",
+            "Now cube each root with De Moivre's theorem. Cube the modulus, $2^{3} = 8$, and multiply each argument by $3$: you get $8\\,\\mathrm{cis}\\,\\frac{3\\pi}{4}$ and $8\\,\\mathrm{cis}\\left(-\\frac{9\\pi}{4}\\right)$.",
+            "Bring $-\\frac{9\\pi}{4}$ into $-\\pi < \\theta \\le \\pi$ by adding $2\\pi$: it becomes $-\\frac{\\pi}{4}$.",
+            "Convert: $8\\,\\mathrm{cis}\\,\\frac{3\\pi}{4} = -4\\sqrt{2} + 4\\sqrt{2}\\mathrm{i}$ and $8\\,\\mathrm{cis}\\left(-\\frac{\\pi}{4}\\right) = 4\\sqrt{2} - 4\\sqrt{2}\\mathrm{i}$.",
+            "Check: each value squared should be $(4\\mathrm{i})^{3} = -64\\mathrm{i}$. Indeed $\\left(-4\\sqrt{2} + 4\\sqrt{2}\\mathrm{i}\\right)^{2} = 32 - 64\\mathrm{i} - 32 = -64\\mathrm{i}$, and the other value is its negative."
+          ],
+          "answer": "$(4\\mathrm{i})^{\\frac{3}{2}} = -4\\sqrt{2} + 4\\sqrt{2}\\mathrm{i} \\text{ or } (4\\mathrm{i})^{\\frac{3}{2}} = 4\\sqrt{2} - 4\\sqrt{2}\\mathrm{i}$",
+          "video": null
+        },
+        {
           "type": "check",
           "id": "check-rational-power",
           "prompt": "The cube roots of $8\\mathrm{i}$ are $\\sqrt{3} + \\mathrm{i}$, $-\\sqrt{3} + \\mathrm{i}$ and $-2\\mathrm{i}$. Find all the values of $(8\\mathrm{i})^{\\frac{2}{3}}$.",
@@ -795,5 +810,5 @@
     "“Show that” with surds: keep values such as $\\sqrt{3}$ exact all the way. A decimal like $1.732$ can't show an exact result.",
     "Give roots in the form the question asks for, $a + b\\mathrm{i}$ or $r\\mathrm{e}^{\\mathrm{i}\\theta}$, with arguments in the stated range. On Paper 2, round only the final answers to 3 s.f."
   ],
-  "readingMinutes": 26
+  "readingMinutes": 28
 }

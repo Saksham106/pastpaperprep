@@ -197,7 +197,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "A large data set can still mislead. Before you trust one, ask who collected it, how the members were chosen, and whether any values are missing or impossible."
+          "text": "A large data set can still mislead. Check it for missing or impossible values too."
         },
         {
           "type": "text",
@@ -530,6 +530,10 @@
           ],
           "answer": "$\\text{day } 23, \\; \\text{evening } 17, \\; \\text{night } 10$",
           "video": null
+        },
+        {
+          "type": "text",
+          "text": "Sometimes the rounded sizes don't add up to the sample size. For $3$ equal strata and a sample of $10$, each is $3.33\\ldots$, which gives $3 + 3 + 3 = 9$. If the total is too small, add one to the stratum with the largest decimal part. If it is too big, take one from the stratum with the smallest decimal part."
         },
         {
           "type": "example",

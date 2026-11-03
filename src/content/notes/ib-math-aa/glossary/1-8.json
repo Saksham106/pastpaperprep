@@ -10,5 +10,17 @@
     "term": "partial sum",
     "definition": "The sum $S_{n}$ of the first $n$ terms of a series: the running total so far.",
     "lesson": "1.8"
+  },
+  {
+    "id": "convergent",
+    "term": "Convergent",
+    "definition": "A sequence or series is convergent if its terms (or its partial sums) settle on one finite value as $n \\to \\infty$.",
+    "lesson": "1.8"
+  },
+  {
+    "id": "divergent",
+    "term": "Divergent",
+    "definition": "A sequence or series is divergent if it does not converge: its values grow without limit or never settle on one value.",
+    "lesson": "1.8"
   }
 ]

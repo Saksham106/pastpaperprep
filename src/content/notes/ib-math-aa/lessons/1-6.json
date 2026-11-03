@@ -344,6 +344,10 @@
           "text": "Then aim for the form the result needs: $2 \\times (\\text{an integer})$ for even, $2 \\times (\\text{an integer}) + 1$ for odd. Always say why the bracket is an integer."
         },
         {
+          "type": "text",
+          "text": "Now prove the opening claim. Two odd numbers add to $(2m + 1) + (2n + 1) = 2m + 2n + 2 = 2(m + n + 1)$. $m + n + 1$ is an integer, so the sum is even, for every pair."
+        },
+        {
           "type": "example",
           "id": "ex-numbers-then-algebra",
           "question": "(a) Show that $19 \\times 21 = 20^{2} - 1$. (b) Prove that $(n - 1)(n + 1) \\equiv n^{2} - 1$. (c) Hence work out $49 \\times 51$ without a calculator.",

@@ -383,7 +383,7 @@
             "$f(x) = (x - 2)(x + 2)$ has roots $\\pm 2$ and a local minimum at $(0, -4)$.",
             "Rule 2: the roots give local minima $(-2, 0)$ and $(2, 0)$, where the graph touches the axis smoothly.",
             "Rule 3: the minimum $(0, -4)$ has $b = -4 < 0$, so it becomes a local maximum at $\\left(0, (-4)^{2}\\right) = (0, 16)$.",
-            "For $\\lvert x\\rvert > 2$, $f(x)$ is positive and growing, so the squared graph rises steeply at both ends. The result is a W shape.",
+            "For $\\lvert x\\rvert > 2$, $f(x)$ is positive and grows as $\\lvert x\\rvert$ grows, so the squared graph rises steeply at both ends. The result is a W shape.",
             "Check with the chain rule: $\\frac{\\mathrm{d}}{\\mathrm{d}x}(x^{2} - 4)^{2} = 4x(x^{2} - 4)$, which is zero at $x = 0$ and $x = \\pm 2$."
           ],
           "answer": "$(0, 16)$",

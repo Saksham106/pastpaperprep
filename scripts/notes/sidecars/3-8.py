@@ -200,8 +200,8 @@ def ex_gdc_intersect():
 
 
 def check_gdc_cos():
-    """2 cos x = x, 0 <= x <= 2pi (one root)."""
-    roots = gdc_roots(2 * cos(x) - x, 0, 2 * pi)
+    """3 cos x = x, 0 <= x <= 2pi (one root)."""
+    roots = gdc_roots(3 * cos(x) - x, 0, 2 * pi)
     assert len(roots) == 1
     return roots[0]
 
@@ -254,6 +254,12 @@ def check_cos2x_cos():
     return solutions(f, [(cos, x, 2 * u**2 + u - 1)], 0, 2 * pi)
 
 
+def ex_sin2x_common_factor():
+    """sin 2x = cos x, 0 <= x <= 2pi. sin 2x - cos x = cos x (2 sin x - 1)."""
+    f = sin(2 * x) - cos(x)
+    return solutions(f, [(cos, x, u), (sin, x, 2 * u - 1)], 0, 2 * pi)
+
+
 def check_sin2x_factor():
     """2 sin 2x = sin x, 0 <= x <= 2pi. 2 sin 2x - sin x = sin x (4 cos x - 1)."""
     f = 2 * sin(2 * x) - sin(x)
@@ -302,6 +308,7 @@ CHECKS = {
     "ex-quad-pythag": lambda tex: same_list(tex, ex_quad_pythag()),
     "ex-double-angle": lambda tex: check_rounded_list(tex, ex_double_angle(), sf=3),
     "check-cos2x-cos": lambda tex: same_list(tex, check_cos2x_cos()),
+    "ex-sin2x-common-factor": lambda tex: same_list(tex, ex_sin2x_common_factor()),
     "check-sin2x-factor": lambda tex: same_mixed_list(tex, check_sin2x_factor()),
     "check-tan-quadratic": lambda v, tolerance: check_numeric(v, check_tan_quadratic(), sf=3, tolerance=tolerance),
 }
@@ -328,7 +335,7 @@ if __name__ == "__main__":
         ("ex_sin_2x", ex_sin_2x), ("ex_cos_shift_degrees", ex_cos_shift_degrees), ("check_tan_3x", check_tan_3x),
         ("check_ferris", check_ferris), ("ex_quad_cos", ex_quad_cos), ("ex_quad_pythag", ex_quad_pythag),
         ("ex_double_angle", ex_double_angle), ("check_cos2x_cos", check_cos2x_cos),
-        ("check_sin2x_factor", check_sin2x_factor),
+        ("ex_sin2x_common_factor", ex_sin2x_common_factor), ("check_sin2x_factor", check_sin2x_factor),
         ("check_tan_quadratic", check_tan_quadratic), ("before_quadratic", before_quadratic),
     ]:
         result = fn()

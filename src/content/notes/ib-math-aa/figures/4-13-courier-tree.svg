@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" role="img" aria-labelledby="t">
+  <title id="t">Tree diagram with three first-stage branches: courier C1 with probability 0.5, C2 with 0.3 and C3 with 0.2. Each courier then branches to late L or on time L prime. Late probabilities are 0.04 after C1, 0.1 after C2 and 0.05 after C3. The three late paths are highlighted, with products 0.02, 0.03 and 0.01.</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <line x1="20" y1="150" x2="135" y2="55"/>
+    <line x1="20" y1="150" x2="135" y2="150"/>
+    <line x1="20" y1="150" x2="135" y2="245"/>
+    <line x1="170" y1="55" x2="270" y2="80"/>
+    <line x1="170" y1="150" x2="270" y2="175"/>
+    <line x1="170" y1="245" x2="270" y2="270"/>
+  </g>
+  <g stroke="var(--t3-ink)" stroke-width="3" fill="none">
+    <line x1="170" y1="55" x2="270" y2="30"/>
+    <line x1="170" y1="150" x2="270" y2="125"/>
+    <line x1="170" y1="245" x2="270" y2="220"/>
+  </g>
+  <g font-family="inherit" font-size="14" fill="currentColor">
+    <text x="141" y="60" fill="var(--t1-ink)" font-weight="bold">C1</text>
+    <text x="141" y="155" fill="var(--t1-ink)" font-weight="bold">C2</text>
+    <text x="141" y="250" fill="var(--t1-ink)" font-weight="bold">C3</text>
+    <text x="278" y="35" fill="var(--t3-ink)" font-weight="bold">L</text>
+    <text x="278" y="85">L′</text>
+    <text x="278" y="130" fill="var(--t3-ink)" font-weight="bold">L</text>
+    <text x="278" y="180">L′</text>
+    <text x="278" y="225" fill="var(--t3-ink)" font-weight="bold">L</text>
+    <text x="278" y="275">L′</text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="currentColor">
+    <text x="48" y="90">0.5</text>
+    <text x="70" y="143">0.3</text>
+    <text x="48" y="222">0.2</text>
+    <text x="200" y="35">0.04</text>
+    <text x="200" y="85">0.96</text>
+    <text x="200" y="130">0.1</text>
+    <text x="200" y="180">0.9</text>
+    <text x="200" y="225">0.05</text>
+    <text x="200" y="275">0.95</text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="var(--muted)">
+    <text x="310" y="35">0.5 × 0.04 = 0.02</text>
+    <text x="310" y="130">0.3 × 0.1 = 0.03</text>
+    <text x="310" y="225">0.2 × 0.05 = 0.01</text>
+  </g>
+</svg>

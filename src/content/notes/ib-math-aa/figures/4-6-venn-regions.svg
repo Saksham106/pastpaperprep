@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" role="img" aria-labelledby="t">
+  <title id="t">A rectangle labelled U holds two overlapping circles, A on the left and B on the right. The four regions are labelled: A and not B, A and B in the overlap, not A and B, and not A and not B outside both circles.</title>
+  <rect x="10" y="10" width="400" height="240" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <circle cx="165" cy="128" r="88" fill="var(--t1-ink)" fill-opacity="0.12" stroke="var(--t1-ink)" stroke-width="2"/>
+  <circle cx="255" cy="128" r="88" fill="var(--t2-ink)" fill-opacity="0.12" stroke="var(--t2-ink)" stroke-width="2"/>
+  <g font-family="inherit" font-size="15">
+    <text x="24" y="34" fill="currentColor">U</text>
+    <text x="92" y="52" fill="var(--t1-ink)" font-weight="bold">A</text>
+    <text x="318" y="52" fill="var(--t2-ink)" font-weight="bold">B</text>
+  </g>
+  <g font-family="inherit" font-size="14" fill="currentColor" text-anchor="middle">
+    <text x="125" y="133">A ∩ B′</text>
+    <text x="210" y="133">A ∩ B</text>
+    <text x="295" y="133">A′ ∩ B</text>
+    <text x="340" y="236">A′ ∩ B′</text>
+  </g>
+</svg>

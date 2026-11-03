@@ -143,7 +143,7 @@
           "question": "Omar's account pays compound interest once a year at a fixed rate. He makes no other deposits or withdrawals. His balance is $1590$ euros at the end of year 1 and $1685.40$ euros at the end of year 2. Find the interest rate and the amount he first invested.",
           "steps": [
             "The yearly balances form a geometric sequence, so divide one balance by the one before it: $\\frac{1685.40}{1590}$.",
-            "By hand, $1590 \\times 1.06 = 1685.4$, so the ratio is $1.06$ and the interest rate is $6\\%$.",
+            "Year 2's interest is $1685.40 - 1590 = 95.40$, and $\\frac{95.40}{1590} = 0.06$. So the ratio is $1 + 0.06 = 1.06$ and the interest rate is $6\\%$.",
             "The year-1 balance is one year of growth after the deposit $PV$: $PV \\times 1.06 = 1590$.",
             "Divide: $PV = \\frac{1590}{1.06} = 1500$ euros.",
             "Check: $1500 \\times 1.06^{2} = 1500 \\times 1.1236 = 1685.40$."

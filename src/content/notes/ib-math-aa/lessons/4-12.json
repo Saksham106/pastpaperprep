@@ -1,0 +1,528 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "4.12",
+  "slug": "standard-normal-variables",
+  "title": "Standard normal variables",
+  "level": "SL",
+  "topic": 4,
+  "summary": "A [[z-value|z-value]] says how many standard deviations a value lies from the mean, so you can compare values from different normal distributions. Every normal variable standardises to the [[standard-normal-distribution|standard normal]] $Z \\sim \\mathrm{N}(0, 1)$. That lets you find an unknown mean or standard deviation from a probability, which inverse normal alone can't do.",
+  "goals": [
+    {
+      "text": "Standardise a value with $z = \\frac{x - \\mu}{\\sigma}$ and say what its [[z-value|z-value]] tells you.",
+      "bullets": [
+        "4.12-b1"
+      ]
+    },
+    {
+      "text": "Use the [[standard-normal-distribution|standard normal distribution]] to find probabilities and numbers of standard deviations.",
+      "bullets": [
+        "4.12-b1"
+      ]
+    },
+    {
+      "text": "Find an unknown mean or an unknown standard deviation from a given probability, using inverse normal and a $z$-value.",
+      "bullets": [
+        "4.12-b2"
+      ]
+    },
+    {
+      "text": "Find both the mean and the standard deviation from two probabilities by solving two equations.",
+      "bullets": [
+        "4.12-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.9"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "z score",
+    "standardising",
+    "standard normal distribution",
+    "find the standard deviation normal",
+    "unknown mean normal distribution",
+    "number of standard deviations from the mean"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-normal-cdf",
+      "prompt": "$X \\sim \\mathrm{N}(30, 4^{2})$. Use your calculator to find $\\mathrm{P}(X < 33)$. Give your answer to 3 s.f.",
+      "hint": "Normal cdf with lower bound $-1\\text{E}99$, upper bound $33$, mean $30$ and standard deviation $4$.",
+      "answer": {
+        "value": 0.773,
+        "tolerance": 0.0005
+      },
+      "explain": "$\\mathrm{P}(X < 33) = 0.773372\\ldots \\approx 0.773$. Revise it in {{lesson:4.9}}."
+    },
+    {
+      "type": "check",
+      "id": "before-inverse-normal",
+      "prompt": "$X \\sim \\mathrm{N}(120, 225)$ and $\\mathrm{P}(X > k) = 0.1$. Find $k$.",
+      "hint": "The second number is the variance. What area lies to the left of $k$?",
+      "options": [
+        {
+          "text": "$k \\approx 139$",
+          "correct": true
+        },
+        {
+          "text": "$k \\approx 101$",
+          "correct": false
+        },
+        {
+          "text": "$k \\approx 408$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\sigma = \\sqrt{225} = 15$ and the area to the left of $k$ is $0.9$, so inverse normal gives $k = 139.223\\ldots \\approx 139$. The value $101$ uses $0.1$ as the left area, and $408$ enters the variance as $\\sigma$. Revise it in {{lesson:4.9}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "z-values",
+      "heading": "Standardising: the z-value",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Ali scores $74$ on a test where the class mean is $60$. Bea scores $74$ on another test where the class mean is $68$. Ali is further above his mean. But who did better compared with their class?"
+        },
+        {
+          "type": "text",
+          "text": "That depends on the spread. Say Ali's class has [[standard-deviation|standard deviation]] $10$ and Bea's has $3$. Ali is $\\frac{74 - 60}{10} = 1.4$ standard deviations above his mean. Bea is $\\frac{74 - 68}{3} = 2$ above hers. So Bea did better relative to her class."
+        },
+        {
+          "type": "text",
+          "text": "Counting in standard deviations puts every normal distribution on one scale. That count is the [[z-value|z-value]]."
+        },
+        {
+          "type": "definition",
+          "term": "Standardised value (z-value)",
+          "statement": "If $X \\sim \\mathrm{N}(\\mu, \\sigma^{2})$, the standardised value of $x$ is $z = \\frac{x - \\mu}{\\sigma}$. It is the number of standard deviations that $x$ lies from the mean $\\mu$.",
+          "plain": "Subtract the mean, then divide by the standard deviation."
+        },
+        {
+          "type": "formula",
+          "tex": "z = \\dfrac{x - \\mu}{\\sigma}",
+          "tag": "booklet",
+          "bookletId": "bk-4-12-z-score",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet, so you don't need to memorise it. You do need to know what it means."
+        },
+        {
+          "type": "text",
+          "text": "The sign tells you the side. $z > 0$ means above the mean, $z < 0$ means below it, and $z = 0$ is the mean itself. The size tells you how far, counted in standard deviations."
+        },
+        {
+          "type": "text",
+          "text": "Rearranging gives a value from its $z$-value: start at the mean and take $z$ steps of size $\\sigma$."
+        },
+        {
+          "type": "formula",
+          "tex": "x = \\mu + z\\sigma",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-z-basic",
+          "question": "The masses $M$ grams of kiwi fruit from a farm are modelled by $M \\sim \\mathrm{N}(64, 8^{2})$. Find the $z$-value of a kiwi fruit with mass $52$ g.",
+          "steps": [
+            "Read the model: $\\mu = 64$ and $\\sigma = 8$.",
+            "Subtract the mean: $52 - 64 = -12$. The fruit is $12$ g below the mean.",
+            "Divide by the standard deviation: $z = \\frac{-12}{8} = -1.5$.",
+            "Interpret: the fruit is $1.5$ standard deviations below the mean. The minus sign means below."
+          ],
+          "answer": "$z = -1.5$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-z-compare-marks",
+          "question": "Chemistry marks $C$ in a school are modelled by $C \\sim \\mathrm{N}(66, 10^{2})$, and Biology marks $B$ by $B \\sim \\mathrm{N}(58, 6^{2})$. Priya scores $81$ in Chemistry. Find the Biology mark $b$ that is the same number of standard deviations above its mean.",
+          "steps": [
+            "Standardise Priya's Chemistry mark: $z = \\frac{81 - 66}{10} = \\frac{15}{10} = 1.5$.",
+            "The Biology mark must have the same $z$-value: $\\frac{b - 58}{6} = 1.5$.",
+            "Solve: $b - 58 = 1.5 \\times 6 = 9$, so $b = 58 + 9 = 67$.",
+            "Since both marks have $z = 1.5$, the same fraction of students beats each one: $\\mathrm{P}(B > 67) = \\mathrm{P}(C > 81)$."
+          ],
+          "answer": "$b = 67$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by the variance. If $X \\sim \\mathrm{N}(66, 100)$, then $\\sigma = \\sqrt{100} = 10$. Standardise with $10$, not $100$."
+        },
+        {
+          "type": "check",
+          "id": "check-z-direct",
+          "prompt": "The lengths $L$ cm of a type of leaf are modelled by $L \\sim \\mathrm{N}(3.2, 0.4^{2})$. Find the $z$-value of a leaf of length $2.7$ cm.",
+          "hint": "Subtract the mean first, then divide by $0.4$. Is the leaf above or below the mean?",
+          "answer": {
+            "value": -1.25,
+            "tolerance": 0
+          },
+          "explain": "$z = \\frac{2.7 - 3.2}{0.4} = \\frac{-0.5}{0.4} = -1.25$. The leaf is $1.25$ standard deviations below the mean."
+        },
+        {
+          "type": "check",
+          "id": "check-z-meaning",
+          "prompt": "Test marks are modelled by $X \\sim \\mathrm{N}(50, 4^{2})$. Which statement describes a mark of $42$?",
+          "hint": "Work out $z = \\frac{x - \\mu}{\\sigma}$. Its sign gives the side, its size the distance.",
+          "options": [
+            {
+              "text": "It is 2 standard deviations below the mean.",
+              "correct": true
+            },
+            {
+              "text": "It is 2 standard deviations above the mean.",
+              "correct": false
+            },
+            {
+              "text": "It is 8 standard deviations below the mean.",
+              "correct": false
+            },
+            {
+              "text": "It is 0.5 standard deviations below the mean.",
+              "correct": false
+            }
+          ],
+          "explain": "$z = \\frac{42 - 50}{4} = -2$. The $8$ is the gap in marks, not in standard deviations, and $0.5$ comes from dividing by the variance $16$."
+        }
+      ]
+    },
+    {
+      "id": "standard-normal",
+      "heading": "Probabilities with the standard normal",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Standardise every value of $X$ and you get a new variable, $Z$, with the [[standard-normal-distribution|standard normal distribution]]. The mean of $X$ becomes $z = 0$, so $Z$ has mean $0$. A step of one $\\sigma$ becomes a step of $1$, so $Z$ has [[standard-deviation|standard deviation]] $1$."
+        },
+        {
+          "type": "definition",
+          "term": "Standard normal distribution",
+          "statement": "The [[normal-distribution|normal distribution]] with mean $0$ and variance $1$. A variable with this distribution is written $Z \\sim \\mathrm{N}(0, 1)$.",
+          "plain": "The normal curve you get when every value is measured in standard deviations from the mean."
+        },
+        {
+          "type": "result",
+          "statement": "If $X \\sim \\mathrm{N}(\\mu, \\sigma^{2})$ and $z = \\frac{x - \\mu}{\\sigma}$, then $\\mathrm{P}(X < x) = \\mathrm{P}(Z < z)$, where $Z \\sim \\mathrm{N}(0, 1)$.",
+          "why": "Standardising only relabels the axis: the curve slides to centre $0$ and rescales, so each area keeps its size."
+        },
+        {
+          "type": "text",
+          "text": "Try it below with $X \\sim \\mathrm{N}(140, 12^{2})$ on top and $Z$ underneath. Move $x$: the two shaded areas stay equal."
+        },
+        {
+          "type": "interactive",
+          "widget": "z-standardise",
+          "props": {
+            "mu": 140,
+            "sigma": 12,
+            "z": 1.75,
+            "mode": "x"
+          },
+          "alt": "Two normal curves, one above the other. The top curve has mean 140 and standard deviation 12, and the bottom curve is the standard normal with mean 0 and standard deviation 1. The area to the left of x is shaded on the top curve, and the area to the left of the matching z-value is shaded on the bottom curve. Sliders change the mean, the standard deviation and x, or a probability, and the working shows z, x and the shared probability."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 you find these areas with technology. Normal cdf gives the same answer with [[z-value|z-value]] bounds and mean $0$, standard deviation $1$, as with $x$-bounds and $\\mu$, $\\sigma$."
+        },
+        {
+          "type": "text",
+          "text": "You need the $z$ form when a question counts standard deviations from the mean, or when $\\mu$ or $\\sigma$ is unknown. On Paper 1, the 68–95–99.7 rule from {{lesson:4.9}} reads $\\mathrm{P}(-1 < Z < 1) \\approx 0.68$, and so on."
+        },
+        {
+          "type": "example",
+          "id": "ex-z-prob",
+          "question": "The times $T$ seconds that runners in a club take to run $800$ m are modelled by $T \\sim \\mathrm{N}(140, 12^{2})$. Standardise, then use your calculator to find the probability that a runner takes more than $161$ seconds. Give your answer to 3 s.f.",
+          "steps": [
+            "Standardise the bound: $z = \\frac{161 - 140}{12} = \\frac{21}{12} = 1.75$.",
+            "Rewrite the probability: $\\mathrm{P}(T > 161) = \\mathrm{P}(Z > 1.75)$.",
+            "Normal cdf with lower bound $1.75$, upper bound $1\\text{E}99$, mean $0$ and standard deviation $1$ gives $0.0400591\\ldots$",
+            "Check: normal cdf from $161$ to $1\\text{E}99$ with mean $140$ and standard deviation $12$ gives the same $0.0400591\\ldots$",
+            "Sense check: $161$ is well above the mean, so a small right tail makes sense."
+          ],
+          "answer": "$\\mathrm{P}(T > 161) \\approx 0.0401$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "2nd, VARS (DISTR), normalcdf(",
+              "Enter lower 1.75, upper 1E99, mean 0, standard deviation 1",
+              "ENTER, and read 0.0400591…"
+            ],
+            "nspire": [
+              "Calculator page, Menu, Statistics, Distributions, Normal Cdf",
+              "Lower Bound 1.75, Upper Bound 1E99, mean 0, standard deviation 1",
+              "OK, and read 0.0400591…"
+            ],
+            "casio": [
+              "STAT, DIST, NORM, Ncd",
+              "Data: Variable, Lower 1.75, Upper 1E99, then the standard deviation 1 before the mean 0",
+              "EXE, and read 0.0400591…"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-within-k",
+          "question": "For a normally distributed variable $X$, $90\\%$ of values lie within $k$ standard deviations of the mean. Find $k$, to 3 s.f.",
+          "steps": [
+            "Write the condition with $Z$: $\\mathrm{P}(-k < Z < k) = 0.9$. It doesn't matter what $\\mu$ and $\\sigma$ are.",
+            "The two tails share $1 - 0.9 = 0.1$, so each holds $0.05$.",
+            "The area to the left of $k$ is $0.05 + 0.9 = 0.95$.",
+            "Inverse normal with area $0.95$, mean $0$ and standard deviation $1$ gives $k = 1.64485\\ldots$",
+            "Check: $90\\%$ is a little less than the $95\\%$ within $2$ standard deviations, so $k$ just under $2$ makes sense."
+          ],
+          "answer": "$k \\approx 1.64$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up the two scales. A bound written as a $z$-value goes with mean $0$ and standard deviation $1$. A bound in the units of $X$ goes with $\\mu$ and $\\sigma$."
+        },
+        {
+          "type": "check",
+          "id": "check-which-z",
+          "prompt": "$Y \\sim \\mathrm{N}(80, 25)$. Which probability equals $\\mathrm{P}(Y < 72)$?",
+          "hint": "Find $\\sigma$ from the variance, then standardise $72$.",
+          "options": [
+            {
+              "text": "$\\mathrm{P}(Z < -1.6)$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{P}(Z < 1.6)$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{P}(Z < -0.32)$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{P}(Z < -8)$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sigma = \\sqrt{25} = 5$, so $z = \\frac{72 - 80}{5} = -1.6$. The value $-0.32$ divides by the variance, and $-8$ forgets to divide at all."
+        },
+        {
+          "type": "check",
+          "id": "check-below-sd",
+          "prompt": "A variable is normally distributed. Find the probability that a value is more than $2.2$ standard deviations below the mean. Give your answer to 3 s.f.",
+          "hint": "More than $2.2$ standard deviations below the mean means $Z < -2.2$.",
+          "answer": {
+            "value": 0.0139,
+            "tolerance": 5e-05
+          },
+          "explain": "$\\mathrm{P}(Z < -2.2) = 0.0139034\\ldots \\approx 0.0139$, using normal cdf with mean $0$ and standard deviation $1$."
+        }
+      ]
+    },
+    {
+      "id": "unknown",
+      "heading": "Finding an unknown mean or standard deviation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Inverse normal on your GDC needs the mean and the [[standard-deviation|standard deviation]]. If one of them is unknown, you can't type it in. But the [[standard-normal-distribution|standard normal]] $Z \\sim \\mathrm{N}(0, 1)$ has both known, so find the [[z-value|z-value]] there first."
+        },
+        {
+          "type": "text",
+          "text": "1. Sketch the curve. Write the condition as an area to the left, $\\mathrm{P}(X < x) = p$."
+        },
+        {
+          "type": "text",
+          "text": "2. Use [[inverse-normal|inverse normal]] with area $p$, mean $0$ and standard deviation $1$. This gives $z$."
+        },
+        {
+          "type": "text",
+          "text": "3. Write the equation $\\frac{x - \\mu}{\\sigma} = z$ and solve it for the unknown."
+        },
+        {
+          "type": "text",
+          "text": "4. Check the sign. A value below the mean has a negative $z$, and $\\sigma$ must come out positive."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(X < x) = p \\implies \\frac{x - \\mu}{\\sigma} = z, \\text{ where } \\mathrm{P}(Z < z) = p",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-unknown-sigma",
+          "question": "The time $B$ hours that a phone battery lasts on a full charge is modelled by $B \\sim \\mathrm{N}(18, \\sigma^{2})$. $10\\%$ of batteries last less than $15$ hours. Find $\\sigma$.",
+          "steps": [
+            "Write the condition: $\\mathrm{P}(B < 15) = 0.1$. It is already an area to the left.",
+            "Standardise: $\\mathrm{P}\\left(Z < \\frac{15 - 18}{\\sigma}\\right) = 0.1$.",
+            "Inverse normal with area $0.1$, mean $0$ and standard deviation $1$ gives $z = -1.28155\\ldots$",
+            "Write the equation: $\\frac{15 - 18}{\\sigma} = -1.28155\\ldots$, so $\\sigma = \\frac{-3}{-1.28155\\ldots} = 2.34091\\ldots$",
+            "Check: $15$ is below the mean, so $z$ is negative, and $\\sigma$ comes out positive."
+          ],
+          "answer": "$\\sigma \\approx 2.34$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-unknown-mean",
+          "question": "A machine fills jars with honey. The mass $M$ grams of honey in a jar is modelled by $M \\sim \\mathrm{N}(\\mu, 2.5^{2})$. The machine is set so that $4\\%$ of jars hold less than $450$ g. Find $\\mu$.",
+          "steps": [
+            "Write the condition: $\\mathrm{P}(M < 450) = 0.04$.",
+            "Inverse normal with area $0.04$, mean $0$ and standard deviation $1$ gives $z = -1.75068\\ldots$",
+            "Write the equation: $\\frac{450 - \\mu}{2.5} = -1.75068\\ldots$",
+            "Multiply by $2.5$: $450 - \\mu = -4.37671\\ldots$, so $\\mu = 450 + 4.37671\\ldots = 454.376\\ldots$",
+            "Check: only $4\\%$ are below $450$, so $450$ must be below the mean, and $454 > 450$."
+          ],
+          "answer": "$\\mu \\approx 454$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-unknown-mean",
+          "prompt": "$X \\sim \\mathrm{N}(\\mu, 6^{2})$ and $\\mathrm{P}(X < 40) = 0.3$. Find $\\mu$. Give your answer to 3 s.f.",
+          "hint": "Find $z$ with area $0.3$ on the standard normal. Is $40$ above or below the mean?",
+          "answer": {
+            "value": 43.1,
+            "tolerance": 0.05
+          },
+          "explain": "$z = -0.524400\\ldots$, so $\\frac{40 - \\mu}{6} = -0.524400\\ldots$ and $\\mu = 40 + 6 \\times 0.524400\\ldots = 43.1464\\ldots \\approx 43.1$."
+        },
+        {
+          "type": "mistake",
+          "text": "Using the given area on the wrong side. If $\\mathrm{P}(X > x) = 0.2$, the area to the left is $0.8$. Using $0.2$ flips the sign of $z$ and can make $\\sigma$ negative, which is impossible."
+        },
+        {
+          "type": "check",
+          "id": "check-unknown-sigma",
+          "prompt": "Scores $S$ in a reaction game are modelled by $S \\sim \\mathrm{N}(72, \\sigma^{2})$, and $\\mathrm{P}(S > 80) = 0.2$. Find $\\sigma$.",
+          "hint": "What area lies to the left of $80$? Then solve $\\frac{80 - 72}{\\sigma} = z$.",
+          "options": [
+            {
+              "text": "$\\sigma \\approx 9.51$",
+              "correct": true
+            },
+            {
+              "text": "$\\sigma \\approx -9.51$",
+              "correct": false
+            },
+            {
+              "text": "$\\sigma \\approx 6.73$",
+              "correct": false
+            }
+          ],
+          "explain": "The area left of $80$ is $0.8$, so $z = 0.841621\\ldots$ and $\\sigma = \\frac{8}{0.841621\\ldots} = 9.50546\\ldots \\approx 9.51$. Using $0.2$ gives a negative $\\sigma$, and $6.73$ multiplies by $z$ instead of dividing."
+        },
+        {
+          "type": "text",
+          "text": "If both $\\mu$ and $\\sigma$ are unknown, you need two facts. Each probability gives one equation in $\\mu$ and $\\sigma$, so solve them together. Subtracting one equation from the other removes $\\mu$."
+        },
+        {
+          "type": "example",
+          "id": "ex-unknown-both",
+          "question": "The lengths $L$ mm of bolts made by a machine are normally distributed. $6\\%$ of bolts are shorter than $48.2$ mm and $11\\%$ are longer than $52.5$ mm. Use your calculator to find the mean $\\mu$ and the standard deviation $\\sigma$. Give your answers to 3 s.f.",
+          "steps": [
+            "Lower fact: $\\mathrm{P}(L < 48.2) = 0.06$. Inverse normal with area $0.06$, mean $0$, standard deviation $1$ gives $z = -1.55477\\ldots$, so $\\frac{48.2 - \\mu}{\\sigma} = -1.55477\\ldots$, which is $\\mu - 1.55477\\ldots\\sigma = 48.2$.",
+            "Upper fact: $\\mathrm{P}(L > 52.5) = 0.11$, so $\\mathrm{P}(L < 52.5) = 0.89$. Inverse normal gives $z = 1.22652\\ldots$, so $\\mu + 1.22652\\ldots\\sigma = 52.5$.",
+            "Subtract the first equation from the second: $(1.22652\\ldots + 1.55477\\ldots)\\sigma = 52.5 - 48.2$, so $2.78130\\ldots\\sigma = 4.3$ and $\\sigma = 1.54603\\ldots$",
+            "Substitute back: $\\mu = 48.2 + 1.55477\\ldots \\times 1.54603\\ldots = 50.6037\\ldots$",
+            "Check: $\\sigma > 0$, and $\\mu$ lies between $48.2$ and $52.5$, as the sketch of two tails says it must."
+          ],
+          "answer": "$\\mu \\approx 50.6, \\; \\sigma \\approx 1.55$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "2nd, VARS (DISTR), invNorm(",
+              "Enter area 0.06, mean 0, standard deviation 1, Tail LEFT, then ENTER, and read -1.55477…",
+              "Repeat with area 0.89 and read 1.22652…",
+              "Keep every digit (or store each value) for the two equations"
+            ],
+            "nspire": [
+              "Calculator page, Menu, Statistics, Distributions, Inverse Normal",
+              "Area 0.06, mean 0, standard deviation 1, then OK, and read -1.55477…",
+              "Repeat with area 0.89 and read 1.22652…",
+              "Keep every digit (or store each value) for the two equations"
+            ],
+            "casio": [
+              "STAT, DIST, NORM, InvN",
+              "Data: Variable, Tail: Left, Area 0.06, then the standard deviation 1 before the mean 0, then EXE, and read -1.55477…",
+              "Repeat with Area 0.89 and read 1.22652…",
+              "Keep every digit (or store each value) for the two equations"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "z = \\dfrac{x - \\mu}{\\sigma}",
+          "tag": "booklet",
+          "bookletId": "bk-4-12-z-score",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$z$ counts standard deviations from the mean: positive above, negative below. Rearranged, $x = \\mu + z\\sigma$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$Z \\sim \\mathrm{N}(0, 1)$ is the standard normal, and $\\mathrm{P}(X < x) = \\mathrm{P}(Z < z)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Unknown $\\mu$ or $\\sigma$: inverse normal with mean $0$ and standard deviation $1$ gives $z$, then solve $\\frac{x - \\mu}{\\sigma} = z$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Both unknown: two probabilities give two equations in $\\mu$ and $\\sigma$. Solve them together.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Inverse normal wants the area to the left: for $\\mathrm{P}(X > x) = p$, use $1 - p$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the given area on the wrong side in inverse normal. For more than, the area to the left is $1 - p$. A wrong side flips the sign of $z$, so check it against your sketch.",
+    "Mixing $z$-values and $x$-values. A bound given in standard deviations goes with mean $0$ and standard deviation $1$; a bound in the units of $X$ goes with $\\mu$ and $\\sigma$.",
+    "Giving the value $x$ when the question asks for a number of standard deviations. If it asks for $k$ standard deviations, the answer is the $z$-value.",
+    "Putting the whole leftover area in one tail. For the middle $90\\%$, each tail holds $5\\%$, so the upper bound has $95\\%$ to its left.",
+    "Rounding $z$ to $2$ or $3$ figures before solving for $\\mu$ or $\\sigma$. Keep the full value, or store it, and round only the final answer."
+  ],
+  "examTips": [
+    "Sketch the curve and shade the area for every condition. It tells you the sign of each $z$-value and whether the unknown value is above or below the mean.",
+    "On Paper 2, write down the inverse normal input, such as area $0.1$ with mean $0$ and standard deviation $1$, and the equation $\\frac{x - \\mu}{\\sigma} = z$ before you solve. Those lines earn the method marks.",
+    "When a later part uses $\\mu$ or $\\sigma$ that you found, use the stored values. A wrong earlier value used correctly can still earn follow-through marks.",
+    "Give answers to 3 s.f. unless the question says otherwise. Check that $\\sigma$ is positive before you write it down."
+  ],
+  "readingMinutes": 21
+}

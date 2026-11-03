@@ -395,7 +395,7 @@
         {
           "type": "definition",
           "term": "sigma notation",
-          "statement": "The letter $r$ is a counter. It takes every whole number from the value below the $\\sum$ to the value above it, and you add the results.",
+          "statement": "In $\\sum_{r=a}^{b} f(r)$, the counter $r$ takes each whole number from $a$ to $b$. Any letter can be the counter; $r$, $k$ and $i$ are common. Put each counter value into the general term $f(r)$, then add the results.",
           "plain": "Put each counter value into the expression, then add all the results."
         },
         {
@@ -473,7 +473,7 @@
           "type": "check",
           "id": "check-sigma-lower-limit",
           "prompt": "Evaluate $\\sum_{k=5}^{30}(40 - 2k)$.",
-          "hint": "The counter starts at $5$. Find the first term, the last term and how many terms there are.",
+          "hint": "Here the counter is $k$, and it starts at $5$. Find the first term, the last term and how many terms there are.",
           "answer": {
             "value": 130,
             "tolerance": 0

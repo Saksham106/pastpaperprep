@@ -1,0 +1,50 @@
+[
+  {
+    "id": "venn-diagram",
+    "term": "Venn diagram",
+    "definition": "A diagram that draws the sample space as a rectangle and each event as a circle inside it; where circles overlap, the outcomes are in both events.",
+    "lesson": "4.6"
+  },
+  {
+    "id": "intersection",
+    "term": "Intersection",
+    "definition": "The event $A \\cap B$, read \"$A$ and $B$\": the outcomes that are in both events.",
+    "lesson": "4.6"
+  },
+  {
+    "id": "union",
+    "term": "Union",
+    "definition": "The event $A \\cup B$, read \"$A$ or $B$\": the outcomes in at least one of the events, including those in both.",
+    "lesson": "4.6"
+  },
+  {
+    "id": "mutually-exclusive",
+    "term": "Mutually exclusive events",
+    "definition": "Events that cannot both happen, so $\\mathrm{P}(A \\cap B) = 0$.",
+    "lesson": "4.6"
+  },
+  {
+    "id": "conditional-probability",
+    "term": "Conditional probability",
+    "definition": "The probability $\\mathrm{P}(A \\mid B)$ that $A$ happens given that $B$ has happened, found as $\\frac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(B)}$.",
+    "lesson": "4.6"
+  },
+  {
+    "id": "tree-diagram",
+    "term": "Tree diagram",
+    "definition": "A diagram with one set of labelled branches for each stage of an experiment; you multiply probabilities along a path and add across paths.",
+    "lesson": "4.6"
+  },
+  {
+    "id": "without-replacement",
+    "term": "Without replacement",
+    "definition": "Choosing items one after another without putting each one back, so the total, and the probabilities, change after every pick.",
+    "lesson": "4.6"
+  },
+  {
+    "id": "independent-events",
+    "term": "Independent events",
+    "definition": "Events where one happening does not change the probability of the other, so $\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)$.",
+    "lesson": "4.6"
+  }
+]

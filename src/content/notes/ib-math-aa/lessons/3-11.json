@@ -99,7 +99,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "In {{lesson:3.5}} you moved the point $P(\\cos\\theta, \\sin\\theta)$ round the [[unit-circle|unit circle]]. Reflecting or rotating it gave these three results."
+          "text": "In {{lesson:3.5}} you moved the point $P(\\cos\\theta, \\sin\\theta)$ round the [[unit-circle|unit circle]]. Reflect $P$ in the $y$-axis. The new point is $(-\\cos\\theta, \\sin\\theta)$, at angle $\\pi - \\theta$. So the sine stays the same and the cosine changes sign."
         },
         {
           "type": "formula",
@@ -364,7 +364,7 @@
         },
         {
           "type": "text",
-          "text": "That one is in the formula booklet. The other is the [[pythagorean-identity|Pythagorean identity]] $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$ from {{lesson:3.6}}, which you need to know."
+          "text": "That one is in the formula booklet. The other is the [[pythagorean-identity|Pythagorean identity]] $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$ from {{lesson:3.6}}. It is in the booklet too."
         },
         {
           "type": "example",

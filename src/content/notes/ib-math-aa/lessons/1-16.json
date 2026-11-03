@@ -169,7 +169,7 @@
         {
           "type": "definition",
           "term": "Row echelon form",
-          "statement": "An augmented matrix is in [[row-echelon-form|row echelon form]] when each row's first non-zero entry lies to the right of the first non-zero entry of the row above, and any rows of zeros come last. So zeros fill the bottom-left and the rows form a staircase. Using row operations to reach it is called row reduction.",
+          "statement": "An augmented matrix is in [[row-echelon-form|row echelon form]] when each row's first non-zero entry lies to the right of the first non-zero entry of the row above, and any rows of zeros come last. Using row operations to reach it is called row reduction.",
           "plain": "Zeros fill the bottom-left corner, so you can solve from the bottom row up."
         },
         {
@@ -239,7 +239,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "On Paper 2 your GDC solves a system in seconds. Each model has a simultaneous-equation solver: you type the [[augmented-matrix|augmented matrix]] row by row, and it returns $x$, $y$ and $z$."
+          "text": "On Paper 2 your GDC's simultaneous-equation solver does this in seconds: you type the [[augmented-matrix|augmented matrix]] row by row, and it returns $x$, $y$ and $z$."
         },
         {
           "type": "text",
@@ -286,7 +286,7 @@
         },
         {
           "type": "text",
-          "text": "If there is no unique solution, the solver says so or shows the answer in terms of a free variable. Either way, show which case it is by row reduction, as the next two sections do."
+          "text": "If there is no unique solution, the solver says so or answers in terms of a free variable. Show which case it is by row reduction, as the next two sections do."
         },
         {
           "type": "text",
@@ -301,7 +301,7 @@
             "With $x = 2$ and $y = -1$: $4a + 2b + c = -1$. With $x = 4$ and $y = 13$: $16a + 4b + c = 13$. Call these (2) and (3).",
             "Remove $c$, which has coefficient $1$ in every equation. (2) $-$ (1) gives $3a + 3b = -9$, so $a + b = -3$. (3) $-$ (2) gives $12a + 2b = 14$, so $6a + b = 7$.",
             "Subtract: $5a = 10$, so $a = 2$. Then $b = -3 - 2 = -5$, and (1) gives $c = 8 - a + b = 8 - 2 - 5 = 1$.",
-            "Check $(4, 13)$: $2(16) - 5(4) + 1 = 13$. On Paper 2 the GDC solver gives the same $a$, $b$ and $c$ from the augmented matrix of (1), (2) and (3)."
+            "Check $(4, 13)$: $2(16) - 5(4) + 1 = 13$. It works."
           ],
           "answer": "$y = 2x^{2} - 5x + 1$",
           "video": null
@@ -430,11 +430,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Now suppose row reduction ends with a whole row of zeros, $(0,\\ 0,\\ 0 \\mid 0)$. It says $0 = 0$, which is always true. That equation added nothing new: it was a combination of the others."
-        },
-        {
-          "type": "text",
-          "text": "Usually that leaves only two equations for three unknowns. One unknown is free to take any value, and the other two follow from it. There are infinitely many solutions."
+          "text": "Now suppose row reduction ends with a whole row of zeros, $(0,\\ 0,\\ 0 \\mid 0)$. It says $0 = 0$: that equation was a combination of the others and adds nothing. Usually two equations are left for three unknowns, so one unknown is free and the other two follow from it. There are infinitely many solutions."
         },
         {
           "type": "definition",
@@ -481,14 +477,6 @@
           ],
           "answer": "$p = 2, \\; x = 1 - \\lambda, \\; y = 1 + \\lambda, \\; z = \\lambda$",
           "video": null
-        },
-        {
-          "type": "mistake",
-          "text": "Making the coefficient in the last row zero and stopping there. A row $(0,\\ 0,\\ 0 \\mid c)$ gives infinitely many solutions only when $c = 0$ as well. When $c \\neq 0$ there are none."
-        },
-        {
-          "type": "examTip",
-          "text": "“Interpret geometrically” asks how the planes are arranged. Infinitely many solutions along a line means all three planes pass through one shared line. They are not parallel, and they are not all the same plane."
         },
         {
           "type": "check",
@@ -540,7 +528,7 @@
         },
         {
           "type": "fact",
-          "text": "Row operations: swap two rows, multiply a row by a non-zero number, add a multiple of one row to another. Apply each to the whole row, right-hand side included.",
+          "text": "Row operations: swap two rows, multiply a row by a non-zero number, add a multiple of one row to another.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -561,28 +549,21 @@
           "text": "A row $(0,\\ 0,\\ 0 \\mid 0)$ with two independent rows left means infinitely many solutions. Let one unknown (often $z$) be $\\lambda$ and give $x$, $y$ and $z$ in terms of $\\lambda$.",
           "tag": "learn",
           "cheatSheet": true
-        },
-        {
-          "type": "fact",
-          "text": "Paper 2: write down the system or augmented matrix you enter, then the GDC values to 3 s.f.",
-          "tag": "learn",
-          "cheatSheet": true
         }
       ]
     }
   ],
   "mistakes": [
-    "Making only the coefficient in the last row zero. For infinitely many solutions the right-hand side must be zero too. A row $(0,\\ 0,\\ 0 \\mid c)$ with $c \\neq 0$ means no solution.",
-    "Saying that three planes meeting in a line are parallel or coincident. Parallel planes never meet, and coincident planes are one plane. Say they meet in a common line.",
+    "Making the last row's coefficient zero and claiming infinitely many solutions. The right-hand side must be zero too; if it is not, there is no solution.",
+    "Calling three planes that meet in a line parallel or coincident. Say they meet in a common line.",
     "Giving only $x$ and $y$ in terms of $\\lambda$. A general solution states all three unknowns, including $z = \\lambda$.",
-    "Dividing by an expression such as $m - 2$ without checking $m = 2$. Test the value that makes it zero as a separate case.",
-    "Applying a row operation to the coefficients but not to the number after the bar. Every entry in the row changes."
+    "Dividing by an expression such as $m - 2$ without testing $m = 2$ as a separate case.",
+    "Changing the coefficients in a row but not the number after the bar."
   ],
   "examTips": [
     "“Solve” on Paper 2: write down the system or augmented matrix you entered, then the solver's values to 3 s.f.",
-    "“Find the value of $k$”: reduce until the last row holds only $k$ and numbers. No solution needs the coefficient zero and the right side non-zero. Infinitely many needs both zero.",
-    "“Interpret geometrically”: one solution means the three planes meet at a point, infinitely many usually means they meet in a common line (or all three are the same plane), and no solution means they share no point.",
-    "Give a general solution with every unknown in terms of one parameter, and substitute it back into each equation as a check."
+    "“Find the value of $k$”: reduce until the last row holds only $k$ and numbers, then test the value of $k$ that makes its coefficient zero.",
+    "“Interpret geometrically”: one solution means the three planes meet at a point, infinitely many usually means they meet in a common line (or all three are the same plane), and no solution means they share no point."
   ],
-  "readingMinutes": 22
+  "readingMinutes": 25
 }

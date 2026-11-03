@@ -282,7 +282,7 @@
         },
         {
           "type": "text",
-          "text": "Here $\\boldsymbol{d}$ is the line's direction. For a point, set $z = 0$ and solve for $x$ and $y$. If $\\boldsymbol{d}$ has $z$-component $0$, set $x$ or $y$ to $0$ instead."
+          "text": "Here $\\boldsymbol{d}$ is the line's direction. For a point, set to $0$ a coordinate whose component in $\\boldsymbol{d}$ is non-zero (usually $z$). Then solve for the other two."
         },
         {
           "type": "example",
@@ -720,7 +720,7 @@
         },
         {
           "type": "fact",
-          "text": "Two planes with non-parallel normals meet in a line with direction $\\boldsymbol{n}_{1} \\times \\boldsymbol{n}_{2}$. Find a point by setting $z = 0$ (or $x = 0$ or $y = 0$ if the direction's $z$-component is $0$).",
+          "text": "Two planes with non-parallel normals meet in a line with direction $\\boldsymbol{n}_{1} \\times \\boldsymbol{n}_{2}$. Find a point by setting to $0$ a coordinate whose component in the direction is non-zero (usually $z$).",
           "tag": "learn",
           "cheatSheet": true
         },

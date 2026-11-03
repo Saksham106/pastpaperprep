@@ -10,5 +10,11 @@
     "term": "principal axis",
     "definition": "The horizontal line halfway between the maximum and minimum of a sine or cosine wave; for $y = a\\sin(b(x + c)) + d$ it is $y = d$.",
     "lesson": "3.7"
+  },
+  {
+    "id": "periodic-function",
+    "term": "periodic function",
+    "definition": "A function whose graph repeats: there is a constant $p > 0$ with $f(x + p) = f(x)$ for every $x$, and the smallest such $p$ is the period.",
+    "lesson": "3.7"
   }
 ]

@@ -496,13 +496,13 @@
             "ti84": [
               "STAT, 1: Edit, type the distances into L1 and the times into L2 (check on your model)",
               "MODE, set Stat Diagnostics to ON so that r is shown",
-              "STAT, CALC, 4: LinReg(ax+b), Xlist L1, Ylist L2, ENTER",
+              "STAT, CALC, 4: LinReg(ax+b), Xlist: L1, Ylist: L2, move to Calculate, ENTER",
               "Read a = 2.682..., b = 5.828... and r = 0.9987..."
             ],
             "nspire": [
-              "Lists & Spreadsheet page, type the distances into column A and the times into column B (check on your model)",
+              "Lists & Spreadsheet page, name column A dist and column B time in the header row, then type the distances under dist and the times under time (check on your model)",
               "Menu, Statistics, Stat Calculations, Linear Regression (mx+b)",
-              "Choose column A as the X List and column B as the Y List, then OK (check on your model)",
+              "Choose dist as the X List and time as the Y List, then OK (check on your model)",
               "Read m = 2.682... (this is a), b = 5.828... and r = 0.9987..."
             ],
             "casio": [
@@ -539,7 +539,7 @@
             "(b) Each kilometre adds $a$ dollars, so $6$ more add $6a = 6 \\times 1.85 = 11.1$ dollars.",
             "Substituting $x = 6$ would give the fare for a $6$ km trip, not the extra cost."
           ],
-          "answer": "$6a = 6 \\times 1.85 = 11.1$",
+          "answer": "$6a = 6 \\times 1.85 = 11.1\\text{ dollars}$",
           "video": null
         },
         {
@@ -623,7 +623,7 @@
             "(b) $90$ km is far outside the data: extrapolation. On a much longer ride the cyclist may tire, so it is unreliable.",
             "(c) That rearranges the $y$ on $x$ line to predict $x$. Use the line of $x$ on $y$ instead."
           ],
-          "answer": "$y \\approx 113$",
+          "answer": "$y \\approx 113\\text{ minutes}$",
           "video": null
         },
         {
@@ -634,7 +634,7 @@
             "(a) $y = 6.1 \\times 8 + 77 = 48.8 + 77 = 125.8$ cm. Age $8$ is inside the data, so this is reasonable.",
             "(b) $y = 6.1 \\times 30 + 77 = 260$ cm, which is impossible. People stop growing in their late teens, so extrapolating to age $30$ fails."
           ],
-          "answer": "$y = 6.1 \\times 8 + 77 = 125.8$",
+          "answer": "$y = 6.1 \\times 8 + 77 = 125.8\\text{ cm}$",
           "video": null
         },
         {

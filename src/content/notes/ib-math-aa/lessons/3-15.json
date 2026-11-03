@@ -122,7 +122,7 @@
         },
         {
           "type": "text",
-          "text": "Picture a road on a bridge and a railway underneath it, heading off in another direction. They are not parallel, but they never meet. Lines like these are called skew."
+          "text": "Picture a road on a bridge and a railway underneath it, heading off in another direction. They are not [[parallel-lines|parallel]], but they never meet. Lines like these are called [[skew-lines|skew]]."
         },
         {
           "type": "definition",
@@ -140,7 +140,7 @@
         },
         {
           "type": "text",
-          "text": "2. [[parallel-lines|Parallel]]: the same direction, but no point in common."
+          "text": "2. Parallel: the same direction, but no point in common."
         },
         {
           "type": "text",
@@ -148,7 +148,7 @@
         },
         {
           "type": "text",
-          "text": "4. [[skew-lines|Skew]]: different directions and no point in common."
+          "text": "4. Skew: different directions and no point in common."
         },
         {
           "type": "figure",
@@ -547,7 +547,7 @@
             "Equate the $x$- and $y$-components and tidy them into the form the solver needs: $3\\lambda - 4\\mu = -10$ and $5\\lambda + 3\\mu = 12$. Write these down: they earn the method mark.",
             "Solve them with the simultaneous equation solver: $\\lambda = 0.620689\\ldots$ and $\\mu = 2.965517\\ldots$. Some models show them as fractions, $\\frac{18}{29}$ and $\\frac{86}{29}$. Keep the full values.",
             "Test the $z$-equation with those values. $L_1$ gives $7 - 2\\lambda = 5.758620\\ldots$, and $L_2$ gives $3 + \\mu = 5.965517\\ldots$.",
-            "The two values differ, so there is no common point. The lines are not parallel either, so they are skew. (Exactly, $\\lambda = \\frac{18}{29}$ and $\\mu = \\frac{86}{29}$.)"
+            "The two values differ, so there is no common point. The lines are not parallel either, so they are skew."
           ],
           "answer": "$L_1 \\text{ and } L_2 \\text{ are skew}$",
           "video": null

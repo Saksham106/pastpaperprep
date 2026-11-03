@@ -238,7 +238,7 @@
         },
         {
           "type": "examTip",
-          "text": "On Paper 1, give a probability as an exact fraction such as $\\frac{7}{12}$. On Paper 2, a decimal is fine if you give it to 3 s.f."
+          "text": "On Paper 1, give a probability as an exact value, such as $\\frac{7}{12}$ or $0.8$. Don't round a fraction like $\\frac{7}{12}$ to a decimal. On Paper 2, a decimal is fine if you give it to 3 s.f."
         },
         {
           "type": "text",
@@ -292,7 +292,7 @@
             "(c) If the die were fair, the theoretical probability would be $\\frac{1}{6} = 0.1666\\ldots \\approx 0.167$.",
             "Ravi's $0.173$ is close to $0.167$. So the data give no strong reason to think the die is unfair. Mia's $0.3$ is far off most likely because $60$ rolls is a small experiment, and small experiments vary a lot."
           ],
-          "answer": "$\\mathrm{P}(6) \\approx 0.173$",
+          "answer": "$\\text{estimate of } \\mathrm{P}(6) \\approx 0.173$",
           "video": null
         },
         {
@@ -407,28 +407,28 @@
         },
         {
           "type": "check",
-          "id": "check-at-least-one-four",
-          "prompt": "A fair spinner numbered $1$, $2$, $3$ and $4$ is spun twice. Find the probability that at least one spin shows a $4$.",
-          "hint": "There are $4 \\times 4 = 16$ outcomes. How many have no $4$ at all?",
+          "id": "check-at-least-one-five",
+          "prompt": "A fair spinner numbered $1$, $2$, $3$, $4$ and $5$ is spun twice. Find the probability that at least one spin shows a $5$.",
+          "hint": "There are $5 \\times 5 = 25$ outcomes. How many have no $5$ at all?",
           "options": [
             {
-              "text": "$\\frac{7}{16}$",
+              "text": "$\\frac{9}{25}$",
               "correct": true
             },
             {
-              "text": "$\\frac{9}{16}$",
+              "text": "$\\frac{16}{25}$",
               "correct": false
             },
             {
-              "text": "$\\frac{1}{2}$",
+              "text": "$\\frac{2}{5}$",
               "correct": false
             },
             {
-              "text": "$\\frac{1}{16}$",
+              "text": "$\\frac{1}{25}$",
               "correct": false
             }
           ],
-          "explain": "With no $4$, each spin has $3$ choices, so $3 \\times 3 = 9$ outcomes and $\\mathrm{P}(\\text{no } 4) = \\frac{9}{16}$. So $\\mathrm{P}(\\text{at least one } 4) = 1 - \\frac{9}{16} = \\frac{7}{16}$. Adding $\\frac{1}{4} + \\frac{1}{4}$ counts the outcome with two $4$s twice."
+          "explain": "With no $5$, each spin has $4$ choices, so $4 \\times 4 = 16$ outcomes and $\\mathrm{P}(\\text{no } 5) = \\frac{16}{25}$. So $\\mathrm{P}(\\text{at least one } 5) = 1 - \\frac{16}{25} = \\frac{9}{25}$. Adding $\\frac{1}{5} + \\frac{1}{5}$ counts the outcome with two $5$s twice."
         },
         {
           "type": "check",
@@ -587,7 +587,7 @@
     "Rounding an expected number to a whole number, such as $86.25$ to $86$. An expected number is an average, so give the exact value or 3 s.f. ($86.3$)."
   ],
   "examTips": [
-    "Write down a probability: no working is needed, but on Paper 1 give it as an exact fraction. Check it lies between $0$ and $1$.",
+    "Write down a probability: no working is needed, but on Paper 1 give an exact value, such as $\\frac{7}{12}$ or $0.8$, not a rounded decimal. Check it lies between $0$ and $1$.",
     "List or tabulate a sample space: show every outcome, in pairs for a two-stage trial, so the examiner can see none is missing.",
     "Comment on an experimental result: compare the relative frequency with the theoretical probability using both numbers, and say which estimate uses more trials.",
     "Find an expected number: write $n \\times \\mathrm{P}(A)$ with the numbers in, then the value, unrounded unless the question says otherwise."

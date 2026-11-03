@@ -10,5 +10,11 @@
     "term": "logarithm",
     "definition": "$\\log_{a} b$ is the exponent you raise the base $a$ to in order to get $b$, so $\\log_{a} b = x$ means $a^{x} = b$ (for $a > 0$, $a \\neq 1$, $b > 0$).",
     "lesson": "1.5"
+  },
+  {
+    "id": "natural-logarithm",
+    "term": "natural logarithm",
+    "definition": "The logarithm with base $\\mathrm{e}$, written $\\ln x = \\log_{\\mathrm{e}} x$; it is the inverse of $\\mathrm{e}^{x}$.",
+    "lesson": "1.5"
   }
 ]

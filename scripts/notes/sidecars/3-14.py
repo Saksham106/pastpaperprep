@@ -16,7 +16,7 @@ from sympy import Matrix, Rational, S, Symbol, acos, diff, pi, simplify, solve, 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from mathparse import (  # noqa: E402
     check_numeric, check_rounded, check_same_equation, check_same_line, parse_answer, parse_degrees, parse_point,
-    parse_vector, parse_vector_line,
+    parse_vector, parse_vector_line, parse_with_unit,
 )
 
 x, y, z, t, k, lam = symbols("x y z t k lambda")
@@ -120,6 +120,60 @@ def x_axis_crossing(tex):
     same_point(tex, list(point.subs(lam, root)))
 
 
+def two_parts(tex):
+    """Split a two-part answer `first, \\; second` at its one top-level comma (outside any bracket)."""
+    body = tex.strip().strip("$")
+    depth, cuts = 0, []
+    for i, ch in enumerate(body):
+        depth += ch in "{(["
+        depth -= ch in "})]"
+        if ch == "," and depth == 0:
+            cuts.append(i)
+    if len(cuts) != 1:
+        raise ValueError(f"{tex!r} should hold exactly two parts separated by one comma")
+    first, second = body[: cuts[0]], body[cuts[0] + 1:]
+    return first.strip(), second.replace("\\;", " ").strip()
+
+
+def on_line(point, a, b):
+    """True when some single lambda gives `point` from a + lambda*b in every component."""
+    sols = solve([a[i] + lam * b[i] - point[i] for i in range(len(point))], lam, dict=True)
+    return bool(sols)
+
+
+def membership(statement, truth_on_line):
+    """`\\mathrm{R} \\in L` or `\\mathrm{R} \\notin L`: it must name the true case."""
+    compact = statement.replace(" ", "")
+    if compact == "\\mathrm{R}\\notinL":
+        published = False
+    elif compact == "\\mathrm{R}\\inL":
+        published = True
+    else:
+        raise ValueError(f"cannot read {statement!r} as R in L or R not in L")
+    if published != truth_on_line:
+        raise AssertionError(f"published R on L = {published}, truth {truth_on_line}")
+
+
+def line_and_point_r(tex):
+    line, statement = two_parts(tex)
+    check_same_line(f"${line}$", list(P), list(Q - P))
+    membership(statement, on_line(vec(-5, 15, 1), P, Q - P))
+
+
+def boat_speed_and_time(tex):
+    speed_part, time_part = two_parts(tex)
+    a, v = vec(-9, 4), vec(6, 8)
+    name = speed_part.split("=")[0].replace(" ", "")
+    if name != "\\lvert\\boldsymbol{v}\\rvert":
+        raise AssertionError(f"first part names {name!r}, expected the speed |v|")
+    speed = parse_answer(parse_with_unit(f"${speed_part}$", "km h^-1"))
+    if simplify(speed - v.norm()) != 0:
+        raise AssertionError(f"published speed {speed} is not {v.norm()}")
+    if not time_part.replace(" ", "").startswith("t="):
+        raise AssertionError(f"second part {time_part!r} should give t")
+    same(f"${time_part}$", solve(a[0] + t * v[0], t)[0])
+
+
 def point_on_line_k(value, tolerance):
     a, b = vec(1, -2, 5), vec(3, 3, -2)
     lam_y = solve(a[1] + lam * b[1] - 7, lam)[0]
@@ -146,7 +200,7 @@ CHECKS = {
     "before-scalar-product": lambda v, tolerance: check_numeric(v, vec(1, -2, 4).dot(vec(3, 5, 1)), sf=3, tolerance=tolerance),
     # section 1
     "ex-line-2d-x-axis": x_axis_crossing,
-    "ex-line-two-points-3d": lambda tex: check_same_line(tex, list(P), list(Q - P)),
+    "ex-line-two-points-3d": line_and_point_r,
     "check-line-through-two-points": lambda tex: check_same_line(tex, list(C), list(D - C)),
     "check-point-on-line-k": point_on_line_k,
     # section 2
@@ -161,7 +215,7 @@ CHECKS = {
     "check-perpendicular-k": lambda v, tolerance: check_numeric(v, solve(vec(k, 2, -1).dot(vec(3, k, 4)), k)[0], sf=3, tolerance=tolerance),
     "check-acute-angle": lambda tex: check_rounded(tex, acute_angle_degrees([1, 2, 2], [2, -2, -1]), sf=3, unit="°"),
     # section 4
-    "ex-boat-due-north": lambda tex: same(tex, solve(-9 + 6 * t, t)[0]),
+    "ex-boat-due-north": boat_speed_and_time,
     "check-drone-distance": lambda v, tolerance: check_numeric(v, 5 * vec(2, -6, 3).norm(), sf=3, tolerance=tolerance),
     "check-velocity-from-speed": velocity_from_speed,
     "ex-closest-approach": closest_approach,

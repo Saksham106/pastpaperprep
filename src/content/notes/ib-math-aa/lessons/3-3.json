@@ -215,10 +215,10 @@
           "id": "ex-diagram-roof",
           "question": "The frame of a roof is a triangle. Its bottom beam [AB] is horizontal. Two sloping beams meet at the ridge R: $\\text{AR} = 5.2$ m, $\\text{BR} = 3.8$ m and $\\text{A}\\hat{\\text{R}}\\text{B} = 98^{\\circ}$. (a) Find the span AB. (b) Find the height of the ridge above the bottom beam. Give your answers to 3 s.f.",
           "steps": [
-            "Draw [AB] across the page and R above it. Mark $5.2$, $3.8$ and $98^{\\circ}$. Draw the height from R down to M on [AB], with a right angle at M.",
+            "Draw [AB] across the page and R above it. Mark $5.2$, $3.8$ and $98^{\\circ}$. Draw the height RM from R down to M on [AB], with a right angle at M (RM is $h$ in the figure).",
             "(a) Two sides and the included angle: use the cosine rule. As $98^{\\circ}$ is obtuse, $\\cos 98^{\\circ} < 0$, so the last term adds: $\\text{AB}^{2} = 5.2^{2} + 3.8^{2} - 2(5.2)(3.8)\\cos 98^{\\circ} = 46.980\\ldots$",
             "So $\\text{AB} = 6.8542\\ldots \\approx 6.85$ m. Store this value.",
-            "(b) RM is in the right-angled triangle AMR, with hypotenuse $\\text{AR} = 5.2$. You need the angle at A. Sine rule: $\\sin \\hat{A} = \\frac{3.8\\sin 98^{\\circ}}{6.8542\\ldots} = 0.5490\\ldots$, so $\\hat{A} = 33.299\\ldots^{\\circ}$. It is acute, as it faces $3.8$, which is not the longest side.",
+            "(b) RM is in the right-angled triangle AMR, with hypotenuse $\\text{AR} = 5.2$. You need the angle at A. Sine rule: $\\sin(\\text{R}\\hat{\\text{A}}\\text{B}) = \\frac{3.8\\sin 98^{\\circ}}{6.8542\\ldots} = 0.5490\\ldots$, so $\\text{R}\\hat{\\text{A}}\\text{B} = 33.299\\ldots^{\\circ}$. It is acute, as it faces $3.8$, which is not the longest side.",
             "So $\\text{RM} = 5.2\\sin(33.299\\ldots^{\\circ}) = 2.8548\\ldots$ m."
           ],
           "answer": "$\\text{AB} \\approx 6.85\\text{ m}, \\; \\text{RM} \\approx 2.85\\text{ m}$",
@@ -305,12 +305,12 @@
         {
           "type": "example",
           "id": "ex-elevation-buildings",
-          "question": "Two buildings stand on level ground. The first is $48$ m tall, and its top is P. From P, the angle of depression of the foot F of the second building is $28^{\\circ}$, and the angle of elevation of its top T is $17^{\\circ}$. Find the height of the second building, to 3 s.f.",
+          "question": "Two buildings stand on level ground. The first is $48$ m tall, and its top is P. From P, the angle of depression of the foot F of the second building is $28^{\\circ}$, and the angle of elevation of its top T is $17^{\\circ}$. Find the height, $h$ m, of the second building, to 3 s.f.",
           "steps": [
             "Draw both buildings vertical. Draw a horizontal line from P to meet the second building at M, so $\\text{FM} = 48$ m.",
             "Triangle PMF: right angle at M, $\\text{M}\\hat{\\text{P}}\\text{F} = 28^{\\circ}$, MF opposite. So $\\text{PM} = \\frac{48}{\\tan 28^{\\circ}} = 90.274\\ldots$ m. Store it.",
             "Triangle PMT: right angle at M, $\\text{M}\\hat{\\text{P}}\\text{T} = 17^{\\circ}$, PM adjacent. So $\\text{MT} = \\text{PM}\\tan 17^{\\circ} = 27.599\\ldots$ m.",
-            "The height is $\\text{FM} + \\text{MT} = 48 + 27.599\\ldots = 75.599\\ldots$ m. Sense check: P looks up at T, so the building must be taller than $48$ m."
+            "So $h = \\text{FM} + \\text{MT} = 48 + 27.599\\ldots = 75.599\\ldots$ m. Sense check: P looks up at T, so the building must be taller than $48$ m."
           ],
           "answer": "$h \\approx 75.6\\text{ m}$",
           "video": null

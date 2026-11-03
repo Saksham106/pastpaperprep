@@ -86,7 +86,7 @@ CHECKS = {
     "ex-multiple-seven": lambda tex: same(tex, prob(range(1, 31), lambda k: k % 7 != 0)),
     "ex-at-least-one-tail": lambda tex: same(tex, prob(THREE_COINS, lambda o: "T" in o)),
     "ex-train": lambda tex: same(tex, TRAIN),
-    "check-at-least-one-four": lambda tex: same(tex, prob(product(SPINNER_4, SPINNER_4), lambda o: 4 in o)),
+    "check-at-least-one-five": lambda tex: same(tex, prob(product(range(1, 6), range(1, 6)), lambda o: 5 in o)),
     "check-tombola": lambda v, tolerance: check_numeric(
         v, prob(range(1, 201), lambda k: str(k)[-1] not in "05"), sf=3, tolerance=tolerance),
     # Section 4: expected number = n * P(A).

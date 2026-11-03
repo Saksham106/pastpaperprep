@@ -250,13 +250,13 @@
         {
           "type": "figure",
           "id": "4-2-histogram-waits",
-          "alt": "Frequency histogram of the waiting times of 50 patients. The horizontal axis shows waiting time from 0 to 60 minutes in classes of 10 minutes. The bar heights are 5, 12, 15, 9, 6 and 3.",
+          "alt": "Frequency histogram of the waiting times of 50 patients. The horizontal axis shows waiting time from 0 to 60 minutes in classes of 10 minutes, each including its lower end and excluding its upper end. The bar heights are 5, 12, 15, 9, 6 and 3.",
           "caption": "Waiting times at a clinic. The tail on the right is longer."
         },
         {
           "type": "example",
           "id": "ex-waits-histogram",
-          "question": "The histogram shows the waiting times, in minutes, of $50$ patients at a clinic. (a) Find the number of patients who waited at least $30$ minutes. (b) Describe the shape of the distribution.",
+          "question": "The histogram shows the waiting times, $w$ minutes, of $50$ patients at a clinic. The classes are $0 \\le w < 10$, $10 \\le w < 20$, $\\ldots$, $50 \\le w < 60$. (a) Find the number of patients who waited at least $30$ minutes. (b) Describe the shape of the distribution.",
           "steps": [
             "(a) “At least $30$” means the three bars from $30$ to $60$. Read their heights: $9$, $6$ and $3$.",
             "Add them: $9 + 6 + 3 = 18$ patients.",

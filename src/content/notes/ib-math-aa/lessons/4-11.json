@@ -1,0 +1,540 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "4.11",
+  "slug": "conditional-probability",
+  "title": "Conditional probability",
+  "level": "SL",
+  "topic": 4,
+  "summary": "A [[conditional-probability|conditional probability]] $\\mathrm{P}(A \\mid B)$ is the chance of $A$ once you know $B$ has happened: divide the overlap by $\\mathrm{P}(B)$. It answers every \"given that\" question, from tree diagrams to binomial and normal tails. It also gives the clearest test for [[independent-events|independence]].",
+  "goals": [
+    {
+      "text": "Use the definition $\\mathrm{P}(A \\mid B) = \\frac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(B)}$ with probabilities, tables and Venn diagrams.",
+      "bullets": [
+        "4.11-b1"
+      ]
+    },
+    {
+      "text": "Use $\\mathrm{P}(A \\cap B) = \\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)$, and turn a [[tree-diagram|tree diagram]] round to find a first-stage probability.",
+      "bullets": [
+        "4.11-b1"
+      ]
+    },
+    {
+      "text": "Answer \"given that\" questions about binomial and normal random variables on Paper 2.",
+      "bullets": [
+        "4.11-b1"
+      ]
+    },
+    {
+      "text": "Use $\\mathrm{P}(A \\mid B) = \\mathrm{P}(A) = \\mathrm{P}(A \\mid B')$ for [[independent-events|independent events]], and test whether two events are independent.",
+      "bullets": [
+        "4.11-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.6",
+    "4.8",
+    "4.9"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "given that probability",
+    "conditional probability formula",
+    "probability of A given B",
+    "test for independence",
+    "independent events conditional probability",
+    "normal distribution given that"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-intersection",
+      "prompt": "Events $A$ and $B$ have $\\mathrm{P}(A) = 0.5$, $\\mathrm{P}(B) = 0.35$ and $\\mathrm{P}(A \\cup B) = 0.7$. Find $\\mathrm{P}(A \\cap B)$.",
+      "hint": "Rearrange the addition rule to make $\\mathrm{P}(A \\cap B)$ the subject.",
+      "answer": {
+        "value": 0.15,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{P}(A \\cap B) = \\mathrm{P}(A) + \\mathrm{P}(B) - \\mathrm{P}(A \\cup B) = 0.5 + 0.35 - 0.7 = 0.15$. Revise it in {{lesson:4.6}}."
+    },
+    {
+      "type": "check",
+      "id": "before-binomial-zero",
+      "prompt": "$X \\sim \\mathrm{B}(5, 0.2)$. Find $\\mathrm{P}(X = 0)$. Give your answer to 3 s.f.",
+      "hint": "$X = 0$ means all five trials fail.",
+      "answer": {
+        "value": 0.328,
+        "tolerance": 0.0005
+      },
+      "explain": "Each trial fails with probability $0.8$, so $\\mathrm{P}(X = 0) = 0.8^{5} = 0.32768 \\approx 0.328$. Revise it in {{lesson:4.8}}."
+    },
+    {
+      "type": "check",
+      "id": "before-normal-above",
+      "prompt": "$Y \\sim \\mathrm{N}(50, 4^{2})$. Use your calculator to find $\\mathrm{P}(Y > 54)$. Give your answer to 3 s.f.",
+      "hint": "Use the normal cdf with lower bound $54$ and a huge upper bound, such as 1E99.",
+      "answer": {
+        "value": 0.159,
+        "tolerance": 0.0005
+      },
+      "explain": "$\\mathrm{P}(Y > 54) = 0.158655\\ldots \\approx 0.159$. Revise it in {{lesson:4.9}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "definition",
+      "heading": "The formal definition",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:4.6}} you met $\\mathrm{P}(A \\mid B)$ through tables. Here is why the formula works for any two events."
+        },
+        {
+          "type": "text",
+          "text": "Once you know $B$ has happened, every outcome outside $B$ is ruled out. So $B$ becomes the whole [[sample-space|sample space]]. The only part of $A$ still possible is the overlap, $A \\cap B$."
+        },
+        {
+          "type": "figure",
+          "id": "4-11-given-b",
+          "alt": "A Venn diagram with circles A and B inside a rectangle U. Circle B is shaded and outlined boldly as the new sample space. Everything outside B is faded and marked as ruled out. The overlap of A and B is marked as the only part of A still possible.",
+          "caption": "Given $B$, only circle $B$ is left. The chance of $A$ is the overlap's share of it."
+        },
+        {
+          "type": "text",
+          "text": "Dividing by $\\mathrm{P}(B)$ rescales the new sample space so its total probability is $1$. The new chance of $A$ is the overlap's share of $B$."
+        },
+        {
+          "type": "definition",
+          "term": "Conditional probability",
+          "statement": "For events $A$ and $B$ with $\\mathrm{P}(B) > 0$, the [[conditional-probability|conditional probability]] of $A$ given $B$ is $\\mathrm{P}(A \\mid B) = \\frac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(B)}$.",
+          "plain": "It is the fraction of the chance of B that also lies in A."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\mid B) = \\dfrac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(B)}",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-conditional"
+        },
+        {
+          "type": "text",
+          "text": "You don't need to memorise this; it's in the formula booklet. You do need to spot which event is given. If $\\mathrm{P}(B) = 0$, the formula has no meaning: you can't be told that something impossible happened."
+        },
+        {
+          "type": "text",
+          "text": "Multiply both sides by $\\mathrm{P}(B)$ for the second form: the chance of $B$, times the chance of $A$ once $B$ has happened. Learn this one."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = \\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The bar is not symmetric. $\\mathrm{P}(B \\mid A)$ divides by $\\mathrm{P}(A)$ instead, so it is usually different from $\\mathrm{P}(A \\mid B)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-def-both-ways",
+          "question": "Events $A$ and $B$ have $\\mathrm{P}(A) = 0.45$, $\\mathrm{P}(B) = 0.4$ and $\\mathrm{P}(A \\cap B') = 0.21$. Find (a) $\\mathrm{P}(A \\mid B)$; (b) $\\mathrm{P}(B \\mid A)$.",
+          "steps": [
+            "Both parts need the overlap. $A$ is split into $A \\cap B'$ and $A \\cap B$, so $\\mathrm{P}(A \\cap B) = 0.45 - 0.21 = 0.24$.",
+            "(a) The given event is $B$, so divide by $\\mathrm{P}(B)$: $\\mathrm{P}(A \\mid B) = \\frac{0.24}{0.4} = 0.6$.",
+            "(b) Now the given event is $A$, so divide by $\\mathrm{P}(A)$: $\\mathrm{P}(B \\mid A) = \\frac{0.24}{0.45} = \\frac{24}{45} = \\frac{8}{15}$."
+          ],
+          "answer": "$\\mathrm{P}(B \\mid A) = \\frac{8}{15}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Putting the wrong event on the bottom. Ask which event you have been told happened. Its probability is the denominator."
+        },
+        {
+          "type": "check",
+          "id": "check-multiply-form",
+          "prompt": "Priya's train is cancelled on $8\\%$ of days. On a day it is cancelled, the probability that she is late for work is $0.65$. Find the probability that, on a random day, her train is cancelled and she is late.",
+          "hint": "Which form of the definition gives the chance that both events happen?",
+          "answer": {
+            "value": 0.052,
+            "tolerance": 0
+          },
+          "explain": "Let $C$ be cancelled and $L$ late. $\\mathrm{P}(C \\cap L) = \\mathrm{P}(C)\\,\\mathrm{P}(L \\mid C) = 0.08 \\times 0.65 = 0.052$."
+        },
+        {
+          "type": "text",
+          "text": "On a [[tree-diagram|tree diagram]], every second-stage branch is a conditional probability. So the definition lets you turn a tree round: given how the second stage ended, find the chance of a first-stage branch."
+        },
+        {
+          "type": "figure",
+          "id": "4-11-tree-quiz",
+          "alt": "Tree diagram. First stage: easy question E with probability three quarters, hard question E prime with probability one quarter. After E: correct C with four fifths, wrong C prime with one fifth. After E prime: correct C with one third, wrong C prime with two thirds. Path products are three fifths, three twentieths, one twelfth and one sixth. The two paths ending in C prime are highlighted.",
+          "caption": "The highlighted paths both end in $C'$. Together they make $\\mathrm{P}(C')$."
+        },
+        {
+          "type": "example",
+          "id": "ex-tree-reverse",
+          "question": "In a quiz app, each question is easy with probability $\\frac{3}{4}$ and hard otherwise. Leo answers an easy question correctly with probability $\\frac{4}{5}$ and a hard one with probability $\\frac{1}{3}$. Let $E$ be the event \"the question is easy\" and $C$ the event \"Leo answers correctly\". (a) Show that the probability that Leo answers a question wrongly is $\\frac{19}{60}$. (b) Given that Leo answers a question wrongly, find the probability that it was hard.",
+          "steps": [
+            "Draw the tree. First stage: $E$ with $\\frac{3}{4}$ and $E'$ with $\\frac{1}{4}$. Wrong answers: $\\mathrm{P}(C' \\mid E) = 1 - \\frac{4}{5} = \\frac{1}{5}$ and $\\mathrm{P}(C' \\mid E') = 1 - \\frac{1}{3} = \\frac{2}{3}$.",
+            "(a) Multiply along each path that ends in $C'$, then add: $\\mathrm{P}(C') = \\frac{3}{4} \\times \\frac{1}{5} + \\frac{1}{4} \\times \\frac{2}{3} = \\frac{3}{20} + \\frac{1}{6}$.",
+            "Use the common denominator $60$: $\\frac{9}{60} + \\frac{10}{60} = \\frac{19}{60}$, as required.",
+            "(b) Write the definition with the given event, $C'$, on the bottom: $\\mathrm{P}(E' \\mid C') = \\frac{\\mathrm{P}(E' \\cap C')}{\\mathrm{P}(C')}$.",
+            "The top is the single path hard then wrong, $\\frac{1}{4} \\times \\frac{2}{3} = \\frac{1}{6} = \\frac{10}{60}$. The bottom is the answer to (a).",
+            "Divide: $\\mathrm{P}(E' \\mid C') = \\frac{10/60}{19/60} = \\frac{10}{19}$. If your (a) were wrong but you used it correctly here, you could still earn follow-through marks."
+          ],
+          "answer": "$\\mathrm{P}(E' \\mid C') = \\frac{10}{19}$",
+          "video": null
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, this reversal is packaged as Bayes' theorem, which also handles three branches at the first stage.",
+          "lesson": "4.13"
+        },
+        {
+          "type": "examTip",
+          "text": "On Paper 1, keep fractions exact. With a common denominator, the $60$s cancel, as in $\\frac{10/60}{19/60} = \\frac{10}{19}$."
+        },
+        {
+          "type": "check",
+          "id": "check-change-condition",
+          "prompt": "Events $A$ and $B$ have $\\mathrm{P}(B) = 0.25$, $\\mathrm{P}(A \\mid B) = 0.6$ and $\\mathrm{P}(A \\cup B) = 0.6$. Find $\\mathrm{P}(A \\mid B')$.",
+          "hint": "Find $\\mathrm{P}(A \\cap B)$, then $\\mathrm{P}(A)$ from the addition rule. Which part of $A$ lies outside $B$?",
+          "options": [
+            {
+              "text": "$\\frac{7}{15}$",
+              "correct": true
+            },
+            {
+              "text": "$0.4$",
+              "correct": false
+            },
+            {
+              "text": "$0.35$",
+              "correct": false
+            },
+            {
+              "text": "$0.7$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{P}(A \\cap B) = 0.25 \\times 0.6 = 0.15$ and $\\mathrm{P}(A) = 0.6 - 0.25 + 0.15 = 0.5$. So $\\mathrm{P}(A \\cap B') = 0.5 - 0.15 = 0.35$. Divide by $\\mathrm{P}(B') = 0.75$ to get $\\frac{7}{15}$. Note that $1 - 0.6 = 0.4$ is $\\mathrm{P}(A' \\mid B)$, not $\\mathrm{P}(A \\mid B')$."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\mathrm{P}(A \\mid B') = 1 - \\mathrm{P}(A \\mid B)$. The complement rule works inside one condition: $\\mathrm{P}(A' \\mid B) = 1 - \\mathrm{P}(A \\mid B)$. A new condition needs the definition again."
+        }
+      ]
+    },
+    {
+      "id": "distributions",
+      "heading": "Given that, with a random variable",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On Paper 2 the events are often inequalities about a [[random-variable|random variable]], such as $X > 7$ or $X \\le 9$. The definition is the same. The new skill is finding the overlap of two inequalities."
+        },
+        {
+          "type": "text",
+          "text": "1. Write the definition with the given inequality on the bottom."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the overlap: the values that satisfy both inequalities. Often one event sits inside the other, so the overlap is just the smaller event."
+        },
+        {
+          "type": "text",
+          "text": "3. Find each probability with your calculator. Divide the unrounded values, and round only the final answer."
+        },
+        {
+          "type": "example",
+          "id": "ex-binomial-given",
+          "question": "A basketball player scores each free throw with probability $0.7$, independently of the others. She takes $10$ free throws. Given that she misses at least one throw, find the probability that she scores more than $7$. Give your answer to 3 s.f.",
+          "steps": [
+            "Let $X$ be the number she scores, so $X \\sim \\mathrm{B}(10, 0.7)$. Missing at least one means $X \\le 9$.",
+            "Write the definition with the given event on the bottom: $\\mathrm{P}(X > 7 \\mid X \\le 9) = \\frac{\\mathrm{P}(X > 7 \\text{ and } X \\le 9)}{\\mathrm{P}(X \\le 9)}$.",
+            "$X$ is a whole number, so $X > 7$ means $X \\ge 8$. The overlap is $8 \\le X \\le 9$.",
+            "The binomial pdf gives $\\mathrm{P}(X = 8) = 0.233474\\ldots$ and $\\mathrm{P}(X = 9) = 0.121060\\ldots$, so the top is $0.354535\\ldots$ The cdf gives the bottom, $\\mathrm{P}(X \\le 9) = 0.971752\\ldots$",
+            "Divide the unrounded values: $\\frac{0.354535\\ldots}{0.971752\\ldots} = 0.364841\\ldots \\approx 0.365$."
+          ],
+          "answer": "$\\mathrm{P}(X > 7 \\mid X \\le 9) \\approx 0.365$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-normal-given",
+          "question": "The time, $T$ minutes, that a bus takes for its route is modelled by $T \\sim \\mathrm{N}(40, 6^{2})$. A journey is on schedule if it takes between $32$ and $48$ minutes. Given that a journey is on schedule, use your calculator to find the probability that it takes more than $44$ minutes. Give your answer to 3 s.f.",
+          "steps": [
+            "Write the definition with the given event on the bottom: $\\mathrm{P}(T > 44 \\mid 32 < T < 48) = \\frac{\\mathrm{P}(44 < T < 48)}{\\mathrm{P}(32 < T < 48)}$.",
+            "The top is the overlap: journeys on schedule that also take more than $44$ minutes, so $44 < T < 48$.",
+            "Write down both calculator values: $\\mathrm{P}(44 < T < 48) = 0.161281\\ldots$ and $\\mathrm{P}(32 < T < 48) = 0.817577\\ldots$",
+            "Divide the unrounded values: $\\frac{0.161281\\ldots}{0.817577\\ldots} = 0.197267\\ldots \\approx 0.197$."
+          ],
+          "answer": "$\\mathrm{P}(T > 44 \\mid 32 < T < 48) \\approx 0.197$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "2nd, VARS (DISTR), normalcdf(",
+              "Enter lower 44, upper 48, mean 40, standard deviation 6, then ENTER: read 0.161281…",
+              "normalcdf( again with lower 32, upper 48, mean 40, standard deviation 6: read 0.817577…",
+              "Divide the first value by the second, typed in full (or use stored values): read 0.197267…"
+            ],
+            "nspire": [
+              "Calculator page, Menu, Statistics, Distributions, Normal Cdf",
+              "Lower Bound 44, Upper Bound 48, mean 40, standard deviation 6, then OK: read 0.161281…",
+              "Normal Cdf again with Lower Bound 32 and Upper Bound 48: read 0.817577…",
+              "Divide the first value by the second without rounding: read 0.197267…"
+            ],
+            "casio": [
+              "STAT, DIST, NORM, Ncd",
+              "Data: Variable, Lower 44, Upper 48, then the standard deviation 6 before the mean 40, EXE: read 0.161281…",
+              "Repeat with Lower 32 and Upper 48: read 0.817577…",
+              "In RUN-MAT, divide the first value by the second without rounding: read 0.197267…"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Write the fraction of probabilities before any numbers, as in $\\frac{\\mathrm{P}(44 < T < 48)}{\\mathrm{P}(32 < T < 48)}$. That line shows your method, even if a calculator value goes wrong."
+        },
+        {
+          "type": "check",
+          "id": "check-table-given",
+          "prompt": "A discrete random variable $X$ has $\\mathrm{P}(X = 1) = 0.1$, $\\mathrm{P}(X = 2) = 0.2$, $\\mathrm{P}(X = 3) = 0.3$ and $\\mathrm{P}(X = 4) = 0.4$. Find $\\mathrm{P}(X = 4 \\mid X > 2)$.",
+          "hint": "Which values of $X$ are more than $2$? Their total goes on the bottom.",
+          "options": [
+            {
+              "text": "$\\frac{4}{7}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{4}{9}$",
+              "correct": false
+            },
+            {
+              "text": "$0.4$",
+              "correct": false
+            },
+            {
+              "text": "$0.28$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{P}(X > 2) = 0.3 + 0.4 = 0.7$, and $X = 4$ lies inside $X > 2$. So the answer is $\\frac{0.4}{0.7} = \\frac{4}{7}$. Including $X = 2$ on the bottom gives $\\frac{4}{9}$."
+        },
+        {
+          "type": "check",
+          "id": "check-normal-given",
+          "prompt": "The heights, $H$ cm, of sunflowers in a field are modelled by $H \\sim \\mathrm{N}(165, 8^{2})$. Given that a sunflower is taller than $170$ cm, find the probability that it is taller than $180$ cm. Give your answer to 3 s.f.",
+          "hint": "Every sunflower taller than $180$ cm is already taller than $170$ cm. So what is the overlap?",
+          "answer": {
+            "value": 0.114,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\mathrm{P}(H > 180 \\mid H > 170) = \\frac{\\mathrm{P}(H > 180)}{\\mathrm{P}(H > 170)} = \\frac{0.0303963\\ldots}{0.265985\\ldots} = 0.114278\\ldots \\approx 0.114$."
+        }
+      ]
+    },
+    {
+      "id": "independence",
+      "heading": "Independence and how to test it",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two events are [[independent-events|independent]] when knowing about one tells you nothing about the other. So the chance of $A$ is the same whether $B$ happened or not."
+        },
+        {
+          "type": "result",
+          "statement": "Events $A$ and $B$, with $0 < \\mathrm{P}(B) < 1$, are independent exactly when $\\mathrm{P}(A \\mid B) = \\mathrm{P}(A) = \\mathrm{P}(A \\mid B')$.",
+          "why": "If $\\mathrm{P}(A \\mid B) = \\mathrm{P}(A)$, the second form gives $\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)$. Then $\\mathrm{P}(A \\cap B') = \\mathrm{P}(A) - \\mathrm{P}(A)\\,\\mathrm{P}(B) = \\mathrm{P}(A)\\,\\mathrm{P}(B')$, so $\\mathrm{P}(A \\mid B') = \\mathrm{P}(A)$ too."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\mid B) = \\mathrm{P}(A) = \\mathrm{P}(A \\mid B')",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The booklet gives the same idea as a product, as in {{lesson:4.6}}."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-independent"
+        },
+        {
+          "type": "text",
+          "text": "So there are three tests. They always agree, so pick the one that fits your numbers:"
+        },
+        {
+          "type": "text",
+          "text": "1. Is $\\mathrm{P}(A \\mid B) = \\mathrm{P}(A)$?"
+        },
+        {
+          "type": "text",
+          "text": "2. Is $\\mathrm{P}(A \\mid B) = \\mathrm{P}(A \\mid B')$?"
+        },
+        {
+          "type": "text",
+          "text": "3. Is $\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)$? If the two sides are equal, the events are independent. If not, they are not."
+        },
+        {
+          "type": "text",
+          "text": "The proof also shows that independence passes to complements. If $A$ and $B$ are independent, so are $A$ and $B'$, and so are $A'$ and $B'$. For example, $\\mathrm{P}(A' \\mid B') = 1 - \\mathrm{P}(A \\mid B') = 1 - \\mathrm{P}(A) = \\mathrm{P}(A')$."
+        },
+        {
+          "type": "text",
+          "text": "A survey of $200$ adults records whether each owns a smartwatch ($W$) and whether they run regularly ($R$)."
+        },
+        {
+          "type": "text",
+          "text": "$\\begin{array}{l|cc|c} & R & R' & \\text{Total} \\\\ \\hline W & 36 & 24 & 60 \\\\ W' & 84 & 56 & 140 \\\\ \\hline \\text{Total} & 120 & 80 & 200 \\end{array}$"
+        },
+        {
+          "type": "example",
+          "id": "ex-table-independent",
+          "question": "Use the smartwatch table. One adult is chosen at random. Determine whether $R$ and $W$ are independent.",
+          "steps": [
+            "Use test 2: compare the chance of running in the two rows.",
+            "Given $W$, only the $60$ watch owners count, and $36$ of them run: $\\mathrm{P}(R \\mid W) = \\frac{36}{60} = 0.6$.",
+            "Given $W'$, only the $140$ non-owners count, and $84$ of them run: $\\mathrm{P}(R \\mid W') = \\frac{84}{140} = 0.6$.",
+            "The two values are equal, and both equal $\\mathrm{P}(R) = \\frac{120}{200} = 0.6$. So $R$ and $W$ are independent.",
+            "Check with the product: $\\mathrm{P}(R)\\,\\mathrm{P}(W) = 0.6 \\times 0.3 = 0.18$, and $\\mathrm{P}(R \\cap W) = \\frac{36}{200} = 0.18$."
+          ],
+          "answer": "$\\mathrm{P}(R \\mid W) = \\mathrm{P}(R \\mid W') = 0.6$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "\"Determine whether\" or \"show that\" events are independent needs three things: both values, an $=$ or $\\ne$ sign between them, and a conclusion in words."
+        },
+        {
+          "type": "example",
+          "id": "ex-independent-union",
+          "question": "Events $A$ and $B$ are independent, with $\\mathrm{P}(A \\mid B') = 0.4$ and $\\mathrm{P}(B) = 0.35$. Find $\\mathrm{P}(A \\cup B)$.",
+          "steps": [
+            "$A$ and $B$ are independent, so $\\mathrm{P}(A) = \\mathrm{P}(A \\mid B') = 0.4$.",
+            "Independence also lets you multiply: $\\mathrm{P}(A \\cap B) = 0.4 \\times 0.35 = 0.14$.",
+            "Use the addition rule: $\\mathrm{P}(A \\cup B) = 0.4 + 0.35 - 0.14 = 0.61$.",
+            "Check another way. $A'$ and $B'$ are independent too, so neither happens with probability $0.6 \\times 0.65 = 0.39$. Then $1 - 0.39 = 0.61$."
+          ],
+          "answer": "$\\mathrm{P}(A \\cup B) = 0.61$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying $\\mathrm{P}(A)\\,\\mathrm{P}(B)$ when the question never says the events are independent. Without that, use $\\mathrm{P}(A \\cap B) = \\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)$ or the addition rule."
+        },
+        {
+          "type": "check",
+          "id": "check-test-independence",
+          "prompt": "Events $A$ and $B$ have $\\mathrm{P}(A) = 0.6$, $\\mathrm{P}(B) = 0.25$ and $\\mathrm{P}(A \\cap B) = 0.12$. Are $A$ and $B$ independent?",
+          "hint": "Work out $\\mathrm{P}(A \\mid B)$ and compare it with $\\mathrm{P}(A)$.",
+          "options": [
+            {
+              "text": "No, because $\\mathrm{P}(A \\mid B) = 0.48 \\ne \\mathrm{P}(A)$",
+              "correct": true
+            },
+            {
+              "text": "Yes, because $\\mathrm{P}(A \\cap B) \\ne 0$",
+              "correct": false
+            },
+            {
+              "text": "Yes, because $\\mathrm{P}(A) + \\mathrm{P}(B) < 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{P}(A \\mid B) = \\frac{0.12}{0.25} = 0.48$, but $\\mathrm{P}(A) = 0.6$. Knowing $B$ happened lowers the chance of $A$, so they are not independent. A non-zero overlap only shows they are not mutually exclusive."
+        },
+        {
+          "type": "check",
+          "id": "check-complements-independent",
+          "prompt": "Events $A$ and $B$ are independent, with $\\mathrm{P}(A) = 0.45$ and $\\mathrm{P}(B) = 0.2$. Find $\\mathrm{P}(A' \\mid B')$.",
+          "hint": "If $A$ and $B$ are independent, so are $A'$ and $B'$.",
+          "answer": {
+            "value": 0.55,
+            "tolerance": 0
+          },
+          "explain": "Knowing $B'$ doesn't change the chance of $A'$, so $\\mathrm{P}(A' \\mid B') = \\mathrm{P}(A') = 1 - 0.45 = 0.55$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\mid B) = \\dfrac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(B)}",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-conditional",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = \\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The given event, after the bar, goes on the bottom. $\\mathrm{P}(A \\mid B)$ and $\\mathrm{P}(B \\mid A)$ are usually different.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{P}(A' \\mid B) = 1 - \\mathrm{P}(A \\mid B)$, but $\\mathrm{P}(A \\mid B')$ needs the definition again.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "With a random variable, the top is the overlap of the two inequalities: $\\mathrm{P}(X > 7 \\mid X \\le 9) = \\frac{\\mathrm{P}(8 \\le X \\le 9)}{\\mathrm{P}(X \\le 9)}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\mid B) = \\mathrm{P}(A) = \\mathrm{P}(A \\mid B')",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-independent",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To test independence, compare two values that would be equal, write $=$ or $\\ne$, then conclude.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing by the wrong probability. For \"hard, given wrong\", divide by $\\mathrm{P}(\\text{wrong})$, not $\\mathrm{P}(\\text{hard})$.",
+    "Stopping at the overlap, such as $\\mathrm{P}(8 \\le X \\le 9)$. A \"given that\" answer always ends with a division by the probability of the condition.",
+    "Reading a rate within a group as overall. \"$30\\%$ of $B$ is in $A$\" means $\\mathrm{P}(A \\mid B) = 0.3$, so $\\mathrm{P}(A \\cap B) = 0.3\\,\\mathrm{P}(B)$.",
+    "Treating \"more than $7$\" as $X \\ge 7$ for a whole-number variable. $X > 7$ means $X \\ge 8$.",
+    "Writing $\\mathrm{P}(A \\mid B') = 1 - \\mathrm{P}(A \\mid B)$. Complements change the event before the bar, never the condition.",
+    "Saying \"independent\" with no comparison, or multiplying $\\mathrm{P}(A)\\,\\mathrm{P}(B)$ when independence was never given."
+  ],
+  "examTips": [
+    "\"Find\" a conditional probability: write the definition with your own events in it before any numbers. That line is where the method mark is.",
+    "On Paper 2, carry the full calculator values for the top and the bottom, and round only the final answer to 3 s.f.",
+    "When a later part uses an earlier probability, such as $\\mathrm{P}(C')$ on the bottom, a wrong earlier value used correctly can still earn follow-through marks."
+  ],
+  "readingMinutes": 19
+}

@@ -91,7 +91,7 @@ def identity_constants(tex):
     check_assignments(tex, {a: solution[a], b: solution[b]})
 
 
-def a_value(v, tolerance):
+def a_value(v, tolerance=None):
     """check-split-half: A over 2x + 1 in (8x - 1)/((2x + 1)(x - 2))."""
     truth, _ = constants(8 * x - 1, 2 * x + 1, x - 2)
     check_numeric(v, truth, sf=3, tolerance=tolerance)

@@ -90,7 +90,7 @@
         {
           "type": "definition",
           "term": "geometric sequence",
-          "statement": "A sequence $u_{1}, u_{2}, u_{3}, \\dots$ in which each term is the one before multiplied by a fixed non-zero number $r$, the common ratio: $u_{n+1} = r\\,u_{n}$.",
+          "statement": "A sequence $u_{1}, u_{2}, u_{3}, \\dots$ in which each term is the one before multiplied by a fixed non-zero number $r$, the [[common-ratio|common ratio]]: $u_{n+1} = r\\,u_{n}$.",
           "plain": "You get each term by multiplying the one before by the same number."
         },
         {
@@ -161,7 +161,7 @@
         {
           "type": "check",
           "id": "check-sixth-term",
-          "prompt": "Find $u_{6}$ for the geometric sequence $48, 24, 12, \\dots$",
+          "prompt": "Find $u_{6}$ for the [[geometric-sequence|geometric sequence]] $48, 24, 12, \\dots$",
           "hint": "Find $r$ first. Then the power is $6 - 1$.",
           "options": [
             {
@@ -304,7 +304,7 @@
         {
           "type": "check",
           "id": "check-sum-find-first",
-          "prompt": "A geometric series has common ratio $2$. The sum of its first $10$ terms is $3069$. Find the first term.",
+          "prompt": "A geometric series has [[common-ratio|common ratio]] $2$. The sum of its first $10$ terms is $3069$. Find the first term.",
           "hint": "Substitute $r = 2$ and $n = 10$ into $S_{n}$, set it equal to $3069$, and solve for $u_{1}$.",
           "answer": {
             "value": 3,
@@ -455,7 +455,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "A quantity that rises or falls by the same percentage each period makes a geometric sequence. The percentage tells you the ratio."
+          "text": "A quantity that rises or falls by the same percentage each period makes a [[geometric-sequence|geometric sequence]]. The percentage tells you the ratio."
         },
         {
           "type": "text",
@@ -478,7 +478,7 @@
         {
           "type": "check",
           "id": "check-identify-ratio",
-          "prompt": "A spreadsheet lists the number of bacteria in a dish at the end of each hour: $250, 275, 302.5, 332.75$. Find the common ratio.",
+          "prompt": "A spreadsheet lists the number of bacteria in a dish at the end of each hour: $250, 275, 302.5, 332.75$. Find the [[common-ratio|common ratio]].",
           "hint": "Divide a term by the one before. A difference is not a ratio.",
           "options": [
             {
@@ -511,7 +511,7 @@
         },
         {
           "type": "text",
-          "text": "Disease spread works the same way. If each week's new cases are a fixed multiple of last week's, the running total is a geometric series."
+          "text": "Disease spread works the same way. If each week's new cases are a fixed multiple of last week's, the running total is a [[geometric-series|geometric series]]."
         },
         {
           "type": "example",
@@ -594,7 +594,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Look again at $u_{n} = u_{1}r^{n-1}$. The variable $n$ is in the power. So a geometric sequence is an [[exponential-function|exponential function]] of $n$, which you'll study in {{lesson:2.9}}."
+          "text": "Look again at $u_{n} = u_{1}r^{n-1}$. The variable $n$ is in the power. So a [[geometric-sequence|geometric sequence]] is an [[exponential-function|exponential function]] of $n$, which you'll study in {{lesson:2.9}}."
         },
         {
           "type": "text",
@@ -667,7 +667,7 @@
         },
         {
           "type": "text",
-          "text": "With more data, technology finds the model that fits every point best. That is regression, which you meet in {{lesson:4.4}}. Steady ratios call for an exponential model, not a straight line."
+          "text": "Fitting a straight line to data is regression, which you meet in {{lesson:4.4}}. If the ratios are steady, a straight line is the wrong model: the data is exponential, so use a geometric model."
         },
         {
           "type": "check",

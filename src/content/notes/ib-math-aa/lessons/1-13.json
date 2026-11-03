@@ -406,7 +406,7 @@
         },
         {
           "type": "result",
-          "statement": "$\\lvert zw\\rvert = \\lvert z\\rvert\\lvert w\\rvert$ and $\\arg(zw) = \\arg z + \\arg w$. Also $\\left\\lvert\\frac{z}{w}\\right\\rvert = \\frac{\\lvert z\\rvert}{\\lvert w\\rvert}$ and $\\arg\\left(\\frac{z}{w}\\right) = \\arg z - \\arg w$, adding or subtracting $2\\pi$ if needed to stay in range.",
+          "statement": "$\\lvert zw\\rvert = \\lvert z\\rvert\\lvert w\\rvert$ and $\\arg(zw) = \\arg z + \\arg w$. Also $\\left\\lvert\\frac{z}{w}\\right\\rvert = \\frac{\\lvert z\\rvert}{\\lvert w\\rvert}$ and $\\arg\\left(\\frac{z}{w}\\right) = \\arg z - \\arg w$. In both, add or subtract $2\\pi$ if needed to stay in range.",
           "why": "Use the laws of exponents. Expanding $\\mathrm{cis}\\,\\theta_{1}\\,\\mathrm{cis}\\,\\theta_{2}$ with the compound-angle identities in {{lesson:3.10}} gives the same answer."
         },
         {
@@ -554,9 +554,9 @@
           "steps": [
             "Set radians first. Degree mode reads $0.9$ as $0.9^{\\circ}$.",
             "Write down what you enter: $4\\mathrm{e}^{0.9\\mathrm{i}} + 1 - 2\\mathrm{i}$. This line earns the method mark.",
-            "The calculator gives $3.486438\\ldots + 1.133307\\ldots\\mathrm{i}$. By hand this is $(4\\cos 0.9 + 1) + (4\\sin 0.9 - 2)\\mathrm{i}$.",
-            "Modulus: $r = \\sqrt{3.486438\\ldots^{2} + 1.133307\\ldots^{2}} = 3.666012\\ldots$",
-            "Both parts are positive, so the point is in the first quadrant: $\\theta = \\arctan\\frac{1.133307\\ldots}{3.486438\\ldots} = 0.314287\\ldots$"
+            "The calculator gives $3.486439\\ldots + 1.133307\\ldots\\mathrm{i}$. By hand this is $(4\\cos 0.9 + 1) + (4\\sin 0.9 - 2)\\mathrm{i}$.",
+            "Modulus: $r = \\sqrt{3.486439\\ldots^{2} + 1.133307\\ldots^{2}} = 3.666012\\ldots$",
+            "Both parts are positive, so the point is in the first quadrant: $\\theta = \\arctan\\frac{1.133307\\ldots}{3.486439\\ldots} = 0.314287\\ldots$"
           ],
           "answer": "$z + w \\approx 3.67\\mathrm{e}^{0.314\\mathrm{i}}$",
           "video": null
@@ -568,7 +568,7 @@
               "MODE, RADIAN",
               "MODE, a+bi",
               "Type 4e^(0.9i)+1-2i and press ENTER (e^( is 2nd LN and i is 2nd . ; check on your model)",
-              "Read 3.486438... + 1.133307...i",
+              "Read 3.486439... + 1.133307...i",
               "MATH, CMPLX, abs( on Ans gives 3.666012..., and angle( on Ans gives 0.314287... (check on your model)",
               "So r = 3.67 and theta = 0.314 to 3 s.f."
             ],
@@ -576,7 +576,7 @@
               "Settings, Angle: Radian",
               "Settings, Real or Complex: Rectangular",
               "Calculator page: type 4*e^(0.9*i)+1-2*i, enter (e^ is the e^x key and i is in the pi key menu; check on your model)",
-              "Read 3.486438... + 1.133307...i",
+              "Read 3.486439... + 1.133307...i",
               "Menu, Number, Complex Number Tools, Magnitude, then Argument, each on ans (check on your model)",
               "So r = 3.67 and theta = 0.314 to 3 s.f."
             ],
@@ -584,7 +584,7 @@
               "SHIFT MENU (SET UP), Angle: Rad",
               "SET UP (SHIFT MENU), Complex Mode: a+bi",
               "RUN-MAT: type 4e^(0.9i)+1-2i, EXE (e^ is SHIFT ln and i is SHIFT 0; check on your model)",
-              "Read 3.486438... + 1.133307...i",
+              "Read 3.486439... + 1.133307...i",
               "OPTN, COMPLEX, Abs, then Arg, each on Ans (check on your model)",
               "So r = 3.67 and theta = 0.314 to 3 s.f."
             ]

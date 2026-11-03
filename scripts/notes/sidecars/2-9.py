@@ -14,7 +14,7 @@ from pathlib import Path
 from sympy import (
     Eq, Interval, Matrix, Rational, S, exp, expand_log, log, oo, simplify, solve, solve_univariate_inequality, symbols,
 )
-from sympy.calculus.singularities import is_decreasing
+from sympy.calculus.singularities import is_decreasing, is_strictly_decreasing
 from sympy.calculus.util import function_range
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -91,7 +91,7 @@ def reflected_point(tex):
 def decreasing_option(tex):
     """The option names a function y = a^x; only a decreasing one on R passes."""
     f = parse_answer(tex).subs(x, r)
-    if not is_decreasing(f, S.Reals):
+    if not is_strictly_decreasing(f, S.Reals):  # strictly: a constant such as 0 is not decreasing
         raise AssertionError(f"{f} is not decreasing on R")
 
 

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "bayes-theorem",
+    "term": "Bayes' theorem",
+    "definition": "A formula that turns a conditional probability round: it finds $\\mathrm{P}(B \\mid A)$ from $\\mathrm{P}(B)$ and the chances of $A$ on every first-stage branch.",
+    "lesson": "4.13"
+  },
+  {
+    "id": "partition",
+    "term": "Partition",
+    "definition": "A set of events, such as $B_1$, $B_2$ and $B_3$, where exactly one happens on each trial: they are mutually exclusive and their probabilities add up to $1$.",
+    "lesson": "4.13"
+  }
+]

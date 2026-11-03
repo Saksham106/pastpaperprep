@@ -243,6 +243,7 @@ CHECKS = {
     "check-cube-roots-minus-27i": lambda tex: same_roots(tex, all_roots(z**3 + 27 * I)),
     "ex-cube-roots-calculator": lambda tex: rounded_complex_roots(tex, z**3 - (2 + 11 * I)),
     "check-another-fourth-root": is_fourth_root,
+    "ex-rational-power": lambda tex: same_roots(tex, rational_power_values(4 * I, 3, 2)),
     "check-rational-power": lambda tex: same_roots(tex, rational_power_values(8 * I, 2, 3)),
 }
 

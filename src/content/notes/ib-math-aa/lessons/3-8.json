@@ -352,13 +352,13 @@
         {
           "type": "check",
           "id": "check-gdc-cos",
-          "prompt": "Use your GDC to solve $2\\cos x = x$ for $0 \\le x \\le 2\\pi$. Give your answer to 3 s.f.",
-          "hint": "Graph $y = 2\\cos x$ and $y = x$ in radian mode. How many times do they cross?",
+          "prompt": "Use your GDC to solve $3\\cos x = x$ for $0 \\le x \\le 2\\pi$. Give your answer to 3 s.f.",
+          "hint": "Graph $y = 3\\cos x$ and $y = x$ in radian mode. How many times do they cross?",
           "answer": {
-            "value": 1.03,
+            "value": 1.17,
             "tolerance": 0.005
           },
-          "explain": "$2\\cos x$ is never more than $2$, but the line $y = x$ is above $2$ once $x > 2$. So there is one crossing, and intersect gives $x = 1.02986\\ldots \\approx 1.03$."
+          "explain": "$3\\cos x$ is never more than $3$, but the line $y = x$ is above $3$ once $x > 3$. So they can only meet before $x = 3$, and the graph shows one crossing there. Intersect gives $x = 1.17012\\ldots \\approx 1.17$."
         }
       ]
     },
@@ -550,10 +550,6 @@
           "text": "Pick the form of $\\cos 2x$ that matches the other terms: $1 - 2\\sin^{2}x$ beside $\\sin x$, $2\\cos^{2}x - 1$ beside $\\cos x$."
         },
         {
-          "type": "text",
-          "text": "$\\sin 2x$ has only one form: write it as $2\\sin x\\cos x$. Then look for a common factor to take out."
-        },
-        {
           "type": "mistake",
           "text": "Using $\\cos 2x = \\cos^{2}x - \\sin^{2}x$ and stopping there. Both ratios are left, so you can't factorise. Choose the form that matches the other terms."
         },
@@ -592,6 +588,24 @@
             }
           ],
           "explain": "$2\\cos^{2}x - 1 + \\cos x = 0$ factorises as $(2\\cos x - 1)(\\cos x + 1) = 0$. So $\\cos x = \\frac{1}{2}$, giving $\\frac{\\pi}{3}$ and $\\frac{5\\pi}{3}$, or $\\cos x = -1$, giving $\\pi$. Swapping the signs in the factors gives the last option."
+        },
+        {
+          "type": "text",
+          "text": "$\\sin 2x$ has only one form: write it as $2\\sin x\\cos x$. Then look for a common factor to take out."
+        },
+        {
+          "type": "example",
+          "id": "ex-sin2x-common-factor",
+          "question": "Solve $\\sin 2x = \\cos x$ for $0 \\le x \\le 2\\pi$.",
+          "steps": [
+            "Write $\\sin 2x$ as $2\\sin x\\cos x$, then move everything to one side: $2\\sin x\\cos x - \\cos x = 0$.",
+            "Take out the common factor $\\cos x$, and don't divide by it: $\\cos x(2\\sin x - 1) = 0$. So $\\cos x = 0$ or $\\sin x = \\frac{1}{2}$.",
+            "$\\cos x = 0$ where the cosine graph meets the axis: $x = \\frac{\\pi}{2}$ and $x = \\frac{3\\pi}{2}$.",
+            "$\\sin x = \\frac{1}{2}$: the reference angle is $\\frac{\\pi}{6}$. Sine is positive, so Q1 and Q2: $x = \\frac{\\pi}{6}$ and $x = \\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6}$.",
+            "Check $x = \\frac{3\\pi}{2}$: $\\sin 3\\pi = 0$ and $\\cos\\frac{3\\pi}{2} = 0$, so both sides are $0$."
+          ],
+          "answer": "$x = \\frac{\\pi}{6} \\text{ or } x = \\frac{\\pi}{2} \\text{ or } x = \\frac{5\\pi}{6} \\text{ or } x = \\frac{3\\pi}{2}$",
+          "video": null
         },
         {
           "type": "check",
@@ -693,5 +707,5 @@
     "\"Hence\" after a \"show that\" means use the equation you just reached. It is usually a quadratic in one ratio, ready to factorise.",
     "On Paper 2, write down the equation you graph before the answers, and round only at the end."
   ],
-  "readingMinutes": 22
+  "readingMinutes": 24
 }

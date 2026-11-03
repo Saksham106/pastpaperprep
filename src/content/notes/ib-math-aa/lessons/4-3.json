@@ -6,7 +6,7 @@
   "title": "Central tendency and dispersion",
   "level": "SL",
   "topic": 4,
-  "summary": "The [[mean|mean]], [[median|median]] and [[mode|mode]] describe the centre of a data set. The [[interquartile-range|interquartile range]] and [[standard-deviation|standard deviation]] describe its spread. You find each for lists, tables and grouped data, and see what shifting or scaling the data does.",
+  "summary": "The [[mean|mean]], [[median|median]] and [[mode|mode]] describe the centre of a data set. The [[interquartile-range|interquartile range]] and [[standard-deviation|standard deviation]] describe its spread. You find them for lists and frequency tables, estimate the mean of grouped data, and see what shifting or scaling the data does.",
   "goals": [
     {
       "text": "Find the mean, median and mode of a list or a frequency table, by formula and with your GDC.",
@@ -304,7 +304,7 @@
         },
         {
           "type": "examTip",
-          "text": "Estimate is a command term. Use mid-interval values, and call your answer an estimate."
+          "text": "Find an estimate of the mean: use mid-interval values, show $\\frac{\\sum f_{i}x_{i}}{n}$, and call your answer an estimate, since the exact values are unknown."
         },
         {
           "type": "check",
@@ -727,7 +727,7 @@
     "Multiplying the variance by $a$, or adding $b$ to $\\sigma$. Under $ax + b$, $\\sigma$ becomes $a\\sigma$ and the variance $a^{2}\\sigma^{2}$."
   ],
   "examTips": [
-    "Write down the mode or median: no working needed. Find the mean: show $\\frac{\\sum f_{i}x_{i}}{n}$ with your numbers in, for the method mark.",
+    "Write down the mode: no working needed. For Find the median or Find the mean, show the ordered data or $\\frac{\\sum f_{i}x_{i}}{n}$ with your numbers in, for the method mark.",
     "On Paper 2, write down the lists you entered before the GDC's answer.",
     "Round only the final answer, to 3 s.f. unless the question asks for another precision, such as 4 s.f."
   ],

@@ -148,7 +148,7 @@
         {
           "type": "result",
           "statement": "The identities hold for every pair of angles $A$ and $B$, in degrees or radians.",
-          "why": "Mark $P(\\cos A, \\sin A)$ and $Q(\\cos B, \\sin B)$ on the unit circle, so the angle $POQ$ is $A - B$. The cosine rule from {{lesson:3.2}} gives $PQ^{2} = 1 + 1 - 2\\cos(A - B)$. The distance formula gives $PQ^{2} = (\\cos A - \\cos B)^{2} + (\\sin A - \\sin B)^{2}$, which expands to $2 - 2(\\cos A\\cos B + \\sin A\\sin B)$. The two must match, which proves the identity for $\\cos(A - B)$."
+          "why": "Mark $P(\\cos A, \\sin A)$ and $Q(\\cos B, \\sin B)$ on the unit circle, so the angle $POQ$ is $A - B$ (or an angle with the same cosine as $A - B$). The cosine rule from {{lesson:3.2}} gives $PQ^{2} = 1 + 1 - 2\\cos(A - B)$. The distance formula gives $PQ^{2} = (\\cos A - \\cos B)^{2} + (\\sin A - \\sin B)^{2}$, which expands to $2 - 2(\\cos A\\cos B + \\sin A\\sin B)$. The two must match, which proves the identity for $\\cos(A - B)$."
         },
         {
           "type": "text",
@@ -525,13 +525,27 @@
         {
           "type": "check",
           "id": "check-cos4-value",
-          "prompt": "Given that $\\cos\\theta = \\frac{1}{3}$, find $\\cos 4\\theta$. Give your answer to 3 s.f.",
+          "prompt": "Given that $\\cos\\theta = \\frac{1}{3}$, find the exact value of $\\cos 4\\theta$.",
           "hint": "Find $\\cos 2\\theta$ first with $2\\cos^{2}\\theta - 1$. Then use the same form again for $\\cos 4\\theta$.",
-          "answer": {
-            "value": 0.21,
-            "tolerance": 0.0005
-          },
-          "explain": "$\\cos 2\\theta = 2 \\times \\frac{1}{9} - 1 = -\\frac{7}{9}$, so $\\cos 4\\theta = 2 \\times \\frac{49}{81} - 1 = \\frac{17}{81} \\approx 0.210$."
+          "options": [
+            {
+              "text": "$-\\frac{7}{9}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{17}{81}$",
+              "correct": true
+            },
+            {
+              "text": "$-\\frac{17}{81}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{179}{81}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\cos 2\\theta = 2 \\times \\frac{1}{9} - 1 = -\\frac{7}{9}$, so $\\cos 4\\theta = 2 \\times \\left(-\\frac{7}{9}\\right)^{2} - 1 = \\frac{98}{81} - 1 = \\frac{17}{81}$. Stopping at $-\\frac{7}{9}$ gives only $\\cos 2\\theta$, and squaring $-\\frac{7}{9}$ must give $+\\frac{49}{81}$."
         },
         {
           "type": "text",
@@ -625,7 +639,7 @@
     "Taking a positive cosine for an obtuse angle. Find the quadrant of each angle before you write the sign of a missing ratio."
   ],
   "examTips": [
-    "“Find the exact value” means no calculator. Split the angle, write the identity with the exact values substituted, and simplify to the form the question asks for.",
+    "“Find the exact value” means a surd, fraction or multiple of $\\pi$, not a rounded decimal. Split the angle, write the identity with the exact values substituted, and simplify to the form the question asks for.",
     "“Show that”: start from one side, write each identity as you use it, and make your last line match the given result exactly.",
     "“Hence”: use the identity you have just proved. If your earlier part went wrong, using its result correctly can still earn follow-through marks.",
     "“Solve”: give every solution in the interval, in its units. A radian interval needs answers in radians."

@@ -602,7 +602,7 @@
         },
         {
           "type": "text",
-          "text": "If $k > 1$, no triangle exists, because no sine is bigger than $1$. If $k = 1$, the angle is exactly $90^{\\circ}$ and there is one triangle."
+          "text": "If $k > 1$, no triangle exists, because no sine is bigger than $1$. If $k = 1$, then $B = 90^{\\circ}$. That gives one triangle when $\\hat{A}$ is acute, and none otherwise."
         },
         {
           "type": "example",

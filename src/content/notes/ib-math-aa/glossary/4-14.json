@@ -1,0 +1,20 @@
+[
+  {
+    "id": "probability-density-function",
+    "term": "Probability density function",
+    "definition": "A function $f$ with $f(x) \\ge 0$ and total area $1$ under its graph that describes a continuous random variable: $\\mathrm{P}(a \\le X \\le b) = \\int_{a}^{b} f(x)\\,\\mathrm{d}x$.",
+    "lesson": "4.14"
+  },
+  {
+    "id": "piecewise-function",
+    "term": "Piecewise function",
+    "definition": "A function defined by different formulas on different intervals of its domain, such as $f(x) = x^{2}$ for $0 \\le x \\le 1$ and $f(x) = 1$ for $1 < x \\le 2$.",
+    "lesson": "4.14"
+  },
+  {
+    "id": "variance-of-a-random-variable",
+    "term": "Variance of a random variable",
+    "definition": "The expected squared distance of $X$ from its mean, $\\mathrm{Var}(X) = \\mathrm{E}\\left[(X - \\mu)^{2}\\right] = \\mathrm{E}(X^{2}) - \\left[\\mathrm{E}(X)\\right]^{2}$; its square root is the standard deviation.",
+    "lesson": "4.14"
+  }
+]

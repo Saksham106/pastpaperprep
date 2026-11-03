@@ -1,0 +1,634 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "4.8",
+  "slug": "binomial-distribution",
+  "title": "Binomial distribution",
+  "level": "SL",
+  "topic": 4,
+  "summary": "A [[binomial-distribution|binomial distribution]] counts the successes in a fixed number of [[independent-events|independent]] [[trial|trials]], each with the same chance of success. You write $X \\sim \\mathrm{B}(n, p)$, find its probabilities on your GDC, and use $\\mathrm{E}(X) = np$ for the number of successes to expect.",
+  "goals": [
+    {
+      "text": "Decide whether a situation fits a [[binomial-distribution|binomial distribution]], and write it as $X \\sim \\mathrm{B}(n, p)$.",
+      "bullets": [
+        "4.8-b1"
+      ]
+    },
+    {
+      "text": "Find $\\mathrm{P}(X = r)$ by hand for small cases and with your GDC for the rest.",
+      "bullets": [
+        "4.8-b1"
+      ]
+    },
+    {
+      "text": "Turn \"at most\", \"at least\", \"fewer than\", \"more than\" and \"between\" into the right GDC calculation.",
+      "bullets": [
+        "4.8-b1"
+      ]
+    },
+    {
+      "text": "Find the mean, [[variance|variance]] and [[standard-deviation|standard deviation]] of $X \\sim \\mathrm{B}(n, p)$, and work back from them to $n$ and $p$.",
+      "bullets": [
+        "4.8-b2"
+      ]
+    },
+    {
+      "text": "Use $np$ as the expected number of successes, the same idea as the expected number of occurrences.",
+      "bullets": [
+        "4.8-b2",
+        "4.8-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.9",
+    "4.7"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "binomial probability",
+    "X ~ B(n, p)",
+    "binompdf and binomcdf",
+    "mean and variance of a binomial",
+    "number of successes in n trials",
+    "at least one success"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ncr",
+      "prompt": "Find ${}^{6}C_{2}$.",
+      "hint": "${}^{n}C_{r} = \\frac{n!}{r!\\,(n-r)!}$. Or count the ways to choose $2$ things from $6$.",
+      "answer": {
+        "value": 15,
+        "tolerance": 0
+      },
+      "explain": "${}^{6}C_{2} = \\frac{6!}{2!\\,4!} = \\frac{6 \\times 5}{2 \\times 1} = 15$. Revise it in {{lesson:1.9}}."
+    },
+    {
+      "type": "check",
+      "id": "before-expected-value",
+      "prompt": "A [[random-variable|random variable]] $Y$ takes the values $0$, $1$ and $2$ with probabilities $0.5$, $0.3$ and $0.2$. Find $\\mathrm{E}(Y)$.",
+      "hint": "Multiply each value by its probability, then add.",
+      "answer": {
+        "value": 0.7,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{E}(Y) = 0 \\times 0.5 + 1 \\times 0.3 + 2 \\times 0.2 = 0 + 0.3 + 0.4 = 0.7$. Revise it in {{lesson:4.7}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "model",
+      "heading": "When is a situation binomial?",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Plant $10$ seeds. Each one grows with probability $0.6$, whatever the others do. The number that grow could be anything from $0$ to $10$. A binomial distribution gives the probability of each."
+        },
+        {
+          "type": "text",
+          "text": "Each seed is a [[trial|trial]] with two results. The result you count is a success (it grows); the other is a failure. \"Success\" is only a label: it could be a faulty part."
+        },
+        {
+          "type": "definition",
+          "term": "Binomial distribution",
+          "statement": "Let $X$ be the number of successes in $n$ trials. $X$ has a [[binomial-distribution|binomial distribution]], written $X \\sim \\mathrm{B}(n, p)$, when all four conditions hold: the number of trials $n$ is fixed; each trial has two outcomes, success or failure; the probability of success $p$ is the same in every trial; the trials are [[independent-events|independent]].",
+          "plain": "You repeat the same yes-or-no experiment a set number of times and count the yeses."
+        },
+        {
+          "type": "text",
+          "text": "Independent means the result of one trial doesn't change the chances for any other. You met independent events in {{lesson:4.6}}. Read $X \\sim \\mathrm{B}(n, p)$ as \"$X$ is binomial with $n$ trials and success probability $p$\"."
+        },
+        {
+          "type": "example",
+          "id": "ex-identify-die",
+          "question": "A fair six-sided die is rolled $20$ times. $X$ is the number of rolls that show a $1$ or a $2$. Explain why $X$ can be modelled by a binomial distribution, and state the values of $n$ and $p$.",
+          "steps": [
+            "Each roll is a success (a $1$ or a $2$) or a failure, and the number of rolls is fixed: $n = 20$.",
+            "The die is fair, so every roll succeeds with the same probability, $p = \\frac{2}{6} = \\frac{1}{3}$.",
+            "One roll does not affect another, so the rolls are independent. All four conditions hold: $X \\sim \\mathrm{B}\\left(20, \\frac{1}{3}\\right)$."
+          ],
+          "answer": "$n = 20, \\; p = \\tfrac{1}{3}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-counters",
+          "question": "A bag holds $7$ green and $3$ yellow counters. Four counters are taken out one at a time, and $X$ is the number of green ones. Is $X$ binomial when (a) each counter is put back before the next is taken; (b) the counters are not put back? If it is, state $n$ and $p$.",
+          "steps": [
+            "(a) Every draw is from the same $10$ counters, so $\\mathrm{P}(\\text{green}) = \\frac{7}{10} = 0.7$ each time. The $4$ draws are independent, so $X \\sim \\mathrm{B}(4, 0.7)$.",
+            "(b) The first counter is green with probability $\\frac{7}{10}$. If it was green, $6$ of the $9$ counters left are green. So the second is green with probability $\\frac{6}{9}$.",
+            "The probability of success changes from draw to draw. So in (b), $X$ is not binomial."
+          ],
+          "answer": "$n = 4, \\; p = 0.7$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using a binomial model when items are taken [[without-replacement|without replacement]]. Before you write $\\mathrm{B}(n, p)$, check that $p$ is the same on every trial."
+        },
+        {
+          "type": "check",
+          "id": "check-hearts",
+          "prompt": "A card is drawn from a standard pack of $52$ cards, noted and put back. This is done $10$ times. $X$ is the number of hearts drawn, and $X \\sim \\mathrm{B}(10, p)$. Find $p$.",
+          "hint": "A standard pack has $13$ hearts. Does putting the card back change anything?",
+          "options": [
+            {
+              "text": "$\\frac{1}{4}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{13}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{52}$",
+              "correct": false
+            }
+          ],
+          "explain": "$13$ of the $52$ cards are hearts, so $p = \\frac{13}{52} = \\frac{1}{4}$ on every draw. Putting the card back keeps $p$ the same, so the model holds."
+        },
+        {
+          "type": "check",
+          "id": "check-which-fails",
+          "prompt": "Eight sweets are taken one at a time, without replacement, from a jar of $12$ lemon and $18$ orange sweets. $X$ is the number of lemon sweets taken. Which binomial condition fails?",
+          "hint": "Work out the chance that the second sweet is lemon, given that the first one was.",
+          "options": [
+            {
+              "text": "The probability of success changes from one draw to the next",
+              "correct": true
+            },
+            {
+              "text": "The number of trials is not fixed",
+              "correct": false
+            },
+            {
+              "text": "Each trial has more than two outcomes",
+              "correct": false
+            }
+          ],
+          "explain": "The first sweet is lemon with probability $\\frac{12}{30}$. If it was, the second is lemon with probability $\\frac{11}{29}$, so $p$ is not constant. There are still $8$ trials, and each is lemon or not lemon."
+        }
+      ]
+    },
+    {
+      "id": "exact",
+      "heading": "The probability of exactly r successes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Before you use a GDC, see where binomial probabilities come from. Build one small case by hand."
+        },
+        {
+          "type": "example",
+          "id": "ex-spinner-two-red",
+          "question": "A spinner lands on red with probability $0.3$. It is spun $4$ times. Find the probability that it lands on red exactly twice.",
+          "steps": [
+            "Let $X$ be the number of reds, so $X \\sim \\mathrm{B}(4, 0.3)$. Write R for red and N for not red, with $\\mathrm{P}(\\text{N}) = 1 - 0.3 = 0.7$.",
+            "One way to get two reds is RRNN. The spins are [[independent-events|independent]], so multiply: $0.3 \\times 0.3 \\times 0.7 \\times 0.7 = 0.3^{2} \\times 0.7^{2} = 0.0441$.",
+            "Other orders work too: RRNN, RNRN, RNNR, NRRN, NRNR and NNRR. That is $6$ orders, and each has probability $0.0441$.",
+            "The number of orders is the number of ways to choose which $2$ of the $4$ spins are red: ${}^{4}C_{2} = 6$.",
+            "Add the $6$ equal probabilities: $\\mathrm{P}(X = 2) = 6 \\times 0.0441 = 0.2646$."
+          ],
+          "answer": "$\\mathrm{P}(X = 2) = 0.2646$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The same reasoning works for any $n$ and $r$. Each order with $r$ successes and $n - r$ failures has probability $p^{r}(1-p)^{n-r}$. There are ${}^{n}C_{r}$ such orders: the [[binomial-coefficient|binomial coefficient]] from {{lesson:1.9}}."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(X = r) = {}^{n}C_{r}\\, p^{r}(1-p)^{n-r}, \\quad r = 0, 1, \\ldots, n",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This formula is not in the formula booklet. Most binomial probabilities are found on a GDC, but the formula is quick for small cases. Two special cases: $\\mathrm{P}(X = 0) = (1-p)^{n}$ and $\\mathrm{P}(X = n) = p^{n}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-seeds-gdc",
+          "question": "Seeds of a certain plant grow with probability $0.85$, independently of each other. Rosa plants $18$ seeds. Use your calculator to find the probability that exactly $15$ of them grow. Give your answer to 3 s.f.",
+          "steps": [
+            "Let $X$ be the number of seeds that grow. There are $18$ independent trials with $p = 0.85$, so $X \\sim \\mathrm{B}(18, 0.85)$.",
+            "Write down what you need: $\\mathrm{P}(X = 15)$.",
+            "Use binomial pdf with $n = 18$, $p = 0.85$ and $x = 15$. The GDC gives $0.240573\\ldots$",
+            "Check with the formula: ${}^{18}C_{15} \\times 0.85^{15} \\times 0.15^{3} = 816 \\times 0.087354\\ldots \\times 0.003375$, which is about $0.24$.",
+            "Round only at the end: $0.241$ to 3 s.f."
+          ],
+          "answer": "$\\mathrm{P}(X = 15) \\approx 0.241$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "2nd, VARS (DISTR), binompdf(",
+              "Enter trials 18, p 0.85, x value 15, then Paste and ENTER",
+              "Read 0.240573…, which is 0.241 to 3 s.f."
+            ],
+            "nspire": [
+              "Calculator page: Menu, Statistics, Distributions, Binomial Pdf",
+              "Num Trials 18, Prob Success 0.85, X Value 15, then OK",
+              "Read 0.240573…, which is 0.241 to 3 s.f."
+            ],
+            "casio": [
+              "STAT, DIST, BINOMIAL, Bpd",
+              "Data: Variable, x 15, Numtrial 18, p 0.85, then EXECUTE (check on your model)",
+              "Read 0.240573…, which is 0.241 to 3 s.f."
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Write the distribution and the probability you want, such as $X \\sim \\mathrm{B}(18, 0.85)$ and $\\mathrm{P}(X = 15)$, before the GDC value. That shows your method, even if you key in a wrong number."
+        },
+        {
+          "type": "check",
+          "id": "check-quarter-three",
+          "prompt": "$X \\sim \\mathrm{B}\\left(4, \\frac{1}{4}\\right)$. Find $\\mathrm{P}(X = 3)$ exactly.",
+          "hint": "Use ${}^{4}C_{3}\\, p^{3}(1-p)^{1}$ with $p = \\frac{1}{4}$.",
+          "options": [
+            {
+              "text": "$\\frac{3}{64}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{3}{256}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{27}{64}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{64}$",
+              "correct": false
+            }
+          ],
+          "explain": "${}^{4}C_{3} \\times \\left(\\frac{1}{4}\\right)^{3} \\times \\frac{3}{4} = 4 \\times \\frac{1}{64} \\times \\frac{3}{4} = \\frac{3}{64}$. Leaving out the $4$ gives $\\frac{3}{256}$. Swapping $p$ and $1 - p$ gives $\\frac{27}{64}$."
+        },
+        {
+          "type": "check",
+          "id": "check-households",
+          "prompt": "In a town, $22\\%$ of households own a dog. A random sample of $16$ households is chosen. Find the probability that exactly $4$ of them own a dog. Give your answer to 3 s.f.",
+          "hint": "Let $X$ be the number of dog owners, $X \\sim \\mathrm{B}(16, 0.22)$. Use binomial pdf with $x = 4$.",
+          "answer": {
+            "value": 0.216,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\mathrm{P}(X = 4) = {}^{16}C_{4} \\times 0.22^{4} \\times 0.78^{12} = 0.216220\\ldots \\approx 0.216$."
+        }
+      ]
+    },
+    {
+      "id": "cumulative",
+      "heading": "At most, at least and between",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most questions ask about a range of values, such as \"at most $3$\" or \"at least $6$\". Your GDC's binomial cdf adds $\\mathrm{P}(X = 0)$ up to $\\mathrm{P}(X = k)$ for you. So it gives $\\mathrm{P}(X \\le k)$ in one step."
+        },
+        {
+          "type": "text",
+          "text": "Everything else comes from $\\mathrm{P}(X \\le k)$ and the [[complementary-events|complement]] rule. $X$ only takes whole numbers, so \"fewer than $4$\" means $X \\le 3$, and \"more than $4$\" means $X \\ge 5$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{array}{ll} \\text{at most } k & \\mathrm{P}(X \\le k) \\\\ \\text{fewer than } k & \\mathrm{P}(X \\le k - 1) \\\\ \\text{at least } k & \\mathrm{P}(X \\ge k) = 1 - \\mathrm{P}(X \\le k - 1) \\\\ \\text{more than } k & \\mathrm{P}(X > k) = 1 - \\mathrm{P}(X \\le k) \\\\ a \\text{ to } b \\text{ inclusive} & \\mathrm{P}(a \\le X \\le b) = \\mathrm{P}(X \\le b) - \\mathrm{P}(X \\le a - 1) \\end{array}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-bus-late",
+          "question": "On any school day, the probability that Ella's bus is late is $0.2$, [[independent-events|independently]] of other days. Find the probability that the bus is late at least once in $3$ days.",
+          "steps": [
+            "Let $X$ be the number of late days, so $X \\sim \\mathrm{B}(3, 0.2)$.",
+            "\"At least once\" is $X \\ge 1$. Its complement is $X = 0$: the bus is on time on all $3$ days.",
+            "$\\mathrm{P}(X = 0) = (1 - 0.2)^{3} = 0.8^{3} = 0.512$.",
+            "So $\\mathrm{P}(X \\ge 1) = 1 - 0.512 = 0.488$."
+          ],
+          "answer": "$\\mathrm{P}(X \\ge 1) = 0.488$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Move $k$ and switch the event in the chart below. Watch which bars are shaded. \"At least $6$\" starts at the bar for $6$, so its complement stops at $5$."
+        },
+        {
+          "type": "interactive",
+          "widget": "binomial-shaded",
+          "props": {
+            "n": 15,
+            "p": 0.25,
+            "k": 6,
+            "mode": "ge"
+          },
+          "alt": "Bar chart of a binomial distribution with 15 trials and success probability 0.25. Each bar is the probability of one number of successes, from 0 to 15. The bars for 6 or more successes are shaded, and their total probability is shown below the chart. Sliders change the number of trials, the success probability and k. A menu switches the shaded event between equal to k, at most k and at least k."
+        },
+        {
+          "type": "example",
+          "id": "ex-quiz-guess",
+          "question": "A quiz has $15$ multiple-choice questions, each with $4$ options and one correct answer. Tom guesses every answer at random. Use your calculator to find the probability that he gets at least $6$ correct. Give your answer to 3 s.f.",
+          "steps": [
+            "Let $X$ be the number of correct answers. Each guess is right with probability $\\frac{1}{4} = 0.25$, independently. So $X \\sim \\mathrm{B}(15, 0.25)$.",
+            "\"At least $6$\" is $X \\ge 6$. Its complement is $X \\le 5$, so $\\mathrm{P}(X \\ge 6) = 1 - \\mathrm{P}(X \\le 5)$.",
+            "Use binomial cdf with $n = 15$, $p = 0.25$ and $x = 5$: $\\mathrm{P}(X \\le 5) = 0.851631\\ldots$",
+            "So $\\mathrm{P}(X \\ge 6) = 1 - 0.851631\\ldots = 0.148368\\ldots$, which is $0.148$ to 3 s.f."
+          ],
+          "answer": "$\\mathrm{P}(X \\ge 6) \\approx 0.148$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "2nd, VARS (DISTR), binomcdf(",
+              "Enter trials 15, p 0.25, x value 5, then Paste and ENTER: this is the probability of at most 5",
+              "Type 1 − Ans, then ENTER",
+              "Read 0.148368…, which is 0.148 to 3 s.f."
+            ],
+            "nspire": [
+              "Calculator page: Menu, Statistics, Distributions, Binomial Cdf",
+              "Num Trials 15, Prob Success 0.25, Lower Bound 0, Upper Bound 5, then OK",
+              "Type 1 minus this value, then enter",
+              "Read 0.148368…, which is 0.148 to 3 s.f."
+            ],
+            "casio": [
+              "STAT, DIST, BINOMIAL, Bcd",
+              "Data: Variable, Lower 0, Upper 5, Numtrial 15, p 0.25, then EXECUTE (check on your model)",
+              "Work out 1 minus this value in RUN-MAT",
+              "Read 0.148368…, which is 0.148 to 3 s.f."
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\mathrm{P}(X \\ge 6) = 1 - \\mathrm{P}(X \\le 6)$. That throws away $X = 6$, which you wanted to keep. Subtract $\\mathrm{P}(X \\le 5)$ instead."
+        },
+        {
+          "type": "check",
+          "id": "check-fewer-than-four",
+          "prompt": "$X \\sim \\mathrm{B}(10, 0.3)$. Find $\\mathrm{P}(X < 4)$.",
+          "hint": "$X$ is a whole number, so $X < 4$ means $X \\le 3$.",
+          "options": [
+            {
+              "text": "$\\mathrm{P}(X < 4) \\approx 0.650$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{P}(X < 4) \\approx 0.850$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{P}(X < 4) \\approx 0.350$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{P}(X < 4) \\approx 0.383$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{P}(X < 4) = \\mathrm{P}(X \\le 3) = 0.649610\\ldots \\approx 0.650$. $0.850$ is $\\mathrm{P}(X \\le 4)$, $0.350$ is $\\mathrm{P}(X \\ge 4)$ and $0.383$ is $\\mathrm{P}(X \\le 2)$."
+        },
+        {
+          "type": "check",
+          "id": "check-archer-between",
+          "prompt": "An archer hits the gold ring with probability $0.65$ on each arrow, independently. She shoots $20$ arrows. Find the probability that she hits the gold between $10$ and $15$ times inclusive. Give your answer to 3 s.f.",
+          "hint": "Use the last row of the table: $\\mathrm{P}(X \\le 15) - \\mathrm{P}(X \\le 9)$. Why $9$ and not $10$?",
+          "answer": {
+            "value": 0.829,
+            "tolerance": 0.0005
+          },
+          "explain": "$X \\sim \\mathrm{B}(20, 0.65)$. $\\mathrm{P}(X \\le 15) - \\mathrm{P}(X \\le 9) = 0.881803\\ldots - 0.0531666\\ldots = 0.828636\\ldots \\approx 0.829$. Subtracting $\\mathrm{P}(X \\le 10)$ would also remove $X = 10$."
+        },
+        {
+          "type": "check",
+          "id": "check-darts-given",
+          "prompt": "A darts player hits the bullseye with probability $0.15$ on each throw, independently. She throws $10$ darts. Given that she hits at least one bullseye, find the probability that she hits exactly one. Give your answer to 3 s.f.",
+          "hint": "Use $\\mathrm{P}(A \\mid B) = \\frac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(B)}$. \"Exactly one\" is inside \"at least one\", so the top is just $\\mathrm{P}(X = 1)$.",
+          "answer": {
+            "value": 0.433,
+            "tolerance": 0.0005
+          },
+          "explain": "$X \\sim \\mathrm{B}(10, 0.15)$. $\\mathrm{P}(X = 1) = 0.347425\\ldots$ and $\\mathrm{P}(X \\ge 1) = 1 - 0.85^{10} = 0.803125\\ldots$ Divide: $0.432591\\ldots \\approx 0.433$. Conditional probability is taught in {{lesson:4.6}}."
+        },
+        {
+          "type": "check",
+          "id": "check-least-n-lights",
+          "prompt": "Each bulb in a string of party lights is faulty with probability $0.06$, independently of the others. Find the least number of bulbs $n$ for which the probability that at least one bulb is faulty is greater than $0.95$.",
+          "hint": "\"At least one\" is the complement of \"none\", so $\\mathrm{P}(X \\ge 1) = 1 - 0.94^{n}$. Solve $1 - 0.94^{n} > 0.95$ with a GDC table or graph, then round $n$ up.",
+          "answer": {
+            "value": 49,
+            "tolerance": 0
+          },
+          "explain": "You need $0.94^{n} < 0.05$, so $n > \\frac{\\ln 0.05}{\\ln 0.94} = 48.41\\ldots$ (dividing by $\\ln 0.94$, which is negative, flips the inequality). $n$ is a whole number, so round up: $n = 49$. Check: $n = 48$ gives $0.9486\\ldots$, too small, and $n = 49$ gives $0.9517\\ldots$"
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding $n$ to the nearest whole number in a \"least $n$\" question. $n$ must satisfy the inequality, so always round up, then check that $n - 1$ fails."
+        },
+        {
+          "type": "examTip",
+          "text": "Never round $\\mathrm{P}(X \\le 5)$ before you subtract it from $1$ or divide by it. Keep the full GDC value, then give the final answer to 3 s.f."
+        }
+      ]
+    },
+    {
+      "id": "mean-variance",
+      "heading": "Mean, variance and expected number",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Roll a fair die $60$ times. In {{lesson:4.5}} you expected $60 \\times \\frac{1}{6} = 10$ sixes. The number of sixes is $X \\sim \\mathrm{B}\\left(60, \\frac{1}{6}\\right)$, and that expected number is just $np$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(X) = np",
+          "tag": "booklet",
+          "bookletId": "bk-4-8-binomial-mean",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "$\\mathrm{E}(X)$ is the mean of $X$: the average number of successes over many repeats of all $n$ trials. Like any expected number, it need not be a whole number."
+        },
+        {
+          "type": "text",
+          "text": "The [[variance|variance]] measures how widely $X$ spreads around its mean. A binomial distribution has its own formula for it. Its square root is the [[standard-deviation|standard deviation]], $\\sigma$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{Var}(X) = np(1-p)",
+          "tag": "booklet",
+          "bookletId": "bk-4-8-binomial-variance",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Both formulas are in the formula booklet, and you don't need to prove them. As $1 - p < 1$, the variance is always smaller than the mean: a quick check."
+        },
+        {
+          "type": "example",
+          "id": "ex-mean-var",
+          "question": "$X \\sim \\mathrm{B}(50, 0.12)$. Find the mean and the variance of $X$.",
+          "steps": [
+            "Here $n = 50$ and $p = 0.12$, so $1 - p = 0.88$.",
+            "Mean: $\\mathrm{E}(X) = np = 50 \\times 0.12 = 6$.",
+            "Variance: $\\mathrm{Var}(X) = np(1-p) = 6 \\times 0.88 = 5.28$.",
+            "Check: the variance is smaller than the mean, as it must be. If you also need the standard deviation, it is $\\sqrt{5.28} = 2.2978\\ldots \\approx 2.30$."
+          ],
+          "answer": "$\\mathrm{E}(X) = 6, \\; \\mathrm{Var}(X) = 5.28$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-screens",
+          "question": "A factory finds that $4\\%$ of its phone screens have a defect. A batch of $250$ screens is checked. (a) Find the expected number of screens with a defect. (b) Find the probability that more than the expected number have a defect. Give your answer to 3 s.f.",
+          "steps": [
+            "Let $X$ be the number of screens with a defect. Assume each screen is faulty with probability $0.04$, [[independent-events|independently]]. Then $X \\sim \\mathrm{B}(250, 0.04)$.",
+            "(a) The expected number is the mean: $\\mathrm{E}(X) = np = 250 \\times 0.04 = 10$.",
+            "(b) \"More than $10$\" is $X \\ge 11$, so $\\mathrm{P}(X > 10) = 1 - \\mathrm{P}(X \\le 10)$.",
+            "Binomial cdf gives $\\mathrm{P}(X \\le 10) = 0.583057\\ldots$, so $\\mathrm{P}(X > 10) = 0.416942\\ldots$, which is $0.417$ to 3 s.f."
+          ],
+          "answer": "$\\mathrm{P}(X > 10) \\approx 0.417$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-find-n-p",
+          "question": "$X \\sim \\mathrm{B}(n, p)$, with $\\mathrm{E}(X) = 12$ and $\\mathrm{Var}(X) = 8.4$. Find $n$ and $p$.",
+          "steps": [
+            "Write both facts as equations: $np = 12$ and $np(1-p) = 8.4$.",
+            "$np$ appears in both, so divide the second by the first: $1 - p = \\frac{8.4}{12} = 0.7$.",
+            "So $p = 0.3$. Then $n = \\frac{12}{0.3} = 40$.",
+            "Check: $40 \\times 0.3 = 12$ and $12 \\times 0.7 = 8.4$. Also $n$ is a whole number, as a number of trials must be."
+          ],
+          "answer": "$n = 40, \\; p = 0.3$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving $np$ as the variance, or giving the variance when the question asks for the standard deviation. $\\mathrm{Var}(X) = np(1-p)$, and $\\sigma$ is its square root."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also find the mean and variance of $aX + b$, for example $\\mathrm{Var}(3X + 5) = 9\\,\\mathrm{Var}(X)$.",
+          "lesson": "4.14"
+        },
+        {
+          "type": "check",
+          "id": "check-variance",
+          "prompt": "$X \\sim \\mathrm{B}(80, 0.25)$. Find $\\mathrm{Var}(X)$.",
+          "hint": "Use $np(1-p)$, not $np$.",
+          "options": [
+            {
+              "text": "$15$",
+              "correct": true
+            },
+            {
+              "text": "$20$",
+              "correct": false
+            },
+            {
+              "text": "$60$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{15}$",
+              "correct": false
+            }
+          ],
+          "explain": "$80 \\times 0.25 \\times 0.75 = 15$. $20$ is the mean, $60$ is $n(1-p)$, and $\\sqrt{15}$ is the standard deviation."
+        },
+        {
+          "type": "check",
+          "id": "check-find-n",
+          "prompt": "The number of sixes in $n$ rolls of a fair die is $X \\sim \\mathrm{B}\\left(n, \\frac{1}{6}\\right)$. The expected number of sixes is $14$. Find $n$.",
+          "hint": "The expected number is $np$. Set it equal to $14$.",
+          "answer": {
+            "value": 84,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{n}{6} = 14$, so $n = 84$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$X \\sim \\mathrm{B}(n, p)$ counts successes in a fixed number $n$ of independent trials, each with two outcomes and the same success probability $p$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(X = r) = {}^{n}C_{r}\\, p^{r}(1-p)^{n-r}, \\quad r = 0, 1, \\ldots, n",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "On your GDC, binomial pdf gives $\\mathrm{P}(X = r)$ and binomial cdf gives $\\mathrm{P}(X \\le k)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{P}(X \\ge k) = 1 - \\mathrm{P}(X \\le k - 1)$ and $\\mathrm{P}(X > k) = 1 - \\mathrm{P}(X \\le k)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(X) = np",
+          "tag": "booklet",
+          "bookletId": "bk-4-8-binomial-mean",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{Var}(X) = np(1-p)",
+          "tag": "booklet",
+          "bookletId": "bk-4-8-binomial-variance",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$np$ is the expected number of successes. The standard deviation is $\\sqrt{np(1-p)}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing $\\mathrm{P}(X \\ge k) = 1 - \\mathrm{P}(X \\le k)$. That removes $X = k$ as well. Use $1 - \\mathrm{P}(X \\le k - 1)$.",
+    "Reading \"more than $6$\" as $X \\ge 6$. For a whole-number $X$, $X > 6$ means $X \\ge 7$.",
+    "Leaving out ${}^{n}C_{r}$ in a binomial probability by hand. Without it you have found the probability of one order only.",
+    "Using the binomial for \"the first success is on trial $k$\". That is one fixed order, $k - 1$ failures then a success, so its probability is $(1-p)^{k-1}p$.",
+    "Swapping $p$ and $1 - p$. Decide what a success is and write down its probability $p$ first.",
+    "Rounding a GDC value, such as $\\mathrm{P}(X \\le 10)$, before using it again. Carry the full value and round only the final answer."
+  ],
+  "examTips": [
+    "Find a binomial probability: write the distribution, $X \\sim \\mathrm{B}(n, p)$, and the probability statement, such as $\\mathrm{P}(X \\ge 6) = 1 - \\mathrm{P}(X \\le 5)$, before the GDC value.",
+    "Paper 1 has no GDC, so binomial work there uses the formulas: $np$, $np(1-p)$, or a small case such as $\\mathrm{P}(X = 0) = (1-p)^{n}$.",
+    "Give probabilities to 3 s.f. unless the question says otherwise, and never round a value you will use again.",
+    "Find the expected number: write $np$ with the numbers in, then the value. Don't round it to a whole number."
+  ],
+  "readingMinutes": 25
+}

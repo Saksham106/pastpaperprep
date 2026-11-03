@@ -1,0 +1,458 @@
+{
+  "schemaVersion": 1,
+  "edition": "aa-2021",
+  "item": "4.10",
+  "slug": "regression-line-x-on-y-and-prediction",
+  "title": "Regression line of x on y and prediction",
+  "level": "SL",
+  "topic": 4,
+  "summary": "When you know $y$ and want to estimate $x$, you need the [[regression-line-x-on-y|regression line of x on y]]. It is a different line from the one you met for predicting $y$. You learn to find it with your GDC, predict with it, and pick the right line for every prediction.",
+  "goals": [
+    {
+      "text": "Find the [[regression-line-x-on-y|regression line of x on y]] with your GDC, and use it to predict $x$ from a given $y$.",
+      "bullets": [
+        "4.10-b1"
+      ]
+    },
+    {
+      "text": "Choose the right regression line for a prediction, and explain why a line of $x$ on $y$ can't reliably predict $y$ from $x$.",
+      "bullets": [
+        "4.10-b1",
+        "4.10-b2"
+      ]
+    },
+    {
+      "text": "Use the mean point, where the two regression lines cross, to find $\\bar{x}$, $\\bar{y}$ or a missing constant.",
+      "bullets": [
+        "4.10-b1"
+      ]
+    },
+    {
+      "text": "Judge whether a prediction is reliable: the right line, strong correlation, and a given value inside the data.",
+      "bullets": [
+        "4.10-b1",
+        "4.10-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "regression line x on y",
+    "predict x from y",
+    "which regression line to use",
+    "two regression lines",
+    "x on y line gdc",
+    "mean point from regression lines"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-mean-point",
+      "prompt": "The regression line of $y$ on $x$ is $y = 3x - 4$, and $\\bar{x} = 6$. Find $\\bar{y}$.",
+      "hint": "Every regression line goes through $(\\bar{x}, \\bar{y})$.",
+      "answer": {
+        "value": 14,
+        "tolerance": 0
+      },
+      "explain": "Substitute $x = 6$: $\\bar{y} = 3 \\times 6 - 4 = 14$. Revise it in {{lesson:4.4}}."
+    },
+    {
+      "type": "check",
+      "id": "before-vertical",
+      "prompt": "The regression line of $y$ on $x$ makes the sum of which squared distances as small as possible?",
+      "hint": "The line predicts $y$. Which direction is $y$ measured in on a scatter diagram?",
+      "options": [
+        {
+          "text": "Vertical distances from the points to the line",
+          "correct": true
+        },
+        {
+          "text": "Horizontal distances from the points to the line",
+          "correct": false
+        },
+        {
+          "text": "Perpendicular distances from the points to the line",
+          "correct": false
+        }
+      ],
+      "explain": "It predicts $y$, which is measured up the page, so it minimises the squared vertical distances. Revise it in {{lesson:4.4}}."
+    },
+    {
+      "type": "check",
+      "id": "before-extrapolate",
+      "prompt": "A line of $y$ on $x$ was built from data with $x$ between $20$ and $50$, and $r = 0.95$. How would you describe a prediction of $y$ at $x = 65$?",
+      "hint": "Is $65$ inside or outside the range of the $x$ data?",
+      "options": [
+        {
+          "text": "Interpolation, so it is reliable",
+          "correct": false
+        },
+        {
+          "text": "Extrapolation, so it may be unreliable",
+          "correct": true
+        },
+        {
+          "text": "Reliable, because $r$ is close to $1$",
+          "correct": false
+        }
+      ],
+      "explain": "$65$ is outside $20$ to $50$, so it is extrapolation. A strong $r$ doesn't help outside the data. Revise it in {{lesson:4.4}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "x-on-y",
+      "heading": "The regression line of x on y",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A forester can measure round a tree trunk with a tape in seconds. Finding the tree's age is much harder. So she wants to predict age $x$ from circumference $y$: here $y$ is known and $x$ is the unknown."
+        },
+        {
+          "type": "text",
+          "text": "The line of $y$ on $x$ from {{lesson:4.4}} won't do. It was built to keep the errors in $y$ small. To predict $x$, you need a line that keeps the errors in $x$ small."
+        },
+        {
+          "type": "definition",
+          "term": "Regression line of x on y",
+          "statement": "The [[regression-line-x-on-y|regression line of x on y]] is the line $x = cy + d$ that minimises the sum of the squared horizontal distances from the points to the line. It passes through the [[mean-point|mean point]] $(\\bar{x}, \\bar{y})$.",
+          "plain": "The best straight line for predicting $x$ from $y$."
+        },
+        {
+          "type": "figure",
+          "id": "4-10-horizontal-distances",
+          "alt": "Six points with a straight line through them. A short horizontal dashed segment joins each point to the line.",
+          "caption": "The squares of these horizontal distances add up to as little as possible."
+        },
+        {
+          "type": "text",
+          "text": "Here $c$ and $d$ are constants. Exam questions may use other letters, so check which variable is on the left."
+        },
+        {
+          "type": "example",
+          "id": "ex-heating-predict",
+          "question": "Over $60$ days, a household recorded the mean outdoor temperature $x$ °C and its electricity use $y$ kWh. Its daily use ranged from $9$ to $27$ kWh. The regression line of $y$ on $x$ is $y = 30 - 0.8x$, and the regression line of $x$ on $y$ is $x = 31.2 - 0.9y$. Estimate the mean temperature on a day when the household used $14$ kWh.",
+          "steps": [
+            "You know $y = 14$ and want $x$, so use the line of $x$ on $y$: $x = 31.2 - 0.9y$.",
+            "Substitute $y = 14$: $x = 31.2 - 0.9 \\times 14 = 31.2 - 12.6 = 18.6$.",
+            "You were given a $y$, so check it against the range of the $y$ data. For a line of $x$ on $y$, that is the range that decides [[interpolation|interpolation]].",
+            "$14$ kWh is inside the recorded $9$ to $27$ kWh, so this is interpolation. The mean temperature was about $18.6$ °C."
+          ],
+          "answer": "$x = 31.2 - 0.9 \\times 14 = 18.6$",
+          "check": {
+            "type": "check",
+            "id": "check-heating-20",
+            "prompt": "Now you try: estimate the mean temperature, in °C, on a day when the household used $20$ kWh.",
+            "hint": "You know $y$, so use the line of $x$ on $y$.",
+            "answer": {
+              "value": 13.2,
+              "tolerance": 0.05
+            },
+            "explain": "$x = 31.2 - 0.9 \\times 20 = 31.2 - 18 = 13.2$ °C."
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Your GDC finds the line of $x$ on $y$ with the same linear regression command as before. The only change is the lists: the $y$-values go in the X list and the $x$-values in the Y list."
+        },
+        {
+          "type": "example",
+          "id": "ex-tree-age",
+          "question": "A forester records the age $x$ years and the trunk circumference $y$ cm of eight trees. $x$: $12, 18, 25, 31, 40, 46, 55, 63$. $y$: $62, 95, 78, 124, 105, 150, 122, 168$. (a) Use your calculator to find the regression line of $x$ on $y$. (b) Estimate the age of a tree with circumference $100$ cm. Give your answers to 3 s.f.",
+          "steps": [
+            "(a) You will predict $x$ from $y$, so you need the line of $x$ on $y$. Enter the circumferences ($y$) as the X list and the ages ($x$) as the Y list.",
+            "Run linear regression ($ax + b$). The screen shows $a = 0.43950\\ldots$ and $b = -13.413\\ldots$. These are $c$ and $d$, so the line is $x \\approx 0.440y - 13.4$.",
+            "(b) Write down the substitution, using the stored values: $x = 0.43950\\ldots \\times 100 - 13.413\\ldots$.",
+            "This gives $x = 30.536\\ldots \\approx 30.5$ years. $100$ cm is inside the circumferences $62$ to $168$ cm, so this is interpolation."
+          ],
+          "answer": "$x \\approx 0.440y - 13.4, \\; x \\approx 30.5\\text{ years}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "STAT, 1: Edit, type the circumferences into L1 and the ages into L2 (check on your model)",
+              "STAT, CALC, 4: LinReg(ax+b), Xlist: L1, Ylist: L2, move to Calculate, ENTER",
+              "Read a = 0.4395... and b = -13.41... Here a is c, the number that multiplies the circumference, and b is d"
+            ],
+            "nspire": [
+              "Lists & Spreadsheet page, name column A circ and column B age in the header row, then type the circumferences under circ and the ages under age (check on your model)",
+              "Menu, Statistics, Stat Calculations, Linear Regression (mx+b)",
+              "Choose circ as the X List and age as the Y List, then OK (check on your model)",
+              "Read m = 0.4395... (this is c) and b = -13.41... (this is d)"
+            ],
+            "casio": [
+              "STAT, type the circumferences into List 1 and the ages into List 2 (check on your model)",
+              "CALC, REG, X, ax+b",
+              "Read a = 0.4395... (this is c) and b = -13.41... (this is d)"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Entering the lists in the usual order. For the line of $x$ on $y$, the $y$-values go in the X list; the usual order gives the line of $y$ on $x$."
+        },
+        {
+          "type": "examTip",
+          "text": "Write the line with its constants to 3 s.f., but predict with the stored values. Rounding $c$ and $d$ first can change the last figure."
+        },
+        {
+          "type": "check",
+          "id": "check-gdc-lists",
+          "prompt": "You want the regression line of $x$ on $y$ from your GDC. Which values go in the X list?",
+          "hint": "The GDC always predicts its Y list from its X list. Which variable do you want to predict?",
+          "options": [
+            {
+              "text": "The $y$-values",
+              "correct": true
+            },
+            {
+              "text": "The $x$-values",
+              "correct": false
+            },
+            {
+              "text": "Either: both orders give the same line",
+              "correct": false
+            }
+          ],
+          "explain": "You want to predict $x$, so $x$ goes in the Y list and $y$ in the X list. The two orders give different lines unless $r = \\pm 1$."
+        },
+        {
+          "type": "check",
+          "id": "check-tree-140",
+          "prompt": "Use the trees' line of $x$ on $y$ to estimate the age, in years, of a tree with circumference $140$ cm. Give your answer to 3 s.f.",
+          "hint": "Substitute $y = 140$ into $x = cy + d$, with the full values of $c$ and $d$.",
+          "answer": {
+            "value": 48.1,
+            "tolerance": 0.05
+          },
+          "explain": "$x = 0.43950\\ldots \\times 140 - 13.413\\ldots = 48.116\\ldots \\approx 48.1$ years. $140$ cm is inside the circumferences, $62$ to $168$ cm, so this is interpolation."
+        }
+      ]
+    },
+    {
+      "id": "which-line",
+      "heading": "Which line predicts which variable",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each regression line predicts the variable named first. The line of $y$ on $x$ predicts $y$. The line of $x$ on $y$ predicts $x$."
+        },
+        {
+          "type": "result",
+          "statement": "Use the line of $x$ on $y$ only to predict $x$ from a given $y$. It cannot reliably predict $y$ from a given $x$: use the line of $y$ on $x$ for that.",
+          "why": "Each line keeps the errors small in the variable it predicts, and only in that variable."
+        },
+        {
+          "type": "text",
+          "text": "Rearranging doesn't help. Making $y$ the subject of $x = cy + d$ gives the same line, which still minimises horizontal distances. It is not the line of $y$ on $x$."
+        },
+        {
+          "type": "interactive",
+          "widget": "regression-two-lines",
+          "props": {
+            "x": 6,
+            "y": 1
+          },
+          "alt": "Four fixed points and one point you can drag, which starts well below the trend of the others. A solid line shows the y on x regression line and a dashed line the x on y line. Both pass through the mean point, marked with a small ring. The value of r and both equations update as you drag."
+        },
+        {
+          "type": "text",
+          "text": "The ringed point starts far off the trend, so $r \\approx -0.25$ and the lines cross at a wide angle. Drag it up to $(5, 6)$: $r$ rises to $0.9$ and the lines close up. The weaker the correlation, the more their predictions differ. They are one line only when $r = \\pm 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-tree-circumference",
+          "question": "For the eight trees above, the regression line of $y$ on $x$ is $y \\approx 1.72x + 50.7$. (a) Estimate the circumference of a $20$-year-old tree. (b) A student makes $y$ the subject of the line of $x$ on $y$ instead. Find the student's estimate, and explain why the method is not appropriate. Give your answers to 3 s.f.",
+          "steps": [
+            "(a) You know $x = 20$ and want $y$, so use the line of $y$ on $x$. Run the regression with the ages in the X list, then use the stored values: $y = 1.7197\\ldots \\times 20 + 50.659\\ldots = 85.054\\ldots \\approx 85.1$ cm.",
+            "(b) The student rearranges $x = 0.43950\\ldots y - 13.413\\ldots$ to $y = \\frac{x + 13.413\\ldots}{0.43950\\ldots}$.",
+            "At $x = 20$: $y = \\frac{33.413\\ldots}{0.43950\\ldots} = 76.026\\ldots \\approx 76.0$ cm, about $9$ cm below the estimate in (a).",
+            "The line of $x$ on $y$ keeps the errors in age small, not in circumference, so it can't reliably predict a circumference. The gap is large because $r \\approx 0.869$ is well short of $1$."
+          ],
+          "answer": "$\\text{(a) } y \\approx 85.1\\text{ cm}, \\; \\text{(b) } y \\approx 76.0\\text{ cm}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-lawn-two-lines",
+          "question": "For $35$ gardens, $x$ is the lawn area in $\\text{m}^{2}$ and $y$ is the water used in litres per week. The regression line of $y$ on $x$ is $y = 0.6x + 26$. The regression line of $x$ on $y$ is $x = 1.25y - 22.5$. (a) Estimate the water used by a garden with a $30\\text{ m}^{2}$ lawn. (b) Estimate the lawn area of a garden that uses $60$ litres per week.",
+          "steps": [
+            "(a) You know $x$ and want $y$: use the line of $y$ on $x$. $y = 0.6 \\times 30 + 26 = 18 + 26 = 44$ litres per week.",
+            "(b) You know $y$ and want $x$: use the line of $x$ on $y$. $x = 1.25 \\times 60 - 22.5 = 75 - 22.5 = 52.5\\text{ m}^{2}$.",
+            "Check: rearranging the line of $x$ on $y$ in (a) would give $y = \\frac{30 + 22.5}{1.25} = 42$. The wrong line gives a different answer, so the choice of line matters."
+          ],
+          "answer": "$y = 44, \\; x = 52.5$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-heating-which",
+          "prompt": "For the household, $y = 30 - 0.8x$ is the line of $y$ on $x$ and $x = 31.2 - 0.9y$ is the line of $x$ on $y$. Estimate the electricity use, in kWh, on a day with mean temperature $10$ °C. Give your answer to 3 s.f.",
+          "hint": "You know $x$. Which line predicts $y$?",
+          "options": [
+            {
+              "text": "$22.0$",
+              "correct": true
+            },
+            {
+              "text": "$23.6$",
+              "correct": false
+            },
+            {
+              "text": "$22.2$",
+              "correct": false
+            }
+          ],
+          "explain": "Use the line of $y$ on $x$: $y = 30 - 0.8 \\times 10 = 22.0$ kWh. $23.6$ comes from rearranging the line of $x$ on $y$, and $22.2$ from putting $10$ into it as $y$."
+        },
+        {
+          "type": "check",
+          "id": "check-tree-reliable",
+          "prompt": "The tree data had ages from $12$ to $63$ years and circumferences from $62$ to $168$ cm. For which estimate is the line of $x$ on $y$ the right, reliable tool?",
+          "hint": "Which variable does this line predict? Is the given value inside the data?",
+          "options": [
+            {
+              "text": "The age of a tree with circumference $130$ cm",
+              "correct": true
+            },
+            {
+              "text": "The circumference of a $50$-year-old tree",
+              "correct": false
+            },
+            {
+              "text": "The age of a tree with circumference $250$ cm",
+              "correct": false
+            }
+          ],
+          "explain": "The line of $x$ on $y$ predicts age from circumference, and $130$ cm is inside $62$ to $168$ cm. A circumference needs the line of $y$ on $x$, and $250$ cm is extrapolation."
+        }
+      ]
+    },
+    {
+      "id": "mean-point",
+      "heading": "Where the two lines meet",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Both regression lines pass through the [[mean-point|mean point]] $(\\bar{x}, \\bar{y})$. So that is where they cross."
+        },
+        {
+          "type": "result",
+          "statement": "The lines of $y$ on $x$ and of $x$ on $y$ intersect at $(\\bar{x}, \\bar{y})$. Solving their equations simultaneously gives both means.",
+          "why": "Each line passes through $(\\bar{x}, \\bar{y})$, and two different straight lines meet at only one point."
+        },
+        {
+          "type": "example",
+          "id": "ex-means-from-lines",
+          "question": "For a set of bivariate data, the regression line of $y$ on $x$ is $y = 0.5x + 13$. The regression line of $x$ on $y$ is $x = 1.2y - 10$. Find $\\bar{x}$ and $\\bar{y}$.",
+          "steps": [
+            "The point $(\\bar{x}, \\bar{y})$ lies on each line, so its coordinates satisfy both equations at once.",
+            "Replace $x$ in the first equation by $1.2y - 10$: $y = 0.5(1.2y - 10) + 13 = 0.6y - 5 + 13 = 0.6y + 8$.",
+            "So $0.4y = 8$, which gives $\\bar{y} = 20$.",
+            "Then $\\bar{x} = 1.2 \\times 20 - 10 = 14$. Check in the first line: $0.5 \\times 14 + 13 = 20$. Correct."
+          ],
+          "answer": "$\\bar{x} = 14, \\; \\bar{y} = 20$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-find-intercept",
+          "question": "Five pairs of data have $y$-values $15, 17, 21, 33, 34$ and $\\bar{x} = 16$. Their line of $x$ on $y$ has equation $x = 0.75y + d$. (a) Find $d$. (b) Estimate $x$ when $y = 30$.",
+          "steps": [
+            "First find $\\bar{y} = \\frac{15 + 17 + 21 + 33 + 34}{5} = \\frac{120}{5} = 24$.",
+            "(a) The line passes through $(16, 24)$, so $16 = 0.75 \\times 24 + d = 18 + d$, which gives $d = -2$.",
+            "(b) You know $y$, so this is the right line. $x = 0.75 \\times 30 - 2 = 22.5 - 2 = 20.5$.",
+            "$30$ is inside the $y$-values, $15$ to $34$, so this is interpolation."
+          ],
+          "answer": "$x = 0.75 \\times 30 - 2 = 20.5$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Substituting a data point into a regression line as if it lay on it. Only the mean point is sure to be on the line."
+        },
+        {
+          "type": "check",
+          "id": "check-mean-x",
+          "prompt": "The regression line of $y$ on $x$ is $y = 0.4x + 9$, and the regression line of $x$ on $y$ is $x = 2y - 14$. Find $\\bar{x}$.",
+          "hint": "Substitute one equation into the other.",
+          "answer": {
+            "value": 20,
+            "tolerance": 0
+          },
+          "explain": "$y = 0.4(2y - 14) + 9 = 0.8y + 3.4$, so $0.2y = 3.4$ and $\\bar{y} = 17$. Then $\\bar{x} = 2 \\times 17 - 14 = 20$."
+        },
+        {
+          "type": "check",
+          "id": "check-find-d",
+          "prompt": "The regression line of $x$ on $y$ is $x = 1.5y + d$, and the mean point is $(40, 22)$. Find $d$.",
+          "hint": "The mean point lies on the line, so substitute $x = 40$ and $y = 22$.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "$40 = 1.5 \\times 22 + d = 33 + d$, so $d = 7$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "The line of $x$ on $y$, $x = cy + d$, minimises squared horizontal distances. Use it to predict $x$ from $y$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "On your GDC, put the $y$-values in the X list and the $x$-values in the Y list."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A line of $x$ on $y$ can't reliably predict $y$ from $x$: use the line of $y$ on $x$. Never rearrange one line to predict the other variable."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Both lines go through $(\\bar{x}, \\bar{y})$: solving the two equations together gives the means. They are one line only if $r = \\pm 1$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Trust a prediction only with strong correlation and a given value inside the range of the data. For a line of $x$ on $y$, check the $y$ data."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Rearranging the line of $y$ on $x$ to predict $x$, or the line of $x$ on $y$ to predict $y$. Each line predicts only the variable on its left, so use the other line.",
+    "Entering the lists in the usual order. For the line of $x$ on $y$, the $y$-values go in the X list.",
+    "Mixing up the constants. Write the line out in full, such as $x = 0.440y - 13.4$, so it is clear which number multiplies $y$.",
+    "Rounding $c$ and $d$ before predicting. Use the stored values and round only the answer.",
+    "Commenting only on $r$ when asked about reliability. Also check that the given value is inside the range of the data."
+  ],
+  "examTips": [
+    "Find the regression line of $x$ on $y$: write the whole equation, with $x$ on the left and constants to 3 s.f.",
+    "Give a reason a method is not appropriate: say which variable the line was built to predict, and that the question predicts the other one.",
+    "Find the means from two regression lines: both pass through $(\\bar{x}, \\bar{y})$, so show the simultaneous equations you solve.",
+    "Estimate on Paper 2: write the substitution with the stored values first. The method mark depends on it."
+  ],
+  "readingMinutes": 18
+}

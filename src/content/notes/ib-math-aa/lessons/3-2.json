@@ -125,7 +125,7 @@
         },
         {
           "type": "examTip",
-          "text": "Triangle questions usually give angles in degrees. Set your calculator to match the question's angle unit (degree mode for degrees) before the first calculation."
+          "text": "Triangle questions usually give angles in degrees, so set your calculator to degree mode before the first calculation."
         },
         {
           "type": "example",
@@ -166,7 +166,7 @@
         },
         {
           "type": "text",
-          "text": "On Paper 1 you work with exact values, not decimals. If you know one ratio of an acute angle, draw a right-angled triangle with those two sides. Pythagoras gives the third side, and then you can read off the other ratios."
+          "text": "On Paper 1 there is no calculator. If you know one ratio of an acute angle, draw a right-angled triangle with those two sides. Pythagoras gives the third side, and the other ratios follow."
         },
         {
           "type": "example",
@@ -242,7 +242,7 @@
         },
         {
           "type": "text",
-          "text": "The [[sine-rule|sine rule]] is in the formula booklet. Use it when you know one side and the angle opposite it, plus one more side or angle. You only ever use two of the three fractions at a time."
+          "text": "Use the [[sine-rule|sine rule]] when you know one side and the angle opposite it, plus one more side or angle. You only ever use two of its three fractions at a time."
         },
         {
           "type": "text",
@@ -274,7 +274,7 @@
         },
         {
           "type": "text",
-          "text": "For a positive sine, $\\sin^{-1}$ gives an acute angle, though an obtuse angle can have the same sine. That two-triangle case is not part of this lesson (you meet it in {{lesson:3.5}}), so questions here always make the angle clear. It is acute when the side facing it is the shorter known side. If the question says the angle is obtuse, use $180^{\\circ}$ minus your calculator's answer."
+          "text": "For a positive sine, $\\sin^{-1}$ gives an acute angle, but an obtuse angle has the same sine. That two-triangle case comes in {{lesson:3.5}}; here the angle is always clear. It is acute when the side facing it is the shorter known side."
         },
         {
           "type": "example",
@@ -319,11 +319,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Suppose you know two sides and the angle between them. No side is paired with its opposite angle, so the [[sine-rule|sine rule]] is stuck."
-        },
-        {
-          "type": "text",
-          "text": "The angle between two known sides is the [[included-angle|included angle]]. The [[cosine-rule|cosine rule]] handles it. It is Pythagoras with a correction term for a corner that isn't $90^{\\circ}$."
+          "text": "Suppose you know two sides and the [[included-angle|included angle]], the angle between them. No side is paired with the angle facing it, so the [[sine-rule|sine rule]] is stuck. The [[cosine-rule|cosine rule]] handles it: it is Pythagoras with a correction term for a corner that isn't $90^{\\circ}$."
         },
         {
           "type": "definition",
@@ -340,7 +336,7 @@
         },
         {
           "type": "text",
-          "text": "Both forms are in the formula booklet. In the first form, $C$ is the angle between sides $a$ and $b$, and $c$ is the side facing it. Rename the letters to fit your triangle, keeping that pattern."
+          "text": "In the first form, $C$ is the angle between sides $a$ and $b$, and $c$ is the side facing it. Rename the letters to fit your triangle, keeping that pattern."
         },
         {
           "type": "text",
@@ -444,11 +440,11 @@
         },
         {
           "type": "text",
-          "text": "The formula is in the booklet. The two sides must meet at the angle you use."
+          "text": "The two sides must meet at the angle you use."
         },
         {
           "type": "text",
-          "text": "On Paper 1, you may be given a different ratio of the included angle. Find its sine first, using a right-angled triangle as in the first section."
+          "text": "On Paper 1 you may be given another ratio of the included angle. Find its sine first, as in the first section."
         },
         {
           "type": "example",
@@ -552,31 +548,31 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Harder questions chain two or three rules. A labelled sketch makes the choice at each step much easier."
+          "text": "Harder questions chain two or three rules. A labelled sketch makes each choice easier."
         },
         {
           "type": "text",
-          "text": "1. Sketch the triangle, even if a diagram is given. Mark every known side and angle, and the one you want."
+          "text": "1. Sketch the triangle, even if a diagram is given. Mark what you know and what you want."
         },
         {
           "type": "text",
-          "text": "2. Is there a right angle? Then use $\\sin$, $\\cos$ or $\\tan$."
+          "text": "2. A right angle? Use $\\sin$, $\\cos$ or $\\tan$."
         },
         {
           "type": "text",
-          "text": "3. Do you know a side and the angle facing it? Then the [[sine-rule|sine rule]] finds another side or angle."
+          "text": "3. A side and the angle facing it? Use the [[sine-rule|sine rule]]."
         },
         {
           "type": "text",
-          "text": "4. Do you know two sides and the included angle, or all three sides? Then use the [[cosine-rule|cosine rule]]."
+          "text": "4. Two sides and the included angle, or all three sides? Use the [[cosine-rule|cosine rule]]."
         },
         {
           "type": "text",
-          "text": "5. For an area, you need two sides and the [[included-angle|included angle]]. If one is missing, find it first."
+          "text": "5. An area needs two sides and the [[included-angle|included angle]]. Find a missing one first."
         },
         {
           "type": "examTip",
-          "text": "Store every intermediate answer in your calculator and use the stored value. Round only the final answer. Using a rounded length can change the third significant figure of the next answer."
+          "text": "Store every intermediate answer and round only the final one. A rounded length can change the third significant figure of the next answer."
         },
         {
           "type": "example",
@@ -593,7 +589,7 @@
         },
         {
           "type": "text",
-          "text": "A shape with four sides can be split into two triangles by a diagonal. Find the diagonal in one triangle, then use it in the other."
+          "text": "A quadrilateral splits into two triangles along a diagonal. Find the diagonal in one triangle, then use it in the other."
         },
         {
           "type": "figure",
@@ -681,16 +677,16 @@
     }
   ],
   "mistakes": [
-    "Leaving the calculator in the wrong angle mode, such as radians when the angles are in degrees. Every answer is then wrong, often wildly. Set the mode to match the question before the first calculation.",
+    "Leaving the calculator in radians when the angles are in degrees, so every answer is wrong. Set the mode before the first calculation.",
     "Rounding a length or angle, then using the rounded value in the next rule. Store the full value and round only the final answer.",
-    "Misusing $\\frac{1}{2}ab\\sin C$: putting in a given $\\cos C$ instead of $\\sin C$, or two sides that don't meet at $C$. Find $\\sin C$ first, and use the two sides either side of the angle.",
+    "Putting a given $\\cos C$ into $\\frac{1}{2}ab\\sin C$, or using two sides that don't meet at $C$. Find $\\sin C$ first.",
     "Dropping the $2$ in $2ab\\cos C$, or forgetting that the cosine of an obtuse angle is negative.",
     "Pairing a side with the wrong angle in the sine rule. Each side goes with the angle facing it, so mark those pairs on your sketch."
   ],
   "examTips": [
     "Sketch and label a diagram, then write the rule with your numbers substituted. That line earns the method mark even if a later step slips.",
     "On Paper 1, “find the exact value” means fractions and surds, not decimals. If a cosine is given, a right-angled triangle gives you the sine.",
-    "On Paper 2, check the angle mode matches the question first, store intermediate values, and give lengths and angles to 3 s.f. Add units where the question uses them.",
+    "On Paper 2, give lengths and angles to 3 s.f., with units where the question uses them.",
     "“Show that” an exact value means working forwards from the given data, for example from a given cosine to the sine, until your last line matches the result."
   ],
   "readingMinutes": 28

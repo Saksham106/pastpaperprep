@@ -10,11 +10,5 @@
     "term": "odd function",
     "definition": "A function with $f(-x) = -f(x)$ for every $x$ in its domain, so its graph looks the same after a half-turn about the origin.",
     "lesson": "2.14"
-  },
-  {
-    "id": "periodic-function",
-    "term": "periodic function",
-    "definition": "A function whose graph repeats: there is a constant $p > 0$ with $f(x + p) = f(x)$ for every $x$, and the smallest such $p$ is the period.",
-    "lesson": "3.7"
   }
 ]
