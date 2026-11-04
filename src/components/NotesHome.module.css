@@ -1,0 +1,9 @@
+.page { padding-block: 20px 72px; }
+.head { margin: 18px 0 26px; }
+.head h1 { margin: 0 0 8px; font: 400 clamp(36px, 5vw, 56px)/1.04 var(--font-serif); letter-spacing: -.02em; }
+.head p { margin: 0; color: var(--muted); }
+
+/* Not out yet: no link, no hover lift. */
+.soon { border-style: dashed; background: transparent; cursor: default; }
+.soon:hover { border-color: color-mix(in srgb, var(--course-pastel) 80%, #fff); transform: none; box-shadow: none; }
+.soon span { color: var(--muted); }
