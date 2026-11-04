@@ -3,6 +3,9 @@ import courseJson from "@/content/notes/ib-math-aa/course.json";
 
 export const NOTES_INDEX_HREF = `/revision-notes/${courseJson.slug}`;
 
+/** The notes home: every subject, with notes that are out linked and the rest marked coming soon. */
+export const NOTES_HOME_HREF = "/revision-notes";
+
 /** The one visibility rule: published, or previewed with NOTES_PREVIEW=1. */
 export const isVisibleWhen = (published: boolean): boolean => published || process.env.NOTES_PREVIEW === "1";
 

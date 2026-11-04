@@ -4,7 +4,7 @@ import Link from "next/link";
 import { PAGE_NAVIGATION } from "@/components/PageTransition";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
-import { NOTES_INDEX_HREF } from "@/lib/course-notes/visibility";
+import { NOTES_HOME_HREF } from "@/lib/course-notes/visibility";
 import { requestPracticeMode } from "@/lib/practice-mode";
 
 function current(pathname: string, destination: "papers" | "banks" | "articles" | "pricing" | "account" | "worksheets" | "dashboard" | "login" | "notes") {
@@ -15,7 +15,7 @@ function current(pathname: string, destination: "papers" | "banks" | "articles" 
   if (destination === "pricing") return pathname === "/pricing";
   if (destination === "account") return pathname === "/account" || pathname.startsWith("/account/");
   if (destination === "worksheets") return pathname === "/worksheets" || pathname.startsWith("/worksheets/");
-  if (destination === "notes") return pathname === NOTES_INDEX_HREF || pathname.startsWith(`${NOTES_INDEX_HREF}/`);
+  if (destination === "notes") return pathname === NOTES_HOME_HREF || pathname.startsWith(`${NOTES_HOME_HREF}/`);
   if (destination === "login") return pathname === "/login";
   return pathname === "/dashboard";
 }
@@ -28,7 +28,7 @@ export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = fals
       <div className="nav-pages">
         {pastPapers && <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "papers") ? "nav-active" : undefined} aria-current={current(pathname, "papers") ? "page" : undefined} href="/past-papers">Full past papers</Link>}
         <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "banks") ? "nav-active" : undefined} aria-current={current(pathname, "banks") ? "page" : undefined} href="/dashboard" onClick={() => requestPracticeMode("topics")}>Practice by topic</Link>
-        {notes && <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "notes") ? "nav-active" : undefined} aria-current={current(pathname, "notes") ? "page" : undefined} href={NOTES_INDEX_HREF}>Notes</Link>}
+        {notes && <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "notes") ? "nav-active" : undefined} aria-current={current(pathname, "notes") ? "page" : undefined} href={NOTES_HOME_HREF}>Notes</Link>}
         <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "articles") ? "nav-active" : undefined} aria-current={current(pathname, "articles") ? "page" : undefined} href="/articles">Articles</Link>
         <Link transitionTypes={PAGE_NAVIGATION} className={`nav-pricing${current(pathname, "pricing") ? " nav-active" : ""}`} aria-current={current(pathname, "pricing") ? "page" : undefined} href="/pricing">Pricing</Link>
       </div>

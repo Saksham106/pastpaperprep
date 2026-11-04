@@ -30,7 +30,12 @@ const SUBJECTS: readonly { name: string; tone: CourseTone; matches: (bank: Bank)
 
 /** Banks grouped into the subject cards students recognise, in a fixed subject order. */
 export function groupCourses(banks: readonly Bank[], row: (bank: Bank) => CourseRow): CourseGroup[] {
-  return SUBJECTS.map((s) => ({ name: s.name, tone: s.tone, rows: banks.filter(s.matches).map(row) })).filter((group) => group.rows.length > 0);
+  return subjectGroups(banks).map((s) => ({ name: s.name, tone: s.tone, rows: s.banks.map(row) }));
+}
+
+/** The banks of each subject card, in the fixed subject order, empty subjects dropped. */
+export function subjectGroups(banks: readonly Bank[]): { name: string; tone: CourseTone; banks: Bank[] }[] {
+  return SUBJECTS.map((s) => ({ name: s.name, tone: s.tone, banks: banks.filter(s.matches) })).filter((group) => group.banks.length > 0);
 }
 
 /**

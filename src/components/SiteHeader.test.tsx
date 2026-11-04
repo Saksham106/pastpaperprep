@@ -27,7 +27,7 @@ describe("SiteHeader", () => {
     const view = render(<SiteHeader authenticated={false} />);
     expect(screen.queryByRole("link", { name: "Notes" })).not.toBeInTheDocument();
     view.rerender(<SiteHeader authenticated={false} notes />);
-    expect(screen.getByRole("link", { name: "Notes" })).toHaveAttribute("href", "/revision-notes/ib-math-aa");
+    expect(screen.getByRole("link", { name: "Notes" })).toHaveAttribute("href", "/revision-notes");
   });
 
   it("keeps pricing discoverable once a user is signed in", () => {

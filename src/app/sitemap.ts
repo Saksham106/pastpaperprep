@@ -33,6 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...manifest.papers.map((paper) => ({ url: `${SITE_URL}${paperPath(manifest.bankSlug, paper)}` })),
     ]),
     ...pastPapers.map((path) => ({ url: `${SITE_URL}${path}`, lastModified: PAST_PAPER_PAGES_UPDATED })),
+    { url: `${SITE_URL}/revision-notes` },
     ...notesPaths().map((path) => ({ url: `${SITE_URL}${path}` })),
     ...GRADE_THRESHOLDS.map(({ subjectSlug }) => ({ url: `${SITE_URL}/grade-thresholds/${subjectSlug}` })),
   ];
