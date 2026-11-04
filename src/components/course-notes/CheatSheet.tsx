@@ -1,5 +1,6 @@
 import "katex/dist/katex.min.css";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { lessonPath, type Course } from "@/lib/course-notes/course";
 import { sheetTopics, type SheetRow } from "@/lib/course-notes/cheatsheet";
 import { renderInlineHtml, renderTex } from "@/lib/course-notes/render";
@@ -15,16 +16,19 @@ export function CheatSheet({ course, topic }: { course: Course; topic?: Course["
   };
   const html = (row: SheetRow) => (row.kind === "formula" ? renderTex(row.value, false) : renderInlineHtml(row.value, { lessonHref }));
   const topics = sheetTopics(course, topic);
+  // The sheet title is an h2. The course sheet adds an h3 per topic, so its blocks are h4; a topic sheet goes straight to h3.
+  const BlockHeading = topic ? "h3" : "h4";
   return (
     <CheatSheetFrame
       title={topic ? topic.name : course.name}
       slug={topic ? topic.slug : "course"}
       crumbs={[{ label: "IB Maths AA notes", href: base }, ...(topic ? [{ label: topic.name, href: `${base}/${topic.slug}` }] : [])]}
     >
-      <div className={styles.cols}>
-        {topics.map((entry) => (
-          <section key={entry.n} className={styles.topic} data-topic={entry.n}>
-            {topic ? null : <h3 className={styles.topicH} data-all-ahl={entry.allAhl ? "" : undefined}><Link href={entry.href}>{entry.n} {entry.name}</Link></h3>}
+      {/* One section per topic, each with its own two columns, so the browser can skip painting topics far off screen (content-visibility). */}
+      {topics.map((entry) => (
+        <section key={entry.n} className={styles.topic} data-topic={entry.n} style={{ "--blocks": entry.blocks.length } as CSSProperties}>
+          {topic ? null : <h3 className={styles.topicH} data-all-ahl={entry.allAhl ? "" : undefined}><Link href={entry.href}>{entry.n} {entry.name}</Link></h3>}
+          <div className={styles.cols}>
             {entry.blocks.map((block) => {
               const ahl = block.level === "AHL";
               const heading = (
@@ -35,7 +39,7 @@ export function CheatSheet({ course, topic }: { course: Course; topic?: Course["
               );
               return (
                 <div key={block.key} className={`${styles.blk}${ahl ? ` ${styles.ahl}` : ""}`} data-block={block.item ?? "method"} data-ahl={ahl ? "" : undefined}>
-                  <h4>{block.href ? <Link href={block.href}>{heading}</Link> : heading}</h4>
+                  <BlockHeading>{block.href ? <Link href={block.href}>{heading}</Link> : heading}</BlockHeading>
                   {block.rows.map((row, i) => (
                     <div key={i} className={styles.row} data-row={row.kind}>
                       <span dangerouslySetInnerHTML={{ __html: html(row) }} />
@@ -45,9 +49,9 @@ export function CheatSheet({ course, topic }: { course: Course; topic?: Course["
                 </div>
               );
             })}
-          </section>
-        ))}
-      </div>
+          </div>
+        </section>
+      ))}
     </CheatSheetFrame>
   );
 }

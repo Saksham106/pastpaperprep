@@ -66,11 +66,11 @@ function ReportProblem() {
   return (
     <div className={styles.report}>
       Something wrong or unclear?{" "}
-      {sent ? (
-        <span role="status">Thanks, we&apos;ll check it.</span>
-      ) : (
+      {sent ? null : (
         <button type="button" className={styles.link} aria-expanded={open} aria-controls="report-menu" onClick={() => setOpen((value) => !value)}>Report a problem</button>
-      )}{" "}
+      )}
+      {/* Always mounted and empty first, so screen readers announce the text when it is filled in. */}
+      <span role="status">{sent ? "Thanks, we\u2019ll check it." : ""}</span>{" "}
       or email <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a>
       {open ? (
         <div id="report-menu" role="group" aria-label="What is wrong?" className={styles.reportMenu}>
@@ -105,7 +105,7 @@ export function LessonFooter({ item, lessons }: { item: string; lessons: Neighbo
         }}>
         {done ? "Understood ✓" : "I've got this ✓"}
       </button>
-      {done ? <span className={styles.gotNote} role="status">Saved on this device</span> : null}
+      <span className={styles.gotNote} role="status">{done ? "Saved on this device" : ""}</span>
       <div className={styles.pn}>
         {prev ? <Link href={prev.href} rel="prev">← {prev.item} {prev.title}</Link> : <span />}
         {next ? <Link href={next.href} rel="next">{next.item} {next.title} →</Link> : null}

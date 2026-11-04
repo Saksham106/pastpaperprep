@@ -4,5 +4,17 @@
     "term": "second derivative",
     "definition": "The derivative of the derivative, written $f''(x)$ or $\\frac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$, which measures how fast the gradient is changing.",
     "lesson": "5.7"
+  },
+  {
+    "id": "concave-up",
+    "term": "concave-up",
+    "definition": "Bending upwards like a cup on an interval: the gradient $f'(x)$ increases as $x$ increases there, as it does wherever $f''(x) > 0$.",
+    "lesson": "5.7"
+  },
+  {
+    "id": "concave-down",
+    "term": "concave-down",
+    "definition": "Bending downwards like an upside-down cup on an interval: the gradient $f'(x)$ decreases as $x$ increases there, as it does wherever $f''(x) < 0$.",
+    "lesson": "5.7"
   }
 ]

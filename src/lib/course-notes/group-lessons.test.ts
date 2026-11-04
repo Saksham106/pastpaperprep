@@ -3,6 +3,7 @@ import taxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import { COURSES, lessonPath } from "./course";
 import { lessonForGroup, lessonForItem, notesLinksForBank, notesTopicLinksForBank, syllabusNotesForBank } from "./group-lessons";
 import { notesNavVisible } from "./visibility";
+import { setCoursePublishedForTests } from "./test-visibility";
 
 const course = COURSES[0];
 const groups = taxonomy.groups as { id: string; studentFacingName: string; memberOfficialItems: string[] }[];
@@ -10,7 +11,12 @@ const lesson = course.lessons[0];
 const group = groups.find((g) => g.memberOfficialItems.includes(lesson.item))!;
 const visible = { ...course, published: true };
 
-afterEach(() => vi.unstubAllEnvs());
+let restorePublished: (() => void) | undefined;
+afterEach(() => {
+  restorePublished?.();
+  restorePublished = undefined;
+  vi.unstubAllEnvs();
+});
 
 describe("lessonForGroup", () => {
   it("returns the first written lesson among the group's items at that level", () => {
@@ -60,13 +66,16 @@ describe("lessonForItem", () => {
 
 describe("surface lookups follow visibility", () => {
   it("are empty while the course is unpublished", () => {
+    restorePublished = setCoursePublishedForTests(false);
+    vi.stubEnv("NOTES_PREVIEW", "");
     expect(course.published).toBe(false);
     expect(notesLinksForBank("ib-hl")).toBeUndefined();
     expect(notesTopicLinksForBank("ib-hl")).toBeUndefined();
     expect(syllabusNotesForBank("ib-hl")).toEqual([]);
     expect(notesNavVisible()).toBe(false);
   });
-  it("fill in under NOTES_PREVIEW=1, only for AA banks", () => {
+  it("fill in under NOTES_PREVIEW=1 on an unpublished course, only for AA banks", () => {
+    restorePublished = setCoursePublishedForTests(false);
     vi.stubEnv("NOTES_PREVIEW", "1");
     expect(notesNavVisible()).toBe(true);
     expect(notesLinksForBank("ib-hl")?.[group.studentFacingName]?.href).toBe(lessonPath(course, lesson));
@@ -76,5 +85,12 @@ describe("surface lookups follow visibility", () => {
     expect(notesTopicLinksForBank("ib-hl")).toHaveProperty("Calculus");
     expect(notesLinksForBank("igcse")).toBeUndefined();
     expect(notesTopicLinksForBank("igcse")).toBeUndefined();
+  });
+  it("fill in for the real, published course without a preview flag", () => {
+    vi.stubEnv("NOTES_PREVIEW", "");
+    expect(course.published).toBe(true);
+    expect(notesNavVisible()).toBe(true);
+    expect(notesLinksForBank("ib-hl")?.[group.studentFacingName]?.href).toBe(lessonPath(course, lesson));
+    expect(notesLinksForBank("igcse")).toBeUndefined();
   });
 });

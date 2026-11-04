@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Is a value an outlier? → compare it with $Q_{1} - 1.5 \\times \\mathrm{IQR}$ and $Q_{3} + 1.5 \\times \\mathrm{IQR}$ (4.1)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Predict $y$ from $x$ → regression line of $y$ on $x$. Predict $x$ from $y$ → line of $x$ on $y$. Only inside the range of the data (4.4, 4.10)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "“At least one” → $1 - \\mathrm{P}(\\text{none})$ (4.5)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Two stages, with or without replacement → tree diagram: multiply along a path, add across paths (4.6)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "“Given that” → $\\mathrm{P}(A \\mid B) = \\frac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(B)}$, with the given event on the bottom (4.6, 4.11)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Are $A$ and $B$ independent? → compare $\\mathrm{P}(A \\cap B)$ with $\\mathrm{P}(A)\\,\\mathrm{P}(B)$, then conclude (4.6, 4.11)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Unknown $k$ in a probability distribution → the probabilities add up to $1$. Fair game → $\\mathrm{E}(X) = 0$ (4.7)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Fixed number of independent trials, two outcomes, same $p$ → binomial, $X \\sim \\mathrm{B}(n, p)$ (4.8)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Normal, value to probability → normal cdf. Probability to value → inverse normal, using the area to the left (4.9)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Normal with $\\mu$ or $\\sigma$ unknown → get $z$ from the inverse normal of $\\mathrm{N}(0, 1)$, then solve $\\frac{x - \\mu}{\\sigma} = z$ (4.12)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Probability of a first-stage event, given what happened next → Bayes' theorem: that path over every path to the given event (4.13)",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Continuous random variable with pdf $f$ → probabilities by $\\int f(x)\\,\\mathrm{d}x$; median $m$ from $\\int_{-\\infty}^{m} f(x)\\,\\mathrm{d}x = \\frac{1}{2}$; $\\mathrm{E}(X) = \\int x f(x)\\,\\mathrm{d}x$ (4.14)",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

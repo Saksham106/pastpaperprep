@@ -1,5 +1,6 @@
 import "katex/dist/katex.min.css";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import itemsJson from "@/data/aa-official-subtopics/items.json";
 import { lessonPath, type Course } from "@/lib/course-notes/course";
 import { renderInlineHtml } from "@/lib/course-notes/render";
@@ -17,6 +18,7 @@ export function GlossaryIndex({ course }: { course: Course }) {
   };
   const terms = [...course.glossary].sort(byTerm);
   const letters = [...new Set(terms.map((entry) => letterOf(entry.term)))];
+  const termsOf = (letter: string) => terms.filter((entry) => letterOf(entry.term) === letter);
   return (
     <div className={`${styles.list} shell`}>
       <div className={styles.crumbs}><Link href={base}>IB Maths AA notes</Link> › Glossary</div>
@@ -27,10 +29,10 @@ export function GlossaryIndex({ course }: { course: Course }) {
         {letters.map((letter) => <li key={letter}><a href={`#letter-${letter}`}>{letter}</a></li>)}
       </ul>
       {letters.map((letter) => (
-        <section key={letter} aria-labelledby={`letter-${letter}`}>
+        <section key={letter} className={styles.group} aria-labelledby={`letter-${letter}`} style={{ "--entries": termsOf(letter).length } as CSSProperties}>
           <h2 id={`letter-${letter}`} className={styles.letter}>{letter}</h2>
           <dl>
-            {terms.filter((entry) => letterOf(entry.term) === letter).map((entry) => {
+            {termsOf(letter).map((entry) => {
               const lesson = course.lessons.find((l) => l.item === entry.lesson);
               return (
                 <div key={entry.id} id={entry.id} className={styles.entry} data-term={entry.id}>

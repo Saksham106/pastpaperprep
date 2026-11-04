@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Line parallel or perpendicular to a given line → same gradient, or $m_{1} \\times m_{2} = -1$; then $y - y_{1} = m(x - x_{1})$ (2.1)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Range → sketch the graph over the domain, then read off the lowest and highest values, end points included (2.2, 2.4)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Find $f^{-1}(x)$ → write $y = f(x)$, make $x$ the subject, swap $x$ and $y$. The domain of $f^{-1}$ is the range of $f$ (2.5)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Vertex, or the greatest or least value of a quadratic → complete the square, or use $x = -\\frac{b}{2a}$ (2.6)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Number of real roots, or a line that meets, touches or misses a curve → form a quadratic and use $\\Delta = b^{2} - 4ac$ (2.7)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Quadratic inequality → find the critical values, sketch the parabola, read off the region (2.7)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "$\\mathrm{e}^{2x}$ and $\\mathrm{e}^{x}$ in one equation → disguised quadratic with $u = \\mathrm{e}^{x}$; reject any $u \\le 0$ (2.10)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Equation with no algebraic method, such as $\\mathrm{e}^{x} = x + 3$ → on Paper 2, write it down, then use intersect on the GDC (2.10)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Sketch a transformed graph → move the intercepts, turning points and asymptotes first. Inside the bracket acts on $x$ the opposite way (2.11)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Show $(x - a)$ is a factor, or find a remainder → work out $f(a)$ with the factor or remainder theorem (2.12)",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Inequality with polynomials up to degree 3 → move to one side, factorise, use a sign diagram. Other functions → graph both sides on the GDC (2.15)",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Equation with moduli → a modulus on each side: square both sides. Otherwise split into cases and check each answer (2.16)",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

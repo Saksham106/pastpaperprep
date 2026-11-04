@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { isValidElement, type ReactElement, type ReactNode } from "react";
+import { setCoursePublishedForTests } from "@/lib/course-notes/test-visibility";
 import { COURSES, lessonPath } from "@/lib/course-notes/course";
 import { notesPaths } from "@/lib/revision-notes";
 import * as chemistryHome from "./[subject]/page";
@@ -17,8 +18,15 @@ const course = COURSES[0];
 const lesson = course.lessons[0];
 const topic = course.topics[0];
 let saved: string | undefined;
+let restorePublished: (() => void) | undefined;
 beforeEach(() => { saved = process.env.NOTES_PREVIEW; });
-afterEach(() => { if (saved === undefined) delete process.env.NOTES_PREVIEW; else process.env.NOTES_PREVIEW = saved; });
+afterEach(() => {
+  restorePublished?.();
+  restorePublished = undefined;
+  if (saved === undefined) delete process.env.NOTES_PREVIEW; else process.env.NOTES_PREVIEW = saved;
+});
+/** Hidden state: the course unpublished and no preview. */
+const hide = () => { restorePublished ??= setCoursePublishedForTests(false); delete process.env.NOTES_PREVIEW; };
 
 const find = (node: ReactNode, test: (el: ReactElement<Record<string, unknown>>) => boolean): ReactElement<Record<string, unknown>>[] => {
   if (Array.isArray(node)) return node.flatMap((child) => find(child, test));
@@ -36,7 +44,7 @@ const everyRoute = [...staticRoutes, ...topicRoutes, lessonPageRoute];
 
 describe("course routes (own static tree under ib-math-aa)", () => {
   it("emits no params unless the course is visible, and leaves the [subject] routes as before", async () => {
-    delete process.env.NOTES_PREVIEW;
+    hide();
     for (const route of everyRoute) expect(await route.generateStaticParams(), "hidden").toEqual([]);
     expect(await chemistryHome.generateStaticParams()).toEqual([{ subject: "igcse-chemistry-0620" }]);
     expect((await chemistryTopic.generateStaticParams()).every((p) => p.subject === "igcse-chemistry-0620")).toBe(true);
@@ -58,7 +66,7 @@ describe("course routes (own static tree under ib-math-aa)", () => {
   });
 
   it("404s every page while the course is hidden, and 404s unknown topics and lessons when visible", async () => {
-    delete process.env.NOTES_PREVIEW;
+    hide();
     const topicParams = { params: Promise.resolve({ topic: topic.slug }) };
     await expect(subjectPage.default()).rejects.toThrow();
     for (const route of [cheatRoute, glossaryRoute, commandRoute]) await expect(route.default()).rejects.toThrow();
@@ -103,7 +111,7 @@ describe("course routes (own static tree under ib-math-aa)", () => {
   });
 
   it("leaves the unpublished course out of the sitemap", () => {
-    delete process.env.NOTES_PREVIEW;
+    hide();
     expect(notesPaths().some((p) => p.includes(course.slug))).toBe(false);
     expect(notesPaths().some((p) => /cheat-sheet|glossary|command-terms/.test(p) && p.includes("ib-math-aa"))).toBe(false);
     process.env.NOTES_PREVIEW = "1";

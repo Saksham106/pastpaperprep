@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Right-angled triangle → Pythagoras, or $\\sin$, $\\cos$ and $\\tan$ (3.2)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "No right angle → sine rule if a side and its opposite angle are known; cosine rule for two sides and the angle between them, or three sides (3.2)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Sine rule for an angle, with “two possible values” or an obtuse angle → ambiguous case: test $\\theta$ and $180^{\\circ} - \\theta$ (3.5)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Length or angle inside a 3D solid → find a right-angled triangle in it and draw that triangle on its own (3.1)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Arc, sector or segment → work in radians: $l = r\\theta$, $A = \\frac{1}{2}r^{2}\\theta$, segment $=$ sector $-$ triangle (3.4)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Exact trig value of a larger angle → reference angle for the size, quadrant for the sign (3.5)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "One ratio given, another wanted → Pythagorean identity for the size, quadrant for the sign (3.6)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Trig equation → sketch to count the solutions. For $2x$, change the interval first. A quadratic in $\\sin x$ → factorise (3.8)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Angle between two vectors → $\\cos\\theta = \\frac{\\boldsymbol{v} \\cdot \\boldsymbol{w}}{\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert}$. Between two lines, use their direction vectors and give the acute angle (3.13, 3.14)",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Vector perpendicular to two vectors, a normal to a plane, or an area → vector product (3.16, 3.17)",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Do two lines meet? → equate them with different parameters, solve two of the equations, test the third (3.15)",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Where a line meets a plane → put the line's general point into the plane's equation and solve for $\\lambda$ (3.18)",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

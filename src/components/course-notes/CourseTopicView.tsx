@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import { useId, useState, type CSSProperties } from "react";
 import { LevelSwitch, useNotesLevel, type NotesLevel } from "./LevelSwitch";
 import { useNotesContext } from "./notes-context";
 import { trackPracticeClick } from "./track";
@@ -18,6 +18,35 @@ export type TopicStage = {
   lessons: StageLesson[];
 };
 
+function LessonCard({ lesson, done, next }: { lesson: StageLesson; done: boolean; next: boolean }) {
+  const [tipOpen, setTipOpen] = useState(false);
+  const tipId = useId();
+  const cls = [styles.card, done ? styles.cardDone : "", next ? styles.cardNext : "", lesson.href ? styles.cardLinked : styles.cardUnwritten].filter(Boolean).join(" ");
+  const inner = (
+    <>
+      <span className={styles.cn}><span>{lesson.item}{lesson.level === "AHL" ? <span className={styles.ahlTag} data-ahl-tag>◆ HL</span> : null}</span><b>{done ? "✓" : next ? "Next up" : ""}</b></span>
+      <span className={styles.ct}>{lesson.name}</span>
+      {lesson.href ? null : <span className={styles.cs}>Not written yet</span>}
+    </>
+  );
+  if (!lesson.href) return <div data-lesson={lesson.item} className={cls}>{inner}</div>;
+  const label = `${lesson.item} ${lesson.name}${lesson.level === "AHL" ? ", HL only" : ""}${done ? ", understood" : ""}${next ? ", next up" : ""}`;
+  return (
+    <div data-lesson={lesson.item} className={cls}>
+      <Link className={styles.cardLink} href={lesson.href} aria-label={label}>{inner}</Link>
+      {lesson.summary ? (
+        <>
+          {/* A link cannot hold a button, so the summary toggle sits beside it: focusable, and tappable on touch. */}
+          <button type="button" className={styles.tipBtn} aria-expanded={tipOpen} aria-controls={tipId} aria-label={`About ${lesson.item} ${lesson.name}`} onClick={() => setTipOpen((value) => !value)}>
+            <span aria-hidden="true">i</span>
+          </button>
+          <p id={tipId} className={styles.tip} hidden={!tipOpen}>{lesson.summary}</p>
+        </>
+      ) : null}
+    </div>
+  );
+}
+
 function Stage({ stage, level, understood, nextItem }: { stage: TopicStage; level: NotesLevel; understood: Set<string>; nextItem?: string }) {
   const ctx = useNotesContext();
   const shown = stage.lessons.filter((lesson) => level === "HL" || lesson.level === "SL");
@@ -31,23 +60,9 @@ function Stage({ stage, level, understood, nextItem }: { stage: TopicStage; leve
       <div className={styles.gName} data-group-name>{shown.length > 1 ? stage.name : ""}</div>
       <div className={styles.gQs}><Link href={stage.hrefs[level]} onClick={() => trackPracticeClick(ctx, level === "SL" ? "ib-sl" : "ib-hl", stage.id)} title={`Practice: ${stage.name}`}>{questions}</Link></div>
       <div className={styles.cards}>
-        {shown.map((lesson) => {
-          const isDone = understood.has(lesson.item);
-          const isNext = lesson.item === nextItem;
-          const cls = [styles.card, isDone ? styles.cardDone : "", isNext ? styles.cardNext : "", lesson.href ? "" : styles.cardUnwritten].filter(Boolean).join(" ");
-          const inner = (
-            <>
-              <span className={styles.cn}><span>{lesson.item}{lesson.level === "AHL" ? <span className={styles.ahlTag} data-ahl-tag>◆ HL</span> : null}</span><b>{isDone ? "✓" : isNext ? "Next up" : ""}</b></span>
-              <span className={styles.ct}>{lesson.name}</span>
-              {lesson.href ? (lesson.summary ? <span className={styles.tip}>{lesson.summary}</span> : null) : <span className={styles.cs}>Not written yet</span>}
-            </>
-          );
-          return lesson.href ? (
-            <Link key={lesson.item} data-lesson={lesson.item} className={cls} href={lesson.href} title={lesson.summary} aria-label={`${lesson.item} ${lesson.name}${lesson.level === "AHL" ? ", HL only" : ""}${isDone ? ", understood" : ""}${isNext ? ", next up" : ""}`}>{inner}</Link>
-          ) : (
-            <div key={lesson.item} data-lesson={lesson.item} className={cls}>{inner}</div>
-          );
-        })}
+        {shown.map((lesson) => (
+          <LessonCard key={lesson.item} lesson={lesson} done={understood.has(lesson.item)} next={lesson.item === nextItem} />
+        ))}
       </div>
     </div>
   );

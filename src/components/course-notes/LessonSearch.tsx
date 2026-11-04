@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { useNotesContext } from "./notes-context";
@@ -36,8 +35,11 @@ export function LessonSearch({ items }: { items: HomeItem[] }) {
   const router = useRouter();
   const listId = useId();
   const [query, setQuery] = useState("");
+  const [active, setActive] = useState(-1);
+  // Escape closes the list but keeps the query; typing again reopens it.
+  const [dismissed, setDismissed] = useState(false);
   const hits = searchItems(items, query).slice(0, 8);
-  const open = query.trim() !== "";
+  const open = query.trim() !== "" && !dismissed;
   const ctx = useNotesContext();
   // One event per search interaction: the first of idle, Enter or a result click. The query text is never sent.
   const reportedFor = useRef("");
@@ -59,48 +61,85 @@ export function LessonSearch({ items }: { items: HomeItem[] }) {
     }, SEARCH_IDLE_MS);
     return () => clearTimeout(timer);
   }, [query, found, ctx]);
+
+  const optionId = (index: number) => `${listId}-opt-${index}`;
+  // Rows with no lesson yet are listed but cannot be reached with the arrow keys.
+  const selectable = hits.flatMap((entry, index) => (entry.href ? [index] : []));
+  const move = (direction: 1 | -1) => {
+    if (!selectable.length) return;
+    const at = selectable.indexOf(active);
+    const next = at === -1 ? (direction === 1 ? 0 : selectable.length - 1) : (at + direction + selectable.length) % selectable.length;
+    setActive(selectable[next]);
+  };
+  const go = (entry: HomeItem | undefined) => {
+    report();
+    if (entry?.href) router.push(entry.href);
+  };
+  const activeId = open && active >= 0 && active < hits.length ? optionId(active) : undefined;
+  const summary = !open ? "" : hits.length ? `${hits.length} result${hits.length === 1 ? "" : "s"}` : `No lesson matches ${query.trim()}`;
+
   return (
     <div className={styles.searchWrap}>
       <label className={styles.search}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
         <input
           type="search"
+          role="combobox"
           value={query}
           placeholder="What are you learning in class? Try “2.5” or “by parts”"
           aria-label="Search lessons"
-          aria-controls={open ? listId : undefined}
-          onChange={(event) => setQuery(event.target.value)}
+          aria-autocomplete="list"
+          aria-expanded={open && hits.length > 0}
+          aria-controls={open && hits.length > 0 ? listId : undefined}
+          aria-activedescendant={activeId}
+          onChange={(event) => {
+            setQuery(event.target.value);
+            setActive(-1);
+            setDismissed(false);
+          }}
           onKeyDown={(event) => {
-            if (event.key === "Escape") setQuery("");
-            const first = hits.find((entry) => entry.href);
-            if (event.key === "Enter") {
-              report();
-              if (first?.href) router.push(first.href);
+            if (event.key === "Escape") {
+              if (open) {
+                event.preventDefault();
+                setDismissed(true);
+                setActive(-1);
+              } else {
+                setQuery("");
+              }
+            } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+              event.preventDefault();
+              if (dismissed) setDismissed(false);
+              move(event.key === "ArrowDown" ? 1 : -1);
+            } else if (event.key === "Enter") {
+              go(activeId ? hits[active] : hits.find((entry) => entry.href));
             }
           }}
         />
       </label>
-      {open ? (
-        <ul id={listId} className={styles.searchResults} aria-label="Search results">
-          {hits.length ? (
-            hits.map((entry) => (
-              <li key={entry.item}>
-                {entry.href ? (
-                  <Link href={entry.href} onClick={report}>
-                    <span className={styles.mono}>{entry.item}</span> {entry.name}
-                    {entry.level === "AHL" ? <span className={styles.ahlBadge}>AHL</span> : null}
-                  </Link>
-                ) : (
-                  <span className={styles.searchUnwritten}>
-                    <span className={styles.mono}>{entry.item}</span> {entry.name} <em>Not written yet</em>
-                  </span>
-                )}
-              </li>
-            ))
-          ) : (
-            <li className={styles.searchNone}>No lesson matches “{query.trim()}”</li>
-          )}
+      <div role="status" className={styles.srOnly}>{summary}</div>
+      {open && hits.length ? (
+        <ul id={listId} role="listbox" className={styles.searchResults} aria-label="Search results">
+          {hits.map((entry, index) => (
+            <li
+              key={entry.item}
+              id={optionId(index)}
+              role="option"
+              aria-selected={index === active}
+              aria-disabled={entry.href ? undefined : true}
+              data-active={index === active ? "" : undefined}
+              className={entry.href ? styles.searchOption : styles.searchUnwritten}
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={() => go(entry)}
+            >
+              <span className={styles.mono}>{entry.item}</span> {entry.name}
+              {entry.level === "AHL" ? <span className={styles.ahlBadge}>AHL</span> : null}
+              {entry.href ? null : <em>Not written yet</em>}
+            </li>
+          ))}
         </ul>
+      ) : null}
+      {open && !hits.length ? (
+        <p className={`${styles.searchResults} ${styles.searchNone}`} aria-hidden="true">No lesson matches “{query.trim()}”</p>
       ) : null}
     </div>
   );

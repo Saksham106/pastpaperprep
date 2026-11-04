@@ -169,7 +169,7 @@ describe("notes events", () => {
 
 describe("notes_search", () => {
   const items = [{ item: "5.16", topic: 5, level: "AHL" as const, name: "Integration by parts", href: "/l" }];
-  const type = (value: string) => fireEvent.change(screen.getByRole("searchbox"), { target: { value } });
+  const type = (value: string) => fireEvent.change(screen.getByRole("combobox"), { target: { value } });
   const searches = () => track.mock.calls.filter(([name]) => name === "notes_search");
 
   it("sends nothing per keystroke, then one event with found and no query text after typing stops", async () => {
@@ -197,7 +197,7 @@ describe("notes_search", () => {
     vi.useFakeTimers();
     render(<LessonSearch items={items} />);
     type("5.16");
-    fireEvent.keyDown(screen.getByRole("searchbox"), { key: "Enter" });
+    fireEvent.keyDown(screen.getByRole("combobox"), { key: "Enter" });
     expect(searches()).toEqual([["notes_search", { level: "HL", found: true }]]);
     await act(async () => { vi.advanceTimersByTime(SEARCH_IDLE_MS * 2); });
     expect(searches().length).toBe(1);
@@ -207,9 +207,7 @@ describe("notes_search", () => {
     vi.useFakeTimers();
     render(<LessonSearch items={items} />);
     type("parts");
-    const link = screen.getByRole("link", { name: /Integration by parts/ });
-    link.addEventListener("click", (event) => event.preventDefault());
-    fireEvent.click(link);
+    fireEvent.click(screen.getByRole("option", { name: /Integration by parts/ }));
     expect(searches()).toEqual([["notes_search", { level: "HL", found: true }]]);
   });
 });

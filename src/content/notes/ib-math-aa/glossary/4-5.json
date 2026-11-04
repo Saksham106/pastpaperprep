@@ -1,43 +1,43 @@
 [
   {
     "id": "trial",
-    "term": "Trial",
+    "term": "trial",
     "definition": "One run of a random experiment, such as one roll of a die or one spin of a spinner.",
     "lesson": "4.5"
   },
   {
     "id": "outcome",
-    "term": "Outcome",
+    "term": "outcome",
     "definition": "One possible result of a trial, such as rolling a $4$.",
     "lesson": "4.5"
   },
   {
     "id": "sample-space",
-    "term": "Sample space",
+    "term": "sample space",
     "definition": "The set of every possible outcome of a trial, written $U$; $n(U)$ is the number of outcomes in it.",
     "lesson": "4.5"
   },
   {
     "id": "event",
-    "term": "Event",
+    "term": "event",
     "definition": "A set of outcomes from the sample space, such as rolling an even number; it happens when the outcome of the trial is in the set.",
     "lesson": "4.5"
   },
   {
     "id": "equally-likely",
-    "term": "Equally likely outcomes",
+    "term": "equally likely outcomes",
     "definition": "Outcomes that each have the same chance of happening, as with a fair die or a person chosen at random.",
     "lesson": "4.5"
   },
   {
     "id": "relative-frequency",
-    "term": "Relative frequency",
+    "term": "relative frequency",
     "definition": "The number of times an event happened divided by the number of trials; it estimates the probability of the event.",
     "lesson": "4.5"
   },
   {
     "id": "complementary-events",
-    "term": "Complementary events",
+    "term": "complementary events",
     "definition": "An event $A$ and the event $A'$ (not $A$), which holds every outcome in $U$ that is not in $A$; exactly one of them happens, so $\\mathrm{P}(A) + \\mathrm{P}(A') = 1$.",
     "lesson": "4.5"
   }

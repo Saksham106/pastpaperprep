@@ -7,6 +7,9 @@ import { buildIndexSource } from "../../../scripts/notes/build-content-index.mjs
 import { COURSES, coursePaths, getCourse, getLesson, isCourseVisible, lessonPath, lessonsForTopic, topicPath } from "./course";
 import type { Block, ItemsFile } from "./types";
 import { validateLesson } from "./validate";
+import { parseInline } from "./inline";
+import { renderTex } from "./render";
+import { setCoursePublishedForTests } from "./test-visibility";
 
 const items = itemsJson as ItemsFile;
 const course = getCourse("ib-math-aa")!;
@@ -14,7 +17,10 @@ const root = join(process.cwd(), "src/content/notes/ib-math-aa");
 const lessonItems = new Set(items.items.map((entry) => entry.item));
 const ctx = { items, glossary: course.glossary, lessonItems };
 
+let restorePublished: (() => void) | undefined;
 afterEach(() => {
+  restorePublished?.();
+  restorePublished = undefined;
   delete process.env.NOTES_PREVIEW;
 });
 
@@ -33,6 +39,24 @@ describe("ib-math-aa course content", () => {
     expect(existsSync(join(root, "glossary.json"))).toBe(false);
     const ids = new Set(files.flatMap((file) => (JSON.parse(readFileSync(join(dir, file), "utf8")) as { id: string }[]).map((entry) => entry.id)));
     expect(new Set(course.glossary.map((entry) => entry.id))).toEqual(ids);
+  });
+
+  it("cheat-sheet method lines, command terms and glossary text parse, render and link to real lessons", () => {
+    const texts = [
+      ...Object.entries(course.cheatSheets).flatMap(([slug, sheet]) => sheet.lines.map((line, i) => [`cheatsheets/${slug}[${i}]`, line.text] as const)),
+      ...course.commandTerms.map((term) => [`command-terms/${term.id}`, term.definition] as const),
+      ...course.glossary.map((term) => [`glossary/${term.id}`, term.definition] as const),
+    ];
+    expect(Object.keys(course.cheatSheets).sort()).toEqual(course.topics.map((topic) => topic.slug).sort());
+    expect(course.commandTerms.length).toBeGreaterThan(20);
+    for (const [where, text] of texts) {
+      expect(text, where).not.toMatch(/\\["']/);
+      const nodes = parseInline(text);
+      for (const node of nodes) {
+        if (node.kind === "math") expect(() => renderTex(node.tex, false), `${where}: ${node.tex}`).not.toThrow();
+        if (node.kind === "lesson") expect(lessonItems.has(node.item), `${where}: ${node.item}`).toBe(true);
+      }
+    }
   });
 
   it("every glossary term points at a real lesson item", () => {
@@ -110,6 +134,7 @@ describe("ib-math-aa course content", () => {
   });
 
   it("unpublished course yields no static params and no sitemap paths unless NOTES_PREVIEW=1", () => {
+    restorePublished = setCoursePublishedForTests(false);
     expect(course.published).toBe(false);
     expect(isCourseVisible(course)).toBe(false);
     expect(coursePaths()).toEqual([]);

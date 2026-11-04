@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Tangent or normal at $x = a$ → point $(a, f(a))$ and gradient $f'(a)$. The normal's gradient is $-\\frac{1}{f'(a)}$ (5.4)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Increasing or decreasing → sign of $f'(x)$. Concave-up or concave-down → sign of $f''(x)$. Point of inflexion → $f''(x)$ changes sign (5.2, 5.7, 5.8)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Maximum, minimum or “optimise” → solve $f'(x) = 0$, justify with the sign of $f'$ or of $f''$, and check the end points (5.8)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Product, quotient or function of a function → product, quotient or chain rule (5.6)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Curve from $f'(x)$ and a point → integrate with $+\\,C$, substitute the point, solve for $C$ (5.5)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Integrand is a multiple of $g'(x)$ times a function of $g(x)$ → reverse the chain rule, or substitute $u = g(x)$ (5.10)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Area between two curves → integrate top minus bottom between the intersections; split where they cross. Below the $x$-axis → $\\int \\lvert y\\rvert\\,\\mathrm{d}x$ (5.11)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Velocity or acceleration → differentiate. Displacement from velocity → integrate. Total distance → $\\int \\lvert v\\rvert\\,\\mathrm{d}t$ (5.9)",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Limit of the form $\\frac{0}{0}$ or $\\frac{\\infty}{\\infty}$ → l'Hôpital's rule, or Maclaurin series as $x \\to 0$ (5.13)",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "$x$ and $y$ mixed in one equation → implicit differentiation. One rate from another → chain rule linking the rates (5.14)",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Product such as $x\\mathrm{e}^{x}$ or $x\\sin x$, or $\\ln x$ on its own → integration by parts, with $u$ the factor that gets simpler when differentiated (5.16)",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Differential equation → $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x)g(y)$: separate the variables; $f\\left(\\frac{y}{x}\\right)$: put $y = vx$; $\\frac{\\mathrm{d}y}{\\mathrm{d}x} + P(x)y = Q(x)$: integrating factor; an estimate: Euler's method (5.18)",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

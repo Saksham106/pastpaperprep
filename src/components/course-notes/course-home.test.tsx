@@ -72,13 +72,13 @@ describe("CourseHome", () => {
   it('search "by parts" finds 5.16; "2.5" finds 2.5', async () => {
     const user = userEvent.setup();
     render(<CourseHome course={course} />);
-    const box = screen.getByRole("searchbox", { name: /search lessons/i });
+    const box = screen.getByRole("combobox", { name: /search lessons/i });
     await user.type(box, "by parts");
-    const results = screen.getByRole("list", { name: /search results/i });
+    const results = screen.getByRole("listbox", { name: /search results/i });
     expect(within(results).getByText("5.16")).toBeTruthy();
     await user.clear(box);
     await user.type(box, "2.5");
-    expect(within(screen.getByRole("list", { name: /search results/i })).getByText("2.5")).toBeTruthy();
+    expect(within(screen.getByRole("listbox", { name: /search results/i })).getByText("2.5")).toBeTruthy();
   });
 
   it("Continue points at the first lesson in syllabus order that isn't understood at the current level", async () => {

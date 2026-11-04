@@ -1,19 +1,19 @@
 [
   {
     "id": "bivariate-data",
-    "term": "Bivariate data",
+    "term": "bivariate data",
     "definition": "Data made of pairs of values: two measurements taken from each member of a sample, such as the age and price of each car.",
     "lesson": "4.4"
   },
   {
     "id": "scatter-diagram",
-    "term": "Scatter diagram",
+    "term": "scatter diagram",
     "definition": "A graph that plots each pair of bivariate data as one point, with one variable on each axis.",
     "lesson": "4.4"
   },
   {
     "id": "correlation",
-    "term": "Correlation",
+    "term": "correlation",
     "definition": "How closely the points of a scatter diagram follow a straight line, and whether that line slopes up (positive) or down (negative).",
     "lesson": "4.4"
   },
@@ -25,43 +25,43 @@
   },
   {
     "id": "critical-value-of-r",
-    "term": "Critical value of r",
+    "term": "critical value of r",
     "definition": "The value that $\\lvert r\\rvert$ must exceed, for a given number of data pairs, before the linear correlation counts as significant rather than possibly due to chance.",
     "lesson": "4.4"
   },
   {
     "id": "mean-point",
-    "term": "Mean point",
+    "term": "mean point",
     "definition": "The point $(\\bar{x}, \\bar{y})$ made from the mean of the $x$ values and the mean of the $y$ values; lines of best fit and regression lines pass through it.",
     "lesson": "4.4"
   },
   {
     "id": "line-of-best-fit",
-    "term": "Line of best fit",
+    "term": "line of best fit",
     "definition": "A straight line drawn by eye through the mean point of a scatter diagram, following the trend of the points.",
     "lesson": "4.4"
   },
   {
     "id": "causation",
-    "term": "Causation",
+    "term": "causation",
     "definition": "A link in which a change in one variable directly produces a change in another.",
     "lesson": "4.4"
   },
   {
     "id": "regression-line",
-    "term": "Regression line",
+    "term": "regression line",
     "definition": "The straight line fitted to bivariate data by least squares; the line of $y$ on $x$, $y = ax + b$, makes the squared vertical distances as small as possible and is used to predict $y$ from $x$.",
     "lesson": "4.4"
   },
   {
     "id": "interpolation",
-    "term": "Interpolation",
+    "term": "interpolation",
     "definition": "Using a model to predict a value for an $x$ inside the range of the data the model was built from.",
     "lesson": "4.4"
   },
   {
     "id": "extrapolation",
-    "term": "Extrapolation",
+    "term": "extrapolation",
     "definition": "Using a model to predict a value for an $x$ outside the range of the data the model was built from, which may be unreliable.",
     "lesson": "4.4"
   }

@@ -2,7 +2,7 @@
   {
     "id": "vector-product",
     "term": "vector product",
-    "definition": "The vector $\\boldsymbol{v} \\times \\boldsymbol{w} = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta\\,\\boldsymbol{n}$, perpendicular to both $\\boldsymbol{v}$ and $\\boldsymbol{w}$, whose length is the area of the parallelogram they form; also called the cross product.",
+    "definition": "The vector $\\boldsymbol{v} \\times \\boldsymbol{w} = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta\\,\\boldsymbol{n}$, where $\\theta$ is the angle between $\\boldsymbol{v}$ and $\\boldsymbol{w}$ and $\\boldsymbol{n}$ is a unit vector perpendicular to both; its length is the area of the parallelogram they form, and it is also called the cross product.",
     "lesson": "3.16"
   },
   {

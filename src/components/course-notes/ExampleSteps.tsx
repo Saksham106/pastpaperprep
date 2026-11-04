@@ -1,5 +1,5 @@
 "use client";
-import { useState, type ReactNode } from "react";
+import { useId, useState, type ReactNode } from "react";
 import { useNotesContext } from "./notes-context";
 import { trackExampleStep } from "./track";
 import styles from "./course-notes.module.css";
@@ -18,12 +18,16 @@ export function ExampleSteps({ id, question, steps, answer, check }: Props) {
   const ctx = useNotesContext();
   const [shown, setShown] = useState(1);
   const done = shown >= all.length;
-  const heading = `${id}-heading`;
+  // The section's name is "Worked example" plus its question, so no two examples on a page share a landmark name.
+  // useId (not the block id) keeps the ids unique even if the same example is rendered twice.
+  const uid = useId();
+  const heading = `${uid}-heading`;
+  const questionId = `${uid}-question`;
   return (
-    <section className={styles.example} aria-labelledby={heading}>
+    <section className={styles.example} aria-labelledby={`${heading} ${questionId}`} data-example={id}>
       <div className={styles.exHead}>
         <b id={heading}>Worked example</b>
-        <span>{question}</span>
+        <span id={questionId}>{question}</span>
       </div>
       <p className={styles.try}>Try it first, then reveal one step at a time.</p>
       <ol className={styles.steps}>

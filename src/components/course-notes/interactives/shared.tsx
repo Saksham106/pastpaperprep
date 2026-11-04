@@ -62,7 +62,7 @@ export function Grid({ f, labelEvery = 1 }: { f: Frame; labelEvery?: number }) {
   );
 }
 
-export function Slider({ label, value, min, max, step, onChange, format, live = false }: {
+export function Slider({ label, value, min, max, step, onChange, format, valueText, live = false }: {
   label: string;
   value: number;
   min: number;
@@ -70,6 +70,8 @@ export function Slider({ label, value, min, max, step, onChange, format, live = 
   step: number;
   onChange: (v: number) => void;
   format: (v: number) => string;
+  /** What a screen reader says for the current value. Defaults to the visible readout, never the raw number. */
+  valueText?: (v: number) => string;
   /** Announce changes politely. Leave off unless this is the one key readout of the widget. */
   live?: boolean;
 }) {
@@ -77,7 +79,7 @@ export function Slider({ label, value, min, max, step, onChange, format, live = 
   return (
     <div className={styles.slider}>
       <label htmlFor={id}>{label}</label>
-      <input id={id} type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} />
+      <input id={id} type="range" min={min} max={max} step={step} value={value} aria-valuetext={(valueText ?? format)(value)} onChange={(e) => onChange(Number(e.target.value))} />
       <output htmlFor={id} aria-live={live ? "polite" : "off"}>{format(value)}</output>
     </div>
   );

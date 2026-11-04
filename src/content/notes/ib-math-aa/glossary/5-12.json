@@ -1,25 +1,25 @@
 [
   {
     "id": "continuous",
-    "term": "Continuous",
+    "term": "continuous",
     "definition": "A function is continuous at $x = a$ if $f(a)$ exists and $\\lim_{x \\to a} f(x) = f(a)$: near $a$ its graph has no break or jump.",
     "lesson": "5.12"
   },
   {
     "id": "differentiable",
-    "term": "Differentiable",
+    "term": "differentiable",
     "definition": "A function is differentiable at $x = a$ if its derivative $f'(a)$ exists there: the graph is smooth at that point, with one tangent and no corner.",
     "lesson": "5.12"
   },
   {
     "id": "first-principles",
-    "term": "First principles",
+    "term": "first principles",
     "definition": "Finding a derivative straight from its definition, $f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$, without the differentiation rules.",
     "lesson": "5.12"
   },
   {
     "id": "higher-derivative",
-    "term": "Higher derivative",
+    "term": "higher derivative",
     "definition": "A derivative found by differentiating more than once; the $n$th derivative is written $f^{(n)}(x)$ or $\\frac{\\mathrm{d}^{n}y}{\\mathrm{d}x^{n}}$.",
     "lesson": "5.12"
   }
