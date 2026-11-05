@@ -256,6 +256,21 @@ describe("verify blocks", () => {
     expect(withBlock(example({ kind: "solutions", truth: "solve(x**2 - 2, x)", unit: "cm" }))).toEqual([expect.stringContaining("solutions has no option unit")]);
   });
 
+  it("rejects verify kind choice when an option is a plain number or expression", () => {
+    const numbers = { type: "check", id: "mv", prompt: "p", hint: "h", options: [{ text: "0.5", correct: true }, { text: "1/2", correct: false }, { text: "2", correct: false }], explain: "e", verify: { kind: "choice", truth: "0.5" } } as Block;
+    expect(withBlock(numbers)).toEqual([expect.stringContaining("verify kind choice is for word answers only")]);
+    const words = { ...numbers, options: [{ text: "Similar but not congruent", correct: true }, { text: "increasing", correct: false }], verify: { kind: "choice", truth: "Similar but not congruent" } } as Block;
+    expect(withBlock(words)).toEqual([]);
+  });
+
+  it("allows numeric verify.reading only for graph-reading prompts and within maxTolerance", () => {
+    const reading = (prompt: string, tolerance: number, extra: Record<string, unknown> = { reading: true, maxTolerance: 2 }) => ({ type: "check", id: "mv", prompt, hint: "h", answer: { value: 56, tolerance }, explain: "e", verify: { kind: "numeric", truth: "56", dp: 0, ...extra } }) as Block;
+    expect(withBlock(reading("Estimate the number from the curve.", 2))).toEqual([]);
+    expect(withBlock(reading("How many runners?", 2))).toEqual([expect.stringContaining("verify.reading is for values read from a graph")]);
+    expect(withBlock(reading("Estimate the number.", 3))).toEqual([expect.stringContaining("above verify.maxTolerance")]);
+    expect(withBlock(reading("Estimate the number.", 2, { reading: true }))).toEqual([expect.stringContaining("needs maxTolerance")]);
+  });
+
   it("allows verify kind choice only for word answers", () => {
     const maths = { type: "check", id: "mv", prompt: "p", hint: "h", options: [{ text: "$(3, 7)$", correct: true }, { text: "$(7, 3)$", correct: false }], explain: "e", verify: { kind: "choice", truth: "$(3, 7)$" } } as Block;
     expect(withBlock(maths)).toEqual([expect.stringContaining("verify kind choice is for word answers only")]);

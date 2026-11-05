@@ -27,6 +27,7 @@ Checking (raise AssertionError when the published answer is wrong)
   check_same_set(tex, truth_set, var="x")           inequalities / intervals as sets
   check_same_equation(tex, truth)                   equations equal up to a non-zero constant factor
 """
+import contextlib
 import re
 from decimal import ROUND_HALF_UP, Decimal
 
@@ -113,8 +114,35 @@ def _after_last_top_level_equals(tex: str) -> str:
 _SEPARATORS = r"\\text\{\s*(?:or|and)\s*\}|,|\\(?:text|mathrm)\{\s*,\s*\}"
 
 
+#: A trailing `+ C` is dropped by default (the AA sidecars rely on it). The declarative kinds turn it off with
+#: keep_constant(): outside antiderivatives C is an ordinary symbol, so an extra `+ C` makes an answer wrong.
+_STRIP_CONSTANT = True
+
+
+@contextlib.contextmanager
+def strip_constant():
+    global _STRIP_CONSTANT
+    before, _STRIP_CONSTANT = _STRIP_CONSTANT, True
+    try:
+        yield
+    finally:
+        _STRIP_CONSTANT = before
+
+
+@contextlib.contextmanager
+def keep_constant():
+    global _STRIP_CONSTANT
+    before, _STRIP_CONSTANT = _STRIP_CONSTANT, False
+    try:
+        yield
+    finally:
+        _STRIP_CONSTANT = before
+
+
 def _parse(rhs: str, original: str, functions=()):
-    rhs = re.sub(r"\s*\+\s*C\s*$", "", rhs).strip()
+    if _STRIP_CONSTANT:
+        rhs = re.sub(r"\s*\+\s*C\s*$", "", rhs)
+    rhs = rhs.strip()
     if not rhs:
         raise ValueError(f"no expression found in {original!r}")
     if re.search(r"\\log(?!\s*_)", rhs):
@@ -399,7 +427,8 @@ def check_antiderivative(tex: str, integrand, var="x", samples=None):
     """d/d(var) of the published antiderivative equals the integrand as an identity, proved symbolically (ln|u| is
     differentiated as u'/u). The sample points are a smoke check that names a point where a wrong answer differs."""
     symbol, real = Symbol(var), Symbol(var, real=True)
-    published = parse_answer(tex).subs(symbol, real)
+    with strip_constant():
+        published = parse_answer(tex).subs(symbol, real)
     derivative = diff(published, real)
     target = integrand.subs(symbol, real)
     _compare_antiderivative_at_samples(tex, var, real, derivative, target, samples)
@@ -645,7 +674,7 @@ def parse_point(tex: str):
 
 __all__ = [
     "parse_answer", "parse_list", "parse_assignments", "parse_approx", "parse_with_unit", "parse_degrees", "parse_vector",
-    "parse_vector_line", "parse_point", "parse_set", "parse_equation", "round_half_up", "check_antiderivative", "check_rounded",
+    "parse_vector_line", "parse_point", "parse_set", "parse_equation", "round_half_up", "check_antiderivative", "keep_constant", "strip_constant", "check_rounded",
     "check_rounded_list", "check_numeric", "check_assignments", "check_same_line", "check_same_set", "check_same_equation",
     "check_same_cartesian_line", "check_self_inverse", "proves_zero", "with_real_odd_roots", "RealRoot",
 ]

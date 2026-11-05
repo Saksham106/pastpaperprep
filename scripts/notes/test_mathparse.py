@@ -510,6 +510,29 @@ def test_review_counterexamples_under_the_kinds():
     wrong("inequality", "x > 1 + 2", r"x > 5")
 
 
+def test_equation_keeps_denominator_exclusions():
+    wrong("equation", "Eq(x - 1, 0)", r"\frac{(x-1)^{2}}{x-1} = 0")
+    passes("equation", "Eq(y, 2*x + 3)", r"2y - 4x = 6")
+
+
+def test_plus_c_is_dropped_only_for_antiderivatives():
+    wrong("expression", "-3*p + 5*q", r"-3p + 5q + C", form="simplified")
+    wrong("exact", "2 + 3", r"5 + C")
+    passes("antiderivative", "2*x", r"x^{2} + C")
+    passes("antiderivative", "2*x", r"x^{2}")
+    equal(mp.parse_answer(r"x + C"), mp.parse_answer(r"x"))  # the legacy helper still drops it
+
+
+def test_numeric_reading_tolerance():
+    spec = {"kind": "numeric", "truth": "68 - 12", "dp": 0, "reading": True, "maxTolerance": 2}
+    vk.check(spec, 56, tolerance=2)
+    vk.check(spec, 55, tolerance=2)
+    fails(lambda: vk.check(spec, 56, tolerance=3), AssertionError)
+    fails(lambda: vk.check(spec, 50, tolerance=2), AssertionError)
+    fails(lambda: vk.check({"kind": "numeric", "truth": "7*8", "dp": 0, "reading": True}, 56, tolerance=2), ValueError)
+    fails(lambda: vk.check({"kind": "numeric", "truth": "7*8", "dp": 0}, 56, tolerance=2), AssertionError)
+
+
 if __name__ == "__main__":
     failed = 0
     tests = [(name, fn) for name, fn in sorted(globals().items()) if name.startswith("test_") and callable(fn)]

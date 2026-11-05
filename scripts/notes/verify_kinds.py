@@ -45,7 +45,7 @@ PRECISION = ("sf", "dp")
 KINDS = {
     "exact": {"optional": ["unit"], "on": ["example", "choice"]},
     "rounded": {"oneOf": list(PRECISION), "optional": ["unit"], "on": ["example", "choice"]},
-    "numeric": {"oneOf": list(PRECISION), "on": ["numeric"]},
+    "numeric": {"oneOf": list(PRECISION), "optional": ["reading", "maxTolerance"], "on": ["numeric"]},
     "list": {"optional": list(PRECISION), "on": ["example", "choice"]},
     "assignments": {"on": ["example", "choice"]},
     "solutions": {"optional": list(PRECISION), "on": ["example", "choice"]},
@@ -103,6 +103,12 @@ def check_spec(verify: dict):
             raise ValueError(f"{name} must be true or false")
         if key in ("unit", "var") and not (isinstance(value, str) and value.strip()):
             raise ValueError(f"{name} must be a non-empty string")
+    if kind == "numeric" and ("reading" in options or "maxTolerance" in options):
+        if options.get("reading") is not True:
+            raise ValueError("numeric.reading must be true (and is only for estimates read from a graph)")
+        cap = options.get("maxTolerance")
+        if not (isinstance(cap, (int, float)) and not isinstance(cap, bool) and cap > 0):
+            raise ValueError("numeric.reading needs maxTolerance, a positive number")
     if kind == "money" and options.get("dp", 2) not in (0, 2):
         raise ValueError("money.dp must be 2 (or 0 for whole amounts)")
     if kind != "choice":
@@ -295,6 +301,14 @@ def k_rounded(tex, truth, opts):
 
 
 def k_numeric(value, truth, opts, tolerance=None):
+    if opts.get("reading"):
+        # A value read off a graph: the truth must sit inside the declared band, and the band within the declared cap.
+        tolerance = 0 if tolerance is None else float(tolerance)
+        if tolerance > float(opts["maxTolerance"]):
+            raise AssertionError(f"tolerance {tolerance} is looser than the declared maxTolerance {opts['maxTolerance']}")
+        if abs(float(value) - float(sympy.N(_number(truth, "numeric"), 12))) > tolerance + 1e-9:
+            raise AssertionError(f"published {value} +/- {tolerance} does not contain {sympy.N(truth, 12)}")
+        return
     mp.check_numeric(value, _number(truth, "numeric"), sf=opts.get("sf"), dp=opts.get("dp"), tolerance=tolerance)
 
 
@@ -463,11 +477,18 @@ def k_vector(tex, truth, opts):
             raise AssertionError(f"component {got} is not {value}")
 
 
+def _has_variable_denominator(expr) -> bool:
+    return any(isinstance(node, Pow) and node.exp.is_negative and node.base.free_symbols for node in sympy.preorder_traversal(expr))
+
+
 def k_equation(tex, truth, opts):
     target = truth.lhs - truth.rhs if isinstance(truth, Eq) else S(truth)
     if not _plain(target).free_symbols or simplify(target) == 0:
         raise ValueError(f"equation truth {truth} must involve a variable")
-    published = _plain(mp.parse_equation(tex))
+    raw = mp.parse_equation(tex)
+    if _has_variable_denominator(raw) and not _has_variable_denominator(truth.lhs - truth.rhs if isinstance(truth, Eq) else S(truth)):
+        raise AssertionError("a denominator in the published equation excludes values the true equation allows; clear the fractions first (use a sidecar for rational equations)")
+    published = _plain(raw)
     ratio = simplify(published / _plain(target))
     if ratio.free_symbols or ratio == 0 or not ratio.is_finite:
         raise AssertionError(f"published equation {published} = 0 is not {target} = 0 up to a non-zero constant factor")
@@ -822,6 +843,13 @@ def check(verify: dict, published, tolerance=None):
     if kind == "choice":
         return k_choice(published, verify["truth"], opts)
     truth = evaluate_truth(verify["truth"])
+    if kind != "antiderivative":
+        with mp.keep_constant():
+            return _check_kind(verify, kind, opts, truth, published, tolerance)
+    return _check_kind(verify, kind, opts, truth, published, tolerance)
+
+
+def _check_kind(verify, kind, opts, truth, published, tolerance):
     if kind == "numeric":
         if isinstance(published, str):
             raise ValueError("numeric verify is for a numeric check's value, not text")

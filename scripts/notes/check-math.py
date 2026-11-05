@@ -212,6 +212,8 @@ def main():
                 else:
                     report(False, f"{entry['id']} tolerance: the sidecar must declare its precision in NUMERIC, e.g. {{\"{entry['id']}\": {{\"sf\": 3}}}}")
                 continue
+            if source == "verify" and entry["verify"].get("reading"):
+                continue  # a reading from a graph: k_numeric checked the band against its declared maxTolerance
             limit = required_half_unit(entry["value"], precision)
             place = f"{precision['dp']} d.p." if "dp" in precision else f"{precision['sf']} s.f."
             ok = Decimal(repr(float(entry["tolerance"]))) <= limit

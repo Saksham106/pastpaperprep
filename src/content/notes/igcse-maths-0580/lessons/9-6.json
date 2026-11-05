@@ -266,13 +266,15 @@
           "hint": "Read up from $28$ and across, then subtract from $68$.",
           "answer": {
             "value": 56,
-            "tolerance": 0
+            "tolerance": 2
           },
           "explain": "About $12$ runners took $28$ minutes or less, so $68 - 12 = 56$ took longer.",
           "verify": {
             "kind": "numeric",
             "truth": "68 - 12",
-            "dp": 0
+            "dp": 0,
+            "reading": true,
+            "maxTolerance": 2
           }
         }
       ]

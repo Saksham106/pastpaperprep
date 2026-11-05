@@ -31,7 +31,7 @@ const PRECISION = ["sf", "dp"];
 export const VERIFY_KINDS: Record<string, KindSpec> = {
   exact: { optional: ["unit"], on: ANSWER },
   rounded: { oneOf: PRECISION, optional: ["unit"], on: ANSWER },
-  numeric: { oneOf: PRECISION, on: ["numeric"] },
+  numeric: { oneOf: PRECISION, optional: ["reading", "maxTolerance"], on: ["numeric"] },
   list: { optional: PRECISION, on: ANSWER },
   assignments: { on: ANSWER },
   solutions: { optional: PRECISION, on: ANSWER },
@@ -58,6 +58,17 @@ export const VERIFY_ENUMS: Record<string, string[]> = {
 };
 export const VERIFY_BOOLEANS = ["expression.scale", "fraction.simplest"];
 
+const GRAPH_READING = /\b(estimate|from the graph|from your graph|from the curve|read)\b/i;
+
+/** True when a multiple-choice option (with $ removed) is a number, fraction, decimal, percentage, ratio, coordinate or expression, not words. */
+export function numericLookingOption(option: string): boolean {
+  const text = option.replace(/\$/g, "").trim();
+  if (!text) return false;
+  const words = text.replace(/\\[A-Za-z]+/g, " ");
+  if (/[A-Za-z]{3,}/.test(words)) return false;
+  return /\d/.test(text) || /\\[A-Za-z]+/.test(text) || /[+*/^=<>%:]/.test(text) || /\S-\S/.test(text);
+}
+
 /** Problems with a block's `verify` (kind known, required options present, truth non-empty), where it sits. */
 export function verifyErrors(verify: Verify | undefined, on: "example" | "choice" | "numeric"): string[] {
   if (verify === undefined) return [];
@@ -83,6 +94,10 @@ export function verifyErrors(verify: Verify | undefined, on: "example" | "choice
     if (VERIFY_ENUMS[name] && !VERIFY_ENUMS[name].includes(verify[key] as string)) errors.push(`verify ${name} must be one of ${VERIFY_ENUMS[name].join(", ")}`);
     if (VERIFY_BOOLEANS.includes(name) && typeof verify[key] !== "boolean") errors.push(`verify ${name} must be true or false`);
     if ((key === "unit" || key === "var") && !(typeof verify[key] === "string" && (verify[key] as string).trim())) errors.push(`verify ${name} must be non-empty text`);
+  }
+  if (kind === "numeric" && ("reading" in verify || "maxTolerance" in verify)) {
+    if (verify.reading !== true) errors.push("verify numeric.reading must be true");
+    if (!(typeof verify.maxTolerance === "number" && verify.maxTolerance > 0)) errors.push("verify numeric.reading needs maxTolerance, a positive number");
   }
   if (kind === "money" && "dp" in verify && verify.dp !== 2 && verify.dp !== 0) errors.push("verify money.dp must be 2 (or 0 for whole amounts)");
   return errors;
@@ -183,7 +198,13 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
       });
     } else if (!check.answer || !Number.isFinite(check.answer.value) || !(check.answer.tolerance >= 0)) fail(path, "check needs options or a numeric answer with tolerance");
     for (const error of verifyErrors(check.verify, check.options ? "choice" : "numeric")) fail(path, `${check.id}: ${error}`);
-    if (check.verify?.kind === "choice" && check.options?.some((option) => option.text.includes("$"))) fail(path, `${check.id}: verify kind choice is for word answers only; options with $maths$ need a maths kind (exact, list, solutions, ...) so the distractors are checked mathematically`);
+    if (check.verify?.kind === "choice" && check.options?.some((option) => numericLookingOption(option.text))) fail(path, `${check.id}: verify kind choice is for word answers only; an option is a number or expression, so use a maths kind (exact, list, solutions, ...) so the distractors are checked mathematically`);
+    else if (check.verify?.kind === "choice" && check.options?.some((option) => option.text.includes("$"))) fail(path, `${check.id}: verify kind choice is for word answers only; options with $maths$ need a maths kind (exact, list, solutions, ...) so the distractors are checked mathematically`);
+    if (check.verify?.reading === true) {
+      if (!GRAPH_READING.test(check.prompt)) fail(path, `${check.id}: verify.reading is for values read from a graph; the prompt must say estimate, from the graph, from your graph, from the curve or read`);
+      const cap = check.verify.maxTolerance;
+      if (check.answer && typeof cap === "number" && check.answer.tolerance > cap) fail(path, `${check.id}: answer.tolerance ${check.answer.tolerance} is above verify.maxTolerance ${cap}`);
+    }
   };
   lesson.before.forEach((check, b) => checkShape(check, `before[${b}]`));
 
