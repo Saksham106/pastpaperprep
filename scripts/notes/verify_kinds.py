@@ -48,6 +48,7 @@ KINDS = {
     "numeric": {"oneOf": list(PRECISION), "on": ["numeric"]},
     "list": {"optional": list(PRECISION), "on": ["example", "choice"]},
     "assignments": {"on": ["example", "choice"]},
+    "solutions": {"optional": list(PRECISION), "on": ["example", "choice"]},
     "point": {"optional": list(PRECISION), "on": ["example", "choice"]},
     "vector": {"on": ["example", "choice"]},
     "equation": {"on": ["example", "choice"]},
@@ -104,9 +105,39 @@ def check_spec(verify: dict):
             raise ValueError(f"{name} must be a non-empty string")
     if kind == "money" and options.get("dp", 2) not in (0, 2):
         raise ValueError("money.dp must be 2 (or 0 for whole amounts)")
+    if kind != "choice":
+        require_computed(truth)
 
 
 # ---------------------------------------------------------------------------------------------------------- the truth
+
+def _is_literal(node) -> bool:
+    """True for an answer typed in: a bare number, name or string, a signed one, a relational between literals, or a
+    list / tuple / dict of literals. An arithmetic operation or a function call is a computation."""
+    if isinstance(node, (ast.Constant, ast.Name)):
+        return True
+    if isinstance(node, ast.Attribute):
+        return _is_literal(node.value)
+    if isinstance(node, ast.UnaryOp):
+        return _is_literal(node.operand)
+    if isinstance(node, (ast.Tuple, ast.List)):
+        return all(_is_literal(item) for item in node.elts)
+    if isinstance(node, ast.Dict):
+        return all(item is not None and _is_literal(item) for item in [*node.keys, *node.values])
+    if isinstance(node, ast.Compare):
+        return all(_is_literal(item) for item in [node.left, *node.comparators])
+    return False
+
+
+def require_computed(source: str):
+    """ValueError when a truth is only a literal (the answer typed in), not computed from the question's data."""
+    try:
+        tree = ast.parse(str(source).strip(), mode="eval")
+    except SyntaxError:
+        return  # evaluate_truth reports unreadable text
+    if _is_literal(tree.body):
+        raise ValueError(f"truth {source!r} is a literal: truth must be computed from the question's data (e.g. `sqrt(7**2+24**2)`), not the answer typed in")
+
 
 _DENIED = {
     "lambdify", "preview", "var", "init_printing", "init_session", "sympify", "parse_expr", "plot", "plot_implicit", "plot_parametric",
@@ -135,6 +166,11 @@ class _Exact(ast.NodeTransformer):
         if isinstance(node.value, float):
             return ast.copy_location(ast.Call(ast.Name("Rational", ast.Load()), [ast.Constant(repr(node.value))], []), node)
         return node
+
+    def visit_keyword(self, node):
+        if isinstance(node.value, ast.Constant) and isinstance(node.value.value, bool):
+            return node  # solve(..., dict=True): a flag for SymPy, not part of the truth
+        return self.generic_visit(node)
 
     def visit_Name(self, node):
         if node.id in NAMESPACE:
@@ -301,6 +337,102 @@ def k_assignments(tex, truth, opts):
             raise AssertionError(f"published {name} = {published[name]} is not {value}")
 
 
+_SOLUTION_BREAK = r"\\text\{\s*or\s*\}|;"
+_NAMED_VALUE = re.compile(r"\s*([A-Za-z][A-Za-z0-9]*)\s*(=|\\approx)(.*)\Z", re.S)
+_POINT = re.compile(r"\s*(?:[A-Za-z][A-Za-z0-9]*\s*(?:=|\\approx)\s*)?\(.*\)\s*\Z", re.S)
+
+
+def _truth_solutions(truth):
+    """[(names or None, values)]: dict solutions are named (values in name order), plain tuples are positional."""
+    items = [truth] if isinstance(truth, (dict, Eq)) else list(truth) if isinstance(truth, (list, tuple, Tuple, FiniteSet)) else None
+    if not items:
+        raise ValueError("solutions truth must be a non-empty list of solutions, as from solve(..., dict=True)")
+    result = []
+    for item in items:
+        if isinstance(item, dict):
+            named = {str(key): S(value) for key, value in item.items()}
+        elif isinstance(item, Eq) or (isinstance(item, (list, tuple, Tuple)) and item and all(isinstance(part, Eq) for part in item)):
+            parts = [item] if isinstance(item, Eq) else list(item)
+            if not all(isinstance(part.lhs, Symbol) for part in parts):
+                raise ValueError("solutions truth: write each Eq with a symbol on the left, as Eq(x, 2)")
+            named = {part.lhs.name: part.rhs for part in parts}
+        elif isinstance(item, (list, tuple, Tuple)):
+            result.append((None, [S(value) for value in item]))
+            continue
+        else:
+            raise ValueError(f"solutions truth: cannot read the solution {item}")
+        names = sorted(named)
+        result.append((names, [named[name] for name in names]))
+    if len({len(values) for _, values in result}) != 1:
+        raise ValueError("solutions truth: every solution must have the same number of values")
+    return result
+
+
+def _published_solutions(tex):
+    """[(names or None, [(relation, text)])]: points `(3, 5)` are positional, `x = 3, y = 5` are named."""
+    cleaned = mp._strip_decorations(tex).strip()
+    flat = [piece.strip() for piece in mp._split(cleaned, mp._top_level_cuts(cleaned, rf"{_SOLUTION_BREAK}|\\text\{{\s*and\s*\}}|,"))]
+    if flat and all(_POINT.match(piece) for piece in flat):
+        result = []
+        for piece in flat:
+            pieces, relation = _coordinates(piece)
+            result.append((None, [(relation, text) for text in pieces]))
+        return result
+    result = []
+    for chunk in mp._split(cleaned, mp._top_level_cuts(cleaned, _SOLUTION_BREAK)):
+        names, values = [], []
+        for piece in mp._split(chunk, mp._top_level_cuts(chunk, rf"\\text\{{\s*and\s*\}}|,")):
+            if not piece.strip():
+                continue
+            match = _NAMED_VALUE.match(piece)
+            if not match:
+                raise ValueError(f"{tex!r}: every value needs a name, as in x = 1 (read {piece.strip()!r})")
+            names.append(match.group(1))
+            values.append((match.group(2), match.group(3).strip()))
+        if not names:
+            raise ValueError(f"no solution in {tex!r}")
+        if len(set(names)) != len(names):
+            raise ValueError(f"{tex!r}: a name is given twice in one solution")
+        result.append((names, values))
+    return result
+
+
+def _value_matches(relation, text, want, opts, tex):
+    if "sf" in opts or "dp" in opts:
+        try:
+            mp.check_rounded(f"{relation} {text}", _number(want, "solutions"), sf=opts.get("sf"), dp=opts.get("dp"))
+        except AssertionError:
+            return False
+        return True
+    return _same(mp._parse(text, tex), want)
+
+
+def k_solutions(tex, truth, opts):
+    wanted = _truth_solutions(truth)
+    published = _published_solutions(tex)
+    if len(published) != len(wanted):
+        raise AssertionError(f"{tex!r} gives {len(published)} solution(s), {len(wanted)} expected")
+    remaining = list(published)
+    for names, values in wanted:
+        for i, (got_names, got_values) in enumerate(remaining):
+            if len(got_values) != len(values):
+                continue
+            if got_names is None:
+                order = list(range(len(values)))  # a point lists the values in name order
+            else:
+                if names is None:
+                    raise ValueError("solutions truth has no variable names, so named answers cannot be checked; use solve(..., dict=True)")
+                if set(got_names) != set(names):
+                    continue
+                order = [got_names.index(name) for name in names]
+            if all(_value_matches(*got_values[j], want, opts, tex) for j, want in zip(order, values)):
+                remaining.pop(i)
+                break
+        else:
+            shown = names and {name: str(value) for name, value in zip(names, values)} or [str(value) for value in values]
+            raise AssertionError(f"the solution {shown} is missing from {tex!r}")
+
+
 def _coordinates(tex):
     rhs, relation = _rhs(tex)
     if not (rhs.startswith("(") and rhs.endswith(")")):
@@ -377,8 +509,6 @@ def k_set(tex, truth, opts):
         return
     if isinstance(target, FiniteSet):
         published = _finite_set(tex)
-        if len({sympy.srepr(simplify(value)) for value in published}) != len(published):
-            raise AssertionError(f"{tex!r} lists a value twice")
         if FiniteSet(*published) != target:
             raise AssertionError(f"published set {FiniteSet(*published)} is not {target}")
         return
@@ -677,7 +807,7 @@ def k_choice(text, truth, opts):
 
 
 CHECKERS = {
-    "exact": k_exact, "rounded": k_rounded, "list": k_list, "assignments": k_assignments, "point": k_point, "vector": k_vector,
+    "exact": k_exact, "rounded": k_rounded, "list": k_list, "assignments": k_assignments, "solutions": k_solutions, "point": k_point, "vector": k_vector,
     "equation": k_equation, "inequality": k_set, "set": k_set, "ratio": k_ratio, "standard-form": k_standard_form, "money": k_money,
     "time": k_time, "bearing": k_bearing, "angle": k_angle, "fraction": k_fraction, "expression": k_expression,
     "antiderivative": k_antiderivative, "choice": k_choice,

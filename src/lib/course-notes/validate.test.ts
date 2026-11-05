@@ -250,6 +250,18 @@ describe("verify blocks", () => {
     expect(withBlock(example({ kind: "rounded", truth: "1", sf: 0 }))).toEqual([expect.stringContaining("sf must be a whole number of at least 1")]);
   });
 
+  it("takes the solutions kind on an example with sf or dp", () => {
+    expect(withBlock(example({ kind: "solutions", truth: "solve([Eq(y, x + 2), Eq(x**2 + y**2, 34)], [x, y], dict=True)" }))).toEqual([]);
+    expect(withBlock(example({ kind: "solutions", truth: "solve(x**2 - 2, x)", dp: 2 }))).toEqual([]);
+    expect(withBlock(example({ kind: "solutions", truth: "solve(x**2 - 2, x)", unit: "cm" }))).toEqual([expect.stringContaining("solutions has no option unit")]);
+  });
+
+  it("allows verify kind choice only for word answers", () => {
+    const maths = { type: "check", id: "mv", prompt: "p", hint: "h", options: [{ text: "$(3, 7)$", correct: true }, { text: "$(7, 3)$", correct: false }], explain: "e", verify: { kind: "choice", truth: "$(3, 7)$" } } as Block;
+    expect(withBlock(maths)).toEqual([expect.stringContaining("verify kind choice is for word answers only")]);
+    expect(withBlock({ ...maths, verify: { kind: "list", truth: "[1 + 2, 7]" } } as Block)).toEqual([]);
+  });
+
   it("puts each kind only where it can be checked", () => {
     expect(withBlock(numeric({ kind: "exact", truth: "24" }))).toEqual([expect.stringContaining("cannot be used on a numeric check")]);
     expect(withBlock(example({ kind: "numeric", truth: "24", sf: 2 }))).toEqual([expect.stringContaining("cannot be used on an example")]);

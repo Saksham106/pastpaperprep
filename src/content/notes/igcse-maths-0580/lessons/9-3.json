@@ -1,0 +1,793 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "9.3",
+  "slug": "averages-and-measures-of-spread",
+  "title": "Averages and measures of spread",
+  "level": "Core",
+  "topic": 9,
+  "summary": "An [[average|average]] is one typical value: the [[mean|mean]], the [[median|median]] or the [[mode|mode]]. The [[range-of-a-data-set|range]] is a [[measure-of-spread|measure of spread]]: it shows how spread out the values are. You'll find each from a list or a table, and pick the right average for the job.",
+  "goals": [
+    {
+      "text": "Calculate the mean, median, mode and range of a list of values.",
+      "bullets": [
+        "9.3-c1"
+      ]
+    },
+    {
+      "text": "Find the mean, median and mode from a [[frequency-table|frequency table]].",
+      "bullets": [
+        "9.3-c1"
+      ]
+    },
+    {
+      "text": "Choose the best average for a purpose, with a reason.",
+      "bullets": [
+        "9.3-c1"
+      ]
+    },
+    {
+      "text": "Find the [[quartile|quartiles]] and the [[interquartile-range|interquartile range]], and say what they show.",
+      "bullets": [
+        "9.3-s1"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Work out an [[estimate|estimate]] of the mean from a [[grouped-frequency-table|grouped frequency table]].",
+      "bullets": [
+        "9.3-s2"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Write down the [[modal-class|modal class]] of grouped data.",
+      "bullets": [
+        "9.3-s3"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.9",
+    "9.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "mean median mode range",
+    "how to find the median",
+    "mean from a frequency table",
+    "interquartile range",
+    "estimated mean grouped data",
+    "modal class"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-round-3sf",
+      "prompt": "Round $47.385$ to 3 significant figures.",
+      "hint": "Count three figures from the first non-zero digit, then look at the next digit.",
+      "answer": {
+        "value": 47.4,
+        "tolerance": 0.05
+      },
+      "explain": "The first three figures are $4$, $7$ and $3$. The next digit is $8$, so round up: $47.4$. Revise it in {{lesson:1.9}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "47385/1000",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-total-frequency",
+      "prompt": "A table shows the scores $1$, $2$ and $3$ with frequencies $7$, $12$ and $5$. How many scores are there altogether?",
+      "hint": "Each frequency counts how many times that score happened.",
+      "answer": {
+        "value": 24,
+        "tolerance": 0
+      },
+      "explain": "Add the frequencies, not the scores: $7 + 12 + 5 = 24$. Revise it in {{lesson:9.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "7 + 12 + 5",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "averages",
+      "heading": "Mean, median and mode",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "What is a typical number of books read in a month? There are three useful answers."
+        },
+        {
+          "type": "definition",
+          "term": "Mean",
+          "statement": "The [[mean|mean]] is the total of the values divided by the number of values.",
+          "plain": "Share the total out equally."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{mean} = \\frac{\\text{total of the values}}{\\text{number of values}}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-mean-books",
+          "question": "Eight students read these numbers of books last month: $3, 0, 4, 1, 3, 6, 2, 3$. Calculate the mean.",
+          "steps": [
+            "Add all the values. Include the $0$, because it is a value: $3 + 0 + 4 + 1 + 3 + 6 + 2 + 3 = 22$.",
+            "Count the values: there are $8$.",
+            "Divide the total by the count: $22 \\div 8 = 2.75$.",
+            "The mean need not be one of the values."
+          ],
+          "answer": "$\\text{mean} = 2.75$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(3 + 0 + 4 + 1 + 3 + 6 + 2 + 3)/8"
+          },
+          "video": null
+        },
+        {
+          "type": "definition",
+          "term": "Median",
+          "statement": "The [[median|median]] is the middle value when the values are in order. For $n$ values, it is the $\\frac{n+1}{2}$th value.",
+          "plain": "Line the values up and take the one in the middle."
+        },
+        {
+          "type": "text",
+          "text": "With an even number of values there are two middle values. The median is halfway between them: add them and divide by $2$."
+        },
+        {
+          "type": "example",
+          "id": "ex-median-seedlings",
+          "question": "The heights of six seedlings, in cm, are $7.4, 5.9, 8.1, 6.6, 9.0, 6.2$. Find the median.",
+          "steps": [
+            "Put the values in order: $5.9, 6.2, 6.6, 7.4, 8.1, 9.0$.",
+            "There are $6$ values, so the median is the $\\frac{6+1}{2} = 3.5$th value. That is halfway between the 3rd and 4th values.",
+            "The 3rd and 4th values are $6.6$ and $7.4$.",
+            "Halfway between them: $\\frac{6.6 + 7.4}{2} = \\frac{14}{2} = 7$."
+          ],
+          "answer": "$\\text{median} = 7\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(6.6 + 7.4)/2",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-median-order",
+          "prompt": "Find the median of $26, 7, 43, 13, 32$.",
+          "hint": "Put the values in order first.",
+          "options": [
+            {
+              "text": "$26$",
+              "correct": true
+            },
+            {
+              "text": "$43$",
+              "correct": false
+            },
+            {
+              "text": "$3$",
+              "correct": false
+            }
+          ],
+          "explain": "In order: $7, 13, 26, 32, 43$. There are $5$ values, so the median is the $\\frac{5+1}{2} = 3$rd value, $26$. $43$ is the middle of the unordered list, and $3$ is only the position.",
+          "verify": {
+            "kind": "exact",
+            "truth": "[7, 13, 26, 32, 43][2]"
+          }
+        },
+        {
+          "type": "definition",
+          "term": "Mode",
+          "statement": "The [[mode|mode]] is the value that occurs most often.",
+          "plain": "The most popular value."
+        },
+        {
+          "type": "text",
+          "text": "A data set can have two modes if two values tie for most often. If every value occurs once, there is no mode."
+        },
+        {
+          "type": "text",
+          "text": "If you know the mean, you can find the total: total $=$ mean $\\times$ number of values. Then you can find a missing value."
+        },
+        {
+          "type": "check",
+          "id": "check-missing-value",
+          "prompt": "The mean of six numbers is $7$. Five of the numbers are $5, 13, 6, 8$ and $2$. Find the sixth number.",
+          "hint": "The total of all six is $6 \\times 7$.",
+          "answer": {
+            "value": 8,
+            "tolerance": 0
+          },
+          "explain": "The total of all six is $6 \\times 7 = 42$. The five you know add to $34$, so the sixth is $42 - 34 = 8$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6*7 - (5 + 13 + 6 + 8 + 2)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "To combine two groups of different sizes, don't average their means. Find each group's total, add the totals, then divide by the total number of values."
+        }
+      ]
+    },
+    {
+      "id": "range",
+      "heading": "The range",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two classes can have the same mean but very different marks. An average doesn't show how spread out the values are."
+        },
+        {
+          "type": "definition",
+          "term": "Range",
+          "statement": "The [[range-of-a-data-set|range]] is the largest value minus the smallest value.",
+          "plain": "How far the values stretch, from bottom to top."
+        },
+        {
+          "type": "text",
+          "text": "The range is a [[measure-of-spread|measure of spread]]. A small range means the values are close together. It is always one number, not a pair of values."
+        },
+        {
+          "type": "example",
+          "id": "ex-range-temperatures",
+          "question": "The midday temperatures in a town for one week, in $^{\\circ}\\text{C}$, are $3, -2, 5, -6, 1, 4, 0$. Find the range.",
+          "steps": [
+            "The largest value is $5$. The smallest is $-6$, the coldest day.",
+            "Range $=$ largest $-$ smallest $= 5 - (-6)$.",
+            "Subtracting a negative is adding: $5 + 6 = 11$."
+          ],
+          "answer": "$\\text{range} = 11^{\\circ}\\text{C}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Max(3, -2, 5, -6, 1, 4, 0) - Min(3, -2, 5, -6, 1, 4, 0)",
+            "unit": "°C"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-mean-negatives",
+          "prompt": "Find the mean of the same temperatures: $3, -2, 5, -6, 1, 4, 0$. Give your answer to 3 significant figures.",
+          "hint": "Keep the minus signs when you add.",
+          "answer": {
+            "value": 0.714,
+            "tolerance": 0.0005
+          },
+          "explain": "Total: $3 - 2 + 5 - 6 + 1 + 4 + 0 = 5$. Mean: $5 \\div 7 = 0.71428\\ldots \\approx 0.714$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(3 - 2 + 5 - 6 + 1 + 4 + 0)/7",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-range-missing",
+          "prompt": "Six numbers have a range of $25$. Five of them are $31, 44, 27, 38$ and $40$. Find the two possible values of the sixth number.",
+          "hint": "These five have a range of only $17$.",
+          "options": [
+            {
+              "text": "$19 \\text{ or } 52$",
+              "correct": true
+            },
+            {
+              "text": "$52$",
+              "correct": false
+            },
+            {
+              "text": "$2 \\text{ or } 69$",
+              "correct": false
+            },
+            {
+              "text": "$8$",
+              "correct": false
+            }
+          ],
+          "explain": "It is a new largest, $27 + 25 = 52$, or a new smallest, $44 - 25 = 19$.",
+          "verify": {
+            "kind": "list",
+            "truth": "[44 - 25, 27 + 25]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "frequency-tables",
+      "heading": "Averages from a frequency table",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[frequency-table|frequency table]] is a short way to write a long list. A value with frequency $9$ appears $9$ times in the list."
+        },
+        {
+          "type": "text",
+          "text": "For the total of the values, multiply each value $x$ by its frequency $f$, then add. This is $\\sum fx$, where $\\sum$ means \"add them all up\"."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{mean} = \\frac{\\sum fx}{\\sum f}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The bottom line, $\\sum f$, is the total frequency: how many values there are. It is not the number of rows."
+        },
+        {
+          "type": "example",
+          "id": "ex-freq-mean-pets",
+          "question": "A survey asks families how many pets they have. $\\begin{array}{c|ccccc} \\text{Pets} & 0 & 1 & 2 & 3 & 4 \\\\ \\hline \\text{Frequency} & 8 & 13 & 9 & 7 & 3 \\end{array}$ Calculate the mean number of pets.",
+          "steps": [
+            "Multiply each number of pets by its frequency: $0 \\times 8 = 0$, $1 \\times 13 = 13$, $2 \\times 9 = 18$, $3 \\times 7 = 21$, $4 \\times 3 = 12$.",
+            "Add these to get the total number of pets: $\\sum fx = 0 + 13 + 18 + 21 + 12 = 64$.",
+            "Add the frequencies to get the number of families: $\\sum f = 8 + 13 + 9 + 7 + 3 = 40$.",
+            "Divide: $64 \\div 40 = 1.6$."
+          ],
+          "answer": "$\\text{mean} = 1.6$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(0*8 + 1*13 + 2*9 + 3*7 + 4*3)/(8 + 13 + 9 + 7 + 3)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "On Paper 3 or 4 your calculator can find the mean from the table. Still write down the division, such as $64 \\div 40$."
+        },
+        {
+          "type": "calculator",
+          "snippet": "frequency-table-mean"
+        },
+        {
+          "type": "example",
+          "id": "ex-freq-median-goals",
+          "question": "A football team records the goals it scores in each match. $\\begin{array}{c|cccccc} \\text{Goals} & 0 & 1 & 2 & 3 & 4 & 5 \\\\ \\hline \\text{Frequency} & 4 & 7 & 6 & 5 & 2 & 1 \\end{array}$ Find the median number of goals.",
+          "steps": [
+            "Total frequency: $4 + 7 + 6 + 5 + 2 + 1 = 25$ matches. The median is the $\\frac{25+1}{2} = 13$th value.",
+            "Keep a running total: $4$, then $4 + 7 = 11$, then $11 + 6 = 17$.",
+            "So values 12 to 17 are all $2$ goals, and the 13th value is $2$."
+          ],
+          "answer": "$\\text{median} = 2$",
+          "verify": {
+            "kind": "exact",
+            "truth": "[0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 5][12]"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-freq-mode",
+          "prompt": "For the same football table, write down the mode.",
+          "hint": "The mode is a number of goals, not a frequency.",
+          "options": [
+            {
+              "text": "$1$",
+              "correct": true
+            },
+            {
+              "text": "$7$",
+              "correct": false
+            },
+            {
+              "text": "$5$",
+              "correct": false
+            }
+          ],
+          "explain": "The highest frequency, $7$, is in the row for $1$ goal, so the mode is $1$. The $7$ counts matches, not goals.",
+          "verify": {
+            "kind": "exact",
+            "truth": "[0, 1, 2, 3, 4, 5][[4, 7, 6, 5, 2, 1].index(7)]"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-freq-mean",
+          "prompt": "Scores $2$, $3$ and $4$ have frequencies $5$, $8$ and $7$. Work out the mean score.",
+          "hint": "Find $\\sum fx$, then divide by the total frequency.",
+          "options": [
+            {
+              "text": "$3.1$",
+              "correct": true
+            },
+            {
+              "text": "$20.7$",
+              "correct": false
+            },
+            {
+              "text": "$6.67$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sum fx = 10 + 24 + 28 = 62$ and $\\sum f = 20$, so the mean is $62 \\div 20 = 3.1$. Dividing by the $3$ rows gives $20.7$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(2*5 + 3*8 + 4*7)/(5 + 8 + 7)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "choosing",
+      "heading": "Which average to use",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "1. The mean uses every value. But one very large or very small value, an extreme value, pulls it away from the rest."
+        },
+        {
+          "type": "text",
+          "text": "2. The median is the middle value, so an extreme value hardly moves it. Use it when there is one."
+        },
+        {
+          "type": "text",
+          "text": "3. The mode is the most common value. Use it for the most popular choice, or when the data are words, such as colours."
+        },
+        {
+          "type": "text",
+          "text": "The range uses only the two end values, so one extreme value changes it a lot."
+        },
+        {
+          "type": "example",
+          "id": "ex-choose-median",
+          "question": "Seven people's journey times to school, in minutes, are $26, 32, 29, 27, 31, 88, 30$. Find the median. Explain why it describes a typical journey better than the mean.",
+          "steps": [
+            "In order: $26, 27, 29, 30, 31, 32, 88$. The median is the 4th value, $30$.",
+            "The mean is $263 \\div 7 = 37.57\\ldots$, longer than six of the seven journeys.",
+            "The extreme value $88$ pulls the mean up, but not the median."
+          ],
+          "answer": "$\\text{median} = 30\\text{ minutes}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "[26, 27, 29, 30, 31, 32, 88][3]",
+            "unit": "minutes"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-choose-median",
+          "prompt": "Eight friends have between $150$ and $400$ followers online. A ninth has $25\\,000$. Which average best shows a typical number?",
+          "hint": "Is there an extreme value?",
+          "options": [
+            {
+              "text": "The median",
+              "correct": true
+            },
+            {
+              "text": "The mean",
+              "correct": false
+            },
+            {
+              "text": "The mode",
+              "correct": false
+            }
+          ],
+          "explain": "The $25\\,000$ is an extreme value. It drags the mean far above everyone else, but not the median.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The median"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-choose-mode",
+          "prompt": "Which average can you find for the favourite colours of a class?",
+          "hint": "Can you add colours, or put them in order of size?",
+          "options": [
+            {
+              "text": "The mode",
+              "correct": true
+            },
+            {
+              "text": "The mean",
+              "correct": false
+            },
+            {
+              "text": "The median",
+              "correct": false
+            }
+          ],
+          "explain": "You can't add colours or put them in order of size. You can only count which is most common.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The mode"
+          }
+        }
+      ]
+    },
+    {
+      "id": "quartiles",
+      "heading": "Quartiles and interquartile range",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The range depends on the two most extreme values. A better measure of spread looks only at the middle half of the data."
+        },
+        {
+          "type": "definition",
+          "term": "Quartiles",
+          "statement": "Order the values and split them into two halves. The lower [[quartile|quartile]] is the middle of the lower half; the upper quartile is the middle of the upper half.",
+          "plain": "With the median, the quartiles cut the data into four equal parts."
+        },
+        {
+          "type": "text",
+          "text": "With an odd number of values, leave the median out of both halves. With an even number, just cut the ordered list in half."
+        },
+        {
+          "type": "definition",
+          "term": "Interquartile range",
+          "statement": "The [[interquartile-range|interquartile range]] (IQR) is the upper quartile minus the lower quartile.",
+          "plain": "The spread of the middle half of the data."
+        },
+        {
+          "type": "text",
+          "text": "The IQR ignores the bottom and top quarters, so one extreme value hardly changes it."
+        },
+        {
+          "type": "example",
+          "id": "ex-iqr-runners",
+          "question": "Eleven runners' times, in seconds, are $12.4, 13.1, 11.8, 14.6, 12.9, 13.5, 12.2, 15.3, 13.0, 12.7, 14.1$. Find the interquartile range.",
+          "steps": [
+            "In order: $11.8, 12.2, 12.4, 12.7, 12.9, 13.0, 13.1, 13.5, 14.1, 14.6, 15.3$.",
+            "The median is the 6th value, $13.0$. Leave it out: each half has $5$ values.",
+            "Lower half: $11.8, 12.2, 12.4, 12.7, 12.9$. Its middle value is the lower quartile, $12.4$.",
+            "Upper half: $13.1, 13.5, 14.1, 14.6, 15.3$. Its middle value is the upper quartile, $14.1$.",
+            "IQR $= 14.1 - 12.4 = 1.7$."
+          ],
+          "answer": "$\\text{IQR} = 1.7\\text{ s}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "14.1 - 12.4",
+            "unit": "s"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "9-3-quartiles",
+          "alt": "The eleven runners' times in order in a row of boxes. The 3rd box, 12.4, is the lower quartile. The 6th box, 13.0, is the median. The 9th box, 14.1, is the upper quartile. A bracket from the lower to the upper quartile is labelled IQR equals 1.7. The five boxes before the median are labelled lower half and the five after it upper half.",
+          "caption": "The quartiles are the middles of the two halves."
+        },
+        {
+          "type": "mistake",
+          "text": "Finding the quartiles from the list as it was given. Put the values in order first, just as for the median."
+        },
+        {
+          "type": "check",
+          "id": "check-iqr-even-halves",
+          "prompt": "Nine students' marks in a test are $67, 72, 58, 81, 64, 75, 69, 88, 61$. Find the interquartile range.",
+          "hint": "After ordering, leave out the median. Each half has $4$ values, so its middle is halfway between two values.",
+          "answer": {
+            "value": 15.5,
+            "tolerance": 0
+          },
+          "explain": "In order: $58, 61, 64, 67, 69, 72, 75, 81, 88$. The lower quartile is $\\frac{61 + 64}{2} = 62.5$ and the upper quartile is $\\frac{75 + 81}{2} = 78$. IQR $= 78 - 62.5 = 15.5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(75 + 81)/2 - (61 + 64)/2",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-iqr-purpose",
+          "prompt": "Data has one extreme value. Why is the IQR a better measure of spread than the range?",
+          "hint": "Which values does each measure use?",
+          "options": [
+            {
+              "text": "The extreme value hardly affects it",
+              "correct": true
+            },
+            {
+              "text": "It uses every value",
+              "correct": false
+            },
+            {
+              "text": "It is always larger",
+              "correct": false
+            }
+          ],
+          "explain": "The IQR uses only the middle half of the data. The range uses the extreme value itself.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The extreme value hardly affects it"
+          }
+        }
+      ]
+    },
+    {
+      "id": "grouped",
+      "heading": "Grouped data",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[grouped-frequency-table|grouped frequency table]] puts the values into groups. Each group is a [[class-interval|class interval]], such as $150 < h \\le 160$: more than $150$, up to and including $160$."
+        },
+        {
+          "type": "text",
+          "text": "You don't know the exact values. So treat every value in a class as its [[midpoint|midpoint]], halfway between the boundaries: $\\frac{150 + 160}{2} = 155$. The mean is then an estimate."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{estimated mean} = \\frac{\\sum f \\times \\text{midpoint}}{\\sum f}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-grouped-heights",
+          "question": "The table shows the heights of a group of students. $\\begin{array}{c|cccc} \\text{Height } h\\text{ (cm)} & 140 < h \\le 150 & 150 < h \\le 160 & 160 < h \\le 170 & 170 < h \\le 180 \\\\ \\hline \\text{Frequency} & 7 & 23 & 26 & 9 \\end{array}$ Calculate an estimate of the mean height. Give your answer to 3 significant figures.",
+          "steps": [
+            "Midpoints: $\\frac{140 + 150}{2} = 145$, then $155$, $165$ and $175$.",
+            "Multiply each midpoint by its frequency: $145 \\times 7 = 1015$, $155 \\times 23 = 3565$, $165 \\times 26 = 4290$, $175 \\times 9 = 1575$.",
+            "Add: $1015 + 3565 + 4290 + 1575 = 10\\,445$. The total frequency is $7 + 23 + 26 + 9 = 65$.",
+            "Divide: $10\\,445 \\div 65 = 160.69\\ldots \\approx 161$ cm."
+          ],
+          "answer": "$\\text{mean} \\approx 161\\text{ cm}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "((140 + 150)/2*7 + (150 + 160)/2*23 + (160 + 170)/2*26 + (170 + 180)/2*9)/(7 + 23 + 26 + 9)",
+            "sf": 3,
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying by the upper boundary or the class width instead of the midpoint. Each class is represented by the value halfway between its boundaries."
+        },
+        {
+          "type": "text",
+          "text": "Discrete data can be grouped too, such as $20$–$29$ goals. Find the midpoint from the smallest and largest value in the class."
+        },
+        {
+          "type": "check",
+          "id": "check-grouped-discrete",
+          "prompt": "Quiz marks are grouped as $51$–$59$, $60$–$68$ and $69$–$77$, with frequencies $5$, $12$ and $8$. Estimate the mean, correct to three significant figures.",
+          "hint": "The midpoint of $51$–$59$ is $\\frac{51 + 59}{2}$.",
+          "answer": {
+            "value": 65.1,
+            "tolerance": 0.05
+          },
+          "explain": "Midpoints $55$, $64$ and $73$. $\\sum f \\times \\text{midpoint} = 275 + 768 + 584 = 1627$ and $\\sum f = 25$, so the estimate is $1627 \\div 25 = 65.08 \\approx 65.1$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "((51 + 59)/2*5 + (60 + 68)/2*12 + (69 + 77)/2*8)/(5 + 12 + 8)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-midpoint",
+          "prompt": "Write down the midpoint of the class $35 < m \\le 42$.",
+          "hint": "Add the two boundaries and halve.",
+          "answer": {
+            "value": 38.5,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{35 + 42}{2} = \\frac{77}{2} = 38.5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(35 + 42)/2",
+            "dp": 1
+          }
+        },
+        {
+          "type": "definition",
+          "term": "Modal class",
+          "statement": "When the classes all have the same width, the [[modal-class|modal class]] is the class with the highest frequency.",
+          "plain": "The most popular group."
+        },
+        {
+          "type": "check",
+          "id": "check-modal-class",
+          "prompt": "The table shows the distances some people walk each day. $\\begin{array}{c|cccc} \\text{Distance } d\\text{ (km)} & 0 < d \\le 2 & 2 < d \\le 4 & 4 < d \\le 6 & 6 < d \\le 8 \\\\ \\hline \\text{Frequency} & 8 & 15 & 21 & 6 \\end{array}$ Write down the modal class.",
+          "hint": "Answer with a class, not a frequency.",
+          "options": [
+            {
+              "text": "$4 < d \\le 6$",
+              "correct": true
+            },
+            {
+              "text": "$21$",
+              "correct": false
+            },
+            {
+              "text": "$6 < d \\le 8$",
+              "correct": false
+            },
+            {
+              "text": "$2 < d \\le 4$",
+              "correct": false
+            }
+          ],
+          "explain": "The highest frequency is $21$, so the modal class is $4 < d \\le 6$. The $21$ is a frequency, not a class.",
+          "verify": {
+            "kind": "choice",
+            "truth": "$4 < d \\le 6$"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\text{mean} = \\frac{\\text{total of the values}}{\\text{number of values}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Median: put the values in order and take the $\\frac{n+1}{2}$th. Mode: the most common value. Range: largest $-$ smallest.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{mean from a frequency table} = \\frac{\\sum fx}{\\sum f}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An extreme value pulls the mean, not the median. Use the mode for the most popular choice.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Quartiles: the medians of the lower and upper halves (leave out the median when $n$ is odd). IQR $=$ upper quartile $-$ lower quartile.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{estimated mean} = \\frac{\\sum f \\times \\text{midpoint}}{\\sum f}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Modal class: the class with the highest frequency, when the classes have equal widths.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing by the number of rows in a frequency table. Divide $\\sum fx$ by the total frequency $\\sum f$.",
+    "Giving the position $\\frac{n+1}{2}$ as the median. The median is the value in that position.",
+    "Dropping minus signs when you add or subtract negative values.",
+    "Giving one answer when a missing value must give a set range. It can be a new largest or a new smallest."
+  ],
+  "examTips": [
+    "Calculate the mean: write the division, such as $64 \\div 40$, before the answer. That line earns the method mark.",
+    "Leave an exact answer such as $1.6$ as it is. Round to 3 s.f. only when the decimal goes on.",
+    "Give a reason why the mean is not suitable: name the extreme value and say it pulls the mean away from most of the data."
+  ],
+  "readingMinutes": 22
+}

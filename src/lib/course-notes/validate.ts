@@ -34,6 +34,7 @@ export const VERIFY_KINDS: Record<string, KindSpec> = {
   numeric: { oneOf: PRECISION, on: ["numeric"] },
   list: { optional: PRECISION, on: ANSWER },
   assignments: { on: ANSWER },
+  solutions: { optional: PRECISION, on: ANSWER },
   point: { optional: PRECISION, on: ANSWER },
   vector: { on: ANSWER },
   equation: { on: ANSWER },
@@ -182,6 +183,7 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
       });
     } else if (!check.answer || !Number.isFinite(check.answer.value) || !(check.answer.tolerance >= 0)) fail(path, "check needs options or a numeric answer with tolerance");
     for (const error of verifyErrors(check.verify, check.options ? "choice" : "numeric")) fail(path, `${check.id}: ${error}`);
+    if (check.verify?.kind === "choice" && check.options?.some((option) => option.text.includes("$"))) fail(path, `${check.id}: verify kind choice is for word answers only; options with $maths$ need a maths kind (exact, list, solutions, ...) so the distractors are checked mathematically`);
   };
   lesson.before.forEach((check, b) => checkShape(check, `before[${b}]`));
 

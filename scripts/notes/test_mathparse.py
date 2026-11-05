@@ -275,7 +275,7 @@ def test_truth_is_evaluated_exactly_in_a_sympy_only_namespace():
     equal(vk.evaluate_truth("1/3"), Rational(1, 3))
     equal(vk.evaluate_truth("12.5 * 1.08"), Rational(27, 2))
     equal(vk.evaluate_truth("x**2 - 1"), x**2 - 1)
-    assert vk.evaluate_truth('{"x": 2, "y": -1}') == {"x": 2, "y": -1}
+    assert vk.evaluate_truth('{"x": 1 + 1, "y": -1 * 1}') == {"x": 2, "y": -1}
     for bad in ["__import__('os')", "().__class__", "x.__class__", "open('f')", "(lambda: 1)()", "[i for i in range(3)]",
                 "sympify('2')", "S('__import__(1)')", "Symbol('x')", "lambdify(x, 'x')", "{'__x': 1}", "import os", ""]:
         fails(lambda bad=bad: vk.evaluate_truth(bad), ValueError)
@@ -287,7 +287,22 @@ def test_spec_rejects_unknown_kinds_and_options():
                 {"kind": "time", "truth": "60"}, {"kind": "time", "truth": "60", "form": "noon"}, {"kind": "money", "truth": "1", "dp": 1},
                 {"kind": "rounded", "truth": "1", "sf": 0}, {"kind": "expression", "truth": "x", "scale": "yes"}]:
         fails(lambda bad=bad: vk.check_spec(bad), ValueError)
-    vk.check_spec({"kind": "rounded", "truth": "1", "dp": 2})
+    vk.check_spec({"kind": "rounded", "truth": "2**0", "dp": 2})
+
+
+def test_a_truth_must_be_computed_not_typed_in():
+    for literal in ["25", "x", "-3", "[2, 3]", "(2, -3)", "[(2, 3), (4, 5)]", "x > 3", "y >= 5", '{"x": 2, "y": -1}', "pi"]:
+        fails(lambda literal=literal: vk.check({"kind": "exact", "truth": literal}, "25"), ValueError)
+        fails(lambda literal=literal: vk.check_spec({"kind": "exact", "truth": literal}), ValueError)
+    fails(lambda: vk.check({"kind": "numeric", "truth": "25", "sf": 2}, 25, tolerance=0), ValueError)
+    for computed in ["5**2", "sqrt(7**2 + 24**2)", "Rational(3, 8) * Rational(2, 7)", "[(-3)**2 - 1, 2 + 2]", "gcd(24, 36)", "x > 1 + 2", "Eq(y, 2*x + 3)"]:
+        vk.check_spec({"kind": "exact", "truth": computed})
+    passes("exact", "5**2", r"x = 25")
+    passes("choice", "irrational", "irrational")  # a choice is words: exempt
+    try:
+        vk.check_spec({"kind": "exact", "truth": "25"})
+    except ValueError as error:
+        assert "truth must be computed from the question's data" in str(error)
 
 
 def test_kind_exact():
@@ -317,33 +332,49 @@ def test_kind_numeric():
 
 
 def test_kind_list():
-    passes("list", "[2, 3]", r"x = 3 \text{ or } x = 2")
+    passes("list", "[1 + 1, 1 + 2]", r"x = 3 \text{ or } x = 2")
     passes("list", "[1 + sqrt(2), 1 - sqrt(2)]", r"x = 1 \pm \sqrt{2}")
     passes("list", "[(-5 + sqrt(17))/2, (-5 - sqrt(17))/2]", r"x \approx -0.438 \text{ or } x \approx -4.56", sf=3)
-    wrong("list", "[2, 3]", r"x = 2")
-    wrong("list", "[2, 3]", r"x = 2 \text{ or } x = -3")
-    wrong("list", "[2, 3]", r"x = 2 \text{ or } x = 3 \text{ or } x = 0")
+    wrong("list", "[1 + 1, 1 + 2]", r"x = 2")
+    wrong("list", "[1 + 1, 1 + 2]", r"x = 2 \text{ or } x = -3")
+    wrong("list", "[1 + 1, 1 + 2]", r"x = 2 \text{ or } x = 3 \text{ or } x = 0")
+
+
+def test_kind_solutions_are_several_named_solutions():
+    truth = "solve([Eq(x**2 + y**2, 34), Eq(y, x + 2)], [x, y], dict=True)"
+    passes("solutions", truth, r"x = 3, \; y = 5 \text{ or } x = -5, \; y = -3")
+    passes("solutions", truth, r"x = -5, y = -3 \text{ or } y = 5, x = 3")                  # any order
+    passes("solutions", truth, r"(3, 5) \text{ and } (-5, -3)")                              # points: alphabetical names
+    wrong("solutions", truth, r"x = 5, y = 3 \text{ or } x = -3, y = -5")                    # swapped names
+    wrong("solutions", truth, r"x = 3, y = 5")                                                # a missing solution
+    wrong("solutions", truth, r"x = 3, y = 5 \text{ or } x = -5, y = -3 \text{ or } x = 0, y = 2")  # an extra one
+    wrong("solutions", truth, r"x = 3, y = 5 \text{ or } x = -5, y = 3")
+    wrong("solutions", truth, r"(5, 3) \text{ and } (-5, -3)")
+    surd = "solve([Eq(x**2, 2), Eq(y, x + 1)], [x, y], dict=True)"
+    passes("solutions", surd, r"x \approx 1.41, y \approx 2.41 \text{ or } x \approx -1.41, y \approx -0.414", sf=3)
+    wrong("solutions", surd, r"x \approx 1.4, y \approx 2.4 \text{ or } x \approx -1.4, y \approx -0.4", sf=3)
+    passes("solutions", "[(Eq(x, 1 + 2), Eq(y, 2 + 3))]", r"x = 3, y = 5")
 
 
 def test_kind_assignments():
-    passes("assignments", '{"x": 2, "y": -1}', r"x = 2, \; y = -1")
+    passes("assignments", '{"x": 1 + 1, "y": -1 * 1}', r"x = 2, \; y = -1")
     passes("assignments", "[Eq(x, 2), Eq(y, -1)]", r"y = -1 \text{ and } x = 2")
-    wrong("assignments", '{"x": 2, "y": -1}', r"x = -1, \; y = 2")
-    wrong("assignments", '{"x": 2, "y": -1}', r"x = 2")
+    wrong("assignments", '{"x": 1 + 1, "y": -1 * 1}', r"x = -1, \; y = 2")
+    wrong("assignments", '{"x": 1 + 1, "y": -1 * 1}', r"x = 2")
 
 
 def test_kind_point():
-    passes("point", "(2, -3)", r"P = (2, -3)")
+    passes("point", "(1 + 1, -3 * 1)", r"P = (2, -3)")
     passes("point", "(sqrt(2), pi)", r"P \approx (1.41, 3.14)", sf=3)
-    wrong("point", "(2, -3)", r"(-3, 2)")
-    wrong("point", "(2, -3)", r"(2, -3, 0)")
+    wrong("point", "(1 + 1, -3 * 1)", r"(-3, 2)")
+    wrong("point", "(1 + 1, -3 * 1)", r"(2, -3, 0)")
     wrong("point", "(sqrt(2), pi)", r"P = (1.41, 3.14)", sf=3)
 
 
 def test_kind_vector():
-    passes("vector", "[3, -4]", r"\overrightarrow{AB} = \begin{pmatrix}3\\-4\end{pmatrix}")
-    wrong("vector", "[3, -4]", r"\begin{pmatrix}-3\\4\end{pmatrix}")
-    wrong("vector", "[3, -4]", r"\begin{pmatrix}3\\-4\\0\end{pmatrix}")
+    passes("vector", "[1 + 2, -4 * 1]", r"\overrightarrow{AB} = \begin{pmatrix}3\\-4\end{pmatrix}")
+    wrong("vector", "[1 + 2, -4 * 1]", r"\begin{pmatrix}-3\\4\end{pmatrix}")
+    wrong("vector", "[1 + 2, -4 * 1]", r"\begin{pmatrix}3\\-4\\0\end{pmatrix}")
 
 
 def test_kind_equation_is_equivalence_up_to_a_non_zero_factor():
@@ -356,42 +387,45 @@ def test_kind_equation_is_equivalence_up_to_a_non_zero_factor():
 
 
 def test_kind_inequality_and_set_compare_solution_sets():
-    passes("inequality", "x > 3", r"x > 3")
+    passes("inequality", "x > 1 + 2", r"x > 3")
     passes("inequality", "And(x >= -1, x < 4)", r"-1 \le x < 4")
     passes("set", "Union(Interval.open(-oo, -1), Interval.open(4, oo))", r"x < -1 \text{ or } x > 4")
-    passes("set", "FiniteSet(-1, 0, 1, 2)", r"n = -1, 0, 1, 2", var="n")
-    passes("set", "FiniteSet(-1, 0, 1, 2)", r"\{-1, 0, 1, 2\}")
-    wrong("inequality", "x > 3", r"x \ge 3")
-    wrong("inequality", "x > 3", r"x > 4")                            # contained in, not equal to
-    wrong("inequality", "x > 3", r"\varnothing")                      # degenerate
-    wrong("set", "FiniteSet(-1, 0, 1, 2)", r"\{0, 1, 2\}")
-    wrong("set", "FiniteSet(-1, 0, 1, 2)", r"\{-1, 0, 1, 2, 3\}")
+    passes("set", "FiniteSet(-1, 0, 1, 1 + 1)", r"n = -1, 0, 1, 2", var="n")
+    passes("set", "FiniteSet(-1, 0, 1, 1 + 1)", r"\{-1, 0, 1, 2\}")
+    wrong("inequality", "x > 1 + 2", r"x \ge 3")
+    wrong("inequality", "x > 1 + 2", r"x > 4")                            # contained in, not equal to
+    wrong("inequality", "x > 1 + 2", r"\varnothing")                      # degenerate
+    passes("set", "[5 + 3, -1, 5 + 3]", r"\{8, -1, 8\}")                                   # a repeated member is the same set
+    passes("set", "[5 + 3, -1]", r"\{8, -1, 8\}")
+    wrong("set", "[5 + 3, -1, 5 + 3]", r"\{8, 8\}")
+    wrong("set", "FiniteSet(-1, 0, 1, 1 + 1)", r"\{0, 1, 2\}")
+    wrong("set", "FiniteSet(-1, 0, 1, 1 + 1)", r"\{-1, 0, 1, 2, 3\}")
 
 
 def test_kind_ratio_must_be_in_simplest_form():
-    passes("ratio", "(12, 18)", r"2 : 3")
+    passes("ratio", "(6 * 2, 6 * 3)", r"2 : 3")
     passes("ratio", "(Rational(1, 2), Rational(1, 3), 1)", r"3:2:6")
-    wrong("ratio", "(12, 18)", r"4 : 6")                              # unsimplified
-    wrong("ratio", "(12, 18)", r"3 : 2")                              # reversed
-    wrong("ratio", "(12, 18)", r"1 : 1.5")
+    wrong("ratio", "(6 * 2, 6 * 3)", r"4 : 6")                              # unsimplified
+    wrong("ratio", "(6 * 2, 6 * 3)", r"3 : 2")                              # reversed
+    wrong("ratio", "(6 * 2, 6 * 3)", r"1 : 1.5")
 
 
 def test_kind_standard_form():
-    passes("standard-form", "2400", r"2.4 \times 10^{3}")
-    passes("standard-form", "2400", r"2.40 \times 10^{3}", sf=3)
+    passes("standard-form", "24 * 100", r"2.4 \times 10^{3}")
+    passes("standard-form", "24 * 100", r"2.40 \times 10^{3}", sf=3)
     passes("standard-form", "Rational(1, 7) / 1000", r"\approx 1.43 \times 10^{-4}", sf=3)
-    wrong("standard-form", "2400", r"24 \times 10^{2}")               # 1 <= a < 10 broken
-    wrong("standard-form", "2400", r"2.4 \times 10^{3}", sf=3)        # 2 s.f. where 3 are required
-    wrong("standard-form", "2400", r"2400")
-    wrong("standard-form", "2400", r"2.4 \times 10^{4}")
+    wrong("standard-form", "24 * 100", r"24 \times 10^{2}")               # 1 <= a < 10 broken
+    wrong("standard-form", "24 * 100", r"2.4 \times 10^{3}", sf=3)        # 2 s.f. where 3 are required
+    wrong("standard-form", "24 * 100", r"24 * 100")
+    wrong("standard-form", "24 * 100", r"2.4 \times 10^{4}")
 
 
 def test_kind_money():
-    passes("money", "12.5", r"\$12.50")
+    passes("money", "25 / 2", r"\$12.50")
     passes("money", "1250 * 1.08", r"\text{Cost} = \$1{,}350.00")
     passes("money", "Rational(100, 3)", r"33.33 \text{ dollars}")
-    wrong("money", "12.5", r"\$12.5")                                 # not 2 d.p.
-    wrong("money", "12.5", r"\$12.05")
+    wrong("money", "25 / 2", r"\$12.5")                                 # not 2 d.p.
+    wrong("money", "25 / 2", r"\$12.05")
     wrong("money", "Rational(200, 3)", r"\$66.66")                    # truncated, not rounded
 
 
@@ -399,20 +433,20 @@ def test_kind_time():
     passes("time", "14*60 + 35", r"14:35", form="clock")
     passes("time", "9*60 + 5", r"\text{09 05}", form="clock")
     passes("time", "(23*60 + 50 + 30) ", r"00:20", form="clock")      # past midnight wraps
-    passes("time", "155", r"2\text{ h }35\text{ min}", form="duration")
+    passes("time", "2 * 60 + 35", r"2\text{ h }35\text{ min}", form="duration")
     wrong("time", "14*60 + 35", r"2:35\text{ pm}", form="clock")     # 12-hour clock
     wrong("time", "14*60 + 35", r"14:53", form="clock")
-    wrong("time", "155", r"2.35\text{ hours}", form="duration")       # decimal hours misread as h.min
-    wrong("time", "155", r"1\text{ h }95\text{ min}", form="duration")
+    wrong("time", "2 * 60 + 35", r"2.35\text{ hours}", form="duration")       # decimal hours misread as h.min
+    wrong("time", "2 * 60 + 35", r"1\text{ h }95\text{ min}", form="duration")
 
 
 def test_kind_bearing():
-    passes("bearing", "45", r"045^{\circ}")
+    passes("bearing", "9 * 5", r"045^{\circ}")
     passes("bearing", "360 - 45", r"\text{bearing} = 315°")
     passes("bearing", "atan2(3, 4) * 180 / pi", r"\approx 036.9^{\circ}", dp=1)
-    wrong("bearing", "45", r"45^{\circ}")                             # not three figures
-    wrong("bearing", "45", r"135^{\circ}")
-    wrong("bearing", "45", r"225^{\circ}")
+    wrong("bearing", "9 * 5", r"45^{\circ}")                             # not three figures
+    wrong("bearing", "9 * 5", r"135^{\circ}")
+    wrong("bearing", "9 * 5", r"225^{\circ}")
 
 
 def test_kind_angle():
@@ -470,10 +504,10 @@ def test_review_counterexamples_under_the_kinds():
     # Agreeing at sample points is not equivalence (the sampled self-inverse hole): proved symbolically or rejected.
     samples = [0, 1, 2, 3]
     bump = "".join(f"(x - {s})" for s in samples)
-    wrong("expression", "x", rf"x + {bump}")
+    wrong("expression", "x * 1", rf"x + {bump}")
     # Containment is not equivalence: a squared or multiplied equation, a smaller solution set.
     wrong("equation", "Eq(y, 2*x + 3)", r"(y - 2x - 3)^{2} = 0")
-    wrong("inequality", "x > 3", r"x > 5")
+    wrong("inequality", "x > 1 + 2", r"x > 5")
 
 
 if __name__ == "__main__":
