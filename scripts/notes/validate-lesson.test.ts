@@ -63,12 +63,14 @@ describe.skipIf(!research || !python)("validate-lesson.mjs", () => {
     expect(clean.stdout).toMatch(/^PASS glossary$/m);
     const dir = mkdtempSync(join(tmpdir(), "notes-lints-"));
     const lesson = JSON.parse(readFileSync(resolve(process.cwd(), "src/content/notes/igcse-maths-0580/lessons/1-1.json"), "utf8"));
-    lesson.sections[0].blocks[0].text = lesson.sections[0].blocks[0].text.replace("[[highest-common-factor|highest common factor]]", "highest common factor");
+    const marked = "[[highest-common-factor|highest common factor]]";
+    const holder = lesson.sections.flatMap((section: { blocks: { text?: string }[] }) => section.blocks).find((block: { text?: string }) => block.text?.includes(marked));
+    holder.text = holder.text.replace(marked, "highest common factor");
     lesson.readingMinutes = 9;
     lesson.sections.push({ id: "takeaways", heading: "Key takeaways", blocks: [1, 2].map(() => ({ type: "fact", text: "$1$ is not prime.", tag: "learn", cheatSheet: true })) });
     writeFileSync(join(dir, "1-1.json"), JSON.stringify(lesson));
     const result = spawnSync(process.execPath, [script, ...course], { encoding: "utf8", timeout: 120_000, env: { ...process.env, AA_NOTES_LESSONS_DIR: dir } });
-    expect(result.stdout).toMatch(/first use of the glossary term "highest common factor" \(sections\[0\]\.blocks\[0\]\) is not underlined/);
+    expect(result.stdout).toMatch(/first use of the glossary term "highest common factor" \(sections\[\d+\]\.blocks\[\d+\]\) is not underlined/);
     expect(result.stdout).toMatch(/^FAIL reading-time \(1\): computed \d+ min/m);
     expect(result.stdout).toMatch(/flags the same fact for the cheat sheet/);
     expect(result.status).toBe(1);

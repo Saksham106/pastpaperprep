@@ -53,13 +53,17 @@ describe("IGCSE Maths 0580 course routes", () => {
   it("emits its params and sitemap paths with NOTES_PREVIEW=1", async () => {
     process.env.NOTES_PREVIEW = "1";
     for (const route of [homeRoute, cheatRoute]) expect(await route.generateStaticParams()).toEqual([{}]);
-    // No glossary terms or command terms yet, so no empty pages in the sitemap.
-    expect(course.glossary).toHaveLength(0);
-    expect(course.commandTerms).toHaveLength(0);
-    for (const route of [glossaryRoute, commandRoute]) expect(await route.generateStaticParams()).toEqual([]);
-    expect(notesPaths().some((path) => path.endsWith("/glossary") && path.includes(course.slug))).toBe(false);
+    // The glossary and command-term pages exist only once the course has entries, so no empty pages in the sitemap.
+    const pageParams = (entries: unknown[]) => (entries.length ? [{}] : []);
+    expect(await glossaryRoute.generateStaticParams()).toEqual(pageParams(course.glossary));
+    expect(await commandRoute.generateStaticParams()).toEqual(pageParams(course.commandTerms));
+    expect(notesPaths().some((path) => path.endsWith(`/${course.slug}/glossary`))).toBe(course.glossary.length > 0);
+    expect(notesPaths().some((path) => path.endsWith(`/${course.slug}/command-terms`))).toBe(course.commandTerms.length > 0);
     for (const route of topicRoutes) expect(await route.generateStaticParams()).toEqual(course.topics.map((entry) => ({ topic: entry.slug })));
-    expect(await lessonRoute.generateStaticParams()).toEqual([{ topic: topicSlug, lesson: lessonSlug }]);
+    expect(await lessonRoute.generateStaticParams()).toEqual(course.lessons.map((entry) => {
+      const [, , , topicParam, lessonParam] = lessonPath(course, entry).split("/");
+      return { topic: topicParam, lesson: lessonParam };
+    }));
     expect(notesPaths()).toContain(lessonPath(course, lesson));
     const meta = await lessonRoute.generateMetadata(lessonParams);
     expect(meta.alternates?.canonical).toBe(lessonPath(course, lesson));
@@ -95,7 +99,11 @@ describe("IGCSE Maths 0580 course routes", () => {
     expect(sheet).toContain("IGCSE MATHS 0580 · ");
     expect(sheet).toContain("Not affiliated with Cambridge.");
     expect(renderToStaticMarkup(<>{await topicCheatRoute.default(topic)}</>)).toContain("Number cheat sheet");
-    expect(renderToStaticMarkup(<>{await glossaryRoute.default()}</>)).toContain('Taught in <a href="/revision-notes/igcse-maths-0580/number/1-1-types-of-number">1.1 Types of number</a>');
-    expect(renderToStaticMarkup(<>{await commandRoute.default()}</>)).toContain("Command terms are coming soon.");
+    const taught = course.glossary.map((term) => ({ term, lesson: course.lessons.find((entry) => entry.item === term.lesson) })).find((entry) => entry.lesson)!;
+    expect(renderToStaticMarkup(<>{await glossaryRoute.default()}</>)).toContain(`Taught in <a href="${lessonPath(course, taught.lesson!)}">${taught.lesson!.item} ${taught.lesson!.title}</a>`);
+    const commands = renderToStaticMarkup(<>{await commandRoute.default()}</>);
+    expect(commands).toContain("IGCSE Maths 0580 notes");
+    expect(commands).toContain(`<dt>${course.commandTerms[0].term}</dt>`);
+    expect(commands).not.toContain("coming soon");
   });
 });

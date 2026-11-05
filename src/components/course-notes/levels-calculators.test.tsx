@@ -59,7 +59,7 @@ describe("extension content inside a base lesson", () => {
       { id: "takeaways", heading: "Key takeaways", blocks: [{ type: "fact", text: "Core fact.", tag: "learn", cheatSheet: true }, { type: "formula", tex: "0.\\dot{3}=\\tfrac13", tag: "learn", cheatSheet: true, level: "Extended" }] },
     ],
   };
-  const course: Course = { ...igcse, lessons: [lesson], calculatorSnippets: snippets };
+  const course: Course = { ...igcse, lessons: [lesson], cheatSheets: {}, calculatorSnippets: snippets };
 
   it("marks Extended sections, blocks, goals, rail entries and takeaways with data-ext, and badges Extended headings", () => {
     const { container } = render(inProvider(<LessonPage course={course} lesson={lesson} />, course));

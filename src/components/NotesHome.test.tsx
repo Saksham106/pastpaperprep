@@ -1,6 +1,7 @@
 import { cleanup, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { getEntitlementBanks } from "@/lib/banks";
+import { getCourse } from "@/lib/course-notes/course";
 import { notesRows } from "@/lib/notes-home";
 import { setCoursePublishedForTests } from "@/lib/course-notes/test-visibility";
 import { NotesHome } from "./NotesHome";
@@ -21,9 +22,11 @@ describe("notes home", () => {
   it("links IGCSE Maths 0580 only once its course is visible", () => {
     const row = () => notesRows(banks.filter((bank) => bank.slug === "igcse"))[0];
     expect(row().notes).toBeUndefined();
+    const lessonCount = getCourse("igcse-maths-0580")!.lessons.length;
+    expect(lessonCount).toBeGreaterThan(1);
     const restore = setCoursePublishedForTests(true, "igcse-maths-0580");
     try {
-      expect(row().notes).toEqual({ href: "/revision-notes/igcse-maths-0580", label: "1 lesson" });
+      expect(row().notes).toEqual({ href: "/revision-notes/igcse-maths-0580", label: `${lessonCount} lessons` });
     } finally {
       restore();
     }

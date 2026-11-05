@@ -96,11 +96,33 @@ describe("surface lookups follow visibility", () => {
     expect(notesTopicLinksForBank("igcse")).toBeUndefined();
     expect(syllabusNotesForBank("igcse")).toEqual([]);
     restorePublished = setCoursePublishedForTests(true, "igcse-maths-0580");
+    const links = notesLinksForBank("igcse")!;
+    const practice = igcse.practice;
+    if (practice.kind !== "official-codes") throw new Error("0580 practises by official code");
+    const key = (view: "base" | "extension", item: string) => `${practice.refPrefix}${practice.codes[view].replace("{item}", item)}`;
+    // Every lesson links from its Extended code; a Core lesson also from its Core code.
+    const expectedKeys: string[] = [];
+    for (const entry of igcse.lessons) {
+      const link = { href: lessonPath(igcse, entry), label: entry.title };
+      expect(links[key("extension", entry.item)], entry.item).toEqual(link);
+      expectedKeys.push(key("extension", entry.item));
+      if (entry.level === igcse.levels.base) {
+        expect(links[key("base", entry.item)], entry.item).toEqual(link);
+        expectedKeys.push(key("base", entry.item));
+      }
+    }
+    expect(Object.keys(links).sort()).toEqual([...new Set(expectedKeys)].sort());
     const one = igcse.lessons.find((entry) => entry.item === "1.1")!;
-    const link = { href: lessonPath(igcse, one), label: one.title };
-    expect(notesLinksForBank("igcse")).toEqual({ "current_2025:C1.1": link, "current_2025:E1.1": link });
-    expect(notesTopicLinksForBank("igcse")).toEqual({ Number: { href: "/revision-notes/igcse-maths-0580/number", label: "Number notes" } });
-    expect(syllabusNotesForBank("igcse")).toEqual([{ name: "1.1 Types of number", topic: "Number", href: lessonPath(igcse, one), label: one.title }]);
+    expect(links["current_2025:C1.1"]).toEqual({ href: lessonPath(igcse, one), label: one.title });
+    expect(links["current_2025:E1.1"]).toEqual(links["current_2025:C1.1"]);
+    const topicLinks = notesTopicLinksForBank("igcse")!;
+    const withLessons = igcse.topics.filter((entry) => igcse.lessons.some((l) => l.topic === entry.n));
+    expect(Object.keys(topicLinks)).toEqual(withLessons.map((entry) => entry.name));
+    expect(topicLinks.Number).toEqual({ href: "/revision-notes/igcse-maths-0580/number", label: "Number notes" });
+    const notes = syllabusNotesForBank("igcse");
+    expect(notes).toHaveLength(igcse.lessons.length);
+    expect(notes.map((note) => note.href).sort()).toEqual(igcse.lessons.map((entry) => lessonPath(igcse, entry)).sort());
+    expect(notes.find((note) => note.href === lessonPath(igcse, one))).toEqual({ name: "1.1 Types of number", topic: "Number", href: lessonPath(igcse, one), label: one.title });
     // AA banks are untouched by the 0580 course.
     expect(notesLinksForBank("ib-hl")?.[lesson.item]?.href).toBe(lessonPath(course, lesson));
   });
