@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resetPersistedStoresForTests } from "./persisted-store";
 import { cleanup, render, screen, within } from "@testing-library/react";
@@ -65,6 +67,15 @@ describe("LessonPage", () => {
     const { container } = render(<LessonPage course={course} lesson={current} />);
     expect(container.querySelectorAll("[data-hl-note]").length).toBe(1);
     expect(container.querySelector("[data-view]")?.getAttribute("data-view")).toBe("HL");
+    expect(container.querySelector("[data-view]")?.hasAttribute("data-base-view")).toBe(false);
+    cleanup();
+    window.localStorage.setItem("notes-level", "SL");
+    resetPersistedStoresForTests();
+    const sl = render(<LessonPage course={course} lesson={current} />).container;
+    expect(sl.querySelector("[data-view]")?.getAttribute("data-view")).toBe("SL");
+    expect(sl.querySelector("[data-view]")?.hasAttribute("data-base-view")).toBe(true);
+    const css = readFileSync(join(process.cwd(), "src/components/course-notes/course-notes.module.css"), "utf8");
+    expect(css).toMatch(/\.lessonPage\[data-base-view\] \[data-hl-note\][^{]*\{\s*display:\s*none/);
   });
 
   it("I've got this adds the item to progress and clicking again removes it", async () => {

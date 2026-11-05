@@ -1,6 +1,28 @@
 // Client-safe: lesson schema shared by the validator, the loaders and the lesson pages. No katex here.
-export type Level = "SL" | "AHL";
-export type Paper = "P1" | "P2" | "P3";
+
+/**
+ * A syllabus level as the course stores it: AA uses "SL" / "AHL", IGCSE 0580 "Core" / "Extended".
+ * The validator checks it against the course's `levels` config.
+ */
+export type Level = string;
+
+/** The two views of the level switch: the base course, or base plus extension (AA: SL / HL). */
+export type ViewLevel = "base" | "extension";
+
+/** One number or link per view. */
+export type PerView<T> = Record<ViewLevel, T>;
+
+/**
+ * A course's levels, from its course.json. `base` / `extension` are the stored lesson and item levels;
+ * `labels` are what students see (the level switch, badges, "HL only").
+ */
+export type CourseLevels = {
+  base: Level;
+  extension: Level;
+  labels: { base: string; extension: string; extensionOnly: string };
+};
+/** "P1", "P2", ...: the exam papers a lesson is assessed on. */
+export type Paper = `P${number}`;
 export type FormulaTag = "booklet" | "learn";
 
 export const INTERACTIVE_IDS = [
@@ -69,12 +91,13 @@ export type Section = { id: string; heading: string; blocks: Block[] };
 
 export type Lesson = {
   schemaVersion: 1;
-  edition: "aa-2021";
+  /** The syllabus edition, e.g. "aa-2021"; must match the course's items file. */
+  edition: string;
   item: string;
   slug: string;
   title: string;
   level: Level;
-  topic: 1 | 2 | 3 | 4 | 5;
+  topic: number;
   summary: string;
   goals: { text: string; bullets: string[] }[];
   prerequisites: string[];
@@ -91,10 +114,10 @@ export type GlossaryTerm = { id: string; term: string; definition: string; lesso
 
 export type ItemsFile = {
   schemaVersion: 1;
-  edition: "aa-2021";
+  edition: string;
   items: {
     item: string;
-    topic: 1 | 2 | 3 | 4 | 5;
+    topic: number;
     level: Level;
     name: string;
     bullets: { id: string; text: string }[];
@@ -105,3 +128,5 @@ export type ItemsFile = {
 /** Sheet-only lines ("which method when") that no lesson block carries. `text` is inline text. */
 export type CheatSheetLine = { text: string; tag: FormulaTag; level: Level };
 export type CheatSheetFile = { lines: CheatSheetLine[] };
+
+export type CommandTerm = { id: string; term: string; definition: string };

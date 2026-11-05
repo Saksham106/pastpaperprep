@@ -52,19 +52,24 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install sympy==1.14.0 antlr4-python3-runtime==4.11
-      - name: Check every lesson's maths
+      - name: Check every lesson's maths, in every course
         run: |
           shopt -s nullglob
-          files=(src/content/notes/ib-math-aa/lessons/*.json)
-          test "${#files[@]}" -gt 0
+          courses=(src/content/notes/*/course.json)
+          test "${#courses[@]}" -gt 0
           fail=0
-          for file in "${files[@]}"; do
-            name=$(basename "$file" .json)
-            item="${name/-/.}"
-            out=$(python scripts/notes/check-math.py "$item") || fail=1
-            echo "== $item"; echo "$out"
-            if grep -q '^FAIL' <<<"$out"; then fail=1; fi
+          for config in "${courses[@]}"; do
+            course=$(basename "$(dirname "$config")")
+            files=(src/content/notes/"$course"/lessons/*.json)
+            for file in "${files[@]}"; do
+              name=$(basename "$file" .json)
+              item="${name/-/.}"
+              out=$(python scripts/notes/check-math.py --course "$course" "$item") || fail=1
+              echo "== $course $item"; echo "$out"
+              if grep -q '^FAIL' <<<"$out"; then fail=1; fi
+            done
           done
+          test -n "$(ls src/content/notes/ib-math-aa/lessons/*.json)"
           exit $fail
 
   build:

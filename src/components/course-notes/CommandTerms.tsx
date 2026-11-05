@@ -8,7 +8,7 @@ export function CommandTerms({ course }: { course: Course }) {
   const terms = [...course.commandTerms].sort((a, b) => a.term.localeCompare(b.term, "en", { sensitivity: "base" }));
   return (
     <div className={`${styles.list} shell`}>
-      <div className={styles.crumbs}><Link href={`/revision-notes/${course.slug}`}>IB Maths AA notes</Link> › Command terms</div>
+      <div className={styles.crumbs}><Link href={`/revision-notes/${course.slug}`}>{`${course.name} notes`}</Link> › Command terms</div>
       <h1>Command terms</h1>
       <p className={styles.lede}>The word at the start of an exam question tells you how much to write.</p>
       {terms.length === 0 ? (

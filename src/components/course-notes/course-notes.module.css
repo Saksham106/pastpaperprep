@@ -374,7 +374,7 @@
 .reportMenu { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; }
 .reportMenu button { border: 1px solid var(--line-strong); background: var(--surface-raised); color: var(--ink); border-radius: 8px; padding: 5px 10px; font-size: 13.5px; cursor: pointer; }
 .reportMenu button:hover { border-color: var(--cobalt); }
-.lessonPage[data-view="SL"] [data-hl-note] { display: none; }
+.lessonPage[data-base-view] [data-hl-note] { display: none; }
 
 @media (max-width: 980px) {
   .lessonLayout { grid-template-columns: minmax(0, 1fr); }

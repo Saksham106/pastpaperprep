@@ -1,6 +1,6 @@
 // One-lesson gate for writers: everything the batch checks for a single lesson, read straight from files.
 //
-//   node scripts/notes/validate-lesson.mjs <item>        (e.g. 5.16 or 5-16)
+//   node scripts/notes/validate-lesson.mjs [--course <slug>] <item>        (e.g. 5.16 or 5-16; default course ib-math-aa)
 //
 // Runs, for that lesson only:
 //   validator    validateLesson (src/lib/course-notes/validate.ts, loaded through tsx, KaTeX in Node as in vitest)
@@ -9,7 +9,7 @@
 //                Plus the per-lesson parts of content.test.ts: file name matches item, figure SVGs exist and are
 //                safe, glossary entries point at real items, slug unique in the topic, no prerequisite cycle.
 //   check-math   scripts/notes/check-math.py <item> with the SymPy venv (AA_NOTES_PYTHON or ../research venv)
-//   originality  scripts/notes/originality.mjs against ../research/aa-course-notes/packs/<item>.json
+//   originality  scripts/notes/originality.mjs against ../research/<gate.packs>/<item>.json (AA: aa-course-notes/packs)
 // It never touches the generated index, the receipts or any shared file, so parallel writers can run it safely.
 // AA_NOTES_LESSONS_DIR / AA_NOTES_SIDECARS_DIR point at another lessons / sidecars folder (used by the tests).
 // Exit 0: every check passed. Exit 1: a check failed. Exit 2: usage error or unknown item.
@@ -19,23 +19,34 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { register as registerCjs } from "tsx/cjs/api";
 import { register } from "tsx/esm/api";
-import { findResearchDir, packPath } from "./build-source-pack.mjs";
+import { findResearchDir } from "./build-source-pack.mjs";
+import { courseFiles, parseCourseArg } from "./course.mjs";
 import { findOverlaps } from "./originality.mjs";
 
 register();
 registerCjs(); // the repo is CommonJS by default, so .ts files load through require
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const courseRoot = join(repoRoot, "src/content/notes/ib-math-aa");
-const lessonsDir = process.env.AA_NOTES_LESSONS_DIR ? resolve(process.env.AA_NOTES_LESSONS_DIR) : join(courseRoot, "lessons");
+let parsed;
+try {
+  parsed = parseCourseArg(process.argv.slice(2));
+} catch (error) {
+  console.error(error instanceof Error ? error.message : String(error));
+  process.exit(2);
+}
+const course = courseFiles(parsed.slug);
+const courseRoot = course.root;
+const lessonsDir = process.env.AA_NOTES_LESSONS_DIR ? resolve(process.env.AA_NOTES_LESSONS_DIR) : course.lessonsDir;
+/** The research folder (sibling of the main checkout): AA's finder first, else any ../research. */
+const researchDir = () => findResearchDir() ?? ["../research", "../../../research"].map((rel) => resolve(repoRoot, rel)).find((dir) => existsSync(dir)) ?? null;
 const readJson = (file) => JSON.parse(readFileSync(file, "utf8"));
 const listJson = (dir) => (existsSync(dir) ? readdirSync(dir).filter((name) => name.endsWith(".json")).sort() : []);
 const UNSAFE_SVG = /<script|\son\w+\s*=|javascript:|<foreignObject/i;
 
-const arg = process.argv[2];
-const items = readJson(join(repoRoot, "src/data/aa-official-subtopics/items.json"));
+const arg = parsed.rest[0];
+const items = readJson(course.itemsFile);
 const item = arg?.replace("-", ".");
 if (!item || !items.items.some((entry) => entry.item === item)) {
-  console.error(`Usage: node scripts/notes/validate-lesson.mjs <item>  (unknown item ${arg ?? "(none)"})`);
+  console.error(`Usage: node scripts/notes/validate-lesson.mjs [--course <slug>] <item>  (unknown item ${arg ?? "(none)"} in ${parsed.slug})`);
   process.exit(2);
 }
 const dashed = item.replace(".", "-");
@@ -63,7 +74,7 @@ const record = (name, errors) => results.push({ name, errors });
       errors.push(error instanceof Error ? error.message : String(error));
     }
     const lessonItems = new Set(items.items.map((entry) => entry.item));
-    errors.push(...validateLesson(lesson, { items, glossary, lessonItems }));
+    errors.push(...validateLesson(lesson, { items, glossary, lessonItems, levels: course.config.levels }));
     if (lesson.item !== item) errors.push(`${dashed}.json holds item ${lesson.item}`);
     for (const term of glossary) if (!lessonItems.has(term.lesson)) errors.push(`glossary term ${term.id} points at unknown lesson ${term.lesson}`);
     const figures = lesson.sections.flatMap((section) => section.blocks.filter((block) => block.type === "figure"));
@@ -94,11 +105,11 @@ const record = (name, errors) => results.push({ name, errors });
 
 // 2. SymPy gate.
 {
-  const research = findResearchDir();
+  const research = researchDir();
   const python = [process.env.AA_NOTES_PYTHON, research && join(research, "aa-course-notes/.venv/bin/python")].find((p) => p && existsSync(p));
   if (!python) record("check-math", ["no SymPy python: set AA_NOTES_PYTHON or create ../research/aa-course-notes/.venv"]);
   else {
-    const run = spawnSync(python, [join(repoRoot, "scripts/notes/check-math.py"), item], { encoding: "utf8", env: process.env });
+    const run = spawnSync(python, [join(repoRoot, "scripts/notes/check-math.py"), "--course", parsed.slug, item], { encoding: "utf8", env: process.env });
     const lines = `${run.stdout}${run.stderr}`.split("\n").filter((line) => line.trim());
     const passed = lines.some((line) => line.startsWith("PASS"));
     record("check-math", run.status === 0 && passed ? [] : lines.filter((line) => !line.startsWith("PASS")).concat(passed ? [] : ["check-math.py printed no PASS line"]));
@@ -107,10 +118,10 @@ const record = (name, errors) => results.push({ name, errors });
 
 // 3. Originality against the private pack.
 {
-  const research = findResearchDir();
-  const pack = research && packPath(research, item);
+  const research = researchDir();
+  const pack = research && join(research, course.packsDir, `${dashed}.json`);
   const lessonFile = join(lessonsDir, `${dashed}.json`);
-  if (!pack || !existsSync(pack)) record("originality", [`no source pack for ${item}: run node scripts/notes/build-source-pack.mjs ${item}`]);
+  if (!pack || !existsSync(pack)) record("originality", [`no source pack for ${item} at ${pack ?? `../research/${course.packsDir}`}${parsed.slug === "ib-math-aa" ? `: run node scripts/notes/build-source-pack.mjs ${item}` : ""}`]);
   else if (!existsSync(lessonFile)) record("originality", [`no lesson file ${lessonFile}`]);
   else {
     try {

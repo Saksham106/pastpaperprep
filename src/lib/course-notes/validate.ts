@@ -1,9 +1,10 @@
 // Server/build-time only: imports katex. Never import this from a client component.
 import katex from "katex";
 import { parseInline } from "./inline";
-import { INTERACTIVE_IDS, INTERACTIVE_PROPS, type Block, type CheckBlock, type GlossaryTerm, type ItemsFile, type Lesson } from "./types";
+import { INTERACTIVE_IDS, INTERACTIVE_PROPS, type Block, type CheckBlock, type CourseLevels, type GlossaryTerm, type ItemsFile, type Lesson } from "./types";
 
-export type ValidationContext = { items: ItemsFile; glossary: GlossaryTerm[]; lessonItems: Set<string> };
+/** `levels` is the course's config: lessons and items store `levels.base` or `levels.extension` (AA: "SL" / "AHL"). */
+export type ValidationContext = { items: ItemsFile; glossary: GlossaryTerm[]; lessonItems: Set<string>; levels: Pick<CourseLevels, "base" | "extension"> };
 type Piece = { path: string; text: string; hl?: true };
 
 const message = (error: unknown) => (error instanceof Error ? error.message : String(error));
@@ -38,7 +39,11 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
   const glossary = new Set(ctx.glossary.map((term) => term.id));
   const levelOf = new Map(ctx.items.items.map((entry) => [entry.item, entry.level]));
   const bulletItem = new Map(ctx.items.items.flatMap((entry) => entry.bullets.map((bullet) => [bullet.id, entry] as const)));
+  const { base, extension } = ctx.levels;
+  const isBase = lesson.level === base;
 
+  if (lesson.level !== base && lesson.level !== extension) fail("level", `${lesson.level} is not a level of this course (${base} or ${extension})`);
+  if (lesson.edition !== ctx.items.edition) fail("edition", `${lesson.edition} disagrees with items.json (${ctx.items.edition})`);
   if (!item) fail("", "item not in items.json");
   else {
     if (item.level !== lesson.level) fail("level", `${lesson.level} disagrees with items.json (${item.level})`);
@@ -46,7 +51,7 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
   }
   for (const prerequisite of lesson.prerequisites) {
     if (!levelOf.has(prerequisite)) fail("prerequisites", `unknown item ${prerequisite}`);
-    else if (lesson.level === "SL" && levelOf.get(prerequisite) === "AHL") fail("prerequisites", `SL lesson lists AHL item ${prerequisite} as a prerequisite`);
+    else if (isBase && levelOf.get(prerequisite) === extension) fail("prerequisites", `${base} lesson lists ${extension} item ${prerequisite} as a prerequisite`);
   }
   const sectionIds = new Set<string>();
   lesson.sections.forEach((section, s) => {
@@ -58,7 +63,7 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
   lesson.goals.forEach((goal, g) => goal.bullets.forEach((id) => {
     const owner = bulletItem.get(id);
     if (!owner) fail(`goals[${g}]`, `unknown bullet ${id}`);
-    else if (lesson.level === "SL" && owner.level === "AHL") fail(`goals[${g}]`, `SL lesson names AHL bullet ${id}`);
+    else if (isBase && owner.level === extension) fail(`goals[${g}]`, `${base} lesson names ${extension} bullet ${id}`);
     else if (owner.item !== lesson.item) fail(`goals[${g}]`, `bullet ${id} belongs to item ${owner.item}`);
   }));
   for (const bullet of item?.bullets ?? []) if (!goalBullets.has(bullet.id)) fail("goals", `bullet ${bullet.id} not covered by any goal`);
@@ -143,7 +148,7 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
       else if (node.kind === "term" && /[$\\]/.test(node.label)) fail(piece.path, `glossary label must be plain words, no maths (${node.label})`);
       else if (node.kind === "lesson") {
         if (!ctx.lessonItems.has(node.item)) fail(piece.path, `unknown lesson link ${node.item}`);
-        else if (lesson.level === "SL" && levelOf.get(node.item) === "AHL" && !piece.hl) fail(piece.path, `SL lesson links to AHL lesson ${node.item} outside an hlNote`);
+        else if (isBase && levelOf.get(node.item) === extension && !piece.hl) fail(piece.path, `${base} lesson links to ${extension} lesson ${node.item} outside an hlNote`);
       }
     }
   }

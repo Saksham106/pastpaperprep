@@ -7,7 +7,10 @@ import { trackProductEvent } from "@/lib/product-analytics";
 export type NotesContext = {
   /** Syllabus item number, e.g. "5.16". Absent on course-home and topic pages. */
   lesson?: string;
-  level: "SL" | "HL";
+  /** The level as the course labels it: "SL" / "HL" for AA, "Core" / "Extended" for 0580. */
+  level: string;
+  /** Course slug. Absent for IB Maths AA, whose events predate a second course. */
+  course?: string;
 };
 
 export type ReportIssue = "maths_error" | "unclear" | "typo" | "broken" | "other";
@@ -24,7 +27,8 @@ export const trackCheckAnswer = (ctx: NotesContext, check: string, correct: bool
 export const trackGlossaryOpen = (ctx: NotesContext, term: string) =>
   trackProductEvent("notes_glossary_open", { ...ctx, term });
 
-export const trackPracticeClick = (ctx: NotesContext, bank: "ib-sl" | "ib-hl", group: string) =>
+/** `bank` is the bank slug the link opens (AA: ib-sl / ib-hl). */
+export const trackPracticeClick = (ctx: NotesContext, bank: string, group: string) =>
   trackProductEvent("notes_practice_click", { ...ctx, bank, group });
 
 export const trackUnderstood = (ctx: NotesContext) => trackProductEvent("notes_understood", { ...ctx });
@@ -38,4 +42,5 @@ export const trackSearch = (ctx: NotesContext, found: boolean) => trackProductEv
 export const trackReport = (ctx: NotesContext, issue: ReportIssue) => trackProductEvent("notes_report", { ...ctx, issue });
 
 /** `topic` is a topic slug, or "course" for the whole course. */
-export const trackCheatsheetPrint = (ctx: NotesContext, topic: string) => trackProductEvent("notes_cheatsheet_print", { topic, level: ctx.level });
+export const trackCheatsheetPrint = (ctx: NotesContext, topic: string) =>
+  trackProductEvent("notes_cheatsheet_print", { topic, level: ctx.level, ...(ctx.course ? { course: ctx.course } : {}) });

@@ -16,9 +16,11 @@ export type BlocksProps = {
   lessonHref: LessonHref;
   /** Pre-built SVG markup keyed by figure id. */
   figures?: Record<string, string>;
+  /** Heading of an `hlNote` block: the course's extension-only label (AA: "HL only"). */
+  extensionOnly?: string;
 };
 
-export function Blocks({ blocks, glossary, lessonHref, figures = {} }: BlocksProps) {
+export function Blocks({ blocks, glossary, lessonHref, figures = {}, extensionOnly = "HL only" }: BlocksProps) {
   const inline = (text: string, key?: string | number) => <Inline key={key} text={text} glossary={glossary} lessonHref={lessonHref} />;
 
   const check = (block: CheckBlock) => (
@@ -99,7 +101,7 @@ export function Blocks({ blocks, glossary, lessonHref, figures = {} }: BlocksPro
       case "hlNote":
         return (
           <aside className={`${styles.side} ${styles.sideHl}`} data-hl-note>
-            <b>HL only</b>
+            <b>{extensionOnly}</b>
             <p>
               {inline(block.text)} <Link href={lessonHref(block.lesson)}>Learn it in {block.lesson} →</Link>
             </p>

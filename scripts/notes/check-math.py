@@ -2,10 +2,13 @@
 """Verify the published maths of a lesson with SymPy and print one pass/fail line per example, check and distractor.
 
 Usage:
-  check-math.py <item>                      (e.g. 5.16 or 5-16) check every example and check in the lesson
-  check-math.py --verify <item> <id> <tex>  check one answer given on the command line (used by the tests)
+  check-math.py [--course <slug>] <item>                      (e.g. 5.16 or 5-16) check every example and check in the lesson
+  check-math.py [--course <slug>] --verify <item> <id> <tex>  check one answer given on the command line (used by the tests)
 
-The sidecar scripts/notes/sidecars/<item-dashed>.py defines CHECKS (a dict: id -> assertion) and verify(id, value),
+--course names a folder under src/content/notes/ (default ib-math-aa). Lessons are read from its lessons/ folder and
+sidecars from the folder its course.json names in gate.sidecars (AA: scripts/notes/sidecars).
+
+The sidecar <sidecars>/<item-dashed>.py defines CHECKS (a dict: id -> assertion) and verify(id, value),
 which raises AssertionError when the published value is wrong. This script reads the lesson JSON and hands the
 sidecar the lesson's OWN published text:
   - an example's `answer` TeX;
@@ -31,8 +34,36 @@ from decimal import Decimal
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-LESSONS = Path(os.environ.get("AA_NOTES_LESSONS_DIR") or HERE.parents[1] / "src" / "content" / "notes" / "ib-math-aa" / "lessons")
-SIDECARS = Path(os.environ.get("AA_NOTES_SIDECARS_DIR") or HERE / "sidecars")
+REPO = HERE.parents[1]
+DEFAULT_COURSE = "ib-math-aa"
+LESSONS = SIDECARS = None
+
+
+def use_course(slug):
+    """Point LESSONS and SIDECARS at a course's folders (environment overrides win, as the tests rely on)."""
+    global LESSONS, SIDECARS
+    root = REPO / "src" / "content" / "notes" / slug
+    config_file = root / "course.json"
+    if not config_file.exists():
+        raise SystemExit(f"Unknown course {slug}: no {config_file}")
+    config = json.loads(config_file.read_text())
+    LESSONS = Path(os.environ.get("AA_NOTES_LESSONS_DIR") or root / "lessons")
+    SIDECARS = Path(os.environ.get("AA_NOTES_SIDECARS_DIR") or REPO / config["gate"]["sidecars"])
+
+
+def take_course(argv):
+    """Strip `--course <slug>` / `--course=<slug>` from argv; returns (slug, the other arguments)."""
+    slug, rest, i = DEFAULT_COURSE, [], 0
+    while i < len(argv):
+        if argv[i] == "--course" and i + 1 < len(argv):
+            slug, i = argv[i + 1], i + 2
+            continue
+        if argv[i].startswith("--course="):
+            slug = argv[i].split("=", 1)[1]
+        else:
+            rest.append(argv[i])
+        i += 1
+    return slug, rest
 
 
 def published_items(lesson):
@@ -106,7 +137,8 @@ def required_half_unit(value, precision):
 
 
 def main():
-    argv = sys.argv[1:]
+    slug, argv = take_course(sys.argv[1:])
+    use_course(slug)
     if argv[:1] == ["--verify"] and len(argv) == 4:
         _, namespace, _ = load(argv[1])
         ok, detail = run_one(namespace["verify"], argv[2], argv[3])

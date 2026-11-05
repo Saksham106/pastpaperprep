@@ -2,14 +2,15 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
-import { useNotesContext } from "./notes-context";
+import { useCourse, useNotesContext } from "./notes-context";
 import { trackSearch } from "./track";
 import styles from "./course-notes.module.css";
 
 export type HomeItem = {
   item: string;
   topic: number;
-  level: "SL" | "AHL";
+  /** The stored level, e.g. "SL" or "AHL". */
+  level: string;
   name: string;
   /** Present only when a lesson is written. */
   href?: string;
@@ -33,6 +34,7 @@ export function searchItems(items: HomeItem[], query: string): HomeItem[] {
 
 export function LessonSearch({ items }: { items: HomeItem[] }) {
   const router = useRouter();
+  const { levels } = useCourse();
   const listId = useId();
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(-1);
@@ -132,7 +134,7 @@ export function LessonSearch({ items }: { items: HomeItem[] }) {
               onClick={() => go(entry)}
             >
               <span className={styles.mono}>{entry.item}</span> {entry.name}
-              {entry.level === "AHL" ? <span className={styles.ahlBadge}>AHL</span> : null}
+              {entry.level === levels.extension ? <span className={styles.ahlBadge}>{levels.extension}</span> : null}
               {entry.href ? null : <em>Not written yet</em>}
             </li>
           ))}

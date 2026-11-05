@@ -43,4 +43,4 @@ export const glossaryMeta = (course: Course) =>
   courseMeta(`${course.name} Glossary: Key Terms`, `Plain-words definitions of the key terms in ${course.name}, linked to the lessons that teach them.`, `/revision-notes/${course.slug}/glossary`);
 
 export const commandTermsMeta = (course: Course) =>
-  courseMeta(`${course.name} Command Terms Explained`, `What each IB command term asks you to do in ${course.name} exams.`, `/revision-notes/${course.slug}/command-terms`);
+  courseMeta(`${course.name} Command Terms Explained`, `What each ${course.copy.board} command term asks you to do in ${course.name} exams.`, `/revision-notes/${course.slug}/command-terms`);

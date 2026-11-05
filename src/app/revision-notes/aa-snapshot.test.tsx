@@ -11,7 +11,10 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("@/lib/product-analytics", () => ({ trackProductEvent: vi.fn() }));
 // next/link needs a mounted app router to server-render; a plain anchor keeps href and attributes.
 vi.mock("next/link", () => ({
-  default: ({ href, children, prefetch: _prefetch, ...rest }: { href: string; children: ReactNode; prefetch?: unknown }) => <a href={href} {...rest}>{children}</a>,
+  default: ({ href, children, ...rest }: { href: string; children: ReactNode; prefetch?: unknown }) => {
+    delete rest.prefetch;
+    return <a href={href} {...rest}>{children}</a>;
+  },
 }));
 vi.mock("next/navigation", async (importOriginal) => ({
   ...(await importOriginal<typeof import("next/navigation")>()),

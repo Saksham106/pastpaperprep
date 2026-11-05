@@ -4,7 +4,7 @@ import { itemsFixture } from "./__fixtures__/items";
 import type { Block, CheckBlock, Lesson } from "./types";
 import { validateLesson } from "./validate";
 
-const ctx = { items: itemsFixture, glossary: glossaryFixture, lessonItems: new Set(["2.5", "2.13"]) };
+const ctx = { items: itemsFixture, glossary: glossaryFixture, lessonItems: new Set(["2.5", "2.13"]), levels: { base: "SL", extension: "AHL" } };
 const clone = (): Lesson => structuredClone(lessonFixture);
 const blocks = (lesson: Lesson) => lesson.sections[0].blocks;
 const run = (lesson: Lesson) => validateLesson(lesson, ctx);

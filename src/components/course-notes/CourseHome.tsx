@@ -1,15 +1,12 @@
-import itemsJson from "@/data/aa-official-subtopics/items.json";
 import { lessonPath, type Course } from "@/lib/course-notes/course";
 import { compareItems } from "@/lib/course-notes/items";
 import { CourseHomeView } from "./CourseHomeView";
 import type { HomeItem } from "./LessonSearch";
 
-type SyllabusItem = { item: string; topic: number; level: "SL" | "AHL"; name: string };
-
 /** All syllabus items in order. Written lessons link; the rest render as "Not written yet" (preview only). */
 export function homeItems(course: Course): HomeItem[] {
   const lessons = new Map(course.lessons.map((lesson) => [lesson.item, lesson]));
-  return (itemsJson.items as SyllabusItem[])
+  return course.items.items
     .map((entry) => {
       const lesson = lessons.get(entry.item);
       return {
@@ -29,6 +26,8 @@ export function CourseHome({ course }: { course: Course }) {
     <CourseHomeView
       name={course.name}
       base={base}
+      crumbs={course.copy.crumbs}
+      guide={course.copy.guide}
       topics={course.topics.map((topic) => ({ n: topic.n, name: topic.name, href: `${base}/${topic.slug}`, cheatSheetHref: `${base}/${topic.slug}/cheat-sheet` }))}
       items={homeItems(course)}
     />

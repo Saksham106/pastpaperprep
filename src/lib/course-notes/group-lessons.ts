@@ -1,8 +1,10 @@
-// Maps bank subtopic groups to written lessons. Server-side: loads the course.
+// Maps bank questions to written lessons ("Learn this topic", the explanation's "Revise" link, paper reports,
+// the syllabus page). Server-side: loads the courses. Every link is gated by its course's visibility.
 import { COURSES, getCourse, isCourseVisible, lessonPath, lessonsForTopic, type Course } from "./course";
 import { GROUPS } from "./groups";
 import { compareItems } from "./items";
 import type { PracticeLevel } from "./practice";
+import type { ViewLevel } from "./types";
 
 export type LessonLink = { href: string; label: string };
 
@@ -27,15 +29,8 @@ export function lessonForItem(course: Course, item: string, level: PracticeLevel
   return lesson ? { href: lessonPath(course, lesson), label: lesson.title } : null;
 }
 
-/**
- * Lesson links for an AA bank page; undefined unless the course is visible and has a link. Keys are
- * syllabus item ids ("5.16", one per written lesson) and group student-facing names (the fallback for
- * a question with no item tag that has a lesson). The two never collide.
- */
-export function notesLinksForBank(bankSlug: string): Record<string, LessonLink> | undefined {
-  const level = BANK_LEVELS[bankSlug];
-  const course = getCourse("ib-math-aa");
-  if (!level || !course || !isCourseVisible(course)) return undefined;
+/** AA bank: keys are syllabus item ids ("5.16") and group student-facing names (the fallback for an untagged question). */
+function aaLinks(course: Course, level: PracticeLevel): Record<string, LessonLink> {
   const links: Record<string, LessonLink> = {};
   for (const lesson of course.lessons) {
     const link = lessonForItem(course, lesson.item, level);
@@ -45,13 +40,49 @@ export function notesLinksForBank(bankSlug: string): Record<string, LessonLink> 
     const link = lessonForGroup(course, group.id, level);
     if (link) links[group.studentFacingName] = link;
   }
+  return links;
+}
+
+/**
+ * Official-codes bank: keys are the `officialCodeRefs` a question carries ("current_2025:C1.1"). A Core
+ * question's code belongs to a section with a Core lesson, so each lesson links from both its codes.
+ */
+function codeLinks(course: Course): Record<string, LessonLink> {
+  const practice = course.practice;
+  if (practice.kind !== "official-codes") return {};
+  const links: Record<string, LessonLink> = {};
+  for (const lesson of course.lessons) {
+    const link = { href: lessonPath(course, lesson), label: lesson.title };
+    for (const view of ["base", "extension"] as ViewLevel[]) {
+      if (view === "base" && lesson.level !== course.levels.base) continue;
+      links[`${practice.refPrefix}${practice.codes[view].replace("{item}", lesson.item)}`] = link;
+    }
+  }
+  return links;
+}
+
+/** Visible courses practised in that bank. */
+const coursesForBank = (bankSlug: string) => COURSES.filter((course) => isCourseVisible(course) && Object.values(course.banks).includes(bankSlug));
+
+/**
+ * Lesson links for a bank page; undefined unless a course practised there is visible and has a link.
+ * The explorer looks a question up by its item tags, then its subtopics, then its official code refs.
+ */
+export function notesLinksForBank(bankSlug: string): Record<string, LessonLink> | undefined {
+  const links: Record<string, LessonLink> = {};
+  for (const course of coursesForBank(bankSlug)) {
+    if (course.practice.kind === "aa-items") {
+      const level = BANK_LEVELS[bankSlug];
+      if (level) Object.assign(links, aaLinks(course, level));
+    } else Object.assign(links, codeLinks(course));
+  }
   return Object.keys(links).length ? links : undefined;
 }
 
 /** Parent topic name to its topic notes page, for paper reports (topics there are primary topics). */
 export function notesTopicLinksForBank(bankSlug: string): Record<string, LessonLink> | undefined {
-  const course = COURSES.find((entry) => BANK_LEVELS[bankSlug] && entry.banks[BANK_LEVELS[bankSlug]] === bankSlug);
-  if (!course || !isCourseVisible(course)) return undefined;
+  const course = coursesForBank(bankSlug)[0];
+  if (!course) return undefined;
   return Object.fromEntries(course.topics.filter((topic) => lessonsForTopic(course, topic.n).length).map((topic) => [topic.name, { href: `/revision-notes/${course.slug}/${topic.slug}`, label: `${topic.name} notes` }]));
 }
 
