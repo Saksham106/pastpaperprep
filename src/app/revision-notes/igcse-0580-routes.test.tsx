@@ -90,7 +90,7 @@ describe("IGCSE Maths 0580 course routes", () => {
     expect(sheet).toContain("IGCSE MATHS 0580 · ");
     expect(sheet).toContain("Not affiliated with Cambridge.");
     expect(renderToStaticMarkup(<>{await topicCheatRoute.default(topic)}</>)).toContain("Number cheat sheet");
-    expect(renderToStaticMarkup(<>{await glossaryRoute.default()}</>)).toContain("No terms yet.");
+    expect(renderToStaticMarkup(<>{await glossaryRoute.default()}</>)).toContain('Taught in <a href="/revision-notes/igcse-maths-0580/number/1-1-types-of-number">1.1 Types of number</a>');
     expect(renderToStaticMarkup(<>{await commandRoute.default()}</>)).toContain("Command terms are coming soon.");
   });
 });

@@ -1,0 +1,56 @@
+[
+  {
+    "id": "natural-number",
+    "term": "natural number",
+    "definition": "A whole number used for counting: $1, 2, 3, \\ldots$ Some books include $0$ as well.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "integer",
+    "term": "integer",
+    "definition": "A whole number that is positive, negative or zero, such as $-3$, $0$ or $7$.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "prime-number",
+    "term": "prime number",
+    "definition": "A natural number with exactly two factors, $1$ and itself. $1$ is not prime.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "prime-factor",
+    "term": "prime factor",
+    "definition": "A factor of a number that is also a prime number.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "factor",
+    "term": "factor",
+    "definition": "A whole number that divides another exactly, with no remainder.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "multiple",
+    "term": "multiple",
+    "definition": "The result of multiplying a number by a whole number: $8, 16, 24, \\ldots$ are multiples of $8$.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "highest-common-factor",
+    "term": "highest common factor",
+    "definition": "The largest number that is a factor of each of two or more numbers (HCF).",
+    "lesson": "1.1"
+  },
+  {
+    "id": "lowest-common-multiple",
+    "term": "lowest common multiple",
+    "definition": "The smallest number that is a multiple of each of two or more numbers (LCM).",
+    "lesson": "1.1"
+  },
+  {
+    "id": "irrational-number",
+    "term": "irrational number",
+    "definition": "A number that cannot be written as a fraction of two integers, such as $\\sqrt{2}$ or $\\pi$.",
+    "lesson": "1.1"
+  }
+]
