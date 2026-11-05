@@ -56,7 +56,7 @@ function Stage({ stage, level, understood, nextItem }: { stage: TopicStage; leve
     <div className={styles.stage} data-stage={stage.id} data-progress={progress} style={{ "--p": `${Math.round((100 * done) / shown.length)}%` } as CSSProperties}>
       <span className={styles.node} aria-hidden="true" />
       <div className={styles.gName} data-group-name>{shown.length > 1 ? stage.name : ""}</div>
-      <div className={styles.gQs}><Link href={stage.hrefs[level]} onClick={() => trackPracticeClick(ctx, course.banks[level], stage.id)} title={`Practice: ${stage.name}`}>{questions}</Link></div>
+      <div className={styles.gQs}>{stage.counts[stage.hlOnly ? "extension" : level] === 0 ? <span>{questions}</span> : <Link href={stage.hrefs[level]} onClick={() => trackPracticeClick(ctx, course.banks[level], stage.id)} title={`Practice: ${stage.name}`}>{questions}</Link>}</div>
       <div className={styles.cards}>
         {shown.map((lesson) => (
           <LessonCard key={lesson.item} lesson={lesson} done={understood.has(lesson.item)} next={lesson.item === nextItem} />
@@ -93,7 +93,7 @@ export function CourseTopicView({ topic, courseHref, stages }: { topic: { n: num
             <div className={styles.tNum}>TOPIC {topic.n}</div>
             <h1>{topic.name}</h1>
             <p className={styles.tMeta}>
-              {shownCount} lessons{level === "extension" ? ` · ${hlOnlyCount} ${labels.extensionOnly}` : ""} · {topic.questionTotals[level]} past-paper questions in the {labels[level]} bank
+              {shownCount} lessons{level === "extension" ? ` · ${hlOnlyCount} ${labels.extensionOnly}` : ""} · {topic.questionTotals[level]} past-paper questions {course.bankPhrase.replace("{level}", labels[level])}
             </p>
           </div>
           <div className={styles.tActions}>

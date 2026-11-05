@@ -182,8 +182,8 @@ describe.each(COURSES.map((course) => [course.slug, course] as const))("%s cours
     for (const topic of course.topics) expect(paths).toContain(topicPath(course, topic.n));
     expect(paths).toContain(`/revision-notes/${slug}/cheat-sheet`);
     for (const topic of course.topics) expect(paths).toContain(`${topicPath(course, topic.n)}/cheat-sheet`);
-    expect(paths).toContain(`/revision-notes/${slug}/glossary`);
-    expect(paths).toContain(`/revision-notes/${slug}/command-terms`);
+    expect(paths.includes(`/revision-notes/${slug}/glossary`)).toBe(course.glossary.length > 0);
+    expect(paths.includes(`/revision-notes/${slug}/command-terms`)).toBe(course.commandTerms.length > 0);
   });
 
 });

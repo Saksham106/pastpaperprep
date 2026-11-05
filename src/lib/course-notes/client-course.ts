@@ -19,6 +19,8 @@ export type ClientCourse = {
   /** Calculator models in tab order, and the localStorage key for the chosen one. */
   calculators: CalculatorModel[];
   calculatorKey: string;
+  /** Where a level's questions live, with `{level}` for the level label. */
+  bankPhrase: string;
 };
 
 /**
@@ -27,7 +29,7 @@ export type ClientCourse = {
  */
 export const LEGACY_COURSE = "ib-math-aa";
 
-export function clientCourse(config: Pick<CourseConfig, "slug" | "name" | "levels" | "banks" | "calculators">): ClientCourse {
+export function clientCourse(config: Pick<CourseConfig, "slug" | "name" | "levels" | "banks" | "calculators"> & { copy: Pick<CourseConfig["copy"], "bankPhrase"> }): ClientCourse {
   const legacy = config.slug === LEGACY_COURSE;
   return {
     slug: config.slug,
@@ -35,6 +37,7 @@ export function clientCourse(config: Pick<CourseConfig, "slug" | "name" | "level
     levels: config.levels,
     banks: { base: config.banks[config.levels.labels.base], extension: config.banks[config.levels.labels.extension] },
     levelKey: legacy ? "notes-level" : `notes-level:${config.slug}`,
+    bankPhrase: config.copy.bankPhrase,
     progressKey: `notes-progress:${config.slug}`,
     calculators: config.calculators,
     calculatorKey: legacy ? "notes-calc" : `notes-calc:${config.slug}`,

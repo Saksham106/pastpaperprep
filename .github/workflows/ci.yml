@@ -69,7 +69,11 @@ jobs:
               if grep -q '^FAIL' <<<"$out"; then fail=1; fi
             done
           done
-          test -n "$(ls src/content/notes/ib-math-aa/lessons/*.json)"
+          for config in "${courses[@]}"; do
+            course=$(basename "$(dirname "$config")")
+            lessons=(src/content/notes/"$course"/lessons/*.json)
+            test "${#lessons[@]}" -gt 0 || { echo "No lessons for $course"; fail=1; }
+          done
           exit $fail
 
   build:

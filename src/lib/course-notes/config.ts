@@ -26,6 +26,8 @@ export type CourseCopy = {
   educationalLevel: string;
   /** Names the bank before its level label in a lesson's practise band: "AA" gives "in the AA SL bank". */
   bankPrefix: string;
+  /** Where a level's questions live, with `{level}` for the level label: "in the {level} bank" or "in the 0580 {level} papers". */
+  bankPhrase: string;
 };
 
 /** Lints in scripts/notes/validate-lesson.mjs a course can switch off (AA predates them; see `gate.exempt`). */

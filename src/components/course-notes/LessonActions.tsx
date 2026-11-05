@@ -31,7 +31,11 @@ export function PractiseBand({ practice, bankPrefix }: { practice: PracticeInfo;
         {shown === 0 ? (
           <p>No past-paper questions on {practice.items} yet.</p>
         ) : bankLevel !== level ? (
-          <p>{practice.items}{` is ${course.levels.labels.extensionOnly}. `}<b>{plural(shown)}</b>{` in the ${bankPrefix} `}{course.levels.labels[bankLevel]} bank, each with a mark scheme and a worked explanation.</p>
+          practice.extensionOnly ? (
+            <p>{practice.items}{` is ${course.levels.labels.extensionOnly}. `}<b>{plural(shown)}</b>{` in the ${bankPrefix} `}{course.levels.labels[bankLevel]} bank, each with a mark scheme and a worked explanation.</p>
+          ) : (
+            <p>{`No ${course.levels.labels[level]} questions on ${practice.items} yet; `}<b>{shown}</b>{` ${course.bankPhrase.replace("{level}", course.levels.labels[bankLevel])}.`}</p>
+          )
         ) : (
           <p><b>{plural(shown)}</b> on {practice.items}{` in the ${bankPrefix} `}{course.levels.labels[level]} bank, each with a mark scheme and a worked explanation.</p>
         )}

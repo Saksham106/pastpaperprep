@@ -1,6 +1,6 @@
 // Maps bank questions to written lessons ("Learn this topic", the explanation's "Revise" link, paper reports,
 // the syllabus page). Server-side: loads the courses. Every link is gated by its course's visibility.
-import { COURSES, getCourse, isCourseVisible, lessonPath, lessonsForTopic, type Course } from "./course";
+import { COURSES, isCourseVisible, lessonPath, lessonsForTopic, type Course } from "./course";
 import { GROUPS } from "./groups";
 import { compareItems } from "./items";
 import type { PracticeLevel } from "./practice";
@@ -86,11 +86,10 @@ export function notesTopicLinksForBank(bankSlug: string): Record<string, LessonL
   return Object.fromEntries(course.topics.filter((topic) => lessonsForTopic(course, topic.n).length).map((topic) => [topic.name, { href: `/revision-notes/${course.slug}/${topic.slug}`, label: `${topic.name} notes` }]));
 }
 
-/** AA syllabus groups with a written lesson, in teaching order, for the syllabus page. Empty unless the course is visible. */
-export function syllabusNotesForBank(bankSlug: string): { name: string; topic: string; href: string; label: string }[] {
-  const level = BANK_LEVELS[bankSlug];
-  const course = getCourse("ib-math-aa");
-  if (!level || !course || !isCourseVisible(course)) return [];
+export type SyllabusNote = { name: string; topic: string; href: string; label: string };
+
+/** AA syllabus groups with a written lesson, in teaching order. */
+function aaSyllabusNotes(course: Course, level: PracticeLevel): SyllabusNote[] {
   return [...GROUPS]
     .filter((group) => group.applicability.includes(level))
     .sort((a, b) => a.teachingOrder - b.teachingOrder)
@@ -98,4 +97,25 @@ export function syllabusNotesForBank(bankSlug: string): { name: string; topic: s
       const link = lessonForGroup(course, group.id, level);
       return link ? [{ name: group.studentFacingName, topic: group.parentTopic, ...link }] : [];
     });
+}
+
+/** Official-codes course: each section with a written lesson, in syllabus order. */
+function sectionSyllabusNotes(course: Course): SyllabusNote[] {
+  return [...course.lessons].sort((a, b) => compareItems(a.item, b.item)).map((lesson) => ({
+    name: `${lesson.item} ${course.items.items.find((entry) => entry.item === lesson.item)?.name ?? lesson.title}`,
+    topic: course.topics.find((topic) => topic.n === lesson.topic)?.name ?? "",
+    href: lessonPath(course, lesson),
+    label: lesson.title,
+  }));
+}
+
+/** Lessons for the bank's syllabus page, from every visible course practised there. Empty while those courses are hidden. */
+export function syllabusNotesForBank(bankSlug: string): SyllabusNote[] {
+  return coursesForBank(bankSlug).flatMap((course) => {
+    if (course.practice.kind === "aa-items") {
+      const level = BANK_LEVELS[bankSlug];
+      return level ? aaSyllabusNotes(course, level) : [];
+    }
+    return sectionSyllabusNotes(course);
+  });
 }
