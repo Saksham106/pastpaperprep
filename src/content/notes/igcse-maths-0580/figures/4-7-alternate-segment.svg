@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 230" role="img" aria-labelledby="t">
+  <title id="t">Circle with a tangent TAS touching it at A. Chords AB, AC and BC form a triangle inside the circle, with B on the left and C on the right. The angle between the tangent AT and the chord AB is marked z. The angle ACB at C, on the other side of chord AB, is also marked z.</title>
+  <circle cx="160.0" cy="110.0" r="85.0" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="30.0" y1="195.0" x2="290.0" y2="195.0" stroke="var(--t3-ink)" stroke-width="2.2"/>
+  <line x1="160.0" y1="195.0" x2="80.1" y2="80.9" stroke="currentColor" stroke-width="2"/>
+  <line x1="160.0" y1="195.0" x2="220.1" y2="49.9" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="80.1" y1="80.9" x2="220.1" y2="49.9" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M130.0,195.0 A30,30 0 0 1 142.8,170.4" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+  <path d="M208.6,77.6 A30,30 0 0 1 190.8,56.4" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+  <circle cx="160.0" cy="195.0" r="3" fill="currentColor"/>
+  <circle cx="80.1" cy="80.9" r="3" fill="currentColor"/>
+  <circle cx="220.1" cy="49.9" r="3" fill="currentColor"/>
+  <g font-family="inherit">
+    <text x="160.0" y="220.0" fill="currentColor" font-size="14" text-anchor="middle">A</text>
+    <text x="67.0" y="81.1" fill="currentColor" font-size="14" text-anchor="middle">B</text>
+    <text x="230.0" y="45.0" fill="currentColor" font-size="14" text-anchor="middle">C</text>
+    <text x="36.0" y="192.0" fill="var(--t3-ink)" font-size="14" text-anchor="middle">T</text>
+    <text x="284.0" y="192.0" fill="var(--t3-ink)" font-size="14" text-anchor="middle">S</text>
+    <text x="121.0" y="179.7" fill="var(--t1-ink)" font-size="15" text-anchor="middle">z</text>
+    <text x="186.4" y="83.2" fill="var(--t1-ink)" font-size="15" text-anchor="middle">z</text>
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="t">
+  <title id="t">Circle with centre O. A tangent line touches the circle at P. The radius OP meets the tangent at a right angle, 90 degrees.</title>
+  <circle cx="140.0" cy="115.0" r="85.0" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="144.0" y1="242.4" x2="266.2" y2="96.9" stroke="var(--t3-ink)" stroke-width="2.2"/>
+  <line x1="140.0" y1="115.0" x2="205.1" y2="169.6" stroke="var(--t1-ink)" stroke-width="2.2"/>
+  <path d="M195.9,161.9 L188.2,171.1 L197.4,178.8" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <circle cx="140.0" cy="115.0" r="3" fill="currentColor"/>
+  <circle cx="205.1" cy="169.6" r="3" fill="currentColor"/>
+  <g font-family="inherit">
+    <text x="126.0" y="114.0" fill="currentColor" font-size="14" text-anchor="middle">O</text>
+    <text x="217.4" y="184.9" fill="currentColor" font-size="14" text-anchor="middle">P</text>
+    <text x="171.2" y="177.6" fill="currentColor" font-size="13" text-anchor="middle">90°</text>
+    <text x="156.6" y="151.3" fill="var(--t1-ink)" font-size="12" text-anchor="end">radius</text>
+    <text x="276.2" y="99.9" fill="var(--t3-ink)" font-size="12" text-anchor="start">tangent</text>
+  </g>
+</svg>

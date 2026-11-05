@@ -6,43 +6,607 @@
   "title": "Types of number",
   "level": "Core",
   "topic": 1,
-  "summary": "Placeholder lesson so the IGCSE Maths 0580 pages, scripts and tests run. [[natural-number|Natural numbers]], [[integer|integers]], primes, [[factor|factors]] and [[multiple|multiples]], and rational and [[irrational-number|irrational numbers]].",
+  "summary": "Numbers come in families: [[natural-number|natural numbers]], [[integer|integers]], squares, cubes, primes, and [[rational-number|rational]] or [[irrational-number|irrational]] numbers. You also find [[factor|factors]], [[multiple|multiples]], HCFs, LCMs and [[reciprocal|reciprocals]].",
   "goals": [
-    { "text": "Name the type of a number: natural, integer, prime, square, cube, rational or irrational.", "bullets": [] },
-    { "text": "Find the HCF and LCM of two numbers.", "bullets": [] }
+    {
+      "text": "Spot natural numbers, integers, squares and cubes, and read large numbers.",
+      "bullets": [
+        "1.1-c1"
+      ]
+    },
+    {
+      "text": "List factors, test for primes, and write a number as a product of primes.",
+      "bullets": [
+        "1.1-c1"
+      ]
+    },
+    {
+      "text": "Find the HCF and LCM, and use them in problems.",
+      "bullets": [
+        "1.1-c1"
+      ]
+    },
+    {
+      "text": "Tell rational from irrational numbers, and find reciprocals.",
+      "bullets": [
+        "1.1-c1"
+      ]
+    }
   ],
   "prerequisites": [],
-  "papers": ["P1", "P2", "P3", "P4"],
-  "synonyms": ["prime numbers", "HCF", "LCM", "rational and irrational"],
-  "before": [],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "prime numbers",
+    "HCF and LCM",
+    "highest common factor",
+    "product of prime factors",
+    "rational and irrational numbers",
+    "reciprocal of a number"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-divide",
+      "prompt": "Work out $91 \\div 7$.",
+      "hint": "Start from $7 \\times 10 = 70$.",
+      "answer": {
+        "value": 13,
+        "tolerance": 0
+      },
+      "explain": "$7 \\times 13 = 70 + 21 = 91$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(91, 7)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-place-value",
+      "prompt": "What is the value of the digit $6$ in $46\\,213$?",
+      "hint": "Which column is the $6$ in?",
+      "answer": {
+        "value": 6000,
+        "tolerance": 0
+      },
+      "explain": "The $6$ is in the thousands column.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "6*10**3",
+        "dp": 0
+      }
+    }
+  ],
   "sections": [
     {
-      "id": "factors",
-      "heading": "Factors and multiples",
+      "id": "families",
+      "heading": "Natural numbers, integers, squares and cubes",
       "blocks": [
-        { "type": "text", "text": "A factor of a number divides it exactly. The [[highest-common-factor|highest common factor]] (HCF) of two numbers is the largest number that is a factor of both." },
+        {
+          "type": "definition",
+          "term": "Natural number",
+          "statement": "A [[natural-number|natural number]] is a positive whole number: $1, 2, 3, \\ldots$",
+          "plain": "A counting number."
+        },
+        {
+          "type": "text",
+          "text": "Some books count $0$ too; in an exam, give a positive whole number."
+        },
+        {
+          "type": "definition",
+          "term": "Integer",
+          "statement": "An [[integer|integer]] is a whole number that is positive, negative or zero: $\\ldots, -2, -1, 0, 1, 2, \\ldots$",
+          "plain": "A whole number."
+        },
+        {
+          "type": "text",
+          "text": "So $-4$ is an integer, like every whole [[negative-number|negative number]], but it is not natural."
+        },
+        {
+          "type": "text",
+          "text": "A [[square-number|square number]] is a positive whole number times itself: $1, 4, 9, 16, 25, \\ldots$ For example, $7 \\times 7 = 7^2 = 49$."
+        },
+        {
+          "type": "text",
+          "text": "A [[cube-number|cube number]] is a positive whole number used three times in a product: $1, 8, 27, 64, 125, \\ldots$ For example, $4 \\times 4 \\times 4 = 4^3 = 64$."
+        },
         {
           "type": "example",
-          "id": "ex-hcf",
-          "question": "Find the HCF of $24$ and $36$.",
-          "steps": ["Factors of $24$: $1, 2, 3, 4, 6, 8, 12, 24$.", "Factors of $36$: $1, 2, 3, 4, 6, 9, 12, 18, 36$.", "The largest number in both lists is $12$."],
-          "answer": "$\\text{HCF} = 12$",
-          "verify": { "kind": "exact", "truth": "gcd(24, 36)" },
+          "id": "ex-squares-in-list",
+          "question": "Write down every square number in this list: $50, \\; 64, \\; 81, \\; 90, \\; 121, \\; 125$.",
+          "steps": [
+            "$8^2 = 64$, $9^2 = 81$ and $11^2 = 121$, so these are square.",
+            "$50$, $90$ and $125$ each lie between two squares: $49$ and $64$, $81$ and $100$, $121$ and $144$."
+          ],
+          "answer": "$64, 81, 121$",
+          "verify": {
+            "kind": "list",
+            "truth": "[8**2, 9**2, 11**2]"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-cubes-in-list",
+            "prompt": "The same list holds exactly two cube numbers. Which two?",
+            "hint": "Work out $3^3$, $4^3$ and $5^3$.",
+            "options": [
+              {
+                "text": "$81, 125$",
+                "correct": false
+              },
+              {
+                "text": "$64, 125$",
+                "correct": true
+              },
+              {
+                "text": "$64, 81$",
+                "correct": false
+              },
+              {
+                "text": "$90, 125$",
+                "correct": false
+              }
+            ],
+            "explain": "$4^3 = 64$ and $5^3 = 125$. So $64$ is a square and a cube.",
+            "verify": {
+              "kind": "list",
+              "truth": "[4**3, 5**3]"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "text": "Group large numbers in threes from the right: $6\\,250\\,000$ is six million, two hundred and fifty thousand. A billion has nine zeros."
+        },
+        {
+          "type": "check",
+          "id": "check-figures-to-words",
+          "prompt": "Which is $20\\,705\\,000$ in words?",
+          "hint": "Group the digits in threes from the right.",
+          "options": [
+            {
+              "text": "two million, seventy thousand, five hundred",
+              "correct": false
+            },
+            {
+              "text": "twenty million, seven hundred and five thousand",
+              "correct": true
+            },
+            {
+              "text": "twenty million, seventy thousand and five",
+              "correct": false
+            }
+          ],
+          "explain": "The groups are $20$, $705$ and $000$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "twenty million, seven hundred and five thousand"
+          }
+        }
+      ]
+    },
+    {
+      "id": "factors",
+      "heading": "Factors, multiples and primes",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Factor and multiple",
+          "statement": "A [[factor|factor]] of $n$ is a whole number that divides $n$ exactly. A [[multiple|multiple]] of $n$ is $n$ times a positive whole number: $n, 2n, 3n, \\ldots$",
+          "plain": "$6$ and $7$ are factors of $42$, and $42$ is a multiple of each."
+        },
+        {
+          "type": "text",
+          "text": "Find factors in pairs. Start with $1 \\times n$, then try $2, 3, 4, \\ldots$ Stop when the next number to try is already in a pair."
+        },
+        {
+          "type": "example",
+          "id": "ex-factors-98",
+          "question": "List all the factors of $98$.",
+          "steps": [
+            "$1 \\times 98$ and $2 \\times 49$.",
+            "$3$, $4$, $5$ and $6$ leave a remainder. Then $7 \\times 14 = 98$.",
+            "$8$ to $13$ leave a remainder, and $14$ is already in a pair, so stop."
+          ],
+          "answer": "$1, 2, 7, 14, 49, 98$",
+          "verify": {
+            "kind": "list",
+            "truth": "divisors(98)"
+          },
+          "video": null
+        },
+        {
+          "type": "definition",
+          "term": "Prime number",
+          "statement": "A [[prime-number|prime number]] is a natural number with exactly two factors: $1$ and itself.",
+          "plain": "Only $1 \\times$ itself."
+        },
+        {
+          "type": "text",
+          "text": "The primes start $2, 3, 5, 7, 11, 13, 17, 19, 23, 29, \\ldots$ $1$ is not prime: it has only one factor. $2$ is the only even prime."
+        },
+        {
+          "type": "text",
+          "text": "To test a number above $1$, divide by each prime $2, 3, 5, 7, \\ldots$ whose square is at most the number. If none divides it, it is prime."
+        },
+        {
+          "type": "check",
+          "id": "check-primes-60-75",
+          "prompt": "Which list gives all the prime numbers between $60$ and $75$?",
+          "hint": "Test each odd number with $3$, $5$ and $7$.",
+          "options": [
+            {
+              "text": "$61, 63, 67, 71, 73$",
+              "correct": false
+            },
+            {
+              "text": "$61, 67, 71$",
+              "correct": false
+            },
+            {
+              "text": "$61, 67, 71, 73$",
+              "correct": true
+            },
+            {
+              "text": "$61, 67, 69, 71, 73$",
+              "correct": false
+            }
+          ],
+          "explain": "$63 = 7 \\times 9$ and $69 = 3 \\times 23$ are not prime; $73$ is.",
+          "verify": {
+            "kind": "list",
+            "truth": "Tuple.fromiter(primerange(60, 75))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Every whole number above $1$ is a product of primes in one way only, apart from order: its [[prime-factor|prime factors]]. A factor tree finds them."
+        },
+        {
+          "type": "figure",
+          "id": "1-1-factor-tree-360",
+          "alt": "Factor tree for 360. 360 splits into 36 and 10. 36 splits into 6 and 6, and 10 splits into 2 and 5. Each 6 splits into 2 and 3. The primes at the ends of the branches are circled: 2, 3, 2, 3, 2 and 5. Below the tree: 360 equals 2 times 2 times 2 times 3 times 3 times 5, which is 2 cubed times 3 squared times 5.",
+          "caption": "Any first split gives the same primes."
+        },
+        {
+          "type": "example",
+          "id": "ex-prime-factors-360",
+          "question": "Write $360$ as a product of prime factors.",
+          "steps": [
+            "Split $360 = 36 \\times 10$, then $36 = 6 \\times 6$ and $10 = 2 \\times 5$.",
+            "Split each $6 = 2 \\times 3$. Now every branch ends in a prime.",
+            "Write the repeated primes as powers, then check: $8 \\times 9 \\times 5 = 360$."
+          ],
+          "answer": "$360 = 2^3 \\times 3^2 \\times 5$",
+          "verify": {
+            "kind": "exact",
+            "truth": "360"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-prime-factors-600",
+            "prompt": "Which shows $600$ as a product of primes?",
+            "hint": "Every number must be prime, and the product must be $600$.",
+            "options": [
+              {
+                "text": "$2^3 \\times 75$",
+                "correct": false
+              },
+              {
+                "text": "$2^2 \\times 3 \\times 5^2$",
+                "correct": false
+              },
+              {
+                "text": "$2^3 \\times 3 \\times 5^2$",
+                "correct": true
+              }
+            ],
+            "explain": "$8 \\times 3 \\times 25 = 600$. $75$ is not prime, and the other gives $300$.",
+            "verify": {
+              "kind": "exact",
+              "truth": "600"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "hcf-lcm",
+      "heading": "HCF and LCM",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[common-factor|common factor]] of two numbers is a factor of both. The [[highest-common-factor|highest common factor]] (HCF) is the biggest one."
+        },
+        {
+          "type": "text",
+          "text": "A [[common-multiple|common multiple]] is a multiple of both. The [[lowest-common-multiple|lowest common multiple]] (LCM) is the smallest one."
+        },
+        {
+          "type": "example",
+          "id": "ex-hcf-30-45",
+          "question": "Find the HCF of $30$ and $45$.",
+          "steps": [
+            "Factors of $30$: $1, 2, 3, 5, 6, 10, 15, 30$.",
+            "Factors of $45$: $1, 3, 5, 9, 15, 45$.",
+            "Common factors: $1, 3, 5, 15$. The highest is $15$."
+          ],
+          "answer": "$\\text{HCF} = 15$",
+          "verify": {
+            "kind": "exact",
+            "truth": "gcd(30, 45)"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-lcm-10-15",
+            "prompt": "Find the LCM of $10$ and $15$.",
+            "hint": "List multiples of $15$ until $10$ divides one.",
+            "answer": {
+              "value": 30,
+              "tolerance": 0
+            },
+            "explain": "$10$ divides $30$, the second multiple of $15$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "lcm(10, 15)",
+              "dp": 0
+            }
+          }
+        },
+        {
+          "type": "text",
+          "text": "For bigger numbers, use prime factors. HCF: multiply the primes in both numbers, each to its lower power (if no prime is shared, the HCF is $1$). LCM: multiply the primes in either number, each to its higher power."
+        },
+        {
+          "type": "example",
+          "id": "ex-lcm-84-90",
+          "question": "$84 = 2^2 \\times 3 \\times 7$ and $90 = 2 \\times 3^2 \\times 5$. Find the LCM of $84$ and $90$.",
+          "steps": [
+            "Take each prime in either number, at its higher power: $2^2 \\times 3^2 \\times 5 \\times 7$.",
+            "$4 \\times 9 \\times 35 = 1260$. Check: $1260 \\div 84 = 15$ and $1260 \\div 90 = 14$."
+          ],
+          "answer": "$\\text{LCM} = 1260$",
+          "verify": {
+            "kind": "exact",
+            "truth": "lcm(84, 90)"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-hcf-84-90",
+            "prompt": "Use the same prime factors to find the HCF of $84$ and $90$.",
+            "hint": "Use $2$ and $3$, the primes in both, at their lower powers.",
+            "answer": {
+              "value": 6,
+              "tolerance": 0
+            },
+            "explain": "$2 \\times 3 = 6$. $5$ and $7$ are not in both.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "gcd(84, 90)",
+              "dp": 0
+            }
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-buses-lcm",
+          "prompt": "Route A buses leave every $14$ minutes, route B every $21$. Both leave at 09:40. When do they next leave together?",
+          "hint": "Find the LCM of $14$ and $21$.",
+          "options": [
+            {
+              "text": "$10{:}01$",
+              "correct": false
+            },
+            {
+              "text": "$10{:}15$",
+              "correct": false
+            },
+            {
+              "text": "$10{:}22$",
+              "correct": true
+            },
+            {
+              "text": "$14{:}34$",
+              "correct": false
+            }
+          ],
+          "explain": "$14 = 2 \\times 7$ and $21 = 3 \\times 7$, so the LCM is $42$. 10:22 is $42$ minutes after 09:40.",
+          "verify": {
+            "kind": "time",
+            "truth": "9*60 + 40 + lcm(14, 21)",
+            "form": "clock"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rational",
+      "heading": "Rational and irrational numbers, reciprocals",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Rational number",
+          "statement": "A [[rational-number|rational number]] can be written as $\\frac{a}{b}$, where $a$ and $b$ are integers and $b \\ne 0$.",
+          "plain": "One whole number over another."
+        },
+        {
+          "type": "text",
+          "text": "Integers are rational: $5 = \\frac{5}{1}$. So are decimals that stop, like $0.35 = \\frac{35}{100}$, and [[recurring-decimal|recurring decimals]], like $0.333\\ldots = \\frac{1}{3}$."
+        },
+        {
+          "type": "definition",
+          "term": "Irrational number",
+          "statement": "An [[irrational-number|irrational number]] cannot be written as a fraction of two integers. Its decimal goes on forever without repeating.",
+          "plain": "No fraction equals it."
+        },
+        {
+          "type": "text",
+          "text": "$\\pi$ is irrational. So is the square root of a positive integer that is not a square number, like $\\sqrt{10}$. But $\\sqrt{49} = 7$ is rational."
+        },
+        {
+          "type": "example",
+          "id": "ex-irrational-list",
+          "question": "Write down the irrational numbers in this list: $\\sqrt{36}, \\; 0.45, \\; \\sqrt{50}, \\; \\frac{3}{11}, \\; \\pi, \\; \\sqrt[3]{64}$.",
+          "steps": [
+            "Work out roots first: $\\sqrt{36} = 6$ and $\\sqrt[3]{64} = 4$. These, $0.45$ (it stops) and $\\frac{3}{11}$ are all rational.",
+            "$50$ is not a square number, so $\\sqrt{50}$ is irrational. So is $\\pi$."
+          ],
+          "answer": "$\\sqrt{50}, \\pi$",
+          "verify": {
+            "kind": "list",
+            "truth": "[sqrt(50), pi]"
+          },
           "video": null
         },
         {
           "type": "check",
-          "id": "check-lcm",
-          "prompt": "What is the [[lowest-common-multiple|lowest common multiple]] (LCM) of $6$ and $8$?",
-          "hint": "List the multiples of $8$ and stop at the first one that $6$ also divides.",
-          "answer": { "value": 24, "tolerance": 0 },
-          "verify": { "kind": "numeric", "truth": "lcm(6, 8)", "sf": 2 },
-          "explain": "Multiples of $8$ are $8, 16, 24$; $24$ is the first that $6$ divides exactly."
+          "id": "check-irrational",
+          "prompt": "Which of these numbers is irrational?",
+          "hint": "Work out the roots. A decimal that stops is rational.",
+          "options": [
+            {
+              "text": "$\\sqrt{121}$",
+              "correct": false
+            },
+            {
+              "text": "$3.142$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{22}{7}$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{12}$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\sqrt{121} = 11$, and $3.142$ and $\\frac{22}{7}$ are rational, though close to $\\pi$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "$\\sqrt{12}$"
+          }
+        },
+        {
+          "type": "definition",
+          "term": "Reciprocal",
+          "statement": "The [[reciprocal|reciprocal]] of a number $x \\ne 0$ is $\\frac{1}{x}$, so $x \\times \\frac{1}{x} = 1$. $0$ has no reciprocal.",
+          "plain": "Flip the fraction."
+        },
+        {
+          "type": "text",
+          "text": "Flip a fraction: $\\frac{3}{8}$ becomes $\\frac{8}{3}$. A whole number $5 = \\frac{5}{1}$ becomes $\\frac{1}{5}$. Keep the sign: $-4$ becomes $-\\frac{1}{4}$."
+        },
+        {
+          "type": "check",
+          "id": "check-reciprocal-decimal",
+          "prompt": "Find the reciprocal of $0.4$, as a decimal.",
+          "hint": "Write $0.4$ as a fraction first.",
+          "answer": {
+            "value": 2.5,
+            "tolerance": 0
+          },
+          "explain": "$0.4 = \\frac{2}{5}$, which flips to $\\frac{5}{2} = 2.5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1/Rational(4, 10)",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reciprocal-negative",
+          "prompt": "What is the reciprocal of $-\\frac{2}{7}$?",
+          "hint": "Flip the fraction. Does the sign change?",
+          "options": [
+            {
+              "text": "$\\frac{7}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{7}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{2}{7}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{9}{7}$",
+              "correct": false
+            }
+          ],
+          "explain": "Flip to $\\frac{7}{2}$ and keep the minus sign: $-\\frac{2}{7} \\times \\left(-\\frac{7}{2}\\right) = 1$.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "1/Rational(-2, 7)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Natural numbers: $1, 2, 3, \\ldots$ Integers: $\\ldots, -2, -1, 0, 1, 2, \\ldots$",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Squares: $1, 4, 9, 16, 25, \\ldots$ Cubes: $1, 8, 27, 64, 125, \\ldots$",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A prime has exactly two factors. $1$ is not prime; $2$ is the only even prime.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "HCF: shared primes, lower powers. LCM: all the primes, higher powers.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Rational: can be written as $\\frac{a}{b}$, with integers $a$ and $b \\ne 0$. Irrational: cannot, like $\\pi$ or $\\sqrt{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The reciprocal of $x \\ne 0$ is $\\frac{1}{x}$.",
+          "tag": "learn",
+          "cheatSheet": true
         }
       ]
     }
   ],
-  "mistakes": ["Calling $1$ a [[prime-number|prime number]]: a prime has exactly two factors."],
-  "examTips": ["When a question asks for a [[prime-factor|prime factor]] product, write it with indices, such as $2^3 \\times 3$."],
-  "readingMinutes": 2
+  "mistakes": [
+    "Leaving $1$ or the number itself out of a factor list. Write that pair first.",
+    "Calling $1$ or $57 = 3 \\times 19$ prime. A prime has exactly two factors.",
+    "Giving $-5$ as the reciprocal of $5$. Flip it instead: $\\frac{1}{5}$.",
+    "Multiplying the numbers for the LCM. That is a common multiple, not always the lowest.",
+    "Calling a decimal that stops, like $2.375$, irrational. It is rational.",
+    "Writing the wrong number of zeros. Group digits in threes."
+  ],
+  "examTips": [
+    "Write down a prime from a list: one right number earns the mark.",
+    "Product of prime factors: write primes only, like $2^3 \\times 3^2 \\times 5$, never $8 \\times 45$.",
+    "No calculator on Papers 1 and 2: know the squares to $15^2$, and the cubes to $5^3$ and $10^3$."
+  ],
+  "readingMinutes": 14
 }

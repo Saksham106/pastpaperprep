@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" fill="none">
+  <defs>
+    <marker id="m2-13-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t2-ink)"/>
+    </marker>
+  </defs>
+  <ellipse cx="90" cy="135" rx="46" ry="96" stroke="currentColor" stroke-width="1.8"/>
+  <ellipse cx="270" cy="135" rx="46" ry="70" stroke="currentColor" stroke-width="1.8"/>
+  <g stroke="var(--t2-ink)" stroke-width="1.6" marker-end="url(#m2-13-arrow)">
+    <line x1="104" y1="65" x2="254" y2="93"/>
+    <line x1="104" y1="100" x2="254" y2="133"/>
+    <line x1="104" y1="135" x2="254" y2="173"/>
+    <line x1="104" y1="170" x2="254" y2="137"/>
+    <line x1="104" y1="205" x2="254" y2="97"/>
+  </g>
+  <g font-size="15" font-family="inherit" stroke="none" fill="currentColor" text-anchor="end">
+    <text x="96" y="70">−2</text>
+    <text x="96" y="105">−1</text>
+    <text x="96" y="140">0</text>
+    <text x="96" y="175">1</text>
+    <text x="96" y="210">2</text>
+  </g>
+  <g font-size="15" font-family="inherit" stroke="none" fill="currentColor" text-anchor="start">
+    <text x="262" y="100">4</text>
+    <text x="262" y="140">1</text>
+    <text x="262" y="180">0</text>
+  </g>
+  <g font-size="13" font-family="inherit" stroke="none" fill="var(--muted)" text-anchor="middle">
+    <text x="90" y="28">Domain (inputs)</text>
+    <text x="270" y="54">Range (outputs)</text>
+    <text x="180" y="252" fill="currentColor">f(x) = x²</text>
+  </g>
+</svg>
