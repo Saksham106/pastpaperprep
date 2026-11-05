@@ -67,7 +67,7 @@ Each example and check carries `"verify": { "kind": …, "truth": …, …option
 - **Originality:** invent every example and check from scratch. Use different contexts, numbers and functions from every pack question. A lint fails any block that shares 3+ numbers with a pack question.
 - **Glossary links:** the first prose use of every planned term you own or use must be a `[[id|label]]` link (a lint checks this). Link to terms other sections own; never define them.
 - **Prerequisites:** start from the pack's `prerequisites`.
-- **Reading time:** `readingMinutes` must equal the value `validate-lesson.mjs` prints. Target 6–14 minutes for a section with up to 3 bullets, and 12–22 minutes for a bigger one. Cut repetition before going over.
+- **Reading time and examples:** `readingMinutes` must equal the value `validate-lesson.mjs` prints. Every teaching section has **two worked examples** (one may be in an Extended part) plus its checks; never cut to one example to save time. Bands: up to 3 bullets 10–18 minutes, 4–8 bullets 15–25, 9+ bullets 20–30. Cut repetition and wordy prose before examples, and record any overrun in writer notes.
 - **Interactives:** use one only where an existing widget in `src/components/course-notes/interactives/registry.ts` fits the section exactly. Never invent one.
 - **Mistakes and exam tips:**
   - Ground the mistakes in the pack's real `mistakes`, rewritten.
