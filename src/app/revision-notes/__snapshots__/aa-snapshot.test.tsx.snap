@@ -1,0 +1,257 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`live AA pages are unchanged > course home, topic, lesson, cheat sheets, glossary and command terms render the same HTML 1`] = `
+{
+  "cheatSheet": "2346907:41bf4d37fe46a7d2",
+  "commandTerms": "10154:00ab6ee209048b89",
+  "glossary": "758969:28057782866c3f54",
+  "home": "31988:31ee6b8301412fa7",
+  "lesson": "339901:20e27c9266a201dc",
+  "topic": "25404:f4e43843a9ea89e9",
+  "topicCheatSheet": "609556:7e0bf6b61942bf2c",
+}
+`;
+
+exports[`live AA pages are unchanged > metadata is the same 1`] = `
+{
+  "cheatSheet": {
+    "alternates": {
+      "canonical": "/revision-notes/ib-math-aa/cheat-sheet",
+    },
+    "description": "Key formulas and facts for IB Maths AA on one page.",
+    "openGraph": {
+      "images": [
+        {
+          "alt": "PastPaperPrep: a marked practice paper with the grade rising from C to A*",
+          "height": 630,
+          "url": "/social/do-better-igcse.png",
+          "width": 1200,
+        },
+      ],
+      "type": "website",
+      "url": "/revision-notes/ib-math-aa/cheat-sheet",
+      "videos": [
+        {
+          "height": 630,
+          "secureUrl": "https://pastpaperprep.com/social/do-better-igcse.mp4",
+          "type": "video/mp4",
+          "url": "https://pastpaperprep.com/social/do-better-igcse.mp4",
+          "width": 1200,
+        },
+      ],
+    },
+    "title": {
+      "absolute": "IB Maths AA Cheat Sheet: Key Formulas",
+    },
+  },
+  "commandTerms": {
+    "alternates": {
+      "canonical": "/revision-notes/ib-math-aa/command-terms",
+    },
+    "description": "What each IB command term asks you to do in IB Maths AA exams.",
+    "openGraph": {
+      "images": [
+        {
+          "alt": "PastPaperPrep: a marked practice paper with the grade rising from C to A*",
+          "height": 630,
+          "url": "/social/do-better-igcse.png",
+          "width": 1200,
+        },
+      ],
+      "type": "website",
+      "url": "/revision-notes/ib-math-aa/command-terms",
+      "videos": [
+        {
+          "height": 630,
+          "secureUrl": "https://pastpaperprep.com/social/do-better-igcse.mp4",
+          "type": "video/mp4",
+          "url": "https://pastpaperprep.com/social/do-better-igcse.mp4",
+          "width": 1200,
+        },
+      ],
+    },
+    "title": {
+      "absolute": "IB Maths AA Command Terms Explained",
+    },
+  },
+  "glossary": {
+    "alternates": {
+      "canonical": "/revision-notes/ib-math-aa/glossary",
+    },
+    "description": "Plain-words definitions of the key terms in IB Maths AA, linked to the lessons that teach them.",
+    "openGraph": {
+      "images": [
+        {
+          "alt": "PastPaperPrep: a marked practice paper with the grade rising from C to A*",
+          "height": 630,
+          "url": "/social/do-better-igcse.png",
+          "width": 1200,
+        },
+      ],
+      "type": "website",
+      "url": "/revision-notes/ib-math-aa/glossary",
+      "videos": [
+        {
+          "height": 630,
+          "secureUrl": "https://pastpaperprep.com/social/do-better-igcse.mp4",
+          "type": "video/mp4",
+          "url": "https://pastpaperprep.com/social/do-better-igcse.mp4",
+          "width": 1200,
+        },
+      ],
+    },
+    "title": {
+      "absolute": "IB Maths AA Glossary: Key Terms",
+    },
+  },
+  "home": {
+    "alternates": {
+      "canonical": "/revision-notes/ib-math-aa",
+    },
+    "description": "Free IB Maths AA course notes for every syllabus topic, with worked examples, checks and links to real past-paper questions.",
+    "openGraph": {
+      "images": [
+        {
+          "alt": "PastPaperPrep: a marked practice paper with the grade rising from C to A*",
+          "height": 630,
+          "url": "/social/do-better-igcse.png",
+          "width": 1200,
+        },
+      ],
+      "type": "website",
+      "url": "/revision-notes/ib-math-aa",
+      "videos": [
+        {
+          "height": 630,
+          "secureUrl": "https://pastpaperprep.com/social/do-better-igcse.mp4",
+          "type": "video/mp4",
+          "url": "https://pastpaperprep.com/social/do-better-igcse.mp4",
+          "width": 1200,
+        },
+      ],
+    },
+    "title": {
+      "absolute": "IB Maths AA Course Notes: Every Topic",
+    },
+  },
+  "lesson": {
+    "alternates": {
+      "canonical": "/revision-notes/ib-math-aa/calculus/5-16-integration-by-substitution-and-parts",
+    },
+    "description": "Two methods take you past the standard integrals. A given substitution rewrites a hard integral in a new variable, even when the derivative of the inside isn't there. [[integration-by-parts|Integration by parts]] reverses the product rule, so you can integrate products such as $x\\cos(3x)$ and single functions such as $\\ln x$.",
+    "openGraph": {
+      "images": [
+        {
+          "alt": "PastPaperPrep: a marked practice paper with the grade rising from C to A*",
+          "height": 630,
+          "url": "/social/do-better-igcse.png",
+          "width": 1200,
+        },
+      ],
+      "type": "article",
+      "url": "/revision-notes/ib-math-aa/calculus/5-16-integration-by-substitution-and-parts",
+      "videos": [
+        {
+          "height": 630,
+          "secureUrl": "https://pastpaperprep.com/social/do-better-igcse.mp4",
+          "type": "video/mp4",
+          "url": "https://pastpaperprep.com/social/do-better-igcse.mp4",
+          "width": 1200,
+        },
+      ],
+    },
+    "title": {
+      "absolute": "Integration by substitution and parts | IB Maths AA Notes",
+    },
+  },
+  "topic": {
+    "alternates": {
+      "canonical": "/revision-notes/ib-math-aa/calculus",
+    },
+    "description": "IB Maths AA notes on calculus: every lesson, with worked examples and checks.",
+    "openGraph": {
+      "images": [
+        {
+          "alt": "PastPaperPrep: a marked practice paper with the grade rising from C to A*",
+          "height": 630,
+          "url": "/social/do-better-igcse.png",
+          "width": 1200,
+        },
+      ],
+      "type": "website",
+      "url": "/revision-notes/ib-math-aa/calculus",
+      "videos": [
+        {
+          "height": 630,
+          "secureUrl": "https://pastpaperprep.com/social/do-better-igcse.mp4",
+          "type": "video/mp4",
+          "url": "https://pastpaperprep.com/social/do-better-igcse.mp4",
+          "width": 1200,
+        },
+      ],
+    },
+    "title": {
+      "absolute": "Calculus | IB Maths AA Notes",
+    },
+  },
+  "topicCheatSheet": {
+    "alternates": {
+      "canonical": "/revision-notes/ib-math-aa/calculus/cheat-sheet",
+    },
+    "description": "Key formulas and facts for calculus on one page.",
+    "openGraph": {
+      "images": [
+        {
+          "alt": "PastPaperPrep: a marked practice paper with the grade rising from C to A*",
+          "height": 630,
+          "url": "/social/do-better-igcse.png",
+          "width": 1200,
+        },
+      ],
+      "type": "website",
+      "url": "/revision-notes/ib-math-aa/calculus/cheat-sheet",
+      "videos": [
+        {
+          "height": 630,
+          "secureUrl": "https://pastpaperprep.com/social/do-better-igcse.mp4",
+          "type": "video/mp4",
+          "url": "https://pastpaperprep.com/social/do-better-igcse.mp4",
+          "width": 1200,
+        },
+      ],
+    },
+    "title": {
+      "absolute": "Calculus Cheat Sheet | IB Maths AA",
+    },
+  },
+}
+`;
+
+exports[`live AA pages are unchanged > static params and sitemap paths are the same 1`] = `
+{
+  "count": 97,
+  "coursePaths": "a12423eb26faeadb",
+  "home": [
+    {},
+  ],
+  "lessons": "a1a8cf9e1cb9b5d2",
+  "sitemap": "a12423eb26faeadb",
+  "topics": [
+    {
+      "topic": "number-and-algebra",
+    },
+    {
+      "topic": "functions",
+    },
+    {
+      "topic": "geometry-and-trigonometry",
+    },
+    {
+      "topic": "statistics-and-probability",
+    },
+    {
+      "topic": "calculus",
+    },
+  ],
+}
+`;
