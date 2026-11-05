@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Length on a map or plan → multiply by the scale to get the real length, divide to go back; with a scale $1 : n$, change units at the end ({{lesson:4.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Bearing of A from B, given the bearing of B from A → add $180^{\\circ}$ if it is under $180^{\\circ}$, subtract $180^{\\circ}$ if it is $180^{\\circ}$ or more ({{lesson:4.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Missing side in similar shapes → scale factor $=$ new length $\\div$ matching old length, pairing sides by their equal angles; in a triangle inside a triangle, use the whole side ({{lesson:4.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Area or volume of a similar shape → multiply by $k^{2}$ for area or $k^{3}$ for volume; from an area or volume ratio back to lengths, take the square root or cube root ({{lesson:4.4}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Angles where a line crosses two parallel lines → corresponding and alternate angles are equal, co-interior angles add up to $180^{\\circ}$; name the pair as your reason ({{lesson:4.6}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Interior angle or number of sides of a regular polygon → find the exterior angle $\\frac{360^{\\circ}}{n}$ first, then interior $= 180^{\\circ} -$ exterior ({{lesson:4.6}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Missing angle in an irregular polygon → interior angles add up to $(n - 2) \\times 180^{\\circ}$; exterior angles add up to $360^{\\circ}$ when no interior angle is reflex ({{lesson:4.6}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Triangle drawn on a diameter, or a tangent with a radius → look for the $90^{\\circ}$: angle in a semicircle, or tangent perpendicular to the radius ({{lesson:4.7}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Angles at the circumference or in a cyclic quadrilateral → angle at the centre $= 2 \\times$ angle at the circumference, angles in the same segment are equal, opposite angles of a cyclic quadrilateral add up to $180^{\\circ}$ ({{lesson:4.7}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Angle between a tangent and a chord at the point of contact → alternate segment theorem: it equals the angle the chord makes in the other segment ({{lesson:4.7}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Chord with the radius or its distance from the centre → right-angled triangle with half the chord: $r^{2} = d^{2} + \\left(\\tfrac{1}{2}\\times\\text{chord}\\right)^{2}$ ({{lesson:4.8}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Two tangents from one point outside a circle → they are equal, so the triangle they make with the chord joining their points of contact is isosceles ({{lesson:4.8}})",
+      "tag": "learn",
+      "level": "Extended"
+    }
+  ]
+}

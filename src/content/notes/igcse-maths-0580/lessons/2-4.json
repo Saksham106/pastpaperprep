@@ -513,7 +513,7 @@
         },
         {
           "type": "mistake",
-          "text": "Giving $n = 2$ for $5^{n} = \\frac{1}{25}$. The value is less than $1$, so the index must be negative."
+          "text": "Giving $n = 2$ for $5^{n} = \\frac{1}{25}$. The base is more than $1$ but the value is less than $1$, so the index must be negative."
         },
         {
           "type": "check",

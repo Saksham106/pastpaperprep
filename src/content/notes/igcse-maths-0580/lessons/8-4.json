@@ -479,7 +479,7 @@
     "Dividing by the whole total. Once you know which group the choice comes from, divide by that group's total only.",
     "Dividing by the wrong group. In a two-way table, check whether the given group is a row or a column.",
     "Leaving out part of a circle. A circle's total is its own region plus the overlap.",
-    "Treating a pick without replacement as if the item went back. After one is taken, the top and bottom of the next fraction both go down.",
+    "Treating a pick without replacement as if the item went back. After one is taken, the bottom of the next fraction goes down by $1$. The top goes down too if you want the same type again.",
     "Reading a tree branch when the question goes backwards. Given the second outcome, divide path probabilities instead."
   ],
   "examTips": [

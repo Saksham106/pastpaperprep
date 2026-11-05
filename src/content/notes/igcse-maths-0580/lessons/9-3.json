@@ -198,7 +198,7 @@
         },
         {
           "type": "text",
-          "text": "A data set can have more than one mode if values tie for most often. If every value occurs the same number of times, there is no mode."
+          "text": "A data set can have more than one mode if values tie for most often. If every value occurs only once, there is no mode."
         },
         {
           "type": "text",
@@ -850,7 +850,7 @@
     "Dividing by the number of rows in a frequency table. Divide $\\sum fx$ by the total frequency $\\sum f$.",
     "Giving the position $\\frac{n+1}{2}$ as the median. The median is the value in that position.",
     "Dropping minus signs when you add or subtract negative values.",
-    "Giving one answer when a missing value must give a set range. It can be a new largest or a new smallest."
+    "Giving one answer when a missing value has to make the range bigger. It can be a new largest or a new smallest."
   ],
   "examTips": [
     "Calculate the mean: write the division, such as $64 \\div 40$, before the answer. That line earns the method mark.",

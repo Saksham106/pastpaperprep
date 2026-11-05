@@ -117,7 +117,7 @@
         },
         {
           "type": "text",
-          "text": "A [[map-scale|map scale]] $1 : n$ works the same way, but both parts are in centimetres, so change units at the end. Every length uses the same [[scale-factor|scale factor]], an idea you meet again in {{lesson:4.4}}."
+          "text": "A [[map-scale|map scale]] $1 : n$ works the same way, but both parts are in the same unit (centimetres on the map stand for centimetres in real life), so change units at the end. Every length uses the same [[scale-factor|scale factor]], an idea you meet again in {{lesson:4.4}}."
         },
         {
           "type": "example",
@@ -213,7 +213,7 @@
         {
           "type": "definition",
           "term": "Bearing",
-          "statement": "The angle measured clockwise from the north direction to the line joining two points. It is written with three figures, from $000^{\\circ}$ up to $359^{\\circ}$; a full turn of $360^{\\circ}$ brings you back to north, $000^{\\circ}$.",
+          "statement": "The angle measured clockwise from the north direction to the line joining two points. It is written with three figures, from $000^{\\circ}$ up to, but not including, $360^{\\circ}$; a full turn of $360^{\\circ}$ brings you back to north, $000^{\\circ}$.",
           "plain": "How far you turn clockwise from north to face the place."
         },
         {

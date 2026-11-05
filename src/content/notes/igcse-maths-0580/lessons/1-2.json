@@ -557,7 +557,7 @@
               "correct": false
             }
           ],
-          "explain": "$10 \\in A$ but $10 \\notin B$, so $A \\nsubseteq B$. Size alone never decides it.",
+          "explain": "$10 \\in A$ but $10 \\notin B$, so $A \\nsubseteq B$. $B$ having more elements does not make $A$ a subset.",
           "verify": {
             "kind": "choice",
             "truth": "A is not a subset of B, because 10 is not odd"
@@ -760,5 +760,5 @@
     "\"List the elements\": use curly brackets and write each element once, in any order.",
     "\"Shade the region\": shade that region only. For a harder region, shade each part lightly in pencil first, then combine."
   ],
-  "readingMinutes": 23
+  "readingMinutes": 24
 }

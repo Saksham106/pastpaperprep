@@ -354,7 +354,7 @@
         },
         {
           "type": "text",
-          "text": "To find which term has a given value, set the nth term equal to it and solve. A position must be a positive [[integer|integer]], so if $n$ is a fraction, the number is not in the sequence."
+          "text": "To find which term has a given value, set the nth term equal to it and solve. A position must be a positive [[integer|integer]], so if $n$ is a fraction, zero or negative, the number is not in the sequence."
         },
         {
           "type": "example",
@@ -709,7 +709,7 @@
         },
         {
           "type": "text",
-          "text": "A mixed sequence adds two simple patterns together. If the gaps double each time, compare the terms with the powers of $2$: $2, 4, 8, 16, \\ldots$"
+          "text": "A mixed sequence adds two simple patterns together. If the gaps double each time, compare the terms with the powers of $2$, $2, 4, 8, 16, \\ldots$, or a multiple of them."
         },
         {
           "type": "check",

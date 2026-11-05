@@ -135,7 +135,7 @@
         {
           "type": "definition",
           "term": "Gradient",
-          "statement": "The gradient of a straight line is the change in $y$ divided by the change in $x$, between any two points on the line.",
+          "statement": "The gradient of a straight line is the change in $y$ divided by the change in $x$, between any two different points on the line.",
           "plain": "How far the line goes up for every 1 you move to the right."
         },
         {
@@ -488,7 +488,7 @@
         },
         {
           "type": "fact",
-          "text": "Uphill from left to right: positive gradient. Downhill: negative. Horizontal: 0.",
+          "text": "Uphill from left to right: positive gradient. Downhill: negative. Horizontal: 0. Vertical: no gradient.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -524,7 +524,7 @@
   "examTips": [
     "“Find the gradient”: show the change in $y$ and the change in $x$ as a fraction, such as $\\frac{-6}{8}$, or draw the triangle on the grid. Working can earn a mark even if the final answer slips.",
     "On a grid, choose points where the line crosses exact grid corners. A point between grid lines gives a guessed value.",
-    "Give the gradient as a whole number, a fraction in its lowest terms or an exact decimal, such as $-\\frac{3}{4}$ or $-0.75$.",
+    "Give the gradient as a whole number, a fraction in its lowest terms or a decimal (exact, or to 3 significant figures), such as $-\\frac{3}{4}$ or $-0.75$.",
     "Before you write the answer, look at the line again. Check the sign matches its direction."
   ],
   "readingMinutes": 17

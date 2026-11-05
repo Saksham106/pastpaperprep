@@ -157,7 +157,7 @@
         },
         {
           "type": "text",
-          "text": "A negative component still counts, because squaring removes its sign: $(-8)^2 = 64$. So $\\begin{pmatrix}-15\\\\8\\end{pmatrix}$, $\\begin{pmatrix}15\\\\-8\\end{pmatrix}$ and $-\\mathbf{a}$ also have magnitude $17$. They point different ways, but they are the same length."
+          "text": "The top and bottom numbers are the vector's components. A negative component still counts, because squaring removes its sign: $(-8)^2 = 64$. So $\\begin{pmatrix}-15\\\\8\\end{pmatrix}$, $\\begin{pmatrix}15\\\\-8\\end{pmatrix}$ and $-\\mathbf{a}$ also have magnitude $17$. They point different ways, but they are the same length."
         },
         {
           "type": "example",
@@ -506,7 +506,7 @@
         },
         {
           "type": "fact",
-          "text": "Paper 2: leave a non-square answer as a simplified surd. Paper 4: round to 3 significant figures at the end.",
+          "text": "Paper 2: leave a non-square answer as a simplified surd. Paper 4: give an exact answer as it is; otherwise round to 3 significant figures at the end.",
           "tag": "learn",
           "cheatSheet": true
         }

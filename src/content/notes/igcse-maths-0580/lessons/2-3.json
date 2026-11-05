@@ -197,7 +197,7 @@
         },
         {
           "type": "text",
-          "text": "Watch for brackets that are opposites. $3 - x = -(x - 3)$, so $\\frac{3 - x}{x - 3} = -1$. Take out the $-1$ before you cancel."
+          "text": "Watch for brackets that are opposites. $3 - x = -(x - 3)$, so $\\frac{3 - x}{x - 3} = -1$ (for $x \\neq 3$). Take out the $-1$ before you cancel."
         },
         {
           "type": "check",
@@ -627,7 +627,7 @@
         },
         {
           "type": "fact",
-          "text": "Opposite brackets: $a - b = -(b - a)$, so $\\frac{3 - x}{x - 3} = -1$.",
+          "text": "Opposite brackets: $a - b = -(b - a)$, so $\\frac{3 - x}{x - 3} = -1$ for $x \\neq 3$.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -651,7 +651,7 @@
     "Adding the tops and adding the bottoms: $\\frac{1}{x} + \\frac{2}{y}$ is not $\\frac{3}{x + y}$. Use a common denominator.",
     "Forgetting to multiply a top by the other fraction's bottom. In $\\frac{3}{x} + \\frac{2}{x + 1}$, the $3$ becomes $3(x + 1)$.",
     "Losing a sign after a minus. $-(x + 2)$ is $-x - 2$, and $-2(y - 1)$ is $-2y + 2$.",
-    "Cancelling $5 - x$ with $x - 5$ as if they were the same. They are opposites, so the fraction $\\frac{5 - x}{x - 5}$ is $-1$."
+    "Cancelling $5 - x$ with $x - 5$ as if they were the same. They are opposites, so the fraction $\\frac{5 - x}{x - 5}$ is $-1$ (for $x \\neq 5$)."
   ],
   "examTips": [
     "\"Simplify\": show each factorisation on its own line. A correct factorisation of the top or the bottom can earn a mark even if the rest goes wrong.",

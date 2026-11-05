@@ -216,13 +216,13 @@
         },
         {
           "type": "result",
-          "statement": "The more trials you do, the better the relative frequency is as an estimate of the probability.",
+          "statement": "The more trials you do, the more reliable the relative frequency is as an estimate of the probability. It is not certain to be closer, but it usually is.",
           "why": "With many trials, the lucky and unlucky runs mostly cancel out."
         },
         {
           "type": "definition",
           "term": "Fair",
-          "statement": "A dice, coin or spinner is [[fair|fair]] when every outcome is equally likely.",
+          "statement": "A dice, coin or spinner is [[fair|fair]] when each face, side or section is equally likely to come up.",
           "plain": "Nothing is favoured."
         },
         {
@@ -371,7 +371,7 @@
         },
         {
           "type": "text",
-          "text": "Sometimes you aren't given a probability. Instead you have the results of a survey of a small group, called a sample. Use the sample's relative frequency as the probability for the whole group."
+          "text": "Sometimes you aren't given a probability. Instead you have the results of a survey of a small group, called a sample. If the sample is typical of the whole group, use its relative frequency as the probability for the whole group."
         },
         {
           "type": "example",
@@ -429,7 +429,7 @@
               "correct": false
             }
           ],
-          "explain": "$\\text{P}(\\text{not grow}) = 1 - 0.85 = 0.15$, so expect $0.15 \\times 60 = 9$. $51$ is the number expected to grow, and $0.15$ is a probability, not a number of seeds.",
+          "explain": "The probability of not growing is $1 - 0.85 = 0.15$, so expect $0.15 \\times 60 = 9$. $51$ is the number expected to grow, and $0.15$ is a probability, not a number of seeds.",
           "verify": {
             "kind": "exact",
             "truth": "(1 - Rational(85, 100)) * 60"
@@ -449,13 +449,13 @@
         },
         {
           "type": "fact",
-          "text": "Relative frequency estimates probability. More trials give a better estimate. Relative frequencies of all outcomes add to $1$.",
+          "text": "Relative frequency estimates probability. More trials usually give a better estimate. Relative frequencies of all outcomes add to $1$.",
           "tag": "learn",
           "cheatSheet": true
         },
         {
           "type": "fact",
-          "text": "Fair: every outcome equally likely. Biased: not fair. After many trials, a relative frequency far from the fair probability suggests bias.",
+          "text": "Fair: each face, side or section equally likely. Biased: not fair. After many trials, a relative frequency far from the fair probability suggests bias.",
           "tag": "learn",
           "cheatSheet": true
         },

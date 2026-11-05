@@ -246,7 +246,7 @@
         {
           "type": "definition",
           "term": "Rotational symmetry",
-          "statement": "A shape has rotational symmetry if it fits onto itself after a turn of less than $360^{\\circ}$ about its centre. Its order is the number of times it fits onto itself in one full turn.",
+          "statement": "A shape has rotational symmetry if it fits onto itself after a turn of more than $0^{\\circ}$ but less than $360^{\\circ}$ about its centre. Its order is the number of times it fits onto itself in one full turn.",
           "plain": "Every shape fits after a full turn, so the smallest order is 1, meaning no rotational symmetry."
         },
         {
@@ -544,7 +544,7 @@
         },
         {
           "type": "fact",
-          "text": "Square: 4 lines, order 4. Rectangle, rhombus (not squares): 2 lines, order 2. Parallelogram: 0 lines, order 2. Kite, isosceles trapezium: 1 line, order 1.",
+          "text": "Square: 4 lines, order 4. Rectangle, rhombus (not squares): 2 lines, order 2. Parallelogram: 0 lines, order 2. Kite (not a rhombus), isosceles trapezium: 1 line, order 1.",
           "tag": "learn",
           "cheatSheet": true
         },

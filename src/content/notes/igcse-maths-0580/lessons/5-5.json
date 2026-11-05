@@ -388,7 +388,7 @@
         },
         {
           "type": "text",
-          "text": "For surface area, count only surfaces you could touch from outside. Leave out only the area where two parts touch. If one face is bigger than the other, the ring left showing still counts."
+          "text": "For surface area, count only surfaces you could touch from outside. Where two parts join, the area where they touch is hidden on both parts, so leave it out of each. If one face is bigger than the other, the part left showing still counts."
         },
         {
           "type": "figure",
@@ -609,7 +609,7 @@
         },
         {
           "type": "fact",
-          "text": "Perimeter: add only the outside edges. Lines inside the shape don't count.",
+          "text": "Perimeter: add only the edges you trace round the shape. Dashed lines and joins between pieces don't count.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -627,7 +627,7 @@
         },
         {
           "type": "fact",
-          "text": "Surface area of a compound solid: leave out only the area where the parts touch.",
+          "text": "Surface area of a joined solid: leave out the area where two parts touch, from both parts. Any part of a bigger face left showing still counts.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -646,7 +646,7 @@
     "Using the diameter as the radius. Halve it before using $\\pi r^{2}$ or $2\\pi r$.",
     "Using a full or half circle for a quarter circle. Check how much of the circle is there.",
     "Using a sloping side, or the shape's full height, as a triangle's height. Use the height at right angles to the base.",
-    "Adding every face of each part of a solid. Leave out only the area where the parts touch; any part of a bigger face left showing still counts."
+    "Adding every face of each part of a solid. Leave out the area where the parts touch, from both parts; any part of a bigger face left showing still counts."
   ],
   "examTips": [
     "\"Give your answer in terms of $\\pi$\": collect the $\\pi$ terms, as in $36 + 4\\pi$, and don't turn $\\pi$ into a decimal.",

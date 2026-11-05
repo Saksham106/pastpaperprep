@@ -530,7 +530,7 @@
       "blocks": [
         {
           "type": "fact",
-          "text": "Total $=$ rate $\\times$ number of units. Divide to find the rate or the number of units. Add a fixed charge once.",
+          "text": "Total $=$ rate $\\times$ number of units. Divide to find the rate or the number of units. Add a fixed charge once, and take it off before you divide.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -573,5 +573,5 @@
     "Change units before you calculate, and give the unit the question asks for. Give answers that aren't exact to 3 significant figures, and money to the cent, unless the question says otherwise.",
     "Check the answer is sensible: you get more of the currency that is worth less."
   ],
-  "readingMinutes": 18
+  "readingMinutes": 19
 }

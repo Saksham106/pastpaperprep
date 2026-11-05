@@ -442,7 +442,7 @@
         {
           "type": "result",
           "statement": "The [[alternate-segment-theorem|alternate segment theorem]]: the angle between a tangent and a chord equals the angle the chord makes in the other segment. In the figure, angle $TAB =$ angle $ACB$.",
-          "why": "Draw the diameter $AD$ and join $DB$. Angle $DAT = 90^{\\circ}$ and angle $ABD = 90^{\\circ}$, so angles $TAB$ and $ADB$ both equal $90^{\\circ} -$ angle $DAB$. Angle $ADB =$ angle $ACB$ (same segment)."
+          "why": "For an acute angle $TAB$, as in the figure: draw the diameter $AD$ and join $DB$. Angle $DAT = 90^{\\circ}$ and angle $ABD = 90^{\\circ}$, so angles $TAB$ and $ADB$ both equal $90^{\\circ} -$ angle $DAB$. Angle $ADB =$ angle $ACB$ (same segment). An obtuse tangent–chord angle follows from the acute one on the other side of $A$."
         },
         {
           "type": "text",
@@ -560,7 +560,7 @@
   ],
   "mistakes": [
     "Giving a vague reason, such as \"right-angled triangle in a semicircle\". Name the property: the angle in a semicircle is $90^{\\circ}$.",
-    "Putting a right angle between a tangent and a chord. The $90^{\\circ}$ is only with the radius.",
+    "Putting a right angle between a tangent and a chord. The $90^{\\circ}$ is only with the radius, or a diameter, through the point of contact.",
     "Stopping at an angle found on the way. Reread the three letters of the angle asked for."
   ],
   "examTips": [
@@ -568,5 +568,5 @@
     "Circle diagrams are usually not to scale, so never measure. Work angles out from named facts.",
     "Mark each angle on the diagram as you find it. Correct angles on the way can earn marks."
   ],
-  "readingMinutes": 21
+  "readingMinutes": 22
 }

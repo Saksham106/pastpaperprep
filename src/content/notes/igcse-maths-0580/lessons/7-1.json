@@ -326,7 +326,7 @@
         },
         {
           "type": "text",
-          "text": "For any other line, move each point at right angles to the line, then the same distance again beyond it.",
+          "text": "For any other line, move each point at right angles to the line until it reaches the line, then the same distance again beyond it.",
           "level": "Extended"
         },
         {
@@ -528,7 +528,7 @@
           "type": "definition",
           "term": "Enlargement",
           "statement": "An [[enlargement|enlargement]] with centre $C$ and scale factor $k$ multiplies the move from $C$ to each point by $k$.",
-          "plain": "Lengths are multiplied by $k$; angles stay the same. A scale factor between $0$ and $1$ makes the shape smaller."
+          "plain": "Lengths are multiplied by $k$, ignoring any minus sign; angles stay the same. A scale factor between $0$ and $1$ makes the shape smaller."
         },
         {
           "type": "text",
@@ -622,7 +622,7 @@
         },
         {
           "type": "text",
-          "text": "A negative scale factor reverses the move from the centre: the image is upside down, on the other side. Ignore the sign for lengths.",
+          "text": "A negative scale factor reverses the move from the centre: the image is upside down, on the other side. Ignore the sign for lengths, but give it when you describe the enlargement.",
           "level": "Extended"
         },
         {
@@ -735,7 +735,7 @@
         },
         {
           "type": "text",
-          "text": "A [[combined-transformation|combined transformation]] is one transformation followed by another: apply the second to the image of the first. The order matters.",
+          "text": "A [[combined-transformation|combined transformation]] is one transformation followed by another: apply the second to the image of the first. The order can change the result, so keep to the order given.",
           "level": "Extended"
         },
         {
@@ -820,7 +820,7 @@
     "Reading a negative bottom number as up. In $\\begin{pmatrix}3\\\\-5\\end{pmatrix}$ the $-5$ means 5 down.",
     "Counting from an axis when the mirror line is, say, $y = -2$. Count from the mirror line.",
     "Mixing up $x = 3$ (vertical) with $y = 3$.",
-    "Giving a rotation angle with no direction, or \"right\". Write clockwise or anticlockwise.",
+    "Giving a $90^{\\circ}$ rotation with no direction, or \"right\". Write clockwise or anticlockwise; only a $180^{\\circ}$ turn needs no direction.",
     "Leaving out the centre or scale factor of an enlargement.",
     "Describing two transformations when the question asks for one. Two score nothing."
   ],

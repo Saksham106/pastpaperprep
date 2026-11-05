@@ -21,7 +21,7 @@
       ]
     },
     {
-      "text": "Write the bounds as an inequality, with $\\le$ and $<$ in the right places.",
+      "text": "Write the bounds as an inequality, with $\\leqslant$ and $<$ in the right places.",
       "bullets": [
         "1.10-c1"
       ]
@@ -128,7 +128,7 @@
         },
         {
           "type": "text",
-          "text": "A length of exactly $13.5$ cm rounds up to $14$ cm, so it is allowed: use $\\le$. A length of exactly $14.5$ cm rounds up to $15$ cm, so it is not: use $<$. We still call $14.5$ the upper bound."
+          "text": "A length of exactly $13.5$ cm rounds up to $14$ cm, so it is allowed: use $\\leqslant$. A length of exactly $14.5$ cm rounds up to $15$ cm, so it is not: use $<$. We still call $14.5$ the upper bound."
         },
         {
           "type": "example",
@@ -136,10 +136,10 @@
           "question": "The length of the pencil is $l$ cm. It is $14$ cm, correct to the nearest centimetre. Write the bounds of $l$ as an inequality.",
           "steps": [
             "The unit is $1$ cm, so half the unit is $0.5$ cm.",
-            "Lower bound: $14 - 0.5 = 13.5$. It is allowed, so use $\\le$.",
+            "Lower bound: $14 - 0.5 = 13.5$. It is allowed, so use $\\leqslant$.",
             "Upper bound: $14 + 0.5 = 14.5$. It rounds to $15$, so use $<$."
           ],
-          "answer": "$13.5 \\le l < 14.5$",
+          "answer": "$13.5 \\leqslant l < 14.5$",
           "verify": {
             "kind": "inequality",
             "truth": "Interval.Ropen(14 - Rational(1, 2), 14 + Rational(1, 2))",
@@ -157,7 +157,7 @@
             "Upper bound: $340 + 5 = 345$. A mass of $345$ g rounds to $350$ g, so use $<$.",
             "Check: $335$ and $344.9$ both round to $340$ to the nearest $10$."
           ],
-          "answer": "$335 \\le m < 345$",
+          "answer": "$335 \\leqslant m < 345$",
           "verify": {
             "kind": "inequality",
             "truth": "Interval.Ropen(340 - 10/2, 340 + 10/2)",
@@ -167,7 +167,7 @@
         },
         {
           "type": "mistake",
-          "text": "Adding and subtracting the whole unit, giving $330 \\le m < 350$. Always use half the unit: the value is the middle of its range."
+          "text": "Adding and subtracting the whole unit, giving $330 \\leqslant m < 350$. Always use half the unit: the value is the middle of its range."
         },
         {
           "type": "check",
@@ -192,19 +192,19 @@
           "hint": "Half of $20$ is $10$. The smaller bound goes on the left.",
           "options": [
             {
-              "text": "$240 \\le w < 280$",
+              "text": "$240 \\leqslant w < 280$",
               "correct": false
             },
             {
-              "text": "$250 \\le w < 270$",
+              "text": "$250 \\leqslant w < 270$",
               "correct": true
             },
             {
-              "text": "$255 \\le w < 265$",
+              "text": "$255 \\leqslant w < 265$",
               "correct": false
             },
             {
-              "text": "$259.5 \\le w < 260.5$",
+              "text": "$259.5 \\leqslant w < 260.5$",
               "correct": false
             }
           ],
@@ -242,7 +242,7 @@
             "Lower bound: $3.6 - 0.05 = 3.55$.",
             "Upper bound: $3.6 + 0.05 = 3.65$, which rounds up to $3.7$, so use $<$."
           ],
-          "answer": "$3.55 \\le m < 3.65$",
+          "answer": "$3.55 \\leqslant m < 3.65$",
           "verify": {
             "kind": "inequality",
             "truth": "Interval.Ropen(3.6 - 0.1/2, 3.6 + 0.1/2)",
@@ -259,7 +259,7 @@
             "Half of $0.01$ is $0.005$.",
             "Lower bound: $2.40 - 0.005 = 2.395$. Upper bound: $2.40 + 0.005 = 2.405$."
           ],
-          "answer": "$2.395 \\le V < 2.405$",
+          "answer": "$2.395 \\leqslant V < 2.405$",
           "verify": {
             "kind": "inequality",
             "truth": "Interval.Ropen(2.40 - 0.01/2, 2.40 + 0.01/2)",
@@ -465,7 +465,7 @@
         },
         {
           "type": "formula",
-          "tex": "\\text{lower bound} \\le x < \\text{upper bound}",
+          "tex": "\\text{lower bound} \\leqslant x < \\text{upper bound}",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -494,11 +494,11 @@
   ],
   "mistakes": [
     "Adding and subtracting the whole rounding unit. For the nearest $10$ g, the bounds are $5$ g either side, not $10$ g.",
-    "Writing the bounds the wrong way round. The lower bound goes on the left, before $\\le$; the upper bound goes after $<$.",
+    "Writing the bounds the wrong way round. The lower bound goes on the left, before $\\leqslant$; the upper bound goes after $<$.",
     "Getting the units wrong. Half of $10$ cm is $5$ cm, which is $0.05$ m, not $0.1$ m."
   ],
   "examTips": [
-    "Write down the bounds: no working is needed, but each correct bound earns its own mark. Put them in the order $\\text{lower} \\le x < \\text{upper}$.",
+    "Write down the bounds: no working is needed, but each correct bound earns its own mark. Put them in the order $\\text{lower} \\leqslant x < \\text{upper}$.",
     "Check each bound by rounding it: the lower bound must round to the given value, and the upper bound must round up to the next one."
   ],
   "readingMinutes": 17

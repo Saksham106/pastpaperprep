@@ -117,7 +117,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "In $y = 2x + 3$, $x$ and $y$ appear only to the power $1$, never squared. That makes it a [[linear-equation|linear equation]]."
+          "text": "In $y = 2x + 3$, $x$ and $y$ appear only to the power $1$: never squared, multiplied together or under a fraction line. That makes it a [[linear-equation|linear equation]]."
         },
         {
           "type": "definition",
@@ -193,7 +193,7 @@
             "At $x = -1$: $y = -3 \\times (-1) + 5 = 3 + 5 = 8$. Two negatives multiply to a positive.",
             "At $x = 0$: $y = 0 + 5 = 5$. At $x = 1$: $y = -3 + 5 = 2$.",
             "At $x = 2$: $y = -6 + 5 = -1$. At $x = 3$: $y = -9 + 5 = -4$.",
-            "Check the pattern: $y$ goes down by $3$ each time. With a minus sign in front of $x$, the line slopes down from left to right.",
+            "Check the pattern: $y$ goes down by $3$ each time. The number in front of $x$ is negative, so the line slopes down from left to right.",
             "Plot the five points and rule one line from $(-1, 8)$ to $(3, -4)$."
           ],
           "answer": "$y = 8, 5, 2, -1, -4$",
@@ -367,7 +367,7 @@
         },
         {
           "type": "text",
-          "text": "For $ax + by = c$, find where the line crosses the axes. Put $x = 0$ and solve for $y$. Then put $y = 0$ and solve for $x$."
+          "text": "For $ax + by = c$, find where the line crosses the axes. Put $x = 0$ and solve for $y$. Then put $y = 0$ and solve for $x$. Here $c$ is just the number on the right, not the $y$-intercept."
         },
         {
           "type": "text",
@@ -510,7 +510,7 @@
   ],
   "examTips": [
     "\"Draw the graph for $-3 \\le x \\le 3$\": rule a line that reaches both ends of that range. A short or freehand line loses marks.",
-    "\"Complete the table\": the marks are for the $y$ values. Check they change in equal steps before you plot.",
+    "\"Complete the table\": the marks are for the $y$ values. If the $x$ values go up in equal steps, check the $y$ values do too before you plot.",
     "Read the scale on each axis before you plot. One square is not always one unit."
   ],
   "readingMinutes": 15

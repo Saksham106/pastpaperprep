@@ -243,11 +243,11 @@
         },
         {
           "type": "text",
-          "text": "$y = ax + b$ is a [[linear-graph|linear graph]]: a straight line. It crosses the $y$-axis at $b$, and $a$ sets how steep it is."
+          "text": "$y = mx + c$ is a [[linear-graph|linear graph]]: a straight line. It crosses the $y$-axis at $c$, and $m$ sets how steep it is."
         },
         {
           "type": "text",
-          "text": "$y = x^{2} + ax + b$ comes from a [[quadratic-expression|quadratic]]. Its graph is a [[parabola|parabola]]: a U shape with a lowest point. With $-x^{2}$ it turns over into an upside-down U with a highest point."
+          "text": "$y = x^{2} + bx + c$ comes from a [[quadratic-expression|quadratic]]. Its graph is a [[parabola|parabola]]: a U shape with a lowest point. With $-x^{2}$ it turns over into an upside-down U with a highest point."
         },
         {
           "type": "text",
@@ -760,7 +760,7 @@
         },
         {
           "type": "fact",
-          "text": "$y = ax + b$ is a straight line (ruler). Join the points of a curve smoothly freehand, never with a ruler.",
+          "text": "$y = mx + c$ is a straight line (ruler). Join the points of a curve smoothly freehand, never with a ruler.",
           "tag": "learn",
           "cheatSheet": true
         },

@@ -64,7 +64,7 @@
       "type": "check",
       "id": "before-irrational",
       "prompt": "Which of these numbers is irrational?",
-      "hint": "The [[square-root|square root]] of a whole number is a whole number only when that number is a square number.",
+      "hint": "The [[square-root|square root]] of a positive whole number is a whole number only when that number is a square number.",
       "options": [
         {
           "text": "$\\sqrt{49}$",
@@ -141,7 +141,7 @@
         },
         {
           "type": "result",
-          "statement": "For $a \\ge 0$ and $b \\ge 0$: $\\sqrt{ab} = \\sqrt{a} \\times \\sqrt{b}$. When also $b > 0$: $\\sqrt{\\frac{a}{b}} = \\frac{\\sqrt{a}}{\\sqrt{b}}$.",
+          "statement": "For $a \\geqslant 0$ and $b \\geqslant 0$: $\\sqrt{ab} = \\sqrt{a} \\times \\sqrt{b}$. When also $b > 0$: $\\sqrt{\\frac{a}{b}} = \\frac{\\sqrt{a}}{\\sqrt{b}}$.",
           "why": "$(\\sqrt{a} \\times \\sqrt{b})^2 = a \\times b$, so $\\sqrt{a} \\times \\sqrt{b}$ is the positive number that squares to $ab$."
         },
         {
@@ -255,7 +255,7 @@
         },
         {
           "type": "mistake",
-          "text": "Adding under the root. $\\sqrt{9} + \\sqrt{16} = 3 + 4 = 7$, but $\\sqrt{9 + 16} = 5$. So $\\sqrt{a} + \\sqrt{b}$ is not $\\sqrt{a + b}$."
+          "text": "Adding under the root. $\\sqrt{9} + \\sqrt{16} = 3 + 4 = 7$, but $\\sqrt{9 + 16} = 5$. So $\\sqrt{a} + \\sqrt{b}$ is not $\\sqrt{a + b}$, unless $a$ or $b$ is $0$."
         },
         {
           "type": "example",
@@ -426,7 +426,7 @@
         },
         {
           "type": "result",
-          "statement": "For $b \\ge 0$: $(a + \\sqrt{b})(a - \\sqrt{b}) = a^2 - b$.",
+          "statement": "For $b \\geqslant 0$: $(a + \\sqrt{b})(a - \\sqrt{b}) = a^2 - b$.",
           "why": "Expanding gives $a^2 - a\\sqrt{b} + a\\sqrt{b} - b$, and the two middle terms cancel."
         },
         {
@@ -518,7 +518,7 @@
         },
         {
           "type": "fact",
-          "text": "For $a, b \\ge 0$: $\\sqrt{ab} = \\sqrt{a} \\times \\sqrt{b}$ and $\\sqrt{a} \\times \\sqrt{a} = a$. For $b > 0$: $\\sqrt{\\frac{a}{b}} = \\frac{\\sqrt{a}}{\\sqrt{b}}$.",
+          "text": "For $a, b \\geqslant 0$: $\\sqrt{ab} = \\sqrt{a} \\times \\sqrt{b}$ and $\\sqrt{a} \\times \\sqrt{a} = a$. For $b > 0$: $\\sqrt{\\frac{a}{b}} = \\frac{\\sqrt{a}}{\\sqrt{b}}$.",
           "tag": "learn",
           "cheatSheet": true
         },

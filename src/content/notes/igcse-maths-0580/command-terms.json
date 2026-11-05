@@ -1,1 +1,142 @@
-[]
+[
+  {
+    "id": "calculate",
+    "term": "Calculate",
+    "definition": "Find a number from the facts given, usually with a calculator on Paper 3 or 4. Write the calculation with your numbers in before the answer: that line earns the method mark even if the final value slips."
+  },
+  {
+    "id": "complete",
+    "term": "Complete",
+    "definition": "Fill in the missing parts of a table, diagram, statement or graph that is already started. The marks are for the entries themselves, so check each one, for example that probabilities add to $1$."
+  },
+  {
+    "id": "construct",
+    "term": "Construct",
+    "definition": "Make an accurate drawing with a ruler and compasses, such as a triangle, a bisector or a locus. Leave every construction arc visible: a correct line with no arcs earns only part of the marks."
+  },
+  {
+    "id": "describe",
+    "term": "Describe",
+    "definition": "Say in words what something is or what it shows. \"Describe fully\" for a transformation needs its name and every detail: the vector, the mirror line, the centre, angle and direction, or the centre and scale factor."
+  },
+  {
+    "id": "determine",
+    "term": "Determine",
+    "definition": "Find out for certain, with working that settles it. For \"determine whether\", show the numbers that decide it and end with a clear yes or no."
+  },
+  {
+    "id": "differentiate",
+    "term": "Differentiate",
+    "definition": "Find the derivative, $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$, term by term. Each correct term usually earns credit, so give every term of the answer."
+  },
+  {
+    "id": "draw",
+    "term": "Draw",
+    "definition": "Make an accurate drawing on the grid or diagram, in pencil. Rule straight lines, join the points of a curve smoothly, and cover the full range asked for."
+  },
+  {
+    "id": "estimate",
+    "term": "Estimate",
+    "definition": "Give an approximate value and show where it comes from. To estimate a calculation, round each number to $1$ significant figure and write the rounded values down; for \"calculate an estimate\" of a mean, use the midpoint of each class."
+  },
+  {
+    "id": "expand",
+    "term": "Expand",
+    "definition": "Multiply out the brackets. With \"expand and simplify\", write every product before you collect like terms, as the correct terms can earn a mark on their own."
+  },
+  {
+    "id": "explain",
+    "term": "Explain",
+    "definition": "Say why or how, in words, backed by the numbers or facts that prove it. A bare answer such as \"yes\" earns nothing without the reason."
+  },
+  {
+    "id": "factorise",
+    "term": "Factorise",
+    "definition": "Write the expression as a product of factors. \"Factorise completely\" means take out every common factor: a partly factorised answer usually earns only some of the marks."
+  },
+  {
+    "id": "find",
+    "term": "Find",
+    "definition": "Work out the answer by any correct method, showing the key steps. Correct working can earn method marks even when the final answer is wrong."
+  },
+  {
+    "id": "give-a-reason",
+    "term": "Give a reason",
+    "definition": "Back up your answer with the fact or property that makes it true, written out in full, such as \"angles on a straight line add up to $180^{\\circ}$\". A value with no reason usually earns only part of the marks."
+  },
+  {
+    "id": "give-your-answer",
+    "term": "Give your answer",
+    "definition": "Finish in exactly the form or accuracy asked for, such as in its simplest form, in terms of $\\pi$, in standard form or correct to $2$ decimal places. Write the full calculator value first, then round once at the end."
+  },
+  {
+    "id": "measure",
+    "term": "Measure",
+    "definition": "Use a ruler or protractor on an accurate diagram and give the reading with its unit, such as $74$ mm or a three-figure bearing. Only a small error is allowed, and never measure a diagram marked not to scale."
+  },
+  {
+    "id": "plot",
+    "term": "Plot",
+    "definition": "Mark each point on the grid with a small, neat cross. Each point must be within half a small square of the true position, so check what one square is worth first."
+  },
+  {
+    "id": "rearrange",
+    "term": "Rearrange",
+    "definition": "Change a formula so that a different letter is the subject, often worded \"make $x$ the subject\". Do the same operation to both sides on each line, and finish with $x = \\ldots$ and no $x$ on the other side."
+  },
+  {
+    "id": "shade",
+    "term": "Shade",
+    "definition": "Fill in the exact region asked for on a Venn diagram, grid or drawing. Read whether you must shade the wanted region or the unwanted one, and shade nothing else."
+  },
+  {
+    "id": "show-all-your-working",
+    "term": "Show all your working",
+    "definition": "Write every step that leads to your answer. A correct answer with no working can score nothing here, as the marks are for the method."
+  },
+  {
+    "id": "show-that",
+    "term": "Show that",
+    "definition": "Reach the given result through clear steps, ending with exactly what was given. For a rounded value, write a more accurate one first, such as $33.74\\ldots$ to show $33.7$; you can use the given result in later parts even if you couldn't reach it."
+  },
+  {
+    "id": "simplify",
+    "term": "Simplify",
+    "definition": "Write the expression in its shortest form: collect like terms, cancel common factors and use the index laws. Show each step, as a correct factorisation or part simplification can earn a mark."
+  },
+  {
+    "id": "sketch",
+    "term": "Sketch",
+    "definition": "Draw freehand the right general shape, not to scale, in the correct quadrants. Mark the key features, such as where it crosses the axes and its turning points, and label the axes."
+  },
+  {
+    "id": "solve",
+    "term": "Solve",
+    "definition": "Find every value that makes the equation or inequality true, and show your method. Check the range given: an answer with a solution missing usually loses marks."
+  },
+  {
+    "id": "state",
+    "term": "State",
+    "definition": "Give a short, clear answer, such as a name, a value or a fact. No working or explanation is needed."
+  },
+  {
+    "id": "use-your-graph",
+    "term": "Use your graph",
+    "definition": "Take the answer from the graph you have drawn, not from algebra. Draw any line you use on the grid and read values to within half a small square."
+  },
+  {
+    "id": "work-out",
+    "term": "Work out",
+    "definition": "Find a number from the facts given, with or without a calculator. On Papers 1 and 2 there is no calculator, so write each step, such as the common denominator, because those lines earn the method marks."
+  },
+  {
+    "id": "write",
+    "term": "Write",
+    "definition": "Give the answer in the particular form asked for, such as an ordinary number, a fraction or a column vector. The right value in the wrong form loses the mark."
+  },
+  {
+    "id": "write-down",
+    "term": "Write down",
+    "definition": "Give the answer straight away, read from the information or known from memory. Little or no working is needed, but the form still counts: a point as coordinates, a probability as a fraction, decimal or percentage."
+  }
+]

@@ -132,7 +132,7 @@
         {
           "type": "result",
           "statement": "In any triangle, $b\\sin A = a\\sin B$. Dividing by $\\sin A\\sin B$ gives the sine rule.",
-          "why": "Draw the height $h$ from $C$, at right angles to the line through $A$ and $B$. The two right-angled triangles give $h = b\\sin A$ and $h = a\\sin B$."
+          "why": "Draw the height $h$ from $C$, at right angles to the line through $A$ and $B$. The two right-angled triangles give $h = b\\sin A$ and $h = a\\sin B$. If $A$ or $B$ is obtuse, the height lands outside the triangle, and $\\sin(180^{\\circ} - x) = \\sin x$, below, gives the same result."
         },
         {
           "type": "text",

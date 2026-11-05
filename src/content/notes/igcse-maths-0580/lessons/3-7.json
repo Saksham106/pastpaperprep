@@ -6,7 +6,7 @@
   "title": "Perpendicular lines",
   "level": "Extended",
   "topic": 3,
-  "summary": "Two lines are [[perpendicular|perpendicular]] when they meet at a right angle. Their gradients are linked: each is the [[negative-reciprocal|negative reciprocal]] of the other, so you flip the fraction and change the sign. With that gradient and one point, you can write the equation of a perpendicular line, including a [[perpendicular-bisector|perpendicular bisector]].",
+  "summary": "Two lines are [[perpendicular|perpendicular]] when they meet at a right angle. Unless one is horizontal and the other vertical, their gradients are linked: each is the [[negative-reciprocal|negative reciprocal]] of the other, so you flip the fraction and change the sign. With that gradient and one point, you can write the equation of a perpendicular line, including a [[perpendicular-bisector|perpendicular bisector]].",
   "goals": [
     {
       "text": "Work out the gradient of a line perpendicular to a given line, from its gradient or its equation.",
@@ -398,7 +398,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "The [[perpendicular-bisector|perpendicular bisector]] of a line segment $PQ$ cuts it in half at a right angle. So it passes through the [[midpoint|midpoint]] of $PQ$, and its gradient is the negative reciprocal of the gradient of $PQ$."
+          "text": "The [[perpendicular-bisector|perpendicular bisector]] of a line segment $PQ$ cuts it in half at a right angle. So it passes through the [[midpoint|midpoint]] of $PQ$, and its gradient is the negative reciprocal of the gradient of $PQ$. If $PQ$ is horizontal, the bisector is vertical, $x = \\ldots$; if $PQ$ is vertical, it is horizontal, $y = \\ldots$."
         },
         {
           "type": "figure",
@@ -524,7 +524,7 @@
         },
         {
           "type": "fact",
-          "text": "Perpendicular bisector of $PQ$: it goes through the midpoint of $PQ$, with the negative reciprocal of the gradient of $PQ$.",
+          "text": "Perpendicular bisector of $PQ$: it goes through the midpoint of $PQ$, with the negative reciprocal of the gradient of $PQ$. If $PQ$ is horizontal or vertical, the bisector is the vertical or horizontal line through the midpoint.",
           "tag": "learn",
           "cheatSheet": true
         },

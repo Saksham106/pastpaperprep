@@ -112,7 +112,7 @@
         },
         {
           "type": "text",
-          "text": "Mass is measured in grams (g) and kilograms (kg). Capacity, how much liquid a container holds, is measured in millilitres (ml) and litres (l)."
+          "text": "Mass is measured in grams (g) and kilograms (kg). Capacity, how much liquid a container holds, is measured in millilitres (ml) and litres."
         },
         {
           "type": "text",
@@ -120,7 +120,7 @@
         },
         {
           "type": "formula",
-          "tex": "\\begin{array}{l} 1\\text{ km} = 1000\\text{ m} \\qquad 1\\text{ m} = 100\\text{ cm} \\qquad 1\\text{ cm} = 10\\text{ mm} \\\\ 1\\text{ kg} = 1000\\text{ g} \\qquad 1\\text{ l} = 1000\\text{ ml} \\end{array}",
+          "tex": "\\begin{array}{l} 1\\text{ km} = 1000\\text{ m} \\qquad 1\\text{ m} = 100\\text{ cm} \\qquad 1\\text{ cm} = 10\\text{ mm} \\\\ 1\\text{ kg} = 1000\\text{ g} \\qquad 1\\text{ litre} = 1000\\text{ ml} \\end{array}",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -394,7 +394,7 @@
         },
         {
           "type": "formula",
-          "tex": "\\begin{array}{l} 1\\text{ cm}^{3} = 10^{3} = 1000\\text{ mm}^{3} \\\\ 1\\text{ m}^{3} = 100^{3} = 1\\,000\\,000\\text{ cm}^{3} \\\\ 1\\text{ cm}^{3} = 1\\text{ ml} \\qquad 1000\\text{ cm}^{3} = 1\\text{ l} \\qquad 1\\text{ m}^{3} = 1000\\text{ l} \\end{array}",
+          "tex": "\\begin{array}{l} 1\\text{ cm}^{3} = 10^{3} = 1000\\text{ mm}^{3} \\\\ 1\\text{ m}^{3} = 100^{3} = 1\\,000\\,000\\text{ cm}^{3} \\\\ 1\\text{ cm}^{3} = 1\\text{ ml} \\qquad 1000\\text{ cm}^{3} = 1\\text{ litre} \\qquad 1\\text{ m}^{3} = 1000\\text{ litres} \\end{array}",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -498,7 +498,7 @@
         },
         {
           "type": "fact",
-          "text": "Change every quantity to the same unit before you add, subtract, multiply or divide.",
+          "text": "Change all lengths to one unit (and all masses, all capacities) before you add, subtract, multiply or divide them.",
           "tag": "learn",
           "cheatSheet": true
         }

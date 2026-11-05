@@ -117,7 +117,7 @@
         },
         {
           "type": "text",
-          "text": "Improper to mixed: divide the numerator by the denominator. The answer is the whole number. The remainder goes over the same denominator."
+          "text": "Improper to mixed: divide the numerator by the denominator. The answer is the whole number. The remainder goes over the same denominator. With no remainder, the answer is a whole number."
         },
         {
           "type": "example",
@@ -739,13 +739,13 @@
         },
         {
           "type": "fact",
-          "text": "Equivalent fractions: multiply or divide top and bottom by the same number. Simplest form: divide both by the HCF.",
+          "text": "Equivalent fractions: multiply or divide top and bottom by the same non-zero number. Simplest form: divide both by the HCF.",
           "tag": "learn",
           "cheatSheet": true
         },
         {
           "type": "fact",
-          "text": "Decimal to fraction: digits over $10$, $100$ or $1000$, then simplify. Fraction to decimal: divide the numerator by the denominator.",
+          "text": "Decimal to fraction: digits over $10$, $100$, $1000$, … (one zero per decimal place), then simplify. Fraction to decimal: divide the numerator by the denominator.",
           "tag": "learn",
           "cheatSheet": true
         },

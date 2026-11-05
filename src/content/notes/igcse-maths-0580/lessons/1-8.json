@@ -9,7 +9,7 @@
   "summary": "[[standard-form|Standard form]] writes a very large or very small number as a number from $1$ to just under $10$, times a power of $10$. You'll convert numbers into and out of standard form, and multiply, divide, add and subtract with them.",
   "goals": [
     {
-      "text": "Say whether a number is in standard form, $A \\times 10^{n}$ with $1 \\le A < 10$.",
+      "text": "Say whether a number is in standard form, $A \\times 10^{n}$ with $1 \\leqslant A < 10$.",
       "bullets": [
         "1.8-c1"
       ]
@@ -112,7 +112,7 @@
         {
           "type": "definition",
           "term": "Standard form",
-          "statement": "A number is in [[standard-form|standard form]] when it is written as $A \\times 10^{n}$, where $1 \\le A < 10$ and $n$ is an integer (positive, negative or zero).",
+          "statement": "A number is in [[standard-form|standard form]] when it is written as $A \\times 10^{n}$, where $1 \\leqslant A < 10$ and $n$ is an integer (positive, negative or zero).",
           "plain": "Exactly one non-zero digit before the decimal point, times a power of $10$."
         },
         {
@@ -566,7 +566,7 @@
       "blocks": [
         {
           "type": "formula",
-          "tex": "A \\times 10^{n}, \\quad 1 \\le A < 10, \\quad n \\text{ an integer}",
+          "tex": "A \\times 10^{n}, \\quad 1 \\leqslant A < 10, \\quad n \\text{ an integer}",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -598,7 +598,7 @@
     }
   ],
   "mistakes": [
-    "Leaving $A$ outside $1 \\le A < 10$, as in $36 \\times 10^{4}$. The value is right but the form is not: write $3.6 \\times 10^{5}$.",
+    "Leaving $A$ outside $1 \\leqslant A < 10$, as in $36 \\times 10^{4}$. The value is right but the form is not: write $3.6 \\times 10^{5}$.",
     "Getting the sign of the power wrong. A number less than $1$, like $0.007$, has a negative power: $7 \\times 10^{-3}$.",
     "Miscounting the places the point moves. Convert your answer back and count the zeros.",
     "Comparing only the $A$ values. $9.1 \\times 10^{2}$ is smaller than $1.2 \\times 10^{3}$, because the power matters first.",

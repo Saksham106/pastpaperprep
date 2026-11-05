@@ -164,7 +164,7 @@
         },
         {
           "type": "text",
-          "text": "With no number in front of $x$, the gradient is $1$: $y = x + 6$ has $m = 1$. With no number on its own, $c = 0$: $y = 5x$ passes through the [[origin|origin]]."
+          "text": "With no number in front of $x$, the gradient is $1$: $y = x + 6$ has $m = 1$, and $y = -x + 6$ has $m = -1$. With no number on its own, $c = 0$: $y = 5x$ passes through the [[origin|origin]]."
         },
         {
           "type": "check",
@@ -197,7 +197,7 @@
         },
         {
           "type": "text",
-          "text": "Every point on the $x$-axis has $y = 0$. So to find where a line crosses the $x$-axis, put $y = 0$ and solve for $x$."
+          "text": "Every point on the $x$-axis has $y = 0$. So to find where a line crosses the $x$-axis, put $y = 0$ and solve for $x$. (A horizontal line such as $y = 4$ never crosses it.)"
         },
         {
           "type": "example",
@@ -367,7 +367,7 @@
         },
         {
           "type": "text",
-          "text": "Then $c$ is the starting value, and $m$ is the [[rate-of-change|rate of change]]."
+          "text": "Then $c$ is the value when the quantity across is $0$, usually the starting value, and $m$ is the [[rate-of-change|rate of change]]."
         },
         {
           "type": "figure",
@@ -569,7 +569,7 @@
         },
         {
           "type": "text",
-          "text": "A question may ask for the form $ax + by = c$, where $a$, $b$ and $c$ are integers. Clear any fractions, then collect $x$ and $y$ on one side."
+          "text": "A question may ask for the form $ax + by = c$, where $a$, $b$ and $c$ are integers. This $c$ is not the $y$-intercept. Clear any fractions, then collect $x$ and $y$ on one side."
         },
         {
           "type": "example",
@@ -612,7 +612,7 @@
         },
         {
           "type": "fact",
-          "text": "From a graph: read $c$ on the $y$-axis, then find $m$ from a triangle, using the axis numbers.",
+          "text": "From a graph: read $c$ where $x = 0$, then find $m$ from a triangle, using the axis numbers.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -644,5 +644,5 @@
     "“Find the equation of the line”: give a full equation such as $y = \\frac{3}{4}x + 1$, not just $m$ and $c$. Give it in its simplest form.",
     "Write the gradient as a fraction, such as $\\frac{-12}{8}$, and write down $c$. Each can earn a mark even if the final equation slips."
   ],
-  "readingMinutes": 18
+  "readingMinutes": 19
 }

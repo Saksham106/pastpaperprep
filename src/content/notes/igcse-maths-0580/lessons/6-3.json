@@ -239,7 +239,7 @@
         },
         {
           "type": "mistake",
-          "text": "Picking $\\frac{\\sqrt{3}}{2}$ for $\\cos 45^\\circ$. A $\\sqrt{3}$ only appears for $30^\\circ$ and $60^\\circ$. The $45^\\circ$ values all use $\\sqrt{2}$."
+          "text": "Picking $\\frac{\\sqrt{3}}{2}$ for $\\cos 45^\\circ$. A $\\sqrt{3}$ only appears for $30^\\circ$ and $60^\\circ$. $\\sin 45^\\circ$ and $\\cos 45^\\circ$ use $\\sqrt{2}$, and $\\tan 45^\\circ = 1$."
         },
         {
           "type": "check",

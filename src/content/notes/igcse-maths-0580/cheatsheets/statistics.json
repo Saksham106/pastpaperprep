@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Two-way table with missing cells → start with a row or column that has only one gap: its total minus the cells you know ({{lesson:9.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Which group is more likely to…, groups of different sizes → compare percentages or fractions of each group, not counts ({{lesson:9.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Compare two data sets → one comment on an average and one on the spread (range), naming the sets and saying what each means in context ({{lesson:9.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Which average, or why not the mean → median when there is an extreme value; mode for the most popular choice or for words ({{lesson:9.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Mean from a frequency table → $\\frac{\\sum fx}{\\sum f}$: divide by the total frequency, not the number of rows ({{lesson:9.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Missing value when the mean is given → total $=$ mean $\\times$ number of values, then subtract the values you know ({{lesson:9.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Spread when there is an extreme value → interquartile range: upper quartile $-$ lower quartile, each the median of one half of the ordered data ({{lesson:9.3}}, {{lesson:9.2}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Estimate of the mean from a grouped frequency table → use each class midpoint: $\\frac{\\sum f \\times \\text{midpoint}}{\\sum f}$ ({{lesson:9.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Pie chart angles → $\\frac{\\text{frequency}}{\\text{total}} \\times 360^\\circ$; without a calculator, find $360^\\circ \\div$ total for one item first ({{lesson:9.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Estimate a value from a scatter diagram with correlation → line of best fit by eye, read from the line, and trust it only inside the range of the data ({{lesson:9.5}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Median, quartiles or a percentile from a cumulative frequency curve → go across from $\\frac{1}{2}n$, $\\frac{1}{4}n$, $\\frac{3}{4}n$ or $\\frac{p}{100}n$, then down; more than a value → total minus the reading ({{lesson:9.6}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Histogram with unequal class widths → bar height $=$ frequency density $= \\frac{\\text{frequency}}{\\text{class width}}$; frequency $=$ height $\\times$ width, of only part of the bar for part of a class ({{lesson:9.7}})",
+      "tag": "learn",
+      "level": "Extended"
+    }
+  ]
+}

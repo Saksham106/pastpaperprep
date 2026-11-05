@@ -106,7 +106,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Right-angled triangles with the same angle are the same shape, whatever their size. With a $30^{\\circ}$ angle, for example, the side across from it is always half the longest side. So for a fixed angle, the ratio of two sides never changes."
+          "text": "Right-angled triangles with the same acute angle are the same shape, whatever their size. With a $30^{\\circ}$ angle, for example, the side across from it is always half the longest side. So for a fixed angle, the ratio of two sides never changes."
         },
         {
           "type": "text",
@@ -422,7 +422,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Look for right angles, then solve one right-angled triangle at a time. Two sides and no angle: Pythagoras. An angle given or wanted: trigonometry."
+          "text": "Look for right angles, then solve one right-angled triangle at a time. Two sides known and the third side wanted: Pythagoras. An angle given or wanted: trigonometry."
         },
         {
           "type": "figure",
@@ -731,7 +731,7 @@
         },
         {
           "type": "fact",
-          "text": "Elevation and depression are measured from the horizontal, and are equal between two points.",
+          "text": "Elevation and depression are measured from the horizontal. The angle of depression from $A$ to $B$ equals the angle of elevation from $B$ to $A$.",
           "tag": "learn",
           "cheatSheet": true,
           "level": "Extended"

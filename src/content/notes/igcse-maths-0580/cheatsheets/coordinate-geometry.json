@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Read or plot a point → $x$ across first, then $y$ up or down; on a scaled axis, first work out what one square stands for ({{lesson:3.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Missing corner $D$ of a rectangle or parallelogram $ABCD$ → do the move from $B$ to $A$, starting at $C$ ({{lesson:3.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Draw the graph of $y = mx + c$ for a range of $x$ → table of values, or three points (both ends and one in between), then one ruled line across the whole range ({{lesson:3.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Gradient of a line drawn on a grid → triangle between two far-apart points, change in $y$ ÷ change in $x$ read from the axis numbers; downhill means negative ({{lesson:3.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Gradient or $y$-intercept from $y = mx + c$ → the gradient is $m$ and the line meets the $y$-axis at $(0, c)$; for where it meets the $x$-axis, put $y = 0$ ({{lesson:3.5}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Equation of a line drawn on a grid → read $c$ where $x = 0$, find $m$ from a triangle, write $y = mx + c$; a vertical line is $x = k$ ({{lesson:3.5}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Line parallel to $y = mx + c$ through a given point → keep $m$, substitute the point into $y = mx + c$ to find the new $c$ ({{lesson:3.6}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Line given as $ax + by = c$ → to draw it (with $a$, $b$, $c$ non-zero), put $x = 0$ then $y = 0$ to find where it crosses the axes; to read its gradient, make $y$ the subject first ({{lesson:3.2}}, {{lesson:3.5}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Gradient or equation of the line through two points → $m = \\frac{y_2 - y_1}{x_2 - x_1}$, then substitute one point into $y = mx + c$ to find $c$ ({{lesson:3.3}}, {{lesson:3.5}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Length of a line segment from its end points → Pythagoras: $\\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$ ({{lesson:3.4}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Midpoint, or a missing end when the midpoint is known → add and halve each coordinate; for the missing end, repeat the step from the known end to the midpoint ({{lesson:3.4}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Line perpendicular to a line of gradient $m \\ne 0$ → gradient $-\\frac{1}{m}$, then substitute the given point to find $c$; for a perpendicular bisector, use the midpoint ({{lesson:3.7}})",
+      "tag": "learn",
+      "level": "Extended"
+    }
+  ]
+}

@@ -639,18 +639,18 @@
         },
         {
           "type": "text",
-          "text": "Exponential graph $y = ar^{x} + b$, where $r > 0$ and $r \\neq 1$. With $a > 0$, it rises more and more steeply if $r > 1$, and falls and levels off if $r < 1$. With $a < 0$ it is flipped upside down."
+          "text": "Exponential graph $y = ab^{x} + c$, where $b > 0$ and $b \\neq 1$. With $a > 0$, it rises more and more steeply if $b > 1$, and falls and levels off if $b < 1$. With $a < 0$ it is flipped upside down."
         },
         {
           "type": "text",
-          "text": "It has one asymptote, $y = b$, where it levels off. It crosses the $y$-axis at $(0, a + b)$, because $r^{0} = 1$."
+          "text": "It has one asymptote, $y = c$, where it levels off. It crosses the $y$-axis at $(0, a + c)$, because $b^{0} = 1$."
         },
         {
           "type": "example",
           "id": "ex-exp",
           "question": "Sketch $y = 5(0.5)^{x} - 2$, labelling its asymptote and y-intercept.",
           "steps": [
-            "$a = 5$, $r = 0.5$ and $b = -2$. $r < 1$, so the curve falls and levels off on the right.",
+            "$a = 5$, $b = 0.5$ and $c = -2$. $b < 1$, so the curve falls and levels off on the right.",
             "As $x$ grows, $(0.5)^{x}$ gets close to $0$, so $y$ gets close to $-2$. The asymptote is $y = -2$.",
             "Y-intercept: $y = 5 \\times 1 - 2 = 3$, so $(0, 3)$.",
             "To the left it climbs steeply: at $x = -1$, $y = 5 \\times 2 - 2 = 8$. It crosses the $x$-axis once, between $x = 1$ and $x = 2$."
@@ -670,7 +670,7 @@
         },
         {
           "type": "mistake",
-          "text": "Letting the curve cross or touch its asymptote. It gets closer and closer, but never meets it."
+          "text": "Letting a reciprocal or exponential curve cross or touch its asymptote. It gets closer and closer, but never meets it."
         },
         {
           "type": "check",
@@ -766,14 +766,14 @@
         },
         {
           "type": "fact",
-          "text": "$y = \\frac{a}{x} + b$ has asymptotes $x = 0$ and $y = b$.",
+          "text": "$y = \\frac{a}{x} + b$ ($a \\neq 0$) has asymptotes $x = 0$ and $y = b$.",
           "tag": "learn",
           "cheatSheet": true,
           "level": "Extended"
         },
         {
           "type": "fact",
-          "text": "$y = ar^{x} + b$ has asymptote $y = b$ and crosses the $y$-axis at $(0, a + b)$.",
+          "text": "$y = ab^{x} + c$ ($b > 0$, $b \\neq 1$) has asymptote $y = c$ and crosses the $y$-axis at $(0, a + c)$.",
           "tag": "learn",
           "cheatSheet": true,
           "level": "Extended"

@@ -63,7 +63,7 @@
     {
       "type": "check",
       "id": "before-single-pick",
-      "prompt": "A bag holds $4$ red beads and $9$ yellow beads. One bead is taken at random. Which is $\\mathrm{P}(\\text{red})$?",
+      "prompt": "A bag holds $4$ red beads and $9$ yellow beads. One bead is taken at random. What is the probability that it is red?",
       "hint": "Divide the number of red beads by the number of beads in the bag.",
       "options": [
         {
@@ -119,7 +119,7 @@
         },
         {
           "type": "text",
-          "text": "When every outcome is equally likely, $\\mathrm{P} = \\dfrac{\\text{number of outcomes you want}}{\\text{total number of outcomes}}$."
+          "text": "$\\mathrm{P}(\\text{red})$ is short for \"the probability of red\". When every outcome is equally likely, $\\mathrm{P} = \\dfrac{\\text{number of outcomes you want}}{\\text{total number of outcomes}}$."
         },
         {
           "type": "example",
@@ -394,7 +394,7 @@
         {
           "type": "text",
           "level": "Extended",
-          "text": "Extended papers may write $\\mathrm{P}(A \\cap B)$ for the probability of $A$ and $B$: the overlap. $\\mathrm{P}(A \\cup B)$ is the probability of $A$ or $B$ or both: everything inside the circles."
+          "text": "Extended papers may write $\\mathrm{P}(A \\cap B)$ for the probability of $A$ and $B$: the overlap. $\\mathrm{P}(A \\cup B)$ is the probability of $A$ or $B$ or both: everything inside circle $A$ or circle $B$, with the overlap counted once."
         },
         {
           "type": "check",
@@ -540,8 +540,7 @@
         {
           "type": "fact",
           "text": "Equally likely outcomes: $\\mathrm{P} = \\dfrac{\\text{outcomes you want}}{\\text{total outcomes}}$.",
-          "tag": "learn",
-          "cheatSheet": true
+          "tag": "learn"
         },
         {
           "type": "fact",
@@ -557,7 +556,7 @@
         },
         {
           "type": "fact",
-          "text": "$\\mathrm{P}(A \\cap B)$: the overlap. $\\mathrm{P}(A \\cup B)$: everything inside the circles.",
+          "text": "$\\mathrm{P}(A \\cap B)$: the overlap. $\\mathrm{P}(A \\cup B)$: everything inside circle $A$ or circle $B$, overlap counted once.",
           "tag": "learn",
           "cheatSheet": true,
           "level": "Extended"
@@ -580,9 +579,9 @@
     "Extended: keeping the same total on the second pick when the item is not put back. Out of $9$ becomes out of $8$."
   ],
   "examTips": [
-    "\"Complete the tree diagram\": write a probability beside every branch and check that each pair adds to $1$. The outcome names go at the ends of the branches.",
+    "\"Complete the tree diagram\": write a probability beside every branch and check that the branches from each point add to $1$. The outcome names go at the ends of the branches.",
     "\"Work out the probability\": write the multiplication, such as $\\frac{5}{8} \\times \\frac{5}{8}$, before the answer. It can earn a method mark.",
     "Give a probability as a fraction, decimal or percentage, never as a ratio such as $3 : 8$."
   ],
-  "readingMinutes": 18
+  "readingMinutes": 19
 }

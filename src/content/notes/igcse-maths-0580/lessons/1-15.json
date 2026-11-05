@@ -116,7 +116,7 @@
         },
         {
           "type": "formula",
-          "tex": "1\\text{ week} = 7\\text{ days} \\qquad 1\\text{ year} = 12\\text{ months} = 365\\text{ days}",
+          "tex": "1\\text{ week} = 7\\text{ days} \\qquad 1\\text{ year} = 12\\text{ months} = 365\\text{ days } (366 \\text{ in a leap year})",
           "tag": "learn"
         },
         {
@@ -581,7 +581,7 @@
       "blocks": [
         {
           "type": "fact",
-          "text": "$60$ s $= 1$ min, $60$ min $= 1$ h, $24$ h $= 1$ day, $7$ days $= 1$ week, $12$ months $= 1$ year $= 365$ days.",
+          "text": "$60$ s $= 1$ min, $60$ min $= 1$ h, $24$ h $= 1$ day, $7$ days $= 1$ week, $12$ months $= 1$ year $= 365$ days ($366$ in a leap year).",
           "tag": "learn",
           "cheatSheet": true
         },

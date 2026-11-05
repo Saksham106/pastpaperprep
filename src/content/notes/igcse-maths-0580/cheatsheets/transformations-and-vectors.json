@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Describe a move where the image is the same size and the same way up → translation: vector $=$ image corner $-$ matching object corner, across on top ({{lesson:7.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Image the same size but flipped → reflection: the mirror line is halfway between matching corners; $x = k$ is vertical, $y = k$ is horizontal ({{lesson:7.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Image the same size but turned → rotation: give the centre, the angle and, unless it is $180^{\\circ}$, the direction; turn the move from the centre to each corner ({{lesson:7.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Half turn with an unknown centre → the centre is the midpoint of any point and its image ({{lesson:7.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Image a different size → enlargement: scale factor $=$ image length $\\div$ object length; lines through matching corners meet at the centre ({{lesson:7.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Enlarged image upside down on the other side of the centre → negative scale factor: multiply the move from the centre by it ({{lesson:7.1}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Reflect in $y = x$ or $y = -x$ → $(x, y) \\to (y, x)$ or $(x, y) \\to (-y, -x)$ ({{lesson:7.1}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Vector between two points → end minus start: $\\overrightarrow{AB} = \\begin{pmatrix}x_B - x_A\\\\y_B - y_A\\end{pmatrix}$; for a combination such as $2\\mathbf{p} - 3\\mathbf{q}$, multiply by the scalars first, then work row by row ({{lesson:7.2}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Length of a vector → $\\sqrt{x^2 + y^2}$, after working out the column vector the question names; missing component → $k^2 = |\\mathbf{v}|^2 - (\\text{known})^2$, both signs unless one is ruled out ({{lesson:7.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Vector in terms of $\\mathbf{a}$ and $\\mathbf{b}$ → add along a route of known arrows, using the negative against an arrow; for $AP : PB = m : n$, $\\overrightarrow{AP} = \\frac{m}{m + n}\\overrightarrow{AB}$ ({{lesson:7.4}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Show lines are parallel or points are collinear → write one vector as a number times the other; for collinear, the two vectors must also share a point ({{lesson:7.4}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Where two lines meet → write the point's position vector once for each line, with an unknown number in each, then match the amounts of $\\mathbf{a}$ and of $\\mathbf{b}$ ({{lesson:7.4}})",
+      "tag": "learn",
+      "level": "Extended"
+    }
+  ]
+}

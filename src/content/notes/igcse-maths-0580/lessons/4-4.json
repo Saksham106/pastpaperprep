@@ -123,7 +123,7 @@
         },
         {
           "type": "text",
-          "text": "Every length on the new shape is the old length times the [[scale-factor|scale factor]]. A scale factor above $1$ makes the shape bigger. Between $0$ and $1$, it makes it smaller."
+          "text": "Every length on the new shape is the old length times the [[scale-factor|scale factor]]. A scale factor above $1$ makes the shape bigger. Between $0$ and $1$, it makes it smaller. A scale factor of exactly $1$ keeps the size, so the shapes are congruent."
         },
         {
           "type": "figure",

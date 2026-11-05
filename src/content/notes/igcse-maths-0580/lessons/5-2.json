@@ -310,7 +310,7 @@
         {
           "type": "definition",
           "term": "Perpendicular height",
-          "statement": "The distance from the base to the opposite side or corner, measured at right angles to the base.",
+          "statement": "The distance from the base to the opposite side or corner, measured at right angles to the base (or to the base extended).",
           "plain": "Straight up from the base, never along a slanting side."
         },
         {
@@ -391,6 +391,10 @@
         {
           "type": "text",
           "text": "The triangle formula is on the exam formula list. The other area formulas in this lesson are not, so learn them."
+        },
+        {
+          "type": "text",
+          "text": "If a triangle has an obtuse angle, its perpendicular height can fall outside it. Extend the base with a dashed line and measure the height at right angles to that line. $A = \\frac{1}{2}bh$ still works."
         },
         {
           "type": "text",
@@ -506,7 +510,7 @@
         },
         {
           "type": "fact",
-          "text": "Every area formula uses the perpendicular height, at right angles to the base. A slanting side is never the height.",
+          "text": "The parallelogram, triangle and trapezium formulas use the perpendicular height, at right angles to the base. A slanting side is never the height.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -539,5 +543,5 @@
     "Read which lengths a diagram gives. A diagram marked NOT TO SCALE must not be measured, and it may show a slanting length you don't need.",
     "Write units on your answer if the answer line has none: cm for perimeter, $\\text{cm}^{2}$ for area."
   ],
-  "readingMinutes": 16
+  "readingMinutes": 17
 }

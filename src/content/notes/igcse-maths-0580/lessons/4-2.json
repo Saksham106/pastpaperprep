@@ -301,7 +301,7 @@
         },
         {
           "type": "text",
-          "text": "You only get a triangle if the two shorter sides add up to more than the longest side. If they add up to less, the arcs never meet."
+          "text": "You only get a triangle if the two shorter sides add up to more than the longest side. If they add up to less, the arcs never meet. If they add up to exactly the longest side, the arcs meet on the line itself, so there is no triangle."
         },
         {
           "type": "check",

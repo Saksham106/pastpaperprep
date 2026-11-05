@@ -212,7 +212,7 @@
         {
           "type": "definition",
           "term": "Factor and multiple",
-          "statement": "A [[factor|factor]] of $n$ is a whole number that divides $n$ exactly. A [[multiple|multiple]] of $n$ is $n$ times a positive whole number: $n, 2n, 3n, \\ldots$",
+          "statement": "A [[factor|factor]] of $n$ is a positive whole number that divides $n$ exactly. A [[multiple|multiple]] of $n$ is $n$ times a positive whole number: $n, 2n, 3n, \\ldots$",
           "plain": "$6$ and $7$ are factors of $42$, and $42$ is a multiple of each."
         },
         {
@@ -606,7 +606,7 @@
         },
         {
           "type": "fact",
-          "text": "HCF: shared primes, lower powers. LCM: all the primes, higher powers.",
+          "text": "HCF: shared primes, lower powers (no shared prime: HCF $= 1$). LCM: all the primes, higher powers.",
           "tag": "learn",
           "cheatSheet": true
         },

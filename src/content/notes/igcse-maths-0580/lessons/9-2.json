@@ -331,7 +331,7 @@
         },
         {
           "type": "text",
-          "text": "The [[interquartile-range|interquartile range]] (IQR) is the spread of the middle half of the data. It is the upper [[quartile|quartile]] minus the lower quartile, so one or two extreme values hardly affect it. You learn to find quartiles in {{lesson:9.3}}."
+          "text": "The [[interquartile-range|interquartile range]] (IQR) is the spread of the middle half of the data. It is the upper [[quartile|quartile]] minus the lower quartile, so one extreme value hardly affects it. You learn to find quartiles in {{lesson:9.3}}."
         },
         {
           "type": "text",
@@ -565,7 +565,7 @@
         },
         {
           "type": "fact",
-          "text": "Compare medians and interquartile ranges when there are extreme values. One or two extreme values hardly affect the IQR.",
+          "text": "Compare medians and interquartile ranges when there are extreme values. One extreme value hardly affects the IQR.",
           "tag": "learn",
           "cheatSheet": true,
           "level": "Extended"

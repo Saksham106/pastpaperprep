@@ -71,7 +71,7 @@
       "type": "check",
       "id": "before-standard-form",
       "prompt": "Write $3.6 \\times 10^{4}$ as an ordinary number.",
-      "hint": "In [[standard-form|standard form]], $\\times 10^{4}$ moves the digits $4$ places to the left.",
+      "hint": "In [[standard-form|standard form]], $\\times 10^{4}$ moves the decimal point $4$ places to the right.",
       "answer": {
         "value": 36000,
         "tolerance": 0
