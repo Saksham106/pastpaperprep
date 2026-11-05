@@ -12,8 +12,8 @@ describe("revision notes", () => {
     const syllabusTopics = taxonomy.student_topics.map((topic) => topic.label).filter((label) => label !== "Practical skills and investigations");
     expect(chemistry.topics.map((topic) => topic.topic)).toEqual(syllabusTopics.slice(0, 12));
     expect(chemistry.topics.map((topic) => topic.number)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
-    // notesPaths also lists the AA course once it is published; this test is about the 0620 pages.
-    expect(notesPaths().filter((path) => !path.startsWith("/revision-notes/ib-math-aa"))).toHaveLength(13);
+    // notesPaths also lists the published courses; this test is about the 0620 pages.
+    expect(notesPaths().filter((path) => path.startsWith("/revision-notes/igcse-chemistry-0620"))).toHaveLength(13);
   });
 
   it("keeps search snippets in bounds and copy in house style", () => {

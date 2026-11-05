@@ -21,15 +21,16 @@ describe("notes home", () => {
 
   it("links IGCSE Maths 0580 only once its course is visible", () => {
     const row = () => notesRows(banks.filter((bank) => bank.slug === "igcse"))[0];
-    expect(row().notes).toBeUndefined();
     const lessonCount = getCourse("igcse-maths-0580")!.lessons.length;
     expect(lessonCount).toBeGreaterThan(1);
-    const restore = setCoursePublishedForTests(true, "igcse-maths-0580");
+    const restore = setCoursePublishedForTests(false, "igcse-maths-0580");
     try {
-      expect(row().notes).toEqual({ href: "/revision-notes/igcse-maths-0580", label: `${lessonCount} lessons` });
+      expect(row().notes).toBeUndefined();
     } finally {
       restore();
     }
+    // Published: linked without a preview flag.
+    expect(row().notes).toEqual({ href: "/revision-notes/igcse-maths-0580", label: `${lessonCount} lessons` });
   });
 
   it("links IGCSE Chemistry 0620 to its existing topic summaries", () => {

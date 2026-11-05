@@ -9,6 +9,7 @@ import { PaperWorkspace } from "@/components/past-papers/PaperWorkspace";
 import { PastPaperPaperPage } from "@/components/past-papers/PastPaperPaperPage";
 import { IGCSE_PAPERS } from "@/components/past-papers/fixtures";
 import IbPage from "./ib/page";
+import CambridgeIgcsePage from "./cambridge-igcse/page";
 import TopicPage from "./banks/[slug]/topics/[topicSlug]/page";
 import PaperPage from "./banks/[slug]/papers/[paperSlug]/page";
 
@@ -45,6 +46,14 @@ describe("course notes wiring (spec section 11), gated by visibility", () => {
     expect(find(IbPage(), QualificationHub)[0].props.notesHref).toBeUndefined();
     process.env.NOTES_PREVIEW = "1";
     expect(find(IbPage(), QualificationHub)[0].props.notesHref).toBe("/revision-notes/ib-math-aa");
+  });
+
+  it("/cambridge-igcse hub links the 0580 notes only when that course is visible", () => {
+    hide();
+    expect(find(CambridgeIgcsePage(), QualificationHub)[0].props.notesHref).toBeUndefined();
+    restorePublished?.();
+    restorePublished = undefined;
+    expect(find(CambridgeIgcsePage(), QualificationHub)[0].props.notesHref).toBe("/revision-notes/igcse-maths-0580");
   });
 
   it("bank topic pages pass notes links to the explorer only when visible, and never for banks without notes", async () => {

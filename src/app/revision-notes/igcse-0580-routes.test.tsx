@@ -17,6 +17,7 @@ vi.mock("next/navigation", async (importOriginal) => ({
 
 import { getCourse, lessonPath } from "@/lib/course-notes/course";
 import { notesPaths } from "@/lib/revision-notes";
+import { setCoursePublishedForTests } from "@/lib/course-notes/test-visibility";
 import * as homeRoute from "./igcse-maths-0580/page";
 import * as topicRoute from "./igcse-maths-0580/[topic]/page";
 import * as lessonRoute from "./igcse-maths-0580/[topic]/[lesson]/page";
@@ -38,16 +39,27 @@ beforeEach(() => { saved = process.env.NOTES_PREVIEW; delete process.env.NOTES_P
 afterEach(() => { if (saved === undefined) delete process.env.NOTES_PREVIEW; else process.env.NOTES_PREVIEW = saved; });
 
 describe("IGCSE Maths 0580 course routes", () => {
-  it("is unpublished: no params, every page 404s, nothing in the sitemap", async () => {
-    expect(course.published).toBe(false);
-    for (const route of [...staticRoutes, ...topicRoutes, lessonRoute]) {
-      expect(route.dynamicParams).toBe(false);
-      expect(await route.generateStaticParams()).toEqual([]);
+  it("is published: params and sitemap paths without a preview flag", async () => {
+    expect(course.published).toBe(true);
+    expect(await lessonRoute.generateStaticParams()).toHaveLength(course.lessons.length);
+    expect(notesPaths()).toContain(lessonPath(course, lesson));
+  });
+
+  it("when unpublished: no params, every page 404s, nothing in the sitemap", async () => {
+    const restore = setCoursePublishedForTests(false, "igcse-maths-0580");
+    try {
+      expect(course.published).toBe(false);
+      for (const route of [...staticRoutes, ...topicRoutes, lessonRoute]) {
+        expect(route.dynamicParams).toBe(false);
+        expect(await route.generateStaticParams()).toEqual([]);
+      }
+      for (const route of staticRoutes) await expect(route.default()).rejects.toThrow();
+      for (const route of topicRoutes) await expect(route.default(topic)).rejects.toThrow();
+      await expect(lessonRoute.default(lessonParams)).rejects.toThrow();
+      expect(notesPaths().some((path) => path.includes(course.slug))).toBe(false);
+    } finally {
+      restore();
     }
-    for (const route of staticRoutes) await expect(route.default()).rejects.toThrow();
-    for (const route of topicRoutes) await expect(route.default(topic)).rejects.toThrow();
-    await expect(lessonRoute.default(lessonParams)).rejects.toThrow();
-    expect(notesPaths().some((path) => path.includes(course.slug))).toBe(false);
   });
 
   it("emits its params and sitemap paths with NOTES_PREVIEW=1", async () => {
