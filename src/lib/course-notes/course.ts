@@ -68,7 +68,7 @@ export function coursePaths(): string[] {
     ...course.lessons.map((lesson) => lessonPath(course, lesson)),
     `${coursePath(course)}/cheat-sheet`,
     ...course.topics.map((topic) => `${topicPath(course, topic.n)}/cheat-sheet`),
-    `${coursePath(course)}/glossary`,
-    `${coursePath(course)}/command-terms`,
+    ...(course.glossary.length ? [`${coursePath(course)}/glossary`] : []),
+    ...(course.commandTerms.length ? [`${coursePath(course)}/command-terms`] : []),
   ]);
 }

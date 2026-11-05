@@ -140,6 +140,8 @@ export type PracticeInfo = {
   items: string;
   counts: PerView<number>;
   hrefs: PerView<string>;
+  /** The item is stored at the course's extension level (AA: AHL), not merely empty in one view. */
+  extensionOnly: boolean;
 };
 
 /** A lesson page's practise band, or undefined when the course has nowhere to practise the item. */
@@ -148,7 +150,8 @@ export function lessonPractice(course: Course, item: string): PracticeInfo | und
   if (practice.kind === "aa-items") {
     const group = practiceGroupForItem(item);
     if (!group) return undefined;
-    return { group: group.id, items: item, counts: perView((view) => itemQuestionCount(item, AA_LEVEL[view])), hrefs: perView((view) => itemPracticeHref(item, AA_LEVEL[view])) };
+    const stored = course.items.items.find((entry) => entry.item === item);
+    return { group: group.id, items: item, counts: perView((view) => itemQuestionCount(item, AA_LEVEL[view])), hrefs: perView((view) => itemPracticeHref(item, AA_LEVEL[view])), extensionOnly: !!stored && isExtension(course, stored.level) };
   }
   if (!course.items.items.some((entry) => entry.item === item)) return undefined;
   // An Extended-only section has no Core code: its base view points at the Extended questions (the band then says so).
@@ -156,6 +159,7 @@ export function lessonPractice(course: Course, item: string): PracticeInfo | und
   return {
     group: item,
     items: item,
+    extensionOnly: isExtension(course, course.items.items.find((entry) => entry.item === item)!.level),
     counts: perView((view) => (officialCode(course, item, view) ? officialCodeCount(practice, code(view)) : 0)),
     hrefs: perView((view) => officialCodeHref(practice, code(view))),
   };

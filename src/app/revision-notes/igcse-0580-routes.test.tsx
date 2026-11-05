@@ -52,7 +52,12 @@ describe("IGCSE Maths 0580 course routes", () => {
 
   it("emits its params and sitemap paths with NOTES_PREVIEW=1", async () => {
     process.env.NOTES_PREVIEW = "1";
-    for (const route of staticRoutes) expect(await route.generateStaticParams()).toEqual([{}]);
+    for (const route of [homeRoute, cheatRoute]) expect(await route.generateStaticParams()).toEqual([{}]);
+    // No glossary terms or command terms yet, so no empty pages in the sitemap.
+    expect(course.glossary).toHaveLength(0);
+    expect(course.commandTerms).toHaveLength(0);
+    for (const route of [glossaryRoute, commandRoute]) expect(await route.generateStaticParams()).toEqual([]);
+    expect(notesPaths().some((path) => path.endsWith("/glossary") && path.includes(course.slug))).toBe(false);
     for (const route of topicRoutes) expect(await route.generateStaticParams()).toEqual(course.topics.map((entry) => ({ topic: entry.slug })));
     expect(await lessonRoute.generateStaticParams()).toEqual([{ topic: topicSlug, lesson: lessonSlug }]);
     expect(notesPaths()).toContain(lessonPath(course, lesson));

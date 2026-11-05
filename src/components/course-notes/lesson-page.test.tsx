@@ -15,6 +15,8 @@ vi.mock("@/lib/updates", async (importOriginal) => ({ ...(await importOriginal<t
 
 import { itemQuestionCount } from "@/lib/course-notes/practice";
 import { LessonPage } from "./LessonPage";
+import { clientCourse } from "@/lib/course-notes/client-course";
+import { CourseNotesProvider } from "./notes-context";
 
 const base = getCourse("ib-math-aa") as Course;
 const make = (item: string, topic: Lesson["topic"], level: Lesson["level"], title: string, slug: string, extra: Partial<Lesson> = {}): Lesson => ({ ...lessonFixture, item, topic, level, title, slug, ...extra });
@@ -151,5 +153,15 @@ describe("LessonPage", () => {
     expect(band.textContent).toMatch(/\d+ past-paper questions? on 5\.16 in the AA HL bank, each with a mark scheme and a worked explanation\./);
     expect(within(band).getByRole("link", { name: "Practise 5.16 →" }).getAttribute("href")).toBe("/banks/ib-hl?item=5.16");
     expect(band.textContent).toContain(`${itemQuestionCount("5.16", "HL")} past-paper question`);
+  });
+
+  it("0580 Extended view of a Core item with no Extended questions points at the Core papers, not 'Extended only'", () => {
+    const igcse = getCourse("igcse-maths-0580") as Course;
+    const nine = make("9.1", 9, "Core", "Classifying data", "classifying");
+    const { container } = render(<CourseNotesProvider course={clientCourse(igcse)}><LessonPage course={{ ...igcse, lessons: [nine] }} lesson={nine} /></CourseNotesProvider>);
+    const band = container.querySelector("[data-practise]") as HTMLElement;
+    expect(band.textContent).toContain("No Extended questions on 9.1 yet; 6 in the 0580 Core papers.");
+    expect(band.textContent).not.toMatch(/Extended only/);
+    expect(within(band).getByRole("link", { name: "Practise 9.1 →" }).getAttribute("href")).toContain("officialCode=current_2025%3AC9.1");
   });
 });

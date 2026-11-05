@@ -94,11 +94,13 @@ describe("surface lookups follow visibility", () => {
     expect(igcse.published).toBe(false);
     expect(notesLinksForBank("igcse")).toBeUndefined();
     expect(notesTopicLinksForBank("igcse")).toBeUndefined();
+    expect(syllabusNotesForBank("igcse")).toEqual([]);
     restorePublished = setCoursePublishedForTests(true, "igcse-maths-0580");
     const one = igcse.lessons.find((entry) => entry.item === "1.1")!;
     const link = { href: lessonPath(igcse, one), label: one.title };
     expect(notesLinksForBank("igcse")).toEqual({ "current_2025:C1.1": link, "current_2025:E1.1": link });
     expect(notesTopicLinksForBank("igcse")).toEqual({ Number: { href: "/revision-notes/igcse-maths-0580/number", label: "Number notes" } });
+    expect(syllabusNotesForBank("igcse")).toEqual([{ name: "1.1 Types of number", topic: "Number", href: lessonPath(igcse, one), label: one.title }]);
     // AA banks are untouched by the 0580 course.
     expect(notesLinksForBank("ib-hl")?.[lesson.item]?.href).toBe(lessonPath(course, lesson));
   });

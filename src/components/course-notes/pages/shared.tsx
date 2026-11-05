@@ -18,6 +18,12 @@ export const singleParams = (slug: string) => (getVisibleCourse(slug) ? [{}] : [
 /** Topic params once the course is visible. */
 export const topicParams = (slug: string) => (getVisibleCourse(slug)?.topics ?? []).map((topic) => ({ topic: topic.slug }));
 
+/** Params for a page that only exists when the visible course has the content (glossary terms, command terms). */
+export const contentParams = (slug: string, has: (course: Course) => boolean) => {
+  const course = getVisibleCourse(slug);
+  return course && has(course) ? [{}] : [];
+};
+
 export async function resolveTopic(slug: string, params: TopicParams["params"]) {
   const course = getVisibleCourse(slug);
   const { topic: topicSlug } = await params;
