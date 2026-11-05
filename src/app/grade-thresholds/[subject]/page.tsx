@@ -8,6 +8,7 @@ import { subjectSearchName } from "@/lib/past-paper-seo";
 import { socialPreview } from "@/lib/seo";
 import { resolveSubject } from "@/lib/past-paper-pages";
 import { getNotesSubject } from "@/lib/revision-notes";
+import { courseNotesVisible } from "@/lib/course-notes/visibility";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -49,7 +50,7 @@ export default async function GradeThresholdsSubjectPage({ params }: { params: P
       name={name}
       papersHref={papers ? `/past-papers/${subject}` : undefined}
       paperYears={papers ? [...new Set(papers.papers.map((paper) => paper.year))] : undefined}
-      notesHref={getNotesSubject(subject) ? `/revision-notes/${subject}` : undefined}
+      notesHref={getNotesSubject(subject) || courseNotesVisible(subject) ? `/revision-notes/${subject}` : undefined}
     />
   );
 }

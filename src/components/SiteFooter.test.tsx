@@ -37,6 +37,20 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("link", { name: "IB Maths AA notes" })).toHaveAttribute("href", "/revision-notes/ib-math-aa");
   });
 
+  it("links the 0580 notes only while that course is visible", () => {
+    vi.stubEnv("NOTES_PREVIEW", "");
+    const restore = setCoursePublishedForTests(false, "igcse-maths-0580");
+    try {
+      const view = render(<SiteFooter />);
+      expect(screen.queryByRole("link", { name: "IGCSE Maths notes" })).not.toBeInTheDocument();
+      view.unmount();
+    } finally {
+      restore();
+    }
+    render(<SiteFooter />);
+    expect(screen.getByRole("link", { name: "IGCSE Maths notes" })).toHaveAttribute("href", "/revision-notes/igcse-maths-0580");
+  });
+
   it("reopens the consent banner via the cookie settings control", () => {
     const dispatch = vi.spyOn(window, "dispatchEvent");
     render(<SiteFooter />);

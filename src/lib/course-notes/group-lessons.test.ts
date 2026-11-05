@@ -12,9 +12,12 @@ const group = groups.find((g) => g.memberOfficialItems.includes(lesson.item))!;
 const visible = { ...course, published: true };
 
 let restorePublished: (() => void) | undefined;
+let restore0580: (() => void) | undefined;
 afterEach(() => {
   restorePublished?.();
   restorePublished = undefined;
+  restore0580?.();
+  restore0580 = undefined;
   vi.unstubAllEnvs();
 });
 
@@ -67,6 +70,7 @@ describe("lessonForItem", () => {
 describe("surface lookups follow visibility", () => {
   it("are empty while the course is unpublished", () => {
     restorePublished = setCoursePublishedForTests(false);
+    restore0580 = setCoursePublishedForTests(false, "igcse-maths-0580");
     vi.stubEnv("NOTES_PREVIEW", "");
     expect(course.published).toBe(false);
     expect(notesLinksForBank("ib-hl")).toBeUndefined();
@@ -91,11 +95,14 @@ describe("surface lookups follow visibility", () => {
   it("0580 links follow the 0580 course's visibility alone: keyed by official code, Core and Extended", () => {
     vi.stubEnv("NOTES_PREVIEW", "");
     const igcse = COURSES.find((entry) => entry.slug === "igcse-maths-0580")!;
+    restore0580 = setCoursePublishedForTests(false, "igcse-maths-0580");
     expect(igcse.published).toBe(false);
     expect(notesLinksForBank("igcse")).toBeUndefined();
     expect(notesTopicLinksForBank("igcse")).toBeUndefined();
     expect(syllabusNotesForBank("igcse")).toEqual([]);
-    restorePublished = setCoursePublishedForTests(true, "igcse-maths-0580");
+    restore0580();
+    restore0580 = undefined;
+    expect(igcse.published).toBe(true);
     const links = notesLinksForBank("igcse")!;
     const practice = igcse.practice;
     if (practice.kind !== "official-codes") throw new Error("0580 practises by official code");
@@ -131,6 +138,9 @@ describe("surface lookups follow visibility", () => {
     expect(course.published).toBe(true);
     expect(notesNavVisible()).toBe(true);
     expect(notesLinksForBank("ib-hl")?.[group.studentFacingName]?.href).toBe(lessonPath(course, lesson));
-    expect(notesLinksForBank("igcse")).toBeUndefined();
+    // 0580 is published too: its bank links go to 0580 lessons only.
+    const igcseLinks = Object.values(notesLinksForBank("igcse") ?? {});
+    expect(igcseLinks.length).toBeGreaterThan(0);
+    expect(igcseLinks.every((link) => link.href.startsWith("/revision-notes/igcse-maths-0580/"))).toBe(true);
   });
 });
