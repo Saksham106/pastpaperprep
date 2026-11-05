@@ -1,8 +1,10 @@
 import "server-only";
 import katex from "katex";
+// mhchem registers \ce and \pu (chemical equations and units) on the katex instance above. Server-only, like katex here.
+import "katex/contrib/mhchem";
 import { parseInline } from "./inline";
 
-/** Server-only KaTeX rendering. Throws on invalid TeX so a bad lesson fails the build, not the student. */
+/** Server-only KaTeX rendering, with mhchem. Throws on invalid TeX so a bad lesson fails the build, not the student. */
 export function renderTex(tex: string, display: boolean): string {
   return katex.renderToString(tex, { output: "htmlAndMathml", throwOnError: true, displayMode: display });
 }
