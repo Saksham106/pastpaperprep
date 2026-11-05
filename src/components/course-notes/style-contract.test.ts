@@ -69,7 +69,7 @@ const pairs = (t: Tokens, theme: "light" | "dark"): [string, number[], number[],
     ["paper on ink (pressed buttons)", c("paper"), c("ink"), 4.5],
     ["ink-soft on tone (count in topic head)", c("ink-soft"), c("t1"), 4.5],
   ];
-  for (const n of [1, 2, 3, 4, 5]) {
+  for (const n of [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
     rows.push([`t${n}-ink on t${n}`, c(`t${n}-ink`), c(`t${n}`), 4.5], [`t${n}-ink on paper`, c(`t${n}-ink`), c("paper"), 4.5]);
   }
   const cobalt = c("cobalt");

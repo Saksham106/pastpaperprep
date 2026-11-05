@@ -58,10 +58,19 @@ export const INTERACTIVE_PROPS: Record<InteractiveId, InteractivePropSpec> = {
   "euler-step": { h: [0.05, 0.5] },
 };
 
+/**
+ * Declarative answer check, read by scripts/notes/check-math.py (scripts/notes/verify_kinds.py implements each kind).
+ * `truth` is a SymPy expression built from the question's own data, e.g. "sqrt(5**2 + 12**2)". Options per kind are
+ * listed in VERIFY_KINDS (validate.ts). A sidecar entry for the same id, when there is one, is used instead.
+ */
+export type Verify = { kind: string; truth: string } & Record<string, string | number | boolean>;
+
 /** Strings marked "inline" accept `$tex$`, `[[term-id|label]]` and `{{lesson:5.15}}`. */
 export type CheckBlock = {
   type: "check";
   id: string;
+  /** Extension-level content inside a base lesson (0580: Extended inside a Core section): hidden in the base view. */
+  level?: Level;
   prompt: string;
   /** Required: a nudge that does not give the answer away. */
   hint: string;
@@ -70,24 +79,44 @@ export type CheckBlock = {
   /** Numeric answer accepted within `tolerance`. */
   answer?: { value: number; tolerance: number };
   explain: string;
+  verify?: Verify;
 };
 
+/** Keystrokes per calculator model, keyed by the course's calculator ids (course.json `calculators`). */
+export type CalculatorSteps = Record<string, string[]>;
+
+/**
+ * Either the keystrokes written out per model, or a vetted snippet from the course's calculator.json whose `{name}`
+ * placeholders are filled from `values`.
+ */
+export type CalculatorBlock =
+  | { type: "calculator"; steps: CalculatorSteps; level?: Level }
+  | { type: "calculator"; snippet: string; values?: Record<string, string | number>; level?: Level };
+
+/** src/content/notes/<course>/calculator.json */
+export type CalculatorSnippets = Record<string, { title: string; steps: CalculatorSteps }>;
+
+/**
+ * `level` (optional on text, formula, example, check, figure, calculator and fact) marks extension-level content in a
+ * base lesson: it is hidden in the base view. It defaults to the section's level, then the lesson's.
+ */
 export type Block =
-  | { type: "text"; text: string }
+  | { type: "text"; text: string; level?: Level }
   | { type: "definition"; term: string; statement: string; plain: string }
-  | { type: "formula"; tex: string; tag: FormulaTag; bookletId?: string; cheatSheet?: boolean }
+  | { type: "formula"; tex: string; tag: FormulaTag; bookletId?: string; cheatSheet?: boolean; level?: Level }
   | { type: "result"; statement: string; why: string }
-  | { type: "example"; id: string; question: string; steps: string[]; answer: string; check?: CheckBlock; video: null }
+  | { type: "example"; id: string; question: string; steps: string[]; answer: string; check?: CheckBlock; video: null; verify?: Verify; level?: Level }
   | CheckBlock
-  | { type: "figure"; id: string; alt: string; caption?: string }
+  | { type: "figure"; id: string; alt: string; caption?: string; level?: Level }
   | { type: "interactive"; widget: InteractiveId; props: Record<string, unknown>; alt: string }
-  | { type: "calculator"; steps: { ti84: string[]; nspire: string[]; casio: string[] } }
+  | CalculatorBlock
   | { type: "hlNote"; text: string; lesson: string }
   | { type: "examTip"; text: string }
   | { type: "mistake"; text: string }
-  | { type: "fact"; text: string; tag: FormulaTag; cheatSheet: true };
+  | { type: "fact"; text: string; tag: FormulaTag; cheatSheet: true; level?: Level };
 
-export type Section = { id: string; heading: string; blocks: Block[] };
+/** `level: <extension>` makes the whole section extension content (hidden in the base view, badged in the other). */
+export type Section = { id: string; heading: string; blocks: Block[]; level?: Level };
 
 export type Lesson = {
   schemaVersion: 1;
@@ -99,7 +128,8 @@ export type Lesson = {
   level: Level;
   topic: number;
   summary: string;
-  goals: { text: string; bullets: string[] }[];
+  /** A goal covering extension-level bullets of a base item carries `level: <extension>` (hidden in the base view). */
+  goals: { text: string; bullets: string[]; level?: Level }[];
   prerequisites: string[];
   papers: Paper[];
   synonyms: string[];
@@ -120,7 +150,8 @@ export type ItemsFile = {
     topic: number;
     level: Level;
     name: string;
-    bullets: { id: string; text: string }[];
+    /** A bullet's own level when it differs from the item's (0580: Extended-only bullets of a Core section). */
+    bullets: { id: string; text: string; level?: Level }[];
     booklet: { id: string; label: string }[];
   }[];
 };

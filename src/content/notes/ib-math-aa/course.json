@@ -21,8 +21,27 @@
   },
   "gate": {
     "sidecars": "scripts/notes/sidecars",
-    "packs": "aa-course-notes/packs"
+    "packs": "aa-course-notes/packs",
+    "exempt": [
+      "readingMinutes",
+      "duplicateCheatSheetFlags",
+      "numberSets"
+    ]
   },
+  "calculators": [
+    {
+      "id": "ti84",
+      "name": "TI-84"
+    },
+    {
+      "id": "nspire",
+      "name": "TI-Nspire"
+    },
+    {
+      "id": "casio",
+      "name": "Casio"
+    }
+  ],
   "copy": {
     "crumbs": [
       "IB",

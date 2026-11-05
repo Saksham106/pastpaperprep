@@ -1,6 +1,6 @@
 // Client-safe: the slice of a course's config that client components need (labels, banks, storage keys).
 // Built from course.json alone, so a client bundle never pulls in lesson content.
-import type { CourseConfig } from "./config";
+import type { CalculatorModel, CourseConfig } from "./config";
 import type { CourseLevels, PerView } from "./types";
 
 export type ClientCourse = {
@@ -16,15 +16,18 @@ export type ClientCourse = {
   progressKey: string;
   /** Sent as `course` on every notes event; absent for AA (see LEGACY_COURSE). */
   analyticsCourse?: string;
+  /** Calculator models in tab order, and the localStorage key for the chosen one. */
+  calculators: CalculatorModel[];
+  calculatorKey: string;
 };
 
 /**
- * AA shipped before there was a second course. Its saved level choice ("notes-level") and its analytics events
- * (no `course` property) keep their original shape; every later course gets its own key and a `course` property.
+ * AA shipped before there was a second course. Its saved level choice ("notes-level"), calculator choice ("notes-calc")
+ * and its analytics events (no `course` property) keep their original shape; every later course gets its own key and a `course` property.
  */
 export const LEGACY_COURSE = "ib-math-aa";
 
-export function clientCourse(config: Pick<CourseConfig, "slug" | "name" | "levels" | "banks">): ClientCourse {
+export function clientCourse(config: Pick<CourseConfig, "slug" | "name" | "levels" | "banks" | "calculators">): ClientCourse {
   const legacy = config.slug === LEGACY_COURSE;
   return {
     slug: config.slug,
@@ -33,6 +36,8 @@ export function clientCourse(config: Pick<CourseConfig, "slug" | "name" | "level
     banks: { base: config.banks[config.levels.labels.base], extension: config.banks[config.levels.labels.extension] },
     levelKey: legacy ? "notes-level" : `notes-level:${config.slug}`,
     progressKey: `notes-progress:${config.slug}`,
+    calculators: config.calculators,
+    calculatorKey: legacy ? "notes-calc" : `notes-calc:${config.slug}`,
     ...(legacy ? {} : { analyticsCourse: config.slug }),
   };
 }

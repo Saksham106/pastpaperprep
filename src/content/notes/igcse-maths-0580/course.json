@@ -27,8 +27,19 @@
   },
   "gate": {
     "sidecars": "scripts/notes/sidecars/igcse-maths-0580",
-    "packs": "igcse-maths-0580-notes/packs"
+    "packs": "igcse-maths-0580-notes/packs",
+    "glossaryPlan": "course-notes-0580/glossary-plan.json"
   },
+  "calculators": [
+    {
+      "id": "casio-classwiz",
+      "name": "Casio fx-991EX / fx-83GTX / fx-85GTX ClassWiz"
+    },
+    {
+      "id": "ti-30xs",
+      "name": "TI-30XS MultiView"
+    }
+  ],
   "copy": {
     "crumbs": [
       "IGCSE",

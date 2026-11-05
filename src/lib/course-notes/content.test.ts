@@ -7,6 +7,7 @@ import { COURSES, coursePaths, getCourse, getLesson, isCourseVisible, lessonPath
 import { COURSE_FLAGS } from "./visibility";
 import type { Block } from "./types";
 import { validateLesson } from "./validate";
+import { snippetFileErrors } from "./calculators";
 import { parseInline } from "./inline";
 import { renderTex } from "./render";
 import { setCoursePublishedForTests } from "./test-visibility";
@@ -47,13 +48,20 @@ describe.each(COURSES.map((course) => [course.slug, course] as const))("%s cours
   const items = course.items;
   const root = join(process.cwd(), "src/content/notes", slug);
   const lessonItems = new Set(items.items.map((entry) => entry.item));
-  const ctx = { items, glossary: course.glossary, lessonItems, levels: course.levels };
+  const calculators = course.calculators.map((model) => model.id);
+  const ctx = { items, glossary: course.glossary, lessonItems, levels: course.levels, calculators, calculatorSnippets: course.calculatorSnippets };
 
   it("every lesson file passes validateLesson", () => {
     expect(course.lessons.length).toBeGreaterThan(0);
     // Report every failing lesson at once, keyed by item, so a writer can find the errors for their own lesson.
     const failures = Object.fromEntries(course.lessons.map((lesson) => [lesson.item, validateLesson(lesson, ctx)]).filter(([, errors]) => errors.length));
     expect(failures).toEqual({});
+  });
+
+  it("names its calculators once each, and its calculator.json snippets give steps for exactly those", () => {
+    expect(calculators.length, slug).toBeGreaterThan(0);
+    expect(new Set(calculators).size).toBe(calculators.length);
+    expect(snippetFileErrors(course.calculatorSnippets, calculators)).toEqual([]);
   });
 
   it("glossary lives in one file per lesson, named by a real item, and the index merges them all", () => {
@@ -112,10 +120,10 @@ describe.each(COURSES.map((course) => [course.slug, course] as const))("%s cours
   it("lesson without a passing receipt for its current hash fails npm test", () => {
     const receipts = JSON.parse(readFileSync(join(root, "math-receipts.json"), "utf8")) as Record<string, { sha256: string; passedAt: string }>;
     for (const lesson of course.lessons) {
-      // The hash covers the lesson, its sidecar, mathparse.py and check-math.py, so weakening a sidecar also invalidates the receipt.
+      // The hash covers the lesson, its sidecar, mathparse.py, check-math.py and verify_kinds.py, so weakening a sidecar also invalidates the receipt.
       const sha256 = receiptHash(lesson.item, slug);
       expect(receipts[lesson.item], `${lesson.item} has no maths receipt; run node scripts/notes/write-receipts.mjs --course ${slug}`).toBeDefined();
-      expect(receipts[lesson.item].sha256, `${lesson.item} (or its sidecar / mathparse.py) changed since its receipt; run node scripts/notes/write-receipts.mjs --course ${slug}`).toBe(sha256);
+      expect(receipts[lesson.item].sha256, `${lesson.item} (or its sidecar / mathparse.py / verify_kinds.py) changed since its receipt; run node scripts/notes/write-receipts.mjs --course ${slug}`).toBe(sha256);
       expect(receipts[lesson.item].passedAt).toMatch(/^\d{4}-\d{2}-\d{2}/);
     }
   });

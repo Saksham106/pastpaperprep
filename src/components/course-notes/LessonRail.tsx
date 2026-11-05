@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import styles from "./course-notes.module.css";
 
-export type RailSection = { id: string; title: string };
+/** `ext`: extension content in a base lesson, hidden (with its section) in the base view. */
+export type RailSection = { id: string; title: string; ext?: boolean };
 
 /** "On this page" rail: current section and reading progress. On phones, a sticky "Contents" bar. */
 export function LessonRail({ item, sections }: { item: string; sections: RailSection[] }) {
@@ -16,7 +17,9 @@ export function LessonRail({ item, sections }: { item: string; sections: RailSec
       let cur = sections[0]?.id ?? "";
       for (const section of sections) {
         const el = document.getElementById(section.id);
-        if (el && el.getBoundingClientRect().top < 140) cur = section.id;
+        // An extension section is hidden in the base view, so it must not become "current" there.
+        const hidden = section.ext && el?.closest("[data-base-view]");
+        if (el && !hidden && el.getBoundingClientRect().top < 140) cur = section.id;
       }
       setCurrent(cur);
       const root = document.documentElement;
@@ -32,7 +35,7 @@ export function LessonRail({ item, sections }: { item: string; sections: RailSec
   const list = (
     <ol>
       {sections.map((section) => (
-        <li key={section.id}>
+        <li key={section.id} data-ext={section.ext ? "" : undefined}>
           <a href={`#${section.id}`} aria-current={section.id === current ? "true" : undefined} onClick={() => setOpen(false)}>{section.title}</a>
         </li>
       ))}

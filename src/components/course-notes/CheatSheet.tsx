@@ -42,7 +42,7 @@ export function CheatSheet({ course, topic }: { course: Course; topic?: Course["
                 <div key={block.key} className={`${styles.blk}${ahl ? ` ${styles.ahl}` : ""}`} data-block={block.item ?? "method"} data-ahl={ahl ? "" : undefined}>
                   <BlockHeading>{block.href ? <Link href={block.href}>{heading}</Link> : heading}</BlockHeading>
                   {block.rows.map((row, i) => (
-                    <div key={i} className={styles.row} data-row={row.kind}>
+                    <div key={i} className={styles.row} data-row={row.kind} data-ahl={row.extension ? "" : undefined}>
                       <span dangerouslySetInnerHTML={{ __html: html(row) }} />
                       <span className={`${styles.tg} ${row.tag === "booklet" ? styles.tgB : styles.tgL}`}>{row.tag === "booklet" ? "BOOKLET" : "LEARN"}</span>
                     </div>

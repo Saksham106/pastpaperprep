@@ -1,13 +1,95 @@
 // Server/build-time only: imports katex. Never import this from a client component.
 import katex from "katex";
+import { AA_CALCULATOR_IDS, calculatorErrors, calculatorSteps } from "./calculators";
 import { parseInline } from "./inline";
-import { INTERACTIVE_IDS, INTERACTIVE_PROPS, type Block, type CheckBlock, type CourseLevels, type GlossaryTerm, type ItemsFile, type Lesson } from "./types";
+import { INTERACTIVE_IDS, INTERACTIVE_PROPS, type Block, type CalculatorSnippets, type CheckBlock, type CourseLevels, type GlossaryTerm, type ItemsFile, type Lesson, type Verify } from "./types";
 
-/** `levels` is the course's config: lessons and items store `levels.base` or `levels.extension` (AA: "SL" / "AHL"). */
-export type ValidationContext = { items: ItemsFile; glossary: GlossaryTerm[]; lessonItems: Set<string>; levels: Pick<CourseLevels, "base" | "extension"> };
+/**
+ * `levels` is the course's config: lessons and items store `levels.base` or `levels.extension` (AA: "SL" / "AHL").
+ * `calculators` are the course's calculator ids (default AA's ti84 / nspire / casio) and `calculatorSnippets` its
+ * calculator.json snippets.
+ */
+export type ValidationContext = {
+  items: ItemsFile;
+  glossary: GlossaryTerm[];
+  lessonItems: Set<string>;
+  levels: Pick<CourseLevels, "base" | "extension">;
+  calculators?: readonly string[];
+  calculatorSnippets?: CalculatorSnippets;
+};
 type Piece = { path: string; text: string; hl?: true };
 
 const message = (error: unknown) => (error instanceof Error ? error.message : String(error));
+
+/**
+ * The declarative answer kinds and their options. Mirrors KINDS in scripts/notes/verify_kinds.py (mathparse.test.ts
+ * compares the two). `on`: where a kind may be used: "example", "choice" (multiple-choice check), "numeric" (numeric check).
+ */
+type KindSpec = { required?: string[]; oneOf?: string[]; optional?: string[]; on: ("example" | "choice" | "numeric")[] };
+const ANSWER: KindSpec["on"] = ["example", "choice"];
+const PRECISION = ["sf", "dp"];
+export const VERIFY_KINDS: Record<string, KindSpec> = {
+  exact: { optional: ["unit"], on: ANSWER },
+  rounded: { oneOf: PRECISION, optional: ["unit"], on: ANSWER },
+  numeric: { oneOf: PRECISION, on: ["numeric"] },
+  list: { optional: PRECISION, on: ANSWER },
+  assignments: { on: ANSWER },
+  point: { optional: PRECISION, on: ANSWER },
+  vector: { on: ANSWER },
+  equation: { on: ANSWER },
+  inequality: { optional: ["var"], on: ANSWER },
+  set: { optional: ["var"], on: ANSWER },
+  ratio: { on: ANSWER },
+  "standard-form": { optional: ["sf", "unit"], on: ANSWER },
+  money: { optional: ["dp"], on: ANSWER },
+  time: { required: ["form"], on: ANSWER },
+  bearing: { optional: ["dp"], on: ANSWER },
+  angle: { optional: PRECISION, on: ANSWER },
+  fraction: { optional: ["simplest", "form"], on: ANSWER },
+  expression: { optional: ["form", "scale"], on: ANSWER },
+  antiderivative: { optional: ["var"], on: ANSWER },
+  choice: { on: ["choice"] },
+};
+export const VERIFY_ENUMS: Record<string, string[]> = {
+  "time.form": ["clock", "duration"],
+  "fraction.form": ["mixed", "improper"],
+  "expression.form": ["factorised", "expanded", "simplified"],
+};
+export const VERIFY_BOOLEANS = ["expression.scale", "fraction.simplest"];
+
+/** Problems with a block's `verify` (kind known, required options present, truth non-empty), where it sits. */
+export function verifyErrors(verify: Verify | undefined, on: "example" | "choice" | "numeric"): string[] {
+  if (verify === undefined) return [];
+  if (!verify || typeof verify !== "object") return ["verify must be an object { kind, truth, ...options }"];
+  const spec = VERIFY_KINDS[verify.kind];
+  if (!spec) return [`unknown verify kind ${String(verify.kind)} (expected one of ${Object.keys(VERIFY_KINDS).join(", ")})`];
+  const errors: string[] = [];
+  const { kind } = verify;
+  if (typeof verify.truth !== "string" || !verify.truth.trim()) errors.push(`verify ${kind} needs a non-empty truth`);
+  if (!spec.on.includes(on)) errors.push(`verify kind ${kind} cannot be used on ${on === "example" ? "an example" : on === "choice" ? "a multiple-choice check" : "a numeric check"} (use ${Object.entries(VERIFY_KINDS).filter(([, entry]) => entry.on.includes(on)).map(([name]) => name).join(", ")})`);
+  const allowed = new Set([...(spec.required ?? []), ...(spec.oneOf ?? []), ...(spec.optional ?? [])]);
+  const options = Object.keys(verify).filter((key) => key !== "kind" && key !== "truth");
+  for (const key of options) if (!allowed.has(key)) errors.push(`verify ${kind} has no option ${key} (allowed: ${[...allowed].join(", ") || "none"})`);
+  for (const key of spec.required ?? []) if (!(key in verify)) errors.push(`verify ${kind} needs ${key}`);
+  if (spec.oneOf && spec.oneOf.filter((key) => key in verify).length !== 1) errors.push(`verify ${kind} needs exactly one of ${spec.oneOf.join(" / ")}`);
+  if ("sf" in verify && "dp" in verify) errors.push(`verify ${kind}: give sf or dp, not both`);
+  for (const key of PRECISION) {
+    const value = verify[key];
+    if (key in verify && !(Number.isInteger(value) && (value as number) >= (key === "sf" ? 1 : 0))) errors.push(`verify ${kind}: ${key} must be a whole number${key === "sf" ? " of at least 1" : ""}`);
+  }
+  for (const key of options) {
+    const name = `${kind}.${key}`;
+    if (VERIFY_ENUMS[name] && !VERIFY_ENUMS[name].includes(verify[key] as string)) errors.push(`verify ${name} must be one of ${VERIFY_ENUMS[name].join(", ")}`);
+    if (VERIFY_BOOLEANS.includes(name) && typeof verify[key] !== "boolean") errors.push(`verify ${name} must be true or false`);
+    if ((key === "unit" || key === "var") && !(typeof verify[key] === "string" && (verify[key] as string).trim())) errors.push(`verify ${name} must be non-empty text`);
+  }
+  if (kind === "money" && "dp" in verify && verify.dp !== 2 && verify.dp !== 0) errors.push("verify money.dp must be 2 (or 0 for whole amounts)");
+  return errors;
+}
+
+/** The levels a block may carry. */
+const LEVELLED = new Set<Block["type"]>(["text", "formula", "example", "check", "figure", "calculator", "fact"]);
+const blockLevel = (block: Block): string | undefined => (LEVELLED.has(block.type) ? (block as { level?: string }).level : undefined);
 
 function checkPieces(check: CheckBlock, path: string): Piece[] {
   return [
@@ -18,13 +100,13 @@ function checkPieces(check: CheckBlock, path: string): Piece[] {
   ];
 }
 
-function blockPieces(block: Block, path: string): Piece[] {
+function blockPieces(block: Block, path: string, ctx?: Pick<ValidationContext, "calculatorSnippets">): Piece[] {
   switch (block.type) {
     case "text": case "examTip": case "mistake": case "fact": return [{ path, text: block.text }];
     case "hlNote": return [{ path, text: block.text, hl: true }];
     case "definition": return [{ path, text: block.term }, { path, text: block.statement }, { path, text: block.plain }];
     case "figure": return block.caption ? [{ path, text: block.caption }] : [];
-    case "calculator": return [...block.steps.ti84, ...block.steps.nspire, ...block.steps.casio].map((text) => ({ path, text }));
+    case "calculator": return Object.values(calculatorSteps(block, ctx?.calculatorSnippets) ?? {}).flat().map((text) => ({ path, text }));
     case "result": return [{ path, text: block.statement }, { path, text: block.why }];
     case "example": return [{ path, text: block.question }, ...block.steps.map((text) => ({ path, text })), { path, text: block.answer }, ...(block.check ? checkPieces(block.check, path) : [])];
     case "check": return checkPieces(block, path);
@@ -99,17 +181,20 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
         if (nodes.some((node) => node.kind === "term" || node.kind === "lesson")) fail(`${path}.options[${o}]`, "option text may contain only plain text and $maths$, no glossary terms or lesson links");
       });
     } else if (!check.answer || !Number.isFinite(check.answer.value) || !(check.answer.tolerance >= 0)) fail(path, "check needs options or a numeric answer with tolerance");
+    for (const error of verifyErrors(check.verify, check.options ? "choice" : "numeric")) fail(path, `${check.id}: ${error}`);
   };
   lesson.before.forEach((check, b) => checkShape(check, `before[${b}]`));
 
   lesson.sections.forEach((section, s) => section.blocks.forEach((block, b) => {
     const path = `sections[${s}].blocks[${b}]`;
-    pieces.push(...blockPieces(block, path));
+    pieces.push(...blockPieces(block, path, ctx));
     if (block.type === "check") checkShape(block, path);
     if (block.type === "example") {
       claim(block.id, path);
+      for (const error of verifyErrors(block.verify, "example")) fail(path, `${block.id}: ${error}`);
       if (block.check) checkShape(block.check, path);
     }
+    if (block.type === "calculator") for (const error of calculatorErrors(block, ctx.calculators ?? AA_CALCULATOR_IDS, ctx.calculatorSnippets)) fail(path, error);
     if (block.type === "formula") {
       texes.push({ path, tex: block.tex });
       if (block.tag === "booklet" && !(block.bookletId && bookletOk.has(block.bookletId))) fail(path, `booklet formula needs a bookletId from items.json (got ${block.bookletId ?? "none"})`);
@@ -132,6 +217,52 @@ export function validateLesson(lesson: Lesson, ctx: ValidationContext): string[]
     if ((block.type === "interactive" || block.type === "figure") && block.alt.includes("$")) fail(path, `${block.type} alt must be plain words with no $ (it is the accessible name)`);
     if (block.type === "hlNote" && !ctx.lessonItems.has(block.lesson)) fail(path, `hlNote links to unknown lesson ${block.lesson}`);
   }));
+
+  // Levels inside a lesson: extension content in a base lesson is hidden in the base view.
+  const known = (level: string | undefined) => level === undefined || level === base || level === extension;
+  lesson.goals.forEach((goal, g) => {
+    if (!known(goal.level)) fail(`goals[${g}]`, `level ${goal.level} is not ${base} or ${extension}`);
+    else if (!isBase && goal.level === base) fail(`goals[${g}]`, `a ${extension} lesson cannot hold a ${base} goal`);
+  });
+  lesson.sections.forEach((section, s) => {
+    if (!known(section.level)) fail(`sections[${s}]`, `level ${section.level} is not ${base} or ${extension}`);
+    else if (!isBase && section.level === base) fail(`sections[${s}]`, `a ${extension} lesson cannot hold a ${base} section`);
+    section.blocks.forEach((block, b) => {
+      const level = (block as { level?: string }).level;
+      if (level === undefined) return;
+      const path = `sections[${s}].blocks[${b}]`;
+      if (!LEVELLED.has(block.type)) fail(path, `${block.type} blocks take no level (only ${[...LEVELLED].join(", ")})`);
+      else if (!known(level)) fail(path, `level ${level} is not ${base} or ${extension}`);
+      else if (level === base && (section.level ?? lesson.level) === extension) fail(path, `${base} block inside ${extension} content`);
+    });
+  });
+  lesson.before.forEach((check, c) => {
+    if (!known(check.level)) fail(`before[${c}]`, `level ${check.level} is not ${base} or ${extension}`);
+    else if (!isBase && check.level === base) fail(`before[${c}]`, `a ${extension} lesson cannot hold a ${base} check`);
+  });
+  // A bullet is taught at its own level: an extension bullet of a base item by an extension goal and extension
+  // content (an extension section or block, or an hlNote); a base bullet by a base goal and base content.
+  if (isBase && item) {
+    const bulletLevel = new Map(item.bullets.map((bullet) => [bullet.id, bullet.level ?? item.level]));
+    item.bullets.forEach((bullet) => {
+      if (!known(bullet.level)) fail("goals", `items.json bullet ${bullet.id} has level ${bullet.level}, not ${base} or ${extension}`);
+    });
+    const effective = lesson.sections.flatMap((section) => section.blocks.map((block) => (block.type === "hlNote" ? extension : blockLevel(block) ?? section.level ?? lesson.level)));
+    const hasExtension = effective.includes(extension) || lesson.before.some((check) => check.level === extension);
+    const hasBase = effective.includes(base);
+    lesson.goals.forEach((goal, g) => {
+      const goalLevel = goal.level ?? lesson.level;
+      for (const id of goal.bullets) {
+        const level = bulletLevel.get(id);
+        if (level === extension && goalLevel !== extension) fail(`goals[${g}]`, `bullet ${id} is ${extension}: cover it with a goal marked "level": "${extension}"`);
+        if (level === base && goalLevel === extension) fail(`goals[${g}]`, `bullet ${id} is ${base}, but the goal is marked ${extension}`);
+      }
+    });
+    const extensionBullets = item.bullets.filter((bullet) => bulletLevel.get(bullet.id) === extension).map((bullet) => bullet.id);
+    if (extensionBullets.length && !hasExtension) fail("sections", `${extension} bullet ${extensionBullets.join(", ")} must be taught in ${extension} content: a section or block with "level": "${extension}", or an hlNote`);
+    const baseBullets = item.bullets.filter((bullet) => bulletLevel.get(bullet.id) === base).map((bullet) => bullet.id);
+    if (baseBullets.length && !hasBase) fail("sections", `${base} bullet ${baseBullets.join(", ")} must be taught in ${base} content, but every section and block is ${extension}`);
+  }
 
   for (const piece of pieces) {
     let nodes;

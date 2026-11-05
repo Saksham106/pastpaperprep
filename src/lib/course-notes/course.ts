@@ -3,7 +3,7 @@ import type { CourseConfig } from "./config";
 import { compareItems } from "./items";
 import { COURSE_CONTENT } from "./registry";
 import { isVisibleWhen } from "./visibility";
-import type { CheatSheetFile, CommandTerm, GlossaryTerm, ItemsFile, Lesson, ViewLevel } from "./types";
+import type { CalculatorSnippets, CheatSheetFile, CommandTerm, GlossaryTerm, ItemsFile, Lesson, ViewLevel } from "./types";
 
 export type { CommandTerm } from "./types";
 
@@ -17,6 +17,8 @@ export type Course = Omit<CourseConfig, "items"> & {
   cheatSheets: Record<string, CheatSheetFile>;
   /** Figure id to inline SVG markup, for `figure` blocks. */
   figures: Record<string, string>;
+  /** Vetted keystrokes from the course's calculator.json, for calculator blocks that name a snippet. */
+  calculatorSnippets: CalculatorSnippets;
 };
 
 export const COURSES: readonly Course[] = COURSE_CONTENT.map((content) => ({
@@ -27,6 +29,7 @@ export const COURSES: readonly Course[] = COURSE_CONTENT.map((content) => ({
   commandTerms: content.commandTerms,
   cheatSheets: content.cheatSheets,
   figures: content.figures,
+  calculatorSnippets: content.calculatorSnippets,
 }));
 
 export const getCourse = (slug: string): Course | undefined => COURSES.find((course) => course.slug === slug);

@@ -28,6 +28,12 @@ export type CourseCopy = {
   bankPrefix: string;
 };
 
+/** Lints in scripts/notes/validate-lesson.mjs a course can switch off (AA predates them; see `gate.exempt`). */
+export type GateLint = "readingMinutes" | "duplicateCheatSheetFlags" | "numberSets";
+
+/** A calculator model the course's calculator blocks give keystrokes for. */
+export type CalculatorModel = { id: string; name: string };
+
 export type CourseConfig = {
   slug: string;
   name: string;
@@ -38,8 +44,13 @@ export type CourseConfig = {
   /** Repo-relative path of the syllabus items file (the generated index imports it). */
   items: string;
   practice: PracticeConfig;
-  /** Lesson gate inputs: the sidecar folder (repo-relative) and the source-pack folder (relative to ../research). */
-  gate: { sidecars: string; packs: string };
+  /**
+   * Lesson gate inputs: the sidecar folder (repo-relative), the source-pack folder and the glossary plan (both
+   * relative to ../research; no plan skips the glossary lints), and lints this course is exempt from.
+   */
+  gate: { sidecars: string; packs: string; glossaryPlan?: string; exempt?: GateLint[] };
+  /** Calculator models, in tab order; every calculator block gives steps for exactly these ids. */
+  calculators: CalculatorModel[];
   copy: CourseCopy;
   topics: { n: number; slug: string; name: string }[];
 };

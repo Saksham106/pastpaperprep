@@ -27,20 +27,30 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
   const reviewed = lastUpdated([path]);
   const practice = lessonPractice(course, lesson.item);
 
+  // Extension content inside a base lesson (0580: Extended inside Core) is marked data-ext and hidden in the base view.
+  // In an extension lesson nothing is marked: the whole lesson is extension content already.
+  const baseLesson = !isExtension(course, lesson.level);
+  const isExt = (level: string | undefined) => baseLesson && level === levels.extension;
+  const sectionExt = (section: Lesson["sections"][number]) => isExt(section.level);
+  const blockExt = (section: Lesson["sections"][number], block: Lesson["sections"][number]["blocks"][number]) => isExt(("level" in block ? block.level : undefined) ?? section.level);
+  const blocksProps = { glossary: course.glossary, figures: course.figures, lessonHref, extensionOnly: levels.labels.extensionOnly, calculatorSnippets: course.calculatorSnippets, markLevel: baseLesson ? levels.extension : undefined };
+
   // A section made only of takeaway blocks is the authored "Key takeaways": shown once, in its own band.
   const isTakeaway = (block: Lesson["sections"][number]["blocks"][number]) => block.type === "fact" || (block.type === "formula" && block.cheatSheet === true);
   const bodySections = lesson.sections.filter((section) => !(section.blocks.length > 0 && section.blocks.every(isTakeaway)));
 
   // The same formula can be flagged where it is taught and again in the takeaways section: show it once.
   const seen = new Set<string>();
-  const takeaways = lesson.sections.flatMap((section) => section.blocks).flatMap((block) => {
+  const takeaways = lesson.sections.flatMap((section) => section.blocks.map((block) => ({ section, block }))).flatMap(({ section, block }) => {
     const key = block.type === "fact" ? `f:${block.text}` : block.type === "formula" ? `t:${block.tex}` : "";
     if (!key || (block.type === "formula" && !block.cheatSheet) || seen.has(key)) return [];
     seen.add(key);
-    if (block.type === "fact") return [{ tag: block.tag, node: inline(block.text) }];
-    if (block.type === "formula") return [{ tag: block.tag, node: <span dangerouslySetInnerHTML={{ __html: renderTex(block.tex, true) }} /> }];
+    const ext = blockExt(section, block);
+    if (block.type === "fact") return [{ tag: block.tag, ext, node: inline(block.text) }];
+    if (block.type === "formula") return [{ tag: block.tag, ext, node: <span dangerouslySetInnerHTML={{ __html: renderTex(block.tex, true) }} /> }];
     return [];
   });
+  const takeawaysExt = takeaways.length > 0 && takeaways.every((entry) => entry.ext);
 
   const prerequisite = (item: string) => {
     const target = written.get(item);
@@ -55,10 +65,10 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
   const sections: RailSection[] = [
     { id: "minute", title: "In a minute" },
     ...(lesson.before.length ? [{ id: "before", title: "Before you start" }] : []),
-    ...bodySections.map((section) => ({ id: `s-${section.id}`, title: section.heading })),
+    ...bodySections.map((section) => ({ id: `s-${section.id}`, title: section.heading, ...(sectionExt(section) ? { ext: true } : {}) })),
     ...(lesson.mistakes.length ? [{ id: "mistakes", title: "Common mistakes" }] : []),
     ...(lesson.examTips.length ? [{ id: "tips", title: "Exam tips" }] : []),
-    ...(takeaways.length ? [{ id: "takeaways", title: "Key takeaways" }] : []),
+    ...(takeaways.length ? [{ id: "takeaways", title: "Key takeaways", ...(takeawaysExt ? { ext: true } : {}) }] : []),
     ...(practice ? [{ id: "practise", title: "Practise" }] : []),
   ];
 
@@ -97,7 +107,7 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
 
           <section className={styles.goals}>
             <h2>You&apos;ll be able to</h2>
-            <ul>{lesson.goals.map((goal) => <li key={goal.text}>{inline(goal.text)}</li>)}</ul>
+            <ul>{lesson.goals.map((goal) => <li key={goal.text} data-ext={isExt(goal.level) ? "" : undefined}>{inline(goal.text)}</li>)}</ul>
           </section>
 
           {lesson.before.length ? (
@@ -105,19 +115,26 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
               <details>
                 <summary><span>Before you start</span><small>{lesson.before.length} quick question{lesson.before.length === 1 ? "" : "s"} on what this builds on</small></summary>
                 <div className={styles.beforeBody}>
-                  <Blocks blocks={lesson.before} glossary={course.glossary} figures={course.figures} lessonHref={lessonHref} extensionOnly={levels.labels.extensionOnly} />
+                  <Blocks blocks={lesson.before} {...blocksProps} />
                   {lesson.prerequisites.length ? <p className={styles.revise}>Revise first: {prerequisiteList}</p> : null}
                 </div>
               </details>
             </section>
           ) : null}
 
-          {bodySections.map((section) => (
-            <section key={section.id} id={`s-${section.id}`}>
-              <h2>{section.heading}</h2>
-              <Blocks blocks={section.blocks} glossary={course.glossary} figures={course.figures} lessonHref={lessonHref} extensionOnly={levels.labels.extensionOnly} />
-            </section>
-          ))}
+          {bodySections.map((section) =>
+            sectionExt(section) ? (
+              <section key={section.id} id={`s-${section.id}`} data-ext="">
+                <h2>{section.heading} <span className={`${styles.badge} ${styles.badgeAhl}`}>{levels.labels.extensionOnly}</span></h2>
+                <Blocks blocks={section.blocks} {...blocksProps} markLevel={undefined} />
+              </section>
+            ) : (
+              <section key={section.id} id={`s-${section.id}`}>
+                <h2>{section.heading}</h2>
+                <Blocks blocks={section.blocks} {...blocksProps} />
+              </section>
+            ),
+          )}
 
           {lesson.mistakes.length ? (
             <section id="mistakes">
@@ -134,11 +151,11 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
           ) : null}
 
           {takeaways.length ? (
-            <section id="takeaways">
+            <section id="takeaways" data-ext={takeawaysExt ? "" : undefined}>
               <h2>Key takeaways</h2>
               <div className={styles.tkGrid}>
                 {takeaways.map((entry, i) => (
-                  <div key={i}><FormulaTagLabel tag={entry.tag} short />{entry.node}</div>
+                  <div key={i} data-ext={entry.ext ? "" : undefined}><FormulaTagLabel tag={entry.tag} short />{entry.node}</div>
                 ))}
               </div>
             </section>

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { renderInlineHtml } from "@/lib/course-notes/render";
-import type { Block, CheckBlock, GlossaryTerm } from "@/lib/course-notes/types";
+import { calculatorSteps } from "@/lib/course-notes/calculators";
+import type { Block, CalculatorSnippets, CheckBlock, GlossaryTerm } from "@/lib/course-notes/types";
 import { CalculatorSteps } from "./CalculatorSteps";
 import { CheckQuestion } from "./CheckQuestion";
 import { ExampleSteps } from "./ExampleSteps";
@@ -18,9 +19,16 @@ export type BlocksProps = {
   figures?: Record<string, string>;
   /** Heading of an `hlNote` block: the course's extension-only label (AA: "HL only"). */
   extensionOnly?: string;
+  /** The course's calculator.json snippets, for calculator blocks that name one. */
+  calculatorSnippets?: CalculatorSnippets;
+  /**
+   * The extension level (0580: "Extended") when these blocks sit in base content: a block at that level is marked
+   * `data-ext` (hidden in the base view) and tagged with `extensionOnly`. Omitted inside extension content.
+   */
+  markLevel?: string;
 };
 
-export function Blocks({ blocks, glossary, lessonHref, figures = {}, extensionOnly = "HL only" }: BlocksProps) {
+export function Blocks({ blocks, glossary, lessonHref, figures = {}, extensionOnly = "HL only", calculatorSnippets, markLevel }: BlocksProps) {
   const inline = (text: string, key?: string | number) => <Inline key={key} text={text} glossary={glossary} lessonHref={lessonHref} />;
 
   const check = (block: CheckBlock) => (
@@ -88,16 +96,11 @@ export function Blocks({ blocks, glossary, lessonHref, figures = {}, extensionOn
           </div>
         );
       }
-      case "calculator":
-        return (
-          <CalculatorSteps
-            steps={{
-              ti84: block.steps.ti84.map((s, i) => inline(s, i)),
-              nspire: block.steps.nspire.map((s, i) => inline(s, i)),
-              casio: block.steps.casio.map((s, i) => inline(s, i)),
-            }}
-          />
-        );
+      case "calculator": {
+        const steps = calculatorSteps(block, calculatorSnippets);
+        if (!steps) return null;
+        return <CalculatorSteps steps={Object.fromEntries(Object.entries(steps).map(([id, list]) => [id, list.map((s, i) => inline(s, i))]))} />;
+      }
       case "hlNote":
         return (
           <aside className={`${styles.side} ${styles.sideHl}`} data-hl-note>
@@ -135,7 +138,16 @@ export function Blocks({ blocks, glossary, lessonHref, figures = {}, extensionOn
     <>
       {blocks.map((block, i) => {
         const node = render(block);
-        return node === null ? null : <div key={i} className={styles.block}>{node}</div>;
+        if (node === null) return null;
+        if (markLevel && "level" in block && block.level === markLevel) {
+          return (
+            <div key={i} className={styles.block} data-ext="">
+              <span className={styles.extTag}>{extensionOnly}</span>
+              {node}
+            </div>
+          );
+        }
+        return <div key={i} className={styles.block}>{node}</div>;
       })}
     </>
   );
