@@ -1,0 +1,87 @@
+{
+  "item": "9.98",
+  "edition": "ib-chemistry-2025",
+  "before": [],
+  "sections": [
+    {
+      "id": "s",
+      "heading": "Chemistry gate fixture",
+      "blocks": [
+        {
+          "type": "example", "id": "ex-bond-enthalpy",
+          "question": "Use average bond enthalpies to estimate $\\Delta H$ for $\\ce{CH4(g) + 2O2(g) -> CO2(g) + 2H2O(g)}$.",
+          "steps": ["Bonds broken: $4(\\ce{C-H}) + 2(\\ce{O=O})$.", "Bonds made: $2(\\ce{C=O}) + 4(\\ce{O-H})$."],
+          "answer": "$\\Delta H = \\pu{-808 kJ mol-1}$", "video": null,
+          "verify": { "kind": "exact", "truth": "(4*BE('C-H') + 2*BE('O=O')) - (2*BE('C=O') + 4*BE('O-H'))", "unit": "kJ mol-1", "signed": true }
+        },
+        {
+          "type": "example", "id": "ex-mass",
+          "question": "Find the mass of $\\pu{0.250 mol}$ of $\\ce{CuSO4.5H2O}$.",
+          "steps": ["$m = nM$."],
+          "answer": "$m \\approx \\pu{62.4 g}$", "video": null,
+          "verify": { "kind": "rounded", "truth": "0.250*Mr('CuSO4·5H2O')", "sf": 3, "unit": "g" }
+        },
+        {
+          "type": "example", "id": "ex-equation",
+          "question": "Write the equation for the complete combustion of ethanol, with state symbols.",
+          "steps": ["Balance C, then H, then O."],
+          "answer": "$\\ce{C2H5OH(l) + 3O2(g) -> 2CO2(g) + 3H2O(l)}$", "video": null,
+          "verify": { "kind": "chem-equation", "truth": "C2H5OH(l) + O2(g) -> CO2(g) + H2O(l)", "states": true, "reversible": false }
+        },
+        {
+          "type": "example", "id": "ex-explain",
+          "question": "Explain why breaking bonds is endothermic.",
+          "steps": ["Atoms are held by attraction to shared electrons."],
+          "answer": "Energy must be absorbed to overcome the attraction between the nuclei and the bonding electrons, so bond breaking is endothermic and $\\Delta H$ is positive.",
+          "video": null,
+          "verify": { "kind": "explanation", "truth": "bond breaking needs energy to overcome attractions", "requires": [["absorbed", "absorbs"], "attraction", "endothermic"], "forbids": ["energy is released when bonds break"] }
+        },
+        {
+          "type": "check", "id": "check-half",
+          "prompt": "Which half-equation shows the reduction of iron(III) ions?",
+          "hint": "Balance the charge with electrons.",
+          "options": [
+            { "text": "$\\ce{Fe^3+(aq) + e- -> Fe^2+(aq)}$", "correct": true },
+            { "text": "$\\ce{Fe^3+(aq) + 2e- -> Fe^2+(aq)}$", "correct": false },
+            { "text": "$\\ce{Fe^3+(aq) -> Fe^2+(aq) + e-}$", "correct": false },
+            { "text": "$\\ce{Fe^2+(aq) + e- -> Fe(s)}$", "correct": false }
+          ],
+          "explain": "One electron takes the charge from 3+ to 2+.",
+          "verify": { "kind": "chem-equation", "truth": "Fe^3+ + e- -> Fe^2+" }
+        },
+        {
+          "type": "check", "id": "check-empirical",
+          "prompt": "A hydrocarbon is 85.7% carbon by mass. What is its empirical formula?",
+          "hint": "Divide each percentage by $A_\\text{r}$.",
+          "options": [
+            { "text": "$\\ce{CH2}$", "correct": true },
+            { "text": "$\\ce{C2H4}$", "correct": false },
+            { "text": "$\\ce{CH3}$", "correct": false }
+          ],
+          "explain": "$85.7/12.01 : 14.3/1.01 = 1 : 2$.",
+          "verify": { "kind": "formula", "truth": "empirical_formula({\"C\": 85.7, \"H\": 14.3})" }
+        },
+        {
+          "type": "check", "id": "check-shape",
+          "prompt": "What is the shape of $\\ce{BF3}$?",
+          "hint": "Three bonding domains, no lone pairs.",
+          "options": [
+            { "text": "trigonal planar", "correct": true },
+            { "text": "trigonal pyramidal", "correct": false },
+            { "text": "tetrahedral", "correct": false }
+          ],
+          "explain": "Three domains repel to 120°.",
+          "verify": { "kind": "choice", "truth": "trigonal planar" }
+        },
+        {
+          "type": "check", "id": "check-moles",
+          "prompt": "How many moles of gas occupy $\\pu{2.00 dm3}$ at $\\pu{100 kPa}$ and $\\pu{298 K}$? Give 3 s.f.",
+          "hint": "$n = \\frac{PV}{RT}$.",
+          "answer": { "value": 0.0808, "tolerance": 0.00005 },
+          "explain": "$n = \\frac{100 \\times 2.00}{8.31 \\times 298}$.",
+          "verify": { "kind": "numeric", "truth": "100 * 2.00 / (R * 298)", "sf": 3 }
+        }
+      ]
+    }
+  ]
+}

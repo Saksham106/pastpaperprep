@@ -62,8 +62,12 @@ export const INTERACTIVE_PROPS: Record<InteractiveId, InteractivePropSpec> = {
  * Declarative answer check, read by scripts/notes/check-math.py (scripts/notes/verify_kinds.py implements each kind).
  * `truth` is a SymPy expression built from the question's own data, e.g. "sqrt(5**2 + 12**2)". Options per kind are
  * listed in VERIFY_KINDS (validate.ts). A sidecar entry for the same id, when there is one, is used instead.
+ * Chemistry kinds: `chem-equation` (truth: the skeleton equation), `formula` (truth: a formula helper) and
+ * `explanation` (truth: a one-line summary; `requires` / `forbids` are lists of phrases, a `requires` entry may be a
+ * list of alternatives).
  */
-export type Verify = { kind: string; truth: string } & Record<string, string | number | boolean>;
+export type VerifyPhrases = (string | string[])[];
+export type Verify = { kind: string; truth: string } & Record<string, string | number | boolean | VerifyPhrases>;
 
 /** Strings marked "inline" accept `$tex$`, `[[term-id|label]]` and `{{lesson:5.15}}`. */
 export type CheckBlock = {

@@ -11,7 +11,12 @@ Reading
   parse_list(tex)                  several values of ONE unknown: `x = -1 \\text{ or } x = 4`, `x = \\frac{3 \\pm \\sqrt{5}}{2}`.
   parse_assignments(tex)           named values: `x = 1, y = 2` -> {"x": 1, "y": 2}.
   parse_approx(tex, unit=None)     one rounded value: (Decimal value, significant figures, decimal places, relation).
-  parse_with_unit(tex, unit)       the TeX with its unit removed; the unit must be present and match.
+  parse_with_unit(tex, unit)       the TeX with its unit removed; the unit must be present and match. Units are
+                                   compared token by token in any order, with \\text{}, \\mathrm{}, mhchem \\pu{}, \\,
+                                   `^{-1}`, `-1` and `⁻¹` all equivalent: \\text{kJ mol}^{-1} = kJ mol-1 = kJ mol⁻¹.
+  split_unit(tex, plain=False)     (TeX without its trailing unit, the normalised unit or None). A unit starts at
+                                   \\text / \\mathrm (not a "(3 s.f.)" remark), a degree sign, \\% or \\pu{}; with plain=True
+                                   also at a bare SI/chemistry unit such as `mol dm^{-3}` or `kJ mol⁻¹`.
   parse_degrees(tex)               an exact angle written with ^{\\circ}.
   parse_vector(tex), parse_point(tex), parse_vector_line(tex), parse_set(tex), parse_equation(tex)
 
@@ -47,8 +52,32 @@ _FUNCS = r"ln|log|exp|sin|cos|tan|sec|csc|cot|arcsin|arccos|arctan|sinh|cosh|tan
 _NAMED = {"cosec": "csc", **{name: name for name in _FUNCS.split("|")}}
 
 
+def _expand_pu(tex: str) -> str:
+    """mhchem quantities: \\pu{-890 kJ mol-1} -> -890 \\text{kJ mol-1}; \\pu{2.50e-3 mol} -> 2.50 \\times 10^{-3} \\text{mol}."""
+    while True:
+        match = re.search(r"\\pu\s*\{", tex)
+        if not match:
+            return tex
+        depth, i = 1, match.end()
+        while i < len(tex) and depth:
+            depth += {"{": 1, "}": -1}.get(tex[i], 0)
+            i += 1
+        if depth:
+            raise ValueError(f"unbalanced braces after \\pu in {tex!r}")
+        body = tex[match.end(): i - 1].strip().replace("\u2212", "-")
+        number = re.match(r"([-+]?\s*\d+(?:\.\d+)?)(?:\s*(?:[eE]|\*\s*10\s*\^|\\times\s*10\s*\^|\\cdot\s*10\s*\^)\s*\{?\s*([-+]?\d+)\s*\}?)?", body)
+        if number:
+            value = number.group(1).replace(" ", "") + (f" \\times 10^{{{number.group(2)}}}" if number.group(2) else "")
+            rest = body[number.end():].strip()
+            body = value + (f" \\text{{{rest}}}" if rest else "")
+        else:
+            body = f"\\text{{{body}}}"
+        tex = tex[: match.start()] + " " + body + " " + tex[i:]
+
+
 def _strip_decorations(tex: str) -> str:
     tex = tex.replace("$", "")  # lesson strings wrap maths in $...$
+    tex = _expand_pu(tex).replace("\u2212", "-")  # \pu{} quantities; a Unicode minus sign is a minus
     tex = re.sub(r"\\l?vert|\\r?vert|\\[lr]Vert", "|", tex)
     tex = re.sub(r"\\(?:displaystyle|left|right|big|Big|bigg|Bigg)(?![a-zA-Z])", "", tex)
     tex = tex.replace("\\,", " ").replace("\\;", " ").replace("\\!", " ").replace("\\ ", " ").replace("\\quad", " ")
@@ -279,29 +308,64 @@ def check_assignments(tex: str, truth):
 
 # ---------------------------------------------------------------------------------------------------- units, rounding
 
+_SUPERSCRIPTS = str.maketrans("\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077\u2078\u2079\u207b\u207a", "0123456789-+")
+
+
 def _normal_unit(unit: str) -> str:
+    """One spelling for a unit: \\text{kJ mol}^{-1}, kJ\\,mol^{-1}, kJ mol-1 and kJ mol⁻¹ all read "kJ mol-1". Tokens are
+    sorted, so J K^{-1} mol^{-1} = J mol^{-1} K^{-1} (a product of units does not depend on the order)."""
     unit = re.sub(r"\^\s*\{?\s*\\circ\s*\}?|\\degree|°", "°", unit)
-    unit = re.sub(r"\\(?:text|mathrm)\{", "", unit).replace("{", "").replace("}", "").replace("\\ ", " ")
-    return re.sub(r"\s+", " ", unit).strip()
+    unit = unit.replace("\u2212", "-").translate(_SUPERSCRIPTS)
+    unit = re.sub(r"\\(?:text|mathrm|textrm|operatorname|pu)\s*\{", " ", unit)
+    unit = re.sub(r"\\(?:cdot|[,;:! ])|\\q?quad(?![A-Za-z])|[~·]", " ", unit)
+    unit = unit.replace("\\%", "%")
+    unit = re.sub(r"\\(?:mu|micro)(?![A-Za-z])|\u03bc", "\u00b5", unit)
+    unit = unit.replace("{", "").replace("}", "").replace("^", "")
+    unit = re.sub(r"\s+(?=[-+]?\d)", "", unit)  # "mol -1" -> "mol-1"
+    unit = re.sub(r"°\s*", "°", unit)  # ^{\circ}\text{C} -> °C
+    return " ".join(sorted(unit.split()))
 
 
 def _unit_start(rhs: str):
-    match = re.search(r"\^\s*\{?\s*\\circ|\\degree|°|\\(?:text|mathrm)\{(?!\s*\()", rhs)
+    match = re.search(r"\^\s*\{?\s*\\circ|\\degree|°|\\%|%|\\(?:text|mathrm)\{(?!\s*\()", rhs)
     return match.start() if match else None
 
 
-def parse_with_unit(tex: str, unit: str) -> str:
-    """The TeX with its trailing unit removed. The unit must be there and match `unit` (e.g. "cm^2", "°", "m s^-1")."""
+#: A bare unit token: an SI or chemistry unit with an optional prefix and power, as in mol, dm^{-3}, kJ, mol⁻¹, cm^3.
+_UNIT_TOKEN = (r"(?:(?:[kMmcdnpµμ]?(?:mol|g|m|L|J|Pa|s|K|V|W|N|Hz|eV|A|C))|atm|min|hr?|ppm|M)"
+               r"(?:\s*\^\s*\{?\s*[-\u2212]?\d+\s*\}?|[-\u2212]?\d+|[\u207b]?[\u2070\u00b9\u00b2\u00b3\u2074-\u2079]+)?")
+_PLAIN_UNIT = re.compile(rf"(?:(?<=[\d}}\s])|^)((?:{_UNIT_TOKEN})(?:\s*(?:{_UNIT_TOKEN}))*)\s*$")
+
+
+def split_unit(tex: str, plain: bool = False):
+    """(the TeX without its trailing unit, the unit normalised) or (tex unchanged, None) when it has no unit.
+
+    The unit is what follows the number after the last top-level `=` / `\\approx`: from a \\text{...} / \\mathrm{...}
+    (not a `\\text{ (3 s.f.)}` remark), a degree sign, a % sign or a \\pu{} quantity, or with plain=True a run of bare
+    unit tokens (`mol dm^{-3}`, `kJ mol⁻¹`)."""
     cleaned = _strip_decorations(tex)
     cuts = _top_level_cuts(cleaned, r"\\approx|=")
     offset = cuts[-1][1] if cuts else 0
-    start = _unit_start(cleaned[offset:])
+    rhs = cleaned[offset:]
+    start = _unit_start(rhs)
+    if start is None and plain:
+        match = _PLAIN_UNIT.search(rhs)
+        if match and re.search(r"\d", rhs[: match.start(1)]):
+            start = match.start(1)
     if start is None:
+        return tex, None
+    return cleaned[: offset + start], _normal_unit(rhs[start:])
+
+
+def parse_with_unit(tex: str, unit: str) -> str:
+    """The TeX with its trailing unit removed. The unit must be there and match `unit` (e.g. "cm^2", "°", "m s^-1",
+    "kJ mol-1"); see _normal_unit for what counts as the same unit."""
+    stripped, published = split_unit(tex, plain=True)
+    if published is None:
         raise ValueError(f"{tex!r} has no unit; expected {unit!r}")
-    published = _normal_unit(cleaned[offset + start:])
     if published != _normal_unit(unit):
         raise AssertionError(f"{tex!r} has unit {published!r}, expected {_normal_unit(unit)!r}")
-    return cleaned[: offset + start]
+    return stripped
 
 
 def parse_degrees(tex: str):
@@ -322,7 +386,7 @@ def parse_approx(tex: str, unit=None):
     rhs = cleaned[cuts[-1][1]:] if cuts else cleaned
     rhs = re.sub(r"\\(?:text|mathrm)\{\s*\([^}]*\)\s*\}", " ", rhs).strip()
     rhs = re.sub(r"\\%$", "", rhs).strip()
-    match = re.fullmatch(r"(-?)\s*(\d+(?:\.\d+)?)(?:\s*\\times\s*10\^\{?(-?\d+)\}?)?", rhs)
+    match = re.fullmatch(r"([-+]?)\s*(\d+(?:\.\d+)?)(?:\s*\\times\s*10\^\{?(-?\d+)\}?)?", rhs)
     if not match:
         raise ValueError(f"no plain decimal number at the end of {tex!r} (got {rhs!r})")
     sign, mantissa, exponent = match.groups()
@@ -673,7 +737,7 @@ def parse_point(tex: str):
 
 
 __all__ = [
-    "parse_answer", "parse_list", "parse_assignments", "parse_approx", "parse_with_unit", "parse_degrees", "parse_vector",
+    "parse_answer", "parse_list", "parse_assignments", "parse_approx", "parse_with_unit", "split_unit", "parse_degrees", "parse_vector",
     "parse_vector_line", "parse_point", "parse_set", "parse_equation", "round_half_up", "check_antiderivative", "keep_constant", "strip_constant", "check_rounded",
     "check_rounded_list", "check_numeric", "check_assignments", "check_same_line", "check_same_set", "check_same_equation",
     "check_same_cartesian_line", "check_self_inverse", "proves_zero", "with_real_odd_roots", "RealRoot",
