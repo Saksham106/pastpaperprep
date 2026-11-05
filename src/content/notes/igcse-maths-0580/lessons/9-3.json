@@ -198,7 +198,7 @@
         },
         {
           "type": "text",
-          "text": "A data set can have two modes if two values tie for most often. If every value occurs once, there is no mode."
+          "text": "A data set can have more than one mode if values tie for most often. If every value occurs the same number of times, there is no mode."
         },
         {
           "type": "text",
@@ -258,6 +258,22 @@
             "kind": "exact",
             "truth": "Max(3, -2, 5, -6, 1, 4, 0) - Min(3, -2, 5, -6, 1, 4, 0)",
             "unit": "°C"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-range-compare",
+          "question": "Aisha's long jumps, in metres, are $4.12, 4.35, 3.98, 4.27, 4.40$. Ben's are $4.05, 4.61, 3.72, 4.48, 4.19$. Find the range of each, in metres. Who is more consistent?",
+          "steps": [
+            "Aisha: largest $4.40$, smallest $3.98$. Range $= 4.40 - 3.98 = 0.42$ m.",
+            "Ben: largest $4.61$, smallest $3.72$. Range $= 4.61 - 3.72 = 0.89$ m.",
+            "Aisha's range is smaller, so her jumps are closer together. She is more consistent."
+          ],
+          "answer": "$0.42 \\text{ and } 0.89$",
+          "verify": {
+            "kind": "list",
+            "truth": "[Max(4.12, 4.35, 3.98, 4.27, 4.40) - Min(4.12, 4.35, 3.98, 4.27, 4.40), Max(4.05, 4.61, 3.72, 4.48, 4.19) - Min(4.05, 4.61, 3.72, 4.48, 4.19)]"
           },
           "video": null
         },
@@ -432,7 +448,7 @@
         },
         {
           "type": "text",
-          "text": "2. The median is the middle value, so an extreme value hardly moves it. Use it when there is one."
+          "text": "2. The median is the middle value, so an extreme value hardly moves it. Use it when the data have an extreme value."
         },
         {
           "type": "text",
@@ -456,6 +472,23 @@
             "kind": "exact",
             "truth": "[26, 27, 29, 30, 31, 32, 88][3]",
             "unit": "minutes"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-choose-mode",
+          "question": "A shoe shop sells these sizes on Saturday: $6, 8, 7, 8, 5, 9, 8, 7, 6, 8, 10, 7$. The manager will order more of the size that sells best. Which average should she use? Find it.",
+          "steps": [
+            "The mean is $89 \\div 12 = 7.41\\ldots$. Nobody bought that size.",
+            "In order: $5, 6, 6, 7, 7, 7, 8, 8, 8, 8, 9, 10$. The median is halfway between the 6th and 7th values, $7.5$. Nobody bought a $7.5$ either.",
+            "The mode is the size sold most often. Size $8$ sold $4$ times, more than any other.",
+            "So she should use the mode."
+          ],
+          "answer": "$\\text{mode} = 8$",
+          "verify": {
+            "kind": "exact",
+            "truth": "[5, 6, 7, 8, 9, 10][[1, 2, 3, 4, 1, 1].index(Max(1, 2, 3, 4, 1, 1))]"
           },
           "video": null
         },
@@ -570,6 +603,25 @@
           "text": "Finding the quartiles from the list as it was given. Put the values in order first, just as for the median."
         },
         {
+          "type": "example",
+          "id": "ex-iqr-batteries",
+          "question": "Ten phone batteries last these numbers of hours: $8.4, 9.1, 7.6, 10.3, 8.9, 9.7, 7.9, 10.8, 9.4, 8.2$. Find the interquartile range.",
+          "steps": [
+            "In order: $7.6, 7.9, 8.2, 8.4, 8.9, 9.1, 9.4, 9.7, 10.3, 10.8$.",
+            "Ten is even, so there is no median value to leave out. Cut the list in half.",
+            "Lower half: $7.6, 7.9, 8.2, 8.4, 8.9$, so the lower quartile is $8.2$.",
+            "Upper half: $9.1, 9.4, 9.7, 10.3, 10.8$, so the upper quartile is $9.7$.",
+            "IQR $= 9.7 - 8.2 = 1.5$."
+          ],
+          "answer": "$\\text{IQR} = 1.5\\text{ hours}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "[9.1, 9.4, 9.7, 10.3, 10.8][2] - [7.6, 7.9, 8.2, 8.4, 8.9][2]",
+            "unit": "hours"
+          },
+          "video": null
+        },
+        {
           "type": "check",
           "id": "check-iqr-even-halves",
           "prompt": "Nine students' marks in a test are $67, 72, 58, 81, 64, 75, 69, 88, 61$. Find the interquartile range.",
@@ -658,6 +710,25 @@
           "text": "Discrete data can be grouped too, such as $20$–$29$ goals. Find the midpoint from the smallest and largest value in the class."
         },
         {
+          "type": "example",
+          "id": "ex-grouped-ferry",
+          "question": "The table shows the number of passengers on a ferry's crossings in one month. $\\begin{array}{c|cccc} \\text{Passengers} & 57\\text{–}63 & 64\\text{–}70 & 71\\text{–}77 & 78\\text{–}84 \\\\ \\hline \\text{Frequency} & 32 & 53 & 37 & 29 \\end{array}$ Calculate an estimate of the mean number of passengers. Give your answer to 3 significant figures.",
+          "steps": [
+            "Midpoints: $\\frac{57 + 63}{2} = 60$, then $67$, $74$ and $81$.",
+            "Multiply: $60 \\times 32 = 1920$, $67 \\times 53 = 3551$, $74 \\times 37 = 2738$, $81 \\times 29 = 2349$.",
+            "Add: $1920 + 3551 + 2738 + 2349 = 10\\,558$. The total frequency is $32 + 53 + 37 + 29 = 151$.",
+            "Divide: $10\\,558 \\div 151 = 69.92\\ldots \\approx 69.9$."
+          ],
+          "answer": "$\\text{mean} \\approx 69.9\\text{ passengers}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "((57 + 63)/2*32 + (64 + 70)/2*53 + (71 + 77)/2*37 + (78 + 84)/2*29)/(32 + 53 + 37 + 29)",
+            "sf": 3,
+            "unit": "passengers"
+          },
+          "video": null
+        },
+        {
           "type": "check",
           "id": "check-grouped-discrete",
           "prompt": "Quiz marks are grouped as $51$–$59$, $60$–$68$ and $69$–$77$, with frequencies $5$, $12$ and $8$. Estimate the mean, correct to three significant figures.",
@@ -706,10 +777,6 @@
               "correct": true
             },
             {
-              "text": "$21$",
-              "correct": false
-            },
-            {
               "text": "$6 < d \\le 8$",
               "correct": false
             },
@@ -720,8 +787,9 @@
           ],
           "explain": "The highest frequency is $21$, so the modal class is $4 < d \\le 6$. The $21$ is a frequency, not a class.",
           "verify": {
-            "kind": "choice",
-            "truth": "$4 < d \\le 6$"
+            "kind": "inequality",
+            "var": "d",
+            "truth": "[Interval.Lopen(0, 2), Interval.Lopen(2, 4), Interval.Lopen(4, 6), Interval.Lopen(6, 8)][[8, 15, 21, 6].index(Max(8, 15, 21, 6))]"
           }
         }
       ]
@@ -738,7 +806,7 @@
         },
         {
           "type": "fact",
-          "text": "Median: put the values in order and take the $\\frac{n+1}{2}$th. Mode: the most common value. Range: largest $-$ smallest.",
+          "text": "Median: put the values in order and take the $\\frac{n+1}{2}$th (halfway between the middle two when $n$ is even). Mode: the most common value. Range: largest $-$ smallest.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -789,5 +857,5 @@
     "Leave an exact answer such as $1.6$ as it is. Round to 3 s.f. only when the decimal goes on.",
     "Give a reason why the mean is not suitable: name the extreme value and say it pulls the mean away from most of the data."
   ],
-  "readingMinutes": 22
+  "readingMinutes": 28
 }

@@ -108,6 +108,21 @@
           "text": "So $-4$ is an integer, like every whole [[negative-number|negative number]], but it is not natural."
         },
         {
+          "type": "example",
+          "id": "ex-integers-not-natural",
+          "question": "Write down the integers in this list that are not natural numbers: $-9, \\; 0, \\; 2.5, \\; 16, \\; -\\frac{3}{4}, \\; -1$.",
+          "steps": [
+            "$2.5$ and $-\\frac{3}{4}$ are not whole numbers, so they are not integers at all.",
+            "$16$ is a positive whole number, so it is natural. That leaves $-9$, $0$ and $-1$: whole numbers, but not positive."
+          ],
+          "answer": "$-9, 0, -1$",
+          "verify": {
+            "kind": "list",
+            "truth": "Complement(Intersection(FiniteSet(-9, 0, Rational(5, 2), 16, Rational(-3, 4), -1), Integers), Naturals)"
+          },
+          "video": null
+        },
+        {
           "type": "text",
           "text": "A [[square-number|square number]] is a positive whole number times itself: $1, 4, 9, 16, 25, \\ldots$ For example, $7 \\times 7 = 7^2 = 49$."
         },
@@ -126,7 +141,7 @@
           "answer": "$64, 81, 121$",
           "verify": {
             "kind": "list",
-            "truth": "[8**2, 9**2, 11**2]"
+            "truth": "Intersection(FiniteSet(50, 64, 81, 90, 121, 125), ImageSet(Lambda(n, n**2), Naturals))"
           },
           "video": null,
           "check": {
@@ -155,7 +170,7 @@
             "explain": "$4^3 = 64$ and $5^3 = 125$. So $64$ is a square and a cube.",
             "verify": {
               "kind": "list",
-              "truth": "[4**3, 5**3]"
+              "truth": "Intersection(FiniteSet(50, 64, 81, 90, 121, 125), ImageSet(Lambda(n, n**3), Naturals))"
             }
           }
         },
@@ -462,7 +477,7 @@
           "answer": "$\\sqrt{50}, \\pi$",
           "verify": {
             "kind": "list",
-            "truth": "[sqrt(50), pi]"
+            "truth": "Complement(FiniteSet(sqrt(36), 0.45, sqrt(50), Rational(3, 11), pi, cbrt(64)), Rationals)"
           },
           "video": null
         },
@@ -491,8 +506,8 @@
           ],
           "explain": "$\\sqrt{121} = 11$, and $3.142$ and $\\frac{22}{7}$ are rational, though close to $\\pi$.",
           "verify": {
-            "kind": "choice",
-            "truth": "$\\sqrt{12}$"
+            "kind": "exact",
+            "truth": "sqrt(12)"
           }
         },
         {
@@ -504,6 +519,21 @@
         {
           "type": "text",
           "text": "Flip a fraction: $\\frac{3}{8}$ becomes $\\frac{8}{3}$. A whole number $5 = \\frac{5}{1}$ becomes $\\frac{1}{5}$. Keep the sign: $-4$ becomes $-\\frac{1}{4}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-reciprocal-mixed",
+          "question": "Find the reciprocal of $2\\frac{3}{4}$.",
+          "steps": [
+            "Write it as a single fraction first: $2\\frac{3}{4} = \\frac{8}{4} + \\frac{3}{4} = \\frac{11}{4}$.",
+            "Flip it to get $\\frac{4}{11}$. Check: $\\frac{11}{4} \\times \\frac{4}{11} = 1$."
+          ],
+          "answer": "$\\frac{4}{11}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "1/(2 + Rational(3, 4))"
+          },
+          "video": null
         },
         {
           "type": "check",
@@ -608,5 +638,5 @@
     "Product of prime factors: write primes only, like $2^3 \\times 3^2 \\times 5$, never $8 \\times 45$.",
     "No calculator on Papers 1 and 2: know the squares to $15^2$, and the cubes to $5^3$ and $10^3$."
   ],
-  "readingMinutes": 14
+  "readingMinutes": 17
 }

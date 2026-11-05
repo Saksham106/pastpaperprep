@@ -130,6 +130,22 @@
           "video": null
         },
         {
+          "type": "example",
+          "id": "ex-semicircle-radii",
+          "question": "$AB$ is a diameter of a circle with centre $O$, and $C$ is on the circle. Angle $BOC = 124^{\\circ}$. Find angle $CAB$. Give a reason for each step.",
+          "steps": [
+            "$OB = OC$ (radii), so triangle $OBC$ is isosceles: angle $OBC = (180^{\\circ} - 124^{\\circ}) \\div 2 = 28^{\\circ}$.",
+            "Angle $ACB = 90^{\\circ}$: the angle in a semicircle is $90^{\\circ}$.",
+            "Angles in triangle $ABC$: angle $CAB = 180^{\\circ} - 90^{\\circ} - 28^{\\circ} = 62^{\\circ}$."
+          ],
+          "answer": "$\\angle CAB = 62^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - 90 - (180 - 124)/2"
+          },
+          "video": null
+        },
+        {
           "type": "check",
           "id": "check-semicircle-algebra",
           "prompt": "$K$, $L$ and $M$ lie on a circle, and $KM$ is a diameter. Angle $LKM = 2x^{\\circ}$ and angle $LMK = 3x^{\\circ}$. Find $x$.",
@@ -170,6 +186,21 @@
           "why": "The picture is symmetrical about the line $OP$, so the tangent makes two equal angles with $OP$. They add up to $180^{\\circ}$, so each is $90^{\\circ}$."
         },
         {
+          "type": "example",
+          "id": "ex-two-tangents",
+          "question": "$PE$ and $PF$ are tangents to a circle with centre $O$, touching it at $E$ and $F$. Angle $EPF = 48^{\\circ}$. Find angle $EOF$. Give a reason for each step.",
+          "steps": [
+            "Angles $OEP$ and $OFP$ are both $90^{\\circ}$, because a tangent is perpendicular to the radius.",
+            "The angles of quadrilateral $OEPF$ add up to $360^{\\circ}$: angle $EOF = 360^{\\circ} - 90^{\\circ} - 90^{\\circ} - 48^{\\circ} = 132^{\\circ}$."
+          ],
+          "answer": "$\\angle EOF = 132^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "360 - 90 - 90 - 48"
+          },
+          "video": null
+        },
+        {
           "type": "check",
           "id": "check-tangent-triangle",
           "prompt": "A circle has centre $O$. The line $TP$ is the tangent at $P$, and angle $POT = 64^{\\circ}$. Find angle $PTO$, in degrees.",
@@ -208,26 +239,26 @@
         {
           "type": "check",
           "id": "check-tangent-reason",
-          "prompt": "In the example, which reason explains why angle $OAT = 90^{\\circ}$?",
+          "prompt": "In the example with angle $BAT = 71^{\\circ}$, which reason explains why angle $OAT = 90^{\\circ}$?",
           "hint": "Is there a diameter, or a tangent and a radius?",
           "options": [
             {
-              "text": "A tangent is perpendicular to the radius",
+              "text": "Tangent perpendicular to the radius",
               "correct": true
             },
             {
-              "text": "The angle in a semicircle is $90^{\\circ}$",
+              "text": "Angle in a semicircle",
               "correct": false
             },
             {
-              "text": "Angles on a straight line add up to $180^{\\circ}$",
+              "text": "Angles on a straight line",
               "correct": false
             }
           ],
           "explain": "$OA$ is a radius and $AT$ is the tangent at $A$. There is no diameter, so no semicircle.",
           "verify": {
             "kind": "choice",
-            "truth": "A tangent is perpendicular to the radius"
+            "truth": "Tangent perpendicular to the radius"
           }
         }
       ]
@@ -267,6 +298,21 @@
           "verify": {
             "kind": "angle",
             "truth": "(180 - 2*49)/2"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-centre-from-radii",
+          "question": "$A$, $B$ and $C$ lie on a circle with centre $O$, and $A$ is on the major arc $BC$. Angle $OBC = 31^{\\circ}$. Find angle $BAC$. Give a reason for each step.",
+          "steps": [
+            "$OB = OC$ (radii), so angle $OCB = 31^{\\circ}$ and angle $BOC = 180^{\\circ} - 2 \\times 31^{\\circ} = 118^{\\circ}$.",
+            "The angle at the centre is twice the angle at the circumference, so angle $BAC = 118^{\\circ} \\div 2 = 59^{\\circ}$."
+          ],
+          "answer": "$\\angle BAC = 59^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "(180 - 2*31)/2"
           },
           "video": null
         },
@@ -327,6 +373,22 @@
         },
         {
           "type": "example",
+          "id": "ex-same-segment-chords",
+          "question": "$A$, $B$, $C$ and $D$ lie on a circle in that order. Chords $AC$ and $BD$ cross at $X$. Angle $BAC = 36^{\\circ}$ and angle $AXB = 95^{\\circ}$. Find angle $ACD$. Give a reason for each step.",
+          "steps": [
+            "Angles $BAC$ and $BDC$ stand on chord $BC$, on the same side. Angles in the same segment are equal, so angle $BDC = 36^{\\circ}$.",
+            "Angle $DXC =$ angle $AXB = 95^{\\circ}$ (vertically opposite angles).",
+            "Angles in triangle $DXC$: angle $ACD = 180^{\\circ} - 95^{\\circ} - 36^{\\circ} = 49^{\\circ}$."
+          ],
+          "answer": "$\\angle ACD = 49^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - 95 - 36"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
           "id": "ex-cyclic-reasons",
           "question": "$PQRS$ is a cyclic quadrilateral with diagonals $PR$ and $QS$. Angle $QRS = 101^{\\circ}$ and angle $PRQ = 33^{\\circ}$. Find angle $PQS$. Give a reason for each step.",
           "steps": [
@@ -343,7 +405,7 @@
         },
         {
           "type": "mistake",
-          "text": "Adding two neighbouring angles to $180^{\\circ}$. Only opposite angles do that, and only when all four corners are on the circle."
+          "text": "Assuming two neighbouring angles add up to $180^{\\circ}$. The theorem is about opposite angles, and only when all four corners are on the circle."
         },
         {
           "type": "check",
@@ -399,6 +461,22 @@
           "verify": {
             "kind": "angle",
             "truth": "180 - 57 - 68"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-alt-segment-isosceles",
+          "question": "In the figure, $AB = AC$ and angle $TAB = 52^{\\circ}$. Find angle $BAC$. Give a reason for each step.",
+          "steps": [
+            "By the alternate segment theorem, angle $ACB =$ angle $TAB = 52^{\\circ}$.",
+            "$AB = AC$, so triangle $ABC$ is isosceles and angle $ABC =$ angle $ACB = 52^{\\circ}$.",
+            "Angles in triangle $ABC$: angle $BAC = 180^{\\circ} - 2 \\times 52^{\\circ} = 76^{\\circ}$."
+          ],
+          "answer": "$\\angle BAC = 76^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - 2*52"
           },
           "video": null
         },
@@ -490,5 +568,5 @@
     "Circle diagrams are usually not to scale, so never measure. Work angles out from named facts.",
     "Mark each angle on the diagram as you find it. Correct angles on the way can earn marks."
   ],
-  "readingMinutes": 14
+  "readingMinutes": 21
 }

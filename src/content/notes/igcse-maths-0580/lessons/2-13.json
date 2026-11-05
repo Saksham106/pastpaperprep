@@ -6,7 +6,7 @@
   "title": "Functions",
   "level": "Extended",
   "topic": 2,
-  "summary": "A [[function|function]] is a rule that turns each input into exactly one output. [[function-notation|Function notation]], such as $\\mathrm{f}(x) = 3x + 8$, names the rule. Then you can feed it numbers, undo it with an [[inverse-function|inverse function]], or join two rules into a [[composite-function|composite function]].",
+  "summary": "A [[function|function]] is a rule that turns each input into exactly one output. [[function-notation|Function notation]], such as $\\mathrm{f}(x) = 3x + 8$, names the rule. You can evaluate it, undo it with an [[inverse-function|inverse function]], or join two rules into a [[composite-function|composite function]].",
   "goals": [
     {
       "text": "Use function notation to work out values such as $\\mathrm{f}(-2)$ and $\\mathrm{f}(x + 3)$, and solve $\\mathrm{f}(x) = k$.",
@@ -138,7 +138,7 @@
         },
         {
           "type": "text",
-          "text": "[[function-notation|Function notation]] gives the rule a name. $\\mathrm{f}(x) = 3x + 8$ says that the function $\\mathrm{f}$ takes the input $x$ and gives the output $3x + 8$. Read $\\mathrm{f}(x)$ as \"f of $x$\"."
+          "text": "[[function-notation|Function notation]] names the rule: $\\mathrm{f}(x) = 3x + 8$ means $\\mathrm{f}$ turns the input $x$ into $3x + 8$. Read $\\mathrm{f}(x)$ as \"f of $x$\"."
         },
         {
           "type": "text",
@@ -162,7 +162,7 @@
         },
         {
           "type": "text",
-          "text": "To solve $\\mathrm{f}(x) = k$, you know the output and want the input. Write the rule equal to $k$ and solve the equation."
+          "text": "To solve $\\mathrm{f}(x) = k$, you know the output and want the input: set the rule equal to $k$ and solve."
         },
         {
           "type": "example",
@@ -238,10 +238,6 @@
       "heading": "Domain, range and mapping diagrams",
       "blocks": [
         {
-          "type": "text",
-          "text": "Every [[function|function]] has a set of inputs it accepts and a set of outputs it can give."
-        },
-        {
           "type": "definition",
           "term": "domain",
           "statement": "The [[domain|domain]] of a function is the set of input values it is allowed to take.",
@@ -255,11 +251,11 @@
         },
         {
           "type": "text",
-          "text": "This is not the range of a set of data, which is one number: largest minus smallest."
+          "text": "This is not the range of a data set, which is one number: largest minus smallest."
         },
         {
           "type": "text",
-          "text": "A mapping diagram shows a function with arrows. The inputs (the domain) are on the left and the outputs are on the right. Each arrow joins an input to its output, so the range is every value an arrow reaches."
+          "text": "A mapping diagram shows a function with arrows: inputs (the domain) on the left, outputs on the right. The range is every value an arrow reaches."
         },
         {
           "type": "figure",
@@ -269,11 +265,7 @@
         },
         {
           "type": "text",
-          "text": "Some numbers must be left out of a domain. You can't divide by zero, so $\\mathrm{f}(x) = \\frac{6}{x - 5}$ needs $x \\ne 5$. You also can't take the square root of a negative number."
-        },
-        {
-          "type": "text",
-          "text": "A question often states the domain beside the rule, as in $\\mathrm{f}(x) = \\frac{6}{x - 5}$, $x \\ne 5$."
+          "text": "Some numbers must be left out of a domain. You can't divide by zero, so $\\mathrm{f}(x) = \\frac{6}{x - 5}$ needs $x \\ne 5$, often written beside the rule. You also can't take the square root of a negative number."
         },
         {
           "type": "example",
@@ -298,7 +290,7 @@
             "A square is never negative, so $x^2 \\ge 0$ for every $x$.",
             "Add $5$ to both sides: $x^2 + 5 \\ge 5$.",
             "The smallest output is $\\mathrm{g}(0) = 5$. As $x$ moves away from $0$, the output grows past every number above $5$.",
-            "Write the range using the output, not $x$. Here the output is $\\mathrm{g}(x)$, also written $y$, so the range is $\\mathrm{g}(x) \\ge 5$."
+            "Write the range in terms of the output, $\\mathrm{g}(x)$ or $y$, not $x$: $\\mathrm{g}(x) \\ge 5$."
           ],
           "answer": "$y \\ge 5$",
           "verify": {
@@ -374,7 +366,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "$\\mathrm{f}(x) = 3x + 8$ multiplies by $3$, then adds $8$. To get back from the output to the input, undo the steps in reverse order: subtract $8$, then divide by $3$."
+          "text": "$\\mathrm{f}(x) = 3x + 8$ multiplies by $3$, then adds $8$. To undo it, do the opposite steps in reverse order: subtract $8$, then divide by $3$."
         },
         {
           "type": "definition",
@@ -474,7 +466,7 @@
         },
         {
           "type": "text",
-          "text": "You don't always need the formula for $\\mathrm{f}^{-1}$. If $\\mathrm{f}^{-1}(x) = k$, then $x$ is the output of $\\mathrm{f}$ at $k$, so $x = \\mathrm{f}(k)$."
+          "text": "You don't always need $\\mathrm{f}^{-1}$ itself. If $\\mathrm{f}^{-1}(x) = k$, then $\\mathrm{f}$ sends $k$ to $x$, so $x = \\mathrm{f}(k)$."
         },
         {
           "type": "check",
@@ -601,7 +593,7 @@
         },
         {
           "type": "text",
-          "text": "A function and its inverse cancel out. For any $x$ in the domain of $\\mathrm{f}$, $\\mathrm{f}^{-1}\\mathrm{f}(x) = x$. For any $x$ in the domain of $\\mathrm{f}^{-1}$, $\\mathrm{ff}^{-1}(x) = x$."
+          "text": "A function and its inverse cancel out: $\\mathrm{f}^{-1}\\mathrm{f}(x) = x$ and $\\mathrm{ff}^{-1}(x) = x$, for any $x$ in the domain of the function applied first."
         },
         {
           "type": "check",
@@ -651,7 +643,7 @@
         },
         {
           "type": "fact",
-          "text": "$\\mathrm{f}^{-1}\\mathrm{f}(x) = x$ and $\\mathrm{ff}^{-1}(x) = x$: an inverse undoes its function.",
+          "text": "When $\\mathrm{f}$ has an inverse, $\\mathrm{f}^{-1}\\mathrm{f}(x) = x$ and $\\mathrm{ff}^{-1}(x) = x$: an inverse undoes its function.",
           "tag": "learn",
           "cheatSheet": true
         }
@@ -661,13 +653,12 @@
   "mistakes": [
     "Substituting without brackets. If $\\mathrm{g}(x) = x^2$, then $\\mathrm{g}(3x) = (3x)^2 = 9x^2$, not $3x^2$. Likewise $(-2)^2 = 4$, not $-4$.",
     "Squaring a bracket term by term. $(x - 5)^2$ is $x^2 - 10x + 25$, not $x^2 + 25$: write it as $(x - 5)(x - 5)$ and find the middle term.",
-    "Dividing only part of the expression when finding an inverse. From $y - 8 = 3x$, divide all of $y - 8$ by $3$, so $\\mathrm{f}^{-1}(x) = \\frac{x - 8}{3}$, not $\\frac{x}{3} - 8$.",
-    "Reading $\\mathrm{f}^{-1}(x)$ as $\\frac{1}{\\mathrm{f}(x)}$. The $-1$ means \"inverse\", so find it by rearranging."
+    "Dividing only part of the expression when finding an inverse. From $y - 8 = 3x$, divide all of $y - 8$ by $3$, so $\\mathrm{f}^{-1}(x) = \\frac{x - 8}{3}$, not $\\frac{x}{3} - 8$."
   ],
   "examTips": [
     "When asked to **find** $\\mathrm{f}^{-1}(x)$, give the final answer in terms of $x$, as $\\mathrm{f}^{-1}(x) = \\ldots$ A correct rearranging step earns a method mark even if a later slip follows.",
     "Paper 2 has no calculator, so write each stage of a composite: $\\mathrm{g}(-3) = 6$, then $\\mathrm{f}(6) = -2$. The first stage can earn a mark on its own.",
-    "**Give your answer in its simplest form** means expand, collect like terms and cancel any common factor of a fraction."
+    "**Give your answer in its simplest form** means collect like terms and cancel any common factor. In a fraction, factorise first so the common factor shows, as in $\\frac{6}{4x(x + 1)} = \\frac{3}{2x(x + 1)}$."
   ],
   "readingMinutes": 19
 }
