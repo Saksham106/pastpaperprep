@@ -45,6 +45,17 @@ describe.skipIf(!python)("check-math.py verifies the published answer text", () 
     expect(restated.stdout).toMatch(/^FAIL ex-parts-xe2x \(.*not evaluated/);
   });
 
+  it("takes the course from --course: the 0580 lesson 1.1 passes with its own sidecar, and a wrong answer fails", () => {
+    const pass = spawnSync(python!, [script, "--course", "igcse-maths-0580", "1.1"], { encoding: "utf8" });
+    expect(pass.stdout).not.toMatch(/FAIL/);
+    expect(pass.status).toBe(0);
+    const wrong = spawnSync(python!, [script, "--course=igcse-maths-0580", "--verify", "1.1", "ex-hcf", String.raw`\text{HCF} = 6`], { encoding: "utf8" });
+    expect(wrong.status).toBe(1);
+    expect(wrong.stdout).toMatch(/^FAIL ex-hcf/);
+    const unknown = spawnSync(python!, [script, "--course", "no-such-course", "1.1"], { encoding: "utf8" });
+    expect(unknown.status).not.toBe(0);
+  });
+
   it("rejects a zero integrating factor in the live 5.18 lesson (a property check must exclude degenerate answers)", () => {
     const run = spawnSync(python!, [script, "--verify", "5.18", "check-if-factor", "0"], { encoding: "utf8" });
     expect(run.status).toBe(1);

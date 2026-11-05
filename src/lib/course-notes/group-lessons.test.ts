@@ -74,7 +74,7 @@ describe("surface lookups follow visibility", () => {
     expect(syllabusNotesForBank("ib-hl")).toEqual([]);
     expect(notesNavVisible()).toBe(false);
   });
-  it("fill in under NOTES_PREVIEW=1 on an unpublished course, only for AA banks", () => {
+  it("fill in under NOTES_PREVIEW=1 on an unpublished course, AA links only on AA banks", () => {
     restorePublished = setCoursePublishedForTests(false);
     vi.stubEnv("NOTES_PREVIEW", "1");
     expect(notesNavVisible()).toBe(true);
@@ -83,8 +83,24 @@ describe("surface lookups follow visibility", () => {
     for (const entry of course.lessons.filter((l) => l.level === "AHL")) expect(notesLinksForBank("ib-sl")?.[entry.item], entry.item).toBeUndefined();
     expect(syllabusNotesForBank("ib-hl").map((n) => n.name)).toContain(group.studentFacingName);
     expect(notesTopicLinksForBank("ib-hl")).toHaveProperty("Calculus");
+    // The preview flag shows every course: igcse links go to 0580 lessons only.
+    expect(Object.values(notesLinksForBank("igcse") ?? {}).every((link) => link.href.startsWith("/revision-notes/igcse-maths-0580/"))).toBe(true);
+    expect(notesLinksForBank("igcse-additional")).toBeUndefined();
+    expect(notesTopicLinksForBank("igcse-additional")).toBeUndefined();
+  });
+  it("0580 links follow the 0580 course's visibility alone: keyed by official code, Core and Extended", () => {
+    vi.stubEnv("NOTES_PREVIEW", "");
+    const igcse = COURSES.find((entry) => entry.slug === "igcse-maths-0580")!;
+    expect(igcse.published).toBe(false);
     expect(notesLinksForBank("igcse")).toBeUndefined();
     expect(notesTopicLinksForBank("igcse")).toBeUndefined();
+    restorePublished = setCoursePublishedForTests(true, "igcse-maths-0580");
+    const one = igcse.lessons.find((entry) => entry.item === "1.1")!;
+    const link = { href: lessonPath(igcse, one), label: one.title };
+    expect(notesLinksForBank("igcse")).toEqual({ "current_2025:C1.1": link, "current_2025:E1.1": link });
+    expect(notesTopicLinksForBank("igcse")).toEqual({ Number: { href: "/revision-notes/igcse-maths-0580/number", label: "Number notes" } });
+    // AA banks are untouched by the 0580 course.
+    expect(notesLinksForBank("ib-hl")?.[lesson.item]?.href).toBe(lessonPath(course, lesson));
   });
   it("fill in for the real, published course without a preview flag", () => {
     vi.stubEnv("NOTES_PREVIEW", "");

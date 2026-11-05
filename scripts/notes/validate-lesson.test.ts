@@ -11,6 +11,22 @@ const python = [process.env.AA_NOTES_PYTHON, research && join(research, "aa-cour
 const script = resolve(process.cwd(), "scripts/notes/validate-lesson.mjs");
 const run = (item: string, env: Record<string, string> = {}) => spawnSync(process.execPath, [script, item], { encoding: "utf8", env: { ...process.env, ...env }, timeout: 120_000 });
 
+describe("validate-lesson.mjs --course", () => {
+  it("rejects an unknown course or an item that is not in the course's syllabus", () => {
+    const unknownCourse = spawnSync(process.execPath, [script, "--course", "no-such-course", "1.1"], { encoding: "utf8", timeout: 120_000 });
+    expect(unknownCourse.status).toBe(2);
+    expect(unknownCourse.stderr).toMatch(/Unknown course no-such-course/);
+    const unknownItem = spawnSync(process.execPath, [script, "--course", "igcse-maths-0580", "5.16"], { encoding: "utf8", timeout: 120_000 });
+    expect(unknownItem.status).toBe(2);
+    expect(unknownItem.stderr).toMatch(/unknown item 5\.16 in igcse-maths-0580/);
+  });
+
+  it("runs the validator against the 0580 syllabus and levels", () => {
+    const result = spawnSync(process.execPath, [script, "--course", "igcse-maths-0580", "1.1"], { encoding: "utf8", timeout: 120_000 });
+    expect(result.stdout, result.stdout + result.stderr).toMatch(/^PASS validator/m);
+  });
+});
+
 describe.skipIf(!research || !python)("validate-lesson.mjs", () => {
   it("passes the 5.16 lesson as written, running all three checks", () => {
     const result = run("5.16");

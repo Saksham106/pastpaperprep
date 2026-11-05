@@ -2,6 +2,7 @@ import { cleanup, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { getEntitlementBanks } from "@/lib/banks";
 import { notesRows } from "@/lib/notes-home";
+import { setCoursePublishedForTests } from "@/lib/course-notes/test-visibility";
 import { NotesHome } from "./NotesHome";
 
 const banks = getEntitlementBanks();
@@ -15,6 +16,17 @@ describe("notes home", () => {
       ["Chemistry", "SL & HL", null],
     ]);
     expect(rows[0].notes?.label).toBe("83 lessons");
+  });
+
+  it("links IGCSE Maths 0580 only once its course is visible", () => {
+    const row = () => notesRows(banks.filter((bank) => bank.slug === "igcse"))[0];
+    expect(row().notes).toBeUndefined();
+    const restore = setCoursePublishedForTests(true, "igcse-maths-0580");
+    try {
+      expect(row().notes).toEqual({ href: "/revision-notes/igcse-maths-0580", label: "1 lesson" });
+    } finally {
+      restore();
+    }
   });
 
   it("links IGCSE Chemistry 0620 to its existing topic summaries", () => {

@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.1",
+  "slug": "types-of-number",
+  "title": "Types of number",
+  "level": "Core",
+  "topic": 1,
+  "summary": "Placeholder lesson so the IGCSE Maths 0580 pages, scripts and tests run. Natural numbers, integers, primes, factors and multiples, and rational and irrational numbers.",
+  "goals": [
+    { "text": "Name the type of a number: natural, integer, prime, square, cube, rational or irrational.", "bullets": [] },
+    { "text": "Find the HCF and LCM of two numbers.", "bullets": [] }
+  ],
+  "prerequisites": [],
+  "papers": ["P1", "P2", "P3", "P4"],
+  "synonyms": ["prime numbers", "HCF", "LCM", "rational and irrational"],
+  "before": [],
+  "sections": [
+    {
+      "id": "factors",
+      "heading": "Factors and multiples",
+      "blocks": [
+        { "type": "text", "text": "A factor of a number divides it exactly. The highest common factor (HCF) of two numbers is the largest number that is a factor of both." },
+        {
+          "type": "example",
+          "id": "ex-hcf",
+          "question": "Find the HCF of $24$ and $36$.",
+          "steps": ["Factors of $24$: $1, 2, 3, 4, 6, 8, 12, 24$.", "Factors of $36$: $1, 2, 3, 4, 6, 9, 12, 18, 36$.", "The largest number in both lists is $12$."],
+          "answer": "$\\text{HCF} = 12$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-lcm",
+          "prompt": "What is the lowest common multiple (LCM) of $6$ and $8$?",
+          "hint": "List the multiples of $8$ and stop at the first one that $6$ also divides.",
+          "answer": { "value": 24, "tolerance": 0 },
+          "explain": "Multiples of $8$ are $8, 16, 24$; $24$ is the first that $6$ divides exactly."
+        }
+      ]
+    }
+  ],
+  "mistakes": ["Calling $1$ a prime number: a prime has exactly two factors."],
+  "examTips": ["When a question asks for a prime factor product, write it with indices, such as $2^3 \\times 3$."],
+  "readingMinutes": 3
+}

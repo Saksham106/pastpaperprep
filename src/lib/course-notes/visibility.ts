@@ -1,9 +1,10 @@
 // Light visibility check for site chrome. Reads each course.json only, so the layout never bundles lesson content.
 // Keep this list in step with registry.ts (a test checks it).
 import ibMathAaJson from "@/content/notes/ib-math-aa/course.json";
+import igcseMaths0580Json from "@/content/notes/igcse-maths-0580/course.json";
 
 /** Every course's slug and publish flag (the JSON objects themselves, so tests can flip `published`). */
-export const COURSE_FLAGS: readonly { slug: string; published: boolean }[] = [ibMathAaJson];
+export const COURSE_FLAGS: readonly { slug: string; published: boolean }[] = [ibMathAaJson, igcseMaths0580Json];
 
 /** The IB Maths AA notes, linked from the footer and the IB hub. */
 export const NOTES_INDEX_HREF = `/revision-notes/${ibMathAaJson.slug}`;
