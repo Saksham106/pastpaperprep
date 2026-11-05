@@ -201,11 +201,7 @@
               "correct": false
             }
           ],
-          "explain": "$7.5 \\div 3 = 2.5$ and $12.5 \\div 5 = 2.5$, so both sides are multiplied by $2.5$. Adding $3$ to each side, or using different multipliers, changes the shape.",
-          "verify": {
-            "kind": "choice",
-            "truth": "7.5 cm by 12.5 cm"
-          }
+          "explain": "$7.5 \\div 3 = 2.5$ and $12.5 \\div 5 = 2.5$, so both sides are multiplied by $2.5$. Adding $3$ to each side, or using different multipliers, changes the shape."
         },
         {
           "type": "mistake",

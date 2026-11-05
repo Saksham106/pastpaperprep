@@ -470,7 +470,7 @@
         },
         {
           "type": "mistake",
-          "text": "Averaging the stage speeds. The first stage is $39 \\div 0.75 = 52$ km/h, but $(52 + 80) \\div 2 = 66$ is wrong: the times differ."
+          "text": "Averaging the stage speeds. The first stage is $39 \\div 0.75 = 52$ km/h, and $(52 + 80) \\div 2 = 66$ km/h is the average while moving. It leaves out the $15$-minute stop, so it is not the average speed for the whole journey: always use total distance $\\div$ total time, stops included."
         },
         {
           "type": "text",

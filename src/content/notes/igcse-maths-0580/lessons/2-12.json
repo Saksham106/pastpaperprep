@@ -706,7 +706,7 @@
         },
         {
           "type": "fact",
-          "text": "$\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2} < 0$: maximum. $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2} > 0$: minimum. If it is $0$, use the gradient either side: positive, $0$, negative is a maximum.",
+          "text": "At a stationary point ($\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 0$): $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2} < 0$: maximum. $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2} > 0$: minimum. If it is $0$, use the gradient either side: positive, $0$, negative is a maximum.",
           "tag": "learn",
           "cheatSheet": true
         }

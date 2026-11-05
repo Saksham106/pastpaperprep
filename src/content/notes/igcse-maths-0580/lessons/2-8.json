@@ -555,7 +555,7 @@
     }
   ],
   "mistakes": [
-    "Treating an inverse question as direct. Before you write the equation, ask whether $y$ should get bigger or smaller as $x$ grows. If smaller, divide by $x$: $y = \\frac{k}{x}$.",
+    "Treating an inverse question as direct. Build the equation from the words: \"inversely proportional to $x^2$\" gives $y = \\frac{k}{x^2}$, \"to $\\sqrt{x}$\" gives $y = \\frac{k}{\\sqrt{x}}$. Then check it makes sense: for inverse proportion, $y$ gets smaller as $x$ grows.",
     "Squaring only the $x$ in a bracket. \"The square of $(x - 2)$\" is $(x - 2)^2$, not $x^2 - 2$.",
     "Leaving a number out of the root. \"The square root of $(x + 4)$\" is $\\sqrt{x + 4}$, not $\\sqrt{x}$ or $\\sqrt{x} + 4$.",
     "Forgetting the power when $x$ changes. If $y = k\\sqrt{x}$ and $x$ is multiplied by $25$, then $y$ is multiplied by $5$, not $25$.",
