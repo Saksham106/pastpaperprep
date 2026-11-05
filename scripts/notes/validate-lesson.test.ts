@@ -56,6 +56,24 @@ describe.skipIf(!research || !python)("validate-lesson.mjs", () => {
     expect(result.status).toBe(1);
   });
 
+  it("runs the lints on 0580 and fails a mutated copy: plain first use, wrong reading time, a flag twice", () => {
+    const course = ["--course", "igcse-maths-0580", "1.1"];
+    const clean = spawnSync(process.execPath, [script, ...course], { encoding: "utf8", timeout: 120_000 });
+    expect(clean.stdout, clean.stdout + clean.stderr).toMatch(/^PASS reading-time: computed \d+ min/m);
+    expect(clean.stdout).toMatch(/^PASS glossary$/m);
+    const dir = mkdtempSync(join(tmpdir(), "notes-lints-"));
+    const lesson = JSON.parse(readFileSync(resolve(process.cwd(), "src/content/notes/igcse-maths-0580/lessons/1-1.json"), "utf8"));
+    lesson.sections[0].blocks[0].text = lesson.sections[0].blocks[0].text.replace("[[highest-common-factor|highest common factor]]", "highest common factor");
+    lesson.readingMinutes = 9;
+    lesson.sections.push({ id: "takeaways", heading: "Key takeaways", blocks: [1, 2].map(() => ({ type: "fact", text: "$1$ is not prime.", tag: "learn", cheatSheet: true })) });
+    writeFileSync(join(dir, "1-1.json"), JSON.stringify(lesson));
+    const result = spawnSync(process.execPath, [script, ...course], { encoding: "utf8", timeout: 120_000, env: { ...process.env, AA_NOTES_LESSONS_DIR: dir } });
+    expect(result.stdout).toMatch(/first use of the glossary term "highest common factor" \(sections\[0\]\.blocks\[0\]\) is not underlined/);
+    expect(result.stdout).toMatch(/^FAIL reading-time \(1\): computed \d+ min/m);
+    expect(result.stdout).toMatch(/flags the same fact for the cheat sheet/);
+    expect(result.status).toBe(1);
+  });
+
   it("exits 2 for an unknown item", () => {
     expect(run("9.99").status).toBe(2);
   });

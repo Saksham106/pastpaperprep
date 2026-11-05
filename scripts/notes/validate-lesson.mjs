@@ -9,7 +9,12 @@
 //                Plus the per-lesson parts of content.test.ts: file name matches item, figure SVGs exist and are
 //                safe, glossary entries point at real items, slug unique in the topic, no prerequisite cycle.
 //   check-math   scripts/notes/check-math.py <item> with the SymPy venv (AA_NOTES_PYTHON or ../research venv)
-//   originality  scripts/notes/originality.mjs against ../research/<gate.packs>/<item>.json (AA: aa-course-notes/packs)
+//   originality  scripts/notes/originality.mjs against ../research/<gate.packs>/<item>.json (AA: aa-course-notes/packs),
+//                plus number sets: no example or check reuses 3+ distinctive numbers from one part of a pack question
+//   lints        scripts/notes/lints.mjs: reading time (computed value printed; must match readingMinutes +/- 1),
+//                no formula or fact flagged for the cheat sheet twice, and, when the course has a glossary plan
+//                (course.json gate.glossaryPlan), first use of each planned term underlined and glossary/<item>.json
+//                holding only terms the plan gives this item. course.json gate.exempt switches lints off (AA predates them).
 // It never touches the generated index, the receipts or any shared file, so parallel writers can run it safely.
 // AA_NOTES_LESSONS_DIR / AA_NOTES_SIDECARS_DIR point at another lessons / sidecars folder (used by the tests).
 // Exit 0: every check passed. Exit 1: a check failed. Exit 2: usage error or unknown item.
@@ -21,6 +26,7 @@ import { register as registerCjs } from "tsx/cjs/api";
 import { register } from "tsx/esm/api";
 import { findResearchDir } from "./build-source-pack.mjs";
 import { courseFiles, parseCourseArg } from "./course.mjs";
+import { duplicateCheatSheetErrors, glossaryFirstUseErrors, glossaryOwnershipErrors, numberSetErrors, readingMinutes } from "./lints.mjs";
 import { findOverlaps } from "./originality.mjs";
 
 register();
@@ -51,7 +57,12 @@ if (!item || !items.items.some((entry) => entry.item === item)) {
 }
 const dashed = item.replace(".", "-");
 const results = [];
-const record = (name, errors) => results.push({ name, errors });
+const record = (name, errors, note) => results.push({ name, errors, note });
+const exempt = new Set(course.config.gate.exempt ?? []);
+const calculatorIds = (course.config.calculators ?? []).map((model) => model.id);
+const calculatorFile = join(courseRoot, "calculator.json");
+const calculatorSnippets = existsSync(calculatorFile) ? readJson(calculatorFile).snippets ?? {} : {};
+const { calculatorSteps } = await import(pathToFileURL(join(repoRoot, "src/lib/course-notes/calculators.ts")).href);
 
 // 1. Validator and per-lesson content checks.
 {
@@ -74,7 +85,7 @@ const record = (name, errors) => results.push({ name, errors });
       errors.push(error instanceof Error ? error.message : String(error));
     }
     const lessonItems = new Set(items.items.map((entry) => entry.item));
-    errors.push(...validateLesson(lesson, { items, glossary, lessonItems, levels: course.config.levels }));
+    errors.push(...validateLesson(lesson, { items, glossary, lessonItems, levels: course.config.levels, calculators: calculatorIds, calculatorSnippets }));
     if (lesson.item !== item) errors.push(`${dashed}.json holds item ${lesson.item}`);
     for (const term of glossary) if (!lessonItems.has(term.lesson)) errors.push(`glossary term ${term.id} points at unknown lesson ${term.lesson}`);
     const figures = lesson.sections.flatMap((section) => section.blocks.filter((block) => block.type === "figure"));
@@ -125,15 +136,52 @@ const record = (name, errors) => results.push({ name, errors });
   else if (!existsSync(lessonFile)) record("originality", [`no lesson file ${lessonFile}`]);
   else {
     try {
-      record("originality", findOverlaps(readJson(lessonFile), readJson(pack)).map((hit) => `${hit.path}: ${hit.words} words shared with ${hit.source}: "${hit.phrase}"`));
+      const lesson = readJson(lessonFile);
+      const packJson = readJson(pack);
+      const phrases = findOverlaps(lesson, packJson).map((hit) => `${hit.path}: ${hit.words} words shared with ${hit.source}: "${hit.phrase}"`);
+      const numbers = exempt.has("numberSets") ? [] : numberSetErrors(lesson, packJson);
+      record("originality", [...phrases, ...numbers], exempt.has("numberSets") ? "number sets not enforced for this course" : undefined);
     } catch (error) {
       record("originality", [error instanceof Error ? error.message : String(error)]);
     }
   }
 }
 
-for (const { name, errors } of results) {
-  console.log(`${errors.length ? "FAIL" : "PASS"} ${name}${errors.length ? ` (${errors.length})` : ""}`);
+// 4. Deterministic lints.
+{
+  let lesson = null;
+  try {
+    lesson = readJson(join(lessonsDir, `${dashed}.json`));
+  } catch {
+    // reported by the validator
+  }
+  if (lesson) {
+    const reading = readingMinutes(lesson, (block) => calculatorSteps(block, calculatorSnippets));
+    const off = Math.abs(reading.minutes - lesson.readingMinutes) > 1;
+    const readingNote = `computed ${reading.minutes} min (${reading.words} words / 150 + ${reading.examples} example${reading.examples === 1 ? "" : "s"}), lesson says ${lesson.readingMinutes}`;
+    if (exempt.has("readingMinutes")) record("reading-time", [], `${readingNote}; not enforced for this course`);
+    else record("reading-time", off ? [`readingMinutes is ${lesson.readingMinutes}, but the lesson reads in about ${reading.minutes}: set it to ${reading.minutes} (within 1)`] : [], readingNote);
+
+    record("cheat-sheet", exempt.has("duplicateCheatSheetFlags") ? [] : duplicateCheatSheetErrors(lesson), exempt.has("duplicateCheatSheetFlags") ? "duplicate flags not enforced for this course" : undefined);
+
+    const planPath = course.config.gate.glossaryPlan;
+    if (!planPath) record("glossary", [], "no glossary plan for this course: first-use and ownership lints skipped");
+    else {
+      const research = researchDir();
+      const planFile = research && join(research, planPath);
+      if (!planFile || !existsSync(planFile)) record("glossary", [`no glossary plan at ${planFile ?? `../research/${planPath}`}`]);
+      else {
+        const plan = readJson(planFile);
+        const ownFile = join(courseRoot, "glossary", `${dashed}.json`);
+        const own = existsSync(ownFile) ? readJson(ownFile) : [];
+        record("glossary", [...glossaryOwnershipErrors(own, plan, item), ...glossaryFirstUseErrors(lesson, plan)]);
+      }
+    }
+  }
+}
+
+for (const { name, errors, note } of results) {
+  console.log(`${errors.length ? "FAIL" : "PASS"} ${name}${errors.length ? ` (${errors.length})` : ""}${note ? `: ${note}` : ""}`);
   for (const error of errors) console.log(`  ${error}`);
 }
 const failed = results.some(({ errors }) => errors.length);
