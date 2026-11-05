@@ -1,0 +1,232 @@
+{
+  "course": "ib-chemistry",
+  "banks": {
+    "SL": {
+      "slug": "ib-chemistry-sl",
+      "freeTier": true
+    },
+    "HL": {
+      "slug": "ib-chemistry-hl",
+      "freeTier": true
+    }
+  },
+  "subtopics": {
+    "Particles, states, mixtures and separation": {
+      "SL": 22,
+      "HL": 20
+    },
+    "Nuclear atom, isotopes and mass spectra": {
+      "SL": 74,
+      "HL": 79
+    },
+    "Electron configurations and emission spectra": {
+      "SL": 78,
+      "HL": 86
+    },
+    "The mole and reacting quantities": {
+      "SL": 147,
+      "HL": 133
+    },
+    "Formulae and equations": {
+      "SL": 63,
+      "HL": 39
+    },
+    "Solutions and gases": {
+      "SL": 48,
+      "HL": 54
+    },
+    "Ionic, covalent and metallic bonding": {
+      "SL": 74,
+      "HL": 81
+    },
+    "Lewis structures, VSEPR, hybridization, formal charge and resonance": {
+      "SL": 89,
+      "HL": 161
+    },
+    "Intermolecular forces and solids": {
+      "SL": 74,
+      "HL": 83
+    },
+    "Mass spectrometry, IR, NMR and chromatography": {
+      "SL": 70,
+      "HL": 132
+    },
+    "Polymers, materials, alloys and nanotechnology": {
+      "SL": 81,
+      "HL": 97
+    },
+    "Periodic table and trends": {
+      "SL": 89,
+      "HL": 103
+    },
+    "Oxidation states and half-equations": {
+      "SL": 82,
+      "HL": 74
+    },
+    "Transition elements and complexes": {
+      "SL": 1,
+      "HL": 76
+    },
+    "Functional groups and reactions": {
+      "SL": 103,
+      "HL": 122
+    },
+    "Representations, nomenclature and isomerism": {
+      "SL": 70,
+      "HL": 121
+    },
+    "Calorimetry and enthalpy": {
+      "SL": 66,
+      "HL": 56
+    },
+    "Hess cycles, Born-Haber cycles and bond enthalpy": {
+      "SL": 70,
+      "HL": 88
+    },
+    "Combustion, fuels, biofuels and energy technologies": {
+      "SL": 73,
+      "HL": 96
+    },
+    "Entropy, Gibbs energy and spontaneity": {
+      "SL": 1,
+      "HL": 91
+    },
+    "Yield and atom economy": {
+      "SL": 23,
+      "HL": 18
+    },
+    "Collision theory and rate factors": {
+      "SL": 67,
+      "HL": 62
+    },
+    "Energy profiles and catalysts": {
+      "SL": 61,
+      "HL": 56
+    },
+    "Rate laws, orders, Arrhenius and mechanisms": {
+      "SL": 9,
+      "HL": 108
+    },
+    "Equilibrium constants and reaction quotient": {
+      "SL": 39,
+      "HL": 57
+    },
+    "Le Chatelier's principle": {
+      "SL": 40,
+      "HL": 40
+    },
+    "Equilibrium calculations and composition": {
+      "SL": 1,
+      "HL": 15
+    },
+    "Acid-base theories": {
+      "SL": 59,
+      "HL": 73
+    },
+    "pH, strong and weak acids and bases, Ka and Kb": {
+      "SL": 66,
+      "HL": 103
+    },
+    "Buffers and salt hydrolysis": {
+      "SL": 11,
+      "HL": 57
+    },
+    "Titrations, curves and indicators": {
+      "SL": 15,
+      "HL": 55
+    },
+    "Electrochemical cells and potentials": {
+      "SL": 34,
+      "HL": 74
+    },
+    "Electrolysis, batteries and fuel cells": {
+      "SL": 51,
+      "HL": 103
+    },
+    "Synthesis and mechanisms": {
+      "SL": 64,
+      "HL": 114
+    },
+    "Experimental design, safety and evaluation": {
+      "SL": 48,
+      "HL": 51
+    },
+    "Uncertainty and error": {
+      "SL": 55,
+      "HL": 48
+    },
+    "Graphical and data processing": {
+      "SL": 36,
+      "HL": 42
+    }
+  },
+  "topics": {
+    "1": {
+      "SL": 387,
+      "HL": 365
+    },
+    "2": {
+      "SL": 348,
+      "HL": 489
+    },
+    "3": {
+      "SL": 323,
+      "HL": 551
+    },
+    "4": {
+      "SL": 206,
+      "HL": 308
+    },
+    "5": {
+      "SL": 325,
+      "HL": 423
+    },
+    "6": {
+      "SL": 407,
+      "HL": 634
+    },
+    "7": {
+      "SL": 111,
+      "HL": 109
+    }
+  },
+  "parents": {
+    "Particles, states, mixtures and separation": "Matter, amounts and stoichiometry",
+    "Nuclear atom, isotopes and mass spectra": "Atomic structure and periodicity",
+    "Electron configurations and emission spectra": "Atomic structure and periodicity",
+    "The mole and reacting quantities": "Matter, amounts and stoichiometry",
+    "Formulae and equations": "Matter, amounts and stoichiometry",
+    "Solutions and gases": "Matter, amounts and stoichiometry",
+    "Ionic, covalent and metallic bonding": "Bonding, structure and materials",
+    "Lewis structures, VSEPR, hybridization, formal charge and resonance": "Bonding, structure and materials",
+    "Intermolecular forces and solids": "Bonding, structure and materials",
+    "Mass spectrometry, IR, NMR and chromatography": "Organic chemistry and molecular analysis",
+    "Polymers, materials, alloys and nanotechnology": "Bonding, structure and materials",
+    "Periodic table and trends": "Atomic structure and periodicity",
+    "Oxidation states and half-equations": "Redox and electrochemistry",
+    "Transition elements and complexes": "Atomic structure and periodicity",
+    "Functional groups and reactions": "Organic chemistry and molecular analysis",
+    "Representations, nomenclature and isomerism": "Organic chemistry and molecular analysis",
+    "Calorimetry and enthalpy": "Energetics, thermodynamics and fuels",
+    "Hess cycles, Born-Haber cycles and bond enthalpy": "Energetics, thermodynamics and fuels",
+    "Combustion, fuels, biofuels and energy technologies": "Energetics, thermodynamics and fuels",
+    "Entropy, Gibbs energy and spontaneity": "Energetics, thermodynamics and fuels",
+    "Yield and atom economy": "Matter, amounts and stoichiometry",
+    "Collision theory and rate factors": "Kinetics",
+    "Energy profiles and catalysts": "Kinetics",
+    "Rate laws, orders, Arrhenius and mechanisms": "Kinetics",
+    "Equilibrium constants and reaction quotient": "Equilibrium",
+    "Le Chatelier's principle": "Equilibrium",
+    "Equilibrium calculations and composition": "Equilibrium",
+    "Acid-base theories": "Acids and bases",
+    "pH, strong and weak acids and bases, Ka and Kb": "Acids and bases",
+    "Buffers and salt hydrolysis": "Acids and bases",
+    "Titrations, curves and indicators": "Acids and bases",
+    "Electrochemical cells and potentials": "Redox and electrochemistry",
+    "Electrolysis, batteries and fuel cells": "Redox and electrochemistry",
+    "Synthesis and mechanisms": "Organic chemistry and molecular analysis",
+    "Experimental design, safety and evaluation": "Measurement, data and practical work",
+    "Uncertainty and error": "Measurement, data and practical work",
+    "Graphical and data processing": "Measurement, data and practical work"
+  }
+}

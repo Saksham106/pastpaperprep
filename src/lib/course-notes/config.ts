@@ -7,10 +7,14 @@ import type { CourseLevels, PerView } from "./types";
  * - `official-codes`: one bank whose questions carry official section codes as `officialCodeRefs`
  *   (`<refPrefix><code>`); a lesson practises `codes.base` in the base view and `codes.extension` in the
  *   extension view, where `{item}` is the lesson's item ("C{item}" for 1.1 is "C1.1").
+ * - `bank-subtopics`: each item names one bank subtopic label (`practice` in the items file); a lesson practises it in
+ *   the base level's bank in the base view and the extension level's bank in the extension view. Counts come from
+ *   src/data/notes-practice/<course>.json (`npm run generate:notes-practice`).
  */
 export type PracticeConfig =
   | { kind: "aa-items" }
-  | { kind: "official-codes"; source: "igcse-0580-section-retrieval-v3"; refPrefix: string; codes: PerView<string> };
+  | { kind: "official-codes"; source: "igcse-0580-section-retrieval-v3"; refPrefix: string; codes: PerView<string> }
+  | { kind: "bank-subtopics" };
 
 /** Words that differ per course. Everything else is built from `name` and the level labels. */
 export type CourseCopy = {
@@ -51,8 +55,9 @@ export type CourseConfig = {
    * relative to ../research; no plan skips the glossary lints), and lints this course is exempt from.
    */
   gate: { sidecars: string; packs: string; glossaryPlan?: string; exempt?: GateLint[] };
-  /** Calculator models, in tab order; every calculator block gives steps for exactly these ids. */
+  /** Calculator models, in tab order; every calculator block gives steps for exactly these ids. None: no calculator blocks. */
   calculators: CalculatorModel[];
   copy: CourseCopy;
-  topics: { n: number; slug: string; name: string }[];
+  /** `label` is the syllabus's own name for the topic number where it has one ("Structure 1"); pages fall back to "Topic n". */
+  topics: { n: number; slug: string; name: string; label?: string }[];
 };

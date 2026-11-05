@@ -66,7 +66,7 @@ function Stage({ stage, level, understood, nextItem }: { stage: TopicStage; leve
   );
 }
 
-export function CourseTopicView({ topic, courseHref, stages }: { topic: { n: number; name: string; cheatSheetHref: string; questionTotals: PerView<number> }; courseHref: string; stages: TopicStage[] }) {
+export function CourseTopicView({ topic, courseHref, stages }: { topic: { n: number; name: string; label?: string; cheatSheetHref: string; questionTotals: PerView<number> }; courseHref: string; stages: TopicStage[] }) {
   const course = useCourse();
   const { levels } = course;
   const labels = levels.labels;
@@ -86,11 +86,11 @@ export function CourseTopicView({ topic, courseHref, stages }: { topic: { n: num
     <div className={`${styles.topicPage} shell`} data-view={labels[level]} style={{ "--tone": `var(--t${topic.n})`, "--tone-ink": `var(--t${topic.n}-ink)` } as CSSProperties}>
       <div className={styles.tTop}>
         <div className={styles.crumbs}>
-          <Link href={courseHref}>{`${course.name} notes`}</Link> › Topic {topic.n}
+          <Link href={courseHref}>{`${course.name} notes`}</Link>{topic.label ? ` › ${topic.label}` : <> › Topic {topic.n}</>}
         </div>
         <div className={styles.tRow}>
           <div>
-            <div className={styles.tNum}>TOPIC {topic.n}</div>
+            <div className={styles.tNum}>{topic.label ? topic.label.toUpperCase() : <>TOPIC {topic.n}</>}</div>
             <h1>{topic.name}</h1>
             <p className={styles.tMeta}>
               {shownCount} lessons{level === "extension" ? ` · ${hlOnlyCount} ${labels.extensionOnly}` : ""} · {topic.questionTotals[level]} past-paper questions {course.bankPhrase.replace("{level}", labels[level])}

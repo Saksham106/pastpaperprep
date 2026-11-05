@@ -3,7 +3,8 @@ import taxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import { COURSES, lessonPath } from "./course";
 import { lessonForGroup, lessonForItem, notesLinksForBank, notesTopicLinksForBank, syllabusNotesForBank } from "./group-lessons";
 import { notesNavVisible } from "./visibility";
-import { setCoursePublishedForTests } from "./test-visibility";
+import { lessonFixture } from "./__fixtures__/lesson";
+import { setCourseLessonsForTests, setCoursePublishedForTests } from "./test-visibility";
 
 const course = COURSES[0];
 const groups = taxonomy.groups as { id: string; studentFacingName: string; memberOfficialItems: string[] }[];
@@ -142,5 +143,70 @@ describe("surface lookups follow visibility", () => {
     const igcseLinks = Object.values(notesLinksForBank("igcse") ?? {});
     expect(igcseLinks.length).toBeGreaterThan(0);
     expect(igcseLinks.every((link) => link.href.startsWith("/revision-notes/igcse-maths-0580/"))).toBe(true);
+  });
+});
+
+describe("IB Chemistry links by bank subtopic", () => {
+  const chem = COURSES.find((entry) => entry.slug === "ib-chemistry")!;
+  let restoreLessons: (() => void) | undefined;
+  afterEach(() => {
+    restoreLessons?.();
+    restoreLessons = undefined;
+  });
+  /** Stand-in lessons for these items (the real ones are written later). */
+  const write = (...items: string[]) => {
+    restoreLessons?.();
+    restoreLessons = setCourseLessonsForTests("ib-chemistry", lessonFixture, items);
+    return Object.fromEntries(chem.lessons.map((entry) => [entry.item, lessonPath(chem, entry)]));
+  };
+
+  it("are empty while the course is hidden, written lessons or not", () => {
+    vi.stubEnv("NOTES_PREVIEW", "");
+    expect(chem.published).toBe(false);
+    write("1.1", "1.3", "1.5");
+    for (const bank of ["ib-chemistry-sl", "ib-chemistry-hl"]) {
+      expect(notesLinksForBank(bank)).toBeUndefined();
+      expect(notesTopicLinksForBank(bank)).toBeUndefined();
+      expect(syllabusNotesForBank(bank)).toEqual([]);
+    }
+  });
+
+  it("link a question's subtopic to the first written lesson practising it; the SL bank links SL lessons only", () => {
+    vi.stubEnv("NOTES_PREVIEW", "1");
+    // 1.3, 1.4 (SL) and 1.5 (AHL) share "Electron configurations and emission spectra"; 1.1 alone practises its label;
+    // 4.6 and 4.7 (both AHL) share "Entropy, Gibbs energy and spontaneity".
+    const href = write("1.1", "1.4", "1.5", "4.7");
+    const hl = notesLinksForBank("ib-chemistry-hl")!;
+    expect(hl["Electron configurations and emission spectra"]).toEqual({ href: href["1.4"], label: "Electron configurations and emission spectra" });
+    expect(hl["Particles, states, mixtures and separation"]).toEqual({ href: href["1.1"], label: "The particulate nature of matter" });
+    expect(hl["Entropy, Gibbs energy and spontaneity"]).toEqual({ href: href["4.7"], label: "Entropy, Gibbs energy and spontaneity" });
+    expect(Object.keys(hl).sort()).toEqual(["Electron configurations and emission spectra", "Entropy, Gibbs energy and spontaneity", "Particles, states, mixtures and separation"]);
+    const sl = notesLinksForBank("ib-chemistry-sl")!;
+    expect(sl["Electron configurations and emission spectra"].href).toBe(href["1.4"]);
+    expect(sl["Entropy, Gibbs energy and spontaneity"]).toBeUndefined();
+    // Only 1.5 written: HL links to it, SL has nothing for that label.
+    const only = write("1.5");
+    expect(notesLinksForBank("ib-chemistry-hl")?.["Electron configurations and emission spectra"]?.href).toBe(only["1.5"]);
+    expect(notesLinksForBank("ib-chemistry-sl")).toBeUndefined();
+    // Chemistry links stay on the Chemistry banks.
+    write("1.1");
+    expect(Object.values(notesLinksForBank("ib-hl") ?? {}).some((link) => link.href.includes("ib-chemistry"))).toBe(false);
+  });
+
+  it("paper reports and the syllabus page use the same lessons, by bank topic and subtopic", () => {
+    vi.stubEnv("NOTES_PREVIEW", "1");
+    const href = write("1.1", "1.3", "1.6", "4.6");
+    const topics = notesTopicLinksForBank("ib-chemistry-hl")!;
+    expect(topics["Matter, amounts and stoichiometry"].href).toBe(href["1.1"]);
+    expect(topics["Atomic structure and periodicity"].href).toBe(href["1.3"]);
+    expect(topics["Energetics, thermodynamics and fuels"].href).toBe(href["4.6"]);
+    expect(notesTopicLinksForBank("ib-chemistry-sl")?.["Energetics, thermodynamics and fuels"]).toBeUndefined();
+    expect(syllabusNotesForBank("ib-chemistry-hl")).toEqual([
+      { name: "Particles, states, mixtures and separation", topic: "Matter, amounts and stoichiometry", href: href["1.1"], label: "The particulate nature of matter" },
+      { name: "Electron configurations and emission spectra", topic: "Atomic structure and periodicity", href: href["1.3"], label: "Emission spectra and energy levels" },
+      { name: "The mole and reacting quantities", topic: "Matter, amounts and stoichiometry", href: href["1.6"], label: "The mole and molar mass" },
+      { name: "Entropy, Gibbs energy and spontaneity", topic: "Energetics, thermodynamics and fuels", href: href["4.6"], label: "Entropy" },
+    ]);
+    expect(syllabusNotesForBank("ib-chemistry-sl").map((note) => note.name)).not.toContain("Entropy, Gibbs energy and spontaneity");
   });
 });

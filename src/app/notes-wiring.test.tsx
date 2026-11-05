@@ -1,6 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { isValidElement, type ReactElement, type ReactNode } from "react";
-import { setCoursePublishedForTests } from "@/lib/course-notes/test-visibility";
+import { COURSES } from "@/lib/course-notes/course";
+import { lessonFixture } from "@/lib/course-notes/__fixtures__/lesson";
+import { setCourseLessonsForTests, setCoursePublishedForTests } from "@/lib/course-notes/test-visibility";
 import { getCatalogBank, getCatalogBanksForDisplay } from "@/lib/catalog";
 import { getLandingManifest } from "@/lib/search-landing";
 import { BankQuestionExplorer } from "@/components/BankQuestionExplorer";
@@ -64,7 +66,8 @@ describe("course notes wiring (spec section 11), gated by visibility", () => {
     process.env.NOTES_PREVIEW = "1";
     const links = find(await TopicPage(params("ib-hl", manifest.topics[0].slug)), BankQuestionExplorer)[0].props.notesLinks as Record<string, { href: string }>;
     expect(Object.values(links).every((link) => link.href.startsWith("/revision-notes/ib-math-aa/"))).toBe(true);
-    for (const bank of getCatalogBanksForDisplay().filter((entry) => !["ib-hl", "ib-sl", "igcse"].includes(entry.slug)).slice(0, 3)) {
+    const courseBanks = new Set(COURSES.flatMap((course) => Object.values(course.banks)));
+    for (const bank of getCatalogBanksForDisplay().filter((entry) => !courseBanks.has(entry.slug)).slice(0, 3)) {
       const other = await getLandingManifest(bank.slug);
       if (!other.topics.length) continue;
       expect(find(await TopicPage(params(bank.slug, other.topics[0].slug)), BankQuestionExplorer)[0].props.notesLinks, bank.slug).toBeUndefined();
@@ -109,6 +112,24 @@ describe("course notes wiring (spec section 11), gated by visibility", () => {
       expect(find(await TopicPage({ params: Promise.resolve({ slug: "ib-hl", topicSlug: aa.topics[0].slug }) }), BankQuestionExplorer)[0].props.notesLinks).toBeUndefined();
     } finally {
       restore();
+    }
+  });
+
+  it("the Chemistry banks link questions to Chemistry lessons by subtopic, only while that course is visible", async () => {
+    const manifest = await getLandingManifest("ib-chemistry-hl");
+    const params = { params: Promise.resolve({ slug: "ib-chemistry-hl", topicSlug: manifest.topics[0].slug }) };
+    const links = async () => find(await TopicPage(params), BankQuestionExplorer)[0].props.notesLinks as Record<string, { href: string; label: string }> | undefined;
+    const restoreLessons = setCourseLessonsForTests("ib-chemistry", lessonFixture, ["1.6", "5.1"]);
+    try {
+      hide();
+      expect(await links()).toBeUndefined();
+      process.env.NOTES_PREVIEW = "1";
+      const shown = await links();
+      expect(shown?.["The mole and reacting quantities"]?.href).toMatch(/^\/revision-notes\/ib-chemistry\/structure-1\/1-6-/);
+      expect(shown?.["The mole and reacting quantities"]?.label).toBe("The mole and reacting quantities");
+      expect(Object.values(shown ?? {}).every((link) => link.href.startsWith("/revision-notes/ib-chemistry/"))).toBe(true);
+    } finally {
+      restoreLessons();
     }
   });
 });

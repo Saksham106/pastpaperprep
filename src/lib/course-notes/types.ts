@@ -153,6 +153,8 @@ export type ItemsFile = {
     /** A bullet's own level when it differs from the item's (0580: Extended-only bullets of a Core section). */
     bullets: { id: string; text: string; level?: Level }[];
     booklet: { id: string; label: string }[];
+    /** The bank subtopic label the item practises (a `bank-subtopics` course; several items may share one). */
+    practice?: string;
   }[];
 };
 

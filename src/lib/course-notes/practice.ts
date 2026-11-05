@@ -1,11 +1,13 @@
 // Practice links and question counts for course notes. Server-side: reads each course's practice data.
 // - AA (`aa-items`): the AA overlay, by syllabus item and taxonomy group, through the ib-sl / ib-hl banks.
 // - IGCSE 0580 (`official-codes`): the 0580 section retrieval, by official section code, through the igcse bank.
+// - IB Chemistry (`bank-subtopics`): the bank's own subtopic labels, counted ahead of time (subtopic-practice.ts).
 import overlayJson from "@/data/aa-official-subtopics/overlay.json";
 import retrieval0580Json from "@/data/igcse-0580-section-retrieval-v3.json";
 import type { PracticeConfig } from "./config";
 import { isExtension, lessonPath, type Course } from "./course";
 import { GROUPS as GROUP_LIST, type Group } from "./groups";
+import { subtopicPracticeFile, subtopicPracticeHref } from "./subtopic-practice";
 import type { PerView, ViewLevel } from "./types";
 
 export type PracticeLevel = "SL" | "HL";
@@ -138,6 +140,8 @@ export type PracticeInfo = {
   group: string;
   /** The lesson's syllabus item, for the button and copy, e.g. "5.16". */
   items: string;
+  /** What the band practises when it is not the item itself: the bank subtopic (several lessons can share one). */
+  name?: string;
   counts: PerView<number>;
   hrefs: PerView<string>;
   /** The item is stored at the course's extension level (AA: AHL), not merely empty in one view. */
@@ -152,6 +156,23 @@ export function lessonPractice(course: Course, item: string): PracticeInfo | und
     if (!group) return undefined;
     const stored = course.items.items.find((entry) => entry.item === item);
     return { group: group.id, items: item, counts: perView((view) => itemQuestionCount(item, AA_LEVEL[view])), hrefs: perView((view) => itemPracticeHref(item, AA_LEVEL[view])), extensionOnly: !!stored && isExtension(course, stored.level) };
+  }
+  if (practice.kind === "bank-subtopics") {
+    const entry = course.items.items.find((candidate) => candidate.item === item);
+    if (!entry?.practice) return undefined;
+    const file = subtopicPracticeFile(course);
+    const label = entry.practice;
+    const extensionOnly = isExtension(course, entry.level);
+    const levelOf = (view: ViewLevel) => course.levels.labels[view];
+    // An extension-level lesson has no base-view questions: its base view points at the extension bank (the band then says so).
+    return {
+      group: item,
+      items: item,
+      name: label,
+      extensionOnly,
+      counts: perView((view) => (view === "base" && extensionOnly ? 0 : file.subtopics[label]?.[levelOf(view)] ?? 0)),
+      hrefs: perView((view) => subtopicPracticeHref(file, label, levelOf(view === "base" && extensionOnly ? "extension" : view))),
+    };
   }
   if (!course.items.items.some((entry) => entry.item === item)) return undefined;
   // An Extended-only section has no Core code: its base view points at the Extended questions (the band then says so).
@@ -213,6 +234,7 @@ export function topicStages(course: Course, topic: Course["topics"][number]): To
 export function topicQuestionTotals(course: Course, topic: Course["topics"][number]): PerView<number> {
   const practice = course.practice;
   if (practice.kind === "aa-items") return perView((view) => topicQuestionCount(topic.name, AA_LEVEL[view]));
+  if (practice.kind === "bank-subtopics") return perView((view) => subtopicPracticeFile(course).topics[String(topic.n)]?.[course.levels.labels[view]] ?? 0);
   const items = course.items.items.filter((entry) => entry.topic === topic.n).map((entry) => entry.item);
   return perView((view) => {
     const codes = new Set(items.flatMap((item) => officialCode(course, item, view) ?? []));
