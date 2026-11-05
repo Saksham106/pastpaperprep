@@ -110,9 +110,13 @@ export function glossaryOwnershipErrors(entries, plan, item) {
     if (!planned) return [`glossary term ${entry.id} is not in the glossary plan; use a planned id or ask for it to be added`];
     if (planned.owner !== item) return [`glossary term ${entry.id} belongs to ${planned.owner} in the glossary plan, not ${item}: link to it, don't define it here`];
     if (entry.lesson !== item) return [`glossary term ${entry.id} must name its owner lesson ${item} (it says ${entry.lesson})`];
+    if (entry.definition.startsWith(GLOSSARY_STUB)) return [`glossary term ${entry.id} is still a stub: this lesson owns it, so write its definition`];
     return [];
   });
 }
+
+/** Definitions seeded from the glossary plan before writing start with this; the owner lesson replaces them. */
+export const GLOSSARY_STUB = "TODO:";
 
 // ------------------------------------------------------------------------------------------------ reading time
 

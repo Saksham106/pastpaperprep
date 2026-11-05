@@ -1,0 +1,230 @@
+[
+  {
+    "id": "parallel",
+    "term": "parallel",
+    "definition": "TODO: Lines never meet and have equal gradients; defined here, applied in 3.6.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "perpendicular",
+    "term": "perpendicular",
+    "definition": "TODO: At right angles; owned here, used in 3.7.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "perpendicular-bisector",
+    "term": "perpendicular bisector",
+    "definition": "TODO: Line cutting a segment in half at right angles.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "vertex",
+    "term": "vertex",
+    "definition": "TODO: Corner point of a shape.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "right-angle",
+    "term": "right angle",
+    "definition": "TODO: 90 degrees.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "acute-angle",
+    "term": "acute angle",
+    "definition": "TODO: Less than 90 degrees.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "obtuse-angle",
+    "term": "obtuse angle",
+    "definition": "TODO: Between 90 and 180 degrees.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "reflex-angle",
+    "term": "reflex angle",
+    "definition": "TODO: Between 180 and 360 degrees.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "congruent",
+    "term": "congruent",
+    "definition": "TODO: Same shape and size; Core need not prove congruence.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "equilateral-triangle",
+    "term": "equilateral triangle",
+    "definition": "TODO: All sides and angles equal.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "isosceles-triangle",
+    "term": "isosceles triangle",
+    "definition": "TODO: Two equal sides and angles.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "scalene-triangle",
+    "term": "scalene triangle",
+    "definition": "TODO: No equal sides.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "right-angled-triangle",
+    "term": "right-angled triangle",
+    "definition": "TODO: One angle of 90 degrees.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "quadrilateral",
+    "term": "quadrilateral",
+    "definition": "TODO: Four-sided shape; angle sum 360.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "kite",
+    "term": "kite",
+    "definition": "TODO: Two pairs of adjacent equal sides.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "rhombus",
+    "term": "rhombus",
+    "definition": "TODO: All sides equal.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "parallelogram",
+    "term": "parallelogram",
+    "definition": "TODO: Opposite sides parallel and equal.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "trapezium",
+    "term": "trapezium",
+    "definition": "TODO: One pair of parallel sides.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "polygon",
+    "term": "polygon",
+    "definition": "TODO: Closed shape with straight sides; names such as pentagon, hexagon, octagon, decagon; regular and irregular.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "plane",
+    "term": "plane",
+    "definition": "TODO: Flat surface.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "cuboid",
+    "term": "cuboid",
+    "definition": "TODO: Rectangular box solid.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "prism",
+    "term": "prism",
+    "definition": "TODO: Solid with uniform cross-section; 5.4 notes any uniform cross-section.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "cylinder",
+    "term": "cylinder",
+    "definition": "TODO: Prism with a circular cross-section.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "pyramid",
+    "term": "pyramid",
+    "definition": "TODO: Base with triangular faces meeting at apex.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "cone",
+    "term": "cone",
+    "definition": "TODO: Circular base and apex.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "sphere",
+    "term": "sphere",
+    "definition": "TODO: Round solid.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "hemisphere",
+    "term": "hemisphere",
+    "definition": "TODO: Half a sphere; term not needed at Core.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "frustum",
+    "term": "frustum",
+    "definition": "TODO: Cone or pyramid with the top removed.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "face",
+    "term": "face",
+    "definition": "TODO: Flat surface of a solid; also edge.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "radius",
+    "term": "radius",
+    "definition": "TODO: Distance from centre to edge; plural radii.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "diameter",
+    "term": "diameter",
+    "definition": "TODO: Line through the centre across a circle.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "circumference",
+    "term": "circumference",
+    "definition": "TODO: Distance round a circle.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "semicircle",
+    "term": "semicircle",
+    "definition": "TODO: Half a circle.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "chord",
+    "term": "chord",
+    "definition": "TODO: Line joining two points on a circle.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "tangent",
+    "term": "tangent",
+    "definition": "TODO: Line touching a circle at one point; also used for tangent to a curve (2.9, 2.12).",
+    "lesson": "4.1"
+  },
+  {
+    "id": "arc",
+    "term": "arc",
+    "definition": "TODO: Part of a circle's circumference; major and minor arc at Extended.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "sector",
+    "term": "sector",
+    "definition": "TODO: Region between two radii and an arc; major and minor at Extended.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "segment",
+    "term": "segment",
+    "definition": "TODO: Region between a chord and an arc.",
+    "lesson": "4.1"
+  }
+]

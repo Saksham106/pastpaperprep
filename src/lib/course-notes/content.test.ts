@@ -58,6 +58,11 @@ describe.each(COURSES.map((course) => [course.slug, course] as const))("%s cours
     expect(failures).toEqual({});
   });
 
+  it("has no glossary stub definitions once published", () => {
+    const stubs = course.glossary.filter((term) => term.definition.startsWith("TODO:")).map((term) => term.id);
+    if (course.published) expect(stubs).toEqual([]);
+  });
+
   it("names its calculators once each, and its calculator.json snippets give steps for exactly those", () => {
     expect(calculators.length, slug).toBeGreaterThan(0);
     expect(new Set(calculators).size).toBe(calculators.length);

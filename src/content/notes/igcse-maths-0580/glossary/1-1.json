@@ -24,6 +24,18 @@
     "lesson": "1.1"
   },
   {
+    "id": "square-number",
+    "term": "square number",
+    "definition": "TODO: Result of multiplying an integer by itself; link to square root.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "cube-number",
+    "term": "cube number",
+    "definition": "TODO: Result of cubing an integer.",
+    "lesson": "1.1"
+  },
+  {
     "id": "factor",
     "term": "factor",
     "definition": "A whole number that divides another exactly, with no remainder.",
@@ -33,6 +45,18 @@
     "id": "multiple",
     "term": "multiple",
     "definition": "The result of multiplying a number by a whole number: $8, 16, 24, \\ldots$ are multiples of $8$.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "common-factor",
+    "term": "common factor",
+    "definition": "TODO: Factor shared by two or more numbers; algebraic common factors are reused in 2.2.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "common-multiple",
+    "term": "common multiple",
+    "definition": "TODO: Multiple shared by two or more numbers.",
     "lesson": "1.1"
   },
   {
@@ -48,9 +72,21 @@
     "lesson": "1.1"
   },
   {
+    "id": "rational-number",
+    "term": "rational number",
+    "definition": "TODO: Can be written as a fraction of integers; includes terminating and recurring decimals.",
+    "lesson": "1.1"
+  },
+  {
     "id": "irrational-number",
     "term": "irrational number",
     "definition": "A number that cannot be written as a fraction of two integers, such as $\\sqrt{2}$ or $\\pi$.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "reciprocal",
+    "term": "reciprocal",
+    "definition": "TODO: Number that multiplies to give 1; flip a fraction.",
     "lesson": "1.1"
   }
 ]
