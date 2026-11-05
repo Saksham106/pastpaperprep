@@ -1,0 +1,678 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.6",
+  "slug": "the-four-operations",
+  "title": "The four operations",
+  "level": "Core",
+  "topic": 1,
+  "summary": "Add, subtract, multiply and divide with [[integer|integers]], [[negative-number|negative numbers]], decimals and [[fraction|fractions]]. The [[order-of-operations|order of operations]] tells you which part to do first, so every calculation has one right answer.",
+  "goals": [
+    {
+      "text": "Add, subtract, multiply and divide negative numbers, including temperature changes.",
+      "bullets": [
+        "1.6-c1"
+      ]
+    },
+    {
+      "text": "Use the order of operations and brackets to work out a calculation.",
+      "bullets": [
+        "1.6-c1"
+      ]
+    },
+    {
+      "text": "Add, subtract, multiply and divide decimals without a calculator.",
+      "bullets": [
+        "1.6-c1"
+      ]
+    },
+    {
+      "text": "Add, subtract, multiply and divide fractions and [[mixed-number|mixed numbers]].",
+      "bullets": [
+        "1.6-c1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "BIDMAS",
+    "BODMAS",
+    "negative numbers",
+    "dividing fractions",
+    "adding fractions",
+    "multiplying decimals"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-lcm-6-9",
+      "prompt": "Find the LCM of $6$ and $9$.",
+      "hint": "List multiples of $9$ until $6$ divides one.",
+      "answer": {
+        "value": 18,
+        "tolerance": 0
+      },
+      "explain": "Multiples of $9$: $9, 18$. $6$ divides $18$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "lcm(6, 9)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-mixed-to-improper",
+      "prompt": "Write $2\\frac{3}{7}$ as a single fraction, with no whole-number part.",
+      "hint": "How many sevenths make $2$ wholes?",
+      "options": [
+        {
+          "text": "$\\frac{13}{7}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{17}{7}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{6}{7}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{23}{7}$",
+          "correct": false
+        }
+      ],
+      "explain": "$2 = \\frac{14}{7}$, so $\\frac{14}{7} + \\frac{3}{7} = \\frac{17}{7}$. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "fraction",
+        "truth": "2 + Rational(3, 7)",
+        "form": "improper"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "negatives",
+      "heading": "Negative numbers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[negative-number|negative number]] is less than zero, like $-5$. On a number line, adding a positive number moves you right (up). Subtracting one moves you left (down)."
+        },
+        {
+          "type": "figure",
+          "id": "1-6-number-line",
+          "alt": "Number line from minus 20 to 10. A curved arrow labelled plus 18 jumps from minus 18 up to 0. A second arrow labelled plus 5 jumps from 0 up to 5.",
+          "caption": "$-18 + 23 = 5$: up $18$ to reach zero, then $5$ more."
+        },
+        {
+          "type": "text",
+          "text": "So a freezer at $-18^{\\circ}\\text{C}$ that warms up by $23^{\\circ}\\text{C}$ ends at $5^{\\circ}\\text{C}$."
+        },
+        {
+          "type": "result",
+          "statement": "Subtracting a negative is adding: $a - (-b) = a + b$. Adding a negative is subtracting: $a + (-b) = a - b$.",
+          "why": "Taking away a drop of $b$ degrees leaves it $b$ degrees warmer."
+        },
+        {
+          "type": "example",
+          "id": "ex-temperature-difference",
+          "question": "On a mountain it is $-6.4^{\\circ}\\text{C}$ at dawn and $11.8^{\\circ}\\text{C}$ at noon. By how much did it rise?",
+          "steps": [
+            "Rise $=$ higher $-$ lower $= 11.8 - (-6.4)$.",
+            "Subtracting a negative is adding: $11.8 + 6.4 = 18.2$."
+          ],
+          "answer": "$18.2^{\\circ}\\text{C}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "11.8 - (-6.4)",
+            "unit": "°C"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-subtract-negative",
+            "prompt": "Work out $-3 - (-9)$.",
+            "hint": "Subtracting $-9$ is the same as adding $9$.",
+            "options": [
+              {
+                "text": "$-12$",
+                "correct": false
+              },
+              {
+                "text": "$6$",
+                "correct": true
+              },
+              {
+                "text": "$12$",
+                "correct": false
+              },
+              {
+                "text": "$-6$",
+                "correct": false
+              }
+            ],
+            "explain": "$-3 - (-9) = -3 + 9 = 6$.",
+            "verify": {
+              "kind": "exact",
+              "truth": "-3 - (-9)"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "text": "To multiply or divide, work out the size, then the sign. Same signs give $+$; different signs give $-$. Anything times $0$ is $0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-signs-multiply-divide",
+          "question": "Work out $(-8) \\times 3 \\div (-6)$.",
+          "steps": [
+            "$\\times$ and $\\div$ have equal rank, so work left to right.",
+            "$8 \\times 3 = 24$. The signs are different, so $(-8) \\times 3 = -24$.",
+            "$24 \\div 6 = 4$. The signs are the same, so $-24 \\div (-6) = 4$."
+          ],
+          "answer": "$4$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(-8)*3/(-6)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-signs",
+          "prompt": "Work out $(-36) \\div (-4) \\times (-2)$.",
+          "hint": "Take two numbers at a time, left to right.",
+          "answer": {
+            "value": -18,
+            "tolerance": 0
+          },
+          "explain": "$(-36) \\div (-4) = 9$, same signs. Then $9 \\times (-2) = -18$, different signs.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(-36)/(-4)*(-2)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "order",
+      "heading": "Order of operations and brackets",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In $2 + 3 \\times 4$, adding first gives $20$, but multiplying first gives $14$. So everyone uses the same [[order-of-operations|order of operations]]. The right answer is $14$."
+        },
+        {
+          "type": "definition",
+          "term": "Order of operations",
+          "statement": "Brackets first, then Indices (powers and roots), then Division and Multiplication, then Addition and Subtraction. Equal ranks go left to right.",
+          "plain": "BIDMAS, from first to last."
+        },
+        {
+          "type": "text",
+          "text": "Divide and multiply have equal rank, so go left to right: $12 \\div 3 \\times 2 = 4 \\times 2 = 8$. The same goes for add and subtract: $9 - 4 + 2 = 7$."
+        },
+        {
+          "type": "example",
+          "id": "ex-bidmas-no-calc",
+          "question": "Work out $20 - 2 \\times (7 - 4)^2$ without a calculator.",
+          "steps": [
+            "Brackets first: $7 - 4 = 3$.",
+            "Indices next: $3^2 = 9$.",
+            "Multiply before you subtract: $2 \\times 9 = 18$.",
+            "Subtract: $20 - 18 = 2$."
+          ],
+          "answer": "$2$",
+          "verify": {
+            "kind": "exact",
+            "truth": "20 - 2*(7 - 4)**2"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-insert-brackets",
+          "prompt": "Which placing of one pair of brackets makes $40 - 7 \\times 3 + 2$ equal $5$?",
+          "hint": "With no brackets it is $40 - 21 + 2 = 21$. You need to take away more.",
+          "options": [
+            {
+              "text": "$(40 - 7) \\times 3 + 2$",
+              "correct": false
+            },
+            {
+              "text": "$40 - (7 \\times 3 + 2)$",
+              "correct": false
+            },
+            {
+              "text": "$40 - 7 \\times (3 + 2)$",
+              "correct": true
+            },
+            {
+              "text": "$(40 - 7 \\times 3) + 2$",
+              "correct": false
+            }
+          ],
+          "explain": "$3 + 2 = 5$, then $7 \\times 5 = 35$, and $40 - 35 = 5$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "40 - 7*(3 + 2)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A fraction line acts as a bracket: work out the whole top and the whole bottom, then divide. On a calculator, bracket each one."
+        },
+        {
+          "type": "calculator",
+          "snippet": "brackets-order"
+        },
+        {
+          "type": "example",
+          "id": "ex-calculator-fraction-line",
+          "question": "Use your calculator to work out $\\dfrac{4.7 + 3.2^2}{6.1 - 2.45}$. Give your answer to 3 significant figures.",
+          "steps": [
+            "Type $(4.7 + 3.2^2) \\div (6.1 - 2.45)$, with the brackets.",
+            "Check the parts: top $= 4.7 + 10.24 = 14.94$, bottom $= 3.65$.",
+            "Write down the full display: $14.94 \\div 3.65 = 4.093150\\ldots$",
+            "Round only at the end, to 3 s.f."
+          ],
+          "answer": "$\\dfrac{4.7 + 3.2^2}{6.1 - 2.45} \\approx 4.09$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(4.7 + 3.2**2)/(6.1 - 2.45)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Typing $4.7 + 3.2^2 \\div 6.1 - 2.45$ with no brackets. The calculator then divides only $3.2^2$ by $6.1$."
+        }
+      ]
+    },
+    {
+      "id": "decimals",
+      "heading": "Decimals without a calculator",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To add or subtract decimals, line up the decimal points. Fill gaps with zeros: $9.1 = 9.10$."
+        },
+        {
+          "type": "check",
+          "id": "check-decimal-subtract",
+          "prompt": "Work out $9.1 - 3.47$.",
+          "hint": "Write $9.1$ as $9.10$, then subtract in columns.",
+          "answer": {
+            "value": 5.63,
+            "tolerance": 0
+          },
+          "explain": "$9.10 - 3.47 = 5.63$. Check: $5.63 + 3.47 = 9.10$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "9.1 - 3.47",
+            "dp": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": "To multiply decimals, multiply without the points. Then put back as many decimal places as the two numbers have in total. Drop any end zeros after that: $0.5 \\times 0.4 = 0.20 = 0.2$."
+        },
+        {
+          "type": "example",
+          "id": "ex-decimal-multiply",
+          "question": "Work out $3.4 \\times 0.07$.",
+          "steps": [
+            "Ignore the points: $34 \\times 7 = 238$.",
+            "$3.4$ has $1$ decimal place and $0.07$ has $2$. That makes $3$ in total.",
+            "Put $3$ decimal places in $238$: $0.238$.",
+            "Estimate to check: $3 \\times 0.07 = 0.21$, which is close."
+          ],
+          "answer": "$0.238$",
+          "verify": {
+            "kind": "exact",
+            "truth": "3.4*0.07"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To divide by a decimal, multiply both numbers by the same $10$, $100$, … so you divide by a whole number. The answer is unchanged."
+        },
+        {
+          "type": "example",
+          "id": "ex-decimal-divide",
+          "question": "Work out $5.16 \\div 0.4$.",
+          "steps": [
+            "Multiply both numbers by $10$: $51.6 \\div 4$.",
+            "Short division, keeping the point in place: $51.6 \\div 4 = 12.9$.",
+            "Check: $12.9 \\times 0.4 = 5.16$."
+          ],
+          "answer": "$12.9$",
+          "verify": {
+            "kind": "exact",
+            "truth": "5.16/0.4"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-decimal-divide",
+          "prompt": "Work out $0.72 \\div 0.08$.",
+          "hint": "Multiply both numbers by $100$ first.",
+          "options": [
+            {
+              "text": "$0.9$",
+              "correct": false
+            },
+            {
+              "text": "$9$",
+              "correct": true
+            },
+            {
+              "text": "$90$",
+              "correct": false
+            },
+            {
+              "text": "$0.09$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.72 \\div 0.08 = 72 \\div 8 = 9$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "0.72/0.08"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fractions-add",
+      "heading": "Adding and subtracting fractions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can add the tops of [[fraction|fractions]] directly only when the bottoms (denominators) match. Then add the tops (numerators) and keep the bottom: $\\frac{2}{9} + \\frac{5}{9} = \\frac{7}{9}$."
+        },
+        {
+          "type": "text",
+          "text": "If the bottoms differ, rewrite both over a common denominator. The [[lowest-common-multiple|lowest common multiple]] (LCM) of the bottoms is best."
+        },
+        {
+          "type": "example",
+          "id": "ex-add-fractions",
+          "question": "Work out $\\frac{3}{4} + \\frac{5}{6}$. Give your answer as a mixed number.",
+          "steps": [
+            "The LCM of $4$ and $6$ is $12$.",
+            "$\\frac{3}{4} = \\frac{9}{12}$ and $\\frac{5}{6} = \\frac{10}{12}$.",
+            "Add the tops: $\\frac{9}{12} + \\frac{10}{12} = \\frac{19}{12}$.",
+            "$12$ goes into $19$ once, with $7$ left over."
+          ],
+          "answer": "$1\\frac{7}{12}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(3, 4) + Rational(5, 6)",
+            "form": "mixed"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding tops and bottoms: $\\frac{3}{4} + \\frac{5}{6}$ is not $\\frac{8}{10}$. Make the bottoms the same first."
+        },
+        {
+          "type": "check",
+          "id": "check-subtract-fractions",
+          "prompt": "Work out $\\frac{5}{8} - \\frac{1}{6}$.",
+          "hint": "The LCM of $8$ and $6$ is $24$.",
+          "options": [
+            {
+              "text": "$\\frac{4}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{19}{24}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{11}{24}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{4}{24}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{15}{24} - \\frac{4}{24} = \\frac{11}{24}$. Change the tops as well as the bottoms.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(5, 8) - Rational(1, 6)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "With [[mixed-number|mixed numbers]], change each one to an [[improper-fraction|improper fraction]] first. Then use the same method."
+        },
+        {
+          "type": "example",
+          "id": "ex-subtract-mixed",
+          "question": "Work out $3\\frac{1}{5} - 1\\frac{2}{3}$.",
+          "steps": [
+            "Change to improper fractions: $3\\frac{1}{5} = \\frac{16}{5}$ and $1\\frac{2}{3} = \\frac{5}{3}$.",
+            "The LCM of $5$ and $3$ is $15$: $\\frac{48}{15} - \\frac{25}{15}$.",
+            "Subtract the tops: $\\frac{23}{15}$.",
+            "Change back: $\\frac{23}{15} = 1\\frac{8}{15}$."
+          ],
+          "answer": "$1\\frac{8}{15}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "(3 + Rational(1, 5)) - (1 + Rational(2, 3))",
+            "form": "mixed"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-mixed-add",
+          "prompt": "A cake uses $1\\frac{3}{4}$ cups of flour and its topping $\\frac{2}{3}$ of a cup. How many cups in total?",
+          "hint": "$1\\frac{3}{4} = \\frac{7}{4}$. Then use $12$ as the common denominator.",
+          "options": [
+            {
+              "text": "$2\\frac{5}{12}$",
+              "correct": true
+            },
+            {
+              "text": "$1\\frac{5}{7}$",
+              "correct": false
+            },
+            {
+              "text": "$1\\frac{5}{12}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{21}{12} + \\frac{8}{12} = \\frac{29}{12} = 2\\frac{5}{12}$.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "(1 + Rational(3, 4)) + Rational(2, 3)",
+            "form": "mixed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fractions-multiply",
+      "heading": "Multiplying and dividing fractions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To multiply fractions, multiply the tops and the bottoms. Cancel a top with a bottom first to keep numbers small."
+        },
+        {
+          "type": "example",
+          "id": "ex-multiply-fractions",
+          "question": "Work out $\\frac{4}{9} \\times \\frac{15}{8}$.",
+          "steps": [
+            "$4$ and $8$ share a factor of $4$: they cancel to $1$ and $2$.",
+            "$15$ and $9$ share a factor of $3$: they cancel to $5$ and $3$.",
+            "Now $\\frac{1}{3} \\times \\frac{5}{2} = \\frac{5}{6}$."
+          ],
+          "answer": "$\\frac{5}{6}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(4, 9) * Rational(15, 8)"
+          },
+          "video": null
+        },
+        {
+          "type": "result",
+          "statement": "To divide by a fraction, multiply by its [[reciprocal|reciprocal]]: $\\frac{a}{b} \\div \\frac{c}{d} = \\frac{a}{b} \\times \\frac{d}{c}$, where $b$, $c$ and $d$ are not $0$.",
+          "why": "Dividing by $2$ is the same as multiplying by $\\frac{1}{2}$. The same works for any fraction."
+        },
+        {
+          "type": "text",
+          "text": "Only the fraction you divide by turns upside down. Change mixed numbers to improper fractions first."
+        },
+        {
+          "type": "example",
+          "id": "ex-divide-mixed",
+          "question": "Work out $2\\frac{2}{3} \\div 1\\frac{1}{9}$. Give your answer as a mixed number in its simplest form.",
+          "steps": [
+            "Change to improper fractions: $\\frac{8}{3} \\div \\frac{10}{9}$.",
+            "Flip the second fraction and multiply: $\\frac{8}{3} \\times \\frac{9}{10}$.",
+            "Cancel: $8$ and $10$ become $4$ and $5$, and $9$ and $3$ become $3$ and $1$.",
+            "Multiply: $\\frac{4 \\times 3}{1 \\times 5} = \\frac{12}{5} = 2\\frac{2}{5}$."
+          ],
+          "answer": "$2\\frac{2}{5}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "(2 + Rational(2, 3)) / (1 + Rational(1, 9))",
+            "form": "mixed"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the whole numbers and the fractions separately. $2\\frac{2}{3} \\div 1\\frac{1}{9}$ is not $2 \\div 1$ with $\\frac{2}{3} \\div \\frac{1}{9}$."
+        },
+        {
+          "type": "check",
+          "id": "check-divide-fractions",
+          "prompt": "Work out $\\frac{3}{10} \\div \\frac{9}{14}$.",
+          "hint": "Flip $\\frac{9}{14}$, then multiply.",
+          "options": [
+            {
+              "text": "$\\frac{27}{140}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{7}{15}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{15}{7}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{3}{10} \\times \\frac{14}{9} = \\frac{42}{90} = \\frac{7}{15}$.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(3, 10) / Rational(9, 14)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mixed-multiply",
+          "prompt": "Work out $1\\frac{1}{2} \\times 2\\frac{2}{5}$.",
+          "hint": "Change both to improper fractions first.",
+          "options": [
+            {
+              "text": "$2\\frac{1}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$3\\frac{1}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$3\\frac{3}{5}$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\frac{3}{2} \\times \\frac{12}{5} = \\frac{36}{10} = 3\\frac{3}{5}$.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "(1 + Rational(1, 2)) * (2 + Rational(2, 5))",
+            "form": "mixed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Subtracting a negative is adding: $a - (-b) = a + b$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Multiply or divide: same signs give $+$, different signs give $-$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Order: brackets, indices, $\\times$ and $\\div$, then $+$ and $-$. Equal ranks go left to right. A fraction line acts as a bracket.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Decimals: line up the points to add or subtract; count decimal places to multiply.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Fractions: common denominator to add or subtract. To divide, flip the second and multiply.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Change mixed numbers to improper fractions before you multiply or divide.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Flipping the first fraction when you divide. Flip only the one you divide by.",
+    "Subtracting tops and bottoms separately: $\\frac{5}{8} - \\frac{1}{6} \\ne \\frac{4}{2}$. Use a common denominator.",
+    "Multiplying mixed numbers part by part. Use improper fractions.",
+    "Getting $5.4$ for the rise from $-6.4$ to $11.8$. It is $11.8 + 6.4 = 18.2$.",
+    "Leaving $\\frac{42}{90}$ uncancelled. Simplify to $\\frac{7}{15}$."
+  ],
+  "examTips": [
+    "Work out (Papers 1 and 2): show the common denominator or the flipped fraction. That line can earn a method mark.",
+    "Give fractions in simplest form, never mixed with decimals like $\\frac{1}{0.2}$.",
+    "Papers 3 and 4: write down the full display, then round to 3 s.f. unless told otherwise."
+  ],
+  "readingMinutes": 19
+}

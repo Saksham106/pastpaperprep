@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="t">
+  <title id="t">Axes with points A at (2, 1) and B at (8, 5) joined by a line segment. The midpoint M at (5, 3) is marked halfway along. Dashed lines show that 5 is halfway between 2 and 8 on the x-axis, and 3 is halfway between 1 and 5 on the y-axis.</title>
+  <line x1="30" y1="210" x2="300" y2="210" stroke="var(--muted)" stroke-width="1.2"/>
+  <line x1="40" y1="220" x2="40" y2="20" stroke="var(--muted)" stroke-width="1.2"/>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4">
+    <line x1="96" y1="182" x2="96" y2="210"/>
+    <line x1="180" y1="126" x2="180" y2="210"/>
+    <line x1="264" y1="70" x2="264" y2="210"/>
+    <line x1="40" y1="182" x2="96" y2="182"/>
+    <line x1="40" y1="126" x2="180" y2="126"/>
+    <line x1="40" y1="70" x2="264" y2="70"/>
+  </g>
+  <line x1="96" y1="182" x2="264" y2="70" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <circle cx="96" cy="182" r="3.5" fill="currentColor"/>
+  <circle cx="264" cy="70" r="3.5" fill="currentColor"/>
+  <circle cx="180" cy="126" r="4.5" fill="var(--t4-ink)"/>
+  <g font-family="inherit">
+    <text x="292" y="228" fill="var(--muted)" font-size="13" text-anchor="middle">x</text>
+    <text x="30" y="26" fill="var(--muted)" font-size="13" text-anchor="middle">y</text>
+    <text x="96" y="226" fill="currentColor" font-size="12" text-anchor="middle">2</text>
+    <text x="180" y="226" fill="var(--t4-ink)" font-size="12" text-anchor="middle">5</text>
+    <text x="264" y="226" fill="currentColor" font-size="12" text-anchor="middle">8</text>
+    <text x="32" y="186" fill="currentColor" font-size="12" text-anchor="end">1</text>
+    <text x="32" y="130" fill="var(--t4-ink)" font-size="12" text-anchor="end">3</text>
+    <text x="32" y="74" fill="currentColor" font-size="12" text-anchor="end">5</text>
+    <text x="102" y="199" fill="currentColor" font-size="14" text-anchor="start">A(2, 1)</text>
+    <text x="276" y="62" fill="currentColor" font-size="14" text-anchor="middle">B(8, 5)</text>
+    <text x="186" y="146" fill="var(--t4-ink)" font-size="14" text-anchor="start">M(5, 3)</text>
+  </g>
+</svg>

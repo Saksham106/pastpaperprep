@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 320" role="img" aria-labelledby="t">
+  <title id="t">Grid with x from 0 to 8 and y from 0 to 7. Line segment PQ joins P at 1, 2 to Q at 7, 4. Its midpoint M is at 4, 3. A second line passes through M at right angles to PQ, going from 3, 6 down to 5, 0. Tick marks show PM and MQ are equal.</title>
+  <g stroke="var(--muted)" stroke-width="0.75" opacity="0.6">
+    <line x1="76" y1="38" x2="76" y2="290"/><line x1="112" y1="38" x2="112" y2="290"/><line x1="148" y1="38" x2="148" y2="290"/>
+    <line x1="184" y1="38" x2="184" y2="290"/><line x1="220" y1="38" x2="220" y2="290"/><line x1="256" y1="38" x2="256" y2="290"/>
+    <line x1="292" y1="38" x2="292" y2="290"/><line x1="328" y1="38" x2="328" y2="290"/>
+    <line x1="40" y1="254" x2="328" y2="254"/><line x1="40" y1="218" x2="328" y2="218"/><line x1="40" y1="182" x2="328" y2="182"/>
+    <line x1="40" y1="146" x2="328" y2="146"/><line x1="40" y1="110" x2="328" y2="110"/><line x1="40" y1="74" x2="328" y2="74"/>
+    <line x1="40" y1="38" x2="328" y2="38"/>
+  </g>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="40" y1="290" x2="334" y2="290"/>
+    <line x1="40" y1="290" x2="40" y2="26"/>
+  </g>
+  <path d="M334 290 l-8 -4 v8 z M40 26 l-4 8 h8 z" fill="currentColor"/>
+  <g font-family="inherit" font-size="12" fill="currentColor" text-anchor="middle">
+    <text x="32" y="304">0</text>
+    <text x="112" y="306">2</text><text x="184" y="306">4</text><text x="256" y="306">6</text><text x="328" y="306">8</text>
+    <text x="30" y="222">2</text><text x="30" y="150">4</text><text x="30" y="78">6</text>
+  </g>
+  <g font-family="inherit" font-size="15" font-style="italic" fill="currentColor"><text x="326" y="282">x</text><text x="48" y="28">y</text></g>
+  <line x1="76" y1="218" x2="292" y2="146" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="148" y1="74" x2="220" y2="290" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <g stroke="var(--t1-ink)" stroke-width="2">
+    <line x1="126.8" y1="190.5" x2="133.2" y2="209.5"/>
+    <line x1="234.8" y1="154.5" x2="241.2" y2="173.5"/>
+  </g>
+  <path d="M193.5 178.8 L190.3 169.3 L180.8 172.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <g fill="currentColor"><circle cx="76" cy="218" r="4"/><circle cx="292" cy="146" r="4"/><circle cx="184" cy="182" r="4"/></g>
+  <g font-family="inherit" font-size="13" font-weight="bold" fill="currentColor">
+    <text x="62" y="210">P</text><text x="298" y="140">Q</text><text x="190" y="200">M</text>
+  </g>
+  <text x="156" y="64" font-family="inherit" font-size="12" font-weight="bold" fill="var(--t3-ink)">perpendicular bisector</text>

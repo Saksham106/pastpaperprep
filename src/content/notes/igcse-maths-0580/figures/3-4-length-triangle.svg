@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 250" role="img" aria-labelledby="t">
+  <title id="t">Axes with points A at (1, 2) and B at (7, 10) joined by a line segment. A dashed path goes 6 units across from A to the corner (7, 2), then 8 units up to B, with a right angle at the corner. The segment AB is the hypotenuse, length 10.</title>
+  <line x1="30" y1="230" x2="300" y2="230" stroke="var(--muted)" stroke-width="1.2"/>
+  <line x1="40" y1="240" x2="40" y2="10" stroke="var(--muted)" stroke-width="1.2"/>
+  <line x1="60" y1="190" x2="180" y2="190" stroke="var(--t2-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="180" y1="190" x2="180" y2="30" stroke="var(--t3-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="60" y1="190" x2="180" y2="30" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <path d="M170,190 L170,180 L180,180" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <circle cx="60" cy="190" r="3.5" fill="currentColor"/>
+  <circle cx="180" cy="30" r="3.5" fill="currentColor"/>
+  <g font-family="inherit">
+    <text x="292" y="246" fill="var(--muted)" font-size="13" text-anchor="middle">x</text>
+    <text x="30" y="18" fill="var(--muted)" font-size="13" text-anchor="middle">y</text>
+    <text x="30" y="246" fill="var(--muted)" font-size="12" text-anchor="middle">O</text>
+    <text x="56" y="210" fill="currentColor" font-size="14" text-anchor="middle">A(1, 2)</text>
+    <text x="192" y="26" fill="currentColor" font-size="14" text-anchor="start">B(7, 10)</text>
+    <text x="120" y="208" fill="var(--t2-ink)" font-size="13" text-anchor="middle">across 6</text>
+    <text x="190" y="114" fill="var(--t3-ink)" font-size="13" text-anchor="start">up 8</text>
+    <text x="108" y="100" fill="var(--t1-ink)" font-size="13" text-anchor="end">AB = 10</text>
+  </g>
+</svg>

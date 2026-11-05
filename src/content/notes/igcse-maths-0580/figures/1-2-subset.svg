@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 210" role="img" aria-labelledby="t">
+  <title id="t">Venn diagram for a subset. Inside the rectangle for the universal set, circle A, shaded, lies completely inside the larger circle B.</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <rect x="10" y="10" width="300" height="190"/>
+    <circle cx="165" cy="105" r="80"/>
+  </g>
+  <circle cx="148" cy="118" r="38" fill="var(--t1-ink)" fill-opacity="0.35" stroke="currentColor" stroke-width="1.5"/>
+  <g font-family="inherit" font-size="17" fill="currentColor">
+    <text x="20" y="32">ℰ</text>
+    <text x="232" y="48">B</text>
+    <text x="141" y="124">A</text>
+  </g>
+</svg>

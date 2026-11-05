@@ -2,13 +2,13 @@
   {
     "id": "lower-bound",
     "term": "lower bound",
-    "definition": "TODO: Smallest value that rounds to a given value; Extended extends to calculations.",
+    "definition": "The smallest value that a rounded value could have been before rounding; for a calculation, the smallest value its answer could take.",
     "lesson": "1.10"
   },
   {
     "id": "upper-bound",
     "term": "upper bound",
-    "definition": "TODO: Limit above which values would round up; Extended extends to calculations.",
+    "definition": "The value that a rounded value must stay below, because values from it upwards round up to the next value; for a calculation, the largest value its answer could take.",
     "lesson": "1.10"
   }
 ]

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 312 234" role="img" aria-labelledby="t">
+  <title id="t">Grid with x from minus 4 to 4 and y from minus 3 to 4. A horizontal line labelled y equals 3 runs across the grid through y equals 3. A vertical line labelled x equals minus 2 runs up the grid through x equals minus 2. The lines cross at the marked point (minus 2, 3).</title>
+  <g stroke="var(--muted)" stroke-width="0.6" opacity="0.6">
+    <line x1="34" y1="22" x2="34" y2="204"/>
+    <line x1="60" y1="22" x2="60" y2="204"/>
+    <line x1="86" y1="22" x2="86" y2="204"/>
+    <line x1="112" y1="22" x2="112" y2="204"/>
+    <line x1="138" y1="22" x2="138" y2="204"/>
+    <line x1="164" y1="22" x2="164" y2="204"/>
+    <line x1="190" y1="22" x2="190" y2="204"/>
+    <line x1="216" y1="22" x2="216" y2="204"/>
+    <line x1="242" y1="22" x2="242" y2="204"/>
+    <line x1="34" y1="204" x2="242" y2="204"/>
+    <line x1="34" y1="178" x2="242" y2="178"/>
+    <line x1="34" y1="152" x2="242" y2="152"/>
+    <line x1="34" y1="126" x2="242" y2="126"/>
+    <line x1="34" y1="100" x2="242" y2="100"/>
+    <line x1="34" y1="74" x2="242" y2="74"/>
+    <line x1="34" y1="48" x2="242" y2="48"/>
+    <line x1="34" y1="22" x2="242" y2="22"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.4">
+    <line x1="34" y1="126" x2="242" y2="126"/>
+    <line x1="138" y1="204" x2="138" y2="22"/>
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="34" y="140">−4</text>
+    <text x="60" y="140">−3</text>
+    <text x="86" y="140">−2</text>
+    <text x="112" y="140">−1</text>
+    <text x="164" y="140">1</text>
+    <text x="190" y="140">2</text>
+    <text x="216" y="140">3</text>
+    <text x="242" y="140">4</text>
+    <text x="129" y="208">−3</text>
+    <text x="129" y="182">−2</text>
+    <text x="129" y="156">−1</text>
+    <text x="129" y="104">1</text>
+    <text x="129" y="78">2</text>
+    <text x="129" y="52">3</text>
+    <text x="129" y="26">4</text>
+    <text x="130" y="140">0</text>
+  </g>
+  <text x="252" y="130" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">x</text>
+  <text x="144" y="16" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">y</text>
+  <line x1="34" y1="48" x2="242" y2="48" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <line x1="86" y1="204" x2="86" y2="22" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <circle cx="86" cy="48" r="4.5" fill="currentColor"/>
+  <text x="248" y="52" fill="var(--t1-ink)" font-size="13" font-style="italic" font-family="inherit">y = 3</text>
+  <text x="80" y="16" fill="var(--t3-ink)" text-anchor="end" font-size="13" font-style="italic" font-family="inherit">x = −2</text>
+  <text x="80" y="40" fill="currentColor" font-size="12" font-family="inherit" text-anchor="end">(−2, 3)</text>
+</svg>

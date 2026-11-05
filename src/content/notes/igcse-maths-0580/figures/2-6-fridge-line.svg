@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100" role="img" aria-labelledby="t">
+  <title id="t">Number line from minus 1 to 7. Open circle at 1 and filled circle at 6, joined by a line. This shows t greater than 1 and at most 6.</title>
+  <g stroke="currentColor" stroke-width="1.4" fill="none">
+    <line x1="26" y1="60" x2="374" y2="60"/>
+    <polyline points="32,55 26,60 32,65"/>
+    <polyline points="368,55 374,60 368,65"/>
+    <line x1="40" y1="54" x2="40" y2="66"/>
+    <line x1="80" y1="54" x2="80" y2="66"/>
+    <line x1="120" y1="54" x2="120" y2="66"/>
+    <line x1="160" y1="54" x2="160" y2="66"/>
+    <line x1="200" y1="54" x2="200" y2="66"/>
+    <line x1="240" y1="54" x2="240" y2="66"/>
+    <line x1="280" y1="54" x2="280" y2="66"/>
+    <line x1="320" y1="54" x2="320" y2="66"/>
+    <line x1="360" y1="54" x2="360" y2="66"/>
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="40" y="84">−1</text>
+    <text x="80" y="84">0</text>
+    <text x="120" y="84">1</text>
+    <text x="160" y="84">2</text>
+    <text x="200" y="84">3</text>
+    <text x="240" y="84">4</text>
+    <text x="280" y="84">5</text>
+    <text x="320" y="84">6</text>
+    <text x="360" y="84">7</text>
+  </g>
+  <line x1="120" y1="44" x2="320" y2="44" stroke="var(--t1-ink)" stroke-width="3"/>
+  <circle cx="120" cy="44" r="6.5" fill="var(--surface, white)" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <circle cx="320" cy="44" r="6.5" fill="var(--t1-ink)" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <text x="382" y="65" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">t</text>
+</svg>

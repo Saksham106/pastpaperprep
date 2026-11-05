@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 350" role="img" aria-labelledby="t">
+  <title id="t">Grid with x from minus 4 to 4 and y from minus 4 to 6. A straight line L slopes down from left to right. It passes through the grid crossings at minus 2, 5; at 0, 2; and at 2, minus 1. A dashed step goes from 0, 2 across 2 to the right, then 3 down to 2, minus 1.</title>
+  <g stroke="var(--muted)" stroke-width="0.75" opacity="0.6">
+    <line x1="30" y1="20" x2="30" y2="320"/>
+    <line x1="60" y1="20" x2="60" y2="320"/>
+    <line x1="90" y1="20" x2="90" y2="320"/>
+    <line x1="120" y1="20" x2="120" y2="320"/>
+    <line x1="150" y1="20" x2="150" y2="320"/>
+    <line x1="180" y1="20" x2="180" y2="320"/>
+    <line x1="210" y1="20" x2="210" y2="320"/>
+    <line x1="240" y1="20" x2="240" y2="320"/>
+    <line x1="270" y1="20" x2="270" y2="320"/>
+    <line x1="30" y1="320" x2="270" y2="320"/>
+    <line x1="30" y1="290" x2="270" y2="290"/>
+    <line x1="30" y1="260" x2="270" y2="260"/>
+    <line x1="30" y1="230" x2="270" y2="230"/>
+    <line x1="30" y1="200" x2="270" y2="200"/>
+    <line x1="30" y1="170" x2="270" y2="170"/>
+    <line x1="30" y1="140" x2="270" y2="140"/>
+    <line x1="30" y1="110" x2="270" y2="110"/>
+    <line x1="30" y1="80" x2="270" y2="80"/>
+    <line x1="30" y1="50" x2="270" y2="50"/>
+    <line x1="30" y1="20" x2="270" y2="20"/>
+  </g>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="24" y1="200" x2="282" y2="200"/>
+    <line x1="150" y1="326" x2="150" y2="8"/>
+  </g>
+  <path d="M282 200 l-8 -4 v8 z M150 8 l-4 8 h8 z" fill="currentColor"/>
+  <g font-family="inherit" font-size="11" fill="currentColor" text-anchor="middle">
+    <text x="30" y="214">−4</text>
+    <text x="60" y="214">−3</text>
+    <text x="90" y="214">−2</text>
+    <text x="120" y="214">−1</text>
+    <text x="180" y="214">1</text>
+    <text x="210" y="214">2</text>
+    <text x="240" y="214">3</text>
+    <text x="270" y="214">4</text>
+    <text x="140" y="324">−4</text>
+    <text x="140" y="294">−3</text>
+    <text x="140" y="264">−2</text>
+    <text x="140" y="234">−1</text>
+    <text x="140" y="174">1</text>
+    <text x="140" y="144">2</text>
+    <text x="140" y="114">3</text>
+    <text x="140" y="84">4</text>
+    <text x="140" y="54">5</text>
+    <text x="140" y="24">6</text>
+    <text x="142" y="214">0</text>
+  </g>
+  <g font-family="inherit" font-size="15" font-style="italic" fill="currentColor"><text x="276" y="192">x</text><text x="158" y="16">y</text></g>
+  <line x1="70.0" y1="20.0" x2="270" y2="320.0" stroke="var(--t2-ink)" stroke-width="2.5"/>
+  <text x="68" y="54" font-family="inherit" font-size="15" font-style="italic" font-weight="bold" fill="var(--t2-ink)">L</text>
+  <path d="M150 140 H210 V230" stroke="var(--t1-ink)" stroke-width="2" stroke-dasharray="4 4" fill="none"/>
+  <g font-family="inherit" font-size="12" font-weight="bold" fill="var(--t1-ink)"><text x="180" y="134" text-anchor="middle">2 across</text><text x="216" y="189.0">3 down</text></g>
+  <circle cx="90" cy="50" r="3.5" fill="currentColor"/>
+  <circle cx="150" cy="140" r="3.5" fill="currentColor"/>
+  <circle cx="210" cy="230" r="3.5" fill="currentColor"/>
+</svg>

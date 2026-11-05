@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 410" role="img" aria-labelledby="t">
+  <title id="t">Grid with x from minus 3 to 4 and y from minus 5 to 7. Three parallel straight lines: y equals 2x plus 3, y equals 2x, and y equals 2x minus 3. They cross the y-axis at 3, 0 and minus 3. On each line a small dashed step shows 1 across and 2 up, so all three have gradient 2 and the gap between them stays the same.</title>
+  <g stroke="var(--muted)" stroke-width="0.75" opacity="0.6">
+    <line x1="30" y1="20" x2="30" y2="380"/>
+    <line x1="60" y1="20" x2="60" y2="380"/>
+    <line x1="90" y1="20" x2="90" y2="380"/>
+    <line x1="120" y1="20" x2="120" y2="380"/>
+    <line x1="150" y1="20" x2="150" y2="380"/>
+    <line x1="180" y1="20" x2="180" y2="380"/>
+    <line x1="210" y1="20" x2="210" y2="380"/>
+    <line x1="240" y1="20" x2="240" y2="380"/>
+    <line x1="30" y1="380" x2="240" y2="380"/>
+    <line x1="30" y1="350" x2="240" y2="350"/>
+    <line x1="30" y1="320" x2="240" y2="320"/>
+    <line x1="30" y1="290" x2="240" y2="290"/>
+    <line x1="30" y1="260" x2="240" y2="260"/>
+    <line x1="30" y1="230" x2="240" y2="230"/>
+    <line x1="30" y1="200" x2="240" y2="200"/>
+    <line x1="30" y1="170" x2="240" y2="170"/>
+    <line x1="30" y1="140" x2="240" y2="140"/>
+    <line x1="30" y1="110" x2="240" y2="110"/>
+    <line x1="30" y1="80" x2="240" y2="80"/>
+    <line x1="30" y1="50" x2="240" y2="50"/>
+    <line x1="30" y1="20" x2="240" y2="20"/>
+  </g>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="24" y1="230" x2="252" y2="230"/>
+    <line x1="120" y1="386" x2="120" y2="8"/>
+  </g>
+  <path d="M252 230 l-8 -4 v8 z M120 8 l-4 8 h8 z" fill="currentColor"/>
+  <g font-family="inherit" font-size="11" fill="currentColor" text-anchor="middle">
+    <text x="30" y="244">−3</text>
+    <text x="60" y="244">−2</text>
+    <text x="90" y="244">−1</text>
+    <text x="150" y="244">1</text>
+    <text x="180" y="244">2</text>
+    <text x="210" y="244">3</text>
+    <text x="240" y="244">4</text>
+    <text x="110" y="384">−5</text>
+    <text x="110" y="354">−4</text>
+    <text x="110" y="324">−3</text>
+    <text x="110" y="294">−2</text>
+    <text x="110" y="264">−1</text>
+    <text x="110" y="204">1</text>
+    <text x="110" y="174">2</text>
+    <text x="110" y="144">3</text>
+    <text x="110" y="114">4</text>
+    <text x="110" y="84">5</text>
+    <text x="110" y="54">6</text>
+    <text x="110" y="24">7</text>
+    <text x="112" y="244">0</text>
+  </g>
+  <g font-family="inherit" font-size="15" font-style="italic" fill="currentColor"><text x="246" y="222">x</text><text x="128" y="16">y</text></g>
+  <line x1="30" y1="320" x2="180.0" y2="20.0" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <path d="M60 260 H90 V200" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+  <g font-family="inherit" font-size="11" fill="currentColor"><text x="75.0" y="273" text-anchor="middle">1</text><text x="95" y="234">2</text></g>
+  <text x="184.0" y="34.0" font-family="inherit" font-size="12" font-weight="bold" fill="var(--t1-ink)">y = 2x + 3</text>
+  <line x1="45.0" y1="380.0" x2="225.0" y2="20.0" stroke="var(--t2-ink)" stroke-width="2.5"/>
+  <path d="M120 230 H150 V170" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+  <g font-family="inherit" font-size="11" fill="currentColor"><text x="135.0" y="243" text-anchor="middle">1</text><text x="155" y="204">2</text></g>
+  <text x="229.0" y="34.0" font-family="inherit" font-size="12" font-weight="bold" fill="var(--t2-ink)">y = 2x</text>
+  <line x1="90.0" y1="380.0" x2="240" y2="80" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <path d="M180 200 H210 V140" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+  <g font-family="inherit" font-size="11" fill="currentColor"><text x="195.0" y="213" text-anchor="middle">1</text><text x="215" y="174">2</text></g>
+  <text x="244" y="84" font-family="inherit" font-size="12" font-weight="bold" fill="var(--t3-ink)">y = 2x − 3</text>
+</svg>

@@ -1,0 +1,613 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.8",
+  "slug": "standard-form",
+  "title": "Standard form",
+  "level": "Core",
+  "topic": 1,
+  "summary": "[[standard-form|Standard form]] writes a very large or very small number as a number from $1$ to just under $10$, times a power of $10$. You'll convert numbers into and out of standard form, and multiply, divide, add and subtract with them.",
+  "goals": [
+    {
+      "text": "Say whether a number is in standard form, $A \\times 10^{n}$ with $1 \\le A < 10$.",
+      "bullets": [
+        "1.8-c1"
+      ]
+    },
+    {
+      "text": "Write ordinary numbers in standard form, and standard form as ordinary numbers.",
+      "bullets": [
+        "1.8-c1",
+        "1.8-c2"
+      ]
+    },
+    {
+      "text": "Multiply, divide, add and subtract numbers in standard form, by hand and with a calculator.",
+      "bullets": [
+        "1.8-c3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.7"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "scientific notation",
+    "standard index form",
+    "powers of 10",
+    "write in standard form",
+    "very large and very small numbers"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-multiply-powers",
+      "prompt": "Write $10^{4} \\times 10^{5}$ as a single power of $10$.",
+      "hint": "When you multiply powers of the same number, what happens to the indices?",
+      "options": [
+        {
+          "text": "$10^{9}$",
+          "correct": true
+        },
+        {
+          "text": "$10^{20}$",
+          "correct": false
+        },
+        {
+          "text": "$100^{9}$",
+          "correct": false
+        }
+      ],
+      "explain": "Multiplying powers of $10$ adds the indices: $4 + 5 = 9$. Revise it in {{lesson:1.7}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "10**4 * 10**5"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-negative-power",
+      "prompt": "Write $10^{-2}$ as a decimal.",
+      "hint": "A negative power means divide: $10^{-2} = \\frac{1}{10^{2}}$.",
+      "options": [
+        {
+          "text": "$0.01$",
+          "correct": true
+        },
+        {
+          "text": "$-100$",
+          "correct": false
+        },
+        {
+          "text": "$0.2$",
+          "correct": false
+        }
+      ],
+      "explain": "$10^{-2} = \\frac{1}{100} = 0.01$. A negative power is never a negative number here. Revise it in {{lesson:1.7}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "10**(-2)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "meaning",
+      "heading": "What standard form is",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Numbers like $93\\,000\\,000\\,000$ or $0.000\\,000\\,52$ are hard to read and easy to copy wrongly. Powers of $10$ write them neatly."
+        },
+        {
+          "type": "text",
+          "text": "The [[index|index]] of $10$ counts places: $10^{3} = 1000$, $10^{1} = 10$, $10^{0} = 1$, $10^{-1} = 0.1$ and $10^{-3} = 0.001$. A [[negative-index|negative index]] means divide by $10$ that many times."
+        },
+        {
+          "type": "definition",
+          "term": "Standard form",
+          "statement": "A number is in [[standard-form|standard form]] when it is written as $A \\times 10^{n}$, where $1 \\le A < 10$ and $n$ is an integer (positive, negative or zero).",
+          "plain": "Exactly one non-zero digit before the decimal point, times a power of $10$."
+        },
+        {
+          "type": "text",
+          "text": "So $4.07 \\times 10^{5}$ is in standard form. $40.7 \\times 10^{4}$ is not, because $40.7$ is $10$ or more. $0.407 \\times 10^{6}$ is not, because $0.407$ is less than $1$. All three equal $407\\,000$."
+        },
+        {
+          "type": "text",
+          "text": "To turn standard form into an ordinary number, multiply by the power of $10$. A positive $n$ moves the decimal point $n$ places right. A negative power such as $10^{-4}$ moves it $4$ places left."
+        },
+        {
+          "type": "example",
+          "id": "ex-out-large",
+          "question": "Write $7.36 \\times 10^{5}$ as an ordinary number.",
+          "steps": [
+            "$10^{5}$ means multiply by $10$ five times, so move the decimal point $5$ places right.",
+            "$7.36$ has two digits after the point. Fill the other $3$ places with zeros: $736\\,000$.",
+            "Check: a positive power should give a number of $10$ or more. It does."
+          ],
+          "answer": "$7.36 \\times 10^{5} = 736\\,000$",
+          "verify": {
+            "kind": "exact",
+            "truth": "7.36 * 10**5"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-out-small",
+          "question": "Write $2.9 \\times 10^{-4}$ as an ordinary number.",
+          "steps": [
+            "$10^{-4}$ means divide by $10$ four times, so move the decimal point $4$ places left.",
+            "Fill the gaps with zeros: $2.9$ becomes $0.00029$.",
+            "Check: a negative power should give a number less than $1$. It does."
+          ],
+          "answer": "$2.9 \\times 10^{-4} = 0.00029$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2.9 * 10**(-4)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-out-negative",
+          "prompt": "Write $8.4 \\times 10^{-3}$ as an ordinary number.",
+          "hint": "Move the decimal point $3$ places left.",
+          "options": [
+            {
+              "text": "$0.0084$",
+              "correct": true
+            },
+            {
+              "text": "$0.00084$",
+              "correct": false
+            },
+            {
+              "text": "$8400$",
+              "correct": false
+            },
+            {
+              "text": "$0.084$",
+              "correct": false
+            }
+          ],
+          "explain": "Three places left from $8.4$: $0.84$, $0.084$, $0.0084$. $8400$ is what $10^{3}$ would give.",
+          "verify": {
+            "kind": "exact",
+            "truth": "8.4 * 10**(-3)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-standard",
+          "prompt": "Which of these is $0.00508$ written in standard form?",
+          "hint": "There must be exactly one non-zero digit before the decimal point.",
+          "options": [
+            {
+              "text": "$50.8 \\times 10^{-4}$",
+              "correct": false
+            },
+            {
+              "text": "$5.08 \\times 10^{-3}$",
+              "correct": true
+            },
+            {
+              "text": "$0.508 \\times 10^{-2}$",
+              "correct": false
+            },
+            {
+              "text": "$5.08 \\times 10^{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$50.8$ is too big and $0.508$ too small to be $A$. $5.08 \\times 10^{3}$ is $5080$, not $0.00508$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "Rational(508, 10**5)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "convert",
+      "heading": "Writing a number in standard form",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "1. Put the decimal point just after the first non-zero digit. This gives $A$."
+        },
+        {
+          "type": "text",
+          "text": "2. Count how many places the point moved. That count is the size of $n$."
+        },
+        {
+          "type": "text",
+          "text": "3. For a positive number: if it is $10$ or more, $n$ is positive. If it is less than $1$, $n$ is negative. If it is at least $1$ but less than $10$, $n = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-into-large",
+          "question": "Write $58\\,400\\,000$ in [[standard-form|standard form]].",
+          "steps": [
+            "Put the point after the first digit, the $5$: $A = 5.84$.",
+            "From $58\\,400\\,000$ to $5.84$, the point moves $7$ places left.",
+            "The number is more than $10$, so the power is positive: $n = 7$.",
+            "Check: moving the point $7$ places right from $5.84$ gives $58\\,400\\,000$ again."
+          ],
+          "answer": "$58\\,400\\,000 = 5.84 \\times 10^{7}$",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "58 * 10**6 + 400 * 10**3"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-into-small",
+          "question": "Write $0.0006031$ in standard form.",
+          "steps": [
+            "The first non-zero digit is the $6$. Put the point after it: $A = 6.031$.",
+            "From $0.0006031$ to $6.031$, the point moves $4$ places right.",
+            "The number is less than $1$, so the power is negative: $n = -4$."
+          ],
+          "answer": "$0.0006031 = 6.031 \\times 10^{-4}$",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "Rational(6031, 10**7)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $10^{4}$ instead of $10^{-4}$ for a small number. A number less than $1$ always has a negative power."
+        },
+        {
+          "type": "check",
+          "id": "check-into-small",
+          "prompt": "Write $0.0000419$ in standard form.",
+          "hint": "Count the places from the current point to just after the $4$.",
+          "options": [
+            {
+              "text": "$4.19 \\times 10^{5}$",
+              "correct": false
+            },
+            {
+              "text": "$4.19 \\times 10^{-4}$",
+              "correct": false
+            },
+            {
+              "text": "$4.19 \\times 10^{-5}$",
+              "correct": true
+            },
+            {
+              "text": "$41.9 \\times 10^{-6}$",
+              "correct": false
+            }
+          ],
+          "explain": "The point moves $5$ places right, and the number is less than $1$, so $n = -5$. $41.9 \\times 10^{-6}$ has the right value, but $41.9$ is not below $10$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "Rational(419, 10**7)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A working answer such as $73.4 \\times 10^{5}$ has the right value but the wrong form. Write $73.4 = 7.34 \\times 10^{1}$, then add the powers: $7.34 \\times 10^{6}$."
+        },
+        {
+          "type": "check",
+          "id": "check-fix-a",
+          "prompt": "Write $0.62 \\times 10^{-3}$ in standard form.",
+          "hint": "Write $0.62$ in standard form first, then add the powers.",
+          "options": [
+            {
+              "text": "$6.2 \\times 10^{-4}$",
+              "correct": true
+            },
+            {
+              "text": "$6.2 \\times 10^{-2}$",
+              "correct": false
+            },
+            {
+              "text": "$6.2 \\times 10^{-3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.62 = 6.2 \\times 10^{-1}$, and $-1 + (-3) = -4$. Making $A$ bigger means the power must go down.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "0.62 * 10**(-3)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "To put numbers in standard form in order, compare the powers first. A bigger power means a bigger number. Compare the $A$ values only when the powers are equal."
+        },
+        {
+          "type": "check",
+          "id": "check-compare",
+          "prompt": "Which is the largest: $8.1 \\times 10^{4}$, $2.3 \\times 10^{5}$, $9.6 \\times 10^{3}$ or $7.5 \\times 10^{-6}$?",
+          "hint": "Look at the powers of $10$ before the $A$ values.",
+          "options": [
+            {
+              "text": "$8.1 \\times 10^{4}$",
+              "correct": false
+            },
+            {
+              "text": "$2.3 \\times 10^{5}$",
+              "correct": true
+            },
+            {
+              "text": "$9.6 \\times 10^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$7.5 \\times 10^{-6}$",
+              "correct": false
+            }
+          ],
+          "explain": "$10^{5}$ is the biggest power, so $2.3 \\times 10^{5} = 230\\,000$ is largest. $9.6$ is the biggest $A$, but $9.6 \\times 10^{3}$ is only $9600$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "Max(8.1 * 10**4, 2.3 * 10**5, 9.6 * 10**3, 7.5 * 10**(-6))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "multiply-divide",
+      "heading": "Multiplying and dividing",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Core students calculate with standard form only on Paper 3, with a calculator. Extended students also meet it on Paper 2, without one. Working by hand shows what the calculator does."
+        },
+        {
+          "type": "text",
+          "text": "Use the [[rules-of-indices|rules of indices]]: $10^{a} \\times 10^{b} = 10^{a + b}$ and $10^{a} \\div 10^{b} = 10^{a - b}$."
+        },
+        {
+          "type": "text",
+          "text": "1. Multiply (or divide) the $A$ parts. 2. Add (or subtract) the powers. 3. If the new $A$ is less than $1$, or $10$ or more, fix it as in the last section."
+        },
+        {
+          "type": "example",
+          "id": "ex-multiply",
+          "question": "Work out $(2.5 \\times 10^{7}) \\times (8 \\times 10^{-3})$. Give your answer in [[standard-form|standard form]].",
+          "steps": [
+            "Multiply the $A$ parts: $2.5 \\times 8 = 20$.",
+            "Add the powers: $7 + (-3) = 4$. This gives $20 \\times 10^{4}$.",
+            "$20$ is not less than $10$. Write $20 = 2 \\times 10^{1}$, so the answer is $2 \\times 10^{1} \\times 10^{4} = 2 \\times 10^{5}$."
+          ],
+          "answer": "$(2.5 \\times 10^{7}) \\times (8 \\times 10^{-3}) = 2 \\times 10^{5}$",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.5 * 10**7 * 8 * 10**(-3)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-divide",
+          "question": "Work out $(1.2 \\times 10^{4}) \\div (4 \\times 10^{-2})$. Give your answer in standard form.",
+          "steps": [
+            "Divide the $A$ parts: $1.2 \\div 4 = 0.3$.",
+            "Subtract the powers: $4 - (-2) = 6$. This gives $0.3 \\times 10^{6}$.",
+            "$0.3$ is less than $1$. Write $0.3 = 3 \\times 10^{-1}$, so the answer is $3 \\times 10^{-1} \\times 10^{6} = 3 \\times 10^{5}$.",
+            "Check: $12\\,000 \\div 0.04 = 300\\,000$."
+          ],
+          "answer": "$(1.2 \\times 10^{4}) \\div (4 \\times 10^{-2}) = 3 \\times 10^{5}$",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(1.2 * 10**4) / (4 * 10**(-2))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at $20 \\times 10^{4}$. The value is right, but $20$ is not below $10$, so it is not standard form."
+        },
+        {
+          "type": "check",
+          "id": "check-multiply",
+          "prompt": "Work out $(6 \\times 10^{5}) \\times (7 \\times 10^{-9})$. Give your answer in standard form.",
+          "hint": "$6 \\times 7 = 42$, and $42$ needs fixing.",
+          "options": [
+            {
+              "text": "$42 \\times 10^{-4}$",
+              "correct": false
+            },
+            {
+              "text": "$4.2 \\times 10^{-3}$",
+              "correct": true
+            },
+            {
+              "text": "$4.2 \\times 10^{-5}$",
+              "correct": false
+            },
+            {
+              "text": "$4.2 \\times 10^{14}$",
+              "correct": false
+            }
+          ],
+          "explain": "$42 \\times 10^{5 + (-9)} = 42 \\times 10^{-4} = 4.2 \\times 10^{1} \\times 10^{-4} = 4.2 \\times 10^{-3}$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "6 * 10**5 * 7 * 10**(-9)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-divide",
+          "prompt": "Work out $(9 \\times 10^{3}) \\div (1.5 \\times 10^{8})$. Give your answer in standard form.",
+          "hint": "Subtract the powers: $3 - 8$.",
+          "options": [
+            {
+              "text": "$6 \\times 10^{-5}$",
+              "correct": true
+            },
+            {
+              "text": "$6 \\times 10^{5}$",
+              "correct": false
+            },
+            {
+              "text": "$6 \\times 10^{11}$",
+              "correct": false
+            }
+          ],
+          "explain": "$9 \\div 1.5 = 6$ and $3 - 8 = -5$, so the answer is $6 \\times 10^{-5}$. Adding the powers gives $10^{11}$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(9 * 10**3) / (1.5 * 10**8)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "add-subtract",
+      "heading": "Adding, subtracting and using a calculator",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Powers add only when you multiply. To add or subtract by hand, write both numbers as ordinary numbers, work it out, then convert back."
+        },
+        {
+          "type": "example",
+          "id": "ex-add",
+          "question": "Work out $6.4 \\times 10^{5} + 3.8 \\times 10^{4}$. Give your answer in [[standard-form|standard form]].",
+          "steps": [
+            "Write both as ordinary numbers: $640\\,000$ and $38\\,000$.",
+            "Add: $640\\,000 + 38\\,000 = 678\\,000$.",
+            "Convert back: the point moves $5$ places, so $678\\,000 = 6.78 \\times 10^{5}$."
+          ],
+          "answer": "$6.4 \\times 10^{5} + 3.8 \\times 10^{4} = 6.78 \\times 10^{5}$",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "6.4 * 10**5 + 3.8 * 10**4"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the $A$ parts when the powers are different. $6.4 + 3.8$ means nothing here: line up the place values first."
+        },
+        {
+          "type": "text",
+          "text": "On Papers 3 and 4, type standard form with the calculator's power-of-$10$ key. Write down the full display, then round."
+        },
+        {
+          "type": "example",
+          "id": "ex-calculator",
+          "question": "A space probe travels at $1.1 \\times 10^{4}$ metres per second. How far does it travel in a year of $365$ days? Write the answer in standard form, rounded to $3$ significant figures.",
+          "steps": [
+            "Seconds in the year: $365 \\times 24 \\times 60 \\times 60 = 31\\,536\\,000$.",
+            "Distance $=$ speed $\\times$ time $= 1.1 \\times 10^{4} \\times 31\\,536\\,000$.",
+            "The calculator shows $3.46896 \\times 10^{11}$, which is $346\\,896\\,000\\,000$.",
+            "Round to $3$ significant figures: $3.47 \\times 10^{11}$ m."
+          ],
+          "answer": "$\\text{distance} \\approx 3.47 \\times 10^{11}\\text{ m}$",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "1.1 * 10**4 * 365 * 24 * 60 * 60",
+            "sf": 3,
+            "unit": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "standard-form-entry",
+          "values": {
+            "mantissa": "1.1",
+            "power": "4"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-subtract",
+          "prompt": "Work out $5.03 \\times 10^{-2} - 7.6 \\times 10^{-3}$. Give your answer in standard form.",
+          "hint": "Write both as decimals first: $0.0503$ and $0.0076$.",
+          "options": [
+            {
+              "text": "$4.27 \\times 10^{-3}$",
+              "correct": false
+            },
+            {
+              "text": "$-2.57 \\times 10^{-2}$",
+              "correct": false
+            },
+            {
+              "text": "$4.27 \\times 10^{-2}$",
+              "correct": true
+            },
+            {
+              "text": "$42.7 \\times 10^{-3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.0503 - 0.0076 = 0.0427 = 4.27 \\times 10^{-2}$. Subtracting $7.6$ from $5.03$ ignores the different powers.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "5.03 * 10**(-2) - 7.6 * 10**(-3)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "A \\times 10^{n}, \\quad 1 \\le A < 10, \\quad n \\text{ an integer}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Positive number $10$ or more: positive power. From $1$ to under $10$: power $0$. Less than $1$: negative power.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Multiply: multiply the $A$ parts, add the powers. Divide: divide them, subtract the powers. Then fix $A$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Add or subtract: change to ordinary numbers first.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Compare: biggest power first, then the $A$ values.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving $A$ outside $1 \\le A < 10$, as in $36 \\times 10^{4}$. The value is right but the form is not: write $3.6 \\times 10^{5}$.",
+    "Getting the sign of the power wrong. A number less than $1$, like $0.007$, has a negative power: $7 \\times 10^{-3}$.",
+    "Miscounting the places the point moves. Convert your answer back and count the zeros.",
+    "Comparing only the $A$ values. $9.1 \\times 10^{2}$ is smaller than $1.2 \\times 10^{3}$, because the power matters first.",
+    "Adding the powers when adding numbers. Powers add only when you multiply."
+  ],
+  "examTips": [
+    "“Give your answer in standard form”: an ordinary number, or an $A$ outside $1$ to $10$, can lose the mark even when the value is right.",
+    "“Work out” on Paper 3 or 4: write the calculation you type in and the full display, then round to $3$ significant figures unless the question says otherwise.",
+    "On Paper 2, show the $A$ parts and the powers on separate lines. Correct working can still earn a mark if the final form slips."
+  ],
+  "readingMinutes": 18
+}

@@ -1,0 +1,490 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.14",
+  "slug": "using-a-calculator",
+  "title": "Using a calculator",
+  "level": "Core",
+  "topic": 1,
+  "summary": "Your calculator only does what you type. Type the whole calculation with brackets, keep every digit until the end, then turn the display into a sensible answer: money to the cent, time in hours and minutes, or the [[significant-figure|significant figures]] asked for. A quick [[estimate|estimate]] tells you whether the answer makes sense.",
+  "goals": [
+    {
+      "text": "Type a whole calculation in one go, with brackets round the top and bottom of a fraction.",
+      "bullets": [
+        "1.14-c1",
+        "1.14-c2"
+      ]
+    },
+    {
+      "text": "Keep every digit, using Ans, and round only the final answer.",
+      "bullets": [
+        "1.14-c1"
+      ]
+    },
+    {
+      "text": "Enter negative numbers, standard form and times in hours and minutes correctly.",
+      "bullets": [
+        "1.14-c2"
+      ]
+    },
+    {
+      "text": "Read the display in context: money, time, standard form and the accuracy asked for.",
+      "bullets": [
+        "1.14-c3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.9"
+  ],
+  "papers": [
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "calculator skills",
+    "brackets on a calculator",
+    "don't round until the end",
+    "convert decimal hours to hours and minutes",
+    "reading the calculator display",
+    "using the Ans key"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-round-3sf",
+      "prompt": "Write $0.047\\,16$ correct to $3$ significant figures.",
+      "hint": "The first significant figure is the $4$. Keep three figures, then look at the next digit.",
+      "answer": {
+        "value": 0.0472,
+        "tolerance": 5e-05
+      },
+      "explain": "Keep $4$, $7$ and $1$. The next digit is $6$, so the $1$ becomes $2$: $0.0472$. Revise it in {{lesson:1.9}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(4716, 100000)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-estimate-product",
+      "prompt": "Estimate $41.3 \\times 5.8$ by rounding each number to $1$ significant figure.",
+      "hint": "Round each number to one non-zero digit, then multiply.",
+      "answer": {
+        "value": 240,
+        "tolerance": 0
+      },
+      "explain": "$41.3 \\to 40$ and $5.8 \\to 6$, so the estimate is $40 \\times 6 = 240$. Revise it in {{lesson:1.9}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(10*floor(Rational(413, 10)/10 + Rational(1, 2)))*floor(Rational(58, 10) + Rational(1, 2))",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "efficient",
+      "heading": "Typing a calculation in one go",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Your calculator follows the [[order-of-operations|order of operations]]: brackets, then powers and roots, then $\\times$ and $\\div$, then $+$ and $-$. It does exactly what you type, in that order."
+        },
+        {
+          "type": "text",
+          "text": "A fraction bar groups the whole top and the whole bottom. Your calculator can't see that bar, so put brackets round the top and round the bottom. The fraction key does the same job."
+        },
+        {
+          "type": "calculator",
+          "snippet": "brackets-order"
+        },
+        {
+          "type": "example",
+          "id": "ex-fraction-brackets",
+          "question": "Use your calculator to work out $\\dfrac{14.6 + 3.9^{2}}{2.4 \\times 1.7}$. Give your answer correct to $3$ significant figures.",
+          "steps": [
+            "Type it with brackets round the top and the bottom: $(14.6 + 3.9^{2}) \\div (2.4 \\times 1.7)$.",
+            "Write down the full display: $7.306372549$.",
+            "Round once, at the end. The fourth figure is $6$, so $7.30$ becomes $7.31$.",
+            "Check with an estimate: $\\dfrac{10 + 4^{2}}{2 \\times 2} = 6.5$, which is close, so $7.31$ is sensible."
+          ],
+          "answer": "$\\dfrac{14.6 + 3.9^{2}}{2.4 \\times 1.7} \\approx 7.31$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(Rational(146, 10) + Rational(39, 10)**2)/(Rational(24, 10)*Rational(17, 10))",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Typing $14.6 + 3.9^{2} \\div 2.4 \\times 1.7$ with no brackets gives $25.37\\ldots$, because only $3.9^{2}$ gets divided. Bracket the whole top and the whole bottom."
+        },
+        {
+          "type": "check",
+          "id": "check-calc-fraction",
+          "prompt": "Use your calculator to work out $\\dfrac{9.75 - 1.6^{2}}{0.48 + 2.15}$. Give your answer correct to $3$ significant figures.",
+          "hint": "Type $(9.75 - 1.6^{2}) \\div (0.48 + 2.15)$, then round the display.",
+          "answer": {
+            "value": 2.73,
+            "tolerance": 0.005
+          },
+          "explain": "The top is $9.75 - 2.56 = 7.19$ and the bottom is $2.63$. $7.19 \\div 2.63 = 2.7338\\ldots \\approx 2.73$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(Rational(975, 100) - Rational(16, 10)**2)/(Rational(48, 100) + Rational(215, 100))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "Some questions take two steps. Never round the answer to the first step. Use the Ans key, which keeps every digit, and round only the final answer."
+        },
+        {
+          "type": "calculator",
+          "snippet": "ans"
+        },
+        {
+          "type": "example",
+          "id": "ex-keep-full-value",
+          "question": "A square has an area of $53\\text{ cm}^{2}$. Work out its perimeter. Give your answer correct to $3$ significant figures.",
+          "steps": [
+            "The side is $\\sqrt{53}$. The display shows $7.280109889$. Don't round it.",
+            "The perimeter is $4$ sides, so press $\\times\\, 4$: the calculator works out $\\text{Ans} \\times 4 = 29.12043956$.",
+            "Round at the end: $29.1\\text{ cm}$.",
+            "Rounding the side to $7.3$ first gives $4 \\times 7.3 = 29.2$, which is wrong."
+          ],
+          "answer": "$P \\approx 29.1\\text{ cm}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "4*sqrt(53)",
+            "sf": 3,
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-early-rounding",
+          "prompt": "Work out $\\sqrt{30.5} \\times 12$, correct to $3$ significant figures.",
+          "hint": "Do it in one go, or use Ans. Round only the final answer.",
+          "options": [
+            {
+              "text": "$\\approx 66.0$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 66.2$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 66.3$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\sqrt{30.5} \\times 12 = 66.272\\ldots \\approx 66.3$. Rounding the root to $5.5$ gives $66.0$, and to $5.52$ gives $66.24 \\approx 66.2$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(Rational(305, 10))*12",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "entering",
+      "heading": "Entering values",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A time in hours and minutes is not a decimal. $2$ hours $40$ minutes is not $2.40$ hours, because an hour has $60$ minutes, not $100$."
+        },
+        {
+          "type": "text",
+          "text": "So $40$ minutes is $\\frac{40}{60}$ of an hour. Type $2 + 40 \\div 60$, or use the degrees-minutes-seconds key, which reads hours, minutes and seconds."
+        },
+        {
+          "type": "calculator",
+          "snippet": "time-dms",
+          "values": {
+            "hours": 2,
+            "minutes": 40,
+            "seconds": 0
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-time-speed",
+          "question": "A cyclist rides $47$ km in $2$ hours $40$ minutes. Work out her [[average-speed|average speed]] in km/h. Give your answer correct to $3$ significant figures.",
+          "steps": [
+            "Change the time to hours: $2 + \\frac{40}{60} = 2.666\\ldots$ hours. Keep it in the calculator.",
+            "Speed is distance $\\div$ time: $47 \\div (2 + 40 \\div 60) = 17.625$.",
+            "Round to $3$ significant figures: $17.6$ km/h.",
+            "Using $2.4$ hours would give $19.6$ km/h, which is wrong."
+          ],
+          "answer": "$\\text{speed} \\approx 17.6\\text{ km/h}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "47/(2 + Rational(40, 60))",
+            "sf": 3,
+            "unit": "km/h"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-time-to-hours",
+          "prompt": "A film lasts $1$ hour $48$ minutes. Write this time in hours, as a decimal.",
+          "hint": "Divide the minutes by $60$, then add the whole hour.",
+          "answer": {
+            "value": 1.8,
+            "tolerance": 0
+          },
+          "explain": "$48 \\div 60 = 0.8$, so the film lasts $1 + 0.8 = 1.8$ hours, not $1.48$ hours.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1 + Rational(48, 60)",
+            "dp": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": "A [[negative-number|negative number]] needs the $(-)$ key. Put it in brackets before you square it: $(-3)^{2} = 9$, but typing $-3^{2}$ squares only the $3$ and gives $-9$."
+        },
+        {
+          "type": "calculator",
+          "snippet": "powers",
+          "values": {
+            "base": 2.6,
+            "power": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-negative-square",
+          "question": "Use your calculator to work out $(-2.6)^{2} + \\sqrt{28.2 - 9.75}$. Give your answer correct to $3$ significant figures.",
+          "steps": [
+            "Type the negative number in brackets: $(-2.6)^{2} = 6.76$.",
+            "Put the whole of $28.2 - 9.75$ under the root sign, then close it.",
+            "Type it all in one go: $(-2.6)^{2} + \\sqrt{28.2 - 9.75} = 11.05534632$.",
+            "Round to $3$ significant figures: $11.1$. Without the brackets, the calculator gives $-2.46\\ldots$"
+          ],
+          "answer": "$(-2.6)^{2} + \\sqrt{28.2 - 9.75} \\approx 11.1$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(-Rational(26, 10))**2 + sqrt(Rational(282, 10) - Rational(975, 100))",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "For a number in [[standard-form|standard form]], use the $\\times 10^{x}$ key. Put brackets round it when you divide by it. Revise standard form in {{lesson:1.8}}."
+        },
+        {
+          "type": "calculator",
+          "snippet": "standard-form-entry",
+          "values": {
+            "mantissa": 1.8,
+            "power": "−2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-standard-form-divide",
+          "prompt": "Use your calculator to work out $\\dfrac{6.3 \\times 10^{5}}{1.8 \\times 10^{-2}}$. Give your answer in standard form.",
+          "hint": "Put brackets round the bottom number: $(6.3 \\times 10^{5}) \\div (1.8 \\times 10^{-2})$.",
+          "options": [
+            {
+              "text": "$3.5 \\times 10^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$3.5 \\times 10^{7}$",
+              "correct": true
+            },
+            {
+              "text": "$1.134 \\times 10^{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "With brackets the display is $35\\,000\\,000 = 3.5 \\times 10^{7}$. If you type the power as $\\times 10^{-2}$ with the power key and no brackets, the calculator divides by $1.8$ and then multiplies by $10^{-2}$, giving $3.5 \\times 10^{3}$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(Rational(63, 10)*10**5)/(Rational(18, 10)*Rational(1, 10)**2)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "display",
+      "heading": "Reading the display",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The display shows a number. You decide what it means: add the units, and write it the way the context needs."
+        },
+        {
+          "type": "text",
+          "text": "Money: a display of $6.3$ in dollars means $\\$6.30$. Write money with $2$ decimal places, to the nearest cent."
+        },
+        {
+          "type": "example",
+          "id": "ex-money-display",
+          "question": "Four friends share a bill of $\\$50.80$ equally. Work out how much each friend pays.",
+          "steps": [
+            "$50.80 \\div 4$. The display shows $12.7$.",
+            "This is money, so write $2$ decimal places: $12.7$ becomes $12.70$."
+          ],
+          "answer": "$\\$12.70$",
+          "verify": {
+            "kind": "money",
+            "truth": "Rational(5080, 100)/4"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Time: a display of $1.5$ hours is $1$ hour and $\\frac{1}{2}$ of an hour, so $1$ h $30$ min. To change the decimal part of an hour to minutes, multiply it by $60$."
+        },
+        {
+          "type": "example",
+          "id": "ex-time-display",
+          "question": "A walker covers $11.4$ km at $6$ km/h. How long does the walk take? Give your answer in hours and minutes.",
+          "steps": [
+            "Time is distance $\\div$ speed: $11.4 \\div 6$. The display shows $1.9$.",
+            "That is $1$ hour and $0.9$ of an hour.",
+            "Change $0.9$ of an hour to minutes: $0.9 \\times 60 = 54$.",
+            "So the walk takes $1$ h $54$ min, not $1$ h $9$ min."
+          ],
+          "answer": "$1\\text{ h } 54\\text{ min}$",
+          "verify": {
+            "kind": "time",
+            "truth": "60*Rational(114, 10)/6",
+            "form": "duration"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-decimal-hours",
+          "prompt": "Your calculator gives a time of $4.15$ hours. Write this time in hours and minutes.",
+          "hint": "Keep the $4$ hours. Multiply $0.15$ by $60$.",
+          "options": [
+            {
+              "text": "$4\\text{ h } 15\\text{ min}$",
+              "correct": false
+            },
+            {
+              "text": "$4\\text{ h } 9\\text{ min}$",
+              "correct": true
+            },
+            {
+              "text": "$4\\text{ h } 25\\text{ min}$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.15 \\times 60 = 9$, so $4.15$ hours is $4$ h $9$ min. The digits after the point are not minutes.",
+          "verify": {
+            "kind": "time",
+            "truth": "60*Rational(415, 100)",
+            "form": "duration"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A very large or very small answer may show in standard form, such as $2.08 \\times 10^{-4}$. Copy it with the $\\times 10$, never as a bare $2.08$."
+        },
+        {
+          "type": "text",
+          "text": "The display may show a fraction or a root. That is exact. Switch to the decimal when the question asks for a rounded answer."
+        },
+        {
+          "type": "calculator",
+          "snippet": "fraction-to-decimal"
+        },
+        {
+          "type": "check",
+          "id": "check-read-standard-form",
+          "prompt": "Your calculator shows $2.08 \\times 10^{-4}$. Which ordinary number is this?",
+          "hint": "$\\times 10^{-4}$ moves the decimal point $4$ places to the left.",
+          "options": [
+            {
+              "text": "$0.00208$",
+              "correct": false
+            },
+            {
+              "text": "$0.000208$",
+              "correct": true
+            },
+            {
+              "text": "$20\\,800$",
+              "correct": false
+            }
+          ],
+          "explain": "$2.08 \\div 10\\,000 = 0.000208$. A negative power makes the number small, so $20\\,800$ can't be right.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(208, 100)*Rational(1, 10)**4"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Keep the zeros the accuracy needs. $5.998$ to $3$ significant figures is $6.00$, and $7.96$ to $2$ significant figures is $8.0$, not $8$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Put brackets round the whole top and the whole bottom of a fraction: $(a + b) \\div (c + d)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Never round in the middle. Use Ans or the full display, and round only the final answer.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Bracket a negative number before you square it: $(-3)^{2} = 9$, but $-3^{2} = -9$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Minutes are sixtieths of an hour: $2$ h $40$ min is $2 + \\frac{40}{60}$ hours, and $0.9$ hours is $0.9 \\times 60 = 54$ min.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Read the display in context: money to $2$ decimal places, standard form with its $\\times 10$, and other non-exact answers to $3$ significant figures (angles to $1$ decimal place) unless told otherwise.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving out the brackets round a fraction's top, so only its last term is divided. Bracket the whole top and the whole bottom.",
+    "Rounding a value halfway through, such as a square root before you multiply it. The last figure of the answer can change, so keep every digit.",
+    "Squaring wrongly: $0.3^{2}$ is $0.09$, not $0.6$, and $(-3)^{2}$ is $9$, not $-9$. Use brackets and the $x^{2}$ key.",
+    "Reading $1.5$ hours as $1$ h $50$ min. Multiply the decimal part by $60$: $1.5$ hours is $1$ h $30$ min.",
+    "Leaving the calculator in radians for sin, cos or tan. Check that it is set to degrees before a trigonometry question."
+  ],
+  "examTips": [
+    "\"Give your answer correct to $2$ decimal places\": write the full display first, then round. The unrounded value can earn a mark even if the rounding slips.",
+    "\"Calculate\" or \"work out\": write down what you typed, with its brackets, before the answer.",
+    "No accuracy given? Give $3$ significant figures, or $1$ decimal place for angles. An exact display like $24.375$ can be written in full.",
+    "When a later part uses an earlier answer, use the unrounded value from Ans, not your rounded answer."
+  ],
+  "readingMinutes": 17
+}

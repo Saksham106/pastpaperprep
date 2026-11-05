@@ -2,43 +2,43 @@
   {
     "id": "percentage-increase",
     "term": "percentage increase",
-    "definition": "TODO: Increase as a percentage of the original; also percentage change.",
+    "definition": "The increase in an amount written as a percentage of the original amount: $\\frac{\\text{increase}}{\\text{original}} \\times 100$. Increases and decreases are both percentage changes.",
     "lesson": "1.13"
   },
   {
     "id": "percentage-decrease",
     "term": "percentage decrease",
-    "definition": "TODO: Decrease as a percentage of the original.",
+    "definition": "The decrease in an amount written as a percentage of the original amount: $\\frac{\\text{decrease}}{\\text{original}} \\times 100$.",
     "lesson": "1.13"
   },
   {
     "id": "simple-interest",
     "term": "simple interest",
-    "definition": "TODO: Interest on the original amount only each year.",
+    "definition": "Interest worked out on the principal only, so it is the same every year: $I = \\frac{P \\times R \\times T}{100}$ for a rate of $R\\%$ per year over $T$ years.",
     "lesson": "1.13"
   },
   {
     "id": "compound-interest",
     "term": "compound interest",
-    "definition": "TODO: Interest added to the amount each period; repeated percentage change at Extended.",
+    "definition": "Interest that is added to the amount each year, so the next year's interest is worked out on the new total; after $n$ years at $r\\%$ the value is $P\\left(1 + \\frac{r}{100}\\right)^{n}$.",
     "lesson": "1.13"
   },
   {
     "id": "principal",
     "term": "principal",
-    "definition": "TODO: Original amount invested or borrowed.",
+    "definition": "The amount of money first invested or borrowed, before any interest is added.",
     "lesson": "1.13"
   },
   {
     "id": "profit-and-loss",
     "term": "profit and loss",
-    "definition": "TODO: Selling price versus cost price as an amount or percentage; also discount and deposit.",
+    "definition": "The difference between the selling price and the cost price: a profit if the item sells for more than it cost, a loss if it sells for less; as a percentage it is compared with the cost price.",
     "lesson": "1.13"
   },
   {
     "id": "reverse-percentage",
     "term": "reverse percentage",
-    "definition": "TODO: Find the original value from the value after a percentage change.",
+    "definition": "Finding the original amount from the amount after a percentage change, by dividing the new amount by the multiplier, such as $54 \\div 1.2 = 45$ after a $20\\%$ increase.",
     "lesson": "1.13"
   }
 ]

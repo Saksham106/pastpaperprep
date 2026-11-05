@@ -1,0 +1,788 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.4",
+  "slug": "fractions-decimals-and-percentages",
+  "title": "Fractions, decimals and percentages",
+  "level": "Core",
+  "topic": 1,
+  "summary": "A [[fraction|fraction]], a decimal and a [[percentage|percentage]] can show the same amount: $\\frac{3}{4} = 0.75 = 75\\%$. You learn the words, switch between the three forms, and give every fraction in its simplest form.",
+  "goals": [
+    {
+      "text": "Use the words [[proper-fraction|proper fraction]], [[improper-fraction|improper fraction]] and [[mixed-number|mixed number]], and change between the last two.",
+      "bullets": [
+        "1.4-c1",
+        "1.4-c2"
+      ]
+    },
+    {
+      "text": "Find [[equivalent-fraction|equivalent fractions]] and write a fraction in its simplest form.",
+      "bullets": [
+        "1.4-c2"
+      ]
+    },
+    {
+      "text": "Change between fractions, decimals and percentages, with and without a calculator.",
+      "bullets": [
+        "1.4-c1",
+        "1.4-c2"
+      ]
+    },
+    {
+      "text": "Read and write [[recurring-decimal|recurring decimals]] in dot notation, and change them to and from fractions.",
+      "bullets": [
+        "1.4-n1",
+        "1.4-n2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "improper fraction to mixed number",
+    "simplest form of a fraction",
+    "equivalent fractions",
+    "fraction to decimal",
+    "decimal to percentage",
+    "recurring decimal to fraction"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-hcf",
+      "prompt": "Find the [[highest-common-factor|highest common factor]] (HCF) of $18$ and $30$.",
+      "hint": "List the factors of $18$. Which is the biggest that also divides $30$?",
+      "answer": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "explain": "The factors of $18$ are $1, 2, 3, 6, 9, 18$. The biggest that divides $30$ is $6$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "gcd(18, 30)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-remainder",
+      "prompt": "What is the remainder when $38$ is divided by $7$?",
+      "hint": "Find the biggest multiple of $7$ that is not more than $38$.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0
+      },
+      "explain": "$7 \\times 5 = 35$, and $38 - 35 = 3$. This is division from before the course.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Mod(38, 7)",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "fraction-words",
+      "heading": "Proper fractions, improper fractions and mixed numbers",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Fraction",
+          "statement": "A [[fraction|fraction]] $\\frac{a}{b}$ means $a$ equal parts out of $b$. The top number $a$ is the numerator. The bottom number $b$ is the denominator, and it is never $0$.",
+          "plain": "For $\\frac{3}{5}$ of a bar, split it into $5$ equal parts and take $3$."
+        },
+        {
+          "type": "text",
+          "text": "The parts must be the same size. If a shape is cut into unequal pieces, counting pieces does not give the fraction."
+        },
+        {
+          "type": "text",
+          "text": "A [[proper-fraction|proper fraction]] has a numerator smaller than its denominator, like $\\frac{4}{9}$. It is less than $1$."
+        },
+        {
+          "type": "text",
+          "text": "An [[improper-fraction|improper fraction]] has a numerator equal to or bigger than its denominator, like $\\frac{11}{4}$ or $\\frac{6}{6}$. It is $1$ or more."
+        },
+        {
+          "type": "text",
+          "text": "A [[mixed-number|mixed number]] is a whole number and a proper fraction together. $2\\frac{3}{4}$ means $2 + \\frac{3}{4}$, so $\\frac{11}{4} = 2\\frac{3}{4}$."
+        },
+        {
+          "type": "text",
+          "text": "Improper to mixed: divide the numerator by the denominator. The answer is the whole number. The remainder goes over the same denominator."
+        },
+        {
+          "type": "example",
+          "id": "ex-improper-to-mixed",
+          "question": "Write $\\frac{23}{6}$ as a mixed number.",
+          "steps": [
+            "Divide: $3 \\times 6 = 18$ and $23 - 18 = 5$, so $23 \\div 6 = 3$ remainder $5$.",
+            "The whole number is $3$. The $5$ left over are sixths: $\\frac{5}{6}$.",
+            "Check by going back: $3 \\times 6 + 5 = 23$."
+          ],
+          "answer": "$\\frac{23}{6} = 3\\frac{5}{6}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(23, 6)",
+            "form": "mixed"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-improper-29-4",
+            "prompt": "Write $\\frac{29}{4}$ as a mixed number.",
+            "hint": "How many $4$s go into $29$, and how many are left over?",
+            "options": [
+              {
+                "text": "$6\\frac{5}{4}$",
+                "correct": false
+              },
+              {
+                "text": "$7\\frac{1}{4}$",
+                "correct": true
+              },
+              {
+                "text": "$8\\frac{1}{4}$",
+                "correct": false
+              }
+            ],
+            "explain": "$7 \\times 4 = 28$, leaving $1$, so $7\\frac{1}{4}$. In $6\\frac{5}{4}$ the fraction part is still improper.",
+            "verify": {
+              "kind": "fraction",
+              "truth": "Rational(29, 4)",
+              "form": "mixed"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "text": "Mixed to improper: multiply the whole number by the denominator, then add the numerator. Keep the same denominator."
+        },
+        {
+          "type": "example",
+          "id": "ex-mixed-to-improper",
+          "question": "Write $5\\frac{2}{7}$ as an improper fraction.",
+          "steps": [
+            "Each whole is $\\frac{7}{7}$, so $5$ wholes are $5 \\times 7 = 35$ sevenths.",
+            "Add the $2$ sevenths: $35 + 2 = 37$ sevenths."
+          ],
+          "answer": "$5\\frac{2}{7} = \\frac{37}{7}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "5 + Rational(2, 7)",
+            "form": "improper"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-mixed-3-4-9",
+            "prompt": "Write $3\\frac{4}{9}$ as an improper fraction.",
+            "hint": "How many ninths are in $3$ wholes?",
+            "options": [
+              {
+                "text": "$\\frac{16}{9}$",
+                "correct": false
+              },
+              {
+                "text": "$\\frac{21}{9}$",
+                "correct": false
+              },
+              {
+                "text": "$\\frac{31}{9}$",
+                "correct": true
+              },
+              {
+                "text": "$\\frac{34}{9}$",
+                "correct": false
+              }
+            ],
+            "explain": "$3 \\times 9 = 27$ ninths, plus $4$ ninths, is $31$ ninths.",
+            "verify": {
+              "kind": "fraction",
+              "truth": "3 + Rational(4, 9)",
+              "form": "improper"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "equivalent",
+      "heading": "Equivalent fractions and simplest form",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Split a bar into $4$ equal parts and shade $3$. Now cut every part in half: $6$ of the $8$ smaller parts are shaded. The shaded amount has not changed."
+        },
+        {
+          "type": "figure",
+          "id": "1-4-fraction-bars",
+          "alt": "Three bars of the same length. The first is split into 4 equal parts with 3 shaded. The second is split into 8 equal parts with 6 shaded. The third is split into 12 equal parts with 9 shaded. A dashed line shows the shading ends at the same point on all three bars, so three quarters, six eighths and nine twelfths are the same amount.",
+          "caption": "$\\frac{3}{4} = \\frac{6}{8} = \\frac{9}{12}$"
+        },
+        {
+          "type": "definition",
+          "term": "Equivalent fractions",
+          "statement": "[[equivalent-fraction|Equivalent fractions]] have the same value. Multiply or divide the numerator and the denominator by the same number (not $0$) to get from one to another.",
+          "plain": "$\\frac{3}{4}$ and $\\frac{9}{12}$ are the same amount."
+        },
+        {
+          "type": "example",
+          "id": "ex-missing-numerator",
+          "question": "Find the missing number: $\\frac{4}{9} = \\frac{\\square}{54}$.",
+          "steps": [
+            "The denominator went from $9$ to $54$. Since $9 \\times 6 = 54$, it was multiplied by $6$.",
+            "Do the same to the numerator: $4 \\times 6 = 24$. So $\\frac{4}{9} = \\frac{24}{54}$."
+          ],
+          "answer": "$24$",
+          "verify": {
+            "kind": "exact",
+            "truth": "4 * Rational(54, 9)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A fraction is in its simplest form when the numerator and denominator have no common factor except $1$."
+        },
+        {
+          "type": "text",
+          "text": "To [[simplify|simplify]] a fraction, divide both numbers by their HCF. Or divide by small common factors, one at a time, until none is left."
+        },
+        {
+          "type": "example",
+          "id": "ex-simplify-84-126",
+          "question": "Write $\\frac{84}{126}$ in its simplest form.",
+          "steps": [
+            "Both numbers are even, so divide by $2$: $\\frac{84}{126} = \\frac{42}{63}$.",
+            "$42 = 3 \\times 14$ and $63 = 3 \\times 21$, so divide by $3$: $\\frac{14}{21}$.",
+            "Both are in the $7$ times table, so divide by $7$: $\\frac{2}{3}$.",
+            "$2$ and $3$ have no common factor except $1$, so stop. Dividing by the HCF, $42$, does it in one step."
+          ],
+          "answer": "$\\frac{84}{126} = \\frac{2}{3}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(84, 126)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping too soon. $\\frac{14}{21}$ equals $\\frac{84}{126}$ but is not in simplest form, so always look for one more common factor."
+        },
+        {
+          "type": "check",
+          "id": "check-simplify-36-63",
+          "prompt": "Write $\\frac{36}{63}$ in its simplest form.",
+          "hint": "Both numbers are in the $9$ times table.",
+          "options": [
+            {
+              "text": "$\\frac{12}{21}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{4}{7}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{7}{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "The HCF is $9$: $36 \\div 9 = 4$ and $63 \\div 9 = 7$. $\\frac{12}{21}$ can still be divided by $3$.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(36, 63)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-missing-denominator",
+          "prompt": "Find the missing number: $\\frac{3}{8} = \\frac{27}{\\square}$.",
+          "hint": "What was the numerator multiplied by?",
+          "answer": {
+            "value": 72,
+            "tolerance": 0
+          },
+          "explain": "$3 \\times 9 = 27$, so multiply the denominator by $9$ too: $8 \\times 9 = 72$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "8 * Rational(27, 3)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-shaded-28",
+          "prompt": "A rectangle is split into $28$ equal squares, and $12$ of them are shaded. What fraction is shaded, in its simplest form?",
+          "hint": "Write shaded squares over all the squares, then simplify.",
+          "options": [
+            {
+              "text": "$\\frac{3}{7}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{12}{28}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{4}{7}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{12}{28}$: divide both by $4$ to get $\\frac{3}{7}$. $\\frac{4}{7}$ is the part that is not shaded.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(12, 28)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "decimals-percentages",
+      "heading": "Fractions, decimals and percentages",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Decimals use place value. In $0.68$ the $6$ is $6$ tenths and the $8$ is $8$ hundredths, so $0.68 = \\frac{68}{100}$."
+        },
+        {
+          "type": "text",
+          "text": "Decimal to fraction: write the digits over $10$, $100$ or $1000$, with one zero for each decimal place. Then simplify."
+        },
+        {
+          "type": "example",
+          "id": "ex-decimal-to-fraction",
+          "question": "Write $0.68$ as a fraction. Give it in its simplest form.",
+          "steps": [
+            "$0.68$ has two decimal places, so write it over $100$: $\\frac{68}{100}$.",
+            "Divide both by their HCF, $4$: $\\frac{68 \\div 4}{100 \\div 4} = \\frac{17}{25}$.",
+            "$17$ is prime and does not divide $25$, so this is the simplest form."
+          ],
+          "answer": "$0.68 = \\frac{17}{25}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(68, 100)"
+          },
+          "video": null
+        },
+        {
+          "type": "definition",
+          "term": "Percentage",
+          "statement": "A [[percentage|percentage]] is an amount out of $100$: $x\\% = \\frac{x}{100}$.",
+          "plain": "$40\\%$ means $40$ out of every $100$."
+        },
+        {
+          "type": "text",
+          "text": "So to change a decimal to a percentage, multiply by $100$. To change a percentage to a decimal, divide by $100$."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $3\\%$ as $0.3$. Dividing by $100$ moves the digits two places: $3\\% = 0.03$, and $0.3 = 30\\%$."
+        },
+        {
+          "type": "text",
+          "text": "Fraction to decimal, with no calculator: find an equal fraction over $10$, $100$ or $1000$, or divide the numerator by the denominator."
+        },
+        {
+          "type": "example",
+          "id": "ex-fraction-to-percentage",
+          "question": "Without a calculator, write $\\frac{7}{8}$ as a percentage.",
+          "steps": [
+            "$8$ does not go into $100$ exactly, so divide $7$ by $8$. Write $7$ as $7.000$.",
+            "$8$ into $7$ goes $0$ times. $8$ into $70$ goes $8$ times, remainder $6$. $8$ into $60$ goes $7$ times, remainder $4$. $8$ into $40$ goes $5$ times exactly.",
+            "So $\\frac{7}{8} = 0.875$.",
+            "Multiply by $100$: $0.875 \\times 100 = 87.5$."
+          ],
+          "answer": "$\\frac{7}{8} = 87.5\\%$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(7, 8) * 100",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Some fractions give a decimal that never stops, like $\\frac{1}{3} = 0.333\\ldots$ Round these as the question asks, or to $3$ significant figures: $\\frac{1}{3} \\approx 33.3\\%$."
+        },
+        {
+          "type": "text",
+          "text": "On Papers 3 and 4 your calculator does the division. Enter the fraction, then switch the answer to a decimal."
+        },
+        {
+          "type": "calculator",
+          "snippet": "fraction-entry",
+          "values": {
+            "numerator": 5,
+            "denominator": 7
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "fraction-to-decimal"
+        },
+        {
+          "type": "example",
+          "id": "ex-calculator-percentage",
+          "question": "Use your calculator to write $\\frac{5}{7}$ as a percentage. Give your answer to 3 significant figures.",
+          "steps": [
+            "Enter $\\frac{5}{7}$ and switch to a decimal: $0.714285\\ldots$",
+            "Multiply by $100$: $71.4285\\ldots$",
+            "The fourth figure is $2$, so round down."
+          ],
+          "answer": "$\\frac{5}{7} \\approx 71.4\\%$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(5, 7) * 100",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-decimal-to-percentage",
+          "prompt": "Write $0.06$ as a percentage.",
+          "hint": "Multiply by $100$.",
+          "options": [
+            {
+              "text": "$0.6\\%$",
+              "correct": false
+            },
+            {
+              "text": "$6\\%$",
+              "correct": true
+            },
+            {
+              "text": "$60\\%$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.06 \\times 100 = 6$, so $0.06 = 6\\%$. Check: $6\\%$ is $\\frac{6}{100}$, which is $6$ hundredths.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(6, 100) * 100",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-percentage-to-fraction",
+          "prompt": "Write $72\\%$ as a fraction. Give it in its simplest form.",
+          "hint": "Start with $\\frac{72}{100}$.",
+          "options": [
+            {
+              "text": "$\\frac{36}{50}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{72}{10}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{18}{25}$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\frac{72}{100}$, then divide both by their HCF, $4$, to get $\\frac{18}{25}$. $\\frac{36}{50}$ can still be halved.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(72, 100)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mixed-to-decimal",
+          "prompt": "Which decimal is equal to $2\\frac{3}{4}$?",
+          "hint": "Write $\\frac{3}{4}$ over $100$ first.",
+          "options": [
+            {
+              "text": "$2.34$",
+              "correct": false
+            },
+            {
+              "text": "$2.75$",
+              "correct": true
+            },
+            {
+              "text": "$2.3$",
+              "correct": false
+            },
+            {
+              "text": "$2.43$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{3}{4} = \\frac{75}{100} = 0.75$, so $2\\frac{3}{4} = 2.75$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2 + Rational(3, 4)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recurring",
+      "heading": "Recurring decimals",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every fraction gives a decimal that either stops or repeats forever. One that repeats is a [[recurring-decimal|recurring decimal]]. Both kinds are [[rational-number|rational numbers]]."
+        },
+        {
+          "type": "text",
+          "text": "Put a dot over the first and last digits of the repeating block. One repeating digit gets one dot: $0.\\dot{4} = 0.444\\ldots$ and $0.2\\dot{7} = 0.2777\\ldots$"
+        },
+        {
+          "type": "text",
+          "text": "Two or more repeating digits get two dots: $0.\\dot{3}\\dot{8} = 0.383838\\ldots$ and $0.\\dot{5}1\\dot{6} = 0.516516\\ldots$ A bar over the whole block means the same: $0.\\overline{516}$."
+        },
+        {
+          "type": "check",
+          "id": "check-dot-notation",
+          "prompt": "Write $0.34444\\ldots$ using dot notation.",
+          "hint": "Which digits repeat? The $3$ appears only once.",
+          "options": [
+            {
+              "text": "$0.\\dot{3}\\dot{4}$",
+              "correct": false
+            },
+            {
+              "text": "$0.3\\dot{4}$",
+              "correct": true
+            },
+            {
+              "text": "$0.34$",
+              "correct": false
+            }
+          ],
+          "explain": "Only the $4$ repeats, so it gets the dot. $0.\\dot{3}\\dot{4}$ would be $0.343434\\ldots$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(3, 10) + Rational(4, 90)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Fraction to recurring decimal: divide, as for any decimal. When a remainder comes up again, the digits you found since it last appeared repeat forever."
+        },
+        {
+          "type": "example",
+          "id": "ex-fraction-to-recurring",
+          "question": "Write $\\frac{5}{12}$ as a recurring decimal.",
+          "steps": [
+            "Divide $5.0000$ by $12$. $12$ into $50$ goes $4$ times, remainder $2$.",
+            "$12$ into $20$ goes $1$ time, remainder $8$. $12$ into $80$ goes $6$ times, remainder $8$.",
+            "The remainder $8$ has come up again, so the $6$ repeats forever: $0.41666\\ldots$",
+            "Only the $6$ repeats, so it gets one dot."
+          ],
+          "answer": "$\\frac{5}{12} = 0.41\\dot{6}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(5, 12)"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-recurring-4-11",
+            "prompt": "Write $\\frac{4}{11}$ as a recurring decimal.",
+            "hint": "Divide $4.0000$ by $11$ and watch the remainders.",
+            "options": [
+              {
+                "text": "$0.36$",
+                "correct": false
+              },
+              {
+                "text": "$0.3\\dot{6}$",
+                "correct": false
+              },
+              {
+                "text": "$0.\\dot{3}\\dot{6}$",
+                "correct": true
+              }
+            ],
+            "explain": "$40 \\div 11 = 3$ remainder $7$, then $70 \\div 11 = 6$ remainder $4$. You are back to $40$, so $36$ repeats: $0.363636\\ldots$",
+            "verify": {
+              "kind": "exact",
+              "truth": "Rational(4, 11)"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "text": "Recurring decimal to fraction, when the repeat starts straight after the point: call the decimal $x$. Multiply by $10$ for one repeating digit, $100$ for two, $1000$ for three. Then subtract $x$, and the endless repeating tails cancel."
+        },
+        {
+          "type": "example",
+          "id": "ex-recurring-two-digits",
+          "question": "Write $0.\\dot{5}\\dot{4}$ as a fraction. Give it in its simplest form.",
+          "steps": [
+            "Let $x = 0.545454\\ldots$",
+            "Two digits repeat, so multiply by $100$: $100x = 54.545454\\ldots$",
+            "Subtract: $100x - x = 54.5454\\ldots - 0.5454\\ldots$, so $99x = 54$.",
+            "$x = \\frac{54}{99}$. Divide both by $9$ to get $\\frac{6}{11}$."
+          ],
+          "answer": "$0.\\dot{5}\\dot{4} = \\frac{6}{11}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(54, 10**2 - 1)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "If some digits do not repeat, first multiply so that only the repeating part is after the point. Then multiply again to move one whole block past the point."
+        },
+        {
+          "type": "example",
+          "id": "ex-recurring-with-start",
+          "question": "Write $0.3\\dot{8}$ as a fraction. Give it in its simplest form.",
+          "steps": [
+            "Let $x = 0.3888\\ldots$ The $3$ does not repeat, so multiply by $10$: $10x = 3.888\\ldots$",
+            "One digit repeats, so multiply by $10$ again: $100x = 38.888\\ldots$",
+            "Subtract, so the $8$s cancel: $100x - 10x = 38.888\\ldots - 3.888\\ldots$, so $90x = 35$.",
+            "$x = \\frac{35}{90}$. Divide both by $5$ to get $\\frac{7}{18}$."
+          ],
+          "answer": "$0.3\\dot{8} = \\frac{7}{18}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(38 - 3, 100 - 10)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying by $10$ when two digits repeat. Then $10x - x$ leaves an endless decimal. Match the power of $10$ to the length of the repeating block."
+        },
+        {
+          "type": "examTip",
+          "text": "When you change a recurring decimal to a fraction, the subtraction line earns a method mark. Write $100x = \\ldots$ and $99x = \\ldots$, not just the final fraction."
+        },
+        {
+          "type": "check",
+          "id": "check-recurring-0-7",
+          "prompt": "Write $0.\\dot{7}$ as a fraction.",
+          "hint": "Let $x = 0.777\\ldots$ and work out $10x - x$.",
+          "options": [
+            {
+              "text": "$\\frac{7}{10}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{7}{9}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{77}{100}$",
+              "correct": false
+            }
+          ],
+          "explain": "$10x = 7.777\\ldots$, so $10x - x = 7$ and $9x = 7$. $\\frac{7}{10}$ is $0.7$, which stops.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(7, 10 - 1)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-recurring-0-2-dot-1-dot-5",
+          "prompt": "Write $0.2\\dot{1}\\dot{5}$ as a fraction. Give it in its simplest form.",
+          "hint": "Find $10x$ first, then $1000x$, so both have the same repeating part after the point.",
+          "options": [
+            {
+              "text": "$\\frac{213}{990}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{71}{330}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{215}{999}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{215}{990}$",
+              "correct": false
+            }
+          ],
+          "explain": "$10x = 2.1515\\ldots$ and $1000x = 215.1515\\ldots$ Subtract: $990x = 213$, so $x = \\frac{213}{990} = \\frac{71}{330}$, dividing both by $3$. $\\frac{213}{990}$ is equal but not in simplest form.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(215 - 2, 1000 - 10)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Improper to mixed: divide, and put the remainder over the denominator. Mixed to improper: whole $\\times$ denominator $+$ numerator.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Equivalent fractions: multiply or divide top and bottom by the same number. Simplest form: divide both by the HCF.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Decimal to fraction: digits over $10$, $100$ or $1000$, then simplify. Fraction to decimal: divide the numerator by the denominator.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Percentage: $x\\% = \\frac{x}{100}$. Decimal to percentage: $\\times 100$. Percentage to decimal: $\\div 100$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Learn: $\\frac{1}{2} = 0.5$, $\\frac{1}{4} = 0.25$, $\\frac{3}{4} = 0.75$, $\\frac{1}{5} = 0.2$, $\\frac{1}{8} = 0.125$, $\\frac{1}{10} = 0.1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Recurring decimal to fraction: $x = $ the decimal, multiply by $10$, $100$ or $1000$ to match the repeating block, subtract to cancel the tail. If some digits do not repeat, first multiply to move them in front of the point.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving a fraction like $\\frac{15}{40}$ unsimplified. Divide by common factors until none is left: $\\frac{3}{8}$.",
+    "Writing $5\\%$ as $0.5$. Divide by $100$: $5\\% = 0.05$.",
+    "Forgetting the numerator when changing a mixed number: $2\\frac{1}{3}$ is $\\frac{7}{3}$, not $\\frac{6}{3}$. Multiply, then add: $2 \\times 3 + 1 = 7$.",
+    "Counting the unshaded parts when asked for the shaded fraction. Reread the question before you write the fraction.",
+    "Counting pieces of different sizes as equal parts. A fraction of a shape needs equal parts."
+  ],
+  "examTips": [
+    "“Give your answer in its simplest form”: an unsimplified fraction, even if equal, usually loses the mark.",
+    "One-mark questions such as “Write $0.3$ as a percentage” need only the answer: $30\\%$.",
+    "Papers 1 and 2 have no calculator. Know the common fractions as decimals, and use short division for the rest.",
+    "Don't mix forms in one answer. Give a fraction or a decimal, not something like $\\frac{1}{0.4}$."
+  ],
+  "readingMinutes": 23
+}

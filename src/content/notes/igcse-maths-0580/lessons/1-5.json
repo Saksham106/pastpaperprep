@@ -1,0 +1,554 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.5",
+  "slug": "ordering",
+  "title": "Ordering",
+  "level": "Core",
+  "topic": 1,
+  "summary": "Ordering means putting numbers in order of size. You compare two numbers with $=$, or with the [[inequality|inequality]] symbols $\\ne$, $<$, $>$, $\\leqslant$ and $\\geqslant$. To order a mix of fractions, decimals and percentages, change them all to decimals first.",
+  "goals": [
+    {
+      "text": "Read and write the symbols $=$, $\\ne$, $<$, $>$, $\\leqslant$ and $\\geqslant$, including from words like \"at least\".",
+      "bullets": [
+        "1.5-c1"
+      ]
+    },
+    {
+      "text": "Order whole numbers, negative numbers and decimals.",
+      "bullets": [
+        "1.5-c1"
+      ]
+    },
+    {
+      "text": "Order a mix of fractions, decimals and percentages, with or without a calculator.",
+      "bullets": [
+        "1.5-c1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "order numbers smallest to largest",
+    "inequality symbols",
+    "greater than less than",
+    "ordering fractions decimals and percentages",
+    "ordering negative numbers"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-fraction-decimal",
+      "prompt": "Write $\\frac{3}{5}$ as a decimal.",
+      "hint": "Make the denominator $10$.",
+      "answer": {
+        "value": 0.6,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{3}{5} = \\frac{6}{10} = 0.6$. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(3, 5)",
+        "dp": 1
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-percent-decimal",
+      "prompt": "Which decimal is equal to $7\\%$?",
+      "hint": "Per cent means out of $100$.",
+      "options": [
+        {
+          "text": "$0.7$",
+          "correct": false
+        },
+        {
+          "text": "$0.07$",
+          "correct": true
+        },
+        {
+          "text": "$0.007$",
+          "correct": false
+        }
+      ],
+      "explain": "$7\\% = \\frac{7}{100} = 0.07$. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "Rational(7, 100)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "symbols",
+      "heading": "Symbols for comparing numbers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To order quantities by magnitude means to put them in order of size. Before you order a list, you need the symbols that compare two numbers."
+        },
+        {
+          "type": "definition",
+          "term": "Inequality",
+          "statement": "An [[inequality|inequality]] compares two quantities that need not be equal, using $<$, $>$, $\\leqslant$, $\\geqslant$ or $\\ne$.",
+          "plain": "It says which side is bigger, or that they are different."
+        },
+        {
+          "type": "text",
+          "text": "$a = b$ means $a$ equals $b$. $a \\ne b$ means $a$ is not equal to $b$."
+        },
+        {
+          "type": "text",
+          "text": "$a < b$ means $a$ is less than $b$. $a > b$ means $a$ is greater than $b$. The open side faces the bigger number, and the point faces the smaller one: $3 < 8$ and $8 > 3$ say the same thing."
+        },
+        {
+          "type": "text",
+          "text": "$a \\leqslant b$ means $a$ is less than or equal to $b$: $a$ is at most $b$. $a \\geqslant b$ means $a$ is greater than or equal to $b$: $a$ is at least $b$. The line underneath means \"or equal to\"."
+        },
+        {
+          "type": "example",
+          "id": "ex-symbol-both-sides",
+          "question": "Write one of the symbols $<$, $>$ or $=$ in the box to make the statement true: $0.5 \\times 18 \\;\\square\\; 3^{2}$.",
+          "steps": [
+            "Work out the left side: $0.5 \\times 18$ is half of $18$, which is $9$.",
+            "Work out the right side: $3^{2} = 3 \\times 3 = 9$.",
+            "Both sides are $9$, so the symbol is $=$."
+          ],
+          "answer": "$0.5 \\times 18 = 3^{2}$",
+          "verify": {
+            "kind": "list",
+            "truth": "Tuple(Rational(5, 10)*18, 3**2)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Words in a question often stand for a symbol. \"At least\", \"no less than\" and \"minimum\" mean $\\geqslant$. \"At most\", \"no more than\" and \"maximum\" mean $\\leqslant$. \"More than\" means $>$, and \"less than\" or \"fewer than\" means $<$."
+        },
+        {
+          "type": "example",
+          "id": "ex-lift-inequality",
+          "question": "A sign in a lift says \"Maximum $12$ people\". Write an inequality for $p$, the number of people the lift can carry.",
+          "steps": [
+            "\"Maximum $12$\" means $12$ is allowed, but more than $12$ is not.",
+            "So $p$ is at most $12$, which is $\\leqslant$."
+          ],
+          "answer": "$p \\leqslant 12$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Le(p, 12)",
+            "var": "p"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Reading $\\leqslant$ as plain \"less than\". The line means \"or equal to\", so $p \\leqslant 12$ allows $p = 12$; $p < 12$ does not."
+        },
+        {
+          "type": "check",
+          "id": "check-at-least",
+          "prompt": "To join a rowing club you must be at least $15$ years old. Which inequality describes the age, $a$ years, of a member?",
+          "hint": "Can a member be exactly $15$?",
+          "options": [
+            {
+              "text": "$a > 15$",
+              "correct": false
+            },
+            {
+              "text": "$a \\geqslant 15$",
+              "correct": true
+            },
+            {
+              "text": "$a \\leqslant 15$",
+              "correct": false
+            },
+            {
+              "text": "$a < 15$",
+              "correct": false
+            }
+          ],
+          "explain": "\"At least $15$\" means $15$ or more, so $15$ itself is allowed: $\\geqslant$.",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Ge(a, 15)",
+            "var": "a"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-not-equal",
+          "prompt": "Which statement is true?",
+          "hint": "Work out each power, then compare.",
+          "options": [
+            {
+              "text": "$3^{2} \\ne 9$",
+              "correct": false
+            },
+            {
+              "text": "$2^{3} \\ne 6$",
+              "correct": true
+            },
+            {
+              "text": "$4^{2} \\ne 16$",
+              "correct": false
+            }
+          ],
+          "explain": "$2^{3} = 2 \\times 2 \\times 2 = 8$, which is not $6$. The other two are equal: $3^{2} = 9$ and $4^{2} = 16$.",
+          "verify": {
+            "kind": "list",
+            "truth": "Tuple(2**3, 2*3)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "negatives-decimals",
+      "heading": "Ordering whole numbers, negatives and decimals",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For positive whole numbers, more digits means bigger: $1045 > 998$. With the same number of digits, compare digits from the left: $4730 > 4703$ because the tens digit $3$ beats $0$."
+        },
+        {
+          "type": "text",
+          "text": "On a number line, numbers get bigger to the right. So every [[negative-number|negative number]] is less than $0$, and the further a negative number is from $0$, the smaller it is."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-number-line",
+          "alt": "Number line from minus 9 to 3. Points at minus 8 and minus 3 are marked. Minus 8 is further left, so it is smaller. An arrow to the left says smaller and an arrow to the right says bigger.",
+          "caption": "$-8 < -3$, even though $8 > 3$."
+        },
+        {
+          "type": "text",
+          "text": "For positive decimals, line up the decimal points. Add zeros on the end so every number has the same number of decimal places. Then compare digit by digit from the left."
+        },
+        {
+          "type": "example",
+          "id": "ex-order-decimals",
+          "question": "Put these numbers in order of size, smallest first: $0.408, \\; 0.48, \\; 0.0849, \\; 0.4, \\; 0.084$.",
+          "steps": [
+            "Give each number $4$ decimal places: $0.4080, \\; 0.4800, \\; 0.0849, \\; 0.4000, \\; 0.0840$.",
+            "Two numbers start $0.0\\ldots$, so they are the smallest. Compare them: $0.0840 < 0.0849$.",
+            "The other three start $0.4\\ldots$. Compare the next digits: $0.4000 < 0.4080 < 0.4800$.",
+            "Write the numbers as they were given, smallest first."
+          ],
+          "answer": "$0.084 < 0.0849 < 0.4 < 0.408 < 0.48$",
+          "verify": {
+            "kind": "list",
+            "truth": "Tuple(Rational(408, 1000), Rational(48, 100), Rational(849, 10000), Rational(4, 10), Rational(84, 1000))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking a decimal with more digits is bigger. $0.0849$ has more digits than $0.4$, but $0.0849 < 0.4000$."
+        },
+        {
+          "type": "example",
+          "id": "ex-order-temperatures",
+          "question": "The temperatures in five towns one night were $-3$, $2$, $-7.5$, $0$ and $-3.5$, in $^{\\circ}\\mathrm{C}$. Write them in order, starting with the coldest.",
+          "steps": [
+            "The coldest is the smallest number, so start with the negatives.",
+            "Of the negatives, $-7.5$ is furthest from $0$, so it is the smallest. Next is $-3.5$, then $-3$.",
+            "Then $0$, and then the only positive number, $2$."
+          ],
+          "answer": "$-7.5 < -3.5 < -3 < 0 < 2$",
+          "verify": {
+            "kind": "list",
+            "truth": "Tuple(-3, 2, Rational(-15, 2), 0, Rational(-7, 2))"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-order-negatives",
+            "prompt": "Which list is in order, starting with the largest: $-0.6, \\; -6, \\; 0.06, \\; -0.06$?",
+            "hint": "The only positive number is the largest. For negatives, closer to $0$ is bigger.",
+            "options": [
+              {
+                "text": "$0.06 > -0.06 > -0.6 > -6$",
+                "correct": true
+              },
+              {
+                "text": "$0.06 > -6 > -0.6 > -0.06$",
+                "correct": false
+              },
+              {
+                "text": "$-6 > -0.6 > -0.06 > 0.06$",
+                "correct": false
+              },
+              {
+                "text": "$-0.06 > 0.06 > -0.6 > -6$",
+                "correct": false
+              }
+            ],
+            "explain": "$0.06$ is the only positive number. Then $-0.06$ is closest to $0$, and $-6$ is furthest away.",
+            "verify": {
+              "kind": "list",
+              "truth": "Tuple(Rational(-6, 10), -6, Rational(6, 100), Rational(-6, 100))"
+            }
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-largest-decimal",
+          "prompt": "Which of these is the largest: $0.7, \\; 0.69, \\; 0.709, \\; 0.0799$?",
+          "hint": "Give each number $4$ decimal places.",
+          "options": [
+            {
+              "text": "$0.7$",
+              "correct": false
+            },
+            {
+              "text": "$0.69$",
+              "correct": false
+            },
+            {
+              "text": "$0.709$",
+              "correct": true
+            },
+            {
+              "text": "$0.0799$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.7090 > 0.7000 > 0.6900 > 0.0799$. More digits did not make $0.0799$ bigger.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Max(Rational(7, 10), Rational(69, 100), Rational(709, 1000), Rational(799, 10000))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mixed-forms",
+      "heading": "Ordering fractions, decimals and percentages",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can't tell whether $\\frac{3}{8}$ or $36\\%$ is bigger just by looking. Change every number to the same form first. Decimals usually work best."
+        },
+        {
+          "type": "text",
+          "text": "1. Change each number to a decimal."
+        },
+        {
+          "type": "text",
+          "text": "2. Write them all to the same number of decimal places, at least $3$. If two still look equal, use more places."
+        },
+        {
+          "type": "text",
+          "text": "3. Order the decimals, then write your answer with the numbers as they were given."
+        },
+        {
+          "type": "text",
+          "text": "If every number is a fraction, a common denominator also works. Write each fraction over the same denominator, then compare the numerators."
+        },
+        {
+          "type": "example",
+          "id": "ex-order-fractions",
+          "question": "Without a calculator, put these fractions in order of size, smallest first: $\\frac{7}{10}, \\; \\frac{16}{25}, \\; \\frac{33}{50}, \\; \\frac{69}{100}$.",
+          "steps": [
+            "$100$ is a multiple of $10$, $25$ and $50$, so use $100$ as the common denominator.",
+            "$\\frac{7}{10} = \\frac{70}{100}$, $\\frac{16}{25} = \\frac{64}{100}$, $\\frac{33}{50} = \\frac{66}{100}$, and $\\frac{69}{100}$ stays the same.",
+            "Order the numerators: $64 < 66 < 69 < 70$.",
+            "Write the original fractions in that order."
+          ],
+          "answer": "$\\frac{16}{25} < \\frac{33}{50} < \\frac{69}{100} < \\frac{7}{10}$",
+          "verify": {
+            "kind": "list",
+            "truth": "Tuple(Rational(7, 10), Rational(16, 25), Rational(33, 50), Rational(69, 100))"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-compare-fractions",
+            "prompt": "Which statement is true?",
+            "hint": "Write both fractions over $18$.",
+            "options": [
+              {
+                "text": "$\\frac{5}{6} > \\frac{7}{9}$",
+                "correct": true
+              },
+              {
+                "text": "$\\frac{5}{6} < \\frac{7}{9}$",
+                "correct": false
+              },
+              {
+                "text": "$\\frac{5}{6} = \\frac{7}{9}$",
+                "correct": false
+              }
+            ],
+            "explain": "$\\frac{5}{6} = \\frac{15}{18}$ and $\\frac{7}{9} = \\frac{14}{18}$, so $\\frac{5}{6}$ is bigger, even though $7 > 5$.",
+            "verify": {
+              "kind": "list",
+              "truth": "Tuple(Rational(5, 6)*18, Rational(7, 9)*18)"
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-order-mixed",
+          "question": "Without a calculator, put these numbers in order of size, smallest first: $0.35, \\; \\frac{1}{3}, \\; 34\\%, \\; \\frac{3}{8}$.",
+          "steps": [
+            "Change each to a decimal with $3$ decimal places: $0.35 = 0.350$ and $34\\% = 0.340$.",
+            "$\\frac{1}{3} = 0.333\\ldots$, and $\\frac{3}{8} = 3 \\div 8 = 0.375$.",
+            "Order the decimals: $0.333\\ldots < 0.340 < 0.350 < 0.375$.",
+            "Write the numbers as they were given."
+          ],
+          "answer": "$\\frac{1}{3} < 34\\% < 0.35 < \\frac{3}{8}$",
+          "verify": {
+            "kind": "list",
+            "truth": "Tuple(Rational(35, 100), Rational(1, 3), Rational(34, 100), Rational(3, 8))"
+          },
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "Write in order: put the numbers as given in your answer, not your decimals. Write the decimals as working, because some marks are often given for most of the numbers in the right order."
+        },
+        {
+          "type": "text",
+          "text": "On Papers 3 and 4, a calculator turns each fraction or root into a decimal for you. Write down at least $4$ decimal places when the numbers are close."
+        },
+        {
+          "type": "calculator",
+          "snippet": "fraction-to-decimal"
+        },
+        {
+          "type": "example",
+          "id": "ex-order-calculator",
+          "question": "Use your calculator. Put these numbers in order of size, smallest first: $\\frac{7}{18}, \\; 0.39, \\; 38.5\\%, \\; \\sqrt{0.15}$.",
+          "steps": [
+            "$\\frac{7}{18} = 0.38888\\ldots$, and $\\sqrt{0.15} = 0.38729\\ldots$.",
+            "$38.5\\% = 0.385$. Now write all four to $4$ decimal places: $0.3889, \\; 0.3900, \\; 0.3850, \\; 0.3873$.",
+            "To $2$ decimal places, $\\frac{7}{18}$ and $0.39$ look equal, so $4$ places were needed.",
+            "Order: $0.3850 < 0.3873 < 0.3889 < 0.3900$. Write the numbers as given."
+          ],
+          "answer": "$38.5\\% < \\sqrt{0.15} < \\frac{7}{18} < 0.39$",
+          "verify": {
+            "kind": "list",
+            "truth": "Tuple(Rational(7, 18), Rational(39, 100), Rational(385, 1000), sqrt(Rational(15, 100)))"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "On Extended papers you may meet a [[recurring-decimal|recurring decimal]] such as $0.\\dot{4} = 0.4444\\ldots$ Write out enough digits to compare it: $0.\\dot{4} > 0.444$."
+        },
+        {
+          "type": "check",
+          "id": "check-true-statement",
+          "prompt": "Which statement is true?",
+          "hint": "Change both sides to decimals. Remember $\\pi = 3.14159\\ldots$",
+          "options": [
+            {
+              "text": "$0.3^{2} = 0.6$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{4}{7} > 0.6$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{8} = 37.5\\%$",
+              "correct": true
+            },
+            {
+              "text": "$\\pi < 3.14$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{3}{8} = 0.375 = 37.5\\%$. But $0.3^{2} = 0.3 \\times 0.3 = 0.09$, $\\frac{4}{7} = 0.571\\ldots$ and $\\pi > 3.14$.",
+          "verify": {
+            "kind": "list",
+            "truth": "Tuple(Rational(3, 8), Rational(375, 1000))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-order-ninths",
+          "prompt": "Which shows $\\frac{2}{9}, \\; 0.2, \\; 21\\%, \\; \\frac{1}{4}$ in order, starting with the smallest?",
+          "hint": "Work out $\\frac{2}{9}$ to $3$ decimal places.",
+          "options": [
+            {
+              "text": "$\\frac{2}{9} < 0.2 < 21\\% < \\frac{1}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$0.2 < 21\\% < \\frac{2}{9} < \\frac{1}{4}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{4} < \\frac{2}{9} < 0.2 < 21\\%$",
+              "correct": false
+            },
+            {
+              "text": "$0.2 < \\frac{2}{9} < 21\\% < \\frac{1}{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "As decimals: $0.200 < 0.210 < 0.222\\ldots < 0.250$.",
+          "verify": {
+            "kind": "list",
+            "truth": "Tuple(Rational(2, 9), Rational(2, 10), Rational(21, 100), Rational(1, 4))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$<$ less than, $>$ greater than, $\\leqslant$ at most, $\\geqslant$ at least, $\\ne$ not equal. The point faces the smaller number.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Negative numbers: the further from $0$, the smaller. So $-8 < -3$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Positive decimals: give them the same number of decimal places, then compare digits from the left.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Mixed forms: change all to decimals (at least $3$ places), order them, then write the original numbers.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Comparing only numerators or only denominators. $\\frac{7}{9}$ is not bigger than $\\frac{5}{6}$; use a common denominator or decimals.",
+    "Thinking a decimal with more digits is bigger. Add zeros and compare digit by digit: $0.0849 < 0.4000$.",
+    "Stopping at too few decimal places. $\\frac{7}{18}$ and $0.39$ both round to $0.39$, so compare to $4$ places.",
+    "Writing your decimals in the answer instead of the numbers given. Use decimals as working only.",
+    "Squaring a decimal by doubling it. $0.3^{2} = 0.3 \\times 0.3 = 0.09$, not $0.6$.",
+    "Treating $\\pi$ as $3$ or $3.14$. It is $3.14159\\ldots$, so $\\pi > 3.14$."
+  ],
+  "examTips": [
+    "\"Write in order of size\": check whether the question wants the smallest or the largest first, and copy each number exactly as given.",
+    "\"Write one of the symbols in the box\": work out both sides first, then choose $<$, $>$ or $=$.",
+    "No calculator on Papers 1 and 2: know the decimals for halves, quarters, fifths, eighths and tenths, and use short division for the rest."
+  ],
+  "readingMinutes": 16
+}

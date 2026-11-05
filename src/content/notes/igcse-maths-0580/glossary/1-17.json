@@ -2,19 +2,19 @@
   {
     "id": "exponential-growth",
     "term": "exponential growth",
-    "definition": "TODO: Repeated multiplication by a factor greater than 1.",
+    "definition": "An amount that is multiplied by the same number greater than $1$ every step, such as $1.05$ each year for a $5\\%$ rise.",
     "lesson": "1.17"
   },
   {
     "id": "exponential-decay",
     "term": "exponential decay",
-    "definition": "TODO: Repeated multiplication by a factor between 0 and 1; includes depreciation.",
+    "definition": "An amount that is multiplied by the same number between $0$ and $1$ every step, such as $0.9$ each day for a $10\\%$ fall.",
     "lesson": "1.17"
   },
   {
     "id": "depreciation",
     "term": "depreciation",
-    "definition": "TODO: Decrease in value over time, an example of exponential decay.",
+    "definition": "The loss in value of something, such as a car or a phone, as it gets older; a fixed percentage loss each year is exponential decay.",
     "lesson": "1.17"
   }
 ]

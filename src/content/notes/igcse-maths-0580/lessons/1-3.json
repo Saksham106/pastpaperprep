@@ -1,0 +1,551 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.3",
+  "slug": "powers-and-roots",
+  "title": "Powers and roots",
+  "level": "Core",
+  "topic": 1,
+  "summary": "To square a number, multiply it by itself; to cube it, use it three times in a product. A [[square-root|square root]] undoes squaring and a [[cube-root|cube root]] undoes cubing. Learn the common ones by heart for the non-calculator papers.",
+  "goals": [
+    {
+      "text": "Square a number, and find square roots, including the negative root.",
+      "bullets": [
+        "1.3-c1"
+      ]
+    },
+    {
+      "text": "Cube a number, and find cube roots, including roots of negative numbers.",
+      "bullets": [
+        "1.3-c1"
+      ]
+    },
+    {
+      "text": "Recall the squares up to $15^{2}$ and the cubes of $1$ to $5$ and $10$.",
+      "bullets": [
+        "1.3-c1"
+      ]
+    },
+    {
+      "text": "Work out other powers and roots, by hand and on a calculator.",
+      "bullets": [
+        "1.3-c1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "square roots",
+    "cube roots",
+    "squares and cubes",
+    "powers of numbers",
+    "nth root",
+    "squared and cubed"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-square-number",
+      "prompt": "Which of these is a [[square-number|square number]]?",
+      "hint": "Which one is a whole number times itself?",
+      "options": [
+        {
+          "text": "$20$",
+          "correct": false
+        },
+        {
+          "text": "$36$",
+          "correct": true
+        },
+        {
+          "text": "$48$",
+          "correct": false
+        },
+        {
+          "text": "$60$",
+          "correct": false
+        }
+      ],
+      "explain": "$36 = 6 \\times 6$. The others are not a whole number times itself. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "6**2"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-cube-number",
+      "prompt": "Which of these is a [[cube-number|cube number]]?",
+      "hint": "Work out $2 \\times 2 \\times 2$ and $3 \\times 3 \\times 3$.",
+      "options": [
+        {
+          "text": "$9$",
+          "correct": false
+        },
+        {
+          "text": "$16$",
+          "correct": false
+        },
+        {
+          "text": "$27$",
+          "correct": true
+        },
+        {
+          "text": "$30$",
+          "correct": false
+        }
+      ],
+      "explain": "$27 = 3 \\times 3 \\times 3$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "3**3"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "squares",
+      "heading": "Squares and square roots",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To square a number, multiply it by itself. $7^{2}$, said \"7 squared\", means $7 \\times 7 = 49$."
+        },
+        {
+          "type": "text",
+          "text": "Squaring a [[natural-number|natural number]] gives a [[square-number|square number]]. It is the area of a square with that side length."
+        },
+        {
+          "type": "figure",
+          "id": "1-3-square-and-cube",
+          "alt": "Left: a square made of 5 rows of 5 small squares, 25 in all, with each side labelled 5. Below it: area 25, so the side is the square root of 25, which is 5. Right: a cube with each edge labelled 3. Below it: volume 27, so the edge is the cube root of 27, which is 3.",
+          "caption": "A root takes you from the area or volume back to the side."
+        },
+        {
+          "type": "definition",
+          "term": "Square root",
+          "statement": "A [[square-root|square root]] of $n$ is a number that gives $n$ when you square it. The sign $\\sqrt{n}$ means the positive square root, and $\\sqrt{0} = 0$.",
+          "plain": "The side of a square with area $n$."
+        },
+        {
+          "type": "text",
+          "text": "Every positive number has two square roots. $6^{2} = 36$ and $(-6)^{2} = 36$, so the square roots of $36$ are $6$ and $-6$, written $\\pm 6$. But $\\sqrt{36}$ is $6$ only."
+        },
+        {
+          "type": "text",
+          "text": "With no calculator, you need the squares from $1^{2}$ to $15^{2}$ by heart. Then you can read square roots straight back: $\\sqrt{196} = 14$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{array}{c|cccccccc} n & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\\\ \\hline n^{2} & 1 & 4 & 9 & 16 & 25 & 36 & 49 & 64 \\\\[4pt] n & 9 & 10 & 11 & 12 & 13 & 14 & 15 & \\\\ \\hline n^{2} & 81 & 100 & 121 & 144 & 169 & 196 & 225 & \\end{array}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-sqrt-169-minus-square",
+          "question": "Work out $\\sqrt{169} - 3^{2}$.",
+          "steps": [
+            "$13 \\times 13 = 169$, so $\\sqrt{169} = 13$.",
+            "$3^{2} = 3 \\times 3 = 9$. It is not $3 \\times 2$.",
+            "Subtract: $13 - 9 = 4$."
+          ],
+          "answer": "$\\sqrt{169} - 3^{2} = 4$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(169) - 3**2"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "For a decimal, ignore the point first. If the digits make a square number and there is an even number of decimal places, the root has half as many decimal places."
+        },
+        {
+          "type": "example",
+          "id": "ex-sqrt-2-25",
+          "question": "Without a calculator, find $\\sqrt{2.25}$.",
+          "steps": [
+            "Ignore the point: $225 = 15^{2}$.",
+            "$2.25$ has 2 decimal places, so the root has 1: $1.5$.",
+            "Check by squaring: $1.5 \\times 1.5 = 2.25$."
+          ],
+          "answer": "$\\sqrt{2.25} = 1.5$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(Rational(225, 100))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Halving is not square rooting: $\\sqrt{64}$ is $8$, not $32$. Square your answer to check it."
+        },
+        {
+          "type": "check",
+          "id": "check-sqrt-decimal",
+          "prompt": "Find $\\sqrt{0.09}$.",
+          "hint": "Which number squared gives $9$? Then count decimal places.",
+          "options": [
+            {
+              "text": "$0.03$",
+              "correct": false
+            },
+            {
+              "text": "$0.045$",
+              "correct": false
+            },
+            {
+              "text": "$0.3$",
+              "correct": true
+            },
+            {
+              "text": "$0.81$",
+              "correct": false
+            }
+          ],
+          "explain": "$3^{2} = 9$, and $0.09$ has 2 decimal places, so the root has 1. Check: $0.3 \\times 0.3 = 0.09$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(Rational(9, 100))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-negative-square-root",
+          "prompt": "$x^{2} = 144$ and $x$ is negative. Find $x$.",
+          "hint": "$144$ has two square roots. Which one is negative?",
+          "answer": {
+            "value": -12,
+            "tolerance": 0
+          },
+          "explain": "$12^{2} = 144$ and $(-12)^{2} = 144$. The negative one is $-12$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-sqrt(144)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "cubes",
+      "heading": "Cubes and cube roots",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To cube a number, use it three times in a product. $4^{3}$, said \"4 cubed\", means $4 \\times 4 \\times 4 = 64$."
+        },
+        {
+          "type": "text",
+          "text": "Cubing a natural number gives a [[cube-number|cube number]]. It is the volume of a cube with that edge length."
+        },
+        {
+          "type": "definition",
+          "term": "Cube root",
+          "statement": "The [[cube-root|cube root]] of $n$, written $\\sqrt[3]{n}$, is the number that gives $n$ when you cube it.",
+          "plain": "The edge of a cube with volume $n$."
+        },
+        {
+          "type": "text",
+          "text": "Every number has exactly one cube root. A negative number has a negative cube root: $(-3)^{3} = -27$, so $\\sqrt[3]{-27} = -3$."
+        },
+        {
+          "type": "text",
+          "text": "Learn these six cubes. They let you write down cube roots such as $\\sqrt[3]{125} = 5$ with no calculator."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{array}{c|cccccc} n & 1 & 2 & 3 & 4 & 5 & 10 \\\\ \\hline n^{3} & 1 & 8 & 27 & 64 & 125 & 1000 \\end{array}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-cube-root-plus-cube",
+          "question": "Work out $\\sqrt[3]{64} + 3^{3}$.",
+          "steps": [
+            "$4^{3} = 64$, so $\\sqrt[3]{64} = 4$.",
+            "$3^{3} = 3 \\times 3 \\times 3 = 9 \\times 3 = 27$.",
+            "Add: $4 + 27 = 31$."
+          ],
+          "answer": "$\\sqrt[3]{64} + 3^{3} = 31$",
+          "verify": {
+            "kind": "exact",
+            "truth": "cbrt(64) + 3**3"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "$2^{3}$ is not $2 \\times 3 = 6$. The small $3$ says how many $2$s to multiply: $2 \\times 2 \\times 2 = 8$."
+        },
+        {
+          "type": "text",
+          "text": "Decimals work as for square roots. If the digits make a cube number and the number of decimal places is a multiple of 3, the root has a third as many."
+        },
+        {
+          "type": "example",
+          "id": "ex-cube-root-0-008",
+          "question": "Without a calculator, find $\\sqrt[3]{0.008}$.",
+          "steps": [
+            "Ignore the point: $8 = 2^{3}$.",
+            "$0.008$ has 3 decimal places, so the root has 1: $0.2$.",
+            "Check by cubing: $0.2 \\times 0.2 \\times 0.2 = 0.04 \\times 0.2 = 0.008$."
+          ],
+          "answer": "$\\sqrt[3]{0.008} = 0.2$",
+          "verify": {
+            "kind": "exact",
+            "truth": "cbrt(Rational(8, 1000))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cube-root-negative",
+          "prompt": "Find $\\sqrt[3]{-1000}$.",
+          "hint": "Which number, used three times in a product, gives $-1000$?",
+          "options": [
+            {
+              "text": "$10$",
+              "correct": false
+            },
+            {
+              "text": "$-10$",
+              "correct": true
+            },
+            {
+              "text": "$-100$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1000}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$(-10) \\times (-10) \\times (-10) = 100 \\times (-10) = -1000$. A negative number has a negative cube root.",
+          "verify": {
+            "kind": "exact",
+            "truth": "real_root(-1000, 3)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cube-minus-square",
+          "prompt": "Work out $5^{3} - 10^{2}$.",
+          "hint": "$5^{3} = 5 \\times 5 \\times 5$ and $10^{2} = 10 \\times 10$.",
+          "answer": {
+            "value": 25,
+            "tolerance": 0
+          },
+          "explain": "$5^{3} = 125$ and $10^{2} = 100$, so the answer is $125 - 100 = 25$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "5**3 - 10**2",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "other-powers",
+      "heading": "Other powers and roots",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In $3^{5}$, $3$ is the base and $5$ is the power, or [[index|index]]. It means five $3$s multiplied: $3 \\times 3 \\times 3 \\times 3 \\times 3 = 243$."
+        },
+        {
+          "type": "text",
+          "text": "Roots undo powers. $\\sqrt[4]{16}$ is the fourth root of $16$. It is $2$, because $2^{4} = 16$."
+        },
+        {
+          "type": "text",
+          "text": "An even root ($\\sqrt{\\;}$, $\\sqrt[4]{\\;}$, …) of a positive number means the positive one. An odd root ($\\sqrt[3]{\\;}$, $\\sqrt[5]{\\;}$, …) works for negative numbers too. A negative number has no even root."
+        },
+        {
+          "type": "text",
+          "text": "Do powers after brackets, but before $\\times$, $\\div$, $+$ and $-$. So $2 \\times 3^{2} = 2 \\times 9 = 18$, but $(2 \\times 3)^{2} = 6^{2} = 36$."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-six-minus-six-two",
+          "question": "Work out $2^{6} - 6^{2}$.",
+          "steps": [
+            "Start at $1$ and double six times: $2, 4, 8, 16, 32, 64$. So $2^{6} = 64$.",
+            "$6^{2} = 6 \\times 6 = 36$.",
+            "Subtract: $64 - 36 = 28$. Multiplying instead, $2 \\times 6 - 6 \\times 2 = 0$, is wrong."
+          ],
+          "answer": "$2^{6} - 6^{2} = 28$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2**6 - 6**2"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-two-to-five",
+          "prompt": "Work out $2^{5}$.",
+          "hint": "Multiply five $2$s together.",
+          "options": [
+            {
+              "text": "$10$",
+              "correct": false
+            },
+            {
+              "text": "$16$",
+              "correct": false
+            },
+            {
+              "text": "$25$",
+              "correct": false
+            },
+            {
+              "text": "$32$",
+              "correct": true
+            }
+          ],
+          "explain": "$2 \\times 2 \\times 2 \\times 2 \\times 2 = 32$. $10$ is $2 \\times 5$, and $25$ is $5^{2}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2**5"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fourth-root",
+          "prompt": "Work out $\\sqrt[4]{10\\,000}$.",
+          "hint": "Find a number whose fourth power is $10\\,000$.",
+          "answer": {
+            "value": 10,
+            "tolerance": 0
+          },
+          "explain": "$10 \\times 10 \\times 10 \\times 10 = 10\\,000$, so the fourth root is $10$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "root(10000, 4)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "On Papers 3 and 4, use the calculator's power and root keys. Keep every digit until the end, then round to 3 significant figures."
+        },
+        {
+          "type": "example",
+          "id": "ex-calc-fifth-root-plus-cube",
+          "question": "Use your calculator to work out $\\sqrt[5]{300} + 1.6^{3}$. Give your answer to 3 significant figures.",
+          "steps": [
+            "Fifth root: $\\sqrt[5]{300} = 3.12913\\ldots$",
+            "Cube: $1.6^{3} = 4.096$.",
+            "Add the unrounded values: $3.12913\\ldots + 4.096 = 7.22513\\ldots$",
+            "Round to 3 significant figures: $7.23$. Sense check: $3^{5} = 243$, so the root is a little over $3$."
+          ],
+          "answer": "$\\sqrt[5]{300} + 1.6^{3} \\approx 7.23$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "root(300, 5) + Rational(16, 10)**3",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "roots",
+          "values": {
+            "root": 5,
+            "value": 300
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "powers",
+          "values": {
+            "base": 1.6,
+            "power": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-calc-power-minus-root",
+          "prompt": "Use your calculator to work out $2.3^{4} - \\sqrt[3]{50}$. Give your answer to 3 significant figures.",
+          "hint": "Find each part, keep all the digits, then subtract.",
+          "answer": {
+            "value": 24.3,
+            "tolerance": 0.05
+          },
+          "explain": "$2.3^{4} = 27.9841$ and $\\sqrt[3]{50} = 3.68403\\ldots$, so the difference is $24.30006\\ldots \\approx 24.3$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(23, 10)**4 - cbrt(50)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "Extended students also write roots as powers, such as $\\sqrt[4]{16} = 16^{\\frac{1}{4}}$.",
+          "lesson": "1.7"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$\\sqrt{n}$ is the positive square root. A positive number $n$ has two square roots, $\\pm\\sqrt{n}$: $\\pm 7$ for $49$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A negative number has one cube root, and it is negative: $\\sqrt[3]{-8} = -2$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$a^{n}$ means $n$ copies of $a$ multiplied: $2^{3} = 2 \\times 2 \\times 2 = 8$, not $2 \\times 3$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Powers come after brackets, but before $\\times$, $\\div$, $+$ and $-$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Check a root by raising it to the power: $1.5^{2} = 2.25$, so $\\sqrt{2.25} = 1.5$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Multiplying the base by the power: $10^{3} = 30$. Write out the product: $10 \\times 10 \\times 10 = 1000$.",
+    "Halving instead of rooting: $\\sqrt{64} = 32$. Ask which number times itself gives $64$: it is $8$.",
+    "Giving $n = \\pm 11$ when the question says $n$ is positive. Read the condition: $n^{2} = 121$ with $n > 0$ gives $n = 11$ only.",
+    "Misplacing the decimal point: $\\sqrt{0.36} = 0.06$. Square your answer to check: $0.6^{2} = 0.36$.",
+    "Dividing by $3$ instead of taking a cube root: $\\sqrt[3]{27}$ is $3$, not $27 \\div 3 = 9$.",
+    "Adding first inside a bracket such as $(5 + 2 \\times 4)^{2}$. Multiply first: $5 + 8 = 13$, so the answer is $13^{2} = 169$."
+  ],
+  "examTips": [
+    "Write down the value: no working is needed. Know the squares to $15^{2}$ and the cubes of $1$ to $5$ and $10$, so the mark is quick.",
+    "Work out, with no calculator: write each root and power as a number first, then combine them. Check each root by squaring or cubing back.",
+    "Give your answer to 3 significant figures: keep the full calculator value until the end. Rounding $\\sqrt[5]{300}$ to $3.1$ first gives $7.20$, not $7.23$."
+  ],
+  "readingMinutes": 14
+}

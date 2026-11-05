@@ -1,0 +1,679 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "2.6",
+  "slug": "inequalities",
+  "title": "Inequalities",
+  "level": "Core",
+  "topic": 2,
+  "summary": "An [[inequality|inequality]] such as $x > 2$ is true for a whole range of numbers, not just one. You'll show inequalities on a number line, read them back, and list the whole numbers they allow. Extended adds solving [[linear-inequality|linear inequalities]] and showing regions on a graph.",
+  "goals": [
+    {
+      "text": "Show an inequality on a number line, and write down the inequality a number line shows.",
+      "bullets": [
+        "2.6-c1"
+      ]
+    },
+    {
+      "text": "List the integers that satisfy an inequality, and find the largest or smallest one.",
+      "bullets": [
+        "2.6-c1"
+      ]
+    },
+    {
+      "text": "Write inequalities from words and solve them, including double inequalities.",
+      "bullets": [
+        "2.6-s1",
+        "2.6-n1"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Show inequalities in $x$ and $y$ as regions on a graph, and list the inequalities that define a region.",
+      "bullets": [
+        "2.6-s2",
+        "2.6-s3",
+        "2.6-n2",
+        "2.6-n3"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.5",
+    "2.5"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "inequalities on a number line",
+    "open and closed circles",
+    "solving inequalities",
+    "integers that satisfy an inequality",
+    "double inequality",
+    "shading regions on a graph"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-at-most",
+      "prompt": "A parcel can weigh at most $20$ kg. Which inequality describes its mass, $m$ kg?",
+      "hint": "Can the parcel weigh exactly $20$ kg?",
+      "options": [
+        {
+          "text": "$m < 20$",
+          "correct": false
+        },
+        {
+          "text": "$m \\leqslant 20$",
+          "correct": true
+        },
+        {
+          "text": "$m \\geqslant 20$",
+          "correct": false
+        },
+        {
+          "text": "$m > 20$",
+          "correct": false
+        }
+      ],
+      "explain": "“At most $20$” means $20$ or less, so $20$ itself is allowed: $m \\leqslant 20$. Revise it in {{lesson:1.5}}.",
+      "verify": {
+        "kind": "inequality",
+        "truth": "Le(m, 20)",
+        "var": "m"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-solve-linear",
+      "prompt": "Solve $4x + 3 = 23$.",
+      "hint": "Subtract $3$ from both sides first.",
+      "answer": {
+        "value": 5,
+        "tolerance": 0
+      },
+      "explain": "$4x = 20$, so $x = 20 \\div 4 = 5$. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "solve(Eq(4*x + 3, 23), x)[0]",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "number-line",
+      "heading": "Inequalities on a number line",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[inequality|inequality]] such as $x > 2$ is true for many numbers at once: $3$, $2.5$, $100$ and every other number above $2$. A number line shows all of them in one picture."
+        },
+        {
+          "type": "text",
+          "text": "1. Draw a circle on the end number. Use an open circle for $<$ or $>$, because the end number is not included. Use a filled circle for $\\leqslant$ or $\\geqslant$, because it is included."
+        },
+        {
+          "type": "text",
+          "text": "2. Draw a line from the circle over all the numbers that work. If the values go on for ever, end the line with an arrow."
+        },
+        {
+          "type": "figure",
+          "id": "2-6-circles",
+          "alt": "Two number lines from minus 3 to 5. Top: x is greater than minus 1, shown by an open circle at minus 1 with an arrow to the right. Bottom: x is less than or equal to 2, shown by a filled circle at 2 with an arrow to the left.",
+          "caption": "Open circle: $-1$ is not included. Filled circle: $2$ is included."
+        },
+        {
+          "type": "text",
+          "text": "Some inequalities have two ends. $-1 < x \\leqslant 4$ means $x$ is greater than $-1$ and at most $4$. Write the smaller number on the left, so both signs point the same way."
+        },
+        {
+          "type": "text",
+          "text": "To read a number line, look at each end in turn. Write $<$ next to an open circle and $\\leqslant$ next to a filled one."
+        },
+        {
+          "type": "figure",
+          "id": "2-6-read-line",
+          "alt": "Number line from minus 3 to 6. Open circle at minus 1 and filled circle at 4, joined by a line."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-number-line",
+          "question": "Write down the inequality shown on the number line above.",
+          "steps": [
+            "Start on the left. The circle at $-1$ is open, so $-1$ itself is left out and $x$ is bigger than it: $-1 < x$.",
+            "Now look right. The circle at $4$ is filled, so $4$ is allowed: $x \\leqslant 4$.",
+            "Join the two parts into one inequality, with the smaller number on the left.",
+            "Check with a value on the line, such as $0$: $-1 < 0 \\leqslant 4$ is true."
+          ],
+          "answer": "$-1 < x \\leqslant 4$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "And(Gt(x, -1), Le(x, 4))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping the circles. A filled circle means the end number is in, so it goes with $\\leqslant$ or $\\geqslant$. An open circle goes with $<$ or $>$."
+        },
+        {
+          "type": "example",
+          "id": "ex-fridge-line",
+          "question": "The temperature inside a fridge, $t\\,^{\\circ}\\mathrm{C}$, must be more than $1$ and at most $6$. Write this as one inequality, and say how to show it on a number line.",
+          "steps": [
+            "“More than $1$” is $t > 1$, so $1$ is not included.",
+            "“At most $6$” is $t \\leqslant 6$, so $6$ is included.",
+            "Put them together, smaller number on the left: $1 < t \\leqslant 6$.",
+            "On the number line, draw an open circle at $1$ and a filled circle at $6$. Join them with a line. There are no arrows, because the values stop at both ends."
+          ],
+          "answer": "$1 < t \\leqslant 6$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "And(Gt(t, 1), Le(t, 6))",
+            "var": "t"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "2-6-fridge-line",
+          "alt": "Number line from minus 1 to 7. Open circle at 1 and filled circle at 6, joined by a line. This shows t greater than 1 and at most 6."
+        },
+        {
+          "type": "examTip",
+          "text": "“Show the inequality on the number line”: put each circle exactly on its number, then join them with a straight line. The marks are for the correct circles and the line, so don't let the line run past either end."
+        },
+        {
+          "type": "check",
+          "id": "check-read-line",
+          "prompt": "A number line has a filled circle at $-2$ and an open circle at $3$, joined by a line. Which inequality does it show?",
+          "hint": "Filled means the number is included.",
+          "options": [
+            {
+              "text": "$-2 < x \\leqslant 3$",
+              "correct": false
+            },
+            {
+              "text": "$-2 \\leqslant x < 3$",
+              "correct": true
+            },
+            {
+              "text": "$-2 < x < 3$",
+              "correct": false
+            },
+            {
+              "text": "$-2 \\leqslant x \\leqslant 3$",
+              "correct": false
+            }
+          ],
+          "explain": "$-2$ is filled, so it is included: $-2 \\leqslant x$. $3$ is open, so it is not: $x < 3$.",
+          "verify": {
+            "kind": "inequality",
+            "truth": "And(Ge(x, -2), Lt(x, 3))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-arrow-line",
+          "prompt": "A number line has an open circle at $5$ and an arrow pointing to the left. Which inequality does it show?",
+          "hint": "Numbers to the left of $5$ are smaller than $5$.",
+          "options": [
+            {
+              "text": "$x > 5$",
+              "correct": false
+            },
+            {
+              "text": "$x \\leqslant 5$",
+              "correct": false
+            },
+            {
+              "text": "$x < 5$",
+              "correct": true
+            },
+            {
+              "text": "$x \\geqslant 5$",
+              "correct": false
+            }
+          ],
+          "explain": "The arrow covers the numbers below $5$, and the open circle leaves out $5$ itself: $x < 5$.",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Lt(x, 5)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "integers",
+      "heading": "Integers that satisfy an inequality",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[integer|integer]] satisfies an inequality when it makes the inequality true. Questions often ask you to list these integers, or to find the largest or smallest one."
+        },
+        {
+          "type": "text",
+          "text": "List the integers between the two ends. Include an end only when it is an integer and its sign is $\\leqslant$ or $\\geqslant$. Remember that $0$ is an integer too."
+        },
+        {
+          "type": "example",
+          "id": "ex-list-integers",
+          "question": "List the integers $n$ that satisfy $-3 \\leqslant n < 2$.",
+          "steps": [
+            "$-3 \\leqslant n$ has the line under the sign, so $-3$ is included.",
+            "$n < 2$ is strict, so $2$ is not included.",
+            "Count up from $-3$ and stop before $2$: $-3, -2, -1, 0, 1$."
+          ],
+          "answer": "$n = -3, -2, -1, 0, 1$",
+          "verify": {
+            "kind": "list",
+            "truth": "Matrix(Interval.Ropen(-3, 2).intersect(S.Integers))"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "When an end is not a whole number, sketch a number line. The integer you want is the first one inside the end."
+        },
+        {
+          "type": "example",
+          "id": "ex-largest-integer",
+          "question": "Write down the largest integer that satisfies $x < -2.5$.",
+          "steps": [
+            "$-2.5$ is halfway between $-3$ and $-2$ on the number line.",
+            "$-2$ is to the right of $-2.5$, so $-2 > -2.5$. It does not satisfy $x < -2.5$.",
+            "$-3$ is to the left of $-2.5$, so $-3 < -2.5$. It is the first integer that works."
+          ],
+          "answer": "$x = -3$",
+          "verify": {
+            "kind": "exact",
+            "truth": "ceiling(Rational(-5, 2)) - 1"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding the end to the nearest integer. $-2.5$ rounds to $-2$ or $-3$, but only the side of the circle matters: the integers below $-2.5$ are $-3, -4, \\ldots$"
+        },
+        {
+          "type": "check",
+          "id": "check-smallest-integer",
+          "prompt": "Write down the smallest integer that satisfies $y > -6$.",
+          "hint": "Is $-6$ itself allowed?",
+          "answer": {
+            "value": -5,
+            "tolerance": 0
+          },
+          "explain": "$y > -6$ is strict, so $-6$ is not allowed. The next integer up is $-5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "floor(-6) + 1",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-count-integers",
+          "prompt": "How many integers satisfy $-4 < n \\leqslant 3$?",
+          "hint": "Is $-4$ included? Is $3$? Don't forget $0$.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "$-4$ is not included and $3$ is. The integers are $-3, -2, -1, 0, 1, 2, 3$, which is $7$ integers.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Interval.Lopen(-4, 3).intersect(S.Integers).size",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "solving",
+      "heading": "Solving linear inequalities",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[linear-inequality|linear inequality]] has the unknown only to the power $1$, such as $3x - 1 > 8$. You solve it like a linear [[equation|equation]]: do the same thing to both sides until $x$ is on its own."
+        },
+        {
+          "type": "text",
+          "text": "Adding or subtracting a number keeps the inequality sign the same. So does multiplying or dividing by a positive number."
+        },
+        {
+          "type": "result",
+          "statement": "Multiplying or dividing both sides of an inequality by a negative number reverses the sign: $<$ becomes $>$, and $\\leqslant$ becomes $\\geqslant$.",
+          "why": "$2 < 5$ is true. Multiply both sides by $-1$ and you get $-2$ and $-5$, but $-2 > -5$."
+        },
+        {
+          "type": "example",
+          "id": "ex-solve-both-sides",
+          "question": "Solve $7x - 3 \\geqslant 3x + 13$.",
+          "steps": [
+            "Subtract $3x$ from both sides: $4x - 3 \\geqslant 13$.",
+            "Add $3$ to both sides: $4x \\geqslant 16$.",
+            "Divide both sides by $4$. It is positive, so the sign stays: $x \\geqslant 4$.",
+            "Check with $x = 5$: $7(5) - 3 = 32$ and $3(5) + 13 = 28$, and $32 \\geqslant 28$ is true."
+          ],
+          "answer": "$x \\geqslant 4$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "solve(7*x - 3 >= 3*x + 13, x)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-solve-negative",
+          "question": "Solve $11 - 3x < 2$.",
+          "steps": [
+            "Subtract $11$ from both sides: $-3x < -9$.",
+            "Divide both sides by $-3$. It is negative, so reverse the sign: $x > 3$.",
+            "Check with $x = 4$: $11 - 3(4) = -1$, and $-1 < 2$ is true.",
+            "Another way: add $3x$ to both sides first. Then $11 < 2 + 3x$, so $9 < 3x$ and $3 < x$. This avoids dividing by a negative."
+          ],
+          "answer": "$x > 3$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "solve(11 - 3*x < 2, x)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting to reverse the sign after dividing by a negative number. If you'd rather avoid it, move the $x$ terms to the side where they stay positive."
+        },
+        {
+          "type": "text",
+          "text": "A double inequality such as $-9 < 2x + 5 \\leqslant 13$ has three parts. Do the same thing to all three parts at once. If you divide by a negative number, reverse both signs."
+        },
+        {
+          "type": "example",
+          "id": "ex-solve-double",
+          "question": "Solve $-9 < 2x + 5 \\leqslant 13$.",
+          "steps": [
+            "Subtract $5$ from all three parts: $-14 < 2x \\leqslant 8$.",
+            "Divide all three parts by $2$: $-7 < x \\leqslant 4$.",
+            "Check with $x = 0$: $2(0) + 5 = 5$, and $-9 < 5 \\leqslant 13$ is true."
+          ],
+          "answer": "$-7 < x \\leqslant 4$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "solve([-9 < 2*x + 5, 2*x + 5 <= 13], x)"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-solve-double",
+            "prompt": "Solve $1 \\leqslant 3x - 5 < 10$.",
+            "hint": "Add $5$ to all three parts, then divide all three by $3$.",
+            "options": [
+              {
+                "text": "$2 \\leqslant x < 5$",
+                "correct": true
+              },
+              {
+                "text": "$-\\frac{4}{3} \\leqslant x < \\frac{5}{3}$",
+                "correct": false
+              },
+              {
+                "text": "$2 \\leqslant x < 15$",
+                "correct": false
+              },
+              {
+                "text": "$2 < x \\leqslant 5$",
+                "correct": false
+              }
+            ],
+            "explain": "Adding $5$ gives $6 \\leqslant 3x < 15$. Dividing every part by $3$ gives $2 \\leqslant x < 5$.",
+            "verify": {
+              "kind": "inequality",
+              "truth": "solve([1 <= 3*x - 5, 3*x - 5 < 10], x)"
+            }
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To construct an inequality from words, choose a letter for the unknown and write the words as maths. “At most” is $\\leqslant$ and “at least” is $\\geqslant$. Then solve it, and interpret the answer in the context."
+        },
+        {
+          "type": "example",
+          "id": "ex-construct-climbing",
+          "question": "A climbing wall charges a \\$12 joining fee, then \\$7 per session. Rosa can spend at most \\$90. Write an inequality for the number of sessions, $s$, and solve it. Then find the greatest number of sessions she can have.",
+          "steps": [
+            "The cost of $s$ sessions is $12 + 7s$ dollars. It must be at most $90$: $12 + 7s \\leqslant 90$.",
+            "Subtract $12$ from both sides: $7s \\leqslant 78$.",
+            "Divide both sides by $7$: $78 \\div 7 = 11$ remainder $1$, so $s \\leqslant 11\\frac{1}{7}$.",
+            "$s$ must be a whole number, so the greatest value is $11$. Check: $12 + 7 \\times 11 = 89$, which is within \\$90, but $12$ sessions cost \\$96."
+          ],
+          "answer": "$s = 11$",
+          "verify": {
+            "kind": "exact",
+            "truth": "floor(Rational(90 - 12, 7))"
+          },
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "“Solve the inequality”: the answer must be an inequality, such as $x > 3$, not $x = 3$. Keep the inequality sign on every line of your working."
+        },
+        {
+          "type": "check",
+          "id": "check-solve-reverse",
+          "prompt": "Solve $6 - 4x \\leqslant 26$.",
+          "hint": "After subtracting $6$, you divide by a negative number.",
+          "options": [
+            {
+              "text": "$x \\leqslant -5$",
+              "correct": false
+            },
+            {
+              "text": "$x \\geqslant -5$",
+              "correct": true
+            },
+            {
+              "text": "$x \\geqslant 5$",
+              "correct": false
+            },
+            {
+              "text": "$x \\leqslant 5$",
+              "correct": false
+            }
+          ],
+          "explain": "Subtract $6$: $-4x \\leqslant 20$. Divide by $-4$ and reverse the sign: $x \\geqslant -5$.",
+          "verify": {
+            "kind": "inequality",
+            "truth": "solve(6 - 4*x <= 26, x)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "regions",
+      "heading": "Regions on a graph",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An inequality in $x$ and $y$, such as $y > 2x - 1$, is true for a whole region of points on a graph. Its [[boundary-line|boundary line]] is the line where the two sides are equal, here $y = 2x - 1$."
+        },
+        {
+          "type": "text",
+          "text": "Draw the boundary as a broken (dashed) line for $<$ or $>$, because points on it are not included. Draw a solid line for $\\leqslant$ or $\\geqslant$, because they are."
+        },
+        {
+          "type": "text",
+          "text": "To find the right side of the line, test a point that is not on it. The [[origin|origin]] $(0, 0)$ is easiest. If the point makes the inequality true, the region is on its side of the line."
+        },
+        {
+          "type": "text",
+          "text": "Shade the region you don't want, unless the question says otherwise. The region left unshaded is the answer."
+        },
+        {
+          "type": "text",
+          "text": "Lines $x = a$ are vertical, and lines $y = b$ are horizontal. So $x > 1$ is everything to the right of the line $x = 1$, and $y \\leqslant 4$ is the line $y = 4$ and everything below it."
+        },
+        {
+          "type": "example",
+          "id": "ex-shade-one",
+          "question": "You need to show the region $x + 2y \\geqslant 8$ on a grid. Write down the equation of the boundary line. Then say how to draw it and which side to shade.",
+          "steps": [
+            "The boundary is where the two sides are equal: $x + 2y = 8$.",
+            "Find two points on it. When $x = 0$, $2y = 8$, so $y = 4$. When $y = 0$, $x = 8$. Join $(0, 4)$ and $(8, 0)$.",
+            "The sign is $\\geqslant$, so the line is solid.",
+            "Test $(0, 0)$: $0 + 2(0) = 0$, and $0 \\geqslant 8$ is false. So the origin is on the unwanted side. Shade the side of the line that contains $(0, 0)$."
+          ],
+          "answer": "$x + 2y = 8$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(x + 2*y, 8)"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "2-6-shade-one",
+          "alt": "Grid with x from 0 to 9 and y from 0 to 5. A solid line joins (0, 4) and (8, 0): the line x plus 2y equals 8. The triangle between the line and the axes, on the side of the origin, is shaded because it is not wanted. The unshaded side above the line is x plus 2y greater than or equal to 8.",
+          "caption": "The unshaded side is $x + 2y \\geqslant 8$."
+        },
+        {
+          "type": "mistake",
+          "text": "Shading the region you want. Here you shade the unwanted side and leave the answer clear. Shade the wanted region only if the question tells you to."
+        },
+        {
+          "type": "text",
+          "text": "To list the inequalities that define a region, take each boundary line in turn. Write its equation, use the line style to choose strict or inclusive, then test a point inside the region to choose the direction."
+        },
+        {
+          "type": "figure",
+          "id": "2-6-region-triangle",
+          "alt": "Grid with x and y from 0 to 6. Three lines: a solid horizontal line y equals 1, a broken line x plus y equals 6 from (0, 6) to (6, 0), and a solid line y equals 2x through the origin and (3, 6). The triangle with corners (0.5, 1), (5, 1) and (2, 4) is unshaded and labelled R. Everything else is shaded."
+        },
+        {
+          "type": "example",
+          "id": "ex-list-region",
+          "question": "In the diagram above, the unshaded region R is bounded by the solid lines $y = 1$ and $y = 2x$ and the broken line $x + y = 6$. Find the three inequalities that define R.",
+          "steps": [
+            "Choose a point inside R, such as $(2, 2)$.",
+            "$y = 1$ is solid, and at $(2, 2)$, $y = 2$ is above it. So $y \\geqslant 1$.",
+            "$x + y = 6$ is broken. At $(2, 2)$, $x + y = 4$, which is less than $6$. So $x + y < 6$.",
+            "$y = 2x$ is solid. At $(2, 2)$, $y = 2$ and $2x = 4$, so $y$ is the smaller. So $y \\leqslant 2x$."
+          ],
+          "answer": "$y \\geqslant 1, \\; x + y < 6, \\; y \\leqslant 2x$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Linear programming is not on the syllabus. You draw regions, describe them with inequalities and test whether points lie in them."
+        },
+        {
+          "type": "check",
+          "id": "check-boundary-type",
+          "prompt": "A region lies above the broken line $y = 3x - 2$. Which inequality describes it?",
+          "hint": "Above the line means $y$ is bigger than $3x - 2$. What does a broken line tell you?",
+          "options": [
+            {
+              "text": "$y \\geqslant 3x - 2$",
+              "correct": false
+            },
+            {
+              "text": "$y > 3x - 2$",
+              "correct": true
+            },
+            {
+              "text": "$y < 3x - 2$",
+              "correct": false
+            },
+            {
+              "text": "$y \\leqslant 3x - 2$",
+              "correct": false
+            }
+          ],
+          "explain": "Above the line, $y$ is greater than $3x - 2$. The line is broken, so it is strict: $y > 3x - 2$."
+        },
+        {
+          "type": "check",
+          "id": "check-point-in-region",
+          "prompt": "Which point lies in the region defined by $x > 1$, $y \\geqslant 2$ and $x + y \\leqslant 7$?",
+          "hint": "Test each point in all three inequalities. A point on a solid line counts; a point on a broken line does not.",
+          "options": [
+            {
+              "text": "$(1, 3)$",
+              "correct": false
+            },
+            {
+              "text": "$(3, 2)$",
+              "correct": true
+            },
+            {
+              "text": "$(4, 4)$",
+              "correct": false
+            },
+            {
+              "text": "$(5, 1)$",
+              "correct": false
+            }
+          ],
+          "explain": "$(3, 2)$ works: $3 > 1$, $2 \\geqslant 2$ and $3 + 2 = 5 \\leqslant 7$. $(1, 3)$ fails $x > 1$, $(4, 4)$ gives $x + y = 8$, and $(5, 1)$ fails $y \\geqslant 2$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "On a number line, an open circle is for $<$ or $>$ (end not included). A filled circle is for $\\leqslant$ or $\\geqslant$ (end included).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Write a two-sided inequality with the smaller number on the left, such as $-1 < x \\leqslant 4$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "When listing integers, include an end only if it is an integer and its sign is $\\leqslant$ or $\\geqslant$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "level": "Extended",
+          "text": "Solve an inequality like an equation, but reverse the sign when you multiply or divide both sides by a negative number.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "level": "Extended",
+          "text": "On a graph: broken line for $<$ or $>$, solid line for $\\leqslant$ or $\\geqslant$. Test a point, then shade the unwanted side.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Swapping the circles. A filled circle means the end is included ($\\leqslant$ or $\\geqslant$); an open circle means it isn't ($<$ or $>$).",
+    "Including the end of a strict inequality. The integers with $2 < n < 6$ are $3$, $4$ and $5$: neither $2$ nor $6$.",
+    "Rounding a decimal end to the nearest integer. The smallest integer with $x > -4.8$ is $-4$, not $-5$, because $-5$ is less than $-4.8$.",
+    "Drawing the line past an end, or adding an arrow when there are two ends. The line stops at both circles."
+  ],
+  "examTips": [
+    "“Write down the inequality shown”: give one inequality that uses every end shown, such as $-1 < x \\leqslant 4$. Each end can earn a mark, so check each circle on its own.",
+    "“Write down the integers” or “the largest integer”: sketch a number line, then check the end values against the sign before you write your answer."
+  ],
+  "readingMinutes": 24
+}

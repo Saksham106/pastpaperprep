@@ -2,13 +2,13 @@
   {
     "id": "24-hour-clock",
     "term": "24-hour clock",
-    "definition": "TODO: Times written 00 00 to 23 59; convert to and from 12-hour clock.",
+    "definition": "A way of writing the time with four digits, from $00\\,00$ at midnight to $23\\,59$, with no a.m. or p.m.; 4.40 p.m. is $16\\,40$.",
     "lesson": "1.15"
   },
   {
     "id": "time-zone",
     "term": "time zone",
-    "definition": "TODO: Local time differences; Core and Extended.",
+    "definition": "A region of the world where clocks all show the same local time; a place $3$ hours ahead of another has clocks showing $3$ hours later.",
     "lesson": "1.15"
   }
 ]

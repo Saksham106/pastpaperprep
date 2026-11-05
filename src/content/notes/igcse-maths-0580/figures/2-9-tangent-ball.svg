@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 300" role="img" aria-labelledby="t">
+  <title id="t">Distance-time graph of a ball rolling down a slope. Time in seconds across from 0 to 6, each small square half a second. Distance in metres up from 0 to 18, each small square 1 metre. The graph is a curve that starts flat at the origin and gets steeper, reaching 18 metres at 6 seconds. A dashed straight tangent touches the curve at 4 seconds, 8 metres. The tangent passes through 2 seconds, 0 metres and 6 seconds, 16 metres, both marked with dots.</title>
+  <g stroke="var(--muted)" stroke-width="0.5" stroke-opacity="0.45" fill="none">
+    <line x1="58.0" y1="18" x2="58.0" y2="248" />
+    <line x1="90.0" y1="18" x2="90.0" y2="248" />
+    <line x1="122.0" y1="18" x2="122.0" y2="248" />
+    <line x1="154.0" y1="18" x2="154.0" y2="248" />
+    <line x1="186.0" y1="18" x2="186.0" y2="248" />
+    <line x1="218.0" y1="18" x2="218.0" y2="248" />
+    <line x1="250.0" y1="18" x2="250.0" y2="248" />
+    <line x1="282.0" y1="18" x2="282.0" y2="248" />
+    <line x1="314.0" y1="18" x2="314.0" y2="248" />
+    <line x1="346.0" y1="18" x2="346.0" y2="248" />
+    <line x1="378.0" y1="18" x2="378.0" y2="248" />
+    <line x1="410.0" y1="18" x2="410.0" y2="248" />
+    <line x1="442.0" y1="18" x2="442.0" y2="248" />
+    <line x1="58" y1="248.0" x2="442" y2="248.0" />
+    <line x1="58" y1="235.2" x2="442" y2="235.2" />
+    <line x1="58" y1="222.4" x2="442" y2="222.4" />
+    <line x1="58" y1="209.7" x2="442" y2="209.7" />
+    <line x1="58" y1="196.9" x2="442" y2="196.9" />
+    <line x1="58" y1="184.1" x2="442" y2="184.1" />
+    <line x1="58" y1="171.3" x2="442" y2="171.3" />
+    <line x1="58" y1="158.6" x2="442" y2="158.6" />
+    <line x1="58" y1="145.8" x2="442" y2="145.8" />
+    <line x1="58" y1="133.0" x2="442" y2="133.0" />
+    <line x1="58" y1="120.2" x2="442" y2="120.2" />
+    <line x1="58" y1="107.4" x2="442" y2="107.4" />
+    <line x1="58" y1="94.7" x2="442" y2="94.7" />
+    <line x1="58" y1="81.9" x2="442" y2="81.9" />
+    <line x1="58" y1="69.1" x2="442" y2="69.1" />
+    <line x1="58" y1="56.3" x2="442" y2="56.3" />
+    <line x1="58" y1="43.6" x2="442" y2="43.6" />
+    <line x1="58" y1="30.8" x2="442" y2="30.8" />
+    <line x1="58" y1="18.0" x2="442" y2="18.0" />
+  </g>
+  <g stroke="var(--muted)" stroke-width="0.9" fill="none">
+    <line x1="58.0" y1="18" x2="58.0" y2="248" />
+    <line x1="122.0" y1="18" x2="122.0" y2="248" />
+    <line x1="186.0" y1="18" x2="186.0" y2="248" />
+    <line x1="250.0" y1="18" x2="250.0" y2="248" />
+    <line x1="314.0" y1="18" x2="314.0" y2="248" />
+    <line x1="378.0" y1="18" x2="378.0" y2="248" />
+    <line x1="442.0" y1="18" x2="442.0" y2="248" />
+    <line x1="58" y1="248.0" x2="442" y2="248.0" />
+    <line x1="58" y1="222.4" x2="442" y2="222.4" />
+    <line x1="58" y1="196.9" x2="442" y2="196.9" />
+    <line x1="58" y1="171.3" x2="442" y2="171.3" />
+    <line x1="58" y1="145.8" x2="442" y2="145.8" />
+    <line x1="58" y1="120.2" x2="442" y2="120.2" />
+    <line x1="58" y1="94.7" x2="442" y2="94.7" />
+    <line x1="58" y1="69.1" x2="442" y2="69.1" />
+    <line x1="58" y1="43.6" x2="442" y2="43.6" />
+    <line x1="58" y1="18.0" x2="442" y2="18.0" />
+  </g>
+  <g stroke="currentColor" stroke-width="1.3" fill="none">
+    <line x1="58" y1="248" x2="442" y2="248" />
+    <line x1="58" y1="18" x2="58" y2="248" />
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="58.0" y="263">0</text>
+    <text x="122.0" y="263">1</text>
+    <text x="186.0" y="263">2</text>
+    <text x="250.0" y="263">3</text>
+    <text x="314.0" y="263">4</text>
+    <text x="378.0" y="263">5</text>
+    <text x="442.0" y="263">6</text>
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="end">
+    <text x="52" y="252.0">0</text>
+    <text x="52" y="226.4">2</text>
+    <text x="52" y="200.9">4</text>
+    <text x="52" y="175.3">6</text>
+    <text x="52" y="149.8">8</text>
+    <text x="52" y="124.2">10</text>
+    <text x="52" y="98.7">12</text>
+    <text x="52" y="73.1">14</text>
+    <text x="52" y="47.6">16</text>
+    <text x="52" y="22.0">18</text>
+  </g>
+  <text x="250.0" y="290" fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">Time (s)</text>
+  <text x="14" y="133.0" fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle" transform="rotate(-90 14 133.0)">Distance (m)</text>
+  <polyline points="58.0,248.0 64.4,247.9 70.8,247.7 77.2,247.4 83.6,247.0 90.0,246.4 96.4,245.7 102.8,244.9 109.2,243.9 115.6,242.8 122.0,241.6 128.4,240.3 134.8,238.8 141.2,237.2 147.6,235.5 154.0,233.6 160.4,231.6 166.8,229.5 173.2,227.3 179.6,224.9 186.0,222.4 192.4,219.8 198.8,217.1 205.2,214.2 211.6,211.2 218.0,208.1 224.4,204.8 230.8,201.4 237.2,197.9 243.6,194.3 250.0,190.5 256.4,186.6 262.8,182.6 269.2,178.4 275.6,174.1 282.0,169.7 288.4,165.2 294.8,160.5 301.2,155.7 307.6,150.8 314.0,145.8 320.4,140.6 326.8,135.3 333.2,129.9 339.6,124.3 346.0,118.6 352.4,112.8 358.8,106.9 365.2,100.8 371.6,94.6 378.0,88.3 384.4,81.8 390.8,75.2 397.2,68.5 403.6,61.7 410.0,54.7 416.4,47.6 422.8,40.4 429.2,33.1 435.6,25.6 442.0,18.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2" stroke-linejoin="round" />
+  <polyline points="186.0,248.0 442.0,43.6" fill="none" stroke="var(--t3-ink)" stroke-width="1.6" stroke-linejoin="round" stroke-dasharray="6 4" />
+  <circle cx="314.0" cy="145.8" r="3" fill="var(--t1-ink)" />
+  <circle cx="186.0" cy="248.0" r="3" fill="var(--t3-ink)" />
+  <circle cx="442.0" cy="43.6" r="3" fill="var(--t3-ink)" />
+  <text x="396.8" y="119.1" fill="var(--t3-ink)" font-size="11.5" font-family="inherit" text-anchor="start">tangent</text>
+</svg>

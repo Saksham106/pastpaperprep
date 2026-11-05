@@ -1,0 +1,531 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.17",
+  "slug": "exponential-growth-and-decay",
+  "title": "Exponential growth and decay",
+  "level": "Extended",
+  "topic": 1,
+  "summary": "[[exponential-growth|Exponential growth]] and [[exponential-decay|exponential decay]] mean multiplying by the same number again and again, such as $1.04$ every year for a $4\\%$ rise. You'll use this for populations, savings and [[depreciation|depreciation]], find when a value first passes a target, and work backwards to the start.",
+  "goals": [
+    {
+      "text": "Turn a percentage increase or decrease into a multiplier, and say whether it shows growth or decay.",
+      "bullets": [
+        "1.17-s1"
+      ]
+    },
+    {
+      "text": "Work out a value after a number of years, days or hours of growth or decay, including depreciation.",
+      "bullets": [
+        "1.17-s1"
+      ]
+    },
+    {
+      "text": "Find how many whole steps it takes for a value to first go above or below a target.",
+      "bullets": [
+        "1.17-s1"
+      ]
+    },
+    {
+      "text": "Work backwards to a starting value, and find $a$ and $b$ in a formula $y = a \\times b^{x}$.",
+      "bullets": [
+        "1.17-s1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.13"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "exponential decay",
+    "depreciation",
+    "population growth",
+    "repeated percentage change",
+    "growth factor",
+    "half life"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-multiplier-increase",
+      "prompt": "Which single number do you multiply by to increase an amount by $6\\%$?",
+      "hint": "The new amount is $100\\% + 6\\%$ of the old one.",
+      "options": [
+        {
+          "text": "$0.06$",
+          "correct": false
+        },
+        {
+          "text": "$1.06$",
+          "correct": true
+        },
+        {
+          "text": "$1.6$",
+          "correct": false
+        },
+        {
+          "text": "$0.94$",
+          "correct": false
+        }
+      ],
+      "explain": "$106\\% = \\frac{106}{100} = 1.06$. Multiplying by $0.06$ gives only the increase. Revise it in {{lesson:1.13}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "1 + Rational(6, 100)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-compound-two-years",
+      "prompt": "$\\$3000$ is invested at $4\\%$ per year [[compound-interest|compound interest]]. What is it worth after $2$ years?",
+      "hint": "Multiply by $1.04$, then multiply the answer by $1.04$ again.",
+      "options": [
+        {
+          "text": "$\\$3240.00$",
+          "correct": false
+        },
+        {
+          "text": "$\\$3244.80$",
+          "correct": true
+        },
+        {
+          "text": "$\\$3120.00$",
+          "correct": false
+        }
+      ],
+      "explain": "$3000 \\times 1.04 = 3120$, then $3120 \\times 1.04 = 3244.80$. Adding $4\\%$ of $3000$ twice gives $3240$, which is simple interest. Revise it in {{lesson:1.13}}.",
+      "verify": {
+        "kind": "money",
+        "truth": "3000*(1 + Rational(4, 100))**2"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "multipliers",
+      "heading": "Growth and decay multipliers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A town of $5000$ people grows by $10\\%$ a year. After one year it has $5000 \\times 1.1 = 5500$. Next year's $10\\%$ is of $5500$, so the town gains $550$, then $605$, and so on."
+        },
+        {
+          "type": "text",
+          "text": "Each year you multiply by the same number, $1.1$, just as for [[compound-interest|compound interest]] in {{lesson:1.13}}. The same idea works for populations, bacteria and prices."
+        },
+        {
+          "type": "definition",
+          "term": "Exponential growth",
+          "statement": "[[exponential-growth|Exponential growth]] means the amount is multiplied by the same number greater than $1$ at every step.",
+          "plain": "It grows by the same percentage each time, so the rises get bigger."
+        },
+        {
+          "type": "definition",
+          "term": "Exponential decay",
+          "statement": "[[exponential-decay|Exponential decay]] means the amount is multiplied by the same number between $0$ and $1$ at every step.",
+          "plain": "It falls by the same percentage each time, so the falls shrink."
+        },
+        {
+          "type": "text",
+          "text": "The number you multiply by is the multiplier. A rise of $r\\%$ gives $1 + \\frac{r}{100}$, so $3\\%$ up is $1.03$. A fall of $r\\%$ gives $1 - \\frac{r}{100}$, so $3\\%$ down is $0.97$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{value after } n \\text{ steps} = \\text{starting value} \\times \\left(1 \\pm \\frac{r}{100}\\right)^{n}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Use $+$ for growth and $-$ for decay. A step can be a year, a day or an hour, as long as $r$ is the change for one step."
+        },
+        {
+          "type": "text",
+          "text": "When a car or phone loses value as it gets older, that is [[depreciation|depreciation]]. A fixed percentage loss each year is exponential decay, and the loss shrinks each year."
+        },
+        {
+          "type": "figure",
+          "id": "1-17-shrinking-losses",
+          "alt": "Bar chart of an item worth 1000 dollars that loses 20 percent of its value each year. The values are 1000, 800, 640, 512 and 409.60 dollars after 0 to 4 years. The losses each year are 200, 160, 128 and 102.40 dollars, so the loss gets smaller every year.",
+          "caption": "Losing $20\\%$ a year: each loss is $20\\%$ of a smaller value, so the losses shrink."
+        },
+        {
+          "type": "example",
+          "id": "ex-bike-depreciation",
+          "question": "A bike is worth $\\$600$. It depreciates by $15\\%$ each year. Work out its value after $2$ years, without a calculator.",
+          "steps": [
+            "A $15\\%$ fall keeps $85\\%$, so the value is $600 \\times 0.85^{2}$.",
+            "Year 1: $10\\%$ of $600$ is $60$ and $5\\%$ is $30$, so $15\\%$ is $90$. The value is $600 - 90 = 510$.",
+            "Year 2: $10\\%$ of $510$ is $51$ and $5\\%$ is $25.50$, so $15\\%$ is $76.50$.",
+            "The value is $510 - 76.50 = 433.50$, written to the cent."
+          ],
+          "answer": "$\\$433.50$",
+          "verify": {
+            "kind": "money",
+            "truth": "600*(1 - Rational(15, 100))**2"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Taking $15\\%$ of $\\$600$ off twice gives $\\$420$. Wrong: the second loss is $15\\%$ of $\\$510$."
+        },
+        {
+          "type": "calculator",
+          "snippet": "compound-interest",
+          "values": {
+            "amount": "2400",
+            "rate": "3.5",
+            "years": "6"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-club-growth",
+          "question": "A club has $2400$ members. The number of members grows by $3.5\\%$ each year. Calculate the number of members after $6$ years. Give your answer to the nearest whole number.",
+          "steps": [
+            "A $3.5\\%$ rise gives the multiplier $1 + \\frac{3.5}{100} = 1.035$.",
+            "Write down the calculation, which earns the method mark: $2400 \\times 1.035^{6}$.",
+            "The calculator shows $2950.21\\ldots$",
+            "Round to the nearest whole number: about $2950$ members."
+          ],
+          "answer": "$2400 \\times 1.035^{6} \\approx 2950$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "2400*(1 + Rational(35, 1000))**6",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-decay-multiplier",
+          "prompt": "A value falls by $2.5\\%$ each month. What is the monthly multiplier?",
+          "hint": "A fall of $2.5\\%$ leaves $100\\% - 2.5\\%$.",
+          "options": [
+            {
+              "text": "$1.025$",
+              "correct": false
+            },
+            {
+              "text": "$0.75$",
+              "correct": false
+            },
+            {
+              "text": "$0.975$",
+              "correct": true
+            },
+            {
+              "text": "$0.025$",
+              "correct": false
+            }
+          ],
+          "explain": "$100\\% - 2.5\\% = 97.5\\% = 0.975$. The multiplier $0.75$ is a $25\\%$ fall, and $1.025$ is a rise.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - Rational(25, 10)/100"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-laptop-depreciation",
+          "prompt": "A laptop costs $\\$900$. It depreciates by $30\\%$ each year. Work out its value, in dollars, after $2$ years, without a calculator.",
+          "hint": "The multiplier is $0.7$. Use it once for each year.",
+          "answer": {
+            "value": 441,
+            "tolerance": 0
+          },
+          "explain": "$900 \\times 0.7 = 630$, then $630 \\times 0.7 = 441$. Taking $\\$270$ off twice gives $\\$360$, which is wrong.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "900*(1 - Rational(30, 100))**2",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bacteria-growth",
+          "prompt": "A sample has $850$ bacteria. The number grows by $12\\%$ each hour. Use your calculator to find the number after $7$ hours. Give your answer to $3$ significant figures.",
+          "hint": "Work out $850 \\times 1.12^{7}$ in one go, then round.",
+          "answer": {
+            "value": 1880,
+            "tolerance": 5
+          },
+          "explain": "$850 \\times 1.12^{7} = 1879.07\\ldots$, which is $1880$ to $3$ significant figures.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "850*(1 + Rational(12, 100))**7",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "how-long",
+      "heading": "When does it pass a target?",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you know the target and need the number of steps. Work out the value after $1, 2, 3, \\ldots$ steps until it first goes past the target."
+        },
+        {
+          "type": "text",
+          "text": "The target is passed during the last step, so the answer is the first whole number of steps past it. Never round down to a step that is still short."
+        },
+        {
+          "type": "text",
+          "text": "On a calculator, type the starting value and press $=$. Then press $\\times$, the multiplier and $=$. Each extra press of $=$ multiplies again, one more step each time."
+        },
+        {
+          "type": "calculator",
+          "snippet": "ans"
+        },
+        {
+          "type": "example",
+          "id": "ex-car-below-target",
+          "question": "A car is worth $\\$18\\,500$. Its value falls by $12\\%$ each year. Find the number of whole years until the car is first worth less than $\\$9000$.",
+          "steps": [
+            "The multiplier is $1 - \\frac{12}{100} = 0.88$. After $n$ years the value is $18\\,500 \\times 0.88^{n}$.",
+            "Use the calculator to jump ahead. Try $n = 5$: $18\\,500 \\times 0.88^{5} = 9763.04\\ldots$ This is still above $9000$.",
+            "Try $n = 6$: $18\\,500 \\times 0.88^{6} = 8591.47\\ldots$ This is below $9000$.",
+            "The value first drops below $\\$9000$ after $6$ whole years."
+          ],
+          "answer": "$n = 6$",
+          "verify": {
+            "kind": "exact",
+            "truth": "ceiling(log(Rational(9000, 18500))/log(Rational(88, 100)))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping one step early. After $5$ years the car is still worth more than $\\$9000$, so $5$ is wrong. Always check the step before your answer is still short."
+        },
+        {
+          "type": "example",
+          "id": "ex-website-year",
+          "question": "On 1 January 2020 a website had $42\\,000$ users. The number of users on 1 January rises by $9\\%$ each year. In which year is the 1 January count first more than $60\\,000$?",
+          "steps": [
+            "The multiplier is $1.09$. After $n$ years the count is $42\\,000 \\times 1.09^{n}$.",
+            "Try $n = 4$: $42\\,000 \\times 1.09^{4} = 59\\,286.4\\ldots$ This is just under $60\\,000$.",
+            "Try $n = 5$: $42\\,000 \\times 1.09^{5} = 64\\,622.2\\ldots$ This is over $60\\,000$.",
+            "$5$ years after 2020 is 2025."
+          ],
+          "answer": "$2025$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2020 + ceiling(log(Rational(60000, 42000))/log(Rational(109, 100)))"
+          },
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "For \"find the number of whole years\", write down the values just before and just after the target. They earn method marks."
+        },
+        {
+          "type": "check",
+          "id": "check-pond-days",
+          "prompt": "A pond holds $400$ litres of water. Each day, $20\\%$ of the water left evaporates. After how many whole days is there first less than $200$ litres? Work it out without a calculator.",
+          "hint": "Multiply by $0.8$ each day: $400 \\to 320 \\to \\ldots$",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "$400 \\to 320 \\to 256 \\to 204.8 \\to 163.84$. After $3$ days it is still above $200$ litres, so it takes $4$ days.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "ceiling(log(Rational(200, 400))/log(Rational(8, 10)))",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-town-years",
+          "prompt": "A town has $7300$ people. The population grows by $4.5\\%$ each year. Find the number of whole years until the population is first more than $10\\,000$.",
+          "hint": "Try $7300 \\times 1.045^{n}$ for a few values of $n$, starting around $n = 7$.",
+          "answer": {
+            "value": 8,
+            "tolerance": 0
+          },
+          "explain": "$7300 \\times 1.045^{7} = 9934.2\\ldots$, which is under $10\\,000$. $7300 \\times 1.045^{8} = 10\\,381.3\\ldots$, which is over. So it takes $8$ years.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "ceiling(log(Rational(10000, 7300))/log(Rational(1045, 1000)))",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "backwards",
+      "heading": "Working backwards",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "If you know the value after $n$ steps, you can find the start. Going forwards you multiply by the multiplier $n$ times, so going backwards you divide."
+        },
+        {
+          "type": "result",
+          "statement": "$\\text{starting value} = \\text{value after } n \\text{ steps} \\div (\\text{multiplier})^{n}$",
+          "why": "It undoes $\\text{start} \\times (\\text{multiplier})^{n}$, because dividing undoes multiplying."
+        },
+        {
+          "type": "example",
+          "id": "ex-painting-original",
+          "question": "A painting has gone up in value by $6\\%$ each year for $8$ years. It is now worth $\\$31\\,800$. Find its value $8$ years ago, to the nearest dollar.",
+          "steps": [
+            "Let the value $8$ years ago be $\\$P$. Then $P \\times 1.06^{8} = 31\\,800$.",
+            "Divide both sides by $1.06^{8}$: $P = \\frac{31\\,800}{1.06^{8}}$.",
+            "The calculator shows $19\\,951.71\\ldots$, so the value was about $\\$19\\,952$.",
+            "Check: the old value is smaller, as it should be."
+          ],
+          "answer": "$\\$19952$",
+          "verify": {
+            "kind": "money",
+            "truth": "31800/(1 + Rational(6, 100))**8",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying by $0.94^{8}$ to go back. A $6\\%$ fall does not undo a $6\\%$ rise. Divide by $1.06^{8}$ instead."
+        },
+        {
+          "type": "check",
+          "id": "check-machine-original",
+          "prompt": "A machine lost $10\\%$ of its value each year for $3$ years. It is now worth $\\$14\\,580$. What was it worth $3$ years ago?",
+          "hint": "The multiplier is $0.9$, and $0.9^{3} = 0.729$. Divide by it.",
+          "options": [
+            {
+              "text": "$\\$19406$",
+              "correct": false
+            },
+            {
+              "text": "$\\$20000$",
+              "correct": true
+            },
+            {
+              "text": "$\\$18954$",
+              "correct": false
+            }
+          ],
+          "explain": "$14\\,580 \\div 0.729 = 20\\,000$. Multiplying by $1.1^{3}$ gives $\\$19\\,406$, which does not undo the falls.",
+          "verify": {
+            "kind": "money",
+            "truth": "14580/(1 - Rational(10, 100))**3",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "Growth and decay can also be written as a formula $y = a \\times b^{x}$. Put $x = 0$: $b^{0} = 1$, so $y = a$. So $a$ is the starting value, and $b$ is the multiplier for each step."
+        },
+        {
+          "type": "text",
+          "text": "If $b > 1$ it is growth, and if $0 < b < 1$ it is decay. To find $b$, you often need a root: $\\sqrt[5]{c} = c^{\\frac{1}{5}}$, as in {{lesson:1.7}}."
+        },
+        {
+          "type": "calculator",
+          "snippet": "fractional-index",
+          "values": {
+            "base": "(1750 ÷ 1200)",
+            "numerator": "1",
+            "denominator": "5"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-fish-formula",
+          "question": "The number of fish in a lake, $t$ years after a count starts, is $N = a \\times b^{t}$. At the start there are $1200$ fish. After $5$ years there are $1750$. Find the value of $a$ and the value of $b$. Give $b$ to $3$ significant figures.",
+          "steps": [
+            "At the start, $t = 0$ and $N = 1200$. So $1200 = a \\times b^{0} = a$, giving $a = 1200$.",
+            "When $t = 5$, $N = 1750$: $1750 = 1200 \\times b^{5}$.",
+            "Divide by $1200$: $b^{5} = \\frac{1750}{1200} = 1.4583\\ldots$",
+            "Take the fifth root: $b = \\left(\\frac{1750}{1200}\\right)^{\\frac{1}{5}} = 1.0783\\ldots$, so $b \\approx 1.08$, about $7.8\\%$ growth a year."
+          ],
+          "answer": "$a = 1200, \\; b \\approx 1.08$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "[{\"a\": 1200, \"b\": Rational(1750, 1200)**Rational(1, 5)}]",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using the wrong units for $x$. If $x$ is in minutes, then $1$ hour later means $x = 60$, not $x = 1$."
+        },
+        {
+          "type": "check",
+          "id": "check-van-b",
+          "prompt": "The value of a van, $V$ dollars, $t$ years after it was bought, is $V = 3000 \\times b^{t}$. After $6$ years it is worth $\\$1900$. Find $b$, to $3$ significant figures.",
+          "hint": "Solve $3000 \\times b^{6} = 1900$: divide by $3000$, then take the sixth root.",
+          "answer": {
+            "value": 0.927,
+            "tolerance": 0.0005
+          },
+          "explain": "$b^{6} = \\frac{1900}{3000} = 0.6333\\ldots$, so $b = 0.6333\\ldots^{\\frac{1}{6}} = 0.92669\\ldots \\approx 0.927$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1900, 3000)**Rational(1, 6)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Growth of $r\\%$ per step: multiply by $1 + \\frac{r}{100}$. Decay of $r\\%$ per step: multiply by $1 - \\frac{r}{100}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Value after $n$ steps $=$ starting value $\\times (\\text{multiplier})^{n}$. Never take off the same amount each step.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "\"First above\" or \"first below\" a target: try whole numbers of steps. The answer is the first step past the target, so check the step before it is still short.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To find the starting value, divide by $(\\text{multiplier})^{n}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In $y = a \\times b^{x}$, $a$ is the value when $x = 0$ and $b$ is the multiplier: growth if $b > 1$, decay if $0 < b < 1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Taking off the same amount every year. A $25\\%$ loss is $25\\%$ of the latest value, so multiply by $0.75$ each year.",
+    "Adding the percentages: $3$ years of $10\\%$ growth is not $30\\%$. It is $1.1^{3} = 1.331$, a $33.1\\%$ rise.",
+    "Using the wrong multiplier, such as $1.04$ or $0.4$ for a $4\\%$ decrease. A fall of $4\\%$ means multiplying by $0.96$.",
+    "Rounding the number of steps down. If the value is still above the target after $8$ days, the answer is at least $9$.",
+    "Miscounting the steps between two years. From 2018 to 2023 is $5$ years, so use the power $5$, not $6$."
+  ],
+  "examTips": [
+    "\"Calculate\": write down the calculation, such as $5000 \\times 0.92^{4}$, before the answer. That line earns the method mark.",
+    "On Paper 2 the numbers work without a calculator. Build percentages from $10\\%$ and $5\\%$, one step at a time.",
+    "\"Give your answer to the nearest whole number\" or to $3$ significant figures: round only at the end, and give money to the cent unless told otherwise.",
+    "In $y = a \\times b^{x}$, check the units of $x$ first. Then use $x = 0$ to find $a$ before you find $b$."
+  ],
+  "readingMinutes": 18
+}

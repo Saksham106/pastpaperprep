@@ -2,37 +2,37 @@
   {
     "id": "variable",
     "term": "variable",
-    "definition": "TODO: Letter standing for a changing number; also unknown is owned by 2.5.",
+    "definition": "A letter, such as $x$ or $n$, that stands for a number which can change or take many values.",
     "lesson": "2.1"
   },
   {
     "id": "expression",
     "term": "expression",
-    "definition": "TODO: Algebraic terms with no equals sign.",
+    "definition": "A group of numbers, letters and operations with no equals sign, such as $3a - 2b + 5$.",
     "lesson": "2.1"
   },
   {
     "id": "formula",
     "term": "formula",
-    "definition": "TODO: Rule linking quantities; substitute values.",
+    "definition": "A rule, in letters or words, that shows how to work out one quantity from others, such as $A = lw$ for the area of a rectangle.",
     "lesson": "2.1"
   },
   {
     "id": "substitution",
     "term": "substitution",
-    "definition": "TODO: Replace letters by numbers.",
+    "definition": "Replacing each letter in an expression or formula with a given number, then working out the value.",
     "lesson": "2.1"
   },
   {
     "id": "term",
     "term": "term",
-    "definition": "TODO: Single part of an expression; includes coefficient and constant.",
+    "definition": "One part of an expression, split off by a $+$ or $-$ sign, with that sign included; the terms of $3a - 2b + 5$ are $3a$, $-2b$ and $5$.",
     "lesson": "2.1"
   },
   {
     "id": "coefficient",
     "term": "coefficient",
-    "definition": "TODO: Number multiplying a variable.",
+    "definition": "The number that multiplies a letter in a term, sign included; in $-2b$ the coefficient of $b$ is $-2$.",
     "lesson": "2.1"
   }
 ]

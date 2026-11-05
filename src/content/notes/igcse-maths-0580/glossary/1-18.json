@@ -2,13 +2,13 @@
   {
     "id": "surd",
     "term": "surd",
-    "definition": "TODO: Irrational root left unevaluated; simplify, such as root 20 equals 2 root 5.",
+    "definition": "A root that cannot be written as a whole number or a fraction, such as $\\sqrt{2}$, left as a root to keep it exact; it is simplest when the number under the root has no square factor except $1$, as in $\\sqrt{20} = 2\\sqrt{5}$.",
     "lesson": "1.18"
   },
   {
     "id": "rationalising-the-denominator",
     "term": "rationalising the denominator",
-    "definition": "TODO: Remove a surd from the denominator by multiplying.",
+    "definition": "Rewriting a fraction so that its denominator has no surd, by multiplying the top and bottom by the same number, such as $\\frac{3}{\\sqrt{5}} = \\frac{3\\sqrt{5}}{5}$.",
     "lesson": "1.18"
   }
 ]

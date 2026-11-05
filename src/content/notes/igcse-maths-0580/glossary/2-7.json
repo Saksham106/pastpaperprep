@@ -2,43 +2,43 @@
   {
     "id": "sequence",
     "term": "sequence",
-    "definition": "TODO: Ordered list of numbers following a rule.",
+    "definition": "A list of numbers in order, made by a rule, such as $4, 7, 10, 13, \\ldots$",
     "lesson": "2.7"
   },
   {
     "id": "term-to-term-rule",
     "term": "term-to-term rule",
-    "definition": "TODO: Rule that gets each term from the previous one.",
+    "definition": "The rule that gets each term of a sequence from the term before it, such as \"add $3$\" or \"divide by $2$\".",
     "lesson": "2.7"
   },
   {
     "id": "nth-term",
     "term": "nth term",
-    "definition": "TODO: Formula for any term in terms of its position.",
+    "definition": "A formula in $n$ that gives any term of a sequence from its position $n$; for $3n + 1$, the 10th term is $3 \\times 10 + 1 = 31$.",
     "lesson": "2.7"
   },
   {
     "id": "linear-sequence",
     "term": "linear sequence",
-    "definition": "TODO: Constant difference between terms.",
+    "definition": "A sequence that goes up or down by the same amount each time, such as $5, 9, 13, 17, \\ldots$; its nth term looks like $dn + c$.",
     "lesson": "2.7"
   },
   {
     "id": "quadratic-sequence",
     "term": "quadratic sequence",
-    "definition": "TODO: Constant second difference.",
+    "definition": "A sequence whose second differences (the gaps between the gaps) are all the same and not zero; its nth term has $n^2$ as the highest power, as in $n^2 + 1$.",
     "lesson": "2.7"
   },
   {
     "id": "cubic-sequence",
     "term": "cubic sequence",
-    "definition": "TODO: Constant third difference; simple cubic at Core.",
+    "definition": "A sequence whose third differences are all the same and not zero; its nth term has $n^3$ as the highest power, as in $n^3 + 2$.",
     "lesson": "2.7"
   },
   {
     "id": "exponential-sequence",
     "term": "exponential sequence",
-    "definition": "TODO: Constant ratio between terms.",
+    "definition": "A sequence where you multiply by the same number each time, such as $2, 6, 18, 54, \\ldots$; its nth term is $a \\times r^{n-1}$, where $a$ is the first term and $r$ the number you multiply by.",
     "lesson": "2.7"
   }
 ]

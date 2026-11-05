@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 238 336" role="img" aria-labelledby="t">
+  <title id="t">Graph of a phone's battery charge against time. Across, time goes from 0 to 12 hours, 2 hours per square. Up, charge goes from 0 to 100 percent, 10 percent per square. A straight line falls from 90 percent at 0 hours, through 60 percent at 6 hours, to 30 percent at 12 hours.</title>
+  <g stroke="var(--muted)" stroke-width="0.6" opacity="0.6">
+    <line x1="58" y1="24" x2="58" y2="284"/>
+    <line x1="84" y1="24" x2="84" y2="284"/>
+    <line x1="110" y1="24" x2="110" y2="284"/>
+    <line x1="136" y1="24" x2="136" y2="284"/>
+    <line x1="162" y1="24" x2="162" y2="284"/>
+    <line x1="188" y1="24" x2="188" y2="284"/>
+    <line x1="214" y1="24" x2="214" y2="284"/>
+    <line x1="58" y1="24" x2="214" y2="24"/>
+    <line x1="58" y1="50" x2="214" y2="50"/>
+    <line x1="58" y1="76" x2="214" y2="76"/>
+    <line x1="58" y1="102" x2="214" y2="102"/>
+    <line x1="58" y1="128" x2="214" y2="128"/>
+    <line x1="58" y1="154" x2="214" y2="154"/>
+    <line x1="58" y1="180" x2="214" y2="180"/>
+    <line x1="58" y1="206" x2="214" y2="206"/>
+    <line x1="58" y1="232" x2="214" y2="232"/>
+    <line x1="58" y1="258" x2="214" y2="258"/>
+    <line x1="58" y1="284" x2="214" y2="284"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.4">
+    <line x1="58" y1="284" x2="214" y2="284"/>
+    <line x1="58" y1="284" x2="58" y2="24"/>
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="58" y="299">0</text>
+    <text x="84" y="299">2</text>
+    <text x="110" y="299">4</text>
+    <text x="136" y="299">6</text>
+    <text x="162" y="299">8</text>
+    <text x="188" y="299">10</text>
+    <text x="214" y="299">12</text>
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="end">
+    <text x="53" y="262">10</text>
+    <text x="53" y="236">20</text>
+    <text x="53" y="210">30</text>
+    <text x="53" y="184">40</text>
+    <text x="53" y="158">50</text>
+    <text x="53" y="132">60</text>
+    <text x="53" y="106">70</text>
+    <text x="53" y="80">80</text>
+    <text x="53" y="54">90</text>
+    <text x="53" y="28">100</text>
+  </g>
+  <text x="136" y="318" fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">Time (hours)</text>
+  <text x="14" y="154" fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle" transform="rotate(-90 14 154)">Battery charge (%)</text>
+  <line x1="58" y1="50" x2="214" y2="206" stroke="var(--t3-ink)" stroke-width="2.4"/>
+</svg>

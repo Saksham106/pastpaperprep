@@ -1,0 +1,793 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "2.11",
+  "slug": "sketching-curves",
+  "title": "Sketching curves",
+  "level": "Core",
+  "topic": 2,
+  "summary": "A sketch shows a graph's shape and its key points, without plotting a table of values. You'll sketch straight lines and [[parabola|parabolas]] from their equations and label where they cross the axes. Extended adds cubic, reciprocal and exponential graphs, [[turning-point|turning points]] and [[asymptote|asymptotes]].",
+  "goals": [
+    {
+      "text": "Recognise and sketch a straight line from its equation, and interpret where it crosses the axes.",
+      "bullets": [
+        "2.11-c1"
+      ]
+    },
+    {
+      "text": "Sketch a quadratic graph with its shape, [[root|roots]], [[y-intercept|y-intercept]] and line of symmetry.",
+      "bullets": [
+        "2.11-c1"
+      ]
+    },
+    {
+      "text": "Find the turning point of a quadratic by [[completing-the-square|completing the square]].",
+      "bullets": [
+        "2.11-s1",
+        "2.11-n2",
+        "2.11-n4"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Recognise and sketch cubic graphs, including where they touch the x-axis.",
+      "bullets": [
+        "2.11-s1",
+        "2.11-n1",
+        "2.11-n2"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Recognise and sketch reciprocal and exponential graphs with their asymptotes.",
+      "bullets": [
+        "2.11-s1",
+        "2.11-n1",
+        "2.11-n3"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "2.2",
+    "2.10"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "sketch a graph",
+    "shapes of graphs",
+    "line of symmetry of a parabola",
+    "turning point",
+    "asymptote",
+    "cubic graph"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-substitute",
+      "prompt": "For $y = x^{2} - 4x + 1$, find $y$ when $x = -2$.",
+      "hint": "Put $-2$ in brackets: $(-2)^{2} - 4(-2) + 1$.",
+      "options": [
+        {
+          "text": "$13$",
+          "correct": true
+        },
+        {
+          "text": "$-3$",
+          "correct": false
+        },
+        {
+          "text": "$5$",
+          "correct": false
+        }
+      ],
+      "explain": "$(-2)^{2} = 4$ and $-4 \\times (-2) = +8$, so $y = 4 + 8 + 1 = 13$. Revise it in {{lesson:2.10}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "(-2)**2 - 4*(-2) + 1"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-expand",
+      "prompt": "Expand $(x + 5)(x - 2)$.",
+      "hint": "Multiply each term in the first bracket by each term in the second.",
+      "options": [
+        {
+          "text": "$x^{2} + 3x - 10$",
+          "correct": true
+        },
+        {
+          "text": "$x^{2} - 3x - 10$",
+          "correct": false
+        },
+        {
+          "text": "$x^{2} - 10$",
+          "correct": false
+        }
+      ],
+      "explain": "$x^{2} - 2x + 5x - 10 = x^{2} + 3x - 10$. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "(x + 5)*(x - 2)",
+        "form": "expanded"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "lines",
+      "heading": "Straight-line graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "If $x$ and $y$ appear only to the power $1$, and are never multiplied together, the graph is a straight line. Examples are $y = 3x - 2$, $2x + 5y = 10$ and $x = 4$."
+        },
+        {
+          "type": "text",
+          "text": "Write the line as $y = mx + c$ to see its direction. The [[gradient|gradient]] $m$ tells you which way it slopes: up from left to right if $m > 0$, down if $m < 0$. You meet $m$ and $c$ properly in {{lesson:3.5}}."
+        },
+        {
+          "type": "text",
+          "text": "$y = k$ is a horizontal line and $x = k$ is a vertical line, for any number $k$."
+        },
+        {
+          "type": "text",
+          "text": "A sketch shows the shape and labels where the graph crosses the axes. Put $x = 0$ to find the [[y-intercept|y-intercept]]. Put $y = 0$ to find where it crosses the $x$-axis."
+        },
+        {
+          "type": "text",
+          "text": "A horizontal or vertical line crosses only one axis, unless it is an axis itself. A line through $(0, 0)$ needs one more point, such as the one at $x = 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-line-intercepts",
+          "question": "Sketch the line $5x + 2y = 20$. Label the points where it crosses the axes.",
+          "steps": [
+            "Put $x = 0$: $2y = 20$, so $y = 10$. The line crosses the $y$-axis at $(0, 10)$.",
+            "Put $y = 0$: $5x = 20$, so $x = 4$. It crosses the $x$-axis at $(4, 0)$.",
+            "Mark both points and rule a line through them, running past both axes.",
+            "Check the direction: $2y = 20 - 5x$ gives $y = 10 - 2.5x$. $m < 0$, so it slopes down from $(0, 10)$ to $(4, 0)$."
+          ],
+          "answer": "$(0, 10) \\text{ and } (4, 0)$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "[(0, 20/2), (20/5, 0)]"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-line-tank",
+          "question": "Water drains from a tank at a steady rate. After $t$ minutes the depth is $d$ cm, where $d = 90 - 6t$. Sketch the graph for $t \\ge 0$ and say what each end of it means.",
+          "steps": [
+            "At $t = 0$, $d = 90$. The tank starts $90$ cm deep.",
+            "At $d = 0$, $6t = 90$, so $t = 15$. The tank is empty after $15$ minutes.",
+            "$m = -6$, so the line slopes down: the depth falls by $6$ cm each minute.",
+            "Draw the line only from $(0, 90)$ to $(15, 0)$. The depth can't be negative."
+          ],
+          "answer": "$(0, 90) \\text{ and } (15, 0)$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "[(0, 90 - 6*0), (90/6, 0)]"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-line-direction",
+          "prompt": "Which describes the graph of $y = 7 - 3x$?",
+          "hint": "Write it as $y = mx + c$. What is $m$?",
+          "options": [
+            {
+              "text": "It slopes down from left to right",
+              "correct": true
+            },
+            {
+              "text": "It slopes up from left to right",
+              "correct": false
+            },
+            {
+              "text": "It is a horizontal line",
+              "correct": false
+            }
+          ],
+          "explain": "$y = -3x + 7$, so $m = -3$. A negative gradient slopes down.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It slopes down from left to right"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-line-x-axis",
+          "prompt": "Where does the line $5x - 2y = 15$ cross the $x$-axis?",
+          "hint": "Every point on the $x$-axis has $y = 0$.",
+          "options": [
+            {
+              "text": "$(3, 0)$",
+              "correct": true
+            },
+            {
+              "text": "$(0, -7.5)$",
+              "correct": false
+            },
+            {
+              "text": "$(7.5, 0)$",
+              "correct": false
+            }
+          ],
+          "explain": "Put $y = 0$: $5x = 15$, so $x = 3$. $(0, -7.5)$ is where it crosses the $y$-axis.",
+          "verify": {
+            "kind": "point",
+            "truth": "(15/5, 0)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "quadratics",
+      "heading": "Sketching quadratic graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A quadratic graph has an equation $y = ax^{2} + bx + c$, where $ax^{2} + bx + c$ is a [[quadratic-expression|quadratic expression]] and $a \\neq 0$. Its graph is a smooth curve called a [[parabola|parabola]]."
+        },
+        {
+          "type": "text",
+          "text": "The sign of $a$, the number in front of $x^{2}$, gives the shape. If $a > 0$ the curve is a U shape. If $a < 0$ it is an upside-down U."
+        },
+        {
+          "type": "text",
+          "text": "Every quadratic graph has a vertical [[line-of-symmetry|line of symmetry]]. Two points with the same $y$ value sit the same distance either side of it."
+        },
+        {
+          "type": "text",
+          "text": "A sketch labels the shape, the [[y-intercept|y-intercept]] and the [[root|roots]]: the $x$ values where the curve crosses or touches the $x$-axis. A parabola can have two roots, one or none."
+        },
+        {
+          "type": "text",
+          "text": "Brackets make the roots easy. $(x - 2)(x + 6) = 0$ when either bracket is $0$, so the roots are $x = 2$ and $x = -6$. The line of symmetry sits midway between the two roots."
+        },
+        {
+          "type": "example",
+          "id": "ex-quad-u",
+          "question": "Sketch $y = (x - 1)(x - 5)$. Label the roots and the y-intercept, and give the line of symmetry.",
+          "steps": [
+            "The $x^{2}$ term is $x \\times x = x^{2}$, so $a = 1 > 0$. The curve is a U shape.",
+            "Roots: $x - 1 = 0$ or $x - 5 = 0$, so $x = 1$ or $x = 5$.",
+            "Y-intercept: put $x = 0$. $y = (-1) \\times (-5) = 5$, so the curve crosses at $(0, 5)$.",
+            "Line of symmetry: halfway between the roots, $x = \\frac{1 + 5}{2} = 3$.",
+            "Draw one smooth U through $(0, 5)$, $(1, 0)$ and $(5, 0)$, symmetrical about $x = 3$."
+          ],
+          "answer": "$x = 1 \\text{ or } x = 5$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(Eq((x - 1)*(x - 5), 0), x)"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "2-11-parabola-features",
+          "alt": "U-shaped parabola y equals (x minus 1)(x minus 5). It crosses the x-axis at 1 and 5 and the y-axis at 5. A dashed vertical line at x equals 3 is the line of symmetry.",
+          "caption": "$y = (x - 1)(x - 5)$: a U shape with roots $1$ and $5$, symmetrical about $x = 3$."
+        },
+        {
+          "type": "example",
+          "id": "ex-quad-n",
+          "question": "Sketch $y = (4 - x)(x + 2)$. Label the roots and the y-intercept, and give the line of symmetry.",
+          "steps": [
+            "The $x^{2}$ term is $(-x) \\times x = -x^{2}$, so $a < 0$. The curve is an upside-down U.",
+            "Roots: $4 - x = 0$ or $x + 2 = 0$, so $x = 4$ or $x = -2$.",
+            "Y-intercept: $y = 4 \\times 2 = 8$, so $(0, 8)$.",
+            "Line of symmetry: $x = \\frac{4 + (-2)}{2} = 1$.",
+            "Draw one smooth upside-down U through $(-2, 0)$, $(0, 8)$ and $(4, 0)$, symmetrical about $x = 1$."
+          ],
+          "answer": "$x = 1$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(x, (solve(Eq((4 - x)*(x + 2), 0), x)[0] + solve(Eq((4 - x)*(x + 2), 0), x)[1])/2)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "If the quadratic is not in brackets, [[factorise|factorise]] it first ({{lesson:2.2}}). If it won't factorise, completing the square, below, still gives the sketch.",
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-quad-symmetry",
+          "prompt": "A parabola passes through $(-4, 7)$ and $(2, 7)$. Write down the equation of its line of symmetry.",
+          "hint": "The two points have the same $y$ value. What is halfway between their $x$ values?",
+          "options": [
+            {
+              "text": "$x = -1$",
+              "correct": true
+            },
+            {
+              "text": "$x = 1$",
+              "correct": false
+            },
+            {
+              "text": "$x = -3$",
+              "correct": false
+            },
+            {
+              "text": "$y = 7$",
+              "correct": false
+            }
+          ],
+          "explain": "Halfway between $-4$ and $2$ is $\\frac{-4 + 2}{2} = -1$. A line of symmetry is vertical, so it is $x = \\ldots$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(x, (-4 + 2)/2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-quad-match",
+          "prompt": "A U-shaped parabola crosses the $x$-axis at $x = -3$ and $x = 1$, and the $y$-axis at $(0, -3)$. Which is its equation?",
+          "hint": "A root of $x = -3$ comes from a bracket that is $0$ when $x = -3$.",
+          "options": [
+            {
+              "text": "$y = (x + 3)(x - 1)$",
+              "correct": true
+            },
+            {
+              "text": "$y = (x - 3)(x + 1)$",
+              "correct": false
+            },
+            {
+              "text": "$y = -(x + 3)(x - 1)$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x + 3)(x - 1)$ is $0$ at $x = -3$ and $x = 1$. At $x = 0$ it gives $3 \\times (-1) = -3$, and $a > 0$ makes a U.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, (x - (-3))*(x - 1))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "turning-points",
+      "heading": "Turning points by completing the square",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[turning-point|turning point]] is where a curve stops going down and starts going up, or the other way round. On a parabola it is the lowest point (a minimum) if $a > 0$, or the highest point (a maximum) if $a < 0$."
+        },
+        {
+          "type": "text",
+          "text": "[[completing-the-square|Completing the square]] writes $x^{2} + bx + c$ as $(x + p)^{2} + q$ ({{lesson:2.2}}). The turning point can then be read off."
+        },
+        {
+          "type": "result",
+          "statement": "The graph of $y = (x + p)^{2} + q$ has its minimum point at $(-p, q)$.",
+          "why": "$(x + p)^{2}$ is never negative, and it is $0$ only when $x = -p$. So $y$ is smallest there, and equals $q$."
+        },
+        {
+          "type": "example",
+          "id": "ex-tp-min",
+          "question": "Write $x^{2} - 8x + 21$ in the form $(x + p)^{2} + q$. Hence sketch $y = x^{2} - 8x + 21$, labelling its turning point.",
+          "steps": [
+            "Half of $-8$ is $-4$, and $(x - 4)^{2} = x^{2} - 8x + 16$.",
+            "You need $+21$, which is $5$ more than $16$. So $x^{2} - 8x + 21 = (x - 4)^{2} + 5$.",
+            "$(x - 4)^{2}$ is smallest, $0$, when $x = 4$. Then $y = 5$, so the minimum point is $(4, 5)$.",
+            "Sketch a U with its lowest point at $(4, 5)$ and y-intercept $(0, 21)$. It is always above the $x$-axis, so there are no roots."
+          ],
+          "answer": "$(4, 5)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(-(-8)/2, 21 - (-8)**2/4)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-tp-max",
+          "question": "Find the turning point of $y = 7 + 6x - x^{2}$, and say whether it is a maximum or a minimum.",
+          "steps": [
+            "Take out the minus sign: $y = -(x^{2} - 6x) + 7$.",
+            "Complete the square inside: $x^{2} - 6x = (x - 3)^{2} - 9$.",
+            "So $y = -\\big((x - 3)^{2} - 9\\big) + 7 = 16 - (x - 3)^{2}$. The minus sign multiplies every term in the bracket.",
+            "$(x - 3)^{2}$ is never negative, so $y$ is largest, $16$, when $x = 3$. The turning point is a maximum.",
+            "For a full sketch: $(x - 3)^{2} = 16$ gives roots $x = -1$ and $x = 7$, and the y-intercept is $(0, 7)$."
+          ],
+          "answer": "$(3, 16)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(6/2, 7 + 6*(6/2) - (6/2)**2)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Reading the sign the wrong way. $(x + 6)^{2} - 1$ has its turning point at $(-6, -1)$, not $(6, -1)$."
+        },
+        {
+          "type": "mistake",
+          "text": "Expanding $c - (x + p)^{2}$ with the wrong signs. The minus applies to every term: $c - x^{2} - 2px - p^{2}$."
+        },
+        {
+          "type": "examTip",
+          "text": "After “Write in the form $(x + p)^{2} + q$”, a turning-point part is usually a “write down”: read $(-p, q)$ from your answer. A wrong form used correctly can still earn follow-through marks."
+        },
+        {
+          "type": "text",
+          "text": "If $x^{2}$ has a number in front, take that number out of the $x$ terms first, as with the $-1$ above."
+        },
+        {
+          "type": "check",
+          "id": "check-tp-find",
+          "prompt": "Find the turning point of $y = x^{2} + 10x + 18$.",
+          "hint": "Half of $10$ is $5$. Expand $(x + 5)^{2}$ and compare.",
+          "options": [
+            {
+              "text": "$(-5, -7)$",
+              "correct": true
+            },
+            {
+              "text": "$(5, -7)$",
+              "correct": false
+            },
+            {
+              "text": "$(-5, 43)$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x + 5)^{2} = x^{2} + 10x + 25$, so $y = (x + 5)^{2} - 7$. The minimum is at $(-5, -7)$.",
+          "verify": {
+            "kind": "point",
+            "truth": "(-10/2, 18 - (10/2)**2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tp-reverse",
+          "prompt": "The graph of $y = x^{2} + bx + c$ has its minimum point at $(3, -4)$. Find $b$ and $c$.",
+          "hint": "Start from $y = (x - 3)^{2} - 4$ and expand.",
+          "options": [
+            {
+              "text": "$b = -6, \\; c = 5$",
+              "correct": true
+            },
+            {
+              "text": "$b = 6, \\; c = 5$",
+              "correct": false
+            },
+            {
+              "text": "$b = -6, \\; c = -13$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x - 3)^{2} - 4 = x^{2} - 6x + 9 - 4 = x^{2} - 6x + 5$.",
+          "verify": {
+            "kind": "assignments",
+            "truth": "{\"b\": -2*3, \"c\": 3**2 - 4}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cubics",
+      "heading": "Cubic graphs",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A cubic has $x^{3}$ as its highest power. You will meet two kinds: $y = ax^{3} + b$ and $y = ax^{3} + bx^{2} + cx$."
+        },
+        {
+          "type": "text",
+          "text": "The sign of $a$ sets the ends. If $a > 0$ the curve starts low on the left and ends high on the right. If $a < 0$ it starts high and ends low."
+        },
+        {
+          "type": "text",
+          "text": "$y = ax^{3} + b$ has no [[turning-point|turning points]]. It flattens for a moment as it passes through $(0, b)$, then carries on the same way."
+        },
+        {
+          "type": "text",
+          "text": "$y = ax^{3} + bx^{2} + cx$ has no number term, so it passes through $(0, 0)$. Take out $x$ and [[factorise|factorise]] to find the [[root|roots]]."
+        },
+        {
+          "type": "text",
+          "text": "Between two roots next to each other there is a turning point. At a root from a squared bracket, such as $x = 2$ in $x(x - 2)^{2}$, the curve touches the $x$-axis and turns back."
+        },
+        {
+          "type": "example",
+          "id": "ex-cubic-three",
+          "question": "Sketch $y = x^{3} - x^{2} - 12x$, labelling where it crosses the axes.",
+          "steps": [
+            "Take out $x$: $y = x(x^{2} - x - 12)$.",
+            "$-4$ and $3$ multiply to $-12$ and add to $-1$, so $y = x(x - 4)(x + 3)$.",
+            "Roots: $x = 0$, $x = 4$ or $x = -3$. At $x = 0$, $y = 0$, so the y-intercept is $(0, 0)$.",
+            "$a = 1 > 0$: start low, rise through $(-3, 0)$, turn, fall through $(0, 0)$, turn, then rise through $(4, 0)$."
+          ],
+          "answer": "$x = -3 \\text{ or } x = 0 \\text{ or } x = 4$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(Eq(x**3 - x**2 - 12*x, 0), x)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-cubic-touch",
+          "question": "Sketch $y = -x^{3} + 4x^{2} - 4x$, labelling where it meets the axes.",
+          "steps": [
+            "Take out $-x$: $y = -x(x^{2} - 4x + 4)$.",
+            "$x^{2} - 4x + 4 = (x - 2)^{2}$, so $y = -x(x - 2)^{2}$.",
+            "Roots: $x = 0$, and $x = 2$ twice. At the repeated root the curve touches the axis.",
+            "$a = -1 < 0$: start high on the left. Fall through $(0, 0)$, turn, rise to touch the axis at $(2, 0)$, then fall away."
+          ],
+          "answer": "$x = 0 \\text{ or } x = 2$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(Eq(-x**3 + 4*x**2 - 4*x, 0), x)"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "2-11-cubics",
+          "alt": "Two cubic sketches. Left: y equals x(x minus 4)(x plus 3). It starts low on the left, rises through minus 3 on the x-axis, turns, falls through the origin, turns again and rises through 4. Right: y equals minus x(x minus 2) squared. It starts high on the left, falls through the origin, turns, rises to touch the x-axis at 2 without crossing it, then falls away.",
+          "caption": "Three different roots: the curve crosses three times. A root from a squared bracket: it touches."
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing a cubic upside down. Check the sign of the $x^{3}$ term: positive ends high on the right."
+        },
+        {
+          "type": "mistake",
+          "text": "Crossing the $x$-axis at a root from a squared bracket. At $x = 3$ in $y = x(x - 3)^{2}$, the curve touches the axis and turns back."
+        },
+        {
+          "type": "check",
+          "id": "check-cubic-touch",
+          "prompt": "The graph of $y = x(x + 1)^{2}$ meets the $x$-axis at $x = -1$. What does it do there?",
+          "hint": "Look at the power on the bracket $(x + 1)$.",
+          "options": [
+            {
+              "text": "It touches the axis and turns back",
+              "correct": true
+            },
+            {
+              "text": "It crosses the axis",
+              "correct": false
+            },
+            {
+              "text": "It crosses the axis and flattens out",
+              "correct": false
+            }
+          ],
+          "explain": "$x = -1$ is a repeated root, from $(x + 1)^{2}$, so the curve touches the axis there. At $x = 0$ it crosses.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It touches the axis and turns back"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cubic-shift",
+          "prompt": "Where does $y = 2x^{3} - 16$ cross the $x$-axis?",
+          "hint": "Set $2x^{3} - 16 = 0$ and get $x^{3}$ on its own.",
+          "options": [
+            {
+              "text": "$x = 2$",
+              "correct": true
+            },
+            {
+              "text": "$x = 8$",
+              "correct": false
+            },
+            {
+              "text": "$x = -2$",
+              "correct": false
+            }
+          ],
+          "explain": "$2x^{3} = 16$, so $x^{3} = 8$ and $x = 2$, since $2^{3} = 8$. $2$ is the only number whose cube is $8$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "root(16/2, 3)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "asymptotes",
+      "heading": "Reciprocal and exponential graphs",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[asymptote|asymptote]] is a straight line that a curve gets closer and closer to. The curves in this section never reach theirs. Draw an asymptote dashed and label it with its equation."
+        },
+        {
+          "type": "text",
+          "text": "Reciprocal graph $y = \\frac{a}{x} + b$: you can't divide by $0$, so there is no point at $x = 0$. The curve has two separate branches, with asymptotes $x = 0$ and $y = b$."
+        },
+        {
+          "type": "text",
+          "text": "If $a > 0$ the branches sit top right and bottom left of where the asymptotes cross. If $a < 0$ they sit top left and bottom right."
+        },
+        {
+          "type": "example",
+          "id": "ex-recip",
+          "question": "Sketch $y = \\frac{6}{x} + 3$. Give its asymptotes and find where it crosses the $x$-axis.",
+          "steps": [
+            "There is no value at $x = 0$, so $x = 0$ (the $y$-axis) is an asymptote.",
+            "When $x$ is large, positive or negative, $\\frac{6}{x}$ is close to $0$, so $y$ is close to $3$. $y = 3$ is the other asymptote.",
+            "$a = 6 > 0$, so the branches are top right and bottom left of the point $(0, 3)$.",
+            "Crossing the $x$-axis: $\\frac{6}{x} + 3 = 0$, so $\\frac{6}{x} = -3$ and $x = -2$."
+          ],
+          "answer": "$(-2, 0)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(solve(Eq(6/x + 3, 0), x)[0], 0)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Exponential graph $y = ar^{x} + b$, where $r > 0$ and $r \\neq 1$. With $a > 0$, it rises more and more steeply if $r > 1$, and falls and levels off if $r < 1$. With $a < 0$ it is flipped upside down."
+        },
+        {
+          "type": "text",
+          "text": "It has one asymptote, $y = b$, where it levels off. It crosses the $y$-axis at $(0, a + b)$, because $r^{0} = 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-exp",
+          "question": "Sketch $y = 5(0.5)^{x} - 2$, labelling its asymptote and y-intercept.",
+          "steps": [
+            "$a = 5$, $r = 0.5$ and $b = -2$. $r < 1$, so the curve falls and levels off on the right.",
+            "As $x$ grows, $(0.5)^{x}$ gets close to $0$, so $y$ gets close to $-2$. The asymptote is $y = -2$.",
+            "Y-intercept: $y = 5 \\times 1 - 2 = 3$, so $(0, 3)$.",
+            "To the left it climbs steeply: at $x = -1$, $y = 5 \\times 2 - 2 = 8$. It crosses the $x$-axis once, between $x = 1$ and $x = 2$."
+          ],
+          "answer": "$(0, 3)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(0, 5*Rational(1, 2)**0 - 2)"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "2-11-asymptotes",
+          "alt": "Two sketches with asymptotes. Left: y equals 6 over x plus 3, two separate branches, top right and bottom left of where the y-axis meets the dashed line y equals 3. The left branch crosses the x-axis at minus 2. Neither branch meets the y-axis or the dashed line. Right: y equals 5 times 0.5 to the power x, minus 2. The curve is steep on the left, crosses the y-axis at 3, then falls and levels off just above the dashed line y equals minus 2.",
+          "caption": "Each curve gets ever closer to its dashed asymptote but never meets it."
+        },
+        {
+          "type": "mistake",
+          "text": "Letting the curve cross or touch its asymptote. It gets closer and closer, but never meets it."
+        },
+        {
+          "type": "check",
+          "id": "check-recip-asymptote",
+          "prompt": "Write down the equation of the horizontal asymptote of $y = \\frac{8}{x} - 5$.",
+          "hint": "What is $\\frac{8}{x}$ close to when $x$ is very large?",
+          "options": [
+            {
+              "text": "$y = -5$",
+              "correct": true
+            },
+            {
+              "text": "$y = 5$",
+              "correct": false
+            },
+            {
+              "text": "$x = -5$",
+              "correct": false
+            },
+            {
+              "text": "$y = 8$",
+              "correct": false
+            }
+          ],
+          "explain": "When $x$ is large, positive or negative, $\\frac{8}{x}$ is close to $0$, so $y$ is close to $-5$. A horizontal line is $y = \\ldots$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, limit(8/x - 5, x, oo))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-exp-intercept",
+          "prompt": "Where does $y = 3 \\times 4^{x} + 2$ cross the $y$-axis?",
+          "hint": "Put $x = 0$. What is $4^{0}$?",
+          "options": [
+            {
+              "text": "$(0, 5)$",
+              "correct": true
+            },
+            {
+              "text": "$(0, 14)$",
+              "correct": false
+            },
+            {
+              "text": "$(0, 2)$",
+              "correct": false
+            }
+          ],
+          "explain": "$4^{0} = 1$, so $y = 3 \\times 1 + 2 = 5$. Using $4^{0} = 4$ gives $14$.",
+          "verify": {
+            "kind": "point",
+            "truth": "(0, 3*4**0 + 2)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Any graph: put $x = 0$ for the y-intercept and $y = 0$ for the $x$-axis crossings.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$y = ax^{2} + bx + c$ is a U shape if $a > 0$ and an upside-down U if $a < 0$. It crosses the $y$-axis at $(0, c)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A parabola's line of symmetry is halfway between its roots, or between any two points with the same $y$ value.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "y = (x + p)^{2} + q \\text{ has minimum point } (-p, q)",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Cubic: $a > 0$ starts low and ends high. At a root from a squared bracket, such as $x = 2$ in $x(x - 2)^{2}$, the curve touches the $x$-axis.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "$y = \\frac{a}{x} + b$ has asymptotes $x = 0$ and $y = b$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "$y = ar^{x} + b$ has asymptote $y = b$ and crosses the $y$-axis at $(0, a + b)$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Drawing a parabola with a pointed tip or ruled straight pieces. It is one smooth curve, rounded at the bottom or top.",
+    "Drawing the y-intercept as a horizontal line. It is one point on the $y$-axis, such as $(0, 8)$."
+  ],
+  "examTips": [
+    "“Sketch” needs the right shape with the key points labelled, such as where it crosses the axes. It need not be to scale.",
+    "When asked for a line of symmetry, give a full equation, $x = \\ldots$, not just a number."
+  ],
+  "readingMinutes": 25
+}

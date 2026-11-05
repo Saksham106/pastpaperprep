@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" role="img" aria-labelledby="t">
+  <title id="t">Bar model for sharing 84 stickers in the ratio 3 to 4: a bar of 7 equal parts, each worth 12. Mia has 3 parts, which is 36, and Leo has 4 parts, which is 48.</title>
+  <g stroke="var(--t1-ink)" stroke-width="1.4" fill="none">
+    <polyline points="40,36 40,28 320,28 320,36" />
+  </g>
+  <text x="180" y="20" fill="var(--t1-ink)" font-size="12" font-family="inherit" text-anchor="middle">84 stickers = 7 parts</text>
+  <g fill="var(--t2-ink)" fill-opacity="0.18" stroke="none">
+    <rect x="40" y="44" width="120" height="30" />
+  </g>
+  <g fill="var(--t4-ink)" fill-opacity="0.18" stroke="none">
+    <rect x="160" y="44" width="160" height="30" />
+  </g>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <rect x="40" y="44" width="40" height="30" />
+    <rect x="80" y="44" width="40" height="30" />
+    <rect x="120" y="44" width="40" height="30" />
+    <rect x="160" y="44" width="40" height="30" />
+    <rect x="200" y="44" width="40" height="30" />
+    <rect x="240" y="44" width="40" height="30" />
+    <rect x="280" y="44" width="40" height="30" />
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="60" y="64">12</text>
+    <text x="100" y="64">12</text>
+    <text x="140" y="64">12</text>
+    <text x="180" y="64">12</text>
+    <text x="220" y="64">12</text>
+    <text x="260" y="64">12</text>
+    <text x="300" y="64">12</text>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" fill="none">
+    <polyline points="40,82 40,88 160,88 160,82" />
+    <polyline points="160,82 160,88 320,88 320,82" />
+  </g>
+  <g font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="100" y="106" fill="var(--t2-ink)">Mia: 3 parts</text>
+    <text x="100" y="124" fill="currentColor">3 × 12 = 36</text>
+    <text x="240" y="106" fill="var(--t4-ink)">Leo: 4 parts</text>
+    <text x="240" y="124" fill="currentColor">4 × 12 = 48</text>
+  </g>
+</svg>

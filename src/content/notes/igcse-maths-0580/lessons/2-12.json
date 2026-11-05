@@ -1,0 +1,729 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "2.12",
+  "slug": "differentiation",
+  "title": "Differentiation",
+  "level": "Extended",
+  "topic": 2,
+  "summary": "[[differentiation|Differentiation]] gives the [[gradient-of-a-curve|gradient of a curve]] at any point, without drawing anything. One rule turns each term $ax^n$ into its [[derivative|derivative]], $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$. You then use it to find [[gradient|gradients]] and [[stationary-point|stationary points]], and to decide which are maxima and which are minima.",
+  "goals": [
+    {
+      "text": "Estimate the gradient of a curve at a point by drawing a [[tangent|tangent]].",
+      "bullets": [
+        "2.12-s1"
+      ]
+    },
+    {
+      "text": "Differentiate terms of the form $ax^n$, and sums of up to three of them, to find $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$.",
+      "bullets": [
+        "2.12-s2"
+      ]
+    },
+    {
+      "text": "Use $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ to find the gradient at a point, or the point where the gradient has a given value.",
+      "bullets": [
+        "2.12-s3"
+      ]
+    },
+    {
+      "text": "Find the coordinates of stationary points by solving $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 0$.",
+      "bullets": [
+        "2.12-s3"
+      ]
+    },
+    {
+      "text": "Tell maxima from minima, using the gradient either side, the second derivative or a sketch.",
+      "bullets": [
+        "2.12-s4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.11",
+    "2.5"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "dy/dx",
+    "how to differentiate",
+    "gradient of a curve",
+    "turning points",
+    "stationary points",
+    "maximum and minimum points",
+    "second derivative"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-line-gradient",
+      "prompt": "Find the gradient of the straight line through $(1, 4)$ and $(5, 16)$.",
+      "hint": "Divide the change in $y$ by the change in $x$.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0
+      },
+      "verify": {
+        "kind": "numeric",
+        "truth": "(16 - 4)/(5 - 1)",
+        "dp": 0
+      },
+      "explain": "Change in $y$: $16 - 4 = 12$. Change in $x$: $5 - 1 = 4$. Gradient $= 12 \\div 4 = 3$. Revise it in {{lesson:3.3}}."
+    },
+    {
+      "type": "check",
+      "id": "before-solve-common-factor",
+      "prompt": "Solve $x^2 - 7x = 0$.",
+      "hint": "Take out the common factor $x$ first.",
+      "options": [
+        {
+          "text": "$x = 7$",
+          "correct": false
+        },
+        {
+          "text": "$x = 0 \\text{ or } x = 7$",
+          "correct": true
+        },
+        {
+          "text": "$x = 0 \\text{ or } x = -7$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "list",
+        "truth": "solve(Eq(x**2 - 7*x, 0), x)"
+      },
+      "explain": "$x(x - 7) = 0$, so $x = 0$ or $x - 7 = 0$. Dividing both sides by $x$ loses the answer $x = 0$. Revise it in {{lesson:2.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-quadratic-shape",
+      "prompt": "What kind of [[turning-point|turning point]] does the curve $y = 3 + 2x - x^2$ have?",
+      "hint": "Look at the sign of the $x^2$ term.",
+      "options": [
+        {
+          "text": "A maximum",
+          "correct": true
+        },
+        {
+          "text": "A minimum",
+          "correct": false
+        },
+        {
+          "text": "It has no turning point",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "choice",
+        "truth": "A maximum"
+      },
+      "explain": "A negative $x^2$ term gives an upside-down U shape, so its turning point is at the top. Revise it in {{lesson:2.11}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "tangents",
+      "heading": "Gradient of a curve from a tangent",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A straight line has the same steepness everywhere. A curve does not: it can be steep in one place and almost flat in another. So the [[gradient|gradient]] of a curve depends on the point you choose."
+        },
+        {
+          "type": "definition",
+          "term": "gradient of a curve",
+          "statement": "The [[gradient-of-a-curve|gradient of a curve]] at a point is the gradient of the [[tangent|tangent]] at that point. The tangent is the straight line that just touches the curve there, going in the same direction as the curve.",
+          "plain": "How steep the curve is right at that point."
+        },
+        {
+          "type": "text",
+          "text": "To estimate it from a graph:"
+        },
+        {
+          "type": "text",
+          "text": "1. Place a ruler on the point. Turn it until it just touches the curve there, with the curve bending away equally on each side. Draw the line."
+        },
+        {
+          "type": "text",
+          "text": "2. Choose two points on your tangent that are far apart and easy to read."
+        },
+        {
+          "type": "text",
+          "text": "3. Divide the change in $y$ by the change in $x$ between them."
+        },
+        {
+          "type": "figure",
+          "id": "2-12-tangent-estimate",
+          "alt": "The curve y equals one half x squared plus 1, rising from left to right and getting steeper. A straight tangent touches the curve at the point P, 2 comma 3. The tangent passes through 1 comma 1 and 4 comma 7. A dashed right-angled triangle under the tangent shows a run of 3 across and a rise of 6 up.",
+          "caption": "The tangent at $P$ on $y = \\frac{1}{2}x^2 + 1$. Its rise and run give the gradient of the curve at $P$."
+        },
+        {
+          "type": "example",
+          "id": "ex-tangent-read",
+          "question": "The figure shows the curve $y = \\frac{1}{2}x^2 + 1$ and its tangent at $P(2, 3)$. The tangent passes through $(1, 1)$ and $(4, 7)$. Estimate the gradient of the curve at $P$.",
+          "steps": [
+            "Change in $y$ along the tangent: $7 - 1 = 6$.",
+            "Change in $x$: $4 - 1 = 3$.",
+            "Divide: $6 \\div 3 = 2$.",
+            "So at $P$ the curve climbs about $2$ units for every $1$ unit across."
+          ],
+          "answer": "$\\text{gradient} = 2$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(7 - 1)/(4 - 1)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A tangent that slopes down from left to right has a negative gradient. Subtract in the same order on the top and the bottom, and the sign takes care of itself."
+        },
+        {
+          "type": "example",
+          "id": "ex-tangent-negative",
+          "question": "A tangent is drawn to a curve at the point $Q$. It passes through $(1, 9)$ and $(7, 1.5)$. Estimate the gradient of the curve at $Q$.",
+          "steps": [
+            "Change in $y$, right point minus left point: $1.5 - 9 = -7.5$.",
+            "Change in $x$, in the same order: $7 - 1 = 6$.",
+            "Divide: $-7.5 \\div 6 = -1.25$.",
+            "Check: the tangent goes down from left to right, so a negative gradient makes sense."
+          ],
+          "answer": "$\\text{gradient} = -1.25$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(Rational(3, 2) - 9)/(7 - 1)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Choosing two points close together on the tangent. A small reading error then becomes a big error in the gradient, so use points far apart."
+        },
+        {
+          "type": "check",
+          "id": "check-tangent-gradient",
+          "prompt": "A tangent to a curve passes through $(2, 5)$ and $(6, 7)$. Estimate the gradient of the curve where the tangent touches it.",
+          "hint": "Work out the change in $y$, then divide by the change in $x$.",
+          "answer": {
+            "value": 0.5,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "(7 - 5)/(6 - 2)",
+            "dp": 1
+          },
+          "explain": "Change in $y$: $7 - 5 = 2$. Change in $x$: $6 - 2 = 4$. So the gradient is $2 \\div 4 = 0.5$."
+        },
+        {
+          "type": "check",
+          "id": "check-tangent-down",
+          "prompt": "A tangent to a curve passes through $(-2, 6)$ and $(4, -3)$. What is the gradient of the curve where the tangent touches it?",
+          "hint": "Be careful with $4 - (-2)$.",
+          "options": [
+            {
+              "text": "$1.5$",
+              "correct": false
+            },
+            {
+              "text": "$-1.5$",
+              "correct": true
+            },
+            {
+              "text": "$-\\frac{2}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$-4.5$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "(-3 - 6)/(4 - (-2))"
+          },
+          "explain": "Change in $y$: $-3 - 6 = -9$. Change in $x$: $4 - (-2) = 6$. So $-9 \\div 6 = -1.5$. $-\\frac{2}{3}$ divides the wrong way round, and $-4.5$ uses $2$ for the change in $x$."
+        }
+      ]
+    },
+    {
+      "id": "rule",
+      "heading": "Differentiating powers of x",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A drawn tangent only gives an estimate. [[differentiation|Differentiation]] gives the exact gradient at every point, straight from the curve's equation."
+        },
+        {
+          "type": "definition",
+          "term": "derivative",
+          "statement": "Differentiating $y$ gives the [[derivative|derivative]] $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$: a formula for the gradient of the curve at any value of $x$.",
+          "plain": "A gradient machine: put in an $x$-value and out comes the gradient there."
+        },
+        {
+          "type": "text",
+          "text": "Read $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ as \"d y by d x\". It is one symbol, not a fraction, so never cancel the d's."
+        },
+        {
+          "type": "result",
+          "statement": "If $y = ax^n$, then $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = nax^{n-1}$. Multiply by the power, then lower the power by $1$.",
+          "why": "For $y = x^2$, tangents give gradients $2$, $4$ and $6$ at $x = 1$, $2$ and $3$. That is $2x$ every time, just as the rule says."
+        },
+        {
+          "type": "text",
+          "text": "Two special cases come straight from the rule. A term $ax$ becomes $a$, because $x^1$ becomes $x^0 = 1$. A number on its own, such as $9$, is $9x^0$, so it becomes $0$."
+        },
+        {
+          "type": "text",
+          "text": "For a sum of terms, differentiate each term on its own and keep its sign."
+        },
+        {
+          "type": "example",
+          "id": "ex-differentiate-sum",
+          "question": "Find $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ when $y = 2x^5 - 3x^2 + 9$.",
+          "steps": [
+            "$2x^5$: multiply by the power $5$, then lower the power to $4$. This gives $10x^4$.",
+            "$-3x^2$: multiply by $2$, then lower the power to $1$. This gives $-6x$.",
+            "$9$ is a number on its own, so it becomes $0$.",
+            "Put the terms together: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 10x^4 - 6x$."
+          ],
+          "answer": "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 10x^4 - 6x$",
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(2*x**5 - 3*x**2 + 9, x)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-differentiate-fractions",
+          "question": "Differentiate $y = \\frac{3}{4}x^4 - \\frac{1}{3}x^3 + 5x$.",
+          "steps": [
+            "$\\frac{3}{4}x^4$: $4 \\times \\frac{3}{4} = 3$, and the power drops to $3$. This gives $3x^3$.",
+            "$-\\frac{1}{3}x^3$: $3 \\times \\frac{1}{3} = 1$, and the power drops to $2$. This gives $-x^2$.",
+            "$5x$ becomes $5$.",
+            "So $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 3x^3 - x^2 + 5$."
+          ],
+          "answer": "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 3x^3 - x^2 + 5$",
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(Rational(3, 4)*x**4 - Rational(1, 3)*x**3 + 5*x, x)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-differentiate",
+          "prompt": "Differentiate $y = 6x^4 - 5x + 2$.",
+          "hint": "Do each term on its own. What happens to the $+2$?",
+          "options": [
+            {
+              "text": "$24x^4 - 5x$",
+              "correct": false
+            },
+            {
+              "text": "$6x^3 - 5$",
+              "correct": false
+            },
+            {
+              "text": "$24x^3 - 5$",
+              "correct": true
+            },
+            {
+              "text": "$24x^3 - 3$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(6*x**4 - 5*x + 2, x)"
+          },
+          "explain": "$6x^4$ gives $24x^3$, $-5x$ gives $-5$ and $2$ gives $0$. $24x^4 - 5x$ forgets to lower the power, and $24x^3 - 3$ keeps the $2$."
+        },
+        {
+          "type": "check",
+          "id": "check-differentiate-fraction",
+          "prompt": "Differentiate $y = 8 - \\frac{1}{2}x^6 + 4x^3$.",
+          "hint": "Treat $-\\frac{1}{2}x^6$ as $-\\frac{1}{2}$ times $x^6$.",
+          "options": [
+            {
+              "text": "$-3x^5 + 12x^2$",
+              "correct": true
+            },
+            {
+              "text": "$8 - 3x^5 + 12x^2$",
+              "correct": false
+            },
+            {
+              "text": "$-3x^5 + 12x^3$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1}{2}x^5 + 4x^2$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(8 - Rational(1, 2)*x**6 + 4*x**3, x)"
+          },
+          "explain": "$-\\frac{1}{2}x^6$ gives $6 \\times (-\\frac{1}{2})x^5 = -3x^5$, $4x^3$ gives $12x^2$ and $8$ gives $0$."
+        }
+      ]
+    },
+    {
+      "id": "stationary",
+      "heading": "Gradients and stationary points",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To find the gradient at a point, differentiate, then substitute the point's $x$-value into $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$. Substituting into $y$ instead gives the height of the curve, not its gradient."
+        },
+        {
+          "type": "example",
+          "id": "ex-gradient-at-point",
+          "question": "Find the gradient of $y = 2x^3 - 5x^2$ where $x = 2$.",
+          "steps": [
+            "Differentiate: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 6x^2 - 10x$.",
+            "Substitute $x = 2$: $6(2)^2 - 10(2) = 24 - 20$.",
+            "So the gradient is $4$."
+          ],
+          "answer": "$\\text{gradient} = 4$",
+          "verify": {
+            "kind": "exact",
+            "truth": "diff(2*x**3 - 5*x**2, x).subs(x, 2)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "This matches the tangent in the first section. For $y = \\frac{1}{2}x^2 + 1$, $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = x$, so the gradient at $x = 2$ is exactly $2$."
+        },
+        {
+          "type": "text",
+          "text": "You can also work backwards: if you know the gradient, set $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ equal to it and solve for $x$."
+        },
+        {
+          "type": "definition",
+          "term": "stationary point",
+          "statement": "A [[stationary-point|stationary point]] is a point on a curve where the gradient is $0$, so $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 0$. The tangent there is horizontal.",
+          "plain": "A point where the curve is flat for a moment."
+        },
+        {
+          "type": "text",
+          "text": "The [[turning-point|turning points]] from {{lesson:2.11}}, the tops of hills and the bottoms of valleys, are stationary points. Every stationary point in this lesson is a turning point."
+        },
+        {
+          "type": "text",
+          "text": "A few curves have a stationary point that is neither a top nor a bottom, such as $y = x^3$ at $(0, 0)$. You won't be asked to identify those."
+        },
+        {
+          "type": "text",
+          "text": "1. Differentiate."
+        },
+        {
+          "type": "text",
+          "text": "2. Solve $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 0$ to find the $x$-values."
+        },
+        {
+          "type": "text",
+          "text": "3. Substitute each $x$-value into the original equation to find its $y$-coordinate."
+        },
+        {
+          "type": "example",
+          "id": "ex-stationary-quadratic",
+          "question": "Find the coordinates of the stationary point of $y = 4 + 10x - x^2$.",
+          "steps": [
+            "Differentiate: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 10 - 2x$.",
+            "Set it equal to $0$: $10 - 2x = 0$, so $x = 5$.",
+            "Substitute $x = 5$ into the original equation: $y = 4 + 10(5) - 5^2 = 4 + 50 - 25 = 29$."
+          ],
+          "answer": "$(5, 29)$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "solve([Eq(diff(4 + 10*x - x**2, x), 0), Eq(y, 4 + 10*x - x**2)], [x, y], dict=True)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-stationary-cubic",
+          "question": "Find the coordinates of the two stationary points of $y = x^3 - 12x + 1$.",
+          "steps": [
+            "Differentiate: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 3x^2 - 12$.",
+            "Set it equal to $0$: $3x^2 - 12 = 0$, so $x^2 = 4$.",
+            "Both square roots count: $x = 2$ or $x = -2$.",
+            "When $x = 2$: $y = 8 - 24 + 1 = -15$.",
+            "When $x = -2$: $y = -8 + 24 + 1 = 17$."
+          ],
+          "answer": "$(-2, 17) \\text{ and } (2, -15)$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "solve([Eq(diff(x**3 - 12*x + 1, x), 0), Eq(y, x**3 - 12*x + 1)], [x, y], dict=True)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-gradient-at-point",
+          "prompt": "Find the gradient of $y = 4x^2 - x^3$ where $x = -1$.",
+          "hint": "Differentiate first. Then put $x = -1$ into $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$, not into $y$.",
+          "answer": {
+            "value": -11,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "diff(4*x**2 - x**3, x).subs(x, -1)",
+            "dp": 0
+          },
+          "explain": "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 8x - 3x^2$. At $x = -1$: $8(-1) - 3(-1)^2 = -8 - 3 = -11$. Putting $x = -1$ into $y$ gives $5$, which is the height, not the gradient."
+        },
+        {
+          "type": "check",
+          "id": "check-given-gradient",
+          "prompt": "The curve $y = x^2 + 6x$ has gradient $-2$ at the point $P$. Find the coordinates of $P$.",
+          "hint": "Set $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ equal to $-2$ and solve. Then find $y$ from the curve.",
+          "options": [
+            {
+              "text": "$(-4, -2)$",
+              "correct": false
+            },
+            {
+              "text": "$(-4, -8)$",
+              "correct": true
+            },
+            {
+              "text": "$(-4, 40)$",
+              "correct": false
+            },
+            {
+              "text": "$(2, 16)$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "solutions",
+            "truth": "solve([Eq(diff(x**2 + 6*x, x), -2), Eq(y, x**2 + 6*x)], [x, y], dict=True)"
+          },
+          "explain": "$2x + 6 = -2$ gives $x = -4$. Then $y = (-4)^2 + 6(-4) = 16 - 24 = -8$. The $y$-coordinate comes from the curve, not from the gradient."
+        },
+        {
+          "type": "check",
+          "id": "check-stationary",
+          "prompt": "Find the coordinates of the stationary point of $y = 2x^2 - 20x + 7$.",
+          "hint": "Solve $4x - 20 = 0$, then substitute into the original equation.",
+          "options": [
+            {
+              "text": "$(5, 0)$",
+              "correct": false
+            },
+            {
+              "text": "$(5, -43)$",
+              "correct": true
+            },
+            {
+              "text": "$(-5, 157)$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "solutions",
+            "truth": "solve([Eq(diff(2*x**2 - 20*x + 7, x), 0), Eq(y, 2*x**2 - 20*x + 7)], [x, y], dict=True)"
+          },
+          "explain": "$4x - 20 = 0$ gives $x = 5$. Then $y = 2(25) - 20(5) + 7 = 50 - 100 + 7 = -43$. $(5, 0)$ substitutes into the derivative instead."
+        }
+      ]
+    },
+    {
+      "id": "max-min",
+      "heading": "Maximum or minimum?",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A stationary point is either a maximum, the top of a hill, or a minimum, the bottom of a valley. Any correct method earns the marks, as long as you show it. Here are three."
+        },
+        {
+          "type": "figure",
+          "id": "2-12-gradient-signs",
+          "alt": "A curve that rises to a maximum, falls to a minimum, then rises again. Short tangent lines show the gradient. Just left of the maximum the gradient is positive, at the maximum it is zero, and just right of it it is negative. Just left of the minimum the gradient is negative, at the minimum it is zero, and just right of it it is positive.",
+          "caption": "The sign of the gradient either side tells you which kind of point you have."
+        },
+        {
+          "type": "text",
+          "text": "**Method 1: the gradient either side.** Work out $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ at an $x$-value a little to the left and a little to the right. Pick values close enough that no other stationary point lies between them."
+        },
+        {
+          "type": "text",
+          "text": "Positive, then $0$, then negative means the curve goes up then down: a maximum. Negative, then $0$, then positive means a minimum."
+        },
+        {
+          "type": "example",
+          "id": "ex-either-side",
+          "question": "In the last section, $y = x^3 - 12x + 1$ had stationary points at $(-2, 17)$ and $(2, -15)$. Use the gradient either side to find the coordinates of the maximum point.",
+          "steps": [
+            "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 3x^2 - 12$.",
+            "Around $x = -2$: at $x = -3$ the gradient is $27 - 12 = 15$, which is positive. At $x = -1$ it is $3 - 12 = -9$, which is negative.",
+            "Positive, $0$, negative: so $(-2, 17)$ is a maximum.",
+            "Around $x = 2$: at $x = 1$ the gradient is $-9$ and at $x = 3$ it is $15$. Negative, $0$, positive: so $(2, -15)$ is a minimum."
+          ],
+          "answer": "$(-2, 17)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(solve(Eq(diff(x**3 - 12*x + 1, x), 0), x)[0], (x**3 - 12*x + 1).subs(x, solve(Eq(diff(x**3 - 12*x + 1, x), 0), x)[0]))"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "**Method 2: the second derivative.** Differentiate $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ again to get $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2}$, read \"d two y by d x squared\". It tells you whether the gradient is going up or down."
+        },
+        {
+          "type": "result",
+          "statement": "At a stationary point, if $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2} < 0$ the point is a maximum, and if $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2} > 0$ it is a minimum. If $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2} = 0$, this test can't decide, so use the gradient either side.",
+          "why": "At a maximum the gradient falls from positive, through $0$, to negative. A falling gradient means $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2} < 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-second-derivative",
+          "question": "Find the coordinates of the minimum point of $y = 2x^3 - 9x^2 + 1$. Use the second derivative to show it is a minimum.",
+          "steps": [
+            "Differentiate: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 6x^2 - 18x$.",
+            "Set it equal to $0$ and take out the common factor: $6x(x - 3) = 0$, so $x = 0$ or $x = 3$.",
+            "Find the $y$-coordinates: when $x = 0$, $y = 1$. When $x = 3$, $y = 54 - 81 + 1 = -26$.",
+            "Differentiate again: $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2} = 12x - 18$.",
+            "At $x = 0$: $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2} = -18 < 0$, so $(0, 1)$ is a maximum.",
+            "At $x = 3$: $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2} = 36 - 18 = 18 > 0$, so $(3, -26)$ is the minimum."
+          ],
+          "answer": "$(3, -26)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(solve(Eq(diff(2*x**3 - 9*x**2 + 1, x), 0), x)[1], (2*x**3 - 9*x**2 + 1).subs(x, solve(Eq(diff(2*x**3 - 9*x**2 + 1, x), 0), x)[1]))"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "**Method 3: a sketch.** Use the shapes from {{lesson:2.11}}. A quadratic with a positive $x^2$ term has a minimum, and one with a negative $x^2$ term has a maximum."
+        },
+        {
+          "type": "text",
+          "text": "A cubic with a positive $x^3$ term and two stationary points rises, falls, then rises again. So the stationary point on the left is the maximum and the one on the right is the minimum. Label both points on your sketch."
+        },
+        {
+          "type": "check",
+          "id": "check-sketch-cubic",
+          "prompt": "The curve $y = x^3 - 27x$ has two stationary points, where $x = -3$ and $x = 3$. Which one is the maximum?",
+          "hint": "Think about the shape of a cubic with a positive $x^3$ term.",
+          "options": [
+            {
+              "text": "The one on the left",
+              "correct": true
+            },
+            {
+              "text": "The one on the right",
+              "correct": false
+            },
+            {
+              "text": "Both are maxima",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "choice",
+            "truth": "The one on the left"
+          },
+          "explain": "The curve rises, falls, then rises, so the left stationary point is the top of the hill. You can confirm it: $\\frac{\\mathrm{d}^2y}{\\mathrm{d}x^2} = 6x = -18$ at $x = -3$."
+        },
+        {
+          "type": "check",
+          "id": "check-second-derivative-zero",
+          "prompt": "The curve $y = x^4$ has one stationary point, at $(0, 0)$, and there $\\frac{\\mathrm{d}^2y}{\\mathrm{d}x^2} = 0$. What kind of point is it?",
+          "hint": "The second derivative can't decide here. Find the gradient at $x = -1$ and at $x = 1$.",
+          "options": [
+            {
+              "text": "A maximum",
+              "correct": false
+            },
+            {
+              "text": "A minimum",
+              "correct": true
+            },
+            {
+              "text": "It can't be decided",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "choice",
+            "truth": "A minimum"
+          },
+          "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 4x^3$ is $-4$ at $x = -1$ and $4$ at $x = 1$. Negative, $0$, positive: a minimum."
+        },
+        {
+          "type": "examTip",
+          "text": "When a question says **determine** or **justify** whether a point is a maximum or a minimum, the reason earns the marks. Write the value and sign of the second derivative, the gradient on each side, or a labelled sketch."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The gradient of a curve at a point is the gradient of the tangent there. Estimate it from two far-apart points on a drawn tangent.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "y = ax^{n} \\;\\Rightarrow\\; \\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = nax^{n-1}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Differentiate a sum term by term. $ax$ becomes $a$, and a number on its own becomes $0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Gradient at a point: substitute its $x$-value into $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$, not into $y$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Stationary points: solve $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 0$, then substitute each $x$ into the original equation for $y$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2} < 0$: maximum. $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2} > 0$: minimum. If it is $0$, use the gradient either side: positive, $0$, negative is a maximum.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Setting $y = 0$ to find stationary points. That gives where the curve meets the $x$-axis. Stationary points come from $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 0$.",
+    "Stopping at the $x$-values. A stationary point needs both coordinates, so substitute each $x$ into the original equation, not into $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$, which just gives $0$.",
+    "Substituting into $y$ when asked for the gradient. That gives the height of the curve. Substitute into $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ instead.",
+    "Keeping a constant term. $y = 3x^2 + 8$ gives $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 6x$, because a number on its own has gradient $0$.",
+    "Stating \"maximum\" or \"minimum\" with no reason, or assuming the first point you found is the maximum. Show the second derivative, the gradient either side or a sketch."
+  ],
+  "examTips": [
+    "For **find the coordinates of the turning points**, write $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$, set it equal to $0$, solve, then substitute for $y$. Show every line: the method marks are for these steps.",
+    "Paper 2 has no calculator, so solve $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 0$ by factorising. Take out common factors, as in $6x^2 - 18x = 6x(x - 3)$. Never divide by $x$, or you lose the solution $x = 0$.",
+    "For **draw a tangent** and **estimate** the gradient, use a ruler and show the two points you read and your division. Any value in a sensible range around the true gradient is accepted."
+  ],
+  "readingMinutes": 24
+}

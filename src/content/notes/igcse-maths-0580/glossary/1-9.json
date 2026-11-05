@@ -2,25 +2,25 @@
   {
     "id": "rounding",
     "term": "rounding",
-    "definition": "TODO: Round to nearest unit, place value, decimal places or significant figures.",
+    "definition": "Replacing a number with a simpler value close to it, such as to the nearest $1000$, to a number of decimal places or to a number of significant figures.",
     "lesson": "1.9"
   },
   {
     "id": "decimal-place",
     "term": "decimal place",
-    "definition": "TODO: Digits after the decimal point; rounding to a given number.",
+    "definition": "A digit position after the decimal point, so $5.384$ has three decimal places.",
     "lesson": "1.9"
   },
   {
     "id": "significant-figure",
     "term": "significant figure",
-    "definition": "TODO: First non-zero digit onward; rounding to a given number.",
+    "definition": "A digit of a number counted from its first non-zero digit (zeros that only fill places at the end of a whole number don't count), so $0.0507$ has three significant figures: $5$, $0$ and $7$.",
     "lesson": "1.9"
   },
   {
     "id": "estimate",
     "term": "estimate",
-    "definition": "TODO: Approximate by rounding to 1 significant figure; also estimation.",
+    "definition": "A rough answer to a calculation, found by rounding each number (usually to $1$ significant figure) and working it out with the rounded values.",
     "lesson": "1.9"
   }
 ]

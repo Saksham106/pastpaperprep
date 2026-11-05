@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 175" role="img" aria-labelledby="t">
+  <title id="t">Two number lines from minus 3 to 5. Top: x is greater than minus 1, shown by an open circle at minus 1 with an arrow to the right. Bottom: x is less than or equal to 2, shown by a filled circle at 2 with an arrow to the left.</title>
+  <g stroke="currentColor" stroke-width="1.4" fill="none">
+    <line x1="96" y1="60" x2="396" y2="60"/>
+    <polyline points="102,55 96,60 102,65"/>
+    <polyline points="390,55 396,60 390,65"/>
+    <line x1="110" y1="54" x2="110" y2="66"/>
+    <line x1="144" y1="54" x2="144" y2="66"/>
+    <line x1="178" y1="54" x2="178" y2="66"/>
+    <line x1="212" y1="54" x2="212" y2="66"/>
+    <line x1="246" y1="54" x2="246" y2="66"/>
+    <line x1="280" y1="54" x2="280" y2="66"/>
+    <line x1="314" y1="54" x2="314" y2="66"/>
+    <line x1="348" y1="54" x2="348" y2="66"/>
+    <line x1="382" y1="54" x2="382" y2="66"/>
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="110" y="84">−3</text>
+    <text x="144" y="84">−2</text>
+    <text x="178" y="84">−1</text>
+    <text x="212" y="84">0</text>
+    <text x="246" y="84">1</text>
+    <text x="280" y="84">2</text>
+    <text x="314" y="84">3</text>
+    <text x="348" y="84">4</text>
+    <text x="382" y="84">5</text>
+  </g>
+  <line x1="178" y1="44" x2="392" y2="44" stroke="var(--t1-ink)" stroke-width="3"/>
+  <polyline points="384,38 392,44 384,50" fill="none" stroke="var(--t1-ink)" stroke-width="3"/>
+  <circle cx="178" cy="44" r="6.5" fill="var(--surface, white)" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <text x="404" y="65" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">x</text>
+  <text x="80" y="49" fill="var(--t1-ink)" font-size="14" font-family="inherit" text-anchor="end">x &gt; −1</text>
+  <g stroke="currentColor" stroke-width="1.4" fill="none">
+    <line x1="96" y1="140" x2="396" y2="140"/>
+    <polyline points="102,135 96,140 102,145"/>
+    <polyline points="390,135 396,140 390,145"/>
+    <line x1="110" y1="134" x2="110" y2="146"/>
+    <line x1="144" y1="134" x2="144" y2="146"/>
+    <line x1="178" y1="134" x2="178" y2="146"/>
+    <line x1="212" y1="134" x2="212" y2="146"/>
+    <line x1="246" y1="134" x2="246" y2="146"/>
+    <line x1="280" y1="134" x2="280" y2="146"/>
+    <line x1="314" y1="134" x2="314" y2="146"/>
+    <line x1="348" y1="134" x2="348" y2="146"/>
+    <line x1="382" y1="134" x2="382" y2="146"/>
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="110" y="164">−3</text>
+    <text x="144" y="164">−2</text>
+    <text x="178" y="164">−1</text>
+    <text x="212" y="164">0</text>
+    <text x="246" y="164">1</text>
+    <text x="280" y="164">2</text>
+    <text x="314" y="164">3</text>
+    <text x="348" y="164">4</text>
+    <text x="382" y="164">5</text>
+  </g>
+  <line x1="280" y1="124" x2="100" y2="124" stroke="var(--t1-ink)" stroke-width="3"/>
+  <polyline points="108,118 100,124 108,130" fill="none" stroke="var(--t1-ink)" stroke-width="3"/>
+  <circle cx="280" cy="124" r="6.5" fill="var(--t1-ink)" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <text x="404" y="145" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">x</text>
+  <text x="80" y="129" fill="var(--t1-ink)" font-size="14" font-family="inherit" text-anchor="end">x ≤ 2</text>
+</svg>

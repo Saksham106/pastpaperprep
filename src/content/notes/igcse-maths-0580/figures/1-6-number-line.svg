@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 130" role="img" aria-labelledby="t">
+  <title id="t">Number line from minus 20 to 10. A jump of 18 goes from minus 18 up to 0, then a jump of 5 goes from 0 up to 5</title>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="14" y1="80" x2="626" y2="80" />
+    <polyline points="618,75 626,80 618,85" />
+    <polyline points="22,75 14,80 22,85" />
+  </g>
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="20" y1="76" x2="20" y2="84" /><line x1="40" y1="77" x2="40" y2="83" /><line x1="60" y1="77" x2="60" y2="83" />
+    <line x1="80" y1="77" x2="80" y2="83" /><line x1="100" y1="77" x2="100" y2="83" /><line x1="120" y1="76" x2="120" y2="84" />
+    <line x1="140" y1="77" x2="140" y2="83" /><line x1="160" y1="77" x2="160" y2="83" /><line x1="180" y1="77" x2="180" y2="83" />
+    <line x1="200" y1="77" x2="200" y2="83" /><line x1="220" y1="76" x2="220" y2="84" /><line x1="240" y1="77" x2="240" y2="83" />
+    <line x1="260" y1="77" x2="260" y2="83" /><line x1="280" y1="77" x2="280" y2="83" /><line x1="300" y1="77" x2="300" y2="83" />
+    <line x1="320" y1="76" x2="320" y2="84" /><line x1="340" y1="77" x2="340" y2="83" /><line x1="360" y1="77" x2="360" y2="83" />
+    <line x1="380" y1="77" x2="380" y2="83" /><line x1="400" y1="77" x2="400" y2="83" /><line x1="420" y1="74" x2="420" y2="86" />
+    <line x1="440" y1="77" x2="440" y2="83" /><line x1="460" y1="77" x2="460" y2="83" /><line x1="480" y1="77" x2="480" y2="83" />
+    <line x1="500" y1="77" x2="500" y2="83" /><line x1="520" y1="76" x2="520" y2="84" /><line x1="540" y1="77" x2="540" y2="83" />
+    <line x1="560" y1="77" x2="560" y2="83" /><line x1="580" y1="77" x2="580" y2="83" /><line x1="600" y1="77" x2="600" y2="83" />
+    <line x1="620" y1="76" x2="620" y2="84" />
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="20" y="100">−20</text>
+    <text x="120" y="100">−15</text>
+    <text x="220" y="100">−10</text>
+    <text x="320" y="100">−5</text>
+    <text x="420" y="100">0</text>
+    <text x="520" y="100">5</text>
+    <text x="620" y="100">10</text>
+  </g>
+  <g fill="var(--t2-ink)" stroke="none">
+    <circle cx="60" cy="80" r="4.5" />
+    <circle cx="520" cy="80" r="4.5" />
+  </g>
+  <text x="60" y="118" fill="var(--t2-ink)" font-size="12" font-family="inherit" text-anchor="middle">−18</text>
+  <g stroke="var(--t4-ink)" stroke-width="1.6" fill="none">
+    <path d="M60,72 Q240,10 416,72" />
+    <polyline points="408,66 417,73 406,74" />
+    <path d="M424,72 Q470,40 516,72" />
+    <polyline points="508,66 517,73 506,74" />
+  </g>
+  <g fill="var(--t4-ink)" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="240" y="30">+18</text>
+    <text x="470" y="44">+5</text>
+  </g>
+</svg>

@@ -2,43 +2,43 @@
   {
     "id": "fraction",
     "term": "fraction",
-    "definition": "TODO: Part of a whole; numerator and denominator.",
+    "definition": "A part of a whole, written $\\frac{a}{b}$: the denominator $b$ (never $0$) is how many equal parts the whole is split into, and the numerator $a$ is how many of them you take.",
     "lesson": "1.4"
   },
   {
     "id": "proper-fraction",
     "term": "proper fraction",
-    "definition": "TODO: Numerator smaller than denominator.",
+    "definition": "A fraction whose numerator is smaller than its denominator, such as $\\frac{3}{5}$, so it is worth less than $1$.",
     "lesson": "1.4"
   },
   {
     "id": "improper-fraction",
     "term": "improper fraction",
-    "definition": "TODO: Numerator at least denominator; convert to and from mixed numbers.",
+    "definition": "A fraction whose numerator is equal to or bigger than its denominator, such as $\\frac{7}{4}$, so it is worth $1$ or more and can be written as a whole or mixed number.",
     "lesson": "1.4"
   },
   {
     "id": "mixed-number",
     "term": "mixed number",
-    "definition": "TODO: Whole number plus a proper fraction.",
+    "definition": "A whole number and a proper fraction written together, such as $2\\frac{1}{3}$, which means $2 + \\frac{1}{3}$.",
     "lesson": "1.4"
   },
   {
     "id": "percentage",
     "term": "percentage",
-    "definition": "TODO: Parts per hundred; convert between fractions, decimals and percentages.",
+    "definition": "An amount out of $100$, written with the % sign, so $35\\%$ means $\\frac{35}{100}$ or $0.35$.",
     "lesson": "1.4"
   },
   {
     "id": "equivalent-fraction",
     "term": "equivalent fraction",
-    "definition": "TODO: Same value, different numerator and denominator; simplifying fractions to simplest form.",
+    "definition": "A fraction with the same value as another but different numbers, such as $\\frac{8}{12}$ and $\\frac{2}{3}$, made by multiplying or dividing the numerator and denominator by the same non-zero number.",
     "lesson": "1.4"
   },
   {
     "id": "recurring-decimal",
     "term": "recurring decimal",
-    "definition": "TODO: Repeating digits with dot or bar notation; conversion to fraction; Core students do not use it.",
+    "definition": "A decimal in which one digit or a block of digits repeats forever, such as $0.4\\dot{1} = 0.4111\\ldots$; dots over the first and last digits of the block (or a bar over the whole block) show what repeats.",
     "lesson": "1.4"
   }
 ]

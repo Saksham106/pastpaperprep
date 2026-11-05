@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 210" role="img" aria-labelledby="t">
+  <title id="t">Bus timetable with four stops and three buses. Harbour: 06 50, 07 35, 08 20. Market Square: 07 08, 07 53, 08 38. Hospital: 07 26, 08 11, 08 56. Airport: 08 04, 08 49, 09 34.</title>
+  <g stroke="currentColor" stroke-width="1" fill="none">
+    <rect x="5" y="5" width="450" height="200"/>
+    <line x1="5" y1="45" x2="455" y2="45"/>
+    <line x1="5" y1="85" x2="455" y2="85"/>
+    <line x1="5" y1="125" x2="455" y2="125"/>
+    <line x1="5" y1="165" x2="455" y2="165"/>
+    <line x1="175" y1="5" x2="175" y2="205"/>
+  </g>
+  <g font-family="inherit" font-size="17" fill="currentColor" dominant-baseline="central">
+    <text x="18" y="25" font-weight="bold">Stop</text>
+    <text x="230" y="25" font-weight="bold" text-anchor="middle" fill="var(--t1-ink)">Bus A</text>
+    <text x="325" y="25" font-weight="bold" text-anchor="middle" fill="var(--t1-ink)">Bus B</text>
+    <text x="420" y="25" font-weight="bold" text-anchor="middle" fill="var(--t1-ink)">Bus C</text>
+    <text x="18" y="65">Harbour</text>
+    <text x="230" y="65" text-anchor="middle">06 50</text>
+    <text x="325" y="65" text-anchor="middle">07 35</text>
+    <text x="420" y="65" text-anchor="middle">08 20</text>
+    <text x="18" y="105">Market Square</text>
+    <text x="230" y="105" text-anchor="middle">07 08</text>
+    <text x="325" y="105" text-anchor="middle">07 53</text>
+    <text x="420" y="105" text-anchor="middle">08 38</text>
+    <text x="18" y="145">Hospital</text>
+    <text x="230" y="145" text-anchor="middle">07 26</text>
+    <text x="325" y="145" text-anchor="middle">08 11</text>
+    <text x="420" y="145" text-anchor="middle">08 56</text>
+    <text x="18" y="185">Airport</text>
+    <text x="230" y="185" text-anchor="middle">08 04</text>
+    <text x="325" y="185" text-anchor="middle">08 49</text>
+    <text x="420" y="185" text-anchor="middle">09 34</text>
+  </g>
+</svg>

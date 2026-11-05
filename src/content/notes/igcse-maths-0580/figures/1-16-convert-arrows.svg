@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" role="img" aria-labelledby="t">
+  <title id="t">Two boxes, dollars on the left and euros on the right. An arrow from dollars to euros is labelled times 0.92. An arrow back from euros to dollars is labelled divide by 0.92.</title>
+  <g fill="var(--t2-ink)" fill-opacity="0.15" stroke="var(--t2-ink)" stroke-width="1.4">
+    <rect x="20" y="50" width="100" height="44" rx="6" />
+  </g>
+  <g fill="var(--t4-ink)" fill-opacity="0.15" stroke="var(--t4-ink)" stroke-width="1.4">
+    <rect x="240" y="50" width="100" height="44" rx="6" />
+  </g>
+  <g font-size="14" font-family="inherit" text-anchor="middle">
+    <text x="70" y="77" fill="var(--t2-ink)">Dollars ($)</text>
+    <text x="290" y="77" fill="var(--t4-ink)">Euros</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.4" fill="none">
+    <path d="M 120,58 Q 180,20 240,58" />
+    <polyline points="230,49 240,58 227,61" />
+    <path d="M 240,86 Q 180,124 120,86" />
+    <polyline points="130,95 120,86 133,83" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="180" y="28">× 0.92</text>
+    <text x="180" y="128">÷ 0.92</text>
+  </g>
+  <text x="180" y="146" fill="var(--muted)" font-size="11" font-family="inherit" text-anchor="middle">rate: $1 = 0.92 euros</text>
+</svg>

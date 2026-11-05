@@ -1,0 +1,834 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "2.4",
+  "slug": "indices-ii",
+  "title": "Indices II",
+  "level": "Core",
+  "topic": 2,
+  "summary": "The [[index|index]] rules you used on numbers work on letters too. You'll simplify algebraic terms with the [[rules-of-indices|rules of indices]], use zero and [[negative-index|negative indices]], and find an unknown index. Extended adds [[fractional-index|fractional indices]] and equations with the unknown in the index.",
+  "goals": [
+    {
+      "text": "Multiply and divide algebraic terms using the rules of indices.",
+      "bullets": [
+        "2.4-c2"
+      ]
+    },
+    {
+      "text": "Raise a term in a bracket to a power, including its number part.",
+      "bullets": [
+        "2.4-c2"
+      ]
+    },
+    {
+      "text": "Use zero and negative indices with letters, and find an unknown index.",
+      "bullets": [
+        "2.4-c1"
+      ]
+    },
+    {
+      "text": "Simplify terms with fractional indices, and fractions raised to a power.",
+      "bullets": [
+        "2.4-s1",
+        "2.4-n2"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Solve equations with the unknown in the index.",
+      "bullets": [
+        "2.4-s1",
+        "2.4-n1"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.7"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "simplifying indices",
+    "laws of indices with letters",
+    "negative powers of x",
+    "fractional powers in algebra",
+    "unknown index",
+    "exponential equations"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-multiply-powers",
+      "prompt": "Write $6^{4} \\times 6^{3}$ as a single power of $6$.",
+      "hint": "The base is the same, so use the multiplying rule.",
+      "options": [
+        {
+          "text": "$6^{7}$",
+          "correct": true
+        },
+        {
+          "text": "$6^{12}$",
+          "correct": false
+        },
+        {
+          "text": "$36^{7}$",
+          "correct": false
+        }
+      ],
+      "explain": "Same base, so add the indices: $4 + 3 = 7$. The base stays $6$. Revise it in {{lesson:1.7}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "6**4 * 6**3"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-negative-value",
+      "prompt": "Find the value of $2^{-3}$.",
+      "hint": "A negative index means one over the positive power.",
+      "options": [
+        {
+          "text": "$-8$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{1}{8}$",
+          "correct": true
+        },
+        {
+          "text": "$-6$",
+          "correct": false
+        }
+      ],
+      "explain": "$2^{-3} = \\frac{1}{2^{3}} = \\frac{1}{8}$. It is a reciprocal, not a negative number. Revise it in {{lesson:1.7}}.",
+      "verify": {
+        "kind": "fraction",
+        "truth": "2**-3"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "multiply-divide",
+      "heading": "Multiplying and dividing terms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.7}} you used the [[rules-of-indices|rules of indices]] on numbers. A letter stands for a number, so the rules work on letters too: $x^{3} \\times x^{2} = (x \\times x \\times x) \\times (x \\times x) = x^{5}$."
+        },
+        {
+          "type": "text",
+          "text": "A term such as $4x^{3}$ has a number part, the [[coefficient|coefficient]] $4$, and a letter part, $x^{3}$. Deal with the two parts separately."
+        },
+        {
+          "type": "result",
+          "statement": "To multiply terms, multiply the coefficients and add the indices of each letter. To divide terms, divide the coefficients and subtract the indices of each letter.",
+          "why": "Everything is multiplied together, so you can reorder it: $4x^{3} \\times 2x^{2} = (4 \\times 2) \\times (x^{3} \\times x^{2}) = 8x^{5}$."
+        },
+        {
+          "type": "text",
+          "text": "A letter with no index has index $1$: $b = b^{1}$. Different letters, like $a$ and $b$, stay separate."
+        },
+        {
+          "type": "example",
+          "id": "ex-multiply-two-letters",
+          "question": "Simplify $2a^{4}b \\times 7a^{3}b^{5}$.",
+          "steps": [
+            "Multiply the coefficients: $2 \\times 7 = 14$.",
+            "Add the indices of $a$: $a^{4} \\times a^{3} = a^{4+3} = a^{7}$.",
+            "Add the indices of $b$. Remember $b = b^{1}$: $b^{1} \\times b^{5} = b^{1+5} = b^{6}$."
+          ],
+          "answer": "$2a^{4}b \\times 7a^{3}b^{5} = 14a^{7}b^{6}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "2*a**4*b * 7*a**3*b**5",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying the indices when you multiply terms. $a^{4} \\times a^{3}$ is $a^{7}$, not $a^{12}$. Multiply indices only for a power of a power."
+        },
+        {
+          "type": "example",
+          "id": "ex-divide-terms",
+          "question": "Simplify $\\frac{28m^{9}n^{4}}{7m^{2}n}$.",
+          "steps": [
+            "Divide the coefficients: $28 \\div 7 = 4$.",
+            "Subtract the indices of $m$, top minus bottom: $m^{9} \\div m^{2} = m^{9-2} = m^{7}$.",
+            "The $n$ on the bottom is $n^{1}$: $n^{4} \\div n^{1} = n^{4-1} = n^{3}$.",
+            "Check by cancelling: two $m$s and one $n$ cancel from the top."
+          ],
+          "answer": "$\\frac{28m^{9}n^{4}}{7m^{2}n} = 4m^{7}n^{3}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "28*m**9*n**4 / (7*m**2*n)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the indices when you divide terms. $m^{9} \\div m^{3}$ is $m^{6}$, not $m^{3}$. Subtract them."
+        },
+        {
+          "type": "check",
+          "id": "check-multiply-terms",
+          "prompt": "Simplify $6k^{5} \\times 4k^{2}$.",
+          "hint": "Multiply the numbers. What do you do with the indices when you multiply?",
+          "options": [
+            {
+              "text": "$24k^{10}$",
+              "correct": false
+            },
+            {
+              "text": "$24k^{7}$",
+              "correct": true
+            },
+            {
+              "text": "$10k^{7}$",
+              "correct": false
+            }
+          ],
+          "explain": "$6 \\times 4 = 24$ and $5 + 2 = 7$. Multiply the coefficients, but add the indices.",
+          "verify": {
+            "kind": "expression",
+            "truth": "6*k**5 * 4*k**2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-divide-terms",
+          "prompt": "Simplify $36h^{10} \\div 4h^{5}$.",
+          "hint": "Divide the numbers, then subtract the indices.",
+          "options": [
+            {
+              "text": "$9h^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$32h^{5}$",
+              "correct": false
+            },
+            {
+              "text": "$9h^{5}$",
+              "correct": true
+            },
+            {
+              "text": "$9h^{15}$",
+              "correct": false
+            }
+          ],
+          "explain": "$36 \\div 4 = 9$ and $10 - 5 = 5$. Divide the coefficients, but subtract the indices.",
+          "verify": {
+            "kind": "expression",
+            "truth": "36*h**10 / (4*h**5)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "brackets",
+      "heading": "Powers of brackets",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A bracket to a power means the bracket multiplied by itself: $(2x^{3})^{2} = 2x^{3} \\times 2x^{3} = 4x^{6}$. The number is squared as well as the letter part."
+        },
+        {
+          "type": "result",
+          "statement": "For a positive whole number $n$, $(ab)^{n} = a^{n}b^{n}$. So raise the coefficient to the power, and multiply each letter's index by $n$.",
+          "why": "$(ab)^{n}$ is $n$ copies of $ab$. Reorder them into $n$ copies of $a$ and $n$ copies of $b$."
+        },
+        {
+          "type": "example",
+          "id": "ex-bracket-cube",
+          "question": "Simplify $(2p^{4})^{3}$.",
+          "steps": [
+            "Cube the coefficient: $2^{3} = 2 \\times 2 \\times 2 = 8$.",
+            "Power of a power, so multiply the indices: $(p^{4})^{3} = p^{4 \\times 3} = p^{12}$."
+          ],
+          "answer": "$(2p^{4})^{3} = 8p^{12}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "(2*p**4)**3",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting the coefficient. $(2p^{4})^{3}$ is $8p^{12}$, not $2p^{12}$ or $6p^{12}$: the $2$ is cubed too."
+        },
+        {
+          "type": "example",
+          "id": "ex-bracket-divide",
+          "question": "Simplify $(4c^{3}d)^{2} \\div 8c^{5}$.",
+          "steps": [
+            "Square the bracket first: $4^{2} = 16$, $(c^{3})^{2} = c^{6}$ and $d^{2}$. So $(4c^{3}d)^{2} = 16c^{6}d^{2}$.",
+            "Divide the coefficients: $16 \\div 8 = 2$.",
+            "Subtract the indices of $c$: $c^{6} \\div c^{5} = c^{1} = c$.",
+            "There is no $d$ on the bottom, so $d^{2}$ stays."
+          ],
+          "answer": "$(4c^{3}d)^{2} \\div 8c^{5} = 2cd^{2}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "(4*c**3*d)**2 / (8*c**5)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-bracket-square",
+          "prompt": "Simplify $(3n^{5})^{2}$.",
+          "hint": "Square the $3$, then deal with the power of a power.",
+          "options": [
+            {
+              "text": "$3n^{10}$",
+              "correct": false
+            },
+            {
+              "text": "$9n^{7}$",
+              "correct": false
+            },
+            {
+              "text": "$6n^{10}$",
+              "correct": false
+            },
+            {
+              "text": "$9n^{10}$",
+              "correct": true
+            }
+          ],
+          "explain": "$3^{2} = 9$ and $5 \\times 2 = 10$. Square the $3$ as well, and multiply the indices.",
+          "verify": {
+            "kind": "expression",
+            "truth": "(3*n**5)**2"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A fraction in a bracket works the same way: raise the top and the bottom. For $b \\ne 0$, $\\left(\\frac{a}{b}\\right)^{n} = \\frac{a^{n}}{b^{n}}$.",
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-bracket-fraction",
+          "prompt": "Simplify $\\left(\\frac{x^{4}}{2}\\right)^{3}$.",
+          "hint": "Cube the top and cube the bottom.",
+          "options": [
+            {
+              "text": "$\\frac{x^{12}}{8}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{x^{12}}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{x^{7}}{8}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{x^{12}}{6}$",
+              "correct": false
+            }
+          ],
+          "explain": "Top: $(x^{4})^{3} = x^{12}$. Bottom: $2^{3} = 8$, not $2$ or $2 \\times 3$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "(x**4/2)**3"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "zero-negative",
+      "heading": "Zero and negative indices",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "From {{lesson:1.7}}: a non-zero number to the power $0$ is $1$, and a [[negative-index|negative index]] means a [[reciprocal|reciprocal]]. Letters follow the same rules."
+        },
+        {
+          "type": "result",
+          "statement": "For $x \\ne 0$: $x^{0} = 1$ and $x^{-n} = \\frac{1}{x^{n}}$.",
+          "why": "$x^{0} = x^{n} \\div x^{n} = 1$, and $x^{-n} = x^{0} \\div x^{n} = \\frac{1}{x^{n}}$."
+        },
+        {
+          "type": "text",
+          "text": "So when the bottom index is bigger, the answer has a negative index. Both forms are correct: $x^{-3}$ and $\\frac{1}{x^{3}}$ are the same."
+        },
+        {
+          "type": "example",
+          "id": "ex-negative-divide",
+          "question": "Simplify $\\frac{15x^{2}}{5x^{6}}$.",
+          "steps": [
+            "Divide the coefficients: $15 \\div 5 = 3$.",
+            "Subtract the indices, top minus bottom: $x^{2} \\div x^{6} = x^{2-6} = x^{-4}$.",
+            "Check by cancelling: two $x$s cancel, leaving four on the bottom. So it is also $\\frac{3}{x^{4}}$."
+          ],
+          "answer": "$\\frac{15x^{2}}{5x^{6}} = 3x^{-4}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "15*x**2 / (5*x**6)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Subtracting the wrong way round. $x^{2} \\div x^{6}$ is $x^{-4}$, not $x^{4}$. Always take the bottom index from the top index."
+        },
+        {
+          "type": "example",
+          "id": "ex-negative-multiply",
+          "question": "Simplify $4y^{-3} \\times 5y^{7}$.",
+          "steps": [
+            "Multiply the coefficients: $4 \\times 5 = 20$.",
+            "Add the indices, taking care with the sign: $-3 + 7 = 4$. So $y^{-3} \\times y^{7} = y^{4}$."
+          ],
+          "answer": "$4y^{-3} \\times 5y^{7} = 20y^{4}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "4*y**-3 * 5*y**7",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-zero-index",
+          "prompt": "Simplify $\\frac{8t^{3}}{2t^{3}}$.",
+          "hint": "Subtract the indices. What is $t^{0}$?",
+          "options": [
+            {
+              "text": "$4t$",
+              "correct": false
+            },
+            {
+              "text": "$0$",
+              "correct": false
+            },
+            {
+              "text": "$4$",
+              "correct": true
+            },
+            {
+              "text": "$6$",
+              "correct": false
+            }
+          ],
+          "explain": "$8 \\div 2 = 4$ and $t^{3-3} = t^{0} = 1$. So the answer is $4 \\times 1 = 4$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "8*t**3 / (2*t**3)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "To write $\\frac{a}{x^{n}}$ with an index, only the $x^{n}$ changes: $\\frac{2}{w^{3}} = 2w^{-3}$. The coefficient stays where it is."
+        },
+        {
+          "type": "check",
+          "id": "check-write-negative",
+          "prompt": "Write $\\frac{4}{p^{3}}$ in the form $kp^{n}$.",
+          "hint": "Only $p^{3}$ is on the bottom.",
+          "options": [
+            {
+              "text": "$4p^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{4}p^{-3}$",
+              "correct": false
+            },
+            {
+              "text": "$4p^{-3}$",
+              "correct": true
+            },
+            {
+              "text": "$-4p^{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{1}{p^{3}} = p^{-3}$, so $\\frac{4}{p^{3}} = 4p^{-3}$. The $4$ was on top, so it stays on top.",
+          "verify": {
+            "kind": "expression",
+            "truth": "4/p**3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "unknown-index",
+      "heading": "Finding an unknown index",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes the index is the unknown, as in $2^{x} = 16$. Write both sides as powers of the same base. Then the indices must be equal."
+        },
+        {
+          "type": "text",
+          "text": "Here $16 = 2^{4}$, so $2^{x} = 2^{4}$ and $x = 4$. This works for any positive base except $1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-unknown-81",
+          "question": "Find the value of $x$ when $3^{x} = 81$.",
+          "steps": [
+            "Write $81$ as a power of $3$: $3 \\times 3 = 9$, $9 \\times 3 = 27$, $27 \\times 3 = 81$. So $81 = 3^{4}$.",
+            "Now $3^{x} = 3^{4}$. The bases match, so the indices match."
+          ],
+          "answer": "$x = 4$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(Eq(3**x, 81), x)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-unknown-fraction",
+          "question": "Find the value of $n$ when $5^{n} = \\frac{1}{25}$.",
+          "steps": [
+            "Write $25$ as a power of $5$: $25 = 5^{2}$.",
+            "One over a power is a negative power: $\\frac{1}{5^{2}} = 5^{-2}$.",
+            "So $5^{n} = 5^{-2}$, and the indices match."
+          ],
+          "answer": "$n = -2$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(Eq(5**n, Rational(1, 25)), n)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving $n = 2$ for $5^{n} = \\frac{1}{25}$. The value is less than $1$, so the index must be negative."
+        },
+        {
+          "type": "check",
+          "id": "check-unknown-divide",
+          "prompt": "$x^{12} \\div x^{w} = x^{5}$. Find the value of $w$.",
+          "hint": "Dividing subtracts the indices, so $12 - w = 5$.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "$x^{12} \\div x^{w} = x^{12 - w}$. So $12 - w = 5$, and $w = 7$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "solve(Eq(12 - w, 5), w)[0]",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-unknown-negative",
+          "prompt": "$4^{k} = \\frac{1}{64}$. Find the value of $k$.",
+          "hint": "Write $64$ as a power of $4$ first.",
+          "answer": {
+            "value": -3,
+            "tolerance": 0
+          },
+          "explain": "$64 = 4 \\times 4 \\times 4 = 4^{3}$, so $\\frac{1}{64} = 4^{-3}$ and $k = -3$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "solve(Eq(4**k, Rational(1, 64)), k)[0]",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "fractional",
+      "heading": "Fractional indices with letters",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.7}}, a [[fractional-index|fractional index]] meant a root: $a^{\\frac{1}{2}} = \\sqrt{a}$ and $a^{\\frac{m}{n}} = \\left(\\sqrt[n]{a}\\right)^{m}$. The same is true for letters."
+        },
+        {
+          "type": "text",
+          "text": "In this section, letters stand for positive numbers, so every root makes sense. The rules of indices then work with fractions: add, subtract or multiply them as usual."
+        },
+        {
+          "type": "example",
+          "id": "ex-frac-multiply",
+          "question": "Simplify $6x^{-2} \\times \\frac{1}{3}x^{\\frac{3}{2}}$.",
+          "steps": [
+            "Multiply the coefficients: $6 \\times \\frac{1}{3} = 2$.",
+            "Add the indices over a common denominator: $-2 + \\frac{3}{2} = -\\frac{4}{2} + \\frac{3}{2} = -\\frac{1}{2}$.",
+            "You could also write the answer as $\\frac{2}{\\sqrt{x}}$."
+          ],
+          "answer": "$6x^{-2} \\times \\frac{1}{3}x^{\\frac{3}{2}} = 2x^{-\\frac{1}{2}}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "6*x**-2 * Rational(1, 3)*x**Rational(3, 2)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-frac-divide",
+          "question": "Simplify $\\frac{3}{4}x^{\\frac{1}{3}} \\div 6x^{-1}$.",
+          "steps": [
+            "Divide the coefficients: $\\frac{3}{4} \\div 6 = \\frac{3}{4} \\times \\frac{1}{6} = \\frac{3}{24} = \\frac{1}{8}$.",
+            "Subtract the indices: $\\frac{1}{3} - (-1) = \\frac{1}{3} + 1 = \\frac{4}{3}$."
+          ],
+          "answer": "$\\frac{3}{4}x^{\\frac{1}{3}} \\div 6x^{-1} = \\frac{1}{8}x^{\\frac{4}{3}}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "Rational(3, 4)*x**Rational(1, 3) / (6*x**-1)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Losing the sign when you subtract a negative index. $\\frac{1}{3} - (-1)$ is $\\frac{4}{3}$, not $-\\frac{2}{3}$."
+        },
+        {
+          "type": "check",
+          "id": "check-frac-multiply",
+          "prompt": "Simplify $9x^{\\frac{1}{2}} \\times 2x^{-\\frac{3}{2}}$.",
+          "hint": "Add the indices: $\\frac{1}{2} + \\left(-\\frac{3}{2}\\right)$.",
+          "options": [
+            {
+              "text": "$18x^{-\\frac{3}{4}}$",
+              "correct": false
+            },
+            {
+              "text": "$11x^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$18x^{-1}$",
+              "correct": true
+            },
+            {
+              "text": "$18x^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$9 \\times 2 = 18$ and $\\frac{1}{2} - \\frac{3}{2} = -1$. You could also write $\\frac{18}{x}$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "9*x**Rational(1, 2) * 2*x**Rational(-3, 2)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "For a bracket, raise the coefficient and multiply each index, as before. Take the root of the coefficient first, so the numbers stay small."
+        },
+        {
+          "type": "example",
+          "id": "ex-frac-bracket",
+          "question": "Simplify $(16y^{8})^{\\frac{3}{4}}$.",
+          "steps": [
+            "Coefficient: the bottom of $\\frac{3}{4}$ means fourth root. $\\sqrt[4]{16} = 2$, because $2^{4} = 16$.",
+            "The top, $3$, means cube it: $2^{3} = 8$.",
+            "Letter: multiply the indices. $8 \\times \\frac{3}{4} = 6$, so $(y^{8})^{\\frac{3}{4}} = y^{6}$."
+          ],
+          "answer": "$(16y^{8})^{\\frac{3}{4}} = 8y^{6}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "powdenest((16*y**8)**Rational(3, 4), force=True)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-frac-negative-bracket",
+          "prompt": "Simplify $(25a^{4})^{-\\frac{1}{2}}$.",
+          "hint": "Apply the power to the $25$ and to $a^{4}$. Keep the minus sign for both.",
+          "options": [
+            {
+              "text": "$\\frac{5}{a^{2}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{5a^{2}}$",
+              "correct": true
+            },
+            {
+              "text": "$-5a^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{5}a^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$25^{-\\frac{1}{2}} = \\frac{1}{\\sqrt{25}} = \\frac{1}{5}$ and $4 \\times \\left(-\\frac{1}{2}\\right) = -2$. So it is $\\frac{1}{5}a^{-2} = \\frac{1}{5a^{2}}$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "powdenest((25*a**4)**Rational(-1, 2), force=True)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "index-equations",
+      "heading": "Equations with the unknown in the index",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To solve $9^{x} = 27$ or $4^{x + 1} = 2^{x}$, write both sides as powers of the same base. Then set the indices equal and solve that equation."
+        },
+        {
+          "type": "text",
+          "text": "Choose a base that both numbers are powers of. Usually it is a small number, such as $2$ for $4$, $8$ and $16$, or $3$ for $9$ and $27$."
+        },
+        {
+          "type": "example",
+          "id": "ex-eq-fraction",
+          "question": "Solve $8^{x} = 4$.",
+          "steps": [
+            "$8$ and $4$ are both powers of $2$: $8 = 2^{3}$ and $4 = 2^{2}$.",
+            "Rewrite the left side: $8^{x} = (2^{3})^{x} = 2^{3x}$. So $2^{3x} = 2^{2}$.",
+            "Set the indices equal: $3x = 2$, so $x = \\frac{2}{3}$.",
+            "Check: $8^{\\frac{2}{3}} = \\left(\\sqrt[3]{8}\\right)^{2} = 2^{2} = 4$."
+          ],
+          "answer": "$x = \\frac{2}{3}$",
+          "verify": {
+            "kind": "list",
+            "truth": "solveset(Eq(8**x, 4), x, Reals)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $(2^{3})^{x}$ as $2^{3 + x}$. A power of a power multiplies the indices, so it is $2^{3x}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-eq-linear",
+          "question": "Solve $4^{x + 3} = 8^{x}$.",
+          "steps": [
+            "Both are powers of $2$: $4 = 2^{2}$ and $8 = 2^{3}$.",
+            "Rewrite each side, bracketing the whole index: $(2^{2})^{x + 3} = 2^{2(x + 3)}$ and $(2^{3})^{x} = 2^{3x}$.",
+            "Set the indices equal: $2(x + 3) = 3x$.",
+            "Expand and solve: $2x + 6 = 3x$, so $x = 6$.",
+            "Check: $4^{9} = 2^{18}$ and $8^{6} = 2^{18}$."
+          ],
+          "answer": "$x = 6$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(Eq(4**(x + 3), 8**x), x)"
+          },
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "Write the equation of indices, such as $2(x + 3) = 3x$, on its own line. It shows your method, so it can earn marks even if a later step slips."
+        },
+        {
+          "type": "check",
+          "id": "check-eq-negative",
+          "prompt": "Solve $9^{x} = \\frac{1}{3}$.",
+          "hint": "Write $9$ and $\\frac{1}{3}$ as powers of $3$.",
+          "options": [
+            {
+              "text": "$x = \\frac{1}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$x = -3$",
+              "correct": false
+            },
+            {
+              "text": "$x = -\\frac{1}{2}$",
+              "correct": true
+            }
+          ],
+          "explain": "$9^{x} = 3^{2x}$ and $\\frac{1}{3} = 3^{-1}$. So $2x = -1$, and $x = -\\frac{1}{2}$.",
+          "verify": {
+            "kind": "list",
+            "truth": "solveset(Eq(9**x, Rational(1, 3)), x, Reals)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-eq-linear",
+          "prompt": "Solve $16^{x} = 2^{x + 9}$.",
+          "hint": "$16 = 2^{4}$, so the left side is $2^{4x}$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "$2^{4x} = 2^{x + 9}$, so $4x = x + 9$. Then $3x = 9$ and $x = 3$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "solve(Eq(16**x, 2**(x + 9)), x)[0]",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Multiply terms: multiply the coefficients and add the indices of each letter. Divide terms: divide the coefficients and subtract the indices.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Bracket to a power: raise every factor inside, the number too. For example, $(2x^{3})^{2} = 4x^{6}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $x \\ne 0$: $x^{0} = 1$ and $x^{-n} = \\frac{1}{x^{n}}$, so $\\frac{a}{x^{n}} = ax^{-n}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Unknown index: write both sides as powers of the same base, then set the indices equal.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $x > 0$, $x^{\\frac{m}{n}} = \\left(\\sqrt[n]{x}\\right)^{m}$, and the rules of indices work with fractional indices too.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Multiplying the indices when you multiply terms: $a^{6} \\times a^{2} = a^{8}$, not $a^{12}$. Add them.",
+    "Dividing the indices when you divide terms: $m^{12} \\div m^{4} = m^{8}$, not $m^{3}$. Subtract them.",
+    "Subtracting the wrong way round: $y^{2} \\div y^{7} = y^{-5}$, not $y^{5}$. Take the bottom index from the top one.",
+    "Adding instead of multiplying for a power of a power: $(y^{2})^{5} = y^{10}$, not $y^{7}$.",
+    "Forgetting to raise the number in a bracket: $(5v^{2})^{2} = 25v^{4}$, not $5v^{4}$.",
+    "Giving a positive index for a fraction: $2^{x} = \\frac{1}{16}$ gives $x = -4$, not $4$."
+  ],
+  "examTips": [
+    "\"Simplify\": give a single term, with the coefficient first and each letter once. Either $y^{-2}$ or $\\frac{1}{y^{2}}$ is fine, unless the question asks for a form.",
+    "\"Find the value of\" an unknown index: write both sides as powers of the same base, such as $3^{x} = 3^{4}$, then give the value.",
+    "Papers 1 and 2 have no calculator, so learn small powers of $2$, $3$ and $5$. Spotting $64 = 2^{6}$ or $125 = 5^{3}$ is often the key step."
+  ],
+  "readingMinutes": 23
+}

@@ -1,0 +1,577 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.12",
+  "slug": "rates",
+  "title": "Rates",
+  "level": "Core",
+  "topic": 1,
+  "summary": "A [[rate|rate]] tells you how much of one quantity goes with one unit of another, such as dollars per hour. You'll use rates for pay, fuel, currencies, [[density|density]] and [[speed|speed]], and find the [[average-speed|average speed]] of a journey.",
+  "goals": [
+    {
+      "text": "Work out pay, fuel and flow problems from a rate given \"per\" one unit.",
+      "bullets": [
+        "1.12-c1"
+      ]
+    },
+    {
+      "text": "Change money between currencies with an [[exchange-rate|exchange rate]], in either direction.",
+      "bullets": [
+        "1.12-c1"
+      ]
+    },
+    {
+      "text": "Use a formula given in the question for density, pressure or population density.",
+      "bullets": [
+        "1.12-c2"
+      ]
+    },
+    {
+      "text": "Use speed, distance and time, changing hours and minutes into hours first.",
+      "bullets": [
+        "1.12-c1",
+        "1.12-c3"
+      ]
+    },
+    {
+      "text": "Find the average speed of a journey made in stages, including stops.",
+      "bullets": [
+        "1.12-c3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.11"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "speed distance time",
+    "average speed",
+    "exchange rate",
+    "density mass volume",
+    "hourly rate of pay",
+    "population density"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-pens",
+      "prompt": "$5$ pens cost \\$3.40. Work out the cost of $8$ of these pens, in dollars.",
+      "hint": "Find the cost of one pen first.",
+      "answer": {
+        "value": 5.44,
+        "tolerance": 0
+      },
+      "explain": "One pen costs $3.40 \\div 5 = 0.68$ dollars, so $8$ pens cost $0.68 \\times 8 = 5.44$ dollars. Revise it in {{lesson:1.11}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3.40/5*8",
+        "dp": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-recipe",
+      "prompt": "A recipe for $4$ people uses $300$ g of rice. How many grams of rice are needed for $6$ people?",
+      "hint": "Work out the rice for $1$ person, then for $6$.",
+      "answer": {
+        "value": 450,
+        "tolerance": 0
+      },
+      "explain": "One person needs $300 \\div 4 = 75$ g, so $6$ people need $75 \\times 6 = 450$ g. Revise it in {{lesson:1.11}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "300/4*6",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "rates",
+      "heading": "Rates and \"per\"",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A plumber earns \\$20 per hour. \"Per\" means \"for each\", so in $3$ hours she earns $3 \\times 20 = 60$ dollars."
+        },
+        {
+          "type": "definition",
+          "term": "Rate",
+          "statement": "A [[rate|rate]] is the amount of one quantity for each one unit of another quantity, such as \\$ per hour or litres per minute.",
+          "plain": "How much for each one of something."
+        },
+        {
+          "type": "text",
+          "text": "A [[ratio|ratio]] usually compares amounts of the same kind. A rate compares two different kinds, like dollars and hours, so it always has a unit."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{total} = \\text{rate} \\times \\text{number of units}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Divide to find the rate, or to find the number of units."
+        },
+        {
+          "type": "example",
+          "id": "ex-pay-call-out",
+          "question": "An electrician charges a fixed call-out fee of \\$45, plus \\$32 per hour. A job takes $3.5$ hours. Work out the total charge.",
+          "steps": [
+            "Hourly part: $32 \\times 3.5$. Split it: $32 \\times 3 = 96$ and $32 \\times 0.5 = 16$, so $32 \\times 3.5 = 112$ dollars.",
+            "Add the fixed fee once: $112 + 45 = 157$ dollars."
+          ],
+          "answer": "$\\text{charge} = \\$157.00$",
+          "verify": {
+            "kind": "money",
+            "truth": "45 + 32*3.5"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-fuel-van",
+          "question": "A van uses $8$ litres of fuel for every $100$ km. Fuel costs \\$1.65 per litre. Work out the cost of the fuel for a $350$ km journey.",
+          "steps": [
+            "$350$ km is $350 \\div 100 = 3.5$ lots of $100$ km.",
+            "Fuel used: $3.5 \\times 8 = 28$ litres.",
+            "Cost: $28 \\times 1.65 = 28 + 28 \\times 0.65 = 28 + 18.2 = 46.2$ dollars.",
+            "Money goes to the cent, so write \\$46.20."
+          ],
+          "answer": "$\\text{cost} = \\$46.20$",
+          "verify": {
+            "kind": "money",
+            "truth": "350/100*8*1.65"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-flow-tank",
+          "prompt": "Water flows into a tank at $15$ litres per minute. How many minutes does it take to put $240$ litres into the tank?",
+          "hint": "You know the total and the rate. Divide.",
+          "answer": {
+            "value": 16,
+            "tolerance": 0
+          },
+          "explain": "Number of minutes $=$ total $\\div$ rate $= 240 \\div 15 = 16$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "240/15",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pay-rate",
+          "prompt": "Leila is paid \\$171 for $9$ hours of work. What is her hourly rate of pay?",
+          "hint": "Rate $=$ total $\\div$ number of hours.",
+          "options": [
+            {
+              "text": "$\\$19.00$",
+              "correct": true
+            },
+            {
+              "text": "$\\$1539.00$",
+              "correct": false
+            },
+            {
+              "text": "$\\$162.00$",
+              "correct": false
+            },
+            {
+              "text": "$\\$0.05$",
+              "correct": false
+            }
+          ],
+          "explain": "$171 \\div 9 = 19$, so she earns \\$19 per hour. The others multiply, subtract, or divide the wrong way round.",
+          "verify": {
+            "kind": "money",
+            "truth": "171/9"
+          }
+        }
+      ]
+    },
+    {
+      "id": "exchange",
+      "heading": "Exchange rates",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[exchange-rate|exchange rate]] is a rate between two currencies. For example, $1$ euro $= 1.6$ Canadian dollars means you get $1.6$ dollars for each euro."
+        },
+        {
+          "type": "text",
+          "text": "In the direction of the rate (euros to dollars here), multiply by the rate. To go back the other way, divide by it."
+        },
+        {
+          "type": "example",
+          "id": "ex-exchange-to-dollars",
+          "question": "The exchange rate is $1$ euro $= 1.6$ Canadian dollars. Change $85$ euros into Canadian dollars.",
+          "steps": [
+            "Euros to dollars is the direction of the rate, so multiply.",
+            "$85 \\times 1.6 = 85 + 85 \\times 0.6 = 85 + 51 = 136$.",
+            "Check: a euro is worth more than a dollar, so you get more dollars than euros."
+          ],
+          "answer": "$85\\text{ euros} = 136.00\\text{ dollars}$",
+          "verify": {
+            "kind": "money",
+            "truth": "85*1.6"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-exchange-to-euros",
+          "question": "The exchange rate is $1$ euro $= 1.6$ Canadian dollars. Tom changes $312$ Canadian dollars into euros. Work out how many euros he gets.",
+          "steps": [
+            "Dollars to euros goes against the rate, so divide by $1.6$.",
+            "Multiply both numbers by $10$ to clear the decimal: $312 \\div 1.6 = 3120 \\div 16 = 195$.",
+            "Check: $195 \\times 1.6 = 312$."
+          ],
+          "answer": "$312\\text{ dollars} = 195.00\\text{ euros}$",
+          "verify": {
+            "kind": "money",
+            "truth": "312/1.6"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-exchange-back",
+          "prompt": "The exchange rate is \\$1 $= 0.8$ euros. Change $60$ euros into dollars.",
+          "hint": "The rate starts from dollars. You are going from euros, against the rate.",
+          "options": [
+            {
+              "text": "$\\$48.00$",
+              "correct": false
+            },
+            {
+              "text": "$\\$75.00$",
+              "correct": true
+            },
+            {
+              "text": "$\\$59.20$",
+              "correct": false
+            }
+          ],
+          "explain": "Divide: $60 \\div 0.8 = 600 \\div 8 = 75$ dollars.",
+          "verify": {
+            "kind": "money",
+            "truth": "60/0.8"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-exchange-pounds",
+          "prompt": "The exchange rate is £1 $= 1.17$ euros. Change £245 into euros. Give your answer to the nearest cent.",
+          "hint": "Pounds to euros is the direction of the rate.",
+          "answer": {
+            "value": 286.65,
+            "tolerance": 0
+          },
+          "explain": "Multiply: $245 \\times 1.17 = 286.65$ euros.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "245*1.17",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "density",
+      "heading": "Density, pressure and population density",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For these rates the question gives you the formula. Put each number in the right place and keep the units."
+        },
+        {
+          "type": "text",
+          "text": "[[density|Density]] is mass per unit of volume, such as g/cm$^3$. Pressure is force per unit of area, such as N/m$^2$. Population density is people per km$^2$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{density} = \\frac{\\text{mass}}{\\text{volume}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Rearrange it like any rate: mass $=$ density $\\times$ volume, and volume $=$ mass $\\div$ density."
+        },
+        {
+          "type": "example",
+          "id": "ex-density-mass",
+          "question": "A block of wood has a volume of $450\\text{ cm}^3$. The wood has a density of $0.7\\text{ g/cm}^3$. Density $=$ mass $\\div$ volume. Work out the mass of the block.",
+          "steps": [
+            "You want the mass, so mass $=$ density $\\times$ volume.",
+            "$0.7 \\times 450 = 7 \\times 45 = 315$."
+          ],
+          "answer": "$\\text{mass} = 315\\text{ g}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "0.7*450",
+            "unit": "g"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-pressure-box",
+          "question": "A box has a weight of $360$ N. It rests on a face that measures $0.6$ m by $0.4$ m. Pressure $=$ force $\\div$ area. Work out the pressure on the floor.",
+          "steps": [
+            "Area of the face: $0.6 \\times 0.4 = 0.24\\text{ m}^2$.",
+            "Pressure $= 360 \\div 0.24$. Multiply both numbers by $100$: $36\\,000 \\div 24 = 1500$.",
+            "Newtons divided by m$^2$ gives N/m$^2$."
+          ],
+          "answer": "$\\text{pressure} = 1500\\text{ N/m}^2$",
+          "verify": {
+            "kind": "exact",
+            "truth": "360/(0.6*0.4)",
+            "unit": "N/m^2"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-density-volume",
+          "prompt": "A metal bar has a mass of $540$ g. The metal has a density of $9\\text{ g/cm}^3$. Density $=$ mass $\\div$ volume. Find the volume of the bar.",
+          "hint": "Volume $=$ mass $\\div$ density.",
+          "options": [
+            {
+              "text": "$4860\\text{ cm}^3$",
+              "correct": false
+            },
+            {
+              "text": "$531\\text{ cm}^3$",
+              "correct": false
+            },
+            {
+              "text": "$60\\text{ cm}^3$",
+              "correct": true
+            }
+          ],
+          "explain": "$540 \\div 9 = 60\\text{ cm}^3$. Check: $9 \\times 60 = 540$ g.",
+          "verify": {
+            "kind": "exact",
+            "truth": "540/9",
+            "unit": "cm^3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-population-density",
+          "prompt": "A county has a population of $86\\,500$ and an area of $1240\\text{ km}^2$. Population density $=$ population $\\div$ area. Work out the population density, in people per km$^2$, to 3 significant figures.",
+          "hint": "Divide, then round only at the end.",
+          "answer": {
+            "value": 69.8,
+            "tolerance": 0.05
+          },
+          "explain": "$86\\,500 \\div 1240 = 69.758\\ldots$, so $69.8$ to 3 s.f.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "86500/1240",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "speed",
+      "heading": "Speed and average speed",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[speed|Speed]] is a rate: distance per unit of time. $50$ km/h means $50$ km in each hour, and $12$ m/s means $12$ metres in each second."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{speed} = \\frac{\\text{distance}}{\\text{time}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "You must learn this one. Rearranged, distance $=$ speed $\\times$ time and time $=$ distance $\\div$ speed."
+        },
+        {
+          "type": "figure",
+          "id": "1-12-speed-triangle",
+          "alt": "A triangle split by a horizontal line. Distance is in the top part. Speed and time share the bottom part, with a times sign between them. Cover the quantity you want: distance is speed times time, speed is distance over time, time is distance over speed.",
+          "caption": "Cover the letter you want. What is left shows the calculation."
+        },
+        {
+          "type": "text",
+          "text": "For km/h, use km and hours. Change minutes into hours by dividing by $60$: $2$ h $15$ min is $2 + \\tfrac{15}{60} = 2.25$ hours."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $2$ h $15$ min as $2.15$ hours. An hour has $60$ minutes, not $100$."
+        },
+        {
+          "type": "example",
+          "id": "ex-speed-train",
+          "question": "A train travels $210$ km in $2$ hours $20$ minutes. Work out its speed in km/h.",
+          "steps": [
+            "$20$ minutes is $\\tfrac{20}{60} = \\tfrac{1}{3}$ hour, so the time is $2\\tfrac{1}{3} = \\tfrac{7}{3}$ hours.",
+            "Speed $= 210 \\div \\tfrac{7}{3} = 210 \\times \\tfrac{3}{7} = 30 \\times 3 = 90$.",
+            "Check: $90 \\times 2\\tfrac{1}{3} = 180 + 30 = 210$ km."
+          ],
+          "answer": "$\\text{speed} = 90\\text{ km/h}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "210/(2 + 20/60)",
+            "unit": "km/h"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "On Paper $3$ or $4$, your calculator can change $2$ h $20$ min into hours."
+        },
+        {
+          "type": "calculator",
+          "snippet": "time-dms",
+          "values": {
+            "hours": 2,
+            "minutes": 20,
+            "seconds": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "For a journey in stages, the [[average-speed|average speed]] is total distance $\\div$ total time. Include any stops."
+        },
+        {
+          "type": "example",
+          "id": "ex-average-speed-bus",
+          "question": "A bus travels $39$ km in $45$ minutes. It stops for $15$ minutes. Then it travels $60$ km at $80$ km/h. Work out the average speed for the whole journey, including the stop. Give your answer to 3 significant figures.",
+          "steps": [
+            "Second stage: time $=$ distance $\\div$ speed $= 60 \\div 80 = 0.75$ hours.",
+            "Total time: $\\tfrac{45}{60} + \\tfrac{15}{60} + 0.75 = 1.75$ hours.",
+            "Total distance: $39 + 60 = 99$ km.",
+            "Average speed $= 99 \\div 1.75 = 56.571\\ldots$, so $56.6$ km/h to 3 s.f."
+          ],
+          "answer": "$\\text{average speed} \\approx 56.6\\text{ km/h}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(39 + 60)/(45/60 + 15/60 + 60/80)",
+            "sf": 3,
+            "unit": "km/h"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Averaging the stage speeds. The first stage is $39 \\div 0.75 = 52$ km/h, but $(52 + 80) \\div 2 = 66$ is wrong: the times differ."
+        },
+        {
+          "type": "text",
+          "text": "To change m/s into km/h, multiply by $3600$ (seconds in an hour), then divide by $1000$ (metres in a km). This is $\\times 3.6$."
+        },
+        {
+          "type": "check",
+          "id": "check-distance-plane",
+          "prompt": "A plane flies at $840$ km/h for $2$ hours $30$ minutes. How far does it fly, in km?",
+          "hint": "Distance $=$ speed $\\times$ time. Write the time in hours first.",
+          "answer": {
+            "value": 2100,
+            "tolerance": 0
+          },
+          "explain": "$2$ h $30$ min is $2.5$ hours. $840 \\times 2.5 = 2100$ km.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "840*(2 + 30/60)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-time-cyclist",
+          "prompt": "A cyclist rides $27$ km at an average speed of $18$ km/h. How long does the ride take?",
+          "hint": "Time $=$ distance $\\div$ speed. Then change the part of an hour into minutes.",
+          "options": [
+            {
+              "text": "1 h 5 min",
+              "correct": false
+            },
+            {
+              "text": "1 h 30 min",
+              "correct": true
+            },
+            {
+              "text": "1 h 50 min",
+              "correct": false
+            },
+            {
+              "text": "8 h 6 min",
+              "correct": false
+            }
+          ],
+          "explain": "$27 \\div 18 = 1.5$ hours, and $0.5 \\times 60 = 30$ minutes.",
+          "verify": {
+            "kind": "time",
+            "truth": "27/18*60",
+            "form": "duration"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Total $=$ rate $\\times$ number of units. Divide to find the rate or the number of units. Add a fixed charge once.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Exchange rate \"$1$ of A $=$ $r$ of B\": A to B, multiply by $r$. B to A, divide by $r$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Density $=$ mass $\\div$ volume, pressure $=$ force $\\div$ area, population density $=$ population $\\div$ area. The question gives these; rearrange as needed.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Average speed $=$ total distance $\\div$ total time, including stops. Don't average the speeds.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Minutes to hours: divide by $60$, so $2$ h $15$ min $= 2.25$ h. m/s to km/h: multiply by $3.6$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Multiplying a fixed charge by the number of hours too. Add the fixed charge once, after the hourly part.",
+    "Multiplying by an exchange rate when going back the other way. Multiply one way, divide the other way.",
+    "Writing $2$ h $21$ min as $2.21$ hours. Divide the minutes by $60$: it is $2.35$ hours.",
+    "Averaging the stage speeds, or leaving out a stop. Average speed is total distance $\\div$ total time.",
+    "Dividing the density by the volume when you want the mass. Mass $=$ density $\\times$ volume."
+  ],
+  "examTips": [
+    "Work out or calculate: write the calculation, such as $99 \\div 1.75$, before the answer. It can earn the method mark even if you slip later.",
+    "Change units before you calculate, and give the unit the question asks for. Give answers that aren't exact to 3 significant figures, and money to the cent, unless the question says otherwise.",
+    "Check the answer is sensible: you get more of the currency that is worth less."
+  ],
+  "readingMinutes": 18
+}

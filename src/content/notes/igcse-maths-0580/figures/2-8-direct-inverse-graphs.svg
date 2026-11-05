@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 240" role="img" aria-labelledby="t">
+  <title id="t">Two graphs side by side. Left, direct proportion: a straight line through the origin, rising from left to right. Right, inverse proportion: a curve that starts high near the y-axis and falls steeply, then levels off, getting closer to the x-axis but never touching either axis.</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <line x1="40" y1="190" x2="190" y2="190"/>
+    <line x1="40" y1="190" x2="40" y2="30"/>
+    <line x1="240" y1="190" x2="390" y2="190"/>
+    <line x1="240" y1="190" x2="240" y2="30"/>
+  </g>
+  <g stroke="var(--t1-ink)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="40" y1="190" x2="180" y2="50"/>
+  </g>
+  <g stroke="var(--t2-ink)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="258,46 262.5,74.8 267,94 276,118 285,132.4 294,142 312,154 330,161.2 348,166 366,169.4 384,172"/>
+  </g>
+  <g font-family="inherit" font-size="14" fill="currentColor" text-anchor="middle">
+    <text x="196" y="195">x</text>
+    <text x="40" y="22">y</text>
+    <text x="396" y="195">x</text>
+    <text x="240" y="22">y</text>
+    <text x="32" y="205">0</text>
+    <text x="232" y="205">0</text>
+  </g>
+  <g font-family="inherit" font-size="15" font-weight="bold" text-anchor="middle">
+    <text x="115" y="225" fill="var(--t1-ink)">Direct: y = kx</text>
+    <text x="315" y="225" fill="var(--t2-ink)">Inverse: y = k ÷ x</text>
+  </g>
+</svg>

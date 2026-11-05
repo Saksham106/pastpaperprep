@@ -1,0 +1,695 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.7",
+  "slug": "indices-i",
+  "title": "Indices I",
+  "level": "Core",
+  "topic": 1,
+  "summary": "An [[index|index]] says how many copies of a number to multiply together: $2^{5} = 2 \\times 2 \\times 2 \\times 2 \\times 2$. You'll use the [[rules-of-indices|rules of indices]] and learn what zero and [[negative-index|negative indices]] mean. Extended adds [[fractional-index|fractional indices]], which are roots.",
+  "goals": [
+    {
+      "text": "Write repeated multiplication in index form, and work out powers.",
+      "bullets": [
+        "1.7-c1"
+      ]
+    },
+    {
+      "text": "Multiply, divide and raise powers of the same base using the rules of indices.",
+      "bullets": [
+        "1.7-c2"
+      ]
+    },
+    {
+      "text": "Work out zero and negative indices, and write a fraction as a negative power.",
+      "bullets": [
+        "1.7-c1",
+        "1.7-c2"
+      ]
+    },
+    {
+      "text": "Work out fractional indices, and write roots as powers.",
+      "bullets": [
+        "1.7-s1",
+        "1.7-n1"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.3"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "laws of indices",
+    "powers and exponents",
+    "negative powers",
+    "power of zero",
+    "fractional powers",
+    "index form"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-cube",
+      "prompt": "Work out $5^{3}$.",
+      "hint": "$5^{3}$ means $5 \\times 5 \\times 5$.",
+      "answer": {
+        "value": 125,
+        "tolerance": 0
+      },
+      "explain": "$5 \\times 5 = 25$, and $25 \\times 5 = 125$. Revise it in {{lesson:1.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "5**3",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-reciprocal",
+      "prompt": "What is the reciprocal of $\\frac{2}{9}$?",
+      "hint": "The reciprocal of a fraction is the fraction flipped.",
+      "options": [
+        {
+          "text": "$-\\frac{2}{9}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{9}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{7}{9}$",
+          "correct": false
+        }
+      ],
+      "explain": "Flip it: $\\frac{2}{9} \\times \\frac{9}{2} = 1$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "fraction",
+        "truth": "1/Rational(2, 9)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "index",
+      "heading": "Powers and the index",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Writing $7 \\times 7 \\times 7$ is slow. Index form writes it as $7^{3}$, said \"7 to the power 3\"."
+        },
+        {
+          "type": "definition",
+          "term": "Index",
+          "statement": "In $a^{n}$, the [[index|index]] $n$ tells you how many $a$s to multiply together. The number $a$ is the base.",
+          "plain": "The small raised number, also called the power."
+        },
+        {
+          "type": "text",
+          "text": "One copy is just the number: $9^{1} = 9$. You met $a^{2}$ (squared) and $a^{3}$ (cubed) in {{lesson:1.3}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-index-form-4",
+          "question": "Write $4 \\times 4 \\times 4 \\times 4 \\times 4$ in index form, then work out its value.",
+          "steps": [
+            "Count the $4$s. There are five, so it is $4^{5}$.",
+            "Multiply one step at a time: $4 \\times 4 = 16$, $16 \\times 4 = 64$, $64 \\times 4 = 256$, $256 \\times 4 = 1024$."
+          ],
+          "answer": "$4^{5} = 1024$",
+          "verify": {
+            "kind": "exact",
+            "truth": "4*4*4*4*4"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "$2^{5}$ is not $2 \\times 5 = 10$. It is five $2$s multiplied, which is $32$."
+        },
+        {
+          "type": "example",
+          "id": "ex-power-difference",
+          "question": "Work out $2^{6} - 6^{2}$.",
+          "steps": [
+            "Work out each power first: $2^{6} = 2 \\times 2 \\times 2 \\times 2 \\times 2 \\times 2 = 64$.",
+            "$6^{2} = 6 \\times 6 = 36$.",
+            "Subtract: $64 - 36 = 28$. Here, swapping the base and the index gives a different value."
+          ],
+          "answer": "$2^{6} - 6^{2} = 28$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2**6 - 6**2"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Put a negative base in brackets. $(-3)^{2} = (-3) \\times (-3) = 9$, but $-3^{2}$ means $-(3^{2}) = -9$."
+        },
+        {
+          "type": "check",
+          "id": "check-negative-base",
+          "prompt": "Work out $(-2)^{5}$.",
+          "hint": "Five negative numbers are multiplied. Is the answer positive or negative?",
+          "options": [
+            {
+              "text": "$32$",
+              "correct": false
+            },
+            {
+              "text": "$-32$",
+              "correct": true
+            },
+            {
+              "text": "$-10$",
+              "correct": false
+            },
+            {
+              "text": "$10$",
+              "correct": false
+            }
+          ],
+          "explain": "$2^{5} = 32$. An odd number of negatives multiplied gives a negative answer.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(-2)**5"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-power-product",
+          "prompt": "Work out $3^{2} \\times 2^{3}$.",
+          "hint": "Work out each power first, then multiply.",
+          "answer": {
+            "value": 72,
+            "tolerance": 0
+          },
+          "explain": "$3^{2} = 9$ and $2^{3} = 8$, so the answer is $9 \\times 8 = 72$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3**2 * 2**3",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "heading": "The rules of indices",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Write out a product of two powers of $5$: $5^{2} \\times 5^{3} = (5 \\times 5) \\times (5 \\times 5 \\times 5) = 5^{5}$. That is $2 + 3 = 5$ fives."
+        },
+        {
+          "type": "result",
+          "statement": "To multiply powers of the same base, add the indices: $a^{m} \\times a^{n} = a^{m+n}$.",
+          "why": "You count every $a$: $m$ of them, then $n$ more."
+        },
+        {
+          "type": "text",
+          "text": "Now divide: $7^{6} \\div 7^{2} = \\frac{7 \\times 7 \\times 7 \\times 7 \\times 7 \\times 7}{7 \\times 7}$. Two $7$s cancel, leaving $7^{4}$."
+        },
+        {
+          "type": "result",
+          "statement": "To divide powers of the same base, subtract the indices: $a^{m} \\div a^{n} = a^{m-n}$, for $a \\ne 0$.",
+          "why": "Each $a$ on the bottom cancels one $a$ on the top."
+        },
+        {
+          "type": "text",
+          "text": "A power of a power: $(4^{3})^{2} = 4^{3} \\times 4^{3} = 4^{3+3} = 4^{6}$."
+        },
+        {
+          "type": "result",
+          "statement": "To raise a power to a power, multiply the indices: $(a^{m})^{n} = a^{m \\times n}$.",
+          "why": "You have $n$ copies of $a^{m}$, so $n$ lots of $m$ $a$s."
+        },
+        {
+          "type": "text",
+          "text": "These three are the [[rules-of-indices|rules of indices]]. They need the same base. $3^{4} \\times 2^{5}$ cannot be written as one power."
+        },
+        {
+          "type": "example",
+          "id": "ex-rules-single-power",
+          "question": "Write $\\frac{11^{5} \\times 11^{4}}{11^{6}}$ as a single power of $11$.",
+          "steps": [
+            "Top: same base, so add the indices. $11^{5} \\times 11^{4} = 11^{5+4} = 11^{9}$.",
+            "Divide by the bottom: subtract the indices. $11^{9} \\div 11^{6} = 11^{9-6} = 11^{3}$."
+          ],
+          "answer": "$11^{3}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "11**5 * 11**4 / 11**6"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying the indices when you multiply powers. $5^{2} \\times 5^{3}$ is $5^{5}$, not $5^{6}$. Multiply indices only for a power of a power."
+        },
+        {
+          "type": "example",
+          "id": "ex-power-of-power",
+          "question": "Write $(3^{4})^{2} \\div 3^{5}$ as a single power of $3$.",
+          "steps": [
+            "Power of a power: multiply the indices. $(3^{4})^{2} = 3^{4 \\times 2} = 3^{8}$.",
+            "Divide: subtract the indices. $3^{8} \\div 3^{5} = 3^{8-5} = 3^{3}$."
+          ],
+          "answer": "$3^{3}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(3**4)**2 / 3**5"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-find-index",
+            "prompt": "$4^{n} \\times 4^{5} = 4^{13}$. Find the value of $n$.",
+            "hint": "Multiplying adds the indices, so $n + 5 = 13$.",
+            "answer": {
+              "value": 8,
+              "tolerance": 0
+            },
+            "explain": "$4^{n} \\times 4^{5} = 4^{n+5}$. So $n + 5 = 13$, and $n = 8$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "13 - 5",
+              "dp": 0
+            }
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-power-of-power",
+          "prompt": "Simplify $(8^{2})^{5}$.",
+          "hint": "A power of a power: multiply the indices.",
+          "options": [
+            {
+              "text": "$8^{7}$",
+              "correct": false
+            },
+            {
+              "text": "$8^{10}$",
+              "correct": true
+            },
+            {
+              "text": "$64^{10}$",
+              "correct": false
+            }
+          ],
+          "explain": "$(8^{2})^{5} = 8^{2 \\times 5} = 8^{10}$. Adding gives $8^{7}$, which is $8^{2} \\times 8^{5}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(8**2)**5"
+          }
+        }
+      ]
+    },
+    {
+      "id": "zero-negative",
+      "heading": "Zero and negative indices",
+      "blocks": [
+        {
+          "type": "figure",
+          "id": "1-7-halving-powers",
+          "alt": "Six boxes in a row: 2 cubed equals 8, 2 squared equals 4, 2 to the power 1 equals 2, 2 to the power 0 equals 1, 2 to the power minus 1 equals one half, 2 to the power minus 2 equals one quarter. An arrow labelled divide by 2 joins each box to the next. The last three boxes are highlighted.",
+          "caption": "Keep dividing by $2$ and the index keeps falling by $1$, past zero."
+        },
+        {
+          "type": "text",
+          "text": "The division rule agrees. $5^{3} \\div 5^{3} = 1$, and subtracting the indices gives $5^{3-3} = 5^{0}$. So $5^{0} = 1$."
+        },
+        {
+          "type": "result",
+          "statement": "Any number except $0$ to the power $0$ is $1$: $a^{0} = 1$ for $a \\ne 0$.",
+          "why": "$a^{0} = a^{n} \\div a^{n}$, and a non-zero number divided by itself is $1$."
+        },
+        {
+          "type": "text",
+          "text": "Now $5^{2} \\div 5^{4} = \\frac{5 \\times 5}{5 \\times 5 \\times 5 \\times 5} = \\frac{1}{5^{2}}$. Subtracting the indices gives $5^{2-4} = 5^{-2}$. So $5^{-2} = \\frac{1}{5^{2}} = \\frac{1}{25}$."
+        },
+        {
+          "type": "definition",
+          "term": "Negative index",
+          "statement": "A [[negative-index|negative index]] means the [[reciprocal|reciprocal]] of the positive power: $a^{-n} = \\frac{1}{a^{n}}$ for $a \\ne 0$.",
+          "plain": "One over the same power, made positive."
+        },
+        {
+          "type": "mistake",
+          "text": "A negative index means a reciprocal, not a negative number. $5^{-2} = \\frac{1}{25}$, not $-25$ or $-10$."
+        },
+        {
+          "type": "example",
+          "id": "ex-negative-value",
+          "question": "Find the value of $4^{-3}$. Give your answer as a fraction.",
+          "steps": [
+            "A negative index means one over the positive power: $4^{-3} = \\frac{1}{4^{3}}$.",
+            "Work out the power: $4^{3} = 4 \\times 4 \\times 4 = 64$."
+          ],
+          "answer": "$4^{-3} = \\frac{1}{64}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "4**-3"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-ten-negative",
+            "prompt": "Find the value of $10^{-2}$.",
+            "hint": "Write it as one over a positive power of $10$.",
+            "options": [
+              {
+                "text": "$-100$",
+                "correct": false
+              },
+              {
+                "text": "$\\frac{1}{100}$",
+                "correct": true
+              },
+              {
+                "text": "$-20$",
+                "correct": false
+              },
+              {
+                "text": "$\\frac{1}{20}$",
+                "correct": false
+              }
+            ],
+            "explain": "$10^{-2} = \\frac{1}{10^{2}} = \\frac{1}{100}$. The value is positive, and the index is not multiplied by the base.",
+            "verify": {
+              "kind": "fraction",
+              "truth": "10**-2"
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-write-negative-power",
+          "question": "Write $\\frac{1}{125}$ as a power of $5$.",
+          "steps": [
+            "Write the bottom as a power of $5$: $125 = 5 \\times 5 \\times 5 = 5^{3}$.",
+            "So $\\frac{1}{125} = \\frac{1}{5^{3}}$. One over a power is the same power with a negative index."
+          ],
+          "answer": "$\\frac{1}{125} = 5^{-3}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 125)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-zero-plus-negative",
+          "prompt": "Find the value of $5^{0} + 5^{-1}$.",
+          "hint": "$5^{0} = 1$, and $5^{-1}$ is the reciprocal of $5$.",
+          "options": [
+            {
+              "text": "$\\frac{1}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$-4$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{6}{5}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{26}{5}$",
+              "correct": false
+            }
+          ],
+          "explain": "$1 + \\frac{1}{5} = \\frac{6}{5}$. $5^{0}$ is $1$, not $0$ or $5$, and $5^{-1}$ is $\\frac{1}{5}$, not $-5$.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "5**0 + 5**-1"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The three rules still work with zero and negative indices. For example, $6^{-3} \\times 6^{5} = 6^{-3+5} = 6^{2}$."
+        },
+        {
+          "type": "check",
+          "id": "check-rules-negative",
+          "prompt": "Work out the value of $3^{-4} \\times 3^{6}$.",
+          "hint": "Add the indices: $-4 + 6$.",
+          "answer": {
+            "value": 9,
+            "tolerance": 0
+          },
+          "explain": "$3^{-4} \\times 3^{6} = 3^{-4+6} = 3^{2} = 9$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3**-4 * 3**6",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "For a fraction, flip it and make the index positive: $\\left(\\frac{2}{3}\\right)^{-2} = \\left(\\frac{3}{2}\\right)^{2} = \\frac{9}{4}$."
+        },
+        {
+          "type": "check",
+          "id": "check-fraction-negative",
+          "prompt": "Find the value of $\\left(\\frac{3}{4}\\right)^{-2}$.",
+          "hint": "Flip the fraction first, then square it.",
+          "options": [
+            {
+              "text": "$\\frac{9}{16}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{16}{9}$",
+              "correct": true
+            },
+            {
+              "text": "$-\\frac{9}{16}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\left(\\frac{3}{4}\\right)^{-2} = \\left(\\frac{4}{3}\\right)^{2} = \\frac{16}{9}$.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(3, 4)**-2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fractional",
+      "heading": "Fractional indices",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "What is $9^{\\frac{1}{2}}$? The multiplying rule gives $9^{\\frac{1}{2}} \\times 9^{\\frac{1}{2}} = 9^{1} = 9$. So $9^{\\frac{1}{2}}$ is the positive number that squares to $9$: $\\sqrt{9} = 3$."
+        },
+        {
+          "type": "text",
+          "text": "In the same way, $64^{\\frac{1}{3}} \\times 64^{\\frac{1}{3}} \\times 64^{\\frac{1}{3}} = 64$. So $64^{\\frac{1}{3}}$ is the [[cube-root|cube root]] of $64$, which is $4$."
+        },
+        {
+          "type": "definition",
+          "term": "Fractional index",
+          "statement": "A [[fractional-index|fractional index]] means a root. For $a > 0$, $a^{\\frac{1}{n}} = \\sqrt[n]{a}$ and $a^{\\frac{m}{n}} = \\left(\\sqrt[n]{a}\\right)^{m}$.",
+          "plain": "The bottom of the fraction is the root; the top is the power."
+        },
+        {
+          "type": "text",
+          "text": "So $10^{\\frac{1}{2}} = \\sqrt{10}$ and $10^{\\frac{1}{4}} = \\sqrt[4]{10}$. To find a value, take the root first: the numbers stay small."
+        },
+        {
+          "type": "example",
+          "id": "ex-frac-64",
+          "question": "Find the value of $64^{\\frac{2}{3}}$.",
+          "steps": [
+            "The bottom, $3$, means cube root: $\\sqrt[3]{64} = 4$, because $4^{3} = 64$.",
+            "The top, $2$, means square it: $4^{2} = 16$."
+          ],
+          "answer": "$64^{\\frac{2}{3}} = 16$",
+          "verify": {
+            "kind": "exact",
+            "truth": "64**Rational(2, 3)"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-frac-32",
+            "prompt": "Find the value of $32^{\\frac{3}{5}}$.",
+            "hint": "Find $\\sqrt[5]{32}$ first: which number, used five times in a product, makes $32$?",
+            "answer": {
+              "value": 8,
+              "tolerance": 0
+            },
+            "explain": "$\\sqrt[5]{32} = 2$, because $2^{5} = 32$. Then $2^{3} = 8$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "32**Rational(3, 5)",
+              "dp": 0
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-frac-negative",
+          "question": "Find the exact value of $\\left(\\frac{4}{25}\\right)^{-\\frac{3}{2}}$.",
+          "steps": [
+            "The minus sign means reciprocal, so flip the fraction: $\\left(\\frac{4}{25}\\right)^{-\\frac{3}{2}} = \\left(\\frac{25}{4}\\right)^{\\frac{3}{2}}$.",
+            "The bottom, $2$, means square root. Root the top and bottom: $\\sqrt{\\frac{25}{4}} = \\frac{5}{2}$.",
+            "The top, $3$, means cube it: $\\left(\\frac{5}{2}\\right)^{3} = \\frac{125}{8}$."
+          ],
+          "answer": "$\\left(\\frac{4}{25}\\right)^{-\\frac{3}{2}} = \\frac{125}{8}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(4, 25)**Rational(-3, 2)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-frac-negative-1000",
+          "prompt": "Find the value of $1000^{-\\frac{2}{3}}$.",
+          "hint": "Deal with the minus sign, the cube root and the square one at a time.",
+          "options": [
+            {
+              "text": "$100$",
+              "correct": false
+            },
+            {
+              "text": "$-100$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{10}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{100}$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\sqrt[3]{1000} = 10$ and $10^{2} = 100$. The minus sign makes it the reciprocal, $\\frac{1}{100}$.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "1000**Rational(-2, 3)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-root-as-power",
+          "prompt": "Which of these is equal to $\\frac{1}{\\sqrt{6}}$?",
+          "hint": "A square root is the power $\\frac{1}{2}$. One over it makes the index negative.",
+          "options": [
+            {
+              "text": "$6^{\\frac{1}{2}}$",
+              "correct": false
+            },
+            {
+              "text": "$6^{-2}$",
+              "correct": false
+            },
+            {
+              "text": "$6^{-\\frac{1}{2}}$",
+              "correct": true
+            },
+            {
+              "text": "$-6^{\\frac{1}{2}}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sqrt{6} = 6^{\\frac{1}{2}}$, so $\\frac{1}{\\sqrt{6}} = 6^{-\\frac{1}{2}}$. $6^{-2}$ is $\\frac{1}{36}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1/sqrt(6)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "On Paper 4, use your calculator when the root is not a whole number. Type the index as a fraction."
+        },
+        {
+          "type": "calculator",
+          "snippet": "fractional-index",
+          "values": {
+            "base": "40",
+            "numerator": "3",
+            "denominator": "4"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-frac-calculator",
+          "question": "Use your calculator to work out $40^{\\frac{3}{4}}$. Give your answer to 3 significant figures.",
+          "steps": [
+            "Enter $40$, the power key, then $\\frac{3}{4}$ as the index.",
+            "The display shows $15.905\\ldots$",
+            "The fourth figure is $0$, so round down."
+          ],
+          "answer": "$40^{\\frac{3}{4}} \\approx 15.9$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "40**Rational(3, 4)",
+            "sf": 3
+          },
+          "video": null
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "In $a^{n}$, $a$ is the base and $n$ is the index. For a positive whole number $n$, multiply $n$ copies of $a$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Same base: $a^{m} \\times a^{n} = a^{m+n}$, $a^{m} \\div a^{n} = a^{m-n}$ and $(a^{m})^{n} = a^{mn}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$a^{0} = 1$ and $a^{-n} = \\frac{1}{a^{n}}$, for $a \\ne 0$. A negative index means a reciprocal, not a negative number.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $a > 0$: $a^{\\frac{1}{n}} = \\sqrt[n]{a}$ and $a^{\\frac{m}{n}} = \\left(\\sqrt[n]{a}\\right)^{m}$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Multiplying the indices when you multiply: $3^{2} \\times 3^{4} = 3^{6}$, not $3^{8}$. Add them.",
+    "Dividing the indices when you divide: $5^{8} \\div 5^{2} = 5^{6}$, not $5^{4}$. Subtract them.",
+    "Writing $a^{0} = 0$ or $a^{0} = a$. Any non-zero number to the power $0$ is $1$.",
+    "Giving $-4$ or $-\\frac{1}{4}$ for $4^{-1}$. A negative index means a reciprocal: $4^{-1} = \\frac{1}{4}$.",
+    "Combining different bases: $2^{3} \\times 3^{2}$ is not $6^{5}$. The rules need the same base."
+  ],
+  "examTips": [
+    "\"Write down the value of\" a power like $5^{0}$: only the answer is needed, with no working.",
+    "\"Write as a power of 3\": the answer must be $3$ to some index, like $3^{7}$, not its value.",
+    "To find an unknown index, write both sides as powers of the same base, then compare the indices.",
+    "No calculator on Papers 1 and 2: give exact fractions, like $4^{-3} = \\frac{1}{64}$, not rounded decimals."
+  ],
+  "readingMinutes": 18
+}

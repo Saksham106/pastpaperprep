@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 170" role="img" aria-labelledby="t">
+  <title id="t">A two by two grid for expanding 2x minus 3 times x plus 6. The columns are headed x and plus 6, the rows 2x and minus 3. The four cells are 2x squared, 12x, minus 3x and minus 18.</title>
+  <g font-size="14" font-family="inherit" text-anchor="middle">
+    <text x="45" y="30" fill="var(--muted)">×</text>
+    <text x="130" y="30" fill="var(--t1-ink)">x</text>
+    <text x="230" y="30" fill="var(--t1-ink)">+6</text>
+    <text x="45" y="80" fill="var(--t4-ink)">2x</text>
+    <text x="45" y="140" fill="var(--t4-ink)">−3</text>
+  </g>
+  <g fill="var(--t2-ink)" fill-opacity="0.12" stroke="none">
+    <rect x="80" y="45" width="100" height="60" />
+    <rect x="180" y="105" width="100" height="60" />
+  </g>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <rect x="80" y="45" width="200" height="120" />
+    <line x1="180" y1="45" x2="180" y2="165" />
+    <line x1="80" y1="105" x2="280" y2="105" />
+  </g>
+  <g fill="currentColor" font-size="15" font-family="inherit" text-anchor="middle">
+    <text x="130" y="80">2x²</text>
+    <text x="230" y="80">+12x</text>
+    <text x="130" y="140">−3x</text>
+    <text x="230" y="140">−18</text>
+  </g>
+</svg>

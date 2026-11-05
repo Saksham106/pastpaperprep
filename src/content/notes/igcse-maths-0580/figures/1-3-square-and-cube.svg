@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 250" role="img" aria-labelledby="t">
+  <title id="t">Left: a square made of 5 rows of 5 small squares, 25 in all, with each side labelled 5. Below it: area 25, so the side is the square root of 25, which is 5. Right: a cube with each edge labelled 3. Below it: volume 27, so the edge is the cube root of 27, which is 3.</title>
+  <g stroke="currentColor" stroke-width="1" fill="none" opacity="0.45">
+    <line x1="50" y1="54" x2="170" y2="54"/>
+    <line x1="50" y1="78" x2="170" y2="78"/>
+    <line x1="50" y1="102" x2="170" y2="102"/>
+    <line x1="50" y1="126" x2="170" y2="126"/>
+    <line x1="74" y1="30" x2="74" y2="150"/>
+    <line x1="98" y1="30" x2="98" y2="150"/>
+    <line x1="122" y1="30" x2="122" y2="150"/>
+    <line x1="146" y1="30" x2="146" y2="150"/>
+  </g>
+  <rect x="50" y="30" width="120" height="120" stroke="var(--t1-ink)" stroke-width="2.5" fill="none"/>
+  <g stroke="var(--t2-ink)" stroke-width="2.5" fill="none" stroke-linejoin="round">
+    <polygon points="270,80 360,80 360,170 270,170"/>
+    <polygon points="270,80 310,45 400,45 360,80"/>
+    <polygon points="360,80 400,45 400,135 360,170"/>
+  </g>
+  <g font-family="inherit" font-size="18" fill="currentColor" text-anchor="middle">
+    <text x="110" y="172">5</text>
+    <text x="34" y="96">5</text>
+    <text x="315" y="192">3</text>
+    <text x="256" y="131">3</text>
+    <text x="392" y="168">3</text>
+  </g>
+  <g font-family="inherit" font-size="15" fill="var(--muted)" text-anchor="middle">
+    <text x="110" y="208">area 25</text>
+    <text x="110" y="232">side = √25 = 5</text>
+    <text x="335" y="218">volume 27</text>
+    <text x="335" y="242">edge = ∛27 = 3</text>
+  </g>
+</svg>

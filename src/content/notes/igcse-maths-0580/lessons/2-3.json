@@ -1,0 +1,663 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "2.3",
+  "slug": "algebraic-fractions",
+  "title": "Algebraic fractions",
+  "level": "Extended",
+  "topic": 2,
+  "summary": "An [[algebraic-fraction|algebraic fraction]] is a fraction with letters in it, such as $\\frac{x+1}{x-3}$. You treat it just like a number fraction: [[factorise|factorise]] and cancel to simplify, multiply tops and bottoms, flip to divide, and use a common denominator to add or subtract.",
+  "goals": [
+    {
+      "text": "Simplify an algebraic fraction by factorising the top and bottom and cancelling common factors.",
+      "bullets": [
+        "2.3-s2"
+      ]
+    },
+    {
+      "text": "Multiply and divide algebraic fractions, cancelling before you multiply.",
+      "bullets": [
+        "2.3-s1",
+        "2.3-s2"
+      ]
+    },
+    {
+      "text": "Add and subtract algebraic fractions with number denominators, taking care with minus signs.",
+      "bullets": [
+        "2.3-s1"
+      ]
+    },
+    {
+      "text": "Combine fractions with letters in the denominators into one fully simplified fraction.",
+      "bullets": [
+        "2.3-s1",
+        "2.3-s2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.4",
+    "2.2"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "rational expressions",
+    "simplify algebraic fractions",
+    "adding algebraic fractions",
+    "single fraction in its simplest form",
+    "cancelling fractions with x",
+    "dividing algebraic fractions"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-add-number-fractions",
+      "prompt": "Work out $\\frac{3}{4} + \\frac{1}{6}$.",
+      "hint": "The [[lowest-common-multiple|lowest common multiple]] of $4$ and $6$ is $12$.",
+      "options": [
+        {
+          "text": "$\\frac{11}{12}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{4}{10}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{3}{24}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{3}{4} = \\frac{9}{12}$ and $\\frac{1}{6} = \\frac{2}{12}$, so the sum is $\\frac{11}{12}$. Adding tops and bottoms gives $\\frac{4}{10}$, which is wrong. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "fraction",
+        "truth": "Rational(3, 4) + Rational(1, 6)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-factorise-dots",
+      "prompt": "Factorise $x^2 - 36$.",
+      "hint": "It is a [[difference-of-two-squares|difference of two squares]]: $x^2 - 6^2$.",
+      "options": [
+        {
+          "text": "$(x - 6)^2$",
+          "correct": false
+        },
+        {
+          "text": "$(x + 6)(x - 6)$",
+          "correct": true
+        },
+        {
+          "text": "$x(x - 36)$",
+          "correct": false
+        }
+      ],
+      "explain": "$a^2 - b^2 = (a + b)(a - b)$, so $x^2 - 36 = (x + 6)(x - 6)$. Expanding $(x - 6)^2$ gives $x^2 - 12x + 36$. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "x**2 - 36",
+        "form": "factorised"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-factorise-quadratic",
+      "prompt": "Factorise $x^2 + 2x - 15$.",
+      "hint": "Find a pair of numbers with product $-15$ and sum $2$.",
+      "options": [
+        {
+          "text": "$(x - 5)(x + 3)$",
+          "correct": false
+        },
+        {
+          "text": "$(x + 5)(x - 3)$",
+          "correct": true
+        },
+        {
+          "text": "$(x + 15)(x - 1)$",
+          "correct": false
+        }
+      ],
+      "explain": "$5 \\times (-3) = -15$ and $5 + (-3) = 2$, so it is $(x + 5)(x - 3)$. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "x**2 + 2*x - 15",
+        "form": "factorised"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "simplify",
+      "heading": "Simplifying by cancelling",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To simplify $\\frac{6}{8}$, you write it as $\\frac{2 \\times 3}{2 \\times 4}$ and cancel the $2$ to get $\\frac{3}{4}$. You can cancel because $\\frac{2}{2} = 1$."
+        },
+        {
+          "type": "definition",
+          "term": "Algebraic fraction",
+          "statement": "An [[algebraic-fraction|algebraic fraction]] is a fraction with letters in its numerator, its denominator or both. It is also called a rational expression.",
+          "plain": "A fraction with $x$ (or another letter) in it."
+        },
+        {
+          "type": "text",
+          "text": "Algebraic fractions cancel in the same way. You may only cancel a factor: a whole bracket, letter or number that multiplies everything on the top and everything on the bottom."
+        },
+        {
+          "type": "result",
+          "statement": "To simplify: 1. [[factorise|Factorise]] the top fully. 2. Factorise the bottom fully. 3. Cancel any bracket, letter or number that is a factor of both.",
+          "why": "A bracket divided by itself is $1$, as long as it is not $0$, so cancelling it does not change the value."
+        },
+        {
+          "type": "example",
+          "id": "ex-simplify-common-factor",
+          "question": "Simplify $\\frac{x^2 + 4x}{3x + 12}$.",
+          "steps": [
+            "Factorise the top: $x$ is a common factor, so $x^2 + 4x = x(x + 4)$.",
+            "Factorise the bottom: $3$ is a common factor, so $3x + 12 = 3(x + 4)$.",
+            "The fraction is now $\\frac{x(x + 4)}{3(x + 4)}$.",
+            "Cancel the bracket $(x + 4)$ from the top and bottom. This leaves $\\frac{x}{3}$."
+          ],
+          "answer": "$\\frac{x}{3}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "(x**2 + 4*x)/(3*x + 12)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Cancelling single terms, such as the $x$ in $x + 4$ against the $x$ in $3x$. Only cancel after you factorise, and only whole brackets."
+        },
+        {
+          "type": "example",
+          "id": "ex-simplify-quadratics",
+          "question": "Simplify $\\frac{x^2 - 3x - 10}{x^2 - 4}$.",
+          "steps": [
+            "Factorise the top: $-5 \\times 2 = -10$ and $-5 + 2 = -3$, so $x^2 - 3x - 10 = (x - 5)(x + 2)$.",
+            "The bottom is a [[difference-of-two-squares|difference of two squares]]: $x^2 - 4 = (x - 2)(x + 2)$.",
+            "The fraction is $\\frac{(x - 5)(x + 2)}{(x - 2)(x + 2)}$.",
+            "Cancel $(x + 2)$. Check: $(x - 5)$ and $(x - 2)$ are different, so nothing else cancels."
+          ],
+          "answer": "$\\frac{x - 5}{x - 2}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "(x**2 - 3*x - 10)/(x**2 - 4)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Watch for brackets that are opposites. $3 - x = -(x - 3)$, so $\\frac{3 - x}{x - 3} = -1$. Take out the $-1$ before you cancel."
+        },
+        {
+          "type": "check",
+          "id": "check-simplify-common",
+          "prompt": "Simplify $\\frac{4x + 8}{x^2 + 2x}$.",
+          "hint": "Take $4$ out of the top and $x$ out of the bottom.",
+          "options": [
+            {
+              "text": "$\\frac{12}{x + 2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{4}{x}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{x}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$4x$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{4(x + 2)}{x(x + 2)} = \\frac{4}{x}$. The answer $\\frac{12}{x + 2}$ comes from cancelling the $x$ terms before factorising.",
+          "verify": {
+            "kind": "expression",
+            "truth": "(4*x + 8)/(x**2 + 2*x)",
+            "form": "simplified"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-simplify-opposite",
+          "prompt": "Simplify $\\frac{7 - x}{x^2 - 49}$.",
+          "hint": "Write $7 - x$ as $-(x - 7)$, then factorise the bottom.",
+          "options": [
+            {
+              "text": "$\\frac{1}{x + 7}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1}{x - 7}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1}{x + 7}$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\frac{-(x - 7)}{(x - 7)(x + 7)} = -\\frac{1}{x + 7}$. Cancelling $7 - x$ with $x - 7$ as if they were equal loses the minus sign.",
+          "verify": {
+            "kind": "expression",
+            "truth": "(7 - x)/(x**2 - 49)",
+            "form": "simplified"
+          }
+        }
+      ]
+    },
+    {
+      "id": "multiply-divide",
+      "heading": "Multiplying and dividing",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "With number fractions, $\\frac{2}{3} \\times \\frac{5}{7} = \\frac{10}{21}$: multiply the tops, then multiply the bottoms. To divide, flip the second fraction and multiply."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{a}{b} \\times \\frac{c}{d} = \\frac{ac}{bd} \\qquad \\frac{a}{b} \\div \\frac{c}{d} = \\frac{a}{b} \\times \\frac{d}{c}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Factorise everything and cancel before you multiply. A factor on any top can cancel with the same factor on any bottom."
+        },
+        {
+          "type": "example",
+          "id": "ex-multiply-simple",
+          "question": "Simplify $\\frac{4x}{9} \\times \\frac{3x}{8}$.",
+          "steps": [
+            "Cancel numbers first. $4$ on a top and $8$ on a bottom share $4$: they become $1$ and $2$.",
+            "$3$ on a top and $9$ on a bottom share $3$: they become $1$ and $3$.",
+            "Now multiply: $\\frac{x}{3} \\times \\frac{x}{2} = \\frac{x^2}{6}$."
+          ],
+          "answer": "$\\frac{x^2}{6}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "(4*x/9)*(3*x/8)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-divide-factorise",
+          "question": "Simplify $\\frac{x^2 - 4x}{x + 1} \\div \\frac{3x - 12}{x^2 + x}$.",
+          "steps": [
+            "Flip the second fraction and multiply: $\\frac{x^2 - 4x}{x + 1} \\times \\frac{x^2 + x}{3x - 12}$.",
+            "Factorise each part: $\\frac{x(x - 4)}{x + 1} \\times \\frac{x(x + 1)}{3(x - 4)}$.",
+            "Cancel $(x - 4)$ and $(x + 1)$, which each appear on a top and a bottom.",
+            "Multiply what is left: $\\frac{x \\times x}{3} = \\frac{x^2}{3}$."
+          ],
+          "answer": "$\\frac{x^2}{3}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "((x**2 - 4*x)/(x + 1)) / ((3*x - 12)/(x**2 + x))",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Flipping the first fraction, or both. Keep the first fraction as it is and flip only the one you divide by."
+        },
+        {
+          "type": "check",
+          "id": "check-divide-simple",
+          "prompt": "Simplify $\\frac{6}{x} \\div \\frac{3}{x^2}$.",
+          "hint": "Change it to $\\frac{6}{x} \\times \\frac{x^2}{3}$.",
+          "options": [
+            {
+              "text": "$\\frac{18}{x^3}$",
+              "correct": false
+            },
+            {
+              "text": "$2x$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{2}{x}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{6}{x} \\times \\frac{x^2}{3} = \\frac{6x^2}{3x} = 2x$. Multiplying without flipping gives $\\frac{18}{x^3}$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "(6/x) / (3/x**2)",
+            "form": "simplified"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-multiply-factorise",
+          "prompt": "Simplify $\\frac{x^2 + 5x}{2x - 6} \\times \\frac{x^2 - 9}{x + 5}$.",
+          "hint": "Factorise all four parts. Look for $(x + 5)$ and $(x - 3)$.",
+          "options": [
+            {
+              "text": "$\\frac{x(x + 3)}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{x + 3}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{x(x - 3)}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2}{x(x + 3)}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{x(x + 5)}{2(x - 3)} \\times \\frac{(x - 3)(x + 3)}{x + 5} = \\frac{x(x + 3)}{2}$. The $x$ has nothing to cancel with, so it stays.",
+          "verify": {
+            "kind": "expression",
+            "truth": "((x**2 + 5*x)/(2*x - 6)) * ((x**2 - 9)/(x + 5))",
+            "form": "simplified"
+          }
+        }
+      ]
+    },
+    {
+      "id": "add-numbers",
+      "heading": "Adding and subtracting with number denominators",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can only add fractions with the same denominator. So you change each one into an [[equivalent-fraction|equivalent fraction]] over a common denominator, then add the tops."
+        },
+        {
+          "type": "text",
+          "text": "Use the [[lowest-common-multiple|lowest common multiple]] (LCM) of the denominators. Whatever you multiply a bottom by, multiply its whole top by too."
+        },
+        {
+          "type": "example",
+          "id": "ex-add-number-denominators",
+          "question": "Write $\\frac{x}{4} + \\frac{x + 3}{6}$ as a single fraction.",
+          "steps": [
+            "The LCM of $4$ and $6$ is $12$.",
+            "$4 \\times 3 = 12$, so multiply the first top by $3$: $\\frac{3x}{12}$.",
+            "$6 \\times 2 = 12$, so multiply the second top by $2$: $\\frac{2(x + 3)}{12}$.",
+            "Add the tops: $\\frac{3x + 2x + 6}{12} = \\frac{5x + 6}{12}$."
+          ],
+          "answer": "$\\frac{5x + 6}{12}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "x/4 + (x + 3)/6"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-subtract-number-denominators",
+          "question": "Write $\\frac{2x + 1}{3} - \\frac{x - 2}{5}$ as a single fraction, fully simplified.",
+          "steps": [
+            "The LCM of $3$ and $5$ is $15$. Keep each top in a bracket: $\\frac{5(2x + 1) - 3(x - 2)}{15}$.",
+            "Expand the first bracket: $5(2x + 1) = 10x + 5$.",
+            "Expand the second, with its minus sign: $-3(x - 2) = -3x + 6$.",
+            "Collect terms: $10x + 5 - 3x + 6 = 7x + 11$. The top does not factorise, so the answer is in its simplest form."
+          ],
+          "answer": "$\\frac{7x + 11}{15}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "(2*x + 1)/3 - (x - 2)/5"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $-3x - 6$ for $-3(x - 2)$. The minus multiplies both terms, and $-3 \\times -2 = +6$."
+        },
+        {
+          "type": "check",
+          "id": "check-add-x-halves",
+          "prompt": "Write $\\frac{x}{2} + \\frac{x}{5}$ as a single fraction.",
+          "hint": "The LCM of $2$ and $5$ is $10$.",
+          "options": [
+            {
+              "text": "$\\frac{2x}{7}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{7x}{10}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{x^2}{10}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{5x}{10} + \\frac{2x}{10} = \\frac{7x}{10}$. Adding tops and bottoms gives $\\frac{2x}{7}$, and multiplying gives $\\frac{x^2}{10}$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "x/2 + x/5",
+            "form": "simplified"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-subtract-number-denominators",
+          "prompt": "Write $\\frac{x + 4}{2} - \\frac{x - 1}{3}$ as a single fraction, fully simplified.",
+          "hint": "Start with $\\frac{3(x + 4) - 2(x - 1)}{6}$.",
+          "options": [
+            {
+              "text": "$\\frac{x + 10}{6}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{5x + 10}{6}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{x + 14}{6}$",
+              "correct": true
+            }
+          ],
+          "explain": "$3x + 12 - 2x + 2 = x + 14$. Writing $-2x - 2$ for $-2(x - 1)$ gives $\\frac{x + 10}{6}$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "(x + 4)/2 - (x - 1)/3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "add-letters",
+      "heading": "Letters in the denominators",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The method is the same when the denominators have letters. If the two bottoms share no factor, the common denominator is their product. Leave it in brackets."
+        },
+        {
+          "type": "example",
+          "id": "ex-add-product-denominator",
+          "question": "Write $\\frac{4}{x + 3} + \\frac{5}{x - 1}$ as a single fraction, fully simplified.",
+          "steps": [
+            "The common denominator is $(x + 3)(x - 1)$.",
+            "Multiply each top by the other fraction's bottom: $\\frac{4(x - 1) + 5(x + 3)}{(x + 3)(x - 1)}$.",
+            "Expand the top: $4x - 4 + 5x + 15 = 9x + 11$.",
+            "$9x + 11$ shares no factor with the bottom, so this is the simplest form."
+          ],
+          "answer": "$\\frac{9x + 11}{(x + 3)(x - 1)}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "4/(x + 3) + 5/(x - 1)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Factorise the bottoms first. If they share a bracket, the LCM uses that bracket once, which keeps the working short."
+        },
+        {
+          "type": "example",
+          "id": "ex-subtract-shared-factor",
+          "question": "Write $\\frac{2}{x - 3} - \\frac{12}{x^2 - 9}$ as a single fraction, fully simplified.",
+          "steps": [
+            "Factorise the second bottom: $x^2 - 9 = (x - 3)(x + 3)$. It already contains $(x - 3)$, so the LCM is $(x - 3)(x + 3)$.",
+            "Only the first fraction needs changing: $\\frac{2(x + 3)}{(x - 3)(x + 3)} - \\frac{12}{(x - 3)(x + 3)}$.",
+            "Subtract the tops: $2x + 6 - 12 = 2x - 6$.",
+            "Factorise the top, $2x - 6 = 2(x - 3)$, and cancel $(x - 3)$: $\\frac{2(x - 3)}{(x - 3)(x + 3)} = \\frac{2}{x + 3}$."
+          ],
+          "answer": "$\\frac{2}{x + 3}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "2/(x - 3) - 12/(x**2 - 9)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "\"Simplest form\" means one more check at the end: factorise the top and see if a bracket cancels with the bottom."
+        },
+        {
+          "type": "check",
+          "id": "check-add-letter-denominators",
+          "prompt": "Write $\\frac{3}{x} + \\frac{2}{x + 1}$ as a single fraction.",
+          "hint": "The common denominator is $x(x + 1)$. Multiply $3$ by $(x + 1)$ and $2$ by $x$.",
+          "options": [
+            {
+              "text": "$\\frac{5}{2x + 1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2x + 3}{x(x + 1)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{5x + 3}{x(x + 1)}$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\frac{3(x + 1) + 2x}{x(x + 1)} = \\frac{5x + 3}{x(x + 1)}$. Writing $3 + 2x$ on top forgets to multiply the $3$ by $(x + 1)$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "3/x + 2/(x + 1)",
+            "form": "simplified"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-subtract-letter-denominators",
+          "prompt": "Write $\\frac{2}{x - 1} - \\frac{3}{x + 2}$ as a single fraction, fully simplified.",
+          "hint": "Start with $\\frac{2(x + 2) - 3(x - 1)}{(x - 1)(x + 2)}$, and watch the sign of $-3 \\times -1$.",
+          "options": [
+            {
+              "text": "$\\frac{7 - x}{(x - 1)(x + 2)}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1 - x}{(x - 1)(x + 2)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{5x + 1}{(x - 1)(x + 2)}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1}{2x + 1}$",
+              "correct": false
+            }
+          ],
+          "explain": "$2x + 4 - 3x + 3 = 7 - x$. Writing $-3x - 3$ gives $1 - x$, and subtracting tops and adding bottoms gives $-\\frac{1}{2x + 1}$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "2/(x - 1) - 3/(x + 2)",
+            "form": "simplified"
+          }
+        },
+        {
+          "type": "text",
+          "text": "When the tops are brackets too, multiply each top by the other bottom and expand in full. After a minus sign, keep the whole second product in a bracket."
+        },
+        {
+          "type": "check",
+          "id": "check-subtract-bracket-tops",
+          "prompt": "Write $\\frac{x + 4}{x - 2} - \\frac{x}{x + 1}$ as a single fraction, fully simplified.",
+          "hint": "The top is $(x + 4)(x + 1) - x(x - 2)$. Expand each part, then subtract the whole of $x^2 - 2x$.",
+          "options": [
+            {
+              "text": "$\\frac{7x + 4}{(x - 2)(x + 1)}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{3x + 4}{(x - 2)(x + 1)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2x + 4}{(x - 2)(x + 1)}$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x^2 + 5x + 4) - (x^2 - 2x) = 7x + 4$. Writing $-x^2 - 2x$ for $-x(x - 2)$ gives $3x + 4$, and expanding $(x + 4)(x + 1)$ as $x^2 + 4$ gives $2x + 4$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "(x + 4)/(x - 2) - x/(x + 1)",
+            "form": "simplified"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "To simplify, factorise the top and bottom fully, then cancel whole brackets, letters or numbers that are factors of both. Never cancel single terms of a sum.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Opposite brackets: $a - b = -(b - a)$, so $\\frac{3 - x}{x - 3} = -1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To add or subtract, use the LCM of the denominators. Multiply each whole top by what its bottom was multiplied by. Never add the denominators.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Keep each top in a bracket after a minus sign: $-3(x - 2) = -3x + 6$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Cancelling terms before factorising, such as the $x^2$ in $\\frac{x^2 + 3x}{x^2 - 9}$. Factorise first, then cancel only whole brackets.",
+    "Adding the tops and adding the bottoms: $\\frac{1}{x} + \\frac{2}{y}$ is not $\\frac{3}{x + y}$. Use a common denominator.",
+    "Forgetting to multiply a top by the other fraction's bottom. In $\\frac{3}{x} + \\frac{2}{x + 1}$, the $3$ becomes $3(x + 1)$.",
+    "Losing a sign after a minus. $-(x + 2)$ is $-x - 2$, and $-2(y - 1)$ is $-2y + 2$.",
+    "Cancelling $5 - x$ with $x - 5$ as if they were the same. They are opposites, so the fraction $\\frac{5 - x}{x - 5}$ is $-1$."
+  ],
+  "examTips": [
+    "\"Simplify\": show each factorisation on its own line. A correct factorisation of the top or the bottom can earn a mark even if the rest goes wrong.",
+    "When a question wants one fraction in its simplest form, the common denominator and the unsimplified top can each earn a mark. Write them down before you expand.",
+    "You can leave a denominator such as $(x + 2)(x - 5)$ in brackets. Expand the top, and collect its terms.",
+    "Check your answer by putting a number such as $x = 10$ into the question and into your answer. Both should give the same value, as long as no bottom is $0$."
+  ],
+  "readingMinutes": 17
+}
