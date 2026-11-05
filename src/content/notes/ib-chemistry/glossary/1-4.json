@@ -2,49 +2,49 @@
   {
     "id": "sublevel",
     "term": "sublevel",
-    "definition": "TODO: s, p, d, f subdivision of a main energy level, of increasing energy.",
+    "definition": "A subdivision of a main energy level, labelled s, p, d or f; within one level their energies increase in that order, and they contain 1, 3, 5 and 7 orbitals.",
     "lesson": "1.4"
   },
   {
     "id": "atomic-orbital",
     "term": "atomic orbital",
-    "definition": "TODO: Region of space with high probability of finding an electron; holds at most two electrons of opposite spin.",
+    "definition": "A region around the nucleus where an electron is most likely to be found; each orbital holds at most two electrons, with opposite spins.",
     "lesson": "1.4"
   },
   {
     "id": "aufbau-principle",
     "term": "Aufbau principle",
-    "definition": "TODO: Fill orbitals from lowest to highest energy.",
+    "definition": "The rule that electrons occupy the lowest-energy orbitals available first, so the order up to $Z = 36$ is 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p.",
     "lesson": "1.4"
   },
   {
     "id": "hunds-rule",
     "term": "Hund's rule",
-    "definition": "TODO: Orbitals of equal energy are singly occupied with parallel spins before pairing.",
+    "definition": "The rule that electrons in a sublevel occupy separate orbitals singly, with parallel spins, before any orbital takes a second electron.",
     "lesson": "1.4"
   },
   {
     "id": "pauli-exclusion-principle",
     "term": "Pauli exclusion principle",
-    "definition": "TODO: An orbital holds at most two electrons and they must have opposite spins.",
+    "definition": "The rule that one orbital holds at most two electrons, and two electrons sharing an orbital must have opposite spins.",
     "lesson": "1.4"
   },
   {
     "id": "electron-configuration",
     "term": "electron configuration",
-    "definition": "TODO: Arrangement of electrons in sublevels; include the Cr and Cu exceptions, up to Z = 36.",
+    "definition": "How an atom's or ion's electrons are arranged in sublevels, written like 1s² 2s² 2p⁶ or in condensed form with a noble-gas core such as [Ar] 4s² 3d⁶; chromium and copper are the exceptions to the filling order up to $Z = 36$.",
     "lesson": "1.4"
   },
   {
     "id": "valence-electron",
     "term": "valence electron",
-    "definition": "TODO: Electron in the outermost (highest) main energy level.",
+    "definition": "An electron in the outermost (highest) main energy level of an atom; for example, selenium has six, in 4s and 4p.",
     "lesson": "1.4"
   },
   {
     "id": "unpaired-electron",
     "term": "unpaired electron",
-    "definition": "TODO: Single electron in an orbital; basis of radicals and magnetism.",
+    "definition": "An electron alone in an orbital, with no partner of opposite spin; atoms or ions with unpaired electrons are attracted into a magnetic field.",
     "lesson": "1.4"
   }
 ]

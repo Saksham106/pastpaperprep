@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 300" role="img" aria-labelledby="t">
+<title id="t">Energy diagram of sublevels from 1s to 4p, with 4s drawn just below 3d</title>
+<line x1="40" y1="285" x2="40" y2="25" stroke="currentColor" stroke-width="1.4"/>
+<path d="M34 34 L40 22 L46 34" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<text x="30" y="160" font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 30 160)">Energy</text>
+<rect x="120" y="251" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<text x="112" y="265" font-size="13" text-anchor="end" fill="var(--t2-ink)" font-family="inherit">1s</text>
+<rect x="120" y="211" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<text x="112" y="225" font-size="13" text-anchor="end" fill="var(--t2-ink)" font-family="inherit">2s</text>
+<rect x="200" y="191" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="220" y="191" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="240" y="191" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<text x="192" y="205" font-size="13" text-anchor="end" fill="var(--t2-ink)" font-family="inherit">2p</text>
+<rect x="120" y="151" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<text x="112" y="165" font-size="13" text-anchor="end" fill="var(--t2-ink)" font-family="inherit">3s</text>
+<rect x="200" y="131" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="220" y="131" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="240" y="131" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<text x="192" y="145" font-size="13" text-anchor="end" fill="var(--t2-ink)" font-family="inherit">3p</text>
+<rect x="120" y="93" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<text x="112" y="107" font-size="13" text-anchor="end" fill="var(--t2-ink)" font-family="inherit">4s</text>
+<rect x="300" y="79" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="320" y="79" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="340" y="79" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="360" y="79" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="380" y="79" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<text x="292" y="93" font-size="13" text-anchor="end" fill="var(--t2-ink)" font-family="inherit">3d</text>
+<rect x="200" y="45" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="220" y="45" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="240" y="45" width="20" height="18" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<text x="192" y="59" font-size="13" text-anchor="end" fill="var(--t2-ink)" font-family="inherit">4p</text>
+</svg>

@@ -2,25 +2,25 @@
   {
     "id": "vsepr-model",
     "term": "VSEPR model",
-    "definition": "TODO: Electron domains around a central atom repel to a minimum-repulsion arrangement.",
+    "definition": "Valence shell electron pair repulsion: the electron domains around a central atom repel each other and spread as far apart as possible, which sets the shape of the molecule.",
     "lesson": "2.3"
   },
   {
     "id": "electron-domain",
     "term": "electron domain",
-    "definition": "TODO: Bonding pair (single, double or triple counts as one) or lone pair around an atom.",
+    "definition": "A region of electron density around a central atom: a lone pair, or the bond to one other atom, where a single, double or triple bond each count as one domain.",
     "lesson": "2.3"
   },
   {
     "id": "electron-domain-geometry",
     "term": "electron domain geometry",
-    "definition": "TODO: Arrangement of all electron domains, including lone pairs.",
+    "definition": "The arrangement in space of all the electron domains around a central atom, lone pairs included: linear, trigonal planar or tetrahedral for two, three or four domains.",
     "lesson": "2.3"
   },
   {
     "id": "molecular-geometry",
     "term": "molecular geometry",
-    "definition": "TODO: Arrangement of atoms only; same as domain geometry only with no lone pairs.",
+    "definition": "The arrangement in space of the atoms around a central atom; lone pairs affect it but are not named in it, and it matches the electron domain geometry only when the central atom has no lone pairs.",
     "lesson": "2.3"
   }
 ]

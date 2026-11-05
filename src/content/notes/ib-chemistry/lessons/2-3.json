@@ -1,0 +1,682 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "2.3",
+  "slug": "shapes-of-molecules-vsepr",
+  "title": "Shapes of molecules (VSEPR)",
+  "level": "SL",
+  "topic": 2,
+  "summary": "The electron pairs around a central atom repel each other, so they spread out as far apart as they can. Count the [[electron-domain|electron domains]] in the [[lewis-formula|Lewis formula]], and the [[vsepr-model|VSEPR model]] gives you the shape and the bond angles. [[lone-pair|Lone pairs]] and double bonds squeeze some of those angles.",
+  "goals": [
+    {
+      "text": "Count the electron domains around a central atom, counting a double or triple bond as one domain.",
+      "bullets": [
+        "S2.2.4"
+      ]
+    },
+    {
+      "text": "Predict the [[electron-domain-geometry|electron domain geometry]] and bond angle for two, three or four domains.",
+      "bullets": [
+        "S2.2.4"
+      ]
+    },
+    {
+      "text": "Predict and name the [[molecular-geometry|molecular geometry]] when the central atom has lone pairs.",
+      "bullets": [
+        "S2.2.4"
+      ]
+    },
+    {
+      "text": "Explain how lone pairs and multiple bonds change bond angles.",
+      "bullets": [
+        "S2.2.4"
+      ]
+    },
+    {
+      "text": "Judge how useful the VSEPR model is, and where it falls short.",
+      "bullets": [
+        "S2.2.4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "VSEPR theory",
+    "shapes of molecules",
+    "electron domain geometry",
+    "trigonal pyramidal and bent shapes",
+    "bond angles lone pairs",
+    "molecular shape chemistry"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-lone-pairs-oxygen",
+      "prompt": "In the [[lewis-formula|Lewis formula]] of $\\ce{Cl2O}$, the oxygen atom forms a single bond to each chlorine atom. How many [[lone-pair|lone pairs]] does the oxygen atom have?",
+      "hint": "Oxygen has six valence electrons, and it puts one into each bond.",
+      "options": [
+        {
+          "text": "2",
+          "correct": true
+        },
+        {
+          "text": "0",
+          "correct": false
+        },
+        {
+          "text": "1",
+          "correct": false
+        },
+        {
+          "text": "3",
+          "correct": false
+        }
+      ],
+      "explain": "Oxygen uses 2 of its 6 valence electrons in the two bonds. The other 4 form 2 lone pairs. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "(6 - 2)/2"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-triple-bond-electrons",
+      "prompt": "How many electrons are shared between the two atoms in a triple bond?",
+      "hint": "Each shared pair is two electrons.",
+      "options": [
+        {
+          "text": "6",
+          "correct": true
+        },
+        {
+          "text": "3",
+          "correct": false
+        },
+        {
+          "text": "2",
+          "correct": false
+        }
+      ],
+      "explain": "A triple bond is three shared pairs, so it holds 6 electrons. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "3*2"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "domains",
+      "heading": "Electron domains and the VSEPR model",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Electrons are negatively charged, so electron pairs around an atom repel each other. They spread out as far apart as they can, like balloons tied together at their knots."
+        },
+        {
+          "type": "text",
+          "text": "The [[vsepr-model|VSEPR model]] (valence shell electron pair repulsion) uses this idea to predict shapes. Start from the [[lewis-formula|Lewis formula]] ({{lesson:2.2}}) and look at the central atom."
+        },
+        {
+          "type": "definition",
+          "term": "electron domain",
+          "statement": "A region of electron density around a central atom: a lone pair, or the bond to one other atom. A single, double or triple bond counts as one electron domain.",
+          "plain": "Count each atom joined to the central atom once, then add the lone pairs."
+        },
+        {
+          "type": "text",
+          "text": "A double bond counts as one because all four of its electrons sit between the same two atoms. They point in one direction."
+        },
+        {
+          "type": "result",
+          "statement": "Electron domains around a central atom repel each other and take the arrangement that keeps them furthest apart. That arrangement depends only on the number of domains.",
+          "why": "Domains are regions of negative charge. Further apart means less repulsion, so the molecule is more stable."
+        },
+        {
+          "type": "definition",
+          "term": "electron domain geometry",
+          "statement": "The arrangement in space of all the electron domains around a central atom, lone pairs included.",
+          "plain": "Where the electron clouds point, whether or not an atom sits at the end of each one."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-domain-geometries",
+          "alt": "Three ball-and-stick diagrams. Left: a central atom with two bonds on opposite sides, angle 180 degrees, labelled 2 domains, linear. Middle: a central atom with three bonds in one flat plane, 120 degrees apart, labelled 3 domains, trigonal planar. Right: a central atom with four bonds, one drawn as a wedge coming towards you and one dashed going away, angle 109.5 degrees, labelled 4 domains, tetrahedral.",
+          "caption": "A wedge points towards you and a dashed line points away: the tetrahedral shape is three-dimensional."
+        },
+        {
+          "type": "text",
+          "text": "1. Two domains: linear, $180^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Three domains, in one flat plane: trigonal planar, $120^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "3. Four domains: tetrahedral, $109.5^{\\circ}$. This is wider than the $90^{\\circ}$ of a flat square, so four domains are never flat."
+        },
+        {
+          "type": "example",
+          "id": "ex-domains-sif4",
+          "question": "In $\\ce{SiF4}$, silicon has four single bonds to fluorine and no lone pairs. Predict the electron domain geometry around silicon and the F–Si–F bond angle. Explain your answer.",
+          "steps": [
+            "Four bonds and no lone pairs: four domains.",
+            "Four identical domains sit furthest apart at the corners of a tetrahedron."
+          ],
+          "answer": "Silicon has four bonding pairs and no lone pairs, so it has four electron domains. The domains repel each other and get as far apart as possible. The electron domain geometry is tetrahedral and the F–Si–F bond angle is $109.5^{\\circ}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "four bonding domains, tetrahedral, 109.5 degrees",
+            "requires": [
+              [
+                "four electron domains",
+                "4 electron domains"
+              ],
+              [
+                "repel"
+              ],
+              [
+                "tetrahedral"
+              ],
+              [
+                "109.5"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-domains-cs2",
+          "question": "In $\\ce{CS2}$, carbon forms a double bond to each sulfur atom and has no lone pairs. Deduce the number of electron domains around carbon, its electron domain geometry and the S=C=S bond angle.",
+          "steps": [
+            "Each $\\ce{C=S}$ double bond is one domain, and there are no lone pairs: two domains.",
+            "Check: counting each double bond twice would wrongly give four domains."
+          ],
+          "answer": "Carbon has two electron domains, because each double bond counts as one domain and there are no lone pairs. The two domains repel to opposite sides of the carbon atom. The electron domain geometry is linear and the S=C=S bond angle is $180^{\\circ}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "two domains, linear, 180 degrees",
+            "requires": [
+              [
+                "two electron domains",
+                "2 electron domains"
+              ],
+              [
+                "each double bond counts as one domain",
+                "double bond counts as one"
+              ],
+              [
+                "linear"
+              ],
+              [
+                "180"
+              ]
+            ],
+            "forbids": [
+              "four electron domains",
+              "tetrahedral"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-domains-bcl3",
+          "prompt": "In $\\ce{BCl3}$, boron forms three single bonds and has no lone pairs. What is the electron domain geometry around boron?",
+          "hint": "Add the bonds and the lone pairs on boron.",
+          "options": [
+            {
+              "text": "trigonal planar",
+              "correct": true
+            },
+            {
+              "text": "trigonal pyramidal",
+              "correct": false
+            },
+            {
+              "text": "tetrahedral",
+              "correct": false
+            },
+            {
+              "text": "linear",
+              "correct": false
+            }
+          ],
+          "explain": "Three bonds and no lone pairs make three domains, flat at $120^{\\circ}$. Boron has only six valence-shell electrons here, an exception to the [[octet-rule|octet rule]].",
+          "verify": {
+            "kind": "choice",
+            "truth": "trigonal planar"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-domains-methanal",
+          "prompt": "In methanal, $\\ce{HCHO}$, carbon has a double bond to oxygen and a single bond to each hydrogen. How many electron domains are around the carbon atom?",
+          "hint": "How many atoms is carbon joined to? Does it have any lone pairs?",
+          "options": [
+            {
+              "text": "3",
+              "correct": true
+            },
+            {
+              "text": "4",
+              "correct": false
+            },
+            {
+              "text": "2",
+              "correct": false
+            }
+          ],
+          "explain": "Carbon is joined to three atoms and has no lone pairs, so it has three domains. Counting the double bond twice gives 4.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 + 2 + 0"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lone-pairs",
+      "heading": "Lone pairs and molecular geometry",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[lone-pair|lone pair]] takes up a domain, so it helps decide where the bonds point. But a shape is named from the positions of the atoms only. So a molecule with lone pairs has two geometries."
+        },
+        {
+          "type": "definition",
+          "term": "molecular geometry",
+          "statement": "The arrangement in space of the atoms bonded to a central atom. Lone pairs affect it but are not part of its name.",
+          "plain": "The shape you would see if you could see only the nuclei."
+        },
+        {
+          "type": "text",
+          "text": "With no lone pairs on the central atom, the two geometries are the same. With lone pairs, they differ."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-lone-pair-shapes",
+          "alt": "Three molecules, each with four electron domains around the central atom. Methane: carbon with four hydrogen atoms, tetrahedral, angle 109.5 degrees. Ammonia: nitrogen with three hydrogen atoms and one lone pair drawn as a shaded lobe on top, trigonal pyramidal, angle 107 degrees. Water: oxygen with two hydrogen atoms and two lone pairs drawn as shaded lobes, bent, angle 104.5 degrees.",
+          "caption": "All three have a tetrahedral electron domain geometry. The lone pairs change the molecular geometry and close the bond angles."
+        },
+        {
+          "type": "text",
+          "text": "A lone pair is held by only one nucleus. Its electron cloud sits closer to the central atom and spreads wider than a bonding pair, so it repels more strongly."
+        },
+        {
+          "type": "result",
+          "statement": "Repulsion: lone pair–lone pair > lone pair–bonding pair > bonding pair–bonding pair. As a rule of thumb, each lone pair closes the bond angles by about $2.5^{\\circ}$.",
+          "why": "A bonding pair is pulled between two nuclei, so it is narrower and further from the central atom."
+        },
+        {
+          "type": "text",
+          "text": "1. Four domains, no lone pairs: tetrahedral, $109.5^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Four domains, one lone pair: trigonal pyramidal, about $107^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "3. Four domains, two lone pairs: bent (V-shaped or angular), about $104.5^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "4. Three domains, one lone pair: bent, about $117^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "5. Two domains, or any molecule of two atoms: linear, $180^{\\circ}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-shape-ncl3",
+          "question": "In $\\ce{NCl3}$, nitrogen forms three single bonds and has one lone pair. Predict the molecular geometry and the Cl–N–Cl bond angle. Explain your answer.",
+          "steps": [
+            "Three bonding pairs plus one lone pair: four domains, tetrahedral.",
+            "Atoms sit at only three corners, a pyramid. The lone pair squeezes the bonds below $109.5^{\\circ}$."
+          ],
+          "answer": "Nitrogen has three bonding pairs and one lone pair, so it has four electron domains and a tetrahedral electron domain geometry. The lone pair repels more strongly than the bonding pairs and pushes the bonds closer together. The molecular geometry is trigonal pyramidal, with a Cl–N–Cl bond angle of about $107^{\\circ}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "trigonal pyramidal, about 107 degrees",
+            "requires": [
+              [
+                "four electron domains",
+                "4 electron domains"
+              ],
+              [
+                "lone pair repels more",
+                "lone pair repels more strongly"
+              ],
+              [
+                "trigonal pyramidal"
+              ],
+              [
+                "107"
+              ]
+            ],
+            "forbids": [
+              "molecular geometry is tetrahedral",
+              "repels less"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-shape-scl2",
+          "question": "In $\\ce{SCl2}$, sulfur forms two single bonds and has two lone pairs. Deduce the electron domain geometry, the molecular geometry and an approximate Cl–S–Cl bond angle.",
+          "steps": [
+            "Two bonding pairs and two lone pairs: four domains, tetrahedral. Atoms sit at only two corners: bent.",
+            "Two lone pairs squeeze harder than one, so the angle is below $107^{\\circ}$. The measured value, about $103^{\\circ}$, agrees."
+          ],
+          "answer": "Sulfur has two bonding pairs and two lone pairs, so the electron domain geometry is tetrahedral. The two lone pairs repel more strongly than the bonding pairs. The molecular geometry is bent, with a predicted Cl–S–Cl bond angle of about $104.5^{\\circ}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "tetrahedral domains, bent, about 104.5 degrees",
+            "requires": [
+              [
+                "tetrahedral"
+              ],
+              [
+                "two lone pairs",
+                "2 lone pairs"
+              ],
+              [
+                "bent",
+                "V-shaped",
+                "angular"
+              ],
+              [
+                "104.5",
+                "104",
+                "105"
+              ]
+            ],
+            "forbids": [
+              "linear"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-shape-nitrite",
+          "prompt": "In $\\ce{NO2^-}$, nitrogen has a double bond to one oxygen, a single bond to the other and one lone pair. What is the molecular geometry of the ion?",
+          "hint": "Count the domains around nitrogen. Then ask which of them hold atoms.",
+          "options": [
+            {
+              "text": "bent",
+              "correct": true
+            },
+            {
+              "text": "linear",
+              "correct": false
+            },
+            {
+              "text": "trigonal planar",
+              "correct": false
+            },
+            {
+              "text": "trigonal pyramidal",
+              "correct": false
+            }
+          ],
+          "explain": "Two bonded atoms plus one lone pair make three domains, trigonal planar. Atoms sit at only two corners, so the ion is bent.",
+          "verify": {
+            "kind": "choice",
+            "truth": "bent"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-angle-ammonium",
+          "prompt": "Ammonia's lone pair forms a [[coordination-bond|coordination bond]] to $\\ce{H^+}$, giving $\\ce{NH4^+}$. What are the shape and H–N–H bond angle of $\\ce{NH4^+}$?",
+          "hint": "After the reaction, how many lone pairs are left on nitrogen?",
+          "options": [
+            {
+              "text": "tetrahedral, 109.5°",
+              "correct": true
+            },
+            {
+              "text": "trigonal pyramidal, about 107°",
+              "correct": false
+            },
+            {
+              "text": "bent, about 104.5°",
+              "correct": false
+            },
+            {
+              "text": "trigonal planar, 120°",
+              "correct": false
+            }
+          ],
+          "explain": "The lone pair is now a bonding pair: four bonding domains, no lone pairs, so tetrahedral at $109.5^{\\circ}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "tetrahedral, 109.5°"
+          }
+        }
+      ]
+    },
+    {
+      "id": "multiple-bonds",
+      "heading": "Multiple bonds, and how good the model is",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A double bond packs four electrons into one domain, so it repels the other domains more strongly than a single bond does."
+        },
+        {
+          "type": "text",
+          "text": "The domain geometry stays the same. But the angles next to the double bond open up, and the angle between the single bonds closes."
+        },
+        {
+          "type": "example",
+          "id": "ex-angles-cocl2",
+          "question": "In $\\ce{COCl2}$, carbon has a double bond to oxygen, a single bond to each chlorine and no lone pairs. Predict the molecular geometry, and compare the Cl–C–Cl angle with the Cl–C=O angles.",
+          "steps": [
+            "Three bonded atoms, no lone pairs: trigonal planar, about $120^{\\circ}$.",
+            "The $\\ce{C=O}$ domain repels harder and pushes the $\\ce{C-Cl}$ bonds together. Measured: Cl–C–Cl about $112^{\\circ}$, Cl–C=O about $124^{\\circ}$."
+          ],
+          "answer": "Carbon has three electron domains and no lone pairs, so the molecular geometry is trigonal planar. The C=O double bond has more electron density than a C–Cl single bond, so it repels more strongly. The Cl–C=O angles are greater than $120^{\\circ}$ and the Cl–C–Cl angle is less than $120^{\\circ}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "trigonal planar; Cl-C=O above 120 degrees, Cl-C-Cl below 120 degrees",
+            "requires": [
+              [
+                "trigonal planar"
+              ],
+              [
+                "double bond has more electron density",
+                "double bond repels more"
+              ],
+              [
+                "greater than 120",
+                "more than 120"
+              ],
+              [
+                "less than 120"
+              ]
+            ],
+            "forbids": [
+              "all angles are 120"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-angle-methanal",
+          "prompt": "Methanal, $\\ce{HCHO}$, is trigonal planar with a $\\ce{C=O}$ double bond. Which describes its H–C–H bond angle?",
+          "hint": "Which domain repels the two $\\ce{C-H}$ bonds most strongly?",
+          "options": [
+            {
+              "text": "slightly less than 120°",
+              "correct": true
+            },
+            {
+              "text": "exactly 120°",
+              "correct": false
+            },
+            {
+              "text": "slightly more than 120°",
+              "correct": false
+            },
+            {
+              "text": "exactly 109.5°",
+              "correct": false
+            }
+          ],
+          "explain": "The $\\ce{C=O}$ double bond pushes the two $\\ce{C-H}$ bonds together, to about $116^{\\circ}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "slightly less than 120°"
+          }
+        },
+        {
+          "type": "text",
+          "text": "How useful is the VSEPR model? From a Lewis formula alone, it predicts the right shape for most molecules and ions. It also predicts which way lone pairs and double bonds move the angles."
+        },
+        {
+          "type": "text",
+          "text": "Its limits: the angles are estimates. It says nothing about the orbitals that form bonds. And it is only as good as the Lewis formula you start from."
+        },
+        {
+          "type": "example",
+          "id": "ex-vsepr-phosphine",
+          "question": "In phosphine, $\\ce{PH3}$, phosphorus has three bonding pairs and one lone pair, like ammonia. Its measured H–P–H bond angle is $93.5^{\\circ}$. Comment on how useful the VSEPR model is for this molecule.",
+          "steps": [
+            "Model: four domains, one a lone pair, so a trigonal pyramid at about $107^{\\circ}$.",
+            "Data: the shape is right, but the angle is about $13^{\\circ}$ smaller."
+          ],
+          "answer": "The VSEPR model correctly predicts that phosphine is trigonal pyramidal, because phosphorus has four electron domains, one of them a lone pair. It predicts a bond angle of about $107^{\\circ}$, but the measured angle is $93.5^{\\circ}$. So the model is useful for predicting shapes, but its bond angles are only approximate.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "predicts the right shape but only an approximate angle",
+            "requires": [
+              [
+                "trigonal pyramidal"
+              ],
+              [
+                "four electron domains",
+                "4 electron domains"
+              ],
+              [
+                "107"
+              ],
+              [
+                "only approximate",
+                "approximate"
+              ],
+              [
+                "useful"
+              ]
+            ],
+            "forbids": [
+              "exact bond angle"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-vsepr-usefulness",
+          "prompt": "Which statement about the VSEPR model is correct?",
+          "hint": "Think about phosphine: what did the model get right, and what did it miss?",
+          "options": [
+            {
+              "text": "It predicts shapes well but gives only approximate bond angles.",
+              "correct": true
+            },
+            {
+              "text": "It predicts the exact bond angle of every molecule.",
+              "correct": false
+            },
+            {
+              "text": "It cannot be used for ions.",
+              "correct": false
+            },
+            {
+              "text": "It ignores lone pairs on the central atom.",
+              "correct": false
+            }
+          ],
+          "explain": "VSEPR works for ions and counts lone pairs, but its angles are estimates.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It predicts shapes well but gives only approximate bond angles."
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, the same model extends to five and six electron domains, for central atoms with an expanded octet.",
+          "lesson": "2.8"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Electron domains on the central atom: each bonded atom counts once (single, double or triple bond), plus each lone pair.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "2 domains: linear, $180^{\\circ}$. 3 domains: trigonal planar, $120^{\\circ}$. 4 domains: tetrahedral, $109.5^{\\circ}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Lone pairs repel more than bonding pairs. 4 domains: 1 lone pair trigonal pyramidal (about $107^{\\circ}$), 2 lone pairs bent (about $104.5^{\\circ}$). 3 domains, 1 lone pair: bent (about $117^{\\circ}$).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Molecular geometry names the atoms only. It matches the electron domain geometry only when there are no lone pairs.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A double bond repels more than a single bond: angles next to it open up and the others close.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "VSEPR predicts shapes well, but its bond angles are estimates.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving lone pairs off the Lewis formula, so you count too few domains. Draw every lone pair on the central atom before you count.",
+    "Counting a double or triple bond as two or three domains. Count each bonded atom once, however many pairs join it.",
+    "Giving the electron domain geometry when the question asks for the molecular geometry. The domains in $\\ce{NH3}$ are tetrahedral, but the molecule is trigonal pyramidal.",
+    "Saying a lone pair repels less because it is not in a bond. It repels more: it sits closer to the central atom and spreads wider."
+  ],
+  "examTips": [
+    "State the molecular geometry: the name earns the mark. Explain it: give the bonding pairs and lone pairs, then say the domains repel to get as far apart as possible.",
+    "To deduce a bond angle, give a number. With lone pairs, pick a value below the parent angle, such as about $107^{\\circ}$; mark schemes often accept a sensible range.",
+    "In Paper 1A, options often pair an electron domain geometry with a molecular geometry. Work out both before you read the options."
+  ],
+  "readingMinutes": 20
+}

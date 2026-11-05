@@ -1,0 +1,608 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "1.4",
+  "slug": "sublevels-orbitals-and-electron-configurations",
+  "title": "Sublevels, orbitals and electron configurations",
+  "level": "SL",
+  "topic": 1,
+  "summary": "Each [[energy-level|main energy level]] is split into [[sublevel|sublevels]] (s, p, d and f), and each sublevel is made of [[atomic-orbital|atomic orbitals]] that hold two [[electron|electrons]] each. Three rules, plus two exceptions (chromium and copper), let you write the [[electron-configuration|electron configuration]] of any atom or ion up to $Z = 36$.",
+  "goals": [
+    {
+      "text": "Describe how a main energy level divides into s, p, d and f sublevels, and how many orbitals and electrons each holds.",
+      "bullets": [
+        "S1.3.4"
+      ]
+    },
+    {
+      "text": "Recognize the shape of an s orbital and the shapes and orientations of the three p orbitals.",
+      "bullets": [
+        "S1.3.4"
+      ]
+    },
+    {
+      "text": "Draw orbital diagrams by following the [[pauli-exclusion-principle|Pauli exclusion principle]], [[hunds-rule|Hund's rule]] and the [[aufbau-principle|Aufbau principle]].",
+      "bullets": [
+        "S1.3.5"
+      ]
+    },
+    {
+      "text": "Write full and condensed configurations for atoms and ions up to $Z = 36$, including chromium and copper.",
+      "bullets": [
+        "S1.3.5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "1.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "electron configuration",
+    "orbital diagram",
+    "arrow in box diagram",
+    "aufbau principle and hund's rule",
+    "s p d f orbitals",
+    "chromium and copper electron configuration"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ion-electrons",
+      "prompt": "How many electrons are in a $\\ce{^{27}Al^3+}$ ion? Aluminium has [[atomic-number|atomic number]] 13.",
+      "hint": "A neutral atom has one electron per proton. What does 3+ mean?",
+      "answer": {
+        "value": 10,
+        "tolerance": 0
+      },
+      "explain": "The atom has 13 electrons. A 3+ ion has lost 3 of them, so $13 - 3 = 10$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "13 - 3",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-line-spectrum",
+      "prompt": "Why is hydrogen's emission spectrum made of separate lines?",
+      "hint": "Each line comes from one particular jump between levels.",
+      "options": [
+        {
+          "text": "Electrons can only have certain fixed energies, so only certain energy gaps exist",
+          "correct": true
+        },
+        {
+          "text": "Hydrogen has several isotopes, and each one gives its own line",
+          "correct": false
+        },
+        {
+          "text": "Electrons emit light only when they move up to a higher level",
+          "correct": false
+        }
+      ],
+      "explain": "Electrons occupy fixed energy levels, so a falling electron can only emit photons whose energy matches a gap between levels. Revise it in {{lesson:1.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Electrons can only have certain fixed energies, so only certain energy gaps exist"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "sublevels",
+      "heading": "Sublevels and orbitals",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.3}} each [[energy-level|main energy level]] was a single energy, numbered $n = 1, 2, 3, \\dots$. In atoms with more than one [[electron|electron]], electrons in the same main level do not all have the same energy."
+        },
+        {
+          "type": "definition",
+          "term": "sublevel",
+          "statement": "A subdivision of a main energy level. Sublevels are labelled s, p, d and f, and within one main level their energies increase in that order.",
+          "plain": "Each main level is split into smaller groups of electrons with slightly different energies."
+        },
+        {
+          "type": "text",
+          "text": "Level $n$ contains $n$ sublevels. So $n = 1$ has only 1s, $n = 2$ has 2s and 2p, $n = 3$ has 3s, 3p and 3d, and $n = 4$ has 4s, 4p, 4d and 4f. The number gives the main level and the letter gives the sublevel."
+        },
+        {
+          "type": "definition",
+          "term": "atomic orbital",
+          "statement": "A region around the nucleus in which an electron is most likely to be found. One orbital holds at most two electrons, and they must have opposite spins.",
+          "plain": "A fuzzy cloud showing where an electron usually is, with room for two electrons."
+        },
+        {
+          "type": "text",
+          "text": "Every sublevel is a set of orbitals of equal energy. An s sublevel has 1 orbital, a p sublevel 3, a d sublevel 5 and an f sublevel 7. At two electrons per orbital, they hold 2, 6, 10 and 14 electrons."
+        },
+        {
+          "type": "text",
+          "text": "Adding the sublevels gives the most a main level can hold: 2 for $n = 1$, 8 for $n = 2$, 18 for $n = 3$ and 32 for $n = 4$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{maximum electrons in level } n = 2n^{2}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "An s orbital is a sphere centred on the nucleus. It looks the same from every direction, so it has no orientation. A 2s orbital is larger than a 1s orbital."
+        },
+        {
+          "type": "text",
+          "text": "A p orbital is a dumbbell: two lobes on opposite sides of the nucleus. The three p orbitals of one level point along the $x$, $y$ and $z$ axes, at right angles to each other, so they are called $\\mathrm{p}_x$, $\\mathrm{p}_y$ and $\\mathrm{p}_z$."
+        },
+        {
+          "type": "figure",
+          "id": "1-4-s-p-orbitals",
+          "alt": "Four sketches on x, y and z axes with the nucleus at the origin. The s orbital is a sphere centred on the nucleus. The px orbital has two lobes along the x axis, py two lobes along the y axis and pz two lobes along the z axis, each pair meeting at the nucleus.",
+          "caption": "One s orbital and the three p orbitals of the same level. Each p orbital has zero electron density at the nucleus, between its lobes."
+        },
+        {
+          "type": "text",
+          "text": "The sublevels also shape the periodic table. Groups 1 and 2 (and helium) form the s-block, groups 13 to 18 the p-block and groups 3 to 12 the d-block. An element's block names the sublevel its last electron enters. More in {{lesson:3.1}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-orbitals-n4",
+          "question": "List the sublevels in the $n = 4$ main energy level and find how many orbitals it contains in total.",
+          "steps": [
+            "Level 4 has 4 sublevels: 4s, 4p, 4d and 4f.",
+            "Count the orbitals in each: s has 1, p has 3, d has 5 and f has 7.",
+            "Add them: $1 + 3 + 5 + 7 = 16$ orbitals.",
+            "Check: 16 orbitals at two electrons each give 32 electrons, which matches $2n^{2} = 2 \\times 4^{2}$."
+          ],
+          "answer": "$1 + 3 + 5 + 7 = 16$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1 + 3 + 5 + 7"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-five-orbitals",
+          "prompt": "Which type of sublevel is made of five orbitals?",
+          "hint": "The orbital counts go up by two each time: s, then p, then d, then f.",
+          "options": [
+            {
+              "text": "s",
+              "correct": false
+            },
+            {
+              "text": "p",
+              "correct": false
+            },
+            {
+              "text": "d",
+              "correct": true
+            },
+            {
+              "text": "f",
+              "correct": false
+            }
+          ],
+          "explain": "s has 1 orbital, p has 3, d has 5 and f has 7. So a d sublevel, which holds up to 10 electrons, has five.",
+          "verify": {
+            "kind": "choice",
+            "truth": "d"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-orbital-shapes",
+          "question": "Describe the shape and orientation of the 2s orbital and of the three 2p orbitals.",
+          "steps": [
+            "Give the shape of each type of orbital.",
+            "Then say how the three p orbitals are arranged."
+          ],
+          "answer": "The 2s orbital is spherical and centred on the nucleus, so it has no particular direction. Each 2p orbital is dumbbell-shaped, with two lobes on opposite sides of the nucleus. The three 2p orbitals lie along the x, y and z axes, at right angles to each other.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "s spherical; p dumbbell; three p orbitals along x, y and z at right angles",
+            "requires": [
+              [
+                "spherical",
+                "sphere"
+              ],
+              "dumbbell",
+              [
+                "x, y and z",
+                "three axes"
+              ],
+              [
+                "right angles",
+                "perpendicular",
+                "90"
+              ]
+            ],
+            "forbids": [
+              "circular"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-4f-electrons",
+          "prompt": "What is the maximum number of electrons a 4f sublevel can hold?",
+          "hint": "Count the orbitals in an f sublevel first.",
+          "answer": {
+            "value": 14,
+            "tolerance": 0
+          },
+          "explain": "An f sublevel has 7 orbitals, each holding 2 electrons, so $7 \\times 2 = 14$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "7*2",
+            "dp": 0
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "There is no 1p or 2d sublevel: level $n$ has only $n$ sublevels."
+        }
+      ]
+    },
+    {
+      "id": "filling",
+      "heading": "Filling orbitals: three rules",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Electrons have a property called spin, drawn as an arrow up ($\\uparrow$) or down ($\\downarrow$). In the ground state, the lowest-energy arrangement, three rules decide where each [[electron|electron]] goes."
+        },
+        {
+          "type": "definition",
+          "term": "Aufbau principle",
+          "statement": "Electrons occupy the lowest-energy orbitals available first, so sublevels fill in order of increasing energy. Up to $Z = 36$, chromium and copper are the only exceptions.",
+          "plain": "Fill from the bottom up."
+        },
+        {
+          "type": "definition",
+          "term": "Pauli exclusion principle",
+          "statement": "An orbital holds at most two electrons, and two electrons in the same orbital must have opposite spins.",
+          "plain": "Two per box, one up and one down."
+        },
+        {
+          "type": "definition",
+          "term": "Hund's rule",
+          "statement": "Within a sublevel, electrons occupy separate orbitals singly, with parallel spins, before any orbital takes a second electron.",
+          "plain": "Like bus passengers, electrons take an empty seat before sharing one."
+        },
+        {
+          "type": "text",
+          "text": "For atoms up to $Z = 36$ the sublevels fill in this order: 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p. Notice that 4s comes before 3d: in potassium and calcium the 4s orbital is lower in energy."
+        },
+        {
+          "type": "figure",
+          "id": "1-4-sublevel-energies",
+          "alt": "Energy diagram with energy increasing upwards. Boxes stand for orbitals: one box each for 1s, 2s, 3s and 4s, three boxes each for 2p, 3p and 4p, and five boxes for 3d. From the bottom the order is 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p, with 4s drawn just below 3d.",
+          "caption": "Relative energies of the sublevels as they fill. Each box is one orbital."
+        },
+        {
+          "type": "text",
+          "text": "An orbital's energy is not fixed. It depends on the nuclear charge and the other electrons present, that is, on the electron configuration and chemical environment. So 4s fills before 3d, yet in a transition metal ion 3d ends up lower."
+        },
+        {
+          "type": "text",
+          "text": "An orbital diagram (arrow-in-box diagram) draws each orbital as a box and each electron as an arrow. Boxes of one sublevel sit side by side, and higher sublevels are drawn higher. Phosphorus ($Z = 15$) has 15 electrons:"
+        },
+        {
+          "type": "figure",
+          "id": "1-4-phosphorus-orbital-diagram",
+          "alt": "Orbital diagram for phosphorus drawn as a staircase: each sublevel sits higher than the one before, and an arrow at the side points to higher energy. 1s, 2s and 3s are each one box with an up and a down arrow. 2p is three boxes, each with an up and a down arrow. 3p is three boxes, each with a single up arrow.",
+          "caption": "The three 3p electrons go into separate boxes with parallel spins, as [[hunds-rule|Hund's rule]] requires."
+        },
+        {
+          "type": "text",
+          "text": "The full electron configuration lists every sublevel with its electron count as a superscript. For phosphorus it is $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}\\,3p^{3}}$. The superscripts add up to the number of electrons, 15. Some books write 3d before 4s; either order is fine if the counts are right."
+        },
+        {
+          "type": "text",
+          "text": "The condensed form replaces the inner electrons with the symbol of the previous noble gas in square brackets. Neon is $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}}$, so phosphorus is $\\mathrm{[Ne]\\,3s^{2}\\,3p^{3}}$."
+        },
+        {
+          "type": "text",
+          "text": "The [[valence-electron|valence electrons]] are those in the outermost main level, the highest $n$. Phosphorus has five: two in 3s and three in 3p. Its three 3p electrons are [[unpaired-electron|unpaired electrons]], alone in their orbitals."
+        },
+        {
+          "type": "example",
+          "id": "ex-selenium-config",
+          "question": "Write the full electron configuration of a selenium atom ($Z = 34$), then give its condensed form.",
+          "steps": [
+            "Fill 34 electrons in order.",
+            "1s, 2s, 2p, 3s and 3p take $2 + 2 + 6 + 2 + 6 = 18$ electrons, leaving 16.",
+            "4s takes 2 and 3d takes 10, leaving 4 for 4p.",
+            "Full: $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}\\,3p^{6}\\,4s^{2}\\,3d^{10}\\,4p^{4}}$. Check: the superscripts add to 34.",
+            "The first 18 electrons match argon, so replace them with [Ar]."
+          ],
+          "answer": "$\\mathrm{[Ar]\\,4s^{2}\\,3d^{10}\\,4p^{4}}$",
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-selenium-valence",
+            "prompt": "How many valence electrons does a selenium atom have?",
+            "hint": "Look only at the highest main level in the configuration.",
+            "answer": {
+              "value": 6,
+              "tolerance": 0
+            },
+            "explain": "The highest level is $n = 4$: $\\mathrm{4s^{2}}$ and $\\mathrm{4p^{4}}$ give $2 + 4 = 6$. The 3d electrons are in level 3, so they are not counted.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "2 + 4",
+              "dp": 0
+            }
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hund-carbon",
+          "prompt": "A student draws carbon's two 2p electrons as a pair in one box, leaving two 2p boxes empty. Which rule does this break?",
+          "hint": "The count and the sublevel are right. Look at how the electrons are spread.",
+          "options": [
+            {
+              "text": "Hund's rule",
+              "correct": true
+            },
+            {
+              "text": "the Pauli exclusion principle",
+              "correct": false
+            },
+            {
+              "text": "the Aufbau principle",
+              "correct": false
+            }
+          ],
+          "explain": "Equal-energy orbitals fill singly first, so the two 2p electrons belong in separate boxes with parallel spins.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Hund's rule"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-iron-unpaired",
+          "question": "Draw the orbital diagram for the 3d and 4s sublevels of an iron atom ($Z = 26$) and deduce the number of unpaired electrons.",
+          "steps": [
+            "Configuration: $\\mathrm{[Ar]\\,4s^{2}\\,3d^{6}}$. The [Ar] core and 4s are all paired.",
+            "3d has 5 boxes. Put one electron in each, all spin up: that uses 5 of the 6.",
+            "The 6th electron pairs up in the first box, spin down.",
+            "Diagram: 4s $[\\uparrow\\downarrow]$, 3d $[\\uparrow\\downarrow][\\uparrow][\\uparrow][\\uparrow][\\uparrow]$.",
+            "Count the boxes with a single arrow: 4."
+          ],
+          "answer": "$\\text{unpaired electrons} = 4$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "6 - 2*(6 - 5)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-arsenic-full",
+          "prompt": "Which is the full electron configuration of an arsenic atom, $Z = 33$?",
+          "hint": "\"Full\" means every sublevel from 1s. Then check the superscripts add up to 33.",
+          "options": [
+            {
+              "text": "$\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}\\,3p^{6}\\,4s^{2}\\,3d^{10}\\,4p^{3}}$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{2}\\,3d^{10}\\,4p^{3}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}\\,3p^{6}\\,4s^{2}\\,4p^{3}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}\\,3p^{6}\\,4s^{1}\\,3d^{10}\\,4p^{4}}$",
+              "correct": false
+            }
+          ],
+          "explain": "Filling in order gives 18 up to 3p, then $\\mathrm{4s^{2}}$, $\\mathrm{3d^{10}}$ and $\\mathrm{4p^{3}}$. The [Ar] version is correct but condensed, not full. Leaving out 3d gives only 23 electrons. The last option has 33 electrons but takes one from 4s and puts an extra one in 4p, which is not the ground state."
+        },
+        {
+          "type": "examTip",
+          "text": "\"State the full electron configuration\" means every sublevel from 1s, with superscripts. A condensed answer such as $\\mathrm{[Ar]\\,4s^{2}}$ may not earn the mark, so give the full form when asked."
+        }
+      ]
+    },
+    {
+      "id": "exceptions-ions",
+      "heading": "Chromium, copper and ions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two atoms up to $Z = 36$ break the filling order: chromium and copper. In each, one electron that you would expect in 4s is in 3d instead."
+        },
+        {
+          "type": "text",
+          "text": "Chromium ($Z = 24$) is $\\mathrm{[Ar]\\,4s^{1}\\,3d^{5}}$, not $\\mathrm{[Ar]\\,4s^{2}\\,3d^{4}}$. Copper ($Z = 29$) is $\\mathrm{[Ar]\\,4s^{1}\\,3d^{10}}$, not $\\mathrm{[Ar]\\,4s^{2}\\,3d^{9}}$."
+        },
+        {
+          "type": "text",
+          "text": "The 4s and 3d sublevels are very close in energy. A half-filled 3d sublevel (five unpaired electrons) or a completely filled one is especially stable. So moving one electron from 4s into 3d lowers the atom's total energy."
+        },
+        {
+          "type": "text",
+          "text": "To form a negative ion, add the extra electrons to the next empty places in the filling order. Sulfur is $\\mathrm{[Ne]\\,3s^{2}\\,3p^{4}}$, so $\\ce{S^2-}$ is $\\mathrm{[Ne]\\,3s^{2}\\,3p^{6}}$, the same as argon."
+        },
+        {
+          "type": "text",
+          "text": "To form a positive ion, remove electrons from the highest main level first. For main-group elements that is the last sublevel filled: $\\ce{Mg^2+}$ is $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}}$."
+        },
+        {
+          "type": "text",
+          "text": "For d-block elements, the 4s electrons go before the 3d electrons, even though 4s filled first. Once 3d holds electrons, the 4s electrons are higher in energy and further from the nucleus. So $\\ce{Fe^2+}$ is $\\mathrm{[Ar]\\,3d^{6}}$, not $\\mathrm{[Ar]\\,4s^{2}\\,3d^{4}}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cobalt-ion",
+          "question": "Deduce the electron configuration of the $\\ce{Co^2+}$ ion. Cobalt has atomic number 27.",
+          "steps": [
+            "Write the atom first: 27 electrons give $\\mathrm{[Ar]\\,4s^{2}\\,3d^{7}}$.",
+            "The ion has 2 fewer electrons: $27 - 2 = 25$.",
+            "Remove them from the highest main level, $n = 4$: both 4s electrons go.",
+            "Check: $18 + 7 = 25$ electrons."
+          ],
+          "answer": "$\\mathrm{[Ar]\\,3d^{7}}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-iron3-config",
+          "prompt": "Which is the electron configuration of the $\\ce{Fe^3+}$ ion? Iron has atomic number 26.",
+          "hint": "Start from the iron atom. Which sublevel loses electrons first?",
+          "options": [
+            {
+              "text": "$\\mathrm{[Ar]\\,3d^{5}}$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{2}\\,3d^{3}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{1}\\,3d^{4}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{2}\\,3d^{6}}$",
+              "correct": false
+            }
+          ],
+          "explain": "The atom is $\\mathrm{[Ar]\\,4s^{2}\\,3d^{6}}$. Three electrons go: both 4s electrons first, then one 3d electron, leaving $\\mathrm{[Ar]\\,3d^{5}}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-copper-exception",
+          "question": "Copper is one of two exceptions to the filling order up to $Z = 36$. Explain this, giving the expected and the observed configurations.",
+          "steps": [
+            "State both configurations, then say why one electron moves."
+          ],
+          "answer": "Following the filling order strictly gives $\\mathrm{[Ar]\\,4s^{2}\\,3d^{9}}$. The observed configuration of copper is $\\mathrm{[Ar]\\,4s^{1}\\,3d^{10}}$. The 4s and 3d sublevels are very close in energy, so one 4s electron moves into the 3d sublevel. A completely filled 3d sublevel is more stable, so this arrangement gives the atom a lower energy.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "expected [Ar]4s2 3d9; observed [Ar]4s1 3d10; full 3d sublevel more stable",
+            "requires": [
+              "$\\mathrm{[Ar]\\,4s^{2}\\,3d^{9}}$",
+              "$\\mathrm{[Ar]\\,4s^{1}\\,3d^{10}}$",
+              "close in energy",
+              [
+                "filled 3d",
+                "full 3d",
+                "3d sublevel is full"
+              ],
+              [
+                "more stable",
+                "lower energy"
+              ]
+            ],
+            "forbids": [
+              "half-filled 3d"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-chromium-config",
+          "prompt": "Which is the ground-state electron configuration of a chromium atom, $Z = 24$?",
+          "hint": "Chromium is one of the two exceptions. What is special about five electrons in 3d?",
+          "options": [
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{1}\\,3d^{5}}$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{2}\\,3d^{4}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,3d^{6}}$",
+              "correct": false
+            }
+          ],
+          "explain": "One 4s electron moves into 3d, giving a half-filled 3d sublevel with five unpaired electrons, which is more stable."
+        },
+        {
+          "type": "check",
+          "id": "check-which-species",
+          "prompt": "Which species has the same electron configuration as an argon atom?",
+          "hint": "Argon has 18 electrons. Count the electrons in each species from its atomic number and charge.",
+          "options": [
+            {
+              "text": "$\\ce{S^2-}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{Cl}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{K}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Na^+}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{S^2-}$ has $16 + 2 = 18$ electrons, like argon. Cl has 17, K has 19 and $\\ce{Na^+}$ has 10."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Sublevels s, p, d and f have 1, 3, 5 and 7 orbitals. Each orbital holds two electrons of opposite spin.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Filling order up to $Z = 36$: 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p. Fill orbitals of a sublevel singly before pairing.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Exceptions: Cr is $\\mathrm{[Ar]\\,4s^{1}\\,3d^{5}}$ and Cu is $\\mathrm{[Ar]\\,4s^{1}\\,3d^{10}}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "d-block atoms lose their 4s electrons before their 3d electrons when they form positive ions.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving $\\mathrm{[Ne]\\,3s^{2}\\,3p^{4}}$ when the question asks for the full configuration. Full means writing every sublevel from 1s.",
+    "Writing the electron counts on the line or as subscripts. They are superscripts: $\\mathrm{2p^{6}}$.",
+    "Writing chromium as $\\mathrm{[Ar]\\,4s^{2}\\,3d^{4}}$ or copper as $\\mathrm{[Ar]\\,4s^{2}\\,3d^{9}}$. Learn the two exceptions.",
+    "Removing 3d electrons before 4s when a transition metal forms a positive ion. The 4s electrons go first."
+  ],
+  "examTips": [
+    "\"Explain, using electron configurations\" (for Cr or Cu): write the expected and the observed configurations, then the reason. A half-filled or full 3d sublevel is more stable.",
+    "\"Sketch\" p orbitals: draw the axes, put the nucleus at the origin between the lobes, and label each one ($\\mathrm{p}_x$, $\\mathrm{p}_y$, $\\mathrm{p}_z$).",
+    "In Paper 1A, first check the superscripts add up to $Z$ minus the charge. That rules out most wrong options."
+  ],
+  "readingMinutes": 21
+}

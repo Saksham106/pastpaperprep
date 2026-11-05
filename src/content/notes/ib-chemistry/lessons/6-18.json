@@ -1,0 +1,654 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.18",
+  "slug": "nucleophilic-substitution-mechanisms",
+  "title": "Nucleophilic substitution mechanisms",
+  "level": "AHL",
+  "topic": 6,
+  "summary": "A [[halogenoalkane|halogenoalkane]] swaps its halogen for a [[nucleophile|nucleophile]] in one of two ways. Primary ones use the one-step [[sn2-mechanism|SN2 mechanism]]. Tertiary ones use the two-step [[sn1-mechanism|SN1 mechanism]], through a [[carbocation|carbocation]]. Iodoalkanes react fastest because the C–I bond is the weakest.",
+  "goals": [
+    {
+      "text": "Draw the SN2 mechanism with [[curly-arrow|curly arrows]] and the [[transition-state|transition state]], and explain [[inversion-of-configuration|inversion of configuration]].",
+      "bullets": [
+        "R3.4.9"
+      ]
+    },
+    {
+      "text": "Draw the two-step SN1 mechanism for a tertiary halogenoalkane.",
+      "bullets": [
+        "R3.4.9"
+      ]
+    },
+    {
+      "text": "Tell SN1 from SN2 by rate equation and energy profile, and know that secondary halogenoalkanes react both ways.",
+      "bullets": [
+        "R3.4.9"
+      ]
+    },
+    {
+      "text": "Predict and explain the relative rates of chloro-, bromo- and iodoalkanes.",
+      "bullets": [
+        "R3.4.10"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.6",
+    "3.7",
+    "3.8",
+    "5.4",
+    "5.5",
+    "5.6",
+    "6.16"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "SN1 vs SN2",
+    "SN1 and SN2 mechanisms",
+    "halogenoalkane hydrolysis mechanism",
+    "haloalkane reaction with hydroxide",
+    "leaving group ability",
+    "backside attack inversion"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-classify-iodopropane",
+      "prompt": "How is 2-iodopropane, $\\ce{CH3CHICH3}$, classified?",
+      "hint": "Count the carbons bonded to the carbon that carries iodine.",
+      "options": [
+        {
+          "text": "Secondary",
+          "correct": true
+        },
+        {
+          "text": "Primary",
+          "correct": false
+        },
+        {
+          "text": "Tertiary",
+          "correct": false
+        }
+      ],
+      "explain": "That carbon is bonded to two other carbons, so it is secondary. Revise it in {{lesson:3.7}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Secondary"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-pick-nucleophile",
+      "prompt": "Which species can act as a nucleophile?",
+      "hint": "A nucleophile donates a lone pair.",
+      "options": [
+        {
+          "text": "The cyanide ion",
+          "correct": true
+        },
+        {
+          "text": "The hydrogen ion",
+          "correct": false
+        },
+        {
+          "text": "Methane",
+          "correct": false
+        },
+        {
+          "text": "Boron trifluoride",
+          "correct": false
+        }
+      ],
+      "explain": "$\\ce{CN^-}$ has a lone pair to donate. $\\ce{H^+}$ and $\\ce{BF3}$ accept pairs; $\\ce{CH4}$ has none. Revise it in {{lesson:6.16}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "The cyanide ion"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-rate-factor",
+      "prompt": "For $\\text{rate} = k[\\ce{A}][\\ce{B}]$, you triple $[\\ce{A}]$ and keep $[\\ce{B}]$ the same. By what factor does the rate increase?",
+      "hint": "The rate is first order in $\\ce{A}$.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0
+      },
+      "explain": "First order in $\\ce{A}$, so the rate triples. Revise it in {{lesson:5.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3**1 * 1**1",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "sn2",
+      "heading": "The SN2 mechanism: primary halogenoalkanes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In [[nucleophilic-substitution|nucleophilic substitution]] ({{lesson:6.16}}), a nucleophile replaces the halogen, which leaves as a halide ion: the [[leaving-group|leaving group]]. The carbon bonded to the halogen is δ+."
+        },
+        {
+          "type": "definition",
+          "term": "SN2 mechanism",
+          "statement": "A nucleophilic substitution in one concerted step: the nucleophile bonds to carbon as the carbon–halogen bond breaks. Both species are in the [[rate-determining-step|rate-determining step]].",
+          "plain": "In comes the nucleophile as out goes the halide."
+        },
+        {
+          "type": "text",
+          "text": "S is substitution, N is nucleophilic and 2 is the [[molecularity|molecularity]]: two species collide in the one step."
+        },
+        {
+          "type": "text",
+          "text": "Primary halogenoalkanes react this way. The nucleophile attacks from the side opposite the halogen, which is open: only one alkyl group and two small H atoms are nearby."
+        },
+        {
+          "type": "figure",
+          "id": "6-18-sn2-mechanism",
+          "alt": "SN2 mechanism. Left: a hydroxide ion with a lone pair and a negative charge, and bromoethane. The carbon bonded to bromine is labelled delta plus and the bromine delta minus. One curly arrow goes from the lone pair on oxygen to the carbon. A second curly arrow goes from the carbon–bromine bond to the bromine. Middle: the transition state in square brackets with an overall negative charge. Oxygen and bromine are joined to carbon by dashed partial bonds in a straight line, and the methyl group and two hydrogens around the carbon lie in a flat plane. Right: ethanol, with its three groups now pointing the other way, plus a bromide ion.",
+          "caption": "SN2 for bromoethane. The three groups on carbon flip like an umbrella in the wind."
+        },
+        {
+          "type": "text",
+          "text": "To draw it: one arrow from a lone pair on the nucleophile to the carbon, and one from the C–X bond to X. The transition state goes in square brackets, with dashed partial bonds 180° apart. With an anion such as $\\ce{OH^-}$ as the nucleophile, it carries an overall negative charge."
+        },
+        {
+          "type": "example",
+          "id": "ex-sn2-iodopropane-equation",
+          "question": "1-Iodopropane reacts with aqueous hydroxide ions by SN2. Outline the curly arrows, then write the ionic equation.",
+          "steps": [
+            "It is primary, so SN2 fits.",
+            "Arrow 1: lone pair on the O of $\\ce{OH^-}$ to the δ+ carbon. Arrow 2: C–I bond to I.",
+            "Products: propan-1-ol and $\\ce{I^-}$. Each side has a charge of $1-$."
+          ],
+          "answer": "$\\ce{CH3CH2CH2I + OH^- -> CH3CH2CH2OH + I^-}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CH3CH2CH2I + OH^- -> CH3CH2CH2OH + I^-",
+            "reversible": false
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Joining the H of $\\ce{OH^-}$ to carbon. The new bond is C–O, so the arrow starts at a lone pair on oxygen."
+        },
+        {
+          "type": "definition",
+          "term": "inversion of configuration",
+          "statement": "In SN2 the nucleophile enters opposite the leaving group, so the other three groups on that carbon flip to the other side.",
+          "plain": "The umbrella turns inside out."
+        },
+        {
+          "type": "text",
+          "text": "The flip shows only at a [[chiral-carbon|chiral carbon]], so not at a primary carbon (it has two H atoms). One [[enantiomer|enantiomer]] gives one enantiomer of product, so the product shows [[optical-activity|optical activity]] too. One [[stereoisomer|stereoisomer]] giving one particular product makes SN2 stereospecific."
+        },
+        {
+          "type": "example",
+          "id": "ex-sn2-inversion-explain",
+          "question": "A single enantiomer of 2-bromobutane reacts with hydroxide ions by SN2. Explain why the butan-2-ol formed is a single enantiomer.",
+          "steps": [
+            "Carbon 2 carries H, $\\ce{CH3}$, $\\ce{C2H5}$ and Br, so it is chiral.",
+            "SN2 allows attack only from the side opposite the bromine."
+          ],
+          "answer": "The hydroxide ion attacks the chiral carbon from the side opposite the bromine. As the bromide ion leaves, the other three groups flip over, so the configuration is inverted. Every molecule reacts the same way, so a single enantiomer of butan-2-ol forms, which is optically active.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Backside attack only, so the configuration inverts the same way in every molecule: one enantiomer in, one out.",
+            "requires": [
+              [
+                "opposite the bromine",
+                "opposite side"
+              ],
+              [
+                "inverted",
+                "inversion"
+              ],
+              [
+                "single enantiomer",
+                "one enantiomer"
+              ],
+              "optically active"
+            ],
+            "forbids": [
+              "racemic",
+              "both enantiomers",
+              "either side"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sn2-transition-state",
+          "prompt": "Which describes the SN2 transition state for $\\ce{OH^-}$ and bromoethane?",
+          "hint": "What charges go in?",
+          "options": [
+            {
+              "text": "Partial C–O and C–Br bonds, negative charge",
+              "correct": true
+            },
+            {
+              "text": "A carbocation, positive charge",
+              "correct": false
+            },
+            {
+              "text": "Full C–O and C–Br bonds, no charge",
+              "correct": false
+            },
+            {
+              "text": "Partial C–O and C–Br bonds, positive charge",
+              "correct": false
+            }
+          ],
+          "explain": "C–O is forming as C–Br breaks, so both are partial. The $1-$ charge of $\\ce{OH^-}$ is spread over the whole structure.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Partial C–O and C–Br bonds, negative charge"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sn1",
+      "heading": "The SN1 mechanism: tertiary halogenoalkanes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In 2-bromo-2-methylpropane, three methyl groups crowd the side opposite the bromine. This steric hindrance blocks SN2. Instead the C–Br bond breaks on its own, by [[heterolytic-fission|heterolytic fission]]."
+        },
+        {
+          "type": "definition",
+          "term": "carbocation",
+          "statement": "An ion with a positive charge on a carbon atom that has only three bonds.",
+          "plain": "A carbon short of an electron pair."
+        },
+        {
+          "type": "definition",
+          "term": "SN1 mechanism",
+          "statement": "A nucleophilic substitution in two steps: the carbon–halogen bond breaks heterolytically to give a carbocation (slow, rate-determining), then the nucleophile bonds to it (fast).",
+          "plain": "The halide leaves first, then the nucleophile moves in."
+        },
+        {
+          "type": "text",
+          "text": "The 1 means only the halogenoalkane is in the rate-determining step. The carbocation is a [[reaction-intermediate|reaction intermediate]]."
+        },
+        {
+          "type": "figure",
+          "id": "6-18-sn1-mechanism",
+          "alt": "SN1 mechanism in two rows. Row 1, step 1, slow and rate-determining: 2-bromo-2-methylpropane, a central carbon with three methyl groups and a bromine. A curly arrow goes from the carbon–bromine bond to the bromine. The arrow leads to a tertiary carbocation, the central carbon with a positive charge and three methyl groups spread flat at 120 degrees, plus a bromide ion. Row 2, step 2, fast: a curly arrow goes from a lone pair on the oxygen of a hydroxide ion to the positive carbon of the carbocation. The arrow leads to 2-methylpropan-2-ol, the central carbon bonded to three methyl groups and an OH group.",
+          "caption": "SN1 for 2-bromo-2-methylpropane."
+        },
+        {
+          "type": "text",
+          "text": "A tertiary carbocation is stable enough to form: its three alkyl groups push electron density onto the positive carbon ({{lesson:6.19}}). A primary one is not, so primary halogenoalkanes use SN2."
+        },
+        {
+          "type": "text",
+          "text": "The carbocation is trigonal planar, so the nucleophile can attack either face. SN1 is not stereospecific: a chiral reactant gives both enantiomers."
+        },
+        {
+          "type": "example",
+          "id": "ex-sn1-slow-step",
+          "question": "2-Chloro-2-methylpropane, $\\ce{(CH3)3CCl}$, is hydrolysed by SN1. Write an equation for the rate-determining step.",
+          "steps": [
+            "The slow step is heterolytic fission of C–Cl. Both electrons go to Cl.",
+            "This leaves $\\ce{(CH3)3C^+}$. Charge: $0$ on the left, $(+1) + (-1) = 0$ on the right."
+          ],
+          "answer": "$\\ce{(CH3)3CCl -> (CH3)3C^+ + Cl^-}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "(CH3)3CCl -> (CH3)3C^+ + Cl^-"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-sn1-why-tertiary",
+          "question": "Explain why 2-chloro-2-methylbutane, $\\ce{CH3CH2C(CH3)2Cl}$, reacts with hydroxide ions by SN1, not SN2.",
+          "steps": [
+            "The carbon bonded to Cl carries $\\ce{CH3}$, $\\ce{CH3}$ and $\\ce{C2H5}$: tertiary.",
+            "Give one reason against SN2 and one for SN1."
+          ],
+          "answer": "It is a tertiary halogenoalkane. Its three bulky alkyl groups block attack opposite the chlorine (steric hindrance), so SN2 is hindered. The alkyl groups push electron density onto the positive carbon, so the tertiary carbocation is relatively stable. So the C–Cl bond breaks first by heterolytic fission, and the hydroxide ion then bonds to the carbocation.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Tertiary: alkyl groups block backside attack, and they stabilize the tertiary carbocation, so C–Cl breaks first.",
+            "requires": [
+              "tertiary",
+              [
+                "steric hindrance",
+                "block"
+              ],
+              "carbocation",
+              [
+                "stable",
+                "stabilized"
+              ],
+              "heterolytic fission"
+            ],
+            "forbids": [
+              "homolytic",
+              "radical"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sn1-slow-step",
+          "prompt": "What happens in the rate-determining step of SN1?",
+          "hint": "What must happen before the nucleophile can bond?",
+          "options": [
+            {
+              "text": "The C–X bond breaks to give a carbocation",
+              "correct": true
+            },
+            {
+              "text": "The nucleophile bonds to carbon",
+              "correct": false
+            },
+            {
+              "text": "The nucleophile bonds as the halide leaves",
+              "correct": false
+            },
+            {
+              "text": "The C–X bond breaks to give two radicals",
+              "correct": false
+            }
+          ],
+          "explain": "Step 1 is slow heterolytic fission. The nucleophile bonds in fast step 2. A single concerted step is SN2.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The C–X bond breaks to give a carbocation"
+          }
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "heading": "Telling SN1 from SN2",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[rate-equation|rate equation]] shows which species are in the rate-determining step ({{lesson:5.5}}). RX is the halogenoalkane and $\\ce{Nu^-}$ the nucleophile."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{SN2: } \\text{rate} = k[\\text{RX}][\\ce{Nu^-}] \\qquad \\text{SN1: } \\text{rate} = k[\\text{RX}]",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "SN2 is second order overall. SN1 is first order, and zero order in the nucleophile: changing $[\\ce{Nu^-}]$ does not change the rate."
+        },
+        {
+          "type": "example",
+          "id": "ex-sn2-rate-calc",
+          "question": "1-Bromopentane reacts with $\\ce{OH^-}$ by SN2, with $k = \\pu{2.35e-3 dm3 mol-1 s-1}$. Calculate the initial rate when $[\\ce{C5H11Br}] = \\pu{0.0450 mol dm-3}$ and $[\\ce{OH^-}] = \\pu{0.0800 mol dm-3}$.",
+          "steps": [
+            "$\\text{rate} = k[\\ce{C5H11Br}][\\ce{OH^-}] = (2.35 \\times 10^{-3}) \\times 0.0450 \\times 0.0800$.",
+            "Units: $\\pu{dm3 mol-1 s-1} \\times \\pu{mol dm-3} \\times \\pu{mol dm-3} = \\pu{mol dm-3 s-1}$. Give 3 s.f."
+          ],
+          "answer": "$\\text{rate} \\approx \\pu{8.46e-6 mol dm-3 s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.35*10**(-3)*0.0450*0.0800",
+            "sf": 3,
+            "unit": "mol dm-3 s-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sn1-rate-factor",
+          "prompt": "In an SN1 [[hydrolysis|hydrolysis]] you halve $[\\text{RX}]$ and triple $[\\ce{OH^-}]$. By what factor does the rate change?",
+          "hint": "Which concentrations are in $\\text{rate} = k[\\text{RX}]$?",
+          "answer": {
+            "value": 0.5,
+            "tolerance": 0.05
+          },
+          "explain": "Halving $[\\text{RX}]$ halves the rate; $[\\ce{OH^-}]$ has no effect. Factor $0.5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1, 2) * 3**0",
+            "dp": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": "The energy profiles differ too. SN2 has one hump: one transition state and one [[activation-energy|activation energy]]. SN1 has two humps, with the carbocation in the dip."
+        },
+        {
+          "type": "figure",
+          "id": "6-18-energy-profiles",
+          "alt": "Two energy profiles side by side, potential energy against reaction coordinate, both drawn with products lower than reactants. Left, SN2: one hump labelled transition state, with an arrow for the activation energy from the reactants up to the top of the hump. Right, SN1: two humps labelled TS 1 and TS 2, with a dip between them labelled carbocation intermediate. The first hump is higher than the second, and the activation energy arrow runs from the reactants to the top of the first hump.",
+          "caption": "In SN1 the first hump is higher: step 1 is rate-determining."
+        },
+        {
+          "type": "example",
+          "id": "ex-deduce-mechanism",
+          "question": "For 2-iodo-2-methylbutane and $\\ce{OH^-}$, doubling $[\\ce{OH^-}]$ leaves the rate unchanged, and doubling $[\\text{RX}]$ doubles it. Deduce the mechanism, and outline how its energy profile differs from SN2.",
+          "steps": [
+            "No change with $[\\ce{OH^-}]$: zero order. Doubling with $[\\text{RX}]$: first order.",
+            "The carbon bonded to iodine is tertiary, which agrees with SN1."
+          ],
+          "answer": "It is first order in the halogenoalkane and zero order in hydroxide ions, so only the halogenoalkane is in the rate-determining step: the mechanism is SN1. Its profile shows two transition states, with a carbocation intermediate between them, and the first step has the larger activation energy. The SN2 profile has a single transition state.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Zero order in OH-, first order in RX: SN1, so two transition states with a carbocation intermediate.",
+            "requires": [
+              "zero order",
+              "first order",
+              "SN1",
+              "rate-determining step",
+              "two transition states",
+              "carbocation intermediate",
+              [
+                "single transition state",
+                "one transition state"
+              ]
+            ],
+            "forbids": [
+              "second order overall"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Secondary halogenoalkanes are in between: less crowded than tertiary, with a more stable carbocation than primary. Both mechanisms happen. So SN1 and SN2 are useful models of two extremes, which explain rate data and stereochemistry, but real reactions can lie between them."
+        },
+        {
+          "type": "check",
+          "id": "check-secondary-both",
+          "prompt": "Which can react with hydroxide ions by both SN1 and SN2?",
+          "hint": "Classify each one.",
+          "options": [
+            {
+              "text": "2-bromobutane",
+              "correct": true
+            },
+            {
+              "text": "1-bromobutane",
+              "correct": false
+            },
+            {
+              "text": "2-bromo-2-methylpropane",
+              "correct": false
+            },
+            {
+              "text": "bromomethane",
+              "correct": false
+            }
+          ],
+          "explain": "2-Bromobutane is secondary. 1-Bromobutane and bromomethane use SN2; the tertiary one uses SN1.",
+          "verify": {
+            "kind": "choice",
+            "truth": "2-bromobutane"
+          }
+        }
+      ]
+    },
+    {
+      "id": "leaving-group",
+      "heading": "The leaving group: chloro, bromo and iodo",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "With the same alkyl group, the rate order is iodoalkane > bromoalkane > chloroalkane. In both mechanisms the C–X bond breaks in the rate-determining step, so a weaker bond means a lower activation energy and a faster reaction."
+        },
+        {
+          "type": "text",
+          "text": "C–X [[bond-enthalpy|bond enthalpy]] (data booklet, section 12), in $\\pu{kJ mol-1}$: C–Cl $324$, C–Br $285$, C–I $228$. C–F, at $492$, hardly reacts."
+        },
+        {
+          "type": "text",
+          "text": "Iodine is the largest atom, so its bonding pair is furthest from the nucleus: C–I is the longest, weakest bond. The large iodide ion also spreads its charge, so it is stable once it leaves."
+        },
+        {
+          "type": "mistake",
+          "text": "Using polarity. Of the three, C–Cl is the most polar bond, yet the slowest to react. Bond strength sets the order."
+        },
+        {
+          "type": "example",
+          "id": "ex-bond-enthalpy-gap",
+          "question": "Use section 12 of the data booklet to find how much more energy breaks one mole of C–Cl bonds than of C–I bonds. Hence predict whether 1-chlorobutane or 1-iodobutane is hydrolysed faster.",
+          "steps": [
+            "C–Cl is $\\pu{324 kJ mol-1}$ and C–I is $\\pu{228 kJ mol-1}$.",
+            "C–I is weaker by $\\pu{96 kJ mol-1}$, so 1-iodobutane is hydrolysed faster."
+          ],
+          "answer": "$324 - 228 = \\pu{96 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "BE('C-Cl') - BE('C-I')",
+            "unit": "kJ mol-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-iodo-faster",
+          "question": "Explain why 2-iodo-2-methylpropane is hydrolysed faster than 2-chloro-2-methylpropane, even though C–Cl is more polar.",
+          "steps": [
+            "Both are tertiary, so both use SN1; only the halogen differs.",
+            "Link bond strength to activation energy, then to rate."
+          ],
+          "answer": "The carbon–halogen bond breaks in the rate-determining step. The C–I bond is weaker: its bond enthalpy is $\\pu{228 kJ mol-1}$ against $\\pu{324 kJ mol-1}$ for C–Cl, because iodine is larger. So the iodo compound has a lower activation energy, more collisions succeed, and it reacts faster. Bond strength outweighs polarity.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "C–I is weaker (228 vs 324 kJ/mol) and breaks in the rate-determining step, so the activation energy is lower.",
+            "requires": [
+              "rate-determining step",
+              [
+                "C-I bond is weaker",
+                "weaker C-I bond"
+              ],
+              "bond enthalpy",
+              "lower activation energy"
+            ],
+            "forbids": [
+              "C-I bond is stronger",
+              "more polar so faster"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fastest-halide",
+          "prompt": "Under the same conditions, which is hydrolysed fastest by aqueous $\\ce{OH^-}$?",
+          "hint": "Which C–X bond is weakest?",
+          "options": [
+            {
+              "text": "1-iodopentane",
+              "correct": true
+            },
+            {
+              "text": "1-bromopentane",
+              "correct": false
+            },
+            {
+              "text": "1-chloropentane",
+              "correct": false
+            },
+            {
+              "text": "1-fluoropentane",
+              "correct": false
+            }
+          ],
+          "explain": "C–I has the lowest bond enthalpy, so it breaks most easily. C–F is the strongest.",
+          "verify": {
+            "kind": "choice",
+            "truth": "1-iodopentane"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-br-i-gap",
+          "prompt": "Using section 12, by how many $\\pu{kJ mol-1}$ is C–Br stronger than C–I?",
+          "hint": "Look up both and subtract.",
+          "answer": {
+            "value": 57,
+            "tolerance": 0
+          },
+          "explain": "$285 - 228 = 57$. So bromoalkanes react more slowly than iodoalkanes.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "BE('C-Br') - BE('C-I')",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "SN2 (primary): one step; arrows from the nucleophile's lone pair to C and from C–X to X; bracketed transition state (negative with $\\ce{OH^-}$); inversion.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "SN1 (tertiary): slow C–X heterolysis to a planar carbocation, then fast attack.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "SN2: $\\text{rate} = k[\\text{RX}][\\ce{Nu^-}]$, one transition state. SN1: $\\text{rate} = k[\\text{RX}]$, two transition states. Secondary: both.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Rate: RI > RBr > RCl, as the C–X bond weakens (section 12).",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Drawing the arrow from carbon to the nucleophile. Arrows start at an electron pair and end where it goes.",
+    "Missing charges or brackets on the transition state or the halide ion.",
+    "Drawing SN1 for a primary halogenoalkane. Primary means SN2.",
+    "Putting $[\\ce{OH^-}]$ in the SN1 rate equation."
+  ],
+  "examTips": [
+    "\"Draw\" or \"explain\" an SN2 mechanism: marks go to each curly arrow and to a bracketed transition state with partial bonds and the overall charge (negative for $\\ce{OH^-}$).",
+    "\"Deduce\" from rate data: give each order, the rate equation, then SN1 or SN2.",
+    "\"Predict and explain\" rates: give RI > RBr > RCl, quote section 12 bond enthalpies and link them to activation energy."
+  ],
+  "readingMinutes": 20
+}

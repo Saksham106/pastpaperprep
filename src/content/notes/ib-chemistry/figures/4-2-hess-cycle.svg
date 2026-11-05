@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 255" role="img" aria-labelledby="t">
+  <title id="t">Triangular energy cycle. Top left: C(s) plus O2(g). Top right: CO(g) plus one half O2(g). Bottom centre: CO2(g). An arrow from top left to top right is labelled delta H, unknown. An arrow from top left down to CO2 is labelled minus 394 kilojoules per mole. An arrow from top right down to CO2 is labelled minus 283 kilojoules per mole. Below: delta H plus minus 283 equals minus 394.</title>
+  <g font-size="14" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="90" y="52">C(s) + O<tspan baseline-shift="sub" font-size="10">2</tspan>(g)</text>
+    <text x="365" y="52">CO(g) + ½O<tspan baseline-shift="sub" font-size="10">2</tspan>(g)</text>
+    <text x="228" y="206">CO<tspan baseline-shift="sub" font-size="10">2</tspan>(g)</text>
+  </g>
+  <path d="M160.0 47.0 L276.0 47.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+  <polygon points="285.0,47.0 276.0,42.5 276.0,51.5" fill="var(--t3-ink)"/>
+  <path d="M95.0 64.0 L199.0 179.3" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+  <polygon points="205.0,186.0 202.3,176.3 195.6,182.3" fill="var(--t1-ink)"/>
+  <path d="M360.0 64.0 L258.0 179.3" fill="none" stroke="var(--t2-ink)" stroke-width="1.8"/>
+  <polygon points="252.0,186.0 261.3,182.2 254.6,176.3" fill="var(--t2-ink)"/>
+  <g font-size="12" font-family="inherit">
+    <text x="222" y="36" text-anchor="middle" fill="var(--t3-ink)">ΔH = ?</text>
+    <text x="140" y="140" text-anchor="end" fill="var(--t1-ink)">−394 kJ mol⁻¹</text>
+    <text x="316" y="140" fill="var(--t2-ink)">−283 kJ mol⁻¹</text>
+  </g>
+  <text x="228" y="240" font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">ΔH + (−283) = −394</text>
+</svg>
