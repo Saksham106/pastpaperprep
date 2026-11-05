@@ -1,0 +1,628 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.15",
+  "slug": "time",
+  "title": "Time",
+  "level": "Core",
+  "topic": 1,
+  "summary": "Time counts in 60s, 24s and 7s, not in tens, so you can't subtract times like decimals. You'll convert units, use the [[24-hour-clock|24-hour clock]], work out how long things take, and read timetables and [[time-zone|time zones]].",
+  "goals": [
+    {
+      "text": "Convert between seconds, minutes, hours, days, weeks, months and years, including parts of an hour.",
+      "bullets": [
+        "1.15-c1"
+      ]
+    },
+    {
+      "text": "Change times between the 12-hour and 24-hour clock, and read a clock face.",
+      "bullets": [
+        "1.15-c2",
+        "1.15-c3"
+      ]
+    },
+    {
+      "text": "Work out how long something takes, and when it starts or ends, including past midnight.",
+      "bullets": [
+        "1.15-c1",
+        "1.15-c2"
+      ]
+    },
+    {
+      "text": "Read a timetable and work out local times in other time zones.",
+      "bullets": [
+        "1.15-c2",
+        "1.15-c3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "24 hour clock",
+    "time difference",
+    "hours and minutes",
+    "reading a timetable",
+    "time zones",
+    "convert minutes to hours"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-multiple-of-15",
+      "prompt": "Which of these is a [[multiple|multiple]] of $15$?",
+      "hint": "Count in $15$s: $15, 30, \\ldots$",
+      "options": [
+        {
+          "text": "$40$",
+          "correct": false
+        },
+        {
+          "text": "$45$",
+          "correct": true
+        },
+        {
+          "text": "$50$",
+          "correct": false
+        },
+        {
+          "text": "$55$",
+          "correct": false
+        }
+      ],
+      "explain": "$45 = 3 \\times 15$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "3*15"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-multiple-of-60",
+      "prompt": "Write down the smallest multiple of $60$ that is bigger than $200$.",
+      "hint": "Count in $60$s: $60, 120, \\ldots$",
+      "answer": {
+        "value": 240,
+        "tolerance": 0
+      },
+      "explain": "$60, 120, 180, 240$, and $240$ is the first past $200$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "60*(floor(Rational(200, 60)) + 1)",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "units",
+      "heading": "Units of time",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Time does not count in tens. There are $60$ minutes in an hour, so $2$ hours $30$ minutes is not $2.30$ hours."
+        },
+        {
+          "type": "formula",
+          "tex": "1\\text{ min} = 60\\text{ s} \\qquad 1\\text{ h} = 60\\text{ min} \\qquad 1\\text{ day} = 24\\text{ h}",
+          "tag": "learn"
+        },
+        {
+          "type": "formula",
+          "tex": "1\\text{ week} = 7\\text{ days} \\qquad 1\\text{ year} = 12\\text{ months} = 365\\text{ days } (366 \\text{ in a leap year})",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "To change to a smaller unit, multiply. To change to a bigger unit, divide."
+        },
+        {
+          "type": "example",
+          "id": "ex-podcast-total",
+          "question": "Three podcast episodes last $48$, $52$ and $55$ minutes. Work out the total time, in hours and minutes.",
+          "steps": [
+            "Add: $48 + 52 + 55 = 155$ minutes.",
+            "Take out whole hours: $2 \\times 60 = 120$, and $180$ is too many, so $2$ hours.",
+            "Minutes left: $155 - 120 = 35$."
+          ],
+          "answer": "$155\\text{ min} = 2\\text{ h }35\\text{ min}$",
+          "verify": {
+            "kind": "time",
+            "truth": "48 + 52 + 55",
+            "form": "duration"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "For part of an hour, multiply by $60$: $\\tfrac{1}{4}$ hour is $15$ minutes, and $0.4$ hours is $24$ minutes, not $40$."
+        },
+        {
+          "type": "example",
+          "id": "ex-decimal-hours",
+          "question": "A cyclist rides for $2.35$ hours. Write this time in hours and minutes.",
+          "steps": [
+            "The whole number gives $2$ hours.",
+            "Change the rest to minutes: $0.35 \\times 60 = 21$ minutes."
+          ],
+          "answer": "$2.35\\text{ h} = 2\\text{ h }21\\text{ min}$",
+          "verify": {
+            "kind": "time",
+            "truth": "2*60 + Rational(35, 100)*60",
+            "form": "duration"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-minutes-in-days",
+          "prompt": "How many minutes are there in $2$ days?",
+          "hint": "Days to hours, then hours to minutes.",
+          "answer": {
+            "value": 2880,
+            "tolerance": 0
+          },
+          "explain": "$2 \\times 24 = 48$ hours, and $48 \\times 60 = 2880$ minutes.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*24*60",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-three-quarter-hours",
+          "prompt": "How many minutes are there in $1\\tfrac{3}{4}$ hours?",
+          "hint": "Find $\\tfrac{3}{4}$ of $60$, then add $60$.",
+          "options": [
+            {
+              "text": "$75\\text{ minutes}$",
+              "correct": false
+            },
+            {
+              "text": "$105\\text{ minutes}$",
+              "correct": true
+            },
+            {
+              "text": "$135\\text{ minutes}$",
+              "correct": false
+            },
+            {
+              "text": "$175\\text{ minutes}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\tfrac{3}{4}$ of $60$ is $45$, and $60 + 45 = 105$. $135$ reads $1.75$ as $1$ hour $75$ minutes, and $175$ reads it as $175$ minutes.",
+          "verify": {
+            "kind": "exact",
+            "truth": "60*(1 + Rational(3, 4))",
+            "unit": "minutes"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-age-difference",
+          "prompt": "Ana is $15$ years $4$ months old. Her brother is $9$ years $11$ months. Work out the difference in their ages.",
+          "hint": "Swap $1$ year for $12$ months: $15$ years $4$ months is $14$ years $16$ months.",
+          "options": [
+            {
+              "text": "5 years 5 months",
+              "correct": true
+            },
+            {
+              "text": "6 years 7 months",
+              "correct": false
+            },
+            {
+              "text": "6 years 5 months",
+              "correct": false
+            }
+          ],
+          "explain": "$16 - 11 = 5$ months and $14 - 9 = 5$ years. $6$ years $5$ months forgets the swapped year, and $6$ years $7$ months takes $4$ from $11$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "5 years 5 months"
+          }
+        }
+      ]
+    },
+    {
+      "id": "clocks",
+      "heading": "The 12-hour and 24-hour clock",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The 12-hour clock uses a.m. from midnight to noon, and p.m. from noon to midnight."
+        },
+        {
+          "type": "definition",
+          "term": "24-hour clock",
+          "statement": "The [[24-hour-clock|24-hour clock]] writes a time as four digits, from $00\\,00$ at midnight to $23\\,59$: hours since midnight, then minutes.",
+          "plain": "After noon the hours keep counting past $12$."
+        },
+        {
+          "type": "text",
+          "text": "1. a.m.: write the hour with two digits, so $7.05$ a.m. is $07\\,05$. From midnight to 1 a.m. the hour is $00$."
+        },
+        {
+          "type": "text",
+          "text": "2. p.m.: add $12$ to the hour, so $4.50$ p.m. is $16\\,50$. From noon to 1 p.m. the hour stays $12$."
+        },
+        {
+          "type": "text",
+          "text": "3. Going back: hours $01$ to $11$ are a.m., and hour $12$ is p.m. Take $12$ from hours $13$ to $23$ and write p.m. An hour of $00$ becomes $12$ a.m."
+        },
+        {
+          "type": "text",
+          "text": "On a clock face, read the long minute hand first: each number is $5$ minutes. For the hour, take the last number the short hand has reached."
+        },
+        {
+          "type": "figure",
+          "id": "1-15-clock-face",
+          "alt": "Analogue clock face with the numbers 1 to 12. The long minute hand points at 10. The short hour hand is between 4 and 5, closer to 5.",
+          "caption": "The hour hand is close to $5$ but has not reached it."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-clock",
+          "question": "The clock in the figure shows a time in the afternoon. Write it in the 24-hour clock.",
+          "steps": [
+            "Minute hand at $10$: $10 \\times 5 = 50$ minutes.",
+            "The hour hand has passed $4$ but not $5$, so it is $4.50$ p.m.",
+            "p.m., so add $12$: $4 + 12 = 16$."
+          ],
+          "answer": "$16\\,50$",
+          "verify": {
+            "kind": "time",
+            "truth": "(4 + 12)*60 + 10*5",
+            "form": "clock"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-midnight-12-hour",
+          "question": "A ferry leaves at $00\\,25$. Write this time in the 12-hour clock.",
+          "steps": [
+            "Hour $00$ means $25$ minutes after midnight.",
+            "In the 12-hour clock that hour is $12$, and it is a.m."
+          ],
+          "answer": "$00\\,25 = 12.25\\text{ a.m.}$",
+          "verify": {
+            "kind": "time",
+            "truth": "0*60 + 25",
+            "form": "clock"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-to-24-hour",
+          "prompt": "Write $7.05$ p.m. in the 24-hour clock.",
+          "hint": "p.m. means add $12$ to the hour.",
+          "options": [
+            {
+              "text": "$07\\,05$",
+              "correct": false
+            },
+            {
+              "text": "$17\\,05$",
+              "correct": false
+            },
+            {
+              "text": "$19\\,05$",
+              "correct": true
+            },
+            {
+              "text": "$19\\,50$",
+              "correct": false
+            }
+          ],
+          "explain": "$7 + 12 = 19$ and the minutes stay $05$.",
+          "verify": {
+            "kind": "time",
+            "truth": "(7 + 12)*60 + 5",
+            "form": "clock"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-to-12-hour",
+          "prompt": "A shop closes at $14\\,15$. Write this time in the 12-hour clock.",
+          "hint": "The hour is over $12$: take $12$ away.",
+          "options": [
+            {
+              "text": "2.15 a.m.",
+              "correct": false
+            },
+            {
+              "text": "2.15 p.m.",
+              "correct": true
+            },
+            {
+              "text": "4.15 p.m.",
+              "correct": false
+            }
+          ],
+          "explain": "$14 - 12 = 2$, and it is after noon: 2.15 p.m.",
+          "verify": {
+            "kind": "time",
+            "truth": "14*60 + 15",
+            "form": "clock"
+          }
+        }
+      ]
+    },
+    {
+      "id": "durations",
+      "heading": "How long, and when it ends",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To find how long something takes, count on: to the next whole hour, then whole hours, then the minutes to the end."
+        },
+        {
+          "type": "example",
+          "id": "ex-train-duration",
+          "question": "A train leaves at $08\\,47$ and arrives at $13\\,22$. How long is the journey, in hours and minutes?",
+          "steps": [
+            "$08\\,47$ to $09\\,00$ is $13$ minutes.",
+            "$09\\,00$ to $13\\,00$ is $4$ hours.",
+            "$13\\,00$ to $13\\,22$ is $22$ minutes.",
+            "Total: $4$ hours and $13 + 22 = 35$ minutes."
+          ],
+          "answer": "$4\\text{ h }35\\text{ min}$",
+          "verify": {
+            "kind": "time",
+            "truth": "(13*60 + 22) - (8*60 + 47)",
+            "form": "duration"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Working out $13.22 - 8.47 = 4.75$ and writing $4$ h $75$ min. An hour has $60$ minutes, not $100$, so count on."
+        },
+        {
+          "type": "text",
+          "text": "To find an end time, add the hours, then the minutes. Swap each $60$ minutes for $1$ hour. Past $24$, take away $24$: it is the next day."
+        },
+        {
+          "type": "example",
+          "id": "ex-overnight-arrival",
+          "question": "A coach leaves at $21\\,38$ on Monday. The journey takes $4$ hours $55$ minutes. Work out the day and time it arrives.",
+          "steps": [
+            "Add the hours: $21 + 4 = 25$, which is $01$ on Tuesday. So $01\\,38$.",
+            "Add the minutes: $38 + 55 = 93$ minutes, which is $1$ h $33$ min.",
+            "So $01\\,38$ becomes $02\\,33$, still Tuesday."
+          ],
+          "answer": "$\\text{Tuesday } 02\\,33$",
+          "verify": {
+            "kind": "time",
+            "truth": "21*60 + 38 + 4*60 + 55",
+            "form": "clock"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-night-shift",
+          "prompt": "A night shift runs from $22\\,40$ to $06\\,15$ the next morning. How long is the shift?",
+          "hint": "Count on to midnight first.",
+          "options": [
+            {
+              "text": "$7\\text{ h }35\\text{ min}$",
+              "correct": true
+            },
+            {
+              "text": "$8\\text{ h }25\\text{ min}$",
+              "correct": false
+            },
+            {
+              "text": "$16\\text{ h }25\\text{ min}$",
+              "correct": false
+            }
+          ],
+          "explain": "$1$ h $20$ min to midnight, then $6$ h $15$ min: $7$ h $35$ min. $16$ h $25$ min counts backwards.",
+          "verify": {
+            "kind": "time",
+            "truth": "(24*60 - (22*60 + 40)) + (6*60 + 15)",
+            "form": "duration"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-latest-oven",
+          "prompt": "A cake needs $1$ hour $50$ minutes in the oven, then $25$ minutes to cool. It must be ready at $16\\,00$. Work out the latest time it can go in the oven.",
+          "hint": "Add the two times, then work backwards from $16\\,00$.",
+          "options": [
+            {
+              "text": "$13\\,45$",
+              "correct": true
+            },
+            {
+              "text": "$14\\,10$",
+              "correct": false
+            },
+            {
+              "text": "$13\\,85$",
+              "correct": false
+            }
+          ],
+          "explain": "$2$ h $15$ min back from $16\\,00$ is $13\\,45$. $14\\,10$ forgets the cooling, and $13\\,85$ treats an hour as $100$ minutes.",
+          "verify": {
+            "kind": "time",
+            "truth": "16*60 - (1*60 + 50 + 25)",
+            "form": "clock"
+          }
+        }
+      ]
+    },
+    {
+      "id": "timetables",
+      "heading": "Timetables and time zones",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a timetable, read down a column to follow one bus. Read across a row to see every bus at one stop."
+        },
+        {
+          "type": "figure",
+          "id": "1-15-bus-timetable",
+          "alt": "Bus timetable with four stops and three buses. Harbour: 06 50, 07 35, 08 20. Market Square: 07 08, 07 53, 08 38. Hospital: 07 26, 08 11, 08 56. Airport: 08 04, 08 49, 09 34.",
+          "caption": "A bus leaves Harbour every $45$ minutes."
+        },
+        {
+          "type": "example",
+          "id": "ex-timetable-journey",
+          "question": "Use the timetable. How long does Bus B take from Harbour to the Airport?",
+          "steps": [
+            "Down the Bus B column: $07\\,35$ at Harbour, $08\\,49$ at the Airport.",
+            "$07\\,35$ to $08\\,00$ is $25$ minutes, and $08\\,00$ to $08\\,49$ is $49$ minutes.",
+            "$25 + 49 = 74$ minutes, which is $1$ h $14$ min."
+          ],
+          "answer": "$1\\text{ h }14\\text{ min}$",
+          "verify": {
+            "kind": "time",
+            "truth": "(8*60 + 49) - (7*60 + 35)",
+            "form": "duration"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-timetable-next-bus",
+          "prompt": "Use the timetable. Tom gets to Market Square at $07\\,40$ and takes the next bus. When does he reach the Hospital?",
+          "hint": "Read across the Market Square row for the first time after $07\\,40$.",
+          "options": [
+            {
+              "text": "$07\\,26$",
+              "correct": false
+            },
+            {
+              "text": "$08\\,11$",
+              "correct": true
+            },
+            {
+              "text": "$08\\,56$",
+              "correct": false
+            }
+          ],
+          "explain": "The next bus is Bus B at $07\\,53$. Down its column, it reaches the Hospital at $08\\,11$.",
+          "verify": {
+            "kind": "time",
+            "truth": "(7*60 + 53) + ((7*60 + 26) - (7*60 + 8))",
+            "form": "clock"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Each [[time-zone|time zone]] has its own local time. Ahead means add the difference; behind means subtract it."
+        },
+        {
+          "type": "text",
+          "text": "For a flight, add the flight time to the departure time first. Then change to local time, and check the day."
+        },
+        {
+          "type": "example",
+          "id": "ex-time-zone-flight",
+          "question": "A plane leaves Dubai at $14\\,20$ local time on Saturday. The flight to Tokyo takes $9$ hours $35$ minutes. Tokyo is $5$ hours ahead of Dubai. Work out the day and local time in Tokyo when it lands.",
+          "steps": [
+            "In Dubai time: $14\\,20 + 9$ h $35$ min $= 23\\,55$ on Saturday.",
+            "Tokyo is ahead, so add $5$ hours: $23\\,55$ becomes $28\\,55$.",
+            "Past $24$, so take away $24$: $04\\,55$ on Sunday."
+          ],
+          "answer": "$\\text{Sunday } 04\\,55$",
+          "verify": {
+            "kind": "time",
+            "truth": "14*60 + 20 + 9*60 + 35 + 5*60",
+            "form": "clock"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-time-zone-west",
+          "prompt": "A plane leaves London at $11\\,15$ and flies for $8$ hours $20$ minutes to Toronto. Toronto is $5$ hours behind London. Work out the local time in Toronto when it lands.",
+          "hint": "Add the flight time in London time, then take away $5$ hours.",
+          "options": [
+            {
+              "text": "$19\\,35$",
+              "correct": false
+            },
+            {
+              "text": "$00\\,35$",
+              "correct": false
+            },
+            {
+              "text": "$14\\,35$",
+              "correct": true
+            }
+          ],
+          "explain": "$11\\,15 + 8$ h $20$ min $= 19\\,35$ in London, and $19\\,35 - 5$ h $= 14\\,35$. $19\\,35$ forgets the time zone; $00\\,35$ adds it.",
+          "verify": {
+            "kind": "time",
+            "truth": "11*60 + 15 + 8*60 + 20 - 5*60",
+            "form": "clock"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$60$ s $= 1$ min, $60$ min $= 1$ h, $24$ h $= 1$ day, $7$ days $= 1$ week, $12$ months $= 1$ year $= 365$ days ($366$ in a leap year).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Part of an hour $\\times 60 =$ minutes: $0.4$ h $= 24$ min.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "24-hour clock: for p.m. add $12$ to the hour, except from noon to 1 p.m. From midnight to 1 a.m. the hour is $00$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Time intervals: count on to the next hour, then whole hours, then minutes.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Time zones: ahead, add; behind, subtract. Add the journey first, then change zone, then check the day.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Subtracting times as decimals, as in $16.10 - 10.55$. Count on from the start time instead.",
+    "Writing $60$ or more minutes, such as $21\\,92$. Swap each $60$ minutes for $1$ hour.",
+    "Adding p.m. or \"hr\" to a 24-hour time. Write just the four digits, such as $16\\,25$.",
+    "Leaving $25\\,15$, or the old day, past midnight. Take away $24$ hours: $01\\,15$ the next day.",
+    "Reading $\\tfrac{1}{4}$ hour as $25$ minutes. Multiply by $60$: it is $15$ minutes."
+  ],
+  "examTips": [
+    "For a 24-hour time, write four digits, such as $07\\,05$, with no a.m. or p.m.",
+    "\"Work out … in hours and minutes\": answer in that form, with under $60$ minutes.",
+    "If the question asks for the day and time, give both: the day can earn its own mark."
+  ],
+  "readingMinutes": 18
+}

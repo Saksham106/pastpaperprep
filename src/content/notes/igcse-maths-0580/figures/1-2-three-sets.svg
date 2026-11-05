@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 260" role="img" aria-labelledby="t">
+  <title id="t">Venn diagram with three overlapping circles A, B and C inside a rectangle. The numbers of elements are: A only 7, B only 4, C only 9, A and B only 3, A and C only 5, B and C only 2, all three 6, and outside all three circles 8.</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <rect x="10" y="10" width="300" height="240"/>
+    <circle cx="125" cy="100" r="65"/>
+    <circle cx="195" cy="100" r="65"/>
+    <circle cx="160" cy="160" r="65"/>
+  </g>
+  <g font-family="inherit" font-size="17" fill="currentColor">
+    <text x="20" y="32">ℰ</text>
+    <text x="58" y="50">A</text>
+    <text x="252" y="50">B</text>
+    <text x="236" y="222">C</text>
+  </g>
+  <g font-family="inherit" font-size="17" fill="var(--t1-ink)" font-weight="bold" text-anchor="middle">
+    <text x="95" y="96">7</text>
+    <text x="225" y="96">4</text>
+    <text x="160" y="206">9</text>
+    <text x="160" y="80">3</text>
+    <text x="122" y="150">5</text>
+    <text x="198" y="150">2</text>
+    <text x="160" y="126">6</text>
+  </g>
+  <text x="285" y="238" font-family="inherit" font-size="17" fill="currentColor" text-anchor="middle">8</text>
+</svg>

@@ -63,10 +63,11 @@ describe("CheatSheet", () => {
     expect(screen.getByText(/IB MATHS AA · HL/)).toBeTruthy();
     await userEvent.click(screen.getByRole("button", { name: "SL" }));
     expect(sheet.getAttribute("data-level")).toBe("SL");
+    expect(sheet.hasAttribute("data-base-view")).toBe(true);
     expect(screen.getByText(/IB MATHS AA · SL/)).toBeTruthy();
     expect(document.querySelector('[data-block="5.16"]')).toBe(ahl);
     const css = readFileSync(join(process.cwd(), "src/components/course-notes/cheatsheet.module.css"), "utf8");
-    expect(css).toMatch(/\.sheet\[data-level="SL"\] \[data-ahl\][^{]*\{\s*display:\s*none/);
+    expect(css).toMatch(/\.sheet\[data-base-view\] \[data-ahl\][^{]*\{\s*display:\s*none/);
   });
 
   it("adds sheet-only lines as a Which method when block, split by level, from the content index", () => {
@@ -102,7 +103,7 @@ describe("CheatSheet", () => {
     expect(heading(5).hasAttribute("data-all-ahl")).toBe(true);
     expect(heading(2).hasAttribute("data-all-ahl")).toBe(false);
     const css = readFileSync(join(process.cwd(), "src/components/course-notes/cheatsheet.module.css"), "utf8");
-    expect(css).toMatch(/\.sheet\[data-level="SL"\] \[data-all-ahl\]/);
+    expect(css).toMatch(/\.sheet\[data-base-view\] \[data-all-ahl\]/);
   });
 
   it("shows the header, footer and the print stylesheet hides the site chrome on A4", () => {

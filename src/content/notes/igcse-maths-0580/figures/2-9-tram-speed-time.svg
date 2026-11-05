@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 300" role="img" aria-labelledby="t">
+  <title id="t">Speed-time graph of a tram between two stops. Time in seconds across from 0 to 100, each small square 5 seconds. Speed in metres per second up from 0 to 14, each small square 1 metre per second. The line rises in a straight line from 0 at 0 seconds to 12 at 20 seconds, is horizontal at 12 until 80 seconds, then falls in a straight line to 0 at 95 seconds.</title>
+  <g stroke="var(--muted)" stroke-width="0.5" stroke-opacity="0.45" fill="none">
+    <line x1="58.0" y1="18" x2="58.0" y2="248" />
+    <line x1="77.2" y1="18" x2="77.2" y2="248" />
+    <line x1="96.4" y1="18" x2="96.4" y2="248" />
+    <line x1="115.6" y1="18" x2="115.6" y2="248" />
+    <line x1="134.8" y1="18" x2="134.8" y2="248" />
+    <line x1="154.0" y1="18" x2="154.0" y2="248" />
+    <line x1="173.2" y1="18" x2="173.2" y2="248" />
+    <line x1="192.4" y1="18" x2="192.4" y2="248" />
+    <line x1="211.6" y1="18" x2="211.6" y2="248" />
+    <line x1="230.8" y1="18" x2="230.8" y2="248" />
+    <line x1="250.0" y1="18" x2="250.0" y2="248" />
+    <line x1="269.2" y1="18" x2="269.2" y2="248" />
+    <line x1="288.4" y1="18" x2="288.4" y2="248" />
+    <line x1="307.6" y1="18" x2="307.6" y2="248" />
+    <line x1="326.8" y1="18" x2="326.8" y2="248" />
+    <line x1="346.0" y1="18" x2="346.0" y2="248" />
+    <line x1="365.2" y1="18" x2="365.2" y2="248" />
+    <line x1="384.4" y1="18" x2="384.4" y2="248" />
+    <line x1="403.6" y1="18" x2="403.6" y2="248" />
+    <line x1="422.8" y1="18" x2="422.8" y2="248" />
+    <line x1="442.0" y1="18" x2="442.0" y2="248" />
+    <line x1="58" y1="248.0" x2="442" y2="248.0" />
+    <line x1="58" y1="231.6" x2="442" y2="231.6" />
+    <line x1="58" y1="215.1" x2="442" y2="215.1" />
+    <line x1="58" y1="198.7" x2="442" y2="198.7" />
+    <line x1="58" y1="182.3" x2="442" y2="182.3" />
+    <line x1="58" y1="165.9" x2="442" y2="165.9" />
+    <line x1="58" y1="149.4" x2="442" y2="149.4" />
+    <line x1="58" y1="133.0" x2="442" y2="133.0" />
+    <line x1="58" y1="116.6" x2="442" y2="116.6" />
+    <line x1="58" y1="100.1" x2="442" y2="100.1" />
+    <line x1="58" y1="83.7" x2="442" y2="83.7" />
+    <line x1="58" y1="67.3" x2="442" y2="67.3" />
+    <line x1="58" y1="50.9" x2="442" y2="50.9" />
+    <line x1="58" y1="34.4" x2="442" y2="34.4" />
+    <line x1="58" y1="18.0" x2="442" y2="18.0" />
+  </g>
+  <g stroke="var(--muted)" stroke-width="0.9" fill="none">
+    <line x1="58.0" y1="18" x2="58.0" y2="248" />
+    <line x1="134.8" y1="18" x2="134.8" y2="248" />
+    <line x1="211.6" y1="18" x2="211.6" y2="248" />
+    <line x1="288.4" y1="18" x2="288.4" y2="248" />
+    <line x1="365.2" y1="18" x2="365.2" y2="248" />
+    <line x1="442.0" y1="18" x2="442.0" y2="248" />
+    <line x1="58" y1="248.0" x2="442" y2="248.0" />
+    <line x1="58" y1="215.1" x2="442" y2="215.1" />
+    <line x1="58" y1="182.3" x2="442" y2="182.3" />
+    <line x1="58" y1="149.4" x2="442" y2="149.4" />
+    <line x1="58" y1="116.6" x2="442" y2="116.6" />
+    <line x1="58" y1="83.7" x2="442" y2="83.7" />
+    <line x1="58" y1="50.9" x2="442" y2="50.9" />
+    <line x1="58" y1="18.0" x2="442" y2="18.0" />
+  </g>
+  <g stroke="currentColor" stroke-width="1.3" fill="none">
+    <line x1="58" y1="248" x2="442" y2="248" />
+    <line x1="58" y1="18" x2="58" y2="248" />
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="58.0" y="263">0</text>
+    <text x="134.8" y="263">20</text>
+    <text x="211.6" y="263">40</text>
+    <text x="288.4" y="263">60</text>
+    <text x="365.2" y="263">80</text>
+    <text x="442.0" y="263">100</text>
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="end">
+    <text x="52" y="252.0">0</text>
+    <text x="52" y="219.1">2</text>
+    <text x="52" y="186.3">4</text>
+    <text x="52" y="153.4">6</text>
+    <text x="52" y="120.6">8</text>
+    <text x="52" y="87.7">10</text>
+    <text x="52" y="54.9">12</text>
+    <text x="52" y="22.0">14</text>
+  </g>
+  <text x="250.0" y="290" fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">Time (s)</text>
+  <text x="14" y="133.0" fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle" transform="rotate(-90 14 133.0)">Speed (m/s)</text>
+  <polyline points="58.0,248.0 134.8,50.9 365.2,50.9 422.8,248.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2" stroke-linejoin="round" />
+</svg>

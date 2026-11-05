@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 324 304" role="img" aria-labelledby="t">
+  <title id="t">Grid with x from 0 to 8 and y from 0 to 8, showing three straight lines. Line P rises gently from (0, 2) to (8, 6), passing through (4, 4). Line Q falls from (0, 7) to (8, 1), also passing through (4, 4). Line R is steep. It rises from the x-axis between 4 and 5, through (5, 1), (6, 4) and (7, 7), to the top of the grid.</title>
+  <g stroke="var(--muted)" stroke-width="0.6" opacity="0.6">
+    <line x1="50" y1="24" x2="50" y2="264"/>
+    <line x1="80" y1="24" x2="80" y2="264"/>
+    <line x1="110" y1="24" x2="110" y2="264"/>
+    <line x1="140" y1="24" x2="140" y2="264"/>
+    <line x1="170" y1="24" x2="170" y2="264"/>
+    <line x1="200" y1="24" x2="200" y2="264"/>
+    <line x1="230" y1="24" x2="230" y2="264"/>
+    <line x1="260" y1="24" x2="260" y2="264"/>
+    <line x1="290" y1="24" x2="290" y2="264"/>
+    <line x1="50" y1="24" x2="290" y2="24"/>
+    <line x1="50" y1="54" x2="290" y2="54"/>
+    <line x1="50" y1="84" x2="290" y2="84"/>
+    <line x1="50" y1="114" x2="290" y2="114"/>
+    <line x1="50" y1="144" x2="290" y2="144"/>
+    <line x1="50" y1="174" x2="290" y2="174"/>
+    <line x1="50" y1="204" x2="290" y2="204"/>
+    <line x1="50" y1="234" x2="290" y2="234"/>
+    <line x1="50" y1="264" x2="290" y2="264"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.4">
+    <line x1="50" y1="264" x2="290" y2="264"/>
+    <line x1="50" y1="264" x2="50" y2="24"/>
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="50" y="279">0</text>
+    <text x="80" y="279">1</text>
+    <text x="110" y="279">2</text>
+    <text x="140" y="279">3</text>
+    <text x="170" y="279">4</text>
+    <text x="200" y="279">5</text>
+    <text x="230" y="279">6</text>
+    <text x="260" y="279">7</text>
+    <text x="290" y="279">8</text>
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="end">
+    <text x="45" y="238">1</text>
+    <text x="45" y="208">2</text>
+    <text x="45" y="178">3</text>
+    <text x="45" y="148">4</text>
+    <text x="45" y="118">5</text>
+    <text x="45" y="88">6</text>
+    <text x="45" y="58">7</text>
+    <text x="45" y="28">8</text>
+  </g>
+  <text x="298" y="268" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">x</text>
+  <text x="56" y="16" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">y</text>
+  <line x1="50" y1="204" x2="290" y2="84" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <line x1="50" y1="54" x2="290" y2="234" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <line x1="190" y1="264" x2="270" y2="24" stroke="var(--t5-ink)" stroke-width="2.4"/>
+  <text x="296" y="89" fill="var(--t1-ink)" font-size="14" font-family="inherit" text-anchor="start" font-style="italic" font-weight="bold">P</text>
+  <text x="296" y="239" fill="var(--t3-ink)" font-size="14" font-family="inherit" text-anchor="start" font-style="italic" font-weight="bold">Q</text>
+  <text x="276" y="36" fill="var(--t5-ink)" font-size="14" font-family="inherit" text-anchor="start" font-style="italic" font-weight="bold">R</text>
+</svg>

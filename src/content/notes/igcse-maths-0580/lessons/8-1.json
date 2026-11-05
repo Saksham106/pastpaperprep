@@ -1,0 +1,772 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "8.1",
+  "slug": "introduction-to-probability",
+  "title": "Introduction to probability",
+  "level": "Core",
+  "topic": 8,
+  "summary": "[[probability|Probability]] measures how likely something is, on a [[probability-scale|probability scale]] from $0$ (impossible) to $1$ (certain). When every [[outcome|outcome]] is equally likely, the probability of an [[event|event]] is a count divided by a count. The probability that it does not happen is $1$ minus the probability that it does.",
+  "goals": [
+    {
+      "text": "Use the probability scale from $0$ to $1$, and describe a probability in words.",
+      "bullets": [
+        "8.1-c1"
+      ]
+    },
+    {
+      "text": "Work out the probability of a single event when the outcomes are equally likely.",
+      "bullets": [
+        "8.1-c2"
+      ]
+    },
+    {
+      "text": "Find the probability that an event does not happen, and fill in a missing probability in a table.",
+      "bullets": [
+        "8.1-c3"
+      ]
+    },
+    {
+      "text": "Find probabilities from tables, bar charts and [[venn-diagram|Venn diagrams]] with two sets.",
+      "bullets": [
+        "8.1-c2"
+      ]
+    },
+    {
+      "text": "Use $\\mathrm{P}(A)$ and $\\mathrm{P}(A')$, including $\\mathrm{P}(A') = 1 - \\mathrm{P}(A)$.",
+      "bullets": [
+        "8.1-s1",
+        "8.1-n1",
+        "8.1-n3"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Find probabilities from tables, graphs and Venn diagrams with three sets, written in probability notation.",
+      "bullets": [
+        "8.1-s1",
+        "8.1-n2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "1.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "probability scale",
+    "probability of an event not happening",
+    "probability notation",
+    "equally likely outcomes",
+    "missing probability in a table",
+    "chance as a fraction"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-multiples-six",
+      "prompt": "How many [[natural-number|natural numbers]] from $1$ to $40$ are multiples of $6$?",
+      "hint": "Count up in sixes and stop before you pass $40$.",
+      "answer": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "explain": "$6, 12, 18, 24, 30, 36$. The next one, $42$, is too big. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "floor(Rational(40, 6))",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-simplify-fraction",
+      "prompt": "Write $\\frac{18}{48}$ in its simplest form.",
+      "hint": "Divide the top and the bottom by their highest common factor.",
+      "options": [
+        {
+          "text": "$\\frac{3}{8}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{9}{24}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{3}{4}$",
+          "correct": false
+        }
+      ],
+      "explain": "The highest common factor of $18$ and $48$ is $6$. $18 \\div 6 = 3$ and $48 \\div 6 = 8$. $\\frac{9}{24}$ is correct but not simplest. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "fraction",
+        "truth": "Rational(18, 48)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-set-complement",
+      "prompt": "$n(\\mathscr{E}) = 25$ and $n(A) = 9$. Find $n(A')$.",
+      "hint": "$A'$ is everything in $\\mathscr{E}$ that is not in $A$.",
+      "answer": {
+        "value": 16,
+        "tolerance": 0
+      },
+      "explain": "$25 - 9 = 16$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "25 - 9",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "scale",
+      "heading": "The probability scale",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Roll an ordinary dice. Scoring $7$ can never happen. Scoring less than $7$ always happens. Scoring an even number happens about half the time."
+        },
+        {
+          "type": "definition",
+          "term": "Probability scale",
+          "statement": "A probability is a number from $0$ to $1$. A probability of $0$ means the event is impossible. A probability of $1$ means it is certain.",
+          "plain": "The closer to $1$, the more likely."
+        },
+        {
+          "type": "figure",
+          "id": "8-1-scale",
+          "alt": "A horizontal probability scale from 0 to 1. The left end, 0, is labelled impossible. The middle, 0.5, is labelled even chance. The right end, 1, is labelled certain. The part between 0 and 0.5 is labelled unlikely, and the part between 0.5 and 1 is labelled likely.",
+          "caption": "Every probability lies somewhere on this line."
+        },
+        {
+          "type": "text",
+          "text": "A probability is never negative and never more than $1$. An answer such as $1.2$ or $-0.3$ is wrong."
+        },
+        {
+          "type": "example",
+          "id": "ex-dice-certain",
+          "question": "An ordinary dice, numbered $1$ to $6$, is rolled. Write down the probability that the score is less than $7$.",
+          "steps": [
+            "Every face, $1$ to $6$, is less than $7$.",
+            "So this is certain: $6$ faces out of $6$. A score of $7$, by contrast, is impossible and goes at $0$."
+          ],
+          "answer": "$1$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(6, 6)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-not-probabilities",
+          "question": "Which of these numbers cannot be probabilities? $\\quad 0.7, \\; 1.3, \\; \\frac{3}{5}, \\; -0.2, \\; 45\\%, \\; \\frac{7}{6}$",
+          "steps": [
+            "Test each number: is it from $0$ to $1$?",
+            "$0.7$, $\\frac{3}{5} = 0.6$ and $45\\% = 0.45$ are fine.",
+            "$1.3$ and $\\frac{7}{6}$ are more than $1$. $-0.2$ is less than $0$."
+          ],
+          "answer": "$1.3, -0.2, \\frac{7}{6}$",
+          "verify": {
+            "kind": "list",
+            "truth": "Complement(FiniteSet(0.7, 1.3, Rational(3, 5), -0.2, Rational(45, 100), Rational(7, 6)), Interval(0, 1))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-scale-word",
+          "prompt": "An event has probability $0.25$. Which word on the scale describes it?",
+          "hint": "Is $0.25$ above or below the middle of the scale?",
+          "options": [
+            {
+              "text": "Unlikely",
+              "correct": true
+            },
+            {
+              "text": "Even chance",
+              "correct": false
+            },
+            {
+              "text": "Likely",
+              "correct": false
+            },
+            {
+              "text": "Impossible",
+              "correct": false
+            }
+          ],
+          "explain": "$0.25$ is between $0$ and $0.5$, so it is unlikely, but not impossible.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Unlikely"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-month-32-days",
+          "prompt": "A month of the year is picked at random. What is the probability that it has $32$ days?",
+          "hint": "How many months have $32$ days?",
+          "options": [
+            {
+              "text": "$\\frac{1}{12}$",
+              "correct": false
+            },
+            {
+              "text": "$0$",
+              "correct": true
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            }
+          ],
+          "explain": "No month has $32$ days, so this is impossible. Its probability is $0$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(0, 12)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "single",
+      "heading": "The probability of a single event",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Outcome and event",
+          "statement": "An outcome is one possible result, such as scoring $4$ on a dice. An event is one outcome or a group of outcomes, such as scoring an even number. An impossible event, such as scoring $7$, has no outcomes in it.",
+          "plain": "The event is what you want; the outcomes are everything that could happen."
+        },
+        {
+          "type": "text",
+          "text": "\"Picked at random\" means every item has the same chance of being picked. Then every outcome is equally likely, and you can find a probability by counting."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{probability} = \\dfrac{\\text{number of outcomes in the event}}{\\text{total number of outcomes}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This works only when every outcome is equally likely."
+        },
+        {
+          "type": "text",
+          "text": "Give a probability as a fraction, a decimal or a percentage. So $\\frac{3}{8}$, $0.375$ and $37.5\\%$ are all fine. Never write \"3 out of 8\" or a ratio like $3 : 8$."
+        },
+        {
+          "type": "example",
+          "id": "ex-letters-parallel",
+          "question": "A letter is picked at random from the word PARALLEL. Work out the probability that it is an L.",
+          "steps": [
+            "Count every letter, repeats included: P, A, R, A, L, L, E, L. That is $8$ outcomes.",
+            "Count the L's: there are $3$.",
+            "Probability $= \\frac{3}{8}$. This cannot be simplified."
+          ],
+          "answer": "$\\frac{3}{8}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(3, 8)"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-letters-vowel",
+            "prompt": "A letter is picked at random from the same word, PARALLEL. Which is the probability that it is a vowel (A, E, I, O or U)?",
+            "hint": "Count every vowel, including repeats.",
+            "options": [
+              {
+                "text": "$\\frac{3}{8}$",
+                "correct": true
+              },
+              {
+                "text": "$\\frac{1}{4}$",
+                "correct": false
+              },
+              {
+                "text": "$\\frac{3}{5}$",
+                "correct": false
+              }
+            ],
+            "explain": "The vowels are A, A and E: $3$ of the $8$ letters. $\\frac{3}{5}$ compares them with the other letters, not all $8$.",
+            "verify": {
+              "kind": "fraction",
+              "truth": "Rational(2 + 1, 8)"
+            }
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "The bottom of the fraction is all the outcomes, not \"the others\". With $3$ red and $5$ blue counters, the probability of red is $\\frac{3}{8}$, not $\\frac{3}{5}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-bus-decimal",
+          "question": "Of the $1240$ students at a school, $341$ travel by bus. One student is picked at random. Work out the probability that they travel by bus. Give your answer as a decimal.",
+          "steps": [
+            "Probability $= \\frac{341}{1240}$.",
+            "Enter the fraction and press equals. The calculator simplifies it to $\\frac{11}{40}$.",
+            "Switch it to a decimal: $0.275$. This is exact, so do not round it."
+          ],
+          "answer": "$0.275$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(341, 1240)"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "fraction-to-decimal"
+        },
+        {
+          "type": "check",
+          "id": "check-cards-prime",
+          "prompt": "Twenty cards are numbered $11$ to $30$. One card is picked at random. Which is the probability that its number is prime?",
+          "hint": "List the primes from $11$ to $30$. How many cards are there?",
+          "options": [
+            {
+              "text": "$\\frac{3}{10}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{7}$",
+              "correct": false
+            }
+          ],
+          "explain": "The primes are $11, 13, 17, 19, 23, 29$, so $\\frac{6}{20} = \\frac{3}{10}$. $\\frac{3}{7}$ divides by the $14$ other cards.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(primepi(30) - primepi(10), 30 - 11 + 1)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "complement",
+      "heading": "The probability that an event does not happen",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A bag holds $7$ counters, and $2$ of them are green. The probability of green is $\\frac{2}{7}$. The other $5$ are not green, so the probability of not green is $\\frac{5}{7}$. Together they make $\\frac{7}{7} = 1$."
+        },
+        {
+          "type": "definition",
+          "term": "Complementary event",
+          "statement": "The complementary event of an event is \"the event does not happen\". Exactly one of the two always happens.",
+          "plain": "\"Not green\" is the complementary event of \"green\"."
+        },
+        {
+          "type": "result",
+          "statement": "The probability that an event does not happen $= 1 -$ the probability that it does happen.",
+          "why": "Each outcome is either in the event or not, so the two probabilities share the certain total, $1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-bus-not-late",
+          "question": "The probability that a bus is late is $0.23$. Work out the probability that the bus is not late.",
+          "steps": [
+            "Not late is the complementary event of late.",
+            "Subtract from $1$: $1 - 0.23 = 0.77$.",
+            "Check: $0.23 + 0.77 = 1$."
+          ],
+          "answer": "$0.77$",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - 0.23"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The same idea fills a gap in a table. When a table lists every possible outcome once, its probabilities add up to $1$. So the missing one is $1$ minus the total of the others."
+        },
+        {
+          "type": "example",
+          "id": "ex-car-colours",
+          "question": "A car in a car park is picked at random. The table gives the probability of each colour. Silver: $0.34$. Black: $0.21$. White: $0.18$. Other: $x$. Find $x$.",
+          "steps": [
+            "Every car is one of these four, so the four probabilities add up to $1$.",
+            "Add the known ones: $0.34 + 0.21 + 0.18 = 0.73$.",
+            "Subtract from $1$: $x = 1 - 0.73 = 0.27$.",
+            "Check: $0.34 + 0.21 + 0.18 + 0.27 = 1$."
+          ],
+          "answer": "$x = 0.27$",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - (0.34 + 0.21 + 0.18)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at $0.73$. That is the total of the known colours. The question wants what is left: $1 - 0.73$."
+        },
+        {
+          "type": "check",
+          "id": "check-not-decimal",
+          "prompt": "The probability that a seed grows is $0.36$. What is the probability that it does not grow?",
+          "hint": "Take $0.36$ away from $1$. Line up the decimal points.",
+          "options": [
+            {
+              "text": "$0.64$",
+              "correct": true
+            },
+            {
+              "text": "$0.74$",
+              "correct": false
+            },
+            {
+              "text": "$0.36$",
+              "correct": false
+            }
+          ],
+          "explain": "$1 - 0.36 = 0.64$. Check by adding: $0.36 + 0.64 = 1$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - 0.36"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-spinner-twice",
+          "prompt": "A spinner can land on red, blue or green. The probability of red is $0.4$. Blue is twice as likely as green. Work out the probability of green.",
+          "hint": "Blue and green share $1 - 0.4$. Blue is $2$ parts and green is $1$ part.",
+          "answer": {
+            "value": 0.2,
+            "tolerance": 0
+          },
+          "explain": "Blue and green share $1 - 0.4 = 0.6$ in $3$ equal parts, so green $= 0.2$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(1 - 0.4) / 3",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "notation",
+      "heading": "Probability notation",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Name an event with a capital letter. $\\mathrm{P}(A)$ means \"the probability of $A$\". So if $R$ is the event \"it rains\", $\\mathrm{P}(R) = 0.3$ says the probability of rain is $0.3$."
+        },
+        {
+          "type": "text",
+          "text": "$A'$ is the event \"$A$ does not happen\". It works like the [[complement|complement]] of a set in {{lesson:1.2}}. $\\mathrm{P}(A')$ means \"the probability of not $A$\"."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A') = 1 - \\mathrm{P}(A)",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-notation-decimal",
+          "question": "$\\mathrm{P}(D) = 0.38$. Find $\\mathrm{P}(D')$.",
+          "steps": [
+            "$D'$ is \"$D$ does not happen\".",
+            "$\\mathrm{P}(D') = 1 - \\mathrm{P}(D) = 1 - 0.38 = 0.62$."
+          ],
+          "answer": "$\\mathrm{P}(D') = 0.62$",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - 0.38"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-notation-squares",
+          "question": "A whole number from $1$ to $15$ is picked at random. $S$ is the event \"the number is a square number\". Find $\\mathrm{P}(S')$.",
+          "steps": [
+            "The square numbers from $1$ to $15$ are $1, 4, 9$. So $\\mathrm{P}(S) = \\frac{3}{15} = \\frac{1}{5}$.",
+            "$\\mathrm{P}(S') = 1 - \\frac{1}{5} = \\frac{4}{5}$.",
+            "Check by counting: $15 - 3 = 12$ numbers are not square, and $\\frac{12}{15} = \\frac{4}{5}$."
+          ],
+          "answer": "$\\mathrm{P}(S') = \\frac{4}{5}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "1 - Rational(3, 15)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-notation-reverse",
+          "prompt": "$\\mathrm{P}(B') = 0.07$. Find $\\mathrm{P}(B)$.",
+          "hint": "$\\mathrm{P}(B)$ and $\\mathrm{P}(B')$ add up to $1$.",
+          "options": [
+            {
+              "text": "$0.93$",
+              "correct": true
+            },
+            {
+              "text": "$0.07$",
+              "correct": false
+            },
+            {
+              "text": "$0.03$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{P}(B) = 1 - \\mathrm{P}(B') = 1 - 0.07 = 0.93$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - 0.07"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-notation-multiples",
+          "prompt": "A whole number from $1$ to $12$ is picked at random. $M$ is the event \"the number is a multiple of $4$\". Find $\\mathrm{P}(M')$.",
+          "hint": "List the multiples of $4$ up to $12$. Is $12$ included?",
+          "options": [
+            {
+              "text": "$\\frac{3}{4}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{5}{6}$",
+              "correct": false
+            }
+          ],
+          "explain": "$M = \\{4, 8, 12\\}$, so $\\mathrm{P}(M) = \\frac{3}{12} = \\frac{1}{4}$ and $\\mathrm{P}(M') = \\frac{3}{4}$. $\\frac{5}{6}$ leaves out $12$.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "1 - Rational(floor(Rational(12, 4)), 12)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "heading": "Probabilities from tables, charts and Venn diagrams",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The method does not change for data: count the items in the event, then divide by the right total."
+        },
+        {
+          "type": "figure",
+          "id": "8-1-lunch-table",
+          "alt": "Two-way table of 120 Year 10 students. Boys: 34 have school lunch and 21 have packed lunch, 55 in total. Girls: 29 have school lunch and 36 have packed lunch, 65 in total. Totals: 63 have school lunch, 57 have packed lunch, 120 students altogether.",
+          "caption": "A [[two-way-table|two-way table]] sorts the same students in two ways."
+        },
+        {
+          "type": "example",
+          "id": "ex-table-girl-packed",
+          "question": "Use the table of Year 10 students. One student is picked at random from the whole year. Work out the probability that the student is a girl who has a packed lunch.",
+          "steps": [
+            "The student comes from the whole year, so the total is the bottom-right number, $120$.",
+            "Girls with packed lunch: read across the Girls row to the Packed lunch column: $36$.",
+            "Probability $= \\frac{36}{120}$. Divide top and bottom by $12$: $\\frac{3}{10}$."
+          ],
+          "answer": "$\\frac{3}{10}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(36, 34 + 21 + 29 + 36)"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-table-boy",
+            "prompt": "One student is picked at random from the same year. Which is the probability that the student is a boy?",
+            "hint": "Use the Total column for boys, and divide by the whole year.",
+            "options": [
+              {
+                "text": "$\\frac{11}{24}$",
+                "correct": true
+              },
+              {
+                "text": "$\\frac{11}{13}$",
+                "correct": false
+              },
+              {
+                "text": "$\\frac{13}{24}$",
+                "correct": false
+              }
+            ],
+            "explain": "$\\frac{55}{120} = \\frac{11}{24}$. $\\frac{11}{13}$ divides by the $65$ girls instead of everyone.",
+            "verify": {
+              "kind": "fraction",
+              "truth": "Rational(34 + 21, 120)"
+            }
+          }
+        },
+        {
+          "type": "figure",
+          "id": "8-1-venn-clubs",
+          "alt": "Venn diagram of 30 students. Circle C is the chess club and circle D is the debate club. C only holds 9, the overlap holds 4, D only holds 6, and 11 students are outside both circles.",
+          "caption": "Each number in this [[venn-diagram|Venn diagram]] is how many students are in that region."
+        },
+        {
+          "type": "example",
+          "id": "ex-venn-debate",
+          "question": "Use the Venn diagram of $30$ students. One student is picked at random. Work out the probability that the student is in the debate club.",
+          "steps": [
+            "The debate club is the whole of circle $D$: the overlap and \"$D$ only\": $4 + 6 = 10$.",
+            "The total is all $30$ students, including the $11$ outside the circles.",
+            "Probability $= \\frac{10}{30} = \\frac{1}{3}$."
+          ],
+          "answer": "$\\frac{1}{3}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(4 + 6, 9 + 4 + 6 + 11)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-venn-neither",
+          "prompt": "Using the same Venn diagram, which is the probability that the student is in neither club?",
+          "hint": "Which region is outside both circles?",
+          "options": [
+            {
+              "text": "$\\frac{11}{30}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{19}{30}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{11}{19}$",
+              "correct": false
+            }
+          ],
+          "explain": "$11$ of the $30$ students are outside both circles. $\\frac{19}{30}$ is the probability of at least one club.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(30 - (9 + 4 + 6), 30)"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "8-1-travel-bar",
+          "alt": "Bar chart of how the members of a club travel to meetings. The vertical axis is number of members, from 0 to 12. Walk 11, bus 7, car 4, cycle 3.",
+          "caption": "How the members of a club travel to meetings."
+        },
+        {
+          "type": "check",
+          "id": "check-bar-walk",
+          "prompt": "One member of the club is picked at random. Use the bar chart to work out the probability that they walk. Give your answer as a decimal.",
+          "hint": "Add all four bars to get the total number of members.",
+          "answer": {
+            "value": 0.44,
+            "tolerance": 0
+          },
+          "explain": "The total is $11 + 7 + 4 + 3 = 25$. The probability is $\\frac{11}{25} = \\frac{44}{100} = 0.44$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(11, 11 + 7 + 4 + 3)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "Extended Venn diagrams can have three sets. Use the same method, and write the answer in probability notation."
+        },
+        {
+          "type": "figure",
+          "id": "8-1-venn-sports",
+          "level": "Extended",
+          "alt": "Venn diagram of 50 students with three overlapping circles: F for football, H for hockey and T for tennis. F only 11, H only 6, T only 8, F and H only 3, F and T only 5, H and T only 2, all three 4, and outside all three circles 11.",
+          "caption": "Each number is how many students are in that region."
+        },
+        {
+          "type": "example",
+          "id": "ex-venn-three-not-tennis",
+          "level": "Extended",
+          "question": "Use the three-set Venn diagram of $50$ students. One student is picked at random. Find $\\mathrm{P}(T')$.",
+          "steps": [
+            "$T'$ is everything outside circle $T$.",
+            "Outside $T$: $11 + 6 + 3 + 11 = 31$ students.",
+            "Check: circle $T$ holds $8 + 5 + 2 + 4 = 19$, and $50 - 19 = 31$."
+          ],
+          "answer": "$\\mathrm{P}(T') = \\frac{31}{50}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(11 + 6 + 3 + 11, 50)"
+          },
+          "video": null
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Every probability is from $0$ (impossible) to $1$ (certain). Give it as a fraction, decimal or percentage.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Equally likely outcomes: probability $= \\dfrac{\\text{number of outcomes in the event}}{\\text{total number of outcomes}}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Probability an event does not happen $= 1 -$ probability it does happen.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If a table lists every possible outcome once, its probabilities add up to $1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{P}(A)$ is the probability of $A$, and $\\mathrm{P}(A') = 1 - \\mathrm{P}(A)$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing by one row of a two-way table when the item is picked from everyone. Read the question: \"from the whole year\" means the grand total.",
+    "Giving a count, such as $13$ counters, when the question asks for a probability. Divide by the total.",
+    "Putting the arrow at $\\frac{4}{6}$ for \"less than $4$ on a dice\" just because the question says $4$. Count the outcomes first ($1, 2, 3$, so $\\frac{3}{6}$), then measure from $0$ at the left.",
+    "Slipping when subtracting from $1$, such as $1 - 0.85 = 0.25$. Check that your two answers add up to $1$."
+  ],
+  "examTips": [
+    "\"Write down the probability\": the syllabus asks for a fraction, decimal or percentage. Avoid words such as \"3 out of 8\" and ratios such as $3 : 8$.",
+    "\"Complete the table\": after filling the gaps, add every probability in the table. The total must be exactly $1$.",
+    "\"Draw an arrow\" on the scale: work out the value first. $\\frac{1}{4}$ is a quarter of the way from $0$ to $1$.",
+    "Paper 1 and Paper 2 have no calculator: a fraction is usually the easiest form to give. Write it in its simplest form, unless the question asks for a decimal or a percentage."
+  ],
+  "readingMinutes": 24
+}

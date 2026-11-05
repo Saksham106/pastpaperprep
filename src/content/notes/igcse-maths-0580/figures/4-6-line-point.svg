@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 190" role="img" aria-labelledby="t">
+  <title id="t">Three diagrams. Left: a straight line with a second line leaving it from one point, making two angles a and b with a plus b equal to 180 degrees. Middle: four lines leaving one point, making four angles p, q, r and s that add up to 360 degrees. Right: two straight lines crossing; the two angles marked x are opposite each other, and the two angles marked y are opposite each other.</title>
+  <line x1="20.0" y1="110.0" x2="180.0" y2="110.0" stroke="currentColor" stroke-width="2"/>
+  <line x1="100.0" y1="110.0" x2="135.2" y2="43.8" stroke="currentColor" stroke-width="2"/>
+  <circle cx="100.0" cy="110.0" r="3" fill="currentColor"/>
+  <path d="M126.0,110.0 A26,26 0 0 0 112.2,87.0" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+  <text x="136.0" y="93.4" fill="var(--t1-ink)" font-size="13" text-anchor="middle" font-family="inherit">a</text>
+  <path d="M109.4,92.3 A20,20 0 0 0 80.0,110.0" fill="none" stroke="var(--t2-ink)" stroke-width="2"/>
+  <text x="81.5" y="84.1" fill="var(--t2-ink)" font-size="13" text-anchor="middle" font-family="inherit">b</text>
+  <text x="100.0" y="140.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">On a straight line</text>
+  <text x="100.0" y="158.0" fill="var(--muted)" font-size="12" text-anchor="middle" font-family="inherit">a + b = 180°</text>
+  <line x1="300.0" y1="85.0" x2="352.6" y2="60.5" stroke="currentColor" stroke-width="2"/>
+  <line x1="300.0" y1="85.0" x2="280.2" y2="30.5" stroke="currentColor" stroke-width="2"/>
+  <line x1="300.0" y1="85.0" x2="245.5" y2="104.8" stroke="currentColor" stroke-width="2"/>
+  <line x1="300.0" y1="85.0" x2="324.5" y2="137.6" stroke="currentColor" stroke-width="2"/>
+  <circle cx="300.0" cy="85.0" r="3" fill="currentColor"/>
+  <path d="M316.3,77.4 A18,18 0 0 0 293.8,68.1" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+  <text x="313.0" y="58.6" fill="var(--t1-ink)" font-size="13" text-anchor="middle" font-family="inherit">p</text>
+  <path d="M292.8,65.3 A21,21 0 0 0 280.3,92.2" fill="none" stroke="var(--t2-ink)" stroke-width="2"/>
+  <text x="267.4" y="74.8" fill="var(--t2-ink)" font-size="13" text-anchor="middle" font-family="inherit">q</text>
+  <path d="M277.4,93.2 A24,24 0 0 0 310.1,106.8" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+  <text x="285.5" y="125.1" fill="var(--t3-ink)" font-size="13" text-anchor="middle" font-family="inherit">r</text>
+  <path d="M311.4,109.5 A27,27 0 0 0 324.5,73.6" fill="none" stroke="var(--t4-ink)" stroke-width="2"/>
+  <text x="337.6" y="103.7" fill="var(--t4-ink)" font-size="13" text-anchor="middle" font-family="inherit">s</text>
+  <text x="300.0" y="158.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">At a point</text>
+  <text x="300.0" y="176.0" fill="var(--muted)" font-size="12" text-anchor="middle" font-family="inherit">p + q + r + s = 360°</text>
+  <line x1="550.8" y1="49.4" x2="449.2" y2="120.6" stroke="currentColor" stroke-width="2"/>
+  <line x1="449.2" y1="49.4" x2="550.8" y2="120.6" stroke="currentColor" stroke-width="2"/>
+  <circle cx="500.0" cy="85.0" r="3" fill="currentColor"/>
+  <path d="M516.4,73.5 A20,20 0 0 0 483.6,73.5" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+  <text x="500.0" y="56.0" fill="var(--t1-ink)" font-size="13" text-anchor="middle" font-family="inherit">x</text>
+  <path d="M483.6,96.5 A20,20 0 0 0 516.4,96.5" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+  <text x="500.0" y="124.0" fill="var(--t1-ink)" font-size="13" text-anchor="middle" font-family="inherit">x</text>
+  <path d="M480.3,71.2 A24,24 0 0 0 480.3,98.8" fill="none" stroke="var(--t2-ink)" stroke-width="2"/>
+  <text x="460.0" y="90.0" fill="var(--t2-ink)" font-size="13" text-anchor="middle" font-family="inherit">y</text>
+  <path d="M519.7,98.8 A24,24 0 0 0 519.7,71.2" fill="none" stroke="var(--t2-ink)" stroke-width="2"/>
+  <text x="540.0" y="90.0" fill="var(--t2-ink)" font-size="13" text-anchor="middle" font-family="inherit">y</text>
+  <text x="500.0" y="158.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">Vertically opposite</text>
+  <text x="500.0" y="176.0" fill="var(--muted)" font-size="12" text-anchor="middle" font-family="inherit">opposite angles are equal</text>
+</svg>

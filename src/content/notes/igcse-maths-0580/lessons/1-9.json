@@ -1,0 +1,544 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.9",
+  "slug": "estimation",
+  "title": "Estimation",
+  "level": "Core",
+  "topic": 1,
+  "summary": "[[rounding|Rounding]] swaps a number for a simpler one close to it: to the nearest $1000$, to [[decimal-place|decimal places]] or to [[significant-figure|significant figures]]. An [[estimate|estimate]] rounds every number to $1$ significant figure, so you can work it out in your head.",
+  "goals": [
+    {
+      "text": "Round to the nearest $10$, $100$ or $1000$, and to a given number of decimal places.",
+      "bullets": [
+        "1.9-c1"
+      ]
+    },
+    {
+      "text": "Round to a given number of significant figures.",
+      "bullets": [
+        "1.9-c1"
+      ]
+    },
+    {
+      "text": "Estimate a calculation by writing each number to $1$ significant figure.",
+      "bullets": [
+        "1.9-c2"
+      ]
+    },
+    {
+      "text": "Choose a sensible accuracy for an answer in context: whole things, money, measurements.",
+      "bullets": [
+        "1.9-c3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.8"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "rounding to significant figures",
+    "rounding to decimal places",
+    "estimate by rounding to 1 significant figure",
+    "round to the nearest thousand",
+    "degree of accuracy",
+    "rounding up or down in context"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-place-value-decimal",
+      "prompt": "What is the value of the digit $8$ in $5.384$?",
+      "hint": "Name the columns after the point: tenths, hundredths, thousandths.",
+      "answer": {
+        "value": 0.08,
+        "tolerance": 0
+      },
+      "explain": "The $8$ is in the hundredths column, so it is worth $\\frac{8}{100} = 0.08$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "8*Rational(1, 100)",
+        "dp": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-standard-form",
+      "prompt": "Write $3.6 \\times 10^{4}$ as an ordinary number.",
+      "hint": "In [[standard-form|standard form]], $\\times 10^{4}$ moves the decimal point $4$ places to the right.",
+      "answer": {
+        "value": 36000,
+        "tolerance": 0
+      },
+      "explain": "$3.6 \\times 10\\,000 = 36\\,000$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(36, 10)*10**4",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "places",
+      "heading": "Rounding to a place value or decimal places",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A town of $42\\,718$ people has about $43\\,000$. That is [[rounding|rounding]]: simpler, but still close."
+        },
+        {
+          "type": "definition",
+          "term": "Rounding",
+          "statement": "To round to a given place, take the two values either side that stop at that place, and choose the nearer. Exactly halfway rounds up.",
+          "plain": "$42\\,718$ lies between $42\\,000$ and $43\\,000$, and is nearer $43\\,000$."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the last digit you keep. Call it the rounding digit."
+        },
+        {
+          "type": "text",
+          "text": "2. Look only at the next digit to its right. If it is $5$ or more, add $1$ to the rounding digit. If it is $4$ or less, leave the rounding digit alone."
+        },
+        {
+          "type": "text",
+          "text": "3. Before the decimal point, dropped digits become $0$, so the number keeps its size. After the point, just drop them."
+        },
+        {
+          "type": "example",
+          "id": "ex-nearest-thousand",
+          "question": "Write $83\\,529$ correct to the nearest thousand.",
+          "steps": [
+            "The thousands digit is $3$, so you keep $83$ thousands.",
+            "The next digit is $5$. That is $5$ or more, so round up: $83$ becomes $84$.",
+            "Fill the other places with zeros. Check: $83\\,529$ is nearer $84\\,000$ than $83\\,000$."
+          ],
+          "answer": "$84\\,000$",
+          "verify": {
+            "kind": "exact",
+            "truth": "1000*floor(Rational(83529, 1000) + Rational(1, 2))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $84$ or $84\\,529$. Every dropped place becomes $0$: $84\\,000$."
+        },
+        {
+          "type": "check",
+          "id": "check-nearest-hundred",
+          "prompt": "Write $15\\,649$ correct to the nearest hundred.",
+          "hint": "The hundreds digit is $6$. Which digit decides, and is it $5$ or more?",
+          "answer": {
+            "value": 15600,
+            "tolerance": 0
+          },
+          "explain": "The tens digit $4$ decides, so the $6$ stays: $15\\,600$. The $9$ doesn't matter.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "100*floor(Rational(15649, 100) + Rational(1, 2))",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "[[decimal-place|Decimal places]] are the digits after the point: $5.384$ has $3$. To round to $2$ decimal places, keep $2$ of them."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-dp-carry",
+          "question": "Write $12.6973$ correct to $2$ decimal places.",
+          "steps": [
+            "Keep two digits after the point: $12.69$. The next digit is $7$.",
+            "$7$ is $5$ or more, so add $1$ to the $9$. That makes $10$: write $0$ and carry $1$, giving $12.70$.",
+            "Keep the final $0$: it shows $2$ decimal places."
+          ],
+          "answer": "$12.6973 \\approx 12.70$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(126973, 10000)",
+            "dp": 2
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-two-dp",
+          "prompt": "Write $0.3958$ correct to $2$ decimal places.",
+          "hint": "Keep $0.39$, then look at the next digit.",
+          "options": [
+            {
+              "text": "$\\approx 0.39$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 0.40$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 0.4$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 0.396$",
+              "correct": false
+            }
+          ],
+          "explain": "The next digit is $5$, so the $9$ goes up and carries: $0.40$. $0.4$ shows only $1$ decimal place.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(3958, 10000)",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "sig-figs",
+      "heading": "Significant figures",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$0.000\\,0384$ to $2$ decimal places is $0.00$, which tells you nothing. Significant figures count from where the number really starts."
+        },
+        {
+          "type": "definition",
+          "term": "Significant figures",
+          "statement": "The first [[significant-figure|significant figure]] of a number is its first non-zero digit, reading from the left. Every digit after it is significant too, zeros included, except zeros at the end of a whole number that only fill places: $28\\,000$ to $2$ significant figures has just $2$.",
+          "plain": "Start counting at the first digit that isn't $0$."
+        },
+        {
+          "type": "text",
+          "text": "So $0.0507$ has $3$ significant figures: $5$, $0$ and $7$. Round as before, keeping the zeros in front and filling with zeros up to the point."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-sf-small",
+          "question": "Write $0.006\\,381$ correct to $2$ significant figures.",
+          "steps": [
+            "The first significant figure is $6$, and the second is $3$.",
+            "Look at the next digit, $8$. It is at least $5$, so the $3$ becomes $4$.",
+            "Keep the zeros in front of the $6$."
+          ],
+          "answer": "$0.006381 \\approx 0.0064$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(6381, 1000000)",
+            "sf": 2
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-two-sf-large",
+          "prompt": "Write $27\\,853$ correct to $2$ significant figures.",
+          "hint": "The second significant figure is the $7$.",
+          "answer": {
+            "value": 28000,
+            "tolerance": 0
+          },
+          "explain": "The next digit is $8$, so $27$ thousand becomes $28$ thousand: $28\\,000$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Integer(27853)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": "On Papers $3$ and $4$, give answers that aren't exact to $3$ significant figures, unless told otherwise. Angles go to $1$ decimal place and money to the cent. Write down the full display, then round once, at the end."
+        },
+        {
+          "type": "calculator",
+          "snippet": "brackets-order"
+        },
+        {
+          "type": "example",
+          "id": "ex-calculator-3sf",
+          "question": "Use your calculator to work out $\\dfrac{9.14 + 2.7^{2}}{5.3 - 1.86}$. Give your answer correct to $3$ significant figures.",
+          "steps": [
+            "Put brackets round the top and the bottom: $(9.14 + 2.7^{2}) \\div (5.3 - 1.86)$.",
+            "Write down the full display: $4.776162791$.",
+            "The first three significant figures are $4$, $7$ and $7$. The next digit is $6$, so the second $7$ goes up to $8$."
+          ],
+          "answer": "$\\dfrac{9.14 + 2.7^{2}}{5.3 - 1.86} \\approx 4.78$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(9.14 + 2.7**2)/(5.3 - 1.86)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-three-sf-carry",
+          "prompt": "Write $3.996$ correct to $3$ significant figures.",
+          "hint": "Keep $3.99$. The next digit is $6$, so add $1$ to the last $9$.",
+          "options": [
+            {
+              "text": "$\\approx 3.99$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 4.00$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 4.0$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 4$",
+              "correct": false
+            }
+          ],
+          "explain": "$3.99 + 0.01 = 4.00$. You need all three figures, so $4$ and $4.0$ are not enough.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(3996, 1000)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "estimate",
+      "heading": "Estimating a calculation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[estimate|estimate]] is a rough answer you can work out in your head. It also shows whether a calculator answer is sensible."
+        },
+        {
+          "type": "text",
+          "text": "Round every number to $1$ significant figure. Write the rounded calculation down. Then work it out."
+        },
+        {
+          "type": "example",
+          "id": "ex-estimate-product",
+          "question": "Estimate $6.83 \\times 31.4$ by rounding each number to $1$ significant figure.",
+          "steps": [
+            "To $1$ significant figure, $6.83 \\to 7$ and $31.4 \\to 30$.",
+            "Write the new calculation: $7 \\times 30$.",
+            "$7 \\times 30 = 210$. A calculator gives $214.462$, so the estimate is close."
+          ],
+          "answer": "$7 \\times 30 = 210$",
+          "verify": {
+            "kind": "exact",
+            "truth": "floor(6.83 + 0.5)*(10*floor(31.4/10 + 0.5))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding to $2$ significant figures, such as $6.83 \\to 6.8$. Use one non-zero digit per number."
+        },
+        {
+          "type": "example",
+          "id": "ex-estimate-fraction",
+          "question": "Round each number to $1$ significant figure to estimate $\\dfrac{58.6 + 21.7}{0.192 \\times 4.38}$. Show all your working.",
+          "steps": [
+            "Round each number: $58.6 \\to 60$, $21.7 \\to 20$, $0.192 \\to 0.2$ and $4.38 \\to 4$.",
+            "Write the estimate with the rounded values: $\\dfrac{60 + 20}{0.2 \\times 4}$.",
+            "Top: $60 + 20 = 80$. Bottom: $0.2 \\times 4 = 0.8$.",
+            "Multiply top and bottom by $10$: $\\dfrac{80}{0.8} = \\dfrac{800}{8} = 100$."
+          ],
+          "answer": "$\\dfrac{60 + 20}{0.2 \\times 4} = 100$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(10*floor(58.6/10 + 0.5) + 10*floor(21.7/10 + 0.5))/((floor(0.192*10 + 0.5)/10)*floor(4.38 + 0.5))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-estimate-area",
+          "prompt": "A rectangular field measures $48.2$ m by $19.6$ m. Round each length to $1$ significant figure to estimate its area in $\\text{m}^{2}$.",
+          "hint": "Round each length to one non-zero digit, then multiply.",
+          "answer": {
+            "value": 1000,
+            "tolerance": 0
+          },
+          "explain": "$48.2 \\to 50$ and $19.6 \\to 20$, so the area is about $50 \\times 20 = 1000\\text{ m}^{2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(10*floor(48.2/10 + 0.5))*(10*floor(19.6/10 + 0.5))",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-estimate-root",
+          "prompt": "Estimate $\\sqrt{8.9 \\times 4.1}$, rounding each number to $1$ significant figure.",
+          "hint": "Round both numbers first, multiply, then take the square root.",
+          "options": [
+            {
+              "text": "$36$",
+              "correct": false
+            },
+            {
+              "text": "$6$",
+              "correct": true
+            },
+            {
+              "text": "$6.04$",
+              "correct": false
+            }
+          ],
+          "explain": "$9 \\times 4 = 36$ and $\\sqrt{36} = 6$. $6.04$ uses the exact numbers, so it isn't an estimate.",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(floor(8.9 + 0.5)*floor(4.1 + 0.5))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "context",
+      "heading": "A sensible accuracy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A calculator gives many digits. The context tells you how many to keep."
+        },
+        {
+          "type": "text",
+          "text": "Whole things, like coaches, need a whole number. If rounding down would leave something out, round up."
+        },
+        {
+          "type": "text",
+          "text": "Money goes to the nearest cent, $2$ decimal places. Otherwise use the accuracy asked for, or $3$ significant figures."
+        },
+        {
+          "type": "example",
+          "id": "ex-coaches-round-up",
+          "question": "$187$ students and $9$ teachers go on a trip. Each coach holds $45$ people. How many coaches are needed?",
+          "steps": [
+            "Total people: $187 + 9 = 196$.",
+            "$196 \\div 45 = 4.35\\ldots$",
+            "$4$ coaches hold only $180$ people, so $16$ would be left behind. Round up to $5$ coaches."
+          ],
+          "answer": "$5$",
+          "verify": {
+            "kind": "exact",
+            "truth": "ceiling((187 + 9)/Integer(45))"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-fuel-money",
+          "question": "Fuel costs $\\$1.389$ per litre. Ana buys $42$ litres. Work out how much she pays.",
+          "steps": [
+            "$42 \\times 1.389 = 58.338$.",
+            "Money needs $2$ decimal places. The next digit is $8$, so round up."
+          ],
+          "answer": "$\\$58.34$",
+          "verify": {
+            "kind": "money",
+            "truth": "42*1.389"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-pen-cost",
+          "prompt": "A pack of $6$ pens costs $\\$4.15$. Work out the cost of one pen, to the nearest cent.",
+          "hint": "Divide, then keep $2$ decimal places.",
+          "answer": {
+            "value": 0.69,
+            "tolerance": 0
+          },
+          "explain": "$4.15 \\div 6 = 0.6916\\ldots$ The third decimal is $1$, so one pen costs $\\$0.69$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(415, 100)/6",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ribbon-round-down",
+          "prompt": "A ribbon $5$ m long is cut into pieces $0.35$ m long. How many complete pieces can be cut?",
+          "hint": "Work out $5 \\div 0.35$. Can a part-piece count?",
+          "options": [
+            {
+              "text": "$14$",
+              "correct": true
+            },
+            {
+              "text": "$15$",
+              "correct": false
+            },
+            {
+              "text": "$14.3$",
+              "correct": false
+            }
+          ],
+          "explain": "$5 \\div 0.35 = 14.28\\ldots$ Only complete pieces count, so round down: $15$ pieces would need $5.25$ m.",
+          "verify": {
+            "kind": "exact",
+            "truth": "floor(5/0.35)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Look at the digit after the last one you keep: $5$ or more, round up; $4$ or less, leave it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Decimal places count digits after the point. Significant figures count from the first non-zero digit.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Keep the size: $83\\,529 \\approx 84\\,000$ to the nearest thousand. Keep the zeros asked for: $12.6973 \\approx 12.70$ to $2$ d.p.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Estimate: write each number to $1$ significant figure, write the rounded calculation down, then work it out.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In context: whole things get a whole number, rounded up or down as needed. Money to the cent; otherwise the accuracy asked for, or $3$ significant figures.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Chopping instead of rounding: $2.7486$ to $3$ significant figures is $2.75$, not $2.74$.",
+    "Counting the zeros at the front: the first significant figure of $0.0362$ is the $3$, so to $1$ significant figure it is $0.04$.",
+    "Rounding a $5$ down. When the next digit is $5$, round up: $3.5 \\to 4$ to $1$ significant figure.",
+    "Rounding to the wrong place: $38\\,612$ to the nearest hundred is $38\\,600$, not $39\\,000$ or $38\\,610$. Find the hundreds digit first.",
+    "In an estimate, rounding only some of the numbers. Every number goes to $1$ significant figure."
+  ],
+  "examTips": [
+    "Estimating \"to $1$ significant figure\": write the rounded calculation down before the answer. That line earns a method mark.",
+    "\"Give your answer correct to $3$ significant figures\": write down the full display first, then round. Never round in the middle of a calculation.",
+    "\"Write ... correct to the nearest hundred\" needs only the rounded number, with its zeros.",
+    "In a context question, check your answer makes sense: whole coaches, money to the cent."
+  ],
+  "readingMinutes": 18
+}

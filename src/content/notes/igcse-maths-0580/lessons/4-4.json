@@ -1,0 +1,660 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "4.4",
+  "slug": "similarity",
+  "title": "Similarity",
+  "level": "Core",
+  "topic": 4,
+  "summary": "[[similar-shapes|Similar shapes]] are the same shape in different sizes. Every length is multiplied by the same [[scale-factor|scale factor]], so you can find a missing side from a matching pair. Extended adds areas, volumes and proving that two triangles are similar.",
+  "goals": [
+    {
+      "text": "Find the scale factor from a pair of [[corresponding-sides|corresponding sides]].",
+      "bullets": [
+        "4.4-c1"
+      ]
+    },
+    {
+      "text": "Calculate a missing length in similar shapes, including a triangle inside a triangle.",
+      "bullets": [
+        "4.4-c1"
+      ]
+    },
+    {
+      "text": "Show that two triangles are similar, giving a geometric reason for each pair of equal angles.",
+      "bullets": [
+        "4.4-s2",
+        "4.4-n2"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Use the area and volume scale factors, in both directions.",
+      "bullets": [
+        "4.4-s1",
+        "4.4-n1"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.11"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "similar triangles",
+    "similar shapes",
+    "scale factor",
+    "mathematically similar",
+    "area and volume of similar shapes",
+    "length area volume ratio"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-simplify-ratio",
+      "prompt": "Write the [[ratio|ratio]] $18 : 24$ in its simplest form.",
+      "hint": "Divide both parts by their highest common factor.",
+      "options": [
+        {
+          "text": "$3 : 4$",
+          "correct": true
+        },
+        {
+          "text": "$4 : 3$",
+          "correct": false
+        },
+        {
+          "text": "$2 : 3$",
+          "correct": false
+        }
+      ],
+      "explain": "Both parts divide by $6$: $18 : 24 = 3 : 4$. Revise it in {{lesson:1.11}}.",
+      "verify": {
+        "kind": "ratio",
+        "truth": "Tuple(18, 24)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-solve-proportion",
+      "prompt": "Solve $\\frac{x}{6} = \\frac{5}{4}$.",
+      "hint": "Multiply both sides by $6$.",
+      "answer": {
+        "value": 7.5,
+        "tolerance": 0
+      },
+      "explain": "$x = 6 \\times \\frac{5}{4} = 7.5$. Revise it in {{lesson:1.11}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "solve(Eq(x/6, Rational(5, 4)), x)[0]",
+        "dp": 1
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "similar-shapes",
+      "heading": "Similar shapes and the scale factor",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Zoom in on a photo and everything gets bigger, but nothing gets stretched. The new picture is the same shape as the old one."
+        },
+        {
+          "type": "definition",
+          "term": "Similar shapes",
+          "statement": "Two shapes are [[similar-shapes|similar]] when their angles are equal and every pair of [[corresponding-sides|corresponding sides]] is in the same [[ratio|ratio]].",
+          "plain": "One shape is an exact enlargement of the other."
+        },
+        {
+          "type": "text",
+          "text": "Corresponding sides are sides in matching positions. In triangles $ABC$ and $PQR$ written in that order, $A$ matches $P$, $B$ matches $Q$ and $C$ matches $R$. So $AB$ matches $PQ$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{scale factor} = \\frac{\\text{length on the new shape}}{\\text{matching length on the old shape}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Every length on the new shape is the old length times the [[scale-factor|scale factor]]. A scale factor above $1$ makes the shape bigger. Between $0$ and $1$, it makes it smaller. A scale factor of exactly $1$ keeps the size, so the shapes are congruent."
+        },
+        {
+          "type": "figure",
+          "id": "4-4-similar-triangles",
+          "alt": "Two similar triangles side by side. Small triangle ABC has AB 4 cm, AC 6 cm and base BC 7 cm. Larger triangle PQR has the same shape: PQ 10 cm, PR y cm and base QR x cm. A matches P, B matches Q and C matches R.",
+          "caption": "Triangle $ABC$ is similar to triangle $PQR$."
+        },
+        {
+          "type": "example",
+          "id": "ex-similar-triangles-qr",
+          "question": "In the figure, triangle $ABC$ is similar to triangle $PQR$. Work out $x$, the length of $QR$.",
+          "steps": [
+            "Find a pair of matching sides you know both of: $AB = 4$ cm matches $PQ = 10$ cm.",
+            "Scale factor from $ABC$ to $PQR$: $\\frac{10}{4} = 2.5$.",
+            "$QR$ matches $BC = 7$ cm, so $QR = 7 \\times 2.5 = 17.5$ cm.",
+            "Check: $PQR$ is the bigger triangle, and $17.5 > 7$."
+          ],
+          "answer": "$QR = 17.5\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "7*Rational(10, 4)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-similar-triangles-pr",
+          "prompt": "In the same figure, work out $y$, the length of $PR$, in cm.",
+          "hint": "Which side of triangle $ABC$ matches $PR$?",
+          "answer": {
+            "value": 15,
+            "tolerance": 0
+          },
+          "explain": "$PR$ matches $AC = 6$ cm, so $PR = 6 \\times 2.5 = 15$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6*Rational(10, 4)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-poster-reduced",
+          "question": "A rectangular poster is $45$ cm wide and $63$ cm tall. A similar, smaller copy is $15$ cm wide. Work out the height of the copy.",
+          "steps": [
+            "Scale factor from the poster to the copy: $\\frac{15}{45} = \\frac{1}{3}$.",
+            "Height of the copy: $63 \\times \\frac{1}{3} = 21$ cm.",
+            "Check: the copy is smaller, and $21 < 63$."
+          ],
+          "answer": "$\\text{height} = 21\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "63*Rational(15, 45)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-rectangle-enlarged",
+          "prompt": "A rectangle is $3$ cm by $5$ cm. Which rectangle is similar to it?",
+          "hint": "Is each side multiplied by the same number?",
+          "options": [
+            {
+              "text": "7.5 cm by 12.5 cm",
+              "correct": true
+            },
+            {
+              "text": "6 cm by 8 cm",
+              "correct": false
+            },
+            {
+              "text": "9 cm by 10 cm",
+              "correct": false
+            }
+          ],
+          "explain": "$7.5 \\div 3 = 2.5$ and $12.5 \\div 5 = 2.5$, so both sides are multiplied by $2.5$. Adding $3$ to each side, or using different multipliers, changes the shape."
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the same amount to every side. Similar shapes multiply every length by the same number."
+        }
+      ]
+    },
+    {
+      "id": "matching-sides",
+      "heading": "Matching the sides",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most wrong answers come from pairing the wrong sides. The diagram may be turned or flipped, so don't match sides by where they sit on the page."
+        },
+        {
+          "type": "text",
+          "text": "Match the angles first. The side between two angles on one shape matches the side between the equal angles on the other."
+        },
+        {
+          "type": "example",
+          "id": "ex-flipped-triangles",
+          "question": "Triangles $LMN$ and $RST$ are similar. Angle $L$ = angle $T$ and angle $M$ = angle $S$. $LM = 8$ cm, $MN = 11$ cm and $ST = 6$ cm. Calculate $RS$.",
+          "steps": [
+            "Match the corners: $L$ with $T$, $M$ with $S$, so $N$ with $R$.",
+            "Match the sides: $LM$ matches $TS$, and $MN$ matches $SR$.",
+            "Scale factor from $LMN$ to $RST$: $\\frac{6}{8} = 0.75$.",
+            "$RS = 11 \\times 0.75 = 8.25$ cm."
+          ],
+          "answer": "$RS = 8.25\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "11*Rational(6, 8)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-flipped-triangles",
+          "prompt": "Triangles $FGH$ and $KLM$ are similar. Angle $F$ = angle $M$ and angle $G$ = angle $L$. $FG = 5$ cm, $GH = 7$ cm and $LM = 7.5$ cm. Find $KL$, in cm.",
+          "hint": "Match $H$ first. Then which side matches $GH$?",
+          "answer": {
+            "value": 10.5,
+            "tolerance": 0
+          },
+          "explain": "$FG$ matches $ML$, so the scale factor is $\\frac{7.5}{5} = 1.5$. $GH$ matches $LK$, so $KL = 7 \\times 1.5 = 10.5$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "7*Rational(15, 2)/5",
+            "dp": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": "A common exam picture is a small triangle inside a big one. The two triangles share a corner, and the third sides are [[parallel|parallel]]."
+        },
+        {
+          "type": "figure",
+          "id": "4-4-nested-triangles",
+          "alt": "Triangle ABC with A at the top and BC along the bottom. D is on side AB and E is on side AC. The line DE is parallel to BC, shown by matching arrows. AD is 5 cm, DB is 2 cm and DE is 4 cm. BC is marked x cm. The small triangle ADE sits inside the big triangle ABC."
+        },
+        {
+          "type": "text",
+          "text": "Angle $A$ is in both triangles. Angles $ADE$ and $ABC$ are equal [[corresponding-angles|corresponding angles]], because $DE$ is parallel to $BC$, and so are angles $AED$ and $ACB$. All three angles match, so triangle $ADE$ is similar to triangle $ABC$."
+        },
+        {
+          "type": "example",
+          "id": "ex-nested-triangles",
+          "question": "In the figure, $DE$ is parallel to $BC$. Work out $x$, the length of $BC$.",
+          "steps": [
+            "$DE$ in the small triangle matches $BC$ in the big one. $AD$ matches $AB$.",
+            "$AB$ is the whole side: $AB = 5 + 2 = 7$ cm.",
+            "Scale factor from $ADE$ to $ABC$: $\\frac{7}{5}$.",
+            "$BC = 4 \\times \\frac{7}{5} = \\frac{28}{5} = 5.6$ cm."
+          ],
+          "answer": "$BC = 5.6\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "4*Rational(5 + 2, 5)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using $DB$ instead of $AB$. $DB$ is not a side of either triangle, so add the two parts first."
+        },
+        {
+          "type": "check",
+          "id": "check-nested-whole-side",
+          "prompt": "Same layout as the figure, with $DE$ parallel to $BC$. This time $AD = 3$ cm, $DB = 6$ cm and $DE = 2.5$ cm. Find $BC$.",
+          "hint": "What is the length of the whole side $AB$?",
+          "options": [
+            {
+              "text": "$BC = 7.5\\text{ cm}$",
+              "correct": true
+            },
+            {
+              "text": "$BC = 5\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$BC = 3.75\\text{ cm}$",
+              "correct": false
+            }
+          ],
+          "explain": "$AB = 3 + 6 = 9$ cm, so the scale factor is $\\frac{9}{3} = 3$ and $BC = 2.5 \\times 3 = 7.5$ cm.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(5, 2)*(3 + 6)/3",
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Write the scale factor as a fraction, new over old, before you multiply. That line usually earns the method mark, even if the arithmetic slips."
+        }
+      ]
+    },
+    {
+      "id": "showing-similar",
+      "heading": "Showing that triangles are similar",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For triangles, equal angles are enough. If two pairs of angles are equal, the third pair is too, because each triangle's angles add up to $180^{\\circ}$."
+        },
+        {
+          "type": "result",
+          "statement": "Two triangles are similar if two angles of one are equal to two angles of the other.",
+          "why": "The third angles are both $180^{\\circ}$ minus the same total, so all three angles match. Triangles with the same angles are the same shape."
+        },
+        {
+          "type": "text",
+          "text": "This works only for triangles. A square and a $1$ cm by $2$ cm rectangle both have four right angles, but they are not similar."
+        },
+        {
+          "type": "text",
+          "text": "To show triangles are similar, find two pairs of equal angles. Give a reason for each one, such as alternate angles, [[vertically-opposite-angles|vertically opposite angles]] or an angle in both triangles."
+        },
+        {
+          "type": "figure",
+          "id": "4-4-bowtie",
+          "alt": "Two triangles meeting at a point C, like a bow tie. Straight lines AD and BE cross at C. AB is a short vertical side on the left and DE is a longer vertical side on the right. AB and DE are parallel, shown by matching arrows. AC is 3.2 cm, CD is 8 cm and AB is 4.4 cm."
+        },
+        {
+          "type": "example",
+          "id": "ex-bowtie",
+          "question": "In the figure, $AB$ is parallel to $DE$. Show that triangles $ABC$ and $DEC$ are similar. Then calculate $DE$.",
+          "steps": [
+            "Angle $BAC$ = angle $EDC$: [[alternate-angles|alternate angles]], since $AB$ is parallel to $DE$.",
+            "Angle $ACB$ = angle $DCE$: vertically opposite angles.",
+            "Two pairs of angles are equal, so the triangles are similar. $A$ matches $D$, $B$ matches $E$ and $C$ matches $C$.",
+            "$AC$ matches $DC$, so the scale factor is $\\frac{8}{3.2} = 2.5$.",
+            "$AB$ matches $DE$: $DE = 4.4 \\times 2.5 = 11$ cm."
+          ],
+          "answer": "$DE = 11\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(44, 10)*8/Rational(32, 10)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-common-angle",
+          "question": "In triangle $ABC$, the point $D$ lies on $AC$ so that angle $ABD$ = angle $ACB$. $AB = 10$ cm and $AC = 12.5$ cm. Show that triangles $ABD$ and $ACB$ are similar. Then calculate $AD$.",
+          "steps": [
+            "Angle $BAD$ = angle $CAB$: it is the same angle at $A$, in both triangles.",
+            "Angle $ABD$ = angle $ACB$: given.",
+            "Two pairs of angles are equal, so the triangles are similar. $A$ matches $A$, $B$ matches $C$ and $D$ matches $B$.",
+            "$AD$ matches $AB$, and $AB$ matches $AC$. So $\\frac{AD}{10} = \\frac{10}{12.5}$.",
+            "$AD = \\frac{10 \\times 10}{12.5} = 8$ cm."
+          ],
+          "answer": "$AD = 8\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "solve(Eq(x/10, 10/Rational(25, 2)), x)[0]",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing the triangles' letters in the wrong order. Order them so matching angles line up, as in $ABD$ and $ACB$, then read off the matching sides."
+        },
+        {
+          "type": "check",
+          "id": "check-third-angle",
+          "prompt": "One triangle has angles $48^{\\circ}$ and $71^{\\circ}$. Another has angles $61^{\\circ}$ and $48^{\\circ}$. Are the triangles similar?",
+          "hint": "Work out the third angle of the first triangle.",
+          "options": [
+            {
+              "text": "Yes, all three angles match",
+              "correct": true
+            },
+            {
+              "text": "No: only one pair of angles is given as equal",
+              "correct": false
+            },
+            {
+              "text": "You can't tell without the side lengths",
+              "correct": false
+            }
+          ],
+          "explain": "The first triangle's third angle is $180^{\\circ} - 48^{\\circ} - 71^{\\circ} = 61^{\\circ}$. Both triangles have angles $48^{\\circ}$, $61^{\\circ}$ and $71^{\\circ}$, so they are similar.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Yes, all three angles match"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-common-angle",
+          "prompt": "Same set-up as the second example: angle $ABD$ = angle $ACB$, with $D$ on $AC$. This time $AB = 14$ cm and $AC = 20$ cm. Find $AD$, in cm.",
+          "hint": "Use $\\frac{AD}{AB} = \\frac{AB}{AC}$.",
+          "answer": {
+            "value": 9.8,
+            "tolerance": 0
+          },
+          "explain": "$AD = \\frac{14 \\times 14}{20} = 9.8$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "solve(Eq(x/14, Rational(14, 20)), x)[0]",
+            "dp": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "area-volume",
+      "heading": "Areas and volumes of similar shapes",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Double every edge of a $1$ cm cube. The new cube is $2$ cm by $2$ cm by $2$ cm. Each face has area $4\\text{ cm}^{2}$, not $2$, and the volume is $8\\text{ cm}^{3}$."
+        },
+        {
+          "type": "text",
+          "text": "Area has two lengths multiplied together, so it grows by the scale factor twice. Volume has three lengths, so it grows by the scale factor three times."
+        },
+        {
+          "type": "result",
+          "statement": "If the length scale factor is $k$, the area scale factor is $k^{2}$ and the volume scale factor is $k^{3}$. Surface area is an area, so it also scales by $k^{2}$.",
+          "why": "Each length in an area or volume formula is multiplied by $k$, so an area gains $k \\times k$ and a volume gains $k \\times k \\times k$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\text{area of } B}{\\text{area of } A} = \\left(\\frac{\\text{length of } B}{\\text{length of } A}\\right)^{2}, \\qquad \\frac{\\text{volume of } B}{\\text{volume of } A} = \\left(\\frac{\\text{length of } B}{\\text{length of } A}\\right)^{3}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-flag-area",
+          "question": "Two flags are similar. The small flag is $30$ cm long and has an area of $600\\text{ cm}^{2}$. The large flag is $75$ cm long. Work out the area of the large flag.",
+          "steps": [
+            "Length scale factor: $\\frac{75}{30} = \\frac{5}{2}$.",
+            "Area scale factor: $\\left(\\frac{5}{2}\\right)^{2} = \\frac{25}{4}$.",
+            "Area of the large flag: $600 \\times \\frac{25}{4} = 3750\\text{ cm}^{2}$."
+          ],
+          "answer": "$\\text{area} = 3750\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "600*(Rational(75, 30))**2",
+            "unit": "cm^2"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-area-factor",
+          "prompt": "Shape $B$ is similar to shape $A$, and its lengths are $3$ times as long. The area of $A$ is $7\\text{ cm}^{2}$. Find the area of $B$.",
+          "hint": "Area scales by the square of the length scale factor.",
+          "options": [
+            {
+              "text": "$63\\text{ cm}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$21\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$189\\text{ cm}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "Area of $B = 7 \\times 3^{2} = 63\\text{ cm}^{2}$. Multiplying by $3$ ignores the square, and $3^{3}$ is for volume.",
+          "verify": {
+            "kind": "exact",
+            "truth": "7*3**2",
+            "unit": "cm^2"
+          }
+        },
+        {
+          "type": "text",
+          "text": "To go back from an area or volume to a length, undo the power. Take the square root of an area scale factor, or the cube root of a volume scale factor."
+        },
+        {
+          "type": "example",
+          "id": "ex-statue-height",
+          "question": "Two similar solid statues have volumes $54\\text{ cm}^{3}$ and $250\\text{ cm}^{3}$. The smaller statue is $12$ cm tall. Work out the height of the larger statue.",
+          "steps": [
+            "Volume scale factor: $\\frac{250}{54} = \\frac{125}{27}$.",
+            "Length scale factor: $\\sqrt[3]{\\frac{125}{27}} = \\frac{5}{3}$, since $5^{3} = 125$ and $3^{3} = 27$.",
+            "Height of the larger statue: $12 \\times \\frac{5}{3} = 20$ cm."
+          ],
+          "answer": "$\\text{height} = 20\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "12*(Rational(250, 54))**Rational(1, 3)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using the volume scale factor as the length scale factor, or taking its square root. Volume needs the cube root."
+        },
+        {
+          "type": "example",
+          "id": "ex-vase-surface-area",
+          "question": "Two similar vases have volumes $800\\text{ cm}^{3}$ and $1500\\text{ cm}^{3}$. The smaller vase has a surface area of $420\\text{ cm}^{2}$. Calculate the surface area of the larger vase. Give your answer to 3 s.f.",
+          "steps": [
+            "Volume scale factor: $\\frac{1500}{800} = 1.875$.",
+            "Length scale factor: $\\sqrt[3]{1.875} = 1.2331\\ldots$ Keep every digit on the calculator.",
+            "Area scale factor: $(1.2331\\ldots)^{2} = 1.5205\\ldots$",
+            "Surface area: $420 \\times 1.5205\\ldots = 638.63\\ldots\\text{ cm}^{2}$, which is $639\\text{ cm}^{2}$ to 3 s.f."
+          ],
+          "answer": "$\\text{surface area} \\approx 639\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "420*(Rational(1500, 800)**Rational(1, 3))**2",
+            "sf": 3,
+            "unit": "cm^2"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "roots",
+          "values": {
+            "root": 3,
+            "value": 1.875
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "ans"
+        },
+        {
+          "type": "check",
+          "id": "check-can-volume",
+          "prompt": "Two similar cans have heights $6$ cm and $8$ cm. The smaller can holds $270\\text{ cm}^{3}$. Find the volume of the larger can, in $\\text{cm}^{3}$.",
+          "hint": "Find the length scale factor, then cube it.",
+          "answer": {
+            "value": 640,
+            "tolerance": 0
+          },
+          "explain": "Length scale factor $\\frac{8}{6} = \\frac{4}{3}$, so volume $= 270 \\times \\left(\\frac{4}{3}\\right)^{3} = 270 \\times \\frac{64}{27} = 640\\text{ cm}^{3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "270*(Rational(8, 6))**3",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-volume-to-length",
+          "prompt": "Two similar boxes have volumes in the ratio $8 : 125$. Find the ratio of their heights.",
+          "hint": "Which root undoes a cube?",
+          "options": [
+            {
+              "text": "$2 : 5$",
+              "correct": true
+            },
+            {
+              "text": "$8 : 125$",
+              "correct": false
+            },
+            {
+              "text": "$4 : 25$",
+              "correct": false
+            }
+          ],
+          "explain": "Take the cube root of each part: $\\sqrt[3]{8} = 2$ and $\\sqrt[3]{125} = 5$, so the heights are in the ratio $2 : 5$.",
+          "verify": {
+            "kind": "ratio",
+            "truth": "Tuple(8**Rational(1, 3), 125**Rational(1, 3))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Similar shapes have equal angles, and all corresponding sides are in the same ratio.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Scale factor $=$ new length $\\div$ matching old length. Match sides using the equal angles, not the picture.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a triangle inside a triangle, use the whole side of the big triangle.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Two triangles with two pairs of equal angles are similar. Give a reason for each pair.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Length scale factor $k$: area scale factor $k^{2}$, volume scale factor $k^{3}$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "From an area scale factor, take the square root to get lengths. From a volume scale factor, take the cube root.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Pairing sides by where they sit on the page, or by which looks longest. Match the corners with equal angles, then the sides between them.",
+    "Turning the scale factor upside down. If the shape you want is smaller, your answer must be smaller too.",
+    "Using one part of a split side in a triangle inside a triangle. Add the parts to get the whole side first.",
+    "Using an area or volume ratio as the length scale factor. Take the square root or cube root first."
+  ],
+  "examTips": [
+    "\"Work out\" or \"calculate\": show the scale factor as a fraction, then the multiplication. The method mark is for the correct pair of matching sides.",
+    "\"Show that the triangles are similar\": state two pairs of equal angles, with a geometric reason for each, then write that the triangles are similar.",
+    "Diagrams are usually not to scale, so never measure. On a calculator paper, keep the unrounded scale factor and round only the final answer to 3 s.f."
+  ],
+  "readingMinutes": 22
+}

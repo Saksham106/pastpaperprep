@@ -1,0 +1,764 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.2",
+  "slug": "sets",
+  "title": "Sets",
+  "level": "Core",
+  "topic": 1,
+  "summary": "A [[set|set]] is a collection of numbers or objects. A [[venn-diagram|Venn diagram]] shows how two sets overlap, and set notation names each part: the [[intersection|intersection]], the [[union|union]] and the [[complement|complement]]. Extended adds three sets, [[subset|subsets]] and harder regions.",
+  "goals": [
+    {
+      "text": "List a set's [[element|elements]] from a description, and count them with $n(A)$.",
+      "bullets": [
+        "1.2-c1"
+      ]
+    },
+    {
+      "text": "Use the [[universal-set|universal set]] and complete a two-set Venn diagram.",
+      "bullets": [
+        "1.2-c1"
+      ]
+    },
+    {
+      "text": "Find $A \\cap B$, $A \\cup B$ and $A'$, and solve counting problems with a Venn diagram.",
+      "bullets": [
+        "1.2-c1"
+      ]
+    },
+    {
+      "text": "Use $\\in$, $\\notin$, the [[empty-set|empty set]] and [[subset|subsets]], and sets of points on a line.",
+      "bullets": [
+        "1.2-s1",
+        "1.2-n2",
+        "1.2-n3"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Shade and count harder regions, including Venn diagrams with three sets.",
+      "bullets": [
+        "1.2-s1",
+        "1.2-n1",
+        "1.2-n2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "venn diagrams",
+    "set notation",
+    "union and intersection",
+    "complement of a set",
+    "universal set",
+    "shading venn diagrams"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-primes-20s",
+      "prompt": "How many prime numbers are there between $20$ and $30$?",
+      "hint": "Test each odd number from $21$ to $29$ for factors.",
+      "answer": {
+        "value": 2,
+        "tolerance": 0
+      },
+      "explain": "$23$ and $29$ are prime. $21 = 3 \\times 7$, $25 = 5 \\times 5$ and $27 = 3 \\times 9$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "primepi(30) - primepi(20)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-multiples-7",
+      "prompt": "Which list gives all the multiples of $7$ between $20$ and $50$?",
+      "hint": "Count up in sevens: $7, 14, 21, \\ldots$",
+      "options": [
+        {
+          "text": "$21, 28, 35, 42, 49$",
+          "correct": true
+        },
+        {
+          "text": "$21, 28, 35, 42$",
+          "correct": false
+        },
+        {
+          "text": "$14, 21, 28, 35, 42$",
+          "correct": false
+        }
+      ],
+      "explain": "$7 \\times 3 = 21$ up to $7 \\times 7 = 49$. The next one, $56$, is too big. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "list",
+        "truth": "Matrix(Intersection(Range(20, 51), Range(0, 51, 7)))"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "describing",
+      "heading": "Sets and elements",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Set and element",
+          "statement": "A set is a collection of objects. Each object in it is an element of the set. You list the elements inside curly brackets: $A = \\{2, 4, 6, 8\\}$.",
+          "plain": "A list in curly brackets."
+        },
+        {
+          "type": "text",
+          "text": "Order does not matter, and each element is listed once. So $\\{6, 2, 4, 8\\}$ is the same set as $A$."
+        },
+        {
+          "type": "text",
+          "text": "You can also describe a set in words: $B = \\{\\text{square numbers}\\}$. Or use a rule: $\\{x : x \\text{ is a natural number}\\}$ is every $x$ that is a [[natural-number|natural number]]. Read the colon as \"such that\"."
+        },
+        {
+          "type": "text",
+          "text": "$C = \\{x : 2 \\leqslant x \\leqslant 6\\}$ is every number from $2$ to $6$, including $2$ and $6$. When the question also says $x$ is an [[integer|integer]], $C = \\{2, 3, 4, 5, 6\\}$."
+        },
+        {
+          "type": "text",
+          "text": "$n(A)$ means the number of elements in $A$. For $A = \\{2, 4, 6, 8\\}$, $n(A) = 4$. It is a count, not a set."
+        },
+        {
+          "type": "example",
+          "id": "ex-list-integers",
+          "question": "$P = \\{x : x \\text{ is an integer and } -3 \\leqslant x < 2\\}$. List the elements of $P$.",
+          "steps": [
+            "$\\leqslant$ means $-3$ is included. $<$ means $2$ is not.",
+            "Count up in ones from $-3$, stopping before $2$: $-3, -2, -1, 0, 1$.",
+            "Write them in curly brackets."
+          ],
+          "answer": "$\\{-3, -2, -1, 0, 1\\}$",
+          "verify": {
+            "kind": "set",
+            "truth": "FiniteSet.fromiter(Range(-3, 2))"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-count-factors",
+          "question": "$F = \\{\\text{factors of } 45\\}$. Find $n(F)$.",
+          "steps": [
+            "Find the factors in pairs: $1 \\times 45$, $3 \\times 15$, $5 \\times 9$.",
+            "So $F = \\{1, 3, 5, 9, 15, 45\\}$.",
+            "Count the elements. $n(F)$ is that number, not the list."
+          ],
+          "answer": "$n(F) = 6$",
+          "verify": {
+            "kind": "exact",
+            "truth": "divisor_count(45)"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-count-primes",
+            "prompt": "$Q = \\{\\text{prime numbers between } 40 \\text{ and } 60\\}$. Find $n(Q)$.",
+            "hint": "Test each odd number. Cross out those ending in $5$.",
+            "answer": {
+              "value": 5,
+              "tolerance": 0
+            },
+            "explain": "$Q = \\{41, 43, 47, 53, 59\\}$, so $n(Q) = 5$. $49 = 7 \\times 7$ and $51 = 3 \\times 17$ are not prime.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "primepi(60) - primepi(40)",
+              "dp": 0
+            }
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-builder-list",
+          "prompt": "Which set is $\\{x : x \\text{ is an integer and } -1 < x \\leqslant 3\\}$?",
+          "hint": "Is $-1$ included? Is $3$?",
+          "options": [
+            {
+              "text": "$\\{-1, 0, 1, 2, 3\\}$",
+              "correct": false
+            },
+            {
+              "text": "$\\{0, 1, 2, 3\\}$",
+              "correct": true
+            },
+            {
+              "text": "$\\{0, 1, 2\\}$",
+              "correct": false
+            },
+            {
+              "text": "$\\{-1, 0, 1, 2\\}$",
+              "correct": false
+            }
+          ],
+          "explain": "$<$ leaves out $-1$, and $\\leqslant$ keeps $3$.",
+          "verify": {
+            "kind": "set",
+            "truth": "FiniteSet.fromiter(Range(-1, 4)).intersect(Interval.Lopen(-1, 3))"
+          }
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "Extended also uses $\\in$ for \"is an element of\" and $\\notin$ for \"is not an element of\". So $4 \\in A$, but $5 \\notin A$."
+        }
+      ]
+    },
+    {
+      "id": "venn",
+      "heading": "The universal set and Venn diagrams",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Universal set",
+          "statement": "The universal set, $\\mathscr{E}$, is the set of every element the question is about.",
+          "plain": "Everything you are allowed to use."
+        },
+        {
+          "type": "text",
+          "text": "A Venn diagram draws $\\mathscr{E}$ as a rectangle and each set as a circle inside it. Elements in both sets go in the overlap. Elements in neither set go inside the rectangle but outside both circles."
+        },
+        {
+          "type": "text",
+          "text": "To complete one: 1. List each set. 2. Put the elements in both sets in the overlap first. 3. Fill the rest of each circle. 4. Put everything left outside the circles."
+        },
+        {
+          "type": "example",
+          "id": "ex-complete-venn",
+          "question": "$\\mathscr{E} = \\{x : x \\text{ is an integer and } 30 \\leqslant x \\leqslant 40\\}$, $T = \\{\\text{multiples of } 3\\}$ and $V = \\{\\text{multiples of } 5\\}$. Complete a Venn diagram for $T$ and $V$. Then list the elements outside both circles.",
+          "steps": [
+            "List the sets: $T = \\{30, 33, 36, 39\\}$ and $V = \\{30, 35, 40\\}$.",
+            "$30$ is in both, so it goes in the overlap, once.",
+            "The rest of $T$ is $33, 36, 39$. The rest of $V$ is $35, 40$.",
+            "Every other element of $\\mathscr{E}$ goes outside both circles.",
+            "Check: $1 + 3 + 2 + 5 = 11$, and $\\mathscr{E}$ has $11$ elements, so nothing is missing or repeated."
+          ],
+          "answer": "$\\{31, 32, 34, 37, 38\\}$",
+          "verify": {
+            "kind": "set",
+            "truth": "Complement(FiniteSet.fromiter(Range(30, 41)), Union(Range(30, 41, 3), Range(30, 41, 5)))"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "1-2-venn-multiples",
+          "alt": "Venn diagram. The rectangle is the universal set, the integers from 30 to 40. Circle T holds the multiples of 3 and circle V the multiples of 5. The overlap holds 30. T only holds 33, 36 and 39. V only holds 35 and 40. Outside both circles are 31, 32, 34, 37 and 38.",
+          "caption": "Each element of $\\mathscr{E}$ appears exactly once."
+        },
+        {
+          "type": "text",
+          "text": "Sometimes a region shows a number instead. Then it is how many elements are in that region, not an element."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-counts",
+          "question": "In a Venn diagram of the members of a club, $S$ is the set who swim and $R$ is the set who run. The regions show: $S$ only $24$, both $13$, $R$ only $19$, and outside both circles $10$. How many members swim?",
+          "steps": [
+            "The swimmers are everyone in circle $S$: the $S$ only part and the overlap.",
+            "Add those two regions: $24 + 13 = 37$.",
+            "Don't forget the overlap. The $13$ who swim and run still swim."
+          ],
+          "answer": "$n(S) = 37$",
+          "verify": {
+            "kind": "exact",
+            "truth": "24 + 13"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-count-universal",
+            "prompt": "For the same club, find $n(\\mathscr{E})$, the number of members.",
+            "hint": "Add every region, including the one outside the circles.",
+            "answer": {
+              "value": 66,
+              "tolerance": 0
+            },
+            "explain": "$24 + 13 + 19 + 10 = 66$. The $10$ outside both circles are members too.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "24 + 13 + 19 + 10",
+              "dp": 0
+            }
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-overlap-squares",
+          "prompt": "$\\mathscr{E} = \\{x : x \\text{ is an integer and } 16 \\leqslant x \\leqslant 25\\}$, $A = \\{\\text{even numbers}\\}$ and $B = \\{\\text{square numbers}\\}$. Which elements go in the overlap?",
+          "hint": "First list $B$. Which of those are even?",
+          "options": [
+            {
+              "text": "$\\{16, 25\\}$",
+              "correct": false
+            },
+            {
+              "text": "$\\{16\\}$",
+              "correct": true
+            },
+            {
+              "text": "$\\{16, 18, 20, 22, 24\\}$",
+              "correct": false
+            },
+            {
+              "text": "$\\{25\\}$",
+              "correct": false
+            }
+          ],
+          "explain": "$B = \\{16, 25\\}$. Only $16$ is also even, so only $16$ goes in the overlap.",
+          "verify": {
+            "kind": "set",
+            "truth": "FiniteSet.fromiter(Range(16, 26, 2)).intersect(ImageSet(Lambda(k, k**2), Naturals))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "operations",
+      "heading": "Intersection, union and complement",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Intersection",
+          "statement": "The intersection $A \\cap B$ is the set of elements in both $A$ and $B$.",
+          "plain": "The overlap."
+        },
+        {
+          "type": "definition",
+          "term": "Union",
+          "statement": "The union $A \\cup B$ is the set of elements in $A$ or $B$ or both.",
+          "plain": "Everything inside the circles."
+        },
+        {
+          "type": "definition",
+          "term": "Complement",
+          "statement": "The complement $A'$ is the set of elements of $\\mathscr{E}$ that are not in $A$.",
+          "plain": "Everything outside circle $A$."
+        },
+        {
+          "type": "text",
+          "text": "To remember them: $\\cap$ looks like an n, for \"in both\". $\\cup$ is a cup that holds everything from both circles."
+        },
+        {
+          "type": "figure",
+          "id": "1-2-shading-core",
+          "alt": "Three Venn diagrams, each with sets A and B inside a rectangle for the universal set. Left: only the overlap of the circles is shaded, A intersection B. Middle: both whole circles are shaded, A union B. Right: everything outside circle A is shaded, A complement.",
+          "caption": "The shaded region is $A \\cap B$, then $A \\cup B$, then $A'$."
+        },
+        {
+          "type": "example",
+          "id": "ex-list-union",
+          "question": "Use the Venn diagram of $T$ and $V$ from the last section. List the elements of $T \\cup V$.",
+          "steps": [
+            "$T \\cup V$ is everything inside either circle.",
+            "From $T$: $30, 33, 36, 39$. From $V$: $35, 40$. The $30$ in the overlap is listed once.",
+            "For comparison, $T \\cap V = \\{30\\}$, only the overlap."
+          ],
+          "answer": "$\\{30, 33, 35, 36, 39, 40\\}$",
+          "verify": {
+            "kind": "set",
+            "truth": "Union(FiniteSet.fromiter(Range(30, 41, 3)), FiniteSet.fromiter(Range(30, 41, 5)))"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-complement-v",
+            "prompt": "Using the same diagram, which set is $V'$?",
+            "hint": "$V'$ is every element of $\\mathscr{E}$ that is not inside circle $V$.",
+            "options": [
+              {
+                "text": "$\\{31, 32, 34, 37, 38\\}$",
+                "correct": false
+              },
+              {
+                "text": "$\\{30, 35, 40\\}$",
+                "correct": false
+              },
+              {
+                "text": "$\\{31, 32, 33, 34, 36, 37, 38, 39\\}$",
+                "correct": true
+              }
+            ],
+            "explain": "Remove $30$, $35$ and $40$ from $\\mathscr{E}$. The $T$ only elements $33, 36, 39$ are outside $V$, so they are in $V'$.",
+            "verify": {
+              "kind": "set",
+              "truth": "Complement(FiniteSet.fromiter(Range(30, 41)), Range(30, 41, 5))"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "text": "Many questions give totals, not elements. Find the overlap first. Two circle totals added together count the overlap twice."
+        },
+        {
+          "type": "example",
+          "id": "ex-survey-both",
+          "question": "In a class of $32$ students, $18$ are in the drama club ($D$) and $13$ are in the music club ($M$). $7$ students are in neither club. How many students are in both clubs?",
+          "steps": [
+            "Students in at least one club: $32 - 7 = 25$.",
+            "Adding the two clubs gives $18 + 13 = 31$. This counts the students in both clubs twice.",
+            "So the number in both is the extra: $31 - 25 = 6$.",
+            "Fill the diagram to check: $D$ only $18 - 6 = 12$, $M$ only $13 - 6 = 7$, outside $7$. And $12 + 6 + 7 + 7 = 32$."
+          ],
+          "answer": "$n(D \\cap M) = 6$",
+          "verify": {
+            "kind": "exact",
+            "truth": "18 + 13 - (32 - 7)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $18$ and $13$ in the parts outside the overlap counts the $6$ twice. Put the overlap in first, then subtract it from each total."
+        },
+        {
+          "type": "check",
+          "id": "check-region-complement",
+          "prompt": "On a Venn diagram of sets $A$ and $B$, which region is $A'$?",
+          "hint": "$A'$ is everything in $\\mathscr{E}$ that is not in $A$.",
+          "options": [
+            {
+              "text": "Only the overlap of the two circles",
+              "correct": false
+            },
+            {
+              "text": "Everything outside circle A, including the part of B outside A",
+              "correct": true
+            },
+            {
+              "text": "Only the region outside both circles",
+              "correct": false
+            }
+          ],
+          "explain": "The part of $B$ outside $A$ is not in $A$, so it is in $A'$ as well.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Everything outside circle A, including the part of B outside A"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-neither-count",
+          "prompt": "$n(\\mathscr{E}) = 50$, $n(P) = 23$, $n(Q) = 16$ and $n(P \\cap Q) = 4$. How many elements are in neither $P$ nor $Q$?",
+          "hint": "Find $n(P \\cup Q)$ first. Count the overlap once.",
+          "answer": {
+            "value": 15,
+            "tolerance": 0
+          },
+          "explain": "$P$ only $19$, overlap $4$, $Q$ only $12$. So $n(P \\cup Q) = 35$, and $50 - 35 = 15$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "50 - (23 + 16 - 4)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "notation",
+      "heading": "The empty set, subsets and sets of points",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Empty set",
+          "statement": "The empty set, $\\varnothing$, is the set with no elements, so $n(\\varnothing) = 0$.",
+          "plain": "Empty curly brackets, $\\{\\,\\}$."
+        },
+        {
+          "type": "text",
+          "text": "When $A \\cap B = \\varnothing$, the sets share no elements. Draw their circles apart, with no overlap."
+        },
+        {
+          "type": "definition",
+          "term": "Subset",
+          "statement": "$A$ is a subset of $B$, written $A \\subseteq B$, when every element of $A$ is also in $B$. If even one element of $A$ is not in $B$, write $A \\nsubseteq B$.",
+          "plain": "$A$ fits inside $B$."
+        },
+        {
+          "type": "figure",
+          "id": "1-2-subset",
+          "alt": "Venn diagram for a subset. Inside the rectangle for the universal set, circle A, shaded, lies completely inside the larger circle B.",
+          "caption": "$A \\subseteq B$: draw circle $A$ inside circle $B$."
+        },
+        {
+          "type": "text",
+          "text": "Every set is a subset of itself. The empty set $\\varnothing$ is a subset of every set, because it has no element that could be missing."
+        },
+        {
+          "type": "example",
+          "id": "ex-subset-complement",
+          "question": "$\\mathscr{E} = \\{x : x \\text{ is an integer and } 1 \\leqslant x \\leqslant 20\\}$, $H = \\{\\text{multiples of } 6\\}$ and $K = \\{\\text{multiples of } 3\\}$. Explain why $H \\subseteq K$. Then list the elements of $K \\cap H'$.",
+          "steps": [
+            "$H = \\{6, 12, 18\\}$ and $K = \\{3, 6, 9, 12, 15, 18\\}$.",
+            "Each multiple of $6$ is $3 \\times 2 \\times$ something, so it is a multiple of $3$. So every element of $H$ is in $K$, and $H \\subseteq K$.",
+            "$K \\cap H'$ is the elements of $K$ that are not in $H$."
+          ],
+          "answer": "$\\{3, 9, 15\\}$",
+          "verify": {
+            "kind": "set",
+            "truth": "Complement(FiniteSet.fromiter(Range(1, 21)).intersect(Range(0, 21, 3)), Range(0, 21, 6))"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A set can hold points. $\\{(x, y) : y = mx + c\\}$ is every point on the line $y = mx + c$. The intersection of two such sets is the points on both lines."
+        },
+        {
+          "type": "example",
+          "id": "ex-lines-intersection",
+          "question": "$L = \\{(x, y) : y = 3x - 1\\}$ and $M = \\{(x, y) : y = x + 5\\}$. Find the element of $L \\cap M$.",
+          "steps": [
+            "A point in both sets lies on both lines, so its $y$-values are equal: $3x - 1 = x + 5$.",
+            "Subtract $x$ and add $1$: $2x = 6$, so $x = 3$.",
+            "Then $y = 3 + 5 = 8$. Check in $L$: $3 \\times 3 - 1 = 8$.",
+            "So $L \\cap M = \\{(3, 8)\\}$, a set with one element."
+          ],
+          "answer": "$(3, 8)$",
+          "verify": {
+            "kind": "point",
+            "truth": "linsolve([Eq(y, 3*x - 1), Eq(y, x + 5)], [x, y]).args[0]"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\{0\\}$ or $0$ for the empty set. $\\{0\\}$ has one element, the number $0$. The empty set is $\\varnothing$ or $\\{\\,\\}$."
+        },
+        {
+          "type": "check",
+          "id": "check-subset-statement",
+          "prompt": "$A = \\{3, 7, 10\\}$ and $B = \\{\\text{odd numbers}\\}$. Which statement is true?",
+          "hint": "Test every element of $A$. One failure is enough.",
+          "options": [
+            {
+              "text": "A is a subset of B, because 3 and 7 are odd",
+              "correct": false
+            },
+            {
+              "text": "A is not a subset of B, because 10 is not odd",
+              "correct": true
+            },
+            {
+              "text": "A is not a subset of B, because B has more elements",
+              "correct": false
+            }
+          ],
+          "explain": "$10 \\in A$ but $10 \\notin B$, so $A \\nsubseteq B$. $B$ having more elements does not make $A$ a subset.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A is not a subset of B, because 10 is not odd"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-empty-intersection",
+          "prompt": "$\\mathscr{E} = \\{x : x \\text{ is an integer and } 11 \\leqslant x \\leqslant 15\\}$, $E = \\{\\text{even numbers}\\}$ and $D = \\{\\text{odd numbers}\\}$. Which set is $E \\cap D$?",
+          "hint": "Can a number be both odd and even?",
+          "options": [
+            {
+              "text": "$\\{12, 14\\}$",
+              "correct": false
+            },
+            {
+              "text": "$\\varnothing$",
+              "correct": true
+            },
+            {
+              "text": "$\\{11, 13, 15\\}$",
+              "correct": false
+            }
+          ],
+          "explain": "$E = \\{12, 14\\}$ and $D = \\{11, 13, 15\\}$. No number is both, so $E \\cap D = \\varnothing$. Draw $E$ and $D$ as separate circles.",
+          "verify": {
+            "kind": "set",
+            "truth": "Intersection(FiniteSet.fromiter(Range(11, 16)).intersect(Range(0, 16, 2)), FiniteSet.fromiter(Range(11, 16)).intersect(Range(1, 16, 2)))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "regions",
+      "heading": "Harder regions and three sets",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Build a region in steps. Picture each part shaded. $\\cap$ keeps only what both parts share. $\\cup$ keeps everything in either part. A $'$ swaps shaded and unshaded."
+        },
+        {
+          "type": "figure",
+          "id": "1-2-shading-extended",
+          "alt": "Three Venn diagrams with sets A and B. Left: circle A without the overlap is shaded, A intersection B complement. Middle: only the region outside both circles is shaded, A union B, all complemented. Right: everything except the part of A outside B is shaded, A complement union B.",
+          "caption": "$A \\cap B'$, then $(A \\cup B)'$, then $A' \\cup B$."
+        },
+        {
+          "type": "example",
+          "id": "ex-a-only-count",
+          "question": "$n(A) = 17$ and $n(A \\cap B) = 6$. Find $n(A \\cap B')$.",
+          "steps": [
+            "$B'$ is everything outside circle $B$.",
+            "$A \\cap B'$ is the part of $A$ outside $B$: the \"$A$ only\" region.",
+            "Take the overlap away from all of $A$: $17 - 6 = 11$."
+          ],
+          "answer": "$n(A \\cap B') = 11$",
+          "verify": {
+            "kind": "exact",
+            "truth": "17 - 6"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "With three sets, fill from the centre out: first the part in all three, then each pair's remaining overlap, then each set alone, then outside."
+        },
+        {
+          "type": "figure",
+          "id": "1-2-three-sets",
+          "alt": "Venn diagram with three overlapping circles A, B and C inside a rectangle. The numbers of elements are: A only 7, B only 4, C only 9, A and B only 3, A and C only 5, B and C only 2, all three 6, and outside all three circles 8.",
+          "caption": "Each number is how many elements are in that region."
+        },
+        {
+          "type": "example",
+          "id": "ex-three-sets",
+          "question": "Use the three-set Venn diagram above. Find $n(B' \\cap C)$.",
+          "steps": [
+            "$B' \\cap C$ is the part of circle $C$ that is outside circle $B$.",
+            "Inside $C$ but outside $B$ are two regions: $C$ only ($9$) and $A$ and $C$ only ($5$).",
+            "Leave out the $2$ and the $6$: those regions are inside $B$.",
+            "Add: $9 + 5 = 14$."
+          ],
+          "answer": "$n(B' \\cap C) = 14$",
+          "verify": {
+            "kind": "exact",
+            "truth": "9 + 5"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-three-ab",
+            "prompt": "Using the same diagram, find $n(A \\cap B)$.",
+            "hint": "$A \\cap B$ includes the centre, where all three overlap.",
+            "answer": {
+              "value": 9,
+              "tolerance": 0
+            },
+            "explain": "$A$ and $B$ only is $3$, and the centre is $6$. Both are in $A$ and in $B$, so $3 + 6 = 9$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "3 + 6",
+              "dp": 0
+            }
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-three-union-complement",
+          "prompt": "Using the same diagram, find $n((A \\cup B)')$.",
+          "hint": "Which regions are outside both circle $A$ and circle $B$?",
+          "answer": {
+            "value": 17,
+            "tolerance": 0
+          },
+          "explain": "Outside $A$ and $B$ are $C$ only ($9$) and outside all three ($8$). So $9 + 8 = 17$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "9 + 8",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-shade-neither",
+          "prompt": "On a two-set Venn diagram, which region is $(A \\cup B)'$?",
+          "hint": "Shade $A \\cup B$ first, then swap.",
+          "options": [
+            {
+              "text": "Only the overlap of the two circles",
+              "correct": false
+            },
+            {
+              "text": "Everything except the overlap",
+              "correct": false
+            },
+            {
+              "text": "Only the region outside both circles",
+              "correct": true
+            }
+          ],
+          "explain": "$A \\cup B$ is both whole circles. Its complement is what is left: the region outside both.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Only the region outside both circles"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$A \\cap B$: in both. $A \\cup B$: in $A$ or $B$ or both. $A'$: in $\\mathscr{E}$ but not in $A$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$n(A)$ is the number of elements in $A$: a count, not a set.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Venn diagram: fill the overlap first. Every element of $\\mathscr{E}$ appears once, including those outside the circles.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\varnothing$ has no elements. $A \\subseteq B$ means every element of $A$ is in $B$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Three sets: fill the centre, then each pair, then each set alone, then outside.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Shading only the overlap for $A \\cup B$. The union is both whole circles; the overlap alone is $A \\cap B$.",
+    "Giving a set such as $\\{4\\}$ when asked for $n(\\ldots)$. Give the number of elements: here $1$.",
+    "Putting an element that is in both sets in one circle only, or in a circle and the overlap. It goes in the overlap, once.",
+    "Leaving out the elements of $\\mathscr{E}$ that are in neither set. They go inside the rectangle, outside the circles.",
+    "Writing the circle totals straight into the \"only\" regions. Subtract the overlap first, or it is counted twice.",
+    "Counting the elements of $B$ when asked for $n(B')$. The complement is everything in $\\mathscr{E}$ outside $B$."
+  ],
+  "examTips": [
+    "\"Complete the Venn diagram\": every element of $\\mathscr{E}$ must appear exactly once. Before moving on, check that the regions add up to $n(\\mathscr{E})$.",
+    "\"Write down $n(\\ldots)$\": the answer is a single whole number. No working is needed, but read the region carefully.",
+    "\"List the elements\": use curly brackets and write each element once, in any order.",
+    "\"Shade the region\": shade that region only. For a harder region, shade each part lightly in pencil first, then combine."
+  ],
+  "readingMinutes": 24
+}

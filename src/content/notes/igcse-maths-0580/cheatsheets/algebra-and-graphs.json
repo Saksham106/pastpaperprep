@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Factorise fully → take out the HCF of the numbers and the lowest power of each shared letter, then expand to check ({{lesson:2.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Unknown in the power, such as $5^{x} = 125$ → write both sides as powers of the same base, then set the indices equal ({{lesson:2.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Two linear equations with two unknowns → make one coefficient the same size in both, then subtract (same signs) or add (different signs) ({{lesson:2.5}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "List the integers that satisfy an inequality → sketch a number line; include an end only if it is an integer with $\\leqslant$ or $\\geqslant$ ({{lesson:2.6}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "nth term when the terms go up or down by the same amount $d$ → $dn + (a - d)$, where $a$ is the first term and $a - d$ the term before it ({{lesson:2.7}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Solve an equation from a drawn graph → for $\\ldots = 0$ read where the curve crosses the $x$-axis; for $\\ldots = k$ draw $y = k$ and read the $x$-values where it meets the curve ({{lesson:2.10}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Quadratic equation → rearrange to $\\ldots = 0$ and factorise; if it won't factorise, or the answer must be to 2 d.p. or in surd form, use the quadratic formula or complete the square ({{lesson:2.5}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "One linear and one non-linear equation → substitute the linear one into the other, solve the quadratic, then give the answers in pairs ({{lesson:2.5}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "$y$ proportional, or inversely proportional, to a power or root of $x$ → write $y = kx^{n}$ or $y = \\frac{k}{x^{n}}$, find $k$ from the given pair, then substitute ({{lesson:2.8}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Distance travelled from a speed–time graph → area under the graph, split at each corner into rectangles, triangles and trapezia ({{lesson:2.9}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Turning point of a quadratic without calculus → complete the square: $(x + p)^{2} + q$ has minimum point $(-p, q)$ ({{lesson:2.11}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Stationary points of a curve → solve $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0$ and substitute each $x$ into the curve for $y$; $\\frac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}} < 0$ is a maximum, $> 0$ a minimum ({{lesson:2.12}})",
+      "tag": "learn",
+      "level": "Extended"
+    }
+  ]
+}

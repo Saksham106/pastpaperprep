@@ -1,33 +1,21 @@
 import Link from "next/link";
-import itemsJson from "@/data/aa-official-subtopics/items.json";
-import { lessonPath, topicPath, type Course } from "@/lib/course-notes/course";
-import { itemPracticeHref, itemQuestionCount, practiceGroupForItem } from "@/lib/course-notes/practice";
+import { isExtension, lessonPath, topicPath, type Course } from "@/lib/course-notes/course";
+import { lessonPractice } from "@/lib/course-notes/practice";
 import { renderTex } from "@/lib/course-notes/render";
 import type { Lesson } from "@/lib/course-notes/types";
 import { formatUpdateDate, lastUpdated } from "@/lib/updates";
 import { Blocks } from "./Blocks";
 import { FormulaTagLabel } from "./FormulaBlock";
 import { Inline } from "./Inline";
-import { LessonFooter, PractiseBand, type PracticeInfo } from "./LessonActions";
+import { LessonFooter, PractiseBand } from "./LessonActions";
 import { LessonRail, type RailSection } from "./LessonRail";
 import { LessonShell } from "./LessonShell";
 import styles from "./course-notes.module.css";
 
 
-const ITEM_NAMES = new Map((itemsJson.items as { item: string; name: string }[]).map((entry) => [entry.item, entry.name]));
-
-function practiceFor(item: string): PracticeInfo | undefined {
-  const group = practiceGroupForItem(item);
-  if (!group) return undefined;
-  return {
-    group: group.id,
-    items: item,
-    counts: { SL: itemQuestionCount(item, "SL"), HL: itemQuestionCount(item, "HL") },
-    hrefs: { SL: itemPracticeHref(item, "SL"), HL: itemPracticeHref(item, "HL") },
-  };
-}
-
 export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson }) {
+  const itemNames = new Map(course.items.items.map((entry) => [entry.item, entry.name]));
+  const { levels } = course;
   const written = new Map(course.lessons.map((entry) => [entry.item, entry]));
   const lessonHref = (item: string) => {
     const target = written.get(item);
@@ -37,7 +25,15 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
   const topic = course.topics.find((entry) => entry.n === lesson.topic);
   const path = lessonPath(course, lesson);
   const reviewed = lastUpdated([path]);
-  const practice = practiceFor(lesson.item);
+  const practice = lessonPractice(course, lesson.item);
+
+  // Extension content inside a base lesson (0580: Extended inside Core) is marked data-ext and hidden in the base view.
+  // In an extension lesson nothing is marked: the whole lesson is extension content already.
+  const baseLesson = !isExtension(course, lesson.level);
+  const isExt = (level: string | undefined) => baseLesson && level === levels.extension;
+  const sectionExt = (section: Lesson["sections"][number]) => isExt(section.level);
+  const blockExt = (section: Lesson["sections"][number], block: Lesson["sections"][number]["blocks"][number]) => isExt(("level" in block ? block.level : undefined) ?? section.level);
+  const blocksProps = { glossary: course.glossary, figures: course.figures, lessonHref, extensionOnly: levels.labels.extensionOnly, calculatorSnippets: course.calculatorSnippets, markLevel: baseLesson ? levels.extension : undefined };
 
   // A section made only of takeaway blocks is the authored "Key takeaways": shown once, in its own band.
   const isTakeaway = (block: Lesson["sections"][number]["blocks"][number]) => block.type === "fact" || (block.type === "formula" && block.cheatSheet === true);
@@ -45,18 +41,20 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
 
   // The same formula can be flagged where it is taught and again in the takeaways section: show it once.
   const seen = new Set<string>();
-  const takeaways = lesson.sections.flatMap((section) => section.blocks).flatMap((block) => {
+  const takeaways = lesson.sections.flatMap((section) => section.blocks.map((block) => ({ section, block }))).flatMap(({ section, block }) => {
     const key = block.type === "fact" ? `f:${block.text}` : block.type === "formula" ? `t:${block.tex}` : "";
     if (!key || (block.type === "formula" && !block.cheatSheet) || seen.has(key)) return [];
     seen.add(key);
-    if (block.type === "fact") return [{ tag: block.tag, node: inline(block.text) }];
-    if (block.type === "formula") return [{ tag: block.tag, node: <span dangerouslySetInnerHTML={{ __html: renderTex(block.tex, true) }} /> }];
+    const ext = blockExt(section, block);
+    if (block.type === "fact") return [{ tag: block.tag, ext, node: inline(block.text) }];
+    if (block.type === "formula") return [{ tag: block.tag, ext, node: <span dangerouslySetInnerHTML={{ __html: renderTex(block.tex, true) }} /> }];
     return [];
   });
+  const takeawaysExt = takeaways.length > 0 && takeaways.every((entry) => entry.ext);
 
   const prerequisite = (item: string) => {
     const target = written.get(item);
-    const label = `${item} ${target?.title ?? ITEM_NAMES.get(item) ?? ""}`.trim();
+    const label = `${item} ${target?.title ?? itemNames.get(item) ?? ""}`.trim();
     return target ? <Link href={lessonPath(course, target)}>{label}</Link> : <span>{label}</span>;
   };
   const prerequisiteList = lesson.prerequisites.flatMap((item, i, all) => [
@@ -67,10 +65,10 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
   const sections: RailSection[] = [
     { id: "minute", title: "In a minute" },
     ...(lesson.before.length ? [{ id: "before", title: "Before you start" }] : []),
-    ...bodySections.map((section) => ({ id: `s-${section.id}`, title: section.heading })),
+    ...bodySections.map((section) => ({ id: `s-${section.id}`, title: section.heading, ...(sectionExt(section) ? { ext: true } : {}) })),
     ...(lesson.mistakes.length ? [{ id: "mistakes", title: "Common mistakes" }] : []),
     ...(lesson.examTips.length ? [{ id: "tips", title: "Exam tips" }] : []),
-    ...(takeaways.length ? [{ id: "takeaways", title: "Key takeaways" }] : []),
+    ...(takeaways.length ? [{ id: "takeaways", title: "Key takeaways", ...(takeawaysExt ? { ext: true } : {}) }] : []),
     ...(practice ? [{ id: "practise", title: "Practise" }] : []),
   ];
 
@@ -83,14 +81,14 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
         <article className={styles.lesson}>
           <header className={styles.lHead}>
             <div className={styles.crumbs}>
-              <Link href={`/revision-notes/${course.slug}`}>IB Maths AA notes</Link>
+              <Link href={`/revision-notes/${course.slug}`}>{`${course.name} notes`}</Link>
               {topic ? <> › <Link href={topicPath(course, topic.n)}>{topic.n} {topic.name}</Link></> : null}
             </div>
             <div className={styles.lBadges}>
-              {lesson.level === "AHL" ? (
-                <span className={`${styles.badge} ${styles.badgeAhl}`}>{lesson.item} · AHL · HL only</span>
+              {isExtension(course, lesson.level) ? (
+                <span className={`${styles.badge} ${styles.badgeAhl}`}>{lesson.item}{` · ${levels.extension === levels.labels.extension ? "" : `${levels.extension} · `}${levels.labels.extensionOnly}`}</span>
               ) : (
-                <span className={`${styles.badge} ${styles.badgeSl}`}>{lesson.item} · SL</span>
+                <span className={`${styles.badge} ${styles.badgeSl}`}>{lesson.item}{` · ${levels.labels.base}`}</span>
               )}
               {lesson.papers.map((paper) => <span key={paper} className={styles.paper}>Paper {paper.slice(1)}</span>)}
             </div>
@@ -109,7 +107,7 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
 
           <section className={styles.goals}>
             <h2>You&apos;ll be able to</h2>
-            <ul>{lesson.goals.map((goal) => <li key={goal.text}>{inline(goal.text)}</li>)}</ul>
+            <ul>{lesson.goals.map((goal) => <li key={goal.text} data-ext={isExt(goal.level) ? "" : undefined}>{inline(goal.text)}</li>)}</ul>
           </section>
 
           {lesson.before.length ? (
@@ -117,19 +115,26 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
               <details>
                 <summary><span>Before you start</span><small>{lesson.before.length} quick question{lesson.before.length === 1 ? "" : "s"} on what this builds on</small></summary>
                 <div className={styles.beforeBody}>
-                  <Blocks blocks={lesson.before} glossary={course.glossary} figures={course.figures} lessonHref={lessonHref} />
+                  <Blocks blocks={lesson.before} {...blocksProps} />
                   {lesson.prerequisites.length ? <p className={styles.revise}>Revise first: {prerequisiteList}</p> : null}
                 </div>
               </details>
             </section>
           ) : null}
 
-          {bodySections.map((section) => (
-            <section key={section.id} id={`s-${section.id}`}>
-              <h2>{section.heading}</h2>
-              <Blocks blocks={section.blocks} glossary={course.glossary} figures={course.figures} lessonHref={lessonHref} />
-            </section>
-          ))}
+          {bodySections.map((section) =>
+            sectionExt(section) ? (
+              <section key={section.id} id={`s-${section.id}`} data-ext="">
+                <h2>{section.heading} <span className={`${styles.badge} ${styles.badgeAhl}`}>{levels.labels.extensionOnly}</span></h2>
+                <Blocks blocks={section.blocks} {...blocksProps} markLevel={undefined} />
+              </section>
+            ) : (
+              <section key={section.id} id={`s-${section.id}`}>
+                <h2>{section.heading}</h2>
+                <Blocks blocks={section.blocks} {...blocksProps} />
+              </section>
+            ),
+          )}
 
           {lesson.mistakes.length ? (
             <section id="mistakes">
@@ -146,17 +151,17 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
           ) : null}
 
           {takeaways.length ? (
-            <section id="takeaways">
+            <section id="takeaways" data-ext={takeawaysExt ? "" : undefined}>
               <h2>Key takeaways</h2>
               <div className={styles.tkGrid}>
                 {takeaways.map((entry, i) => (
-                  <div key={i}><FormulaTagLabel tag={entry.tag} short />{entry.node}</div>
+                  <div key={i} data-ext={entry.ext ? "" : undefined}><FormulaTagLabel tag={entry.tag} short />{entry.node}</div>
                 ))}
               </div>
             </section>
           ) : null}
 
-          {practice ? <PractiseBand practice={practice} /> : null}
+          {practice ? <PractiseBand practice={practice} bankPrefix={course.copy.bankPrefix} /> : null}
 
           <LessonFooter item={lesson.item} lessons={neighbours} />
         </article>

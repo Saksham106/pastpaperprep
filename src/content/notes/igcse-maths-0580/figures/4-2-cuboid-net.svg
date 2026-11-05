@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-labelledby="t">
+  <title id="t">Net of a cuboid. A row of four rectangles, all 5 cm tall, has widths 2 cm, 6 cm, 2 cm and 6 cm. Above and below the first 6 cm rectangle are two rectangles 6 cm wide and 2 cm tall.</title>
+  <rect x="20" y="52" width="32" height="80" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <rect x="52" y="52" width="96" height="80" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <rect x="148" y="52" width="32" height="80" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <rect x="180" y="52" width="96" height="80" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <rect x="52" y="20" width="96" height="32" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <rect x="52" y="132" width="96" height="32" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <g font-family="inherit">
+    <text x="100" y="180" fill="var(--t1-ink)" font-size="13" text-anchor="middle">6 cm</text>
+    <text x="282" y="97.0" fill="var(--t1-ink)" font-size="13" text-anchor="start">5 cm</text>
+    <text x="154" y="41" fill="var(--t1-ink)" font-size="13" text-anchor="start">2 cm</text>
+  </g>
+</svg>

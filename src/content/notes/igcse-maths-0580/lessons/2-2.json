@@ -1,0 +1,1007 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "2.2",
+  "slug": "algebraic-manipulation",
+  "title": "Algebraic manipulation",
+  "level": "Core",
+  "topic": 2,
+  "summary": "Three moves tidy almost any algebra. You [[simplify|simplify]] by collecting [[like-terms|like terms]], [[expand|expand]] by multiplying out brackets, and [[factorise|factorise]] by putting brackets back in. Extended adds harder factorising and [[completing-the-square|completing the square]].",
+  "goals": [
+    {
+      "text": "Simplify an [[expression|expression]] by collecting like terms.",
+      "bullets": [
+        "2.2-c1"
+      ]
+    },
+    {
+      "text": "Expand a single bracket and a product of two brackets.",
+      "bullets": [
+        "2.2-c2"
+      ]
+    },
+    {
+      "text": "Factorise fully by taking out the [[highest-common-factor|highest common factor]].",
+      "bullets": [
+        "2.2-c3"
+      ]
+    },
+    {
+      "text": "Collect [[term|terms]] with powers and products, and expand two brackets with two letters or three brackets.",
+      "bullets": [
+        "2.2-n1",
+        "2.2-n2",
+        "2.2-n3"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Factorise four terms in pairs, a [[difference-of-two-squares|difference of two squares]], a perfect square, quadratics and cubics with a common $x$.",
+      "bullets": [
+        "2.2-s1"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Complete the square for any quadratic $ax^{2} + bx + c$.",
+      "bullets": [
+        "2.2-s2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "2.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "multiply out brackets",
+    "collecting like terms",
+    "factorise quadratics",
+    "difference of two squares",
+    "completing the square",
+    "expand and simplify"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-hcf",
+      "prompt": "What is the highest common factor of $18$ and $24$?",
+      "hint": "List the [[factor|factors]] of $18$. Which is the largest that also divides $24$?",
+      "options": [
+        {
+          "text": "$6$",
+          "correct": true
+        },
+        {
+          "text": "$3$",
+          "correct": false
+        },
+        {
+          "text": "$72$",
+          "correct": false
+        }
+      ],
+      "explain": "$18 = 6 \\times 3$ and $24 = 6 \\times 4$, and $3$ and $4$ share no factor. $72$ is the lowest common multiple. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "gcd(18, 24)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-coefficient",
+      "prompt": "What is the [[coefficient|coefficient]] of $y$ in $4x - 9y + 2$?",
+      "hint": "The coefficient includes the sign in front of the term.",
+      "options": [
+        {
+          "text": "$-9$",
+          "correct": true
+        },
+        {
+          "text": "$9$",
+          "correct": false
+        },
+        {
+          "text": "$4$",
+          "correct": false
+        }
+      ],
+      "explain": "The term with $y$ is $-9y$, so the coefficient is $-9$. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "(4*x - 9*y + 2).coeff(y)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "collect",
+      "heading": "Collecting like terms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[term|term]] is one part of an [[expression|expression]], with the sign in front of it. In $4a - 3b + 6$ the terms are $4a$, $-3b$ and $6$."
+        },
+        {
+          "type": "definition",
+          "term": "Like terms",
+          "statement": "Terms with exactly the same letters, raised to the same powers. Only the number in front, the [[coefficient|coefficient]], can be different.",
+          "plain": "$3x$ and $8x$ are like terms. $3x$ and $3y$ are not, and nor are $3x$ and $3x^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "To [[simplify|simplify]], add the coefficients of each group of [[like-terms|like terms]]."
+        },
+        {
+          "type": "text",
+          "text": "Keep each sign with the term after it. A letter on its own, like $q$, means $1q$."
+        },
+        {
+          "type": "example",
+          "id": "ex-collect-two-letters",
+          "question": "Simplify $6p + 4q - 9p + q$.",
+          "steps": [
+            "The $p$ terms: $6p - 9p = -3p$.",
+            "The $q$ terms: $4q + q = 4q + 1q = 5q$.",
+            "Write the two results together."
+          ],
+          "answer": "$-3p + 5q$",
+          "verify": {
+            "kind": "expression",
+            "truth": "6*p + 4*q - 9*p + q",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-collect-numbers",
+          "question": "Simplify $8m - 3 - 2m + 10 - m$.",
+          "steps": [
+            "The $m$ terms, with their signs: $8m - 2m - m = 5m$.",
+            "The numbers: $-3 + 10 = 7$.",
+            "Write the letter term first."
+          ],
+          "answer": "$5m + 7$",
+          "verify": {
+            "kind": "expression",
+            "truth": "8*m - 3 - 2*m + 10 - m",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dropping a minus sign. $3b - 7b$ is $-4b$, not $4b$: you start at $3$ and go down $7$."
+        },
+        {
+          "type": "check",
+          "id": "check-collect",
+          "prompt": "Simplify $9k - 4j - 2k + j$.",
+          "hint": "Circle the $k$ terms and the $j$ terms, each with the sign in front of it.",
+          "options": [
+            {
+              "text": "$7k - 3j$",
+              "correct": true
+            },
+            {
+              "text": "$7k - 5j$",
+              "correct": false
+            },
+            {
+              "text": "$11k - 3j$",
+              "correct": false
+            },
+            {
+              "text": "$7k + 3j$",
+              "correct": false
+            }
+          ],
+          "explain": "$9k - 2k = 7k$ and $-4j + j = -3j$. $11k$ comes from ignoring the minus in front of $2k$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "9*k - 4*j - 2*k + j",
+            "form": "simplified"
+          }
+        },
+        {
+          "type": "text",
+          "text": "With powers and products, terms are alike only if they match exactly. $x^{2}$ and $x$ are not like terms. $yx$ and $xy$ are, because $yx = xy$. So $4x^{2} - 6xy - x^{2} + 8yx = 3x^{2} + 2xy$.",
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-collect-powers",
+          "prompt": "Simplify $a^{2} + 5ab - 3a^{2} - ab$.",
+          "hint": "Group the $a^{2}$ terms and the $ab$ terms. Collecting never changes a power.",
+          "options": [
+            {
+              "text": "$-2a^{2} + 4ab$",
+              "correct": true
+            },
+            {
+              "text": "$4a^{2} + 4ab$",
+              "correct": false
+            },
+            {
+              "text": "$-2a^{2} + 6ab$",
+              "correct": false
+            },
+            {
+              "text": "$-2a^{4} + 4ab$",
+              "correct": false
+            }
+          ],
+          "explain": "$a^{2} - 3a^{2} = -2a^{2}$ and $5ab - ab = 4ab$. The power stays $2$: you add coefficients, not powers.",
+          "verify": {
+            "kind": "expression",
+            "truth": "a**2 + 5*a*b - 3*a**2 - a*b",
+            "form": "simplified"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "expand",
+      "heading": "Expanding brackets",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To [[expand|expand]] a bracket, multiply every term inside it by the term outside. $4(x + 3)$ means four lots of $x + 3$, which is $4x + 12$."
+        },
+        {
+          "type": "text",
+          "text": "When you multiply terms, multiply the numbers, then the letters. Add the powers of the same letter: $x \\times x = x^{2}$ and $x \\times x^{2} = x^{3}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-expand-single",
+          "question": "Expand $6y(2y - 7)$.",
+          "steps": [
+            "Multiply $6y$ by $2y$: $6 \\times 2 = 12$ and $y \\times y = y^{2}$, so $12y^{2}$.",
+            "Multiply $6y$ by $-7$: $6y \\times (-7) = -42y$.",
+            "Write the two products together."
+          ],
+          "answer": "$12y^{2} - 42y$",
+          "verify": {
+            "kind": "expression",
+            "truth": "6*y*(2*y - 7)",
+            "form": "expanded"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "A minus in front of a bracket multiplies every term inside. $-3(x - 6)$ is $-3x + 18$, because a negative times a negative is positive."
+        },
+        {
+          "type": "check",
+          "id": "check-expand-simplify",
+          "prompt": "Expand and simplify $4(2x + 3) - 3(x - 6)$.",
+          "hint": "The second bracket is multiplied by $-3$, not $3$.",
+          "options": [
+            {
+              "text": "$5x + 30$",
+              "correct": true
+            },
+            {
+              "text": "$5x - 6$",
+              "correct": false
+            },
+            {
+              "text": "$5x + 18$",
+              "correct": false
+            }
+          ],
+          "explain": "$8x + 12 - 3x + 18 = 5x + 30$. $5x - 6$ comes from $-3 \\times (-6) = -18$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "4*(2*x + 3) - 3*(x - 6)",
+            "form": "expanded"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-expand-single",
+          "prompt": "Expand $-2a(a - 9)$.",
+          "hint": "Multiply both terms in the bracket by $-2a$. Watch the signs.",
+          "options": [
+            {
+              "text": "$-2a^{2} + 18a$",
+              "correct": true
+            },
+            {
+              "text": "$-2a^{2} - 18a$",
+              "correct": false
+            },
+            {
+              "text": "$-2a^{2} - 9$",
+              "correct": false
+            }
+          ],
+          "explain": "$-2a \\times a = -2a^{2}$ and $-2a \\times (-9) = +18a$. $-2a^{2} - 9$ multiplies only the first term.",
+          "verify": {
+            "kind": "expression",
+            "truth": "-2*a*(a - 9)",
+            "form": "expanded"
+          }
+        },
+        {
+          "type": "text",
+          "text": "For two brackets, multiply each term in the first bracket by each term in the second. With two terms in each bracket, that gives four products. Then collect like terms."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-expand-grid",
+          "alt": "A two by two grid for expanding 2x minus 3 times x plus 6. The columns are headed x and plus 6, the rows 2x and minus 3. The four cells are 2x squared, 12x, minus 3x and minus 18.",
+          "caption": "A grid keeps track of the four products in $(2x - 3)(x + 6)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-expand-two",
+          "question": "Expand and simplify $(2x - 3)(x + 6)$.",
+          "steps": [
+            "$2x$ times each term in the second bracket: $2x^{2}$ and $12x$.",
+            "$-3$ times each term: $-3x$ and $-18$.",
+            "All four products: $2x^{2} + 12x - 3x - 18$.",
+            "Collect the $x$ terms: $12x - 3x = 9x$."
+          ],
+          "answer": "$2x^{2} + 9x - 18$",
+          "verify": {
+            "kind": "expression",
+            "truth": "(2*x - 3)*(x + 6)",
+            "form": "expanded"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The answer has an $x^{2}$ term and no higher power. That makes it a [[quadratic-expression|quadratic expression]]."
+        },
+        {
+          "type": "check",
+          "id": "check-expand-two",
+          "prompt": "Expand and simplify $(x - 8)(x - 5)$.",
+          "hint": "Do all four products. What is $-8 \\times (-5)$?",
+          "options": [
+            {
+              "text": "$x^{2} - 13x + 40$",
+              "correct": true
+            },
+            {
+              "text": "$x^{2} - 13x - 40$",
+              "correct": false
+            },
+            {
+              "text": "$x^{2} + 40$",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{2} - 5x - 8x + 40 = x^{2} - 13x + 40$. Two negatives multiply to a positive, and $x^{2} + 40$ forgets the two middle products.",
+          "verify": {
+            "kind": "expression",
+            "truth": "(x - 8)*(x - 5)",
+            "form": "expanded"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-expand-two-letters",
+          "prompt": "Expand and simplify $(4a - b)(a + 6b)$.",
+          "hint": "Four products: $4a \\times a$, $4a \\times 6b$, $-b \\times a$ and $-b \\times 6b$.",
+          "options": [
+            {
+              "text": "$4a^{2} + 23ab - 6b^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$4a^{2} + 25ab - 6b^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$4a^{2} - 6b^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$4a^{2} + 24ab - ab - 6b^{2} = 4a^{2} + 23ab - 6b^{2}$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "(4*a - b)*(a + 6*b)",
+            "form": "expanded"
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "For three brackets, expand any two first. Then multiply each term of that answer by each term of the third bracket.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-expand-three",
+          "question": "Expand and simplify $(x + 1)(x - 4)(3x + 2)$.",
+          "steps": [
+            "Expand the first two: $x^{2} - 4x + x - 4 = x^{2} - 3x - 4$.",
+            "Multiply each term by $3x$: $3x^{3} - 9x^{2} - 12x$.",
+            "Multiply each term by $2$: $2x^{2} - 6x - 8$.",
+            "Collect: $-9x^{2} + 2x^{2} = -7x^{2}$ and $-12x - 6x = -18x$.",
+            "Check with $x = 1$: $(2)(-3)(5) = -30$, and $3 - 7 - 18 - 8 = -30$."
+          ],
+          "answer": "$3x^{3} - 7x^{2} - 18x - 8$",
+          "verify": {
+            "kind": "expression",
+            "truth": "(x + 1)*(x - 4)*(3*x + 2)",
+            "form": "expanded"
+          },
+          "video": null,
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-expand-three",
+          "prompt": "Expand and simplify $(x + 2)^{2}(x - 1)$.",
+          "hint": "Write $(x + 2)^{2}$ as $(x + 2)(x + 2)$ and expand that first.",
+          "options": [
+            {
+              "text": "$x^{3} + 3x^{2} - 4$",
+              "correct": true
+            },
+            {
+              "text": "$x^{3} - x^{2} + 4x - 4$",
+              "correct": false
+            },
+            {
+              "text": "$x^{3} + 3x^{2} + 8x - 4$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x + 2)^{2} = x^{2} + 4x + 4$. Times $(x - 1)$: $x^{3} - x^{2} + 4x^{2} - 4x + 4x - 4 = x^{3} + 3x^{2} - 4$. The second option squared only the $x$ and the $2$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "(x + 2)**2*(x - 1)",
+            "form": "expanded"
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "examTip",
+          "text": "“Expand and simplify”: show all four products, then collect like terms. An answer left as four terms may lose the last mark."
+        }
+      ]
+    },
+    {
+      "id": "common-factor",
+      "heading": "Factorising with common factors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To [[factorise|factorise]] is to undo expanding. You write the expression as a product: a [[common-factor|common factor]] outside a bracket."
+        },
+        {
+          "type": "text",
+          "text": "Both terms of $8x + 20$ divide by $4$, a [[factor|factor]] of each. So $8x + 20 = 4(2x + 5)$. Expanding $4(2x + 5)$ gives back $8x + 20$."
+        },
+        {
+          "type": "text",
+          "text": "“Factorise” means factorise fully. Take out the [[highest-common-factor|highest common factor]] (HCF), so the terms in the bracket share nothing more."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the HCF of the numbers."
+        },
+        {
+          "type": "text",
+          "text": "2. Find each letter that is in every term, at its lowest power."
+        },
+        {
+          "type": "text",
+          "text": "3. Divide each term by the HCF, write the results in the bracket, and expand to check."
+        },
+        {
+          "type": "example",
+          "id": "ex-factorise-number",
+          "question": "Factorise $14m - 21$.",
+          "steps": [
+            "The HCF of $14$ and $21$ is $7$. No letter is in both terms.",
+            "Divide each term by $7$: $14m \\div 7 = 2m$ and $-21 \\div 7 = -3$.",
+            "Check: $7(2m - 3) = 14m - 21$."
+          ],
+          "answer": "$7(2m - 3)$",
+          "verify": {
+            "kind": "expression",
+            "truth": "14*m - 21",
+            "form": "factorised"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-factorise-letters",
+          "question": "Factorise fully $18y^{2} - 12y$.",
+          "steps": [
+            "Numbers: the HCF of $18$ and $12$ is $6$.",
+            "Letters: both terms contain $y$, and the lowest power is $y$. So the HCF is $6y$.",
+            "Divide: $18y^{2} \\div 6y = 3y$ and $-12y \\div 6y = -2$.",
+            "Check: $6y(3y - 2) = 18y^{2} - 12y$, and $3y$ and $-2$ share no factor."
+          ],
+          "answer": "$6y(3y - 2)$",
+          "verify": {
+            "kind": "expression",
+            "truth": "18*y**2 - 12*y",
+            "form": "factorised"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping too soon. $2y(9y - 6)$ is factorised, but not fully: $9y$ and $6$ still share $3$. Take out $6y$ in one go."
+        },
+        {
+          "type": "check",
+          "id": "check-factorise-two-letters",
+          "prompt": "Factorise fully $15p^{2} + 10pq$.",
+          "hint": "Find the HCF of $15$ and $10$. Which letter is in both terms?",
+          "options": [
+            {
+              "text": "$5p(3p + 2q)$",
+              "correct": true
+            },
+            {
+              "text": "$p(15p + 10q)$",
+              "correct": false
+            },
+            {
+              "text": "$5(3p^{2} + 2pq)$",
+              "correct": false
+            },
+            {
+              "text": "$5p(3p + 2)$",
+              "correct": false
+            }
+          ],
+          "explain": "The HCF is $5p$: $15p^{2} \\div 5p = 3p$ and $10pq \\div 5p = 2q$. The second and third options are true but not fully factorised.",
+          "verify": {
+            "kind": "expression",
+            "truth": "15*p**2 + 10*p*q",
+            "form": "factorised"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-factorise-cube",
+          "prompt": "Factorise fully $20x^{3} - 8x^{2}$.",
+          "hint": "The lowest power of $x$ in both terms is $x^{2}$.",
+          "options": [
+            {
+              "text": "$4x^{2}(5x - 2)$",
+              "correct": true
+            },
+            {
+              "text": "$4x(5x^{2} - 2x)$",
+              "correct": false
+            },
+            {
+              "text": "$2x^{2}(10x - 4)$",
+              "correct": false
+            }
+          ],
+          "explain": "The HCF is $4x^{2}$: $20x^{3} \\div 4x^{2} = 5x$ and $8x^{2} \\div 4x^{2} = 2$. The other two still have a common factor inside the bracket.",
+          "verify": {
+            "kind": "expression",
+            "truth": "20*x**3 - 8*x**2",
+            "form": "factorised"
+          }
+        }
+      ]
+    },
+    {
+      "id": "factorise-more",
+      "heading": "More factorising",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Here are five more patterns. Always take out any common factor first."
+        },
+        {
+          "type": "text",
+          "text": "Four terms: group them in pairs that share a factor, and factorise each pair. If the two brackets match, take the bracket out."
+        },
+        {
+          "type": "example",
+          "id": "ex-group",
+          "question": "Factorise $ab - 4b + 3a - 12$.",
+          "steps": [
+            "Pair the first two and the last two: $b(a - 4) + 3(a - 4)$.",
+            "Both parts contain $(a - 4)$. Take it out: $(a - 4)(b + 3)$.",
+            "Check: $(a - 4)(b + 3) = ab + 3a - 4b - 12$."
+          ],
+          "answer": "$(a - 4)(b + 3)$",
+          "verify": {
+            "kind": "expression",
+            "truth": "a*b - 4*b + 3*a - 12",
+            "form": "factorised"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Difference of two squares: expand $(a + b)(a - b)$ and the $ab$ and $-ab$ cancel, leaving $a^{2} - b^{2}$. So one square minus another always factorises."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{2} - b^{2} = (a + b)(a - b)",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-dots",
+          "question": "Factorise fully $50x^{2} - 8y^{2}$.",
+          "steps": [
+            "Take out the common factor $2$: $2(25x^{2} - 4y^{2})$.",
+            "$25x^{2} = (5x)^{2}$ and $4y^{2} = (2y)^{2}$, so the bracket is a [[difference-of-two-squares|difference of two squares]].",
+            "Factorise it: $25x^{2} - 4y^{2} = (5x + 2y)(5x - 2y)$."
+          ],
+          "answer": "$2(5x + 2y)(5x - 2y)$",
+          "verify": {
+            "kind": "expression",
+            "truth": "50*x**2 - 8*y**2",
+            "form": "factorised"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-dots",
+          "prompt": "Factorise fully $3k^{2} - 48$.",
+          "hint": "Take out $3$ first. Is what is left a difference of two squares?",
+          "options": [
+            {
+              "text": "$3(k + 4)(k - 4)$",
+              "correct": true
+            },
+            {
+              "text": "$3(k^{2} - 16)$",
+              "correct": false
+            },
+            {
+              "text": "$3(k - 4)^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$3k^{2} - 48 = 3(k^{2} - 16) = 3(k + 4)(k - 4)$. Stopping at $3(k^{2} - 16)$ is not fully factorised.",
+          "verify": {
+            "kind": "expression",
+            "truth": "3*k**2 - 48",
+            "form": "factorised"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Quadratic $x^{2} + bx + c$: find two numbers that multiply to $c$ and add to $b$. If they are $p$ and $q$, the answer is $(x + p)(x + q)$. If no such whole numbers exist, it does not factorise into brackets with whole numbers."
+        },
+        {
+          "type": "example",
+          "id": "ex-quad-a1",
+          "question": "Factorise $x^{2} - 2x - 24$.",
+          "steps": [
+            "You need two numbers that multiply to $-24$ and add to $-2$.",
+            "Try factor pairs of $24$: $-6 \\times 4 = -24$ and $-6 + 4 = -2$.",
+            "Check: $(x - 6)(x + 4) = x^{2} + 4x - 6x - 24 = x^{2} - 2x - 24$."
+          ],
+          "answer": "$(x - 6)(x + 4)$",
+          "verify": {
+            "kind": "expression",
+            "truth": "x**2 - 2*x - 24",
+            "form": "factorised"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Quadratic $ax^{2} + bx + c$ with $a \\neq 1$: find two numbers that multiply to $ac$ and add to $b$. Use them to split the middle term, then factorise in pairs."
+        },
+        {
+          "type": "example",
+          "id": "ex-quad-a",
+          "question": "Factorise $3x^{2} + 10x - 8$.",
+          "steps": [
+            "$ac = 3 \\times (-8) = -24$. Two numbers that multiply to $-24$ and add to $10$: $12$ and $-2$.",
+            "Split the middle term: $3x^{2} + 12x - 2x - 8$.",
+            "Factorise in pairs: $3x(x + 4) - 2(x + 4)$.",
+            "Take out $(x + 4)$: $(x + 4)(3x - 2)$. Expand to check."
+          ],
+          "answer": "$(x + 4)(3x - 2)$",
+          "verify": {
+            "kind": "expression",
+            "truth": "3*x**2 + 10*x - 8",
+            "form": "factorised"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-quad",
+          "prompt": "Factorise $2x^{2} + 5x - 12$.",
+          "hint": "$ac = -24$. Which two numbers multiply to $-24$ and add to $5$?",
+          "options": [
+            {
+              "text": "$(x + 4)(2x - 3)$",
+              "correct": true
+            },
+            {
+              "text": "$(x - 4)(2x + 3)$",
+              "correct": false
+            },
+            {
+              "text": "$(2x + 4)(x - 3)$",
+              "correct": false
+            },
+            {
+              "text": "$(x + 4)(2x + 3)$",
+              "correct": false
+            }
+          ],
+          "explain": "$8$ and $-3$: $2x^{2} + 8x - 3x - 12 = 2x(x + 4) - 3(x + 4) = (x + 4)(2x - 3)$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "2*x**2 + 5*x - 12",
+            "form": "factorised"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Perfect square: $a^{2} + 2ab + b^{2} = (a + b)^{2}$ and $a^{2} - 2ab + b^{2} = (a - b)^{2}$. Spot it when the first and last terms are squares and the middle term is twice their product. The sign of the middle term goes in the bracket."
+        },
+        {
+          "type": "check",
+          "id": "check-perfect-square",
+          "prompt": "Factorise $x^{2} + 14x + 49$.",
+          "hint": "Is $49$ a square? Is $14x$ twice $x$ times its square root?",
+          "options": [
+            {
+              "text": "$(x + 7)^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$(x + 7)(x - 7)$",
+              "correct": false
+            },
+            {
+              "text": "$(x - 7)^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$49 = 7^{2}$ and $14x = 2 \\times x \\times 7$, so $x^{2} + 14x + 49 = (x + 7)^{2}$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "x**2 + 14*x + 49",
+            "form": "factorised"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Cubic $ax^{3} + bx^{2} + cx$: every term contains $x$. Take out $x$ (and any number factor), then factorise the quadratic left in the bracket."
+        },
+        {
+          "type": "check",
+          "id": "check-cubic",
+          "prompt": "Factorise fully $2x^{3} - 2x^{2} - 12x$.",
+          "hint": "Take out $2x$ first, then factorise the quadratic left.",
+          "options": [
+            {
+              "text": "$2x(x - 3)(x + 2)$",
+              "correct": true
+            },
+            {
+              "text": "$2x(x^{2} - x - 6)$",
+              "correct": false
+            },
+            {
+              "text": "$2x(x + 3)(x - 2)$",
+              "correct": false
+            }
+          ],
+          "explain": "$2x(x^{2} - x - 6)$, and $-3 \\times 2 = -6$, $-3 + 2 = -1$, so $2x(x - 3)(x + 2)$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "2*x**3 - 2*x**2 - 12*x",
+            "form": "factorised"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping after the common factor. $2x(x^{2} - 9)$ is not fully factorised: $x^{2} - 9 = (x + 3)(x - 3)$."
+        }
+      ]
+    },
+    {
+      "id": "complete-square",
+      "heading": "Completing the square",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[completing-the-square|Completing the square]] writes a quadratic as a bracket squared plus a number, such as $(x - 3)^{2} + 5$. You use it to solve quadratics in {{lesson:2.5}}."
+        },
+        {
+          "type": "text",
+          "text": "See how a square expands: $(x + 4)^{2} = x^{2} + 8x + 16$. The number in the bracket is half the coefficient of $x$. Squaring it adds $16$, which you must take away again."
+        },
+        {
+          "type": "formula",
+          "tex": "x^{2} + bx + c = \\left(x + \\frac{b}{2}\\right)^{2} - \\left(\\frac{b}{2}\\right)^{2} + c",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-cts-a1",
+          "question": "Write $x^{2} - 10x + 7$ in the form $(x + p)^{2} + q$.",
+          "steps": [
+            "Half of $-10$ is $-5$, so start with $(x - 5)^{2} = x^{2} - 10x + 25$.",
+            "That adds $25$ you don't want, so take it away: $x^{2} - 10x + 7 = (x - 5)^{2} - 25 + 7$.",
+            "Work out $-25 + 7 = -18$."
+          ],
+          "answer": "$(x - 5)^{2} - 18$",
+          "verify": {
+            "kind": "expression",
+            "truth": "x**2 - 10*x + 7"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "When $a \\neq 1$, take $a$ out of the $x^{2}$ and $x$ terms only. Complete the square inside the bracket, then multiply back."
+        },
+        {
+          "type": "example",
+          "id": "ex-cts-a",
+          "question": "Write $2x^{2} + 12x + 5$ in the form $a(x + p)^{2} + q$.",
+          "steps": [
+            "Take $2$ out of the first two terms: $2(x^{2} + 6x) + 5$.",
+            "Complete the square inside: $x^{2} + 6x = (x + 3)^{2} - 9$.",
+            "So the expression is $2\\big((x + 3)^{2} - 9\\big) + 5 = 2(x + 3)^{2} - 18 + 5$.",
+            "Work out $-18 + 5 = -13$."
+          ],
+          "answer": "$2(x + 3)^{2} - 13$",
+          "verify": {
+            "kind": "expression",
+            "truth": "2*x**2 + 12*x + 5"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting to multiply the square you took away by $a$. In $2\\big((x + 3)^{2} - 9\\big)$, the $-9$ becomes $-18$."
+        },
+        {
+          "type": "check",
+          "id": "check-cts-a1",
+          "prompt": "Write $x^{2} + 8x - 3$ in the form $(x + p)^{2} + q$.",
+          "hint": "Halve $8$. What does that bracket add when you square it?",
+          "options": [
+            {
+              "text": "$(x + 4)^{2} - 19$",
+              "correct": true
+            },
+            {
+              "text": "$(x + 4)^{2} + 13$",
+              "correct": false
+            },
+            {
+              "text": "$(x + 8)^{2} - 67$",
+              "correct": false
+            },
+            {
+              "text": "$(x + 4)^{2} - 3$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x + 4)^{2} = x^{2} + 8x + 16$, so take away $16$: $(x + 4)^{2} - 16 - 3 = (x + 4)^{2} - 19$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "x**2 + 8*x - 3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cts-a",
+          "prompt": "Write $3x^{2} - 6x + 1$ in the form $a(x + p)^{2} + q$.",
+          "hint": "Take $3$ out of the first two terms: $3(x^{2} - 2x) + 1$.",
+          "options": [
+            {
+              "text": "$3(x - 1)^{2} - 2$",
+              "correct": true
+            },
+            {
+              "text": "$3(x - 1)^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$3(x - 3)^{2} - 26$",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{2} - 2x = (x - 1)^{2} - 1$, so $3\\big((x - 1)^{2} - 1\\big) + 1 = 3(x - 1)^{2} - 3 + 1 = 3(x - 1)^{2} - 2$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "3*x**2 - 6*x + 1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Like terms have the same letters and powers. Add their coefficients, keeping each sign.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Expand: multiply every term inside by every term outside. Two brackets of two terms each give four products.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Factorise fully: take out the HCF of the numbers and the lowest power of each shared letter. Expand to check.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "a^{2} - b^{2} = (a + b)(a - b)",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "a^{2} \\pm 2ab + b^{2} = (a \\pm b)^{2}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "$ax^{2} + bx + c$: find two numbers that multiply to $ac$ and add to $b$. Split the middle term, then factorise in pairs.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "x^{2} + bx + c = \\left(x + \\frac{b}{2}\\right)^{2} - \\left(\\frac{b}{2}\\right)^{2} + c",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Stopping before factorising is complete. $3x(4x - 6)$ still has $2$ in common inside; take out $6x$ to get $6x(2x - 3)$.",
+    "Sign slips when multiplying: $-3 \\times 4$ is $-12$, and $-3 \\times (-4)$ is $+12$.",
+    "Losing a minus when collecting: $4b - 5b$ is $-b$, not $b$.",
+    "Multiplying the powers instead of adding them: $x \\times x^{2}$ is $x^{3}$, not $x^{2}$.",
+    "Only multiplying the first term in a bracket: $5(x - 2)$ is $5x - 10$, not $5x - 2$."
+  ],
+  "examTips": [
+    "“Factorise” and “factorise completely” both want the fully factorised answer. A partly factorised answer often earns only one of the marks.",
+    "“Expand and simplify”: write the products, then collect. If one term is wrong, the right ones can still earn a mark.",
+    "Expand your factorised answer back in your head. It takes seconds and catches sign slips."
+  ],
+  "readingMinutes": 25
+}

@@ -1,0 +1,560 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.18",
+  "slug": "surds",
+  "title": "Surds",
+  "level": "Extended",
+  "topic": 1,
+  "summary": "A [[surd|surd]] is a root such as $\\sqrt{2}$ that you leave as a root, because its decimal never ends. You simplify surds by taking out square factors, and collect and multiply them much like algebra. [[rationalising-the-denominator|Rationalising the denominator]] clears a surd from the bottom of a fraction.",
+  "goals": [
+    {
+      "text": "Explain what a surd is and simplify one, such as $\\sqrt{72} = 6\\sqrt{2}$.",
+      "bullets": [
+        "1.18-s1"
+      ]
+    },
+    {
+      "text": "Add, subtract and multiply surds, including expanding brackets such as $(8 + \\sqrt{5})(2 - \\sqrt{5})$.",
+      "bullets": [
+        "1.18-s1"
+      ]
+    },
+    {
+      "text": "Rationalise the denominator of fractions such as $\\frac{21}{\\sqrt{7}}$ and $\\frac{12}{7 + \\sqrt{5}}$.",
+      "bullets": [
+        "1.18-s2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.3",
+    "2.2"
+  ],
+  "papers": [
+    "P2"
+  ],
+  "synonyms": [
+    "simplifying surds",
+    "surd form",
+    "a root b",
+    "rationalise the denominator",
+    "multiplying surds",
+    "expanding brackets with surds"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-root-product",
+      "prompt": "Work out $\\sqrt{4 \\times 81}$.",
+      "hint": "Work out $4 \\times 81$ first, then find the number that squares to it.",
+      "answer": {
+        "value": 18,
+        "tolerance": 0
+      },
+      "verify": {
+        "kind": "numeric",
+        "truth": "sqrt(4*81)",
+        "dp": 0
+      },
+      "explain": "$4 \\times 81 = 324$ and $18^2 = 324$, so the answer is $18$. Notice $\\sqrt{4} \\times \\sqrt{81} = 2 \\times 9 = 18$ too. Revise it in {{lesson:1.3}}."
+    },
+    {
+      "type": "check",
+      "id": "before-irrational",
+      "prompt": "Which of these numbers is irrational?",
+      "hint": "The [[square-root|square root]] of a positive whole number is a whole number only when that number is a square number.",
+      "options": [
+        {
+          "text": "$\\sqrt{49}$",
+          "correct": false
+        },
+        {
+          "text": "$\\sqrt{30}$",
+          "correct": true
+        },
+        {
+          "text": "$0.6$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{2}{9}$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "exact",
+        "truth": "sqrt(30)"
+      },
+      "explain": "$30$ is not a square number, so $\\sqrt{30}$ cannot be written as a fraction. $\\sqrt{49} = 7$, and $0.6$ and $\\frac{2}{9}$ are fractions. Revise it in {{lesson:1.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-expand-brackets",
+      "prompt": "Expand and simplify $(x + 4)(x - 3)$.",
+      "hint": "Multiply each term in the first bracket by each term in the second.",
+      "options": [
+        {
+          "text": "$x^2 - 12$",
+          "correct": false
+        },
+        {
+          "text": "$x^2 + x - 12$",
+          "correct": true
+        },
+        {
+          "text": "$x^2 - x - 12$",
+          "correct": false
+        },
+        {
+          "text": "$x^2 + 7x - 12$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "expression",
+        "truth": "(x + 4)*(x - 3)",
+        "form": "expanded"
+      },
+      "explain": "$x^2 - 3x + 4x - 12 = x^2 + x - 12$. Four terms first, then collect. Revise it in {{lesson:2.2}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "simplify",
+      "heading": "What a surd is, and simplifying surds",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$\\sqrt{9} = 3$ exactly. But $\\sqrt{2} = 1.41421356\\ldots$, and the decimal never ends or repeats. Any decimal you write is rounded. Leaving it as $\\sqrt{2}$ keeps it exact."
+        },
+        {
+          "type": "definition",
+          "term": "surd",
+          "statement": "A [[surd|surd]] is a root that cannot be written as a whole number or a fraction, such as $\\sqrt{2}$ or $\\sqrt{15}$. Its value is an [[irrational-number|irrational number]].",
+          "plain": "A root you leave as a root, because its decimal never ends."
+        },
+        {
+          "type": "text",
+          "text": "In this section every surd is a [[square-root|square root]]. $3\\sqrt{2}$ means $3 \\times \\sqrt{2}$, just as $3x$ means $3 \\times x$."
+        },
+        {
+          "type": "result",
+          "statement": "For $a \\geqslant 0$ and $b \\geqslant 0$: $\\sqrt{ab} = \\sqrt{a} \\times \\sqrt{b}$. When also $b > 0$: $\\sqrt{\\frac{a}{b}} = \\frac{\\sqrt{a}}{\\sqrt{b}}$.",
+          "why": "$(\\sqrt{a} \\times \\sqrt{b})^2 = a \\times b$, so $\\sqrt{a} \\times \\sqrt{b}$ is the positive number that squares to $ab$."
+        },
+        {
+          "type": "text",
+          "text": "A surd is in its simplest form when the number under the root has no square factor except $1$. To simplify $\\sqrt{n}$:"
+        },
+        {
+          "type": "text",
+          "text": "1. Find the largest square number that is a factor of $n$."
+        },
+        {
+          "type": "text",
+          "text": "2. Split the root: $\\sqrt{n} = \\sqrt{\\text{square}} \\times \\sqrt{\\text{rest}}$, then work out the square root of the square."
+        },
+        {
+          "type": "example",
+          "id": "ex-simplify-72",
+          "question": "Simplify $\\sqrt{72}$.",
+          "steps": [
+            "The square numbers that divide $72$ are $4$, $9$ and $36$. The largest is $36$.",
+            "Split the root: $\\sqrt{72} = \\sqrt{36 \\times 2} = \\sqrt{36} \\times \\sqrt{2}$.",
+            "$\\sqrt{36} = 6$, so $\\sqrt{72} = 6\\sqrt{2}$.",
+            "$2$ has no square factor, so this is the simplest form. Check: $(6\\sqrt{2})^2 = 36 \\times 2 = 72$."
+          ],
+          "answer": "$\\sqrt{72} = 6\\sqrt{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(72)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping too early. Using $4$ gives $\\sqrt{72} = 2\\sqrt{18}$, but $18$ still has the square factor $9$. Always use the largest square factor."
+        },
+        {
+          "type": "text",
+          "text": "If $n$ has no square factor, $\\sqrt{n}$ is already simplest. That is always true when $n$ is a [[prime-number|prime number]], such as $\\sqrt{7}$ or $\\sqrt{13}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-simplify-fraction",
+          "question": "Simplify $\\sqrt{\\frac{28}{9}}$.",
+          "steps": [
+            "Split the root over the fraction: $\\sqrt{\\frac{28}{9}} = \\frac{\\sqrt{28}}{\\sqrt{9}}$.",
+            "The bottom is $\\sqrt{9} = 3$.",
+            "The largest square factor of $28$ is $4$: $\\sqrt{28} = \\sqrt{4} \\times \\sqrt{7} = 2\\sqrt{7}$.",
+            "So the result is $\\frac{2\\sqrt{7}}{3}$."
+          ],
+          "answer": "$\\sqrt{\\frac{28}{9}} = \\frac{2\\sqrt{7}}{3}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(Rational(28, 9))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-simplify-98",
+          "prompt": "Simplify $\\sqrt{98}$.",
+          "hint": "Which square number goes into $98$? Try $49$.",
+          "options": [
+            {
+              "text": "$7\\sqrt{2}$",
+              "correct": true
+            },
+            {
+              "text": "$2\\sqrt{7}$",
+              "correct": false
+            },
+            {
+              "text": "$49\\sqrt{2}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(98)"
+          },
+          "explain": "$98 = 49 \\times 2$, so $\\sqrt{98} = \\sqrt{49} \\times \\sqrt{2} = 7\\sqrt{2}$. $49\\sqrt{2}$ forgets to take the root of $49$."
+        },
+        {
+          "type": "check",
+          "id": "check-find-k",
+          "prompt": "$\\sqrt{180} = k\\sqrt{5}$, where $k$ is an integer. Find $k$.",
+          "hint": "Write $180$ as a square number times $5$.",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(180)/sqrt(5)",
+            "dp": 0
+          },
+          "explain": "$180 = 36 \\times 5$, so $\\sqrt{180} = \\sqrt{36} \\times \\sqrt{5} = 6\\sqrt{5}$. So $k = 6$."
+        }
+      ]
+    },
+    {
+      "id": "operations",
+      "heading": "Adding, subtracting and multiplying surds",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Surds with the same number under the root are like surds. You collect them as you collect [[like-terms|like terms]]: $3\\sqrt{5} + 4\\sqrt{5} = 7\\sqrt{5}$, just as $3x + 4x = 7x$."
+        },
+        {
+          "type": "text",
+          "text": "Unlike [[surd|surds]], such as $\\sqrt{2} + \\sqrt{3}$, cannot be collected. Simplify each surd first, though: they may turn out to be like surds."
+        },
+        {
+          "type": "mistake",
+          "text": "Adding under the root. $\\sqrt{9} + \\sqrt{16} = 3 + 4 = 7$, but $\\sqrt{9 + 16} = 5$. So $\\sqrt{a} + \\sqrt{b}$ is not $\\sqrt{a + b}$, unless $a$ or $b$ is $0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-collect-surds",
+          "question": "Simplify $\\sqrt{63} + \\sqrt{28} - \\sqrt{7}$.",
+          "steps": [
+            "Simplify each surd: $\\sqrt{63} = \\sqrt{9} \\times \\sqrt{7} = 3\\sqrt{7}$ and $\\sqrt{28} = \\sqrt{4} \\times \\sqrt{7} = 2\\sqrt{7}$.",
+            "Now all three are like surds: $3\\sqrt{7} + 2\\sqrt{7} - \\sqrt{7}$.",
+            "Collect them: $3 + 2 - 1 = 4$, so the total is $4\\sqrt{7}$."
+          ],
+          "answer": "$\\sqrt{63} + \\sqrt{28} - \\sqrt{7} = 4\\sqrt{7}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(63) + sqrt(28) - sqrt(7)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To multiply, multiply the whole numbers together and the surds together, using $\\sqrt{a} \\times \\sqrt{b} = \\sqrt{ab}$. A surd times itself is the number under it: $\\sqrt{a} \\times \\sqrt{a} = a$."
+        },
+        {
+          "type": "mistake",
+          "text": "Losing a factor. $\\sqrt{5} \\times 3\\sqrt{5}$ is $3 \\times 5 = 15$, not $3\\sqrt{5}$."
+        },
+        {
+          "type": "text",
+          "text": "To [[expand|expand]] brackets with surds, multiply every term by every term, as in algebra. Then use $\\sqrt{a} \\times \\sqrt{a} = a$ and collect."
+        },
+        {
+          "type": "example",
+          "id": "ex-expand-surds",
+          "question": "Expand and simplify $(8 + \\sqrt{5})(2 - \\sqrt{5})$.",
+          "steps": [
+            "Multiply each term by each term: $8 \\times 2 - 8\\sqrt{5} + 2\\sqrt{5} - \\sqrt{5} \\times \\sqrt{5}$.",
+            "Use $\\sqrt{5} \\times \\sqrt{5} = 5$: $16 - 8\\sqrt{5} + 2\\sqrt{5} - 5$.",
+            "Collect the whole numbers: $16 - 5 = 11$.",
+            "Collect the surds: $-8\\sqrt{5} + 2\\sqrt{5} = -6\\sqrt{5}$."
+          ],
+          "answer": "$(8 + \\sqrt{5})(2 - \\sqrt{5}) = 11 - 6\\sqrt{5}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(8 + sqrt(5))*(2 - sqrt(5))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-collect-roots",
+          "prompt": "Simplify $\\sqrt{50} - \\sqrt{18} + \\sqrt{8}$.",
+          "hint": "Each number is a square number times $2$.",
+          "options": [
+            {
+              "text": "$\\sqrt{40}$",
+              "correct": false
+            },
+            {
+              "text": "$4\\sqrt{2}$",
+              "correct": true
+            },
+            {
+              "text": "$6\\sqrt{2}$",
+              "correct": false
+            },
+            {
+              "text": "$10\\sqrt{2}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(50) - sqrt(18) + sqrt(8)"
+          },
+          "explain": "$5\\sqrt{2} - 3\\sqrt{2} + 2\\sqrt{2} = 4\\sqrt{2}$. $\\sqrt{40}$ comes from working under the root, which is not allowed."
+        },
+        {
+          "type": "check",
+          "id": "check-square-bracket",
+          "prompt": "Expand and simplify $(4 + \\sqrt{3})^2$.",
+          "hint": "Write it as $(4 + \\sqrt{3})(4 + \\sqrt{3})$ and find all four terms.",
+          "options": [
+            {
+              "text": "$19$",
+              "correct": false
+            },
+            {
+              "text": "$16 + 9\\sqrt{3}$",
+              "correct": false
+            },
+            {
+              "text": "$19 + 4\\sqrt{3}$",
+              "correct": false
+            },
+            {
+              "text": "$19 + 8\\sqrt{3}$",
+              "correct": true
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "(4 + sqrt(3))**2"
+          },
+          "explain": "$16 + 4\\sqrt{3} + 4\\sqrt{3} + 3 = 19 + 8\\sqrt{3}$. Squaring each term alone gives $19$ and loses the middle terms."
+        },
+        {
+          "type": "check",
+          "id": "check-rectangle-area",
+          "prompt": "A rectangle is $(5 + \\sqrt{2})$ cm long and $(5 - \\sqrt{2})$ cm wide. Work out its area in $\\text{cm}^2$.",
+          "hint": "Expand the brackets. The two surd terms cancel.",
+          "answer": {
+            "value": 23,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "(5 + sqrt(2))*(5 - sqrt(2))",
+            "dp": 0
+          },
+          "explain": "$25 - 5\\sqrt{2} + 5\\sqrt{2} - 2 = 23$. The area is $23\\text{ cm}^2$, a whole number."
+        }
+      ]
+    },
+    {
+      "id": "rationalise",
+      "heading": "Rationalising the denominator",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A fraction such as $\\frac{21}{\\sqrt{7}}$ has a surd on the bottom. Answers are expected without one, so you change the bottom into a [[rational-number|rational number]]."
+        },
+        {
+          "type": "definition",
+          "term": "rationalising the denominator",
+          "statement": "[[rationalising-the-denominator|Rationalising the denominator]] means rewriting a fraction so that its denominator has no surd, without changing its value.",
+          "plain": "Clear the root from the bottom of the fraction."
+        },
+        {
+          "type": "text",
+          "text": "Multiplying the top and bottom by the same number does not change a fraction's value. For $\\frac{a}{\\sqrt{b}}$, multiply both by $\\sqrt{b}$, because $\\sqrt{b} \\times \\sqrt{b} = b$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{a}{\\sqrt{b}} = \\frac{a}{\\sqrt{b}} \\times \\frac{\\sqrt{b}}{\\sqrt{b}} = \\frac{a\\sqrt{b}}{b}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-rationalise-single",
+          "question": "Rationalise the denominator of $\\frac{21}{\\sqrt{7}}$.",
+          "steps": [
+            "Multiply the top and bottom by $\\sqrt{7}$: $\\frac{21}{\\sqrt{7}} \\times \\frac{\\sqrt{7}}{\\sqrt{7}} = \\frac{21\\sqrt{7}}{7}$.",
+            "Divide $21$ by $7$: $\\frac{21\\sqrt{7}}{7} = 3\\sqrt{7}$."
+          ],
+          "answer": "$\\frac{21}{\\sqrt{7}} = 3\\sqrt{7}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "21/sqrt(7)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Now take $\\frac{1}{4 + \\sqrt{3}}$. Multiplying by $\\sqrt{3}$ fails: the bottom becomes $4\\sqrt{3} + 3$, which still has a surd."
+        },
+        {
+          "type": "text",
+          "text": "Instead, multiply the top and bottom by the same bracket with the sign in the middle changed, here $4 - \\sqrt{3}$. This is the [[difference-of-two-squares|difference of two squares]], so the surd terms cancel."
+        },
+        {
+          "type": "result",
+          "statement": "For $b \\geqslant 0$: $(a + \\sqrt{b})(a - \\sqrt{b}) = a^2 - b$.",
+          "why": "Expanding gives $a^2 - a\\sqrt{b} + a\\sqrt{b} - b$, and the two middle terms cancel."
+        },
+        {
+          "type": "example",
+          "id": "ex-rationalise-bracket",
+          "question": "Rationalise the denominator and simplify $\\frac{12}{7 + \\sqrt{5}}$.",
+          "steps": [
+            "Change the sign in the bracket and multiply the top and bottom by $7 - \\sqrt{5}$: $\\frac{12}{7 + \\sqrt{5}} \\times \\frac{7 - \\sqrt{5}}{7 - \\sqrt{5}}$.",
+            "Bottom: $(7 + \\sqrt{5})(7 - \\sqrt{5}) = 7^2 - 5 = 49 - 5 = 44$.",
+            "Top: $12(7 - \\sqrt{5})$. So the fraction is $\\frac{12(7 - \\sqrt{5})}{44}$.",
+            "Divide the top and bottom by $4$: $\\frac{3(7 - \\sqrt{5})}{11} = \\frac{21 - 3\\sqrt{5}}{11}$."
+          ],
+          "answer": "$\\frac{12}{7 + \\sqrt{5}} = \\frac{21 - 3\\sqrt{5}}{11}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "12/(7 + sqrt(5))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying by the same bracket. For $\\frac{1}{4 + \\sqrt{3}}$, using $4 + \\sqrt{3}$ gives $19 + 8\\sqrt{3}$ on the bottom. Keep the same two terms and change only the sign in the middle."
+        },
+        {
+          "type": "check",
+          "id": "check-rationalise-single",
+          "prompt": "Rationalise the denominator and simplify $\\frac{9}{\\sqrt{6}}$.",
+          "hint": "Multiply the top and bottom by $\\sqrt{6}$, then cancel.",
+          "options": [
+            {
+              "text": "$\\frac{\\sqrt{6}}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3\\sqrt{6}}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$9\\sqrt{6}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "9/sqrt(6)"
+          },
+          "explain": "$\\frac{9\\sqrt{6}}{6} = \\frac{3\\sqrt{6}}{2}$. $\\frac{\\sqrt{6}}{4}$ comes from taking $\\sqrt{6} \\times \\sqrt{6}$ as $36$; it is $6$."
+        },
+        {
+          "type": "check",
+          "id": "check-rationalise-bracket",
+          "prompt": "Rationalise the denominator and simplify $\\frac{6}{\\sqrt{11} + 3}$.",
+          "hint": "Multiply the top and bottom by $\\sqrt{11} - 3$. The bottom becomes $11 - 9$.",
+          "options": [
+            {
+              "text": "$3\\sqrt{11} + 9$",
+              "correct": false
+            },
+            {
+              "text": "$9 - 3\\sqrt{11}$",
+              "correct": false
+            },
+            {
+              "text": "$3\\sqrt{11} - 9$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{3\\sqrt{11} - 9}{10}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "6/(sqrt(11) + 3)"
+          },
+          "explain": "The bottom is $(\\sqrt{11})^2 - 3^2 = 11 - 9 = 2$. So $\\frac{6(\\sqrt{11} - 3)}{2} = 3(\\sqrt{11} - 3) = 3\\sqrt{11} - 9$. $9 - 3\\sqrt{11}$ takes the bottom as $9 - 11$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A surd is simplest when the number under the root has no square factor except $1$. Take out the largest square factor: $\\sqrt{72} = \\sqrt{36} \\times \\sqrt{2} = 6\\sqrt{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $a, b \\geqslant 0$: $\\sqrt{ab} = \\sqrt{a} \\times \\sqrt{b}$ and $\\sqrt{a} \\times \\sqrt{a} = a$. For $b > 0$: $\\sqrt{\\frac{a}{b}} = \\frac{\\sqrt{a}}{\\sqrt{b}}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Only like surds collect: $3\\sqrt{5} + 4\\sqrt{5} = 7\\sqrt{5}$. In general $\\sqrt{a} + \\sqrt{b}$ is not $\\sqrt{a + b}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\frac{a}{\\sqrt{b}} = \\frac{a\\sqrt{b}}{b}$: multiply the top and bottom by $\\sqrt{b}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For a bottom of $a + \\sqrt{b}$, multiply the top and bottom by $a - \\sqrt{b}$ (and the other way round), because $(a + \\sqrt{b})(a - \\sqrt{b}) = a^2 - b$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Adding under the root. $\\sqrt{18} + \\sqrt{8}$ is not $\\sqrt{26}$: simplify each first, $3\\sqrt{2} + 2\\sqrt{2} = 5\\sqrt{2}$.",
+    "Dropping a factor when a surd meets itself. $2\\sqrt{11} \\times \\sqrt{11} = 2 \\times 11 = 22$, not $2\\sqrt{11}$.",
+    "Sign slips with negative surd terms. $-\\sqrt{3} \\times -2\\sqrt{3} = +6$, because two negatives multiply to a positive.",
+    "Multiplying by the same bracket instead of changing the sign. For a bottom of $6 - \\sqrt{2}$, multiply by $6 + \\sqrt{2}$; multiplying by $6 - \\sqrt{2}$ again leaves a surd.",
+    "Leaving a surd part-simplified, such as $2\\sqrt{18}$ for $\\sqrt{72}$. Check that the number left under the root has no square factor."
+  ],
+  "examTips": [
+    "**Simplify** with surds means the smallest possible number under each root, with like surds collected. Show each surd simplified on its own line: one correct simplification can earn a mark even if the total is wrong.",
+    "In **expand and simplify**, write down all four terms before you collect. Most of them right can earn a mark, and it makes sign slips easy to spot.",
+    "In **rationalise the denominator**, write the multiplication by the changed-sign bracket over itself. That line earns the method mark. Then cancel any common factor, as the question usually says **and simplify**.",
+    "Surd questions are set without a calculator. Check a simplified surd by squaring it: $(6\\sqrt{2})^2 = 72$."
+  ],
+  "readingMinutes": 15
+}

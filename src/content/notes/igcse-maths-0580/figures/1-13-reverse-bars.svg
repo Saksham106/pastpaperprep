@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 170" role="img" aria-labelledby="t">
+  <title id="t">Bar model for a 20 percent increase to 54 dollars. The new price is a bar of 6 equal blocks, each 20 percent, labelled 120 percent equals 54 dollars, so each block is 9 dollars. The original price is the first 5 blocks, 100 percent, which is 5 times 9 equals 45 dollars.</title>
+  <g font-size="12" font-family="inherit">
+    <text x="10" y="44" fill="currentColor">New</text>
+    <text x="10" y="114" fill="currentColor">Original</text>
+  </g>
+  <g fill="var(--t2-ink)" fill-opacity="0.18" stroke="none">
+    <rect x="70" y="26" width="300" height="30" />
+  </g>
+  <g fill="var(--t4-ink)" fill-opacity="0.18" stroke="none">
+    <rect x="70" y="96" width="250" height="30" />
+  </g>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <rect x="70" y="26" width="50" height="30" />
+    <rect x="120" y="26" width="50" height="30" />
+    <rect x="170" y="26" width="50" height="30" />
+    <rect x="220" y="26" width="50" height="30" />
+    <rect x="270" y="26" width="50" height="30" />
+    <rect x="320" y="26" width="50" height="30" />
+    <rect x="70" y="96" width="50" height="30" />
+    <rect x="120" y="96" width="50" height="30" />
+    <rect x="170" y="96" width="50" height="30" />
+    <rect x="220" y="96" width="50" height="30" />
+    <rect x="270" y="96" width="50" height="30" />
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="95" y="45">20% = $9</text>
+    <text x="145" y="45">20%</text>
+    <text x="195" y="45">20%</text>
+    <text x="245" y="45">20%</text>
+    <text x="295" y="45">20%</text>
+    <text x="345" y="45">20%</text>
+    <text x="95" y="115">20% = $9</text>
+    <text x="145" y="115">20%</text>
+    <text x="195" y="115">20%</text>
+    <text x="245" y="115">20%</text>
+    <text x="295" y="115">20%</text>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" fill="none">
+    <polyline points="70,20 70,14 370,14 370,20" />
+    <polyline points="70,132 70,138 320,138 320,132" />
+  </g>
+  <g font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="220" y="10" fill="var(--t2-ink)">120% = $54</text>
+    <text x="195" y="156" fill="var(--t4-ink)">100% = 5 × $9 = $45</text>
+  </g>
+</svg>

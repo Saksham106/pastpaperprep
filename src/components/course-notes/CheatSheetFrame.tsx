@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { LevelSwitch, useNotesLevel } from "./LevelSwitch";
+import { useCourse, useNotesContext } from "./notes-context";
 import { trackCheatsheetPrint } from "./track";
 import styles from "./cheatsheet.module.css";
 
@@ -14,14 +15,19 @@ type Props = {
   /** Topic slug, or "course" for the whole course. */
   slug: string;
   crumbs: { label: string; href: string }[];
+  /** The sheet's last line, e.g. which guide it follows. */
+  footer: string;
   children: ReactNode;
 };
 
 /** Client shell: level switch (CSS-only hiding, the server HTML stays complete) and Save as PDF. */
-export function CheatSheetFrame({ title, slug, crumbs, children }: Props) {
+export function CheatSheetFrame({ title, slug, crumbs, footer, children }: Props) {
+  const course = useCourse();
+  const ctx = useNotesContext();
   const [level, setLevel] = useNotesLevel();
+  const label = course.levels.labels[level];
   const print = () => {
-    trackCheatsheetPrint({ level }, slug);
+    trackCheatsheetPrint(ctx, slug);
     window.print();
   };
   return (
@@ -44,17 +50,17 @@ export function CheatSheetFrame({ title, slug, crumbs, children }: Props) {
         <span className={`${styles.tg} ${styles.tgB}`}>BOOKLET</span> given in the exam
         <span className={`${styles.tg} ${styles.tgL}`}>LEARN</span> you must remember it · Each block links to its lesson.
       </p>
-      <div className={styles.sheet} data-level={level} data-sheet>
+      <div className={styles.sheet} data-level={label} data-base-view={level === "base" ? "" : undefined} data-sheet>
         <div className={styles.head}>
           <h2>{title}</h2>
           <span>
-            IB MATHS AA · {level}
+            {`${course.name.toUpperCase()} · `}{label}
             <br />
             <i>pastpaperprep.com/revision-notes</i>
           </span>
         </div>
         {children}
-        <div className={styles.foot}>Follows the IB Maths AA guide (first assessment 2021). Not affiliated with the IB.</div>
+        <div className={styles.foot}>{footer}</div>
       </div>
     </div>
   );

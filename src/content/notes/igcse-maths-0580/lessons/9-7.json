@@ -1,0 +1,492 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "9.7",
+  "slug": "histograms",
+  "title": "Histograms",
+  "level": "Extended",
+  "topic": 9,
+  "summary": "A [[histogram|histogram]] shows grouped data as touching bars, where the area of each bar shows how many values are in its class. The height of a bar is its [[frequency-density|frequency density]]: the frequency divided by the class width. This stops a wide class looking bigger than it really is.",
+  "goals": [
+    {
+      "text": "Work out the frequency density of each class in a [[grouped-frequency-table|grouped frequency table]].",
+      "bullets": [
+        "9.7-s2"
+      ]
+    },
+    {
+      "text": "Draw a histogram for classes of different widths.",
+      "bullets": [
+        "9.7-s1",
+        "9.7-s2"
+      ]
+    },
+    {
+      "text": "Read frequencies from a histogram, including an estimate for part of a class.",
+      "bullets": [
+        "9.7-s1",
+        "9.7-s2"
+      ]
+    },
+    {
+      "text": "Find bar heights or a missing frequency when heights are given in centimetres or a bar is missing.",
+      "bullets": [
+        "9.7-s1",
+        "9.7-s2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "9.3"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "frequency density",
+    "how to draw a histogram",
+    "histogram unequal class widths",
+    "reading a histogram",
+    "frequency density formula",
+    "histogram bar height in cm"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-class-width",
+      "prompt": "A class in a grouped frequency table is $35 < h \\le 50$. What is its class width?",
+      "hint": "Subtract the lower boundary from the upper boundary.",
+      "answer": {
+        "value": 15,
+        "tolerance": 0
+      },
+      "explain": "Class width $=$ upper boundary $-$ lower boundary $= 50 - 35 = 15$. Revise it in {{lesson:9.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "50 - 35",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-boundary",
+      "prompt": "A grouped frequency table has the classes $10 < t \\le 20$ and $20 < t \\le 30$. Is a time of exactly $20$ in the class $20 < t \\le 30$?",
+      "hint": "Read $20 < t$ as \"$t$ is more than $20$\".",
+      "options": [
+        {
+          "text": "No, it goes in the class below",
+          "correct": true
+        },
+        {
+          "text": "Yes",
+          "correct": false
+        },
+        {
+          "text": "It goes in both classes",
+          "correct": false
+        }
+      ],
+      "explain": "$20 < t$ means $t$ is more than $20$, so $20$ itself is not in this class. It belongs to $10 < t \\le 20$, since $t \\le 20$ includes $20$. Revise it in {{lesson:9.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "No, it goes in the class below"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "drawing",
+      "heading": "Frequency density and drawing a histogram",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[grouped-frequency-table|grouped frequency table]] can have [[class-interval|class intervals]] of different widths. Then a bar chart of the frequencies misleads you."
+        },
+        {
+          "type": "text",
+          "text": "Say $12$ people wait between $0$ and $5$ minutes, and $12$ wait between $5$ and $30$ minutes. The first $12$ are packed into $5$ minutes. The second $12$ are spread over $25$ minutes. A fair picture makes the first bar taller."
+        },
+        {
+          "type": "definition",
+          "term": "Frequency density",
+          "statement": "The [[frequency-density|frequency density]] of a class is its frequency divided by its class width.",
+          "plain": "How many values there are for each unit of width."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{frequency density} = \\frac{\\text{frequency}}{\\text{class width}}",
+          "tag": "learn"
+        },
+        {
+          "type": "definition",
+          "term": "Histogram",
+          "statement": "A [[histogram|histogram]] shows grouped data as touching bars whose areas are proportional to the frequencies. When each height is the frequency density, the area of each bar equals its frequency.",
+          "plain": "Area, not height, shows how many values are in a class."
+        },
+        {
+          "type": "text",
+          "text": "Why does dividing by the width work? Area $=$ width $\\times$ height $=$ class width $\\times \\frac{\\text{frequency}}{\\text{class width}} =$ frequency."
+        },
+        {
+          "type": "example",
+          "id": "ex-fd-homework",
+          "question": "The table shows how long some students spent on homework one evening. $\\begin{array}{c|cccc} \\text{Time } (t \\text{ minutes}) & 0 < t \\le 10 & 10 < t \\le 15 & 15 < t \\le 45 & 45 < t \\le 90 \\\\ \\hline \\text{Frequency} & 7 & 14 & 33 & 36 \\end{array}$ Work out the frequency density of each class. Which class has the tallest bar on a histogram?",
+          "steps": [
+            "Find each class width, upper boundary minus lower: $10 - 0 = 10$, $15 - 10 = 5$, $45 - 15 = 30$ and $90 - 45 = 45$.",
+            "Divide each frequency by its width: $7 \\div 10 = 0.7$, $14 \\div 5 = 2.8$, $33 \\div 30 = 1.1$ and $36 \\div 45 = 0.8$.",
+            "The largest frequency density is $2.8$, so the $10 < t \\le 15$ bar is the tallest.",
+            "The class $45 < t \\le 90$ has the most students, $36$. But they are spread over $45$ minutes, so its bar is low."
+          ],
+          "answer": "$0.7, 2.8, 1.1 \\text{ and } 0.8$",
+          "verify": {
+            "kind": "list",
+            "truth": "[7/(10 - 0), 14/(15 - 10), 33/(45 - 15), 36/(90 - 45)]"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "1. Work out each class width and frequency density. Two extra columns in the table keep this tidy."
+        },
+        {
+          "type": "text",
+          "text": "2. Draw a continuous scale for the data along the horizontal axis. Label the vertical axis \"Frequency density\"."
+        },
+        {
+          "type": "text",
+          "text": "3. Draw each bar from its lower class boundary to its upper one, as tall as its frequency density. The bars touch, with no gaps."
+        },
+        {
+          "type": "example",
+          "id": "ex-draw-seedlings",
+          "question": "The table shows the heights of $36$ seedlings. $\\begin{array}{c|cccc} \\text{Height } (h \\text{ cm}) & 0 < h \\le 4 & 4 < h \\le 6 & 6 < h \\le 7 & 7 < h \\le 10 \\\\ \\hline \\text{Frequency} & 6 & 13 & 8 & 9 \\end{array}$ Draw a histogram to show this information.",
+          "steps": [
+            "Class widths: $4 - 0 = 4$, $6 - 4 = 2$, $7 - 6 = 1$ and $10 - 7 = 3$.",
+            "Frequency densities: $6 \\div 4 = 1.5$, $13 \\div 2 = 6.5$, $8 \\div 1 = 8$ and $9 \\div 3 = 3$.",
+            "The tallest bar is $8$, so run the vertical axis from $0$ to $8$. Label it \"Frequency density\".",
+            "Draw four touching bars: $0$ to $4$ at height $1.5$, $4$ to $6$ at $6.5$, $6$ to $7$ at $8$, and $7$ to $10$ at $3$.",
+            "Check one bar by its area: $6.5 \\times 2 = 13$, the frequency in the table."
+          ],
+          "answer": "$1.5, 6.5, 8 \\text{ and } 3$",
+          "verify": {
+            "kind": "list",
+            "truth": "[6/(4 - 0), 13/(6 - 4), 8/(7 - 6), 9/(10 - 7)]"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "9-7-seedlings",
+          "alt": "Histogram of seedling heights. Height in cm across, from 0 to 10. Frequency density up, from 0 to 8, with each small square 0.5. Four touching bars: 0 to 4 cm at height 1.5, 4 to 6 cm at height 6.5, 6 to 7 cm at height 8, and 7 to 10 cm at height 3.",
+          "caption": "The $6 < h \\le 7$ bar is the tallest, though its class holds only $8$ seedlings."
+        },
+        {
+          "type": "mistake",
+          "text": "Don't use the frequency as the height. With unequal widths, that makes wide classes look too big. Divide by the class width first."
+        },
+        {
+          "type": "check",
+          "id": "check-fd-one",
+          "prompt": "A class $15 < m \\le 40$ has frequency $35$. Work out its frequency density.",
+          "hint": "Find the class width first: upper boundary minus lower boundary.",
+          "answer": {
+            "value": 1.4,
+            "tolerance": 0
+          },
+          "explain": "Width $= 40 - 15 = 25$, so frequency density $= 35 \\div 25 = 1.4$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "35/(40 - 15)",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tallest",
+          "prompt": "A table has classes $0 < x \\le 6$, $6 < x \\le 21$ and $21 < x \\le 28$, with frequencies $15$, $33$ and $14$. How tall is the tallest bar on its histogram?",
+          "hint": "Work out all three frequency densities, then compare them.",
+          "options": [
+            {
+              "text": "$2.5$",
+              "correct": true
+            },
+            {
+              "text": "$33$",
+              "correct": false
+            },
+            {
+              "text": "$2.2$",
+              "correct": false
+            }
+          ],
+          "explain": "The frequency densities are $15 \\div 6 = 2.5$, $33 \\div 15 = 2.2$ and $14 \\div 7 = 2$, so the tallest bar is $2.5$. $33$ is a frequency, not a height. $2.2$ is the bar of the class with the most values.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Max(15/(6 - 0), 33/(21 - 6), 14/(28 - 21))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reading",
+      "heading": "Reading frequencies from a histogram",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Reading a histogram reverses the drawing. The area of a bar is the frequency of its class."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{frequency} = \\text{frequency density} \\times \\text{class width}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Before you read any heights, work out what one small square on each axis is worth."
+        },
+        {
+          "type": "figure",
+          "id": "9-7-apples",
+          "alt": "Histogram of apple masses. Mass in grams across, from 100 to 200. Frequency density up, from 0 to 3.5, with each small square 0.1. Four touching bars: 100 to 120 g at height 0.8, 120 to 130 g at height 3.2, 130 to 150 g at height 2.1, and 150 to 200 g at height 0.4.",
+          "caption": "The masses of the apples picked from one tree."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-apples",
+          "question": "The histogram shows the masses, $m$ grams, of the apples picked from one tree. Work out how many apples were picked.",
+          "steps": [
+            "Each small square up is $0.1$. Read the heights: $0.8$, $3.2$, $2.1$ and $0.4$.",
+            "Multiply each height by its class width: $0.8 \\times 20 = 16$, $3.2 \\times 10 = 32$, $2.1 \\times 20 = 42$ and $0.4 \\times 50 = 20$.",
+            "Add the frequencies: $16 + 32 + 42 + 20 = 110$."
+          ],
+          "answer": "$\\text{number of apples} = 110$",
+          "verify": {
+            "kind": "exact",
+            "truth": "0.8*(120 - 100) + 3.2*(130 - 120) + 2.1*(150 - 130) + 0.4*(200 - 150)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "For part of a class, assume its values are spread evenly across the class. Then use the width of just that part. The answer is an estimate."
+        },
+        {
+          "type": "example",
+          "id": "ex-part-apples",
+          "question": "Use the same histogram. Calculate an estimate of the number of apples with a mass of more than $140$ g.",
+          "steps": [
+            "Only part of the class $130 < m \\le 150$ is above $140$. Assume its apples are spread evenly across the class.",
+            "The part from $140$ to $150$ has width $150 - 140 = 10$ and height $2.1$. That gives $2.1 \\times 10 = 21$ apples.",
+            "All of the class $150 < m \\le 200$ is above $140$: $0.4 \\times 50 = 20$ apples.",
+            "Add: $21 + 20 = 41$. This is only an estimate, because you don't know where the apples lie inside a class."
+          ],
+          "answer": "$\\text{estimate} = 41$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2.1*(150 - 140) + 0.4*(200 - 150)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Don't read the height of a bar as its frequency. Multiply the height by the class width."
+        },
+        {
+          "type": "check",
+          "id": "check-read-bar",
+          "prompt": "A histogram bar goes from $25$ to $45$ on the horizontal axis. Its height is $1.8$. How many values are in its class?",
+          "hint": "The frequency is the area of the bar.",
+          "answer": {
+            "value": 36,
+            "tolerance": 0
+          },
+          "explain": "Width $= 45 - 25 = 20$, so frequency $= 1.8 \\times 20 = 36$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.8*(45 - 25)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-part-class",
+          "prompt": "A histogram bar for $10 < x \\le 30$ has height $2.5$. Estimate how many values lie between $10$ and $16$.",
+          "hint": "Use only the part of the bar from $10$ to $16$.",
+          "options": [
+            {
+              "text": "$15$",
+              "correct": true
+            },
+            {
+              "text": "$50$",
+              "correct": false
+            },
+            {
+              "text": "$40$",
+              "correct": false
+            }
+          ],
+          "explain": "The part from $10$ to $16$ has width $6$, so the estimate is $2.5 \\times 6 = 15$. $50$ is the whole bar. $40$ multiplies by $16$ instead of the width.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2.5*(16 - 10)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "scales",
+      "heading": "Heights in centimetres and missing bars",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some questions give bar heights in centimetres, not on a frequency density scale. The heights are still in proportion to the frequency densities."
+        },
+        {
+          "type": "text",
+          "text": "1. Use the bar you know. Centimetres for $1$ unit of frequency density $=$ its height $\\div$ its frequency density."
+        },
+        {
+          "type": "text",
+          "text": "2. Work out the frequency density of each other class."
+        },
+        {
+          "type": "text",
+          "text": "3. Multiply each frequency density by the centimetres for $1$ unit."
+        },
+        {
+          "type": "example",
+          "id": "ex-scale-bus",
+          "question": "The table shows how long some people waited for a bus. $\\begin{array}{c|cccc} \\text{Time } (t \\text{ minutes}) & 0 < t \\le 4 & 4 < t \\le 10 & 10 < t \\le 12 & 12 < t \\le 16 \\\\ \\hline \\text{Frequency} & 14 & 33 & 13 & 9 \\end{array}$ On a histogram, the bar for $0 < t \\le 4$ is $4.2$ cm tall. Calculate the heights, in cm, of the other three bars.",
+          "steps": [
+            "Known bar: width $4$, so frequency density $= 14 \\div 4 = 3.5$. It is drawn $4.2$ cm tall.",
+            "So $1$ unit of frequency density is $4.2 \\div 3.5 = 1.2$ cm.",
+            "The other frequency densities: $33 \\div 6 = 5.5$, $13 \\div 2 = 6.5$ and $9 \\div 4 = 2.25$.",
+            "Heights: $5.5 \\times 1.2 = 6.6$ cm, $6.5 \\times 1.2 = 7.8$ cm and $2.25 \\times 1.2 = 2.7$ cm."
+          ],
+          "answer": "$6.6, 7.8 \\text{ and } 2.7$",
+          "verify": {
+            "kind": "list",
+            "truth": "[33/(10 - 4)*4.2/(14/(4 - 0)), 13/(12 - 10)*4.2/(14/(4 - 0)), 9/(16 - 12)*4.2/(14/(4 - 0))]"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "If a bar is missing but you know the total frequency, find the other frequencies first. What is left belongs to the missing class."
+        },
+        {
+          "type": "example",
+          "id": "ex-missing-bar",
+          "question": "A histogram shows the distances, $d$ km, that $60$ people cycled in a week. It has bars for $0 < d \\le 6$ with height $1.5$, $6 < d \\le 14$ with height $2.25$, and $17 < d \\le 33$ with height $0.75$. The bar for $14 < d \\le 17$ is missing. Work out its height.",
+          "steps": [
+            "Frequencies of the drawn bars: $1.5 \\times 6 = 9$, $2.25 \\times 8 = 18$ and $0.75 \\times 16 = 12$.",
+            "These add to $9 + 18 + 12 = 39$, so the missing class holds $60 - 39 = 21$ people.",
+            "Its width is $17 - 14 = 3$, so its frequency density is $21 \\div 3 = 7$.",
+            "Draw the bar from $14$ to $17$ at height $7$, touching the bars on each side."
+          ],
+          "answer": "$\\text{height} = 7$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(60 - (1.5*(6 - 0) + 2.25*(14 - 6) + 0.75*(33 - 17)))/(17 - 14)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Don't scale the heights by frequency alone. Two classes with the same frequency but different widths need different heights."
+        },
+        {
+          "type": "check",
+          "id": "check-scale-cm",
+          "prompt": "On a histogram, the class $0 < x \\le 15$ has frequency $9$ and its bar is $4.8$ cm tall. The class $15 < x \\le 20$ has frequency $7$. How tall is its bar, in cm?",
+          "hint": "Find how many centimetres stand for $1$ unit of frequency density.",
+          "answer": {
+            "value": 11.2,
+            "tolerance": 0
+          },
+          "explain": "First bar: frequency density $9 \\div 15 = 0.6$, drawn $4.8$ cm, so $1$ unit is $4.8 \\div 0.6 = 8$ cm. Second bar: $7 \\div 5 = 1.4$, so its height is $1.4 \\times 8 = 11.2$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "7/(20 - 15)*4.8/(9/(15 - 0))",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-scale-reverse",
+          "prompt": "On a histogram, a bar $4$ units wide is $9$ cm tall and stands for $24$ values. Another bar is $7$ units wide and $6$ cm tall. How many values does it stand for?",
+          "hint": "Find the frequency density of the first bar, then the centimetres for $1$ unit.",
+          "options": [
+            {
+              "text": "$28$",
+              "correct": true
+            },
+            {
+              "text": "$16$",
+              "correct": false
+            },
+            {
+              "text": "$42$",
+              "correct": false
+            }
+          ],
+          "explain": "First bar: frequency density $24 \\div 4 = 6$, drawn $9$ cm, so $1$ unit is $9 \\div 6 = 1.5$ cm. Second bar: $6 \\div 1.5 = 4$, so it stands for $4 \\times 7 = 28$ values. $16$ ignores the widths, and $42$ treats centimetres as frequency density.",
+          "verify": {
+            "kind": "exact",
+            "truth": "6/(9/(24/4))*7"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\text{frequency density} = \\frac{\\text{frequency}}{\\text{class width}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{frequency} = \\text{frequency density} \\times \\text{class width}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A histogram's bars touch, the horizontal axis is a continuous scale and the vertical axis is labelled \"Frequency density\". The area of a bar shows its frequency.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Part of a class: assume the values are spread evenly, so use height $\\times$ width of that part. The answer is an estimate.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Heights in cm: cm for $1$ unit $=$ known height $\\div$ its frequency density. Multiply each frequency density by it.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Drawing each bar with the frequency as its height. Divide each frequency by its class width first, so wide classes don't look too big.",
+    "Reading a bar's height as its frequency. The frequency is the area: height $\\times$ class width.",
+    "Scaling bar heights in centimetres by the frequencies. Scale by the frequency densities, because the class widths differ."
+  ],
+  "examTips": [
+    "When you complete a table or draw a histogram, write each frequency density, such as $13 \\div 2 = 6.5$. Correct frequency densities can still earn marks if a bar is drawn wrongly.",
+    "\"Calculate an estimate\" for part of a class needs the width of that part times the bar's height, such as $2.1 \\times 10$. Show that product.",
+    "When heights are in centimetres, first work out the centimetres for 1 unit of frequency density from the bar you know. Show that step, as it is usually worth a method mark.",
+    "After you read frequencies from a histogram, check that they add to any total the question gives."
+  ],
+  "readingMinutes": 17
+}

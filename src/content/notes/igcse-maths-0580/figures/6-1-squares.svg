@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 20 340 370" role="img" aria-labelledby="t">
+  <title id="t">A right-angled triangle with shorter sides 3 and 4 and longest side 5. A square is drawn on each side: the square on the side of 3 has area 9, the square on the side of 4 has area 16, and the square on the side of 5 has area 25. 9 plus 16 makes 25.</title>
+  <polygon points="150,160 150,250 60,250 60,160" fill="var(--t2-ink)" fill-opacity="0.15" stroke="var(--t2-ink)" stroke-width="2"/>
+  <polygon points="150,250 270,250 270,370 150,370" fill="var(--t3-ink)" fill-opacity="0.15" stroke="var(--t3-ink)" stroke-width="2"/>
+  <polygon points="150,160 270,250 360,130 240,40" fill="var(--t1-ink)" fill-opacity="0.15" stroke="var(--t1-ink)" stroke-width="2"/>
+  <polygon points="150,160 150,250 270,250" fill="none" stroke="currentColor" stroke-width="2.4"/>
+  <polyline points="150,236 164,236 164,250" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <g font-family="inherit" text-anchor="middle" font-weight="bold">
+    <text x="105" y="211" fill="var(--t2-ink)" font-size="20">9</text>
+    <text x="210" y="317" fill="var(--t3-ink)" font-size="20">16</text>
+    <text x="255" y="152" fill="var(--t1-ink)" font-size="20">25</text>
+  </g>
+  <g fill="currentColor" font-family="inherit" font-size="15" text-anchor="middle">
+    <text x="162" y="209" text-anchor="start">3</text>
+    <text x="210" y="243">4</text>
+    <text x="198" y="222" text-anchor="end">5</text>
+  </g>
+</svg>

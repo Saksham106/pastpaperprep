@@ -8,7 +8,7 @@ export type NotesRow = { key: string; name: string; level?: string; notes?: { hr
 /** Published notes by bank slug. A course's HL and SL banks share one set of notes. */
 function notesForBank(slug: string): NotesRow["notes"] {
   const course = COURSES.find((entry) => (Object.values(entry.banks) as string[]).includes(slug));
-  if (course && isCourseVisible(course)) return { href: `/revision-notes/${course.slug}`, label: `${course.lessons.length} lessons` };
+  if (course && isCourseVisible(course)) return { href: `/revision-notes/${course.slug}`, label: `${course.lessons.length} lesson${course.lessons.length === 1 ? "" : "s"}` };
   const subject = NOTES_SUBJECTS.find((entry) => entry.bankSlug === slug);
   if (subject) return { href: `/revision-notes/${subject.subjectSlug}`, label: `${subject.topics.length} topic summaries` };
   return undefined;

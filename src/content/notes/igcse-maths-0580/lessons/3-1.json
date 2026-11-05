@@ -1,0 +1,532 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "3.1",
+  "slug": "coordinates",
+  "title": "Coordinates",
+  "level": "Core",
+  "topic": 3,
+  "summary": "[[coordinates|Coordinates]] give the position of a point on a grid as a pair $(x, y)$: how far across from the [[origin|origin]], then how far up or down. You'll read and plot points against the two [[axis|axes]], including negative and in-between values. Then you'll use coordinates to find lengths and missing corners of shapes.",
+  "goals": [
+    {
+      "text": "Read and plot coordinates anywhere on a grid, including negative values and points on the axes.",
+      "bullets": [
+        "3.1-c1"
+      ]
+    },
+    {
+      "text": "Read and plot points when one square on an axis is not $1$ unit.",
+      "bullets": [
+        "3.1-c1"
+      ]
+    },
+    {
+      "text": "Find the length of a horizontal or vertical line from the coordinates of its ends.",
+      "bullets": [
+        "3.1-c1"
+      ]
+    },
+    {
+      "text": "Find the missing corner of a rectangle or parallelogram.",
+      "bullets": [
+        "3.1-c1"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "plotting points",
+    "x and y coordinates",
+    "reading coordinates from a grid",
+    "negative coordinates",
+    "four quadrants",
+    "missing vertex of a parallelogram"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-number-line",
+      "prompt": "On a number line, which number is $5$ places to the left of $2$?",
+      "hint": "Count left from $2$: $1$, $0$, and keep going past zero.",
+      "answer": {
+        "value": -3,
+        "tolerance": 0
+      },
+      "explain": "Moving left means subtracting: $2 - 5 = -3$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2 - 5",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-subtract-negative",
+      "prompt": "Work out $3 - (-8)$.",
+      "hint": "Subtracting a negative is the same as adding.",
+      "answer": {
+        "value": 11,
+        "tolerance": 0
+      },
+      "explain": "$3 - (-8) = 3 + 8 = 11$. On a number line, $3$ is $11$ steps to the right of $-8$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3 - (-8)",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "reading-plotting",
+      "heading": "Reading and plotting points",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A grid has two number lines that cross at right angles. The across one is the [[axis|x-axis]]. The up-and-down one is the $y$-axis."
+        },
+        {
+          "type": "text",
+          "text": "The axes cross at the [[origin|origin]], labelled $O$. It is $0$ on both axes."
+        },
+        {
+          "type": "definition",
+          "term": "Coordinates",
+          "statement": "The [[coordinates|coordinates]] $(x, y)$ of a point give its position. $x$ is how far across from the origin, and $y$ is how far up or down.",
+          "plain": "Along the corridor first, then up or down the stairs."
+        },
+        {
+          "type": "text",
+          "text": "Right of the $y$-axis, $x$ is positive; left of it, $x$ is negative. Above the $x$-axis, $y$ is positive; below it, $y$ is negative. The origin itself is $(0, 0)$."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-grid-points",
+          "alt": "Grid with x-axis and y-axis from minus 5 to 5, crossing at the origin O. Point A is 3 right and 2 up from O, with a dashed path showing 3 right then 2 up. Point B is 4 left and 1 up. Point C is 2 left and 3 down. Point D is on the y-axis, 4 down from O.",
+          "caption": "Read across first, then up or down."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-point-a",
+          "question": "Use the grid. Write down the coordinates of point $A$.",
+          "steps": [
+            "Start at the origin $O$.",
+            "Go across until you are directly below $A$. That is $3$ to the right, so $x = 3$.",
+            "Now go up to $A$. That is $2$ up, so $y = 2$.",
+            "Write $x$ first, then $y$, in brackets with a comma."
+          ],
+          "answer": "$A = (3, 2)$",
+          "verify": {
+            "kind": "point",
+            "truth": "Tuple(0 + 3, 0 + 2)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-read-point-c",
+          "question": "Use the grid. Write down the coordinates of point $C$.",
+          "steps": [
+            "Start at $O$. $C$ is to the left of the $y$-axis, so its $x$-coordinate is negative.",
+            "Go across until you are directly above $C$: $2$ to the left, so $x = -2$.",
+            "Now go down to $C$: $3$ down, so $y = -3$.",
+            "Check: $C$ is left of and below $O$, so both coordinates should be negative. They are."
+          ],
+          "answer": "$C = (-2, -3)$",
+          "verify": {
+            "kind": "point",
+            "truth": "Tuple(0 - 2, 0 - 3)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing the coordinates the wrong way round. $(2, 3)$ and $(3, 2)$ are different points. Across comes first: $x$, then $y$."
+        },
+        {
+          "type": "text",
+          "text": "To plot a point, reverse the steps. Start at $O$, move across by $x$, then up or down by $y$. Mark the point with a small, neat cross."
+        },
+        {
+          "type": "text",
+          "text": "A point on the $x$-axis has $y = 0$, such as $(6, 0)$. A point on the $y$-axis has $x = 0$, such as $(0, -1)$."
+        },
+        {
+          "type": "check",
+          "id": "check-read-point-b",
+          "prompt": "Use the grid. What are the coordinates of point $B$?",
+          "hint": "Go across from $O$ first. Is $B$ left or right of the $y$-axis?",
+          "options": [
+            {
+              "text": "$(1, -4)$",
+              "correct": false
+            },
+            {
+              "text": "$(-4, 1)$",
+              "correct": true
+            },
+            {
+              "text": "$(4, 1)$",
+              "correct": false
+            },
+            {
+              "text": "$(-1, 4)$",
+              "correct": false
+            }
+          ],
+          "explain": "$B$ is $4$ to the left, so $x = -4$, then $1$ up, so $y = 1$.",
+          "verify": {
+            "kind": "point",
+            "truth": "Tuple(0 - 4, 0 + 1)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-read-point-d",
+          "prompt": "Use the grid. What are the coordinates of point $D$?",
+          "hint": "$D$ is on the $y$-axis. How far across from $O$ is it?",
+          "options": [
+            {
+              "text": "$(-4, 0)$",
+              "correct": false
+            },
+            {
+              "text": "$(0, 4)$",
+              "correct": false
+            },
+            {
+              "text": "$(0, -4)$",
+              "correct": true
+            }
+          ],
+          "explain": "$D$ is not across from $O$ at all, so $x = 0$. It is $4$ down, so $y = -4$.",
+          "verify": {
+            "kind": "point",
+            "truth": "Tuple(0, 0 - 4)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-plot-moves",
+          "prompt": "Which moves from the origin plot the point $(-5, 3)$?",
+          "hint": "The first number is the across move. Its sign tells you left or right.",
+          "options": [
+            {
+              "text": "5 left, then 3 up",
+              "correct": true
+            },
+            {
+              "text": "3 left, then 5 up",
+              "correct": false
+            },
+            {
+              "text": "5 right, then 3 down",
+              "correct": false
+            },
+            {
+              "text": "5 left, then 3 down",
+              "correct": false
+            }
+          ],
+          "explain": "$x = -5$ means $5$ to the left. $y = 3$ means $3$ up.",
+          "verify": {
+            "kind": "choice",
+            "truth": "5 left, then 3 up"
+          }
+        }
+      ]
+    },
+    {
+      "id": "scales",
+      "heading": "Axes that don't go up in ones",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Not every grid goes up in ones, or starts at $0$. Before you read or plot, work out what one small square stands for on each [[axis|axis]]. The two axes can have different scales."
+        },
+        {
+          "type": "text",
+          "text": "To find it, take two labelled values. Divide the gap between them by the number of squares between them."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-scaled-axes",
+          "alt": "Grid with small squares. The x-axis is labelled 0, 1, 2, 3, 4, 5, 6, with two small squares between labels. The y-axis is labelled 0, 10, 20, 30, 40, 50, with two small squares between labels. Point Q is 5 squares right of the origin and 7 squares up. Point S is 11 squares right and 3 squares up.",
+          "caption": "Each axis has its own scale."
+        },
+        {
+          "type": "example",
+          "id": "ex-scaled-point-q",
+          "question": "Use the grid with scaled axes. Write down the coordinates of point $Q$.",
+          "steps": [
+            "$x$-axis: from $0$ to $1$ is $2$ squares, so one square is $1 \\div 2 = 0.5$.",
+            "$Q$ is $5$ squares across, so $x = 5 \\times 0.5 = 2.5$.",
+            "$y$-axis: from $0$ to $10$ is $2$ squares, so one square is $10 \\div 2 = 5$.",
+            "$Q$ is $7$ squares up, so $y = 7 \\times 5 = 35$.",
+            "Check: $Q$ is halfway between $2$ and $3$ across, and halfway between $30$ and $40$ up."
+          ],
+          "answer": "$Q = (2.5, 35)$",
+          "verify": {
+            "kind": "point",
+            "truth": "Tuple(5*Rational(1, 2), 7*Rational(10, 2))"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-scaled-point-w",
+          "question": "On a graph, the $x$-axis is labelled $0, 20, 40, 60$, with $4$ small squares between labels. The $y$-axis is labelled $0, 1, 2, 3$, with $5$ small squares between labels. Point $W$ is $6$ squares right of the origin and $8$ squares up. Find the coordinates of $W$.",
+          "steps": [
+            "$x$-axis: one square is $20 \\div 4 = 5$.",
+            "So $x = 6 \\times 5 = 30$.",
+            "$y$-axis: one square is $1 \\div 5 = 0.2$.",
+            "So $y = 8 \\times 0.2 = 1.6$.",
+            "Check: $30$ is between $20$ and $40$, and $1.6$ is between $1$ and $2$."
+          ],
+          "answer": "$W = (30, 1.6)$",
+          "verify": {
+            "kind": "point",
+            "truth": "Tuple(6*Rational(20, 4), 8*Rational(1, 5))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Counting squares as if each one were $1$. Find what one square stands for on each axis before you read or plot."
+        },
+        {
+          "type": "check",
+          "id": "check-square-value",
+          "prompt": "On an axis, $0$ and $12$ are $8$ small squares apart. What does one small square stand for?",
+          "hint": "Divide the gap between the labels by the number of squares.",
+          "options": [
+            {
+              "text": "$4$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$1.5$",
+              "correct": true
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            }
+          ],
+          "explain": "$12 \\div 8 = 1.5$. Check: $8 \\times 1.5 = 12$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(12, 8)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-scaled-point-s",
+          "prompt": "Use the grid with scaled axes. What are the coordinates of point $S$?",
+          "hint": "Find what one square stands for on each axis, then count squares.",
+          "options": [
+            {
+              "text": "$(11, 3)$",
+              "correct": false
+            },
+            {
+              "text": "$(5.5, 15)$",
+              "correct": true
+            },
+            {
+              "text": "$(15, 5.5)$",
+              "correct": false
+            },
+            {
+              "text": "$(5.5, 30)$",
+              "correct": false
+            }
+          ],
+          "explain": "$S$ is $11$ squares across: $11 \\times 0.5 = 5.5$. It is $3$ squares up: $3 \\times 5 = 15$.",
+          "verify": {
+            "kind": "point",
+            "truth": "Tuple(11*Rational(1, 2), 3*Rational(10, 2))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lengths-corners",
+      "heading": "Lengths and missing corners",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two points with the same $y$-coordinate lie on a horizontal line. Its length is the difference between their $x$-coordinates: bigger minus smaller."
+        },
+        {
+          "type": "text",
+          "text": "Two points with the same $x$-coordinate lie on a vertical line. Its length is the difference between their $y$-coordinates."
+        },
+        {
+          "type": "text",
+          "text": "Take care with negatives. From $-3$ to $4$ is $4 - (-3) = 7$ units. Count the squares to check."
+        },
+        {
+          "type": "example",
+          "id": "ex-horizontal-length",
+          "question": "$P$ is the point $(-6, 4)$ and $Q$ is the point $(5, 4)$. Find the length of $PQ$.",
+          "steps": [
+            "Both $y$-coordinates are $4$, so $PQ$ is horizontal.",
+            "Length $=$ bigger $x$ minus smaller $x = 5 - (-6)$.",
+            "$5 - (-6) = 5 + 6 = 11$.",
+            "Check: $6$ units from $-6$ to $0$, then $5$ more to $5$, makes $11$."
+          ],
+          "answer": "$PQ = 11$",
+          "verify": {
+            "kind": "exact",
+            "truth": "5 - (-6)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-vertical-length",
+          "prompt": "$E$ is $(2, 7)$ and $F$ is $(2, -5)$. Find the length of $EF$ in units.",
+          "hint": "Both $x$-coordinates are $2$, so the line is vertical. Subtract the $y$-coordinates.",
+          "answer": {
+            "value": 12,
+            "tolerance": 0
+          },
+          "explain": "$7 - (-5) = 12$: $5$ units up to $0$, then $7$ more.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "7 - (-5)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "A move between two points is so many across, then so many up or down. In a rectangle or parallelogram, opposite sides are the same move when you go along them the same way."
+        },
+        {
+          "type": "text",
+          "text": "The letters of a shape go round it in order. So in $ABCD$, the move from $B$ to $A$ is the same as the move from $C$ to $D$. To find $D$, do that move from $C$."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-parallelogram",
+          "alt": "Grid with x from minus 6 to 5 and y from minus 4 to 4. Parallelogram KLMN with K at minus 5, 1; L at minus 1, 3; M at 4, minus 1; and N at 0, minus 3. Sides KL and LM are solid. Sides MN and NK are dashed. A dashed path goes from L 4 squares left and 2 squares down to K. The same path goes from M 4 left and 2 down to N.",
+          "caption": "The move from $L$ to $K$, done again from $M$, lands on $N$."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallelogram-corner",
+          "question": "$KLMN$ is a parallelogram. $K = (-5, 1)$, $L = (-1, 3)$ and $M = (4, -1)$. Find the coordinates of $N$.",
+          "steps": [
+            "The letters go round in order, so $N$ is opposite $L$. The move from $L$ to $K$ is the same as the move from $M$ to $N$.",
+            "From $L$ to $K$: across $-5 - (-1) = -4$ (4 left), and up $1 - 3 = -2$ (2 down).",
+            "Do the same from $M$: $x = 4 - 4 = 0$ and $y = -1 - 2 = -3$.",
+            "Check the other pair of sides. From $L$ to $M$ is $5$ right, $4$ down. From $K$, that lands on $(-5 + 5, 1 - 4) = (0, -3)$. Same point."
+          ],
+          "answer": "$N = (0, -3)$",
+          "verify": {
+            "kind": "point",
+            "truth": "Tuple(4 + (-5 - (-1)), -1 + (1 - 3))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using the wrong pair of sides for a missing corner. In $KLMN$, $N$ joins to $M$ and to $K$. If $N$ ends up next to $L$, the letters no longer go round the shape in order."
+        },
+        {
+          "type": "check",
+          "id": "check-rectangle-corner",
+          "prompt": "$PQRS$ is a rectangle. $P = (-6, -1)$, $Q = (-6, 4)$ and $R = (3, 4)$. What are the coordinates of $S$?",
+          "hint": "Find the move from $Q$ to $P$, then do it from $R$.",
+          "options": [
+            {
+              "text": "$(-1, 3)$",
+              "correct": false
+            },
+            {
+              "text": "$(3, -1)$",
+              "correct": true
+            },
+            {
+              "text": "$(3, -6)$",
+              "correct": false
+            },
+            {
+              "text": "$(-6, 3)$",
+              "correct": false
+            }
+          ],
+          "explain": "From $Q$ to $P$ is $5$ down. From $R$, $5$ down gives $(3, 4 - 5) = (3, -1)$.",
+          "verify": {
+            "kind": "point",
+            "truth": "Tuple(3 + (-6 - (-6)), 4 + (-1 - 4))"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When you find a missing corner, write the move you used, such as \"4 left, 2 down\". Then check on the grid that both pairs of opposite sides are parallel."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Coordinates are $(x, y)$: across first, then up or down. Left of the $y$-axis, $x$ is negative. Below the $x$-axis, $y$ is negative.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The origin is $(0, 0)$. Points on the $x$-axis have $y = 0$. Points on the $y$-axis have $x = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "One square $=$ gap between two labels $\\div$ squares between them. Work it out for each axis.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Same $y$: horizontal line, length $=$ difference of the $x$-coordinates. Same $x$: vertical line, length $=$ difference of the $y$-coordinates.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Missing corner $D$ of parallelogram $ABCD$: do the move from $B$ to $A$, starting at $C$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing the coordinates the wrong way round, $y$ first. Across comes first: $(x, y)$.",
+    "Losing a minus sign. A point left of the $y$-axis has a negative $x$-coordinate; a point below the $x$-axis has a negative $y$-coordinate.",
+    "Reading a scaled axis as if each square were $1$. Work out what one square stands for on each axis first.",
+    "Subtracting the wrong way round, which gives a negative length or a move in the wrong direction. A length is bigger minus smaller; the move from $A$ to $B$ is $B$'s coordinate minus $A$'s.",
+    "Putting a missing corner in the wrong place, so the letters don't go round the shape in order. In $ABCD$, $D$ must join to both $A$ and $C$."
+  ],
+  "examTips": [
+    "Write down the coordinates: no working is needed, but the answer must be $(x, y)$ in the right order, with the correct signs.",
+    "Plot a point with a small, neat cross exactly on it. On a scaled axis, find the value of one square before you plot.",
+    "Find a missing corner by writing the move you used, then check the shape on the grid. The letters must go round the shape in order."
+  ],
+  "readingMinutes": 17
+}

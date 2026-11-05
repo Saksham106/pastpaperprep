@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 300" role="img" aria-labelledby="t">
+  <title id="t">Bar chart of pizzas sold on Monday. Pizza types across: Margherita, Pepperoni, Veggie, Hawaiian. Number of pizzas up, from 0 to 25, with each small square 1 pizza and a label every 5. Margherita 18, Pepperoni 23, Veggie 9, Hawaiian 12. The bars have equal widths and equal gaps.</title>
+  <g stroke="var(--muted)" stroke-width="0.5" stroke-opacity="0.45" fill="none">
+    <line x1="62" y1="248.0" x2="442" y2="248.0" />
+    <line x1="62" y1="238.8" x2="442" y2="238.8" />
+    <line x1="62" y1="229.6" x2="442" y2="229.6" />
+    <line x1="62" y1="220.4" x2="442" y2="220.4" />
+    <line x1="62" y1="211.2" x2="442" y2="211.2" />
+    <line x1="62" y1="202.0" x2="442" y2="202.0" />
+    <line x1="62" y1="192.8" x2="442" y2="192.8" />
+    <line x1="62" y1="183.6" x2="442" y2="183.6" />
+    <line x1="62" y1="174.4" x2="442" y2="174.4" />
+    <line x1="62" y1="165.2" x2="442" y2="165.2" />
+    <line x1="62" y1="156.0" x2="442" y2="156.0" />
+    <line x1="62" y1="146.8" x2="442" y2="146.8" />
+    <line x1="62" y1="137.6" x2="442" y2="137.6" />
+    <line x1="62" y1="128.4" x2="442" y2="128.4" />
+    <line x1="62" y1="119.2" x2="442" y2="119.2" />
+    <line x1="62" y1="110.0" x2="442" y2="110.0" />
+    <line x1="62" y1="100.8" x2="442" y2="100.8" />
+    <line x1="62" y1="91.6" x2="442" y2="91.6" />
+    <line x1="62" y1="82.4" x2="442" y2="82.4" />
+    <line x1="62" y1="73.2" x2="442" y2="73.2" />
+    <line x1="62" y1="64.0" x2="442" y2="64.0" />
+    <line x1="62" y1="54.8" x2="442" y2="54.8" />
+    <line x1="62" y1="45.6" x2="442" y2="45.6" />
+    <line x1="62" y1="36.4" x2="442" y2="36.4" />
+    <line x1="62" y1="27.2" x2="442" y2="27.2" />
+    <line x1="62" y1="18.0" x2="442" y2="18.0" />
+  </g>
+  <g stroke="var(--muted)" stroke-width="0.9" fill="none">
+    <line x1="62" y1="248.0" x2="442" y2="248.0" />
+    <line x1="62" y1="202.0" x2="442" y2="202.0" />
+    <line x1="62" y1="156.0" x2="442" y2="156.0" />
+    <line x1="62" y1="110.0" x2="442" y2="110.0" />
+    <line x1="62" y1="64.0" x2="442" y2="64.0" />
+    <line x1="62" y1="18.0" x2="442" y2="18.0" />
+  </g>
+  <g fill="var(--t2-ink)" fill-opacity="0.55" stroke="currentColor" stroke-width="1">
+    <rect x="85.8" y="82.4" width="47.5" height="165.6" />
+    <rect x="180.8" y="36.4" width="47.5" height="211.6" />
+    <rect x="275.8" y="165.2" width="47.5" height="82.8" />
+    <rect x="370.8" y="137.6" width="47.5" height="110.4" />
+  </g>
+  <g stroke="currentColor" stroke-width="1.3" fill="none">
+    <line x1="62" y1="248" x2="442" y2="248" />
+    <line x1="62" y1="18" x2="62" y2="248" />
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="109.5" y="263">Margherita</text>
+    <text x="204.5" y="263">Pepperoni</text>
+    <text x="299.5" y="263">Veggie</text>
+    <text x="394.5" y="263">Hawaiian</text>
+    <text x="252.0" y="290">Type of pizza</text>
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="end">
+    <text x="56" y="252.0">0</text>
+    <text x="56" y="206.0">5</text>
+    <text x="56" y="160.0">10</text>
+    <text x="56" y="114.0">15</text>
+    <text x="56" y="68.0">20</text>
+    <text x="56" y="22.0">25</text>
+  </g>
+  <text x="16" y="133.0" fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle" transform="rotate(-90 16 133.0)">Number of pizzas</text>
+</svg>

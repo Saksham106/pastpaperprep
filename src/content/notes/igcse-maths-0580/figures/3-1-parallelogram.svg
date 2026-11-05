@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">Grid with x from minus 6 to 5 and y from minus 4 to 4. Parallelogram KLMN with K at minus 5, 1; L at minus 1, 3; M at 4, minus 1; and N at 0, minus 3. Sides KL and LM are solid. Sides MN and NK are dashed. A dashed path goes from L 4 squares left and 2 squares down to K. The same path goes from M 4 left and 2 down to N.</title>
+  <g stroke="var(--muted)" stroke-width="0.75" opacity="0.6">
+    <line x1="30" y1="30" x2="30" y2="270"/>
+    <line x1="60" y1="30" x2="60" y2="270"/>
+    <line x1="90" y1="30" x2="90" y2="270"/>
+    <line x1="120" y1="30" x2="120" y2="270"/>
+    <line x1="150" y1="30" x2="150" y2="270"/>
+    <line x1="180" y1="30" x2="180" y2="270"/>
+    <line x1="210" y1="30" x2="210" y2="270"/>
+    <line x1="240" y1="30" x2="240" y2="270"/>
+    <line x1="270" y1="30" x2="270" y2="270"/>
+    <line x1="300" y1="30" x2="300" y2="270"/>
+    <line x1="330" y1="30" x2="330" y2="270"/>
+    <line x1="360" y1="30" x2="360" y2="270"/>
+    <line x1="30" y1="270" x2="360" y2="270"/>
+    <line x1="30" y1="240" x2="360" y2="240"/>
+    <line x1="30" y1="210" x2="360" y2="210"/>
+    <line x1="30" y1="180" x2="360" y2="180"/>
+    <line x1="30" y1="150" x2="360" y2="150"/>
+    <line x1="30" y1="120" x2="360" y2="120"/>
+    <line x1="30" y1="90" x2="360" y2="90"/>
+    <line x1="30" y1="60" x2="360" y2="60"/>
+    <line x1="30" y1="30" x2="360" y2="30"/>
+  </g>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="24" y1="150" x2="372" y2="150"/>
+    <line x1="210" y1="276" x2="210" y2="18"/>
+  </g>
+  <path d="M372 150 l-8 -4 v8 z M210 18 l-4 8 h8 z" fill="currentColor"/>
+  <g font-family="inherit" font-size="11" fill="currentColor" text-anchor="middle">
+    <text x="30" y="164">−6</text>
+    <text x="60" y="164">−5</text>
+    <text x="90" y="164">−4</text>
+    <text x="120" y="164">−3</text>
+    <text x="150" y="164">−2</text>
+    <text x="180" y="164">−1</text>
+    <text x="240" y="164">1</text>
+    <text x="270" y="164">2</text>
+    <text x="300" y="164">3</text>
+    <text x="330" y="164">4</text>
+    <text x="360" y="164">5</text>
+    <text x="18" y="274">−4</text>
+    <text x="18" y="244">−3</text>
+    <text x="18" y="214">−2</text>
+    <text x="18" y="184">−1</text>
+    <text x="18" y="124">1</text>
+    <text x="18" y="94">2</text>
+    <text x="18" y="64">3</text>
+    <text x="18" y="34">4</text>
+  </g>
+  <g font-family="inherit" font-size="15" font-style="italic" fill="currentColor"><text x="364" y="142">x</text><text x="218" y="26">y</text></g>
+  <path d="M60 120 L180 60 L330 180" stroke="var(--t2-ink)" stroke-width="2.5" fill="none"/>
+  <path d="M330 180 L210 240 L60 120" stroke="var(--t2-ink)" stroke-width="2.5" stroke-dasharray="7 5" fill="none"/>
+  <path d="M180 60 H60 V120 M330 180 H210 V240" stroke="var(--t1-ink)" stroke-width="2" stroke-dasharray="4 4" fill="none"/>
+  <g font-family="inherit" font-size="12" font-weight="bold" fill="var(--t1-ink)">
+    <text x="120" y="54" text-anchor="middle">4 left</text>
+    <text x="66" y="94">2 down</text>
+    <text x="270" y="196" text-anchor="middle">4 left</text>
+    <text x="216" y="214">2 down</text>
+  </g>
+  <g font-family="inherit" font-size="16" font-weight="bold" fill="var(--t2-ink)">
+    <text x="44" y="138">K</text>
+    <text x="186" y="54">L</text>
+    <text x="338" y="186">M</text>
+    <text x="194" y="256">N</text>
+  </g>
+</svg>

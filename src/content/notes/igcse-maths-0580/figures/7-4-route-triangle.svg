@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 210" role="img" aria-labelledby="t">
+  <title id="t">Triangle with corners O, A and B. An arrow labelled a goes from O to A. An arrow labelled b goes from O to B. A dashed arrow goes from A to B.</title>
+  <line x1="40.0" y1="180.0" x2="241.0" y2="160.9" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <polygon points="250.0,160.0 239.5,166.0 238.6,156.1" fill="var(--t1-ink)"/>
+  <line x1="40.0" y1="180.0" x2="125.1" y2="47.6" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <polygon points="130.0,40.0 128.2,51.9 119.9,46.6" fill="var(--t3-ink)"/>
+  <line x1="250.0" y1="160.0" x2="136.4" y2="46.4" stroke="var(--t5-ink)" stroke-width="2.4" stroke-dasharray="7 4"/>
+  <polygon points="130.0,40.0 141.3,44.3 134.3,51.3" fill="var(--t5-ink)"/>
+  <circle cx="40.0" cy="180.0" r="3.5" fill="currentColor"/>
+  <circle cx="250.0" cy="160.0" r="3.5" fill="currentColor"/>
+  <circle cx="130.0" cy="40.0" r="3.5" fill="currentColor"/>
+  <text x="32.0" y="194.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="end" font-style="italic">O</text>
+  <text x="258.0" y="172.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="start" font-style="italic">A</text>
+  <text x="130.0" y="30.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="middle" font-style="italic">B</text>
+  <text x="150.0" y="192.0" fill="var(--t1-ink)" font-size="15" font-family="inherit" text-anchor="middle" font-weight="bold">a</text>
+  <text x="70.0" y="105.0" fill="var(--t3-ink)" font-size="15" font-family="inherit" text-anchor="end" font-weight="bold">b</text>
+</svg>

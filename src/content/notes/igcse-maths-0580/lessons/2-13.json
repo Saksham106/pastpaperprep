@@ -1,0 +1,664 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "2.13",
+  "slug": "functions",
+  "title": "Functions",
+  "level": "Extended",
+  "topic": 2,
+  "summary": "A [[function|function]] is a rule that turns each input into exactly one output. [[function-notation|Function notation]], such as $\\mathrm{f}(x) = 3x + 8$, names the rule. You can evaluate it, undo it with an [[inverse-function|inverse function]], or join two rules into a [[composite-function|composite function]].",
+  "goals": [
+    {
+      "text": "Use function notation to work out values such as $\\mathrm{f}(-2)$ and $\\mathrm{f}(x + 3)$, and solve $\\mathrm{f}(x) = k$.",
+      "bullets": [
+        "2.13-s1"
+      ]
+    },
+    {
+      "text": "Describe the [[domain|domain]] and [[range-of-a-function|range]] of a function, including on a mapping diagram.",
+      "bullets": [
+        "2.13-s1"
+      ]
+    },
+    {
+      "text": "Find an inverse function $\\mathrm{f}^{-1}(x)$ and use it to undo $\\mathrm{f}$.",
+      "bullets": [
+        "2.13-s2"
+      ]
+    },
+    {
+      "text": "Form composite functions such as $\\mathrm{gf}(x) = \\mathrm{g}(\\mathrm{f}(x))$, as numbers and as simplified expressions.",
+      "bullets": [
+        "2.13-s3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.10",
+    "2.2",
+    "2.5"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "function notation",
+    "f inverse",
+    "inverse functions",
+    "composite functions",
+    "fg(x)",
+    "domain and range"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-substitute-negative",
+      "prompt": "Work out the value of $2x^2 - 3x$ when $x = -4$.",
+      "hint": "Put $(-4)$ in place of each $x$, brackets included.",
+      "answer": {
+        "value": 44,
+        "tolerance": 0
+      },
+      "verify": {
+        "kind": "numeric",
+        "truth": "2*(-4)**2 - 3*(-4)",
+        "dp": 0
+      },
+      "explain": "$2(-4)^2 - 3(-4) = 2 \\times 16 + 12 = 44$. Revise it in {{lesson:2.10}}."
+    },
+    {
+      "type": "check",
+      "id": "before-expand-square",
+      "prompt": "Expand $(x - 6)^2$.",
+      "hint": "Write it as $(x - 6)(x - 6)$ and multiply every term by every term.",
+      "options": [
+        {
+          "text": "$x^2 + 36$",
+          "correct": false
+        },
+        {
+          "text": "$x^2 - 12x + 36$",
+          "correct": true
+        },
+        {
+          "text": "$x^2 - 6x + 36$",
+          "correct": false
+        },
+        {
+          "text": "$x^2 - 36$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "expression",
+        "truth": "(x - 6)**2",
+        "form": "expanded"
+      },
+      "explain": "$(x - 6)(x - 6) = x^2 - 6x - 6x + 36 = x^2 - 12x + 36$. Don't forget the middle term. Revise it in {{lesson:2.2}}."
+    },
+    {
+      "type": "check",
+      "id": "before-change-subject",
+      "prompt": "Make $x$ the subject of $w = 6x + 5$.",
+      "hint": "Undo the $+5$ first, then undo the $\\times 6$.",
+      "options": [
+        {
+          "text": "$x = \\frac{w}{6} - 5$",
+          "correct": false
+        },
+        {
+          "text": "$x = \\frac{w - 5}{6}$",
+          "correct": true
+        },
+        {
+          "text": "$x = \\frac{w + 5}{6}$",
+          "correct": false
+        },
+        {
+          "text": "$x = 6w - 5$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "expression",
+        "truth": "solve(Eq(w, 6*x + 5), x)[0]"
+      },
+      "explain": "Subtract $5$: $w - 5 = 6x$. Divide both sides by $6$: $x = \\frac{w - 5}{6}$. Revise it in {{lesson:2.5}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "notation",
+      "heading": "Function notation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[function|function]] is a rule that takes an input and gives exactly one output. \"Multiply by $3$, then add $8$\" is a function. Put in $4$ and you always get $20$."
+        },
+        {
+          "type": "text",
+          "text": "[[function-notation|Function notation]] names the rule: $\\mathrm{f}(x) = 3x + 8$ means $\\mathrm{f}$ turns the input $x$ into $3x + 8$. Read $\\mathrm{f}(x)$ as \"f of $x$\"."
+        },
+        {
+          "type": "text",
+          "text": "$\\mathrm{f}(4)$ means the output when the input is $4$. Replace every $x$ with $4$: $\\mathrm{f}(4) = 3(4) + 8 = 20$. It never means $\\mathrm{f}$ times $4$."
+        },
+        {
+          "type": "example",
+          "id": "ex-evaluate-negative",
+          "question": "Given $\\mathrm{g}(x) = 5 - x^2$, find $\\mathrm{g}(-3)$.",
+          "steps": [
+            "Replace $x$ with $(-3)$, keeping the brackets: $\\mathrm{g}(-3) = 5 - (-3)^2$.",
+            "A negative number squared is positive: $(-3)^2 = 9$.",
+            "Subtract: $5 - 9 = -4$."
+          ],
+          "answer": "$\\mathrm{g}(-3) = -4$",
+          "verify": {
+            "kind": "exact",
+            "truth": "5 - (-3)**2"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To solve $\\mathrm{f}(x) = k$, you know the output and want the input: set the rule equal to $k$ and solve."
+        },
+        {
+          "type": "example",
+          "id": "ex-solve-fx",
+          "question": "Given $\\mathrm{h}(x) = 6 - 5x$, solve $\\mathrm{h}(x) = 21$.",
+          "steps": [
+            "The output is $21$, so set the rule equal to it: $6 - 5x = 21$.",
+            "Subtract $6$ from both sides: $-5x = 15$.",
+            "Divide both sides by $-5$: $x = -3$.",
+            "Check: $\\mathrm{h}(-3) = 6 - 5(-3) = 6 + 15 = 21$."
+          ],
+          "answer": "$x = -3$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(Eq(6 - 5*x, 21), x)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The input can be an expression. For $\\mathrm{f}(x + 3)$, replace every $x$ with $(x + 3)$, bracket included, then simplify."
+        },
+        {
+          "type": "check",
+          "id": "check-evaluate-negative",
+          "prompt": "Given $\\mathrm{f}(x) = 3x^2 + 7$, find $\\mathrm{f}(-2)$.",
+          "hint": "Square $(-2)$ first, then multiply by $3$.",
+          "answer": {
+            "value": 19,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "3*(-2)**2 + 7",
+            "dp": 0
+          },
+          "explain": "$3(-2)^2 + 7 = 3 \\times 4 + 7 = 19$. Square before you multiply."
+        },
+        {
+          "type": "check",
+          "id": "check-expression-input",
+          "prompt": "Given $\\mathrm{f}(x) = x^2 - 4x$, find $\\mathrm{f}(x + 3)$ in its simplest form.",
+          "hint": "Write $(x + 3)^2 - 4(x + 3)$, then expand both parts.",
+          "options": [
+            {
+              "text": "$x^2 - 4x + 3$",
+              "correct": false
+            },
+            {
+              "text": "$x^2 - 4x - 3$",
+              "correct": false
+            },
+            {
+              "text": "$x^2 + 2x - 3$",
+              "correct": true
+            },
+            {
+              "text": "$x^2 + 2x + 21$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "(x + 3)**2 - 4*(x + 3)",
+            "form": "expanded"
+          },
+          "explain": "$(x + 3)^2 = x^2 + 6x + 9$ and $-4(x + 3) = -4x - 12$. Together: $x^2 + 2x - 3$."
+        }
+      ]
+    },
+    {
+      "id": "domain-range",
+      "heading": "Domain, range and mapping diagrams",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "domain",
+          "statement": "The [[domain|domain]] of a function is the set of input values it is allowed to take.",
+          "plain": "What you may put in."
+        },
+        {
+          "type": "definition",
+          "term": "range of a function",
+          "statement": "The [[range-of-a-function|range]] of a function is the set of output values it gives from its domain.",
+          "plain": "What can come out."
+        },
+        {
+          "type": "text",
+          "text": "This is not the range of a data set, which is one number: largest minus smallest."
+        },
+        {
+          "type": "text",
+          "text": "A mapping diagram shows a function with arrows: inputs (the domain) on the left, outputs on the right. The range is every value an arrow reaches."
+        },
+        {
+          "type": "figure",
+          "id": "2-13-mapping-diagram",
+          "alt": "Mapping diagram for f of x equals x squared. The left oval, labelled domain, holds minus 2, minus 1, 0, 1 and 2. The right oval, labelled range, holds 4, 1 and 0. Arrows go from minus 2 and 2 to 4, from minus 1 and 1 to 1, and from 0 to 0.",
+          "caption": "$\\mathrm{f}(x) = x^2$ with domain $\\{-2, -1, 0, 1, 2\\}$. Each input has exactly one arrow, but two inputs can share an output."
+        },
+        {
+          "type": "text",
+          "text": "Some numbers must be left out of a domain. You can't divide by zero, so $\\mathrm{f}(x) = \\frac{6}{x - 5}$ needs $x \\ne 5$, often written beside the rule. You also can't take the square root of a negative number."
+        },
+        {
+          "type": "example",
+          "id": "ex-range-list",
+          "question": "The function $\\mathrm{f}(x) = 7 - 2x$ has domain $\\{-1, 0, 2, 3\\}$. Find its range.",
+          "steps": [
+            "Put each input into the rule: $\\mathrm{f}(-1) = 9$, $\\mathrm{f}(0) = 7$, $\\mathrm{f}(2) = 3$ and $\\mathrm{f}(3) = 1$.",
+            "The range is the set of these outputs. List them in order."
+          ],
+          "answer": "$\\{1, 3, 7, 9\\}$",
+          "verify": {
+            "kind": "set",
+            "truth": "[7 - 2*(-1), 7 - 2*0, 7 - 2*2, 7 - 2*3]"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-range-square",
+          "question": "The function $\\mathrm{g}(x) = x^2 + 5$ has every real number as its domain. Find its range.",
+          "steps": [
+            "A square is never negative, so $x^2 \\ge 0$ for every $x$.",
+            "Add $5$ to both sides: $x^2 + 5 \\ge 5$.",
+            "The smallest output is $\\mathrm{g}(0) = 5$. As $x$ moves away from $0$, the output grows past every number above $5$.",
+            "Write the range in terms of the output, $\\mathrm{g}(x)$ or $y$, not $x$: $\\mathrm{g}(x) \\ge 5$."
+          ],
+          "answer": "$y \\ge 5$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "imageset(Lambda(x, x**2 + 5), S.Reals)",
+            "var": "y"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-domain-exclude",
+          "prompt": "Which value of $x$ must be left out of the domain of $\\mathrm{h}(x) = \\frac{12}{2x + 7}$?",
+          "hint": "Find the value of $x$ that makes the denominator zero.",
+          "options": [
+            {
+              "text": "$x = 0$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{7}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$x = -\\frac{7}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$x = -7$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "solve(Eq(2*x + 7, 0), x)[0]"
+          },
+          "explain": "Solve $2x + 7 = 0$: $2x = -7$, so $x = -\\frac{7}{2}$. That input would mean dividing by zero."
+        },
+        {
+          "type": "check",
+          "id": "check-range-repeat",
+          "prompt": "The function $\\mathrm{f}(x) = x^2 - 1$ has domain $\\{-3, 0, 3\\}$. Which set is its range?",
+          "hint": "Work out all three outputs. A repeated output is listed once.",
+          "options": [
+            {
+              "text": "$\\{-3, 0, 3\\}$",
+              "correct": false
+            },
+            {
+              "text": "$\\{-1, 8\\}$",
+              "correct": true
+            },
+            {
+              "text": "$\\{-10, -1, 8\\}$",
+              "correct": false
+            },
+            {
+              "text": "$\\{0, 9\\}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "set",
+            "truth": "[(-3)**2 - 1, 0**2 - 1, 3**2 - 1]"
+          },
+          "explain": "$\\mathrm{f}(-3) = 9 - 1 = 8$, $\\mathrm{f}(0) = -1$ and $\\mathrm{f}(3) = 8$. The range is $\\{-1, 8\\}$: list $8$ once. $\\{-3, 0, 3\\}$ is the domain. $\\{0, 9\\}$ forgets to subtract $1$."
+        }
+      ]
+    },
+    {
+      "id": "inverse",
+      "heading": "Inverse functions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$\\mathrm{f}(x) = 3x + 8$ multiplies by $3$, then adds $8$. To undo it, do the opposite steps in reverse order: subtract $8$, then divide by $3$."
+        },
+        {
+          "type": "definition",
+          "term": "inverse function",
+          "statement": "The [[inverse-function|inverse function]] $\\mathrm{f}^{-1}$ undoes $\\mathrm{f}$: if $\\mathrm{f}(a) = b$, then $\\mathrm{f}^{-1}(b) = a$.",
+          "plain": "It runs the function backwards, from output to input."
+        },
+        {
+          "type": "text",
+          "text": "The $-1$ in $\\mathrm{f}^{-1}$ is a label, not a power. $\\mathrm{f}^{-1}(x)$ does not mean $\\frac{1}{\\mathrm{f}(x)}$."
+        },
+        {
+          "type": "text",
+          "text": "Only a function where each output comes from one input has an inverse. In the mapping diagram above, $4$ would have to go back to both $-2$ and $2$, so $x^2$ on that domain has none."
+        },
+        {
+          "type": "text",
+          "text": "To find $\\mathrm{f}^{-1}(x)$:"
+        },
+        {
+          "type": "text",
+          "text": "1. Write $y = \\mathrm{f}(x)$."
+        },
+        {
+          "type": "text",
+          "text": "2. Make $x$ the [[subject-of-a-formula|subject]]."
+        },
+        {
+          "type": "text",
+          "text": "3. Replace $y$ with $x$, and write the result as $\\mathrm{f}^{-1}(x) = \\ldots$"
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-linear",
+          "question": "Given $\\mathrm{f}(x) = 3x + 8$, find $\\mathrm{f}^{-1}(x)$.",
+          "steps": [
+            "Write $y = 3x + 8$.",
+            "Subtract $8$ from both sides: $y - 8 = 3x$.",
+            "Divide both sides by $3$: $x = \\frac{y - 8}{3}$.",
+            "Replace $y$ with $x$: $\\mathrm{f}^{-1}(x) = \\frac{x - 8}{3}$.",
+            "Check: $\\mathrm{f}(4) = 20$, and $\\mathrm{f}^{-1}(20) = \\frac{20 - 8}{3} = 4$."
+          ],
+          "answer": "$\\mathrm{f}^{-1}(x) = \\frac{x - 8}{3}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "solve(Eq(y, 3*x + 8), x)[0].subs(y, x)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-fraction",
+          "question": "Given $\\mathrm{g}(x) = \\frac{7 - 2x}{3}$, find $\\mathrm{g}^{-1}(x)$.",
+          "steps": [
+            "Write $y = \\frac{7 - 2x}{3}$.",
+            "Multiply both sides by $3$: $3y = 7 - 2x$.",
+            "Add $2x$ to both sides and subtract $3y$: $2x = 7 - 3y$.",
+            "Divide both sides by $2$: $x = \\frac{7 - 3y}{2}$.",
+            "Replace $y$ with $x$: $\\mathrm{g}^{-1}(x) = \\frac{7 - 3x}{2}$.",
+            "Check: $\\mathrm{g}(2) = \\frac{7 - 4}{3} = 1$, and $\\mathrm{g}^{-1}(1) = \\frac{7 - 3}{2} = 2$."
+          ],
+          "answer": "$\\mathrm{g}^{-1}(x) = \\frac{7 - 3x}{2}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "solve(Eq(y, (7 - 2*x)/3), x)[0].subs(y, x)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-order",
+          "prompt": "Given $\\mathrm{h}(x) = \\frac{x}{4} - 6$, find $\\mathrm{h}^{-1}(x)$.",
+          "hint": "$\\mathrm{h}$ divides by $4$, then subtracts $6$. Undo the last step first.",
+          "options": [
+            {
+              "text": "$4x - 6$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{x + 6}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$4(x + 6)$",
+              "correct": true
+            },
+            {
+              "text": "$4x - 24$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "solve(Eq(y, x/4 - 6), x)[0].subs(y, x)"
+          },
+          "explain": "From $y = \\frac{x}{4} - 6$, add $6$: $y + 6 = \\frac{x}{4}$. Multiply by $4$: $x = 4(y + 6)$. So $\\mathrm{h}^{-1}(x) = 4(x + 6)$."
+        },
+        {
+          "type": "text",
+          "text": "You don't always need $\\mathrm{f}^{-1}$ itself. If $\\mathrm{f}^{-1}(x) = k$, then $\\mathrm{f}$ sends $k$ to $x$, so $x = \\mathrm{f}(k)$."
+        },
+        {
+          "type": "check",
+          "id": "check-solve-inverse",
+          "prompt": "Given $\\mathrm{f}(x) = x^3 + 4$, solve $\\mathrm{f}^{-1}(x) = 3$.",
+          "hint": "Apply $\\mathrm{f}$ to both sides: $x = \\mathrm{f}(3)$.",
+          "answer": {
+            "value": 31,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "3**3 + 4",
+            "dp": 0
+          },
+          "explain": "$\\mathrm{f}^{-1}$ sends $x$ to $3$, so $\\mathrm{f}$ sends $3$ to $x$. So $x = 3^3 + 4 = 31$."
+        }
+      ]
+    },
+    {
+      "id": "composite",
+      "heading": "Composite functions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can feed the output of one function straight into another. With $\\mathrm{f}(x) = 4 - x$ and $\\mathrm{g}(x) = x^2 - 3$, start with $1$. $\\mathrm{f}$ gives $3$, then $\\mathrm{g}$ turns $3$ into $6$."
+        },
+        {
+          "type": "definition",
+          "term": "composite function",
+          "statement": "The [[composite-function|composite function]] $\\mathrm{gf}$ is defined by $\\mathrm{gf}(x) = \\mathrm{g}(\\mathrm{f}(x))$: apply $\\mathrm{f}$ first, then apply $\\mathrm{g}$ to the result.",
+          "plain": "Two machines in a row, and the one written next to $x$ works first."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{gf}(x) = \\mathrm{g}(\\mathrm{f}(x))",
+          "tag": "learn"
+        },
+        {
+          "type": "mistake",
+          "text": "Working left to right. In $\\mathrm{fg}(x)$ the function nearest $x$ is $\\mathrm{g}$, so $\\mathrm{g}$ acts first. Doing $\\mathrm{f}$ first gives $\\mathrm{gf}(x)$, which is usually different."
+        },
+        {
+          "type": "example",
+          "id": "ex-composite-number",
+          "question": "Given $\\mathrm{f}(x) = 4 - x$ and $\\mathrm{g}(x) = x^2 - 3$, find $\\mathrm{fg}(-3)$.",
+          "steps": [
+            "$\\mathrm{fg}(-3) = \\mathrm{f}(\\mathrm{g}(-3))$, so work out $\\mathrm{g}(-3)$ first.",
+            "$\\mathrm{g}(-3) = (-3)^2 - 3 = 9 - 3 = 6$.",
+            "Now put $6$ into $\\mathrm{f}$: $\\mathrm{f}(6) = 4 - 6 = -2$.",
+            "Compare the other order: $\\mathrm{gf}(-3) = \\mathrm{g}(7) = 46$. The order matters."
+          ],
+          "answer": "$\\mathrm{fg}(-3) = -2$",
+          "verify": {
+            "kind": "exact",
+            "truth": "4 - ((-3)**2 - 3)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-composite-expand",
+          "question": "Given $\\mathrm{f}(x) = 4 - x$ and $\\mathrm{g}(x) = x^2 - 3$, find $\\mathrm{gf}(x)$. Give your answer in the form $x^2 + bx + c$.",
+          "steps": [
+            "$\\mathrm{gf}(x) = \\mathrm{g}(4 - x)$. Replace every $x$ in $\\mathrm{g}$ with $(4 - x)$: $\\mathrm{gf}(x) = (4 - x)^2 - 3$.",
+            "Write the square as two brackets: $(4 - x)(4 - x) = 16 - 4x - 4x + x^2 = 16 - 8x + x^2$.",
+            "Subtract $3$ and put the terms in order: $x^2 - 8x + 13$.",
+            "Check with $x = -3$: $(-3)^2 - 8(-3) + 13 = 46$, which matches $\\mathrm{gf}(-3)$ above."
+          ],
+          "answer": "$\\mathrm{gf}(x) = x^2 - 8x + 13$",
+          "verify": {
+            "kind": "expression",
+            "truth": "(4 - x)**2 - 3",
+            "form": "expanded"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-composite-fraction",
+          "question": "Given $\\mathrm{f}(x) = \\frac{6}{x - 1}$ and $\\mathrm{g}(x) = (2x + 1)^2$, find $\\mathrm{fg}(x)$. Give your answer as a fraction in its simplest form.",
+          "steps": [
+            "$\\mathrm{fg}(x) = \\mathrm{f}((2x + 1)^2)$. Replace the $x$ in $\\mathrm{f}$ with $(2x + 1)^2$: $\\mathrm{fg}(x) = \\frac{6}{(2x + 1)^2 - 1}$.",
+            "Expand the square: $(2x + 1)^2 = 4x^2 + 4x + 1$.",
+            "Simplify the denominator: $4x^2 + 4x + 1 - 1 = 4x^2 + 4x = 4x(x + 1)$.",
+            "Cancel the common factor $2$: $\\frac{6}{4x(x + 1)} = \\frac{3}{2x(x + 1)}$."
+          ],
+          "answer": "$\\mathrm{fg}(x) = \\frac{3}{2x(x + 1)}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "6/((2*x + 1)**2 - 1)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-composite-order",
+          "prompt": "Given $\\mathrm{f}(x) = 5x$ and $\\mathrm{g}(x) = x + 2$, find $\\mathrm{fg}(x)$.",
+          "hint": "$\\mathrm{g}$ acts first, so work out $\\mathrm{f}(x + 2)$.",
+          "options": [
+            {
+              "text": "$5x + 2$",
+              "correct": false
+            },
+            {
+              "text": "$5x + 10$",
+              "correct": true
+            },
+            {
+              "text": "$5x^2 + 10x$",
+              "correct": false
+            },
+            {
+              "text": "$6x + 2$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "5*(x + 2)"
+          },
+          "explain": "$\\mathrm{fg}(x) = \\mathrm{f}(x + 2) = 5(x + 2) = 5x + 10$. The answer $5x + 2$ is $\\mathrm{gf}(x)$."
+        },
+        {
+          "type": "text",
+          "text": "If $\\mathrm{f}$ has an inverse, the two cancel out: $\\mathrm{f}^{-1}\\mathrm{f}(x) = x$ and $\\mathrm{ff}^{-1}(x) = x$, for any $x$ in the domain of the function applied first."
+        },
+        {
+          "type": "check",
+          "id": "check-solve-composite",
+          "prompt": "Given $\\mathrm{f}(x) = 2x + 1$ and $\\mathrm{g}(x) = x - 6$, solve $\\mathrm{fg}(x) = 15$.",
+          "hint": "First write $\\mathrm{fg}(x) = \\mathrm{f}(x - 6)$ as an expression in $x$.",
+          "answer": {
+            "value": 13,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "solve(Eq(2*(x - 6) + 1, 15), x)[0]",
+            "dp": 0
+          },
+          "explain": "$\\mathrm{fg}(x) = 2(x - 6) + 1 = 2x - 11$. Then $2x - 11 = 15$, so $2x = 26$ and $x = 13$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$\\mathrm{f}(a)$ is the output when the input is $a$: replace every $x$ with $(a)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Domain: the inputs allowed. Range: the outputs produced. Leave out of the domain any $x$ that makes a denominator zero or puts a negative number under a square root.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To find $\\mathrm{f}^{-1}(x)$: write $y = \\mathrm{f}(x)$, make $x$ the subject, then replace $y$ with $x$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{gf}(x) = \\mathrm{g}(\\mathrm{f}(x))$: the function next to $x$ acts first.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "When $\\mathrm{f}$ has an inverse, $\\mathrm{f}^{-1}\\mathrm{f}(x) = x$ and $\\mathrm{ff}^{-1}(x) = x$: an inverse undoes its function.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Substituting without brackets. If $\\mathrm{g}(x) = x^2$, then $\\mathrm{g}(3x) = (3x)^2 = 9x^2$, not $3x^2$. Likewise $(-2)^2 = 4$, not $-4$.",
+    "Squaring a bracket term by term. $(x - 5)^2$ is $x^2 - 10x + 25$, not $x^2 + 25$: write it as $(x - 5)(x - 5)$ and find the middle term.",
+    "Dividing only part of the expression when finding an inverse. From $y - 8 = 3x$, divide all of $y - 8$ by $3$, so $\\mathrm{f}^{-1}(x) = \\frac{x - 8}{3}$, not $\\frac{x}{3} - 8$."
+  ],
+  "examTips": [
+    "When asked to **find** $\\mathrm{f}^{-1}(x)$, give the final answer in terms of $x$, as $\\mathrm{f}^{-1}(x) = \\ldots$ A correct rearranging step earns a method mark even if a later slip follows.",
+    "Paper 2 has no calculator, so write each stage of a composite: $\\mathrm{g}(-3) = 6$, then $\\mathrm{f}(6) = -2$. The first stage can earn a mark on its own.",
+    "**Give your answer in its simplest form** means collect like terms and cancel any common factor. In a fraction, factorise first so the common factor shows, as in $\\frac{6}{4x(x + 1)} = \\frac{3}{2x(x + 1)}$."
+  ],
+  "readingMinutes": 19
+}

@@ -159,11 +159,11 @@ describe("notes events", () => {
   it("fires notes_level_switch with the new level only when it changes", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
-    render(<LevelSwitch level="HL" onChange={onChange} />);
+    render(<LevelSwitch level="extension" onChange={onChange} />);
     await user.click(screen.getByRole("button", { name: "HL" }));
     await user.click(screen.getByRole("button", { name: "SL" }));
     expect(track.mock.calls).toEqual([["notes_level_switch", { level: "SL" }]]);
-    expect(onChange).toHaveBeenLastCalledWith("SL");
+    expect(onChange).toHaveBeenLastCalledWith("base");
   });
 });
 

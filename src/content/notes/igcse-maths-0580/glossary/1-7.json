@@ -1,0 +1,26 @@
+[
+  {
+    "id": "index",
+    "term": "index",
+    "definition": "The small raised number in a power, also called the power or exponent, which, when it is a positive whole number, says how many copies of the base to multiply: in $2^{5}$ the index is $5$.",
+    "lesson": "1.7"
+  },
+  {
+    "id": "rules-of-indices",
+    "term": "rules of indices",
+    "definition": "The rules for powers of the same base, also called the laws of indices: $a^{m} \\times a^{n} = a^{m+n}$, $a^{m} \\div a^{n} = a^{m-n}$ and $(a^{m})^{n} = a^{mn}$.",
+    "lesson": "1.7"
+  },
+  {
+    "id": "negative-index",
+    "term": "negative index",
+    "definition": "An index below zero, which means the reciprocal of the positive power: $a^{-n} = \\frac{1}{a^{n}}$ for $a \\ne 0$, so $5^{-2} = \\frac{1}{25}$.",
+    "lesson": "1.7"
+  },
+  {
+    "id": "fractional-index",
+    "term": "fractional index",
+    "definition": "An index that is a fraction, which means a root: for $a > 0$, $a^{\\frac{1}{n}} = \\sqrt[n]{a}$ and $a^{\\frac{m}{n}} = (\\sqrt[n]{a})^{m}$, so $8^{\\frac{1}{3}} = 2$.",
+    "lesson": "1.7"
+  }
+]

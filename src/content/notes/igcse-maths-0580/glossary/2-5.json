@@ -1,0 +1,38 @@
+[
+  {
+    "id": "equation",
+    "term": "equation",
+    "definition": "A statement that two expressions are equal, such as $2x + 3 = 11$; solving it finds the values that make it true.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "linear-equation",
+    "term": "linear equation",
+    "definition": "An equation in which the unknown appears only to the power $1$, such as $4(x - 3) = 2x + 5$.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "simultaneous-equations",
+    "term": "simultaneous equations",
+    "definition": "Two equations with the same unknowns that must both be true at once, so you solve them together.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "subject-of-a-formula",
+    "term": "subject of a formula",
+    "definition": "The letter on its own on one side of a formula, such as $A$ in $A = lw$.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "quadratic-equation",
+    "term": "quadratic equation",
+    "definition": "An equation that can be written as $ax^{2} + bx + c = 0$ with $a \\neq 0$, so $x^{2}$ is the highest power of $x$.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "quadratic-formula",
+    "term": "quadratic formula",
+    "definition": "The formula $x = \\frac{-b \\pm \\sqrt{b^{2} - 4ac}}{2a}$, which gives the solutions of $ax^{2} + bx + c = 0$ when $b^{2} - 4ac \\ge 0$.",
+    "lesson": "2.5"
+  }
+]

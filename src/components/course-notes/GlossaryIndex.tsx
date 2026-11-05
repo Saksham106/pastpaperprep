@@ -1,17 +1,16 @@
 import "katex/dist/katex.min.css";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import itemsJson from "@/data/aa-official-subtopics/items.json";
 import { lessonPath, type Course } from "@/lib/course-notes/course";
 import { renderInlineHtml } from "@/lib/course-notes/render";
 import styles from "./cheatsheet.module.css";
 
-const SYLLABUS_NAMES = new Map((itemsJson.items as { item: string; name: string }[]).map((entry) => [entry.item, entry.name]));
 const byTerm = (a: { term: string }, b: { term: string }) => a.term.localeCompare(b.term, "en", { sensitivity: "base" });
 const letterOf = (term: string) => term.trim().charAt(0).toUpperCase();
 
 export function GlossaryIndex({ course }: { course: Course }) {
   const base = `/revision-notes/${course.slug}`;
+  const syllabusNames = new Map(course.items.items.map((entry) => [entry.item, entry.name]));
   const lessonHref = (item: string) => {
     const lesson = course.lessons.find((entry) => entry.item === item);
     return lesson ? lessonPath(course, lesson) : base;
@@ -21,7 +20,7 @@ export function GlossaryIndex({ course }: { course: Course }) {
   const termsOf = (letter: string) => terms.filter((entry) => letterOf(entry.term) === letter);
   return (
     <div className={`${styles.list} shell`}>
-      <div className={styles.crumbs}><Link href={base}>IB Maths AA notes</Link> › Glossary</div>
+      <div className={styles.crumbs}><Link href={base}>{`${course.name} notes`}</Link> › Glossary</div>
       <h1>Glossary</h1>
       <p className={styles.lede}>Key terms in plain words, with the lesson that teaches each one.</p>
       {terms.length === 0 ? <p className={styles.empty}>No terms yet.</p> : null}
@@ -40,7 +39,7 @@ export function GlossaryIndex({ course }: { course: Course }) {
                   <dd>
                     <span dangerouslySetInnerHTML={{ __html: renderInlineHtml(entry.definition, { lessonHref }) }} />
                     <span className={styles.taught} data-taught>
-                      {lesson ? <>Taught in <Link href={lessonPath(course, lesson)}>{lesson.item} {lesson.title}</Link></> : `Taught in ${entry.lesson} ${SYLLABUS_NAMES.get(entry.lesson) ?? ""}`.trim()}
+                      {lesson ? <>Taught in <Link href={lessonPath(course, lesson)}>{lesson.item} {lesson.title}</Link></> : `Taught in ${entry.lesson} ${syllabusNames.get(entry.lesson) ?? ""}`.trim()}
                     </span>
                   </dd>
                 </div>

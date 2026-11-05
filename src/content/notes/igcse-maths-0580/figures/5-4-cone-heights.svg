@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 200" role="img" aria-labelledby="t">
+  <title id="t">A cone with its apex at the top. A dashed vertical line from the apex to the centre of the base is the perpendicular height h, with a right angle where it meets the base. The radius r runs from the centre of the base to the edge. The sloping side from the apex to the edge of the base is the slant height l. The three lengths make a right-angled triangle.</title>
+  <path d="M40,170 A70,16 0 0 0 180,170" fill="none" stroke="currentColor" stroke-width="2"/>
+  <path d="M40,170 A70,16 0 0 1 180,170" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="110" y1="30" x2="40" y2="170" stroke="currentColor" stroke-width="2"/>
+  <line x1="110" y1="30" x2="180" y2="170" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="110" y1="30" x2="110" y2="170" stroke="var(--t2-ink)" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="110" y1="170" x2="180" y2="170" stroke="var(--t3-ink)" stroke-width="2"/>
+  <polyline points="110,160 120,160 120,170" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="102" y="110" fill="var(--t2-ink)" font-size="15" font-style="italic" text-anchor="end" font-family="inherit">h</text>
+  <text x="145" y="164" fill="var(--t3-ink)" font-size="15" font-style="italic" text-anchor="middle" font-family="inherit">r</text>
+  <text x="155" y="95" fill="var(--t1-ink)" font-size="15" font-style="italic" font-family="inherit">l</text>
+</svg>

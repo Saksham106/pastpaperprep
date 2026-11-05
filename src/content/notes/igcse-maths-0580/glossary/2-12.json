@@ -1,0 +1,26 @@
+[
+  {
+    "id": "differentiation",
+    "term": "differentiation",
+    "definition": "The process of finding a formula for the gradient of a curve from its equation; each term $ax^n$ becomes $nax^{n-1}$.",
+    "lesson": "2.12"
+  },
+  {
+    "id": "derivative",
+    "term": "derivative",
+    "definition": "The result of differentiating, written $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$, which gives the gradient of the curve at any value of $x$.",
+    "lesson": "2.12"
+  },
+  {
+    "id": "gradient-of-a-curve",
+    "term": "gradient of a curve",
+    "definition": "How steep a curve is at one point, equal to the gradient of the tangent drawn at that point.",
+    "lesson": "2.12"
+  },
+  {
+    "id": "stationary-point",
+    "term": "stationary point",
+    "definition": "A point on a curve where the gradient is zero, so $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0$ and the tangent is horizontal; it can be a maximum or a minimum.",
+    "lesson": "2.12"
+  }
+]

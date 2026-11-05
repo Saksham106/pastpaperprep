@@ -1,0 +1,494 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "3.6",
+  "slug": "parallel-lines",
+  "title": "Parallel lines",
+  "level": "Core",
+  "topic": 3,
+  "summary": "[[parallel|Parallel]] lines point the same way, so they have the same [[gradient|gradient]]. To find a line parallel to $y = mx + c$, keep $m$ and work out a new $c$ from a point the line must pass through.",
+  "goals": [
+    {
+      "text": "Explain why [[parallel|parallel]] lines have the same [[gradient|gradient]].",
+      "bullets": [
+        "3.6-c1"
+      ]
+    },
+    {
+      "text": "Write down the gradient, and an equation, of a line parallel to a given line.",
+      "bullets": [
+        "3.6-c1"
+      ]
+    },
+    {
+      "text": "Find the [[equation-of-a-straight-line|equation of a straight line]] that is parallel to a given line and passes through a given point.",
+      "bullets": [
+        "3.6-c1"
+      ]
+    },
+    {
+      "text": "Do the same when the given line is drawn on a grid.",
+      "bullets": [
+        "3.6-c1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.5"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "parallel lines",
+    "equation of a parallel line",
+    "line parallel to y = mx + c",
+    "parallel lines same gradient",
+    "parallel line through a point"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-read-gradient",
+      "prompt": "Write down the gradient of the line $y = 6x + 11$.",
+      "hint": "In $y = mx + c$, the gradient is $m$, the number in front of $x$.",
+      "answer": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "explain": "The equation is already in the form $y = mx + c$, with $m = 6$. Revise it in {{lesson:3.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "diff(6*x + 11, x)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-y-intercept",
+      "prompt": "Where does the line $y = 2x - 7$ cross the $y$-axis?",
+      "hint": "On the $y$-axis, $x = 0$.",
+      "options": [
+        {
+          "text": "$(0, -7)$",
+          "correct": true
+        },
+        {
+          "text": "$(-7, 0)$",
+          "correct": false
+        },
+        {
+          "text": "$(0, 2)$",
+          "correct": false
+        },
+        {
+          "text": "$(0, 7)$",
+          "correct": false
+        }
+      ],
+      "explain": "Put $x = 0$: $y = 2 \\times 0 - 7 = -7$. So the line crosses at $(0, -7)$, and $c = -7$. Revise it in {{lesson:3.5}}.",
+      "verify": {
+        "kind": "point",
+        "truth": "(0, 2*0 - 7)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-substitute",
+      "prompt": "The point $(4, k)$ lies on the line $y = 3x - 7$. Find $k$.",
+      "hint": "Put $x = 4$ into the equation.",
+      "answer": {
+        "value": 5,
+        "tolerance": 0
+      },
+      "explain": "$k = 3 \\times 4 - 7 = 12 - 7 = 5$. A point lies on a line when its coordinates fit the equation. Revise it in {{lesson:3.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3*4 - 7",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "same-gradient",
+      "heading": "Parallel lines have the same gradient",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[parallel|Parallel]] lines are like the two rails of a railway track. They go in exactly the same direction, stay the same distance apart and never meet."
+        },
+        {
+          "type": "text",
+          "text": "Going the same direction means being equally steep, and both sloping uphill or both downhill. The [[gradient|gradient]] measures both, so parallel lines have the same gradient."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-parallel-lines",
+          "alt": "Grid with x from 0 to 8 and y from minus 2 to 8, showing two parallel straight lines. The upper line, y equals one half x plus 3, goes from (0, 3) to (8, 7). The lower line, y equals one half x minus 1, goes from (0, minus 1) to (8, 3). On each line a dashed triangle shows across 2 and up 1: on the upper line from (2, 4) to (4, 5), and on the lower line from (4, 1) to (6, 2). The lines stay the same distance apart and never meet.",
+          "caption": "Both lines go up $1$ for every $2$ across, so both have gradient $\\frac{1}{2}$. They cross the $y$-axis at different places."
+        },
+        {
+          "type": "result",
+          "statement": "Two different straight lines with the same gradient are parallel. Lines with different gradients are not parallel: sooner or later they cross. (Vertical lines, such as $x = 2$ and $x = 5$, have no gradient, but they are parallel too.)",
+          "why": "The gradient says how far a line goes up for each $1$ across. Two lines with the same gradient rise by the same amount at every step, so the gap between them never changes."
+        },
+        {
+          "type": "text",
+          "text": "In the [[equation-of-a-straight-line|equation of a straight line]] $y = mx + c$, the gradient is $m$ and the line crosses the $y$-axis at $(0, c)$. So $y = \\frac{1}{2}x + 3$ and $y = \\frac{1}{2}x - 1$ are parallel: same $m$, different $c$."
+        },
+        {
+          "type": "text",
+          "text": "If $m$ and $c$ are both the same, the equations describe the same line, not two parallel lines. A line parallel to $y = mx + c$ has the same $m$ and a different $c$."
+        },
+        {
+          "type": "example",
+          "id": "ex-gradient-parallel",
+          "question": "Write down the gradient of any line parallel to $y = 9 - 4x$.",
+          "steps": [
+            "The equation starts with the number, not the $x$ term. Reorder it: $y = -4x + 9$.",
+            "The gradient is the number in front of $x$, including its sign: $m = -4$.",
+            "Every line parallel to it has the same gradient, $-4$."
+          ],
+          "answer": "$\\text{gradient} = -4$",
+          "verify": {
+            "kind": "exact",
+            "truth": "diff(9 - 4*x, x)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "If you also know where the new line crosses the $y$-axis, you know its $c$. For example, crossing at $(0, -8)$ means $c = -8$."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-y-axis",
+          "question": "Line $A$ has equation $y = 6x + 1$. Line $B$ is parallel to line $A$ and crosses the $y$-axis at $(0, -8)$. Write down the equation of line $B$.",
+          "steps": [
+            "Line $A$ has gradient $6$. Line $B$ is parallel, so its gradient is also $6$: $y = 6x + c$.",
+            "Line $B$ crosses the $y$-axis at $(0, -8)$, so $c = -8$.",
+            "Put the two together: $y = 6x - 8$."
+          ],
+          "answer": "$y = 6x - 8$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, diff(6*x + 1, x)*x + (-8))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Copying the given line when a question asks for a parallel line. The same equation is the same line. Keep the gradient and change $c$."
+        },
+        {
+          "type": "check",
+          "id": "check-which-parallel",
+          "prompt": "Which of these lines is parallel to $y = 4 - 3x$?",
+          "hint": "Reorder it as $y = -3x + 4$. Which option has the same number in front of $x$?",
+          "options": [
+            {
+              "text": "$y = -3x + 8$",
+              "correct": true
+            },
+            {
+              "text": "$y = 3x + 4$",
+              "correct": false
+            },
+            {
+              "text": "$y = 4x - 3$",
+              "correct": false
+            },
+            {
+              "text": "$y = -\\frac{1}{3}x + 4$",
+              "correct": false
+            }
+          ],
+          "explain": "$y = 4 - 3x$ has gradient $-3$. Only $y = -3x + 8$ also has gradient $-3$. The value of $c$ doesn't matter for being parallel.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, diff(4 - 3*x, x)*x + 8)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gradient-fraction",
+          "prompt": "A line is parallel to $y = \\frac{2}{5}x - 7$. What is its gradient?",
+          "hint": "Only the number in front of $x$ tells you the gradient.",
+          "options": [
+            {
+              "text": "$\\frac{2}{5}$",
+              "correct": true
+            },
+            {
+              "text": "$-7$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{5}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{2}{5}$",
+              "correct": false
+            }
+          ],
+          "explain": "The number in front of $x$ is $\\frac{2}{5}$, so every parallel line has gradient $\\frac{2}{5}$. The $-7$ is $c$, which says where the line crosses the $y$-axis.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "diff(Rational(2, 5)*x - 7, x)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "through-a-point",
+      "heading": "A parallel line through a given point",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "There are lots of lines parallel to a given line. Saying which point the new line passes through picks out just one of them. Its gradient comes from the given line. Its $c$ comes from the point."
+        },
+        {
+          "type": "text",
+          "text": "1. Write down the [[gradient|gradient]] $m$ of the given line."
+        },
+        {
+          "type": "text",
+          "text": "2. Write the new line as $y = mx + c$, using that same $m$."
+        },
+        {
+          "type": "text",
+          "text": "3. Substitute the point: its $x$-coordinate for $x$ and its $y$-coordinate for $y$."
+        },
+        {
+          "type": "text",
+          "text": "4. Solve for $c$. Write the [[equation-of-a-straight-line|equation]], then check the point fits it."
+        },
+        {
+          "type": "example",
+          "id": "ex-through-point",
+          "question": "Line $L$ has equation $y = 5x - 4$. A second line is parallel to $L$ and goes through $(3, 8)$. Work out its equation.",
+          "steps": [
+            "Line $L$ has gradient $5$, so the new line is $y = 5x + c$. Only $c$ is unknown.",
+            "The new line passes through $(3, 8)$. Put $x = 3$ and $y = 8$ into it: $8 = 5 \\times 3 + c$.",
+            "Work out the multiplication: $8 = 15 + c$.",
+            "Subtract $15$ from both sides: $c = -7$.",
+            "So the line is $y = 5x - 7$. Check: $5 \\times 3 - 7 = 8$, so $(3, 8)$ is on it."
+          ],
+          "answer": "$y = 5x - 7$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, 5*x + solve(Eq(8, 5*3 + c), c)[0])"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Keeping the old $c$, here $-4$. That gives line $L$ again, which doesn't pass through $(3, 8)$. Always work out a new $c$ from the point."
+        },
+        {
+          "type": "example",
+          "id": "ex-through-point-fraction",
+          "question": "A line is parallel to $y = \\frac{2}{3}x + 1$ and passes through $(-3, 5)$. Find its equation. Give it in the form $y = mx + c$.",
+          "steps": [
+            "The gradient is $\\frac{2}{3}$, so the line is $y = \\frac{2}{3}x + c$.",
+            "Substitute $x = -3$ and $y = 5$. Put the negative number in brackets: $5 = \\frac{2}{3} \\times (-3) + c$.",
+            "$\\frac{2}{3} \\times (-3) = \\frac{-6}{3} = -2$, so $5 = -2 + c$.",
+            "Add $2$ to both sides: $c = 7$.",
+            "So the line is $y = \\frac{2}{3}x + 7$. Check: $\\frac{2}{3} \\times (-3) + 7 = -2 + 7 = 5$."
+          ],
+          "answer": "$y = \\frac{2}{3}x + 7$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, Rational(2, 3)*x + solve(Eq(5, Rational(2, 3)*(-3) + c), c)[0])"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-find-c",
+          "prompt": "Line $M$ is parallel to $y = 4x - 9$ and passes through $(-2, 1)$. Its equation is $y = 4x + c$. Find $c$.",
+          "hint": "Put $x = -2$ and $y = 1$ into $y = 4x + c$.",
+          "answer": {
+            "value": 9,
+            "tolerance": 0
+          },
+          "explain": "$1 = 4 \\times (-2) + c = -8 + c$, so $c = 9$. Line $M$ is $y = 4x + 9$. Check: $4 \\times (-2) + 9 = 1$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "solve(Eq(1, 4*(-2) + c), c)[0]",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "Sometimes the given line is drawn on a grid instead. Find its gradient from the grid first, by dividing up by across, as in {{lesson:3.3}}. Then use the same four steps."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-line-l",
+          "alt": "Grid with x from 0 to 8 and y from minus 3 to 5. A straight line L rises from left to right. It passes through the grid corners (0, minus 2), (4, 1) and (8, 4)."
+        },
+        {
+          "type": "check",
+          "id": "check-grid-parallel",
+          "prompt": "Line $L$ is drawn on the grid. A second line is parallel to $L$ and goes through $(8, 1)$. Which is its equation?",
+          "hint": "From $(0, -2)$ to $(4, 1)$, line $L$ goes across $4$ and up $3$.",
+          "options": [
+            {
+              "text": "$y = \\frac{3}{4}x - 5$",
+              "correct": true
+            },
+            {
+              "text": "$y = \\frac{3}{4}x - 2$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\frac{3}{4}x + 7$",
+              "correct": false
+            },
+            {
+              "text": "$y = -\\frac{3}{4}x + 7$",
+              "correct": false
+            }
+          ],
+          "explain": "The gradient of $L$ is $\\frac{3}{4}$. Substitute $(8, 1)$: $1 = \\frac{3}{4} \\times 8 + c = 6 + c$, so $c = -5$. The answer $y = \\frac{3}{4}x - 2$ is line $L$ itself.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, Rational(1 - (-2), 4 - 0)*x + solve(Eq(1, Rational(1 - (-2), 4 - 0)*8 + c), c)[0])"
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "Extended also asks for lines perpendicular to a given line, which meet it at right angles.",
+          "lesson": "3.7"
+        }
+      ]
+    },
+    {
+      "id": "other-forms",
+      "heading": "When the given line isn't in the form y = mx + c",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On Extended papers the given line may be written another way, such as $2x + 5y = 7$. Or you may only know two points on it. Find its [[gradient|gradient]] first, then use the same four steps."
+        },
+        {
+          "type": "text",
+          "text": "To read the gradient from an equation like $2x + 5y = 7$, make $y$ the subject, as in {{lesson:3.5}}. For two points, divide the change in $y$ by the change in $x$, as in {{lesson:3.3}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-general-form",
+          "question": "Find the equation of the line through $(5, -4)$ that is parallel to $2x + 5y = 7$. Give your answer in the form $y = mx + c$.",
+          "steps": [
+            "Make $y$ the subject of $2x + 5y = 7$. Subtract $2x$ from both sides: $5y = -2x + 7$.",
+            "Divide every term by $5$: $y = -\\frac{2}{5}x + \\frac{7}{5}$. The gradient is $-\\frac{2}{5}$.",
+            "The new line is $y = -\\frac{2}{5}x + c$. Substitute $(5, -4)$: $-4 = -\\frac{2}{5} \\times 5 + c$.",
+            "$-\\frac{2}{5} \\times 5 = -2$, so $-4 = -2 + c$ and $c = -2$.",
+            "So the line is $y = -\\frac{2}{5}x - 2$. Check: $-\\frac{2}{5} \\times 5 - 2 = -4$."
+          ],
+          "answer": "$y = -\\frac{2}{5}x - 2$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, solve(Eq(2*x + 5*y, 7), y)[0].coeff(x)*x + solve(Eq(-4, solve(Eq(2*x + 5*y, 7), y)[0].coeff(x)*5 + c), c)[0])"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Taking the gradient of $2x + 5y = 7$ to be $2$. The number in front of $x$ is the gradient only once the equation starts $y = \\ldots$, so rearrange first."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-two-points",
+          "question": "$A$ is the point $(-1, 6)$ and $B$ is the point $(3, -2)$. Find the equation of the line through $(2, 5)$ that is parallel to $AB$.",
+          "steps": [
+            "Gradient of $AB$: $\\dfrac{-2 - 6}{3 - (-1)} = \\dfrac{-8}{4} = -2$.",
+            "The new line is $y = -2x + c$. Substitute $(2, 5)$: $5 = -2 \\times 2 + c$.",
+            "So $5 = -4 + c$. Add $4$ to both sides: $c = 9$.",
+            "The line is $y = -2x + 9$. Check: $-2 \\times 2 + 9 = 5$."
+          ],
+          "answer": "$y = -2x + 9$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, Rational(-2 - 6, 3 - (-1))*x + solve(Eq(5, Rational(-2 - 6, 3 - (-1))*2 + c), c)[0])"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-rearrange",
+          "prompt": "Find the equation of the line through $(2, -3)$ that is parallel to $3x - y = 5$.",
+          "hint": "Make $y$ the subject of $3x - y = 5$ first. Watch the sign in front of $y$.",
+          "options": [
+            {
+              "text": "$y = 3x - 9$",
+              "correct": true
+            },
+            {
+              "text": "$y = -3x + 3$",
+              "correct": false
+            },
+            {
+              "text": "$y = 3x + 3$",
+              "correct": false
+            },
+            {
+              "text": "$y = 3x - 5$",
+              "correct": false
+            }
+          ],
+          "explain": "$3x - y = 5$ rearranges to $y = 3x - 5$, so the gradient is $3$. Then $-3 = 3 \\times 2 + c = 6 + c$, so $c = -9$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, solve(Eq(3*x - y, 5), y)[0].coeff(x)*x + solve(Eq(-3, solve(Eq(3*x - y, 5), y)[0].coeff(x)*2 + c), c)[0])"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Parallel lines have the same gradient (vertical lines have none). In $y = mx + c$, a parallel line keeps $m$ and has a different $c$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Parallel line through a point: write $y = mx + c$ with the same $m$, substitute the point, solve for $c$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Read the gradient only once the equation starts $y = \\ldots$: $y = 9 - 4x$ has gradient $-4$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Keeping the given line's $c$. The new line passes through a different point, so substitute that point and work out $c$ again.",
+    "Writing the given line itself when asked for a parallel line. A parallel line has the same gradient but a different $c$.",
+    "Taking the first number in the equation as the gradient. In $y = 9 - 4x$ the gradient is $-4$, the number in front of $x$.",
+    "Losing a minus sign when substituting a negative coordinate. Put it in brackets: $\\frac{2}{3} \\times (-3) = -2$.",
+    "Reading the gradient from a grid as across divided by up. The gradient is up divided by across, and negative if the line goes downhill."
+  ],
+  "examTips": [
+    "“Write down” a parallel line: any equation with the same gradient and a different $c$ earns the mark. No working is needed.",
+    "“Find” a parallel line through a given point: show the line where you substitute the point, such as $8 = 5 \\times 3 + c$. That line can earn a method mark even if your arithmetic slips.",
+    "When asked for the form $y = mx + c$, give $m$ and $c$ as numbers, using exact fractions such as $\\frac{2}{3}$ rather than rounded decimals.",
+    "Before you move on, substitute the point into your final equation. If it doesn't fit, look again at your value of $c$."
+  ],
+  "readingMinutes": 16
+}

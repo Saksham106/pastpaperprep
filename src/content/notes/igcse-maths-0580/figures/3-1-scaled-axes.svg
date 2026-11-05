@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" role="img" aria-labelledby="t">
+  <title id="t">Grid with small squares. The x-axis is labelled 0, 1, 2, 3, 4, 5, 6, with two small squares between labels. The y-axis is labelled 0, 10, 20, 30, 40, 50, with two small squares between labels. Point Q is 5 squares right of the origin and 7 squares up. Point S is 11 squares right and 3 squares up.</title>
+  <g stroke="var(--muted)" stroke-width="0.75" opacity="0.6">
+    <line x1="50" y1="300" x2="50" y2="40"/>
+    <line x1="76" y1="300" x2="76" y2="40"/>
+    <line x1="102" y1="300" x2="102" y2="40"/>
+    <line x1="128" y1="300" x2="128" y2="40"/>
+    <line x1="154" y1="300" x2="154" y2="40"/>
+    <line x1="180" y1="300" x2="180" y2="40"/>
+    <line x1="206" y1="300" x2="206" y2="40"/>
+    <line x1="232" y1="300" x2="232" y2="40"/>
+    <line x1="258" y1="300" x2="258" y2="40"/>
+    <line x1="284" y1="300" x2="284" y2="40"/>
+    <line x1="310" y1="300" x2="310" y2="40"/>
+    <line x1="336" y1="300" x2="336" y2="40"/>
+    <line x1="362" y1="300" x2="362" y2="40"/>
+    <line x1="50" y1="300" x2="362" y2="300"/>
+    <line x1="50" y1="274" x2="362" y2="274"/>
+    <line x1="50" y1="248" x2="362" y2="248"/>
+    <line x1="50" y1="222" x2="362" y2="222"/>
+    <line x1="50" y1="196" x2="362" y2="196"/>
+    <line x1="50" y1="170" x2="362" y2="170"/>
+    <line x1="50" y1="144" x2="362" y2="144"/>
+    <line x1="50" y1="118" x2="362" y2="118"/>
+    <line x1="50" y1="92" x2="362" y2="92"/>
+    <line x1="50" y1="66" x2="362" y2="66"/>
+    <line x1="50" y1="40" x2="362" y2="40"/>
+  </g>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="50" y1="300" x2="376" y2="300"/>
+    <line x1="50" y1="300" x2="50" y2="26"/>
+  </g>
+  <path d="M376 300 l-8 -4 v8 z M50 26 l-4 8 h8 z" fill="currentColor"/>
+  <g font-family="inherit" font-size="13" fill="currentColor" text-anchor="middle">
+    <text x="50" y="318">0</text>
+    <text x="102" y="318">1</text>
+    <text x="154" y="318">2</text>
+    <text x="206" y="318">3</text>
+    <text x="258" y="318">4</text>
+    <text x="310" y="318">5</text>
+    <text x="362" y="318">6</text>
+    <text x="34" y="252.0">10</text>
+    <text x="34" y="200.0">20</text>
+    <text x="34" y="148.0">30</text>
+    <text x="34" y="96.0">40</text>
+    <text x="34" y="44.0">50</text>
+  </g>
+  <g font-family="inherit" font-size="15" font-style="italic" fill="currentColor"><text x="372" y="292">x</text><text x="58" y="32">y</text></g>
+  <path d="M174.0 112.0 L186.0 124.0 M174.0 124.0 L186.0 112.0" stroke="var(--t2-ink)" stroke-width="2.5" fill="none"/>
+  <path d="M330.0 216.0 L342.0 228.0 M330.0 228.0 L342.0 216.0" stroke="var(--t2-ink)" stroke-width="2.5" fill="none"/>
+  <g font-family="inherit" font-size="16" font-weight="bold" fill="var(--t2-ink)">
+    <text x="188.0" y="110.0">Q</text>
+    <text x="344.0" y="214.0">S</text>
+  </g>
+</svg>

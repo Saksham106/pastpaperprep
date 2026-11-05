@@ -1,0 +1,764 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "6.2",
+  "slug": "right-angled-triangles",
+  "title": "Right-angled triangles",
+  "level": "Core",
+  "topic": 6,
+  "summary": "In a right-angled triangle, [[sine|sine]], [[cosine|cosine]] and [[tangent-ratio|tangent]] link an angle to the ratio of two sides. Pick the ratio that uses the side you know and the side you want, then solve. With [[pythagoras-theorem|Pythagoras' theorem]], they find any missing side or angle.",
+  "goals": [
+    {
+      "text": "Label the [[hypotenuse|hypotenuse]], [[opposite-side|opposite]] and [[adjacent-side|adjacent]] sides from an angle, and write a ratio as a fraction.",
+      "bullets": [
+        "6.2-c1"
+      ]
+    },
+    {
+      "text": "Work out a missing side with $\\sin$, $\\cos$ or $\\tan$.",
+      "bullets": [
+        "6.2-c1"
+      ]
+    },
+    {
+      "text": "Work out a missing angle to 1 decimal place.",
+      "bullets": [
+        "6.2-c1"
+      ]
+    },
+    {
+      "text": "Solve problems in two dimensions with Pythagoras and trigonometry, including [[bearing|bearings]].",
+      "bullets": [
+        "6.2-c2"
+      ]
+    },
+    {
+      "text": "Use angles of [[angle-of-elevation|elevation]] and depression.",
+      "bullets": [
+        "6.2-s2"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Know that the perpendicular distance from a point to a line is the shortest.",
+      "bullets": [
+        "6.2-s1"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "4.3",
+    "6.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "SOH CAH TOA",
+    "trigonometry right angled triangle",
+    "find a missing side with sin cos tan",
+    "find an angle with inverse tan",
+    "angle of elevation and depression",
+    "shortest distance from a point to a line"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-hypotenuse",
+      "prompt": "A right-angled triangle has shorter sides $9$ cm and $12$ cm. Work out the longest side, in cm.",
+      "hint": "Square both, add, then square root.",
+      "answer": {
+        "value": 15,
+        "tolerance": 0
+      },
+      "explain": "$9^{2} + 12^{2} = 225$ and $\\sqrt{225} = 15$. Revise it in {{lesson:6.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "sqrt(9**2 + 12**2)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-back-bearing",
+      "prompt": "The bearing of Q from P is $115^{\\circ}$. Work out the bearing of P from Q, in degrees.",
+      "hint": "Turning back is a half turn.",
+      "answer": {
+        "value": 295,
+        "tolerance": 0
+      },
+      "explain": "$115 + 180 = 295$, so $295^{\\circ}$. Revise it in {{lesson:4.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "115 + 180",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "ratios",
+      "heading": "Sine, cosine and tangent",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Right-angled triangles with the same acute angle are the same shape, whatever their size. With a $30^{\\circ}$ angle, for example, the side across from it is always half the longest side. So for a fixed angle, the ratio of two sides never changes."
+        },
+        {
+          "type": "text",
+          "text": "Name the sides from the angle you are using, called $\\theta$ (theta)."
+        },
+        {
+          "type": "figure",
+          "id": "6-2-side-names",
+          "alt": "A right-angled triangle ABC with the right angle at C. The marked angle theta is at A. The hypotenuse AB is opposite the right angle. The opposite side BC is across from theta. The adjacent side AC runs from A to the right angle."
+        },
+        {
+          "type": "text",
+          "text": "The [[hypotenuse|hypotenuse]] is across from the right angle. The [[opposite-side|opposite side]] is across from $\\theta$. The [[adjacent-side|adjacent side]] touches $\\theta$ and is not the hypotenuse."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin\\theta = \\frac{\\text{opposite}}{\\text{hypotenuse}} \\qquad \\cos\\theta = \\frac{\\text{adjacent}}{\\text{hypotenuse}} \\qquad \\tan\\theta = \\frac{\\text{opposite}}{\\text{adjacent}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "These are the [[sine|sine]], [[cosine|cosine]] and [[tangent-ratio|tangent]] of $\\theta$. They are not on the formula list, so learn them: SOH CAH TOA."
+        },
+        {
+          "type": "example",
+          "id": "ex-write-cos",
+          "question": "Triangle KLM has a right angle at L. $KL = 20$ cm, $LM = 21$ cm and $KM = 29$ cm. Write $\\cos M$ as a fraction.",
+          "steps": [
+            "The hypotenuse is across from the right angle: $KM = 29$.",
+            "$LM = 21$ touches M and is not the hypotenuse, so it is adjacent.",
+            "$\\cos M = \\dfrac{\\text{adjacent}}{\\text{hypotenuse}} = \\dfrac{21}{29}$."
+          ],
+          "answer": "$\\cos M = \\frac{21}{29}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(21, 29)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-tan-k",
+          "prompt": "In the same triangle KLM, what is $\\tan K$?",
+          "hint": "Stand at K. Which side is across from you?",
+          "options": [
+            {
+              "text": "$\\frac{21}{20}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{20}{21}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{21}{29}$",
+              "correct": false
+            }
+          ],
+          "explain": "From K, $LM = 21$ is opposite and $KL = 20$ is adjacent. $\\frac{20}{21}$ is $\\tan M$: the sides swap when the angle moves.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(21, 20)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-exact-sine",
+          "question": "Triangle ABC has a right angle at B. $AB = 8$ cm, $BC = 15$ cm and angle $ACB = \\theta$. Without a calculator, find $\\sin\\theta$.",
+          "steps": [
+            "Find the hypotenuse with [[pythagoras-theorem|Pythagoras]]: $AC^{2} = 8^{2} + 15^{2} = 289$, so $AC = 17$.",
+            "From C, the opposite side is $AB = 8$.",
+            "$\\sin\\theta = \\dfrac{8}{17}$."
+          ],
+          "answer": "$\\sin\\theta = \\frac{8}{17}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "8/sqrt(8**2 + 15**2)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cos-r",
+          "prompt": "Triangle PQR has a right angle at Q. $PQ = 9$ cm, $QR = 40$ cm and $PR = 41$ cm. What is $\\cos R$?",
+          "hint": "Which side touches R but is not the longest?",
+          "options": [
+            {
+              "text": "$\\frac{40}{41}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{9}{41}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{9}{40}$",
+              "correct": false
+            }
+          ],
+          "explain": "$QR = 40$ touches R, and $PR = 41$ is longest, so $\\cos R = \\frac{40}{41}$. $\\frac{9}{41}$ is $\\sin R$.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(40, 41)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Labelling the sides before choosing the angle. Opposite and adjacent swap at the other angle."
+        }
+      ]
+    },
+    {
+      "id": "sides",
+      "heading": "Finding a missing side",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "1. Label the side you know and the side you want, from the given angle."
+        },
+        {
+          "type": "text",
+          "text": "2. Choose the ratio that uses those two sides, and write the equation."
+        },
+        {
+          "type": "text",
+          "text": "3. Unknown on top of the fraction: multiply. Unknown on the bottom: divide. Set your calculator to degrees before you start."
+        },
+        {
+          "type": "example",
+          "id": "ex-side-top",
+          "question": "A right-angled triangle has hypotenuse $15$ cm. Side $x$ is opposite an angle of $40^{\\circ}$. Work out $x$.",
+          "steps": [
+            "Hypotenuse and opposite, so use $\\sin$: $\\sin 40^{\\circ} = \\dfrac{x}{15}$.",
+            "Multiply by $15$: $x = 15\\sin 40^{\\circ} = 9.6418\\ldots$",
+            "$x = 9.64$ cm to 3 s.f., shorter than the hypotenuse as it must be."
+          ],
+          "answer": "$x \\approx 9.64\\text{ cm}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "15*sin(40*pi/180)",
+            "sf": 3,
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "trig",
+          "values": {
+            "angle": 40
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-side-bottom",
+          "question": "The side adjacent to a $52^{\\circ}$ angle in a right-angled triangle is $6.5$ m. Work out the hypotenuse, $h$.",
+          "steps": [
+            "Adjacent and hypotenuse, so use $\\cos$: $\\cos 52^{\\circ} = \\dfrac{6.5}{h}$.",
+            "Multiply by $h$: $h\\cos 52^{\\circ} = 6.5$. Divide: $h = \\dfrac{6.5}{\\cos 52^{\\circ}} = 10.557\\ldots$",
+            "$h = 10.6$ m to 3 s.f. It is longer than $6.5$, as a hypotenuse must be."
+          ],
+          "answer": "$h \\approx 10.6\\text{ m}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "6.5/cos(52*pi/180)",
+            "sf": 3,
+            "unit": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-side-tan",
+          "prompt": "The side adjacent to a $23^{\\circ}$ angle is $14$ cm. Work out the side opposite it, in cm, to 3 s.f.",
+          "hint": "Which ratio uses opposite and adjacent?",
+          "answer": {
+            "value": 5.94,
+            "tolerance": 0.005
+          },
+          "explain": "$x = 14\\tan 23^{\\circ} = 5.942\\ldots \\approx 5.94$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "14*tan(23*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-side-divide",
+          "prompt": "The side opposite a $58^{\\circ}$ angle is $7.4$ cm. Work out the hypotenuse.",
+          "hint": "In $\\sin 58^{\\circ} = \\frac{7.4}{h}$, is $h$ on top or bottom?",
+          "options": [
+            {
+              "text": "$h \\approx 8.73\\text{ cm}$",
+              "correct": true
+            },
+            {
+              "text": "$h \\approx 6.28\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$h \\approx 14.0\\text{ cm}$",
+              "correct": false
+            }
+          ],
+          "explain": "$h = \\frac{7.4}{\\sin 58^{\\circ}} = 8.725\\ldots \\approx 8.73$ cm. $6.28$ comes from multiplying: shorter than $7.4$, so impossible. $14.0$ uses $\\cos$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "7.4/sin(58*pi/180)",
+            "sf": 3,
+            "unit": "cm"
+          }
+        }
+      ]
+    },
+    {
+      "id": "angles",
+      "heading": "Finding a missing angle",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Knowing two sides gives you the ratio. $\\sin^{-1}$ means \"the angle whose sine is\", so it takes you back to the angle. $\\cos^{-1}$ and $\\tan^{-1}$ work the same way."
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-sine",
+          "question": "A right-angled triangle has hypotenuse $9$ cm. The side opposite angle $\\theta$ is $5$ cm. Work out $\\theta$.",
+          "steps": [
+            "Opposite and hypotenuse: $\\sin\\theta = \\dfrac{5}{9}$.",
+            "$\\theta = \\sin^{-1}\\left(\\dfrac{5}{9}\\right) = 33.748\\ldots^{\\circ}$.",
+            "Give angles to 1 d.p.: $\\theta = 33.7^{\\circ}$."
+          ],
+          "answer": "$\\theta \\approx 33.7^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "asin(Rational(5, 9))*180/pi"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "inverse-trig",
+          "values": {
+            "ratio": "5/9"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-ramp",
+          "question": "A ramp rises $0.9$ m over a horizontal distance of $4.8$ m. Work out the angle between the ramp and the ground.",
+          "steps": [
+            "The rise is opposite the angle and the horizontal distance is adjacent.",
+            "$\\tan\\theta = \\dfrac{0.9}{4.8}$, so $\\theta = \\tan^{-1}\\left(\\dfrac{0.9}{4.8}\\right) = 10.619\\ldots^{\\circ}$.",
+            "$\\theta = 10.6^{\\circ}$. A gentle ramp has a small angle, so this fits."
+          ],
+          "answer": "$\\theta \\approx 10.6^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "atan(0.9/4.8)*180/pi"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-angle-cos",
+          "prompt": "The hypotenuse is $16$ cm and the side adjacent to $\\theta$ is $11.3$ cm. Work out $\\theta$ in degrees, to 1 d.p.",
+          "hint": "Adjacent and hypotenuse: $\\cos^{-1}$.",
+          "answer": {
+            "value": 45.1,
+            "tolerance": 0.05
+          },
+          "explain": "$\\theta = \\cos^{-1}\\left(\\frac{11.3}{16}\\right) = 45.069\\ldots \\approx 45.1^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "acos(11.3/16)*180/pi",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-angle-tan",
+          "prompt": "The side opposite $\\theta$ is $13$ cm and the side adjacent to it is $6$ cm. Work out $\\theta$.",
+          "hint": "Which side goes on top for $\\tan$?",
+          "options": [
+            {
+              "text": "$\\theta \\approx 65.2^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\theta \\approx 24.8^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 62.5^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\theta = \\tan^{-1}\\left(\\frac{13}{6}\\right) = 65.22\\ldots^{\\circ}$. $24.8^{\\circ}$ uses the fraction upside down, and $62.5^{\\circ}$ treats $13$ as the hypotenuse.",
+          "verify": {
+            "kind": "angle",
+            "truth": "atan(Rational(13, 6))*180/pi"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving the calculator in radians: $\\sin^{-1}\\left(\\frac{5}{9}\\right)$ then shows $0.589$. Check for D or DEG first."
+        }
+      ]
+    },
+    {
+      "id": "problems",
+      "heading": "Problems in two dimensions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Look for right angles, then solve one right-angled triangle at a time. Two sides known and the third side wanted: Pythagoras. An angle given or wanted: trigonometry."
+        },
+        {
+          "type": "figure",
+          "id": "6-2-two-triangles",
+          "alt": "Triangle ABC with base AC along the bottom. D is a point on AC, and the line BD goes straight up from D to B, at right angles to AC. AB is 10 centimetres, the angle at A is 35 degrees, and DC is 4.5 centimetres."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-triangles",
+          "question": "In the figure, BD is at right angles to AC. $AB = 10$ cm, angle $BAD = 35^{\\circ}$ and $DC = 4.5$ cm. Work out BC.",
+          "steps": [
+            "In triangle ABD, BD is opposite $35^{\\circ}$: $BD = 10\\sin 35^{\\circ} = 5.7357\\ldots$ Keep every digit.",
+            "In triangle BDC, use Pythagoras: $BC^{2} = BD^{2} + 4.5^{2} = 53.149\\ldots$",
+            "$BC = 7.290\\ldots$, so $BC = 7.29$ cm to 3 s.f."
+          ],
+          "answer": "$BC \\approx 7.29\\text{ cm}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt((10*sin(35*pi/180))**2 + 4.5**2)",
+            "sf": 3,
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "With [[bearing|bearings]], north and east meet at $90^{\\circ}$, so a right angle is always there to draw."
+        },
+        {
+          "type": "example",
+          "id": "ex-bearing-east",
+          "question": "A boat sails $23$ km from harbour H on a bearing of $062^{\\circ}$. How far east of H is it?",
+          "steps": [
+            "Draw the north line at H and the boat's path, $62^{\\circ}$ from it.",
+            "From the boat, draw a line across to the north line at right angles. Its length is the distance east, opposite the $62^{\\circ}$.",
+            "The path is the hypotenuse, so distance east $= 23\\sin 62^{\\circ} = 20.307\\ldots$"
+          ],
+          "answer": "$\\text{distance east} \\approx 20.3\\text{ km}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "23*sin(62*pi/180)",
+            "sf": 3,
+            "unit": "km"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-rectangle-diagonal",
+          "prompt": "A rectangle is $12$ cm by $7$ cm. Work out the angle between a diagonal and a longer side, in degrees, to 1 d.p.",
+          "hint": "The diagonal makes two right-angled triangles.",
+          "answer": {
+            "value": 30.3,
+            "tolerance": 0.05
+          },
+          "explain": "$7$ is opposite and $12$ adjacent: $\\tan^{-1}\\left(\\frac{7}{12}\\right) = 30.25\\ldots \\approx 30.3^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "atan(Rational(7, 12))*180/pi",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-walk-bearing",
+          "prompt": "Ana walks $5$ km due north, then $3$ km due east. What is her bearing from her start?",
+          "hint": "The angle is at the start, between north and Ana.",
+          "options": [
+            {
+              "text": "$\\text{bearing} \\approx 031.0^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\text{bearing} \\approx 059.0^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\text{bearing} \\approx 211.0^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\tan^{-1}\\left(\\frac{3}{5}\\right) = 30.96\\ldots^{\\circ}$. $059.0^{\\circ}$ uses $\\frac{5}{3}$, and $211.0^{\\circ}$ is the bearing back.",
+          "verify": {
+            "kind": "bearing",
+            "truth": "atan(Rational(3, 5))*180/pi",
+            "dp": 1
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Keep full values between steps and round only at the end. Rounding $BD$ to $5.7$ gives $BC = 7.26$, which loses the accuracy mark."
+        }
+      ]
+    },
+    {
+      "id": "elevation",
+      "heading": "Angles of elevation and depression",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Looking up, the angle from the horizontal to your line of sight is the [[angle-of-elevation|angle of elevation]]. Looking down, it is the angle of depression."
+        },
+        {
+          "type": "figure",
+          "id": "6-2-elevation-depression",
+          "alt": "A vertical cliff on the left with its top at T and its foot at F. A boat B sits on the sea level line to the right of F. A dashed horizontal line goes right from T. The angle of depression is marked at T, between the horizontal line and the line of sight down to B. The angle of elevation is marked at B, between the sea level line and the line of sight up to T. The two angles are equal."
+        },
+        {
+          "type": "text",
+          "text": "The horizontals are parallel, so the two angles are equal [[alternate-angles|alternate angles]]. Put the angle inside the triangle, at B."
+        },
+        {
+          "type": "example",
+          "id": "ex-elevation-tower",
+          "question": "From level ground $40$ m from the foot of a tower, the angle of elevation of the top is $28^{\\circ}$. Work out the height of the tower.",
+          "steps": [
+            "The tower meets the ground at a right angle.",
+            "Height $h$ is opposite $28^{\\circ}$ and $40$ is adjacent: $\\tan 28^{\\circ} = \\dfrac{h}{40}$.",
+            "$h = 40\\tan 28^{\\circ} = 21.268\\ldots$"
+          ],
+          "answer": "$h \\approx 21.3\\text{ m}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "40*tan(28*pi/180)",
+            "sf": 3,
+            "unit": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-depression-cliff",
+          "question": "From the top of a $65$ m cliff, the angle of depression of a boat is $14^{\\circ}$. Work out the distance $d$ from the foot of the cliff to the boat.",
+          "steps": [
+            "The angle of elevation at the boat is also $14^{\\circ}$.",
+            "From the boat, the cliff is opposite and $d$ adjacent: $\\tan 14^{\\circ} = \\dfrac{65}{d}$.",
+            "$d$ is on the bottom, so $d = \\dfrac{65}{\\tan 14^{\\circ}} = 260.70\\ldots$"
+          ],
+          "answer": "$d \\approx 261\\text{ m}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "65/tan(14*pi/180)",
+            "sf": 3,
+            "unit": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-sun-elevation",
+          "prompt": "A $9$ m flagpole casts a $13.5$ m shadow on level ground. Work out the angle of elevation of the sun, in degrees, to 1 d.p.",
+          "hint": "Stand at the end of the shadow and look up.",
+          "answer": {
+            "value": 33.7,
+            "tolerance": 0.05
+          },
+          "explain": "$\\tan^{-1}\\left(\\frac{9}{13.5}\\right) = 33.69\\ldots \\approx 33.7^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "atan(9/13.5)*180/pi",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-depression-car",
+          "prompt": "From the top of a $30$ m building, the angle of depression of a car is $24^{\\circ}$. How far is the car from the foot of the building?",
+          "hint": "Move the angle down to the car.",
+          "options": [
+            {
+              "text": "$d \\approx 67.4\\text{ m}$",
+              "correct": true
+            },
+            {
+              "text": "$d \\approx 13.4\\text{ m}$",
+              "correct": false
+            },
+            {
+              "text": "$d \\approx 73.8\\text{ m}$",
+              "correct": false
+            }
+          ],
+          "explain": "$d = \\frac{30}{\\tan 24^{\\circ}} = 67.38\\ldots \\approx 67.4$ m. $13.4$ multiplies instead, and $73.8$ is the slant distance.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "30/tan(24*pi/180)",
+            "sf": 3,
+            "unit": "m"
+          }
+        }
+      ]
+    },
+    {
+      "id": "shortest",
+      "heading": "The shortest distance to a line",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "figure",
+          "id": "6-2-shortest-distance",
+          "alt": "A straight line L along the bottom and a point P above it. A line from P goes straight down to F on L, at right angles to L. A second, slanting line goes from P to another point Q on L. The triangle PFQ has its right angle at F, so PQ is its hypotenuse and is longer than PF."
+        },
+        {
+          "type": "result",
+          "statement": "The perpendicular distance PF, at right angles to the line, is the shortest distance from P to the line.",
+          "why": "Any other path PQ is the hypotenuse of triangle PFQ, so it is longer."
+        },
+        {
+          "type": "example",
+          "id": "ex-shortest-canal",
+          "question": "A tent T is $120$ m from point A on a straight canal bank. AT makes $35^{\\circ}$ with the bank. Work out the shortest distance from T to the bank.",
+          "steps": [
+            "The shortest distance is TF, at right angles to the bank.",
+            "TF is opposite $35^{\\circ}$ and $TA$ is the hypotenuse: $TF = 120\\sin 35^{\\circ} = 68.829\\ldots$"
+          ],
+          "answer": "$\\text{distance} \\approx 68.8\\text{ m}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "120*sin(35*pi/180)",
+            "sf": 3,
+            "unit": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-shortest-isosceles",
+          "question": "Triangle ABC has $AB = AC = 13$ cm and $BC = 10$ cm. Without a calculator, find the shortest distance from A to BC.",
+          "steps": [
+            "The perpendicular from A meets BC at M. By symmetry M is the midpoint, so $BM = 5$.",
+            "Pythagoras in triangle ABM: $AM^{2} = 13^{2} - 5^{2} = 144$, so $AM = 12$."
+          ],
+          "answer": "$AM = 12\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(13**2 - (10/2)**2)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-shortest-pythagoras",
+          "prompt": "P is $25$ cm from point A on line L. F is the point on L closest to P, and $AF = 7$ cm. Work out the shortest distance from P to L, in cm.",
+          "hint": "PA is a hypotenuse.",
+          "answer": {
+            "value": 24,
+            "tolerance": 0
+          },
+          "explain": "$PF^{2} = 25^{2} - 7^{2} = 576$, so $PF = 24$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(25**2 - 7**2)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-shortest-direction",
+          "prompt": "A swimmer wants the shortest route to a straight shoreline. Which way should she swim?",
+          "hint": "Which path is never a hypotenuse?",
+          "options": [
+            {
+              "text": "At right angles to the shore",
+              "correct": true
+            },
+            {
+              "text": "At 45 degrees to the shore",
+              "correct": false
+            },
+            {
+              "text": "Towards the nearest building",
+              "correct": false
+            }
+          ],
+          "explain": "Any slanting path is a hypotenuse, so it is longer than the perpendicular one.",
+          "verify": {
+            "kind": "choice",
+            "truth": "At right angles to the shore"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\sin\\theta = \\frac{\\text{opp}}{\\text{hyp}} \\qquad \\cos\\theta = \\frac{\\text{adj}}{\\text{hyp}} \\qquad \\tan\\theta = \\frac{\\text{opp}}{\\text{adj}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Label sides from the angle. Missing side: unknown on top, multiply; on the bottom, divide.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Missing angle: $\\sin^{-1}$, $\\cos^{-1}$ or $\\tan^{-1}$ in degree mode, to 1 d.p.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Elevation and depression are measured from the horizontal. The angle of depression from $A$ to $B$ equals the angle of elevation from $B$ to $A$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "The shortest distance from a point to a line is the perpendicular distance.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Choosing the wrong ratio. Label the sides from the angle first.",
+    "Leaving the calculator in radians. Check for D or DEG.",
+    "Multiplying when the unknown is on the bottom. A hypotenuse must come out longest.",
+    "Writing $\\tan$ upside down. It is opposite over adjacent.",
+    "Using only part of an angle. If two marked angles make up your angle, add them first.",
+    "Rounding a length, then using it again. Round only at the end."
+  ],
+  "examTips": [
+    "\"Calculate\": write the trig equation, such as $\\tan\\theta = \\frac{0.9}{4.8}$, before the answer. It earns the method mark.",
+    "Angles to 1 d.p. and lengths to 3 s.f., unless the question says otherwise.",
+    "On a non-calculator paper, \"write down $\\cos x$\" wants a fraction from the sides. Use Pythagoras first if a side is missing.",
+    "\"Show that\" an angle is $33.7^{\\circ}$: write $33.748\\ldots$ first."
+  ],
+  "readingMinutes": 24
+}

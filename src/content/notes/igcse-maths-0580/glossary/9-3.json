@@ -1,0 +1,68 @@
+[
+  {
+    "id": "mean",
+    "term": "mean",
+    "definition": "The total of all the values divided by the number of values.",
+    "lesson": "9.3"
+  },
+  {
+    "id": "median",
+    "term": "median",
+    "definition": "The middle value when the data are in order; with an even number of values, it is halfway between the two middle values.",
+    "lesson": "9.3"
+  },
+  {
+    "id": "mode",
+    "term": "mode",
+    "definition": "The value that occurs most often in a data set; there can be more than one mode, or none.",
+    "lesson": "9.3"
+  },
+  {
+    "id": "range-of-a-data-set",
+    "term": "range of a data set",
+    "definition": "The largest value minus the smallest value, which shows how spread out the data are (the range of a function is a different idea).",
+    "lesson": "9.3"
+  },
+  {
+    "id": "average",
+    "term": "average",
+    "definition": "One value that describes a typical member of a data set: the mean, the median or the mode.",
+    "lesson": "9.3"
+  },
+  {
+    "id": "measure-of-spread",
+    "term": "measure of spread",
+    "definition": "A number that shows how spread out the data are, such as the range or the interquartile range.",
+    "lesson": "9.3"
+  },
+  {
+    "id": "quartile",
+    "term": "quartile",
+    "definition": "The lower quartile is the median of the lower half of the ordered data and the upper quartile is the median of the upper half, so with the median they cut the data into four equal parts.",
+    "lesson": "9.3"
+  },
+  {
+    "id": "interquartile-range",
+    "term": "interquartile range",
+    "definition": "The upper quartile minus the lower quartile: the spread of the middle half of the data.",
+    "lesson": "9.3"
+  },
+  {
+    "id": "grouped-frequency-table",
+    "term": "grouped frequency table",
+    "definition": "A frequency table that shows how many values fall in each class interval, instead of how often each single value occurs.",
+    "lesson": "9.3"
+  },
+  {
+    "id": "class-interval",
+    "term": "class interval",
+    "definition": "One of the groups in a grouped frequency table, such as $10 < t \\le 20$; its class width is the difference between its upper and lower boundaries.",
+    "lesson": "9.3"
+  },
+  {
+    "id": "modal-class",
+    "term": "modal class",
+    "definition": "The class interval with the highest frequency, when all the classes have the same width.",
+    "lesson": "9.3"
+  }
+]

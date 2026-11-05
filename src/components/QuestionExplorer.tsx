@@ -1587,11 +1587,15 @@ function decodeImages(urls: readonly string[], timeoutMs = 1500): Promise<void> 
     .then(() => clearTimeout(timer));
 }
 
-/** Lesson for a question's first tagged syllabus item that has one, else its first AA subtopic group that has one; undefined outside AA or while the course is hidden. */
+/**
+ * Lesson for a question's first tagged syllabus item that has one, else its first AA subtopic group that has one,
+ * else its first official section code that has one (IGCSE 0580); undefined without notes or while the course is hidden.
+ */
 function notesLinkFor(links: Record<string, { href: string; label: string }> | undefined, question: UnifiedQuestion) {
   if (!links) return undefined;
   for (const item of question.officialItems ?? []) if (links[item]) return links[item];
   for (const name of question.subtopics ?? []) if (links[name]) return links[name];
+  for (const ref of question.officialCodeRefs ?? []) if (links[ref]) return links[ref];
   return undefined;
 }
 

@@ -1,0 +1,721 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "4.6",
+  "slug": "angles",
+  "title": "Angles",
+  "level": "Core",
+  "topic": 4,
+  "summary": "A few angle facts let you find missing angles without measuring. [[angles-at-a-point|Angles at a point]] add up to $360^{\\circ}$, angles in [[parallel|parallel]] lines come in equal or supplementary pairs, and a [[polygon|polygon]]'s angles follow from triangles. Each answer needs the value and the fact you used, by name.",
+  "goals": [
+    {
+      "text": "Find angles at a point, on a straight line and where two lines cross, naming angles with three letters such as angle $ABC$.",
+      "bullets": [
+        "4.6-c1"
+      ]
+    },
+    {
+      "text": "Use the [[angle-sum|angle sum]] of a triangle and of a [[quadrilateral|quadrilateral]].",
+      "bullets": [
+        "4.6-c1"
+      ]
+    },
+    {
+      "text": "Find angles in parallel lines and give the reason: corresponding, alternate or co-interior.",
+      "bullets": [
+        "4.6-c2"
+      ]
+    },
+    {
+      "text": "Find the [[interior-angle|interior angles]] and [[exterior-angle|exterior angles]] of a [[regular-polygon|regular polygon]], or its number of sides.",
+      "bullets": [
+        "4.6-c3"
+      ]
+    },
+    {
+      "text": "Find missing angles in any polygon, regular or irregular, from its angle sum or exterior angles.",
+      "bullets": [
+        "4.6-s1"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "4.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "angle facts",
+    "angles on a straight line",
+    "vertically opposite angles",
+    "alternate and corresponding angles",
+    "interior and exterior angles of a polygon",
+    "angle sum of a polygon"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-angle-type",
+      "prompt": "An angle is $205^{\\circ}$. What type of angle is it?",
+      "hint": "Compare it with $90^{\\circ}$, $180^{\\circ}$ and $360^{\\circ}$.",
+      "options": [
+        {
+          "text": "Reflex",
+          "correct": true
+        },
+        {
+          "text": "Obtuse",
+          "correct": false
+        },
+        {
+          "text": "Acute",
+          "correct": false
+        }
+      ],
+      "explain": "It is between $180^{\\circ}$ and $360^{\\circ}$, so it is reflex. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Reflex"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-trapezium",
+      "prompt": "A quadrilateral has exactly one pair of parallel sides. What is it called?",
+      "hint": "Count the pairs of parallel sides each shape has.",
+      "options": [
+        {
+          "text": "Trapezium",
+          "correct": true
+        },
+        {
+          "text": "Parallelogram",
+          "correct": false
+        },
+        {
+          "text": "Rhombus",
+          "correct": false
+        }
+      ],
+      "explain": "A trapezium has one pair of parallel sides. A parallelogram and a rhombus have two pairs. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Trapezium"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "point-line",
+      "heading": "Angles at a point and on a line",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Angle $ABC$ is the angle at $B$, between the lines $BA$ and $BC$. The middle letter is always the [[vertex|vertex]]. You will also see it written $\\angle ABC$."
+        },
+        {
+          "type": "text",
+          "text": "A full turn is $360^{\\circ}$. A straight line is half a turn, $180^{\\circ}$."
+        },
+        {
+          "type": "figure",
+          "id": "4-6-line-point",
+          "alt": "Three diagrams. Left: a straight line with a second line leaving it from one point, making two angles a and b with a plus b equal to 180 degrees. Middle: four lines leaving one point, making four angles p, q, r and s that add up to 360 degrees. Right: two straight lines crossing; the two angles marked x are opposite each other, and the two angles marked y are opposite each other."
+        },
+        {
+          "type": "result",
+          "statement": "[[angles-at-a-point|Angles at a point]] add up to $360^{\\circ}$. Angles on a straight line add up to $180^{\\circ}$.",
+          "why": "The angles round a point fill one full turn, and a straight line is half of that turn."
+        },
+        {
+          "type": "text",
+          "text": "Two straight lines that cross make two pairs of [[vertically-opposite-angles|vertically opposite angles]]."
+        },
+        {
+          "type": "result",
+          "statement": "Vertically opposite angles are equal.",
+          "why": "In the figure, $x + y = 180^{\\circ}$ along one line. The angle opposite $x$ also adds to $y$ to make $180^{\\circ}$, along the other line, so it equals $x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-straight-line",
+          "question": "$ABC$ is a straight line and $D$ is a point above it. Angle $ABD = 47^{\\circ}$. Find angle $DBC$. Give a reason for your answer.",
+          "steps": [
+            "Angles $ABD$ and $DBC$ sit side by side on the straight line $ABC$.",
+            "Angles on a straight line add up to $180^{\\circ}$, so angle $DBC = 180^{\\circ} - 47^{\\circ} = 133^{\\circ}$."
+          ],
+          "answer": "$\\angle DBC = 133^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - 47"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-vert-opp-algebra",
+          "question": "Two straight lines cross at $X$. One angle at $X$ is $(3x + 10)^{\\circ}$, and the angle vertically opposite it is $(5x - 34)^{\\circ}$. Find the size of each of these two angles.",
+          "steps": [
+            "Vertically opposite angles are equal, so $3x + 10 = 5x - 34$.",
+            "Take $3x$ from both sides and add $34$ to both sides: $44 = 2x$, so $x = 22$.",
+            "Each angle is $3 \\times 22 + 10 = 76^{\\circ}$. Check: $5 \\times 22 - 34 = 76$."
+          ],
+          "answer": "$\\text{each angle} = 76^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "3*solve(Eq(3*x + 10, 5*x - 34), x)[0] + 10"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-at-a-point",
+          "prompt": "Three angles meet at a point. They are $135^{\\circ}$, $x^{\\circ}$ and $2x^{\\circ}$. Find $x$.",
+          "hint": "Angles at a point add up to $360^{\\circ}$.",
+          "answer": {
+            "value": 75,
+            "tolerance": 0
+          },
+          "explain": "$135 + x + 2x = 360$, so $3x = 225$ and $x = 75$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "solve(Eq(135 + x + 2*x, 360), x)[0]",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cross-reason",
+          "prompt": "Straight lines $PQ$ and $RS$ cross at $X$. Which reason shows that angle $PXR$ equals angle $QXS$?",
+          "hint": "Are the two angles next to each other, or opposite each other?",
+          "options": [
+            {
+              "text": "Vertically opposite angles are equal",
+              "correct": true
+            },
+            {
+              "text": "Angles on a straight line add up to 180°",
+              "correct": false
+            },
+            {
+              "text": "Angles at a point add up to 360°",
+              "correct": false
+            }
+          ],
+          "explain": "Angles $PXR$ and $QXS$ are opposite each other at the crossing, so they are vertically opposite.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Vertically opposite angles are equal"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding angles to $180^{\\circ}$ when they only look as if they are on a straight line. Use the fact only when the question says the line is straight."
+        }
+      ]
+    },
+    {
+      "id": "triangles",
+      "heading": "Triangles and quadrilaterals",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Tear the three corners off a paper triangle and put them side by side. They always make a straight line."
+        },
+        {
+          "type": "result",
+          "statement": "The [[angle-sum|angle sum]] of a triangle is $180^{\\circ}$. The angle sum of a [[quadrilateral|quadrilateral]] is $360^{\\circ}$.",
+          "why": "A diagonal splits a quadrilateral into two triangles, and $2 \\times 180^{\\circ} = 360^{\\circ}$. If the shape has a dent, use the diagonal from the dent."
+        },
+        {
+          "type": "text",
+          "text": "The $360^{\\circ}$ is true for every quadrilateral, even one with a dent. At a dent the angle inside the shape is a [[reflex-angle|reflex angle]], more than $180^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "An [[isosceles-triangle|isosceles triangle]] has two equal sides. The two angles opposite them, the base angles, are equal."
+        },
+        {
+          "type": "example",
+          "id": "ex-isosceles-line",
+          "question": "Triangle $PQR$ has $PQ = PR$. $QRS$ is a straight line, and angle $PRS = 116^{\\circ}$. Find angle $QPR$. Give a reason for each step.",
+          "steps": [
+            "Angles on a straight line add up to $180^{\\circ}$: angle $PRQ = 180^{\\circ} - 116^{\\circ} = 64^{\\circ}$.",
+            "$PQ = PR$, so the triangle is isosceles with equal base angles at $Q$ and $R$: angle $PQR = 64^{\\circ}$.",
+            "Angles in a triangle add up to $180^{\\circ}$: angle $QPR = 180^{\\circ} - 64^{\\circ} - 64^{\\circ} = 52^{\\circ}$."
+          ],
+          "answer": "$\\angle QPR = 52^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - 2*(180 - 116)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-quad-reflex",
+          "question": "Quadrilateral $ABCD$ is an arrowhead shape with a dent at $D$. Angle $DAB = 34^{\\circ}$, angle $ABC = 51^{\\circ}$ and angle $BCD = 29^{\\circ}$. Find the reflex angle $ADC$.",
+          "steps": [
+            "Angles in a quadrilateral add up to $360^{\\circ}$, and the angle inside the shape at $D$ is reflex.",
+            "Reflex angle $ADC = 360^{\\circ} - 34^{\\circ} - 51^{\\circ} - 29^{\\circ} = 246^{\\circ}$.",
+            "Check: $246$ is between $180$ and $360$, so the angle is reflex, as the dent needs."
+          ],
+          "answer": "$\\text{reflex } \\angle ADC = 246^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "360 - 34 - 51 - 29"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-triangle-algebra",
+          "prompt": "The angles of a triangle are $x^{\\circ}$, $(x + 20)^{\\circ}$ and $(2x - 4)^{\\circ}$. Find the largest angle, in degrees.",
+          "hint": "Add the three angles and set the total equal to $180^{\\circ}$.",
+          "answer": {
+            "value": 78,
+            "tolerance": 0
+          },
+          "explain": "$4x + 16 = 180$, so $x = 41$. The angles are $41^{\\circ}$, $61^{\\circ}$ and $78^{\\circ}$, so the largest is $78^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*solve(Eq(x + (x + 20) + (2*x - 4), 180), x)[0] - 4",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-quad-fourth",
+          "prompt": "Three angles of a quadrilateral are $72^{\\circ}$, $95^{\\circ}$ and $104^{\\circ}$. Find the fourth angle, in degrees.",
+          "hint": "A quadrilateral's angles add up to $360^{\\circ}$.",
+          "answer": {
+            "value": 89,
+            "tolerance": 0
+          },
+          "explain": "$360 - 72 - 95 - 104 = 89$, so the fourth angle is $89^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "360 - 72 - 95 - 104",
+            "dp": 0
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting the second base angle of an isosceles triangle. When you know the top angle, the two base angles share what is left of the $180^{\\circ}$, so halve it."
+        }
+      ]
+    },
+    {
+      "id": "parallel",
+      "heading": "Angles in parallel lines",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A line that crosses two [[parallel|parallel]] lines is called a transversal. It makes four angles at each crossing."
+        },
+        {
+          "type": "text",
+          "text": "Because the lines are parallel, both crossings look exactly the same. The angles come in three kinds of pair."
+        },
+        {
+          "type": "figure",
+          "id": "4-6-parallel-pairs",
+          "alt": "Three copies of two parallel lines, marked with arrows, crossed by a slanting line. Left, corresponding: the angle above each parallel line on the right of the slanting line is shaded; they are in the same position and are equal. Middle, alternate: the angle below the top line on the left and the angle above the bottom line on the right are shaded; they sit inside the pair of lines, one each side of the slanting line, and are equal. Right, co-interior: the angle below the top line on the left and the angle above the bottom line on the left are shaded; they sit inside the pair of lines, both on the left, and add up to 180 degrees.",
+          "caption": "Arrows mark the parallel lines."
+        },
+        {
+          "type": "result",
+          "statement": "[[corresponding-angles|Corresponding angles]] are equal. They are in the same position at each crossing, such as above the line and to the right of the transversal.",
+          "why": "Slide the top crossing along the transversal and it lands exactly on the bottom one."
+        },
+        {
+          "type": "result",
+          "statement": "[[alternate-angles|Alternate angles]] are equal. They are inside the pair of lines, one each side of the transversal, making a Z shape.",
+          "why": "Each one is vertically opposite an angle that corresponds to the other."
+        },
+        {
+          "type": "result",
+          "statement": "[[co-interior-angles|Co-interior angles]] add up to $180^{\\circ}$: they are supplementary. They are inside the pair of lines, both on one side of the transversal.",
+          "why": "One of them is alternate to the angle next to the other, and those two neighbours make a straight line, $180^{\\circ}$."
+        },
+        {
+          "type": "figure",
+          "id": "4-6-parallel-example",
+          "alt": "Two horizontal parallel lines marked with arrows: AB on top, with A on the left and B on the right, and CD below, with C on the left and D on the right. A slanting straight line EF goes from E, above and to the right, down to F, below and to the left. It crosses AB at G and CD at H. Not to scale.",
+          "caption": "Use this figure for the examples and checks below."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-corresponding",
+          "question": "In the figure, angle $EGB = 57^{\\circ}$. Find angle $CHG$. Give a reason for each step.",
+          "steps": [
+            "Angles $EGB$ and $GHD$ are both above their line and to the right of $EF$. Corresponding angles are equal, so angle $GHD = 57^{\\circ}$.",
+            "Angles $CHG$ and $GHD$ lie on the straight line $CD$. Angles on a straight line add up to $180^{\\circ}$, so angle $CHG = 180^{\\circ} - 57^{\\circ} = 123^{\\circ}$."
+          ],
+          "answer": "$\\angle CHG = 123^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - 57"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-cointerior",
+          "question": "In the figure, angle $AGH = (2y + 7)^{\\circ}$ and angle $CHG = (3y + 18)^{\\circ}$. Find angle $CHG$. Give a reason for your working.",
+          "steps": [
+            "Angles $AGH$ and $CHG$ lie between the parallel lines, both to the left of $EF$. Co-interior angles add up to $180^{\\circ}$.",
+            "So $2y + 7 + 3y + 18 = 180$, which gives $5y + 25 = 180$.",
+            "Take $25$ from both sides: $5y = 155$, so $y = 31$.",
+            "Angle $CHG = 3 \\times 31 + 18 = 111^{\\circ}$. Check: angle $AGH = 69$, and $69 + 111 = 180$."
+          ],
+          "answer": "$\\angle CHG = 111^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "3*solve(Eq(2*y + 7 + 3*y + 18, 180), y)[0] + 18"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-name",
+          "prompt": "In the figure, which pair are alternate angles?",
+          "hint": "Alternate angles are inside the pair of lines, one each side of $EF$.",
+          "options": [
+            {
+              "text": "Angles AGH and GHD",
+              "correct": true
+            },
+            {
+              "text": "Angles EGB and GHD",
+              "correct": false
+            },
+            {
+              "text": "Angles AGH and CHG",
+              "correct": false
+            }
+          ],
+          "explain": "Angle $AGH$ is below $AB$ on the left of $EF$. Angle $GHD$ is above $CD$ on the right. They form a Z, so they are alternate.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Angles AGH and GHD"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-two-steps",
+          "prompt": "In the figure, angle $AGE = 118^{\\circ}$. Find angle $GHD$, in degrees.",
+          "hint": "Find angle $EGB$ first.",
+          "answer": {
+            "value": 62,
+            "tolerance": 0
+          },
+          "explain": "Angle $EGB = 180 - 118 = 62^{\\circ}$ (angles on a straight line). Angle $GHD$ corresponds to angle $EGB$, so it is $62^{\\circ}$ too.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "180 - 118",
+            "dp": 0
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling two angles alternate when both are on one side of the transversal. Matching positions means corresponding; both inside the lines on one side means co-interior."
+        }
+      ]
+    },
+    {
+      "id": "regular",
+      "heading": "Angles of a regular polygon",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[regular-polygon|regular polygon]] has all its sides equal and all its angles equal. Its [[interior-angle|interior angles]] are the angles inside the shape."
+        },
+        {
+          "type": "text",
+          "text": "Extend one side past a vertex. The angle between the extension and the next side is an [[exterior-angle|exterior angle]]."
+        },
+        {
+          "type": "figure",
+          "id": "4-6-polygon-angles",
+          "alt": "Two diagrams. Left: a pentagon with two dashed lines from its top corner to the two far corners, splitting it into 3 triangles, so its angles add up to 3 times 180, which is 540 degrees. Right: a regular hexagon with each side extended past the next corner by a dashed line. At the top corner, the exterior angle e between the extended side and the next side is marked, next to the interior angle i inside the hexagon. The six exterior angles add up to 360 degrees, and i plus e is 180 degrees."
+        },
+        {
+          "type": "text",
+          "text": "Walk all the way round a polygon. At each corner you turn through the exterior angle. After one lap you face the way you started, so you have turned $360^{\\circ}$."
+        },
+        {
+          "type": "result",
+          "statement": "The exterior angles of a regular polygon with $n$ sides add up to $360^{\\circ}$, so each one is $\\frac{360^{\\circ}}{n}$. At each vertex, the interior and exterior angles add up to $180^{\\circ}$.",
+          "why": "You turn one full lap, and the interior and exterior angles at a vertex lie on a straight line."
+        },
+        {
+          "type": "result",
+          "statement": "The interior angles of a polygon with $n$ sides add up to $(n - 2) \\times 180^{\\circ}$.",
+          "why": "In a polygon with no reflex angle, lines from one vertex split it into $n - 2$ triangles. The pentagon in the figure has $5$ sides and $3$ triangles: $3 \\times 180^{\\circ} = 540^{\\circ}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-octagon",
+          "question": "Find the size of each interior angle of a regular octagon.",
+          "steps": [
+            "An octagon has $8$ sides. Each exterior angle is $360^{\\circ} \\div 8 = 45^{\\circ}$.",
+            "Interior and exterior angles add up to $180^{\\circ}$, so each interior angle is $180^{\\circ} - 45^{\\circ} = 135^{\\circ}$.",
+            "Check with the angle sum: $(8 - 2) \\times 180^{\\circ} = 1080^{\\circ}$, and $1080 \\div 8 = 135$."
+          ],
+          "answer": "$\\text{interior angle} = 135^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - 360/8"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-regular-sides",
+          "question": "A regular polygon has interior angles of $162^{\\circ}$ each. How many sides does it have?",
+          "steps": [
+            "Each exterior angle is $180^{\\circ} - 162^{\\circ} = 18^{\\circ}$.",
+            "The exterior angles add up to $360^{\\circ}$, so the number of sides is $n = 360 \\div 18 = 20$.",
+            "Check: $(20 - 2) \\times 180 \\div 20 = 162$."
+          ],
+          "answer": "$n = 20$",
+          "verify": {
+            "kind": "exact",
+            "truth": "360/(180 - 162)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-hexagon",
+          "prompt": "Find the size of each interior angle of a regular hexagon.",
+          "hint": "Find the exterior angle first: a hexagon has $6$ sides.",
+          "options": [
+            {
+              "text": "$120^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$60^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$720^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "Exterior angle $= 360 \\div 6 = 60^{\\circ}$, so interior angle $= 180 - 60 = 120^{\\circ}$.",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - 360/6"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-regular-sides",
+          "prompt": "Each exterior angle of a regular polygon is $20^{\\circ}$. How many sides does it have?",
+          "hint": "The exterior angles add up to $360^{\\circ}$.",
+          "answer": {
+            "value": 18,
+            "tolerance": 0
+          },
+          "explain": "$360 \\div 20 = 18$, so the polygon has $18$ sides.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "360/20",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-regular-possible",
+          "prompt": "Could a regular polygon have interior angles of $100^{\\circ}$?",
+          "hint": "Work out the exterior angle, then the number of sides.",
+          "options": [
+            {
+              "text": "No, because 360 ÷ 80 is not a whole number",
+              "correct": true
+            },
+            {
+              "text": "Yes, with 4.5 sides",
+              "correct": false
+            },
+            {
+              "text": "Yes, because 100° is less than 180°",
+              "correct": false
+            }
+          ],
+          "explain": "The exterior angle would be $80^{\\circ}$, and $360 \\div 80 = 4.5$. A polygon cannot have $4.5$ sides, so no.",
+          "verify": {
+            "kind": "choice",
+            "truth": "No, because 360 ÷ 80 is not a whole number"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing $360$ by the interior angle. Only the exterior angles add up to $360^{\\circ}$, so find the exterior angle first."
+        }
+      ]
+    },
+    {
+      "id": "irregular",
+      "heading": "Angles of any polygon",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The interior angle sum $(n - 2) \\times 180^{\\circ}$ works for every polygon, regular or irregular, even one with a reflex angle. In an irregular polygon the angles differ, so work with the total."
+        },
+        {
+          "type": "result",
+          "statement": "If no interior angle is reflex, the exterior angles of any polygon add up to $360^{\\circ}$.",
+          "why": "Walking round the shape, you still turn through one full lap."
+        },
+        {
+          "type": "example",
+          "id": "ex-irregular-pentagon",
+          "question": "The angles of a pentagon are $2x^{\\circ}$, $2x^{\\circ}$, $(x + 40)^{\\circ}$, $110^{\\circ}$ and $125^{\\circ}$. Find $x$.",
+          "steps": [
+            "A pentagon has $5$ sides, so its angle sum is $(5 - 2) \\times 180^{\\circ} = 540^{\\circ}$.",
+            "So $2x + 2x + x + 40 + 110 + 125 = 540$, which gives $5x + 275 = 540$.",
+            "Take $275$ from both sides: $5x = 265$, so $x = 53$.",
+            "Check: the angles are $106$, $106$, $93$, $110$ and $125$, which add up to $540$."
+          ],
+          "answer": "$x = 53$",
+          "verify": {
+            "kind": "exact",
+            "truth": "solve(Eq(2*x + 2*x + (x + 40) + 110 + 125, (5 - 2)*180), x)[0]"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-irregular-exterior",
+          "question": "A hexagon has no reflex angles. Five of its exterior angles are $40^{\\circ}$, $75^{\\circ}$, $50^{\\circ}$, $65^{\\circ}$ and $72^{\\circ}$. Find the interior angle at the sixth vertex.",
+          "steps": [
+            "The exterior angles add up to $360^{\\circ}$: the sixth is $360^{\\circ} - (40^{\\circ} + 75^{\\circ} + 50^{\\circ} + 65^{\\circ} + 72^{\\circ}) = 360^{\\circ} - 302^{\\circ} = 58^{\\circ}$.",
+            "Interior and exterior angles add up to $180^{\\circ}$: the interior angle is $180^{\\circ} - 58^{\\circ} = 122^{\\circ}$."
+          ],
+          "answer": "$\\text{interior angle} = 122^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - (360 - (40 + 75 + 50 + 65 + 72))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-octagon-eighth",
+          "prompt": "Seven of the angles of an irregular octagon add up to $975^{\\circ}$. Find the eighth angle, in degrees.",
+          "hint": "An octagon has $8$ sides. Find its angle sum first.",
+          "answer": {
+            "value": 105,
+            "tolerance": 0
+          },
+          "explain": "The angle sum is $(8 - 2) \\times 180 = 1080^{\\circ}$, so the eighth angle is $1080 - 975 = 105^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(8 - 2)*180 - 975",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sides-from-sum",
+          "prompt": "The interior angles of a polygon add up to $1260^{\\circ}$. How many sides does it have?",
+          "hint": "Solve $(n - 2) \\times 180 = 1260$.",
+          "options": [
+            {
+              "text": "$9$",
+              "correct": true
+            },
+            {
+              "text": "$7$",
+              "correct": false
+            },
+            {
+              "text": "$11$",
+              "correct": false
+            }
+          ],
+          "explain": "$1260 \\div 180 = 7$, so $n - 2 = 7$ and $n = 9$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "solve(Eq((n - 2)*180, 1260), n)[0]"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $360^{\\circ}$ as the total of the interior angles. $360^{\\circ}$ is the exterior total; the interior total is $(n - 2) \\times 180^{\\circ}$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Angles at a point add up to $360^{\\circ}$. Angles on a straight line add up to $180^{\\circ}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Vertically opposite angles are equal.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Angle sum: triangle $180^{\\circ}$, quadrilateral $360^{\\circ}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Parallel lines: corresponding angles are equal, alternate angles are equal, co-interior angles add up to $180^{\\circ}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Regular polygon with $n$ sides: exterior angle $= \\frac{360^{\\circ}}{n}$, and interior angle $= 180^{\\circ} -$ exterior angle.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Interior angles of a polygon with $n$ sides add up to $(n - 2) \\times 180^{\\circ}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Exterior angles of any polygon with no reflex angle add up to $360^{\\circ}$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving the exterior angle when the question asks for the interior angle. Reread which one is asked for; the interior angle is $180^{\\circ}$ minus the exterior angle.",
+    "Writing \"Z angles\", \"F angles\" or \"alternative angles\" as a reason. Use the names alternate, corresponding and co-interior.",
+    "Using an angle drawn outside a shape as one of its interior angles. At a dent the interior angle is reflex: $360^{\\circ}$ minus the angle outside.",
+    "Stopping at an angle found on the way. Reread the three letters of the angle asked for before you write the answer."
+  ],
+  "examTips": [
+    "\"Give a reason\" or \"give a geometrical reason\": write the fact in full, such as \"co-interior angles add up to $180^{\\circ}$\". The value alone usually earns only part of the marks.",
+    "Diagrams marked NOT TO SCALE must not be measured. Work out every angle from a named fact.",
+    "Write each angle on the diagram as you find it, and name it with three letters in your working, such as angle $PQR$."
+  ],
+  "readingMinutes": 25
+}

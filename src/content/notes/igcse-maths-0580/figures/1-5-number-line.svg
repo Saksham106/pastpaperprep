@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" role="img" aria-labelledby="t">
+  <title id="t">Number line from minus 9 to 3. Points at minus 8 and minus 3 are marked. Minus 8 is further left, so it is smaller. An arrow to the left says smaller and an arrow to the right says bigger.</title>
+  <g stroke="currentColor" stroke-width="1.4" fill="none">
+    <line x1="18" y1="60" x2="342" y2="60" />
+    <polyline points="24,55 18,60 24,65" />
+    <polyline points="336,55 342,60 336,65" />
+  </g>
+  <g stroke="currentColor" stroke-width="1.2">
+    <line x1="30" y1="55" x2="30" y2="65" />
+    <line x1="55" y1="55" x2="55" y2="65" />
+    <line x1="80" y1="55" x2="80" y2="65" />
+    <line x1="105" y1="55" x2="105" y2="65" />
+    <line x1="130" y1="55" x2="130" y2="65" />
+    <line x1="155" y1="55" x2="155" y2="65" />
+    <line x1="180" y1="55" x2="180" y2="65" />
+    <line x1="205" y1="55" x2="205" y2="65" />
+    <line x1="230" y1="55" x2="230" y2="65" />
+    <line x1="255" y1="55" x2="255" y2="65" />
+    <line x1="280" y1="55" x2="280" y2="65" />
+    <line x1="305" y1="55" x2="305" y2="65" />
+    <line x1="330" y1="55" x2="330" y2="65" />
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="30" y="80">−9</text>
+    <text x="55" y="80">−8</text>
+    <text x="80" y="80">−7</text>
+    <text x="105" y="80">−6</text>
+    <text x="130" y="80">−5</text>
+    <text x="155" y="80">−4</text>
+    <text x="180" y="80">−3</text>
+    <text x="205" y="80">−2</text>
+    <text x="230" y="80">−1</text>
+    <text x="255" y="80">0</text>
+    <text x="280" y="80">1</text>
+    <text x="305" y="80">2</text>
+    <text x="330" y="80">3</text>
+  </g>
+  <g fill="var(--t1-ink)" stroke="none">
+    <circle cx="55" cy="60" r="4.5" />
+    <circle cx="180" cy="60" r="4.5" />
+  </g>
+  <text x="117.5" y="40" fill="var(--t1-ink)" font-size="12" font-family="inherit" text-anchor="middle">−8 &lt; −3</text>
+  <g stroke="var(--muted)" stroke-width="1.2" fill="none">
+    <line x1="150" y1="104" x2="60" y2="104" />
+    <polyline points="66,99 60,104 66,109" />
+    <line x1="210" y1="104" x2="300" y2="104" />
+    <polyline points="294,99 300,104 294,109" />
+  </g>
+  <g fill="var(--muted)" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="105" y="98">smaller</text>
+    <text x="255" y="98">bigger</text>
+  </g>
+</svg>

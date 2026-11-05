@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 300" role="img" aria-labelledby="t">
+  <title id="t">Bar chart of books borrowed from a library each day. Days Monday to Friday across. Number of books up, from 0 to 40, with each small square 2 books and a label every 10. Monday 16, Tuesday 22, Wednesday 18, Thursday 24, Friday 40.</title>
+  <g stroke="var(--muted)" stroke-width="0.5" stroke-opacity="0.45" fill="none">
+    <line x1="62" y1="248.0" x2="442" y2="248.0" />
+    <line x1="62" y1="236.5" x2="442" y2="236.5" />
+    <line x1="62" y1="225.0" x2="442" y2="225.0" />
+    <line x1="62" y1="213.5" x2="442" y2="213.5" />
+    <line x1="62" y1="202.0" x2="442" y2="202.0" />
+    <line x1="62" y1="190.5" x2="442" y2="190.5" />
+    <line x1="62" y1="179.0" x2="442" y2="179.0" />
+    <line x1="62" y1="167.5" x2="442" y2="167.5" />
+    <line x1="62" y1="156.0" x2="442" y2="156.0" />
+    <line x1="62" y1="144.5" x2="442" y2="144.5" />
+    <line x1="62" y1="133.0" x2="442" y2="133.0" />
+    <line x1="62" y1="121.5" x2="442" y2="121.5" />
+    <line x1="62" y1="110.0" x2="442" y2="110.0" />
+    <line x1="62" y1="98.5" x2="442" y2="98.5" />
+    <line x1="62" y1="87.0" x2="442" y2="87.0" />
+    <line x1="62" y1="75.5" x2="442" y2="75.5" />
+    <line x1="62" y1="64.0" x2="442" y2="64.0" />
+    <line x1="62" y1="52.5" x2="442" y2="52.5" />
+    <line x1="62" y1="41.0" x2="442" y2="41.0" />
+    <line x1="62" y1="29.5" x2="442" y2="29.5" />
+    <line x1="62" y1="18.0" x2="442" y2="18.0" />
+  </g>
+  <g stroke="var(--muted)" stroke-width="0.9" fill="none">
+    <line x1="62" y1="248.0" x2="442" y2="248.0" />
+    <line x1="62" y1="190.5" x2="442" y2="190.5" />
+    <line x1="62" y1="133.0" x2="442" y2="133.0" />
+    <line x1="62" y1="75.5" x2="442" y2="75.5" />
+    <line x1="62" y1="18.0" x2="442" y2="18.0" />
+  </g>
+  <g fill="var(--t2-ink)" fill-opacity="0.55" stroke="currentColor" stroke-width="1">
+    <rect x="81.0" y="156.0" width="38.0" height="92.0" />
+    <rect x="157.0" y="121.5" width="38.0" height="126.5" />
+    <rect x="233.0" y="144.5" width="38.0" height="103.5" />
+    <rect x="309.0" y="110.0" width="38.0" height="138.0" />
+    <rect x="385.0" y="18.0" width="38.0" height="230.0" />
+  </g>
+  <g stroke="currentColor" stroke-width="1.3" fill="none">
+    <line x1="62" y1="248" x2="442" y2="248" />
+    <line x1="62" y1="18" x2="62" y2="248" />
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="100.0" y="263">Mon</text>
+    <text x="176.0" y="263">Tue</text>
+    <text x="252.0" y="263">Wed</text>
+    <text x="328.0" y="263">Thu</text>
+    <text x="404.0" y="263">Fri</text>
+    <text x="252.0" y="290">Day</text>
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="end">
+    <text x="56" y="252.0">0</text>
+    <text x="56" y="194.5">10</text>
+    <text x="56" y="137.0">20</text>
+    <text x="56" y="79.5">30</text>
+    <text x="56" y="22.0">40</text>
+  </g>
+  <text x="16" y="133.0" fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle" transform="rotate(-90 16 133.0)">Number of books</text>
+</svg>

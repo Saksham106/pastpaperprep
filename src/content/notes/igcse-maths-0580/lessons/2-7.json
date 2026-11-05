@@ -1,0 +1,809 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "2.7",
+  "slug": "sequences",
+  "title": "Sequences",
+  "level": "Core",
+  "topic": 2,
+  "summary": "A [[sequence|sequence]] is a list of numbers made by a rule. The [[term-to-term-rule|term-to-term rule]] gets each [[term|term]] from the one before. The [[nth-term|nth term]] is a formula that gives any term straight from its position.",
+  "goals": [
+    {
+      "text": "Continue a sequence or a pattern, and write down its term-to-term rule.",
+      "bullets": [
+        "2.7-c1",
+        "2.7-c2"
+      ]
+    },
+    {
+      "text": "Spot how two sequences are linked, such as a sequence that is always $3$ less than the [[square-number|square numbers]].",
+      "bullets": [
+        "2.7-c2"
+      ]
+    },
+    {
+      "text": "Find the nth term of a [[linear-sequence|linear sequence]], and use it to find terms or test whether a number is in the sequence.",
+      "bullets": [
+        "2.7-c3"
+      ]
+    },
+    {
+      "text": "Find and use the nth term of a simple [[quadratic-sequence|quadratic sequence]] or [[cubic-sequence|cubic sequence]], such as $n^2 - 3$ or $n^3 - 1$.",
+      "bullets": [
+        "2.7-c3"
+      ]
+    },
+    {
+      "text": "Find the nth term of any quadratic sequence, and read $T_n$ notation.",
+      "bullets": [
+        "2.7-s1",
+        "2.7-n1",
+        "2.7-n2"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Find the nth term of an [[exponential-sequence|exponential sequence]] and of simple mixes, such as $2^n + 3$.",
+      "bullets": [
+        "2.7-s1",
+        "2.7-n2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "2.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "nth term",
+    "term to term rule",
+    "number sequences",
+    "next term in a sequence",
+    "quadratic sequences",
+    "geometric sequence"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-cube-number",
+      "prompt": "Which of these is a [[cube-number|cube number]]?",
+      "hint": "A cube number is a whole number times itself, times itself again.",
+      "options": [
+        {
+          "text": "$9$",
+          "correct": false
+        },
+        {
+          "text": "$16$",
+          "correct": false
+        },
+        {
+          "text": "$27$",
+          "correct": true
+        },
+        {
+          "text": "$30$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "exact",
+        "truth": "3*3*3"
+      },
+      "explain": "$3 \\times 3 \\times 3 = 27$. $9$ and $16$ are square numbers, not cube numbers. Revise it in {{lesson:1.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-substitute-linear",
+      "prompt": "Work out $7n - 3$ when $n = 8$.",
+      "hint": "$7n$ means $7 \\times n$.",
+      "answer": {
+        "value": 53,
+        "tolerance": 0
+      },
+      "verify": {
+        "kind": "numeric",
+        "truth": "7*8 - 3",
+        "dp": 0
+      },
+      "explain": "$7 \\times 8 = 56$, then $56 - 3 = 53$. Revise it in {{lesson:2.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-substitute-square",
+      "prompt": "Work out $2n^2$ when $n = 5$.",
+      "hint": "Square $n$ first, then multiply by $2$.",
+      "answer": {
+        "value": 50,
+        "tolerance": 0
+      },
+      "verify": {
+        "kind": "numeric",
+        "truth": "2*5**2",
+        "dp": 0
+      },
+      "explain": "$5^2 = 25$, then $2 \\times 25 = 50$. Only the $n$ is squared, so $10^2 = 100$ is wrong. Revise it in {{lesson:2.1}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "continue",
+      "heading": "Continuing a sequence",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each number in a sequence is a term. In $4, 7, 10, 13, \\ldots$ the first term is $4$ and the fourth is $13$. The dots mean it carries on."
+        },
+        {
+          "type": "definition",
+          "term": "term-to-term rule",
+          "statement": "The term-to-term rule tells you how to get each term from the term before it.",
+          "plain": "What you do to one term to get the next."
+        },
+        {
+          "type": "text",
+          "text": "To find the rule, look at the gaps between terms. In $4, 7, 10, 13$ every gap is $+3$, so the rule is \"add $3$\". The next term is $13 + 3 = 16$."
+        },
+        {
+          "type": "text",
+          "text": "If the gaps grow fast, divide each term by the one before. A rule can be \"multiply by $3$\" or \"divide by $2$\". Test any rule on every pair of terms."
+        },
+        {
+          "type": "example",
+          "id": "ex-continue-negative",
+          "question": "Find the next two terms of the sequence $22, 17, 12, 7, \\ldots$",
+          "steps": [
+            "Find the gaps: $17 - 22 = -5$, $12 - 17 = -5$ and $7 - 12 = -5$. The rule is \"subtract $5$\".",
+            "Next term: $7 - 5 = 2$.",
+            "The term after that: $2 - 5 = -3$. The sequence doesn't stop at $0$, so carry on into negative numbers."
+          ],
+          "answer": "$2, -3$",
+          "verify": {
+            "kind": "list",
+            "truth": "[7 - 5, 7 - 2*5]"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "If the gaps change in a pattern of their own, continue the gaps first."
+        },
+        {
+          "type": "example",
+          "id": "ex-continue-growing-gaps",
+          "question": "Find the next two terms of the sequence $10, 13, 18, 25, 34, \\ldots$",
+          "steps": [
+            "Find the gaps: $+3$, $+5$, $+7$, $+9$. Each gap is $2$ bigger than the last.",
+            "So the next two gaps are $+11$ and $+13$.",
+            "Next term: $34 + 11 = 45$. Then $45 + 13 = 58$."
+          ],
+          "answer": "$45, 58$",
+          "verify": {
+            "kind": "list",
+            "truth": "[34 + 11, 34 + 11 + 13]"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A pattern of shapes is a sequence too: count the parts in each pattern."
+        },
+        {
+          "type": "figure",
+          "id": "2-7-triangle-sticks",
+          "alt": "Three patterns of matchsticks. Pattern 1 is one triangle made of 3 sticks. Pattern 2 is two triangles side by side, sharing a stick, with 5 sticks. Pattern 3 is three triangles in a row with 7 sticks. Each new pattern adds 2 sticks, shown in colour.",
+          "caption": "Each new triangle shares one stick with the last, so it needs only $2$ more sticks: $3, 5, 7, \\ldots$"
+        },
+        {
+          "type": "check",
+          "id": "check-sticks",
+          "prompt": "The matchstick patterns above continue in the same way. How many sticks are in Pattern 6?",
+          "hint": "Start at $3$ and add $2$ for each pattern after the first.",
+          "answer": {
+            "value": 13,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "3 + (6 - 1)*2",
+            "dp": 0
+          },
+          "explain": "The sticks go $3, 5, 7, 9, 11, 13$. Pattern 6 has $13$ sticks."
+        },
+        {
+          "type": "check",
+          "id": "check-rule-divide",
+          "prompt": "What is the term-to-term rule for $320, 160, 80, 40, \\ldots$?",
+          "hint": "Test your rule on every pair, including $80 \\to 40$.",
+          "options": [
+            {
+              "text": "Subtract 160",
+              "correct": false
+            },
+            {
+              "text": "Divide by 2",
+              "correct": true
+            },
+            {
+              "text": "Subtract 40",
+              "correct": false
+            },
+            {
+              "text": "Multiply by 2",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "choice",
+            "truth": "Divide by 2"
+          },
+          "explain": "$320 \\div 2 = 160$, $160 \\div 2 = 80$ and $80 \\div 2 = 40$. \"Subtract $160$\" works only for the first pair."
+        }
+      ]
+    },
+    {
+      "id": "linear",
+      "heading": "The nth term of a linear sequence",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The nth term is a formula in $n$, the position of a term. Put in $n = 100$ and you get the 100th term, without listing the 99 before it."
+        },
+        {
+          "type": "definition",
+          "term": "linear sequence",
+          "statement": "A linear sequence goes up or down by the same amount each time. That amount is the common difference.",
+          "plain": "Every gap is the same."
+        },
+        {
+          "type": "text",
+          "text": "Why the difference matters: $3n$ gives $3, 6, 9, 12, \\ldots$, the 3 times table. Any sequence that goes up in $3$s is this table moved up or down."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the common difference $d$. The nth term starts $dn$."
+        },
+        {
+          "type": "text",
+          "text": "2. Write the terms of $dn$ under the sequence, for $n = 1, 2, 3, \\ldots$"
+        },
+        {
+          "type": "text",
+          "text": "3. Work out what you add to each term of $dn$ to get the sequence. That goes on the end."
+        },
+        {
+          "type": "text",
+          "text": "4. Check with a term you didn't use."
+        },
+        {
+          "type": "example",
+          "id": "ex-linear-up",
+          "question": "Find the nth term of $7, 11, 15, 19, \\ldots$",
+          "steps": [
+            "The common difference is $4$, so the nth term starts $4n$.",
+            "$4n$ gives $4, 8, 12, 16$.",
+            "Each term of the sequence is $3$ more: $7 - 4 = 3$, $11 - 8 = 3$, and so on. So the nth term is $4n + 3$.",
+            "Check with $n = 4$: $4 \\times 4 + 3 = 19$."
+          ],
+          "answer": "$4n + 3$",
+          "verify": {
+            "kind": "expression",
+            "truth": "interpolate([7, 11, 15, 19], n)",
+            "form": "expanded"
+          },
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "A quick way to find the number on the end: step back one term. Before $7$ comes $7 - 4 = 3$, so the nth term is $4n + 3$."
+        },
+        {
+          "type": "example",
+          "id": "ex-linear-down",
+          "question": "Find the nth term of $26, 22, 18, 14, \\ldots$",
+          "steps": [
+            "The terms go down by $4$, so the common difference is $-4$. The nth term starts $-4n$.",
+            "$-4n$ gives $-4, -8, -12, -16$.",
+            "To get from $-4$ to $26$, add $30$. The same works for every term: $-8 + 30 = 22$.",
+            "So the nth term is $30 - 4n$. Check with $n = 3$: $30 - 12 = 18$."
+          ],
+          "answer": "$30 - 4n$",
+          "verify": {
+            "kind": "expression",
+            "truth": "interpolate([26, 22, 18, 14], n)",
+            "form": "expanded"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-nth-linear",
+          "prompt": "Find the nth term of $6, 11, 16, 21, \\ldots$",
+          "hint": "The difference gives the number in front of $n$. Then compare with the 5 times table.",
+          "options": [
+            {
+              "text": "$5n + 6$",
+              "correct": false
+            },
+            {
+              "text": "$5n + 1$",
+              "correct": true
+            },
+            {
+              "text": "$n + 5$",
+              "correct": false
+            },
+            {
+              "text": "$6n + 5$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "interpolate([6, 11, 16, 21], n)",
+            "form": "expanded"
+          },
+          "explain": "The difference is $5$, and $5n$ gives $5, 10, 15, 20$. Each term is $1$ more, so $5n + 1$. $5n + 6$ uses the first term as the number on the end, which gives $11$ first."
+        },
+        {
+          "type": "text",
+          "text": "To find which term has a given value, set the nth term equal to it and solve. A position must be a positive [[integer|integer]], so if $n$ is a fraction, zero or negative, the number is not in the sequence."
+        },
+        {
+          "type": "example",
+          "id": "ex-linear-which-term",
+          "question": "A sequence has nth term $7n - 4$. Which term of the sequence is equal to $129$?",
+          "steps": [
+            "Set the nth term equal to $129$: $7n - 4 = 129$.",
+            "Add $4$ to both sides: $7n = 133$.",
+            "Divide by $7$: $n = 19$. This is a whole number, so $129$ is the 19th term.",
+            "Check: $7 \\times 19 - 4 = 133 - 4 = 129$."
+          ],
+          "answer": "$n = 19$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(Eq(7*n - 4, 129), n)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-in-sequence",
+          "prompt": "A sequence has nth term $7n - 4$. Is $200$ a term of this sequence?",
+          "hint": "Solve $7n - 4 = 200$ and look at the value of $n$.",
+          "options": [
+            {
+              "text": "Yes, it is the 28th term",
+              "correct": false
+            },
+            {
+              "text": "No, because n is not a whole number",
+              "correct": true
+            },
+            {
+              "text": "Yes, it is the 29th term",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "choice",
+            "truth": "No, because n is not a whole number"
+          },
+          "explain": "$7n = 204$, so $n = 29.14\\ldots$, not a whole number. The 29th term is $199$ and the 30th is $206$."
+        }
+      ]
+    },
+    {
+      "id": "square-cube",
+      "heading": "Square and cube patterns",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Not every sequence has equal gaps. The square numbers $1, 4, 9, 16, 25, \\ldots$ have nth term $n^2$. The [[cube-number|cube numbers]] $1, 8, 27, 64, 125, \\ldots$ have nth term $n^3$."
+        },
+        {
+          "type": "text",
+          "text": "To tell which kind you have, find the gaps, then the gaps between those (the second differences). In a quadratic sequence the second differences are all the same."
+        },
+        {
+          "type": "text",
+          "text": "In a cubic sequence the third differences are the same. For $n^3$: the differences are $7, 19, 37, 61$, then $12, 18, 24$, then $6, 6$."
+        },
+        {
+          "type": "text",
+          "text": "At Core, the nth term is usually $n^2$ or $n^3$ with a number added, taken away or multiplied. So write the square or cube numbers under the terms and see how the two are linked."
+        },
+        {
+          "type": "example",
+          "id": "ex-quadratic-compare",
+          "question": "Find the nth term of $-2, 1, 6, 13, 22, \\ldots$",
+          "steps": [
+            "The differences are $3, 5, 7, 9$, and the second differences are all $2$. So the sequence is quadratic.",
+            "Write the square numbers underneath: $1, 4, 9, 16, 25$.",
+            "Each term is $3$ less than the square number above it: $1 - 3 = -2$, $4 - 3 = 1$, and so on.",
+            "So the nth term is $n^2 - 3$. Check with $n = 5$: $25 - 3 = 22$."
+          ],
+          "answer": "$n^2 - 3$",
+          "verify": {
+            "kind": "expression",
+            "truth": "interpolate([-2, 1, 6, 13, 22], n)",
+            "form": "expanded"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-cubic-compare",
+          "question": "Find the nth term of $0, 7, 26, 63, 124, \\ldots$",
+          "steps": [
+            "These terms grow fast. Compare them with the cube numbers $1, 8, 27, 64, 125$.",
+            "Each term is $1$ less than the cube number: $1 - 1 = 0$, $8 - 1 = 7$, and so on.",
+            "So the nth term is $n^3 - 1$. Check with $n = 3$: $27 - 1 = 26$."
+          ],
+          "answer": "$n^3 - 1$",
+          "verify": {
+            "kind": "expression",
+            "truth": "interpolate([0, 7, 26, 63, 124], n)",
+            "form": "expanded"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-quadratic-nth",
+          "prompt": "Find the nth term of $3, 12, 27, 48, \\ldots$",
+          "hint": "Divide each term by the square number in the same position.",
+          "options": [
+            {
+              "text": "$3n^2$",
+              "correct": true
+            },
+            {
+              "text": "$n^2 + 2$",
+              "correct": false
+            },
+            {
+              "text": "$9n - 6$",
+              "correct": false
+            },
+            {
+              "text": "$9n^2$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "interpolate([3, 12, 27, 48], n)",
+            "form": "expanded"
+          },
+          "explain": "$3 \\div 1$, $12 \\div 4$, $27 \\div 9$ and $48 \\div 16$ all give $3$, so the nth term is $3n^2$. $n^2 + 2$ fits only the first term."
+        },
+        {
+          "type": "check",
+          "id": "check-quadratic-use",
+          "prompt": "A sequence has nth term $2n^2 - 5$. Find the 8th term.",
+          "hint": "Put $n = 8$ in. Square $8$ before you multiply by $2$.",
+          "answer": {
+            "value": 123,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*8**2 - 5",
+            "dp": 0
+          },
+          "explain": "$8^2 = 64$, $2 \\times 64 = 128$ and $128 - 5 = 123$."
+        }
+      ]
+    },
+    {
+      "id": "any-quadratic",
+      "heading": "Any quadratic sequence",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$T_n$ means the nth term of sequence $T$: $T_1$ is its first term and $T_5$ its fifth. So $T_n = 4n + 1$ means \"the nth term is $4n + 1$\"."
+        },
+        {
+          "type": "text",
+          "text": "A quadratic nth term can be $an^2 + bn + c$. The $n^2$ sequence has second difference $2$, so $an^2$ has second difference $2a$. The $bn + c$ part adds the same amount to every gap, so it leaves the second differences alone."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the second difference. Halve it to get $a$, the number in front of $n^2$."
+        },
+        {
+          "type": "text",
+          "text": "2. Subtract $an^2$ from each term."
+        },
+        {
+          "type": "text",
+          "text": "3. What is left is a linear sequence. Find its nth term, $bn + c$, and add it on."
+        },
+        {
+          "type": "example",
+          "id": "ex-any-quadratic",
+          "question": "Find the nth term of $4, 11, 22, 37, 56, \\ldots$",
+          "steps": [
+            "The differences are $7, 11, 15, 19$, and the second differences are all $4$. Half of $4$ is $2$, so the nth term starts $2n^2$.",
+            "$2n^2$ gives $2, 8, 18, 32, 50$.",
+            "Subtract: $4 - 2 = 2$, $11 - 8 = 3$, $22 - 18 = 4$, $37 - 32 = 5$, $56 - 50 = 6$.",
+            "What's left, $2, 3, 4, 5, 6$, has nth term $n + 1$.",
+            "So the nth term is $2n^2 + n + 1$. Check with $n = 3$: $18 + 3 + 1 = 22$."
+          ],
+          "answer": "$2n^2 + n + 1$",
+          "verify": {
+            "kind": "expression",
+            "truth": "interpolate([4, 11, 22, 37, 56], n)",
+            "form": "expanded"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-which-term-quadratic",
+          "question": "Sequence $U$ has $U_n = n^2 - 4n$. Which term of $U$ is equal to $45$?",
+          "steps": [
+            "Set the nth term equal to $45$: $n^2 - 4n = 45$.",
+            "Rearrange so one side is $0$: $n^2 - 4n - 45 = 0$.",
+            "Factorise: $-9$ and $5$ multiply to $-45$ and add to $-4$, so $(n - 9)(n + 5) = 0$.",
+            "So $n = 9$ or $n = -5$. A position can't be negative, so reject $-5$.",
+            "Check: $U_9 = 81 - 36 = 45$."
+          ],
+          "answer": "$n = 9$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Max(solve(Eq(n**2 - 4*n, 45), n)[0], solve(Eq(n**2 - 4*n, 45), n)[1])"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-any-quadratic",
+          "prompt": "Find the nth term of $5, 12, 25, 44, \\ldots$",
+          "hint": "The second differences are all $6$, so start with $3n^2$.",
+          "options": [
+            {
+              "text": "$3n^2 - 2n + 4$",
+              "correct": true
+            },
+            {
+              "text": "$7n - 2$",
+              "correct": false
+            },
+            {
+              "text": "$3n^2 + 2$",
+              "correct": false
+            },
+            {
+              "text": "$3n^2 + 2n$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "interpolate([5, 12, 25, 44], n)",
+            "form": "expanded"
+          },
+          "explain": "Differences $7, 13, 19$, second differences $6$, so $3n^2$: $3, 12, 27, 48$. Subtracting leaves $2, 0, -2, -4$, which is $4 - 2n$. $7n - 2$ fits only the first two terms."
+        },
+        {
+          "type": "text",
+          "text": "Linear sequences can be combined term by term. If $C_n = A_n - B_n$, each term of $C$ is the term of $A$ minus the term of $B$ in the same position. Put brackets round $B_n$ before you subtract."
+        },
+        {
+          "type": "check",
+          "id": "check-combine-linear",
+          "prompt": "$A_n = 5n + 2$ and $B_n = n - 6$. Find $C_n$, where $C_n = A_n - B_n$.",
+          "hint": "Write $(5n + 2) - (n - 6)$. Subtracting $-6$ adds $6$.",
+          "options": [
+            {
+              "text": "$4n - 4$",
+              "correct": false
+            },
+            {
+              "text": "$6n - 4$",
+              "correct": false
+            },
+            {
+              "text": "$4n + 8$",
+              "correct": true
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "(5*n + 2) - (n - 6)",
+            "form": "expanded"
+          },
+          "explain": "$(5n + 2) - (n - 6) = 5n + 2 - n + 6 = 4n + 8$. $4n - 4$ forgets that $-(-6) = +6$."
+        }
+      ]
+    },
+    {
+      "id": "exponential",
+      "heading": "Exponential and mixed sequences",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "exponential sequence",
+          "statement": "In an exponential sequence you multiply by the same number each time. That number is the common ratio, $r$.",
+          "plain": "Every step is the same multiplication."
+        },
+        {
+          "type": "text",
+          "text": "Write the terms as the first term $a$ times powers of $r$: $a, ar, ar^2, ar^3, \\ldots$ The power is always one less than the position, so the nth term is $a \\times r^{n-1}$."
+        },
+        {
+          "type": "text",
+          "text": "To find $r$, divide any term by the term before it. It can be between $0$ and $1$, such as $\\frac{1}{2}$, which makes the terms shrink."
+        },
+        {
+          "type": "example",
+          "id": "ex-exponential-up",
+          "question": "Find the nth term of $5, 15, 45, 135, \\ldots$",
+          "steps": [
+            "Divide each term by the one before: $15 \\div 5 = 3$, $45 \\div 15 = 3$. So $r = 3$.",
+            "The first term is $a = 5$, so the nth term is $5 \\times 3^{n-1}$.",
+            "Check with $n = 4$: $5 \\times 3^3 = 5 \\times 27 = 135$."
+          ],
+          "answer": "$5 \\times 3^{n-1}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "5*(15/5)**(n - 1)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-exponential-down",
+          "question": "Find the nth term of $96, 48, 24, 12, \\ldots$",
+          "steps": [
+            "Each term is half the one before, so $r = \\frac{1}{2}$.",
+            "The first term is $96$, so the nth term is $96 \\times \\left(\\frac{1}{2}\\right)^{n-1}$.",
+            "Check with $n = 3$: $96 \\times \\frac{1}{4} = 24$."
+          ],
+          "answer": "$96 \\times \\left(\\frac{1}{2}\\right)^{n-1}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "96*(48/96)**(n - 1)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-exponential-nth",
+          "prompt": "Find the nth term of $3, 6, 12, 24, \\ldots$",
+          "hint": "Find $r$ first. Then check your power gives $3$ when $n = 1$.",
+          "options": [
+            {
+              "text": "$3 \\times 2^{n}$",
+              "correct": false
+            },
+            {
+              "text": "$3 \\times 2^{n-1}$",
+              "correct": true
+            },
+            {
+              "text": "$6^{n-1}$",
+              "correct": false
+            },
+            {
+              "text": "$3n$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "3*(6/3)**(n - 1)"
+          },
+          "explain": "$r = 6 \\div 3 = 2$ and $a = 3$, so $3 \\times 2^{n-1}$. $3 \\times 2^{n}$ gives $6$ first: the power must be one less than the position."
+        },
+        {
+          "type": "text",
+          "text": "A mixed sequence adds two simple patterns together. If the gaps double each time, compare the terms with the powers of $2$, $2, 4, 8, 16, \\ldots$, or a multiple of them."
+        },
+        {
+          "type": "check",
+          "id": "check-mixed-power",
+          "prompt": "Find the nth term of $5, 7, 11, 19, 35, \\ldots$",
+          "hint": "The gaps are $2, 4, 8, 16$. Compare the terms with $2^n$.",
+          "options": [
+            {
+              "text": "$2n + 3$",
+              "correct": false
+            },
+            {
+              "text": "$2^n + 3$",
+              "correct": true
+            },
+            {
+              "text": "$n^2 + 4$",
+              "correct": false
+            },
+            {
+              "text": "$2^{n+1} + 1$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "2**n + (5 - 2**1)"
+          },
+          "explain": "$2^n$ gives $2, 4, 8, 16, 32$, and each term is $3$ more. $2n + 3$ fits only the first two terms."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "The term-to-term rule gets each term from the one before. Check it works for every pair of terms."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Linear sequence with first term $a$ and common difference $d$: nth term $= dn + (a - d)$. The number on the end is the term before the first."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Equal first differences: linear. If not, equal second differences: quadratic. If not, equal third differences: cubic."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "For a simple quadratic or cubic, compare the terms with $n^2$ ($1, 4, 9, 16, \\ldots$) or $n^3$ ($1, 8, 27, 64, \\ldots$)."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "To test whether a number is a term, set the nth term equal to it and solve. It is a term only if $n$ is a positive whole number."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Quadratic $an^2 + bn + c$: $a$ is half the second difference. Subtract $an^2$ from each term, then find the linear nth term of what is left."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Exponential sequence with first term $a$ and common ratio $r$: nth term $= a \\times r^{n-1}$."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the first term as the number on the end. For $7, 11, 15, 19$, $4n + 7$ gives $11$ first. Use the term before the first, $7 - 4 = 3$, to get $4n + 3$.",
+    "Losing the minus sign when the terms go down. In $26, 22, 18, 14$ the difference is $-4$, so the nth term has $-4n$ in it: $30 - 4n$, not $4n + 22$.",
+    "Starting at $n = 0$ when you list terms from an nth term. The first term is the one with $n = 1$.",
+    "Giving a rule that fits only one pair of terms. Test the term-to-term rule on every pair before you write it down.",
+    "Dividing by the difference to test a number. For nth term $7n - 4$, solve $7n - 4 = 200$; don't just work out $200 \\div 7$."
+  ],
+  "examTips": [
+    "When asked to **find** the nth term, give an expression in $n$, such as $4n + 3$. \"Add $4$\" is the term-to-term rule, a different answer. The right $4n$ with the wrong number on the end can still earn a mark.",
+    "Check your nth term by putting in $n = 1$, $2$ and $3$. If you don't get the first three terms, find the slip before you move on.",
+    "To **explain** whether a number is in a sequence, show the equation, the value of $n$, and whether it is a whole number."
+  ],
+  "readingMinutes": 25
+}

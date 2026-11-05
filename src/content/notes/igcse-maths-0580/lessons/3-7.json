@@ -1,0 +1,555 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "3.7",
+  "slug": "perpendicular-lines",
+  "title": "Perpendicular lines",
+  "level": "Extended",
+  "topic": 3,
+  "summary": "Two lines are [[perpendicular|perpendicular]] when they meet at a right angle. Unless one is horizontal and the other vertical, their gradients are linked: each is the [[negative-reciprocal|negative reciprocal]] of the other, so you flip the fraction and change the sign. With that gradient and one point, you can write the equation of a perpendicular line, including a [[perpendicular-bisector|perpendicular bisector]].",
+  "goals": [
+    {
+      "text": "Work out the gradient of a line perpendicular to a given line, from its gradient or its equation.",
+      "bullets": [
+        "3.7-s1"
+      ]
+    },
+    {
+      "text": "Find the equation of a line perpendicular to a given line through a given point.",
+      "bullets": [
+        "3.7-s1"
+      ]
+    },
+    {
+      "text": "Work out the perpendicular bisector of a line segment, as an equation.",
+      "bullets": [
+        "3.7-s1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "3.3",
+    "3.4",
+    "3.5"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "perpendicular gradient",
+    "negative reciprocal gradient",
+    "m1 times m2 equals minus 1",
+    "line at right angles to another line",
+    "equation of a perpendicular line",
+    "perpendicular bisector equation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-reciprocal",
+      "prompt": "What is the [[reciprocal|reciprocal]] of $\\frac{2}{7}$?",
+      "hint": "The reciprocal of a fraction is the fraction turned upside down.",
+      "options": [
+        {
+          "text": "$-\\frac{2}{7}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{7}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$-\\frac{7}{2}$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "fraction",
+        "truth": "1/Rational(2, 7)"
+      },
+      "explain": "Turn $\\frac{2}{7}$ upside down to get $\\frac{7}{2}$. Check: $\\frac{2}{7} \\times \\frac{7}{2} = 1$. A reciprocal keeps the same sign. Revise it in {{lesson:1.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-gradient-from-equation",
+      "prompt": "What is the gradient of the line $y = 7 - 3x$?",
+      "hint": "Write it as $y = mx + c$. The gradient is the number multiplying $x$.",
+      "options": [
+        {
+          "text": "$7$",
+          "correct": false
+        },
+        {
+          "text": "$3$",
+          "correct": false
+        },
+        {
+          "text": "$-3$",
+          "correct": true
+        }
+      ],
+      "verify": {
+        "kind": "exact",
+        "truth": "diff(7 - 3*x, x)"
+      },
+      "explain": "$y = 7 - 3x$ is the same as $y = -3x + 7$, so $m = -3$. The $7$ is where the line crosses the $y$-axis. Revise it in {{lesson:3.5}}."
+    },
+    {
+      "type": "check",
+      "id": "before-midpoint",
+      "prompt": "Which point is the midpoint of the segment joining $(-2, 9)$ and $(6, 1)$?",
+      "hint": "Add the $x$-coordinates and halve. Do the same with the $y$-coordinates.",
+      "options": [
+        {
+          "text": "$(4, 10)$",
+          "correct": false
+        },
+        {
+          "text": "$(2, 5)$",
+          "correct": true
+        },
+        {
+          "text": "$(4, -4)$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "point",
+        "truth": "((-2 + 6)/2, (9 + 1)/2)"
+      },
+      "explain": "$\\frac{-2 + 6}{2} = 2$ and $\\frac{9 + 1}{2} = 5$. $(4, 10)$ forgets to halve. Revise it in {{lesson:3.4}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "gradients",
+      "heading": "Perpendicular gradients",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[perpendicular|Perpendicular]] lines meet at a right angle. Turn a line a quarter turn and you get a line perpendicular to it. What does the quarter turn do to the [[gradient|gradient]]?"
+        },
+        {
+          "type": "figure",
+          "id": "3-7-quarter-turn",
+          "alt": "Axes with two straight lines crossing at right angles at the origin. The first line goes through (3, 2): its slope triangle goes 3 across to the right and 2 up, so its gradient is 2 over 3. The second line goes through (-2, 3): its slope triangle goes 2 to the left and 3 up, so its gradient is minus 3 over 2. A right-angle mark sits where the lines cross.",
+          "caption": "A quarter turn swaps the across and up moves, and one of them changes direction."
+        },
+        {
+          "type": "text",
+          "text": "The first line goes $3$ across and $2$ up, so its gradient is $\\frac{2}{3}$. Turn its slope triangle a quarter turn. Now it goes $2$ to the left and $3$ up, so the gradient is $\\frac{3}{-2} = -\\frac{3}{2}$."
+        },
+        {
+          "type": "text",
+          "text": "So the fraction has flipped, and the sign has changed. This new number is called the [[negative-reciprocal|negative reciprocal]]."
+        },
+        {
+          "type": "definition",
+          "term": "negative reciprocal",
+          "statement": "The negative reciprocal of a non-zero number $m$ is $-\\frac{1}{m}$.",
+          "plain": "Write the number as a fraction, turn it upside down, then change its sign."
+        },
+        {
+          "type": "result",
+          "statement": "Two lines, neither of them horizontal or vertical, with gradients $m_1$ and $m_2$ are perpendicular when $m_2 = -\\frac{1}{m_1}$. In other words, $m_1 \\times m_2 = -1$.",
+          "why": "A quarter turn swaps the across and up moves and reverses one of them, so $\\frac{\\text{up}}{\\text{across}}$ becomes $-\\frac{\\text{across}}{\\text{up}}$."
+        },
+        {
+          "type": "formula",
+          "tex": "m_1 \\times m_2 = -1",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This rule needs both gradients to exist and be non-zero. A horizontal line has gradient $0$, and $0$ has no [[reciprocal|reciprocal]]. The line perpendicular to it is vertical, and a vertical line has no gradient."
+        },
+        {
+          "type": "example",
+          "id": "ex-perp-gradient-fraction",
+          "question": "Line $L$ has gradient $\\frac{5}{4}$. Write down the gradient of a line perpendicular to $L$.",
+          "steps": [
+            "Flip the fraction: $\\frac{5}{4}$ becomes $\\frac{4}{5}$.",
+            "Change the sign: $\\frac{4}{5}$ becomes $-\\frac{4}{5}$.",
+            "Check: $\\frac{5}{4} \\times \\left(-\\frac{4}{5}\\right) = -1$."
+          ],
+          "answer": "$\\text{gradient} = -\\frac{4}{5}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "-1/Rational(5, 4)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "If the line is not in the form $y = mx + c$, rearrange it first. Only then is the number in front of $x$ the gradient."
+        },
+        {
+          "type": "example",
+          "id": "ex-perp-gradient-equation",
+          "question": "Find the gradient of a line perpendicular to the line $5x + 2y = 9$.",
+          "steps": [
+            "Make $y$ the subject. Subtract $5x$: $2y = -5x + 9$.",
+            "Divide every term by $2$: $y = -\\frac{5}{2}x + \\frac{9}{2}$. So the gradient is $-\\frac{5}{2}$.",
+            "Flip and change the sign: the negative reciprocal of $-\\frac{5}{2}$ is $\\frac{2}{5}$.",
+            "Check: $-\\frac{5}{2} \\times \\frac{2}{5} = -1$."
+          ],
+          "answer": "$\\text{gradient} = \\frac{2}{5}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "-1/Rational(-5, 2)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Doing only half the job. For gradient $-\\frac{5}{2}$, $\\frac{5}{2}$ only changes the sign and $-\\frac{2}{5}$ only flips. You need both: $\\frac{2}{5}$."
+        },
+        {
+          "type": "check",
+          "id": "check-perp-gradient-whole",
+          "prompt": "A line has gradient $-6$. What is the gradient of a line perpendicular to it?",
+          "hint": "Write $-6$ as $\\frac{-6}{1}$. Flip it, then change the sign.",
+          "options": [
+            {
+              "text": "$6$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1}{6}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{6}$",
+              "correct": true
+            },
+            {
+              "text": "$-6$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "fraction",
+            "truth": "-1/Rational(-6)"
+          },
+          "explain": "Flipping $-6$ gives $-\\frac{1}{6}$, and changing the sign gives $\\frac{1}{6}$. Check: $-6 \\times \\frac{1}{6} = -1$. $6$ only changes the sign, and $-\\frac{1}{6}$ only flips."
+        },
+        {
+          "type": "check",
+          "id": "check-perp-gradient-equation",
+          "prompt": "Line $K$ has equation $6x - 2y = 5$. What is the gradient of a line perpendicular to $K$?",
+          "hint": "First make $y$ the subject to find the gradient of $K$.",
+          "options": [
+            {
+              "text": "$-\\frac{1}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$-3$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1}{6}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "fraction",
+            "truth": "-1/Rational(6, 2)"
+          },
+          "explain": "$-2y = -6x + 5$, so $y = 3x - \\frac{5}{2}$ and $K$ has gradient $3$. The perpendicular gradient is $-\\frac{1}{3}$. $-\\frac{1}{6}$ uses the $6$ from $6x$ without rearranging first."
+        }
+      ]
+    },
+    {
+      "id": "equation",
+      "heading": "The equation of a perpendicular line",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To find the equation of a [[perpendicular|perpendicular]] line through a given point, follow four steps."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the [[gradient|gradient]] of the given line."
+        },
+        {
+          "type": "text",
+          "text": "2. Take its [[negative-reciprocal|negative reciprocal]]. This is $m$ for the new line."
+        },
+        {
+          "type": "text",
+          "text": "3. Put $m$ and the point's coordinates into $y = mx + c$, and solve for $c$."
+        },
+        {
+          "type": "text",
+          "text": "4. Write the equation with your values of $m$ and $c$."
+        },
+        {
+          "type": "example",
+          "id": "ex-perp-line-point",
+          "question": "Line $L$ has equation $y = 3x - 4$. Line $N$ is perpendicular to $L$ and goes through $(6, 5)$. Write the equation of $N$ in the form $y = mx + c$.",
+          "steps": [
+            "$L$ has gradient $3$.",
+            "Flip $3$ and change its sign: $N$ has gradient $-\\frac{1}{3}$. So $N$ is $y = -\\frac{1}{3}x + c$.",
+            "Substitute $x = 6$ and $y = 5$: $5 = -\\frac{1}{3} \\times 6 + c$, so $5 = -2 + c$ and $c = 7$.",
+            "Check the point: $-\\frac{1}{3} \\times 6 + 7 = 5$. It works."
+          ],
+          "answer": "$y = -\\frac{1}{3}x + 7$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - 5, (-1/Rational(3))*(x - 6))"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Sometimes the line is given by two points. Find its gradient from them first, using $\\frac{\\text{change in } y}{\\text{change in } x}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-perp-line-two-points",
+          "question": "A straight line joins $A(-2, 7)$ to $B(4, -5)$. Line $N$ goes through $B$ at right angles to $AB$. Write the equation of $N$ in the form $y = mx + c$.",
+          "steps": [
+            "Gradient of $AB$: $\\frac{-5 - 7}{4 - (-2)} = \\frac{-12}{6} = -2$.",
+            "Flip $-2$ and change its sign: $N$ has gradient $\\frac{1}{2}$.",
+            "The line goes through $B$, so substitute $(4, -5)$: $-5 = \\frac{1}{2} \\times 4 + c$, so $-5 = 2 + c$ and $c = -7$.",
+            "Check: $-2 \\times \\frac{1}{2} = -1$, so the lines are perpendicular."
+          ],
+          "answer": "$y = \\frac{1}{2}x - 7$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (-5), (-1/Rational(-5 - 7, 4 - (-2)))*(x - 4))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using the gradient of $AB$ itself in step 3. The new line needs the perpendicular gradient. Write \"perpendicular gradient $= \\ldots$\" as its own line so you don't skip it."
+        },
+        {
+          "type": "check",
+          "id": "check-perp-line",
+          "prompt": "Line $L$ is $y = -\\frac{3}{2}x + 1$. Which is the equation of the line perpendicular to $L$ through $(-3, 4)$?",
+          "hint": "The perpendicular gradient is $\\frac{2}{3}$. Substitute $x = -3$ and $y = 4$ to find $c$.",
+          "options": [
+            {
+              "text": "$y = -\\frac{3}{2}x - \\frac{1}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$y = -\\frac{2}{3}x + 2$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\frac{2}{3}x + 6$",
+              "correct": true
+            },
+            {
+              "text": "$y = \\frac{2}{3}x + 2$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - 4, (-1/Rational(-3, 2))*(x - (-3)))"
+          },
+          "explain": "$4 = \\frac{2}{3} \\times (-3) + c = -2 + c$, so $c = 6$. $y = -\\frac{3}{2}x - \\frac{1}{2}$ keeps $L$'s gradient, $y = -\\frac{2}{3}x + 2$ forgets to change the sign, and $y = \\frac{2}{3}x + 2$ slips a sign when finding $c$: $c = 4 + 2 = 6$, not $4 - 2$."
+        },
+        {
+          "type": "text",
+          "text": "Horizontal and vertical lines are the special case. The line $y = k$ is horizontal. A line perpendicular to it is vertical, so its equation is $x = a$, where $a$ is the $x$-coordinate of the point it passes through."
+        },
+        {
+          "type": "check",
+          "id": "check-perp-horizontal",
+          "prompt": "Which line is perpendicular to $y = -4$ and passes through $(7, 2)$?",
+          "hint": "$y = -4$ is horizontal. Every point on a vertical line has the same $x$-coordinate.",
+          "options": [
+            {
+              "text": "$y = 2$",
+              "correct": false
+            },
+            {
+              "text": "$x = 7$",
+              "correct": true
+            },
+            {
+              "text": "$x = -4$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(x, Point(7, 2).x)"
+          },
+          "explain": "The perpendicular line is vertical, and it passes through $x = 7$. $y = 2$ is another horizontal line, so it is parallel to $y = -4$, not perpendicular."
+        }
+      ]
+    },
+    {
+      "id": "bisector",
+      "heading": "Perpendicular bisectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[perpendicular-bisector|perpendicular bisector]] of a line segment $PQ$ cuts it in half at a right angle. So it passes through the [[midpoint|midpoint]] of $PQ$, and its gradient is the negative reciprocal of the gradient of $PQ$. If $PQ$ is horizontal, the bisector is vertical, $x = \\ldots$; if $PQ$ is vertical, it is horizontal, $y = \\ldots$."
+        },
+        {
+          "type": "figure",
+          "id": "3-7-bisector",
+          "alt": "Axes with points P at (-1, 2) and Q at (5, 6) joined by a line segment. The midpoint M at (2, 4) is marked, with equal tick marks on PM and MQ. A second line crosses PQ at M at right angles: this is the perpendicular bisector of PQ.",
+          "caption": "The bisector goes through $M$, the midpoint, at right angles to $PQ$."
+        },
+        {
+          "type": "text",
+          "text": "Every point on the perpendicular bisector is the same distance from $P$ as from $Q$. Find the midpoint first, then follow the four steps with the midpoint as your point."
+        },
+        {
+          "type": "example",
+          "id": "ex-bisector-whole",
+          "question": "A segment runs from $P(-1, 2)$ to $Q(5, 6)$. Work out its perpendicular bisector. Write it in the form $y = mx + c$.",
+          "steps": [
+            "Midpoint of $PQ$: $\\left(\\frac{-1 + 5}{2}, \\frac{2 + 6}{2}\\right) = (2, 4)$.",
+            "Gradient of $PQ$: $\\frac{6 - 2}{5 - (-1)} = \\frac{4}{6} = \\frac{2}{3}$.",
+            "Perpendicular gradient: $-\\frac{3}{2}$.",
+            "Substitute the midpoint $(2, 4)$: $4 = -\\frac{3}{2} \\times 2 + c$, so $4 = -3 + c$ and $c = 7$."
+          ],
+          "answer": "$y = -\\frac{3}{2}x + 7$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (2 + 6)/2, (-1/Rational(6 - 2, 5 - (-1)))*(x - (-1 + 5)/2))"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Paper 2 has no calculator, and $c$ is often a fraction. Leave it as an exact fraction rather than a rounded decimal."
+        },
+        {
+          "type": "example",
+          "id": "ex-bisector-fraction",
+          "question": "A segment runs from $C(-4, -1)$ to $D(2, 7)$. Work out its perpendicular bisector. Write it in the form $y = mx + c$.",
+          "steps": [
+            "Midpoint of $CD$: $\\left(\\frac{-4 + 2}{2}, \\frac{-1 + 7}{2}\\right) = (-1, 3)$.",
+            "Gradient of $CD$: $\\frac{7 - (-1)}{2 - (-4)} = \\frac{8}{6} = \\frac{4}{3}$.",
+            "Perpendicular gradient: $-\\frac{3}{4}$.",
+            "Substitute $(-1, 3)$: $3 = -\\frac{3}{4} \\times (-1) + c$, so $3 = \\frac{3}{4} + c$.",
+            "So $c = 3 - \\frac{3}{4} = \\frac{9}{4}$."
+          ],
+          "answer": "$y = -\\frac{3}{4}x + \\frac{9}{4}$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (-1 + 7)/2, (-1/Rational(7 - (-1), 2 - (-4)))*(x - (-4 + 2)/2))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Putting $P$ or $Q$ into $y = mx + c$ instead of the midpoint. A perpendicular bisector always goes through the midpoint, so that is the point to use."
+        },
+        {
+          "type": "check",
+          "id": "check-bisector",
+          "prompt": "$A$ is $(-3, 6)$ and $B$ is $(5, 2)$. Which is the equation of the perpendicular bisector of $AB$?",
+          "hint": "The midpoint is $(1, 4)$. Find the gradient of $AB$, then its negative reciprocal.",
+          "options": [
+            {
+              "text": "$y = -\\frac{1}{2}x + \\frac{9}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$y = 2x + 12$",
+              "correct": false
+            },
+            {
+              "text": "$y = -2x + 6$",
+              "correct": false
+            },
+            {
+              "text": "$y = 2x + 2$",
+              "correct": true
+            }
+          ],
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (6 + 2)/2, (-1/Rational(2 - 6, 5 - (-3)))*(x - (-3 + 5)/2))"
+          },
+          "explain": "$AB$ has gradient $\\frac{-4}{8} = -\\frac{1}{2}$, so the bisector has gradient $2$. Then $4 = 2 \\times 1 + c$ gives $c = 2$. $y = 2x + 12$ goes through $A$ instead of the midpoint, and $y = -\\frac{1}{2}x + \\frac{9}{2}$ uses the gradient of $AB$."
+        },
+        {
+          "type": "check",
+          "id": "check-bisector-intercept",
+          "prompt": "$E$ is $(0, -2)$ and $F$ is $(6, 2)$. The perpendicular bisector of $EF$ crosses the $y$-axis at $(0, c)$. Work out $c$.",
+          "hint": "The midpoint is $(3, 0)$. The gradient of $EF$ is $\\frac{4}{6}$.",
+          "answer": {
+            "value": 4.5,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "(-2 + 2)/2 - (-1/Rational(2 - (-2), 6 - 0))*(0 + 6)/2",
+            "dp": 1
+          },
+          "explain": "$EF$ has gradient $\\frac{2}{3}$, so the bisector has gradient $-\\frac{3}{2}$. Then $0 = -\\frac{3}{2} \\times 3 + c$, so $c = \\frac{9}{2} = 4.5$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Perpendicular gradients are negative reciprocals: $m_2 = -\\frac{1}{m_1}$, so $m_1 \\times m_2 = -1$. Flip the fraction and change the sign.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Rearrange to $y = mx + c$ before reading a gradient: $5x + 2y = 9$ has gradient $-\\frac{5}{2}$, not $5$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Perpendicular line through a point: perpendicular gradient, then substitute the point into $y = mx + c$ to find $c$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Perpendicular bisector of $PQ$: it goes through the midpoint of $PQ$, with the negative reciprocal of the gradient of $PQ$. If $PQ$ is horizontal or vertical, the bisector is the vertical or horizontal line through the midpoint.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A horizontal line $y = k$ and a vertical line $x = a$ are perpendicular. The rule $m_1 \\times m_2 = -1$ doesn't apply to them.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the gradient of the given line, or of $AB$, in the new equation. The new line needs the perpendicular gradient: flip and change the sign.",
+    "Changing only the sign or only flipping. The perpendicular to gradient $4$ has gradient $-\\frac{1}{4}$, not $-4$ or $\\frac{1}{4}$.",
+    "Reading the gradient straight from $ax + by = c$. Make $y$ the subject first: $3x + 4y = 8$ has gradient $-\\frac{3}{4}$.",
+    "Putting an end point into $y = mx + c$ for a perpendicular bisector. Use the midpoint.",
+    "Subtracting a negative coordinate wrongly when finding a gradient. $5 - (-3) = 8$, not $2$. Bracket negative numbers.",
+    "Writing $y = \\ldots$ for the line perpendicular to a horizontal line. That is another horizontal line; the answer is a vertical line $x = a$."
+  ],
+  "examTips": [
+    "**Find the equation of the perpendicular bisector**: the midpoint and the perpendicular gradient can each earn a mark on their own, so write each one down clearly before you find $c$.",
+    "**Give your answer in the form $y = mx + c$**: finish in exactly that form. On Paper 2, leave $c$ as an exact fraction such as $\\frac{9}{4}$.",
+    "Before you move on, multiply the two gradients. If you don't get $-1$, look for a missed sign or flip. Then substitute your point back into your equation.",
+    "**Write down** the perpendicular gradient: no working is needed, but rearrange to $y = mx + c$ in your head first if the line is not in that form."
+  ],
+  "readingMinutes": 17
+}

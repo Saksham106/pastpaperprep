@@ -1,0 +1,648 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "3.5",
+  "slug": "equations-of-linear-graphs",
+  "title": "Equations of linear graphs",
+  "level": "Core",
+  "topic": 3,
+  "summary": "Every straight line except a vertical one has an equation $y = mx + c$. Here $m$ is the [[gradient|gradient]] and $c$ is the [[y-intercept|y-intercept]], where the line crosses the $y$-axis. You'll read $m$ and $c$ from an equation and find the [[equation-of-a-straight-line|equation of a straight line]] from its graph.",
+  "goals": [
+    {
+      "text": "Write down the gradient and [[y-intercept|y-intercept]] of a line from its equation $y = mx + c$.",
+      "bullets": [
+        "3.5-c1"
+      ]
+    },
+    {
+      "text": "Find where a line crosses the $x$-axis and the $y$-axis.",
+      "bullets": [
+        "3.5-c1"
+      ]
+    },
+    {
+      "text": "Find the equation of a line from its graph, including horizontal and vertical lines.",
+      "bullets": [
+        "3.5-c1"
+      ]
+    },
+    {
+      "text": "Say what $m$ and $c$ mean on a real-life graph.",
+      "bullets": [
+        "3.5-c1"
+      ]
+    },
+    {
+      "text": "Find the equation of the line through two points.",
+      "bullets": [
+        "3.5-s1"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Read and give equations in other forms, such as $2x + 5y = 15$.",
+      "bullets": [
+        "3.5-s1",
+        "3.5-n1"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "2.5",
+    "3.3"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "y = mx + c",
+    "equation of a line",
+    "gradient and y-intercept",
+    "find the equation of a straight line",
+    "equation of a line through two points",
+    "ax + by = c"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gradient",
+      "prompt": "A straight line goes down $4$ for every $2$ across, from left to right. Find its gradient.",
+      "hint": "Divide the change in $y$ by the change in $x$. Down counts as negative.",
+      "options": [
+        {
+          "text": "$-2$",
+          "correct": true
+        },
+        {
+          "text": "$2$",
+          "correct": false
+        },
+        {
+          "text": "$-\\frac{1}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{1}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "The change in $y$ is $-4$ and the change in $x$ is $2$, so the gradient is $\\frac{-4}{2} = -2$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "Rational(-4, 2)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-solve",
+      "prompt": "Solve $3x + 15 = 0$.",
+      "hint": "Subtract $15$ from both sides, then divide by $3$.",
+      "answer": {
+        "value": -5,
+        "tolerance": 0
+      },
+      "explain": "$3x = -15$, so $x = -5$. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "solve(Eq(3*x + 15, 0), x)[0]",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "read-m-c",
+      "heading": "Gradient and y-intercept from an equation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Look at the line $y = 2x + 3$. When $x = 0$, $y = 3$. Each time $x$ goes up by $1$, $y$ goes up by $2$."
+        },
+        {
+          "type": "figure",
+          "id": "3-5-m-and-c",
+          "alt": "Grid with x from 0 to 5 and y from 0 to 13. The straight line y = 2x + 3 starts at the marked point (0, 3) on the y-axis, labelled y-intercept 3, and rises to (5, 13). A dashed step under the line, from (1, 5) to (2, 5) and then up to (2, 7), is labelled across 1 and up 2."
+        },
+        {
+          "type": "text",
+          "text": "So the line crosses the $y$-axis at $3$, and its [[gradient|gradient]] is $2$. Both numbers are in the equation."
+        },
+        {
+          "type": "definition",
+          "term": "Equation of a straight line",
+          "statement": "A straight line with gradient $m$ that crosses the $y$-axis at $(0, c)$ has the equation $y = mx + c$.",
+          "plain": "The number in front of $x$ is the gradient. The number on its own is where the line meets the $y$-axis."
+        },
+        {
+          "type": "formula",
+          "tex": "y = mx + c",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $m$ is the gradient and $c$ is the [[y-intercept|y-intercept]]. Keep the sign with each number: $y = 2x - 5$ has $c = -5$."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-m-c",
+          "question": "Write down the gradient and the $y$-intercept of the line $y = 4x - 7$.",
+          "steps": [
+            "Match $y = 4x - 7$ with $y = mx + c$.",
+            "The number in front of $x$ is $4$, so $m = 4$.",
+            "The number on its own is $-7$, so $c = -7$. Keep the minus sign."
+          ],
+          "answer": "$m = 4, \\; c = -7$",
+          "verify": {
+            "kind": "assignments",
+            "truth": "[Eq(m, diff(4*x - 7, x)), Eq(c, (4*x - 7).subs(x, 0))]"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "With no number in front of $x$, the gradient is $1$: $y = x + 6$ has $m = 1$, and $y = -x + 6$ has $m = -1$. With no number on its own, $c = 0$: $y = 5x$ passes through the [[origin|origin]]."
+        },
+        {
+          "type": "check",
+          "id": "check-read-gradient",
+          "prompt": "Write down the gradient of the line $y = -5x + 2$.",
+          "hint": "Look at the number in front of $x$, sign included.",
+          "options": [
+            {
+              "text": "$-5$",
+              "correct": true
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$5$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1}{5}$",
+              "correct": false
+            }
+          ],
+          "explain": "Matching with $y = mx + c$ gives $m = -5$. The $2$ is the $y$-intercept, not the gradient.",
+          "verify": {
+            "kind": "exact",
+            "truth": "diff(-5*x + 2, x)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Every point on the $x$-axis has $y = 0$. So to find where a line crosses the $x$-axis, put $y = 0$ and solve for $x$. (A horizontal line such as $y = 4$ never crosses it.)"
+        },
+        {
+          "type": "example",
+          "id": "ex-x-axis",
+          "question": "Line $L$ is $y = -3x + 12$. At which point does $L$ meet the $x$-axis?",
+          "steps": [
+            "On the $x$-axis, $y = 0$. Substitute: $0 = -3x + 12$.",
+            "Add $3x$ to both sides: $3x = 12$.",
+            "Divide both sides by $3$: $x = 4$.",
+            "Write the point with $x$ first: $(4, 0)$.",
+            "Check: $-3 \\times 4 + 12 = 0$."
+          ],
+          "answer": "$(4, 0)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(solve(Eq(-3*x + 12, 0), x)[0], 0)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping the coordinates. A point on the $x$-axis has $y = 0$, so it is $(4, 0)$, not $(0, 4)$."
+        },
+        {
+          "type": "check",
+          "id": "check-y-axis",
+          "prompt": "At which point does the line $y = 7x - 9$ meet the $y$-axis?",
+          "hint": "Every point on the $y$-axis has $x = 0$.",
+          "options": [
+            {
+              "text": "$(0, -9)$",
+              "correct": true
+            },
+            {
+              "text": "$(-9, 0)$",
+              "correct": false
+            },
+            {
+              "text": "$(0, 7)$",
+              "correct": false
+            },
+            {
+              "text": "$(\\frac{9}{7}, 0)$",
+              "correct": false
+            }
+          ],
+          "explain": "Put $x = 0$: $y = 7 \\times 0 - 9 = -9$. The point is $(0, -9)$, which is $(0, c)$.",
+          "verify": {
+            "kind": "point",
+            "truth": "(0, 7*0 - 9)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "from-graph",
+      "heading": "Finding the equation from a graph",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To find the [[equation-of-a-straight-line|equation of a straight line]] drawn on a grid, find $c$ and $m$. Then put them into $y = mx + c$."
+        },
+        {
+          "type": "text",
+          "text": "1. Read $c$: the $y$-value where the line crosses the $y$-axis, where $x = 0$."
+        },
+        {
+          "type": "text",
+          "text": "2. Find $m$: draw a triangle under the line and divide the change in $y$ by the change in $x$ ({{lesson:3.3}})."
+        },
+        {
+          "type": "text",
+          "text": "3. Write $y = mx + c$ with your numbers, in its simplest form."
+        },
+        {
+          "type": "figure",
+          "id": "3-5-three-lines",
+          "alt": "Grid with x from 0 to 8 and y from 0 to 9, showing three straight lines. Line A rises from (0, 1) through (4, 4) to (8, 7). Line B falls from (0, 8) through (2, 5) and (4, 2), and meets the x-axis between 5 and 6. Line C is vertical: it goes straight up through (6, 0).",
+          "caption": "Lines $A$, $B$ and $C$, used in the example and checks below."
+        },
+        {
+          "type": "example",
+          "id": "ex-graph-line-a",
+          "question": "The figure shows lines $A$, $B$ and $C$. Work out the equation of line $A$.",
+          "steps": [
+            "Line $A$ crosses the $y$-axis at $1$, so $c = 1$.",
+            "From the grid corner $(0, 1)$ to $(4, 4)$, the line goes across $4$ and up $3$. So $m = \\frac{3}{4}$.",
+            "The equation is $y = \\frac{3}{4}x + 1$.",
+            "Check with $(8, 7)$: $\\frac{3}{4} \\times 8 + 1 = 7$."
+          ],
+          "answer": "$y = \\frac{3}{4}x + 1$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, Rational(4 - 1, 4 - 0)*x + 1)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-graph-line-b",
+          "prompt": "Find the equation of line $B$ in the same figure.",
+          "hint": "Read $c$ on the $y$-axis. $B$ slopes downhill, so $m$ is negative.",
+          "options": [
+            {
+              "text": "$y = -\\frac{3}{2}x + 8$",
+              "correct": true
+            },
+            {
+              "text": "$y = \\frac{3}{2}x + 8$",
+              "correct": false
+            },
+            {
+              "text": "$y = -\\frac{2}{3}x + 8$",
+              "correct": false
+            },
+            {
+              "text": "$y = 8x - \\frac{3}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$c = 8$. From $(0, 8)$ to $(2, 5)$ the line goes across $2$ and down $3$, so $m = -\\frac{3}{2}$. The equation is $y = -\\frac{3}{2}x + 8$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, Rational(5 - 8, 2 - 0)*x + 8)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A horizontal line has gradient $0$, and every point on it has the same $y$-coordinate. Its equation is $y = k$ for a number $k$, such as $y = 4$."
+        },
+        {
+          "type": "text",
+          "text": "Every point on a vertical line has the same $x$-coordinate, so its equation is $x = k$. It has no gradient, so it can't be written as $y = mx + c$."
+        },
+        {
+          "type": "check",
+          "id": "check-line-c",
+          "prompt": "Write down the equation of line $C$ in the figure.",
+          "hint": "Which coordinate is the same for every point on $C$?",
+          "options": [
+            {
+              "text": "$x = 6$",
+              "correct": true
+            },
+            {
+              "text": "$y = 6$",
+              "correct": false
+            },
+            {
+              "text": "$y = 6x$",
+              "correct": false
+            },
+            {
+              "text": "$x = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "Every point on $C$ has $x$-coordinate $6$, for example $(6, 0)$ and $(6, 5)$. So line $C$ is $x = 6$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(x, 6)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "On a real-life graph, other letters replace $x$ and $y$, and the axes often have different scales. Read $c$ and both changes from the axis numbers, not by counting squares."
+        },
+        {
+          "type": "text",
+          "text": "Then $c$ is the value when the quantity across is $0$, usually the starting value, and $m$ is the [[rate-of-change|rate of change]]."
+        },
+        {
+          "type": "figure",
+          "id": "3-5-gym",
+          "alt": "Graph of the total cost of gym membership, T dollars, against the number of months, n. Across, months go from 0 to 6, one month per square. Up, cost goes from 0 to 280 dollars, 20 dollars per square, labelled every 40. A straight line rises from the marked point (0, 60), through 140 dollars at 2 months and the marked point (5, 260), to the top of the grid."
+        },
+        {
+          "type": "example",
+          "id": "ex-gym",
+          "question": "The graph shows the total cost, $T$ dollars, of gym membership for $n$ months. Find the equation of the line in the form $T = mn + c$. Say what $m$ and $c$ mean.",
+          "steps": [
+            "The line crosses the cost axis at $60$, so $c = 60$.",
+            "Use the marked points $(0, 60)$ and $(5, 260)$. Across: $5$ months. Up: $260 - 60 = 200$ dollars.",
+            "$m = \\frac{200}{5} = 40$.",
+            "So $T = 40n + 60$. Joining costs $60$ dollars, and each month adds $40$ dollars."
+          ],
+          "answer": "$T = 40n + 60$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(T, (260 - 60)/(5 - 0)*n + 60)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Counting squares. The line rises $10$ squares for $5$ across, but each square up is $20$ dollars, so $m = 40$, not $2$."
+        },
+        {
+          "type": "check",
+          "id": "check-meaning-c",
+          "prompt": "A phone plan costs $P = 0.08t + 15$ dollars in a month with $t$ minutes of calls. What does the $15$ tell you?",
+          "hint": "The number on its own is the value of $P$ when $t = 0$.",
+          "options": [
+            {
+              "text": "The cost for a month with no calls is 15 dollars",
+              "correct": true
+            },
+            {
+              "text": "Each minute of calls costs 15 dollars",
+              "correct": false
+            },
+            {
+              "text": "The cost goes up by 15 dollars every month",
+              "correct": false
+            },
+            {
+              "text": "The first 15 minutes of calls are free",
+              "correct": false
+            }
+          ],
+          "explain": "$15$ is $c$, the cost when $t = 0$. The gradient $0.08$ is the cost of each minute of calls.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The cost for a month with no calls is 15 dollars"
+          }
+        }
+      ]
+    },
+    {
+      "id": "two-points",
+      "heading": "The line through two points",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Often you know two points on a line, but neither is on the $y$-axis. Find $m$ from the two points. Then substitute one point into $y = mx + c$ and solve for $c$."
+        },
+        {
+          "type": "formula",
+          "tex": "m = \\dfrac{y_2 - y_1}{x_2 - x_1}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-two-points",
+          "question": "Find the equation of the line through $(2, 11)$ and $(6, 31)$. Give your answer in the form $y = mx + c$.",
+          "steps": [
+            "Gradient: $m = \\frac{31 - 11}{6 - 2} = \\frac{20}{4} = 5$.",
+            "So $y = 5x + c$. Substitute the point $(2, 11)$: $11 = 5 \\times 2 + c$.",
+            "Subtract $10$ from both sides: $c = 1$.",
+            "Check with $(6, 31)$: $5 \\times 6 + 1 = 31$."
+          ],
+          "answer": "$y = 5x + 1$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, Rational(31 - 11, 6 - 2)*x + (11 - Rational(31 - 11, 6 - 2)*2))"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-two-points-negative",
+          "question": "Find the equation of the line through $(-2, 9)$ and $(6, -3)$. Give your answer in the form $y = mx + c$.",
+          "steps": [
+            "Put negative coordinates in brackets: $m = \\frac{-3 - 9}{6 - (-2)} = \\frac{-12}{8} = -\\frac{3}{2}$.",
+            "Substitute $(-2, 9)$ into $y = -\\frac{3}{2}x + c$: $9 = -\\frac{3}{2} \\times (-2) + c$, so $9 = 3 + c$.",
+            "So $c = 6$ and the equation is $y = -\\frac{3}{2}x + 6$.",
+            "Check with $(6, -3)$: $-\\frac{3}{2} \\times 6 + 6 = -3$."
+          ],
+          "answer": "$y = -\\frac{3}{2}x + 6$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, Rational(-3 - 9, 6 - (-2))*x + (9 - Rational(-3 - 9, 6 - (-2))*(-2)))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using the $y$-coordinate of a given point as $c$. That only works for a point on the $y$-axis, where $x = 0$. Otherwise substitute the point and solve for $c$."
+        },
+        {
+          "type": "check",
+          "id": "check-two-points",
+          "prompt": "Find the equation of the line through $(10, 13)$ and $(13, 31)$.",
+          "hint": "Find $m$ first. Then substitute $(10, 13)$ into $y = mx + c$.",
+          "options": [
+            {
+              "text": "$y = 6x - 47$",
+              "correct": true
+            },
+            {
+              "text": "$y = 6x + 13$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\frac{1}{6}x + \\frac{34}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$y = 6x + 73$",
+              "correct": false
+            }
+          ],
+          "explain": "$m = \\frac{31 - 13}{13 - 10} = \\frac{18}{3} = 6$. Then $13 = 6 \\times 10 + c$, so $c = 13 - 60 = -47$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, Rational(31 - 13, 13 - 10)*x + (13 - Rational(31 - 13, 13 - 10)*10))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "other-forms",
+      "heading": "Equations in other forms",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Lines are not always written as $y = mx + c$. You might see $y = 7 - 4x$ or $2x + 5y = 15$. Rearrange so the equation starts $y = $ before you read $m$ and $c$ ({{lesson:2.5}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-other-form",
+          "question": "Find the gradient and the $y$-intercept of the line $2x + 5y = 15$.",
+          "steps": [
+            "Make $y$ the subject. Subtract $2x$ from both sides: $5y = -2x + 15$.",
+            "Divide every term by $5$: $y = -\\frac{2}{5}x + 3$.",
+            "Match with $y = mx + c$: $m = -\\frac{2}{5}$ and $c = 3$."
+          ],
+          "answer": "$m = -\\frac{2}{5}, \\; c = 3$",
+          "verify": {
+            "kind": "assignments",
+            "truth": "[Eq(m, diff(solve(Eq(2*x + 5*y, 15), y)[0], x)), Eq(c, solve(Eq(2*x + 5*y, 15), y)[0].subs(x, 0))]"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing only some of the terms by $5$. Divide every term, or the $y$-intercept comes out wrong."
+        },
+        {
+          "type": "check",
+          "id": "check-reversed",
+          "prompt": "Write down the gradient and $y$-intercept of the line $y = 7 - 4x$.",
+          "hint": "Reorder it as $y = -4x + 7$.",
+          "options": [
+            {
+              "text": "$m = -4, \\; c = 7$",
+              "correct": true
+            },
+            {
+              "text": "$m = 7, \\; c = -4$",
+              "correct": false
+            },
+            {
+              "text": "$m = 4, \\; c = 7$",
+              "correct": false
+            },
+            {
+              "text": "$m = -4, \\; c = -7$",
+              "correct": false
+            }
+          ],
+          "explain": "$y = 7 - 4x$ is the same as $y = -4x + 7$. So $m = -4$ and $c = 7$.",
+          "verify": {
+            "kind": "assignments",
+            "truth": "[Eq(m, diff(7 - 4*x, x)), Eq(c, (7 - 4*x).subs(x, 0))]"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A question may ask for the form $ax + by = c$, where $a$, $b$ and $c$ are integers. This $c$ is not the $y$-intercept. Clear any fractions, then collect $x$ and $y$ on one side."
+        },
+        {
+          "type": "example",
+          "id": "ex-integer-form",
+          "question": "Write the equation $y = \\frac{3}{4}x - 2$ in the form $ax + by = c$, where $a$, $b$ and $c$ are integers.",
+          "steps": [
+            "Multiply every term by $4$ to clear the fraction: $4y = 3x - 8$.",
+            "Move $4y$ to the right and $-8$ to the left: $8 = 3x - 4y$, so $3x - 4y = 8$."
+          ],
+          "answer": "$3x - 4y = 8$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(4*y, 4*(Rational(3, 4)*x - 2))"
+          },
+          "video": null
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$y = mx + c$: the gradient is $m$, and the line crosses the $y$-axis at $(0, c)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A horizontal line is $y = k$, with gradient $0$. A vertical line is $x = k$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Where a line meets the $x$-axis, $y = 0$. Where it meets the $y$-axis, $x = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "From a graph: read $c$ where $x = 0$, then find $m$ from a triangle, using the axis numbers.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Through two points: find $m$, then substitute one point into $y = mx + c$ to find $c$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "For an equation like $2x + 5y = 15$, make $y$ the subject before you read $m$ and $c$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing coordinates the wrong way round. The $y$-axis point is $(0, c)$; an $x$-axis point ends in $0$.",
+    "Counting squares when the axes have different scales. Use the axis numbers.",
+    "Dividing across by up. Gradient is up divided by across.",
+    "Dropping a minus sign, in $m$ for a downhill line or in $c$ for $y = 2x - 5$.",
+    "Writing $9 - 3$ for $9 - (-3)$. Bracket negative coordinates before subtracting."
+  ],
+  "examTips": [
+    "“Find the equation of the line”: give a full equation such as $y = \\frac{3}{4}x + 1$, not just $m$ and $c$. Give it in its simplest form.",
+    "Write the gradient as a fraction, such as $\\frac{-12}{8}$, and write down $c$. Each can earn a mark even if the final equation slips."
+  ],
+  "readingMinutes": 19
+}

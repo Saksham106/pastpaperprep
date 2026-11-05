@@ -1,0 +1,102 @@
+{
+  "slug": "igcse-maths-0580",
+  "name": "IGCSE Maths 0580",
+  "published": false,
+  "levels": {
+    "base": "Core",
+    "extension": "Extended",
+    "labels": {
+      "base": "Core",
+      "extension": "Extended",
+      "extensionOnly": "Extended only"
+    }
+  },
+  "banks": {
+    "Core": "igcse",
+    "Extended": "igcse"
+  },
+  "items": "src/content/notes/igcse-maths-0580/items.json",
+  "practice": {
+    "kind": "official-codes",
+    "source": "igcse-0580-section-retrieval-v3",
+    "refPrefix": "current_2025:",
+    "codes": {
+      "base": "C{item}",
+      "extension": "E{item}"
+    }
+  },
+  "gate": {
+    "sidecars": "scripts/notes/sidecars/igcse-maths-0580",
+    "packs": "igcse-maths-0580-notes/packs",
+    "glossaryPlan": "course-notes-0580/glossary-plan.json"
+  },
+  "calculators": [
+    {
+      "id": "casio-classwiz",
+      "name": "Casio fx-991EX / fx-83GTX / fx-85GTX ClassWiz"
+    },
+    {
+      "id": "ti-30xs",
+      "name": "TI-30XS MultiView"
+    }
+  ],
+  "copy": {
+    "crumbs": [
+      "IGCSE",
+      "Maths 0580"
+    ],
+    "guide": "Follows the Cambridge IGCSE Mathematics 0580 syllabus for exams in 2025 to 2027.",
+    "sheetFooter": "Follows the Cambridge IGCSE Mathematics 0580 syllabus (2025 to 2027). Not affiliated with Cambridge.",
+    "board": "Cambridge",
+    "educationalLevel": "Cambridge IGCSE",
+    "bankPrefix": "0580",
+    "bankPhrase": "in the 0580 {level} papers"
+  },
+  "topics": [
+    {
+      "n": 1,
+      "slug": "number",
+      "name": "Number"
+    },
+    {
+      "n": 2,
+      "slug": "algebra-and-graphs",
+      "name": "Algebra and graphs"
+    },
+    {
+      "n": 3,
+      "slug": "coordinate-geometry",
+      "name": "Coordinate geometry"
+    },
+    {
+      "n": 4,
+      "slug": "geometry",
+      "name": "Geometry"
+    },
+    {
+      "n": 5,
+      "slug": "mensuration",
+      "name": "Mensuration"
+    },
+    {
+      "n": 6,
+      "slug": "trigonometry",
+      "name": "Trigonometry"
+    },
+    {
+      "n": 7,
+      "slug": "transformations-and-vectors",
+      "name": "Transformations and vectors"
+    },
+    {
+      "n": 8,
+      "slug": "probability",
+      "name": "Probability"
+    },
+    {
+      "n": 9,
+      "slug": "statistics",
+      "name": "Statistics"
+    }
+  ]
+}

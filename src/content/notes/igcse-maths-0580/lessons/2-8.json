@@ -1,0 +1,571 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "2.8",
+  "slug": "proportion",
+  "title": "Proportion",
+  "level": "Extended",
+  "topic": 2,
+  "summary": "Two quantities in [[direct-proportion|direct proportion]] grow together. In [[inverse-proportion|inverse proportion]], one goes down as the other goes up. You write each one as an equation with a fixed number $k$, find $k$ from one pair of values, then use the equation to find anything else.",
+  "goals": [
+    {
+      "text": "Write direct proportion with the symbol $\\propto$ and as an equation such as $y = kx$, $y = kx^2$ or $y = k\\sqrt{x}$.",
+      "bullets": [
+        "2.8-s1"
+      ]
+    },
+    {
+      "text": "Write inverse proportion as an equation such as $y = \\frac{k}{x}$, $y = \\frac{k}{x^2}$ or $y = \\frac{k}{\\sqrt{x}}$.",
+      "bullets": [
+        "2.8-s1"
+      ]
+    },
+    {
+      "text": "Find the [[constant-of-proportionality|constant of proportionality]] from one pair of values and use it to find an unknown quantity.",
+      "bullets": [
+        "2.8-s1"
+      ]
+    },
+    {
+      "text": "Write a formula for $y$ in terms of $x$, and say what happens to $y$ when $x$ is multiplied by a number.",
+      "bullets": [
+        "2.8-s1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.11"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "directly proportional",
+    "inversely proportional",
+    "proportional symbol",
+    "y = kx",
+    "inverse variation",
+    "constant of proportionality"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-reciprocal",
+      "prompt": "What is the [[reciprocal|reciprocal]] of $\\frac{2}{5}$?",
+      "hint": "The reciprocal of a fraction turns it upside down.",
+      "options": [
+        {
+          "text": "$\\frac{5}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$-\\frac{2}{5}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{3}{5}$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "exact",
+        "truth": "1/Rational(2, 5)"
+      },
+      "explain": "The reciprocal of $\\frac{2}{5}$ is $1 \\div \\frac{2}{5} = \\frac{5}{2}$. Check: $\\frac{2}{5} \\times \\frac{5}{2} = 1$. Revise it in {{lesson:1.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-scale-recipe",
+      "prompt": "A recipe uses $250$ g of flour to make $6$ muffins. How many grams of flour are needed for $15$ muffins?",
+      "hint": "Find the flour for one muffin first.",
+      "answer": {
+        "value": 625,
+        "tolerance": 0
+      },
+      "verify": {
+        "kind": "numeric",
+        "truth": "250/6*15",
+        "dp": 0
+      },
+      "explain": "One muffin needs $\\frac{250}{6}$ g, so $15$ muffins need $\\frac{250}{6} \\times 15 = 625$ g. Revise it in {{lesson:1.11}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "direct",
+      "heading": "Direct proportion as an equation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.11}} you worked with [[proportion|proportion]] using ratios. In [[direct-proportion|direct proportion]], multiplying one quantity by a number multiplies the other by the same number. Doubling one doubles the other."
+        },
+        {
+          "type": "text",
+          "text": "So $y \\div x$ is always the same number. Call it $k$. Then $\\frac{y}{x} = k$, so $y = kx$."
+        },
+        {
+          "type": "text",
+          "text": "The symbol $\\propto$ means \"is proportional to\". So $y \\propto x$ reads \"$y$ is directly proportional to $x$\". It means exactly the same as $y = kx$."
+        },
+        {
+          "type": "definition",
+          "term": "constant of proportionality",
+          "statement": "If $y \\propto x$, then $y = kx$ for a fixed number $k$. This $k$ is the [[constant-of-proportionality|constant of proportionality]].",
+          "plain": "The number you always multiply $x$ by to get $y$."
+        },
+        {
+          "type": "formula",
+          "tex": "y \\propto x \\quad \\Longleftrightarrow \\quad y = kx",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Every proportion question uses the same four steps:"
+        },
+        {
+          "type": "text",
+          "text": "1. Write the equation with $k$ in it."
+        },
+        {
+          "type": "text",
+          "text": "2. Put in the pair of values you are given, and solve for $k$."
+        },
+        {
+          "type": "text",
+          "text": "3. Write the equation again with the number for $k$."
+        },
+        {
+          "type": "text",
+          "text": "4. Put in the new value to find the unknown."
+        },
+        {
+          "type": "example",
+          "id": "ex-direct-wire",
+          "question": "The mass $m$ grams of a piece of wire is directly proportional to its length $l$ metres. A piece $8$ m long has a mass of $30$ g. Find the mass of a piece $20$ m long.",
+          "steps": [
+            "Write the equation: $m = kl$.",
+            "Put in $l = 8$ and $m = 30$: $30 = 8k$.",
+            "Divide both sides by $8$: $k = \\frac{30}{8} = 3.75$. So $m = 3.75l$.",
+            "Put in $l = 20$: $m = 3.75 \\times 20 = 75$.",
+            "Check: the length went up $2.5$ times, from $8$ to $20$. The mass went up $2.5$ times too, from $30$ to $75$."
+          ],
+          "answer": "$m = 75\\text{ g}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(30, 8)*20",
+            "unit": "g"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A quantity can also be proportional to a power or root:"
+        },
+        {
+          "type": "text",
+          "text": "\"Proportional to the square of $x$\" means $y = kx^2$. \"The cube of $x$\" means $y = kx^3$."
+        },
+        {
+          "type": "text",
+          "text": "\"Proportional to the square root of $x$\" means $y = k\\sqrt{x}$. \"The cube root of $x$\" means $y = k\\sqrt[3]{x}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-direct-square",
+          "question": "$E \\propto v^2$, and $E = 54$ for $v = 6$. Work out $E$ for $v = 10$.",
+          "steps": [
+            "Write the equation: $E = kv^2$.",
+            "Put in $v = 6$ and $E = 54$: $54 = k \\times 6^2 = 36k$.",
+            "Divide by $36$: $k = \\frac{54}{36} = 1.5$. So $E = 1.5v^2$.",
+            "Put in $v = 10$: $E = 1.5 \\times 10^2 = 1.5 \\times 100 = 150$."
+          ],
+          "answer": "$E = 150$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(54, 6**2)*10**2"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "On Paper 4 the numbers may not be neat. Keep $k$ as the full calculator value, or your final answer can come out wrong."
+        },
+        {
+          "type": "calculator",
+          "snippet": "ans"
+        },
+        {
+          "type": "example",
+          "id": "ex-direct-root-pendulum",
+          "question": "The time $T$ seconds for one swing of a pendulum is directly proportional to the square root of its length $L$ metres. When $L = 0.8$, $T = 1.8$. Find $T$ when $L = 1.5$. Give your answer correct to $3$ significant figures.",
+          "steps": [
+            "Write the equation: $T = k\\sqrt{L}$.",
+            "Put in $L = 0.8$ and $T = 1.8$: $1.8 = k\\sqrt{0.8}$, so $k = \\frac{1.8}{\\sqrt{0.8}}$.",
+            "Work out $k$ on the calculator: $2.012461\\ldots$ Leave it on the display. Don't round it.",
+            "Press $\\times \\sqrt{1.5}$ so the calculator works out $\\text{Ans} \\times \\sqrt{1.5} = 2.464752\\ldots$",
+            "Round once, at the end: $T \\approx 2.46$ seconds."
+          ],
+          "answer": "$T \\approx 2.46\\text{ s}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "1.8/sqrt(0.8)*sqrt(1.5)",
+            "sf": 3,
+            "unit": "s"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-direct-k",
+          "prompt": "$y \\propto x$, and $y = 26$ when $x = 8$. Find the constant of proportionality $k$.",
+          "hint": "Write $y = kx$ and put in both values.",
+          "answer": {
+            "value": 3.25,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(26, 8)",
+            "dp": 2
+          },
+          "explain": "$26 = 8k$, so $k = \\frac{26}{8} = 3.25$."
+        },
+        {
+          "type": "check",
+          "id": "check-direct-cube",
+          "prompt": "$A$ is directly proportional to the cube of $r$. When $r = 2$, $A = 56$. Find $A$ when $r = 5$.",
+          "hint": "Write $A = kr^3$. Remember $2^3 = 8$.",
+          "options": [
+            {
+              "text": "$A = 140$",
+              "correct": false
+            },
+            {
+              "text": "$A = 350$",
+              "correct": false
+            },
+            {
+              "text": "$A = 875$",
+              "correct": true
+            },
+            {
+              "text": "$A = 7000$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(56, 2**3)*5**3"
+          },
+          "explain": "$56 = 8k$, so $k = 7$. Then $A = 7 \\times 5^3 = 7 \\times 125 = 875$. The answer $140$ treats it as plain direct proportion, and $350$ uses the square."
+        },
+        {
+          "type": "check",
+          "id": "check-direct-cube-root",
+          "prompt": "$y$ is directly proportional to the cube root of $x$. When $x = 27$, $y = 18$. Find $y$ when $x = 343$.",
+          "hint": "$\\sqrt[3]{27} = 3$ and $\\sqrt[3]{343} = 7$.",
+          "answer": {
+            "value": 42,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "18/cbrt(27)*cbrt(343)",
+            "dp": 0
+          },
+          "explain": "$y = k\\sqrt[3]{x}$. Then $18 = 3k$, so $k = 6$. So $y = 6 \\times \\sqrt[3]{343} = 6 \\times 7 = 42$."
+        }
+      ]
+    },
+    {
+      "id": "inverse",
+      "heading": "Inverse proportion",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "More pumps empty a pond faster. With twice as many pumps, the job takes half as long."
+        },
+        {
+          "type": "text",
+          "text": "So pumps $\\times$ time stays the same. If that fixed product is $k$, then time $= \\frac{k}{\\text{pumps}}$."
+        },
+        {
+          "type": "definition",
+          "term": "inverse proportion",
+          "statement": "$y$ is inversely proportional to $x$ when $y = \\frac{k}{x}$ for a fixed number $k$. You write $y \\propto \\frac{1}{x}$. This is [[inverse-proportion|inverse proportion]].",
+          "plain": "Multiply one quantity by a number and the other is divided by that number."
+        },
+        {
+          "type": "text",
+          "text": "$\\frac{1}{x}$ is the [[reciprocal|reciprocal]] of $x$. So inverse proportion means $y$ is directly proportional to the reciprocal of $x$."
+        },
+        {
+          "type": "formula",
+          "tex": "y \\propto \\frac{1}{x} \\quad \\Longleftrightarrow \\quad y = \\frac{k}{x}",
+          "tag": "learn"
+        },
+        {
+          "type": "figure",
+          "id": "2-8-direct-inverse-graphs",
+          "alt": "Two graphs side by side. Left, labelled direct, y equals k x: a straight line through the origin, rising from left to right. Right, labelled inverse, y equals k divided by x: a curve that starts high near the y-axis, falls steeply and then levels off, getting closer to the x-axis but never touching either axis.",
+          "caption": "With $k > 0$: direct proportion is a straight line through the origin. Inverse proportion is a curve that falls as $x$ grows."
+        },
+        {
+          "type": "text",
+          "text": "Powers and roots work the same way. \"Inversely proportional to the square of $x$\" means $y = \\frac{k}{x^2}$. \"To the square root of $x$\" means $y = \\frac{k}{\\sqrt{x}}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-pumps",
+          "question": "The time $t$ hours to empty a pond is inversely proportional to the number of pumps $p$. With $5$ pumps it takes $12$ hours. How long does it take with $8$ pumps?",
+          "steps": [
+            "Write the equation: $t = \\frac{k}{p}$.",
+            "Put in $p = 5$ and $t = 12$: $12 = \\frac{k}{5}$.",
+            "Multiply both sides by $5$: $k = 60$. So $t = \\frac{60}{p}$.",
+            "Put in $p = 8$: $t = \\frac{60}{8} = 7.5$.",
+            "Check the direction: more pumps should mean less time, and $7.5 < 12$."
+          ],
+          "answer": "$t = 7.5\\text{ hours}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "12*5/8",
+            "unit": "hours"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using direct proportion by habit. That gives $12 \\div 5 \\times 8 = 19.2$ hours, which is longer with more pumps. Ask whether $y$ should go up or down, then pick the equation."
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-root",
+          "question": "$y \\propto \\frac{1}{\\sqrt{x}}$. Given that $y = 4$ for $x = 49$, work out $y$ for $x = 100$.",
+          "steps": [
+            "Write the equation: $y = \\frac{k}{\\sqrt{x}}$.",
+            "Put in $x = 49$ and $y = 4$: $4 = \\frac{k}{\\sqrt{49}} = \\frac{k}{7}$.",
+            "Multiply both sides by $7$: $k = 28$. So $y = \\frac{28}{\\sqrt{x}}$.",
+            "Put in $x = 100$: $y = \\frac{28}{\\sqrt{100}} = \\frac{28}{10} = 2.8$."
+          ],
+          "answer": "$y = 2.8$",
+          "verify": {
+            "kind": "exact",
+            "truth": "4*sqrt(49)/sqrt(100)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-basic",
+          "prompt": "$y$ is inversely proportional to $x$. When $x = 15$, $y = 7$. Find $y$ when $x = 35$.",
+          "hint": "For $y = \\frac{k}{x}$, the product $xy$ is $k$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "15*7/35",
+            "dp": 0
+          },
+          "explain": "$k = xy = 15 \\times 7 = 105$. Then $y = \\frac{105}{35} = 3$."
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-root",
+          "prompt": "$q \\propto \\frac{1}{\\sqrt{r}}$, and $q = 6$ for $r = 64$. Work out $q$ for $r = 9$.",
+          "hint": "Write $q = \\frac{k}{\\sqrt{r}}$. Work out $\\sqrt{64}$ first.",
+          "options": [
+            {
+              "text": "$q = 48$",
+              "correct": false
+            },
+            {
+              "text": "$q = 16$",
+              "correct": true
+            },
+            {
+              "text": "$q = 2.25$",
+              "correct": false
+            },
+            {
+              "text": "$q = \\frac{128}{3}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "6*sqrt(64)/sqrt(9)"
+          },
+          "explain": "$6 = \\frac{k}{8}$, so $k = 48$. Then $q = \\frac{48}{\\sqrt{9}} = \\frac{48}{3} = 16$. $48$ stops at $k$, $2.25$ uses direct proportion, and $\\frac{128}{3}$ forgets the square root."
+        }
+      ]
+    },
+    {
+      "id": "harder",
+      "heading": "Brackets, formulas and changes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes the quantity is a bracket, as in \"the square of $(x + 5)$\". The power acts on the whole bracket: $y = k(x + 5)^2$."
+        },
+        {
+          "type": "mistake",
+          "text": "Squaring only the $x$. $k(x + 5)^2$ is not $kx^2 + 5$. Keep the bracket, and work out the inside before you square it."
+        },
+        {
+          "type": "text",
+          "text": "\"Find $y$ in terms of $x$\" means write the equation with the number for $k$ in it. Stop after step 3."
+        },
+        {
+          "type": "example",
+          "id": "ex-bracket-formula",
+          "question": "$y \\propto (x + 5)^2$, and $y = 32$ for $x = 3$. Write $y$ in terms of $x$.",
+          "steps": [
+            "Write the equation with the whole bracket squared: $y = k(x + 5)^2$.",
+            "Put in $x = 3$ and $y = 32$: $32 = k(3 + 5)^2 = 64k$.",
+            "Divide by $64$: $k = \\frac{32}{64} = \\frac{1}{2}$.",
+            "Write the equation with this $k$: $y = \\frac{1}{2}(x + 5)^2$.",
+            "Check with $x = 3$: $\\frac{1}{2} \\times 8^2 = 32$."
+          ],
+          "answer": "$y = \\frac{1}{2}(x + 5)^2$",
+          "verify": {
+            "kind": "expression",
+            "truth": "32/(3 + 5)**2*(x + 5)**2"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A question may ask what happens to $y$ when $x$ is multiplied by a number. Replace $x$ with the new value, such as $2x$, and simplify."
+        },
+        {
+          "type": "example",
+          "id": "ex-change-cube",
+          "question": "$m$ is inversely proportional to the cube of $r$. The value of $r$ is doubled. Find the number that $m$ is multiplied by.",
+          "steps": [
+            "Write the equation: $m = \\frac{k}{r^3}$.",
+            "Replace $r$ with $2r$: the new value is $\\frac{k}{(2r)^3}$.",
+            "Cube the whole bracket: $(2r)^3 = 2^3 r^3 = 8r^3$.",
+            "So the new value is $\\frac{k}{8r^3} = \\frac{1}{8} \\times \\frac{k}{r^3}$, which is $\\frac{1}{8}$ of the old $m$.",
+            "In words: $m$ is divided by $8$."
+          ],
+          "answer": "$\\frac{1}{8}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "1/2**3"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The rule behind this: if $y = kx^n$ and $x$ is multiplied by a positive number $a$, then $y$ is multiplied by $a^n$. For $y = \\frac{k}{x^n}$, $y$ is divided by $a^n$. A square root is $n = \\frac{1}{2}$, so multiplying $x$ by $25$ multiplies $\\sqrt{x}$ by $5$. The rule needs $x$ on its own: for $y = k(x + 5)^2$, doubling $x$ does not multiply $y$ by $4$."
+        },
+        {
+          "type": "check",
+          "id": "check-change-cube",
+          "prompt": "$V$ is directly proportional to the cube of $h$. The value of $h$ is multiplied by $4$. By what number is $V$ multiplied?",
+          "hint": "Replace $h$ with $4h$ in $V = kh^3$.",
+          "options": [
+            {
+              "text": "$4$",
+              "correct": false
+            },
+            {
+              "text": "$12$",
+              "correct": false
+            },
+            {
+              "text": "$64$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{64}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "4**3"
+          },
+          "explain": "$k(4h)^3 = 4^3 \\times kh^3 = 64kh^3$. The cube acts on the $4$ as well, so $V$ is multiplied by $64$. $\\frac{1}{64}$ would be inverse proportion."
+        },
+        {
+          "type": "check",
+          "id": "check-bracket-inverse",
+          "prompt": "$P$ is inversely proportional to the square of $(n - 7)$. When $n = 11$, $P = 6$. Find $P$ in terms of $n$.",
+          "hint": "Write $P = \\frac{k}{(n - 7)^2}$ and work out $(11 - 7)^2$ first.",
+          "options": [
+            {
+              "text": "$P = \\frac{24}{n - 7}$",
+              "correct": false
+            },
+            {
+              "text": "$P = \\frac{96}{(n - 7)^2}$",
+              "correct": true
+            },
+            {
+              "text": "$P = \\frac{3}{8}(n - 7)^2$",
+              "correct": false
+            },
+            {
+              "text": "$P = \\frac{684}{n^2 - 7}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "6*(11 - 7)**2/(n - 7)**2"
+          },
+          "explain": "$6 = \\frac{k}{4^2} = \\frac{k}{16}$, so $k = 96$ and $P = \\frac{96}{(n - 7)^2}$. The other options forget the square, use direct proportion, or square only the $n$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Direct: $y \\propto x$ means $y = kx$. Inverse: $y \\propto \\frac{1}{x}$ means $y = \\frac{k}{x}$. The number $k$ is the constant of proportionality.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Squares, cubes and roots go on the whole quantity: proportional to the square of $(x + 5)$ means $y = k(x + 5)^2$. Inversely proportional to $\\sqrt{x}$ means $y = \\frac{k}{\\sqrt{x}}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Method: write the equation with $k$, put in the known pair to find $k$, rewrite the equation with that number, then put in the new value.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $y = kx^n$ and $x$ is multiplied by a positive number $a$, $y$ is multiplied by $a^n$. If $y = \\frac{k}{x^n}$, $y$ is divided by $a^n$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Treating an inverse question as direct. Build the equation from the words: \"inversely proportional to $x^2$\" gives $y = \\frac{k}{x^2}$, \"to $\\sqrt{x}$\" gives $y = \\frac{k}{\\sqrt{x}}$. Then check it makes sense: for inverse proportion, $y$ gets smaller as $x$ grows.",
+    "Squaring only the $x$ in a bracket. \"The square of $(x - 2)$\" is $(x - 2)^2$, not $x^2 - 2$.",
+    "Leaving a number out of the root. \"The square root of $(x + 4)$\" is $\\sqrt{x + 4}$, not $\\sqrt{x}$ or $\\sqrt{x} + 4$.",
+    "Forgetting the power when $x$ changes. If $y = k\\sqrt{x}$ and $x$ is multiplied by $25$, then $y$ is multiplied by $5$, not $25$.",
+    "Stopping at $k$. Finding $k$ is only halfway: put the new value into the equation to get the answer."
+  ],
+  "examTips": [
+    "Start every answer by writing the equation with $k$, such as $y = \\frac{k}{x^2}$. That line can earn the first method mark, even if a later step goes wrong.",
+    "**Find $y$ in terms of $x$** means a formula with the number for $k$ in it, such as $y = \\frac{1}{2}(x + 5)^2$. Don't leave $k$ in your answer.",
+    "On Paper 4, keep $k$ as the full calculator value and **give your answer to 3 significant figures** only at the end.",
+    "When asked to **explain** what happens to $y$, name the operation and the number, such as \"$y$ is divided by $8$\"."
+  ],
+  "readingMinutes": 18
+}

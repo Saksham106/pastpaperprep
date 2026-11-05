@@ -1,0 +1,594 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "6.3",
+  "slug": "exact-trigonometric-values",
+  "title": "Exact trigonometric values",
+  "level": "Extended",
+  "topic": 6,
+  "summary": "A few angles have [[exact-trigonometric-values|exact trigonometric values]]: you can write their [[sine|sine]], [[cosine|cosine]] and [[tangent-ratio|tangent ratio]] as fractions and [[surd|surds]], with no rounding. They all come from two triangles, half a square and half an equilateral triangle. Paper 2 has no calculator, so you need to know them.",
+  "goals": [
+    {
+      "text": "Build the two special triangles and read off $\\sin$, $\\cos$ and $\\tan$ of $30^\\circ$, $45^\\circ$ and $60^\\circ$.",
+      "bullets": [
+        "6.3-s1",
+        "6.3-s2"
+      ]
+    },
+    {
+      "text": "Know $\\sin x$ and $\\cos x$ for $x = 0^\\circ$ and $90^\\circ$, and $\\tan 0^\\circ$.",
+      "bullets": [
+        "6.3-s1",
+        "6.3-s2"
+      ]
+    },
+    {
+      "text": "Use exact values to work out expressions and to find sides and angles of right-angled triangles without a calculator.",
+      "bullets": [
+        "6.3-s1",
+        "6.3-s2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.18",
+    "6.1",
+    "6.2"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "exact trig values",
+    "special angles",
+    "sin 30 exact value",
+    "trig values in surd form",
+    "30 60 90 triangle",
+    "trig without a calculator"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-pythagoras-surd",
+      "prompt": "A right-angled triangle has shorter sides $1$ and $2$. Find the exact length of its longest side.",
+      "hint": "Square the two shorter sides, add, then take the square root. Leave it as a root if it is not a whole number.",
+      "options": [
+        {
+          "text": "$\\sqrt{5}$",
+          "correct": true
+        },
+        {
+          "text": "$3$",
+          "correct": false
+        },
+        {
+          "text": "$\\sqrt{3}$",
+          "correct": false
+        },
+        {
+          "text": "$5$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "exact",
+        "truth": "sqrt(1**2 + 2**2)"
+      },
+      "explain": "$1^2 + 2^2 = 5$, so the longest side is $\\sqrt{5}$. Adding the sides gives $3$, and forgetting the root gives $5$. Revise it in {{lesson:6.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-cos-ratio",
+      "prompt": "In a right-angled triangle, the side next to angle $\\theta$ is $15$, the side opposite $\\theta$ is $8$ and the hypotenuse is $17$. Write down $\\cos\\theta$.",
+      "hint": "Cos is the side next to the angle divided by the longest side.",
+      "options": [
+        {
+          "text": "$\\frac{15}{17}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{8}{17}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{8}{15}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{17}{15}$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "exact",
+        "truth": "Integer(15)/17"
+      },
+      "explain": "Adjacent over hypotenuse is $\\frac{15}{17}$. $\\frac{8}{17}$ is $\\sin\\theta$ and $\\frac{8}{15}$ is $\\tan\\theta$. Revise it in {{lesson:6.2}}."
+    },
+    {
+      "type": "check",
+      "id": "before-rationalise",
+      "prompt": "Rationalise the denominator and simplify $\\frac{10}{\\sqrt{5}}$.",
+      "hint": "Multiply the top and bottom by $\\sqrt{5}$, then cancel.",
+      "options": [
+        {
+          "text": "$2\\sqrt{5}$",
+          "correct": true
+        },
+        {
+          "text": "$10\\sqrt{5}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{\\sqrt{5}}{2}$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "exact",
+        "truth": "10/sqrt(5)"
+      },
+      "explain": "$\\frac{10\\sqrt{5}}{5} = 2\\sqrt{5}$. $10\\sqrt{5}$ forgets to divide by $5$, and $\\frac{\\sqrt{5}}{2}$ is the fraction turned upside down. Revise it in {{lesson:1.18}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "special-triangles",
+      "heading": "Two triangles that give exact values",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Your calculator says $\\sin 60^\\circ = 0.866025\\ldots$, a decimal that never ends. The exact value is $\\frac{\\sqrt{3}}{2}$. Paper 2 has no calculator, so you need these values."
+        },
+        {
+          "type": "definition",
+          "term": "exact trigonometric values",
+          "statement": "The exact trigonometric values you need are $\\sin x$ and $\\cos x$ for $x = 0^\\circ, 30^\\circ, 45^\\circ, 60^\\circ, 90^\\circ$, and $\\tan x$ for $x = 0^\\circ, 30^\\circ, 45^\\circ, 60^\\circ$, written with whole numbers, fractions and surds.",
+          "plain": "Trig values written with no rounding at all."
+        },
+        {
+          "type": "text",
+          "text": "**The $45^\\circ$ triangle.** Cut a square of side $1$ along its diagonal. You get a right-angled [[isosceles-triangle|isosceles triangle]] with two sides of $1$ and angles of $45^\\circ$, $45^\\circ$ and $90^\\circ$."
+        },
+        {
+          "type": "text",
+          "text": "By [[pythagoras-theorem|Pythagoras' theorem]], the [[hypotenuse|hypotenuse]] is $\\sqrt{1^2 + 1^2} = \\sqrt{2}$."
+        },
+        {
+          "type": "figure",
+          "id": "6-3-half-square",
+          "alt": "A right-angled isosceles triangle made by cutting a square of side 1 along its diagonal. The two shorter sides are both 1 and meet at the right angle. The longest side, the hypotenuse, is root 2. The other two angles are both 45 degrees.",
+          "caption": "Half a square: sides $1$, $1$ and $\\sqrt{2}$."
+        },
+        {
+          "type": "text",
+          "text": "For either $45^\\circ$ angle, the [[opposite-side|opposite side]] and the [[adjacent-side|adjacent side]] are both $1$. So sine and cosine are both $\\frac{1}{\\sqrt{2}}$, and tan is $\\frac{1}{1}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin 45^\\circ = \\frac{1}{\\sqrt{2}} = \\frac{\\sqrt{2}}{2}, \\qquad \\cos 45^\\circ = \\frac{1}{\\sqrt{2}} = \\frac{\\sqrt{2}}{2}, \\qquad \\tan 45^\\circ = 1",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$\\frac{1}{\\sqrt{2}}$ and $\\frac{\\sqrt{2}}{2}$ are the same number: rationalise one to get the other. Either form is fine unless a rational denominator is asked for."
+        },
+        {
+          "type": "text",
+          "text": "**The $30^\\circ$ and $60^\\circ$ triangle.** Start with an [[equilateral-triangle|equilateral triangle]] of side $2$. Every angle is $60^\\circ$. Draw a line from the top corner straight down to the middle of the base."
+        },
+        {
+          "type": "text",
+          "text": "That line cuts it into two right-angled triangles. Each has hypotenuse $2$, base $1$ and angles $30^\\circ$, $60^\\circ$ and $90^\\circ$. Its height is $\\sqrt{2^2 - 1^2} = \\sqrt{3}$."
+        },
+        {
+          "type": "figure",
+          "id": "6-3-half-equilateral",
+          "alt": "An equilateral triangle with all three sides 2 and all three angles 60 degrees. A dashed line goes from the top corner straight down to the middle of the base and makes a right angle there. It splits the triangle into two right-angled triangles. Each half has hypotenuse 2, a base of 1 and a height of root 3. In each half the angle at the base is 60 degrees and the angle at the top is 30 degrees.",
+          "caption": "Half an equilateral triangle: sides $1$, $\\sqrt{3}$ and $2$."
+        },
+        {
+          "type": "text",
+          "text": "The shortest side, $1$, is opposite the smallest angle, $30^\\circ$. The side $\\sqrt{3}$ is opposite $60^\\circ$. The hypotenuse is $2$ for both angles."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin 30^\\circ = \\frac{1}{2}, \\qquad \\cos 30^\\circ = \\frac{\\sqrt{3}}{2}, \\qquad \\tan 30^\\circ = \\frac{1}{\\sqrt{3}} = \\frac{\\sqrt{3}}{3}",
+          "tag": "learn"
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin 60^\\circ = \\frac{\\sqrt{3}}{2}, \\qquad \\cos 60^\\circ = \\frac{1}{2}, \\qquad \\tan 60^\\circ = \\sqrt{3}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-tan-30-from-triangle",
+          "question": "Using half of an equilateral triangle, work out $\\tan 30^\\circ$ exactly, with a rational denominator.",
+          "steps": [
+            "Take the half triangle with hypotenuse $2$, base $1$ and height $\\sqrt{3}$.",
+            "The $30^\\circ$ angle is at the top. The base, $1$, is opposite it. The height, $\\sqrt{3}$, is next to it.",
+            "Tan is opposite over adjacent: $\\tan 30^\\circ = \\frac{1}{\\sqrt{3}}$.",
+            "Multiply the top and bottom by $\\sqrt{3}$: $\\frac{1}{\\sqrt{3}} \\times \\frac{\\sqrt{3}}{\\sqrt{3}} = \\frac{\\sqrt{3}}{3}$.",
+            "Check: $\\frac{\\sqrt{3}}{3} \\approx 0.58$, less than $1$, as it should be below $45^\\circ$."
+          ],
+          "answer": "$\\tan 30^{\\circ} = \\frac{\\sqrt{3}}{3}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "tan(30*pi/180)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-cos-45-side-5",
+          "question": "A right-angled isosceles triangle has two equal sides of $5$ cm. Use it to find the exact value of $\\cos 45^\\circ$.",
+          "steps": [
+            "Find the hypotenuse with Pythagoras: $\\sqrt{5^2 + 5^2} = \\sqrt{50}$.",
+            "Simplify the surd: $\\sqrt{50} = \\sqrt{25} \\times \\sqrt{2} = 5\\sqrt{2}$.",
+            "Cos is adjacent over hypotenuse: $\\cos 45^\\circ = \\frac{5}{5\\sqrt{2}} = \\frac{1}{\\sqrt{2}}$.",
+            "Rationalise: $\\frac{1}{\\sqrt{2}} = \\frac{\\sqrt{2}}{2}$. This matches the square of side $1$: the size of the triangle does not matter."
+          ],
+          "answer": "$\\cos 45^{\\circ} = \\frac{\\sqrt{2}}{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "5/sqrt(5**2 + 5**2)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Picking $\\frac{\\sqrt{3}}{2}$ for $\\cos 45^\\circ$. A $\\sqrt{3}$ only appears for $30^\\circ$ and $60^\\circ$. $\\sin 45^\\circ$ and $\\cos 45^\\circ$ use $\\sqrt{2}$, and $\\tan 45^\\circ = 1$."
+        },
+        {
+          "type": "check",
+          "id": "check-sin-60",
+          "prompt": "Write down the exact value of $\\sin 60^\\circ$.",
+          "hint": "In half an equilateral triangle, which side is opposite the $60^\\circ$ angle? Divide it by the hypotenuse.",
+          "options": [
+            {
+              "text": "$\\frac{1}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\sqrt{3}}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\sqrt{3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\sqrt{3}}{3}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "sin(60*pi/180)"
+          },
+          "explain": "The height $\\sqrt{3}$ is opposite $60^\\circ$ and the hypotenuse is $2$. $\\frac{1}{2}$ is $\\cos 60^\\circ$, $\\sqrt{3}$ is $\\tan 60^\\circ$ and $\\frac{\\sqrt{3}}{3}$ is $\\tan 30^\\circ$."
+        },
+        {
+          "type": "check",
+          "id": "check-equilateral-height",
+          "prompt": "An equilateral triangle has sides of $8$ cm. Find its exact height.",
+          "hint": "The height cuts the base in half. Use Pythagoras on one half, with hypotenuse $8$ and base $4$.",
+          "options": [
+            {
+              "text": "$4\\sqrt{3}\\text{ cm}$",
+              "correct": true
+            },
+            {
+              "text": "$4\\sqrt{5}\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$4\\text{ cm}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(8**2 - 4**2)",
+            "unit": "cm"
+          },
+          "explain": "$\\sqrt{8^2 - 4^2} = \\sqrt{48} = 4\\sqrt{3}$ cm. $4\\sqrt{5}$ adds the squares instead of subtracting. Notice $\\frac{4\\sqrt{3}}{8} = \\frac{\\sqrt{3}}{2} = \\sin 60^\\circ$."
+        }
+      ]
+    },
+    {
+      "id": "zero-and-ninety",
+      "heading": "The full table, with 0° and 90°",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Picture a right-angled triangle with hypotenuse $1$. As its angle shrinks towards $0^\\circ$, the opposite side shrinks to $0$ and the adjacent side stretches to $1$."
+        },
+        {
+          "type": "text",
+          "text": "So $\\sin 0^\\circ = \\frac{0}{1} = 0$, $\\cos 0^\\circ = \\frac{1}{1} = 1$ and $\\tan 0^\\circ = \\frac{0}{1} = 0$."
+        },
+        {
+          "type": "text",
+          "text": "As the angle grows towards $90^\\circ$, it swaps over: the opposite side stretches to $1$ and the adjacent side shrinks to $0$. So $\\sin 90^\\circ = 1$ and $\\cos 90^\\circ = 0$."
+        },
+        {
+          "type": "text",
+          "text": "$\\tan 90^\\circ$ would be $\\frac{1}{0}$, and you cannot divide by $0$. So $\\tan 90^\\circ$ has no value, and you are only asked for tan up to $60^\\circ$."
+        },
+        {
+          "type": "figure",
+          "id": "6-3-value-table",
+          "alt": "A table of exact values. Columns are 0, 30, 45, 60 and 90 degrees. The sine row reads 0, one half, root 2 over 2, root 3 over 2, 1. The cosine row reads 1, root 3 over 2, root 2 over 2, one half, 0. The tangent row reads 0, root 3 over 3, 1, root 3, and no value at 90 degrees.",
+          "caption": "All the values you need. $\\frac{\\sqrt{3}}{3}$ is the same as $\\frac{1}{\\sqrt{3}}$."
+        },
+        {
+          "type": "text",
+          "text": "A pattern helps you remember the sine row. For $0^\\circ$, $30^\\circ$, $45^\\circ$, $60^\\circ$, $90^\\circ$ it is $\\frac{\\sqrt{0}}{2}, \\frac{\\sqrt{1}}{2}, \\frac{\\sqrt{2}}{2}, \\frac{\\sqrt{3}}{2}, \\frac{\\sqrt{4}}{2}$. That is $0, \\frac{1}{2}, \\frac{\\sqrt{2}}{2}, \\frac{\\sqrt{3}}{2}, 1$."
+        },
+        {
+          "type": "text",
+          "text": "The cosine row is the same list backwards. That is because the side opposite one angle of a right-angled triangle is next to the other angle. So $\\sin 30^\\circ = \\cos 60^\\circ$ and $\\sin 60^\\circ = \\cos 30^\\circ$."
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping $0$ and $1$ at the ends, such as writing $\\cos 90^\\circ = 1$. Picture the flattened triangle: at $90^\\circ$ the side next to the angle has shrunk to nothing, so cos is $0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-evaluate-cos0-sin30",
+          "question": "Without a calculator, work out $8\\cos 0^\\circ - 2\\sin 30^\\circ$.",
+          "steps": [
+            "Write down the exact values: $\\cos 0^\\circ = 1$ and $\\sin 30^\\circ = \\frac{1}{2}$.",
+            "Substitute: $8 \\times 1 - 2 \\times \\frac{1}{2}$.",
+            "Multiply first: $8 - 1 = 7$."
+          ],
+          "answer": "$8\\cos 0^{\\circ} - 2\\sin 30^{\\circ} = 7$",
+          "verify": {
+            "kind": "exact",
+            "truth": "8*cos(0) - 2*sin(30*pi/180)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-sin45-over-cos60",
+          "question": "Without a calculator, simplify $\\dfrac{\\sin 45^\\circ}{\\cos 60^\\circ}$ fully.",
+          "steps": [
+            "Write down the exact values: $\\sin 45^\\circ = \\frac{\\sqrt{2}}{2}$ and $\\cos 60^\\circ = \\frac{1}{2}$.",
+            "Dividing by $\\frac{1}{2}$ is the same as multiplying by $2$: $\\frac{\\sqrt{2}}{2} \\times 2$.",
+            "The $2$s cancel, leaving $\\sqrt{2}$.",
+            "Check: $0.71 \\div 0.5 \\approx 1.41 \\approx \\sqrt{2}$."
+          ],
+          "answer": "$\\dfrac{\\sin 45^{\\circ}}{\\cos 60^{\\circ}} = \\sqrt{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sin(45*pi/180)/cos(60*pi/180)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-sin0-plus-cos0",
+          "prompt": "Work out $\\sin 0^\\circ + \\cos 0^\\circ$.",
+          "hint": "At $0^\\circ$ the opposite side has shrunk to nothing, and the adjacent side is as long as the hypotenuse.",
+          "options": [
+            {
+              "text": "$0$",
+              "correct": false
+            },
+            {
+              "text": "$1$",
+              "correct": true
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "sin(0) + cos(0)"
+          },
+          "explain": "$\\sin 0^\\circ = 0$ and $\\cos 0^\\circ = 1$, so the total is $1$. $2$ takes both as $1$."
+        },
+        {
+          "type": "check",
+          "id": "check-squares-sum",
+          "prompt": "Work out the exact value of $(\\tan 30^\\circ)^2 + (\\cos 45^\\circ)^2$.",
+          "hint": "Square each value first: $\\left(\\frac{1}{\\sqrt{3}}\\right)^2 = \\frac{1}{3}$. Then add the fractions with a common denominator.",
+          "options": [
+            {
+              "text": "$\\frac{5}{6}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{2}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{6}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2 + 3\\sqrt{2}}{6}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "tan(30*pi/180)**2 + cos(45*pi/180)**2"
+          },
+          "explain": "$\\frac{1}{3} + \\frac{1}{2} = \\frac{2}{6} + \\frac{3}{6} = \\frac{5}{6}$. $\\frac{2}{5}$ adds tops and bottoms, $\\frac{1}{6}$ multiplies instead of adding, and $\\frac{2 + 3\\sqrt{2}}{6}$ forgets to square $\\cos 45^\\circ$."
+        }
+      ]
+    },
+    {
+      "id": "in-triangles",
+      "heading": "Using exact values in triangles",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On Paper 2, a right-angled triangle with a $30^\\circ$, $45^\\circ$ or $60^\\circ$ angle usually wants an exact answer. Pick the ratio as in {{lesson:6.2}}, then use the exact value."
+        },
+        {
+          "type": "example",
+          "id": "ex-side-from-sin-30",
+          "question": "In triangle $PQR$, angle $Q = 90^\\circ$, angle $P = 30^\\circ$ and $PR = 14$ cm. Without a calculator, find $QR$.",
+          "steps": [
+            "$PR$ is opposite the right angle, so it is the hypotenuse. $QR$ is opposite angle $P$.",
+            "Opposite and hypotenuse means sine: $\\sin 30^\\circ = \\frac{QR}{14}$.",
+            "Multiply both sides by $14$: $QR = 14 \\sin 30^\\circ$.",
+            "Use $\\sin 30^\\circ = \\frac{1}{2}$: $QR = 14 \\times \\frac{1}{2} = 7$ cm."
+          ],
+          "answer": "$QR = 7\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "14*sin(30*pi/180)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-ladder-tan-60",
+          "question": "A ladder leans against a vertical wall and makes an angle of $60^\\circ$ with the flat ground. The top of the ladder is $10$ m up the wall. Find the exact distance $d$ from the foot of the ladder to the wall. Give your answer in the form $\\frac{a\\sqrt{b}}{c}$.",
+          "steps": [
+            "Name the sides for the $60^\\circ$ angle at the foot of the ladder. The height $10$ m is opposite it, and $d$ is next to it.",
+            "Opposite and adjacent means tan: $\\tan 60^\\circ = \\frac{10}{d}$.",
+            "Rearrange: $d = \\frac{10}{\\tan 60^\\circ}$. Use $\\tan 60^\\circ = \\sqrt{3}$: $d = \\frac{10}{\\sqrt{3}}$.",
+            "Rationalise: $d = \\frac{10}{\\sqrt{3}} \\times \\frac{\\sqrt{3}}{\\sqrt{3}} = \\frac{10\\sqrt{3}}{3}$ m.",
+            "Check: $\\frac{10\\sqrt{3}}{3} \\approx 5.77$ m, less than $10$ m, which fits a steep ladder."
+          ],
+          "answer": "$d = \\frac{10\\sqrt{3}}{3}\\text{ m}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "10/tan(60*pi/180)",
+            "unit": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Turning the ratio upside down, such as $\\tan 60^\\circ = \\frac{d}{10}$. Tan is always the side opposite the angle over the side next to it. Label both sides before you write the ratio."
+        },
+        {
+          "type": "examTip",
+          "text": "When a question says **give your answer in the form** $a\\sqrt{b}$ or $\\frac{a\\sqrt{b}}{c}$, a surd left on the bottom, such as $\\frac{10}{\\sqrt{3}}$, usually loses the last mark. Rationalise and simplify."
+        },
+        {
+          "type": "text",
+          "text": "On Paper 4 you can check an exact value on your calculator. Set it to degrees first: in radians, $\\sin 30$ gives a different number."
+        },
+        {
+          "type": "calculator",
+          "snippet": "trig",
+          "values": {
+            "angle": 60
+          }
+        },
+        {
+          "type": "text",
+          "text": "Exact values also work backwards. If $\\tan x = \\sqrt{3}$ and $x$ is an acute angle, then $x = 60^\\circ$, because $\\tan 60^\\circ = \\sqrt{3}$. Angles beyond $90^\\circ$ come in {{lesson:6.4}}."
+        },
+        {
+          "type": "check",
+          "id": "check-adjacent-cos-45",
+          "prompt": "A right-angled triangle has hypotenuse $6$ cm and an angle of $45^\\circ$. Find the exact length of the shorter side next to the $45^\\circ$ angle.",
+          "hint": "Adjacent and hypotenuse means cos. Write $\\cos 45^\\circ = \\frac{x}{6}$.",
+          "options": [
+            {
+              "text": "$3\\sqrt{2}\\text{ cm}$",
+              "correct": true
+            },
+            {
+              "text": "$6\\sqrt{2}\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$3\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$3\\sqrt{3}\\text{ cm}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "6*cos(45*pi/180)",
+            "unit": "cm"
+          },
+          "explain": "$x = 6 \\times \\frac{\\sqrt{2}}{2} = 3\\sqrt{2}$ cm. $6\\sqrt{2}$ divides by $\\cos 45^\\circ$ instead of multiplying, $3$ uses $\\cos 60^\\circ$ and $3\\sqrt{3}$ uses $\\cos 30^\\circ$."
+        },
+        {
+          "type": "check",
+          "id": "check-angle-from-sides",
+          "prompt": "A right-angled triangle has shorter sides $7$ cm and $7\\sqrt{3}$ cm. Without a calculator, find the angle opposite the side of $7$ cm, in degrees.",
+          "hint": "You know the opposite and adjacent sides, so work out tan of the angle. Which angle has that tan?",
+          "answer": {
+            "value": 30,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "atan(7/(7*sqrt(3)))*180/pi",
+            "dp": 0
+          },
+          "explain": "$\\tan x = \\frac{7}{7\\sqrt{3}} = \\frac{1}{\\sqrt{3}} = \\tan 30^\\circ$, so the angle is $30^\\circ$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Half a square has sides $1$, $1$, $\\sqrt{2}$: $\\sin 45^\\circ = \\cos 45^\\circ = \\frac{\\sqrt{2}}{2}$ (or $\\frac{1}{\\sqrt{2}}$) and $\\tan 45^\\circ = 1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Half an equilateral triangle has sides $1$, $\\sqrt{3}$, $2$, with $1$ opposite $30^\\circ$: $\\sin 30^\\circ = \\frac{1}{2}$, $\\cos 30^\\circ = \\frac{\\sqrt{3}}{2}$, $\\tan 30^\\circ = \\frac{\\sqrt{3}}{3}$ (or $\\frac{1}{\\sqrt{3}}$).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "From the same triangle: $\\sin 60^\\circ = \\frac{\\sqrt{3}}{2}$, $\\cos 60^\\circ = \\frac{1}{2}$, $\\tan 60^\\circ = \\sqrt{3}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\sin 0^\\circ = 0$, $\\cos 0^\\circ = 1$, $\\tan 0^\\circ = 0$; $\\sin 90^\\circ = 1$, $\\cos 90^\\circ = 0$, and $\\tan 90^\\circ$ has no value.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Sine for $0^\\circ, 30^\\circ, 45^\\circ, 60^\\circ, 90^\\circ$ is $\\frac{\\sqrt{0}}{2}, \\frac{\\sqrt{1}}{2}, \\frac{\\sqrt{2}}{2}, \\frac{\\sqrt{3}}{2}, \\frac{\\sqrt{4}}{2}$. Cosine is the same list backwards.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Mixing up $\\frac{1}{2}$ and $\\frac{\\sqrt{3}}{2}$, or using $\\frac{\\sqrt{3}}{2}$ for a $45^\\circ$ value. Sketch the two triangles and read the ratio off the sides.",
+    "Confusing $\\tan 60^\\circ = \\sqrt{3}$ with $\\tan 30^\\circ = \\frac{1}{\\sqrt{3}}$. A steep $60^\\circ$ angle has the longer side opposite it, so its tan is bigger than $1$.",
+    "Writing the ratio upside down, such as $\\tan 30^\\circ = \\frac{\\text{adjacent}}{\\text{opposite}}$. Label the sides from your angle first.",
+    "Leaving a surd on the bottom, such as $\\frac{12}{\\sqrt{3}}$, when the question asks for the form $a\\sqrt{b}$. Rationalise: $\\frac{12\\sqrt{3}}{3} = 4\\sqrt{3}$.",
+    "Leaving the calculator in radians on Paper 4. Check for D or DEG at the top of the screen before any trig."
+  ],
+  "examTips": [
+    "**Write down** the exact value means no working is needed. A decimal such as $0.866$ scores nothing: give the fraction or surd.",
+    "Most of these questions are on Paper 2, with no calculator. Sketch the two special triangles in the margin first: it takes seconds and stops mix-ups.",
+    "In a **show that** on Paper 4 with $30^\\circ$, $45^\\circ$ or $60^\\circ$, use the exact value in your working, not a rounded decimal. The final line must match the given result exactly."
+  ],
+  "readingMinutes": 17
+}

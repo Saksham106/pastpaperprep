@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 225" role="img" aria-labelledby="t">
+  <title id="t">Venn diagram of 52 students. Circle C is the choir and circle D is the drama club. C only holds 14, the overlap holds 6, D only holds 11, and 21 are outside both circles.</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <rect x="10" y="10" width="340" height="205"/>
+    <circle cx="135" cy="112" r="70"/>
+    <circle cx="225" cy="112" r="70"/>
+  </g>
+  <g font-family="inherit" font-size="17" fill="currentColor">
+    <text x="20" y="32">ℰ</text>
+    <text x="75" y="48">C</text>
+    <text x="276" y="48">D</text>
+  </g>
+  <g font-family="inherit" font-size="18" fill="var(--t1-ink)" font-weight="bold" text-anchor="middle">
+    <text x="110" y="118">14</text>
+    <text x="180" y="118">6</text>
+    <text x="250" y="118">11</text>
+  </g>
+  <g font-family="inherit" font-size="18" fill="currentColor" text-anchor="middle">
+    <text x="318" y="200">21</text>
+  </g>
+</svg>

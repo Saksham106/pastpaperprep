@@ -1,0 +1,56 @@
+[
+  {
+    "id": "set",
+    "term": "set",
+    "definition": "A set is a collection of objects, called its elements, usually written inside curly brackets, such as $\\{2, 4, 6\\}$.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "element",
+    "term": "element",
+    "definition": "An element is one member of a set; $n(A)$ is the number of elements in set $A$.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "universal-set",
+    "term": "universal set",
+    "definition": "The universal set, $\\mathscr{E}$, is the set of every element being considered in a question, drawn as the rectangle in a Venn diagram.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "complement",
+    "term": "complement",
+    "definition": "The complement of set $A$, written $A'$, is the set of elements of the universal set that are not in $A$.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "union",
+    "term": "union",
+    "definition": "The union of sets $A$ and $B$, written $A \\cup B$, is the set of elements in $A$ or $B$ or both.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "intersection",
+    "term": "intersection",
+    "definition": "The intersection of sets $A$ and $B$, written $A \\cap B$, is the set of elements that are in both $A$ and $B$.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "venn-diagram",
+    "term": "Venn diagram",
+    "definition": "A Venn diagram shows the universal set as a rectangle and each set as a circle inside it, with overlaps for elements the sets share.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "subset",
+    "term": "subset",
+    "definition": "Set $A$ is a subset of set $B$, written $A \\subseteq B$, when every element of $A$ is also an element of $B$.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "empty-set",
+    "term": "empty set",
+    "definition": "The empty set, written $\\varnothing$ or $\\{\\,\\}$, is the set with no elements.",
+    "lesson": "1.2"
+  }
+]

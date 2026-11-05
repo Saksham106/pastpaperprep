@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Picked at random, outcomes equally likely → number of outcomes in the event $\\div$ total number of outcomes; from a table or Venn diagram, divide by the grand total, outside region included ({{lesson:8.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Probability something does not happen, or a missing value in a table of all outcomes → $1 -$ the probability that it happens, or $1 -$ the total of the others ({{lesson:8.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Results of an experiment, or a probability that can't be worked out by looking → relative frequency $=$ times it happened $\\div$ total trials; more trials usually give a better estimate ({{lesson:8.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Is the dice, coin or spinner biased? → compare the relative frequency with the fair probability; a big gap after many trials suggests bias ({{lesson:8.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "How many times do you expect it → probability $\\times$ number of trials; from a sample, use the sample's relative frequency as the probability ({{lesson:8.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Two dice, two spinners or a coin and a spinner, all equally likely → sample space diagram: count the cells you want $\\div$ all the cells, both orders counted ({{lesson:8.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Two or more stages with given probabilities, or picks put back → tree diagram: multiply along each path, add the paths you want ({{lesson:8.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "At least one → $1 -$ the probability of none ({{lesson:8.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Picks not put back (taken and eaten, without replacement) → tree diagram: on each later branch take $1$ off the total, and $1$ off the type already picked ({{lesson:8.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "$\\mathrm{P}(A \\cap B)$ or $\\mathrm{P}(A \\cup B)$ from a Venn diagram of numbers → overlap, or everything inside $A$ or $B$ with the overlap counted once, $\\div$ the grand total ({{lesson:8.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Given that, or chosen from a group, in a table or Venn diagram → divide by the given group's total only, not the grand total ({{lesson:8.4}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Given the second outcome on a tree diagram → add the paths ending in that outcome for the bottom; the path that also fits is the top ({{lesson:8.4}})",
+      "tag": "learn",
+      "level": "Extended"
+    }
+  ]
+}

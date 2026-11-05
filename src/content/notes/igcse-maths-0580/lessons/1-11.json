@@ -1,0 +1,594 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.11",
+  "slug": "ratio-and-proportion",
+  "title": "Ratio and proportion",
+  "level": "Core",
+  "topic": 1,
+  "summary": "A [[ratio|ratio]] such as $3 : 4$ compares amounts. You simplify ratios, share amounts in a ratio, and use [[proportion|proportion]] to scale recipes, read [[map-scale|map scales]] and find the best buy.",
+  "goals": [
+    {
+      "text": "Write a ratio in its simplest form, including ratios with units, decimals or three parts.",
+      "bullets": [
+        "1.11-c1"
+      ]
+    },
+    {
+      "text": "Share an amount in a given ratio, or work back from one share or a difference.",
+      "bullets": [
+        "1.11-c1"
+      ]
+    },
+    {
+      "text": "Scale recipes and amounts using [[direct-proportion|direct proportion]], and decide which pack is the best value.",
+      "bullets": [
+        "1.11-c1"
+      ]
+    },
+    {
+      "text": "Use a map scale to change map distances into real distances, and back.",
+      "bullets": [
+        "1.11-c1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "simplify a ratio",
+    "share in a ratio",
+    "divide in a ratio",
+    "best value for money",
+    "map scale",
+    "recipe proportion"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-hcf",
+      "prompt": "Find the highest common factor of $18$ and $30$.",
+      "hint": "List the factors of $18$. Which is the biggest that also divides $30$?",
+      "answer": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "explain": "Factors of $18$: $1, 2, 3, 6, 9, 18$. The biggest that divides $30$ is $6$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "gcd(18, 30)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-fraction-of",
+      "prompt": "Work out $\\frac{3}{8}$ of $56$.",
+      "hint": "Find $\\frac{1}{8}$ of $56$ first.",
+      "answer": {
+        "value": 21,
+        "tolerance": 0
+      },
+      "explain": "$56 \\div 8 = 7$, and $3 \\times 7 = 21$. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(3, 8)*56",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "simplest",
+      "heading": "Ratios in their simplest form",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Ratio",
+          "statement": "A [[ratio|ratio]] $a : b$ compares two amounts of the same kind. The order matters: $a$ goes with the first thing named.",
+          "plain": "For every $a$ of one, there are $b$ of the other."
+        },
+        {
+          "type": "text",
+          "text": "With $6$ apples and $4$ pears, apples : pears $= 6 : 4$, and pears : apples $= 4 : 6$."
+        },
+        {
+          "type": "text",
+          "text": "Multiplying or dividing every part by the same number (not $0$) keeps the ratio. So $6 : 4 = 3 : 2$."
+        },
+        {
+          "type": "text",
+          "text": "In its simplest form, the parts are whole numbers with no common factor except $1$. Divide each part by their highest common factor."
+        },
+        {
+          "type": "example",
+          "id": "ex-simplify-three-part",
+          "question": "Write $48 : 72 : 120$ in its simplest form.",
+          "steps": [
+            "All three parts divide by $2$, $3$ and $4$. The highest common factor is $24$.",
+            "Divide each part by $24$: $48 \\div 24 = 2$, $72 \\div 24 = 3$, $120 \\div 24 = 5$."
+          ],
+          "answer": "$48 : 72 : 120 = 2 : 3 : 5$",
+          "verify": {
+            "kind": "ratio",
+            "truth": "Tuple(48, 72, 120)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Change parts to the same unit first. If a part is a decimal, multiply every part by $10$, $100$ or more, until all the parts are whole numbers."
+        },
+        {
+          "type": "example",
+          "id": "ex-simplify-units",
+          "question": "A cake uses $1.2$ kg of flour and $450$ g of sugar. Write the ratio flour : sugar in its simplest form.",
+          "steps": [
+            "Change to grams: $1.2 \\text{ kg} = 1.2 \\times 1000 = 1200$ g.",
+            "So flour : sugar $= 1200 : 450$.",
+            "The highest common factor of $1200$ and $450$ is $150$. Divide: $1200 \\div 150 = 8$ and $450 \\div 150 = 3$."
+          ],
+          "answer": "$1200 : 450 = 8 : 3$",
+          "verify": {
+            "kind": "ratio",
+            "truth": "Tuple(1.2*1000, 450)"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-simplify-decimal",
+            "prompt": "Write $2.5 : 4$ in its simplest form.",
+            "hint": "Multiply both parts by $10$, then simplify.",
+            "options": [
+              {
+                "text": "$25 : 40$",
+                "correct": false
+              },
+              {
+                "text": "$5 : 8$",
+                "correct": true
+              },
+              {
+                "text": "$5 : 4$",
+                "correct": false
+              },
+              {
+                "text": "$8 : 5$",
+                "correct": false
+              }
+            ],
+            "explain": "$2.5 : 4 = 25 : 40$, and both divide by $5$. $5 : 4$ doubles only the first part, and $8 : 5$ is the wrong way round.",
+            "verify": {
+              "kind": "ratio",
+              "truth": "Tuple(2.5, 4)"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "text": "A ratio also gives a [[fraction|fraction]] of the whole. If boys : girls $= 4 : 5$, there are $4 + 5 = 9$ parts, so $\\frac{5}{9}$ of the class are girls."
+        },
+        {
+          "type": "check",
+          "id": "check-ratio-to-fraction",
+          "prompt": "In a car park, red cars : other cars $= 2 : 9$. What fraction of the cars are red?",
+          "hint": "How many parts are there in total?",
+          "options": [
+            {
+              "text": "$\\frac{2}{9}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2}{11}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{9}{11}$",
+              "correct": false
+            }
+          ],
+          "explain": "There are $2 + 9 = 11$ parts, and $2$ are red. $\\frac{2}{9}$ compares red with the other cars, not with all the cars.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(2, 2 + 9)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sharing",
+      "heading": "Sharing in a ratio",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To share an amount in a ratio, think of it as equal parts."
+        },
+        {
+          "type": "text",
+          "text": "1. Add the numbers in the ratio to get the total number of parts."
+        },
+        {
+          "type": "text",
+          "text": "2. Divide the amount by the total parts to find one part."
+        },
+        {
+          "type": "text",
+          "text": "3. Multiply one part by each number in the ratio. Check that the shares add up to the amount."
+        },
+        {
+          "type": "figure",
+          "id": "1-11-bar-model",
+          "alt": "A bar split into 7 equal parts, each labelled 12, with a bracket saying 84 stickers equals 7 parts. The first 3 parts are shaded for Mia, 3 times 12 equals 36. The last 4 parts are shaded for Leo, 4 times 12 equals 48.",
+          "caption": "Sharing $84$ in the ratio $3 : 4$."
+        },
+        {
+          "type": "example",
+          "id": "ex-share-stickers",
+          "question": "Mia and Leo share $84$ stickers in the ratio $3 : 4$. How many stickers does each get?",
+          "steps": [
+            "Total parts: $3 + 4 = 7$.",
+            "One part: $84 \\div 7 = 12$.",
+            "Mia gets $3 \\times 12 = 36$ and Leo gets $4 \\times 12 = 48$.",
+            "Check: $36 + 48 = 84$."
+          ],
+          "answer": "$36 \\text{ and } 48$",
+          "verify": {
+            "kind": "list",
+            "truth": "(84*Rational(3, 7), 84*Rational(4, 7))"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Sometimes you are told one share, or the difference between two shares, instead of the total. Work out how many parts that amount is, then find one part."
+        },
+        {
+          "type": "example",
+          "id": "ex-share-difference",
+          "question": "Prize money is shared between Ali, Bea and Cal in the ratio $2 : 3 : 5$. Cal gets \\$36 more than Ali. Work out the total prize money.",
+          "steps": [
+            "Cal has $5$ parts and Ali has $2$, so the difference is $5 - 2 = 3$ parts.",
+            "$3$ parts $=$ \\$36, so one part $= 36 \\div 3 =$ \\$12.",
+            "The total is $2 + 3 + 5 = 10$ parts, so $10 \\times 12 =$ \\$120.",
+            "Check: Ali \\$24 and Cal \\$60 differ by \\$36."
+          ],
+          "answer": "$\\$120$",
+          "verify": {
+            "kind": "money",
+            "truth": "36/(5 - 2)*(2 + 3 + 5)",
+            "dp": 0
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-share-from-one-part",
+            "prompt": "A drink is orange juice and lemonade in the ratio $3 : 8$. It uses $560$ ml of lemonade. How many ml of orange juice does it use?",
+            "hint": "The $560$ ml is $8$ parts, not the whole drink.",
+            "answer": {
+              "value": 210,
+              "tolerance": 0
+            },
+            "explain": "One part is $560 \\div 8 = 70$ ml, so orange juice is $3 \\times 70 = 210$ ml.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "Rational(560, 8)*3",
+              "dp": 0
+            }
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-share-stamps",
+          "prompt": "Sam and Tia share some stamps in the ratio $7 : 3$. Sam gets $32$ more stamps than Tia. How many stamps does Tia get?",
+          "hint": "The difference of $32$ stamps is $7 - 3$ parts.",
+          "options": [
+            {
+              "text": "$24$",
+              "correct": true
+            },
+            {
+              "text": "$9.6$",
+              "correct": false
+            },
+            {
+              "text": "$56$",
+              "correct": false
+            },
+            {
+              "text": "$96$",
+              "correct": false
+            }
+          ],
+          "explain": "$4$ parts $= 32$, so one part is $8$ and Tia gets $3 \\times 8 = 24$. $56$ is Sam's share.",
+          "verify": {
+            "kind": "exact",
+            "truth": "32/(7 - 3)*3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ratio-change",
+          "prompt": "A box holds $40$ pens, blue : black $= 3 : 5$. Then $6$ more blue pens go in. Find the new ratio blue : black in its simplest form.",
+          "hint": "Find the number of each colour first, then add the $6$.",
+          "options": [
+            {
+              "text": "$9 : 5$",
+              "correct": false
+            },
+            {
+              "text": "$21 : 25$",
+              "correct": true
+            },
+            {
+              "text": "$21 : 31$",
+              "correct": false
+            }
+          ],
+          "explain": "One part is $40 \\div 8 = 5$, so $15$ blue and $25$ black. Now there are $21$ blue: $21 : 25$. Add to the pens, not to the ratio.",
+          "verify": {
+            "kind": "ratio",
+            "truth": "Tuple(40*Rational(3, 8) + 6, 40*Rational(5, 8))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "proportion",
+      "heading": "Proportion: recipes and best value",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Direct proportion",
+          "statement": "Two quantities are in [[direct-proportion|direct proportion]] when multiplying one by a number multiplies the other by the same number. Their ratio stays the same.",
+          "plain": "Twice as many cakes need twice as much flour."
+        },
+        {
+          "type": "text",
+          "text": "To scale an amount, find the amount for one item, then multiply up. Or multiply by new number ÷ old number."
+        },
+        {
+          "type": "example",
+          "id": "ex-recipe-milk",
+          "question": "A recipe for $6$ pancakes uses $250$ ml of milk. How much milk is needed for $15$ pancakes?",
+          "steps": [
+            "Milk for $1$ pancake: $250 \\div 6 = \\frac{125}{3}$ ml. Keep it as a fraction.",
+            "Milk for $15$ pancakes: $\\frac{125}{3} \\times 15 = 125 \\times 5 = 625$ ml.",
+            "Or scale: $15 \\div 6 = 2.5$, and $250 \\times 2.5 = 625$ ml."
+          ],
+          "answer": "$625\\text{ ml}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(250, 6)*15",
+            "unit": "ml"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-recipe-bags",
+            "prompt": "The same recipe uses $160$ g of flour for $6$ pancakes. Flour is sold in $1$ kg bags. How many bags are needed for $50$ pancakes?",
+            "hint": "Find the flour for $50$ pancakes in grams. Can you buy part of a bag?",
+            "answer": {
+              "value": 2,
+              "tolerance": 0
+            },
+            "explain": "$\\frac{160}{6} \\times 50 \\approx 1333$ g, which is more than one $1000$ g bag. So round up to $2$ bags.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "ceiling(Rational(160, 6)*50/1000)",
+              "dp": 0
+            }
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding a number of bags down. If you need $1.3$ bags, $1$ is not enough: buy $2$."
+        },
+        {
+          "type": "text",
+          "text": "For best value, compare the cost of the same amount, such as $1$ kg, in each pack. The lower cost is better value."
+        },
+        {
+          "type": "example",
+          "id": "ex-best-value-rice",
+          "question": "Rice costs \\$3.40 for a $2$ kg bag or \\$8.25 for a $5$ kg bag. Which bag is better value? Show how you decide.",
+          "steps": [
+            "Cost of $1$ kg in the $2$ kg bag: $3.40 \\div 2 =$ \\$1.70.",
+            "Cost of $1$ kg in the $5$ kg bag: $8.25 \\div 5 =$ \\$1.65.",
+            "\\$1.65 is less than \\$1.70, so the $5$ kg bag is better value."
+          ],
+          "answer": "$5\\text{ kg bag}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Piecewise((2, 3.40/2 < 8.25/5), (5, 8.25/5 < 3.40/2))",
+            "unit": "kg bag"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-best-value-juice",
+          "prompt": "Juice is \\$1.80 for $750$ ml or \\$2.90 for $1250$ ml. What does $250$ ml cost in the better-value carton?",
+          "hint": "$750$ ml is $3$ lots of $250$ ml, and $1250$ ml is $5$ lots.",
+          "options": [
+            {
+              "text": "$\\$0.60$",
+              "correct": false
+            },
+            {
+              "text": "$\\$0.58$",
+              "correct": true
+            },
+            {
+              "text": "$\\$0.36$",
+              "correct": false
+            }
+          ],
+          "explain": "$1.80 \\div 3 =$ \\$0.60 and $2.90 \\div 5 =$ \\$0.58. So the $1250$ ml carton is better value.",
+          "verify": {
+            "kind": "money",
+            "truth": "Min(1.80/(750/250), 2.90/(1250/250))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "map-scales",
+      "heading": "Map scales",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Map scale",
+          "statement": "A [[map-scale|map scale]] $1 : n$ means $1$ cm on the map stands for $n$ cm in real life.",
+          "plain": "Real distance $=$ map distance $\\times n$."
+        },
+        {
+          "type": "text",
+          "text": "The real distance comes out in the same unit as the map distance, usually cm, so change units at the end. $100$ cm $= 1$ m and $1000$ m $= 1$ km, so $100\\,000$ cm $= 1$ km."
+        },
+        {
+          "type": "example",
+          "id": "ex-map-to-real",
+          "question": "A map has a scale of $1 : 25\\,000$. Two lakes are $9.4$ cm apart on the map. Work out the real distance between them in kilometres.",
+          "steps": [
+            "Multiply by the scale: $9.4 \\times 25\\,000 = 235\\,000$ cm.",
+            "Change to metres: $235\\,000 \\div 100 = 2350$ m.",
+            "Change to kilometres: $2350 \\div 1000 = 2.35$ km."
+          ],
+          "answer": "$2.35\\text{ km}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "9.4*25000/100000",
+            "unit": "km"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To go from a real distance to the map, change the real distance to cm first, then divide by $n$."
+        },
+        {
+          "type": "example",
+          "id": "ex-real-to-map",
+          "question": "A map has a scale of $1 : 20\\,000$. A cycle path is $5.2$ km long. How long is it on the map?",
+          "steps": [
+            "Change to cm: $5.2 \\times 100\\,000 = 520\\,000$ cm.",
+            "Divide by the scale: $520\\,000 \\div 20\\,000 = 52 \\div 2 = 26$ cm.",
+            "Check: $26 \\times 20\\,000 = 520\\,000$ cm $= 5.2$ km."
+          ],
+          "answer": "$26\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "5.2*100000/20000",
+            "unit": "cm"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-map-path",
+            "prompt": "On a map with scale $1 : 50\\,000$, how long is a $3$ km path?",
+            "hint": "Write $3$ km in cm first.",
+            "options": [
+              {
+                "text": "$6\\text{ cm}$",
+                "correct": true
+              },
+              {
+                "text": "$0.06\\text{ cm}$",
+                "correct": false
+              },
+              {
+                "text": "$60\\text{ cm}$",
+                "correct": false
+              }
+            ],
+            "explain": "$3$ km $= 300\\,000$ cm, and $300\\,000 \\div 50\\,000 = 6$ cm.",
+            "verify": {
+              "kind": "exact",
+              "truth": "3*100000/50000",
+              "unit": "cm"
+            }
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-map-real",
+          "prompt": "A map has scale $1 : 200\\,000$. Two towns are $7.5$ cm apart on the map. Find the real distance in km.",
+          "hint": "Multiply, then divide by $100\\,000$ to get km.",
+          "answer": {
+            "value": 15,
+            "tolerance": 0
+          },
+          "explain": "$7.5 \\times 200\\,000 = 1\\,500\\,000$ cm, and $1\\,500\\,000 \\div 100\\,000 = 15$ km.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "7.5*200000/100000",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Simplest form: same units first, then divide every part by the highest common factor.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Sharing in $a : b$: one part $=$ amount $\\div (a + b)$. Then multiply by $a$ and by $b$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Ratio to fraction: if $A : B = a : b$, then $A$ is $\\frac{a}{a + b}$ of the whole.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Direct proportion: find the amount for one, then multiply up.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Best value: compare the cost of the same amount of each pack.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Map scale $1 : n$: real $=$ map $\\times n$. $100\\,000$ cm $= 1$ km.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing the amount by one number of the ratio. Add the parts first: $2 : 5$ has $7$ parts.",
+    "Treating a given share as one part. If $90$ is $2$ parts, one part is $45$.",
+    "Writing a fraction from a ratio over the other part. With $3 : 7$, the first is $\\frac{3}{10}$ of the whole, not $\\frac{3}{7}$.",
+    "Using the old numbers after a ratio changes. Work out the real amounts, change them, then write the new ratio.",
+    "Mixing units, as in $2$ m $: 50$ cm $= 2 : 50$. Change to $200 : 50 = 4 : 1$."
+  ],
+  "examTips": [
+    "\"Give your answer in its simplest form\": every part a whole number with no common factor. $6 : 4$ loses the mark.",
+    "Best value: show the cost of the same amount for each pack, then name the better one. A bare \"yes\" or \"no\" earns nothing.",
+    "\"Give your answer in kilometres\": divide cm by $100\\,000$ at the end. Write the unit you were asked for."
+  ],
+  "readingMinutes": 18
+}

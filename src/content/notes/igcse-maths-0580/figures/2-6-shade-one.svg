@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 250" role="img" aria-labelledby="t">
+  <title id="t">Grid with x from 0 to 9 and y from 0 to 5. A solid line joins (0, 4) and (8, 0): the line x plus 2y equals 8. The triangle between the line and the axes, on the side of the origin, is shaded because it is not wanted. The unshaded side above the line is x plus 2y greater than or equal to 8.</title>
+  <g stroke="var(--muted)" stroke-width="0.6" stroke-opacity="0.6">
+    <line x1="40" y1="220" x2="40" y2="40"/>
+    <line x1="76" y1="220" x2="76" y2="40"/>
+    <line x1="112" y1="220" x2="112" y2="40"/>
+    <line x1="148" y1="220" x2="148" y2="40"/>
+    <line x1="184" y1="220" x2="184" y2="40"/>
+    <line x1="220" y1="220" x2="220" y2="40"/>
+    <line x1="256" y1="220" x2="256" y2="40"/>
+    <line x1="292" y1="220" x2="292" y2="40"/>
+    <line x1="328" y1="220" x2="328" y2="40"/>
+    <line x1="364" y1="220" x2="364" y2="40"/>
+    <line x1="40" y1="220" x2="364" y2="220"/>
+    <line x1="40" y1="184" x2="364" y2="184"/>
+    <line x1="40" y1="148" x2="364" y2="148"/>
+    <line x1="40" y1="112" x2="364" y2="112"/>
+    <line x1="40" y1="76" x2="364" y2="76"/>
+    <line x1="40" y1="40" x2="364" y2="40"/>
+  </g>
+  <polygon points="40,220 328,220 40,76" fill="var(--muted)" fill-opacity="0.3" stroke="none"/>
+  <line x1="40" y1="76" x2="328" y2="220" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <text x="241.6" y="126.39999999999999" fill="var(--t1-ink)" font-size="14" font-family="inherit">x + 2y = 8</text>
+  <text x="263.20000000000005" y="68.79999999999998" fill="currentColor" font-size="14" font-family="inherit">x + 2y ≥ 8</text>
+  <text x="90.4" y="184" fill="currentColor" font-size="12" font-family="inherit">shaded: not wanted</text>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <line x1="40" y1="220" x2="376" y2="220"/>
+    <polyline points="370,215 376,220 370,225"/>
+    <line x1="40" y1="220" x2="40" y2="28"/>
+    <polyline points="35,34 40,28 45,34"/>
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="76" y="236">1</text>
+    <text x="112" y="236">2</text>
+    <text x="148" y="236">3</text>
+    <text x="184" y="236">4</text>
+    <text x="220" y="236">5</text>
+    <text x="256" y="236">6</text>
+    <text x="292" y="236">7</text>
+    <text x="328" y="236">8</text>
+    <text x="364" y="236">9</text>
+    <text x="30" y="188">1</text>
+    <text x="30" y="152">2</text>
+    <text x="30" y="116">3</text>
+    <text x="30" y="80">4</text>
+    <text x="30" y="44">5</text>
+    <text x="30" y="236">0</text>
+  </g>
+  <text x="382" y="225" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">x</text>
+  <text x="40" y="22" fill="currentColor" font-size="14" font-style="italic" font-family="inherit" text-anchor="middle">y</text>
+</svg>

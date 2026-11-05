@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 230" role="img" aria-labelledby="t">
+  <title id="t">Two circles. Left: chord AB with points C and D on the circle on the same side of AB. Angle ACB and angle ADB are both marked y. Right: cyclic quadrilateral PQRS with all four corners on the circle. The angle at P is marked a and the opposite angle at R is marked 180 degrees minus a.</title>
+  <circle cx="95.0" cy="120.0" r="75.0" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="33.6" y1="163.0" x2="156.4" y2="163.0" stroke="currentColor" stroke-width="2"/>
+  <line x1="46.8" y1="62.5" x2="33.6" y2="163.0" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="46.8" y1="62.5" x2="156.4" y2="163.0" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="132.5" y1="55.0" x2="33.6" y2="163.0" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="132.5" y1="55.0" x2="156.4" y2="163.0" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M43.4,88.3 A26,26 0 0 0 66.0,80.1" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+  <path d="M114.9,74.2 A26,26 0 0 0 138.1,80.4" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+  <circle cx="33.6" cy="163.0" r="3" fill="currentColor"/>
+  <circle cx="156.4" cy="163.0" r="3" fill="currentColor"/>
+  <circle cx="46.8" cy="62.5" r="3" fill="currentColor"/>
+  <circle cx="132.5" cy="55.0" r="3" fill="currentColor"/>
+  <circle cx="305.0" cy="120.0" r="75.0" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="234.5" y1="94.3" x2="324.4" y2="47.6" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="324.4" y1="47.6" x2="378.9" y2="107.0" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="378.9" y1="107.0" x2="279.3" y2="190.5" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="279.3" y1="190.5" x2="234.5" y2="94.3" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M254.0,84.2 A22,22 0 0 1 243.8,114.3" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+  <path d="M364.0,90.8 A22,22 0 0 0 362.0,121.1" fill="none" stroke="var(--t4-ink)" stroke-width="2"/>
+  <circle cx="234.5" cy="94.3" r="3" fill="currentColor"/>
+  <circle cx="324.4" cy="47.6" r="3" fill="currentColor"/>
+  <circle cx="378.9" cy="107.0" r="3" fill="currentColor"/>
+  <circle cx="279.3" cy="190.5" r="3" fill="currentColor"/>
+  <g font-family="inherit">
+    <text x="22.9" y="175.5" fill="currentColor" font-size="14" text-anchor="middle">A</text>
+    <text x="167.1" y="175.5" fill="currentColor" font-size="14" text-anchor="middle">B</text>
+    <text x="38.4" y="57.6" fill="currentColor" font-size="14" text-anchor="middle">C</text>
+    <text x="139.0" y="48.8" fill="currentColor" font-size="14" text-anchor="middle">D</text>
+    <text x="60.5" y="105.1" fill="var(--t1-ink)" font-size="15" text-anchor="middle">y</text>
+    <text x="122.1" y="98.7" fill="var(--t1-ink)" font-size="15" text-anchor="middle">y</text>
+    <text x="222.3" y="94.9" fill="currentColor" font-size="14" text-anchor="middle">P</text>
+    <text x="327.8" y="40.0" fill="currentColor" font-size="14" text-anchor="middle">Q</text>
+    <text x="391.7" y="109.7" fill="currentColor" font-size="14" text-anchor="middle">R</text>
+    <text x="274.9" y="207.7" fill="currentColor" font-size="14" text-anchor="middle">S</text>
+    <text x="268.6" y="110.9" fill="var(--t3-ink)" font-size="15" text-anchor="middle">a</text>
+    <text x="356.0" y="110.0" fill="var(--t4-ink)" font-size="12" text-anchor="end">180° − a</text>
+  </g>
+</svg>

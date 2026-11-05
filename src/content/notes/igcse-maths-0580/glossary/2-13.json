@@ -1,0 +1,32 @@
+[
+  {
+    "id": "function-notation",
+    "term": "function notation",
+    "definition": "Writing a function as $\\mathrm{f}(x) = \\ldots$, so that $\\mathrm{f}(a)$ means the output when the input is $a$.",
+    "lesson": "2.13"
+  },
+  {
+    "id": "domain",
+    "term": "domain",
+    "definition": "The set of input values a function is allowed to take.",
+    "lesson": "2.13"
+  },
+  {
+    "id": "range-of-a-function",
+    "term": "range of a function",
+    "definition": "The set of output values a function gives from its domain; not the same as the range of a set of data.",
+    "lesson": "2.13"
+  },
+  {
+    "id": "inverse-function",
+    "term": "inverse function",
+    "definition": "The function $\\mathrm{f}^{-1}$ that undoes $\\mathrm{f}$, taking each output of $\\mathrm{f}$ back to its input.",
+    "lesson": "2.13"
+  },
+  {
+    "id": "composite-function",
+    "term": "composite function",
+    "definition": "One function applied to the output of another: $\\mathrm{gf}(x) = \\mathrm{g}(\\mathrm{f}(x))$ applies $\\mathrm{f}$ first, then $\\mathrm{g}$.",
+    "lesson": "2.13"
+  }
+]

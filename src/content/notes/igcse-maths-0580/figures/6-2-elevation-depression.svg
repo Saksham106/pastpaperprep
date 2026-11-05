@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 210" role="img" aria-labelledby="t">
+  <title id="t">A vertical cliff on the left with its top at T and its foot at F. A boat B sits on the sea level line to the right of F. A dashed horizontal line goes right from T. The angle of depression is marked at T, between the horizontal line and the line of sight down to B. The angle of elevation is marked at B, between the sea level line and the line of sight up to T. The two angles are equal.</title>
+  <line x1="60" y1="40" x2="60" y2="180" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="20" y1="180" x2="300" y2="180" stroke="currentColor" stroke-width="2"/>
+  <line x1="60" y1="40" x2="300" y2="40" stroke="currentColor" stroke-width="1.4" stroke-dasharray="6 4"/>
+  <line x1="60" y1="40" x2="280" y2="180" stroke="var(--t1-ink)" stroke-width="2"/>
+  <path d="M110,40 A50,50 0 0 1 102.2,66.8" fill="none" stroke="var(--t2-ink)" stroke-width="1.8"/>
+  <text x="122" y="30" fill="var(--t2-ink)" font-size="12" text-anchor="start" font-family="inherit">angle of depression</text>
+  <path d="M230,180 A50,50 0 0 1 237.8,153.2" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+  <text x="200" y="200" fill="var(--t3-ink)" font-size="12" text-anchor="middle" font-family="inherit">angle of elevation</text>
+  <text x="48" y="36" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">T</text>
+  <text x="48" y="196" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">F</text>
+  <circle cx="280" cy="180" r="3" fill="currentColor"/>
+  <text x="292" y="172" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">B</text>
+  <text x="250" y="34" fill="currentColor" font-size="12" text-anchor="middle" font-family="inherit">horizontal</text>
+</svg>

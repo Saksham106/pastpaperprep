@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 210" role="img" aria-labelledby="t">
+<title id="t">Left: a circle of radius r cut into 8 equal slices, coloured in two alternating shades. An arrow points right. Right: the same 8 slices laid side by side, alternately pointing up and down, making a shape close to a rectangle. Its height is labelled r and its length is labelled half the circumference, pi r.</title>
+<path d="M85,105 L147.0,105.0 A62,62 0 0 0 128.8,61.2 Z" fill="var(--t1-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<path d="M85,105 L128.8,61.2 A62,62 0 0 0 85.0,43.0 Z" fill="var(--t4-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<path d="M85,105 L85.0,43.0 A62,62 0 0 0 41.2,61.2 Z" fill="var(--t1-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<path d="M85,105 L41.2,61.2 A62,62 0 0 0 23.0,105.0 Z" fill="var(--t4-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<path d="M85,105 L23.0,105.0 A62,62 0 0 0 41.2,148.8 Z" fill="var(--t1-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<path d="M85,105 L41.2,148.8 A62,62 0 0 0 85.0,167.0 Z" fill="var(--t4-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<path d="M85,105 L85.0,167.0 A62,62 0 0 0 128.8,148.8 Z" fill="var(--t1-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<path d="M85,105 L128.8,148.8 A62,62 0 0 0 147.0,105.0 Z" fill="var(--t4-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<line x1="85" y1="105" x2="147" y2="105" stroke="currentColor" stroke-width="2.5"/>
+<text x="116.0" y="99" fill="currentColor" font-size="14" font-style="italic" text-anchor="middle" font-family="inherit">r</text>
+<path d="M168,105 L208,105 M200,98 L208,105 L200,112" fill="none" stroke="currentColor" stroke-width="2"/>
+<path d="M258.7,76.4 L235.0,133.6 A62,62 0 0 0 282.5,133.6 Z" fill="var(--t1-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<path d="M282.5,133.6 L258.7,76.4 A62,62 0 0 1 306.2,76.4 Z" fill="var(--t4-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<path d="M306.2,76.4 L282.5,133.6 A62,62 0 0 0 329.9,133.6 Z" fill="var(--t1-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<path d="M329.9,133.6 L306.2,76.4 A62,62 0 0 1 353.6,76.4 Z" fill="var(--t4-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<path d="M353.6,76.4 L329.9,133.6 A62,62 0 0 0 377.4,133.6 Z" fill="var(--t1-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<path d="M377.4,133.6 L353.6,76.4 A62,62 0 0 1 401.1,76.4 Z" fill="var(--t4-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<path d="M401.1,76.4 L377.4,133.6 A62,62 0 0 0 424.8,133.6 Z" fill="var(--t1-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<path d="M424.8,133.6 L401.1,76.4 A62,62 0 0 1 448.5,76.4 Z" fill="var(--t4-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+<line x1="460.5" y1="76.4" x2="460.5" y2="133.6" stroke="currentColor" stroke-width="1.5"/>
+<text x="468.5" y="110" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">r</text>
+<line x1="235" y1="155.6" x2="448.5" y2="155.6" stroke="currentColor" stroke-width="1.5"/>
+<text x="341.8" y="173.6" fill="currentColor" font-size="13" text-anchor="middle" font-family="inherit">half the circumference = πr</text>
+</svg>

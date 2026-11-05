@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 140" role="img" aria-labelledby="t">
+  <title id="t">Eleven ordered times in boxes, with the lower quartile 12.4, the median 13.0 and the upper quartile 14.1 marked, a bracket labelled IQR = 1.7, and the lower and upper halves labelled</title>
+  <g fill="var(--t4-ink)" fill-opacity="0.16" stroke="none">
+    <rect x="72" y="44" width="30" height="26" />
+    <rect x="165" y="44" width="30" height="26" />
+    <rect x="258" y="44" width="30" height="26" />
+  </g>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <rect x="10" y="44" width="30" height="26" />
+    <rect x="41" y="44" width="30" height="26" />
+    <rect x="72" y="44" width="30" height="26" />
+    <rect x="103" y="44" width="30" height="26" />
+    <rect x="134" y="44" width="30" height="26" />
+    <rect x="165" y="44" width="30" height="26" />
+    <rect x="196" y="44" width="30" height="26" />
+    <rect x="227" y="44" width="30" height="26" />
+    <rect x="258" y="44" width="30" height="26" />
+    <rect x="289" y="44" width="30" height="26" />
+    <rect x="320" y="44" width="30" height="26" />
+  </g>
+  <g fill="currentColor" font-size="10.5" font-family="inherit" text-anchor="middle">
+    <text x="25" y="61">11.8</text>
+    <text x="56" y="61">12.2</text>
+    <text x="87" y="61">12.4</text>
+    <text x="118" y="61">12.7</text>
+    <text x="149" y="61">12.9</text>
+    <text x="180" y="61">13.0</text>
+    <text x="211" y="61">13.1</text>
+    <text x="242" y="61">13.5</text>
+    <text x="273" y="61">14.1</text>
+    <text x="304" y="61">14.6</text>
+    <text x="335" y="61">15.3</text>
+  </g>
+  <g stroke="var(--t4-ink)" stroke-width="1.4" fill="none">
+    <polyline points="87,40 87,32 273,32 273,40" />
+  </g>
+  <text x="180" y="24" fill="var(--t4-ink)" font-size="12" font-family="inherit" text-anchor="middle">IQR = 14.1 − 12.4 = 1.7</text>
+  <g fill="currentColor" font-size="11.5" font-family="inherit" text-anchor="middle">
+    <text x="87" y="86">lower quartile</text>
+    <text x="180" y="86">median</text>
+    <text x="273" y="86">upper quartile</text>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" fill="none">
+    <polyline points="10,98 10,104 165,104 165,98" />
+    <polyline points="196,98 196,104 351,104 351,98" />
+  </g>
+  <g fill="var(--muted)" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="87.5" y="120">lower half</text>
+    <text x="273.5" y="120">upper half</text>
+  </g>
+</svg>

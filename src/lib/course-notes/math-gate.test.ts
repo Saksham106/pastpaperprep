@@ -45,6 +45,17 @@ describe.skipIf(!python)("check-math.py verifies the published answer text", () 
     expect(restated.stdout).toMatch(/^FAIL ex-parts-xe2x \(.*not evaluated/);
   });
 
+  it("takes the course from --course: the 0580 lesson 1.1 passes with its verify blocks (no sidecar), and a wrong answer fails", () => {
+    const pass = spawnSync(python!, [script, "--course", "igcse-maths-0580", "1.1"], { encoding: "utf8" });
+    expect(pass.stdout).not.toMatch(/FAIL/);
+    expect(pass.status).toBe(0);
+    const wrong = spawnSync(python!, [script, "--course=igcse-maths-0580", "--verify", "1.1", "ex-hcf", String.raw`\text{HCF} = 6`], { encoding: "utf8" });
+    expect(wrong.status).toBe(1);
+    expect(wrong.stdout).toMatch(/^FAIL ex-hcf/);
+    const unknown = spawnSync(python!, [script, "--course", "no-such-course", "1.1"], { encoding: "utf8" });
+    expect(unknown.status).not.toBe(0);
+  });
+
   it("rejects a zero integrating factor in the live 5.18 lesson (a property check must exclude degenerate answers)", () => {
     const run = spawnSync(python!, [script, "--verify", "5.18", "check-if-factor", "0"], { encoding: "utf8" });
     expect(run.status).toBe(1);
@@ -149,6 +160,69 @@ describe.skipIf(!python)("check-math.py checks distractors, tolerances and stale
     const run = gate((_, sidecar) => sidecar.replace('NUMERIC = {"check-root": {"sf": 3}}', "NUMERIC = {}"));
     expect(run.stdout).toMatch(/^FAIL check-root .*declare its precision/m);
     expect(run.status).toBe(1);
+  });
+
+  // The same fixture with no sidecar: each block states { kind, truth } and verify_kinds.py checks it.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- the fixture lesson is mutated freely
+  const declarative = (mutate?: (lesson: any) => void, sidecar?: string) => {
+    const dir = mkdtempSync(join(tmpdir(), "aa-gate-verify-"));
+    const lesson = JSON.parse(readFileSync(join(fixtures, "9-99.json"), "utf8"));
+    const [example, choice, numeric] = lesson.sections[0].blocks;
+    example.verify = { kind: "antiderivative", truth: "2/(2*x + 1)" };
+    choice.verify = { kind: "antiderivative", truth: "1/x" };
+    numeric.verify = { kind: "numeric", truth: "sqrt(Rational(117, 1000))", sf: 3 };
+    mutate?.(lesson);
+    writeFileSync(join(dir, "9-99.json"), JSON.stringify(lesson));
+    if (sidecar) {
+      writeFileSync(join(dir, "9-99.py"), sidecar);
+      copyFileSync(resolve(process.cwd(), "scripts/notes/mathparse.py"), join(dir, "mathparse.py"));
+    }
+    return spawnSync(python!, [script, "9.99"], { encoding: "utf8", env: { ...process.env, AA_NOTES_LESSONS_DIR: dir, AA_NOTES_SIDECARS_DIR: dir } });
+  };
+
+  it("passes verify blocks with no sidecar, rejecting every distractor by the same kind", () => {
+    const run = declarative();
+    expect(run.stdout).toMatch(/^PASS check-recip distractor 2 rejected$/m);
+    expect(run.stdout).toMatch(/^PASS check-root tolerance 0.0005$/m);
+    expect(run.stdout, run.stdout + run.stderr).not.toMatch(/FAIL/);
+    expect(run.status).toBe(0);
+  });
+
+  it("fails a block with neither a sidecar entry nor a verify block", () => {
+    const run = declarative((lesson) => {
+      delete lesson.sections[0].blocks[0].verify;
+    });
+    expect(run.stdout).toMatch(/^FAIL ex-recip \(no assertion for ex-recip/m);
+    expect(run.status).toBe(1);
+  });
+
+  it("fails a verify block whose kind accepts an equivalent distractor, or whose truth is wrong", () => {
+    const equivalent = declarative((lesson) => {
+      lesson.sections[0].blocks[1].options[1].text = "$\\ln|2x| + C$";
+    });
+    expect(equivalent.stdout).toMatch(/^FAIL check-recip distractor 1 rejected \(accepted as correct/m);
+    const wrongTruth = declarative((lesson) => {
+      lesson.sections[0].blocks[0].verify.truth = "1/(2*x + 1)";
+    });
+    expect(wrongTruth.stdout).toMatch(/^FAIL ex-recip /m);
+    expect(wrongTruth.status).toBe(1);
+  });
+
+  it("holds a numeric verify block to its declared precision", () => {
+    const run = declarative((lesson) => {
+      lesson.sections[0].blocks[2].answer.tolerance = 0.005;
+    });
+    expect(run.stdout).toMatch(/^FAIL check-root tolerance 0.005 is looser than half a unit at 3 s.f./m);
+    expect(run.status).toBe(1);
+  });
+
+  it("uses the sidecar entry when there is one, and the verify block for the rest", () => {
+    const sidecar = readFileSync(join(fixtures, "9-99.py"), "utf8").replace("parents[2]", "parents[0]").replace(/\n {4}"check-recip".*\n/, "\n");
+    const run = declarative((lesson) => {
+      lesson.sections[0].blocks[0].verify.truth = "1/(2*x + 1)"; // wrong, but the sidecar's ex-recip entry is used
+    }, sidecar);
+    expect(run.stdout, run.stdout + run.stderr).not.toMatch(/FAIL/);
+    expect(run.status).toBe(0);
   });
 
   it("fails a stale sidecar id", () => {

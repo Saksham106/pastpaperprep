@@ -1,7 +1,7 @@
 import "katex/dist/katex.min.css";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { lessonPath, type Course } from "@/lib/course-notes/course";
+import { isExtension, lessonPath, type Course } from "@/lib/course-notes/course";
 import { sheetTopics, type SheetRow } from "@/lib/course-notes/cheatsheet";
 import { renderInlineHtml, renderTex } from "@/lib/course-notes/render";
 import { CheatSheetFrame } from "./CheatSheetFrame";
@@ -22,7 +22,8 @@ export function CheatSheet({ course, topic }: { course: Course; topic?: Course["
     <CheatSheetFrame
       title={topic ? topic.name : course.name}
       slug={topic ? topic.slug : "course"}
-      crumbs={[{ label: "IB Maths AA notes", href: base }, ...(topic ? [{ label: topic.name, href: `${base}/${topic.slug}` }] : [])]}
+      crumbs={[{ label: `${course.name} notes`, href: base }, ...(topic ? [{ label: topic.name, href: `${base}/${topic.slug}` }] : [])]}
+      footer={course.copy.sheetFooter}
     >
       {/* One section per topic, each with its own two columns, so the browser can skip painting topics far off screen (content-visibility). */}
       {topics.map((entry) => (
@@ -30,7 +31,7 @@ export function CheatSheet({ course, topic }: { course: Course; topic?: Course["
           {topic ? null : <h3 className={styles.topicH} data-all-ahl={entry.allAhl ? "" : undefined}><Link href={entry.href}>{entry.n} {entry.name}</Link></h3>}
           <div className={styles.cols}>
             {entry.blocks.map((block) => {
-              const ahl = block.level === "AHL";
+              const ahl = isExtension(course, block.level);
               const heading = (
                 <>
                   {block.item || ahl ? <span className={styles.n}>{block.item ?? ""}{ahl ? `${block.item ? " " : ""}◆` : ""}</span> : null}
@@ -41,7 +42,7 @@ export function CheatSheet({ course, topic }: { course: Course; topic?: Course["
                 <div key={block.key} className={`${styles.blk}${ahl ? ` ${styles.ahl}` : ""}`} data-block={block.item ?? "method"} data-ahl={ahl ? "" : undefined}>
                   <BlockHeading>{block.href ? <Link href={block.href}>{heading}</Link> : heading}</BlockHeading>
                   {block.rows.map((row, i) => (
-                    <div key={i} className={styles.row} data-row={row.kind}>
+                    <div key={i} className={styles.row} data-row={row.kind} data-ahl={row.extension ? "" : undefined}>
                       <span dangerouslySetInnerHTML={{ __html: html(row) }} />
                       <span className={`${styles.tg} ${row.tag === "booklet" ? styles.tgB : styles.tgL}`}>{row.tag === "booklet" ? "BOOKLET" : "LEARN"}</span>
                     </div>

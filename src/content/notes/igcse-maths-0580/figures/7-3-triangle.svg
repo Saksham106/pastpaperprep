@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 205" role="img" aria-labelledby="t">
+  <title id="t">A right-angled triangle. The bottom side goes 15 units to the right and the right-hand side goes 8 units up, with a right angle between them. An arrow labelled a in bold runs along the hypotenuse from the start of the bottom side to the top of the right-hand side.</title>
+  <line x1="40" y1="170" x2="280" y2="170" stroke="var(--t3-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="280" y1="170" x2="280" y2="42" stroke="var(--t3-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <polyline points="268,170 268,158 280,158" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="40" y1="170" x2="269.4" y2="47.6" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <polygon points="280,42 271.8,52.0 267.1,43.2" fill="var(--t1-ink)"/>
+  <circle cx="40" cy="170" r="3.5" fill="currentColor"/>
+  <text x="160" y="192" fill="var(--t3-ink)" font-size="14" font-family="inherit" text-anchor="middle" font-weight="bold">15 across</text>
+  <text x="290" y="110" fill="var(--t3-ink)" font-size="14" font-family="inherit" text-anchor="start" font-weight="bold">8 up</text>
+  <text x="150" y="94" fill="var(--t1-ink)" font-size="18" font-family="inherit" text-anchor="middle" font-weight="bold">a</text>
+</svg>

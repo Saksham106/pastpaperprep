@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 225" role="img" aria-labelledby="t">
+  <title id="t">Venn diagram. The rectangle is the universal set, the integers from 30 to 40. Circle T holds the multiples of 3 and circle V the multiples of 5. The overlap holds 30. T only holds 33, 36 and 39. V only holds 35 and 40. Outside both circles are 31, 32, 34, 37 and 38.</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <rect x="10" y="10" width="340" height="205"/>
+    <circle cx="135" cy="112" r="70"/>
+    <circle cx="225" cy="112" r="70"/>
+  </g>
+  <g font-family="inherit" font-size="17" fill="currentColor">
+    <text x="20" y="32">ℰ</text>
+    <text x="75" y="48">T</text>
+    <text x="276" y="48">V</text>
+  </g>
+  <g font-family="inherit" font-size="17" fill="var(--t1-ink)" font-weight="bold" text-anchor="middle">
+    <text x="180" y="118">30</text>
+    <text x="112" y="92">33</text>
+    <text x="100" y="118">36</text>
+    <text x="112" y="144">39</text>
+    <text x="252" y="104">35</text>
+    <text x="252" y="134">40</text>
+  </g>
+  <g font-family="inherit" font-size="17" fill="currentColor" text-anchor="middle">
+    <text x="36" y="200">31</text>
+    <text x="92" y="204">32</text>
+    <text x="180" y="206">34</text>
+    <text x="300" y="204">37</text>
+    <text x="325" y="36">38</text>
+  </g>
+</svg>

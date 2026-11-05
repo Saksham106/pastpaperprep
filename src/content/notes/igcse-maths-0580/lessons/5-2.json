@@ -1,0 +1,547 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "5.2",
+  "slug": "area-and-perimeter",
+  "title": "Area and perimeter",
+  "level": "Core",
+  "topic": 5,
+  "summary": "The [[perimeter|perimeter]] of a shape is the distance round its edge, and its [[area|area]] is the flat space inside. You find both for rectangles, triangles, [[parallelogram|parallelograms]] and [[trapezium|trapeziums]]. The key is always to use the [[perpendicular-height|perpendicular height]], never a slanting side.",
+  "goals": [
+    {
+      "text": "Work out the [[perimeter|perimeter]] of a shape, including one whose sides are algebraic expressions.",
+      "bullets": [
+        "5.2-c1"
+      ]
+    },
+    {
+      "text": "Work out the [[area|area]] of a rectangle, and of a shape made from rectangles.",
+      "bullets": [
+        "5.2-c1"
+      ]
+    },
+    {
+      "text": "Find the area of a parallelogram, triangle and trapezium using the [[perpendicular-height|perpendicular height]].",
+      "bullets": [
+        "5.2-c1"
+      ]
+    },
+    {
+      "text": "Work backwards from an area or a perimeter to a missing length.",
+      "bullets": [
+        "5.2-c1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "2.5"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "area of a trapezium",
+    "area of a triangle formula",
+    "perimeter of a rectangle",
+    "area of a parallelogram",
+    "perpendicular height",
+    "area of compound shapes"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-one-pair-parallel",
+      "prompt": "Which quadrilateral has exactly one pair of parallel sides?",
+      "hint": "A parallelogram has two pairs.",
+      "options": [
+        {
+          "text": "Trapezium",
+          "correct": true
+        },
+        {
+          "text": "Parallelogram",
+          "correct": false
+        },
+        {
+          "text": "Rectangle",
+          "correct": false
+        }
+      ],
+      "explain": "A trapezium has one pair of parallel sides. Parallelograms and rectangles have two pairs. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Trapezium"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-perpendicular-angle",
+      "prompt": "Two lines are [[perpendicular|perpendicular]]. What angle do they meet at, in degrees?",
+      "hint": "Think of the corner of a square.",
+      "answer": {
+        "value": 90,
+        "tolerance": 0
+      },
+      "explain": "Perpendicular lines meet at a right angle: a quarter turn, $360 \\div 4 = 90^{\\circ}$. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "360/4",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-solve-linear",
+      "prompt": "Solve $4x - 6 = 30$. What is $x$?",
+      "hint": "Add 6 to both sides first.",
+      "answer": {
+        "value": 9,
+        "tolerance": 0
+      },
+      "explain": "$4x = 36$, so $x = 36 \\div 4 = 9$. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "solve(Eq(4*x - 6, 30), x)[0]",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "perimeter",
+      "heading": "Perimeter",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Imagine walking all the way round the edge of a field. The distance you walk is its [[perimeter|perimeter]]. It is a length, so it is measured in cm, m or km."
+        },
+        {
+          "type": "definition",
+          "term": "Perimeter",
+          "statement": "The total length of the boundary of a flat shape.",
+          "plain": "Add up the lengths of all the outside edges."
+        },
+        {
+          "type": "text",
+          "text": "A rectangle has two equal lengths and two equal widths. So its perimeter is two lengths plus two widths."
+        },
+        {
+          "type": "formula",
+          "tex": "P = 2l + 2w = 2(l + w)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "For a triangle, a [[parallelogram|parallelogram]] or a [[trapezium|trapezium]], add every side. A parallelogram's opposite sides are equal, so you only need the lengths of two sides that meet at a corner."
+        },
+        {
+          "type": "example",
+          "id": "ex-trapezium-perimeter",
+          "question": "A garden bed is a trapezium. Its parallel sides are $9\\text{ m}$ and $5\\text{ m}$, and its two slanting sides are both $4.5\\text{ m}$. Work out the perimeter of the bed.",
+          "steps": [
+            "List every side: $9$, $5$, $4.5$ and $4.5$.",
+            "Add them: $9 + 5 = 14$, and $4.5 + 4.5 = 9$.",
+            "$14 + 9 = 23$, and the units are metres."
+          ],
+          "answer": "$P = 23\\text{ m}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "9 + 5 + 2*Rational(9, 2)",
+            "unit": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-parallelogram-perimeter",
+          "prompt": "A parallelogram has sides of $13\\text{ cm}$ and $8\\text{ cm}$. Work out its perimeter, in cm.",
+          "hint": "It has two sides of each length.",
+          "answer": {
+            "value": 42,
+            "tolerance": 0
+          },
+          "explain": "$2 \\times (13 + 8) = 2 \\times 21 = 42\\text{ cm}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*(13 + 8)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "Sides can be algebraic expressions. Add them in the same way, then collect the $x$ terms and the numbers separately."
+        },
+        {
+          "type": "example",
+          "id": "ex-rectangle-expression",
+          "question": "A rectangle has length $(4x + 1)\\text{ cm}$ and width $(x - 3)\\text{ cm}$. Its perimeter is $56\\text{ cm}$. Work out the length of the rectangle.",
+          "steps": [
+            "Two lengths and two widths: $P = 2(4x + 1) + 2(x - 3)$.",
+            "Expand the brackets: $8x + 2 + 2x - 6$.",
+            "Collect terms: $8x + 2x = 10x$ and $2 - 6 = -4$, so $P = 10x - 4$.",
+            "Set it equal to 56: $10x - 4 = 56$. Add 4: $10x = 60$, so $x = 6$.",
+            "The length is $4 \\times 6 + 1 = 25$. Check: the width is $6 - 3 = 3$, and $2(25 + 3) = 56$."
+          ],
+          "answer": "$\\text{length} = 25\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "4*solve(Eq(2*(4*x + 1) + 2*(x - 3), 56), x)[0] + 1",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-triangle-expression",
+          "prompt": "A triangle has sides $(2x + 5)\\text{ cm}$, $(3x - 1)\\text{ cm}$ and $(x + 4)\\text{ cm}$. Which expression is its perimeter, in its simplest form?",
+          "hint": "Add the three sides once each. Take care with the $-1$.",
+          "options": [
+            {
+              "text": "$6x + 8$",
+              "correct": true
+            },
+            {
+              "text": "$6x + 10$",
+              "correct": false
+            },
+            {
+              "text": "$12x + 16$",
+              "correct": false
+            }
+          ],
+          "explain": "$2x + 3x + x = 6x$ and $5 - 1 + 4 = 8$. A triangle's sides are each added once, so don't double them.",
+          "verify": {
+            "kind": "expression",
+            "truth": "(2*x + 5) + (3*x - 1) + (x + 4)",
+            "form": "simplified"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding one length and one width of a rectangle, which gives only half the perimeter. Double it, or write $2l + 2w$ from the start."
+        }
+      ]
+    },
+    {
+      "id": "rectangles-parallelograms",
+      "heading": "Area of rectangles and parallelograms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[area|Area]] counts how many unit squares cover a shape. A square $1\\text{ cm}$ by $1\\text{ cm}$ has an area of $1\\text{ cm}^{2}$, said \"one square centimetre\"."
+        },
+        {
+          "type": "definition",
+          "term": "Area",
+          "statement": "The amount of flat surface inside a shape, measured in square units such as $\\text{cm}^{2}$ or $\\text{m}^{2}$.",
+          "plain": "How many unit squares it takes to cover the shape."
+        },
+        {
+          "type": "text",
+          "text": "A rectangle $5\\text{ cm}$ long and $3\\text{ cm}$ wide holds 3 rows of 5 squares. That is $3 \\times 5 = 15\\text{ cm}^{2}$, so area is length times width."
+        },
+        {
+          "type": "formula",
+          "tex": "A = lw",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "For a shape made of rectangles, split it into rectangles and add their areas. Find any missing side by adding or subtracting the sides you know."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-l-shape",
+          "alt": "An L-shaped floor plan with all corners right angles. The bottom edge is 9 m and the left edge is 7 m. The top edge is 5 m. The lower right edge is 4 m. A rectangle is missing from the top right corner, so the two edges of the step are not labelled. A dashed line splits the shape into a tall rectangle on the left and a short one on the right."
+        },
+        {
+          "type": "example",
+          "id": "ex-l-shape-area",
+          "question": "The figure shows the floor of a room. All its corners are right angles. Work out the area of the floor.",
+          "steps": [
+            "Split along the dashed line. The left rectangle is $5\\text{ m}$ wide and $7\\text{ m}$ tall: $5 \\times 7 = 35$.",
+            "The right rectangle is $9 - 5 = 4\\text{ m}$ wide and $4\\text{ m}$ tall: $4 \\times 4 = 16$.",
+            "Add: $35 + 16 = 51\\text{ m}^{2}$.",
+            "Check another way: the full $9$ by $7$ rectangle is $63$. The missing corner is $4$ by $7 - 4 = 3$, which is $12$. $63 - 12 = 51$."
+          ],
+          "answer": "$A = 51\\text{ m}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "5*7 + (9 - 5)*4",
+            "unit": "m^2"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-l-shape-perimeter",
+          "prompt": "Work out the perimeter of the floor in the figure, in metres.",
+          "hint": "The step has a horizontal edge of $9 - 5$ and a vertical edge of $7 - 4$.",
+          "answer": {
+            "value": 32,
+            "tolerance": 0
+          },
+          "explain": "The missing edges are $4\\text{ m}$ and $3\\text{ m}$. So $9 + 4 + 4 + 3 + 5 + 7 = 32\\text{ m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "9 + 4 + (9 - 5) + (7 - 4) + 5 + 7",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "A [[parallelogram|parallelogram]] leans over. Cut the triangle off one end and slide it to the other end. The shape becomes a rectangle with the same base and the same area."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-parallelogram-cut",
+          "alt": "A parallelogram with base b along the bottom and a dashed perpendicular height h drawn from the top left corner straight down to the base, with a right-angle mark. The right-angled triangle to the left of the height is shaded. An arrow shows it sliding to the right end, where a dashed copy fills the gap and turns the parallelogram into a rectangle with base b and height h."
+        },
+        {
+          "type": "text",
+          "text": "The rectangle's height is the distance straight up from the base, at right angles to it. This is the [[perpendicular-height|perpendicular height]], not the slanting side."
+        },
+        {
+          "type": "definition",
+          "term": "Perpendicular height",
+          "statement": "The distance from the base to the opposite side or corner, measured at right angles to the base (or to the base extended).",
+          "plain": "Straight up from the base, never along a slanting side."
+        },
+        {
+          "type": "formula",
+          "tex": "A = bh",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-parallelogram-area",
+          "question": "A parallelogram has a base of $11\\text{ cm}$ and slanting sides of $6.5\\text{ cm}$. Its perpendicular height is $5\\text{ cm}$. Work out its area.",
+          "steps": [
+            "Pick out the base and the perpendicular height: $b = 11$ and $h = 5$. The slanting side, $6.5$, is not needed.",
+            "Substitute: $A = 11 \\times 5$.",
+            "$A = 55$, in square centimetres. The height is shorter than the slanting side, as it must be."
+          ],
+          "answer": "$A = 55\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "11*5",
+            "unit": "cm^2"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-parallelogram-area",
+          "prompt": "A parallelogram has base $14\\text{ cm}$, slanting sides of $9\\text{ cm}$ and perpendicular height $7\\text{ cm}$. What is its area?",
+          "hint": "Which two lengths meet at a right angle?",
+          "options": [
+            {
+              "text": "$98\\text{ cm}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$126\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$49\\text{ cm}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$14 \\times 7 = 98$. Using the slanting side gives $126$, and halving gives $49$, which is a triangle's area.",
+          "verify": {
+            "kind": "exact",
+            "truth": "14*7",
+            "unit": "cm^2"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving an area in cm instead of $\\text{cm}^{2}$. Perimeter is a length; area is always in square units."
+        }
+      ]
+    },
+    {
+      "id": "triangles-trapeziums",
+      "heading": "Area of triangles and trapeziums",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Take any triangle and a copy of it turned upside down. The two fit together to make a parallelogram with the same base and the same [[perpendicular-height|perpendicular height]]. So the triangle's [[area|area]] is half of $bh$."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-two-copies",
+          "alt": "Two diagrams. On the left, a shaded triangle with base b and a dashed perpendicular height h, joined to an unshaded copy turned upside down. Together they make a parallelogram with base b and height h, so the triangle is half of it. On the right, a shaded trapezium with parallel sides a on top and b at the bottom and dashed height h, joined to an unshaded copy turned upside down. Together they make a parallelogram whose base is a plus b and whose height is h, so the trapezium is half of it."
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\frac{1}{2}bh",
+          "tag": "booklet",
+          "bookletId": "fl-5-2-area-a-of-triangle-base-b-height-h",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The triangle formula is on the exam formula list. The other area formulas in this lesson are not, so learn them."
+        },
+        {
+          "type": "text",
+          "text": "If a triangle has an obtuse angle, its perpendicular height can fall outside it. Extend the base with a dashed line and measure the height at right angles to that line. $A = \\frac{1}{2}bh$ still works."
+        },
+        {
+          "type": "text",
+          "text": "In a [[right-angled-triangle|right-angled triangle]], the two shorter sides meet at the right angle. So they are a base and its perpendicular height. The longest side slants."
+        },
+        {
+          "type": "example",
+          "id": "ex-sail-area",
+          "question": "A sail is a right-angled triangle with sides $2.4\\text{ m}$, $7\\text{ m}$ and $7.4\\text{ m}$. Work out the area of the sail.",
+          "steps": [
+            "The longest side, $7.4$, is opposite the right angle and slants. The other two sides meet at the right angle.",
+            "So use $b = 2.4$ and $h = 7$: $A = \\frac{1}{2} \\times 2.4 \\times 7$.",
+            "Without a calculator: $2.4 \\times 7 = 16.8$, and half of $16.8$ is $8.4$."
+          ],
+          "answer": "$A = 8.4\\text{ m}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 2)*Rational(24, 10)*7",
+            "unit": "m^2"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-triangle-height",
+          "prompt": "A triangle has an area of $42\\text{ cm}^{2}$ and a base of $12\\text{ cm}$. Work out its perpendicular height, in cm.",
+          "hint": "Write $\\frac{1}{2} \\times 12 \\times h = 42$, so $6h = 42$.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "Half of 12 is 6, so $6h = 42$ and $h = 42 \\div 6 = 7\\text{ cm}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "solve(Eq(Rational(1, 2)*12*h, 42), h)[0]",
+            "dp": 0
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting the $\\frac{1}{2}$ in a triangle's area, which doubles the answer. Base times height is the whole parallelogram."
+        },
+        {
+          "type": "text",
+          "text": "A [[trapezium|trapezium]] has one pair of [[parallel|parallel]] sides, $a$ and $b$. A copy turned upside down fits on to make a parallelogram with base $a + b$ and height $h$. The trapezium is half of it."
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\frac{1}{2}(a + b)h",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "check",
+          "id": "check-trapezium-area",
+          "prompt": "A trapezium has parallel sides of $6\\text{ cm}$ and $14\\text{ cm}$. The perpendicular height between them is $4\\text{ cm}$, and one slanting side is $5\\text{ cm}$. What is its area?",
+          "hint": "Only the parallel sides and the perpendicular height go in the formula.",
+          "options": [
+            {
+              "text": "$40\\text{ cm}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$50\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$80\\text{ cm}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{1}{2}(6 + 14) \\times 4 = 10 \\times 4 = 40$. Using the slanting side gives $50$; forgetting the half gives $80$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 2)*(6 + 14)*4",
+            "unit": "cm^2"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-trapezium-missing-side",
+          "question": "A trapezium has an area of $54\\text{ cm}^{2}$. The two parallel sides measure $7\\text{ cm}$ and $x\\text{ cm}$, and they are $6\\text{ cm}$ apart. Find $x$.",
+          "steps": [
+            "The distance between parallel sides is measured at right angles, so $h = 6$.",
+            "Substitute into the formula: $\\frac{1}{2}(7 + x) \\times 6 = 54$.",
+            "Half of 6 is 3, so $3(7 + x) = 54$.",
+            "Divide both sides by 3: $7 + x = 18$.",
+            "Subtract 7: $x = 11$.",
+            "Check: $\\frac{1}{2}(7 + 11) \\times 6 = 9 \\times 6 = 54$."
+          ],
+          "answer": "$x = 11$",
+          "verify": {
+            "kind": "exact",
+            "truth": "solve(Eq(Rational(1, 2)*(7 + x)*6, 54), x)[0]"
+          },
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "\"Work out the area\": write the formula with your numbers in, such as $\\frac{1}{2}(7 + 11) \\times 6$. That line earns the method mark even if your arithmetic slips."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Perimeter is a length (cm, m). Area is in square units ($\\text{cm}^{2}$, $\\text{m}^{2}$).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The parallelogram, triangle and trapezium formulas use the perpendicular height, at right angles to the base. A slanting side is never the height.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Only the triangle formula is on the formula list. Learn the rectangle, parallelogram and trapezium formulas.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Shapes made of rectangles: split them up, and find missing sides by adding or subtracting.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Forgetting the half in the triangle or trapezium formula, which doubles the area.",
+    "Using a slanting side as the height. Use the length that meets the base at a right angle.",
+    "Taking the longest side of a right-angled triangle as its height. Use the two shorter sides, which meet at the right angle.",
+    "Adding a rectangle's length and width only once, which gives half the perimeter.",
+    "Putting a slanting side of a trapezium into $a + b$. Only the two parallel sides go there.",
+    "Sign slips when collecting terms in a perimeter expression. Collect the numbers on their own, with their signs."
+  ],
+  "examTips": [
+    "\"Give your answer in its simplest form\" for a perimeter: collect the $x$ terms and the numbers into one expression such as $10x - 4$.",
+    "On Paper 1 and Paper 2, set the arithmetic out by hand: halve the even number first, such as $\\frac{1}{2} \\times 12 = 6$, then multiply.",
+    "Read which lengths a diagram gives. A diagram marked NOT TO SCALE must not be measured, and it may show a slanting length you don't need.",
+    "Write units on your answer if the answer line has none: cm for perimeter, $\\text{cm}^{2}$ for area."
+  ],
+  "readingMinutes": 17
+}

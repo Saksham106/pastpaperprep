@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 316 364" role="img" aria-labelledby="t">
+  <title id="t">Grid with x from minus 4 to 3 and y from minus 4 to 8. Six crosses are plotted at (minus 3, minus 3), (minus 2, minus 1), (minus 1, 1), (0, 3), (1, 5) and (2, 7). A ruled straight line labelled y equals 2x plus 3 passes through all six crosses, from (minus 3, minus 3) to (2, 7).</title>
+  <g stroke="var(--muted)" stroke-width="0.6" opacity="0.6">
+    <line x1="34" y1="22" x2="34" y2="334"/>
+    <line x1="60" y1="22" x2="60" y2="334"/>
+    <line x1="86" y1="22" x2="86" y2="334"/>
+    <line x1="112" y1="22" x2="112" y2="334"/>
+    <line x1="138" y1="22" x2="138" y2="334"/>
+    <line x1="164" y1="22" x2="164" y2="334"/>
+    <line x1="190" y1="22" x2="190" y2="334"/>
+    <line x1="216" y1="22" x2="216" y2="334"/>
+    <line x1="34" y1="334" x2="216" y2="334"/>
+    <line x1="34" y1="308" x2="216" y2="308"/>
+    <line x1="34" y1="282" x2="216" y2="282"/>
+    <line x1="34" y1="256" x2="216" y2="256"/>
+    <line x1="34" y1="230" x2="216" y2="230"/>
+    <line x1="34" y1="204" x2="216" y2="204"/>
+    <line x1="34" y1="178" x2="216" y2="178"/>
+    <line x1="34" y1="152" x2="216" y2="152"/>
+    <line x1="34" y1="126" x2="216" y2="126"/>
+    <line x1="34" y1="100" x2="216" y2="100"/>
+    <line x1="34" y1="74" x2="216" y2="74"/>
+    <line x1="34" y1="48" x2="216" y2="48"/>
+    <line x1="34" y1="22" x2="216" y2="22"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.4">
+    <line x1="34" y1="230" x2="216" y2="230"/>
+    <line x1="138" y1="334" x2="138" y2="22"/>
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="34" y="244">−4</text>
+    <text x="60" y="244">−3</text>
+    <text x="86" y="244">−2</text>
+    <text x="112" y="244">−1</text>
+    <text x="164" y="244">1</text>
+    <text x="190" y="244">2</text>
+    <text x="216" y="244">3</text>
+    <text x="129" y="338">−4</text>
+    <text x="129" y="312">−3</text>
+    <text x="129" y="286">−2</text>
+    <text x="129" y="260">−1</text>
+    <text x="129" y="208">1</text>
+    <text x="129" y="182">2</text>
+    <text x="129" y="156">3</text>
+    <text x="129" y="130">4</text>
+    <text x="129" y="104">5</text>
+    <text x="129" y="78">6</text>
+    <text x="129" y="52">7</text>
+    <text x="129" y="26">8</text>
+    <text x="130" y="244">0</text>
+  </g>
+  <text x="226" y="234" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">x</text>
+  <text x="144" y="16" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">y</text>
+  <line x1="60" y1="308" x2="190" y2="48" stroke="var(--t2-ink)" stroke-width="2.4"/>
+  <g>
+    <line x1="55" y1="303" x2="65" y2="313" stroke="var(--t1-ink)" stroke-width="2"/>
+    <line x1="55" y1="313" x2="65" y2="303" stroke="var(--t1-ink)" stroke-width="2"/>
+    <line x1="81" y1="251" x2="91" y2="261" stroke="var(--t1-ink)" stroke-width="2"/>
+    <line x1="81" y1="261" x2="91" y2="251" stroke="var(--t1-ink)" stroke-width="2"/>
+    <line x1="107" y1="199" x2="117" y2="209" stroke="var(--t1-ink)" stroke-width="2"/>
+    <line x1="107" y1="209" x2="117" y2="199" stroke="var(--t1-ink)" stroke-width="2"/>
+    <line x1="133" y1="147" x2="143" y2="157" stroke="var(--t1-ink)" stroke-width="2"/>
+    <line x1="133" y1="157" x2="143" y2="147" stroke="var(--t1-ink)" stroke-width="2"/>
+    <line x1="159" y1="95" x2="169" y2="105" stroke="var(--t1-ink)" stroke-width="2"/>
+    <line x1="159" y1="105" x2="169" y2="95" stroke="var(--t1-ink)" stroke-width="2"/>
+    <line x1="185" y1="43" x2="195" y2="53" stroke="var(--t1-ink)" stroke-width="2"/>
+    <line x1="185" y1="53" x2="195" y2="43" stroke="var(--t1-ink)" stroke-width="2"/>
+  </g>
+  <text x="198" y="52" fill="var(--t2-ink)" font-size="13" font-style="italic" font-family="inherit">y = 2x + 3</text>
+</svg>

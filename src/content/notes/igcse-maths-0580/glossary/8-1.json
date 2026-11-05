@@ -1,0 +1,32 @@
+[
+  {
+    "id": "probability",
+    "term": "probability",
+    "definition": "A number from $0$ to $1$ that measures how likely an event is, written as a fraction, a decimal or a percentage.",
+    "lesson": "8.1"
+  },
+  {
+    "id": "probability-scale",
+    "term": "probability scale",
+    "definition": "A line from $0$ (impossible) to $1$ (certain), with $0.5$ (even chance) in the middle, on which probabilities are marked.",
+    "lesson": "8.1"
+  },
+  {
+    "id": "event",
+    "term": "event",
+    "definition": "One outcome or a group of outcomes, such as scoring an even number when a dice is rolled. An impossible event has no outcomes in it.",
+    "lesson": "8.1"
+  },
+  {
+    "id": "outcome",
+    "term": "outcome",
+    "definition": "One possible result of an experiment, such as scoring $4$ when a dice is rolled.",
+    "lesson": "8.1"
+  },
+  {
+    "id": "complementary-event",
+    "term": "complementary event",
+    "definition": "The event that a given event does not happen; its probability is $1$ minus the probability that the event happens.",
+    "lesson": "8.1"
+  }
+]

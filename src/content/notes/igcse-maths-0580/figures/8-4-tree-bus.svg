@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 250" role="img" aria-labelledby="t">
+  <title id="t">Tree diagram. The first pair of branches is the weather: Rain with probability 0.4 and Dry with probability 0.6. After Rain, Bus has probability 0.75 and Walk 0.25. After Dry, Bus has probability 0.25 and Walk 0.75.</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <line x1="20" y1="125" x2="140" y2="65"/>
+    <line x1="20" y1="125" x2="140" y2="185"/>
+    <line x1="190" y1="65" x2="310" y2="30"/>
+    <line x1="190" y1="65" x2="310" y2="100"/>
+    <line x1="190" y1="185" x2="310" y2="150"/>
+    <line x1="190" y1="185" x2="310" y2="220"/>
+  </g>
+  <g font-family="inherit" font-size="16" fill="currentColor">
+    <text x="146" y="70">Rain</text>
+    <text x="146" y="190">Dry</text>
+    <text x="316" y="35">Bus</text>
+    <text x="316" y="105">Walk</text>
+    <text x="316" y="155">Bus</text>
+    <text x="316" y="225">Walk</text>
+  </g>
+  <g font-family="inherit" font-size="15" fill="var(--t1-ink)" font-weight="bold" text-anchor="middle">
+    <text x="66" y="84">0.4</text>
+    <text x="66" y="180">0.6</text>
+    <text x="242" y="38">0.75</text>
+    <text x="250" y="102">0.25</text>
+    <text x="242" y="158">0.25</text>
+    <text x="250" y="222">0.75</text>
+  </g>
+</svg>

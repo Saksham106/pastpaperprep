@@ -1,0 +1,1912 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "items": [
+    {
+      "item": "1.1",
+      "topic": 1,
+      "level": "Core",
+      "name": "Types of number",
+      "bullets": [
+        {
+          "id": "1.1-c1",
+          "text": "Identify and use: natural numbers; integers (positive, zero and negative); prime numbers; square numbers; cube numbers; common factors; common multiples; rational and irrational numbers; reciprocals.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.2",
+      "topic": 1,
+      "level": "Core",
+      "name": "Sets",
+      "bullets": [
+        {
+          "id": "1.2-c1",
+          "text": "Understand and use set language, notation and Venn diagrams to describe sets.",
+          "level": "Core"
+        },
+        {
+          "id": "1.2-s1",
+          "text": "Understand and use set language, notation and Venn diagrams to describe sets and represent relationships between sets.",
+          "level": "Extended"
+        },
+        {
+          "id": "1.2-n1",
+          "text": "Venn diagrams are limited to two or three sets.",
+          "level": "Extended"
+        },
+        {
+          "id": "1.2-n2",
+          "text": "The following set notation will be used: n(A) Number of elements in set A; ∈ “… is an element of …”; ∉ “… is not an element of …”; A′ Complement of set A; ∅ The empty set; ℰ Universal set; A ⊆ B A is a subset of B; A ⊈ B A is not a subset of B; A ∪ B Union of A and B; A ∩ B Intersection of A and B.",
+          "level": "Extended"
+        },
+        {
+          "id": "1.2-n3",
+          "text": "Example definition of sets: A = {x: x is a natural number}; B = {(x, y): y = mx + c}; C = {x: a ⩽ x ⩽ b}; D = {a, b, c, …}.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.3",
+      "topic": 1,
+      "level": "Core",
+      "name": "Powers and roots",
+      "bullets": [
+        {
+          "id": "1.3-c1",
+          "text": "Calculate with the following: squares; square roots; cubes; cube roots; other powers and roots of numbers.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.4",
+      "topic": 1,
+      "level": "Core",
+      "name": "Fractions, decimals and percentages",
+      "bullets": [
+        {
+          "id": "1.4-c1",
+          "text": "Use the language and notation of the following in appropriate contexts: proper fractions; improper fractions; mixed numbers; decimals; percentages.",
+          "level": "Core"
+        },
+        {
+          "id": "1.4-c2",
+          "text": "Recognise equivalence and convert between these forms.",
+          "level": "Core"
+        },
+        {
+          "id": "1.4-n1",
+          "text": "Recurring decimal notation is required, e.g. 0.17̇ = 0.1777…; 0.12̇3̇ = 0.1232323…; 0.1̅2̅3̅ [bar over 123] = 0.123123…",
+          "level": "Extended"
+        },
+        {
+          "id": "1.4-n2",
+          "text": "Includes converting between recurring decimals and fractions and vice versa, e.g. write 0.17̇ as a fraction.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.5",
+      "topic": 1,
+      "level": "Core",
+      "name": "Ordering",
+      "bullets": [
+        {
+          "id": "1.5-c1",
+          "text": "Order quantities by magnitude and demonstrate familiarity with the symbols =, ≠, >, <, ⩾ and ⩽.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.6",
+      "topic": 1,
+      "level": "Core",
+      "name": "The four operations",
+      "bullets": [
+        {
+          "id": "1.6-c1",
+          "text": "Use the four operations for calculations with integers, fractions and decimals, including correct ordering of operations and use of brackets.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.7",
+      "topic": 1,
+      "level": "Core",
+      "name": "Indices I",
+      "bullets": [
+        {
+          "id": "1.7-c1",
+          "text": "Understand and use indices (positive, zero and negative integers).",
+          "level": "Core"
+        },
+        {
+          "id": "1.7-c2",
+          "text": "Understand and use the rules of indices.",
+          "level": "Core"
+        },
+        {
+          "id": "1.7-s1",
+          "text": "Understand and use indices (positive, zero, negative, and fractional).",
+          "level": "Extended"
+        },
+        {
+          "id": "1.7-n1",
+          "text": "Examples include: 6^(1/2) = √6; 16^(1/4) = ⁴√16; find the value of 7^(−2), 81^(1/2), 8^(−2/3).",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.8",
+      "topic": 1,
+      "level": "Core",
+      "name": "Standard form",
+      "bullets": [
+        {
+          "id": "1.8-c1",
+          "text": "Use the standard form A × 10^n where n is a positive or negative integer and 1 ⩽ A < 10.",
+          "level": "Core"
+        },
+        {
+          "id": "1.8-c2",
+          "text": "Convert numbers into and out of standard form.",
+          "level": "Core"
+        },
+        {
+          "id": "1.8-c3",
+          "text": "Calculate with values in standard form.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.9",
+      "topic": 1,
+      "level": "Core",
+      "name": "Estimation",
+      "bullets": [
+        {
+          "id": "1.9-c1",
+          "text": "Round values to a specified degree of accuracy.",
+          "level": "Core"
+        },
+        {
+          "id": "1.9-c2",
+          "text": "Make estimates for calculations involving numbers, quantities and measurements.",
+          "level": "Core"
+        },
+        {
+          "id": "1.9-c3",
+          "text": "Round answers to a reasonable degree of accuracy in the context of a given problem.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.10",
+      "topic": 1,
+      "level": "Core",
+      "name": "Limits of accuracy",
+      "bullets": [
+        {
+          "id": "1.10-c1",
+          "text": "Give upper and lower bounds for data rounded to a specified accuracy.",
+          "level": "Core"
+        },
+        {
+          "id": "1.10-s1",
+          "text": "Find upper and lower bounds of the results of calculations which have used data rounded to a specified accuracy.",
+          "level": "Extended"
+        },
+        {
+          "id": "1.10-n1",
+          "text": "Example calculations include: calculate the upper bound of the perimeter or the area of a rectangle given dimensions measured to the nearest centimetre; find the lower bound of the speed given rounded values of distance and time.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.11",
+      "topic": 1,
+      "level": "Core",
+      "name": "Ratio and proportion",
+      "bullets": [
+        {
+          "id": "1.11-c1",
+          "text": "Understand and use ratio and proportion to: give ratios in their simplest form; divide a quantity in a given ratio; use proportional reasoning and ratios in context.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.12",
+      "topic": 1,
+      "level": "Core",
+      "name": "Rates",
+      "bullets": [
+        {
+          "id": "1.12-c1",
+          "text": "Use common measures of rate.",
+          "level": "Core"
+        },
+        {
+          "id": "1.12-c2",
+          "text": "Apply other measures of rate.",
+          "level": "Core"
+        },
+        {
+          "id": "1.12-c3",
+          "text": "Solve problems involving average speed.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.13",
+      "topic": 1,
+      "level": "Core",
+      "name": "Percentages",
+      "bullets": [
+        {
+          "id": "1.13-c1",
+          "text": "Calculate a given percentage of a quantity.",
+          "level": "Core"
+        },
+        {
+          "id": "1.13-c2",
+          "text": "Express one quantity as a percentage of another.",
+          "level": "Core"
+        },
+        {
+          "id": "1.13-c3",
+          "text": "Calculate percentage increase or decrease.",
+          "level": "Core"
+        },
+        {
+          "id": "1.13-c4",
+          "text": "Calculate with simple and compound interest.",
+          "level": "Core"
+        },
+        {
+          "id": "1.13-s1",
+          "text": "Calculate using reverse percentages.",
+          "level": "Extended"
+        },
+        {
+          "id": "1.13-n1",
+          "text": "Problems may include repeated percentage change.",
+          "level": "Extended"
+        },
+        {
+          "id": "1.13-n2",
+          "text": "e.g. find the cost price given the selling price and the percentage profit.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.14",
+      "topic": 1,
+      "level": "Core",
+      "name": "Using a calculator",
+      "bullets": [
+        {
+          "id": "1.14-c1",
+          "text": "Use a calculator efficiently.",
+          "level": "Core"
+        },
+        {
+          "id": "1.14-c2",
+          "text": "Enter values appropriately on a calculator.",
+          "level": "Core"
+        },
+        {
+          "id": "1.14-c3",
+          "text": "Interpret the calculator display appropriately.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.15",
+      "topic": 1,
+      "level": "Core",
+      "name": "Time",
+      "bullets": [
+        {
+          "id": "1.15-c1",
+          "text": "Calculate with time: seconds (s), minutes (min), hours (h), days, weeks, months, years, including the relationship between units.",
+          "level": "Core"
+        },
+        {
+          "id": "1.15-c2",
+          "text": "Calculate times in terms of the 24-hour and 12-hour clock.",
+          "level": "Core"
+        },
+        {
+          "id": "1.15-c3",
+          "text": "Read clocks and timetables.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.16",
+      "topic": 1,
+      "level": "Core",
+      "name": "Money",
+      "bullets": [
+        {
+          "id": "1.16-c1",
+          "text": "Calculate with money.",
+          "level": "Core"
+        },
+        {
+          "id": "1.16-c2",
+          "text": "Convert from one currency to another.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.17",
+      "topic": 1,
+      "level": "Extended",
+      "name": "Exponential growth and decay",
+      "bullets": [
+        {
+          "id": "1.17-s1",
+          "text": "Use exponential growth and decay.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "1.18",
+      "topic": 1,
+      "level": "Extended",
+      "name": "Surds",
+      "bullets": [
+        {
+          "id": "1.18-s1",
+          "text": "Understand and use surds, including simplifying expressions.",
+          "level": "Extended"
+        },
+        {
+          "id": "1.18-s2",
+          "text": "Rationalise the denominator.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "2.1",
+      "topic": 2,
+      "level": "Core",
+      "name": "Introduction to algebra",
+      "bullets": [
+        {
+          "id": "2.1-c1",
+          "text": "Know that letters can be used to represent generalised numbers.",
+          "level": "Core"
+        },
+        {
+          "id": "2.1-c2",
+          "text": "Substitute numbers into expressions and formulas.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "2.2",
+      "topic": 2,
+      "level": "Core",
+      "name": "Algebraic manipulation",
+      "bullets": [
+        {
+          "id": "2.2-c1",
+          "text": "Simplify expressions by collecting like terms.",
+          "level": "Core"
+        },
+        {
+          "id": "2.2-c2",
+          "text": "Expand products of algebraic expressions.",
+          "level": "Core"
+        },
+        {
+          "id": "2.2-c3",
+          "text": "Factorise by extracting common factors.",
+          "level": "Core"
+        },
+        {
+          "id": "2.2-s1",
+          "text": "Factorise expressions of the form: ax + bx + kay + kby; a^2x^2 − b^2y^2; a^2 + 2ab + b^2; ax^2 + bx + c; ax^3 + bx^2 + cx.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.2-s2",
+          "text": "Complete the square for expressions in the form ax^2 + bx + c.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.2-n1",
+          "text": "Simplify means give the answer in its simplest form, e.g. 2a^2 + 3ab − 1 + 5a^2 − 9ab + 4 = 7a^2 − 6ab + 3.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.2-n2",
+          "text": "e.g. expand 3x(2x − 4y), (3x + y)(x − 4y).",
+          "level": "Extended"
+        },
+        {
+          "id": "2.2-n3",
+          "text": "Includes products of more than two brackets, e.g. expand (x − 2)(x + 3)(2x + 1).",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "2.3",
+      "topic": 2,
+      "level": "Extended",
+      "name": "Algebraic fractions",
+      "bullets": [
+        {
+          "id": "2.3-s1",
+          "text": "Manipulate algebraic fractions.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.3-s2",
+          "text": "Factorise and simplify rational expressions.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "2.4",
+      "topic": 2,
+      "level": "Core",
+      "name": "Indices II",
+      "bullets": [
+        {
+          "id": "2.4-c1",
+          "text": "Understand and use indices (positive, zero and negative).",
+          "level": "Core"
+        },
+        {
+          "id": "2.4-c2",
+          "text": "Understand and use the rules of indices.",
+          "level": "Core"
+        },
+        {
+          "id": "2.4-s1",
+          "text": "Understand and use indices (positive, zero, negative and fractional).",
+          "level": "Extended"
+        },
+        {
+          "id": "2.4-n1",
+          "text": "e.g. solve: 32^x = 2; 5^(x + 1) = 25^x.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.4-n2",
+          "text": "e.g. simplify: 3x^(−4) × (2/3)x^(1/2); (2/5)x^(1/2) ÷ 2x^(−2); (2x^5/3)^3.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "2.5",
+      "topic": 2,
+      "level": "Core",
+      "name": "Equations",
+      "bullets": [
+        {
+          "id": "2.5-c1",
+          "text": "Construct simple expressions, equations and formulas.",
+          "level": "Core"
+        },
+        {
+          "id": "2.5-c2",
+          "text": "Solve linear equations in one unknown.",
+          "level": "Core"
+        },
+        {
+          "id": "2.5-c3",
+          "text": "Solve simultaneous linear equations in two unknowns.",
+          "level": "Core"
+        },
+        {
+          "id": "2.5-c4",
+          "text": "Change the subject of simple formulas.",
+          "level": "Core"
+        },
+        {
+          "id": "2.5-s1",
+          "text": "Construct expressions, equations and formulas.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.5-s2",
+          "text": "Solve fractional equations with numerical and linear algebraic denominators.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.5-s3",
+          "text": "Solve simultaneous equations, involving one linear and one non-linear.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.5-s4",
+          "text": "Solve quadratic equations by factorisation, completing the square and by use of the quadratic formula.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.5-s5",
+          "text": "Change the subject of formulas.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.5-n1",
+          "text": "e.g. write an expression for the product of two consecutive even numbers.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.5-n2",
+          "text": "Includes constructing simultaneous equations.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.5-n3",
+          "text": "[Fractional equations] Examples include: x/(2x + 1) = 4; 2/(x + 2) + 3/(2x − 1) = 1; x/(x + 2) = 3/(x − 6).",
+          "level": "Extended"
+        },
+        {
+          "id": "2.5-n4",
+          "text": "[One linear and one non-linear] With powers no higher than two.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.5-n5",
+          "text": "[Quadratic equations] Includes writing a quadratic expression in completed square form. Candidates may be expected to give solutions in surd form. The quadratic formula is given in the List of formulas.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.5-n6",
+          "text": "e.g. change the subject of a formula where: the subject appears twice; there is a power or root of the subject.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": [
+        {
+          "id": "fl-2-5-for-the-equation-ax-2-bx-c-0-where-a-0",
+          "label": "For the equation ax^2 + bx + c = 0, where a ≠ 0 (Extended list only)"
+        }
+      ]
+    },
+    {
+      "item": "2.6",
+      "topic": 2,
+      "level": "Core",
+      "name": "Inequalities",
+      "bullets": [
+        {
+          "id": "2.6-c1",
+          "text": "Represent and interpret inequalities, including on a number line.",
+          "level": "Core"
+        },
+        {
+          "id": "2.6-s1",
+          "text": "Construct, solve and interpret linear inequalities.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.6-s2",
+          "text": "Represent and interpret linear inequalities in two variables graphically.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.6-s3",
+          "text": "List inequalities that define a given region.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.6-n1",
+          "text": "[Linear inequalities] Examples include: 3x < 2x + 4; −3 ⩽ 3x − 2 < 7.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.6-n2",
+          "text": "[Inequalities in two variables] The following conventions should be used: broken lines should be used to represent strict inequalities (<, >); solid lines should be used to represent inclusive inequalities (⩽, ⩾); shading should be used to represent unwanted regions (unless otherwise directed in the question). e.g. [diagrams: x < 1 with a broken line, y ⩾ 1 with a solid line, unwanted regions shaded].",
+          "level": "Extended"
+        },
+        {
+          "id": "2.6-n3",
+          "text": "Linear programming problems are not included.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "2.7",
+      "topic": 2,
+      "level": "Core",
+      "name": "Sequences",
+      "bullets": [
+        {
+          "id": "2.7-c1",
+          "text": "Continue a given number sequence or pattern.",
+          "level": "Core"
+        },
+        {
+          "id": "2.7-c2",
+          "text": "Recognise patterns in sequences, including the term-to-term rule, and relationships between different sequences.",
+          "level": "Core"
+        },
+        {
+          "id": "2.7-c3",
+          "text": "Find and use the nth term of the following sequences: (a) linear; (b) simple quadratic; (c) simple cubic.",
+          "level": "Core"
+        },
+        {
+          "id": "2.7-s1",
+          "text": "Find and use the nth term of sequences.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.7-n1",
+          "text": "Subscript notation may be used, e.g. T_n is the nth term of sequence T.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.7-n2",
+          "text": "Includes linear, quadratic, cubic and exponential sequences and simple combinations of these.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "2.8",
+      "topic": 2,
+      "level": "Extended",
+      "name": "Proportion",
+      "bullets": [
+        {
+          "id": "2.8-s1",
+          "text": "Express direct and inverse proportion in algebraic terms and use this form of expression to find unknown quantities.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "2.9",
+      "topic": 2,
+      "level": "Core",
+      "name": "Graphs in practical situations",
+      "bullets": [
+        {
+          "id": "2.9-c1",
+          "text": "Use and interpret graphs in practical situations including travel graphs and conversion graphs.",
+          "level": "Core"
+        },
+        {
+          "id": "2.9-c2",
+          "text": "Draw graphs from given data.",
+          "level": "Core"
+        },
+        {
+          "id": "2.9-s1",
+          "text": "Apply the idea of rate of change to simple kinematics involving distance–time and speed–time graphs, acceleration and deceleration.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.9-s2",
+          "text": "Calculate distance travelled as area under a speed–time graph.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.9-n1",
+          "text": "Includes estimation and interpretation of the gradient of a tangent at a point.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.9-n2",
+          "text": "Areas will involve linear sections of the graph only.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "2.10",
+      "topic": 2,
+      "level": "Core",
+      "name": "Graphs of functions",
+      "bullets": [
+        {
+          "id": "2.10-c1",
+          "text": "Construct tables of values, and draw, recognise and interpret graphs for functions of the following forms: ax + b; ±x^2 + ax + b; a/x (x ≠ 0); where a and b are integer constants.",
+          "level": "Core"
+        },
+        {
+          "id": "2.10-c2",
+          "text": "Solve associated equations graphically, including finding and interpreting roots by graphical methods.",
+          "level": "Core"
+        },
+        {
+          "id": "2.10-s1",
+          "text": "Construct tables of values, and draw, recognise and interpret graphs for functions of the following forms: ax^n (includes sums of no more than three of these); ab^x + c; where n = −2, −1, −1/2, 0, 1/2, 1, 2, 3; a and c are rational numbers; and b is a positive integer.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.10-s2",
+          "text": "Draw and interpret graphs representing exponential growth and decay problems.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.10-n1",
+          "text": "Examples include: y = x^3 + x − 4; y = 2x + 3/x^2; y = (1/4) × 2^x.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.10-n2",
+          "text": "e.g. finding the intersection of a line and a curve.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "2.11",
+      "topic": 2,
+      "level": "Core",
+      "name": "Sketching curves",
+      "bullets": [
+        {
+          "id": "2.11-c1",
+          "text": "Recognise, sketch and interpret graphs of the following functions: (a) linear; (b) quadratic.",
+          "level": "Core"
+        },
+        {
+          "id": "2.11-s1",
+          "text": "Recognise, sketch and interpret graphs of the following functions: (a) linear; (b) quadratic; (c) cubic; (d) reciprocal; (e) exponential.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.11-n1",
+          "text": "Functions will be equivalent to: ax + by = c; y = ax^2 + bx + c; y = ax^3 + b; y = ax^3 + bx^2 + cx; y = a/x + b; y = ar^x + b; where a, b and c are rational numbers and r is a rational, positive number.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.11-n2",
+          "text": "Knowledge of turning points, roots and symmetry is required.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.11-n3",
+          "text": "Knowledge of vertical and horizontal asymptotes is required.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.11-n4",
+          "text": "Finding turning points of quadratics by completing the square is required.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "2.12",
+      "topic": 2,
+      "level": "Extended",
+      "name": "Differentiation",
+      "bullets": [
+        {
+          "id": "2.12-s1",
+          "text": "Estimate gradients of curves by drawing tangents.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.12-s2",
+          "text": "Use the derivatives of functions of the form ax^n, where a is a rational constant and n is a positive integer or zero, and simple sums of not more than three of these.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.12-s3",
+          "text": "Apply differentiation to gradients and stationary points (turning points).",
+          "level": "Extended"
+        },
+        {
+          "id": "2.12-s4",
+          "text": "Discriminate between maxima and minima by any method.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "2.13",
+      "topic": 2,
+      "level": "Extended",
+      "name": "Functions",
+      "bullets": [
+        {
+          "id": "2.13-s1",
+          "text": "Understand functions, domain and range and use function notation.",
+          "level": "Extended"
+        },
+        {
+          "id": "2.13-s2",
+          "text": "Understand and find inverse functions f^(−1)(x).",
+          "level": "Extended"
+        },
+        {
+          "id": "2.13-s3",
+          "text": "Form composite functions as defined by gf(x) = g(f(x)).",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "3.1",
+      "topic": 3,
+      "level": "Core",
+      "name": "Coordinates",
+      "bullets": [
+        {
+          "id": "3.1-c1",
+          "text": "Use and interpret Cartesian coordinates in two dimensions.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "3.2",
+      "topic": 3,
+      "level": "Core",
+      "name": "Drawing linear graphs",
+      "bullets": [
+        {
+          "id": "3.2-c1",
+          "text": "Draw straight-line graphs for linear equations.",
+          "level": "Core"
+        },
+        {
+          "id": "3.2-n1",
+          "text": "Examples include: y = −2x + 5; y = 7 − 4x; 3x + 2y = 5.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "3.3",
+      "topic": 3,
+      "level": "Core",
+      "name": "Gradient of linear graphs",
+      "bullets": [
+        {
+          "id": "3.3-c1",
+          "text": "Find the gradient of a straight line.",
+          "level": "Core"
+        },
+        {
+          "id": "3.3-s1",
+          "text": "Calculate the gradient of a straight line from the coordinates of two points on it.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "3.4",
+      "topic": 3,
+      "level": "Extended",
+      "name": "Length and midpoint",
+      "bullets": [
+        {
+          "id": "3.4-s1",
+          "text": "Calculate the length of a line segment.",
+          "level": "Extended"
+        },
+        {
+          "id": "3.4-s2",
+          "text": "Find the coordinates of the midpoint of a line segment.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "3.5",
+      "topic": 3,
+      "level": "Core",
+      "name": "Equations of linear graphs",
+      "bullets": [
+        {
+          "id": "3.5-c1",
+          "text": "Interpret and obtain the equation of a straight-line graph in the form y = mx + c.",
+          "level": "Core"
+        },
+        {
+          "id": "3.5-s1",
+          "text": "Interpret and obtain the equation of a straight-line graph.",
+          "level": "Extended"
+        },
+        {
+          "id": "3.5-n1",
+          "text": "Questions may: use and request lines in different forms, e.g. ax + by = c, y = mx + c, x = k; involve finding the equation when the graph is given; ask for the gradient or y-intercept of a graph from an equation, e.g. find the gradient and y-intercept of the graph with equation 5x + 4y = 8.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "3.6",
+      "topic": 3,
+      "level": "Core",
+      "name": "Parallel lines",
+      "bullets": [
+        {
+          "id": "3.6-c1",
+          "text": "Find the gradient and equation of a straight line parallel to a given line.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "3.7",
+      "topic": 3,
+      "level": "Extended",
+      "name": "Perpendicular lines",
+      "bullets": [
+        {
+          "id": "3.7-s1",
+          "text": "Find the gradient and equation of a straight line perpendicular to a given line.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "4.1",
+      "topic": 4,
+      "level": "Core",
+      "name": "Geometrical terms",
+      "bullets": [
+        {
+          "id": "4.1-c1",
+          "text": "Use and interpret the following geometrical terms: point; vertex; line; parallel; perpendicular; bearing; right angle; acute, obtuse and reflex angles; interior and exterior angles; similar; congruent; scale factor.",
+          "level": "Core"
+        },
+        {
+          "id": "4.1-c2",
+          "text": "Use and interpret the vocabulary of: triangles; special quadrilaterals; polygons; nets; simple solids.",
+          "level": "Core"
+        },
+        {
+          "id": "4.1-c3",
+          "text": "Use and interpret the vocabulary of a circle.",
+          "level": "Core"
+        },
+        {
+          "id": "4.1-s1",
+          "text": "Use and interpret the following geometrical terms: plane; perpendicular bisector.",
+          "level": "Extended"
+        },
+        {
+          "id": "4.1-s2",
+          "text": "Use and interpret the vocabulary of: triangles; special quadrilaterals; polygons; nets; solids.",
+          "level": "Extended"
+        },
+        {
+          "id": "4.1-n1",
+          "text": "Solids: cube; cuboid; prism; cylinder; pyramid; cone; sphere; hemisphere; frustum; face; surface; edge.",
+          "level": "Extended"
+        },
+        {
+          "id": "4.1-n2",
+          "text": "[Vocabulary of a circle] Includes the following terms: centre; radius (plural radii); diameter; circumference; semicircle; chord; tangent; major and minor arc; sector; segment.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "4.2",
+      "topic": 4,
+      "level": "Core",
+      "name": "Geometrical constructions",
+      "bullets": [
+        {
+          "id": "4.2-c1",
+          "text": "Measure and draw lines and angles.",
+          "level": "Core"
+        },
+        {
+          "id": "4.2-c2",
+          "text": "Construct a triangle, given the lengths of all sides, using a ruler and pair of compasses only.",
+          "level": "Core"
+        },
+        {
+          "id": "4.2-c3",
+          "text": "Draw, use and interpret nets.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "4.3",
+      "topic": 4,
+      "level": "Core",
+      "name": "Scale drawings",
+      "bullets": [
+        {
+          "id": "4.3-c1",
+          "text": "Draw and interpret scale drawings.",
+          "level": "Core"
+        },
+        {
+          "id": "4.3-c2",
+          "text": "Use and interpret three-figure bearings.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "4.4",
+      "topic": 4,
+      "level": "Core",
+      "name": "Similarity",
+      "bullets": [
+        {
+          "id": "4.4-c1",
+          "text": "Calculate lengths of similar shapes.",
+          "level": "Core"
+        },
+        {
+          "id": "4.4-s1",
+          "text": "Use the relationships between lengths and areas of similar shapes and lengths, surface areas and volumes of similar solids.",
+          "level": "Extended"
+        },
+        {
+          "id": "4.4-s2",
+          "text": "Solve problems and give simple explanations involving similarity.",
+          "level": "Extended"
+        },
+        {
+          "id": "4.4-n1",
+          "text": "Includes use of scale factor, e.g. (Volume of A)/(Volume of B) = (Length of A)^3/(Length of B)^3.",
+          "level": "Extended"
+        },
+        {
+          "id": "4.4-n2",
+          "text": "Includes showing that two triangles are similar using geometric reasons.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "4.5",
+      "topic": 4,
+      "level": "Core",
+      "name": "Symmetry",
+      "bullets": [
+        {
+          "id": "4.5-c1",
+          "text": "Recognise line symmetry and order of rotational symmetry in two dimensions.",
+          "level": "Core"
+        },
+        {
+          "id": "4.5-s1",
+          "text": "Recognise symmetry properties of prisms, cylinders, pyramids and cones.",
+          "level": "Extended"
+        },
+        {
+          "id": "4.5-n1",
+          "text": "e.g. identify planes and axes of symmetry.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "4.6",
+      "topic": 4,
+      "level": "Core",
+      "name": "Angles",
+      "bullets": [
+        {
+          "id": "4.6-c1",
+          "text": "Calculate unknown angles and give simple explanations using the following geometrical properties: sum of angles at a point = 360°; sum of angles at a point on a straight line = 180°; vertically opposite angles are equal; angle sum of a triangle = 180° and angle sum of a quadrilateral = 360°.",
+          "level": "Core"
+        },
+        {
+          "id": "4.6-c2",
+          "text": "Calculate unknown angles and give geometric explanations for angles formed within parallel lines: corresponding angles are equal; alternate angles are equal; co-interior angles sum to 180° (supplementary).",
+          "level": "Core"
+        },
+        {
+          "id": "4.6-c3",
+          "text": "Know and use angle properties of regular polygons.",
+          "level": "Core"
+        },
+        {
+          "id": "4.6-s1",
+          "text": "Know and use angle properties of regular and irregular polygons.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "4.7",
+      "topic": 4,
+      "level": "Core",
+      "name": "Circle theorems I",
+      "bullets": [
+        {
+          "id": "4.7-c1",
+          "text": "Calculate unknown angles and give explanations using the following geometrical properties of circles: angle in a semicircle = 90°; angle between tangent and radius = 90°.",
+          "level": "Core"
+        },
+        {
+          "id": "4.7-s1",
+          "text": "Calculate unknown angles and give explanations using the following geometrical properties of circles: angle at the centre is twice the angle at the circumference; angles in the same segment are equal; opposite angles of a cyclic quadrilateral sum to 180° (supplementary); alternate segment theorem.",
+          "level": "Extended"
+        },
+        {
+          "id": "4.7-n1",
+          "text": "Candidates are expected to use the geometrical properties listed in the syllabus when giving reasons for answers.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "4.8",
+      "topic": 4,
+      "level": "Extended",
+      "name": "Circle theorems II",
+      "bullets": [
+        {
+          "id": "4.8-s1",
+          "text": "Use the following symmetry properties of circles: equal chords are equidistant from the centre; the perpendicular bisector of a chord passes through the centre; tangents from an external point are equal in length.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "5.1",
+      "topic": 5,
+      "level": "Core",
+      "name": "Units of measure",
+      "bullets": [
+        {
+          "id": "5.1-c1",
+          "text": "Use metric units of mass, length, area, volume and capacity in practical situations and convert quantities into larger or smaller units.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "5.2",
+      "topic": 5,
+      "level": "Core",
+      "name": "Area and perimeter",
+      "bullets": [
+        {
+          "id": "5.2-c1",
+          "text": "Carry out calculations involving the perimeter and area of a rectangle, triangle, parallelogram and trapezium.",
+          "level": "Core"
+        }
+      ],
+      "booklet": [
+        {
+          "id": "fl-5-2-area-a-of-triangle-base-b-height-h",
+          "label": "Area, A, of triangle, base b, height h."
+        }
+      ]
+    },
+    {
+      "item": "5.3",
+      "topic": 5,
+      "level": "Core",
+      "name": "Circles, arcs and sectors",
+      "bullets": [
+        {
+          "id": "5.3-c1",
+          "text": "Carry out calculations involving the circumference and area of a circle.",
+          "level": "Core"
+        },
+        {
+          "id": "5.3-c2",
+          "text": "Carry out calculations involving arc length and sector area as fractions of the circumference and area of a circle, where the sector angle is a factor of 360°.",
+          "level": "Core"
+        },
+        {
+          "id": "5.3-s1",
+          "text": "Carry out calculations involving arc length and sector area as fractions of the circumference and area of a circle.",
+          "level": "Extended"
+        },
+        {
+          "id": "5.3-n1",
+          "text": "Includes minor and major sectors.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": [
+        {
+          "id": "fl-5-3-area-a-of-circle-of-radius-r",
+          "label": "Area, A, of circle of radius r."
+        },
+        {
+          "id": "fl-5-3-circumference-c-of-circle-of-radius-r",
+          "label": "Circumference, C, of circle of radius r."
+        }
+      ]
+    },
+    {
+      "item": "5.4",
+      "topic": 5,
+      "level": "Core",
+      "name": "Surface area and volume",
+      "bullets": [
+        {
+          "id": "5.4-c1",
+          "text": "Carry out calculations and solve problems involving the surface area and volume of a: cuboid; prism; cylinder; sphere; pyramid; cone.",
+          "level": "Core"
+        }
+      ],
+      "booklet": [
+        {
+          "id": "fl-5-4-curved-surface-area-a-of-cylinder-of-rad",
+          "label": "Curved surface area, A, of cylinder of radius r, height h."
+        },
+        {
+          "id": "fl-5-4-curved-surface-area-a-of-cone-of-radius-",
+          "label": "Curved surface area, A, of cone of radius r, sloping edge l."
+        },
+        {
+          "id": "fl-5-4-surface-area-a-of-sphere-of-radius-r",
+          "label": "Surface area, A, of sphere of radius r."
+        },
+        {
+          "id": "fl-5-4-volume-v-of-prism-cross-sectional-area-a",
+          "label": "Volume, V, of prism, cross-sectional area A, length l."
+        },
+        {
+          "id": "fl-5-4-volume-v-of-pyramid-base-area-a-height-h",
+          "label": "Volume, V, of pyramid, base area A, height h."
+        },
+        {
+          "id": "fl-5-4-volume-v-of-cylinder-of-radius-r-height-",
+          "label": "Volume, V, of cylinder of radius r, height h."
+        },
+        {
+          "id": "fl-5-4-volume-v-of-cone-of-radius-r-height-h",
+          "label": "Volume, V, of cone of radius r, height h."
+        },
+        {
+          "id": "fl-5-4-volume-v-of-sphere-of-radius-r",
+          "label": "Volume, V, of sphere of radius r."
+        }
+      ]
+    },
+    {
+      "item": "5.5",
+      "topic": 5,
+      "level": "Core",
+      "name": "Compound shapes and parts of shapes",
+      "bullets": [
+        {
+          "id": "5.5-c1",
+          "text": "Carry out calculations and solve problems involving perimeters and areas of: compound shapes; parts of shapes.",
+          "level": "Core"
+        },
+        {
+          "id": "5.5-c2",
+          "text": "Carry out calculations and solve problems involving surface areas and volumes of: compound solids; parts of solids.",
+          "level": "Core"
+        },
+        {
+          "id": "5.5-n1",
+          "text": "e.g. find the surface area and volume of a frustum.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": [
+        {
+          "id": "fl-5-5-area-a-of-triangle-base-b-height-h",
+          "label": "Area, A, of triangle, base b, height h."
+        },
+        {
+          "id": "fl-5-5-area-a-of-circle-of-radius-r",
+          "label": "Area, A, of circle of radius r."
+        },
+        {
+          "id": "fl-5-5-circumference-c-of-circle-of-radius-r",
+          "label": "Circumference, C, of circle of radius r."
+        },
+        {
+          "id": "fl-5-5-curved-surface-area-a-of-cylinder-of-rad",
+          "label": "Curved surface area, A, of cylinder of radius r, height h."
+        },
+        {
+          "id": "fl-5-5-curved-surface-area-a-of-cone-of-radius-",
+          "label": "Curved surface area, A, of cone of radius r, sloping edge l."
+        },
+        {
+          "id": "fl-5-5-surface-area-a-of-sphere-of-radius-r",
+          "label": "Surface area, A, of sphere of radius r."
+        },
+        {
+          "id": "fl-5-5-volume-v-of-prism-cross-sectional-area-a",
+          "label": "Volume, V, of prism, cross-sectional area A, length l."
+        },
+        {
+          "id": "fl-5-5-volume-v-of-pyramid-base-area-a-height-h",
+          "label": "Volume, V, of pyramid, base area A, height h."
+        },
+        {
+          "id": "fl-5-5-volume-v-of-cylinder-of-radius-r-height-",
+          "label": "Volume, V, of cylinder of radius r, height h."
+        },
+        {
+          "id": "fl-5-5-volume-v-of-cone-of-radius-r-height-h",
+          "label": "Volume, V, of cone of radius r, height h."
+        },
+        {
+          "id": "fl-5-5-volume-v-of-sphere-of-radius-r",
+          "label": "Volume, V, of sphere of radius r."
+        }
+      ]
+    },
+    {
+      "item": "6.1",
+      "topic": 6,
+      "level": "Core",
+      "name": "Pythagoras’ theorem",
+      "bullets": [
+        {
+          "id": "6.1-c1",
+          "text": "Know and use Pythagoras’ theorem.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "6.2",
+      "topic": 6,
+      "level": "Core",
+      "name": "Right-angled triangles",
+      "bullets": [
+        {
+          "id": "6.2-c1",
+          "text": "Know and use the sine, cosine and tangent ratios for acute angles in calculations involving sides and angles of a right-angled triangle.",
+          "level": "Core"
+        },
+        {
+          "id": "6.2-c2",
+          "text": "Solve problems in two dimensions using Pythagoras’ theorem and trigonometry.",
+          "level": "Core"
+        },
+        {
+          "id": "6.2-s1",
+          "text": "Know that the perpendicular distance from a point to a line is the shortest distance to the line.",
+          "level": "Extended"
+        },
+        {
+          "id": "6.2-s2",
+          "text": "Carry out calculations involving angles of elevation and depression.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "6.3",
+      "topic": 6,
+      "level": "Extended",
+      "name": "Exact trigonometric values",
+      "bullets": [
+        {
+          "id": "6.3-s1",
+          "text": "Know the exact values of: sin x and cos x for x = 0°, 30°, 45°, 60° and 90°.",
+          "level": "Extended"
+        },
+        {
+          "id": "6.3-s2",
+          "text": "Know the exact values of: tan x for x = 0°, 30°, 45° and 60°.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "6.4",
+      "topic": 6,
+      "level": "Extended",
+      "name": "Trigonometric functions",
+      "bullets": [
+        {
+          "id": "6.4-s1",
+          "text": "Recognise, sketch and interpret the following graphs for 0° ⩽ x ⩽ 360°: y = sin x; y = cos x; y = tan x.",
+          "level": "Extended"
+        },
+        {
+          "id": "6.4-s2",
+          "text": "Solve trigonometric equations involving sin x, cos x or tan x, for 0° ⩽ x ⩽ 360°.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "6.5",
+      "topic": 6,
+      "level": "Extended",
+      "name": "Non-right-angled triangles",
+      "bullets": [
+        {
+          "id": "6.5-s1",
+          "text": "Use the sine and cosine rules in calculations involving lengths and angles for any triangle.",
+          "level": "Extended"
+        },
+        {
+          "id": "6.5-s2",
+          "text": "Use the formula area of triangle = (1/2)ab sin C.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": [
+        {
+          "id": "fl-6-5-sine-rule",
+          "label": "sine rule (Extended list only)"
+        },
+        {
+          "id": "fl-6-5-cosine-rule",
+          "label": "cosine rule (Extended list only)"
+        },
+        {
+          "id": "fl-6-5-area",
+          "label": "area (Extended list only)"
+        }
+      ]
+    },
+    {
+      "item": "6.6",
+      "topic": 6,
+      "level": "Extended",
+      "name": "Pythagoras’ theorem and trigonometry",
+      "bullets": [
+        {
+          "id": "6.6-s1",
+          "text": "Carry out calculations and solve problems in three dimensions using Pythagoras’ theorem and trigonometry, including calculating the angle between a line and a plane.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": [
+        {
+          "id": "fl-6-6-sine-rule",
+          "label": "sine rule (Extended list only)"
+        },
+        {
+          "id": "fl-6-6-cosine-rule",
+          "label": "cosine rule (Extended list only)"
+        },
+        {
+          "id": "fl-6-6-area",
+          "label": "area (Extended list only)"
+        }
+      ]
+    },
+    {
+      "item": "7.1",
+      "topic": 7,
+      "level": "Core",
+      "name": "Transformations",
+      "bullets": [
+        {
+          "id": "7.1-c1",
+          "text": "Recognise, describe and draw the following transformations: reflection of a shape in a vertical or horizontal line.",
+          "level": "Core"
+        },
+        {
+          "id": "7.1-c2",
+          "text": "Recognise, describe and draw the following transformations: rotation of a shape about the origin, vertices or midpoints of edges of the shape, through multiples of 90°.",
+          "level": "Core"
+        },
+        {
+          "id": "7.1-c3",
+          "text": "Recognise, describe and draw the following transformations: enlargement of a shape from a centre by a scale factor.",
+          "level": "Core"
+        },
+        {
+          "id": "7.1-c4",
+          "text": "Recognise, describe and draw the following transformations: translation of a shape by a vector (x, y) [column vector].",
+          "level": "Core"
+        },
+        {
+          "id": "7.1-s1",
+          "text": "Recognise, describe and draw the following transformations: reflection of a shape in a straight line.",
+          "level": "Extended"
+        },
+        {
+          "id": "7.1-s2",
+          "text": "Recognise, describe and draw the following transformations: rotation of a shape about a centre through multiples of 90°.",
+          "level": "Extended"
+        },
+        {
+          "id": "7.1-n1",
+          "text": "Questions may involve combinations of transformations. A ruler must be used for all straight edges.",
+          "level": "Extended"
+        },
+        {
+          "id": "7.1-n2",
+          "text": "Positive, fractional and negative scale factors may be used.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "7.2",
+      "topic": 7,
+      "level": "Extended",
+      "name": "Vectors in two dimensions",
+      "bullets": [
+        {
+          "id": "7.2-s1",
+          "text": "Describe a translation using a vector represented by (x, y) [column vector], AB→ or a [bold].",
+          "level": "Extended"
+        },
+        {
+          "id": "7.2-s2",
+          "text": "Add and subtract vectors.",
+          "level": "Extended"
+        },
+        {
+          "id": "7.2-s3",
+          "text": "Multiply a vector by a scalar.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "7.3",
+      "topic": 7,
+      "level": "Extended",
+      "name": "Magnitude of a vector",
+      "bullets": [
+        {
+          "id": "7.3-s1",
+          "text": "Calculate the magnitude of a vector (x, y) [column vector] as √(x^2 + y^2).",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "7.4",
+      "topic": 7,
+      "level": "Extended",
+      "name": "Vector geometry",
+      "bullets": [
+        {
+          "id": "7.4-s1",
+          "text": "Represent vectors by directed line segments.",
+          "level": "Extended"
+        },
+        {
+          "id": "7.4-s2",
+          "text": "Use position vectors.",
+          "level": "Extended"
+        },
+        {
+          "id": "7.4-s3",
+          "text": "Use the sum and difference of two or more vectors to express given vectors in terms of two coplanar vectors.",
+          "level": "Extended"
+        },
+        {
+          "id": "7.4-s4",
+          "text": "Use vectors to reason and to solve geometric problems.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "8.1",
+      "topic": 8,
+      "level": "Core",
+      "name": "Introduction to probability",
+      "bullets": [
+        {
+          "id": "8.1-c1",
+          "text": "Understand and use the probability scale from 0 to 1.",
+          "level": "Core"
+        },
+        {
+          "id": "8.1-c2",
+          "text": "Calculate the probability of a single event.",
+          "level": "Core"
+        },
+        {
+          "id": "8.1-c3",
+          "text": "Understand that the probability of an event not occurring = 1 − the probability of the event occurring.",
+          "level": "Core"
+        },
+        {
+          "id": "8.1-s1",
+          "text": "Understand and use probability notation.",
+          "level": "Extended"
+        },
+        {
+          "id": "8.1-n1",
+          "text": "P(A) is the probability of A; P(A′) is the probability of not A.",
+          "level": "Extended"
+        },
+        {
+          "id": "8.1-n2",
+          "text": "Problems may require using information from tables, graphs or Venn diagrams.",
+          "level": "Extended"
+        },
+        {
+          "id": "8.1-n3",
+          "text": "e.g. P(B) = 0.8, find P(B′)",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "8.2",
+      "topic": 8,
+      "level": "Core",
+      "name": "Relative and expected frequencies",
+      "bullets": [
+        {
+          "id": "8.2-c1",
+          "text": "Understand relative frequency as an estimate of probability.",
+          "level": "Core"
+        },
+        {
+          "id": "8.2-c2",
+          "text": "Calculate expected frequencies.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "8.3",
+      "topic": 8,
+      "level": "Core",
+      "name": "Probability of combined events",
+      "bullets": [
+        {
+          "id": "8.3-c1",
+          "text": "Calculate the probability of combined events using, where appropriate: sample space diagrams; Venn diagrams; tree diagrams.",
+          "level": "Core"
+        },
+        {
+          "id": "8.3-n1",
+          "text": "Combined events could be with or without replacement.",
+          "level": "Extended"
+        },
+        {
+          "id": "8.3-n2",
+          "text": "The notation P(A ∩ B) and P(A ∪ B) may be used in the context of Venn diagrams.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "8.4",
+      "topic": 8,
+      "level": "Extended",
+      "name": "Conditional probability",
+      "bullets": [
+        {
+          "id": "8.4-s1",
+          "text": "Calculate conditional probability using Venn diagrams, tree diagrams and tables.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "9.1",
+      "topic": 9,
+      "level": "Core",
+      "name": "Classifying statistical data",
+      "bullets": [
+        {
+          "id": "9.1-c1",
+          "text": "Classify and tabulate statistical data.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "9.2",
+      "topic": 9,
+      "level": "Core",
+      "name": "Interpreting statistical data",
+      "bullets": [
+        {
+          "id": "9.2-c1",
+          "text": "Read, interpret and draw inferences from tables and statistical diagrams.",
+          "level": "Core"
+        },
+        {
+          "id": "9.2-c2",
+          "text": "Compare sets of data using tables, graphs and statistical measures.",
+          "level": "Core"
+        },
+        {
+          "id": "9.2-c3",
+          "text": "Appreciate restrictions on drawing conclusions from given data.",
+          "level": "Core"
+        },
+        {
+          "id": "9.2-n1",
+          "text": "e.g. compare averages and measures of spread between two data sets.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "9.3",
+      "topic": 9,
+      "level": "Core",
+      "name": "Averages and measures of spread",
+      "bullets": [
+        {
+          "id": "9.3-c1",
+          "text": "Calculate the mean, median, mode and range for individual data and distinguish between the purposes for which these are used.",
+          "level": "Core"
+        },
+        {
+          "id": "9.3-s1",
+          "text": "Calculate the mean, median, mode, quartiles, range and interquartile range for individual data and distinguish between the purposes for which these are used.",
+          "level": "Extended"
+        },
+        {
+          "id": "9.3-s2",
+          "text": "Calculate an estimate of the mean for grouped discrete or grouped continuous data.",
+          "level": "Extended"
+        },
+        {
+          "id": "9.3-s3",
+          "text": "Identify the modal class from a grouped frequency distribution.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "9.4",
+      "topic": 9,
+      "level": "Core",
+      "name": "Statistical charts and diagrams",
+      "bullets": [
+        {
+          "id": "9.4-c1",
+          "text": "Draw and interpret: (a) bar charts; (b) pie charts; (c) pictograms; (d) stem-and-leaf diagrams; (e) simple frequency distributions.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "9.5",
+      "topic": 9,
+      "level": "Core",
+      "name": "Scatter diagrams",
+      "bullets": [
+        {
+          "id": "9.5-c1",
+          "text": "Draw and interpret scatter diagrams.",
+          "level": "Core"
+        },
+        {
+          "id": "9.5-c2",
+          "text": "Understand what is meant by positive, negative and zero correlation.",
+          "level": "Core"
+        },
+        {
+          "id": "9.5-c3",
+          "text": "Draw by eye, interpret and use a straight line of best fit.",
+          "level": "Core"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "9.6",
+      "topic": 9,
+      "level": "Extended",
+      "name": "Cumulative frequency diagrams",
+      "bullets": [
+        {
+          "id": "9.6-s1",
+          "text": "Draw and interpret cumulative frequency tables and diagrams.",
+          "level": "Extended"
+        },
+        {
+          "id": "9.6-s2",
+          "text": "Estimate and interpret the median, percentiles, quartiles and interquartile range from cumulative frequency diagrams.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    },
+    {
+      "item": "9.7",
+      "topic": 9,
+      "level": "Extended",
+      "name": "Histograms",
+      "bullets": [
+        {
+          "id": "9.7-s1",
+          "text": "Draw and interpret histograms.",
+          "level": "Extended"
+        },
+        {
+          "id": "9.7-s2",
+          "text": "Calculate with frequency density.",
+          "level": "Extended"
+        }
+      ],
+      "booklet": []
+    }
+  ]
+}

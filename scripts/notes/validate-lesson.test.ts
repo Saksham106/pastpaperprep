@@ -11,6 +11,22 @@ const python = [process.env.AA_NOTES_PYTHON, research && join(research, "aa-cour
 const script = resolve(process.cwd(), "scripts/notes/validate-lesson.mjs");
 const run = (item: string, env: Record<string, string> = {}) => spawnSync(process.execPath, [script, item], { encoding: "utf8", env: { ...process.env, ...env }, timeout: 120_000 });
 
+describe("validate-lesson.mjs --course", () => {
+  it("rejects an unknown course or an item that is not in the course's syllabus", () => {
+    const unknownCourse = spawnSync(process.execPath, [script, "--course", "no-such-course", "1.1"], { encoding: "utf8", timeout: 120_000 });
+    expect(unknownCourse.status).toBe(2);
+    expect(unknownCourse.stderr).toMatch(/Unknown course no-such-course/);
+    const unknownItem = spawnSync(process.execPath, [script, "--course", "igcse-maths-0580", "5.16"], { encoding: "utf8", timeout: 120_000 });
+    expect(unknownItem.status).toBe(2);
+    expect(unknownItem.stderr).toMatch(/unknown item 5\.16 in igcse-maths-0580/);
+  });
+
+  it("runs the validator against the 0580 syllabus and levels", () => {
+    const result = spawnSync(process.execPath, [script, "--course", "igcse-maths-0580", "1.1"], { encoding: "utf8", timeout: 120_000 });
+    expect(result.stdout, result.stdout + result.stderr).toMatch(/^PASS validator/m);
+  });
+});
+
 describe.skipIf(!research || !python)("validate-lesson.mjs", () => {
   it("passes the 5.16 lesson as written, running all three checks", () => {
     const result = run("5.16");
@@ -37,6 +53,26 @@ describe.skipIf(!research || !python)("validate-lesson.mjs", () => {
     expect(result.stdout).toMatch(/^FAIL check-math/m);
     expect(result.stdout).toMatch(/FAIL ex-subst-definite/);
     expect(result.stdout).toMatch(/^FAIL 5\.16$/m);
+    expect(result.status).toBe(1);
+  });
+
+  it("runs the lints on 0580 and fails a mutated copy: plain first use, wrong reading time, a flag twice", () => {
+    const course = ["--course", "igcse-maths-0580", "1.1"];
+    const clean = spawnSync(process.execPath, [script, ...course], { encoding: "utf8", timeout: 120_000 });
+    expect(clean.stdout, clean.stdout + clean.stderr).toMatch(/^PASS reading-time: computed \d+ min/m);
+    expect(clean.stdout).toMatch(/^PASS glossary$/m);
+    const dir = mkdtempSync(join(tmpdir(), "notes-lints-"));
+    const lesson = JSON.parse(readFileSync(resolve(process.cwd(), "src/content/notes/igcse-maths-0580/lessons/1-1.json"), "utf8"));
+    const marked = "[[highest-common-factor|highest common factor]]";
+    const holder = lesson.sections.flatMap((section: { blocks: { text?: string }[] }) => section.blocks).find((block: { text?: string }) => block.text?.includes(marked));
+    holder.text = holder.text.replace(marked, "highest common factor");
+    lesson.readingMinutes = 9;
+    lesson.sections.push({ id: "takeaways", heading: "Key takeaways", blocks: [1, 2].map(() => ({ type: "fact", text: "$1$ is not prime.", tag: "learn", cheatSheet: true })) });
+    writeFileSync(join(dir, "1-1.json"), JSON.stringify(lesson));
+    const result = spawnSync(process.execPath, [script, ...course], { encoding: "utf8", timeout: 120_000, env: { ...process.env, AA_NOTES_LESSONS_DIR: dir } });
+    expect(result.stdout).toMatch(/first use of the glossary term "highest common factor" \(sections\[\d+\]\.blocks\[\d+\]\) is not underlined/);
+    expect(result.stdout).toMatch(/^FAIL reading-time \(1\): computed \d+ min/m);
+    expect(result.stdout).toMatch(/flags the same fact for the cheat sheet/);
     expect(result.status).toBe(1);
   });
 

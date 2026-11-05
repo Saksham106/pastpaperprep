@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 150" role="img" aria-labelledby="t">
+  <title id="t">Six boxes in a row: 2 cubed equals 8, 2 squared equals 4, 2 to the power 1 equals 2, 2 to the power 0 equals 1, 2 to the power minus 1 equals one half, 2 to the power minus 2 equals one quarter. An arrow labelled divide by 2 joins each box to the next. The last three boxes are highlighted.</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <rect x="12" y="50" width="80" height="70" rx="8"/>
+    <rect x="118" y="50" width="80" height="70" rx="8"/>
+    <rect x="224" y="50" width="80" height="70" rx="8"/>
+  </g>
+  <g stroke="var(--t1-ink)" stroke-width="2.5" fill="none">
+    <rect x="330" y="50" width="80" height="70" rx="8"/>
+    <rect x="436" y="50" width="80" height="70" rx="8"/>
+    <rect x="542" y="50" width="80" height="70" rx="8"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1.5" fill="none">
+    <path d="M70 46 Q105 18 140 46"/>
+    <path d="M176 46 Q211 18 246 46"/>
+    <path d="M282 46 Q317 18 352 46"/>
+    <path d="M388 46 Q423 18 458 46"/>
+    <path d="M494 46 Q529 18 564 46"/>
+    <path d="M134 40 L140 46 L132 47"/>
+    <path d="M240 40 L246 46 L238 47"/>
+    <path d="M346 40 L352 46 L344 47"/>
+    <path d="M452 40 L458 46 L450 47"/>
+    <path d="M558 40 L564 46 L556 47"/>
+  </g>
+  <g font-family="inherit" font-size="14" fill="var(--muted)" text-anchor="middle">
+    <text x="105" y="20">÷ 2</text>
+    <text x="211" y="20">÷ 2</text>
+    <text x="317" y="20">÷ 2</text>
+    <text x="423" y="20">÷ 2</text>
+    <text x="529" y="20">÷ 2</text>
+  </g>
+  <g font-family="inherit" font-size="22" fill="currentColor" text-anchor="middle">
+    <text x="52" y="80">2³</text>
+    <text x="158" y="80">2²</text>
+    <text x="264" y="80">2¹</text>
+  </g>
+  <g font-family="inherit" font-size="22" fill="var(--t1-ink)" font-weight="bold" text-anchor="middle">
+    <text x="370" y="80">2⁰</text>
+    <text x="476" y="80">2⁻¹</text>
+    <text x="582" y="80">2⁻²</text>
+  </g>
+  <g font-family="inherit" font-size="18" fill="currentColor" text-anchor="middle">
+    <text x="52" y="108">= 8</text>
+    <text x="158" y="108">= 4</text>
+    <text x="264" y="108">= 2</text>
+    <text x="370" y="108">= 1</text>
+    <text x="476" y="108">= 1/2</text>
+    <text x="582" y="108">= 1/4</text>
+  </g>
+  <g font-family="inherit" font-size="14" fill="var(--muted)" text-anchor="middle">
+    <text x="320" y="144">Each step divides by 2 and takes 1 off the index.</text>
+  </g>
+</svg>

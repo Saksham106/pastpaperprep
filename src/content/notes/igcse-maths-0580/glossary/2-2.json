@@ -1,0 +1,44 @@
+[
+  {
+    "id": "like-terms",
+    "term": "like terms",
+    "definition": "Terms with exactly the same letters raised to the same powers, such as $3x^{2}$ and $-5x^{2}$; only their coefficients can differ.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "simplify",
+    "term": "simplify",
+    "definition": "Rewrite an expression in its simplest form, usually by collecting like terms so each letter and power appears only once.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "expand",
+    "term": "expand",
+    "definition": "Multiply out brackets by multiplying every term inside by every term outside, so $3(x + 2)$ becomes $3x + 6$.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "factorise",
+    "term": "factorise",
+    "definition": "Write an expression as a product of factors, the reverse of expanding; fully factorised means no bracket can be factorised any further, as in $6x + 9 = 3(2x + 3)$.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "quadratic-expression",
+    "term": "quadratic expression",
+    "definition": "An expression whose highest power of the variable is $2$, such as $x^{2} - 5x + 6$.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "difference-of-two-squares",
+    "term": "difference of two squares",
+    "definition": "One square subtracted from another, $a^{2} - b^{2}$, which always factorises as $(a + b)(a - b)$.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "completing-the-square",
+    "term": "completing the square",
+    "definition": "Rewriting a quadratic as a bracket squared plus a number, such as $x^{2} + 6x + 1 = (x + 3)^{2} - 8$.",
+    "lesson": "2.2"
+  }
+]

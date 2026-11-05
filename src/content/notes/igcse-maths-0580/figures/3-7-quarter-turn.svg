@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 196" role="img" aria-labelledby="t">
+  <title id="t">Axes with two straight lines crossing at right angles at the origin. The first line goes through (3, 2): its slope triangle goes 3 across to the right and 2 up, so its gradient is 2 over 3. The second line goes through (-2, 3): its slope triangle goes 2 to the left and 3 up, so its gradient is minus 3 over 2. A right-angle mark sits where the lines cross.</title>
+  <g stroke="var(--muted)" stroke-width="0.6" opacity="0.6">
+    <line x1="50" y1="24" x2="50" y2="174"/>
+    <line x1="80" y1="24" x2="80" y2="174"/>
+    <line x1="110" y1="24" x2="110" y2="174"/>
+    <line x1="140" y1="24" x2="140" y2="174"/>
+    <line x1="200" y1="24" x2="200" y2="174"/>
+    <line x1="230" y1="24" x2="230" y2="174"/>
+    <line x1="260" y1="24" x2="260" y2="174"/>
+    <line x1="290" y1="24" x2="290" y2="174"/>
+    <line x1="320" y1="24" x2="320" y2="174"/>
+    <line x1="50" y1="24" x2="320" y2="24"/>
+    <line x1="50" y1="54" x2="320" y2="54"/>
+    <line x1="50" y1="84" x2="320" y2="84"/>
+    <line x1="50" y1="114" x2="320" y2="114"/>
+    <line x1="50" y1="174" x2="320" y2="174"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.4">
+    <line x1="50" y1="144" x2="320" y2="144"/>
+    <line x1="170" y1="174" x2="170" y2="24"/>
+  </g>
+  <text x="328" y="148" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">x</text>
+  <text x="176" y="18" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">y</text>
+  <line x1="170" y1="144" x2="260" y2="144" stroke="var(--t1-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="260" y1="144" x2="260" y2="84" stroke="var(--t1-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="170" y1="144" x2="110" y2="144" stroke="var(--t3-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="110" y1="144" x2="110" y2="54" stroke="var(--t3-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="125" y1="174" x2="305" y2="54" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <line x1="190" y1="174" x2="90" y2="24" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <polyline points="182.5,135.7 174.2,123.2 161.7,131.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <circle cx="260" cy="84" r="4" fill="currentColor"/>
+  <circle cx="110" cy="54" r="4" fill="currentColor"/>
+  <text x="268" y="88" fill="currentColor" font-size="12" font-family="inherit">(3, 2)</text>
+  <text x="102" y="50" fill="currentColor" font-size="12" font-family="inherit" text-anchor="end">(−2, 3)</text>
+  <text x="215" y="160" fill="var(--t1-ink)" font-size="12" font-family="inherit" text-anchor="middle" font-weight="bold">across 3</text>
+  <text x="266" y="118" fill="var(--t1-ink)" font-size="12" font-family="inherit" font-weight="bold">up 2</text>
+  <text x="140" y="160" fill="var(--t3-ink)" font-size="12" font-family="inherit" text-anchor="middle" font-weight="bold">left 2</text>
+  <text x="104" y="104" fill="var(--t3-ink)" font-size="12" font-family="inherit" text-anchor="end" font-weight="bold">up 3</text>
+  <text x="300" y="44" fill="var(--t1-ink)" font-size="12" font-family="inherit" text-anchor="middle">gradient 2/3</text>
+  <text x="58" y="18" fill="var(--t3-ink)" font-size="12" font-family="inherit" text-anchor="start">gradient −3/2</text>
+</svg>

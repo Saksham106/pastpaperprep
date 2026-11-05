@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-labelledby="t">
+  <title id="t">A flat plane drawn as a slanted rectangle. A line meets the plane at P and rises to the point Q above it. A dashed line drops from Q straight down to N on the plane, at right angles to the plane. The line PN lies in the plane and is the projection of PQ. The angle theta at P, between PQ and PN, is the angle between the line and the plane. Triangle PNQ has its right angle at N.</title>
+  <polygon points="20,175 220,175 300,110 100,110" fill="none" stroke="var(--muted)" stroke-width="1.6"/>
+  <text x="58" y="168" fill="var(--muted)" font-size="12" text-anchor="middle" font-family="inherit">plane</text>
+  <line x1="70" y1="150" x2="230" y2="135" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <line x1="70" y1="150" x2="230" y2="40" stroke="var(--t2-ink)" stroke-width="2.4"/>
+  <line x1="230" y1="40" x2="230" y2="135" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <polyline points="220,135.9 220,125.9 230,125" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M104.85,146.73 A35,35 0 0 0 98.85,130.18" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="116" y="142" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">θ</text>
+  <text x="62" y="158" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">P</text>
+  <text x="240" y="36" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">Q</text>
+  <text x="242" y="148" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">N</text>
+  <text x="150" y="80" fill="var(--t2-ink)" font-size="12" text-anchor="middle" font-family="inherit">line</text>
+  <text x="168" y="160" fill="var(--t1-ink)" font-size="12" text-anchor="middle" font-family="inherit">projection</text>
+</svg>

@@ -1,0 +1,531 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "3.3",
+  "slug": "gradient-of-linear-graphs",
+  "title": "Gradient of linear graphs",
+  "level": "Core",
+  "topic": 3,
+  "summary": "The [[gradient|gradient]] of a straight line tells you how steep it is: how far it goes up for each 1 across. On a grid, draw a triangle under the line and divide up by across. Extended also works it out from the coordinates of two points.",
+  "goals": [
+    {
+      "text": "Find the [[gradient|gradient]] of a straight line on a grid by drawing a triangle and dividing.",
+      "bullets": [
+        "3.3-c1"
+      ]
+    },
+    {
+      "text": "Tell from its direction whether a gradient is positive, negative or zero.",
+      "bullets": [
+        "3.3-c1"
+      ]
+    },
+    {
+      "text": "Use the axis scales, and explain a gradient as a [[rate-of-change|rate of change]] on a real-life graph.",
+      "bullets": [
+        "3.3-c1"
+      ]
+    },
+    {
+      "text": "Calculate the gradient from the coordinates of two points, including negative coordinates.",
+      "bullets": [
+        "3.3-s1"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Use a given gradient to find a missing coordinate.",
+      "bullets": [
+        "3.3-s1"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "2.9",
+    "3.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "gradient of a line",
+    "slope of a line",
+    "rise over run",
+    "steepness of a line",
+    "negative gradient",
+    "gradient from two points"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-read-point",
+      "prompt": "Point $A$ is $3$ units to the left of the origin and $2$ units up. Write down its coordinates.",
+      "hint": "The $x$-coordinate comes first. Left of the origin means negative.",
+      "options": [
+        {
+          "text": "$(-3, 2)$",
+          "correct": true
+        },
+        {
+          "text": "$(2, -3)$",
+          "correct": false
+        },
+        {
+          "text": "$(3, 2)$",
+          "correct": false
+        },
+        {
+          "text": "$(-2, 3)$",
+          "correct": false
+        }
+      ],
+      "explain": "Across first: $3$ to the left is $x = -3$. Then up: $y = 2$. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "point",
+        "truth": "(0 - 3, 0 + 2)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-subtract-negative",
+      "prompt": "Work out $4 - (-6)$.",
+      "hint": "Subtracting a negative number is the same as adding.",
+      "answer": {
+        "value": 10,
+        "tolerance": 0
+      },
+      "explain": "$4 - (-6) = 4 + 6 = 10$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "4 - (-6)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-speed",
+      "prompt": "A cyclist's distance–time graph is a straight line. She rides $45$ km in $3$ hours. Find her speed, in km/h.",
+      "hint": "Speed is distance divided by time.",
+      "answer": {
+        "value": 15,
+        "tolerance": 0
+      },
+      "explain": "$45 \\div 3 = 15$ km/h. Revise it in {{lesson:2.9}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "45/3",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "grid",
+      "heading": "Gradient on a grid",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some lines are steep and some are gentle. Some go uphill from left to right and some go downhill. The [[gradient|gradient]] puts a number on this."
+        },
+        {
+          "type": "definition",
+          "term": "Gradient",
+          "statement": "The gradient of a straight line is the change in $y$ divided by the change in $x$, between any two different points on the line.",
+          "plain": "How far the line goes up for every 1 you move to the right."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{gradient} = \\dfrac{\\text{change in } y}{\\text{change in } x}",
+          "tag": "learn"
+        },
+        {
+          "type": "figure",
+          "id": "3-3-slope-triangle",
+          "alt": "Grid with x from 0 to 8 and y from 0 to 9. A straight line rises from left to right through the marked points (2, 2) and (6, 8). A dashed right-angled triangle sits under the line: a horizontal side from (2, 2) to (6, 2) labelled across 4, and a vertical side from (6, 2) up to (6, 8) labelled up 6.",
+          "caption": "Up $6$ for across $4$, so the gradient is $\\frac{6}{4} = \\frac{3}{2}$."
+        },
+        {
+          "type": "text",
+          "text": "1. Pick two points where the line crosses grid corners exactly. Far apart is best."
+        },
+        {
+          "type": "text",
+          "text": "2. Draw a right-angled triangle under the line, between the two points."
+        },
+        {
+          "type": "text",
+          "text": "3. Count the change across (in $x$) and the change up or down (in $y$)."
+        },
+        {
+          "type": "text",
+          "text": "4. Divide up by across. If the line slopes downhill as you move right, make the gradient negative."
+        },
+        {
+          "type": "text",
+          "text": "In the figure, the line goes up $6$ while it goes across $4$. Its gradient is $\\frac{6}{4} = \\frac{3}{2}$, or $1.5$. The line rises $1.5$ for every $1$ across."
+        },
+        {
+          "type": "figure",
+          "id": "3-3-three-lines",
+          "alt": "Grid with x from 0 to 8 and y from 0 to 8, showing three straight lines. Line P rises gently from (0, 2) to (8, 6), passing through (4, 4). Line Q falls from (0, 7) to (8, 1), also passing through (4, 4). Line R is steep. It rises from the x-axis between 4 and 5, through (5, 1), (6, 4) and (7, 7), to the top of the grid.",
+          "caption": "Lines $P$, $Q$ and $R$, used in the examples and the check below."
+        },
+        {
+          "type": "example",
+          "id": "ex-grid-line-p",
+          "question": "The figure shows lines $P$, $Q$ and $R$ on a grid. Find the gradient of line $P$.",
+          "steps": [
+            "Find two grid corners on line $P$, far apart: $(0, 2)$ and $(8, 6)$.",
+            "Draw the triangle. From $(0, 2)$ to $(8, 6)$ the line goes across $8$ and up $4$.",
+            "Divide up by across: $\\text{gradient} = \\frac{4}{8} = \\frac{1}{2}$.",
+            "Check the sign: $P$ rises as you move right, so a positive gradient fits."
+          ],
+          "answer": "$\\text{gradient} = \\frac{1}{2}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(6 - 2, 8 - 0)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-grid-line-q",
+          "question": "Use the same figure. Find the gradient of line $Q$.",
+          "steps": [
+            "Find two grid corners on line $Q$: $(0, 7)$ and $(8, 1)$.",
+            "Moving right from $(0, 7)$ to $(8, 1)$, the line goes across $8$ and down $6$.",
+            "Down counts as negative, so the change in $y$ is $-6$.",
+            "$\\text{gradient} = \\frac{-6}{8} = -\\frac{3}{4}$.",
+            "Check the sign: $Q$ falls as you move right, so a negative gradient fits."
+          ],
+          "answer": "$\\text{gradient} = -\\frac{3}{4}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(1 - 7, 8 - 0)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving out the minus sign for a line that goes downhill. Before you finish, look at the line: downhill from left to right means a negative gradient."
+        },
+        {
+          "type": "check",
+          "id": "check-grid-line-r",
+          "prompt": "Find the gradient of line $R$ in the same figure.",
+          "hint": "Line $R$ crosses grid corners at $(5, 1)$ and $(7, 7)$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "From $(5, 1)$ to $(7, 7)$ the line goes across $2$ and up $6$, so the gradient is $\\frac{6}{2} = 3$. $R$ is steeper than $P$, so its gradient is bigger.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(7 - 1, 7 - 5)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "A horizontal line doesn't go up or down, so its gradient is $0$. A vertical line has no gradient you can work out, because the change across is $0$ and you can't divide by $0$."
+        },
+        {
+          "type": "check",
+          "id": "check-horizontal",
+          "prompt": "A line on a grid passes through the grid corners $(1, 5)$ and $(7, 5)$. Find its gradient.",
+          "hint": "How far up or down does the line go between the two points?",
+          "answer": {
+            "value": 0,
+            "tolerance": 0
+          },
+          "explain": "Across $6$, up $0$: the gradient is $\\frac{0}{6} = 0$. The line is horizontal.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(5 - 5)/(7 - 1)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "scales",
+      "heading": "Axes with different scales",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On many graphs, one square across and one square up stand for different amounts. Then counting squares gives the wrong gradient. Read each change from the numbers on the axes."
+        },
+        {
+          "type": "text",
+          "text": "On a real-life graph the [[gradient|gradient]] is a [[rate-of-change|rate of change]]. It tells you how much the quantity going up changes for each 1 unit of the quantity going across. Its units are “up units per across unit”, such as cm per minute."
+        },
+        {
+          "type": "figure",
+          "id": "3-3-bath",
+          "alt": "Graph of the depth of water in a bath against time. Across, time goes from 0 to 8 minutes, one minute per square. Up, depth goes from 0 to 40 centimetres, 5 centimetres per square. A straight line rises from 5 cm at 0 minutes, through 25 cm at 5 minutes, to 37 cm at 8 minutes."
+        },
+        {
+          "type": "example",
+          "id": "ex-bath-rate",
+          "question": "The graph shows the depth of water in a bath as it fills. Find the gradient of the line. Say what it means.",
+          "steps": [
+            "Choose two points on grid corners: $(0, 5)$ and $(5, 25)$.",
+            "Read the axes, not the squares. Across: $5 - 0 = 5$ minutes.",
+            "Up: $25 - 5 = 20$ cm.",
+            "$\\text{gradient} = \\frac{20}{5} = 4$.",
+            "The units are cm per minute. The water gets $4$ cm deeper every minute."
+          ],
+          "answer": "$\\text{gradient} = 4$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(25 - 5)/(5 - 0)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Counting squares on the bath graph. That gives up $4$ squares for across $5$ squares, so $\\frac{4}{5}$, which is wrong. Each square up is $5$ cm, not $1$."
+        },
+        {
+          "type": "figure",
+          "id": "3-3-battery",
+          "alt": "Graph of a phone's battery charge against time. Across, time goes from 0 to 12 hours, 2 hours per square. Up, charge goes from 0 to 100 percent, 10 percent per square. A straight line falls from 90 percent at 0 hours, through 60 percent at 6 hours, to 30 percent at 12 hours."
+        },
+        {
+          "type": "example",
+          "id": "ex-battery-rate",
+          "question": "The graph shows the charge left in a phone battery. Find the gradient of the line. What does it tell you?",
+          "steps": [
+            "Use two grid corners far apart: $(0, 90)$ and $(12, 30)$.",
+            "Across: $12 - 0 = 12$ hours.",
+            "The charge falls from $90$ to $30$, so the change in $y$ is $30 - 90 = -60$.",
+            "$\\text{gradient} = \\frac{-60}{12} = -5$.",
+            "The battery loses $5$ percentage points each hour. The minus sign means the charge is going down."
+          ],
+          "answer": "$\\text{gradient} = -5$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(30 - 90)/(12 - 0)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-scales",
+          "prompt": "On a graph, each square across is $5$ seconds and each square up is $10$ metres. A straight line goes down $3$ squares for every $2$ squares across. Find its gradient, in metres per second.",
+          "hint": "Turn squares into seconds and metres first.",
+          "options": [
+            {
+              "text": "$-3$",
+              "correct": true
+            },
+            {
+              "text": "$-\\frac{3}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$3$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "Down $3$ squares is $-30$ m. Across $2$ squares is $10$ s. So the gradient is $\\frac{-30}{10} = -3$ metres per second.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(-3*10)/(2*5)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "two-points",
+      "heading": "Gradient from two points",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You don't need a grid. If you know two points on a line, subtract their coordinates instead of counting squares."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{gradient} = \\dfrac{y_2 - y_1}{x_2 - x_1}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $(x_1, y_1)$ is one point and $(x_2, y_2)$ is the other. The top is the change in $y$. The bottom is the change in $x$."
+        },
+        {
+          "type": "text",
+          "text": "Subtract in the same order on the top and the bottom: second point minus first point in both. Either point can be first."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-points",
+          "question": "Calculate the gradient of the line through $A(2, 3)$ and $B(6, 15)$.",
+          "steps": [
+            "Take $A$ as the first point and $B$ as the second.",
+            "Change in $y$: $15 - 3 = 12$.",
+            "Change in $x$: $6 - 2 = 4$.",
+            "$\\text{gradient} = \\frac{12}{4} = 3$.",
+            "Check: $B$ is to the right of $A$ and higher, so the line goes uphill. A positive gradient fits."
+          ],
+          "answer": "$\\text{gradient} = 3$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(15 - 3)/(6 - 2)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-two-points-negative",
+          "question": "Calculate the gradient of the line through $C(-6, 1)$ and $D(4, -7)$.",
+          "steps": [
+            "Take $C$ first and $D$ second. Put each negative coordinate in brackets when you subtract it.",
+            "Change in $y$: $-7 - 1 = -8$.",
+            "Change in $x$: $4 - (-6) = 4 + 6 = 10$.",
+            "$\\text{gradient} = \\frac{-8}{10} = -\\frac{4}{5}$.",
+            "Check: from $C$ to $D$, $x$ goes up but $y$ falls from $1$ to $-7$. The line goes downhill, so a negative gradient fits."
+          ],
+          "answer": "$\\text{gradient} = -\\frac{4}{5}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(-7 - 1, 4 - (-6))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $4 - 6$ instead of $4 - (-6)$. Subtracting a negative number means adding, so $4 - (-6) = 10$."
+        },
+        {
+          "type": "check",
+          "id": "check-two-points",
+          "prompt": "Calculate the gradient of the line through $(-1, 5)$ and $(5, -4)$.",
+          "hint": "Put $-1$ in brackets when you subtract it.",
+          "options": [
+            {
+              "text": "$-\\frac{3}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$-\\frac{9}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{2}{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{-4 - 5}{5 - (-1)} = \\frac{-9}{6} = -\\frac{3}{2}$. Going right, $y$ falls, so the gradient must be negative.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(-4 - 5, 5 - (-1))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Sometimes you know the gradient and one coordinate is missing. Write the gradient formula with the letter in it, then solve the equation."
+        },
+        {
+          "type": "example",
+          "id": "ex-missing-coordinate",
+          "question": "A line passes through $A(-2, 7)$ and $B(6, p)$. Its gradient is $-\\frac{3}{4}$. Find $p$.",
+          "steps": [
+            "Write the formula with $p$ in it: $\\dfrac{p - 7}{6 - (-2)} = -\\dfrac{3}{4}$.",
+            "Work out the bottom: $6 - (-2) = 8$, so $\\dfrac{p - 7}{8} = -\\dfrac{3}{4}$.",
+            "Multiply both sides by $8$: $p - 7 = -6$.",
+            "Add $7$ to both sides: $p = 1$.",
+            "Check: $\\frac{1 - 7}{8} = \\frac{-6}{8} = -\\frac{3}{4}$."
+          ],
+          "answer": "$p = 1$",
+          "verify": {
+            "kind": "exact",
+            "truth": "solve(Eq((p - 7)/(6 - (-2)), Rational(-3, 4)), p)[0]"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-missing-coordinate",
+          "prompt": "A line passes through $(k, 2)$ and $(9, 14)$. Its gradient is $3$. Find $k$.",
+          "hint": "Set $\\frac{14 - 2}{9 - k}$ equal to $3$, then multiply both sides by $9 - k$.",
+          "answer": {
+            "value": 5,
+            "tolerance": 0
+          },
+          "explain": "$12 = 3(9 - k) = 27 - 3k$, so $3k = 15$ and $k = 5$. Check: $\\frac{12}{9 - 5} = 3$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "solve(Eq((14 - 2)/(9 - k), 3), k)[0]",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Gradient $= \\dfrac{\\text{change in } y}{\\text{change in } x}$: up (or down) divided by across.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Uphill from left to right: positive gradient. Downhill: negative. Horizontal: 0. Vertical: no gradient.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "On a graph, read each change from the axis numbers, not by counting squares.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "On a real-life graph the gradient is a rate of change, with units such as cm per minute.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "From two points: gradient $= \\dfrac{y_2 - y_1}{x_2 - x_1}$. Subtract in the same order, top and bottom.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving a positive gradient for a line that slopes down from left to right. Downhill always means a negative gradient.",
+    "Counting squares when the axes have different scales. Use the numbers on the axes.",
+    "Dividing across by up. The gradient is the change in $y$ divided by the change in $x$.",
+    "Writing $2 - 5$ for $2 - (-5)$. Put a negative coordinate in brackets before you subtract it.",
+    "Starting the top subtraction from one point and the bottom one from the other point. This flips the sign, so start both from the same point."
+  ],
+  "examTips": [
+    "“Find the gradient”: show the change in $y$ and the change in $x$ as a fraction, such as $\\frac{-6}{8}$, or draw the triangle on the grid. Working can earn a mark even if the final answer slips.",
+    "On a grid, choose points where the line crosses exact grid corners. A point between grid lines gives a guessed value.",
+    "Give the gradient as a whole number, a fraction in its lowest terms or a decimal (exact, or to 3 significant figures), such as $-\\frac{3}{4}$ or $-0.75$.",
+    "Before you write the answer, look at the line again. Check the sign matches its direction."
+  ],
+  "readingMinutes": 17
+}

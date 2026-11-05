@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { glossaryFixture, lessonFixture } from "./__fixtures__/lesson";
 import { itemsFixture } from "./__fixtures__/items";
-import type { Block, CheckBlock, Lesson } from "./types";
+import type { Block, CalculatorSnippets, CheckBlock, ItemsFile, Lesson } from "./types";
 import { validateLesson } from "./validate";
 
-const ctx = { items: itemsFixture, glossary: glossaryFixture, lessonItems: new Set(["2.5", "2.13"]) };
+const ctx = { items: itemsFixture, glossary: glossaryFixture, lessonItems: new Set(["2.5", "2.13"]), levels: { base: "SL", extension: "AHL" } };
 const clone = (): Lesson => structuredClone(lessonFixture);
 const blocks = (lesson: Lesson) => lesson.sections[0].blocks;
 const run = (lesson: Lesson) => validateLesson(lesson, ctx);
@@ -224,4 +224,167 @@ describe("validateLesson", () => {
     expect(widget({ a: 9 })).toEqual([expect.stringContaining("prop a must be a number from -3 to 3")]);
     expect(withBlock({ type: "interactive", widget: "riemann-sums", props: { mode: "upper" }, alt: "rectangles" })).toEqual([expect.stringContaining("prop mode must be one of left, right, mid")]);
   });
+});
+
+describe("verify blocks", () => {
+  const example = (verify: Record<string, unknown>) => ({ type: "example", id: "ev", question: "q", steps: ["s"], answer: "$12$", video: null, verify }) as Block;
+  const numeric = (verify: Record<string, unknown>) => ({ type: "check", id: "cv", prompt: "p", hint: "h", answer: { value: 24, tolerance: 0 }, explain: "e", verify }) as Block;
+  const choice = (verify: Record<string, unknown>) => ({ type: "check", id: "mv", prompt: "p", hint: "h", options: [{ text: "a", correct: true }, { text: "b", correct: false }], explain: "e", verify }) as Block;
+
+  it("accepts known kinds with their required options", () => {
+    expect(withBlock(example({ kind: "exact", truth: "gcd(24, 36)" }))).toEqual([]);
+    expect(withBlock(example({ kind: "rounded", truth: "sqrt(74)", sf: 3 }))).toEqual([]);
+    expect(withBlock(numeric({ kind: "numeric", truth: "lcm(6, 8)", sf: 2 }))).toEqual([]);
+    expect(withBlock(choice({ kind: "choice", truth: "a" }))).toEqual([]);
+    expect(withBlock(example({ kind: "time", truth: "155", form: "duration" }))).toEqual([]);
+  });
+
+  it("rejects an unknown kind, an empty truth, missing or unknown options", () => {
+    expect(withBlock(example({ kind: "magic", truth: "1" }))).toEqual([expect.stringContaining("unknown verify kind magic")]);
+    expect(withBlock(example({ kind: "exact", truth: " " }))).toEqual([expect.stringContaining("needs a non-empty truth")]);
+    expect(withBlock(example({ kind: "rounded", truth: "1" }))).toEqual([expect.stringContaining("needs exactly one of sf / dp")]);
+    expect(withBlock(example({ kind: "rounded", truth: "1", sf: 3, dp: 2 })).join()).toContain("give sf or dp, not both");
+    expect(withBlock(example({ kind: "exact", truth: "1", sf: 3 }))).toEqual([expect.stringContaining("exact has no option sf")]);
+    expect(withBlock(example({ kind: "time", truth: "60" }))).toEqual([expect.stringContaining("time needs form")]);
+    expect(withBlock(example({ kind: "time", truth: "60", form: "noon" }))).toEqual([expect.stringContaining("time.form must be one of clock, duration")]);
+    expect(withBlock(example({ kind: "rounded", truth: "1", sf: 0 }))).toEqual([expect.stringContaining("sf must be a whole number of at least 1")]);
+  });
+
+  it("takes the solutions kind on an example with sf or dp", () => {
+    expect(withBlock(example({ kind: "solutions", truth: "solve([Eq(y, x + 2), Eq(x**2 + y**2, 34)], [x, y], dict=True)" }))).toEqual([]);
+    expect(withBlock(example({ kind: "solutions", truth: "solve(x**2 - 2, x)", dp: 2 }))).toEqual([]);
+    expect(withBlock(example({ kind: "solutions", truth: "solve(x**2 - 2, x)", unit: "cm" }))).toEqual([expect.stringContaining("solutions has no option unit")]);
+  });
+
+  it("rejects verify kind choice when an option is a plain number or expression", () => {
+    const numbers = { type: "check", id: "mv", prompt: "p", hint: "h", options: [{ text: "0.5", correct: true }, { text: "1/2", correct: false }, { text: "2", correct: false }], explain: "e", verify: { kind: "choice", truth: "0.5" } } as Block;
+    expect(withBlock(numbers)).toEqual([expect.stringContaining("verify kind choice is for word answers only")]);
+    const words = { ...numbers, options: [{ text: "Similar but not congruent", correct: true }, { text: "increasing", correct: false }], verify: { kind: "choice", truth: "Similar but not congruent" } } as Block;
+    expect(withBlock(words)).toEqual([]);
+  });
+
+  it("allows numeric verify.reading only for graph-reading prompts and within maxTolerance", () => {
+    const reading = (prompt: string, tolerance: number, extra: Record<string, unknown> = { reading: true, maxTolerance: 2 }) => ({ type: "check", id: "mv", prompt, hint: "h", answer: { value: 56, tolerance }, explain: "e", verify: { kind: "numeric", truth: "56", dp: 0, ...extra } }) as Block;
+    expect(withBlock(reading("Estimate the number from the curve.", 2))).toEqual([]);
+    expect(withBlock(reading("How many runners?", 2))).toEqual([expect.stringContaining("verify.reading is for values read from a graph")]);
+    expect(withBlock(reading("Estimate the number.", 3))).toEqual([expect.stringContaining("above verify.maxTolerance")]);
+    expect(withBlock(reading("Estimate the number.", 2, { reading: true }))).toEqual([expect.stringContaining("needs maxTolerance")]);
+  });
+
+  it("allows verify kind choice only for word answers", () => {
+    const maths = { type: "check", id: "mv", prompt: "p", hint: "h", options: [{ text: "$(3, 7)$", correct: true }, { text: "$(7, 3)$", correct: false }], explain: "e", verify: { kind: "choice", truth: "$(3, 7)$" } } as Block;
+    expect(withBlock(maths)).toEqual([expect.stringContaining("verify kind choice is for word answers only")]);
+    expect(withBlock({ ...maths, verify: { kind: "list", truth: "[1 + 2, 7]" } } as Block)).toEqual([]);
+  });
+
+  it("puts each kind only where it can be checked", () => {
+    expect(withBlock(numeric({ kind: "exact", truth: "24" }))).toEqual([expect.stringContaining("cannot be used on a numeric check")]);
+    expect(withBlock(example({ kind: "numeric", truth: "24", sf: 2 }))).toEqual([expect.stringContaining("cannot be used on an example")]);
+    expect(withBlock(example({ kind: "choice", truth: "a" }))).toEqual([expect.stringContaining("cannot be used on an example")]);
+    const before = clone();
+    before.before[0].verify = { kind: "numeric", truth: "1", sf: 1 };
+    expect(run(before)).toEqual([expect.stringContaining("before[0]: b1: verify kind numeric cannot be used on a multiple-choice check")]);
+  });
+});
+
+describe("calculator blocks", () => {
+  const snippets: CalculatorSnippets = {
+    "pythagoras-hyp": { title: "Hypotenuse", steps: { "casio-classwiz": ["Press $\\sqrt{\\phantom{x}}$, type {a} $x^2$ + {b} $x^2$, press $\\text{=}$."], "ti-30xs": ["Press 2nd $x^2$, type {a} $x^2$ + {b} $x^2$, press enter."] } },
+  };
+  const ids = ["casio-classwiz", "ti-30xs"];
+  const run0580 = (block: Block) => {
+    const lesson = clone();
+    blocks(lesson).push(block);
+    return validateLesson(lesson, { ...ctx, calculators: ids, calculatorSnippets: snippets });
+  };
+
+  it("needs steps for exactly the course's calculators", () => {
+    expect(withBlock({ type: "calculator", steps: { ti84: ["a"], nspire: ["b"], casio: ["c"] } })).toEqual([]);
+    expect(withBlock({ type: "calculator", steps: { ti84: ["a"], casio: ["c"] } })).toEqual([expect.stringContaining("exactly ti84, nspire, casio")]);
+    expect(run0580({ type: "calculator", steps: { ti84: ["a"], nspire: ["b"], casio: ["c"] } })).toEqual([expect.stringContaining("exactly casio-classwiz, ti-30xs")]);
+    expect(run0580({ type: "calculator", steps: { "casio-classwiz": ["a"], "ti-30xs": [] } })).toEqual([expect.stringContaining("ti-30xs must be a non-empty list")]);
+  });
+
+  it("checks a snippet id and fills every placeholder", () => {
+    expect(run0580({ type: "calculator", snippet: "pythagoras-hyp", values: { a: 5, b: 12 } })).toEqual([]);
+    expect(run0580({ type: "calculator", snippet: "nope" })).toEqual([expect.stringContaining("unknown calculator snippet nope")]);
+    expect(run0580({ type: "calculator", snippet: "pythagoras-hyp", values: { a: 5 } })).toEqual([expect.stringContaining("needs a value for {b}")]);
+    expect(run0580({ type: "calculator", snippet: "pythagoras-hyp", values: { a: 5, b: 12, c: 1 } })).toEqual([expect.stringContaining("has no placeholder {c}")]);
+    // Filled values are validated as inline text too.
+    expect(run0580({ type: "calculator", snippet: "pythagoras-hyp", values: { a: "$5", b: 12 } }).join()).toContain("Unclosed $");
+  });
+});
+
+describe("levels inside a lesson", () => {
+  const levels0580 = { base: "Core", extension: "Extended" };
+  const items0580: ItemsFile = {
+    schemaVersion: 1,
+    edition: "0580-2025",
+    items: [{ item: "1.1", topic: 1, level: "Core", name: "Types of number", booklet: [], bullets: [{ id: "1.1.a", text: "Natural numbers" }, { id: "1.1.b", text: "Recurring decimals", level: "Extended" }] }],
+  };
+  const core = (): Lesson => ({
+    ...clone(),
+    edition: "0580-2025",
+    item: "1.1",
+    level: "Core",
+    topic: 1,
+    before: [],
+    goals: [{ text: "Name types of number", bullets: ["1.1.a"] }, { text: "Convert recurring decimals", bullets: ["1.1.b"], level: "Extended" }],
+    sections: [
+      { id: "types", heading: "Types", blocks: [{ type: "text", text: "A natural number counts." }] },
+      { id: "recurring", heading: "Recurring decimals", level: "Extended", blocks: [{ type: "text", text: "A recurring decimal repeats." }] },
+    ],
+    mistakes: [],
+    examTips: [],
+  });
+  const check = (lesson: Lesson, items: ItemsFile = items0580) => validateLesson(lesson, { items, glossary: [], lessonItems: new Set(["1.1"]), levels: levels0580 });
+
+  it("accepts an Extended bullet taught by an Extended goal and an Extended section", () => expect(check(core())).toEqual([]));
+
+  it("accepts an Extended block or an hlNote as the Extended content", () => {
+    const block = core();
+    block.sections = [{ id: "types", heading: "Types", blocks: [{ type: "text", text: "Counting." }, { type: "text", text: "Recurring.", level: "Extended" }] }];
+    expect(check(block)).toEqual([]);
+    const note = core();
+    note.sections = [{ id: "types", heading: "Types", blocks: [{ type: "text", text: "Counting." }, { type: "hlNote", text: "More.", lesson: "1.1" }] }];
+    expect(check(note)).toEqual([]);
+  });
+
+  it("fails an Extended bullet with no Extended content", () => {
+    const lesson = core();
+    lesson.sections = [lesson.sections[0]];
+    expect(check(lesson)).toEqual([expect.stringContaining("Extended bullet 1.1.b must be taught in Extended content")]);
+  });
+
+  it("fails an Extended bullet under a Core goal, and a Core bullet under an Extended goal", () => {
+    const unmarked = core();
+    delete unmarked.goals[1].level;
+    expect(check(unmarked)).toEqual([expect.stringContaining('bullet 1.1.b is Extended: cover it with a goal marked "level": "Extended"')]);
+    const mixed = core();
+    mixed.goals = [{ text: "Everything", bullets: ["1.1.a", "1.1.b"], level: "Extended" }];
+    expect(check(mixed)).toEqual([expect.stringContaining("bullet 1.1.a is Core, but the goal is marked Extended")]);
+  });
+
+  it("fails Core bullets when every section is Extended", () => {
+    const lesson = core();
+    lesson.sections[0].level = "Extended";
+    expect(check(lesson)).toEqual([expect.stringContaining("Core bullet 1.1.a must be taught in Core content")]);
+  });
+
+  it("rejects unknown levels, levels on blocks that take none, and base content inside extension content", () => {
+    const unknown = core();
+    unknown.sections[1].level = "HL";
+    expect(check(unknown).join()).toContain("level HL is not Core or Extended");
+    const definition = core();
+    definition.sections[0].blocks.push({ type: "definition", term: "t", statement: "s", plain: "p", level: "Extended" } as unknown as Block);
+    expect(check(definition)).toEqual([expect.stringContaining("definition blocks take no level")]);
+    const nested = core();
+    nested.sections[1].blocks.push({ type: "text", text: "Core here?", level: "Core" });
+    expect(check(nested)).toEqual([expect.stringContaining("Core block inside Extended content")]);
+    const badBullet = structuredClone(items0580);
+    badBullet.items[0].bullets[0].level = "HL";
+    expect(check(core(), badBullet).join()).toContain("bullet 1.1.a has level HL");
+  });
+
+  it("leaves AA (no bullet, section or block levels) unchanged", () => expect(run(clone())).toEqual([]));
 });

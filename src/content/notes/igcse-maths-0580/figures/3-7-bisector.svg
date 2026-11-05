@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 240" role="img" aria-labelledby="t">
+  <title id="t">Axes with points P at (-1, 2) and Q at (5, 6) joined by a line segment. The midpoint M at (2, 4) is marked, with equal tick marks on PM and MQ. A second line crosses PQ at M at right angles: this is the perpendicular bisector of PQ.</title>
+  <g stroke="var(--muted)" stroke-width="0.6" opacity="0.6">
+    <line x1="40" y1="20" x2="40" y2="220"/>
+    <line x1="65" y1="20" x2="65" y2="220"/>
+    <line x1="90" y1="20" x2="90" y2="220"/>
+    <line x1="115" y1="20" x2="115" y2="220"/>
+    <line x1="140" y1="20" x2="140" y2="220"/>
+    <line x1="165" y1="20" x2="165" y2="220"/>
+    <line x1="190" y1="20" x2="190" y2="220"/>
+    <line x1="215" y1="20" x2="215" y2="220"/>
+    <line x1="240" y1="20" x2="240" y2="220"/>
+    <line x1="40" y1="20" x2="240" y2="20"/>
+    <line x1="40" y1="45" x2="240" y2="45"/>
+    <line x1="40" y1="70" x2="240" y2="70"/>
+    <line x1="40" y1="95" x2="240" y2="95"/>
+    <line x1="40" y1="120" x2="240" y2="120"/>
+    <line x1="40" y1="145" x2="240" y2="145"/>
+    <line x1="40" y1="170" x2="240" y2="170"/>
+    <line x1="40" y1="195" x2="240" y2="195"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.4">
+    <line x1="40" y1="220" x2="240" y2="220"/>
+    <line x1="90" y1="220" x2="90" y2="20"/>
+  </g>
+  <text x="246" y="224" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">x</text>
+  <text x="96" y="16" fill="currentColor" font-size="14" font-style="italic" font-family="inherit">y</text>
+  <line x1="65" y1="170" x2="215" y2="70" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <line x1="95" y1="52.5" x2="200" y2="210" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <polyline points="148.3,114.5 153.9,122.8 145.6,128.3" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <g stroke="currentColor" stroke-width="1.6">
+    <line x1="99.7" y1="140.8" x2="105.3" y2="149.2"/>
+    <line x1="174.7" y1="90.8" x2="180.3" y2="99.2"/>
+  </g>
+  <circle cx="65" cy="170" r="4" fill="currentColor"/>
+  <circle cx="215" cy="70" r="4" fill="currentColor"/>
+  <circle cx="140" cy="120" r="4" fill="currentColor"/>
+  <text x="58" y="166" fill="currentColor" font-size="12" font-family="inherit" text-anchor="end">P(−1, 2)</text>
+  <text x="222" y="66" fill="currentColor" font-size="12" font-family="inherit">Q(5, 6)</text>
+  <text x="132" y="112" fill="currentColor" font-size="12" font-family="inherit" text-anchor="end">M(2, 4)</text>
+  <text x="206" y="206" fill="var(--t3-ink)" font-size="12" font-family="inherit">bisector</text>
+</svg>

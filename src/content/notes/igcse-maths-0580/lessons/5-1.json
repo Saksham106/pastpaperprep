@@ -1,0 +1,522 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "5.1",
+  "slug": "units-of-measure",
+  "title": "Units of measure",
+  "level": "Core",
+  "topic": 5,
+  "summary": "[[metric-units|Metric units]] go up in steps of 10, 100 or 1000, so converting means multiplying or dividing by one of these. Going to a smaller unit makes the number bigger. For [[area|area]] you square the length step, and for [[volume|volume]] you cube it.",
+  "goals": [
+    {
+      "text": "Choose a sensible metric unit for a length, mass or capacity.",
+      "bullets": [
+        "5.1-c1"
+      ]
+    },
+    {
+      "text": "Convert lengths, masses and capacities into larger or smaller units.",
+      "bullets": [
+        "5.1-c1"
+      ]
+    },
+    {
+      "text": "Convert areas, such as square metres to square centimetres.",
+      "bullets": [
+        "5.1-c1"
+      ]
+    },
+    {
+      "text": "Convert volumes, and change between volume and capacity, such as cubic metres to litres.",
+      "bullets": [
+        "5.1-c1"
+      ]
+    },
+    {
+      "text": "Solve practical problems where the quantities are given in different units.",
+      "bullets": [
+        "5.1-c1"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "converting units",
+    "metric conversions",
+    "cm to m",
+    "square metres to square centimetres",
+    "litres to cubic centimetres",
+    "kg to g"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-times-1000",
+      "prompt": "Work out $4.08 \\times 1000$.",
+      "hint": "Multiplying by $1000$ moves each digit three places to the left.",
+      "options": [
+        {
+          "text": "$408$",
+          "correct": false
+        },
+        {
+          "text": "$4008$",
+          "correct": false
+        },
+        {
+          "text": "$4080$",
+          "correct": true
+        },
+        {
+          "text": "$40\\,800$",
+          "correct": false
+        }
+      ],
+      "explain": "Each digit moves three places left: $4.08 \\to 40.8 \\to 408 \\to 4080$. Fill the empty place with a zero.",
+      "verify": {
+        "kind": "exact",
+        "truth": "Rational(408, 100)*1000"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-divide-100",
+      "prompt": "Work out $93 \\div 100$.",
+      "hint": "Dividing by $100$ moves each digit two places to the right.",
+      "answer": {
+        "value": 0.93,
+        "tolerance": 0
+      },
+      "explain": "Each digit moves two places right: $93 \\to 9.3 \\to 0.93$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(93, 100)",
+        "dp": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "units",
+      "heading": "Length, mass and capacity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[metric-units|Metric units]] are built from tens. Length is measured in millimetres (mm), centimetres (cm), metres (m) and kilometres (km)."
+        },
+        {
+          "type": "text",
+          "text": "Mass is measured in grams (g) and kilograms (kg). Capacity, how much liquid a container holds, is measured in millilitres (ml) and litres."
+        },
+        {
+          "type": "text",
+          "text": "The start of the name tells you the size. \"Kilo\" means $1000$, \"centi\" means a hundredth and \"milli\" means a thousandth. So $1\\text{ km} = 1000\\text{ m}$ and $1000\\text{ mm} = 1\\text{ m}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{array}{l} 1\\text{ km} = 1000\\text{ m} \\qquad 1\\text{ m} = 100\\text{ cm} \\qquad 1\\text{ cm} = 10\\text{ mm} \\\\ 1\\text{ kg} = 1000\\text{ g} \\qquad 1\\text{ litre} = 1000\\text{ ml} \\end{array}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "To pick a sensible unit, think of the size. A pencil is about $15$ cm long, a door about $2$ m tall. A bag of sugar is about $1$ kg, and a can of drink holds about $330$ ml."
+        },
+        {
+          "type": "check",
+          "id": "check-sensible-unit",
+          "prompt": "Which unit is most sensible for the capacity of a teaspoon?",
+          "hint": "Capacity is how much liquid it holds. A teaspoon holds very little.",
+          "options": [
+            {
+              "text": "millilitres",
+              "correct": true
+            },
+            {
+              "text": "litres",
+              "correct": false
+            },
+            {
+              "text": "kilograms",
+              "correct": false
+            },
+            {
+              "text": "centimetres",
+              "correct": false
+            }
+          ],
+          "explain": "A teaspoon holds about $5$ ml. Litres are for bottles and buckets. Kilograms measure mass and centimetres measure length.",
+          "verify": {
+            "kind": "choice",
+            "truth": "millilitres"
+          }
+        },
+        {
+          "type": "text",
+          "text": "To convert, ask one question: is the new unit smaller or larger? A smaller unit needs more of it, so multiply. A larger unit needs fewer, so divide."
+        },
+        {
+          "type": "figure",
+          "id": "5-1-length-ladder",
+          "alt": "Four boxes in a row: km, m, cm, mm, from largest to smallest. Arrows pointing right, towards smaller units, are labelled times 1000, times 100 and times 10. Arrows pointing left, towards larger units, are labelled divide by 1000, divide by 100 and divide by 10.",
+          "caption": "Moving right, multiply. Moving left, divide. Take one step at a time."
+        },
+        {
+          "type": "example",
+          "id": "ex-cm-to-km",
+          "question": "Convert $48\\,500$ cm into kilometres.",
+          "steps": [
+            "Kilometres are larger than centimetres, so divide.",
+            "Centimetres to metres: $48\\,500 \\div 100 = 485$ m.",
+            "Metres to kilometres: $485 \\div 1000 = 0.485$ km.",
+            "Check: a larger unit gave a smaller number, as it should."
+          ],
+          "answer": "$48\\,500\\text{ cm} = 0.485\\text{ km}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(48500, 100)/1000",
+            "unit": "km"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping halfway. Dividing $48\\,500$ cm by $100$ gives metres, not kilometres. Name the unit after every step."
+        },
+        {
+          "type": "example",
+          "id": "ex-flour-mixed-units",
+          "question": "A recipe needs $1.2$ kg of flour. Sam has three bags, each holding $350$ g. How many more grams of flour does Sam need?",
+          "steps": [
+            "The units differ, so change everything to grams first.",
+            "Grams are smaller than kilograms, so multiply: $1.2 \\times 1000 = 1200$ g.",
+            "Flour Sam has: $3 \\times 350 = 1050$ g.",
+            "Still needed: $1200 - 1050 = 150$ g."
+          ],
+          "answer": "$150\\text{ g}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(12, 10)*1000 - 3*350",
+            "unit": "g"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-kg-to-g",
+          "prompt": "Convert $7.4$ kg into grams.",
+          "hint": "$1$ kg $= 1000$ g. Is a gram smaller or larger than a kilogram?",
+          "options": [
+            {
+              "text": "$740\\text{ g}$",
+              "correct": false
+            },
+            {
+              "text": "$7400\\text{ g}$",
+              "correct": true
+            },
+            {
+              "text": "$74\\,000\\text{ g}$",
+              "correct": false
+            },
+            {
+              "text": "$0.0074\\text{ g}$",
+              "correct": false
+            }
+          ],
+          "explain": "Grams are smaller, so multiply by $1000$: $7.4 \\times 1000 = 7400$ g. $740$ comes from multiplying by $100$ instead.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(74, 10)*1000",
+            "unit": "g"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ribbon-pieces",
+          "prompt": "A ribbon $2.4$ m long is cut into pieces that are each $15$ cm long. How many pieces are there?",
+          "hint": "Change $2.4$ m into centimetres first.",
+          "answer": {
+            "value": 16,
+            "tolerance": 0
+          },
+          "explain": "$2.4 \\times 100 = 240$ cm, and $240 \\div 15 = 16$ pieces.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(24, 10)*100/15",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "area",
+      "heading": "Units of area",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[area|Area]] is measured in square units, such as $\\text{cm}^{2}$. One square centimetre is a square $1$ cm by $1$ cm."
+        },
+        {
+          "type": "text",
+          "text": "That square is also $10$ mm by $10$ mm. So it holds $10 \\times 10 = 100$ squares of $1\\text{ mm}^{2}$, not $10$."
+        },
+        {
+          "type": "figure",
+          "id": "5-1-square-cm",
+          "alt": "A square with sides of 1 centimetre, which is 10 millimetres. It is split into a 10 by 10 grid of small squares, each 1 millimetre by 1 millimetre. One small square is shaded. There are 100 small squares, so 1 square centimetre is 100 square millimetres.",
+          "caption": "Square the length step: $10^{2} = 100$."
+        },
+        {
+          "type": "result",
+          "statement": "To convert an area, square the length step. The length step from m to cm is $100$, so the area step is $100^{2} = 10\\,000$.",
+          "why": "A square $1$ m by $1$ m is $100$ cm by $100$ cm, so its area is $100 \\times 100\\text{ cm}^{2}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{array}{l} 1\\text{ cm}^{2} = 10^{2} = 100\\text{ mm}^{2} \\\\ 1\\text{ m}^{2} = 100^{2} = 10\\,000\\text{ cm}^{2} \\\\ 1\\text{ km}^{2} = 1000^{2} = 1\\,000\\,000\\text{ m}^{2} \\end{array}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-m2-to-cm2",
+          "question": "Convert $4.6\\text{ m}^{2}$ into $\\text{cm}^{2}$.",
+          "steps": [
+            "Length step: $1$ m $= 100$ cm.",
+            "Square it: $1\\text{ m}^{2} = 100 \\times 100 = 10\\,000\\text{ cm}^{2}$.",
+            "Square centimetres are smaller, so multiply: $4.6 \\times 10\\,000 = 46\\,000$."
+          ],
+          "answer": "$4.6\\text{ m}^{2} = 46\\,000\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(46, 10)*100**2",
+            "unit": "cm^2"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using the length step for an area. $4.6 \\times 100 = 460$ is wrong for $\\text{m}^{2}$ to $\\text{cm}^{2}$. Square the step first."
+        },
+        {
+          "type": "example",
+          "id": "ex-rug-area",
+          "question": "A rectangular rug is $1.6$ m long and $90$ cm wide. Work out its area in $\\text{m}^{2}$.",
+          "steps": [
+            "The lengths are in different units. Change the width to metres: $90 \\div 100 = 0.9$ m.",
+            "Area of a rectangle is length $\\times$ width: $1.6 \\times 0.9 = 1.44$.",
+            "Another way: $160 \\times 90 = 14\\,400\\text{ cm}^{2}$, and $14\\,400 \\div 10\\,000 = 1.44\\text{ m}^{2}$. Both agree."
+          ],
+          "answer": "$\\text{area} = 1.44\\text{ m}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(16, 10)*Rational(90, 100)",
+            "unit": "m^2"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cm2-to-mm2",
+          "prompt": "Convert $9.5\\text{ cm}^{2}$ into $\\text{mm}^{2}$.",
+          "hint": "$1$ cm $= 10$ mm. Square that step.",
+          "options": [
+            {
+              "text": "$95\\text{ mm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$950\\text{ mm}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$9500\\text{ mm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$0.095\\text{ mm}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$1\\text{ cm}^{2} = 10 \\times 10 = 100\\text{ mm}^{2}$, so $9.5 \\times 100 = 950\\text{ mm}^{2}$. $95$ uses the length step $10$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(95, 10)*10**2",
+            "unit": "mm^2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-m2-to-km2",
+          "prompt": "A forest covers $3\\,400\\,000\\text{ m}^{2}$. Convert this into $\\text{km}^{2}$.",
+          "hint": "$1$ km $= 1000$ m, so $1\\text{ km}^{2} = 1000 \\times 1000\\text{ m}^{2}$.",
+          "answer": {
+            "value": 3.4,
+            "tolerance": 0
+          },
+          "explain": "$1\\text{ km}^{2} = 1\\,000\\,000\\text{ m}^{2}$. Square kilometres are larger, so divide: $3\\,400\\,000 \\div 1\\,000\\,000 = 3.4\\text{ km}^{2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(3400000, 1000**2)",
+            "dp": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "volume",
+      "heading": "Units of volume and capacity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[volume|Volume]] is measured in cube units, such as $\\text{cm}^{3}$. Now you cube the length step, because a cube is scaled in three directions: length, width and height."
+        },
+        {
+          "type": "text",
+          "text": "A $1$ cm cube is $10$ mm on every edge, so $1\\text{ cm}^{3} = 10 \\times 10 \\times 10 = 1000\\text{ mm}^{3}$. A $1$ m cube is $100$ cm on every edge, so $1\\text{ m}^{3} = 100^{3} = 1\\,000\\,000\\text{ cm}^{3}$."
+        },
+        {
+          "type": "text",
+          "text": "Capacity links to volume. A container of volume $1\\text{ cm}^{3}$ holds $1$ ml, and a $10$ cm cube holds exactly $1$ litre."
+        },
+        {
+          "type": "figure",
+          "id": "5-1-litre-cube",
+          "alt": "A cube with every edge 10 centimetres long. Its volume is 10 times 10 times 10, which is 1000 cubic centimetres. That is 1 litre, or 1000 millilitres.",
+          "caption": "A $10$ cm cube holds one litre."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{array}{l} 1\\text{ cm}^{3} = 10^{3} = 1000\\text{ mm}^{3} \\\\ 1\\text{ m}^{3} = 100^{3} = 1\\,000\\,000\\text{ cm}^{3} \\\\ 1\\text{ cm}^{3} = 1\\text{ ml} \\qquad 1000\\text{ cm}^{3} = 1\\text{ litre} \\qquad 1\\text{ m}^{3} = 1000\\text{ litres} \\end{array}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-cm3-to-m3",
+          "question": "Convert $2\\,750\\,000\\text{ cm}^{3}$ into $\\text{m}^{3}$.",
+          "steps": [
+            "Length step: $1$ m $= 100$ cm.",
+            "Cube it: $1\\text{ m}^{3} = 100 \\times 100 \\times 100 = 1\\,000\\,000\\text{ cm}^{3}$.",
+            "Cubic metres are larger, so divide: $2\\,750\\,000 \\div 1\\,000\\,000 = 2.75$."
+          ],
+          "answer": "$2\\,750\\,000\\text{ cm}^{3} = 2.75\\text{ m}^{3}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(2750000, 100**3)",
+            "unit": "m^3"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-tank-litres",
+          "question": "A fish tank is a cuboid $60$ cm long, $40$ cm wide and $25$ cm high. How many litres does it hold when full?",
+          "steps": [
+            "Volume of a cuboid is length $\\times$ width $\\times$ height: $60 \\times 40 \\times 25 = 60\\,000\\text{ cm}^{3}$.",
+            "$1000\\text{ cm}^{3} = 1$ litre, and litres are larger, so divide: $60\\,000 \\div 1000 = 60$.",
+            "Sense check: a bucket holds about $10$ litres, and this tank is a few buckets."
+          ],
+          "answer": "$\\text{capacity} = 60\\text{ litres}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(60*40*25, 1000)",
+            "unit": "litres"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-litres-to-cm3",
+          "prompt": "Convert $0.4$ litres into $\\text{cm}^{3}$.",
+          "hint": "$1$ litre $= 1000\\text{ cm}^{3}$.",
+          "options": [
+            {
+              "text": "$40\\text{ cm}^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$400\\text{ cm}^{3}$",
+              "correct": true
+            },
+            {
+              "text": "$4000\\text{ cm}^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$400\\,000\\text{ cm}^{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\text{cm}^{3}$ are smaller, so multiply: $0.4 \\times 1000 = 400\\text{ cm}^{3}$. That is also $400$ ml.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(4, 10)*1000",
+            "unit": "cm^3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pool-litres",
+          "prompt": "A paddling pool holds $2.6\\text{ m}^{3}$ of water. How many litres is that?",
+          "hint": "$1\\text{ m}^{3} = 1000$ litres.",
+          "answer": {
+            "value": 2600,
+            "tolerance": 0
+          },
+          "explain": "Litres are smaller than $\\text{m}^{3}$, so multiply: $2.6 \\times 1000 = 2600$ litres.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(26, 10)*1000",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "To a smaller unit, multiply: the number gets bigger. To a larger unit, divide: the number gets smaller.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For area, square the length step; for volume, cube it. From m to cm the steps are $100$, $100^{2}$ and $100^{3}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Change all lengths to one unit (and all masses, all capacities) before you add, subtract, multiply or divide them.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the length step for an area: $5\\text{ m}^{2} = 500\\text{ cm}^{2}$. Square the step: $5 \\times 10\\,000 = 50\\,000\\text{ cm}^{2}$.",
+    "Multiplying when the new unit is larger: $3400$ cm to metres is not $340\\,000$. Larger unit, so divide: $3400 \\div 100 = 34$ m.",
+    "Using the wrong step, such as $\\times 100$ for kilometres to metres. Learn the table: $1$ km $= 1000$ m, $1$ m $= 100$ cm, $1$ cm $= 10$ mm.",
+    "Converting only part of the way: millimetres $\\div 1000$ gives metres, not kilometres. From mm to km, divide by $1000$, then by $1000$ again.",
+    "Using $\\times 1000$ for $\\text{m}^{3}$ to $\\text{cm}^{3}$. The step is $100^{3} = 1\\,000\\,000$. ($1000$ links $\\text{m}^{3}$ to litres.)",
+    "Leaving one quantity in its old unit in a practical problem. Convert each value before you calculate, then check the answer's unit."
+  ],
+  "examTips": [
+    "Write down or complete a conversion: the mark is for the answer alone. Check it with one question: did a smaller unit give a bigger number?",
+    "Give your answer in the unit asked for, such as kilometres or $\\text{cm}^{2}$. Finding the right value in the wrong unit loses the final mark.",
+    "Work out a practical problem with mixed units: show the conversion as its own line, such as $90$ cm $= 0.9$ m. That line can earn a method mark."
+  ],
+  "readingMinutes": 14
+}

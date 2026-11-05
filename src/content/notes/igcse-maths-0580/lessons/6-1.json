@@ -1,0 +1,524 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "6.1",
+  "slug": "pythagoras-theorem",
+  "title": "Pythagoras’ theorem",
+  "level": "Core",
+  "topic": 6,
+  "summary": "In a [[right-angled-triangle|right-angled triangle]], the square of the longest side equals the squares of the other two sides added. This is [[pythagoras-theorem|Pythagoras' theorem]]. It lets you find any side when you know the other two.",
+  "goals": [
+    {
+      "text": "Spot the [[hypotenuse|hypotenuse]] and write Pythagoras' theorem for any right-angled triangle.",
+      "bullets": [
+        "6.1-c1"
+      ]
+    },
+    {
+      "text": "Find the hypotenuse when you know the two shorter sides.",
+      "bullets": [
+        "6.1-c1"
+      ]
+    },
+    {
+      "text": "Find a shorter side when you know the hypotenuse and the other side.",
+      "bullets": [
+        "6.1-c1"
+      ]
+    },
+    {
+      "text": "Find the right-angled triangle inside a rectangle, an isosceles triangle or a real-life problem, and solve it.",
+      "bullets": [
+        "6.1-c1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.3",
+    "4.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "pythagoras",
+    "a squared plus b squared",
+    "find the hypotenuse",
+    "find the missing side of a right angled triangle",
+    "pythagorean theorem",
+    "diagonal of a rectangle"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-sqrt-196",
+      "prompt": "Find $\\sqrt{196}$.",
+      "hint": "Which whole number times itself gives $196$?",
+      "options": [
+        {
+          "text": "$14$",
+          "correct": true
+        },
+        {
+          "text": "$16$",
+          "correct": false
+        },
+        {
+          "text": "$98$",
+          "correct": false
+        }
+      ],
+      "explain": "$14 \\times 14 = 196$, so $\\sqrt{196} = 14$. Halving gives $98$, which is not a [[square-root|square root]]. Revise it in {{lesson:1.3}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "sqrt(196)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-triangle-type",
+      "prompt": "A triangle has angles of $90^{\\circ}$, $51^{\\circ}$ and $39^{\\circ}$. What type of triangle is it?",
+      "hint": "Look for the angle that is exactly $90^{\\circ}$.",
+      "options": [
+        {
+          "text": "Right-angled",
+          "correct": true
+        },
+        {
+          "text": "Obtuse-angled",
+          "correct": false
+        },
+        {
+          "text": "Equilateral",
+          "correct": false
+        }
+      ],
+      "explain": "One angle is $90^{\\circ}$, so it is a [[right-angled-triangle|right-angled triangle]]. No angle is over $90^{\\circ}$, and the angles are not all equal. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Right-angled"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "hypotenuse",
+      "heading": "Finding the hypotenuse",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Draw a [[right-angled-triangle|right-angled triangle]] with shorter sides $3$ and $4$. Measure the third side and you get $5$. Now look at the squares of the sides: $9$, $16$ and $25$."
+        },
+        {
+          "type": "figure",
+          "id": "6-1-squares",
+          "alt": "A right-angled triangle with shorter sides 3 and 4 and longest side 5. A square is drawn on each side: the square on the side of 3 has area 9, the square on the side of 4 has area 16, and the square on the side of 5 has area 25.",
+          "caption": "The two smaller squares fill the big one exactly: $9 + 16 = 25$."
+        },
+        {
+          "type": "definition",
+          "term": "Hypotenuse",
+          "statement": "The [[hypotenuse|hypotenuse]] of a right-angled triangle is the side opposite the right angle. It is always the longest side.",
+          "plain": "The side that does not touch the right angle."
+        },
+        {
+          "type": "text",
+          "text": "This works for every right-angled triangle, not just this one. It is called [[pythagoras-theorem|Pythagoras' theorem]]. Call the shorter sides $a$ and $b$, and the hypotenuse $c$."
+        },
+        {
+          "type": "formula",
+          "tex": "c^{2} = a^{2} + b^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "It only works when the triangle has a right angle. To find the hypotenuse: square the two shorter sides, add, then take the [[square-root|square root]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-hyp-9-12",
+          "question": "A right-angled triangle has shorter sides $9$ cm and $12$ cm. Without a calculator, work out the length of the hypotenuse.",
+          "steps": [
+            "The side you want is the hypotenuse, so add the squares: $c^{2} = 9^{2} + 12^{2}$.",
+            "Square each side: $9^{2} = 81$ and $12^{2} = 144$.",
+            "Add: $c^{2} = 81 + 144 = 225$.",
+            "Take the square root: $c = \\sqrt{225} = 15$, because $15 \\times 15 = 225$.",
+            "Check: $15$ is longer than $9$ and $12$, as the hypotenuse must be."
+          ],
+          "answer": "$c = 15\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(9**2 + 12**2)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at $c^{2}$. The $225$ is the hypotenuse squared, not the hypotenuse. Always finish with a square root."
+        },
+        {
+          "type": "check",
+          "id": "check-hyp-11-60",
+          "prompt": "A right-angled triangle has shorter sides $11$ cm and $60$ cm. Find the hypotenuse.",
+          "hint": "Work out $11^{2} + 60^{2}$, then find its square root. $61^{2} = 3721$.",
+          "options": [
+            {
+              "text": "$71\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$61\\text{ cm}$",
+              "correct": true
+            },
+            {
+              "text": "$3721\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{3479}\\text{ cm}$",
+              "correct": false
+            }
+          ],
+          "explain": "$11^{2} + 60^{2} = 121 + 3600 = 3721$, and $\\sqrt{3721} = 61$. Adding the sides gives $71$, and $\\sqrt{3479}$ comes from subtracting the squares.",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(11**2 + 60**2)",
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "text",
+          "text": "On Papers 3 and 4, the numbers are often decimals. Use the calculator's $x^{2}$ and $\\sqrt{\\;}$ keys, and round only the final answer."
+        },
+        {
+          "type": "example",
+          "id": "ex-hyp-calc-def",
+          "question": "Triangle $DEF$ has a right angle at $E$. $DE = 7.3$ cm and $EF = 4.6$ cm. Calculate $DF$. Give your answer to 3 significant figures.",
+          "steps": [
+            "The right angle is at $E$, so the side opposite it, $DF$, is the hypotenuse.",
+            "Write Pythagoras' theorem: $DF^{2} = 7.3^{2} + 4.6^{2}$.",
+            "Square and add: $DF^{2} = 53.29 + 21.16 = 74.45$.",
+            "Square root: $DF = \\sqrt{74.45} = 8.6284\\ldots$",
+            "Round to 3 significant figures: $8.63$ cm. Check: it is longer than $7.3$ cm."
+          ],
+          "answer": "$DF \\approx 8.63\\text{ cm}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(Rational(73, 10)**2 + Rational(46, 10)**2)",
+            "sf": 3,
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "powers",
+          "values": {
+            "base": 7.3,
+            "power": 2
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "roots",
+          "values": {
+            "root": 2,
+            "value": 74.45
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hyp-calc",
+          "prompt": "A right-angled triangle has shorter sides $3.8$ m and $6.1$ m. Calculate the hypotenuse, in metres, to 3 significant figures.",
+          "hint": "Square both, add, then square root. Round only at the end.",
+          "answer": {
+            "value": 7.19,
+            "tolerance": 0.005
+          },
+          "explain": "$3.8^{2} + 6.1^{2} = 14.44 + 37.21 = 51.65$, and $\\sqrt{51.65} = 7.1867\\ldots \\approx 7.19$ m.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(Rational(38, 10)**2 + Rational(61, 10)**2)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "shorter-side",
+      "heading": "Finding a shorter side",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you know the [[hypotenuse|hypotenuse]] and want one of the shorter sides. Start from the same rule, $c^{2} = a^{2} + b^{2}$, and take $b^{2}$ away from both sides."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{2} = c^{2} - b^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So to find a shorter side: square the two sides you know, subtract the smaller square from the hypotenuse squared, then take the square root."
+        },
+        {
+          "type": "example",
+          "id": "ex-short-26-10",
+          "question": "A right-angled triangle has hypotenuse $26$ cm and one shorter side $10$ cm. Without a calculator, work out the other shorter side.",
+          "steps": [
+            "The side you want is not the hypotenuse, so subtract: $a^{2} = 26^{2} - 10^{2}$.",
+            "Square each side: $26^{2} = 676$ and $10^{2} = 100$.",
+            "Subtract: $a^{2} = 676 - 100 = 576$.",
+            "Take the square root: $a = \\sqrt{576} = 24$, because $24 \\times 24 = 576$.",
+            "Check: $24$ is shorter than the hypotenuse, $26$."
+          ],
+          "answer": "$a = 24\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(26**2 - 10**2)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the squares when the side you want is a shorter one. Ask first: is the missing side opposite the right angle? If not, subtract."
+        },
+        {
+          "type": "check",
+          "id": "check-short-25-7",
+          "prompt": "A right-angled triangle has hypotenuse $25$ cm and one shorter side $7$ cm. Find the other side.",
+          "hint": "The missing side is not the hypotenuse. Work out $25^{2} - 7^{2}$.",
+          "options": [
+            {
+              "text": "$18\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$24\\text{ cm}$",
+              "correct": true
+            },
+            {
+              "text": "$\\sqrt{674}\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$576\\text{ cm}$",
+              "correct": false
+            }
+          ],
+          "explain": "$25^{2} - 7^{2} = 625 - 49 = 576$, and $\\sqrt{576} = 24$. Adding the squares gives $\\sqrt{674}$, which is longer than the hypotenuse, so it can't be right.",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(25**2 - 7**2)",
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-short-ramp",
+          "question": "A straight ramp is $3.7$ m long. It covers a horizontal distance of $3.4$ m along the ground. Calculate the height of the top of the ramp. Give your answer to 3 significant figures.",
+          "steps": [
+            "Sketch it: the ground and the height meet at a right angle. The ramp itself is opposite the right angle, so it is the hypotenuse.",
+            "The height is a shorter side, so subtract: $h^{2} = 3.7^{2} - 3.4^{2}$.",
+            "Square and subtract: $h^{2} = 13.69 - 11.56 = 2.13$.",
+            "Square root: $h = \\sqrt{2.13} = 1.4594\\ldots$",
+            "Round to 3 significant figures: $1.46$ m. Check: it is shorter than the ramp."
+          ],
+          "answer": "$h \\approx 1.46\\text{ m}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(Rational(37, 10)**2 - Rational(34, 10)**2)",
+            "sf": 3,
+            "unit": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-short-kite",
+          "prompt": "A kite string is pulled straight and is $48$ m long. The kite is directly above a point $30$ m from the person's hand, on the same level as the hand. Calculate the height of the kite above the hand, in metres, to 3 significant figures.",
+          "hint": "The string is the hypotenuse. Work out $48^{2} - 30^{2}$.",
+          "answer": {
+            "value": 37.5,
+            "tolerance": 0.05
+          },
+          "explain": "$48^{2} - 30^{2} = 2304 - 900 = 1404$, and $\\sqrt{1404} = 37.469\\ldots \\approx 37.5$ m.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(48**2 - 30**2)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "problems",
+      "heading": "Finding the triangle in a problem",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many questions hide the right-angled triangle inside another shape. Draw it out on its own and label the side you want."
+        },
+        {
+          "type": "text",
+          "text": "A rectangle's diagonal cuts it into two right-angled triangles. The diagonal is the [[hypotenuse|hypotenuse]], and the length and width are the shorter sides."
+        },
+        {
+          "type": "text",
+          "text": "An isosceles triangle has two equal sides. Call the third side the base. A line from the corner where the equal sides meet, straight down to the base, meets it at a right angle and cuts the base in half. That gives two right-angled triangles."
+        },
+        {
+          "type": "figure",
+          "id": "6-1-isosceles-split",
+          "alt": "An isosceles triangle with two equal sloping sides of 13 cm and a base of 10 cm. A dashed vertical line, the height h, goes from the top corner straight down to the middle of the base and makes a right angle there. It splits the base into two halves of 5 cm.",
+          "caption": "Each half is a right-angled triangle with hypotenuse $13$ cm and base $5$ cm."
+        },
+        {
+          "type": "example",
+          "id": "ex-isosceles-height",
+          "question": "An isosceles triangle has two sides of $13$ cm and a base of $10$ cm. Without a calculator, work out its height $h$.",
+          "steps": [
+            "The height cuts the base in half, so each half of the base is $10 \\div 2 = 5$ cm.",
+            "In one half, the $13$ cm side is opposite the right angle, so it is the hypotenuse.",
+            "The height is a shorter side, so subtract: $h^{2} = 13^{2} - 5^{2} = 169 - 25 = 144$.",
+            "Take the square root: $h = \\sqrt{144} = 12$."
+          ],
+          "answer": "$h = 12\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(13**2 - (Rational(10, 2))**2)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using the whole base instead of half of it. The right angle is at the middle of the base, so the triangle's base is half the full length."
+        },
+        {
+          "type": "check",
+          "id": "check-isosceles-10-12",
+          "prompt": "An isosceles triangle has two sides of $10$ cm and a base of $12$ cm. Find its height.",
+          "hint": "Halve the base first. Then the $10$ cm side is the hypotenuse.",
+          "options": [
+            {
+              "text": "$4\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$8\\text{ cm}$",
+              "correct": true
+            },
+            {
+              "text": "$64\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{136}\\text{ cm}$",
+              "correct": false
+            }
+          ],
+          "explain": "Half the base is $6$ cm. Then $h^{2} = 10^{2} - 6^{2} = 100 - 36 = 64$, so $h = 8$ cm. Using the whole $12$ cm gives $100 - 144$, which is negative: a sign you forgot to halve. $4$ cm comes from subtracting the sides without squaring them.",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(10**2 - (Rational(12, 2))**2)",
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-field-shortcut",
+          "question": "A rectangular field is $85$ m long and $42$ m wide. Amira walks from one corner to the opposite corner along the diagonal, instead of along two edges. Calculate how much shorter her walk is. Give your answer to 3 significant figures.",
+          "steps": [
+            "The diagonal is the hypotenuse of a right-angled triangle with shorter sides $85$ m and $42$ m.",
+            "Add the squares: $d^{2} = 85^{2} + 42^{2} = 7225 + 1764 = 8989$.",
+            "Square root, keeping every digit: $d = \\sqrt{8989} = 94.810\\ldots$ m.",
+            "Along two edges she would walk $85 + 42 = 127$ m.",
+            "Subtract the unrounded diagonal: $127 - 94.810\\ldots = 32.189\\ldots$, so $32.2$ m to 3 significant figures."
+          ],
+          "answer": "$127 - d \\approx 32.2\\text{ m}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "85 + 42 - sqrt(85**2 + 42**2)",
+            "sf": 3,
+            "unit": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "Write the Pythagoras line, such as $d^{2} = 85^{2} + 42^{2}$, before any number. That line usually earns the method mark, even if a later slip costs the answer."
+        },
+        {
+          "type": "check",
+          "id": "check-screen-diagonal",
+          "prompt": "A rectangular screen is $80$ cm wide and $45$ cm tall. Calculate the length of its diagonal, in cm, to 3 significant figures.",
+          "hint": "The diagonal is the hypotenuse. Work out $80^{2} + 45^{2}$.",
+          "answer": {
+            "value": 91.8,
+            "tolerance": 0.05
+          },
+          "explain": "$80^{2} + 45^{2} = 6400 + 2025 = 8425$, and $\\sqrt{8425} = 91.787\\ldots \\approx 91.8$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(80**2 + 45**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "Extended students also use Pythagoras' theorem in three dimensions, for example to find the diagonal of a cuboid.",
+          "lesson": "6.6"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The hypotenuse is opposite the right angle and is always the longest side. Find it first.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Finding the hypotenuse: add the squares, $c = \\sqrt{a^{2} + b^{2}}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Finding a shorter side: subtract the squares, $a = \\sqrt{c^{2} - b^{2}}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Pythagoras' theorem works only in a right-angled triangle. In a rectangle or an isosceles triangle, draw the right-angled triangle first.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Subtracting the squares when you want the hypotenuse. The hypotenuse is the longest side, so its square is the sum: $c^{2} = a^{2} + b^{2}$.",
+    "Adding the squares when you want a shorter side. If the missing side is not opposite the right angle, subtract from the hypotenuse squared.",
+    "Treating the wrong side as the hypotenuse. Find the right angle first; the hypotenuse is the side across from it.",
+    "Forgetting the square root, so the answer is $c^{2}$ instead of $c$. Check the size: an answer far longer than the sides you were given is a warning.",
+    "Using the whole base of an isosceles triangle. The height meets the base at its midpoint, so use half the base."
+  ],
+  "examTips": [
+    "Calculate: write the Pythagoras line first, such as $DF^{2} = 7.3^{2} + 4.6^{2}$. It earns the method mark, then the square root earns the answer mark.",
+    "Give your answer to 3 significant figures: keep the full calculator value until the end, and round once. If an earlier rounded answer is used again, use its unrounded value.",
+    "Check your answer makes sense: the hypotenuse must be longer than each of the other sides, and a shorter side must be less than the hypotenuse."
+  ],
+  "readingMinutes": 17
+}

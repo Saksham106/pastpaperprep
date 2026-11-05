@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { LEVEL_KEY, LevelSwitch, useNotesLevel } from "./LevelSwitch";
+import { useCourse } from "./notes-context";
 import { PROGRESS_KEY, useNotesProgress } from "./useNotesProgress";
 import { resetPersistedStoresForTests } from "./persisted-store";
 
@@ -8,11 +9,12 @@ vi.mock("./track", () => ({ trackLevelSwitch: vi.fn() }));
 
 function Harness() {
   const [level, setLevel] = useNotesLevel();
+  const { labels } = useCourse().levels;
   const { understood, mark, unmark } = useNotesProgress();
   return (
     <div>
       <LevelSwitch level={level} onChange={setLevel} />
-      <output data-testid="level">{level}</output>
+      <output data-testid="level">{labels[level]}</output>
       <output data-testid="understood">{[...understood].join(",")}</output>
       <button onClick={() => mark("1.1")}>mark</button>
       <button onClick={() => unmark("1.1")}>unmark</button>

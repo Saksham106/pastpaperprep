@@ -1,0 +1,481 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "3.4",
+  "slug": "length-and-midpoint",
+  "title": "Length and midpoint",
+  "level": "Extended",
+  "topic": 3,
+  "summary": "A [[line-segment|line segment]] is the straight piece of line between two points. You find its length with [[pythagoras-theorem|Pythagoras' theorem]], using the differences between the coordinates. Its [[midpoint|midpoint]] is the point halfway along: average the $x$-coordinates and average the $y$-coordinates.",
+  "goals": [
+    {
+      "text": "Work out the length of a line segment from the coordinates of its end points, exactly or to 3 significant figures.",
+      "bullets": [
+        "3.4-s1"
+      ]
+    },
+    {
+      "text": "Find the coordinates of the midpoint of a line segment.",
+      "bullets": [
+        "3.4-s2"
+      ]
+    },
+    {
+      "text": "Find one end of a line segment when you know the other end and the midpoint.",
+      "bullets": [
+        "3.4-s2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.1",
+    "6.1",
+    "1.18"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "distance between two points",
+    "length of a line from coordinates",
+    "distance formula",
+    "midpoint formula",
+    "halfway point of a line",
+    "find the other end of a line"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-coordinates",
+      "prompt": "Start at the origin. Move $4$ units left, then $3$ units up. Which point are you at?",
+      "hint": "The first coordinate is across (left is negative). The second is up or down.",
+      "options": [
+        {
+          "text": "$(-4, 3)$",
+          "correct": true
+        },
+        {
+          "text": "$(3, -4)$",
+          "correct": false
+        },
+        {
+          "text": "$(4, 3)$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "point",
+        "truth": "(0 - 4, 0 + 3)"
+      },
+      "explain": "Across comes first: $4$ left is $x = -4$. Then $3$ up is $y = 3$. So the point is $(-4, 3)$. Revise it in {{lesson:3.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-pythagoras",
+      "prompt": "A right-angled triangle has shorter sides $20$ cm and $21$ cm. Work out the length of the [[hypotenuse|hypotenuse]], in cm.",
+      "hint": "Square the two shorter sides, add, then take the square root.",
+      "answer": {
+        "value": 29,
+        "tolerance": 0
+      },
+      "verify": {
+        "kind": "numeric",
+        "truth": "sqrt(20**2 + 21**2)",
+        "dp": 0
+      },
+      "explain": "$20^2 + 21^2 = 400 + 441 = 841$, and $\\sqrt{841} = 29$. So the hypotenuse is $29$ cm. Revise it in {{lesson:6.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-simplify-surd",
+      "prompt": "Simplify $\\sqrt{45}$.",
+      "hint": "Find the largest square number that divides $45$.",
+      "options": [
+        {
+          "text": "$5\\sqrt{3}$",
+          "correct": false
+        },
+        {
+          "text": "$3\\sqrt{5}$",
+          "correct": true
+        },
+        {
+          "text": "$9\\sqrt{5}$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "exact",
+        "truth": "sqrt(45)"
+      },
+      "explain": "$45 = 9 \\times 5$, so $\\sqrt{45} = \\sqrt{9} \\times \\sqrt{5} = 3\\sqrt{5}$. $9\\sqrt{5}$ forgets to take the root of $9$. Revise it in {{lesson:1.18}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "length",
+      "heading": "The length of a line segment",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Take the points $A(1, 2)$ and $B(7, 10)$. To get from $A$ to $B$ you go $6$ across and $8$ up. Those two moves and the [[line-segment|line segment]] $AB$ make a [[right-angled-triangle|right-angled triangle]]."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-length-triangle",
+          "alt": "Axes with points A at (1, 2) and B at (7, 10) joined by a line segment. A dashed path goes 6 units across from A to the corner (7, 2), then 8 units up to B, with a right angle at the corner. The segment AB is the hypotenuse, length 10.",
+          "caption": "$AB$ is the hypotenuse, so $AB^2 = 6^2 + 8^2$."
+        },
+        {
+          "type": "text",
+          "text": "$AB$ is the [[hypotenuse|hypotenuse]], so [[pythagoras-theorem|Pythagoras' theorem]] gives $AB^2 = 6^2 + 8^2 = 100$. So $AB = \\sqrt{100} = 10$."
+        },
+        {
+          "type": "definition",
+          "term": "line segment",
+          "statement": "A line segment is the part of a straight line between two end points. Its length is the straight-line distance between them.",
+          "plain": "A straight line that stops at both ends."
+        },
+        {
+          "type": "text",
+          "text": "In general, call the end points $(x_1, y_1)$ and $(x_2, y_2)$. The change across is $x_2 - x_1$ and the change up is $y_2 - y_1$. Square both, add, then take the square root."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{length} = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "It doesn't matter which point you call the first. Swapping them only changes the signs of the differences, and squaring removes the sign: $(-6)^2 = 36 = 6^2$."
+        },
+        {
+          "type": "mistake",
+          "text": "Subtracting a negative coordinate wrongly. $3 - (-5) = 3 + 5 = 8$, not $-2$. Put a negative coordinate in brackets before you subtract it."
+        },
+        {
+          "type": "example",
+          "id": "ex-length-whole",
+          "question": "The line segment $PQ$ joins $P(-2, 3)$ to $Q(6, -12)$. Work out its length.",
+          "steps": [
+            "Across: $x_2 - x_1 = 6 - (-2) = 8$.",
+            "Up: $y_2 - y_1 = -12 - 3 = -15$. The minus sign only means $Q$ is below $P$.",
+            "Square and add: $8^2 + (-15)^2 = 64 + 225 = 289$.",
+            "Take the square root: $PQ = \\sqrt{289} = 17$."
+          ],
+          "answer": "$PQ = 17$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((6 - (-2))**2 + (-12 - 3)**2)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Squaring a negative to get a negative. $(-15)^2 = +225$. If you get a negative number under the square root, look for a sign slip."
+        },
+        {
+          "type": "text",
+          "text": "Paper 2 has no calculator. If the number under the root is not a square number, leave the length as a [[surd|surd]] in its simplest form."
+        },
+        {
+          "type": "example",
+          "id": "ex-length-surd",
+          "question": "$CD$ joins $C(-1, -4)$ to $D(5, 2)$. Work out the length of $CD$, as a surd in its simplest form.",
+          "steps": [
+            "Across: $5 - (-1) = 6$.",
+            "Up: $2 - (-4) = 6$.",
+            "Square and add: $6^2 + 6^2 = 36 + 36 = 72$, so $CD = \\sqrt{72}$.",
+            "Simplify with the largest square factor, $36$: $\\sqrt{72} = \\sqrt{36} \\times \\sqrt{2} = 6\\sqrt{2}$."
+          ],
+          "answer": "$CD = 6\\sqrt{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((5 - (-1))**2 + (2 - (-4))**2)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "On Paper 4 you have a calculator. Type the whole calculation in one go, with brackets round each negative number, and round only the final answer."
+        },
+        {
+          "type": "calculator",
+          "snippet": "brackets-order"
+        },
+        {
+          "type": "example",
+          "id": "ex-length-calculator",
+          "question": "$EF$ joins $E(2.5, -1.4)$ to $F(-3.1, 6.2)$. Work out the length of $EF$. Give your answer correct to $3$ significant figures.",
+          "steps": [
+            "Across: $-3.1 - 2.5 = -5.6$.",
+            "Up: $6.2 - (-1.4) = 7.6$.",
+            "Write down what you type: $EF = \\sqrt{(-5.6)^2 + 7.6^2} = \\sqrt{31.36 + 57.76} = \\sqrt{89.12}$.",
+            "The display shows $9.440338\\ldots$. To $3$ significant figures this is $9.44$."
+          ],
+          "answer": "$EF \\approx 9.44$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt((-3.1 - 2.5)**2 + (6.2 - (-1.4))**2)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-length-surd",
+          "prompt": "$LN$ runs from $L(3, -2)$ to $N(-1, 6)$. How long is $LN$? Give a surd in its simplest form.",
+          "hint": "The differences are $-1 - 3$ and $6 - (-2)$. Square them, add, then simplify the root.",
+          "options": [
+            {
+              "text": "$4\\sqrt{2}$",
+              "correct": false
+            },
+            {
+              "text": "$4\\sqrt{5}$",
+              "correct": true
+            },
+            {
+              "text": "$80$",
+              "correct": false
+            },
+            {
+              "text": "$12$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((-1 - 3)**2 + (6 - (-2))**2)"
+          },
+          "explain": "$(-4)^2 + 8^2 = 16 + 64 = 80$, and $\\sqrt{80} = \\sqrt{16} \\times \\sqrt{5} = 4\\sqrt{5}$. $4\\sqrt{2}$ uses $6 - 2$ instead of $6 - (-2)$. $80$ forgets the square root, and $12$ just adds the differences."
+        },
+        {
+          "type": "check",
+          "id": "check-length-3sf",
+          "prompt": "$UV$ joins $U(-2.6, 0.8)$ to $V(4.1, -3.5)$. Work out the length of $UV$, correct to $3$ significant figures.",
+          "hint": "The differences are $4.1 - (-2.6)$ and $-3.5 - 0.8$. Type the whole square root in one go.",
+          "answer": {
+            "value": 7.96,
+            "tolerance": 0.005
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt((4.1 - (-2.6))**2 + (-3.5 - 0.8)**2)",
+            "sf": 3
+          },
+          "explain": "The differences are $6.7$ and $-4.3$. $\\sqrt{6.7^2 + (-4.3)^2} = \\sqrt{44.89 + 18.49} = \\sqrt{63.38} = 7.961\\ldots$, which is $7.96$ to $3$ significant figures."
+        }
+      ]
+    },
+    {
+      "id": "midpoint",
+      "heading": "The midpoint of a line segment",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[midpoint|midpoint]] of a [[line-segment|line segment]] is the point exactly halfway along it. Halfway between $x = 2$ and $x = 8$ is $x = 5$, the mean of $2$ and $8$. The $y$-coordinates work the same way."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-midpoint",
+          "alt": "Axes with points A at (2, 1) and B at (8, 5) joined by a line segment. The midpoint M at (5, 3) is marked halfway along. Dashed lines show that 5 is halfway between 2 and 8 on the x-axis, and 3 is halfway between 1 and 5 on the y-axis.",
+          "caption": "$5$ is the mean of $2$ and $8$; $3$ is the mean of $1$ and $5$."
+        },
+        {
+          "type": "definition",
+          "term": "midpoint",
+          "statement": "The midpoint of the line segment joining $(x_1, y_1)$ and $(x_2, y_2)$ is the point on the segment that is the same distance from both ends.",
+          "plain": "The point exactly in the middle of the line."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{midpoint} = \\left(\\frac{x_1 + x_2}{2}, \\; \\frac{y_1 + y_2}{2}\\right)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Add the coordinates, then halve. You are finding a mean, not a distance, so nothing is subtracted."
+        },
+        {
+          "type": "example",
+          "id": "ex-midpoint-basic",
+          "question": "The ends of $GH$ are $G(-7, 2)$ and $H(3, 9)$. Work out the coordinates of $M$, the midpoint of $GH$.",
+          "steps": [
+            "Add the $x$-coordinates and halve: $\\frac{-7 + 3}{2} = \\frac{-4}{2} = -2$.",
+            "Add the $y$-coordinates and halve: $\\frac{2 + 9}{2} = \\frac{11}{2} = 5.5$.",
+            "Check: $-2$ lies between $-7$ and $3$, and $5.5$ lies between $2$ and $9$."
+          ],
+          "answer": "$M = (-2, 5.5)$",
+          "verify": {
+            "kind": "point",
+            "truth": "((-7 + 3)/2, (2 + 9)/2)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Sometimes you know one end and the midpoint, and need the other end. The midpoint is halfway, so the step from the first end to the midpoint, done again, reaches the other end."
+        },
+        {
+          "type": "example",
+          "id": "ex-midpoint-reverse",
+          "question": "$M(4, -1)$ is the midpoint of $AB$, and $A$ is at $(-3, 6)$. Work out the coordinates of $B$.",
+          "steps": [
+            "Step in $x$ from $A$ to $M$: $4 - (-3) = 7$.",
+            "Step in $y$ from $A$ to $M$: $-1 - 6 = -7$.",
+            "Take the same step again from $M$: $B = (4 + 7, \\; -1 + (-7)) = (11, -8)$.",
+            "Check with the midpoint formula: $\\left(\\frac{-3 + 11}{2}, \\frac{6 + (-8)}{2}\\right) = (4, -1)$, which is $M$."
+          ],
+          "answer": "$B = (11, -8)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(2*4 - (-3), 2*(-1) - 6)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Working out the midpoint of $A$ and $M$. That point is only a quarter of the way along $AB$. Add the step from $A$ to $M$ on again instead."
+        },
+        {
+          "type": "check",
+          "id": "check-midpoint-basic",
+          "prompt": "A segment joins $(-5, -8)$ to $(9, -2)$. Which point is its midpoint?",
+          "hint": "Add the two $x$-coordinates and halve. Do the same with the $y$-coordinates.",
+          "options": [
+            {
+              "text": "$(2, -5)$",
+              "correct": true
+            },
+            {
+              "text": "$(7, 3)$",
+              "correct": false
+            },
+            {
+              "text": "$(4, -10)$",
+              "correct": false
+            },
+            {
+              "text": "$(2, 5)$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "point",
+            "truth": "((-5 + 9)/2, (-8 + (-2))/2)"
+          },
+          "explain": "$\\frac{-5 + 9}{2} = 2$ and $\\frac{-8 + (-2)}{2} = -5$. $(7, 3)$ subtracts instead of adding, and $(4, -10)$ forgets to halve."
+        },
+        {
+          "type": "check",
+          "id": "check-midpoint-reverse",
+          "prompt": "$M(1, 3)$ is the midpoint of $PQ$, and $P$ is at $(-4, 7)$. Where is $Q$?",
+          "hint": "Find the step from $P$ to $M$, then take the same step again from $M$.",
+          "options": [
+            {
+              "text": "$(-1.5, 5)$",
+              "correct": false
+            },
+            {
+              "text": "$(6, -1)$",
+              "correct": true
+            },
+            {
+              "text": "$(5, -4)$",
+              "correct": false
+            },
+            {
+              "text": "$(-9, 11)$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "point",
+            "truth": "(2*1 - (-4), 2*3 - 7)"
+          },
+          "explain": "The step from $P$ to $M$ is $5$ across and $-4$ up. From $M$ that gives $(1 + 5, 3 - 4) = (6, -1)$. $(-1.5, 5)$ is the midpoint of $P$ and $M$, and $(5, -4)$ is the step itself."
+        },
+        {
+          "type": "check",
+          "id": "check-midpoint-letters",
+          "prompt": "Find the midpoint of the line segment joining $(p, 3q)$ and $(5p, -q)$. Give it in terms of $p$ and $q$.",
+          "hint": "Treat the letters like numbers: $\\frac{p + 5p}{2}$ for $x$.",
+          "options": [
+            {
+              "text": "$(2p, -2q)$",
+              "correct": false
+            },
+            {
+              "text": "$(6p, 2q)$",
+              "correct": false
+            },
+            {
+              "text": "$(3p, 2q)$",
+              "correct": false
+            },
+            {
+              "text": "$(3p, q)$",
+              "correct": true
+            }
+          ],
+          "verify": {
+            "kind": "point",
+            "truth": "((p + 5*p)/2, (3*q + (-q))/2)"
+          },
+          "explain": "$\\frac{p + 5p}{2} = \\frac{6p}{2} = 3p$ and $\\frac{3q + (-q)}{2} = \\frac{2q}{2} = q$. $(6p, 2q)$ forgets to halve, and $(2p, -2q)$ subtracts."
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:3.7}} you will use the midpoint and a gradient to find a [[perpendicular-bisector|perpendicular bisector]]."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Length of the segment from $(x_1, y_1)$ to $(x_2, y_2)$: $\\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$. It is Pythagoras' theorem on the across and up distances.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Midpoint: $\\left(\\frac{x_1 + x_2}{2}, \\frac{y_1 + y_2}{2}\\right)$. Add and halve each coordinate.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Bracket negative coordinates before subtracting: $3 - (-5) = 8$. A squared difference is never negative.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To find the other end from one end and the midpoint, take the step from the end to the midpoint again.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Subtracting a negative coordinate wrongly. $4 - (-6) = 10$, not $-2$. Bracket the negative number before you subtract.",
+    "Squaring a negative to get a negative. $(-9)^2 = 81$, so the number under the square root can never be negative.",
+    "Stopping before the square root. The sum of the squared differences is the length squared; take its square root.",
+    "Subtracting in the midpoint. The midpoint adds the coordinates and halves them: $\\frac{x_1 + x_2}{2}$.",
+    "Finding the midpoint of the known end and the midpoint when you need the other end. Take the step from the end to the midpoint once more instead.",
+    "Rounding the differences or the sum of squares on Paper 4. Keep every digit and round only the final length."
+  ],
+  "examTips": [
+    "**Find the coordinates of the midpoint**: each correct coordinate can earn a mark on its own, so always give both, as $(x, y)$.",
+    "**Find the length** on Paper 2: write $\\sqrt{(\\ldots)^2 + (\\ldots)^2}$ with your numbers in. That line earns method marks even if you slip later. Leave a non-square answer as a simplified surd.",
+    "On Paper 4, **give your answer correct to 3 significant figures**: write down the full display, such as $9.440338\\ldots$, then round.",
+    "Sketch the two points roughly first. It shows whether each difference should be positive or negative, and whether your midpoint sits between the ends."
+  ],
+  "readingMinutes": 14
+}

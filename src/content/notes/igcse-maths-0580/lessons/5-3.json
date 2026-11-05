@@ -1,0 +1,698 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "5.3",
+  "slug": "circles-arcs-and-sectors",
+  "title": "Circles, arcs and sectors",
+  "level": "Core",
+  "topic": 5,
+  "summary": "A circle's [[circumference|circumference]] is $2\\pi r$ and its [[area|area]] is $\\pi r^{2}$, where $r$ is the [[radius|radius]]. An [[arc|arc]] or a [[sector|sector]] is a fraction of the circle: $\\frac{\\theta}{360}$ of it, where $\\theta$ is the angle at the centre. Get the radius right and pick the right formula, and these are quick marks.",
+  "goals": [
+    {
+      "text": "Work out the circumference and area of a circle from its radius or [[diameter|diameter]].",
+      "bullets": [
+        "5.3-c1"
+      ]
+    },
+    {
+      "text": "Work backwards from a circumference or an area to the radius.",
+      "bullets": [
+        "5.3-c1"
+      ]
+    },
+    {
+      "text": "Give answers in terms of $\\pi$, or to 3 significant figures.",
+      "bullets": [
+        "5.3-c1",
+        "5.3-c2"
+      ]
+    },
+    {
+      "text": "Find [[arc-length|arc lengths]], [[sector-area|sector areas]] and sector perimeters when the angle divides exactly into $360^{\\circ}$.",
+      "bullets": [
+        "5.3-c2"
+      ]
+    },
+    {
+      "text": "Find arc lengths and sector areas for any angle, including major sectors, and work back to the angle.",
+      "bullets": [
+        "5.3-s1",
+        "5.3-n1"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "4.1",
+    "5.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "circumference of a circle",
+    "area of a circle",
+    "arc length",
+    "sector area",
+    "perimeter of a sector",
+    "answer in terms of pi"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-radius-from-diameter",
+      "prompt": "A circle has diameter $26$ cm. What is its radius?",
+      "hint": "The diameter goes right across the circle, through the centre.",
+      "options": [
+        {
+          "text": "$13\\text{ cm}$",
+          "correct": true
+        },
+        {
+          "text": "$52\\text{ cm}$",
+          "correct": false
+        },
+        {
+          "text": "$26\\text{ cm}$",
+          "correct": false
+        }
+      ],
+      "explain": "The diameter is two radii end to end, so halve it: $26 \\div 2 = 13$ cm. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "Rational(26, 2)",
+        "unit": "cm"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-irrational",
+      "prompt": "Why is $\\pi$ an [[irrational-number|irrational number]]?",
+      "hint": "Think about whether it can be written as a fraction of two whole numbers.",
+      "options": [
+        {
+          "text": "Its decimal never ends and never repeats",
+          "correct": true
+        },
+        {
+          "text": "It is exactly 22 divided by 7",
+          "correct": false
+        },
+        {
+          "text": "It has exactly two decimal places",
+          "correct": false
+        }
+      ],
+      "explain": "$\\pi = 3.14159\\ldots$ goes on for ever with no repeating pattern, so it is not a fraction. $\\frac{22}{7}$ and $3.14$ are only close to it. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Its decimal never ends and never repeats"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-rectangle-area",
+      "prompt": "A rectangle is $6.5$ cm long and $4$ cm wide. Work out its area in $\\text{cm}^{2}$.",
+      "hint": "Area of a rectangle is length times width.",
+      "answer": {
+        "value": 26,
+        "tolerance": 0
+      },
+      "explain": "$6.5 \\times 4 = 26\\text{ cm}^{2}$. Revise it in {{lesson:5.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "6.5*4",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "circumference",
+      "heading": "Circumference and pi",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Wrap a string once round a tin, then lay it straight. The string is the [[circumference|circumference]]. For every circle, it is a little more than $3$ times the [[diameter|diameter]]."
+        },
+        {
+          "type": "text",
+          "text": "That number is [[pi|pi]], written $\\pi$. $\\pi = 3.14159\\ldots$ It is an [[irrational-number|irrational number]], so its decimal never ends or repeats."
+        },
+        {
+          "type": "formula",
+          "tex": "C = 2\\pi r",
+          "tag": "booklet",
+          "bookletId": "fl-5-3-circumference-c-of-circle-of-radius-r"
+        },
+        {
+          "type": "text",
+          "text": "Here $r$ is the [[radius|radius]]. The diameter is $d = 2r$, so $C = \\pi d$ too. This formula is on the formula list, so you don't need to memorise it. You do need to know when to use it."
+        },
+        {
+          "type": "text",
+          "text": "On Papers 1 and 2 there is no calculator, so you often give the answer in terms of $\\pi$. Keep $\\pi$ as a symbol and work out the number in front of it, such as $10\\pi$. This is the exact answer."
+        },
+        {
+          "type": "example",
+          "id": "ex-circumference-pi",
+          "question": "A circle has radius $5$ cm. Work out its circumference. Give your answer in terms of $\\pi$.",
+          "steps": [
+            "Write the formula: $C = 2\\pi r$.",
+            "Substitute $r = 5$: $C = 2 \\times \\pi \\times 5$.",
+            "Multiply the numbers and keep $\\pi$: $2 \\times 5 = 10$, so $C = 10\\pi$."
+          ],
+          "answer": "$C = 10\\pi\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*pi*5",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "On Papers 3 and 4, use the $\\pi$ key on your calculator, or $3.142$ if the question says so. Round only the final answer, to 3 significant figures."
+        },
+        {
+          "type": "example",
+          "id": "ex-wheel-one-turn",
+          "question": "A bicycle wheel has diameter $64$ cm. How far does the bicycle move when the wheel turns once? Give your answer to 3 significant figures.",
+          "steps": [
+            "In one turn the wheel rolls out its whole circumference.",
+            "You know the diameter, so use $C = \\pi d$: $C = \\pi \\times 64$.",
+            "Calculator: $\\pi \\times 64 = 201.06\\ldots$",
+            "Round to 3 s.f.: $201$ cm. Sense check: $3 \\times 64 = 192$, a bit less, as it should be."
+          ],
+          "answer": "$C \\approx 201\\text{ cm}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "pi*64",
+            "sf": 3,
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Sometimes you know the circumference and need the radius. Put the value into $C = 2\\pi r$, then solve the equation."
+        },
+        {
+          "type": "example",
+          "id": "ex-radius-from-circumference",
+          "question": "The circumference of a circular pond is $40$ m. Work out the radius of the pond. Give your answer to 3 significant figures.",
+          "steps": [
+            "Write the formula with the value you know: $2\\pi r = 40$.",
+            "Divide both sides by $2\\pi$, not just $\\pi$: $r = \\frac{40}{2\\pi}$.",
+            "Calculator: $40 \\div (2 \\times \\pi) = 6.366\\ldots$",
+            "Round to 3 s.f.: $r \\approx 6.37$ m.",
+            "Check: $2 \\times \\pi \\times 6.366\\ldots = 40$."
+          ],
+          "answer": "$r \\approx 6.37\\text{ m}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "40/(2*pi)",
+            "sf": 3,
+            "unit": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the circumference by $\\pi$ alone gives the diameter, not the radius. Divide by $2\\pi$ for $r$."
+        },
+        {
+          "type": "check",
+          "id": "check-circumference-pi",
+          "prompt": "A circle has radius $11$ cm. What is its circumference, in terms of $\\pi$?",
+          "hint": "Use $C = 2\\pi r$ and keep $\\pi$ as a symbol.",
+          "options": [
+            {
+              "text": "$11\\pi\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$22\\pi\\text{ cm}$",
+              "correct": true
+            },
+            {
+              "text": "$121\\pi\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$44\\pi\\text{ cm}$",
+              "correct": false
+            }
+          ],
+          "explain": "$C = 2 \\times \\pi \\times 11 = 22\\pi$ cm. $11\\pi$ forgets the $2$, $121\\pi$ is the area, and $44\\pi$ uses $22$ as the radius.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*pi*11",
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-diameter-from-circumference",
+          "prompt": "A circular rug has circumference $5$ m. Work out its diameter in metres, correct to 3 significant figures.",
+          "hint": "$C = \\pi d$, so divide the circumference by $\\pi$.",
+          "answer": {
+            "value": 1.59,
+            "tolerance": 0.005
+          },
+          "explain": "$d = 5 \\div \\pi = 1.591\\ldots$, which is $1.59$ m to 3 s.f.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "5/pi",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "area",
+      "heading": "Area of a circle",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Cut a circle into equal slices, like a pizza. Lay the slices side by side, pointing up and down in turn."
+        },
+        {
+          "type": "figure",
+          "id": "5-3-slices",
+          "alt": "Left: a circle of radius r cut into 8 equal slices. Right: the same slices laid side by side, alternately pointing up and down, making a shape close to a rectangle with height r and length half the circumference, pi r."
+        },
+        {
+          "type": "text",
+          "text": "The new shape is nearly a rectangle, and thinner slices make it closer. Its height is the radius $r$. Its length is half the circumference, $\\pi r$. So the [[area|area]] is $\\pi r \\times r = \\pi r^{2}$."
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\pi r^{2}",
+          "tag": "booklet",
+          "bookletId": "fl-5-3-area-a-of-circle-of-radius-r"
+        },
+        {
+          "type": "text",
+          "text": "Only $r$ is squared. Square the radius first, then multiply by $\\pi$. Area is in square units, such as $\\text{cm}^{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-area-pi",
+          "question": "A circular mat has diameter $22$ cm. Work out its area. Give your answer in terms of $\\pi$.",
+          "steps": [
+            "Halve the diameter to get the radius: $r = 22 \\div 2 = 11$ cm.",
+            "Substitute into $A = \\pi r^{2}$: $A = \\pi \\times 11^{2}$.",
+            "Square the radius: $11^{2} = 121$, so $A = 121\\pi$."
+          ],
+          "answer": "$A = 121\\pi\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "pi*(22/2)**2",
+            "unit": "cm^2"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-flower-bed-area",
+          "question": "A circular flower bed has radius $3.4$ m. Work out its area. Give your answer to 3 significant figures.",
+          "steps": [
+            "Write the formula with the radius: $A = \\pi \\times 3.4^{2}$.",
+            "Square first: $3.4^{2} = 11.56$.",
+            "Multiply by $\\pi$: $11.56 \\times \\pi = 36.316\\ldots$",
+            "Round to 3 s.f.: $36.3\\text{ m}^{2}$."
+          ],
+          "answer": "$A \\approx 36.3\\text{ m}^{2}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "pi*3.4**2",
+            "sf": 3,
+            "unit": "m^2"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "pi",
+          "values": {
+            "radius": 3.4
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $2\\pi r$ when the question asks for area. Area has $r^{2}$ and square units; the circumference has neither."
+        },
+        {
+          "type": "check",
+          "id": "check-area-diameter",
+          "prompt": "A circle has diameter $14$ cm. What is its area, in terms of $\\pi$?",
+          "hint": "Find the radius before you use the area formula.",
+          "options": [
+            {
+              "text": "$49\\pi\\text{ cm}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$196\\pi\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$14\\pi\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$7\\pi\\text{ cm}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$r = 14 \\div 2 = 7$, so $A = \\pi \\times 7^{2} = 49\\pi\\text{ cm}^{2}$. $196\\pi$ uses the diameter as the radius, $14\\pi$ is the circumference, and $7\\pi$ forgets to square.",
+          "verify": {
+            "kind": "exact",
+            "truth": "pi*(14/2)**2",
+            "unit": "cm^2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-radius-from-area",
+          "prompt": "A circle has area $200\\text{ cm}^{2}$. Work out its radius in cm, correct to 3 significant figures.",
+          "hint": "Write $\\pi r^{2} = 200$. Divide by $\\pi$, then take the square root.",
+          "answer": {
+            "value": 7.98,
+            "tolerance": 0.005
+          },
+          "explain": "$r^{2} = 200 \\div \\pi = 63.66\\ldots$, so $r = \\sqrt{63.66\\ldots} = 7.978\\ldots$, which is $7.98$ cm to 3 s.f.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(200/pi)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "sectors",
+      "heading": "Arcs and sectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[sector|sector]] is a slice of a circle between two radii. The angle between the radii, at the centre, is the sector angle. We call it $\\theta$ (the Greek letter theta)."
+        },
+        {
+          "type": "figure",
+          "id": "5-3-sector",
+          "alt": "A circle with centre O. Two radii, each labelled r, make an angle theta at the centre. The shaded slice between them is the sector, and the thick curve along its edge is the arc."
+        },
+        {
+          "type": "text",
+          "text": "A full turn is $360^{\\circ}$. So a sector with angle $90^{\\circ}$ is $\\frac{90}{360} = \\frac{1}{4}$ of the circle. Its [[arc|arc]] is $\\frac{1}{4}$ of the circumference, and its area is $\\frac{1}{4}$ of the circle's area."
+        },
+        {
+          "type": "text",
+          "text": "The [[arc-length|arc length]] and the [[sector-area|sector area]] use the same fraction, $\\frac{\\theta}{360}$:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{arc length} = \\frac{\\theta}{360} \\times 2\\pi r \\qquad \\text{sector area} = \\frac{\\theta}{360} \\times \\pi r^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "These two are not on the formula list, but they are just the circle formulas times $\\frac{\\theta}{360}$. At Core level the angle divides exactly into $360$, such as $30^{\\circ}$, $45^{\\circ}$ or $120^{\\circ}$. Simplify the fraction first; the numbers get easier."
+        },
+        {
+          "type": "example",
+          "id": "ex-arc-length-pi",
+          "question": "A sector has radius $8$ cm and sector angle $45^{\\circ}$. Work out the arc length. Give your answer in terms of $\\pi$.",
+          "steps": [
+            "Find the fraction of the circle: $\\frac{45}{360} = \\frac{1}{8}$.",
+            "Whole circumference: $2 \\times \\pi \\times 8 = 16\\pi$ cm.",
+            "Take $\\frac{1}{8}$ of it: $16\\pi \\div 8 = 2\\pi$."
+          ],
+          "answer": "$\\text{arc length} = 2\\pi\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(45, 360)*2*pi*8",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-sector-area",
+          "question": "A sector has radius $10$ cm and sector angle $72^{\\circ}$. Work out its area. Give your answer to 3 significant figures.",
+          "steps": [
+            "Find the fraction: $\\frac{72}{360} = \\frac{1}{5}$.",
+            "Whole circle: $\\pi \\times 10^{2} = 100\\pi$.",
+            "Take $\\frac{1}{5}$ of it: $100\\pi \\div 5 = 20\\pi$.",
+            "Calculator: $20\\pi = 62.83\\ldots$, which is $62.8\\text{ cm}^{2}$ to 3 s.f."
+          ],
+          "answer": "$\\text{area} \\approx 62.8\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(72, 360)*pi*10**2",
+            "sf": 3,
+            "unit": "cm^2"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The [[perimeter|perimeter]] of a sector is the whole way round its edge: the arc plus the two straight radii."
+        },
+        {
+          "type": "example",
+          "id": "ex-sector-perimeter",
+          "question": "A sector has radius $15$ cm and sector angle $30^{\\circ}$. Work out its perimeter. Give your answer to 3 significant figures.",
+          "steps": [
+            "Find the fraction: $\\frac{30}{360} = \\frac{1}{12}$.",
+            "Arc length: $\\frac{1}{12} \\times 2 \\times \\pi \\times 15 = 7.853\\ldots$ cm.",
+            "Add the two radii: $7.853\\ldots + 15 + 15 = 37.853\\ldots$",
+            "Round to 3 s.f.: $37.9$ cm."
+          ],
+          "answer": "$\\text{perimeter} \\approx 37.9\\text{ cm}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(30, 360)*2*pi*15 + 2*15",
+            "sf": 3,
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the arc length when the question asks for the perimeter. Add the two radii as well."
+        },
+        {
+          "type": "check",
+          "id": "check-semicircle-area",
+          "prompt": "A semicircle has diameter $20$ cm. What is its area, in terms of $\\pi$?",
+          "hint": "A semicircle is a sector with angle $180^{\\circ}$: half a circle. Find the radius first.",
+          "options": [
+            {
+              "text": "$50\\pi\\text{ cm}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$100\\pi\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$200\\pi\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$10\\pi\\text{ cm}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$r = 10$, so the whole circle is $\\pi \\times 10^{2} = 100\\pi$. Half of it is $50\\pi\\text{ cm}^{2}$. $100\\pi$ forgets to halve, and $200\\pi$ uses the diameter as the radius.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 2)*pi*(20/2)**2",
+            "unit": "cm^2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-arc-length",
+          "prompt": "A sector has radius $5$ cm and sector angle $36^{\\circ}$. Work out the arc length in cm, correct to 3 significant figures.",
+          "hint": "$\\frac{36}{360} = \\frac{1}{10}$. Find the whole circumference first.",
+          "answer": {
+            "value": 3.14,
+            "tolerance": 0.005
+          },
+          "explain": "The circumference is $2 \\times \\pi \\times 5 = 10\\pi$. One tenth of it is $\\pi = 3.141\\ldots$, which is $3.14$ cm to 3 s.f.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(36, 360)*2*pi*5",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "any-angle",
+      "heading": "Any angle, and major sectors",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "At Extended level the sector angle can be any size, such as $112^{\\circ}$. The fraction $\\frac{\\theta}{360}$ works in exactly the same way. It just may not simplify to something neat."
+        },
+        {
+          "type": "text",
+          "text": "Two radii cut a circle into two sectors. The smaller one is the minor sector and the larger one is the major sector. (At $180^{\\circ}$ both are semicircles.) Their angles add up to $360^{\\circ}$, so the major sector's angle is $360^{\\circ} - \\theta$."
+        },
+        {
+          "type": "figure",
+          "id": "5-3-major-minor",
+          "alt": "A circle with centre O cut by two radii. The smaller slice, with angle theta at the centre, is labelled minor sector. The rest of the circle, with angle 360 degrees minus theta, is labelled major sector."
+        },
+        {
+          "type": "example",
+          "id": "ex-major-sector-area",
+          "question": "A circle has radius $6$ cm. A minor sector of this circle has angle $100^{\\circ}$. Work out the area of the major sector. Give your answer in terms of $\\pi$.",
+          "steps": [
+            "Major sector angle: $360 - 100 = 260^{\\circ}$.",
+            "Fraction: $\\frac{260}{360} = \\frac{13}{18}$.",
+            "Whole circle: $\\pi \\times 6^{2} = 36\\pi$.",
+            "Major sector: $\\frac{13}{18} \\times 36\\pi = 13 \\times 2\\pi = 26\\pi$."
+          ],
+          "answer": "$\\text{area} = 26\\pi\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(360 - 100, 360)*pi*6**2",
+            "unit": "cm^2"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To find the angle, put the values you know into the arc length or sector area formula. Then solve for $\\theta$."
+        },
+        {
+          "type": "example",
+          "id": "ex-find-angle",
+          "question": "A sector has radius $7$ cm and arc length $15$ cm. Work out the sector angle. Give your answer to 1 decimal place.",
+          "steps": [
+            "Put the values into the arc length formula: $\\frac{\\theta}{360} \\times 2 \\times \\pi \\times 7 = 15$.",
+            "Simplify: $\\frac{\\theta}{360} \\times 14\\pi = 15$.",
+            "Multiply both sides by $360$, then divide by $14\\pi$: $\\theta = \\frac{15 \\times 360}{14\\pi}$.",
+            "Calculator: $\\theta = 122.77\\ldots$",
+            "Round to 1 d.p.: $122.8^{\\circ}$. It is a little more than $120^{\\circ}$, which fits: the arc is just over a third of the circumference, $14\\pi = 43.98\\ldots$ cm."
+          ],
+          "answer": "$\\theta \\approx 122.8^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "15*360/(2*pi*7)",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-major-arc",
+          "prompt": "A circle has radius $9$ cm. A minor sector of this circle has angle $80^{\\circ}$. What is the length of the major arc, in terms of $\\pi$?",
+          "hint": "The major arc goes the long way round, so use $360 - 80$.",
+          "options": [
+            {
+              "text": "$14\\pi\\text{ cm}$",
+              "correct": true
+            },
+            {
+              "text": "$4\\pi\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$63\\pi\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$28\\pi\\text{ cm}$",
+              "correct": false
+            }
+          ],
+          "explain": "The major angle is $280^{\\circ}$. $\\frac{280}{360} \\times 2 \\times \\pi \\times 9 = \\frac{7}{9} \\times 18\\pi = 14\\pi$ cm. $4\\pi$ is the minor arc, $63\\pi$ is the major sector's area, and $28\\pi$ uses the diameter as the radius.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(360 - 80, 360)*2*pi*9",
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-angle-from-area",
+          "prompt": "A sector has radius $5$ cm and area $30\\text{ cm}^{2}$. Work out the sector angle in degrees, correct to 1 decimal place.",
+          "hint": "Write $\\frac{\\theta}{360} \\times \\pi \\times 5^{2} = 30$ and solve for $\\theta$.",
+          "answer": {
+            "value": 137.5,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{\\theta}{360} \\times 25\\pi = 30$, so $\\theta = \\frac{30 \\times 360}{25\\pi} = 137.50\\ldots$, which is $137.5^{\\circ}$ to 1 d.p.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "30*360/(pi*5**2)",
+            "dp": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Circumference $C = 2\\pi r = \\pi d$; area $A = \\pi r^{2}$. Halve a diameter before you use $r$.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Arc length $= \\frac{\\theta}{360} \\times 2\\pi r$ and sector area $= \\frac{\\theta}{360} \\times \\pi r^{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Perimeter of a sector $=$ arc length $+ 2r$. A semicircle is half a circle.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Major sector angle $= 360^{\\circ} -$ minor sector angle.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "In terms of $\\pi$: keep $\\pi$ as a symbol. Otherwise use the $\\pi$ key and round to 3 s.f. only at the end.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the diameter as the radius. If you are given $d$, halve it before you use $\\pi r^{2}$ or $2\\pi r$.",
+    "Mixing up the formulas. $2\\pi r$ is the circumference, a length; $\\pi r^{2}$ is the area, in square units.",
+    "Forgetting to square the radius. With $r = 4$ the area is $\\pi \\times 16 = 16\\pi$, not $4\\pi$.",
+    "Dividing a circumference by $\\pi$ and calling it the radius. That gives the diameter; divide by $2\\pi$ to get $r$.",
+    "Forgetting to halve for a semicircle, or leaving out the two radii in a sector's perimeter.",
+    "Using the minor angle when the question asks for a major arc or sector. Work out $360 - \\theta$ first."
+  ],
+  "examTips": [
+    "Give your answer in terms of $\\pi$: keep $\\pi$ as a symbol and simplify the number in front, such as $26\\pi$. A decimal answer does not earn the final mark.",
+    "Work out an arc, sector or circle value: write the calculation, such as $\\frac{30}{360} \\times 2 \\times \\pi \\times 15$, before the answer. That line earns the method mark even if the final value slips.",
+    "On Papers 3 and 4 use the calculator's $\\pi$ key or $3.142$, and round only at the end, to 3 significant figures. Rounded working such as $3.14$ can push the answer out of the accepted range."
+  ],
+  "readingMinutes": 23
+}

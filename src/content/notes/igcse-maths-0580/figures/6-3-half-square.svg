@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 20 250 230" role="img" aria-labelledby="t">
+  <title id="t">A right-angled isosceles triangle made by cutting a square of side 1 along its diagonal. The two shorter sides are both 1 and meet at the right angle. The longest side, the hypotenuse, is root 2. The other two angles are both 45 degrees.</title>
+  <rect x="70" y="40" width="160" height="160" fill="none" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <polygon points="70,200 230,200 70,40" fill="none" stroke="currentColor" stroke-width="2.4"/>
+  <polyline points="70,186 84,186 84,200" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <g fill="currentColor" font-family="inherit" font-size="15" text-anchor="middle">
+    <text x="150" y="222">1</text>
+    <text x="56" y="125" text-anchor="end">1</text>
+  </g>
+  <text x="160" y="112" fill="var(--t1-ink)" font-family="inherit" font-size="16" font-weight="bold" text-anchor="start">√2</text>
+  <g fill="var(--t2-ink)" font-family="inherit" font-size="14" text-anchor="middle">
+    <text x="190" y="192">45°</text>
+    <text x="84" y="84">45°</text>
+  </g>
+</svg>

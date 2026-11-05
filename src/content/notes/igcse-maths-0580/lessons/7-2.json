@@ -1,0 +1,596 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "7.2",
+  "slug": "vectors-in-two-dimensions",
+  "title": "Vectors in two dimensions",
+  "level": "Extended",
+  "topic": 7,
+  "summary": "A [[vector|vector]] is a movement: how far across and how far up. You can write it as a [[column-vector|column vector]], as $\\overrightarrow{AB}$ or as a bold letter such as $\\mathbf{a}$. To add or subtract vectors, work one row at a time. Multiplying by a [[scalar|scalar]] stretches or reverses a vector.",
+  "goals": [
+    {
+      "text": "Describe a [[translation|translation]] with a column vector, and write the same vector as $\\overrightarrow{AB}$ or a bold letter.",
+      "bullets": [
+        "7.2-s1"
+      ]
+    },
+    {
+      "text": "Find the vector between two points, and use a vector to find where a point ends up.",
+      "bullets": [
+        "7.2-s1"
+      ]
+    },
+    {
+      "text": "Add and subtract column vectors, top with top and bottom with bottom.",
+      "bullets": [
+        "7.2-s2"
+      ]
+    },
+    {
+      "text": "Multiply a vector by a scalar, and know what a negative scalar does.",
+      "bullets": [
+        "7.2-s3"
+      ]
+    },
+    {
+      "text": "Work out combinations such as $2\\mathbf{p} - 3\\mathbf{q}$.",
+      "bullets": [
+        "7.2-s2",
+        "7.2-s3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "7.1"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "column vectors",
+    "vector between two points",
+    "adding and subtracting vectors",
+    "multiplying a vector by a number",
+    "scalar multiple of a vector",
+    "vector AB"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-translate-point",
+      "prompt": "The point $(4, -1)$ is moved by the [[translation|translation]] $\\begin{pmatrix}-6\\\\3\\end{pmatrix}$. Where does it end up?",
+      "hint": "The top number moves the point left or right. The bottom number moves it up or down.",
+      "options": [
+        {
+          "text": "$(-2, 2)$",
+          "correct": true
+        },
+        {
+          "text": "$(10, -4)$",
+          "correct": false
+        },
+        {
+          "text": "$(7, -7)$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "point",
+        "truth": "(4 + (-6), -1 + 3)"
+      },
+      "explain": "Move $6$ left and $3$ up: $4 + (-6) = -2$ and $-1 + 3 = 2$. $(10, -4)$ moves the wrong way, and $(7, -7)$ uses the numbers in the wrong rows. Revise it in {{lesson:7.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-column-vector",
+      "prompt": "A shape slides $3$ squares left and $5$ squares up. Which [[column-vector|column vector]] describes this translation?",
+      "hint": "Across goes on top, up goes underneath. Left and down are negative.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}3\\\\5\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}-3\\\\5\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}5\\\\-3\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "vector",
+        "truth": "Matrix([-3, 5])"
+      },
+      "explain": "Left is negative, so the top number is $-3$. Up is positive, so the bottom number is $5$. Revise it in {{lesson:7.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-negatives",
+      "prompt": "Work out $5 - (-8)$.",
+      "hint": "Subtracting a negative number is the same as adding the positive number.",
+      "options": [
+        {
+          "text": "$-3$",
+          "correct": false
+        },
+        {
+          "text": "$13$",
+          "correct": true
+        },
+        {
+          "text": "$-13$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "exact",
+        "truth": "5 - (-8)"
+      },
+      "explain": "$5 - (-8) = 5 + 8 = 13$. $-3$ comes from treating it as $5 - 8$. Revise it in {{lesson:1.6}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "describe",
+      "heading": "Three ways to write a vector",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:7.1}} you described a [[translation|translation]] with a [[column-vector|column vector]]. The top number is the move across: positive is right, negative is left. The bottom number is the move up: positive is up, negative is down."
+        },
+        {
+          "type": "text",
+          "text": "A column vector is one kind of [[vector|vector]]: a movement with a size and a direction. It says how far across and how far up. It doesn't say where the movement starts."
+        },
+        {
+          "type": "figure",
+          "id": "7-2-arrow-ab",
+          "alt": "Square grid with point A and point B. An arrow labelled a in bold goes from A to B. Dashed lines show the move split into 4 squares to the right and then 3 squares up, so the vector from A to B is the column vector 4 over 3.",
+          "caption": "$\\overrightarrow{AB} = \\mathbf{a} = \\begin{pmatrix}4\\\\3\\end{pmatrix}$: $4$ right, then $3$ up."
+        },
+        {
+          "type": "text",
+          "text": "Exam questions write the same vector in three ways."
+        },
+        {
+          "type": "text",
+          "text": "1. As a column vector, such as $\\begin{pmatrix}4\\\\3\\end{pmatrix}$."
+        },
+        {
+          "type": "text",
+          "text": "2. As $\\overrightarrow{AB}$: the movement from point $A$ to point $B$. The arrow goes from the first letter to the second."
+        },
+        {
+          "type": "text",
+          "text": "3. As a bold letter, such as $\\mathbf{a}$. You can't write in bold, so underline the letter in your own work."
+        },
+        {
+          "type": "result",
+          "statement": "For points $A(x_A, y_A)$ and $B(x_B, y_B)$, the vector from $A$ to $B$ is end minus start: $\\overrightarrow{AB} = \\begin{pmatrix}x_B - x_A\\\\y_B - y_A\\end{pmatrix}$.",
+          "why": "The move across is the change in $x$, and the move up is the change in $y$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\overrightarrow{AB} = \\begin{pmatrix}x_B - x_A\\\\y_B - y_A\\end{pmatrix}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-ab-from-points",
+          "question": "$A$ is the point $(3, -5)$ and $B$ is the point $(-4, 6)$. Write $\\overrightarrow{AB}$ as a column vector.",
+          "steps": [
+            "Across: end minus start. $-4 - 3 = -7$.",
+            "Up: end minus start. $6 - (-5) = 6 + 5 = 11$.",
+            "Check: start at $A$, move $7$ left and $11$ up. $(3 - 7, -5 + 11) = (-4, 6)$, which is $B$."
+          ],
+          "answer": "$\\overrightarrow{AB} = \\begin{pmatrix}-7\\\\11\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([-4 - 3, 6 - (-5)])"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Working out start minus end. That gives $\\overrightarrow{BA}$, the journey back, with both signs wrong. Always do end minus start."
+        },
+        {
+          "type": "text",
+          "text": "A vector also tells you where a point ends up. Add the top number to the $x$-coordinate and the bottom number to the $y$-coordinate."
+        },
+        {
+          "type": "example",
+          "id": "ex-point-from-vector",
+          "question": "$P$ is the point $(-8, 9)$ and $\\overrightarrow{PQ} = \\begin{pmatrix}11\\\\-15\\end{pmatrix}$. Find the coordinates of $Q$.",
+          "steps": [
+            "$\\overrightarrow{PQ}$ starts at $P$ and ends at $Q$. So add the vector to $P$.",
+            "$x$-coordinate: $-8 + 11 = 3$.",
+            "$y$-coordinate: $9 + (-15) = -6$.",
+            "Check with end minus start: $3 - (-8) = 11$ and $-6 - 9 = -15$. That matches $\\overrightarrow{PQ}$."
+          ],
+          "answer": "$Q = (3, -6)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(-8 + 11, 9 + (-15))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cd-vector",
+          "prompt": "$C$ is the point $(8, -2)$ and $D$ is the point $(1, 3)$. Which is $\\overrightarrow{CD}$?",
+          "hint": "End minus start: take $C$'s coordinates away from $D$'s.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}7\\\\-5\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-7\\\\5\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}5\\\\-7\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}9\\\\1\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([1 - 8, 3 - (-2)])"
+          },
+          "explain": "Across: $1 - 8 = -7$. Up: $3 - (-2) = 5$. $\\begin{pmatrix}7\\\\-5\\end{pmatrix}$ is $\\overrightarrow{DC}$, $\\begin{pmatrix}5\\\\-7\\end{pmatrix}$ swaps the rows, and $\\begin{pmatrix}9\\\\1\\end{pmatrix}$ adds the coordinates."
+        },
+        {
+          "type": "check",
+          "id": "check-start-point",
+          "prompt": "$\\overrightarrow{EF} = \\begin{pmatrix}-4\\\\7\\end{pmatrix}$ and $F$ is the point $(2, 1)$. Find the coordinates of $E$.",
+          "hint": "$E$ is the start. To go back from $F$ to $E$, take the vector away.",
+          "options": [
+            {
+              "text": "$(-2, 8)$",
+              "correct": false
+            },
+            {
+              "text": "$(6, -6)$",
+              "correct": true
+            },
+            {
+              "text": "$(6, 8)$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "point",
+            "truth": "(2 - (-4), 1 - 7)"
+          },
+          "explain": "$E = (2 - (-4), 1 - 7) = (6, -6)$. Check: from $(6, -6)$, move $4$ left and $7$ up to reach $(2, 1)$. $(-2, 8)$ adds the vector, which finds the point after $F$, not the start point $E$. $(6, 8)$ gets only the top row right: $1 - 7 = -6$, not $8$."
+        }
+      ]
+    },
+    {
+      "id": "add-subtract",
+      "heading": "Adding and subtracting vectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Adding [[vector|vectors]] means doing one movement and then the other. Move by $\\mathbf{a}$, then by $\\mathbf{b}$. The single movement from start to finish is $\\mathbf{a} + \\mathbf{b}$."
+        },
+        {
+          "type": "figure",
+          "id": "7-2-adding",
+          "alt": "Square grid. Arrow a starts at a marked start point and goes 4 squares right and 1 square up. Arrow b starts where a ends and goes 1 square left and 3 squares up. A dashed arrow labelled a plus b goes straight from the start to the finish: 3 squares right and 4 squares up.",
+          "caption": "$\\mathbf{a} = \\begin{pmatrix}4\\\\1\\end{pmatrix}$, then $\\mathbf{b} = \\begin{pmatrix}-1\\\\3\\end{pmatrix}$, gives $\\mathbf{a} + \\mathbf{b} = \\begin{pmatrix}3\\\\4\\end{pmatrix}$."
+        },
+        {
+          "type": "text",
+          "text": "In the picture, $\\mathbf{a}$ goes $4$ right and $\\mathbf{b}$ goes $1$ left. That is $4 + (-1) = 3$ right altogether. Up is $1 + 3 = 4$. So you add the top numbers, then add the bottom numbers."
+        },
+        {
+          "type": "text",
+          "text": "$-\\mathbf{b}$ is $\\mathbf{b}$ done backwards: the same length, the opposite direction, and both signs changed. Subtracting $\\mathbf{b}$ means adding $-\\mathbf{b}$, so you subtract the top numbers, then the bottom numbers."
+        },
+        {
+          "type": "result",
+          "statement": "For [[column-vector|column vectors]], $\\begin{pmatrix}x_1\\\\y_1\\end{pmatrix} + \\begin{pmatrix}x_2\\\\y_2\\end{pmatrix} = \\begin{pmatrix}x_1 + x_2\\\\y_1 + y_2\\end{pmatrix}$ and $\\begin{pmatrix}x_1\\\\y_1\\end{pmatrix} - \\begin{pmatrix}x_2\\\\y_2\\end{pmatrix} = \\begin{pmatrix}x_1 - x_2\\\\y_1 - y_2\\end{pmatrix}$.",
+          "why": "Across moves combine with across moves, and up moves with up moves."
+        },
+        {
+          "type": "example",
+          "id": "ex-add-vectors",
+          "question": "$\\mathbf{a} = \\begin{pmatrix}7\\\\-3\\end{pmatrix}$ and $\\mathbf{b} = \\begin{pmatrix}-2\\\\9\\end{pmatrix}$. Find $\\mathbf{a} + \\mathbf{b}$.",
+          "steps": [
+            "Add the top numbers: $7 + (-2) = 5$.",
+            "Add the bottom numbers: $-3 + 9 = 6$."
+          ],
+          "answer": "$\\mathbf{a} + \\mathbf{b} = \\begin{pmatrix}5\\\\6\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([7, -3]) + Matrix([-2, 9])"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-subtract-vectors",
+          "question": "$\\mathbf{c} = \\begin{pmatrix}-5\\\\4\\end{pmatrix}$ and $\\mathbf{d} = \\begin{pmatrix}3\\\\-8\\end{pmatrix}$. Find $\\mathbf{c} - \\mathbf{d}$.",
+          "steps": [
+            "Subtract the top numbers: $-5 - 3 = -8$.",
+            "Subtract the bottom numbers. Bracket the negative: $4 - (-8) = 4 + 8 = 12$.",
+            "Check by adding $\\mathbf{d}$ back: $\\begin{pmatrix}-8\\\\12\\end{pmatrix} + \\begin{pmatrix}3\\\\-8\\end{pmatrix} = \\begin{pmatrix}-5\\\\4\\end{pmatrix}$, which is $\\mathbf{c}$."
+          ],
+          "answer": "$\\mathbf{c} - \\mathbf{d} = \\begin{pmatrix}-8\\\\12\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([-5, 4]) - Matrix([3, -8])"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Working out $4 - (-8)$ as $4 - 8$. Subtracting a negative is adding, so $4 - (-8) = 12$. Put negative numbers in brackets before you subtract."
+        },
+        {
+          "type": "check",
+          "id": "check-subtract",
+          "prompt": "$\\mathbf{u} = \\begin{pmatrix}2\\\\-7\\end{pmatrix}$ and $\\mathbf{v} = \\begin{pmatrix}-9\\\\-4\\end{pmatrix}$. Which is $\\mathbf{u} - \\mathbf{v}$?",
+          "hint": "Top: $2 - (-9)$. Bottom: $-7 - (-4)$.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}11\\\\-3\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}-11\\\\3\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-7\\\\-3\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-7\\\\-11\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([2, -7]) - Matrix([-9, -4])"
+          },
+          "explain": "$2 - (-9) = 11$ and $-7 - (-4) = -3$. $\\begin{pmatrix}-11\\\\3\\end{pmatrix}$ is $\\mathbf{v} - \\mathbf{u}$, $\\begin{pmatrix}-7\\\\-3\\end{pmatrix}$ treats $2 - (-9)$ as $2 - 9$, and $\\begin{pmatrix}-7\\\\-11\\end{pmatrix}$ is $\\mathbf{u} + \\mathbf{v}$."
+        },
+        {
+          "type": "check",
+          "id": "check-three-moves",
+          "prompt": "A robot moves by $\\begin{pmatrix}5\\\\-2\\end{pmatrix}$, then by $\\begin{pmatrix}-8\\\\6\\end{pmatrix}$, then by $\\begin{pmatrix}1\\\\3\\end{pmatrix}$. Which single vector takes it from its start to its finish?",
+          "hint": "Add all three top numbers, then all three bottom numbers.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}-3\\\\4\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}14\\\\11\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-2\\\\7\\end{pmatrix}$",
+              "correct": true
+            }
+          ],
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([5, -2]) + Matrix([-8, 6]) + Matrix([1, 3])"
+          },
+          "explain": "Top: $5 + (-8) + 1 = -2$. Bottom: $-2 + 6 + 3 = 7$. $\\begin{pmatrix}-3\\\\4\\end{pmatrix}$ leaves out the third move, and $\\begin{pmatrix}14\\\\11\\end{pmatrix}$ ignores the negative signs."
+        }
+      ]
+    },
+    {
+      "id": "scalar",
+      "heading": "Multiplying by a scalar",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$\\mathbf{a} + \\mathbf{a} + \\mathbf{a}$ is the move $\\mathbf{a}$ done three times. You write it as $3\\mathbf{a}$. The number $3$ is a [[scalar|scalar]]: it changes the size of a [[vector|vector]] but has no direction of its own."
+        },
+        {
+          "type": "definition",
+          "term": "scalar",
+          "statement": "A scalar is a single number that multiplies a vector. For a scalar $k$, $k\\begin{pmatrix}x\\\\y\\end{pmatrix} = \\begin{pmatrix}kx\\\\ky\\end{pmatrix}$.",
+          "plain": "A scalar is a plain number, such as $3$, $-2$ or $\\frac{1}{2}$, that stretches, shrinks or reverses a vector."
+        },
+        {
+          "type": "figure",
+          "id": "7-2-multiples",
+          "alt": "Square grid with three parallel arrows. Arrow a goes 2 squares right and 1 square up. Arrow 2a goes 4 squares right and 2 squares up: the same direction, twice as long. Arrow minus a goes 2 squares left and 1 square down: the same length as a, pointing the opposite way.",
+          "caption": "$\\mathbf{a} = \\begin{pmatrix}2\\\\1\\end{pmatrix}$, $2\\mathbf{a} = \\begin{pmatrix}4\\\\2\\end{pmatrix}$ and $-\\mathbf{a} = \\begin{pmatrix}-2\\\\-1\\end{pmatrix}$ are parallel."
+        },
+        {
+          "type": "result",
+          "statement": "Let $\\mathbf{a}$ be a non-zero vector and $k$ a non-zero scalar. Then $k\\mathbf{a}$ is parallel to $\\mathbf{a}$. If $k$ is positive, $k\\mathbf{a}$ points the same way. If $k$ is negative, it points the opposite way. Its length is the length of $\\mathbf{a}$ times $k$ without its sign.",
+          "why": "Multiplying both numbers by $k$ scales the across move and the up move by the same amount, so the direction line stays the same."
+        },
+        {
+          "type": "text",
+          "text": "The journey back from $B$ to $A$ uses the scalar $-1$: $\\overrightarrow{BA} = -\\overrightarrow{AB}$. Both signs change, and the numbers stay in the same rows."
+        },
+        {
+          "type": "example",
+          "id": "ex-scalar-basic",
+          "question": "$\\mathbf{w} = \\begin{pmatrix}-6\\\\5\\end{pmatrix}$. Find $4\\mathbf{w}$.",
+          "steps": [
+            "Multiply the top number by $4$: $4 \\times (-6) = -24$.",
+            "Multiply the bottom number by $4$: $4 \\times 5 = 20$."
+          ],
+          "answer": "$4\\mathbf{w} = \\begin{pmatrix}-24\\\\20\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "4*Matrix([-6, 5])"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Questions often mix the moves, as in $2\\mathbf{p} - 3\\mathbf{q}$. Multiply by the scalars first. Then add or subtract, as with numbers."
+        },
+        {
+          "type": "example",
+          "id": "ex-combine",
+          "question": "$\\mathbf{p} = \\begin{pmatrix}5\\\\-1\\end{pmatrix}$ and $\\mathbf{q} = \\begin{pmatrix}-2\\\\3\\end{pmatrix}$. Find $2\\mathbf{p} - 3\\mathbf{q}$.",
+          "steps": [
+            "Multiply first: $2\\mathbf{p} = \\begin{pmatrix}10\\\\-2\\end{pmatrix}$ and $3\\mathbf{q} = \\begin{pmatrix}-6\\\\9\\end{pmatrix}$.",
+            "Subtract the top numbers: $10 - (-6) = 16$.",
+            "Subtract the bottom numbers: $-2 - 9 = -11$."
+          ],
+          "answer": "$2\\mathbf{p} - 3\\mathbf{q} = \\begin{pmatrix}16\\\\-11\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "2*Matrix([5, -1]) - 3*Matrix([-2, 3])"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Reversing a vector by swapping its numbers. $-\\mathbf{a}$ keeps each number in its row and changes its sign: $-\\begin{pmatrix}3\\\\-5\\end{pmatrix} = \\begin{pmatrix}-3\\\\5\\end{pmatrix}$."
+        },
+        {
+          "type": "text",
+          "text": "With bold letters, collect like terms as in algebra: $4\\mathbf{a} + \\mathbf{b} - 3\\mathbf{a} + 2\\mathbf{b} = \\mathbf{a} + 3\\mathbf{b}$. You will build vectors from two letters like this in {{lesson:7.4}}."
+        },
+        {
+          "type": "check",
+          "id": "check-scalar-negative",
+          "prompt": "$\\mathbf{m} = \\begin{pmatrix}6\\\\-11\\end{pmatrix}$. Which is $-2\\mathbf{m}$?",
+          "hint": "Multiply both numbers by $-2$. A negative times a negative is positive.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}12\\\\-22\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-12\\\\22\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}-12\\\\-22\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}4\\\\-13\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "vector",
+            "truth": "-2*Matrix([6, -11])"
+          },
+          "explain": "$-2 \\times 6 = -12$ and $-2 \\times (-11) = 22$. $\\begin{pmatrix}12\\\\-22\\end{pmatrix}$ is $2\\mathbf{m}$, $\\begin{pmatrix}-12\\\\-22\\end{pmatrix}$ changes only the top sign, and $\\begin{pmatrix}4\\\\-13\\end{pmatrix}$ adds $-2$ instead of multiplying."
+        },
+        {
+          "type": "check",
+          "id": "check-combine",
+          "prompt": "$\\mathbf{r} = \\begin{pmatrix}-3\\\\4\\end{pmatrix}$ and $\\mathbf{s} = \\begin{pmatrix}5\\\\-2\\end{pmatrix}$. Which is $\\mathbf{r} - 2\\mathbf{s}$?",
+          "hint": "Work out $2\\mathbf{s}$ first. Then subtract it from $\\mathbf{r}$.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}-13\\\\0\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}7\\\\0\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-13\\\\8\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}13\\\\-8\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([-3, 4]) - 2*Matrix([5, -2])"
+          },
+          "explain": "$2\\mathbf{s} = \\begin{pmatrix}10\\\\-4\\end{pmatrix}$. Then $-3 - 10 = -13$ and $4 - (-4) = 8$. $\\begin{pmatrix}-13\\\\0\\end{pmatrix}$ treats $4 - (-4)$ as $4 - 4$, $\\begin{pmatrix}7\\\\0\\end{pmatrix}$ is $\\mathbf{r} + 2\\mathbf{s}$, and $\\begin{pmatrix}13\\\\-8\\end{pmatrix}$ is $2\\mathbf{s} - \\mathbf{r}$."
+        },
+        {
+          "type": "check",
+          "id": "check-find-k",
+          "prompt": "$\\begin{pmatrix}-15\\\\24\\end{pmatrix} = k\\begin{pmatrix}5\\\\-8\\end{pmatrix}$. Work out the scalar $k$.",
+          "hint": "What do you multiply $5$ by to get $-15$? Check that the bottom numbers give the same $k$.",
+          "answer": {
+            "value": -3,
+            "tolerance": 0
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(-15, 5)",
+            "dp": 0
+          },
+          "explain": "$-15 \\div 5 = -3$, and $24 \\div (-8) = -3$ too. Both numbers give the same $k$, so the two vectors are parallel and point in opposite directions."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$\\begin{pmatrix}x\\\\y\\end{pmatrix}$: the top number is across (positive right, negative left) and the bottom number is up (positive up, negative down). $\\overrightarrow{AB}$ and $\\mathbf{a}$ are other ways to write a vector.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\overrightarrow{AB}$ is end minus start: $\\begin{pmatrix}x_B - x_A\\\\y_B - y_A\\end{pmatrix}$. To find $B$, add $\\overrightarrow{AB}$ to the coordinates of $A$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Add or subtract vectors one row at a time: top with top, bottom with bottom. Bracket negatives, so $4 - (-8) = 12$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$k\\begin{pmatrix}x\\\\y\\end{pmatrix} = \\begin{pmatrix}kx\\\\ky\\end{pmatrix}$. A negative scalar reverses the direction, so $\\overrightarrow{BA} = -\\overrightarrow{AB}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $2\\mathbf{p} - 3\\mathbf{q}$, multiply by the scalars first, then subtract.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Working out $\\overrightarrow{AB}$ as start minus end. That gives $\\overrightarrow{BA}$, with both signs wrong. Always do end minus start.",
+    "Slipping on a double negative, such as $10 - (-3)$ worked out as $7$. Bracket negative numbers: $10 - (-3) = 13$.",
+    "Taking the vector away from $P$ when you need the point after $P$. If you know $P$ and $\\overrightarrow{PQ}$, then $Q$ is $P$ plus the vector.",
+    "Writing a vector as a row, such as $(2, -8)$, or swapping its top and bottom numbers. A vector is a column with the across move on top.",
+    "Reversing a vector by swapping its numbers. $-\\mathbf{a}$ keeps each number in its row and changes both signs.",
+    "Multiplying only one number by the scalar. The scalar multiplies the top number and the bottom number."
+  ],
+  "examTips": [
+    "**Write** $\\overrightarrow{AB}$ **as a column vector**: answer with a column, across on top. Coordinates such as $(-7, 11)$ describe a point, not a movement.",
+    "**Find the coordinates of** a point: answer with coordinates $(x, y)$, not a column vector. On a 2-mark question, one correct coordinate can still earn a mark.",
+    "On Paper 2 there is no calculator. Write each row's working, such as $4 - (-8) = 12$, so you can spot a sign slip.",
+    "Check by working backwards. Add $\\mathbf{d}$ to your $\\mathbf{c} - \\mathbf{d}$ and you should get $\\mathbf{c}$. Move from $A$ by your $\\overrightarrow{AB}$ and you should land on $B$."
+  ],
+  "readingMinutes": 17
+}

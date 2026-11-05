@@ -1,0 +1,870 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "4.1",
+  "slug": "geometrical-terms",
+  "title": "Geometrical terms",
+  "level": "Core",
+  "topic": 4,
+  "summary": "Geometry questions expect the exact name for each angle, line, shape, solid and part of a circle, from [[quadrilateral|quadrilaterals]] to [[polygon|polygons]]. Learn the names and their facts, and naming questions become quick marks.",
+  "goals": [
+    {
+      "text": "Name angles by their size, and recognise [[parallel|parallel]] and [[perpendicular|perpendicular]] lines.",
+      "bullets": [
+        "4.1-c1"
+      ]
+    },
+    {
+      "text": "Tell [[congruent|congruent]] shapes from similar ones, and use a scale factor.",
+      "bullets": [
+        "4.1-c1"
+      ]
+    },
+    {
+      "text": "Name triangles, special quadrilaterals and polygons from their sides and angles.",
+      "bullets": [
+        "4.1-c2"
+      ]
+    },
+    {
+      "text": "Name simple solids, count their [[face|faces]], edges and vertices, and describe their nets.",
+      "bullets": [
+        "4.1-c2"
+      ]
+    },
+    {
+      "text": "Name the parts of a circle, such as a [[chord|chord]], a [[sector|sector]] and a [[segment|segment]].",
+      "bullets": [
+        "4.1-c3"
+      ]
+    },
+    {
+      "text": "Use the words [[plane|plane]], [[perpendicular-bisector|perpendicular bisector]], [[hemisphere|hemisphere]], [[frustum|frustum]], and major and minor [[arc|arc]].",
+      "bullets": [
+        "4.1-s1",
+        "4.1-s2",
+        "4.1-n1",
+        "4.1-n2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "types of angles",
+    "names of quadrilaterals",
+    "parts of a circle",
+    "polygon names",
+    "faces edges vertices",
+    "geometry vocabulary"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-full-turn",
+      "prompt": "A quarter turn is $90^{\\circ}$. How many degrees are there in a full turn?",
+      "hint": "A full turn is four quarter turns.",
+      "answer": {
+        "value": 360,
+        "tolerance": 0
+      },
+      "explain": "$4 \\times 90 = 360$, so a full turn is $360^{\\circ}$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "4*90",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-straight-line",
+      "prompt": "Two angles sit side by side on a straight line. One is $35^{\\circ}$. Find the other, in degrees.",
+      "hint": "Angles on a straight line add up to $180^{\\circ}$.",
+      "answer": {
+        "value": 145,
+        "tolerance": 0
+      },
+      "explain": "$180 - 35 = 145$, so the other angle is $145^{\\circ}$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "180 - 35",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "lines-angles",
+      "heading": "Points, lines and angles",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A point marks a position. A line is straight and goes on for ever both ways. The part of a line between two points is a [[line-segment|line segment]]."
+        },
+        {
+          "type": "text",
+          "text": "A [[vertex|vertex]] (plural vertices) is a corner, where sides or edges meet."
+        },
+        {
+          "type": "text",
+          "text": "[[parallel|Parallel]] lines stay the same distance apart, so they never meet. Diagrams mark them with matching arrows."
+        },
+        {
+          "type": "text",
+          "text": "[[perpendicular|Perpendicular]] lines meet at a [[right-angle|right angle]], which is $90^{\\circ}$. A small square in the corner marks a right angle."
+        },
+        {
+          "type": "figure",
+          "id": "4-1-angle-types",
+          "alt": "Four angles side by side. An acute angle of about 40 degrees, labelled less than 90 degrees. A right angle marked with a small square, labelled exactly 90 degrees. An obtuse angle of about 130 degrees, labelled 90 to 180 degrees. A reflex angle of about 235 degrees, with its arc going the long way round, labelled 180 to 360 degrees.",
+          "caption": "Name an angle by comparing it with $90^{\\circ}$ and $180^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "An [[acute-angle|acute angle]] is less than $90^{\\circ}$. An [[obtuse-angle|obtuse angle]] is between $90^{\\circ}$ and $180^{\\circ}$. A [[reflex-angle|reflex angle]] is between $180^{\\circ}$ and $360^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "Two lines from one point, like $OP$ and $OQ$, make two angles that together make a full turn, $360^{\\circ}$. Unless $OP$ and $OQ$ form a straight line, the larger one is reflex."
+        },
+        {
+          "type": "example",
+          "id": "ex-reflex-angle",
+          "question": "Lines $OP$ and $OQ$ meet at $O$. The smaller angle $POQ$ is $142^{\\circ}$. Name its type, then find the reflex angle $POQ$.",
+          "steps": [
+            "$142^{\\circ}$ is between $90^{\\circ}$ and $180^{\\circ}$, so it is obtuse.",
+            "The two angles at $O$ make a full turn: reflex angle $POQ = 360^{\\circ} - 142^{\\circ} = 218^{\\circ}$.",
+            "Check: $218^{\\circ}$ is between $180^{\\circ}$ and $360^{\\circ}$, so it is reflex."
+          ],
+          "answer": "$\\text{reflex } \\angle POQ = 218^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "360 - 142"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-name-angle",
+          "prompt": "An angle measures $236^{\\circ}$. Which type of angle is it?",
+          "hint": "Compare it with $180^{\\circ}$.",
+          "options": [
+            {
+              "text": "Reflex",
+              "correct": true
+            },
+            {
+              "text": "Obtuse",
+              "correct": false
+            },
+            {
+              "text": "Acute",
+              "correct": false
+            }
+          ],
+          "explain": "$236^{\\circ}$ is between $180^{\\circ}$ and $360^{\\circ}$, so it is reflex.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Reflex"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The [[interior-angle|interior angle]] at a vertex of a shape is the angle inside it. Extend one side past the vertex: the angle between the extension and the next side is the [[exterior-angle|exterior angle]]."
+        },
+        {
+          "type": "text",
+          "text": "Where the interior angle is less than $180^{\\circ}$ (every vertex of a convex shape), the two angles make a straight line, so they sum to $180^{\\circ}$. You will use them for polygons in {{lesson:4.6}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-exterior-angle",
+          "question": "At one vertex of a shape, the interior angle is $107^{\\circ}$. Find the exterior angle at that vertex.",
+          "steps": [
+            "$107^{\\circ}$ is less than $180^{\\circ}$, so the interior and exterior angles sum to $180^{\\circ}$.",
+            "Exterior angle $= 180^{\\circ} - 107^{\\circ} = 73^{\\circ}$."
+          ],
+          "answer": "$\\text{exterior angle} = 73^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - 107"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A [[bearing|bearing]] is a direction: an angle measured clockwise from north, written with three figures, such as $070^{\\circ}$. More in {{lesson:4.3}}."
+        },
+        {
+          "type": "check",
+          "id": "check-bearing",
+          "prompt": "A boat sails due south-west. Which is its bearing?",
+          "hint": "South is $180^{\\circ}$ and west is $270^{\\circ}$.",
+          "options": [
+            {
+              "text": "$225^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$045^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$135^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$315^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "South-west is halfway between: $180^{\\circ} + 45^{\\circ} = 225^{\\circ}$.",
+          "verify": {
+            "kind": "bearing",
+            "truth": "(180 + 270)/2"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The [[perpendicular-bisector|perpendicular bisector]] of $AB$ crosses $AB$ at right angles through its [[midpoint|midpoint]]. Every point on it is the same distance from $A$ as from $B$.",
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-perp-bisector",
+          "prompt": "$P$ is on the perpendicular bisector of $AB$. $PA = (3x + 4)$ cm and $PB = (5x - 6)$ cm. Find $x$.",
+          "hint": "$PA = PB$.",
+          "answer": {
+            "value": 5,
+            "tolerance": 0
+          },
+          "explain": "$3x + 4 = 5x - 6$, so $2x = 10$ and $x = 5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "solve(Eq(3*x + 4, 5*x - 6), x)[0]",
+            "dp": 0
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "mistake",
+          "text": "Calling an angle between $90^{\\circ}$ and $180^{\\circ}$ reflex. It is obtuse."
+        }
+      ]
+    },
+    {
+      "id": "congruent-similar",
+      "heading": "Congruent and similar shapes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[congruent|Congruent]] shapes are the same shape and size: one fits exactly on the other, even after turning or flipping. Matching sides and angles are equal. You won't have to prove shapes congruent on your own, but a question may give you the steps of a proof to complete."
+        },
+        {
+          "type": "text",
+          "text": "[[similar-shapes|Similar]] shapes have the same shape but can differ in size. Matching angles are equal, and every length is multiplied by the same [[scale-factor|scale factor]]."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{scale factor} = \\frac{\\text{length on the new shape}}{\\text{matching length on the original shape}}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-congruent-angle",
+          "question": "Triangles $DEF$ and $KLM$ are congruent: $D$ matches $K$, $E$ matches $L$ and $F$ matches $M$. Angle $D = 52^{\\circ}$ and angle $E = 71^{\\circ}$. Find angle $M$.",
+          "steps": [
+            "Angle $M$ matches angle $F$, so they are equal.",
+            "The [[angle-sum|angle sum]] of a triangle is $180^{\\circ}$: angle $M = 180^{\\circ} - 52^{\\circ} - 71^{\\circ} = 57^{\\circ}$."
+          ],
+          "answer": "$\\angle M = 57^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - 52 - 71"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-scale-factor",
+          "question": "A photo $8$ cm wide and $5$ cm tall is enlarged to make a similar photo $20$ cm wide. Find the height of the enlarged photo.",
+          "steps": [
+            "Scale factor $= \\frac{20}{8} = 2.5$. It is more than $1$, as the photo got bigger.",
+            "Height $= 5 \\times 2.5 = 12.5$ cm."
+          ],
+          "answer": "$\\text{height} = 12.5\\text{ cm}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "5*20/8",
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-congruent-or-similar",
+          "prompt": "Rectangle $B$ is rectangle $A$ turned on its side. Which word fits best?",
+          "hint": "Has the size changed?",
+          "options": [
+            {
+              "text": "Congruent",
+              "correct": true
+            },
+            {
+              "text": "Similar but not congruent",
+              "correct": false
+            },
+            {
+              "text": "Neither",
+              "correct": false
+            }
+          ],
+          "explain": "Turning doesn't change size, so $A$ fits exactly on $B$: congruent.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Congruent"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-similar-length",
+          "prompt": "A triangle has sides $3$ cm, $5$ cm and $6$ cm. A similar triangle has a shortest side of $12$ cm. Find its longest side, in cm.",
+          "hint": "Use the two shortest sides for the scale factor.",
+          "answer": {
+            "value": 24,
+            "tolerance": 0
+          },
+          "explain": "Scale factor $= 12 \\div 3 = 4$, so $6 \\times 4 = 24$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6*12/3",
+            "dp": 0
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling two shapes of the same size and shape only similar. They are similar (scale factor $1$), but congruent is the more precise word, and it is the one the question wants."
+        }
+      ]
+    },
+    {
+      "id": "shapes",
+      "heading": "Triangles, quadrilaterals and polygons",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[equilateral-triangle|equilateral triangle]] has three equal sides and three equal angles of $60^{\\circ}$. An [[isosceles-triangle|isosceles triangle]] has two equal sides, and the two angles opposite them are equal."
+        },
+        {
+          "type": "text",
+          "text": "A [[scalene-triangle|scalene triangle]] has no equal sides or angles. A [[right-angled-triangle|right-angled triangle]] has one angle of $90^{\\circ}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-isosceles-base",
+          "question": "An isosceles triangle has an angle of $46^{\\circ}$ between its two equal sides. Find each of the other two angles.",
+          "steps": [
+            "The other two angles are opposite the equal sides, so they are equal.",
+            "They share $180^{\\circ} - 46^{\\circ} = 134^{\\circ}$, so each is $134^{\\circ} \\div 2 = 67^{\\circ}$."
+          ],
+          "answer": "$\\text{each angle} = 67^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "(180 - 46)/2"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A [[quadrilateral|quadrilateral]] has four straight sides. Learn the special ones by their sides and angles."
+        },
+        {
+          "type": "figure",
+          "id": "4-1-quadrilaterals",
+          "alt": "Six quadrilaterals with their names. Square: four equal sides and four right angles. Rectangle: four right angles, opposite sides equal. Parallelogram: two pairs of parallel sides, shown by single and double arrows. Rhombus: four equal sides, a diamond shape without right angles. Trapezium: one pair of parallel sides, top and bottom. Kite: two short equal sides at the top and two long equal sides at the bottom, each pair next to each other.",
+          "caption": "Dashes mark equal sides. Arrows mark parallel sides."
+        },
+        {
+          "type": "text",
+          "text": "Square: four equal sides and four right angles. Rectangle: four right angles, with opposite sides equal."
+        },
+        {
+          "type": "text",
+          "text": "[[parallelogram|Parallelogram]]: two pairs of parallel sides, with opposite sides equal and opposite angles equal. [[rhombus|Rhombus]]: a parallelogram with four equal sides."
+        },
+        {
+          "type": "text",
+          "text": "[[trapezium|Trapezium]]: one pair of parallel sides; the other two are not parallel. [[kite|Kite]]: two pairs of equal sides, each pair next to each other."
+        },
+        {
+          "type": "text",
+          "text": "A square is also a rectangle and a rhombus. Give the name that fits every fact: four equal sides with no right angles is a rhombus."
+        },
+        {
+          "type": "check",
+          "id": "check-trapezium",
+          "prompt": "A quadrilateral has exactly one pair of parallel sides. Name it.",
+          "hint": "Count the pairs of parallel sides.",
+          "options": [
+            {
+              "text": "Trapezium",
+              "correct": true
+            },
+            {
+              "text": "Parallelogram",
+              "correct": false
+            },
+            {
+              "text": "Kite",
+              "correct": false
+            },
+            {
+              "text": "Rhombus",
+              "correct": false
+            }
+          ],
+          "explain": "One pair makes a trapezium. A parallelogram needs two.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Trapezium"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-kite",
+          "prompt": "Quadrilateral $ABCD$ has $AB = AD$ and $CB = CD$, but $AB \\ne CB$. Name it.",
+          "hint": "Are the equal sides opposite, or next to each other?",
+          "options": [
+            {
+              "text": "Kite",
+              "correct": true
+            },
+            {
+              "text": "Parallelogram",
+              "correct": false
+            },
+            {
+              "text": "Rhombus",
+              "correct": false
+            },
+            {
+              "text": "Rectangle",
+              "correct": false
+            }
+          ],
+          "explain": "Each pair of equal sides meets at a corner ($A$ and $C$), so it is a kite.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Kite"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A [[polygon|polygon]] is a flat, closed shape with straight sides. A pentagon has $5$ sides, a hexagon $6$, an octagon $8$ and a decagon $10$."
+        },
+        {
+          "type": "text",
+          "text": "A [[regular-polygon|regular polygon]] has all sides equal and all angles equal. Otherwise it is irregular."
+        },
+        {
+          "type": "example",
+          "id": "ex-regular-sides",
+          "question": "A regular polygon has sides of $3.5$ cm and a perimeter of $35$ cm. Find its number of sides, $n$, and name the polygon.",
+          "steps": [
+            "The sides are equal, so the perimeter is $n$ times one side: $n = 35 \\div 3.5 = 10$.",
+            "$10$ sides makes it a regular decagon."
+          ],
+          "answer": "$n = 10$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "35/3.5"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-1-t-shape",
+          "alt": "A flat shape like a capital letter T, made of straight sides. A wide bar across the top sits on a narrower upright stem. Two of its corners, where the bar meets the stem, point inwards. Every corner is marked with a dot."
+        },
+        {
+          "type": "check",
+          "id": "check-t-shape",
+          "prompt": "The shaded shape above has straight sides. Which polygon is it?",
+          "hint": "Count every corner dot, including the inward ones.",
+          "options": [
+            {
+              "text": "Octagon",
+              "correct": true
+            },
+            {
+              "text": "Hexagon",
+              "correct": false
+            },
+            {
+              "text": "Decagon",
+              "correct": false
+            },
+            {
+              "text": "Pentagon",
+              "correct": false
+            }
+          ],
+          "explain": "$8$ corners means $8$ sides: an irregular octagon.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Octagon"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Missing inward-pointing corners when counting sides. Dot every corner, then count."
+        }
+      ]
+    },
+    {
+      "id": "solids",
+      "heading": "Solids and nets",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A solid is a 3D shape. A [[face|face]] is a flat surface of it, an edge is where two faces meet, and a vertex is a corner."
+        },
+        {
+          "type": "figure",
+          "id": "4-1-solids",
+          "alt": "Six solids with their names, hidden edges dashed. Cube: six square faces. Triangular prism: the same triangle at each end, joined by three rectangles. Cylinder: two circular ends joined by a curved surface. Square-based pyramid: a square base with four triangular faces meeting at a point at the top. Cone: a circular base and a curved surface that rises to a point. Sphere: a round ball.",
+          "caption": "Dashed lines are edges hidden at the back."
+        },
+        {
+          "type": "text",
+          "text": "A cube has six square faces. A [[cuboid|cuboid]] is a box with six rectangular faces."
+        },
+        {
+          "type": "text",
+          "text": "A [[prism|prism]] has flat faces and the same [[cross-section|cross-section]] all the way through and is named after it, such as a triangular prism. A [[cylinder|cylinder]] has two circular ends joined by a curved surface."
+        },
+        {
+          "type": "text",
+          "text": "A [[pyramid|pyramid]] has a base and triangular faces meeting at a point. A [[cone|cone]] has a circular base and a curved surface rising to a point. A [[sphere|sphere]] is a ball."
+        },
+        {
+          "type": "text",
+          "text": "A [[net|net]] is a flat shape that folds into a solid, with one part for each face."
+        },
+        {
+          "type": "example",
+          "id": "ex-hexagonal-prism",
+          "question": "A prism has a hexagon as its cross-section. Find its number of faces $F$, edges $E$ and vertices $V$.",
+          "steps": [
+            "Faces: two hexagon ends and one rectangle per side, $F = 2 + 6 = 8$.",
+            "Edges: $6$ round each end and $6$ joining them, $E = 6 + 6 + 6 = 18$.",
+            "Vertices: $6$ at each end, $V = 2 \\times 6 = 12$."
+          ],
+          "answer": "$F = 8, \\; E = 18, \\; V = 12$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{\"F\": 2 + 6, \"E\": 6 + 6 + 6, \"V\": 2*6}"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-square-pyramid",
+          "question": "Find $F$, $E$ and $V$ for a square-based pyramid, and describe its net.",
+          "steps": [
+            "Faces: the base and $4$ triangles, $F = 5$. Edges: $4$ round the base and $4$ to the top, $E = 8$.",
+            "Vertices: $4$ round the base and $1$ at the top, $V = 5$.",
+            "Its net is a square with a triangle on each side."
+          ],
+          "answer": "$F = 5, \\; E = 8, \\; V = 5$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{\"F\": 1 + 4, \"E\": 4 + 4, \"V\": 4 + 1}"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cylinder",
+          "prompt": "A solid has two flat circular faces joined by one curved surface. Name it.",
+          "hint": "How many flat faces does a cone have?",
+          "options": [
+            {
+              "text": "Cylinder",
+              "correct": true
+            },
+            {
+              "text": "Cone",
+              "correct": false
+            },
+            {
+              "text": "Sphere",
+              "correct": false
+            },
+            {
+              "text": "Prism",
+              "correct": false
+            }
+          ],
+          "explain": "That is a cylinder. A cone has just one circle, plus a point.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Cylinder"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-prism-edges",
+          "prompt": "How many edges does a triangular prism have?",
+          "hint": "Count round each end, then the joining edges.",
+          "answer": {
+            "value": 9,
+            "tolerance": 0
+          },
+          "explain": "$3 + 3 + 3 = 9$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3 + 3 + 3",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "A [[plane|plane]] is a flat surface that goes on for ever. Each face of a cuboid lies in a plane. A [[hemisphere|hemisphere]] is half a sphere. A [[frustum|frustum]] is a cone or pyramid with its top cut off parallel to the base.",
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-frustum-faces",
+          "prompt": "A square-based pyramid has its top cut off parallel to the base. How many faces does the frustum have?",
+          "hint": "The cut makes a new face on top.",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "explain": "Base, new top and $4$ sides: $1 + 1 + 4 = 6$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1 + 1 + 4",
+            "dp": 0
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "circles",
+      "heading": "Parts of a circle",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every point on a circle is the same distance, the [[radius|radius]] (plural radii), from its centre."
+        },
+        {
+          "type": "figure",
+          "id": "4-1-circle-parts",
+          "alt": "Two circles, each with centre O. Left circle: a diameter passes through O from one side of the circle to the other; a radius goes from O to the circle; a chord joins two points on the lower part of the circle without passing through O; a tangent line touches the circle at one point on the lower right; the curve itself is labelled circumference. Right circle: a shaded sector between two radii and the arc joining them, at the top right; a shaded segment between a chord and the arc below it, at the bottom; and a short arc on the left, drawn as a thick part of the curve."
+        },
+        {
+          "type": "text",
+          "text": "A [[chord|chord]] joins two points on the circle. A [[diameter|diameter]] is a chord through the centre, twice the radius."
+        },
+        {
+          "type": "text",
+          "text": "The [[circumference|circumference]] is the whole way round. An [[arc|arc]] is part of it. A [[tangent|tangent]] is a straight line touching the circle at one point only."
+        },
+        {
+          "type": "text",
+          "text": "A [[sector|sector]] is the slice between two radii and an arc. A [[segment|segment]] is the part cut off by a chord, between the chord and its arc. A diameter splits the circle into two [[semicircle|semicircles]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-radius-diameter",
+          "question": "A round table top has a diameter of $1.3$ m. Find its radius.",
+          "steps": [
+            "A diameter is two radii end to end, so radius $= 1.3 \\div 2 = 0.65$ m."
+          ],
+          "answer": "$r = 0.65\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1.3/2",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-radii-isosceles",
+          "question": "$A$ and $B$ lie on a circle with centre $O$. Angle $AOB = 64^{\\circ}$. Find angle $OAB$.",
+          "steps": [
+            "$OA$ and $OB$ are radii, so $OA = OB$ and triangle $OAB$ is isosceles.",
+            "Angle $OAB = (180^{\\circ} - 64^{\\circ}) \\div 2 = 58^{\\circ}$."
+          ],
+          "answer": "$\\angle OAB = 58^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "(180 - 64)/2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sector",
+          "prompt": "Which part of a circle is the region between two radii and an arc?",
+          "hint": "What cuts off a segment?",
+          "options": [
+            {
+              "text": "Sector",
+              "correct": true
+            },
+            {
+              "text": "Segment",
+              "correct": false
+            },
+            {
+              "text": "Semicircle",
+              "correct": false
+            },
+            {
+              "text": "Chord",
+              "correct": false
+            }
+          ],
+          "explain": "Two radii cut off a sector. A chord cuts off a segment.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Sector"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tangent",
+          "prompt": "A straight line meets a circle at exactly one point. Name the line.",
+          "hint": "A chord meets the circle twice.",
+          "options": [
+            {
+              "text": "Tangent",
+              "correct": true
+            },
+            {
+              "text": "Chord",
+              "correct": false
+            },
+            {
+              "text": "Diameter",
+              "correct": false
+            },
+            {
+              "text": "Radius",
+              "correct": false
+            }
+          ],
+          "explain": "Touching at one point only makes it a tangent.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Tangent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Two points on a circle split it into two arcs. Unless the points are the ends of a diameter, the shorter is the minor arc and the longer is the major arc. Sectors and segments are minor or major in the same way.",
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-major-arc",
+          "prompt": "Minor arc $PQ$ makes $128^{\\circ}$ at the centre $O$. Find the angle at $O$ for the major arc $PQ$, in degrees.",
+          "hint": "The two arcs make the whole circle.",
+          "answer": {
+            "value": 232,
+            "tolerance": 0
+          },
+          "explain": "$360 - 128 = 232$, a reflex angle.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "360 - 128",
+            "dp": 0
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "mistake",
+          "text": "Calling every chord a diameter. Only a chord through the centre is one."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Acute $< 90^{\\circ}$; right $= 90^{\\circ}$; obtuse between $90^{\\circ}$ and $180^{\\circ}$; reflex between $180^{\\circ}$ and $360^{\\circ}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "At a vertex where the interior angle is less than $180^{\\circ}$, interior angle $+$ exterior angle $= 180^{\\circ}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Congruent: same shape and size. Similar: same shape, lengths times the scale factor.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Parallelogram: two pairs of parallel sides. Trapezium: one pair. Rhombus: four equal sides. Kite: two pairs of equal neighbouring sides.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Pentagon $5$, hexagon $6$, octagon $8$, decagon $10$ sides.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Diameter $= 2 \\times$ radius, through the centre.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Sector: between two radii and an arc. Segment: between a chord and an arc.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Minor and major arc angles at the centre add up to $360^{\\circ}$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Calling a shape with one pair of parallel sides a parallelogram. That is a trapezium.",
+    "Mixing up sector and segment. Two radii make a sector; a chord makes a segment.",
+    "Calling four equal sides with no right angles a square. It is a rhombus.",
+    "Calling a solid with one circular face and a point a cylinder. It is a cone."
+  ],
+  "examTips": [
+    "To write down a name, give the exact mathematical word with no working, spelled clearly (isosceles, trapezium).",
+    "Use every fact given. Four equal sides could be a square or a rhombus; no right angles decides it.",
+    "Don't measure a diagram marked not to scale. Read its marks: dashes for equal sides, arrows for parallel sides, a square for $90^{\\circ}$."
+  ],
+  "readingMinutes": 24
+}

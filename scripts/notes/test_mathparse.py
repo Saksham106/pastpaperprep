@@ -254,6 +254,285 @@ def test_antiderivative_is_proved_not_sampled():
     fails(lambda: mp.check_antiderivative(wrong, x), AssertionError)
 
 
+
+# ------------------------------------------------------------------------------------------- declarative verify kinds
+# Each kind: the correct answer passes and at least two plausible wrong answers fail (form errors included).
+
+import verify_kinds as vk  # noqa: E402
+
+
+def passes(kind, truth, tex, **opts):
+    vk.check({"kind": kind, "truth": truth, **opts}, tex)
+
+
+def wrong(kind, truth, tex, **opts):
+    """A wrong answer must be rejected as WRONG (AssertionError), as a multiple-choice distractor is."""
+    fails(lambda: vk.check({"kind": kind, "truth": truth, **opts}, tex), AssertionError)
+
+
+def test_truth_is_evaluated_exactly_in_a_sympy_only_namespace():
+    equal(vk.evaluate_truth("sqrt(5**2 + 12**2)"), 13)
+    equal(vk.evaluate_truth("1/3"), Rational(1, 3))
+    equal(vk.evaluate_truth("12.5 * 1.08"), Rational(27, 2))
+    equal(vk.evaluate_truth("x**2 - 1"), x**2 - 1)
+    assert vk.evaluate_truth('{"x": 1 + 1, "y": -1 * 1}') == {"x": 2, "y": -1}
+    for bad in ["__import__('os')", "().__class__", "x.__class__", "open('f')", "(lambda: 1)()", "[i for i in range(3)]",
+                "sympify('2')", "S('__import__(1)')", "Symbol('x')", "lambdify(x, 'x')", "{'__x': 1}", "import os", ""]:
+        fails(lambda bad=bad: vk.evaluate_truth(bad), ValueError)
+
+
+def test_spec_rejects_unknown_kinds_and_options():
+    for bad in [{"kind": "nope", "truth": "1"}, {"kind": "exact", "truth": " "}, {"kind": "rounded", "truth": "1"},
+                {"kind": "rounded", "truth": "1", "sf": 3, "dp": 2}, {"kind": "exact", "truth": "1", "sf": 3},
+                {"kind": "time", "truth": "60"}, {"kind": "time", "truth": "60", "form": "noon"}, {"kind": "money", "truth": "1", "dp": 1},
+                {"kind": "rounded", "truth": "1", "sf": 0}, {"kind": "expression", "truth": "x", "scale": "yes"}]:
+        fails(lambda bad=bad: vk.check_spec(bad), ValueError)
+    vk.check_spec({"kind": "rounded", "truth": "2**0", "dp": 2})
+
+
+def test_a_truth_must_be_computed_not_typed_in():
+    for literal in ["25", "x", "-3", "[2, 3]", "(2, -3)", "[(2, 3), (4, 5)]", "x > 3", "y >= 5", '{"x": 2, "y": -1}', "pi"]:
+        fails(lambda literal=literal: vk.check({"kind": "exact", "truth": literal}, "25"), ValueError)
+        fails(lambda literal=literal: vk.check_spec({"kind": "exact", "truth": literal}), ValueError)
+    fails(lambda: vk.check({"kind": "numeric", "truth": "25", "sf": 2}, 25, tolerance=0), ValueError)
+    for computed in ["5**2", "sqrt(7**2 + 24**2)", "Rational(3, 8) * Rational(2, 7)", "[(-3)**2 - 1, 2 + 2]", "gcd(24, 36)", "x > 1 + 2", "Eq(y, 2*x + 3)"]:
+        vk.check_spec({"kind": "exact", "truth": computed})
+    passes("exact", "5**2", r"x = 25")
+    passes("choice", "irrational", "irrational")  # a choice is words: exempt
+    try:
+        vk.check_spec({"kind": "exact", "truth": "25"})
+    except ValueError as error:
+        assert "truth must be computed from the question's data" in str(error)
+
+
+def test_kind_exact():
+    passes("exact", "gcd(24, 36)", r"\text{HCF} = 12")
+    passes("exact", "sqrt(5**2 + 12**2)", r"AB = 13\text{ cm}", unit="cm")
+    wrong("exact", "gcd(24, 36)", r"\text{HCF} = 6")
+    wrong("exact", "Rational(1, 3)", r"0.333")
+    wrong("exact", "sqrt(8)", r"4\sqrt{2}")
+    fails(lambda: passes("exact", "sqrt(2)", r"\approx 1.41"), ValueError)  # a rounded value is not an exact answer
+
+
+def test_kind_rounded():
+    passes("rounded", "sqrt(5**2 + 7**2)", r"x \approx 8.60", sf=3)
+    passes("rounded", "pi * 3**2", r"A \approx 28.27\text{ cm}^2", dp=2, unit="cm^2")
+    wrong("rounded", "sqrt(5**2 + 7**2)", r"x \approx 8.6", sf=3)       # 2 s.f. where 3 are required
+    wrong("rounded", "sqrt(5**2 + 7**2)", r"x \approx 8.602", sf=3)     # 4 s.f.
+    wrong("rounded", "Rational(1235, 10000)", r"\approx 0.123", sf=3)   # rounded down, not half up
+    wrong("rounded", "sqrt(5**2 + 7**2)", r"x = 8.60", sf=3)            # a rounded value written with =
+
+
+def test_kind_numeric():
+    vk.check({"kind": "numeric", "truth": "lcm(6, 8)", "sf": 2}, 24, tolerance=0)
+    vk.check({"kind": "numeric", "truth": "sqrt(2)", "sf": 3}, 1.41, tolerance=0.005)
+    fails(lambda: vk.check({"kind": "numeric", "truth": "lcm(6, 8)", "sf": 2}, 48, tolerance=0), AssertionError)
+    fails(lambda: vk.check({"kind": "numeric", "truth": "sqrt(2)", "sf": 3}, 1.4, tolerance=0.05), AssertionError)
+    fails(lambda: vk.check({"kind": "numeric", "truth": "sqrt(2)", "sf": 3}, 1.41, tolerance=0.05), AssertionError)
+
+
+def test_kind_list():
+    passes("list", "[1 + 1, 1 + 2]", r"x = 3 \text{ or } x = 2")
+    passes("list", "[1 + sqrt(2), 1 - sqrt(2)]", r"x = 1 \pm \sqrt{2}")
+    passes("list", "[(-5 + sqrt(17))/2, (-5 - sqrt(17))/2]", r"x \approx -0.438 \text{ or } x \approx -4.56", sf=3)
+    wrong("list", "[1 + 1, 1 + 2]", r"x = 2")
+    wrong("list", "[1 + 1, 1 + 2]", r"x = 2 \text{ or } x = -3")
+    wrong("list", "[1 + 1, 1 + 2]", r"x = 2 \text{ or } x = 3 \text{ or } x = 0")
+
+
+def test_kind_solutions_are_several_named_solutions():
+    truth = "solve([Eq(x**2 + y**2, 34), Eq(y, x + 2)], [x, y], dict=True)"
+    passes("solutions", truth, r"x = 3, \; y = 5 \text{ or } x = -5, \; y = -3")
+    passes("solutions", truth, r"x = -5, y = -3 \text{ or } y = 5, x = 3")                  # any order
+    passes("solutions", truth, r"(3, 5) \text{ and } (-5, -3)")                              # points: alphabetical names
+    wrong("solutions", truth, r"x = 5, y = 3 \text{ or } x = -3, y = -5")                    # swapped names
+    wrong("solutions", truth, r"x = 3, y = 5")                                                # a missing solution
+    wrong("solutions", truth, r"x = 3, y = 5 \text{ or } x = -5, y = -3 \text{ or } x = 0, y = 2")  # an extra one
+    wrong("solutions", truth, r"x = 3, y = 5 \text{ or } x = -5, y = 3")
+    wrong("solutions", truth, r"(5, 3) \text{ and } (-5, -3)")
+    surd = "solve([Eq(x**2, 2), Eq(y, x + 1)], [x, y], dict=True)"
+    passes("solutions", surd, r"x \approx 1.41, y \approx 2.41 \text{ or } x \approx -1.41, y \approx -0.414", sf=3)
+    wrong("solutions", surd, r"x \approx 1.4, y \approx 2.4 \text{ or } x \approx -1.4, y \approx -0.4", sf=3)
+    passes("solutions", "[(Eq(x, 1 + 2), Eq(y, 2 + 3))]", r"x = 3, y = 5")
+
+
+def test_kind_assignments():
+    passes("assignments", '{"x": 1 + 1, "y": -1 * 1}', r"x = 2, \; y = -1")
+    passes("assignments", "[Eq(x, 2), Eq(y, -1)]", r"y = -1 \text{ and } x = 2")
+    wrong("assignments", '{"x": 1 + 1, "y": -1 * 1}', r"x = -1, \; y = 2")
+    wrong("assignments", '{"x": 1 + 1, "y": -1 * 1}', r"x = 2")
+
+
+def test_kind_point():
+    passes("point", "(1 + 1, -3 * 1)", r"P = (2, -3)")
+    passes("point", "(sqrt(2), pi)", r"P \approx (1.41, 3.14)", sf=3)
+    wrong("point", "(1 + 1, -3 * 1)", r"(-3, 2)")
+    wrong("point", "(1 + 1, -3 * 1)", r"(2, -3, 0)")
+    wrong("point", "(sqrt(2), pi)", r"P = (1.41, 3.14)", sf=3)
+
+
+def test_kind_vector():
+    passes("vector", "[1 + 2, -4 * 1]", r"\overrightarrow{AB} = \begin{pmatrix}3\\-4\end{pmatrix}")
+    wrong("vector", "[1 + 2, -4 * 1]", r"\begin{pmatrix}-3\\4\end{pmatrix}")
+    wrong("vector", "[1 + 2, -4 * 1]", r"\begin{pmatrix}3\\-4\\0\end{pmatrix}")
+
+
+def test_kind_equation_is_equivalence_up_to_a_non_zero_factor():
+    passes("equation", "Eq(y, 2*x + 3)", r"y = 2x + 3")
+    passes("equation", "Eq(y, 2*x + 3)", r"2y - 4x = 6")
+    wrong("equation", "Eq(y, 2*x + 3)", r"y = 3x + 2")
+    wrong("equation", "Eq(y, 2*x + 3)", r"(y - 2x - 3)(x - 1) = 0")  # contains the line, is not the line
+    wrong("equation", "Eq(y, 2*x + 3)", r"(y - 2x - 3)^{2} = 0")      # the squared-line counterexample
+    wrong("equation", "Eq(y, 2*x + 3)", r"0 = 0")                     # degenerate
+
+
+def test_kind_inequality_and_set_compare_solution_sets():
+    passes("inequality", "x > 1 + 2", r"x > 3")
+    passes("inequality", "And(x >= -1, x < 4)", r"-1 \le x < 4")
+    passes("set", "Union(Interval.open(-oo, -1), Interval.open(4, oo))", r"x < -1 \text{ or } x > 4")
+    passes("set", "FiniteSet(-1, 0, 1, 1 + 1)", r"n = -1, 0, 1, 2", var="n")
+    passes("set", "FiniteSet(-1, 0, 1, 1 + 1)", r"\{-1, 0, 1, 2\}")
+    wrong("inequality", "x > 1 + 2", r"x \ge 3")
+    wrong("inequality", "x > 1 + 2", r"x > 4")                            # contained in, not equal to
+    wrong("inequality", "x > 1 + 2", r"\varnothing")                      # degenerate
+    passes("set", "[5 + 3, -1, 5 + 3]", r"\{8, -1, 8\}")                                   # a repeated member is the same set
+    passes("set", "[5 + 3, -1]", r"\{8, -1, 8\}")
+    wrong("set", "[5 + 3, -1, 5 + 3]", r"\{8, 8\}")
+    wrong("set", "FiniteSet(-1, 0, 1, 1 + 1)", r"\{0, 1, 2\}")
+    wrong("set", "FiniteSet(-1, 0, 1, 1 + 1)", r"\{-1, 0, 1, 2, 3\}")
+
+
+def test_kind_ratio_must_be_in_simplest_form():
+    passes("ratio", "(6 * 2, 6 * 3)", r"2 : 3")
+    passes("ratio", "(Rational(1, 2), Rational(1, 3), 1)", r"3:2:6")
+    wrong("ratio", "(6 * 2, 6 * 3)", r"4 : 6")                              # unsimplified
+    wrong("ratio", "(6 * 2, 6 * 3)", r"3 : 2")                              # reversed
+    wrong("ratio", "(6 * 2, 6 * 3)", r"1 : 1.5")
+
+
+def test_kind_standard_form():
+    passes("standard-form", "24 * 100", r"2.4 \times 10^{3}")
+    passes("standard-form", "24 * 100", r"2.40 \times 10^{3}", sf=3)
+    passes("standard-form", "Rational(1, 7) / 1000", r"\approx 1.43 \times 10^{-4}", sf=3)
+    wrong("standard-form", "24 * 100", r"24 \times 10^{2}")               # 1 <= a < 10 broken
+    wrong("standard-form", "24 * 100", r"2.4 \times 10^{3}", sf=3)        # 2 s.f. where 3 are required
+    wrong("standard-form", "24 * 100", r"24 * 100")
+    wrong("standard-form", "24 * 100", r"2.4 \times 10^{4}")
+
+
+def test_kind_money():
+    passes("money", "25 / 2", r"\$12.50")
+    passes("money", "1250 * 1.08", r"\text{Cost} = \$1{,}350.00")
+    passes("money", "Rational(100, 3)", r"33.33 \text{ dollars}")
+    wrong("money", "25 / 2", r"\$12.5")                                 # not 2 d.p.
+    wrong("money", "25 / 2", r"\$12.05")
+    wrong("money", "Rational(200, 3)", r"\$66.66")                    # truncated, not rounded
+
+
+def test_kind_time():
+    passes("time", "14*60 + 35", r"14:35", form="clock")
+    passes("time", "9*60 + 5", r"\text{09 05}", form="clock")
+    passes("time", "(23*60 + 50 + 30) ", r"00:20", form="clock")      # past midnight wraps
+    passes("time", "2 * 60 + 35", r"2\text{ h }35\text{ min}", form="duration")
+    wrong("time", "14*60 + 35", r"2:35\text{ pm}", form="clock")     # 12-hour clock
+    wrong("time", "14*60 + 35", r"14:53", form="clock")
+    wrong("time", "2 * 60 + 35", r"2.35\text{ hours}", form="duration")       # decimal hours misread as h.min
+    wrong("time", "2 * 60 + 35", r"1\text{ h }95\text{ min}", form="duration")
+
+
+def test_kind_bearing():
+    passes("bearing", "9 * 5", r"045^{\circ}")
+    passes("bearing", "360 - 45", r"\text{bearing} = 315°")
+    passes("bearing", "atan2(3, 4) * 180 / pi", r"\approx 036.9^{\circ}", dp=1)
+    wrong("bearing", "9 * 5", r"45^{\circ}")                             # not three figures
+    wrong("bearing", "9 * 5", r"135^{\circ}")
+    wrong("bearing", "9 * 5", r"225^{\circ}")
+
+
+def test_kind_angle():
+    passes("angle", "acos(Rational(4, 5)) * 180 / pi", r"\theta \approx 36.9^{\circ}")
+    passes("angle", "180 - 2*50", r"x = 80^{\circ}")
+    wrong("angle", "acos(Rational(4, 5)) * 180 / pi", r"\theta \approx 36.87^{\circ}")  # 2 d.p.
+    wrong("angle", "acos(Rational(4, 5)) * 180 / pi", r"\theta = 36.9^{\circ}")         # rounded value with =
+    wrong("angle", "180 - 2*50", r"x \approx 80.0^{\circ}")                             # exact angle given rounded
+    wrong("angle", "180 - 2*50", r"x = 80")                                             # no degrees
+
+
+def test_kind_fraction():
+    passes("fraction", "Rational(3, 8) * Rational(2, 7)", r"\frac{3}{28}")
+    passes("fraction", "Rational(7, 3)", r"2\tfrac{1}{3}", form="mixed")
+    passes("fraction", "Rational(6, 8)", r"\frac{6}{8}", simplest=False)
+    wrong("fraction", "Rational(3, 4)", r"\frac{6}{8}")               # not simplest
+    wrong("fraction", "Rational(3, 4)", r"0.75")                      # a decimal
+    wrong("fraction", "Rational(3, 4)", r"\frac{4}{3}")
+    wrong("fraction", "Rational(7, 3)", r"\frac{7}{3}", form="mixed")
+
+
+def test_kind_expression_equivalence_and_form():
+    passes("expression", "x**2 + 5*x + 6", r"(x + 2)(x + 3)")
+    passes("expression", "x**2 + 5*x + 6", r"(x + 3)(x + 2)", form="factorised")
+    passes("expression", "2*x**2 - 8", r"2(x - 2)(x + 2)", form="factorised")
+    passes("expression", "(x + 2)*(x + 3)", r"x^{2} + 5x + 6", form="expanded")
+    passes("expression", "(x**2 - 1)/(x - 1)", r"x + 1", form="simplified")
+    wrong("expression", "x**2 + 5*x + 6", r"(x + 1)(x + 6)")
+    wrong("expression", "2*x**2 - 8", r"2(x^{2} - 4)", form="factorised")       # factorises further
+    wrong("expression", "2*x**2 - 8", r"(2x - 4)(x + 2)", form="factorised")    # common factor left in
+    wrong("expression", "x**2 + 5*x + 6", r"x^{2} + 5x + 6", form="factorised")
+    wrong("expression", "(x + 2)*(x + 3)", r"x^{2} + 2x + 3x + 6", form="expanded")
+    wrong("expression", "(x + 2)*(x + 3)", r"(x + 2)(x + 3)", form="expanded")
+    wrong("expression", "(x**2 - 1)/(x - 1)", r"\frac{x^{2} - 1}{x - 1}", form="simplified")
+    wrong("expression", "3*x/4", r"\frac{6}{8}x", form="simplified")
+
+
+def test_kind_choice():
+    passes("choice", "irrational", "irrational")
+    wrong("choice", "irrational", "rational")
+    wrong("choice", "irrational", "integer")
+
+
+# The AA review counterexamples (PR #465 rounds) stay covered wherever a kind applies.
+def test_review_counterexamples_under_the_kinds():
+    # ln|2x| + C differs from ln|x| + C by a constant, so it IS an antiderivative of 1/x.
+    passes("antiderivative", "1/x", r"\ln|2x| + C")
+    passes("antiderivative", "1/x", r"\ln|x| + C")
+    wrong("antiderivative", "1/x", r"x\ln x + C")
+    # An integrating factor is any non-zero constant multiple of e^(x^2): zero and constants are degenerate.
+    passes("expression", "exp(x**2)", r"3\mathrm{e}^{x^{2}}", scale=True)
+    wrong("expression", "exp(x**2)", r"0", scale=True)
+    wrong("expression", "exp(x**2)", r"5", scale=True)
+    wrong("expression", "exp(x**2)", r"\mathrm{e}^{2x}", scale=True)
+    # Agreeing at sample points is not equivalence (the sampled self-inverse hole): proved symbolically or rejected.
+    samples = [0, 1, 2, 3]
+    bump = "".join(f"(x - {s})" for s in samples)
+    wrong("expression", "x * 1", rf"x + {bump}")
+    # Containment is not equivalence: a squared or multiplied equation, a smaller solution set.
+    wrong("equation", "Eq(y, 2*x + 3)", r"(y - 2x - 3)^{2} = 0")
+    wrong("inequality", "x > 1 + 2", r"x > 5")
+
+
+def test_equation_keeps_denominator_exclusions():
+    wrong("equation", "Eq(x - 1, 0)", r"\frac{(x-1)^{2}}{x-1} = 0")
+    passes("equation", "Eq(y, 2*x + 3)", r"2y - 4x = 6")
+
+
+def test_plus_c_is_dropped_only_for_antiderivatives():
+    wrong("expression", "-3*p + 5*q", r"-3p + 5q + C", form="simplified")
+    wrong("exact", "2 + 3", r"5 + C")
+    passes("antiderivative", "2*x", r"x^{2} + C")
+    passes("antiderivative", "2*x", r"x^{2}")
+    equal(mp.parse_answer(r"x + C"), mp.parse_answer(r"x"))  # the legacy helper still drops it
+
+
+def test_numeric_reading_tolerance():
+    spec = {"kind": "numeric", "truth": "68 - 12", "dp": 0, "reading": True, "maxTolerance": 2}
+    vk.check(spec, 56, tolerance=2)
+    vk.check(spec, 55, tolerance=2)
+    fails(lambda: vk.check(spec, 56, tolerance=3), AssertionError)
+    fails(lambda: vk.check(spec, 50, tolerance=2), AssertionError)
+    fails(lambda: vk.check({"kind": "numeric", "truth": "7*8", "dp": 0, "reading": True}, 56, tolerance=2), ValueError)
+    fails(lambda: vk.check({"kind": "numeric", "truth": "7*8", "dp": 0}, 56, tolerance=2), AssertionError)
+
+
 if __name__ == "__main__":
     failed = 0
     tests = [(name, fn) for name, fn in sorted(globals().items()) if name.startswith("test_") and callable(fn)]

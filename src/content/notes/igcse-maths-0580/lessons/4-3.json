@@ -1,0 +1,479 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "4.3",
+  "slug": "scale-drawings",
+  "title": "Scale drawings",
+  "level": "Core",
+  "topic": 4,
+  "summary": "A [[scale-drawing|scale drawing]] shrinks every real length by the same amount, so you multiply or divide by the scale. A [[bearing|bearing]] gives a direction as a three-figure angle, turning clockwise from north. Together they let you find distances and mark places on a map.",
+  "goals": [
+    {
+      "text": "Use a scale to change a length on a drawing into a real distance, and back again.",
+      "bullets": [
+        "4.3-c1"
+      ]
+    },
+    {
+      "text": "Make a scale drawing from real measurements, with a ruler for every straight line.",
+      "bullets": [
+        "4.3-c1"
+      ]
+    },
+    {
+      "text": "Measure and draw three-figure [[bearing|bearings]], including bearings past $180^{\\circ}$.",
+      "bullets": [
+        "4.3-c2"
+      ]
+    },
+    {
+      "text": "Mark a point on a scale drawing from its distance and bearing.",
+      "bullets": [
+        "4.3-c1",
+        "4.3-c2"
+      ]
+    },
+    {
+      "text": "Find the bearing of A from B when you know the bearing of B from A.",
+      "bullets": [
+        "4.3-c2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.11",
+    "4.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "three figure bearings",
+    "bearing of A from B",
+    "1 cm represents km",
+    "scale drawing map distance",
+    "back bearing",
+    "how to measure a bearing"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-map-scale",
+      "prompt": "A map has scale $1 : 20\\,000$. Two churches are $9$ cm apart on the map. How far apart are they in real life, in metres?",
+      "hint": "Multiply by $20\\,000$ to get centimetres, then divide by $100$ for metres.",
+      "answer": {
+        "value": 1800,
+        "tolerance": 0
+      },
+      "explain": "$9 \\times 20\\,000 = 180\\,000$ cm, and $180\\,000 \\div 100 = 1800$ m. Revise it in {{lesson:1.11}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "9*20000/100",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-full-turn",
+      "prompt": "Two angles at a point make a full turn. One of them is $138^{\\circ}$. Find the other, in degrees.",
+      "hint": "A full turn is $360^{\\circ}$.",
+      "answer": {
+        "value": 222,
+        "tolerance": 0
+      },
+      "explain": "$360 - 138 = 222$, so the other angle is $222^{\\circ}$. Revise it in {{lesson:4.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "360 - 138",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "scale",
+      "heading": "Using a scale",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[scale-drawing|scale drawing]] is an accurate picture of something too big to draw full size, such as a field or a coastline. Every length is shrunk by the same amount, so the shape and the angles stay the same."
+        },
+        {
+          "type": "definition",
+          "term": "Scale drawing",
+          "statement": "A drawing in which every length is the real length divided by the same number. The scale tells you that number, for example $1\\text{ cm}$ to $3\\text{ km}$.",
+          "plain": "A small but exact copy of a real layout."
+        },
+        {
+          "type": "text",
+          "text": "\"$1\\text{ cm}$ to $3\\text{ km}$\" (or \"$1\\text{ cm}$ represents $3\\text{ km}$\") means each centimetre on the drawing stands for $3\\text{ km}$ in real life."
+        },
+        {
+          "type": "text",
+          "text": "From the drawing to real life, multiply the drawing length by the scale. From real life to the drawing, divide the real length by the scale."
+        },
+        {
+          "type": "text",
+          "text": "A [[map-scale|map scale]] $1 : n$ works the same way, but both parts are in the same unit (centimetres on the map stand for centimetres in real life), so change units at the end. Every length uses the same [[scale-factor|scale factor]], an idea you meet again in {{lesson:4.4}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-scale-real",
+          "question": "A plan of a school field uses the scale $1\\text{ cm}$ to $6\\text{ m}$. The straight part of the running track is $6.5\\text{ cm}$ long on the plan. Work out its real length.",
+          "steps": [
+            "Each centimetre on the plan stands for $6\\text{ m}$.",
+            "There are $6.5$ centimetres, so multiply: $6.5 \\times 6 = 39$.",
+            "Check the size: $6.5$ cm is a bit more than $6$ cm, so the answer should be a bit more than $6 \\times 6 = 36\\text{ m}$. $39\\text{ m}$ fits."
+          ],
+          "answer": "$\\text{length} = 39\\text{ m}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(65,10)*6",
+            "unit": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-scale-multiply",
+          "prompt": "A map uses the scale $1\\text{ cm}$ to $3\\text{ km}$. Two villages are $9.4\\text{ cm}$ apart on the map. How far apart are they in real life, in km?",
+          "hint": "Each centimetre is $3\\text{ km}$.",
+          "answer": {
+            "value": 28.2,
+            "tolerance": 0
+          },
+          "explain": "$9.4 \\times 3 = 28.2$, so they are $28.2\\text{ km}$ apart. Giving $9.4$ forgets to use the scale.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(94,10)*3",
+            "dp": 1
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-scale-draw",
+          "question": "A rectangular hall is $18\\text{ m}$ long and $10.5\\text{ m}$ wide. Make a scale drawing of it with scale $1\\text{ cm}$ to $1.5\\text{ m}$. How wide is the hall on your drawing?",
+          "steps": [
+            "Each centimetre stands for $1.5\\text{ m}$, so divide each real length by $1.5$.",
+            "Dividing by $1.5$ is easier if you double both numbers first. Length: $18 \\div 1.5 = 36 \\div 3 = 12$ cm.",
+            "Width: $10.5 \\div 1.5 = 21 \\div 3 = 7$ cm.",
+            "Rule a $12$ cm line. Use a protractor to draw a $7$ cm line at right angles at each end, then join their ends with a ruler."
+          ],
+          "answer": "$\\text{width} = 7\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(105,10)/Rational(3,2)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-scale-divide",
+          "prompt": "A garden is $14\\text{ m}$ long. How long is it on a plan with scale $1\\text{ cm}$ to $4\\text{ m}$?",
+          "hint": "Going from real life to the drawing, do you multiply or divide?",
+          "options": [
+            {
+              "text": "$3.5\\text{ cm}$",
+              "correct": true
+            },
+            {
+              "text": "$56\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$10\\text{ cm}$",
+              "correct": false
+            }
+          ],
+          "explain": "Each $4\\text{ m}$ becomes $1\\text{ cm}$, so divide: $14 \\div 4 = 3.5$ cm. $56$ comes from multiplying, which makes the drawing bigger than the garden, and $10$ comes from subtracting.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(14,4)",
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the length you measured as the answer. Multiply by the scale, then write the unit the question asks for, such as km."
+        }
+      ]
+    },
+    {
+      "id": "bearings",
+      "heading": "Three-figure bearings",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[bearing|bearing]] gives a direction as an angle. You always start facing north and turn clockwise, the way a clock's hands move."
+        },
+        {
+          "type": "definition",
+          "term": "Bearing",
+          "statement": "The angle measured clockwise from the north direction to the line joining two points. It is written with three figures, from $000^{\\circ}$ up to, but not including, $360^{\\circ}$; a full turn of $360^{\\circ}$ brings you back to north, $000^{\\circ}$.",
+          "plain": "How far you turn clockwise from north to face the place."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-compass",
+          "alt": "Compass directions as bearings. From a centre point, north points up and is 000 degrees, east points right and is 090 degrees, south points down and is 180 degrees, west points left and is 270 degrees. A curved arrow turns clockwise from north towards east.",
+          "caption": "North, east, south and west are quarter turns apart."
+        },
+        {
+          "type": "text",
+          "text": "So north is $000^{\\circ}$, east is $090^{\\circ}$, south is $180^{\\circ}$ and west is $270^{\\circ}$. \"D is due east of C\" means D is exactly on a bearing of $090^{\\circ}$ from C."
+        },
+        {
+          "type": "text",
+          "text": "\"The bearing of B from A\" means you stand at A. Draw the north line at A, put the protractor's centre on A with $0$ on the north line, and measure clockwise round to the line AB."
+        },
+        {
+          "type": "text",
+          "text": "Always write three figures. An angle of $8^{\\circ}$ is the bearing $008^{\\circ}$, and $54^{\\circ}$ is $054^{\\circ}$."
+        },
+        {
+          "type": "check",
+          "id": "check-compass",
+          "prompt": "Point K is south-east of point J, exactly halfway between east and south. What is the bearing of K from J?",
+          "hint": "Start at north and turn clockwise past east.",
+          "options": [
+            {
+              "text": "$135^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$045^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$225^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "East is $090^{\\circ}$ and south is $180^{\\circ}$, so halfway is $090^{\\circ} + 45^{\\circ} = 135^{\\circ}$. $225^{\\circ}$ comes from turning anticlockwise.",
+          "verify": {
+            "kind": "bearing",
+            "truth": "90 + 45"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A protractor only reaches $180^{\\circ}$. For a point to the left of the north line, measure the angle anticlockwise from north instead. The bearing is $360^{\\circ}$ minus that angle."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-reflex-bearing",
+          "alt": "Point S with a north line pointing straight up. A line goes from S up and to the left to point T. A small angle of 63 degrees is marked anticlockwise from the north line to ST. A dashed arc goes the long way round clockwise from north to ST and is labelled bearing."
+        },
+        {
+          "type": "example",
+          "id": "ex-bearing-reflex",
+          "question": "In the figure, the angle anticlockwise from the north line at S to the line ST is $63^{\\circ}$. Find the bearing of T from S.",
+          "steps": [
+            "T is to the left of the north line, so the bearing is more than $180^{\\circ}$.",
+            "The clockwise turn and the anticlockwise turn together make a full turn of $360^{\\circ}$.",
+            "So the bearing is $360^{\\circ} - 63^{\\circ} = 297^{\\circ}$. It is between west ($270^{\\circ}$) and north, as T is."
+          ],
+          "answer": "$\\text{bearing} = 297^{\\circ}$",
+          "verify": {
+            "kind": "bearing",
+            "truth": "360 - 63"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-plot-position",
+          "question": "A scale drawing uses $1\\text{ cm}$ to $4\\text{ km}$. A yacht Y is $22\\text{ km}$ from a lifeboat station L, on a bearing of $248^{\\circ}$. How far from L do you mark Y on the drawing, and in which direction?",
+          "steps": [
+            "Length on the drawing: $22 \\div 4 = 5.5$ cm.",
+            "Rule a north line at L. The bearing is past $180^{\\circ}$, so measure $360^{\\circ} - 248^{\\circ} = 112^{\\circ}$ anticlockwise from north, and mark it.",
+            "Check the direction: $248^{\\circ}$ is between south ($180^{\\circ}$) and west ($270^{\\circ}$), so Y is below and to the left of L.",
+            "Rule a line from L through your mark. Mark Y on it, $5.5$ cm from L, and label it."
+          ],
+          "answer": "$LY = 5.5\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(22,4)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-draw-bearing",
+          "prompt": "You want to draw a bearing of $317^{\\circ}$ with a $180^{\\circ}$ protractor. How many degrees do you measure anticlockwise from north?",
+          "hint": "The clockwise and anticlockwise angles make a full turn.",
+          "answer": {
+            "value": 43,
+            "tolerance": 0
+          },
+          "explain": "$360 - 317 = 43$, so measure $43^{\\circ}$ anticlockwise from north.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "360 - 317",
+            "dp": 0
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Measuring anticlockwise, or from the south line. Every bearing starts on the north line and turns clockwise; check the direction with the compass points."
+        }
+      ]
+    },
+    {
+      "id": "back",
+      "heading": "Turning a bearing round",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Often you know the bearing of B from A and need the bearing of A from B. North points the same way everywhere on a map, so the north lines at A and B are parallel."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-back-bearing",
+          "alt": "Points A and B, each with a north line pointing straight up; the two north lines are parallel. B is up and to the right of A. At A, the angle clockwise from north to AB is 72 degrees. At B, a dashed line points due south, and the angle from that south line round to BA is also 72 degrees."
+        },
+        {
+          "type": "text",
+          "text": "The two $72^{\\circ}$ angles are [[alternate-angles|alternate angles]] between the parallel north lines. So from B you turn $180^{\\circ}$ to face south, then $72^{\\circ}$ more to face A."
+        },
+        {
+          "type": "result",
+          "statement": "To find the bearing back the other way, add $180^{\\circ}$ if the bearing is less than $180^{\\circ}$. Subtract $180^{\\circ}$ if it is $180^{\\circ}$ or more.",
+          "why": "Facing back along the same line is a half turn, and the north lines are parallel."
+        },
+        {
+          "type": "example",
+          "id": "ex-back-small",
+          "question": "The bearing of B from A is $072^{\\circ}$. Find the bearing of A from B.",
+          "steps": [
+            "$72^{\\circ}$ is less than $180^{\\circ}$, so add $180^{\\circ}$.",
+            "$72^{\\circ} + 180^{\\circ} = 252^{\\circ}$.",
+            "Check with the figure: A is below and to the left of B, between south and west. $252^{\\circ}$ is between $180^{\\circ}$ and $270^{\\circ}$."
+          ],
+          "answer": "$\\text{bearing} = 252^{\\circ}$",
+          "verify": {
+            "kind": "bearing",
+            "truth": "72 + 180"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-back-large",
+          "question": "A ferry sails from port P to port Q on a bearing of $314^{\\circ}$. On what bearing does it sail back from Q to P?",
+          "steps": [
+            "$314^{\\circ}$ is more than $180^{\\circ}$, so subtract $180^{\\circ}$.",
+            "$314^{\\circ} - 180^{\\circ} = 134^{\\circ}$.",
+            "Adding would give $494^{\\circ}$, more than a full turn, so it cannot be a bearing.",
+            "Check: Q is north-west of P, so P is south-east of Q. $134^{\\circ}$ is between east and south."
+          ],
+          "answer": "$\\text{bearing} = 134^{\\circ}$",
+          "verify": {
+            "kind": "bearing",
+            "truth": "314 - 180"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-back-mc",
+          "prompt": "The bearing of N from M is $205^{\\circ}$. What is the bearing of M from N?",
+          "hint": "Is $205^{\\circ}$ more or less than $180^{\\circ}$?",
+          "options": [
+            {
+              "text": "$025^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$385^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$155^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$205^{\\circ}$ is more than $180^{\\circ}$, so subtract: $205^{\\circ} - 180^{\\circ} = 025^{\\circ}$. $385^{\\circ}$ is more than a full turn, and $155^{\\circ}$ is $360^{\\circ} - 205^{\\circ}$, not a half turn.",
+          "verify": {
+            "kind": "bearing",
+            "truth": "205 - 180"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-back-numeric",
+          "prompt": "The bearing of D from C is $038^{\\circ}$. Find the bearing of C from D, in degrees.",
+          "hint": "$38^{\\circ}$ is less than $180^{\\circ}$.",
+          "answer": {
+            "value": 218,
+            "tolerance": 0
+          },
+          "explain": "Add a half turn: $38 + 180 = 218$, so the bearing is $218^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "38 + 180",
+            "dp": 0
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Measuring at the wrong point. For the bearing of A from B, the protractor goes on B, the point after \"from\"."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Scale $1\\text{ cm}$ to $k$: real length $=$ drawing length $\\times\\, k$, and drawing length $=$ real length $\\div\\, k$. Give the unit the question asks for.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A bearing starts at north, turns clockwise and has three figures: N $000^{\\circ}$, E $090^{\\circ}$, S $180^{\\circ}$, W $270^{\\circ}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Bearing of B from A: put the protractor on A, the point after \"from\".",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Left of the north line: bearing $= 360^{\\circ} -$ the angle anticlockwise from north.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Bearing back the other way: add $180^{\\circ}$ if under $180^{\\circ}$, subtract $180^{\\circ}$ if $180^{\\circ}$ or more.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Measuring anticlockwise, or from the south line. Every bearing starts on the north line and turns clockwise.",
+    "Measuring at the wrong point. For the bearing of A from B, put the protractor on B.",
+    "Giving the drawing length as the answer. Multiply by the scale and convert to the unit asked for, such as km.",
+    "Dropping the leading zero. A bearing of $29^{\\circ}$ is written $029^{\\circ}$.",
+    "Reading the wrong scale on the protractor. Use the scale that reads $0$ on the north line."
+  ],
+  "examTips": [
+    "\"Measure the bearing\": centre the protractor on the point after \"from\", with $0$ on the north line, and write three figures. A small range is accepted, so measure carefully.",
+    "\"Work out the actual distance\": write down the length you measured, then multiply by the scale. The measurement on its own can earn a mark.",
+    "\"Mark the position\": rule a line on the right bearing, mark the point at the scaled length, and label it with its letter. Use a ruler for every straight line."
+  ],
+  "readingMinutes": 17
+}

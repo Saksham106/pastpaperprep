@@ -1,0 +1,549 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "2.1",
+  "slug": "introduction-to-algebra",
+  "title": "Introduction to algebra",
+  "level": "Core",
+  "topic": 2,
+  "summary": "In algebra a letter stands for a number, so one [[expression|expression]] such as $8n$ works for every value of $n$. [[substitution|Substitution]] means putting numbers in place of the letters and working out the answer. It is how you use any [[formula|formula]].",
+  "goals": [
+    {
+      "text": "Use letters to stand for numbers, and read an expression's [[term|terms]] and [[coefficient|coefficients]].",
+      "bullets": [
+        "2.1-c1"
+      ]
+    },
+    {
+      "text": "Substitute positive and [[negative-number|negative numbers]] into expressions, including ones with powers.",
+      "bullets": [
+        "2.1-c2"
+      ]
+    },
+    {
+      "text": "Substitute into formulas written in words or letters, with and without a calculator.",
+      "bullets": [
+        "2.1-c2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "substitution",
+    "substitute into a formula",
+    "find the value of an expression",
+    "letters for numbers",
+    "what is a coefficient",
+    "algebra basics"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-order",
+      "prompt": "Use the [[order-of-operations|order of operations]] to work out $20 - 12 \\div 4 + 1$.",
+      "hint": "Division comes before addition and subtraction.",
+      "options": [
+        {
+          "text": "$18$",
+          "correct": true
+        },
+        {
+          "text": "$3$",
+          "correct": false
+        },
+        {
+          "text": "$16$",
+          "correct": false
+        }
+      ],
+      "explain": "Divide first: $12 \\div 4 = 3$. Then work left to right: $20 - 3 + 1 = 18$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "20 - 12/4 + 1"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-negatives",
+      "prompt": "Work out this calculation with [[negative-number|negative numbers]]: $-3 \\times 7 - (-10)$.",
+      "hint": "Subtracting a negative number is the same as adding.",
+      "options": [
+        {
+          "text": "$-11$",
+          "correct": true
+        },
+        {
+          "text": "$-31$",
+          "correct": false
+        },
+        {
+          "text": "$11$",
+          "correct": false
+        }
+      ],
+      "explain": "$-3 \\times 7 = -21$, and $-(-10)$ is $+10$. So $-21 + 10 = -11$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "-3*7 - (-10)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-square-negative",
+      "prompt": "Work out $(-6)^{2}$.",
+      "hint": "It means $(-6) \\times (-6)$.",
+      "options": [
+        {
+          "text": "$36$",
+          "correct": true
+        },
+        {
+          "text": "$-36$",
+          "correct": false
+        },
+        {
+          "text": "$-12$",
+          "correct": false
+        }
+      ],
+      "explain": "Two negatives multiply to a positive: $(-6) \\times (-6) = 36$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "(-6)**2"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "letters",
+      "heading": "Letters stand for numbers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A cinema ticket costs \\$8. Two tickets cost $2 \\times 8$ dollars and five cost $5 \\times 8$ dollars. For any number of tickets, $n$, the cost is $8 \\times n$ dollars."
+        },
+        {
+          "type": "text",
+          "text": "The letter $n$ is a [[variable|variable]]: it stands for a number that can change. One rule, $8n$, covers every number of tickets at once."
+        },
+        {
+          "type": "text",
+          "text": "Algebra has short ways of writing. $8n$ means $8 \\times n$, $ab$ means $a \\times b$, $\\frac{a}{4}$ means $a \\div 4$ and $a^{2}$ means $a \\times a$. Write $1a$ as just $a$."
+        },
+        {
+          "type": "text",
+          "text": "An [[expression|expression]] is numbers, letters and operations with no equals sign, such as $3a - 2b + 5$."
+        },
+        {
+          "type": "text",
+          "text": "Each part split off by a $+$ or $-$ sign (not one inside brackets) is a [[term|term]]. The terms of $3a - 2b + 5$ are $3a$, $-2b$ and $5$. The sign in front belongs to the term."
+        },
+        {
+          "type": "text",
+          "text": "The number that multiplies a letter is its [[coefficient|coefficient]]. In $3a - 2b + 5$, the coefficient of $a$ is $3$ and the coefficient of $b$ is $-2$. The $5$ has no letter: it is the constant term."
+        },
+        {
+          "type": "example",
+          "id": "ex-juice-expression",
+          "question": "Juice cartons cost $c$ cents each. A pack of straws costs $35$ cents. Write an expression for the cost, in cents, of $6$ cartons and one pack of straws.",
+          "steps": [
+            "$6$ cartons cost $6 \\times c$ cents, written $6c$.",
+            "Add the straws, which you buy once: $6c + 35$.",
+            "Test it with a price, say $c = 50$: $6 \\times 50 + 35 = 335$ cents, which is right."
+          ],
+          "answer": "$6c + 35$",
+          "verify": {
+            "kind": "expression",
+            "truth": "6*c + 35",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Because a letter can be any number, one expression can describe a pattern that holds for every number."
+        },
+        {
+          "type": "example",
+          "id": "ex-three-in-a-row",
+          "question": "$n$ is any whole number. Write and simplify an expression for the sum of $n$ and the next two whole numbers.",
+          "steps": [
+            "The next two whole numbers are $n + 1$ and $n + 2$.",
+            "Add all three: $n + (n + 1) + (n + 2)$.",
+            "Collect the [[like-terms|like terms]]: three $n$s and $1 + 2 = 3$, so $3n + 3$. You practise this in {{lesson:2.2}}.",
+            "Test with $n = 10$: $10 + 11 + 12 = 33$, and $3 \\times 10 + 3 = 33$."
+          ],
+          "answer": "$3n + 3$",
+          "verify": {
+            "kind": "expression",
+            "truth": "n + (n + 1) + (n + 2)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-share-expression",
+          "prompt": "Mia has $m$ stickers. She gives $5$ away, then shares the rest equally among $4$ friends. Which expression gives the number each friend gets?",
+          "hint": "How many does she have left before she shares?",
+          "options": [
+            {
+              "text": "$\\frac{m - 5}{4}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{m}{4} - 5$",
+              "correct": false
+            },
+            {
+              "text": "$m - \\frac{5}{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "She has $m - 5$ left, and the whole of that is divided by $4$. The fraction line keeps $m - 5$ together.",
+          "verify": {
+            "kind": "expression",
+            "truth": "(m - 5)/4"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-coefficient",
+          "prompt": "What is the coefficient of $x$ in $7 - x + 4y$?",
+          "hint": "$-x$ means $-1 \\times x$.",
+          "options": [
+            {
+              "text": "$-1$",
+              "correct": true
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$7$",
+              "correct": false
+            }
+          ],
+          "explain": "The term is $-x$, which is $-1 \\times x$. The sign belongs to the term, so the coefficient is $-1$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "diff(7 - x + 4*y, x)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "substitute",
+      "heading": "Substituting into expressions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[substitution|Substitution]] means replacing each letter with a number, then working out the value of the [[expression|expression]]."
+        },
+        {
+          "type": "text",
+          "text": "1. Write the expression again, with each number in brackets where its letter was."
+        },
+        {
+          "type": "text",
+          "text": "2. Work it out with the [[order-of-operations|order of operations]]: brackets, then powers, then $\\times$ and $\\div$, then $+$ and $-$. Work left to right when two have the same rank."
+        },
+        {
+          "type": "example",
+          "id": "ex-sub-positive",
+          "question": "Find the value of $9p - 2q$ when $p = 4$ and $q = 11$.",
+          "steps": [
+            "Put the numbers in: $9(4) - 2(11)$.",
+            "Multiply first: $36 - 22$.",
+            "Subtract: $14$."
+          ],
+          "answer": "$9p - 2q = 14$",
+          "verify": {
+            "kind": "exact",
+            "truth": "9*4 - 2*11"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Brackets matter most with [[negative-number|negative numbers]]. They stop a minus sign getting lost."
+        },
+        {
+          "type": "example",
+          "id": "ex-sub-negative",
+          "question": "Find the value of $5a - 3b$ when $a = -2$ and $b = -6$.",
+          "steps": [
+            "Put the numbers in, in brackets: $5(-2) - 3(-6)$.",
+            "Multiply: $5 \\times (-2) = -10$ and $3 \\times (-6) = -18$. So you have $-10 - (-18)$.",
+            "Subtracting $-18$ is adding $18$: $-10 + 18 = 8$."
+          ],
+          "answer": "$5a - 3b = 8$",
+          "verify": {
+            "kind": "exact",
+            "truth": "5*(-2) - 3*(-6)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Getting the sign wrong when you multiply. A positive times a negative is negative, so $6 \\times (-4) = -24$. A negative times a negative is positive."
+        },
+        {
+          "type": "check",
+          "id": "check-sub-negative",
+          "prompt": "Find the value of $8m - 3n$ when $m = -2$ and $n = -9$.",
+          "hint": "Write $8(-2) - 3(-9)$ and do each multiplication first.",
+          "options": [
+            {
+              "text": "$11$",
+              "correct": true
+            },
+            {
+              "text": "$-43$",
+              "correct": false
+            },
+            {
+              "text": "$-11$",
+              "correct": false
+            }
+          ],
+          "explain": "$8(-2) = -16$ and $3(-9) = -27$. Then $-16 - (-27) = -16 + 27 = 11$. $-43$ comes from adding $-27$ instead of subtracting it.",
+          "verify": {
+            "kind": "exact",
+            "truth": "8*(-2) - 3*(-9)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A power applies only to what it touches. $2r^{2}$ means $2 \\times r^{2}$: square $r$ first, then multiply by $2$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sub-square",
+          "question": "Find the value of $2r^{2} - 9r$ when $r = -7$.",
+          "steps": [
+            "Put the number in, in brackets: $2(-7)^{2} - 9(-7)$.",
+            "Square first: $(-7)^{2} = 49$, which is positive.",
+            "Multiply: $2 \\times 49 = 98$ and $9 \\times (-7) = -63$. So you have $98 - (-63)$.",
+            "Subtracting $-63$ is adding $63$: $98 + 63 = 161$."
+          ],
+          "answer": "$2r^{2} - 9r = 161$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*(-7)**2 - 9*(-7)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Squaring the coefficient too. With $x = 4$, $3x^{2}$ is $3 \\times 16 = 48$, not $12^{2} = 144$."
+        },
+        {
+          "type": "check",
+          "id": "check-sub-square",
+          "prompt": "Find the value of $3d^{2}$ when $d = -8$.",
+          "hint": "Square $-8$ first, then multiply by $3$.",
+          "options": [
+            {
+              "text": "$192$",
+              "correct": true
+            },
+            {
+              "text": "$-192$",
+              "correct": false
+            },
+            {
+              "text": "$576$",
+              "correct": false
+            }
+          ],
+          "explain": "$(-8)^{2} = 64$, then $3 \\times 64 = 192$. $576$ comes from squaring $3 \\times (-8)$, and $-192$ from losing the sign when squaring.",
+          "verify": {
+            "kind": "exact",
+            "truth": "3*(-8)**2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "formulas",
+      "heading": "Substituting into formulas",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[formula|formula]] is a rule that links quantities, such as $A = lw$ for the area of a rectangle. The letter on its own, here $A$, is what the formula works out."
+        },
+        {
+          "type": "text",
+          "text": "A formula can be written in words too. Substitute in the same way: put the numbers in, then use the [[order-of-operations|order of operations]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-word-formula",
+          "question": "A cookbook gives this formula for roasting a turkey: cooking time in minutes $= 35 \\times$ mass in kg $+ 25$. Work out the cooking time for a turkey of mass $4.6$ kg.",
+          "steps": [
+            "Put the mass in: time $= 35 \\times 4.6 + 25$.",
+            "Multiply first. Split $4.6$ into $4 + 0.6$: $35 \\times 4 = 140$ and $35 \\times 0.6 = 21$, so $35 \\times 4.6 = 161$.",
+            "Then add the $25$: $161 + 25 = 186$ minutes."
+          ],
+          "answer": "$\\text{time} = 186\\text{ minutes}$",
+          "verify": {
+            "kind": "exact",
+            "unit": "minutes",
+            "truth": "35*4.6 + 25"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding before multiplying. $(35 + 25) \\times 4.6$ adds the extra $25$ minutes once for every kilogram. Multiply first, then add."
+        },
+        {
+          "type": "example",
+          "id": "ex-formula-negative",
+          "question": "$v = u + at$. Find $v$ when $u = 31$, $a = -4.5$ and $t = 6$.",
+          "steps": [
+            "Put the numbers in: $v = 31 + (-4.5)(6)$.",
+            "Multiply first: $4.5 \\times 6 = 27$, and the sign is negative, so $(-4.5)(6) = -27$.",
+            "Add: $31 + (-27) = 31 - 27 = 4$."
+          ],
+          "answer": "$v = 4$",
+          "verify": {
+            "kind": "exact",
+            "truth": "31 + (-4.5)*6"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "If a question gives you the value of the formula and asks for a different letter, substitute and then solve the equation. You learn that in {{lesson:2.5}}."
+        },
+        {
+          "type": "check",
+          "id": "check-perimeter",
+          "prompt": "$P = 2(l + w)$. Find $P$ when $l = 7.5$ and $w = 4.3$.",
+          "hint": "Work out the bracket first.",
+          "answer": {
+            "value": 23.6,
+            "tolerance": 0.05
+          },
+          "explain": "$l + w = 7.5 + 4.3 = 11.8$, then $P = 2 \\times 11.8 = 23.6$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*(7.5 + 4.3)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "On Paper 3 and Paper 4, use your calculator for awkward numbers. Type a whole top and a whole bottom of a fraction in brackets, and put negative numbers in brackets."
+        },
+        {
+          "type": "calculator",
+          "snippet": "brackets-order"
+        },
+        {
+          "type": "example",
+          "id": "ex-formula-calculator",
+          "question": "$R = \\dfrac{3x^{2} - y}{x + 2y}$. Use your calculator to find $R$ when $x = 2.6$ and $y = -0.85$. Give your answer to 3 significant figures.",
+          "steps": [
+            "Write the substitution first: $R = \\dfrac{3(2.6)^{2} - (-0.85)}{2.6 + 2(-0.85)}$. This line can earn a method mark.",
+            "Type it with the top and the bottom each in brackets: $(3 \\times 2.6^{2} - (-0.85)) \\div (2.6 + 2 \\times (-0.85))$.",
+            "The display shows $23.4777\\ldots$ (top $21.13$, bottom $0.9$). If it shows a fraction, press the key that changes it to a decimal.",
+            "Round only now, to 3 significant figures: $23.5$."
+          ],
+          "answer": "$R \\approx 23.5$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(3*2.6**2 - (-0.85))/(2.6 + 2*(-0.85))",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-formula-fraction",
+          "prompt": "$E = \\frac{p - q}{2} + pq$. Find $E$ when $p = 7$ and $q = -5$.",
+          "hint": "Do the top of the fraction first: $7 - (-5)$.",
+          "options": [
+            {
+              "text": "$-29$",
+              "correct": true
+            },
+            {
+              "text": "$-34$",
+              "correct": false
+            },
+            {
+              "text": "$41$",
+              "correct": false
+            }
+          ],
+          "explain": "$7 - (-5) = 12$, so the fraction is $6$. Then $pq = 7 \\times (-5) = -35$, and $6 - 35 = -29$. $-34$ comes from $7 - 5$ on top, and $41$ from making $pq$ positive.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(7 - (-5))/2 + 7*(-5)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A letter stands for a number. $3a$ means $3 \\times a$, $ab$ means $a \\times b$ and $a^{2}$ means $a \\times a$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A coefficient includes its sign: in $5 - 2x$, the coefficient of $x$ is $-2$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Substitute: put each number in brackets, then use the order of operations.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A power applies only to what it touches: $3x^{2} = 3 \\times x^{2}$, and $(-4)^{2} = 16$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "With a calculator, bracket the whole top and bottom of a fraction, and round only the final answer.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Adding before multiplying. In “fixed amount + rate × number”, multiply the rate by the number first, then add the fixed amount once.",
+    "Squaring the coefficient as well as the letter: $4y^{2}$ with $y = 3$ is $4 \\times 9 = 36$, not $12^{2}$.",
+    "Doubling instead of squaring: $m^{2}$ means $m \\times m$, not $2m$.",
+    "Losing a minus sign: $7 \\times (-3) = -21$, and subtracting a negative, $-(-5)$, is adding $5$.",
+    "Leaving out brackets round a negative number. $(-3)^{2} = 9$, but $-3^{2}$ on a calculator gives $-9$."
+  ],
+  "examTips": [
+    "“Find the value of”: write the line with the numbers substituted in before you work it out. A correct substitution can earn a method mark even if the arithmetic slips.",
+    "On Paper 1 and Paper 2 there is no calculator. Write powers and products on paper one step at a time, such as $35 \\times 4.6 = 140 + 21$.",
+    "“Give your answer to 3 significant figures”: write down the full calculator display first, then round."
+  ],
+  "readingMinutes": 17
+}

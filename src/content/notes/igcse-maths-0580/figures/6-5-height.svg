@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 220" role="img" aria-labelledby="t">
+  <title id="t">Triangle ABC with C at bottom left and B at bottom right, so side a is the base CB. A is at the top, and side b joins C to A. A dashed line goes straight down from A to the base, meeting it at a right angle. This is the height h. The angle C is marked between sides a and b.</title>
+  <line x1="40" y1="180" x2="300" y2="180" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <line x1="40" y1="180" x2="130" y2="50" stroke="var(--t2-ink)" stroke-width="2.4"/>
+  <line x1="130" y1="50" x2="300" y2="180" stroke="currentColor" stroke-width="2"/>
+  <line x1="130" y1="50" x2="130" y2="180" stroke="var(--t3-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <polyline points="130,166 144,166 144,180" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M70,180 A30,30 0 0 0 57.08,155.33" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="26" y="194" fill="currentColor" font-size="15" text-anchor="middle" font-family="inherit">C</text>
+  <text x="314" y="194" fill="currentColor" font-size="15" text-anchor="middle" font-family="inherit">B</text>
+  <text x="130" y="38" fill="currentColor" font-size="15" text-anchor="middle" font-family="inherit">A</text>
+  <text x="200" y="204" fill="var(--t1-ink)" font-size="15" font-style="italic" text-anchor="middle" font-family="inherit">a</text>
+  <text x="74" y="108" fill="var(--t2-ink)" font-size="15" font-style="italic" text-anchor="end" font-family="inherit">b</text>
+  <text x="138" y="120" fill="var(--t3-ink)" font-size="15" font-style="italic" text-anchor="start" font-family="inherit">h</text>
+</svg>

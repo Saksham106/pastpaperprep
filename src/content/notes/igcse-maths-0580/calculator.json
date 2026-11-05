@@ -1,0 +1,362 @@
+{
+  "snippets": {
+    "degree-mode": {
+      "title": "Set degree mode",
+      "steps": {
+        "casio-classwiz": [
+          "Press [SHIFT] [MENU] (SETUP)",
+          "Press [2] (Angle Unit), then [1] (Degree)",
+          "Check that the D indicator shows at the top of the screen"
+        ],
+        "ti-30xs": [
+          "Press [mode]",
+          "On the top row, move the cursor to DEG and press [enter]",
+          "Press [clear] to return to the home screen; DEG shows at the top"
+        ]
+      }
+    },
+    "standard-form-entry": {
+      "title": "Enter a number in standard form",
+      "steps": {
+        "casio-classwiz": [
+          "Type {mantissa}, press [×10ˣ], then type {power} (press [(−)] first if the power is negative) (check on your model)",
+          "Or type {mantissa} [×] 10 [xⁿ] {power} [►], which works on every model",
+          "Put brackets round each standard-form number when you divide by it"
+        ],
+        "ti-30xs": [
+          "Type {mantissa}, press [×10ⁿ], then type {power} (press [(−)] first if the power is negative)",
+          "Press [►] to leave the power",
+          "Put brackets round each standard-form number when you divide by it"
+        ]
+      }
+    },
+    "standard-form-reading": {
+      "title": "Show and read an answer in standard form",
+      "steps": {
+        "casio-classwiz": [
+          "Press [SHIFT] [MENU] (SETUP) [3] (Number Format) [2] (Sci), then [3] for 3 significant figures",
+          "Press [=]: a display of 1.67×10⁻¹ means 1.67 × 10⁻¹",
+          "To go back to normal display: [SHIFT] [MENU] (SETUP) [3] (Number Format) [3] (Norm) [1] (Norm 1)"
+        ],
+        "ti-30xs": [
+          "Press [mode], press [▼] to the NORM SCI ENG row, move to SCI and press [enter]",
+          "Press [clear], then calculate: a display of 5×10⁻³ means 5 × 10⁻³",
+          "To go back: [mode], [▼] to the second row, choose NORM and press [enter]"
+        ]
+      }
+    },
+    "fraction-entry": {
+      "title": "Enter a fraction",
+      "steps": {
+        "casio-classwiz": [
+          "Press [■/■] for the fraction template",
+          "Type {numerator}, press [▼], type {denominator}",
+          "Press [►] to leave the fraction, then carry on"
+        ],
+        "ti-30xs": [
+          "Press [n/d] for the fraction template",
+          "Type {numerator}, press [▼], type {denominator}",
+          "Press [►] to leave the fraction, then carry on"
+        ]
+      }
+    },
+    "fraction-to-decimal": {
+      "title": "Switch an answer between fraction and decimal",
+      "steps": {
+        "casio-classwiz": [
+          "After [=], press [S⇔D] to switch between the fraction (or √, π form) and the decimal",
+          "Or press [SHIFT] [=] (≈) instead of [=] to get the decimal straight away"
+        ],
+        "ti-30xs": [
+          "After [enter], press the toggle key [◄►] to switch between the fraction (or √, π form) and the decimal",
+          "Or end the entry with [2nd] [f◄►d] before [enter] to convert to a decimal"
+        ]
+      }
+    },
+    "mixed-numbers": {
+      "title": "Enter a mixed number and convert the answer",
+      "steps": {
+        "casio-classwiz": [
+          "Press [SHIFT] [■/■] (■□/□) for the mixed-number template",
+          "Type {whole}, press [►], type {numerator}, press [▼], type {denominator}, press [►]",
+          "Press [=]; to switch the answer between mixed and improper form, press [SHIFT] [S⇔D] (a b/c ⇔ d/c)"
+        ],
+        "ti-30xs": [
+          "Type {whole}, then press [2nd] [Un/d]",
+          "Type {numerator}, press [▼], type {denominator}, press [►]",
+          "For a mixed-number answer, end the entry with [2nd] [n/d◄►Un/d] before [enter]"
+        ]
+      }
+    },
+    "powers": {
+      "title": "Squares, cubes and other powers",
+      "steps": {
+        "casio-classwiz": [
+          "Square: type {base}, press [x²]",
+          "Any power: type {base}, press [xⁿ], type {power}, press [►]",
+          "Negative power: press [(−)] before the power, e.g. {base} [xⁿ] [(−)] {power} [►]",
+          "Put a negative base in brackets: [(] [(−)] {base} [)] [x²]"
+        ],
+        "ti-30xs": [
+          "Square: type {base}, press [x²]",
+          "Any power: type {base}, press [^], type {power}, press [►]",
+          "Negative power: press [(−)] before the power, e.g. {base} [^] [(−)] {power} [►]",
+          "Put a negative base in brackets: [(] [(−)] {base} [)] [x²]"
+        ]
+      }
+    },
+    "roots": {
+      "title": "Square roots, cube roots and other roots",
+      "steps": {
+        "casio-classwiz": [
+          "Square root: press [√■], type {value}, press [►]",
+          "Cube root: press [SHIFT] [√■] (∛■), type {value}, press [►] (fx-991EX: check on your model)",
+          "Any root: press [SHIFT] [xⁿ] (■√□), type {root}, press [►], type {value}, press [►]"
+        ],
+        "ti-30xs": [
+          "Square root: press [2nd] [√], type {value}; press [►] to leave the root before carrying on",
+          "Cube root or any root: type {root}, press [2nd] [ˣ√], then type {value}",
+          "Press [enter]"
+        ]
+      }
+    },
+    "fractional-index": {
+      "title": "Fractional powers",
+      "steps": {
+        "casio-classwiz": [
+          "Type {base} and press [xⁿ]",
+          "In the power box type {numerator}, press [■/■], type {denominator}",
+          "Press [=]"
+        ],
+        "ti-30xs": [
+          "Type {base} and press [^]",
+          "Type the power in brackets: [(] {numerator} [÷] {denominator} [)]",
+          "Press [enter]"
+        ]
+      }
+    },
+    "reciprocal": {
+      "title": "Reciprocal",
+      "steps": {
+        "casio-classwiz": [
+          "Type {value}, press [x⁻¹], press [=]",
+          "For the reciprocal of a calculation, put it in brackets first: [(] … [)] [x⁻¹]"
+        ],
+        "ti-30xs": [
+          "Type {value}, press [x⁻¹], press [enter]",
+          "For the reciprocal of a calculation, put it in brackets first: [(] … [)] [x⁻¹]"
+        ]
+      }
+    },
+    "brackets-order": {
+      "title": "Brackets and order of operations",
+      "steps": {
+        "casio-classwiz": [
+          "The calculator follows the order of operations: brackets, then powers, then × and ÷, then + and −",
+          "Put a whole numerator or denominator in brackets, e.g. [(] … [)] [÷] [(] … [)]",
+          "Close the bracket after a function's input, e.g. [sin] 30 [)]",
+          "Square a negative number in brackets: [(] [(−)] 2 [)] [x²] gives 4; [(−)] 2 [x²] gives −4"
+        ],
+        "ti-30xs": [
+          "The calculator follows the order of operations: brackets, then powers, then × and ÷, then + and −",
+          "Put a whole numerator or denominator in brackets, e.g. [(] … [)] [÷] [(] … [)]",
+          "Close the bracket after a function's input, e.g. [sin] 30 [)]",
+          "Square a negative number in brackets: [(] [(−)] 2 [)] [x²] gives 4; [(−)] 2 [x²] gives −4"
+        ]
+      }
+    },
+    "pi": {
+      "title": "Use π",
+      "steps": {
+        "casio-classwiz": [
+          "Press [SHIFT] [×10ˣ] (π) wherever π appears",
+          "Example: [SHIFT] [×10ˣ] (π) [×] {radius} [x²] [=], then [S⇔D] for the decimal"
+        ],
+        "ti-30xs": [
+          "Press [π] wherever π appears",
+          "Example: [π] [×] {radius} [x²] [enter], then [◄►] for the decimal"
+        ]
+      }
+    },
+    "trig": {
+      "title": "sin, cos and tan of an angle",
+      "steps": {
+        "casio-classwiz": [
+          "Check the calculator is in degrees (D at the top)",
+          "Press [sin], [cos] or [tan], type {angle}, press [)]",
+          "Press [=]; for a decimal, press [S⇔D] or use [SHIFT] [=] (≈)"
+        ],
+        "ti-30xs": [
+          "Check the calculator is in degrees (DEG at the top)",
+          "Press [sin], [cos] or [tan], type {angle}, press [)]",
+          "Press [enter]; for a decimal, press [◄►]"
+        ]
+      }
+    },
+    "inverse-trig": {
+      "title": "Find an angle with sin⁻¹, cos⁻¹ or tan⁻¹",
+      "steps": {
+        "casio-classwiz": [
+          "Check the calculator is in degrees (D at the top)",
+          "Press [SHIFT] [sin] (sin⁻¹), [SHIFT] [cos] (cos⁻¹) or [SHIFT] [tan] (tan⁻¹)",
+          "Type {ratio}, using [■/■] for a fraction, then press [)] [=]"
+        ],
+        "ti-30xs": [
+          "Check the calculator is in degrees (DEG at the top)",
+          "Press [2nd] [sin⁻¹], [2nd] [cos⁻¹] or [2nd] [tan⁻¹]",
+          "Type {ratio}, using [n/d] for a fraction, then press [)] [enter]"
+        ]
+      }
+    },
+    "ans": {
+      "title": "Use the previous answer (Ans)",
+      "steps": {
+        "casio-classwiz": [
+          "Press [Ans] to put the last answer into a calculation",
+          "Start with an operation key, e.g. [÷] 7 [=], and the calculator uses Ans automatically",
+          "Ans keeps every digit, so use it instead of retyping a rounded value"
+        ],
+        "ti-30xs": [
+          "Press [2nd] [answer] to put the last answer into a calculation",
+          "Start with an operation key, e.g. [÷] 7 [enter], and the calculator uses Ans automatically",
+          "Ans keeps every digit, so use it instead of retyping a rounded value"
+        ]
+      }
+    },
+    "frequency-table-mean": {
+      "title": "Mean from a frequency table",
+      "steps": {
+        "casio-classwiz": [
+          "Turn on the frequency column first: [SHIFT] [MENU] (SETUP) [▼], then [3] (Statistics) on the fx-991EX or [1] (Statistics) on the fx-83GTX / fx-85GTX, then [1] (On)",
+          "Press [MENU], highlight the Statistics icon (fx-83GTX / fx-85GTX: icon 2) and press [=], then [1] (1-Variable)",
+          "Type each value and press [=] after it, going down the x column",
+          "Press [▼] [►] to reach the top of the Freq column (the guide's sequence; check on your model), then type each frequency and press [=] after it",
+          "Press [AC], then [OPTN] [▼] [2] (Variable) [1] (x̄) [=]"
+        ],
+        "ti-30xs": [
+          "Clear old data: press [data] [data], press [▼] three times to 4: Clear ALL, press [enter]",
+          "In L1, type each value and press [▼] after it",
+          "Press [►] to move to L2, then type each frequency and press [▼] after it",
+          "Press [2nd] [stat] [1] (1-Var Stats); press [▼], then [►] [►] to set FRQ to L2, and press [enter] [enter]",
+          "Read x̄ on line 2 of the results"
+        ]
+      }
+    },
+    "grouped-mean": {
+      "title": "Estimated mean from grouped data",
+      "steps": {
+        "casio-classwiz": [
+          "Work out the midpoint of each class by hand: (lower bound + upper bound) ÷ 2",
+          "Follow the frequency-table mean steps with the midpoints as the x values and the class frequencies in the Freq column",
+          "Say the answer is an estimate: the midpoints stand in for the real values"
+        ],
+        "ti-30xs": [
+          "Work out the midpoint of each class by hand: (lower bound + upper bound) ÷ 2",
+          "Follow the frequency-table mean steps with the midpoints in L1 and the class frequencies in L2",
+          "Say the answer is an estimate: the midpoints stand in for the real values"
+        ]
+      }
+    },
+    "stats-mode-exit": {
+      "title": "Go back to normal calculations after statistics",
+      "steps": {
+        "casio-classwiz": [
+          "Press [MENU], highlight the Calculate icon (icon 1) and press [=]",
+          "Leaving Statistics mode deletes the data in the editor"
+        ],
+        "ti-30xs": [
+          "Press [2nd] [quit] to return to the home screen",
+          "Clear the old lists before the next data set: [data] [data], then 4: Clear ALL"
+        ]
+      }
+    },
+    "time-dms": {
+      "title": "Times in hours, minutes and seconds",
+      "steps": {
+        "casio-classwiz": [
+          "Enter a time as {hours} [°'\"] {minutes} [°'\"] {seconds} [°'\"] (type 0 for any part that is zero)",
+          "Add or subtract times the same way, then press [=]: the answer shows as hours° minutes' seconds\"",
+          "Press [°'\"] on an answer to switch between hours-minutes-seconds and decimal hours"
+        ],
+        "ti-30xs": [
+          "Enter a time as {hours} [2nd] [angle] [1] (°), {minutes} [2nd] [angle] [2] ('), {seconds} [2nd] [angle] [3] (\")",
+          "Add or subtract times the same way, then press [enter]: the answer shows in decimal hours",
+          "To see hours-minutes-seconds, press [2nd] [angle] [6] (►DMS) [enter]"
+        ]
+      }
+    },
+    "compound-interest": {
+      "title": "Compound interest and repeated percentage change",
+      "steps": {
+        "casio-classwiz": [
+          "Type {amount} [×] [(] 1 [+] {rate} [÷] 100 [)]",
+          "Press [xⁿ], type {years}, press [=]",
+          "For a decrease use [−] instead of [+]; round only the final answer"
+        ],
+        "ti-30xs": [
+          "Type {amount} [×] [(] 1 [+] {rate} [÷] 100 [)]",
+          "Press [^], type {years}, press [enter]",
+          "For a decrease use [−] instead of [+]; round only the final answer"
+        ]
+      }
+    },
+    "round-significant-figures": {
+      "title": "Round to significant figures",
+      "steps": {
+        "casio-classwiz": [
+          "Best: write down the full display, then round it by hand to {sf} significant figures",
+          "Or set Sci: [SHIFT] [MENU] (SETUP) [3] (Number Format) [2] (Sci), then [{sf}]; the answer shows as a × 10ⁿ rounded to {sf} significant figures",
+          "Turn it off afterwards: [SHIFT] [MENU] (SETUP) [3] (Number Format) [3] (Norm) [1] (Norm 1)"
+        ],
+        "ti-30xs": [
+          "Best: write down the full display, then round it by hand to {sf} significant figures",
+          "Or press [mode], choose SCI on row 2, and on row 3 choose the digit one less than {sf}; the answer shows as a × 10ⁿ (check on your model)",
+          "Turn it off afterwards: [mode], choose NORM and FLOAT"
+        ]
+      }
+    },
+    "round-decimal-places": {
+      "title": "Round to decimal places",
+      "steps": {
+        "casio-classwiz": [
+          "Set Fix: [SHIFT] [MENU] (SETUP) [3] (Number Format) [1] (Fix), then [{dp}]",
+          "Answers now show rounded to {dp} decimal places; the calculator still keeps every digit",
+          "Turn it off afterwards: [SHIFT] [MENU] (SETUP) [3] (Number Format) [3] (Norm) [1] (Norm 1)"
+        ],
+        "ti-30xs": [
+          "Press [mode], press [▼] [▼] to the FLOAT 0123456789 row, move to {dp} and press [enter]",
+          "Press [clear]; answers now show rounded to {dp} decimal places",
+          "Turn it off afterwards: [mode], [▼] [▼], choose FLOAT and press [enter]"
+        ]
+      }
+    },
+    "percentage-change": {
+      "title": "Percentage change",
+      "steps": {
+        "casio-classwiz": [
+          "Type [(] {new} [−] {original} [)] [÷] {original}",
+          "Press [SHIFT] [Ans] (%) [=] to get the change as a percentage",
+          "A negative answer is a percentage decrease"
+        ],
+        "ti-30xs": [
+          "Type [(] {new} [−] {original} [)] [÷] {original} [×] 100",
+          "Press [enter] to get the change as a percentage",
+          "A negative answer is a percentage decrease"
+        ]
+      }
+    },
+    "percentage-of-amount": {
+      "title": "Percentage of an amount",
+      "steps": {
+        "casio-classwiz": [
+          "Type {amount} [×] {percent}",
+          "Press [SHIFT] [Ans] (%) [=]"
+        ],
+        "ti-30xs": [
+          "Type {percent}, press [2nd] [%]",
+          "Press [×], type {amount}, press [enter]"
+        ]
+      }
+    }
+  }
+}

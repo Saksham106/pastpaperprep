@@ -1,0 +1,505 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.10",
+  "slug": "limits-of-accuracy",
+  "title": "Limits of accuracy",
+  "level": "Core",
+  "topic": 1,
+  "summary": "A [[rounding|rounded]] measurement hides its true value somewhere in a small range. The ends of that range are the [[lower-bound|lower bound]] and the [[upper-bound|upper bound]]. You'll find them for any accuracy and write them as an inequality.",
+  "goals": [
+    {
+      "text": "Write down the upper and lower bounds of a value rounded to the nearest unit, 5, 10 or 20.",
+      "bullets": [
+        "1.10-c1"
+      ]
+    },
+    {
+      "text": "Find the bounds of a value given to [[decimal-place|decimal places]] or [[significant-figure|significant figures]], including in a different unit.",
+      "bullets": [
+        "1.10-c1"
+      ]
+    },
+    {
+      "text": "Write the bounds as an inequality, with $\\leqslant$ and $<$ in the right places.",
+      "bullets": [
+        "1.10-c1"
+      ]
+    },
+    {
+      "text": "Choose the right bound of each value to find the upper or lower bound of a calculation.",
+      "bullets": [
+        "1.10-s1"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Work out bounds for perimeters, areas and speeds found from rounded measurements.",
+      "bullets": [
+        "1.10-s1",
+        "1.10-n1"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.9"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "upper and lower bounds",
+    "error interval",
+    "bounds as an inequality",
+    "upper bound of area",
+    "lower bound of speed",
+    "bounds of a calculation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-round-dp",
+      "prompt": "Round $8.37$ to 1 [[decimal-place|decimal place]].",
+      "hint": "Look at the second decimal digit: is it $5$ or more?",
+      "answer": {
+        "value": 8.4,
+        "tolerance": 0
+      },
+      "explain": "The next digit is $7$, so round the $3$ up to $4$. Revise it in {{lesson:1.9}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "floor(8.37*10 + Rational(1, 2))/10",
+        "dp": 1
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-round-sf",
+      "prompt": "Round $5\\,280$ to 2 [[significant-figure|significant figures]].",
+      "hint": "Keep the first two digits, then fill the rest of the places with zeros.",
+      "answer": {
+        "value": 5300,
+        "tolerance": 0
+      },
+      "explain": "The third digit is $8$, so $52$ rounds up to $53$. Fill with zeros: $5300$. Revise it in {{lesson:1.9}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "floor(5280/100 + Rational(1, 2))*100",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "bounds",
+      "heading": "Bounds of a rounded value",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A pencil is $14$ cm long, to the nearest centimetre. Its real length could be $13.8$ cm, or $14.3$ cm. Any length from $13.5$ cm up to just below $14.5$ cm [[rounding|rounds]] to $14$ cm."
+        },
+        {
+          "type": "definition",
+          "term": "Upper and lower bounds",
+          "statement": "The [[lower-bound|lower bound]] of a rounded value is the smallest value that rounds to it. The [[upper-bound|upper bound]] is where values start to round up to the next value instead.",
+          "plain": "The two ends of the range the true value lies in."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the rounding unit: the \"nearest …\" in the question. For the pencil it is $1$ cm."
+        },
+        {
+          "type": "text",
+          "text": "2. Halve it. Half of $1$ cm is $0.5$ cm."
+        },
+        {
+          "type": "text",
+          "text": "3. Subtract the half for the lower bound and add it for the upper bound: $14 - 0.5 = 13.5$ and $14 + 0.5 = 14.5$."
+        },
+        {
+          "type": "figure",
+          "id": "1-10-bounds-number-line",
+          "alt": "Number line from 13 to 15 centimetres. The part from 13.5 to 14.5 is shaded, with 14 in the middle. 13.5 has a filled dot, labelled lower bound. 14.5 has an open dot, labelled upper bound. Below the line: 13.5 is less than or equal to l, which is less than 14.5.",
+          "caption": "Every length in the shaded part rounds to $14$ cm."
+        },
+        {
+          "type": "text",
+          "text": "A length of exactly $13.5$ cm rounds up to $14$ cm, so it is allowed: use $\\leqslant$. A length of exactly $14.5$ cm rounds up to $15$ cm, so it is not: use $<$. We still call $14.5$ the upper bound."
+        },
+        {
+          "type": "example",
+          "id": "ex-bounds-pencil",
+          "question": "The length of the pencil is $l$ cm. It is $14$ cm, correct to the nearest centimetre. Write the bounds of $l$ as an inequality.",
+          "steps": [
+            "The unit is $1$ cm, so half the unit is $0.5$ cm.",
+            "Lower bound: $14 - 0.5 = 13.5$. It is allowed, so use $\\leqslant$.",
+            "Upper bound: $14 + 0.5 = 14.5$. It rounds to $15$, so use $<$."
+          ],
+          "answer": "$13.5 \\leqslant l < 14.5$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Interval.Ropen(14 - Rational(1, 2), 14 + Rational(1, 2))",
+            "var": "l"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-bounds-parcel",
+          "question": "A parcel has a mass of $m$ grams. It is $340$ g, correct to the nearest $10$ g. Write the bounds of $m$ as an inequality.",
+          "steps": [
+            "The unit is $10$ g, so half the unit is $5$ g.",
+            "Lower bound: $340 - 5 = 335$.",
+            "Upper bound: $340 + 5 = 345$. A mass of $345$ g rounds to $350$ g, so use $<$.",
+            "Check: $335$ and $344.9$ both round to $340$ to the nearest $10$."
+          ],
+          "answer": "$335 \\leqslant m < 345$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Interval.Ropen(340 - 10/2, 340 + 10/2)",
+            "var": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding and subtracting the whole unit, giving $330 \\leqslant m < 350$. Always use half the unit: the value is the middle of its range."
+        },
+        {
+          "type": "check",
+          "id": "check-upper-river",
+          "prompt": "A river is $70$ km long, correct to the nearest $5$ km. Write down the upper bound of its length, in km.",
+          "hint": "Half of $5$ km is $2.5$ km.",
+          "answer": {
+            "value": 72.5,
+            "tolerance": 0
+          },
+          "explain": "$70 + 2.5 = 72.5$ km. The length is less than this, but $72.5$ is still the upper bound.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "70 + 5/2",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bounds-field",
+          "prompt": "A field is $w$ metres wide. It is $260$ m, correct to the nearest $20$ m. Which inequality is right?",
+          "hint": "Half of $20$ is $10$. The smaller bound goes on the left.",
+          "options": [
+            {
+              "text": "$240 \\leqslant w < 280$",
+              "correct": false
+            },
+            {
+              "text": "$250 \\leqslant w < 270$",
+              "correct": true
+            },
+            {
+              "text": "$255 \\leqslant w < 265$",
+              "correct": false
+            },
+            {
+              "text": "$259.5 \\leqslant w < 260.5$",
+              "correct": false
+            }
+          ],
+          "explain": "$260 - 10 = 250$ and $260 + 10 = 270$. The others use the whole $20$ m, half of $10$ m, or half of $1$ m.",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Interval.Ropen(260 - 20/2, 260 + 20/2)",
+            "var": "w"
+          }
+        }
+      ]
+    },
+    {
+      "id": "accuracy",
+      "heading": "Decimal places, significant figures and units",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The same three steps work for any accuracy. Only step 1 changes: the unit is the place value of the last digit that was kept."
+        },
+        {
+          "type": "text",
+          "text": "To 1 [[decimal-place|decimal place]], the unit is $0.1$, so half is $0.05$. To 2 decimal places, the unit is $0.01$, so half is $0.005$."
+        },
+        {
+          "type": "text",
+          "text": "For [[significant-figure|significant figures]], count along to the last significant figure and read its place value. In $2.40$ to 3 s.f., the last figure is the $0$ in the hundredths place, so the unit is $0.01$."
+        },
+        {
+          "type": "example",
+          "id": "ex-bounds-melon",
+          "question": "A melon has a mass of $m$ kg. It is $3.6$ kg, correct to 1 decimal place. Write the bounds of $m$ as an inequality.",
+          "steps": [
+            "1 decimal place means the unit is $0.1$ kg. Half of it is $0.05$ kg.",
+            "Lower bound: $3.6 - 0.05 = 3.55$.",
+            "Upper bound: $3.6 + 0.05 = 3.65$, which rounds up to $3.7$, so use $<$."
+          ],
+          "answer": "$3.55 \\leqslant m < 3.65$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Interval.Ropen(3.6 - 0.1/2, 3.6 + 0.1/2)",
+            "var": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-bounds-jug",
+          "question": "A jug holds $V$ litres of juice. It is $2.40$ litres, correct to 3 significant figures. Write the bounds of $V$ as an inequality.",
+          "steps": [
+            "The significant figures are $2$, $4$ and $0$. The last one is in the hundredths place, so the unit is $0.01$.",
+            "Half of $0.01$ is $0.005$.",
+            "Lower bound: $2.40 - 0.005 = 2.395$. Upper bound: $2.40 + 0.005 = 2.405$."
+          ],
+          "answer": "$2.395 \\leqslant V < 2.405$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Interval.Ropen(2.40 - 0.01/2, 2.40 + 0.01/2)",
+            "var": "V"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Ignoring a final zero. $2.40$ to 3 s.f. has a unit of $0.01$, not $0.1$, so its bounds are $2.395$ and $2.405$."
+        },
+        {
+          "type": "text",
+          "text": "When the accuracy is in a different unit from the value, change units first. For example, $5$ cm is $0.05$ m, so half of it is $0.025$ m."
+        },
+        {
+          "type": "check",
+          "id": "check-plank-upper",
+          "prompt": "A plank is $2.8$ m long, correct to the nearest $5$ cm. Write down the upper bound of its length, in metres.",
+          "hint": "Half of $5$ cm is $2.5$ cm. Divide by $100$ to change it to metres.",
+          "answer": {
+            "value": 2.825,
+            "tolerance": 0
+          },
+          "explain": "$2.5$ cm $= 0.025$ m, so the upper bound is $2.8 + 0.025 = 2.825$ m. Adding $0.05$ m would use the whole $5$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(280 + 5/2)/100",
+            "dp": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lower-2sf",
+          "prompt": "A path is $0.38$ km long, correct to 2 significant figures. What is the lower bound of its length, in km?",
+          "hint": "The last significant figure, $8$, is in the hundredths place.",
+          "options": [
+            {
+              "text": "$0.37$",
+              "correct": false
+            },
+            {
+              "text": "$0.375$",
+              "correct": true
+            },
+            {
+              "text": "$0.3795$",
+              "correct": false
+            },
+            {
+              "text": "$0.385$",
+              "correct": false
+            }
+          ],
+          "explain": "The unit is $0.01$, so half is $0.005$: $0.38 - 0.005 = 0.375$. $0.385$ is the upper bound.",
+          "verify": {
+            "kind": "exact",
+            "truth": "0.38 - 0.01/2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "calculations",
+      "heading": "Bounds in calculations",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When rounded values go into a calculation, the answer has bounds too. To get the biggest possible answer, pick the bound of each value that pushes the answer up."
+        },
+        {
+          "type": "text",
+          "text": "Adding or multiplying bigger positive numbers gives a bigger answer. So the upper bound of $a + b$ or $a \\times b$ uses both upper bounds."
+        },
+        {
+          "type": "text",
+          "text": "Subtracting or dividing by a smaller number gives a bigger answer. So the upper bound of $a - b$ or $a \\div b$ uses the upper bound of $a$ and the lower bound of $b$."
+        },
+        {
+          "type": "result",
+          "statement": "For positive values $a$ and $b$, the upper bound of $a + b$ is $a_{\\text{upper}} + b_{\\text{upper}}$, of $a \\times b$ is $a_{\\text{upper}} \\times b_{\\text{upper}}$, of $a - b$ is $a_{\\text{upper}} - b_{\\text{lower}}$, and of $a \\div b$ is $a_{\\text{upper}} \\div b_{\\text{lower}}$. For each lower bound, swap every upper and lower.",
+          "why": "Taking away less, or sharing between fewer, leaves more."
+        },
+        {
+          "type": "text",
+          "text": "A value that is exact, such as a count or \"exactly $3$ hours\", has no bounds. Use it as it is."
+        },
+        {
+          "type": "example",
+          "id": "ex-area-upper",
+          "question": "A rectangular tile measures $23$ cm by $15$ cm, each correct to the nearest centimetre. Work out the upper bound of its area.",
+          "steps": [
+            "Upper bounds of the sides: $23 + 0.5 = 23.5$ cm and $15 + 0.5 = 15.5$ cm.",
+            "Area is a product, so multiply the two upper bounds: $23.5 \\times 15.5$.",
+            "Without a calculator: $23.5 \\times 15 = 352.5$ and $23.5 \\times 0.5 = 11.75$.",
+            "Add: $352.5 + 11.75 = 364.25$. This is exact, so do not round it."
+          ],
+          "answer": "$364.25\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(23 + Rational(1, 2))*(15 + Rational(1, 2))",
+            "unit": "cm^2"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-perimeter-upper",
+            "prompt": "Work out the upper bound of the same tile's perimeter, in cm.",
+            "hint": "Perimeter is a sum, so use both upper bounds, twice each.",
+            "answer": {
+              "value": 78,
+              "tolerance": 0
+            },
+            "explain": "$2 \\times (23.5 + 15.5) = 2 \\times 39 = 78$ cm.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "2*((23 + Rational(1, 2)) + (15 + Rational(1, 2)))",
+              "dp": 0
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-speed-lower",
+          "question": "A car travels $150$ km, correct to the nearest $10$ km. The journey takes $2.5$ hours, correct to the nearest $0.1$ hour. Work out the lower bound of its average speed. Give your answer to 3 significant figures.",
+          "steps": [
+            "Speed $= \\dfrac{\\text{distance}}{\\text{time}}$, a division. For the smallest speed, use the shortest distance and the longest time.",
+            "Lower bound of distance: $150 - 5 = 145$ km.",
+            "Upper bound of time: $2.5 + 0.05 = 2.55$ hours.",
+            "Write the calculation first: $\\dfrac{145}{2.55} = 56.862\\ldots$ km/h.",
+            "Round only at the end: $56.9$ km/h to 3 s.f."
+          ],
+          "answer": "$\\text{speed} \\approx 56.9\\text{ km/h}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(150 - 10/2)/(2.5 + 0.1/2)",
+            "sf": 3,
+            "unit": "km/h"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing upper bound by upper bound. For the biggest quotient, divide by the lower bound; for the smallest, divide by the upper bound."
+        },
+        {
+          "type": "examTip",
+          "text": "For a bounds calculation, write the bounds you use, such as $\\frac{145}{2.55}$, before the answer. That line earns the method mark. Leave an exact answer such as $364.25$ unrounded."
+        },
+        {
+          "type": "check",
+          "id": "check-ribbon-difference",
+          "prompt": "A ribbon is $9.4$ m long. A piece $3.7$ m long is cut off. Both lengths are correct to 1 decimal place. What is the upper bound of the length left, in metres?",
+          "hint": "Take the longest ribbon and cut off the shortest piece.",
+          "options": [
+            {
+              "text": "$5.6$",
+              "correct": false
+            },
+            {
+              "text": "$5.7$",
+              "correct": false
+            },
+            {
+              "text": "$5.8$",
+              "correct": true
+            }
+          ],
+          "explain": "$9.45 - 3.65 = 5.8$ m. Using $9.45 - 3.75$ gives $5.7$, which is too small.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(9.4 + 0.1/2) - (3.7 - 0.1/2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-quotient-upper",
+          "prompt": "$p = 30$, correct to the nearest $10$, and $q = 8$, correct to the nearest whole number. Work out the upper bound of $\\frac{p}{q}$. Give your answer to 3 significant figures.",
+          "hint": "Use the upper bound of $p$ and the lower bound of $q$.",
+          "answer": {
+            "value": 4.67,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{35}{7.5} = \\frac{70}{15} = \\frac{14}{3} = 4.666\\ldots$, which is $4.67$ to 3 s.f.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(30 + 10/2)/(8 - Rational(1, 2))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Halve the rounding unit. Lower bound $=$ value $-$ half the unit. Upper bound $=$ value $+$ half the unit.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{lower bound} \\leqslant x < \\text{upper bound}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For decimal places and significant figures, the unit is the place value of the last digit kept: 1 d.p. means $0.1$, and $2.40$ to 3 s.f. means $0.01$. Change units before you halve.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For positive values: upper bound of $a + b$ or $a \\times b$ uses both upper bounds. Upper bound of $a - b$ or $a \\div b$ uses upper $a$ and lower $b$. Swap them all for the lower bound.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Exact values have no bounds. Round only the final answer.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Adding and subtracting the whole rounding unit. For the nearest $10$ g, the bounds are $5$ g either side, not $10$ g.",
+    "Writing the bounds the wrong way round. The lower bound goes on the left, before $\\leqslant$; the upper bound goes after $<$.",
+    "Getting the units wrong. Half of $10$ cm is $5$ cm, which is $0.05$ m, not $0.1$ m."
+  ],
+  "examTips": [
+    "Write down the bounds: no working is needed, but each correct bound earns its own mark. Put them in the order $\\text{lower} \\leqslant x < \\text{upper}$.",
+    "Check each bound by rounding it: the lower bound must round to the given value, and the upper bound must round up to the next one."
+  ],
+  "readingMinutes": 17
+}

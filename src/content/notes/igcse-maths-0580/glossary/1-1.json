@@ -1,0 +1,92 @@
+[
+  {
+    "id": "natural-number",
+    "term": "natural number",
+    "definition": "A positive whole number used for counting: $1, 2, 3, \\ldots$ Some books include $0$ as well.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "integer",
+    "term": "integer",
+    "definition": "A whole number that is positive, negative or zero, such as $-3$, $0$ or $7$.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "prime-number",
+    "term": "prime number",
+    "definition": "A natural number with exactly two factors, $1$ and itself, such as $2$, $3$, $5$ or $7$; $1$ is not prime.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "prime-factor",
+    "term": "prime factor",
+    "definition": "A factor of a number that is also a prime number; the prime factors of $12$ are $2$ and $3$, and $12 = 2^2 \\times 3$.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "square-number",
+    "term": "square number",
+    "definition": "A positive whole number multiplied by itself, such as $1$, $4$, $9$ or $16$; $16 = 4^2$, and $4$ is its square root.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "cube-number",
+    "term": "cube number",
+    "definition": "A positive whole number multiplied by itself and then by itself again, such as $1$, $8$, $27$ or $64$; $64 = 4^3$.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "factor",
+    "term": "factor",
+    "definition": "A positive whole number that divides another exactly, with no remainder: $1, 2, 3, 4, 6$ and $12$ are the factors of $12$.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "multiple",
+    "term": "multiple",
+    "definition": "The result of multiplying a number by a positive whole number: $8, 16, 24, \\ldots$ are multiples of $8$.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "common-factor",
+    "term": "common factor",
+    "definition": "A number that is a factor of each of two or more numbers: $3$ is a common factor of $12$ and $15$.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "common-multiple",
+    "term": "common multiple",
+    "definition": "A number that is a multiple of each of two or more numbers: $24$ is a common multiple of $4$ and $6$.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "highest-common-factor",
+    "term": "highest common factor",
+    "definition": "The largest number that is a factor of each of two or more numbers, written HCF; the HCF of $12$ and $15$ is $3$.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "lowest-common-multiple",
+    "term": "lowest common multiple",
+    "definition": "The smallest number that is a multiple of each of two or more numbers, written LCM; the LCM of $4$ and $6$ is $12$.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "rational-number",
+    "term": "rational number",
+    "definition": "A number that can be written as a fraction $\\frac{a}{b}$ of two integers with $b \\ne 0$, such as $5$, $0.35$ or $\\frac{2}{3}$.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "irrational-number",
+    "term": "irrational number",
+    "definition": "A number that cannot be written as a fraction of two integers, such as $\\sqrt{2}$ or $\\pi$; its decimal goes on forever without repeating.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "reciprocal",
+    "term": "reciprocal",
+    "definition": "The number $\\frac{1}{x}$ for a number $x \\ne 0$, which multiplies by $x$ to give $1$: the reciprocal of $\\frac{3}{4}$ is $\\frac{4}{3}$.",
+    "lesson": "1.1"
+  }
+]

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 250" role="img" aria-labelledby="t">
+  <title id="t">Square grid with point A and point B. An arrow labelled a in bold goes from A to B. Dashed lines show the move split into 4 squares to the right and then 3 squares up, so the vector from A to B is the column vector 4 over 3.</title>
+  <g stroke="var(--muted)" stroke-width="0.6" opacity="0.6">
+    <line x1="30" y1="230" x2="30" y2="30"/>
+    <line x1="70" y1="230" x2="70" y2="30"/>
+    <line x1="110" y1="230" x2="110" y2="30"/>
+    <line x1="150" y1="230" x2="150" y2="30"/>
+    <line x1="190" y1="230" x2="190" y2="30"/>
+    <line x1="230" y1="230" x2="230" y2="30"/>
+    <line x1="270" y1="230" x2="270" y2="30"/>
+    <line x1="30" y1="230" x2="270" y2="230"/>
+    <line x1="30" y1="190" x2="270" y2="190"/>
+    <line x1="30" y1="150" x2="270" y2="150"/>
+    <line x1="30" y1="110" x2="270" y2="110"/>
+    <line x1="30" y1="70" x2="270" y2="70"/>
+    <line x1="30" y1="30" x2="270" y2="30"/>
+  </g>
+  <line x1="70" y1="190" x2="230" y2="190" stroke="var(--t3-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="230" y1="190" x2="230" y2="70" stroke="var(--t3-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="70" y1="190" x2="220.4" y2="77.2" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <polygon points="230,70 223.4,81.2 217.4,73.2" fill="var(--t1-ink)"/>
+  <circle cx="70" cy="190" r="4" fill="currentColor"/>
+  <circle cx="230" cy="70" r="4" fill="currentColor"/>
+  <text x="60" y="195" fill="currentColor" font-size="15" font-family="inherit" text-anchor="end" font-style="italic">A</text>
+  <text x="240" y="64" fill="currentColor" font-size="15" font-family="inherit" text-anchor="start" font-style="italic">B</text>
+  <text x="150" y="210" fill="var(--t3-ink)" font-size="13" font-family="inherit" text-anchor="middle" font-weight="bold">4 right</text>
+  <text x="238" y="134.0" fill="var(--t3-ink)" font-size="13" font-family="inherit" text-anchor="start" font-weight="bold">3 up</text>
+  <text x="138" y="122.0" fill="var(--t1-ink)" font-size="17" font-family="inherit" text-anchor="middle" font-weight="bold">a</text>
+</svg>

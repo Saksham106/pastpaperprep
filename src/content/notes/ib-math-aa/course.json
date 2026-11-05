@@ -2,9 +2,57 @@
   "slug": "ib-math-aa",
   "name": "IB Maths AA",
   "published": true,
+  "levels": {
+    "base": "SL",
+    "extension": "AHL",
+    "labels": {
+      "base": "SL",
+      "extension": "HL",
+      "extensionOnly": "HL only"
+    }
+  },
   "banks": {
     "SL": "ib-sl",
     "HL": "ib-hl"
+  },
+  "items": "src/data/aa-official-subtopics/items.json",
+  "practice": {
+    "kind": "aa-items"
+  },
+  "gate": {
+    "sidecars": "scripts/notes/sidecars",
+    "packs": "aa-course-notes/packs",
+    "exempt": [
+      "readingMinutes",
+      "duplicateCheatSheetFlags",
+      "numberSets"
+    ]
+  },
+  "calculators": [
+    {
+      "id": "ti84",
+      "name": "TI-84"
+    },
+    {
+      "id": "nspire",
+      "name": "TI-Nspire"
+    },
+    {
+      "id": "casio",
+      "name": "Casio"
+    }
+  ],
+  "copy": {
+    "crumbs": [
+      "IB",
+      "Maths AA"
+    ],
+    "guide": "Follows the IB guide for exams up to Nov 2028.",
+    "sheetFooter": "Follows the IB Maths AA guide (first assessment 2021). Not affiliated with the IB.",
+    "board": "IB",
+    "educationalLevel": "IB Diploma",
+    "bankPrefix": "AA",
+    "bankPhrase": "in the {level} bank"
   },
   "topics": [
     {

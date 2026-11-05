@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 190" role="img" aria-labelledby="t">
+  <title id="t">Three small scatter diagrams side by side. Positive correlation: the crosses rise from bottom left to top right. Negative correlation: the crosses fall from top left to bottom right. Zero correlation: the crosses are spread all over with no pattern.</title>
+  <g stroke="currentColor" stroke-width="1.4" fill="none"><line x1="20" y1="150" x2="155" y2="150"/><line x1="20" y1="150" x2="20" y2="15"/></g>
+  <path d="M31.0,123.5 L39.0,131.5 M31.0,131.5 L39.0,123.5" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M46.0,113.0 L54.0,121.0 M46.0,121.0 L54.0,113.0" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M55.0,95.0 L63.0,103.0 M55.0,103.0 L63.0,95.0" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M68.5,101.0 L76.5,109.0 M68.5,109.0 L76.5,101.0" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M79.0,77.0 L87.0,85.0 M79.0,85.0 L87.0,77.0" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M91.0,80.0 L99.0,88.0 M91.0,88.0 L99.0,80.0" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M103.0,57.5 L111.0,65.5 M103.0,65.5 L111.0,57.5" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M115.0,53.0 L123.0,61.0 M115.0,61.0 L123.0,53.0" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M127.0,33.5 L135.0,41.5 M127.0,41.5 L135.0,33.5" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M139.0,32.0 L147.0,40.0 M139.0,40.0 L147.0,32.0" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <text x="87.5" y="176" fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">positive correlation</text>
+  <g stroke="currentColor" stroke-width="1.4" fill="none"><line x1="175" y1="150" x2="310" y2="150"/><line x1="175" y1="150" x2="175" y2="15"/></g>
+  <path d="M186.0,29.0 L194.0,37.0 M186.0,37.0 L194.0,29.0" stroke="var(--t2-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M198.0,41.0 L206.0,49.0 M198.0,49.0 L206.0,41.0" stroke="var(--t2-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M210.0,36.5 L218.0,44.5 M210.0,44.5 L218.0,36.5" stroke="var(--t2-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M222.0,59.0 L230.0,67.0 M222.0,67.0 L230.0,59.0" stroke="var(--t2-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M234.0,56.0 L242.0,64.0 M234.0,64.0 L242.0,56.0" stroke="var(--t2-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M246.0,80.0 L254.0,88.0 M246.0,88.0 L254.0,80.0" stroke="var(--t2-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M258.0,74.0 L266.0,82.0 M258.0,82.0 L266.0,74.0" stroke="var(--t2-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M270.0,99.5 L278.0,107.5 M270.0,107.5 L278.0,99.5" stroke="var(--t2-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M282.0,101.0 L290.0,109.0 M282.0,109.0 L290.0,101.0" stroke="var(--t2-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M294.0,119.0 L302.0,127.0 M294.0,127.0 L302.0,119.0" stroke="var(--t2-ink)" stroke-width="1.8" fill="none"/>
+  <text x="242.5" y="176" fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">negative correlation</text>
+  <g stroke="currentColor" stroke-width="1.4" fill="none"><line x1="330" y1="150" x2="465" y2="150"/><line x1="330" y1="150" x2="330" y2="15"/></g>
+  <path d="M341.0,78.5 L349.0,86.5 M341.0,86.5 L349.0,78.5" stroke="var(--t4-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M351.5,35.0 L359.5,43.0 M351.5,43.0 L359.5,35.0" stroke="var(--t4-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M363.5,116.0 L371.5,124.0 M363.5,124.0 L371.5,116.0" stroke="var(--t4-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M375.5,59.0 L383.5,67.0 M375.5,67.0 L383.5,59.0" stroke="var(--t4-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M386.0,98.0 L394.0,106.0 M386.0,106.0 L394.0,98.0" stroke="var(--t4-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M398.0,32.0 L406.0,40.0 M398.0,40.0 L406.0,32.0" stroke="var(--t4-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M408.5,122.0 L416.5,130.0 M408.5,130.0 L416.5,122.0" stroke="var(--t4-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M420.5,68.0 L428.5,76.0 M420.5,76.0 L428.5,68.0" stroke="var(--t4-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M432.5,101.0 L440.5,109.0 M432.5,109.0 L440.5,101.0" stroke="var(--t4-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M444.5,44.0 L452.5,52.0 M444.5,52.0 L452.5,44.0" stroke="var(--t4-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M452.0,107.0 L460.0,115.0 M452.0,115.0 L460.0,107.0" stroke="var(--t4-ink)" stroke-width="1.8" fill="none"/>
+  <text x="397.5" y="176" fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">zero correlation</text>
+</svg>

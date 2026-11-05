@@ -1,0 +1,531 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "7.3",
+  "slug": "magnitude-of-a-vector",
+  "title": "Magnitude of a vector",
+  "level": "Extended",
+  "topic": 7,
+  "summary": "The [[magnitude-of-a-vector|magnitude]] of a [[vector|vector]] is its length. For a [[column-vector|column vector]] $\\begin{pmatrix}x\\\\y\\end{pmatrix}$, the across and up parts make a right-angled triangle, so [[pythagoras-theorem|Pythagoras' theorem]] gives the length $\\sqrt{x^2 + y^2}$. You write the magnitude of $\\mathbf{a}$ as $|\\mathbf{a}|$.",
+  "goals": [
+    {
+      "text": "Work out the magnitude of a column vector, as a whole number, a surd or to 3 significant figures.",
+      "bullets": [
+        "7.3-s1"
+      ]
+    },
+    {
+      "text": "Read and write magnitudes with modulus signs, such as $|\\mathbf{a}|$ and $|\\overrightarrow{AB}|$.",
+      "bullets": [
+        "7.3-s1"
+      ]
+    },
+    {
+      "text": "Find the magnitude of the vector between two points, or of a combination such as $2\\mathbf{a} - \\mathbf{b}$.",
+      "bullets": [
+        "7.3-s1"
+      ]
+    },
+    {
+      "text": "Find a missing component of a vector when you know its magnitude.",
+      "bullets": [
+        "7.3-s1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "7.2",
+    "6.1",
+    "1.18"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "length of a vector",
+    "modulus of a vector",
+    "size of a column vector",
+    "how long is a vector",
+    "find k given the magnitude"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-column-vector",
+      "prompt": "A vector moves $6$ units to the right and $9$ units down. Which column vector is it?",
+      "hint": "The top number is across (right is positive). The bottom number is up or down (down is negative).",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}-9\\\\6\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}6\\\\-9\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}6\\\\9\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}-6\\\\9\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "vector",
+        "truth": "(0 + 6, 0 - 9)"
+      },
+      "explain": "Across goes on top: $6$ to the right is $+6$. Then $9$ down is $-9$ on the bottom. Revise it in {{lesson:7.2}}."
+    },
+    {
+      "type": "check",
+      "id": "before-pythagoras",
+      "prompt": "A right-angled triangle has shorter sides $9$ cm and $40$ cm. Work out the length of the [[hypotenuse|hypotenuse]], in cm.",
+      "hint": "Square the two shorter sides, add, then take the square root.",
+      "answer": {
+        "value": 41,
+        "tolerance": 0
+      },
+      "verify": {
+        "kind": "numeric",
+        "truth": "sqrt(9**2 + 40**2)",
+        "dp": 0
+      },
+      "explain": "$9^2 + 40^2 = 81 + 1600 = 1681$, and $\\sqrt{1681} = 41$. Revise it in {{lesson:6.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-simplify-surd",
+      "prompt": "Simplify $\\sqrt{52}$.",
+      "hint": "Find the largest square number that divides $52$.",
+      "options": [
+        {
+          "text": "$4\\sqrt{13}$",
+          "correct": false
+        },
+        {
+          "text": "$13\\sqrt{2}$",
+          "correct": false
+        },
+        {
+          "text": "$2\\sqrt{13}$",
+          "correct": true
+        }
+      ],
+      "verify": {
+        "kind": "exact",
+        "truth": "sqrt(52)"
+      },
+      "explain": "$52 = 4 \\times 13$, so $\\sqrt{52} = \\sqrt{4} \\times \\sqrt{13} = 2\\sqrt{13}$. $4\\sqrt{13}$ forgets to take the root of $4$. Revise it in {{lesson:1.18}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "magnitude",
+      "heading": "The magnitude of a column vector",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[vector|vector]] $\\mathbf{a} = \\begin{pmatrix}15\\\\8\\end{pmatrix}$ moves $15$ across and $8$ up. How long is its arrow? Draw the across move and the up move. With the arrow they make a right-angled triangle, and the arrow is the [[hypotenuse|hypotenuse]]."
+        },
+        {
+          "type": "figure",
+          "id": "7-3-triangle",
+          "alt": "A right-angled triangle. The bottom side goes 15 units to the right and the right-hand side goes 8 units up, with a right angle between them. An arrow labelled a in bold runs along the hypotenuse from the start of the bottom side to the top of the right-hand side.",
+          "caption": "The arrow is the hypotenuse, so $|\\mathbf{a}|^2 = 15^2 + 8^2$."
+        },
+        {
+          "type": "text",
+          "text": "[[pythagoras-theorem|Pythagoras' theorem]] gives $15^2 + 8^2 = 225 + 64 = 289$, and $\\sqrt{289} = 17$. So the arrow is $17$ units long. This length is the [[magnitude-of-a-vector|magnitude]] of $\\mathbf{a}$."
+        },
+        {
+          "type": "definition",
+          "term": "magnitude of a vector",
+          "statement": "The magnitude of a vector is its length. The magnitude of $\\mathbf{a}$ is written $|\\mathbf{a}|$, and the magnitude of $\\overrightarrow{AB}$ is written $|\\overrightarrow{AB}|$.",
+          "plain": "How long the arrow is, whichever way it points."
+        },
+        {
+          "type": "formula",
+          "tex": "\\left|\\begin{pmatrix}x\\\\y\\end{pmatrix}\\right| = \\sqrt{x^2 + y^2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Read the modulus signs as “the length of”. A length is never negative, so a magnitude is never negative. Only the zero vector $\\begin{pmatrix}0\\\\0\\end{pmatrix}$ has magnitude $0$."
+        },
+        {
+          "type": "text",
+          "text": "The top and bottom numbers are the vector's components. A negative component still counts, because squaring removes its sign: $(-8)^2 = 64$. So $\\begin{pmatrix}-15\\\\8\\end{pmatrix}$, $\\begin{pmatrix}15\\\\-8\\end{pmatrix}$ and $-\\mathbf{a}$ also have magnitude $17$. They point different ways, but they are the same length."
+        },
+        {
+          "type": "example",
+          "id": "ex-magnitude-whole",
+          "question": "$\\mathbf{u} = \\begin{pmatrix}-9\\\\12\\end{pmatrix}$. Work out $|\\mathbf{u}|$.",
+          "steps": [
+            "Square each component. Bracket the negative one: $(-9)^2 = 81$ and $12^2 = 144$.",
+            "Add: $81 + 144 = 225$.",
+            "Take the square root: $\\sqrt{225} = 15$.",
+            "Check: $15$ is longer than both $9$ and $12$, as a hypotenuse must be."
+          ],
+          "answer": "$|\\mathbf{u}| = 15$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((-9)**2 + 12**2)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $(-9)^2$ as $-81$. The whole component is squared, so $(-9)^2 = 81$. The number under the square root can never be negative."
+        },
+        {
+          "type": "text",
+          "text": "Paper 2 has no calculator. If the number under the root is not a square number, leave the magnitude as a [[surd|surd]] in its simplest form."
+        },
+        {
+          "type": "example",
+          "id": "ex-magnitude-surd",
+          "question": "$\\overrightarrow{CD} = \\begin{pmatrix}-2\\\\-6\\end{pmatrix}$. Work out $|\\overrightarrow{CD}|$. Give your answer as a surd in its simplest form.",
+          "steps": [
+            "Square and add: $(-2)^2 + (-6)^2 = 4 + 36 = 40$.",
+            "So $|\\overrightarrow{CD}| = \\sqrt{40}$.",
+            "Find the largest square number that divides $40$. It is $4$, because $40 = 4 \\times 10$.",
+            "So $\\sqrt{40} = \\sqrt{4} \\times \\sqrt{10} = 2\\sqrt{10}$."
+          ],
+          "answer": "$|\\overrightarrow{CD}| = 2\\sqrt{10}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((-2)**2 + (-6)**2)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Paper 4 allows a calculator. Put each negative component in brackets before you square it, and round only the final answer."
+        },
+        {
+          "type": "calculator",
+          "snippet": "brackets-order"
+        },
+        {
+          "type": "example",
+          "id": "ex-magnitude-calculator",
+          "question": "$\\mathbf{v} = \\begin{pmatrix}-3.7\\\\5.2\\end{pmatrix}$. Work out $|\\mathbf{v}|$. Give your answer correct to $3$ significant figures.",
+          "steps": [
+            "Write down what you type: $|\\mathbf{v}| = \\sqrt{(-3.7)^2 + 5.2^2}$.",
+            "That is $\\sqrt{13.69 + 27.04} = \\sqrt{40.73}$.",
+            "The display shows $6.38200\\ldots$. To $3$ significant figures this is $6.38$."
+          ],
+          "answer": "$|\\mathbf{v}| \\approx 6.38$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt((-3.7)**2 + 5.2**2)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-magnitude-whole",
+          "prompt": "$\\mathbf{w} = \\begin{pmatrix}16\\\\-30\\end{pmatrix}$. What is $|\\mathbf{w}|$?",
+          "hint": "Square both components, add, then take the square root. $(-30)^2$ is positive.",
+          "options": [
+            {
+              "text": "$46$",
+              "correct": false
+            },
+            {
+              "text": "$34$",
+              "correct": true
+            },
+            {
+              "text": "$1156$",
+              "correct": false
+            },
+            {
+              "text": "$14$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(16**2 + (-30)**2)"
+          },
+          "explain": "$16^2 + (-30)^2 = 256 + 900 = 1156$, and $\\sqrt{1156} = 34$. $46$ adds the sizes of the components, $1156$ forgets the square root, and $14$ subtracts them."
+        },
+        {
+          "type": "check",
+          "id": "check-magnitude-3sf",
+          "prompt": "$\\mathbf{c} = \\begin{pmatrix}4.5\\\\-7.1\\end{pmatrix}$. Work out $|\\mathbf{c}|$, correct to $3$ significant figures.",
+          "hint": "Type $\\sqrt{4.5^2 + (-7.1)^2}$ in one go, with the $-7.1$ in brackets.",
+          "answer": {
+            "value": 8.41,
+            "tolerance": 0.005
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(4.5**2 + (-7.1)**2)",
+            "sf": 3
+          },
+          "explain": "$\\sqrt{4.5^2 + (-7.1)^2} = \\sqrt{20.25 + 50.41} = \\sqrt{70.66} = 8.4059\\ldots$, which is $8.41$ to $3$ significant figures."
+        }
+      ]
+    },
+    {
+      "id": "combined",
+      "heading": "Vectors between points and combined vectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Often you are not given the [[column-vector|column vector]] itself. First work out the vector the question names. Then find its [[magnitude-of-a-vector|magnitude]]."
+        },
+        {
+          "type": "text",
+          "text": "For two points $A$ and $B$, $\\overrightarrow{AB}$ is the move from $A$ to $B$. Subtract the coordinates of $A$ from the coordinates of $B$. Then $|\\overrightarrow{AB}|$ is the length of the line from $A$ to $B$, as in {{lesson:3.4}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-between-points",
+          "question": "$G$ is the point $(-4, 9)$ and $H$ is the point $(8, -7)$. Work out $|\\overrightarrow{GH}|$.",
+          "steps": [
+            "Find the vector: $\\overrightarrow{GH} = \\begin{pmatrix}8 - (-4)\\\\-7 - 9\\end{pmatrix} = \\begin{pmatrix}12\\\\-16\\end{pmatrix}$.",
+            "Square and add: $12^2 + (-16)^2 = 144 + 256 = 400$.",
+            "Take the square root: $|\\overrightarrow{GH}| = \\sqrt{400} = 20$."
+          ],
+          "answer": "$|\\overrightarrow{GH}| = 20$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((8 - (-4))**2 + (-7 - 9)**2)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Subtracting the other way gives $\\overrightarrow{HG} = \\begin{pmatrix}-12\\\\16\\end{pmatrix}$. It points the opposite way but has the same length, so $|\\overrightarrow{HG}| = |\\overrightarrow{GH}| = 20$."
+        },
+        {
+          "type": "text",
+          "text": "For a combination such as $3\\mathbf{p} + 2\\mathbf{q}$, work out its column vector first. Then find one magnitude."
+        },
+        {
+          "type": "mistake",
+          "text": "Finding $|\\mathbf{p}|$ and $|\\mathbf{q}|$ and adding them. $|\\mathbf{p} + \\mathbf{q}|$ is usually not $|\\mathbf{p}| + |\\mathbf{q}|$, so combine the vectors first."
+        },
+        {
+          "type": "example",
+          "id": "ex-combined",
+          "question": "$\\mathbf{p} = \\begin{pmatrix}3\\\\-1\\end{pmatrix}$ and $\\mathbf{q} = \\begin{pmatrix}-2\\\\5\\end{pmatrix}$. Work out $|3\\mathbf{p} + 2\\mathbf{q}|$. Give your answer correct to $3$ significant figures.",
+          "steps": [
+            "Multiply each component: $3\\mathbf{p} = \\begin{pmatrix}9\\\\-3\\end{pmatrix}$ and $2\\mathbf{q} = \\begin{pmatrix}-4\\\\10\\end{pmatrix}$.",
+            "Add: $3\\mathbf{p} + 2\\mathbf{q} = \\begin{pmatrix}9 + (-4)\\\\-3 + 10\\end{pmatrix} = \\begin{pmatrix}5\\\\7\\end{pmatrix}$.",
+            "Square and add: $5^2 + 7^2 = 25 + 49 = 74$.",
+            "So $|3\\mathbf{p} + 2\\mathbf{q}| = \\sqrt{74} = 8.6023\\ldots$, which is $8.60$ to $3$ significant figures."
+          ],
+          "answer": "$|3\\mathbf{p} + 2\\mathbf{q}| \\approx 8.60$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt((3*3 + 2*(-2))**2 + (3*(-1) + 2*5)**2)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-between-points",
+          "prompt": "$A$ is the point $(1, -5)$ and $B$ is the point $(-7, 10)$. What is $|\\overrightarrow{AB}|$?",
+          "hint": "First find $\\overrightarrow{AB}$: subtract the coordinates of $A$ from those of $B$. Bracket the negatives.",
+          "options": [
+            {
+              "text": "$\\sqrt{89}$",
+              "correct": false
+            },
+            {
+              "text": "$23$",
+              "correct": false
+            },
+            {
+              "text": "$17$",
+              "correct": true
+            },
+            {
+              "text": "$\\sqrt{61}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((-7 - 1)**2 + (10 - (-5))**2)"
+          },
+          "explain": "$\\overrightarrow{AB} = \\begin{pmatrix}-8\\\\15\\end{pmatrix}$, so $|\\overrightarrow{AB}| = \\sqrt{64 + 225} = \\sqrt{289} = 17$. $\\sqrt{89}$ uses $10 - 5$ instead of $10 - (-5)$. $\\sqrt{61}$ adds the coordinates, and $23$ adds the sizes of the components."
+        },
+        {
+          "type": "check",
+          "id": "check-combined",
+          "prompt": "$\\mathbf{m} = \\begin{pmatrix}-1\\\\4\\end{pmatrix}$ and $\\mathbf{n} = \\begin{pmatrix}2.5\\\\-3\\end{pmatrix}$. Work out $|\\mathbf{m} - 2\\mathbf{n}|$, correct to $3$ significant figures.",
+          "hint": "Find $2\\mathbf{n}$, then subtract it from $\\mathbf{m}$. Watch the signs on the bottom row.",
+          "answer": {
+            "value": 11.7,
+            "tolerance": 0.05
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt((-1 - 2*2.5)**2 + (4 - 2*(-3))**2)",
+            "sf": 3
+          },
+          "explain": "$2\\mathbf{n} = \\begin{pmatrix}5\\\\-6\\end{pmatrix}$, so $\\mathbf{m} - 2\\mathbf{n} = \\begin{pmatrix}-1 - 5\\\\4 - (-6)\\end{pmatrix} = \\begin{pmatrix}-6\\\\10\\end{pmatrix}$. Then $\\sqrt{36 + 100} = \\sqrt{136} = 11.66\\ldots$, which is $11.7$ to $3$ significant figures."
+        }
+      ]
+    },
+    {
+      "id": "missing",
+      "heading": "Finding a missing component",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you know the [[magnitude-of-a-vector|magnitude]] and need a component. Use the formula backwards: square the magnitude, subtract the square you know, then take the square root."
+        },
+        {
+          "type": "example",
+          "id": "ex-missing-both",
+          "question": "The vector $\\begin{pmatrix}10\\\\k\\end{pmatrix}$ has magnitude $26$. Find the possible values of $k$.",
+          "steps": [
+            "Write the magnitude formula: $\\sqrt{10^2 + k^2} = 26$.",
+            "Square both sides: $10^2 + k^2 = 26^2$, so $100 + k^2 = 676$.",
+            "Subtract: $k^2 = 676 - 100 = 576$.",
+            "Take the square root. Both $24^2$ and $(-24)^2$ equal $576$, so $k = 24$ or $k = -24$."
+          ],
+          "answer": "$k = 24 \\text{ or } k = -24$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "solve(Eq(sqrt(10**2 + k**2), 26), k, dict=True)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the squares. The magnitude is the hypotenuse, so its square is the biggest: subtract the known square from it."
+        },
+        {
+          "type": "text",
+          "text": "Give both values unless the question fixes the sign, for example by saying $k > 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-missing-letter",
+          "question": "The vector $\\begin{pmatrix}2t\\\\t\\end{pmatrix}$ has magnitude $\\sqrt{80}$, and $t > 0$. Find the value of $t$.",
+          "steps": [
+            "Square each component: $(2t)^2 = 4t^2$ and $t^2$.",
+            "The squares add up to the magnitude squared: $4t^2 + t^2 = 80$.",
+            "Collect like terms: $5t^2 = 80$, so $t^2 = 16$.",
+            "Take the square root: $t = 4$ or $t = -4$. The question says $t > 0$, so $t = 4$.",
+            "Check: $\\begin{pmatrix}8\\\\4\\end{pmatrix}$ has magnitude $\\sqrt{64 + 16} = \\sqrt{80}$."
+          ],
+          "answer": "$t = 4$",
+          "verify": {
+            "kind": "list",
+            "truth": "solveset(Eq(sqrt((2*t)**2 + t**2), sqrt(80)), t, Interval.open(0, oo))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-missing-both",
+          "prompt": "The vector $\\begin{pmatrix}k\\\\12\\end{pmatrix}$ has magnitude $37$. Find the possible values of $k$.",
+          "hint": "Work out $37^2 - 12^2$, then take the square root. Think about signs.",
+          "options": [
+            {
+              "text": "$k = 35$",
+              "correct": false
+            },
+            {
+              "text": "$k = 35 \\text{ or } k = -35$",
+              "correct": true
+            },
+            {
+              "text": "$k = 25 \\text{ or } k = -25$",
+              "correct": false
+            },
+            {
+              "text": "$k = 1225$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "solutions",
+            "truth": "solve(Eq(sqrt(k**2 + 12**2), 37), k, dict=True)"
+          },
+          "explain": "$k^2 = 37^2 - 12^2 = 1369 - 144 = 1225$, and $\\sqrt{1225} = 35$. Both $35$ and $-35$ work. $k = 25$ subtracts before squaring, and $1225$ forgets the square root."
+        },
+        {
+          "type": "check",
+          "id": "check-missing-3sf",
+          "prompt": "The vector $\\begin{pmatrix}p\\\\4.8\\end{pmatrix}$ has magnitude $9.5$, and $p > 0$. Work out $p$, correct to $3$ significant figures.",
+          "hint": "$p^2 = 9.5^2 - 4.8^2$.",
+          "answer": {
+            "value": 8.2,
+            "tolerance": 0.005
+          },
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(9.5**2 - 4.8**2)",
+            "sf": 3
+          },
+          "explain": "$p^2 = 90.25 - 23.04 = 67.21$, so $p = \\sqrt{67.21} = 8.198\\ldots$, which is $8.20$ to $3$ significant figures. $p > 0$, so the negative root is not wanted."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Magnitude of $\\begin{pmatrix}x\\\\y\\end{pmatrix}$: $\\sqrt{x^2 + y^2}$. It is the length of the vector, written $|\\mathbf{a}|$ or $|\\overrightarrow{AB}|$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A magnitude is never negative. Changing the sign of a component, or reversing the vector, keeps the same magnitude.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $|\\overrightarrow{AB}|$ or $|2\\mathbf{a} - \\mathbf{b}|$, work out the column vector first, then its magnitude. $|\\mathbf{a} + \\mathbf{b}|$ is usually not $|\\mathbf{a}| + |\\mathbf{b}|$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Missing component: square the magnitude, subtract the known square, then take the square root. Give both signs unless the question fixes one.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Paper 2: leave a non-square answer as a simplified surd. Paper 4: give an exact answer as it is; otherwise round to 3 significant figures at the end.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Squaring a negative component to get a negative. $(-7)^2 = 49$, so bracket the negative, on paper and on the calculator.",
+    "Stopping too early. $\\sqrt{49}$ should be written as $7$, and $\\sqrt{50}$ as $5\\sqrt{2}$; the sum of the squares alone is not the magnitude.",
+    "Finding the magnitude of the vector you were given instead of the one asked for. Work out the vector the question names, such as $\\overrightarrow{QR}$, before you square anything.",
+    "Adding the squares when a component is missing. The magnitude is the longest side, so subtract: $k^2 = |\\mathbf{v}|^2 - (\\text{known component})^2$.",
+    "Giving only the positive value of a missing component. A negative value works too, unless the question rules it out.",
+    "Adding $|\\mathbf{a}|$ and $|\\mathbf{b}|$ to get $|\\mathbf{a} + \\mathbf{b}|$. Combine the vectors first, then find one magnitude."
+  ],
+  "examTips": [
+    "**Work out** a magnitude: write $\\sqrt{(\\ldots)^2 + (\\ldots)^2}$ with your components in. That line shows your method even if you slip later.",
+    "On Paper 2, a magnitude may be asked for in a form such as $k\\sqrt{3}$. Simplify your surd fully, then read off $k$.",
+    "On Paper 4, **give your answer correct to 3 significant figures**: write the full display, such as $6.38200\\ldots$, then round.",
+    "**Find the value of** a missing component: show the line $k^2 = \\ldots - \\ldots$, then check whether the question allows a negative answer."
+  ],
+  "readingMinutes": 17
+}

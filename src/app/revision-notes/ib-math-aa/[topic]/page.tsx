@@ -1,30 +1,9 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { CourseTopic } from "@/components/course-notes/CourseTopic";
-import { getVisibleCourse } from "@/lib/course-notes/course";
-import { topicMeta } from "@/lib/course-notes/seo";
+// A topic page: a thin wrapper around the shared course-notes page module.
+import { courseTopicRoute } from "@/components/course-notes/pages/topic";
 
-type Props = { params: Promise<{ topic: string }> };
+const route = courseTopicRoute("ib-math-aa");
 
 export const dynamicParams = false;
-export function generateStaticParams() {
-  return (getVisibleCourse()?.topics ?? []).map((topic) => ({ topic: topic.slug }));
-}
-
-const resolve = async (params: Props["params"]) => {
-  const course = getVisibleCourse();
-  const { topic: topicSlug } = await params;
-  const topic = course?.topics.find((entry) => entry.slug === topicSlug);
-  return course && topic ? { course, topic } : undefined;
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const hit = await resolve(params);
-  return hit ? topicMeta(hit.course, hit.topic) : {};
-}
-
-export default async function CourseTopicPage({ params }: Props) {
-  const hit = await resolve(params);
-  if (!hit) notFound();
-  return <CourseTopic course={hit.course} topic={hit.topic} />;
-}
+export const generateStaticParams = route.generateStaticParams;
+export const generateMetadata = route.generateMetadata;
+export default route.Page;

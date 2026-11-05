@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 250" role="img" aria-labelledby="t">
+  <title id="t">Compass directions as bearings. From a centre point, north points up and is 000 degrees, east points right and is 090 degrees, south points down and is 180 degrees, west points left and is 270 degrees. A curved arrow turns clockwise from north towards east.</title>
+  <line x1="160.0" y1="125.0" x2="160.0" y2="40.0" stroke="currentColor" stroke-width="2"/>
+  <line x1="160.0" y1="125.0" x2="245.0" y2="125.0" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="160.0" y1="125.0" x2="160.0" y2="210.0" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="160.0" y1="125.0" x2="75.0" y2="125.0" stroke="currentColor" stroke-width="1.6"/>
+  <circle cx="160.0" cy="125.0" r="3" fill="currentColor"/>
+  <text x="160.0" y="25.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">N 000°</text>
+  <text x="160.0" y="236.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">S 180°</text>
+  <text x="292.0" y="130.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">E 090°</text>
+  <text x="28.0" y="130.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">W 270°</text>
+  <path d="M165.6,85.4 A40,40 0 0 1 199.6,119.4" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <path d="M200.4,125.4 L195.6,120.0 L203.6,118.9 Z" fill="var(--t1-ink)"/>
+  <text x="201.0" y="84.0" fill="var(--t1-ink)" font-size="12" text-anchor="start" font-family="inherit">clockwise</text>
+</svg>

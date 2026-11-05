@@ -2,29 +2,26 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useNotesLevel, type NotesLevel } from "./LevelSwitch";
-import { useNotesContext } from "./notes-context";
+import type { PracticeInfo } from "@/lib/course-notes/practice";
+import type { ViewLevel } from "@/lib/course-notes/types";
+import { useNotesLevel } from "./LevelSwitch";
+import { useCourse, useNotesContext } from "./notes-context";
 import { trackPracticeClick, trackReport, trackUnderstood } from "./track";
 import { useNotesProgress } from "./useNotesProgress";
 import styles from "./course-notes.module.css";
 
-export type PracticeInfo = {
-  /** Taxonomy group id, sent with practice clicks. */
-  group: string;
-  /** The lesson's syllabus item, for the button and copy, e.g. "5.16". */
-  items: string;
-  counts: { SL: number; HL: number };
-  hrefs: { SL: string; HL: string };
-};
+export type { PracticeInfo };
 
 const plural = (n: number) => `${n} past-paper question${n === 1 ? "" : "s"}`;
 
-export function PractiseBand({ practice }: { practice: PracticeInfo }) {
+/** `bankPrefix` names the bank in the copy with the level label: "AA" gives "in the AA SL bank". */
+export function PractiseBand({ practice, bankPrefix }: { practice: PracticeInfo; bankPrefix: string }) {
   const [level] = useNotesLevel();
   const ctx = useNotesContext();
+  const course = useCourse();
   const count = practice.counts[level];
-  const other: NotesLevel = level === "SL" ? "HL" : "SL";
-  // An item with nothing at this level (an HL-only group in the SL view) points at the other bank instead.
+  const other: ViewLevel = level === "base" ? "extension" : "base";
+  // An item with nothing at this level (an extension-only item in the base view, AA: HL only in SL) points at the other bank instead.
   const bankLevel = count === 0 && practice.counts[other] > 0 ? other : level;
   const shown = practice.counts[bankLevel];
   return (
@@ -34,17 +31,21 @@ export function PractiseBand({ practice }: { practice: PracticeInfo }) {
         {shown === 0 ? (
           <p>No past-paper questions on {practice.items} yet.</p>
         ) : bankLevel !== level ? (
-          <p>{practice.items} is HL only. <b>{plural(shown)}</b> in the AA {bankLevel} bank, each with a mark scheme and a worked explanation.</p>
+          practice.extensionOnly ? (
+            <p>{practice.items}{` is ${course.levels.labels.extensionOnly}. `}<b>{plural(shown)}</b>{` in the ${bankPrefix} `}{course.levels.labels[bankLevel]} bank, each with a mark scheme and a worked explanation.</p>
+          ) : (
+            <p>{`No ${course.levels.labels[level]} questions on ${practice.items} yet; `}<b>{shown}</b>{` ${course.bankPhrase.replace("{level}", course.levels.labels[bankLevel])}.`}</p>
+          )
         ) : (
-          <p><b>{plural(shown)}</b> on {practice.items} in the AA {level} bank, each with a mark scheme and a worked explanation.</p>
+          <p><b>{plural(shown)}</b> on {practice.items}{` in the ${bankPrefix} `}{course.levels.labels[level]} bank, each with a mark scheme and a worked explanation.</p>
         )}
       </div>
-      {shown === 0 ? null : <Link className={`${styles.btn} ${styles.btnPrimary}`} href={practice.hrefs[bankLevel]} onClick={() => trackPracticeClick(ctx, bankLevel === "SL" ? "ib-sl" : "ib-hl", practice.group)}>Practise {practice.items} →</Link>}
+      {shown === 0 ? null : <Link className={`${styles.btn} ${styles.btnPrimary}`} href={practice.hrefs[bankLevel]} onClick={() => trackPracticeClick(ctx, course.banks[bankLevel], practice.group)}>Practise {practice.items} →</Link>}
     </section>
   );
 }
 
-export type Neighbour = { item: string; title: string; href: string; level: "SL" | "AHL" };
+export type Neighbour = { item: string; title: string; href: string; level: string };
 
 export const REPORT_ISSUES = [
   { issue: "maths_error", label: "A maths error" },
@@ -86,10 +87,11 @@ function ReportProblem() {
 export function LessonFooter({ item, lessons }: { item: string; lessons: Neighbour[] }) {
   const [level] = useNotesLevel();
   const ctx = useNotesContext();
+  const { levels } = useCourse();
   const { understood, mark, unmark } = useNotesProgress();
   const done = understood.has(item);
-  // AHL lessons are skipped in the SL view.
-  const visible = lessons.filter((lesson) => lesson.item === item || level === "HL" || lesson.level === "SL");
+  // Extension lessons (AA: AHL) are skipped in the base view.
+  const visible = lessons.filter((lesson) => lesson.item === item || level === "extension" || lesson.level === levels.base);
   const at = visible.findIndex((lesson) => lesson.item === item);
   const prev = at > 0 ? visible[at - 1] : undefined;
   const next = at >= 0 ? visible[at + 1] : undefined;

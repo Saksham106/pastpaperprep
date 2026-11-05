@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 20 230 230" role="img" aria-labelledby="t">
+  <title id="t">An isosceles triangle with two equal sloping sides of 13 cm and a base of 10 cm. A dashed vertical line, the height h, goes from the top corner straight down to the middle of the base and makes a right angle there. It splits the base into two halves of 5 cm, giving two right-angled triangles with hypotenuse 13 cm.</title>
+  <polygon points="60,220 210,220 135,40" fill="none" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="135" y1="40" x2="135" y2="220" stroke="var(--t1-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <polyline points="135,206 149,206 149,220" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <g fill="currentColor" font-family="inherit" font-size="14" text-anchor="middle">
+    <text x="82" y="128" text-anchor="end">13 cm</text>
+    <text x="188" y="128" text-anchor="start">13 cm</text>
+    <text x="97" y="240">5 cm</text>
+    <text x="172" y="240">5 cm</text>
+  </g>
+  <text x="128" y="140" fill="var(--t1-ink)" font-family="inherit" font-size="15" font-style="italic" font-weight="bold" text-anchor="end">h</text>
+</svg>

@@ -1,0 +1,847 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "7.4",
+  "slug": "vector-geometry",
+  "title": "Vector geometry",
+  "level": "Extended",
+  "topic": 7,
+  "summary": "A [[vector|vector]] can be drawn as an arrow: a [[line-segment|line segment]] with a direction. You write unknown vectors using two given ones, such as $\\mathbf{a}$ and $\\mathbf{b}$, by adding along a route. Then you can prove that lines are parallel or that points are [[collinear|collinear]].",
+  "goals": [
+    {
+      "text": "Read a vector as a directed line segment, and tell when two vectors are equal or parallel.",
+      "bullets": [
+        "7.4-s1"
+      ]
+    },
+    {
+      "text": "Find a vector by adding the vectors along a route.",
+      "bullets": [
+        "7.4-s3"
+      ]
+    },
+    {
+      "text": "Find the vector to a point that splits a line in a given ratio.",
+      "bullets": [
+        "7.4-s3",
+        "7.4-s4"
+      ]
+    },
+    {
+      "text": "Use [[position-vector|position vectors]], including $\\overrightarrow{AB} = \\mathbf{b} - \\mathbf{a}$.",
+      "bullets": [
+        "7.4-s2"
+      ]
+    },
+    {
+      "text": "Show that lines are parallel or points are collinear, and find where two lines meet.",
+      "bullets": [
+        "7.4-s4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.11",
+    "2.2",
+    "3.4",
+    "7.1",
+    "7.2"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "vector geometry",
+    "vectors in terms of a and b",
+    "position vectors",
+    "show that points are collinear",
+    "vector proof parallel lines",
+    "vectors and ratio"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ratio-fraction",
+      "prompt": "A length is split in the [[ratio|ratio]] $3 : 4$. What fraction of the whole length is the first part?",
+      "hint": "Add the parts of the ratio to find how many equal parts there are altogether.",
+      "options": [
+        {
+          "text": "$\\frac{3}{7}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{3}{4}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{4}{7}$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "fraction",
+        "truth": "Rational(3, 3 + 4)"
+      },
+      "explain": "There are $3 + 4 = 7$ equal parts, and the first part is $3$ of them. $\\frac{3}{4}$ compares one part with the other. Revise it in {{lesson:1.11}}."
+    },
+    {
+      "type": "check",
+      "id": "before-collect-terms",
+      "prompt": "Simplify $2(3x - y) - (x + 4y)$.",
+      "hint": "Expand both brackets. The minus sign changes both signs in the second bracket.",
+      "options": [
+        {
+          "text": "$5x - 6y$",
+          "correct": true
+        },
+        {
+          "text": "$5x + 2y$",
+          "correct": false
+        },
+        {
+          "text": "$5x - 5y$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "expression",
+        "truth": "2*(3*x - y) - (x + 4*y)",
+        "form": "simplified"
+      },
+      "explain": "$6x - 2y - x - 4y = 5x - 6y$. $5x + 2y$ changes only the first sign in the second bracket. Revise it in {{lesson:2.2}}."
+    },
+    {
+      "type": "check",
+      "id": "before-vector-ab",
+      "prompt": "$A$ is the point $(5, -1)$ and $B$ is the point $(2, 3)$. Which is $\\overrightarrow{AB}$?",
+      "hint": "End minus start: take $A$'s coordinates away from $B$'s.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}3\\\\-4\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}-3\\\\4\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}7\\\\2\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "vector",
+        "truth": "Matrix([2 - 5, 3 - (-1)])"
+      },
+      "explain": "Across: $2 - 5 = -3$. Up: $3 - (-1) = 4$. $\\begin{pmatrix}3\\\\-4\\end{pmatrix}$ is $\\overrightarrow{BA}$, the journey back. Revise it in {{lesson:7.2}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "directed",
+      "heading": "Vectors as directed line segments",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In geometry questions a [[vector|vector]] is drawn as an arrow: a [[line-segment|line segment]] with a direction. This is called a directed line segment."
+        },
+        {
+          "type": "text",
+          "text": "$\\overrightarrow{AB}$ is the arrow from $A$ to $B$. Its length is the vector's size, its [[magnitude-of-a-vector|magnitude]], and the arrowhead is its direction. It may also be named with a bold letter, such as $\\mathbf{a}$."
+        },
+        {
+          "type": "figure",
+          "id": "7-4-directed-segments",
+          "alt": "Square grid with four arrows. Arrow a goes from point A to point B, 3 squares right and 1 square up. A second arrow, also labelled a, starts somewhere else and also goes 3 squares right and 1 square up. Arrow minus a goes 3 squares left and 1 square down. Arrow 2a goes 6 squares right and 2 squares up.",
+          "caption": "Both arrows labelled $\\mathbf{a}$ are the same vector. $-\\mathbf{a}$ points the other way. $2\\mathbf{a}$ is twice as long."
+        },
+        {
+          "type": "result",
+          "statement": "Two arrows with the same length and the same direction show the same vector, wherever they are drawn.",
+          "why": "A vector says how far and which way. It does not say where you start."
+        },
+        {
+          "type": "text",
+          "text": "Going backwards along an arrow gives the negative vector: $\\overrightarrow{BA} = -\\overrightarrow{AB}$. Multiplying by a [[scalar|scalar]] changes the arrow's length, and a negative scalar turns it round."
+        },
+        {
+          "type": "result",
+          "statement": "Two non-zero vectors are [[parallel|parallel]] exactly when one is a number times the other: $\\mathbf{q} = k\\mathbf{p}$. If $k < 0$ they point opposite ways.",
+          "why": "Multiplying by $k$ changes the length, and may reverse the arrow, but never tilts it."
+        },
+        {
+          "type": "figure",
+          "id": "7-4-parallelogram",
+          "alt": "Parallelogram PQRS with P at the bottom left, Q at the bottom right, R at the top right and S at the top left. An arrow labelled u goes along the bottom from P to Q. An arrow labelled v goes up the left side from P to S."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallelogram-side",
+          "question": "$PQRS$ is a [[parallelogram|parallelogram]] with $\\overrightarrow{PQ} = \\mathbf{u}$ and $\\overrightarrow{PS} = \\mathbf{v}$, as in the diagram. Write $\\overrightarrow{RS}$ in terms of $\\mathbf{u}$ and/or $\\mathbf{v}$.",
+          "steps": [
+            "Opposite sides of a parallelogram are parallel and the same length.",
+            "$S$ to $R$ points the same way as $P$ to $Q$, so $\\overrightarrow{SR} = \\mathbf{u}$.",
+            "$\\overrightarrow{RS}$ goes the opposite way, so $\\overrightarrow{RS} = -\\mathbf{u}$."
+          ],
+          "answer": "$\\overrightarrow{RS} = -\\mathbf{u}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "(-v) + (-u) + v",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-parallelogram-qr",
+          "prompt": "In the same parallelogram, which is $\\overrightarrow{QR}$?",
+          "hint": "$QR$ is the side opposite $PS$. Do $Q$ to $R$ and $P$ to $S$ point the same way?",
+          "options": [
+            {
+              "text": "$\\mathbf{v}$",
+              "correct": true
+            },
+            {
+              "text": "$-\\mathbf{v}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathbf{u}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathbf{u} + \\mathbf{v}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "(-u) + v + u",
+            "form": "simplified"
+          },
+          "explain": "$QR$ and $PS$ are opposite sides going the same way, so $\\overrightarrow{QR} = \\mathbf{v}$. $-\\mathbf{v}$ is $\\overrightarrow{RQ}$, and $\\mathbf{u} + \\mathbf{v}$ is the diagonal $\\overrightarrow{PR}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-multiple",
+          "question": "$\\overrightarrow{KL} = 4\\mathbf{m} - 7\\mathbf{n}$ and $\\overrightarrow{XY} = 21\\mathbf{n} - 12\\mathbf{m}$. Find the number $k$ for which $\\overrightarrow{XY} = k\\overrightarrow{KL}$. What does $k$ tell you about $XY$ and $KL$?",
+          "steps": [
+            "Put the $\\mathbf{m}$ term first: $\\overrightarrow{XY} = -12\\mathbf{m} + 21\\mathbf{n}$.",
+            "Compare the $\\mathbf{m}$ terms: $-12 \\div 4 = -3$.",
+            "The $\\mathbf{n}$ terms must give the same number: $21 \\div (-7) = -3$. (Different numbers would mean not parallel.)",
+            "So $\\overrightarrow{XY} = -3(4\\mathbf{m} - 7\\mathbf{n}) = -3\\overrightarrow{KL}$.",
+            "$k$ is negative, so $XY$ is parallel to $KL$, $3$ times as long, and points the opposite way."
+          ],
+          "answer": "$k = -3$",
+          "verify": {
+            "kind": "exact",
+            "truth": "simplify((21*n - 12*m) / (4*m - 7*n))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-which-parallel",
+          "prompt": "Which vector is parallel to $5\\mathbf{a} - 2\\mathbf{b}$?",
+          "hint": "Find the one that is a single number times $5\\mathbf{a} - 2\\mathbf{b}$.",
+          "options": [
+            {
+              "text": "$-15\\mathbf{a} + 6\\mathbf{b}$",
+              "correct": true
+            },
+            {
+              "text": "$15\\mathbf{a} + 6\\mathbf{b}$",
+              "correct": false
+            },
+            {
+              "text": "$2\\mathbf{a} - 5\\mathbf{b}$",
+              "correct": false
+            },
+            {
+              "text": "$10\\mathbf{a} - 2\\mathbf{b}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "5*a - 2*b",
+            "scale": true
+          },
+          "explain": "$-15\\mathbf{a} + 6\\mathbf{b} = -3(5\\mathbf{a} - 2\\mathbf{b})$. In $15\\mathbf{a} + 6\\mathbf{b}$ the terms are multiplied by $3$ and $-3$, and $10\\mathbf{a} - 2\\mathbf{b}$ multiplies only one term."
+        }
+      ]
+    },
+    {
+      "id": "routes",
+      "heading": "Finding a vector by a route",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To find an unknown vector, travel from its start to its end along known arrows and add them. Against an arrow, use its negative."
+        },
+        {
+          "type": "result",
+          "statement": "For any points $A$, $B$ and $C$, $\\overrightarrow{AC} = \\overrightarrow{AB} + \\overrightarrow{BC}$.",
+          "why": "$A$ to $B$ then $B$ to $C$ ends where $A$ to $C$ does."
+        },
+        {
+          "type": "figure",
+          "id": "7-4-route-triangle",
+          "alt": "Triangle with corners O, A and B. An arrow labelled a goes from O to A. An arrow labelled b goes from O to B. A dashed arrow goes from A to B.",
+          "caption": "To get from $A$ to $B$, go back along $\\mathbf{a}$ to $O$, then along $\\mathbf{b}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-route-ab",
+          "question": "$\\overrightarrow{OA} = \\mathbf{a}$ and $\\overrightarrow{OB} = \\mathbf{b}$. Find $\\overrightarrow{AB}$ in terms of $\\mathbf{a}$ and $\\mathbf{b}$.",
+          "steps": [
+            "Route: $A$ to $O$, then $O$ to $B$. So $\\overrightarrow{AB} = \\overrightarrow{AO} + \\overrightarrow{OB}$.",
+            "$A$ to $O$ goes against the arrow $\\mathbf{a}$, so $\\overrightarrow{AO} = -\\mathbf{a}$.",
+            "So $\\overrightarrow{AB} = -\\mathbf{a} + \\mathbf{b}$, which is usually written $\\mathbf{b} - \\mathbf{a}$.",
+            "Check: $\\overrightarrow{OA} + \\overrightarrow{AB} = \\mathbf{a} + (\\mathbf{b} - \\mathbf{a}) = \\mathbf{b}$, which is $\\overrightarrow{OB}$."
+          ],
+          "answer": "$\\overrightarrow{AB} = \\mathbf{b} - \\mathbf{a}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "(-a) + b",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\mathbf{a} - \\mathbf{b}$ for $\\overrightarrow{AB}$. That is $\\overrightarrow{BA}$, the other way. Say the route: back along $\\mathbf{a}$, then along $\\mathbf{b}$."
+        },
+        {
+          "type": "check",
+          "id": "check-route-hg",
+          "prompt": "$\\overrightarrow{OG} = \\mathbf{g}$ and $\\overrightarrow{OH} = \\mathbf{h}$. Which is $\\overrightarrow{HG}$?",
+          "hint": "Go from $H$ to $O$, then from $O$ to $G$.",
+          "options": [
+            {
+              "text": "$\\mathbf{g} - \\mathbf{h}$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathbf{h} - \\mathbf{g}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathbf{g} + \\mathbf{h}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "(-h) + g",
+            "form": "simplified"
+          },
+          "explain": "$\\overrightarrow{HG} = \\overrightarrow{HO} + \\overrightarrow{OG} = -\\mathbf{h} + \\mathbf{g}$. $\\mathbf{h} - \\mathbf{g}$ is $\\overrightarrow{GH}$, the other way."
+        },
+        {
+          "type": "text",
+          "text": "Exam diagrams give two vectors that are not parallel, often $\\mathbf{a}$ and $\\mathbf{b}$. Every other vector can be written as an amount of $\\mathbf{a}$ plus an amount of $\\mathbf{b}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-route-four",
+          "question": "In the quadrilateral $JKLM$, $\\overrightarrow{JK} = 4\\mathbf{a}$, $\\overrightarrow{KL} = 3\\mathbf{b}$ and $\\overrightarrow{ML} = \\mathbf{a} + 5\\mathbf{b}$. Find $\\overrightarrow{JM}$ in terms of $\\mathbf{a}$ and $\\mathbf{b}$. Simplify your answer.",
+          "steps": [
+            "Route from $J$ to $M$: $J$ to $K$ to $L$ to $M$. So $\\overrightarrow{JM} = \\overrightarrow{JK} + \\overrightarrow{KL} + \\overrightarrow{LM}$.",
+            "The route goes from $L$ to $M$, so reverse $\\overrightarrow{ML}$ and change every sign: $\\overrightarrow{LM} = -(\\mathbf{a} + 5\\mathbf{b}) = -\\mathbf{a} - 5\\mathbf{b}$.",
+            "Add: $\\overrightarrow{JM} = 4\\mathbf{a} + 3\\mathbf{b} - \\mathbf{a} - 5\\mathbf{b}$.",
+            "Collect like terms: $4\\mathbf{a} - \\mathbf{a} = 3\\mathbf{a}$ and $3\\mathbf{b} - 5\\mathbf{b} = -2\\mathbf{b}$."
+          ],
+          "answer": "$\\overrightarrow{JM} = 3\\mathbf{a} - 2\\mathbf{b}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "4*a + 3*b - (a + 5*b)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-route-bracket",
+          "prompt": "$\\overrightarrow{PQ} = 2\\mathbf{a} - \\mathbf{b}$ and $\\overrightarrow{RQ} = \\mathbf{a} + 3\\mathbf{b}$. Find $\\overrightarrow{PR}$.",
+          "hint": "Go $P$ to $Q$ to $R$. You need $\\overrightarrow{QR}$, which is $\\overrightarrow{RQ}$ reversed.",
+          "options": [
+            {
+              "text": "$\\mathbf{a} - 4\\mathbf{b}$",
+              "correct": true
+            },
+            {
+              "text": "$3\\mathbf{a} + 2\\mathbf{b}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathbf{a} + 2\\mathbf{b}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\mathbf{a} + 4\\mathbf{b}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "2*a - b - (a + 3*b)",
+            "form": "simplified"
+          },
+          "explain": "$2\\mathbf{a} - \\mathbf{b} - \\mathbf{a} - 3\\mathbf{b} = \\mathbf{a} - 4\\mathbf{b}$. $3\\mathbf{a} + 2\\mathbf{b}$ forgets to reverse $\\overrightarrow{RQ}$, and $\\mathbf{a} + 2\\mathbf{b}$ changes only one sign."
+        }
+      ]
+    },
+    {
+      "id": "ratio",
+      "heading": "Points part of the way along a line",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "If $M$ is the [[midpoint|midpoint]] of $AB$, then $\\overrightarrow{AM}$ is half of $\\overrightarrow{AB}$."
+        },
+        {
+          "type": "text",
+          "text": "For a [[ratio|ratio]], add the parts first. If $AP : PB = 3 : 2$, then $AB$ is split into $3 + 2 = 5$ equal parts. $AP$ is $3$ of them, so $\\overrightarrow{AP} = \\frac{3}{5}\\overrightarrow{AB}$ and $\\overrightarrow{PB} = \\frac{2}{5}\\overrightarrow{AB}$."
+        },
+        {
+          "type": "figure",
+          "id": "7-4-ratio-split",
+          "alt": "A straight line from A to B split into 5 equal parts by small marks. Point P is at the third mark from A, so 3 parts lie between A and P and 2 parts lie between P and B.",
+          "caption": "$AP : PB = 3 : 2$, so $AP$ is $\\frac{3}{5}$ of $AB$."
+        },
+        {
+          "type": "result",
+          "statement": "If $P$ is on $AB$ with $AP : PB = m : n$, where $m$ and $n$ are positive, then $\\overrightarrow{AP} = \\frac{m}{m + n}\\overrightarrow{AB}$ and $\\overrightarrow{PB} = \\frac{n}{m + n}\\overrightarrow{AB}$.",
+          "why": "The line is cut into $m + n$ equal parts, and $AP$ is $m$ of them."
+        },
+        {
+          "type": "mistake",
+          "text": "Using $\\frac{3}{2}$ of $\\overrightarrow{AB}$ for the ratio $3 : 2$. The bottom of the fraction is the total, $3 + 2 = 5$."
+        },
+        {
+          "type": "example",
+          "id": "ex-midpoint-route",
+          "question": "$\\overrightarrow{OA} = \\mathbf{a}$ and $\\overrightarrow{OB} = \\mathbf{b}$. $M$ is the midpoint of $AB$. Find $\\overrightarrow{OM}$ in terms of $\\mathbf{a}$ and $\\mathbf{b}$.",
+          "steps": [
+            "Route: $O$ to $A$ to $M$. So $\\overrightarrow{OM} = \\overrightarrow{OA} + \\overrightarrow{AM}$.",
+            "$\\overrightarrow{AB} = \\mathbf{b} - \\mathbf{a}$ and $M$ is halfway, so $\\overrightarrow{AM} = \\frac{1}{2}(\\mathbf{b} - \\mathbf{a})$.",
+            "So $\\overrightarrow{OM} = \\mathbf{a} + \\frac{1}{2}\\mathbf{b} - \\frac{1}{2}\\mathbf{a}$.",
+            "Collect the $\\mathbf{a}$ terms: $\\mathbf{a} - \\frac{1}{2}\\mathbf{a} = \\frac{1}{2}\\mathbf{a}$."
+          ],
+          "answer": "$\\overrightarrow{OM} = \\frac{1}{2}\\mathbf{a} + \\frac{1}{2}\\mathbf{b}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "a + Rational(1, 2)*(b - a)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-ratio-part",
+          "prompt": "$\\overrightarrow{DE} = \\mathbf{p}$ and $C$ is on $DE$ with $DC : CE = 1 : 3$. Which is $\\overrightarrow{CE}$?",
+          "hint": "How many parts are there altogether? How many are between $C$ and $E$?",
+          "options": [
+            {
+              "text": "$\\frac{3}{4}\\mathbf{p}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{4}\\mathbf{p}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{3}\\mathbf{p}$",
+              "correct": false
+            },
+            {
+              "text": "$3\\mathbf{p}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "Rational(3, 1 + 3)*p",
+            "form": "simplified"
+          },
+          "explain": "$DE$ is $1 + 3 = 4$ parts and $CE$ is $3$ of them. $\\frac{1}{4}\\mathbf{p}$ is $\\overrightarrow{DC}$, and $\\frac{1}{3}\\mathbf{p}$ forgets to add the parts."
+        },
+        {
+          "type": "figure",
+          "id": "7-4-trapezium",
+          "alt": "Trapezium OABC. An arrow labelled a goes along the bottom from O to A. An arrow labelled c goes up from O to C. An arrow labelled 2a goes along the top from C to B, parallel to OA and twice as long. Side AB joins the right-hand ends. Point X is on AB, two fifths of the way from A to B, and a dashed arrow goes from O to X."
+        },
+        {
+          "type": "example",
+          "id": "ex-ratio-trapezium",
+          "question": "$OABC$ is a [[trapezium|trapezium]] with $\\overrightarrow{OA} = \\mathbf{a}$, $\\overrightarrow{OC} = \\mathbf{c}$ and $\\overrightarrow{CB} = 2\\mathbf{a}$. $X$ is on $AB$ with $AX : XB = 2 : 3$. Find $\\overrightarrow{OX}$ in terms of $\\mathbf{a}$ and $\\mathbf{c}$. Simplify your answer.",
+          "steps": [
+            "Route $A$ to $O$ to $C$ to $B$: $\\overrightarrow{AB} = -\\mathbf{a} + \\mathbf{c} + 2\\mathbf{a} = \\mathbf{a} + \\mathbf{c}$.",
+            "$AB$ is split into $2 + 3 = 5$ parts, and $AX$ is $2$ of them. So $\\overrightarrow{AX} = \\frac{2}{5}(\\mathbf{a} + \\mathbf{c})$.",
+            "Route $O$ to $A$ to $X$: $\\overrightarrow{OX} = \\mathbf{a} + \\frac{2}{5}\\mathbf{a} + \\frac{2}{5}\\mathbf{c}$.",
+            "Collect the $\\mathbf{a}$ terms: $\\mathbf{a} + \\frac{2}{5}\\mathbf{a} = \\frac{7}{5}\\mathbf{a}$."
+          ],
+          "answer": "$\\overrightarrow{OX} = \\frac{7}{5}\\mathbf{a} + \\frac{2}{5}\\mathbf{c}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "a + Rational(2, 2 + 3)*(-a + c + 2*a)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-ratio-route",
+          "prompt": "$\\overrightarrow{OP} = \\mathbf{p}$ and $\\overrightarrow{OQ} = \\mathbf{q}$. $R$ is on $PQ$ with $PR : RQ = 1 : 4$. Find $\\overrightarrow{OR}$.",
+          "hint": "Find $\\overrightarrow{PQ}$ first. Then $\\overrightarrow{PR}$ is $1$ part out of $1 + 4$.",
+          "options": [
+            {
+              "text": "$\\frac{4}{5}\\mathbf{p} + \\frac{1}{5}\\mathbf{q}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{5}\\mathbf{p} + \\frac{4}{5}\\mathbf{q}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{4}\\mathbf{p} + \\frac{1}{4}\\mathbf{q}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{6}{5}\\mathbf{p} - \\frac{1}{5}\\mathbf{q}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "p + Rational(1, 1 + 4)*(q - p)",
+            "form": "simplified"
+          },
+          "explain": "$\\mathbf{p} + \\frac{1}{5}(\\mathbf{q} - \\mathbf{p}) = \\frac{4}{5}\\mathbf{p} + \\frac{1}{5}\\mathbf{q}$. The others use $\\frac{1}{4}$ instead of $\\frac{1}{5}$, measure from $Q$, or use $\\mathbf{p} - \\mathbf{q}$ for $\\overrightarrow{PQ}$."
+        }
+      ]
+    },
+    {
+      "id": "position",
+      "heading": "Position vectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Fix one point $O$, the [[origin|origin]]. Every point then has an arrow from $O$."
+        },
+        {
+          "type": "definition",
+          "term": "position vector",
+          "statement": "The [[position-vector|position vector]] of a point $A$ is $\\overrightarrow{OA}$, the vector from the origin to $A$. It is usually written $\\mathbf{a}$.",
+          "plain": "How to get from the origin to the point."
+        },
+        {
+          "type": "text",
+          "text": "On a grid with $O$ at $(0, 0)$, the point $(x, y)$ has position vector $\\begin{pmatrix}x\\\\y\\end{pmatrix}$."
+        },
+        {
+          "type": "result",
+          "statement": "If $A$ and $B$ have position vectors $\\mathbf{a}$ and $\\mathbf{b}$, then $\\overrightarrow{AB} = \\mathbf{b} - \\mathbf{a}$.",
+          "why": "Go from $A$ back to $O$, then out to $B$: $-\\mathbf{a} + \\mathbf{b}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\overrightarrow{AB} = \\mathbf{b} - \\mathbf{a}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The midpoint of $AB$ has position vector $\\frac{1}{2}\\mathbf{a} + \\frac{1}{2}\\mathbf{b}$, as you found above."
+        },
+        {
+          "type": "example",
+          "id": "ex-position-midpoint",
+          "question": "$O$ is the origin. $P$ has position vector $\\begin{pmatrix}-3\\\\5\\end{pmatrix}$ and $Q$ has position vector $\\begin{pmatrix}5\\\\-1\\end{pmatrix}$. $M$ is the midpoint of $PQ$. Find the position vector of $M$.",
+          "steps": [
+            "End minus start: $\\begin{pmatrix}5 - (-3)\\\\-1 - 5\\end{pmatrix} = \\begin{pmatrix}8\\\\-6\\end{pmatrix}$.",
+            "Half of it: $\\overrightarrow{PM} = \\frac{1}{2}\\begin{pmatrix}8\\\\-6\\end{pmatrix} = \\begin{pmatrix}4\\\\-3\\end{pmatrix}$.",
+            "Route $O$ to $P$ to $M$: $\\overrightarrow{OM} = \\begin{pmatrix}-3\\\\5\\end{pmatrix} + \\begin{pmatrix}4\\\\-3\\end{pmatrix} = \\begin{pmatrix}1\\\\2\\end{pmatrix}$.",
+            "Check: $\\frac{1}{2}\\mathbf{p} + \\frac{1}{2}\\mathbf{q} = \\frac{1}{2}\\begin{pmatrix}2\\\\4\\end{pmatrix} = \\begin{pmatrix}1\\\\2\\end{pmatrix}$. So $M$ is $(1, 2)$."
+          ],
+          "answer": "$\\overrightarrow{OM} = \\begin{pmatrix}1\\\\2\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([-3, 5]) + Rational(1, 2)*(Matrix([5, -1]) - Matrix([-3, 5]))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-position-endpoint",
+          "prompt": "$K$ has position vector $\\begin{pmatrix}-4\\\\7\\end{pmatrix}$ and $\\overrightarrow{KL} = \\begin{pmatrix}9\\\\-3\\end{pmatrix}$. Which is the position vector of $L$?",
+          "hint": "Route $O$ to $K$ to $L$: add $\\overrightarrow{KL}$ to the position vector of $K$.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}5\\\\4\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}-13\\\\10\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}5\\\\10\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([-4, 7]) + Matrix([9, -3])"
+          },
+          "explain": "$\\overrightarrow{OL} = \\begin{pmatrix}-4 + 9\\\\7 + (-3)\\end{pmatrix} = \\begin{pmatrix}5\\\\4\\end{pmatrix}$. $\\begin{pmatrix}-13\\\\10\\end{pmatrix}$ subtracts $\\overrightarrow{KL}$, and $\\begin{pmatrix}5\\\\10\\end{pmatrix}$ slips on the sign of $-3$."
+        },
+        {
+          "type": "example",
+          "id": "ex-position-beyond",
+          "question": "Points $A$ and $B$ have position vectors $\\mathbf{a}$ and $\\mathbf{b}$. $D$ lies on the line $AB$ extended beyond $B$, with $AB : BD = 2 : 3$. Write the position vector of $D$ using $\\mathbf{a}$ and $\\mathbf{b}$, as simply as possible.",
+          "steps": [
+            "Sketch $A$, then $B$, then $D$ on one line. $AB$ is $2$ parts and $BD$ is $3$, so $AD$ is $5$ parts.",
+            "So $AD$ is $\\frac{5}{2}$ times $AB$, in the same direction: $\\overrightarrow{AD} = \\frac{5}{2}(\\mathbf{b} - \\mathbf{a})$.",
+            "Route $O$ to $A$ to $D$: $\\overrightarrow{OD} = \\mathbf{a} + \\frac{5}{2}\\mathbf{b} - \\frac{5}{2}\\mathbf{a}$.",
+            "Collect the $\\mathbf{a}$ terms: $\\mathbf{a} - \\frac{5}{2}\\mathbf{a} = -\\frac{3}{2}\\mathbf{a}$.",
+            "Check: $\\overrightarrow{BD} = \\frac{3}{2}\\mathbf{b} - \\frac{3}{2}\\mathbf{a} = \\frac{3}{2}\\overrightarrow{AB}$, which fits $2 : 3$."
+          ],
+          "answer": "$\\overrightarrow{OD} = \\frac{5}{2}\\mathbf{b} - \\frac{3}{2}\\mathbf{a}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "a + Rational(2 + 3, 2)*(b - a)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-position-ratio",
+          "prompt": "Points $A$ and $B$ have position vectors $\\mathbf{a}$ and $\\mathbf{b}$. $C$ is on $AB$ with $AC : CB = 4 : 5$. Which is the position vector of $C$?",
+          "hint": "$\\overrightarrow{OC} = \\mathbf{a} + \\overrightarrow{AC}$, and $AC$ is $4$ parts out of $4 + 5$.",
+          "options": [
+            {
+              "text": "$\\frac{5}{9}\\mathbf{a} + \\frac{4}{9}\\mathbf{b}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{4}{9}\\mathbf{a} + \\frac{5}{9}\\mathbf{b}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{5}\\mathbf{a} + \\frac{4}{5}\\mathbf{b}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{4}{9}\\mathbf{a} + \\frac{4}{9}\\mathbf{b}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "a + Rational(4, 4 + 5)*(b - a)",
+            "form": "simplified"
+          },
+          "explain": "$\\mathbf{a} + \\frac{4}{9}(\\mathbf{b} - \\mathbf{a}) = \\frac{5}{9}\\mathbf{a} + \\frac{4}{9}\\mathbf{b}$. $C$ is nearer $A$, so it has more $\\mathbf{a}$. The last option is only $\\overrightarrow{AC}$."
+        }
+      ]
+    },
+    {
+      "id": "proofs",
+      "heading": "Parallel lines, collinear points and meeting points",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To show that two lines are [[parallel|parallel]], write one vector as a number times the other."
+        },
+        {
+          "type": "check",
+          "id": "check-midpoints-parallel",
+          "prompt": "$\\overrightarrow{OA} = \\mathbf{a}$ and $\\overrightarrow{OB} = \\mathbf{b}$. $X$ is the midpoint of $OA$ and $Y$ is the midpoint of $OB$. Which is $\\overrightarrow{XY}$?",
+          "hint": "Route $X$ to $O$ to $Y$.",
+          "options": [
+            {
+              "text": "$\\frac{1}{2}\\mathbf{b} - \\frac{1}{2}\\mathbf{a}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{2}\\mathbf{a} - \\frac{1}{2}\\mathbf{b}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathbf{b} - \\mathbf{a}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2}\\mathbf{a} + \\frac{1}{2}\\mathbf{b}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "expression",
+            "truth": "-(Rational(1, 2)*a) + Rational(1, 2)*b",
+            "form": "simplified"
+          },
+          "explain": "$\\overrightarrow{XY} = -\\frac{1}{2}\\mathbf{a} + \\frac{1}{2}\\mathbf{b} = \\frac{1}{2}\\overrightarrow{AB}$. So $XY$ is parallel to $AB$ and half as long."
+        },
+        {
+          "type": "definition",
+          "term": "collinear",
+          "statement": "Three or more points are collinear when they all lie on one straight line.",
+          "plain": "One straight line goes through all of them."
+        },
+        {
+          "type": "result",
+          "statement": "If $\\overrightarrow{PQ}$ is non-zero and $\\overrightarrow{QR} = k\\overrightarrow{PQ}$ for some number $k$, then $P$, $Q$ and $R$ are [[collinear|collinear]].",
+          "why": "The vectors are parallel and share the point $Q$, and parallel lines through one point are the same line."
+        },
+        {
+          "type": "text",
+          "text": "Parallel alone is not enough: opposite sides of a parallelogram are parallel but not on one line."
+        },
+        {
+          "type": "examTip",
+          "text": "**Show that** points are collinear: write one vector as a multiple of another that shares a point. Then finish with the sentence: parallel, with a common point, so collinear."
+        },
+        {
+          "type": "figure",
+          "id": "7-4-collinear",
+          "alt": "Triangle OAB with O at the bottom left, A further along the bottom and B at the top. M is the midpoint of OB. P is on AB, two fifths of the way from A to B. The bottom line is extended past A to E, three times as far from O as A is. A dashed straight line passes through M, P and E."
+        },
+        {
+          "type": "example",
+          "id": "ex-collinear",
+          "question": "$\\overrightarrow{OA} = \\mathbf{a}$ and $\\overrightarrow{OB} = \\mathbf{b}$. $M$ is the midpoint of $OB$, and $P$ is on $AB$ with $AP : PB = 2 : 3$. $E$ is the point with $\\overrightarrow{OE} = 3\\mathbf{a}$. Show that $M$, $P$ and $E$ are collinear, and find $MP : PE$.",
+          "steps": [
+            "$\\overrightarrow{OM} = \\frac{1}{2}\\mathbf{b}$, and $\\overrightarrow{OP} = \\mathbf{a} + \\frac{2}{5}(\\mathbf{b} - \\mathbf{a}) = \\frac{3}{5}\\mathbf{a} + \\frac{2}{5}\\mathbf{b}$.",
+            "$\\overrightarrow{MP} = \\overrightarrow{OP} - \\overrightarrow{OM} = \\frac{3}{5}\\mathbf{a} - \\frac{1}{10}\\mathbf{b}$. Take out $\\frac{1}{10}$: $\\overrightarrow{MP} = \\frac{1}{10}(6\\mathbf{a} - \\mathbf{b})$.",
+            "$\\overrightarrow{PE} = \\overrightarrow{OE} - \\overrightarrow{OP} = \\frac{12}{5}\\mathbf{a} - \\frac{2}{5}\\mathbf{b}$. Take out $\\frac{2}{5}$: $\\overrightarrow{PE} = \\frac{2}{5}(6\\mathbf{a} - \\mathbf{b})$.",
+            "Both are multiples of $6\\mathbf{a} - \\mathbf{b}$, and $\\frac{2}{5} \\div \\frac{1}{10} = 4$. So $\\overrightarrow{PE} = 4\\overrightarrow{MP}$.",
+            "They are parallel and share the point $P$, so $M$, $P$ and $E$ are collinear, with $MP : PE = 1 : 4$."
+          ],
+          "answer": "$MP : PE = 1 : 4$",
+          "verify": {
+            "kind": "ratio",
+            "truth": "(1, simplify((3*a - (a + Rational(2, 2 + 3)*(b - a))) / ((a + Rational(2, 2 + 3)*(b - a)) - Rational(1, 2)*b)))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-collinear-ratio",
+          "prompt": "$\\overrightarrow{PQ} = 2\\mathbf{a} - 5\\mathbf{b}$ and $\\overrightarrow{QR} = 6\\mathbf{a} - 15\\mathbf{b}$. $P$, $Q$ and $R$ lie on one line. Find $PQ : QR$.",
+          "hint": "Write $\\overrightarrow{QR}$ as a number times $\\overrightarrow{PQ}$.",
+          "options": [
+            {
+              "text": "$1 : 3$",
+              "correct": true
+            },
+            {
+              "text": "$3 : 1$",
+              "correct": false
+            },
+            {
+              "text": "$1 : 4$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "ratio",
+            "truth": "(1, simplify((6*a - 15*b) / (2*a - 5*b)))"
+          },
+          "explain": "$6\\mathbf{a} - 15\\mathbf{b} = 3(2\\mathbf{a} - 5\\mathbf{b})$, so $QR$ is $3$ times $PQ$. $1 : 4$ is $PQ : PR$."
+        },
+        {
+          "type": "text",
+          "text": "To find where two lines meet, write the meeting point's position vector twice, once for each line, with an unknown number in each. Then match the amounts of $\\mathbf{a}$ and $\\mathbf{b}$."
+        },
+        {
+          "type": "result",
+          "statement": "If $\\mathbf{a}$ and $\\mathbf{b}$ are non-zero and not parallel, and $p\\mathbf{a} + q\\mathbf{b} = r\\mathbf{a} + s\\mathbf{b}$, then $p = r$ and $q = s$.",
+          "why": "Otherwise $(p - r)\\mathbf{a} = (s - q)\\mathbf{b}$ would make one vector a multiple of the other, so they would be parallel."
+        },
+        {
+          "type": "figure",
+          "id": "7-4-meeting-point",
+          "alt": "Triangle OAB with arrow a from O to A along the bottom and arrow b from O up to B. P is on OA, three fifths of the way from O to A. A dashed line through A runs parallel to OB. The line from B through P is extended below OA until it meets the dashed line at Q."
+        },
+        {
+          "type": "example",
+          "id": "ex-meeting-point",
+          "question": "$\\overrightarrow{OA} = \\mathbf{a}$ and $\\overrightarrow{OB} = \\mathbf{b}$. $P$ is on $OA$ with $OP : PA = 3 : 2$. Line $BP$, extended, meets the line through $A$ parallel to $OB$ at $Q$. Write $\\overrightarrow{OQ}$ using $\\mathbf{a}$ and $\\mathbf{b}$.",
+          "steps": [
+            "$P$ is $3$ parts of $5$ along $OA$, so $\\overrightarrow{OP} = \\frac{3}{5}\\mathbf{a}$ and $\\overrightarrow{BP} = \\overrightarrow{OP} - \\overrightarrow{OB} = \\frac{3}{5}\\mathbf{a} - \\mathbf{b}$.",
+            "$Q$ is on line $BP$, so $\\overrightarrow{BQ} = k\\overrightarrow{BP}$ for some number $k$: $\\overrightarrow{OQ} = \\mathbf{b} + k\\left(\\frac{3}{5}\\mathbf{a} - \\mathbf{b}\\right) = \\frac{3}{5}k\\mathbf{a} + (1 - k)\\mathbf{b}$.",
+            "$Q$ is also on the line through $A$ parallel to $OB$, so $\\overrightarrow{OQ} = \\mathbf{a} + t\\mathbf{b}$ for some number $t$.",
+            "$\\mathbf{a}$ and $\\mathbf{b}$ are not parallel, so match the amounts of $\\mathbf{a}$: $\\frac{3}{5}k = 1$, so $k = \\frac{5}{3}$.",
+            "The amount of $\\mathbf{b}$ is $1 - \\frac{5}{3} = -\\frac{2}{3}$, so $\\overrightarrow{OQ} = \\mathbf{a} - \\frac{2}{3}\\mathbf{b}$.",
+            "Check with [[similar-shapes|similar triangles]]: $PAQ$ and $POB$ are similar with $PA : PO = 2 : 3$, so $\\overrightarrow{AQ} = -\\frac{2}{3}\\mathbf{b}$."
+          ],
+          "answer": "$\\overrightarrow{OQ} = \\mathbf{a} - \\frac{2}{3}\\mathbf{b}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "b + (1 / Rational(3, 3 + 2))*(Rational(3, 3 + 2)*a - b)",
+            "form": "simplified"
+          },
+          "video": null
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Arrows with the same length and direction are the same vector. $\\overrightarrow{BA} = -\\overrightarrow{AB}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Add along a route: $\\overrightarrow{AC} = \\overrightarrow{AB} + \\overrightarrow{BC}$. Against an arrow, subtract it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $A$ and $B$ have position vectors $\\mathbf{a}$ and $\\mathbf{b}$, then $\\overrightarrow{AB} = \\mathbf{b} - \\mathbf{a}$. The midpoint of $AB$ has position vector $\\frac{1}{2}\\mathbf{a} + \\frac{1}{2}\\mathbf{b}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $P$ is on $AB$ with $AP : PB = m : n$, then $\\overrightarrow{AP} = \\frac{m}{m + n}\\overrightarrow{AB}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Non-zero vectors are parallel when one is a number times the other. Parallel and sharing a point means collinear.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $\\mathbf{a}$ and $\\mathbf{b}$ are non-zero and not parallel, $p\\mathbf{a} + q\\mathbf{b} = r\\mathbf{a} + s\\mathbf{b}$ means $p = r$ and $q = s$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Measuring a ratio from the wrong end. $AP : PB$ starts at $A$, so $\\overrightarrow{AP}$ uses the first number of the ratio.",
+    "Reversing only part of a vector. The reverse of $\\mathbf{a} + 5\\mathbf{b}$ is $-\\mathbf{a} - 5\\mathbf{b}$: change every sign.",
+    "Giving $MP : ME$ when the question asks for $MP : PE$. Check which two pieces the ratio compares.",
+    "Keeping an impossible answer. The position vector of a point on line $OB$ is a multiple of $\\mathbf{b}$, so an $\\mathbf{a}$ term means a slip."
+  ],
+  "examTips": [
+    "**Simplest form** means expanding brackets and collecting like terms: $\\frac{3}{5}\\mathbf{a} + \\frac{2}{5}\\mathbf{b}$, not $\\mathbf{a} + \\frac{2}{5}(\\mathbf{b} - \\mathbf{a})$.",
+    "Write the route first, such as $\\overrightarrow{OX} = \\overrightarrow{OA} + \\overrightarrow{AX}$. A correct route can earn a method mark even if you slip later.",
+    "Later parts often use earlier answers. A wrong earlier answer used correctly can still earn follow-through marks."
+  ],
+  "readingMinutes": 24
+}

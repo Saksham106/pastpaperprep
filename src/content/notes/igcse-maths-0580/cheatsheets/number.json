@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Product of primes, HCF or LCM, including when two repeating events next happen together → factor tree; HCF: shared primes at the lower power (none shared: $1$); LCM: every prime at the higher power ({{lesson:1.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Venn diagram with totals, how many are in both → $n(A \\cap B) = n(A) + n(B) - n(A \\cup B)$, where $n(A \\cup B)$ is $n(\\mathscr{E})$ minus those in neither; fill the overlap first ({{lesson:1.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Put fractions, decimals and percentages in order → change all to decimals with the same number of places (at least $3$), order them, then write the numbers as given ({{lesson:1.5}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Bounds of a rounded value → value $\\pm$ half the rounding unit, written lower bound $\\leqslant x <$ upper bound ({{lesson:1.10}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Upper bound of a calculation with positive rounded values → $a + b$ and $a \\times b$: both upper bounds; $a - b$ and $a \\div b$: upper $a$, lower $b$. Swap every bound for the lower bound ({{lesson:1.10}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Share in a ratio, or one share or a difference is given → find one part: that amount $\\div$ its number of parts, then multiply by each number in the ratio ({{lesson:1.11}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Average speed of a journey in stages → total distance $\\div$ total time, stops included; never average the speeds ({{lesson:1.12}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Change currency with $1$ of A $= r$ of B → A to B: multiply by $r$; B to A: divide by $r$. Check the size of the answer ({{lesson:1.16}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Percentage increase, decrease, profit or loss → $\\frac{\\text{change}}{\\text{original}} \\times 100$; for profit or loss the original is the cost price ({{lesson:1.13}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Compound interest → $P\\left(1 + \\frac{r}{100}\\right)^{n}$, not the same interest added each year ({{lesson:1.13}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "The same percentage change every step, the first step past a target, or the value before the change → multiply by $1 \\pm \\frac{r}{100}$ once per step and try whole steps; to go back, divide by it once per step ({{lesson:1.13}}, {{lesson:1.17}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Surd in a denominator → multiply top and bottom by $\\sqrt{b}$; for $a + \\sqrt{b}$ use $a - \\sqrt{b}$, and the other way round ({{lesson:1.18}})",
+      "tag": "learn",
+      "level": "Extended"
+    }
+  ]
+}

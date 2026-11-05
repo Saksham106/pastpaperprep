@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 230" role="img" aria-labelledby="t">
+  <title id="t">A triangle split by a horizontal line. Distance is in the top part. Speed and time share the bottom part, with a times sign between them. Cover the quantity you want: distance is speed times time, speed is distance over time, time is distance over speed.</title>
+  <g stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round">
+    <polygon points="200,20 340,200 60,200"/>
+    <line x1="130" y1="110" x2="270" y2="110"/>
+  </g>
+  <g font-family="inherit" font-size="20" font-weight="bold" text-anchor="middle">
+    <text x="200" y="92" fill="var(--t1-ink)">D</text>
+    <text x="158" y="170" fill="var(--t2-ink)">S</text>
+    <text x="242" y="170" fill="var(--t3-ink)">T</text>
+  </g>
+  <g font-family="inherit" font-size="18" fill="currentColor" text-anchor="middle">
+    <text x="200" y="168">×</text>
+  </g>
+  <g font-family="inherit" font-size="14" fill="var(--muted)" text-anchor="middle">
+    <text x="200" y="224">D = S × T     S = D ÷ T     T = D ÷ S</text>
+  </g>
+</svg>

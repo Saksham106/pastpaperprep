@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -8 420 183" role="img" aria-labelledby="t">
+  <title id="t">Two rectangles. In the first, a vertical dashed line and a horizontal dashed line pass through the centre: these are its 2 lines of symmetry. In the second, the rectangle is folded along a diagonal. The folded half sticks out past the top edge and leaves part of the rectangle uncovered, so the diagonal is not a line of symmetry.</title>
+  <polygon points="25.0,40.0 175.0,40.0 175.0,130.0 25.0,130.0" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="100.0" y1="26.0" x2="100.0" y2="144.0" stroke="var(--t1-ink)" stroke-width="1.8" stroke-dasharray="6 4"/>
+  <line x1="11.0" y1="85.0" x2="189.0" y2="85.0" stroke="var(--t1-ink)" stroke-width="1.8" stroke-dasharray="6 4"/>
+  <text x="100.0" y="168.0" fill="currentColor" font-size="13" text-anchor="middle">2 lines of symmetry</text>
+  <polygon points="235.0,130.0 385.0,130.0 385.0,40.0 235.0,40.0" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="225.0" y1="136.0" x2="395.0" y2="34.0" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="3 3"/>
+  <polygon points="235.0,130.0 305.6,-2.4 385.0,40.0" fill="var(--t5-ink)" stroke="var(--t5-ink)" stroke-width="1.6" fill-opacity="0.18" stroke-dasharray="5 3"/>
+  <text x="310.0" y="168.0" fill="currentColor" font-size="13" text-anchor="middle">fold on a diagonal: no match</text>
+</svg>

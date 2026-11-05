@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="t">
+  <title id="t">Point S with a north line pointing straight up. A line goes from S up and to the left to point T. A small angle of 63 degrees is marked anticlockwise from the north line to ST. A dashed arc goes the long way round clockwise from north to ST and is labelled bearing.</title>
+  <line x1="175.0" y1="150.0" x2="175.0" y2="30.0" stroke="currentColor" stroke-width="2"/>
+  <text x="175.0" y="22.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">N</text>
+  <line x1="175.0" y1="150.0" x2="63.6" y2="93.3" stroke="currentColor" stroke-width="2"/>
+  <path d="M175.0,120.0 A30,30 0 0 0 148.3,136.4" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/>
+  <text x="152.0" y="110.2" fill="var(--t2-ink)" font-size="13" text-anchor="middle" font-family="inherit">63°</text>
+  <path d="M175.0,98.0 A52,52 0 1 1 128.7,126.4" fill="none" stroke="var(--t1-ink)" stroke-width="1.6" stroke-dasharray="5 4"/>
+  <path d="M129.5,124.2 L130.8,131.2 L123.5,128.1 Z" fill="var(--t1-ink)"/>
+  <text x="211.0" y="212.4" fill="var(--t1-ink)" font-size="12" text-anchor="middle" font-family="inherit">bearing, clockwise</text>
+  <circle cx="175.0" cy="150.0" r="3" fill="currentColor"/>
+  <circle cx="63.6" cy="93.3" r="3" fill="currentColor"/>
+  <text x="189.0" y="155.0" fill="currentColor" font-size="14" text-anchor="start" font-family="inherit">S</text>
+  <text x="57.6" y="85.3" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">T</text>
+</svg>

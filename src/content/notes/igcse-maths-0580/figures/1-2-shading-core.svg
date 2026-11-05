@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 205" role="img" aria-labelledby="t">
+  <title id="t">Three Venn diagrams, each with sets A and B inside a rectangle for the universal set. Left: only the overlap of the circles is shaded, A intersection B. Middle: both whole circles are shaded, A union B. Right: everything outside circle A is shaded, A complement.</title>
+  <path d="M105,51.70 A50,50 0 0 1 105,138.30 A50,50 0 0 1 105,51.70 Z" fill="var(--t1-ink)" fill-opacity="0.35" stroke="none"/>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <rect x="5" y="20" width="200" height="150"/>
+    <circle cx="80" cy="95" r="50"/>
+    <circle cx="130" cy="95" r="50"/>
+  </g>
+  <g font-family="inherit" font-size="16" fill="currentColor">
+    <text x="12" y="38">ℰ</text>
+    <text x="38" y="50">A</text>
+    <text x="163" y="50">B</text>
+  </g>
+  <text x="105" y="194" font-family="inherit" font-size="17" fill="currentColor" text-anchor="middle">A ∩ B</text>
+  <path d="M325,51.70 A50,50 0 1 0 325,138.30 A50,50 0 1 0 325,51.70 Z" fill="var(--t1-ink)" fill-opacity="0.35" stroke="none"/>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <rect x="225" y="20" width="200" height="150"/>
+    <circle cx="300" cy="95" r="50"/>
+    <circle cx="350" cy="95" r="50"/>
+  </g>
+  <g font-family="inherit" font-size="16" fill="currentColor">
+    <text x="232" y="38">ℰ</text>
+    <text x="258" y="50">A</text>
+    <text x="383" y="50">B</text>
+  </g>
+  <text x="325" y="194" font-family="inherit" font-size="17" fill="currentColor" text-anchor="middle">A ∪ B</text>
+  <path d="M445,20 h200 v150 h-200 Z M470,95 a50,50 0 1 0 100,0 a50,50 0 1 0 -100,0 Z" fill-rule="evenodd" fill="var(--t1-ink)" fill-opacity="0.35" stroke="none"/>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <rect x="445" y="20" width="200" height="150"/>
+    <circle cx="520" cy="95" r="50"/>
+    <circle cx="570" cy="95" r="50"/>
+  </g>
+  <g font-family="inherit" font-size="16" fill="currentColor">
+    <text x="452" y="38">ℰ</text>
+    <text x="478" y="50">A</text>
+    <text x="603" y="50">B</text>
+  </g>
+  <text x="545" y="194" font-family="inherit" font-size="17" fill="currentColor" text-anchor="middle">A′</text>
+</svg>

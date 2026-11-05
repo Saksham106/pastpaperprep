@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 150" role="img" aria-labelledby="t">
+  <title id="t">Two-way table of 120 Year 10 students. Boys: 34 have school lunch and 21 have packed lunch, 55 in total. Girls: 29 have school lunch and 36 have packed lunch, 65 in total. Totals: 63 have school lunch, 57 have packed lunch, 120 students altogether.</title>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <rect x="10" y="10" width="420" height="128"/>
+    <line x1="10" y1="42" x2="430" y2="42"/>
+    <line x1="10" y1="74" x2="430" y2="74"/>
+    <line x1="10" y1="106" x2="430" y2="106"/>
+    <line x1="100" y1="10" x2="100" y2="138"/>
+    <line x1="215" y1="10" x2="215" y2="138"/>
+    <line x1="330" y1="10" x2="330" y2="138"/>
+  </g>
+  <g font-family="inherit" font-size="15" fill="currentColor" text-anchor="middle">
+    <text x="157" y="31" font-weight="bold">School lunch</text>
+    <text x="272" y="31" font-weight="bold">Packed lunch</text>
+    <text x="380" y="31" font-weight="bold">Total</text>
+    <text x="55" y="63" font-weight="bold">Boys</text>
+    <text x="55" y="95" font-weight="bold">Girls</text>
+    <text x="55" y="127" font-weight="bold">Total</text>
+    <text x="157" y="63">34</text>
+    <text x="272" y="63">21</text>
+    <text x="380" y="63">55</text>
+    <text x="157" y="95">29</text>
+    <text x="272" y="95" fill="var(--t1-ink)" font-weight="bold">36</text>
+    <text x="380" y="95">65</text>
+    <text x="157" y="127">63</text>
+    <text x="272" y="127">57</text>
+    <text x="380" y="127" fill="var(--t1-ink)" font-weight="bold">120</text>
+  </g>
+</svg>

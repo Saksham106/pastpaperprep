@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210" role="img" aria-labelledby="t">
+  <title id="t">Three copies of two parallel lines, marked with arrows, crossed by a slanting line. Left, corresponding: the angle above each parallel line on the right of the slanting line is shaded; they are in the same position and are equal. Middle, alternate: the angle below the top line on the left and the angle above the bottom line on the right are shaded; they sit inside the pair of lines, one each side of the slanting line, and are equal. Right, co-interior: the angle below the top line on the left and the angle above the bottom line on the left are shaded; they sit inside the pair of lines, both on the left, and add up to 180 degrees.</title>
+  <line x1="20.0" y1="45.0" x2="190.0" y2="45.0" stroke="currentColor" stroke-width="2"/>
+  <line x1="20.0" y1="120.0" x2="190.0" y2="120.0" stroke="currentColor" stroke-width="2"/>
+  <path d="M53.9,41.5 L60.0,45.0 L53.9,48.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M53.9,116.5 L60.0,120.0 L53.9,123.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="141.4" y1="14.1" x2="68.7" y2="150.9" stroke="currentColor" stroke-width="2"/>
+  <path d="M142.0,45.0 A17,17 0 0 0 133.0,30.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <path d="M125.0,45.0 L142.0,45.0 A17,17 0 0 0 133.0,30.0 Z" fill="var(--t1-ink)" fill-opacity="0.25" stroke="none"/>
+  <path d="M102.1,120.0 A17,17 0 0 0 93.1,105.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <path d="M85.1,120.0 L102.1,120.0 A17,17 0 0 0 93.1,105.0 Z" fill="var(--t1-ink)" fill-opacity="0.25" stroke="none"/>
+  <text x="105.0" y="180.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">Corresponding</text>
+  <text x="105.0" y="198.0" fill="var(--muted)" font-size="12" text-anchor="middle" font-family="inherit">equal</text>
+  <line x1="220.0" y1="45.0" x2="390.0" y2="45.0" stroke="currentColor" stroke-width="2"/>
+  <line x1="220.0" y1="120.0" x2="390.0" y2="120.0" stroke="currentColor" stroke-width="2"/>
+  <path d="M253.9,41.5 L260.0,45.0 L253.9,48.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M253.9,116.5 L260.0,120.0 L253.9,123.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="341.4" y1="14.1" x2="268.7" y2="150.9" stroke="currentColor" stroke-width="2"/>
+  <path d="M308.0,45.0 A17,17 0 0 0 317.0,60.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <path d="M325.0,45.0 L308.0,45.0 A17,17 0 0 0 317.0,60.0 Z" fill="var(--t1-ink)" fill-opacity="0.25" stroke="none"/>
+  <path d="M302.1,120.0 A17,17 0 0 0 293.1,105.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <path d="M285.1,120.0 L302.1,120.0 A17,17 0 0 0 293.1,105.0 Z" fill="var(--t1-ink)" fill-opacity="0.25" stroke="none"/>
+  <text x="305.0" y="180.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">Alternate</text>
+  <text x="305.0" y="198.0" fill="var(--muted)" font-size="12" text-anchor="middle" font-family="inherit">equal</text>
+  <line x1="420.0" y1="45.0" x2="590.0" y2="45.0" stroke="currentColor" stroke-width="2"/>
+  <line x1="420.0" y1="120.0" x2="590.0" y2="120.0" stroke="currentColor" stroke-width="2"/>
+  <path d="M453.9,41.5 L460.0,45.0 L453.9,48.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M453.9,116.5 L460.0,120.0 L453.9,123.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="541.4" y1="14.1" x2="468.7" y2="150.9" stroke="currentColor" stroke-width="2"/>
+  <path d="M508.0,45.0 A17,17 0 0 0 517.0,60.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <path d="M525.0,45.0 L508.0,45.0 A17,17 0 0 0 517.0,60.0 Z" fill="var(--t1-ink)" fill-opacity="0.25" stroke="none"/>
+  <path d="M493.1,105.0 A17,17 0 0 0 468.1,120.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <path d="M485.1,120.0 L493.1,105.0 A17,17 0 0 0 468.1,120.0 Z" fill="var(--t1-ink)" fill-opacity="0.25" stroke="none"/>
+  <text x="505.0" y="180.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">Co-interior</text>
+  <text x="505.0" y="198.0" fill="var(--muted)" font-size="12" text-anchor="middle" font-family="inherit">add up to 180°</text>
+</svg>

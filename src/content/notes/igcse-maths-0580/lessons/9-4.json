@@ -1,0 +1,480 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "9.4",
+  "slug": "statistical-charts-and-diagrams",
+  "title": "Statistical charts and diagrams",
+  "level": "Core",
+  "topic": 9,
+  "summary": "A chart turns a table of [[frequency|frequencies]] into a picture you can read at a glance. You need to draw and read [[bar-chart|bar charts]], [[pictogram|pictograms]], [[pie-chart|pie charts]] and [[stem-and-leaf-diagram|stem-and-leaf diagrams]]. Each has one rule that keeps it accurate: equal bars, a key, angles adding to $360^\\circ$, or ordered leaves.",
+  "goals": [
+    {
+      "text": "Draw and read bar charts, including dual, composite and frequency distribution charts.",
+      "bullets": ["9.4-c1"]
+    },
+    {
+      "text": "Read and complete a pictogram using its key.",
+      "bullets": ["9.4-c1"]
+    },
+    {
+      "text": "Work out pie chart angles, draw the chart, and find frequencies from angles.",
+      "bullets": ["9.4-c1"]
+    },
+    {
+      "text": "Draw an ordered stem-and-leaf diagram with a key, and read values from it.",
+      "bullets": ["9.4-c1"]
+    }
+  ],
+  "prerequisites": ["9.1", "9.3"],
+  "papers": ["P1", "P2", "P3", "P4"],
+  "synonyms": [
+    "bar chart",
+    "pie chart angles",
+    "pictogram key",
+    "stem and leaf diagram",
+    "composite bar chart",
+    "dual bar chart"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-missing-frequency",
+      "prompt": "Four frequencies add up to $50$. Three of them are $16$, $19$ and $6$. What is the fourth?",
+      "hint": "Subtract the three you know from the total.",
+      "answer": { "value": 9, "tolerance": 0 },
+      "explain": "$50 - (16 + 19 + 6) = 50 - 41 = 9$. Revise it in {{lesson:9.1}}.",
+      "verify": { "kind": "numeric", "truth": "50 - (16 + 19 + 6)", "dp": 0 }
+    },
+    {
+      "type": "check",
+      "id": "before-fraction-of-360",
+      "prompt": "Work out $\\frac{3}{8}$ of $360$ without a calculator.",
+      "hint": "Find $\\frac{1}{8}$ of $360$ first.",
+      "answer": { "value": 135, "tolerance": 0 },
+      "explain": "$360 \\div 8 = 45$, and $3 \\times 45 = 135$. Pie charts need this skill.",
+      "verify": { "kind": "numeric", "truth": "Rational(3, 8)*360", "dp": 0 }
+    },
+    {
+      "type": "check",
+      "id": "before-median",
+      "prompt": "Find the median of $8, 3, 11, 6, 9$.",
+      "hint": "Put the numbers in order first.",
+      "answer": { "value": 8, "tolerance": 0 },
+      "explain": "In order: $3, 6, 8, 9, 11$. The middle value is $8$. Revise it in {{lesson:9.3}}.",
+      "verify": { "kind": "numeric", "truth": "FiniteSet(8, 3, 11, 6, 9).args[2]", "dp": 0 }
+    }
+  ],
+  "sections": [
+    {
+      "id": "bar-charts",
+      "heading": "Bar charts",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Bar chart",
+          "statement": "A [[bar-chart|bar chart]] shows each category as a bar of the same width. The height of each bar (its length, if the bars are horizontal) is the [[frequency|frequency]] of that category.",
+          "plain": "Taller bar, more of them."
+        },
+        {
+          "type": "text",
+          "text": "To draw one, put the categories along the bottom and frequency up the side. The scale starts at $0$ and goes up in equal steps. Make all the bars equally wide, space them evenly, and label both axes."
+        },
+        {
+          "type": "example",
+          "id": "ex-pizza-bar",
+          "question": "A café sold $62$ pizzas on Monday: $18$ Margherita, $23$ Pepperoni, $9$ Veggie and the rest Hawaiian. Work out the number of Hawaiian pizzas, then draw a bar chart.",
+          "steps": [
+            "Hawaiian $= 62 - (18 + 23 + 9) = 62 - 50 = 12$.",
+            "The largest frequency is $23$, so use a scale from $0$ to $25$, labelled every $5$.",
+            "Draw four equal-width bars with equal gaps, of heights $18$, $23$, $9$ and $12$. Label both axes."
+          ],
+          "answer": "$12$",
+          "verify": { "kind": "exact", "truth": "62 - (18 + 23 + 9)" },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "9-4-pizza-bar",
+          "alt": "Bar chart of pizzas sold on Monday. Margherita 18, Pepperoni 23, Veggie 9, Hawaiian 12. The frequency scale goes from 0 to 25, labelled every 5. The bars have equal widths and equal gaps."
+        },
+        {
+          "type": "mistake",
+          "text": "Using uneven steps on the scale, such as $0, 5, 10, 20$, or bars of different widths. Both make the chart misleading and lose marks."
+        },
+        {
+          "type": "check",
+          "id": "check-read-scale",
+          "prompt": "A frequency axis is labelled $0, 10, 20, 30$, and each small square is $2$. A bar ends three squares above the $20$ line. What frequency does it show?",
+          "hint": "Each small square is worth $2$, not $1$.",
+          "answer": { "value": 26, "tolerance": 0 },
+          "explain": "$20 + 3 \\times 2 = 26$. Reading each square as $1$ gives $23$.",
+          "verify": { "kind": "numeric", "truth": "20 + 3*2", "dp": 0 }
+        },
+        {
+          "type": "text",
+          "text": "A table of number values and their frequencies is a simple frequency distribution. In its bar chart, the values go along the bottom and the bar heights are the frequencies."
+        },
+        {
+          "type": "figure",
+          "id": "9-4-books-bar",
+          "alt": "Bar chart of the number of books each student read last month. 0 books: 4 students. 1 book: 9 students. 2 books: 10 students. 3 books: 6 students. 4 books: 3 students. The scale goes from 0 to 12, labelled every 2."
+        },
+        {
+          "type": "example",
+          "id": "ex-books-total",
+          "question": "The bar chart shows how many books each student in a class read last month. How many books did the class read altogether?",
+          "steps": [
+            "Read the bars: $4$ students read $0$ books, $9$ read $1$, $10$ read $2$, $6$ read $3$ and $3$ read $4$.",
+            "The $10$ students who read $2$ books read $2 \\times 10 = 20$ books. So multiply each value by its frequency.",
+            "$0 \\times 4 + 1 \\times 9 + 2 \\times 10 + 3 \\times 6 + 4 \\times 3 = 0 + 9 + 20 + 18 + 12 = 59$."
+          ],
+          "answer": "$59$",
+          "verify": { "kind": "exact", "truth": "0*4 + 1*9 + 2*10 + 3*6 + 4*3" },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-books-at-least-three",
+          "prompt": "Use the same chart. How many students read at least $3$ books?",
+          "hint": "At least $3$ means $3$ or $4$ books.",
+          "options": [
+            { "text": "$9$", "correct": true },
+            { "text": "$6$", "correct": false },
+            { "text": "$7$", "correct": false }
+          ],
+          "explain": "$6 + 3 = 9$ students. The answer $7$ adds the values $3 + 4$, not the frequencies.",
+          "verify": { "kind": "exact", "truth": "6 + 3" }
+        },
+        {
+          "type": "text",
+          "text": "A dual bar chart compares two groups: each category has one bar per group, side by side. A key shows which bar is which."
+        },
+        {
+          "type": "figure",
+          "id": "9-4-dual-bar",
+          "alt": "Dual bar chart of rainy days in Ashby and Brook. January: Ashby 16, Brook 12. February: Ashby 13, Brook 15. March: Ashby 10, Brook 8. April: Ashby 7, Brook 5. The scale goes from 0 to 18, labelled every 2."
+        },
+        {
+          "type": "check",
+          "id": "check-dual-month",
+          "prompt": "The dual bar chart shows rainy days in two towns. In which month did Brook have more rainy days than Ashby?",
+          "hint": "Find the pair where Brook's bar is taller.",
+          "options": [
+            { "text": "February", "correct": true },
+            { "text": "January", "correct": false },
+            { "text": "April", "correct": false }
+          ],
+          "explain": "In February, Brook had $15$ and Ashby had $13$. In every other month, Ashby's bar is taller.",
+          "verify": { "kind": "choice", "truth": "February" }
+        },
+        {
+          "type": "text",
+          "text": "A composite (stacked) bar chart splits each bar into parts. The whole bar is the total. To read one part, subtract the reading at its bottom from the reading at its top."
+        },
+        {
+          "type": "figure",
+          "id": "9-4-composite-bar",
+          "alt": "Composite bar chart of how students in Years 9, 10 and 11 travel to school. Each bar has walk at the bottom, bus in the middle and car on top. Year 9: walk ends at 10, bus ends at 26, car ends at 32. Year 10: walk ends at 14, bus ends at 31, car ends at 36. Year 11: walk ends at 8, bus ends at 28, car ends at 37. The scale goes from 0 to 40, labelled every 5."
+        },
+        {
+          "type": "example",
+          "id": "ex-composite-bus",
+          "question": "The composite bar chart shows how students in three year groups travel to school. How many Year 10 students travel by bus?",
+          "steps": [
+            "In the Year 10 bar, the bus part sits on top of the walk part.",
+            "It starts at $14$ and ends at $31$.",
+            "So $31 - 14 = 17$ students travel by bus."
+          ],
+          "answer": "$17$",
+          "verify": { "kind": "exact", "truth": "31 - 14" },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-composite-car",
+          "prompt": "Use the same chart. How many Year 9 students travel by car?",
+          "hint": "The car part starts where the bus part ends.",
+          "options": [
+            { "text": "$6$", "correct": true },
+            { "text": "$32$", "correct": false },
+            { "text": "$26$", "correct": false }
+          ],
+          "explain": "The car part goes from $26$ to $32$, so $32 - 26 = 6$. $32$ is the whole Year 9 total.",
+          "verify": { "kind": "exact", "truth": "32 - 26" }
+        }
+      ]
+    },
+    {
+      "id": "pictograms",
+      "heading": "Pictograms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[pictogram|pictogram]] shows [[frequency|frequencies]] with a repeated symbol. Its key says how many items one whole symbol stands for. Part of a symbol is the same part of the key: if one symbol is $8$, half a symbol is $4$."
+        },
+        {
+          "type": "figure",
+          "id": "9-4-pictogram",
+          "alt": "Pictogram of cups of coffee sold at a cafe. Key: one whole circle represents 8 cups. Monday: 3 whole circles and a half circle. Tuesday: 2 whole circles and a quarter circle. Wednesday: 4 whole circles. Thursday: empty."
+        },
+        {
+          "type": "example",
+          "id": "ex-pictogram-read",
+          "question": "Use the pictogram. How many more cups of coffee were sold on Wednesday than on Tuesday?",
+          "steps": [
+            "Wednesday: $4$ circles, so $4 \\times 8 = 32$ cups.",
+            "Tuesday: $2$ circles and a quarter. A quarter of $8$ is $2$, so $2 \\times 8 + 2 = 18$ cups.",
+            "Difference: $32 - 18 = 14$."
+          ],
+          "answer": "$14$",
+          "verify": { "kind": "exact", "truth": "4*8 - (2*8 + Rational(1, 4)*8)" },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-pictogram-complete",
+          "question": "The café sold $100$ cups from Monday to Thursday. How many circles go in Thursday's row?",
+          "steps": [
+            "Monday: $3 \\times 8 + 4 = 28$ cups. With Tuesday and Wednesday: $28 + 18 + 32 = 78$.",
+            "Thursday: $100 - 78 = 22$ cups.",
+            "$22 = 2 \\times 8 + 6$, and $6$ is three quarters of $8$. So draw $2$ whole circles and three quarters of a circle."
+          ],
+          "answer": "$2\\frac{3}{4}$",
+          "verify": { "kind": "fraction", "truth": "(100 - (3*8 + 4) - (2*8 + 2) - 4*8)/8", "form": "mixed" },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing one symbol per item, such as $22$ circles for $22$ cups. Divide by the key first."
+        },
+        {
+          "type": "check",
+          "id": "check-pictogram-read",
+          "prompt": "One star represents $10$ students. A row shows $3$ stars and half a star. How many students is that?",
+          "hint": "Half a star is half of $10$.",
+          "answer": { "value": 35, "tolerance": 0 },
+          "explain": "$3 \\times 10 + 5 = 35$ students.",
+          "verify": { "kind": "numeric", "truth": "3*10 + 10/2", "dp": 0 }
+        },
+        {
+          "type": "check",
+          "id": "check-pictogram-draw",
+          "prompt": "One symbol represents $6$ apples. How many symbols show $15$ apples?",
+          "hint": "Divide the number of apples by the key.",
+          "options": [
+            { "text": "$2.5$", "correct": true },
+            { "text": "$15$", "correct": false },
+            { "text": "$3$", "correct": false }
+          ],
+          "explain": "$15 \\div 6 = 2.5$: two whole symbols and a half. $15$ symbols would show $90$ apples.",
+          "verify": { "kind": "exact", "truth": "Rational(15, 6)" }
+        }
+      ]
+    },
+    {
+      "id": "pie-charts",
+      "heading": "Pie charts",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[pie-chart|pie chart]] is a circle cut into [[sector|sectors]], one per category. The whole circle, $360^\\circ$, is the whole total. So each angle is the same fraction of $360^\\circ$ as its [[frequency|frequency]] is of the total."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{sector angle} = \\frac{\\text{frequency}}{\\text{total frequency}} \\times 360^{\\circ}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Without a calculator, find the angle for one item first, $360^\\circ \\div \\text{total}$, then multiply by each frequency."
+        },
+        {
+          "type": "example",
+          "id": "ex-pie-angles",
+          "question": "$36$ people chose their favourite sport: football $14$, tennis $5$, swimming $10$ and hockey $7$. Work out each sector angle, in degrees, for a pie chart.",
+          "steps": [
+            "Total: $14 + 5 + 10 + 7 = 36$. One person: $360^\\circ \\div 36 = 10^\\circ$.",
+            "Football $14 \\times 10^\\circ = 140^\\circ$, tennis $50^\\circ$, swimming $100^\\circ$, hockey $70^\\circ$.",
+            "Check: $140 + 50 + 100 + 70 = 360$."
+          ],
+          "answer": "$140, 50, 100, 70$",
+          "verify": { "kind": "list", "truth": "[14*360/36, 5*360/36, 10*360/36, 7*360/36]" },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To draw it, draw a circle and one radius. Line up the protractor on the centre and the radius, and measure the first angle. Measure each next angle from the line you have just drawn. Label every sector."
+        },
+        {
+          "type": "figure",
+          "id": "9-4-pie-sport",
+          "alt": "Pie chart of the favourite sport of 36 people. Starting from a vertical radius and going clockwise: football 140 degrees, tennis 50 degrees, swimming 100 degrees, hockey 70 degrees. Each sector is labelled."
+        },
+        {
+          "type": "mistake",
+          "text": "Measuring every angle from the first radius, so the sectors overlap or leave a gap. Start each angle at the last line you drew."
+        },
+        {
+          "type": "check",
+          "id": "check-pie-angle",
+          "prompt": "$25$ of $120$ people chose rice. What is the angle of the rice sector, in degrees?",
+          "hint": "One person is $360 \\div 120$ degrees.",
+          "answer": { "value": 75, "tolerance": 0 },
+          "explain": "One person is $3^\\circ$, so rice is $25 \\times 3^\\circ = 75^\\circ$.",
+          "verify": { "kind": "numeric", "truth": "Rational(25, 120)*360", "dp": 0 }
+        },
+        {
+          "type": "text",
+          "text": "To read a pie chart, compare a sector's angle with one whose frequency you know, or with the whole $360^\\circ$."
+        },
+        {
+          "type": "example",
+          "id": "ex-pie-frequency",
+          "question": "In a pie chart of how students travel to school, the car sector is $40^\\circ$ and stands for $6$ students. The walk sector is $140^\\circ$. How many students walk?",
+          "steps": [
+            "$140 \\div 40 = 3.5$, so the walk sector is $3.5$ times the car sector.",
+            "Walk: $3.5 \\times 6 = 21$ students.",
+            "Check: $20^\\circ$ is $3$ students, and $140^\\circ = 7 \\times 20^\\circ$, so $7 \\times 3 = 21$."
+          ],
+          "answer": "$21$",
+          "verify": { "kind": "exact", "truth": "Rational(140, 40)*6" },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-pie-people",
+          "prompt": "A pie chart shows the pets of $48$ people. The cat sector is $90^\\circ$. How many people have a cat?",
+          "hint": "What fraction of $360^\\circ$ is $90^\\circ$?",
+          "options": [
+            { "text": "$12$", "correct": true },
+            { "text": "$9$", "correct": false },
+            { "text": "$90$", "correct": false }
+          ],
+          "explain": "$90^\\circ$ is $\\frac{1}{4}$ of the circle, and $\\frac{1}{4}$ of $48$ is $12$. An angle is not a count of people.",
+          "verify": { "kind": "exact", "truth": "Rational(90, 360)*48" }
+        }
+      ]
+    },
+    {
+      "id": "stem-and-leaf",
+      "heading": "Stem-and-leaf diagrams",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[stem-and-leaf-diagram|stem-and-leaf diagram]] lists every value in order. Each value splits into a stem (its first digit or digits) and a leaf (its last digit): $64$ has stem $6$ and leaf $4$."
+        },
+        {
+          "type": "text",
+          "text": "Stems go down the left. Leaves go in their stem's row, smallest first. A key, such as $6 \\mid 4$ means $64$, shows the place values: with another key, the same row could mean $6.4$."
+        },
+        {
+          "type": "example",
+          "id": "ex-stem-pulse",
+          "question": "The pulse rates, in beats per minute, of $16$ people are $64, 58, 71, 83, 66, 59, 75, 62, 80, 69, 74, 66, 87, 53, 78, 71$. Draw an ordered stem-and-leaf diagram with a key. How many people have a pulse rate below $70$?",
+          "steps": [
+            "The values go from $53$ to $87$, so the stems are $5$, $6$, $7$ and $8$.",
+            "Put each leaf in its row, then rewrite each row in order. Keep repeats: $66$ appears twice, so the $6$ row has two $6$s.",
+            "$\\begin{array}{r|l} 5 & 3\\;8\\;9 \\\\ 6 & 2\\;4\\;6\\;6\\;9 \\\\ 7 & 1\\;1\\;4\\;5\\;8 \\\\ 8 & 0\\;3\\;7 \\end{array}$ Key: $6 \\mid 2$ means $62$ beats per minute.",
+            "Check: $3 + 5 + 5 + 3 = 16$ leaves. Below $70$ is the $5$ and $6$ rows: $3 + 5 = 8$ people."
+          ],
+          "answer": "$8$",
+          "verify": { "kind": "exact", "truth": "[64//70, 58//70, 71//70, 83//70, 66//70, 59//70, 75//70, 62//70, 80//70, 69//70, 74//70, 66//70, 87//70, 53//70, 78//70, 71//70].count(0)" },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving leaves unordered, or writing a repeated value once. Order every row, then count the leaves."
+        },
+        {
+          "type": "text",
+          "text": "The values are already in order, so the [[median|median]] and [[range-of-a-data-set|range]] are quick to find."
+        },
+        {
+          "type": "example",
+          "id": "ex-stem-median",
+          "question": "The heights of $14$ young trees are $\\begin{array}{r|l} 3 & 5\\;8 \\\\ 4 & 0\\;2\\;2\\;6\\;9 \\\\ 5 & 1\\;3\\;3\\;3\\;6 \\\\ 6 & 0\\;4 \\end{array}$ Key: $4 \\mid 6$ means $4.6$ m. Find the median height.",
+          "steps": [
+            "$14$ is even, so the median is halfway between the $7$th and $8$th values.",
+            "The $3$ row holds values $1$ and $2$, and the $4$ row holds values $3$ to $7$. So the $7$th is $4.9$ and the $8$th is $5.1$.",
+            "Median $= \\frac{4.9 + 5.1}{2} = 5.0$ m."
+          ],
+          "answer": "$\\text{median} = 5.0\\text{ m}$",
+          "verify": { "kind": "exact", "truth": "(4.9 + 5.1)/2", "unit": "m" },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-stem-range",
+          "prompt": "Use the tree heights. What is the range, in metres?",
+          "hint": "Largest value minus smallest value.",
+          "answer": { "value": 2.9, "tolerance": 0 },
+          "explain": "$6.4 - 3.5 = 2.9$ m.",
+          "verify": { "kind": "numeric", "truth": "6.4 - 3.5", "dp": 1 }
+        },
+        {
+          "type": "check",
+          "id": "check-stem-key",
+          "prompt": "A stem-and-leaf diagram of masses has the key $2 \\mid 7$ means $0.27$ kg. What mass does $3 \\mid 4$ stand for, in kg?",
+          "hint": "Read $3 \\mid 4$ the same way the key reads $2 \\mid 7$.",
+          "options": [
+            { "text": "$0.34$", "correct": true },
+            { "text": "$34$", "correct": false },
+            { "text": "$3.4$", "correct": false }
+          ],
+          "explain": "The key puts the stem in the tenths place and the leaf in the hundredths, so $3 \\mid 4$ is $0.34$ kg.",
+          "verify": { "kind": "exact", "truth": "3/10 + 4/100" }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Bar chart: equal-width bars, equal gaps, and a scale from $0$ in equal steps.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Composite bar chart: a part is the reading at its top minus the reading at its bottom.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Pictogram: frequency $=$ symbols $\\times$ key. Part of a symbol is that part of the key.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Pie chart angles add to $360^\\circ$. Measure each from the last line you drew.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Stem-and-leaf diagram: ordered leaves, repeats kept, and a key.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Bars of different widths or a scale with uneven steps. Keep both equal.",
+    "Pie chart sectors that overlap or leave a gap. Measure each angle from the last line drawn, and check the angles add to $360^\\circ$.",
+    "Reading a pie chart angle as a count, such as $120^\\circ$ as $12$ people. Use $\\frac{\\text{angle}}{360}$ of the total.",
+    "Dividing $360$ by $100$ when the total isn't $100$. Divide by the actual total.",
+    "One pictogram symbol per item. Divide the frequency by the key."
+  ],
+  "examTips": [
+    "\"Draw a bar chart\": marks go to a labelled scale with equal steps, correct heights and equal-width bars.",
+    "\"Draw a pie chart\": write each angle down first and check they add to $360^\\circ$, then draw with a protractor and label each sector.",
+    "\"Complete the stem-and-leaf diagram\": order the leaves and write a key."
+  ],
+  "readingMinutes": 21
+}

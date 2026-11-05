@@ -1,0 +1,44 @@
+[
+  {
+    "id": "percentage-increase",
+    "term": "percentage increase",
+    "definition": "The increase in an amount written as a percentage of the original amount: $\\frac{\\text{increase}}{\\text{original}} \\times 100$. Increases and decreases are both percentage changes.",
+    "lesson": "1.13"
+  },
+  {
+    "id": "percentage-decrease",
+    "term": "percentage decrease",
+    "definition": "The decrease in an amount written as a percentage of the original amount: $\\frac{\\text{decrease}}{\\text{original}} \\times 100$.",
+    "lesson": "1.13"
+  },
+  {
+    "id": "simple-interest",
+    "term": "simple interest",
+    "definition": "Interest worked out on the principal only, so it is the same every year: $I = \\frac{P \\times R \\times T}{100}$ for a rate of $R\\%$ per year over $T$ years.",
+    "lesson": "1.13"
+  },
+  {
+    "id": "compound-interest",
+    "term": "compound interest",
+    "definition": "Interest that is added to the amount each year, so the next year's interest is worked out on the new total; after $n$ years at $r\\%$ the value is $P\\left(1 + \\frac{r}{100}\\right)^{n}$.",
+    "lesson": "1.13"
+  },
+  {
+    "id": "principal",
+    "term": "principal",
+    "definition": "The amount of money first invested or borrowed, before any interest is added.",
+    "lesson": "1.13"
+  },
+  {
+    "id": "profit-and-loss",
+    "term": "profit and loss",
+    "definition": "The difference between the selling price and the cost price: a profit if the item sells for more than it cost, a loss if it sells for less; as a percentage it is compared with the cost price.",
+    "lesson": "1.13"
+  },
+  {
+    "id": "reverse-percentage",
+    "term": "reverse percentage",
+    "definition": "Finding the original amount from the amount after a percentage change, by dividing the new amount by the multiplier, such as $54 \\div 1.2 = 45$ after a $20\\%$ increase.",
+    "lesson": "1.13"
+  }
+]

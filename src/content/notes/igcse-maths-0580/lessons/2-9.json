@@ -1,0 +1,732 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "2.9",
+  "slug": "graphs-in-practical-situations",
+  "title": "Graphs in practical situations",
+  "level": "Core",
+  "topic": 2,
+  "summary": "A [[travel-graph|travel graph]] shows a journey, and a [[conversion-graph|conversion graph]] changes one unit into another. You'll read and draw both, and find a [[rate-of-change|rate of change]] such as a [[speed|speed]]. Extended adds [[speed-time-graph|speed–time graphs]], [[acceleration|acceleration]] and distance as an area.",
+  "goals": [
+    {
+      "text": "Read stops, times, distances and speeds from a travel graph.",
+      "bullets": [
+        "2.9-c1"
+      ]
+    },
+    {
+      "text": "Use a conversion graph both ways, even past the end of the graph.",
+      "bullets": [
+        "2.9-c1"
+      ]
+    },
+    {
+      "text": "Find a rate of change from the [[gradient|gradient]] of a straight line.",
+      "bullets": [
+        "2.9-c1"
+      ]
+    },
+    {
+      "text": "Draw a travel graph or a conversion graph from given data.",
+      "bullets": [
+        "2.9-c2"
+      ]
+    },
+    {
+      "text": "Find acceleration and deceleration from a speed–time graph, and estimate a gradient by drawing a [[tangent|tangent]].",
+      "bullets": [
+        "2.9-s1",
+        "2.9-n1"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Find the distance travelled as the area under a speed–time graph.",
+      "bullets": [
+        "2.9-s2",
+        "2.9-n2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.12"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "distance time graph",
+    "travel graph",
+    "conversion graph",
+    "speed time graph",
+    "area under a graph distance",
+    "acceleration from a graph"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-average-speed",
+      "prompt": "A runner covers $12$ km in $1$ hour $30$ minutes. Work out her [[average-speed|average speed]] in km/h.",
+      "hint": "Write the time in hours first.",
+      "answer": {
+        "value": 8,
+        "tolerance": 0
+      },
+      "explain": "$1$ hour $30$ minutes is $1.5$ hours, so the speed is $12 \\div 1.5 = 8$ km/h. Revise it in {{lesson:1.12}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "12/(1 + 30/60)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-minutes-to-hours",
+      "prompt": "Write $45$ minutes as a decimal of an hour.",
+      "hint": "There are $60$ minutes in an hour.",
+      "answer": {
+        "value": 0.75,
+        "tolerance": 0
+      },
+      "explain": "$45 \\div 60 = 0.75$ hours, not $0.45$. Revise it in {{lesson:1.12}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "45/60",
+        "dp": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "travel-graphs",
+      "heading": "Reading travel graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[travel-graph|travel graph]], or distance–time graph, shows a journey. Time goes across. Distance from the start goes up."
+        },
+        {
+          "type": "text",
+          "text": "Sloping up: moving away. Sloping down: coming back. Horizontal: stopped. Steeper: faster."
+        },
+        {
+          "type": "figure",
+          "id": "2-9-bike-ride",
+          "alt": "Travel graph of Leah's bike ride. Time from 08 00 to 12 00 across, with 6 small squares per hour. Distance from home in km up, from 0 to 20, with each small square 2 km. The line rises from home at 08 00 to 8 km at 08 40, is flat at 8 km until 09 00, rises more steeply to 18 km at 09 30, is flat at 18 km until 10 30, then slopes down to home at 12 00.",
+          "caption": "Leah's bike ride."
+        },
+        {
+          "type": "text",
+          "text": "Check the scale first. Here $6$ small squares make an hour, so each is $60 \\div 6 = 10$ minutes. Each square up is $2$ km."
+        },
+        {
+          "type": "example",
+          "id": "ex-travel-stops",
+          "question": "Use the travel graph of Leah's bike ride. Work out the total time she spends stopped.",
+          "steps": [
+            "Stops are the horizontal parts.",
+            "First stop: at $8$ km from $08\\,40$ to $09\\,00$, which is $20$ minutes.",
+            "Second stop: at $18$ km from $09\\,30$ to $10\\,30$, which is $60$ minutes.",
+            "Total: $20 + 60 = 80$ minutes $= 1$ hour $20$ minutes."
+          ],
+          "answer": "$\\text{time stopped} = 1\\text{ h }20\\text{ min}$",
+          "verify": {
+            "kind": "time",
+            "truth": "(9*60 - (8*60 + 40)) + ((10*60 + 30) - (9*60 + 30))",
+            "form": "duration"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The [[gradient|gradient]] of a straight line measures how steep it is. A line going down from left to right has a negative gradient."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{gradient} = \\frac{\\text{change up}}{\\text{change across}}",
+          "tag": "learn"
+        },
+        {
+          "type": "definition",
+          "term": "Rate of change",
+          "statement": "A [[rate-of-change|rate of change]] is how much one quantity changes per unit of another. On a straight-line graph it is the gradient.",
+          "plain": "How fast one thing changes as the other grows."
+        },
+        {
+          "type": "text",
+          "text": "On a travel graph the gradient is distance $\\div$ time, which is the [[speed|speed]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-travel-speed",
+          "question": "Use the travel graph of Leah's bike ride. Work out her speed between $09\\,00$ and $09\\,30$, in km/h.",
+          "steps": [
+            "Change up: $18 - 8 = 10$ km.",
+            "Change across: $30$ minutes $= 0.5$ hours.",
+            "Speed $=$ gradient $= 10 \\div 0.5 = 20$.",
+            "Check: half an hour at $20$ km/h is $10$ km."
+          ],
+          "answer": "$\\text{speed} = 20\\text{ km/h}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(18 - 8)/(30/60)",
+            "unit": "km/h"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-travel-fastest",
+          "prompt": "On which part of the ride is Leah travelling fastest?",
+          "hint": "Look for the steepest line, not the highest one.",
+          "options": [
+            {
+              "text": "09 00 to 09 30, where the line is steepest",
+              "correct": true
+            },
+            {
+              "text": "09 30 to 10 30, where she is furthest from home",
+              "correct": false
+            },
+            {
+              "text": "10 30 to 12 00, the longest part",
+              "correct": false
+            }
+          ],
+          "explain": "From $09\\,00$ to $09\\,30$ she rides at $20$ km/h. The first part is $12$ km/h, and from $09\\,30$ to $10\\,30$ she is stopped.",
+          "verify": {
+            "kind": "choice",
+            "truth": "09 00 to 09 30, where the line is steepest"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-travel-home",
+          "prompt": "Leah rides home from $10\\,30$ to $12\\,00$ at a constant speed. Work out this speed in km/h.",
+          "hint": "She goes from $18$ km back to $0$. Use hours.",
+          "answer": {
+            "value": 12,
+            "tolerance": 0
+          },
+          "explain": "$18 \\div 1.5 = 12$ km/h. The gradient is $-12$ because she is coming back, but the speed is $12$ km/h.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "18/((12*60 - (10*60 + 30))/60)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "conversion-graphs",
+      "heading": "Conversion graphs and other real-life graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[conversion-graph|conversion graph]] changes an amount from one unit or currency into another. Go from the amount you know to the line, then read the other axis."
+        },
+        {
+          "type": "figure",
+          "id": "2-9-pounds-dollars",
+          "alt": "Conversion graph between pounds and dollars. Pounds across from 0 to 40, each small square 2 pounds. Dollars up from 0 to 50, each small square 2 dollars. A straight line goes from the origin to 40 pounds and 50 dollars. It passes through 8 pounds and 10 dollars, 16 pounds and 20 dollars, and 24 pounds and 30 dollars.",
+          "caption": "Pounds to dollars."
+        },
+        {
+          "type": "example",
+          "id": "ex-conversion-read",
+          "question": "Use the conversion graph to change \\$30 into pounds.",
+          "steps": [
+            "Find $30$ on the dollars axis, up the side.",
+            "Go across to the line, then down to the pounds axis.",
+            "That is $12$ small squares of £2 each, so £24.",
+            "Check: £40 is \\$50, so £24 is $24 \\times \\tfrac{50}{40} = 30$ dollars."
+          ],
+          "answer": "$\\$30 = £24$",
+          "verify": {
+            "kind": "money",
+            "truth": "30*40/50",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A straight line from $(0, 0)$ means direct proportion. So you can scale a reading to go past the end of the graph."
+        },
+        {
+          "type": "example",
+          "id": "ex-conversion-scale",
+          "question": "Use the conversion graph to change £200 into dollars.",
+          "steps": [
+            "£200 is past the end of the graph. Scale a reading you can see.",
+            "From the graph, £40 is \\$50.",
+            "$200 = 40 \\times 5$, so £200 is $50 \\times 5 = 250$ dollars."
+          ],
+          "answer": "$£200 = \\$250$",
+          "verify": {
+            "kind": "money",
+            "truth": "200/40*50",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The gradient, $50 \\div 40 = 1.25$ dollars per pound, is a rate of change: the exchange rate."
+        },
+        {
+          "type": "text",
+          "text": "A graph that doesn't start at $(0, 0)$, such as a taxi fare with a fixed charge, is not proportion. Don't scale its readings."
+        },
+        {
+          "type": "check",
+          "id": "check-conversion-pounds",
+          "prompt": "Use the conversion graph to change £16 into dollars.",
+          "hint": "Pounds are along the bottom.",
+          "options": [
+            {
+              "text": "$\\$20$",
+              "correct": true
+            },
+            {
+              "text": "$\\$13$",
+              "correct": false
+            },
+            {
+              "text": "$\\$16$",
+              "correct": false
+            }
+          ],
+          "explain": "Go up from £16 to the line, then across: \\$20. Starting from $16$ on the dollars axis gives about £13, the wrong way round.",
+          "verify": {
+            "kind": "money",
+            "truth": "16*50/40",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-taxi-rate",
+          "prompt": "A taxi fare graph is a straight line from \\$4 at $0$ km to \\$10 at $5$ km. Work out the charge per km, in dollars.",
+          "hint": "Gradient $=$ change up $\\div$ change across.",
+          "answer": {
+            "value": 1.2,
+            "tolerance": 0
+          },
+          "explain": "$(10 - 4) \\div 5 = 1.20$ dollars per km. The \\$4 is a fixed charge, so $10$ km costs $4 + 12 = 16$ dollars, not double \\$10.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(10 - 4)/(5 - 0)",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "drawing-graphs",
+      "heading": "Drawing graphs from data",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To draw a graph from data, work out the points, label both axes with units, plot small crosses and join them with a ruler."
+        },
+        {
+          "type": "text",
+          "text": "For a journey, find each part's time from distance $\\div$ speed. For a conversion, use $2$ or $3$ values in a [[table-of-values|table of values]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-draw-journey",
+          "question": "Sam leaves home at $17\\,00$. He walks $6$ km to a friend's house at $4$ km/h. He stays for $50$ minutes, then cycles home at $18$ km/h. Work out the time Sam gets home, then draw his travel graph.",
+          "steps": [
+            "Walk: $6 \\div 4 = 1.5$ hours, so he arrives at $18\\,30$.",
+            "Stay: he leaves at $18\\,30 + 50$ minutes $= 19\\,20$.",
+            "Cycle: $6 \\div 18 = \\tfrac{1}{3}$ hour $= 20$ minutes, so he is home at $19\\,40$.",
+            "Plot $(17\\,00, 0)$, $(18\\,30, 6)$, $(19\\,20, 6)$ and $(19\\,40, 0)$. Join them with a ruler."
+          ],
+          "answer": "$\\text{time home} = 19\\,40$",
+          "verify": {
+            "kind": "time",
+            "truth": "17*60 + 6/4*60 + 50 + 6/18*60",
+            "form": "clock"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "2-9-sam-journey",
+          "alt": "Travel graph of Sam's journey. Time from 17 00 to 20 00 across, with 6 small squares per hour. Distance from home in km up, from 0 to 8. Ruled straight lines join home at 17 00, 6 km at 18 30, 6 km at 19 20, and home at 19 40. The four points are marked with dots.",
+          "caption": "Cycling home is steeper: it is faster."
+        },
+        {
+          "type": "mistake",
+          "text": "Guessing where a line starts. Work out the journey time, then count on or back from a time you know."
+        },
+        {
+          "type": "example",
+          "id": "ex-draw-conversion",
+          "question": "Use $1$ gallon $= 4.5$ litres. Draw a conversion graph for $0$ to $10$ gallons. Use it to change $7$ gallons into litres.",
+          "steps": [
+            "Table of values: $0 \\to 0$, $4 \\to 18$ and $10 \\to 45$ litres.",
+            "Gallons across, litres up. Label both axes.",
+            "Plot the points and draw one ruled line. If they don't line up, recheck a value.",
+            "Go up from $7$ gallons to the line, then across: $31.5$ litres."
+          ],
+          "answer": "$7\\text{ gallons} = 31.5\\text{ litres}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "7*Rational(9, 2)",
+            "unit": "litres"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-draw-arrival",
+          "prompt": "Rosa leaves at $07\\,50$ and drives $27$ km at a constant $36$ km/h. At what time does the line on her travel graph end?",
+          "hint": "Time $=$ distance $\\div$ speed. Then change hours into minutes.",
+          "options": [
+            {
+              "text": "$08\\,35$",
+              "correct": true
+            },
+            {
+              "text": "$09\\,05$",
+              "correct": false
+            },
+            {
+              "text": "$09\\,10$",
+              "correct": false
+            }
+          ],
+          "explain": "$27 \\div 36 = 0.75$ hours, which is $45$ minutes, not $75$. So $07\\,50 + 45$ minutes $= 08\\,35$.",
+          "verify": {
+            "kind": "time",
+            "truth": "7*60 + 50 + 27/36*60",
+            "form": "clock"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-draw-scale",
+          "prompt": "On your time axis, $5$ small squares make one hour. How many minutes does one small square show?",
+          "hint": "Share $60$ minutes between the squares.",
+          "answer": {
+            "value": 12,
+            "tolerance": 0
+          },
+          "explain": "$60 \\div 5 = 12$ minutes per square.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "60/5",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "speed-time",
+      "heading": "Speed–time graphs and acceleration",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On a [[speed-time-graph|speed–time graph]], speed goes up. A horizontal line now means constant speed. Stopped means speed $0$."
+        },
+        {
+          "type": "figure",
+          "id": "2-9-tram-speed-time",
+          "alt": "Speed-time graph of a tram between two stops. Time in seconds across from 0 to 100, each small square 5 seconds. Speed in metres per second up from 0 to 14, each small square 1 metre per second. The line rises straight from 0 at 0 seconds to 12 at 20 seconds, is flat at 12 until 80 seconds, then falls straight to 0 at 95 seconds.",
+          "caption": "A tram between two stops."
+        },
+        {
+          "type": "definition",
+          "term": "Acceleration",
+          "statement": "[[acceleration|Acceleration]] is the rate of change of speed. On a speed–time graph it is the gradient.",
+          "plain": "How quickly the speed is changing."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{acceleration} = \\frac{\\text{change in speed}}{\\text{time taken}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Its unit is m/s per second, written m/s$^2$. A downward slope is a deceleration, given as a positive number."
+        },
+        {
+          "type": "example",
+          "id": "ex-accel-tram",
+          "question": "Use the tram's speed–time graph. Work out its acceleration in the first $20$ seconds.",
+          "steps": [
+            "In the first $20$ s the speed goes from $0$ to $12$ m/s.",
+            "Acceleration $=$ gradient $= \\frac{12 - 0}{20} = 0.6$."
+          ],
+          "answer": "$\\text{acceleration} = 0.6\\text{ m/s}^2$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(12 - 0)/20",
+            "unit": "m/s^2"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-decel-tram",
+          "prompt": "Use the tram's graph. Work out its deceleration between $80$ and $95$ seconds.",
+          "hint": "How long does the speed take to drop from $12$ m/s to $0$?",
+          "options": [
+            {
+              "text": "$0.8\\text{ m/s}^2$",
+              "correct": true
+            },
+            {
+              "text": "$0.15\\text{ m/s}^2$",
+              "correct": false
+            },
+            {
+              "text": "$1.25\\text{ m/s}^2$",
+              "correct": false
+            }
+          ],
+          "explain": "The speed falls by $12$ m/s in $95 - 80 = 15$ s: $12 \\div 15 = 0.8$ m/s$^2$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "12/(95 - 80)",
+            "unit": "m/s^2"
+          }
+        },
+        {
+          "type": "text",
+          "text": "On a curve the gradient keeps changing. To estimate it at a point, draw the [[tangent|tangent]] there and find its gradient."
+        },
+        {
+          "type": "figure",
+          "id": "2-9-tangent-ball",
+          "alt": "Distance-time graph of a ball rolling down a slope. Time in seconds across from 0 to 6, each small square half a second. Distance in metres up from 0 to 18, each small square 1 metre. The curve starts flat at the origin and gets steeper, reaching 18 metres at 6 seconds. A dashed tangent touches the curve at 4 seconds, 8 metres. The tangent passes through 2 seconds, 0 metres and 6 seconds, 16 metres, both marked with dots.",
+          "caption": "The dashed tangent touches the curve at $4$ seconds."
+        },
+        {
+          "type": "example",
+          "id": "ex-tangent-ball",
+          "question": "The graph shows the distance travelled by a ball rolling down a slope. By drawing a tangent, estimate the speed of the ball at $4$ seconds.",
+          "steps": [
+            "Place a ruler so it touches the curve at $4$ seconds without cutting across it. Draw the tangent.",
+            "Read two points far apart on it: $(2, 0)$ and $(6, 16)$.",
+            "Gradient $= \\frac{16 - 0}{6 - 2} = 4$.",
+            "The gradient of a distance–time graph is the speed. A slightly different tangent gives a slightly different estimate."
+          ],
+          "answer": "$\\text{speed} = 4\\text{ m/s}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(16 - 0)/(6 - 2)",
+            "unit": "m/s"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Joining the origin to the curve. That gives the average speed so far, not the speed at that moment."
+        },
+        {
+          "type": "check",
+          "id": "check-tangent-line",
+          "prompt": "You want the speed of the ball at exactly $3$ seconds. Which line do you find the gradient of?",
+          "hint": "It must match the curve's steepness at that one point.",
+          "options": [
+            {
+              "text": "The tangent at 3 seconds",
+              "correct": true
+            },
+            {
+              "text": "The line from the origin to the curve at 3 seconds",
+              "correct": false
+            },
+            {
+              "text": "The line joining the curve at 0 and 6 seconds",
+              "correct": false
+            }
+          ],
+          "explain": "Only the tangent has the curve's steepness at $3$ seconds. The other lines give average speeds over a time interval.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The tangent at 3 seconds"
+          }
+        }
+      ]
+    },
+    {
+      "id": "area-distance",
+      "heading": "Distance from the area under a speed–time graph",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "At a constant speed, distance $=$ speed $\\times$ time: the area of a rectangle under the graph. For any speed–time graph, the area under it is the distance travelled."
+        },
+        {
+          "type": "text",
+          "text": "Split the area at each corner into rectangles, triangles and trapezia. The triangle area formula is on the formula list."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{area of a trapezium} = \\tfrac{1}{2}(a + b)h",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $a$ and $b$ are the parallel sides and $h$ is the gap between them."
+        },
+        {
+          "type": "example",
+          "id": "ex-area-tram",
+          "question": "Use the tram's speed–time graph. Work out the distance the tram travels between the two stops.",
+          "steps": [
+            "Split the area at $20$ s and $80$ s.",
+            "Triangle: $\\tfrac{1}{2} \\times 20 \\times 12 = 120$ m.",
+            "Rectangle: $60 \\times 12 = 720$ m.",
+            "Triangle: $\\tfrac{1}{2} \\times 15 \\times 12 = 90$ m.",
+            "Total: $120 + 720 + 90 = 930$ m. Check: one trapezium, $\\tfrac{1}{2}(60 + 95) \\times 12 = 930$."
+          ],
+          "answer": "$\\text{distance} = 930\\text{ m}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 2)*20*12 + (80 - 20)*12 + Rational(1, 2)*(95 - 80)*12",
+            "unit": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Treating the whole graph as one triangle, or missing a piece. Split at every corner."
+        },
+        {
+          "type": "check",
+          "id": "check-average-speed-tram",
+          "prompt": "Work out the tram's average speed over the whole $95$ seconds. Give your answer to 3 significant figures.",
+          "hint": "Average speed $=$ total distance $\\div$ total time.",
+          "options": [
+            {
+              "text": "$\\approx 9.79\\text{ m/s}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 11.6\\text{ m/s}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 15.5\\text{ m/s}$",
+              "correct": false
+            }
+          ],
+          "explain": "$930 \\div 95 = 9.789\\ldots$, so $9.79$ m/s. Dividing by $80$ or $60$ leaves out time.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(Rational(1, 2)*20*12 + (80 - 20)*12 + Rational(1, 2)*(95 - 80)*12)/95",
+            "sf": 3,
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-area-unknown-time",
+          "question": "An e-scooter starts from rest and speeds up steadily to $6$ m/s in $8$ seconds. It then travels at $6$ m/s until time $T$ seconds. By then it has travelled $156$ m. Work out $T$.",
+          "steps": [
+            "Sketch it: a slope from $(0, 0)$ to $(8, 6)$, then flat to $(T, 6)$.",
+            "Triangle: $\\tfrac{1}{2} \\times 8 \\times 6 = 24$ m.",
+            "Rectangle: $156 - 24 = 132$ m, so its width is $132 \\div 6 = 22$ s.",
+            "$T = 8 + 22 = 30$."
+          ],
+          "answer": "$T = 30$",
+          "verify": {
+            "kind": "exact",
+            "truth": "8 + (156 - Rational(1, 2)*8*6)/6"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving $22$, the rectangle's width, as $T$. Add the first $8$ seconds."
+        },
+        {
+          "type": "check",
+          "id": "check-area-jogger",
+          "prompt": "A jogger speeds up steadily from rest to $4$ m/s in $6$ s. She runs at $4$ m/s for $50$ s, then slows steadily to rest in $4$ s. Work out the total distance she runs, in metres.",
+          "hint": "Sketch it: triangle, rectangle, triangle.",
+          "answer": {
+            "value": 220,
+            "tolerance": 0
+          },
+          "explain": "$12 + 200 + 8 = 220$ m.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1, 2)*6*4 + 50*4 + Rational(1, 2)*4*4",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Travel graph: horizontal means stopped, steeper means faster, and the gradient is the speed (ignore the minus sign on the way back).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Gradient $=$ change up $\\div$ change across: a rate of change, such as km/h.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Conversion graph through $(0, 0)$: you can scale a reading. Not through $(0, 0)$: you can't.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Speed–time graph: horizontal means constant speed, and the gradient is the acceleration.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Distance $=$ area under a speed–time graph.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Gradient at a point on a curve: draw the tangent, then use two points far apart on it.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Taking each small square as $5$ minutes. Count the squares in one hour first: $6$ squares means $10$ minutes each.",
+    "Saying a horizontal line on a travel graph means steady speed. It means stopped.",
+    "Writing $2.15$ hours as $2$ hours $15$ minutes. $0.15 \\times 60 = 9$, so it is $2$ hours $9$ minutes.",
+    "Leaving a speed in km per minute, or leaving out a stop. Use hours, and include stops in the total time."
+  ],
+  "examTips": [
+    "Write down a reading from a graph: no working is needed, but check what one small square is worth.",
+    "Complete the travel graph: write the journey-time calculation, then rule a straight line. The calculation can earn a mark on its own.",
+    "Explain what is happening: describe the line in words, such as \"stopped, because the line is horizontal\".",
+    "Extended: by drawing a tangent, find an estimate: draw it, then show the two points you used and the division."
+  ],
+  "readingMinutes": 23
+}

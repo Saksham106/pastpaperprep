@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 236" role="img" aria-labelledby="t">
+  <title id="t">Frequency table for how 24 students travel to school. Walk: two gates of five and one stroke, frequency 11. Bus: one gate and one stroke, frequency 6. Car: four strokes, frequency 4. Bike: three strokes, frequency 3. Total 24.</title>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <rect x="10" y="10" width="360" height="216"/>
+    <line x1="10" y1="46" x2="370" y2="46"/>
+    <line x1="10" y1="82" x2="370" y2="82"/>
+    <line x1="10" y1="118" x2="370" y2="118"/>
+    <line x1="10" y1="154" x2="370" y2="154"/>
+    <line x1="10" y1="190" x2="370" y2="190"/>
+    <line x1="100" y1="10" x2="100" y2="226"/>
+    <line x1="260" y1="10" x2="260" y2="226"/>
+  </g>
+  <g stroke="var(--t2-ink)" stroke-width="2" stroke-linecap="round" fill="none">
+    <line x1="118" y1="53" x2="118" y2="75"/>
+    <line x1="124" y1="53" x2="124" y2="75"/>
+    <line x1="130" y1="53" x2="130" y2="75"/>
+    <line x1="136" y1="53" x2="136" y2="75"/>
+    <line x1="114" y1="72" x2="140" y2="56"/>
+    <line x1="152" y1="53" x2="152" y2="75"/>
+    <line x1="158" y1="53" x2="158" y2="75"/>
+    <line x1="164" y1="53" x2="164" y2="75"/>
+    <line x1="170" y1="53" x2="170" y2="75"/>
+    <line x1="148" y1="72" x2="174" y2="56"/>
+    <line x1="186" y1="53" x2="186" y2="75"/>
+    <line x1="118" y1="89" x2="118" y2="111"/>
+    <line x1="124" y1="89" x2="124" y2="111"/>
+    <line x1="130" y1="89" x2="130" y2="111"/>
+    <line x1="136" y1="89" x2="136" y2="111"/>
+    <line x1="114" y1="108" x2="140" y2="92"/>
+    <line x1="152" y1="89" x2="152" y2="111"/>
+    <line x1="118" y1="125" x2="118" y2="147"/>
+    <line x1="124" y1="125" x2="124" y2="147"/>
+    <line x1="130" y1="125" x2="130" y2="147"/>
+    <line x1="136" y1="125" x2="136" y2="147"/>
+    <line x1="118" y1="161" x2="118" y2="183"/>
+    <line x1="124" y1="161" x2="124" y2="183"/>
+    <line x1="130" y1="161" x2="130" y2="183"/>
+  </g>
+  <g font-family="inherit" font-size="15" fill="currentColor" text-anchor="middle">
+    <text x="55" y="33" font-weight="bold">Travel</text>
+    <text x="180" y="33" font-weight="bold">Tally</text>
+    <text x="315" y="33" font-weight="bold">Frequency</text>
+    <text x="55" y="69">Walk</text>
+    <text x="315" y="69">11</text>
+    <text x="55" y="105">Bus</text>
+    <text x="315" y="105">6</text>
+    <text x="55" y="141">Car</text>
+    <text x="315" y="141">4</text>
+    <text x="55" y="177">Bike</text>
+    <text x="315" y="177">3</text>
+    <text x="55" y="213" font-weight="bold">Total</text>
+    <text x="315" y="213" fill="var(--t1-ink)" font-weight="bold">24</text>
+  </g>
+</svg>

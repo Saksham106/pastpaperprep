@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="t">
+  <title id="t">Circle with centre O. A and B are on the lower part of the circle and C is near the top. Chords CA and CB make angle x at C. Radii OA and OB make angle 2x at the centre O.</title>
+  <circle cx="160.0" cy="120.0" r="95.0" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="143.5" y1="26.4" x2="82.2" y2="174.5" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="143.5" y1="26.4" x2="237.8" y2="174.5" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="160.0" y1="120.0" x2="82.2" y2="174.5" stroke="var(--t2-ink)" stroke-width="2"/>
+  <line x1="160.0" y1="120.0" x2="237.8" y2="174.5" stroke="var(--t2-ink)" stroke-width="2"/>
+  <path d="M132.0,54.2 A30,30 0 0 0 159.6,51.7" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+  <path d="M142.0,132.6 A22,22 0 0 0 178.0,132.6" fill="none" stroke="var(--t2-ink)" stroke-width="2"/>
+  <circle cx="160.0" cy="120.0" r="3" fill="currentColor"/>
+  <circle cx="82.2" cy="174.5" r="3" fill="currentColor"/>
+  <circle cx="237.8" cy="174.5" r="3" fill="currentColor"/>
+  <circle cx="143.5" cy="26.4" r="3" fill="currentColor"/>
+  <g font-family="inherit">
+    <text x="70.7" y="187.5" fill="currentColor" font-size="14" text-anchor="middle">A</text>
+    <text x="249.3" y="187.5" fill="currentColor" font-size="14" text-anchor="middle">B</text>
+    <text x="141.1" y="17.7" fill="currentColor" font-size="14" text-anchor="middle">C</text>
+    <text x="160.0" y="115.0" fill="currentColor" font-size="14" text-anchor="middle">O</text>
+    <text x="147.3" y="75.3" fill="var(--t1-ink)" font-size="15" text-anchor="middle">x</text>
+    <text x="160.0" y="163.0" fill="var(--t2-ink)" font-size="15" text-anchor="middle">2x</text>
+  </g>
+</svg>

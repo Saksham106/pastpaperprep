@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Area or volume to change into another unit, such as $\\text{m}^{2}$ to $\\text{cm}^{2}$ → square the length step for area, cube it for volume ({{lesson:5.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Lengths or masses given in different units → change them to one unit before you calculate ({{lesson:5.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Area of a parallelogram, triangle or trapezium with a slanting side shown → use the perpendicular height, never the slanting side ({{lesson:5.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Circle given by its diameter → halve it for $\\pi r^{2}$ or $2\\pi r$, or use $C = \\pi d$ directly ({{lesson:5.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Arc, sector or sector perimeter → take $\\frac{\\theta}{360}$ of the circumference or the area; for the perimeter add $2r$ ({{lesson:5.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Major arc or sector, or a missing sector angle → use $360 - \\theta$, or put the values into the arc or sector formula and solve for $\\theta$ ({{lesson:5.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Solid with the same cross-section all the way along → prism: $V = Al$; surface area is the two ends plus the side faces ({{lesson:5.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Cone given its perpendicular height, curved surface asked → slant height $l = \\sqrt{r^{2} + h^{2}}$ first, then $\\pi r l$ ({{lesson:5.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Missing length from a known area or volume → put the value into the formula and solve; square root for $r^{2}$, cube root for $r^{3}$ ({{lesson:5.2}}, {{lesson:5.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Shape made of pieces, or with a piece cut out → split into simple shapes, add, subtract the hole; for the perimeter count only the edges you trace round ({{lesson:5.5}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Solids joined together → add the volumes; for surface area leave out the area where they touch, from both parts ({{lesson:5.5}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Frustum (a cone or pyramid with its top cut off) → volume is large solid minus small solid; for a cone, curved surface is large $\\pi rl$ minus small $\\pi rl$, plus both flat circles for the total ({{lesson:5.5}})",
+      "tag": "learn",
+      "level": "Extended"
+    }
+  ]
+}

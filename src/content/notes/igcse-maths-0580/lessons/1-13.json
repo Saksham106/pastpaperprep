@@ -1,0 +1,858 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.13",
+  "slug": "percentages",
+  "title": "Percentages",
+  "level": "Core",
+  "topic": 1,
+  "summary": "Prices, pay and savings all change by [[percentage|percentages]]. You'll find a percentage of an amount, work out a [[percentage-increase|percentage increase]] or [[percentage-decrease|percentage decrease]], and find [[simple-interest|simple]] and [[compound-interest|compound interest]].",
+  "goals": [
+    {
+      "text": "Work out a percentage of an amount, with and without a calculator.",
+      "bullets": [
+        "1.13-c1"
+      ]
+    },
+    {
+      "text": "Write one amount as a percentage of another.",
+      "bullets": [
+        "1.13-c2"
+      ]
+    },
+    {
+      "text": "Increase or decrease an amount by a percentage, including discounts and deposits.",
+      "bullets": [
+        "1.13-c3"
+      ]
+    },
+    {
+      "text": "Work out a percentage increase or decrease, and a percentage [[profit-and-loss|profit or loss]].",
+      "bullets": [
+        "1.13-c3"
+      ]
+    },
+    {
+      "text": "Work out simple and compound interest.",
+      "bullets": [
+        "1.13-c4"
+      ]
+    },
+    {
+      "text": "Apply the same percentage change again and again.",
+      "bullets": [
+        "1.13-n1"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Use a [[reverse-percentage|reverse percentage]] to find the original amount, such as a cost price.",
+      "bullets": [
+        "1.13-s1",
+        "1.13-n2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "percentage change",
+    "percentage profit and loss",
+    "simple interest formula",
+    "compound interest formula",
+    "reverse percentage",
+    "percentage discount"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-percent-decimal",
+      "prompt": "Write $7\\%$ as a decimal.",
+      "hint": "A percentage is out of $100$, so divide by $100$.",
+      "answer": {
+        "value": 0.07,
+        "tolerance": 0
+      },
+      "explain": "$7 \\div 100 = 0.07$. A common slip is $0.7$, which is $70\\%$. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(7, 100)",
+        "dp": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-fraction-percent",
+      "prompt": "Write $\\frac{3}{5}$ as a percentage.",
+      "hint": "Make the bottom $100$: multiply top and bottom by $20$.",
+      "answer": {
+        "value": 60,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{3}{5} = \\frac{60}{100} = 60\\%$. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(3, 5)*100",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "percentage-of",
+      "heading": "A percentage of an amount",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[percentage|percentage]] means \"out of $100$\". So $1\\%$ of an amount is the amount $\\div 100$, and $10\\%$ is the amount $\\div 10$."
+        },
+        {
+          "type": "text",
+          "text": "Without a calculator, build the percentage from easy pieces. Find $10\\%$, then halve it for $5\\%$, or divide it by $10$ for $1\\%$."
+        },
+        {
+          "type": "example",
+          "id": "ex-percent-of-sand",
+          "question": "Work out $35\\%$ of $240$ kg.",
+          "steps": [
+            "$10\\%$ of $240$ is $240 \\div 10 = 24$ kg.",
+            "$30\\%$ is $3 \\times 24 = 72$ kg.",
+            "$5\\%$ is half of $10\\%$: $24 \\div 2 = 12$ kg.",
+            "$35\\% = 30\\% + 5\\%$, so add: $72 + 12 = 84$ kg.",
+            "Check: $35\\%$ is a bit more than a third, and a third of $240$ is $80$."
+          ],
+          "answer": "$84\\text{ kg}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(35, 100)*240",
+            "unit": "kg"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "With a calculator, change the percentage to a decimal and multiply: $17\\%$ of an amount is $0.17 \\times$ the amount."
+        },
+        {
+          "type": "calculator",
+          "snippet": "percentage-of-amount",
+          "values": {
+            "amount": 64.8,
+            "percent": 7.5
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-percent-of-tax",
+          "question": "A jacket costs \\$64.80. Sales tax of $7.5\\%$ is added. Use your calculator to work out the tax.",
+          "steps": [
+            "$7.5\\%$ as a decimal is $0.075$.",
+            "$0.075 \\times 64.80 = 4.86$, so the tax is \\$4.86."
+          ],
+          "answer": "$\\$4.86$",
+          "verify": {
+            "kind": "money",
+            "truth": "Rational(75, 1000)*64.80"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A percentage can be more than $100\\%$: $150\\%$ of $60$ is $1.5 \\times 60 = 90$."
+        },
+        {
+          "type": "check",
+          "id": "check-percent-of-15",
+          "prompt": "Without a calculator, work out $15\\%$ of $360$.",
+          "hint": "Find $10\\%$, then half of that for $5\\%$.",
+          "answer": {
+            "value": 54,
+            "tolerance": 0
+          },
+          "explain": "$10\\%$ is $36$ and $5\\%$ is $18$, so $15\\%$ is $36 + 18 = 54$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(15, 100)*360",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-percent-of-120",
+          "prompt": "What is $120\\%$ of $45$?",
+          "hint": "$120\\%$ is $100\\%$ plus $20\\%$.",
+          "options": [
+            {
+              "text": "$9$",
+              "correct": false
+            },
+            {
+              "text": "$54$",
+              "correct": true
+            },
+            {
+              "text": "$540$",
+              "correct": false
+            }
+          ],
+          "explain": "$100\\%$ is $45$ and $20\\%$ is $9$, so $120\\%$ is $54$. $9$ is only the extra $20\\%$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(120, 100)*45"
+          }
+        }
+      ]
+    },
+    {
+      "id": "as-percentage",
+      "heading": "One amount as a percentage of another",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To write one amount as a percentage of another, make a fraction and multiply by $100$. The whole (the amount after \"of\") goes on the bottom."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage} = \\frac{\\text{part}}{\\text{whole}} \\times 100",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Put both amounts in the same units before you divide."
+        },
+        {
+          "type": "example",
+          "id": "ex-as-percent-test",
+          "question": "Mia scores $21$ out of $25$ in a spelling test. Write her score as a percentage.",
+          "steps": [
+            "The part is $21$ and the whole is $25$: $\\frac{21}{25}$.",
+            "Multiply top and bottom by $4$ to get a bottom of $100$: $\\frac{21}{25} = \\frac{84}{100}$.",
+            "$\\frac{84}{100}$ is $84\\%$."
+          ],
+          "answer": "$84\\%$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(21, 25)*100",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-as-percent-flour",
+          "question": "A baker uses $350$ g from a $2$ kg bag of flour. Write $350$ g as a percentage of $2$ kg.",
+          "steps": [
+            "Change to the same units: $2$ kg $= 2000$ g.",
+            "Make the fraction: $\\frac{350}{2000}$.",
+            "Multiply by $100$: $\\frac{350}{2000} \\times 100 = \\frac{350}{20} = 17.5$."
+          ],
+          "answer": "$17.5\\%$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(350, 2*1000)*100",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the wrong way round. $350$ g as a percentage of $2000$ g is $\\frac{350}{2000}$, not $\\frac{2000}{350}$."
+        },
+        {
+          "type": "check",
+          "id": "check-as-percent-minutes",
+          "prompt": "Write $45$ minutes as a percentage of $2$ hours.",
+          "hint": "Change $2$ hours to minutes first.",
+          "options": [
+            {
+              "text": "$22.5\\%$",
+              "correct": false
+            },
+            {
+              "text": "$37.5\\%$",
+              "correct": true
+            },
+            {
+              "text": "$266.7\\%$",
+              "correct": false
+            }
+          ],
+          "explain": "$2$ hours is $120$ minutes, and $\\frac{45}{120} \\times 100 = 37.5\\%$. $22.5\\%$ uses $200$ minutes; $266.7\\%$ divides the wrong way round.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(45, 2*60)*100",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-as-percent-walk",
+          "prompt": "A school has $1180$ students. $437$ of them walk to school. Use your calculator to work out the percentage who walk. Give your answer to 3 [[significant-figure|significant figures]].",
+          "hint": "Work out $\\frac{437}{1180} \\times 100$, then round.",
+          "answer": {
+            "value": 37.0,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{437}{1180} \\times 100 = 37.033\\ldots$, which is $37.0\\%$ to 3 s.f. Keep the $0$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(437, 1180)*100",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "increase-decrease",
+      "heading": "Increasing and decreasing by a percentage",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To increase an amount by $15\\%$, find $15\\%$ of it and add it on. To decrease it, take it off."
+        },
+        {
+          "type": "text",
+          "text": "Or use one multiplication. After a $15\\%$ increase you have $115\\%$ of the amount, so multiply by $1.15$. After a $15\\%$ decrease you have $85\\%$, so multiply by $0.85$."
+        },
+        {
+          "type": "result",
+          "statement": "To increase an amount by $r\\%$, multiply it by $1 + \\frac{r}{100}$. To decrease it by $r\\%$, multiply it by $1 - \\frac{r}{100}$. This number is called the multiplier.",
+          "why": "The new amount is $(100 \\pm r)\\%$ of the original."
+        },
+        {
+          "type": "text",
+          "text": "A discount is a decrease in a price. A deposit is a part of the price paid first, often a percentage of it."
+        },
+        {
+          "type": "example",
+          "id": "ex-decrease-bike",
+          "question": "A bike costs \\$180. In a sale, the price is reduced by $15\\%$. Work out the sale price.",
+          "steps": [
+            "$10\\%$ of \\$180 is \\$18, and $5\\%$ is \\$9, so $15\\%$ is \\$27.",
+            "Take it off: $180 - 27 = 153$.",
+            "Check with the multiplier: $0.85 \\times 180 = 153$."
+          ],
+          "answer": "$\\$153$",
+          "verify": {
+            "kind": "money",
+            "truth": "180 - Rational(15, 100)*180",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-increase-pay",
+          "question": "Lena earns \\$2450 a month. She gets a pay rise of $4\\%$. Work out her new monthly pay.",
+          "steps": [
+            "$1\\%$ of \\$2450 is \\$24.50, so $4\\%$ is $4 \\times 24.50 =$ \\$98.",
+            "Add it on: $2450 + 98 = 2548$.",
+            "With a calculator: $2450 \\times 1.04 = 2548$."
+          ],
+          "answer": "$\\$2548$",
+          "verify": {
+            "kind": "money",
+            "truth": "2450*(1 + Rational(4, 100))",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-multiplier-decrease",
+          "prompt": "Which number do you multiply by to decrease an amount by $8\\%$?",
+          "hint": "After the decrease, what percentage of the amount is left?",
+          "options": [
+            {
+              "text": "$0.08$",
+              "correct": false
+            },
+            {
+              "text": "$0.92$",
+              "correct": true
+            },
+            {
+              "text": "$1.08$",
+              "correct": false
+            },
+            {
+              "text": "$0.2$",
+              "correct": false
+            }
+          ],
+          "explain": "$100\\% - 8\\% = 92\\% = 0.92$. Multiplying by $0.08$ gives only the decrease.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - Rational(8, 100)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-deposit-tv",
+          "prompt": "A television costs \\$640. Ravi pays a deposit of $25\\%$ of the price, then $6$ monthly payments of \\$85. Work out the total amount he pays, in dollars.",
+          "hint": "Find $25\\%$ of \\$640, then add $6 \\times 85$.",
+          "answer": {
+            "value": 670,
+            "tolerance": 0
+          },
+          "explain": "Deposit: $\\frac{1}{4} \\times 640 =$ \\$160. Payments: $6 \\times 85 =$ \\$510. Total: \\$670.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(25, 100)*640 + 6*85",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "percentage-change",
+      "heading": "Percentage change, profit and loss",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you know the old and new amounts. Compare the change with the original amount."
+        },
+        {
+          "type": "definition",
+          "term": "Percentage increase and decrease",
+          "statement": "A [[percentage-increase|percentage increase]] is the increase as a percentage of the original amount. A [[percentage-decrease|percentage decrease]] is the decrease as a percentage of the original amount.",
+          "plain": "The size of the change compared with the start."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage change} = \\frac{\\text{change}}{\\text{original}} \\times 100",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A shop buys an item at the cost price and sells it at the selling price. Selling for more gives a profit; selling for less gives a loss. A percentage [[profit-and-loss|profit or loss]] compares it with the cost price."
+        },
+        {
+          "type": "example",
+          "id": "ex-change-ticket",
+          "question": "A train ticket goes up from \\$40 to \\$46. Work out the percentage increase.",
+          "steps": [
+            "The ticket went up by $46 - 40 =$ \\$6.",
+            "Compare this with the \\$40 it cost before: $\\frac{6}{40} \\times 100 = \\frac{600}{40} = 15$."
+          ],
+          "answer": "$15\\%$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(46 - 40)/Integer(40)*100",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "percentage-change",
+          "values": {
+            "new": 45,
+            "original": 32
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-change-lamp",
+          "question": "A shop buys a lamp for \\$32 and sells it for \\$45. Use your calculator to work out the percentage profit. Give your answer to 3 significant figures.",
+          "steps": [
+            "The profit is $45 - 32 =$ \\$13.",
+            "Compare it with the cost price: $\\frac{13}{32} \\times 100 = 40.625$.",
+            "To 3 s.f., this is $40.6\\%$."
+          ],
+          "answer": "$\\text{profit} \\approx 40.6\\%$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(45 - 32)/Integer(32)*100",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by the new amount or selling price: $\\frac{13}{45} \\times 100 = 28.9\\%$ is wrong. Divide by the original amount."
+        },
+        {
+          "type": "check",
+          "id": "check-change-phone",
+          "prompt": "The price of a phone falls from \\$250 to \\$215. Without a calculator, work out the percentage decrease.",
+          "hint": "Find the decrease first, then divide by the old price.",
+          "answer": {
+            "value": 14,
+            "tolerance": 0
+          },
+          "explain": "The decrease is \\$35, and $\\frac{35}{250} = \\frac{14}{100}$, so $14\\%$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(250 - 215)/Integer(250)*100",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-change-car-loss",
+          "prompt": "Omar buys a car for \\$8000 and later sells it for \\$6800. Work out his percentage loss.",
+          "hint": "The loss is compared with what he paid.",
+          "options": [
+            {
+              "text": "$15\\%$",
+              "correct": true
+            },
+            {
+              "text": "$18\\%$",
+              "correct": false
+            },
+            {
+              "text": "$85\\%$",
+              "correct": false
+            }
+          ],
+          "explain": "The loss is \\$1200, and $\\frac{1200}{8000} \\times 100 = 15\\%$. $18\\%$ divides by the selling price ($17.6\\%$, rounded); $85\\%$ is what is left.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(8000 - 6800)/Integer(8000)*100",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "interest",
+      "heading": "Simple and compound interest",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A bank pays you interest on savings, and you pay interest on a loan. The amount saved or borrowed is the [[principal|principal]]."
+        },
+        {
+          "type": "text",
+          "text": "[[simple-interest|Simple interest]] is the same every year, because it is always a percentage of the principal."
+        },
+        {
+          "type": "formula",
+          "tex": "I = \\frac{P \\times R \\times T}{100}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$I$ is the interest, $P$ the principal, $R$ the rate per year as a percentage, and $T$ the time in years. The total value is $P + I$."
+        },
+        {
+          "type": "example",
+          "id": "ex-simple-interest",
+          "question": "Zara invests \\$750 at $4\\%$ per year simple interest. Work out the total value of her investment after $6$ years.",
+          "steps": [
+            "Use $I = \\frac{P \\times R \\times T}{100}$ with $P = 750$, $R = 4$ and $T = 6$.",
+            "$I = \\frac{750 \\times 4 \\times 6}{100} = \\frac{18\\,000}{100} = 180$.",
+            "Add the principal: $750 + 180 = 930$."
+          ],
+          "answer": "$\\$930$",
+          "verify": {
+            "kind": "money",
+            "truth": "750 + 750*4*6/Integer(100)",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "With [[compound-interest|compound interest]], each year's interest is added on, and next year's interest is worked out on the new total. You earn interest on your interest."
+        },
+        {
+          "type": "text",
+          "text": "So each year you multiply by $1 + \\frac{r}{100}$. After $n$ years you have multiplied by it $n$ times."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{value} = P\\left(1 + \\frac{r}{100}\\right)^{n}",
+          "tag": "learn"
+        },
+        {
+          "type": "calculator",
+          "snippet": "compound-interest",
+          "values": {
+            "amount": 2500,
+            "rate": 4,
+            "years": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-compound-interest",
+          "question": "Sam invests \\$2500 at $4\\%$ per year compound interest. Work out the value of his investment after $3$ years.",
+          "steps": [
+            "The multiplier is $1.04$.",
+            "Year by year: $2500 \\times 1.04 = 2600$, $2600 \\times 1.04 = 2704$, $2704 \\times 1.04 = 2812.16$.",
+            "In one line: $2500 \\times 1.04^{3} = 2812.16$."
+          ],
+          "answer": "$\\$2812.16$",
+          "verify": {
+            "kind": "money",
+            "truth": "2500*(1 + Rational(4, 100))**3"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using simple interest when the question says compound. Multiply by the multiplier once for every year."
+        },
+        {
+          "type": "check",
+          "id": "check-simple-loan",
+          "prompt": "Kofi borrows \\$1200 at $2.5\\%$ per year simple interest for $4$ years. Work out the interest he pays, in dollars.",
+          "hint": "Use $I = \\frac{P \\times R \\times T}{100}$.",
+          "answer": {
+            "value": 120,
+            "tolerance": 0
+          },
+          "explain": "$I = \\frac{1200 \\times 2.5 \\times 4}{100} = 120$, so \\$120.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1200*2.5*4/Integer(100)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-compound-earned",
+          "prompt": "Nia invests \\$5000 at $2\\%$ per year compound interest. How much interest does she earn in $2$ years?",
+          "hint": "Find the value after $2$ years, then take away the principal.",
+          "options": [
+            {
+              "text": "$\\$200$",
+              "correct": false
+            },
+            {
+              "text": "$\\$202$",
+              "correct": true
+            },
+            {
+              "text": "$\\$5202$",
+              "correct": false
+            }
+          ],
+          "explain": "$5000 \\times 1.02^{2} = 5202$, so the interest is \\$202. \\$200 is simple interest; \\$5202 is the value.",
+          "verify": {
+            "kind": "money",
+            "truth": "5000*(1 + Rational(2, 100))**2 - 5000",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "Compound interest is a repeated percentage change. Anything that changes by the same percentage each year works the same way. A value falling each year, such as a car's, is called [[depreciation|depreciation]]."
+        },
+        {
+          "type": "check",
+          "id": "check-repeated-car",
+          "level": "Extended",
+          "prompt": "A car is worth \\$15\\,000. Its value falls by $12\\%$ each year. Work out its value after $4$ years.",
+          "hint": "The multiplier is $0.88$. Use it once for each year.",
+          "options": [
+            {
+              "text": "$\\$7800.00$",
+              "correct": false
+            },
+            {
+              "text": "$\\$8995.43$",
+              "correct": true
+            },
+            {
+              "text": "$\\$10\\,222.08$",
+              "correct": false
+            }
+          ],
+          "explain": "$15\\,000 \\times 0.88^{4} = 8995.4304$, so \\$8995.43. \\$7800.00 takes $12\\%$ of the first value each year; \\$10\\,222.08 uses $3$ years.",
+          "verify": {
+            "kind": "money",
+            "truth": "15000*(1 - Rational(12, 100))**4"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-repeated-up-down",
+          "level": "Extended",
+          "prompt": "A price goes up by $20\\%$. Then the new price goes down by $20\\%$. Work out the overall percentage decrease.",
+          "hint": "Multiply the two multipliers together.",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "$1.2 \\times 0.8 = 0.96$, so the price ends at $96\\%$: a $4\\%$ decrease. The changes do not cancel.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(1 - (1 + Rational(20, 100))*(1 - Rational(20, 100)))*100",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "reverse",
+      "heading": "Reverse percentages",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[reverse-percentage|reverse percentage]] finds the original amount from the amount after a percentage change."
+        },
+        {
+          "type": "text",
+          "text": "Going forwards, original $\\times$ multiplier $=$ new amount. So original $=$ new amount $\\div$ multiplier."
+        },
+        {
+          "type": "figure",
+          "id": "1-13-reverse-bars",
+          "alt": "Two bars made of blocks that are each 20 percent. The new price bar has 6 blocks, labelled 120 percent equals 54 dollars, so each block is 9 dollars. The original price bar has 5 blocks, 100 percent, which is 5 times 9 equals 45 dollars.",
+          "caption": "After a $20\\%$ increase, $120\\%$ is \\$54. Find $20\\%$, then build back up to $100\\%$."
+        },
+        {
+          "type": "example",
+          "id": "ex-reverse-gym",
+          "question": "After a $20\\%$ increase, a gym membership costs \\$54 a month. Work out the cost before the increase.",
+          "steps": [
+            "The new cost is $120\\%$ of the old cost.",
+            "Without a calculator: $120\\%$ is \\$54, so $20\\%$ is $54 \\div 6 =$ \\$9, and $100\\%$ is $5 \\times 9 =$ \\$45.",
+            "Or divide by the multiplier: $54 \\div 1.2 = 45$."
+          ],
+          "answer": "$\\$45$",
+          "verify": {
+            "kind": "money",
+            "truth": "54/(1 + Rational(20, 100))",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-reverse-chair",
+          "question": "A shop sells a chair for \\$63.70. This gives the shop a profit of $30\\%$ of the cost price. Work out the cost price.",
+          "steps": [
+            "The selling price is $130\\%$ of the cost price, so the multiplier is $1.3$.",
+            "Cost price $= 63.70 \\div 1.3 = 49$.",
+            "Check: $49 \\times 1.3 = 63.70$."
+          ],
+          "answer": "$\\$49.00$",
+          "verify": {
+            "kind": "money",
+            "truth": "63.70/(1 + Rational(30, 100))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Taking $30\\%$ off the selling price. The $30\\%$ is of the cost price, so divide by the multiplier instead."
+        },
+        {
+          "type": "examTip",
+          "text": "Write the division, such as $63.70 \\div 1.3$, for the method mark. Then check by multiplying back."
+        },
+        {
+          "type": "check",
+          "id": "check-reverse-coat",
+          "prompt": "In a sale, a coat costs \\$68 after a $15\\%$ discount. Work out the price before the discount, in dollars.",
+          "hint": "After the discount, the price is $85\\%$ of the original.",
+          "answer": {
+            "value": 80,
+            "tolerance": 0
+          },
+          "explain": "$68 \\div 0.85 = 80$, so \\$80. Check: $80 \\times 0.85 = 68$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "68/(1 - Rational(15, 100))",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reverse-town",
+          "prompt": "The population of a town fell by $8\\%$ to $27\\,600$. What was the population before the fall?",
+          "hint": "$27\\,600$ is $92\\%$ of the old population.",
+          "options": [
+            {
+              "text": "$25\\,392$",
+              "correct": false
+            },
+            {
+              "text": "$29\\,808$",
+              "correct": false
+            },
+            {
+              "text": "$30\\,000$",
+              "correct": true
+            }
+          ],
+          "explain": "$27\\,600 \\div 0.92 = 30\\,000$. $29\\,808$ adds $8\\%$ of the new value, and $25\\,392$ takes it off; neither undoes the fall.",
+          "verify": {
+            "kind": "exact",
+            "truth": "27600/(1 - Rational(8, 100))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "One amount as a percentage of another: $\\frac{\\text{part}}{\\text{whole}} \\times 100$, with both in the same units.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Increase by $r\\%$: multiply by $1 + \\frac{r}{100}$. Decrease by $r\\%$: multiply by $1 - \\frac{r}{100}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Percentage change $= \\frac{\\text{change}}{\\text{original}} \\times 100$. For profit or loss, the original is the cost price.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{simple interest: } I = \\frac{P \\times R \\times T}{100}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{compound interest: value} = P\\left(1 + \\frac{r}{100}\\right)^{n}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Reverse percentage: original $=$ new amount $\\div$ multiplier.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing by the new amount. A percentage change, profit or loss is compared with the original amount, which is the cost price for profit or loss.",
+    "Dividing the wrong way round. \"$a$ as a percentage of $b$\" is $\\frac{a}{b} \\times 100$.",
+    "Using simple interest for compound interest, or giving the total value when the question asks for the interest.",
+    "In a reverse percentage, multiplying by the multiplier or taking the percentage off the new amount. Divide by the multiplier."
+  ],
+  "examTips": [
+    "For \"work out the percentage increase\", write the fraction, such as $\\frac{6}{40} \\times 100$, before the answer: it earns the method mark.",
+    "Write money to the cent, such as \\$4.50 not \\$4.5. Round only your final answer.",
+    "Read whether the interest is simple or compound, and whether you need the interest or the total value."
+  ],
+  "readingMinutes": 25
+}

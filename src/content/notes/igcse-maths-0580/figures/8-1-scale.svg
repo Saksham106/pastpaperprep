@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" role="img" aria-labelledby="t">
+  <title id="t">A horizontal probability scale from 0 to 1. The left end, 0, is labelled impossible. The middle, 0.5, is labelled even chance. The right end, 1, is labelled certain. The part between 0 and 0.5 is labelled unlikely, and the part between 0.5 and 1 is labelled likely.</title>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="40" y1="66" x2="480" y2="66"/>
+    <line x1="40" y1="56" x2="40" y2="76"/>
+    <line x1="260" y1="56" x2="260" y2="76"/>
+    <line x1="480" y1="56" x2="480" y2="76"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.2">
+    <line x1="150" y1="60" x2="150" y2="72"/>
+    <line x1="370" y1="60" x2="370" y2="72"/>
+  </g>
+  <g font-family="inherit" font-size="16" fill="currentColor" text-anchor="middle">
+    <text x="40" y="98">0</text>
+    <text x="150" y="98">0.25</text>
+    <text x="260" y="98">0.5</text>
+    <text x="370" y="98">0.75</text>
+    <text x="480" y="98">1</text>
+  </g>
+  <g font-family="inherit" font-size="15" text-anchor="middle" font-weight="bold">
+    <text x="40" y="40" fill="var(--t5-ink)">Impossible</text>
+    <text x="150" y="40" fill="var(--t4-ink)">Unlikely</text>
+    <text x="260" y="40" fill="var(--t3-ink)">Even chance</text>
+    <text x="370" y="40" fill="var(--t2-ink)">Likely</text>
+    <text x="480" y="40" fill="var(--t1-ink)">Certain</text>
+  </g>
+</svg>

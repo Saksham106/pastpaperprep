@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 215" role="img" aria-labelledby="t">
+  <title id="t">Bar chart of an item worth 1000 dollars that loses 20 percent of its value each year. The values are 1000, 800, 640, 512 and 409.60 dollars after 0 to 4 years. The losses each year are 200, 160, 128 and 102.40 dollars, so the loss gets smaller every year.</title>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="45" y1="170" x2="345" y2="170" />
+  </g>
+  <g fill="var(--t2-ink)" fill-opacity="0.22" stroke="var(--t2-ink)" stroke-width="1.2">
+    <rect x="60" y="40" width="40" height="130" />
+    <rect x="118" y="66" width="40" height="104" />
+    <rect x="176" y="86.8" width="40" height="83.2" />
+    <rect x="234" y="103.44" width="40" height="66.56" />
+    <rect x="292" y="116.75" width="40" height="53.25" />
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="80" y="34">$1000</text>
+    <text x="138" y="60">$800</text>
+    <text x="196" y="80.8">$640</text>
+    <text x="254" y="97.44">$512</text>
+    <text x="312" y="110.75">$409.60</text>
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="80" y="186">0</text>
+    <text x="138" y="186">1</text>
+    <text x="196" y="186">2</text>
+    <text x="254" y="186">3</text>
+    <text x="312" y="186">4</text>
+    <text x="196" y="205" fill="var(--muted)">years</text>
+  </g>
+  <g fill="var(--t4-ink)" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="109" y="20">−200</text>
+    <text x="167" y="46">−160</text>
+    <text x="225" y="66">−128</text>
+    <text x="283" y="83">−102.40</text>
+  </g>
+  <g stroke="var(--t4-ink)" stroke-width="1" fill="none">
+    <line x1="100" y1="40" x2="118" y2="66" />
+    <line x1="158" y1="66" x2="176" y2="86.8" />
+    <line x1="216" y1="86.8" x2="234" y2="103.44" />
+    <line x1="274" y1="103.44" x2="292" y2="116.75" />
+  </g>
+</svg>

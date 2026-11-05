@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 135" role="img" aria-labelledby="t">
+  <title id="t">A straight line from A to B split into 5 equal parts by small marks. Point P is at the third mark from A, so 3 parts lie between A and P and 2 parts lie between P and B.</title>
+  <line x1="40.0" y1="70.0" x2="290.0" y2="70.0" stroke="currentColor" stroke-width="2"/>
+  <line x1="40.0" y1="63.0" x2="40.0" y2="77.0" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="90.0" y1="63.0" x2="90.0" y2="77.0" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="140.0" y1="63.0" x2="140.0" y2="77.0" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="190.0" y1="63.0" x2="190.0" y2="77.0" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="240.0" y1="63.0" x2="240.0" y2="77.0" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="290.0" y1="63.0" x2="290.0" y2="77.0" stroke="currentColor" stroke-width="1.4"/>
+  <circle cx="40.0" cy="70.0" r="3.5" fill="currentColor"/>
+  <circle cx="290.0" cy="70.0" r="3.5" fill="currentColor"/>
+  <circle cx="190.0" cy="70" r="5" fill="var(--t1-ink)"/>
+  <text x="40.0" y="54.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="middle" font-style="italic">A</text>
+  <text x="290.0" y="54.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="middle" font-style="italic">B</text>
+  <text x="190.0" y="54.0" fill="var(--t1-ink)" font-size="15" font-family="inherit" text-anchor="middle" font-style="italic">P</text>
+  <path d="M 40 88 Q 115.0 104 190.0 88" fill="none" stroke="var(--t1-ink)" stroke-width="1.4"/>
+  <path d="M 190.0 88 Q 240.0 104 290 88" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/>
+  <text x="115.0" y="120.0" fill="var(--t1-ink)" font-size="13" font-family="inherit" text-anchor="middle" font-style="italic">3 parts</text>
+  <text x="240.0" y="120.0" fill="var(--t3-ink)" font-size="13" font-family="inherit" text-anchor="middle" font-style="italic">2 parts</text>
+</svg>

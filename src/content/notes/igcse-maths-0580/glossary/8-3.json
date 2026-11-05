@@ -1,0 +1,32 @@
+[
+  {
+    "id": "combined-events",
+    "term": "combined events",
+    "definition": "Two or more events that happen together or one after the other, such as rolling two dice or picking two counters.",
+    "lesson": "8.3"
+  },
+  {
+    "id": "sample-space-diagram",
+    "term": "sample space diagram",
+    "definition": "A table that shows every possible outcome of two combined events, with one event along the top and the other down the side.",
+    "lesson": "8.3"
+  },
+  {
+    "id": "tree-diagram",
+    "term": "tree diagram",
+    "definition": "A diagram with a column of branches for each stage. Each outcome is written at the end of its branch and its probability beside the branch; multiply along a path to find its probability.",
+    "lesson": "8.3"
+  },
+  {
+    "id": "with-replacement",
+    "term": "with replacement",
+    "definition": "Picking an item and putting it back before the next pick, so each pick has the same probabilities.",
+    "lesson": "8.3"
+  },
+  {
+    "id": "without-replacement",
+    "term": "without replacement",
+    "definition": "Picking an item and not putting it back, so there is one item fewer and the probabilities change for the next pick.",
+    "lesson": "8.3"
+  }
+]

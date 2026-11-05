@@ -1,0 +1,230 @@
+[
+  {
+    "id": "parallel",
+    "term": "parallel",
+    "definition": "Parallel lines go in the same direction and stay the same distance apart, so they never meet; on a grid, parallel lines that are not vertical have equal gradients.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "perpendicular",
+    "term": "perpendicular",
+    "definition": "Perpendicular lines meet or cross at a right angle, $90^{\\circ}$.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "perpendicular-bisector",
+    "term": "perpendicular bisector",
+    "definition": "The line that cuts a line segment into two equal halves and crosses it at right angles; every point on it is the same distance from both ends.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "vertex",
+    "term": "vertex",
+    "definition": "A corner of a shape or solid, where sides or edges meet; the plural is vertices.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "right-angle",
+    "term": "right angle",
+    "definition": "An angle of exactly $90^{\\circ}$, a quarter turn, marked on diagrams with a small square.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "acute-angle",
+    "term": "acute angle",
+    "definition": "An angle between $0^{\\circ}$ and $90^{\\circ}$.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "obtuse-angle",
+    "term": "obtuse angle",
+    "definition": "An angle between $90^{\\circ}$ and $180^{\\circ}$.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "reflex-angle",
+    "term": "reflex angle",
+    "definition": "An angle between $180^{\\circ}$ and $360^{\\circ}$.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "congruent",
+    "term": "congruent",
+    "definition": "Congruent shapes are exactly the same shape and size, so one fits exactly on the other, even after turning or flipping it.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "equilateral-triangle",
+    "term": "equilateral triangle",
+    "definition": "A triangle with three equal sides and three equal angles of $60^{\\circ}$.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "isosceles-triangle",
+    "term": "isosceles triangle",
+    "definition": "A triangle with two equal sides, where the two angles opposite those sides are also equal.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "scalene-triangle",
+    "term": "scalene triangle",
+    "definition": "A triangle with no equal sides and no equal angles.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "right-angled-triangle",
+    "term": "right-angled triangle",
+    "definition": "A triangle with one angle of $90^{\\circ}$.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "quadrilateral",
+    "term": "quadrilateral",
+    "definition": "A flat shape with four straight sides, whose four angles add up to $360^{\\circ}$.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "kite",
+    "term": "kite",
+    "definition": "A quadrilateral with two pairs of equal sides, where the two sides in each pair are next to each other.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "rhombus",
+    "term": "rhombus",
+    "definition": "A quadrilateral with four equal sides, whose opposite sides are parallel and opposite angles are equal.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "parallelogram",
+    "term": "parallelogram",
+    "definition": "A quadrilateral with two pairs of parallel sides, whose opposite sides are equal and opposite angles are equal.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "trapezium",
+    "term": "trapezium",
+    "definition": "A quadrilateral with one pair of parallel sides, where the other two sides are not parallel.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "polygon",
+    "term": "polygon",
+    "definition": "A flat, closed shape with straight sides, such as a pentagon ($5$ sides), hexagon ($6$), octagon ($8$) or decagon ($10$), which is regular if all its sides and angles are equal and irregular if not.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "plane",
+    "term": "plane",
+    "definition": "A flat surface that goes on for ever in every direction, such as the surface that a flat face of a solid lies in.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "cuboid",
+    "term": "cuboid",
+    "definition": "A solid box shape with six rectangular faces.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "prism",
+    "term": "prism",
+    "definition": "A solid with flat faces and the same cross-section all the way through, named after that cross-section, such as a triangular prism.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "cylinder",
+    "term": "cylinder",
+    "definition": "A solid with two equal circular ends joined by a curved surface, like a prism with a circular cross-section.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "pyramid",
+    "term": "pyramid",
+    "definition": "A solid with a flat base and triangular faces that meet at one vertex at the top.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "cone",
+    "term": "cone",
+    "definition": "A solid with a circular base and a curved surface that rises to a point.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "sphere",
+    "term": "sphere",
+    "definition": "A perfectly round solid, like a ball, where every point on the surface is the same distance from the centre.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "hemisphere",
+    "term": "hemisphere",
+    "definition": "Half of a sphere, with one flat circular face and one curved surface.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "frustum",
+    "term": "frustum",
+    "definition": "The part of a cone or pyramid that is left when the top is cut off parallel to the base.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "face",
+    "term": "face",
+    "definition": "One flat surface of a solid; two faces meet at an edge.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "radius",
+    "term": "radius",
+    "definition": "The distance from the centre of a circle to any point on the circle, or a line joining them; the plural is radii.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "diameter",
+    "term": "diameter",
+    "definition": "A chord that passes through the centre of a circle, twice as long as the radius.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "circumference",
+    "term": "circumference",
+    "definition": "The whole distance round a circle, or the curve itself.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "semicircle",
+    "term": "semicircle",
+    "definition": "Half of a circle, cut off by a diameter.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "chord",
+    "term": "chord",
+    "definition": "A straight line joining two points on a circle.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "tangent",
+    "term": "tangent",
+    "definition": "A straight line that touches a circle at exactly one point, or, for a curve, the straight line that just touches it at a point and is as steep as the curve there.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "arc",
+    "term": "arc",
+    "definition": "Part of the circumference of a circle; between two points that are not the ends of a diameter, the shorter arc is the minor arc and the longer one is the major arc.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "sector",
+    "term": "sector",
+    "definition": "The region of a circle between two radii and the arc joining their ends, like a slice of pizza.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "segment",
+    "term": "segment",
+    "definition": "The region of a circle between a chord and an arc.",
+    "lesson": "4.1"
+  }
+]

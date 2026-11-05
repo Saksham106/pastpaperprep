@@ -46,4 +46,12 @@ describe("QuestionExplorer notes links", () => {
     render(<QuestionExplorer questions={[{ ...question, officialItems: ["3.3"] }]} bankSlug="ib-sl" access={fullAccess} notesLinks={{ [question.subtopics[0]]: { href: "/group-fallback", label: "Group" } }} />);
     expect(screen.getByRole("link", { name: "Learn this topic" })).toHaveAttribute("href", "/group-fallback");
   });
+
+  it("links a 0580 question to its section's lesson by official code (the explanation's Revise link uses the same lookup)", () => {
+    const igcseAccess = [{ productId: "bank_igcse" as const, status: "active" as const, startsAt: "2026-01-01T00:00:00Z", expiresAt: null }];
+    const [question] = prepareQuestionsForDelivery(loadBankQuestions("igcse").filter((q) => q.officialCodeRefs?.includes("current_2025:C1.1")).slice(0, 1), igcseAccess);
+    expect(question).toBeDefined();
+    render(<QuestionExplorer questions={[question]} bankSlug="igcse" access={fullAccess} notesLinks={{ "current_2025:C1.1": { href: "/revision-notes/igcse-maths-0580/number/1-1-types-of-number", label: "Types of number" } }} />);
+    expect(screen.getByRole("link", { name: "Learn this topic" })).toHaveAttribute("href", "/revision-notes/igcse-maths-0580/number/1-1-types-of-number");
+  });
 });

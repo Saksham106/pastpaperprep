@@ -1,0 +1,14 @@
+[
+  {
+    "id": "lower-bound",
+    "term": "lower bound",
+    "definition": "The smallest value that a rounded value could have been before rounding; for a calculation, the limit its answer cannot go below.",
+    "lesson": "1.10"
+  },
+  {
+    "id": "upper-bound",
+    "term": "upper bound",
+    "definition": "The value that a rounded value must stay below, because values from it upwards round up to the next value; for a calculation, the limit its answer cannot go above.",
+    "lesson": "1.10"
+  }
+]

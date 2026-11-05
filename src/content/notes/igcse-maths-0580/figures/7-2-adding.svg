@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 290" role="img" aria-labelledby="t">
+  <title id="t">Square grid. Arrow a starts at a marked start point and goes 4 squares right and 1 square up. Arrow b starts where a ends and goes 1 square left and 3 squares up. A dashed arrow labelled a plus b goes straight from the start to the finish: 3 squares right and 4 squares up.</title>
+  <g stroke="var(--muted)" stroke-width="0.6" opacity="0.6">
+    <line x1="30" y1="270" x2="30" y2="30"/>
+    <line x1="70" y1="270" x2="70" y2="30"/>
+    <line x1="110" y1="270" x2="110" y2="30"/>
+    <line x1="150" y1="270" x2="150" y2="30"/>
+    <line x1="190" y1="270" x2="190" y2="30"/>
+    <line x1="230" y1="270" x2="230" y2="30"/>
+    <line x1="270" y1="270" x2="270" y2="30"/>
+    <line x1="30" y1="270" x2="270" y2="270"/>
+    <line x1="30" y1="230" x2="270" y2="230"/>
+    <line x1="30" y1="190" x2="270" y2="190"/>
+    <line x1="30" y1="150" x2="270" y2="150"/>
+    <line x1="30" y1="110" x2="270" y2="110"/>
+    <line x1="30" y1="70" x2="270" y2="70"/>
+    <line x1="30" y1="30" x2="270" y2="30"/>
+  </g>
+  <line x1="70" y1="230" x2="182.8" y2="79.6" stroke="var(--t5-ink)" stroke-width="2.4" stroke-dasharray="7 4"/>
+  <polygon points="190,70 186.8,82.6 178.8,76.6" fill="var(--t5-ink)"/>
+  <line x1="70" y1="230" x2="218.4" y2="192.9" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <polygon points="230,190 219.6,197.8 217.1,188.1" fill="var(--t1-ink)"/>
+  <line x1="230" y1="190" x2="193.8" y2="81.4" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <polygon points="190,70 198.5,79.8 189.1,83.0" fill="var(--t3-ink)"/>
+  <circle cx="70" cy="230" r="4" fill="currentColor"/>
+  <text x="62" y="246" fill="currentColor" font-size="13" font-family="inherit" text-anchor="end">start</text>
+  <text x="184" y="62" fill="currentColor" font-size="13" font-family="inherit" text-anchor="end">finish</text>
+  <text x="150" y="232.0" fill="var(--t1-ink)" font-size="17" font-family="inherit" text-anchor="middle" font-weight="bold">a</text>
+  <text x="224.0" y="134.0" fill="var(--t3-ink)" font-size="17" font-family="inherit" text-anchor="start" font-weight="bold">b</text>
+  <text x="116.0" y="144" fill="var(--t5-ink)" font-size="15" font-family="inherit" text-anchor="end" font-weight="bold">a + b</text>
+</svg>

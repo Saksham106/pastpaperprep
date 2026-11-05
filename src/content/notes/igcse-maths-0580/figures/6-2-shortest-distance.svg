@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 210" role="img" aria-labelledby="t">
+  <title id="t">A straight line L along the bottom and a point P above it. A line from P goes straight down to F on L, at right angles to L. A second, slanting line goes from P to another point Q on L. The triangle PFQ has its right angle at F, so PQ is its hypotenuse and is longer than PF.</title>
+  <line x1="20" y1="170" x2="300" y2="170" stroke="currentColor" stroke-width="2"/>
+  <text x="306" y="166" fill="currentColor" font-size="14" text-anchor="end" font-family="inherit">L</text>
+  <line x1="110" y1="50" x2="110" y2="170" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <line x1="110" y1="50" x2="240" y2="170" stroke="var(--t2-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <polyline points="110,156 124,156 124,170" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <circle cx="110" cy="50" r="3" fill="currentColor"/>
+  <text x="110" y="40" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">P</text>
+  <text x="110" y="190" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">F</text>
+  <text x="240" y="190" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">Q</text>
+  <text x="96" y="114" fill="var(--t1-ink)" font-size="12" text-anchor="end" font-family="inherit">shortest</text>
+</svg>

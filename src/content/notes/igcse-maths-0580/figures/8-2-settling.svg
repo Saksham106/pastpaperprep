@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 250" role="img" aria-labelledby="t">
+  <title id="t">Line graph of the relative frequency of red against the number of spins, from 20 to 200 spins. The first values jump between about 0.2 and 0.4, then the line settles close to a dashed horizontal line at 0.25.</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <line x1="50" y1="180" x2="345" y2="180"/>
+    <line x1="50" y1="180" x2="50" y2="25"/>
+    <line x1="45" y1="150" x2="50" y2="150"/>
+    <line x1="45" y1="120" x2="50" y2="120"/>
+    <line x1="45" y1="90" x2="50" y2="90"/>
+    <line x1="45" y1="60" x2="50" y2="60"/>
+    <line x1="45" y1="30" x2="50" y2="30"/>
+    <line x1="120" y1="180" x2="120" y2="185"/>
+    <line x1="190" y1="180" x2="190" y2="185"/>
+    <line x1="260" y1="180" x2="260" y2="185"/>
+    <line x1="330" y1="180" x2="330" y2="185"/>
+  </g>
+  <line x1="50" y1="105" x2="345" y2="105" stroke="var(--t2-ink)" stroke-width="2" stroke-dasharray="6 5"/>
+  <polyline points="78,60 106,112.5 134,95 162,112.5 190,99 218,110 246,98.6 274,106.9 302,103.3 330,105" fill="none" stroke="var(--t1-ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <g fill="var(--t1-ink)">
+    <circle cx="78" cy="60" r="3.5"/>
+    <circle cx="106" cy="112.5" r="3.5"/>
+    <circle cx="134" cy="95" r="3.5"/>
+    <circle cx="162" cy="112.5" r="3.5"/>
+    <circle cx="190" cy="99" r="3.5"/>
+    <circle cx="218" cy="110" r="3.5"/>
+    <circle cx="246" cy="98.6" r="3.5"/>
+    <circle cx="274" cy="106.9" r="3.5"/>
+    <circle cx="302" cy="103.3" r="3.5"/>
+    <circle cx="330" cy="105" r="3.5"/>
+  </g>
+  <g font-family="inherit" font-size="12" fill="currentColor" text-anchor="end">
+    <text x="41" y="184">0</text>
+    <text x="41" y="154">0.1</text>
+    <text x="41" y="124">0.2</text>
+    <text x="41" y="94">0.3</text>
+    <text x="41" y="64">0.4</text>
+    <text x="41" y="34">0.5</text>
+  </g>
+  <g font-family="inherit" font-size="12" fill="currentColor" text-anchor="middle">
+    <text x="120" y="199">50</text>
+    <text x="190" y="199">100</text>
+    <text x="260" y="199">150</text>
+    <text x="330" y="199">200</text>
+    <text x="197" y="225">number of spins</text>
+  </g>
+  <text x="14" y="105" font-family="inherit" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 14 105)">relative frequency</text>
+  <text x="345" y="98" font-family="inherit" font-size="12" font-weight="bold" fill="var(--t2-ink)" text-anchor="end">0.25</text>
+</svg>

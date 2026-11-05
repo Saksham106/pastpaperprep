@@ -42,7 +42,7 @@
 .key .tgL { background: #fde9ad; color: #845c00; }
 .foot { margin-top: 8px; padding-top: 5px; border-top: 1px solid var(--line); font: 8.5px var(--font-mono); color: var(--muted); }
 .sheet :global(.katex) { font-size: 1.04em; }
-.sheet[data-level="SL"] [data-ahl], .sheet[data-level="SL"] [data-all-ahl] { display: none; }
+.sheet[data-base-view] [data-ahl], .sheet[data-base-view] [data-all-ahl] { display: none; }
 
 @media print {
   .page { padding: 0; }

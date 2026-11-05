@@ -1,0 +1,820 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "2.10",
+  "slug": "graphs-of-functions",
+  "title": "Graphs of functions",
+  "level": "Core",
+  "topic": 2,
+  "summary": "A [[function|function]] turns each $x$ into a $y$. You draw its graph from a [[table-of-values|table of values]] and learn to recognise its shape. Then you solve equations by reading where the graph crosses the $x$-axis or another line. Extended adds cubic, power and exponential graphs.",
+  "goals": [
+    {
+      "text": "Complete a table of values and draw a straight line, a [[parabola|parabola]] or a reciprocal graph.",
+      "bullets": [
+        "2.10-c1"
+      ]
+    },
+    {
+      "text": "Recognise each graph from its shape, and find a parabola's line of symmetry and lowest or highest point.",
+      "bullets": [
+        "2.10-c1"
+      ]
+    },
+    {
+      "text": "Solve equations from a graph, including [[root|roots]] and where a line meets a curve, and say what they mean.",
+      "bullets": [
+        "2.10-c2"
+      ]
+    },
+    {
+      "text": "Draw and recognise cubic, power and exponential graphs.",
+      "bullets": [
+        "2.10-s1",
+        "2.10-n1"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Solve an equation by drawing a suitable straight line on a curve.",
+      "bullets": [
+        "2.10-n2"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Draw and use graphs for [[exponential-growth|exponential growth]] and decay problems.",
+      "bullets": [
+        "2.10-s2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "2.2",
+    "2.5"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "table of values",
+    "quadratic graph",
+    "reciprocal graph",
+    "solve graphically",
+    "cubic graph",
+    "exponential graph"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-expand",
+      "prompt": "[[expand|Expand]] $(x + 1)(x - 4)$.",
+      "hint": "Multiply each term in the first bracket by each term in the second.",
+      "options": [
+        {
+          "text": "$x^{2} - 3x - 4$",
+          "correct": true
+        },
+        {
+          "text": "$x^{2} - 4$",
+          "correct": false
+        },
+        {
+          "text": "$x^{2} + 3x - 4$",
+          "correct": false
+        }
+      ],
+      "explain": "$x^{2} - 4x + x - 4 = x^{2} - 3x - 4$. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "(x + 1)*(x - 4)",
+        "form": "expanded"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-solve-linear",
+      "prompt": "Solve $4x + 10 = 0$.",
+      "hint": "Subtract $10$ from both sides first.",
+      "options": [
+        {
+          "text": "$x = -2.5$",
+          "correct": true
+        },
+        {
+          "text": "$x = 2.5$",
+          "correct": false
+        },
+        {
+          "text": "$x = -0.4$",
+          "correct": false
+        }
+      ],
+      "explain": "$4x = -10$, so $x = -10 \\div 4 = -2.5$. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "list",
+        "truth": "solve(Eq(4*x + 10, 0), x)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "tables",
+      "heading": "Tables of values and plotting",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[function|function]] is a rule that turns each input $x$ into one output $y$, such as $y = 3x - 2$. Its graph shows every input with its output."
+        },
+        {
+          "type": "text",
+          "text": "To draw the graph, make a [[table-of-values|table of values]]. Choose some $x$ values, then use [[substitution|substitution]] to work out $y$ for each one."
+        },
+        {
+          "type": "text",
+          "text": "Each column gives a point $(x, y)$. Plot each point with a small cross, $x$ across and $y$ up."
+        },
+        {
+          "type": "example",
+          "id": "ex-table-line",
+          "question": "Complete a table of values for $y = 3x - 2$ for $x = -1, 0, 1, 2, 3$.",
+          "steps": [
+            "Put each $x$ into $3x - 2$. For $x = -1$: $3(-1) - 2 = -3 - 2 = -5$.",
+            "For $x = 0$: $3(0) - 2 = -2$. For $x = 1$: $3 - 2 = 1$.",
+            "For $x = 2$: $6 - 2 = 4$. For $x = 3$: $9 - 2 = 7$.",
+            "The $y$ values go up by $3$ each time, so the points lie on a straight line. Join them with a ruler."
+          ],
+          "answer": "$y = -5, -2, 1, 4, 7$",
+          "verify": {
+            "kind": "list",
+            "truth": "[3*(-1) - 2, 3*0 - 2, 3*1 - 2, 3*2 - 2, 3*3 - 2]"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Negative $x$ values need care. Put them in brackets, and square before you apply any minus sign."
+        },
+        {
+          "type": "example",
+          "id": "ex-table-negative-square",
+          "question": "Complete a table of values for $y = -x^{2} + 4x + 1$ for $x = -1, 0, 1, 2, 3, 4, 5$.",
+          "steps": [
+            "For $x = -1$: $-(-1)^{2} + 4(-1) + 1$. Square first: $(-1)^{2} = 1$, so this is $-1 - 4 + 1 = -4$.",
+            "For $x = 0$: $-0 + 0 + 1 = 1$. For $x = 1$: $-1 + 4 + 1 = 4$.",
+            "For $x = 2$: $-4 + 8 + 1 = 5$. For $x = 3$: $-9 + 12 + 1 = 4$.",
+            "For $x = 4$: $-16 + 16 + 1 = 1$. For $x = 5$: $-25 + 20 + 1 = -4$.",
+            "Check: the values rise to $5$ and fall back in the same steps, as a parabola's should."
+          ],
+          "answer": "$y = -4, 1, 4, 5, 4, 1, -4$",
+          "verify": {
+            "kind": "list",
+            "truth": "[-(-1)**2 + 4*(-1) + 1, -0**2 + 4*0 + 1, -1**2 + 4*1 + 1, -2**2 + 4*2 + 1, -3**2 + 4*3 + 1, -4**2 + 4*4 + 1, -5**2 + 4*5 + 1]"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "powers",
+          "values": {
+            "base": "1",
+            "power": "2"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Join the points of a curve with one smooth freehand curve, not with a ruler. Only a straight-line graph uses a ruler."
+        },
+        {
+          "type": "check",
+          "id": "check-table-value",
+          "prompt": "For $y = x^{2} + 3x - 4$, work out $y$ when $x = -5$.",
+          "hint": "Work out $(-5)^{2}$ and $3 \\times (-5)$ separately first.",
+          "options": [
+            {
+              "text": "$6$",
+              "correct": true
+            },
+            {
+              "text": "$-44$",
+              "correct": false
+            },
+            {
+              "text": "$36$",
+              "correct": false
+            }
+          ],
+          "explain": "$(-5)^{2} + 3(-5) - 4 = 25 - 15 - 4 = 6$. $-44$ comes from $-25$ for the square; $36$ from $+15$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(-5)**2 + 3*(-5) - 4"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-table-line",
+          "prompt": "For $y = 5 - 2x$, work out $y$ when $x = -3$.",
+          "hint": "$-2 \\times (-3)$ is positive.",
+          "answer": {
+            "value": 11,
+            "tolerance": 0
+          },
+          "explain": "$5 - 2(-3) = 5 + 6 = 11$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "5 - 2*(-3)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "shapes",
+      "heading": "Recognising the graphs",
+      "blocks": [
+        {
+          "type": "figure",
+          "id": "2-10-core-shapes",
+          "alt": "Four small graphs. A straight line y equals 2x plus 1. A U-shaped curve y equals x squared minus 4 with its lowest point at (0, minus 4). An upside-down U-shaped curve y equals 4 minus x squared with its highest point at (0, 4). The reciprocal graph y equals 4 over x: two separate curves in the top-right and bottom-left quarters that get close to both axes without touching them.",
+          "caption": "A line, two parabolas and a reciprocal graph."
+        },
+        {
+          "type": "text",
+          "text": "$y = mx + c$ is a [[linear-graph|linear graph]]: a straight line. It crosses the $y$-axis at $c$, and $m$ sets how steep it is."
+        },
+        {
+          "type": "text",
+          "text": "$y = x^{2} + bx + c$ comes from a [[quadratic-expression|quadratic]]. Its graph is a [[parabola|parabola]]: a U shape with a lowest point. With $-x^{2}$ it turns over into an upside-down U with a highest point."
+        },
+        {
+          "type": "text",
+          "text": "A parabola is symmetrical about a vertical line through its lowest or highest point. If two $x$ values give the same $y$, the line of symmetry is halfway between them."
+        },
+        {
+          "type": "example",
+          "id": "ex-lowest-point",
+          "question": "A table of values for $y = x^{2} - 5x + 2$ gives $y = -4$ at both $x = 2$ and $x = 3$. Find the line of symmetry and the lowest point of the graph.",
+          "steps": [
+            "Equal $y$ values sit either side of the line of symmetry. Halfway between $2$ and $3$ is $\\frac{2 + 3}{2} = 2.5$, so the line is $x = 2.5$.",
+            "The lowest point is on that line. Substitute $x = 2.5$: $2.5^{2} - 5(2.5) + 2 = 6.25 - 12.5 + 2 = -4.25$.",
+            "$-4.25$ is below $-4$: the curve dips between $x = 2$ and $x = 3$, with no flat bottom."
+          ],
+          "answer": "$(2.5, -4.25)$",
+          "verify": {
+            "kind": "point",
+            "truth": "((2 + 3)/2, ((2 + 3)/2)**2 - 5*((2 + 3)/2) + 2)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing the line of symmetry as $y = 2.5$. A vertical line has an equation $x = \\ldots$."
+        },
+        {
+          "type": "text",
+          "text": "$y = \\frac{a}{x}$, with $a \\ne 0$, is a [[reciprocal|reciprocal]] graph. You can't divide by $0$, so there is no point at $x = 0$. The graph is two separate curves."
+        },
+        {
+          "type": "text",
+          "text": "As $x$ moves away from $0$, $\\frac{a}{x}$ gets closer to $0$. So each curve gets closer and closer to the axes but never touches them."
+        },
+        {
+          "type": "example",
+          "id": "ex-reciprocal-table",
+          "question": "Complete a table of values for $y = -\\frac{6}{x}$ for $x = -3, -2, -1, 1, 2, 3$. Describe where the graph lies.",
+          "steps": [
+            "For $x = -3$: $-\\frac{6}{-3} = 2$. For $x = -2$: $3$. For $x = -1$: $6$.",
+            "For $x = 1$: $-6$. For $x = 2$: $-3$. For $x = 3$: $-2$.",
+            "Negative $x$ gives positive $y$, so one curve is top left. Positive $x$ gives negative $y$, so the other is bottom right.",
+            "Draw each curve smoothly through its own three points. Leave a gap at $x = 0$: never join the two curves."
+          ],
+          "answer": "$y = 2, 3, 6, -6, -3, -2$",
+          "verify": {
+            "kind": "list",
+            "truth": "[-6/(-3), -6/(-2), -6/(-1), -6/1, -6/2, -6/3]"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-shape-word",
+          "prompt": "Which describes the graph of $y = 7 - x^{2}$?",
+          "hint": "Is the $x^{2}$ term positive or negative?",
+          "options": [
+            {
+              "text": "An upside-down U shape with its highest point on the y-axis",
+              "correct": true
+            },
+            {
+              "text": "A U shape with its lowest point on the y-axis",
+              "correct": false
+            },
+            {
+              "text": "A straight line sloping down",
+              "correct": false
+            },
+            {
+              "text": "Two separate curves, one each side of the y-axis",
+              "correct": false
+            }
+          ],
+          "explain": "The $-x^{2}$ turns the parabola upside down. At $x = 0$, $y = 7$ is the highest point.",
+          "verify": {
+            "kind": "choice",
+            "truth": "An upside-down U shape with its highest point on the y-axis"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-symmetry-line",
+          "prompt": "A table for a quadratic graph has $y = 9$ at $x = -4$ and at $x = 1$. What is the line of symmetry?",
+          "hint": "Find the number halfway between $-4$ and $1$.",
+          "options": [
+            {
+              "text": "$x = -1.5$",
+              "correct": true
+            },
+            {
+              "text": "$y = -1.5$",
+              "correct": false
+            },
+            {
+              "text": "$x = -2.5$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{-4 + 1}{2} = -1.5$, and the line is vertical, so $x = -1.5$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(x, (-4 + 1)/2)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "solving",
+      "heading": "Solving equations with a graph",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[root|root]] of $x^{2} - 2x - 4 = 0$ is a value of $x$ that makes it true. On the graph of $y = x^{2} - 2x - 4$, $y = 0$ there: the roots are where the curve crosses the $x$-axis."
+        },
+        {
+          "type": "figure",
+          "id": "2-10-solve-graph",
+          "alt": "Grid with the U-shaped curve y equals x squared minus 2x minus 4, lowest point at (1, minus 5). Dots mark where it crosses the x-axis, at about minus 1.2 and 3.2. A dashed horizontal line y equals 2 meets the curve at about minus 1.6 and 3.6, also marked with dots.",
+          "caption": "Roots on the $x$-axis, and where the curve meets the line $y = 2$."
+        },
+        {
+          "type": "example",
+          "id": "ex-roots-from-graph",
+          "question": "The graph of $y = x^{2} - 2x - 4$ is drawn for $-2 \\le x \\le 4$. Use it to solve $x^{2} - 2x - 4 = 0$. Give your answers to $1$ decimal place.",
+          "steps": [
+            "The equation says $y = 0$, so look at the $x$-axis.",
+            "The curve crosses it twice. Read the $x$ value at each crossing: about $-1.2$ and about $3.2$.",
+            "Check: both readings are the same distance, $2.2$, from the line of symmetry $x = 1$."
+          ],
+          "answer": "$x \\approx -1.2 \\text{ or } x \\approx 3.2$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(Eq(x**2 - 2*x - 4, 0), x)",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To solve $x^{2} - 2x - 4 = k$ for a number $k$, draw the horizontal line $y = k$. Read the $x$ values where it meets the curve."
+        },
+        {
+          "type": "mistake",
+          "text": "Reading the $x$-axis crossings for an equation that isn't $= 0$. Those solve $\\ldots = 0$ only. For $\\ldots = 2$, use the line $y = 2$."
+        },
+        {
+          "type": "check",
+          "id": "check-read-line",
+          "prompt": "Use the figure to solve $x^{2} - 2x - 4 = 2$, to $1$ decimal place.",
+          "hint": "Which line on the figure is $y = 2$?",
+          "options": [
+            {
+              "text": "$x \\approx -1.6 \\text{ or } x \\approx 3.6$",
+              "correct": true
+            },
+            {
+              "text": "$x \\approx -1.2 \\text{ or } x \\approx 3.2$",
+              "correct": false
+            },
+            {
+              "text": "$x \\approx -0.7 \\text{ or } x \\approx 2.7$",
+              "correct": false
+            }
+          ],
+          "explain": "The dashed line $y = 2$ meets the curve at about $-1.6$ and $3.6$. The $x$-axis readings solve $\\ldots = 0$ instead.",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(Eq(x**2 - 2*x - 4, 2), x)",
+            "dp": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": "Two graphs on the same grid meet where both equations are true. So the $x$-coordinates of the crossing points solve 'one rule $=$ the other rule'."
+        },
+        {
+          "type": "example",
+          "id": "ex-line-meets-curve",
+          "question": "The graphs of $y = \\frac{8}{x}$ and $y = x + 2$ are drawn on the same grid for $-6 \\le x \\le 6$. Use them to solve $\\frac{8}{x} = x + 2$.",
+          "steps": [
+            "Use a ruler for $y = x + 2$. Two easy points on it are $(0, 2)$ and $(2, 4)$.",
+            "It meets the right-hand curve of $y = \\frac{8}{x}$ at $(2, 4)$ and the left-hand curve at $(-4, -2)$.",
+            "The solutions are the $x$-coordinates of these points.",
+            "Check: $\\frac{8}{2} = 4 = 2 + 2$ and $\\frac{8}{-4} = -2 = -4 + 2$."
+          ],
+          "answer": "$x = -4 \\text{ or } x = 2$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(Eq(8/x, x + 2), x)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-which-equation",
+          "prompt": "The line $y = 4$ is drawn on the graph of $y = x^{2} + x - 3$. Which equation do the $x$ values of the crossing points solve?",
+          "hint": "Set the curve's rule equal to $4$, then make one side $0$.",
+          "options": [
+            {
+              "text": "$x^{2} + x - 7 = 0$",
+              "correct": true
+            },
+            {
+              "text": "$x^{2} + x + 1 = 0$",
+              "correct": false
+            },
+            {
+              "text": "$x^{2} + x - 3 = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{2} + x - 3 = 4$, so $x^{2} + x - 7 = 0$. $x^{2} + x - 3 = 0$ is what the $x$-axis solves.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(x**2 + x - 3, 4)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "In a real situation, read what a root means. Sometimes only one root makes sense."
+        },
+        {
+          "type": "check",
+          "id": "check-ball-lands",
+          "prompt": "A ball's height is $h$ metres after $t$ seconds, where $h = 12 + 4t - t^{2}$. Its graph crosses the $t$-axis at $t = -2$ and $t = 6$. After how many seconds does the ball land?",
+          "hint": "Landing means $h = 0$. Can time be negative here?",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "explain": "Both roots make $h = 0$, but time after the throw can't be negative. The ball lands after $6$ seconds.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Max(solve(Eq(12 + 4*t - t**2, 0), t)[0], solve(Eq(12 + 4*t - t**2, 0), t)[1])",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "more-curves",
+      "heading": "Cubic and other power graphs",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Extended uses graphs of $y = ax^{n}$ for $n = -2, -1, -\\frac{1}{2}, 0, \\frac{1}{2}, 1, 2, 3$, and sums of up to three of these. Recall $x^{\\frac{1}{2}} = \\sqrt{x}$ and $x^{-1} = \\frac{1}{x}$."
+        },
+        {
+          "type": "figure",
+          "id": "2-10-power-shapes",
+          "alt": "Four small graphs. The cubic y equals x cubed: an S-shaped curve through the origin, rising from bottom left to top right. y equals 1 over x squared: two curves, both above the x-axis, one each side of the y-axis. y equals the square root of x: starts at the origin and rises more and more slowly. y equals 1 over the square root of x: only for positive x, falling steeply and then levelling off towards the x-axis.",
+          "caption": "Four more shapes to recognise."
+        },
+        {
+          "type": "text",
+          "text": "A cubic, with $x^{3}$, is S-shaped. With $+x^{3}$ it ends high on the right; with $-x^{3}$ it ends low on the right."
+        },
+        {
+          "type": "text",
+          "text": "$y = \\frac{a}{x^{2}}$ never changes sign, since $x^{2} > 0$. $\\sqrt{x}$ needs $x \\ge 0$, and $\\frac{1}{\\sqrt{x}}$ needs $x > 0$. $y = ax^{0}$ is the horizontal line $y = a$."
+        },
+        {
+          "type": "text",
+          "text": "For a sum such as $y = x^{3} - 4x + 2$, work out each term separately in the table, then add. A negative power means no value at $x = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cubic-table",
+          "question": "Complete the table of values for $y = x^{3} - 4x + 2$ at $x = -3$, $x = -1$ and $x = 2$.",
+          "steps": [
+            "For $x = -3$: $(-3)^{3} = -27$ and $-4(-3) = 12$, so $y = -27 + 12 + 2 = -13$.",
+            "For $x = -1$: $(-1)^{3} = -1$ and $-4(-1) = 4$, so $y = -1 + 4 + 2 = 5$.",
+            "For $x = 2$: $8 - 8 + 2 = 2$.",
+            "A negative number cubed stays negative, unlike a square."
+          ],
+          "answer": "$y = -13, 5, 2$",
+          "verify": {
+            "kind": "list",
+            "truth": "[(-3)**3 - 4*(-3) + 2, (-1)**3 - 4*(-1) + 2, 2**3 - 4*2 + 2]"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-power-sum",
+          "prompt": "For $y = 2\\sqrt{x} + \\frac{1}{x}$, work out $y$ when $x = 4$.",
+          "hint": "Work out $\\sqrt{4}$ and $\\frac{1}{4}$ first.",
+          "answer": {
+            "value": 4.25,
+            "tolerance": 0.005
+          },
+          "explain": "$2\\sqrt{4} + \\frac{1}{4} = 4 + 0.25 = 4.25$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*sqrt(4) + 1/4",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-power-shape",
+          "prompt": "Which describes the graph of $y = \\frac{5}{x^{2}}$?",
+          "hint": "Can $\\frac{5}{x^{2}}$ ever be negative?",
+          "options": [
+            {
+              "text": "Two curves, both above the x-axis, one each side of the y-axis",
+              "correct": true
+            },
+            {
+              "text": "Two curves in opposite quarters, like the reciprocal graph",
+              "correct": false
+            },
+            {
+              "text": "One curve starting at the origin and rising more and more slowly",
+              "correct": false
+            },
+            {
+              "text": "An S-shaped curve through the origin",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{2}$ is positive on both sides of $0$, so $y$ is always positive. There is no point at $x = 0$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Two curves, both above the x-axis, one each side of the y-axis"
+          }
+        },
+        {
+          "type": "text",
+          "text": "To solve a new equation with a curve you have drawn, rearrange it so one side is the curve's rule. The other side is a straight line: draw it and read the crossings."
+        },
+        {
+          "type": "example",
+          "id": "ex-suitable-line",
+          "question": "You have drawn $y = x^{3} - 4x + 2$ for $-3 \\le x \\le 3$. Use it, with a suitable straight line, to solve $x^{3} - 6x + 1 = 0$. Give your answers to $1$ decimal place.",
+          "steps": [
+            "Make the left side $x^{3} - 4x + 2$. Add $2x + 1$ to both sides: $x^{3} - 6x + 1 + 2x + 1 = 2x + 1$.",
+            "So $x^{3} - 4x + 2 = 2x + 1$. The line to draw is $y = 2x + 1$.",
+            "Rule it through $(0, 1)$ and $(2, 5)$. There are three crossing points.",
+            "Their $x$ values are about $-2.5$, $0.2$ and $2.4$."
+          ],
+          "answer": "$x \\approx -2.5 \\text{ or } x \\approx 0.2 \\text{ or } x \\approx 2.4$",
+          "verify": {
+            "kind": "list",
+            "truth": "real_roots(x**3 - 6*x + 1)",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "If the equation has a fraction such as $\\frac{3}{x}$, you may need to multiply through by $x$. Multiply every term on both sides, not just one."
+        },
+        {
+          "type": "check",
+          "id": "check-suitable-line",
+          "prompt": "Which line would you draw on the graph of $y = x^{3} - 4x + 2$ to solve $x^{3} - 5x - 1 = 0$?",
+          "hint": "Work out $(x^{3} - 4x + 2) - (x^{3} - 5x - 1)$.",
+          "options": [
+            {
+              "text": "$y = x + 3$",
+              "correct": true
+            },
+            {
+              "text": "$y = x - 3$",
+              "correct": false
+            },
+            {
+              "text": "$y = -x - 3$",
+              "correct": false
+            }
+          ],
+          "explain": "$x^{3} - 4x + 2 - (x^{3} - 5x - 1) = x + 3$, so $x^{3} - 5x - 1 = 0$ becomes $x^{3} - 4x + 2 = x + 3$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, (x**3 - 4*x + 2) - (x**3 - 5*x - 1))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "exponential",
+      "heading": "Exponential graphs, growth and decay",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In $y = ab^{x} + c$ the $x$ is the power. For a whole number $b > 1$, $b^{x}$ grows faster and faster as $x$ increases."
+        },
+        {
+          "type": "text",
+          "text": "$b^{0} = 1$, so the curve crosses the $y$-axis at $a + c$. As $x$ becomes very negative, $b^{x}$ gets close to $0$. So the curve gets closer to the line $y = c$ but never reaches it."
+        },
+        {
+          "type": "figure",
+          "id": "2-10-exponential",
+          "alt": "Grid with the curve y equals 3 times 2 to the power x, minus 4. On the left it is almost flat, just above a dashed horizontal line y equals minus 4 that it never reaches. It crosses the y-axis at (0, minus 1), marked with a dot, then rises more and more steeply.",
+          "caption": "$y = 3 \\times 2^{x} - 4$ gets close to $y = -4$ on the left."
+        },
+        {
+          "type": "example",
+          "id": "ex-exp-table",
+          "question": "Complete a table of values for $y = 3 \\times 2^{x} - 4$ for $x = -2, -1, 0, 1, 2, 3$.",
+          "steps": [
+            "For $x = -2$: $2^{-2} = \\frac{1}{4}$, so $y = 3 \\times 0.25 - 4 = -3.25$.",
+            "For $x = -1$: $3 \\times 0.5 - 4 = -2.5$. For $x = 0$: $3 \\times 1 - 4 = -1$.",
+            "For $x = 1$: $6 - 4 = 2$. For $x = 2$: $12 - 4 = 8$. For $x = 3$: $24 - 4 = 20$.",
+            "The curve crosses the $y$-axis at $3 + (-4) = -1$ and gets close to $y = -4$ on the left."
+          ],
+          "answer": "$y = -3.25, -2.5, -1, 2, 8, 20$",
+          "verify": {
+            "kind": "list",
+            "truth": "[3*2**(-2) - 4, 3*2**(-1) - 4, 3*2**0 - 4, 3*2**1 - 4, 3*2**2 - 4, 3*2**3 - 4]"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-exp-asymptote",
+          "prompt": "Which horizontal line does the graph of $y = 2 \\times 3^{x} - 5$ get closer to as $x$ becomes very negative?",
+          "hint": "What happens to $3^{x}$ when $x$ is very negative?",
+          "options": [
+            {
+              "text": "$y = -5$",
+              "correct": true
+            },
+            {
+              "text": "$y = -3$",
+              "correct": false
+            },
+            {
+              "text": "$y = 2$",
+              "correct": false
+            }
+          ],
+          "explain": "$3^{x}$ gets close to $0$, so $y$ gets close to $2 \\times 0 - 5 = -5$. $y = -3$ is where it crosses the $y$-axis.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, limit(2*3**x - 5, x, -oo))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Exponential growth multiplies an amount by the same number above $1$ each step. [[exponential-decay|Exponential decay]] multiplies by a number between $0$ and $1$."
+        },
+        {
+          "type": "hlNote",
+          "text": "Growth and decay, and their multipliers, are taught in full in Exponential growth and decay.",
+          "lesson": "1.17"
+        },
+        {
+          "type": "text",
+          "text": "For a growth or decay problem, make a table, plot the points and join them with a smooth curve. Then read values across or up from the graph."
+        },
+        {
+          "type": "example",
+          "id": "ex-decay-graph",
+          "question": "A machine is worth $\\$18\\,000$ when new. Its value after $t$ years is $V = 18\\,000 \\times 0.8^{t}$. Draw the graph for $0 \\le t \\le 6$ and use it to estimate when the value falls to $\\$9000$. Give your answer to $1$ decimal place.",
+          "steps": [
+            "Make a table, to the nearest $\\$10$: $t = 0, 1, 2, 3, 4, 5, 6$ gives $V = 18\\,000, 14\\,400, 11\\,520, 9220, 7370, 5900, 4720$.",
+            "Plot the points and join them with a smooth curve. It falls more and more slowly.",
+            "Draw the horizontal line $V = 9000$. It meets the curve just after $t = 3$.",
+            "Read across and down: $t \\approx 3.1$ years."
+          ],
+          "answer": "$t \\approx 3.1$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(9000/18000)/log(0.8)",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "powers",
+          "values": {
+            "base": "0.8",
+            "power": "3"
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-growth-graph",
+          "prompt": "A colony of $400$ cells doubles every hour, so $N = 400 \\times 2^{t}$ after $t$ hours. Using a graph, estimate when $N$ reaches $3000$. Give your answer to $1$ decimal place.",
+          "hint": "$400 \\times 2^{2} = 1600$ and $400 \\times 2^{3} = 3200$. Where between does $3000$ come?",
+          "answer": {
+            "value": 2.9,
+            "tolerance": 0.05
+          },
+          "explain": "The line $N = 3000$ meets the curve just before $t = 3$, at about $t = 2.9$ hours.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "log(3000/400)/log(2)",
+            "dp": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Table of values: put negative $x$ in brackets and square first. At $x = -3$, $-x^{2} = -9$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$y = mx + c$ is a straight line (ruler). Join the points of a curve smoothly freehand, never with a ruler.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$+x^{2}$ gives a U with a lowest point, $-x^{2}$ an upside-down U. The line of symmetry is halfway between two equal $y$ values.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$y = \\frac{a}{x}$ ($a \\ne 0$): two separate curves, no point at $x = 0$, never touching the axes.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Roots of $\\ldots = 0$: where the curve crosses or touches the $x$-axis. For $\\ldots = k$, read where it meets $y = k$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Two graphs meet where both rules are equal: the $x$-coordinates of the crossings solve one rule $=$ the other.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Suitable straight line: rearrange to curve's rule $=$ a line, then draw that line.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "$y = ab^{x} + c$ crosses the $y$-axis at $a + c$ and gets close to $y = c$ on the left (for $b > 1$).",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Squaring a negative wrongly. $(-3)^{2} = 9$, and $-x^{2}$ at $x = -3$ is $-(9) = -9$: square first, then apply the minus.",
+    "Losing a sign in a bracket. $2 \\times (-4) = -8$, not $8$.",
+    "Joining points with a ruler, or drawing a flat bottom between two equal $y$ values. A parabola turns smoothly between them.",
+    "Joining the two curves of a reciprocal graph across the $y$-axis. There is no point at $x = 0$, so leave the gap."
+  ],
+  "examTips": [
+    "“Draw the graph”: plot every point in the table accurately, then join them with a smooth curve (two separate pieces for a reciprocal graph). Use a ruler only for a straight line.",
+    "“Use your graph to solve”: draw the line you use on the grid, and give every solution in the range shown.",
+    "Asked for the lowest or highest point? Use the table's symmetry for $x$, then read $y$ from your curve."
+  ],
+  "readingMinutes": 25
+}

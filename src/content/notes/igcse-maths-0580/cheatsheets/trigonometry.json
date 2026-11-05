@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Missing side in a right-angled triangle, two sides known → Pythagoras: add the squares for the hypotenuse, subtract for a shorter side ({{lesson:6.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Right-angled triangle, an angle and one side known, another side wanted → label opposite, adjacent and hypotenuse from the angle, then use $\\sin$, $\\cos$ or $\\tan$ (SOH CAH TOA) ({{lesson:6.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Missing angle in a right-angled triangle, two sides known → $\\sin^{-1}$, $\\cos^{-1}$ or $\\tan^{-1}$ in degree mode, to 1 d.p. ({{lesson:6.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Bearings, or a right angle hidden in a bigger shape → draw one right-angled triangle at a time and keep full values between steps ({{lesson:6.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Angle of elevation or depression → measure it from the horizontal; the depression from the top equals the elevation from the bottom, so use it inside the right-angled triangle ({{lesson:6.2}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Shortest distance from a point to a line → the perpendicular distance, at right angles to the line ({{lesson:6.2}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "No calculator, angle of $30^{\\circ}$, $45^{\\circ}$ or $60^{\\circ}$ → exact values from half a square or half an equilateral triangle ({{lesson:6.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Solve $\\sin x = k$, $\\cos x = k$ or $\\tan x = k$ for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$ → find one angle with the minus sign ignored, then sketch the graph and the line $y = k$: every crossing in the range is an answer ({{lesson:6.4}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Triangle with no right angle, a side and the angle across from it known → sine rule; for an angle, also try $180^{\\circ} - x$ and keep it if it fits with the other angles ({{lesson:6.5}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Triangle with no right angle, two sides and the angle between them, or all three sides → cosine rule ({{lesson:6.5}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Area of a triangle from two sides and the angle between them → $\\tfrac{1}{2}ab\\sin C$ ({{lesson:6.5}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Length or angle inside a cuboid or pyramid → draw the hidden right-angled triangle flat; space diagonal $d^{2} = a^{2} + b^{2} + c^{2}$; for a line and a plane, use the angle between the line and its projection ({{lesson:6.6}})",
+      "tag": "learn",
+      "level": "Extended"
+    }
+  ]
+}

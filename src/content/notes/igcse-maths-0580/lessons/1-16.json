@@ -1,0 +1,532 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "1.16",
+  "slug": "money",
+  "title": "Money",
+  "level": "Core",
+  "topic": 1,
+  "summary": "Money questions are everyday sums: totals, change, bills and how many you can afford. You also change money between currencies using an [[exchange-rate|exchange rate]].",
+  "goals": [
+    {
+      "text": "Work out totals and change, with amounts in dollars and cents.",
+      "bullets": [
+        "1.16-c1"
+      ]
+    },
+    {
+      "text": "Work out bills with a fixed charge plus a [[rate|rate]], and how many items you can afford.",
+      "bullets": [
+        "1.16-c1"
+      ]
+    },
+    {
+      "text": "Change an amount from one currency to another, in either direction.",
+      "bullets": [
+        "1.16-c2"
+      ]
+    },
+    {
+      "text": "Compare prices in two currencies and round money to the nearest cent.",
+      "bullets": [
+        "1.16-c1",
+        "1.16-c2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "1.12"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "work out the change",
+    "currency conversion",
+    "exchange rate problems",
+    "how many can she buy",
+    "convert dollars to euros",
+    "money word problems"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-decimal-times",
+      "prompt": "Work out $4 \\times 2.35$ without a calculator.",
+      "hint": "Work out $4 \\times 235$, then put the decimal point back.",
+      "answer": {
+        "value": 9.4,
+        "tolerance": 0
+      },
+      "explain": "$4 \\times 235 = 940$. There are $2$ decimal places in $2.35$, so the answer is $9.40 = 9.4$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "4*Rational(235, 100)",
+        "dp": 1
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-cost-of-one",
+      "prompt": "A $5$ kg bag of rice costs \\$8.50. Find the cost of $1$ kg, in dollars.",
+      "hint": "Share the cost equally between the $5$ kg.",
+      "answer": {
+        "value": 1.7,
+        "tolerance": 0.005
+      },
+      "explain": "$8.50 \\div 5 = 1.70$, so $1$ kg costs \\$1.70. Revise it in {{lesson:1.12}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(850, 100)/5",
+        "dp": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "totals-change",
+      "heading": "Totals and change",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "There are $100$ cents in \\$1. So $85$ cents is \\$0.85, and \\$2.07 is $2$ dollars and $7$ cents."
+        },
+        {
+          "type": "text",
+          "text": "When an amount has cents, write two decimal places. \\$4.5 means \\$4.50, so write \\$4.50. A whole number of dollars, such as \\$141, needs no decimals."
+        },
+        {
+          "type": "text",
+          "text": "Your change is the money you hand over minus the total cost. Work out the whole total first, then subtract once."
+        },
+        {
+          "type": "example",
+          "id": "ex-change-cafe",
+          "question": "Lena buys $3$ muffins at \\$1.85 each and a tea for $90$ cents. She pays with a \\$10 note. Work out her change.",
+          "steps": [
+            "Muffins: $3 \\times 1.85$. Think of it as $3 \\times 2 - 3 \\times 0.15 = 6 - 0.45 = 5.55$.",
+            "Tea: $90$ cents $=$ \\$0.90.",
+            "Total: $5.55 + 0.90 = 6.45$.",
+            "Change: $10 - 6.45 = 3.55$.",
+            "Check: $6.45 + 3.55 = 10$."
+          ],
+          "answer": "$\\$3.55$",
+          "verify": {
+            "kind": "money",
+            "truth": "10 - (3*Rational(185, 100) + Rational(90, 100))"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-change-pens",
+            "prompt": "Omar buys $2$ pens at \\$1.35 each and a notebook at \\$2.60. How much change does he get from \\$20?",
+            "hint": "Find the cost of both pens and the notebook first.",
+            "options": [
+              {
+                "text": "$\\$14.70$",
+                "correct": true
+              },
+              {
+                "text": "$\\$16.05$",
+                "correct": false
+              },
+              {
+                "text": "$\\$17.30$",
+                "correct": false
+              }
+            ],
+            "explain": "The total is $2 \\times 1.35 + 2.60 = 5.30$, so the change is $20 - 5.30 = 14.70$. \\$16.05 counts only one pen, and \\$17.30 leaves out the notebook.",
+            "verify": {
+              "kind": "money",
+              "truth": "20 - (2*Rational(135, 100) + Rational(260, 100))"
+            }
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing cents and dollars. $35$ cents plus \\$1.20 is $0.35 + 1.20 = 1.55$, so \\$1.55, not $36.20$."
+        },
+        {
+          "type": "text",
+          "text": "Sometimes you know the total and need one price. Work backwards: take away what you know, then share what is left."
+        },
+        {
+          "type": "example",
+          "id": "ex-work-back-drink",
+          "question": "A bill for $4$ drinks, all the same price, and a pizza at \\$6.20 comes to \\$13.80. Work out the cost of one drink.",
+          "steps": [
+            "Take away the pizza: $13.80 - 6.20 = 7.60$. This is the cost of $4$ drinks.",
+            "Share between $4$ drinks: $7.60 \\div 4 = 1.90$.",
+            "Check: $4 \\times 1.90 + 6.20 = 7.60 + 6.20 = 13.80$."
+          ],
+          "answer": "$\\$1.90$",
+          "verify": {
+            "kind": "money",
+            "truth": "(Rational(1380, 100) - Rational(620, 100))/4"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cheese-cost",
+          "prompt": "Cheese costs \\$12.40 per kg. Work out the cost of $0.75$ kg of cheese, in dollars.",
+          "hint": "$0.75$ kg is $\\frac{3}{4}$ of a kilogram. Find $\\frac{1}{4}$ first.",
+          "answer": {
+            "value": 9.3,
+            "tolerance": 0.005
+          },
+          "explain": "$12.40 \\div 4 = 3.10$, and $3 \\times 3.10 = 9.30$. So the cheese costs \\$9.30.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1240, 100)*Rational(75, 100)",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "bills",
+      "heading": "Bills and how many you can buy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many bills have a fixed charge plus a [[rate|rate]], such as \\$1.80 per kilometre. You pay the fixed charge once."
+        },
+        {
+          "type": "text",
+          "text": "Total cost $=$ fixed charge $+$ rate $\\times$ number of units."
+        },
+        {
+          "type": "example",
+          "id": "ex-taxi-fare",
+          "question": "A taxi charges a fixed \\$3.50 plus \\$1.80 per kilometre. Work out the cost of a $12$ km journey.",
+          "steps": [
+            "Distance part: $12 \\times 1.80 = 21.60$, because $12 \\times 18 = 216$.",
+            "Add the fixed charge once: $21.60 + 3.50 = 25.10$."
+          ],
+          "answer": "$\\$25.10$",
+          "verify": {
+            "kind": "money",
+            "truth": "Rational(350, 100) + 12*Rational(180, 100)"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-plumber-bill",
+            "prompt": "A plumber charges a \\$45 call-out fee plus \\$32 per hour. Work out the cost of a $3$-hour job.",
+            "hint": "The call-out fee is paid once, not once per hour.",
+            "options": [
+              {
+                "text": "$\\$231$",
+                "correct": false
+              },
+              {
+                "text": "$\\$141$",
+                "correct": true
+              },
+              {
+                "text": "$\\$96$",
+                "correct": false
+              }
+            ],
+            "explain": "$45 + 3 \\times 32 = 45 + 96 = 141$. \\$231 charges the fee $3$ times, and \\$96 leaves the fee out.",
+            "verify": {
+              "kind": "money",
+              "truth": "45 + 3*32",
+              "dp": 0
+            }
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying the fixed charge by the number of units. Only the rate is multiplied. Add the fixed charge once at the end."
+        },
+        {
+          "type": "check",
+          "id": "check-phone-minutes",
+          "prompt": "A phone plan costs \\$15 a month plus $20$ cents per minute of calls. One month's bill is \\$39.80. How many minutes of calls were made?",
+          "hint": "Take away the \\$15 first. Then divide by \\$0.20.",
+          "answer": {
+            "value": 124,
+            "tolerance": 0
+          },
+          "explain": "$39.80 - 15 = 24.80$ is for calls. $24.80 \\div 0.20 = 248 \\div 2 = 124$ minutes.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(Rational(3980, 100) - 15)/Rational(20, 100)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "To find how many items you can afford, divide your money by the price. Then round down: rounding up costs more than you have."
+        },
+        {
+          "type": "example",
+          "id": "ex-how-many-tickets",
+          "question": "Cinema tickets cost \\$6.75 each. Priya has \\$50. Work out the greatest number of tickets she can buy.",
+          "steps": [
+            "Try $7$ tickets: $7 \\times 6.75 = 47.25$. That is less than \\$50.",
+            "Try $8$ tickets: $8 \\times 6.75 = 54$. That is more than \\$50.",
+            "So she can buy $7$ tickets. She has $50 - 47.25 = 2.75$ dollars left."
+          ],
+          "answer": "$7\\text{ tickets}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "floor(50/Rational(675, 100))",
+            "unit": "tickets"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-plants-left",
+          "prompt": "Plants cost \\$4.20 each. Jon has \\$30 and buys as many plants as he can. How much money, in dollars, does he have left?",
+          "hint": "How many lots of \\$4.20 fit into \\$30? Round down.",
+          "answer": {
+            "value": 0.6,
+            "tolerance": 0.005
+          },
+          "explain": "$30 \\div 4.20 = 7.14\\ldots$, so he buys $7$ plants for $7 \\times 4.20 = 29.40$. He has $30 - 29.40 = 0.60$ dollars left.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "30 - floor(30/Rational(420, 100))*Rational(420, 100)",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "currency",
+      "heading": "Converting currencies",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A currency is the kind of money a country uses, such as dollars or euros. An [[exchange-rate|exchange rate]] tells you what $1$ unit of one currency is worth in another."
+        },
+        {
+          "type": "text",
+          "text": "For example, \\$1 $=$ $0.92$ euros means each dollar changes into $0.92$ euros."
+        },
+        {
+          "type": "text",
+          "text": "Find the side of the rate with the $1$. Changing from that currency, multiply by the rate. Changing into it, divide by the rate."
+        },
+        {
+          "type": "figure",
+          "id": "1-16-convert-arrows",
+          "alt": "Two boxes, dollars on the left and euros on the right. An arrow from dollars to euros is labelled times 0.92. An arrow back from euros to dollars is labelled divide by 0.92. Underneath: the rate is 1 dollar equals 0.92 euros.",
+          "caption": "With \\$1 $= 0.92$ euros: multiply to get euros, divide to get dollars."
+        },
+        {
+          "type": "example",
+          "id": "ex-dollars-to-euros",
+          "question": "The exchange rate is \\$1 $=$ $0.92$ euros. Change \\$40 into euros.",
+          "steps": [
+            "You start in dollars, the side with the $1$, so multiply by $0.92$.",
+            "$40 \\times 0.92 = 4 \\times 9.2 = 36.8$.",
+            "Sense check: each dollar gives a bit less than $1$ euro, so you should get a bit less than $40$ euros."
+          ],
+          "answer": "$36.80\\text{ euros}$",
+          "verify": {
+            "kind": "money",
+            "truth": "40*Rational(92, 100)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-euros-to-dollars",
+          "question": "At the same rate, \\$1 $=$ $0.92$ euros, a bike costs $115$ euros. Work out its price in dollars.",
+          "steps": [
+            "You are changing into dollars, the side with the $1$, so divide by $0.92$.",
+            "$115 \\div 0.92 = 11\\,500 \\div 92$. Multiply both numbers by $100$ to clear the decimal.",
+            "$92 \\times 125 = 11\\,500$, so $11\\,500 \\div 92 = 125$.",
+            "Sense check: each dollar is worth less than $1$ euro, so you need more than $115$ dollars."
+          ],
+          "answer": "$\\$125$",
+          "verify": {
+            "kind": "money",
+            "truth": "115/Rational(92, 100)",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Converting the wrong way, by multiplying when you should divide. Before you write the answer, ask: should it be more or less than the amount I started with?"
+        },
+        {
+          "type": "check",
+          "id": "check-pesos-to-dollars",
+          "prompt": "The exchange rate is \\$1 $=$ $18.50$ Mexican pesos. Change $740$ pesos into dollars.",
+          "hint": "You are changing into dollars, the side with the $1$. Should the number get bigger or smaller?",
+          "options": [
+            {
+              "text": "$\\$13{,}690$",
+              "correct": false
+            },
+            {
+              "text": "$\\$40$",
+              "correct": true
+            },
+            {
+              "text": "$\\$400$",
+              "correct": false
+            }
+          ],
+          "explain": "$740 \\div 18.50 = 40$, so \\$40. Each dollar is worth many pesos, so the number of dollars is much smaller. \\$13,690 multiplies instead of dividing.",
+          "verify": {
+            "kind": "money",
+            "truth": "740/Rational(1850, 100)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "Some rates are given for $100$ units, such as \\$100 $=$ $8360$ rupees. Divide by $100$ to get the rate for \\$1, here $83.60$ rupees."
+        },
+        {
+          "type": "check",
+          "id": "check-rupees-per-hundred",
+          "prompt": "A bank gives $8360$ Indian rupees for \\$100. How many rupees does it give for \\$35?",
+          "hint": "Find the number of rupees for \\$1 first.",
+          "answer": {
+            "value": 2926,
+            "tolerance": 0
+          },
+          "explain": "\\$1 gives $8360 \\div 100 = 83.60$ rupees, so \\$35 gives $35 \\times 83.60 = 2926$ rupees.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "35*Rational(8360, 100)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "compare-round",
+      "heading": "Comparing prices and rounding to the cent",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To compare two prices in different currencies, change one of them so both are in the same currency. Then compare or subtract."
+        },
+        {
+          "type": "example",
+          "id": "ex-compare-trainers",
+          "question": "Trainers cost $64$ pounds in London and \\$83.50 in New York. The exchange rate is $1$ pound $=$ \\$1.27. The trainers are cheaper in London. Work out how much cheaper, in dollars.",
+          "steps": [
+            "Change the London price into dollars. Pounds are the side with the $1$, so multiply: $64 \\times 1.27 = 81.28$.",
+            "Both prices are now in dollars: \\$81.28 in London and \\$83.50 in New York.",
+            "Difference: $83.50 - 81.28 = 2.22$."
+          ],
+          "answer": "$\\$2.22$",
+          "verify": {
+            "kind": "money",
+            "truth": "Rational(8350, 100) - 64*Rational(127, 100)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A calculator answer often has more than two decimal places. Round money to the nearest cent, which is $2$ decimal places, only at the end."
+        },
+        {
+          "type": "example",
+          "id": "ex-yen-to-dollars",
+          "question": "The exchange rate is \\$1 $=$ $149.6$ Japanese yen. Change $20\\,000$ yen into dollars. Give your answer to the nearest cent.",
+          "steps": [
+            "You are changing into dollars, the side with the $1$, so divide: $20\\,000 \\div 149.6 = 133.689\\ldots$",
+            "The third decimal place is $9$, so round the cents up: $133.69$.",
+            "Sense check: $150$ yen is about \\$1, so $20\\,000$ yen is about $20\\,000 \\div 150 \\approx 133$ dollars."
+          ],
+          "answer": "$\\$133.69$",
+          "verify": {
+            "kind": "money",
+            "truth": "20000/Rational(1496, 10)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-euros-to-pounds",
+          "prompt": "The exchange rate is $1$ pound $=$ $1.17$ euros. Change $500$ euros into pounds. Give your answer to the nearest penny ($2$ decimal places).",
+          "hint": "You are changing into pounds, the side with the $1$. Divide, then round at the end.",
+          "answer": {
+            "value": 427.35,
+            "tolerance": 0.005
+          },
+          "explain": "$500 \\div 1.17 = 427.350\\ldots$, which is $427.35$ pounds to the nearest penny. Multiplying gives $585$, which is too big: each pound is worth more than $1$ euro.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "500/Rational(117, 100)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Give your answer correct to the nearest cent\" means $2$ decimal places, so write \\$12.50, not \\$12.5. \"To the nearest rupee\" means a whole number."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$100$ cents $=$ \\$1. When there are cents, write two decimal places: \\$4.50, not \\$4.5.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Change $=$ money handed over $-$ the whole total cost.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Bill $=$ fixed charge $+$ rate $\\times$ units. The fixed charge is paid once.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "How many can you buy: money $\\div$ price, then round down.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $1$ unit of A $= r$ units of B: A to B, multiply by $r$. B to A, divide by $r$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Compare prices in the same currency. Round money only at the end.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Converting the wrong way. Check the size: if each dollar is worth less than a euro, a price in euros must come out as more dollars.",
+    "Multiplying the fixed charge as well as the rate. Multiply only the rate, then add the fixed charge once.",
+    "Taking away only one item's price when finding change. Add up the whole bill first, then subtract it.",
+    "Rounding up the number of items you can afford. If you can afford $6.4$ items, you can buy $6$.",
+    "Adding cents to dollars without changing units. Write $35$ cents as \\$0.35 first."
+  ],
+  "examTips": [
+    "When you convert, write the calculation, such as $115 \\div 0.92$, before the answer. Then check the answer is the right size.",
+    "\"Complete the statement\" with a number of items and money left: give a whole number of items, and the money left to the cent."
+  ],
+  "readingMinutes": 18
+}
