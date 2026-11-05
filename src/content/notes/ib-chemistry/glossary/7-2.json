@@ -1,0 +1,80 @@
+[
+  {
+    "id": "random-error",
+    "term": "random error",
+    "definition": "TODO: Unpredictable variation; reduced by repeating and averaging; affects precision.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "systematic-error",
+    "term": "systematic error",
+    "definition": "TODO: Consistent offset; not reduced by averaging; affects accuracy.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "precision",
+    "term": "precision",
+    "definition": "TODO: Closeness of repeated measurements.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "accuracy",
+    "term": "accuracy",
+    "definition": "TODO: Closeness to the true value.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "absolute-uncertainty",
+    "term": "absolute uncertainty",
+    "definition": "TODO: Uncertainty with units (+-).",
+    "lesson": "7.2"
+  },
+  {
+    "id": "fractional-uncertainty",
+    "term": "fractional uncertainty",
+    "definition": "TODO: Absolute / measured value.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "percentage-uncertainty",
+    "term": "percentage uncertainty",
+    "definition": "TODO: Fractional x 100.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "percentage-error",
+    "term": "percentage error",
+    "definition": "TODO: (Experimental - accepted)/accepted x 100.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "percentage-change",
+    "term": "percentage change",
+    "definition": "TODO: Change / initial x 100.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "percentage-difference",
+    "term": "percentage difference",
+    "definition": "TODO: Difference / mean x 100.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "significant-figures",
+    "term": "significant figures",
+    "definition": "TODO: Digits that carry meaning.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "propagation-of-uncertainty",
+    "term": "propagation of uncertainty",
+    "definition": "TODO: Add absolute for + and -; add percentage for x and /; multiply by exponent for powers (HL).",
+    "lesson": "7.2"
+  },
+  {
+    "id": "processed-data",
+    "term": "processed data",
+    "definition": "TODO: Results from calculations on raw data.",
+    "lesson": "7.2"
+  }
+]
