@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 225" role="img" aria-labelledby="t">
+  <title id="t">Venn diagram of 30 students. Circle C is the chess club and circle D is the debate club. C only holds 9, the overlap holds 4, D only holds 6, and 11 students are outside both circles.</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <rect x="10" y="10" width="340" height="205"/>
+    <circle cx="135" cy="112" r="70"/>
+    <circle cx="225" cy="112" r="70"/>
+  </g>
+  <g font-family="inherit" font-size="17" fill="currentColor">
+    <text x="20" y="32">ℰ</text>
+    <text x="75" y="48">C</text>
+    <text x="276" y="48">D</text>
+  </g>
+  <g font-family="inherit" font-size="17" fill="var(--t1-ink)" font-weight="bold" text-anchor="middle">
+    <text x="110" y="118">9</text>
+    <text x="180" y="118">4</text>
+    <text x="250" y="118">6</text>
+  </g>
+  <text x="318" y="200" font-family="inherit" font-size="17" fill="currentColor" text-anchor="middle">11</text>
+</svg>

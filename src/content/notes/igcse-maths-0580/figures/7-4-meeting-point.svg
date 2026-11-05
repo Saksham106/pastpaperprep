@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 290" role="img" aria-labelledby="t">
+  <title id="t">Triangle OAB with arrow a from O to A along the bottom and arrow b from O up to B. P is on OA, three fifths of the way from O to A. A dashed line through A runs parallel to OB. The line from B through P is extended below OA until it meets the dashed line at Q.</title>
+  <line x1="30.0" y1="180.0" x2="221.0" y2="180.0" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <polygon points="230.0,180.0 219.0,184.9 219.0,175.1" fill="var(--t1-ink)"/>
+  <line x1="30.0" y1="180.0" x2="86.5" y2="48.3" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <polygon points="90.0,40.0 90.2,52.1 81.1,48.2" fill="var(--t3-ink)"/>
+  <line x1="251.0" y1="131.0" x2="190.0" y2="273.3" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <line x1="90.0" y1="40.0" x2="190.0" y2="273.3" stroke="var(--t5-ink)" stroke-width="2"/>
+  <circle cx="30.0" cy="180.0" r="3.5" fill="currentColor"/>
+  <circle cx="230.0" cy="180.0" r="3.5" fill="currentColor"/>
+  <circle cx="90.0" cy="40.0" r="3.5" fill="currentColor"/>
+  <circle cx="150.0" cy="180.0" r="3.5" fill="currentColor"/>
+  <circle cx="190.0" cy="273.3" r="3.5" fill="currentColor"/>
+  <text x="24.0" y="184.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="end" font-style="italic">O</text>
+  <text x="238.0" y="184.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="start" font-style="italic">A</text>
+  <text x="90.0" y="30.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="middle" font-style="italic">B</text>
+  <text x="140.0" y="198.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="end" font-style="italic">P</text>
+  <text x="198.0" y="283.3" fill="currentColor" font-size="15" font-family="inherit" text-anchor="start" font-style="italic">Q</text>
+  <text x="70.0" y="172.0" fill="var(--t1-ink)" font-size="15" font-family="inherit" text-anchor="middle" font-weight="bold">a</text>
+  <text x="50.0" y="115.0" fill="var(--t3-ink)" font-size="15" font-family="inherit" text-anchor="end" font-weight="bold">b</text>
+</svg>

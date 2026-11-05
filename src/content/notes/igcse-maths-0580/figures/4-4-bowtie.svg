@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 220" role="img" aria-labelledby="t">
+  <title id="t">Two triangles meeting at a point C, like a bow tie. Straight lines AD and BE cross at C. AB is a short vertical side on the left and DE is a longer vertical side on the right. AB and DE are parallel, shown by matching arrows. AC is 3.2 cm, CD is 8 cm and AB is 4.4 cm.</title>
+  <line x1="90" y1="75" x2="230" y2="197.5" stroke="currentColor" stroke-width="2"/>
+  <line x1="90" y1="145" x2="230" y2="22.5" stroke="currentColor" stroke-width="2"/>
+  <line x1="90" y1="75" x2="90" y2="145" stroke="var(--t1-ink)" stroke-width="2"/>
+  <line x1="230" y1="22.5" x2="230" y2="197.5" stroke="var(--t2-ink)" stroke-width="2"/>
+  <path d="M86,106 L90,113 L94,106" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <path d="M226,106 L230,113 L234,106" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/>
+  <g font-family="inherit" fill="currentColor" font-size="14">
+    <text x="82" y="72" text-anchor="end">A</text>
+    <text x="82" y="152" text-anchor="end">B</text>
+    <text x="130" y="96" text-anchor="middle">C</text>
+    <text x="240" y="204" text-anchor="start">D</text>
+    <text x="240" y="24" text-anchor="start">E</text>
+  </g>
+  <g font-family="inherit" font-size="12">
+    <text x="80" y="114" fill="var(--t1-ink)" text-anchor="end">4.4 cm</text>
+    <text x="112" y="80" fill="currentColor" text-anchor="start">3.2 cm</text>
+    <text x="172" y="170" fill="currentColor" text-anchor="end">8 cm</text>
+  </g>
+</svg>

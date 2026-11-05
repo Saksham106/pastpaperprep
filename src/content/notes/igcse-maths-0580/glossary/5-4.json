@@ -2,25 +2,25 @@
   {
     "id": "volume",
     "term": "volume",
-    "definition": "TODO: Space inside a solid.",
+    "definition": "The amount of space inside a solid, measured in cubic units such as $\\text{cm}^{3}$ or $\\text{m}^{3}$.",
     "lesson": "5.4"
   },
   {
     "id": "surface-area",
     "term": "surface area",
-    "definition": "TODO: Total area of all faces; curved surface area for cylinder and cone.",
+    "definition": "The total area of all the faces and curved surfaces of a solid, measured in square units such as $\\text{cm}^{2}$; the curved surface area of a cylinder or cone counts only the curved part, not the flat circles.",
     "lesson": "5.4"
   },
   {
     "id": "cross-section",
     "term": "cross-section",
-    "definition": "TODO: Face seen when cut; uniform cross-section.",
+    "definition": "The flat shape you see when you cut straight through a solid; a prism has the same cross-section all the way along its length.",
     "lesson": "5.4"
   },
   {
     "id": "slant-height",
     "term": "slant height",
-    "definition": "TODO: Sloping side of a cone or pyramid.",
+    "definition": "The distance from the top point of a cone down its sloping side to the edge of the base; on a pyramid, it is the height of a triangular face, measured at right angles to that face's base edge.",
     "lesson": "5.4"
   }
 ]

@@ -2,13 +2,13 @@
   {
     "id": "sine-rule",
     "term": "sine rule",
-    "definition": "TODO: Relates sides to opposite angles; ambiguous case.",
+    "definition": "In any triangle, each side divided by the sine of the angle across from it gives the same value: $\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}$; when it is used to find an angle, the angle may be acute or obtuse.",
     "lesson": "6.5"
   },
   {
     "id": "cosine-rule",
     "term": "cosine rule",
-    "definition": "TODO: Used with two sides and the included angle.",
+    "definition": "In any triangle, $a^{2} = b^{2} + c^{2} - 2bc\\cos A$, which links all three sides to one angle; use it with two sides and the angle between them, or with three sides.",
     "lesson": "6.5"
   }
 ]

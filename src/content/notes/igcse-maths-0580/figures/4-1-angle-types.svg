@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 165" role="img" aria-labelledby="t">
+  <title id="t">Four angles side by side. An acute angle of about 40 degrees, labelled less than 90 degrees. A right angle marked with a small square, labelled exactly 90 degrees. An obtuse angle of about 130 degrees, labelled 90 to 180 degrees. A reflex angle of about 235 degrees, with its arc going the long way round, labelled 180 to 360 degrees.</title>
+  <line x1="30.0" y1="100.0" x2="100.0" y2="100.0" stroke="currentColor" stroke-width="2"/>
+  <line x1="30.0" y1="100.0" x2="83.6" y2="55.0" stroke="currentColor" stroke-width="2"/>
+  <circle cx="30.0" cy="100.0" r="3" fill="currentColor"/>
+  <path d="M54.0,100.0 A24,24 0 0 0 48.4,84.6" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+  <text x="65.0" y="135.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">Acute</text>
+  <text x="65.0" y="152.0" fill="var(--muted)" font-size="12" text-anchor="middle" font-family="inherit">less than 90°</text>
+  <line x1="175.0" y1="100.0" x2="245.0" y2="100.0" stroke="currentColor" stroke-width="2"/>
+  <line x1="175.0" y1="100.0" x2="175.0" y2="30.0" stroke="currentColor" stroke-width="2"/>
+  <circle cx="175.0" cy="100.0" r="3" fill="currentColor"/>
+  <path d="M189.0,100.0 V86.0 H175.0" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+  <text x="210.0" y="135.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">Right angle</text>
+  <text x="210.0" y="152.0" fill="var(--muted)" font-size="12" text-anchor="middle" font-family="inherit">exactly 90°</text>
+  <line x1="345.0" y1="100.0" x2="415.0" y2="100.0" stroke="currentColor" stroke-width="2"/>
+  <line x1="345.0" y1="100.0" x2="300.0" y2="46.4" stroke="currentColor" stroke-width="2"/>
+  <circle cx="345.0" cy="100.0" r="3" fill="currentColor"/>
+  <path d="M369.0,100.0 A24,24 0 0 0 329.6,81.6" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+  <text x="350.0" y="135.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">Obtuse</text>
+  <text x="350.0" y="152.0" fill="var(--muted)" font-size="12" text-anchor="middle" font-family="inherit">90° to 180°</text>
+  <line x1="500.0" y1="80.0" x2="555.0" y2="80.0" stroke="currentColor" stroke-width="2"/>
+  <line x1="500.0" y1="80.0" x2="468.5" y2="125.1" stroke="currentColor" stroke-width="2"/>
+  <circle cx="500.0" cy="80.0" r="3" fill="currentColor"/>
+  <path d="M524.0,80.0 A24,24 0 1 0 486.2,99.7" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+  <text x="500.0" y="135.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">Reflex</text>
+  <text x="500.0" y="152.0" fill="var(--muted)" font-size="12" text-anchor="middle" font-family="inherit">180° to 360°</text>
+</svg>

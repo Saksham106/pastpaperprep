@@ -167,7 +167,7 @@
         },
         {
           "type": "text",
-          "text": "When the $x$ values go up in $1$s, the $y$ values of a linear equation go up (or down) by the same amount each time. A $y$ value that breaks the pattern is a slip, so recheck it before you plot."
+          "text": "When the $x$ values go up in $1$s, the $y$ values of a linear equation change by the same amount each time (for $y = k$ they don't change at all). A $y$ value that breaks the pattern is a slip, so recheck it before you plot."
         },
         {
           "type": "check",
@@ -230,7 +230,7 @@
               "correct": true
             }
           ],
-          "explain": "At $x = 3$, $y = -6 + 6 = 0$. At $x = -3$, $y = 12$, and at $x = 2$, $y = 2$.",
+          "explain": "At $x = 3$, $y = -6 + 6 = 0$. At $x = -3$, $y = 12$; at $x = 2$, $y = 2$; and at $x = 0$, $y = 6$.",
           "verify": {
             "kind": "point",
             "truth": "(3, -2*3 + 6)"
@@ -248,7 +248,7 @@
         },
         {
           "type": "text",
-          "text": "Choose easy $x$ values: the two ends of the range you are given, and $x = 0$. Then your line reaches right across."
+          "text": "Choose easy $x$ values: the two ends of the range you are given, and $x = 0$ (or a value in the middle if $0$ is outside the range). Then your line reaches right across."
         },
         {
           "type": "text",
@@ -493,7 +493,7 @@
         },
         {
           "type": "fact",
-          "text": "$ax + by = c$: put $x = 0$, then $y = 0$, to find where it crosses the axes. Or rearrange to $y = \\ldots$ first.",
+          "text": "$ax + by = c$ with $a$, $b$ and $c$ all non-zero: put $x = 0$, then $y = 0$, to find where it crosses the axes. Or rearrange to $y = \\ldots$ first.",
           "tag": "learn",
           "cheatSheet": true,
           "level": "Extended"
@@ -510,7 +510,7 @@
   ],
   "examTips": [
     "\"Draw the graph for $-3 \\le x \\le 3$\": rule a line that reaches both ends of that range. A short or freehand line loses marks.",
-    "\"Complete the table\": the marks are for the $y$ values. Check they go up or down in equal steps before you plot.",
+    "\"Complete the table\": the marks are for the $y$ values. Check they change in equal steps before you plot.",
     "Read the scale on each axis before you plot. One square is not always one unit."
   ],
   "readingMinutes": 15

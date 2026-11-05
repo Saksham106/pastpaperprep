@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 242" role="img" aria-labelledby="t">
+  <title id="t">Two diagrams. Left: a pentagon with two dashed lines from its top corner to the two far corners, splitting it into 3 triangles, so its angles add up to 3 times 180, which is 540 degrees. Right: a regular hexagon with each side extended past the next corner by a dashed line. At the top corner, the exterior angle e between the extended side and the next side is marked, next to the interior angle i inside the hexagon. The six exterior angles add up to 360 degrees, and i plus e is 180 degrees.</title>
+  <polygon points="130.0,35.0 63.4,83.4 88.9,161.6 171.1,161.6 196.6,83.4" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="130.0" y1="35.0" x2="88.9" y2="161.6" stroke="var(--t2-ink)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <line x1="130.0" y1="35.0" x2="171.1" y2="161.6" stroke="var(--t2-ink)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <circle cx="130.0" cy="35.0" r="3" fill="currentColor"/>
+  <circle cx="63.4" cy="83.4" r="3" fill="currentColor"/>
+  <circle cx="88.9" cy="161.6" r="3" fill="currentColor"/>
+  <circle cx="171.1" cy="161.6" r="3" fill="currentColor"/>
+  <circle cx="196.6" cy="83.4" r="3" fill="currentColor"/>
+  <text x="130.0" y="212.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">5 sides: 3 triangles</text>
+  <text x="130.0" y="230.0" fill="var(--muted)" font-size="12" text-anchor="middle" font-family="inherit">3 × 180° = 540°</text>
+  <polygon points="480.6,73.0 420.0,38.0 359.4,73.0 359.4,143.0 420.0,178.0 480.6,143.0" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="420.0" y1="38.0" x2="385.4" y2="18.0" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <line x1="359.4" y1="73.0" x2="324.7" y2="93.0" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <line x1="359.4" y1="143.0" x2="359.4" y2="183.0" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <line x1="420.0" y1="178.0" x2="454.6" y2="198.0" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <line x1="480.6" y1="143.0" x2="515.3" y2="123.0" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <line x1="480.6" y1="73.0" x2="480.6" y2="33.0" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <circle cx="480.6" cy="73.0" r="3" fill="currentColor"/>
+  <circle cx="420.0" cy="38.0" r="3" fill="currentColor"/>
+  <circle cx="359.4" cy="73.0" r="3" fill="currentColor"/>
+  <circle cx="359.4" cy="143.0" r="3" fill="currentColor"/>
+  <circle cx="420.0" cy="178.0" r="3" fill="currentColor"/>
+  <circle cx="480.6" cy="143.0" r="3" fill="currentColor"/>
+  <path d="M397.5,25.0 A26,26 0 0 0 397.5,51.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+  <text x="380.0" y="43.0" fill="var(--t1-ink)" font-size="13" text-anchor="middle" font-family="inherit">e</text>
+  <path d="M404.4,47.0 A18,18 0 0 0 435.6,47.0" fill="none" stroke="var(--t3-ink)" stroke-width="2.2"/>
+  <text x="420.0" y="75.0" fill="var(--t3-ink)" font-size="13" text-anchor="middle" font-family="inherit">i</text>
+  <text x="420.0" y="212.0" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">Exterior angles add up to 360°</text>
+  <text x="420.0" y="230.0" fill="var(--muted)" font-size="12" text-anchor="middle" font-family="inherit">interior i + exterior e = 180°</text>
+</svg>

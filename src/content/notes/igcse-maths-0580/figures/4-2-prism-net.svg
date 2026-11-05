@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 310" role="img" aria-labelledby="t">
+  <title id="t">Net of a triangular prism. Three rectangles sit side by side, each 8 cm tall, with widths 3 cm, 4 cm and 5 cm. A right-angled triangle with shorter sides 3 cm and 4 cm is joined to the top of the 4 cm rectangle, and an identical triangle is joined to its bottom. The right angles are at the corners next to the 3 cm rectangle.</title>
+  <rect x="30" y="70" width="48" height="128" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <rect x="78" y="70" width="64" height="128" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <rect x="142" y="70" width="80" height="128" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M78,70 L142,70 L78,22 Z" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M78,198 L142,198 L78,246 Z" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M86,70 L86,62 L78,62" fill="none" stroke="var(--t1-ink)" stroke-width="1.2"/>
+  <path d="M86,198 L86,206 L78,206" fill="none" stroke="var(--t1-ink)" stroke-width="1.2"/>
+  <g font-family="inherit">
+    <text x="54.0" y="64" fill="var(--t1-ink)" font-size="13" text-anchor="middle">3 cm</text>
+    <text x="110" y="88" fill="var(--t1-ink)" font-size="13" text-anchor="middle">4 cm</text>
+    <text x="182.0" y="64" fill="var(--t1-ink)" font-size="13" text-anchor="middle">5 cm</text>
+    <text x="228" y="139" fill="var(--t1-ink)" font-size="13" text-anchor="start">8 cm</text>
+  </g>
+</svg>

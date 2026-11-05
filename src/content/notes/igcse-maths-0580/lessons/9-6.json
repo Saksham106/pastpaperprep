@@ -1,0 +1,560 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "9.6",
+  "slug": "cumulative-frequency-diagrams",
+  "title": "Cumulative frequency diagrams",
+  "level": "Extended",
+  "topic": 9,
+  "summary": "A [[cumulative-frequency|cumulative frequency]] is a running total of the frequencies. Its graph is a [[cumulative-frequency-diagram|cumulative frequency diagram]], and from the curve you estimate the [[median|median]], the [[quartile|quartiles]], the [[interquartile-range|interquartile range]] and any [[percentile|percentile]].",
+  "goals": [
+    {
+      "text": "Build a cumulative frequency table and use it to count values.",
+      "bullets": [
+        "9.6-s1"
+      ]
+    },
+    {
+      "text": "Draw a cumulative frequency diagram.",
+      "bullets": [
+        "9.6-s1"
+      ]
+    },
+    {
+      "text": "Use the curve to estimate how many values are below or above a given value.",
+      "bullets": [
+        "9.6-s1"
+      ]
+    },
+    {
+      "text": "Estimate the median, quartiles and interquartile range, and say what they show.",
+      "bullets": [
+        "9.6-s2"
+      ]
+    },
+    {
+      "text": "Estimate a percentile, and the percentage of values below a given value.",
+      "bullets": [
+        "9.6-s2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "9.3"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "cumulative frequency curve",
+    "how to draw a cumulative frequency graph",
+    "median from a cumulative frequency graph",
+    "interquartile range from a graph",
+    "90th percentile",
+    "running total table"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-median-list",
+      "prompt": "Find the median of $13, 8, 22, 17, 11, 26, 19$.",
+      "hint": "Put the values in order first.",
+      "answer": {
+        "value": 17,
+        "tolerance": 0
+      },
+      "explain": "In order: $8, 11, 13, 17, 19, 22, 26$. The 4th of the $7$ values is $17$. Revise it in {{lesson:9.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "[8, 11, 13, 17, 19, 22, 26][3]",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-iqr",
+      "prompt": "The lower quartile of some data is $37$ and the upper quartile is $58$. Write down the interquartile range.",
+      "hint": "Subtract the lower quartile from the upper quartile.",
+      "answer": {
+        "value": 21,
+        "tolerance": 0
+      },
+      "explain": "IQR $=$ upper quartile $-$ lower quartile $= 58 - 37 = 21$. Revise it in {{lesson:9.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "58 - 37",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "tables",
+      "heading": "Cumulative frequency tables",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[grouped-frequency-table|grouped frequency table]] counts the values in each class. Often you want something else: how many values are up to a certain size."
+        },
+        {
+          "type": "definition",
+          "term": "Cumulative frequency",
+          "statement": "The [[cumulative-frequency|cumulative frequency]] at a value is the number of data values less than or equal to it. It is a running total of the frequencies.",
+          "plain": "Keep adding the frequencies as you move along the table."
+        },
+        {
+          "type": "text",
+          "text": "Each running total belongs to the top of its class, the upper boundary. For $26 < t \\le 30$, it counts every value up to $30$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cf-race-table",
+          "question": "The finishing times of $68$ runners in a fun run are grouped below. $\\begin{array}{c|ccccc} \\text{Time } t\\text{ (min)} & 22 < t \\le 26 & 26 < t \\le 30 & 30 < t \\le 34 & 34 < t \\le 38 & 38 < t \\le 46 \\\\ \\hline \\text{Frequency} & 5 & 17 & 26 & 15 & 5 \\end{array}$ Work out the cumulative frequency for each class.",
+          "steps": [
+            "First class: $5$ runners took $26$ minutes or less.",
+            "Add the next frequency: $5 + 17 = 22$ took $30$ minutes or less.",
+            "Keep adding: $22 + 26 = 48$, then $48 + 15 = 63$, then $63 + 5 = 68$.",
+            "Check: the last total equals the number of runners, $68$."
+          ],
+          "answer": "$5, 22, 48, 63, 68$",
+          "verify": {
+            "kind": "list",
+            "truth": "[5, 5 + 17, 5 + 17 + 26, 5 + 17 + 26 + 15, 5 + 17 + 26 + 15 + 5]"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To count the values above a boundary, subtract its running total from the total frequency."
+        },
+        {
+          "type": "example",
+          "id": "ex-cf-parcels",
+          "question": "A courier weighs $93$ parcels. $\\begin{array}{c|ccccc} \\text{Mass } m\\text{ (kg)} & m \\le 1 & m \\le 2 & m \\le 4 & m \\le 6 & m \\le 9 \\\\ \\hline \\text{Cumulative frequency} & 11 & 34 & 67 & 85 & 93 \\end{array}$ How many parcels have a mass of more than $4$ kg?",
+          "steps": [
+            "$67$ parcels are $4$ kg or less.",
+            "Subtract from the total: $93 - 67 = 26$."
+          ],
+          "answer": "$\\text{number of parcels} = 26$",
+          "verify": {
+            "kind": "exact",
+            "truth": "93 - 67"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cf-class-frequency",
+          "prompt": "Use the courier's table. How many parcels are more than $2$ kg but at most $4$ kg?",
+          "hint": "Both running totals count from the lightest parcel.",
+          "answer": {
+            "value": 33,
+            "tolerance": 0
+          },
+          "explain": "$67$ are at most $4$ kg and $34$ are at most $2$ kg, so $67 - 34 = 33$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "67 - 34",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "drawing",
+      "heading": "Drawing the diagram",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[cumulative-frequency-diagram|cumulative frequency diagram]] draws the running totals as a curve."
+        },
+        {
+          "type": "text",
+          "text": "1. Plot each cumulative frequency at the upper boundary of its class."
+        },
+        {
+          "type": "text",
+          "text": "2. Plot the start too: the lowest boundary, with cumulative frequency $0$. No runner finished in $22$ minutes or less, so the race curve starts at $(22, 0)$, not $(0, 0)$."
+        },
+        {
+          "type": "text",
+          "text": "3. Mark each point with a small cross. Join them with one smooth curve that never goes down."
+        },
+        {
+          "type": "text",
+          "text": "Why the upper boundary? The total $22$ means $22$ runners had finished by $30$ minutes, the end of the class. It is not true at the middle, $28$."
+        },
+        {
+          "type": "example",
+          "id": "ex-race-point",
+          "question": "Use the race-time table. Write down the point you plot for the class $34 < t \\le 38$.",
+          "steps": [
+            "The upper boundary of $34 < t \\le 38$ is $38$. The running total there is $5 + 17 + 26 + 15 = 63$.",
+            "So plot $(38, 63)$. All the points are $(22, 0)$, $(26, 5)$, $(30, 22)$, $(34, 48)$, $(38, 63)$ and $(46, 68)$."
+          ],
+          "answer": "$(38, 63)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(38, 5 + 17 + 26 + 15)"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "9-6-race-curve",
+          "alt": "Cumulative frequency diagram for the finishing times of 68 runners. Time in minutes across from 22 to 46, each small square 1 minute. Cumulative frequency up from 0 to 70, each small square 2 runners. Crosses at 22 minutes and 0, 26 and 5, 30 and 22, 34 and 48, 38 and 63, and 46 and 68, joined by a smooth S-shaped curve. The curve is steepest between 30 and 34 minutes. At 28 minutes it is at a height of about 12, and at 31 minutes about 28.",
+          "caption": "It is steepest where the most runners finished."
+        },
+        {
+          "type": "text",
+          "text": "To count from the curve, go up from a value to the curve, then across. The reading counts the values at or below it."
+        },
+        {
+          "type": "example",
+          "id": "ex-race-more-than",
+          "question": "Use the race curve to estimate how many runners took more than $31$ minutes.",
+          "steps": [
+            "Go up from $31$ minutes to the curve, then across. It reads about $28$.",
+            "So about $28$ runners took $31$ minutes or less.",
+            "The rest took longer: $68 - 28 = 40$."
+          ],
+          "answer": "$\\text{number of runners} = 40$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(5 + 17 + 26 + 15 + 5) - 28"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the reading, $28$, as the answer. It counts runners at or below $31$ minutes, so subtract it from the total."
+        },
+        {
+          "type": "check",
+          "id": "check-plot-boundary",
+          "prompt": "Where do you plot the cumulative frequency for the class $38 < t \\le 46$?",
+          "hint": "Which time have all these runners finished by?",
+          "options": [
+            {
+              "text": "$(46, 68)$",
+              "correct": true
+            },
+            {
+              "text": "$(42, 68)$",
+              "correct": false
+            },
+            {
+              "text": "$(38, 68)$",
+              "correct": false
+            },
+            {
+              "text": "$(46, 5)$",
+              "correct": false
+            }
+          ],
+          "explain": "Plot at the upper boundary, $46$, and the running total, $68$. $42$ is the midpoint, $38$ the lower boundary and $5$ the class frequency.",
+          "verify": {
+            "kind": "point",
+            "truth": "(46, 5 + 17 + 26 + 15 + 5)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-race-more-than",
+          "prompt": "Use the race curve to estimate how many runners took more than $28$ minutes.",
+          "hint": "Read up from $28$ and across, then subtract from $68$.",
+          "answer": {
+            "value": 56,
+            "tolerance": 0
+          },
+          "explain": "About $12$ runners took $28$ minutes or less, so $68 - 12 = 56$ took longer.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "68 - 12",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "quartiles",
+      "heading": "Median, quartiles and interquartile range",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For $n$ values, the [[median|median]] is the middle one. On the curve, go across from $\\frac{1}{2}n$, halfway up the total."
+        },
+        {
+          "type": "text",
+          "text": "The [[quartile|quartiles]] cut the data into quarters. Go across from $\\frac{1}{4}n$ for the lower quartile (LQ) and $\\frac{3}{4}n$ for the upper quartile (UQ)."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{LQ at } \\tfrac{1}{4}n, \\qquad \\text{median at } \\tfrac{1}{2}n, \\qquad \\text{UQ at } \\tfrac{3}{4}n",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "For a list you used $\\frac{n+1}{2}$. A curve gives only an estimate, so $\\frac{1}{2}n$ is fine."
+        },
+        {
+          "type": "text",
+          "text": "The [[interquartile-range|interquartile range]] is UQ $-$ LQ, read on the horizontal axis. It is the spread of the middle half of the data."
+        },
+        {
+          "type": "figure",
+          "id": "9-6-apple-quartiles",
+          "alt": "Cumulative frequency diagram for the masses of 160 apples. Mass in grams across from 100 to 220, each small square 4 grams. Cumulative frequency up from 0 to 160, each small square 4 apples. Crosses at 100 grams and 0, 120 and 8, 140 and 38, 160 and 90, 180 and 136, 200 and 154, and 220 and 160, joined by a smooth S-shaped curve. Three dashed lines go across to the curve and down to the mass axis: from 40 down to about 141 grams, labelled LQ; from 80 down to about 156 grams, labelled median; from 120 down to about 172 grams, labelled UQ. The curve also passes about 20 at 130 grams, and reaches 144 at about 187 grams.",
+          "caption": "Each dashed line starts at a running total and ends at an estimate."
+        },
+        {
+          "type": "example",
+          "id": "ex-apple-median",
+          "question": "A farm weighs $160$ apples. The diagram shows the results. Use it to estimate the median mass.",
+          "steps": [
+            "Half of the total: $\\frac{1}{2} \\times 160 = 80$.",
+            "Draw a line from $80$ across to the curve, then down. With $4$ g per small square, it lands at about $156$ g."
+          ],
+          "answer": "$\\text{median} \\approx 156\\text{ g}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "{40: 141, 80: 156, 120: 172}[Rational(1, 2)*160]",
+            "dp": 0,
+            "unit": "g"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-apple-iqr",
+          "question": "Use the same diagram to estimate the interquartile range of the masses.",
+          "steps": [
+            "Lower quartile: $\\frac{1}{4} \\times 160 = 40$. Across from $40$ and down gives about $141$ g.",
+            "Upper quartile: $\\frac{3}{4} \\times 160 = 120$. Across from $120$ and down gives about $172$ g.",
+            "IQR $= 172 - 141 = 31$ g.",
+            "The middle half of the apples cover about $31$ g."
+          ],
+          "answer": "$\\text{IQR} \\approx 31\\text{ g}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "{40: 141, 80: 156, 120: 172}[Rational(3, 4)*160] - {40: 141, 80: 156, 120: 172}[Rational(1, 4)*160]",
+            "dp": 0,
+            "unit": "g"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Going across from $25$ and $75$ for the quartiles. Those are percentages, not counts. For $160$ apples, go across from $40$ and $120$."
+        },
+        {
+          "type": "text",
+          "text": "To compare two data sets, use an average and a spread. A higher median means larger values on average. A smaller IQR means more consistent values."
+        },
+        {
+          "type": "check",
+          "id": "check-uq-position",
+          "prompt": "A curve shows $240$ values. Which cumulative frequency gives the upper quartile?",
+          "hint": "The upper quartile has three quarters of the values at or below it.",
+          "options": [
+            {
+              "text": "$180$",
+              "correct": true
+            },
+            {
+              "text": "$75$",
+              "correct": false
+            },
+            {
+              "text": "$120$",
+              "correct": false
+            },
+            {
+              "text": "$60$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{3}{4} \\times 240 = 180$. $120$ and $60$ give the median and lower quartile, and $75$ is a percentage, not a count.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(3, 4)*240"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-compare-farms",
+          "prompt": "Farm B's apples have median $163$ g and IQR $22$ g. Farm A's have median $156$ g and IQR $31$ g. Which is correct?",
+          "hint": "The median compares size. The IQR compares consistency.",
+          "options": [
+            {
+              "text": "B's are heavier on average and more consistent",
+              "correct": true
+            },
+            {
+              "text": "B's are heavier on average but less consistent",
+              "correct": false
+            },
+            {
+              "text": "A's are heavier on average and more consistent",
+              "correct": false
+            }
+          ],
+          "explain": "B's median is higher, so its apples are heavier on average. B's IQR is smaller, so their masses vary less.",
+          "verify": {
+            "kind": "choice",
+            "truth": "B's are heavier on average and more consistent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "percentiles",
+      "heading": "Percentiles",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Percentiles cut the data into hundredths, so you can ask about any percentage."
+        },
+        {
+          "type": "definition",
+          "term": "Percentile",
+          "statement": "The $p$th [[percentile|percentile]] is the value with $p\\%$ of the data at or below it. Go across from $\\frac{p}{100} \\times n$.",
+          "plain": "90% of the data are at or below the 90th percentile."
+        },
+        {
+          "type": "text",
+          "text": "The median is the $50$th percentile. The lower and upper quartiles are the $25$th and $75$th percentiles."
+        },
+        {
+          "type": "example",
+          "id": "ex-apple-90th",
+          "question": "Use the apple diagram to estimate the $90$th percentile of the masses.",
+          "steps": [
+            "$90\\%$ of $160$ is $0.9 \\times 160 = 144$.",
+            "Go across from $144$ to the curve, then down: about $187$ g.",
+            "So about $90\\%$ of the apples weigh $187$ g or less."
+          ],
+          "answer": "$90\\text{th percentile} \\approx 187\\text{ g}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "{144: 187}[Rational(90, 100)*160]",
+            "dp": 0,
+            "unit": "g"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "You can also go the other way: read the count at a value, then write it as a percentage of the total."
+        },
+        {
+          "type": "example",
+          "id": "ex-apple-juice",
+          "question": "Apples of $130$ g or less are sold for juice. Use the diagram to estimate the percentage of the $160$ apples sold for juice.",
+          "steps": [
+            "Go up from $130$ g to the curve, then across: about $20$ apples.",
+            "As a percentage: $\\frac{20}{160} \\times 100 = 12.5\\%$."
+          ],
+          "answer": "$\\text{percentage} = 12.5\\%$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(20, 160)*100",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-percentile-position",
+          "prompt": "A curve shows $350$ scores. Which cumulative frequency gives the $60$th percentile?",
+          "hint": "Find $60\\%$ of the total.",
+          "answer": {
+            "value": 210,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{60}{100} \\times 350 = 210$, so go across from $210$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(60, 100)*350",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-percentile-meaning",
+          "prompt": "Maya's reaction time is the $20$th percentile for her year. What does this mean?",
+          "hint": "A percentile is a value with a percentage of the data at or below it.",
+          "options": [
+            {
+              "text": "About 20% of her year had a time at or below hers",
+              "correct": true
+            },
+            {
+              "text": "She had the 20th fastest time",
+              "correct": false
+            },
+            {
+              "text": "Her time was 20% of the slowest time",
+              "correct": false
+            }
+          ],
+          "explain": "The $20$th percentile has $20\\%$ of the data at or below it. It is not a position or a fraction of another time.",
+          "verify": {
+            "kind": "choice",
+            "truth": "About 20% of her year had a time at or below hers"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Cumulative frequency is a running total. The last one is the total frequency.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Plot at (upper boundary, cumulative frequency). Start at (lowest boundary, $0$) and join with a smooth curve.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{LQ at } \\tfrac{1}{4}n, \\qquad \\text{median at } \\tfrac{1}{2}n, \\qquad \\text{UQ at } \\tfrac{3}{4}n",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "IQR $=$ UQ $-$ LQ, both read on the horizontal axis. The $p$th percentile: go across from $\\frac{p}{100} \\times n$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The curve counts values at or below a value. Number above it $=$ total $-$ reading.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Plotting at the midpoint or lower boundary of a class. Plot at the upper boundary.",
+    "Starting at $(0, 0)$ when the first class starts higher. Start at the lowest boundary, with cumulative frequency $0$.",
+    "Going across from $25$, $50$ and $75$ whatever the total. Use $\\frac{1}{4}$, $\\frac{1}{2}$ and $\\frac{3}{4}$ of the total frequency.",
+    "Answering \"how many are more than\" with the reading. Subtract the reading from the total.",
+    "Giving the IQR as two values. It is one value: UQ minus LQ, read on the horizontal axis."
+  ],
+  "examTips": [
+    "For **draw a cumulative frequency diagram**, the marks are for accurate points, including the start, and one smooth curve through them.",
+    "For **use your graph to find an estimate**, draw your reading lines on the graph. A reading close to the true one earns the mark, so read carefully against the small squares.",
+    "For **how many are more than** a value, show the reading and the subtraction from the total."
+  ],
+  "readingMinutes": 18
+}

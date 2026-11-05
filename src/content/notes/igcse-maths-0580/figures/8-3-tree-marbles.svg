@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 270" role="img" aria-labelledby="t">
+  <title id="t">Tree diagram for two marbles taken with replacement from a bag of 3 red and 5 blue. First marble: red 3 over 8, blue 5 over 8. After either colour the second marble has the same branches: red 3 over 8, blue 5 over 8. Path products: red red 9 over 64, red blue 15 over 64, blue red 15 over 64, blue blue 25 over 64.</title>
+  <g font-family="inherit" font-size="13" fill="var(--muted)">
+    <text x="105" y="16">First marble</text>
+    <text x="235" y="16">Second marble</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <line x1="20" y1="145" x2="135" y2="85"/>
+    <line x1="20" y1="145" x2="135" y2="205"/>
+    <line x1="185" y1="85" x2="285" y2="50"/>
+    <line x1="185" y1="85" x2="285" y2="120"/>
+    <line x1="185" y1="205" x2="285" y2="170"/>
+    <line x1="185" y1="205" x2="285" y2="240"/>
+  </g>
+  <g font-family="inherit" font-size="14" font-weight="bold">
+    <text x="142" y="90" fill="var(--t1-ink)">Red</text>
+    <text x="142" y="210" fill="var(--t2-ink)">Blue</text>
+    <text x="292" y="55" fill="var(--t1-ink)">Red</text>
+    <text x="292" y="125" fill="var(--t2-ink)">Blue</text>
+    <text x="292" y="175" fill="var(--t1-ink)">Red</text>
+    <text x="292" y="245" fill="var(--t2-ink)">Blue</text>
+  </g>
+  <g font-family="inherit" font-size="14" fill="currentColor">
+    <text x="55" y="105">3/8</text>
+    <text x="55" y="200">5/8</text>
+    <text x="210" y="56">3/8</text>
+    <text x="210" y="124">5/8</text>
+    <text x="210" y="176">3/8</text>
+    <text x="210" y="244">5/8</text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="var(--muted)">
+    <text x="340" y="55">9/64</text>
+    <text x="340" y="125">15/64</text>
+    <text x="340" y="175">15/64</text>
+    <text x="340" y="245">25/64</text>
+  </g>
+</svg>

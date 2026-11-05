@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 330" role="img" aria-labelledby="t">
+  <title id="t">Graph of the total cost of gym membership, T dollars, against the number of months, n. Across, months go from 0 to 6, one month per square. Up, cost goes from 0 to 280 dollars, 20 dollars per square, labelled every 40. A straight line rises from the marked point (0, 60), through 140 dollars at 2 months and the marked point (5, 260), to the top of the grid.</title>
+  <g stroke="var(--muted)" stroke-width="0.6" opacity="0.6">
+    <line x1="64" y1="30" x2="64" y2="282"/>
+    <line x1="104" y1="30" x2="104" y2="282"/>
+    <line x1="144" y1="30" x2="144" y2="282"/>
+    <line x1="184" y1="30" x2="184" y2="282"/>
+    <line x1="224" y1="30" x2="224" y2="282"/>
+    <line x1="264" y1="30" x2="264" y2="282"/>
+    <line x1="304" y1="30" x2="304" y2="282"/>
+    <line x1="64" y1="282" x2="304" y2="282"/>
+    <line x1="64" y1="264" x2="304" y2="264"/>
+    <line x1="64" y1="246" x2="304" y2="246"/>
+    <line x1="64" y1="228" x2="304" y2="228"/>
+    <line x1="64" y1="210" x2="304" y2="210"/>
+    <line x1="64" y1="192" x2="304" y2="192"/>
+    <line x1="64" y1="174" x2="304" y2="174"/>
+    <line x1="64" y1="156" x2="304" y2="156"/>
+    <line x1="64" y1="138" x2="304" y2="138"/>
+    <line x1="64" y1="120" x2="304" y2="120"/>
+    <line x1="64" y1="102" x2="304" y2="102"/>
+    <line x1="64" y1="84" x2="304" y2="84"/>
+    <line x1="64" y1="66" x2="304" y2="66"/>
+    <line x1="64" y1="48" x2="304" y2="48"/>
+    <line x1="64" y1="30" x2="304" y2="30"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.4">
+    <line x1="64" y1="282" x2="304" y2="282"/>
+    <line x1="64" y1="282" x2="64" y2="30"/>
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="64" y="297">0</text>
+    <text x="104" y="297">1</text>
+    <text x="144" y="297">2</text>
+    <text x="184" y="297">3</text>
+    <text x="224" y="297">4</text>
+    <text x="264" y="297">5</text>
+    <text x="304" y="297">6</text>
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="end">
+    <text x="59" y="250">40</text>
+    <text x="59" y="214">80</text>
+    <text x="59" y="178">120</text>
+    <text x="59" y="142">160</text>
+    <text x="59" y="106">200</text>
+    <text x="59" y="70">240</text>
+    <text x="59" y="34">280</text>
+  </g>
+  <text x="184" y="316" fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">Number of months, n</text>
+  <text x="16" y="156" fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle" transform="rotate(-90 16 156)">Total cost, T (dollars)</text>
+  <line x1="64" y1="228.0" x2="284.0" y2="30.0" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <circle cx="64" cy="228.0" r="4" fill="currentColor"/>
+  <circle cx="264" cy="48.0" r="4" fill="currentColor"/>
+  <text x="72" y="244.0" fill="currentColor" font-size="12" font-family="inherit">(0, 60)</text>
+  <text x="272" y="64.0" fill="currentColor" font-size="12" font-family="inherit">(5, 260)</text>
+</svg>

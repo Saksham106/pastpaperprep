@@ -2,25 +2,25 @@
   {
     "id": "bar-chart",
     "term": "bar chart",
-    "definition": "TODO: Bars; composite and dual.",
+    "definition": "A chart where each category is a bar of the same width, and the height of the bar shows its frequency; a dual bar chart puts bars for two groups side by side, and a composite bar chart stacks the parts of each total into one bar.",
     "lesson": "9.4"
   },
   {
     "id": "pie-chart",
     "term": "pie chart",
-    "definition": "TODO: Sector angles proportional.",
+    "definition": "A circle cut into sectors, one for each category, where each sector's angle is proportional to its frequency, so the angles add up to $360^\\circ$.",
     "lesson": "9.4"
   },
   {
     "id": "pictogram",
     "term": "pictogram",
-    "definition": "TODO: Symbols with key.",
+    "definition": "A chart that shows frequencies with a repeated symbol, with a key saying how many items one whole symbol stands for.",
     "lesson": "9.4"
   },
   {
     "id": "stem-and-leaf-diagram",
     "term": "stem-and-leaf diagram",
-    "definition": "TODO: Ordered data with key.",
+    "definition": "A diagram that lists data in order by splitting each value into a stem (its first digits) and a leaf (its last digit), with a key showing how to read an entry.",
     "lesson": "9.4"
   }
 ]

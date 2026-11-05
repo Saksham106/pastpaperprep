@@ -1,0 +1,581 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "4.5",
+  "slug": "symmetry",
+  "title": "Symmetry",
+  "level": "Core",
+  "topic": 4,
+  "summary": "A [[line-of-symmetry|line of symmetry]] splits a shape into two mirror-image halves. [[rotational-symmetry|Rotational symmetry]] counts how many times a shape fits onto itself in one full turn. You use both to name shapes and complete patterns.",
+  "goals": [
+    {
+      "text": "Draw every [[line-of-symmetry|line of symmetry]] of a shape, and complete a pattern for a given line.",
+      "bullets": [
+        "4.5-c1"
+      ]
+    },
+    {
+      "text": "Find the order of [[rotational-symmetry|rotational symmetry]] of a shape or pattern, and shade a pattern to give a chosen order.",
+      "bullets": [
+        "4.5-c1"
+      ]
+    },
+    {
+      "text": "Know the symmetry of triangles, quadrilaterals and regular polygons, and use it to name shapes and find angles.",
+      "bullets": [
+        "4.5-c1"
+      ]
+    },
+    {
+      "text": "Count the [[plane-of-symmetry|planes of symmetry]] of prisms, cylinders, pyramids and cones, and find the order about an axis.",
+      "bullets": [
+        "4.5-s1",
+        "4.5-n1"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "4.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "lines of symmetry",
+    "order of rotational symmetry",
+    "how many lines of symmetry",
+    "symmetry of quadrilaterals",
+    "planes of symmetry",
+    "line symmetry and rotational symmetry"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-rhombus-name",
+      "prompt": "Which quadrilateral has four equal sides but no right angles?",
+      "hint": "Which shape with four equal sides is not a square?",
+      "options": [
+        {
+          "text": "Rhombus",
+          "correct": true
+        },
+        {
+          "text": "Square",
+          "correct": false
+        },
+        {
+          "text": "Kite",
+          "correct": false
+        }
+      ],
+      "explain": "A square has right angles, and a kite has two pairs of equal sides. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Rhombus"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-half-turn",
+      "prompt": "How many degrees is a half turn?",
+      "hint": "A full turn is $360^{\\circ}$.",
+      "answer": {
+        "value": 180,
+        "tolerance": 0
+      },
+      "explain": "$360 \\div 2 = 180^{\\circ}$. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "360/2",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-enlarge-side",
+      "prompt": "Shape $B$ is an enlargement of shape $A$ with scale factor $3$. A side of $A$ is $4\\text{ cm}$. How long, in cm, is the matching side of $B$?",
+      "hint": "Multiply by the scale factor.",
+      "answer": {
+        "value": 12,
+        "tolerance": 0
+      },
+      "explain": "$3 \\times 4 = 12\\text{ cm}$. Revise it in {{lesson:4.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3*4",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "lines",
+      "heading": "Line symmetry",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Fold a shape along a line. If the two halves fit exactly on top of each other, the fold is a [[line-of-symmetry|line of symmetry]]."
+        },
+        {
+          "type": "definition",
+          "term": "Line of symmetry",
+          "statement": "A line that splits a shape into two halves that are mirror images.",
+          "plain": "Fold along it and the halves match exactly."
+        },
+        {
+          "type": "text",
+          "text": "To test a line, check that every corner has a partner straight across it, the same distance away. Two equal halves are not enough: a rectangle's diagonal fails."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-rectangle-lines",
+          "alt": "Two rectangles. In the first, a vertical dashed line and a horizontal dashed line pass through the centre: these are its 2 lines of symmetry. In the second, the rectangle is folded along a diagonal. The folded half sticks out past the top edge and leaves part of the rectangle uncovered, so the diagonal is not a line of symmetry."
+        },
+        {
+          "type": "example",
+          "id": "ex-hexagon-lines",
+          "question": "How many lines of symmetry does a regular hexagon have?",
+          "steps": [
+            "A regular hexagon has 6 equal sides and 6 equal angles.",
+            "Lines through opposite corners work. The 6 corners make $6 \\div 2 = 3$ opposite pairs: 3 lines.",
+            "Lines through the midpoints of opposite sides also work: 3 more lines.",
+            "No other line works, so the total is $3 + 3 = 6$."
+          ],
+          "answer": "$\\text{lines of symmetry} = 6$",
+          "verify": {
+            "kind": "exact",
+            "truth": "6/2 + 6/2"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-rectangle-lines",
+          "prompt": "How many lines of symmetry does a rectangle that is not a square have?",
+          "hint": "Does a diagonal fold work?",
+          "options": [
+            {
+              "text": "$2$",
+              "correct": true
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            }
+          ],
+          "explain": "One vertical and one horizontal line: $1 + 1 = 2$. The diagonals fail.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 + 1"
+          }
+        },
+        {
+          "type": "text",
+          "text": "To complete a shape for a given line, reflect each part straight across it, the same distance away. Points on the line stay put."
+        },
+        {
+          "type": "example",
+          "id": "ex-complete-kite",
+          "question": "Quadrilateral $PQRS$ has the line $x = 3$ as a line of symmetry. $P$ is $(1, 4)$, $Q$ is $(3, 7)$ and $S$ is $(3, 2)$. Find the coordinates of $R$.",
+          "steps": [
+            "$Q$ and $S$ have $x = 3$, so they lie on the line and stay put.",
+            "So $P$'s partner is $R$. $P$ is $3 - 1 = 2$ units left of the line.",
+            "$R$ is $2$ units right of it, at the same height: $x = 3 + 2 = 5$, $y = 4$.",
+            "Check: $QP = QR$ and $SP = SR$, so $PQRS$ is a [[kite|kite]]."
+          ],
+          "answer": "$R = (5, 4)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(3 + (3 - 1), 4)"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "4-5-grid-line",
+          "alt": "A grid of 3 rows and 4 columns with a dashed vertical line down the middle. Shaded squares: row 1 columns 1 and 4; row 2 columns 2 and 3; row 3 column 3. Three unshaded squares are labelled: A in row 3 column 2, B in row 3 column 4, and C in row 2 column 1."
+        },
+        {
+          "type": "check",
+          "id": "check-grid-line",
+          "prompt": "Shade one more square in the figure so that the dashed line is a line of symmetry. Which square?",
+          "hint": "Which shaded square has no partner across the line?",
+          "options": [
+            {
+              "text": "Square A",
+              "correct": true
+            },
+            {
+              "text": "Square B",
+              "correct": false
+            },
+            {
+              "text": "Square C",
+              "correct": false
+            }
+          ],
+          "explain": "The shaded square in row 3 is just right of the line, so its partner is just left of it: A.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Square A"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing extra lines, such as a rectangle's diagonals. Check that every corner has a partner before you draw a line."
+        }
+      ]
+    },
+    {
+      "id": "rotation",
+      "heading": "Rotational symmetry and common shapes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Trace a shape, pin the tracing at its centre and turn it. Count how many times it fits exactly over the shape in one full turn."
+        },
+        {
+          "type": "definition",
+          "term": "Rotational symmetry",
+          "statement": "A shape has rotational symmetry if it fits onto itself after a turn of less than $360^{\\circ}$ about its centre. Its order is the number of times it fits onto itself in one full turn.",
+          "plain": "Every shape fits after a full turn, so the smallest order is 1, meaning no rotational symmetry."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{order} = \\frac{360^{\\circ}}{\\text{smallest turn that fits}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "check",
+          "id": "check-order-wheel",
+          "prompt": "A wheel trim fits onto itself every $45^{\\circ}$, and no smaller turn works. What is its order of rotational symmetry?",
+          "hint": "How many $45^{\\circ}$ turns make $360^{\\circ}$?",
+          "answer": {
+            "value": 8,
+            "tolerance": 0
+          },
+          "explain": "$360 \\div 45 = 8$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "360/45",
+            "dp": 0
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-5-hexagon-shade",
+          "alt": "A regular hexagon split into 6 equal triangles that meet at its centre. The triangles are numbered 1 to 6 going clockwise from the top right. Triangles 1 and 4, which are opposite each other, are shaded."
+        },
+        {
+          "type": "example",
+          "id": "ex-hexagon-order",
+          "question": "A regular hexagon is split into 6 equal triangles, and triangles 1 and 4 are shaded, as in the figure. Find the order of rotational symmetry of the pattern.",
+          "steps": [
+            "A $60^{\\circ}$ turn carries shaded triangle 1 onto triangle 2, which is not shaded, so it fails. So does $120^{\\circ}$.",
+            "A half turn carries 1 onto 4 and 4 onto 1. Both are shaded, so it fits.",
+            "The order is $360 \\div 180 = 2$. Shading 1, 3 and 5 would give order 3; shading all six gives 6."
+          ],
+          "answer": "$\\text{order} = 2$",
+          "verify": {
+            "kind": "exact",
+            "truth": "360/180"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "4-5-grid-turn",
+          "alt": "A 4 by 4 grid with a dot at its centre. Shaded squares: row 1 column 2; row 2 columns 3 and 4; row 3 column 2; row 4 column 3. Three unshaded squares are labelled: A in row 3 column 1, B in row 2 column 1, and C in row 3 column 4."
+        },
+        {
+          "type": "check",
+          "id": "check-grid-turn",
+          "prompt": "Shade one more square in the figure so that the pattern has rotational symmetry of order 2 about the dot. Which square?",
+          "hint": "A half turn sends each square to the one diagonally opposite through the dot.",
+          "options": [
+            {
+              "text": "Square A",
+              "correct": true
+            },
+            {
+              "text": "Square B",
+              "correct": false
+            },
+            {
+              "text": "Square C",
+              "correct": false
+            }
+          ],
+          "explain": "Row 2 column 4 is the only shaded square without a partner. A half turn sends it to row 3 column 1: A. B and C are its mirror images.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Square A"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-5-quadrilaterals",
+          "alt": "Six quadrilaterals with their lines of symmetry dashed. Square: 4 lines, two through midpoints of opposite sides and two diagonals; order 4. Rectangle: 2 lines through midpoints of opposite sides; order 2. Rhombus: 2 lines, its diagonals; order 2. Parallelogram: no lines; order 2. Kite: 1 line, the diagonal through the corners where the equal sides meet; order 1. Isosceles trapezium: 1 line through the midpoints of the parallel sides; order 1."
+        },
+        {
+          "type": "text",
+          "text": "An [[equilateral-triangle|equilateral triangle]] has 3 lines and order 3. Any other [[isosceles-triangle|isosceles triangle]] has 1 line and order 1, and a [[scalene-triangle|scalene triangle]] has no lines and order 1."
+        },
+        {
+          "type": "text",
+          "text": "A regular [[polygon|polygon]] has equal sides and equal angles. With $n$ sides, it has $n$ lines of symmetry and order $n$. [[similar-shapes|Similar shapes]] share the same symmetry."
+        },
+        {
+          "type": "check",
+          "id": "check-name-quad",
+          "prompt": "Which quadrilateral has no lines of symmetry but has rotational symmetry of order 2?",
+          "hint": "Look for 0 lines and order 2 in the figure.",
+          "options": [
+            {
+              "text": "Parallelogram",
+              "correct": true
+            },
+            {
+              "text": "Rhombus",
+              "correct": false
+            },
+            {
+              "text": "Kite",
+              "correct": false
+            },
+            {
+              "text": "Isosceles trapezium",
+              "correct": false
+            }
+          ],
+          "explain": "A parallelogram fits onto itself after a half turn but has no fold line. A rhombus has order 2 as well, but its diagonals are lines of symmetry.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Parallelogram"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-polygon-lines",
+          "question": "A regular polygon fits onto itself after a $24^{\\circ}$ turn, and no smaller turn works. How many lines of symmetry does it have?",
+          "steps": [
+            "Its order of rotational symmetry is $360 \\div 24 = 15$.",
+            "A regular polygon's order equals its number of sides, so it has 15 sides.",
+            "It has one line of symmetry for each side: 15 lines."
+          ],
+          "answer": "$\\text{lines of symmetry} = 15$",
+          "verify": {
+            "kind": "exact",
+            "truth": "360/24"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Mirror-image sides and angles are equal. So an isosceles triangle's two base angles are equal, and so are the two angles of a kite that its line of symmetry misses."
+        },
+        {
+          "type": "check",
+          "id": "check-isosceles-angle",
+          "prompt": "Triangle $PQR$ has $PQ = PR$ and angle $QPR = 36^{\\circ}$. Use its line of symmetry to work out angle $PQR$, in degrees.",
+          "hint": "Angles $PQR$ and $PRQ$ are mirror images. The three angles add up to $180^{\\circ}$.",
+          "answer": {
+            "value": 72,
+            "tolerance": 0
+          },
+          "explain": "$(180 - 36) \\div 2 = 72^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(180 - 36)/2",
+            "dp": 0
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving a rhombus order 4 because its sides are equal. It fits onto itself only after a half turn, so its order is 2."
+        }
+      ]
+    },
+    {
+      "id": "solids",
+      "heading": "Symmetry in solids",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Plane of symmetry",
+          "statement": "A flat [[plane|plane]] that slices a solid into two halves that are mirror images.",
+          "plain": "Each half is the reflection of the other."
+        },
+        {
+          "type": "text",
+          "text": "An axis of symmetry is a line you can turn a solid about so that it fits into the same space after less than a full turn. The order about the axis is the number of times it fits in one full turn."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-solid-planes",
+          "alt": "Two solids. On the left, a triangular prism with equilateral triangle ends. A shaded triangle halfway along its length is a plane of symmetry across the middle, parallel to the ends. On the right, a pyramid with a square base and its top vertex directly above the centre of the base. A dashed vertical axis runs from the top vertex to the centre of the base. A shaded triangle through the top vertex and the midpoints of the left and right base edges is one of its planes of symmetry; it contains the axis."
+        },
+        {
+          "type": "text",
+          "text": "[[prism|Prism]]: each line of symmetry of the end gives a plane along the length, plus one plane across the middle. About the axis through the ends, the order matches the end's. For a [[cuboid|cuboid]], use its most symmetrical end; a cube is special, with 9 planes."
+        },
+        {
+          "type": "text",
+          "text": "[[pyramid|Pyramid]] or [[cone|cone]] with its top above the centre of the base: each line of symmetry of the base gives one plane through the top. There is none across the middle, since the top and base can't swap. The order about the vertical axis matches the base's."
+        },
+        {
+          "type": "text",
+          "text": "A circle has infinitely many lines of symmetry, so a [[cylinder|cylinder]] and a cone have infinitely many planes, and any turn about the axis fits. A triangular pyramid with all edges equal has extra planes."
+        },
+        {
+          "type": "example",
+          "id": "ex-hex-prism",
+          "question": "A prism has ends that are regular hexagons. How many planes of symmetry does it have?",
+          "steps": [
+            "The hexagon has 6 lines of symmetry, giving 6 planes along the prism.",
+            "Add the plane across the middle: $6 + 1 = 7$.",
+            "About the axis through the ends, the order is 6, the same as the hexagon's."
+          ],
+          "answer": "$\\text{planes} = 7$",
+          "verify": {
+            "kind": "exact",
+            "truth": "6 + 1"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-rect-pyramid",
+          "question": "A pyramid has a rectangular base, $8\\text{ cm}$ by $5\\text{ cm}$, with its top directly above the centre of the base. How many planes of symmetry does it have?",
+          "steps": [
+            "The rectangle has 2 lines of symmetry. Each gives a plane through the top: $1 + 1 = 2$.",
+            "There is no plane across the middle.",
+            "The order about the vertical axis is 2, the same as the rectangle's."
+          ],
+          "answer": "$\\text{planes} = 2$",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 + 1"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cuboid-planes",
+          "prompt": "A cuboid measures $2\\text{ cm}$ by $5\\text{ cm}$ by $5\\text{ cm}$. How many planes of symmetry does it have?",
+          "hint": "Treat it as a prism with its two square faces as the ends.",
+          "options": [
+            {
+              "text": "$5$",
+              "correct": true
+            },
+            {
+              "text": "$3$",
+              "correct": false
+            },
+            {
+              "text": "$9$",
+              "correct": false
+            }
+          ],
+          "explain": "The square end has 4 lines, so $4 + 1 = 5$. A cuboid with three different lengths has 3; a cube has 9.",
+          "verify": {
+            "kind": "exact",
+            "truth": "4 + 1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cone-planes",
+          "prompt": "Which solid has infinitely many planes of symmetry, but none across its middle?",
+          "hint": "Which one has a circular base and a point on top?",
+          "options": [
+            {
+              "text": "Cone",
+              "correct": true
+            },
+            {
+              "text": "Cylinder",
+              "correct": false
+            },
+            {
+              "text": "Square-based pyramid",
+              "correct": false
+            }
+          ],
+          "explain": "A cone's top and base can't swap. A cylinder also has a plane across its middle, and a square-based pyramid has only 4 planes.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Cone"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting the plane across the middle of a prism, or adding one to a pyramid. Ask whether the two ends can swap."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A line of symmetry splits a shape into mirror-image halves, not just equal pieces.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "No rotational symmetry means order $1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Square: 4 lines, order 4. Rectangle, rhombus (not squares): 2 lines, order 2. Parallelogram: 0 lines, order 2. Kite, isosceles trapezium: 1 line, order 1.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Regular polygon with $n$ sides: $n$ lines, order $n$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Prism: planes $=$ lines of symmetry of its most symmetrical end $+ 1$ (a cube has 9). Pyramid or cone, top above the centre of the base: planes $=$ lines of symmetry of the base (a triangular pyramid with all edges equal has more).",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Drawing a rectangle's diagonals as lines of symmetry. The halves don't match when folded, so it has only 2 lines.",
+    "Giving a rhombus order 4 because its sides are equal. Only a square has order 4.",
+    "Missing lines on a regular polygon. It has one for each side.",
+    "Shading a mirror image of a square when a pattern needs order 2. Shade the square diagonally opposite through the centre.",
+    "Shading so much that the pattern fits after a smaller turn, giving a higher order than asked."
+  ],
+  "examTips": [
+    "\"Draw all the lines of symmetry\": rule each line right across the shape. A missing or extra line costs marks.",
+    "\"Write down the order\": a whole number, no working. No rotational symmetry is order 1, not 0.",
+    "Shading for order 2: pair each shaded square with its half-turn partner, then check with tracing paper.",
+    "\"Write down the mathematical name\": rhombus, not diamond."
+  ],
+  "readingMinutes": 18
+}

@@ -2,55 +2,55 @@
   {
     "id": "transformation",
     "term": "transformation",
-    "definition": "TODO: Reflection, rotation, translation, enlargement.",
+    "definition": "A rule that moves a shape or changes its size, such as a reflection, rotation, translation or enlargement.",
     "lesson": "7.1"
   },
   {
     "id": "image",
     "term": "image",
-    "definition": "TODO: Shape after a transformation; object.",
+    "definition": "The shape you get after a transformation; the shape you started with is the object, and the image of $P$ is often labelled $P'$.",
     "lesson": "7.1"
   },
   {
     "id": "reflection",
     "term": "reflection",
-    "definition": "TODO: Mirror line; vertical or horizontal at Core.",
+    "definition": "A transformation that flips a shape in a mirror line: each point moves straight across the line, at right angles to it, to the same distance on the other side.",
     "lesson": "7.1"
   },
   {
     "id": "rotation",
     "term": "rotation",
-    "definition": "TODO: Centre, angle and direction.",
+    "definition": "A transformation that turns a shape about a fixed point, the centre, through an angle, clockwise or anticlockwise.",
     "lesson": "7.1"
   },
   {
     "id": "translation",
     "term": "translation",
-    "definition": "TODO: Moves a shape by a column vector.",
+    "definition": "A transformation that slides every point of a shape the same distance in the same direction, given by a column vector.",
     "lesson": "7.1"
   },
   {
     "id": "enlargement",
     "term": "enlargement",
-    "definition": "TODO: Centre and scale factor.",
+    "definition": "A transformation that multiplies every distance from a fixed centre by the same scale factor, so the image is the same shape but may be a different size.",
     "lesson": "7.1"
   },
   {
     "id": "vector",
     "term": "vector",
-    "definition": "TODO: Quantity with size and direction; Core uses column vectors for translation.",
+    "definition": "A quantity with both a size and a direction, such as a move on a grid; it is often written as a column vector.",
     "lesson": "7.1"
   },
   {
     "id": "column-vector",
     "term": "column vector",
-    "definition": "TODO: Written as x over y.",
+    "definition": "A vector written as two numbers in a column, $\\begin{pmatrix}x\\\\y\\end{pmatrix}$: $x$ across (negative means left) and $y$ up (negative means down).",
     "lesson": "7.1"
   },
   {
     "id": "combined-transformation",
     "term": "combined transformation",
-    "definition": "TODO: One transformation followed by another.",
+    "definition": "One transformation followed by another, where the second is applied to the image of the first.",
     "lesson": "7.1"
   }
 ]

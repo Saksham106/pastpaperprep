@@ -1,0 +1,469 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "6.6",
+  "slug": "pythagoras-and-trigonometry-in-3d",
+  "title": "Pythagoras’ theorem and trigonometry in three dimensions",
+  "level": "Extended",
+  "topic": 6,
+  "summary": "Lengths and angles inside a solid, such as a box or a pyramid, come from right-angled triangles hidden inside it. Find the right triangle, draw it flat, then use [[pythagoras-theorem|Pythagoras' theorem]] or $\\sin$, $\\cos$ and $\\tan$. The [[angle-between-a-line-and-a-plane|angle between a line and a plane]] works the same way, once you find the line's shadow on the [[plane|plane]].",
+  "goals": [
+    {
+      "text": "Find lengths inside a cuboid or pyramid, such as a space diagonal or a vertical height, with Pythagoras' theorem.",
+      "bullets": [
+        "6.6-s1"
+      ]
+    },
+    {
+      "text": "Find the angle between a line and a plane by spotting its projection and the right angle.",
+      "bullets": [
+        "6.6-s1"
+      ]
+    },
+    {
+      "text": "Solve longer three-dimensional problems, with an unknown edge or a sloping line meeting a wall.",
+      "bullets": [
+        "6.6-s1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "6.1",
+    "6.2"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "3D trigonometry",
+    "3D Pythagoras",
+    "space diagonal of a cuboid",
+    "angle between a line and a plane",
+    "longest rod in a box",
+    "height of a pyramid"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-pythagoras",
+      "prompt": "A right-angled triangle has shorter sides $20$ cm and $21$ cm. Work out the longest side, in cm.",
+      "hint": "Square both, add, then take the square root.",
+      "answer": {
+        "value": 29,
+        "tolerance": 0
+      },
+      "explain": "$20^{2} + 21^{2} = 841$ and $\\sqrt{841} = 29$. Revise it in {{lesson:6.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "sqrt(20**2 + 21**2)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-tan-angle",
+      "prompt": "In a right-angled triangle, the side opposite angle $\\theta$ is $7$ cm and the side adjacent to it is $10$ cm. Work out $\\theta$ in degrees, to 1 d.p.",
+      "hint": "Opposite and adjacent: $\\tan$.",
+      "answer": {
+        "value": 35.0,
+        "tolerance": 0.05
+      },
+      "explain": "$\\theta = \\tan^{-1}\\left(\\frac{7}{10}\\right) = 34.99\\ldots \\approx 35.0^{\\circ}$. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "atan(Rational(7, 10))*180/pi",
+        "dp": 1
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "lengths",
+      "heading": "Lengths inside a solid",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A line inside a solid is rarely the side of a triangle you can see. But it is almost always a side of a right-angled triangle you can find. Find that triangle, then use [[pythagoras-theorem|Pythagoras' theorem]]."
+        },
+        {
+          "type": "text",
+          "text": "In a [[cuboid|cuboid]], every edge meets the next at a right angle. The longest line inside it, from one corner to the opposite corner, is the space diagonal."
+        },
+        {
+          "type": "figure",
+          "id": "6-6-cuboid-diagonals",
+          "alt": "Cuboid ABCDEFGH. The base is ABCD, with E above A, F above B, G above C and H above D. The base diagonal AC runs across the bottom face from A to C. The space diagonal AG runs through the inside from A up to G. CG is the vertical edge at C, and triangle ACG has its right angle at C."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the base diagonal $AC$ with Pythagoras on the flat base."
+        },
+        {
+          "type": "text",
+          "text": "2. $CG$ stands straight up from the base, so triangle $ACG$ has a right angle at $C$. Use Pythagoras again for $AG$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cuboid-diagonal",
+          "question": "Cuboid $ABCDEFGH$ has $AB = 4$ cm, $BC = 3$ cm and $CG = 12$ cm. Without a calculator, work out the length of the space diagonal $AG$.",
+          "steps": [
+            "Base first, in right-angled triangle $ABC$: $AC^{2} = 4^{2} + 3^{2} = 25$, so $AC = 5$.",
+            "Triangle $ACG$ has its right angle at $C$: $AG^{2} = AC^{2} + CG^{2} = 25 + 144 = 169$.",
+            "$AG = \\sqrt{169} = 13$ cm. It is longer than every edge, as the longest line in the box must be."
+          ],
+          "answer": "$AG = 13\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(4**2 + 3**2 + 12**2)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The two steps join into one. $AC^{2}$ is $AB^{2} + BC^{2}$, so for a cuboid with edges $a$, $b$ and $c$:"
+        },
+        {
+          "type": "formula",
+          "tex": "d^{2} = a^{2} + b^{2} + c^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A [[pyramid|pyramid]] with its top vertically above the centre of a rectangular base hides a right angle too. The vertical height meets the base at its centre $M$, at right angles."
+        },
+        {
+          "type": "figure",
+          "id": "6-6-pyramid",
+          "alt": "Pyramid VABCD with a square base ABCD. M is the centre of the base, where the diagonals cross. V is vertically above M, and the dashed height VM is at right angles to the base. MA is half of the base diagonal AC. Triangle VMA has its right angle at M, with the slant edge VA as its hypotenuse."
+        },
+        {
+          "type": "example",
+          "id": "ex-pyramid-height",
+          "question": "Pyramid $VABCD$ has a square base with sides $8$ cm. $V$ is vertically above $M$, the centre of the base, and each slant edge, such as $VA$, is $9$ cm. Without a calculator, work out the height $VM$.",
+          "steps": [
+            "$M$ is the middle of the diagonal $AC$. In the base, $AC^{2} = 8^{2} + 8^{2} = 128$.",
+            "$MA$ is half of $AC$, so $MA^{2} = \\dfrac{128}{4} = 32$. Halving a length quarters its square.",
+            "Triangle $VMA$ has its right angle at $M$, with hypotenuse $VA = 9$: $VM^{2} = 9^{2} - 32 = 49$.",
+            "$VM = \\sqrt{49} = 7$ cm."
+          ],
+          "answer": "$VM = 7\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(9**2 - (sqrt(8**2 + 8**2)/2)**2)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-space-diagonal",
+          "prompt": "A cuboid has edges $2$ cm, $6$ cm and $9$ cm. Work out the length of its space diagonal, in cm.",
+          "hint": "Square all three edges and add.",
+          "answer": {
+            "value": 11,
+            "tolerance": 0
+          },
+          "explain": "$d^{2} = 2^{2} + 6^{2} + 9^{2} = 121$, so $d = 11$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(2**2 + 6**2 + 9**2)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-longest-pole",
+          "prompt": "A storage box is a cuboid $80$ cm by $60$ cm by $50$ cm. What is the longest straight pole that fits inside it?",
+          "hint": "The longest line goes from one corner to the opposite corner, through the middle.",
+          "options": [
+            {
+              "text": "$d \\approx 112\\text{ cm}$",
+              "correct": true
+            },
+            {
+              "text": "$d = 100\\text{ cm}$",
+              "correct": false
+            },
+            {
+              "text": "$d = 190\\text{ cm}$",
+              "correct": false
+            }
+          ],
+          "explain": "$d = \\sqrt{80^{2} + 60^{2} + 50^{2}} = \\sqrt{12500} = 111.8\\ldots \\approx 112$ cm. $100$ cm is only the diagonal of the base, and $190$ cm adds the edges.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(80**2 + 60**2 + 50**2)",
+            "sf": 3,
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using a face diagonal, such as $\\sqrt{a^{2} + b^{2}}$, as the longest line in a box. The space diagonal uses all three edges."
+        }
+      ]
+    },
+    {
+      "id": "line-plane",
+      "heading": "The angle between a line and a plane",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Shine a light straight down onto a [[plane|plane]], such as the floor. A sloping stick casts a shadow on it. The angle between the stick and its shadow is the angle between the stick and the plane."
+        },
+        {
+          "type": "figure",
+          "id": "6-6-line-plane",
+          "alt": "A flat plane drawn as a slanted rectangle. A line meets the plane at P and rises to the point Q above it. A dashed line drops from Q straight down to N on the plane, at right angles to the plane. The line PN lies in the plane and is the projection of PQ. The angle theta at P, between PQ and PN, is the angle between the line and the plane. Triangle PNQ has its right angle at N."
+        },
+        {
+          "type": "definition",
+          "term": "Angle between a line and a plane",
+          "statement": "A line meets a plane at $P$. From another point $Q$ on the line, drop a perpendicular to the plane, meeting it at $N$. $PN$ is the projection of the line on the plane, and angle $QPN$ is the [[angle-between-a-line-and-a-plane|angle between the line and the plane]].",
+          "plain": "It is the angle between the line and its shadow, with the light directly overhead."
+        },
+        {
+          "type": "text",
+          "text": "Triangle $PNQ$ always has its right angle at $N$, so you need only $\\sin$, $\\cos$ or $\\tan$. A line at right angles to the plane makes $90^{\\circ}$ with it."
+        },
+        {
+          "type": "text",
+          "text": "1. Find where the line meets the plane, and the point directly below its other end."
+        },
+        {
+          "type": "text",
+          "text": "2. Join them: that is the projection. Work out its length with Pythagoras if you need it."
+        },
+        {
+          "type": "text",
+          "text": "3. Sketch the right-angled triangle flat, label it, and use trigonometry."
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-cuboid-base",
+          "question": "Cuboid $ABCDEFGH$ has base $ABCD$, with $AB = 12$ cm, $BC = 9$ cm and $CG = 8$ cm. Work out the angle between $AG$ and the base $ABCD$.",
+          "steps": [
+            "$AG$ meets the base at $A$. $G$ is directly above $C$, so the projection is $AC$ and the angle is $GAC$.",
+            "Base diagonal: $AC^{2} = 12^{2} + 9^{2} = 225$, so $AC = 15$.",
+            "The right angle is at $C$. Against angle $GAC$, the edge $CG = 8$ is opposite and $AC = 15$ is adjacent, so $\\tan GAC = \\dfrac{8}{15}$.",
+            "$GAC = \\tan^{-1}\\left(\\dfrac{8}{15}\\right) = 28.072\\ldots^{\\circ}$, so $28.1^{\\circ}$ to 1 d.p."
+          ],
+          "answer": "$GAC \\approx 28.1^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "atan(8/sqrt(12**2 + 9**2))*180/pi"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "inverse-trig",
+          "values": {
+            "ratio": "8/15"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-pyramid-edge",
+          "question": "Pyramid $VABCD$ has a square base with sides $10$ cm. $V$ is vertically above $M$, the centre of the base, and $VM = 6$ cm. Work out the angle between the edge $VA$ and the base.",
+          "steps": [
+            "$VA$ meets the base at $A$, and $V$ is directly above $M$. So the projection is $MA$ and the angle is $VAM$.",
+            "$AC^{2} = 10^{2} + 10^{2} = 200$, so $AC = \\sqrt{200}$ and $MA = \\tfrac{1}{2}\\sqrt{200} = 7.0710\\ldots$ Keep every digit.",
+            "In triangle $VMA$, $VM = 6$ is opposite and $MA$ is adjacent: $\\tan VAM = \\dfrac{6}{7.0710\\ldots}$.",
+            "$VAM = 40.315\\ldots^{\\circ}$, so $40.3^{\\circ}$ to 1 d.p."
+          ],
+          "answer": "$VAM \\approx 40.3^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "atan(6/(sqrt(10**2 + 10**2)/2))*180/pi"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using a base edge, such as half the side, instead of the projection. When the top is above the centre of the base, the projection runs along half the base diagonal."
+        },
+        {
+          "type": "check",
+          "id": "check-angle-base",
+          "prompt": "A cuboid has a base $5$ cm by $12$ cm and height $9$ cm. Work out the angle between a space diagonal and the base, in degrees, to 1 d.p.",
+          "hint": "The projection is the base diagonal. Find it first.",
+          "answer": {
+            "value": 34.7,
+            "tolerance": 0.05
+          },
+          "explain": "The base diagonal is $\\sqrt{5^{2} + 12^{2}} = 13$. Then $\\tan^{-1}\\left(\\frac{9}{13}\\right) = 34.69\\ldots \\approx 34.7^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "atan(9/sqrt(5**2 + 12**2))*180/pi",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-name-angle",
+          "prompt": "In the cuboid figure, which angle is the angle between the line $BH$ and the base $ABCD$?",
+          "hint": "Which point of the base is directly below $H$?",
+          "options": [
+            {
+              "text": "Angle HBD",
+              "correct": true
+            },
+            {
+              "text": "Angle HBA",
+              "correct": false
+            },
+            {
+              "text": "Angle BHD",
+              "correct": false
+            }
+          ],
+          "explain": "$BH$ meets the base at $B$, and $H$ is directly above $D$. So the projection is $BD$ and the angle is $HBD$. Angle $HBA$ uses an edge, and angle $BHD$ is at the wrong end of the line.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Angle HBD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "problems",
+      "heading": "Longer problems in three dimensions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Exam questions often run the method backwards, or use a plane that is not the base. The plan is the same: find the right angle, then draw one flat triangle at a time."
+        },
+        {
+          "type": "example",
+          "id": "ex-cube-edge",
+          "question": "The space diagonal of a cube is $12$ cm. Without a calculator, find the exact length of an edge.",
+          "steps": [
+            "Call the edge $x$. All three edges are $x$, so $x^{2} + x^{2} + x^{2} = 12^{2}$.",
+            "$3x^{2} = 144$, so $x^{2} = 48$.",
+            "$x = \\sqrt{48} = \\sqrt{16 \\times 3} = 4\\sqrt{3}$ cm. Check: $3 \\times 48 = 144$."
+          ],
+          "answer": "$x = 4\\sqrt{3}\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(Rational(12**2, 3))",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "For a wall, the light shines sideways instead of down. Find the point on the wall straight across from the line's free end, at right angles to the wall."
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-wall",
+          "question": "A room is a cuboid $ABCDEFGH$ with floor $ABCD$. $AB = 6$ m, $BC = 4$ m and the height $CG = 3$ m. A string runs from $A$ to $G$. Work out the angle between the string and the end wall $BCGF$.",
+          "steps": [
+            "The string meets the wall at $G$. The floor edge $AB$ meets the wall at right angles, so $B$ is straight across from $A$.",
+            "So the projection is $BG$ and the angle is $AGB$, with its right angle at $B$.",
+            "$BG$ is a diagonal of the wall: $BG^{2} = 4^{2} + 3^{2} = 25$, so $BG = 5$.",
+            "$AB = 6$ is opposite the angle and $BG = 5$ is adjacent: $AGB = \\tan^{-1}\\left(\\dfrac{6}{5}\\right) = 50.194\\ldots^{\\circ}$."
+          ],
+          "answer": "$AGB \\approx 50.2^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "atan(6/sqrt(4**2 + 3**2))*180/pi"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-field-pole",
+          "prompt": "A flat field is a rectangle $PQRS$ with $PQ = 16$ m and $QR = 12$ m. A vertical pole $9$ m tall stands at $R$. Work out the angle of elevation of the top of the pole from $P$, in degrees, to 1 d.p.",
+          "hint": "The angle of elevation is the angle between the line to the top and the flat field. The projection is $PR$.",
+          "answer": {
+            "value": 24.2,
+            "tolerance": 0.05
+          },
+          "explain": "$PR = \\sqrt{16^{2} + 12^{2}} = 20$, so the angle is $\\tan^{-1}\\left(\\frac{9}{20}\\right) = 24.22\\ldots \\approx 24.2^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "atan(9/sqrt(16**2 + 12**2))*180/pi",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cube-angle",
+          "prompt": "A cube has edges of $5$ cm. Work out the angle between a space diagonal and the base.",
+          "hint": "The projection is a diagonal of the square base, not an edge.",
+          "options": [
+            {
+              "text": "$\\theta \\approx 35.3^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\theta \\approx 45.0^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 54.7^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "The base diagonal is $\\sqrt{5^{2} + 5^{2}} = 7.07\\ldots$, so $\\theta = \\tan^{-1}\\left(\\frac{5}{7.07\\ldots}\\right) = 35.26\\ldots^{\\circ}$. $45.0^{\\circ}$ uses an edge as the projection, and $54.7^{\\circ}$ is the angle with a vertical edge.",
+          "verify": {
+            "kind": "angle",
+            "truth": "atan(5/sqrt(5**2 + 5**2))*180/pi"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "On Paper 2, \"show that\" a rod does not fit means comparing squares: write $d^{2}$ as a sum of three squares and show it is less than the rod's length squared."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "d^{2} = a^{2} + b^{2} + c^{2} \\quad \\text{(space diagonal of a cuboid)}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Find a right angle inside the solid, then draw each right-angled triangle flat before you calculate.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Angle between a line and a plane: drop a perpendicular from the line to the plane, then measure the angle between the line and its projection.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Above the centre of a rectangular base, the projection of a slant edge is half the base diagonal.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using a face diagonal as the longest line in a box. The space diagonal uses all three edges: $d^{2} = a^{2} + b^{2} + c^{2}$.",
+    "Putting a base edge into $\\tan$ instead of the base diagonal. The projection runs to the point directly below, which is usually across a diagonal.",
+    "Finding the angle at the wrong corner, or with an edge instead of the plane. Name the angle by its three letters, with the projection as one arm.",
+    "Stopping at $d^{2}$, or at a length the question did not ask for. Take the square root, then reread what is wanted.",
+    "Rounding the base diagonal, then using it again. Keep every digit until the final answer."
+  ],
+  "examTips": [
+    "\"Calculate the angle between $AG$ and the base\": name the angle, such as $GAC$, and write the trig equation, such as $\\tan GAC = \\frac{8}{15}$. That line earns the method marks.",
+    "Angles to 1 d.p. and lengths to 3 s.f., unless the question says otherwise.",
+    "On Paper 2, leave lengths as surds in simplest form, such as $4\\sqrt{3}$ rather than $\\sqrt{48}$. On Paper 4, store the base diagonal in your calculator and use it unrounded."
+  ],
+  "readingMinutes": 17
+}

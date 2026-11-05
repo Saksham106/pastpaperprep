@@ -1,0 +1,832 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "7.1",
+  "slug": "transformations",
+  "title": "Transformations",
+  "level": "Core",
+  "topic": 7,
+  "summary": "A [[transformation|transformation]] moves or resizes a shape to give its [[image|image]]. You draw and describe four: [[translation|translation]], [[reflection|reflection]], [[rotation|rotation]] and [[enlargement|enlargement]].",
+  "goals": [
+    {
+      "text": "Translate a shape by a [[column-vector|column vector]].",
+      "bullets": [
+        "7.1-c4"
+      ]
+    },
+    {
+      "text": "Reflect a shape in a vertical or horizontal line.",
+      "bullets": [
+        "7.1-c1"
+      ]
+    },
+    {
+      "text": "Rotate a shape through a multiple of $90^{\\circ}$ about the [[origin|origin]], a corner or the midpoint of an edge.",
+      "bullets": [
+        "7.1-c2"
+      ]
+    },
+    {
+      "text": "Enlarge a shape by a whole-number or fractional [[scale-factor|scale factor]] from a centre.",
+      "bullets": [
+        "7.1-c3"
+      ]
+    },
+    {
+      "text": "Reflect in any straight line, such as $y = x$, and rotate about any centre.",
+      "bullets": [
+        "7.1-s1",
+        "7.1-s2"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Enlarge by a negative scale factor, and combine two transformations.",
+      "bullets": [
+        "7.1-n1",
+        "7.1-n2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "3.1",
+    "4.1",
+    "4.4",
+    "4.5"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "describe fully the single transformation",
+    "translation by a column vector",
+    "reflect in a line",
+    "rotate 90 degrees clockwise",
+    "enlargement centre and scale factor",
+    "negative scale factor"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-point-left-up",
+      "prompt": "Which point is 3 units left of the origin and 4 units up?",
+      "hint": "Left means a negative $x$-coordinate.",
+      "options": [
+        {
+          "text": "$(-3, 4)$",
+          "correct": true
+        },
+        {
+          "text": "$(3, -4)$",
+          "correct": false
+        },
+        {
+          "text": "$(4, -3)$",
+          "correct": false
+        }
+      ],
+      "explain": "Across first, then up. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "point",
+        "truth": "(0 - 3, 0 + 4)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-congruent-meaning",
+      "prompt": "Two shapes are [[congruent|congruent]]. What must be true?",
+      "hint": "Could one fit exactly on the other?",
+      "options": [
+        {
+          "text": "They are the same shape and size",
+          "correct": true
+        },
+        {
+          "text": "They are the same shape, any size",
+          "correct": false
+        },
+        {
+          "text": "They have the same area, any shape",
+          "correct": false
+        }
+      ],
+      "explain": "One fits exactly on the other, even if flipped. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "They are the same shape and size"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-scale-factor",
+      "prompt": "A side of $8\\text{ cm}$ is $20\\text{ cm}$ on a similar shape. What is the scale factor?",
+      "hint": "New length divided by old length.",
+      "answer": {
+        "value": 2.5,
+        "tolerance": 0
+      },
+      "explain": "$20 \\div 8 = 2.5$. Revise it in {{lesson:4.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "20/8",
+        "dp": 1
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "translation",
+      "heading": "Translations and column vectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[transformation|transformation]] moves a shape or changes its size. The shape you start with is the object; the new shape is its [[image|image]]. The image of $P$ is often called $P'$."
+        },
+        {
+          "type": "definition",
+          "term": "Translation",
+          "statement": "A [[translation|translation]] moves every point the same distance in the same direction.",
+          "plain": "The shape slides: the image is congruent and the same way up."
+        },
+        {
+          "type": "text",
+          "text": "A [[vector|vector]] has size and direction. A translation is written as a [[column-vector|column vector]] $\\begin{pmatrix}a\\\\b\\end{pmatrix}$: move $a$ across (negative is left), then $b$ up (negative is down)."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{pmatrix}a\\\\b\\end{pmatrix}: \\; (x, y) \\to (x + a, \\; y + b)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "figure",
+          "id": "7-1-translation",
+          "alt": "Grid with x and y from minus 5 to 5. Triangle P has corners (minus 3, 2), (minus 1, 2) and (minus 3, 5). Its image P prime has corners (1, minus 1), (3, minus 1) and (1, 2). A dashed path from the top corner (minus 3, 5) goes 4 right to (1, 5), then 3 down to (1, 2), the matching corner of the image."
+        },
+        {
+          "type": "example",
+          "id": "ex-translate-triangle",
+          "question": "Triangle $P$ has corners $(-3, 2)$, $(-1, 2)$ and $(-3, 5)$. Translate $P$ by $\\begin{pmatrix}4\\\\-3\\end{pmatrix}$. Find the corners of the image.",
+          "steps": [
+            "The vector means 4 right, 3 down: add $4$ to each $x$ and subtract $3$ from each $y$.",
+            "$(-3, 2) \\to (1, -1)$, $\\; (-1, 2) \\to (3, -1)$, $\\; (-3, 5) \\to (1, 2)$.",
+            "Check against the figure."
+          ],
+          "answer": "$(1, -1), \\; (3, -1), \\; (1, 2)$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "[(-3 + 4, 2 - 3), (-1 + 4, 2 - 3), (-3 + 4, 5 - 3)]"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-translation",
+          "question": "Shapes $A$ and $B$ are the same size and the same way up. Corner $(2, -3)$ of $A$ matches corner $(-4, 1)$ of $B$. Describe fully the single transformation that maps $A$ onto $B$.",
+          "steps": [
+            "Same size and same way up: a translation.",
+            "Across: $-4 - 2 = -6$. Up: $1 - (-3) = 4$.",
+            "Translation by $\\begin{pmatrix}-6\\\\4\\end{pmatrix}$."
+          ],
+          "answer": "$\\text{vector} = \\begin{pmatrix}-6\\\\4\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "(-4 - 2, 1 - (-3))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-vector-left-up",
+          "prompt": "Which column vector translates a shape 5 units left and 2 units up?",
+          "hint": "Top: across. Bottom: up or down.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}-5\\\\2\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}5\\\\-2\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}2\\\\-5\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "Left is negative, up is positive.",
+          "verify": {
+            "kind": "vector",
+            "truth": "(0 - 5, 0 + 2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-translate-y",
+          "prompt": "The point $(6, -1)$ is translated by $\\begin{pmatrix}-2\\\\7\\end{pmatrix}$. What is the $y$-coordinate of its image?",
+          "hint": "Add the bottom number to $y$.",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "explain": "$-1 + 7 = 6$, so the image is $(4, 6)$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-1 + 7",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "reflection",
+      "heading": "Reflections",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Reflection",
+          "statement": "A [[reflection|reflection]] moves each point straight across a mirror line, at right angles to it, to the same distance on the other side.",
+          "plain": "The image is congruent but flipped. Points on the line stay put."
+        },
+        {
+          "type": "text",
+          "text": "The line $x = k$ is vertical: every point on it has $x$-coordinate $k$. The line $y = k$ is horizontal. The $y$-axis is $x = 0$; the $x$-axis is $y = 0$."
+        },
+        {
+          "type": "figure",
+          "id": "7-1-reflection",
+          "alt": "Grid with x from minus 2 to 6 and y from minus 1 to 5. A dashed vertical mirror line is drawn at x equals 2. Triangle A has corners (3, 1), (5, 1) and (5, 4). Its image B has corners (1, 1), (minus 1, 1) and (minus 1, 4). The corner (5, 4) is 3 units right of the line, and its image (minus 1, 4) is 3 units left of it."
+        },
+        {
+          "type": "example",
+          "id": "ex-reflect-vertical",
+          "question": "Triangle $A$ has corners $(3, 1)$, $(5, 1)$ and $(5, 4)$. Reflect $A$ in the line $x = 2$. Find the corners of the image.",
+          "steps": [
+            "The line is vertical, so each $y$-coordinate stays the same.",
+            "$(3, 1)$ is 1 unit right of the line, so its image is 1 unit left: $(1, 1)$.",
+            "$(5, 1)$ and $(5, 4)$ are 3 units right, so their images are 3 units left: $(-1, 1)$ and $(-1, 4)$."
+          ],
+          "answer": "$(1, 1), \\; (-1, 1), \\; (-1, 4)$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "[(2 - (3 - 2), 1), (2 - (5 - 2), 1), (2 - (5 - 2), 4)]"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-find-mirror",
+          "question": "Triangle $A$ has corners $(-4, 5)$, $(-1, 5)$ and $(-1, 7)$. Triangle $B$ has corners $(-4, -1)$, $(-1, -1)$ and $(-1, -3)$. Describe fully the single transformation that maps $A$ onto $B$.",
+          "steps": [
+            "$B$ is the same size but flipped upside down: a reflection.",
+            "Matching corners share their $x$-coordinate, so the mirror line is horizontal, halfway between them.",
+            "Halfway between $y = 5$ and $y = -1$: $\\frac{5 + (-1)}{2} = 2$. The pair $(-1, 7)$, $(-1, -3)$ agrees.",
+            "Reflection in the line $y = 2$."
+          ],
+          "answer": "$y = 2$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, (5 + (-1))/2)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-reflect-horizontal",
+          "prompt": "The point $(4, -3)$ is reflected in the line $y = 1$. Where is its image?",
+          "hint": "How far below $y = 1$ is the point?",
+          "options": [
+            {
+              "text": "$(4, 5)$",
+              "correct": true
+            },
+            {
+              "text": "$(4, 3)$",
+              "correct": false
+            },
+            {
+              "text": "$(-2, -3)$",
+              "correct": false
+            }
+          ],
+          "explain": "It is 4 below the line, so the image is 4 above: $(4, 5)$. $(4, 3)$ is the reflection in the $x$-axis.",
+          "verify": {
+            "kind": "point",
+            "truth": "(4, 1 + (1 - (-3)))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "You can reflect in any straight line. For $y = x$, swap the coordinates: $(x, y) \\to (y, x)$. For $y = -x$: $(x, y) \\to (-y, -x)$.",
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "For any other line, move each point at right angles to the line, then the same distance again beyond it.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-reflect-sloping",
+          "question": "Reflect the point $(6, 1)$ in the line $y = x + 1$.",
+          "steps": [
+            "The line slopes at $45^{\\circ}$, so move diagonally up and left, at right angles to it.",
+            "$(6, 1) \\to (5, 2) \\to (4, 3) \\to (3, 4)$, which is on the line, since $4 = 3 + 1$. That is 3 steps.",
+            "Three more steps: $(2, 5) \\to (1, 6) \\to (0, 7)$."
+          ],
+          "answer": "$(0, 7)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(6 - 2*3, 1 + 2*3)"
+          },
+          "video": null,
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-reflect-y-equals-x",
+          "prompt": "The point $(5, -2)$ is reflected in the line $y = -x$. Where is its image?",
+          "hint": "Use $(x, y) \\to (-y, -x)$.",
+          "options": [
+            {
+              "text": "$(2, -5)$",
+              "correct": true
+            },
+            {
+              "text": "$(-2, 5)$",
+              "correct": false
+            },
+            {
+              "text": "$(-5, 2)$",
+              "correct": false
+            }
+          ],
+          "explain": "$(-(-2), -5) = (2, -5)$. $(-2, 5)$ is the reflection in $y = x$.",
+          "verify": {
+            "kind": "point",
+            "truth": "(0 - (-2), 0 - 5)"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "rotation",
+      "heading": "Rotations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[rotation|rotation]] turns a shape about a fixed point, the centre. Describe it by its centre, its angle and its direction: clockwise or anticlockwise. A half turn, $180^{\\circ}$, needs no direction. $270^{\\circ}$ one way is $90^{\\circ}$ the other way."
+        },
+        {
+          "type": "text",
+          "text": "Tracing paper works, as for [[rotational-symmetry|rotational symmetry]]. On a grid you can count instead: turn the move from the centre to each corner."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{aligned} &90^{\\circ}\\text{ anticlockwise: } (a \\text{ across}, \\, b \\text{ up}) \\to (-b, \\, a) \\\\ &90^{\\circ}\\text{ clockwise: } (a, \\, b) \\to (b, \\, -a) \\\\ &180^{\\circ}: (a, \\, b) \\to (-a, \\, -b) \\end{aligned}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "About the [[origin|origin]], the move is the point itself, so a quarter turn anticlockwise sends $(x, y)$ to $(-y, x)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rotate-origin",
+          "question": "Triangle $T$ has corners $(1, 3)$, $(4, 3)$ and $(4, 5)$. Rotate $T$ a quarter turn clockwise about the origin. Find the corners of the image.",
+          "steps": [
+            "A quarter turn is $90^{\\circ}$. Clockwise about the origin: $(x, y) \\to (y, -x)$.",
+            "$(1, 3) \\to (3, -1)$, $\\; (4, 3) \\to (3, -4)$, $\\; (4, 5) \\to (5, -4)$.",
+            "Check with tracing paper."
+          ],
+          "answer": "$(3, -1), \\; (3, -4), \\; (5, -4)$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "(Matrix([[0, 1], [-1, 0]]) * Matrix([[1, 4, 4], [3, 3, 5]])).T.tolist()"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "7-1-rotation",
+          "alt": "Grid with x from minus 1 to 6 and y from 0 to 5. Triangle PQR has corners P (2, 1), Q (5, 1) and R (2, 3). Its image after a quarter turn anticlockwise about P has corners P (2, 1), Q prime (2, 4) and R prime (0, 1). P is marked with a dot as the centre. Side PQ pointed 3 right; after the turn, PQ prime points 3 up."
+        },
+        {
+          "type": "example",
+          "id": "ex-rotate-corner",
+          "question": "Triangle $PQR$ has corners $P(2, 1)$, $Q(5, 1)$ and $R(2, 3)$. Rotate it a quarter turn anticlockwise about $P$. Find the corners of the image.",
+          "steps": [
+            "$P$ is the centre, so it stays at $(2, 1)$.",
+            "$P$ to $Q$ is 3 across, 0 up. Turned anticlockwise: 0 across, 3 up. So $Q' = (2, 4)$.",
+            "$P$ to $R$ is 0 across, 2 up. Turned: 2 left, 0 up. So $R' = (0, 1)$."
+          ],
+          "answer": "$(2, 1), \\; (2, 4), \\; (0, 1)$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "[(2, 1), (2 + 0, 1 + 3), (2 - 2, 1 + 0)]"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-describe-rotation",
+          "prompt": "Every corner $(x, y)$ of shape $A$ maps to $(y, -x)$ on shape $B$. Which description scores full marks?",
+          "hint": "Which way does $(1, 0)$ turn to reach $(0, -1)$?",
+          "options": [
+            {
+              "text": "Rotation, 90° clockwise, centre (0, 0)",
+              "correct": true
+            },
+            {
+              "text": "Rotation, 90° anticlockwise, centre (0, 0)",
+              "correct": false
+            },
+            {
+              "text": "Rotation, 90°, centre (0, 0)",
+              "correct": false
+            },
+            {
+              "text": "Rotation, 90° clockwise",
+              "correct": false
+            }
+          ],
+          "explain": "It is a clockwise quarter turn about the origin, and all three details are needed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Rotation, 90° clockwise, centre (0, 0)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The centre can be any point; count moves from it as before. A half turn's centre is the midpoint of any point and its image. For a quarter turn, test likely centres with tracing paper.",
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-rotate-any-centre",
+          "prompt": "The point $(5, 0)$ is rotated a quarter turn anticlockwise about $(1, 2)$. Where is its image?",
+          "hint": "Turn the move from $(1, 2)$ to $(5, 0)$.",
+          "options": [
+            {
+              "text": "$(3, 6)$",
+              "correct": true
+            },
+            {
+              "text": "$(-1, -2)$",
+              "correct": false
+            },
+            {
+              "text": "$(0, 5)$",
+              "correct": false
+            }
+          ],
+          "explain": "$(4, -2)$ turns to $(2, 4)$, so the image is $(3, 6)$. $(-1, -2)$ turns clockwise.",
+          "verify": {
+            "kind": "point",
+            "truth": "(1 - (0 - 2), 2 + (5 - 1))"
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-half-turn-centre",
+          "prompt": "A half turn maps $(2, 3)$ onto $(0, -1)$ and $(6, 3)$ onto $(-4, -1)$. Find the centre.",
+          "hint": "Find the midpoint of $(2, 3)$ and $(0, -1)$.",
+          "options": [
+            {
+              "text": "$(1, 1)$",
+              "correct": true
+            },
+            {
+              "text": "$(0, 0)$",
+              "correct": false
+            },
+            {
+              "text": "$(2, 4)$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\left(\\frac{2 + 0}{2}, \\frac{3 - 1}{2}\\right) = (1, 1)$, and the other pair agrees.",
+          "verify": {
+            "kind": "point",
+            "truth": "((2 + 0)/2, (3 + (-1))/2)"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "enlargement",
+      "heading": "Enlargements",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Enlargement",
+          "statement": "An [[enlargement|enlargement]] with centre $C$ and scale factor $k$ multiplies the move from $C$ to each point by $k$.",
+          "plain": "Lengths are multiplied by $k$; angles stay the same. A scale factor between $0$ and $1$ makes the shape smaller."
+        },
+        {
+          "type": "text",
+          "text": "To draw one, find the move from the centre to each corner, multiply it by $k$, and add it to the centre."
+        },
+        {
+          "type": "figure",
+          "id": "7-1-enlargement",
+          "alt": "Grid with x from minus 2 to 9 and y from 0 to 8. The centre C at (minus 1, 1) is marked with a dot. Triangle A has corners (0, 2), (2, 2) and (2, 3). Its image B, an enlargement with scale factor 3, has corners (2, 4), (8, 4) and (8, 7). Dashed rays start at C, pass through each corner of A and end at the matching corner of B."
+        },
+        {
+          "type": "example",
+          "id": "ex-enlarge-sf3",
+          "question": "Triangle $A$ has corners $(0, 2)$, $(2, 2)$ and $(2, 3)$. Enlarge $A$ by scale factor $3$, centre $(-1, 1)$. Find the corners of the image.",
+          "steps": [
+            "Centre to $(0, 2)$ is 1 across, 1 up. Times 3: 3 across, 3 up. Image $(2, 4)$.",
+            "Likewise $(3, 1) \\to (9, 3)$ gives $(8, 4)$, and $(3, 2) \\to (9, 6)$ gives $(8, 7)$.",
+            "Check: the base is 3 times as long."
+          ],
+          "answer": "$(2, 4), \\; (8, 4), \\; (8, 7)$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "[(-1 + 3*(0 + 1), 1 + 3*(2 - 1)), (-1 + 3*(2 + 1), 1 + 3*(2 - 1)), (-1 + 3*(2 + 1), 1 + 3*(3 - 1))]"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To describe an enlargement, divide an image length by the matching object length for the scale factor. Then draw lines through matching corners: they meet at the centre."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-enlargement",
+          "question": "Rectangle $P$ has corners $(-5, 7)$, $(3, 7)$, $(3, 3)$ and $(-5, 3)$. Rectangle $Q$ has corners $(-1, 4)$, $(3, 4)$, $(3, 2)$ and $(-1, 2)$. Describe fully the single transformation that maps $P$ onto $Q$.",
+          "steps": [
+            "$Q$ is smaller: an enlargement. Widths $8$ and $4$ give scale factor $\\frac{4}{8} = \\frac{1}{2}$.",
+            "The line through $(3, 7)$ and $(3, 4)$ is $x = 3$. The line through $(-5, 7)$ and $(-1, 4)$ goes 4 right, 3 down per step, reaching $(3, 1)$ on $x = 3$.",
+            "Enlargement, scale factor $\\frac{1}{2}$, centre $(3, 1)$."
+          ],
+          "answer": "$\\text{centre} = (3, 1)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(2*3 - 3, 2*4 - 7)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-enlarge-point",
+          "prompt": "The point $(5, 4)$ is enlarged by scale factor $3$, centre $(2, 3)$. Where is its image?",
+          "hint": "Multiply the move from $(2, 3)$ to $(5, 4)$ by 3.",
+          "options": [
+            {
+              "text": "$(11, 6)$",
+              "correct": true
+            },
+            {
+              "text": "$(15, 12)$",
+              "correct": false
+            },
+            {
+              "text": "$(9, 3)$",
+              "correct": false
+            }
+          ],
+          "explain": "The move is 3 across, 1 up; times 3 is 9, 3. So $(2 + 9, 3 + 3) = (11, 6)$. $(15, 12)$ ignores the centre.",
+          "verify": {
+            "kind": "point",
+            "truth": "(2 + 3*(5 - 2), 3 + 3*(4 - 3))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-find-scale-factor",
+          "prompt": "A side of shape $A$ is 6 units long. The matching side of its enlargement $B$ is 15 units long. What is the scale factor?",
+          "hint": "Image length divided by object length.",
+          "answer": {
+            "value": 2.5,
+            "tolerance": 0
+          },
+          "explain": "$15 \\div 6 = 2.5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "15/6",
+            "dp": 1
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying the coordinates by the scale factor. That only works when the centre is the origin; otherwise multiply the move from the centre."
+        },
+        {
+          "type": "text",
+          "text": "A negative scale factor reverses the move from the centre: the image is upside down, on the other side. Ignore the sign for lengths.",
+          "level": "Extended"
+        },
+        {
+          "type": "figure",
+          "id": "7-1-negative-scale",
+          "alt": "Grid with x from minus 2 to 6 and y from minus 4 to 7. The centre C at (1, 0) is marked with a dot. Triangle A has corners (3, 2), (5, 2) and (3, 6). Its image B, an enlargement with scale factor minus one half, has corners (0, minus 1), (minus 1, minus 1) and (0, minus 3). B is half the size, upside down, on the other side of C. Dashed lines join each corner of A through C to the matching corner of B.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-negative-scale",
+          "question": "Triangle $A$ has corners $(3, 2)$, $(5, 2)$ and $(3, 6)$. Enlarge $A$ by scale factor $-\\frac{1}{2}$, centre $(1, 0)$. Find the corners of the image.",
+          "steps": [
+            "Centre to $(3, 2)$: 2 across, 2 up. Times $-\\frac{1}{2}$: $-1$, $-1$. Image $(0, -1)$.",
+            "Centre to $(5, 2)$: 4, 2. Times $-\\frac{1}{2}$: $-2$, $-1$. Image $(-1, -1)$.",
+            "Centre to $(3, 6)$: 2, 6. Times $-\\frac{1}{2}$: $-1$, $-3$. Image $(0, -3)$."
+          ],
+          "answer": "$(0, -1), \\; (-1, -1), \\; (0, -3)$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "[(1 - Rational(1, 2)*(3 - 1), 0 - Rational(1, 2)*2), (1 - Rational(1, 2)*(5 - 1), 0 - Rational(1, 2)*2), (1 - Rational(1, 2)*(3 - 1), 0 - Rational(1, 2)*6)]"
+          },
+          "video": null,
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-negative-sf",
+          "prompt": "An enlargement with centre $(1, 3)$ maps $(2, 4)$ onto $(-1, 1)$, and $(3, 3)$ onto $(-3, 3)$. What is the scale factor?",
+          "hint": "Compare the moves from the centre.",
+          "options": [
+            {
+              "text": "$-2$",
+              "correct": true
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$-\\tfrac{1}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "The move $(1, 1)$ becomes $(-2, -2)$: twice as far, the other way.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(-1 - 1)/(2 - 1)"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "describe",
+      "heading": "Which transformation?",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Different size: enlargement. Same size and way up: translation. Flipped: reflection. Turned: rotation."
+        },
+        {
+          "type": "examTip",
+          "text": "\"Describe fully the single transformation\": one transformation, with all its details. Two transformations score nothing."
+        },
+        {
+          "type": "example",
+          "id": "ex-recognise-half-turn",
+          "question": "Triangle $A$ has corners $(1, 2)$, $(4, 2)$ and $(4, 4)$. They map onto $(7, 4)$, $(4, 4)$ and $(4, 2)$ of triangle $B$. Describe fully the single transformation that maps $A$ onto $B$.",
+          "steps": [
+            "Same size, and every side now points the opposite way: a half turn.",
+            "The centre is the midpoint of a corner and its image: $\\left(\\frac{1 + 7}{2}, \\frac{2 + 4}{2}\\right) = (4, 3)$, the midpoint of an edge of $A$.",
+            "Rotation, $180^{\\circ}$, centre $(4, 3)$."
+          ],
+          "answer": "$\\text{centre} = (4, 3)$",
+          "verify": {
+            "kind": "point",
+            "truth": "((1 + 7)/2, (2 + 4)/2)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-full-marks",
+          "prompt": "Which description of an enlargement scores full marks?",
+          "hint": "What does an enlargement description need?",
+          "options": [
+            {
+              "text": "Enlargement, scale factor 3, centre (2, -1)",
+              "correct": true
+            },
+            {
+              "text": "Enlargement, scale factor 3",
+              "correct": false
+            },
+            {
+              "text": "Three times as big, from (2, -1)",
+              "correct": false
+            },
+            {
+              "text": "Enlargement, centre (2, -1), then a translation",
+              "correct": false
+            }
+          ],
+          "explain": "It needs the name, the scale factor and the centre, as one transformation.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Enlargement, scale factor 3, centre (2, -1)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A [[combined-transformation|combined transformation]] is one transformation followed by another: apply the second to the image of the first. The order matters.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-combined",
+          "question": "Triangle $T$ has corners $(2, 1)$, $(5, 1)$ and $(2, 3)$. Reflect $T$ in the $y$-axis, then reflect the image in the $x$-axis. Describe fully the single transformation that maps $T$ onto the final image.",
+          "steps": [
+            "Reflecting in the $y$-axis: $(-2, 1)$, $(-5, 1)$, $(-2, 3)$.",
+            "Then in the $x$-axis: $(-2, -1)$, $(-5, -1)$, $(-2, -3)$.",
+            "Each $(x, y)$ has gone to $(-x, -y)$: a half turn. The midpoint of $(2, 1)$ and $(-2, -1)$ is $(0, 0)$.",
+            "Rotation, $180^{\\circ}$, centre $(0, 0)$."
+          ],
+          "answer": "$\\text{centre} = (0, 0)$",
+          "verify": {
+            "kind": "point",
+            "truth": "((2 + (-2))/2, (1 + (-1))/2)"
+          },
+          "video": null,
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-combined-order",
+          "prompt": "The point $(4, 1)$ is reflected in $y = x$, and the image is then reflected in the $x$-axis. Where does it end up?",
+          "hint": "First swap the coordinates.",
+          "options": [
+            {
+              "text": "$(1, -4)$",
+              "correct": true
+            },
+            {
+              "text": "$(-1, 4)$",
+              "correct": false
+            },
+            {
+              "text": "$(4, -1)$",
+              "correct": false
+            }
+          ],
+          "explain": "$(4, 1) \\to (1, 4) \\to (1, -4)$. The other order gives $(-1, 4)$.",
+          "verify": {
+            "kind": "point",
+            "truth": "Matrix([[1, 0], [0, -1]]) * Matrix([[0, 1], [1, 0]]) * Matrix([4, 1])"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Reflection: same distance on the other side of the mirror line. $x = k$ is vertical; $y = k$ is horizontal.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "About the origin: $90^{\\circ}$ anticlockwise $(x, y) \\to (-y, x)$; $90^{\\circ}$ clockwise $(x, y) \\to (y, -x)$; $180^{\\circ}$ $(x, y) \\to (-x, -y)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Enlargement: multiply the move from the centre to each point by the scale factor. Lines through matching corners meet at the centre.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Reflect in $y = x$: $(x, y) \\to (y, x)$. In $y = -x$: $(x, y) \\to (-y, -x)$. Negative scale factor: image on the other side of the centre, upside down.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Reading a negative bottom number as up. In $\\begin{pmatrix}3\\\\-5\\end{pmatrix}$ the $-5$ means 5 down.",
+    "Counting from an axis when the mirror line is, say, $y = -2$. Count from the mirror line.",
+    "Mixing up $x = 3$ (vertical) with $y = 3$.",
+    "Giving a rotation angle with no direction, or \"right\". Write clockwise or anticlockwise.",
+    "Leaving out the centre or scale factor of an enlargement.",
+    "Describing two transformations when the question asks for one. Two score nothing."
+  ],
+  "examTips": [
+    "\"Describe fully\": name the transformation, then its details. Translation: vector. Reflection: mirror line. Rotation: centre, angle, direction. Enlargement: centre, scale factor.",
+    "\"Draw the image\": work out each corner's coordinates, then join them with a ruler."
+  ],
+  "readingMinutes": 25
+}

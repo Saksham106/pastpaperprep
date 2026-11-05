@@ -1,0 +1,556 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "6.4",
+  "slug": "trigonometric-functions",
+  "title": "Trigonometric functions",
+  "level": "Extended",
+  "topic": 6,
+  "summary": "The graphs of [[sine|sine]] and [[cosine|cosine]] are waves between $-1$ and $1$. The [[tangent-ratio|tangent]] graph repeats every $180^{\\circ}$ and breaks at $90^{\\circ}$ and $270^{\\circ}$. Their shapes show you how to solve a [[trigonometric-equation|trigonometric equation]]: you find one angle, and the graph gives you the other.",
+  "goals": [
+    {
+      "text": "Sketch $y = \\sin x$, $y = \\cos x$ and $y = \\tan x$ for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$, with the key points and asymptotes marked.",
+      "bullets": [
+        "6.4-s1"
+      ]
+    },
+    {
+      "text": "Recognise each graph and use it to read off solutions, such as where $\\cos x = -1$.",
+      "bullets": [
+        "6.4-s1"
+      ]
+    },
+    {
+      "text": "Solve equations such as $2\\cos x + \\sqrt{2} = 0$ without a calculator, using exact values.",
+      "bullets": [
+        "6.4-s2"
+      ]
+    },
+    {
+      "text": "Solve equations such as $7\\sin x + 4 = 0$ with a calculator, giving every angle from $0^{\\circ}$ to $360^{\\circ}$ to 1 decimal place.",
+      "bullets": [
+        "6.4-s2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "6.2",
+    "6.3"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "trig graphs",
+    "sketch the graph of sin x",
+    "graph of tan x",
+    "solve trig equations",
+    "find all angles between 0 and 360",
+    "solve sin x = 0.5"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-exact-cos60",
+      "prompt": "Without a calculator, write down the exact value of $\\cos 60^{\\circ}$.",
+      "hint": "Think of the triangle or the table of exact values. Is $\\cos 60^{\\circ}$ bigger or smaller than $\\cos 30^{\\circ}$?",
+      "options": [
+        {
+          "text": "$\\frac{1}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{\\sqrt{3}}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{\\sqrt{2}}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\cos 60^{\\circ} = \\frac{1}{2}$. $\\frac{\\sqrt{3}}{2}$ is $\\cos 30^{\\circ}$, and $\\frac{\\sqrt{2}}{2}$ is $\\cos 45^{\\circ}$. Revise it in {{lesson:6.3}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "cos(pi/3)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-inverse-sin",
+      "prompt": "$y$ is an acute angle and $\\sin y = 0.9$. Use your calculator to find $y$, in degrees, to 1 decimal place.",
+      "hint": "Use $\\sin^{-1}$, with the calculator in degrees.",
+      "answer": {
+        "value": 64.2,
+        "tolerance": 0.05
+      },
+      "explain": "$y = \\sin^{-1}(0.9) = 64.158\\ldots^{\\circ} \\approx 64.2^{\\circ}$. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "deg(asin(Rational(9, 10)))",
+        "dp": 1
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "graphs",
+      "heading": "The three graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:6.2}} you used [[sine|sine]], [[cosine|cosine]] and [[tangent-ratio|tangent]] for angles under $90^{\\circ}$. Your calculator works them out for any angle: $\\sin 150^{\\circ} = 0.5$."
+        },
+        {
+          "type": "text",
+          "text": "Work out $\\sin x$ at $x = 0^{\\circ}$, $90^{\\circ}$, $180^{\\circ}$, $270^{\\circ}$ and $360^{\\circ}$. You get $0$, $1$, $0$, $-1$ and $0$. Plot more points and join them smoothly: you get a wave."
+        },
+        {
+          "type": "figure",
+          "id": "6-4-sin-cos",
+          "alt": "Two graphs for x from 0 to 360 degrees. Top: y equals sin x, a smooth wave through (0, 0), up to its highest point (90, 1), down through (180, 0) to its lowest point (270, minus 1), and back up to (360, 0). Bottom: y equals cos x, the same wave shape starting at its highest point (0, 1), down through (90, 0) to its lowest point (180, minus 1), up through (270, 0) and back to (360, 1).",
+          "caption": "Both waves stay between $-1$ and $1$, and both repeat every $360^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "The sine wave starts at $(0, 0)$. It rises to its highest point, $(90^{\\circ}, 1)$, then falls to its lowest point, $(270^{\\circ}, -1)$, and ends at $(360^{\\circ}, 0)$."
+        },
+        {
+          "type": "text",
+          "text": "The cosine wave has the same shape, but it starts at its highest point, $(0, 1)$. Its lowest point is $(180^{\\circ}, -1)$, and it crosses the $x$-axis at $90^{\\circ}$ and $270^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "$\\sin x$ and $\\cos x$ are never more than $1$ or less than $-1$. So an equation such as $\\cos x = 1.5$ has no solutions at all."
+        },
+        {
+          "type": "text",
+          "text": "The tangent graph is different. $\\tan 90^{\\circ}$ has no value: your calculator shows an error. Just before $90^{\\circ}$, $\\tan x$ is very large, and just after, very large and negative."
+        },
+        {
+          "type": "figure",
+          "id": "6-4-tan",
+          "alt": "Graph of y equals tan x for x from 0 to 360 degrees. Dashed vertical asymptotes at x equals 90 and x equals 270 split it into three pieces. The first piece rises from (0, 0) through (45, 1) and shoots up towards the asymptote at 90. The middle piece comes up from far below just after 90, rises through (180, 0) and (225, 1), and shoots up towards the asymptote at 270. The last piece comes up from far below just after 270 and rises to (360, 0). Every piece rises from left to right.",
+          "caption": "The tangent graph repeats every $180^{\\circ}$, and each piece rises from left to right."
+        },
+        {
+          "type": "text",
+          "text": "So the graph breaks at $x = 90^{\\circ}$ and $x = 270^{\\circ}$. Draw each break as a dashed [[asymptote|asymptote]]: a line the curve gets closer to but never touches."
+        },
+        {
+          "type": "text",
+          "text": "$\\tan x = 0$ at $0^{\\circ}$, $180^{\\circ}$ and $360^{\\circ}$, and $\\tan x = 1$ at $45^{\\circ}$ and $225^{\\circ}$. Unlike sine and cosine, $\\tan x$ can take any value, however large or small."
+        },
+        {
+          "type": "examTip",
+          "text": "When a question says sketch, draw the right shape and mark the key points: where the curve crosses the axes, the highest and lowest points, and dashed asymptotes for tan. Use a smooth curve, not straight lines, and never join the tan pieces across an asymptote."
+        },
+        {
+          "type": "example",
+          "id": "ex-graph-sin-lowest",
+          "question": "Use the graph of $y = \\sin x$ to solve $\\sin x = -1$ for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$.",
+          "steps": [
+            "$\\sin x = -1$ asks where the sine wave is at height $-1$.",
+            "$-1$ is as low as the wave goes. It reaches that height only once, at its lowest point.",
+            "The lowest point of the sine wave is $(270^{\\circ}, -1)$, so $x = 270^{\\circ}$.",
+            "Check with a calculator if you have one: $\\sin 270^{\\circ} = -1$."
+          ],
+          "answer": "$x = 270^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "solveset(Eq(sin(x*pi/180), -1), x, Interval(0, 360)).sup"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-graph-recognise",
+          "prompt": "A graph for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$ starts at its highest point. It falls to its lowest point halfway along, then rises back to the top. Which graph is it?",
+          "hint": "Which wave starts at $(0, 1)$?",
+          "options": [
+            {
+              "text": "The cosine graph",
+              "correct": true
+            },
+            {
+              "text": "The sine graph",
+              "correct": false
+            },
+            {
+              "text": "The tangent graph",
+              "correct": false
+            }
+          ],
+          "explain": "The cosine wave starts at $(0, 1)$, falls to $(180^{\\circ}, -1)$ and rises back to $(360^{\\circ}, 1)$. The sine wave starts at $(0, 0)$, and the tangent graph has no highest point.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The cosine graph"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-graph-tan-zero",
+          "question": "Use the graph of $y = \\tan x$ to solve $\\tan x = 0$ for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$.",
+          "steps": [
+            "$\\tan x = 0$ asks where the tangent graph meets the $x$-axis.",
+            "The first piece starts on the axis, at $(0, 0)$. The middle piece crosses it at $(180^{\\circ}, 0)$.",
+            "The last piece ends on the axis, at $(360^{\\circ}, 0)$.",
+            "The range includes both ends, $0^{\\circ}$ and $360^{\\circ}$, so all three angles count."
+          ],
+          "answer": "$x = 0^{\\circ} \\text{ or } x = 180^{\\circ} \\text{ or } x = 360^{\\circ}$",
+          "verify": {
+            "kind": "list",
+            "truth": "solveset(Eq(tan(x*pi/180), 0), x, Interval(0, 360))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-graph-cos-lowest",
+          "prompt": "Use the graph of $y = \\cos x$ to solve $\\cos x = -1$ for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$.",
+          "hint": "Where is the lowest point of the cosine wave?",
+          "options": [
+            {
+              "text": "$x = 180^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$x = 270^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$x = 90^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "The cosine wave reaches $-1$ only at its lowest point, $(180^{\\circ}, -1)$. $270^{\\circ}$ is the lowest point of the sine wave, and at $90^{\\circ}$ the cosine wave is at $0$.",
+          "verify": {
+            "kind": "angle",
+            "truth": "solveset(Eq(cos(x*pi/180), -1), x, Interval(0, 360)).sup"
+          }
+        }
+      ]
+    },
+    {
+      "id": "exact",
+      "heading": "Solving with exact values",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Trigonometric equation",
+          "statement": "A [[trigonometric-equation|trigonometric equation]] has an unknown angle inside $\\sin$, $\\cos$ or $\\tan$, such as $\\tan x = 1$. To solve it for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$, find every angle in that range that makes it true.",
+          "plain": "Find all the angles that fit, not just one."
+        },
+        {
+          "type": "text",
+          "text": "An exact value from {{lesson:6.3}}, or your calculator, gives one angle. The graphs show there is usually a second: the line $y = 0.8$ cuts the sine wave twice."
+        },
+        {
+          "type": "figure",
+          "id": "6-4-second-angle",
+          "alt": "Three graphs for x from 0 to 360 degrees, each cut by a dashed horizontal line. Top: y equals sin x and the line y equals 0.8 cross twice, at a, which is about 53 degrees, and at 180 degrees minus a, about 127 degrees, mirror images either side of 90 degrees. Middle: y equals cos x and the line y equals 0.4 cross at a, about 66 degrees, and at 360 degrees minus a, about 294 degrees, mirror images either side of 180 degrees. Bottom: y equals tan x and the line y equals 2 cross at a, about 63 degrees, and at 180 degrees plus a, about 243 degrees, one in each rising piece.",
+          "caption": "Here $a$ is the acute angle the calculator gives. The second crossing is a mirror image (sine, cosine) or $180^{\\circ}$ further on (tangent)."
+        },
+        {
+          "type": "text",
+          "text": "The sine wave is symmetrical about $x = 90^{\\circ}$, so its two crossings are $a$ and $180^{\\circ} - a$. Here $a$ is the acute angle with $\\sin a = k$."
+        },
+        {
+          "type": "text",
+          "text": "The cosine wave is symmetrical about $x = 180^{\\circ}$, so its crossings are $a$ and $360^{\\circ} - a$. The tangent graph repeats every $180^{\\circ}$, so its crossings are $a$ and $180^{\\circ} + a$."
+        },
+        {
+          "type": "text",
+          "text": "Those pairs are for a positive $k$. When $k$ is negative, the line $y = k$ is below the $x$-axis, so it cuts the graph somewhere else."
+        },
+        {
+          "type": "figure",
+          "id": "6-4-negative-sine",
+          "alt": "Graph of y equals sin x for x from 0 to 360 degrees with a dashed line at y equals minus 0.6. The line only meets the wave where the wave is below the x-axis, between 180 and 360 degrees. It crosses at 180 degrees plus a and at 360 degrees minus a, where a is the acute angle with sine 0.6, about 37 degrees. Brackets show that each crossing is a distance a from 180 degrees or from 360 degrees.",
+          "caption": "For $\\sin x = -0.6$, find $a$ from $\\sin a = 0.6$. Both answers are $a$ away from $180^{\\circ}$ or $360^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "So find $a$ ignoring any minus sign. Every answer is $a$ away from $0^{\\circ}$, $180^{\\circ}$ or $360^{\\circ}$, and the sign of $k$ tells you which two."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{array}{l|l|l} & k > 0 & k < 0 \\\\ \\hline \\sin x = k & a,\\ 180^{\\circ} - a & 180^{\\circ} + a,\\ 360^{\\circ} - a \\\\ \\cos x = k & a,\\ 360^{\\circ} - a & 180^{\\circ} - a,\\ 180^{\\circ} + a \\\\ \\tan x = k & a,\\ 180^{\\circ} + a & 180^{\\circ} - a,\\ 360^{\\circ} - a \\end{array}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The table works when $k$ is not $0$ and, for sine and cosine, $k$ is between $-1$ and $1$. For $k = 0$, $1$ or $-1$, read the answers straight off the graph, as in the examples above."
+        },
+        {
+          "type": "text",
+          "text": "1. Rearrange the equation to get $\\sin x$, $\\cos x$ or $\\tan x$ on its own, equal to a number $k$."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the acute angle $a$, ignoring any minus sign. On Paper 2 it is one of the exact values: $30^{\\circ}$, $45^{\\circ}$ or $60^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "3. Use the table, or a quick sketch with the line $y = k$, to write down both angles."
+        },
+        {
+          "type": "example",
+          "id": "ex-exact-tan",
+          "question": "Without a calculator, solve $\\sqrt{3}\\tan x = 3$ for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$.",
+          "steps": [
+            "Divide both sides by $\\sqrt{3}$: $\\tan x = \\frac{3}{\\sqrt{3}} = \\sqrt{3}$.",
+            "$\\tan 60^{\\circ} = \\sqrt{3}$ is an exact value, so $a = 60^{\\circ}$.",
+            "$k = \\sqrt{3}$ is positive, so the angles are $a$ and $180^{\\circ} + a$.",
+            "$x = 60^{\\circ}$ and $x = 180^{\\circ} + 60^{\\circ} = 240^{\\circ}$."
+          ],
+          "answer": "$x = 60^{\\circ} \\text{ or } x = 240^{\\circ}$",
+          "verify": {
+            "kind": "list",
+            "truth": "solveset(Eq(sqrt(3)*tan(x*pi/180), 3), x, Interval(0, 360))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-exact-sin-neg",
+          "prompt": "Without a calculator, solve $4\\sin x = -2$ for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$.",
+          "hint": "Divide by $4$ first. Which acute angle has a sine of $\\frac{1}{2}$? Where is the sine wave below the axis?",
+          "options": [
+            {
+              "text": "$x = 210^{\\circ} \\text{ or } x = 330^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$x = 30^{\\circ} \\text{ or } x = 150^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$x = 150^{\\circ} \\text{ or } x = 210^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$x = 210^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sin x = -\\frac{1}{2}$ and $\\sin 30^{\\circ} = \\frac{1}{2}$, so $a = 30^{\\circ}$. $k$ is negative, so $x = 180^{\\circ} + 30^{\\circ} = 210^{\\circ}$ or $x = 360^{\\circ} - 30^{\\circ} = 330^{\\circ}$. $30^{\\circ}$ and $150^{\\circ}$ solve $\\sin x = \\frac{1}{2}$ instead.",
+          "verify": {
+            "kind": "list",
+            "truth": "solveset(Eq(4*sin(x*pi/180), -2), x, Interval(0, 360))"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-exact-cos-neg",
+          "question": "Without a calculator, solve $2\\cos x + \\sqrt{2} = 0$ for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$.",
+          "steps": [
+            "Subtract $\\sqrt{2}$, then divide by $2$: $\\cos x = -\\frac{\\sqrt{2}}{2}$.",
+            "Ignore the minus sign. $\\cos 45^{\\circ} = \\frac{\\sqrt{2}}{2}$, so $a = 45^{\\circ}$.",
+            "$k$ is negative. The cosine wave is below the axis between $90^{\\circ}$ and $270^{\\circ}$, so the angles are $180^{\\circ} - a$ and $180^{\\circ} + a$.",
+            "$x = 180^{\\circ} - 45^{\\circ} = 135^{\\circ}$ and $x = 180^{\\circ} + 45^{\\circ} = 225^{\\circ}$.",
+            "Check: both angles are between $90^{\\circ}$ and $270^{\\circ}$, where cosine is negative."
+          ],
+          "answer": "$x = 135^{\\circ} \\text{ or } x = 225^{\\circ}$",
+          "verify": {
+            "kind": "list",
+            "truth": "solveset(Eq(2*cos(x*pi/180) + sqrt(2), 0), x, Interval(0, 360))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-exact-tan-neg",
+          "prompt": "Without a calculator, solve $\\tan x + 1 = 0$ for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$.",
+          "hint": "$\\tan x = -1$. Which acute angle has a tangent of $1$? Where is the tangent graph below the axis?",
+          "options": [
+            {
+              "text": "$x = 135^{\\circ} \\text{ or } x = 315^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$x = 45^{\\circ} \\text{ or } x = 225^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$x = 135^{\\circ} \\text{ or } x = 225^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$x = -45^{\\circ} \\text{ or } x = 135^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\tan 45^{\\circ} = 1$, so $a = 45^{\\circ}$. $k$ is negative, so $x = 180^{\\circ} - 45^{\\circ} = 135^{\\circ}$ or $x = 360^{\\circ} - 45^{\\circ} = 315^{\\circ}$. $135^{\\circ}$ and $225^{\\circ}$ is the cosine pattern, and $-45^{\\circ}$ is outside the range.",
+          "verify": {
+            "kind": "list",
+            "truth": "solveset(Eq(tan(x*pi/180) + 1, 0), x, Interval(0, 360))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "calculator",
+      "heading": "Solving with a calculator",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On Paper 4, $k$ is usually not an exact value. Find $a$ with $\\sin^{-1}$, $\\cos^{-1}$ or $\\tan^{-1}$, then use the same table."
+        },
+        {
+          "type": "text",
+          "text": "Type in the positive value of $k$, so the calculator gives the acute angle $a$. Keep every digit of $a$, and round only the final angles, to 1 decimal place."
+        },
+        {
+          "type": "calculator",
+          "snippet": "degree-mode"
+        },
+        {
+          "type": "example",
+          "id": "ex-calc-cos",
+          "question": "Solve $5\\cos x = 2$ for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$. Give your answers to 1 decimal place.",
+          "steps": [
+            "Divide both sides by $5$: $\\cos x = \\frac{2}{5} = 0.4$.",
+            "Use your calculator: $a = \\cos^{-1}(0.4) = 66.421\\ldots^{\\circ}$.",
+            "$k = 0.4$ is positive, so the angles are $a$ and $360^{\\circ} - a$.",
+            "$x = 66.421\\ldots^{\\circ} \\approx 66.4^{\\circ}$ and $x = 360^{\\circ} - 66.421\\ldots^{\\circ} = 293.578\\ldots^{\\circ} \\approx 293.6^{\\circ}$."
+          ],
+          "answer": "$x \\approx 66.4^{\\circ} \\text{ or } x \\approx 293.6^{\\circ}$",
+          "verify": {
+            "kind": "list",
+            "truth": "solveset(Eq(5*cos(x*pi/180), 2), x, Interval(0, 360))",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "inverse-trig",
+          "values": {
+            "ratio": "0.4"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-calc-sin-neg",
+          "question": "Solve $7\\sin x + 4 = 0$ for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$. Give your answers to 1 decimal place.",
+          "steps": [
+            "Subtract $4$, then divide by $7$: $\\sin x = -\\frac{4}{7}$.",
+            "Ignore the minus sign: $a = \\sin^{-1}\\left(\\frac{4}{7}\\right) = 34.849\\ldots^{\\circ}$.",
+            "$k$ is negative, so the angles are $180^{\\circ} + a$ and $360^{\\circ} - a$.",
+            "$x = 180^{\\circ} + 34.849\\ldots^{\\circ} = 214.849\\ldots^{\\circ} \\approx 214.8^{\\circ}$.",
+            "$x = 360^{\\circ} - 34.849\\ldots^{\\circ} = 325.150\\ldots^{\\circ} \\approx 325.2^{\\circ}$.",
+            "Check: both angles are between $180^{\\circ}$ and $360^{\\circ}$, where sine is negative."
+          ],
+          "answer": "$x \\approx 214.8^{\\circ} \\text{ or } x \\approx 325.2^{\\circ}$",
+          "verify": {
+            "kind": "list",
+            "truth": "solveset(Eq(7*sin(x*pi/180) + 4, 0), x, Interval(0, 360))",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Typing $\\sin^{-1}\\left(-\\frac{4}{7}\\right)$ and writing down $-34.8^{\\circ}$. That angle is outside the range. Use the positive value to find $a$, then the table."
+        },
+        {
+          "type": "check",
+          "id": "check-calc-tan",
+          "prompt": "Solve $\\tan x = 2.5$ for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$. Give your answers to 1 decimal place.",
+          "hint": "Find $a = \\tan^{-1}(2.5)$. The tangent graph repeats every $180^{\\circ}$.",
+          "options": [
+            {
+              "text": "$x \\approx 68.2^{\\circ} \\text{ or } x \\approx 248.2^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$x \\approx 68.2^{\\circ} \\text{ or } x \\approx 111.8^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$x \\approx 68.2^{\\circ} \\text{ or } x \\approx 291.8^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$x \\approx 68.2^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$a = \\tan^{-1}(2.5) = 68.198\\ldots^{\\circ}$. $k$ is positive, so the second angle is $180^{\\circ} + 68.198\\ldots^{\\circ} \\approx 248.2^{\\circ}$. $111.8^{\\circ}$ is the sine pattern, $180^{\\circ} - a$, and $291.8^{\\circ}$ the cosine pattern, $360^{\\circ} - a$.",
+          "verify": {
+            "kind": "list",
+            "truth": "solveset(Eq(tan(x*pi/180), 2.5), x, Interval(0, 360))",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-calc-cos-larger",
+          "prompt": "The equation $10\\cos x = -7$ has two solutions for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$. Find the larger one, in degrees, to 1 decimal place.",
+          "hint": "$\\cos x = -0.7$. Find $a = \\cos^{-1}(0.7)$. $k$ is negative, so the angles are $180^{\\circ} - a$ and $180^{\\circ} + a$.",
+          "answer": {
+            "value": 225.6,
+            "tolerance": 0.05
+          },
+          "explain": "$a = \\cos^{-1}(0.7) = 45.572\\ldots^{\\circ}$. The angles are $180^{\\circ} - 45.572\\ldots^{\\circ} \\approx 134.4^{\\circ}$ and $180^{\\circ} + 45.572\\ldots^{\\circ} \\approx 225.6^{\\circ}$. The larger is $225.6^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "solveset(Eq(10*cos(x*pi/180), -7), x, Interval(0, 360)).sup",
+            "dp": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$y = \\sin x$: a wave from $(0, 0)$ up to $(90^{\\circ}, 1)$, down to $(270^{\\circ}, -1)$ and back to $(360^{\\circ}, 0)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$y = \\cos x$: the same wave, starting at its highest point $(0, 1)$, with its lowest point at $(180^{\\circ}, -1)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$y = \\tan x$: zero at $0^{\\circ}$, $180^{\\circ}$ and $360^{\\circ}$, asymptotes at $x = 90^{\\circ}$ and $x = 270^{\\circ}$, and repeats every $180^{\\circ}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To solve, rearrange to $\\sin x = k$ (or $\\cos$, $\\tan$), find the acute angle $a$ ignoring any minus sign, then use the table or a sketch to get every angle in the range.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Keep every digit of $a$, and give final angles to 1 decimal place unless the question says otherwise.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving only the angle the calculator shows. Most of these equations have two solutions between $0^{\\circ}$ and $360^{\\circ}$, so use the table or a sketch to find the second.",
+    "Losing the minus sign, and giving the answers to $\\cos x = 0.3$ when the equation was $\\cos x = -0.3$. Check each answer is where the graph has the right sign.",
+    "Using the wrong rule for the second angle, such as $180^{\\circ} - a$ when $\\cos x$ is positive. Sketch the graph and the line $y = k$ to see where the crossings really are.",
+    "Joining points with straight lines, starting the sine wave at its top, or joining the tan pieces across an asymptote. Sine starts at $(0, 0)$, cosine at $(0, 1)$, and every curve is smooth."
+  ],
+  "examTips": [
+    "Solve for $0^{\\circ} \\leqslant x \\leqslant 360^{\\circ}$ means give every solution in the range. One correct angle on its own usually earns only part of the marks.",
+    "Write the rearranged equation, such as $\\cos x = -0.7$, before the angles. It shows your method and where each angle came from.",
+    "Give angles to 1 decimal place unless the question says otherwise. Rounding $a$ early can cost the accuracy mark.",
+    "Sketch means the right shape with the key points marked, not an accurate plot."
+  ],
+  "readingMinutes": 18
+}

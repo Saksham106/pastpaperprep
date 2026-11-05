@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 215" role="img" aria-labelledby="t">
+  <title id="t">A triangular prism. The triangle at the front end is shaded and labelled cross-section, area A. The edge running from the front to the back is labelled length l. Hidden edges are dashed.</title>
+  <polygon points="40,170 140,170 40,90" fill="var(--t2-ink)" fill-opacity="0.18" stroke="currentColor" stroke-width="2"/>
+  <line x1="40" y1="90" x2="190" y2="40" stroke="currentColor" stroke-width="2"/>
+  <line x1="140" y1="170" x2="290" y2="120" stroke="currentColor" stroke-width="2"/>
+  <line x1="190" y1="40" x2="290" y2="120" stroke="currentColor" stroke-width="2"/>
+  <line x1="40" y1="170" x2="190" y2="120" stroke="currentColor" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="190" y1="120" x2="290" y2="120" stroke="currentColor" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="190" y1="40" x2="190" y2="120" stroke="currentColor" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="68" y="155" fill="currentColor" font-size="16" font-style="italic" font-family="inherit">A</text>
+  <text x="90" y="195" fill="currentColor" font-size="14" text-anchor="middle" font-family="inherit">cross-section, area A</text>
+  <text x="228" y="168" fill="currentColor" font-size="16" font-style="italic" font-family="inherit">l</text>
+  <text x="250" y="175" fill="currentColor" font-size="14" font-family="inherit">length</text>
+</svg>

@@ -1,0 +1,588 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "8.3",
+  "slug": "probability-of-combined-events",
+  "title": "Probability of combined events",
+  "level": "Core",
+  "topic": 8,
+  "summary": "[[combined-events|Combined events]] are two or more [[event|events]] happening together, like rolling two dice. You find their probabilities by listing every [[outcome|outcome]] in a [[sample-space-diagram|sample space diagram]], reading a [[venn-diagram|Venn diagram]], or multiplying along a [[tree-diagram|tree diagram]]. Extended adds picks made [[without-replacement|without replacement]].",
+  "goals": [
+    {
+      "text": "List every outcome of two combined events in a sample space diagram, and use it to find probabilities.",
+      "bullets": [
+        "8.3-c1"
+      ]
+    },
+    {
+      "text": "Complete a tree diagram for picks made [[with-replacement|with replacement]], then multiply along paths and add paths.",
+      "bullets": [
+        "8.3-c1"
+      ]
+    },
+    {
+      "text": "Find probabilities from a Venn diagram with two circles.",
+      "bullets": [
+        "8.3-c1"
+      ]
+    },
+    {
+      "text": "Use $\\mathrm{P}(A \\cap B)$ and $\\mathrm{P}(A \\cup B)$ with a Venn diagram.",
+      "bullets": [
+        "8.3-n2"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Find probabilities when items are not put back.",
+      "bullets": [
+        "8.3-n1"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "8.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "tree diagrams",
+    "sample space diagram",
+    "probability venn diagram",
+    "with and without replacement",
+    "two dice probability",
+    "and or probability"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-single-pick",
+      "prompt": "A bag holds $4$ red beads and $9$ yellow beads. One bead is taken at random. Which is $\\mathrm{P}(\\text{red})$?",
+      "hint": "Divide the number of red beads by the number of beads in the bag.",
+      "options": [
+        {
+          "text": "$\\frac{4}{13}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{4}{9}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{9}{13}$",
+          "correct": false
+        }
+      ],
+      "explain": "There are $4 + 9 = 13$ beads and $4$ are red, so $\\mathrm{P}(\\text{red}) = \\frac{4}{13}$. Revise it in {{lesson:8.1}}.",
+      "verify": {
+        "kind": "fraction",
+        "truth": "Rational(4, 4 + 9)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-venn-count",
+      "prompt": "A Venn diagram of the students in a year shows: French only $12$, both French and Spanish $5$, Spanish only $9$, neither $14$. How many students study French?",
+      "hint": "French is the whole circle: the French only part and the overlap.",
+      "answer": {
+        "value": 17,
+        "tolerance": 0
+      },
+      "explain": "$12 + 5 = 17$. The $5$ in the overlap study French too. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "12 + 5",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "sample-space",
+      "heading": "Sample space diagrams",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Flipping a coin and spinning a spinner together gives [[combined-events|combined events]]. To find their probabilities, first list every possible result."
+        },
+        {
+          "type": "definition",
+          "term": "Sample space diagram",
+          "statement": "A sample space diagram is a table of every outcome of two combined events, one along the top and one down the side. Each cell is one outcome.",
+          "plain": "A grid of every outcome."
+        },
+        {
+          "type": "text",
+          "text": "When every outcome is equally likely, $\\mathrm{P} = \\dfrac{\\text{number of outcomes you want}}{\\text{total number of outcomes}}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-coin-spinner",
+          "question": "A fair coin is flipped and a fair spinner numbered $1$, $2$ and $3$ is spun. Draw a sample space diagram and find the probability of a head and an odd number.",
+          "steps": [
+            "Put the coin down the side and the spinner along the top: $\\begin{array}{c|ccc} & 1 & 2 & 3 \\\\ \\hline \\text{H} & \\text{H}1 & \\text{H}2 & \\text{H}3 \\\\ \\text{T} & \\text{T}1 & \\text{T}2 & \\text{T}3 \\end{array}$",
+            "There are $2 \\times 3 = 6$ cells, all equally likely.",
+            "A head and an odd number: H1 and H3. That is $2$ cells.",
+            "So the probability is $\\frac{2}{6}$. Divide top and bottom by $2$."
+          ],
+          "answer": "$\\mathrm{P}(\\text{head and odd}) = \\frac{1}{3}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(2, 2*3)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A cell can hold a score instead, such as a total."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-dice",
+          "question": "Two fair six-sided dice are rolled and their scores are added. Find the probability that the total is more than $8$.",
+          "steps": [
+            "Fill in the totals: $\\begin{array}{c|cccccc} + & 1 & 2 & 3 & 4 & 5 & 6 \\\\ \\hline 1 & 2 & 3 & 4 & 5 & 6 & 7 \\\\ 2 & 3 & 4 & 5 & 6 & 7 & 8 \\\\ 3 & 4 & 5 & 6 & 7 & 8 & 9 \\\\ 4 & 5 & 6 & 7 & 8 & 9 & 10 \\\\ 5 & 6 & 7 & 8 & 9 & 10 & 11 \\\\ 6 & 7 & 8 & 9 & 10 & 11 & 12 \\end{array}$",
+            "There are $6 \\times 6 = 36$ cells.",
+            "Count the totals above $8$: four $9$s, three $10$s, two $11$s and one $12$. That is $4 + 3 + 2 + 1 = 10$ cells.",
+            "So the probability is $\\frac{10}{36}$. Divide top and bottom by $2$."
+          ],
+          "answer": "$\\mathrm{P}(\\text{total} > 8) = \\frac{5}{18}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(4 + 3 + 2 + 1, 6*6)"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-dice-seven",
+            "prompt": "Using the same table, find the probability that the total is $7$.",
+            "hint": "Count the $7$s. They run along a diagonal.",
+            "options": [
+              {
+                "text": "$\\frac{7}{36}$",
+                "correct": false
+              },
+              {
+                "text": "$\\frac{1}{6}$",
+                "correct": true
+              },
+              {
+                "text": "$\\frac{1}{12}$",
+                "correct": false
+              }
+            ],
+            "explain": "Six cells hold $7$: $(1, 6)$, $(2, 5)$, $(3, 4)$, $(4, 3)$, $(5, 2)$ and $(6, 1)$. So $\\frac{6}{36} = \\frac{1}{6}$.",
+            "verify": {
+              "kind": "fraction",
+              "truth": "Rational(6, 6*6)"
+            }
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Treating $(2, 5)$ and $(5, 2)$ as the same outcome. They are different cells, so count both orders."
+        },
+        {
+          "type": "check",
+          "id": "check-spinner-difference",
+          "prompt": "Two fair spinners, each numbered $1$ to $5$, are spun. The score is the larger number minus the smaller. Find the probability that the score is $2$.",
+          "hint": "Draw the $5$ by $5$ table of differences, then count the $2$s.",
+          "options": [
+            {
+              "text": "$\\frac{3}{25}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{6}{25}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{5}$",
+              "correct": false
+            }
+          ],
+          "explain": "Six of the $25$ cells hold $2$: $(1, 3)$, $(3, 1)$, $(2, 4)$, $(4, 2)$, $(3, 5)$ and $(5, 3)$.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(3*2, 5*5)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "trees",
+      "heading": "Tree diagrams",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Counting cells only works when every outcome is equally likely. A [[tree-diagram|tree diagram]] works for any probabilities."
+        },
+        {
+          "type": "definition",
+          "term": "Tree diagram",
+          "statement": "A tree diagram has one column of branches for each stage. Each outcome is written at the end of its branch, and its probability beside the branch. The branches from one point add up to $1$.",
+          "plain": "Branches for each stage, with probabilities on them."
+        },
+        {
+          "type": "text",
+          "text": "[[with-replacement|With replacement]] means the item is put back before the next pick. So the second branches have the same probabilities as the first."
+        },
+        {
+          "type": "result",
+          "statement": "For one path, multiply the probabilities along its branches. When several paths give what you want, add their results.",
+          "why": "A second red happens in $\\frac{3}{8}$ of the $\\frac{3}{8}$ of times the first is red. Two paths can't both happen, so they add."
+        },
+        {
+          "type": "figure",
+          "id": "8-3-tree-marbles",
+          "alt": "Tree diagram for two marbles taken with replacement from a bag of 3 red and 5 blue. First marble: red 3 over 8, blue 5 over 8. After either colour the second marble has the same branches: red 3 over 8, blue 5 over 8. Path products: red red 9 over 64, red blue 15 over 64, blue red 15 over 64, blue blue 25 over 64.",
+          "caption": "With replacement, both columns use $\\frac{3}{8}$ and $\\frac{5}{8}$. The four path results add to $1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-tree-both-blue",
+          "question": "A bag holds $3$ red marbles and $5$ blue marbles. Ali picks one without looking, writes down its colour and returns it to the bag. Then he picks again. Find the probability that both marbles are blue.",
+          "steps": [
+            "There are $3 + 5 = 8$ marbles, so $\\mathrm{P}(\\text{red}) = \\frac{3}{8}$ and $\\mathrm{P}(\\text{blue}) = \\frac{5}{8}$.",
+            "The marble is put back, so the second branches are also $\\frac{3}{8}$ and $\\frac{5}{8}$.",
+            "Follow blue then blue, and multiply: $\\frac{5}{8} \\times \\frac{5}{8} = \\frac{25}{64}$."
+          ],
+          "answer": "$\\mathrm{P}(\\text{both blue}) = \\frac{25}{64}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(5, 3 + 5)*Rational(5, 3 + 5)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-tree-different",
+          "question": "Using the same tree, find the probability that the two marbles are different colours.",
+          "steps": [
+            "Different colours can happen in two ways: red then blue, or blue then red.",
+            "Red then blue: $\\frac{3}{8} \\times \\frac{5}{8} = \\frac{15}{64}$.",
+            "Blue then red: $\\frac{5}{8} \\times \\frac{3}{8} = \\frac{15}{64}$.",
+            "Add the two paths: $\\frac{15}{64} + \\frac{15}{64} = \\frac{30}{64}$, then divide top and bottom by $2$."
+          ],
+          "answer": "$\\mathrm{P}(\\text{different}) = \\frac{15}{32}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(3, 8)*Rational(5, 8) + Rational(5, 8)*Rational(3, 8)"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-at-least-one-red",
+            "prompt": "Using the same tree, find the probability that at least one marble is red.",
+            "hint": "Every path except blue-blue has a red. Use $1 - \\mathrm{P}(\\text{both blue})$.",
+            "options": [
+              {
+                "text": "$\\frac{39}{64}$",
+                "correct": true
+              },
+              {
+                "text": "$\\frac{9}{64}$",
+                "correct": false
+              },
+              {
+                "text": "$\\frac{3}{8}$",
+                "correct": false
+              }
+            ],
+            "explain": "$1 - \\frac{25}{64} = \\frac{39}{64}$.",
+            "verify": {
+              "kind": "fraction",
+              "truth": "1 - Rational(5, 8)**2"
+            }
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-train-late",
+          "prompt": "The probability that Mia's train is late on any day is $0.2$, whatever happened the day before. Find the probability that it is late on exactly one of two days.",
+          "hint": "Not late is $1 - 0.2$. Late-then-on-time and on-time-then-late are two paths.",
+          "answer": {
+            "value": 0.32,
+            "tolerance": 0
+          },
+          "explain": "$0.2 \\times 0.8 + 0.8 \\times 0.2 = 0.16 + 0.16 = 0.32$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.2*(1 - 0.2) + (1 - 0.2)*0.2",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "venn",
+      "heading": "Probability from a Venn diagram",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[venn-diagram|Venn diagram]] can show how many people are in each [[set|set]]. For a person picked at random, divide the number in the region you want by the total in the whole rectangle."
+        },
+        {
+          "type": "figure",
+          "id": "8-3-venn-club",
+          "alt": "Venn diagram of the 40 members of a sports club. Circle T is members who play tennis and circle S is members who swim. Tennis only 11, both 6, swim only 15, and outside both circles 8.",
+          "caption": "$11 + 6 + 15 + 8 = 40$ members in total."
+        },
+        {
+          "type": "example",
+          "id": "ex-venn-both",
+          "question": "A member of the club in the diagram is picked at random. Find the probability that they play tennis and swim.",
+          "steps": [
+            "Tennis and swimming is the [[intersection|intersection]], the overlap: $6$ members.",
+            "The total is everyone in the rectangle: $11 + 6 + 15 + 8 = 40$.",
+            "So the probability is $\\frac{6}{40}$. Divide top and bottom by $2$."
+          ],
+          "answer": "$\\mathrm{P}(\\text{tennis and swim}) = \\frac{3}{20}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(6, 11 + 6 + 15 + 8)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-venn-not-swim",
+          "question": "A member of the same club is picked at random. Find the probability that they do not swim.",
+          "steps": [
+            "Not swimming is everything outside circle $S$: tennis only ($11$) and outside both circles ($8$).",
+            "Add them: $11 + 8 = 19$.",
+            "Divide by the total, $40$."
+          ],
+          "answer": "$\\mathrm{P}(\\text{not swim}) = \\frac{19}{40}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(11 + 8, 11 + 6 + 15 + 8)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-venn-exactly-one",
+          "prompt": "A member of the same club is picked at random. Find the probability that they do exactly one of the two sports.",
+          "hint": "Exactly one means tennis only or swim only, not the overlap.",
+          "options": [
+            {
+              "text": "$\\frac{13}{20}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{4}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{20}$",
+              "correct": false
+            }
+          ],
+          "explain": "$11 + 15 = 26$, and $\\frac{26}{40} = \\frac{13}{20}$.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(11 + 15, 11 + 6 + 15 + 8)"
+          }
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "Extended papers may write $\\mathrm{P}(A \\cap B)$ for the probability of $A$ and $B$: the overlap. $\\mathrm{P}(A \\cup B)$ is the probability of $A$ or $B$ or both: everything inside the circles."
+        },
+        {
+          "type": "check",
+          "id": "check-venn-union",
+          "level": "Extended",
+          "prompt": "For the same club, find $\\mathrm{P}(T \\cup S)$.",
+          "hint": "Everything inside the circles. Count the overlap once.",
+          "options": [
+            {
+              "text": "$\\frac{4}{5}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{19}{20}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{20}$",
+              "correct": false
+            }
+          ],
+          "explain": "$11 + 6 + 15 = 32$, and $\\frac{32}{40} = \\frac{4}{5}$. Adding the circle totals, $17 + 21 = 38$, counts the $6$ twice.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(11 + 6 + 15, 11 + 6 + 15 + 8)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "without",
+      "heading": "Without replacement",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Without replacement",
+          "statement": "Without replacement means an item is not put back. The next pick has one item fewer, so the second branches change.",
+          "plain": "Not put back: the second total is $1$ less."
+        },
+        {
+          "type": "text",
+          "text": "On the second branches, take $1$ off the total and $1$ off the type just picked."
+        },
+        {
+          "type": "figure",
+          "id": "8-3-tree-sweets",
+          "alt": "Tree diagram for two sweets taken without replacement from a jar of 5 lemon and 4 orange. First sweet: lemon 5 over 9, orange 4 over 9. After lemon: lemon 4 over 8, orange 4 over 8. After orange: lemon 5 over 8, orange 3 over 8.",
+          "caption": "The second column is out of $8$, and depends on the first sweet."
+        },
+        {
+          "type": "example",
+          "id": "ex-sweets-both-orange",
+          "question": "A jar holds $5$ lemon sweets and $4$ orange sweets. Zara takes a sweet at random and eats it. Then she takes another. Find the probability that both sweets are orange.",
+          "steps": [
+            "First pick: $\\mathrm{P}(\\text{orange}) = \\frac{4}{9}$.",
+            "One orange sweet has gone. That leaves $3$ orange out of $8$ sweets.",
+            "Multiply along the path: $\\frac{4}{9} \\times \\frac{3}{8} = \\frac{12}{72}$, then divide top and bottom by $12$."
+          ],
+          "answer": "$\\mathrm{P}(\\text{both orange}) = \\frac{1}{6}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(4, 9)*Rational(4 - 1, 9 - 1)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-sweets-different",
+          "question": "For the same jar, find the probability that Zara's two sweets are different flavours.",
+          "steps": [
+            "Lemon then orange: $\\frac{5}{9} \\times \\frac{4}{8} = \\frac{20}{72}$.",
+            "Orange then lemon: $\\frac{4}{9} \\times \\frac{5}{8} = \\frac{20}{72}$.",
+            "Add the paths: $\\frac{40}{72}$, then divide top and bottom by $8$."
+          ],
+          "answer": "$\\mathrm{P}(\\text{different}) = \\frac{5}{9}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(5, 9)*Rational(4, 8) + Rational(4, 9)*Rational(5, 8)"
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-sweets-same",
+            "prompt": "For the same jar, find the probability that both sweets are the same flavour.",
+            "hint": "Lemon-lemon plus orange-orange. Or use $1 -$ the answer above.",
+            "options": [
+              {
+                "text": "$\\frac{4}{9}$",
+                "correct": true
+              },
+              {
+                "text": "$\\frac{41}{81}$",
+                "correct": false
+              },
+              {
+                "text": "$\\frac{1}{6}$",
+                "correct": false
+              }
+            ],
+            "explain": "$\\frac{5}{9} \\times \\frac{4}{8} + \\frac{4}{9} \\times \\frac{3}{8} = \\frac{32}{72} = \\frac{4}{9}$.",
+            "verify": {
+              "kind": "fraction",
+              "truth": "Rational(5, 9)*Rational(4, 8) + Rational(4, 9)*Rational(3, 8)"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "text": "Three picks work the same way: multiply three fractions, taking $1$ off the total each time."
+        },
+        {
+          "type": "check",
+          "id": "check-three-pens",
+          "prompt": "A pot holds $6$ blue pens and $4$ black pens. Three pens are taken at random without replacement. Find the probability that all three are blue.",
+          "hint": "The totals go $10$, $9$, $8$. The blue count drops by $1$ each time too.",
+          "options": [
+            {
+              "text": "$\\frac{1}{6}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{27}{125}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{30}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{6}{10} \\times \\frac{5}{9} \\times \\frac{4}{8} = \\frac{120}{720} = \\frac{1}{6}$.",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(6, 10)*Rational(5, 9)*Rational(4, 8)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Equally likely outcomes: $\\mathrm{P} = \\dfrac{\\text{outcomes you want}}{\\text{total outcomes}}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Tree diagram: multiply along a path, then add the paths you want. The branches from one point add to $1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Venn diagram of numbers: divide the number in the region by the total in the whole rectangle, including the outside.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{P}(A \\cap B)$: the overlap. $\\mathrm{P}(A \\cup B)$: everything inside the circles.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Without replacement: on the next branches, take $1$ off the total and $1$ off the item just picked.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Adding along a path, $\\frac{5}{8} + \\frac{5}{8}$, instead of multiplying. A probability can't be more than $1$.",
+    "Changing the second branches when the item was put back. With replacement, the second pick has the same probabilities as the first.",
+    "Finding only one order. Different colours means red then blue or blue then red: work out both paths and add.",
+    "Dividing by one circle's total, or leaving out the region outside the circles, when finding a Venn diagram probability.",
+    "Extended: keeping the same total on the second pick when the item is not put back. Out of $9$ becomes out of $8$."
+  ],
+  "examTips": [
+    "\"Complete the tree diagram\": write a probability beside every branch and check that each pair adds to $1$. The outcome names go at the ends of the branches.",
+    "\"Work out the probability\": write the multiplication, such as $\\frac{5}{8} \\times \\frac{5}{8}$, before the answer. It can earn a method mark.",
+    "Give a probability as a fraction, decimal or percentage, never as a ratio such as $3 : 8$."
+  ],
+  "readingMinutes": 18
+}

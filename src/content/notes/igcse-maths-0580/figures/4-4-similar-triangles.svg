@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 165" role="img" aria-labelledby="t">
+  <title id="t">Two similar triangles side by side. Small triangle ABC has AB 4 cm, AC 6 cm and base BC 7 cm. Larger triangle PQR has the same shape: PQ 10 cm, PR y cm and base QR x cm. A matches P, B matches Q and C matches R.</title>
+  <polygon points="25,135 116,135 51.9,90.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <polygon points="170,135 397.5,135 237.3,23.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <g font-family="inherit" fill="currentColor" font-size="14" text-anchor="middle">
+    <text x="51.9" y="83">A</text>
+    <text x="16" y="140">B</text>
+    <text x="125" y="140">C</text>
+    <text x="237.3" y="16">P</text>
+    <text x="160" y="140">Q</text>
+    <text x="408" y="140">R</text>
+  </g>
+  <g font-family="inherit" font-size="12">
+    <text x="34" y="110" fill="var(--t1-ink)" text-anchor="end">4 cm</text>
+    <text x="88" y="108" fill="var(--t1-ink)" text-anchor="start">6 cm</text>
+    <text x="70.5" y="154" fill="var(--t1-ink)" text-anchor="middle">7 cm</text>
+    <text x="198" y="80" fill="var(--t2-ink)" text-anchor="end">10 cm</text>
+    <text x="324" y="78" fill="var(--t2-ink)" text-anchor="start">y cm</text>
+    <text x="283.8" y="154" fill="var(--t2-ink)" text-anchor="middle">x cm</text>
+  </g>
+</svg>

@@ -1,0 +1,538 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "9.5",
+  "slug": "scatter-diagrams",
+  "title": "Scatter diagrams",
+  "level": "Core",
+  "topic": 9,
+  "summary": "A [[scatter-diagram|scatter diagram]] plots two measurements for each object as one cross, so you can see if they are linked. The pattern shows the [[correlation|correlation]]: positive, negative or zero. A [[line-of-best-fit|line of best fit]] sums up the pattern and lets you estimate values.",
+  "goals": [
+    {
+      "text": "Plot pairs of data on a scatter diagram.",
+      "bullets": [
+        "9.5-c1"
+      ]
+    },
+    {
+      "text": "Read a scatter diagram and spot a point that doesn't fit.",
+      "bullets": [
+        "9.5-c1"
+      ]
+    },
+    {
+      "text": "Name and describe positive, negative and zero correlation.",
+      "bullets": [
+        "9.5-c2"
+      ]
+    },
+    {
+      "text": "Draw a line of best fit by eye.",
+      "bullets": [
+        "9.5-c3"
+      ]
+    },
+    {
+      "text": "Estimate values from the line, and say when they are reliable.",
+      "bullets": [
+        "9.5-c3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "scatter graph",
+    "scatter plot",
+    "positive and negative correlation",
+    "line of best fit",
+    "how to draw a line of best fit",
+    "outlier"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-plot-order",
+      "prompt": "To plot the point $(5, 8)$, which way do you go?",
+      "hint": "The first number in the bracket goes with the horizontal [[axis|axis]].",
+      "options": [
+        {
+          "text": "5 across, then 8 up",
+          "correct": true
+        },
+        {
+          "text": "8 across, then 5 up",
+          "correct": false
+        },
+        {
+          "text": "5 up, then 8 across",
+          "correct": false
+        }
+      ],
+      "explain": "The first coordinate is how far across, and the second is how far up. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "5 across, then 8 up"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-scale-square",
+      "prompt": "On an axis, the labels $0$ and $50$ are $10$ small squares apart. What is one small square worth?",
+      "hint": "Share the gap equally between the squares.",
+      "answer": {
+        "value": 5,
+        "tolerance": 0
+      },
+      "explain": "$50 \\div 10 = 5$. Revise scales in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(50 - 0)/10",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "drawing",
+      "heading": "Drawing a scatter diagram",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you measure two things about each object, such as the distance a van drives and the fuel it uses. Is a longer drive linked to more fuel? A picture of all the pairs shows you."
+        },
+        {
+          "type": "definition",
+          "term": "Scatter diagram",
+          "statement": "A [[scatter-diagram|scatter diagram]] shows paired data. Each pair is plotted as one point, with one variable on the horizontal [[axis|axis]] and the other on the vertical axis.",
+          "plain": "One cross for each pair."
+        },
+        {
+          "type": "text",
+          "text": "1. Check the label on each axis. The first value of each pair usually goes across, but the labels decide."
+        },
+        {
+          "type": "text",
+          "text": "2. Work out what one small square is worth on each axis. The scales are often different, and may not start at $0$."
+        },
+        {
+          "type": "text",
+          "text": "3. Plot each pair as a small cross ($\\times$). Don't join the crosses."
+        },
+        {
+          "type": "figure",
+          "id": "9-5-vans",
+          "alt": "Scatter diagram of fuel used in litres against distance driven in km for seven vans. Crosses at 145 and 15, 180 and 16, 215 and 20, 235 and 21, 265 and 19, 305 and 26, 335 and 29. The crosses rise from bottom left to top right, except the cross at 265 and 19, which is ringed and sits below the others.",
+          "caption": "Each cross is one van. The ringed van used less fuel than the pattern suggests."
+        },
+        {
+          "type": "example",
+          "id": "ex-plot-van",
+          "question": "A scatter diagram has distance across, with labels $200$ and $250$ km $10$ small squares apart. Fuel goes up, with labels $20$ and $25$ litres also $10$ squares apart. A van drove $235$ km and used $21$ litres. How many small squares right of the $200$ line, and above the $20$ line, is its cross?",
+          "steps": [
+            "Across: one small square is $50 \\div 10 = 5$ km.",
+            "$235$ km is $35$ km past the $200$ line, which is $35 \\div 5 = 7$ squares.",
+            "Up: one small square is $5 \\div 10 = 0.5$ litres.",
+            "$21$ litres is $1$ litre above the $20$ line, which is $1 \\div 0.5 = 2$ squares.",
+            "Put a cross $7$ squares right of $200$ and $2$ squares above $20$."
+          ],
+          "answer": "$7, 2$",
+          "verify": {
+            "kind": "list",
+            "truth": "[(235 - 200)/((250 - 200)/10), (21 - 20)/((25 - 20)/10)]"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A cross far from the pattern is called an outlier. Here, one van used much less fuel than vans that drove about as far."
+        },
+        {
+          "type": "example",
+          "id": "ex-van-per-litre",
+          "question": "Use the diagram of the seven vans. Which van drove furthest for each litre of fuel? Give that distance per litre to 3 s.f.",
+          "steps": [
+            "Distance per litre is distance $\\div$ fuel. A van that used little fuel for its distance sits low, below the pattern.",
+            "That is the cross at $(265, 19)$: $265 \\div 19 = 13.94\\ldots$ km per litre.",
+            "Check the next best: $305 \\div 26 = 11.73\\ldots$ and $335 \\div 29 = 11.55\\ldots$ are smaller.",
+            "Round only at the end: $13.94\\ldots \\approx 13.9$."
+          ],
+          "answer": "$265 \\div 19 \\approx 13.9\\text{ km per litre}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Max(Rational(180, 16), Rational(235, 21), Rational(305, 26), Rational(145, 15), Rational(265, 19), Rational(335, 29), Rational(215, 20))",
+            "sf": 3,
+            "unit": "km per litre"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-plot-axes",
+          "prompt": "A scatter diagram has hours of sleep across and reaction time up. Someone slept $7.5$ hours and reacted in $0.32$ seconds. How do you plot them?",
+          "hint": "Which axis is each variable on?",
+          "options": [
+            {
+              "text": "Across to 7.5, up to 0.32, mark a cross",
+              "correct": true
+            },
+            {
+              "text": "Across to 0.32, up to 7.5, mark a cross",
+              "correct": false
+            },
+            {
+              "text": "Across to 7.5, up to 0.32, join to the last cross",
+              "correct": false
+            }
+          ],
+          "explain": "Sleep is across and reaction time is up. Crosses are never joined.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Across to 7.5, up to 0.32, mark a cross"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-scale-forty",
+          "prompt": "On a scatter diagram, the vertical labels $40$ and $60$ are $10$ small squares apart. What is one small square worth?",
+          "hint": "Find the gap, then share it out.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "The gap is $60 - 40 = 20$, and $20 \\div 10 = 2$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(60 - 40)/10",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "correlation",
+      "heading": "Correlation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Look at the overall shape of the crosses. Do they drift up, drift down, or go nowhere?"
+        },
+        {
+          "type": "definition",
+          "term": "Correlation",
+          "statement": "[[correlation|Correlation]] describes how two variables are linked. It shows in the pattern of the points on a scatter diagram.",
+          "plain": "Does one go up or down as the other goes up?"
+        },
+        {
+          "type": "text",
+          "text": "1. Positive correlation: as one variable increases, the other tends to increase. The crosses rise from bottom left to top right."
+        },
+        {
+          "type": "text",
+          "text": "2. Negative correlation: as one variable increases, the other tends to decrease. The crosses fall from top left to bottom right."
+        },
+        {
+          "type": "text",
+          "text": "3. Zero correlation (or no correlation): there is no pattern."
+        },
+        {
+          "type": "figure",
+          "id": "9-5-correlation-types",
+          "alt": "Three small scatter diagrams side by side. Positive correlation: the crosses rise from bottom left to top right. Negative correlation: the crosses fall from top left to bottom right. Zero correlation: the crosses are spread all over with no pattern.",
+          "caption": "The three types of correlation."
+        },
+        {
+          "type": "text",
+          "text": "\"Tends to\" matters: not every cross must follow the pattern. Crosses close to a straight line show strong correlation; loosely spread ones show weak correlation."
+        },
+        {
+          "type": "text",
+          "text": "To describe it in context, say what happens to one variable as the other increases: \"the further a van drives, the more fuel it uses\"."
+        },
+        {
+          "type": "example",
+          "id": "ex-trees-pattern",
+          "question": "Eight trees have trunk width (cm) and height (m) $(22, 9.5)$, $(35, 14.5)$, $(18, 7.5)$, $(41, 16.5)$, $(29, 12.5)$, $(47, 18.5)$, $(38, 6.5)$ and $(26, 10.5)$. Describe the correlation. One tree lost its top in a storm. Write down its point.",
+          "steps": [
+            "Plot them with width across. Most crosses rise from bottom left to top right: wider trees tend to be taller. This is positive correlation.",
+            "Look for a cross far from the pattern. Trees $35$ and $41$ cm wide are $14.5$ m and $16.5$ m tall.",
+            "The tree $38$ cm wide is only $6.5$ m tall, far below them. That is the storm-damaged tree."
+          ],
+          "answer": "$(38, 6.5)$",
+          "verify": {
+            "kind": "point",
+            "truth": "[(22, 9.5), (35, 14.5), (18, 7.5), (41, 16.5), (29, 12.5), (47, 18.5), (38, 6.5), (26, 10.5)][6]"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "If the pattern is hard to see, compare the mean $y$-value of the left half of the points with the right half. Clearly higher on the right suggests positive, clearly lower suggests negative, and about the same suggests zero. It is only a rough check: look at the crosses too."
+        },
+        {
+          "type": "example",
+          "id": "ex-span-halves",
+          "question": "Eight people's hand spans (cm) and memory-game scores are $(19.5, 22)$, $(17.5, 23)$, $(21.5, 26)$, $(16.5, 17)$, $(20.5, 18)$, $(19, 25)$, $(22.5, 18)$ and $(18.5, 19)$. Find the mean score of the four smallest spans and of the four largest. Describe the correlation.",
+          "steps": [
+            "In order of span, the scores are $17, 23, 19, 25$, then $22, 18, 26, 18$.",
+            "Four smallest spans: mean score $= (17 + 23 + 19 + 25) \\div 4 = 84 \\div 4 = 21$.",
+            "Four largest spans: mean score $= (22 + 18 + 26 + 18) \\div 4 = 84 \\div 4 = 21$.",
+            "The means are equal, and the scores zigzag with no pattern: zero correlation."
+          ],
+          "answer": "$21, 21$",
+          "verify": {
+            "kind": "list",
+            "truth": "[(17 + 23 + 19 + 25)/4, (22 + 18 + 26 + 18)/4]"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-candle",
+          "prompt": "As a candle burns for longer, it gets shorter. What type of correlation is there between burning time and the length of the candle?",
+          "hint": "As the time goes up, what does the length do?",
+          "options": [
+            {
+              "text": "Negative",
+              "correct": true
+            },
+            {
+              "text": "Positive",
+              "correct": false
+            },
+            {
+              "text": "Zero",
+              "correct": false
+            }
+          ],
+          "explain": "One goes up while the other goes down: negative correlation.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Negative"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-zero",
+          "prompt": "Which pair of variables would you expect to show zero correlation?",
+          "hint": "Which two are unrelated?",
+          "options": [
+            {
+              "text": "Height and last digit of phone number",
+              "correct": true
+            },
+            {
+              "text": "Height and arm length",
+              "correct": false
+            },
+            {
+              "text": "Age of a car and its value",
+              "correct": false
+            }
+          ],
+          "explain": "Taller people tend to have longer arms (positive), and older cars tend to be worth less (negative). A phone number has nothing to do with height.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Height and last digit of phone number"
+          }
+        }
+      ]
+    },
+    {
+      "id": "best-fit",
+      "heading": "Line of best fit",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When there is correlation, one straight line can sum up the trend. You can read estimates from it."
+        },
+        {
+          "type": "definition",
+          "term": "Line of best fit",
+          "statement": "A [[line-of-best-fit|line of best fit]] is a single straight line, drawn by eye with a ruler, that follows the trend of the points on a scatter diagram.",
+          "plain": "A ruled line through the middle of the crosses."
+        },
+        {
+          "type": "text",
+          "text": "1. Check the direction of the trend: up for positive correlation, down for negative."
+        },
+        {
+          "type": "text",
+          "text": "2. Lay your ruler along the middle of the crosses. Move it until about as many crosses are above it as below, all along its length."
+        },
+        {
+          "type": "text",
+          "text": "3. Draw one ruled line across the full spread of the data. It needn't pass through any cross, or through $(0, 0)$."
+        },
+        {
+          "type": "text",
+          "text": "Ignore an outlier such as the storm-damaged tree. With zero correlation, no line fits."
+        },
+        {
+          "type": "figure",
+          "id": "9-5-best-fit",
+          "alt": "Scatter diagram of price in dollars against age in months for ten second-hand phones, with negative correlation. A ruled line of best fit runs from about 4 months and 430 dollars down to about 38 months and 90 dollars, with five crosses above it and five below. Dashed lines go up from 18 months to the line and across to 290 dollars, and across from 200 dollars to the line and down to 27 months.",
+          "caption": "Read estimates from the line, not from the nearest cross."
+        },
+        {
+          "type": "example",
+          "id": "ex-phone-price",
+          "question": "The diagram shows the age and price of ten second-hand phones. Mia's line of best fit passes through $(6, 410)$ and $(36, 110)$. Use it to estimate the price of an $18$-month-old phone.",
+          "steps": [
+            "Go up from $18$ on the age axis to the line.",
+            "Go across to the price axis and read $290$.",
+            "Check: the line falls $300$ dollars over $30$ months, $10$ dollars a month. So at $18$ months it is at $410 - 12 \\times 10 = 290$."
+          ],
+          "answer": "$\\$290$",
+          "verify": {
+            "kind": "money",
+            "truth": "410 + (18 - 6)*(110 - 410)/(36 - 6)",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-phone-age",
+          "question": "Another phone sells for \\$200. Use Mia's line to estimate its age. Explain why the line should not be used for a $60$-month-old phone.",
+          "steps": [
+            "This time start on the price axis: go across from $200$ to the line, then down. Read $27$ months.",
+            "Check: $410 - 200 = 210$ dollars at $10$ a month is $21$ months after $6$, so $27$.",
+            "The data only goes from $6$ to $36$ months, so nobody knows if the trend carries on to $60$.",
+            "In fact the line gives $410 - 54 \\times 10 = -130$ dollars at $60$ months: impossible. Only trust estimates inside the range of the data."
+          ],
+          "answer": "$\\text{age} = 27\\text{ months}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "6 + (200 - 410)*(36 - 6)/(110 - 410)",
+            "unit": "months"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Reading off the nearest cross instead of the line. Always go to the line."
+        },
+        {
+          "type": "check",
+          "id": "check-good-line",
+          "prompt": "Which of these is a good line of best fit?",
+          "hint": "It follows the whole trend.",
+          "options": [
+            {
+              "text": "A ruled line through the middle, crosses balanced on each side",
+              "correct": true
+            },
+            {
+              "text": "A ruled line from the first cross to the last",
+              "correct": false
+            },
+            {
+              "text": "A smooth curve through every cross",
+              "correct": false
+            },
+            {
+              "text": "A ruled line from the origin to the highest cross",
+              "correct": false
+            }
+          ],
+          "explain": "The line follows the whole trend. The end crosses, the origin and the highest cross may all be off the trend.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A ruled line through the middle, crosses balanced on each side"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-read-line",
+          "prompt": "A line of best fit for weekly gaming hours ($x$) and reaction-test score ($y$) passes through $(4, 71)$ and $(24, 31)$. Estimate the score for $14$ hours.",
+          "hint": "How much does the line fall per hour?",
+          "answer": {
+            "value": 51,
+            "tolerance": 0
+          },
+          "explain": "It falls $40$ over $20$ hours, $2$ per hour. So $71 - 10 \\times 2 = 51$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "71 + (14 - 4)*(31 - 71)/(24 - 4)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reliable",
+          "prompt": "A line of best fit links dogs' masses, from $12$ to $40$ kg, to the food they eat. Which estimate is most reliable?",
+          "hint": "Is the mass inside the data?",
+          "options": [
+            {
+              "text": "For a 25 kg dog",
+              "correct": true
+            },
+            {
+              "text": "For a 70 kg dog",
+              "correct": false
+            },
+            {
+              "text": "For a 3 kg dog",
+              "correct": false
+            }
+          ],
+          "explain": "$25$ kg is inside the range $12$ to $40$ kg. The others are outside it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "For a 25 kg dog"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Scatter diagram: one cross per pair. Check each axis label and scale first; never join the crosses.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Positive correlation: as one variable increases, the other tends to increase. Negative: as one increases, the other tends to decrease. Zero: no pattern.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Line of best fit: one ruled straight line through the middle of the crosses, across all the data, balanced on each side.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To estimate, go from the given value to the line, then across (or down) to the other axis. Estimates outside the range of the data are not reliable.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Swapping the axes. Read each axis label before you plot.",
+    "Misreading the scale, such as putting $3.7$ at $3.5$. Work out what one small square is worth first.",
+    "Joining the crosses dot to dot, or drawing a curve. A line of best fit is one ruled straight line.",
+    "Getting the context backwards. Over the same route, a faster cyclist takes less time, so speed and time taken have negative correlation."
+  ],
+  "examTips": [
+    "\"What type of correlation\": one word is enough: positive, negative or zero.",
+    "\"Draw a line of best fit\": one ruled straight line across all the crosses, balanced on each side. A curve or dot-to-dot line earns nothing.",
+    "Estimating from your line: draw the up-and-across lines on the diagram. A correct reading from your own sensible line earns the mark."
+  ],
+  "readingMinutes": 18
+}

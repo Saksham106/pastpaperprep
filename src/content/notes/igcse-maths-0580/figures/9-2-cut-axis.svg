@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300" role="img" aria-labelledby="t">
+  <title id="t">Bar chart of phones sold by two shops in a month. The vertical axis starts at 80, not 0, and goes up to 96 in steps of 1, with a label every 4. Shop X has a bar up to 85. Shop Y has a bar up to 95, so it looks three times as tall.</title>
+  <g stroke="var(--muted)" stroke-width="0.5" stroke-opacity="0.45" fill="none">
+    <line x1="62" y1="248.0" x2="342" y2="248.0" />
+    <line x1="62" y1="233.6" x2="342" y2="233.6" />
+    <line x1="62" y1="219.2" x2="342" y2="219.2" />
+    <line x1="62" y1="204.9" x2="342" y2="204.9" />
+    <line x1="62" y1="190.5" x2="342" y2="190.5" />
+    <line x1="62" y1="176.1" x2="342" y2="176.1" />
+    <line x1="62" y1="161.8" x2="342" y2="161.8" />
+    <line x1="62" y1="147.4" x2="342" y2="147.4" />
+    <line x1="62" y1="133.0" x2="342" y2="133.0" />
+    <line x1="62" y1="118.6" x2="342" y2="118.6" />
+    <line x1="62" y1="104.2" x2="342" y2="104.2" />
+    <line x1="62" y1="89.9" x2="342" y2="89.9" />
+    <line x1="62" y1="75.5" x2="342" y2="75.5" />
+    <line x1="62" y1="61.1" x2="342" y2="61.1" />
+    <line x1="62" y1="46.8" x2="342" y2="46.8" />
+    <line x1="62" y1="32.4" x2="342" y2="32.4" />
+    <line x1="62" y1="18.0" x2="342" y2="18.0" />
+  </g>
+  <g stroke="var(--muted)" stroke-width="0.9" fill="none">
+    <line x1="62" y1="248.0" x2="342" y2="248.0" />
+    <line x1="62" y1="190.5" x2="342" y2="190.5" />
+    <line x1="62" y1="133.0" x2="342" y2="133.0" />
+    <line x1="62" y1="75.5" x2="342" y2="75.5" />
+    <line x1="62" y1="18.0" x2="342" y2="18.0" />
+  </g>
+  <g fill="var(--t2-ink)" fill-opacity="0.55" stroke="currentColor" stroke-width="1">
+    <rect x="97.0" y="176.1" width="70.0" height="71.9" />
+    <rect x="237.0" y="32.4" width="70.0" height="215.6" />
+  </g>
+  <g stroke="currentColor" stroke-width="1.3" fill="none">
+    <line x1="62" y1="248" x2="342" y2="248" />
+    <line x1="62" y1="18" x2="62" y2="248" />
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle">
+    <text x="132.0" y="263">Shop X</text>
+    <text x="272.0" y="263">Shop Y</text>
+    <text x="202.0" y="290">Shop</text>
+  </g>
+  <g fill="currentColor" font-size="11" font-family="inherit" text-anchor="end">
+    <text x="56" y="252.0">80</text>
+    <text x="56" y="194.5">84</text>
+    <text x="56" y="137.0">88</text>
+    <text x="56" y="79.5">92</text>
+    <text x="56" y="22.0">96</text>
+  </g>
+  <text x="16" y="133.0" fill="currentColor" font-size="11" font-family="inherit" text-anchor="middle" transform="rotate(-90 16 133.0)">Phones sold</text>
+</svg>

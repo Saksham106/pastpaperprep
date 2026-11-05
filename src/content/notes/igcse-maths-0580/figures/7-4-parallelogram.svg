@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 210" role="img" aria-labelledby="t">
+  <title id="t">Parallelogram PQRS with P at the bottom left, Q at the bottom right, R at the top right and S at the top left. An arrow labelled u goes along the bottom from P to Q. An arrow labelled v goes up the left side from P to S.</title>
+  <line x1="220.0" y1="170.0" x2="290.0" y2="50.0" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="290.0" y1="50.0" x2="110.0" y2="50.0" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="40.0" y1="170.0" x2="211.0" y2="170.0" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <polygon points="220.0,170.0 209.0,174.9 209.0,165.1" fill="var(--t1-ink)"/>
+  <line x1="40.0" y1="170.0" x2="105.5" y2="57.8" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <polygon points="110.0,50.0 108.7,62.0 100.2,57.0" fill="var(--t3-ink)"/>
+  <circle cx="40.0" cy="170.0" r="3.5" fill="currentColor"/>
+  <circle cx="220.0" cy="170.0" r="3.5" fill="currentColor"/>
+  <circle cx="290.0" cy="50.0" r="3.5" fill="currentColor"/>
+  <circle cx="110.0" cy="50.0" r="3.5" fill="currentColor"/>
+  <text x="32.0" y="186.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="end" font-style="italic">P</text>
+  <text x="228.0" y="186.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="start" font-style="italic">Q</text>
+  <text x="298.0" y="44.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="start" font-style="italic">R</text>
+  <text x="102.0" y="44.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="end" font-style="italic">S</text>
+  <text x="130.0" y="192.0" fill="var(--t1-ink)" font-size="15" font-family="inherit" text-anchor="middle" font-weight="bold">u</text>
+  <text x="62.0" y="108.0" fill="var(--t3-ink)" font-size="15" font-family="inherit" text-anchor="end" font-weight="bold">v</text>
+</svg>

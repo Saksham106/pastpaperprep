@@ -1,0 +1,595 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "9.2",
+  "slug": "interpreting-statistical-data",
+  "title": "Interpreting statistical data",
+  "level": "Core",
+  "topic": 9,
+  "summary": "Tables and charts only help if you read them carefully and say what they mean. You'll read values from tables and diagrams, compare two sets of data using an average and a [[measure-of-spread|measure of spread]], and spot when a conclusion goes further than the data allow.",
+  "goals": [
+    {
+      "text": "Read values from tables, bar charts, pictograms and stem-and-leaf diagrams, using the key and the scale.",
+      "bullets": [
+        "9.2-c1"
+      ]
+    },
+    {
+      "text": "Draw a sensible conclusion from a table or diagram, using proportions when groups are different sizes.",
+      "bullets": [
+        "9.2-c1"
+      ]
+    },
+    {
+      "text": "Compare two sets of data with one comment on an average and one on the range, in context.",
+      "bullets": [
+        "9.2-c2"
+      ]
+    },
+    {
+      "text": "Compare two sets of data using the median and the interquartile range.",
+      "bullets": [
+        "9.2-n1"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Explain why a conclusion may not be valid: small or biased samples, misleading scales and hidden individuals.",
+      "bullets": [
+        "9.2-c3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.13",
+    "9.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "compare two sets of data",
+    "comparing averages and range",
+    "reading a stem and leaf diagram",
+    "interpreting charts and tables",
+    "misleading graphs",
+    "comment on the data"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-two-way-total",
+      "prompt": "In a class, $14$ boys and $23$ girls walk to school, while $9$ boys and $6$ girls cycle. How many students cycle?",
+      "hint": "Add only the two numbers for cycling.",
+      "answer": {
+        "value": 15,
+        "tolerance": 0
+      },
+      "explain": "Boys who cycle plus girls who cycle: $9 + 6 = 15$. Revise it in {{lesson:9.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "9 + 6",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-percentage-of",
+      "prompt": "Write $18$ out of $40$ as a percentage.",
+      "hint": "Write it as a fraction, then multiply by $100$.",
+      "answer": {
+        "value": 45,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{18}{40} \\times 100 = 45$, so it is $45\\%$. Revise it in {{lesson:1.13}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(18, 40)*100",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "reading",
+      "heading": "Reading tables and diagrams",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Before you read any number, check what is being counted. Read the title, the labels on each axis or row, and any key."
+        },
+        {
+          "type": "text",
+          "text": "On a chart's scale, work out what one small square is worth. Divide the gap between two labels by the number of squares between them."
+        },
+        {
+          "type": "text",
+          "text": "In a [[two-way-table|two-way table]], each number belongs to one row and one column. Row and column totals help you check your reading."
+        },
+        {
+          "type": "example",
+          "id": "ex-table-lunch",
+          "question": "The table shows the lunch choices of the students in Year 10 and Year 11. $\\begin{array}{l|ccc} & \\text{Hot meal} & \\text{Sandwich} & \\text{Packed lunch} \\\\ \\hline \\text{Year 10} & 36 & 22 & 14 \\\\ \\text{Year 11} & 26 & 33 & 29 \\end{array}$ Work out the percentage of Year 11 students who chose a sandwich. Then decide which year group is more likely to choose a hot meal.",
+          "steps": [
+            "Total for Year 11: $26 + 33 + 29 = 88$ students.",
+            "Sandwich as a percentage of Year 11: $\\frac{33}{88} \\times 100 = 37.5\\%$.",
+            "For hot meals, the year groups are different sizes, so compare proportions, not counts. Year 10 has $36 + 22 + 14 = 72$ students.",
+            "Year 10: $\\frac{36}{72} = 50\\%$. Year 11: $\\frac{26}{88} \\approx 29.5\\%$.",
+            "So a Year 10 student is more likely to choose a hot meal."
+          ],
+          "answer": "$37.5\\%$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(33, 26 + 33 + 29)*100",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "9-2-library-bars",
+          "alt": "Bar chart of books borrowed from a library each day. Days Monday to Friday across. Number of books up, from 0 to 40, with each small square 2 books and a label every 10. Monday 16, Tuesday 22, Wednesday 18, Thursday 24, Friday 40.",
+          "caption": "Books borrowed from a school library in one week."
+        },
+        {
+          "type": "example",
+          "id": "ex-bar-library",
+          "question": "The [[bar-chart|bar chart]] shows the number of books borrowed from a school library each day for one week. Work out the fraction of the week's books that were borrowed on Friday. Give your answer in its simplest form.",
+          "steps": [
+            "Find the scale. The labels go up in $10$s, with $5$ small squares between them. So one small square is $10 \\div 5 = 2$ books.",
+            "Read each bar: Monday $16$, Tuesday $22$, Wednesday $18$, Thursday $24$, Friday $40$.",
+            "Total for the week: $16 + 22 + 18 + 24 + 40 = 120$ books.",
+            "Friday's fraction: $\\frac{40}{120}$. Divide top and bottom by $40$ to get $\\frac{1}{3}$.",
+            "An inference you can draw: Friday was the busiest day this week. The chart alone can't tell you whether that happens every week."
+          ],
+          "answer": "$\\frac{40}{120} = \\frac{1}{3}$",
+          "verify": {
+            "kind": "fraction",
+            "truth": "Rational(40, 16 + 22 + 18 + 24 + 40)",
+            "simplest": true
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "The mode from a bar chart is the category under the tallest bar, not the bar's height. Here the modal day is Friday, not $40$."
+        },
+        {
+          "type": "check",
+          "id": "check-pictogram-key",
+          "prompt": "In a [[pictogram|pictogram]], one symbol stands for $6$ cars. The row for Tuesday shows $4$ whole symbols and half a symbol. How many cars does the row show?",
+          "hint": "Half a symbol is half of $6$.",
+          "answer": {
+            "value": 27,
+            "tolerance": 0
+          },
+          "explain": "Four whole symbols are $4 \\times 6 = 24$ cars. Half a symbol is $3$ more, so $24 + 3 = 27$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4*6 + Rational(1, 2)*6",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "A [[stem-and-leaf-diagram|stem-and-leaf diagram]] splits each value into a stem (the first digits) and a leaf (the last digit). The key tells you how to put them back together."
+        },
+        {
+          "type": "check",
+          "id": "check-stem-leaf-range",
+          "prompt": "The stem-and-leaf diagram shows the times, in seconds, that $10$ students took to finish a puzzle. $\\begin{array}{c|l} 4 & 2 \\;\\; 6 \\\\ 5 & 0 \\;\\; 3 \\;\\; 3 \\;\\; 8 \\\\ 6 & 1 \\;\\; 4 \\;\\; 7 \\\\ 7 & 5 \\end{array}$ Key: $6 \\mid 4$ means $64$ seconds. Find the range of the times.",
+          "hint": "Use the key to write the smallest and largest times in full first.",
+          "options": [
+            {
+              "text": "$33$",
+              "correct": true
+            },
+            {
+              "text": "$3$",
+              "correct": false
+            },
+            {
+              "text": "$75$",
+              "correct": false
+            }
+          ],
+          "explain": "The smallest time is $4 \\mid 2$, which is $42$ s. The largest is $7 \\mid 5$, which is $75$ s. Range $= 75 - 42 = 33$ s. $3$ comes from subtracting only the stems, and $75$ is the largest time, not the range.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(7*10 + 5) - (4*10 + 2)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "comparing",
+      "heading": "Comparing two sets of data",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two sets of data can differ in two ways. One set can be bigger in general, or one set can be more spread out."
+        },
+        {
+          "type": "text",
+          "text": "An [[average|average]], such as the [[mean|mean]] or the [[median|median]], tells you which set is bigger in general. A [[measure-of-spread|measure of spread]], such as the [[range-of-a-data-set|range]], tells you which set is more consistent."
+        },
+        {
+          "type": "text",
+          "text": "A smaller range means the values are closer together, so they are more consistent. You learn to calculate these measures in {{lesson:9.3}}."
+        },
+        {
+          "type": "text",
+          "text": "A good comment does three things. It names the sets, compares the two numbers, and says what that means in the question's context."
+        },
+        {
+          "type": "example",
+          "id": "ex-compare-buses",
+          "question": "The table shows how many minutes late two bus routes were each day for one month. $\\begin{array}{l|cc} & \\text{Mean (min)} & \\text{Range (min)} \\\\ \\hline \\text{Route A} & 6.4 & 14 \\\\ \\text{Route B} & 4.1 & 23 \\end{array}$ Work out the difference between the means and the difference between the ranges. Then write two comments comparing the routes.",
+          "steps": [
+            "Means: $6.4 - 4.1 = 2.3$ minutes. Route A has the higher mean.",
+            "Comment 1, on the average: Route A's buses are later on average, by $2.3$ minutes.",
+            "Ranges: $23 - 14 = 9$ minutes. Route B has the larger range.",
+            "Comment 2, on the spread: Route B's lateness varies more, so it is less predictable than Route A.",
+            "Notice that each route wins on one comment. The mean and the range answer different questions."
+          ],
+          "answer": "$2.3 \\text{ and } 9$",
+          "verify": {
+            "kind": "list",
+            "truth": "[Rational(64, 10) - Rational(41, 10), 23 - 14]"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Don't use the mean to decide which set varies more. The mean measures the average. Use the range for spread."
+        },
+        {
+          "type": "example",
+          "id": "ex-compare-plants",
+          "question": "Seedlings given feed P have a median height of $14$ cm and a range of $6$ cm. Seven seedlings given feed Q have these heights, in cm: $9, 23, 10, 26, 14, 29, 22$. Find the median and the range for feed Q. Then make two comments comparing the feeds.",
+          "steps": [
+            "Put feed Q's heights in order: $9, 10, 14, 22, 23, 26, 29$.",
+            "With $7$ values, the middle one is the $\\frac{7+1}{2} = 4$th: $22$ cm.",
+            "Range $= 29 - 9 = 20$ cm.",
+            "Average: feed Q's median is higher ($22$ against $14$), so feed Q's seedlings are taller on average.",
+            "Spread: feed P's range is smaller ($6$ against $20$), so feed P's seedlings grow more evenly. Median $22$ cm, range $20$ cm."
+          ],
+          "answer": "$22 \\text{ and } 20$",
+          "verify": {
+            "kind": "list",
+            "truth": "[[9, 10, 14, 22, 23, 26, 29][3], Max(9, 23, 10, 26, 14, 29, 22) - Min(9, 23, 10, 26, 14, 29, 22)]"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-which-consistent",
+          "prompt": "Two darts players record their scores. Lena has a mean of $52$ and a range of $38$. Omar has a mean of $47$ and a range of $19$. Which player is more consistent?",
+          "hint": "Consistency is about spread, not the average.",
+          "options": [
+            {
+              "text": "Omar, because his range is smaller",
+              "correct": true
+            },
+            {
+              "text": "Lena, because her mean is higher",
+              "correct": false
+            },
+            {
+              "text": "Lena, because her range is larger",
+              "correct": false
+            }
+          ],
+          "explain": "A smaller range means the scores are closer together. Omar's range, $19$, is smaller than Lena's, $38$. Lena's higher mean tells you she scores more on average, not that she is consistent.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Omar, because his range is smaller"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-good-comment",
+          "prompt": "In June, Town A had a mean daily rainfall of $3.2$ mm and Town B had $5.8$ mm. Which comment would earn the mark?",
+          "hint": "A good comment names a town and says what the numbers mean.",
+          "options": [
+            {
+              "text": "Town B was wetter on average, because its mean rainfall was higher",
+              "correct": true
+            },
+            {
+              "text": "The mean for Town B is bigger",
+              "correct": false
+            },
+            {
+              "text": "Town B had more rain on every day of June",
+              "correct": false
+            }
+          ],
+          "explain": "It names Town B, says what a higher mean means (wetter), and gives the reason. \"The mean is bigger\" doesn't interpret it. An average can't tell you about every single day.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Town B was wetter on average, because its mean rainfall was higher"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "For two comments, make one about an average and one about the spread. Two comments about averages earn only one mark."
+        }
+      ]
+    },
+    {
+      "id": "median-iqr",
+      "heading": "Comparing with the median and interquartile range",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The range uses only the two most extreme values. One unusual value can make it huge."
+        },
+        {
+          "type": "text",
+          "text": "The [[interquartile-range|interquartile range]] (IQR) is the spread of the middle half of the data. It is the upper [[quartile|quartile]] minus the lower quartile, so one or two extreme values hardly affect it. You learn to find quartiles in {{lesson:9.3}}."
+        },
+        {
+          "type": "text",
+          "text": "So the Extended way to compare is a median comment and an IQR comment. As before, say what each means in context."
+        },
+        {
+          "type": "example",
+          "id": "ex-iqr-outlier",
+          "question": "The numbers of emails eight people sent on one day are $4, 5, 5, 6, 7, 7, 8, 43$. Find the range and the interquartile range. Which one describes the spread of most of the data better?",
+          "steps": [
+            "Range $= 43 - 4 = 39$.",
+            "The lower half is $4, 5, 5, 6$. Its median is the lower quartile: $\\frac{5 + 5}{2} = 5$.",
+            "The upper half is $7, 7, 8, 43$. Its median is the upper quartile: $\\frac{7 + 8}{2} = 7.5$.",
+            "IQR $= 7.5 - 5 = 2.5$.",
+            "Seven of the eight values lie between $4$ and $8$. The range is large only because of the $43$, so the IQR describes most of the data better."
+          ],
+          "answer": "$39 \\text{ and } 2.5$",
+          "verify": {
+            "kind": "list",
+            "truth": "[Max(4, 5, 5, 6, 7, 7, 8, 43) - Min(4, 5, 5, 6, 7, 7, 8, 43), (7 + 8)/Integer(2) - (5 + 5)/Integer(2)]"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-iqr-reaction",
+          "question": "Two groups of drivers did a reaction test, in milliseconds. Group A practised first: lower quartile $212$, median $238$, upper quartile $251$. Group B did not practise: lower quartile $230$, median $262$, upper quartile $295$. Find the IQR for each group. Then make two comments comparing the groups.",
+          "steps": [
+            "Group A: IQR $= 251 - 212 = 39$ ms.",
+            "Group B: IQR $= 295 - 230 = 65$ ms.",
+            "Median: Group A's is lower ($238$ against $262$). A lower time is faster, so Group A reacted faster on average.",
+            "IQR: Group A's is smaller ($39$ against $65$), so Group A's times were more consistent."
+          ],
+          "answer": "$39 \\text{ and } 65$",
+          "verify": {
+            "kind": "list",
+            "truth": "[251 - 212, 295 - 230]"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-uq-from-lq",
+          "prompt": "A set of journey times, in minutes, has lower quartile $23$, median $32$ and interquartile range $17$. Find the upper quartile.",
+          "hint": "The IQR is measured from the lower quartile.",
+          "options": [
+            {
+              "text": "$40$",
+              "correct": true
+            },
+            {
+              "text": "$49$",
+              "correct": false
+            },
+            {
+              "text": "$15$",
+              "correct": false
+            }
+          ],
+          "explain": "Upper quartile $=$ lower quartile $+$ IQR $= 23 + 17 = 40$. $49$ adds the IQR to the median, and $15$ subtracts it from the median.",
+          "verify": {
+            "kind": "exact",
+            "truth": "23 + 17"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "To find the upper quartile from the IQR, add the IQR to the lower quartile, not to the median."
+        },
+        {
+          "type": "check",
+          "id": "check-iqr-comment",
+          "prompt": "Class X's test marks have median $61$ and IQR $12$. Class Y's have median $55$ and IQR $24$. Which pair of comments is correct?",
+          "hint": "Use the median for the average and the IQR for the spread.",
+          "options": [
+            {
+              "text": "Class X did better on average, and its marks were more consistent",
+              "correct": true
+            },
+            {
+              "text": "Class Y did better on average, and its marks were more consistent",
+              "correct": false
+            },
+            {
+              "text": "Class X did better on average, and its marks were more spread out",
+              "correct": false
+            }
+          ],
+          "explain": "Class X's median is higher ($61$ against $55$), so it did better on average. Its IQR is smaller ($12$ against $24$), so its marks were closer together.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Class X did better on average, and its marks were more consistent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "limits",
+      "heading": "What the data can't tell you",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Data describe only the people or things that were measured, at the time they were measured. Before you trust a conclusion, ask who was asked, how many, and how the results are shown."
+        },
+        {
+          "type": "text",
+          "text": "1. A small sample may not be typical. A few people can give very different results from a large group."
+        },
+        {
+          "type": "text",
+          "text": "2. A sample from one place or one type of person may be biased. Asking only gym members about exercise won't tell you about a whole town."
+        },
+        {
+          "type": "text",
+          "text": "3. An average describes the group, not each member. A class mean of $64$ doesn't tell you that any student actually scored $64$."
+        },
+        {
+          "type": "text",
+          "text": "4. A chart can mislead. If the vertical axis doesn't start at $0$, small differences look big."
+        },
+        {
+          "type": "example",
+          "id": "ex-small-sample",
+          "question": "A café owner asks $8$ of her customers whether the café should stay open later. $6$ of them say yes. She says, \"Most people in this town want the café open later.\" Work out the percentage who said yes. Then explain why her conclusion may not be valid.",
+          "steps": [
+            "Percentage: $\\frac{6}{8} \\times 100 = 75\\%$.",
+            "The sample is small: only $8$ people.",
+            "The sample is biased: she asked only her own customers, who already like the café. People who never visit weren't asked.",
+            "So $75\\%$ describes these $8$ customers. It can't tell you what most people in the town want."
+          ],
+          "answer": "$\\frac{6}{8} \\times 100 = 75\\%$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(6, 8)*100",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "9-2-cut-axis",
+          "alt": "Bar chart of phones sold by two shops in a month. The vertical axis starts at 80, not 0, and goes up to 96 in steps of 1, with a label every 4. Shop X has a bar up to 85. Shop Y has a bar up to 95, so it looks three times as tall.",
+          "caption": "The vertical axis starts at $80$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cut-axis",
+          "question": "The bar chart shows the phones sold by two shops in one month. Shop Y's bar looks much taller than Shop X's. How many times as many phones did Shop Y actually sell? Give your answer to 3 significant figures.",
+          "steps": [
+            "Read the bars: Shop X sold $85$ and Shop Y sold $95$.",
+            "The axis starts at $80$, so the bars drawn are $85 - 80 = 5$ and $95 - 80 = 15$ units tall. Y's bar looks $15 \\div 5 = 3$ times as tall.",
+            "Actual comparison: $95 \\div 85 = 1.1176\\ldots$",
+            "Shop Y sold only about $1.12$ times as many phones. The cut axis makes a small difference look large."
+          ],
+          "answer": "$\\frac{95}{85} \\approx 1.12$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(95, 85)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cut-axis-look",
+          "prompt": "A bar chart's vertical axis starts at $40$. Bar A shows $45$ and bar B shows $50$. How many times as tall as bar A does bar B look?",
+          "hint": "Measure each bar from $40$, not from $0$.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "The bars drawn are $45 - 40 = 5$ and $50 - 40 = 10$ units tall, so B looks $10 \\div 5 = 2$ times as tall. In fact $50$ is only about $1.11$ times $45$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(50 - 40)/Integer(45 - 40)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-claim-sample",
+          "prompt": "Twenty students at a school basketball club have a mean height of $178$ cm. Someone concludes that the mean height of all students at the school is $178$ cm. What is the best reason this may be wrong?",
+          "hint": "Think about who was measured.",
+          "options": [
+            {
+              "text": "Basketball players are likely to be taller than other students, so the sample is biased",
+              "correct": true
+            },
+            {
+              "text": "The mean should be replaced by the mode",
+              "correct": false
+            },
+            {
+              "text": "Twenty is too many students to measure",
+              "correct": false
+            }
+          ],
+          "explain": "Only basketball players were measured, and they tend to be tall. The sample doesn't represent the whole school, whichever average is used.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Basketball players are likely to be taller than other students, so the sample is biased"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When you explain why a conclusion may not be valid, give a reason about these data. \"Only $8$ people were asked\" earns credit. \"It might be wrong\" does not."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Read the title, labels, key and scale before any value. When groups are different sizes, compare proportions, not counts.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To compare two data sets, make one comment on an average and one on the spread. Name the sets, quote both values and say what they mean in context.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Higher average: bigger in general. Smaller range: more consistent.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Compare medians and interquartile ranges when there are extreme values. One or two extreme values hardly affect the IQR.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Conclusions hold only for the data collected. Watch for small or biased samples, an axis that doesn't start at $0$, and averages that hide individuals.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Subtracting stems or leaves on their own in a stem-and-leaf diagram. Use the key to write each value in full, then calculate.",
+    "Using the mean to say which set varies more. The mean compares averages. Use the range to compare spread.",
+    "Writing only \"the mean of A is bigger\". Name the set and say what it means, such as \"type A is heavier on average\".",
+    "Making two comments of the same kind. Make one about an average and one about the spread.",
+    "Giving the height of the tallest bar as the mode. The mode is the category under the tallest bar."
+  ],
+  "examTips": [
+    "For \"make two comments comparing\", write one about an average and one about the spread. Quote both values each time.",
+    "When asked to give a reason, name the statistic and both values, such as \"Route B, because its range is larger ($23$ against $14$)\".",
+    "Say what a number means in context: for times, a lower average is faster. For marks, a higher average is better."
+  ],
+  "readingMinutes": 24
+}

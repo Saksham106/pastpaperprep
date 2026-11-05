@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 300" role="img" aria-labelledby="t">
+  <title id="t">Scatter diagram of fuel used in litres against distance driven in km for seven vans. Crosses at 145 and 15, 180 and 16, 215 and 20, 235 and 21, 265 and 19, 305 and 26, 335 and 29. The crosses rise from bottom left to top right, except the cross at 265 and 19, which is ringed and sits below the others.</title>
+  <g stroke="var(--muted)" stroke-width="0.6" stroke-opacity="0.6" fill="none">
+    <line x1="62.0" y1="14" x2="62.0" y2="256"/>
+    <line x1="130.4" y1="14" x2="130.4" y2="256"/>
+    <line x1="198.8" y1="14" x2="198.8" y2="256"/>
+    <line x1="267.2" y1="14" x2="267.2" y2="256"/>
+    <line x1="335.6" y1="14" x2="335.6" y2="256"/>
+    <line x1="404.0" y1="14" x2="404.0" y2="256"/>
+    <line x1="62" y1="256.0" x2="404" y2="256.0"/>
+    <line x1="62" y1="195.5" x2="404" y2="195.5"/>
+    <line x1="62" y1="135.0" x2="404" y2="135.0"/>
+    <line x1="62" y1="74.5" x2="404" y2="74.5"/>
+    <line x1="62" y1="14.0" x2="404" y2="14.0"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.4" fill="none"><line x1="62" y1="256" x2="404" y2="256"/><line x1="62" y1="256" x2="62" y2="14"/></g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="62.0" y="272">100</text>
+    <text x="130.4" y="272">150</text>
+    <text x="198.8" y="272">200</text>
+    <text x="267.2" y="272">250</text>
+    <text x="335.6" y="272">300</text>
+    <text x="404.0" y="272">350</text>
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="end">
+    <text x="56" y="260.0">10</text>
+    <text x="56" y="199.5">15</text>
+    <text x="56" y="139.0">20</text>
+    <text x="56" y="78.5">25</text>
+    <text x="56" y="18.0">30</text>
+  </g>
+  <text x="233.0" y="294" fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">distance driven (km)</text>
+  <text x="16" y="135.0" fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle" transform="rotate(-90 16 135.0)">fuel used (litres)</text>
+  <path d="M166.9,178.9 L175.9,187.9 M166.9,187.9 L175.9,178.9" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M242.2,118.4 L251.2,127.4 M242.2,127.4 L251.2,118.4" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M337.9,57.9 L346.9,66.9 M337.9,66.9 L346.9,57.9" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M119.1,191.0 L128.1,200.0 M119.1,200.0 L128.1,191.0" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M283.2,142.6 L292.2,151.6 M283.2,151.6 L292.2,142.6" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M379.0,21.6 L388.0,30.6 M379.0,30.6 L388.0,21.6" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <path d="M214.8,130.5 L223.8,139.5 M214.8,139.5 L223.8,130.5" stroke="var(--t1-ink)" stroke-width="1.8" fill="none"/>
+  <circle cx="287.7" cy="147.1" r="10" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/>
+  <text x="301.7" y="165.1" fill="var(--t3-ink)" font-size="12" font-family="inherit">(265, 19)</text>
+</svg>

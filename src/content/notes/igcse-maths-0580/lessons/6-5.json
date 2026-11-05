@@ -1,0 +1,588 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "6.5",
+  "slug": "non-right-angled-triangles",
+  "title": "Non-right-angled triangles",
+  "level": "Extended",
+  "topic": 6,
+  "summary": "The [[sine-rule|sine rule]] and the [[cosine-rule|cosine rule]] find missing sides and angles in any triangle, not just right-angled ones. Area $= \\tfrac{1}{2}ab\\sin C$ gives the area from two sides and the angle between them.",
+  "goals": [
+    {
+      "text": "Use the sine rule to work out a missing side.",
+      "bullets": [
+        "6.5-s1"
+      ]
+    },
+    {
+      "text": "Use the sine rule to work out an angle, including an [[obtuse-angle|obtuse angle]] when two triangles fit.",
+      "bullets": [
+        "6.5-s1"
+      ]
+    },
+    {
+      "text": "Use the cosine rule to work out a side or an angle, and choose the right rule.",
+      "bullets": [
+        "6.5-s1"
+      ]
+    },
+    {
+      "text": "Use area $= \\tfrac{1}{2}ab\\sin C$, forwards and backwards.",
+      "bullets": [
+        "6.5-s2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "6.2",
+    "6.3"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "sine rule",
+    "cosine rule",
+    "area of a triangle half ab sin C",
+    "trigonometry in non right angled triangles",
+    "ambiguous case sine rule",
+    "find an angle with the cosine rule"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-third-angle",
+      "prompt": "Two angles of a triangle are $25^{\\circ}$ and $37^{\\circ}$. Work out the third angle, in degrees.",
+      "hint": "The angles of a triangle add up to $180^{\\circ}$.",
+      "answer": {
+        "value": 118,
+        "tolerance": 0
+      },
+      "explain": "$180 - 25 - 37 = 118$. It is between $90^{\\circ}$ and $180^{\\circ}$, so it is obtuse. Revise angle types in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "180 - 25 - 37",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-inverse-sine",
+      "prompt": "A right-angled triangle has hypotenuse $9$ cm. The side opposite angle $\\theta$ is $4$ cm. Work out $\\theta$ in degrees, to 1 d.p.",
+      "hint": "Opposite and hypotenuse: use $\\sin^{-1}$.",
+      "answer": {
+        "value": 26.4,
+        "tolerance": 0.05
+      },
+      "explain": "$\\theta = \\sin^{-1}\\left(\\frac{4}{9}\\right) = 26.38\\ldots \\approx 26.4^{\\circ}$. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "asin(Rational(4, 9))*180/pi",
+        "dp": 1
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-exact-sine",
+      "prompt": "Without a calculator, write down $\\sin 30^{\\circ}$ as a decimal.",
+      "hint": "It is one of the exact values.",
+      "answer": {
+        "value": 0.5,
+        "tolerance": 0
+      },
+      "explain": "$\\sin 30^{\\circ} = \\frac{1}{2} = 0.5$. Revise exact values in {{lesson:6.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "sin(pi/6)",
+        "dp": 1
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "sine-rule",
+      "heading": "The sine rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sine, cosine and tangent from {{lesson:6.2}} need a right angle. The [[sine-rule|sine rule]] works in any triangle."
+        },
+        {
+          "type": "text",
+          "text": "Label the angles $A$, $B$ and $C$. The side across from angle $A$ is $a$, and so on."
+        },
+        {
+          "type": "figure",
+          "id": "6-5-labels",
+          "alt": "Triangle ABC with A at bottom left, B at bottom right and C at the top. Side a is BC, across from angle A. Side b is CA, across from angle B. Side c is AB, across from angle C. Each angle and its opposite side are drawn in the same colour.",
+          "caption": "Each side is named after the angle across from it."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}",
+          "tag": "booklet",
+          "bookletId": "fl-6-5-sine-rule"
+        },
+        {
+          "type": "text",
+          "text": "It is on the formula list. Use it when you know a side and the angle across from it: a matching pair."
+        },
+        {
+          "type": "result",
+          "statement": "In any triangle, $b\\sin A = a\\sin B$. Dividing by $\\sin A\\sin B$ gives the sine rule.",
+          "why": "Draw the height $h$ from $C$, at right angles to the line through $A$ and $B$. The two right-angled triangles give $h = b\\sin A$ and $h = a\\sin B$."
+        },
+        {
+          "type": "text",
+          "text": "To find a side, write the side you want over the sine of its angle, equal to the known pair. If that angle is missing, use the angle sum first."
+        },
+        {
+          "type": "example",
+          "id": "ex-sine-side-exact",
+          "question": "Without a calculator: in triangle $ABC$, angle $A = 30^{\\circ}$, angle $C = 105^{\\circ}$ and $BC = 12$ cm. Work out $AC$, leaving your answer as a surd.",
+          "steps": [
+            "$BC$ is across from angle $A$: that is the known pair. $AC$ is across from angle $B$.",
+            "Angle sum: $B = 180^{\\circ} - 30^{\\circ} - 105^{\\circ} = 45^{\\circ}$.",
+            "Sine rule: $\\dfrac{AC}{\\sin 45^{\\circ}} = \\dfrac{12}{\\sin 30^{\\circ}} = 12 \\div \\tfrac{1}{2} = 24$.",
+            "Multiply by $\\sin 45^{\\circ} = \\tfrac{\\sqrt{2}}{2}$: $AC = 24 \\times \\tfrac{\\sqrt{2}}{2} = 12\\sqrt{2}$.",
+            "Check: $B$ is bigger than $A$, so $AC$ should be longer than $BC$. $12\\sqrt{2} \\approx 17.0$, more than $12$."
+          ],
+          "answer": "$AC = 12\\sqrt{2}\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "12*sin((180 - 30 - 105)*pi/180)/sin(30*pi/180)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To find an angle, flip both fractions so the sines are on top: $\\frac{\\sin A}{a} = \\frac{\\sin B}{b}$. On a calculator paper, set degree mode first."
+        },
+        {
+          "type": "calculator",
+          "snippet": "degree-mode"
+        },
+        {
+          "type": "result",
+          "statement": "$\\sin(180^{\\circ} - x) = \\sin x$. For example, $\\sin 30^{\\circ}$ and $\\sin 150^{\\circ}$ are both $0.5$.",
+          "why": "The sine graph in {{lesson:6.4}} is symmetrical about $90^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "So an [[obtuse-angle|obtuse angle]] can share its sine with an acute one. $\\sin^{-1}$ only gives the acute angle, $x$. The angle could also be $180^{\\circ} - x$, if that plus the given angle is less than $180^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "When both fit, two triangles match the information: the ambiguous case. The question or diagram tells you which one it wants."
+        },
+        {
+          "type": "figure",
+          "id": "6-5-ambiguous",
+          "alt": "A horizontal base line starts at A. A side of length 12 goes up from A to B at 35 degrees to the base. From B, a side of length 8 can swing down to meet the base line at two points, C1 nearer A and C2 further away. A dotted arc shows the path of the swinging side through both points. The angle at C1 is obtuse, 120.6 degrees. The angle at C2 is acute, 59.4 degrees.",
+          "caption": "With $AB = 12$, $BC = 8$ and $A = 35^{\\circ}$, side $BC$ can land in two places."
+        },
+        {
+          "type": "example",
+          "id": "ex-sine-ambiguous",
+          "question": "In triangle $ABC$, $AB = 12$ cm, $BC = 8$ cm and angle $A = 35^{\\circ}$. Angle $C$ is obtuse. Work out angle $C$.",
+          "steps": [
+            "Angle $A$ is across from $BC = 8$: the known pair. Angle $C$ is across from $AB = 12$.",
+            "$\\dfrac{\\sin C}{12} = \\dfrac{\\sin 35^{\\circ}}{8}$, so $\\sin C = \\dfrac{12\\sin 35^{\\circ}}{8} = 0.86036\\ldots$",
+            "$\\sin^{-1}(0.86036\\ldots) = 59.357\\ldots^{\\circ}$. This is the acute answer, at $C_2$ in the figure.",
+            "The obtuse answer is $180^{\\circ} - 59.357\\ldots^{\\circ} = 120.642\\ldots^{\\circ}$. Test: $120.6^{\\circ} + 35^{\\circ} < 180^{\\circ}$, so this triangle exists.",
+            "Angle $C$ is obtuse, so $C = 120.6^{\\circ}$ to 1 d.p."
+          ],
+          "answer": "$C \\approx 120.6^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - asin(12*sin(35*pi/180)/8)*180/pi",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Quick test: if the side across from the known angle is at least as long as the other given side, the angle you find is acute. Then there is only one triangle."
+        },
+        {
+          "type": "check",
+          "id": "check-sine-side",
+          "prompt": "In triangle $XYZ$, angle $X = 52^{\\circ}$, angle $Y = 46^{\\circ}$ and $YZ = 8.3$ cm. Work out $XZ$ in cm, to 3 s.f.",
+          "hint": "$YZ$ is across from angle $X$. Which angle is $XZ$ across from?",
+          "answer": {
+            "value": 7.58,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{XZ}{\\sin 46^{\\circ}} = \\frac{8.3}{\\sin 52^{\\circ}}$, so $XZ = \\frac{8.3\\sin 46^{\\circ}}{\\sin 52^{\\circ}} = 7.576\\ldots \\approx 7.58$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "8.3*sin(46*pi/180)/sin(52*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sine-angle",
+          "prompt": "In triangle $KLM$, $KL = 7.6$ cm, $LM = 10.4$ cm and angle $K = 68^{\\circ}$. Work out angle $M$ in degrees, to 1 d.p.",
+          "hint": "Angle $K$ is across from $LM$. Put $\\sin M$ on top.",
+          "answer": {
+            "value": 42.7,
+            "tolerance": 0.05
+          },
+          "explain": "$\\sin M = \\frac{7.6\\sin 68^{\\circ}}{10.4} = 0.6775\\ldots$, so $M = 42.65\\ldots \\approx 42.7^{\\circ}$. The known angle faces the longer side, so $M$ can't be obtuse.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "asin(7.6*sin(68*pi/180)/10.4)*180/pi",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sine-obtuse",
+          "prompt": "In triangle $PQR$, angle $P = 28^{\\circ}$, $QR = 5$ cm and $PQ = 9$ cm. Angle $R$ is obtuse. Work out angle $R$.",
+          "hint": "Find the acute answer first. Which obtuse angle has the same sine?",
+          "options": [
+            {
+              "text": "$R \\approx 122.3^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$R \\approx 57.7^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$R \\approx 15.1^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$R \\approx 164.9^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sin R = \\frac{9\\sin 28^{\\circ}}{5}$, so the acute answer is $57.68\\ldots^{\\circ}$ and $R = 180^{\\circ} - 57.68\\ldots^{\\circ} \\approx 122.3^{\\circ}$. $15.1^{\\circ}$ comes from swapping the $5$ and the $9$.",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - asin(9*sin(28*pi/180)/5)*180/pi",
+            "dp": 1
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Pairing a side with an angle at one of its ends. In the sine rule, each side goes with the angle across from it."
+        }
+      ]
+    },
+    {
+      "id": "cosine-rule",
+      "heading": "The cosine rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "With two sides and the angle between them, or all three sides, no side comes with its opposite angle. The sine rule can't start, so use the [[cosine-rule|cosine rule]]."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{2} = b^{2} + c^{2} - 2bc\\cos A",
+          "tag": "booklet",
+          "bookletId": "fl-6-5-cosine-rule"
+        },
+        {
+          "type": "text",
+          "text": "Angle $A$ is between sides $b$ and $c$, and $a$ is across from it. When $A = 90^{\\circ}$, $\\cos A = 0$ and you get Pythagoras' theorem."
+        },
+        {
+          "type": "text",
+          "text": "To find an angle, rearrange. Learn this form: it is not on the formula list."
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos A = \\frac{b^{2} + c^{2} - a^{2}}{2bc}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A negative top makes $\\cos A$ negative, so $A$ is obtuse. $\\cos^{-1}$ gives that obtuse angle directly, so there is no ambiguous case."
+        },
+        {
+          "type": "example",
+          "id": "ex-cosine-side-exact",
+          "question": "Without a calculator: in triangle $PQR$, $PQ = 5$ cm, $PR = 8$ cm and angle $QPR = 60^{\\circ}$. Work out $QR$.",
+          "steps": [
+            "The $60^{\\circ}$ angle is between the two known sides, and $QR$ is across from it.",
+            "$QR^{2} = 5^{2} + 8^{2} - 2 \\times 5 \\times 8 \\times \\cos 60^{\\circ}$.",
+            "Use $\\cos 60^{\\circ} = \\tfrac{1}{2}$: $QR^{2} = 25 + 64 - 80 \\times \\tfrac{1}{2} = 49$.",
+            "$QR = \\sqrt{49} = 7$ cm."
+          ],
+          "answer": "$QR = 7\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(5**2 + 8**2 - 2*5*8*cos(60*pi/180))",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-cosine-angle",
+          "question": "A triangular flower bed has sides $4.6$ m, $5.3$ m and $8.4$ m. Work out its largest angle.",
+          "steps": [
+            "The largest angle, $\\theta$, is across from the longest side, $8.4$ m, so $8.4^{2}$ is the one you subtract.",
+            "$\\cos\\theta = \\dfrac{4.6^{2} + 5.3^{2} - 8.4^{2}}{2 \\times 4.6 \\times 5.3} = \\dfrac{-21.31}{48.76} = -0.43703\\ldots$",
+            "$\\theta = \\cos^{-1}(-0.43703\\ldots) = 115.915\\ldots^{\\circ}$, so $\\theta = 115.9^{\\circ}$ to 1 d.p. The cosine is negative, so an obtuse angle is right."
+          ],
+          "answer": "$\\theta \\approx 115.9^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "acos((4.6**2 + 5.3**2 - 8.4**2)/(2*4.6*5.3))*180/pi",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "inverse-trig",
+          "values": {
+            "ratio": "−21.31/48.76"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Which rule? A side and the angle across from it: sine rule. Two sides and the angle between them, or three sides: cosine rule."
+        },
+        {
+          "type": "check",
+          "id": "check-cosine-side",
+          "prompt": "A triangle has sides $7$ cm and $10$ cm with an angle of $118^{\\circ}$ between them. Work out the third side in cm, to 3 s.f.",
+          "hint": "$\\cos 118^{\\circ}$ is negative, so you subtract a negative number.",
+          "answer": {
+            "value": 14.7,
+            "tolerance": 0.05
+          },
+          "explain": "$c^{2} = 7^{2} + 10^{2} - 2 \\times 7 \\times 10 \\times \\cos 118^{\\circ} = 214.72\\ldots$, so $c = 14.65\\ldots \\approx 14.7$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(7**2 + 10**2 - 2*7*10*cos(118*pi/180))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cosine-angle",
+          "prompt": "A triangle has sides $6$ cm, $8$ cm and $12$ cm. Work out the angle $\\theta$ across from the $12$ cm side.",
+          "hint": "Subtract $12^{2}$ on top, and put $2 \\times 6 \\times 8$ underneath.",
+          "options": [
+            {
+              "text": "$\\theta \\approx 117.3^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\theta \\approx 62.7^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 156.4^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 26.4^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\cos\\theta = \\frac{6^{2} + 8^{2} - 12^{2}}{2 \\times 6 \\times 8} = \\frac{-44}{96}$, so $\\theta \\approx 117.3^{\\circ}$. $62.7^{\\circ}$ comes from losing the minus sign, and $156.4^{\\circ}$ from forgetting the $2$ underneath.",
+          "verify": {
+            "kind": "angle",
+            "truth": "acos((6**2 + 8**2 - 12**2)/(2*6*8))*180/pi",
+            "dp": 1
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Working out $b^{2} + c^{2} - 2bc$ and then multiplying by $\\cos A$. Work out $2bc\\cos A$ as one number, then subtract it."
+        }
+      ]
+    },
+    {
+      "id": "area",
+      "heading": "Area of a triangle",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Area $= \\tfrac{1}{2} \\times \\text{base} \\times \\text{height}$ needs the height. Often you know two sides and the angle between them instead."
+        },
+        {
+          "type": "figure",
+          "id": "6-5-height",
+          "alt": "Triangle ABC with C at bottom left and B at bottom right, so side a is the base CB. A is at the top, and side b joins C to A. A dashed line goes straight down from A to the base, meeting it at a right angle. This is the height h. The angle C is marked between sides a and b.",
+          "caption": "The height is $h = b\\sin C$."
+        },
+        {
+          "type": "text",
+          "text": "In the right-angled triangle on the left, $h = b\\sin C$. Put that into $\\tfrac{1}{2} \\times a \\times h$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{Area} = \\tfrac{1}{2}ab\\sin C",
+          "tag": "booklet",
+          "bookletId": "fl-6-5-area"
+        },
+        {
+          "type": "text",
+          "text": "$C$ must be the angle between sides $a$ and $b$. The formula is on the formula list, and it works for obtuse angles too."
+        },
+        {
+          "type": "example",
+          "id": "ex-area-exact",
+          "question": "Without a calculator: a triangle has sides $12$ cm and $9$ cm, with an angle of $150^{\\circ}$ between them. Work out its area.",
+          "steps": [
+            "The $150^{\\circ}$ angle is between the two sides, so use $\\tfrac{1}{2}ab\\sin C$.",
+            "$\\sin 150^{\\circ} = \\sin 30^{\\circ} = \\tfrac{1}{2}$.",
+            "Area $= \\tfrac{1}{2} \\times 12 \\times 9 \\times \\tfrac{1}{2} = 27$ cm$^{2}$."
+          ],
+          "answer": "$\\text{Area} = 27\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 2)*12*9*sin(150*pi/180)",
+            "unit": "cm^2"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-area-angle",
+          "question": "A triangle has sides $8.5$ cm and $10$ cm, and its area is $36$ cm$^{2}$. The angle between the two sides is acute. Work out this angle.",
+          "steps": [
+            "$36 = \\tfrac{1}{2} \\times 8.5 \\times 10 \\times \\sin C = 42.5\\sin C$.",
+            "$\\sin C = \\dfrac{36}{42.5} = 0.84705\\ldots$",
+            "$C = \\sin^{-1}(0.84705\\ldots) = 57.893\\ldots^{\\circ}$, so $C = 57.9^{\\circ}$ to 1 d.p.",
+            "$180^{\\circ} - 57.9^{\\circ} = 122.1^{\\circ}$ gives the same area, but the question says acute."
+          ],
+          "answer": "$C \\approx 57.9^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "asin(36/(Rational(1, 2)*8.5*10))*180/pi",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-area",
+          "prompt": "Two sides of a triangle are $14$ cm and $17.5$ cm, with an angle of $72^{\\circ}$ between them. Work out the area in cm$^{2}$, to 3 s.f.",
+          "hint": "Use $\\tfrac{1}{2}ab\\sin C$.",
+          "answer": {
+            "value": 117,
+            "tolerance": 0.5
+          },
+          "explain": "$\\tfrac{1}{2} \\times 14 \\times 17.5 \\times \\sin 72^{\\circ} = 116.50\\ldots \\approx 117$ cm$^{2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1, 2)*14*17.5*sin(72*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-area-included",
+          "prompt": "In triangle $LMN$, $LM = 8$ cm, $MN = 11$ cm, angle $LMN = 52^{\\circ}$ and angle $MNL = 46.1^{\\circ}$. Work out the area.",
+          "hint": "Which angle sits between the sides $LM$ and $MN$?",
+          "options": [
+            {
+              "text": "$\\text{Area} \\approx 34.7\\text{ cm}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\text{Area} \\approx 31.7\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\text{Area} \\approx 69.3\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\text{Area} \\approx 27.1\\text{ cm}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "The angle between $LM$ and $MN$ is at $M$, so the area is $\\tfrac{1}{2} \\times 8 \\times 11 \\times \\sin 52^{\\circ} \\approx 34.7$ cm$^{2}$. $31.7$ uses the $46.1^{\\circ}$ angle, and $69.3$ forgets the $\\tfrac{1}{2}$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(1, 2)*8*11*sin(52*pi/180)",
+            "sf": 3,
+            "unit": "cm^2"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using an angle that is not between your two sides. If the included angle isn't given, work it out first."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}",
+          "tag": "booklet",
+          "bookletId": "fl-6-5-sine-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "a^{2} = b^{2} + c^{2} - 2bc\\cos A",
+          "tag": "booklet",
+          "bookletId": "fl-6-5-cosine-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos A = \\frac{b^{2} + c^{2} - a^{2}}{2bc}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{Area} = \\tfrac{1}{2}ab\\sin C",
+          "tag": "booklet",
+          "bookletId": "fl-6-5-area",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Sine rule: a side and the angle across from it. Cosine rule: two sides and the angle between them, or three sides.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\sin(180^{\\circ} - x) = \\sin x$: if $\\sin^{-1}$ gives $x$, the angle could also be $180^{\\circ} - x$, if it fits with the other angles.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a triangle, a negative cosine means an obtuse angle.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving the calculator in radians. $\\sin 35$ then shows $-0.428$, impossible in a triangle. Check for D or DEG first.",
+    "Taking the calculator's acute angle when the angle is obtuse. Work out $180^{\\circ}$ minus it, and check the angle sum.",
+    "In the cosine rule for an angle, subtracting the wrong side or losing the minus sign. Subtract the square of the side across from the angle.",
+    "Rounding a side and then using it again. Keep the full value, or use Ans, and round only at the end."
+  ],
+  "examTips": [
+    "For \"calculate\" or \"work out\", write the rule with your numbers in, such as $\\frac{AC}{\\sin 45^{\\circ}} = \\frac{12}{\\sin 30^{\\circ}}$. That line earns the method marks.",
+    "Give angles to 1 d.p. and lengths and areas to 3 s.f., unless told otherwise. Write a longer value, such as $115.915\\ldots$, before you round.",
+    "Without a calculator, use exact values such as $\\sin 30^{\\circ} = \\tfrac{1}{2}$ and $\\cos 60^{\\circ} = \\tfrac{1}{2}$, and show them in your working.",
+    "When a later part uses an earlier answer, use the unrounded value. A wrong earlier answer used correctly can still earn the later marks."
+  ],
+  "readingMinutes": 17
+}

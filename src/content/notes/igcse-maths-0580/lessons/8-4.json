@@ -1,0 +1,491 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "8.4",
+  "slug": "conditional-probability",
+  "title": "Conditional probability",
+  "level": "Extended",
+  "topic": 8,
+  "summary": "A [[conditional-probability|conditional probability]] is a probability worked out when you already know something has happened. The words \"given that\" or \"chosen from the …\" tell you to look only at that part of the group. So the bottom of the fraction is that part's total, not the whole total.",
+  "goals": [
+    {
+      "text": "Find a conditional probability from a two-way table or a table of outcomes, dividing by the right total.",
+      "bullets": [
+        "8.4-s1"
+      ]
+    },
+    {
+      "text": "Find a conditional probability from a [[venn-diagram|Venn diagram]] of numbers or of probabilities.",
+      "bullets": [
+        "8.4-s1"
+      ]
+    },
+    {
+      "text": "Use a [[tree-diagram|tree diagram]] to answer \"given that\" questions, including picks without replacement.",
+      "bullets": [
+        "8.4-s1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "8.3"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "given that probability",
+    "conditional probability venn diagram",
+    "conditional probability tree diagram",
+    "conditional probability two-way table",
+    "probability chosen from a group"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-venn-count",
+      "prompt": "In a Venn diagram, the region for $A$ only holds $9$, the overlap of $A$ and $B$ holds $4$, the region for $B$ only holds $7$, and $5$ are outside both circles. How many are in $B$?",
+      "hint": "$B$ is the whole circle: its own part plus the overlap.",
+      "answer": {
+        "value": 11,
+        "tolerance": 0
+      },
+      "verify": {
+        "kind": "numeric",
+        "truth": "4 + 7",
+        "dp": 0
+      },
+      "explain": "$B$ holds $7 + 4 = 11$. The $9$ are in $A$ only and the $5$ are outside $B$. Revise it in {{lesson:1.2}}."
+    },
+    {
+      "type": "check",
+      "id": "before-tree-multiply",
+      "prompt": "A fair coin is tossed and a spinner is spun. The probability that the spinner lands on red is $0.3$. Find the probability of a head and red.",
+      "hint": "For two independent events, multiply along the branches.",
+      "options": [
+        {
+          "text": "$0.15$",
+          "correct": true
+        },
+        {
+          "text": "$0.8$",
+          "correct": false
+        },
+        {
+          "text": "$0.3$",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "exact",
+        "truth": "Rational(1, 2)*Rational(3, 10)"
+      },
+      "explain": "$0.5 \\times 0.3 = 0.15$. Adding gives $0.8$, but you add only to combine different paths. Revise it in {{lesson:8.3}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "tables",
+      "heading": "Using tables",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Pick one person from a class. Now suppose you are told the person is a girl. You are picking only from the girls, so the probability changes."
+        },
+        {
+          "type": "definition",
+          "term": "conditional probability",
+          "statement": "A [[conditional-probability|conditional probability]] is the probability that an event happens, given that you already know another event has happened.",
+          "plain": "Count only inside the group you know about. The words \"given that\", \"chosen from the …\" or \"who …\" name that group."
+        },
+        {
+          "type": "result",
+          "statement": "When every person or outcome is equally likely to be chosen: probability $= \\dfrac{\\text{number in the given group that also fit}}{\\text{number in the given group}}$.",
+          "why": "Everyone outside the given group is ruled out, so only that group is left to choose from."
+        },
+        {
+          "type": "example",
+          "id": "ex-table-cafe",
+          "question": "A café records $90$ orders. $\\begin{array}{c|cc|c} & \\text{cake} & \\text{no cake} & \\text{total} \\\\ \\hline \\text{hot drink} & 24 & 31 & 55 \\\\ \\text{cold drink} & 13 & 22 & 35 \\\\ \\hline \\text{total} & 37 & 53 & 90 \\end{array}$ An order with a cold drink is chosen at random. Find the probability that it included cake.",
+          "steps": [
+            "The order is chosen from the cold drinks, so the given group is the cold-drink row.",
+            "That row's total is $35$. This is the bottom of the fraction.",
+            "In that row, $13$ orders included cake. This is the top.",
+            "So the probability is $\\frac{13}{35}$. It does not simplify."
+          ],
+          "answer": "$\\text{probability} = \\frac{13}{35}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(13, 13 + 22)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by the whole total. $\\frac{13}{90}$ is the probability of \"cold drink and cake\" from all orders. Once you are told the drink is cold, divide by the cold-drink total."
+        },
+        {
+          "type": "text",
+          "text": "A table of outcomes (a [[sample-space-diagram|sample space diagram]]) works the same way. Cross out every cell that doesn't fit the given fact, then count in what is left."
+        },
+        {
+          "type": "example",
+          "id": "ex-table-spinners",
+          "question": "Spinner A is numbered $1$, $2$, $3$, $4$ and spinner B is numbered $1$, $2$, $3$. Both are fair. They are spun and the two numbers are multiplied. Given that the product is even, find the probability that spinner A landed on $4$.",
+          "steps": [
+            "Make a table of products, A across and B down: $\\begin{array}{c|cccc} \\times & 1 & 2 & 3 & 4 \\\\ \\hline 1 & 1 & 2 & 3 & 4 \\\\ 2 & 2 & 4 & 6 & 8 \\\\ 3 & 3 & 6 & 9 & 12 \\end{array}$ There are $12$ equally likely outcomes.",
+            "The given fact is \"the product is even\". The even products are $2, 4, 2, 4, 6, 8, 6, 12$: that is $8$ cells. This is the bottom.",
+            "Of those $8$ cells, the ones in the A $= 4$ column are $4$, $8$ and $12$: $3$ cells. This is the top.",
+            "So the probability is $\\frac{3}{8}$."
+          ],
+          "answer": "$\\text{probability} = \\frac{3}{8}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(3, 12 - 4)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-table-languages",
+          "prompt": "$64$ students each study one language. $\\begin{array}{c|cc|c} & \\text{French} & \\text{Spanish} & \\text{total} \\\\ \\hline \\text{Year 10} & 18 & 14 & 32 \\\\ \\text{Year 11} & 12 & 20 & 32 \\\\ \\hline \\text{total} & 30 & 34 & 64 \\end{array}$ A student who studies Spanish is chosen at random. Find the probability that they are in Year 11.",
+          "hint": "The given group is the Spanish column. What is its total?",
+          "options": [
+            {
+              "text": "$\\frac{10}{17}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{5}{16}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{5}{8}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{7}{17}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(20, 14 + 20)"
+          },
+          "explain": "There are $34$ Spanish students and $20$ of them are in Year 11, so $\\frac{20}{34} = \\frac{10}{17}$. $\\frac{5}{16}$ divides by all $64$, and $\\frac{5}{8}$ divides by the Year 11 total instead. $\\frac{7}{17}$ is the Year 10 Spanish students."
+        },
+        {
+          "type": "check",
+          "id": "check-table-four-sided",
+          "prompt": "Two fair four-sided dice, each numbered $1$ to $4$, are rolled and the scores added. Given that the total is at least $6$, find the probability that both dice show the same number.",
+          "hint": "List the pairs with a total of $6$, $7$ or $8$. Count them, then count the doubles among them.",
+          "options": [
+            {
+              "text": "$\\frac{1}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{8}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{8}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(2, 3 + 2 + 1)"
+          },
+          "explain": "The pairs are $(2,4), (4,2), (3,3), (3,4), (4,3), (4,4)$: $6$ of them. Two are doubles, so $\\frac{2}{6} = \\frac{1}{3}$. $\\frac{1}{8}$ is $\\frac{2}{16}$, which divides by all $16$ outcomes."
+        }
+      ]
+    },
+    {
+      "id": "venn",
+      "heading": "Using Venn diagrams",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a [[venn-diagram|Venn diagram]], the given group is usually a whole circle, or the part outside it. Add every region in the given group for the bottom. The top is the part of it that also fits the question."
+        },
+        {
+          "type": "figure",
+          "id": "8-4-venn-clubs",
+          "alt": "Venn diagram of 52 students. Circle C is the choir and circle D is the drama club. C only holds 14, the overlap holds 6, D only holds 11, and 21 are outside both circles.",
+          "caption": "$C$ is the choir and $D$ is the drama club. The numbers are students."
+        },
+        {
+          "type": "example",
+          "id": "ex-venn-drama",
+          "question": "Use the Venn diagram of $52$ students. A student in the drama club is chosen at random. Find the probability that they are also in the choir.",
+          "steps": [
+            "The given group is circle $D$. Add its two regions: $11 + 6 = 17$. This is the bottom.",
+            "The students in $D$ who are also in the choir are in the overlap: $6$. This is the top.",
+            "So the probability is $\\frac{6}{17}$."
+          ],
+          "answer": "$\\text{probability} = \\frac{6}{17}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(6, 11 + 6)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using only one region for the bottom. Circle $D$ is $11$ and the overlap, so its total is $17$, not $11$."
+        },
+        {
+          "type": "text",
+          "text": "Often you must fill in the Venn diagram first. Start with the overlap, then work outwards."
+        },
+        {
+          "type": "example",
+          "id": "ex-venn-bikes",
+          "question": "$45$ people are asked whether they own a bike ($B$) or a scooter ($S$). $21$ own a bike, $16$ own a scooter and $10$ own neither. A person who owns a scooter is chosen at random. Find the probability that they also own a bike.",
+          "steps": [
+            "People in at least one circle: $45 - 10 = 35$.",
+            "Adding $21 + 16 = 37$ counts the overlap twice. So the overlap is $37 - 35 = 2$.",
+            "Fill in the rest: bike only $21 - 2 = 19$, scooter only $16 - 2 = 14$. Check: $19 + 2 + 14 + 10 = 45$.",
+            "The given group is circle $S$, with $16$ people. Of these, $2$ also own a bike. So the probability is $\\frac{2}{16} = \\frac{1}{8}$."
+          ],
+          "answer": "$\\text{probability} = \\frac{1}{8}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(21 + 16 - (45 - 10), 16)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Some Venn diagrams show probabilities instead of numbers of people. The method is the same: divide the probability of the part that fits by the total probability of the given group."
+        },
+        {
+          "type": "check",
+          "id": "check-venn-not-choir",
+          "prompt": "Use the Venn diagram of the choir and drama club. A student who is not in the choir is chosen at random. Find the probability that they are in the drama club.",
+          "hint": "Not in the choir means everything outside circle $C$: two regions.",
+          "options": [
+            {
+              "text": "$\\frac{11}{32}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{11}{52}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{17}{32}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{11}{17}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(11, 11 + 21)"
+          },
+          "explain": "Outside $C$ there are $11 + 21 = 32$ students, and $11$ of them are in drama. $\\frac{17}{32}$ wrongly adds the overlap, which is inside the choir."
+        },
+        {
+          "type": "check",
+          "id": "check-venn-probabilities",
+          "prompt": "A Venn diagram shows probabilities for events $A$ and $B$. $A$ only is $0.3$, the overlap is $0.2$, $B$ only is $0.25$ and outside both is $0.25$. Given that $B$ happens, find the probability that $A$ also happens.",
+          "hint": "The total probability of $B$ is its own part plus the overlap.",
+          "options": [
+            {
+              "text": "$\\frac{4}{9}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2}{5}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(2, 10)/(Rational(25, 100) + Rational(2, 10))"
+          },
+          "explain": "$B$ has probability $0.25 + 0.2 = 0.45$, so the answer is $\\frac{0.2}{0.45} = \\frac{20}{45} = \\frac{4}{9}$. $\\frac{1}{5}$ is $0.2$ with no division, and $\\frac{2}{5}$ divides by $A$'s total, $0.5$."
+        }
+      ]
+    },
+    {
+      "id": "trees",
+      "heading": "Using tree diagrams",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On a [[tree-diagram|tree diagram]], the second set of branches already gives conditional probabilities. Each one is the probability given what happened on the first branch."
+        },
+        {
+          "type": "figure",
+          "id": "8-4-tree-bus",
+          "alt": "Tree diagram. The first pair of branches is the weather: Rain with probability 0.4 and Dry with probability 0.6. After Rain, Bus has probability 0.75 and Walk 0.25. After Dry, Bus has probability 0.25 and Walk 0.75.",
+          "caption": "How Sam gets to school depends on the weather."
+        },
+        {
+          "type": "text",
+          "text": "So \"given that it rains, find the probability Sam takes the bus\" is just the branch: $0.75$. The harder question goes backwards: given the second outcome, find the probability of the first."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the probability of each path that gives the known outcome, then add them. This is the bottom."
+        },
+        {
+          "type": "text",
+          "text": "2. The top is the probability of the path (or paths) that also fit what you are asked."
+        },
+        {
+          "type": "example",
+          "id": "ex-tree-bus-rain",
+          "question": "Use the tree diagram for Sam's journey. Given that Sam takes the bus, find the probability that it was raining.",
+          "steps": [
+            "Two paths end in Bus. Rain then Bus: $0.4 \\times 0.75 = 0.3$. Dry then Bus: $0.6 \\times 0.25 = 0.15$.",
+            "Probability of Bus: $0.3 + 0.15 = 0.45$. This is the bottom.",
+            "The path that is also Rain is Rain then Bus: $0.3$. This is the top.",
+            "So the probability is $\\frac{0.3}{0.45} = \\frac{30}{45} = \\frac{2}{3}$."
+          ],
+          "answer": "$\\text{probability} = \\frac{2}{3}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(Rational(4, 10)*Rational(3, 4))/(Rational(4, 10)*Rational(3, 4) + Rational(6, 10)*Rational(1, 4))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the branch $0.75$ as the answer. That is the probability of the bus given rain. The question asks the other way round, so you need the path probabilities."
+        },
+        {
+          "type": "text",
+          "text": "Picks [[without-replacement|without replacement]] use the same tree. After the first pick there is one fewer item, so the second branches change."
+        },
+        {
+          "type": "example",
+          "id": "ex-tree-sweets",
+          "question": "A bag holds $5$ green sweets and $3$ yellow sweets. Two sweets are taken at random without replacement. Given that the two sweets are the same colour, find the probability that both are green.",
+          "steps": [
+            "Both green: $\\frac{5}{8} \\times \\frac{4}{7} = \\frac{20}{56}$. After one green there are $4$ green left out of $7$.",
+            "Both yellow: $\\frac{3}{8} \\times \\frac{2}{7} = \\frac{6}{56}$.",
+            "Same colour is both green or both yellow: $\\frac{20}{56} + \\frac{6}{56} = \\frac{26}{56}$. This is the bottom.",
+            "The top is both green, $\\frac{20}{56}$. So the probability is $\\frac{20}{56} \\div \\frac{26}{56} = \\frac{20}{26} = \\frac{10}{13}$."
+          ],
+          "answer": "$\\text{probability} = \\frac{10}{13}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(Rational(5, 8)*Rational(4, 7))/(Rational(5, 8)*Rational(4, 7) + Rational(3, 8)*Rational(2, 7))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-tree-pens",
+          "prompt": "A box holds $4$ red pens and $6$ blue pens. Two pens are taken at random without replacement. Given that the first pen is red, find the probability that the second pen is red.",
+          "hint": "After one red pen is taken, how many pens are left, and how many of them are red?",
+          "options": [
+            {
+              "text": "$\\frac{1}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{2}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{2}{15}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{4}{9}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(4 - 1, 10 - 1)"
+          },
+          "explain": "$3$ red pens are left out of $9$, so $\\frac{3}{9} = \\frac{1}{3}$. $\\frac{2}{5}$ forgets the pen was taken out, and $\\frac{2}{15}$ is red then red, which you don't need because the first pen is known."
+        },
+        {
+          "type": "check",
+          "id": "check-tree-walk-dry",
+          "prompt": "Use the tree diagram for Sam's journey. Given that Sam walks, find the probability that it was dry.",
+          "hint": "Find the two paths that end in Walk. Then divide the Dry one by their total.",
+          "options": [
+            {
+              "text": "$\\frac{9}{11}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{3}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{9}{20}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{11}{20}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "(Rational(6, 10)*Rational(3, 4))/(Rational(4, 10)*Rational(1, 4) + Rational(6, 10)*Rational(3, 4))"
+          },
+          "explain": "Rain then Walk is $0.4 \\times 0.25 = 0.1$ and Dry then Walk is $0.6 \\times 0.75 = 0.45$. So $\\frac{0.45}{0.55} = \\frac{9}{11}$. $\\frac{3}{4}$ is the branch, which goes the other way round."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "\"Given that\", \"chosen from the …\" or \"who …\" names the given group. With counts, when each one is equally likely to be chosen: probability $= \\dfrac{\\text{number in the given group that also fit}}{\\text{number in the given group}}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "With probabilities (a Venn diagram or a tree): divide the probability of the part that fits by the total probability of the given group.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "On a tree, the second branches are already \"given the first\". To go backwards, add the paths that give the known outcome for the bottom.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing by the whole total. Once you know which group the choice comes from, divide by that group's total only.",
+    "Dividing by the wrong group. In a two-way table, check whether the given group is a row or a column.",
+    "Leaving out part of a circle. A circle's total is its own region plus the overlap.",
+    "Treating a pick without replacement as if the item went back. After one is taken, the top and bottom of the next fraction both go down.",
+    "Reading a tree branch when the question goes backwards. Given the second outcome, divide path probabilities instead."
+  ],
+  "examTips": [
+    "**Write down** means little or no working is needed. For a probability from a Venn diagram or table, the bottom of the fraction must still be the given group's total.",
+    "In **find the probability that … given that …**, write the fraction with both parts showing, such as $\\frac{0.3}{0.45}$. That line can earn a method mark.",
+    "Give probabilities as fractions, decimals or percentages, never as a ratio or in words such as \"6 out of 17\"."
+  ],
+  "readingMinutes": 18
+}

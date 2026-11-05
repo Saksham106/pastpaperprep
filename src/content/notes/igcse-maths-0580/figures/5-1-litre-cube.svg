@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 210" role="img" aria-labelledby="t">
+  <title id="t">A cube with every edge 10 centimetres long. Its volume is 10 times 10 times 10, which is 1000 cubic centimetres. A container this size holds exactly 1 litre, which is 1000 millilitres.</title>
+  <g stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round">
+    <rect x="40" y="70" width="120" height="120"/>
+    <polygon points="40,70 80,30 200,30 160,70"/>
+    <polygon points="160,70 200,30 200,150 160,190"/>
+  </g>
+  <g font-family="inherit" font-size="14" fill="currentColor" text-anchor="middle">
+    <text x="100" y="205">10 cm</text>
+    <text x="22" y="134">10 cm</text>
+    <text x="198" y="178" text-anchor="start">10 cm</text>
+  </g>
+  <g font-family="inherit" font-size="15" fill="currentColor">
+    <text x="232" y="80">10 × 10 × 10</text>
+    <text x="232" y="102">= 1000 cm³</text>
+    <text x="232" y="138" fill="var(--t1-ink)" font-weight="bold">= 1 litre</text>
+    <text x="232" y="160" fill="var(--t1-ink)">= 1000 ml</text>
+  </g>
+</svg>

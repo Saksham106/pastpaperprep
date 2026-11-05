@@ -1,0 +1,484 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "8.2",
+  "slug": "relative-and-expected-frequencies",
+  "title": "Relative and expected frequencies",
+  "level": "Core",
+  "topic": 8,
+  "summary": "Some [[probability|probabilities]] can't be worked out by looking, so you find them by experiment. The [[relative-frequency|relative frequency]] of an outcome is the fraction of trials it happened in, and it estimates the probability. Going the other way, probability times the number of trials gives the [[expected-frequency|expected frequency]]: how many times you expect it to happen.",
+  "goals": [
+    {
+      "text": "Work out a relative frequency from the results of an experiment, and use it as an estimate of a probability.",
+      "bullets": [
+        "8.2-c1"
+      ]
+    },
+    {
+      "text": "Explain why more trials give a better estimate, and use results to decide whether a dice or spinner is [[fair|fair]] or [[biased|biased]].",
+      "bullets": [
+        "8.2-c1"
+      ]
+    },
+    {
+      "text": "Calculate an expected frequency from a probability, a relative frequency or a sample.",
+      "bullets": [
+        "8.2-c2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "8.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "relative frequency",
+    "expected frequency",
+    "estimate probability from an experiment",
+    "is the dice biased",
+    "fair and biased spinner",
+    "expected number of times"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-not-happening",
+      "prompt": "The probability that a train is on time is $0.83$. What is the probability that it is not on time?",
+      "hint": "An event either happens or it doesn't. The two probabilities add to $1$.",
+      "answer": {
+        "value": 0.17,
+        "tolerance": 0
+      },
+      "explain": "$1 - 0.83 = 0.17$. Revise it in {{lesson:8.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1 - Rational(83, 100)",
+        "dp": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-fair-dice",
+      "prompt": "A normal six-sided dice is rolled once. What is the probability of rolling a number greater than $4$?",
+      "hint": "Which numbers are greater than $4$? Each of the six numbers is equally likely.",
+      "options": [
+        {
+          "text": "$\\frac{1}{3}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{1}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{1}{6}$",
+          "correct": false
+        }
+      ],
+      "explain": "Only $5$ and $6$ are greater than $4$: that is $2$ of the $6$ numbers, so $\\frac{2}{6} = \\frac{1}{3}$. $\\frac{1}{2}$ wrongly counts the $4$ as well. Revise it in {{lesson:8.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "Rational(2, 6)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "relative-frequency",
+      "heading": "Relative frequency",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For a normal coin you can say the [[probability|probability]] of heads is $\\frac{1}{2}$. For a drawing pin, there is no way to work out the chance it lands point up. You have to try it."
+        },
+        {
+          "type": "text",
+          "text": "Each go is called a trial. Count how many trials give the outcome you want, then divide by the total number of trials."
+        },
+        {
+          "type": "definition",
+          "term": "Relative frequency",
+          "statement": "The [[relative-frequency|relative frequency]] of an outcome is the number of times it happens divided by the total number of trials.",
+          "plain": "The fraction of the time it happened in your experiment."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{relative frequency} = \\frac{\\text{number of times the outcome happens}}{\\text{total number of trials}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A relative frequency is an estimate of the probability. Use it as the probability when you can't work the probability out any other way."
+        },
+        {
+          "type": "example",
+          "id": "ex-rf-drawing-pin",
+          "question": "Kofi drops a drawing pin $60$ times. It lands point up $33$ times. Find the relative frequency of the pin landing point up.",
+          "steps": [
+            "The outcome happened $33$ times in $60$ trials.",
+            "Relative frequency $= \\frac{33}{60}$.",
+            "Simplify by dividing top and bottom by $3$: $\\frac{11}{20}$.",
+            "As a decimal, $\\frac{11}{20} = \\frac{55}{100} = 0.55$. Either form is fine."
+          ],
+          "answer": "$\\text{relative frequency} = 0.55$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(33, 60)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The relative frequencies of all the possible outcomes add up to $1$, just like probabilities. So you can find a missing one by subtracting from $1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rf-missing-colour",
+          "question": "A spinner has four colours. Lena spins it many times and works out these relative frequencies. $\\begin{array}{c|cccc} \\text{Colour} & \\text{red} & \\text{blue} & \\text{green} & \\text{yellow} \\\\ \\hline \\text{Relative frequency} & 0.18 & 0.31 & 0.27 & \\end{array}$ Find the relative frequency for yellow.",
+          "steps": [
+            "Every spin lands on one of the four colours, so the four relative frequencies add to $1$.",
+            "Add the three you know: $0.18 + 0.31 + 0.27 = 0.76$.",
+            "Subtract from $1$: $1 - 0.76 = 0.24$.",
+            "Check: $0.76 + 0.24 = 1$."
+          ],
+          "answer": "$\\text{relative frequency} = 0.24$",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - (Rational(18, 100) + Rational(31, 100) + Rational(27, 100))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the known values and giving that total as the answer. The total is what is used up; subtract it from $1$ to find the missing one."
+        },
+        {
+          "type": "check",
+          "id": "check-rf-free-throws",
+          "prompt": "Mia takes $40$ shots at a basketball hoop and scores $26$ times. Find the relative frequency of scoring, as a decimal.",
+          "hint": "Divide the number of scores by the number of shots.",
+          "answer": {
+            "value": 0.65,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{26}{40} = \\frac{13}{20} = \\frac{65}{100} = 0.65$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(26, 40)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rf-missing-dice",
+          "prompt": "A dice is rolled many times. The relative frequencies of $1$, $2$, $3$, $4$ and $5$ are $0.14$, $0.17$, $0.16$, $0.19$ and $0.13$. Find the relative frequency of a $6$.",
+          "hint": "All six relative frequencies add to $1$.",
+          "options": [
+            {
+              "text": "$0.21$",
+              "correct": true
+            },
+            {
+              "text": "$0.79$",
+              "correct": false
+            },
+            {
+              "text": "$0.16$",
+              "correct": false
+            }
+          ],
+          "explain": "The five known values add to $0.79$, so the last one is $1 - 0.79 = 0.21$. $0.79$ is the total you subtract, not the answer.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - (Rational(14, 100) + Rational(17, 100) + Rational(16, 100) + Rational(19, 100) + Rational(13, 100))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fair-biased",
+      "heading": "More trials, fair and biased",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A relative frequency from only a few trials can be a long way off. Luck matters a lot when you have only $10$ results."
+        },
+        {
+          "type": "figure",
+          "id": "8-2-settling",
+          "alt": "Line graph of the relative frequency of red against the number of spins, from 20 to 200 spins. The first values jump between about 0.2 and 0.4, then the line settles close to a dashed horizontal line at 0.25.",
+          "caption": "A spinner with probability $0.25$ of red. As the spins go up, the relative frequency settles near $0.25$."
+        },
+        {
+          "type": "result",
+          "statement": "The more trials you do, the better the relative frequency is as an estimate of the probability.",
+          "why": "With many trials, the lucky and unlucky runs mostly cancel out."
+        },
+        {
+          "type": "definition",
+          "term": "Fair",
+          "statement": "A dice, coin or spinner is [[fair|fair]] when every outcome is equally likely.",
+          "plain": "Nothing is favoured."
+        },
+        {
+          "type": "definition",
+          "term": "Biased",
+          "statement": "A dice, coin or spinner is [[biased|biased]] when it is not fair: some outcomes are more likely than others.",
+          "plain": "It favours some results."
+        },
+        {
+          "type": "text",
+          "text": "\"At random\" means every item has the same chance of being picked. A person picked at random from a group of $25$ has probability $\\frac{1}{25}$ of being any particular person."
+        },
+        {
+          "type": "text",
+          "text": "To test for bias, compare the relative frequency with the probability if it were fair. A big difference after many trials suggests it is biased. A small difference is easily explained by chance."
+        },
+        {
+          "type": "example",
+          "id": "ex-biased-coin",
+          "question": "A coin is thrown $400$ times. It lands on heads $284$ times. Find the relative frequency of heads. Is the coin fair?",
+          "steps": [
+            "Relative frequency of heads $= \\frac{284}{400} = \\frac{71}{100} = 0.71$.",
+            "If the coin were fair, the probability of heads would be $\\frac{1}{2} = 0.5$.",
+            "$0.71$ is far from $0.5$, and $400$ is a lot of throws.",
+            "So the coin is probably biased towards heads."
+          ],
+          "answer": "$\\text{relative frequency} = 0.71$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(284, 400)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-fair-dice",
+          "question": "Sam rolls a dice $300$ times and gets a $6$ on $52$ of them. Find the relative frequency of a $6$, to 3 significant figures. Does this suggest the dice is biased?",
+          "steps": [
+            "Relative frequency $= \\frac{52}{300} = 0.17333\\ldots \\approx 0.173$.",
+            "A fair dice gives a $6$ with probability $\\frac{1}{6} = 0.16666\\ldots \\approx 0.167$.",
+            "$0.173$ and $0.167$ are very close. A difference this small is what chance gives.",
+            "So there is no real evidence that the dice is biased."
+          ],
+          "answer": "$\\text{relative frequency} \\approx 0.173$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(52, 300)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "When asked to explain whether something is fair or biased, quote both numbers: the relative frequency and the fair probability. Then say whether they are close."
+        },
+        {
+          "type": "check",
+          "id": "check-most-reliable",
+          "prompt": "Three students each test the same spinner. Who has the most reliable estimate of the probability of red?",
+          "hint": "Which estimate is based on the most trials?",
+          "options": [
+            {
+              "text": "Priya: 93 reds in 300 spins",
+              "correct": true
+            },
+            {
+              "text": "Tom: 4 reds in 10 spins",
+              "correct": false
+            },
+            {
+              "text": "Ali: 17 reds in 50 spins",
+              "correct": false
+            }
+          ],
+          "explain": "Priya did $300$ spins, far more than the others, so her relative frequency $\\frac{93}{300} = 0.31$ is the best estimate.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Priya: 93 reds in 300 spins"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fair-spinner",
+          "prompt": "A spinner has five equal sections numbered $1$ to $5$. In $500$ spins it lands on $3$ a total of $180$ times. What does this suggest?",
+          "hint": "Work out the relative frequency of $3$. A fair five-section spinner gives $3$ with probability $\\frac{1}{5}$.",
+          "options": [
+            {
+              "text": "The spinner is probably biased towards 3",
+              "correct": true
+            },
+            {
+              "text": "The spinner is probably fair",
+              "correct": false
+            },
+            {
+              "text": "There are too few spins to say anything",
+              "correct": false
+            }
+          ],
+          "explain": "The relative frequency is $\\frac{180}{500} = 0.36$. Fair would be $\\frac{1}{5} = 0.2$. After $500$ spins, that gap is too big to be chance.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The spinner is probably biased towards 3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "expected-frequency",
+      "heading": "Expected frequency",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "If the probability of rain on a day is $0.3$, then over $10$ days you'd expect rain on about $3$ of them. That is $0.3 \\times 10$."
+        },
+        {
+          "type": "definition",
+          "term": "Expected frequency",
+          "statement": "The [[expected-frequency|expected frequency]] of an outcome is its probability multiplied by the number of trials.",
+          "plain": "How many times you'd expect it to happen, on average."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{expected frequency} = \\text{probability} \\times \\text{number of trials}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "It is an average, not a promise. The real count will usually be a bit different. An expected frequency can even be a decimal, such as $0.5 \\times 7 = 3.5$."
+        },
+        {
+          "type": "example",
+          "id": "ex-expected-bus",
+          "question": "The probability that a bus is late is $0.08$. Work out the expected number of late buses in $250$ journeys.",
+          "steps": [
+            "Expected frequency $=$ probability $\\times$ number of trials $= 0.08 \\times 250$.",
+            "Without a calculator, $0.08 = \\frac{8}{100}$. So work out $8 \\times 250 = 2000$, then divide by $100$.",
+            "$2000 \\div 100 = 20$."
+          ],
+          "answer": "$\\text{expected number} = 20$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(8, 100) * 250"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Sometimes you aren't given a probability. Instead you have the results of a survey of a small group, called a sample. Use the sample's relative frequency as the probability for the whole group."
+        },
+        {
+          "type": "example",
+          "id": "ex-expected-survey",
+          "question": "A school has $650$ students. In a survey of $25$ of them, $8$ are vegetarian. Find the expected number of vegetarians in the whole school.",
+          "steps": [
+            "Estimate the probability from the sample: $\\frac{8}{25}$.",
+            "Expected number $= \\frac{8}{25} \\times 650$.",
+            "Divide first to keep the numbers small: $650 \\div 25 = 26$.",
+            "Then multiply: $26 \\times 8 = 208$."
+          ],
+          "answer": "$\\text{expected number} = 208$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(8, 25) * 650"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying the $8$ by $650$ and stopping. You must divide by the $25$ in the sample too: the probability is $\\frac{8}{25}$, not $8$."
+        },
+        {
+          "type": "check",
+          "id": "check-expected-spinner",
+          "prompt": "A fair spinner has five equal sections, numbered $1$ to $5$. It is spun $140$ times. Work out the expected number of times it lands on $4$.",
+          "hint": "The probability of a $4$ is $\\frac{1}{5}$.",
+          "answer": {
+            "value": 28,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{1}{5} \\times 140 = 140 \\div 5 = 28$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1, 5) * 140",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-expected-not",
+          "prompt": "The probability that a seed grows is $0.85$. Gita plants $60$ seeds. How many seeds does she expect will not grow?",
+          "hint": "First find the probability that a seed does not grow.",
+          "options": [
+            {
+              "text": "$9$",
+              "correct": true
+            },
+            {
+              "text": "$51$",
+              "correct": false
+            },
+            {
+              "text": "$0.15$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\text{P}(\\text{not grow}) = 1 - 0.85 = 0.15$, so expect $0.15 \\times 60 = 9$. $51$ is the number expected to grow, and $0.15$ is a probability, not a number of seeds.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(1 - Rational(85, 100)) * 60"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\text{relative frequency} = \\frac{\\text{number of times the outcome happens}}{\\text{total number of trials}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Relative frequency estimates probability. More trials give a better estimate. Relative frequencies of all outcomes add to $1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Fair: every outcome equally likely. Biased: not fair. After many trials, a relative frequency far from the fair probability suggests bias.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{expected frequency} = \\text{probability} \\times \\text{number of trials}",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Stopping at the total of the known relative frequencies. Subtract that total from $1$ to find the missing one.",
+    "Multiplying the sample count by the population and forgetting to divide by the sample size. The probability is count $\\div$ sample size.",
+    "Using the wrong probability, such as the chance of winning when the question asks about losing. Check which outcome the question asks for, and subtract from $1$ if you need the other one.",
+    "Giving a probability when the question asks for an expected number. Finish by multiplying by the number of trials.",
+    "Saying a dice is biased because the counts aren't exactly equal. Small differences are chance; only a big difference after many trials suggests bias."
+  ],
+  "examTips": [
+    "Write down the relative frequency as a fraction, decimal or percentage, never as a ratio or in words such as \"$9$ out of $50$\".",
+    "Work out an expected number: write the multiplication, such as $0.08 \\times 250$, before the answer. Don't round it to a whole number unless the question asks.",
+    "Explain which estimate is more reliable by naming the one with more trials and saying more trials give a better estimate."
+  ],
+  "readingMinutes": 17
+}

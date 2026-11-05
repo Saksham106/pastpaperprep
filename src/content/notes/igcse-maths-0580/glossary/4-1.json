@@ -2,229 +2,229 @@
   {
     "id": "parallel",
     "term": "parallel",
-    "definition": "TODO: Lines never meet and have equal gradients; defined here, applied in 3.6.",
+    "definition": "Parallel lines go in the same direction and stay the same distance apart, so they never meet; on a grid, parallel lines that are not vertical have equal gradients.",
     "lesson": "4.1"
   },
   {
     "id": "perpendicular",
     "term": "perpendicular",
-    "definition": "TODO: At right angles; owned here, used in 3.7.",
+    "definition": "Perpendicular lines meet or cross at a right angle, $90^{\\circ}$.",
     "lesson": "4.1"
   },
   {
     "id": "perpendicular-bisector",
     "term": "perpendicular bisector",
-    "definition": "TODO: Line cutting a segment in half at right angles.",
+    "definition": "The line that cuts a line segment into two equal halves and crosses it at right angles; every point on it is the same distance from both ends.",
     "lesson": "4.1"
   },
   {
     "id": "vertex",
     "term": "vertex",
-    "definition": "TODO: Corner point of a shape.",
+    "definition": "A corner of a shape or solid, where sides or edges meet; the plural is vertices.",
     "lesson": "4.1"
   },
   {
     "id": "right-angle",
     "term": "right angle",
-    "definition": "TODO: 90 degrees.",
+    "definition": "An angle of exactly $90^{\\circ}$, a quarter turn, marked on diagrams with a small square.",
     "lesson": "4.1"
   },
   {
     "id": "acute-angle",
     "term": "acute angle",
-    "definition": "TODO: Less than 90 degrees.",
+    "definition": "An angle between $0^{\\circ}$ and $90^{\\circ}$.",
     "lesson": "4.1"
   },
   {
     "id": "obtuse-angle",
     "term": "obtuse angle",
-    "definition": "TODO: Between 90 and 180 degrees.",
+    "definition": "An angle between $90^{\\circ}$ and $180^{\\circ}$.",
     "lesson": "4.1"
   },
   {
     "id": "reflex-angle",
     "term": "reflex angle",
-    "definition": "TODO: Between 180 and 360 degrees.",
+    "definition": "An angle between $180^{\\circ}$ and $360^{\\circ}$.",
     "lesson": "4.1"
   },
   {
     "id": "congruent",
     "term": "congruent",
-    "definition": "TODO: Same shape and size; Core need not prove congruence.",
+    "definition": "Congruent shapes are exactly the same shape and size, so one fits exactly on the other, even after turning or flipping it.",
     "lesson": "4.1"
   },
   {
     "id": "equilateral-triangle",
     "term": "equilateral triangle",
-    "definition": "TODO: All sides and angles equal.",
+    "definition": "A triangle with three equal sides and three equal angles of $60^{\\circ}$.",
     "lesson": "4.1"
   },
   {
     "id": "isosceles-triangle",
     "term": "isosceles triangle",
-    "definition": "TODO: Two equal sides and angles.",
+    "definition": "A triangle with two equal sides, where the two angles opposite those sides are also equal.",
     "lesson": "4.1"
   },
   {
     "id": "scalene-triangle",
     "term": "scalene triangle",
-    "definition": "TODO: No equal sides.",
+    "definition": "A triangle with no equal sides and no equal angles.",
     "lesson": "4.1"
   },
   {
     "id": "right-angled-triangle",
     "term": "right-angled triangle",
-    "definition": "TODO: One angle of 90 degrees.",
+    "definition": "A triangle with one angle of $90^{\\circ}$.",
     "lesson": "4.1"
   },
   {
     "id": "quadrilateral",
     "term": "quadrilateral",
-    "definition": "TODO: Four-sided shape; angle sum 360.",
+    "definition": "A flat shape with four straight sides, whose four angles add up to $360^{\\circ}$.",
     "lesson": "4.1"
   },
   {
     "id": "kite",
     "term": "kite",
-    "definition": "TODO: Two pairs of adjacent equal sides.",
+    "definition": "A quadrilateral with two pairs of equal sides, where the two sides in each pair are next to each other.",
     "lesson": "4.1"
   },
   {
     "id": "rhombus",
     "term": "rhombus",
-    "definition": "TODO: All sides equal.",
+    "definition": "A quadrilateral with four equal sides, whose opposite sides are parallel and opposite angles are equal.",
     "lesson": "4.1"
   },
   {
     "id": "parallelogram",
     "term": "parallelogram",
-    "definition": "TODO: Opposite sides parallel and equal.",
+    "definition": "A quadrilateral with two pairs of parallel sides, whose opposite sides are equal and opposite angles are equal.",
     "lesson": "4.1"
   },
   {
     "id": "trapezium",
     "term": "trapezium",
-    "definition": "TODO: One pair of parallel sides.",
+    "definition": "A quadrilateral with one pair of parallel sides, where the other two sides are not parallel.",
     "lesson": "4.1"
   },
   {
     "id": "polygon",
     "term": "polygon",
-    "definition": "TODO: Closed shape with straight sides; names such as pentagon, hexagon, octagon, decagon; regular and irregular.",
+    "definition": "A flat, closed shape with straight sides, such as a pentagon ($5$ sides), hexagon ($6$), octagon ($8$) or decagon ($10$), which is regular if all its sides and angles are equal and irregular if not.",
     "lesson": "4.1"
   },
   {
     "id": "plane",
     "term": "plane",
-    "definition": "TODO: Flat surface.",
+    "definition": "A flat surface that goes on for ever in every direction, such as the surface that a flat face of a solid lies in.",
     "lesson": "4.1"
   },
   {
     "id": "cuboid",
     "term": "cuboid",
-    "definition": "TODO: Rectangular box solid.",
+    "definition": "A solid box shape with six rectangular faces.",
     "lesson": "4.1"
   },
   {
     "id": "prism",
     "term": "prism",
-    "definition": "TODO: Solid with uniform cross-section; 5.4 notes any uniform cross-section.",
+    "definition": "A solid with flat faces and the same cross-section all the way through, named after that cross-section, such as a triangular prism.",
     "lesson": "4.1"
   },
   {
     "id": "cylinder",
     "term": "cylinder",
-    "definition": "TODO: Prism with a circular cross-section.",
+    "definition": "A solid with two equal circular ends joined by a curved surface, like a prism with a circular cross-section.",
     "lesson": "4.1"
   },
   {
     "id": "pyramid",
     "term": "pyramid",
-    "definition": "TODO: Base with triangular faces meeting at apex.",
+    "definition": "A solid with a flat base and triangular faces that meet at one vertex at the top.",
     "lesson": "4.1"
   },
   {
     "id": "cone",
     "term": "cone",
-    "definition": "TODO: Circular base and apex.",
+    "definition": "A solid with a circular base and a curved surface that rises to a point.",
     "lesson": "4.1"
   },
   {
     "id": "sphere",
     "term": "sphere",
-    "definition": "TODO: Round solid.",
+    "definition": "A perfectly round solid, like a ball, where every point on the surface is the same distance from the centre.",
     "lesson": "4.1"
   },
   {
     "id": "hemisphere",
     "term": "hemisphere",
-    "definition": "TODO: Half a sphere; term not needed at Core.",
+    "definition": "Half of a sphere, with one flat circular face and one curved surface.",
     "lesson": "4.1"
   },
   {
     "id": "frustum",
     "term": "frustum",
-    "definition": "TODO: Cone or pyramid with the top removed.",
+    "definition": "The part of a cone or pyramid that is left when the top is cut off parallel to the base.",
     "lesson": "4.1"
   },
   {
     "id": "face",
     "term": "face",
-    "definition": "TODO: Flat surface of a solid; also edge.",
+    "definition": "One flat surface of a solid; two faces meet at an edge.",
     "lesson": "4.1"
   },
   {
     "id": "radius",
     "term": "radius",
-    "definition": "TODO: Distance from centre to edge; plural radii.",
+    "definition": "The distance from the centre of a circle to any point on the circle, or a line joining them; the plural is radii.",
     "lesson": "4.1"
   },
   {
     "id": "diameter",
     "term": "diameter",
-    "definition": "TODO: Line through the centre across a circle.",
+    "definition": "A chord that passes through the centre of a circle, twice as long as the radius.",
     "lesson": "4.1"
   },
   {
     "id": "circumference",
     "term": "circumference",
-    "definition": "TODO: Distance round a circle.",
+    "definition": "The whole distance round a circle, or the curve itself.",
     "lesson": "4.1"
   },
   {
     "id": "semicircle",
     "term": "semicircle",
-    "definition": "TODO: Half a circle.",
+    "definition": "Half of a circle, cut off by a diameter.",
     "lesson": "4.1"
   },
   {
     "id": "chord",
     "term": "chord",
-    "definition": "TODO: Line joining two points on a circle.",
+    "definition": "A straight line joining two points on a circle.",
     "lesson": "4.1"
   },
   {
     "id": "tangent",
     "term": "tangent",
-    "definition": "TODO: Line touching a circle at one point; also used for tangent to a curve (2.9, 2.12).",
+    "definition": "A straight line that touches a circle at exactly one point, or, for a curve, the straight line that just touches it at a point and is as steep as the curve there.",
     "lesson": "4.1"
   },
   {
     "id": "arc",
     "term": "arc",
-    "definition": "TODO: Part of a circle's circumference; major and minor arc at Extended.",
+    "definition": "Part of the circumference of a circle; between two points, the shorter arc is the minor arc and the longer one is the major arc.",
     "lesson": "4.1"
   },
   {
     "id": "sector",
     "term": "sector",
-    "definition": "TODO: Region between two radii and an arc; major and minor at Extended.",
+    "definition": "The region of a circle between two radii and the arc joining their ends, like a slice of pizza.",
     "lesson": "4.1"
   },
   {
     "id": "segment",
     "term": "segment",
-    "definition": "TODO: Region between a chord and an arc.",
+    "definition": "The region of a circle between a chord and an arc.",
     "lesson": "4.1"
   }
 ]

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300" role="img" aria-labelledby="t">
+  <title id="t">Pie chart of the favourite sport of 36 people. Starting from a vertical radius and going clockwise: Football 140 degrees, Tennis 50 degrees, Swimming 100 degrees, Hockey 70 degrees. Each sector is labelled with its sport and angle.</title>
+  <path d="M 180 150 L 180.0 35.0 A 115 115 0 0 1 253.9 238.1 Z" fill="var(--t1-ink)" fill-opacity="0.4" stroke="currentColor" stroke-width="1.2" />
+  <path d="M 180 150 L 253.9 238.1 A 115 115 0 0 1 160.0 263.3 Z" fill="var(--t2-ink)" fill-opacity="0.4" stroke="currentColor" stroke-width="1.2" />
+  <path d="M 180 150 L 160.0 263.3 A 115 115 0 0 1 71.9 110.7 Z" fill="var(--t3-ink)" fill-opacity="0.4" stroke="currentColor" stroke-width="1.2" />
+  <path d="M 180 150 L 71.9 110.7 A 115 115 0 0 1 180.0 35.0 Z" fill="var(--t4-ink)" fill-opacity="0.4" stroke="currentColor" stroke-width="1.2" />
+  <g font-size="12" font-family="inherit" fill="currentColor" text-anchor="middle">
+    <text x="244.8" y="123.4">Football</text>
+    <text x="244.8" y="138.4">140°</text>
+    <text x="197.9" y="213.6">Tennis</text>
+    <text x="197.9" y="228.6">50°</text>
+    <text x="120.2" y="181.5">Swimming</text>
+    <text x="120.2" y="196.5">100°</text>
+    <text x="140.4" y="90.5">Hockey</text>
+    <text x="140.4" y="105.5">70°</text>
+  </g>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 266 206" role="img" aria-labelledby="t">
+  <title id="t">Grid with x from minus 1 to 6 and y from 0 to 5. Triangle PQR has corners P (2, 1), Q (5, 1) and R (2, 3). Its image after a quarter turn anticlockwise about P has corners P (2, 1), Q prime (2, 4) and R prime (0, 1). P is marked with a dot as the centre. Side PQ pointed 3 right; after the turn, PQ prime points 3 up.</title>
+  <g stroke="var(--muted)" stroke-width="0.6" opacity="0.6">
+    <line x1="28" y1="178" x2="28" y2="28"/>
+    <line x1="58" y1="178" x2="58" y2="28"/>
+    <line x1="88" y1="178" x2="88" y2="28"/>
+    <line x1="118" y1="178" x2="118" y2="28"/>
+    <line x1="148" y1="178" x2="148" y2="28"/>
+    <line x1="178" y1="178" x2="178" y2="28"/>
+    <line x1="208" y1="178" x2="208" y2="28"/>
+    <line x1="238" y1="178" x2="238" y2="28"/>
+    <line x1="28" y1="178" x2="238" y2="178"/>
+    <line x1="28" y1="148" x2="238" y2="148"/>
+    <line x1="28" y1="118" x2="238" y2="118"/>
+    <line x1="28" y1="88" x2="238" y2="88"/>
+    <line x1="28" y1="58" x2="238" y2="58"/>
+    <line x1="28" y1="28" x2="238" y2="28"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6">
+    <line x1="20" y1="178" x2="248" y2="178"/>
+    <line x1="58" y1="186" x2="58" y2="18"/>
+  </g>
+  <g font-family="inherit" font-size="11" fill="currentColor" text-anchor="middle">
+    <text x="28" y="192">−1</text>
+    <text x="88" y="192">1</text>
+    <text x="118" y="192">2</text>
+    <text x="148" y="192">3</text>
+    <text x="178" y="192">4</text>
+    <text x="208" y="192">5</text>
+    <text x="238" y="192">6</text>
+    <text x="48" y="152">1</text>
+    <text x="48" y="122">2</text>
+    <text x="48" y="92">3</text>
+    <text x="48" y="62">4</text>
+    <text x="48" y="32">5</text>
+    <text x="49" y="192">0</text>
+  </g>
+  <text x="246" y="172" font-family="inherit" font-size="14" font-style="italic" fill="currentColor">x</text>
+  <text x="65" y="20" font-family="inherit" font-size="14" font-style="italic" fill="currentColor">y</text>
+  <circle cx="118" cy="148" r="4" fill="currentColor"/>
+  <text x="122.5" y="164.5" font-family="inherit" font-size="12" fill="currentColor" text-anchor="start" font-weight="bold">P</text>
+  <text x="214" y="155.5" font-family="inherit" font-size="12" fill="var(--t1-ink)" text-anchor="start" font-weight="bold">Q</text>
+  <text x="124" y="101.5" font-family="inherit" font-size="12" fill="var(--t1-ink)" text-anchor="start" font-weight="bold">R</text>
+  <text x="124" y="55" font-family="inherit" font-size="12" fill="var(--t2-ink)" text-anchor="start" font-weight="bold">Q′</text>
+  <text x="52" y="164.5" font-family="inherit" font-size="12" fill="var(--t2-ink)" text-anchor="end" font-weight="bold">R′</text>
+  <path d="M184 143.5 A66 66 0 0 0 122.5 82" fill="none" stroke="var(--t3-ink)" stroke-width="1.8" stroke-dasharray="4 3"/>
+  <polygon points="118,148 208,148 118,88" fill="var(--t1-ink)" fill-opacity="0.15" stroke="var(--t1-ink)" stroke-width="2.2"/>
+  <polygon points="118,148 118,58 58,148" fill="var(--t2-ink)" fill-opacity="0.15" stroke="var(--t2-ink)" stroke-width="2.2"/>
+</svg>

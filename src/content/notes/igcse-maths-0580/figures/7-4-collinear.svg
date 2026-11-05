@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" role="img" aria-labelledby="t">
+  <title id="t">Triangle OAB with O at the bottom left, A further along the bottom and B at the top. M is the midpoint of OB. P is on AB, two fifths of the way from A to B. The bottom line is extended past A to E, three times as far from O as A is. A dashed straight line passes through M, P and E.</title>
+  <line x1="30.0" y1="170.0" x2="210.0" y2="170.0" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="30.0" y1="170.0" x2="70.0" y2="50.0" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="90.0" y1="170.0" x2="70.0" y2="50.0" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="50.0" y1="110.0" x2="210.0" y2="170.0" stroke="var(--t5-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <circle cx="30.0" cy="170.0" r="3.5" fill="currentColor"/>
+  <circle cx="90.0" cy="170.0" r="3.5" fill="currentColor"/>
+  <circle cx="70.0" cy="50.0" r="3.5" fill="currentColor"/>
+  <circle cx="50.0" cy="110.0" r="3.5" fill="currentColor"/>
+  <circle cx="82.0" cy="122.0" r="3.5" fill="currentColor"/>
+  <circle cx="210.0" cy="170.0" r="3.5" fill="currentColor"/>
+  <text x="24.0" y="186.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="end" font-style="italic">O</text>
+  <text x="90.0" y="188.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="middle" font-style="italic">A</text>
+  <text x="70.0" y="40.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="middle" font-style="italic">B</text>
+  <text x="42.0" y="110.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="end" font-style="italic">M</text>
+  <text x="86.0" y="114.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="start" font-style="italic">P</text>
+  <text x="218.0" y="174.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="start" font-style="italic">E</text>
+</svg>

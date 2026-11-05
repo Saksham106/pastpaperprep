@@ -1,0 +1,570 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "4.2",
+  "slug": "geometrical-constructions",
+  "title": "Geometrical constructions",
+  "level": "Core",
+  "topic": 4,
+  "summary": "You measure lines with a ruler and angles with a protractor, and you build a triangle from its three sides with compasses. You also fold flat [[net|nets]] into solids and read lengths off them. The arcs you draw are part of the answer, so leave them in.",
+  "goals": [
+    {
+      "text": "Measure and draw lines to the nearest millimetre, and angles to the nearest degree, including reflex angles.",
+      "bullets": [
+        "4.2-c1"
+      ]
+    },
+    {
+      "text": "Construct a triangle from its three sides with a ruler and compasses, leaving the arcs showing.",
+      "bullets": [
+        "4.2-c2"
+      ]
+    },
+    {
+      "text": "Construct a rhombus by building two triangles on one diagonal.",
+      "bullets": [
+        "4.2-c2"
+      ]
+    },
+    {
+      "text": "Draw [[net|nets]] of cubes, cuboids, prisms and pyramids, and say which [[face|faces]] meet when a net folds.",
+      "bullets": [
+        "4.2-c3"
+      ]
+    },
+    {
+      "text": "Use the lengths on a net to find a solid's surface area and volume.",
+      "bullets": [
+        "4.2-c3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "geometric constructions",
+    "construct a triangle with compasses",
+    "how to use a protractor",
+    "measure a line in mm",
+    "net of a cube",
+    "nets of 3d shapes"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-angle-type",
+      "prompt": "An angle measures $125^{\\circ}$. What type of angle is it?",
+      "hint": "Is it less than $90^{\\circ}$, between $90^{\\circ}$ and $180^{\\circ}$, or more than $180^{\\circ}$?",
+      "options": [
+        {
+          "text": "Obtuse",
+          "correct": true
+        },
+        {
+          "text": "Acute",
+          "correct": false
+        },
+        {
+          "text": "Reflex",
+          "correct": false
+        }
+      ],
+      "explain": "$125^{\\circ}$ is between $90^{\\circ}$ and $180^{\\circ}$, so it is obtuse. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Obtuse"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-cuboid-faces",
+      "prompt": "How many flat faces does a cuboid have?",
+      "hint": "Count them in pairs: top and bottom, front and back, left and right.",
+      "answer": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "explain": "Three pairs of matching rectangles: $3 \\times 2 = 6$. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3*2",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "measure",
+      "heading": "Measuring lines and angles",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A ruler is marked in centimetres, and each centimetre has 10 small marks of $1\\text{ mm}$. So $1\\text{ cm} = 10\\text{ mm}$."
+        },
+        {
+          "type": "text",
+          "text": "Put the zero mark, not the end of the ruler, on the start of the line. If the zero is worn away, subtract the start reading from the end reading. To draw a line, mark zero and the length, then rule between them."
+        },
+        {
+          "type": "example",
+          "id": "ex-ruler-offset",
+          "question": "The ruler's zero is worn away. One end of a line $PQ$ sits on the $1\\text{ cm}$ mark. The other end sits 4 small marks past the $8\\text{ cm}$ mark. Find the length of $PQ$ in millimetres.",
+          "steps": [
+            "Change both readings to millimetres. The start is $1\\text{ cm} = 10\\text{ mm}$.",
+            "The end is $8\\text{ cm}$ and 4 small marks: $80 + 4 = 84\\text{ mm}$.",
+            "Subtract the start from the end: $84 - 10 = 74\\text{ mm}$."
+          ],
+          "answer": "$PQ = 74\\text{ mm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(8*10 + 4) - 1*10",
+            "unit": "mm"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-ruler-mm",
+          "prompt": "A line starts at the $2.5\\text{ cm}$ mark on a ruler and ends at the $11.1\\text{ cm}$ mark. How long is it, in millimetres?",
+          "hint": "Change both readings to millimetres first.",
+          "answer": {
+            "value": 86,
+            "tolerance": 0
+          },
+          "explain": "$111 - 25 = 86\\text{ mm}$. Reading $11.1\\text{ cm}$ alone would count the part before the line starts.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "11.1*10 - 2.5*10",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "A protractor has two scales running in opposite directions. Put its centre on the [[vertex|vertex]] and lay one arm along the base line. Read the scale that shows $0$ on that arm."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-protractor",
+          "alt": "A protractor with its centre on the vertex of an angle. One arm runs along the base line to the right, through 0 on the inner scale. The other arm passes the mark where the inner scale reads 50 and the outer scale reads 130. The inner scale counts up from 0 on the right; the outer scale counts up from 0 on the left.",
+          "caption": "Which scale reads $0$ on the base arm?"
+        },
+        {
+          "type": "check",
+          "id": "check-protractor-read",
+          "prompt": "In the figure, what is the size of the marked angle?",
+          "hint": "The base arm points right. Which scale reads $0$ there?",
+          "options": [
+            {
+              "text": "$50^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$130^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$40^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "The inner scale reads $0$ on the base arm, so read $50$ on it. $130$ comes from the outer scale, but the angle is acute.",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - 130"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A protractor only reaches $180^{\\circ}$. For a [[reflex-angle|reflex angle]], use the angle on the other side: the two add up to $360^{\\circ}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-draw-reflex",
+          "question": "Draw an angle of $250^{\\circ}$ at a point $O$. What angle do you measure with the protractor?",
+          "steps": [
+            "The two angles at $O$ make a full turn, so the other one is $360^{\\circ} - 250^{\\circ} = 110^{\\circ}$.",
+            "Rule a base line from $O$. With the protractor's centre on $O$, mark $110^{\\circ}$ on the scale that reads $0$ on the base line.",
+            "Rule a line from $O$ through the mark. Draw the angle arc on the outside, so the marked angle is the reflex one."
+          ],
+          "answer": "$360^{\\circ} - 250^{\\circ} = 110^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "360 - 250"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-reflex-measure",
+          "prompt": "The angle inside a corner measures $75^{\\circ}$. Find the reflex angle on the outside, in degrees.",
+          "hint": "The two angles at the corner make a full turn.",
+          "answer": {
+            "value": 285,
+            "tolerance": 0
+          },
+          "explain": "$360 - 75 = 285$, so the reflex angle is $285^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "360 - 75",
+            "dp": 0
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Reading the wrong protractor scale. Use the one that shows $0$ on your first arm, then check the size looks acute or obtuse."
+        }
+      ]
+    },
+    {
+      "id": "triangle",
+      "heading": "Constructing a triangle from three sides",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Compasses mark every point at one distance from the centre. The third corner must be the right distance from both ends of the base, so it sits where two [[arc|arcs]] cross."
+        },
+        {
+          "type": "text",
+          "text": "1. Rule one side, or use the side already drawn."
+        },
+        {
+          "type": "text",
+          "text": "2. Open the compasses to the second length against the ruler. Centre them on the correct end and draw an arc."
+        },
+        {
+          "type": "text",
+          "text": "3. Do the same with the third length from the other end, cutting the first arc."
+        },
+        {
+          "type": "text",
+          "text": "4. Rule lines from both ends to the crossing. Leave the arcs in."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-triangle-arcs",
+          "alt": "Triangle PQR built with compasses. The base PQ is 8 cm. An arc of radius 6.5 cm drawn from P and an arc of radius 5.5 cm drawn from Q cross at R. Straight lines join P to R and Q to R, and both arcs are left showing."
+        },
+        {
+          "type": "example",
+          "id": "ex-construct-pqr",
+          "question": "With a ruler and compasses only, construct triangle $PQR$ with $PQ = 8\\text{ cm}$, $PR = 6.5\\text{ cm}$ and $QR = 5.5\\text{ cm}$. Then measure angle $QPR$.",
+          "steps": [
+            "Rule $PQ = 8\\text{ cm}$ and label its ends.",
+            "$PR$ starts at $P$. Open the compasses to $6.5\\text{ cm}$, centre them on $P$, and sweep an arc above $PQ$.",
+            "$QR$ starts at $Q$. Open them to $5.5\\text{ cm}$, centre them on $Q$, and sweep a second arc to cut the first. Label the crossing $R$.",
+            "Rule $PR$ and $QR$, leaving both arcs.",
+            "Measure at $P$ with the protractor's $0$ on $PQ$: about $43^{\\circ}$."
+          ],
+          "answer": "$\\angle QPR \\approx 43^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "acos((8**2 + Rational(13, 2)**2 - Rational(11, 2)**2)/(2*8*Rational(13, 2)))*180/pi",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-which-end",
+          "prompt": "Side $AB$ is drawn for you. $AC = 6.2\\text{ cm}$ and $BC = 4.9\\text{ cm}$. Where do you put the compass point to draw the $6.2\\text{ cm}$ arc?",
+          "hint": "Which letter does $AC$ start from?",
+          "options": [
+            {
+              "text": "On A",
+              "correct": true
+            },
+            {
+              "text": "On B",
+              "correct": false
+            },
+            {
+              "text": "Halfway along AB",
+              "correct": false
+            }
+          ],
+          "explain": "$C$ must be $6.2\\text{ cm}$ from $A$, so that arc is centred on $A$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "On A"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping the two lengths, so each arc comes from the wrong end. The arc for $AC$ is centred on $A$, and the arc for $BC$ on $B$."
+        },
+        {
+          "type": "text",
+          "text": "You only get a triangle if the two shorter sides add up to more than the longest side. If they add up to less, the arcs never meet."
+        },
+        {
+          "type": "check",
+          "id": "check-impossible",
+          "prompt": "Can you construct a triangle with sides $10\\text{ cm}$, $4\\text{ cm}$ and $5\\text{ cm}$?",
+          "hint": "Add the two shorter sides. Is that more than the longest side?",
+          "options": [
+            {
+              "text": "No, the arcs never meet",
+              "correct": true
+            },
+            {
+              "text": "Yes, exactly one triangle",
+              "correct": false
+            },
+            {
+              "text": "Yes, two different triangles",
+              "correct": false
+            }
+          ],
+          "explain": "$4 + 5 = 9$, which is less than $10$. Arcs of $4\\text{ cm}$ and $5\\text{ cm}$ from the ends of a $10\\text{ cm}$ line can't reach each other.",
+          "verify": {
+            "kind": "choice",
+            "truth": "No, the arcs never meet"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A rhombus has four equal sides, and a diagonal splits it into two triangles. So build two triangles on one diagonal."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-rhombus",
+          "alt": "Rhombus PQRS built as two triangles on the diagonal PR, which is 9 cm long. Arcs of radius 6 cm from P and from R cross above the line at Q and below the line at S. All four sides are 6 cm. The other diagonal QS is shown dashed."
+        },
+        {
+          "type": "example",
+          "id": "ex-rhombus",
+          "question": "With a ruler and compasses only, construct a rhombus $PQRS$ with sides of $6\\text{ cm}$ and diagonal $PR = 9\\text{ cm}$. Measure the other diagonal, $QS$.",
+          "steps": [
+            "Rule $PR = 9\\text{ cm}$.",
+            "Open the compasses to $6\\text{ cm}$. Sweep arcs from $P$ and from $R$ above the line, and label the crossing $Q$.",
+            "Keep the setting and repeat below the line to find $S$.",
+            "Rule the four sides, leaving all four arcs. Then rule $QS$ and measure it: about $79\\text{ mm}$."
+          ],
+          "answer": "$QS \\approx 7.9\\text{ cm}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*sqrt(6**2 - Rational(9, 2)**2)",
+            "dp": 1,
+            "unit": "cm"
+          },
+          "video": null
+        }
+      ]
+    },
+    {
+      "id": "nets",
+      "heading": "Nets of solids",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "net",
+          "statement": "A [[net|net]] of a solid is a flat shape that folds up, along its edges, to make the solid. Every [[face|face]] of the solid appears on the net exactly once.",
+          "plain": "It is the solid opened out flat, like an unfolded cardboard box."
+        },
+        {
+          "type": "text",
+          "text": "To see which faces of a cube end up opposite, fold the net in your head one square at a time."
+        },
+        {
+          "type": "result",
+          "statement": "In a net of a cube, two squares in a straight line with exactly one square between them become opposite faces.",
+          "why": "Fold the middle square up as a wall. The squares on either side of it then fold to face each other across the cube."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-cube-net",
+          "alt": "Net of a cube made of six squares. Four squares sit in a row: B, C, D, E from left to right. Square A is above B, and square F is below D."
+        },
+        {
+          "type": "check",
+          "id": "check-cube-opposite",
+          "prompt": "The net in the figure folds into a cube. Which face is opposite face $C$?",
+          "hint": "Look along the row for the square with exactly one square between it and $C$.",
+          "options": [
+            {
+              "text": "Face E",
+              "correct": true
+            },
+            {
+              "text": "Face D",
+              "correct": false
+            },
+            {
+              "text": "Face A",
+              "correct": false
+            },
+            {
+              "text": "Face F",
+              "correct": false
+            }
+          ],
+          "explain": "$C$ and $E$ are in one row with $D$ between them. $D$ shares an edge with $C$, and $A$ and $F$ are opposite each other.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Face E"
+          }
+        },
+        {
+          "type": "text",
+          "text": "To draw a net, rule one face, then join each neighbouring face along an edge of the same length. A [[prism|prism]] needs its two ends plus a rectangle for each side of an end. A [[pyramid|pyramid]] needs its base plus a triangle on each edge of the base."
+        },
+        {
+          "type": "mistake",
+          "text": "Joining a face to an edge of the wrong length, so the net can't fold shut. Check that every pair of edges that meet when folded are equal."
+        },
+        {
+          "type": "check",
+          "id": "check-identify-solid",
+          "prompt": "A net is made of two identical triangles and three rectangles. Which solid does it fold into?",
+          "hint": "Which solid has two matching ends with flat rectangles between them?",
+          "options": [
+            {
+              "text": "Triangular prism",
+              "correct": true
+            },
+            {
+              "text": "Triangle-based pyramid",
+              "correct": false
+            },
+            {
+              "text": "Square-based pyramid",
+              "correct": false
+            },
+            {
+              "text": "Cuboid",
+              "correct": false
+            }
+          ],
+          "explain": "The two triangles are the ends and the three rectangles join their three pairs of sides, which is a triangular prism. A pyramid has triangles meeting at a point, with no rectangles.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Triangular prism"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The [[surface-area|surface area]] is the total area of all the faces, which is the area of the net. For [[volume|volume]], read the solid's lengths off the net. A cuboid's volume is length $\\times$ width $\\times$ height."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-cuboid-net",
+          "alt": "Net of a cuboid. A row of four rectangles, all 5 cm tall, has widths 2 cm, 6 cm, 2 cm and 6 cm. Above and below the first 6 cm rectangle are two rectangles 6 cm wide and 2 cm tall."
+        },
+        {
+          "type": "example",
+          "id": "ex-cuboid-net-area",
+          "question": "The figure shows the net of a cuboid. Use it to find the surface area of the cuboid.",
+          "steps": [
+            "Read the sizes off the net: $6\\text{ cm}$ by $5\\text{ cm}$ by $2\\text{ cm}$.",
+            "Each rectangle size appears twice: $6 \\times 5 = 30$, $6 \\times 2 = 12$ and $5 \\times 2 = 10$.",
+            "Add one of each and double: $2 \\times (30 + 12 + 10) = 104$."
+          ],
+          "answer": "$\\text{surface area} = 104\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*(6*5 + 6*2 + 5*2)",
+            "unit": "cm^2"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-cuboid-net-volume",
+            "prompt": "Now find the volume of the same cuboid, in $\\text{cm}^{3}$.",
+            "hint": "Multiply the three different lengths.",
+            "answer": {
+              "value": 60,
+              "tolerance": 0
+            },
+            "explain": "$6 \\times 5 \\times 2 = 60$, so the volume is $60\\text{ cm}^{3}$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "6*5*2",
+              "dp": 0
+            }
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "4-2-prism-net",
+          "alt": "Net of a triangular prism. Three rectangles sit side by side, each 8 cm tall, with widths 3 cm, 4 cm and 5 cm. A right-angled triangle with shorter sides 3 cm and 4 cm is joined to the top of the 4 cm rectangle, and an identical triangle is joined to its bottom. The right angles are at the corners next to the 3 cm rectangle."
+        },
+        {
+          "type": "example",
+          "id": "ex-prism-net-area",
+          "question": "The figure shows the net of a triangular prism. Its ends are right-angled triangles. Find the surface area of the prism.",
+          "steps": [
+            "Each end is a right-angled triangle with base $4\\text{ cm}$ and height $3\\text{ cm}$: area $\\tfrac{1}{2} \\times 4 \\times 3 = 6\\text{ cm}^{2}$.",
+            "The three rectangles are all $8\\text{ cm}$ long: $3 \\times 8 + 4 \\times 8 + 5 \\times 8 = 24 + 32 + 40 = 96\\text{ cm}^{2}$.",
+            "Add the two ends and the three rectangles: $2 \\times 6 + 96 = 108$."
+          ],
+          "answer": "$\\text{surface area} = 108\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*Rational(1, 2)*4*3 + (3 + 4 + 5)*8",
+            "unit": "cm^2"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using the sloping side of the right-angled triangle as its height. The height is the side at right angles to the base."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Measure from the zero mark, not the end of the ruler. $1\\text{ cm} = 10\\text{ mm}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Protractor: centre on the vertex, and read the scale that shows $0$ on the first arm. Reflex angle $= 360^{\\circ} -$ the angle on the other side.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Triangle from three sides: draw one side, then an arc of each other length from the correct end. Join both ends to where the arcs cross, and leave the arcs.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Cube net: two squares in a line with one square between them are opposite faces.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Surface area $=$ the total area of every face on the net.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Swapping the two lengths in a construction. The arc for $AC$ is centred on $A$; check each arc against the letters before you draw it.",
+    "Rubbing out the construction arcs. They earn marks, so leave them in.",
+    "Measuring from the end of the ruler, or giving centimetres when the question asks for millimetres. Start at zero and read the unit asked for.",
+    "Attaching a face to an edge of a different length when drawing a net. Edges that meet when folded must be equal."
+  ],
+  "examTips": [
+    "\"Construct\" with a ruler and compasses: both arcs must stay visible. A correct triangle with no arcs earns only part of the marks.",
+    "Use a ruler for every straight line, and a sharp pencil. Constructions are usually marked to within $2\\text{ mm}$.",
+    "\"Measure … give your answer in millimetres\": write a whole number of millimetres, such as $74$, not $7.4$."
+  ],
+  "readingMinutes": 18
+}

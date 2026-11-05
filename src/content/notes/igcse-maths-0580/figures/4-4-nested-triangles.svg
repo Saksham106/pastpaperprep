@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 235" role="img" aria-labelledby="t">
+  <title id="t">Triangle ABC with A at the top and BC along the bottom. D is on side AB and E is on side AC. The line DE is parallel to BC, shown by matching arrows. AD is 5 cm, DB is 2 cm and DE is 4 cm. BC is marked x cm. The small triangle ADE sits inside the big triangle ABC.</title>
+  <polygon points="150,20 40,200 300,200" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <line x1="71.4" y1="148.6" x2="257.1" y2="148.6" stroke="var(--t1-ink)" stroke-width="2"/>
+  <path d="M160,144.6 L167,148.6 L160,152.6" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <path d="M166,196 L173,200 L166,204" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <circle cx="71.4" cy="148.6" r="3" fill="currentColor"/>
+  <circle cx="257.1" cy="148.6" r="3" fill="currentColor"/>
+  <g font-family="inherit" fill="currentColor" font-size="14" text-anchor="middle">
+    <text x="150" y="13">A</text>
+    <text x="30" y="207">B</text>
+    <text x="311" y="207">C</text>
+    <text x="60" y="146">D</text>
+    <text x="269" y="146">E</text>
+  </g>
+  <g font-family="inherit" font-size="12">
+    <text x="102" y="86" fill="currentColor" text-anchor="end">5 cm</text>
+    <text x="48" y="178" fill="currentColor" text-anchor="end">2 cm</text>
+    <text x="164" y="139" fill="var(--t1-ink)" text-anchor="middle">4 cm</text>
+    <text x="170" y="222" fill="currentColor" text-anchor="middle">x cm</text>
+  </g>
+</svg>

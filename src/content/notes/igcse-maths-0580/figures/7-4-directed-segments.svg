@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 220" role="img" aria-labelledby="t">
+  <title id="t">Square grid with four arrows. Arrow a goes from point A to point B, 3 squares right and 1 square up. A second arrow, also labelled a, starts somewhere else and also goes 3 squares right and 1 square up. Arrow minus a goes 3 squares left and 1 square down. Arrow 2a goes 6 squares right and 2 squares up.</title>
+  <g stroke="var(--muted)" stroke-width="0.6" opacity="0.6">
+    <line x1="20" y1="20" x2="20" y2="200"/>
+    <line x1="50" y1="20" x2="50" y2="200"/>
+    <line x1="80" y1="20" x2="80" y2="200"/>
+    <line x1="110" y1="20" x2="110" y2="200"/>
+    <line x1="140" y1="20" x2="140" y2="200"/>
+    <line x1="170" y1="20" x2="170" y2="200"/>
+    <line x1="200" y1="20" x2="200" y2="200"/>
+    <line x1="230" y1="20" x2="230" y2="200"/>
+    <line x1="260" y1="20" x2="260" y2="200"/>
+    <line x1="290" y1="20" x2="290" y2="200"/>
+    <line x1="320" y1="20" x2="320" y2="200"/>
+    <line x1="20" y1="20" x2="320" y2="20"/>
+    <line x1="20" y1="50" x2="320" y2="50"/>
+    <line x1="20" y1="80" x2="320" y2="80"/>
+    <line x1="20" y1="110" x2="320" y2="110"/>
+    <line x1="20" y1="140" x2="320" y2="140"/>
+    <line x1="20" y1="170" x2="320" y2="170"/>
+    <line x1="20" y1="200" x2="320" y2="200"/>
+  </g>
+  <line x1="50.0" y1="80.0" x2="131.5" y2="52.8" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <polygon points="140.0,50.0 131.1,58.2 128.0,48.8" fill="var(--t1-ink)"/>
+  <circle cx="50.0" cy="80.0" r="3.5" fill="currentColor"/>
+  <circle cx="140.0" cy="50.0" r="3.5" fill="currentColor"/>
+  <text x="42.0" y="96.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="end" font-style="italic">A</text>
+  <text x="148.0" y="44.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="start" font-style="italic">B</text>
+  <text x="93.0" y="56.0" fill="var(--t1-ink)" font-size="15" font-family="inherit" text-anchor="middle" font-weight="bold">a</text>
+  <line x1="200.0" y1="80.0" x2="281.5" y2="52.8" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <polygon points="290.0,50.0 281.1,58.2 278.0,48.8" fill="var(--t1-ink)"/>
+  <text x="243.0" y="56.0" fill="var(--t1-ink)" font-size="15" font-family="inherit" text-anchor="middle" font-weight="bold">a</text>
+  <line x1="140.0" y1="140.0" x2="58.5" y2="167.2" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <polygon points="50.0,170.0 58.9,161.8 62.0,171.2" fill="var(--t3-ink)"/>
+  <text x="97.0" y="145.0" fill="var(--t3-ink)" font-size="15" font-family="inherit" text-anchor="middle" font-weight="bold">−a</text>
+  <line x1="140.0" y1="200.0" x2="311.5" y2="142.8" stroke="var(--t5-ink)" stroke-width="2.4"/>
+  <polygon points="320.0,140.0 311.1,148.2 308.0,138.8" fill="var(--t5-ink)"/>
+  <text x="234.0" y="190.0" fill="var(--t5-ink)" font-size="15" font-family="inherit" text-anchor="middle" font-weight="bold">2a</text>
+</svg>

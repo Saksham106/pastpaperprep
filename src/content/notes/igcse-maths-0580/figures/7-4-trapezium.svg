@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 215" role="img" aria-labelledby="t">
+  <title id="t">Trapezium OABC. An arrow labelled a goes along the bottom from O to A. An arrow labelled c goes up from O to C. An arrow labelled 2a goes along the top from C to B, parallel to OA and twice as long. Side AB joins the right-hand ends. Point X is on AB, two fifths of the way from A to B, and a dashed arrow goes from O to X.</title>
+  <line x1="150.0" y1="180.0" x2="210.0" y2="50.0" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="60.0" y1="180.0" x2="141.0" y2="180.0" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <polygon points="150.0,180.0 139.0,184.9 139.0,175.1" fill="var(--t1-ink)"/>
+  <line x1="60.0" y1="180.0" x2="32.0" y2="58.8" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <polygon points="30.0,50.0 37.3,59.6 27.7,61.8" fill="var(--t3-ink)"/>
+  <line x1="30.0" y1="50.0" x2="201.0" y2="50.0" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <polygon points="210.0,50.0 199.0,55.0 199.0,45.0" fill="var(--t1-ink)"/>
+  <line x1="60.0" y1="180.0" x2="165.8" y2="131.7" stroke="var(--t5-ink)" stroke-width="2.4" stroke-dasharray="7 4"/>
+  <polygon points="174.0,128.0 166.0,137.1 161.9,128.1" fill="var(--t5-ink)"/>
+  <circle cx="60.0" cy="180.0" r="3.5" fill="currentColor"/>
+  <circle cx="150.0" cy="180.0" r="3.5" fill="currentColor"/>
+  <circle cx="210.0" cy="50.0" r="3.5" fill="currentColor"/>
+  <circle cx="30.0" cy="50.0" r="3.5" fill="currentColor"/>
+  <circle cx="174.0" cy="128.0" r="3.5" fill="currentColor"/>
+  <text x="54.0" y="196.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="end" font-style="italic">O</text>
+  <text x="156.0" y="196.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="start" font-style="italic">A</text>
+  <text x="218.0" y="46.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="start" font-style="italic">B</text>
+  <text x="22.0" y="46.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="end" font-style="italic">C</text>
+  <text x="183.0" y="132.0" fill="currentColor" font-size="15" font-family="inherit" text-anchor="start" font-style="italic">X</text>
+  <text x="105.0" y="198.0" fill="var(--t1-ink)" font-size="15" font-family="inherit" text-anchor="middle" font-weight="bold">a</text>
+  <text x="36.0" y="122.0" fill="var(--t3-ink)" font-size="15" font-family="inherit" text-anchor="end" font-weight="bold">c</text>
+  <text x="120.0" y="40.0" fill="var(--t1-ink)" font-size="15" font-family="inherit" text-anchor="middle" font-weight="bold">2a</text>
+</svg>

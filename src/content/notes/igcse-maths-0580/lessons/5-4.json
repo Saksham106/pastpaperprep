@@ -1,0 +1,728 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "5.4",
+  "slug": "surface-area-and-volume",
+  "title": "Surface area and volume",
+  "level": "Core",
+  "topic": 5,
+  "summary": "[[volume|Volume]] is the space inside a solid, in cubic units such as $\\text{cm}^{3}$. [[surface-area|Surface area]] is the total area of its outside, in square units such as $\\text{cm}^{2}$. Most formulas are on the formula list.",
+  "goals": [
+    {
+      "text": "Work out the volume and surface area of a [[cuboid|cuboid]] and any [[prism|prism]].",
+      "bullets": [
+        "5.4-c1"
+      ]
+    },
+    {
+      "text": "Use the formulas for a [[cylinder|cylinder]], [[pyramid|pyramid]], [[cone|cone]] and [[sphere|sphere]].",
+      "bullets": [
+        "5.4-c1"
+      ]
+    },
+    {
+      "text": "Give answers in terms of $\\pi$ or to 3 significant figures.",
+      "bullets": [
+        "5.4-c1"
+      ]
+    },
+    {
+      "text": "Work backwards from a volume to a missing length.",
+      "bullets": [
+        "5.4-c1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.12",
+    "4.1",
+    "4.2",
+    "5.1",
+    "5.2",
+    "5.3"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "volume of a cylinder",
+    "surface area of a cone",
+    "volume of a sphere",
+    "volume of a prism",
+    "slant height",
+    "hemisphere volume"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-triangle-area",
+      "prompt": "A triangle has base $11$ cm and [[perpendicular-height|perpendicular height]] $6$ cm. Work out its area, in $\\text{cm}^{2}$.",
+      "hint": "Area $= \\frac{1}{2} \\times$ base $\\times$ height.",
+      "answer": {
+        "value": 33,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{1}{2} \\times 11 \\times 6 = 33\\text{ cm}^{2}$. Revise it in {{lesson:5.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(1, 2)*11*6",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-circle-area",
+      "prompt": "A circle has radius $9$ cm. What is its area?",
+      "hint": "Area of a circle $= \\pi r^{2}$.",
+      "options": [
+        {
+          "text": "$81\\pi\\text{ cm}^{2}$",
+          "correct": true
+        },
+        {
+          "text": "$18\\pi\\text{ cm}^{2}$",
+          "correct": false
+        },
+        {
+          "text": "$9\\pi\\text{ cm}^{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\pi \\times 9^{2} = 81\\pi\\text{ cm}^{2}$. Revise it in {{lesson:5.3}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "pi*9**2",
+        "unit": "cm^2"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-litres",
+      "prompt": "How many $\\text{cm}^{3}$ are there in $3.2$ litres?",
+      "hint": "$1$ litre $= 1000\\text{ cm}^{3}$.",
+      "answer": {
+        "value": 3200,
+        "tolerance": 0
+      },
+      "explain": "$3.2 \\times 1000 = 3200$. Revise [[metric-units|metric units]] in {{lesson:5.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(32, 10)*1000",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "cuboids",
+      "heading": "Cuboids",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The volume of a solid counts how many $1\\text{ cm}$ cubes fit inside it. Each one is $1\\text{ cm}^{3}$."
+        },
+        {
+          "type": "text",
+          "text": "A cuboid $l$ long, $w$ wide and $h$ high holds $l \\times w$ cubes in each layer, with $h$ layers."
+        },
+        {
+          "type": "formula",
+          "tex": "V = l \\times w \\times h",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Surface area is the total area of all the [[face|faces]]. A cuboid's six faces come in three matching pairs."
+        },
+        {
+          "type": "formula",
+          "tex": "A = 2(lw + lh + wh)",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-cuboid-surface",
+          "question": "A gift box is a cuboid $7$ cm long, $4$ cm wide and $2.5$ cm high. Work out its surface area.",
+          "steps": [
+            "Find the three different faces: $7 \\times 4 = 28$, $7 \\times 2.5 = 17.5$ and $4 \\times 2.5 = 10$.",
+            "Each face has a partner opposite, so double: $2 \\times (28 + 17.5 + 10) = 111$."
+          ],
+          "answer": "$111\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*(7*4 + 7*Rational(5, 2) + 4*Rational(5, 2))",
+            "unit": "cm^2"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the three different faces and stopping. There are six faces, so double the total."
+        },
+        {
+          "type": "example",
+          "id": "ex-tank-depth",
+          "question": "A fish tank has a rectangular base $50$ cm by $40$ cm. It holds $32$ litres of water. Work out the depth of the water.",
+          "steps": [
+            "$32$ litres $= 32 \\times 1000 = 32\\,000\\text{ cm}^{3}$.",
+            "Base area $= 50 \\times 40 = 2000\\text{ cm}^{2}$.",
+            "Volume $=$ base area $\\times$ depth, so $d = 32\\,000 \\div 2000 = 16$."
+          ],
+          "answer": "$d = 16\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "32*1000/(50*40)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cuboid-surface",
+          "prompt": "A cuboid measures $9$ cm by $4$ cm by $3$ cm. What is its surface area?",
+          "hint": "Find three different faces, add them, then double.",
+          "options": [
+            {
+              "text": "$150\\text{ cm}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$75\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$108\\text{ cm}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$36 + 27 + 12 = 75$, and doubling gives $150\\text{ cm}^{2}$. $108$ is the volume.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*(9*4 + 9*3 + 4*3)",
+            "unit": "cm^2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "prisms",
+      "heading": "Prisms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A prism has the same [[cross-section|cross-section]] all the way through, wherever you slice it parallel to an end."
+        },
+        {
+          "type": "figure",
+          "id": "5-4-prism-cross-section",
+          "alt": "A triangular prism. The triangle at the front end is shaded and labelled cross-section, area A. The edge running from the front to the back is labelled length l. Hidden edges are dashed."
+        },
+        {
+          "type": "text",
+          "text": "$A$ is the cross-section's area and $l$ is the length: $l$ slices $1$ unit thick, each of volume $A$."
+        },
+        {
+          "type": "formula",
+          "tex": "V = Al",
+          "tag": "booklet",
+          "bookletId": "fl-5-4-volume-v-of-prism-cross-sectional-area-a",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "A cuboid is a prism. So is a slice of cylinder shaped like a [[sector|sector]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-doorstop-volume",
+          "question": "A doorstop is a prism $9$ cm long. Its cross-section is a right-angled triangle with shorter sides $4$ cm and $7.5$ cm. Work out its volume.",
+          "steps": [
+            "Area of the cross-section: $A = \\frac{1}{2} \\times 4 \\times 7.5 = 15\\text{ cm}^{2}$.",
+            "Volume: $V = Al = 15 \\times 9 = 135$."
+          ],
+          "answer": "$V = 135\\text{ cm}^{3}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 2)*4*Rational(15, 2)*9",
+            "unit": "cm^3"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-cheese-wedge",
+          "question": "A wedge of cheese is a prism $7$ cm thick. Its cross-section is a sector of a circle with radius $9$ cm and angle $40^{\\circ}$. Work out its volume. Give your answer in terms of $\\pi$.",
+          "steps": [
+            "The sector is $\\frac{40}{360} = \\frac{1}{9}$ of a circle.",
+            "Its area is $A = \\frac{1}{9} \\times \\pi \\times 9^{2} = 9\\pi\\text{ cm}^{2}$.",
+            "Volume: $V = Al = 9\\pi \\times 7 = 63\\pi$."
+          ],
+          "answer": "$V = 63\\pi\\text{ cm}^{3}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(40, 360)*pi*9**2*7",
+            "unit": "cm^3"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "For surface area, add the two ends and the rectangles round the sides. A [[net|net]] helps you count them."
+        },
+        {
+          "type": "check",
+          "id": "check-doorstop-surface",
+          "prompt": "The doorstop's sloping side is $8.5$ cm. Work out its total surface area.",
+          "hint": "Two triangles, plus three $9$ cm long rectangles.",
+          "options": [
+            {
+              "text": "$210\\text{ cm}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$195\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$180\\text{ cm}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "Ends $2 \\times 15 = 30$, rectangles $(4 + 7.5 + 8.5) \\times 9 = 180$. Total $210\\text{ cm}^{2}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*Rational(1, 2)*4*Rational(15, 2) + (4 + Rational(15, 2) + Rational(17, 2))*9",
+            "unit": "cm^2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cylinders",
+      "heading": "Cylinders",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[cylinder|cylinder]] is a prism with a circle cross-section."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\pi r^{2} h",
+          "tag": "booklet",
+          "bookletId": "fl-5-4-volume-v-of-cylinder-of-radius-r-height-",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Unroll the curved surface: it is a rectangle $h$ high and $2\\pi r$ wide, the [[circumference|circumference]]."
+        },
+        {
+          "type": "figure",
+          "id": "5-4-cylinder-net",
+          "alt": "Left: a cylinder with radius r across the top circle and height h up the side. Right: its net. The curved surface unrolls into a rectangle of height h and width 2 pi r, the circumference of the circle. A circle is attached above and below the rectangle."
+        },
+        {
+          "type": "formula",
+          "tex": "A = 2\\pi r h",
+          "tag": "booklet",
+          "bookletId": "fl-5-4-curved-surface-area-a-of-cylinder-of-rad",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "That is the curved part only. A closed cylinder adds two circle ends: $2\\pi r h + 2\\pi r^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "\"In terms of [[pi|pi]]\" means keep $\\pi$ as a symbol and simplify the number in front."
+        },
+        {
+          "type": "example",
+          "id": "ex-tin-volume",
+          "question": "A tin is a cylinder with radius $4$ cm and height $11$ cm. Work out its volume. Give your answer in terms of $\\pi$.",
+          "steps": [
+            "Substitute into $V = \\pi r^{2} h$: $V = \\pi \\times 4^{2} \\times 11$.",
+            "$4^{2} = 16$ and $16 \\times 11 = 176$, so $V = 176\\pi$."
+          ],
+          "answer": "$V = 176\\pi\\text{ cm}^{3}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "pi*4**2*11",
+            "unit": "cm^3"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-tank-radius",
+          "question": "A cylindrical water tank is $1.2$ m tall and holds $0.75\\text{ m}^{3}$. Work out its radius. Give your answer to 3 significant figures.",
+          "steps": [
+            "Substitute: $0.75 = \\pi \\times r^{2} \\times 1.2$.",
+            "Divide by $1.2\\pi$: $r^{2} = 0.19894\\ldots$",
+            "Square root, then round: $r = 0.44603\\ldots \\approx 0.446$ m."
+          ],
+          "answer": "$r \\approx 0.446\\text{ m}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(Rational(75, 100)/(Rational(12, 10)*pi))",
+            "sf": 3,
+            "unit": "m"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at $r^{2}$. Take the square root before you round."
+        },
+        {
+          "type": "check",
+          "id": "check-pot-surface",
+          "prompt": "A plant pot is a cylinder with no top. Its radius is $7$ cm and its height is $12$ cm. Work out its outside surface area, in terms of $\\pi$.",
+          "hint": "Curved surface plus one circle, the base.",
+          "options": [
+            {
+              "text": "$217\\pi\\text{ cm}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$266\\pi\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$168\\pi\\text{ cm}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "Curved $2\\pi \\times 7 \\times 12 = 168\\pi$, plus one base $49\\pi$, gives $217\\pi\\text{ cm}^{2}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*pi*7*12 + pi*7**2",
+            "unit": "cm^2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pyramids-cones",
+      "heading": "Pyramids and cones",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[pyramid|pyramid]]'s volume is one third of a prism with the same base and height."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{1}{3}Ah",
+          "tag": "booklet",
+          "bookletId": "fl-5-4-volume-v-of-pyramid-base-area-a-height-h",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "$A$ is the base area. $h$ is the [[perpendicular-height|perpendicular height]], at right angles to the base."
+        },
+        {
+          "type": "example",
+          "id": "ex-pyramid-volume",
+          "question": "A pyramid has a square base of side $9$ cm and a perpendicular height of $14$ cm. Work out its volume.",
+          "steps": [
+            "Base area: $A = 9 \\times 9 = 81\\text{ cm}^{2}$.",
+            "$V = \\frac{1}{3} \\times 81 \\times 14$. Divide first: $81 \\div 3 = 27$, then $27 \\times 14 = 378$."
+          ],
+          "answer": "$V = 378\\text{ cm}^{3}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 3)*9*9*14",
+            "unit": "cm^3"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A pyramid's surface area is its base plus its triangular faces. For each triangle, use $\\frac{1}{2} \\times$ base $\\times$ the height of that face, its [[slant-height|slant height]], not the pyramid's height."
+        },
+        {
+          "type": "check",
+          "id": "check-pyramid-surface",
+          "prompt": "A pyramid has a square base of side $6$ cm. Each triangular face has slant height $5$ cm. Work out its total surface area, in $\\text{cm}^{2}$.",
+          "hint": "One square base, plus four triangles each $\\frac{1}{2} \\times 6 \\times 5$.",
+          "answer": {
+            "value": 96,
+            "tolerance": 0
+          },
+          "explain": "Base $6 \\times 6 = 36$. Each triangle is $\\frac{1}{2} \\times 6 \\times 5 = 15$, and four make $60$. Total $96\\text{ cm}^{2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6*6 + 4*Rational(1, 2)*6*5",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "A [[cone|cone]] is like a pyramid with a circle base."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{1}{3}\\pi r^{2} h",
+          "tag": "booklet",
+          "bookletId": "fl-5-4-volume-v-of-cone-of-radius-r-height-h",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Its curved surface uses the [[slant-height|slant height]] $l$, measured down the sloping side."
+        },
+        {
+          "type": "figure",
+          "id": "5-4-cone-heights",
+          "alt": "A cone with its apex at the top. A dashed vertical line from the apex to the centre of the base is the perpendicular height h, with a right angle where it meets the base. The radius r runs from the centre of the base to the edge. The sloping side from the apex to the edge of the base is the slant height l. The three lengths make a right-angled triangle."
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\pi r l",
+          "tag": "booklet",
+          "bookletId": "fl-5-4-curved-surface-area-a-of-cone-of-radius-",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "$l^{2} = r^{2} + h^{2}$ by [[pythagoras-theorem|Pythagoras' theorem]] ({{lesson:6.1}}). A solid cone also has the base circle, $\\pi r^{2}$."
+        },
+        {
+          "type": "calculator",
+          "snippet": "pi",
+          "values": {
+            "radius": 7
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-cone-surface",
+          "question": "A solid cone has radius $7$ cm and perpendicular height $24$ cm. Work out its total surface area. Give your answer to 3 significant figures.",
+          "steps": [
+            "Find $l$ first: $l = \\sqrt{7^{2} + 24^{2}} = \\sqrt{625} = 25$ cm.",
+            "Curved surface: $\\pi r l = \\pi \\times 7 \\times 25 = 175\\pi$.",
+            "Base: $\\pi r^{2} = \\pi \\times 7^{2} = 49\\pi$.",
+            "Total: $175\\pi + 49\\pi = 224\\pi = 703.71\\ldots$"
+          ],
+          "answer": "$A \\approx 704\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "pi*7*sqrt(7**2 + 24**2) + pi*7**2",
+            "sf": 3,
+            "unit": "cm^2"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up the heights. $\\pi r l$ uses the slant height; the volume uses the perpendicular height."
+        },
+        {
+          "type": "check",
+          "id": "check-cone-volume",
+          "prompt": "A cone has radius $6$ cm and perpendicular height $10$ cm. Work out its volume, in terms of $\\pi$.",
+          "hint": "Square the radius, then multiply by the height and divide by $3$.",
+          "options": [
+            {
+              "text": "$120\\pi\\text{ cm}^{3}$",
+              "correct": true
+            },
+            {
+              "text": "$360\\pi\\text{ cm}^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$20\\pi\\text{ cm}^{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{1}{3} \\times \\pi \\times 36 \\times 10 = 120\\pi$. $360\\pi$ forgets the $\\frac{1}{3}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 3)*pi*6**2*10",
+            "unit": "cm^3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pyramid-height",
+          "prompt": "A pyramid has a rectangular base $12$ cm by $5$ cm. Its volume is $140\\text{ cm}^{3}$. Find its perpendicular height, in cm.",
+          "hint": "Write $\\frac{1}{3} \\times$ base area $\\times h = 140$.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{1}{3} \\times 60 \\times h = 140$, so $20h = 140$ and $h = 7$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3*140/(12*5)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "spheres",
+      "heading": "Spheres and hemispheres",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For a [[sphere|sphere]], radius $r$:"
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{4}{3}\\pi r^{3}",
+          "tag": "booklet",
+          "bookletId": "fl-5-4-volume-v-of-sphere-of-radius-r",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "A = 4\\pi r^{2}",
+          "tag": "booklet",
+          "bookletId": "fl-5-4-surface-area-a-of-sphere-of-radius-r",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-ball-volume",
+          "question": "A ball has radius $2.9$ cm. Work out its volume. Give your answer to 3 significant figures.",
+          "steps": [
+            "Substitute: $V = \\frac{4}{3} \\times \\pi \\times 2.9^{3}$.",
+            "Cube only the radius: $2.9^{3} = 24.389$.",
+            "$V = \\frac{4}{3} \\times \\pi \\times 24.389 = 102.16\\ldots$"
+          ],
+          "answer": "$V \\approx 102\\text{ cm}^{3}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(4, 3)*pi*Rational(29, 10)**3",
+            "sf": 3,
+            "unit": "cm^3"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Cubing all of $\\frac{4}{3}\\pi r$. Only $r$ is cubed."
+        },
+        {
+          "type": "text",
+          "text": "A [[hemisphere|hemisphere]] is half a sphere: $V = \\frac{2}{3}\\pi r^{3}$. A solid one's surface is $2\\pi r^{2}$ curved plus $\\pi r^{2}$ flat."
+        },
+        {
+          "type": "example",
+          "id": "ex-ball-mass",
+          "question": "A solid steel ball has diameter $8$ cm. The [[density|density]] of the steel is $7.9\\text{ g/cm}^{3}$. Work out the mass of the ball in kilograms. Give your answer to 3 significant figures.",
+          "steps": [
+            "The radius is half the diameter: $r = 4$ cm.",
+            "$V = \\frac{4}{3} \\times \\pi \\times 4^{3} = 268.08\\ldots\\text{ cm}^{3}$.",
+            "Mass $=$ density $\\times$ volume $= 7.9 \\times 268.08\\ldots = 2117.8\\ldots$ g.",
+            "Change to kg: $2117.8\\ldots \\div 1000 = 2.1178\\ldots$ kg."
+          ],
+          "answer": "$\\text{mass} \\approx 2.12\\text{ kg}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(79, 10)*Rational(4, 3)*pi*4**3/1000",
+            "sf": 3,
+            "unit": "kg"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-hemisphere-surface",
+          "prompt": "A solid hemisphere has radius $5$ cm. Work out its total surface area, in terms of $\\pi$.",
+          "hint": "Half of $4\\pi r^{2}$, plus the flat circle.",
+          "options": [
+            {
+              "text": "$75\\pi\\text{ cm}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$50\\pi\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$100\\pi\\text{ cm}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$2\\pi \\times 25 + \\pi \\times 25 = 75\\pi\\text{ cm}^{2}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 2)*4*pi*5**2 + pi*5**2",
+            "unit": "cm^2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sphere-radius",
+          "prompt": "A sphere has volume $500\\text{ cm}^{3}$. Find its radius, in cm, to 3 significant figures.",
+          "hint": "Make $r^{3}$ the subject, then cube root.",
+          "answer": {
+            "value": 4.92,
+            "tolerance": 0.005
+          },
+          "explain": "$r^{3} = \\frac{3 \\times 500}{4\\pi} = 119.36\\ldots$, so $r = \\sqrt[3]{119.36\\ldots} = 4.923\\ldots \\approx 4.92$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "cbrt(3*500/(4*pi))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Cuboid: $V = lwh$ and surface area $= 2(lw + lh + wh)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Closed cylinder: total surface area $= 2\\pi rh + 2\\pi r^{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Cone: $l^{2} = r^{2} + h^{2}$. Use $l$ for the curved surface and $h$ for the volume.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Solid hemisphere: $V = \\frac{2}{3}\\pi r^{3}$ and surface area $= 3\\pi r^{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Volume is in cubic units and area in square units. $1$ litre $= 1000\\text{ cm}^{3}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving a cone's total surface area when only the curved surface, $\\pi r l$, is asked for, or the other way round.",
+    "Using whole-sphere formulas for a hemisphere. Halve them, and add the flat circle for a solid one.",
+    "Rounding part-way, such as using $\\pi = 3.14$. Keep full calculator values and round once, at the end.",
+    "Mixing m and cm. Convert first."
+  ],
+  "examTips": [
+    "\"In terms of $\\pi$\": leave $\\pi$ in, such as $176\\pi$. Don't change it to a decimal.",
+    "Write the formula with your numbers in before working it out. That line can earn a method mark.",
+    "On Papers 3 and 4, use the $\\pi$ key or $3.142$, and give 3 significant figures unless told otherwise."
+  ],
+  "readingMinutes": 19
+}

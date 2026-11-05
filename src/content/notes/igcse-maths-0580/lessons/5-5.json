@@ -1,0 +1,657 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "5.5",
+  "slug": "compound-shapes-and-parts-of-shapes",
+  "title": "Compound shapes and parts of shapes",
+  "level": "Core",
+  "topic": 5,
+  "summary": "A [[compound-shape|compound shape]] is built from simple pieces: rectangles, triangles and parts of circles. Split it up, then add or take away. The same idea gives the volume and [[surface-area|surface area]] of solids such as a cylinder topped with a [[hemisphere|hemisphere]].",
+  "goals": [
+    {
+      "text": "Find the area of a compound shape by adding pieces or taking a piece away.",
+      "bullets": [
+        "5.5-c1"
+      ]
+    },
+    {
+      "text": "Find the [[perimeter|perimeter]] of a compound shape, including parts of circles.",
+      "bullets": [
+        "5.5-c1"
+      ]
+    },
+    {
+      "text": "Find the volume and surface area of compound solids and parts of solids.",
+      "bullets": [
+        "5.5-c2"
+      ]
+    },
+    {
+      "text": "Find the volume and surface area of a [[frustum|frustum]].",
+      "bullets": [
+        "5.5-n1"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "5.2",
+    "5.3",
+    "5.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "composite shapes area",
+    "compound shape perimeter",
+    "compound solids volume",
+    "hemisphere volume",
+    "frustum volume",
+    "answer in terms of pi"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-circle-area",
+      "prompt": "A circle has a diameter of $10$ cm. Find its area, in terms of $\\pi$.",
+      "hint": "Halve the diameter to get the radius first.",
+      "options": [
+        {
+          "text": "$25\\pi$",
+          "correct": true
+        },
+        {
+          "text": "$100\\pi$",
+          "correct": false
+        },
+        {
+          "text": "$10\\pi$",
+          "correct": false
+        }
+      ],
+      "explain": "The radius is $5$, so the area is $\\pi \\times 5^{2} = 25\\pi\\text{ cm}^{2}$. Revise it in {{lesson:5.3}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "pi*(10/2)**2"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-rectangle-perimeter",
+      "prompt": "A rectangle is $7$ cm long and $3$ cm wide. Find its perimeter, in cm.",
+      "hint": "Add all four sides.",
+      "answer": {
+        "value": 20,
+        "tolerance": 0
+      },
+      "explain": "$7 + 3 + 7 + 3 = 20$ cm. Revise it in {{lesson:5.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2*(7 + 3)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-cylinder-volume",
+      "prompt": "A cylinder has radius $2$ cm and height $5$ cm. Find its volume, in terms of $\\pi$.",
+      "hint": "Use $V = \\pi r^{2}h$.",
+      "options": [
+        {
+          "text": "$20\\pi$",
+          "correct": true
+        },
+        {
+          "text": "$10\\pi$",
+          "correct": false
+        },
+        {
+          "text": "$40\\pi$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\pi \\times 2^{2} \\times 5 = 20\\pi\\text{ cm}^{3}$. Revise it in {{lesson:5.4}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "pi*2**2*5"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "area",
+      "heading": "Area of a compound shape",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Compound shape",
+          "statement": "A [[compound-shape|compound shape]] is made by joining simple shapes, or by cutting a piece out of one. A compound solid is built from simple solids in the same way.",
+          "plain": "A shape you can split into pieces you already know."
+        },
+        {
+          "type": "text",
+          "text": "To find its area, split it into rectangles, triangles and parts of circles. Find each area, then add."
+        },
+        {
+          "type": "text",
+          "text": "If a piece is cut out, find the whole area and subtract the hole."
+        },
+        {
+          "type": "text",
+          "text": "A semicircle's area is $\\frac{1}{2}\\pi r^{2}$. A quarter circle's is $\\frac{1}{4}\\pi r^{2}$."
+        },
+        {
+          "type": "figure",
+          "id": "5-5-track",
+          "alt": "A shape made from a rectangle 9 cm long and 4 cm high, with a half circle on each 4 cm end. The two 4 cm ends are dashed lines inside the shape."
+        },
+        {
+          "type": "example",
+          "id": "ex-track-area",
+          "question": "The shape in the diagram is a rectangle $9$ cm by $4$ cm with a semicircle on each end. Work out its area. Give your answer in terms of $\\pi$.",
+          "steps": [
+            "Rectangle: $9 \\times 4 = 36\\text{ cm}^{2}$.",
+            "Each semicircle has diameter $4$, so radius $2$. Two semicircles make one full circle: $\\pi \\times 2^{2} = 4\\pi\\text{ cm}^{2}$.",
+            "Add. $36$ and $4\\pi$ are not like terms, so leave them as a sum."
+          ],
+          "answer": "$A = (36 + 4\\pi)\\text{ cm}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "9*4 + 2*Rational(1, 2)*pi*(4/2)**2",
+            "unit": "cm^2"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "5-5-plate",
+          "alt": "A rectangle 30 cm long and 18 cm high. A half circle of diameter 12 cm is cut out of the middle of the top edge."
+        },
+        {
+          "type": "example",
+          "id": "ex-plate-area",
+          "question": "A metal plate is a $30$ cm by $18$ cm rectangle with a semicircle of diameter $12$ cm cut out, as shown. Work out its area. Give your answer correct to $3$ significant figures.",
+          "steps": [
+            "Whole rectangle: $30 \\times 18 = 540\\text{ cm}^{2}$.",
+            "The semicircle has radius $12 \\div 2 = 6$: its area is $\\frac{1}{2} \\times \\pi \\times 6^{2} = 18\\pi = 56.548\\ldots\\text{ cm}^{2}$.",
+            "Subtract the hole: $540 - 56.548\\ldots = 483.45\\ldots$. Round only now."
+          ],
+          "answer": "$A \\approx 483\\text{ cm}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "30*18 - Rational(1, 2)*pi*(12/2)**2",
+            "sf": 3,
+            "unit": "cm^2"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "pi",
+          "values": {
+            "radius": 6
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the diameter as the radius. Halve it first."
+        },
+        {
+          "type": "check",
+          "id": "check-house-area",
+          "prompt": "A triangle sits on top of a rectangle $8$ cm wide and $5$ cm tall, along its top edge. The triangle's top point is $9$ cm above the rectangle's base. Work out the area, in $\\text{cm}^{2}$.",
+          "hint": "The triangle's height is not $9$.",
+          "answer": {
+            "value": 56,
+            "tolerance": 0
+          },
+          "explain": "Triangle height $= 9 - 5 = 4$. Area $= 8 \\times 5 + \\frac{1}{2} \\times 8 \\times 4 = 40 + 16 = 56\\text{ cm}^{2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "8*5 + Rational(1, 2)*8*(9 - 5)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "figure",
+          "id": "5-5-notched-square",
+          "alt": "A square of side 10 cm with a quarter circle of radius 4 cm cut out of its top right corner. The cut-out piece is shown with dashed lines."
+        },
+        {
+          "type": "check",
+          "id": "check-notch-area",
+          "prompt": "Find the area of the shape shown, in $\\text{cm}^{2}$, in terms of $\\pi$.",
+          "hint": "What fraction of a full circle is the cut-out piece?",
+          "options": [
+            {
+              "text": "$100 - 4\\pi$",
+              "correct": true
+            },
+            {
+              "text": "$100 - 16\\pi$",
+              "correct": false
+            },
+            {
+              "text": "$100 - 8\\pi$",
+              "correct": false
+            }
+          ],
+          "explain": "The quarter circle is $\\frac{1}{4} \\times \\pi \\times 4^{2} = 4\\pi$. $16\\pi$ is a full circle; $8\\pi$ is a half.",
+          "verify": {
+            "kind": "expression",
+            "truth": "10**2 - Rational(1, 4)*pi*4**2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "perimeter",
+      "heading": "Perimeter of a compound shape",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[perimeter|perimeter]] is the distance round the outside. Imagine walking round the edge: only lines you walk along count."
+        },
+        {
+          "type": "text",
+          "text": "Dashed lines inside, and the length where two pieces join, don't count. If one joining side is longer, the bit left showing still counts."
+        },
+        {
+          "type": "text",
+          "text": "A curved edge is part of the circumference, $2\\pi r$ or $\\pi d$. A semicircle's arc is half of it; a quarter circle's is a quarter."
+        },
+        {
+          "type": "formula",
+          "tex": "C = 2\\pi r",
+          "tag": "booklet",
+          "bookletId": "fl-5-5-circumference-c-of-circle-of-radius-r"
+        },
+        {
+          "type": "example",
+          "id": "ex-track-perimeter",
+          "question": "Work out the perimeter of the first shape (the $9$ cm by $4$ cm rectangle with semicircular ends). Give your answer in terms of $\\pi$.",
+          "steps": [
+            "Straight edges: $2 \\times 9 = 18$ cm. The $4$ cm ends are inside, so leave them out.",
+            "Each arc is half of a circle of diameter $4$: $\\frac{1}{2} \\times \\pi \\times 4 = 2\\pi$. Two arcs make $4\\pi$.",
+            "Add the edges: $18 + 4\\pi$."
+          ],
+          "answer": "$P = (18 + 4\\pi)\\text{ cm}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2*9 + 2*Rational(1, 2)*pi*4",
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-notch-perimeter",
+          "question": "Work out the perimeter of the cut square (side $10$ cm, radius $4$ cm). Give your answer correct to $3$ significant figures.",
+          "steps": [
+            "Two full sides are $10$ cm each.",
+            "The two cut sides are each $10 - 4 = 6$ cm.",
+            "The arc is a quarter of a circle of radius $4$: $\\frac{1}{4} \\times 2 \\times \\pi \\times 4 = 2\\pi$.",
+            "Total: $10 + 10 + 6 + 6 + 2\\pi = 32 + 2\\pi = 38.283\\ldots$ cm."
+          ],
+          "answer": "$P \\approx 38.3\\text{ cm}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "10 + 10 + (10 - 4) + (10 - 4) + Rational(1, 4)*2*pi*4",
+            "sf": 3,
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using a full or half circle when the corner is a quarter circle."
+        },
+        {
+          "type": "check",
+          "id": "check-plate-perimeter",
+          "prompt": "Work out the perimeter of the metal plate, correct to $3$ significant figures, in cm.",
+          "hint": "The $12$ cm gap is not an edge.",
+          "answer": {
+            "value": 103,
+            "tolerance": 0.5
+          },
+          "explain": "Straight edges: $30 + 18 + 18 + (30 - 12) = 84$. Arc: $\\frac{1}{2} \\times \\pi \\times 12 = 6\\pi$. Total $84 + 6\\pi = 102.8\\ldots \\approx 103$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "30 + 18 + 18 + (30 - 12) + Rational(1, 2)*pi*12",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-semicircle-end",
+          "prompt": "A rectangle $10$ cm by $6$ cm has a semicircle joined to one of its $6$ cm sides, on the outside. Find the perimeter of the shape, in cm, in terms of $\\pi$.",
+          "hint": "Is the joining side on the outside?",
+          "options": [
+            {
+              "text": "$26 + 3\\pi$",
+              "correct": true
+            },
+            {
+              "text": "$32 + 3\\pi$",
+              "correct": false
+            },
+            {
+              "text": "$26 + 6\\pi$",
+              "correct": false
+            }
+          ],
+          "explain": "$10 + 10 + 6 = 26$, plus the arc $\\frac{1}{2} \\times \\pi \\times 6 = 3\\pi$. $32 + 3\\pi$ counts the joining side.",
+          "verify": {
+            "kind": "expression",
+            "truth": "10 + 10 + 6 + Rational(1, 2)*pi*6"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"In terms of $\\pi$\" means keep $\\pi$ as a symbol, as in $32 + 2\\pi$."
+        }
+      ]
+    },
+    {
+      "id": "solids",
+      "heading": "Compound solids and parts of solids",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A compound solid's volume is the sum of its parts' volumes. If a piece is cut out, subtract its volume."
+        },
+        {
+          "type": "text",
+          "text": "A [[hemisphere|hemisphere]] is half a sphere. Halve the sphere's volume and surface area, then add the flat circular face if it shows."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{4}{3}\\pi r^{3}",
+          "tag": "booklet",
+          "bookletId": "fl-5-5-volume-v-of-sphere-of-radius-r"
+        },
+        {
+          "type": "formula",
+          "tex": "A = 4\\pi r^{2}",
+          "tag": "booklet",
+          "bookletId": "fl-5-5-surface-area-a-of-sphere-of-radius-r"
+        },
+        {
+          "type": "text",
+          "text": "So a hemisphere has volume $\\frac{2}{3}\\pi r^{3}$, curved surface $2\\pi r^{2}$ and a flat circular face $\\pi r^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "For surface area, count only surfaces you could touch from outside. Leave out only the area where two parts touch. If one face is bigger than the other, the ring left showing still counts."
+        },
+        {
+          "type": "figure",
+          "id": "5-5-toy",
+          "alt": "A solid made from a cylinder of radius 3 cm and height 10 cm, with a hemisphere of radius 3 cm on top. The circle where they join is dashed because it is hidden inside the solid."
+        },
+        {
+          "type": "example",
+          "id": "ex-toy-volume",
+          "question": "A solid is a cylinder of radius $3$ cm and height $10$ cm, with a hemisphere of radius $3$ cm on top. Work out its volume. Give your answer in terms of $\\pi$.",
+          "steps": [
+            "Cylinder: $\\pi r^{2}h = \\pi \\times 3^{2} \\times 10 = 90\\pi$.",
+            "Hemisphere: $\\frac{1}{2} \\times \\frac{4}{3} \\times \\pi \\times 3^{3} = \\frac{2}{3} \\times 27\\pi = 18\\pi$.",
+            "Add: $90\\pi + 18\\pi = 108\\pi$."
+          ],
+          "answer": "$V = 108\\pi\\text{ cm}^{3}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "pi*3**2*10 + Rational(1, 2)*Rational(4, 3)*pi*3**3",
+            "unit": "cm^3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-toy-surface",
+          "question": "Work out the total surface area of the same solid. Give your answer correct to $3$ significant figures.",
+          "steps": [
+            "Outside surfaces: the cylinder's curved side and bottom, and the hemisphere's curved top. Both joining circles have radius $3$ cm, so they cover each other exactly and are hidden.",
+            "Curved side: $2\\pi rh = 2 \\times \\pi \\times 3 \\times 10 = 60\\pi$.",
+            "Bottom: $\\pi \\times 3^{2} = 9\\pi$. Hemisphere: $\\frac{1}{2} \\times 4 \\times \\pi \\times 3^{2} = 18\\pi$.",
+            "Total: $60\\pi + 9\\pi + 18\\pi = 87\\pi = 273.31\\ldots\\text{ cm}^{2}$."
+          ],
+          "answer": "$A \\approx 273\\text{ cm}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*pi*3*10 + pi*3**2 + Rational(1, 2)*4*pi*3**2",
+            "sf": 3,
+            "unit": "cm^2"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Counting the area where two parts touch. It is inside the solid. But if one face is bigger, the part left showing still counts."
+        },
+        {
+          "type": "check",
+          "id": "check-cone-cylinder",
+          "prompt": "A solid is a cylinder of diameter $4$ cm and height $7$ cm, with a cone of the same diameter and height $6$ cm on top. Find its volume, in $\\text{cm}^{3}$, in terms of $\\pi$.",
+          "hint": "Halve the diameter. The cone's volume is $\\frac{1}{3}\\pi r^{2}h$.",
+          "options": [
+            {
+              "text": "$36\\pi$",
+              "correct": true
+            },
+            {
+              "text": "$52\\pi$",
+              "correct": false
+            },
+            {
+              "text": "$144\\pi$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\pi \\times 2^{2} \\times 7 + \\frac{1}{3} \\times \\pi \\times 2^{2} \\times 6 = 28\\pi + 8\\pi = 36\\pi$. $52\\pi$ forgets the $\\frac{1}{3}$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "pi*(4/2)**2*7 + Rational(1, 3)*pi*(4/2)**2*6"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-half-cylinder",
+          "prompt": "A bread tin is half a cylinder, cut along its length, with radius $5$ cm and length $12$ cm. Work out its volume, correct to $3$ significant figures, in $\\text{cm}^{3}$.",
+          "hint": "Find the whole cylinder's volume, then halve it.",
+          "answer": {
+            "value": 471,
+            "tolerance": 0.5
+          },
+          "explain": "$\\frac{1}{2} \\times \\pi \\times 5^{2} \\times 12 = 150\\pi = 471.2\\ldots \\approx 471\\text{ cm}^{3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1, 2)*pi*5**2*12",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "frustum",
+      "heading": "Frustums",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Cut the top off a cone, parallel to its base. The part left is a [[frustum|frustum]], like a bucket."
+        },
+        {
+          "type": "text",
+          "text": "A frustum is a large cone minus a small cone, so subtract. A pyramid with its top cut off the same way is also a frustum."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{1}{3}\\pi r^{2}h",
+          "tag": "booklet",
+          "bookletId": "fl-5-5-volume-v-of-cone-of-radius-r-height-h"
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\pi rl",
+          "tag": "booklet",
+          "bookletId": "fl-5-5-curved-surface-area-a-of-cone-of-radius-"
+        },
+        {
+          "type": "text",
+          "text": "Here $l$ is the slant height. Find it with Pythagoras: $l = \\sqrt{r^{2} + h^{2}}$."
+        },
+        {
+          "type": "figure",
+          "id": "5-5-frustum",
+          "alt": "A cone of base radius 9 cm and height 12 cm. A small cone of radius 3 cm and height 4 cm is cut off the top, parallel to the base, and is drawn dashed. The solid part left below the cut is the frustum."
+        },
+        {
+          "type": "example",
+          "id": "ex-frustum-volume",
+          "question": "A cone has base radius $9$ cm and height $12$ cm. A cone of radius $3$ cm and height $4$ cm is cut off the top, leaving a frustum. Work out the volume of the frustum. Give your answer correct to $3$ significant figures.",
+          "steps": [
+            "Large cone: $\\frac{1}{3} \\times \\pi \\times 9^{2} \\times 12 = 324\\pi$.",
+            "Small cone: $\\frac{1}{3} \\times \\pi \\times 3^{2} \\times 4 = 12\\pi$.",
+            "Frustum: $324\\pi - 12\\pi = 312\\pi = 980.17\\ldots\\text{ cm}^{3}$."
+          ],
+          "answer": "$V \\approx 980\\text{ cm}^{3}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(1, 3)*pi*9**2*12 - Rational(1, 3)*pi*3**2*4",
+            "sf": 3,
+            "unit": "cm^3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-frustum-surface",
+          "question": "Work out the total surface area of this solid frustum. Give your answer correct to $3$ significant figures.",
+          "steps": [
+            "Slant heights by Pythagoras: large cone $\\sqrt{9^{2} + 12^{2}} = 15$, small cone $\\sqrt{3^{2} + 4^{2}} = 5$.",
+            "Curved surface: $\\pi \\times 9 \\times 15 - \\pi \\times 3 \\times 5 = 135\\pi - 15\\pi = 120\\pi$.",
+            "Add the two flat circles: bottom $\\pi \\times 9^{2} = 81\\pi$, top $\\pi \\times 3^{2} = 9\\pi$.",
+            "Total: $120\\pi + 81\\pi + 9\\pi = 210\\pi = 659.73\\ldots\\text{ cm}^{2}$."
+          ],
+          "answer": "$A \\approx 660\\text{ cm}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "pi*9*sqrt(9**2 + 12**2) - pi*3*sqrt(3**2 + 4**2) + pi*9**2 + pi*3**2",
+            "sf": 3,
+            "unit": "cm^2"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $\\pi rl$ once with the difference of the slant heights. Find each cone's curved area, then subtract."
+        },
+        {
+          "type": "check",
+          "id": "check-frustum-volume",
+          "prompt": "A cone of radius $6$ cm and height $10$ cm has a cone of radius $3$ cm and height $5$ cm cut off the top. Work out the frustum's volume, correct to $3$ significant figures, in $\\text{cm}^{3}$.",
+          "hint": "Find both cone volumes, then subtract.",
+          "answer": {
+            "value": 330,
+            "tolerance": 0.5
+          },
+          "explain": "$\\frac{1}{3}\\pi \\times 6^{2} \\times 10 - \\frac{1}{3}\\pi \\times 3^{2} \\times 5 = 120\\pi - 15\\pi = 105\\pi = 329.8\\ldots \\approx 330\\text{ cm}^{3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1, 3)*pi*6**2*10 - Rational(1, 3)*pi*3**2*5",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pyramid-frustum",
+          "prompt": "A square-based pyramid has base $10$ cm by $10$ cm and height $12$ cm. A pyramid with base $5$ cm by $5$ cm and height $6$ cm is cut off the top. Find the volume of the frustum left.",
+          "hint": "Use $V = \\frac{1}{3}Ah$ for each pyramid.",
+          "options": [
+            {
+              "text": "$350\\text{ cm}^{3}$",
+              "correct": true
+            },
+            {
+              "text": "$400\\text{ cm}^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$1050\\text{ cm}^{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{1}{3} \\times 100 \\times 12 - \\frac{1}{3} \\times 25 \\times 6 = 400 - 50 = 350$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 3)*10**2*12 - Rational(1, 3)*5**2*6",
+            "unit": "cm^3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Compound area: split into simple shapes and add; subtract any piece cut out.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Perimeter: add only the outside edges. Lines inside the shape don't count.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Semicircle: arc $= \\frac{1}{2}\\pi d$, area $= \\frac{1}{2}\\pi r^{2}$. Quarter circle: arc $= \\frac{1}{4} \\times 2\\pi r$, area $= \\frac{1}{4}\\pi r^{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Hemisphere: volume $\\frac{2}{3}\\pi r^{3}$, curved surface $2\\pi r^{2}$, flat face $\\pi r^{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Surface area of a compound solid: leave out only the area where the parts touch.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Frustum $=$ large cone $-$ small cone, for both volume and curved surface area.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Counting a dashed line or the length where two pieces join in the perimeter. Add only the edges you trace round the outside.",
+    "Using the diameter as the radius. Halve it before using $\\pi r^{2}$ or $2\\pi r$.",
+    "Using a full or half circle for a quarter circle. Check how much of the circle is there.",
+    "Using a sloping side, or the shape's full height, as a triangle's height. Use the height at right angles to the base.",
+    "Adding every face of each part of a solid. Leave out only the area where the parts touch; any part of a bigger face left showing still counts."
+  ],
+  "examTips": [
+    "\"Give your answer in terms of $\\pi$\": collect the $\\pi$ terms, as in $36 + 4\\pi$, and don't turn $\\pi$ into a decimal.",
+    "\"Work out the perimeter\": write each edge's length on the diagram before adding. Correct arcs and edges can earn method marks.",
+    "On Papers 3 and 4, keep full values and round only the final answer to $3$ significant figures."
+  ],
+  "readingMinutes": 19
+}

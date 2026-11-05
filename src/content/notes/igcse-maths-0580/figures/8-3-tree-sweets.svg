@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 270" role="img" aria-labelledby="t">
+  <title id="t">Tree diagram for two sweets taken without replacement from a jar of 5 lemon and 4 orange. First sweet: lemon 5 over 9, orange 4 over 9. After lemon: lemon 4 over 8, orange 4 over 8. After orange: lemon 5 over 8, orange 3 over 8.</title>
+  <g font-family="inherit" font-size="13" fill="var(--muted)">
+    <text x="105" y="16">First sweet</text>
+    <text x="235" y="16">Second sweet</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <line x1="20" y1="145" x2="135" y2="85"/>
+    <line x1="20" y1="145" x2="135" y2="205"/>
+    <line x1="200" y1="85" x2="300" y2="50"/>
+    <line x1="200" y1="85" x2="300" y2="120"/>
+    <line x1="200" y1="205" x2="300" y2="170"/>
+    <line x1="200" y1="205" x2="300" y2="240"/>
+  </g>
+  <g font-family="inherit" font-size="14" font-weight="bold">
+    <text x="142" y="90" fill="var(--t3-ink)">Lemon</text>
+    <text x="142" y="210" fill="var(--t4-ink)">Orange</text>
+    <text x="307" y="55" fill="var(--t3-ink)">Lemon</text>
+    <text x="307" y="125" fill="var(--t4-ink)">Orange</text>
+    <text x="307" y="175" fill="var(--t3-ink)">Lemon</text>
+    <text x="307" y="245" fill="var(--t4-ink)">Orange</text>
+  </g>
+  <g font-family="inherit" font-size="14" fill="currentColor">
+    <text x="55" y="105">5/9</text>
+    <text x="55" y="200">4/9</text>
+    <text x="225" y="56">4/8</text>
+    <text x="225" y="124">4/8</text>
+    <text x="225" y="176">5/8</text>
+    <text x="225" y="244">3/8</text>
+  </g>
+</svg>

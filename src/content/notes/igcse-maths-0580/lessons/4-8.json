@@ -1,0 +1,474 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "4.8",
+  "slug": "circle-theorems-ii",
+  "title": "Circle theorems II",
+  "level": "Extended",
+  "topic": 4,
+  "summary": "A circle is symmetrical about every line through its centre. That gives three facts: the [[perpendicular-bisector|perpendicular bisector]] of a [[chord|chord]] passes through the centre, chords of equal length are equally far from the centre, and [[tangents-from-an-external-point|tangents from an external point]] are equal. Most questions then need Pythagoras or an isosceles triangle.",
+  "goals": [
+    {
+      "text": "Use the fact that the perpendicular bisector of a chord passes through the centre, with Pythagoras, to find a radius, a chord or a distance.",
+      "bullets": [
+        "4.8-s1"
+      ]
+    },
+    {
+      "text": "Use the fact that equal chords are equidistant from the centre.",
+      "bullets": [
+        "4.8-s1"
+      ]
+    },
+    {
+      "text": "Use the fact that two tangents from the same point are equal, to find lengths and angles.",
+      "bullets": [
+        "4.8-s1"
+      ]
+    },
+    {
+      "text": "Name the symmetry property you use as the reason for each step.",
+      "bullets": [
+        "4.8-s1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "4.7",
+    "6.1"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "circle symmetry properties",
+    "perpendicular bisector of a chord",
+    "equal chords equidistant from centre",
+    "distance from centre to chord",
+    "two tangents from a point",
+    "tangent lengths equal"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-pythagoras",
+      "prompt": "A right-angled triangle has shorter sides $9\\text{ cm}$ and $40\\text{ cm}$. Find the length of the [[hypotenuse|hypotenuse]], in cm.",
+      "hint": "Square the two shorter sides and add.",
+      "answer": {
+        "value": 41,
+        "tolerance": 0
+      },
+      "explain": "$9^{2} + 40^{2} = 81 + 1600 = 1681$, and $\\sqrt{1681} = 41$. Revise it in {{lesson:6.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "sqrt(9**2 + 40**2)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-tangent-radius",
+      "prompt": "$TA$ is a [[tangent|tangent]] to a circle with centre $O$, touching it at $A$. Angle $AOT = 58^{\\circ}$. Find angle $ATO$, in degrees.",
+      "hint": "What is the angle between the tangent and the [[radius|radius]] $OA$?",
+      "answer": {
+        "value": 32,
+        "tolerance": 0
+      },
+      "explain": "The tangent is [[perpendicular|perpendicular]] to the radius $OA$, so angle $OAT = 90^{\\circ}$. Then angle $ATO = 180 - 90 - 58 = 32^{\\circ}$. Revise it in {{lesson:4.7}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "180 - 90 - 58",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "chord-bisector",
+      "heading": "The perpendicular bisector of a chord",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Draw a [[chord|chord]] $AB$ in a circle with centre $O$. The radii $OA$ and $OB$ are equal, so $O$ is the same distance from $A$ as from $B$."
+        },
+        {
+          "type": "text",
+          "text": "Every point that is the same distance from $A$ and $B$ lies on the [[perpendicular-bisector|perpendicular bisector]] of $AB$. So the centre is on it."
+        },
+        {
+          "type": "figure",
+          "id": "4-8-chord-bisector",
+          "alt": "Circle with centre O. AB is a chord below the centre and M is its midpoint, with AM and MB marked equal. A dashed vertical line, the perpendicular bisector of AB, passes through M and through O. It meets AB at a right angle. The radius OA is labelled r and OM is labelled d, so triangle OMA is right-angled at M.",
+          "caption": "$OM$ is perpendicular to $AB$, so triangle $OMA$ has a right angle at $M$."
+        },
+        {
+          "type": "result",
+          "statement": "The perpendicular bisector of a chord passes through the centre of the circle. So if $M$ is the [[midpoint|midpoint]] of chord $AB$ (not a diameter), $OM$ is perpendicular to $AB$. And the perpendicular from $O$ to $AB$ cuts $AB$ in half.",
+          "why": "Triangles $OMA$ and $OMB$ are [[congruent|congruent]] (SSS): $OA = OB$, $AM = MB$ and $OM$ is shared. So the angles at $M$ are equal. They add up to $180^{\\circ}$, so each is $90^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "The right angle at $M$ means you can use [[pythagoras-theorem|Pythagoras' theorem]] in triangle $OMA$. Call the radius $r$ and the distance $OM$ from the centre $d$. The side $AM$ is half the chord."
+        },
+        {
+          "type": "formula",
+          "tex": "r^{2} = d^{2} + \\left(\\tfrac{1}{2}\\times\\text{chord}\\right)^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-radius-from-chord",
+          "question": "A chord of a circle is $30\\text{ cm}$ long. The chord is $8\\text{ cm}$ from the centre $O$. Work out the radius of the circle.",
+          "steps": [
+            "Let $M$ be the midpoint of the chord $AB$. The perpendicular from $O$ bisects the chord, so $OM = 8\\text{ cm}$ and angle $OMA = 90^{\\circ}$.",
+            "Half the chord: $AM = 30 \\div 2 = 15\\text{ cm}$.",
+            "Pythagoras in triangle $OMA$, with the radius $OA$ as the hypotenuse: $OA^{2} = 8^{2} + 15^{2} = 64 + 225 = 289$.",
+            "$OA = \\sqrt{289} = 17\\text{ cm}$. Check: the radius is longer than both $8$ and $15$, as a hypotenuse must be."
+          ],
+          "answer": "$OA = 17\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(8**2 + (30/2)**2)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using the whole chord as a side of the triangle. The right-angled triangle uses half the chord, from the midpoint to one end."
+        },
+        {
+          "type": "example",
+          "id": "ex-distance-to-chord",
+          "question": "A circle has radius $9\\text{ cm}$. A chord $PQ$ is $14\\text{ cm}$ long. Calculate the distance from the centre $O$ to the chord. Give your answer to 3 significant figures.",
+          "steps": [
+            "Let $M$ be the midpoint of $PQ$. Then $OM$ is perpendicular to $PQ$, and $PM = 14 \\div 2 = 7\\text{ cm}$.",
+            "Pythagoras in triangle $OMP$, with $OP = 9$ as the hypotenuse: $OM^{2} = 9^{2} - 7^{2} = 81 - 49 = 32$.",
+            "$OM = \\sqrt{32} = 5.6568\\ldots$, so $OM \\approx 5.66\\text{ cm}$ to 3 s.f."
+          ],
+          "answer": "$OM \\approx 5.66\\text{ cm}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(9**2 - (14/2)**2)",
+            "sf": 3,
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "roots",
+          "values": {
+            "root": 2,
+            "value": 32
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-chord-length",
+          "prompt": "A circle has radius $25\\text{ mm}$. A chord is $7\\text{ mm}$ from the centre. Find the length of the chord, in mm.",
+          "hint": "Pythagoras gives half the chord. Double it at the end.",
+          "answer": {
+            "value": 48,
+            "tolerance": 0
+          },
+          "explain": "Half the chord is $\\sqrt{25^{2} - 7^{2}} = \\sqrt{576} = 24\\text{ mm}$, so the chord is $2 \\times 24 = 48\\text{ mm}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*sqrt(25**2 - 7**2)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "The same fact finds a lost centre. Draw two chords that are not parallel and construct the perpendicular bisector of each. Both bisectors pass through the centre, so the centre is where they cross."
+        },
+        {
+          "type": "check",
+          "id": "check-find-centre",
+          "prompt": "You have a circle drawn on paper but its centre is not marked. You draw chords $AB$ and $CD$, which are not parallel. Where is the centre?",
+          "hint": "Which line through a chord always passes through the centre?",
+          "options": [
+            {
+              "text": "Where the perpendicular bisectors of AB and CD cross",
+              "correct": true
+            },
+            {
+              "text": "Where the chords AB and CD cross",
+              "correct": false
+            },
+            {
+              "text": "At the midpoint of the longer chord",
+              "correct": false
+            }
+          ],
+          "explain": "Each perpendicular bisector passes through the centre, so the centre is on both lines: where they cross. The chords themselves only pass through the centre if they are diameters.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Where the perpendicular bisectors of AB and CD cross"
+          }
+        }
+      ]
+    },
+    {
+      "id": "equal-chords",
+      "heading": "Equal chords",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The distance from the centre to a chord means the shortest distance. That is the perpendicular distance $OM$, to the midpoint $M$ of the chord."
+        },
+        {
+          "type": "figure",
+          "id": "4-8-equal-chords",
+          "alt": "Circle with centre O. Two chords of equal length, AB near the bottom and CD at the upper right, each marked with two small ticks to show they are equal. M is the midpoint of AB and N is the midpoint of CD. OM and ON are each perpendicular to their chord, with right angles marked, and both are labelled d: the two chords are equally far from the centre."
+        },
+        {
+          "type": "result",
+          "statement": "In the same circle, equal chords are equidistant from the centre: they are the same distance from it. It also works the other way: chords the same distance from the centre are equal.",
+          "why": "For each chord, $d^{2} = r^{2} - \\left(\\tfrac{1}{2}\\times\\text{chord}\\right)^{2}$. The radius $r$ is the same, so equal chords give equal $d$, and equal $d$ gives equal chords."
+        },
+        {
+          "type": "text",
+          "text": "Turn the equal-chords picture about $O$ and one chord lands exactly on the other. That is the symmetry behind the fact."
+        },
+        {
+          "type": "example",
+          "id": "ex-equal-chords-distance",
+          "question": "A circle has centre $O$ and radius $10\\text{ cm}$. Chords $AB$ and $CD$ are both $16\\text{ cm}$ long. $N$ is the midpoint of $CD$. Find $ON$. Give a reason for your answer.",
+          "steps": [
+            "Let $M$ be the midpoint of $AB$. Then $OM$ is perpendicular to $AB$ and $AM = 16 \\div 2 = 8\\text{ cm}$.",
+            "Pythagoras in triangle $OMA$: $OM^{2} = 10^{2} - 8^{2} = 100 - 64 = 36$, so $OM = 6\\text{ cm}$.",
+            "$AB = CD$, and equal chords are equidistant from the centre. That gives $ON = OM = 6\\text{ cm}$."
+          ],
+          "answer": "$ON = 6\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(10**2 - (16/2)**2)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving half the chord as the distance from the centre. The distance is $OM$, the side from the centre to the midpoint, not $AM$."
+        },
+        {
+          "type": "example",
+          "id": "ex-equal-chords-algebra",
+          "question": "Chords $PQ$ and $RS$ of a circle with centre $O$ are equal in length. The distance from $O$ to $PQ$ is $(x + 5)\\text{ cm}$ and the distance from $O$ to $RS$ is $(2x + 1)\\text{ cm}$. The radius is $15\\text{ cm}$. Find the length of $PQ$.",
+          "steps": [
+            "The chords are equal, and equal chords are equidistant from the centre. That gives $2x + 1 = x + 5$.",
+            "Subtract $x$ and $1$ from both sides: $x = 4$. So the distance is $4 + 5 = 9\\text{ cm}$.",
+            "Pythagoras: half of $PQ$ is $\\sqrt{15^{2} - 9^{2}} = \\sqrt{225 - 81} = \\sqrt{144} = 12\\text{ cm}$.",
+            "So $PQ = 2 \\times 12 = 24\\text{ cm}$. Check: $2 \\times 4 + 1 = 9$ as well."
+          ],
+          "answer": "$PQ = 24\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*sqrt(15**2 - (solve(Eq(x + 5, 2*x + 1), x)[0] + 5)**2)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-equal-chords",
+          "prompt": "A circle has radius $13\\text{ cm}$. Chords $EF$ and $GH$ are each $5\\text{ cm}$ from the centre. Find the length of $GH$, in cm.",
+          "hint": "Find half of $GH$ with Pythagoras first.",
+          "answer": {
+            "value": 24,
+            "tolerance": 0
+          },
+          "explain": "Half of $GH$ is $\\sqrt{13^{2} - 5^{2}} = \\sqrt{144} = 12$, so $GH = 24\\text{ cm}$. $EF$ is the same distance from the centre, so $EF = 24\\text{ cm}$ too.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*sqrt(13**2 - 5**2)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-equal-chords-reason",
+          "prompt": "In the example with radius $10\\text{ cm}$, which reason explains why $ON = OM$?",
+          "hint": "What do you know about the chords $AB$ and $CD$?",
+          "options": [
+            {
+              "text": "Equal chords are equidistant from the centre",
+              "correct": true
+            },
+            {
+              "text": "The perpendicular bisector of a chord passes through the centre",
+              "correct": false
+            },
+            {
+              "text": "Tangents from an external point are equal",
+              "correct": false
+            }
+          ],
+          "explain": "$AB$ and $CD$ are equal chords, so they are the same distance from the centre. The perpendicular bisector fact gave the right angle, not the equal distances.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Equal chords are equidistant from the centre"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tangents",
+      "heading": "Tangents from an external point",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "From a point $T$ outside a circle you can draw exactly two [[tangent|tangents]] to the circle. Call the points of contact $P$ and $Q$."
+        },
+        {
+          "type": "figure",
+          "id": "4-8-two-tangents",
+          "alt": "Circle with centre O and a point T outside it, to the right. Two tangents from T touch the circle at P, at the top, and Q, at the bottom. TP and TQ are each marked with one tick to show they are equal. Radii OP and OQ meet the tangents at right angles, which are marked. A dashed line joins O to T, so OPTQ is a kite."
+        },
+        {
+          "type": "result",
+          "statement": "The two [[tangents-from-an-external-point|tangents from an external point]] $T$ have equal lengths: $TP = TQ$.",
+          "why": "In triangles $OPT$ and $OQT$: $OP = OQ$ (radii), $OT$ is shared, and angles $OPT$ and $OQT$ are $90^{\\circ}$ (tangent and radius). So the triangles are congruent (RHS) and $TP = TQ$."
+        },
+        {
+          "type": "text",
+          "text": "The congruent triangles give more. $OT$ cuts angle $PTQ$ in half, and it cuts angle $POQ$ in half. $OPTQ$ is a [[kite|kite]] with two right angles."
+        },
+        {
+          "type": "text",
+          "text": "Join $P$ to $Q$ and triangle $TPQ$ is an [[isosceles-triangle|isosceles triangle]], because $TP = TQ$. Many angle questions use this."
+        },
+        {
+          "type": "example",
+          "id": "ex-tangent-length",
+          "question": "$TP$ and $TQ$ are tangents from $T$ to a circle with centre $O$ and radius $7\\text{ cm}$. $OT = 25\\text{ cm}$. Find the length of $TQ$.",
+          "steps": [
+            "Angle $OPT = 90^{\\circ}$, because a tangent is perpendicular to the radius.",
+            "Pythagoras in triangle $OPT$, with $OT$ as the hypotenuse: $TP^{2} = 25^{2} - 7^{2} = 625 - 49 = 576$, so $TP = 24\\text{ cm}$.",
+            "Tangents from an external point are equal, so $TQ = TP = 24\\text{ cm}$."
+          ],
+          "answer": "$TQ = 24\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(25**2 - 7**2)",
+            "unit": "cm"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-tangent-angles",
+          "question": "$TP$ and $TQ$ are tangents from $T$ to a circle with centre $O$. Angle $PTQ = 38^{\\circ}$. Find angle $OPQ$. Give a reason for each step.",
+          "steps": [
+            "$TP = TQ$, because tangents from an external point are equal. So triangle $TPQ$ is isosceles.",
+            "Its base angles are equal: angle $TPQ = (180^{\\circ} - 38^{\\circ}) \\div 2 = 71^{\\circ}$.",
+            "Angle $OPT = 90^{\\circ}$, because a tangent is perpendicular to the radius.",
+            "So angle $OPQ = 90^{\\circ} - 71^{\\circ} = 19^{\\circ}$."
+          ],
+          "answer": "$\\angle OPQ = 19^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "90 - (180 - 38)/2"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Putting a right angle between the tangent and the chord $PQ$. The $90^{\\circ}$ is between the tangent and the radius."
+        },
+        {
+          "type": "check",
+          "id": "check-tangent-algebra",
+          "prompt": "$TA$ and $TB$ are tangents from $T$ to a circle. $TA = (3x - 4)\\text{ cm}$ and $TB = (x + 10)\\text{ cm}$. Find the length of $TA$, in cm.",
+          "hint": "Which two lengths must be equal? Solve for $x$ first.",
+          "answer": {
+            "value": 17,
+            "tolerance": 0
+          },
+          "explain": "Tangents from an external point are equal, so $3x - 4 = x + 10$, giving $x = 7$. Then $TA = 3 \\times 7 - 4 = 17\\text{ cm}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3*solve(Eq(3*x - 4, x + 10), x)[0] - 4",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tangent-angle",
+          "prompt": "$TP$ and $TQ$ are tangents from $T$ to a circle. Angle $TPQ = 64^{\\circ}$. Find angle $PTQ$.",
+          "hint": "Triangle $TPQ$ has two equal sides. Which two angles are equal?",
+          "options": [
+            {
+              "text": "$\\angle PTQ = 52^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\angle PTQ = 26^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\angle PTQ = 116^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\angle PTQ = 64^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$TP = TQ$, so angle $TQP =$ angle $TPQ = 64^{\\circ}$. Then angle $PTQ = 180^{\\circ} - 2 \\times 64^{\\circ} = 52^{\\circ}$.",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - 2*64"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The perpendicular bisector of a chord passes through the centre. So the line from the centre to the midpoint of a chord is perpendicular to it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Radius, distance to a chord and half the chord: $r^{2} = d^{2} + \\left(\\tfrac{1}{2}\\times\\text{chord}\\right)^{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In the same circle, equal chords are equidistant from the centre, and chords equidistant from the centre are equal.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Two tangents from an external point $T$ have equal lengths, so $TP = TQ$ and triangle $TPQ$ is isosceles.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the whole chord in Pythagoras. The right-angled triangle runs from the centre to the midpoint, so use half the chord.",
+    "Giving half the chord as the distance from the centre. The distance is the perpendicular from $O$ to the midpoint.",
+    "Giving a vague reason such as \"the triangle is isosceles\". Say why: \"tangents from an external point are equal\".",
+    "Treating two chords as equal because they look it. Use the fact only when the lengths are given or marked equal."
+  ],
+  "examTips": [
+    "\"Give a geometrical reason\": write the property in full, for example \"equal chords are equidistant from the centre\". A number alone does not earn the reason mark.",
+    "\"Calculate\" on Paper 4: write the Pythagoras line before the answer. Keep the full value and give the answer to 3 significant figures unless told otherwise.",
+    "To prove two tangents equal, list three facts with reasons (radii equal, common side, right angles) and name the congruence rule, RHS.",
+    "Circle diagrams are not to scale. Mark radii, right angles and equal lengths on the diagram as you find them."
+  ],
+  "readingMinutes": 17
+}

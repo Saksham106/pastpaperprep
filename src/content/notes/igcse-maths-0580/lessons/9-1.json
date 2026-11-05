@@ -1,0 +1,453 @@
+{
+  "schemaVersion": 1,
+  "edition": "0580-2025",
+  "item": "9.1",
+  "slug": "classifying-statistical-data",
+  "title": "Classifying statistical data",
+  "level": "Core",
+  "topic": 9,
+  "summary": "Raw data is a jumble of answers or measurements. To make sense of it, you sort each value into a category or group and count how many fall in each. That count is the [[frequency|frequency]]. A [[frequency-table|frequency table]] shows the counts for one feature, and a [[two-way-table|two-way table]] sorts the same data by two features at once.",
+  "goals": [
+    {
+      "text": "Tally a list of data and complete a frequency table, checking the total.",
+      "bullets": [
+        "9.1-c1"
+      ]
+    },
+    {
+      "text": "Sort numbers into classes that don't overlap, and count each class.",
+      "bullets": [
+        "9.1-c1"
+      ]
+    },
+    {
+      "text": "Read and complete a two-way table, using its row and column totals.",
+      "bullets": [
+        "9.1-c1"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P3"
+  ],
+  "synonyms": [
+    "tally chart",
+    "frequency table",
+    "two-way table",
+    "how to tally",
+    "grouping data into classes",
+    "classify data"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-groups-of-five",
+      "prompt": "Work out $8 \\times 5 + 3$ in your head.",
+      "hint": "Multiply first, then add.",
+      "answer": {
+        "value": 43,
+        "tolerance": 0
+      },
+      "explain": "$8 \\times 5 = 40$, and $40 + 3 = 43$. You will use this to count tally marks, which come in groups of five.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "8*5 + 3",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-missing-part",
+      "prompt": "A club has $64$ members. $37$ of them are girls. How many are boys?",
+      "hint": "The girls and the boys together make the whole club.",
+      "answer": {
+        "value": 27,
+        "tolerance": 0
+      },
+      "explain": "Take the girls away from the total: $64 - 37 = 27$. Finding a missing part from a total is the key move in a two-way table.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "64 - 37",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "tally",
+      "heading": "Tally charts and frequency tables",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Data is the set of answers or values you collect. It can be words, such as bus or red, or numbers, such as heights. To classify data, you sort each value into a category or group, then count each one."
+        },
+        {
+          "type": "definition",
+          "term": "Frequency",
+          "statement": "The [[frequency|frequency]] of a value or category is the number of times it occurs in the data.",
+          "plain": "How many of each."
+        },
+        {
+          "type": "definition",
+          "term": "Frequency table",
+          "statement": "A [[frequency-table|frequency table]] lists each category, value or group with its frequency. The frequencies add up to the total number of data values.",
+          "plain": "A count for every category, with nothing missed."
+        },
+        {
+          "type": "text",
+          "text": "A tally is a quick way to count. Go through the list once, in order. For each value, draw one stroke in its row. Draw every fifth stroke across the four before it. This makes a gate of $5$, which is easy to count."
+        },
+        {
+          "type": "text",
+          "text": "To read a tally, count the gates in fives, then add the single strokes. Three gates and two strokes is $3 \\times 5 + 2 = 17$."
+        },
+        {
+          "type": "example",
+          "id": "ex-travel-tally",
+          "question": "Some students say how they travel to school: walk, bus, walk, car, bike, walk, bus, walk, walk, car, bus, walk, bike, walk, bus, car, walk, walk, bus, bike, walk, car, bus, walk. Complete a frequency table for walk, bus, car and bike.",
+          "steps": [
+            "Draw columns for travel, tally and frequency, with one row per category.",
+            "Go through the list once. Draw one stroke per answer in its row, and cross the answer off so you never count it twice.",
+            "Count each tally and write the number in the frequency column. Walk: $2 \\times 5 + 1 = 11$. Bus: $5 + 1 = 6$. Car: $4$. Bike: $3$.",
+            "Check: the list has $24$ answers, and $11 + 6 + 4 + 3 = 24$."
+          ],
+          "answer": "$11, 6, 4, 3$",
+          "verify": {
+            "kind": "list",
+            "truth": "[[walk, bus, walk, car, bike, walk, bus, walk, walk, car, bus, walk, bike, walk, bus, car, walk, walk, bus, bike, walk, car, bus, walk].count(walk), [walk, bus, walk, car, bike, walk, bus, walk, walk, car, bus, walk, bike, walk, bus, car, walk, walk, bus, bike, walk, car, bus, walk].count(bus), [walk, bus, walk, car, bike, walk, bus, walk, walk, car, bus, walk, bike, walk, bus, car, walk, walk, bus, bike, walk, car, bus, walk].count(car), [walk, bus, walk, car, bike, walk, bus, walk, walk, car, bus, walk, bike, walk, bus, car, walk, walk, bus, bike, walk, car, bus, walk].count(bike)]"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "9-1-tally-chart",
+          "alt": "A frequency table with columns travel, tally and frequency. Walk: two gates of five and one stroke, frequency 11. Bus: one gate of five and one stroke, frequency 6. Car: four strokes, frequency 4. Bike: three strokes, frequency 3. Total 24.",
+          "caption": "The finished tally chart. Each gate is four strokes with a fifth across them."
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving the frequency column empty. The tally is only your working: write each count as a number in the frequency column."
+        },
+        {
+          "type": "check",
+          "id": "check-read-tally",
+          "prompt": "A row of a tally chart shows three gates and four single strokes. What is the frequency?",
+          "hint": "Each gate stands for $5$, not $4$.",
+          "options": [
+            {
+              "text": "$19$",
+              "correct": true
+            },
+            {
+              "text": "$16$",
+              "correct": false
+            },
+            {
+              "text": "$7$",
+              "correct": false
+            }
+          ],
+          "explain": "Three gates make $3 \\times 5 = 15$. Add the four strokes: $15 + 4 = 19$. Counting each gate as $4$ gives $16$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "3*5 + 4"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Number data with only a few different values works the same way. Give each value its own row, in order. Keep a row even if nothing lands in it: its frequency is $0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-car-passengers",
+          "question": "Ravi counts the people in each car that passes his school gate: $1, 2, 3, 4, 1, 1, 1, 2, 4, 1, 2, 1, 1, 3, 2, 4, 1, 3, 2, 1, 2, 3, 2, 1, 1, 2, 3, 1, 1, 4, 1, 1, 2$. Complete a frequency table for $1$, $2$, $3$, $4$ and $5$ people.",
+          "steps": [
+            "Make one row for each number of people, then tally the list in one pass.",
+            "Count the tallies: $1$ person has frequency $15$, $2$ people has $9$, $3$ people has $5$ and $4$ people has $4$.",
+            "No car has $5$ people, so write $0$, not a blank.",
+            "Check: the list has $33$ values, and $15 + 9 + 5 + 4 + 0 = 33$."
+          ],
+          "answer": "$15, 9, 5, 4, 0$",
+          "verify": {
+            "kind": "list",
+            "truth": "[[1, 2, 3, 4, 1, 1, 1, 2, 4, 1, 2, 1, 1, 3, 2, 4, 1, 3, 2, 1, 2, 3, 2, 1, 1, 2, 3, 1, 1, 4, 1, 1, 2].count(1), [1, 2, 3, 4, 1, 1, 1, 2, 4, 1, 2, 1, 1, 3, 2, 4, 1, 3, 2, 1, 2, 3, 2, 1, 1, 2, 3, 1, 1, 4, 1, 1, 2].count(2), [1, 2, 3, 4, 1, 1, 1, 2, 4, 1, 2, 1, 1, 3, 2, 4, 1, 3, 2, 1, 2, 3, 2, 1, 1, 2, 3, 1, 1, 4, 1, 1, 2].count(3), [1, 2, 3, 4, 1, 1, 1, 2, 4, 1, 2, 1, 1, 3, 2, 4, 1, 3, 2, 1, 2, 3, 2, 1, 1, 2, 3, 1, 1, 4, 1, 1, 2].count(4), [1, 2, 3, 4, 1, 1, 1, 2, 4, 1, 2, 1, 1, 3, 2, 4, 1, 3, 2, 1, 2, 3, 2, 1, 1, 2, 3, 1, 1, 4, 1, 1, 2].count(5)]"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-count-grey",
+          "prompt": "Here are the colours of some cars: white, grey, black, grey, red, grey, blue, grey, white, grey, red, grey. What is the frequency of grey?",
+          "hint": "Go through the list once and put a stroke for every grey.",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "explain": "Grey appears $6$ times in the list, so its frequency is $6$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "[white, grey, black, grey, red, grey, blue, grey, white, grey, red, grey].count(grey)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "grouped",
+      "heading": "Grouping numerical data",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Masses of apples, to the nearest gram, are almost all different. A row for each mass would give a [[frequency|frequency]] of $1$ in nearly every row, which shows nothing."
+        },
+        {
+          "type": "text",
+          "text": "Instead, put the values into groups, such as $130$–$139$ g and $140$–$149$ g. Each group is a [[class-interval|class interval]], or class. Then count how many values fall in each class."
+        },
+        {
+          "type": "text",
+          "text": "Good classes don't overlap, leave no gaps and cover all the data. Then every value fits in exactly one class. For whole numbers, $139$ and $140$ are next to each other, so $130$–$139$ and $140$–$149$ leave no gap. Take extra care with values on the edge of a class: $140$ is in $140$–$149$, not $130$–$139$."
+        },
+        {
+          "type": "example",
+          "id": "ex-apple-masses",
+          "question": "The masses, in grams, of $18$ apples are $152, 138, 147, 161, 143, 155, 149, 140, 158, 136, 166, 150, 144, 153, 139, 160, 145, 164$. Complete a [[frequency-table|frequency table]] with the classes $130$–$139$, $140$–$149$, $150$–$159$ and $160$–$169$.",
+          "steps": [
+            "Look at the first two digits of each mass: $13$ means the class $130$–$139$, $14$ means $140$–$149$, and so on.",
+            "Tally in one pass. Watch the edge values: $140$ goes in $140$–$149$, $150$ in $150$–$159$, $160$ in $160$–$169$.",
+            "Count: $130$–$139$ has $3$ ($138$, $136$, $139$). $140$–$149$ has $6$. $150$–$159$ has $5$. $160$–$169$ has $4$.",
+            "Check: $3 + 6 + 5 + 4 = 18$, the number of apples."
+          ],
+          "answer": "$3, 6, 5, 4$",
+          "verify": {
+            "kind": "list",
+            "truth": "[[152//10, 138//10, 147//10, 161//10, 143//10, 155//10, 149//10, 140//10, 158//10, 136//10, 166//10, 150//10, 144//10, 153//10, 139//10, 160//10, 145//10, 164//10].count(13), [152//10, 138//10, 147//10, 161//10, 143//10, 155//10, 149//10, 140//10, 158//10, 136//10, 166//10, 150//10, 144//10, 153//10, 139//10, 160//10, 145//10, 164//10].count(14), [152//10, 138//10, 147//10, 161//10, 143//10, 155//10, 149//10, 140//10, 158//10, 136//10, 166//10, 150//10, 144//10, 153//10, 139//10, 160//10, 145//10, 164//10].count(15), [152//10, 138//10, 147//10, 161//10, 143//10, 155//10, 149//10, 140//10, 158//10, 136//10, 166//10, 150//10, 144//10, 153//10, 139//10, 160//10, 145//10, 164//10].count(16)]"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Measurements such as height or time can take any value, so classes are often written as inequalities. $60 < h \\le 80$ means $h$ is more than $60$ and at most $80$. So $80$ is in this class, but $60$ is not."
+        },
+        {
+          "type": "example",
+          "id": "ex-sunflower-heights",
+          "question": "The heights $h$, in cm, of some sunflowers are $83, 117, 80, 96.5, 124, 101, 92, 68, 135, 100, 88, 112, 77, 120, 99, 106$. Complete a frequency table with the classes $60 < h \\le 80$, $80 < h \\le 100$, $100 < h \\le 120$ and $120 < h \\le 140$.",
+          "steps": [
+            "Each class includes its top value but not its bottom value. So $80$ goes in $60 < h \\le 80$, $100$ in $80 < h \\le 100$ and $120$ in $100 < h \\le 120$.",
+            "$60 < h \\le 80$: $80$, $68$, $77$. Frequency $3$.",
+            "$80 < h \\le 100$: $83$, $96.5$, $92$, $100$, $88$, $99$. Frequency $6$.",
+            "$100 < h \\le 120$: $117$, $101$, $112$, $120$, $106$. Frequency $5$.",
+            "$120 < h \\le 140$: $124$, $135$. Frequency $2$.",
+            "Check: there are $16$ heights, and $3 + 6 + 5 + 2 = 16$."
+          ],
+          "answer": "$3, 6, 5, 2$",
+          "verify": {
+            "kind": "list",
+            "truth": "[[ceiling((83 - 60)/20), ceiling((117 - 60)/20), ceiling((80 - 60)/20), ceiling((96.5 - 60)/20), ceiling((124 - 60)/20), ceiling((101 - 60)/20), ceiling((92 - 60)/20), ceiling((68 - 60)/20), ceiling((135 - 60)/20), ceiling((100 - 60)/20), ceiling((88 - 60)/20), ceiling((112 - 60)/20), ceiling((77 - 60)/20), ceiling((120 - 60)/20), ceiling((99 - 60)/20), ceiling((106 - 60)/20)].count(1), [ceiling((83 - 60)/20), ceiling((117 - 60)/20), ceiling((80 - 60)/20), ceiling((96.5 - 60)/20), ceiling((124 - 60)/20), ceiling((101 - 60)/20), ceiling((92 - 60)/20), ceiling((68 - 60)/20), ceiling((135 - 60)/20), ceiling((100 - 60)/20), ceiling((88 - 60)/20), ceiling((112 - 60)/20), ceiling((77 - 60)/20), ceiling((120 - 60)/20), ceiling((99 - 60)/20), ceiling((106 - 60)/20)].count(2), [ceiling((83 - 60)/20), ceiling((117 - 60)/20), ceiling((80 - 60)/20), ceiling((96.5 - 60)/20), ceiling((124 - 60)/20), ceiling((101 - 60)/20), ceiling((92 - 60)/20), ceiling((68 - 60)/20), ceiling((135 - 60)/20), ceiling((100 - 60)/20), ceiling((88 - 60)/20), ceiling((112 - 60)/20), ceiling((77 - 60)/20), ceiling((120 - 60)/20), ceiling((99 - 60)/20), ceiling((106 - 60)/20)].count(3), [ceiling((83 - 60)/20), ceiling((117 - 60)/20), ceiling((80 - 60)/20), ceiling((96.5 - 60)/20), ceiling((124 - 60)/20), ceiling((101 - 60)/20), ceiling((92 - 60)/20), ceiling((68 - 60)/20), ceiling((135 - 60)/20), ceiling((100 - 60)/20), ceiling((88 - 60)/20), ceiling((112 - 60)/20), ceiling((77 - 60)/20), ceiling((120 - 60)/20), ceiling((99 - 60)/20), ceiling((106 - 60)/20)].count(4)]"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Putting a value on a class edge in the wrong class. Read the class limits before you tally: with classes $1$–$5$ and $6$–$10$, the value $5$ goes in $1$–$5$."
+        },
+        {
+          "type": "check",
+          "id": "check-boundary-class",
+          "prompt": "Waiting times $t$, in minutes, are grouped in the classes $0 < t \\le 20$, $20 < t \\le 40$ and $40 < t \\le 60$. Which class does $t = 40$ go in?",
+          "hint": "Look at which class has $\\le 40$ at its top end.",
+          "options": [
+            {
+              "text": "$20 < t \\le 40$",
+              "correct": true
+            },
+            {
+              "text": "$40 < t \\le 60$",
+              "correct": false
+            },
+            {
+              "text": "$0 < t \\le 20$",
+              "correct": false
+            }
+          ],
+          "explain": "$20 < t \\le 40$ includes $40$, because of the $\\le$. The class $40 < t \\le 60$ needs $t$ to be more than $40$.",
+          "verify": {
+            "kind": "inequality",
+            "var": "t",
+            "truth": "[Interval.Lopen(0, 20), Interval.Lopen(20, 40), Interval.Lopen(40, 60)][ceiling(40/20) - 1]"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-count-ages",
+          "prompt": "Here are the ages of some people at a swimming pool: $33, 48, 61, 25, 76, 44, 58, 24, 36, 50, 83, 47, 69, 13$. The classes are $0$–$24$, $25$–$49$, $50$–$74$ and $75$–$99$. What is the frequency of the class $25$–$49$?",
+          "hint": "Check the edge values $24$, $25$ and $50$ carefully.",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "explain": "The ages from $25$ to $49$ are $33$, $48$, $25$, $44$, $36$ and $47$, so the frequency is $6$. $24$ belongs in $0$–$24$ and $50$ in $50$–$74$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "[33//25, 48//25, 61//25, 25//25, 76//25, 44//25, 58//25, 24//25, 36//25, 50//25, 83//25, 47//25, 69//25, 13//25].count(1)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "two-way",
+      "heading": "Two-way tables",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes each person gives two facts, such as age group and favourite sport. A [[frequency-table|frequency table]] counts one of them; a two-way table counts both at once."
+        },
+        {
+          "type": "definition",
+          "term": "Two-way table",
+          "statement": "A [[two-way-table|two-way table]] sorts data by two features. One feature goes down the side and the other across the top. Each cell holds the [[frequency|frequency]] of items with both features.",
+          "plain": "A grid of counts: row feature by column feature."
+        },
+        {
+          "type": "text",
+          "text": "Most two-way tables have a total row and a total column. Each row adds up to the number in its total column. Each column adds up to the number in its total row. The corner holds the grand total."
+        },
+        {
+          "type": "text",
+          "text": "To fill in a missing cell, find a row or column with only one gap. Subtract the numbers you know from that row's or column's total."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-way-club",
+          "question": "A sports club records which activity each member chose. $\\begin{array}{l|ccc|c} & \\text{Swim} & \\text{Tennis} & \\text{Climb} & \\text{Total} \\\\ \\hline \\text{Junior} & 47 & a & 38 & 124 \\\\ \\text{Senior} & b & 26 & c & 93 \\\\ \\hline \\text{Total} & 83 & d & 69 & e \\end{array}$ Find $a$, $b$, $c$, $d$ and $e$.",
+          "steps": [
+            "The Junior row has one gap: $a = 124 - 47 - 38 = 39$.",
+            "The Swim column has one gap: $b = 83 - 47 = 36$.",
+            "The Climb column has one gap: $c = 69 - 38 = 31$.",
+            "Check the Senior row: $36 + 26 + 31 = 93$. It matches the total.",
+            "The Tennis column: $d = 39 + 26 = 65$.",
+            "The grand total adds the row totals: $e = 124 + 93 = 217$. Check with the column totals: $83 + 65 + 69 = 217$."
+          ],
+          "answer": "$a = 39, \\; b = 36, \\; c = 31, \\; d = 65, \\; e = 217$",
+          "verify": {
+            "kind": "assignments",
+            "truth": "{\"a\": 124 - 47 - 38, \"b\": 83 - 47, \"c\": 69 - 38, \"d\": (124 - 47 - 38) + 26, \"e\": 124 + 93}"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "When the facts come in words, draw the two-way table yourself, fill in what you are told, then work out the gaps."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-way-glasses",
+          "question": "In a group of $85$ students, $48$ are girls. $19$ of the girls wear glasses. $52$ students do not wear glasses. How many boys wear glasses?",
+          "steps": [
+            "Draw the table and put in the facts: $\\begin{array}{l|cc|c} & \\text{Glasses} & \\text{No glasses} & \\text{Total} \\\\ \\hline \\text{Girls} & 19 & & 48 \\\\ \\text{Boys} & ? & & \\\\ \\hline \\text{Total} & & 52 & 85 \\end{array}$",
+            "The Glasses total is the rest of the students: $85 - 52 = 33$.",
+            "$19$ of those $33$ are girls, so the boys with glasses are $33 - 19 = 14$.",
+            "Check: boys $= 85 - 48 = 37$, and boys without glasses $= 52 - (48 - 19) = 23$. Then $14 + 23 = 37$."
+          ],
+          "answer": "$14$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(85 - 52) - 19"
+          },
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "When a two-way table is complete, check every row and every column against its total. One wrong cell usually breaks two totals, so you will spot it."
+        },
+        {
+          "type": "check",
+          "id": "check-two-way-total",
+          "prompt": "The table shows how some students travel to school. $\\begin{array}{l|cc|c} & \\text{Year 9} & \\text{Year 10} & \\text{Total} \\\\ \\hline \\text{Bus} & 54 & & 97 \\\\ \\text{Walk} & 61 & 58 & \\\\ \\hline \\text{Total} & & & \\end{array}$ How many students are there altogether?",
+          "hint": "Find the Walk total first.",
+          "answer": {
+            "value": 216,
+            "tolerance": 0
+          },
+          "explain": "The Walk total is $61 + 58 = 119$. The grand total is the sum of the row totals: $97 + 119 = 216$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "97 + (61 + 58)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-two-way-gym",
+          "prompt": "At a gym there are $78$ people. $43$ are women. $25$ of the people are swimming, and $11$ of the swimmers are men. How many women are not swimming?",
+          "hint": "Find how many of the swimmers are women first.",
+          "options": [
+            {
+              "text": "$29$",
+              "correct": true
+            },
+            {
+              "text": "$18$",
+              "correct": false
+            },
+            {
+              "text": "$32$",
+              "correct": false
+            }
+          ],
+          "explain": "Women swimming: $25 - 11 = 14$. Women not swimming: $43 - 14 = 29$. The answer $18$ comes from $43 - 25$, which wrongly treats every swimmer as a woman.",
+          "verify": {
+            "kind": "exact",
+            "truth": "43 - (25 - 11)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Tally: one stroke per value, and every fifth stroke crosses the four before it, so each gate is $5$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The frequencies in a frequency table add up to the total number of data values. Always check this.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Classes must not overlap or leave gaps. The class $a < x \\le b$ includes $b$ but not $a$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a two-way table, each row and each column adds up to its total, and the corner holds the grand total.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Missing or double-counting a value in a long list. Cross off each value as you tally, then check the frequencies add up to the number of values.",
+    "Counting a gate as $4$. Each gate is five strokes: four plus the one across them.",
+    "Writing counts only as tallies. Put each number in the frequency column; the marks are there.",
+    "Putting an edge value in the wrong class. Read the class limits, and use the $\\le$ sign to see which class owns the edge value.",
+    "Finishing a two-way table without checking it. Every row and every column must add up to its total."
+  ],
+  "examTips": [
+    "\"Complete the frequency table\": the marks are for the numbers in the frequency column. The tally column is optional working.",
+    "In a two-way table, fill the cell in a row or column with only one gap first, then work outwards."
+  ],
+  "readingMinutes": 18
+}

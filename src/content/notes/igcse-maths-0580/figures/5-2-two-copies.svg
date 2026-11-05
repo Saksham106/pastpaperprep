@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 240" role="img" aria-labelledby="t">
+  <title id="t">Two diagrams. On the left, a shaded triangle with base b and a dashed perpendicular height h, joined to an unshaded copy turned upside down. Together they make a parallelogram with base b and height h, so the triangle is half of it. On the right, a shaded trapezium with parallel sides a on top and b at the bottom and dashed height h, joined to an unshaded copy turned upside down. Together they make a parallelogram whose base is a plus b and whose height is h, so the trapezium is half of it.</title>
+  <polygon points="30,190 150,190 70,70" fill="var(--t1-ink)" fill-opacity="0.22" stroke="currentColor" stroke-width="2"/>
+  <polygon points="150,190 190,70 70,70" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 3"/>
+  <line x1="70" y1="70" x2="70" y2="190" stroke="var(--t3-ink)" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <polyline points="70,178 82,178 82,190" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <polygon points="240,190 360,190 320,70 260,70" fill="var(--t2-ink)" fill-opacity="0.22" stroke="currentColor" stroke-width="2"/>
+  <polygon points="360,190 420,190 440,70 320,70" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 3"/>
+  <line x1="260" y1="70" x2="260" y2="190" stroke="var(--t3-ink)" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <polyline points="260,178 272,178 272,190" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <g font-family="inherit" font-size="15" fill="currentColor" text-anchor="middle" font-style="italic">
+    <text x="90" y="212">b</text>
+    <text x="58" y="135" fill="var(--t3-ink)">h</text>
+    <text x="300" y="212">b</text>
+    <text x="390" y="212">a</text>
+    <text x="290" y="60">a</text>
+    <text x="380" y="60">b</text>
+    <text x="248" y="135" fill="var(--t3-ink)">h</text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="currentColor" text-anchor="middle">
+    <text x="110" y="234">triangle: half of b × h</text>
+    <text x="340" y="234">trapezium: half of (a + b) × h</text>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 250" role="img" aria-labelledby="t">
+  <title id="t">A square of side 10 cm with a quarter circle of radius 4 cm cut out of its top right corner. The cut-out piece is shown with dashed lines.</title>
+  <path d="M60 30 H168 A72 72 0 0 0 240 102 V210 H60 Z" fill="var(--t3-ink)" fill-opacity="0.12" stroke="currentColor" stroke-width="2"/>
+  <polyline points="168,30 240,30 240,102" fill="none" stroke="var(--muted)" stroke-width="1.3" stroke-dasharray="5 3"/>
+  <polyline points="60,198 72,198 72,210" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <polyline points="72,30 72,42 60,42" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <polyline points="228,210 228,198 240,198" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <g font-family="inherit" font-size="14" fill="currentColor" text-anchor="middle">
+    <text x="150" y="232">10 cm</text>
+    <text x="32" y="125">10 cm</text>
+    <text x="204" y="22">4 cm</text>
+    <text x="264" y="70">4 cm</text>
+  </g>
+</svg>

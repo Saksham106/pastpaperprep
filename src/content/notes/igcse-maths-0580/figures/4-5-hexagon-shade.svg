@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 210" role="img" aria-labelledby="t">
+  <title id="t">A regular hexagon split into 6 equal triangles that meet at its centre. The triangles are numbered 1 to 6 going clockwise from the top right. Triangles 1 and 4, which are opposite each other, are shaded.</title>
+  <polygon points="110.0,105.0 110.0,20.0 183.6,62.5" fill="var(--t3-ink)" stroke="none" stroke-width="0" fill-opacity="0.5"/>
+  <polygon points="110.0,105.0 110.0,190.0 36.4,147.5" fill="var(--t3-ink)" stroke="none" stroke-width="0" fill-opacity="0.5"/>
+  <line x1="110.0" y1="105.0" x2="110.0" y2="20.0" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="110.0" y1="105.0" x2="183.6" y2="62.5" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="110.0" y1="105.0" x2="183.6" y2="147.5" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="110.0" y1="105.0" x2="110.0" y2="190.0" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="110.0" y1="105.0" x2="36.4" y2="147.5" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="110.0" y1="105.0" x2="36.4" y2="62.5" stroke="currentColor" stroke-width="1.4"/>
+  <polygon points="110.0,20.0 183.6,62.5 183.6,147.5 110.0,190.0 36.4,147.5 36.4,62.5" fill="none" stroke="currentColor" stroke-width="2"/>
+  <text x="133.4" y="69.5" fill="currentColor" font-size="15" text-anchor="middle">1</text>
+  <text x="156.8" y="110.0" fill="currentColor" font-size="15" text-anchor="middle">2</text>
+  <text x="133.4" y="150.5" fill="currentColor" font-size="15" text-anchor="middle">3</text>
+  <text x="86.6" y="150.5" fill="currentColor" font-size="15" text-anchor="middle">4</text>
+  <text x="63.2" y="110.0" fill="currentColor" font-size="15" text-anchor="middle">5</text>
+  <text x="86.6" y="69.5" fill="currentColor" font-size="15" text-anchor="middle">6</text>
+</svg>

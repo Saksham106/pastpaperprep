@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 20 270 235" role="img" aria-labelledby="t">
+  <title id="t">An equilateral triangle with all three sides 2 and all three angles 60 degrees. A dashed line goes from the top corner straight down to the middle of the base and makes a right angle there. It splits the triangle into two right-angled triangles. Each half has hypotenuse 2, a base of 1 and a height of root 3. In each half the angle at the base is 60 degrees and the angle at the top is 30 degrees.</title>
+  <polygon points="45,220 245,220 145,46.8" fill="none" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="145" y1="46.8" x2="145" y2="220" stroke="var(--t1-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+  <polyline points="145,206 159,206 159,220" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <g fill="currentColor" font-family="inherit" font-size="15" text-anchor="middle">
+    <text x="86" y="128" text-anchor="end">2</text>
+    <text x="204" y="128" text-anchor="start">2</text>
+    <text x="95" y="242">1</text>
+    <text x="195" y="242">1</text>
+  </g>
+  <text x="152" y="150" fill="var(--t1-ink)" font-family="inherit" font-size="16" font-weight="bold" text-anchor="start">√3</text>
+  <g fill="var(--t2-ink)" font-family="inherit" font-size="14" text-anchor="middle">
+    <text x="78" y="212">60°</text>
+    <text x="212" y="212">60°</text>
+    <text x="134" y="94" text-anchor="end">30°</text>
+    <text x="156" y="94" text-anchor="start">30°</text>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 260" role="img" aria-labelledby="t">
+<title id="t">A circle with centre O. Two radii, each labelled r, make an angle theta at the centre. The shaded slice between them is the sector, and the thick curve along its edge is the arc.</title>
+<circle cx="150" cy="140" r="100" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4"/>
+<path d="M150,140 L244.0,105.8 A100,100 0 0 0 150.0,40.0 Z" fill="var(--t2-ink)" fill-opacity="0.18" stroke="currentColor" stroke-width="2"/>
+<path d="M244.0,105.8 A100,100 0 0 0 150.0,40.0" fill="none" stroke="var(--t1-ink)" stroke-width="4"/>
+<circle cx="150" cy="140" r="3" fill="currentColor"/>
+<text x="136" y="156" fill="currentColor" font-size="14" font-family="inherit">O</text>
+<path d="M172.6,131.8 A24,24 0 0 0 150.0,116.0" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<text x="171.8" y="113.9" fill="currentColor" font-size="15" text-anchor="middle" font-family="inherit">θ</text>
+<text x="201.0" y="142.9" fill="currentColor" font-size="15" font-style="italic" font-family="inherit">r</text>
+<text x="136.0" y="95.0" fill="currentColor" font-size="15" font-style="italic" font-family="inherit">r</text>
+<text x="223.7" y="43.3" fill="var(--t1-ink)" font-size="13" text-anchor="start" font-family="inherit">arc</text>
+<text x="193.6" y="93.2" fill="var(--t2-ink)" font-size="13" text-anchor="middle" font-family="inherit">sector</text>
+</svg>
