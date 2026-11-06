@@ -51,9 +51,9 @@ export function MarketingHome({ environment = process.env, papers = {}, news = [
   return <div className={`${styles.home} landing-editorial`}>
     <section className={styles.hero} data-home-section="hero">
       <div className={styles.stage}>
-        <Image className={styles.back} src="/artwork/landing-gothic.webp" alt="" fill preload sizes="100vw" quality={85} />
+        <Image className={styles.back} src="/artwork/landing-gothic.webp" alt="" fill preload sizes="100vw" />
         <h1 className={styles.headline}><span>Past papers,</span> <em>by topic.</em></h1>
-        <Image className={styles.front} src="/artwork/landing-gothic-front.webp" alt="" fill loading="eager" sizes="100vw" quality={85} />
+        <Image className={styles.front} src="/artwork/landing-gothic-front.webp" alt="" fill loading="eager" sizes="100vw" />
         <div className={styles.fade} aria-hidden="true" />
       </div>
       <div className={styles.lede}>
